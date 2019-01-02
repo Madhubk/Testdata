@@ -5,9 +5,9 @@
         .module("Application")
         .controller("OrgAddressModalController", OrgAddressModalController);
 
-    OrgAddressModalController.$inject = ["$uibModalInstance", "apiService", "authService", "helperService", "toastr", "organizationConfig", "param", "mdmConfig"];
+    OrgAddressModalController.$inject = ["$timeout", "$filter", "$uibModalInstance", "apiService", "authService", "helperService", "toastr", "organizationConfig", "param", "errorWarningService"];
 
-    function OrgAddressModalController($uibModalInstance, apiService, authService, helperService, toastr, organizationConfig, param, mdmConfig) {
+    function OrgAddressModalController($timeout, $filter, $uibModalInstance, apiService, authService, helperService, toastr, organizationConfig, param, errorWarningService) {
         var OrgAddressModalCtrl = this;
 
         function Init() {
@@ -34,7 +34,7 @@
                 OrgAddressModalCtrl.ePage.Masters.OnRelatedPortSelect = OnRelatedPortSelect;
                 OrgAddressModalCtrl.ePage.Masters.OnMappedAddressChange = OnMappedAddressChange;
                 OrgAddressModalCtrl.ePage.Masters.OnMainAddressChange = OnMainAddressChange;
-                OrgAddressModalCtrl.ePage.Masters.SaveAddress = SaveAddress;
+                OrgAddressModalCtrl.ePage.Masters.SaveAddress = ValidateAddress;
                 OrgAddressModalCtrl.ePage.Masters.Cancel = Cancel;
 
                 GetAddressCapabilityList();
@@ -66,6 +66,10 @@
             }
 
             OrgAddressModalCtrl.ePage.Masters.OnCountryChange = OnCountryChange;
+
+            OrgAddressModalCtrl.ePage.Masters.ErrorWarningConfig = errorWarningService;
+            OrgAddressModalCtrl.ePage.Masters.GlobalErrorWarningList = errorWarningService.Modules.Organization.Entity[param.Entity.code ? param.Entity.code : param.Entity.label].GlobalErrorWarningList;
+            OrgAddressModalCtrl.ePage.Masters.ErrorWarningObj = errorWarningService.Modules.Organization.Entity[param.Entity.code ? param.Entity.code : param.Entity.label];
         }
 
         function GetAddressCapabilityList() {
@@ -141,10 +145,10 @@
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": mdmConfig.Entities.CountryState.API.FindAll.FilterID,
+                "FilterID": organizationConfig.Entities.API.CountryState.API.FindAll.FilterID,
             };
 
-            apiService.post("eAxisAPI", mdmConfig.Entities.CountryState.API.FindAll.Url, _input).then(function (response) {
+            apiService.post("eAxisAPI", organizationConfig.Entities.API.CountryState.API.FindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     OrgAddressModalCtrl.ePage.Masters.DropDownMasterList.State.ListSource = response.data.Response;
                 }
@@ -199,6 +203,37 @@
                     OrgAddressModalCtrl.ePage.Masters.OrgAddress.FormView.AddressCapability[_index].IsMainAddress = false;
                 }
             }
+        }
+
+        function ValidateAddress() {
+            OrgAddressModalCtrl.ePage.Masters.SaveButtonText = "Please Wait...";
+            OrgAddressModalCtrl.ePage.Masters.IsDisableSave = true;
+            var _errorCode = [];
+
+            var _code = param.Entity.code ? param.Entity.code : param.Entity.label;
+            var _obj = {
+                ModuleName: ["Organization"],
+                Code: [_code],
+                API: "Group",
+                GroupCode: "ORG_ADDRESS",
+                RelatedBasicDetails: [],
+                EntityObject: OrgAddressModalCtrl.ePage.Masters.OrgAddress.FormView,
+                ErrorCode: _errorCode
+            };
+            errorWarningService.ValidateValue(_obj);
+
+            $timeout(function () {
+                var _errorCount = $filter("listCount")(OrgAddressModalCtrl.ePage.Masters.GlobalErrorWarningList, 'MessageType', 'E');
+
+                if (_errorCount > 0) {
+                    OrgAddressModalCtrl.ePage.Masters.SaveButtonText = "Save";
+                    OrgAddressModalCtrl.ePage.Masters.IsDisableSave = false;
+
+                    toastr.warning("Fill all mandatory fields...!");
+                } else {
+                    SaveAddress();
+                }
+            });
         }
 
         function SaveAddress() {

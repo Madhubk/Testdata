@@ -5,9 +5,9 @@
         .module("Application")
         .controller("OrganizationController", OrganizationController);
 
-    OrganizationController.$inject = ["$timeout", "apiService", "authService", "helperService", "mdmConfig", "organizationConfig", "toastr"];
+    OrganizationController.$inject = ["$timeout", "apiService", "authService", "helperService", "organizationConfig", "toastr", "errorWarningService"];
 
-    function OrganizationController($timeout, apiService, authService, helperService, mdmConfig, organizationConfig, toastr) {
+    function OrganizationController($timeout, apiService, authService, helperService, organizationConfig, toastr, errorWarningService) {
         var OrganizationCtrl = this;
 
         function Init() {
@@ -22,6 +22,7 @@
             try {
                 OrganizationCtrl.ePage.Masters.dataEntryName = "OrganizationList";
                 OrganizationCtrl.ePage.Masters.config = organizationConfig;
+                OrganizationCtrl.ePage.Masters.ErrorWarningConfig = errorWarningService;
 
                 OrganizationCtrl.ePage.Masters.TabList = [];
                 organizationConfig.TabList = [];
@@ -34,6 +35,8 @@
                 OrganizationCtrl.ePage.Masters.CurrentActiveTab = CurrentActiveTab;
                 OrganizationCtrl.ePage.Masters.CreateNew = CreateNew;
                 OrganizationCtrl.ePage.Masters.SelectedGridRow = SelectedGridRow;
+
+                OrganizationCtrl.ePage.Masters.ShowErrorWarningModal = ShowErrorWarningModal;
 
                 GetMastersDropDownList();
             } catch (ex) {
@@ -60,10 +63,10 @@
             });
             var _input = {
                 "searchInput": _dynamicFindAllInput,
-                "FilterID": mdmConfig.Entities.CfxTypes.API.DynamicFindAll.FilterID
+                "FilterID": organizationConfig.Entities.API.CfxTypes.API.DynamicFindAll.FilterID
             };
 
-            apiService.post("eAxisAPI", mdmConfig.Entities.CfxTypes.API.DynamicFindAll.Url + authService.getUserInfo().AppPK, _input).then(function (response) {
+            apiService.post("eAxisAPI", organizationConfig.Entities.API.CfxTypes.API.DynamicFindAll.Url + authService.getUserInfo().AppPK, _input).then(function (response) {
                 if (response.data.Response) {
                     _cfxTypeCodeList.map(function (value, key) {
                         OrganizationCtrl.ePage.Entities.Header.Meta[value] = helperService.metaBase();
@@ -76,10 +79,10 @@
         function GetCountryList() {
             var _inputCountry = {
                 "searchInput": [],
-                "FilterID": mdmConfig.Entities.MstCountry.API.FindAll.FilterID
+                "FilterID": organizationConfig.Entities.API.MstCountry.API.FindAll.FilterID
             };
 
-            apiService.post("eAxisAPI", mdmConfig.Entities.MstCountry.API.FindAll.Url, _inputCountry).then(function (response) {
+            apiService.post("eAxisAPI", organizationConfig.Entities.API.MstCountry.API.FindAll.Url, _inputCountry).then(function (response) {
                 if (response.data.Response) {
                     OrganizationCtrl.ePage.Entities.Header.Meta.Country = helperService.metaBase();
                     OrganizationCtrl.ePage.Entities.Header.Meta.Country.ListSource = response.data.Response;
@@ -90,10 +93,10 @@
         function GetCompanyList() {
             var _inputCompany = {
                 "searchInput": [],
-                "FilterID": mdmConfig.Entities.CmpCompany.API.FindAll.FilterID
+                "FilterID": organizationConfig.Entities.API.CmpCompany.API.FindAll.FilterID
             };
 
-            apiService.post("eAxisAPI", mdmConfig.Entities.CmpCompany.API.FindAll.Url, _inputCompany).then(function (response) {
+            apiService.post("eAxisAPI", organizationConfig.Entities.API.CmpCompany.API.FindAll.Url, _inputCompany).then(function (response) {
                 if (response.data.Response) {
                     OrganizationCtrl.ePage.Entities.Header.Meta.Company = helperService.metaBase();
                     OrganizationCtrl.ePage.Entities.Header.Meta.Company.ListSource = response.data.Response;
@@ -104,10 +107,10 @@
         function GetDepartmentList() {
             var _inputDepartment = {
                 "searchInput": [],
-                "FilterID": mdmConfig.Entities.CmpDepartment.API.FindAll.FilterID
+                "FilterID": organizationConfig.Entities.API.CmpDepartment.API.FindAll.FilterID
             };
 
-            apiService.post("eAxisAPI", mdmConfig.Entities.CmpDepartment.API.FindAll.Url, _inputDepartment).then(function (response) {
+            apiService.post("eAxisAPI", organizationConfig.Entities.API.CmpDepartment.API.FindAll.Url, _inputDepartment).then(function (response) {
                 if (response.data.Response) {
                     OrganizationCtrl.ePage.Entities.Header.Meta.Department = helperService.metaBase();
                     OrganizationCtrl.ePage.Entities.Header.Meta.Department.ListSource = response.data.Response;
@@ -123,7 +126,7 @@
             if (!_isExist) {
                 OrganizationCtrl.ePage.Masters.IsNewOrgClicked = true;
 
-                helperService.getFullObjectUsingGetById(OrganizationCtrl.ePage.Entities.Header.API.GetById.Url, 'null').then(function (response) {
+                helperService.getFullObjectUsingGetById(organizationConfig.Entities.API.Org.API.GetById.Url, 'null').then(function (response) {
                     if (response.data.Response) {
                         var _obj = {
                             entity: response.data.Response.OrgHeader,
@@ -149,7 +152,7 @@
                 OrganizationCtrl.ePage.Masters.TabList.splice(index, 1);
             });
 
-            apiService.get("eAxisAPI", OrganizationCtrl.ePage.Entities.Header.API.OrganizationActivityClose.Url + _currentTab.Header.Data.OrgHeader.PK).then(function (response) {});
+            apiService.get("eAxisAPI", organizationConfig.Entities.API.Org.API.OrganizationActivityClose.Url + _currentTab.Header.Data.OrgHeader.PK).then(function (response) {});
         }
 
         function AddTab(currentTab, isNew) {
@@ -192,8 +195,12 @@
 
                     $timeout(function () {
                         OrganizationCtrl.ePage.Masters.ActiveTabIndex = OrganizationCtrl.ePage.Masters.TabList.length;
-                        OrganizationCtrl.ePage.Masters.CurrentActiveTab(currentTab.entity.Code, _entity);
+
+                        var _code = currentTab.entity.Code ? currentTab.entity.Code : "New";
+                        OrganizationCtrl.ePage.Masters.CurrentActiveTab(_code);
                         OrganizationCtrl.ePage.Masters.IsTabClick = false;
+
+                        GetValidationList(_code, _entity);
                     });
                 });
             } else {
@@ -201,12 +208,30 @@
             }
         }
 
-        function CurrentActiveTab(currentTab, entity) {
+        function GetValidationList(currentTab, entity) {
+            var _obj = {
+                ModuleName: ["Organization"],
+                Code: [currentTab],
+                // API: "Group",
+                API: "Validation",
+                FilterInput: {
+                    ModuleCode: "ORG",
+                    // SubModuleCode: "ORG_General",
+                },
+                // GroupCode: "ORGANIZATION",
+                RelatedBasicDetails: [],
+                EntityObject: entity
+            };
+            errorWarningService.GetErrorCodeList(_obj);
+        }
+
+        function CurrentActiveTab(currentTab) {
             if (currentTab.label !== undefined) {
                 currentTab = currentTab.label
             } else {
                 currentTab = currentTab;
             }
+
             OrganizationCtrl.ePage.Masters.CurrentTab = currentTab;
         }
 
@@ -216,6 +241,10 @@
             } else if ($item.action === "new") {
                 CreateNew();
             }
+        }
+
+        function ShowErrorWarningModal(tab) {
+            $("#errorWarningContainerOrganization" + OrganizationCtrl.ePage.Masters.CurrentTab).addClass("open");
         }
 
         Init();

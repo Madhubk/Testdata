@@ -25,9 +25,9 @@
         .module("Application")
         .controller("OrganizationContactController", OrganizationContactController);
 
-    OrganizationContactController.$inject = ["$scope", "$uibModal", "apiService", "mdmConfig", "helperService", "toastr", "confirmation"];
+    OrganizationContactController.$inject = ["$scope", "$uibModal", "apiService", "organizationConfig", "helperService", "toastr", "confirmation"];
 
-    function OrganizationContactController($scope, $uibModal, apiService, mdmConfig, helperService, toastr, confirmation) {
+    function OrganizationContactController($scope, $uibModal, apiService, organizationConfig, helperService, toastr, confirmation) {
         var OrganizationContactCtrl = this;
         $scope.emptyText = "-";
 
@@ -112,7 +112,7 @@
         }
 
         function DeleteContact($item) {
-            apiService.get("eAxisAPI", mdmConfig.Entities.OrgContact.API.Delete.Url + $item.PK).then(function (response) {
+            apiService.get("eAxisAPI", organizationConfig.Entities.API.OrgContact.API.Delete.Url + $item.PK).then(function (response) {
                 if (response.data.Response) {
                     if (response.data.Response.Status === "Success") {
                         OrganizationContactCtrl.ePage.Entities.Header.Data.OrgContact.map(function (value, key) {

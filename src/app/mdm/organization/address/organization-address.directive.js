@@ -25,9 +25,9 @@
         .module("Application")
         .controller("OrganizationAddressController", OrganizationAddressController);
 
-    OrganizationAddressController.$inject = ["$scope", "$uibModal", "apiService", "mdmConfig", "organizationConfig", "helperService", "toastr", "confirmation"];
+    OrganizationAddressController.$inject = ["$scope", "$uibModal", "apiService", "organizationConfig", "helperService", "toastr", "confirmation"];
 
-    function OrganizationAddressController($scope, $uibModal, apiService, mdmConfig, organizationConfig, helperService, toastr, confirmation) {
+    function OrganizationAddressController($scope, $uibModal, apiService, organizationConfig, helperService, toastr, confirmation) {
         var OrganizationAddressCtrl = this;
 
         function Init() {
@@ -96,7 +96,7 @@
         }
 
         function DeleteAddress($item) {
-            apiService.get("eAxisAPI", mdmConfig.Entities.OrgAddress.API.Delete.Url + $item.PK).then(function (response) {
+            apiService.get("eAxisAPI", organizationConfig.Entities.API.OrgAddress.API.Delete.Url + $item.PK).then(function (response) {
                 if (response.data.Response) {
                     if (response.data.Response.Status === "Success") {
                         var _index = OrganizationAddressCtrl.ePage.Entities.Header.Data.OrgAddress.map(function (value, key) {

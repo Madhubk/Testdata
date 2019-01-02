@@ -5,9 +5,9 @@
         .module("Application")
         .controller("OrgCompanyModalController", OrgCompanyModalController);
 
-    OrgCompanyModalController.$inject = ["$uibModalInstance", "authService", "apiService", "organizationConfig", "helperService", "toastr", "param", "mdmConfig", "appConfig"];
+    OrgCompanyModalController.$inject = ["$uibModalInstance", "authService", "apiService", "organizationConfig", "helperService", "toastr", "param"];
 
-    function OrgCompanyModalController($uibModalInstance, authService, apiService, organizationConfig, helperService, toastr, param, mdmConfig, appConfig) {
+    function OrgCompanyModalController($uibModalInstance, authService, apiService, organizationConfig, helperService, toastr, param) {
         var OrgCompanyModalCtrl = this;
 
         function Init() {
@@ -80,10 +80,10 @@
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": mdmConfig.Entities.CmpBranch.API.FindAll.FilterID
+                "FilterID": organizationConfig.Entities.API.CmpBranch.API.FindAll.FilterID
             };
 
-            apiService.post("eAxisAPI", mdmConfig.Entities.CmpBranch.API.FindAll.Url, _input).then(function (response) {
+            apiService.post("eAxisAPI", organizationConfig.Entities.API.CmpBranch.API.FindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     OrgCompanyModalCtrl.ePage.Masters.Company.BranchList = response.data.Response;
                 } else {
@@ -108,10 +108,10 @@
             OrgCompanyModalCtrl.ePage.Masters.DebtorGroupList = undefined;
             var _input = {
                 "searchInput": [],
-                "FilterID": mdmConfig.Entities.MstDebtorGroup.API.FindAll.FilterID,
+                "FilterID": organizationConfig.Entities.API.MstDebtorGroup.API.FindAll.FilterID,
             };
 
-            apiService.post("eAxisAPI", mdmConfig.Entities.MstDebtorGroup.API.FindAll.Url, _input).then(function (response) {
+            apiService.post("eAxisAPI", organizationConfig.Entities.API.MstDebtorGroup.API.FindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     OrgCompanyModalCtrl.ePage.Masters.DebtorGroupList = response.data.Response;
                 } else {
@@ -124,10 +124,10 @@
             OrgCompanyModalCtrl.ePage.Masters.CreditorGroupList = undefined;
             var _input = {
                 "searchInput": [],
-                "FilterID": mdmConfig.Entities.MstCreditorGroup.API.FindAll.FilterID,
+                "FilterID": organizationConfig.Entities.API.MstCreditorGroup.API.FindAll.FilterID,
             };
 
-            apiService.post("eAxisAPI", mdmConfig.Entities.MstCreditorGroup.API.FindAll.Url, _input).then(function (response) {
+            apiService.post("eAxisAPI", organizationConfig.Entities.API.MstCreditorGroup.API.FindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     OrgCompanyModalCtrl.ePage.Masters.CreditorGroupList = response.data.Response;
                 } else {
@@ -140,10 +140,10 @@
             OrgCompanyModalCtrl.ePage.Masters.CurrencyList = undefined;
             var _input = {
                 "searchInput": [],
-                "FilterID": mdmConfig.Entities.MstCurrency.API.FindAll.FilterID,
+                "FilterID": organizationConfig.Entities.API.MstCurrency.API.FindAll.FilterID,
             };
 
-            apiService.post("eAxisAPI", mdmConfig.Entities.MstCurrency.API.FindAll.Url, _input).then(function (response) {
+            apiService.post("eAxisAPI", organizationConfig.Entities.API.MstCurrency.API.FindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     OrgCompanyModalCtrl.ePage.Masters.CurrencyList = response.data.Response;
                 } else {

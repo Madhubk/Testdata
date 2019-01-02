@@ -5,9 +5,9 @@
         .module("Application")
         .controller("OrgGeneralModalController", OrgGeneralModalController);
 
-    OrgGeneralModalController.$inject = ["$uibModalInstance", "apiService", "helperService", "toastr", "organizationConfig", "param", "mdmConfig", "authService"];
+    OrgGeneralModalController.$inject = ["$timeout", "$filter", "$uibModalInstance", "apiService", "helperService", "toastr", "organizationConfig", "param", "authService", "errorWarningService"];
 
-    function OrgGeneralModalController($uibModalInstance, apiService, helperService, toastr, organizationConfig, param, mdmConfig, authService) {
+    function OrgGeneralModalController($timeout, $filter, $uibModalInstance, apiService, helperService, toastr, organizationConfig, param, authService, errorWarningService) {
         var OrgGeneralModalCtrl = this;
 
         function Init() {
@@ -29,7 +29,7 @@
                 OrgGeneralModalCtrl.ePage.Masters.SaveButtonText = "Save";
                 OrgGeneralModalCtrl.ePage.Masters.IsDisableSave = false;
 
-                OrgGeneralModalCtrl.ePage.Masters.SaveOrganization = SaveOrganization;
+                OrgGeneralModalCtrl.ePage.Masters.SaveOrganization = ValidateOrganization;
                 OrgGeneralModalCtrl.ePage.Masters.Cancel = Cancel;
 
                 InitOrgHeader();
@@ -50,6 +50,10 @@
             OrgGeneralModalCtrl.ePage.Masters.OrgHeader.OnZoneSelect = OnZoneSelect;
             OrgGeneralModalCtrl.ePage.Masters.OrgHeader.OnUnlocoSelect = OnUnlocoSelect;
             OrgGeneralModalCtrl.ePage.Masters.OnCountryChange = OnCountryChange;
+
+            OrgGeneralModalCtrl.ePage.Masters.ErrorWarningConfig = errorWarningService;
+            OrgGeneralModalCtrl.ePage.Masters.ErrorWarningConfig.GlobalErrorWarningList = errorWarningService.Modules.Organization.Entity[param.Entity.code ? param.Entity.code : param.Entity.label].GlobalErrorWarningList;
+            OrgGeneralModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj = errorWarningService.Modules.Organization.Entity[param.Entity.code ? param.Entity.code : param.Entity.label];
 
             GetDataList();
         }
@@ -145,10 +149,10 @@
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": mdmConfig.Entities.CountryState.API.FindAll.FilterID,
+                "FilterID": organizationConfig.Entities.API.CountryState.API.FindAll.FilterID,
             };
 
-            apiService.post("eAxisAPI", mdmConfig.Entities.CountryState.API.FindAll.Url, _input).then(function (response) {
+            apiService.post("eAxisAPI", organizationConfig.Entities.API.CountryState.API.FindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     OrgGeneralModalCtrl.ePage.Masters.DropDownMasterList.State.ListSource = response.data.Response;
                 }
@@ -156,12 +160,49 @@
         }
 
         function GenerateOrganizationCode() {
-            // if (OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgHeader.FullName && OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgAddress[0].RelatedPortCode) {
-            //     var _prefixCode = angular.copy(OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgHeader.FullName).replace(/\s/g, '').substring(0, 3);
-            //     var _suffixCode = angular.copy(OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgAddress[0].RelatedPortCode).replace(/\s/g, '').substring(2, OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgAddress[0].RelatedPortCode.length);
+            if (OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgHeader.FullName && OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgAddress[0].RelatedPortCode) {
+                var _prefixCode = angular.copy(OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgHeader.FullName).replace(/\s/g, '').substring(0, 3);
+                var _suffixCode = angular.copy(OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgAddress[0].RelatedPortCode).replace(/\s/g, '').substring(2, OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgAddress[0].RelatedPortCode.length);
 
-            //     OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgHeader.Code = (_prefixCode + _suffixCode).toUpperCase();
+                OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgHeader.Code = (_prefixCode + _suffixCode).toUpperCase();
+            }
+        }
+
+        function ValidateOrganization() {
+            OrgGeneralModalCtrl.ePage.Masters.SaveButtonText = "Please Wait...";
+            OrgGeneralModalCtrl.ePage.Masters.IsDisableSave = true;
+            var _errorCode = [];
+            // if (param.Entity.isNew) {
+            //     _errorCode = ["E9101", "E9102", "E9103", "E9104", "E9105", "E9106", "E9107", "E9108", "E9109", "E9110", "E9111", "E9112", "E9113"];
+            // } else {
+            //     _errorCode = ["E9101", "E9102"];
             // }
+
+            var _code = param.Entity.code ? param.Entity.code : param.Entity.label;
+            var _groupCode = param.Entity.isNew ? "ORG_GENERAL_ADDRESS" : "ORG_GENERAL";
+            var _obj = {
+                ModuleName: ["Organization"],
+                Code: [_code],
+                API: "Group",
+                GroupCode: _groupCode,
+                RelatedBasicDetails: [],
+                EntityObject: OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data,
+                ErrorCode: _errorCode
+            };
+            errorWarningService.ValidateValue(_obj);
+
+            $timeout(function () {
+                var _errorCount = $filter("listCount")(OrgGeneralModalCtrl.ePage.Masters.ErrorWarningConfig.GlobalErrorWarningList, 'MessageType', 'E');
+
+                if (_errorCount > 0) {
+                    OrgGeneralModalCtrl.ePage.Masters.SaveButtonText = "Save";
+                    OrgGeneralModalCtrl.ePage.Masters.IsDisableSave = false;
+
+                    toastr.warning("Fill all mandatory fields...!");
+                } else {
+                    SaveOrganization();
+                }
+            });
         }
 
         function SaveOrganization() {
@@ -188,9 +229,6 @@
                 _input.OrgAddress[0].AddressCapability[0].ORG_FK = _input.OrgHeader.PK;
                 _input.OrgAddress[0].AddressCapability[0].TenantCode = authService.getUserInfo().TenantCode;
             }
-
-            OrgGeneralModalCtrl.ePage.Masters.SaveButtonText = "Please Wait...";
-            OrgGeneralModalCtrl.ePage.Masters.IsDisableSave = true;
 
             OrgGeneralModalCtrl.ePage.Masters.param.Entity[OrgGeneralModalCtrl.ePage.Masters.param.Entity.label].ePage.Entities.Header.Data = _input;
 

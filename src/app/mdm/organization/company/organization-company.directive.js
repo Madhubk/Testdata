@@ -23,9 +23,9 @@
         .module("Application")
         .controller("OrganizationCompanyController", OrganizationCompanyController);
 
-    OrganizationCompanyController.$inject = ["$scope", "$uibModal", "organizationConfig", "helperService", "confirmation", "apiService", "mdmConfig"];
+    OrganizationCompanyController.$inject = ["$scope", "$uibModal", "organizationConfig", "helperService", "confirmation", "apiService", "toastr"];
 
-    function OrganizationCompanyController($scope, $uibModal, organizationConfig, helperService, confirmation, apiService, mdmConfig) {
+    function OrganizationCompanyController($scope, $uibModal, organizationConfig, helperService, confirmation, apiService, toastr) {
         /* jshint validthis: true */
         var OrganizationCompanyCtrl = this;
 
@@ -96,8 +96,16 @@
         }
 
         function DeleteCompany($item) {
-            apiService.get("eAxisAPI", mdmConfig.Entities.OrgCompanyData.API.Delete.Url + $item.PK).then(function (response) {
-                if (response.data.Response) {
+            apiService.get("eAxisAPI", organizationConfig.Entities.API.OrgCompanyData.API.Delete.Url + $item.PK).then(function (response) {
+                if (response.data.Status == "ValidationFailed" || response.data.Status == "failed") {
+                    if (response.data.Validations && response.data.Validations.length > 0) {
+                        response.data.Validations.map(function (value, key) {
+                            toastr.error(value.Message);
+                        });
+                    } else {
+                        toastr.warning(response.data.Response);
+                    }
+                } else {
                     var _index = OrganizationCompanyCtrl.ePage.Entities.Header.Data.OrgCompanyData.map(function (value, key) {
                         return value.PK;
                     }).indexOf($item.PK);
@@ -105,10 +113,10 @@
                     if (_index != -1) {
                         OrganizationCompanyCtrl.ePage.Entities.Header.Data.OrgCompanyData.splice(_index, 1);
                     }
-                }
 
-                if (OrganizationCompanyCtrl.ePage.Entities.Header.Data.OrgCompanyData && OrganizationCompanyCtrl.ePage.Entities.Header.Data.OrgCompanyData.length > 0) {
-                    OnCompanySelect(OrganizationCompanyCtrl.ePage.Entities.Header.Data.OrgCompanyData[0]);
+                    if (OrganizationCompanyCtrl.ePage.Entities.Header.Data.OrgCompanyData && OrganizationCompanyCtrl.ePage.Entities.Header.Data.OrgCompanyData.length > 0) {
+                        OnCompanySelect(OrganizationCompanyCtrl.ePage.Entities.Header.Data.OrgCompanyData[0]);
+                    }
                 }
             });
         }

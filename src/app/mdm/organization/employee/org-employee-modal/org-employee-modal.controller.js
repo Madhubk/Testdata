@@ -5,9 +5,9 @@
         .module("Application")
         .controller("OrgEmployeeModalController", OrgEmployeeModalController);
 
-    OrgEmployeeModalController.$inject = ["$uibModalInstance", "authService", "apiService", "organizationConfig", "helperService", "toastr", "param", "mdmConfig"];
+    OrgEmployeeModalController.$inject = ["$uibModalInstance", "authService", "apiService", "organizationConfig", "helperService", "toastr", "param"];
 
-    function OrgEmployeeModalController($uibModalInstance, authService, apiService, organizationConfig, helperService, toastr, param, mdmConfig) {
+    function OrgEmployeeModalController($uibModalInstance, authService, apiService, organizationConfig, helperService, toastr, param) {
         var OrgEmployeeModalCtrl = this;
 
         function Init() {
@@ -60,10 +60,10 @@
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": mdmConfig.Entities.CmpBranch.API.FindAll.FilterID
+                "FilterID": organizationConfig.Entities.API.CmpBranch.API.FindAll.FilterID
             };
 
-            apiService.post("eAxisAPI", mdmConfig.Entities.CmpBranch.API.FindAll.Url, _input).then(function (response) {
+            apiService.post("eAxisAPI", organizationConfig.Entities.API.CmpBranch.API.FindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     OrgEmployeeModalCtrl.ePage.Masters.BranchList = response.data.Response;
                 } else {

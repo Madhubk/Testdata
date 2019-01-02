@@ -5,60 +5,631 @@
         .module("Application")
         .factory('organizationConfig', OrganizationConfig);
 
-    OrganizationConfig.$inject = ["$q", "apiService", "helperService", "toastr"];
+    OrganizationConfig.$inject = ["$q", "helperService", "toastr"];
 
-    function OrganizationConfig($q, apiService, helperService, toastr) {
+    function OrganizationConfig($q, helperService, toastr) {
         var exports = {
             "Entities": {
                 "Header": {
                     "Data": {},
-                    "RowIndex": -1,
-                    "API": {
-                        "GetById": {
-                            "IsAPI": "true",
-                            "HttpType": "GET",
-                            "Url": "Org/GetById/",
-                            "FilterID": "ORGLIST"
-                        },
-                        "Validationapi": {
-                            "IsAPI": "true",
-                            "HttpType": "POST",
-                            "Url": "Validation/FindAll",
-                            "FilterID": "VALIDAT"
-                        },
-                        "OrganizationActivityClose": {
-                            "IsAPI": "true",
-                            "HttpType": "GET",
-                            "Url": "Org/OrganizationActivityClose/",
-                        }
-                    },
                     "Meta": {},
                 },
-                "Message": false
+                "API": {
+                    "Org": {
+                        "RowIndex": -1,
+                        "API": {
+                            "GetById": {
+                                "IsAPI": "true",
+                                "HttpType": "GET",
+                                "Url": "Org/GetById/"
+                            },
+                            "OrganizationActivityClose": {
+                                "IsAPI": "true",
+                                "HttpType": "GET",
+                                "Url": "Org/OrganizationActivityClose/"
+                            },
+                        }
+                    },
+                    "CfxTypes": {
+                        "RowIndex": -1,
+                        "API": {
+                            "DynamicFindAll": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "cfxtypes/DynamicFindAll/",
+                                "FilterID": "CFXTYPE"
+                            }
+                        }
+                    },
+                    "MstCountry": {
+                        "RowIndex": -1,
+                        "API": {
+                            "FindAll": {
+                                "IsAPI": true,
+                                "Url": "MstCountry/FindAll",
+                                "FilterID": "MSTCOUN"
+                            }
+                        }
+                    },
+                    "CountryState": {
+                        "RowIndex": -1,
+                        "API": {
+                            "FindAll": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "CountryState/FindAll",
+                                "FilterID": "MSTCSTE"
+                            }
+                        }
+                    },
+                    "OrgAddress": {
+                        "RowIndex": -1,
+                        "API": {
+                            "Delete": {
+                                "IsAPI": "true",
+                                "HttpType": "GET",
+                                "Url": "OrgAddress/Delete/"
+                            }
+                        }
+                    },
+                    "OrgContact": {
+                        "RowIndex": -1,
+                        "API": {
+                            "Delete": {
+                                "IsAPI": "true",
+                                "HttpType": "GET",
+                                "Url": "OrgContact/Delete/"
+                            }
+                        }
+                    },
+                    "SecTenant": {
+                        "RowIndex": -1,
+                        "API": {
+                            "Insert": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "SecTenant/Insert"
+                            },
+                            "CopyBaseTenantBehavior": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "SecTenant/CopyBaseTenantBehavior",
+                                "FilterID": "SECTENA"
+                            }
+                        }
+                    },
+                    "SecAppSecTenant": {
+                        "RowIndex": -1,
+                        "API": {
+                            "FindAll": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "SecAppSecTenant/FindAll",
+                                "FilterID": "SECMAPP"
+                            },
+                            "Insert": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "SecAppSecTenant/Insert"
+                            }
+                        }
+                    },
+                    "SecParties": {
+                        "RowIndex": -1,
+                        "API": {
+                            "FindAll": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "SecParties/FindAll",
+                                "FilterID": "SECPART"
+                            }
+                        }
+                    },
+                    "SecRole": {
+                        "RowIndex": -1,
+                        "API": {
+                            "FindAll": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "SecRole/FindAll",
+                                "FilterID": "SECROLE"
+                            }
+                        }
+                    },
+                    "UserExtended": {
+                        "RowIndex": -1,
+                        "API": {
+                            "Insert": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "UserExtended/Insert"
+                            }
+                        }
+                    },
+                    "UserRole": {
+                        "RowIndex": -1,
+                        "API": {
+                            "FindAll": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "UserRole/FindAll",
+                                "FilterID": "SECMAPP"
+                            },
+                            "Insert": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "UserRole/Insert",
+                            }
+                        }
+                    },
+                    "GroupEventTypeOrganisation": {
+                        "RowIndex": -1,
+                        "API": {
+                            "FindAll": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "GroupEventTypeOrganisation/FindAll",
+                                "FilterID": "SECMAPP"
+                            },
+                            "Insert": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "GroupEventTypeOrganisation/Insert",
+                            },
+                            "Update": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "GroupEventTypeOrganisation/Update",
+                            },
+                            "Delete": {
+                                "IsAPI": "true",
+                                "HttpType": "GET",
+                                "Url": "GroupEventTypeOrganisation/Delete/",
+                            }
+                        }
+                    },
+                    "GroupTaskTypeOrganisation": {
+                        "RowIndex": -1,
+                        "API": {
+                            "FindAll": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "GroupTaskTypeOrganisation/FindAll",
+                                "FilterID": "SECMAPP"
+                            },
+                            "Insert": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "GroupTaskTypeOrganisation/Insert",
+                            },
+                            "Update": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "GroupTaskTypeOrganisation/Update",
+                            },
+                            "Delete": {
+                                "IsAPI": "true",
+                                "HttpType": "GET",
+                                "Url": "GroupTaskTypeOrganisation/Delete/",
+                            }
+                        }
+                    },
+                    "GroupRoleEventTypeOrganisation": {
+                        "RowIndex": -1,
+                        "API": {
+                            "FindAll": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "GroupRoleEventTypeOrganisation/FindAll",
+                                "FilterID": "SECMAPP"
+                            },
+                            "Insert": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "GroupRoleEventTypeOrganisation/Insert",
+                            },
+                            "Update": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "GroupRoleEventTypeOrganisation/Update",
+                            },
+                            "Delete": {
+                                "IsAPI": "true",
+                                "HttpType": "GET",
+                                "Url": "GroupRoleEventTypeOrganisation/Delete/",
+                            }
+                        }
+                    },
+                    "GroupRoleTaskTypeOrganisation": {
+                        "RowIndex": -1,
+                        "API": {
+                            "FindAll": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "GroupRoleTaskTypeOrganisation/FindAll",
+                                "FilterID": "SECMAPP"
+                            },
+                            "Insert": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "GroupRoleTaskTypeOrganisation/Insert",
+                            },
+                            "Update": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "GroupRoleTaskTypeOrganisation/Update",
+                            },
+                            "Delete": {
+                                "IsAPI": "true",
+                                "HttpType": "GET",
+                                "Url": "GroupRoleTaskTypeOrganisation/Delete/",
+                            }
+                        }
+                    },
+                    "SecMappings": {
+                        "RowIndex": -1,
+                        "API": {
+                            "GetRoleByUserApp": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "SecMappings/GetRoleByUserApp",
+                                "FilterID": "SECMAPP"
+                            },
+                            "FindAll": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "SecMappings/FindAll",
+                                "FilterID": "SECMAPP"
+                            }
+                        }
+                    },
+                    "EventGroup": {
+                        "RowIndex": -1,
+                        "API": {
+                            "FindAll": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "EventGroup/FindAll",
+                                "FilterID": "EVEGR"
+                            }
+                        }
+                    },
+                    "EventGroupMapping": {
+                        "RowIndex": -1,
+                        "API": {
+                            "FindAll": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "EventGroupMapping/FindAll",
+                                "FilterID": "EVGRMA"
+                            }
+                        }
+                    },
+                    "OrgEventGroup": {
+                        "RowIndex": -1,
+                        "API": {
+                            "FindAll": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "OrgEventGroup/FindAll",
+                                "FilterID": "OREVGR"
+                            },
+                            "Upsert": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "OrgEventGroup/Upsert"
+                            },
+                            "Insert": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "OrgEventGroup/Insert"
+                            },
+                            "Update": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "OrgEventGroup/Update"
+                            },
+                            "Delete": {
+                                "IsAPI": "true",
+                                "HttpType": "GET",
+                                "Url": "OrgEventGroup/Delete/"
+                            }
+                        }
+                    },
+                    "OrgEventEmailContacts": {
+                        "RowIndex": -1,
+                        "API": {
+                            "FindAll": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "OrgEventEmailContacts/FindAll",
+                                "FilterID": "OREEMC"
+                            },
+                            "Upsert": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "OrgEventEmailContacts/Upsert"
+                            },
+                            "Insert": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "OrgEventEmailContacts/Insert"
+                            },
+                            "Update": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "OrgEventEmailContacts/Update"
+                            },
+                            "Delete": {
+                                "IsAPI": "true",
+                                "HttpType": "GET",
+                                "Url": "OrgEventEmailContacts/Delete/"
+                            }
+                        }
+                    },
+                    "OrgEventTask": {
+                        "RowIndex": -1,
+                        "API": {
+                            "FindAll": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "OrgEventTask/FindAll",
+                                "FilterID": "ORGEVTA"
+                            },
+                            "Upsert": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "OrgEventTask/Upsert"
+                            },
+                            "Insert": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "OrgEventTask/Insert"
+                            },
+                            "Update": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "OrgEventTask/Update"
+                            },
+                            "Delete": {
+                                "IsAPI": "true",
+                                "HttpType": "GET",
+                                "Url": "OrgEventTask/Delete/"
+                            }
+                        }
+                    },
+                    "EBPMProcessMaster": {
+                        "RowIndex": -1,
+                        "API": {
+                            "FindAll": {
+                                "IsAPI": true,
+                                "Url": "EBPMProcessMaster/FindAll",
+                                "FilterID": "BPMPSM"
+                            }
+                        }
+                    },
+                    "EntitiesMapping": {
+                        "RowIndex": -1,
+                        "API": {
+                            "FindAll": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "EntitiesMapping/FindAll",
+                                "FilterID": "ENTIMAP"
+                            },
+                            "Insert": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "EntitiesMapping/Insert"
+                            },
+                            "Delete": {
+                                "IsAPI": "true",
+                                "HttpType": "GET",
+                                "Url": "EntitiesMapping/Delete/"
+                            }
+                        }
+                    },
+                    "EBPMWorkStepInfo": {
+                        "RowIndex": -1,
+                        "API": {
+                            "DynamicFindAll": {
+                                "IsAPI": true,
+                                "Url": "EBPMWorkStepInfo/DynamicFindAll",
+                                "FilterID": "BPMWSI"
+                            }
+                        }
+                    },
+                    "EntitiesMappingDetail": {
+                        "RowIndex": -1,
+                        "API": {
+                            "FindAll": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "EntitiesMappingDetail/FindAll",
+                                "FilterID": "ENMAPDE"
+                            },
+                            "Upsert": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "EntitiesMappingDetail/Upsert"
+                            },
+                            "Insert": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "EntitiesMappingDetail/Insert"
+                            },
+                            "Delete": {
+                                "IsAPI": "true",
+                                "HttpType": "GET",
+                                "Url": "EntitiesMappingDetail/Delete/"
+                            }
+                        }
+                    },
+                    "CmpCompany": {
+                        "RowIndex": -1,
+                        "API": {
+                            "FindAll": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "CmpCompany/FindAll",
+                                "FilterID": "CMPCOMP"
+                            }
+                        }
+                    },
+                    "CmpBranch": {
+                        "RowIndex": -1,
+                        "API": {
+                            "FindAll": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "CmpBranch/FindAll",
+                                "FilterID": "CMPBRAN"
+                            }
+                        }
+                    },
+                    "CmpDepartment": {
+                        "RowIndex": -1,
+                        "API": {
+                            "FindAll": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "CmpDepartment/FindAll",
+                                "FilterID": "CMPDEPT"
+                            }
+                        }
+                    },
+                    "OrgCompanyData": {
+                        "RowIndex": -1,
+                        "API": {
+                            "FindAll": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "OrgCompanyData/FindAll",
+                                "FilterID": "ORGCDTA"
+                            },
+                            "Delete": {
+                                "IsAPI": "true",
+                                "HttpType": "GET",
+                                "Url": "OrgCompanyData/Delete/"
+                            }
+                        }
+                    },
+                    "OrgEmployeeAssignments": {
+                        "RowIndex": -1,
+                        "API": {
+                            "FindAll": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "OrgEmployeeAssignments/FindAll",
+                                "FilterID": "ORGSASS"
+                            },
+                            "Delete": {
+                                "IsAPI": "true",
+                                "HttpType": "GET",
+                                "Url": "OrgEmployeeAssignments/Delete/"
+                            }
+                        }
+                    },
+                    "MstDebtorGroup": {
+                        "RowIndex": -1,
+                        "API": {
+                            "FindAll": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "MstDebtorGroup/FindAll",
+                                "FilterID": "MSTDEGP",
+                            }
+                        }
+                    },
+                    "MstCreditorGroup": {
+                        "RowIndex": -1,
+                        "API": {
+                            "FindAll": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "MstCreditorGroup/FindAll",
+                                "FilterID": "MSTCEGP",
+                            }
+                        }
+                    },
+                    "OrgCompanyData": {
+                        "RowIndex": -1,
+                        "API": {
+                            "Delete": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "OrgCompanyData/Delete/"
+                            }
+                        }
+                    },
+                    "MstCurrency": {
+                        "RowIndex": -1,
+                        "API": {
+                            "FindAll": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "MstCurrency/FindAll",
+                                "FilterID": "MSTCURR"
+                            }
+                        }
+                    },
+                    "MstCommentType": {
+                        "RowIndex": -1,
+                        "API": {
+                            "FindAll": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "MstCommentType/FindAll",
+                                "FilterID": "MSTCMDT"
+                            }
+                        }
+                    },
+                    "DocTypeMaster": {
+                        "RowIndex": -1,
+                        "API": {
+                            "FindAll": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "DocTypeMaster/FindAll",
+                                "FilterID": "MSTDOCT"
+                            }
+                        }
+                    },
+                    "MstExceptionType": {
+                        "RowIndex": -1,
+                        "API": {
+                            "FindAll": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "MstExceptionType/FindAll",
+                                "FilterID": "MSTEXCE"
+                            }
+                        }
+                    },
+                    "MstEmailType": {
+                        "RowIndex": -1,
+                        "API": {
+                            "FindAll": {
+                                "IsAPI": true,
+                                "Url": "MstEmailType/FindAll",
+                                "FilterID": "MSTMAIL"
+                            }
+                        }
+                    },
+                }
             },
             "TabList": [],
-            "ValidationValues": [],
-            "GetTabDetails": GetTabDetails,
-            "GeneralValidation": GeneralValidation,
-            "PushErrorWarning": PushErrorWarning,
-            "RemoveErrorWarning": RemoveErrorWarning,
-            "RemoveApiErrors": RemoveApiErrors,
-            "GetErrorWarningCountParent": GetErrorWarningCountParent,
-            "ShowErrorWarningModal": ShowErrorWarningModal,
-            "ValidationFindall": ValidationFindall,
-            "refreshgrid": refreshgrid,
+            "GetTabDetails": GetTabDetails
         };
         return exports;
 
         function GetTabDetails(currentOrganization, isNew) {
-            // Set configuration object to individual Consolidation
             var deferred = $q.defer();
             var _exports = {
                 "Entities": {
                     "Header": {
                         "Data": {},
                         "RowIndex": -1,
-                        "Validations": "",
                         "API": {
                             "InsertOrganization": {
                                 "IsAPI": "true",
@@ -75,144 +646,9 @@
                                 "HttpType": "POST",
                                 "Url": "OrgMiscServ/FindAll",
                                 "FilterID": "ORGMISC"
-                            },
-                            "Validationapi": {
-                                "IsAPI": "true",
-                                "HttpType": "POST",
-                                "Url": "Validation/FindAll",
-                                "FilterID": "VALIDAT"
                             }
                         },
-                        "Meta": {
-                            "Language": helperService.metaBase(),
-                            "ErrorWarning": {
-                                "GlobalErrorWarningList": [],
-                                "Code": helperService.metaBase(),
-                                "FullName": helperService.metaBase(),
-                                "Address1": helperService.metaBase(),
-                                "City": helperService.metaBase(),
-                                "RelatedPortCode": helperService.metaBase(),
-                                "PostCode": helperService.metaBase(),
-                                "Language": helperService.metaBase(),
-                                "ContactName": helperService.metaBase(),
-                                "JobCategory": helperService.metaBase(),
-                                "CMP_FK": helperService.metaBase(),
-                                "BRN_ControllingBranch": helperService.metaBase(),
-                                "Title": helperService.metaBase(),
-                                "State": helperService.metaBase(),
-                                "CMP_Name": helperService.metaBase(),
-                                "AddressType": helperService.metaBase(),
-                                "OAD_Address1": helperService.metaBase(),
-                                "WarehouseCode": helperService.metaBase(),
-                                "CountryCode": helperService.metaBase(),
-                                "RelatedParty_PK": helperService.metaBase(),
-                                "IMPartAttrib1Name": helperService.metaBase(),
-                                "IMPartAttrib2Name": helperService.metaBase(),
-                                "IMPartAttrib3Name": helperService.metaBase(),
-                                "IMPartAttrib1Type": helperService.metaBase(),
-                                "IMPartAttrib2Type": helperService.metaBase(),
-                                "IMPartAttrib3Type": helperService.metaBase()
-                            },
-                            "MenuList": [{
-                                "DisplayName": "General",
-                                "Value": "General",
-                                "Icon": "fa fa-plane",
-                                "GParentRef": 'general'
-                            }, {
-                                "DisplayName": "Address",
-                                "Value": "Address",
-                                "Icon": "fa fa-map-marker",
-                                "GParentRef": "address"
-                            }, {
-                                "DisplayName": "Contact",
-                                "Value": "Contact",
-                                "Icon": "fa fa-user",
-                                "GParentRef": "contact"
-                            }, {
-                                "DisplayName": "Company",
-                                "Value": "Company",
-                                "Icon": "fa fa-building-o",
-                                "GParentRef": "company"
-                            }, {
-                                "DisplayName": "Employee",
-                                "Value": "Employee",
-                                "Icon": "fa fa-users",
-                                "GParentRef": "Employee"
-                            }, {
-                                "DisplayName": "RelatedParties",
-                                "Value": "RelatedParties",
-                                "Icon": "fa fa-user",
-                                "GParentRef": "RelatedParty"
-                            }, {
-                                "DisplayName": "Warehouse",
-                                "Value": "Warehouse",
-                                "Icon": "fa fa-cubes",
-                                "GParentRef": "Miscserv"
-                            }, {
-                                "DisplayName": "Consignee",
-                                "Value": "Consignee",
-                                "Icon": "fa fa-user",
-                                "GParentRef": "Consignee"
-                            }, {
-                                "DisplayName": "Consignor",
-                                "Value": "Consignor",
-                                "Icon": "fa fa-user",
-                                "GParentRef": "Consignor"
-                            }, {
-                                "DisplayName": "Visibility",
-                                "Value": "Visibility",
-                                "Icon": "fa fa-eye",
-                                "GParentRef": "Visibility"
-                            }]
-                        },
-                        "SupplierHeader": {
-                            "Data": {},
-                            "ListSource": [],
-                            "RowIndex": -1,
-                            "API": {
-                                "FindAll": {
-                                    "IsAPI": "true",
-                                    "HttpType": "POST",
-                                    "Url": "JobCharge/FindAll",
-                                    "FilterID": "JOBCHAR"
-                                }
-                            },
-                            "Meta": {},
-                            "gridConfig": {
-                                "isHeader": false,
-                                "isSearch": false,
-                                "title": "User Details",
-                                "isSorting": false,
-                                "isColumnHeader": true,
-                                "isEdit": true,
-                                "isDelete": false,
-                                "isPagination": false,
-                                "itemsPerPage": 10,
-                                "isRowTemplate": false,
-                                "columnDef": [{
-                                    "field": "Supplier_Code",
-                                    "displayName": "Supplier Code"
-                                }, {
-                                    "field": "SupplierName",
-                                    "displayName": "Supplier Name"
-                                }, {
-                                    "field": "SFUSourceDate",
-                                    "displayName": "SFU Source Date"
-                                }, {
-                                    "field": "ThresoldTime",
-                                    "displayName": "ThresoldTime"
-                                }, {
-                                    "field": "IsActive",
-                                    "displayName": "Is Active"
-                                }, {
-                                    "field": "SFULineItem",
-                                    "displayName": "SFU Line Item"
-                                }, {
-                                    "field": "SFUWeekDay",
-                                    "displayName": "SFUWeekDay"
-                                }]
-                            }
-                        },
+                        "Meta": {},
                         "ModeDetails": {
                             "Data": {},
                             "ListSource": [],
@@ -648,7 +1084,6 @@
 
             if (isNew) {
                 _exports.Entities.Header.Data = currentOrganization.data;
-                _exports.Entities.Header.GetById = currentOrganization.data;
 
                 var _obj = {
                     New: {
@@ -661,7 +1096,7 @@
                 exports.TabList.push(_obj);
                 deferred.resolve(exports.TabList);
             } else {
-                helperService.getFullObjectUsingGetById(exports.Entities.Header.API.GetById.Url, currentOrganization.PK).then(function (response) {
+                helperService.getFullObjectUsingGetById(exports.Entities.API.Org.API.GetById.Url, currentOrganization.PK).then(function (response) {
                     if (response.data.Messages) {
                         response.data.Messages.map(function (value, key) {
                             if (value.Type === "Warning" && value.MessageDesc !== "") {
@@ -671,7 +1106,6 @@
                     }
 
                     _exports.Entities.Header.Data = response.data.Response;
-                    _exports.Entities.Header.Validations = response.data.Validations;
                     var obj = {
                         [currentOrganization.Code]: {
                             ePage: _exports
@@ -685,293 +1119,6 @@
                 });
             }
             return deferred.promise;
-        }
-
-        function PushErrorWarning(Code, Message, MessageType, IsAlert, MetaObject, EntityObject, IsArray, RowIndex, ColIndex, DisplayName, ParentRef, GParentRef) {
-            if (Code) {
-                var _obj = {
-                    "Code": Code,
-                    "Message": Message,
-                    "MessageType": MessageType,
-                    "IsAlert": IsAlert,
-                    "MetaObject": MetaObject,
-                    "ParentRef": ParentRef,
-                    "GParentRef": GParentRef
-                };
-
-                if (IsArray) {
-                    _obj.RowIndex = RowIndex;
-                    _obj.ColIndex = ColIndex;
-                    _obj.DisplayName = DisplayName;
-                }
-
-                var _index = exports.TabList.map(function (value, key) {
-                    return value.label;
-                }).indexOf(EntityObject);
-
-                if (_index !== -1) {
-                    var _isExistGlobal = exports.TabList[_index][EntityObject].ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList.some(function (value, key) {
-                        return value.Code === Code;
-                    });
-
-                    if (!_isExistGlobal) {
-                        exports.TabList[_index][EntityObject].ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList.push(_obj);
-                    }
-
-                    exports.TabList[_index][EntityObject].ePage.Entities.Header.Meta.ErrorWarning[MetaObject].IsArray = IsArray;
-                    exports.TabList[_index][EntityObject].ePage.Entities.Header.Meta.ErrorWarning[MetaObject].ParentRef = ParentRef;
-                    exports.TabList[_index][EntityObject].ePage.Entities.Header.Meta.ErrorWarning[MetaObject].GParentRef = GParentRef;
-
-                    if (MessageType === "W") {
-                        exports.TabList[_index][EntityObject].ePage.Entities.Header.Meta.ErrorWarning[MetaObject].IsWarning = true;
-
-                        // var _isExistWarning = exports.TabList[_index][EntityObject].ePage.Entities.Header.Meta.ErrorWarning[MetaObject].WARNING.some(function (val, key) {
-                        //     return val.Code === Code;
-                        // });
-                        var _indexWarning = exports.TabList[_index][EntityObject].ePage.Entities.Header.Meta.ErrorWarning[MetaObject].WARNING.map(function (val, key) {
-                            return val.Code;
-                        }).indexOf(Code);
-
-                        if (_indexWarning === -1) {
-                            exports.TabList[_index][EntityObject].ePage.Entities.Header.Meta.ErrorWarning[MetaObject].WARNING.push(_obj);
-                        } else {
-                            exports.TabList[_index][EntityObject].ePage.Entities.Header.Meta.ErrorWarning[MetaObject].WARNING[_indexWarning] = _obj;
-                        }
-
-                        // if (IsAlert) {
-                        //     toastr.warning(Code, Message);
-                        // }
-                    } else if (MessageType === "E") {
-                        exports.TabList[_index][EntityObject].ePage.Entities.Header.Meta.ErrorWarning[MetaObject].IsError = true;
-
-                        // var _isExistError = exports.TabList[_index][EntityObject].ePage.Entities.Header.Meta.ErrorWarning[MetaObject].ERROR.some(function (val, key) {
-                        //     return val.Code === Code;
-                        // });
-                        var _indexError = exports.TabList[_index][EntityObject].ePage.Entities.Header.Meta.ErrorWarning[MetaObject].ERROR.map(function (val, key) {
-                            return val.Code;
-                        }).indexOf(Code);
-
-                        if (_indexError === -1) {
-                            exports.TabList[_index][EntityObject].ePage.Entities.Header.Meta.ErrorWarning[MetaObject].ERROR.push(_obj);
-                        } else {
-                            exports.TabList[_index][EntityObject].ePage.Entities.Header.Meta.ErrorWarning[MetaObject].ERROR[_indexError] = _obj;
-                        }
-
-                        // if (IsAlert) {
-                        //     toastr.error(Code, Message);
-                        // }
-                    }
-                }
-            }
-        }
-
-        function RemoveErrorWarning(Code, MessageType, MetaObject, EntityObject) {
-            if (Code) {
-                var _index = exports.TabList.map(function (value, key) {
-                    return value.label;
-                }).indexOf(EntityObject);
-
-                if (_index !== -1) {
-                    var _indexGlobal = exports.TabList[_index][EntityObject].ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList.map(function (value, key) {
-                        return value.Code;
-                    }).indexOf(Code);
-
-                    if (_indexGlobal !== -1) {
-                        exports.TabList[_index][EntityObject].ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList.splice(_indexGlobal, 1);
-                    }
-
-                    if (MessageType === "E") {
-                        if (exports.TabList[_index][EntityObject].ePage.Entities.Header.Meta.ErrorWarning[MetaObject].ERROR.length > 0) {
-                            exports.TabList[_index][EntityObject].ePage.Entities.Header.Meta.ErrorWarning[MetaObject].ERROR.map(function (value, key) {
-                                if (value.Code === Code) {
-                                    exports.TabList[_index][EntityObject].ePage.Entities.Header.Meta.ErrorWarning[MetaObject].ERROR.splice(key, 1);
-
-                                    if (exports.TabList[_index][EntityObject].ePage.Entities.Header.Meta.ErrorWarning[MetaObject].ERROR.length === 0) {
-                                        exports.TabList[_index][EntityObject].ePage.Entities.Header.Meta.ErrorWarning[MetaObject].IsError = false;
-                                    }
-                                }
-                            });
-                        } else {
-                            exports.TabList[_index][EntityObject].ePage.Entities.Header.Meta.ErrorWarning[MetaObject].IsError = false;
-                            exports.TabList[_index][EntityObject].ePage.Entities.Header.Meta.ErrorWarning[MetaObject].ERROR = [];
-                        }
-                    } else if (MessageType === "W") {
-                        if (exports.TabList[_index][EntityObject].ePage.Entities.Header.Meta.ErrorWarning[MetaObject].WARNING.length > 0) {
-                            exports.TabList[_index][EntityObject].ePage.Entities.Header.Meta.ErrorWarning[MetaObject].WARNING.map(function (value, key) {
-                                if (value.Code == Code) {
-                                    exports.TabList[_index][EntityObject].ePage.Entities.Header.Meta.ErrorWarning[MetaObject].WARNING.splice(key, 1);
-
-                                    if (exports.TabList[_index][EntityObject].ePage.Entities.Header.Meta.ErrorWarning[MetaObject].WARNING.length === 0) {
-                                        exports.TabList[_index][EntityObject].ePage.Entities.Header.Meta.ErrorWarning[MetaObject].IsWarning = false;
-                                    }
-                                }
-                            });
-                        } else {
-                            exports.TabList[_index][EntityObject].ePage.Entities.Header.Meta.ErrorWarning[MetaObject].IsWarning = false;
-                            exports.TabList[_index][EntityObject].ePage.Entities.Header.Meta.ErrorWarning[MetaObject].WARNING = [];
-                        }
-                    }
-                }
-            }
-        }
-
-        function GetErrorWarningCountParent(ParentId, EntityObject, Type, ParentType) {
-            var _parentList = [];
-            var _index = exports.TabList.map(function (value, key) {
-                return value.label;
-            }).indexOf(EntityObject);
-
-            if (_index !== -1) {
-                exports.TabList[_index][EntityObject].ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList.map(function (value1, key1) {
-                    // ParentIdList.map(function (value2, key2) {
-                    if (ParentType == "GParent") {
-                        if (value1.GParentRef === ParentId && value1.MessageType === Type) {
-                            _parentList.push(value1);
-                        }
-                    } else if (ParentType == "Parent") {
-                        if (value1.ParentRef === ParentId && value1.MessageType === Type) {
-                            _parentList.push(value1);
-                        }
-                    }
-                    // });
-                });
-            }
-            return _parentList;
-        }
-
-        function ShowErrorWarningModal(EntityObject) {
-            if (EntityObject.label) {
-                $("#errorWarningContainer" + EntityObject.label).toggleClass("open");
-            } else if (EntityObject.label == "") {
-                $("#errorWarningContainer" + EntityObject.label).toggleClass("open");
-            } else if (EntityObject.Header.Data.OrgHeader) {
-                $("#errorWarningContainer" + EntityObject.Header.Data.OrgHeader.Code).toggleClass("open");
-            } else if (EntityObject.OrgHeader) {
-                $("#errorWarningContainer" + EntityObject.OrgHeader.Code).toggleClass("open");
-            }
-        }
-
-        function ValidationFindall() {
-            var _filter = {
-                "ModuleCode": "WMS",
-                "SubModuleCode": "ORG"
-            };
-            var _input = {
-                "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": exports.Entities.Header.API.Validationapi.FilterID
-            };
-            apiService.post("eAxisAPI", exports.Entities.Header.API.Validationapi.Url, _input).then(function (response) {
-                if (response.data.Response) {
-                    exports.ValidationValues = (response.data.Response);
-                }
-            });
-        }
-
-        function GeneralValidation($item, Type, index) {
-            var _Data = $item.Entities,
-                _input = _Data.Header.Data;
-            if (Type == 'OrgHeader') {
-                if (!_input.OrgHeader.FullName || _input.OrgHeader.FullName) {
-                    OnChangeValues(_input.OrgHeader.FullName, 'E9002', false, undefined, $item.label);
-                }
-                if (!_input.OrgHeader.Code || _input.OrgHeader.Code) {
-                    OnChangeValues(_input.OrgHeader.Code, 'E9001', false, undefined, $item.label);
-                }
-                if (!_input.OrgAddress[0].Address1 || _input.OrgAddress[0].Address1) {
-                    OnChangeValues(_input.OrgAddress[0].Address1, 'E9003', false, undefined, $item.label);
-                }
-                if (!_input.OrgAddress[0].City || _input.OrgAddress[0].City) {
-                    OnChangeValues(_input.OrgAddress[0].City, 'E9004', false, undefined, $item.label);
-                }
-                if (!_input.OrgAddress[0].RelatedPortCode || _input.OrgAddress[0].RelatedPortCode) {
-                    OnChangeValues(_input.OrgAddress[0].RelatedPortCode, 'E9005', false, undefined, $item.label);
-                }
-                if (!_input.OrgAddress[0].PostCode || _input.OrgAddress[0].PostCode) {
-                    OnChangeValues(_input.OrgAddress[0].PostCode, 'E9006', false, undefined, $item.label);
-                }
-                if (!_input.OrgAddress[0].Language || _input.OrgAddress[0].Language) {
-                    OnChangeValues(_input.OrgAddress[0].Language, 'E9007', false, undefined, $item.label);
-                }
-                if (!_input.OrgAddress[0].State || _input.OrgAddress[0].State) {
-                    OnChangeValues(_input.OrgAddress[0].State, 'E9022', false, undefined, $item.label);
-                }
-                if (!_input.OrgAddress[0].CountryCode || _input.OrgAddress[0].CountryCode) {
-                    OnChangeValues(_input.OrgAddress[0].CountryCode, 'E9031', false, undefined, $item.label);
-                }
-            } else if (Type == 'OrgAddress') {
-                if (!_input.OrgAddress[index].Address1 || _input.OrgAddress[index].Address1) {
-                    OnChangeValues(_input.OrgAddress[index].Address1, 'E9024', false, undefined, _input.OrgHeader.Code);
-                }
-                if (!_input.OrgAddress[index].City || _input.OrgAddress[index].City) {
-                    OnChangeValues(_input.OrgAddress[index].City, 'E9025', false, undefined, _input.OrgHeader.Code);
-                }
-                if (!_input.OrgAddress[index].RelatedPortCode || _input.OrgAddress[index].RelatedPortCode) {
-                    OnChangeValues(_input.OrgAddress[index].RelatedPortCode, 'E9026', false, undefined, _input.OrgHeader.Code);
-                }
-                if (!_input.OrgAddress[index].PostCode || _input.OrgAddress[index].PostCode) {
-                    OnChangeValues(_input.OrgAddress[index].PostCode, 'E9028', false, undefined, _input.OrgHeader.Code);
-                }
-                if (!_input.OrgAddress[index].Language || _input.OrgAddress[index].Language) {
-                    OnChangeValues(_input.OrgAddress[index].Language, 'E9029', false, undefined, _input.OrgHeader.Code);
-                }
-                if (!_input.OrgAddress[index].State || _input.OrgAddress[index].State) {
-                    OnChangeValues(_input.OrgAddress[index].State, 'E9027', false, undefined, _input.OrgHeader.Code);
-                }
-                if (!_input.OrgAddress[index].CountryCode || _input.OrgAddress[index].CountryCode) {
-                    OnChangeValues(_input.OrgAddress[index].CountryCode, 'E9032', false, undefined, _input.OrgHeader.Code);
-                }
-            } else if (Type == 'OrgContact') {
-                if (!_input.OrgContact[index].ContactName || _input.OrgContact[index].ContactName) {
-                    OnChangeValues(_input.OrgContact[index].ContactName, 'E9008', false, undefined, _input.OrgHeader.Code);
-                }
-                if (!_input.OrgContact[index].Title || _input.OrgContact[index].Title) {
-                    OnChangeValues(_input.OrgContact[index].Title, 'E9023', false, undefined, _input.OrgHeader.Code);
-                }
-                if (!_input.OrgContact[index].JobCategory || _input.OrgContact[index].JobCategory) {
-                    OnChangeValues(_input.OrgContact[index].JobCategory, 'E9009', false, undefined, _input.OrgHeader.Code);
-                }
-            } else if (Type == 'OrgCompanyData') {
-                if (!_input.OrgCompanyData[index].CMP_FK || _input.OrgCompanyData[index].CMP_FK) {
-                    OnChangeValues(_input.OrgCompanyData[index].CMP_FK, 'E9030', false, undefined, _input.OrgHeader.Code);
-                }
-                if (!_input.OrgCompanyData[index].BRN_ControllingBranch || _input.OrgCompanyData[index].BRN_ControllingBranch) {
-                    OnChangeValues(_input.OrgCompanyData[index].BRN_ControllingBranch, 'E9011', false, undefined, _input.OrgHeader.Code);
-                }
-            }
-        }
-
-        function OnChangeValues(fieldvalue, code, IsArray, RowIndex, label) {
-            angular.forEach(exports.ValidationValues, function (value, key) {
-                if (value.Code.trim() === code) {
-                    GetErrorMessage(fieldvalue, value, IsArray, RowIndex, label);
-                }
-            });
-        }
-
-        function GetErrorMessage(fieldvalue, value, IsArray, RowIndex, label) {
-            if (!IsArray) {
-                if (!fieldvalue) {
-                    PushErrorWarning(value.Code, value.Message, "E", true, value.CtrlKey, label, undefined, undefined, undefined, undefined, undefined, value.GParentRef);
-                } else {
-                    RemoveErrorWarning(value.Code, "E", value.CtrlKey, label);
-                }
-            } else {
-                if (!fieldvalue) {
-                    PushErrorWarning(value.Code, value.Message, "E", true, value.CtrlKey, label, IsArray, RowIndex, value.ColIndex, value.DisplayName, undefined, value.GParentRef);
-                } else {
-                    RemoveErrorWarning(value.Code, "E", value.CtrlKey, label, IsArray, RowIndex, value.ColIndex);
-                }
-            }
-        }
-
-        function RemoveApiErrors(item, label) {
-            angular.forEach(item, function (value, key) {
-                RemoveErrorWarning(value.Code, "E", value.CtrlKey, label);
-            });
-        }
-
-        function refreshgrid() {
-            // helperService.refreshGrid();
         }
     }
 

@@ -23,9 +23,9 @@
         .module("Application")
         .controller("OrganizationTaskGroupController", OrganizationTaskGroupController);
 
-    OrganizationTaskGroupController.$inject = ["$scope", "$uibModal", "$timeout", "authService", "apiService", "helperService", "toastr", "mdmConfig"];
+    OrganizationTaskGroupController.$inject = ["$scope", "$uibModal", "$timeout", "authService", "apiService", "helperService", "toastr", "organizationConfig"];
 
-    function OrganizationTaskGroupController($scope, $uibModal, $timeout, authService, apiService, helperService, toastr, mdmConfig) {
+    function OrganizationTaskGroupController($scope, $uibModal, $timeout, authService, apiService, helperService, toastr, organizationConfig) {
         var OrganizationTaskGroupCtrl = this;
 
         function Init() {
@@ -61,10 +61,10 @@
             var _filter = {};
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": mdmConfig.Entities.EBPMProcessMaster.API.FindAll.FilterID
+                "FilterID": organizationConfig.Entities.API.EBPMProcessMaster.API.FindAll.FilterID
             };
 
-            apiService.post("eAxisAPI", mdmConfig.Entities.EBPMProcessMaster.API.FindAll.Url, _input).then(function (response) {
+            apiService.post("eAxisAPI", organizationConfig.Entities.API.EBPMProcessMaster.API.FindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     OrganizationTaskGroupCtrl.ePage.Masters.TaskGroup.TaskGroupList = response.data.Response;
 
@@ -86,10 +86,10 @@
 
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": mdmConfig.Entities.EntitiesMapping.API.FindAll.FilterID
+                "FilterID": organizationConfig.Entities.API.EntitiesMapping.API.FindAll.FilterID
             };
 
-            apiService.post("eAxisAPI", mdmConfig.Entities.EntitiesMapping.API.FindAll.Url, _input).then(function (response) {
+            apiService.post("eAxisAPI", organizationConfig.Entities.API.EntitiesMapping.API.FindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     if (response.data.Response.length > 0) {
                         OrganizationTaskGroupCtrl.ePage.Masters.TaskGroup.TaskGroupList.map(function (value1, key1) {
@@ -118,10 +118,10 @@
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": mdmConfig.Entities.EBPMWorkStepInfo.API.DynamicFindAll.FilterID
+                "FilterID": organizationConfig.Entities.API.EBPMWorkStepInfo.API.DynamicFindAll.FilterID
             };
 
-            apiService.post("eAxisAPI", mdmConfig.Entities.EBPMWorkStepInfo.API.DynamicFindAll.Url, _input).then(function (response) {
+            apiService.post("eAxisAPI", organizationConfig.Entities.API.EBPMWorkStepInfo.API.DynamicFindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     $item.TaskGroupMappingList = response.data.Response;
                 } else {
@@ -155,7 +155,7 @@
                 IsModified: true,
                 IsActive: true
             };
-            apiService.post("eAxisAPI", mdmConfig.Entities.EntitiesMapping.API.Insert.Url, [_input]).then(function (response) {
+            apiService.post("eAxisAPI", organizationConfig.Entities.API.EntitiesMapping.API.Insert.Url, [_input]).then(function (response) {
                 if (response.data.Response) {
                     if (response.data.Response.length > 0) {
                         $item.OrgTaskGroup = response.data.Response[0];
@@ -167,7 +167,7 @@
         }
 
         function DeleteTaskGroup($item) {
-            apiService.get("eAxisAPI", mdmConfig.Entities.EntitiesMapping.API.Delete.Url + $item.OrgTaskGroup.PK).then(function (response) {
+            apiService.get("eAxisAPI", organizationConfig.Entities.API.EntitiesMapping.API.Delete.Url + $item.OrgTaskGroup.PK).then(function (response) {
                 if (response.data.Response) {
                     $item.TaskGroupMappingList = [];
                     $item.IsChecked = false;
@@ -236,10 +236,10 @@
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": mdmConfig.Entities.SecParties.API.FindAll.FilterID
+                "FilterID": organizationConfig.Entities.API.SecParties.API.FindAll.FilterID
             };
 
-            apiService.post("authAPI", mdmConfig.Entities.SecParties.API.FindAll.Url, _input).then(function (response) {
+            apiService.post("authAPI", organizationConfig.Entities.API.SecParties.API.FindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     OrganizationTaskGroupCtrl.ePage.Masters.TaskAction.PartyTypeList = response.data.Response;
                     if (response.data.Response.length > 0) {
@@ -263,10 +263,10 @@
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": mdmConfig.Entities.GroupTaskTypeOrganisation.API.FindAll.FilterID
+                "FilterID": organizationConfig.Entities.API.GroupTaskTypeOrganisation.API.FindAll.FilterID
             };
 
-            apiService.post("authAPI", mdmConfig.Entities.GroupTaskTypeOrganisation.API.FindAll.Url, _input).then(function (response) {
+            apiService.post("authAPI", organizationConfig.Entities.API.GroupTaskTypeOrganisation.API.FindAll.Url, _input).then(function (response) {
                 var _isChecked = false;
                 if (response.data.Response && response.data.Response.length > 0) {
                     OrganizationTaskGroupCtrl.ePage.Masters.TaskAction.PartyTypeList.map(function (value1, key1) {
@@ -294,10 +294,10 @@
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": mdmConfig.Entities.EntitiesMappingDetail.API.FindAll.FilterID
+                "FilterID": organizationConfig.Entities.API.EntitiesMappingDetail.API.FindAll.FilterID
             };
 
-            apiService.post("eAxisAPI", mdmConfig.Entities.EntitiesMappingDetail.API.FindAll.Url, _input).then(function (response) {
+            apiService.post("eAxisAPI", organizationConfig.Entities.API.EntitiesMappingDetail.API.FindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     if (response.data.Response.length > 0) {
                         OrganizationTaskGroupCtrl.ePage.Masters.TaskAction.PartyTypeList.map(function (value1, key1) {
@@ -360,7 +360,7 @@
                 IsModified: true
             };
 
-            apiService.post("authAPI", mdmConfig.Entities.GroupTaskTypeOrganisation.API.Insert.Url, [_input]).then(function (response) {
+            apiService.post("authAPI", organizationConfig.Entities.API.GroupTaskTypeOrganisation.API.Insert.Url, [_input]).then(function (response) {
                 if (response.data.Response && response.data.Response.length > 0) {
                     var _response = response.data.Response[0];
                     var _index = OrganizationTaskGroupCtrl.ePage.Masters.TaskAction.PartyTypeList.map(function (value, key) {
@@ -379,13 +379,13 @@
             var _input = $item.MappingObj;
             _input.IsModified = true;
 
-            apiService.post("authAPI", mdmConfig.Entities.GroupTaskTypeOrganisation.API.Update.Url, _input).then(function SuccessCallback(response) {
+            apiService.post("authAPI", organizationConfig.Entities.API.GroupTaskTypeOrganisation.API.Update.Url, _input).then(function SuccessCallback(response) {
                 if (response.data.Response) {}
             });
         }
 
         function DeletePartyTaskOrganizationMapping($item) {
-            apiService.get("authAPI", mdmConfig.Entities.GroupTaskTypeOrganisation.API.Delete.Url + $item.MappingObj.PK).then(function SuccessCallback(response) {
+            apiService.get("authAPI", organizationConfig.Entities.API.GroupTaskTypeOrganisation.API.Delete.Url + $item.MappingObj.PK).then(function SuccessCallback(response) {
                 if (response.data.Response) {}
             });
         }
@@ -479,7 +479,7 @@
                 }
             }
 
-            apiService.post("eAxisAPI", mdmConfig.Entities.EntitiesMappingDetail.API.Upsert.Url, [_input]).then(function (response) {
+            apiService.post("eAxisAPI", organizationConfig.Entities.API.EntitiesMappingDetail.API.Upsert.Url, [_input]).then(function (response) {
                 if (response.data.Response && response.data.Response.length > 0) {
                     var _index = OrganizationTaskGroupCtrl.ePage.Masters.TaskAction.PartyTypeList.map(function (value, key) {
                         return value.PK;
@@ -512,7 +512,7 @@
                 _pk = OrganizationTaskGroupCtrl.ePage.Masters.TaskAction.ActiveTaskAction.TaskConfig.PK;
             }
 
-            apiService.get("eAxisAPI", mdmConfig.Entities.EntitiesMappingDetail.API.Delete.Url + _pk).then(function (response) {
+            apiService.get("eAxisAPI", organizationConfig.Entities.API.EntitiesMappingDetail.API.Delete.Url + _pk).then(function (response) {
                 if (response.data.Response) {
                     var _index = OrganizationTaskGroupCtrl.ePage.Masters.TaskAction.PartyTypeList.map(function (value, key) {
                         return value.PK;
@@ -678,10 +678,10 @@
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": mdmConfig.Entities.SecMappings.API.GetRoleByUserApp.FilterID
+                "FilterID": organizationConfig.Entities.API.SecMappings.API.GetRoleByUserApp.FilterID
             };
 
-            apiService.post("authAPI", mdmConfig.Entities.SecMappings.API.GetRoleByUserApp.Url, _input).then(function SuccessCallback(response) {
+            apiService.post("authAPI", organizationConfig.Entities.API.SecMappings.API.GetRoleByUserApp.Url, _input).then(function SuccessCallback(response) {
                 if (response.data.Response) {
                     OrganizationTaskGroupCtrl.ePage.Masters.TaskAction.RoleList = response.data.Response;
 
@@ -716,10 +716,10 @@
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": mdmConfig.Entities.GroupRoleTaskTypeOrganisation.API.FindAll.FilterID
+                "FilterID": organizationConfig.Entities.API.GroupRoleTaskTypeOrganisation.API.FindAll.FilterID
             };
 
-            apiService.post("authAPI", mdmConfig.Entities.GroupRoleTaskTypeOrganisation.API.FindAll.Url, _input).then(function SuccessCallback(response) {
+            apiService.post("authAPI", organizationConfig.Entities.API.GroupRoleTaskTypeOrganisation.API.FindAll.Url, _input).then(function SuccessCallback(response) {
                 if (response.data.Response) {
                     if (response.data.Response.length > 0) {
                         OrganizationTaskGroupCtrl.ePage.Masters.TaskAction.RoleList.map(function (value1, key1) {
@@ -796,7 +796,7 @@
                 IsModified: true
             };
 
-            apiService.post("authAPI", mdmConfig.Entities.GroupRoleTaskTypeOrganisation.API.Insert.Url, [_input]).then(function (response) {
+            apiService.post("authAPI", organizationConfig.Entities.API.GroupRoleTaskTypeOrganisation.API.Insert.Url, [_input]).then(function (response) {
                 if (response.data.Response && response.data.Response.length > 0) {
                     var _response = response.data.Response[0];
                     var _index = OrganizationTaskGroupCtrl.ePage.Masters.TaskAction.RoleList.map(function (value, key) {
@@ -815,7 +815,7 @@
             var _input = $item.MappingObj;
             _input.IsModified = true;
 
-            apiService.post("authAPI", mdmConfig.Entities.GroupRoleTaskTypeOrganisation.API.Update.Url, _input).then(function SuccessCallback(response) {
+            apiService.post("authAPI", organizationConfig.Entities.API.GroupRoleTaskTypeOrganisation.API.Update.Url, _input).then(function SuccessCallback(response) {
                 if (response.data.Response) {
                     if (response.data.Response.length > 0) {}
                 }
@@ -823,7 +823,7 @@
         }
 
         function DeleteOrgGroupRoleMapping($item) {
-            apiService.get("authAPI", mdmConfig.Entities.GroupRoleTaskTypeOrganisation.API.Delete.Url + $item.MappingObj.PK).then(function SuccessCallback(response) {
+            apiService.get("authAPI", organizationConfig.Entities.API.GroupRoleTaskTypeOrganisation.API.Delete.Url + $item.MappingObj.PK).then(function SuccessCallback(response) {
                 if (response.data.Response) {}
             });
         }
