@@ -2840,6 +2840,10 @@
                         "CompleteProcess": {
                             "IsAPI": true,
                             "Url": "EBPMEngine/CompleteProcess",
+                        },
+                        "SuspendInstance": {
+                            "IsAPI": true,
+                            "Url": "EBPMEngine/SuspendInstance/",
                         }
                     }
                 },

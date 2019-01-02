@@ -95,7 +95,32 @@
                                     InsertCommentObject.push(obj);
                                     apiService.post("eAxisAPI", appConfig.Entities.JobComments.API.Insert.Url, InsertCommentObject).then(function (response) {
                                         DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDelivery.CancelledDate = new Date();
-                                        Validation($item);
+                                        
+                                        var _filter = {
+                                            // C_Performer: authService.getUserInfo().UserId,
+                                            Status: "AVAILABLE,ASSIGNED",
+                                            EntityRefKey: DeliveryMenuCtrl.ePage.Entities.Header.Data.PK,
+                                            KeyReference: DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderID
+                                        };
+                                        var _input = {
+                                            "searchInput": helperService.createToArrayOfObject(_filter),
+                                            "FilterID": appConfig.Entities.EBPMWorkItem.API.FindAllWithAccess.FilterID
+                                        };                                        
+                                        apiService.post("eAxisAPI", appConfig.Entities.EBPMWorkItem.API.FindAllWithAccess.Url, _input).then(function (response) {
+                                            if (response.data.Response) {
+                                                if (response.data.Response.length > 0) {
+                                                    angular.forEach(response.data.Response, function (value, key) {
+                                                        apiService.get("eAxisAPI", appConfig.Entities.EBPMEngine.API.SuspendInstance.Url + value.PSI_InstanceNo).then(function (response) {
+                                                            if (response.data) {
+                                                                Validation($item);
+                                                            }
+                                                        });
+                                                    });
+                                                } else {
+                                                    Validation($item);
+                                                }
+                                            }
+                                        });
                                         $uibModalInstance.dismiss('cancel');
                                     });
                                 }

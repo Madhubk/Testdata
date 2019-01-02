@@ -98,7 +98,7 @@
             }
         }
 
-        function SaveOutwardFromTask(callback) {            
+        function SaveOutwardFromTask(callback) {
             if (OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PK == "00000000-0000-0000-0000-000000000000") {
                 Validation(OutwardMenuCtrl.currentOutward, callback)
             } else {
@@ -778,8 +778,32 @@
                                     value.TotalUnits = 0;
                                 });
                                 OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.CancelledDate = new Date();
-                                Validation($item);
+                                var _filter = {
+                                    // C_Performer: authService.getUserInfo().UserId,
+                                    Status: "AVAILABLE,ASSIGNED",
+                                    EntityRefKey: OutwardMenuCtrl.ePage.Entities.Header.Data.PK,
+                                    KeyReference: OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WorkOrderID
+                                };
+                                var _input = {
+                                    "searchInput": helperService.createToArrayOfObject(_filter),
+                                    "FilterID": appConfig.Entities.EBPMWorkItem.API.FindAllWithAccess.FilterID
+                                };
 
+                                apiService.post("eAxisAPI", appConfig.Entities.EBPMWorkItem.API.FindAllWithAccess.Url, _input).then(function (response) {
+                                    if (response.data.Response) {
+                                        if (response.data.Response.length > 0) {                                            
+                                            angular.forEach(response.data.Response, function (value, key) {
+                                                apiService.get("eAxisAPI", appConfig.Entities.EBPMEngine.API.SuspendInstance.Url + value.PSI_InstanceNo).then(function (response) {
+                                                    if (response.data) {
+                                                        Validation($item);
+                                                    }
+                                                });
+                                            });
+                                        } else {
+                                            Validation($item);
+                                        }
+                                    }
+                                });
                                 $uibModalInstance.dismiss('cancel');
                             });
                         }

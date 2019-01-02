@@ -11,28 +11,28 @@
         var exports = {
             "Entities": {
                 "API": {
-                    "UsePrivileges": {
+                    "UserPrivileges": {
                         "RowIndex": -1,
                         "API": {
                             "PublishPrivilegesByUser": {
                                 "IsAPI": "true",
                                 "HttpType": "POST",
-                                "Url": "UsePrivileges/PublishPrivilegesByUser"
+                                "Url": "UserPrivileges/PublishPrivilegesByUser"
                             },
                             "AppTenantRolePublish": {
                                 "IsAPI": "true",
                                 "HttpType": "POST",
-                                "Url": "UsePrivileges/AppTenantRolePublish"
+                                "Url": "UserPrivileges/AppTenantRolePublish"
                             },
                             "UserTenantRolePublish": {
                                 "IsAPI": "true",
                                 "HttpType": "POST",
-                                "Url": "UsePrivileges/UserTenantRolePublish"
+                                "Url": "UserPrivileges/UserTenantRolePublish"
                             },
                             "PublishAllUsers": {
                                 "IsAPI": "true",
                                 "HttpType": "POST",
-                                "Url": "UsePrivileges/PublishAllUsers",
+                                "Url": "UserPrivileges/PublishAllUsers",
                                 "FIlterID": "USEREXT"
                             }
                         }
