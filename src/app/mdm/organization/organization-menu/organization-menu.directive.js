@@ -23,9 +23,9 @@
         .module("Application")
         .controller("OrganizationMenuController", OrganizationMenuController);
 
-    OrganizationMenuController.$inject = ["$rootScope", "apiService", "authService", "organizationConfig", "helperService", "appConfig", "toastr"];
+    OrganizationMenuController.$inject = ["$rootScope", "$timeout", "apiService", "authService", "organizationConfig", "helperService", "appConfig", "toastr", "errorWarningService"];
 
-    function OrganizationMenuController($rootScope, apiService, authService, organizationConfig, helperService, appConfig, toastr) {
+    function OrganizationMenuController($rootScope, $timeout, apiService, authService, organizationConfig, helperService, appConfig, toastr, errorWarningService) {
         var OrganizationMenuCtrl = this;
 
         function Init() {
@@ -44,6 +44,13 @@
 
                 OrganizationMenuCtrl.ePage.Masters.OnMenuClick = OnMenuClick;
                 OrganizationMenuCtrl.ePage.Masters.TabSelected = TabSelected;
+                OrganizationMenuCtrl.ePage.Masters.HideErrorWarningModal = HideErrorWarningModal;
+
+                $timeout(function () {
+                    OrganizationMenuCtrl.ePage.Masters.ErrorWarningConfig = errorWarningService;
+                    OrganizationMenuCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj = errorWarningService.Modules.Organization.Entity[OrganizationMenuCtrl.currentTab.code ? OrganizationMenuCtrl.currentTab.code : OrganizationMenuCtrl.currentTab.label];
+                    OrganizationMenuCtrl.ePage.Masters.GlobalErrorWarningList = errorWarningService.Modules.Organization.Entity[OrganizationMenuCtrl.currentTab.code ? OrganizationMenuCtrl.currentTab.code : OrganizationMenuCtrl.currentTab.label].GlobalErrorWarningList;
+                });
 
                 GetMenuList();
             } catch (ex) {
@@ -76,6 +83,9 @@
                             if (value.OtherConfig) {
                                 value.OtherConfig = JSON.parse(value.OtherConfig);
                             }
+
+                            value.ParentRef = value.MenuName;
+                            value.GParentRef = value.MenuName;
                         });
 
                         // if (!OrganizationMenuCtrl.ePage.Entities.Header.Data.OrgHeader.IsConsignee) {
@@ -105,9 +115,11 @@
         }
 
         function TabSelected(tab, $index, $event) {
-            if (OrganizationMenuCtrl.currentTab.isNew) {
-                $event.preventDefault();
-                toastr.warning("Please Save General Details First...!");
+            if (OrganizationMenuCtrl.ePage.Masters.ActiveTabIndex != $index) {
+                if (OrganizationMenuCtrl.currentTab.isNew) {
+                    $event.preventDefault();
+                    toastr.warning("Please Save General Details First...!");
+                }
             }
         }
 
@@ -117,6 +129,10 @@
             } else if ($item.MenuName == "Visibility") {
                 $rootScope.UpdateVisibilityPage();
             }
+        }
+
+        function HideErrorWarningModal() {
+            $("#errorWarningContainerOrganization" + (OrganizationMenuCtrl.currentTab.code ? OrganizationMenuCtrl.currentTab.code : OrganizationMenuCtrl.currentTab.label)).removeClass("open");
         }
 
         Init();

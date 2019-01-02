@@ -23,9 +23,9 @@
         .module("Application")
         .controller("OrganizationEmployeeController", OrganizationEmployeeController);
 
-    OrganizationEmployeeController.$inject = ["$scope", "$uibModal", "apiService", "organizationConfig", "helperService", "mdmConfig", "confirmation"];
+    OrganizationEmployeeController.$inject = ["$scope", "$uibModal", "apiService", "organizationConfig", "helperService", "confirmation"];
 
-    function OrganizationEmployeeController($scope, $uibModal, apiService, organizationConfig, helperService, mdmConfig, confirmation) {
+    function OrganizationEmployeeController($scope, $uibModal, apiService, organizationConfig, helperService, confirmation) {
         /* jshint validthis: true */
         var OrganizationEmployeeCtrl = this;
 
@@ -120,7 +120,7 @@
         }
 
         function DeleteEmployee($item) {
-            apiService.get("eAxisAPI", mdmConfig.Entities.OrgEmployeeAssignments.API.Delete.Url + $item.PK).then(function (response) {
+            apiService.get("eAxisAPI", organizationConfig.Entities.API.OrgEmployeeAssignments.API.Delete.Url + $item.PK).then(function (response) {
                 if (response.data.Response) {
                     var _index = OrganizationEmployeeCtrl.ePage.Entities.Header.Data.OrgStaffAssignments.map(function (value, key) {
                         return value.PK;

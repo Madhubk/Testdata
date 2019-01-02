@@ -1,30 +1,24 @@
 <div class="clearfix email-group-container">
     <div class="clearfix email-group-container" data-ng-if="!OrganizationEmailGroupCtrl.ePage.Masters.EmailAction.IsShowEmailAction">
-        <div class="clearfix" style="padding: 5px 0; background-color: #eee; font-weight: bold;">
-            <div class="col-sm-6">
-                <div class="text-single-line p-5">Email Group</div>
-            </div>
-        </div>
         <div class="clearfix p-20 text-center" data-ng-if="!OrganizationEmailGroupCtrl.ePage.Masters.EmailGroup.EmailGroupList">
             <i class="fa fa-spin fa-spinner font-160"></i>
         </div>
         <div class="clearfix p-20 text-center" data-ng-if="OrganizationEmailGroupCtrl.ePage.Masters.EmailGroup.EmailGroupList && OrganizationEmailGroupCtrl.ePage.Masters.EmailGroup.EmailGroupList.length == 0">
             <i>No Records...!</i>
         </div>
-        <div class="clearfix" data-ng-repeat="x in OrganizationEmailGroupCtrl.ePage.Masters.EmailGroup.EmailGroupList" style="border-bottom: 1px solid #eee; padding: 7px 0;"
+        <div class="clearfix border-bottom" data-ng-repeat="x in OrganizationEmailGroupCtrl.ePage.Masters.EmailGroup.EmailGroupList"
             data-ng-if="OrganizationEmailGroupCtrl.ePage.Masters.EmailGroup.EmailGroupList && OrganizationEmailGroupCtrl.ePage.Masters.EmailGroup.EmailGroupList.length > 0">
-            <div class="col-sm-6 pt-4">
-                <div class="checkbox m-0">
+            <div class="col-sm-10">
+                <div class="checkbox">
                     <label>
                         <input type="checkbox" class="colored-blue" data-ng-model="x.IsChecked" data-ng-click="OrganizationEmailGroupCtrl.ePage.Masters.EmailGroup.OnEmailGroupClick($event, x)">
                         <span class="text text-single-line" data-ng-bind="x.Key"></span>
                     </label>
                 </div>
             </div>
-            <div class="col-sm-2 text-right pt-5">
+            <div class="col-sm-2 text-right pt-15">
                 <a href="javascript:void(0)" data-ng-if="x.IsChecked && x.Key" data-ng-click="x.Key && OrganizationEmailGroupCtrl.ePage.Masters.EmailGroup.OnEmailGroupActionClick(x)">Action</a>
             </div>
-
         </div>
     </div>
 
@@ -33,22 +27,9 @@
             <span class="fa fa-angle-double-left mr-10 cursor-pointer font-130" data-ng-click="OrganizationEmailGroupCtrl.ePage.Masters.EmailAction.GoToEmailGroup()"></span>
             <span data-ng-bind="OrganizationEmailGroupCtrl.ePage.Masters.EmailGroup.ActiveEmailGroup.Key + ' - ' + OrganizationEmailGroupCtrl.ePage.Masters.EmailGroup.ActiveEmailGroup.Value"></span>
         </div>
-        <div class="clearfix" style="padding: 5px 0; background-color: #eee; font-weight: bold;">
-            <div class="col-sm-4">
-                <div class="text-single-line p-5">Parties</div>
-            </div>
-            <div class="col-sm-2">
-                <div class="text-single-line p-5"></div>
-            </div>
-            <div class="col-sm-2">
-                <div class="text-single-line p-5"></div>
-            </div>
-        </div>
-
         <div class="clearfix">
-            <div class="col-sm-8">
-                <party-mapping mapping-input="OrganizationEmailGroupCtrl.ePage.Masters.EmailAction.MappingInput" is-restricted="true" data-ng-if="OrganizationEmailGroupCtrl.ePage.Masters.EmailAction.MappingInput"></party-mapping>
-            </div>
+            <party-mapping mapping-input="OrganizationEmailGroupCtrl.ePage.Masters.EmailAction.MappingInput"
+                is-restricted="true" data-ng-if="OrganizationEmailGroupCtrl.ePage.Masters.EmailAction.MappingInput"></party-mapping>
         </div>
     </div>
 </div>

@@ -25,9 +25,9 @@
         .module("Application")
         .controller("OrganizationVisibilityController", OrganizationVisibilityController);
 
-    OrganizationVisibilityController.$inject = ["$rootScope", "authService", "apiService", "helperService", "mdmConfig"];
+    OrganizationVisibilityController.$inject = ["$rootScope", "authService", "apiService", "helperService", "organizationConfig"];
 
-    function OrganizationVisibilityController($rootScope, authService, apiService, helperService, mdmConfig) {
+    function OrganizationVisibilityController($rootScope, authService, apiService, helperService, organizationConfig) {
         var OrganizationVisibilityCtrl = this;
 
         $rootScope.UpdateVisibilityPage = PrepareTenantDetails;
@@ -93,7 +93,7 @@
             _input.BaseTenantCode = "TBASE";
             _input.IsModified = true;
 
-            apiService.post("authAPI", mdmConfig.Entities.SecTenant.API.Insert.Url, [_input]).then(function (response) {
+            apiService.post("authAPI", organizationConfig.Entities.API.SecTenant.API.Insert.Url, [_input]).then(function (response) {
                 if (response.data.Response) {
                     if (response.data.Response.length > 0) {
                         OrganizationVisibilityCtrl.ePage.Masters.Tenant.ActiveTenant = response.data.Response[0];
@@ -121,7 +121,7 @@
                 IsModified: true
             };
 
-            apiService.post("authAPI", mdmConfig.Entities.SecAppSecTenant.API.Insert.Url, [_input]).then(function (response) {
+            apiService.post("authAPI", organizationConfig.Entities.API.SecAppSecTenant.API.Insert.Url, [_input]).then(function (response) {
                 if (response.data.Response && response.data.Response.length > 0) {
                     CopyBaseTenantAccessToTenant();
                 } else {
@@ -139,7 +139,7 @@
                 ToTenant: OrganizationVisibilityCtrl.ePage.Masters.Tenant.ActiveTenant.TenantCode
             };
 
-            apiService.post("authAPI", mdmConfig.Entities.SecTenant.API.CopyBaseTenantBehavior.Url, _input).then(function (response) {
+            apiService.post("authAPI", organizationConfig.Entities.API.SecTenant.API.CopyBaseTenantBehavior.Url, _input).then(function (response) {
                 if (response.data.Response) {} else {
                     console.log("Could not Copy Base Tenant Behaviour...!")
                 }
@@ -199,10 +199,10 @@
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": mdmConfig.Entities.SecRole.API.FindAll.FilterID
+                "FilterID": organizationConfig.Entities.API.SecRole.API.FindAll.FilterID
             };
 
-            apiService.post("authAPI", mdmConfig.Entities.SecRole.API.FindAll.Url, _input).then(function (response) {
+            apiService.post("authAPI", organizationConfig.Entities.API.SecRole.API.FindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     OrganizationVisibilityCtrl.ePage.Masters.User.RoleList = response.data.Response;
                 } else {
@@ -225,7 +225,7 @@
                     "IsModified": true
                 };
 
-                apiService.post("authAPI", mdmConfig.Entities.UserExtended.API.Insert.Url, _input).then(function (response) {
+                apiService.post("authAPI", organizationConfig.Entities.API.UserExtended.API.Insert.Url, _input).then(function (response) {
                     if (response.data.Response) {
                         $item.USER_FK = response.data.Response.Id;
                         UserRoleMapping($item);
@@ -251,7 +251,7 @@
                 "IsModified": true
             };
 
-            apiService.post("authAPI", mdmConfig.Entities.UserRole.API.Insert.Url, [_input]).then(function (response) {
+            apiService.post("authAPI", organizationConfig.Entities.API.UserRole.API.Insert.Url, [_input]).then(function (response) {
                 if (response.data.Response) {
                     UpdateOrgContact(user);
                 } else {

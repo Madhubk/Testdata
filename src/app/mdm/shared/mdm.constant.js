@@ -175,29 +175,25 @@
                 name: 'organizationCommentGroup',
                 files: [
                     'app/mdm/organization/access-rights/comment-group/organization-comment-group.css',
-                    'app/mdm/organization/access-rights/comment-group/organization-comment-group.directive.js',
-                    'app/mdm/organization/access-rights/comment-group/organization-comment-group.controller.js'
+                    'app/mdm/organization/access-rights/comment-group/organization-comment-group.directive.js'
                 ]
             }, {
                 name: 'organizationDocumentGroup',
                 files: [
                     'app/mdm/organization/access-rights/document-group/organization-document-group.css',
-                    'app/mdm/organization/access-rights/document-group/organization-document-group.directive.js',
-                    'app/mdm/organization/access-rights/document-group/organization-document-group.controller.js'
+                    'app/mdm/organization/access-rights/document-group/organization-document-group.directive.js'
                 ]
             }, {
                 name: 'organizationExceptionGroup',
                 files: [
                     'app/mdm/organization/access-rights/exception-group/organization-exception-group.css',
-                    'app/mdm/organization/access-rights/exception-group/organization-exception-group.directive.js',
-                    'app/mdm/organization/access-rights/exception-group/organization-exception-group.controller.js'
+                    'app/mdm/organization/access-rights/exception-group/organization-exception-group.directive.js'
                 ]
             }, {
                 name: 'organizationEmailGroup',
                 files: [
                     'app/mdm/organization/access-rights/email-group/organization-email-group.css',
-                    'app/mdm/organization/access-rights/email-group/organization-email-group.directive.js',
-                    'app/mdm/organization/access-rights/email-group/organization-email-group.controller.js'
+                    'app/mdm/organization/access-rights/email-group/organization-email-group.directive.js'
                 ]
             },
             // endregion

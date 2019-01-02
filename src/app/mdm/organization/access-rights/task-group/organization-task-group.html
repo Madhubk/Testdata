@@ -1,40 +1,29 @@
 <div class="clearfix task-group-action-container">
     <!-- Task Group -->
     <div class="clearfix task-group-container" data-ng-if="!OrganizationTaskGroupCtrl.ePage.Masters.TaskAction.IsShowTaskAction">
-        <div class="clearfix" style="padding: 5px 0; background-color: #eee; font-weight: bold;">
-            <div class="col-sm-6">
-                <div class="text-single-line p-5">Task Group</div>
-            </div>
-            <div class="col-sm-4">
-                <div class="text-single-line p-5">Steps</div>
-            </div>
-            <div class="col-sm-2">
-                <div class="text-single-line p-5"></div>
-            </div>
-        </div>
         <div class="clearfix p-20 text-center" data-ng-if="!OrganizationTaskGroupCtrl.ePage.Masters.TaskGroup.TaskGroupList">
             <i class="fa fa-spin fa-spinner font-160"></i>
         </div>
         <div class="clearfix p-20 text-center" data-ng-if="OrganizationTaskGroupCtrl.ePage.Masters.TaskGroup.TaskGroupList && OrganizationTaskGroupCtrl.ePage.Masters.TaskGroup.TaskGroupList.length == 0">
             <i>No Records...!</i>
         </div>
-        <div class="clearfix" data-ng-repeat="x in OrganizationTaskGroupCtrl.ePage.Masters.TaskGroup.TaskGroupList"
-            style="border-bottom: 1px solid #eee; padding: 7px 0;" data-ng-if="OrganizationTaskGroupCtrl.ePage.Masters.TaskGroup.TaskGroupList && OrganizationTaskGroupCtrl.ePage.Masters.TaskGroup.TaskGroupList.length > 0">
-            <div class="col-sm-6 pt-4">
-                <div class="checkbox m-0">
+        <div class="clearfix border-bottom" data-ng-repeat="x in OrganizationTaskGroupCtrl.ePage.Masters.TaskGroup.TaskGroupList"
+            data-ng-if="OrganizationTaskGroupCtrl.ePage.Masters.TaskGroup.TaskGroupList && OrganizationTaskGroupCtrl.ePage.Masters.TaskGroup.TaskGroupList.length > 0">
+            <div class="col-sm-6">
+                <div class="checkbox">
                     <label>
                         <input type="checkbox" class="colored-blue" data-ng-model="x.IsChecked" data-ng-click="OrganizationTaskGroupCtrl.ePage.Masters.TaskGroup.OnTaskGroupClick($event, x)">
                         <span class="text text-single-line" data-ng-bind="x.ProcessName"></span>
                     </label>
                 </div>
             </div>
-            <div class="col-sm-4">
+            <div class="col-sm-4 pt-7">
                 <select chosen class="form-control" data-ng-model="x.StepCode" data-ng-options="y.StepCode as y.StepName for y in x.TaskGroupMappingList"
                     search-contains="true" data-ng-if="x.IsChecked" data-ng-change="OrganizationTaskGroupCtrl.ePage.Masters.TaskGroup.OnTaskChange((x.TaskGroupMappingList | filter: {StepCode: x.StepCode})[0], x)">
                     <option value="">--Select--</option>
                 </select>
             </div>
-            <div class="col-sm-2 text-right pt-5">
+            <div class="col-sm-2 text-right pt-15">
                 <a href="javascript:void(0)" data-ng-if="x.IsChecked && x.StepCode" data-ng-click="x.StepCode && OrganizationTaskGroupCtrl.ePage.Masters.TaskGroup.OnTaskGroupActionClick(x)">Action</a>
             </div>
         </div>
@@ -45,36 +34,16 @@
             <span class="fa fa-angle-double-left mr-10 cursor-pointer font-130" data-ng-click="OrganizationTaskGroupCtrl.ePage.Masters.TaskAction.GoToTaskGroup()"></span>
             <span data-ng-bind="OrganizationTaskGroupCtrl.ePage.Masters.TaskGroup.ActiveTaskGroup.ProcessCode + ' - ' + OrganizationTaskGroupCtrl.ePage.Masters.TaskGroup.ActiveTaskGroup.ProcessName"></span>
         </div>
-        <div class="clearfix" style="padding: 5px 0; background-color: #eee; font-weight: bold;">
-            <div class="col-sm-3">
-                <div class="text-single-line p-5">Parties</div>
-            </div>
-            <div class="col-sm-2">
-                <div class="text-single-line p-5"></div>
-            </div>
-            <div class="col-sm-2">
-                <div class="text-single-line p-5"></div>
-            </div>
-            <div class="col-sm-2">
-                <div class="text-single-line p-5"></div>
-            </div>
-            <div class="col-sm-2">
-                <div class="text-single-line p-5"></div>
-            </div>
-            <div class="col-sm-1">
-                <div class="text-single-line p-5"></div>
-            </div>
-        </div>
         <div class="clearfix p-20 text-center" data-ng-if="!OrganizationTaskGroupCtrl.ePage.Masters.TaskAction.PartyTypeList">
             <i class="fa fa-spin fa-spinner font-160"></i>
         </div>
         <div class="clearfix p-20 text-center" data-ng-if="OrganizationTaskGroupCtrl.ePage.Masters.TaskAction.PartyTypeList && OrganizationTaskGroupCtrl.ePage.Masters.TaskAction.PartyTypeList.length == 0">
             <i>No Records...!</i>
         </div>
-        <div class="clearfix" data-ng-repeat="x in OrganizationTaskGroupCtrl.ePage.Masters.TaskAction.PartyTypeList"
-            style="border-bottom: 1px solid #eee; padding: 7px 0; padding-bottom: 3px;" data-ng-if="OrganizationTaskGroupCtrl.ePage.Masters.TaskAction.PartyTypeList && OrganizationTaskGroupCtrl.ePage.Masters.TaskAction.PartyTypeList.length > 0">
+        <div class="clearfix border-bottom" data-ng-repeat="x in OrganizationTaskGroupCtrl.ePage.Masters.TaskAction.PartyTypeList"
+            data-ng-if="OrganizationTaskGroupCtrl.ePage.Masters.TaskAction.PartyTypeList && OrganizationTaskGroupCtrl.ePage.Masters.TaskAction.PartyTypeList.length > 0">
             <div class="col-sm-3">
-                <div class="checkbox m-0">
+                <div class="checkbox">
                     <label>
                         <input type="checkbox" class="colored-blue" data-ng-model="x.IsChecked" data-ng-click="OrganizationTaskGroupCtrl.ePage.Masters.TaskAction.OnPartyClick($event, x)">
                         <span class="text text-single-line" data-ng-bind="x.PartyName"></span>
@@ -82,7 +51,7 @@
                 </div>
             </div>
             <div class="col-sm-2">
-                <div class="checkbox m-0" data-ng-if="x.IsChecked">
+                <div class="checkbox" data-ng-if="x.IsChecked">
                     <label>
                         <input type="checkbox" class="colored-blue" data-ng-model="x.MappingObj.IsDefault"
                             data-ng-click="OrganizationTaskGroupCtrl.ePage.Masters.TaskAction.UpdatePartyTaskOrganizationMapping($event, x, 'IsDefault')"
@@ -92,7 +61,7 @@
                 </div>
             </div>
             <div class="col-sm-2">
-                <div class="checkbox m-0" data-ng-if="x.IsChecked">
+                <div class="checkbox" data-ng-if="x.IsChecked">
                     <label>
                         <input type="checkbox" class="colored-blue" data-ng-model="x.MappingObj.IsResticted"
                             data-ng-click="OrganizationTaskGroupCtrl.ePage.Masters.TaskAction.UpdatePartyTaskOrganizationMapping($event, x, 'IsResticted')">
@@ -100,13 +69,13 @@
                     </label>
                 </div>
             </div>
-            <div class="col-sm-2">
+            <div class="col-sm-2 pt-7">
                 <select chosen name="category-group" class="form-control" data-ng-model="x.ConfigType" data-ng-options="y.Code as y.Name for y in  OrganizationTaskGroupCtrl.ePage.Masters.TaskAction.ProcessTypeList"
                     search-contains="true" data-ng-if="x.IsChecked">
                     <option value="">--Select--</option>
                 </select>
             </div>
-            <div class="col-sm-2 pt-2">
+            <div class="col-sm-2 pt-15">
                 <a href="javascript:void(0);" data-ng-click="OrganizationTaskGroupCtrl.ePage.Masters.TaskAction.OpenTaskActionModal(x, 'OrgTaskActionEmailTemplate')"
                     data-ng-if="x.IsChecked && x.ConfigType == 'TemplateConfig'">
                     <span>Template Config</span>
@@ -118,13 +87,7 @@
                     <i class="fa fa-check-circle ml-4" data-ng-if="x.TaskConfig.OtherConfig"></i>
                 </a>
             </div>
-            <!-- <div class="col-sm-2 pt-2" >
-                <a href="javascript:void(0);" data-ng-click="OrganizationTaskGroupCtrl.ePage.Masters.TaskAction.OpenTaskActionModal(x, 'OrgTaskActionConfigTask')" data-ng-if="x.IsChecked">
-                    <span>Task Config</span>
-                    <i class="fa fa-check-circle ml-4" data-ng-if="x.TaskConfig.OtherConfig.TaskConfig"></i>
-                </a>
-            </div> -->
-            <div class="col-sm-1 pt-2">
+            <div class="col-sm-1 pt-15">
                 <a href="javascript:void(0);" data-ng-click="x.IsChecked && OrganizationTaskGroupCtrl.ePage.Masters.TaskAction.OnRoleBtnClick(x)"
                     data-ng-if="x.IsChecked">Role</a>
             </div>

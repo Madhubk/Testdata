@@ -5,9 +5,9 @@
         .module("Application")
         .controller("OrgContactModalController", OrgContactModalController);
 
-    OrgContactModalController.$inject = ["$uibModalInstance", "helperService", "toastr", "organizationConfig", "param"];
+    OrgContactModalController.$inject = ["$timeout", "$filter", "$uibModalInstance", "helperService", "toastr", "organizationConfig", "param", "errorWarningService"];
 
-    function OrgContactModalController($uibModalInstance, helperService, toastr, organizationConfig, param) {
+    function OrgContactModalController($timeout, $filter, $uibModalInstance, helperService, toastr, organizationConfig, param, errorWarningService) {
         var OrgContactModalCtrl = this;
 
         function Init() {
@@ -29,7 +29,7 @@
                 OrgContactModalCtrl.ePage.Masters.SaveButtonText = "Save";
                 OrgContactModalCtrl.ePage.Masters.IsDisableSave = false;
 
-                OrgContactModalCtrl.ePage.Masters.SaveContact = SaveContact;
+                OrgContactModalCtrl.ePage.Masters.SaveContact = ValidateContact;
                 OrgContactModalCtrl.ePage.Masters.Cancel = Cancel;
 
                 InitOrgContact();
@@ -45,10 +45,44 @@
             if (OrgContactModalCtrl.ePage.Masters.param.Item) {
                 OrgContactModalCtrl.ePage.Masters.OrgContact.FormView = OrgContactModalCtrl.ePage.Masters.param.Item;
             }
+
+            OrgContactModalCtrl.ePage.Masters.ErrorWarningConfig = errorWarningService;
+            OrgContactModalCtrl.ePage.Masters.GlobalErrorWarningList = errorWarningService.Modules.Organization.Entity[param.Entity.code ? param.Entity.code : param.Entity.label].GlobalErrorWarningList;
+            OrgContactModalCtrl.ePage.Masters.ErrorWarningObj = errorWarningService.Modules.Organization.Entity[param.Entity.code ? param.Entity.code : param.Entity.label];
         }
 
         function Cancel() {
             $uibModalInstance.dismiss("cancel");
+        }
+
+        function ValidateContact() {
+            OrgContactModalCtrl.ePage.Masters.SaveButtonText = "Please Wait...";
+            OrgContactModalCtrl.ePage.Masters.IsDisableSave = true;
+
+            var _code = param.Entity.code ? param.Entity.code : param.Entity.label;
+            var _obj = {
+                ModuleName: ["Organization"],
+                Code: [_code],
+                API: "Group",
+                GroupCode: "ORG_CONTACT",
+                RelatedBasicDetails: [],
+                EntityObject: OrgContactModalCtrl.ePage.Masters.OrgContact.FormView,
+                ErrorCode: []
+            };
+            errorWarningService.ValidateValue(_obj);
+
+            $timeout(function () {
+                var _errorCount = $filter("listCount")(OrgContactModalCtrl.ePage.Masters.GlobalErrorWarningList, 'MessageType', 'E');
+
+                if (_errorCount > 0) {
+                    OrgContactModalCtrl.ePage.Masters.SaveButtonText = "Save";
+                    OrgContactModalCtrl.ePage.Masters.IsDisableSave = false;
+
+                    toastr.warning("Fill all mandatory fields...!");
+                } else {
+                    SaveContact();
+                }
+            });
         }
 
         function SaveContact() {
