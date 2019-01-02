@@ -368,7 +368,7 @@
                         "ORG_ClientName": currentOutward.ClientName,
                         "ProductCode": value.ProductCode,
                         "ProductDescription": value.ProductDescription,
-                        "AdditionalRef2Code": value.ProductCondition,
+                        "ProductCondition": value.ProductCondition,
                         "POR_FK": value.PRO_FK,
                         "Packs": value.Packs,
                         "PAC_PackType": value.PAC_PackType,

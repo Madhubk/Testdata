@@ -165,7 +165,7 @@
                         apiService.post("authAPI", appConfig.Entities.Notification.API.SendSms.Url, _smsInput).then(function (response) {
 
                         });
-                        if (deliveryConfig.Entities.ClientContact) {
+                        if (deliveryConfig.Entities.ClientContact.length > 0) {
                             var _smsInput = {
                                 "MobileNo": deliveryConfig.Entities.ClientContact[0].Mobile,
                                 "Message": "Delivery Request " + RaiseCSRCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderID + " Acknowledged Successfully."
@@ -174,7 +174,7 @@
 
                             });
                         }
-                        if (deliveryConfig.Entities.WarehouseContact) {
+                        if (deliveryConfig.Entities.WarehouseContact.length > 0) {
                             var _smsInput = {
                                 "MobileNo": deliveryConfig.Entities.WarehouseContact[0].Mobile,
                                 "Message": "Delivery Request " + RaiseCSRCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderID + " Acknowledged Successfully."

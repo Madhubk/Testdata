@@ -186,7 +186,7 @@
                             pickupConfig.TabList[_index][pickupConfig.TabList[_index].label].ePage.Entities.Header.Data = response.Data;
 
                         PickupMenuCtrl.ePage.Entities.Header.Data.UIWmsPickup.Consignee = PickupMenuCtrl.ePage.Entities.Header.Data.UIWmsPickup.ConsigneeCode + ' - ' + PickupMenuCtrl.ePage.Entities.Header.Data.UIWmsPickup.ConsigneeName;
-                        PickupMenuCtrl.ePage.Entities.Header.Data.UIWmsPickup.Warehouse = PickupMenuCtrl.ePage.Entities.Header.Data.UIWmsPickup.WarehouseCode + ' - ' + PickupMenuCtrl.ePage.Entities.Header.Data.UIWmsPickup.WarehouseName;                        
+                        PickupMenuCtrl.ePage.Entities.Header.Data.UIWmsPickup.Warehouse = PickupMenuCtrl.ePage.Entities.Header.Data.UIWmsPickup.WarehouseCode + ' - ' + PickupMenuCtrl.ePage.Entities.Header.Data.UIWmsPickup.WarehouseName;
                         if ($item.isNew) {
                             var _smsInput = {
                                 "MobileNo": PickupMenuCtrl.ePage.Entities.Header.Data.UIWmsWorkorderReport.RequesterContactNo,
@@ -195,7 +195,7 @@
                             apiService.post("authAPI", appConfig.Entities.Notification.API.SendSms.Url, _smsInput).then(function (response) {
 
                             });
-                            if (pickupConfig.Entities.ClientContact) {
+                            if (pickupConfig.Entities.ClientContact.length > 0) {
                                 var _smsInput = {
                                     "MobileNo": pickupConfig.Entities.ClientContact[0].Mobile,
                                     "Message": "Pickup Request " + PickupMenuCtrl.ePage.Entities.Header.Data.UIWmsPickup.WorkOrderID + " Acknowledged Successfully."
@@ -204,7 +204,7 @@
 
                                 });
                             }
-                            if (pickupConfig.Entities.WarehouseContact) {
+                            if (pickupConfig.Entities.WarehouseContact.length > 0) {
                                 var _smsInput = {
                                     "MobileNo": pickupConfig.Entities.WarehouseContact[0].Mobile,
                                     "Message": "Pickup Request " + PickupMenuCtrl.ePage.Entities.Header.Data.UIWmsPickup.WorkOrderID + " Acknowledged Successfully."

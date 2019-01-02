@@ -178,7 +178,7 @@
                                             "ORG_ClientName": value.ORG_ClientName,
                                             "ProductCode": value.PL_Req_PrdCode,
                                             "ProductDescription": value.PL_Req_PrdDesc,
-                                            "AdditionalRef2Code": value.PL_ProductCondition,
+                                            "ProductCondition": value.PL_ProductCondition,
                                             "POR_FK": value.PL_Req_PrdPk,
                                             "Packs": value.PL_Packs,
                                             "PAC_PackType": value.PL_PAC_PackType,

@@ -586,7 +586,7 @@
                             "PAC_PackType": value.PAC_PackType,
                             "WOD_FK": value.WOD_FK,
                             "PRO_FK": value.POR_FK,
-                            "ProductCondition": value.AdditionalRef2Code ? value.AdditionalRef2Code : "GDC",
+                            "ProductCondition": value.ProductCondition ? value.ProductCondition : "GDC",
                             "PalletID": value.PalletId,
                             "PartAttrib1": value.PartAttrib1,
                             "PartAttrib2": value.PartAttrib2,

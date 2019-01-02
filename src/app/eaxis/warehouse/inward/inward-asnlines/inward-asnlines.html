@@ -69,6 +69,9 @@
                     <th id="aproductdescription" data-ng-if="InwardAsnLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsAsnLine.aproductdescription.isenabled"
                         ng-style="{ 'width': InwardAsnLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsAsnLine.aproductdescription.width + 'px' }"
                         title="Product Description">Product Description</th>
+                    <th id="aproductcondition" data-ng-if="InwardAsnLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsAsnLine.aproductcondition.isenabled"
+                        ng-style="{ 'width': InwardAsnLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsAsnLine.aproductcondition.width + 'px' }"
+                        title="Product Condition">Product Condition</th>
                     <th id="acommodity" data-ng-if="InwardAsnLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsAsnLine.acommodity.isenabled"
                         ng-style="{ 'width': InwardAsnLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsAsnLine.acommodity.width + 'px' }"
                         title="Commodity">Commodity</th>
@@ -175,6 +178,11 @@
                         ng-style="{ 'width': InwardAsnLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsAsnLine.aproductdescription.width + 'px' }"
                         class="overflow-text" ng-click="InwardAsnLinesCtrl.ePage.Masters.Enable = true">
                         {{ x.ProductDescription || InwardAsnLinesCtrl.ePage.Masters.emptyText}}
+                    </td>
+                    <td id="aproductcondition" data-ng-show='InwardAsnLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsAsnLine.aproductcondition.isenabled'
+                        ng-style="{ 'width': InwardAsnLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsAsnLine.aproductcondition.width + 'px' }"
+                        class="overflow-text" ng-click="InwardAsnLinesCtrl.ePage.Masters.Enable = true">
+                        {{ x.ProductCondition || InwardAsnLinesCtrl.ePage.Masters.emptyText}}
                     </td>
                     <td id="acommodity" data-ng-show='InwardAsnLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsAsnLine.acommodity.isenabled'
                         ng-style="{ 'width': InwardAsnLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsAsnLine.acommodity.width + 'px' }"
