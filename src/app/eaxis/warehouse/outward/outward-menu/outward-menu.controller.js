@@ -778,8 +778,8 @@
                                     value.TotalUnits = 0;
                                 });
                                 OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.CancelledDate = new Date();
+                                // check whether the task available for this entity or not
                                 var _filter = {
-                                    // C_Performer: authService.getUserInfo().UserId,
                                     Status: "AVAILABLE,ASSIGNED",
                                     EntityRefKey: OutwardMenuCtrl.ePage.Entities.Header.Data.PK,
                                     KeyReference: OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WorkOrderID
@@ -793,12 +793,14 @@
                                     if (response.data.Response) {
                                         if (response.data.Response.length > 0) {                                            
                                             angular.forEach(response.data.Response, function (value, key) {
+                                                // To suspend the available task
                                                 apiService.get("eAxisAPI", appConfig.Entities.EBPMEngine.API.SuspendInstance.Url + value.PSI_InstanceNo).then(function (response) {
                                                     if (response.data) {
-                                                        Validation($item);
+                                                        
                                                     }
                                                 });
                                             });
+                                            Validation($item);
                                         } else {
                                             Validation($item);
                                         }

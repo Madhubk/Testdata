@@ -5,9 +5,9 @@
         .module("Application")
         .controller("PendingPickupToolbarController", PendingPickupToolbarController);
 
-    PendingPickupToolbarController.$inject = ["$scope", "$rootScope", "$timeout", "APP_CONSTANT", "apiService", "helperService", "appConfig", "authService", "$state", "confirmation", "$uibModal", "$window", "$http", "toastr"];
+    PendingPickupToolbarController.$inject = ["$scope", "$rootScope", "$timeout", "APP_CONSTANT", "apiService", "helperService", "appConfig", "authService", "$state", "confirmation", "$uibModal", "$window", "$http", "toastr", "$location"];
 
-    function PendingPickupToolbarController($scope, $rootScope, $timeout, APP_CONSTANT, apiService, helperService, appConfig, authService, $state, confirmation, $uibModal, $window, $http, toastr) {
+    function PendingPickupToolbarController($scope, $rootScope, $timeout, APP_CONSTANT, apiService, helperService, appConfig, authService, $state, confirmation, $uibModal, $window, $http, toastr, $location) {
 
         var PendingPickupToolbarCtrl = this;
 
@@ -137,13 +137,22 @@
                                             PendingPickupToolbarCtrl.ePage.Masters.IsCreatePickupBtn = true;
                                             PendingPickupToolbarCtrl.ePage.Masters.CreatePickupBtnText = "Create Pickup";
                                             toastr.success("Pickup Created Successfully");
-                                            var _queryString = {
-                                                PK: response.data.Response.UIWmsPickup.PK,
-                                                WorkOrderID: response.data.Response.UIWmsPickup.WorkOrderID,
-                                            };
-                                            _queryString = helperService.encryptData(_queryString);
-                                            $window.open("#/EA/single-record-view/pendingpickup/" + _queryString, "_blank");
+                                            // var _queryString = {
+                                            //     PK: response.data.Response.UIWmsPickup.PK,
+                                            //     WorkOrderID: response.data.Response.UIWmsPickup.WorkOrderID,
+                                            // };
+                                            // _queryString = helperService.encryptData(_queryString);
+                                            // $window.open("#/EA/single-record-view/pendingpickup/" + _queryString, "_blank");
                                             helperService.refreshGrid();
+                                            var _filter = {
+                                                PSM_FK: "b37d7a0a-d29e-4cb2-82e7-f2c47a081f0c",
+                                                WSI_FK: "e89d563a-9bfb-4a2d-aea9-22c666828f18",
+                                                UserStatus: "WITHIN_KPI_AVAILABLE",
+                                                EntityRefKey: response.data.Response.UIWmsPickup.PK
+                                            };
+                                            $location.path("/EA/my-tasks").search({
+                                                filter: helperService.encryptData(_filter)
+                                            });
                                         } else {
                                             toastr.error("Pickup Creation Failed. Please try again later");
                                             PendingPickupToolbarCtrl.ePage.Masters.IsCreatePickupBtn = false;

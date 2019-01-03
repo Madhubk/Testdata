@@ -5,9 +5,9 @@
         .module("Application")
         .controller("DamagedSkuToolbarController", DamagedSkuToolbarController);
 
-    DamagedSkuToolbarController.$inject = ["$scope", "$rootScope", "$timeout", "APP_CONSTANT", "apiService", "helperService", "appConfig", "authService", "$state", "confirmation", "$uibModal", "$window", "$http", "toastr"];
+    DamagedSkuToolbarController.$inject = ["$scope", "$rootScope", "$timeout", "APP_CONSTANT", "apiService", "helperService", "appConfig", "authService", "$state", "confirmation", "$uibModal", "$window", "$http", "toastr", "$location"];
 
-    function DamagedSkuToolbarController($scope, $rootScope, $timeout, APP_CONSTANT, apiService, helperService, appConfig, authService, $state, confirmation, $uibModal, $window, $http, toastr) {
+    function DamagedSkuToolbarController($scope, $rootScope, $timeout, APP_CONSTANT, apiService, helperService, appConfig, authService, $state, confirmation, $uibModal, $window, $http, toastr, $location) {
 
         var DamagedSkuToolbarCtrl = this;
 
@@ -326,6 +326,7 @@
                                         if (type == "CEN") {
                                             value1.WorkOrderLineStatus = "MCW";
                                         } else if (type == "TES") {
+                                            // Add STC Number
                                             var _filter = {
                                                 "Type": "STC"
                                             };
@@ -337,6 +338,9 @@
                                                 if (response.data.Response) {
                                                     value1.AdditionalRef2Code = response.data.Response[0].Prefix + response.data.Response[0].Value;
                                                     value1.AdditionalRef2Type = "STCNo";
+                                                    if (typeof response.data.Response[0].Value == "string") {
+                                                        response.data.Response[0].Value = JSON.parse(response.data.Response[0].Value);
+                                                    }
                                                     response.data.Response[0].Value = response.data.Response[0].Value + 1;
                                                     response.data.Response[0].IsModified = true;
                                                     apiService.post("eAxisAPI", appConfig.Entities.AppCounter.API.Update.Url, response.data.Response[0]).then(function (response) {
@@ -384,6 +388,15 @@
 
                                         apiService.post("eAxisAPI", appConfig.Entities.EBPMEngine.API.InitiateProcess.Url, _input).then(function (response) {
                                             if (response.data.Response) {
+                                                var _filter = {
+                                                    PSM_FK: "7f4e8926-0de1-45cc-83fc-bca074278920",
+                                                    WSI_FK: "5b9b32eb-af0d-4169-a026-ff3ba64eb7d8",
+                                                    UserStatus: "WITHIN_KPI_AVAILABLE",
+                                                    EntityRefKey: DamagedSkuToolbarCtrl.ePage.Masters.OutwardData.UIWmsOutwardHeader.PK
+                                                };
+                                                $location.path("/EA/my-tasks").search({
+                                                    filter: helperService.encryptData(_filter)
+                                                });
                                             }
                                         });
                                         if (type == "TES") {

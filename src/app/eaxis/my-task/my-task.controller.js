@@ -56,7 +56,7 @@
 
             MyTaskCtrl.ePage.Masters.OnToggleFilterClick = OnToggleFilterClick;
 
-            (MyTaskCtrl.ePage.Masters.IsMobile) ? MyTaskCtrl.ePage.Masters.IsToggleFilter = false: MyTaskCtrl.ePage.Masters.IsToggleFilter = true;
+            (MyTaskCtrl.ePage.Masters.IsMobile) ? MyTaskCtrl.ePage.Masters.IsToggleFilter = false : MyTaskCtrl.ePage.Masters.IsToggleFilter = true;
 
             MyTaskCtrl.ePage.Masters.SelectedWorkItem = SelectedWorkItem;
 
@@ -99,7 +99,7 @@
 
         // =====================================
 
-        function SelectedWorkItem($item) {
+        function SelectedWorkItem($item) {            
             if ($item) {
                 MyTaskCtrl.ePage.Masters.MyTask.ActiveWorkItemCount = $item.Data;
             }
@@ -119,11 +119,12 @@
 
             _filter.C_Performer = authService.getUserInfo().UserId;
             _filter.Status = "AVAILABLE,ASSIGNED";
-
+            
             if (MyTaskCtrl.ePage.Masters.MyTask.ActiveWorkItemCount) {
                 _filter.PSM_FK = MyTaskCtrl.ePage.Masters.MyTask.ActiveWorkItemCount.PSM_FK;
                 _filter.WSI_FK = MyTaskCtrl.ePage.Masters.MyTask.ActiveWorkItemCount.WSI_FK;
                 _filter.UserStatus = MyTaskCtrl.ePage.Masters.MyTask.ActiveWorkItemCount.UserStatus.toUpperCase()
+                _filter.EntityRefKey = MyTaskCtrl.ePage.Masters.MyTask.ActiveWorkItemCount.EntityRefKey;
             }
 
             if (MyTaskCtrl.ePage.Masters.MyTask.Search) {
@@ -567,6 +568,7 @@
                             MyTaskCtrl.ePage.Masters.MyTask.StatusCount.ListSource.map(function (value, key) {
                                 if (value.PSM_FK == _qInput.PSM_FK && value.WSI_FK == _qInput.WSI_FK) {
                                     value.UserStatus = _qInput.UserStatus;
+                                    value.EntityRefKey = _qInput.EntityRefKey;
                                     var _item = {
                                         Data: value,
                                         WorkItemList: MyTaskCtrl.ePage.Masters.MyTask.StatusCount.ListSource
@@ -624,7 +626,7 @@
             MyTaskCtrl.ePage.Masters.MyTask.StatusCount.SentItem = {};
 
             $ocLazyLoad.load(["chromeTab", "compareDate", "dynamicListModal", "dynamicList", "dynamicGrid", "WorkItemListView", "ProcessInstanceWorkItemDetails"]).then(function () {
-                OpenSentItemModal().result.then(function (response) {}, function () {
+                OpenSentItemModal().result.then(function (response) { }, function () {
                     console.log("Cancelled");
                 });
             });

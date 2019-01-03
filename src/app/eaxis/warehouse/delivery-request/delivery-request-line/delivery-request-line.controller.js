@@ -11,7 +11,6 @@
         var DeliveryLineCtrl = this
 
         function Init() {
-
             var currentDelivery = DeliveryLineCtrl.currentDelivery[DeliveryLineCtrl.currentDelivery.label].ePage.Entities;
 
             DeliveryLineCtrl.ePage = {
@@ -21,7 +20,6 @@
                 "Meta": helperService.metaBase(),
                 "Entities": currentDelivery,
             };
-
             // DatePicker
             DeliveryLineCtrl.ePage.Masters.DatePicker = {};
             DeliveryLineCtrl.ePage.Masters.DatePicker.Options = APP_CONSTANT.DatePicker;
@@ -45,13 +43,7 @@
             DeliveryLineCtrl.ePage.Masters.RemoveRow = RemoveRow;
             DeliveryLineCtrl.ePage.Masters.emptyText = '-';
 
-            DeliveryLineCtrl.ePage.Masters.Pagination = {};
-            DeliveryLineCtrl.ePage.Masters.Pagination.CurrentPage = 1;
-            DeliveryLineCtrl.ePage.Masters.Pagination.MaxSize = 3;
-            DeliveryLineCtrl.ePage.Masters.Pagination.ItemsPerPage = 25;
-            DeliveryLineCtrl.ePage.Masters.Pagination.LocalSearchLength = DeliveryLineCtrl.ePage.Entities.Header.Data.UIWmsDeliveryLine.length;
-
-            DeliveryLineCtrl.ePage.Masters.CurrentPageStartingIndex = (DeliveryLineCtrl.ePage.Masters.Pagination.ItemsPerPage) * (DeliveryLineCtrl.ePage.Masters.Pagination.CurrentPage - 1)
+           
 
             GetUserBasedGridColumList();
             GetDropDownList();
@@ -112,12 +104,12 @@
             DeliveryLineCtrl.ePage.Masters.DatePicker.isOpen[opened] = true;
         }
 
-        function GetUserBasedGridColumList() {
+        function GetUserBasedGridColumList() {            
             var _filter = {
                 "SAP_FK": authService.getUserInfo().AppPK,
                 "TenantCode": authService.getUserInfo().TenantCode,
                 "SourceEntityRefKey": authService.getUserInfo().UserId,
-                "EntitySource": "WMS_OUTWARDLINE",
+                "EntitySource": "WMS_DELIVERYLINE",
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),

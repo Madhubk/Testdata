@@ -75,6 +75,7 @@
                 if (response.data.Response) {
                     PickupMenuCtrl.ePage.Masters.PickupOrders = response.data.Response;
                     var count = 0;
+                    // Check whether the Orders attached to this entity is cancelled or not
                     angular.forEach(PickupMenuCtrl.ePage.Masters.PickupOrders, function (value, key) {
                         if (value.WorkOrderStatus == "CAN") {
                             count = count + 1;
@@ -90,6 +91,7 @@
                                 };
 
                                 $scope.ok = function () {
+                                    // Insert Job Comments
                                     var InsertCommentObject = [];
                                     var obj = {
                                         "Description": "General",
@@ -101,8 +103,8 @@
                                     InsertCommentObject.push(obj);
                                     apiService.post("eAxisAPI", appConfig.Entities.JobComments.API.Insert.Url, InsertCommentObject).then(function (response) {
                                         PickupMenuCtrl.ePage.Entities.Header.Data.UIWmsPickup.CancelledDate = new Date();
+                                        // check whether the task available for this entity or not
                                         var _filter = {
-                                            // C_Performer: authService.getUserInfo().UserId,
                                             Status: "AVAILABLE,ASSIGNED",
                                             EntityRefKey: PickupMenuCtrl.ePage.Entities.Header.Data.PK,
                                             KeyReference: PickupMenuCtrl.ePage.Entities.Header.Data.UIWmsPickup.WorkOrderID
@@ -115,12 +117,14 @@
                                             if (response.data.Response) {
                                                 if (response.data.Response.length > 0) {
                                                     angular.forEach(response.data.Response, function (value, key) {
+                                                        // To suspend the available task
                                                         apiService.get("eAxisAPI", appConfig.Entities.EBPMEngine.API.SuspendInstance.Url + value.PSI_InstanceNo).then(function (response) {
                                                             if (response.data) {
-                                                                Validation($item);
+
                                                             }
                                                         });
                                                     });
+                                                    Validation($item);
                                                 } else {
                                                     Validation($item);
                                                 }
@@ -132,7 +136,7 @@
                             }
                         });
                     } else {
-                        toastr.warning("It can be canceled when all the Order(s) is Cancelled");
+                        toastr.error("It can be canceled when all the Order(s) is Cancelled");
                         PickupMenuCtrl.ePage.Masters.CancelButtonText = "Cancel Pickup";
                         PickupMenuCtrl.ePage.Masters.DisableSave = false;
                         PickupMenuCtrl.ePage.Masters.IsCancelButton = false;
