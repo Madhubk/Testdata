@@ -335,12 +335,12 @@
                                                 "FilterID": appConfig.Entities.WmsTestID.API.FindAll.FilterID
                                             };
                                             apiService.post("eAxisAPI", appConfig.Entities.WmsTestID.API.FindAll.Url, _input).then(function (response) {
-                                                if (response.data.Response) {
-                                                    value1.AdditionalRef2Code = response.data.Response[0].Prefix + response.data.Response[0].Value;
-                                                    value1.AdditionalRef2Type = "STCNo";
+                                                if (response.data.Response) {                                                    
                                                     if (typeof response.data.Response[0].Value == "string") {
                                                         response.data.Response[0].Value = JSON.parse(response.data.Response[0].Value);
                                                     }
+                                                    value1.AdditionalRef2Code = response.data.Response[0].Prefix + response.data.Response[0].Value;
+                                                    value1.AdditionalRef2Type = "STCNo";
                                                     response.data.Response[0].Value = response.data.Response[0].Value + 1;
                                                     response.data.Response[0].IsModified = true;
                                                     apiService.post("eAxisAPI", appConfig.Entities.AppCounter.API.Update.Url, response.data.Response[0]).then(function (response) {
