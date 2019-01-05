@@ -229,7 +229,7 @@
         function GetDynamicLookupConfig() {
             // Get DataEntryNameList 
             var _filter = {
-                pageName: 'WarehouseInward'
+                pageName: 'WarehouseOutward'
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),

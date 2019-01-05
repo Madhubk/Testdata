@@ -76,17 +76,18 @@
                 if (count == PendingPickupToolbarCtrl.ePage.Masters.PendingPickupList.length) {
                     PendingPickupToolbarCtrl.ePage.Masters.IsCreatePickupBtn = true;
                     PendingPickupToolbarCtrl.ePage.Masters.CreatePickupBtnText = "Please Wait...";
-                    apiService.get("eAxisAPI", appConfig.Entities.WmsDeliveryList.API.GetById.Url + PendingPickupToolbarCtrl.ePage.Masters.PendingPickupList[0].WOD_FK).then(function (response) {
+                    apiService.get("eAxisAPI", appConfig.Entities.WmsDeliveryList.API.GetById.Url + PendingPickupToolbarCtrl.ePage.Masters.PendingPickupList[0].DEL_PK).then(function (response) {
                         if (response.data.Response) {
                             PendingPickupToolbarCtrl.ePage.Masters.DeliveryData = response.data.Response;
                             helperService.getFullObjectUsingGetById(appConfig.Entities.WmsPickupList.API.GetById.Url, 'null').then(function (response) {
                                 if (response.data.Response.Response) {
                                     response.data.Response.Response.UIWmsPickup.PK = response.data.Response.Response.PK;
                                     response.data.Response.Response.UIWmsPickup.ExternalReference = response.data.Response.Response.UIWmsPickup.WorkOrderID;
-                                    response.data.Response.Response.UIWmsPickup.ORG_Client_FK = PendingPickupToolbarCtrl.ePage.Masters.PendingPickupList[0].WOD_ORG_Client_FK;
-                                    response.data.Response.Response.UIWmsPickup.ORG_Consignee_FK = PendingPickupToolbarCtrl.ePage.Masters.PendingPickupList[0].WOD_ORG_Consignee_FK
-                                    response.data.Response.Response.UIWmsPickup.WAR_FK = PendingPickupToolbarCtrl.ePage.Masters.PendingPickupList[0].WOD_WAR_FK;
+                                    response.data.Response.Response.UIWmsPickup.ORG_Client_FK = PendingPickupToolbarCtrl.ePage.Masters.PendingPickupList[0].DEL_ORG_Client_FK;
+                                    response.data.Response.Response.UIWmsPickup.ORG_Consignee_FK = PendingPickupToolbarCtrl.ePage.Masters.PendingPickupList[0].DEL_ORG_Consignee_FK
+                                    response.data.Response.Response.UIWmsPickup.WAR_FK = PendingPickupToolbarCtrl.ePage.Masters.PendingPickupList[0].DEL_WAR_FK;
                                     response.data.Response.Response.UIWmsWorkorderReport.AdditionalRef1Code = PendingPickupToolbarCtrl.ePage.Masters.DeliveryData.UIWmsWorkorderReport.AdditionalRef1Code;
+                                    response.data.Response.Response.UIWmsWorkorderReport.ResponseType = PendingPickupToolbarCtrl.ePage.Masters.DeliveryData.UIWmsWorkorderReport.ResponseType;
                                     response.data.Response.Response.UIJobAddress = angular.copy(PendingPickupToolbarCtrl.ePage.Masters.DeliveryData.UIJobAddress);
                                     angular.forEach(response.data.Response.Response.UIJobAddress, function (value, key) {
                                         value.PK = "";
@@ -96,36 +97,36 @@
                                     angular.forEach(PendingPickupToolbarCtrl.ePage.Masters.PendingPickupList, function (value, key) {
                                         var obj = {
                                             "PK": "",
-                                            "WOL_Parent_FK": value.PK,
-                                            "ProductCode": value.DELPRD_Req_PrdCode,
-                                            "ProductDescription": value.DELPRD_Req_PrdDesc,
+                                            "WOL_Parent_FK": value.DL_PK,
+                                            "ProductCode": value.DL_Req_PrdCode,
+                                            "ProductDescription": value.DL_Req_PrdDesc,
                                             "ProductCondition": "",
-                                            "PRO_FK": value.DELPRD_Req_PrdPk,
-                                            "MCC_NKCommodityCode": value.DELPRD_MCC_NKCommodityCode,
-                                            "Packs": value.Packs,
-                                            "PAC_PackType": value.PAC_PackType,
-                                            "Units": value.Units,
-                                            "StockKeepingUnit": value.DELPRD_StockKeepingUnit,
-                                            "PartAttrib1": value.DeliveredPartAttrib1,
-                                            "PartAttrib2": value.DeliveredPartAttrib2,
-                                            "PartAttrib3": value.DeliveredPartAttrib3,
-                                            "PackingDate": value.DeliveredPackingDate,
-                                            "ExpiryDate": value.DeliveredExpiryDate,
-                                            "UseExpiryDate": value.DEL_UseExpiryDate,
-                                            "UsePackingDate": value.DEL_UsePackingDate,
-                                            "UsePartAttrib1": value.DEL_UsePartAttrib1,
-                                            "UsePartAttrib2": value.DEL_UsePartAttrib2,
-                                            "UsePartAttrib3": value.DEL_UsePartAttrib3,
-                                            "IsPartAttrib1ReleaseCaptured": value.DEL_IsPartAttrib1ReleaseCaptured,
-                                            "IsPartAttrib2ReleaseCaptured": value.DEL_IsPartAttrib2ReleaseCaptured,
-                                            "IsPartAttrib3ReleaseCaptured": value.DEL_IsPartAttrib3ReleaseCaptured,
+                                            "PRO_FK": value.DL_Req_PrdPk,
+                                            "MCC_NKCommodityCode": value.DL_NKCommodityCode,
+                                            "Packs": value.DL_Packs,
+                                            "PAC_PackType": value.DL_PAC_PackType,
+                                            "Units": value.DL_Units,
+                                            "StockKeepingUnit": value.DL_StockKeepingUnit,
+                                            "PartAttrib1": value.OUT_DeliveredPartAttrib1,
+                                            "PartAttrib2": value.OUT_DeliveredPartAttrib2,
+                                            "PartAttrib3": value.OUT_DeliveredPartAttrib3,
+                                            "PackingDate": value.OUT_DeliveredPackingDate,
+                                            "ExpiryDate": value.OUT_DeliveredExpiryDate,
+                                            "UseExpiryDate": value.DL_UseExpiryDate,
+                                            "UsePackingDate": value.DL_UsePackingDate,
+                                            "UsePartAttrib1": value.DL_UsePartAttrib1,
+                                            "UsePartAttrib2": value.DL_UsePartAttrib2,
+                                            "UsePartAttrib3": value.DL_UsePartAttrib3,
+                                            "IsPartAttrib1ReleaseCaptured": value.DL_IsPartAttrib1ReleaseCaptured,
+                                            "IsPartAttrib2ReleaseCaptured": value.DL_IsPartAttrib2ReleaseCaptured,
+                                            "IsPartAttrib3ReleaseCaptured": value.DL_IsPartAttrib3ReleaseCaptured,
                                             "WorkOrderLineType": "PIC",
                                             "IsDeleted": false,
                                             "ORG_ClientCode": value.DEL_ClientCode,
                                             "ORG_ClientName": value.DEL_ClientName,
                                             "Client_FK": value.DEL_ClientFk,
-                                            "AdditionalRef1Code": value.AdditionalRef1Code,
-
+                                            "AdditionalRef1Code": value.DL_AdditionalRef1Code,
+                                            "AdditionalRef1Type": value.DL_AdditionalRef1Type,
                                             "WAR_WarehouseCode": value.DEL_WAR_Code,
                                             "WAR_WarehouseName": value.DEL_WAR_Name,
                                             "WAR_FK": value.WOD_WAR_FK,

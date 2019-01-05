@@ -266,9 +266,10 @@
                         if (type == "MTR")
                             response.data.Response.Response.UIWmsOutwardHeader.WorkOrderSubType = "MTR";
                         response.data.Response.Response.UIWmsOutwardHeader.WOD_Parent_FK = CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.PK;
+                        
                         angular.forEach(CreateDelChallanCtrl.ePage.Masters.SelectedDeliveryLine, function (value, key) {
                             var obj = {
-                                "Parent_FK": value.PK,
+                                "Parent_FK": value.DL_PK,
                                 "PK": "",
                                 "WorkOrderType": "ORD",
                                 "WorkOrderLineType": "ORD",
@@ -468,7 +469,7 @@
                 "ClientCode": CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ClientCode,
                 "WAR_WarehouseCode": CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WarehouseCode,
                 "InventoryStatusIn": "AVL,HEL",
-                "ProductCode": item.DLPRD_Req_PrdCode
+                "ProductCode": item.DL_Req_PrdCode
             };
             CreateDelChallanCtrl.ePage.Masters.DynamicControl = undefined;
             GetConfigDetails();

@@ -136,7 +136,7 @@
             if (DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList.length > 0) {
                 var count = 0;
                 angular.forEach(DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList, function (value, key) {
-                    if (!value.REPOUT_Pk && !value.SCROUT_Pk && value.PL_AdditionalRef2Code && value.PL_WorkOrderLineStatusDesc == "Stock at Central Warehouse") {
+                    if (!value.REPOUT_Pk && !value.SCROUT_Pk && value.PL_AdditionalRef2Code && value.PL_WorkOrderLineStatusDesc == "Tested, Stock at Central Warehouse") {
                         count = count + 1;
                     }
                 });
@@ -166,7 +166,7 @@
             if (DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList.length > 0) {
                 var count = 0;
                 angular.forEach(DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList, function (value, key) {
-                    if (!value.SCROUT_Pk && !value.REPOUT_Pk && value.PL_AdditionalRef2Code && value.PL_WorkOrderLineStatusDesc == "Stock at Central Warehouse") {
+                    if (!value.SCROUT_Pk && !value.REPOUT_Pk && value.PL_AdditionalRef2Code && value.PL_WorkOrderLineStatusDesc == "Tested, Stock at Central Warehouse") {
                         count = count + 1;
                     }
                 });
@@ -196,7 +196,7 @@
             if (DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList.length > 0) {
                 var count = 0;
                 angular.forEach(DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList, function (value, key) {
-                    if (value.REPIN_Pk && value.PL_WorkOrderLineStatusDesc == "Stock at Central Warehouse") {
+                    if (value.REPIN_Pk && value.PL_WorkOrderLineStatusDesc == "Repaired, Stock at Central Warehouse") {
                         count = count + 1;
                     }
                 });
@@ -274,7 +274,7 @@
                                     value.AddressType = "CED";
                                 }
                             });
-
+                            
                             angular.forEach(DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList, function (value, key) {
                                 var obj = {
                                     "Parent_FK": value.PL_PK,
@@ -290,7 +290,7 @@
                                     "Commodity": value.PL_Commodity,
                                     "MCC_NKCommodityCode": value.PL_MCC_NKCommodityCode,
                                     "MCC_NKCommodityDesc": value.PL_MCC_NKCommodityDesc,
-                                    "ProductCondition": value.PL_ProductCondition,
+                                    "ProductCondition": value.PL_WorkOrderLineStatusDesc == "Stock at Testing Warehouse" ? '' : value.PL_ProductCondition,
                                     "Packs": value.PL_Packs,
                                     "PAC_PackType": value.PL_PAC_PackType,
                                     "Units": value.PL_Units,
@@ -321,10 +321,17 @@
                                     "WAR_FK": value.PIC_WAR_FK,
                                 };
                                 response.data.Response.Response.UIWmsWorkOrderLine.push(obj);
+                                
                                 angular.forEach(DamagedSkuToolbarCtrl.ePage.Masters.PickupData.UIWmsPickupLine, function (value1, key1) {
                                     if (value.PL_PK == value1.PK) {
                                         if (type == "CEN") {
-                                            value1.WorkOrderLineStatus = "MCW";
+                                            if (value.PL_WorkOrderLineStatusDesc == "Stock at Site Warehouse") {
+                                                value1.WorkOrderLineStatus = "MCWS";
+                                            } else if (value.PL_WorkOrderLineStatusDesc == "Stock at Testing Warehouse") {
+                                                value1.WorkOrderLineStatus = "MCWT";
+                                            } else if (value.PL_WorkOrderLineStatusDesc == "Stock at Repair Warehouse") {
+                                                value1.WorkOrderLineStatus = "MCWR";
+                                            }
                                         } else if (type == "TES") {
                                             // Add STC Number
                                             var _filter = {
@@ -335,7 +342,7 @@
                                                 "FilterID": appConfig.Entities.WmsTestID.API.FindAll.FilterID
                                             };
                                             apiService.post("eAxisAPI", appConfig.Entities.WmsTestID.API.FindAll.Url, _input).then(function (response) {
-                                                if (response.data.Response) {                                                    
+                                                if (response.data.Response) {
                                                     if (typeof response.data.Response[0].Value == "string") {
                                                         response.data.Response[0].Value = JSON.parse(response.data.Response[0].Value);
                                                     }

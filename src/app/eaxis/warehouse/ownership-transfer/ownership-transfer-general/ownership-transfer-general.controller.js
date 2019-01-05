@@ -112,8 +112,7 @@
             }
         }
 
-        function SelectedLookupTransferFromClient(item) {
-            debugger
+        function SelectedLookupTransferFromClient(item) {            
             OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.TransferFrom_ORG = item.Code + "-" + item.FullName;
             OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.TransferFrom_ORG_Code = item.Code;
             OnChangeValues(OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.TransferFrom_ORG_Code, 'E3077');
