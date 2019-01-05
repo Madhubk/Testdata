@@ -24,7 +24,7 @@
             };
             OutwardDispatchCtrl.ePage.Masters.Config = outwardConfig;
             OutwardDispatchCtrl.ePage.Masters.DropDownMasterList = {};
-            
+
             OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails = OutwardDispatchCtrl.manifestDetails;
             OutwardDispatchCtrl.ePage.Masters.TransportMode = ["Road", "Air", "Sea"];
             if (!OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.TransportMode)
@@ -41,9 +41,14 @@
             OutwardDispatchCtrl.ePage.Masters.SingleRecordView = SingleRecordView;
             OutwardDispatchCtrl.ePage.Masters.StandardMenuConfig = StandardMenuConfig;
             OutwardDispatchCtrl.ePage.Masters.OnChangeValues = OnChangeValues;
+            OutwardDispatchCtrl.ePage.Masters.OnChangeDate = OnChangeDate;
             GetDropDownList();
             getVehicleType();
             generalOperation();
+        }
+
+        function OnChangeDate(item) {
+            OutwardDispatchCtrl.manifestDetails = OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails;
         }
 
         function OnChangeValues(fieldvalue, code) {
@@ -143,8 +148,11 @@
             apiService.post("eAxisAPI", OutwardDispatchCtrl.ePage.Entities.Header.API.MstContainer.Url, _input).then(function SuccessCallback(response) {
                 if (response.data.Status == "Success") {
                     OutwardDispatchCtrl.ePage.Masters.VehicleType = response.data.Response;
-                    if (!OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.VehicleTypeCode)
+                    if (!OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.VehicleTypeCode) {
                         OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.VehicleTypeCode = response.data.Response[0].Code;
+                        OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.VehicleType = response.data.Response[0].PK;
+                        OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.VehicleTypeDescription = response.data.Response[0].Description;
+                    }
                 }
             });
         }

@@ -75,6 +75,7 @@
                 if (response.data.Response) {
                     PickupMenuCtrl.ePage.Masters.PickupOrders = response.data.Response;
                     var count = 0;
+                    // Check whether the Orders attached to this entity is cancelled or not
                     angular.forEach(PickupMenuCtrl.ePage.Masters.PickupOrders, function (value, key) {
                         if (value.WorkOrderStatus == "CAN") {
                             count = count + 1;
@@ -90,6 +91,7 @@
                                 };
 
                                 $scope.ok = function () {
+                                    // Insert Job Comments
                                     var InsertCommentObject = [];
                                     var obj = {
                                         "Description": "General",
@@ -101,14 +103,40 @@
                                     InsertCommentObject.push(obj);
                                     apiService.post("eAxisAPI", appConfig.Entities.JobComments.API.Insert.Url, InsertCommentObject).then(function (response) {
                                         PickupMenuCtrl.ePage.Entities.Header.Data.UIWmsPickup.CancelledDate = new Date();
-                                        Validation($item);
+                                        // check whether the task available for this entity or not
+                                        var _filter = {
+                                            Status: "AVAILABLE,ASSIGNED",
+                                            EntityRefKey: PickupMenuCtrl.ePage.Entities.Header.Data.PK,
+                                            KeyReference: PickupMenuCtrl.ePage.Entities.Header.Data.UIWmsPickup.WorkOrderID
+                                        };
+                                        var _input = {
+                                            "searchInput": helperService.createToArrayOfObject(_filter),
+                                            "FilterID": appConfig.Entities.EBPMWorkItem.API.FindAllWithAccess.FilterID
+                                        };
+                                        apiService.post("eAxisAPI", appConfig.Entities.EBPMWorkItem.API.FindAllWithAccess.Url, _input).then(function (response) {
+                                            if (response.data.Response) {
+                                                if (response.data.Response.length > 0) {
+                                                    angular.forEach(response.data.Response, function (value, key) {
+                                                        // To suspend the available task
+                                                        apiService.get("eAxisAPI", appConfig.Entities.EBPMEngine.API.SuspendInstance.Url + value.PSI_InstanceNo).then(function (response) {
+                                                            if (response.data) {
+
+                                                            }
+                                                        });
+                                                    });
+                                                    Validation($item);
+                                                } else {
+                                                    Validation($item);
+                                                }
+                                            }
+                                        });
                                         $uibModalInstance.dismiss('cancel');
                                     });
                                 }
                             }
                         });
                     } else {
-                        toastr.warning("It can be canceled when all the Order(s) is Cancelled");
+                        toastr.error("It can be canceled when all the Order(s) is Cancelled");
                         PickupMenuCtrl.ePage.Masters.CancelButtonText = "Cancel Pickup";
                         PickupMenuCtrl.ePage.Masters.DisableSave = false;
                         PickupMenuCtrl.ePage.Masters.IsCancelButton = false;
@@ -187,6 +215,33 @@
 
                         PickupMenuCtrl.ePage.Entities.Header.Data.UIWmsPickup.Consignee = PickupMenuCtrl.ePage.Entities.Header.Data.UIWmsPickup.ConsigneeCode + ' - ' + PickupMenuCtrl.ePage.Entities.Header.Data.UIWmsPickup.ConsigneeName;
                         PickupMenuCtrl.ePage.Entities.Header.Data.UIWmsPickup.Warehouse = PickupMenuCtrl.ePage.Entities.Header.Data.UIWmsPickup.WarehouseCode + ' - ' + PickupMenuCtrl.ePage.Entities.Header.Data.UIWmsPickup.WarehouseName;
+                        if ($item.isNew) {
+                            var _smsInput = {
+                                "MobileNo": PickupMenuCtrl.ePage.Entities.Header.Data.UIWmsWorkorderReport.RequesterContactNo,
+                                "Message": "Pickup Request " + PickupMenuCtrl.ePage.Entities.Header.Data.UIWmsPickup.WorkOrderID + " Acknowledged Successfully."
+                            }
+                            apiService.post("authAPI", appConfig.Entities.Notification.API.SendSms.Url, _smsInput).then(function (response) {
+
+                            });
+                            if (pickupConfig.Entities.ClientContact.length > 0) {
+                                var _smsInput = {
+                                    "MobileNo": pickupConfig.Entities.ClientContact[0].Mobile,
+                                    "Message": "Pickup Request " + PickupMenuCtrl.ePage.Entities.Header.Data.UIWmsPickup.WorkOrderID + " Acknowledged Successfully."
+                                }
+                                apiService.post("authAPI", appConfig.Entities.Notification.API.SendSms.Url, _smsInput).then(function (response) {
+
+                                });
+                            }
+                            if (pickupConfig.Entities.WarehouseContact.length > 0) {
+                                var _smsInput = {
+                                    "MobileNo": pickupConfig.Entities.WarehouseContact[0].Mobile,
+                                    "Message": "Pickup Request " + PickupMenuCtrl.ePage.Entities.Header.Data.UIWmsPickup.WorkOrderID + " Acknowledged Successfully."
+                                }
+                                apiService.post("authAPI", appConfig.Entities.Notification.API.SendSms.Url, _smsInput).then(function (response) {
+
+                                });
+                            }
+                        }
 
                         if (PickupMenuCtrl.ePage.Entities.Header.Data.UIWmsPickup.WorkOrderStatus == "CAN") {
                             PickupMenuCtrl.ePage.Entities.Header.GlobalVariables.NonEditable = true;

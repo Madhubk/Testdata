@@ -576,7 +576,7 @@
                 if (!InwardAsnLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.ArrivalDate) {
                     OnChangeValues(null, "E3034", false, undefined);
                     InwardAsnLinesCtrl.ePage.Masters.Config.ShowErrorWarningModal(InwardAsnLinesCtrl.currentInward);
-                } else {
+                } else {                    
                     angular.forEach(InwardAsnLinesCtrl.ePage.Entities.Header.Data.UIWmsAsnLine, function (value, key) {
                         var obj = {
                             "LineNo": value.LineNo,
@@ -586,7 +586,7 @@
                             "PAC_PackType": value.PAC_PackType,
                             "WOD_FK": value.WOD_FK,
                             "PRO_FK": value.POR_FK,
-                            "ProductCondition": "GDC",
+                            "ProductCondition": value.ProductCondition ? value.ProductCondition : "GDC",
                             "PalletID": value.PalletId,
                             "PartAttrib1": value.PartAttrib1,
                             "PartAttrib2": value.PartAttrib2,

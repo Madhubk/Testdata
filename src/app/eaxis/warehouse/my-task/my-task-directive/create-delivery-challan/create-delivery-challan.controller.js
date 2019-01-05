@@ -66,12 +66,12 @@
 
         }
 
-        function CreateMaterial() {            
+        function CreateMaterial() {
             if (CreateDelChallanCtrl.ePage.Masters.WarehouseCode) {
                 if (CreateDelChallanCtrl.ePage.Masters.WarehouseCode == CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WarehouseCode) {
                     toastr.warning("Transfer From and To warehouse's are same. Select another warehouse");
                 } else {
-                    CreateDelChallanCtrl.ePage.Masters.modalInstance.close('close');
+                    CreateDelChallanCtrl.ePage.Masters.modalInstance.close('MTR');
                 }
             } else {
                 toastr.warning("Please enter Transfer From Warehouse");
@@ -155,7 +155,7 @@
                     var temp = 0;
                     CreateDelChallanCtrl.ePage.Masters.TempCSR = '';
                     angular.forEach(CreateDelChallanCtrl.ePage.Masters.SelectedDeliveryLine, function (value, key) {
-                        if (value.OUT_PrdCode || value.MTOUT_PrdCode) {
+                        if (value.OL_PrdCode || value.MOL_PrdCode) {
                             temp = temp + 1;
                             CreateDelChallanCtrl.ePage.Masters.TempCSR = CreateDelChallanCtrl.ePage.Masters.TempCSR + value.AdditionalRef1Code + ",";
                         }
@@ -165,15 +165,9 @@
                         if (type == "OUT") {
                             GoToOutwardCreation(type);
                         } else if (type == "MTR") {
-                            openModel().result.then(function (response) {                                
-                                if (CreateDelChallanCtrl.ePage.Masters.WarehouseCode) {
-                                    if (CreateDelChallanCtrl.ePage.Masters.WarehouseCode == CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WarehouseCode) {
-                                        toastr.warning("Transfer From and To warehouse's are same. Select another warehouse");
-                                    } else {
-                                        GoToOutwardCreation(type);
-                                    }
-                                } else {
-                                    toastr.warning("Please enter Transfer From Warehouse");
+                            openModel().result.then(function (response) {
+                                if (response == "MTR") {
+                                    GoToOutwardCreation(type);
                                 }
                             }, function () {
                                 console.log("Cancelled");
@@ -272,50 +266,51 @@
                         if (type == "MTR")
                             response.data.Response.Response.UIWmsOutwardHeader.WorkOrderSubType = "MTR";
                         response.data.Response.Response.UIWmsOutwardHeader.WOD_Parent_FK = CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.PK;
+                        
                         angular.forEach(CreateDelChallanCtrl.ePage.Masters.SelectedDeliveryLine, function (value, key) {
                             var obj = {
-                                "Parent_FK": value.PK,
+                                "Parent_FK": value.DL_PK,
                                 "PK": "",
                                 "WorkOrderType": "ORD",
                                 "WorkOrderLineType": "ORD",
                                 "WorkOrderID": response.data.Response.Response.UIWmsOutwardHeader.WorkOrderID,
                                 "ExternalReference": response.data.Response.Response.UIWmsOutwardHeader.WorkOrderID,
                                 "WOD_FK": response.data.Response.Response.PK,
-                                "ProductCode": value.DLPRD_Req_PrdCode,
-                                "ProductDescription": value.DLPRD_Req_PrdDesc,
-                                "PRO_FK": value.DLPRD_Req_PrdPk,
+                                "ProductCode": value.DL_Req_PrdCode,
+                                "ProductDescription": value.DL_Req_PrdDesc,
+                                "PRO_FK": value.DL_Req_PrdPk,
                                 "Commodity": value.Commodity,
-                                "MCC_NKCommodityCode": value.MCC_NKCommodityCode,
-                                "MCC_NKCommodityDesc": value.MCC_NKCommodityDesc,
+                                "MCC_NKCommodityCode": value.DL_MCC_NKCommodityCode,
+                                "MCC_NKCommodityDesc": value.DL_MCC_NKCommodityDesc,
                                 "ProductCondition": "GDC",
-                                "Packs": value.Packs,
-                                "PAC_PackType": value.PAC_PackType,
-                                "Units": value.Units,
-                                "StockKeepingUnit": value.StockKeepingUnit,
-                                "PartAttrib1": value.PartAttrib1,
-                                "PartAttrib2": value.PartAttrib2,
-                                "PartAttrib3": value.PartAttrib3,
-                                "LineComment": value.LineComment,
-                                "PackingDate": value.PackingDate,
-                                "ExpiryDate": value.ExpiryDate,
-                                "AdditionalRef1Code": value.AdditionalRef1Code,
-                                "UseExpiryDate": value.UseExpiryDate,
-                                "UsePackingDate": value.UsePackingDate,
-                                "UsePartAttrib1": value.UsePartAttrib1,
-                                "UsePartAttrib2": value.UsePartAttrib2,
-                                "UsePartAttrib3": value.UsePartAttrib3,
-                                "IsPartAttrib1ReleaseCaptured": value.IsPartAttrib1ReleaseCaptured,
-                                "IsPartAttrib2ReleaseCaptured": value.IsPartAttrib2ReleaseCaptured,
-                                "IsPartAttrib3ReleaseCaptured": value.IsPartAttrib3ReleaseCaptured,
+                                "Packs": value.DL_Packs,
+                                "PAC_PackType": value.DL_PAC_PackType,
+                                "Units": value.DL_Units,
+                                "StockKeepingUnit": value.DL_StockKeepingUnit,
+                                "PartAttrib1": value.DL_PartAttrib1,
+                                "PartAttrib2": value.DL_PartAttrib2,
+                                "PartAttrib3": value.DL_PartAttrib3,
+                                "LineComment": value.DL_LineComment,
+                                "PackingDate": value.DL_PackingDate,
+                                "ExpiryDate": value.DL_ExpiryDate,
+                                "AdditionalRef1Code": value.DL_AdditionalRef1Code,
+                                "UseExpiryDate": value.DL_UseExpiryDate,
+                                "UsePackingDate": value.DL_UsePackingDate,
+                                "UsePartAttrib1": value.DL_UsePartAttrib1,
+                                "UsePartAttrib2": value.DL_UsePartAttrib2,
+                                "UsePartAttrib3": value.DL_UsePartAttrib3,
+                                "IsPartAttrib1ReleaseCaptured": value.DL_IsPartAttrib1ReleaseCaptured,
+                                "IsPartAttrib2ReleaseCaptured": value.DL_IsPartAttrib2ReleaseCaptured,
+                                "IsPartAttrib3ReleaseCaptured": value.DL_IsPartAttrib3ReleaseCaptured,
 
                                 "IsDeleted": false,
-                                "ORG_ClientCode": value.ORG_ClientCode,
-                                "ORG_ClientName": value.ORG_ClientName,
-                                "Client_FK": value.Client_FK,
+                                "ORG_ClientCode": value.DEL_ClientCode,
+                                "ORG_ClientName": value.DEL_ClientName,
+                                "Client_FK": value.DEL_Client_FK,
 
-                                "WAR_WarehouseCode": value.WAR_WarehouseCode,
-                                "WAR_WarehouseName": value.WAR_WarehouseName,
-                                "WAR_FK": value.WAR_FK,
+                                "WAR_WarehouseCode": value.DEL_WAR_Code,
+                                "WAR_WarehouseName": value.DEL_WAR_Name,
+                                "WAR_FK": value.DEL_WAR_FK,
                             };
                             response.data.Response.Response.UIWmsWorkOrderLine.push(obj);
                         });
@@ -474,7 +469,7 @@
                 "ClientCode": CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ClientCode,
                 "WAR_WarehouseCode": CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WarehouseCode,
                 "InventoryStatusIn": "AVL,HEL",
-                "ProductCode": item.DLPRD_Req_PrdCode
+                "ProductCode": item.DL_Req_PrdCode
             };
             CreateDelChallanCtrl.ePage.Masters.DynamicControl = undefined;
             GetConfigDetails();

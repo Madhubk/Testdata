@@ -677,10 +677,18 @@
                                     "display":true
                                 },
                                 {
+                                    "columnname":"Product Condition",
+                                    "isenabled":true,
+                                    "property":"aproductcondition",
+                                    "position":"5",
+                                    "width":"100",
+                                    "display":true
+                                },
+                                {
                                     "columnname":"Commodity",
                                     "isenabled":true,
                                     "property":"acommodity",
-                                    "position":"5",
+                                    "position":"6",
                                     "width":"100",
                                     "display":true
                                 },
@@ -688,7 +696,7 @@
                                     "columnname":"Pack",
                                     "isenabled":true,
                                     "property":"apack",
-                                    "position":"6",
+                                    "position":"7",
                                     "width":"100",
                                     "display":true
                                 },
@@ -696,7 +704,7 @@
                                     "columnname":"Pack UQ",
                                     "isenabled":true,
                                     "property":"apackuq",
-                                    "position":"7",
+                                    "position":"8",
                                     "width":"100",
                                     "display":true
                                 },
@@ -704,7 +712,7 @@
                                     "columnname":"Quantity",
                                     "isenabled":true,
                                     "property":"aquantity",
-                                    "position":"8",
+                                    "position":"9",
                                     "width":"100",
                                     "display":true
                                 },
@@ -712,7 +720,7 @@
                                     "columnname":"Quantity UQ",
                                     "isenabled":true,
                                     "property":"aquantityuq",
-                                    "position":"9",
+                                    "position":"10",
                                     "width":"100",
                                     "display":true
                                 },
@@ -720,7 +728,7 @@
                                     "columnname":"Pallet ID",
                                     "isenabled":true,
                                     "property":"apalletid",
-                                    "position":"10",
+                                    "position":"11",
                                     "width":"100",
                                     "display":true
                                 },
@@ -728,7 +736,7 @@
                                     "columnname":"UDF 1",
                                     "isenabled":true,
                                     "property":"audf1",
-                                    "position":"11",
+                                    "position":"12",
                                     "width":"120",
                                     "display":true
                                 },
@@ -736,7 +744,7 @@
                                     "columnname":"UDF 2",
                                     "isenabled":true,
                                     "property":"audf2",
-                                    "position":"12",
+                                    "position":"13",
                                     "width":"120",
                                     "display":true
                                 },
@@ -744,7 +752,7 @@
                                     "columnname":"UDF 3",
                                     "isenabled":true,
                                     "property":"audf3",
-                                    "position":"13",
+                                    "position":"14",
                                     "width":"120",
                                     "display":true
                                 },
@@ -752,7 +760,7 @@
                                     "columnname":"Packing Date",
                                     "isenabled":true,
                                     "property":"apackingdate",
-                                    "position":"14",
+                                    "position":"15",
                                     "width":"120",
                                     "display":true
                                 },
@@ -760,7 +768,7 @@
                                     "columnname":"Expiry Date",
                                     "isenabled":true,
                                     "property":"aexpirydate",
-                                    "position":"15",
+                                    "position":"16",
                                     "width":"120",
                                     "display":true
                                 },
@@ -768,7 +776,7 @@
                                     "columnname":"Additional Reference1",
                                     "isenabled":true,
                                     "property":"aadditionalreference1",
-                                    "position":"16",
+                                    "position":"17",
                                     "width":"100",
                                     "display":true
                                 }],
@@ -792,64 +800,69 @@
                                     "position":"4",
                                     "width":"100"
                                 },
-                                "acommodity":{
+                                "aproductcondition":{
                                     "isenabled":true,
                                     "position":"5",
                                     "width":"100"
                                 },
-                                "apack":{
+                                "acommodity":{
                                     "isenabled":true,
                                     "position":"6",
                                     "width":"100"
                                 },
-                                "apackuq":{
+                                "apack":{
                                     "isenabled":true,
                                     "position":"7",
                                     "width":"100"
                                 },
-                                "aquantity":{
+                                "apackuq":{
                                     "isenabled":true,
                                     "position":"8",
                                     "width":"100"
                                 },
-                                "aquantityuq":{
+                                "aquantity":{
                                     "isenabled":true,
                                     "position":"9",
                                     "width":"100"
                                 },
-                                "apalletid":{
+                                "aquantityuq":{
                                     "isenabled":true,
                                     "position":"10",
                                     "width":"100"
                                 },
-                                "audf1":{
+                                "apalletid":{
                                     "isenabled":true,
                                     "position":"11",
-                                    "width":"120"
+                                    "width":"100"
                                 },
-                                "audf2":{
+                                "audf1":{
                                     "isenabled":true,
                                     "position":"12",
                                     "width":"120"
                                 },
-                                "audf3":{
+                                "audf2":{
                                     "isenabled":true,
                                     "position":"13",
                                     "width":"120"
                                 },
-                                "apackingdate":{
+                                "audf3":{
                                     "isenabled":true,
                                     "position":"14",
                                     "width":"120"
                                 },
-                                "aexpirydate":{
+                                "apackingdate":{
                                     "isenabled":true,
                                     "position":"15",
                                     "width":"120"
                                 },
-                                "aadditionalreference1":{
+                                "aexpirydate":{
                                     "isenabled":true,
                                     "position":"16",
+                                    "width":"120"
+                                },
+                                "aadditionalreference1":{
+                                    "isenabled":true,
+                                    "position":"17",
                                     "width":"100"
                                 }
                             },
