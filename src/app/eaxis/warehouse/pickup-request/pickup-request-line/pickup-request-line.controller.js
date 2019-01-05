@@ -117,7 +117,7 @@
                 "SAP_FK": authService.getUserInfo().AppPK,
                 "TenantCode": authService.getUserInfo().TenantCode,
                 "SourceEntityRefKey": authService.getUserInfo().UserId,
-                "EntitySource": "WMS_OUTWARDLINE",
+                "EntitySource": "WMS_PICKUPLINE",
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),

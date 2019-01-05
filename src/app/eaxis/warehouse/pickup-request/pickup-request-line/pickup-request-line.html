@@ -368,7 +368,7 @@
     <div ng-if='PickupLineCtrl.ePage.Masters.EditTableColumns'>
         <customize-table table-properties="PickupLineCtrl.ePage.Entities.Header.TableProperties.UIWmsPickupLine" enable="PickupLineCtrl.ePage.Masters.EditTableColumns"
             unique-id="OutLineCust{{PickupLineCtrl.currentPickup.label}}" user-value='PickupLineCtrl.ePage.Masters.UserValue'
-            entity-source='WMS_OUTWARDLINE'></customize-table>
+            entity-source='WMS_PICKUPLINE'></customize-table>
     </div>
     <!-- Call Directive If user has value -->
     <div ng-if='PickupLineCtrl.ePage.Masters.UserHasValue' ng-init="PickupLineCtrl.ePage.Masters.UserHasValue=false">

@@ -146,7 +146,6 @@
                         };
                         ActivityTemplatePickup2Ctrl.ePage.Masters.ErrorWarningConfig.Modules.MyTask.Entity[ActivityTemplatePickup2Ctrl.ePage.Masters.EntityObj.UIWmsPickup.WorkOrderID].GlobalErrorWarningList = _errorcount;
                     }
-
                 } else {
                     ActivityTemplatePickup2Ctrl.ePage.Masters.ErrorWarningConfig.Modules.MyTask = {};
                     ActivityTemplatePickup2Ctrl.ePage.Masters.ErrorWarningConfig.Modules.MyTask.Entity = {

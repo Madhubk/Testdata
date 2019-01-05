@@ -69,6 +69,7 @@
                 if (response.data.Response) {
                     DeliveryMenuCtrl.ePage.Masters.DeliveryOrders = response.data.Response;
                     var count = 0;
+                    // check whether the order status is Cancelled or not
                     angular.forEach(DeliveryMenuCtrl.ePage.Masters.DeliveryOrders, function (value, key) {
                         if (value.WorkOrderStatus == "CAN") {
                             count = count + 1;
@@ -84,6 +85,7 @@
                                 };
 
                                 $scope.ok = function () {
+                                    // Insert Job Comments
                                     var InsertCommentObject = [];
                                     var obj = {
                                         "Description": "General",
@@ -95,9 +97,11 @@
                                     InsertCommentObject.push(obj);
                                     apiService.post("eAxisAPI", appConfig.Entities.JobComments.API.Insert.Url, InsertCommentObject).then(function (response) {
                                         DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDelivery.CancelledDate = new Date();
-                                        
+                                        angular.forEach(DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDeliveryLine, function (value, key) {
+                                            value.WorkOrderLineStatus = "CAN";
+                                        });
+                                        // check whether the task available for this entity or not
                                         var _filter = {
-                                            // C_Performer: authService.getUserInfo().UserId,
                                             Status: "AVAILABLE,ASSIGNED",
                                             EntityRefKey: DeliveryMenuCtrl.ePage.Entities.Header.Data.PK,
                                             KeyReference: DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderID
@@ -105,17 +109,19 @@
                                         var _input = {
                                             "searchInput": helperService.createToArrayOfObject(_filter),
                                             "FilterID": appConfig.Entities.EBPMWorkItem.API.FindAllWithAccess.FilterID
-                                        };                                        
+                                        };
                                         apiService.post("eAxisAPI", appConfig.Entities.EBPMWorkItem.API.FindAllWithAccess.Url, _input).then(function (response) {
                                             if (response.data.Response) {
                                                 if (response.data.Response.length > 0) {
                                                     angular.forEach(response.data.Response, function (value, key) {
+                                                        // To suspend the available task
                                                         apiService.get("eAxisAPI", appConfig.Entities.EBPMEngine.API.SuspendInstance.Url + value.PSI_InstanceNo).then(function (response) {
                                                             if (response.data) {
-                                                                Validation($item);
+
                                                             }
                                                         });
                                                     });
+                                                    Validation($item);
                                                 } else {
                                                     Validation($item);
                                                 }

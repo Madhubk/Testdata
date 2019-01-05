@@ -20,6 +20,9 @@
             };
 
             PendingPickupCtrl.ePage.Masters.dataentryName = "PickupLine";
+            PendingPickupCtrl.ePage.Masters.defaultFilter={
+                "CancelledDate": "NULL"
+            }
         }
         Init();
     }
