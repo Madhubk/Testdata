@@ -57,6 +57,8 @@
             var _item = angular.copy($item);
 
             var _filter = _item.FilterInput;
+            _filter.TenantCode = authService.getUserInfo().TenantCode;
+            _filter.SAP_FK = authService.getUserInfo().AppPK;
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
                 "FilterID": appConfig.Entities.Validation.API.FindAll.FilterID
@@ -65,8 +67,24 @@
             apiService.post("eAxisAPI", appConfig.Entities.Validation.API.FindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     if (response.data.Response.length > 0) {
-                        _item.ModuleName.map(function (value, key) {
-                            exports.Modules[value].ErrorCodeList = exports.Modules[value].ErrorCodeList.concat(response.data.Response);
+                        response.data.Response.map(function (value1, key) {
+                            _item.ModuleName.map(function (value2, key) {
+                                if (!exports.Modules[value2].ErrorCodeList) {
+                                    exports.Modules[value2].ErrorCodeList = [];
+                                }
+
+                                if (exports.Modules[value2].ErrorCodeList.length > 0) {
+                                    var _isExist = exports.Modules[value2].ErrorCodeList.some(function (value3, key3) {
+                                        return (value1.PK === value3.PK && value1.VLG_FK === value3.VLG_FK);
+                                    });
+
+                                    if (!_isExist) {
+                                        exports.Modules[value2].ErrorCodeList.push(value1);
+                                    }
+                                } else {
+                                    exports.Modules[value2].ErrorCodeList.push(value1);
+                                }
+                            });
                         });
                     }
                     _deferred.resolve(response.data.Response);
@@ -94,9 +112,24 @@
             apiService.post("eAxisAPI", appConfig.Entities.Validation.API.ValidationByGroup.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     if (response.data.Response.length > 0) {
-                        _item.ModuleName.map(function (value, key) {
-                            exports.Modules[value].ErrorCodeList = exports.Modules[value].ErrorCodeList.concat(response.data.Response);
-                            // exports.Modules[value].ErrorCodeList = response.data.Response;
+                        response.data.Response.map(function (value1, key) {
+                            _item.ModuleName.map(function (value2, key) {
+                                if (!exports.Modules[value2].ErrorCodeList) {
+                                    exports.Modules[value2].ErrorCodeList = [];
+                                }
+
+                                if (exports.Modules[value2].ErrorCodeList.length > 0) {
+                                    var _isExist = exports.Modules[value2].ErrorCodeList.some(function (value3, key3) {
+                                        return (value1.PK === value3.PK && value1.VLG_FK === value3.VLG_FK);
+                                    });
+
+                                    if (!_isExist) {
+                                        exports.Modules[value2].ErrorCodeList.push(value1);
+                                    }
+                                } else {
+                                    exports.Modules[value2].ErrorCodeList.push(value1);
+                                }
+                            });
                         });
                     }
                     _deferred.resolve(response.data.Response);
@@ -127,6 +160,31 @@
                                 }
                             });
                         } else {
+                            if (_item.GroupCode) {
+                                exports.Modules[value1].ErrorCodeList.map(function (value2, key2) {
+                                    if (value2.Expression && value2.IsClient && _item.GroupCode == value2.VLG_Code) {
+                                        _item.Value = value2;
+                                        EvaluateExpression(_item);
+                                    }
+                                });
+                            } else {
+                                exports.Modules[value1].ErrorCodeList.map(function (value2, key2) {
+                                    if (value2.Expression && value2.IsClient) {
+                                        _item.Value = value2;
+                                        EvaluateExpression(_item);
+                                    }
+                                });
+                            }
+                        }
+                    } else {
+                        if (_item.GroupCode) {
+                            exports.Modules[value1].ErrorCodeList.map(function (value2, key2) {
+                                if (value2.Expression && value2.IsClient && _item.GroupCode == value2.VLG_Code) {
+                                    _item.Value = value2;
+                                    EvaluateExpression(_item);
+                                }
+                            });
+                        } else {
                             exports.Modules[value1].ErrorCodeList.map(function (value2, key2) {
                                 if (value2.Expression && value2.IsClient) {
                                     _item.Value = value2;
@@ -134,13 +192,6 @@
                                 }
                             });
                         }
-                    } else {
-                        exports.Modules[value1].ErrorCodeList.map(function (value2, key2) {
-                            if (value2.Expression && value2.IsClient) {
-                                _item.Value = value2;
-                                EvaluateExpression(_item);
-                            }
-                        });
                     }
                 }
             });
@@ -169,7 +220,7 @@
 
                 _item.ModuleName.map(function (value1, key1) {
                     _item.Code.map(function (value2, key2) {
-                        if(value2){
+                        if (value2) {
                             var _obj = {
                                 ModuleName: value1,
                                 Code: value2,
@@ -206,7 +257,7 @@
         }
 
         function GetErrorMessage($item) {
-            if (!$item.IsValidExpression) {
+            if ($item.IsValidExpression) {
                 var _pushObj = {
                     Code: $item.value.Code,
                     Message: $item.value.Message,
@@ -253,11 +304,11 @@
                 "GParentRef": $item.GParentRef
             };
 
-            // if ($item.IsArray) {
-            //     _obj.RowIndex = $item.RowIndex;
-            //     _obj.ColIndex = $item.ColIndex;
-            //     _obj.DisplayName = $item.DisplayName;
-            // }
+            if ($item.IsArray) {
+                _obj.RowIndex = $item.RowIndex;
+                _obj.ColIndex = $item.ColIndex;
+                _obj.DisplayName = $item.DisplayName;
+            }
 
             if (!$item.IsArray) {
                 var _isExistGlobal = exports.Modules[$item.moduleName].Entity[$item.entityName].GlobalErrorWarningList.some(function (value, key) {
@@ -430,6 +481,8 @@
                         }
                     } else if (ParentType == "Parent") {
                         if (value1.ParentRef === ParentId && value1.MessageType === Type) {
+                            exports.Modules;
+                            moduleName, entityName, ParentId, Type, ParentType;
                             _parentList.push(value1);
                         }
                     }

@@ -8,8 +8,8 @@
     <div class="modal-body">
         <div class="clearfix pt-10">
             <div class="clearfix">
-            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
-                <div class="form-group">
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
+                    <div class="form-group">
                         <label for="Code">Organization Code</label>
                         <span class="error-warning-container">
                             <error-warning-directive data-ng-if="OrgGeneralModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Code.IsWarning && !OrgGeneralModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Code.IsError"
@@ -20,51 +20,50 @@
                                 type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
                         </span>
                         <input type="text" class="form-control input-sm" placeholder="Code" style="text-transform: uppercase"
-                            data-ng-model="OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgHeader.Code" data-ng-disabled="!OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.IsEnableOrgCode"/>
+                            data-ng-model="OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgHeader.Code"
+                            data-ng-disabled="!OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.IsEnableOrgCode" />
                     </div>
-            </div>
-            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
-                <div class="form-group">
-                    <div class="">
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
+                    <div class="form-group">
                         <label for="FullName">Organization Full Name</label>
                         <span class="error-warning-container">
                             <error-warning-directive data-ng-if="OrgGeneralModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.FullName.IsWarning && !OrgGeneralModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.FullName.IsError"
                                 list="OrgGeneralModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.FullName.WARNING"
-                                type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                                type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref=""
+                                g-parent-ref=""></error-warning-directive>
                             <error-warning-directive data-ng-if="OrgGeneralModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.FullName.IsError"
                                 list="OrgGeneralModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.FullName.ERROR"
                                 type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
                         </span>
-                        <input type="text" class="form-control input-sm" placeholder="FullName" style="text-transform: uppercase" data-ng-model="OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgHeader.FullName"
-                            data-ng-blur="OrgGeneralModalCtrl.ePage.Masters.OrgHeader.OnBlurFullName()" />
+                        <input type="text" class="form-control input-sm" placeholder="FullName" style="text-transform: uppercase" data-ng-model="OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgHeader.FullName" data-ng-blur="OrgGeneralModalCtrl.ePage.Masters.OrgHeader.OnBlurFullName()" />
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="clearfix">
-            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
-                <div class="form-group">
-                    <!-- <label for="IsActive"></label> -->
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox" class="colored-blue" data-ng-model="OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgHeader.IsActive">
-                            <span class="text">Is Active</span>
-                        </label>
+            <div class="clearfix">
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
+                    <div class="form-group">
+                        <!-- <label for="IsActive"></label> -->
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" class="colored-blue" data-ng-model="OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgHeader.IsActive">
+                                <span class="text">Is Active</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
+                    <div class="form-group">
+                        <!-- <label for="IsEnableOrgCode"></label> -->
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" class="colored-blue" data-ng-model="OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.IsEnableOrgCode">
+                                <span class="text">Enable Organization Code</span>
+                            </label>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
-                <div class="form-group">
-                    <!-- <label for="IsEnableOrgCode"></label> -->
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox" class="colored-blue" data-ng-model="OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.IsEnableOrgCode">
-                            <span class="text">Enable Organization Code</span>
-                        </label>
-                    </div>
-                </div>
-            </div>
-        </div>
         </div>
         <div class="section-divider-small"></div>
         <div class="clearfix">
@@ -120,8 +119,8 @@
                             list="OrgGeneralModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.GeneralCity.WARNING"
                             type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
                         <error-warning-directive data-ng-if="OrgGeneralModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.GeneralCity.IsError"
-                            list="OrgGeneralModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.GeneralCity.ERROR" type="'error'"
-                            icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                            list="OrgGeneralModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.GeneralCity.ERROR"
+                            type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
                     </span>
                     <input type="text" class="form-control input-sm" placeholder="City" data-ng-model="OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgAddress[0].City" />
                 </div>
@@ -326,8 +325,8 @@
                             list="OrgGeneralModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.GeneralFax.WARNING"
                             type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
                         <error-warning-directive data-ng-if="OrgGeneralModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.GeneralFax.IsError"
-                            list="OrgGeneralModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.GeneralFax.ERROR" type="'error'"
-                            icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                            list="OrgGeneralModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.GeneralFax.ERROR"
+                            type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
                     </span>
                     <input type="text" class="form-control input-sm" placeholder="Fax" data-ng-model="OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgAddress[0].Fax" />
                 </div>

@@ -87,10 +87,12 @@
         </div>
     </form>
 </div>
-<div class="eaxis-footer-strip">
-    <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10"></div>
+<div class="eaxis-footer-strip p-6">
+    <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10">
+        <button class="btn btn-primary btn-sm pull-right" generate-db-script input="TCExceptionTypeConfigureCtrl.ePage.Masters.GenerateScriptInput" config="TCExceptionTypeConfigureCtrl.ePage.Masters.GenerateScriptConfig" data-ng-disabled="!TCExceptionTypeConfigureCtrl.ePage.Masters.GenerateScriptInput.ObjectName || !TCExceptionTypeConfigureCtrl.ePage.Masters.GenerateScriptInput.ObjectId">Generate Script</button>
+    </div>
     <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
-        <button class="btn btn-primary btn-sm pull-right mr-10 mt-6" data-ng-click="TCExceptionTypeConfigureCtrl.ePage.Masters.SaveExceptionType()"
+        <button class="btn btn-primary btn-sm pull-right" data-ng-click="TCExceptionTypeConfigureCtrl.ePage.Masters.SaveExceptionType()"
             data-ng-bind="TCExceptionTypeConfigureCtrl.ePage.Masters.SaveButtonText" data-ng-disabled="TCExceptionTypeConfigureCtrl.ePage.Masters.IsDisableSave"></button>
     </div>
 </div>

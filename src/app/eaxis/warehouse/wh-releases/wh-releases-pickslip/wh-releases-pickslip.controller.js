@@ -34,7 +34,6 @@
             ReleasesPickSlipCtrl.ePage.Masters.SelectAllForUIWmsReleaseLine = false;
             ReleasesPickSlipCtrl.ePage.Masters.EnableDeleteButtonForUIWmsReleaseLine = false;
             ReleasesPickSlipCtrl.ePage.Masters.EnableCopyButtonForUIWmsReleaseLine = false;
-            ReleasesPickSlipCtrl.ePage.Masters.EnableAddOrChooseButton = false;
             ReleasesPickSlipCtrl.ePage.Masters.EnableForUIWmsReleaseLine = true;
             ReleasesPickSlipCtrl.ePage.Masters.selectedRowForUIWmsReleaseLine = -1;
             ReleasesPickSlipCtrl.ePage.Masters.SearchTableForUIWmsReleaseLine = '';
@@ -54,7 +53,6 @@
             ReleasesPickSlipCtrl.ePage.Masters.OnChangeValues = OnChangeValues;
             ReleasesPickSlipCtrl.ePage.Masters.Config = releaseConfig;
             ReleasesPickSlipCtrl.ePage.Masters.ShowAllFunc = ShowAllFunc;
-            ReleasesPickSlipCtrl.ePage.Masters.NormalizingPickSlipTab = NormalizingPickSlipTab;
 
             GetUserBasedGridColumListForPickLineSummary();
             GetUserBasedGridColumListForUIWmsReleaseLine();
@@ -119,21 +117,17 @@
         function SelectAllCheckBoxForUIWmsReleaseLine(){
             angular.forEach(ReleasesPickSlipCtrl.ePage.Entities.Header.Data.UIWmsReleaseLine, function (value, key) {
             if (ReleasesPickSlipCtrl.ePage.Masters.SelectAllForUIWmsReleaseLine){
-                if(value.WorkOrderLineStatus!='FIN'){
-                    //If Show all is disabled and enabled
-                    if(!ReleasesPickSlipCtrl.ePage.Masters.ShowAllLines){
-                        if(value.WPL_FK == ReleasesPickSlipCtrl.ePage.Masters.CurrentPickLine.PK){
-                            value.SingleSelect = true;
-                            ReleasesPickSlipCtrl.ePage.Masters.EnableDeleteButtonForUIWmsReleaseLine = true;
-                            ReleasesPickSlipCtrl.ePage.Masters.EnableCopyButtonForUIWmsReleaseLine = true;
-                        }
-                    }else {
+                if(ReleasesPickSlipCtrl.ePage.Masters.CurrentPickLine.PK){
+                    if(value.WPL_FK == ReleasesPickSlipCtrl.ePage.Masters.CurrentPickLine.PK){
                         value.SingleSelect = true;
                         ReleasesPickSlipCtrl.ePage.Masters.EnableDeleteButtonForUIWmsReleaseLine = true;
                         ReleasesPickSlipCtrl.ePage.Masters.EnableCopyButtonForUIWmsReleaseLine = true;
                     }
+                }else{
+                    value.SingleSelect = true;
+                    ReleasesPickSlipCtrl.ePage.Masters.EnableDeleteButtonForUIWmsReleaseLine = true;
+                    ReleasesPickSlipCtrl.ePage.Masters.EnableCopyButtonForUIWmsReleaseLine = true;
                 }
-                
             }
             else{
                 value.SingleSelect = false;
@@ -270,27 +264,15 @@
 
         //#endregion Add,copy,delete row
 
-        //#region Release Line Table Funcationlities       
-        
-        function NormalizingPickSlipTab(){
-            //After finalizing normalize the pick slip tabl
-            ReleasesPickSlipCtrl.ePage.Masters.selectedRowForPickLineSummary = -1;
-            ReleasesPickSlipCtrl.ePage.Masters.SelectedPickLinePK =''
-            ReleasesPickSlipCtrl.ePage.Masters.selectedRowForUIWmsReleaseLine = -1;
-            ReleasesPickSlipCtrl.ePage.Masters.ShowAllLines = false;
-            ReleasesPickSlipCtrl.ePage.Masters.EnableAddOrChooseButton = undefined;
-            ReleasesPickSlipCtrl.ePage.Entities.Header.GlobalVariables.NormalingPickSlipTab = false;
-        }
-        
         function EnableReleaseCapturesTable(item){
             if(item.IsPartAttrib1ReleaseCaptured || item.IsPartAttrib2ReleaseCaptured || item.IsPartAttrib3ReleaseCaptured){
                 if(item.WorkOrderLineStatus!='FIN'){
-                    ReleasesPickSlipCtrl.ePage.Masters.EnableAddOrChooseButton = true;
+                    ReleasesPickSlipCtrl.ePage.Masters.EnableAddAndEditReleaseLine = true;
                 }else{
-                    ReleasesPickSlipCtrl.ePage.Masters.EnableAddOrChooseButton = undefined; 
+                    ReleasesPickSlipCtrl.ePage.Masters.EnableAddAndEditReleaseLine = undefined; 
                 }  
             }else{
-                ReleasesPickSlipCtrl.ePage.Masters.EnableAddOrChooseButton = undefined;
+                ReleasesPickSlipCtrl.ePage.Masters.EnableAddAndEditReleaseLine = undefined;
             }
             ReleasesPickSlipCtrl.ePage.Masters.CurrentPickLine = item;
             if(!ReleasesPickSlipCtrl.ePage.Masters.ShowAllLines){
@@ -308,8 +290,6 @@
             }
         }
         
-        //#endregion
-
         function UnitValidation(item,index){
             if(item.Units){
                 OnChangeValues('value', 'E8021', true, index);

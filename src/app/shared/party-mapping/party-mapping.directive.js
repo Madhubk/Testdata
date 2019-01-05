@@ -31,14 +31,14 @@
 			function InitPartMapping() {
 				scope.PartyMapping = {};
 
-				scope.PartyMapping.OnPartiesClick = OnPartiesClick;
+				scope.PartyMapping.OnPartiesClick = OnPartyClick;
 				scope.PartyMapping.UpdatePartyMapping = UpdatePartyMapping;
 
-				GetPartiesList();
+				GetPartyList();
 			}
 
-			function GetPartiesList() {
-				scope.PartyMapping.PartyListSource = undefined;
+			function GetPartyList() {
+				scope.PartyMapping.PartyList = undefined;
 				var _filter = {
 					"SAP_FK": scope.mappingInput.SAP_FK,
 				};
@@ -49,20 +49,18 @@
 
 				apiService.post("authAPI", appConfig.Entities.SecParties.API.FindAll.Url, _input).then(function SuccessCallback(response) {
 					if (response.data.Response) {
-						scope.PartyMapping.PartyListSource = response.data.Response;
+						scope.PartyMapping.PartyList = response.data.Response;
 
 						if (response.data.Response.length > 0) {
-							scope.PartyMapping.ListSource = angular.copy(response.data.Response);
-
-							GetPartiesEventMappingList();
+							GetPartiesMappingList();
 						}
 					} else {
-						scope.PartyMapping.PartyListSource = [];
+						scope.PartyMapping.PartyList = [];
 					}
 				});
 			}
 
-			function GetPartiesEventMappingList() {
+			function GetPartiesMappingList() {
 				var _filter = {
 					"MappingCode": scope.mappingInput.MappingCode,
 
@@ -101,7 +99,7 @@
 				apiService.post("authAPI", appConfig.Entities.SecMappings.API.FindAll.Url, _input).then(function SuccessCallback(response) {
 					if (response.data.Response) {
 						if (response.data.Response.length > 0) {
-							scope.PartyMapping.PartyListSource.map(function (value1, key1) {
+							scope.PartyMapping.PartyList.map(function (value1, key1) {
 								response.data.Response.map(function (value2, key2) {
 									if (value1.PK === value2.Item_FK) {
 										value1.IsChecked = true;
@@ -114,7 +112,7 @@
 				});
 			}
 
-			function OnPartiesClick($event, $item) {
+			function OnPartyClick($event, $item) {
 				var checkbox = $event.target,
 					check = checkbox.checked,
 					_input = {};
@@ -229,7 +227,7 @@
 				apiService.post("authAPI", appConfig.Entities.SecMappings.API.FindAll.Url, _input).then(function SuccessCallback(response) {
 					if (response.data.Response) {
 						if (response.data.Response.length > 0) {
-							scope.PartyMapping.PartyListSource.map(function (value, key) {
+							scope.PartyMapping.PartyList.map(function (value, key) {
 								value.Role = response.data.Response;
 							});
 

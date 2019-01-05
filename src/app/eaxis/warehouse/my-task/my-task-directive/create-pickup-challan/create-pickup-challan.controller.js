@@ -168,14 +168,15 @@
                                         value.PK = "";
                                         if (value.AddressType == "CED")
                                             value.AddressType = "SUD";
-                                    });                                    
+                                    });
+
                                     angular.forEach(CreatePickupChallanCtrl.ePage.Masters.SelectedPickupLine, function (value, key) {
                                         var obj = {
                                             "PK": "",
                                             "Parent_FK": value.PL_PK,
                                             "Client_FK": value.PIC_ORG_Client_FK,
-                                            "ORG_ClientCode": value.DOUT_ClientCode,
-                                            "ORG_ClientName": value.DOUT_ClientName,
+                                            "ORG_ClientCode": value.PIC_ConsigneeCode,
+                                            "ORG_ClientName": value.ORG_ClientName,
                                             "ProductCode": value.PL_Req_PrdCode,
                                             "ProductDescription": value.PL_Req_PrdDesc,
                                             "ProductCondition": value.PL_ProductCondition,
@@ -191,12 +192,7 @@
                                             "PackingDate": value.PL_PackingDate,
                                             "ExpiryDate": value.PL_ExpiryDate,
                                             "AdditionalRef1Code": value.PL_AdditionalRef1Code,
-                                            "AdditionalRef1Type": value.PL_AdditionalRef1Type,
-                                            "UseExpiryDate": value.PL_UseExpiryDate,
-                                            "UsePackingDate": value.PL_UsePackingDate,
-                                            "UsePartAttrib1": value.PL_UsePartAttrib1,
-                                            "UsePartAttrib2": value.PL_UsePartAttrib2,
-                                            "UsePartAttrib3": value.PL_UsePartAttrib3
+                                            "AdditionalRef1Type": value.PL_AdditionalRef1Type
                                         };
                                         response.data.Response.Response.UIWmsAsnLine.push(obj);
                                     });

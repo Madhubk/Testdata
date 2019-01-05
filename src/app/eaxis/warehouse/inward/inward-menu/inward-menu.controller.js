@@ -438,6 +438,9 @@
                 }
             } else {
                 toastr.info('Receive Line Should Not Be Empty');
+                // if (callback) {
+                //     callback()
+                // }
             }
         }
 
@@ -465,35 +468,8 @@
                             InwardMenuCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine.map(function (value, key) {
                                 value.TotalUnits = 0;
                             });
-                            
                             InwardMenuCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.CancelledDate = new Date();
-                            // check whether the task available for this entity or not
-                            var _filter = {
-                                Status: "AVAILABLE,ASSIGNED",
-                                EntityRefKey: InwardMenuCtrl.ePage.Entities.Header.Data.PK,
-                                KeyReference: InwardMenuCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.WorkOrderID
-                            };
-                            var _input = {
-                                "searchInput": helperService.createToArrayOfObject(_filter),
-                                "FilterID": appConfig.Entities.EBPMWorkItem.API.FindAllWithAccess.FilterID
-                            };
-                            apiService.post("eAxisAPI", appConfig.Entities.EBPMWorkItem.API.FindAllWithAccess.Url, _input).then(function (response) {
-                                if (response.data.Response) {
-                                    if (response.data.Response.length > 0) {
-                                        angular.forEach(response.data.Response, function (value, key) {
-                                            // Suspend the available task
-                                            apiService.get("eAxisAPI", appConfig.Entities.EBPMEngine.API.SuspendInstance.Url + value.PSI_InstanceNo).then(function (response) {
-                                                if (response.data) {
-
-                                                }
-                                            });
-                                        });
-                                        Validation($item);
-                                    } else {
-                                        Validation($item);
-                                    }
-                                }
-                            });
+                            Validation($item);
 
                             $uibModalInstance.dismiss('cancel');
                         });

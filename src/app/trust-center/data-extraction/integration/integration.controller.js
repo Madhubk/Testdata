@@ -173,7 +173,7 @@
             EditDataExtIntegration();
         }
 
-        function EditDataExtIntegrationModalInstance() {
+        function EditDataExtIntegrationModal() {
             return DataExtIntegrationCtrl.ePage.Masters.DataExtIntegration.EditDataExtIntegrationModal = $uibModal.open({
                 animation: true,
                 keyboard: true,
@@ -193,7 +193,7 @@
                     GetTargetFieldList(_obj);
                 }
             }
-            EditDataExtIntegrationModalInstance().result.then(function (response) { }, function () {
+            EditDataExtIntegrationModal().result.then(function (response) { }, function () {
                 CloseDataExtIntegrationModal();
             });
         }
@@ -205,9 +205,11 @@
                 } else {
                     DataExtIntegrationCtrl.ePage.Masters.DataExtIntegration.ActiveDataExtIntegration = undefined;
                 }
-            } else if (DataExtIntegrationCtrl.ePage.Masters.DataExtIntegration.ActiveDataExtIntegrationCopy) {
+                
+            } else if (DataExtIntegrationCtrl.ePage.Masters.DataExtIntegration.ActiveDataExtIntegrationCopy) 
+            {
                 var _index = DataExtIntegrationCtrl.ePage.Masters.DataExtIntegration.DataExtIntegrationList.map(function (value, key) {
-                    return value.PK;
+                   return value.PK;
                 }).indexOf(DataExtIntegrationCtrl.ePage.Masters.DataExtIntegration.ActiveDataExtIntegrationCopy.PK);
 
                 if (_index !== -1) {
@@ -228,21 +230,14 @@
 
             confirmation.showModal({}, modalOptions)
                 .then(function (result) {
-                    DeleteDataExtAudit();
+                    DeleteDataExtIntegration();
                 }, function () {
                     console.log("Cancelled");
                 });
         }
 
         function DeleteDataExtIntegration() {
-            DataExtIntegrationCtrl.ePage.Masters.DataExtIntegration.DeleteBtnText = "Please Wait...";
-            DataExtIntegrationCtrl.ePage.Masters.DataExtIntegration.IsDisableDeleteBtn = true;
-
-            var _input = angular.copy(DataExtIntegrationCtrl.ePage.Masters.DataExtIntegration.ActiveDataExtIntegration);
-            _input.IsModified = true;
-            _input.IsDeleted = true;
-
-            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.DataConfig.API.Upsert.Url, [_input]).then(function SuccessCallback(response) {
+            apiService.get("eAxisAPI", trustCenterConfig.Entities.API.DataConfig.API.Delete.Url + DataExtIntegrationCtrl.ePage.Masters.DataExtIntegration.ActiveDataExtIntegration.PK).then(function SuccessCallback(response) {
                 if (response.data.Response) {
                     var _index = DataExtIntegrationCtrl.ePage.Masters.DataExtIntegration.DataExtIntegrationList.map(function (value, key) {
                         return value.PK;
@@ -337,35 +332,40 @@
                 }
             });
         }
-
+        
         function SaveDataExtIntegration() {
+            if (DataExtIntegrationCtrl.ePage.Masters.DataExtIntegration.ActiveDataExtIntegration.PK) {
+                UpdateDataExtIntegration();
+            } else {
+                InsertDataExtIntegration();
+            }
+        }
+
+        function InsertDataExtIntegration() {
             DataExtIntegrationCtrl.ePage.Masters.DataExtIntegration.SaveBtnText = "Please Wait...";
             DataExtIntegrationCtrl.ePage.Masters.DataExtIntegration.IsDisableSaveBtn = true;
 
-            var _input = angular.copy(DataExtIntegrationCtrl.ePage.Masters.DataExtIntegration.ActiveDataExtIntegration);
-
-            _input.TenantCode = authService.getUserInfo().TenantCode;
-            _input.AppCode = DataExtIntegrationCtrl.ePage.Masters.Application.ActiveApplication.AppCode;
-            _input.SAP_FK = DataExtIntegrationCtrl.ePage.Masters.Application.ActiveApplication.PK;
+            var _input = DataExtIntegrationCtrl.ePage.Masters.DataExtIntegration.ActiveDataExtIntegration;
             _input.IsModified = true;
-            _input.IsDeleted = false;
-            _input.ConfigType = "Integration";
+            _input.SAP_FK = DataExtIntegrationCtrl.ePage.Masters.Application.ActiveApplication.PK;
 
-            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.DataConfig.API.Upsert.Url, [_input]).then(function SuccessCallback(response) {
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.DataConfig.API.Insert.Url, [_input]).then(function SuccessCallback(response) {
                 if (response.data.Response) {
-                    var _response = response.data.Response[0];
-                    DataExtIntegrationCtrl.ePage.Masters.DataExtIntegration.ActiveDataExtIntegration = angular.copy(_response);
-                    var _index = DataExtIntegrationCtrl.ePage.Masters.DataExtIntegration.DataExtIntegrationList.map(function (e) {
-                        return e.PK;
-                    }).indexOf(_response.PK);
+                    if (response.data.Response.length > 0) {
+                        var _response = response.data.Response[0];
 
-                    if (_index === -1) {
-                        DataExtIntegrationCtrl.ePage.Masters.DataExtIntegration.DataExtIntegrationList.push(_response);
-                    } else {
-                        DataExtIntegrationCtrl.ePage.Masters.DataExtIntegration.DataExtIntegrationList[_index] = _response;
+                        var _index = DataExtIntegrationCtrl.ePage.Masters.DataExtIntegration.DataExtIntegrationList.map(function (value, key) {
+                            return value.PK;
+                        }).indexOf(_response.PK);
+
+                        if (_index === -1) {
+                            DataExtIntegrationCtrl.ePage.Masters.DataExtIntegration.DataExtIntegrationList.push(_response);
+                        } else {
+                            DataExtIntegrationCtrl.ePage.Masters.DataExtIntegration.DataExtIntegrationList[_index] = _response;
+                        }
+
+                        OnDataExtIntegrationClick(_response);
                     }
-
-                    OnDataExtIntegrationClick(DataExtIntegrationCtrl.ePage.Masters.DataExtIntegration.ActiveDataExtIntegration);
                 } else {
                     toastr.error("Could not Save...!");
                 }
@@ -375,6 +375,39 @@
                 DataExtIntegrationCtrl.ePage.Masters.DataExtIntegration.EditDataExtIntegrationModal.dismiss('cancel');
             });
         }
+
+        function UpdateDataExtIntegration() {
+            DataExtIntegrationCtrl.ePage.Masters.DataExtIntegration.SaveBtnText = "Please Wait...";
+            DataExtIntegrationCtrl.ePage.Masters.DataExtIntegration.IsDisableSaveBtn = true;
+
+            var _input = DataExtIntegrationCtrl.ePage.Masters.DataExtIntegration.ActiveDataExtIntegration;
+            _input.IsModified = true;
+            _input.SAP_FK = DataExtIntegrationCtrl.ePage.Masters.Application.ActiveApplication.PK;
+
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.DataConfig.API.Update.Url, _input).then(function SuccessCallback(response) {
+                if (response.data.Response) {
+                    var _response = response.data.Response;
+
+                    var _index = DataExtIntegrationCtrl.ePage.Masters.DataExtIntegration.DataExtIntegrationList.map(function (value, key) {
+                        return value.PK;
+                    }).indexOf(_response.PK);
+
+                    if (_index === -1) {
+                        DataExtIntegrationCtrl.ePage.Masters.DataExtIntegration.DataExtIntegrationList.push(_response);
+                    } else {
+                        DataExtIntegrationCtrl.ePage.Masters.DataExtIntegration.DataExtIntegrationList[_index] = _response;
+                    }
+
+                    OnDataExtIntegrationClick(_response);
+                } else {
+                    toastr.error("Could not Update...!");
+                }
+
+                DataExtIntegrationCtrl.ePage.Masters.DataExtIntegration.SaveBtnText = "OK";
+                DataExtIntegrationCtrl.ePage.Masters.DataExtIntegration.IsDisableSaveBtn = false;
+                DataExtIntegrationCtrl.ePage.Masters.DataExtIntegration.EditDataExtIntegrationModal.dismiss('cancel');
+             });
+         }
 
         // ============ Data Integration End ============= //
 
@@ -386,7 +419,7 @@
             DataExtIntegrationCtrl.ePage.Masters.DataExtIntegration.DataExtIntegrationFields.OnOpenJsonModal = OnOpenJsonModal;
             DataExtIntegrationCtrl.ePage.Masters.DataExtIntegration.DataExtIntegrationFields.Close = CloseDataExtIntegrationFields;
             DataExtIntegrationCtrl.ePage.Masters.DataExtIntegration.DataExtIntegrationFields.OnDataExtIntegrationFieldsClick = OnDataExtIntegrationFieldsClick;
-            DataExtIntegrationCtrl.ePage.Masters.DataExtIntegration.DataExtIntegrationFields.Save = DataConfigFieldsSave;
+            DataExtIntegrationCtrl.ePage.Masters.DataExtIntegration.DataExtIntegrationFields.Save = IntegrationConfigFieldsSave;
             DataExtIntegrationCtrl.ePage.Masters.DataExtIntegration.DataExtIntegrationFields.Delete = DeleteConfirmation;
             DataExtIntegrationCtrl.ePage.Masters.DataExtIntegration.DataExtIntegrationFields.EditDataConfigField = EditDataConfigField;
 
@@ -477,38 +510,83 @@
              DataExtIntegrationCtrl.ePage.Masters.DataExtIntegration.DataExtIntegrationFields.EditModal.dismiss('cancel');
         }
 
-        function DataConfigFieldsSave() {
+         function IntegrationConfigFieldsSave() {
+            if (DataExtIntegrationCtrl.ePage.Masters.DataExtIntegration.DataExtIntegrationFields.ActiveDataExtIntegrationFields.PK) {
+                UpdateIntegrationConfigFields();
+            } else {
+                InsertIntegrationConfigFields();
+            }
+        }
+
+        function InsertIntegrationConfigFields() {
             DataExtIntegrationCtrl.ePage.Masters.DataExtIntegration.DataExtIntegrationFields.SaveBtnText = "Please Wait...";
             DataExtIntegrationCtrl.ePage.Masters.DataExtIntegration.DataExtIntegrationFields.IsDisableSaveBtn = true;
-
-            var _input = angular.copy(DataExtIntegrationCtrl.ePage.Masters.DataExtIntegration.DataExtIntegrationFields.ActiveDataExtIntegrationFields);
+            
+            var _input = DataExtIntegrationCtrl.ePage.Masters.DataExtIntegration.DataExtIntegrationFields.ActiveDataExtIntegrationFields;
             _input.IsModified = true;
-
-            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.DataConfigFields.API.Upsert.Url, [_input]).then(function SuccessCallback(response) {
+            
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.DataConfigFields.API.Insert.Url, [_input]).then(function SuccessCallback(response) {
                 if (response.data.Response) {
                     if (response.data.Response.length > 0) {
-                        if (DataExtIntegrationCtrl.ePage.Masters.DataExtIntegration.DataExtIntegrationFields.ActiveDataExtIntegrationFields.PK) {
-                            var _index = DataExtIntegrationCtrl.ePage.Masters.DataExtIntegration.DataExtIntegrationFields.ListSource.map(function (value, key) {
-                                return value.PK;
-                            }).indexOf(DataExtIntegrationCtrl.ePage.Masters.DataExtIntegration.DataExtIntegrationFields.ActiveDataExtIntegrationFields.PK);
+                        var _response = response.data.Response[0];
 
-                            if (_index !== -1) {
-                                DataExtIntegrationCtrl.ePage.Masters.DataExtIntegration.DataExtIntegrationFields.ListSource[_index] = response.data.Response[0];
-                            }
+                        var _index = DataExtIntegrationCtrl.ePage.Masters.DataExtIntegration.DataExtIntegrationFields.ListSource.map(function (value, key) {
+                            return value.PK;
+                        }).indexOf(_response.PK);
+
+                        if (_index === -1) {
+                            DataExtIntegrationCtrl.ePage.Masters.DataExtIntegration.DataExtIntegrationFields.ListSource.push(_response);
                         } else {
-                            DataExtIntegrationCtrl.ePage.Masters.DataExtIntegration.DataExtIntegrationFields.ListSource.push(response.data.Response[0]);
+                            DataExtIntegrationCtrl.ePage.Masters.DataExtIntegration.DataExtIntegrationFields.ListSource[_index] = _response;
                         }
 
-                        DataExtIntegrationCtrl.ePage.Masters.DataExtIntegration.DataExtIntegrationFields.ActiveDataExtIntegrationFields = undefined;
-                        CloseDataExtIntegrationFields();
+                        OnDataExtIntegrationFieldsClick(_response);
                     }
                 } else {
                     toastr.error("Could not Save...!");
                 }
 
-                DataExtIntegrationCtrl.ePage.Masters.DataExtIntegration.DataExtIntegrationFields.SaveBtnText = "Save";
+                GetDataExtIntegrationFieldsList();
+
+                DataExtIntegrationCtrl.ePage.Masters.DataExtIntegration.DataExtIntegrationFields.SaveBtnText = "OK";
                 DataExtIntegrationCtrl.ePage.Masters.DataExtIntegration.DataExtIntegrationFields.IsDisableSaveBtn = false;
+                DataExtIntegrationCtrl.ePage.Masters.DataExtIntegration.DataExtIntegrationFields.EditModal.dismiss('cancel');
             });
+        }
+
+        function UpdateIntegrationConfigFields() {
+            DataExtIntegrationCtrl.ePage.Masters.DataExtIntegration.DataExtIntegrationFields.SaveBtnText = "Please Wait...";
+            DataExtIntegrationCtrl.ePage.Masters.DataExtIntegration.DataExtIntegrationFields.IsDisableSaveBtn = true;
+
+            var _input = DataExtIntegrationCtrl.ePage.Masters.DataExtIntegration.DataExtIntegrationFields.ActiveDataExtIntegrationFields;
+            _input.IsModified = true;
+
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.DataConfigFields.API.Update.Url, _input).then(function SuccessCallback(response) {
+                if (response.data.Response) {
+                    var _response = response.data.Response;
+
+                    var _index =  DataExtIntegrationCtrl.ePage.Masters.DataExtIntegration.DataExtIntegrationFields.ListSource.map(function (value, key) {
+                        return value.PK;
+                    }).indexOf(_response.PK);
+
+                    if (_index === -1) {
+                        DataExtIntegrationCtrl.ePage.Masters.DataExtIntegration.DataExtIntegrationFields.ListSource.push(_response);
+                    } else {
+                        DataExtIntegrationCtrl.ePage.Masters.DataExtIntegration.DataExtIntegrationFields.ListSource[_index] = _response;
+                    }
+
+                    OnDataExtIntegrationFieldsClick(_response);
+                } else {
+                    toastr.error("Could not Update...!");
+                }
+
+                GetDataExtIntegrationFieldsList();
+
+                DataExtIntegrationCtrl.ePage.Masters.DataExtIntegration.DataExtIntegrationFields.SaveBtnText = "OK";
+                DataExtIntegrationCtrl.ePage.Masters.DataExtIntegration.DataExtIntegrationFields.IsDisableSaveBtn = false;
+                DataExtIntegrationCtrl.ePage.Masters.DataExtIntegration.DataExtIntegrationFields.EditModal.dismiss('cancel');
+            });
+            
         }
 
         function EditDataConfigField($item) {
@@ -572,6 +650,7 @@
                  } else {
                     toastr.error("Could not Delete")
                 }
+                GetDataExtIntegrationFieldsList();
             });
         }
 

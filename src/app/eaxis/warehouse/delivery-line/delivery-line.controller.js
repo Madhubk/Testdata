@@ -3,15 +3,15 @@
 
     angular
         .module("Application")
-        .controller("TrackDeliveryLineController", TrackDeliveryLineController);
+        .controller("DeliveryLineController", DeliveryLineController);
 
-    TrackDeliveryLineController.$inject = ["$location", "helperService"];
-    function TrackDeliveryLineController($location,helperService) {
-        var TrackDeliveryLineCtrl = this,
+    DeliveryLineController.$inject = ["$location", "helperService"];
+    function DeliveryLineController($location,helperService) {
+        var DeliveryLineCtrl = this,
             location = $location;
 
         function Init() {
-            TrackDeliveryLineCtrl.ePage = {
+            DeliveryLineCtrl.ePage = {
                 "Title": "",
                 "Prefix": "Delivery",
                 "Masters": {},
@@ -19,7 +19,7 @@
                 "Entities": ""
             };
 
-            TrackDeliveryLineCtrl.ePage.Masters.dataentryName = "DeliveryLine";
+            DeliveryLineCtrl.ePage.Masters.dataentryName = "DeliveryLine";
         }
         Init();
     }

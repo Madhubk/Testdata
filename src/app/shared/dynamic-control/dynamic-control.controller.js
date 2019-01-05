@@ -22,23 +22,22 @@
                 DynamicControlCtrl.ePage.Masters.Pkey = DynamicControlCtrl.pkey;
             }
 
-            if ($location.path().indexOf('/single-record-view/') != -1) {
-                // var _Config = $injector.get('shipmentConfig');
-                // var _Config = $injector.get(DynamicControlCtrl.configName);
-                var Entity = $location.path().split("/").pop();
-                var label = JSON.parse(helperService.decryptData(Entity));
-                DynamicControlCtrl.WorkItemId = label.WorkitemID;
-                var _Config = $injector.get(label.ConfigName);
-                if (DynamicControlCtrl.ePage.Masters.Pkey == undefined) {
-                    DynamicControlCtrl.ePage.Masters.Pkey = label.Pkey;
-                }
-                _Config.TabList.map(function (val, key) {
-                    if (val.label == label.Code) {
-                        DynamicControlCtrl.currentObj = val[label.Code].ePage.Entities;
-                        DynamicControlCtrl.currentObj.Header.Data.UIDynamic = {}
-                    }
-                });
-            }
+            // if ($location.path().indexOf('/single-record-view/') != -1) {
+            //     // var _Config = $injector.get(DynamicControlCtrl.configName);
+            //     var Entity = $location.path().split("/").pop();
+            //     var label = JSON.parse(helperService.decryptData(Entity));
+            //     DynamicControlCtrl.WorkItemId = label.WorkitemID;
+            //     var _Config = $injector.get(label.ConfigName);
+            //     if (DynamicControlCtrl.ePage.Masters.Pkey == undefined) {
+            //         DynamicControlCtrl.ePage.Masters.Pkey = label.Pkey;
+            //     }
+            //     _Config.TabList.map(function (val, key) {
+            //         if (val.label == label.Code) {
+            //             DynamicControlCtrl.currentObj = val[label.Code].ePage.Entities;
+            //             DynamicControlCtrl.currentObj.Header.Data.UIDynamic = {}
+            //         }
+            //     });
+            // }
 
             DynamicControlCtrl.ePage.Masters.TenantCode = authService.getUserInfo().TenantCode;
             DynamicControlCtrl.ePage.Masters.AppCode = authService.getUserInfo().AppCode;

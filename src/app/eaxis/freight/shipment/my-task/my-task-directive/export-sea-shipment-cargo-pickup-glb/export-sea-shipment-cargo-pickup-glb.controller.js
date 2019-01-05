@@ -102,7 +102,7 @@
                         return val.Category == 'DocumentValidation'
                     })
                     if (ExportSeaShipmentCargoPickupGlbCtrl.ePage.Masters.DocumentValidation.length > 0) {
-                        DocumentValidation();
+                        //  DocumentValidation();
                     }
                     ExportSeaShipmentCargoPickupGlbCtrl.ePage.Masters.MenuObj = ExportSeaShipmentCargoPickupGlbCtrl.taskObj;
                     ExportSeaShipmentCargoPickupGlbCtrl.ePage.Masters.MenuObj.TabTitle = ExportSeaShipmentCargoPickupGlbCtrl.taskObj.KeyReference;
@@ -115,97 +115,102 @@
             if (ExportSeaShipmentCargoPickupGlbCtrl.ePage.Masters.TaskObj) {
                 // validation findall call
                 var _obj = {
-                    ModuleName: ["MyTask"],
-                    Code: [ExportSeaShipmentCargoPickupGlbCtrl.ePage.Masters.EntityObj.UIShipmentHeader.ShipmentNo],
+                    ModuleName: [ExportSeaShipmentCargoPickupGlbCtrl.ePage.Masters.TaskObj.WSI_StepCode],
+                    Code: [ExportSeaShipmentCargoPickupGlbCtrl.ePage.Masters.TaskObj.WSI_StepCode],
                     API: "Validation",
                     FilterInput: {
                         ModuleCode: "SHP",
                         SubModuleCode: "SHP",
-                        Code: "E11072"
+                        Code: "E11072",
+                        VLG_Code : ExportSeaShipmentCargoPickupGlbCtrl.ePage.Masters.TaskObj.WSI_StepCode
                     },
-                    GroupCode: ExportSeaShipmentCargoPickupGlbCtrl.ePage.Masters.ValidationSource[0].Code,
+                    GroupCode: ExportSeaShipmentCargoPickupGlbCtrl.ePage.Masters.TaskObj.WSI_StepCode,
                     // RelatedBasicDetails: [{
                     //     "UIField": "TEST",
                     //     "DbField": "TEST",
                     //     "Value": "TEST"
                     // }],
-                    EntityObject: ExportSeaShipmentCargoPickupGlbCtrl.ePage.Masters.EntityObj,
-                    ErrorCode: []
+                    EntityObject: ExportSeaShipmentCargoPickupGlbCtrl.ePage.Masters.EntityObj
                 };
                 errorWarningService.GetErrorCodeList(_obj);
             }
         }
 
-        function DocumentValidation() {
-            if (ExportSeaShipmentCargoPickupGlbCtrl.ePage.Masters.TaskObj) {
-                // validation findall call
-                var _obj = {
-                    ModuleName: ["MyTask"],
-                    Code: [ExportSeaShipmentCargoPickupGlbCtrl.ePage.Masters.EntityObj.UIShipmentHeader.ShipmentNo],
-                    API: "Validation",
-                    FilterInput: {
-                        ModuleCode: "SHP",
-                        SubModuleCode: "SHP",
-                        Code: "E11072"
-                    },
-                    GroupCode: "Document",
-                    EntityObject: ExportSeaShipmentCargoPickupGlbCtrl.ePage.Masters.EntityObj,
-                    ErrorCode: []
-                };
-                errorWarningService.GetErrorCodeList(_obj);
+        // function DocumentValidation() {
+        //     if (ExportSeaShipmentCargoPickupGlbCtrl.ePage.Masters.TaskObj) {
+        //         // validation findall call
+        //         var _obj = {
+        //             ModuleName: ["MyTask"],
+        //             Code: [ExportSeaShipmentCargoPickupGlbCtrl.ePage.Masters.TaskObj.WSI_StepCode],
+        //             API: "Validation",
+        //             FilterInput: {
+        //                 ModuleCode: "SHP",
+        //                 SubModuleCode: "SHP",
+        //                 Code: "E11075",
+        //                 VLG_Code : ExportSeaShipmentCargoPickupGlbCtrl.ePage.Masters.TaskObj.WSI_StepCode
+        //             },
+        //             GroupCode: "CARGO_PICKUP",
+        //             EntityObject: ExportSeaShipmentCargoPickupGlbCtrl.ePage.Masters.EntityObj,
+        //             ErrorCode: []
+        //         };
+        //         errorWarningService.GetErrorCodeList(_obj);
 
-            }
-        }
+        //     }
+        // }
 
         function Complete() {
             if (ExportSeaShipmentCargoPickupGlbCtrl.ePage.Masters.ValidationSource || ExportSeaShipmentCargoPickupGlbCtrl.ePage.Masters.DocumentValidation) {
                 if (ExportSeaShipmentCargoPickupGlbCtrl.ePage.Masters.ValidationSource.length > 0) {
                     var _obj = {
-                        ModuleName: ["MyTask"],
-                        Code: [ExportSeaShipmentCargoPickupGlbCtrl.ePage.Masters.EntityObj.UIShipmentHeader.ShipmentNo],
+                        ModuleName: [ExportSeaShipmentCargoPickupGlbCtrl.ePage.Masters.TaskObj.WSI_StepCode],
+                        Code: [ExportSeaShipmentCargoPickupGlbCtrl.ePage.Masters.TaskObj.WSI_StepCode],
                         API: "Validation",
                         FilterInput: {
                             ModuleCode: "SHP",
                             SubModuleCode: "SHP",
-                            Code: "E11072"
+                            Code: "E11072",
+                            VLG_Code : ExportSeaShipmentCargoPickupGlbCtrl.ePage.Masters.TaskObj.WSI_StepCode
                         },
-                        GroupCode: ExportSeaShipmentCargoPickupGlbCtrl.ePage.Masters.ValidationSource[0].Code,
+                        ErrorCode: [],
+                        GroupCode:  ExportSeaShipmentCargoPickupGlbCtrl.ePage.Masters.TaskObj.WSI_StepCode,
                         EntityObject: ExportSeaShipmentCargoPickupGlbCtrl.ePage.Masters.EntityObj
                     };
                     errorWarningService.ValidateValue(_obj);
                 }
 
-                if (ExportSeaShipmentCargoPickupGlbCtrl.ePage.Masters.DocumentValidation.length > 0) {
-                    GetDocumentValidation().then(function (response) {
-                        if (ExportSeaShipmentCargoPickupGlbCtrl.ePage.Masters.docTypeSource.length == 0 || ExportSeaShipmentCargoPickupGlbCtrl.ePage.Masters.docTypeSource.length == response.length) {
-                            ExportSeaShipmentCargoPickupGlbCtrl.ePage.Masters.EntityObj.Document = true;
-                        } else {
-                            ExportSeaShipmentCargoPickupGlbCtrl.ePage.Masters.EntityObj.Document = null;
-                        }
-                        var _obj = {
-                            ModuleName: ["MyTask"],
-                            Code: [ExportSeaShipmentCargoPickupGlbCtrl.ePage.Masters.EntityObj.UIShipmentHeader.ShipmentNo],
-                            API: "Group",
-                            FilterInput: {
-                                ModuleCode: "SHP",
-                                SubModuleCode: "SHP",
-                            },
-                            GroupCode: "Document",
-                            EntityObject: ExportSeaShipmentCargoPickupGlbCtrl.ePage.Masters.EntityObj
-                        };
-                        errorWarningService.ValidateValue(_obj);
-                    });
-                }
+                // if (ExportSeaShipmentCargoPickupGlbCtrl.ePage.Masters.DocumentValidation.length > 0) {
+                //     GetDocumentValidation().then(function (response) {
+                //         if (ExportSeaShipmentCargoPickupGlbCtrl.ePage.Masters.docTypeSource.length == response.length) {
+                //             ExportSeaShipmentCargoPickupGlbCtrl.ePage.Masters.EntityObj.Document = true;
+                //         } else {
+                //             ExportSeaShipmentCargoPickupGlbCtrl.ePage.Masters.EntityObj.Document = null;
+                //         }
+                //         // var _obj = {
+                //         //     ModuleName: ["MyTask"],
+                //         //     Code: [ExportSeaShipmentCargoPickupGlbCtrl.ePage.Masters.TaskObj.WSI_StepCode],
+                //         //     API: "Validation",
+                //         //     FilterInput: {
+                //         //         ModuleCode: "SHP",
+                //         //         SubModuleCode: "SHP",
+                //         //         Code:"E11075",
+                //         //         VLG_Code : ExportSeaShipmentCargoPickupGlbCtrl.ePage.Masters.TaskObj.WSI_StepCode
+                //         //     },
+                //         //     GroupCode: ExportSeaShipmentCargoPickupGlbCtrl.ePage.Masters.TaskObj.WSI_StepCode,
+                //         //     EntityObject: ExportSeaShipmentCargoPickupGlbCtrl.ePage.Masters.EntityObj
+                //         // };
+                //         // errorWarningService.ValidateValue(_obj);
+                //     });
+                // }
                 $timeout(function () {
-                    var _errorcount=[];
+                    var _errorcount=0;
                     // var _errorcount1 = errorWarningService.Modules.MyTask.Entity[ExportSeaShipmentCargoPickupGlbCtrl.ePage.Masters.EntityObj.UIShipmentHeader.ShipmentNo].GlobalErrorWarningList;
                     // _errorcount1.map(function (value, key) {
                     //     if (value.Code == 'E11072') {
                     //         _errorcount = errorWarningService.Modules.MyTask.Entity[ExportSeaShipmentCargoPickupGlbCtrl.ePage.Masters.EntityObj.UIShipmentHeader.ShipmentNo].GlobalErrorWarningList[key];
                     //     }
                     // })
-                    _errorcount = errorWarningService.Modules.MyTask.Entity[ExportSeaShipmentCargoPickupGlbCtrl.ePage.Masters.EntityObj.UIShipmentHeader.ShipmentNo].GlobalErrorWarningList;
-                    if (_errorcount) {
+                    _errorcount = errorWarningService.Modules[ExportSeaShipmentCargoPickupGlbCtrl.ePage.Masters.TaskObj.WSI_StepCode].Entity[ExportSeaShipmentCargoPickupGlbCtrl.ePage.Masters.TaskObj.WSI_StepCode].GlobalErrorWarningList;
+                    if (_errorcount.length > 0) {
                         if (ExportSeaShipmentCargoPickupGlbCtrl.ePage.Masters.DocumentValidation.length > 0) {
                             angular.forEach(_errorcount, function (value, key) {
                                 if (value.MetaObject == "Document") {
@@ -289,15 +294,16 @@
 
         function OnFieldValueChange(code) {
             var _obj = {
-                ModuleName: ["MyTask"],
-                Code: [ExportSeaShipmentCargoPickupGlbCtrl.ePage.Masters.EntityObj.UIShipmentHeader.ShipmentNo],
+                ModuleName: ExportSeaShipmentCargoPickupGlbCtrl.ePage.Masters.TaskObj.WSI_StepCode,
+                Code: [ExportSeaShipmentCargoPickupGlbCtrl.ePage.Masters.TaskObj.WSI_StepCode],
                 API: "Validation",
                 FilterInput: {
                     ModuleCode: "SHP",
                     SubModuleCode: "SHP",
-                    Code: "E11072"
+                    Code: "E11072",
+                    VLG_Code : ExportSeaShipmentCargoPickupGlbCtrl.ePage.Masters.TaskObj.WSI_StepCode
                 },
-                GroupCode: "SHP_GENERAL",
+                GroupCode:  "CARGO_PICKUP",
                 RelatedBasicDetails: [{
                     // "UIField": "TEST",
                     // "DbField": "TEST",
@@ -307,8 +313,8 @@
                 ErrorCode: code ? [code] : []
             };
             errorWarningService.ValidateValue(_obj);
-            ExportSeaShipmentCargoPickupGlbCtrl.ePage.Masters.ErrorWarningConfig.GlobalErrorWarningList = errorWarningService.Modules.MyTask.Entity[ExportSeaShipmentCargoPickupGlbCtrl.taskObj.KeyReference].GlobalErrorWarningList;
-            ExportSeaShipmentCargoPickupGlbCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj = errorWarningService.Modules.MyTask.Entity[ExportSeaShipmentCargoPickupGlbCtrl.taskObj.KeyReference];
+            ExportSeaShipmentCargoPickupGlbCtrl.ePage.Masters.ErrorWarningConfig.GlobalErrorWarningList = errorWarningService.Modules[ExportSeaShipmentCargoPickupGlbCtrl.ePage.Masters.TaskObj.WSI_StepCode].Entity[ExportSeaShipmentCargoPickupGlbCtrl.ePage.Masters.TaskObj.PSI_InstanceNo].GlobalErrorWarningList;
+            ExportSeaShipmentCargoPickupGlbCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj = errorWarningService.Modules[ExportSeaShipmentCargoPickupGlbCtrl.ePage.Masters.TaskObj.WSI_StepCode].Entity[ExportSeaShipmentCargoPickupGlbCtrl.ePage.Masters.TaskObj.PSI_InstanceNo];
 
         }
 

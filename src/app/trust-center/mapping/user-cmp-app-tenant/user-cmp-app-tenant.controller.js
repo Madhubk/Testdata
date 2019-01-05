@@ -347,7 +347,10 @@
             _input.OtherEntityCode = row.OtherEntityCode;
             _input.OtherEntity_FK_2 = row.OtherEntity_FK_2;
             _input.OtherEntityCode_2 = row.OtherEntityCode_2;
-            _input.OtherEntitySource_2 = "ORG";
+            _input.OtherEntitySource_2 = "WMS";
+            _input.OtherEntity_FK_3 = row.OtherEntity_FK_3;
+            _input.OtherEntityCode_3 = row.OtherEntityCode_3;
+            _input.OtherEntitySource_3 = "ORG";
             _input.IsModified = true;
             _input.SAP_FK = TCUserCmpAppTenantCtrl.ePage.Masters.Application.ActiveApplication.PK;
             _input.SAP_Code = TCUserCmpAppTenantCtrl.ePage.Masters.Application.ActiveApplication.AppCode;

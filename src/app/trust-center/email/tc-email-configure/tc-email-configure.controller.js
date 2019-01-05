@@ -35,6 +35,15 @@
                     InitTemplate();
                     InitEmail();
                 }
+                TCEmailConfigureCtrl.ePage.Masters.GenerateScriptInput = {
+                    ObjectName: "MstEmailType",
+                    ObjectId: TCEmailConfigureCtrl.ePage.Entities.Header.Data.PK
+                };
+                TCEmailConfigureCtrl.ePage.Masters.GenerateScriptConfig = {
+                    IsEnableTable: false,
+                    IsEnablePK: false,
+                    IsEnableTenant: false
+                };
             } catch (error) {
                 console.log(error)
             }

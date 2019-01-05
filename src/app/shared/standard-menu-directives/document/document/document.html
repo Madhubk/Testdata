@@ -114,7 +114,7 @@
             <!-- Doc Generate List -->
             <div class="clearfix text-single-line doc-generate-list position-relative pl-10 pr-90 pt-7 pb-7" data-ng-if="(SMDocumentCtrl.ePage.Masters.DocumentGenerate.ListSource && SMDocumentCtrl.ePage.Masters.DocumentGenerate.ListSource.length > 0) && SMDocumentCtrl.Config.IsDisableGenerate != true"
                 data-ng-repeat="x in SMDocumentCtrl.ePage.Masters.DocumentGenerate.ListSource" title="{{x.Desc}}"
-                data-ng-click="!SMDocumentCtrl.ePage.Masters.Document.IsUploading && SMDocumentCtrl.ePage.Masters.DocumentGenerate.ActiveDocumentGenerate = x">
+                data-ng-click="!SMDocumentCtrl.ePage.Masters.Document.IsUploading &&  SMDocumentCtrl.ePage.Masters.DocumentGenerate.OnGenerateBtnClick(x)">
                 <span data-ng-bind="x.Description"></span>
                 <button class="btn btn-xs btn-default pull-right doc-generate-btn" data-ng-click="SMDocumentCtrl.ePage.Masters.DocumentGenerate.OnDocumentGenerate(x)"
                     data-ng-bind="x.GenerateBtnTxt" data-ng-disabled="x.IsDisabledGenerateBtn || SMDocumentCtrl.ePage.Masters.Document.IsUploading"></button>

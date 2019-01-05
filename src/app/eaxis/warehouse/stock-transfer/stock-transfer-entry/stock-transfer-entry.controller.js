@@ -342,7 +342,7 @@
                 toastr.warning('Upload Excel With Product Details');
             } else {
                 var obj = {
-                    "LineType": "UIWmsWorkOrderLine",
+                    "LineType": "UIWmsStockTransferLine",
                     "WmsWorkOrder": {
                         "WorkOrderID": StocktransferEntryCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.WorkOrderID,
                         "WarehouseCode": StocktransferEntryCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.WarehouseCode,
@@ -362,7 +362,7 @@
                             value.PK='';
                             if(!value.Packs){
                                 value.Packs = 1;
-                                value.Units = 1;
+                                value.Quantity = 1;
                             }
                             if(!value.PAC_PackType){
                                 value.PAC_PackType = value.StockKeepingUnit;

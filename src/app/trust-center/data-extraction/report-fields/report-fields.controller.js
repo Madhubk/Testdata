@@ -174,7 +174,7 @@
             EditDataExtReportFields();
         }
 
-        function EditDataExtReportFieldsModalInstance() {
+        function EditDataExtReportFieldsModal() {
             return DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.EditDataExtReportFieldsModal = $uibModal.open({
                 animation: true,
                 keyboard: true,
@@ -194,7 +194,7 @@
                     GetTargetFieldList(_obj);
                 }
             }
-            EditDataExtReportFieldsModalInstance().result.then(function (response) {}, function () {
+            EditDataExtReportFieldsModal().result.then(function (response) {}, function () {
                 CloseDataExtReportFieldsModal();
             });
 
@@ -237,14 +237,7 @@
         }
 
         function DeleteDataExtReportFields() {
-            DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DeleteBtnText = "Please Wait...";
-            DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.IsDisableDeleteBtn = true;
-
-            var _input = angular.copy(DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.ActiveDataExtReportFields);
-            _input.IsModified = true;
-            _input.IsDeleted = true;
-
-            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.DataConfig.API.Upsert.Url, [_input]).then(function SuccessCallback(response) {
+           apiService.get("eAxisAPI", trustCenterConfig.Entities.API.DataConfig.API.Delete.Url + DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.ActiveDataExtReportFields.PK).then(function SuccessCallback(response) {
                 if (response.data.Response) {
                     var _index = DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsList.map(function (value, key) {
                         return value.PK;
@@ -340,33 +333,39 @@
         }
 
         function SaveDataExtReportFields() {
+            if (DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.ActiveDataExtReportFields.PK) {
+                UpdateDataExtReportFields();
+            } else {
+                InsertDataExtReportFields();
+            }
+        }
+
+        function InsertDataExtReportFields() {
             DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.SaveBtnText = "Please Wait...";
             DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.IsDisableSaveBtn = true;
 
-            var _input = angular.copy(DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.ActiveDataExtReportFields);
-
-            _input.TenantCode = authService.getUserInfo().TenantCode;
-            _input.AppCode = DataExtReportFieldsCtrl.ePage.Masters.Application.ActiveApplication.AppCode;
-            _input.SAP_FK = DataExtReportFieldsCtrl.ePage.Masters.Application.ActiveApplication.PK;
+            var _input = DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.ActiveDataExtReportFields;
             _input.IsModified = true;
-            _input.IsDeleted = false;
-            _input.ConfigType = "ReportFields";
+            _input.SAP_FK = DataExtReportFieldsCtrl.ePage.Masters.Application.ActiveApplication.PK;
+            _input.AppCode = DataExtReportFieldsCtrl.ePage.Masters.Application.ActiveApplication.AppCode;
 
-            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.DataConfig.API.Upsert.Url, [_input]).then(function SuccessCallback(response) {
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.DataConfig.API.Insert.Url, [_input]).then(function SuccessCallback(response) {
                 if (response.data.Response) {
-                    var _response = response.data.Response[0];
-                    DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.ActiveDataExtReportFields = angular.copy(_response);
-                    var _index = DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsList.map(function (e) {
-                        return e.PK;
-                    }).indexOf(_response.PK);
+                    if (response.data.Response.length > 0) {
+                        var _response = response.data.Response[0];
 
-                    if (_index === -1) {
-                        DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsList.push(_response);
-                    } else {
-                        DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsList[_index] = _response;
+                        var _index = DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsList.map(function (value, key) {
+                            return value.PK;
+                        }).indexOf(_response.PK);
+
+                        if (_index === -1) {
+                            DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsList.push(_response);
+                        } else {
+                            DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsList[_index] = _response;
+                        }
+
+                        OnDataExtReportFieldsClick(_response);
                     }
-
-                    OnDataExtReportFieldsClick(DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.ActiveDataExtReportFields);
                 } else {
                     toastr.error("Could not Save...!");
                 }
@@ -377,6 +376,39 @@
             });
         }
 
+        function UpdateDataExtReportFields() {
+            DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.SaveBtnText = "Please Wait...";
+            DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.IsDisableSaveBtn = true;
+
+            var _input = DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.ActiveDataExtReportFields;
+            _input.IsModified = true;
+            _input.SAP_FK = DataExtReportFieldsCtrl.ePage.Masters.Application.ActiveApplication.PK;
+            _input.AppCode = DataExtReportFieldsCtrl.ePage.Masters.Application.ActiveApplication.AppCode;
+
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.DataConfig.API.Update.Url, _input).then(function SuccessCallback(response) {
+                if (response.data.Response) {
+                    var _response = response.data.Response;
+
+                    var _index = DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsList.map(function (value, key) {
+                        return value.PK;
+                    }).indexOf(_response.PK);
+
+                    if (_index === -1) {
+                        DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsList.push(_response);
+                    } else {
+                        DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsList[_index] = _response;
+                    }
+
+                    OnDataExtReportFieldsClick(_response);
+                } else {
+                    toastr.error("Could not Save...!");
+                }
+
+                DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.SaveBtnText = "OK";
+                DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.IsDisableSaveBtn = false;
+                DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.EditDataExtReportFieldsModal.dismiss('cancel');
+            });
+        }
 
         // =======================  Data Extraction Report Fields End ======== 
 
@@ -459,68 +491,17 @@
                 EntitySource: "GENERAL",
                 EntityRefCode: "General"
             };
-
-            // if (type !== "Main") {
-            //     DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.ActiveDataExtReportFieldsFields.Self_FK = $item.PK;
-            //     DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.ActiveDataExtReportFieldsFields.External_Code = $item.External_Code;
-            //     DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.ActiveDataExtReportFieldsFields.External_FK = $item.External_FK;
-            //     DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.ActiveDataExtReportFieldsFields.ItemType = DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.Expression.ItemTypeList[0];
-            // } else {
+            
             DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.ActiveDataExtReportFieldsFields.ItemType = "Main";
-            //  }
-
+        
             DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.FieldNameList = [];
             GetFieldList();
 
-            EditReportFieldsConfigModalInstance().result.then(function (response) {}, function () {});
+            EditReportFieldsFieldsConfigModal().result.then(function (response) {}, function () {});
         }
 
-        function EditReportFieldsField($item) {
-            if (DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.ActiveDataExtReportFieldsFields.PK) {
-                if (DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.ActiveDataExtReportFields.ClassSource) {
-                    var _obj = {
-                        TableName: DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.ActiveDataExtReportFields.ClassSource
-                    };
-                    GetFieldList(_obj);
-                }
-            }
-
-            DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.ActiveDataExtReportFieldsFields = angular.copy($item);
-            // if (DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.ActiveDataExtReportFieldsFields.ItemType.length > 0) {
-            //     DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.ActiveDataExtReportFieldsFields.ItemType = DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.Expression.ItemTypeList[0];
-            // }
-            if (DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.ActiveDataExtReportFieldsFields.RelatedInput && DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.ActiveDataExtReportFieldsFields.RelatedInput != '' && DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.ActiveDataExtReportFieldsFields.RelatedInput != ' ') {
-                DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.ActiveDataExtReportFieldsFields.RelatedInput = JSON.parse(DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.ActiveDataExtReportFieldsFields.RelatedInput);
-                DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.ActiveDataExtReportFieldsFields.RelatedInput = JSON.stringify(DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.ActiveDataExtReportFieldsFields.RelatedInput, undefined, 2);
-            }
-
-            if (DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.ActiveDataExtReportFieldsFields.Expression && DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.ActiveDataExtReportFieldsFields.Expression != '' && DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.ActiveDataExtReportFieldsFields.Expression != ' ') {
-                DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.ActiveDataExtReportFieldsFields.Expression = JSON.parse(DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.ActiveDataExtReportFieldsFields.Expression);
-                DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.ActiveDataExtReportFieldsFields.Expression = JSON.stringify(DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.ActiveDataExtReportFieldsFields.Expression, undefined, 2);
-            }
-
-            if (DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.ActiveDataExtReportFieldsFields.UpdateRules && DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.ActiveDataExtReportFieldsFields.UpdateRules != '' && DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.ActiveDataExtReportFieldsFields.UpdateRules != ' ') {
-                DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.ActiveDataExtReportFieldsFields.UpdateRules = JSON.parse(DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.ActiveDataExtReportFieldsFields.UpdateRules);
-                DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.ActiveDataExtReportFieldsFields.UpdateRules = JSON.stringify(DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.ActiveDataExtReportFieldsFields.UpdateRules, undefined, 2);
-            }
-
-            if (DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.ActiveDataExtReportFieldsFields.DAC_FK) {
-                var _index = DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.DataExtReportFieldsFieldsListSource.map(function (value, key) {
-                    return value.PK;
-                }).indexOf(DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.ActiveDataExtReportFieldsFields.DAC_FK);
-
-                if (_index != -1) {
-
-                    GetFieldList(DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.DataExtReportFieldsFieldsListSource[_index])
-                }
-            }
-
-            DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.FieldNameList = [];
-            EditReportFieldsConfigModalInstance().result.then(function (response) {}, function () {});
-        }
-
-        function EditReportFieldsConfigModalInstance() {
-            return DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.EditModal = $uibModal.open({
+        function EditReportFieldsFieldsConfigModal() {
+            return DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.EditReportFieldsFields = $uibModal.open({
                 animation: true,
                 keyboard: true,
                 backdrop: "static",
@@ -531,37 +512,86 @@
         }
 
         function CloseReportFieldsFields() {
-            DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.EditModal.dismiss('cancel');
+            DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.EditReportFieldsFields.dismiss('cancel');
         }
 
+        function EditReportFieldsField($item) {
+            DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.ActiveDataExtReportFieldsFields = angular.copy($item);
+
+            EditReportFieldsFieldsConfigModal().result.then(function (response) { }, function () { });
+        }
+
+
         function ReportFieldsFieldsSave() {
-            DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.ReportFieldsConfigSaveBtnText = "Please Wait...";
-            DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.IsDisableReportFieldsConfigSaveBtn = true;
+            if (DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.ActiveDataExtReportFieldsFields.PK) {
+                UpdateDataExtReportFieldsFields();
+            } else {
+                InsertDataExtReportFieldsFields();
+            }
+        }
 
-            var _input = angular.copy(DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.ActiveDataExtReportFieldsFields);
+        function InsertDataExtReportFieldsFields() {
+            DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.SaveBtnText = "Please Wait...";
+            DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.IsDisableSaveBtn = true;
+
+            var _input = DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.ActiveDataExtReportFieldsFields;
             _input.IsModified = true;
-
-            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.DataConfigFields.API.Upsert.Url, [_input]).then(function SuccessCallback(response) {
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.DataConfigFields.API.Insert.Url, [_input]).then(function SuccessCallback(response) {
                 if (response.data.Response) {
                     if (response.data.Response.length > 0) {
-                        if (DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.ActiveDataExtReportFieldsFields.PK) {
-                            var _index = DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.DataExtReportFieldsFieldsListSource.map(function (value, key) {
-                                return value.PK;
-                            }).indexOf(DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.ActiveDataExtReportFieldsFields.PK);
+                        var _response = response.data.Response[0];
 
-                            if (_index !== -1) {
-                                DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.DataExtReportFieldsFieldsListSource[_index] = response.data.Response[0];
-                            }
+                        var _index = DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.DataExtReportFieldsFieldsListSource.map(function (value, key) {
+                            return value.PK;
+                        }).indexOf(_response.PK);
+
+                        if (_index === -1) {
+                            DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.DataExtReportFieldsFieldsListSource.push(_response);
                         } else {
-                            DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.DataExtReportFieldsFieldsListSource.push(response.data.Response[0]);
+                            DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.DataExtReportFieldsFieldsListSource[_index] = _response;
                         }
-                        CloseReportFieldsFields();
+
+                        OnDataExtReportFieldsFieldsClick(_response);
                     }
                 } else {
                     toastr.error("Could not Save...!");
                 }
-                DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.ReportFieldsConfigSaveBtnText = "Save";
-                DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.IsDisableReportFieldsConfigSaveBtn = false;
+
+                DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.SaveBtnText = "OK";
+                DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.IsDisableSaveBtn = false;
+                DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.EditReportFieldsFields.dismiss('cancel');
+            })
+        }
+
+        function UpdateDataExtReportFieldsFields() {
+            DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.SaveBtnText = "Please Wait...";
+            DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.IsDisableSaveBtn = true;
+
+            var _input = DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.ActiveDataExtReportFieldsFields;
+            _input.IsModified = true;
+
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.DataConfigFields.API.Update.Url, _input).then(function SuccessCallback(response) {
+                if (response.data.Response) {
+                    var _response = response.data.Response;
+
+                    var _index = DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.DataExtReportFieldsFieldsListSource.map(function (value, key) {
+                        return value.PK;
+                    }).indexOf(_response.PK);
+
+                    if (_index === -1) {
+                        DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.DataExtReportFieldsFieldsListSource.push(_response);
+                    } else {
+                        DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.DataExtReportFieldsFieldsListSource[_index] = _response;
+                    }
+
+                    OnDataExtReportFieldsFieldsClick(_response);
+                } else {
+                    toastr.error("Could not Save...!");
+                }
+
+                DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.SaveBtnText = "OK";
+                DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.IsDisableSaveBtn = false;
+                DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.EditReportFieldsFields.dismiss('cancel');
             });
         }
 
@@ -586,9 +616,11 @@
                 if (response.data.Response) {
                     toastr.success("Record Deleted Successfully");
                     OnDataExtReportFieldsFieldsClick(item);
-                 } else {
+                } else {
                     toastr.error("Could not Delete")
                 }
+
+                GetDataExtReportFieldsFieldsList();
             });
         }
 

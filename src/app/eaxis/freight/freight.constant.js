@@ -1314,6 +1314,12 @@
                 files: [
                     'app/eaxis/freight/shared/freight-shp-confirmation/freight-shp-confirmation.factory.js'
                 ]
+            },{
+                name: 'ExportSeaShipmentEmptyPlacedGlbDirective',
+                files: [
+                    "app/eaxis/freight/shipment/my-task/my-task-directive/export-sea-shipment-empty-placed-glb/export-sea-shipment-empty-placed-glb.controller.js",
+                    "app/eaxis/freight/shipment/my-task/my-task-directive/export-sea-shipment-empty-placed-glb/export-sea-shipment-empty-placed-glb.directive.js"
+                ]
             }
         ]
     };

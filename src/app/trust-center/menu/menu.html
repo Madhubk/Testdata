@@ -30,11 +30,11 @@
                     </select>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 p-0 pl-5">
-                    <!-- <select chosen class="form-control" data-ng-model="MenuCtrl.ePage.Masters.ActiveSubModule"
+                    <select chosen class="form-control" data-ng-model="MenuCtrl.ePage.Masters.ActiveSubModule"
                         data-ng-options="x for x in MenuCtrl.ePage.Masters.SubModuleList" data-ng-disabled="!MenuCtrl.ePage.Masters.SubModuleList || MenuCtrl.ePage.Masters.SubModuleList.length == 0"
                         data-ng-change="MenuCtrl.ePage.Masters.OnSubModuleChange(MenuCtrl.ePage.Masters.ActiveSubModule)">
                         <option value="">--Select--</option>
-                    </select> -->
+                    </select>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3"></div>
                 <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 p-5 pt-4 text-right">
@@ -312,7 +312,7 @@
                     <div class="form-group">
                         <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Module</label>
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
-                            <select chosen name="category-group" class="form-control" ng-model="MenuCtrl.ePage.Masters.Menu.ActiveMenu.ModuleCode" ng-options="x.Key as x.Description for x in MenuCtrl.ePage.Masters.Module.ListSource"
+                            <select chosen name="category-group" class="form-control" ng-model="MenuCtrl.ePage.Masters.Menu.ActiveMenu.ModuleCode" data-ng-options="x.Key as (x.Key + ' - ' + x.Value) for x  in MenuCtrl.ePage.Masters.ModuleList"
                                 search-contains="true">
                                 <option value="">--Select--</option>
                             </select>
@@ -426,7 +426,7 @@
                     <div class="form-group">
                         <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Module</label>
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
-                            <select chosen name="category-group" class="form-control" ng-model="MenuCtrl.ePage.Masters.Menu.ActiveMenu.ModuleCode" ng-options="x.Key as x.Description for x in MenuCtrl.ePage.Masters.Module.ListSource"
+                            <select chosen name="category-group" class="form-control" ng-model="MenuCtrl.ePage.Masters.Menu.ActiveMenu.ModuleCode" data-ng-options="x.Key as (x.Key + ' - ' + x.Value) for x  in MenuCtrl.ePage.Masters.ModuleList"
                                 search-contains="true">
                                 <option value="">--Select--</option>
                             </select>
@@ -540,7 +540,7 @@
                     <div class="form-group">
                         <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Module</label>
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
-                            <select chosen name="category-group" class="form-control" ng-model="MenuCtrl.ePage.Masters.Menu.ActiveMenu.ModuleCode" ng-options="x.Key as x.Description for x in MenuCtrl.ePage.Masters.Module.ListSource"
+                            <select chosen name="category-group" class="form-control" ng-model="MenuCtrl.ePage.Masters.Menu.ActiveMenu.ModuleCode" data-ng-options="x.Key as (x.Key + ' - ' + x.Value) for x  in MenuCtrl.ePage.Masters.ModuleList"
                                 search-contains="true">
                                 <option value="">--Select--</option>
                             </select>
@@ -660,7 +660,7 @@
                     <div class="form-group">
                         <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Module</label>
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
-                            <select chosen name="category-group" class="form-control" ng-model="MenuCtrl.ePage.Masters.Menu.ActiveMenu.ModuleCode" ng-options="x.Key as x.Description for x in MenuCtrl.ePage.Masters.Module.ListSource"
+                            <select chosen name="category-group" class="form-control" ng-model="MenuCtrl.ePage.Masters.Menu.ActiveMenu.ModuleCode" data-ng-options="x.Key as (x.Key + ' - ' + x.Value) for x  in MenuCtrl.ePage.Masters.ModuleList"
                                 search-contains="true">
                                 <option value="">--Select--</option>
                             </select>
@@ -746,7 +746,7 @@
                     <div class="form-group">
                         <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Module</label>
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
-                            <select chosen name="category-group" class="form-control" ng-model="MenuCtrl.ePage.Masters.Menu.ActiveMenu.ModuleCode" ng-options="x.Key as x.Description for x in MenuCtrl.ePage.Masters.Module.ListSource"
+                            <select chosen name="category-group" class="form-control" ng-model="MenuCtrl.ePage.Masters.Menu.ActiveMenu.ModuleCode" data-ng-options="x.Key as (x.Key + ' - ' + x.Value) for x  in MenuCtrl.ePage.Masters.ModuleList"
                                 search-contains="true">
                                 <option value="">--Select--</option>
                             </select>
@@ -860,7 +860,7 @@
                     <div class="form-group">
                         <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Module</label>
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
-                            <select chosen name="category-group" class="form-control" ng-model="MenuCtrl.ePage.Masters.Menu.ActiveMenu.ModuleCode" ng-options="x.Key as x.Description for x in MenuCtrl.ePage.Masters.Module.ListSource"
+                            <select chosen name="category-group" class="form-control" ng-model="MenuCtrl.ePage.Masters.Menu.ActiveMenu.ModuleCode" data-ng-options="x.Key as (x.Key + ' - ' + x.Value) for x  in MenuCtrl.ePage.Masters.ModuleList"
                                 search-contains="true">
                                 <option value="">--Select--</option>
                             </select>

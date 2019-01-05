@@ -137,6 +137,8 @@
             CloseContentModal();
         }
 
+        
+
         function SaveContent() {
             var _input = {
                 "TOP_FK": HelpContentCreationCtrl.ePage.Masters.QueryString.PK,
@@ -149,7 +151,7 @@
                 "IsModified": true
             };
 
-            apiService.post("authAPI", helpConfig.Entities.HLPDocuments.API.Upsert.Url, [_input]).then(function (response) {
+            apiService.post("authAPI", helpConfig.Entities.HLPDocuments.API.Insert.Url, [_input]).then(function (response) {
                 if (response.data.Response) {
                     if (response.data.Response.length > 0) {
                         HelpContentCreationCtrl.ePage.Masters.ContentCreation.ContentListSource.push(response.data.Response[0]);
@@ -162,10 +164,10 @@
             var _input = $item;
             _input.IsModified = true;
 
-            apiService.post("authAPI", helpConfig.Entities.HLPDocuments.API.Upsert.Url, [_input]).then(function (response) {
+            apiService.post("authAPI", helpConfig.Entities.HLPDocuments.API.Update.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     if (response.data.Response.length > 0) {
-                        var _response = response.data.Response[0];
+                        var _response = response.data.Response;
                         var _index = HelpContentCreationCtrl.ePage.Masters.ContentCreation.ContentListSource.map(function (value, key) {
                             return value.PK
                         }).indexOf(_response.PK);
@@ -244,11 +246,7 @@
         }
 
         function DeleteContent($item) {
-            var _input = $item;
-            _input.IsModified = true;
-            _input.IsDeleted = true;
-
-            apiService.post("authAPI", helpConfig.Entities.HLPDocuments.API.Upsert.Url, [_input]).then(function (response) {
+           apiService.get("authAPI", helpConfig.Entities.HLPDocuments.API.Delete.Url + $item.PK).then(function (response) {
                 if (response.data.Response) {
                     var _index = HelpContentCreationCtrl.ePage.Masters.ContentCreation.ContentListSource.map(function (value, key) {
                         return value.PK

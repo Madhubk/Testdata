@@ -98,22 +98,20 @@
 
         // CfxMenus
         function checkCfxMenus() {
-            
+            var ModuleCode;
+            if ($state.current.url == "/spare-parts-report") {
+                ModuleCode = "SPMS";
+            } else {
+                ModuleCode = "WHS";
+            }
             ReportCtrl.ePage.Masters.ChildMenuList = [];
             var _filter = {
                 "USR_TenantCode": authService.getUserInfo().TenantCode,
                 "USR_SAP_FK": authService.getUserInfo().AppPK,
                 "PageType": "Report",
-                "ModuleCode": "WMS",
+                "ModuleCode": ModuleCode,
                 "USR_UserName": authService.getUserInfo().UserId,
             };
-
-            if ($state.current.url == "/spare-parts-report") {
-                _filter.SubModuleCode = "SPMS"
-            } else {
-                _filter.SubModuleCode = "GEN"
-            }
-
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
                 "FilterID": appConfig.Entities.CfxMenus.API.MasterCascadeFindAll.FilterID
@@ -176,7 +174,7 @@
                 }
 
                 ReportCtrl.ePage.Masters.DynamicControl.Filter.map(function (val, key) {
-                    if (val.FieldName == "WAR_WarehouseCode" || val.FieldName == "WarehouseCode"|| val.FieldName=="WLO_WAR_WarehouseCode") {
+                    if (val.FieldName == "WAR_WarehouseCode" || val.FieldName == "WarehouseCode") {
                         obj.DataObjs[0].DataObject.Warehouse_Code = val.value;
                     }
                     if (val.FieldName == "ClientCode" || val.FieldName == "ORG_ClientCode") {

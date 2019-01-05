@@ -48,7 +48,6 @@
             GetDropDownList();
             GeneralOperations();
             GetBindValues();
-            AllocateUDF();
             GetUserMappedOrganization();
             if (!DeliveryGeneralCtrl.currentDelivery.isNew)
                 GetContact();
@@ -125,10 +124,6 @@
                     });
                     DeliveryGeneralCtrl.ePage.Entities.Header.Data.UIWmsDelivery.TempWarehouse = DeliveryGeneralCtrl.ePage.Entities.Header.Data.UIWmsDelivery.TempWarehouse.slice(0, -1);
                     DeliveryGeneralCtrl.ePage.Entities.Header.Data.UIWmsDelivery.TempWarehouseFK = DeliveryGeneralCtrl.ePage.Entities.Header.Data.UIWmsDelivery.TempWarehouseFK.slice(0, -1);
-                    if (DeliveryGeneralCtrl.ePage.Entities.Header.Data.UIWmsDelivery.TempWarehouse == "null")
-                        DeliveryGeneralCtrl.ePage.Entities.Header.Data.UIWmsDelivery.TempWarehouse = "";
-                    if (DeliveryGeneralCtrl.ePage.Entities.Header.Data.UIWmsDelivery.TempWarehouseFK == "null")
-                        DeliveryGeneralCtrl.ePage.Entities.Header.Data.UIWmsDelivery.TempWarehouseFK = "";
                     getReceiveParamWarehouse();
                 }
             });
@@ -255,19 +250,6 @@
             DeliveryGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader = item;
             DeliveryGeneralCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ORG_Client_FK = item.PK;
             OnChangeValues(DeliveryGeneralCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ClientCode, 'E3050');
-            AllocateUDF();
-            var _filter = {
-                "ORG_FK": DeliveryGeneralCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ORG_Client_FK
-            };
-            var _input = {
-                "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.OrgContact.API.FindAll.FilterID
-            };
-            apiService.post("eAxisAPI", appConfig.Entities.OrgContact.API.FindAll.Url, _input).then(function (response) {
-                if (response.data.Response) {
-                    deliveryConfig.Entities.ClientContact = response.data.Response;
-                }
-            });
         }
 
         function SelectedLookupSite(item) {
@@ -304,20 +286,6 @@
             OnChangeValues(DeliveryGeneralCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WarehouseCode, 'E3051');
             DeliveryGeneralCtrl.ePage.Entities.Header.Data.UIWmsDelivery.TempWarehouse = DeliveryGeneralCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WarehouseCode;
             getReceiveParamWarehouse();
-
-            var _filter = {
-                "ORG_FK": item.PK
-            };
-            var _input = {
-                "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.OrgContact.API.FindAll.FilterID
-            };
-            apiService.post("eAxisAPI", appConfig.Entities.OrgContact.API.FindAll.Url, _input).then(function (response) {
-                if (response.data.Response) {
-                    deliveryConfig.Entities.WarehouseContact = response.data.Response;
-                }
-            });
-
             var _filter = {
                 "ORG_FK": item.PK
             };
@@ -394,30 +362,6 @@
 
             if (DeliveryGeneralCtrl.ePage.Entities.Header.Data.UIWmsDelivery.Consignee == ' - ')
                 DeliveryGeneralCtrl.ePage.Entities.Header.Data.UIWmsDelivery.Consignee = ""
-        }
-
-        function AllocateUDF() {
-            if (DeliveryGeneralCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ORG_Client_FK) {
-                var _filter = {
-                    "ORG_FK": DeliveryGeneralCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ORG_Client_FK
-                };
-
-                var _input = {
-                    "searchInput": helperService.createToArrayOfObject(_filter),
-                    "FilterID": appConfig.Entities.OrgMiscServ.API.FindAll.FilterID
-                };
-
-                apiService.post("eAxisAPI", appConfig.Entities.OrgMiscServ.API.FindAll.Url, _input).then(function (response) {
-                    if (response.data.Response) {
-                        DeliveryGeneralCtrl.ePage.Entities.Header.Data.UIWmsDelivery.IMPartAttrib1Name = response.data.Response[0].IMPartAttrib1Name;
-                        DeliveryGeneralCtrl.ePage.Entities.Header.Data.UIWmsDelivery.IMPartAttrib2Name = response.data.Response[0].IMPartAttrib2Name;
-                        DeliveryGeneralCtrl.ePage.Entities.Header.Data.UIWmsDelivery.IMPartAttrib3Name = response.data.Response[0].IMPartAttrib3Name;
-                        DeliveryGeneralCtrl.ePage.Entities.Header.Data.UIWmsDelivery.IMPartAttrib1Type = response.data.Response[0].IMPartAttrib1Type;
-                        DeliveryGeneralCtrl.ePage.Entities.Header.Data.UIWmsDelivery.IMPartAttrib2Type = response.data.Response[0].IMPartAttrib2Type;
-                        DeliveryGeneralCtrl.ePage.Entities.Header.Data.UIWmsDelivery.IMPartAttrib3Type = response.data.Response[0].IMPartAttrib3Type;
-                    }
-                });
-            }
         }
 
         Init();

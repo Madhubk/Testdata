@@ -43,11 +43,11 @@
     </div>
     <!-- Body -->
     <div class="clearfix">
-        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 p-0 tc-page-height-fixed">
-            <div class="tc-list-container">
-                <div class="tc-list-search">
-                    <input type="text" placeholder="Search..." class="form-control input-sm" data-ng-model="DataExtFullTextSearchCtrl.ePage.Masters.Search">
-                </div>
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 p-0">
+            <div class="tc-list-search">
+                <input type="text" placeholder="Search..." class="form-control input-sm" data-ng-model="DataExtFullTextSearchCtrl.ePage.Masters.Search">
+            </div>
+            <div class="tc-list-container tc-page-height-fixed">
                 <ul class="tc-list-ul">
                     <div class="p-15 text-center tc-loading" data-ng-if="!DataExtFullTextSearchCtrl.ePage.Masters.DataExtFullTextSearch.DataExtFullTextSearchList">
                         <i class="fa fa-spin fa-spinner"></i>
@@ -70,13 +70,13 @@
                 </ul>
             </div>
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 p-0 tc-page-height-fixed">
+        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 p-0">
             <div class="pt-10 pb-10 tc-details-view clearfix">
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                     <div class="clearfix form-group">
                         <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Entity Name</label>
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
-                            <label data-ng-bind="DataExtFullTextSearchCtrl.ePage.Masters.DataExtFullTextSearch.ActiveDataExtFullTextSearch.UIEntityName || DataExtFullTextSearchCtrl.ePage.Masters.emptyText"></label>
+                            <div data-ng-bind="DataExtFullTextSearchCtrl.ePage.Masters.DataExtFullTextSearch.ActiveDataExtFullTextSearch.UIEntityName || DataExtFullTextSearchCtrl.ePage.Masters.emptyText"></div>
                         </div>
                     </div>
                 </div>
@@ -84,7 +84,7 @@
                     <div class="clearfix form-group">
                         <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Class Source</label>
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
-                            <label data-ng-bind="DataExtFullTextSearchCtrl.ePage.Masters.DataExtFullTextSearch.ActiveDataExtFullTextSearch.ClassSource || DataExtFullTextSearchCtrl.ePage.Masters.emptyText"></label>
+                            <div data-ng-bind="DataExtFullTextSearchCtrl.ePage.Masters.DataExtFullTextSearch.ActiveDataExtFullTextSearch.ClassSource || DataExtFullTextSearchCtrl.ePage.Masters.emptyText"></div>
                         </div>
                     </div>
                 </div>
@@ -92,7 +92,7 @@
                     <div class="clearfix form-group">
                         <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">DB Source</label>
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
-                            <label data-ng-bind="DataExtFullTextSearchCtrl.ePage.Masters.DataExtFullTextSearch.ActiveDataExtFullTextSearch.DBSource || DataExtFullTextSearchCtrl.ePage.Masters.emptyText"></label>
+                            <div data-ng-bind="DataExtFullTextSearchCtrl.ePage.Masters.DataExtFullTextSearch.ActiveDataExtFullTextSearch.DBSource || DataExtFullTextSearchCtrl.ePage.Masters.emptyText"></div>
                         </div>
                     </div>
                 </div>
@@ -100,7 +100,7 @@
                     <div class="clearfix form-group">
                         <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Entity Source</label>
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
-                            <label data-ng-bind="DataExtFullTextSearchCtrl.ePage.Masters.DataExtFullTextSearch.ActiveDataExtFullTextSearch.EntitySource || DataExtFullTextSearchCtrl.ePage.Masters.emptyText"></label>
+                            <div data-ng-bind="DataExtFullTextSearchCtrl.ePage.Masters.DataExtFullTextSearch.ActiveDataExtFullTextSearch.EntitySource || DataExtFullTextSearchCtrl.ePage.Masters.emptyText"></div>
                         </div>
                     </div>
                 </div>
@@ -108,7 +108,7 @@
                     <div class="clearfix form-group">
                         <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Entity RefKey</label>
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
-                            <label data-ng-bind="DataExtFullTextSearchCtrl.ePage.Masters.DataExtFullTextSearch.ActiveDataExtFullTextSearch.EntityRefKey || DataExtFullTextSearchCtrl.ePage.Masters.emptyText"></label>
+                            <div data-ng-bind="DataExtFullTextSearchCtrl.ePage.Masters.DataExtFullTextSearch.ActiveDataExtFullTextSearch.EntityRefKey || DataExtFullTextSearchCtrl.ePage.Masters.emptyText"></div>
                         </div>
                     </div>
                 </div>
@@ -116,7 +116,7 @@
                     <div class="clearfix form-group">
                         <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Entity RefCode</label>
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
-                            <label data-ng-bind="DataExtFullTextSearchCtrl.ePage.Masters.DataExtFullTextSearch.ActiveDataExtFullTextSearch.EntityRefCode || DataExtFullTextSearchCtrl.ePage.Masters.emptyText"></label>
+                            <div data-ng-bind="DataExtFullTextSearchCtrl.ePage.Masters.DataExtFullTextSearch.ActiveDataExtFullTextSearch.EntityRefCode || DataExtFullTextSearchCtrl.ePage.Masters.emptyText"></div>
                         </div>
                     </div>
                 </div>

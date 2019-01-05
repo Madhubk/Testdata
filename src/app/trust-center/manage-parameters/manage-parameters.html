@@ -49,11 +49,11 @@
     </div>
     <!-- Body -->
     <div class="clearfix">
-        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 p-0 tc-page-height-fixed">
-            <div class="tc-list-container">
-                <div class="tc-list-search">
-                    <input type="text" placeholder="Search..." class="form-control input-sm" data-ng-model="ManageParameterCtrl.ePage.Masters.ManageParametersListType.Search">
-                </div>
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 p-0">
+            <div class="tc-list-search">
+                <input type="text" placeholder="Search..." class="form-control input-sm" data-ng-model="ManageParameterCtrl.ePage.Masters.ManageParametersListType.Search">
+            </div>
+            <div class="tc-list-container  tc-page-height-fixed left">
                 <ul class="tc-list-ul">
                     <div class="p-15 text-center tc-loading" data-ng-if="!ManageParameterCtrl.ePage.Masters.ManageParametersListType.ListSource">
                         <i class="fa fa-spin fa-spinner"></i>
@@ -76,11 +76,11 @@
                 </ul>
             </div>
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 3col-xl-3 p-0 tc-page-height-fixed">
-            <div class="tc-list-container">
-                <div class="tc-list-search">
-                    <input type="text" placeholder="Search..." class="form-control input-sm" data-ng-model="ManageParameterCtrl.ePage.Masters.ManageParametersListTypeList.Search">
-                </div>
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 3col-xl-3 p-0">
+            <div class="tc-list-search">
+                <input type="text" placeholder="Search..." class="form-control input-sm" data-ng-model="ManageParameterCtrl.ePage.Masters.ManageParametersListTypeList.Search">
+            </div>
+            <div class="tc-list-container tc-page-height-fixed left">
                 <ul class="tc-list-ul">
                     <div class="p-15 text-center tc-loading" data-ng-if="!ManageParameterCtrl.ePage.Masters.ManageParametersListTypeList.ListSource">
                         <i class="fa fa-spin fa-spinner"></i>
@@ -102,13 +102,13 @@
                 </ul>
             </div>
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 p-0 tc-page-height-fixed" data-ng-if="ManageParameterCtrl.ePage.Masters.ManageParametersListTypeList.ActiveManageParametersListTypeList">
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 p-0" data-ng-if="ManageParameterCtrl.ePage.Masters.ManageParametersListTypeList.ActiveManageParametersListTypeList">
             <div class="pt-10 pb-10 tc-details-view clearfix">
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                     <div class="clearfix form-group">
                         <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Code</label>
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
-                            <label data-ng-bind="ManageParameterCtrl.ePage.Masters.ManageParametersListTypeList.ActiveManageParametersListTypeList.TypeCode || ManageParameterCtrl.ePage.Masters.emptyText"></label>
+                            <div data-ng-bind="ManageParameterCtrl.ePage.Masters.ManageParametersListTypeList.ActiveManageParametersListTypeList.TypeCode || ManageParameterCtrl.ePage.Masters.emptyText"></div>
                         </div>
                     </div>
                 </div>
@@ -116,7 +116,7 @@
                     <div class="clearfix form-group">
                         <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Value</label>
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
-                            <label data-ng-bind="ManageParameterCtrl.ePage.Masters.ManageParametersListTypeList.ActiveManageParametersListTypeList.TypeValue || ManageParameterCtrl.ePage.Masters.emptyText"></label>
+                            <div data-ng-bind="ManageParameterCtrl.ePage.Masters.ManageParametersListTypeList.ActiveManageParametersListTypeList.TypeValue || ManageParameterCtrl.ePage.Masters.emptyText"></div>
                         </div>
                     </div>
                 </div>

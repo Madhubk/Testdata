@@ -32,7 +32,6 @@
                 AcknowledgeCsrCtrl.ePage.Entities.Header.Data = myTaskActivityConfig.Entities.Delivery[myTaskActivityConfig.Entities.Delivery.label].ePage.Entities.Header.Data;
                 GeneralOperation();
                 GetDynamicLookupConfig();
-                deliveryConfig.ValidationFindall();
                 if (errorWarningService.Modules.MyTask)
                     AcknowledgeCsrCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj = errorWarningService.Modules.MyTask.Entity[myTaskActivityConfig.Entities.Delivery.label];
             }

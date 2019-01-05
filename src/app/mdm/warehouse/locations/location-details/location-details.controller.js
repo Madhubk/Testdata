@@ -341,10 +341,10 @@
             LocationDetailsCtrl.ePage.Entities.Header.GlobalVariables.Loading = true;
 
             var _Data = $item[$item.label].ePage.Entities,
-                _input = _Data.Header.Data;
+                input = _Data.Header.Data;
             if ($item.isNew) {
-                _input.WmsRow.PK = _input.PK;
-                _input.WmsRow.CreatedDateTime = new Date();
+                input.WmsRow.PK = input.PK;
+                input.WmsRow.CreatedDateTime = new Date();
 
                 //Converting into Upper Case
                 _input.WmsRow.Name = _input.WmsRow.Name.toUpperCase();

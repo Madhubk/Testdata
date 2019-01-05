@@ -130,38 +130,6 @@
                 $rootScope.SaveOutwardFromTask(function () {
                     saves(callback);
                 });
-            } else if (ActivityTemplateDelivery2Ctrl.taskObj.WSI_StepName == "Acknowledge Delivery Request") {
-                var _Data = myTaskActivityConfig.Entities.Delivery[myTaskActivityConfig.Entities.Delivery.label].ePage.Entities,
-                    _input = _Data.Header.Data,
-                    _errorcount = _Data.Header.Meta.ErrorWarning.GlobalErrorWarningList;
-                deliveryConfig.GeneralValidation(myTaskActivityConfig.Entities.Delivery);
-                if (ActivityTemplateDelivery2Ctrl.ePage.Masters.ErrorWarningConfig.Modules.MyTask) {
-                    if (ActivityTemplateDelivery2Ctrl.ePage.Masters.ErrorWarningConfig.Modules.MyTask.Entity) {
-                        ActivityTemplateDelivery2Ctrl.ePage.Masters.ErrorWarningConfig.Modules.MyTask.Entity[ActivityTemplateDelivery2Ctrl.ePage.Masters.EntityObj.UIWmsDelivery.WorkOrderID].GlobalErrorWarningList = _errorcount;
-                    } else {
-                        ActivityTemplateDelivery2Ctrl.ePage.Masters.ErrorWarningConfig.Modules.MyTask.Entity = {
-                            [ActivityTemplateDelivery2Ctrl.ePage.Masters.EntityObj.UIWmsDelivery.WorkOrderID]: {
-                                GlobalErrorWarningList: []
-                            }
-                        };
-                        ActivityTemplateDelivery2Ctrl.ePage.Masters.ErrorWarningConfig.Modules.MyTask.Entity[ActivityTemplateDelivery2Ctrl.ePage.Masters.EntityObj.UIWmsDelivery.WorkOrderID].GlobalErrorWarningList = _errorcount;
-                    }
-                } else {
-                    ActivityTemplateDelivery2Ctrl.ePage.Masters.ErrorWarningConfig.Modules.MyTask = {};
-                    ActivityTemplateDelivery2Ctrl.ePage.Masters.ErrorWarningConfig.Modules.MyTask.Entity = {
-                        [ActivityTemplateDelivery2Ctrl.ePage.Masters.EntityObj.UIWmsDelivery.WorkOrderID]: {
-                            GlobalErrorWarningList: []
-                        }
-                    };
-                    ActivityTemplateDelivery2Ctrl.ePage.Masters.ErrorWarningConfig.Modules.MyTask.Entity[ActivityTemplateDelivery2Ctrl.ePage.Masters.EntityObj.UIWmsDelivery.WorkOrderID].GlobalErrorWarningList = _errorcount;
-                }
-                if (_errorcount.length == 0) {
-                    saves(callback);
-                } else {
-                    ActivityTemplateDelivery2Ctrl.ePage.Masters.CompleteBtnText = "Complete";
-                    ActivityTemplateDelivery2Ctrl.ePage.Masters.IsDisableCompleteBtn = false;
-                    ActivityTemplateDelivery2Ctrl.ePage.Masters.ShowErrorWarningModal(ActivityTemplateDelivery2Ctrl.taskObj.PSI_InstanceNo);
-                }
             } else {
                 saves(callback);
             }
@@ -333,7 +301,7 @@
                     var input = myTaskActivityConfig.Entities.Delivery[myTaskActivityConfig.Entities.Delivery.label].ePage.Entities.Header.Data
                     var temp = 0;
                     angular.forEach(input.UIvwWmsDeliveryList, function (value, key) {
-                        if (value.OL_PrdCode || value.MOL_PrdCode) {
+                        if (value.OUT_PrdCode || value.MTOUT_PrdCode) {
                             temp = temp + 1;
                         }
                     });

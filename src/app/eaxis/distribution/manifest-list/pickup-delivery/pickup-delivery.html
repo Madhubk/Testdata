@@ -141,16 +141,15 @@
                 <div class='table_small'>
                     <div class='table_cell'>Actual Pickup Date Time</div>
                     <div class="input-group input-group-sm p-5" style="width: 190px;">
-                        <input type="text" class="form-control" ng-disabled="PickupDeliveryCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ManifestCompleteDatetime"
-                            placeholder="{{PickupDeliveryCtrl.ePage.Masters.DatePicker.Options.dateTimeFullFormat}}" datetime-picker="{{PickupDeliveryCtrl.ePage.Masters.DatePicker.Options.dateTimeFullFormat}}"
-                            ng-model="x.TMC_ActualPickupDateTime" is-open="PickupDeliveryCtrl.ePage.Masters.DatePicker.isOpen['isTMC_ActualPickupDateTime'+[$index]]"
+                        <input type="text" class="form-control" placeholder="{{PickupDeliveryCtrl.ePage.Masters.DatePicker.Options.dateTimeFullFormat}}"
+                            datetime-picker="{{PickupDeliveryCtrl.ePage.Masters.DatePicker.Options.dateTimeFullFormat}}" ng-model="x.TMC_ActualPickupDateTime"
+                            is-open="PickupDeliveryCtrl.ePage.Masters.DatePicker.isOpen['isTMC_ActualPickupDateTime'+[$index]]"
                             datepicker-options="PickupDeliveryCtrl.ePage.Masters.DatePicker.Options" datepicker-append-to-body="false"
                             close-on-selection="false" enable-time="true" enable-date="true" default-date="" default-time=""
                             when-closed="" save-as="PickupDeliveryCtrl.ePage.Masters.DatePicker.Options.saveFormat" data-ng-click=""
                             data-ng-change="" custom-date-time-format/>
                         <span class="input-group-btn">
-                            <button type="button" ng-disabled="PickupDeliveryCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ManifestCompleteDatetime"
-                                class="btn btn-default" data-ng-click="PickupDeliveryCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isTMC_ActualPickupDateTime'+[$index])">
+                            <button type="button" class="btn btn-default" data-ng-click="PickupDeliveryCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isTMC_ActualPickupDateTime'+[$index])">
                                 <i class="fa fa-calendar"></i>
                             </button>
                         </span>
@@ -200,16 +199,15 @@
                 <div class='table_small'>
                     <div class='table_cell'>Actual Delivery Date Time</div>
                     <div class="input-group input-group-sm p-5" style="width: 190px;">
-                        <input type="text" class="form-control" ng-disabled="PickupDeliveryCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ManifestCompleteDatetime"
-                            placeholder="{{PickupDeliveryCtrl.ePage.Masters.DatePicker.Options.dateTimeFullFormat}}" datetime-picker="{{PickupDeliveryCtrl.ePage.Masters.DatePicker.Options.dateTimeFullFormat}}"
-                            ng-model="x.TMC_ActualDeliveryDateTime" is-open="PickupDeliveryCtrl.ePage.Masters.DatePicker.isOpen['isTMC_ActualDeliveryDateTime'+[$index]]"
+                        <input type="text" class="form-control" placeholder="{{PickupDeliveryCtrl.ePage.Masters.DatePicker.Options.dateTimeFullFormat}}"
+                            datetime-picker="{{PickupDeliveryCtrl.ePage.Masters.DatePicker.Options.dateTimeFullFormat}}" ng-model="x.TMC_ActualDeliveryDateTime"
+                            is-open="PickupDeliveryCtrl.ePage.Masters.DatePicker.isOpen['isTMC_ActualDeliveryDateTime'+[$index]]"
                             datepicker-options="PickupDeliveryCtrl.ePage.Masters.DatePicker.Options" datepicker-append-to-body="false"
                             close-on-selection="false" enable-time="true" enable-date="true" default-date="" default-time=""
                             when-closed="" save-as="PickupDeliveryCtrl.ePage.Masters.DatePicker.Options.saveFormat" data-ng-click=""
                             data-ng-change="" custom-date-time-format/>
                         <span class="input-group-btn">
-                            <button type="button" ng-disabled="PickupDeliveryCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ManifestCompleteDatetime"
-                                class="btn btn-default" data-ng-click="PickupDeliveryCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isTMC_ActualDeliveryDateTime'+[$index])">
+                            <button type="button" class="btn btn-default" data-ng-click="PickupDeliveryCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isTMC_ActualDeliveryDateTime'+[$index])">
                                 <i class="fa fa-calendar"></i>
                             </button>
                         </span>

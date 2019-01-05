@@ -23,6 +23,17 @@
                     <span class="fa fa-filter"></span>&nbsp;&nbsp;Customize</button>
             </span>
         </div>
+        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3 p-0">
+            <span>
+                <file-upload-custom class="file-upload-directive" ng-model="DeliveryLineCtrl.ePage.Masters.Documents.fileDetails" size="{{DeliveryLineCtrl.ePage.Masters.Documents.fileSize}}"
+                    auth="{{DeliveryLineCtrl.ePage.Masters.Documents.Autherization}}" additional-value="{{DeliveryLineCtrl.ePage.Masters.Documents.AdditionalValue}}"
+                    url="{{DeliveryLineCtrl.ePage.Masters.Documents.UploadUrl}}" doc-type="*" multiple-file="true" is-disabled="false"
+                    fu-class="left" get-uploaded-files="DeliveryLineCtrl.ePage.Masters.Documents.GetUploadedFiles($item, x, 'new')"
+                    get-selected-files="DeliveryLineCtrl.ePage.Masters.Documents.GetSelectedFiles($item, x, 'new')" modal-template=""
+                    template="">
+                </file-upload-custom>
+            </span>
+        </div>
     </div>
     <div id="DevliveryCustTable{{DeliveryLineCtrl.currentDelivery.label}}" class="fixedheader mb-0" key-events table-object='DeliveryLineCtrl.ePage.Entities.Header.Data.UIWmsDeliveryLine'
         enable='DeliveryLineCtrl.ePage.Masters.Enable' selected-row='DeliveryLineCtrl.ePage.Masters.selectedRow' unique-id='DevliveryCustTable{{DeliveryLineCtrl.currentDelivery.label}}'>
@@ -63,18 +74,18 @@
                         title="Product Condition">Product Condition</th>
                     <th id="rudf1" data-ng-if="DeliveryLineCtrl.ePage.Entities.Header.TableProperties.UIWmsDeliveryLine.rudf1.isenabled" ng-style="{ 'width': DeliveryLineCtrl.ePage.Entities.Header.TableProperties.UIWmsDeliveryLine.rudf1.width + 'px' }"
                         title="User Defined Field 1">
-                        <span ng-if="DeliveryLineCtrl.ePage.Entities.Header.Data.UIWmsDelivery.IMPartAttrib1Name">{{DeliveryLineCtrl.ePage.Entities.Header.Data.UIWmsDelivery.IMPartAttrib1Name}}</span>
-                        <span ng-if="!DeliveryLineCtrl.ePage.Entities.Header.Data.UIWmsDelivery.IMPartAttrib1Name">UDF 1</span>
+                        <span ng-if="DeliveryLineCtrl.ePage.Entities.Header.Data.UIWmsDeliveryLine.IMPartAttrib1Name">{{DeliveryLineCtrl.ePage.Entities.Header.Data.UIWmsDeliveryLine.IMPartAttrib1Name}}</span>
+                        <span ng-if="!DeliveryLineCtrl.ePage.Entities.Header.Data.UIWmsDeliveryLine.IMPartAttrib1Name">UDF 1</span>
                     </th>
                     <th id="rudf2" data-ng-if="DeliveryLineCtrl.ePage.Entities.Header.TableProperties.UIWmsDeliveryLine.rudf2.isenabled" ng-style="{ 'width': DeliveryLineCtrl.ePage.Entities.Header.TableProperties.UIWmsDeliveryLine.rudf2.width + 'px' }"
                         title="User Defined Field 2">
-                        <span ng-if="DeliveryLineCtrl.ePage.Entities.Header.Data.UIWmsDelivery.IMPartAttrib2Name">{{DeliveryLineCtrl.ePage.Entities.Header.Data.UIWmsDelivery.IMPartAttrib2Name}}</span>
-                        <span ng-if="!DeliveryLineCtrl.ePage.Entities.Header.Data.UIWmsDelivery.IMPartAttrib2Name">UDF 2</span>
+                        <span ng-if="DeliveryLineCtrl.ePage.Entities.Header.Data.UIWmsDeliveryLine.IMPartAttrib2Name">{{DeliveryLineCtrl.ePage.Entities.Header.Data.UIWmsDeliveryLine.IMPartAttrib2Name}}</span>
+                        <span ng-if="!DeliveryLineCtrl.ePage.Entities.Header.Data.UIWmsDeliveryLine.IMPartAttrib2Name">UDF 2</span>
                     </th>
                     <th id="rudf3" data-ng-if="DeliveryLineCtrl.ePage.Entities.Header.TableProperties.UIWmsDeliveryLine.rudf3.isenabled" ng-style="{ 'width': DeliveryLineCtrl.ePage.Entities.Header.TableProperties.UIWmsDeliveryLine.rudf3.width + 'px' }"
                         title="User Defined Field 3">
-                        <span ng-if="DeliveryLineCtrl.ePage.Entities.Header.Data.UIWmsDelivery.IMPartAttrib3Name">{{DeliveryLineCtrl.ePage.Entities.Header.Data.UIWmsDelivery.IMPartAttrib3Name}}</span>
-                        <span ng-if="!DeliveryLineCtrl.ePage.Entities.Header.Data.UIWmsDelivery.IMPartAttrib3Name">UDF 3</span>
+                        <span ng-if="DeliveryLineCtrl.ePage.Entities.Header.Data.UIWmsDeliveryLine.IMPartAttrib3Name">{{DeliveryLineCtrl.ePage.Entities.Header.Data.UIWmsDeliveryLine.IMPartAttrib3Name}}</span>
+                        <span ng-if="!DeliveryLineCtrl.ePage.Entities.Header.Data.UIWmsDeliveryLine.IMPartAttrib3Name">UDF 3</span>
                     </th>
                     <th id="rpackingdate" data-ng-if="DeliveryLineCtrl.ePage.Entities.Header.TableProperties.UIWmsDeliveryLine.rpackingdate.isenabled"
                         ng-style="{ 'width': DeliveryLineCtrl.ePage.Entities.Header.TableProperties.UIWmsDeliveryLine.rpackingdate.width + 'px' }"
@@ -85,7 +96,7 @@
                 </tr>
             </thead>
             <tbody id="OutLineCust{{DeliveryLineCtrl.currentDelivery.label}}">
-                <tr id="tableBody" ng-repeat="x in DeliveryLineCtrl.ePage.Entities.Header.Data.UIWmsDeliveryLine"
+                <tr id="tableBody" ng-repeat="x in DeliveryLineCtrl.ePage.Entities.Header.Data.UIWmsDeliveryLine | filter:DeliveryLineCtrl.ePage.Masters.SearchTable | tableslice : (DeliveryLineCtrl.ePage.Masters.CurrentPageStartingIndex) : (DeliveryLineCtrl.ePage.Masters.Pagination.CurrentPage * DeliveryLineCtrl.ePage.Masters.Pagination.ItemsPerPage)"
                     ng-click="DeliveryLineCtrl.ePage.Masters.setSelectedRow($index);" ng-class="{row_active: (DeliveryLineCtrl.ePage.Masters.selectedRow==$index),copy_row_active :(x.IsCopied==true)}"
                     watch-table table-properties="DeliveryLineCtrl.ePage.Entities.Header.TableProperties.UIWmsDeliveryLine" unique-id="OutLineCust{{DeliveryLineCtrl.currentDelivery.label}}"
                     row-position="$index">
@@ -365,7 +376,7 @@
     <div ng-if='DeliveryLineCtrl.ePage.Masters.EditTableColumns'>
         <customize-table table-properties="DeliveryLineCtrl.ePage.Entities.Header.TableProperties.UIWmsDeliveryLine" enable="DeliveryLineCtrl.ePage.Masters.EditTableColumns"
             unique-id="OutLineCust{{DeliveryLineCtrl.currentDelivery.label}}" user-value='DeliveryLineCtrl.ePage.Masters.UserValue'
-            entity-source='WMS_DELIVERYLINE'></customize-table>
+            entity-source='WMS_OUTWARDLINE'></customize-table>
     </div>
     <!-- Call Directive If user has value -->
     <div ng-if='DeliveryLineCtrl.ePage.Masters.UserHasValue' ng-init="DeliveryLineCtrl.ePage.Masters.UserHasValue=false">

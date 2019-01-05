@@ -42,12 +42,14 @@
             TCValidationGroupCtrl.ePage.Masters.ValidationGroup.DeleteValidationGroup = DeleteValidationGroup;
             TCValidationGroupCtrl.ePage.Masters.ValidationGroup.DeleteConfirmation = DeleteConfirmation;
             TCValidationGroupCtrl.ePage.Masters.ValidationGroup.Close = Close;
+            
             TCValidationGroupCtrl.ePage.Masters.ValidationGroup.AddBtnText = "Add";
             TCValidationGroupCtrl.ePage.Masters.ValidationGroup.IsDisableAddBtn = false;
-            GetValidationList();
+
+            GetValidationGroupList();
         }
 
-        function GetValidationList() {
+        function GetValidationGroupList() {
             TCValidationGroupCtrl.ePage.Masters.ValidationGroup.ListSource = undefined;
             var _filter = {
                 SAP_FK: TCValidationGroupCtrl.ePage.Masters.Application.ActiveApplication.PK,
@@ -68,7 +70,7 @@
         }
 
         function Refresh() {
-            GetValidationList();
+            GetValidationGroupList();
         }
 
         function AddNewValidationGroup() {

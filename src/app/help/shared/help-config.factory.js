@@ -23,6 +23,16 @@
                             "IsAPI": "true",
                             "HttpType": "POST",
                             "Url": "Topics/Upsert"
+                        },
+                        "Insert": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "Topics/Insert"
+                        },
+                        "Update": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "Topics/Update"
                         }
                     }
                 },
@@ -39,6 +49,21 @@
                             "IsAPI": "true",
                             "HttpType": "POST",
                             "Url": "HLPDocuments/Upsert"
+                        },
+                        "Insert": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "HLPDocuments/Insert"
+                        },
+                        "Update": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "HLPDocuments/Update"
+                        },
+                        "Delete": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "HLPDocuments/Delete/"
                         }
                     }
                 },

@@ -34,6 +34,16 @@
                     InitEventGroup();
                     InitEvent();
                 }
+
+                TCEventConfigureCtrl.ePage.Masters.GenerateScriptInput = {
+                    ObjectName: "EventMaster",
+                    ObjectId: TCEventConfigureCtrl.ePage.Entities.Header.Data.PK
+                };
+                TCEventConfigureCtrl.ePage.Masters.GenerateScriptConfig = {
+                    IsEnableTable: false,
+                    IsEnablePK: false,
+                    IsEnableTenant: false
+                };
             } catch (error) {
                 console.log(error)
             }
@@ -150,7 +160,7 @@
         }
 
         function OpenJsonModal(objName) {
-            var _json =  TCEventConfigureCtrl.ePage.Masters.Event.FormView[objName];
+            var _json = TCEventConfigureCtrl.ePage.Masters.Event.FormView[objName];
             if (_json !== undefined && _json !== null && _json !== '' && _json !== ' ') {
                 try {
                     if (typeof JSON.parse(_json) == "object") {
@@ -158,7 +168,7 @@
                             resolve: {
                                 param: function () {
                                     var exports = {
-                                        "Data":  TCEventConfigureCtrl.ePage.Masters.Event.FormView[objName]
+                                        "Data": TCEventConfigureCtrl.ePage.Masters.Event.FormView[objName]
                                     };
 
                                     return exports;
@@ -218,7 +228,7 @@
                 TCEventConfigureCtrl.ePage.Masters.Event.FormView.NotificationGroup = [];
             }
 
-            EditNotificationModalInstance().result.then(function (response) { }, function () {
+            EditNotificationModalInstance().result.then(function (response) {}, function () {
                 CloseNotificationModal();
             });
         }
@@ -290,7 +300,7 @@
                 TCEventConfigureCtrl.ePage.Masters.Event.FormView.TaskConfigGroup = []
             }
 
-            EditTaskConfigModalInstance().result.then(function (response) { }, function () {
+            EditTaskConfigModalInstance().result.then(function (response) {}, function () {
                 CloseTaskConfigModal();
             });
         }
@@ -483,7 +493,7 @@
 
             TCEventConfigureCtrl.ePage.Masters.Rule.FieldNameList = [];
 
-            EditEventConfigModalInstance().result.then(function (response) { }, function () { });
+            EditEventConfigModalInstance().result.then(function (response) {}, function () {});
         }
 
         function EditEventConfigField($item) {
@@ -516,7 +526,7 @@
 
             TCEventConfigureCtrl.ePage.Masters.Rule.FieldNameList = [];
 
-            EditEventConfigModalInstance().result.then(function (response) { }, function () { });
+            EditEventConfigModalInstance().result.then(function (response) {}, function () {});
         }
 
         function EditEventConfigModalInstance() {
@@ -541,31 +551,30 @@
             var _input = angular.copy(TCEventConfigureCtrl.ePage.Masters.Rule.ActiveConfigField);
             _input.IsModified = true;
 
-            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.
-                DataConfigFields.API.Upsert.Url, [_input]).then(function SuccessCallback(response) {
-                    if (response.data.Response) {
-                        if (response.data.Response.length > 0) {
-                            if (TCEventConfigureCtrl.ePage.Masters.Rule.ActiveConfigField.PK) {
-                                var _index = TCEventConfigureCtrl.ePage.Masters.Rule.EventConfigFieldsListSource.map(function (value, key) {
-                                    return value.PK;
-                                }).indexOf(TCEventConfigureCtrl.ePage.Masters.Rule.ActiveConfigField.PK);
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.DataConfigFields.API.Upsert.Url, [_input]).then(function SuccessCallback(response) {
+                if (response.data.Response) {
+                    if (response.data.Response.length > 0) {
+                        if (TCEventConfigureCtrl.ePage.Masters.Rule.ActiveConfigField.PK) {
+                            var _index = TCEventConfigureCtrl.ePage.Masters.Rule.EventConfigFieldsListSource.map(function (value, key) {
+                                return value.PK;
+                            }).indexOf(TCEventConfigureCtrl.ePage.Masters.Rule.ActiveConfigField.PK);
 
-                                if (_index !== -1) {
-                                    TCEventConfigureCtrl.ePage.Masters.Rule.EventConfigFieldsListSource[_index] = response.data.Response[0];
-                                }
-                            } else {
-                                TCEventConfigureCtrl.ePage.Masters.Rule.EventConfigFieldsListSource.push(response.data.Response[0]);
+                            if (_index !== -1) {
+                                TCEventConfigureCtrl.ePage.Masters.Rule.EventConfigFieldsListSource[_index] = response.data.Response[0];
                             }
-
-                            CloseEventConfigFields();
+                        } else {
+                            TCEventConfigureCtrl.ePage.Masters.Rule.EventConfigFieldsListSource.push(response.data.Response[0]);
                         }
-                    } else {
-                        toastr.error("Could not Save...!");
-                    }
 
-                    TCEventConfigureCtrl.ePage.Masters.Rule.EventConfigSaveBtnText = "Save";
-                    TCEventConfigureCtrl.ePage.Masters.Rule.IsDisableEventConfigSaveBtn = false;
-                });
+                        CloseEventConfigFields();
+                    }
+                } else {
+                    toastr.error("Could not Save...!");
+                }
+
+                TCEventConfigureCtrl.ePage.Masters.Rule.EventConfigSaveBtnText = "Save";
+                TCEventConfigureCtrl.ePage.Masters.Rule.IsDisableEventConfigSaveBtn = false;
+            });
         }
 
         // Expression
@@ -613,7 +622,7 @@
                 TCEventConfigureCtrl.ePage.Masters.Rule.ActiveConfigField.ExpressionGroup = [];
             }
 
-            EditExpressionModalInstance().result.then(function (response) { }, function () {
+            EditExpressionModalInstance().result.then(function (response) {}, function () {
                 CloseEditExpressionModal();
             });
         }
@@ -716,7 +725,7 @@
                 TCEventConfigureCtrl.ePage.Masters.Rule.ActiveConfigField.RelatedInputGroup = [];
             }
 
-            EditRelatedInputModalInstance().result.then(function (response) { }, function () {
+            EditRelatedInputModalInstance().result.then(function (response) {}, function () {
                 CloseEditRelatedInputModal();
             });
         }
@@ -789,7 +798,7 @@
                 TCEventConfigureCtrl.ePage.Masters.Rule.ActiveConfigField.UpdateRulesGroup = [];
             }
 
-            EditUpdateRulesModalInstance().result.then(function (response) { }, function () {
+            EditUpdateRulesModalInstance().result.then(function (response) {}, function () {
                 CloseEditUpdateRulesModal();
             });
         }
@@ -905,14 +914,14 @@
             TCEventConfigureCtrl.ePage.Masters.Group.ActiveEventGroup.Type = "GENERAL";
             TCEventConfigureCtrl.ePage.Masters.Group.ActiveEventGroup.EntitySource = "GENERAL";
 
-            EditEventGroupModalInstance().result.then(function (response) { }, function () {
+            EditEventGroupModalInstance().result.then(function (response) {}, function () {
                 CloseEventGroupModal();
             });
         }
 
         function EditEventGroup($item, $index) {
             TCEventConfigureCtrl.ePage.Masters.Group.ActiveEventGroup = $item;
-            EditEventGroupModalInstance().result.then(function (response) { }, function () {
+            EditEventGroupModalInstance().result.then(function (response) {}, function () {
                 CloseEventGroupModal();
             });
         }

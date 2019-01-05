@@ -32,6 +32,16 @@
                     // InitRule();
                     InitComments();
                 }
+
+                TCCommentsConfigureCtrl.ePage.Masters.GenerateScriptInput = {
+                    ObjectName: "MstCommentType",
+                    ObjectId: TCCommentsConfigureCtrl.ePage.Entities.Header.Data.PK
+                };
+                TCCommentsConfigureCtrl.ePage.Masters.GenerateScriptConfig = {
+                    IsEnableTable: false,
+                    IsEnablePK: false,
+                    IsEnableTenant: false
+                };
             } catch (error) {
                 console.log(error)
             }

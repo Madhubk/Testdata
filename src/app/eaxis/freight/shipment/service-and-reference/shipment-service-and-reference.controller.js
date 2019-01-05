@@ -170,6 +170,8 @@
 
     // AddToGrid For Service
     function AddToGridService(btn) {
+      debugger
+
       var _isEmpty = angular.equals({}, ShipmentServiceAndReferenceCtrl.ePage.Masters.Service.FormView);
 
       if (!_isEmpty) {
@@ -179,6 +181,7 @@
 
         if (_index === -1) {
           ShipmentServiceAndReferenceCtrl.ePage.Masters.Service.FormView.ParentID = ShipmentServiceAndReferenceCtrl.ePage.Entities.Header.Data.UIJobPickupAndDelivery.PK;
+          ShipmentServiceAndReferenceCtrl.ePage.Masters.Service.FormView.EntityRefKey = ShipmentServiceAndReferenceCtrl.ePage.Entities.Header.Data.PK;
           // ShipmentServiceAndReferenceCtrl.ePage.Masters.Service.FormView.ParentTableCode = "JP";
           if (_durationFormView != undefined) {
             var _durationFormView = ShipmentServiceAndReferenceCtrl.ePage.Masters.Service.FormView.Duration;
@@ -369,7 +372,6 @@
     // AddToGrid For Reference
     function AddToGridReference() {
       var _isEmpty = angular.equals({}, ShipmentServiceAndReferenceCtrl.ePage.Masters.Reference.FormView);
-
       if (!_isEmpty) {
         var _index = ShipmentServiceAndReferenceCtrl.ePage.Entities.Header.Data.UIJobEntryNums.map(function (value, key) {
           return value.PK;
@@ -381,6 +383,7 @@
           ShipmentServiceAndReferenceCtrl.ePage.Masters.Reference.FormView.Category = "OTH";
           ShipmentServiceAndReferenceCtrl.ePage.Masters.Reference.FormView.RN_NKCountryCode = authService.getUserInfo().CountryCode;
           ShipmentServiceAndReferenceCtrl.ePage.Masters.Reference.FormView.EntryIsSystemGenerated = false;
+          ShipmentServiceAndReferenceCtrl.ePage.Masters.Reference.FormView.EntityRefKey = ShipmentServiceAndReferenceCtrl.ePage.Entities.Header.Data.PK;
           apiService.post("eAxisAPI", appConfig.Entities.JobEntryNum.API.Insert.Url, [ShipmentServiceAndReferenceCtrl.ePage.Masters.Reference.FormView]).then(function (response) {
             if (response.data.Response) {
               ShipmentServiceAndReferenceCtrl.ePage.Entities.Header.Data.UIJobEntryNums.push(response.data.Response[0]);

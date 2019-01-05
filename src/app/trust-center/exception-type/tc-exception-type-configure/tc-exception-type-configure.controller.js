@@ -31,6 +31,16 @@
                     InitParties();
                     InitExceptionType();
                 }
+
+                TCExceptionTypeConfigureCtrl.ePage.Masters.GenerateScriptInput = {
+                    ObjectName: "MstExceptionType",
+                    ObjectId: TCExceptionTypeConfigureCtrl.ePage.Entities.Header.Data.PK
+                };
+                TCExceptionTypeConfigureCtrl.ePage.Masters.GenerateScriptConfig = {
+                    IsEnableTable: false,
+                    IsEnablePK: false,
+                    IsEnableTenant: false
+                };
             } catch (error) {
                 console.log(error)
             }

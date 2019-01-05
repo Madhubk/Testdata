@@ -76,10 +76,12 @@
     </form>
 </div>
 
-<div class="eaxis-footer-strip">
-    <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10"></div>
+<div class="eaxis-footer-strip p-6">
+    <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10">
+        <button class="btn btn-primary btn-sm pull-right" generate-db-script input="TCSOPTypelistConfigureCtrl.ePage.Masters.GenerateScriptInput" config="TCSOPTypelistConfigureCtrl.ePage.Masters.GenerateScriptConfig" data-ng-disabled="!TCSOPTypelistConfigureCtrl.ePage.Masters.GenerateScriptInput.ObjectName || !TCSOPTypelistConfigureCtrl.ePage.Masters.GenerateScriptInput.ObjectId">Generate Script</button>
+    </div>
     <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
-        <button class="btn btn-primary btn-sm pull-right mr-10 mt-6" data-ng-click="TCSOPTypelistConfigureCtrl.ePage.Masters.SaveTypelist()"
+        <button class="btn btn-primary btn-sm pull-right" data-ng-click="TCSOPTypelistConfigureCtrl.ePage.Masters.SaveTypelist()"
             data-ng-bind="TCSOPTypelistConfigureCtrl.ePage.Masters.SaveButtonText" data-ng-disabled="TCSOPTypelistConfigureCtrl.ePage.Masters.IsDisableSave"></button>
     </div>
 </div>

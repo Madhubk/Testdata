@@ -98,7 +98,7 @@
             }
         }
 
-        function SaveOutwardFromTask(callback) {
+        function SaveOutwardFromTask(callback) {            
             if (OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PK == "00000000-0000-0000-0000-000000000000") {
                 Validation(OutwardMenuCtrl.currentOutward, callback)
             } else {
@@ -609,8 +609,6 @@
                 Saveonly($item, callback);
             } else {
                 OutwardMenuCtrl.ePage.Masters.Config.ShowErrorWarningModal(OutwardMenuCtrl.currentOutward);
-                if (callback)
-                    callback('error');
             }
         }
 
@@ -714,30 +712,30 @@
                         callback()
                     }
                 }
-                // Save Manifest Details
-                if (_input.UIWmsOutwardHeader.AdditionalRef1Code) {
-                    if (OutwardMenuCtrl.ePage.Entities.Header.ManifestDetails) {
-                        if (!outwardConfig.IsSaveManifest) {
-                            outwardConfig.IsSaveManifest = false;
-                            angular.forEach(OutwardMenuCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestConsignment, function (value, key) {
-                                value.TMC_ExpectedDeliveryDateTime = OutwardMenuCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.EstimatedDeliveryDate;
-                                value.TMC_ExpectedPickupDateTime = OutwardMenuCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.EstimatedDispatchDate;
-                            });
-                            OutwardMenuCtrl.ePage.Entities.Header.ManifestDetails = filterObjectUpdate(OutwardMenuCtrl.ePage.Entities.Header.ManifestDetails, "IsModified");
-                            apiService.post("eAxisAPI", appConfig.Entities.TmsManifestList.API.Update.Url, OutwardMenuCtrl.ePage.Entities.Header.ManifestDetails).then(function (response) {
-                                if (response.data.Status == 'Success') {
-                                    apiService.get("eAxisAPI", appConfig.Entities.TmsManifestList.API.GetById.Url + response.data.Response.Response.PK).then(function (response) {
-                                        if (response.data.Status == 'Success') {
-                                            OutwardMenuCtrl.ePage.Entities.Header.ManifestDetails = response.data.Response;
-                                            toastr.success("Manifest Saved Successfully.");
-                                        }
-                                    });
-                                }
-                            });
-                        }
+            });
+            // Save Manifest Details
+            if (_input.UIWmsOutwardHeader.AdditionalRef1Code) {
+                if (OutwardMenuCtrl.ePage.Entities.Header.ManifestDetails) {
+                    if (!outwardConfig.IsSaveManifest) {
+                        outwardConfig.IsSaveManifest = false;
+                        angular.forEach(OutwardMenuCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestConsignment, function (value, key) {
+                            value.TMC_ExpectedDeliveryDateTime = OutwardMenuCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.EstimatedDeliveryDate;
+                            value.TMC_ExpectedPickupDateTime = OutwardMenuCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.EstimatedDispatchDate;
+                        });
+                        OutwardMenuCtrl.ePage.Entities.Header.ManifestDetails = filterObjectUpdate(OutwardMenuCtrl.ePage.Entities.Header.ManifestDetails, "IsModified");
+                        apiService.post("eAxisAPI", appConfig.Entities.TmsManifestList.API.Update.Url, OutwardMenuCtrl.ePage.Entities.Header.ManifestDetails).then(function (response) {
+                            if (response.data.Status == 'Success') {
+                                apiService.get("eAxisAPI", appConfig.Entities.TmsManifestList.API.GetById.Url + response.data.Response.Response.PK).then(function (response) {
+                                    if (response.data.Status == 'Success') {
+                                        OutwardMenuCtrl.ePage.Entities.Header.ManifestDetails = response.data.Response;
+                                        toastr.success("Manifest Saved Successfully.");
+                                    }
+                                });
+                            }
+                        });
                     }
                 }
-            });
+            }
         }
 
         function filterObjectUpdate(obj, key) {
@@ -780,34 +778,8 @@
                                     value.TotalUnits = 0;
                                 });
                                 OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.CancelledDate = new Date();
-                                // check whether the task available for this entity or not
-                                var _filter = {
-                                    Status: "AVAILABLE,ASSIGNED",
-                                    EntityRefKey: OutwardMenuCtrl.ePage.Entities.Header.Data.PK,
-                                    KeyReference: OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WorkOrderID
-                                };
-                                var _input = {
-                                    "searchInput": helperService.createToArrayOfObject(_filter),
-                                    "FilterID": appConfig.Entities.EBPMWorkItem.API.FindAllWithAccess.FilterID
-                                };
+                                Validation($item);
 
-                                apiService.post("eAxisAPI", appConfig.Entities.EBPMWorkItem.API.FindAllWithAccess.Url, _input).then(function (response) {
-                                    if (response.data.Response) {
-                                        if (response.data.Response.length > 0) {
-                                            angular.forEach(response.data.Response, function (value, key) {
-                                                // To suspend the available task
-                                                apiService.get("eAxisAPI", appConfig.Entities.EBPMEngine.API.SuspendInstance.Url + value.PSI_InstanceNo).then(function (response) {
-                                                    if (response.data) {
-
-                                                    }
-                                                });
-                                            });
-                                            Validation($item);
-                                        } else {
-                                            Validation($item);
-                                        }
-                                    }
-                                });
                                 $uibModalInstance.dismiss('cancel');
                             });
                         }

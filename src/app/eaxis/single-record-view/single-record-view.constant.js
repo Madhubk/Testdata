@@ -113,17 +113,20 @@
             files: [
                 'app/eaxis/buyer/freight/booking/shared/single-record-view/booking/bookingSRV.controller.js'
             ]
-        },
-        {
+        }, {
             name: 'SRVPendingPickup',
             files: [
                 'app/eaxis/single-record-view/pending-pickup/pending-pickup.controller.js'
             ]
-        },
-        {
+        }, {
             name: 'SRVOutwardManifest',
             files: [
                 'app/eaxis/single-record-view/outward-manifest/outward-manifest.controller.js'
+            ]
+        }, {
+            name: 'SRVOrganization',
+            files: [
+                'app/eaxis/single-record-view/organization/organization.controller.js'
             ]
         }]
     };

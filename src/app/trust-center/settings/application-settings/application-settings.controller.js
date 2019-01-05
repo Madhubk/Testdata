@@ -53,7 +53,6 @@
             if (AppSettingsCtrl.ePage.Masters.QueryString.AdditionalData.BreadcrumbTitle) {
                 _breadcrumbTitle = " (" + AppSettingsCtrl.ePage.Masters.QueryString.AdditionalData.BreadcrumbTitle + ")";
             }
-
             var _listSourceType = {
                 Type1: [{
                     Code: "home",
@@ -74,7 +73,7 @@
                     IsActive: false
                 }, {
                     Code: "applicationsettings",
-                    Description: "Application Settings" + _breadcrumbTitle,
+                    Description: "Application Settings (" + AppSettingsCtrl.ePage.Masters.QueryString.AdditionalData.BreadcrumbTitle + ")",
                     Link: "#",
                     IsRequireQueryString: false,
                     IsActive: true
@@ -104,15 +103,15 @@
                     IsActive: false
                 }, {
                     Code: "applicationsettings",
-                    Description: "Application Settings" + _breadcrumbTitle,
+                    Description: "Application Settings (" + AppSettingsCtrl.ePage.Masters.QueryString.AdditionalData.BreadcrumbTitle + ")",
                     Link: "#",
                     IsRequireQueryString: false,
                     IsActive: true
                 }]
             };
-
             AppSettingsCtrl.ePage.Masters.Breadcrumb.ListSource = _listSourceType[AppSettingsCtrl.ePage.Masters.QueryString.Type];
-        }
+           
+         }
 
         function OnBreadcrumbClick($item) {
             if (!$item.IsRequireQueryString && !$item.IsActive) {
@@ -141,7 +140,14 @@
                 };
             }
 
-            GetModuleList();
+            if (AppSettingsCtrl.ePage.Masters.Module.ActiveModule) {
+                GetAppSettingsModuleList();
+            } else {
+                AppSettingsCtrl.ePage.Masters.AppSettingsModule.ListSource = [];
+                AppSettingsCtrl.ePage.Masters.AppSettingsList.ListSource = [];
+            }
+
+
         }
 
         //=============== Module List Start ============ /
@@ -149,6 +155,7 @@
         function InitModule() {
             AppSettingsCtrl.ePage.Masters.Module = {};
             AppSettingsCtrl.ePage.Masters.Module.OnModuleChange = OnModuleChange;
+            GetModuleList();
         }
 
         function GetModuleList() {
@@ -160,26 +167,17 @@
                 "FilterID": trustCenterConfig.Entities.API.CfxTypes.API.FindAll.FilterID
             };
 
-            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.CfxTypes.API.FindAll.Url + AppSettingsCtrl.ePage.Masters.Application.ActiveApplication.PK, _input).then(function (response) {
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.CfxTypes.API.FindAll.Url + authService.getUserInfo().AppPK, _input).then(function (response) {
                 if (response.data.Response) {
                     AppSettingsCtrl.ePage.Masters.Module.Listsource = response.data.Response;
-
-                    if (AppSettingsCtrl.ePage.Masters.Module.Listsource.length > 0) {
-                        OnModuleChange(AppSettingsCtrl.ePage.Masters.Module.Listsource[0]);
-                    }
-                } else {
-                    AppSettingsCtrl.ePage.Masters.Module.Listsource = [];
                 }
             });
         }
 
         function OnModuleChange($item) {
             AppSettingsCtrl.ePage.Masters.Module.ActiveModule = $item;
-            AppSettingsCtrl.ePage.Masters.AppSettingsModule.ListSource = [];
-
-            if ($item) {
-                GetAppSettingsModuleList();
-            }
+            GetAppSettingsModuleList();
+           
         }
 
         //=============== Module List End ============ // 
@@ -222,7 +220,7 @@
         }
 
         function OnAppSettingsModuleListClick($item) {
-            AppSettingsCtrl.ePage.Masters.AppSettingsModule.ActiveAppSettingsModule = $item;
+            AppSettingsCtrl.ePage.Masters.AppSettingsModule.ActiveAppSettingsModule = angular.copy($item);
 
             if ($item) {
                 GetAppSettingsList();
@@ -296,15 +294,19 @@
         }
 
         function AddNew() {
-            AppSettingsCtrl.ePage.Masters.AppSettingsList.ActiveAppSettingsList = {};
+            if (AppSettingsCtrl.ePage.Masters.Module.ActiveModule) {
 
-            if (AppSettingsCtrl.ePage.Masters.QueryString.AdditionalData.Input.Code == 'EXCELCONFIG') {
-                AppSettingsCtrl.ePage.Masters.AppSettingsList.ActiveAppSettingsList.IsJSON = true;
-            } else if (AppSettingsCtrl.ePage.Masters.QueryString.AdditionalData.Input.Code == 'CONFIGURATION') {
-                AppSettingsCtrl.ePage.Masters.AppSettingsList.ActiveAppSettingsList.IsJSON = false;
+                AppSettingsCtrl.ePage.Masters.AppSettingsList.ActiveAppSettingsList = {};
+                AppSettingsCtrl.ePage.Masters.AppSettingsList.ActiveAppSettingsList.ModuleCode = AppSettingsCtrl.ePage.Masters.Module.ActiveModule.Key;
+
+                if (AppSettingsCtrl.ePage.Masters.QueryString.AdditionalData.Input.Code == 'EXCELCONFIG') {
+                    AppSettingsCtrl.ePage.Masters.AppSettingsList.ActiveAppSettingsList.IsJSON = true;
+                } else if (AppSettingsCtrl.ePage.Masters.QueryString.AdditionalData.Input.Code == 'CONFIGURATION') {
+                    AppSettingsCtrl.ePage.Masters.AppSettingsList.ActiveAppSettingsList.IsJSON = false;
+                }
+
+                Edit();
             }
-
-            Edit();
         }
 
         function OnAppSettingsListClick($item) {
@@ -555,16 +557,15 @@
                 Code: "RoleAccess",
                 Description: "Role Access",
                 Icon: "fa fa-sign-in",
-                Link: "TC/mapping-vertical",
+                Link: "TC/filter-role-app-tenant",
                 Color: "#bd081c",
-                AdditionalData: "FITR_ROLE_APP_TNT",
-                BreadcrumbTitle: "Filter Role - FITR_ROLE_APP_TNT",
+                AdditionalData: AppSettingsCtrl.ePage.Masters.QueryString.AdditionalData,
                 Type: 1
             }];
         }
 
         function OnRedirectListClick($item) {
-            if (AppSettingsCtrl.ePage.Masters.Application.ActiveApplication) {
+          if (AppSettingsCtrl.ePage.Masters.Application.ActiveApplication) {
                 var _queryString = {
                     "AppPk": AppSettingsCtrl.ePage.Masters.Application.ActiveApplication.PK,
                     "AppCode": AppSettingsCtrl.ePage.Masters.Application.ActiveApplication.AppCode,
@@ -583,8 +584,8 @@
                 _queryString.ItemPk = AppSettingsCtrl.ePage.Masters.AppSettingsList.ActiveAppSettingsList.PK;
                 _queryString.ItemCode = AppSettingsCtrl.ePage.Masters.AppSettingsList.ActiveAppSettingsList.Key;
                 _queryString.ItemName = "FLTR";
-                _queryString.MappingCode = $item.AdditionalData;
-                _queryString.BreadcrumbTitle = $item.BreadcrumbTitle;
+                _queryString.AdditionalData = AppSettingsCtrl.ePage.Masters.QueryString.AdditionalData;
+                _queryString.Type = AppSettingsCtrl.ePage.Masters.QueryString.Type;
             }
 
             if ($item.Link !== "#") {

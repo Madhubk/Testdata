@@ -33,6 +33,15 @@
                     // InitRule();
                     InitTypelist();
                 }
+                TCSOPTypelistConfigureCtrl.ePage.Masters.GenerateScriptInput = {
+                    ObjectName: "SOP_Typelist",
+                    ObjectId: TCSOPTypelistConfigureCtrl.ePage.Entities.Header.Data.PK
+                };
+                TCSOPTypelistConfigureCtrl.ePage.Masters.GenerateScriptConfig = {
+                    IsEnableTable: false,
+                    IsEnablePK: false,
+                    IsEnableTenant: false
+                };
             } catch (error) {
                 console.log(error)
             }

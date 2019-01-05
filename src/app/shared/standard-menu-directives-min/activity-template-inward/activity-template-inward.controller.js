@@ -149,13 +149,9 @@
                 if (callback) {
                     $rootScope.FinalizeInwardFromTask(function () {
                         angular.forEach(myTaskActivityConfig.Entities.Inward[myTaskActivityConfig.Entities.Inward.label].ePage.Entities.Header.Data.UIWmsWorkOrderLine, function (value, key) {
-                            angular.forEach(myTaskActivityConfig.Entities.PickupData.UIWmsPickupLine, function (value1, key1) {                               
-                                if (value.AdditionalRef1Code == value1.AdditionalRef1Code) {                                    
-                                    if (value1.WAR_WarehouseCode == "BDL001") {
-                                        value1.WorkOrderLineStatus = "SCWS";
-                                    } else {
-                                        value1.WorkOrderLineStatus = "STO";
-                                    }
+                            angular.forEach(myTaskActivityConfig.Entities.PickupData.UIWmsPickupLine, function (value1, key1) {
+                                if (value.AdditionalRef1Code == value1.AdditionalRef1Code) {
+                                    value1.WorkOrderLineStatus = "STO";
                                 }
                             });
                         });
@@ -210,7 +206,7 @@
                 apiService.post("eAxisAPI", appConfig.Entities.WmsWorkOrder.API.FindAll.Url, _input).then(function (response) {
                     if (response.data.Response) {
                         ActivityTemplateInwardCtrl.ePage.Masters.WorkOrderList = response.data.Response[0];
-                        if (ActivityTemplateInwardCtrl.ePage.Masters.WorkOrderList.WorkOrderType == "PIC") {
+                        if (ActivityTemplateInwardCtrl.ePage.Masters.WorkOrderList.WorkOrderType == "PIC") {                            
                             apiService.get("eAxisAPI", appConfig.Entities.WmsPickupList.API.GetById.Url + ActivityTemplateInwardCtrl.ePage.Masters.WorkOrderList.PK).then(function (response) {
                                 if (response.data.Response) {
                                     myTaskActivityConfig.Entities.PickupData = response.data.Response;
@@ -219,20 +215,10 @@
                                     angular.forEach(myTaskActivityConfig.Entities.PickupData.UIvwWmsPickupLine, function (value1, key1) {
                                         angular.forEach(myTaskActivityConfig.Entities.Inward[myTaskActivityConfig.Entities.Inward.label].ePage.Entities.Header.Data.UIWmsWorkOrderLine, function (value, key) {
                                             // if (value.Parent_FK == value1.PL_PK) {
-                                            if (value1.PL_WorkOrderLineStatus == "ICWS") {
-                                                myTaskActivityConfig.Entities.PickupData.UIWmsPickupLine[key1].WorkOrderLineStatus = "SCWS";
-                                            } else if (value1.PL_WorkOrderLineStatus == "ICWT") {
-                                                myTaskActivityConfig.Entities.PickupData.UIWmsPickupLine[key1].WorkOrderLineStatus = "SCWT";
-                                            } else if (value1.PL_WorkOrderLineStatus == "ICWR") {
-                                                myTaskActivityConfig.Entities.PickupData.UIWmsPickupLine[key1].WorkOrderLineStatus = "SCWR";
+                                            if (value1.PL_WorkOrderLineStatus == "ICW") {
+                                                myTaskActivityConfig.Entities.PickupData.UIWmsPickupLine[key1].WorkOrderLineStatus = "SCW";
                                             } else if (value1.PL_WorkOrderLineStatus == "ITW") {
                                                 myTaskActivityConfig.Entities.PickupData.UIWmsPickupLine[key1].WorkOrderLineStatus = "STW";
-                                            } else if (value1.PL_WorkOrderLineStatus == "IRW") {
-                                                myTaskActivityConfig.Entities.PickupData.UIWmsPickupLine[key1].WorkOrderLineStatus = "SRW";
-                                            } else if (value1.PL_WorkOrderLineStatus == "ISTW") {
-                                                myTaskActivityConfig.Entities.PickupData.UIWmsPickupLine[key1].WorkOrderLineStatus = "SSTW";
-                                            } else if (value1.PL_WorkOrderLineStatus == "ISW") {
-                                                myTaskActivityConfig.Entities.PickupData.UIWmsPickupLine[key1].WorkOrderLineStatus = "SSW";
                                             }
                                             // }
                                         });
@@ -241,28 +227,28 @@
                                     apiService.post("eAxisAPI", appConfig.Entities.WmsPickupList.API.Update.Url, myTaskActivityConfig.Entities.PickupData).then(function (response) {
                                         myTaskActivityConfig.Entities.PickupData = response.data.Response;
                                         toastr.success("Pickup Saved Successfully");
-                                        // complete process
-                                        var _inputObj = {
-                                            "CompleteInstanceNo": ActivityTemplateInwardCtrl.ePage.Masters.TaskObj.PSI_InstanceNo,
-                                            "CompleteStepNo": ActivityTemplateInwardCtrl.ePage.Masters.TaskObj.WSI_StepNo,
-                                            "DataSlots": {
-                                                "Val1": "",
-                                                "Val2": "",
-                                                "Val3": "",
-                                                "Val4": "",
-                                                "Val5": "",
-                                                "Val6": "",
-                                                "Val7": "",
-                                                "Val8": "",
-                                                "Val9": "",
-                                                "Val10": ""
-                                            }
-                                        }
-                                        apiService.post("eAxisAPI", appConfig.Entities.EBPMEngine.API.CompleteProcess.Url, _inputObj).then(function (response) {
-                                            deferred.resolve(response);
-                                        });
                                     });
                                 }
+                            });
+                            // complete process
+                            var _inputObj = {
+                                "CompleteInstanceNo": ActivityTemplateInwardCtrl.ePage.Masters.TaskObj.PSI_InstanceNo,
+                                "CompleteStepNo": ActivityTemplateInwardCtrl.ePage.Masters.TaskObj.WSI_StepNo,
+                                "DataSlots": {
+                                    "Val1": "",
+                                    "Val2": "",
+                                    "Val3": "",
+                                    "Val4": "",
+                                    "Val5": "",
+                                    "Val6": "",
+                                    "Val7": "",
+                                    "Val8": "",
+                                    "Val9": "",
+                                    "Val10": ""
+                                }
+                            }
+                            apiService.post("eAxisAPI", appConfig.Entities.EBPMEngine.API.CompleteProcess.Url, _inputObj).then(function (response) {
+                                deferred.resolve(response);
                             });
                         } else {
                             var input = myTaskActivityConfig.Entities.Inward[myTaskActivityConfig.Entities.Inward.label].ePage.Entities.Header.Data;
@@ -358,12 +344,7 @@
                                             apiService.post("eAxisAPI", appConfig.Entities.EBPMEngine.API.CompleteProcess.Url, _inputObj).then(function (response) {
                                                 deferred.resolve(response);
                                             });
-                                            toastr.success("Outward is successfully created.. Outward No : " + response.data.Response.UIWmsOutwardHeader.WorkOrderID, {
-                                                tapToDismiss: false,
-                                                closeButton: true,
-                                                timeOut: 0
-                                            });
-                                            // toastr.success("Outward is successfully created.. Outward No : " + response.data.Response.UIWmsOutwardHeader.WorkOrderID);
+                                            toastr.success("Outward is successfully created.. Outward No : " + response.data.Response.UIWmsOutwardHeader.WorkOrderID);
                                         } else {
                                             toastr.error("Outward Save Failed.");
                                         }
@@ -421,7 +402,23 @@
             ActivityTemplateInwardCtrl.ePage.Masters.StandardConfigInput = {
                 IsDisableRefreshButton: true,
                 IsDisableDeleteHistoryButton: true,
-                IsDisableRelatedDocument: true
+                // IsDisableUpload: true,
+                // IsDisableGenerate: true,
+                IsDisableRelatedDocument: true,
+                // IsDisableCount: true,
+                // IsDisableDownloadCount: true,
+                // IsDisableAmendCount: true,
+                // IsDisableFileName: true,
+                // IsDisableEditFileName: true,
+                // IsDisableDocumentType: true,
+                // IsDisableOwner: true,
+                // IsDisableCreatedOn: true,
+                // IsDisableShare: true,
+                // IsDisableVerticalMenu: true,
+                // IsDisableVerticalMenuDownload: true,
+                // IsDisableVerticalMenuAmend: true,
+                // IsDisableVerticalMenuEmailAttachment: true,
+                // IsDisableVerticalMenuRemove: true
             };
 
             ActivityTemplateInwardCtrl.ePage.Masters.CommentConfig = {
@@ -444,6 +441,11 @@
                         SubModuleCode: "INW",
                     },
                     GroupCode: ActivityTemplateInwardCtrl.ePage.Masters.ValidationSource[0].Code,
+                    // RelatedBasicDetails: [{
+                    //     "UIField": "TEST",
+                    //     "DbField": "TEST",
+                    //     "Value": "TEST"
+                    // }],
                     EntityObject: ActivityTemplateInwardCtrl.ePage.Masters.EntityObj,
                     ErrorCode: []
                 };

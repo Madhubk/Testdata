@@ -142,7 +142,7 @@
             MenuCtrl.ePage.Masters.ActiveModule = angular.copy($item);
 
             if (MenuCtrl.ePage.Masters.ActiveModule) {
-                // GetSubModuleList();
+                GetSubModuleList();
             } else {
                 MenuCtrl.ePage.Masters.SubModuleList = [];
             }
@@ -151,7 +151,6 @@
 
         function GetSubModuleList() {
             MenuCtrl.ePage.Masters.SubModuleList = undefined;
-
             var _filter = {
                 "PropertyName": "SubModuleCode",
                 "ModuleCode": MenuCtrl.ePage.Masters.ActiveModule.Key,
@@ -159,10 +158,10 @@
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": trustCenterConfig.Entities.API.CfxTypes.API.GetColumnValuesWithFilters.FilterID
+                "FilterID": trustCenterConfig.Entities.API.CfxMenus.API.GetColumnValuesWithFilters.FilterID
             };
 
-            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.CfxTypes.API.GetColumnValuesWithFilters.Url + authService.getUserInfo().AppPK, _input).then(function (response) {
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.CfxMenus.API.GetColumnValuesWithFilters.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     MenuCtrl.ePage.Masters.SubModuleList = response.data.Response;
                 }
@@ -171,7 +170,6 @@
 
         function OnSubModuleChange($item) {
             MenuCtrl.ePage.Masters.ActiveSubModule = angular.copy($item);
-
             GetMenuList();
         }
 
@@ -211,10 +209,10 @@
             };
 
             if (MenuCtrl.ePage.Masters.ActiveModule) {
-                _filter.Module = MenuCtrl.ePage.Masters.ActiveModule.Key;
+                _filter.ModuleCode = MenuCtrl.ePage.Masters.ActiveModule.Key;
             }
             if (MenuCtrl.ePage.Masters.ActiveSubModule) {
-                _filter.SubModule = MenuCtrl.ePage.Masters.ActiveSubModule;
+                _filter.SubModuleCode = MenuCtrl.ePage.Masters.ActiveSubModule;
             }
 
             var _input = {

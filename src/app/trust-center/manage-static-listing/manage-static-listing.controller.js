@@ -29,6 +29,9 @@
                 if (TCManageStaticListingCtrl.ePage.Masters.QueryString.AppPk) {
                     InitBreadcrumb();
                     InitApplication();
+                    InitModule();
+                    InitStaticListType();
+                    InitStaticListTypeList();
                 }
             } catch (error) {
                 console.log(error);
@@ -99,101 +102,80 @@
                 };
             }
 
-            InitModule();
-            InitStaticListType();
-            InitStaticListTypeList();
+            // InitModule();
+            // InitStaticListType();
+            // InitStaticListTypeList();
+
+            if (TCManageStaticListingCtrl.ePage.Masters.ActiveModule || TCManageStaticListingCtrl.ePage.Masters.ActiveSubModule) {
+                GetStaticListType();
+            } else {
+                TCManageStaticListingCtrl.ePage.Masters.StaticListType.ListSource = [];
+                TCManageStaticListingCtrl.ePage.Masters.StaticListTypeList.ListSource = [];
+            }
 
         }
 
         // ========================Module Start========================
 
         function InitModule() {
-            TCManageStaticListingCtrl.ePage.Masters.Module = {};
-            TCManageStaticListingCtrl.ePage.Masters.SubModule = {};
-            TCManageStaticListingCtrl.ePage.Masters.Module.OnModuleChange = OnModuleChange;
-            TCManageStaticListingCtrl.ePage.Masters.SubModule.OnSubModuleChange = OnSubModuleChange;
+            TCManageStaticListingCtrl.ePage.Masters.OnModuleChange = OnModuleChange;
+            TCManageStaticListingCtrl.ePage.Masters.OnSubModuleChange = OnSubModuleChange;
 
             GetModuleList();
         }
 
         function GetModuleList() {
             var _filter = {
-                TypeCode: "MODULE_MASTER",
-                SAP_FK: TCManageStaticListingCtrl.ePage.Masters.Application.ActiveApplication.PK
+                TypeCode: "MODULE_MASTER"
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
                 "FilterID": trustCenterConfig.Entities.API.CfxTypes.API.FindAll.FilterID
             };
 
-            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.CfxTypes.API.FindAll.Url +  TCManageStaticListingCtrl.ePage.Masters.Application.ActiveApplication.PK, _input).then(function (response) {
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.CfxTypes.API.FindAll.Url + authService.getUserInfo().AppPK, _input).then(function (response) {
                 if (response.data.Response) {
-                    TCManageStaticListingCtrl.ePage.Masters.Module.ListSource = response.data.Response;
-                    if (TCManageStaticListingCtrl.ePage.Masters.Module.ListSource.length > 0) {
-                        OnModuleChange(TCManageStaticListingCtrl.ePage.Masters.Module.ListSource[0])
-                    } else {
-                        TCManageStaticListingCtrl.ePage.Masters.SubModule.ListSource = [];
-                        TCManageStaticListingCtrl.ePage.Masters.StaticListType.ListSource = [];
-                        TCManageStaticListingCtrl.ePage.Masters.StaticListTypeList.ListSource = [];
-                    }
-                } else {
-                    TCManageStaticListingCtrl.ePage.Masters.SubModule.ListSource = [];
-                    TCManageStaticListingCtrl.ePage.Masters.StaticListType.ListSource = [];
-                    TCManageStaticListingCtrl.ePage.Masters.StaticListTypeList.ListSource = [];
+                    TCManageStaticListingCtrl.ePage.Masters.ModuleList = response.data.Response;
                 }
             });
         }
 
         function OnModuleChange($item) {
-            TCManageStaticListingCtrl.ePage.Masters.Module.ActiveModule = angular.copy($item);
+            TCManageStaticListingCtrl.ePage.Masters.ActiveModule = angular.copy($item);
 
-            GetSubModuleList();
+            if (TCManageStaticListingCtrl.ePage.Masters.ActiveModule) {
+                GetSubModuleList();
+            } else {
+                TCManageStaticListingCtrl.ePage.Masters.SubModuleList = [];
+            }
+
+            GetStaticListType();
         }
 
         function GetSubModuleList() {
-            TCManageStaticListingCtrl.ePage.Masters.SubModule.ListSource = undefined;
+            TCManageStaticListingCtrl.ePage.Masters.SubModuleList = undefined;
 
             var _filter = {
                 "PropertyName": "TYP_Group",
-                "Module": TCManageStaticListingCtrl.ePage.Masters.Module.ActiveModule.Key,
-                "SAP_FK": TCManageStaticListingCtrl.ePage.Masters.Application.ActiveApplication.PK
-            };
+                "Module": TCManageStaticListingCtrl.ePage.Masters.ActiveModule.Key,
+              };
 
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
                 "FilterID": trustCenterConfig.Entities.API.CfxTypes.API.GetColumnValuesWithFilters.FilterID
             };
 
-            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.CfxTypes.API.GetColumnValuesWithFilters.Url + TCManageStaticListingCtrl.ePage.Masters.Application.ActiveApplication.PK, _input).then(function (response) {
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.CfxTypes.API.GetColumnValuesWithFilters.Url + authService.getUserInfo().AppPK, _input).then(function (response) {
                 if (response.data.Response) {
-                    TCManageStaticListingCtrl.ePage.Masters.SubModule.ListSource = response.data.Response;
-                    if (TCManageStaticListingCtrl.ePage.Masters.SubModule.ListSource.length > 0) {
-                        OnSubModuleChange(TCManageStaticListingCtrl.ePage.Masters.SubModule.ListSource[0])
-                    } else {
-                        TCManageStaticListingCtrl.ePage.Masters.StaticListType.ListSource = [];
-                        TCManageStaticListingCtrl.ePage.Masters.StaticListTypeList.ListSource = [];
-
-                        TCManageStaticListingCtrl.ePage.Masters.SubModule.ActiveSubModule = undefined;
-                        TCManageStaticListingCtrl.ePage.Masters.StaticListType.ActiveStaticListType = undefined;
-                        TCManageStaticListingCtrl.ePage.Masters.StaticListTypeList.ActiveStaticListTypeList = undefined;
-                    }
-                } else {
-                    TCManageStaticListingCtrl.ePage.Masters.SubModule.ListSource = [];
-                    TCManageStaticListingCtrl.ePage.Masters.StaticListType.ListSource = [];
-                    TCManageStaticListingCtrl.ePage.Masters.StaticListTypeList.ListSource = [];
-
-                    TCManageStaticListingCtrl.ePage.Masters.SubModule.ActiveSubModule = undefined;
-                    TCManageStaticListingCtrl.ePage.Masters.StaticListType.ActiveStaticListType = undefined;
-                    TCManageStaticListingCtrl.ePage.Masters.StaticListTypeList.ActiveStaticListTypeList = undefined;
+                    TCManageStaticListingCtrl.ePage.Masters.SubModuleList = response.data.Response;
                 }
             });
         }
 
         function OnSubModuleChange($item) {
-            TCManageStaticListingCtrl.ePage.Masters.SubModule.ActiveSubModule = angular.copy($item);
-
+            TCManageStaticListingCtrl.ePage.Masters.ActiveSubModule = angular.copy($item);
             GetStaticListType();
-        }
+         }
 
         // ========================Module End========================
 
@@ -209,11 +191,15 @@
             TCManageStaticListingCtrl.ePage.Masters.StaticListType.ListSource = undefined;
             var _filter = {
                 "PropertyName": "TYP_TypeCode",
-                "Module": TCManageStaticListingCtrl.ePage.Masters.Module.ActiveModule.Key,
-                "Group": TCManageStaticListingCtrl.ePage.Masters.SubModule.ActiveSubModule,
                 "SAP_FK": TCManageStaticListingCtrl.ePage.Masters.Application.ActiveApplication.PK
             };
 
+            if (TCManageStaticListingCtrl.ePage.Masters.ActiveModule) {
+                _filter.Module = TCManageStaticListingCtrl.ePage.Masters.ActiveModule.Key;
+            }
+            if (TCManageStaticListingCtrl.ePage.Masters.ActiveSubModule) {
+                _filter.Group = TCManageStaticListingCtrl.ePage.Masters.ActiveSubModule;
+            }
             if (authService.getUserInfo().AppCode == 'EA') {
                 _filter.TypeCode = "USERCFXTYPES"
             }
@@ -222,17 +208,18 @@
                 "FilterID": trustCenterConfig.Entities.API.CfxTypes.API.GetColumnValuesWithFilters.FilterID
             };
 
-            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.CfxTypes.API.GetColumnValuesWithFilters.Url + TCManageStaticListingCtrl.ePage.Masters.Application.ActiveApplication.PK, _input).then(function (response) {
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.CfxTypes.API.GetColumnValuesWithFilters.Url + authService.getUserInfo().AppPK, _input).then(function (response) {
                 if (response.data.Response) {
                     TCManageStaticListingCtrl.ePage.Masters.StaticListType.ListSource = response.data.Response;
 
                     if (TCManageStaticListingCtrl.ePage.Masters.StaticListType.ListSource.length > 0) {
                         OnStaticListTypeClick(TCManageStaticListingCtrl.ePage.Masters.StaticListType.ListSource[0]);
                     } else {
-                        OnStaticListTypeClick();
+                        TCManageStaticListingCtrl.ePage.Masters.StaticListTypeList.ListSource = [];
                     }
                 } else {
                     TCManageStaticListingCtrl.ePage.Masters.StaticListType.ListSource = [];
+                    TCManageStaticListingCtrl.ePage.Masters.StaticListTypeList.ListSource = [];
                 }
             });
         }
@@ -241,15 +228,15 @@
             TCManageStaticListingCtrl.ePage.Masters.StaticListType.ActiveStaticListType = angular.copy($item);
 
             if ($item) {
-                GetStaticListTypeList();
+               GetStaticListTypeList();
             }
         }
 
         function AddNew() {
-            if (TCManageStaticListingCtrl.ePage.Masters.Module.ActiveModule) {
+            if (TCManageStaticListingCtrl.ePage.Masters.ActiveModule) {
                 TCManageStaticListingCtrl.ePage.Masters.StaticListTypeList.ActiveStaticListTypeList = {};
-                TCManageStaticListingCtrl.ePage.Masters.StaticListTypeList.ActiveStaticListTypeList.Module = TCManageStaticListingCtrl.ePage.Masters.Module.ActiveModule.Key;
-                TCManageStaticListingCtrl.ePage.Masters.StaticListTypeList.ActiveStaticListTypeList.Group = TCManageStaticListingCtrl.ePage.Masters.SubModule.ActiveSubModule;
+                TCManageStaticListingCtrl.ePage.Masters.StaticListTypeList.ActiveStaticListTypeList.Module = TCManageStaticListingCtrl.ePage.Masters.ActiveModule.Key;
+                TCManageStaticListingCtrl.ePage.Masters.StaticListTypeList.ActiveStaticListTypeList.Group = TCManageStaticListingCtrl.ePage.Masters.ActiveSubModule;
                 TCManageStaticListingCtrl.ePage.Masters.StaticListTypeList.ActiveStaticListTypeList.TypeCode = TCManageStaticListingCtrl.ePage.Masters.StaticListType.ActiveStaticListType;
 
                 Edit();
@@ -261,7 +248,7 @@
         // ========================Static List Type List Start========================
 
         function InitStaticListTypeList() {
-            TCManageStaticListingCtrl.ePage.Masters.StaticListTypeList = {};
+            TCManageStaticListingCtrl.ePage.Masters.StaticListTypeList = [];
             TCManageStaticListingCtrl.ePage.Masters.StaticListTypeList.OnStaticListTypeListClick = OnStaticListTypeListClick;
 
             TCManageStaticListingCtrl.ePage.Masters.StaticListTypeList.Cancel = Cancel;
@@ -284,6 +271,7 @@
                 "TypeCode": TCManageStaticListingCtrl.ePage.Masters.StaticListType.ActiveStaticListType,
                 "TenantCode": authService.getUserInfo().TenantCode
             };
+
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
                 "FilterID": trustCenterConfig.Entities.API.CfxTypes.API.FindAll.FilterID
@@ -324,7 +312,7 @@
             TCManageStaticListingCtrl.ePage.Masters.StaticListTypeList.SaveBtnText = "OK";
             TCManageStaticListingCtrl.ePage.Masters.StaticListTypeList.IsDisableSaveBtn = false;
 
-            EditModalInstance().result.then(function (response) { }, function () {
+            EditModalInstance().result.then(function (response) {}, function () {
                 Cancel();
             });
         }

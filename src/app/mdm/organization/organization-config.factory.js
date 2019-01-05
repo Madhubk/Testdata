@@ -28,11 +28,6 @@
                                 "HttpType": "GET",
                                 "Url": "Org/OrganizationActivityClose/"
                             },
-                            "Update": {
-                                "IsAPI": "true",
-                                "HttpType": "POST",
-                                "Url": "Org/Update"
-                            },
                         }
                     },
                     "CfxTypes": {

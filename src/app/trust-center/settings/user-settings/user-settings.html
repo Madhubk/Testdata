@@ -14,7 +14,7 @@
             </div>
         </div>
         <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-xs-12 p-4">
-           <tc-application-dropdown query-string="UserSettingsCtrl.ePage.Masters.QueryString" on-application-change="UserSettingsCtrl.ePage.Masters.Application.OnApplicationChange($item)"></tc-application-dropdown>
+            <tc-application-dropdown query-string="UserSettingsCtrl.ePage.Masters.QueryString" on-application-change="UserSettingsCtrl.ePage.Masters.Application.OnApplicationChange($item)"></tc-application-dropdown>
         </div>
     </div>
     <!-- Header -->
@@ -46,11 +46,11 @@
     </div>
     <!-- Body -->
     <div class="clearfix">
-        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 p-0 tc-page-height-fixed">
-            <div class="tc-list-container">
-                <div class="tc-list-search">
-                    <input type="text" placeholder="Search..." class="form-control input-sm" data-ng-model="UserSettingsCtrl.ePage.Masters.DataEntry.Search">
-                </div>
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 p-0">
+            <div class="tc-list-search">
+                <input type="text" placeholder="Search..." class="form-control input-sm" data-ng-model="UserSettingsCtrl.ePage.Masters.DataEntry.Search">
+            </div>
+            <div class="tc-list-container tc-page-height-fixed">
                 <ul class="tc-list-ul">
                     <div class="p-15 text-center tc-loading" data-ng-if="!UserSettingsCtrl.ePage.Masters.DataEntry.Listsource">
                         <i class="fa fa-spin fa-spinner"></i>
@@ -73,11 +73,11 @@
                 </ul>
             </div>
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 3col-xl-3 p-0 tc-page-height-fixed">
-            <div class="tc-list-container">
-                <div class="tc-list-search">
-                    <input type="text" placeholder="Search..." class="form-control input-sm" data-ng-model="UserSettingsCtrl.ePage.Masters.UserSetting.Search">
-                </div>
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 p-0">
+            <div class="tc-list-search">
+                <input type="text" placeholder="Search..." class="form-control input-sm" data-ng-model="UserSettingsCtrl.ePage.Masters.UserSetting.Search">
+            </div>
+            <div class="tc-list-container tc-page-height-fixed">
                 <ul class="tc-list-ul">
                     <div class="p-15 text-center tc-loading" data-ng-if="!UserSettingsCtrl.ePage.Masters.UserSetting.Listsource">
                         <i class="fa fa-spin fa-spinner"></i>
@@ -100,8 +100,8 @@
                 </ul>
             </div>
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 p-0 tc-page-height-fixed">
-            <div class=" pt-10 pb-10 tc-details-view clearfix">
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 p-0">
+            <div class="pt-10 pb-10 tc-details-view clearfix">
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                     <div class="clearfix form-group">
                         <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Key</label>

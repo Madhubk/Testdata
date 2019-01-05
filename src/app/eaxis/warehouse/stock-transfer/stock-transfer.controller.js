@@ -22,9 +22,6 @@
 
             StocktransferCtrl.ePage.Masters.dataentryName = "WarehouseStockTransfer";
             StocktransferCtrl.ePage.Masters.taskName = "StockTransfer";
-            StocktransferCtrl.ePage.Masters.defaultFilter = {
-                "NotWorkOrderSubType": "OWN"
-            }
             StocktransferCtrl.ePage.Masters.TabList = [];
             stocktransferConfig.TabList = [];
             StocktransferCtrl.ePage.Masters.activeTabIndex = 0;

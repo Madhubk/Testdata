@@ -48,8 +48,8 @@
 
         function OnFieldValueChange(code) {
             var _obj = {
-                ModuleName: ["MyTask"],
-                Code: [myTaskActivityConfig.Entities.Shipment.label],
+                ModuleName: [ExportSeaShipmentCargoReceiptGlbCtrl.ePage.Masters.TaskObj.WSI_StepCode],
+                Code: [ExportSeaShipmentCargoReceiptGlbCtrl.ePage.Masters.TaskObj.WSI_StepCode],
                 API: "Validation", // Validation/Group
                 FilterInput: {
                     ModuleCode: "SHP",
@@ -60,8 +60,8 @@
                 ErrorCode: code ? [code] : []
             };
             errorWarningService.ValidateValue(_obj);
-            ExportSeaShipmentCargoReceiptGlbCtrl.ePage.Masters.ErrorWarningConfig.GlobalErrorWarningList = errorWarningService.Modules.MyTask.Entity[ExportSeaShipmentCargoReceiptGlbCtrl.taskObj.KeyReference].GlobalErrorWarningList;
-            ExportSeaShipmentCargoReceiptGlbCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj = errorWarningService.Modules.MyTask.Entity[ExportSeaShipmentCargoReceiptGlbCtrl.taskObj.KeyReference];
+            ExportSeaShipmentCargoReceiptGlbCtrl.ePage.Masters.ErrorWarningConfig.GlobalErrorWarningList = errorWarningService.Modules[ExportSeaShipmentCargoReceiptGlbCtrl.ePage.Masters.TaskObj.WSI_StepCode].Entity[ExportSeaShipmentCargoReceiptGlbCtrl.ePage.Masters.TaskObj.WSI_StepCode].GlobalErrorWarningList;
+            ExportSeaShipmentCargoReceiptGlbCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj = errorWarningService.Modules[ExportSeaShipmentCargoReceiptGlbCtrl.ePage.Masters.TaskObj.WSI_StepCode].Entity[ExportSeaShipmentCargoReceiptGlbCtrl.ePage.Masters.TaskObj.WSI_StepCode];
         }
 
         function OpenDatePicker($event, opened) {
@@ -131,8 +131,8 @@
             if (ExportSeaShipmentCargoReceiptGlbCtrl.ePage.Masters.TaskObj) {
                 // validation findall call
                 var _obj = {
-                    ModuleName: ["MyTask"],
-                    Code: [ExportSeaShipmentCargoReceiptGlbCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ShipmentNo],
+                    ModuleName: [ExportSeaShipmentCargoReceiptGlbCtrl.ePage.Masters.TaskObj.WSI_StepCode],
+                    Code: [ExportSeaShipmentCargoReceiptGlbCtrl.ePage.Masters.TaskObj.WSI_StepCode],
                     API: "Validation",
                     FilterInput: {
                         ModuleCode: "SHP",
@@ -156,15 +156,15 @@
             if (ExportSeaShipmentCargoReceiptGlbCtrl.ePage.Masters.TaskObj) {
                 // validation findall call
                 var _obj = {
-                    ModuleName: ["MyTask"],
-                    Code: [ExportSeaShipmentCargoReceiptGlbCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ShipmentNo],
+                    ModuleName: [ExportSeaShipmentCargoReceiptGlbCtrl.ePage.Masters.TaskObj.WSI_StepCode],
+                    Code: [ExportSeaShipmentCargoReceiptGlbCtrl.ePage.Masters.TaskObj.WSI_StepCode],
                     API: "Validation",
                     FilterInput: {
                         ModuleCode: "SHP",
                         SubModuleCode: "SHP",
                         Code: "E11071"
                     },
-                    GroupCode: "Document",
+                    GroupCode: "SHP_GENERAL",
                     EntityObject: ExportSeaShipmentCargoReceiptGlbCtrl.ePage.Entities.Header.Data,
                     ErrorCode: []
                 };
@@ -178,8 +178,8 @@
             if (ExportSeaShipmentCargoReceiptGlbCtrl.ePage.Masters.ValidationSource || ExportSeaShipmentCargoReceiptGlbCtrl.ePage.Masters.DocumentValidation) {
                 if (ExportSeaShipmentCargoReceiptGlbCtrl.ePage.Masters.ValidationSource.length > 0) {
                     var _obj = {
-                        ModuleName: ["MyTask"],
-                        Code: [ExportSeaShipmentCargoReceiptGlbCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ShipmentNo],
+                        ModuleName: [ExportSeaShipmentCargoReceiptGlbCtrl.ePage.Masters.TaskObj.WSI_StepCode],
+                        Code: [ExportSeaShipmentCargoReceiptGlbCtrl.ePage.Masters.TaskObj.WSI_StepCode],
                         API: "Validation",
                         FilterInput: {
                             ModuleCode: "SHP",
@@ -200,8 +200,8 @@
                             ExportSeaShipmentCargoReceiptGlbCtrl.ePage.Entities.Header.Data.Document = null;
                         }
                         var _obj = {
-                            ModuleName: ["MyTask"],
-                            Code: [ExportSeaShipmentCargoReceiptGlbCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ShipmentNo],
+                            ModuleName: [ExportSeaShipmentCargoReceiptGlbCtrl.ePage.Masters.TaskObj.WSI_StepCode],
+                            Code: [ExportSeaShipmentCargoReceiptGlbCtrl.ePage.Masters.TaskObj.WSI_StepCode],
                             API: "Group",
                             FilterInput: {
                                 ModuleCode: "SHP",
@@ -223,7 +223,7 @@
                 //         _errorcount = errorWarningService.Modules.MyTask.Entity[ExportSeaShipmentCargoReceiptGlbCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ShipmentNo].GlobalErrorWarningList[key];
                 //     }
                 //    })
-                   _errorcount = errorWarningService.Modules.MyTask.Entity[ExportSeaShipmentCargoReceiptGlbCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ShipmentNo].GlobalErrorWarningList
+                   _errorcount = errorWarningService.Modules[ExportSeaShipmentCargoReceiptGlbCtrl.ePage.Masters.TaskObj.WSI_StepCode].Entity[ExportSeaShipmentCargoReceiptGlbCtrl.ePage.Masters.TaskObj.WSI_StepCode].GlobalErrorWarningList
                     if (_errorcount.length > 0) {
                         if (ExportSeaShipmentCargoReceiptGlbCtrl.ePage.Masters.DocumentValidation.length > 0) {
                             angular.forEach(_errorcount, function (value, key) {

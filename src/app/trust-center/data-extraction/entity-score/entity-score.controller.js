@@ -194,7 +194,7 @@
                     GetTargetFieldList(_obj);
                 }
             }
-            EditDataExtEntityScoreModalInstance().result.then(function (response) { }, function () {
+            EditDataExtEntityScoreModalInstance().result.then(function (response) {}, function () {
                 CloseDataExtEntityScoreModal();
             });
         }
@@ -236,14 +236,7 @@
         }
 
         function DeleteDataExtEntityScore() {
-            DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.DeleteBtnText = "Please Wait...";
-            DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.IsDisableDeleteBtn = true;
-
-            var _input = angular.copy(DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.ActiveDataExtEntityScore);
-            _input.IsModified = true;
-            _input.IsDeleted = true;
-
-            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.DataConfig.API.Upsert.Url, [_input]).then(function SuccessCallback(response) {
+            apiService.get("eAxisAPI", trustCenterConfig.Entities.API.DataConfig.API.Delete.Url + DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.ActiveDataExtEntityScore.PK).then(function SuccessCallback(response) {
                 if (response.data.Response) {
                     var _index = DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.DataExtEntityScoreList.map(function (value, key) {
                         return value.PK;
@@ -340,24 +333,64 @@
         }
 
         function SaveDataExtEntityScore() {
+            if (DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.ActiveDataExtEntityScore.PK) {
+                UpdateDataExtEntityScore();
+            } else {
+                InsertDataExtEntityScore();
+            }
+        }
+
+        function InsertDataExtEntityScore() {
             DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.SaveBtnText = "Please Wait...";
             DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.IsDisableSaveBtn = true;
 
-            var _input = angular.copy(DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.ActiveDataExtEntityScore);
-
-            _input.TenantCode = authService.getUserInfo().TenantCode;
-            _input.AppCode = DataExtEntityScoreCtrl.ePage.Masters.Application.ActiveApplication.AppCode;
-            _input.SAP_FK = DataExtEntityScoreCtrl.ePage.Masters.Application.ActiveApplication.PK;
+            var _input = DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.ActiveDataExtEntityScore;
             _input.IsModified = true;
-            _input.IsDeleted = false;
-            _input.ConfigType = "EntityScore";
+            _input.SAP_FK = DataExtEntityScoreCtrl.ePage.Masters.Application.ActiveApplication.PK;
+            _input.SAP_Code = DataExtEntityScoreCtrl.ePage.Masters.Application.ActiveApplication.AppCode;
+            _input.TenantCode = authService.getUserInfo().TenantCode;
+            _input.TNT_FK = authService.getUserInfo().TenantPK;
 
-            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.DataConfig.API.Upsert.Url, [_input]).then(function SuccessCallback(response) {
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.DataConfig.API.Insert.Url, [_input]).then(function SuccessCallback(response) {
                 if (response.data.Response) {
-                    var _response = response.data.Response[0];
-                    DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.ActiveDataExtEntityScore = angular.copy(_response);
-                    var _index = DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.DataExtEntityScoreList.map(function (e) {
-                        return e.PK;
+                    if (response.data.Response.length > 0) {
+                        var _response = response.data.Response[0];
+
+                        var _index = DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.DataExtEntityScoreList.map(function (value, key) {
+                            return value.PK;
+                        }).indexOf(_response.PK);
+
+                        if (_index === -1) {
+                            DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.DataExtEntityScoreList.push(_response);
+                        } else {
+                            DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.DataExtEntityScoreList[_index] = _response;
+                        }
+
+                        OnDataExtEntityScoreClick(_response);
+                    }
+                } else {
+                    toastr.error("Could not Save...!");
+                }
+
+                DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.SaveBtnText = "OK";
+                DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.IsDisableSaveBtn = false;
+                DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.EditDataExtEntityScoreModal.dismiss('cancel');
+            });
+        }
+
+        function UpdateDataExtEntityScore() {
+            DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.SaveBtnText = "Please Wait...";
+            DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.IsDisableSaveBtn = true;
+
+            var _input = DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.ActiveDataExtEntityScore;
+            _input.IsModified = true;
+
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.DataConfig.API.Update.Url, _input).then(function SuccessCallback(response) {
+                if (response.data.Response) {
+                    var _response = response.data.Response;
+
+                    var _index = DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.DataExtEntityScoreList.map(function (value, key) {
+                        return value.PK;
                     }).indexOf(_response.PK);
 
                     if (_index === -1) {
@@ -365,8 +398,7 @@
                     } else {
                         DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.DataExtEntityScoreList[_index] = _response;
                     }
-
-                    OnDataExtEntityScoreClick(DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.ActiveDataExtEntityScore);
+                    OnDataExtEntityScoreClick(_response);
                 } else {
                     toastr.error("Could not Save...!");
                 }
@@ -437,7 +469,7 @@
                 ItemType: "Main"
             };
 
-            EditDataExtEntityScoreFieldsModalInstance().result.then(function (response) { }, function () { });
+            EditDataExtEntityScoreFieldsModalInstance().result.then(function (response) {}, function () {});
         }
 
         function GetFieldList() {
@@ -470,48 +502,87 @@
         }
 
         function CloseDataExtEntityScoreFields() {
-           DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.DataExtEntityScoreFields.EditModal.dismiss('cancel');
+            DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.DataExtEntityScoreFields.EditModal.dismiss('cancel');
         }
 
         function DataExtEntityScoreFieldsSave() {
+            if (DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.DataExtEntityScoreFields.ActiveDataExtEntityScoreFields.PK) {
+                UpdateDatExtEntityScoreFields();
+            } else {
+                InsertDatExtEntityScoreFields();
+            }
+        }
+
+        function InsertDatExtEntityScoreFields() {
             DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.DataExtEntityScoreFields.SaveBtnText = "Please Wait...";
             DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.DataExtEntityScoreFields.IsDisableSaveBtn = true;
 
-            var _input = angular.copy(DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.DataExtEntityScoreFields.ActiveDataExtEntityScoreFields);
+            var _input = DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.DataExtEntityScoreFields.ActiveDataExtEntityScoreFields;
             _input.IsModified = true;
-
-            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.DataConfigFields.API.Upsert.Url, [_input]).then(function SuccessCallback(response) {
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.DataConfigFields.API.Insert.Url, [_input]).then(function SuccessCallback(response) {
                 if (response.data.Response) {
                     if (response.data.Response.length > 0) {
-                        if (DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.DataExtEntityScoreFields.ActiveDataExtEntityScoreFields.PK) {
-                            var _index = DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.DataExtEntityScoreFields.ListSource.map(function (value, key) {
-                                return value.PK;
-                            }).indexOf(DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.DataExtEntityScoreFields.ActiveDataExtEntityScoreFields.PK);
+                        var _response = response.data.Response[0];
 
-                            if (_index !== -1) {
-                                DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.DataExtEntityScoreFields.ListSource[_index] = response.data.Response[0];
-                            }
+                        var _index = DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.DataExtEntityScoreFields.ListSource.map(function (value, key) {
+                            return value.PK;
+                        }).indexOf(_response.PK);
+
+                        if (_index === -1) {
+                            DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.DataExtEntityScoreFields.ListSource.push(_response);
                         } else {
-                            DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.DataExtEntityScoreFields.ListSource.push(response.data.Response[0]);
+                            DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.DataExtEntityScoreFields.ListSource[_index] = _response;
                         }
 
-                        DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.DataExtEntityScoreFields.ActiveDataExtEntityScoreFields = undefined;
-                        CloseDataExtEntityScoreFields();
+                        OnDataExtEntityScoreFieldsClick(_response);
                     }
                 } else {
                     toastr.error("Could not Save...!");
                 }
 
-                DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.DataExtEntityScoreFields.SaveBtnText = "Save";
+                DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.DataExtEntityScoreFields.SaveBtnText = "OK";
                 DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.DataExtEntityScoreFields.IsDisableSaveBtn = false;
+                DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.DataExtEntityScoreFields.EditModal.dismiss('cancel');
             });
         }
-    
+
+        function UpdateDatExtEntityScoreFields() {
+            DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.DataExtEntityScoreFields.SaveBtnText = "Please Wait...";
+            DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.DataExtEntityScoreFields.IsDisableSaveBtn = true;
+
+            var _input = DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.DataExtEntityScoreFields.ActiveDataExtEntityScoreFields;
+            _input.IsModified = true;
+
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.DataConfigFields.API.Update.Url, _input).then(function SuccessCallback(response) {
+                if (response.data.Response) {
+                    var _response = response.data.Response;
+
+                    var _index = DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.DataExtEntityScoreFields.ListSource.map(function (value, key) {
+                        return value.PK;
+                    }).indexOf(_response.PK);
+
+                    if (_index === -1) {
+                        DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.DataExtEntityScoreFields.ListSource.push(_response);
+                    } else {
+                        DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.DataExtEntityScoreFields.ListSource[_index] = _response;
+                    }
+
+                    OnDataExtEntityScoreFieldsClick(_response);
+                } else {
+                    toastr.error("Could not Save...!");
+                }
+
+                DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.DataExtEntityScoreFields.SaveBtnText = "OK";
+                DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.DataExtEntityScoreFields.IsDisableSaveBtn = false;
+                DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.DataExtEntityScoreFields.EditModal.dismiss('cancel');
+            });
+        }
+
 
         function EditDataExtEntityScoreField($item) {
             DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.DataExtEntityScoreFields.ActiveDataExtEntityScoreFields = angular.copy($item);
 
-            EditDataExtEntityScoreFieldsModalInstance().result.then(function (response) { }, function () { });
+            EditDataExtEntityScoreFieldsModalInstance().result.then(function (response) {}, function () {});
         }
 
         function DeleteConfirmation(item) {
@@ -529,9 +600,9 @@
                     console.log("Cancelled");
                 })
         }
-    
 
-        function Delete(item){
+
+        function Delete(item) {
             apiService.get("eAxisAPI", trustCenterConfig.Entities.API.DataConfigFields.API.Delete.Url + DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.DataExtEntityScoreFields.ActiveDataExtEntityScoreFields.PK).then(function SuccessCallback(response) {
                 if (response.data.Response) {
                     toastr.success("Record Deleted Successfully");
@@ -540,6 +611,8 @@
                 } else {
                     toastr.error("Could not Delete")
                 }
+
+                GetDataExtEntityScoreFieldsList();
             });
         }
 
@@ -586,7 +659,7 @@
                 DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.DataExtEntityScoreFields.ActiveDataExtEntityScoreFields.ExpressionGroup = [];
             }
 
-            EditExpressionModalInstance().result.then(function (response) { }, function () {
+            EditExpressionModalInstance().result.then(function (response) {}, function () {
                 CloseEditExpressionModal();
             });
         }

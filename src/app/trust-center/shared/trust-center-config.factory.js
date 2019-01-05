@@ -33,7 +33,7 @@
                                 "IsAPI": "true",
                                 "HttpType": "POST",
                                 "Url": "UserPrivileges/PublishAllUsers",
-                                "FIlterID": "USEREXT"
+                                "FilterID": "USEREXT"
                             }
                         }
                     },
@@ -56,6 +56,16 @@
                                 "IsAPI": "true",
                                 "HttpType": "POST",
                                 "Url": "SecApp/Upsert"
+                            },
+                            "Insert": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "SecApp/Insert"
+                            },
+                            "Update": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "SecApp/Update"
                             }
                         }
                     },
@@ -459,6 +469,21 @@
                                 "IsAPI": true,
                                 "HttpType": "POST",
                                 "Url": "DataConfig/Upsert"
+                            },
+                            "Insert": {
+                                "IsAPI": true,
+                                "HttpType": "POST",
+                                "Url": "DataConfig/Insert"
+                            },
+                            "Update": {
+                                "IsAPI": true,
+                                "HttpType": "POST",
+                                "Url": "DataConfig/Update"
+                            },
+                            "Delete": {
+                                "IsAPI": true,
+                                "HttpType": "GET",
+                                "Url": "DataConfig/Delete/"
                             }
                         }
                     },
@@ -480,6 +505,16 @@
                                 "IsAPI": true,
                                 "HttpType": "GET",
                                 "Url": "DataConfigFields/Delete/"
+                            },
+                            "Insert": {
+                                "IsAPI": true,
+                                "HttpType": "POST",
+                                "Url": "DataConfigFields/Insert"
+                            },
+                            "Update": {
+                                "IsAPI": true,
+                                "HttpType": "POST",
+                                "Url": "DataConfigFields/Update"
                             }
                         }
                     },
@@ -603,6 +638,12 @@
                                 "IsAPI": "true",
                                 "HttpType": "POST",
                                 "Url": "CfxMenus/MasterCascadeFindAll",
+                                "FilterID": "CFXMENU"
+                            },
+                            "GetColumnValuesWithFilters": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "CfxMenus/GetColumnValuesWithFilters",
                                 "FilterID": "CFXMENU"
                             }
                         }
@@ -1236,6 +1277,16 @@
                                 "HttpType": "POST",
                                 "Url": "SecTenant/Upsert"
                             },
+                            "Insert": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "SecTenant/Insert"
+                            },
+                            "Update": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "SecTenant/Update"
+                            },
                             "GetByTenant": {
                                 "IsAPI": "true",
                                 "HttpType": "GET",
@@ -1297,6 +1348,16 @@
                                 "IsAPI": "true",
                                 "HttpType": "POST",
                                 "Url": "SecAppUrl/Upsert"
+                            },
+                            "Insert": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "SecAppUrl/Insert"
+                            },
+                            "Update": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "SecAppUrl/Update"
                             }
                         }
                     },
@@ -1627,7 +1688,33 @@
                                 "Url": "Export/AsHtml",
                                 "FilterID": "TEST"
                             }
-                         }
+                        }
+                    },
+                    "FilterRoleApplicationTenant": {
+                        "RowIndex": -1,
+                        "API": {
+                            "FindAll": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "FilterRoleApplicationTenant/FindAll",
+                                "FilterID": "SECMAPP"
+                            },
+                            "Insert": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "FilterRoleApplicationTenant/Insert"
+                            },
+                            "Update": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "FilterRoleApplicationTenant/Update"
+                            },
+                            "Delete": {
+                                "IsAPI": "true",
+                                "HttpType": "GET",
+                                "Url": "FilterRoleApplicationTenant/Delete/"
+                            }
+                        }
                     }
                 },
                 "OrgEmployeeAssignments": {

@@ -69,7 +69,6 @@
                 if (response.data.Response) {
                     DeliveryMenuCtrl.ePage.Masters.DeliveryOrders = response.data.Response;
                     var count = 0;
-                    // check whether the order status is Cancelled or not
                     angular.forEach(DeliveryMenuCtrl.ePage.Masters.DeliveryOrders, function (value, key) {
                         if (value.WorkOrderStatus == "CAN") {
                             count = count + 1;
@@ -85,7 +84,6 @@
                                 };
 
                                 $scope.ok = function () {
-                                    // Insert Job Comments
                                     var InsertCommentObject = [];
                                     var obj = {
                                         "Description": "General",
@@ -97,36 +95,7 @@
                                     InsertCommentObject.push(obj);
                                     apiService.post("eAxisAPI", appConfig.Entities.JobComments.API.Insert.Url, InsertCommentObject).then(function (response) {
                                         DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDelivery.CancelledDate = new Date();
-                                        angular.forEach(DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDeliveryLine, function (value, key) {
-                                            value.WorkOrderLineStatus = "CAN";
-                                        });
-                                        // check whether the task available for this entity or not
-                                        var _filter = {
-                                            Status: "AVAILABLE,ASSIGNED",
-                                            EntityRefKey: DeliveryMenuCtrl.ePage.Entities.Header.Data.PK,
-                                            KeyReference: DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderID
-                                        };
-                                        var _input = {
-                                            "searchInput": helperService.createToArrayOfObject(_filter),
-                                            "FilterID": appConfig.Entities.EBPMWorkItem.API.FindAllWithAccess.FilterID
-                                        };
-                                        apiService.post("eAxisAPI", appConfig.Entities.EBPMWorkItem.API.FindAllWithAccess.Url, _input).then(function (response) {
-                                            if (response.data.Response) {
-                                                if (response.data.Response.length > 0) {
-                                                    angular.forEach(response.data.Response, function (value, key) {
-                                                        // To suspend the available task
-                                                        apiService.get("eAxisAPI", appConfig.Entities.EBPMEngine.API.SuspendInstance.Url + value.PSI_InstanceNo).then(function (response) {
-                                                            if (response.data) {
-
-                                                            }
-                                                        });
-                                                    });
-                                                    Validation($item);
-                                                } else {
-                                                    Validation($item);
-                                                }
-                                            }
-                                        });
+                                        Validation($item);
                                         $uibModalInstance.dismiss('cancel');
                                     });
                                 }
@@ -216,33 +185,7 @@
                             deliveryConfig.TabList[_index][deliveryConfig.TabList[_index].label].ePage.Entities.Header.Data = response.Data;
 
                         DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDelivery.Consignee = DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ConsigneeCode + ' - ' + DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ConsigneeName;
-                        if ($item.isNew) {
-                            var _smsInput = {
-                                "MobileNo": DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsWorkorderReport.RequesterContactNo,
-                                "Message": "Delivery Request " + DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderID + " Acknowledged Successfully."
-                            }
-                            apiService.post("authAPI", appConfig.Entities.Notification.API.SendSms.Url, _smsInput).then(function (response) {
 
-                            });
-                            if (deliveryConfig.Entities.ClientContact.length > 0) {
-                                var _smsInput = {
-                                    "MobileNo": deliveryConfig.Entities.ClientContact[0].Mobile,
-                                    "Message": "Delivery Request " + DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderID + " Acknowledged Successfully."
-                                }
-                                apiService.post("authAPI", appConfig.Entities.Notification.API.SendSms.Url, _smsInput).then(function (response) {
-
-                                });
-                            }
-                            if (deliveryConfig.Entities.WarehouseContact.length > 0) {
-                                var _smsInput = {
-                                    "MobileNo": deliveryConfig.Entities.WarehouseContact[0].Mobile,
-                                    "Message": "Delivery Request " + DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderID + " Acknowledged Successfully."
-                                }
-                                apiService.post("authAPI", appConfig.Entities.Notification.API.SendSms.Url, _smsInput).then(function (response) {
-
-                                });
-                            }
-                        }
                         deliveryConfig.TabList[_index].isNew = false;
                         if ($state.current.url == "/delivery-request") {
                             helperService.refreshGrid();

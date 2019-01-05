@@ -316,7 +316,7 @@
                             value.PK='';
                             if(!value.Packs){
                                 value.Packs = 1;
-                                value.Units = 1;
+                                value.Quantity = 1;
                             }
                             if(!value.PAC_PackType){
                                 value.PAC_PackType = value.StockKeepingUnit;

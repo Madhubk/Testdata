@@ -277,9 +277,6 @@
 
                     FetchingInwardDetails(value);
 
-                    //If outward finalized then we should normalize the pick slip tab
-                    ReleasesGeneralCtrl.ePage.Entities.Header.GlobalVariables.NormalingPickSlipTab = true;
-
                     console.log("Success");
                     toastr.success("Saved Successfully...!");
                 } else if (response.Status === "failed") {
@@ -360,6 +357,7 @@
             InwardObject.UIWmsInwardHeader.WarehouseName = currentOutward.TransferTo_WAR_Name
             InwardObject.UIWmsInwardHeader.WorkOrderSubType = currentOutward.WorkOrderSubType;
             InwardObject.UIWmsInwardHeader.AdditionalRef2Fk = currentOutward.AdditionalRef2Fk;
+
             //Assigning ASN Line Object
             ReleasesGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickLine.map(function (value, key) {
                 if (value.WOD_FK == currentOutward.PK) {
@@ -384,12 +382,7 @@
                         "PackingDate": value.PackingDate,
                         "ExpiryDate": value.ExpiryDate,
                         "AdditionalRef1Code": value.AdditionalRef1Code,
-                        "AdditionalRef1Type": value.AdditionalRef1Type,
-                        "UseExpiryDate": value.PackingDate ? true : false,
-                        "UsePackingDate": value.ExpiryDate ? true : false,
-                        "UsePartAttrib1": value.PartAttrib1 ? true : false,
-                        "UsePartAttrib2": value.PartAttrib2 ? true : false,
-                        "UsePartAttrib3": value.PartAttrib3 ? true : false
+                        "AdditionalRef1Type": value.AdditionalRef1Type
                     }
                     InwardObject.UIWmsAsnLine.push(AsnLineObj);
                 }

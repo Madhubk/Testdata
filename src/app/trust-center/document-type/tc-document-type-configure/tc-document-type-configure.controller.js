@@ -33,6 +33,16 @@
                     // InitRule();
                     InitDocumentType();
                 }
+
+                TCDocumentTypeConfigureCtrl.ePage.Masters.GenerateScriptInput = {
+                    ObjectName: "MstDocType",
+                    ObjectId: TCDocumentTypeConfigureCtrl.ePage.Entities.Header.Data.PK
+                };
+                TCDocumentTypeConfigureCtrl.ePage.Masters.GenerateScriptConfig = {
+                    IsEnableTable: false,
+                    IsEnablePK: false,
+                    IsEnableTenant: false
+                };
             } catch (error) {
                 console.log(error)
             }

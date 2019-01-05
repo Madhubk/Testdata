@@ -1,0 +1,62 @@
+<div class="modal-header ng-scope">
+    <h5 class="modal-title pull-left"><strong>{{OrgWarehouseModalCtrl.ePage.Entities.Header.Data.OrgHeader.Code || 'Title'}}</strong></h5>
+    <input type="button" class="btn btn-warning btn-xs pull-right margin-left-5" ng-click="OrgWarehouseModalCtrl.ePage.Masters.Cancel()"
+        value="Close" />
+    <input type="button" class="btn btn-primary btn-xs pull-right margin-left-5" ng-click="OrgWarehouseModalCtrl.ePage.Masters.Save(OrgWarehouseModalCtrl.ePage.Masters.Company.FormView.Masters.param.Item,  'WmsClientParameterByWarehouse', 'Receiveparamsbywh')"
+        value="{{OrgWarehouseModalCtrl.ePage.Masters.SaveButtonText}}" data-ng-disabled="OrgWarehouseModalCtrl.ePage.Masters.IsDisableSave"
+    />
+</div>
+<div class="modal-body">
+    <div class="clearfix">
+        <div class="clearfix">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                <fieldset>
+                    <h5 class="modal-title padding-5"><strong>Receive Params by Warehouse</strong></h5>
+                    <div class="row padding-5">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-12">
+                            <div class="form-group">
+                            <label for="">Warehouse Code</label>
+                                <div class="input-group input-group-sm">
+                                    <input type="hidden" ng-model="OrgWarehouseModalCtrl.ePage.Masters.Company.FormView.Masters.param.Item.WAR_FK">
+                                    <div dynamic-lookup my-ng-model="OrgWarehouseModalCtrl.ePage.Masters.Company.FormView.Masters.param.Item.WarehouseCode" auto-complete-on-select="OrgWarehouseModalCtrl.ePage.Masters.SelectedRWarehouse($item)" obj="OrgWarehouseModalCtrl.ePage.Masters.Company.FormView.Masters.param.Item"
+                                    page-name="'Warehouse'" control-id="'Warehouse'" control-key="'Warehouse_3067'"></div>
+                                    <span class="input-group-btn"><button dynamic-list-modal obj="OrgWarehouseModalCtrl.ePage.Masters.Company.FormView.Masters.param.Item"  page-name="'Warehouse'" control-id="'Warehouse'" control-key="'Warehouse_3067'" mode = "2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="OrgWarehouseModalCtrl.ePage.Masters.SelectedRWarehouse($item)" class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-12">
+                            <div class="form-group">
+                                <label for="">Warehouse Name</label>
+                                <input type="text" class="form-control  ng-pristine ng-untouched ng-valid ng-not-empty" placeholder=" Warehouse" disabled data-ng-model="OrgWarehouseModalCtrl.ePage.Masters.Company.FormView.Masters.param.Item.WarehouseName"/>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                            <div class="form-group">
+                                <label for="">Area</label>
+                                <div class="input-group input-group-sm">
+                                    <input type="hidden" ng-model="OrgWarehouseModalCtrl.ePage.Masters.Company.FormView.Masters.param.Item.WAA_FK">
+                                    <div dynamic-lookup my-ng-model="OrgWarehouseModalCtrl.ePage.Masters.Company.FormView.Masters.param.Item.AreaName" auto-complete-on-select="OrgWarehouseModalCtrl.ePage.Masters.SelectedArea($item)" obj="OrgWarehouseModalCtrl.ePage.Masters.Company.FormView.Masters.param.Item"
+                                    page-name="'WarehouseArea'" control-id="'Area'" control-key="'Area_3217'"></div>
+                                    <span class="input-group-btn"><button dynamic-list-modal obj="OrgWarehouseModalCtrl.ePage.Masters.Company.FormView.Masters.param.Item"  page-name="'WarehouseArea'" control-id="'Area'" control-key="'Area_3217'" mode = "2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="OrgWarehouseModalCtrl.ePage.Masters.SelectedArea($item)" class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                            <div class="form-group">
+                                <label for="">Area Type</label>
+                                <input type="text" class="form-control input-sm" placeholder="Area Type" disabled data-ng-model="OrgWarehouseModalCtrl.ePage.Masters.Company.FormView.Masters.param.Item.AreaType"/>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <input type="button" class="btn btn-warning btn-xs pull-right margin-left-5" ng-click="OrgWarehouseModalCtrl.ePage.Masters.Cancel()"
+        value="Close" />
+    <input type="button" class="btn btn-primary btn-xs pull-right margin-left-5" ng-click="OrgWarehouseModalCtrl.ePage.Masters.Save(OrgWarehouseModalCtrl.ePage.Masters.Company.FormView.Masters.param.Item, 'WmsClientParameterByWarehouse', 'Receiveparamsbywh')"
+        value="{{OrgWarehouseModalCtrl.ePage.Masters.SaveButtonText}}" data-ng-disabled="OrgWarehouseModalCtrl.ePage.Masters.IsDisableSave"
+    />
+</div>

@@ -46,11 +46,11 @@
     </div>
     <!-- Body -->
     <div class="clearfix">
-        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 p-0 tc-page-height-fixed with-alphabetic-sort">
-            <div class="tc-list-container">
-                <div class="tc-list-search">
-                    <input type="text" placeholder="Search..." class="form-control input-sm" data-ng-model="TCFilterGroupCtrl.ePage.Masters.Search">
-                </div>
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 p-0">
+            <div class="tc-list-search">
+                <input type="text" placeholder="Search..." class="form-control input-sm" data-ng-model="TCFilterGroupCtrl.ePage.Masters.Search">
+            </div>
+            <div class="tc-list-container tc-page-height-fixed with-alphabetic-sort left">
                 <ul class="tc-list-ul">
                     <div class="p-15 text-center tc-loading" data-ng-if="!TCFilterGroupCtrl.ePage.Masters.FilterGroup.FilterGroupList">
                         <i class="fa fa-spin fa-spinner"></i>
@@ -82,7 +82,7 @@
                     <div class="clearfix form-group">
                         <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4"> Code</label>
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
-                            <label data-ng-bind="TCFilterGroupCtrl.ePage.Masters.FilterGroup.ActiveFilterGroup.FilterCode || TCFilterGroupCtrl.ePage.Masters.emptyText"></label>
+                            <div data-ng-bind="TCFilterGroupCtrl.ePage.Masters.FilterGroup.ActiveFilterGroup.FilterCode || TCFilterGroupCtrl.ePage.Masters.emptyText"></div>
                         </div>
                     </div>
                 </div>
@@ -90,7 +90,7 @@
                     <div class="clearfix form-group">
                         <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4"> Group Id</label>
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
-                            <label data-ng-bind="TCFilterGroupCtrl.ePage.Masters.FilterGroup.ActiveFilterGroup.GroupId || TCFilterGroupCtrl.ePage.Masters.emptyText"></label>
+                            <div data-ng-bind="TCFilterGroupCtrl.ePage.Masters.FilterGroup.ActiveFilterGroup.GroupId || TCFilterGroupCtrl.ePage.Masters.emptyText"></div>
                         </div>
                     </div>
                 </div>
@@ -99,7 +99,7 @@
                         <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4"> Logical
                             Operator</label>
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
-                            <label data-ng-bind="TCFilterGroupCtrl.ePage.Masters.FilterGroup.ActiveFilterGroup.LogicalOperator || TCFilterGroupCtrl.ePage.Masters.emptyText"></label>
+                            <div data-ng-bind="TCFilterGroupCtrl.ePage.Masters.FilterGroup.ActiveFilterGroup.LogicalOperator || TCFilterGroupCtrl.ePage.Masters.emptyText"></div>
 
                         </div>
                     </div>
@@ -108,7 +108,7 @@
                     <div class="clearfix form-group">
                         <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Module Code</label>
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
-                            <label data-ng-bind="TCFilterGroupCtrl.ePage.Masters.FilterGroup.ActiveFilterGroup.ModuleCode || TCFilterGroupCtrl.ePage.Masters.emptyText"></label>
+                            <div data-ng-bind="TCFilterGroupCtrl.ePage.Masters.FilterGroup.ActiveFilterGroup.ModuleCode || TCFilterGroupCtrl.ePage.Masters.emptyText"></div>
 
                         </div>
                     </div>

@@ -4,8 +4,8 @@
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
                 <div class="form-group">
                     <label class="control-label">Code </label>
-                    <input type="text" class="form-control input-sm" data-ng-model="TCEventConfigureCtrl.ePage.Masters.Event.FormView.Code" placeholder="Code"
-                    />
+                    <input type="text" class="form-control input-sm" data-ng-model="TCEventConfigureCtrl.ePage.Masters.Event.FormView.Code"
+                        placeholder="Code" />
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
@@ -27,8 +27,8 @@
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
                 <div class="form-group">
                     <label class="control-label">Type </label>
-                    <input type="text" class="form-control input-sm" data-ng-model="TCEventConfigureCtrl.ePage.Masters.Event.FormView.Type" placeholder="Type"
-                    />
+                    <input type="text" class="form-control input-sm" data-ng-model="TCEventConfigureCtrl.ePage.Masters.Event.FormView.Type"
+                        placeholder="Type" />
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
@@ -65,8 +65,8 @@
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
                 <div class="form-group">
                     <label class="control-label">CSS</label>
-                    <input type="text" class="form-control input-sm" data-ng-model="TCEventConfigureCtrl.ePage.Masters.Event.FormView.CSS" placeholder="CSS"
-                    />
+                    <input type="text" class="form-control input-sm" data-ng-model="TCEventConfigureCtrl.ePage.Masters.Event.FormView.CSS"
+                        placeholder="CSS" />
                 </div>
             </div>
         </div>
@@ -143,9 +143,10 @@
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
                 <div class="form-group">
                     <div class="checkbox">
-                       <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
                             <label>
-                                <input type="checkbox" data-ng-model="TCEventConfigureCtrl.ePage.Masters.Event.FormView.IsSystemEvent" class="colored-blue">
+                                <input type="checkbox" data-ng-model="TCEventConfigureCtrl.ePage.Masters.Event.FormView.IsSystemEvent"
+                                    class="colored-blue">
                                 <span class="text">Is SystemEvent</span>
                             </label>
                         </div>
@@ -156,10 +157,12 @@
     </form>
 </div>
 
-<div class="eaxis-footer-strip">
-    <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10"></div>
+<div class="eaxis-footer-strip p-6">
+    <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10">
+        <button class="btn btn-primary btn-sm pull-right" generate-db-script input="TCEventConfigureCtrl.ePage.Masters.GenerateScriptInput" config="TCEventConfigureCtrl.ePage.Masters.GenerateScriptConfig" data-ng-disabled="!TCEventConfigureCtrl.ePage.Masters.GenerateScriptInput.ObjectName || !TCEventConfigureCtrl.ePage.Masters.GenerateScriptInput.ObjectId">Generate Script</button>
+    </div>
     <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
-        <button class="btn btn-primary btn-sm pull-right mr-10 mt-6" data-ng-click="TCEventConfigureCtrl.ePage.Masters.SaveEvent()"
+        <button class="btn btn-primary btn-sm pull-right" data-ng-click="TCEventConfigureCtrl.ePage.Masters.SaveEvent()"
             data-ng-bind="TCEventConfigureCtrl.ePage.Masters.SaveButtonText" data-ng-disabled="TCEventConfigureCtrl.ePage.Masters.IsDisableSave"></button>
     </div>
 </div>

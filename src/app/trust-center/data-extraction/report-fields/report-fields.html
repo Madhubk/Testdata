@@ -43,11 +43,11 @@
     </div>
     <!-- Body -->
     <div class="clearfix">
-        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 p-0 tc-page-height-fixed">
-            <div class="tc-list-container">
-                <div class="tc-list-search">
-                    <input type="text" placeholder="Search..." class="form-control input-sm" data-ng-model="DataExtReportFieldsCtrl.ePage.Masters.Search">
-                </div>
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 p-0">
+            <div class="tc-list-search">
+                <input type="text" placeholder="Search..." class="form-control input-sm" data-ng-model="DataExtReportFieldsCtrl.ePage.Masters.Search">
+            </div>
+            <div class="tc-list-container tc-page-height-fixed">
                 <ul class="tc-list-ul">
                     <div class="p-15 text-center tc-loading" data-ng-if="!DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsList">
                         <i class="fa fa-spin fa-spinner"></i>
@@ -70,13 +70,13 @@
                 </ul>
             </div>
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 p-0 tc-page-height-fixed">
+        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 p-0">
             <div class="pt-10 pb-10 tc-details-view clearfix">
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                     <div class="clearfix form-group">
                         <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Entity Name</label>
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
-                            <label data-ng-bind="DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.ActiveDataExtReportFields.UIEntityName || DataExtReportFieldsCtrl.ePage.Masters.emptyText"></label>
+                            <div data-ng-bind="DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.ActiveDataExtReportFields.UIEntityName || DataExtReportFieldsCtrl.ePage.Masters.emptyText"></div>
                         </div>
                     </div>
                 </div>
@@ -84,7 +84,7 @@
                     <div class="clearfix form-group">
                         <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Class Source</label>
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
-                            <label data-ng-bind="DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.ActiveDataExtReportFields.ClassSource || DataExtReportFieldsCtrl.ePage.Masters.emptyText"></label>
+                            <div data-ng-bind="DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.ActiveDataExtReportFields.ClassSource || DataExtReportFieldsCtrl.ePage.Masters.emptyText"></div>
                         </div>
                     </div>
                 </div>
@@ -92,7 +92,7 @@
                     <div class="clearfix form-group">
                         <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">DB Source</label>
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
-                            <label data-ng-bind="DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.ActiveDataExtReportFields.DBSource || DataExtReportFieldsCtrl.ePage.Masters.emptyText"></label>
+                            <div data-ng-bind="DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.ActiveDataExtReportFields.DBSource || DataExtReportFieldsCtrl.ePage.Masters.emptyText"></div>
                         </div>
                     </div>
                 </div>
@@ -100,7 +100,7 @@
                     <div class="clearfix form-group">
                         <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Entity Source</label>
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
-                            <label data-ng-bind="DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.ActiveDataExtReportFields.EntitySource || DataExtReportFieldsCtrl.ePage.Masters.emptyText"></label>
+                            <div data-ng-bind="DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.ActiveDataExtReportFields.EntitySource || DataExtReportFieldsCtrl.ePage.Masters.emptyText"></div>
                         </div>
                     </div>
                 </div>
@@ -108,7 +108,7 @@
                     <div class="clearfix form-group">
                         <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Entity RefKey</label>
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
-                            <label data-ng-bind="DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.ActiveDataExtReportFields.EntityRefKey || DataExtReportFieldsCtrl.ePage.Masters.emptyText"></label>
+                            <div data-ng-bind="DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.ActiveDataExtReportFields.EntityRefKey || DataExtReportFieldsCtrl.ePage.Masters.emptyText"></div>
                         </div>
                     </div>
                 </div>
@@ -116,7 +116,7 @@
                     <div class="clearfix form-group">
                         <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Entity RefCode</label>
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
-                            <label data-ng-bind="DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.ActiveDataExtReportFields.EntityRefCode || DataExtReportFieldsCtrl.ePage.Masters.emptyText"></label>
+                            <div data-ng-bind="DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.ActiveDataExtReportFields.EntityRefCode || DataExtReportFieldsCtrl.ePage.Masters.emptyText"></div>
                         </div>
                     </div>
                 </div>
@@ -166,7 +166,7 @@
                             <span class="ml-5 mr-5" data-ng-if="x.ItemType == 'Main'"></span>
                             <a href="javascript:void(0)" data-ng-click="DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.EditReportFieldsField(x)"
                                 title="Edit">Edit</a>
-                                <span class="ml-5 mr-5">|</span>
+                            <span class="ml-5 mr-5">|</span>
                             <a href="javascript:void(0)" data-ng-click="DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.Delete(x)"
                                 title="Delete">Delete</a>
                         </div>

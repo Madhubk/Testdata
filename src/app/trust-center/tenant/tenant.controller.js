@@ -144,7 +144,15 @@
             });
         }
 
-        function Save() {
+       function Save() {
+            if(TCTenantCtrl.ePage.Masters.Tenant.ActiveTenant.PK) {
+                UpdateTenant(); 
+                }else {
+                InsertTenant();
+            }
+        }
+
+        function InsertTenant() {
             TCTenantCtrl.ePage.Masters.Tenant.SaveBtnText = "Please Wait...";
             TCTenantCtrl.ePage.Masters.Tenant.IsDisableSaveBtn = true;
 
@@ -152,7 +160,7 @@
             _input.IsModified = true;
             _input.BaseTenantCode = "TBASE";
 
-            apiService.post("authAPI", trustCenterConfig.Entities.API.SecTenant.API.Upsert.Url, [_input]).then(function SuccessCallback(response) {
+            apiService.post("authAPI", trustCenterConfig.Entities.API.SecTenant.API.Insert.Url, [_input]).then(function SuccessCallback(response) {
                 if (response.data.Response) {
                     var _response = response.data.Response[0];
                     TCTenantCtrl.ePage.Masters.Tenant.ActiveTenant = angular.copy(_response);
@@ -169,6 +177,39 @@
                     OnTenantClick(TCTenantCtrl.ePage.Masters.Tenant.ActiveTenant);
                 } else {
                     toastr.error("Could not Save...!");
+                }
+
+                TCTenantCtrl.ePage.Masters.Tenant.SaveBtnText = "OK";
+                TCTenantCtrl.ePage.Masters.Tenant.IsDisableSaveBtn = false;
+                TCTenantCtrl.ePage.Masters.Tenant.EditModal.dismiss('cancel');
+            });
+        }
+
+        function UpdateTenant() {
+            TCTenantCtrl.ePage.Masters.Tenant.SaveBtnText = "Please Wait...";
+            TCTenantCtrl.ePage.Masters.Tenant.IsDisableSaveBtn = true;
+
+            var _input = TCTenantCtrl.ePage.Masters.Tenant.ActiveTenant;
+            _input.IsModified = true;
+            _input.BaseTenantCode = "TBASE";
+
+            apiService.post("authAPI", trustCenterConfig.Entities.API.SecTenant.API.Update.Url, _input).then(function SuccessCallback(response) {
+                if (response.data.Response) {
+                    var _response = response.data.Response;
+                    TCTenantCtrl.ePage.Masters.Tenant.ActiveTenant = angular.copy(_response);
+                    var _index = TCTenantCtrl.ePage.Masters.Tenant.TenantList.map(function (value, key) {
+                        return value.PK;
+                    }).indexOf(_response.PK);
+
+                    if (_index === -1) {
+                        TCTenantCtrl.ePage.Masters.Tenant.TenantList.push(_response);
+                    } else {
+                        TCTenantCtrl.ePage.Masters.Tenant.TenantList[_index] = _response;
+                    }
+
+                    OnTenantClick(_response);
+                } else {
+                    toastr.error("Could not Update...!");
                 }
 
                 TCTenantCtrl.ePage.Masters.Tenant.SaveBtnText = "OK";

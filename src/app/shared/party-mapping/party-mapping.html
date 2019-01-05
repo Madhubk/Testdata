@@ -1,34 +1,42 @@
-<div class="clearfix party-list border-bottom" data-ng-repeat="x in PartyMapping.PartyListSource">
-	<div class="col-sm-3">
-		<div class="checkbox">
-			<label>
-				<input type="checkbox" class="colored-blue" data-ng-model="x.IsChecked" data-ng-click="PartyMapping.OnPartiesClick($event, x)">
-				<span class="text text-single-line" data-ng-bind="x.PartyName"></span>
-			</label>
-		</div>
+<div class="clearfix party-mapping-container">
+	<div class="clearfix p-20 text-center" data-ng-if="!PartyMapping.PartyList">
+		<i class="fa fa-spin fa-spinner"></i>
 	</div>
-	<div class="col-sm-3">
-		<div class="checkbox" data-ng-if="x.IsChecked">
-			<label>
-				<input type="checkbox" class="colored-blue" data-ng-model="x.MappingObj.IsDefault" data-ng-click="!isDefault && PartyMapping.UpdatePartyMapping($event, x)"
-				    data-ng-disabled="isDefault">
-				<span class="text text-single-line">Is Default</span>
-			</label>
-		</div>
+	<div class="clearfix p-20 text-center" data-ng-if="PartyMapping.PartyList && PartyMapping.PartyList.length == 0">
+		<i>No Records...!</i>
 	</div>
-	<div class="col-sm-3">
-		<div class="checkbox" data-ng-if="x.IsChecked && isRestricted">
-			<label>
-				<input type="checkbox" class="colored-blue" data-ng-model="x.MappingObj.IsResticted" data-ng-click="PartyMapping.UpdatePartyMapping($event, x)">
-				<span class="text text-single-line">Is Restricted</span>
-			</label>
+	<div class="clearfix party-list border-bottom" data-ng-repeat="x in PartyMapping.PartyList" data-ng-if="PartyMapping.PartyList && PartyMapping.PartyList.length > 0">
+		<div class="col-sm-3">
+			<div class="checkbox">
+				<label>
+					<input type="checkbox" class="colored-blue" data-ng-model="x.IsChecked" data-ng-click="PartyMapping.OnPartiesClick($event, x)">
+					<span class="text text-single-line" data-ng-bind="x.PartyName"></span>
+				</label>
+			</div>
 		</div>
-	</div>
-	<div class="col-sm-3 pt-9 pb-9">
-		<button class="btn btn-link btn-sm" data-ng-click="x.IsChecked && RoleMapping.EditRole(x)" data-ng-disabled="!x.IsChecked">Role</button>
+		<div class="col-sm-3">
+			<div class="checkbox" data-ng-if="x.IsChecked">
+				<label>
+					<input type="checkbox" class="colored-blue" data-ng-model="x.MappingObj.IsDefault" data-ng-click="!isDefault && PartyMapping.UpdatePartyMapping($event, x)"
+					 data-ng-disabled="isDefault">
+					<span class="text text-single-line">Is Default</span>
+				</label>
+			</div>
+		</div>
+		<div class="col-sm-3">
+			<div class="checkbox" data-ng-if="x.IsChecked && isRestricted">
+				<label>
+					<input type="checkbox" class="colored-blue" data-ng-model="x.MappingObj.IsResticted" data-ng-click="PartyMapping.UpdatePartyMapping($event, x)">
+					<span class="text text-single-line">Is Restricted</span>
+				</label>
+			</div>
+		</div>
+		<div class="col-sm-3 pt-9 pb-9">
+			<button class="btn btn-link btn-sm" data-ng-click="x.IsChecked && RoleMapping.EditRole(x)" data-ng-disabled="!x.IsChecked"
+			 data-ng-if="x.IsChecked">Role</button>
+		</div>
 	</div>
 </div>
-
 <script type="text/ng-template" id="PartyMappingRole">
 	<div class="modal-header">
 		<button type="button" class="close" ng-click="RoleMapping.CloseEditActivityModal()">&times;</button>

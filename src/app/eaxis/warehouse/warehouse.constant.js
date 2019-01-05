@@ -771,32 +771,6 @@
             ]
         },
         // endregion
-        // --------------------- Ownership Transfer ------------------
-        // region
-        {
-            name: 'ownershipTransfer',
-            files: [
-                'app/eaxis/warehouse/ownership-transfer/ownership-transfer.css',
-                'app/eaxis/warehouse/ownership-transfer/ownership-transfer.controller.js',
-                'app/eaxis/warehouse/ownership-transfer/ownership-transfer-config.factory.js'
-            ]
-        }, {
-            name: 'ownershipTransferGeneral',
-            files: [
-                'app/eaxis/warehouse/ownership-transfer/ownership-transfer-general/ownership-transfer-general.css',
-                'app/eaxis/warehouse/ownership-transfer/ownership-transfer-general/ownership-transfer-general.controller.js',
-                'app/eaxis/warehouse/ownership-transfer/ownership-transfer-general/ownership-transfer-general.directive.js'
-            ]
-        }, {
-            name: 'ownershipTransferMenu',
-            files: [
-                // 'app/eaxis/warehouse/ownership-transfer/ownership-transfer-menu/ownership-transfer-menu.css',
-                'app/eaxis/warehouse/ownership-transfer/ownership-transfer-menu/ownership-transfer-menu.controller.js',
-                'app/eaxis/warehouse/ownership-transfer/ownership-transfer-menu/ownership-transfer-menu.directive.js'
-            ]
-        },
-        // endregion
-
         //#region WMS Common Dashboard
         {
             name: 'commonDashboard',
@@ -870,12 +844,6 @@
             files: [
                 'app/eaxis/warehouse/track-damaged-sku-toolbar/track-damaged-sku-toolbar.controller.js',
                 'app/eaxis/warehouse/track-damaged-sku-toolbar/track-damaged-sku-toolbar.directive.js',
-            ]
-        }, {
-            name: 'deliveryRequestToolbar',
-            files: [
-                'app/eaxis/warehouse/delivery-request-toolbar/delivery-request-toolbar.controller.js',
-                'app/eaxis/warehouse/delivery-request-toolbar/delivery-request-toolbar.directive.js',
             ]
         },
         // #endregion

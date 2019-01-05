@@ -504,6 +504,12 @@
                 'app/trust-center/mapping/menu-role-app-tenant/menu-role-app-tenant.css',
                 'app/trust-center/mapping/menu-role-app-tenant/menu-role-app-tenant.controller.js'
             ]
+        }, {
+            name: 'TCFilterRoleAppTenant',
+            files: [
+                'app/trust-center/mapping/filter-role-app-tenant/filter-role-app-tenant.css',
+                'app/trust-center/mapping/filter-role-app-tenant/filter-role-app-tenant.controller.js'
+            ]
         }]
     };
 

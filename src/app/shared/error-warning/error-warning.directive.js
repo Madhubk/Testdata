@@ -8,7 +8,7 @@
     ErrorWarningDirective.$inject = ["$templateCache"];
 
     function ErrorWarningDirective($templateCache) {
-        var _template = `<button class="popover-{{type}}" uib-popover-template="'errorWarningTemplate'" popover-trigger="'focus'" popover-animation="true" popover-append-to-body="true" popover-class="popover-{{type}}" popover-is-open="false" popover-placement="auto">
+        var _template = `<button class="popover-{{type}}" uib-popover-template="'errorWarningTemplate'" popover-trigger="'focus'" popover-animation="true" popover-append-to-body="true" popover-class="popover-{{type}}" popover-is-open="false" popover-placement="{{Placement}}">
             <i class="{{icon}}"></i>
         </button>
         
@@ -43,12 +43,15 @@
                 parentRef: "=",
                 gParentRef: "=",
                 rowIndex: "=",
-                colIndex: "="
+                colIndex: "=",
+                placement: "@"
             },
             link: Link
         };
         return exports;
 
-        function Link(scope) {}
+        function Link(scope) {
+            scope.Placement = scope.placement ? scope.placement : "auto";
+        }
     }
 })();

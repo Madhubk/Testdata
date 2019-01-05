@@ -52,7 +52,6 @@
 
         function CreateNewDelReq() {
             RaiseCSRCtrl.ePage.Masters.TabList = [];
-            deliveryConfig.TabList = [];
             RaiseCSRCtrl.ePage.Masters.isNewClicked = true;
             RaiseCSRCtrl.ePage.Masters.Tab = undefined;
             helperService.getFullObjectUsingGetById(appConfig.Entities.WmsDeliveryList.API.GetById.Url, 'null').then(function (response) {
@@ -158,31 +157,6 @@
                         RaiseCSRCtrl.ePage.Entities.Header.Data = response.data.Response;
                         $item[$item.label].ePage.Entities.Header.Data = response.data.Response;
                         RaiseCSRCtrl.ePage.Entities.Header.Data.UIWmsDelivery.Consignee = RaiseCSRCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ConsigneeCode + ' - ' + RaiseCSRCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ConsigneeName;
-                        var _smsInput = {
-                            "MobileNo": RaiseCSRCtrl.ePage.Entities.Header.Data.UIWmsWorkorderReport.RequesterContactNo,
-                            "Message": "Delivery Request " + RaiseCSRCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderID + " Acknowledged Successfully."
-                        }
-                        apiService.post("authAPI", appConfig.Entities.Notification.API.SendSms.Url, _smsInput).then(function (response) {
-
-                        });
-                        if (deliveryConfig.Entities.ClientContact.length > 0) {
-                            var _smsInput = {
-                                "MobileNo": deliveryConfig.Entities.ClientContact[0].Mobile,
-                                "Message": "Delivery Request " + RaiseCSRCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderID + " Acknowledged Successfully."
-                            }
-                            apiService.post("authAPI", appConfig.Entities.Notification.API.SendSms.Url, _smsInput).then(function (response) {
-
-                            });
-                        }
-                        if (deliveryConfig.Entities.WarehouseContact.length > 0) {
-                            var _smsInput = {
-                                "MobileNo": deliveryConfig.Entities.WarehouseContact[0].Mobile,
-                                "Message": "Delivery Request " + RaiseCSRCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderID + " Acknowledged Successfully."
-                            }
-                            apiService.post("authAPI", appConfig.Entities.Notification.API.SendSms.Url, _smsInput).then(function (response) {
-
-                            });
-                        }
                         toastr.success("Saved Successfully...!");
                         openModel().result.then(function (response) { }, function () {
                             console.log("Cancelled");

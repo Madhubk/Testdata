@@ -1,0 +1,171 @@
+<div class="clearfix tc-filter-role-app-tenant">
+    <!-- Breadcrumb -->
+    <div class="clearfix tc-breadcrumb" data-ng-if="TCFilterRoleAppTenantCtrl.ePage.Masters.ActiveApplication == 'TC'">
+        <div class="col-xl-10 col-lg-10 col-md-10 col-sm-12 col-xs-12 p-0">
+            <i class="fa fa-home home-icon"></i>
+            <div class="breadcrumb-list-wrapper">
+                <ol class="breadcrumb">
+                    <li data-ng-repeat="x in TCFilterRoleAppTenantCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="!x.IsActive">
+                        <a href="javascript:void(0);" data-ng-bind="x.Description" data-ng-click="TCFilterRoleAppTenantCtrl.ePage.Masters.Breadcrumb.OnBreadcrumbClick(x)"></a>
+                    </li>
+                    <li data-ng-repeat="x in TCFilterRoleAppTenantCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="x.IsActive"
+                        data-ng-bind="x.Description" class="active"></li>
+                </ol>
+            </div>
+        </div>
+        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-xs-12 p-4">
+            <tc-application-dropdown query-string="TCFilterRoleAppTenantCtrl.ePage.Masters.QueryString"
+                on-application-change="TCFilterRoleAppTenantCtrl.ePage.Masters.Application.OnApplicationChange($item)"></tc-application-dropdown>
+        </div>
+    </div>
+    <!-- Header -->
+    <div class="clearfix tc-header-container">
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 p-0">
+            <div class="tc-header with-add-new">
+                <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-5">
+                    <div class="text-single-line" data-ng-bind="'Role'"></div>
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-5 pt-4 text-right">
+                    <button class="btn btn-xs btn-info" data-ng-click="TCFilterRoleAppTenantCtrl.ePage.Masters.FilterRoleAppTenant.AddNew()">New</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 p-0">
+            <div class="tc-header edit-view">
+                <span data-ng-bind="'Details'"></span>
+                <button class="btn btn-default tc-btn-edit btn-xs pull-right ml-10" data-ng-click="TCFilterRoleAppTenantCtrl.ePage.Masters.FilterRoleAppTenant.Edit()"
+                    data-ng-disabled="!TCFilterRoleAppTenantCtrl.ePage.Masters.FilterRoleAppTenant.ActiveFilterRoleAppTenant.PK">Edit</button>
+                <button class="btn btn-default tc-btn-delete btn-xs pull-right ml-10" data-ng-click="TCFilterRoleAppTenantCtrl.ePage.Masters.FilterRoleAppTenant.DeleteConfirmation()"
+                    data-ng-bind="TCFilterRoleAppTenantCtrl.ePage.Masters.DeleteBtnText" data-ng-disabled="TCFilterRoleAppTenantCtrl.ePage.Masters.IsDisableDeleteBtn || !TCFilterRoleAppTenantCtrl.ePage.Masters.FilterRoleAppTenant.ActiveFilterRoleAppTenant.PK"
+                    data-ng-if="TCFilterRoleAppTenantCtrl.ePage.Masters.FilterRoleAppTenant.UIControlList && TCFilterRoleAppTenantCtrl.ePage.Masters.FilterRoleAppTenant.UIControlList.length > 0 && TCFilterRoleAppTenantCtrl.ePage.Masters.FilterRoleAppTenant.CheckUIControl('TC_MAP_DEL')"></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Body -->
+    <div class="clearfix">
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 p-0">
+            <div class="tc-list-search">
+                <input type="text" class="form-control input-sm" placeholder="Search..." data-ng-model="TCFilterRoleAppTenantCtrl.ePage.Masters.Search">
+            </div>
+            <div class="tc-list-container tc-page-height-fixed left">
+                <ul class="tc-list-ul">
+                    <div class="p-15 text-center tc-loading" data-ng-if="!TCFilterRoleAppTenantCtrl.ePage.Masters.FilterRoleAppTenant.FilterRoleAppTenantList">
+                        <i class="fa fa-spin fa-spinner"></i>
+                    </div>
+                    <div data-ng-if="TCFilterRoleAppTenantCtrl.ePage.Masters.FilterRoleAppTenant.FilterRoleAppTenantList && (TCFilterRoleAppTenantCtrl.ePage.Masters.FilterRoleAppTenant.FilterRoleAppTenantList | filter: TCFilterRoleAppTenantCtrl.ePage.Masters.Search).length===0"
+                        class="p-15 text-center">
+                        <i>No Records...</i>
+                    </div>
+                    <li data-ng-if="TCFilterRoleAppTenantCtrl.ePage.Masters.FilterRoleAppTenant.FilterRoleAppTenantList && (TCFilterRoleAppTenantCtrl.ePage.Masters.FilterRoleAppTenant.FilterRoleAppTenantList | filter: TCFilterRoleAppTenantCtrl.ePage.Masters.Search).length > 0"
+                        data-ng-repeat="x in TCFilterRoleAppTenantCtrl.ePage.Masters.FilterRoleAppTenant.FilterRoleAppTenantList | filter: TCFilterRoleAppTenantCtrl.ePage.Masters.Search"
+                        data-ng-click="TCFilterRoleAppTenantCtrl.ePage.Masters.FilterRoleAppTenant.ActiveFilterRoleAppTenant.PK != x.PK &&  TCFilterRoleAppTenantCtrl.ePage.Masters.FilterRoleAppTenant.OnFilterRoleAppTenantClick(x)"
+                        data-ng-class="{'active': TCFilterRoleAppTenantCtrl.ePage.Masters.FilterRoleAppTenant.ActiveFilterRoleAppTenant.PK == x.PK}">
+                        <div class="clearfix tc-list">
+                            <div class="tc-list-name">
+                                <i class="fa fa-circle-o mr-10"></i>
+                                <span class="text-single-line" data-ng-bind="x.AccessCode"></span>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 p-0 tc-page-height-fixed">
+            <div class="pt-10 pb-10 tc-details-view clearfix">
+                <div class="clearfix form-group">
+                    <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Access To</label>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                        <div data-ng-bind="TCFilterRoleAppTenantCtrl.ePage.Masters.FilterRoleAppTenant.ActiveFilterRoleAppTenant.AccessTo || TCFilterRoleAppTenantCtrl.ePage.Masters.emptyText"></div>
+                    </div>
+                </div>
+                <div class="clearfix form-group">
+                    <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Item Name</label>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                        <div data-ng-bind="TCFilterRoleAppTenantCtrl.ePage.Masters.FilterRoleAppTenant.ActiveFilterRoleAppTenant.ItemName || TCFilterRoleAppTenantCtrl.ePage.Masters.emptyText"></div>
+                    </div>
+                </div>
+                <div class="clearfix form-group">
+                    <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Role</label>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                        <div data-ng-bind="TCFilterRoleAppTenantCtrl.ePage.Masters.FilterRoleAppTenant.ActiveFilterRoleAppTenant.AccessCode || TCFilterRoleAppTenantCtrl.ePage.Masters.emptyText"></div>
+                    </div>
+                </div>
+                <div class="clearfix form-group">
+                    <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Tenant</label>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                        <div data-ng-bind="TCFilterRoleAppTenantCtrl.ePage.Masters.FilterRoleAppTenant.ActiveFilterRoleAppTenant.TenantCode || TCFilterRoleAppTenantCtrl.ePage.Masters.emptyText"></div>
+                    </div>
+                </div>
+                <div class="clearfix form-group">
+                    <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Application</label>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                        <div data-ng-bind="TCFilterRoleAppTenantCtrl.ePage.Masters.FilterRoleAppTenant.ActiveFilterRoleAppTenant.SAP_Code || TCFilterRoleAppTenantCtrl.ePage.Masters.emptyText"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="tc-section-divider" data-ng-if="TCFilterRoleAppTenantCtrl.ePage.Masters.FilterRoleAppTenant.ActiveFilterRoleAppTenant.PK"></div>
+            <div class="tc-list-container tc-list-container-inner-redirect clearfix" data-ng-if="TCFilterRoleAppTenantCtrl.ePage.Masters.FilterRoleAppTenant.ActiveFilterRoleAppTenant.PK">
+                <ul class="tc-list-ul">
+                    <li data-ng-click="TCFilterRoleAppTenantCtrl.ePage.Masters.FilterRoleAppTenant.OnFilterRoleAppTenantClick(x)"
+                        data-ng-repeat="x in TCFilterRoleAppTenantCtrl.ePage.Masters.FilterRoleAppTenant.RedirectPagetList">
+                        <div class="clearfix tc-list">
+                            <div class="tc-list-name">
+                                <i class="fa {{x.Icon}} mr-10" data-ng-style="{'color': x.Color}"></i>
+                                <span class="text-single-line" data-ng-bind="x.Description"></span>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Template -->
+    <script type="text/ng-template" id="filterRoleAppTenantEdit">
+        <div class="modal-header">
+                <button type="button" class="close" ng-click="TCFilterRoleAppTenantCtrl.ePage.Masters.FilterRoleAppTenant.Cancel()">&times;</button>
+                <h5 class="modal-title" id="modal-title">
+                    <strong>Edit</strong>
+                </h5>
+            </div>
+            <div class="modal-body pt-10" id="modal-body">
+                <div class="clearfix">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 pt-5 pb-5">
+                        <form class="form-horizontal">
+                            <div class="form-group">
+                                <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Role</label>
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                                    <input type="text" placeholder="Role" class="form-control input-sm" data-ng-model="TCFilterRoleAppTenantCtrl.ePage.Masters.FilterRoleAppTenant.ActiveFilterRoleAppTenant.AccessCode
+                                                            "
+                                        uib-typeahead="x.RoleName as x.RoleName + ' - ' + x.RoleDescription  for x in TCFilterRoleAppTenantCtrl.ePage.Masters.FilterRoleAppTenant.GetRolesList($viewValue)"
+                                        typeahead-loading="TCFilterRoleAppTenantCtrl.ePage.Masters.IsSecRoleLoading"
+                                        typeahead-no-results="TCFilterRoleAppTenantCtrl.ePage.Masters.IsSecRoleNoResults"
+                                        typeahead-editable="false" typeahead-append-to-body='true' typeahead-on-select="  TCFilterRoleAppTenantCtrl.ePage.Masters.FilterRoleAppTenant.OnSelectAutoCompleteList($item, $model, $label, $event)"
+                                        ng-blur="TCFilterRoleAppTenantCtrl.ePage.Masters.FilterRoleAppTenant.OnBlurAutoCompleteList($event)"
+                                        typeahead-min-length="TCFilterRoleAppTenantCtrl.ePage.Masters.FilterRoleAppTenant.ActiveFilterRoleAppTenant.AccessCode.MinLength">
+                                    <div class="clearfix dropdown-menu" ng-if="TCFilterRoleAppTenantCtrl.ePage.Masters.IsSecRoleNoResults">
+                                        <div class="auto-complete-no-result">No Results Found!</div>
+                                    </div>
+                                    <div class="clearfix dropdown-menu" ng-if="TCFilterRoleAppTenantCtrl.ePage.Masters.IsSecRoleLoading">
+                                        <div class="auto-complete-no-result">
+                                            <i class="fa fa-spin fa-spinner"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            
+                <div class="tc-section-divider-small"></div>
+                <div class="clearfix p-10">
+                    <button class="btn btn-default tc-btn-save btn-xs pull-right ml-10" data-ng-click="TCFilterRoleAppTenantCtrl.ePage.Masters.FilterRoleAppTenant.Save()"
+                        data-ng-bind="TCFilterRoleAppTenantCtrl.ePage.Masters.FilterRoleAppTenant.SaveBtnText" data-ng-disabled="TCFilterRoleAppTenantCtrl.ePage.Masters.FilterRoleAppTenant.IsDisableSaveBtn"></button>
+                    <button class="btn btn-default tc-btn-cancel btn-xs pull-right ml-10" data-ng-click="TCFilterRoleAppTenantCtrl.ePage.Masters.FilterRoleAppTenant.Cancel()">Cancel</button>
+                </div>
+                <div class="tc-section-divider-small mb-20"></div>
+            </div>
+    </script>
+
+</div>

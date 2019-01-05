@@ -41,11 +41,12 @@
     </div>
     <!-- Body -->
     <div class="clearfix">
-        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 p-0 tc-page-height-fixed">
-            <div class="tc-list-container">
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 p-0">
                 <div class="tc-list-search">
-                    <input type="text" placeholder="Search..." class="form-control input-sm" data-ng-model="DataExtAuditCtrl.ePage.Masters.Search">
-                </div>
+                        <input type="text" placeholder="Search..." class="form-control input-sm" data-ng-model="DataExtAuditCtrl.ePage.Masters.Search">
+                    </div>
+            <div class="tc-list-container tc-page-height-fixed">
+               
                 <ul class="tc-list-ul">
                     <div class="p-15 text-center tc-loading" data-ng-if="!DataExtAuditCtrl.ePage.Masters.DataExtAudit.DataExtAuditList">
                         <i class="fa fa-spin fa-spinner"></i>
@@ -68,13 +69,13 @@
                 </ul>
             </div>
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 p-0 tc-page-height-fixed">
+        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 p-0">
             <div class="pt-10 pb-10 tc-details-view clearfix">
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                     <div class="clearfix form-group">
                         <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Entity Name</label>
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
-                            <label data-ng-bind="DataExtAuditCtrl.ePage.Masters.DataExtAudit.ActiveDataExtAudit.UIEntityName || DataExtAuditCtrl.ePage.Masters.emptyText"></label>
+                            <div data-ng-bind="DataExtAuditCtrl.ePage.Masters.DataExtAudit.ActiveDataExtAudit.UIEntityName || DataExtAuditCtrl.ePage.Masters.emptyText"></div>
                         </div>
                     </div>
                 </div>
@@ -82,7 +83,7 @@
                     <div class="clearfix form-group">
                         <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Class Source</label>
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
-                            <label data-ng-bind="DataExtAuditCtrl.ePage.Masters.DataExtAudit.ActiveDataExtAudit.ClassSource || DataExtAuditCtrl.ePage.Masters.emptyText"></label>
+                            <div data-ng-bind="DataExtAuditCtrl.ePage.Masters.DataExtAudit.ActiveDataExtAudit.ClassSource || DataExtAuditCtrl.ePage.Masters.emptyText"></div>
                         </div>
                     </div>
                 </div>
@@ -90,7 +91,7 @@
                     <div class="clearfix form-group">
                         <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">DB Source</label>
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
-                            <label data-ng-bind="DataExtAuditCtrl.ePage.Masters.DataExtAudit.ActiveDataExtAudit.DBSource || DataExtAuditCtrl.ePage.Masters.emptyText"></label>
+                            <div data-ng-bind="DataExtAuditCtrl.ePage.Masters.DataExtAudit.ActiveDataExtAudit.DBSource || DataExtAuditCtrl.ePage.Masters.emptyText"></div>
                         </div>
                     </div>
                 </div>
@@ -98,7 +99,7 @@
                     <div class="clearfix form-group">
                         <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Entity Source</label>
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
-                            <label data-ng-bind="DataExtAuditCtrl.ePage.Masters.DataExtAudit.ActiveDataExtAudit.EntitySource || DataExtAuditCtrl.ePage.Masters.emptyText"></label>
+                            <div data-ng-bind="DataExtAuditCtrl.ePage.Masters.DataExtAudit.ActiveDataExtAudit.EntitySource || DataExtAuditCtrl.ePage.Masters.emptyText"></div>
                         </div>
                     </div>
                 </div>
@@ -106,7 +107,7 @@
                     <div class="clearfix form-group">
                         <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Entity RefKey</label>
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
-                            <label data-ng-bind="DataExtAuditCtrl.ePage.Masters.DataExtAudit.ActiveDataExtAudit.EntityRefKey || DataExtAuditCtrl.ePage.Masters.emptyText"></label>
+                            <div data-ng-bind="DataExtAuditCtrl.ePage.Masters.DataExtAudit.ActiveDataExtAudit.EntityRefKey || DataExtAuditCtrl.ePage.Masters.emptyText"></div>
                         </div>
                     </div>
                 </div>
@@ -114,7 +115,7 @@
                     <div class="clearfix form-group">
                         <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Entity RefCode</label>
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
-                            <label data-ng-bind="DataExtAuditCtrl.ePage.Masters.DataExtAudit.ActiveDataExtAudit.EntityRefCode || DataExtAuditCtrl.ePage.Masters.emptyText"></label>
+                            <div data-ng-bind="DataExtAuditCtrl.ePage.Masters.DataExtAudit.ActiveDataExtAudit.EntityRefCode || DataExtAuditCtrl.ePage.Masters.emptyText"></div>
                         </div>
                     </div>
                 </div>

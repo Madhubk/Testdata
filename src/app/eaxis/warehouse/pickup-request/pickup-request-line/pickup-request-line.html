@@ -73,18 +73,18 @@
                         title="Product Condition">Product Condition</th>
                     <th id="rudf1" data-ng-if="PickupLineCtrl.ePage.Entities.Header.TableProperties.UIWmsPickupLine.rudf1.isenabled" ng-style="{ 'width': PickupLineCtrl.ePage.Entities.Header.TableProperties.UIWmsPickupLine.rudf1.width + 'px' }"
                         title="User Defined Field 1">
-                        <span ng-if="PickupLineCtrl.ePage.Entities.Header.Data.UIWmsPickup.IMPartAttrib1Name">{{PickupLineCtrl.ePage.Entities.Header.Data.UIWmsPickup.IMPartAttrib1Name}}</span>
-                        <span ng-if="!PickupLineCtrl.ePage.Entities.Header.Data.UIWmsPickup.IMPartAttrib1Name">UDF 1</span>
+                        <span ng-if="PickupLineCtrl.ePage.Entities.Header.Data.UIWmsPickupLine.IMPartAttrib1Name">{{PickupLineCtrl.ePage.Entities.Header.Data.UIWmsPickupLine.IMPartAttrib1Name}}</span>
+                        <span ng-if="!PickupLineCtrl.ePage.Entities.Header.Data.UIWmsPickupLine.IMPartAttrib1Name">UDF 1</span>
                     </th>
                     <th id="rudf2" data-ng-if="PickupLineCtrl.ePage.Entities.Header.TableProperties.UIWmsPickupLine.rudf2.isenabled" ng-style="{ 'width': PickupLineCtrl.ePage.Entities.Header.TableProperties.UIWmsPickupLine.rudf2.width + 'px' }"
                         title="User Defined Field 2">
-                        <span ng-if="PickupLineCtrl.ePage.Entities.Header.Data.UIWmsPickup.IMPartAttrib2Name">{{PickupLineCtrl.ePage.Entities.Header.Data.UIWmsPickup.IMPartAttrib2Name}}</span>
-                        <span ng-if="!PickupLineCtrl.ePage.Entities.Header.Data.UIWmsPickup.IMPartAttrib2Name">UDF 2</span>
+                        <span ng-if="PickupLineCtrl.ePage.Entities.Header.Data.UIWmsPickupLine.IMPartAttrib2Name">{{PickupLineCtrl.ePage.Entities.Header.Data.UIWmsPickupLine.IMPartAttrib2Name}}</span>
+                        <span ng-if="!PickupLineCtrl.ePage.Entities.Header.Data.UIWmsPickupLine.IMPartAttrib2Name">UDF 2</span>
                     </th>
                     <th id="rudf3" data-ng-if="PickupLineCtrl.ePage.Entities.Header.TableProperties.UIWmsPickupLine.rudf3.isenabled" ng-style="{ 'width': PickupLineCtrl.ePage.Entities.Header.TableProperties.UIWmsPickupLine.rudf3.width + 'px' }"
                         title="User Defined Field 3">
-                        <span ng-if="PickupLineCtrl.ePage.Entities.Header.Data.UIWmsPickup.IMPartAttrib3Name">{{PickupLineCtrl.ePage.Entities.Header.Data.UIWmsPickup.IMPartAttrib3Name}}</span>
-                        <span ng-if="!PickupLineCtrl.ePage.Entities.Header.Data.UIWmsPickup.IMPartAttrib3Name">UDF 3</span>
+                        <span ng-if="PickupLineCtrl.ePage.Entities.Header.Data.UIWmsPickupLine.IMPartAttrib3Name">{{PickupLineCtrl.ePage.Entities.Header.Data.UIWmsPickupLine.IMPartAttrib3Name}}</span>
+                        <span ng-if="!PickupLineCtrl.ePage.Entities.Header.Data.UIWmsPickupLine.IMPartAttrib3Name">UDF 3</span>
                     </th>
                     <th id="rpackingdate" data-ng-if="PickupLineCtrl.ePage.Entities.Header.TableProperties.UIWmsPickupLine.rpackingdate.isenabled"
                         ng-style="{ 'width': PickupLineCtrl.ePage.Entities.Header.TableProperties.UIWmsPickupLine.rpackingdate.width + 'px' }"
@@ -368,7 +368,7 @@
     <div ng-if='PickupLineCtrl.ePage.Masters.EditTableColumns'>
         <customize-table table-properties="PickupLineCtrl.ePage.Entities.Header.TableProperties.UIWmsPickupLine" enable="PickupLineCtrl.ePage.Masters.EditTableColumns"
             unique-id="OutLineCust{{PickupLineCtrl.currentPickup.label}}" user-value='PickupLineCtrl.ePage.Masters.UserValue'
-            entity-source='WMS_PICKUPLINE'></customize-table>
+            entity-source='WMS_OUTWARDLINE'></customize-table>
     </div>
     <!-- Call Directive If user has value -->
     <div ng-if='PickupLineCtrl.ePage.Masters.UserHasValue' ng-init="PickupLineCtrl.ePage.Masters.UserHasValue=false">

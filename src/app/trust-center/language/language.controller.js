@@ -101,14 +101,18 @@
                 };
             }
 
-            GetModuleList();
-
+            if (LanguageCtrl.ePage.Masters.Module.ActiveModule) {
+             
+                GetLanguageList();
+            } 
         }
         // ========================Module Start========================
 
         function InitModule() {
             LanguageCtrl.ePage.Masters.Module = {};
             LanguageCtrl.ePage.Masters.Module.OnModuleChange = OnModuleChange;
+
+            GetModuleList();
         }
 
         function GetModuleList() {
@@ -120,17 +124,19 @@
                 "searchInput": helperService.createToArrayOfObject(_filter),
                 "FilterID": trustCenterConfig.Entities.API.CfxTypes.API.FindAll.FilterID
             };
-            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.CfxTypes.API.FindAll.Url + LanguageCtrl.ePage.Masters.Application.ActiveApplication.PK, _input).then(function (response) {
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.CfxTypes.API.FindAll.Url + authService.getUserInfo().AppPK, _input).then(function (response) {
                 if (response.data.Response) {
                     LanguageCtrl.ePage.Masters.Module.ListSource = response.data.Response;
 
-                    if (LanguageCtrl.ePage.Masters.Module.ListSource.length > 0) {
-                        OnModuleChange(LanguageCtrl.ePage.Masters.Module.ListSource[0])
-                    } else {
-                        OnModuleChange();
-                    }
+                    // if (LanguageCtrl.ePage.Masters.Module.ListSource.length > 0) {
+                    //     OnModuleChange(LanguageCtrl.ePage.Masters.Module.ListSource[0])
+                    // } else {
+                    //     OnModuleChange();
+                    // }
+                    LanguageCtrl.ePage.Masters.Language.ListSource = [];
                 } else {
                     LanguageCtrl.ePage.Masters.Module.ListSource = [];
+                    LanguageCtrl.ePage.Masters.Language.ListSource = [];
                 }
             });
         }
@@ -184,14 +190,15 @@
 
         function OnLanguageCodeChange($item) {
             LanguageCtrl.ePage.Masters.LanguageCode.ActiveLanguageCode = angular.copy($item);
+            if (LanguageCtrl.ePage.Masters.LanguageCode.ActiveLanguageCode) {
+                var _key = angular.copy(LanguageCtrl.ePage.Masters.LanguageCode.ActiveLanguageCode.Key);
+                var _keyCopy = _key;
+                if (_key.indexOf("-") !== -1) {
+                    _keyCopy = _key.split("-").join("_");
+                }
 
-            var _key = angular.copy(LanguageCtrl.ePage.Masters.LanguageCode.ActiveLanguageCode.Key);
-            var _keyCopy = _key;
-            if (_key.indexOf("-") !== -1) {
-                _keyCopy = _key.split("-").join("_");
+                LanguageCtrl.ePage.Masters.LanguageCode.ActiveLanguageCode.LanguageCodeCopy = _keyCopy;
             }
-
-            LanguageCtrl.ePage.Masters.LanguageCode.ActiveLanguageCode.LanguageCodeCopy = _keyCopy;
         }
 
         // ========================Language Code End========================

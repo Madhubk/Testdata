@@ -31,7 +31,7 @@
                         return deferred.promise;
                     }],
                     LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
-                        return $ocLazyLoad.load(['navBar', 'navbarDropdownMenu', 'footerBar', 'confirmation', 'changePassword', 'TCApplicationDropdown', 'trustCenter']);
+                        return $ocLazyLoad.load(['navBar', 'navbarDropdownMenu', 'footerBar', 'confirmation', 'changePassword', 'TCApplicationDropdown', 'trustCenter', "GenerateDBScript"]);
                     }]
                 }
             })
@@ -1377,6 +1377,28 @@
                     }],
                     LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
                         return $ocLazyLoad.load(["TCMenuRoleAppTenant"]);
+                    }]
+                }
+            })
+            .state('TC.filterRoleAppTenant', {
+                url: '/filter-role-app-tenant/:id',
+                templateUrl: 'app/trust-center/mapping/filter-role-app-tenant/filter-role-app-tenant.html',
+                controller: "TCFilterRoleAppTenantController as TCFilterRoleAppTenantCtrl",
+                ncyBreadcrumb: {
+                    label: 'Filter Role App Tenant Access'
+                },
+                resolve: {
+                    CheckAccess: ["$q", "pageAccessService", function ($q, pageAccessService) {
+                        var deferred = $q.defer();
+                        pageAccessService.CheckPageAccess("/TC/filter-role-app-tenant").then(function (response) {
+                            if (response == true) {
+                                deferred.resolve();
+                            }
+                        });
+                        return deferred.promise;
+                    }],
+                    LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
+                        return $ocLazyLoad.load(["TCFilterRoleAppTenant"]);
                     }]
                 }
             });

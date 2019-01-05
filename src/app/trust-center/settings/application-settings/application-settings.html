@@ -23,9 +23,9 @@
             <div class="tc-header with-drop-down">
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 p-0 pl-12">
                     <select chosen class="form-control" data-ng-model="AppSettingsCtrl.ePage.Masters.Module.ActiveModule.Key"
-                        data-ng-options="x.Key as x.Value for x in AppSettingsCtrl.ePage.Masters.Module.Listsource"
+                        data-ng-options="x.Key as (x.Key + ' - ' + x.Value) for x in AppSettingsCtrl.ePage.Masters.Module.Listsource"
                         data-ng-change="AppSettingsCtrl.ePage.Masters.Module.OnModuleChange((AppSettingsCtrl.ePage.Masters.Module.Listsource | filter :{Key : AppSettingsCtrl.ePage.Masters.Module.ActiveModule.Key})[0])"
-                        search-contains="true"></select>
+                        search-contains="true"><option value="">--Select--</option></select>
                 </div>
             </div>
         </div>
@@ -52,11 +52,11 @@
     </div>
     <!-- Body -->
     <div class="clearfix">
-        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 p-0 tc-page-height-fixed">
-            <div class="tc-list-container">
-                <div class="tc-list-search">
-                    <input type="text" placeholder="Search..." class="form-control input-sm" data-ng-model="AppSettingsCtrl.ePage.Masters.AppSettingsModule.Search">
-                </div>
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 p-0">
+            <div class="tc-list-search">
+                <input type="text" placeholder="Search..." class="form-control input-sm" data-ng-model="AppSettingsCtrl.ePage.Masters.AppSettingsModule.Search">
+            </div>
+            <div class="tc-list-container tc-page-height-fixed">
                 <ul class="tc-list-ul">
                     <div class="p-15 text-center tc-loading" data-ng-if="!AppSettingsCtrl.ePage.Masters.AppSettingsModule.ListSource">
                         <i class="fa fa-spin fa-spinner"></i>
@@ -79,11 +79,12 @@
                 </ul>
             </div>
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 3col-xl-3 p-0 tc-page-height-fixed">
-            <div class="tc-list-container">
-                <div class="tc-list-search">
-                    <input type="text" placeholder="Search..." class="form-control input-sm" data-ng-model="AppSettingsCtrl.ePage.Masters.AppSettingsList.Search">
-                </div>
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 p-0">
+            <div class="tc-list-search">
+                <input type="text" placeholder="Search..." class="form-control input-sm" data-ng-model="AppSettingsCtrl.ePage.Masters.AppSettingsList.Search">
+            </div>
+            <div class="tc-list-container  tc-page-height-fixed">
+
                 <ul class="tc-list-ul">
                     <div class="p-15 text-center tc-loading" data-ng-if="!AppSettingsCtrl.ePage.Masters.AppSettingsList.ListSource">
                         <i class="fa fa-spin fa-spinner"></i>
@@ -112,7 +113,7 @@
                     <div class="clearfix form-group">
                         <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Filter Name</label>
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
-                            <label data-ng-bind="AppSettingsCtrl.ePage.Masters.AppSettingsList.ActiveAppSettingsList.Key || AppSettingsCtrl.ePage.Masters.emptyText"></label>
+                            <div data-ng-bind="AppSettingsCtrl.ePage.Masters.AppSettingsList.ActiveAppSettingsList.Key || AppSettingsCtrl.ePage.Masters.emptyText"></div>
                         </div>
                     </div>
                 </div>
@@ -120,7 +121,7 @@
                     <div class="clearfix form-group">
                         <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Sub Module Name</label>
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
-                            <label data-ng-bind="AppSettingsCtrl.ePage.Masters.AppSettingsList.ActiveAppSettingsList.SourceEntityRefKey || AppSettingsCtrl.ePage.Masters.emptyText"></label>
+                            <div data-ng-bind="AppSettingsCtrl.ePage.Masters.AppSettingsList.ActiveAppSettingsList.SourceEntityRefKey || AppSettingsCtrl.ePage.Masters.emptyText"></div>
                         </div>
                     </div>
                 </div>
@@ -155,13 +156,7 @@
         <div class="clearfix">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 pt-5 pb-5">
                 <form class="form-horizontal">
-                    <div class="form-group">
-                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Sub Module Name</label>
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
-                            <input type="text" class="form-control input-sm" placeholder="Sub Module Name" data-ng-model="AppSettingsCtrl.ePage.Masters.AppSettingsList.ActiveAppSettingsList.SourceEntityRefKey">
-                        </div>
-                    </div>
-                    <div class="form-group">
+                   <div class="form-group">
                         <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Code</label>
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
                             <input type="text" class="form-control input-sm" placeholder="Code" data-ng-model="AppSettingsCtrl.ePage.Masters.AppSettingsList.ActiveAppSettingsList.Key">
@@ -173,6 +168,21 @@
                             <input type="text" class="form-control input-sm" placeholder="Type Code" data-ng-model="AppSettingsCtrl.ePage.Masters.AppSettingsList.ActiveAppSettingsList.TypeCode">
                         </div>
                     </div>
+                    <div class="form-group">
+                            <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Module</label>
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                                <select chosen name="category-group" class="form-control" ng-model="AppSettingsCtrl.ePage.Masters.AppSettingsList.ActiveAppSettingsList.ModuleCode" ng-options="x.Key as (x.Key + ' - ' + x.Value) for x  in AppSettingsCtrl.ePage.Masters.Module.Listsource"
+                                    search-contains="true">
+                                    <option value="">--Select--</option>
+                                </select>
+                            </div>
+                        </div>
+                    <div class="form-group">
+                            <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Sub Module</label>
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                                <input type="text" class="form-control input-sm" placeholder="Sub Module Name" data-ng-model="AppSettingsCtrl.ePage.Masters.AppSettingsList.ActiveAppSettingsList.SourceEntityRefKey">
+                            </div>
+                        </div>
                     <div class="form-group" data-ng-if="AppSettingsCtrl.ePage.Masters.QueryString.AdditionalData.Input.Code != 'EXCELCONFIG' && AppSettingsCtrl.ePage.Masters.QueryString.AdditionalData.Input.Code != 'CONFIGURATION'">
                         <div class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">IsJSON</div>
                         <div class="checkbox">
@@ -207,12 +217,12 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">IsActive</label>
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">IsStarred</label>
                         <div class="checkbox">
                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
                                 <label>
-                                    <input type="checkbox" data-ng-true-value="1" data-ng-false-value="0" ng-checked="AppSettingsCtrl.ePage.Masters.AppSettingsList.ActiveAppSettingsList.SequenceNo"
-                                        data-ng-model="AppSettingsCtrl.ePage.Masters.AppSettingsList.ActiveAppSettingsList.SequenceNo"
+                                    <input type="checkbox" data-ng-true-value="1" data-ng-false-value="0" ng-checked="AppSettingsCtrl.ePage.Masters.AppSettingsList.ActiveAppSettingsList.IsStarred"
+                                        data-ng-model="AppSettingsCtrl.ePage.Masters.AppSettingsList.ActiveAppSettingsList.IsStarred"
                                         class="colored-blue">
                                     <span class="text"></span>
                                 </label>

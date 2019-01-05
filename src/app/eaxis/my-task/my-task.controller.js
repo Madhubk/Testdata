@@ -56,7 +56,7 @@
 
             MyTaskCtrl.ePage.Masters.OnToggleFilterClick = OnToggleFilterClick;
 
-            (MyTaskCtrl.ePage.Masters.IsMobile) ? MyTaskCtrl.ePage.Masters.IsToggleFilter = false : MyTaskCtrl.ePage.Masters.IsToggleFilter = true;
+            (MyTaskCtrl.ePage.Masters.IsMobile) ? MyTaskCtrl.ePage.Masters.IsToggleFilter = false: MyTaskCtrl.ePage.Masters.IsToggleFilter = true;
 
             MyTaskCtrl.ePage.Masters.SelectedWorkItem = SelectedWorkItem;
 
@@ -99,7 +99,7 @@
 
         // =====================================
 
-        function SelectedWorkItem($item) {            
+        function SelectedWorkItem($item) {
             if ($item) {
                 MyTaskCtrl.ePage.Masters.MyTask.ActiveWorkItemCount = $item.Data;
             }
@@ -119,12 +119,16 @@
 
             _filter.C_Performer = authService.getUserInfo().UserId;
             _filter.Status = "AVAILABLE,ASSIGNED";
-            
+
             if (MyTaskCtrl.ePage.Masters.MyTask.ActiveWorkItemCount) {
-                _filter.PSM_FK = MyTaskCtrl.ePage.Masters.MyTask.ActiveWorkItemCount.PSM_FK;
-                _filter.WSI_FK = MyTaskCtrl.ePage.Masters.MyTask.ActiveWorkItemCount.WSI_FK;
-                _filter.UserStatus = MyTaskCtrl.ePage.Masters.MyTask.ActiveWorkItemCount.UserStatus.toUpperCase()
-                _filter.EntityRefKey = MyTaskCtrl.ePage.Masters.MyTask.ActiveWorkItemCount.EntityRefKey;
+                _filter.UserStatus = MyTaskCtrl.ePage.Masters.MyTask.ActiveWorkItemCount.UserStatus.toUpperCase();
+
+                var _keys = ["PSM_FK", "WSI_FK", "UserStatus", "WSI_StepCode", "WorkItemNo", "ProcessCode", "ProcessName", "PerformerCode", "PSI_InstanceNo", "KeyReference", "EntityRefKey", "EntitySource", "AccessMode", "AdditionalEntityRefCode", "AdditionalEntityRefKey", "AdditionalEntitySource", "EntityInfo"];
+                _keys.map(function(value1, key1){
+                    if(MyTaskCtrl.ePage.Masters.MyTask.ActiveWorkItemCount[value1]){
+                        _filter[value1] = MyTaskCtrl.ePage.Masters.MyTask.ActiveWorkItemCount[value1];
+                    }
+                });
             }
 
             if (MyTaskCtrl.ePage.Masters.MyTask.Search) {
@@ -565,10 +569,16 @@
                                 _qInput = JSON.parse(_qInput);
                             }
 
+                            var _keys = ["UserStatus", "WSI_StepCode", "WorkItemNo", "ProcessCode", "ProcessName",  "PerformerCode", "PSI_InstanceNo", "KeyReference", "EntityRefKey", "EntitySource", "AccessMode", "AdditionalEntityRefCode", "AdditionalEntityRefKey", "AdditionalEntitySource", "EntityInfo"];
+
                             MyTaskCtrl.ePage.Masters.MyTask.StatusCount.ListSource.map(function (value, key) {
                                 if (value.PSM_FK == _qInput.PSM_FK && value.WSI_FK == _qInput.WSI_FK) {
-                                    value.UserStatus = _qInput.UserStatus;
-                                    value.EntityRefKey = _qInput.EntityRefKey;
+                                    _keys.map(function(value1, key1){
+                                        if(_qInput[value1]){
+                                            value[value1] = _qInput[value1];
+                                        }
+                                    });
+
                                     var _item = {
                                         Data: value,
                                         WorkItemList: MyTaskCtrl.ePage.Masters.MyTask.StatusCount.ListSource
@@ -626,7 +636,7 @@
             MyTaskCtrl.ePage.Masters.MyTask.StatusCount.SentItem = {};
 
             $ocLazyLoad.load(["chromeTab", "compareDate", "dynamicListModal", "dynamicList", "dynamicGrid", "WorkItemListView", "ProcessInstanceWorkItemDetails"]).then(function () {
-                OpenSentItemModal().result.then(function (response) { }, function () {
+                OpenSentItemModal().result.then(function (response) {}, function () {
                     console.log("Cancelled");
                 });
             });

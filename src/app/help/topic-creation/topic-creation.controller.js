@@ -295,7 +295,7 @@
                 _input.Self_FK = HelpTopicCreationCtrl.ePage.Masters.HelpTopic.ActiveTopic.PK;
             }
 
-            apiService.post("authAPI", helpConfig.Entities.Topics.API.Upsert.Url, [_input]).then(function (response) {
+            apiService.post("authAPI", helpConfig.Entities.Topics.API.Insert.Url, [_input]).then(function (response) {
                 if (response.data.Response) {
                     if (response.data.Response.length > 0) {
                         if (HelpTopicCreationCtrl.ePage.Masters.HelpTopic.ActiveTopic) {
@@ -328,13 +328,13 @@
             var _input = angular.copy(HelpTopicCreationCtrl.ePage.Masters.HelpTopic.ModalValue);
             _input.IsModified = true;
 
-            apiService.post("authAPI", helpConfig.Entities.Topics.API.Upsert.Url, [_input]).then(function (response) {
+            apiService.post("authAPI", helpConfig.Entities.Topics.API.Update.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     if (response.data.Response.length > 0) {
                         for (var x in HelpTopicCreationCtrl.ePage.Masters.HelpTopic.ActiveTopic) {
-                            for (var y in response.data.Response[0]) {
+                            for (var y in response.data.Response) {
                                 if (x == y) {
-                                    HelpTopicCreationCtrl.ePage.Masters.HelpTopic.ActiveTopic[x] = response.data.Response[0][x];
+                                    HelpTopicCreationCtrl.ePage.Masters.HelpTopic.ActiveTopic[x] = response.data.Response[x];
                                 }
                             }
                         }
@@ -417,11 +417,34 @@
             window.open("#/help/content-creation?topic=" + helperService.encryptData(_obj), '_blank');
         }
 
-        function SaveAndUpdateTopicAPICall(input) {
+        function SaveAndUpdateTopicAPICall(input){
+            if(input.PK) {
+                UpdateTopicAPICall(input);
+            }else {
+                InsertTopicAPICall(input);
+            }
+        }
+
+        function InsertTopicAPICall(input){
             var deferred = $q.defer();
             var _input = angular.copy(input);
 
-            apiService.post("authAPI", helpConfig.Entities.Topics.API.Upsert.Url, [_input]).then(function (response) {
+            apiService.post("authAPI", helpConfig.Entities.Topics.API.Insert.Url, [_input]).then(function (response) {
+                if (response.data.Response) {
+                    deferred.resolve(response.data.Response);
+                } else {
+                    deferred.reject(response);
+                }
+            });
+
+            return deferred.promise;
+        }
+
+        function UpdateTopicAPICall(input) {
+            var deferred = $q.defer();
+            var _input = angular.copy(input);
+
+            apiService.post("authAPI", helpConfig.Entities.Topics.API.Update.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     deferred.resolve(response.data.Response);
                 } else {

@@ -233,14 +233,7 @@
         }
 
         function DeleteDataExtAudit() {
-            DataExtAuditCtrl.ePage.Masters.DataExtAudit.DeleteBtnText = "Please Wait...";
-            DataExtAuditCtrl.ePage.Masters.DataExtAudit.IsDisableDeleteBtn = true;
-
-            var _input = angular.copy(DataExtAuditCtrl.ePage.Masters.DataExtAudit.ActiveDataExtAudit);
-            _input.IsModified = true;
-            _input.IsDeleted = true;
-
-            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.DataConfig.API.Upsert.Url, [_input]).then(function SuccessCallback(response) {
+           apiService.get("eAxisAPI", trustCenterConfig.Entities.API.DataConfig.API.Delete.Url + DataExtAuditCtrl.ePage.Masters.DataExtAudit.ActiveDataExtAudit.PK).then(function SuccessCallback(response) {
                 if (response.data.Response) {
                     var _index = DataExtAuditCtrl.ePage.Masters.DataExtAudit.DataExtAuditList.map(function (value, key) {
                         return value.PK;
@@ -257,6 +250,8 @@
                 } else {
                     toastr.error("Could not Delete...!");
                 }
+
+                GetDataExtAuditList();
 
                 DataExtAuditCtrl.ePage.Masters.DataExtAudit.DeleteBtnText = "Delete";
                 DataExtAuditCtrl.ePage.Masters.DataExtAudit.IsDisableDeleteBtn = false;
@@ -337,24 +332,64 @@
         }
 
         function SaveDataExtAudit() {
+            if (DataExtAuditCtrl.ePage.Masters.DataExtAudit.ActiveDataExtAudit.PK) {
+                UpdateDataExtAudit();
+            } else {
+                InsertDataExtAudit();
+            }
+        }
+
+        function InsertDataExtAudit() {
             DataExtAuditCtrl.ePage.Masters.DataExtAudit.SaveBtnText = "Please Wait...";
             DataExtAuditCtrl.ePage.Masters.DataExtAudit.IsDisableSaveBtn = true;
 
-            var _input = angular.copy(DataExtAuditCtrl.ePage.Masters.DataExtAudit.ActiveDataExtAudit);
-
-            _input.TenantCode = authService.getUserInfo().TenantCode;
-            _input.AppCode = DataExtAuditCtrl.ePage.Masters.Application.ActiveApplication.AppCode;
-            _input.SAP_FK = DataExtAuditCtrl.ePage.Masters.Application.ActiveApplication.PK;
+            var _input = DataExtAuditCtrl.ePage.Masters.DataExtAudit.ActiveDataExtAudit;
             _input.IsModified = true;
-            _input.IsDeleted = false;
-            _input.ConfigType = "Audit";
+            _input.SAP_FK = DataExtAuditCtrl.ePage.Masters.Application.ActiveApplication.PK;
+            _input.SAP_Code = DataExtAuditCtrl.ePage.Masters.Application.ActiveApplication.AppCode;
+            _input.TenantCode = authService.getUserInfo().TenantCode;
+            _input.TNT_FK = authService.getUserInfo().TenantPK;
 
-            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.DataConfig.API.Upsert.Url, [_input]).then(function SuccessCallback(response) {
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.DataConfig.API.Insert.Url, [_input]).then(function SuccessCallback(response) {
                 if (response.data.Response) {
-                    var _response = response.data.Response[0];
-                    DataExtAuditCtrl.ePage.Masters.DataExtAudit.ActiveDataExtAudit = angular.copy(_response);
-                    var _index = DataExtAuditCtrl.ePage.Masters.DataExtAudit.DataExtAuditList.map(function (e) {
-                        return e.PK;
+                    if (response.data.Response.length > 0) {
+                        var _response = response.data.Response[0];
+
+                        var _index = DataExtAuditCtrl.ePage.Masters.DataExtAudit.DataExtAuditList.map(function (value, key) {
+                            return value.PK;
+                        }).indexOf(_response.PK);
+
+                        if (_index === -1) {
+                            DataExtAuditCtrl.ePage.Masters.DataExtAudit.DataExtAuditList.push(_response);
+                        } else {
+                            DataExtAuditCtrl.ePage.Masters.DataExtAudit.DataExtAuditList[_index] = _response;
+                        }
+
+                        OnDataExtAuditClick(_response);
+                    }
+                } else {
+                    toastr.error("Could not Save...!");
+                }
+
+                DataExtAuditCtrl.ePage.Masters.DataExtAudit.SaveBtnText = "OK";
+                DataExtAuditCtrl.ePage.Masters.DataExtAudit.IsDisableSaveBtn = false;
+                DataExtAuditCtrl.ePage.Masters.DataExtAudit.EditDataExtAuditModal.dismiss('cancel');
+            });
+        }
+
+        function UpdateDataExtAudit() {
+            DataExtAuditCtrl.ePage.Masters.DataExtAudit.SaveBtnText = "Please Wait...";
+            DataExtAuditCtrl.ePage.Masters.DataExtAudit.IsDisableSaveBtn = true;
+
+            var _input = DataExtAuditCtrl.ePage.Masters.DataExtAudit.ActiveDataExtAudit;
+            _input.IsModified = true;
+
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.DataConfig.API.Update.Url, _input).then(function SuccessCallback(response) {
+                if (response.data.Response) {
+                    var _response = response.data.Response;
+
+                    var _index = DataExtAuditCtrl.ePage.Masters.DataExtAudit.DataExtAuditList.map(function (value, key) {
+                        return value.PK;
                     }).indexOf(_response.PK);
 
                     if (_index === -1) {
@@ -362,8 +397,7 @@
                     } else {
                         DataExtAuditCtrl.ePage.Masters.DataExtAudit.DataExtAuditList[_index] = _response;
                     }
-
-                    OnDataExtAuditClick(DataExtAuditCtrl.ePage.Masters.DataExtAudit.ActiveDataExtAudit);
+                    OnDataExtAuditClick(_response);
                 } else {
                     toastr.error("Could not Save...!");
                 }
@@ -470,37 +504,76 @@
             DataExtAuditCtrl.ePage.Masters.DataExtAudit.DataExtAuditFields.EditModal.dismiss('cancel');
         }
 
-        function DataConfigFieldsSave() {
+       function DataConfigFieldsSave () {
+            if (DataExtAuditCtrl.ePage.Masters.DataExtAudit.DataExtAuditFields.ActiveDataExtAuditFields.PK) {
+                UpdateDataConfigFields();
+            } else {
+                InsertDataConfigFields();
+            }
+        }
+
+        function InsertDataConfigFields() {
             DataExtAuditCtrl.ePage.Masters.DataExtAudit.DataExtAuditFields.SaveBtnText = "Please Wait...";
             DataExtAuditCtrl.ePage.Masters.DataExtAudit.DataExtAuditFields.IsDisableSaveBtn = true;
 
-            var _input = angular.copy(DataExtAuditCtrl.ePage.Masters.DataExtAudit.DataExtAuditFields.ActiveDataExtAuditFields);
+            var _input = DataExtAuditCtrl.ePage.Masters.DataExtAudit.DataExtAuditFields.ActiveDataExtAuditFields;
             _input.IsModified = true;
-
-            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.DataConfigFields.API.Upsert.Url, [_input]).then(function SuccessCallback(response) {
+             apiService.post("eAxisAPI", trustCenterConfig.Entities.API.DataConfigFields.API.Insert.Url, [_input]).then(function SuccessCallback(response) {
                 if (response.data.Response) {
                     if (response.data.Response.length > 0) {
-                        if (DataExtAuditCtrl.ePage.Masters.DataExtAudit.DataExtAuditFields.ActiveDataExtAuditFields.PK) {
-                            var _index = DataExtAuditCtrl.ePage.Masters.DataExtAudit.DataExtAuditFields.ListSource.map(function (value, key) {
-                                return value.PK;
-                            }).indexOf(DataExtAuditCtrl.ePage.Masters.DataExtAudit.DataExtAuditFields.ActiveDataExtAuditFields.PK);
+                        var _response = response.data.Response[0];
 
-                            if (_index !== -1) {
-                                DataExtAuditCtrl.ePage.Masters.DataExtAudit.DataExtAuditFields.ListSource[_index] = response.data.Response[0];
-                            }
+                        var _index = DataExtAuditCtrl.ePage.Masters.DataExtAudit.DataExtAuditFields.ListSource.map(function (value, key) {
+                            return value.PK;
+                        }).indexOf(_response.PK);
+
+                        if (_index === -1) {
+                            DataExtAuditCtrl.ePage.Masters.DataExtAudit.DataExtAuditFields.ListSource.push(_response);
                         } else {
-                            DataExtAuditCtrl.ePage.Masters.DataExtAudit.DataExtAuditFields.ListSource.push(response.data.Response[0]);
+                            DataExtAuditCtrl.ePage.Masters.DataExtAudit.DataExtAuditFields.ListSource[_index] = _response;
                         }
 
-                        DataExtAuditCtrl.ePage.Masters.DataExtAudit.DataExtAuditFields.ActiveDataExtAuditFields = undefined;
-                        CloseDataExtAuditFields();
+                        OnDataExtAuditFieldsClick(_response);
                     }
                 } else {
                     toastr.error("Could not Save...!");
                 }
-
-                DataExtAuditCtrl.ePage.Masters.DataExtAudit.DataExtAuditFields.SaveBtnText = "Save";
+                
+                DataExtAuditCtrl.ePage.Masters.DataExtAudit.DataExtAuditFields.SaveBtnText = "OK";
                 DataExtAuditCtrl.ePage.Masters.DataExtAudit.DataExtAuditFields.IsDisableSaveBtn = false;
+                DataExtAuditCtrl.ePage.Masters.DataExtAudit.DataExtAuditFields.EditModal.dismiss('cancel');
+            });
+        }
+
+        function UpdateDataConfigFields() {
+            DataExtAuditCtrl.ePage.Masters.DataExtAudit.DataExtAuditFields.SaveBtnText = "Please Wait...";
+            DataExtAuditCtrl.ePage.Masters.DataExtAudit.DataExtAuditFields.IsDisableSaveBtn = true;
+
+            var _input = DataExtAuditCtrl.ePage.Masters.DataExtAudit.DataExtAuditFields.ActiveDataExtAuditFields;
+            _input.IsModified = true;
+
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.DataConfigFields.API.Update.Url, _input).then(function SuccessCallback(response) {
+                if (response.data.Response) {
+                    var _response = response.data.Response;
+
+                    var _index =  DataExtAuditCtrl.ePage.Masters.DataExtAudit.DataExtAuditFields.ListSource.map(function (value, key) {
+                        return value.PK;
+                    }).indexOf(_response.PK);
+
+                    if (_index === -1) {
+                        DataExtAuditCtrl.ePage.Masters.DataExtAudit.DataExtAuditFields.ListSource.push(_response);
+                    } else {
+                        DataExtAuditCtrl.ePage.Masters.DataExtAudit.DataExtAuditFields.ListSource[_index] = _response;
+                    }
+
+                    OnDataExtAuditFieldsClick(_response);
+                } else {
+                    toastr.error("Could not Save...!");
+                }
+
+                DataExtAuditCtrl.ePage.Masters.DataExtAudit.DataExtAuditFields.SaveBtnText = "OK";
+                DataExtAuditCtrl.ePage.Masters.DataExtAudit.DataExtAuditFields.IsDisableSaveBtn = false;
+                DataExtAuditCtrl.ePage.Masters.DataExtAudit.DataExtAuditFields.EditModal.dismiss('cancel');
             });
         }
 
@@ -528,13 +601,14 @@
 
         function Delete(item) {
             apiService.get("eAxisAPI", trustCenterConfig.Entities.API.DataConfigFields.API.Delete.Url + item.PK).then(function SuccessCallback(response) {
-               if (response.data.Response) {
+                if (response.data.Response) {
                     toastr.success("Record Deleted Successfully");
                     OnDataExtAuditFieldsClick(item);
 
                 } else {
                     toastr.error("Could not Delete")
                 }
+                GetDataExtAuditFieldsList()
             });
         }
 

@@ -736,6 +736,7 @@
             SMDocumentCtrl.ePage.Masters.DocumentGenerate = {};
             SMDocumentCtrl.ePage.Masters.DocumentGenerate.DocumentGenerateChange = DocumentGenerateChange;
             SMDocumentCtrl.ePage.Masters.DocumentGenerate.OnDocumentGenerate = OnDocumentGenerate;
+            SMDocumentCtrl.ePage.Masters.DocumentGenerate.OnDocumentGenerateBtnClick = OnDocumentGenerateBtnClick;
 
             SMDocumentCtrl.ePage.Masters.DocumentGenerate.GenerateBtnTxt = "Generate";
             SMDocumentCtrl.ePage.Masters.DocumentGenerate.IsDisabledGenerateBtn = false;
@@ -804,6 +805,10 @@
                     SMDocumentCtrl.ePage.Masters.DocumentGenerate.ListSource = [];
                 }
             });
+        }
+
+        function OnDocumentGenerateBtnClick($item){
+            SMDocumentCtrl.ePage.Masters.DocumentGenerate.ActiveDocumentGenerate = angular.copy($item);
         }
 
         function DocumentGenerateChange($item) {

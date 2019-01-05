@@ -194,24 +194,22 @@
             $item.IsModified = true;
         }
 
-        function Save() {
+       function Save() {
+            if (TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.PK) {
+                UpdateApplication();
+            } else {
+                InsertApplication();
+            }
+        }
+
+        function InsertApplication() {
             TCApplicationCtrl.ePage.Masters.Application.SaveBtnText = "Please Wait...";
             TCApplicationCtrl.ePage.Masters.Application.IsDisableSaveBtn = true;
-
-            if (TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.PK) {
-                if (TCApplicationCtrl.ePage.Masters.Application.ExternalUrlList.length > 0) {
-                    TCApplicationCtrl.ePage.Masters.Application.ExternalUrlList.map(function (value, key) {
-                        if (value.IsModified && value.ExternalUrl) {
-                            SaveExternalUrl(value);
-                        }
-                    });
-                }
-            }
-
+            
             var _input = angular.copy(TCApplicationCtrl.ePage.Masters.Application.ActiveApplication);
 
             if (TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.IsModified) {
-                apiService.post("authAPI", trustCenterConfig.Entities.API.SecApp.API.Upsert.Url, [_input]).then(function SuccessCallback(response) {
+                apiService.post("authAPI", trustCenterConfig.Entities.API.SecApp.API.Insert.Url, [_input]).then(function SuccessCallback(response) {
                     if (response.data.Response) {
                         var _response = response.data.Response[0];
                         TCApplicationCtrl.ePage.Masters.Application.ActiveApplication = angular.copy(_response);
@@ -238,12 +236,79 @@
             }
         }
 
-        function SaveExternalUrl($item) {
-            var _input = angular.copy($item);
+        function UpdateApplication() {
+            TCApplicationCtrl.ePage.Masters.Application.SaveBtnText = "Please Wait...";
+            TCApplicationCtrl.ePage.Masters.Application.IsDisableSaveBtn = true;
 
-            apiService.post("authAPI", trustCenterConfig.Entities.API.SecAppUrl.API.Upsert.Url, [_input]).then(function SuccessCallback(response) {
+            if (TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.PK) {
+                if (TCApplicationCtrl.ePage.Masters.Application.ExternalUrlList.length > 0) {
+                    TCApplicationCtrl.ePage.Masters.Application.ExternalUrlList.map(function (value, key) {
+                        if (value.IsModified && value.ExternalUrl) {
+                            SaveExternalUrl(value);
+                        }
+                    });
+                }
+            }
+
+            var _input = angular.copy(TCApplicationCtrl.ePage.Masters.Application.ActiveApplication);
+
+            if (TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.IsModified) {
+                apiService.post("authAPI", trustCenterConfig.Entities.API.SecApp.API.Update.Url, _input).then(function SuccessCallback(response) {
+                    if (response.data.Response) {
+                        var _response = response.data.Response;
+                        TCApplicationCtrl.ePage.Masters.Application.ActiveApplication = angular.copy(_response);
+                        var _index = TCApplicationCtrl.ePage.Masters.Application.ApplicationList.map(function (value, key) {
+                            return value.PK;
+                        }).indexOf(_response.PK);
+                        if (_index === -1) {
+                            TCApplicationCtrl.ePage.Masters.Application.ApplicationList.push(_response);
+                        } else {
+                            TCApplicationCtrl.ePage.Masters.Application.ApplicationList[_index] = _response;
+                        }
+                        StringifyOtherConfig();
+
+                        OnApplicationClick(_response);
+                    } else {
+                        toastr.error("Could not Update...!");
+                    }
+
+                    TCApplicationCtrl.ePage.Masters.Application.SaveBtnText = "OK";
+                    TCApplicationCtrl.ePage.Masters.Application.IsDisableSaveBtn = false;
+                    // TCApplicationCtrl.ePage.Masters.Application.EditModal.dismiss('cancel');
+                });
+            }
+        }
+
+        function SaveExternalUrl($item) {
+            if($item.PK) {
+                UpdateExternalUrl($item);
+            }else {
+                InsertExternalUrl($item);
+            }
+        }
+
+        function InsertExternalUrl($item){
+                 var _input = angular.copy($item);
+
+            apiService.post("authAPI", trustCenterConfig.Entities.API.SecAppUrl.API.Insert.Url, [_input]).then(function SuccessCallback(response) {
                 if (response.data.Response) {} else {
                     toastr.error("Could not Save...!");
+                }
+
+                if (!TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.IsModified) {
+                    TCApplicationCtrl.ePage.Masters.Application.SaveBtnText = "OK";
+                    TCApplicationCtrl.ePage.Masters.Application.IsDisableSaveBtn = false;
+                    // TCApplicationCtrl.ePage.Masters.Application.EditModal.dismiss('cancel');
+                }
+            });
+        }
+
+        function UpdateExternalUrl($item) {
+            var _input = angular.copy($item);
+
+            apiService.post("authAPI", trustCenterConfig.Entities.API.SecAppUrl.API.Update.Url, _input).then(function SuccessCallback(response) {
+                if (response.data.Response) {} else {
+                    toastr.error("Could not Update...!");
                 }
 
                 if (!TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.IsModified) {

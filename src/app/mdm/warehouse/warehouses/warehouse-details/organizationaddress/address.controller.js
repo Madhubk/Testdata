@@ -23,6 +23,7 @@
             };
             OrganizationAddressCtrl.ePage.Masters.Cancel = Cancel;
             OrganizationAddressCtrl.ePage.Masters.AddressChosen = AddressChosen;
+
         }
         function Cancel() {
             $uibModalInstance.dismiss("cancel");

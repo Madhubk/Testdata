@@ -27,6 +27,14 @@
                 "PK": "b4286ade-116a-4b5e-8780-0001ffbaac37",
                 "Code": "S00220357"
             }];
+
+            EAxisDashboardCtrl.ePage.Masters.OrganizationList = [{
+                "PK": "cc168fcc-2b4d-40f5-b26b-b05e300c69a2",
+                "Code": "TESMAA9"
+            }, {
+                "Code": "New"
+            }];
+
             EAxisDashboardCtrl.ePage.Masters.FavouriteAndBasicFilterList = [];
             EAxisDashboardCtrl.ePage.Masters.TestSingleRecordView = TestSingleRecordView;
             EAxisDashboardCtrl.ePage.Masters.GetSingleRecordDetail = GetSingleRecordDetail;
@@ -36,6 +44,7 @@
             // GetSaveSettingAndBasicFilterList("SHIPMENTSEARCH_TOP");
 
             EAxisDashboardCtrl.ePage.Masters.PreviewDocument = PreviewDocument;
+            EAxisDashboardCtrl.ePage.Masters.GoToMyTask = GoToMyTask;
 
             // GetAppSettings();
         }
@@ -157,12 +166,13 @@
         }
 
         function TestSingleRecordView(curEntity) {
-            var _queryString = {
-                "PK": curEntity.PK,
-                "Code": curEntity.Code
-            };
-            _queryString = helperService.encryptData(_queryString);
-            $window.open("#/EA/single-record-view/shipment/" + _queryString, "_blank");
+            // var _queryString = {
+            //     "PK": curEntity.PK,
+            //     "Code": curEntity.Code
+            // };
+            var _queryString = helperService.encryptData(curEntity);
+            // $window.open("#/EA/single-record-view/shipment/" + _queryString, "_blank");
+            $window.open("#/EA/single-record-view/organization/" + _queryString, "_blank");
         }
 
         function PreviewDocument() {
@@ -275,6 +285,17 @@
                     _appFilter[value1.FieldName] = value1.value;
                 });
             }
+        }
+
+        function GoToMyTask() {
+            var _filter = {
+                PSM_FK: "2cbdea8c-f663-4b04-b1d6-7eb13e9506c6",
+                WSI_FK: "ca54c69e-c3f8-4ba7-b8ef-ced34a5b0f4e",
+                UserStatus: "WITHIN_KPI_AVAILABLE"
+            };
+            $location.path("/EA/my-tasks").search({
+                filter: helperService.encryptData(_filter)
+            });
         }
 
         Init();

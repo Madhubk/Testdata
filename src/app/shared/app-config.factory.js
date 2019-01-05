@@ -993,6 +993,16 @@
                         }
                     }
                 },
+                "Scripts": {
+                    "RowIndex": -1,
+                    "API": {
+                        "WriteScript": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "Scripts/WriteScript"
+                        }
+                    }
+                },
                 "OrgHeader": {
                     "RowIndex": -1,
                     "API": {
@@ -2072,16 +2082,6 @@
                         }
                     }
                 },
-                "Notification": {
-                    "RowIndex": -1,
-                    "API": {
-                        "SendSms": {
-                            "IsAPI": "true",
-                            "HttpType": "POST",
-                            "Url": "Notification/SendSms"
-                        },
-                    }
-                },
                 "WmsClientParameterByWarehouse": {
                     "RowIndex": -1,
                     "API": {
@@ -2159,21 +2159,16 @@
                 "AppCounter": {
                     "RowIndex": -1,
                     "API": {
+                        "FindAll": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "AppCounter/FindAll",
+                            "FilterID": "APPCOUNT",
+                        },
                         "Update": {
                             "IsAPI": "true",
                             "HttpType": "POST",
                             "Url": "AppCounter/Update"
-                        }
-                    }
-                },
-                "WmsTestID": {
-                    "RowIndex": -1,
-                    "API": {
-                        "FindAll": {
-                            "IsAPI": "true",
-                            "HttpType": "POST",
-                            "Url": "TestID/FindAll",
-                            "FilterID": "APPCOUNT"
                         }
                     }
                 },
@@ -2840,10 +2835,6 @@
                         "CompleteProcess": {
                             "IsAPI": true,
                             "Url": "EBPMEngine/CompleteProcess",
-                        },
-                        "SuspendInstance": {
-                            "IsAPI": true,
-                            "Url": "EBPMEngine/SuspendInstance/",
                         }
                     }
                 },
@@ -4155,8 +4146,6 @@
                         }
                     }
                 }
-
-
             }
         };
 
