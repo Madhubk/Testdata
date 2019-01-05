@@ -1,0 +1,28 @@
+<div class="org-header">
+    <span data-ng-bind="'Picking Configuration'"></span>
+    <button class="btn btn-xs btn-primary pull-right" data-ng-click="OrgWarehouseCtrl.ePage.Masters.EditableMode('picking')">Edit</button>
+</div>
+
+<!-- Picking Configuration -->
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+
+    <div class="margin-top-20">
+        <span class="text-single-line custom_label">Picking Sequence</span>
+    </div>
+
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 margin-top-10">
+        <table class="table table-borderless">
+            <tbody class="borderless-table">
+                <tr>
+                    <th>FIFO Fallback</th>
+                    <td>{{OrgWarehouseCtrl.ePage.Entities.Header.Data.OrgMiscServ.WmsPickFromDefaultFIFO}}</td>
+                </tr>
+                <tr>
+                    <th>Expiry Date</th>
+                    <td>{{OrgWarehouseCtrl.ePage.Entities.Header.Data.OrgMiscServ.WmsPickSortExpiryDate}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>

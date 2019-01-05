@@ -1,0 +1,63 @@
+<div class="modal-header">
+    <span class="modal-title modalheader">{{EditableCtrl.ePage.Entities.Data.OrgHeader.Code}}</span>
+</div>
+<div class="modal-body pb-50">
+
+    <!-- Picking Sequence -->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+        <div class="margin-top-20 mb-10">
+            <span class="text-single-line custom_label">Picking Sequence</span>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-10">
+
+            <div class="col-xs-12 col-sm-6 col-md-8 col-lg-8 col-xl-8 pr-0">
+                <div class="form-group">
+                    <div class="">
+                        <label>FIFO Fallback</label>
+                        <input type="text"  class="form-control input-sm"  data-ng-model="EditableCtrl.ePage.Entities.Data.OrgMiscServ.WmsPickFromDefaultFIFO" readonly=''/>
+                    </div>    
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4 pl-0">
+                <div class="form-group">
+                    <div class="">
+                        <label></label>
+                        <select class="custom_width" ng-model='FifoFallBack'
+                                ng-change = "EditableCtrl.ePage.Masters.UpdatingPickingValue(FifoFallBack,'FIFO')">
+                            <option ng-repeat="x in EditableCtrl.ePage.Masters.PickingSequence" ng-class="{custom_disable: x.disabled}">{{x.displayvalue}}</option>
+                        </select>
+                    </div>    
+                </div>
+            </div>
+        </div>   
+        
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-10">
+            <div class="col-xs-12 col-sm-6 col-md-8 col-lg-8 col-xl-8 pr-0">
+                <div class="form-group">
+                    <div class="">
+                        <label>Expiry Date</label>
+                        <input type="text"  class="form-control input-sm"  data-ng-model="EditableCtrl.ePage.Entities.Data.OrgMiscServ.WmsPickSortExpiryDate" readonly=''/>
+                    </div>    
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4 pl-0">
+                <div class="form-group">
+                    <div class="">
+                        <label></label>
+                        <select class="custom_width" ng-model='ExpiryDate'
+                                ng-change = "EditableCtrl.ePage.Masters.UpdatingPickingValue(ExpiryDate,'EXPIRY')">
+                            <option ng-repeat="x in EditableCtrl.ePage.Masters.PickingSequence" ng-class="{custom_disable: x.disabled}">{{x.displayvalue}}</option>
+                        </select>
+                    </div>    
+                </div>
+            </div>
+        </div>
+        
+
+    </div>
+
+</div>
+<div class="modal-footer">
+    <button class="btn btn-xs btn-primary mb-20" ng-click="EditableCtrl.ePage.Masters.Validation('OrgMiscServ')" ng-disabled="EditableCtrl.ePage.Masters.IsDisableSave">{{EditableCtrl.ePage.Masters.SaveButtonText}}</button>
+    <button class="btn btn-xs btn-warning mb-20" ng-click="EditableCtrl.ePage.Masters.Cancel()" ng-disabled="EditableCtrl.ePage.Masters.IsDisableSave">Close</button>
+</div>

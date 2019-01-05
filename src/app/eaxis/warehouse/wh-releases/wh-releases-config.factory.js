@@ -202,6 +202,7 @@
                             "NonEditable": false,
                             "Loading": false,
                             "FetchingInventoryDetails": false,
+                            "NormalingPickSlipTab":false,
                             "MiscServDetails": []
                         },
                         "TableProperties": {

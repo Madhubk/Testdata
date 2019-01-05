@@ -1,0 +1,87 @@
+<div class="org-header">
+    <span data-ng-bind="'Receive Configuration'"></span>
+    <button class="btn btn-xs btn-primary pull-right" data-ng-click="OrgWarehouseCtrl.ePage.Masters.EditableMode('receive')">Edit</button>
+</div>
+
+<!-- Putaway Configuration -->
+<div class="col-xs-12 col-sm-12 col-md-7 col-lg-7 col-xl-7">
+
+    <div class="margin-top-20">
+        <span class="text-single-line custom_label">Putaway Configuration</span>
+    </div>
+
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 margin-top-10">
+        <table class="table table-borderless">
+            <tbody class="borderless-table">
+                <tr>
+                    <th>Putaway Same Product Together</th>
+                    <td>{{OrgWarehouseCtrl.ePage.Entities.Header.Data.OrgMiscServ.WmsPutawaySameProductTogether ? 'YES' : 'NO'}}</td>
+                </tr>
+                <tr>
+                    <th>Overriding System Setting</th>
+                    <td>{{OrgWarehouseCtrl.ePage.Entities.Header.Data.OrgMiscServ.WmsOverrideSystemPutawayRules ? 'YES' : 'NO'}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+<!-- Putaway Sequence -->
+<div class="col-xs-12 col-sm-12 col-md-5 col-lg-5 col-xl-5">
+
+    <div class="margin-top-20">
+        <span class="text-single-line custom_label">Putaway Sequence</span>
+    </div>
+
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 margin-top-10">
+        <table class="table table-borderless">
+            <tbody class="borderless-table">
+                <tr>
+                    <th>Location Fallback</th>
+                    <td>{{OrgWarehouseCtrl.ePage.Entities.Header.Data.OrgMiscServ.WmsPutawayToLocation}}</td>
+                </tr>
+                <tr>
+                    <th>Pick Faces</th>
+                    <td>{{OrgWarehouseCtrl.ePage.Entities.Header.Data.OrgMiscServ.WmsPutawayToPickFace}}</td>
+                </tr>
+                <tr>
+                    <th>Client Area</th>
+                    <td>{{OrgWarehouseCtrl.ePage.Entities.Header.Data.OrgMiscServ.WmsPutawayToClientArea}}</td>
+                </tr>
+                <tr>
+                    <th>Product Area</th>
+                    <td>{{OrgWarehouseCtrl.ePage.Entities.Header.Data.OrgMiscServ.WmsPutawayToProductArea}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    
+</div>
+
+
+<!-- Receiving Warehouse Configuration -->
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+
+    <div class="margin-top-20">
+        <span class="text-single-line custom_label">Receiving Warehouse Configuration</span>
+    </div>
+
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 margin-top-10">
+        <table class="table table-bordered">
+            <thead style="border-bottom : 1px solid #ddd">
+                <tr>
+                    <th scope="col"><b><i>Warehouse</i></b></th>
+                    <th scope="col"><b><i>Warehouse Area</i></b></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="x in OrgWarehouseCtrl.ePage.Entities.Header.Data.WmsClientParameterByWarehouse">
+                    <td>{{x.WarehouseCode}} - {{x.WarehouseName}}</td>
+                    <td>{{x.AreaName}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>

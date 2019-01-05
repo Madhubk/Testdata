@@ -26,18 +26,43 @@
                 <form class="col-sm-6">
                     <div class="form-group">
                         <label class="control-label col-sm-4">Code</label>
+                        <span class="error-warning-container">
+                            <error-warning-directive data-ng-if="OrganizationVisibilityCtrl.ePage.Masters.ErrorWarningObj.TenantCode.IsWarning && !OrganizationVisibilityCtrl.ePage.Masters.ErrorWarningObj.TenantCode.IsError"
+                                list="OrganizationVisibilityCtrl.ePage.Masters.ErrorWarningObj.TenantCode.WARNING" type="'warning'"
+                                icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                            <error-warning-directive data-ng-if="OrganizationVisibilityCtrl.ePage.Masters.ErrorWarningObj.TenantCode.IsError"
+                                list="OrganizationVisibilityCtrl.ePage.Masters.ErrorWarningObj.TenantCode.ERROR" type="'error'"
+                                icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                        </span>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control input-sm" placeholder="Tenant Code" data-ng-model="OrganizationVisibilityCtrl.ePage.Masters.Tenant.Modal.TenantCode" maxlength="5"/>
+                            <input type="text" class="form-control input-sm" placeholder="Tenant Code" data-ng-model="OrganizationVisibilityCtrl.ePage.Masters.Tenant.Modal.TenantCode"
+                                maxlength="5" />
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-sm-4">Name</label>
+                        <span class="error-warning-container">
+                            <error-warning-directive data-ng-if="OrganizationVisibilityCtrl.ePage.Masters.ErrorWarningObj.TenantName.IsWarning && !OrganizationVisibilityCtrl.ePage.Masters.ErrorWarningObj.TenantName.IsError"
+                                list="OrganizationVisibilityCtrl.ePage.Masters.ErrorWarningObj.TenantName.WARNING" type="'warning'"
+                                icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                            <error-warning-directive data-ng-if="OrganizationVisibilityCtrl.ePage.Masters.ErrorWarningObj.TenantName.IsError"
+                                list="OrganizationVisibilityCtrl.ePage.Masters.ErrorWarningObj.TenantName.ERROR" type="'error'"
+                                icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                        </span>
                         <div class="col-sm-8">
                             <input type="text" class="form-control input-sm" placeholder="Tenant Name" data-ng-model="OrganizationVisibilityCtrl.ePage.Masters.Tenant.Modal.TenantName">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-sm-4">Description</label>
+                        <span class="error-warning-container">
+                            <error-warning-directive data-ng-if="OrganizationVisibilityCtrl.ePage.Masters.ErrorWarningObj.Description.IsWarning && !OrganizationVisibilityCtrl.ePage.Masters.ErrorWarningObj.Description.IsError"
+                                list="OrganizationVisibilityCtrl.ePage.Masters.ErrorWarningObj.Description.WARNING"
+                                type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                            <error-warning-directive data-ng-if="OrganizationVisibilityCtrl.ePage.Masters.ErrorWarningObj.Description.IsError"
+                                list="OrganizationVisibilityCtrl.ePage.Masters.ErrorWarningObj.Description.ERROR" type="'error'"
+                                icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                        </span>
                         <div class="col-sm-8">
                             <textarea type="text" class="form-control input-sm no-resize" rows="6" placeholder="Description"
                                 data-ng-model="OrganizationVisibilityCtrl.ePage.Masters.Tenant.Modal.Description"></textarea>
@@ -98,7 +123,8 @@
                         </select>
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-1 col-lg-1 col-xl-1 p-0 pt-3 text-center">
-                        <button class="btn btn-xs btn-primary" data-ng-disabled="!x.Access_FK || !x.UserName || x.IsSaveBtnClick" data-ng-click="OrganizationVisibilityCtrl.ePage.Masters.User.Save(x)">Save </button>
+                        <button class="btn btn-xs btn-primary" data-ng-disabled="!x.Access_FK || !x.UserName || x.IsSaveBtnClick"
+                            data-ng-click="OrganizationVisibilityCtrl.ePage.Masters.User.Save(x)">Save </button>
                     </div>
                 </div>
             </div>

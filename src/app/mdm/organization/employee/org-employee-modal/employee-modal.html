@@ -9,35 +9,75 @@
     <div class="modal-body p-10">
         <div class="form-group">
             <label for="EmpName">Employee Name</label>
+            <span class="error-warning-container">
+                <error-warning-directive data-ng-if="OrgEmployeeModalCtrl.ePage.Masters.ErrorWarningObj.EmployeePK.IsWarning && !OrgEmployeeModalCtrl.ePage.Masters.ErrorWarningObj.EmployeePK.IsError"
+                    list="OrgEmployeeModalCtrl.ePage.Masters.ErrorWarningObj.EmployeePK.WARNING" type="'warning'" icon="fa fa-warning"
+                    parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                <error-warning-directive data-ng-if="OrgEmployeeModalCtrl.ePage.Masters.ErrorWarningObj.EmployeePK.IsError"
+                    list="OrgEmployeeModalCtrl.ePage.Masters.ErrorWarningObj.EmployeePK.ERROR" type="'error'" icon="fa fa-warning"
+                    parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+            </span>
             <div class="input-group input-group-sm">
                 <input type="hidden" data-ng-model="OrgEmployeeModalCtrl.ePage.Masters.Employee.FormView.EmployeePK">
-                <div dynamic-lookup placeholder="Name" my-ng-model="OrgEmployeeModalCtrl.ePage.Masters.Employee.FormView.EmployeeName" obj="OrgEmployeeModalCtrl.ePage.Masters.Employee.FormView" page-name="'CmpEmployee'" control-id="'newEmployeeAdd'" control-key="'newEmployeeAdd_3282'"></div>
-                <span class="input-group-btn"><button dynamic-list-modal obj="OrgEmployeeModalCtrl.ePage.Masters.Employee.FormView" page-name="'CmpEmployee'" control-id="'newEmployeeAdd'" control-key="'newEmployeeAdd_3282'" mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="" class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button></span>
+                <div dynamic-lookup placeholder="Name" my-ng-model="OrgEmployeeModalCtrl.ePage.Masters.Employee.FormView.EmployeeName"
+                    obj="OrgEmployeeModalCtrl.ePage.Masters.Employee.FormView" page-name="'CmpEmployee'" control-id="'newEmployeeAdd'"
+                    control-key="'newEmployeeAdd_3282'"></div>
+                <span class="input-group-btn"><button dynamic-list-modal obj="OrgEmployeeModalCtrl.ePage.Masters.Employee.FormView"
+                        page-name="'CmpEmployee'" control-id="'newEmployeeAdd'" control-key="'newEmployeeAdd_3282'"
+                        mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="" class="btn btn-default shiny"
+                        type="button"><i class="fa fa-ellipsis-h"></i></button></span>
             </div>
         </div>
         <div class="form-group">
             <label for="RoleCode">Role Code</label>
+            <span class="error-warning-container">
+                <error-warning-directive data-ng-if="OrgEmployeeModalCtrl.ePage.Masters.ErrorWarningObj.RoleCode.IsWarning && !OrgEmployeeModalCtrl.ePage.Masters.ErrorWarningObj.RoleCode.IsError"
+                    list="OrgEmployeeModalCtrl.ePage.Masters.ErrorWarningObj.RoleCode.WARNING" type="'warning'" icon="fa fa-warning"
+                    parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                <error-warning-directive data-ng-if="OrgEmployeeModalCtrl.ePage.Masters.ErrorWarningObj.RoleCode.IsError"
+                    list="OrgEmployeeModalCtrl.ePage.Masters.ErrorWarningObj.RoleCode.ERROR" type="'error'" icon="fa fa-warning"
+                    parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+            </span>
             <div class="">
                 <select chosen name="RoleCode" class="form-control" data-ng-model="OrgEmployeeModalCtrl.ePage.Masters.Employee.FormView.RoleCode"
-                    data-ng-options="x.Key as x.Key + ' - ' + x.Value  for x in OrgEmployeeModalCtrl.ePage.Masters.DropDownMasterList.ROLE.ListSource" data-ng-change="OrgEmployeeModalCtrl.ePage.Masters.OnRoleChange((OrgEmployeeModalCtrl.ePage.Masters.DropDownMasterList.ROLE.ListSource | filter: {'Key' : OrgEmployeeModalCtrl.ePage.Masters.Employee.FormView.RoleCode})[0])">
+                    data-ng-options="x.Key as x.Key + ' - ' + x.Value  for x in OrgEmployeeModalCtrl.ePage.Masters.DropDownMasterList.ROLE.ListSource"
+                    data-ng-change="OrgEmployeeModalCtrl.ePage.Masters.OnRoleChange((OrgEmployeeModalCtrl.ePage.Masters.DropDownMasterList.ROLE.ListSource | filter: {'Key' : OrgEmployeeModalCtrl.ePage.Masters.Employee.FormView.RoleCode})[0])">
                     <option value="">--Select--</option>
                 </select>
             </div>
         </div>
         <div class="form-group">
             <label for="Branch">Branch</label>
+            <span class="error-warning-container">
+                <error-warning-directive data-ng-if="OrgEmployeeModalCtrl.ePage.Masters.ErrorWarningObj.BranchPK.IsWarning && !OrgEmployeeModalCtrl.ePage.Masters.ErrorWarningObj.BranchPK.IsError"
+                    list="OrgEmployeeModalCtrl.ePage.Masters.ErrorWarningObj.BranchPK.WARNING" type="'warning'" icon="fa fa-warning"
+                    parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                <error-warning-directive data-ng-if="OrgEmployeeModalCtrl.ePage.Masters.ErrorWarningObj.BranchPK.IsError"
+                    list="OrgEmployeeModalCtrl.ePage.Masters.ErrorWarningObj.BranchPK.ERROR" type="'error'" icon="fa fa-warning"
+                    parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+            </span>
             <div class="">
                 <select chosen name="BranchName" class="form-control" data-ng-model="OrgEmployeeModalCtrl.ePage.Masters.Employee.FormView.BranchPK"
-                    data-ng-options="x.PK as (x.Code + ' - ' + x.BranchName) for x in OrgEmployeeModalCtrl.ePage.Masters.BranchList" data-ng-change="OrgEmployeeModalCtrl.ePage.Masters.OnBranchChange((OrgEmployeeModalCtrl.ePage.Masters.BranchList | filter: {'PK' : OrgEmployeeModalCtrl.ePage.Masters.Employee.FormView.BranchPK})[0])">
+                    data-ng-options="x.PK as (x.Code + ' - ' + x.BranchName) for x in OrgEmployeeModalCtrl.ePage.Masters.BranchList"
+                    data-ng-change="OrgEmployeeModalCtrl.ePage.Masters.OnBranchChange((OrgEmployeeModalCtrl.ePage.Masters.BranchList | filter: {'PK' : OrgEmployeeModalCtrl.ePage.Masters.Employee.FormView.BranchPK})[0])">
                     <option value="">--Select--</option>
                 </select>
             </div>
         </div>
         <div class="form-group">
             <label for="Department">Department</label>
+            <span class="error-warning-container">
+                <error-warning-directive data-ng-if="OrgEmployeeModalCtrl.ePage.Masters.ErrorWarningObj.DepartmentPK.IsWarning && !OrgEmployeeModalCtrl.ePage.Masters.ErrorWarningObj.DepartmentPK.IsError"
+                    list="OrgEmployeeModalCtrl.ePage.Masters.ErrorWarningObj.DepartmentPK.WARNING" type="'warning'"
+                    icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                <error-warning-directive data-ng-if="OrgEmployeeModalCtrl.ePage.Masters.ErrorWarningObj.DepartmentPK.IsError"
+                    list="OrgEmployeeModalCtrl.ePage.Masters.ErrorWarningObj.DepartmentPK.ERROR" type="'error'" icon="fa fa-warning"
+                    parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+            </span>
             <div class="">
                 <select chosen name="Department" class="form-control" data-ng-model="OrgEmployeeModalCtrl.ePage.Masters.Employee.FormView.DepartmentPK"
-                    data-ng-options="x.PK as (x.Code + ' - ' + x.Desc) for x in OrgEmployeeModalCtrl.ePage.Masters.DropDownMasterList.Department.ListSource" data-ng-change="OrgEmployeeModalCtrl.ePage.Masters.OnDepartmentChange((OrgEmployeeModalCtrl.ePage.Masters.DropDownMasterList.Department.ListSource | filter: {'PK' : OrgEmployeeModalCtrl.ePage.Masters.Employee.FormView.DepartmentPK})[0])">
+                    data-ng-options="x.PK as (x.Code + ' - ' + x.Desc) for x in OrgEmployeeModalCtrl.ePage.Masters.DropDownMasterList.Department.ListSource"
+                    data-ng-change="OrgEmployeeModalCtrl.ePage.Masters.OnDepartmentChange((OrgEmployeeModalCtrl.ePage.Masters.DropDownMasterList.Department.ListSource | filter: {'PK' : OrgEmployeeModalCtrl.ePage.Masters.Employee.FormView.DepartmentPK})[0])">
                     <option value="">--Select--</option>
                 </select>
             </div>

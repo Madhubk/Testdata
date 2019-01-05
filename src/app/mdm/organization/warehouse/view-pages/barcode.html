@@ -1,0 +1,45 @@
+<div class="org-header">
+    <span data-ng-bind="'Barcode Configuration'"></span>
+    <button class="btn btn-xs btn-primary pull-right" data-ng-click="OrgWarehouseCtrl.ePage.Masters.EditableMode('barcode')">Edit</button>
+</div>
+
+<!-- Barcode Configuration -->
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+
+    <div class="margin-top-20">
+        <span class="text-single-line custom_label">Barcode Configuration</span>
+    </div>
+
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 margin-top-10">
+        <table class="table table-borderless">
+            <tbody class="borderless-table">
+                <tr>
+                    <th>Barcode Type</th>
+                    <td ng-repeat = "x in OrgWarehouseCtrl.ePage.Entities.Header.Data.OrgBarcode | filter: { Key: 'BarcodeType' }">
+                        {{x.Value}}
+                    </td>
+                </tr>
+                <tr>
+                    <th>Barcode Rule</th>
+                    <td ng-repeat = "x in OrgWarehouseCtrl.ePage.Entities.Header.Data.OrgBarcode | filter :{Key : 'BarcodeRule'}">
+                        {{x.Value}}
+                    </td>
+                </tr>
+                <tr>
+                    <th>Packing Date</th>
+                    <td ng-repeat = "x in OrgWarehouseCtrl.ePage.Entities.Header.Data.OrgBarcode | filter :{Key : 'PackingDateRule'}">
+                        {{x.Value}}
+                    </td>
+                </tr>
+                <tr>
+                    <th>Expiry Date </th>
+                    <td ng-repeat = "x in OrgWarehouseCtrl.ePage.Entities.Header.Data.OrgBarcode | filter :{Key : 'ExpiryDateRule'}">
+                        {{x.Value}}
+                    </td>
+                </tr>
+                
+            </tbody>
+        </table>
+    </div>
+
+</div>

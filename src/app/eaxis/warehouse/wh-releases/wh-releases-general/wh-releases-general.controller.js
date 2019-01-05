@@ -277,6 +277,9 @@
 
                     FetchingInwardDetails(value);
 
+                    //If outward finalized then we should normalize the pick slip tab
+                    ReleasesGeneralCtrl.ePage.Entities.Header.GlobalVariables.NormalingPickSlipTab = true;
+
                     console.log("Success");
                     toastr.success("Saved Successfully...!");
                 } else if (response.Status === "failed") {

@@ -438,9 +438,6 @@
                 }
             } else {
                 toastr.info('Receive Line Should Not Be Empty');
-                // if (callback) {
-                //     callback()
-                // }
             }
         }
 
@@ -468,6 +465,7 @@
                             InwardMenuCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine.map(function (value, key) {
                                 value.TotalUnits = 0;
                             });
+                            
                             InwardMenuCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.CancelledDate = new Date();
                             var _filter = {
                                 // C_Performer: authService.getUserInfo().UserId,

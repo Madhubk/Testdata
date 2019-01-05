@@ -1,0 +1,190 @@
+<div class="modal-header">
+    <span class="modal-title modalheader">{{EditableCtrl.ePage.Entities.Data.OrgHeader.Code}}</span>
+</div>
+<div class="modal-body pb-50">
+
+     <!-- Putaway Configuration -->
+     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+        <div class="margin-top-20 mb-10">
+            <span class="text-single-line custom_label">Putaway Configuration</span>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-10">    
+            <label>
+                <input type="checkbox" ng-checked="EditableCtrl.ePage.Entities.Data.OrgMiscServ.WmsPutawaySameProductTogether"  ng-model="EditableCtrl.ePage.Entities.Data.OrgMiscServ.WmsPutawaySameProductTogether">
+                <span class="text">Putaway Same Product Together</span>
+            </label>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-10">    
+            <label>
+                <input type="checkbox" ng-checked="EditableCtrl.ePage.Entities.Data.OrgMiscServ.WmsOverrideSystemPutawayRules"  ng-model="EditableCtrl.ePage.Entities.Data.OrgMiscServ.WmsOverrideSystemPutawayRules"
+                ng-change = "EditableCtrl.ePage.Masters.OverridingSystemSetting(EditableCtrl.ePage.Entities.Data.OrgMiscServ.WmsOverrideSystemPutawayRules)" >
+                <span class="text">Overriding System Setting</span>
+            </label>
+        </div>
+    </div>
+
+    <!-- Receiving Sequence -->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+        <div class="margin-top-20 mb-10">
+            <span class="text-single-line custom_label">Putaway Sequence</span>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-10">
+
+            <div class="col-xs-12 col-sm-6 col-md-8 col-lg-8 col-xl-8 pr-0">
+                <div class="form-group">
+                    <div class="">
+                        <label>Location Fallback</label>
+                        <input type="text"  class="form-control input-sm"  data-ng-model="EditableCtrl.ePage.Entities.Data.OrgMiscServ.WmsPutawayToLocation" readonly=''/>
+                    </div>    
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4 pl-0">
+                <div class="form-group">
+                    <div class="">
+                        <label></label>
+                        <select class="custom_width" ng-model='LocationFallBack' ng-disabled = "!EditableCtrl.ePage.Entities.Data.OrgMiscServ.WmsOverrideSystemPutawayRules"
+                                ng-change = "EditableCtrl.ePage.Masters.UpdatingReceivingValue(LocationFallBack,'LOCATION')">
+                            <option ng-repeat="x in EditableCtrl.ePage.Masters.ReceivingSequence" ng-class="{custom_disable: x.disabled}">{{x.displayvalue}}</option>
+                        </select>
+                    </div>    
+                </div>
+            </div>
+        </div>   
+        
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-10">
+            <div class="col-xs-12 col-sm-6 col-md-8 col-lg-8 col-xl-8 pr-0">
+                <div class="form-group">
+                    <div class="">
+                        <label>Pick Face</label>
+                        <input type="text"  class="form-control input-sm"  data-ng-model="EditableCtrl.ePage.Entities.Data.OrgMiscServ.WmsPutawayToPickFace" readonly=''/>
+                    </div>    
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4 pl-0">
+                <div class="form-group">
+                    <div class="">
+                        <label></label>
+                        <select class="custom_width" ng-model='PickFace' ng-disabled = "!EditableCtrl.ePage.Entities.Data.OrgMiscServ.WmsOverrideSystemPutawayRules"
+                                ng-change = "EditableCtrl.ePage.Masters.UpdatingReceivingValue(PickFace,'PICKFACE')">
+                            <option ng-repeat="x in EditableCtrl.ePage.Masters.ReceivingSequence" ng-class="{custom_disable: x.disabled}">{{x.displayvalue}}</option>
+                        </select>
+                    </div>    
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-10">
+
+            <div class="col-xs-12 col-sm-6 col-md-8 col-lg-8 col-xl-8 pr-0">
+                <div class="form-group">
+                    <div class="">
+                        <label>Client Area</label>
+                        <input type="text"  class="form-control input-sm"  data-ng-model="EditableCtrl.ePage.Entities.Data.OrgMiscServ.WmsPutawayToClientArea" readonly=''/>
+                    </div>    
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4 pl-0">
+                <div class="form-group">
+                    <div class="">
+                        <label></label>
+                        <select class="custom_width" ng-model='ClientArea' ng-disabled = "!EditableCtrl.ePage.Entities.Data.OrgMiscServ.WmsOverrideSystemPutawayRules"
+                                ng-change = "EditableCtrl.ePage.Masters.UpdatingReceivingValue(ClientArea,'CLIENTAREA')">
+                            <option ng-repeat="x in EditableCtrl.ePage.Masters.ReceivingSequence" ng-class="{custom_disable: x.disabled}">{{x.displayvalue}}</option>
+                        </select>
+                    </div>    
+                </div>
+            </div>
+        </div>   
+        
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-10">
+            <div class="col-xs-12 col-sm-6 col-md-8 col-lg-8 col-xl-8 pr-0">
+                <div class="form-group">
+                    <div class="">
+                        <label>Product Area</label>
+                        <input type="text"  class="form-control input-sm"  data-ng-model="EditableCtrl.ePage.Entities.Data.OrgMiscServ.WmsPutawayToProductArea" readonly=''/>
+                    </div>    
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4 pl-0">
+                <div class="form-group">
+                    <div class="">
+                        <label></label>
+                        <select class="custom_width" ng-model='ProductArea' ng-disabled = "!EditableCtrl.ePage.Entities.Data.OrgMiscServ.WmsOverrideSystemPutawayRules"
+                                ng-change = "EditableCtrl.ePage.Masters.UpdatingReceivingValue(ProductArea,'PRODUCTAREA')">
+                            <option ng-repeat="x in EditableCtrl.ePage.Masters.ReceivingSequence" ng-class="{custom_disable: x.disabled}">{{x.displayvalue}}</option>
+                        </select>
+                    </div>    
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Warehouse Configuration -->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+        <div class="margin-top-20 mb-10">
+            <span class="text-single-line custom_label">Warehouse Configuration</span>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 custompadding">
+            <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8 p-0">
+                <span><button type="button" class="btn btn-sm btn-outline-secondary font-10"  title="Add New"  data-ng-click="EditableCtrl.ePage.Masters.AddNewRow()"><span class="fa fa-plus"></span>&nbsp;&nbsp;Add New</button></span>
+                <span><button type="button" class="btn btn-sm btn-outline-primary font-10"  title="Copy"  data-ng-click="EditableCtrl.ePage.Masters.CopyRow()" ng-disabled="!EditableCtrl.ePage.Masters.EnableDeleteButton"><span class="fa fa-copy"></span>&nbsp;&nbsp;Copy</button></span>
+                <span><button type="button" class="btn btn-sm btn-outline-primary font-10"  title="Delete"  data-ng-click="EditableCtrl.ePage.Masters.RemoveRow()" ng-disabled="!EditableCtrl.ePage.Masters.EnableDeleteButton"><span class="fa fa-trash"></span>&nbsp;&nbsp;Delete</button></span>
+            </div>
+        </div>
+        <div class="fixedheader" id="WarehouseTable{{EditableCtrl.ePage.Entities.Data.OrgHeader.PK}}"  key-events table-object='EditableCtrl.ePage.Entities.Data.WmsClientParameterByWarehouse' enable='EditableCtrl.ePage.Masters.Enable' selected-row='EditableCtrl.ePage.Masters.selectedRow' unique-id="WarehouseTable{{EditableCtrl.ePage.Entities.Data.OrgHeader.PK}}">
+            <table id="EditableCtrl.ePage.Masters.AddScroll" style="height: 200px">
+                <thead>
+                    <tr id="tableHeader">
+                        <th   ng-style="{ 'width':  '40px' }">
+                            <label class="customcheckbox">
+                                <input type="checkbox" ng-change="EditableCtrl.ePage.Masters.SelectAllCheckBox()" ng-checked="EditableCtrl.ePage.Masters.SelectAll"
+                                    ng-model="EditableCtrl.ePage.Masters.SelectAll">
+                                <span class="text"></span>
+                            </label>
+                        </th>
+                        <th  ng-style="{ 'width': '40px' }" title="S.No">S.No</th>
+                        <th  ng-style="{ 'width': '300px' }" title="Warehouse">Warehouse</th>
+                        <th  ng-style="{ 'width': '250px' }" title="Warehouse Area">Warehouse Area</th>
+                    </tr>
+                </thead>
+                <tbody id="WarehouseCustomTable{{EditableCtrl.ePage.Entities.Data.OrgHeader.PK}}"> 
+                    <tr id="tableBody" ng-repeat="x in EditableCtrl.ePage.Entities.Data.WmsClientParameterByWarehouse">
+                        <td id="checkbox"  ng-style="{ 'width': '40px','padding-top':'0px' }">
+                            <label class="mb-0 customcheckbox">
+                                <input type="checkbox" ng-checked="x.SingleSelect" ng-change="EditableCtrl.ePage.Masters.SingleSelectCheckBox()"
+                                    ng-model="x.SingleSelect"> </input>
+                                <span class="text"></span>
+                            </label>
+                        </td>
+                        <td ng-style="{ 'width': '40px' }" >{{$index+1}}</td>
+                        <td  ng-style="{ 'width': '300px' }" >
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 p-0">
+                                <div class="input-group input-group-sm height-22">
+                                    <div dynamic-lookup my-ng-model="x.WarehouseCode" auto-complete-on-select="OrgWarehouseModalCtrl.ePage.Masters.SelectedRWarehouse($item)" obj="x"
+                                    page-name="'Warehouse'" control-id="'Warehouse'" control-key="'Warehouse_3067'">
+                                    </div>
+                                    <span class="input-group-btn"><button dynamic-list-modal obj="x"  page-name="'Warehouse'" control-id="'Warehouse'" control-key="'Warehouse_3067'" mode = "2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="OrgWarehouseModalCtrl.ePage.Masters.SelectedRWarehouse($item)" class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button></span>
+                                </div>                                       
+                            </div>
+                        </td>
+                        <td  ng-style="{ 'width': '250px' }" >
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 p-0">
+                                <div class="input-group input-group-sm height-22">
+                                    <div dynamic-lookup my-ng-model="x.AreaName" auto-complete-on-select="OrgWarehouseModalCtrl.ePage.Masters.SelectedArea($item)" obj="x"
+                                    page-name="'WarehouseArea'" control-id="'Area'" control-key="'Area_3217'">
+                                    </div>
+                                    <span class="input-group-btn"><button dynamic-list-modal obj="x"  page-name="'WarehouseArea'" control-id="'Area'" control-key="'Area_3217'" mode = "2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="OrgWarehouseModalCtrl.ePage.Masters.SelectedArea($item)" class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button></span>
+                                </div>                                       
+                            </div>
+                        </td>         
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-xs btn-primary mb-20" ng-click="EditableCtrl.ePage.Masters.Validation('OrgMiscServ')" ng-disabled="EditableCtrl.ePage.Masters.IsDisableSave">{{EditableCtrl.ePage.Masters.SaveButtonText}}</button>
+    <button class="btn btn-xs btn-warning mb-20" ng-click="EditableCtrl.ePage.Masters.Cancel()" ng-disabled="EditableCtrl.ePage.Masters.IsDisableSave">Close</button>
+</div>

@@ -1,0 +1,97 @@
+<div class="modal-header">
+    <span class="modal-title modalheader">{{EditableCtrl.ePage.Entities.Data.OrgHeader.Code}}</span>
+</div>
+<div class="modal-body pb-50">
+
+    <!-- UDF -->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+        <div class="margin-top-20 mb-10">
+            <span class="text-single-line custom_label">User Defined Fields Rules</span>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-10">
+            <div class="form-group">
+                <div class="">
+                    <label>User Defined Field 1 Name</label>
+                    <input type="text" capitalize class="form-control input-sm" placeholder="UDF 1 Name" data-ng-model="EditableCtrl.ePage.Entities.Data.OrgMiscServ.IMPartAttrib1Name" 
+                    />
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-10">
+            <div class="form-group">
+                <div class="">
+                    <label>User Defined Field 1 Type</label>
+                    <select chosen class="form-control" data-ng-model="EditableCtrl.ePage.Entities.Data.OrgMiscServ.IMPartAttrib1Type"ng-options="x.Key as x.Key + ' - '  + x.Value for x in EditableCtrl.ePage.Masters.DropDownMasterList.PartAttrType.ListSource"
+                    search-contains="true" >
+                    <option value="">--Select--</option>
+                    </select>
+                </div>    
+            </div>
+        </div>
+
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-10">
+            <div class="form-group">
+                <div class="">
+                    <label>User Defined Field 2 Name</label>
+                    <input type="text" capitalize class="form-control input-sm" placeholder="UDF 2 Name" data-ng-model="EditableCtrl.ePage.Entities.Data.OrgMiscServ.IMPartAttrib2Name"
+                    />
+                </div>
+            </div>    
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-10">
+            <div class="form-group">
+                <div class="">
+                    <label>User Defined Field 2 Type</label>
+                    <select chosen class="form-control" data-ng-model="EditableCtrl.ePage.Entities.Data.OrgMiscServ.IMPartAttrib2Type" ng-options="x.Key as x.Key + ' - '  + x.Value for x in EditableCtrl.ePage.Masters.DropDownMasterList.PartAttrType.ListSource" search-contains="true" >
+                        <option value="">--Select--</option>
+                    </select>
+                </div>    
+            </div>
+        </div>
+        
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-10">
+            <div class="form-group">
+                <div class="">
+                    <label>User Defined Field 3 Name</label>
+                    <input type="text" capitalize class="form-control input-sm" placeholder="UDF 3 Name" data-ng-model="EditableCtrl.ePage.Entities.Data.OrgMiscServ.IMPartAttrib3Name"
+                    />
+                </div>    
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-10">
+            <div class="form-group">
+                <div class="">
+                    <label>User Defined Field 3 Type</label>
+                    <select chosen class="form-control" data-ng-model="EditableCtrl.ePage.Entities.Data.OrgMiscServ.IMPartAttrib3Type" ng-options="x.Key as x.Key + ' - '  + x.Value for x in EditableCtrl.ePage.Masters.DropDownMasterList.PartAttrType.ListSource" search-contains="true" >
+                        <option value="">--Select--</option>
+                    </select>
+                </div>    
+            </div>
+        </div>
+
+    </div>
+
+    <!-- DATES -->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+        <div class="margin-top-20 mb-10">
+            <span class="text-single-line custom_label">Date Rules</span>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-10">    
+            <label>
+                <input type="checkbox" ng-checked="EditableCtrl.ePage.Entities.Data.OrgMiscServ.IMUsePackingDate"  ng-model="EditableCtrl.ePage.Entities.Data.OrgMiscServ.IMUsePackingDate">
+                <span class="text">Use Packing Date</span>
+            </label>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-10">    
+            <label>
+                <input type="checkbox" ng-checked="EditableCtrl.ePage.Entities.Data.OrgMiscServ.IMUseExpiryDate"  ng-model="EditableCtrl.ePage.Entities.Data.OrgMiscServ.IMUseExpiryDate">
+                <span class="text">Use Expiry Date</span>
+            </label>
+        </div>
+    </div>
+
+</div>
+<div class="modal-footer">
+    <button class="btn btn-xs btn-primary mb-20" ng-click="EditableCtrl.ePage.Masters.Validation('OrgMiscServ')" ng-disabled="EditableCtrl.ePage.Masters.IsDisableSave">{{EditableCtrl.ePage.Masters.SaveButtonText}}</button>
+    <button class="btn btn-xs btn-warning mb-20" ng-click="EditableCtrl.ePage.Masters.Cancel()" ng-disabled="EditableCtrl.ePage.Masters.IsDisableSave">Close</button>
+</div>

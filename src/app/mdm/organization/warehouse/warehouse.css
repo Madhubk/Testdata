@@ -1,0 +1,7 @@
+.borderless-table td, .borderless-table th, .borderless-table tr {
+    border-top: none !important;
+}
+
+.general-edit.warehouse-edit>.modal-dialog {
+    width: 800px !important;
+}

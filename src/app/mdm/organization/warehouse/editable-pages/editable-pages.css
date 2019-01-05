@@ -1,0 +1,15 @@
+.modalheader{
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.custom_disable{
+    display: none;
+    visibility: hidden;
+}
+
+.custom_width{
+    margin-top: 5px;
+    width: 100%;
+}
+

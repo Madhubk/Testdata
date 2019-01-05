@@ -10,6 +10,7 @@
             </div>      
         </div>
     </div>
+
     <div id="PickLineSumm{{ReleasesPickSlipCtrl.currentRelease.label}}" class="fixedheader" key-events table-object='ReleasesPickSlipCtrl.ePage.Entities.Header.Data.UIWmsPickLineSummary' enable='ReleasesPickSlipCtrl.ePage.Masters.EnableForPickLineSummary' selected-row='ReleasesPickSlipCtrl.ePage.Masters.selectedRowForPickLineSummary' unique-id='PickLineSumm{{ReleasesPickSlipCtrl.currentRelease.label}}'>
         <table style="height: 200px">
             <thead>
@@ -83,12 +84,13 @@
     <span class="text-single-line custom_label">Release Capture Lines</span>
 </div>
 
+
 <div class="clearfix">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 custompadding">
         <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8 p-0">
-            <span><button type="button" class="btn btn-sm btn-outline-secondary font-10"  title="Add New"  data-ng-click="ReleasesPickSlipCtrl.ePage.Masters.AddNewRowForUIWmsReleaseLine()" ng-disabled="!ReleasesPickSlipCtrl.ePage.Masters.EnableAddAndEditReleaseLine || ReleasesPickSlipCtrl.ePage.Entities.Header.GlobalVariables.NonEditable"><span class="fa fa-plus"></span>&nbsp;&nbsp;Add New</button></span>
-            <span><button type="button" class="btn btn-sm btn-outline-primary font-10"  title="Copy"  data-ng-click="ReleasesPickSlipCtrl.ePage.Masters.CopyRowForUIWmsReleaseLine()" ng-disabled="!ReleasesPickSlipCtrl.ePage.Masters.EnableDeleteButtonForUIWmsReleaseLine || ReleasesPickSlipCtrl.ePage.Entities.Header.GlobalVariables.NonEditable"><span class="fa fa-copy"></span>&nbsp;&nbsp;Copy</button></span>
-            <span><button type="button" class="btn btn-sm btn-outline-primary font-10"  title="Delete"  data-ng-click="ReleasesPickSlipCtrl.ePage.Masters.RemoveRowForUIWmsReleaseLine()" ng-disabled="!ReleasesPickSlipCtrl.ePage.Masters.EnableDeleteButtonForUIWmsReleaseLine || ReleasesPickSlipCtrl.ePage.Entities.Header.GlobalVariables.NonEditable"><span class="fa fa-trash"></span>&nbsp;&nbsp;Delete</button></span>
+            <span><button type="button" class="btn btn-sm btn-outline-secondary font-10"  title="Add New"  data-ng-click="ReleasesPickSlipCtrl.ePage.Masters.AddNewRowForUIWmsReleaseLine()" ng-disabled="!ReleasesPickSlipCtrl.ePage.Masters.EnableAddOrChooseButton"><span class="fa fa-plus"></span>&nbsp;&nbsp;Add New</button></span>
+            <span><button type="button" class="btn btn-sm btn-outline-primary font-10"  title="Copy"  data-ng-click="ReleasesPickSlipCtrl.ePage.Masters.CopyRowForUIWmsReleaseLine()" ng-disabled="!ReleasesPickSlipCtrl.ePage.Masters.EnableCopyButtonForUIWmsReleaseLine"><span class="fa fa-copy"></span>&nbsp;&nbsp;Copy</button></span>
+            <span><button type="button" class="btn btn-sm btn-outline-primary font-10"  title="Delete"  data-ng-click="ReleasesPickSlipCtrl.ePage.Masters.RemoveRowForUIWmsReleaseLine()" ng-disabled="!ReleasesPickSlipCtrl.ePage.Masters.EnableDeleteButtonForUIWmsReleaseLine"><span class="fa fa-trash"></span>&nbsp;&nbsp;Delete</button></span>
             <span><button type="button" class="btn btn-sm btn-outline-primary font-10"  title="Customize"  data-ng-click="ReleasesPickSlipCtrl.ePage.Masters.EditTableColumnsForUIWmsReleaseLine = true"><span class="fa fa-filter"></span>&nbsp;&nbsp;Customize</button></span>
             <span>
                 <label class="">
@@ -112,7 +114,7 @@
                     <th id="rcheckbox" data-ng-if="ReleasesPickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsReleaseLine.rcheckbox.isenabled" ng-style="{ 'width': ReleasesPickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsReleaseLine.rcheckbox.width + 'px' }">
                         <label class="customcheckbox">
                             <input type="checkbox" ng-change="ReleasesPickSlipCtrl.ePage.Masters.SelectAllCheckBoxForUIWmsReleaseLine()" ng-checked="ReleasesPickSlipCtrl.ePage.Masters.SelectAllForUIWmsReleaseLine"
-                                ng-model="ReleasesPickSlipCtrl.ePage.Masters.SelectAllForUIWmsReleaseLine" ng-disabled="!ReleasesPickSlipCtrl.ePage.Masters.EnableAddAndEditReleaseLine">
+                                ng-model="ReleasesPickSlipCtrl.ePage.Masters.SelectAllForUIWmsReleaseLine" ng-disabled="!ReleasesPickSlipCtrl.ePage.Masters.EnableAddOrChooseButton">
                             <span class="text"></span>
                         </label>
                     </th>
@@ -124,12 +126,12 @@
                 </tr>
             </thead>
             <tbody id="RelCaptCustomTable{{ReleasesPickSlipCtrl.currentRelease.label}}"> 
-                <tr id="tableBody" ng-repeat="x in ReleasesPickSlipCtrl.ePage.Entities.Header.Data.UIWmsReleaseLine | filter:ReleasesPickSlipCtrl.ePage.Masters.SelectedPickLinePK | filter:ReleasesPickSlipCtrl.ePage.Masters.SearchTableForUIWmsReleaseLine"  ng-click="ReleasesPickSlipCtrl.ePage.Masters.setSelectedRowForUIWmsReleaseLine($index);" ng-class="{row_active: (ReleasesPickSlipCtrl.ePage.Masters.selectedRowForUIWmsReleaseLine==$index),copy_row_active :(x.IsCopied==true),row_active_green :(x.WPL_FK==ReleasesPickSlipCtrl.ePage.Masters.CurrentPickLine.PK)}" 
+                <tr id="tableBody" ng-repeat="x in ReleasesPickSlipCtrl.ePage.Entities.Header.Data.UIWmsReleaseLine | filter:ReleasesPickSlipCtrl.ePage.Masters.SelectedPickLinePK | filter:ReleasesPickSlipCtrl.ePage.Masters.SearchTableForUIWmsReleaseLine"  ng-click="ReleasesPickSlipCtrl.ePage.Masters.setSelectedRowForUIWmsReleaseLine($index);" ng-class="{row_active: (ReleasesPickSlipCtrl.ePage.Masters.selectedRowForUIWmsReleaseLine==$index),copy_row_active :(x.IsCopied==true),row_active_green :(x.WPL_FK==ReleasesPickSlipCtrl.ePage.Masters.CurrentPickLine.PK && ReleasesPickSlipCtrl.ePage.Masters.ShowAllLines)}" 
                     watch-table table-properties="ReleasesPickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsReleaseLine"  unique-id="RelCaptCustomTable{{ReleasesPickSlipCtrl.currentRelease.label}}" row-position="$index" data-ng-if="ReleasesPickSlipCtrl.ePage.Masters.selectedRowForPickLineSummary!=-1">
                     <td id="rcheckbox" data-ng-show='ReleasesPickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsReleaseLine.rcheckbox.isenabled' ng-style="{ 'width': ReleasesPickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsReleaseLine.rcheckbox.width + 'px','padding-top':'0px' }" >
                         <label class="mb-0 customcheckbox">
                             <input type="checkbox" ng-checked="x.SingleSelect" ng-change="ReleasesPickSlipCtrl.ePage.Masters.SingleSelectCheckBoxForUIWmsReleaseLine()"
-                                ng-model="x.SingleSelect" ng-disabled="x.WorkOrderLineStatus =='FIN' || x.WPL_FK!=ReleasesPickSlipCtrl.ePage.Masters.CurrentPickLine.PK"> </input>
+                                ng-model="x.SingleSelect" ng-disabled="x.WorkOrderLineStatus =='FIN'"> </input>
                             <span class="text"></span>
                         </label>
                         <span class="list-error-warning" data-ng-if="ReleasesPickSlipCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsReleaseLine.ERROR | listCount: 'RowIndex': $index">
@@ -219,11 +221,31 @@
     <div ng-if='ReleasesPickSlipCtrl.ePage.Masters.EditTableColumnsForUIWmsReleaseLine'>
         <customize-table table-properties="ReleasesPickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsReleaseLine" enable="ReleasesPickSlipCtrl.ePage.Masters.EditTableColumnsForUIWmsReleaseLine" unique-id="RelCaptCustomTable{{ReleasesPickSlipCtrl.currentRelease.label}}" user-value='ReleasesPickSlipCtrl.ePage.Masters.UserValueForUIWmsReleaseLine' entity-source='RELEASELINE'></customize-table>
     </div>
-     <!-- Call Directive If user has value -->
+        <!-- Call Directive If user has value -->
     <div ng-if='ReleasesPickSlipCtrl.ePage.Masters.UserHasValueForUIWmsReleaseLine' ng-init="ReleasesPickSlipCtrl.ePage.Masters.UserHasValueForUIWmsReleaseLine=false">
         <watch-table table-properties="ReleasesPickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsReleaseLine"  unique-id="RelCaptCustomTable{{ReleasesPickSlipCtrl.currentRelease.label}}"></watch-table>
     </div>
+
+    <!-- Calling Normalizing Pick Slip Tab function -->
+    <div ng-if='ReleasesPickSlipCtrl.ePage.Entities.Header.GlobalVariables.NormalingPickSlipTab' ng-init="ReleasesPickSlipCtrl.ePage.Masters.NormalizingPickSlipTab()"></div>
+
 </div>
 
 
 
+
+
+
+
+<!-- 1. Clicking the pick line then corresponding release line will be shown. 
+2. After clicking the pick line only we can able to add, copy and delete.
+3. Show all button is used to show all the lines.
+4. After finalizing Outward then pick slip will goes to normal mode, that is pick slip will be unchosen.
+5. If show all is enabled then the release lines will be highligheted against the chosen pick line.
+6. If show all is enabled then you can able to add,copy,delete and edit. 
+7. In the UI level Release lines and single select will be disabled based on workorderlinestatus and part attributes.
+8. Add, copy, delete and select all will be loaded based on Controller funcations.-->
+    
+    
+    
+    

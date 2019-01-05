@@ -1,0 +1,72 @@
+<div class="org-header">
+    <span data-ng-bind="'Product Configuration'"></span>
+    <button class="btn btn-xs btn-primary pull-right" data-ng-click="OrgWarehouseCtrl.ePage.Masters.EditableMode('product-preference')">Edit</button>
+</div>
+
+<!-- UDF Configuration -->
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+
+    <div class="margin-top-20">
+        <span class="text-single-line custom_label">User Defined Fields Rules</span>
+    </div>
+
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 margin-top-10">
+        <table class="table table-borderless">
+            <thead style="border-bottom : 1px solid #ddd">
+                <tr>
+                    <th scope="col"><b><i>Field</i></b></th>
+                    <th scope="col"><b><i>Name</i></b></th>
+                    <th scope="col"><b><i>Type</i></b></th>
+                </tr>
+            </thead>
+            <tbody class="borderless-table">
+                <tr>
+                    <td>User Defined Field 1</td>
+                    <td>{{OrgWarehouseCtrl.ePage.Entities.Header.Data.OrgMiscServ.IMPartAttrib1Name}}</td>
+                    <td>{{OrgWarehouseCtrl.ePage.Entities.Header.Data.OrgMiscServ.IMPartAttrib1Type}}</td>
+                </tr>
+                <tr>
+                    <td>User Defined Field 2</td>
+                    <td>{{OrgWarehouseCtrl.ePage.Entities.Header.Data.OrgMiscServ.IMPartAttrib2Name}}</td>
+                    <td>{{OrgWarehouseCtrl.ePage.Entities.Header.Data.OrgMiscServ.IMPartAttrib2Type}}</td>
+                </tr>
+                <tr>
+                    <td>User Defined Field 3</td>
+                    <td>{{OrgWarehouseCtrl.ePage.Entities.Header.Data.OrgMiscServ.IMPartAttrib3Name}}</td>
+                    <td>{{OrgWarehouseCtrl.ePage.Entities.Header.Data.OrgMiscServ.IMPartAttrib3Type}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+<!-- Date Configuration -->
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+
+    <div class="margin-top-20">
+        <span class="text-single-line custom_label">Date Rules</span>
+    </div>
+
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 margin-top-10">
+        <table class="table table-borderless">
+            <thead style="border-bottom : 1px solid #ddd">
+                <tr>
+                    <th scope="col"><b><i>Field</i></b></th>
+                    <th scope="col"><b><i>Is Enabled</i></b></th>
+                </tr>
+            </thead>
+            <tbody class="borderless-table">
+                <tr>
+                    <td>Packing Date</td>
+                    <td>{{OrgWarehouseCtrl.ePage.Entities.Header.Data.OrgMiscServ.IMUsePackingDate ? "YES" : "NO"}}</td>
+                </tr>
+                <tr>
+                    <td>Expiry Date</td>
+                    <td>{{OrgWarehouseCtrl.ePage.Entities.Header.Data.OrgMiscServ.IMUseExpiryDate ? "YES" : "NO"}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>

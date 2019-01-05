@@ -8,28 +8,40 @@
     </div>
     <div class="modal-body p-10">
         <div class="form-group">
+            <label for="">Company</label>
+            <span class="error-warning-container">
+                <error-warning-directive data-ng-if="OrgCompanyModalCtrl.ePage.Masters.ErrorWarningObj.CMP_FK.IsWarning && !OrgCompanyModalCtrl.ePage.Masters.ErrorWarningObj.CMP_FK.IsError"
+                    list="OrgCompanyModalCtrl.ePage.Masters.ErrorWarningObj.CMP_FK.WARNING" type="'warning'" icon="fa fa-warning"
+                    parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                <error-warning-directive data-ng-if="OrgCompanyModalCtrl.ePage.Masters.ErrorWarningObj.CMP_FK.IsError"
+                    list="OrgCompanyModalCtrl.ePage.Masters.ErrorWarningObj.CMP_FK.ERROR" type="'error'" icon="fa fa-warning"
+                    parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+            </span>
             <div class="">
-                <label for="">Company</label>
-                <div class="">
-                    <select chosen class="form-control" data-ng-model="OrgCompanyModalCtrl.ePage.Masters.Company.FormView.CMP_FK"
-                        data-ng-options="x.PK as (x.Code + ' - ' + x.Name) for x in OrgCompanyModalCtrl.ePage.Masters.DropDownMasterList.Company.ListSource"
-                        data-ng-change="OrgCompanyModalCtrl.ePage.Masters.Company.OnCompanyChange((OrgCompanyModalCtrl.ePage.Masters.DropDownMasterList.Company.ListSource | filter: {'PK': OrgCompanyModalCtrl.ePage.Masters.Company.FormView.CMP_FK})[0])"
-                        search-contains="true">
-                        <option value="">--Select--</option>
-                    </select>
-                </div>
+                <select chosen class="form-control" data-ng-model="OrgCompanyModalCtrl.ePage.Masters.Company.FormView.CMP_FK"
+                    data-ng-options="x.PK as (x.Code + ' - ' + x.Name) for x in OrgCompanyModalCtrl.ePage.Masters.DropDownMasterList.Company.ListSource"
+                    data-ng-change="OrgCompanyModalCtrl.ePage.Masters.Company.OnCompanyChange((OrgCompanyModalCtrl.ePage.Masters.DropDownMasterList.Company.ListSource | filter: {'PK': OrgCompanyModalCtrl.ePage.Masters.Company.FormView.CMP_FK})[0])"
+                    search-contains="true">
+                    <option value="">--Select--</option>
+                </select>
             </div>
         </div>
         <div class="form-group">
+            <label for="">Controlling Branch</label>
+            <span class="error-warning-container">
+                <error-warning-directive data-ng-if="OrgCompanyModalCtrl.ePage.Masters.ErrorWarningObj.BRN_ControllingBranch.IsWarning && !OrgCompanyModalCtrl.ePage.Masters.ErrorWarningObj.BRN_ControllingBranch.IsError"
+                    list="OrgCompanyModalCtrl.ePage.Masters.ErrorWarningObj.BRN_ControllingBranch.WARNING" type="'warning'"
+                    icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                <error-warning-directive data-ng-if="OrgCompanyModalCtrl.ePage.Masters.ErrorWarningObj.BRN_ControllingBranch.IsError"
+                    list="OrgCompanyModalCtrl.ePage.Masters.ErrorWarningObj.BRN_ControllingBranch.ERROR" type="'error'"
+                    icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+            </span>
             <div class="">
-                <label for="">Controlling Branch</label>
-                <div class="">
-                    <select chosen name="BRN_Code" class="form-control" data-ng-model="OrgCompanyModalCtrl.ePage.Masters.Company.FormView.BRN_ControllingBranch"
-                        data-ng-options="x.PK as (x.Code +' - '+ x.BranchName) for x in OrgCompanyModalCtrl.ePage.Masters.Company.BranchList"
-                        data-ng-change="OrgCompanyModalCtrl.ePage.Masters.Company.OnBranchChange((OrgCompanyModalCtrl.ePage.Masters.Company.BranchList | filter: {'PK': OrgCompanyModalCtrl.ePage.Masters.Company.FormView.BRN_ControllingBranch})[0])">
-                        <option value="">--Select--</option>
-                    </select>
-                </div>
+                <select chosen name="BRN_Code" class="form-control" data-ng-model="OrgCompanyModalCtrl.ePage.Masters.Company.FormView.BRN_ControllingBranch"
+                    data-ng-options="x.PK as (x.Code +' - '+ x.BranchName) for x in OrgCompanyModalCtrl.ePage.Masters.Company.BranchList"
+                    data-ng-change="OrgCompanyModalCtrl.ePage.Masters.Company.OnBranchChange((OrgCompanyModalCtrl.ePage.Masters.Company.BranchList | filter: {'PK': OrgCompanyModalCtrl.ePage.Masters.Company.FormView.BRN_ControllingBranch})[0])">
+                    <option value="">--Select--</option>
+                </select>
             </div>
         </div>
         <div class="form-group">

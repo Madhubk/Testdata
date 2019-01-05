@@ -1,0 +1,66 @@
+<div class="modal-header">
+    <span class="modal-title modalheader">{{EditableCtrl.ePage.Entities.Data.OrgHeader.Code}}</span>
+</div>
+<div class="modal-body pb-50">
+
+    <!-- Barcode Type -->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-10">
+        <div class="form-group">
+            <div class="">
+                <label>Barcode Type</label>
+                <div class="radio">
+                    <label>
+                        <input type="radio" value="QRCode" ng-model="EditableCtrl.ePage.Masters.BarcodeType" data-ng-checked="EditableCtrl.ePage.Masters.BarcodeType == 'QRCode'">
+                        <span class="text">QR Code</span>
+                    </label>
+                </div>
+                <div class="radio">
+                    <label>
+                        <input type="radio" value="Barcode" ng-model="EditableCtrl.ePage.Masters.BarcodeType" data-ng-checked="EditableCtrl.ePage.Masters.BarcodeType == 'Barcode'">
+                        <span class="text"> Barcode</span>
+                    </label>
+                </div>
+            </div>    
+        </div>
+    </div>
+
+    <!-- Barcode Rule -->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-10" ng-if="EditableCtrl.ePage.Masters.BarcodeType">
+        <div class="form-group">
+            <div class="">
+                <label>Barcode Rule</label>
+                <textarea class="form-control" rows="3"  ng-model="EditableCtrl.ePage.Masters.BarcodeRule"></textarea>
+            </div>    
+        </div>
+    </div>
+
+    <!-- Packing Date Rule -->
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-10">
+        <div class="form-group">
+            <div class="">
+                <label>Packing Date</label>
+                <select chosen class="form-control" data-ng-model="EditableCtrl.ePage.Masters.PackingDateRule" ng-options="x.Value as  x.Value for x in EditableCtrl.ePage.Masters.DropDownMasterList.Date_Format.ListSource" search-contains="true" >
+                    <option value="">--Select--</option>
+                </select>
+            </div>    
+        </div>
+    </div>
+
+    <!-- Expiry Date Rule -->
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-10">
+        <div class="form-group">
+            <div class="">
+                <label>Expiry Date</label>
+                <select chosen class="form-control" data-ng-model="EditableCtrl.ePage.Masters.ExpiryDateRule" ng-options="x.Value as x.Value for x in EditableCtrl.ePage.Masters.DropDownMasterList.Date_Format.ListSource" search-contains="true" >
+                    <option value="">--Select--</option>
+                </select>
+            </div>    
+        </div>
+    </div>
+    
+
+</div>
+<div class="modal-footer">
+    <button class="btn btn-xs btn-primary mb-20" ng-click="EditableCtrl.ePage.Masters.Validation('OrgBarcode')" ng-disabled="EditableCtrl.ePage.Masters.IsDisableSave">{{EditableCtrl.ePage.Masters.SaveButtonText}}</button>
+    <button class="btn btn-xs btn-warning mb-20" ng-click="EditableCtrl.ePage.Masters.Cancel()" ng-disabled="EditableCtrl.ePage.Masters.IsDisableSave">Close</button>
+</div>

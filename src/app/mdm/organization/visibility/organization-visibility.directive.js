@@ -25,9 +25,9 @@
         .module("Application")
         .controller("OrganizationVisibilityController", OrganizationVisibilityController);
 
-    OrganizationVisibilityController.$inject = ["$rootScope", "authService", "apiService", "helperService", "organizationConfig"];
+    OrganizationVisibilityController.$inject = ["$rootScope", "$timeout", "$filter", "authService", "apiService", "helperService", "organizationConfig", "errorWarningService"];
 
-    function OrganizationVisibilityController($rootScope, authService, apiService, helperService, organizationConfig) {
+    function OrganizationVisibilityController($rootScope, $timeout, $filter, authService, apiService, helperService, organizationConfig, errorWarningService) {
         var OrganizationVisibilityCtrl = this;
 
         $rootScope.UpdateVisibilityPage = PrepareTenantDetails;
@@ -60,7 +60,11 @@
             OrganizationVisibilityCtrl.ePage.Masters.Tenant.IsDisableSaveBtn = false;
             OrganizationVisibilityCtrl.ePage.Masters.Tenant.SaveBtnText = "Create";
 
-            OrganizationVisibilityCtrl.ePage.Masters.Tenant.Save = SaveTenant;
+            OrganizationVisibilityCtrl.ePage.Masters.Tenant.Save = ValidateTenant;
+
+            OrganizationVisibilityCtrl.ePage.Masters.ErrorWarningConfig = errorWarningService;
+            OrganizationVisibilityCtrl.ePage.Masters.GlobalErrorWarningList = errorWarningService.Modules.Organization.Entity[OrganizationVisibilityCtrl.currentOrganization.code ? OrganizationVisibilityCtrl.currentOrganization.code : OrganizationVisibilityCtrl.currentOrganization.label].GlobalErrorWarningList;
+            OrganizationVisibilityCtrl.ePage.Masters.ErrorWarningObj = errorWarningService.Modules.Organization.Entity[OrganizationVisibilityCtrl.currentOrganization.code ? OrganizationVisibilityCtrl.currentOrganization.code : OrganizationVisibilityCtrl.currentOrganization.label];
 
             PrepareTenantDetails();
         }
@@ -82,6 +86,37 @@
             }
 
             PrepareUserList();
+        }
+
+        function ValidateTenant() {
+            OrganizationVisibilityCtrl.ePage.Masters.Tenant.IsDisableSaveBtn = true;
+            OrganizationVisibilityCtrl.ePage.Masters.Tenant.SaveBtnText = "Please Wait...";
+            var _errorCode = [];
+
+            var _code = OrganizationVisibilityCtrl.currentOrganization.code ? OrganizationVisibilityCtrl.currentOrganization.code : OrganizationVisibilityCtrl.currentOrganization.label;
+            var _obj = {
+                ModuleName: ["Organization"],
+                Code: [_code],
+                API: "Group",
+                GroupCode: "ORG_VISIBILITY",
+                RelatedBasicDetails: [],
+                EntityObject: OrganizationVisibilityCtrl.ePage.Masters.Tenant.Modal,
+                ErrorCode: _errorCode
+            };
+            errorWarningService.ValidateValue(_obj);
+
+            $timeout(function () {
+                var _errorCount = $filter("listCount")(OrganizationVisibilityCtrl.ePage.Masters.GlobalErrorWarningList, 'MessageType', 'E');
+
+                if (_errorCount > 0) {
+                    OrganizationVisibilityCtrl.ePage.Masters.Tenant.IsDisableSaveBtn = false;
+                    OrganizationVisibilityCtrl.ePage.Masters.Tenant.SaveBtnText = "Save";
+
+                    toastr.warning("Fill all mandatory fields...!");
+                } else {
+                    SaveTenant();
+                }
+            });
         }
 
         function SaveTenant() {

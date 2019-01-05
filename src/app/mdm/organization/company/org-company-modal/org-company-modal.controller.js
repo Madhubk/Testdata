@@ -5,9 +5,9 @@
         .module("Application")
         .controller("OrgCompanyModalController", OrgCompanyModalController);
 
-    OrgCompanyModalController.$inject = ["$uibModalInstance", "authService", "apiService", "organizationConfig", "helperService", "toastr", "param"];
+    OrgCompanyModalController.$inject = ["$timeout", "$filter", "$uibModalInstance", "authService", "apiService", "organizationConfig", "helperService", "toastr", "param", "errorWarningService"];
 
-    function OrgCompanyModalController($uibModalInstance, authService, apiService, organizationConfig, helperService, toastr, param) {
+    function OrgCompanyModalController($timeout, $filter, $uibModalInstance, authService, apiService, organizationConfig, helperService, toastr, param, errorWarningService) {
         var OrgCompanyModalCtrl = this;
 
         function Init() {
@@ -28,7 +28,7 @@
                 OrgCompanyModalCtrl.ePage.Masters.SaveButtonText = "Save";
                 OrgCompanyModalCtrl.ePage.Masters.IsDisableSave = false;
 
-                OrgCompanyModalCtrl.ePage.Masters.Save = Save;
+                OrgCompanyModalCtrl.ePage.Masters.Save = ValidateCompany;
                 OrgCompanyModalCtrl.ePage.Masters.Cancel = Cancel;
 
                 InitCompany();
@@ -57,6 +57,10 @@
 
             OrgCompanyModalCtrl.ePage.Masters.Company.OnCompanyChange = OnCompanyChange;
             OrgCompanyModalCtrl.ePage.Masters.Company.OnBranchChange = OnBranchChange;
+
+            OrgCompanyModalCtrl.ePage.Masters.ErrorWarningConfig = errorWarningService;
+            OrgCompanyModalCtrl.ePage.Masters.GlobalErrorWarningList = errorWarningService.Modules.Organization.Entity[param.Entity.code ? param.Entity.code : param.Entity.label].GlobalErrorWarningList;
+            OrgCompanyModalCtrl.ePage.Masters.ErrorWarningObj = errorWarningService.Modules.Organization.Entity[param.Entity.code ? param.Entity.code : param.Entity.label];
         }
 
         function OnCompanyChange($item) {
@@ -148,6 +152,37 @@
                     OrgCompanyModalCtrl.ePage.Masters.CurrencyList = response.data.Response;
                 } else {
                     OrgCompanyModalCtrl.ePage.Masters.CurrencyList = [];
+                }
+            });
+        }
+
+        function ValidateCompany() {
+            OrgCompanyModalCtrl.ePage.Masters.SaveButtonText = "Please Wait...";
+            OrgCompanyModalCtrl.ePage.Masters.IsDisableSave = true;
+            var _errorCode = [];
+
+            var _code = param.Entity.code ? param.Entity.code : param.Entity.label;
+            var _obj = {
+                ModuleName: ["Organization"],
+                Code: [_code],
+                API: "Group",
+                GroupCode: "ORG_COMPANY",
+                RelatedBasicDetails: [],
+                EntityObject: OrgCompanyModalCtrl.ePage.Masters.Company.FormView,
+                ErrorCode: _errorCode
+            };
+            errorWarningService.ValidateValue(_obj);
+
+            $timeout(function () {
+                var _errorCount = $filter("listCount")(OrgCompanyModalCtrl.ePage.Masters.GlobalErrorWarningList, 'MessageType', 'E');
+
+                if (_errorCount > 0) {
+                    OrgCompanyModalCtrl.ePage.Masters.SaveButtonText = "Save";
+                    OrgCompanyModalCtrl.ePage.Masters.IsDisableSave = false;
+
+                    toastr.warning("Fill all mandatory fields...!");
+                } else {
+                    Save();
                 }
             });
         }
