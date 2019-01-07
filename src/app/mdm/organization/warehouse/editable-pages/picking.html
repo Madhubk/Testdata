@@ -1,5 +1,7 @@
 <div class="modal-header">
-    <span class="modal-title modalheader">{{EditableCtrl.ePage.Entities.Data.OrgHeader.Code}}</span>
+    <span class="modal-title modalheader">{{EditableCtrl.ePage.Entities.Header.Data.OrgHeader.Code}}</span>
+    <button class="btn btn-xs btn-warning pull-right ml-5" ng-click="EditableCtrl.ePage.Masters.Cancel()" ng-disabled="EditableCtrl.ePage.Masters.IsDisableSave">Close</button>
+    <button class="btn btn-xs btn-primary pull-right" ng-click="EditableCtrl.ePage.Masters.Validation('OrgMiscServ')" ng-disabled="EditableCtrl.ePage.Masters.IsDisableSave">{{EditableCtrl.ePage.Masters.SaveButtonText}}</button>
 </div>
 <div class="modal-body pb-50">
 
@@ -14,7 +16,7 @@
                 <div class="form-group">
                     <div class="">
                         <label>FIFO Fallback</label>
-                        <input type="text"  class="form-control input-sm"  data-ng-model="EditableCtrl.ePage.Entities.Data.OrgMiscServ.WmsPickFromDefaultFIFO" readonly=''/>
+                        <input type="text"  class="form-control input-sm"  data-ng-model="EditableCtrl.ePage.Entities.Header.Data.OrgMiscServ.WmsPickFromDefaultFIFO" readonly=''/>
                     </div>    
                 </div>
             </div>
@@ -36,7 +38,7 @@
                 <div class="form-group">
                     <div class="">
                         <label>Expiry Date</label>
-                        <input type="text"  class="form-control input-sm"  data-ng-model="EditableCtrl.ePage.Entities.Data.OrgMiscServ.WmsPickSortExpiryDate" readonly=''/>
+                        <input type="text"  class="form-control input-sm"  data-ng-model="EditableCtrl.ePage.Entities.Header.Data.OrgMiscServ.WmsPickSortExpiryDate" readonly=''/>
                     </div>    
                 </div>
             </div>

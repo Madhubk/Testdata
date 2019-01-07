@@ -5,21 +5,24 @@
     .module("Application")
     .controller("EditableController", EditableController);
 
-    EditableController.$inject = ["$uibModalInstance","entity","helperService","organizationConfig","apiService","authService","toastr","$timeout","confirmation"];
+    EditableController.$inject = ["$uibModalInstance","param","helperService","organizationConfig","apiService","authService","toastr","$timeout","confirmation"];
     
-    function EditableController($uibModalInstance,entity,helperService,organizationConfig,apiService,authService,toastr,$timeout,confirmation) {
+    function EditableController($uibModalInstance,param,helperService,organizationConfig,apiService,authService,toastr,$timeout,confirmation) {
 
         var EditableCtrl = this;
 
         function Init() {
+            var currentOrganization = param.Entity[param.Entity.label].ePage.Entities;
 
             EditableCtrl.ePage = {
                 "Title": "",
                 "Prefix": "Editable Mode",
                 "Masters": {},
                 "Meta": helperService.metaBase(),
-                "Entities": angular.copy(entity)
+                "Entities": angular.copy(currentOrganization)
             };
+
+            EditableCtrl.ePage.Masters.param = angular.copy(param);
 
             //General Functions
             EditableCtrl.ePage.Masters.SaveButtonText = "Save";
@@ -82,10 +85,10 @@
             ]
             EditableCtrl.ePage.Masters.ReceivingSequence.map(function(value){
                 if(value.displayvalue!=0){
-                    if(value.displayvalue== EditableCtrl.ePage.Entities.Data.OrgMiscServ.WmsPutawayToLocation 
-                        || value.displayvalue== EditableCtrl.ePage.Entities.Data.OrgMiscServ.WmsPutawayToPickFace
-                        || value.displayvalue== EditableCtrl.ePage.Entities.Data.OrgMiscServ.WmsPutawayToClientArea
-                        || value.displayvalue== EditableCtrl.ePage.Entities.Data.OrgMiscServ.WmsPutawayToProductArea)
+                    if(value.displayvalue== EditableCtrl.ePage.Entities.Header.Data.OrgMiscServ.WmsPutawayToLocation 
+                        || value.displayvalue== EditableCtrl.ePage.Entities.Header.Data.OrgMiscServ.WmsPutawayToPickFace
+                        || value.displayvalue== EditableCtrl.ePage.Entities.Header.Data.OrgMiscServ.WmsPutawayToClientArea
+                        || value.displayvalue== EditableCtrl.ePage.Entities.Header.Data.OrgMiscServ.WmsPutawayToProductArea)
                     value.disabled = true;
                 }
             });
@@ -93,13 +96,13 @@
 
         function UpdatingReceivingValue(value,field){
             if(field=="LOCATION"){
-                EditableCtrl.ePage.Entities.Data.OrgMiscServ.WmsPutawayToLocation = value; 
+                EditableCtrl.ePage.Entities.Header.Data.OrgMiscServ.WmsPutawayToLocation = value; 
             }else if(field=="PICKFACE"){
-                EditableCtrl.ePage.Entities.Data.OrgMiscServ.WmsPutawayToPickFace = value;
+                EditableCtrl.ePage.Entities.Header.Data.OrgMiscServ.WmsPutawayToPickFace = value;
             }else if(field=="CLIENTAREA"){
-                EditableCtrl.ePage.Entities.Data.OrgMiscServ.WmsPutawayToClientArea = value;
+                EditableCtrl.ePage.Entities.Header.Data.OrgMiscServ.WmsPutawayToClientArea = value;
             }else if(field=="PRODUCTAREA"){
-                EditableCtrl.ePage.Entities.Data.OrgMiscServ.WmsPutawayToProductArea = value;
+                EditableCtrl.ePage.Entities.Header.Data.OrgMiscServ.WmsPutawayToProductArea = value;
             }
 
             CreatingReceivingSequence();
@@ -107,17 +110,17 @@
 
         function OverridingSystemSetting(data){
             if(!data){
-                EditableCtrl.ePage.Entities.Data.OrgMiscServ.WmsPutawayToLocation = 0;
-                EditableCtrl.ePage.Entities.Data.OrgMiscServ.WmsPutawayToPickFace = 0;
-                EditableCtrl.ePage.Entities.Data.OrgMiscServ.WmsPutawayToClientArea = 0;
-                EditableCtrl.ePage.Entities.Data.OrgMiscServ.WmsPutawayToProductArea = 0;
+                EditableCtrl.ePage.Entities.Header.Data.OrgMiscServ.WmsPutawayToLocation = 0;
+                EditableCtrl.ePage.Entities.Header.Data.OrgMiscServ.WmsPutawayToPickFace = 0;
+                EditableCtrl.ePage.Entities.Header.Data.OrgMiscServ.WmsPutawayToClientArea = 0;
+                EditableCtrl.ePage.Entities.Header.Data.OrgMiscServ.WmsPutawayToProductArea = 0;
             }
         }
 
          //#region Add,copy,delete row
 
          function SelectAllCheckBox(){
-            angular.forEach(EditableCtrl.ePage.Entities.Data.WmsClientParameterByWarehouse, function (value, key) {
+            angular.forEach(EditableCtrl.ePage.Entities.Header.Data.WmsClientParameterByWarehouse, function (value, key) {
             if (EditableCtrl.ePage.Masters.SelectAll){
                 value.SingleSelect = true;
                 EditableCtrl.ePage.Masters.EnableDeleteButton = true;
@@ -131,7 +134,7 @@
             });
         }
          function SingleSelectCheckBox() {
-            var Checked = EditableCtrl.ePage.Entities.Data.WmsClientParameterByWarehouse.some(function (value, key) {
+            var Checked = EditableCtrl.ePage.Entities.Header.Data.WmsClientParameterByWarehouse.some(function (value, key) {
                 if(!value.SingleSelect)
                 return true;
             });
@@ -141,7 +144,7 @@
                 EditableCtrl.ePage.Masters.SelectAll = true;
             }
 
-            var Checked1 = EditableCtrl.ePage.Entities.Data.WmsClientParameterByWarehouse.some(function (value, key) {
+            var Checked1 = EditableCtrl.ePage.Entities.Header.Data.WmsClientParameterByWarehouse.some(function (value, key) {
                 return value.SingleSelect == true;
             });
             if (Checked1) {
@@ -168,8 +171,8 @@
                 "AreaType": "",
                 "IsDeleted": false,
             };
-            EditableCtrl.ePage.Entities.Data.WmsClientParameterByWarehouse.push(obj);
-            EditableCtrl.ePage.Masters.selectedRow = EditableCtrl.ePage.Entities.Data.WmsClientParameterByWarehouse.length-1;
+            EditableCtrl.ePage.Entities.Header.Data.WmsClientParameterByWarehouse.push(obj);
+            EditableCtrl.ePage.Masters.selectedRow = EditableCtrl.ePage.Entities.Header.Data.WmsClientParameterByWarehouse.length-1;
         
             $timeout(function () {
                 var objDiv = document.getElementById("EditableCtrl.ePage.Masters.AddScroll");
@@ -178,15 +181,15 @@
         };
 
         function CopyRow() {
-            for(var i = EditableCtrl.ePage.Entities.Data.WmsClientParameterByWarehouse.length -1; i >= 0; i--){
-                if(EditableCtrl.ePage.Entities.Data.WmsClientParameterByWarehouse[i].SingleSelect){
-                    var obj = angular.copy(EditableCtrl.ePage.Entities.Data.WmsClientParameterByWarehouse[i]);
+            for(var i = EditableCtrl.ePage.Entities.Header.Data.WmsClientParameterByWarehouse.length -1; i >= 0; i--){
+                if(EditableCtrl.ePage.Entities.Header.Data.WmsClientParameterByWarehouse[i].SingleSelect){
+                    var obj = angular.copy(EditableCtrl.ePage.Entities.Header.Data.WmsClientParameterByWarehouse[i]);
                     obj.PK = '';
                     obj.CreatedDateTime = '';
                     obj.ModifiedDateTime = '';
                     obj.SingleSelect=false;
                     obj.IsCopied = true;
-                    EditableCtrl.ePage.Entities.Data.WmsClientParameterByWarehouse.splice(i + 1, 0, obj);
+                    EditableCtrl.ePage.Entities.Header.Data.WmsClientParameterByWarehouse.splice(i + 1, 0, obj);
                 }
             }
             EditableCtrl.ePage.Masters.selectedRow = -1;
@@ -203,7 +206,7 @@
             confirmation.showModal({}, modalOptions)
                 .then(function (result) {
 
-                    angular.forEach(EditableCtrl.ePage.Entities.Data.WmsClientParameterByWarehouse,function(value,key){
+                    angular.forEach(EditableCtrl.ePage.Entities.Header.Data.WmsClientParameterByWarehouse,function(value,key){
                         if(value.SingleSelect==true && value.PK){
                             apiService.get("eAxisAPI", EditableCtrl.ePage.Entities.Header.API.AreaDelete.Url + value.PK).then(function (response) {
                             });
@@ -212,9 +215,9 @@
             
                     var ReturnValue = RemoveAllLineErrors();
                     if(ReturnValue){
-                        for (var i = EditableCtrl.ePage.Entities.Data.WmsClientParameterByWarehouse.length -1; i >= 0; i--){
-                            if(EditableCtrl.ePage.Entities.Data.WmsClientParameterByWarehouse[i].SingleSelect==true)
-                            EditableCtrl.ePage.Entities.Data.WmsClientParameterByWarehouse.splice(i,1);
+                        for (var i = EditableCtrl.ePage.Entities.Header.Data.WmsClientParameterByWarehouse.length -1; i >= 0; i--){
+                            if(EditableCtrl.ePage.Entities.Header.Data.WmsClientParameterByWarehouse[i].SingleSelect==true)
+                            EditableCtrl.ePage.Entities.Header.Data.WmsClientParameterByWarehouse.splice(i,1);
                         }
                         EditableCtrl.ePage.Masters.Config.GeneralValidation(EditableCtrl.currentWarehouse);
                     }
@@ -252,7 +255,7 @@
             ]
             EditableCtrl.ePage.Masters.PickingSequence.map(function(value){
                 if(value.displayvalue!=0){
-                    if(value.displayvalue== EditableCtrl.ePage.Entities.Data.OrgMiscServ.WmsPickFromDefaultFIFO || value.displayvalue== EditableCtrl.ePage.Entities.Data.OrgMiscServ.WmsPickSortExpiryDate)
+                    if(value.displayvalue== EditableCtrl.ePage.Entities.Header.Data.OrgMiscServ.WmsPickFromDefaultFIFO || value.displayvalue== EditableCtrl.ePage.Entities.Header.Data.OrgMiscServ.WmsPickSortExpiryDate)
                     value.disabled = true;
                 }
             });
@@ -260,9 +263,9 @@
 
         function UpdatingPickingValue(value,field){
             if(field=="FIFO"){
-                EditableCtrl.ePage.Entities.Data.OrgMiscServ.WmsPickFromDefaultFIFO = value; 
+                EditableCtrl.ePage.Entities.Header.Data.OrgMiscServ.WmsPickFromDefaultFIFO = value; 
             }else if(field=="EXPIRY"){
-                EditableCtrl.ePage.Entities.Data.OrgMiscServ.WmsPickSortExpiryDate = value;
+                EditableCtrl.ePage.Entities.Header.Data.OrgMiscServ.WmsPickSortExpiryDate = value;
             }
             CreatingPickingSequence();
         }
@@ -272,7 +275,7 @@
         //#region Barcode
 
         function GetBarcodeValues(){
-            angular.forEach(EditableCtrl.ePage.Entities.Data.OrgBarcode,function(value,key){
+            angular.forEach(EditableCtrl.ePage.Entities.Header.Data.OrgBarcode,function(value,key){
                 if(value.Key=="BarcodeType")
                 EditableCtrl.ePage.Masters.BarcodeType = value.Value;
 
@@ -323,16 +326,15 @@
         }
 
         function Validation(CurrentEntity){
-            debugger
             var DontSave = false;
 
             if(CurrentEntity=='OrgMiscServ'){
-                if ((EditableCtrl.ePage.Entities.Data.OrgMiscServ.IMPartAttrib1Name && !EditableCtrl.ePage.Entities.Data.OrgMiscServ.IMPartAttrib1Type) ||
-                    (EditableCtrl.ePage.Entities.Data.OrgMiscServ.IMPartAttrib2Name && !EditableCtrl.ePage.Entities.Data.OrgMiscServ.IMPartAttrib2Type) ||
-                    (EditableCtrl.ePage.Entities.Data.OrgMiscServ.IMPartAttrib3Name && !EditableCtrl.ePage.Entities.Data.OrgMiscServ.IMPartAttrib3Type) ||
-                    (!EditableCtrl.ePage.Entities.Data.OrgMiscServ.IMPartAttrib1Name && EditableCtrl.ePage.Entities.Data.OrgMiscServ.IMPartAttrib1Type) ||
-                    (!EditableCtrl.ePage.Entities.Data.OrgMiscServ.IMPartAttrib2Name && EditableCtrl.ePage.Entities.Data.OrgMiscServ.IMPartAttrib2Type) ||
-                    (!EditableCtrl.ePage.Entities.Data.OrgMiscServ.IMPartAttrib3Name && EditableCtrl.ePage.Entities.Data.OrgMiscServ.IMPartAttrib3Type)) {   
+                if ((EditableCtrl.ePage.Entities.Header.Data.OrgMiscServ.IMPartAttrib1Name && !EditableCtrl.ePage.Entities.Header.Data.OrgMiscServ.IMPartAttrib1Type) ||
+                    (EditableCtrl.ePage.Entities.Header.Data.OrgMiscServ.IMPartAttrib2Name && !EditableCtrl.ePage.Entities.Header.Data.OrgMiscServ.IMPartAttrib2Type) ||
+                    (EditableCtrl.ePage.Entities.Header.Data.OrgMiscServ.IMPartAttrib3Name && !EditableCtrl.ePage.Entities.Header.Data.OrgMiscServ.IMPartAttrib3Type) ||
+                    (!EditableCtrl.ePage.Entities.Header.Data.OrgMiscServ.IMPartAttrib1Name && EditableCtrl.ePage.Entities.Header.Data.OrgMiscServ.IMPartAttrib1Type) ||
+                    (!EditableCtrl.ePage.Entities.Header.Data.OrgMiscServ.IMPartAttrib2Name && EditableCtrl.ePage.Entities.Header.Data.OrgMiscServ.IMPartAttrib2Type) ||
+                    (!EditableCtrl.ePage.Entities.Header.Data.OrgMiscServ.IMPartAttrib3Name && EditableCtrl.ePage.Entities.Header.Data.OrgMiscServ.IMPartAttrib3Type)) {   
                         toastr.warning ("UDF Type or Name is Missed");
                         DontSave = true;
                 }
@@ -344,7 +346,7 @@
                     "IsJson" : false,
                     "IsModified":false,
                     "Key":"",
-                    "ORG_FK":EditableCtrl.ePage.Entities.Data.OrgHeader.PK,
+                    "ORG_FK":EditableCtrl.ePage.Entities.Header.Data.OrgHeader.PK,
                     "PK":"",
                     "TypeCode":"",
                     "Value":""
@@ -352,7 +354,7 @@
 
                 //Barcode
                 if(EditableCtrl.ePage.Masters.BarcodeType){
-                    var BarcodeType = EditableCtrl.ePage.Entities.Data.OrgBarcode.some(function(value,key){
+                    var BarcodeType = EditableCtrl.ePage.Entities.Header.Data.OrgBarcode.some(function(value,key){
                          if(value.Key == "BarcodeType"){
                              value.Value = EditableCtrl.ePage.Masters.BarcodeType;
                              return true;
@@ -366,20 +368,19 @@
                         data.Key = "BarcodeType",
                         data.TypeCode = "Barcode",
                         data.Value = EditableCtrl.ePage.Masters.BarcodeType;
-                        EditableCtrl.ePage.Entities.Data.OrgBarcode.push(data);
+                        EditableCtrl.ePage.Entities.Header.Data.OrgBarcode.push(data);
                     }
                 }else{
-                    var index = EditableCtrl.ePage.Entities.Data.OrgBarcode.map(function(v,k){
-                        return v.TypeCode
-                    }).indexOf('Barcode');
-
-                    if(index!=-1)
-                    EditableCtrl.ePage.Entities.Data.OrgBarcode.splice(index, 1);
+                    EditableCtrl.ePage.Entities.Header.Data.OrgBarcode.map(function(v,k){
+                        if(v.TypeCode=="Barcode"){
+                            v.IsDeleted = true;
+                        }
+                    });
                 }
 
                 //Barcode Rule
                 if(EditableCtrl.ePage.Masters.BarcodeRule){
-                    var BarcodeRule = EditableCtrl.ePage.Entities.Data.OrgBarcode.some(function(value,key){
+                    var BarcodeRule = EditableCtrl.ePage.Entities.Header.Data.OrgBarcode.some(function(value,key){
                         if(value.Key == "BarcodeRule"){
                             value.Value = EditableCtrl.ePage.Masters.BarcodeRule;
                             return true;
@@ -393,20 +394,19 @@
                         data.Key = "BarcodeRule",
                         data.TypeCode = "Barcode",
                         data.Value = EditableCtrl.ePage.Masters.BarcodeRule;
-                        EditableCtrl.ePage.Entities.Data.OrgBarcode.push(data);
+                        EditableCtrl.ePage.Entities.Header.Data.OrgBarcode.push(data);
                     }
                 }else{
-                    var index = EditableCtrl.ePage.Entities.Data.OrgBarcode.map(function(v,k){
-                        return v.TypeCode
-                    }).indexOf('Barcode');
-
-                    if(index!=-1)
-                    EditableCtrl.ePage.Entities.Data.OrgBarcode.splice(index, 1);
+                    EditableCtrl.ePage.Entities.Header.Data.OrgBarcode.map(function(v,k){
+                        if(v.TypeCode=="Barcode"){
+                            v.IsDeleted = true;
+                        }
+                    });
                 }
 
                 //Packing Date Rule
                 if(EditableCtrl.ePage.Masters.PackingDateRule){
-                    var PackingDateRule = EditableCtrl.ePage.Entities.Data.OrgBarcode.some(function(value,key){
+                    var PackingDateRule = EditableCtrl.ePage.Entities.Header.Data.OrgBarcode.some(function(value,key){
                         if(value.Key == "PackingDateRule"){
                             value.Value = EditableCtrl.ePage.Masters.PackingDateRule;
                             return true;
@@ -420,20 +420,19 @@
                         data.Key = "PackingDateRule",
                         data.TypeCode = "PackingDate",
                         data.Value = EditableCtrl.ePage.Masters.PackingDateRule;
-                        EditableCtrl.ePage.Entities.Data.OrgBarcode.push(data);
+                        EditableCtrl.ePage.Entities.Header.Data.OrgBarcode.push(data);
                     }
                 }else{
-                    var index = EditableCtrl.ePage.Entities.Data.OrgBarcode.map(function(v,k){
-                        return v.TypeCode
-                    }).indexOf('PackingDate');
-
-                    if(index!=-1)
-                    EditableCtrl.ePage.Entities.Data.OrgBarcode.splice(index, 1);
+                    EditableCtrl.ePage.Entities.Header.Data.OrgBarcode.map(function(v,k){
+                        if(v.TypeCode=="PackingDate"){
+                            v.IsDeleted = true;
+                        }
+                    });
                 }
 
                 //Expiry Date Rule
                 if(EditableCtrl.ePage.Masters.ExpiryDateRule){
-                    var ExpiryDateRule = EditableCtrl.ePage.Entities.Data.OrgBarcode.some(function(value,key){
+                    var ExpiryDateRule = EditableCtrl.ePage.Entities.Header.Data.OrgBarcode.some(function(value,key){
                         if(value.Key == "ExpiryDateRule"){
                             value.Value = EditableCtrl.ePage.Masters.ExpiryDateRule;
                             return true;
@@ -447,15 +446,14 @@
                         data.Key = "ExpiryDateRule",
                         data.TypeCode = "ExpiryDate",
                         data.Value = EditableCtrl.ePage.Masters.ExpiryDateRule;
-                        EditableCtrl.ePage.Entities.Data.OrgBarcode.push(data);
+                        EditableCtrl.ePage.Entities.Header.Data.OrgBarcode.push(data);
                     }
                 }else{
-                    var index = EditableCtrl.ePage.Entities.Data.OrgBarcode.map(function(v,k){
-                        return v.TypeCode
-                    }).indexOf('ExpiryDate');
-
-                    if(index!=-1)
-                    EditableCtrl.ePage.Entities.Data.OrgBarcode.splice(index, 1);
+                    EditableCtrl.ePage.Entities.Header.Data.OrgBarcode.map(function(v,k){
+                        if(v.TypeCode=="ExpiryDate"){
+                            v.IsDeleted = true;
+                        }
+                    });
                 }
             }
             //#endregion
@@ -471,20 +469,22 @@
             EditableCtrl.ePage.Masters.IsDisableSave = true;
 
             if(CurrentEntity=='WmsClientParameterByWarehouse'){
-                EditableCtrl.ePage.Entities.Data.OrgMiscServ = filterObjectUpdate(EditableCtrl.ePage.Entities.Data.OrgMiscServ, "IsModified");
+                EditableCtrl.ePage.Entities.Header.Data.OrgMiscServ = filterObjectUpdate(EditableCtrl.ePage.Entities.Header.Data.OrgMiscServ, "IsModified");
             }
-            EditableCtrl.ePage.Entities.Data[CurrentEntity] = filterObjectUpdate(EditableCtrl.ePage.Entities.Data[CurrentEntity], "IsModified");
-
-            apiService.post("eAxisAPI", organizationConfig.Entities.API.Org.API.Update.Url, EditableCtrl.ePage.Entities.Data).then(function (response) {
-                if (response.data.Status == "Success") {
-                    EditableCtrl.ePage.Entities.Data = response.data.Response;
-                    EditableCtrl.ePage.Masters.SaveButtonText = "Save";
-                    EditableCtrl.ePage.Masters.IsDisableSave = false;
-                    $uibModalInstance.close(EditableCtrl.ePage.Entities.Data);
-
-                } else if (response.data.Status == "ValidationFailed" || response.data.Status == "failed") {
-                    if (response.data.Validations && response.data.Validations.length > 0) {
-                        response.data.Validations.map(function (value, key) {
+            EditableCtrl.ePage.Entities.Header.Data[CurrentEntity] = filterObjectUpdate(EditableCtrl.ePage.Entities.Header.Data[CurrentEntity], "IsModified");
+            
+            EditableCtrl.ePage.Masters.param.Entity[EditableCtrl.ePage.Masters.param.Entity.label].ePage.Entities.Header.Data = EditableCtrl.ePage.Entities.Header.Data;
+            helperService.SaveEntity(EditableCtrl.ePage.Masters.param.Entity, 'Organization').then(function (response) {
+                if (response.Status === "success") {
+                    if (response.Data) {
+                        var _exports = {
+                            data: response.Data
+                        };
+                        $uibModalInstance.close(_exports);
+                    }
+                } else if (response.Status == "ValidationFailed" || response.Status == "failed") {
+                    if (response.Validations && response.Validations.length > 0) {
+                        response.Validations.map(function (value, key) {
                             toastr.error(value.Message);
                         });
                     } else {
@@ -494,8 +494,8 @@
                     EditableCtrl.ePage.Masters.IsDisableSave = false;
                     $uibModalInstance.close();
                 }
+
             });
-            
         }
 
         function filterObjectUpdate(obj, key) {
