@@ -257,7 +257,7 @@
         }
 
         function GetErrorMessage($item) {
-            if ($item.IsValidExpression) {
+            if (!$item.IsValidExpression) {
                 var _pushObj = {
                     Code: $item.value.Code,
                     Message: $item.value.Message,

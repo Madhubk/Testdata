@@ -73,7 +73,7 @@
                         <label class="color-999 fs-11">Transportation Cost</label>
                         <div class="">
                             <input type="text"  class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Transportation Cost"
-                                data-ng-model="ApproveManifestCtrl.ePage.Entities.Header.Data.TmsManifestHeader.TransportationCost" ng-disabled = "ApproveManifestCtrl.ePage.Entities.Header.Data.TmsManifestHeader.SubmittedDateTime">
+                                data-ng-model="ApproveManifestCtrl.ePage.Entities.Header.Data.TmsManifestHeader.TransportationCost" ng-disabled = "ApproveManifestCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ManifestCompleteDatetime">
                         </div>
                     </div>
                 </div>
@@ -81,7 +81,7 @@
                     <div class="form-group">
                         <label class="color-999 fs-11">Currency</label>
                         <select chosen class="form-control" ng-model="ApproveManifestCtrl.ePage.Entities.Header.Data.TmsManifestHeader.CostCurrency" ng-options="x.Key as x.Key+' - '+x.Value for x in ApproveManifestCtrl.ePage.Masters.DropDownMasterList.Currency.ListSource"
-                            search-contains="true" ng-disabled = "ApproveManifestCtrl.ePage.Entities.Header.Data.TmsManifestHeader.SubmittedDateTime">
+                            search-contains="true" ng-disabled = "ApproveManifestCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ManifestCompleteDatetime">
                                 <option value="">--Select--</option>
                         </select>
                     </div>
@@ -164,7 +164,7 @@
                     <div class='table_cell'>
                         <div class="">
                             <input type="text"  class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Billable Amount" 
-                            data-ng-model="x.TMC_BillableAmount" ng-disabled = "ApproveManifestCtrl.ePage.Entities.Header.Data.TmsManifestHeader.SubmittedDateTime">
+                            data-ng-model="x.TMC_BillableAmount" ng-disabled = "ApproveManifestCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ManifestCompleteDatetime">
                         </div>
                     </div>
                 </div>
@@ -173,7 +173,7 @@
                     <div class='table_cell'>
                         <div class="">
                                 <select chosen class="form-control" ng-model="x.TMC_BillableCurrency" ng-options="x.Key as x.Key+' - '+x.Value for x in ApproveManifestCtrl.ePage.Masters.DropDownMasterList.Currency.ListSource"
-                                search-contains="true" ng-disabled = "ApproveManifestCtrl.ePage.Entities.Header.Data.TmsManifestHeader.SubmittedDateTime">
+                                search-contains="true" ng-disabled = "ApproveManifestCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ManifestCompleteDatetime">
                                     <option value="">--Select--</option>
                             </select>
                         </div>

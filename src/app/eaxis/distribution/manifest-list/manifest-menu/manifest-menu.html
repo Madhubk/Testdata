@@ -34,8 +34,11 @@
             dms-manifest-orders dataentry-object="DMSManifestMenuCtrl.dataentryObject" current-manifest="DMSManifestMenuCtrl.currentManifest"></div>
         <div ng-if="DMSManifestMenuCtrl.ePage.Masters.IsActive=='AttachLines'&& !DMSManifestMenuCtrl.ePage.Entities.Header.Data.TmsManifestHeader.SubmittedDateTime"
             dms-manifest-item dataentry-object="DMSManifestMenuCtrl.dataentryObject" current-manifest="DMSManifestMenuCtrl.currentManifest"></div>
-        <div ng-if="DMSManifestMenuCtrl.ePage.Masters.IsActive=='ConfirmTransportBooking'" confirm-transport dataentry-object="DMSManifestMenuCtrl.dataentryObject"
-            current-manifest="DMSManifestMenuCtrl.currentManifest"></div>
+        <div ng-if="!DMSManifestMenuCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ManifestCompleteDatetime && DMSManifestMenuCtrl.ePage.Masters.IsActive=='ConfirmTransportBooking'"
+            confirm-transport dataentry-object="DMSManifestMenuCtrl.dataentryObject" current-manifest="DMSManifestMenuCtrl.currentManifest"></div>
+        <!--if manifest is completed -->
+        <div ng-if="DMSManifestMenuCtrl.ePage.Masters.IsActive=='ConfirmTransportBooking' && DMSManifestMenuCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ManifestCompleteDatetime"
+            confirm-booking-view dataentry-object="DMSManifestMenuCtrl.dataentryObject" current-manifest="DMSManifestMenuCtrl.currentManifest"></div>
         <!-- If manifest is approved -->
         <div ng-if="DMSManifestMenuCtrl.ePage.Masters.IsActive=='CreateManifest' && DMSManifestMenuCtrl.ePage.Entities.Header.Data.TmsManifestHeader.SubmittedDateTime"
             create-manifest-view dataentry-object="DMSManifestMenuCtrl.dataentryObject" current-manifest="DMSManifestMenuCtrl.currentManifest"></div>
