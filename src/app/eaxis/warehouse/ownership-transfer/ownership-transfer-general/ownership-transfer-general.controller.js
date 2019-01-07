@@ -60,8 +60,7 @@
 
             OwnershipTransferGeneralCtrl.ePage.Masters.SelectedLookupClient = SelectedLookupClient;
             OwnershipTransferGeneralCtrl.ePage.Masters.SelectedLookupWarehouse = SelectedLookupWarehouse;
-            OwnershipTransferGeneralCtrl.ePage.Masters.SelectedLocationSource = SelectedLocationSource;
-            OwnershipTransferGeneralCtrl.ePage.Masters.SelectedLocationDestination = SelectedLocationDestination;
+            OwnershipTransferGeneralCtrl.ePage.Masters.SelectedLookupLocation = SelectedLookupLocation;
             OwnershipTransferGeneralCtrl.ePage.Masters.SelectedLookupProduct = SelectedLookupProduct;
             OwnershipTransferGeneralCtrl.ePage.Masters.SelectedLookupTransferFromClient = SelectedLookupTransferFromClient;
 
@@ -112,7 +111,7 @@
             }
         }
 
-        function SelectedLookupTransferFromClient(item) {            
+        function SelectedLookupTransferFromClient(item) {
             OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.TransferFrom_ORG = item.Code + "-" + item.FullName;
             OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.TransferFrom_ORG_Code = item.Code;
             OnChangeValues(OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.TransferFrom_ORG_Code, 'E3077');
@@ -529,7 +528,7 @@
         }
 
         function AddNewRow() {
-            if (!OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.Client || !OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.Warehouse) {
+            if (!OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.Client || !OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.TransferFrom_ORG || !OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.Warehouse) {
                 OwnershipTransferGeneralCtrl.ePage.Masters.Config.GeneralValidation(OwnershipTransferGeneralCtrl.currentOwnerTransfer);
                 OwnershipTransferGeneralCtrl.ePage.Masters.Config.ShowErrorWarningModal(OwnershipTransferGeneralCtrl.currentOwnerTransfer);
             } else {
@@ -578,16 +577,16 @@
                     "IsPartAttrib2ReleaseCaptured": false,
                     "IsPartAttrib3ReleaseCaptured": false,
 
-                    "ORG_ClientCode": OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.ClientCode,
-                    "ORG_ClientName": OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.ClientName,
-                    "Client_FK": OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.ORG_Client_FK,
+                    "ORG_ClientCode": OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.TransferFrom_ORG_Code,
+                    "ORG_ClientName": OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.TransferFrom_ORG_FullName,
+                    "Client_FK": OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.TransferFrom_ORG_FK,
 
                     "WAR_WarehouseCode": OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.WarehouseCode,
                     "WAR_WarehouseName": OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.WarehouseName,
                     "WAR_FK": OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.WAR_FK,
                 };
-                if (OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.Client) {
-                    obj.Client = OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.ClientCode
+                if (OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.TransferFrom_ORG) {
+                    obj.Client = OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.TransferFrom_ORG_Code
                     obj.ClientRelationship = "OWN";
                 }
                 OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferLine.push(obj);
@@ -758,39 +757,14 @@
 
         //#region  Selectedlookups
 
-        function SelectedLocationSource(item, index) {
-            OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferLine[index].WLO_TransferFrom = item.Location;
-            OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferLine[index].WLO_TransferFrom_FK = item.PK;
-
-            OnChangeValues(OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferLine[index].WLO_TransferFrom, "E11008", true, index);
-            if (OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferLine[index].WLO_TransferFrom) {
-                if (OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferLine[index].WLO_TransferFrom == OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferLine[index].WLO_Location) {
-                    OnChangeValues(null, "E11013", true, index);
-                    OnChangeValues(null, "E11014", true, index);
-                } else {
-                    OnChangeValues('value', "E11013", true, index);
-                    OnChangeValues('value', "E11014", true, index);
-                }
-            }
-            OnChangeValues('value', 'E11029', true, index);
-        }
-
-        function SelectedLocationDestination(item, index) {
+        function SelectedLookupLocation(item, index) {
             OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferLine[index].WLO_Location = item.Location;
             OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferLine[index].WLO_LocationStatus = item.LocationStatus;
             OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferLine[index].WLO_LocationStatusDescription = item.LocationStatusDescription;
             OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferLine[index].WLO_FK = item.PK;
 
             OnChangeValues(OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferLine[index].WLO_Location, "E11009", true, index);
-            if (OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferLine[index].WLO_Location) {
-                if (OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferLine[index].WLO_TransferFrom == OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferLine[index].WLO_Location) {
-                    OnChangeValues(null, "E11013", true, index);
-                    OnChangeValues(null, "E11014", true, index);
-                } else {
-                    OnChangeValues('value', "E11013", true, index);
-                    OnChangeValues('value', "E11014", true, index);
-                }
-            }
+
             OnChangeValues('value', 'E11028', true, index);
         }
 
@@ -824,19 +798,19 @@
         //#region Inventory Line Details
 
         function CloseFilterList() {
-            $('#filterSideBar' + "WarehouseInventory" + OwnershipTransferGeneralCtrl.currentOwnerTransfer.label).removeClass('open');
+            $('#filterSideBar' + "OwnershipWarehouseInventory" + OwnershipTransferGeneralCtrl.currentOwnerTransfer.label).removeClass('open');
         }
 
         function GetFilterList() {
             $timeout(function () {
-                $('#filterSideBar' + "WarehouseInventory" + OwnershipTransferGeneralCtrl.currentOwnerTransfer.label).toggleClass('open');
+                $('#filterSideBar' + "OwnershipWarehouseInventory" + OwnershipTransferGeneralCtrl.currentOwnerTransfer.label).toggleClass('open');
             });
         }
 
         function DefaultFilter() {
-            if (OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.ClientCode && OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.WarehouseCode) {
+            if (OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.TransferFrom_ORG_Code && OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.WarehouseCode) {
                 OwnershipTransferGeneralCtrl.ePage.Masters.defaultFilter = {
-                    "ClientCode": OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.ClientCode,
+                    "TransferFrom_ORG_Code": OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.TransferFrom_ORG_Code,
                     "WAR_WarehouseCode": OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.WarehouseCode,
                     "InventoryStatusIn": "AVL,HEL"
                 };
@@ -848,7 +822,7 @@
         function GetConfigDetails() {
             // Get Dynamic filter controls
             var _filter = {
-                DataEntryName: "WarehouseInventory"
+                DataEntryName: "OwnershipWarehouseInventory"
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
@@ -887,10 +861,10 @@
 
 
         function Filter() {
-
+            
             // if searching input and original client and warehouse same then only process
 
-            if ((OwnershipTransferGeneralCtrl.ePage.Masters.DynamicControl.Entities[0].Data.ClientCode == OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.ClientCode) && (OwnershipTransferGeneralCtrl.ePage.Masters.DynamicControl.Entities[0].Data.WAR_WarehouseCode == OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.WarehouseCode)) {
+            if ((OwnershipTransferGeneralCtrl.ePage.Masters.DynamicControl.Entities[0].Data.TransferFrom_ORG_Code == OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.TransferFrom_ORG_Code) && (OwnershipTransferGeneralCtrl.ePage.Masters.DynamicControl.Entities[0].Data.WAR_WarehouseCode == OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.WarehouseCode)) {
 
                 OwnershipTransferGeneralCtrl.ePage.Masters.Inventory = [];
                 OwnershipTransferGeneralCtrl.ePage.Masters.InventoryLoading = true;
@@ -1097,8 +1071,6 @@
                 OnChangeValues('value', "E11008", true, i);
                 OnChangeValues('value', "E11009", true, i);
                 OnChangeValues('value', "E11010", true, i);
-                OnChangeValues('value', "E11013", true, i);
-                OnChangeValues('value', "E11014", true, i);
                 OnChangeValues('value', "E11015", true, i);
                 OnChangeValues('value', "E11016", true, i);
                 OnChangeValues('value', "E11017", true, i);
