@@ -124,7 +124,9 @@
             }
         }
 
-        function SaveEntity(callback) {
+        function SaveEntity(callback) {            
+            ActivityTemplateOutward2Ctrl.ePage.Masters.IsDisableSaveBtn = true;
+            ActivityTemplateOutward2Ctrl.ePage.Masters.SaveBtnText = "Please Wait..";
             if (ActivityTemplateOutward2Ctrl.taskObj.ProcessName == "WMS_DeliveryMaterial" || ActivityTemplateOutward2Ctrl.taskObj.WSI_StepName == "Transfer Material") {
                 if (myTaskActivityConfig.Entities.DeliveryData) {
                     myTaskActivityConfig.Entities.DeliveryData = filterObjectUpdate(myTaskActivityConfig.Entities.DeliveryData, "IsModified");
@@ -138,24 +140,42 @@
                                 apiService.post("eAxisAPI", appConfig.Entities.WmsPickList.API.Update.Url, myTaskActivityConfig.Entities.PickData[myTaskActivityConfig.Entities.PickData.label].ePage.Entities.Header.Data).then(function (response) {
                                     if (response.data.Response) {
                                         myTaskActivityConfig.Entities.PickData[myTaskActivityConfig.Entities.PickData.label].ePage.Entities.Header.Data = response.data.Response;
-                                        $rootScope.SaveOutwardFromTask(function () {
-                                            apiService.get("eAxisAPI", appConfig.Entities.WmsOutwardList.API.GetById.Url + ActivityTemplateOutward2Ctrl.ePage.Masters.TaskObj.EntityRefKey).then(function (response) {
-                                                if (response.data.Response) {
-                                                    response.data.Response.UIWmsOutwardHeader.Warehouse = response.data.Response.UIWmsOutwardHeader.WarehouseCode + "-" + response.data.Response.UIWmsOutwardHeader.WarehouseName;
-                                                    response.data.Response.UIWmsOutwardHeader.Client = response.data.Response.UIWmsOutwardHeader.ClientCode + "-" + response.data.Response.UIWmsOutwardHeader.ClientName;
-                                                    response.data.Response.UIWmsOutwardHeader.TransferWarehouse = response.data.Response.UIWmsOutwardHeader.TransferTo_WAR_Code + "-" + response.data.Response.UIWmsOutwardHeader.TransferTo_WAR_Name;
-                                                    myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data = response.data.Response;
-                                                    if (callback)
-                                                        callback();
-                                                }
-                                            });
+                                        $rootScope.SaveOutwardFromTask(function (response) {
+                                            if (response == "error") {
+                                                ActivityTemplateOutward2Ctrl.ePage.Masters.IsDisableSaveBtn = false;
+                                                ActivityTemplateOutward2Ctrl.ePage.Masters.SaveBtnText = "Save";
+                                                ActivityTemplateOutward2Ctrl.ePage.Masters.CompleteBtnText = "Complete";
+                                                ActivityTemplateOutward2Ctrl.ePage.Masters.IsDisableCompleteBtn = false;
+                                            } else {
+                                                apiService.get("eAxisAPI", appConfig.Entities.WmsOutwardList.API.GetById.Url + ActivityTemplateOutward2Ctrl.ePage.Masters.TaskObj.EntityRefKey).then(function (response) {
+                                                    if (response.data.Response) {
+                                                        response.data.Response.UIWmsOutwardHeader.Warehouse = response.data.Response.UIWmsOutwardHeader.WarehouseCode + "-" + response.data.Response.UIWmsOutwardHeader.WarehouseName;
+                                                        response.data.Response.UIWmsOutwardHeader.Client = response.data.Response.UIWmsOutwardHeader.ClientCode + "-" + response.data.Response.UIWmsOutwardHeader.ClientName;
+                                                        response.data.Response.UIWmsOutwardHeader.TransferWarehouse = response.data.Response.UIWmsOutwardHeader.TransferTo_WAR_Code + "-" + response.data.Response.UIWmsOutwardHeader.TransferTo_WAR_Name;
+                                                        myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data = response.data.Response;
+                                                        ActivityTemplateOutward2Ctrl.ePage.Masters.IsDisableSaveBtn = false;
+                                                        ActivityTemplateOutward2Ctrl.ePage.Masters.SaveBtnText = "Save";
+                                                        if (callback)
+                                                            callback();
+                                                    }
+                                                });
+                                            }
                                         });
                                     }
                                 });
                             } else {
-                                $rootScope.SaveOutwardFromTask(function () {
-                                    if (callback)
-                                        callback();
+                                $rootScope.SaveOutwardFromTask(function (response) {
+                                    if (response == "error") {
+                                        ActivityTemplateOutward2Ctrl.ePage.Masters.IsDisableSaveBtn = false;
+                                        ActivityTemplateOutward2Ctrl.ePage.Masters.SaveBtnText = "Save";
+                                        ActivityTemplateOutward2Ctrl.ePage.Masters.CompleteBtnText = "Complete";
+                                        ActivityTemplateOutward2Ctrl.ePage.Masters.IsDisableCompleteBtn = false;
+                                    } else {
+                                        ActivityTemplateOutward2Ctrl.ePage.Masters.IsDisableSaveBtn = false;
+                                        ActivityTemplateOutward2Ctrl.ePage.Masters.SaveBtnText = "Save";
+                                        if (callback)
+                                            callback();
+                                    }
                                 });
                             }
                         }
@@ -167,8 +187,12 @@
                         angular.forEach(myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data.UIWmsWorkOrderLine, function (value, key) {
                             angular.forEach(myTaskActivityConfig.Entities.PickupData.UIvwWmsPickupLine, function (value1, key1) {
                                 if (value.Parent_FK == value1.PL_PK) {
-                                    if (value1.PL_WorkOrderLineStatus == "MCW") {
-                                        myTaskActivityConfig.Entities.PickupData.UIWmsPickupLine[key1].WorkOrderLineStatus = "ICW";
+                                    if (value1.PL_WorkOrderLineStatus == "MCWS") {
+                                        myTaskActivityConfig.Entities.PickupData.UIWmsPickupLine[key1].WorkOrderLineStatus = "ICWS";
+                                    } else if (value1.PL_WorkOrderLineStatus == "MCWT") {
+                                        myTaskActivityConfig.Entities.PickupData.UIWmsPickupLine[key1].WorkOrderLineStatus = "ICWT";
+                                    } else if (value1.PL_WorkOrderLineStatus == "MCWR") {
+                                        myTaskActivityConfig.Entities.PickupData.UIWmsPickupLine[key1].WorkOrderLineStatus = "ICWR";
                                     } else if (value1.TESOUT_Pk && value1.PL_WorkOrderLineStatus == "MTW") {
                                         myTaskActivityConfig.Entities.PickupData.UIWmsPickupLine[key1].WorkOrderLineStatus = "ITW";
                                     } else if (value1.TESOUT_Pk && value1.PL_WorkOrderLineStatus == "MRW") {
@@ -193,24 +217,40 @@
                                 apiService.post("eAxisAPI", appConfig.Entities.WmsPickList.API.Update.Url, myTaskActivityConfig.Entities.PickData[myTaskActivityConfig.Entities.PickData.label].ePage.Entities.Header.Data).then(function (response) {
                                     if (response.data.Response) {
                                         myTaskActivityConfig.Entities.PickData[myTaskActivityConfig.Entities.PickData.label].ePage.Entities.Header.Data = response.data.Response;
-                                        $rootScope.SaveOutwardFromTask(function () {
-                                            apiService.get("eAxisAPI", appConfig.Entities.WmsOutwardList.API.GetById.Url + ActivityTemplateOutward2Ctrl.ePage.Masters.TaskObj.EntityRefKey).then(function (response) {
-                                                if (response.data.Response) {
-                                                    response.data.Response.UIWmsOutwardHeader.Warehouse = response.data.Response.UIWmsOutwardHeader.WarehouseCode + "-" + response.data.Response.UIWmsOutwardHeader.WarehouseName;
-                                                    response.data.Response.UIWmsOutwardHeader.Client = response.data.Response.UIWmsOutwardHeader.ClientCode + "-" + response.data.Response.UIWmsOutwardHeader.ClientName;
-                                                    response.data.Response.UIWmsOutwardHeader.TransferWarehouse = response.data.Response.UIWmsOutwardHeader.TransferTo_WAR_Code + "-" + response.data.Response.UIWmsOutwardHeader.TransferTo_WAR_Name;
-                                                    myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data = response.data.Response;
-                                                    if (callback)
-                                                        callback();
-                                                }
-                                            });
+                                        $rootScope.SaveOutwardFromTask(function (response) {
+                                            if (response == "error") {
+                                                ActivityTemplateOutward2Ctrl.ePage.Masters.IsDisableSaveBtn = false;
+                                                ActivityTemplateOutward2Ctrl.ePage.Masters.SaveBtnText = "Save";
+                                                ActivityTemplateOutward2Ctrl.ePage.Masters.CompleteBtnText = "Complete";
+                                                ActivityTemplateOutward2Ctrl.ePage.Masters.IsDisableCompleteBtn = false;
+                                            } else {
+                                                apiService.get("eAxisAPI", appConfig.Entities.WmsOutwardList.API.GetById.Url + ActivityTemplateOutward2Ctrl.ePage.Masters.TaskObj.EntityRefKey).then(function (response) {
+                                                    if (response.data.Response) {
+                                                        response.data.Response.UIWmsOutwardHeader.Warehouse = response.data.Response.UIWmsOutwardHeader.WarehouseCode + "-" + response.data.Response.UIWmsOutwardHeader.WarehouseName;
+                                                        response.data.Response.UIWmsOutwardHeader.Client = response.data.Response.UIWmsOutwardHeader.ClientCode + "-" + response.data.Response.UIWmsOutwardHeader.ClientName;
+                                                        response.data.Response.UIWmsOutwardHeader.TransferWarehouse = response.data.Response.UIWmsOutwardHeader.TransferTo_WAR_Code + "-" + response.data.Response.UIWmsOutwardHeader.TransferTo_WAR_Name;
+                                                        myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data = response.data.Response;
+                                                        ActivityTemplateOutward2Ctrl.ePage.Masters.IsDisableSaveBtn = false;
+                                                        ActivityTemplateOutward2Ctrl.ePage.Masters.SaveBtnText = "Save";
+                                                        if (callback)
+                                                            callback();
+                                                    }
+                                                });
+                                            }
                                         });
                                     }
                                 });
                             } else {
-                                $rootScope.SaveOutwardFromTask(function () {
-                                    if (callback)
-                                        callback();
+                                $rootScope.SaveOutwardFromTask(function (response) {
+                                    if (response == "error") {
+                                        ActivityTemplateOutward2Ctrl.ePage.Masters.IsDisableSaveBtn = false;
+                                        ActivityTemplateOutward2Ctrl.ePage.Masters.SaveBtnText = "Save";
+                                        ActivityTemplateOutward2Ctrl.ePage.Masters.CompleteBtnText = "Complete";
+                                        ActivityTemplateOutward2Ctrl.ePage.Masters.IsDisableCompleteBtn = false;
+                                    } else {
+                                        if (callback)
+                                            callback();
+                                    }
                                 });
                             }
                         }
@@ -417,6 +457,7 @@
                                     response.data.Response = filterObjectUpdate(response.data.Response, "IsModified");
                                     apiService.post("eAxisAPI", appConfig.Entities.WmsPickList.API.Update.Url, response.data.Response).then(function (response) {
                                         if (response.data.Response) {
+                                            myTaskActivityConfig.Entities.PickData[myTaskActivityConfig.Entities.PickData.label].ePage.Entities.Header.Data = response.data.Response;
                                             toastr.success("Pick Finalized Successfully");
                                             CompleteWithSave();
                                         } else {
@@ -428,28 +469,28 @@
                                 }
                             });
                         } else if (ActivityTemplateOutward2Ctrl.taskObj.WSI_StepName == "Deliver Material") {
-                            outwardConfig.ValidationFindall();
-                            var _Data = myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities,
-                                _input = _Data.Header.Data,
-                                _errorcount = _Data.Header.Meta.ErrorWarning.GlobalErrorWarningList;
+                            // outwardConfig.ValidationFindall();
+                            // var _Data = myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities,
+                            //     _input = _Data.Header.Data,
+                            //     _errorcount = _Data.Header.Meta.ErrorWarning.GlobalErrorWarningList;
 
-                            //Validation Call
-                            outwardConfig.GeneralValidation(myTaskActivityConfig.Entities.Outward);
-                            if (_errorcount.length == 0) {
-                                myTaskActivityConfig.Entities.ManifestData.TmsManifestHeader.TransportBookedDateTime = new Date();
-                                myTaskActivityConfig.Entities.ManifestData.TmsManifestConsignment[0].TMC_ActualPickupDateTime = new Date();
-                                myTaskActivityConfig.Entities.ManifestData.TmsManifestConsignment[0].IsModified = true;
-                                myTaskActivityConfig.Entities.ManifestData.TmsManifestHeader.IsModified = true;
-                                apiService.post("eAxisAPI", appConfig.Entities.TmsManifestList.API.Update.Url, myTaskActivityConfig.Entities.ManifestData).then(function (response) {
-                                    if (response.data.Response.Response) {
-                                        myTaskActivityConfig.Entities.ManifestData = response.data.Response.Response;
-                                        outwardConfig.IsSaveManifest = true;
-                                        CompleteWithSave();
-                                    }
-                                });
-                            } else {
-                                ActivityTemplateOutward2Ctrl.ePage.Masters.ShowErrorWarningModal(ActivityTemplateOutward2Ctrl.taskObj.PSI_InstanceNo);
-                            }
+                            // //Validation Call
+                            // outwardConfig.GeneralValidation(myTaskActivityConfig.Entities.Outward);
+                            // if (_errorcount.length == 0) {
+                            myTaskActivityConfig.Entities.ManifestData.TmsManifestHeader.TransportBookedDateTime = new Date();
+                            myTaskActivityConfig.Entities.ManifestData.TmsManifestConsignment[0].TMC_ActualPickupDateTime = new Date();
+                            myTaskActivityConfig.Entities.ManifestData.TmsManifestConsignment[0].IsModified = true;
+                            myTaskActivityConfig.Entities.ManifestData.TmsManifestHeader.IsModified = true;
+                            // apiService.post("eAxisAPI", appConfig.Entities.TmsManifestList.API.Update.Url, myTaskActivityConfig.Entities.ManifestData).then(function (response) {
+                            //     if (response.data.Response.Response) {
+                            //         myTaskActivityConfig.Entities.ManifestData = response.data.Response.Response;
+                            //         outwardConfig.IsSaveManifest = true;
+                            CompleteWithSave();
+                            //     }
+                            // });
+                            // } else {
+                            //     ActivityTemplateOutward2Ctrl.ePage.Masters.ShowErrorWarningModal(ActivityTemplateOutward2Ctrl.taskObj.PSI_InstanceNo);
+                            // }
                         } else if (ActivityTemplateOutward2Ctrl.taskObj.WSI_StepName == "Confirm Delivery") {
                             apiService.get("eAxisAPI", appConfig.Entities.WmsPickList.API.GetById.Url + myTaskActivityConfig.Entities.PickData[myTaskActivityConfig.Entities.PickData.label].ePage.Entities.Header.Data.UIWmsPickHeader.PK).then(function (response) {
                                 if (response.data.Response) {
@@ -458,6 +499,7 @@
                                     response.data.Response = filterObjectUpdate(response.data.Response, "IsModified");
                                     apiService.post("eAxisAPI", appConfig.Entities.WmsPickList.API.Update.Url, response.data.Response).then(function (response) {
                                         if (response.data.Response) {
+                                            myTaskActivityConfig.Entities.PickData[myTaskActivityConfig.Entities.PickData.label].ePage.Entities.Header.Data = response.data.Response;
                                             toastr.success("Pick Finalized Successfully");
                                             myTaskActivityConfig.Entities.ManifestData.TmsManifestHeader.ManifestCompleteDatetime = new Date();
                                             myTaskActivityConfig.Entities.ManifestData.TmsManifestHeader.IsModified = true;

@@ -273,6 +273,8 @@
             } else {
                 InwardMenuCtrl.ePage.Masters.Finalisesave = false;
                 InwardMenuCtrl.ePage.Masters.Config.ShowErrorWarningModal(InwardMenuCtrl.currentInward);
+                if (callback)
+                    callback('error');
             }
         }
 
@@ -465,7 +467,7 @@
                             InwardMenuCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine.map(function (value, key) {
                                 value.TotalUnits = 0;
                             });
-                            
+
                             InwardMenuCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.CancelledDate = new Date();
                             // check whether the task available for this entity or not
                             var _filter = {

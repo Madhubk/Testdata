@@ -123,53 +123,107 @@
             }
         }
 
-        function SaveEntity(callback) {
+        function SaveEntity(callback) {            
+            ActivityTemplateInwardCtrl.ePage.Masters.SaveBtnText = "Please Wait...";
+            ActivityTemplateInwardCtrl.ePage.Masters.IsDisableSaveBtn = true;
             if (ActivityTemplateInwardCtrl.taskObj.WSI_StepName == "Receive Transferred Material") {
                 if (callback) {
-                    $rootScope.FinalizeInwardFromTask(function () {
-                        if (callback)
-                            callback();
+                    ActivityTemplateInwardCtrl.ePage.Masters.IsDisableSaveBtn = false;
+                    ActivityTemplateInwardCtrl.ePage.Masters.SaveBtnText = "Save";
+                    $rootScope.FinalizeInwardFromTask(function (response) {
+                        if (response == "error") {
+                            ActivityTemplateInwardCtrl.ePage.Masters.IsDisableSaveBtn = false;
+                            ActivityTemplateInwardCtrl.ePage.Masters.SaveBtnText = "Save";
+                            ActivityTemplateInwardCtrl.ePage.Masters.CompleteBtnText = "Complete";
+                            ActivityTemplateInwardCtrl.ePage.Masters.IsDisableCompleteBtn = false;
+                        } else {
+                            ActivityTemplateInwardCtrl.ePage.Masters.IsDisableSaveBtn = false;
+                            ActivityTemplateInwardCtrl.ePage.Masters.SaveBtnText = "Save";
+                            if (callback)
+                                callback();
+                        }
                     });
                 } else {
-                    $rootScope.SaveInwardFromTask(function () {
-
+                    $rootScope.SaveInwardFromTask(function (response) {
+                        if (response == "error") {
+                            ActivityTemplateInwardCtrl.ePage.Masters.IsDisableSaveBtn = false;
+                            ActivityTemplateInwardCtrl.ePage.Masters.SaveBtnText = "Save";
+                            ActivityTemplateInwardCtrl.ePage.Masters.CompleteBtnText = "Complete";
+                            ActivityTemplateInwardCtrl.ePage.Masters.IsDisableCompleteBtn = false;
+                        } else {
+                            ActivityTemplateInwardCtrl.ePage.Masters.IsDisableSaveBtn = false;
+                            ActivityTemplateInwardCtrl.ePage.Masters.SaveBtnText = "Save";
+                        }
                     });
                 }
             } else if (ActivityTemplateInwardCtrl.taskObj.WSI_StepName == "Collect Material") {
-                $rootScope.SaveInwardFromTask(function () {
-                    myTaskActivityConfig.Entities.PickupData = filterObjectUpdate(myTaskActivityConfig.Entities.PickupData, "IsModified");
-                    apiService.post("eAxisAPI", appConfig.Entities.WmsPickupList.API.Update.Url, myTaskActivityConfig.Entities.PickupData).then(function (response) {
-                        myTaskActivityConfig.Entities.PickupData = response.data.Response;
-                        toastr.success("Pickup Saved Successfully");
-                        if (callback)
-                            callback();
-                    });
-                });
-            } else if (ActivityTemplateInwardCtrl.taskObj.WSI_StepName == "Confirm Delivery and Get Signature") {
-                if (callback) {
-                    $rootScope.FinalizeInwardFromTask(function () {
-                        angular.forEach(myTaskActivityConfig.Entities.Inward[myTaskActivityConfig.Entities.Inward.label].ePage.Entities.Header.Data.UIWmsWorkOrderLine, function (value, key) {
-                            angular.forEach(myTaskActivityConfig.Entities.PickupData.UIWmsPickupLine, function (value1, key1) {
-                                if (value.AdditionalRef1Code == value1.AdditionalRef1Code) {
-                                    value1.WorkOrderLineStatus = "STO";
-                                }
-                            });
-                        });
+                $rootScope.SaveInwardFromTask(function (response) {
+                    if (response == "error") {
+                        ActivityTemplateInwardCtrl.ePage.Masters.IsDisableSaveBtn = false;
+                        ActivityTemplateInwardCtrl.ePage.Masters.SaveBtnText = "Save";
+                        ActivityTemplateInwardCtrl.ePage.Masters.CompleteBtnText = "Complete";
+                        ActivityTemplateInwardCtrl.ePage.Masters.IsDisableCompleteBtn = false;
+                    } else {
                         myTaskActivityConfig.Entities.PickupData = filterObjectUpdate(myTaskActivityConfig.Entities.PickupData, "IsModified");
                         apiService.post("eAxisAPI", appConfig.Entities.WmsPickupList.API.Update.Url, myTaskActivityConfig.Entities.PickupData).then(function (response) {
                             myTaskActivityConfig.Entities.PickupData = response.data.Response;
                             toastr.success("Pickup Saved Successfully");
+                            ActivityTemplateInwardCtrl.ePage.Masters.IsDisableSaveBtn = false;
+                            ActivityTemplateInwardCtrl.ePage.Masters.SaveBtnText = "Save";
                             if (callback)
                                 callback();
                         });
+                    }
+                });
+            } else if (ActivityTemplateInwardCtrl.taskObj.WSI_StepName == "Confirm Delivery and Get Signature") {
+                if (callback) {
+                    ActivityTemplateInwardCtrl.ePage.Masters.IsDisableSaveBtn = false;
+                    ActivityTemplateInwardCtrl.ePage.Masters.SaveBtnText = "Save";
+                    $rootScope.FinalizeInwardFromTask(function (response) {
+                        if (response == "error") {
+                            ActivityTemplateInwardCtrl.ePage.Masters.IsDisableSaveBtn = false;
+                            ActivityTemplateInwardCtrl.ePage.Masters.SaveBtnText = "Save";
+                            ActivityTemplateInwardCtrl.ePage.Masters.CompleteBtnText = "Complete";
+                            ActivityTemplateInwardCtrl.ePage.Masters.IsDisableCompleteBtn = false;
+                        } else {
+                            angular.forEach(myTaskActivityConfig.Entities.Inward[myTaskActivityConfig.Entities.Inward.label].ePage.Entities.Header.Data.UIWmsWorkOrderLine, function (value, key) {
+                                angular.forEach(myTaskActivityConfig.Entities.PickupData.UIWmsPickupLine, function (value1, key1) {
+                                    if (value.AdditionalRef1Code == value1.AdditionalRef1Code) {
+                                        if (value1.WAR_WarehouseCode == "BDL001") {
+                                            value1.WorkOrderLineStatus = "SCWS";
+                                        } else {
+                                            value1.WorkOrderLineStatus = "STO";
+                                        }
+                                    }
+                                });
+                            });
+                            myTaskActivityConfig.Entities.PickupData = filterObjectUpdate(myTaskActivityConfig.Entities.PickupData, "IsModified");
+                            apiService.post("eAxisAPI", appConfig.Entities.WmsPickupList.API.Update.Url, myTaskActivityConfig.Entities.PickupData).then(function (response) {
+                                myTaskActivityConfig.Entities.PickupData = response.data.Response;
+                                toastr.success("Pickup Saved Successfully");
+                                ActivityTemplateInwardCtrl.ePage.Masters.IsDisableSaveBtn = false;
+                                ActivityTemplateInwardCtrl.ePage.Masters.SaveBtnText = "Save";
+                                if (callback)
+                                    callback();
+                            });
+                        }
                     });
                 } else {
-                    $rootScope.SaveInwardFromTask(function () {
-                        myTaskActivityConfig.Entities.PickupData = filterObjectUpdate(myTaskActivityConfig.Entities.PickupData, "IsModified");
-                        apiService.post("eAxisAPI", appConfig.Entities.WmsPickupList.API.Update.Url, myTaskActivityConfig.Entities.PickupData).then(function (response) {
-                            myTaskActivityConfig.Entities.PickupData = response.data.Response;
-                            toastr.success("Pickup Saved Successfully");
-                        });
+                    $rootScope.SaveInwardFromTask(function (response) {
+                        if (response == "error") {
+                            ActivityTemplateInwardCtrl.ePage.Masters.IsDisableSaveBtn = false;
+                            ActivityTemplateInwardCtrl.ePage.Masters.SaveBtnText = "Save";
+                            ActivityTemplateInwardCtrl.ePage.Masters.CompleteBtnText = "Complete";
+                            ActivityTemplateInwardCtrl.ePage.Masters.IsDisableCompleteBtn = false;
+                        } else {
+                            myTaskActivityConfig.Entities.PickupData = filterObjectUpdate(myTaskActivityConfig.Entities.PickupData, "IsModified");
+                            apiService.post("eAxisAPI", appConfig.Entities.WmsPickupList.API.Update.Url, myTaskActivityConfig.Entities.PickupData).then(function (response) {
+                                myTaskActivityConfig.Entities.PickupData = response.data.Response;
+                                ActivityTemplateInwardCtrl.ePage.Masters.IsDisableSaveBtn = false;
+                                ActivityTemplateInwardCtrl.ePage.Masters.SaveBtnText = "Save";
+                                toastr.success("Pickup Saved Successfully");
+                            });
+                        }
                     });
                 }
             } else {
@@ -215,8 +269,12 @@
                                     angular.forEach(myTaskActivityConfig.Entities.PickupData.UIvwWmsPickupLine, function (value1, key1) {
                                         angular.forEach(myTaskActivityConfig.Entities.Inward[myTaskActivityConfig.Entities.Inward.label].ePage.Entities.Header.Data.UIWmsWorkOrderLine, function (value, key) {
                                             // if (value.Parent_FK == value1.PL_PK) {
-                                            if (value1.PL_WorkOrderLineStatus == "ICW") {
-                                                myTaskActivityConfig.Entities.PickupData.UIWmsPickupLine[key1].WorkOrderLineStatus = "SCW";
+                                            if (value1.PL_WorkOrderLineStatus == "ICWS") {
+                                                myTaskActivityConfig.Entities.PickupData.UIWmsPickupLine[key1].WorkOrderLineStatus = "SCWS";
+                                            } else if (value1.PL_WorkOrderLineStatus == "ICWT") {
+                                                myTaskActivityConfig.Entities.PickupData.UIWmsPickupLine[key1].WorkOrderLineStatus = "SCWT";
+                                            } else if (value1.PL_WorkOrderLineStatus == "ICWR") {
+                                                myTaskActivityConfig.Entities.PickupData.UIWmsPickupLine[key1].WorkOrderLineStatus = "SCWR";
                                             } else if (value1.PL_WorkOrderLineStatus == "ITW") {
                                                 myTaskActivityConfig.Entities.PickupData.UIWmsPickupLine[key1].WorkOrderLineStatus = "STW";
                                             } else if (value1.PL_WorkOrderLineStatus == "IRW") {

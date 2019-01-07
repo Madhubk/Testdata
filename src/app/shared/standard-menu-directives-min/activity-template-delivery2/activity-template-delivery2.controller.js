@@ -125,10 +125,19 @@
             }
         }
 
-        function SaveEntity(callback) {
+        function SaveEntity(callback) {            
+            ActivityTemplateDelivery2Ctrl.ePage.Masters.IsDisableSaveBtn = true;
+            ActivityTemplateDelivery2Ctrl.ePage.Masters.SaveBtnText = "Please Wait..";
             if (ActivityTemplateDelivery2Ctrl.taskObj.WSI_StepName == "Create Delivery Challan") {
-                $rootScope.SaveOutwardFromTask(function () {
-                    saves(callback);
+                $rootScope.SaveOutwardFromTask(function (response) {
+                    if (response == "error") {
+                        ActivityTemplateDelivery2Ctrl.ePage.Masters.IsDisableSaveBtn = false;
+                        ActivityTemplateDelivery2Ctrl.ePage.Masters.SaveBtnText = "Save";
+                        ActivityTemplateDelivery2Ctrl.ePage.Masters.CompleteBtnText = "Complete";
+                        ActivityTemplateDelivery2Ctrl.ePage.Masters.IsDisableCompleteBtn = false;
+                    } else {
+                        saves(callback);
+                    }
                 });
             } else if (ActivityTemplateDelivery2Ctrl.taskObj.WSI_StepName == "Acknowledge Delivery Request") {
                 var _Data = myTaskActivityConfig.Entities.Delivery[myTaskActivityConfig.Entities.Delivery.label].ePage.Entities,
@@ -158,6 +167,8 @@
                 if (_errorcount.length == 0) {
                     saves(callback);
                 } else {
+                    ActivityTemplateDelivery2Ctrl.ePage.Masters.IsDisableSaveBtn = false;
+                    ActivityTemplateDelivery2Ctrl.ePage.Masters.SaveBtnText = "Save";
                     ActivityTemplateDelivery2Ctrl.ePage.Masters.CompleteBtnText = "Complete";
                     ActivityTemplateDelivery2Ctrl.ePage.Masters.IsDisableCompleteBtn = false;
                     ActivityTemplateDelivery2Ctrl.ePage.Masters.ShowErrorWarningModal(ActivityTemplateDelivery2Ctrl.taskObj.PSI_InstanceNo);

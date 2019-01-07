@@ -322,8 +322,7 @@
             $uibModalInstance.close();
         }
 
-        function Validation(CurrentEntity){
-            debugger
+        function Validation(CurrentEntity){            
             var DontSave = false;
 
             if(CurrentEntity=='OrgMiscServ'){

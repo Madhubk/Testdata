@@ -125,10 +125,19 @@
             }
         }
 
-        function SaveEntity(callback) {
+        function SaveEntity(callback) {            
+            ActivityTemplatePickup2Ctrl.ePage.Masters.IsDisableSaveBtn = true;
+            ActivityTemplatePickup2Ctrl.ePage.Masters.SaveBtnText = "Please Wait..";
             if (ActivityTemplatePickup2Ctrl.taskObj.WSI_StepName == "Create Pickup Challan") {
-                $rootScope.SaveInwardFromTask(function () {
-                    saves(callback);
+                $rootScope.SaveInwardFromTask(function (response) {
+                    if (response == "error") {
+                        ActivityTemplatePickup2Ctrl.ePage.Masters.IsDisableSaveBtn = false;
+                        ActivityTemplatePickup2Ctrl.ePage.Masters.SaveBtnText = "Save";
+                        ActivityTemplatePickup2Ctrl.ePage.Masters.CompleteBtnText = "Complete";
+                        ActivityTemplatePickup2Ctrl.ePage.Masters.IsDisableCompleteBtn = false;
+                    } else {
+                        saves(callback);
+                    }
                 });
             } else if (ActivityTemplatePickup2Ctrl.taskObj.WSI_StepName == "Acknowledge Pickup Request") {
                 var _Data = myTaskActivityConfig.Entities.Pickup[myTaskActivityConfig.Entities.Pickup.label].ePage.Entities,
@@ -158,6 +167,8 @@
                 if (_errorcount.length == 0) {
                     saves(callback);
                 } else {
+                    ActivityTemplatePickup2Ctrl.ePage.Masters.IsDisableSaveBtn = false;
+                    ActivityTemplatePickup2Ctrl.ePage.Masters.SaveBtnText = "Save";
                     ActivityTemplatePickup2Ctrl.ePage.Masters.CompleteBtnText = "Complete";
                     ActivityTemplatePickup2Ctrl.ePage.Masters.IsDisableCompleteBtn = false;
                     ActivityTemplatePickup2Ctrl.ePage.Masters.ShowErrorWarningModal(ActivityTemplatePickup2Ctrl.taskObj.PSI_InstanceNo);
@@ -174,7 +185,7 @@
                 angular.forEach(myTaskActivityConfig.Entities.Pickup[myTaskActivityConfig.Entities.Pickup.label].ePage.Entities.Header.Data.UIWmsPickupLine, function (value, key) {
                     value.WorkOrderLineStatus = "PIP";
                 });
-            }            
+            }
             var _input = angular.copy(myTaskActivityConfig.Entities.Pickup[myTaskActivityConfig.Entities.Pickup.label].ePage.Entities.Header.Data);
             _input = filterObjectUpdate(_input, "IsModified");
             apiService.post("eAxisAPI", appConfig.Entities.WmsPickupList.API.Update.Url, _input).then(function (response) {

@@ -48,7 +48,7 @@
             PendingPickupToolbarCtrl.ePage.Masters.PendingPickupCount = 0;
             PendingPickupToolbarCtrl.ePage.Masters.OtherCount = 0
             angular.forEach(PendingPickupToolbarCtrl.ePage.Masters.Input, function (value, key) {
-                if (!value.PIC_PrdPk) {
+                if (!value.PL_PrdCode) {
                     PendingPickupToolbarCtrl.ePage.Masters.PendingPickupCount = PendingPickupToolbarCtrl.ePage.Masters.PendingPickupCount + 1;
                     PendingPickupToolbarCtrl.ePage.Masters.PendingPickupList.push(value);
                 } else {
