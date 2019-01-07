@@ -130,9 +130,12 @@
             }, {
                 name: 'organizationWarehouse',
                 files: [
-                    'app/mdm/organization/warehouse/warehouse.css',
                     'app/mdm/organization/warehouse/warehouse.directive.js',
-                    'app/mdm/organization/warehouse/org-warehouse-modal/org-warehouse-modal.controller.js'
+                    'app/mdm/organization/warehouse/warehouse.css',
+                    'app/mdm/warehouse/customize-table/customize-table.css',
+                    'app/mdm/warehouse/customize-table/customize-table.directive.js',
+                    'app/mdm/organization/warehouse/editable-pages/editable-pages.controller.js',
+                    'app/mdm/organization/warehouse/editable-pages/editable-pages.css',
                 ]
             }, {
                 name: 'organizationReference',
