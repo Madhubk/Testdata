@@ -11,7 +11,7 @@
         var OrgContactModalCtrl = this;
 
         function Init() {
-            var currentOrganization = param.Entity[param.Entity.label].ePage.Entities;
+            var currentOrganization = param.Entity[param.Entity.code].ePage.Entities;
 
             OrgContactModalCtrl.ePage = {
                 "Title": "",
@@ -47,8 +47,8 @@
             }
 
             OrgContactModalCtrl.ePage.Masters.ErrorWarningConfig = errorWarningService;
-            OrgContactModalCtrl.ePage.Masters.GlobalErrorWarningList = errorWarningService.Modules.Organization.Entity[param.Entity.code ? param.Entity.code : param.Entity.label].GlobalErrorWarningList;
-            OrgContactModalCtrl.ePage.Masters.ErrorWarningObj = errorWarningService.Modules.Organization.Entity[param.Entity.code ? param.Entity.code : param.Entity.label];
+            OrgContactModalCtrl.ePage.Masters.GlobalErrorWarningList = errorWarningService.Modules.Organization.Entity[param.Entity.code].GlobalErrorWarningList;
+            OrgContactModalCtrl.ePage.Masters.ErrorWarningObj = errorWarningService.Modules.Organization.Entity[param.Entity.code];
         }
 
         function Cancel() {
@@ -59,7 +59,7 @@
             OrgContactModalCtrl.ePage.Masters.SaveButtonText = "Please Wait...";
             OrgContactModalCtrl.ePage.Masters.IsDisableSave = true;
 
-            var _code = param.Entity.code ? param.Entity.code : param.Entity.label;
+            var _code = param.Entity.code;
             var _obj = {
                 ModuleName: ["Organization"],
                 Code: [_code],
@@ -108,7 +108,7 @@
             _input.OrgContact = _ContactList;
             _input.IsModified = true;
 
-            OrgContactModalCtrl.ePage.Masters.param.Entity[OrgContactModalCtrl.ePage.Masters.param.Entity.label].ePage.Entities.Header.Data = _input;
+            OrgContactModalCtrl.ePage.Masters.param.Entity[OrgContactModalCtrl.ePage.Masters.param.Entity.code].ePage.Entities.Header.Data = _input;
 
             helperService.SaveEntity(OrgContactModalCtrl.ePage.Masters.param.Entity, 'Organization').then(function (response) {
                 if (response.Status === "success") {

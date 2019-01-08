@@ -29,7 +29,7 @@
         var OrganizationExceptionGroupCtrl = this;
 
         function Init() {
-            var currentOrganization = OrganizationExceptionGroupCtrl.currentOrganization[OrganizationExceptionGroupCtrl.currentOrganization.label].ePage.Entities;
+            var currentOrganization = OrganizationExceptionGroupCtrl.currentOrganization[OrganizationExceptionGroupCtrl.currentOrganization.code].ePage.Entities;
 
             OrganizationExceptionGroupCtrl.ePage = {
                 "Title": "",

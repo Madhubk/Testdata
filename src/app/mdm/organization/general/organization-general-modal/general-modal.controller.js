@@ -11,7 +11,7 @@
         var OrgGeneralModalCtrl = this;
 
         function Init() {
-            var currentOrganization = param.Entity[param.Entity.label].ePage.Entities;
+            var currentOrganization = param.Entity[param.Entity.code].ePage.Entities;
 
             OrgGeneralModalCtrl.ePage = {
                 "Title": "",
@@ -52,8 +52,8 @@
             OrgGeneralModalCtrl.ePage.Masters.OnCountryChange = OnCountryChange;
 
             OrgGeneralModalCtrl.ePage.Masters.ErrorWarningConfig = errorWarningService;
-            OrgGeneralModalCtrl.ePage.Masters.ErrorWarningConfig.GlobalErrorWarningList = errorWarningService.Modules.Organization.Entity[param.Entity.code ? param.Entity.code : param.Entity.label].GlobalErrorWarningList;
-            OrgGeneralModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj = errorWarningService.Modules.Organization.Entity[param.Entity.code ? param.Entity.code : param.Entity.label];
+            OrgGeneralModalCtrl.ePage.Masters.ErrorWarningConfig.GlobalErrorWarningList = errorWarningService.Modules.Organization.Entity[param.Entity.code].GlobalErrorWarningList;
+            OrgGeneralModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj = errorWarningService.Modules.Organization.Entity[param.Entity.code];
 
             GetDataList();
         }
@@ -178,7 +178,7 @@
             //     _errorCode = ["E9101", "E9102"];
             // }
 
-            var _code = param.Entity.code ? param.Entity.code : param.Entity.label;
+            var _code = param.Entity.code;
             var _groupCode = param.Entity.isNew ? "ORG_GENERAL_ADDRESS" : "ORG_GENERAL";
             var _obj = {
                 ModuleName: ["Organization"],
@@ -231,7 +231,7 @@
                 _input.OrgAddress[0].AddressCapability[0].TenantCode = authService.getUserInfo().TenantCode;
             }
 
-            OrgGeneralModalCtrl.ePage.Masters.param.Entity[OrgGeneralModalCtrl.ePage.Masters.param.Entity.label].ePage.Entities.Header.Data = _input;
+            OrgGeneralModalCtrl.ePage.Masters.param.Entity[OrgGeneralModalCtrl.ePage.Masters.param.Entity.code].ePage.Entities.Header.Data = _input;
 
             helperService.SaveEntity(OrgGeneralModalCtrl.ePage.Masters.param.Entity, "Organization").then(function (response) {
                 if (response.Status == "success") {

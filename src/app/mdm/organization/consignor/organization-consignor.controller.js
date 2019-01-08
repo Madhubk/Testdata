@@ -10,7 +10,7 @@
         var OrganizationConsignorCtrl = this;
 
         function Init() {
-            var currentOrganization = OrganizationConsignorCtrl.currentOrganization[OrganizationConsignorCtrl.currentOrganization.label].ePage.Entities;
+            var currentOrganization = OrganizationConsignorCtrl.currentOrganization[OrganizationConsignorCtrl.currentOrganization.code].ePage.Entities;
 
             OrganizationConsignorCtrl.ePage = {
                 "Title": "",

@@ -21,6 +21,7 @@
             };
 
             DynamicListModalCtrl.ePage.Masters.defaultFilter = {};
+            DynamicListModalCtrl.ePage.Masters.baseFilter = {};
             DynamicListModalCtrl.ePage.Masters.selectedItem = {};
             DynamicListModalCtrl.ePage.Masters.taskName = DynamicListModalCtrl.pageName;
 
@@ -41,11 +42,20 @@
             }
             
             // Add custom filter objects
-            var _isEmpty = angular.equals({}, DynamicListModalCtrl.defaultFilter);
+            var _isEmptyDefault = angular.equals({}, DynamicListModalCtrl.defaultFilter);
 
-            if (!_isEmpty) {
+            if (!_isEmptyDefault) {
                 for (var x in DynamicListModalCtrl.defaultFilter) {
                     DynamicListModalCtrl.ePage.Masters.defaultFilter[x] = DynamicListModalCtrl.defaultFilter[x];
+                }
+            }
+
+            // Add custom filter objects
+            var _isEmptyBase = angular.equals({}, DynamicListModalCtrl.baseFilter);
+
+            if (!_isEmptyBase) {
+                for (var x in DynamicListModalCtrl.baseFilter) {
+                    DynamicListModalCtrl.ePage.Masters.baseFilter[x] = DynamicListModalCtrl.baseFilter[x];
                 }
             }
         }

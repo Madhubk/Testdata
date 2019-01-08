@@ -33,7 +33,7 @@
         $rootScope.UpdateVisibilityPage = PrepareTenantDetails;
 
         function Init() {
-            var currentOrganization = OrganizationVisibilityCtrl.currentOrganization[OrganizationVisibilityCtrl.currentOrganization.label].ePage.Entities;
+            var currentOrganization = OrganizationVisibilityCtrl.currentOrganization[OrganizationVisibilityCtrl.currentOrganization.code].ePage.Entities;
 
             OrganizationVisibilityCtrl.ePage = {
                 "Title": "",
@@ -63,8 +63,8 @@
             OrganizationVisibilityCtrl.ePage.Masters.Tenant.Save = ValidateTenant;
 
             OrganizationVisibilityCtrl.ePage.Masters.ErrorWarningConfig = errorWarningService;
-            OrganizationVisibilityCtrl.ePage.Masters.GlobalErrorWarningList = errorWarningService.Modules.Organization.Entity[OrganizationVisibilityCtrl.currentOrganization.code ? OrganizationVisibilityCtrl.currentOrganization.code : OrganizationVisibilityCtrl.currentOrganization.label].GlobalErrorWarningList;
-            OrganizationVisibilityCtrl.ePage.Masters.ErrorWarningObj = errorWarningService.Modules.Organization.Entity[OrganizationVisibilityCtrl.currentOrganization.code ? OrganizationVisibilityCtrl.currentOrganization.code : OrganizationVisibilityCtrl.currentOrganization.label];
+            OrganizationVisibilityCtrl.ePage.Masters.GlobalErrorWarningList = errorWarningService.Modules.Organization.Entity[OrganizationVisibilityCtrl.currentOrganization.code].GlobalErrorWarningList;
+            OrganizationVisibilityCtrl.ePage.Masters.ErrorWarningObj = errorWarningService.Modules.Organization.Entity[OrganizationVisibilityCtrl.currentOrganization.code];
 
             PrepareTenantDetails();
         }
@@ -93,7 +93,7 @@
             OrganizationVisibilityCtrl.ePage.Masters.Tenant.SaveBtnText = "Please Wait...";
             var _errorCode = [];
 
-            var _code = OrganizationVisibilityCtrl.currentOrganization.code ? OrganizationVisibilityCtrl.currentOrganization.code : OrganizationVisibilityCtrl.currentOrganization.label;
+            var _code = OrganizationVisibilityCtrl.currentOrganization.code;
             var _obj = {
                 ModuleName: ["Organization"],
                 Code: [_code],

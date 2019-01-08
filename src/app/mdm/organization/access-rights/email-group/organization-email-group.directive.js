@@ -29,7 +29,7 @@
         var OrganizationEmailGroupCtrl = this;
 
         function Init() {
-            var currentOrganization = OrganizationEmailGroupCtrl.currentOrganization[OrganizationEmailGroupCtrl.currentOrganization.label].ePage.Entities;
+            var currentOrganization = OrganizationEmailGroupCtrl.currentOrganization[OrganizationEmailGroupCtrl.currentOrganization.code].ePage.Entities;
 
             OrganizationEmailGroupCtrl.ePage = {
                 "Title": "",

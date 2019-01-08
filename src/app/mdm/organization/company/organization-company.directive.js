@@ -30,7 +30,7 @@
         var OrganizationCompanyCtrl = this;
 
         function Init() {
-            var currentOrganization = OrganizationCompanyCtrl.currentOrganization[OrganizationCompanyCtrl.currentOrganization.label].ePage.Entities;
+            var currentOrganization = OrganizationCompanyCtrl.currentOrganization[OrganizationCompanyCtrl.currentOrganization.code].ePage.Entities;
 
             OrganizationCompanyCtrl.ePage = {
                 "Title": "",
@@ -147,7 +147,7 @@
                     if (response.data) {
                         OrganizationCompanyCtrl.ePage.Entities.Header.Data = response.data;
 
-                        OrganizationCompanyCtrl.currentOrganization[OrganizationCompanyCtrl.currentOrganization.label].ePage.Entities.Header.Data = OrganizationCompanyCtrl.ePage.Entities.Header.Data;
+                        OrganizationCompanyCtrl.currentOrganization[OrganizationCompanyCtrl.currentOrganization.code].ePage.Entities.Header.Data = OrganizationCompanyCtrl.ePage.Entities.Header.Data;
 
                         if (OrganizationCompanyCtrl.ePage.Entities.Header.Data.OrgCompanyData && OrganizationCompanyCtrl.ePage.Entities.Header.Data.OrgCompanyData.length > 0) {
                             OnCompanySelect(OrganizationCompanyCtrl.ePage.Entities.Header.Data.OrgCompanyData[OrganizationCompanyCtrl.ePage.Entities.Header.Data.OrgCompanyData.length - 1]);

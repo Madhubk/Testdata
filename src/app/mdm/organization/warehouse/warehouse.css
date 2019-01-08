@@ -1,8 +1,22 @@
-.borderless-table td, .borderless-table th, .borderless-table tr {
+.borderless-table td,
+.borderless-table th,
+.borderless-table tr {
     border-top: none !important;
     font-size: 13px !important;
 }
 
-.general-edit.warehouse-edit>.modal-dialog {
-    width: 800px !important;
+.modalheader{
+    font-size: 15px;
+    font-weight: 700;
 }
+
+.custom_disable{
+    display: none;
+    visibility: hidden;
+}
+
+.custom_width{
+    margin-top: 5px;
+    width: 100%;
+}
+

@@ -148,9 +148,10 @@
         }
 
         function SaveEntity(entity, module) {
-            var deferred = $q.defer();
-            var _Data = entity[entity.label].ePage.Entities;
-            var _input = _Data.Header.Data,
+            var deferred = $q.defer(),
+                _code = entity.pk ? entity.code : entity.label,
+                _Data = entity[_code].ePage.Entities,
+                _input = _Data.Header.Data,
                 _api;
 
             if (entity.isNew) {

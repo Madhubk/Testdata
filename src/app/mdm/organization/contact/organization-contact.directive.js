@@ -32,7 +32,7 @@
         $scope.emptyText = "-";
 
         function Init() {
-            var currentOrganization = OrganizationContactCtrl.currentOrganization[OrganizationContactCtrl.currentOrganization.label].ePage.Entities;
+            var currentOrganization = OrganizationContactCtrl.currentOrganization[OrganizationContactCtrl.currentOrganization.code].ePage.Entities;
 
             OrganizationContactCtrl.ePage = {
                 "Title": "",
@@ -56,8 +56,8 @@
         }
 
         function GetContactList() {
-            if (OrganizationContactCtrl.currentOrganization[OrganizationContactCtrl.currentOrganization.label].ePage.Entities.Header.Data.OrgContact && OrganizationContactCtrl.currentOrganization[OrganizationContactCtrl.currentOrganization.label].ePage.Entities.Header.Data.OrgContact.length > 0) {
-                OrganizationContactCtrl.ePage.Entities.Header.Data.OrgContact = OrganizationContactCtrl.currentOrganization[OrganizationContactCtrl.currentOrganization.label].ePage.Entities.Header.Data.OrgContact;
+            if (OrganizationContactCtrl.currentOrganization[OrganizationContactCtrl.currentOrganization.code].ePage.Entities.Header.Data.OrgContact && OrganizationContactCtrl.currentOrganization[OrganizationContactCtrl.currentOrganization.code].ePage.Entities.Header.Data.OrgContact.length > 0) {
+                OrganizationContactCtrl.ePage.Entities.Header.Data.OrgContact = OrganizationContactCtrl.currentOrganization[OrganizationContactCtrl.currentOrganization.code].ePage.Entities.Header.Data.OrgContact;
             } else {
                 OrganizationContactCtrl.ePage.Entities.Header.Data.OrgContact = [];
             }
@@ -84,7 +84,7 @@
                 }
             }).result.then(
                 function (response) {
-                    OrganizationContactCtrl.currentOrganization[OrganizationContactCtrl.currentOrganization.label].ePage.Entities.Header.Data = response.data;
+                    OrganizationContactCtrl.currentOrganization[OrganizationContactCtrl.currentOrganization.code].ePage.Entities.Header.Data = response.data;
 
                     OrganizationContactCtrl.ePage.Entities.Header.Data = response.data;
 

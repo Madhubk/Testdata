@@ -23,8 +23,12 @@
 
 		function Link(scope, element, attr) {
 			function Init() {
-				InitPartMapping();
-				InitRoleMapping();
+				try{
+					InitPartMapping();
+					InitRoleMapping();
+				} catch(ex){
+					console.log(ex);
+				}
 			}
 
 			// region Party

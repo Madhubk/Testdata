@@ -12,7 +12,7 @@
         $scope.emptyText = "-";
 
         function Init() {
-            var currentOrganization = OrgRelatedPartiesCtrl.currentOrganization[OrgRelatedPartiesCtrl.currentOrganization.label].ePage.Entities;
+            var currentOrganization = OrgRelatedPartiesCtrl.currentOrganization[OrgRelatedPartiesCtrl.currentOrganization.code].ePage.Entities;
 
             OrgRelatedPartiesCtrl.ePage = {
                 "Title": "",

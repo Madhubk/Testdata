@@ -31,7 +31,7 @@
         var OrganizationAccessRightsCtrl = this;
 
         function Init() {
-            var currentOrganization = OrganizationAccessRightsCtrl.currentOrganization[OrganizationAccessRightsCtrl.currentOrganization.label].ePage.Entities;
+            var currentOrganization = OrganizationAccessRightsCtrl.currentOrganization[OrganizationAccessRightsCtrl.currentOrganization.code].ePage.Entities;
 
             OrganizationAccessRightsCtrl.ePage = {
                 "Title": "",

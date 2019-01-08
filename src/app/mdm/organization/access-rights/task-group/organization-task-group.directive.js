@@ -29,7 +29,7 @@
         var OrganizationTaskGroupCtrl = this;
 
         function Init() {
-            var currentOrganization = OrganizationTaskGroupCtrl.currentOrganization[OrganizationTaskGroupCtrl.currentOrganization.label].ePage.Entities;
+            var currentOrganization = OrganizationTaskGroupCtrl.currentOrganization[OrganizationTaskGroupCtrl.currentOrganization.code].ePage.Entities;
 
             OrganizationTaskGroupCtrl.ePage = {
                 "Title": "",
@@ -400,7 +400,7 @@
                 animation: true,
                 keyboard: true,
                 backdrop: "static",
-                windowClass: "org-task-action-modal right",
+                windowClass: "org-task-action-modal org-email-config-edit-modal right",
                 scope: $scope,
                 template: `<div ng-include src="'` + template + `'"></div>`
             });

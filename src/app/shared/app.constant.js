@@ -549,7 +549,6 @@
             {
                 name: 'PartyMapping',
                 files: [
-                    'app/shared/party-mapping/party-mapping.css',
                     'app/shared/party-mapping/party-mapping.directive.js'
                 ]
             }, {
@@ -678,18 +677,18 @@
                     'lib/angular/ng-custom-file-upload/ng-custom-file-upload.js'
                 ]
             },
-            {
-                name: 'ActivityTemplatePickup2',
-                files: [
-                    'app/shared/standard-menu-directives-min/activity-template-pickup2/activity-template-pickup2.directive.js',
-                    'app/shared/standard-menu-directives-min/activity-template-pickup2/activity-template-pickup2.controller.js'
-                ]
+            {		
+                name: 'ActivityTemplatePickup2',		
+                files: [		
+                    'app/shared/standard-menu-directives-min/activity-template-pickup2/activity-template-pickup2.directive.js',		
+                    'app/shared/standard-menu-directives-min/activity-template-pickup2/activity-template-pickup2.controller.js'		
+                ]		
             }
             //endregion
         ],
         URL: {
-            eAxisAPI: "http://dev.myhubplusapi.20cube.com/wms/",
-            authAPI: "http://dev.myhubplusapi.20cube.com/wmsauth/",
+            eAxisAPI: "http://dev.myhubplusapi.20cube.com/eaxis/",
+            authAPI: "http://dev.myhubplusapi.20cube.com/auth/",
             alertAPI: "http://uat.api.20cube.com/alert/"
         },
         Crypto: {
@@ -786,7 +785,7 @@
                 ['help', ['help']]
             ]
         },
-        Version: "1.0"
+        Version: "1.1"
     };
 
     angular

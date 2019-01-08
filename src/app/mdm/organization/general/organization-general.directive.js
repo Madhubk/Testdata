@@ -31,7 +31,7 @@
         $rootScope.UpdateGeneralPage = UpdateMainAddress;
 
         function Init() {
-            var currentOrganization = OrganizationGeneralCtrl.currentOrganization[OrganizationGeneralCtrl.currentOrganization.label].ePage.Entities;
+            var currentOrganization = OrganizationGeneralCtrl.currentOrganization[OrganizationGeneralCtrl.currentOrganization.code].ePage.Entities;
 
             OrganizationGeneralCtrl.ePage = {
                 "Title": "",
@@ -122,26 +122,15 @@
             }).result.then(
                 function (response) {
                     if (response.data) {
-                        var _header = angular.copy(OrganizationGeneralCtrl.currentOrganization[OrganizationGeneralCtrl.currentOrganization.label].ePage.Entities.Header);
+                        var _header = angular.copy(OrganizationGeneralCtrl.currentOrganization[OrganizationGeneralCtrl.currentOrganization.code].ePage.Entities.Header);
+                        _header.Data = response.data;
 
-                        OrganizationGeneralCtrl.currentOrganization[OrganizationGeneralCtrl.currentOrganization.label].ePage.Entities.Header.Data = response.data;
+                        OrganizationGeneralCtrl.currentOrganization[OrganizationGeneralCtrl.currentOrganization.code].ePage.Entities.Header.Data = response.data;
 
                         OrganizationGeneralCtrl.currentOrganization.isNew = false;
-                        OrganizationGeneralCtrl.currentOrganization.code = response.data.OrgHeader.Code;
                         OrganizationGeneralCtrl.currentOrganization.label = response.data.OrgHeader.Code;
 
-                        _header.Data = response.data;
-                        OrganizationGeneralCtrl.currentOrganization[OrganizationGeneralCtrl.currentOrganization.label] = {
-                            ePage: {
-                                Entities: {
-                                    Header: _header
-                                }
-                            }
-                        };
-
                         OrganizationGeneralCtrl.ePage.Entities.Header.Data = _header.Data;
-
-                        delete OrganizationGeneralCtrl.currentOrganization.New;
 
                         GetMainAddress();
                     }

@@ -23,7 +23,6 @@
             }, {
                 name: 'organizationMenu',
                 files: [
-                    'app/mdm/organization/organization-menu/organization-menu.css',
                     'app/mdm/organization/organization-menu/organization-menu.directive.js'
                 ]
             }, {
@@ -36,7 +35,6 @@
                 name: 'organizationAddress',
                 files: [
                     'app/mdm/organization/address/organization-address.directive.js',
-                    'app/mdm/organization/address/organization-address-modal/address-modal.css',
                     'app/mdm/organization/address/organization-address-modal/address-modal.controller.js'
                 ]
             }, {
@@ -86,7 +84,6 @@
             }, {
                 name: 'organizationVisibility',
                 files: [
-                    'app/mdm/organization/visibility/organization-visibility.css',
                     'app/mdm/organization/visibility/organization-visibility.directive.js'
                 ]
             }, {
@@ -130,65 +127,27 @@
             }, {
                 name: 'organizationWarehouse',
                 files: [
-                    'app/mdm/organization/warehouse/warehouse.directive.js',
                     'app/mdm/organization/warehouse/warehouse.css',
+                    'app/mdm/organization/warehouse/warehouse.directive.js',
                     'app/mdm/warehouse/customize-table/customize-table.css',
                     'app/mdm/warehouse/customize-table/customize-table.directive.js',
-                    'app/mdm/organization/warehouse/editable-pages/editable-pages.controller.js',
-                    'app/mdm/organization/warehouse/editable-pages/editable-pages.css',
+                    'app/mdm/organization/warehouse/editable-pages/editable-pages.controller.js'
                 ]
             }, {
                 name: 'organizationReference',
                 files: [
-                    'app/mdm/organization/reference/organization-reference.css',
-                    'app/mdm/organization/reference/organization-reference.controller.js',
-                    'app/mdm/organization/reference/organization-reference.directive.js'
-                ]
-            }, {
-                name: 'organizationReferenceModal',
-                files: [
-                    'app/mdm/organization/reference/org-reference-modal/org-reference-modal.css',
+                    'app/mdm/organization/reference/organization-reference.directive.js',
                     'app/mdm/organization/reference/org-reference-modal/org-reference-modal.controller.js'
                 ]
             }, {
                 name: 'organizationAccessRights',
                 files: [
                     'app/mdm/organization/access-rights/organization-access-rights.directive.js',
-                ]
-            }, {
-                name: 'organizationEventGroup',
-                files: [
-                    'app/mdm/organization/access-rights/event-group/organization-event-group.css',
-                    'app/mdm/organization/access-rights/event-group/organization-event-group.directive.js'
-                ]
-            }, {
-                name: 'organizationTaskGroup',
-                files: [
-                    'app/mdm/organization/access-rights/task-group/organization-task-group.css',
-                    'app/mdm/organization/access-rights/task-group/organization-task-group.directive.js'
-                ]
-            }, {
-                name: 'organizationCommentGroup',
-                files: [
-                    'app/mdm/organization/access-rights/comment-group/organization-comment-group.css',
-                    'app/mdm/organization/access-rights/comment-group/organization-comment-group.directive.js'
-                ]
-            }, {
-                name: 'organizationDocumentGroup',
-                files: [
-                    'app/mdm/organization/access-rights/document-group/organization-document-group.css',
-                    'app/mdm/organization/access-rights/document-group/organization-document-group.directive.js'
-                ]
-            }, {
-                name: 'organizationExceptionGroup',
-                files: [
-                    'app/mdm/organization/access-rights/exception-group/organization-exception-group.css',
-                    'app/mdm/organization/access-rights/exception-group/organization-exception-group.directive.js'
-                ]
-            }, {
-                name: 'organizationEmailGroup',
-                files: [
-                    'app/mdm/organization/access-rights/email-group/organization-email-group.css',
+                    'app/mdm/organization/access-rights/event-group/organization-event-group.directive.js',
+                    'app/mdm/organization/access-rights/task-group/organization-task-group.directive.js',
+                    'app/mdm/organization/access-rights/comment-group/organization-comment-group.directive.js',
+                    'app/mdm/organization/access-rights/document-group/organization-document-group.directive.js',
+                    'app/mdm/organization/access-rights/exception-group/organization-exception-group.directive.js',
                     'app/mdm/organization/access-rights/email-group/organization-email-group.directive.js'
                 ]
             },

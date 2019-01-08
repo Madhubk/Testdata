@@ -11,7 +11,7 @@
         var OrgAddressModalCtrl = this;
 
         function Init() {
-            var currentOrganization = param.Entity[param.Entity.label].ePage.Entities;
+            var currentOrganization = param.Entity[param.Entity.code].ePage.Entities;
 
             OrgAddressModalCtrl.ePage = {
                 "Title": "",
@@ -68,8 +68,8 @@
             OrgAddressModalCtrl.ePage.Masters.OnCountryChange = OnCountryChange;
 
             OrgAddressModalCtrl.ePage.Masters.ErrorWarningConfig = errorWarningService;
-            OrgAddressModalCtrl.ePage.Masters.GlobalErrorWarningList = errorWarningService.Modules.Organization.Entity[param.Entity.code ? param.Entity.code : param.Entity.label].GlobalErrorWarningList;
-            OrgAddressModalCtrl.ePage.Masters.ErrorWarningObj = errorWarningService.Modules.Organization.Entity[param.Entity.code ? param.Entity.code : param.Entity.label];
+            OrgAddressModalCtrl.ePage.Masters.GlobalErrorWarningList = errorWarningService.Modules.Organization.Entity[param.Entity.code].GlobalErrorWarningList;
+            OrgAddressModalCtrl.ePage.Masters.ErrorWarningObj = errorWarningService.Modules.Organization.Entity[param.Entity.code];
         }
 
         function GetAddressCapabilityList() {
@@ -210,7 +210,7 @@
             OrgAddressModalCtrl.ePage.Masters.IsDisableSave = true;
             var _errorCode = [];
 
-            var _code = param.Entity.code ? param.Entity.code : param.Entity.label;
+            var _code = param.Entity.code;
             var _obj = {
                 ModuleName: ["Organization"],
                 Code: [_code],
@@ -268,7 +268,7 @@
             _input.OrgAddress = _AddressList;
             _input.IsModified = true;
 
-            OrgAddressModalCtrl.ePage.Masters.param.Entity[OrgAddressModalCtrl.ePage.Masters.param.Entity.label].ePage.Entities.Header.Data = _input;
+            OrgAddressModalCtrl.ePage.Masters.param.Entity[OrgAddressModalCtrl.ePage.Masters.param.Entity.code].ePage.Entities.Header.Data = _input;
 
             helperService.SaveEntity(OrgAddressModalCtrl.ePage.Masters.param.Entity, 'Organization').then(function (response) {
                 if (response.Status == "success") {

@@ -29,7 +29,7 @@
         var OrganizationMenuCtrl = this;
 
         function Init() {
-            var currentTab = OrganizationMenuCtrl.currentTab[OrganizationMenuCtrl.currentTab.label].ePage.Entities;
+            var currentTab = OrganizationMenuCtrl.currentTab[OrganizationMenuCtrl.currentTab.code].ePage.Entities;
             OrganizationMenuCtrl.ePage = {
                 "Title": "",
                 "Prefix": "OrganizationMenu",
@@ -48,8 +48,8 @@
 
                 $timeout(function () {
                     OrganizationMenuCtrl.ePage.Masters.ErrorWarningConfig = errorWarningService;
-                    OrganizationMenuCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj = errorWarningService.Modules.Organization.Entity[OrganizationMenuCtrl.currentTab.code ? OrganizationMenuCtrl.currentTab.code : OrganizationMenuCtrl.currentTab.label];
-                    OrganizationMenuCtrl.ePage.Masters.GlobalErrorWarningList = errorWarningService.Modules.Organization.Entity[OrganizationMenuCtrl.currentTab.code ? OrganizationMenuCtrl.currentTab.code : OrganizationMenuCtrl.currentTab.label].GlobalErrorWarningList;
+                    OrganizationMenuCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj = errorWarningService.Modules.Organization.Entity[OrganizationMenuCtrl.currentTab.code];
+                    OrganizationMenuCtrl.ePage.Masters.GlobalErrorWarningList = errorWarningService.Modules.Organization.Entity[OrganizationMenuCtrl.currentTab.code].GlobalErrorWarningList;
                 });
 
                 GetMenuList();
@@ -87,26 +87,6 @@
                             value.ParentRef = value.MenuName;
                             value.GParentRef = value.MenuName;
                         });
-
-                        // if (!OrganizationMenuCtrl.ePage.Entities.Header.Data.OrgHeader.IsConsignee) {
-                        //     var _consigneeIndex = OrganizationMenuCtrl.ePage.Masters.OrganizationMenu.ListSource.map(function (value, key) {
-                        //         return value.MenuName;
-                        //     }).indexOf("Consignee");
-
-                        //     if (_consigneeIndex != -1) {
-                        //         OrganizationMenuCtrl.ePage.Masters.OrganizationMenu.ListSource.splice(_consigneeIndex, 1);
-                        //     }
-                        // }
-
-                        // if (!OrganizationMenuCtrl.ePage.Entities.Header.Data.OrgHeader.IsConsignor) {
-                        //     var _consignorIndex = OrganizationMenuCtrl.ePage.Masters.OrganizationMenu.ListSource.map(function (value, key) {
-                        //         return value.MenuName;
-                        //     }).indexOf("Consignor");
-
-                        //     if (_consignorIndex != -1) {
-                        //         OrganizationMenuCtrl.ePage.Masters.OrganizationMenu.ListSource.splice(_consignorIndex, 1);
-                        //     }
-                        // }
                     }
                 } else {
                     OrganizationMenuCtrl.ePage.Masters.OrganizationMenu.ListSource = [];
@@ -132,7 +112,7 @@
         }
 
         function HideErrorWarningModal() {
-            $("#errorWarningContainerOrganization" + (OrganizationMenuCtrl.currentTab.code ? OrganizationMenuCtrl.currentTab.code : OrganizationMenuCtrl.currentTab.label)).removeClass("open");
+            $("#errorWarningContainerOrganization" + OrganizationMenuCtrl.currentTab.code).removeClass("open");
         }
 
         Init();

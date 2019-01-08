@@ -79,9 +79,10 @@
         function GetTabDetails(curRecord, isNew) {
             organizationConfig.GetTabDetails(curRecord, isNew).then(function (response) {
                 if (response) {
+                    var _code = SRVOrganizationCtrl.ePage.Masters.Entity.PK.split("-").join("");
                     response.map(function (value, key) {
-                        if (value.label === SRVOrganizationCtrl.ePage.Masters.Entity.Code) {
-                            GetValidationList(SRVOrganizationCtrl.ePage.Masters.Entity.Code, value);
+                        if (value.code === _code) {
+                            GetValidationList(_code, value);
                         }
                     });
                 }

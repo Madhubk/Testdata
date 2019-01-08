@@ -29,7 +29,7 @@
         var OrganizationEventGroupCtrl = this;
 
         function Init() {
-            var currentOrganization = OrganizationEventGroupCtrl.currentOrganization[OrganizationEventGroupCtrl.currentOrganization.label].ePage.Entities;
+            var currentOrganization = OrganizationEventGroupCtrl.currentOrganization[OrganizationEventGroupCtrl.currentOrganization.code].ePage.Entities;
 
             OrganizationEventGroupCtrl.ePage = {
                 "Title": "",
@@ -408,7 +408,7 @@
                 animation: true,
                 keyboard: true,
                 backdrop: "static",
-                windowClass: "org-event-action-modal right",
+                windowClass: "org-event-action-modal org-email-config-edit-modal right",
                 scope: $scope,
                 template: `<div ng-include src="'` + template + `'"></div>`
             });

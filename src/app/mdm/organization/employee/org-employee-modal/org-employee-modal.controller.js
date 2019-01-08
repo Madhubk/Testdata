@@ -11,7 +11,7 @@
         var OrgEmployeeModalCtrl = this;
 
         function Init() {
-            var currentOrganization = param.Entity[param.Entity.label].ePage.Entities;
+            var currentOrganization = param.Entity[param.Entity.code].ePage.Entities;
 
             OrgEmployeeModalCtrl.ePage = {
                 "Title": "",
@@ -53,8 +53,8 @@
             }
 
             OrgEmployeeModalCtrl.ePage.Masters.ErrorWarningConfig = errorWarningService;
-            OrgEmployeeModalCtrl.ePage.Masters.GlobalErrorWarningList = errorWarningService.Modules.Organization.Entity[param.Entity.code ? param.Entity.code : param.Entity.label].GlobalErrorWarningList;
-            OrgEmployeeModalCtrl.ePage.Masters.ErrorWarningObj = errorWarningService.Modules.Organization.Entity[param.Entity.code ? param.Entity.code : param.Entity.label];
+            OrgEmployeeModalCtrl.ePage.Masters.GlobalErrorWarningList = errorWarningService.Modules.Organization.Entity[param.Entity.code].GlobalErrorWarningList;
+            OrgEmployeeModalCtrl.ePage.Masters.ErrorWarningObj = errorWarningService.Modules.Organization.Entity[param.Entity.code];
         }
 
         function GetBranchList() {
@@ -115,7 +115,7 @@
             OrgEmployeeModalCtrl.ePage.Masters.IsDisableSave = true;
             var _errorCode = [];
 
-            var _code = param.Entity.code ? param.Entity.code : param.Entity.label;
+            var _code = param.Entity.code;
             var _obj = {
                 ModuleName: ["Organization"],
                 Code: [_code],
@@ -172,7 +172,7 @@
                     }
                 }
 
-                OrgEmployeeModalCtrl.ePage.Masters.param.Entity[OrgEmployeeModalCtrl.ePage.Masters.param.Entity.label].ePage.Entities.Header.Data = OrgEmployeeModalCtrl.ePage.Entities.Header.Data;
+                OrgEmployeeModalCtrl.ePage.Masters.param.Entity[OrgEmployeeModalCtrl.ePage.Masters.param.Entity.code].ePage.Entities.Header.Data = OrgEmployeeModalCtrl.ePage.Entities.Header.Data;
 
                 OrgEmployeeModalCtrl.ePage.Masters.SaveButtonText = "Please Wait...";
                 OrgEmployeeModalCtrl.ePage.Masters.IsDisableSave = true;

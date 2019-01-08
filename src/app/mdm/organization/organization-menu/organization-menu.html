@@ -1,5 +1,5 @@
 <div class="clearfix">
-    <div id="organizationMenuWrapper{{OrganizationMenuCtrl.currentTab.label}}" class="organization-menu-wraper col-sm-12 no-padding-left no-padding-right"
+    <div id="organizationMenuWrapper{{OrganizationMenuCtrl.currentTab.code}}" class="organization-menu-wraper col-sm-12 no-padding-left no-padding-right"
         data-ng-class="OrganizationMenuCtrl.ePage.Masters.IsShowAddress ? 'col-sm-8' : 'col-sm-12'">
         <uib-tabset class="organization-menu tabs-left tabbable" active="OrganizationMenuCtrl.ePage.Masters.ActiveTabIndex">
             <div class="tab-profile">
@@ -10,14 +10,12 @@
                 <uib-tab-heading title="{{x.Description}}">
                     <i class="{{x.Icon.icon}}"></i>
                     <span data-ng-bind="x.Description"></span>
-                    <error-warning-directive data-ng-if="OrganizationMenuCtrl.ePage.Masters.ErrorWarningConfig.GetErrorWarningCountParent('Organization', OrganizationMenuCtrl.currentTab.code ? OrganizationMenuCtrl.currentTab.code : OrganizationMenuCtrl.currentTab.label, x.ParentRef, 'W', 'Parent').length > 0 && OrganizationMenuCtrl.ePage.Masters.ErrorWarningConfig.GetErrorWarningCountParent('Organization', OrganizationMenuCtrl.currentTab.code ? OrganizationMenuCtrl.currentTab.code : OrganizationMenuCtrl.currentTab.label, x.ParentRef, 'E', 'Parent').length == 0"
-                        list="OrganizationMenuCtrl.ePage.Masters.GlobalErrorWarningList" type="'warning'"
-                        icon="fa fa-warning" parent-type="'Parent'" parent-ref="x.ParentRef" g-parent-ref="" class="pull-right"
-                        placement="bottom"></error-warning-directive>
-                    <error-warning-directive data-ng-if="OrganizationMenuCtrl.ePage.Masters.ErrorWarningConfig.GetErrorWarningCountParent('Organization', OrganizationMenuCtrl.currentTab.code ? OrganizationMenuCtrl.currentTab.code : OrganizationMenuCtrl.currentTab.label, x.ParentRef, 'E', 'Parent').length > 0"
-                        list="OrganizationMenuCtrl.ePage.Masters.GlobalErrorWarningList" type="'error'"
-                        icon="fa fa-warning" parent-type="'Parent'" parent-ref="x.ParentRef" g-parent-ref="" class="pull-right"
-                        placement="bottom"></error-warning-directive>
+                    <error-warning-directive data-ng-if="OrganizationMenuCtrl.ePage.Masters.ErrorWarningConfig.GetErrorWarningCountParent('Organization', OrganizationMenuCtrl.currentTab.code, x.ParentRef, 'W', 'Parent').length > 0 && OrganizationMenuCtrl.ePage.Masters.ErrorWarningConfig.GetErrorWarningCountParent('Organization', OrganizationMenuCtrl.currentTab.code, x.ParentRef, 'E', 'Parent').length == 0"
+                        list="OrganizationMenuCtrl.ePage.Masters.GlobalErrorWarningList" type="'warning'" icon="fa fa-warning"
+                        parent-type="'Parent'" parent-ref="x.ParentRef" g-parent-ref="" class="pull-right" placement="bottom"></error-warning-directive>
+                    <error-warning-directive data-ng-if="OrganizationMenuCtrl.ePage.Masters.ErrorWarningConfig.GetErrorWarningCountParent('Organization', OrganizationMenuCtrl.currentTab.code, x.ParentRef, 'E', 'Parent').length > 0"
+                        list="OrganizationMenuCtrl.ePage.Masters.GlobalErrorWarningList" type="'error'" icon="fa fa-warning"
+                        parent-type="'Parent'" parent-ref="x.ParentRef" g-parent-ref="" class="pull-right" placement="bottom"></error-warning-directive>
                 </uib-tab-heading>
                 <div>
                     <div data-ng-switch="x.MenuName">
@@ -29,8 +27,8 @@
                         <div ng-switch-when="AccessRights" organization-access-rights current-organization="OrganizationMenuCtrl.currentTab"></div>
                         <div ng-switch-when="Company" organization-company current-organization="OrganizationMenuCtrl.currentTab"></div>
                         <div ng-switch-when="Employee" organization-employee current-organization="OrganizationMenuCtrl.currentTab"></div>
-                        <div ng-switch-when="Related Parties" organization-related-parties current-organization="OrganizationMenuCtrl.currentTab"></div>
                         <div ng-switch-when="Reference" organization-reference current-organization="OrganizationMenuCtrl.currentTab"></div>
+                        <div ng-switch-when="Related Parties" organization-related-parties current-organization="OrganizationMenuCtrl.currentTab"></div>
                         <div ng-switch-when="RelatedParties" organization-gen-related-parties current-organization="OrganizationMenuCtrl.currentTab"></div>
                         <div ng-switch-when="Warehouse" organization-warehouse current-organization="OrganizationMenuCtrl.currentTab"></div>
                         <div ng-switch-when="Consignee" organization-consignee current-organization="OrganizationMenuCtrl.currentTab"></div>
@@ -40,7 +38,7 @@
             </uib-tab>
         </uib-tabset>
     </div>
-    <div class="error-warning-container right" id="errorWarningContainerOrganization{{OrganizationMenuCtrl.currentTab.code ? OrganizationMenuCtrl.currentTab.code : OrganizationMenuCtrl.currentTab.label}}">
+    <div class="error-warning-container right" id="errorWarningContainerOrganization{{OrganizationMenuCtrl.currentTab.code}}">
         <div class="error-warning-header clearfix">
             <span class="title pull-left">Errors <span class="danger">({{OrganizationMenuCtrl.ePage.Masters.GlobalErrorWarningList
                     | listCount: 'MessageType': 'E'}})</span> and

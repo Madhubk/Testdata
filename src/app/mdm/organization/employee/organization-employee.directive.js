@@ -30,7 +30,7 @@
         var OrganizationEmployeeCtrl = this;
 
         function Init() {
-            var currentOrganization = OrganizationEmployeeCtrl.currentOrganization[OrganizationEmployeeCtrl.currentOrganization.label].ePage.Entities;
+            var currentOrganization = OrganizationEmployeeCtrl.currentOrganization[OrganizationEmployeeCtrl.currentOrganization.code].ePage.Entities;
 
             OrganizationEmployeeCtrl.ePage = {
                 "Title": "",
@@ -95,7 +95,7 @@
                     if (response.data) {
                         OrganizationEmployeeCtrl.ePage.Entities.Header.Data = response.data;
 
-                        OrganizationEmployeeCtrl.currentOrganization[OrganizationEmployeeCtrl.currentOrganization.label].ePage.Entities.Header.Data = OrganizationEmployeeCtrl.ePage.Entities.Header.Data;
+                        OrganizationEmployeeCtrl.currentOrganization[OrganizationEmployeeCtrl.currentOrganization.code].ePage.Entities.Header.Data = OrganizationEmployeeCtrl.ePage.Entities.Header.Data;
                     }
                 },
                 function () {

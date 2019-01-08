@@ -29,7 +29,7 @@
         var OrganizationCommentGroupCtrl = this;
 
         function Init() {
-            var currentOrganization = OrganizationCommentGroupCtrl.currentOrganization[OrganizationCommentGroupCtrl.currentOrganization.label].ePage.Entities;
+            var currentOrganization = OrganizationCommentGroupCtrl.currentOrganization[OrganizationCommentGroupCtrl.currentOrganization.code].ePage.Entities;
 
             OrganizationCommentGroupCtrl.ePage = {
                 "Title": "",

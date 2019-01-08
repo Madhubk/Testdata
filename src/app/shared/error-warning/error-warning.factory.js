@@ -257,7 +257,7 @@
         }
 
         function GetErrorMessage($item) {
-            if (!$item.IsValidExpression) {
+            if ($item.IsValidExpression) {
                 var _pushObj = {
                     Code: $item.value.Code,
                     Message: $item.value.Message,
@@ -474,19 +474,21 @@
             var _parentList = [];
 
             if (exports.Modules[moduleName]) {
-                exports.Modules[moduleName].Entity[entityName].GlobalErrorWarningList.map(function (value1, key1) {
-                    if (ParentType == "GParent") {
-                        if (value1.GParentRef === ParentId && value1.MessageType === Type) {
-                            _parentList.push(value1);
+                if (exports.Modules[moduleName].Entity[entityName]) {
+                    exports.Modules[moduleName].Entity[entityName].GlobalErrorWarningList.map(function (value1, key1) {
+                        if (ParentType == "GParent") {
+                            if (value1.GParentRef === ParentId && value1.MessageType === Type) {
+                                _parentList.push(value1);
+                            }
+                        } else if (ParentType == "Parent") {
+                            if (value1.ParentRef === ParentId && value1.MessageType === Type) {
+                                exports.Modules;
+                                moduleName, entityName, ParentId, Type, ParentType;
+                                _parentList.push(value1);
+                            }
                         }
-                    } else if (ParentType == "Parent") {
-                        if (value1.ParentRef === ParentId && value1.MessageType === Type) {
-                            exports.Modules;
-                            moduleName, entityName, ParentId, Type, ParentType;
-                            _parentList.push(value1);
-                        }
-                    }
-                });
+                    });
+                }
             }
 
             return _parentList;

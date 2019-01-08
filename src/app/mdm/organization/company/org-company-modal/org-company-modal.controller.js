@@ -11,7 +11,7 @@
         var OrgCompanyModalCtrl = this;
 
         function Init() {
-            var currentOrganization = param.Entity[param.Entity.label].ePage.Entities;
+            var currentOrganization = param.Entity[param.Entity.code].ePage.Entities;
 
             OrgCompanyModalCtrl.ePage = {
                 "Title": "",
@@ -59,8 +59,8 @@
             OrgCompanyModalCtrl.ePage.Masters.Company.OnBranchChange = OnBranchChange;
 
             OrgCompanyModalCtrl.ePage.Masters.ErrorWarningConfig = errorWarningService;
-            OrgCompanyModalCtrl.ePage.Masters.GlobalErrorWarningList = errorWarningService.Modules.Organization.Entity[param.Entity.code ? param.Entity.code : param.Entity.label].GlobalErrorWarningList;
-            OrgCompanyModalCtrl.ePage.Masters.ErrorWarningObj = errorWarningService.Modules.Organization.Entity[param.Entity.code ? param.Entity.code : param.Entity.label];
+            OrgCompanyModalCtrl.ePage.Masters.GlobalErrorWarningList = errorWarningService.Modules.Organization.Entity[param.Entity.code].GlobalErrorWarningList;
+            OrgCompanyModalCtrl.ePage.Masters.ErrorWarningObj = errorWarningService.Modules.Organization.Entity[param.Entity.code];
         }
 
         function OnCompanyChange($item) {
@@ -161,7 +161,7 @@
             OrgCompanyModalCtrl.ePage.Masters.IsDisableSave = true;
             var _errorCode = [];
 
-            var _code = param.Entity.code ? param.Entity.code : param.Entity.label;
+            var _code = param.Entity.code;
             var _obj = {
                 ModuleName: ["Organization"],
                 Code: [_code],
@@ -217,7 +217,7 @@
                     }
                 }
 
-                OrgCompanyModalCtrl.ePage.Masters.param.Entity[OrgCompanyModalCtrl.ePage.Masters.param.Entity.label].ePage.Entities.Header.Data = OrgCompanyModalCtrl.ePage.Entities.Header.Data;
+                OrgCompanyModalCtrl.ePage.Masters.param.Entity[OrgCompanyModalCtrl.ePage.Masters.param.Entity.code].ePage.Entities.Header.Data = OrgCompanyModalCtrl.ePage.Entities.Header.Data;
 
                 OrgCompanyModalCtrl.ePage.Masters.SaveButtonText = "Please Wait...";
                 OrgCompanyModalCtrl.ePage.Masters.IsDisableSave = true;

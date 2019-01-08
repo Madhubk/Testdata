@@ -5,89 +5,55 @@
         .module("Application")
         .controller("OrgReferenceModalController", OrgReferenceModalController);
 
-    OrgReferenceModalController.$inject = ["$rootScope", "$scope", "$state", "$q", "$location", "$timeout", "$uibModalInstance", "APP_CONSTANT", "authService", "apiService", "organizationConfig", "helperService", "toastr", "param"];
+    OrgReferenceModalController.$inject = ["$timeout", "$filter", "$uibModalInstance", "APP_CONSTANT", "helperService", "toastr", "param", "errorWarningService"];
 
-    function OrgReferenceModalController($rootScope, $scope, $state, $q, $location, $timeout, $uibModalInstance, APP_CONSTANT, authService, apiService, organizationConfig, helperService, toastr, param) {
+    function OrgReferenceModalController($timeout, $filter, $uibModalInstance, APP_CONSTANT, helperService, toastr, param, errorWarningService) {
         var OrgReferenceModalCtrl = this;
 
         function Init() {
-            var currentOrganization = param.Entity[param.Entity.label].ePage.Entities;
+            var currentOrganization = param.Entity[param.Entity.code].ePage.Entities;
 
             OrgReferenceModalCtrl.ePage = {
                 "Title": "",
-                "Prefix": "Organization_General",
+                "Prefix": "Organization_Reference_Modal",
                 "Masters": {},
                 "Meta": helperService.metaBase(),
                 "Entities": currentOrganization
             };
 
-            OrgReferenceModalCtrl.ePage.Masters.param = param;
-            OrgReferenceModalCtrl.ePage.Masters.DropDownMasterList = organizationConfig.Entities.Header.Meta;
-            OrgReferenceModalCtrl.ePage.Masters.Save = Save;
-            OrgReferenceModalCtrl.ePage.Masters.Cancel = Cancel;
-            
-            OrgReferenceModalCtrl.ePage.Masters.SaveButtonText = "Save";
+            try {
+                OrgReferenceModalCtrl.ePage.Masters.param = angular.copy(param);
+                OrgReferenceModalCtrl.ePage.Masters.Save = ValidateOrgReference;
+                OrgReferenceModalCtrl.ePage.Masters.Cancel = Cancel;
 
-            OrgReferenceModalCtrl.ePage.Masters.Config = organizationConfig;
+                OrgReferenceModalCtrl.ePage.Masters.SaveButtonText = "Save";
+                OrgReferenceModalCtrl.ePage.Masters.IsDisableSave = false;
 
-            OrgReferenceModalCtrl.ePage.Masters.DatePicker = {};
-            OrgReferenceModalCtrl.ePage.Masters.DatePicker.Options = APP_CONSTANT.DatePicker;
-            OrgReferenceModalCtrl.ePage.Masters.DatePicker.isOpen = [];
-            OrgReferenceModalCtrl.ePage.Masters.DatePicker.OpenDatePicker = OpenDatePicker;
-        }
+                OrgReferenceModalCtrl.ePage.Masters.DatePicker = {};
+                OrgReferenceModalCtrl.ePage.Masters.DatePicker.Options = APP_CONSTANT.DatePicker;
+                OrgReferenceModalCtrl.ePage.Masters.DatePicker.isOpen = [];
+                OrgReferenceModalCtrl.ePage.Masters.DatePicker.OpenDatePicker = OpenDatePicker;
 
-        function Save(obj, entity, type) {
-            var _isEmpty = angular.equals(obj, {});
-
-            if (_isEmpty) {
-                toastr.warning("Please fill fields...!");
-            } else {
-                obj.IsModified = true;
-                var _isExist = OrgReferenceModalCtrl.ePage.Entities.Header.Data[entity].some(function (value, key) {
-                    return value.PK === obj.PK;
-                });
-
-                if (!_isExist) {
-                    OrgReferenceModalCtrl.ePage.Entities.Header.Data[entity].push(obj);
-                } else {
-                    var _index = OrgReferenceModalCtrl.ePage.Entities.Header.Data[entity].map(function (value, key) {
-                        if (value.PK === obj.PK) {
-                            OrgReferenceModalCtrl.ePage.Entities.Header.Data[entity][key] = obj;
-                        }
-                    });
-                }
-
-                OrgReferenceModalCtrl.ePage.Masters.SaveButtonText = "Please Wait...";
-                OrgReferenceModalCtrl.ePage.Masters.IsDisableSave = true;
-
-                helperService.SaveEntity(OrgReferenceModalCtrl.ePage.Masters.param.Entity,'Organization').then(function (response) {
-                    if (response.Status === "success") {
-                        var _exports = {
-                            Data: obj,
-                            entity: entity,
-                            type: type
-                        };
-                        $uibModalInstance.close(_exports);
-                        Cancel();
-                        OrgReferenceModalCtrl.ePage.Masters.Config.refreshgrid();
-                    } else if (response === "failed") {
-                        Cancel();
-                    }
-                    OrgReferenceModalCtrl.ePage.Masters.SaveButtonText = "Save";
-                    OrgReferenceModalCtrl.ePage.Masters.IsDisableSave = false;
-
-                    OrgReferenceModalCtrl.ePage.Entities.Header.Validations = response.Validations;
-                    angular.forEach(response.Validations, function (value, key) {
-                    OrgReferenceModalCtrl.ePage.Masters.Config.PushErrorWarning(value.Code, value.Message, "E", false, value.CtrlKey.trim(), OrgReferenceModalCtrl.ePage.Masters.param.Entity.label, false, undefined, undefined, undefined, undefined, undefined);
-                });
-                if(OrgReferenceModalCtrl.ePage.Entities.Header.Validations !== null){
-                    OrgReferenceModalCtrl.ePage.Masters.Config.ShowErrorWarningModal(OrgReferenceModalCtrl.ePage.Entities);    
-                }    
-                
-                });
+                InitOrgReference();
+            } catch (ex) {
+                console.log(ex);
             }
         }
-        function OpenDatePicker($event, opened){
+
+        function InitOrgReference() {
+            OrgReferenceModalCtrl.ePage.Masters.OrgReference = {};
+            OrgReferenceModalCtrl.ePage.Masters.OrgReference.FormView = {};
+
+            if (OrgReferenceModalCtrl.ePage.Masters.param.Item) {
+                OrgReferenceModalCtrl.ePage.Masters.OrgReference.FormView = OrgReferenceModalCtrl.ePage.Masters.param.Item;
+            }
+
+            OrgReferenceModalCtrl.ePage.Masters.ErrorWarningConfig = errorWarningService;
+            OrgReferenceModalCtrl.ePage.Masters.GlobalErrorWarningList = errorWarningService.Modules.Organization.Entity[param.Entity.code].GlobalErrorWarningList;
+            OrgReferenceModalCtrl.ePage.Masters.ErrorWarningObj = errorWarningService.Modules.Organization.Entity[param.Entity.code];
+        }
+
+        function OpenDatePicker($event, opened) {
             $event.preventDefault();
             $event.stopPropagation();
 
@@ -95,8 +61,85 @@
         }
 
         function Cancel() {
-            OrgReferenceModalCtrl.ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList = [];
             $uibModalInstance.dismiss('close');
+        }
+
+        function ValidateOrgReference() {
+            OrgReferenceModalCtrl.ePage.Masters.SaveButtonText = "Please Wait...";
+            OrgReferenceModalCtrl.ePage.Masters.IsDisableSave = true;
+
+            var _code = param.Entity.code;
+            var _obj = {
+                ModuleName: ["Organization"],
+                Code: [_code],
+                API: "Group",
+                GroupCode: "ORG_REFERENCE",
+                RelatedBasicDetails: [],
+                EntityObject: OrgReferenceModalCtrl.ePage.Masters.OrgReference.FormView,
+                ErrorCode: []
+            };
+            errorWarningService.ValidateValue(_obj);
+
+            $timeout(function () {
+                var _errorCount = $filter("listCount")(OrgReferenceModalCtrl.ePage.Masters.GlobalErrorWarningList, 'MessageType', 'E');
+
+                if (_errorCount > 0) {
+                    OrgReferenceModalCtrl.ePage.Masters.SaveButtonText = "Save";
+                    OrgReferenceModalCtrl.ePage.Masters.IsDisableSave = false;
+
+                    toastr.warning("Fill all mandatory fields...!");
+                } else {
+                    Save();
+                }
+            });
+        }
+
+        function Save() {
+            OrgReferenceModalCtrl.ePage.Masters.SaveButtonText = "Please Wait...";
+            OrgReferenceModalCtrl.ePage.Masters.IsDisableSave = true;
+
+            var _OrgRefDate = angular.copy(OrgReferenceModalCtrl.ePage.Entities.Header.Data.OrgRefDate);
+            var _formView = angular.copy(OrgReferenceModalCtrl.ePage.Masters.OrgReference.FormView);
+            _formView.IsModified = true;
+            if (_formView.PK) {
+                var _index = _OrgRefDate.map(function (value, key) {
+                    return value.PK;
+                }).indexOf(_formView.PK);
+
+                if (_index != -1) {
+                    _OrgRefDate[_index] = _formView;
+                }
+            } else {
+                _OrgRefDate = _OrgRefDate.concat(_formView);
+            }
+
+            var _input = angular.copy(OrgReferenceModalCtrl.ePage.Entities.Header.Data);
+            _input.OrgRefDate = _OrgRefDate;
+            _input.IsModified = true;
+
+            OrgReferenceModalCtrl.ePage.Masters.param.Entity[OrgReferenceModalCtrl.ePage.Masters.param.Entity.code].ePage.Entities.Header.Data = _input;
+
+            helperService.SaveEntity(OrgReferenceModalCtrl.ePage.Masters.param.Entity, 'Organization').then(function (response) {
+                if (response.Status === "success") {
+                    if (response.Data) {
+                        var _exports = {
+                            data: response.Data
+                        };
+                        $uibModalInstance.close(_exports);
+                    }
+                } else if (response.Status == "ValidationFailed" || response.Status == "failed") {
+                    if (response.Validations && response.Validations.length > 0) {
+                        response.Validations.map(function (value, key) {
+                            toastr.error(value.Message);
+                        });
+                    } else {
+                        toastr.warning("Failed to Save...!");
+                    }
+                }
+
+                OrgReferenceModalCtrl.ePage.Masters.SaveButtonText = "Save";
+                OrgReferenceModalCtrl.ePage.Masters.IsDisableSave = false;
+            });
         }
 
         Init();

@@ -10,25 +10,24 @@
                 <div class="tab-loading" data-ng-show="OrganizationCtrl.ePage.Masters.IsTabClick"></div>
             </div>
         </uib-tab>
-        <uib-tab active="OrganizationCtrl.ePage.Masters.ActiveTabIndex == $index" data-ng-repeat="tab in OrganizationCtrl.ePage.Masters.TabList"
-            data-ng-click="OrganizationCtrl.ePage.Masters.CurrentActiveTab(tab.label)">
+        <uib-tab active="OrganizationCtrl.ePage.Masters.ActiveTabIndex == $index" data-ng-repeat="tab in OrganizationCtrl.ePage.Masters.TabList">
             <uib-tab-heading title="{{tab.label}}">
                 <span data-ng-bind="tab.label"></span>
                 <i class="glyphicon glyphicon-remove" data-ng-click="OrganizationCtrl.ePage.Masters.RemoveTab($event, $index, tab)"></i>
-                <span class="error-warning-container-common" data-ng-show="OrganizationCtrl.ePage.Masters.ErrorWarningConfig.Modules.Organization.Entity[tab.code ? tab.code : tab.label].GlobalErrorWarningList.length > 0">
-                    <span class="custom-warning-container" data-ng-show="(OrganizationCtrl.ePage.Masters.ErrorWarningConfig.Modules.Organization.Entity[tab.code ? tab.code : tab.label].GlobalErrorWarningList | listCount: 'MessageType': 'W') > 0 && (OrganizationCtrl.ePage.Masters.ErrorWarningConfig.Modules.Organization.Entity[tab.code ? tab.code : tab.label].GlobalErrorWarningList | listCount: 'MessageType': 'E') == 0">
-                        <button class="btn-warning" data-ng-click="OrganizationCtrl.ePage.Masters.ShowErrorWarningModal(OrganizationCtrl.ePage.Masters.ErrorWarningConfig.Modules.Organization.Entity[tab.code ? tab.code : tab.label].GlobalErrorWarningList)">
+                <span class="error-warning-container-common" data-ng-show="OrganizationCtrl.ePage.Masters.ErrorWarningConfig.Modules.Organization.Entity[tab.code].GlobalErrorWarningList.length > 0">
+                    <span class="custom-warning-container" data-ng-show="(OrganizationCtrl.ePage.Masters.ErrorWarningConfig.Modules.Organization.Entity[tab.code].GlobalErrorWarningList | listCount: 'MessageType': 'W') > 0 && (OrganizationCtrl.ePage.Masters.ErrorWarningConfig.Modules.Organization.Entity[tab.code].GlobalErrorWarningList | listCount: 'MessageType': 'E') == 0">
+                        <button class="btn-warning" data-ng-click="OrganizationCtrl.ePage.Masters.ShowErrorWarningModal(OrganizationCtrl.ePage.Masters.ErrorWarningConfig.Modules.Organization.Entity[tab.code].GlobalErrorWarningList)">
                             <i class="fa fa-warning"></i>
                         </button>
-                        <span class="custom-warning-count">{{OrganizationCtrl.ePage.Masters.ErrorWarningConfig.Modules.Organization.Entity[tab.code ? tab.code : tab.label].GlobalErrorWarningList
+                        <span class="custom-warning-count">{{OrganizationCtrl.ePage.Masters.ErrorWarningConfig.Modules.Organization.Entity[tab.code].GlobalErrorWarningList
                             | listCount: 'MessageType': 'W'}}
                         </span>
                     </span>
-                    <span class="custom-error-container" data-ng-show="(OrganizationCtrl.ePage.Masters.ErrorWarningConfig.Modules.Organization.Entity[tab.code ? tab.code : tab.label].GlobalErrorWarningList | listCount: 'MessageType': 'E') > 0">
+                    <span class="custom-error-container" data-ng-show="(OrganizationCtrl.ePage.Masters.ErrorWarningConfig.Modules.Organization.Entity[tab.code].GlobalErrorWarningList | listCount: 'MessageType': 'E') > 0">
                         <button class="btn-error" data-ng-click="OrganizationCtrl.ePage.Masters.ShowErrorWarningModal(tab)">
                             <i class="fa fa-warning"></i>
                         </button>
-                        <span class="custom-error-count">{{OrganizationCtrl.ePage.Masters.ErrorWarningConfig.Modules.Organization.Entity[tab.code ? tab.code : tab.label].GlobalErrorWarningList
+                        <span class="custom-error-count">{{OrganizationCtrl.ePage.Masters.ErrorWarningConfig.Modules.Organization.Entity[tab.code].GlobalErrorWarningList
                             | listCount: 'MessageType': 'E'}}
                         </span>
                     </span>

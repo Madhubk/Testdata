@@ -26,7 +26,7 @@
                             </span>
                             <select chosen name="category-group" data-ng-model="OrgCompanyModalCtrl.ePage.Masters.Company.FormView.ODG_ARDebtorGroup"
                                 data-ng-options="x.PK  as x.Desc for x in OrgCompanyModalCtrl.ePage.Masters.DebtorGroupList"
-                                class="form-control header-select-control input-sm gmail-style-btn eaxis-value"
+                                class="form-control"
                                 search-contains="true" data-ng-change="OrgCompanyModalCtrl.ePage.Masters.Company.OnAccountGroupChange((OrgCompanyModalCtrl.ePage.Masters.DebtorGroupList | filter: {'PK': OrgCompanyModalCtrl.ePage.Masters.Company.FormView.ODG_ARDebtorGroup})[0])">
                                 <option value="">--Select--</option>
                             </select>
@@ -46,7 +46,7 @@
                             </span>
                             <select chosen name="category-group" data-ng-model="OrgCompanyModalCtrl.ePage.Masters.Company.FormView.MYC_NKARDDefltCurrency"
                                 data-ng-options="x.Code  as (x.Code + ' - ' + x.Desc) for x in OrgCompanyModalCtrl.ePage.Masters.CurrencyList"
-                                class="form-control header-select-control input-sm gmail-style-btn eaxis-value"
+                                class="form-control"
                                 search-contains="true" data-ng-change="OrgCompanyModalCtrl.ePage.Masters.Company.OnCurrencyChange((OrgCompanyModalCtrl.ePage.Masters.CurrencyList | filter: {'Code': OrgCompanyModalCtrl.ePage.Masters.Company.FormView.MYC_NKARDDefltCurrency})[0])">
                                 <option value="">--Select--</option>
                             </select>

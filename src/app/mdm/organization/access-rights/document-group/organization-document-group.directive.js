@@ -29,7 +29,7 @@
         var OrganizationDocumentGroupCtrl = this;
 
         function Init() {
-            var currentOrganization = OrganizationDocumentGroupCtrl.currentOrganization[OrganizationDocumentGroupCtrl.currentOrganization.label].ePage.Entities;
+            var currentOrganization = OrganizationDocumentGroupCtrl.currentOrganization[OrganizationDocumentGroupCtrl.currentOrganization.code].ePage.Entities;
 
             OrganizationDocumentGroupCtrl.ePage = {
                 "Title": "",

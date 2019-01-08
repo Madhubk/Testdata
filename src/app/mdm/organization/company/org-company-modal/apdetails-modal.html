@@ -24,7 +24,7 @@
                         </span>
                         <select chosen name="category-group" data-ng-model="OrgCompanyModalCtrl.ePage.Masters.Company.FormView.OCG_APCreditorGroup"
                             data-ng-options="x.PK  as x.Desc for x in OrgCompanyModalCtrl.ePage.Masters.CreditorGroupList"
-                            class="form-control header-select-control input-sm gmail-style-btn eaxis-value"
+                            class="form-control"
                             search-contains="true" data-ng-change="OrgCompanyModalCtrl.ePage.Masters.Company.OnAccountGroupChange((OrgCompanyModalCtrl.ePage.Masters.CreditorGroupList | filter: {'PK': OrgCompanyModalCtrl.ePage.Masters.Company.FormView.OCG_APCreditorGroup})[0])">
                             <option value="">--Select--</option>
                         </select>
@@ -43,7 +43,7 @@
                         </span>
                         <select chosen name="category-group" data-ng-model="OrgCompanyModalCtrl.ePage.Masters.Company.FormView.MYC_NKAPDefltCurrency"
                             data-ng-options="x.Code  as (x.Code + ' - ' + x.Desc) for x in OrgCompanyModalCtrl.ePage.Masters.CurrencyList"
-                            class="form-control header-select-control input-sm gmail-style-btn eaxis-value"
+                            class="form-control"
                             search-contains="true" data-ng-change="OrgCompanyModalCtrl.ePage.Masters.Company.OnCurrencyChange((OrgCompanyModalCtrl.ePage.Masters.CurrencyList | filter: {'Code': OrgCompanyModalCtrl.ePage.Masters.Company.FormView.MYC_NKAPDefltCurrency})[0])">
                             <option value="">--Select--</option>
                         </select>

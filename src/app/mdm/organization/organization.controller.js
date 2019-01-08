@@ -32,7 +32,6 @@
 
                 OrganizationCtrl.ePage.Masters.AddTab = AddTab;
                 OrganizationCtrl.ePage.Masters.RemoveTab = RemoveTab;
-                OrganizationCtrl.ePage.Masters.CurrentActiveTab = CurrentActiveTab;
                 OrganizationCtrl.ePage.Masters.CreateNew = CreateNew;
                 OrganizationCtrl.ePage.Masters.SelectedGridRow = SelectedGridRow;
 
@@ -119,34 +118,26 @@
         }
 
         function CreateNew() {
-            var _isExist = OrganizationCtrl.ePage.Masters.TabList.some(function (value) {
-                return value.label === "New";
+            OrganizationCtrl.ePage.Masters.IsNewOrgClicked = true;
+
+            helperService.getFullObjectUsingGetById(organizationConfig.Entities.API.Org.API.GetById.Url, 'null').then(function (response) {
+                if (response.data.Response) {
+                    var _obj = {
+                        entity: response.data.Response.OrgHeader,
+                        data: response.data.Response
+                    };
+                    OrganizationCtrl.ePage.Masters.AddTab(_obj, true);
+                    OrganizationCtrl.ePage.Masters.IsNewOrgClicked = false;
+                } else {
+                    console.log("Empty Org Response");
+                }
             });
-
-            if (!_isExist) {
-                OrganizationCtrl.ePage.Masters.IsNewOrgClicked = true;
-
-                helperService.getFullObjectUsingGetById(organizationConfig.Entities.API.Org.API.GetById.Url, 'null').then(function (response) {
-                    if (response.data.Response) {
-                        var _obj = {
-                            entity: response.data.Response.OrgHeader,
-                            data: response.data.Response
-                        };
-                        OrganizationCtrl.ePage.Masters.AddTab(_obj, true);
-                        OrganizationCtrl.ePage.Masters.IsNewOrgClicked = false;
-                    } else {
-                        console.log("Empty Org Response");
-                    }
-                });
-            } else {
-                toastr.warning("Record Already Opened...!");
-            }
         }
 
         function RemoveTab(event, index, currentTab) {
             event.preventDefault();
             event.stopPropagation();
-            var _currentTab = currentTab[currentTab.label].ePage.Entities;
+            var _currentTab = currentTab[currentTab.code].ePage.Entities;
 
             $timeout(function () {
                 OrganizationCtrl.ePage.Masters.TabList.splice(index, 1);
@@ -156,20 +147,8 @@
         }
 
         function AddTab(currentTab, isNew) {
-            OrganizationCtrl.ePage.Masters.CurrentTab = undefined;
-
             var _isExist = OrganizationCtrl.ePage.Masters.TabList.some(function (value) {
-                if (!isNew) {
-                    if (value.label === currentTab.entity.Code)
-                        return true;
-                    else
-                        return false;
-                } else {
-                    if (value.label === "New")
-                        return true;
-                    else
-                        return false;
-                }
+                return value.pk == currentTab.entity.PK;
             });
 
             if (!_isExist) {
@@ -188,7 +167,7 @@
                     if (OrganizationCtrl.ePage.Masters.TabList.length > 0) {
                         OrganizationCtrl.ePage.Masters.TabList.map(function (value, key) {
                             if (value.code == currentTab.entity.Code) {
-                                _entity = value[value.label].ePage.Entities.Header.Data;
+                                _entity = value[value.code].ePage.Entities.Header.Data;
                             }
                         });
                     }
@@ -196,10 +175,9 @@
                     $timeout(function () {
                         OrganizationCtrl.ePage.Masters.ActiveTabIndex = OrganizationCtrl.ePage.Masters.TabList.length;
 
-                        var _code = currentTab.entity.Code ? currentTab.entity.Code : "New";
-                        OrganizationCtrl.ePage.Masters.CurrentActiveTab(_code);
                         OrganizationCtrl.ePage.Masters.IsTabClick = false;
 
+                        var _code = currentTab.entity.PK.split("-").join("");
                         GetValidationList(_code, _entity);
                     });
                 });
@@ -225,16 +203,6 @@
             errorWarningService.GetErrorCodeList(_obj);
         }
 
-        function CurrentActiveTab(currentTab) {
-            if (currentTab.label !== undefined) {
-                currentTab = currentTab.label
-            } else {
-                currentTab = currentTab;
-            }
-
-            OrganizationCtrl.ePage.Masters.CurrentTab = currentTab;
-        }
-
         function SelectedGridRow($item) {
             if ($item.action === "link" || $item.action === "dblClick") {
                 OrganizationCtrl.ePage.Masters.AddTab($item.data, false);
@@ -244,7 +212,7 @@
         }
 
         function ShowErrorWarningModal(tab) {
-            $("#errorWarningContainerOrganization" + OrganizationCtrl.ePage.Masters.CurrentTab).addClass("open");
+            $("#errorWarningContainerOrganization" + tab.code).addClass("open");
         }
 
         Init();

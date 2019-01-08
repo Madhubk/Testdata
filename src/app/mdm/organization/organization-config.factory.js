@@ -616,16 +616,26 @@
                             }
                         }
                     },
+                    "OrgRefDate": {
+                        "RowIndex": -1,
+                        "API": {
+                            "Delete": {
+                                "IsAPI": true,
+                                "Url": "OrgRefDate/Delete/"
+                            }
+                        }
+                    },
                     "WmsInventory": {
                         "RowIndex": -1,
                         "API": {
                             "FindAll": {
-                                "IsAPI": true,
+                                "IsAPI": "true",
+                                "HttpType": "POST",
                                 "Url": "WmsInventory/FindAll",
                                 "FilterID": "WMSINV"
                             }
                         }
-                    }
+                    },
                 }
             },
             "TabList": [],
@@ -650,7 +660,7 @@
                                 "IsAPI": "true",
                                 "HttpType": "POST",
                                 "Url": "Org/Update"
-                            },
+                            }
                         },
                         "Meta": {},
                         "ModeDetails": {
@@ -1088,13 +1098,15 @@
 
             if (isNew) {
                 _exports.Entities.Header.Data = currentOrganization.data;
+                var _code = currentOrganization.entity.PK.split("-").join("");
 
                 var _obj = {
-                    New: {
+                    [_code]: {
                         ePage: _exports
                     },
                     label: 'New',
-                    code: currentOrganization.entity.Code,
+                    code: _code,
+                    pk: currentOrganization.entity.PK,
                     isNew: isNew
                 };
                 exports.TabList.push(_obj);
@@ -1110,12 +1122,14 @@
                     }
 
                     _exports.Entities.Header.Data = response.data.Response;
+                    var _code = currentOrganization.PK.split("-").join("");
                     var obj = {
-                        [currentOrganization.Code]: {
+                        [_code]: {
                             ePage: _exports
                         },
                         label: currentOrganization.Code,
-                        code: currentOrganization.Code,
+                        code: _code,
+                        pk: currentOrganization.PK,
                         isNew: isNew
                     };
                     exports.TabList.push(obj);

@@ -9,7 +9,7 @@
 
     function OrgRelatedPartyModalController($rootScope, $scope, $state, $q, $location, $timeout, $uibModalInstance, APP_CONSTANT, authService, apiService, organizationConfig, helperService, param, toastr, appConfig) {
         var OrgRelatedPartyModalCtrl = this;
-        var currentOrganization = param.Entity[param.Entity.label].ePage.Entities;
+        var currentOrganization = param.Entity[param.Entity.code].ePage.Entities;
 
         function Init() {
             OrgRelatedPartyModalCtrl.ePage = {

@@ -15,9 +15,7 @@
         </h5>
         </div>
         <div class="modal-body" id="modal-body">
-            <dynamic-list mode="DynamicListModalCtrl.mode" dataentry-name="DynamicListModalCtrl.pageName" default-filter="DynamicListModalCtrl.ePage.Masters.defaultFilter"
-                selected-grid-row="DynamicListModalCtrl.ePage.Masters.SelectedGridRow($item)" lookup-config-control-key="DynamicListModalCtrl.controlKey"
-                dataentry-object="DynamicListModalCtrl.ePage.Masters.DataEntry"></dynamic-list>
+            <dynamic-list mode="DynamicListModalCtrl.mode" dataentry-name="DynamicListModalCtrl.pageName" default-filter="DynamicListModalCtrl.ePage.Masters.defaultFilter" base-filter="DynamicListModalCtrl.ePage.Masters.baseFilter" selected-grid-row="DynamicListModalCtrl.ePage.Masters.SelectedGridRow($item)" lookup-config-control-key="DynamicListModalCtrl.controlKey" dataentry-object="DynamicListModalCtrl.ePage.Masters.DataEntry"></dynamic-list>
         </div>`;
         $templateCache.put("DynamicListModal.html", _template);
 
@@ -34,6 +32,7 @@
                 gridRefreshFun: "&",
                 selectedData: "&",
                 defaultFilter: "=",
+                baseFilter: "=",
                 isDisabled: "="
             },
             link: Link

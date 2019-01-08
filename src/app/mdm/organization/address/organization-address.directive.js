@@ -31,7 +31,7 @@
         var OrganizationAddressCtrl = this;
 
         function Init() {
-            var currentOrganization = OrganizationAddressCtrl.currentOrganization[OrganizationAddressCtrl.currentOrganization.label].ePage.Entities;
+            var currentOrganization = OrganizationAddressCtrl.currentOrganization[OrganizationAddressCtrl.currentOrganization.code].ePage.Entities;
 
             OrganizationAddressCtrl.ePage = {
                 "Title": "",
@@ -133,7 +133,7 @@
             }).result.then(
                 function (response) {
                     if (response.data) {
-                        OrganizationAddressCtrl.currentOrganization[OrganizationAddressCtrl.currentOrganization.label].ePage.Entities.Header.Data = response.data;
+                        OrganizationAddressCtrl.currentOrganization[OrganizationAddressCtrl.currentOrganization.code].ePage.Entities.Header.Data = response.data;
 
                         OrganizationAddressCtrl.ePage.Entities.Header.Data = response.data;
                     }
@@ -188,12 +188,12 @@
                 var _index = _input.OrgAddress[_index] = _address;
             }
 
-            OrganizationAddressCtrl.currentOrganization[OrganizationAddressCtrl.currentOrganization.label].ePage.Entities.Header.Data = _input;
+            OrganizationAddressCtrl.currentOrganization[OrganizationAddressCtrl.currentOrganization.code].ePage.Entities.Header.Data = _input;
 
             helperService.SaveEntity(OrganizationAddressCtrl.currentOrganization, 'Organization').then(function (response) {
                 if (response.Status == "success") {
                     if (response.Data) {
-                        OrganizationAddressCtrl.currentOrganization[OrganizationAddressCtrl.currentOrganization.label].ePage.Entities.Header.Data = response.Data;
+                        OrganizationAddressCtrl.currentOrganization[OrganizationAddressCtrl.currentOrganization.code].ePage.Entities.Header.Data = response.Data;
 
                         OrganizationAddressCtrl.ePage.Entities.Header.Data = response.Data;
                     }
