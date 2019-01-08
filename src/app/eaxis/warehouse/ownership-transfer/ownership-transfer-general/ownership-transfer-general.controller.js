@@ -236,6 +236,9 @@
                     typeCodeList.map(function (value, key) {
                         OwnershipTransferGeneralCtrl.ePage.Masters.DropDownMasterList[value] = helperService.metaBase();
                         OwnershipTransferGeneralCtrl.ePage.Masters.DropDownMasterList[value].ListSource = response.data.Response[value];
+                        if (value == "StockTransferType") {
+                            OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.WorkOrderSubType = "OWN";
+                        }
                     });
                 }
             });
@@ -861,7 +864,7 @@
 
 
         function Filter() {
-            
+
             // if searching input and original client and warehouse same then only process
 
             if ((OwnershipTransferGeneralCtrl.ePage.Masters.DynamicControl.Entities[0].Data.TransferFrom_ORG_Code == OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.TransferFrom_ORG_Code) && (OwnershipTransferGeneralCtrl.ePage.Masters.DynamicControl.Entities[0].Data.WAR_WarehouseCode == OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.WarehouseCode)) {
@@ -927,8 +930,8 @@
                         "OriginalInventoryStatusDesc": "",
                         "PalletID": "",
                         "TransferFromPalletId": value.PalletID,
-                        "WLO_Location": "",
-                        "WLO_FK": "",
+                        "WLO_Location": value.Location,
+                        "WLO_FK": value.WLO_FK,
                         "WLO_TransferFrom_FK": value.WLO_FK,
                         "WLO_TransferFrom": value.Location,
                         "AdjustmentArrivalDate": value.AdjustmentArrivalDate,
@@ -948,9 +951,9 @@
                         "IsPartAttrib2ReleaseCaptured": value.IsPartAttrib2ReleaseCaptured,
                         "IsPartAttrib3ReleaseCaptured": value.IsPartAttrib3ReleaseCaptured,
 
-                        "ORG_ClientCode": value.ORG_ClientCode,
-                        "ORG_ClientName": value.ORG_ClientName,
-                        "Client_FK": value.Client_FK,
+                        "ORG_ClientCode": value.ClientCode,
+                        "ORG_ClientName": value.ClientName,
+                        "Client_FK": value.ORG_FK,
 
                         "WAR_WarehouseCode": value.WAR_WarehouseCode,
                         "WAR_WarehouseName": value.WAR_WarehouseName,

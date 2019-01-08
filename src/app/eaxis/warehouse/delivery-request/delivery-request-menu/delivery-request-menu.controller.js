@@ -254,7 +254,7 @@
                         }
                         if (DeliveryMenuCtrl.ePage.Masters.IsCancelButton) {
                             DeliveryMenuCtrl.ePage.Masters.CancelButtonText = "Cancel Delivery";
-                            DeliveryMenuCtrl.ePage.Masters.DisableSave = false;
+                            // DeliveryMenuCtrl.ePage.Masters.DisableSave = false;
                             DeliveryMenuCtrl.ePage.Masters.IsCancelButton = false;
                         }
                     }

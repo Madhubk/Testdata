@@ -250,7 +250,7 @@
                         }
                         if (PickupMenuCtrl.ePage.Masters.IsCancelButton) {
                             PickupMenuCtrl.ePage.Masters.CancelButtonText = "Cancel Pickup";
-                            PickupMenuCtrl.ePage.Masters.DisableSave = false;
+                            // PickupMenuCtrl.ePage.Masters.DisableSave = false;
                             PickupMenuCtrl.ePage.Masters.IsCancelButton = false;
                         }
 
