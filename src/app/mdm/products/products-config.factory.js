@@ -99,8 +99,14 @@
                                     "IsAPI": "true",
                                     "HttpType": "Get",
                                     "Url": "WMSPickFace/Delete"
-                                }
+                                },
                             },
+                            "Inventory": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "WmsInventory/FindAll",
+                                "FilterID": "WMSINV"
+                            }
                         },
 
                         "Meta": {

@@ -64,6 +64,12 @@
                                 "HttpType": "Get",
                                 "Url": "WmsArea/Delete/"
                             },
+                            "Inventory": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "WmsInventory/FindAll",
+                                "FilterID": "WMSINV"
+                            }
                         },
                         "Meta": {
                             "Language": helperService.metaBase(),

@@ -616,6 +616,16 @@
                             }
                         }
                     },
+                    "WmsInventory": {
+                        "RowIndex": -1,
+                        "API": {
+                            "FindAll": {
+                                "IsAPI": true,
+                                "Url": "WmsInventory/FindAll",
+                                "FilterID": "WMSINV"
+                            }
+                        }
+                    }
                 }
             },
             "TabList": [],
@@ -641,12 +651,6 @@
                                 "HttpType": "POST",
                                 "Url": "Org/Update"
                             },
-                            "MiscService": {
-                                "IsAPI": "true",
-                                "HttpType": "POST",
-                                "Url": "OrgMiscServ/FindAll",
-                                "FilterID": "ORGMISC"
-                            }
                         },
                         "Meta": {},
                         "ModeDetails": {

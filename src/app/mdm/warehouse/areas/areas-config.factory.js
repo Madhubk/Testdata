@@ -60,8 +60,13 @@
                                 "IsAPI": "true",
                                 "HttpType": "POST",
                                 "Url": "WmsArea/Update"
+                            },
+                            "Inventory": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "WmsInventory/FindAll",
+                                "FilterID": "WMSINV"
                             }
-
                         },
                         "Meta": {
                         "Language": helperService.metaBase(),

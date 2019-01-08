@@ -42,34 +42,63 @@
             };
 
             OrgWarehouseCtrl.ePage.Masters.EditableMode = EditableMode;
+            GetInventoryDetails()
+        }
+
+        function GetInventoryDetails(){
+            if(!OrgWarehouseCtrl.currentOrganization.isNew){
+                OrgWarehouseCtrl.ePage.Masters.Loading = true;
+                var _filter = {
+                    "ORG_FK": OrgWarehouseCtrl.ePage.Entities.Header.Data.OrgHeader.PK,
+                    "PageNumber":"1",
+                    "PageSize": "10",
+                    "SortType": "ASC",
+                    "SortColumn":"WOL_CreatedDateTime",
+                };
+                
+                var _input = {
+                    "searchInput": helperService.createToArrayOfObject(_filter),
+                    "FilterID": organizationConfig.Entities.API.WmsInventory.API.FindAll.FilterID
+                };
+                apiService.post("eAxisAPI", organizationConfig.Entities.API.WmsInventory.API.FindAll.Url, _input).then(function SuccessCallback(response) {
+                    OrgWarehouseCtrl.ePage.Masters.Loading = false;
+                    if(response.data.Response.length>0){
+                        OrgWarehouseCtrl.ePage.Masters.CanEditWarehouseModule = true;
+                    }
+                });
+            }
         }
 
         function EditableMode(type){
-            $uibModal.open({
+            if(!OrgWarehouseCtrl.ePage.Masters.CanEditWarehouseModule){
+                $uibModal.open({
 
-                animation: true,
-                backdrop: "static",
-                keyboard: true,
-                windowClass: "general-edit right warehouse-edit",
-                scope: $scope,
-
-                templateUrl: 'app/mdm/organization/warehouse/editable-pages/'+type+'.html',
-                controller: 'EditableController as EditableCtrl',
-                bindToController: true,
-                resolve: {
-                    param: function () {
-                        var exports = {
-                            "Entity": OrgWarehouseCtrl.currentOrganization,
-                        };
-                        return exports;
+                    animation: true,
+                    backdrop: "static",
+                    keyboard: true,
+                    windowClass: "general-edit right warehouse-edit",
+                    scope: $scope,
+    
+                    templateUrl: 'app/mdm/organization/warehouse/editable-pages/'+type+'.html',
+                    controller: 'EditableController as EditableCtrl',
+                    bindToController: true,
+                    resolve: {
+                        param: function () {
+                            var exports = {
+                                "Entity": OrgWarehouseCtrl.currentOrganization,
+                            };
+                            return exports;
+                        }
                     }
-                }
-            }).result.then(function(response){
-                if(response){
-                    OrgWarehouseCtrl.currentOrganization[OrgWarehouseCtrl.currentOrganization.label].ePage.Entities.Header.Data = response.data;
-                    OrgWarehouseCtrl.ePage.Entities.Header.Data = response.data;
-                }
-            });
+                }).result.then(function(response){
+                    if(response){
+                        OrgWarehouseCtrl.currentOrganization[OrgWarehouseCtrl.currentOrganization.label].ePage.Entities.Header.Data = response.data;
+                        OrgWarehouseCtrl.ePage.Entities.Header.Data = response.data;
+                    }
+                });
+            }else{
+                toastr.warning("Product of this organization is Available in Warehouse. So you can not edit.")
+            }
         }
 
         Init();

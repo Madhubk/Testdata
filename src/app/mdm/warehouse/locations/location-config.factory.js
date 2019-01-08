@@ -103,6 +103,12 @@
                                 "HttpType": "POST",
                                 "Url": "WmsLocation/LocationBarcode",
                             },
+                            "Inventory": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "WmsInventory/FindAll",
+                                "FilterID": "WMSINV"
+                            }
                         },
                         "Meta": {
                             
@@ -121,7 +127,8 @@
                             }
                         },
                         "GlobalVariables":{
-                            "Loading":false
+                            "Loading":false,
+                            "CanEditLocation":false
                         },
                         "TableProperties":{
                             "WmsLocation":{

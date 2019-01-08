@@ -291,49 +291,53 @@
         }
 
         function UpdateV2(){
-            LocationDetailsCtrl.ePage.Entities.Header.GlobalVariables.Loading = true;
+            if(!LocationDetailsCtrl.ePage.Entities.Header.GlobalVariables.CanEditLocation){
+                LocationDetailsCtrl.ePage.Entities.Header.GlobalVariables.Loading = true;
 
-            angular.forEach(LocationDetailsCtrl.ePage.Entities.Header.Data.WmsLocation,function(value,key){
-                if(value.SingleSelect){
-                    if(LocationDetailsCtrl.ePage.Masters.LocalVariables.WAA_Name){
-                        value.WAA_Name = LocationDetailsCtrl.ePage.Masters.LocalVariables.WAA_Name;
-                        value.WAA_FK =LocationDetailsCtrl.ePage.Masters.LocalVariables.WAA_FK;
+                angular.forEach(LocationDetailsCtrl.ePage.Entities.Header.Data.WmsLocation,function(value,key){
+                    if(value.SingleSelect){
+                        if(LocationDetailsCtrl.ePage.Masters.LocalVariables.WAA_Name){
+                            value.WAA_Name = LocationDetailsCtrl.ePage.Masters.LocalVariables.WAA_Name;
+                            value.WAA_FK =LocationDetailsCtrl.ePage.Masters.LocalVariables.WAA_FK;
+                        }
+                        if(LocationDetailsCtrl.ePage.Masters.LocalVariables.LocationStatus){
+                            value.LocationStatus = LocationDetailsCtrl.ePage.Masters.LocalVariables.LocationStatus;
+                            value.LocationStatusDescription = LocationDetailsCtrl.ePage.Masters.LocalVariables.LocationStatusDescription;
+                        }
+                        if(LocationDetailsCtrl.ePage.Masters.LocalVariables.LocationType){
+                            value.LocationType = LocationDetailsCtrl.ePage.Masters.LocalVariables.LocationType;
+                        }
+                        if(LocationDetailsCtrl.ePage.Masters.LocalVariables.PickMethod){
+                            value.PickMethod = LocationDetailsCtrl.ePage.Masters.LocalVariables.PickMethod;
+                            value.PickMethodsDescription = LocationDetailsCtrl.ePage.Masters.LocalVariables.PickMethodsDescription;
+                        }
+                        if(LocationDetailsCtrl.ePage.Masters.LocalVariables.MaxWeight){
+                            value.MaxWeight = LocationDetailsCtrl.ePage.Masters.LocalVariables.MaxWeight;
+                            value.MaxWeightUnit = LocationDetailsCtrl.ePage.Masters.LocalVariables.MaxWeightUnit;
+                        }
+                        if(LocationDetailsCtrl.ePage.Masters.LocalVariables.MaxCubic){
+                            value.MaxCubic = LocationDetailsCtrl.ePage.Masters.LocalVariables.MaxCubic;
+                            value.MaxCubicUnit = LocationDetailsCtrl.ePage.Masters.LocalVariables.MaxCubicUnit;
+                        }
+                        if(LocationDetailsCtrl.ePage.Masters.LocalVariables.MaxQuantity){
+                            value.MaxQuantity = LocationDetailsCtrl.ePage.Masters.LocalVariables.MaxQuantity;
+                        }
                     }
-                    if(LocationDetailsCtrl.ePage.Masters.LocalVariables.LocationStatus){
-                        value.LocationStatus = LocationDetailsCtrl.ePage.Masters.LocalVariables.LocationStatus;
-                        value.LocationStatusDescription = LocationDetailsCtrl.ePage.Masters.LocalVariables.LocationStatusDescription;
+                });
+                LocationDetailsCtrl.ePage.Entities.Header.Data.WmsLocation = filterObjectUpdate(LocationDetailsCtrl.ePage.Entities.Header.Data.WmsLocation, "IsModified");
+                apiService.post("eAxisAPI", LocationDetailsCtrl.ePage.Entities.Header.API.updateOnlyLocation.Url, LocationDetailsCtrl.ePage.Entities.Header.Data.WmsLocation).then(function (response) {
+                    LocationDetailsCtrl.ePage.Entities.Header.GlobalVariables.Loading = false;
+                    LocationDetailsCtrl.ePage.Masters.EnableUpdateButton = false;
+    
+                    if (response.data.Response) {
+                        GetLocationLocalVariables();
+                        LocationDetailsCtrl.ePage.Entities.Header.Data.WmsLocation = response.data.Response;
+                        toastr.success("Location Updated Successfully.. ")
                     }
-                    if(LocationDetailsCtrl.ePage.Masters.LocalVariables.LocationType){
-                        value.LocationType = LocationDetailsCtrl.ePage.Masters.LocalVariables.LocationType;
-                    }
-                    if(LocationDetailsCtrl.ePage.Masters.LocalVariables.PickMethod){
-                        value.PickMethod = LocationDetailsCtrl.ePage.Masters.LocalVariables.PickMethod;
-                        value.PickMethodsDescription = LocationDetailsCtrl.ePage.Masters.LocalVariables.PickMethodsDescription;
-                    }
-                    if(LocationDetailsCtrl.ePage.Masters.LocalVariables.MaxWeight){
-                        value.MaxWeight = LocationDetailsCtrl.ePage.Masters.LocalVariables.MaxWeight;
-                        value.MaxWeightUnit = LocationDetailsCtrl.ePage.Masters.LocalVariables.MaxWeightUnit;
-                    }
-                    if(LocationDetailsCtrl.ePage.Masters.LocalVariables.MaxCubic){
-                        value.MaxCubic = LocationDetailsCtrl.ePage.Masters.LocalVariables.MaxCubic;
-                        value.MaxCubicUnit = LocationDetailsCtrl.ePage.Masters.LocalVariables.MaxCubicUnit;
-                    }
-                    if(LocationDetailsCtrl.ePage.Masters.LocalVariables.MaxQuantity){
-                        value.MaxQuantity = LocationDetailsCtrl.ePage.Masters.LocalVariables.MaxQuantity;
-                    }
-                }
-            });
-            LocationDetailsCtrl.ePage.Entities.Header.Data.WmsLocation = filterObjectUpdate(LocationDetailsCtrl.ePage.Entities.Header.Data.WmsLocation, "IsModified");
-            apiService.post("eAxisAPI", LocationDetailsCtrl.ePage.Entities.Header.API.updateOnlyLocation.Url, LocationDetailsCtrl.ePage.Entities.Header.Data.WmsLocation).then(function (response) {
-                LocationDetailsCtrl.ePage.Entities.Header.GlobalVariables.Loading = false;
-                LocationDetailsCtrl.ePage.Masters.EnableUpdateButton = false;
-
-                if (response.data.Response) {
-                    GetLocationLocalVariables();
-                    LocationDetailsCtrl.ePage.Entities.Header.Data.WmsLocation = response.data.Response;
-                    toastr.success("Location Updated Successfully.. ")
-                }
-            });
+                });
+            }else{
+                toastr.info("Product Availble in the current Row. So it cannot be edited.");
+            }
         }
 
         function Save($item) {

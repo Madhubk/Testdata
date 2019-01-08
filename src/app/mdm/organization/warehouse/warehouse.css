@@ -1,5 +1,6 @@
 .borderless-table td, .borderless-table th, .borderless-table tr {
     border-top: none !important;
+    font-size: 13px !important;
 }
 
 .general-edit.warehouse-edit>.modal-dialog {
