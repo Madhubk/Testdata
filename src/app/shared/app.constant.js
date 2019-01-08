@@ -687,8 +687,8 @@
             //endregion
         ],
         URL: {
-            eAxisAPI: "http://dev.myhubplusapi.20cube.com/eaxis/",
-            authAPI: "http://dev.myhubplusapi.20cube.com/auth/",
+            eAxisAPI: "http://dev.myhubplusapi.20cube.com/wms/",
+            authAPI: "http://dev.myhubplusapi.20cube.com/wmsauth/",
             alertAPI: "http://uat.api.20cube.com/alert/"
         },
         Crypto: {
@@ -785,7 +785,7 @@
                 ['help', ['help']]
             ]
         },
-        Version: "1.1"
+        Version: "1.0"
     };
 
     angular
