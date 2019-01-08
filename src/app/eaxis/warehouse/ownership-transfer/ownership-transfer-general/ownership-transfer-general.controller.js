@@ -875,7 +875,7 @@
                 $(".filter-sidebar-wrapper").toggleClass("open");
 
                 var FilterObj = {
-                    "ClientCode": OwnershipTransferGeneralCtrl.ePage.Masters.DynamicControl.Entities[0].Data.ClientCode,
+                    "ClientCode": OwnershipTransferGeneralCtrl.ePage.Masters.DynamicControl.Entities[0].Data.TransferFrom_ORG_Code,
                     "WAR_WarehouseCode": OwnershipTransferGeneralCtrl.ePage.Masters.DynamicControl.Entities[0].Data.WAR_WarehouseCode,
                     "AreaName": OwnershipTransferGeneralCtrl.ePage.Masters.DynamicControl.Entities[0].Data.AreaName,
                     "InventoryStatusIn": OwnershipTransferGeneralCtrl.ePage.Masters.DynamicControl.Entities[0].Data.InventoryStatusIn,
