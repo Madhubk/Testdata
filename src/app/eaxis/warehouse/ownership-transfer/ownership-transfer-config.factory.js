@@ -186,18 +186,10 @@
                                     "display": true
                                 },
                                 {
-                                    "columnname": "Location Source",
+                                    "columnname": "Location",
                                     "isenabled": true,
-                                    "property": "rlocationsource",
+                                    "property": "rlocation",
                                     "position": "12",
-                                    "width": "120",
-                                    "display": true
-                                },
-                                {
-                                    "columnname": "Location Destination",
-                                    "isenabled": true,
-                                    "property": "rlocationdestination",
-                                    "position": "13",
                                     "width": "120",
                                     "display": true
                                 },
@@ -205,7 +197,7 @@
                                     "columnname": "Pallet ID Source",
                                     "isenabled": true,
                                     "property": "rpalletidsource",
-                                    "position": "14",
+                                    "position": "13",
                                     "width": "100",
                                     "display": true
                                 },
@@ -213,15 +205,15 @@
                                     "columnname": "Pallet ID Destination",
                                     "isenabled": true,
                                     "property": "rpalletiddestination",
-                                    "position": "15",
+                                    "position": "14",
                                     "width": "100",
                                     "display": true
                                 },
                                 {
-                                    "columnname": "Destination Location Status",
+                                    "columnname": "Location Status",
                                     "isenabled": true,
                                     "property": "rlocationstatus",
-                                    "position": "16",
+                                    "position": "15",
                                     "width": "100",
                                     "display": true
                                 },
@@ -229,7 +221,7 @@
                                     "columnname": "UDF 1",
                                     "isenabled": true,
                                     "property": "rudf1",
-                                    "position": "17",
+                                    "position": "16",
                                     "width": "150",
                                     "display": true
                                 },
@@ -237,7 +229,7 @@
                                     "columnname": "UDF 2",
                                     "isenabled": true,
                                     "property": "rudf2",
-                                    "position": "18",
+                                    "position": "17",
                                     "width": "150",
                                     "display": true
                                 },
@@ -245,7 +237,7 @@
                                     "columnname": "UDF 3",
                                     "isenabled": true,
                                     "property": "rudf3",
-                                    "position": "19",
+                                    "position": "18",
                                     "width": "150",
                                     "display": true
                                 },
@@ -253,7 +245,7 @@
                                     "columnname": "Packing Date",
                                     "isenabled": true,
                                     "property": "rpackingdate",
-                                    "position": "20",
+                                    "position": "19",
                                     "width": "150",
                                     "display": true
                                 },
@@ -261,7 +253,7 @@
                                     "columnname": "Expiry Date",
                                     "isenabled": true,
                                     "property": "rexpirydate",
-                                    "position": "21",
+                                    "position": "20",
                                     "width": "150",
                                     "display": true
                                 },
@@ -269,7 +261,7 @@
                                     "columnname": "Picked Time",
                                     "isenabled": true,
                                     "property": "rpickedtime",
-                                    "position": "22",
+                                    "position": "21",
                                     "width": "150",
                                     "display": true
                                 },
@@ -277,7 +269,7 @@
                                     "columnname": "Putaway Time",
                                     "isenabled": true,
                                     "property": "rputawaytime",
-                                    "position": "23",
+                                    "position": "22",
                                     "width": "150",
                                     "display": true
                                 }],
@@ -336,64 +328,59 @@
                                     "position": "11",
                                     "width": "150"
                                 },
-                                "rlocationsource": {
+                                "rlocation": {
                                     "isenabled": true,
                                     "position": "12",
                                     "width": "100"
                                 },
-                                "rlocationdestination": {
-                                    "isenabled": true,
-                                    "position": "13",
-                                    "width": "100"
-                                },
                                 "rpalletidsource": {
                                     "isenabled": true,
-                                    "position": "14",
+                                    "position": "13",
                                     "width": "120"
                                 },
                                 "rpalletiddestination": {
                                     "isenabled": true,
-                                    "position": "15",
+                                    "position": "14",
                                     "width": "120"
                                 },
                                 "rlocationstatus": {
                                     "isenabled": true,
-                                    "position": "16",
+                                    "position": "15",
                                     "width": "100"
                                 },
                                 "rudf1": {
                                     "isenabled": true,
-                                    "position": "17",
+                                    "position": "16",
                                     "width": "150"
                                 },
                                 "rudf2": {
                                     "isenabled": true,
-                                    "position": "18",
+                                    "position": "17",
                                     "width": "150"
                                 },
                                 "rudf3": {
                                     "isenabled": true,
-                                    "position": "19",
+                                    "position": "18",
                                     "width": "150"
                                 },
                                 "rpackingdate": {
                                     "isenabled": true,
-                                    "position": "20",
+                                    "position": "19",
                                     "width": "150"
                                 },
                                 "rexpirydate": {
                                     "isenabled": true,
-                                    "position": "21",
+                                    "position": "20",
                                     "width": "150"
                                 },
                                 "rpickedtime": {
                                     "isenabled": true,
-                                    "position": "22",
+                                    "position": "21",
                                     "width": "150"
                                 },
                                 "rputawaytime": {
                                     "isenabled": true,
-                                    "position": "23",
+                                    "position": "22",
                                     "width": "150"
                                 },
                             },
@@ -1008,16 +995,7 @@
                     if (!value.WLO_FK && value.WLO_Location || value.WLO_FK && value.WLO_Location)
                         OnChangeValues(value.WLO_FK, 'E11028', true, key, $item.label);
 
-                    if (!value.WLO_TransferFrom_FK && value.WLO_TransferFrom || value.WLO_TransferFrom_FK && value.WLO_TransferFrom)
-                        OnChangeValues(value.WLO_TransferFrom_FK, 'E11029', true, key, $item.label);
-
-                    if (value.WLO_Location == value.WLO_TransferFrom && value.WLO_Location && value.WLO_TransferFrom) {
-                        OnChangeValues(null, 'E11013', true, key, $item.label);
-                        OnChangeValues(null, 'E11014', true, key, $item.label);
-                    } else {
-                        OnChangeValues('value', 'E11013', true, key, $item.label);
-                        OnChangeValues('value', 'E11014', true, key, $item.label);
-                    }
+                   
                     if (!value.AdjustmentArrivalDate || value.AdjustmentArrivalDate)
                         OnChangeValues(value.AdjustmentArrivalDate, 'E11015', true, key, $item.label);
 

@@ -1,5 +1,7 @@
 <div class="modal-header">
-    <span class="modal-title modalheader">{{EditableCtrl.ePage.Entities.Data.OrgHeader.Code}}</span>
+    <span class="modal-title modalheader">{{EditableCtrl.ePage.Entities.Header.Data.OrgHeader.Code}}</span>
+    <button class="btn btn-xs btn-warning pull-right ml-5" ng-click="EditableCtrl.ePage.Masters.Cancel()" ng-disabled="EditableCtrl.ePage.Masters.IsDisableSave">Close</button>
+    <button class="btn btn-xs btn-primary pull-right" ng-click="EditableCtrl.ePage.Masters.Validation('OrgMiscServ')" ng-disabled="EditableCtrl.ePage.Masters.IsDisableSave">{{EditableCtrl.ePage.Masters.SaveButtonText}}</button>
 </div>
 <div class="modal-body pb-50">
 
@@ -12,7 +14,7 @@
             <div class="form-group">
                 <div class="">
                     <label>User Defined Field 1 Name</label>
-                    <input type="text" capitalize class="form-control input-sm" placeholder="UDF 1 Name" data-ng-model="EditableCtrl.ePage.Entities.Data.OrgMiscServ.IMPartAttrib1Name" 
+                    <input type="text" capitalize class="form-control input-sm" placeholder="UDF 1 Name" data-ng-model="EditableCtrl.ePage.Entities.Header.Data.OrgMiscServ.IMPartAttrib1Name" 
                     />
                 </div>
             </div>
@@ -21,7 +23,7 @@
             <div class="form-group">
                 <div class="">
                     <label>User Defined Field 1 Type</label>
-                    <select chosen class="form-control" data-ng-model="EditableCtrl.ePage.Entities.Data.OrgMiscServ.IMPartAttrib1Type"ng-options="x.Key as x.Key + ' - '  + x.Value for x in EditableCtrl.ePage.Masters.DropDownMasterList.PartAttrType.ListSource"
+                    <select chosen class="form-control" data-ng-model="EditableCtrl.ePage.Entities.Header.Data.OrgMiscServ.IMPartAttrib1Type"ng-options="x.Key as x.Key + ' - '  + x.Value for x in EditableCtrl.ePage.Masters.DropDownMasterList.PartAttrType.ListSource"
                     search-contains="true" >
                     <option value="">--Select--</option>
                     </select>
@@ -33,7 +35,7 @@
             <div class="form-group">
                 <div class="">
                     <label>User Defined Field 2 Name</label>
-                    <input type="text" capitalize class="form-control input-sm" placeholder="UDF 2 Name" data-ng-model="EditableCtrl.ePage.Entities.Data.OrgMiscServ.IMPartAttrib2Name"
+                    <input type="text" capitalize class="form-control input-sm" placeholder="UDF 2 Name" data-ng-model="EditableCtrl.ePage.Entities.Header.Data.OrgMiscServ.IMPartAttrib2Name"
                     />
                 </div>
             </div>    
@@ -42,7 +44,7 @@
             <div class="form-group">
                 <div class="">
                     <label>User Defined Field 2 Type</label>
-                    <select chosen class="form-control" data-ng-model="EditableCtrl.ePage.Entities.Data.OrgMiscServ.IMPartAttrib2Type" ng-options="x.Key as x.Key + ' - '  + x.Value for x in EditableCtrl.ePage.Masters.DropDownMasterList.PartAttrType.ListSource" search-contains="true" >
+                    <select chosen class="form-control" data-ng-model="EditableCtrl.ePage.Entities.Header.Data.OrgMiscServ.IMPartAttrib2Type" ng-options="x.Key as x.Key + ' - '  + x.Value for x in EditableCtrl.ePage.Masters.DropDownMasterList.PartAttrType.ListSource" search-contains="true" >
                         <option value="">--Select--</option>
                     </select>
                 </div>    
@@ -53,7 +55,7 @@
             <div class="form-group">
                 <div class="">
                     <label>User Defined Field 3 Name</label>
-                    <input type="text" capitalize class="form-control input-sm" placeholder="UDF 3 Name" data-ng-model="EditableCtrl.ePage.Entities.Data.OrgMiscServ.IMPartAttrib3Name"
+                    <input type="text" capitalize class="form-control input-sm" placeholder="UDF 3 Name" data-ng-model="EditableCtrl.ePage.Entities.Header.Data.OrgMiscServ.IMPartAttrib3Name"
                     />
                 </div>    
             </div>
@@ -62,7 +64,7 @@
             <div class="form-group">
                 <div class="">
                     <label>User Defined Field 3 Type</label>
-                    <select chosen class="form-control" data-ng-model="EditableCtrl.ePage.Entities.Data.OrgMiscServ.IMPartAttrib3Type" ng-options="x.Key as x.Key + ' - '  + x.Value for x in EditableCtrl.ePage.Masters.DropDownMasterList.PartAttrType.ListSource" search-contains="true" >
+                    <select chosen class="form-control" data-ng-model="EditableCtrl.ePage.Entities.Header.Data.OrgMiscServ.IMPartAttrib3Type" ng-options="x.Key as x.Key + ' - '  + x.Value for x in EditableCtrl.ePage.Masters.DropDownMasterList.PartAttrType.ListSource" search-contains="true" >
                         <option value="">--Select--</option>
                     </select>
                 </div>    
@@ -78,13 +80,13 @@
         </div>
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-10">    
             <label>
-                <input type="checkbox" ng-checked="EditableCtrl.ePage.Entities.Data.OrgMiscServ.IMUsePackingDate"  ng-model="EditableCtrl.ePage.Entities.Data.OrgMiscServ.IMUsePackingDate">
+                <input type="checkbox" ng-checked="EditableCtrl.ePage.Entities.Header.Data.OrgMiscServ.IMUsePackingDate"  ng-model="EditableCtrl.ePage.Entities.Header.Data.OrgMiscServ.IMUsePackingDate">
                 <span class="text">Use Packing Date</span>
             </label>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-10">    
             <label>
-                <input type="checkbox" ng-checked="EditableCtrl.ePage.Entities.Data.OrgMiscServ.IMUseExpiryDate"  ng-model="EditableCtrl.ePage.Entities.Data.OrgMiscServ.IMUseExpiryDate">
+                <input type="checkbox" ng-checked="EditableCtrl.ePage.Entities.Header.Data.OrgMiscServ.IMUseExpiryDate"  ng-model="EditableCtrl.ePage.Entities.Header.Data.OrgMiscServ.IMUseExpiryDate">
                 <span class="text">Use Expiry Date</span>
             </label>
         </div>

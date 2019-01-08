@@ -1,5 +1,7 @@
 <div class="modal-header">
-    <span class="modal-title modalheader">{{EditableCtrl.ePage.Entities.Data.OrgHeader.Code}}</span>
+    <span class="modal-title modalheader">{{EditableCtrl.ePage.Entities.Header.Data.OrgHeader.Code}}</span>
+    <button class="btn btn-xs btn-warning pull-right ml-5" ng-click="EditableCtrl.ePage.Masters.Cancel()" ng-disabled="EditableCtrl.ePage.Masters.IsDisableSave">Close</button>
+    <button class="btn btn-xs btn-primary pull-right" ng-click="EditableCtrl.ePage.Masters.Validation('OrgBarcode')" ng-disabled="EditableCtrl.ePage.Masters.IsDisableSave">{{EditableCtrl.ePage.Masters.SaveButtonText}}</button>
 </div>
 <div class="modal-body pb-50">
 
@@ -58,9 +60,22 @@
         </div>
     </div>
     
-
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-30"><b>Note</b></div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-10">
+        <p>
+            To configure Barcode rule, select Barcode Type  and give Barcode/QR Code Rule like this</br>
+            <b>"SELECT ProductCode=SUBSTRING('@SKUCode',X,Y),UDF1=SUBSTRING('@SKUCode',X,Y)".</b> </br>
+            Here X represent the starting number and Y represents the ending number.
+        </p>
+    
+        <p>
+            <i>Eg: SELECT ProductCode=SUBSTRING('@SKUCode',1,6),UDF1=SUBSTRING('@SKUCode',7,12)</i>
+        </p>
+    </div>
 </div>
+
 <div class="modal-footer">
     <button class="btn btn-xs btn-primary mb-20" ng-click="EditableCtrl.ePage.Masters.Validation('OrgBarcode')" ng-disabled="EditableCtrl.ePage.Masters.IsDisableSave">{{EditableCtrl.ePage.Masters.SaveButtonText}}</button>
     <button class="btn btn-xs btn-warning mb-20" ng-click="EditableCtrl.ePage.Masters.Cancel()" ng-disabled="EditableCtrl.ePage.Masters.IsDisableSave">Close</button>
 </div>
+

@@ -25,15 +25,16 @@
                         <!-- Dynamic look up Search in textbox -->
                         <div dynamic-lookup placeholder="Transfer From Client Code And Name" my-ng-model="OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.TransferFrom_ORG"
                             auto-complete-on-select="OwnershipTransferGeneralCtrl.ePage.Masters.SelectedLookupTransferFromClient($item)"
-                            obj="OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader" page-name="'OrganizationList'"
-                            control-id="'TransferFromClient'" control-key="'TransferFromClient_4124'" is-disabled="OwnershipTransferGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable || OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferLine.length!=0">
+                            obj="OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader"
+                            page-name="'OrganizationList'" control-id="'TransferFromClient'" control-key="'TransferFromClient_4124'"
+                            is-disabled="OwnershipTransferGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable || OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferLine.length!=0">
                         </div>
                         <!-- Look Up page opens when button clicks -->
                         <span class="input-group-btn">
-                            <button dynamic-list-modal obj="OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader" control-id="'TransferFromClient'"
-                                control-key="'TransferFromClient_4124'" selected-data="OwnershipTransferGeneralCtrl.ePage.Masters.SelectedLookupTransferFromClient($item.data.entity)"
-                                page-name="'OrganizationList'" mode="2" grid-refresh-fun-name="" grid-refresh-fun="" class="btn btn-default shiny"
-                                type="button" is-disabled="OwnershipTransferGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable || OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferLine.length!=0">
+                            <button dynamic-list-modal obj="OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader"
+                                control-id="'TransferFromClient'" control-key="'TransferFromClient_4124'" selected-data="OwnershipTransferGeneralCtrl.ePage.Masters.SelectedLookupTransferFromClient($item.data.entity)"
+                                page-name="'OrganizationList'" mode="2" grid-refresh-fun-name="" grid-refresh-fun=""
+                                class="btn btn-default shiny" type="button" is-disabled="OwnershipTransferGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable || OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferLine.length!=0">
                                 <i class="fa fa-ellipsis-h"></i>
                             </button>
                         </span>
@@ -44,7 +45,8 @@
                 </div>
             </div>
             <div class="rows p-5 height-103">
-                <div ng-show="OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.TransferFrom_ORG" ng-repeat="x in OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIJobAddress | filter: {AddressType:'SND'}">
+                <div ng-show="OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.TransferFrom_ORG"
+                    ng-repeat="x in OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIJobAddress | filter: {AddressType:'SND'}">
                     <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8 addressstyle">
                         <div class="text-single-line font-12" title='{{x.Address1}}'>{{x.Address1}}</div>
                         <div class="text-single-line" title='{{x.Address2}}'>{{x.Address2}}</div>
@@ -75,11 +77,11 @@
                     <label class="ml-5 control-label">Client</label>
                     <span class="error-warning-container">
                         <error-warning-directive data-ng-if="OwnershipTransferGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Client.IsWarning && !OwnershipTransferGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Client.IsError"
-                            list="OwnershipTransferGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Client.WARNING" type="'warning'"
-                            icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                            list="OwnershipTransferGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Client.WARNING"
+                            type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
                         <error-warning-directive data-ng-if="OwnershipTransferGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Client.IsError"
-                            list="OwnershipTransferGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Client.ERROR" type="'error'"
-                            icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                            list="OwnershipTransferGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Client.ERROR"
+                            type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
                     </span>
                 </div>
                 <div class="col-xs-9 col-sm-9 col-md-8 col-lg-9 col-xl-9 height-40 p-5">
@@ -87,15 +89,16 @@
                         <!-- Dynamic look up Search in textbox -->
                         <div dynamic-lookup placeholder="Client Code And Name" my-ng-model="OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.Client"
                             auto-complete-on-select="OwnershipTransferGeneralCtrl.ePage.Masters.SelectedLookupClient($item)"
-                            obj="OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader" page-name="'OrganizationList'"
-                            control-id="'Client'" control-key="'Client_3015'" is-disabled="OwnershipTransferGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable || OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferLine.length!=0">
+                            obj="OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader"
+                            page-name="'OrganizationList'" control-id="'Client'" control-key="'Client_3015'"
+                            is-disabled="OwnershipTransferGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable || OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferLine.length!=0">
                         </div>
                         <!-- Look Up page opens when button clicks -->
                         <span class="input-group-btn">
-                            <button dynamic-list-modal obj="OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader" control-id="'Client'"
-                                control-key="'Client_3015'" selected-data="OwnershipTransferGeneralCtrl.ePage.Masters.SelectedLookupClient($item.data.entity)"
-                                page-name="'OrganizationList'" mode="2" grid-refresh-fun-name="" grid-refresh-fun="" class="btn btn-default shiny"
-                                type="button" is-disabled="OwnershipTransferGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable || OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferLine.length!=0">
+                            <button dynamic-list-modal obj="OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader"
+                                control-id="'Client'" control-key="'Client_3015'" selected-data="OwnershipTransferGeneralCtrl.ePage.Masters.SelectedLookupClient($item.data.entity)"
+                                page-name="'OrganizationList'" mode="2" grid-refresh-fun-name="" grid-refresh-fun=""
+                                class="btn btn-default shiny" type="button" is-disabled="OwnershipTransferGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable || OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferLine.length!=0">
                                 <i class="fa fa-ellipsis-h"></i>
                             </button>
                         </span>
@@ -112,8 +115,11 @@
                         <div class="text-single-line" title='{{OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_Address2}}'>{{OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_Address2}}</div>
                         <div class="text-single-line" title='{{OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_State}}'>{{OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_State}}</div>
                         <div class="text-single-line">
-                            <span data-ng-if="OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_City" title="{{OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_City}}">{{OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_City}} -</span>
-                            <span data-ng-if="OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_PostCode" title="{{OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_PostCode}}">{{OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_PostCode}}</span>
+                            <span data-ng-if="OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_City"
+                                title="{{OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_City}}">{{OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_City}}
+                                -</span>
+                            <span data-ng-if="OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_PostCode"
+                                title="{{OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_PostCode}}">{{OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_PostCode}}</span>
                         </div>
                     </div>
                     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 p-0 mt-30">
@@ -129,6 +135,7 @@
         </div>
     </div>
 </div>
+<!-- Warehouse Refernce -->
 <div class="clearfix col-lg-12 mt-10">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 pl-0 pr-0">
         <div class="inner-dashboard-box">
@@ -136,11 +143,11 @@
                 <div class="form-group">
                     <div class="error-warning-container">
                         <error-warning-directive data-ng-if="OwnershipTransferGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Warehouse.IsWarning && !OwnershipTransferGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Warehouse.IsError"
-                            list="OwnershipTransferGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Warehouse.WARNING" type="'warning'"
-                            icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                            list="OwnershipTransferGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Warehouse.WARNING"
+                            type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
                         <error-warning-directive data-ng-if="OwnershipTransferGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Warehouse.IsError"
-                            list="OwnershipTransferGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Warehouse.ERROR" type="'error'"
-                            icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                            list="OwnershipTransferGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Warehouse.ERROR"
+                            type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
                     </div>
                     <label class="control-label text-single-line">Warehouse</label>
 
@@ -148,14 +155,14 @@
                         <!-- Dynamic look up Search in textbox -->
                         <div dynamic-lookup placeholder="Warehouse" my-ng-model="OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.Warehouse"
                             auto-complete-on-select="OwnershipTransferGeneralCtrl.ePage.Masters.SelectedLookupWarehouse($item)"
-                            obj="OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader" page-name="'Warehouse'"
-                            control-id="'Warehouse'" control-key="'Warehouse_3067'" is-disabled="OwnershipTransferGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable || OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferLine.length!=0">
+                            obj="OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader"
+                            page-name="'Warehouse'" control-id="'Warehouse'" control-key="'Warehouse_3067'" is-disabled="OwnershipTransferGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable || OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferLine.length!=0">
                         </div>
 
                         <!-- Look Up page opens when button clicks -->
                         <span class="input-group-btn">
-                            <button dynamic-list-modal obj="OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader" control-id="'Warehouse'"
-                                control-key="'Warehouse_3067'" selected-data="OwnershipTransferGeneralCtrl.ePage.Masters.SelectedLookupWarehouse($item.data.entity)"
+                            <button dynamic-list-modal obj="OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader"
+                                control-id="'Warehouse'" control-key="'Warehouse_3067'" selected-data="OwnershipTransferGeneralCtrl.ePage.Masters.SelectedLookupWarehouse($item.data.entity)"
                                 page-name="'Warehouse'" mode="2" grid-refresh-fun-name="" grid-refresh-fun="" class="btn btn-default shiny"
                                 type="button" is-disabled="OwnershipTransferGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable || OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferLine.length!=0">
                                 <i class="fa fa-ellipsis-h"></i>
@@ -233,12 +240,15 @@
                     doc-type="*" multiple-file="true" is-disabled="false" fu-class="left" get-uploaded-files="OwnershipTransferGeneralCtrl.ePage.Masters.Documents.GetUploadedFiles($item, x, 'new')"
                     get-selected-files="OwnershipTransferGeneralCtrl.ePage.Masters.Documents.GetSelectedFiles($item, x, 'new')"
                     modal-template="" template="">
-                    <button type="button" class="btn btn-sm btn-outline-primary font-10" title="Customize" data-ng-click="" data-ng-disabled="OwnershipTransferGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable || OwnershipTransferGeneralCtrl.currentOwnerTransfer.isNew">Bulk Upload</button>
+                    <button type="button" class="btn btn-sm btn-outline-primary font-10" title="Customize"
+                        data-ng-click="" data-ng-disabled="OwnershipTransferGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable || OwnershipTransferGeneralCtrl.currentOwnerTransfer.isNew">Bulk
+                        Upload</button>
                 </file-upload-custom>
             </span>
             <span>
                 <button type="button" class="btn btn-sm btn-outline-primary font-10" title="Customize" data-ng-click="OwnershipTransferGeneralCtrl.ePage.Masters.Documents.DownloadReport()"
-                    data-ng-disabled="OwnershipTransferGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">Download Template</button>
+                    data-ng-disabled="OwnershipTransferGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">Download
+                    Template</button>
             </span>
         </div>
         <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 p-0">
@@ -250,17 +260,19 @@
             </div>
         </div>
     </div>
-    <div id="TFRTable{{OwnershipTransferGeneralCtrl.currentOwnerTransfer.label}}" class="fixedheader mb-0" key-events table-object='OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferLine'
-        enable='OwnershipTransferGeneralCtrl.ePage.Masters.Enable' selected-row='OwnershipTransferGeneralCtrl.ePage.Masters.selectedRow'
-        unique-id='TFRTable{{OwnershipTransferGeneralCtrl.currentOwnerTransfer.label}}'>
+    <div id="TFRTable{{OwnershipTransferGeneralCtrl.currentOwnerTransfer.label}}" class="fixedheader mb-0" key-events
+        table-object='OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferLine' enable='OwnershipTransferGeneralCtrl.ePage.Masters.Enable'
+        selected-row='OwnershipTransferGeneralCtrl.ePage.Masters.selectedRow' unique-id='TFRTable{{OwnershipTransferGeneralCtrl.currentOwnerTransfer.label}}'>
+        <!-- product Table -->
         <table id="OwnershipTransferGeneralCtrl.ePage.Masters.AddScroll" style="height: 200px">
             <thead>
                 <tr id="tableHeader">
                     <th id="rcheckbox" data-ng-if="OwnershipTransferGeneralCtrl.ePage.Entities.Header.TableProperties.UIWmsStockTransferLine.rcheckbox.isenabled"
                         ng-style="{ 'width': OwnershipTransferGeneralCtrl.ePage.Entities.Header.TableProperties.UIWmsStockTransferLine.rcheckbox.width + 'px' }">
                         <label class="customcheckbox">
-                            <input type="checkbox" ng-change="OwnershipTransferGeneralCtrl.ePage.Masters.SelectAllCheckBox()" ng-checked="OwnershipTransferGeneralCtrl.ePage.Masters.SelectAll"
-                                ng-model="OwnershipTransferGeneralCtrl.ePage.Masters.SelectAll" ng-disabled="OwnershipTransferGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
+                            <input type="checkbox" ng-change="OwnershipTransferGeneralCtrl.ePage.Masters.SelectAllCheckBox()"
+                                ng-checked="OwnershipTransferGeneralCtrl.ePage.Masters.SelectAll" ng-model="OwnershipTransferGeneralCtrl.ePage.Masters.SelectAll"
+                                ng-disabled="OwnershipTransferGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
                             <span class="text"></span>
                         </label>
                     </th>
@@ -294,12 +306,9 @@
                     <th id="rarrivaldate" data-ng-if="OwnershipTransferGeneralCtrl.ePage.Entities.Header.TableProperties.UIWmsStockTransferLine.rarrivaldate.isenabled"
                         ng-style="{ 'width': OwnershipTransferGeneralCtrl.ePage.Entities.Header.TableProperties.UIWmsStockTransferLine.rarrivaldate.width + 'px' }"
                         title="Arrival Date">Arrival Date</th>
-                    <th id="rlocationsource" data-ng-if="OwnershipTransferGeneralCtrl.ePage.Entities.Header.TableProperties.UIWmsStockTransferLine.rlocationsource.isenabled"
-                        ng-style="{ 'width': OwnershipTransferGeneralCtrl.ePage.Entities.Header.TableProperties.UIWmsStockTransferLine.rlocationsource.width + 'px' }"
-                        title="Location Source">Location Source</th>
-                    <th id="rlocationdestination" data-ng-if="OwnershipTransferGeneralCtrl.ePage.Entities.Header.TableProperties.UIWmsStockTransferLine.rlocationdestination.isenabled"
-                        ng-style="{ 'width': OwnershipTransferGeneralCtrl.ePage.Entities.Header.TableProperties.UIWmsStockTransferLine.rlocationdestination.width + 'px' }"
-                        title="Location Destnation">Location Destination</th>
+                    <th id="rlocation" data-ng-if="OwnershipTransferGeneralCtrl.ePage.Entities.Header.TableProperties.UIWmsStockTransferLine.rlocation.isenabled"
+                        ng-style="{ 'width': OwnershipTransferGeneralCtrl.ePage.Entities.Header.TableProperties.UIWmsStockTransferLine.rlocation.width + 'px' }"
+                        title="Location Destnation">Location</th>
                     <th id="rpalletidsource" data-ng-if="OwnershipTransferGeneralCtrl.ePage.Entities.Header.TableProperties.UIWmsStockTransferLine.rpalletidsource.isenabled"
                         ng-style="{ 'width': OwnershipTransferGeneralCtrl.ePage.Entities.Header.TableProperties.UIWmsStockTransferLine.rpalletidsource.width + 'px' }"
                         title="Pallet ID Source">Pallet ID Source</th>
@@ -308,24 +317,27 @@
                         title="Pallet ID Destination">Pallet ID Destination</th>
                     <th id="rlocationstatus" data-ng-if="OwnershipTransferGeneralCtrl.ePage.Entities.Header.TableProperties.UIWmsStockTransferLine.rlocationstatus.isenabled"
                         ng-style="{ 'width': OwnershipTransferGeneralCtrl.ePage.Entities.Header.TableProperties.UIWmsStockTransferLine.rlocationstatus.width + 'px' }"
-                        title="Destination Location Status">Destination Location Status</th>
+                        title="Destination Location Status">Location Status</th>
                     <th id="rudf1" data-ng-if="OwnershipTransferGeneralCtrl.ePage.Entities.Header.TableProperties.UIWmsStockTransferLine.rudf1.isenabled"
                         ng-style="{ 'width': OwnershipTransferGeneralCtrl.ePage.Entities.Header.TableProperties.UIWmsStockTransferLine.rudf1.width + 'px' }"
                         title="User Defined Field 1">
                         <span ng-if="OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.IMPartAttrib1Name">{{OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.IMPartAttrib1Name}}</span>
-                        <span ng-if="!OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.IMPartAttrib1Name">UDF 1</span>
+                        <span ng-if="!OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.IMPartAttrib1Name">UDF
+                            1</span>
                     </th>
                     <th id="rudf2" data-ng-if="OwnershipTransferGeneralCtrl.ePage.Entities.Header.TableProperties.UIWmsStockTransferLine.rudf2.isenabled"
                         ng-style="{ 'width': OwnershipTransferGeneralCtrl.ePage.Entities.Header.TableProperties.UIWmsStockTransferLine.rudf2.width + 'px' }"
                         title="User Defined Field 2">
                         <span ng-if="OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.IMPartAttrib2Name">{{OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.IMPartAttrib2Name}}</span>
-                        <span ng-if="!OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.IMPartAttrib2Name">UDF 2</span>
+                        <span ng-if="!OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.IMPartAttrib2Name">UDF
+                            2</span>
                     </th>
                     <th id="rudf3" data-ng-if="OwnershipTransferGeneralCtrl.ePage.Entities.Header.TableProperties.UIWmsStockTransferLine.rudf3.isenabled"
                         ng-style="{ 'width': OwnershipTransferGeneralCtrl.ePage.Entities.Header.TableProperties.UIWmsStockTransferLine.rudf3.width + 'px' }"
                         title="User Defined Field 3">
                         <span ng-if="OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.IMPartAttrib3Name">{{OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.IMPartAttrib3Name}}</span>
-                        <span ng-if="!OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.IMPartAttrib3Name">UDF 3</span>
+                        <span ng-if="!OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.IMPartAttrib3Name">UDF
+                            3</span>
                     </th>
                     <th id="rpackingdate" data-ng-if="OwnershipTransferGeneralCtrl.ePage.Entities.Header.TableProperties.UIWmsStockTransferLine.rpackingdate.isenabled"
                         ng-style="{ 'width': OwnershipTransferGeneralCtrl.ePage.Entities.Header.TableProperties.UIWmsStockTransferLine.rpackingdate.width + 'px' }"
@@ -352,13 +364,14 @@
                         ng-click="OwnershipTransferGeneralCtrl.ePage.Masters.Enable = true">
                         <label class="mb-0 customcheckbox">
                             <input type="checkbox" ng-checked="x.SingleSelect" ng-change="OwnershipTransferGeneralCtrl.ePage.Masters.SingleSelectCheckBox()"
-                                ng-model="x.SingleSelect" ng-disabled="OwnershipTransferGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable"> </input>
+                                ng-model="x.SingleSelect" ng-disabled="OwnershipTransferGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
+                            </input>
                             <span class="text"></span>
                         </label>
                         <span class="list-error-warning" data-ng-if="OwnershipTransferGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsStockTransferLine.ERROR | listCount: 'RowIndex': $index">
                             <error-warning-directive list="OwnershipTransferGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsStockTransferLine.ERROR"
-                                type="'error'" icon="fa fa-warning" parent-type="'arrayObjectRow'" parent-ref="" g-parent-ref=""
-                                row-index="$index" col-index="">
+                                type="'error'" icon="fa fa-warning" parent-type="'arrayObjectRow'" parent-ref=""
+                                g-parent-ref="" row-index="$index" col-index="">
                             </error-warning-directive>
                         </span>
                     </td>
@@ -378,14 +391,16 @@
                             <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0">
                                 <div class="input-group input-group-sm height-22">
                                     <!-- Dynamic look up Search in textbox -->
-                                    <div dynamic-lookup placeholder="Product Code" my-ng-model="x.ProductCode" auto-complete-on-select="OwnershipTransferGeneralCtrl.ePage.Masters.SelectedLookupProduct($item,$index)"
-                                        obj="x" page-name="'ProductRelatedParty'" control-key="'Product_2845'" control-id="'Product'">
+                                    <div dynamic-lookup placeholder="Product Code" my-ng-model="x.ProductCode"
+                                        auto-complete-on-select="OwnershipTransferGeneralCtrl.ePage.Masters.SelectedLookupProduct($item,$index)"
+                                        obj="x" page-name="'ProductRelatedParty'" control-key="'Product_2845'"
+                                        control-id="'Product'">
                                     </div>
 
                                     <!-- Look Up page opens when button clicks -->
                                     <span class="input-group-btn">
-                                        <button dynamic-list-modal obj="x" page-name="'ProductRelatedParty'" control-id="'Product'" control-key="'Product_2845'"
-                                            selected-data="OwnershipTransferGeneralCtrl.ePage.Masters.SelectedLookupProduct($item.data.entity,$index)"
+                                        <button dynamic-list-modal obj="x" page-name="'ProductRelatedParty'" control-id="'Product'"
+                                            control-key="'Product_2845'" selected-data="OwnershipTransferGeneralCtrl.ePage.Masters.SelectedLookupProduct($item.data.entity,$index)"
                                             mode="2" grid-refresh-fun-name="" grid-refresh-fun="" class="btn btn-default shiny"
                                             type="button">
                                             <i class="fa fa-ellipsis-h"></i>
@@ -397,10 +412,12 @@
                                     </span>
                                 </div>
                             </div>
-                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="OwnershipTransferGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsStockTransferLine.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':2">
+                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5"
+                                data-ng-if="OwnershipTransferGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsStockTransferLine.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':2">
                                 <error-warning-directive list="OwnershipTransferGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsStockTransferLine.ERROR"
-                                    type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref=""
-                                    row-index="OwnershipTransferGeneralCtrl.ePage.Masters.selectedRow" col-index="2">
+                                    type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref=""
+                                    g-parent-ref="" row-index="OwnershipTransferGeneralCtrl.ePage.Masters.selectedRow"
+                                    col-index="2">
                                 </error-warning-directive>
                             </div>
                         </div>
@@ -427,10 +444,12 @@
                                 <input type="text" maxlength="9" numbers-only-dot class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
                                     placeholder="Pack" data-ng-model="x.Packs" ng-blur="OwnershipTransferGeneralCtrl.ePage.Masters.FetchQuantity(x,$index);OwnershipTransferGeneralCtrl.ePage.Masters.OnChangeValues(x.Packs,'E11005',true,$index)">
                             </div>
-                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="OwnershipTransferGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsStockTransferLine.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':3">
+                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5"
+                                data-ng-if="OwnershipTransferGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsStockTransferLine.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':3">
                                 <error-warning-directive list="OwnershipTransferGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsStockTransferLine.ERROR"
-                                    type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref=""
-                                    row-index="OwnershipTransferGeneralCtrl.ePage.Masters.selectedRow" col-index="3">
+                                    type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref=""
+                                    g-parent-ref="" row-index="OwnershipTransferGeneralCtrl.ePage.Masters.selectedRow"
+                                    col-index="3">
                                 </error-warning-directive>
                             </div>
                         </div>
@@ -449,10 +468,12 @@
                                     <option value="">--Select--</option>
                                 </select>
                             </div>
-                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="OwnershipTransferGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsStockTransferLine.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':1">
+                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5"
+                                data-ng-if="OwnershipTransferGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsStockTransferLine.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':1">
                                 <error-warning-directive list="OwnershipTransferGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsStockTransferLine.ERROR"
-                                    type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref=""
-                                    row-index="OwnershipTransferGeneralCtrl.ePage.Masters.selectedRow" col-index="1">
+                                    type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref=""
+                                    g-parent-ref="" row-index="OwnershipTransferGeneralCtrl.ePage.Masters.selectedRow"
+                                    col-index="1">
                                 </error-warning-directive>
                             </div>
                         </div>
@@ -466,12 +487,15 @@
                         </div>
                         <div data-ng-if="$index==OwnershipTransferGeneralCtrl.ePage.Masters.selectedRow && !OwnershipTransferGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
                             <div class="height-22 col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0">
-                                <input type="text" maxlength="9" class="form-control input-sm" placeholder="Quantity" ng-model="x.Units" readonly='' />
+                                <input type="text" maxlength="9" class="form-control input-sm" placeholder="Quantity"
+                                    ng-model="x.Units" readonly='' />
                             </div>
-                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="OwnershipTransferGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsStockTransferLine.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':4">
+                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5"
+                                data-ng-if="OwnershipTransferGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsStockTransferLine.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':4">
                                 <error-warning-directive list="OwnershipTransferGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsStockTransferLine.ERROR"
-                                    type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref=""
-                                    row-index="OwnershipTransferGeneralCtrl.ePage.Masters.selectedRow" col-index="4">
+                                    type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref=""
+                                    g-parent-ref="" row-index="OwnershipTransferGeneralCtrl.ePage.Masters.selectedRow"
+                                    col-index="4">
                                 </error-warning-directive>
                             </div>
                         </div>
@@ -485,12 +509,15 @@
                         </div>
                         <div data-ng-if="$index==OwnershipTransferGeneralCtrl.ePage.Masters.selectedRow && !OwnershipTransferGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
                             <div class="height-22 col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0">
-                                <input type="text" class="form-control input-sm" placeholder="Quantity UQ" ng-model="x.StockKeepingUnit" readonly='' />
+                                <input type="text" class="form-control input-sm" placeholder="Quantity UQ" ng-model="x.StockKeepingUnit"
+                                    readonly='' />
                             </div>
-                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="OwnershipTransferGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsStockTransferLine.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':5">
+                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5"
+                                data-ng-if="OwnershipTransferGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsStockTransferLine.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':5">
                                 <error-warning-directive list="OwnershipTransferGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsStockTransferLine.ERROR"
-                                    type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref=""
-                                    row-index="OwnershipTransferGeneralCtrl.ePage.Masters.selectedRow" col-index="5">
+                                    type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref=""
+                                    g-parent-ref="" row-index="OwnershipTransferGeneralCtrl.ePage.Masters.selectedRow"
+                                    col-index="5">
                                 </error-warning-directive>
                             </div>
                         </div>
@@ -508,10 +535,12 @@
                                     <option value="">--Select--</option>
                                 </select>
                             </div>
-                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="OwnershipTransferGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsStockTransferLine.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':14">
+                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5"
+                                data-ng-if="OwnershipTransferGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsStockTransferLine.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':14">
                                 <error-warning-directive list="OwnershipTransferGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsStockTransferLine.ERROR"
-                                    type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref=""
-                                    row-index="OwnershipTransferGeneralCtrl.ePage.Masters.selectedRow" col-index="14">
+                                    type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref=""
+                                    g-parent-ref="" row-index="OwnershipTransferGeneralCtrl.ePage.Masters.selectedRow"
+                                    col-index="14">
                                 </error-warning-directive>
                             </div>
                         </div>
@@ -521,7 +550,8 @@
                         ng-click="OwnershipTransferGeneralCtrl.ePage.Masters.Enable = true">
                         <div data-ng-if="$index!=OwnershipTransferGeneralCtrl.ePage.Masters.selectedRow || OwnershipTransferGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable"
                             class="overflow-text">
-                            {{ x.AdjustmentArrivalDate || OwnershipTransferGeneralCtrl.ePage.Masters.emptyText | dateFormat}}
+                            {{ x.AdjustmentArrivalDate || OwnershipTransferGeneralCtrl.ePage.Masters.emptyText |
+                            dateFormat}}
                         </div>
                         <div data-ng-if="$index==OwnershipTransferGeneralCtrl.ePage.Masters.selectedRow  && !OwnershipTransferGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
                             <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0">
@@ -529,11 +559,11 @@
                                     <input type="text" class="form-control height-22" placeholder="{{OwnershipTransferGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
                                         datetime-picker="{{OwnershipTransferGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
                                         ng-model="x.AdjustmentArrivalDate" is-open="OwnershipTransferGeneralCtrl.ePage.Masters.DatePicker.isOpen['isAdjustmentArrivalDate']"
-                                        datepicker-options="OwnershipTransferGeneralCtrl.ePage.Masters.DatePicker.Options" datepicker-append-to-body="false"
-                                        close-on-selection="false" enable-time="false" enable-date="true" default-date="" default-time=""
-                                        when-closed="" save-as="OwnershipTransferGeneralCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                                        datepicker-options="OwnershipTransferGeneralCtrl.ePage.Masters.DatePicker.Options"
+                                        datepicker-append-to-body="false" close-on-selection="false" enable-time="false"
+                                        enable-date="true" default-date="" default-time="" when-closed="" save-as="OwnershipTransferGeneralCtrl.ePage.Masters.DatePicker.Options.saveFormat"
                                         data-ng-click="" data-ng-change="OwnershipTransferGeneralCtrl.ePage.Masters.CheckFutureDate(x.AdjustmentArrivalDate,$index);OwnershipTransferGeneralCtrl.ePage.Masters.OnChangeValues(x.PAC_PackType,'E11010',true,$index)"
-                                        custom-date-time-format/>
+                                        custom-date-time-format />
                                     <span class="input-group-btn height-22">
                                         <button type="button" class="btn btn-default" data-ng-click="OwnershipTransferGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isAdjustmentArrivalDate')">
                                             <i class="fa fa-calendar"></i>
@@ -541,49 +571,19 @@
                                     </span>
                                 </div>
                             </div>
-                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="OwnershipTransferGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsStockTransferLine.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':8">
+                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5"
+                                data-ng-if="OwnershipTransferGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsStockTransferLine.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':8">
                                 <error-warning-directive list="OwnershipTransferGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsStockTransferLine.ERROR"
-                                    type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref=""
-                                    row-index="OwnershipTransferGeneralCtrl.ePage.Masters.selectedRow" col-index="8">
+                                    type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref=""
+                                    g-parent-ref="" row-index="OwnershipTransferGeneralCtrl.ePage.Masters.selectedRow"
+                                    col-index="8">
                                 </error-warning-directive>
                             </div>
                         </div>
                     </td>
-                    <td id="rlocationsource" data-ng-show='OwnershipTransferGeneralCtrl.ePage.Entities.Header.TableProperties.UIWmsStockTransferLine.rlocationsource.isenabled'
-                        ng-style="{ 'width': OwnershipTransferGeneralCtrl.ePage.Entities.Header.TableProperties.UIWmsStockTransferLine.rlocationsource.width + 'px' }"
-                        ng-click="OwnershipTransferGeneralCtrl.ePage.Masters.Enable = true">
-                        <div data-ng-if="$index!=OwnershipTransferGeneralCtrl.ePage.Masters.selectedRow || OwnershipTransferGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable"
-                            class="overflow-text">
-                            {{ x.WLO_TransferFrom || OwnershipTransferGeneralCtrl.ePage.Masters.emptyText}}
-                        </div>
-                        <div data-ng-if="$index==OwnershipTransferGeneralCtrl.ePage.Masters.selectedRow && !OwnershipTransferGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
-                            <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0">
-                                <div class="input-group input-group-sm height-22">
-                                    <!-- Dynamic look up Search in textbox -->
-                                    <div dynamic-lookup placeholder="Location Source" my-ng-model="x.WLO_TransferFrom" auto-complete-on-select="OwnershipTransferGeneralCtrl.ePage.Masters.SelectedLocationSource($item,$index)"
-                                        obj="x" page-name="'WarehouseLocation'" control-id="'StockTransferSourceLocation'" control-key="'StockTransferSourceLocation_2946'">
-                                    </div>
-
-                                    <!-- Look Up page opens when button clicks -->
-                                    <span class="input-group-btn">
-                                        <button location-dashboard-modal filter="x.WAR_WarehouseCode" page-name="'WarehouseLocation'" mode="2" obj="x" control-id="'StockTransferSourceLocation'"
-                                            control-key="'StockTransferSourceLocation_2946'" selected-data="OwnershipTransferGeneralCtrl.ePage.Masters.SelectedLocationSource($item,$index)"
-                                            grid-refresh-fun-name="" grid-refresh-fun="" class="btn btn-default shiny" type="button">
-                                            <i class="fa fa-ellipsis-h"></i>
-                                        </button>
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="OwnershipTransferGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsStockTransferLine.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':6">
-                                <error-warning-directive list="OwnershipTransferGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsStockTransferLine.ERROR"
-                                    type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref=""
-                                    row-index="OwnershipTransferGeneralCtrl.ePage.Masters.selectedRow" col-index="6">
-                                </error-warning-directive>
-                            </div>
-                        </div>
-                    </td>
-                    <td id="rlocationdestination" data-ng-show='OwnershipTransferGeneralCtrl.ePage.Entities.Header.TableProperties.UIWmsStockTransferLine.rlocationdestination.isenabled'
-                        ng-style="{ 'width': OwnershipTransferGeneralCtrl.ePage.Entities.Header.TableProperties.UIWmsStockTransferLine.rlocationdestination.width + 'px' }"
+                    <!-- Location -->
+                    <td id="rlocation" data-ng-show='OwnershipTransferGeneralCtrl.ePage.Entities.Header.TableProperties.UIWmsStockTransferLine.rlocation.isenabled'
+                        ng-style="{ 'width': OwnershipTransferGeneralCtrl.ePage.Entities.Header.TableProperties.UIWmsStockTransferLine.rlocation.width + 'px' }"
                         ng-click="OwnershipTransferGeneralCtrl.ePage.Masters.Enable = true">
                         <div data-ng-if="$index!=OwnershipTransferGeneralCtrl.ePage.Masters.selectedRow || OwnershipTransferGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable"
                             class="overflow-text">
@@ -593,25 +593,30 @@
                             <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0">
                                 <div class="input-group input-group-sm height-22">
                                     <!-- Dynamic look up Search in textbox -->
-                                    <div dynamic-lookup placeholder="Location Destination" my-ng-model="x.WLO_Location" auto-complete-on-select="OwnershipTransferGeneralCtrl.ePage.Masters.SelectedLocationDestination($item,$index)"
-                                        obj="x" page-name="'WarehouseLocation'" control-id="'StockTransferDestinationLocation'"
-                                        control-key="'StockTransferDestinationLocation_2949'">
+                                    <div dynamic-lookup placeholder="Location" my-ng-model="x.WLO_Location"
+                                        auto-complete-on-select="OwnershipTransferGeneralCtrl.ePage.Masters.SelectedLookupLocation($item,$index)"
+                                        obj="x" page-name="'WarehouseLocation'" control-id="'Location'"
+                                        control-key="'Location_2948'">
                                     </div>
 
                                     <!-- Look Up page opens when button clicks -->
                                     <span class="input-group-btn">
-                                        <button location-dashboard-modal filter="x.WAR_WarehouseCode" page-name="'WarehouseLocation'" mode="2" obj="x" control-id="'StockTransferDestinationLocation'"
-                                            control-key="'StockTransferDestinationLocation_2949'" selected-data="OwnershipTransferGeneralCtrl.ePage.Masters.SelectedLocationDestination($item,$index)"
-                                            grid-refresh-fun-name="" grid-refresh-fun="" class="btn btn-default shiny" type="button">
+                                        <button location-dashboard-modal filter="x.WAR_WarehouseCode" page-name="'WarehouseLocation'"
+                                            mode="2" obj="x" control-id="'Location'"
+                                            control-key="'Location_2948'" selected-data="OwnershipTransferGeneralCtrl.ePage.Masters.SelectedLookupLocation($item,$index)"
+                                            grid-refresh-fun-name="" grid-refresh-fun="" class="btn btn-default shiny"
+                                            type="button">
                                             <i class="fa fa-ellipsis-h"></i>
                                         </button>
                                     </span>
                                 </div>
                             </div>
-                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="OwnershipTransferGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsStockTransferLine.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':7">
+                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5"
+                                data-ng-if="OwnershipTransferGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsStockTransferLine.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':7">
                                 <error-warning-directive list="OwnershipTransferGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsStockTransferLine.ERROR"
-                                    type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref=""
-                                    row-index="OwnershipTransferGeneralCtrl.ePage.Masters.selectedRow" col-index="7">
+                                    type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref=""
+                                    g-parent-ref="" row-index="OwnershipTransferGeneralCtrl.ePage.Masters.selectedRow"
+                                    col-index="7">
                                 </error-warning-directive>
                             </div>
                         </div>
@@ -625,8 +630,8 @@
                         </div>
                         <div data-ng-if="$index==OwnershipTransferGeneralCtrl.ePage.Masters.selectedRow && !OwnershipTransferGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
                             <div class="height-22 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 p-0">
-                                <input type="text" maxlength="25" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Pallet ID Source"
-                                    data-ng-model="x.TransferFromPalletId">
+                                <input type="text" maxlength="25" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
+                                    placeholder="Pallet ID Source" data-ng-model="x.TransferFromPalletId">
                             </div>
                         </div>
                     </td>
@@ -639,8 +644,8 @@
                         </div>
                         <div data-ng-if="$index==OwnershipTransferGeneralCtrl.ePage.Masters.selectedRow && !OwnershipTransferGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
                             <div class="height-22 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 p-0">
-                                <input type="text" maxlength="25" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Pallet ID Destination"
-                                    data-ng-model="x.PalletID">
+                                <input type="text" maxlength="25" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
+                                    placeholder="Pallet ID Destination" data-ng-model="x.PalletID">
                             </div>
                         </div>
                     </td>
@@ -658,14 +663,16 @@
                         </div>
                         <div data-ng-if="$index==OwnershipTransferGeneralCtrl.ePage.Masters.selectedRow && !OwnershipTransferGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
                             <div class="height-22 col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0">
-                                <input type="text" maxlength="25" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="UDF 1"
-                                    data-ng-model="x.PartAttrib1" ng-disabled="!x.UsePartAttrib1 || x.IsPartAttrib1ReleaseCaptured"
+                                <input type="text" maxlength="25" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
+                                    placeholder="UDF 1" data-ng-model="x.PartAttrib1" ng-disabled="!x.UsePartAttrib1 || x.IsPartAttrib1ReleaseCaptured"
                                     ng-blur="OwnershipTransferGeneralCtrl.ePage.Masters.UDF(x,$index)">
                             </div>
-                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="OwnershipTransferGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsStockTransferLine.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':9">
+                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5"
+                                data-ng-if="OwnershipTransferGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsStockTransferLine.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':9">
                                 <error-warning-directive list="OwnershipTransferGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsStockTransferLine.ERROR"
-                                    type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref=""
-                                    row-index="OwnershipTransferGeneralCtrl.ePage.Masters.selectedRow" col-index="9">
+                                    type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref=""
+                                    g-parent-ref="" row-index="OwnershipTransferGeneralCtrl.ePage.Masters.selectedRow"
+                                    col-index="9">
                                 </error-warning-directive>
                             </div>
                         </div>
@@ -679,14 +686,16 @@
                         </div>
                         <div data-ng-if="$index==OwnershipTransferGeneralCtrl.ePage.Masters.selectedRow && !OwnershipTransferGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
                             <div class="height-22 col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0">
-                                <input type="text" maxlength="25" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="UDF 2"
-                                    data-ng-model="x.PartAttrib2" ng-disabled="!x.UsePartAttrib2 || x.IsPartAttrib2ReleaseCaptured"
+                                <input type="text" maxlength="25" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
+                                    placeholder="UDF 2" data-ng-model="x.PartAttrib2" ng-disabled="!x.UsePartAttrib2 || x.IsPartAttrib2ReleaseCaptured"
                                     ng-blur="OwnershipTransferGeneralCtrl.ePage.Masters.UDF(x,$index)">
                             </div>
-                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="OwnershipTransferGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsStockTransferLine.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':10">
+                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5"
+                                data-ng-if="OwnershipTransferGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsStockTransferLine.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':10">
                                 <error-warning-directive list="OwnershipTransferGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsStockTransferLine.ERROR"
-                                    type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref=""
-                                    row-index="OwnershipTransferGeneralCtrl.ePage.Masters.selectedRow" col-index="10">
+                                    type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref=""
+                                    g-parent-ref="" row-index="OwnershipTransferGeneralCtrl.ePage.Masters.selectedRow"
+                                    col-index="10">
                                 </error-warning-directive>
                             </div>
                         </div>
@@ -700,14 +709,16 @@
                         </div>
                         <div data-ng-if="$index==OwnershipTransferGeneralCtrl.ePage.Masters.selectedRow && !OwnershipTransferGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
                             <div class="height-22 col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0">
-                                <input type="text" maxlength="25" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="UDF 3"
-                                    data-ng-model="x.PartAttrib3" ng-disabled="!x.UsePartAttrib3 || x.IsPartAttrib3ReleaseCaptured"
+                                <input type="text" maxlength="25" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
+                                    placeholder="UDF 3" data-ng-model="x.PartAttrib3" ng-disabled="!x.UsePartAttrib3 || x.IsPartAttrib3ReleaseCaptured"
                                     ng-blur="OwnershipTransferGeneralCtrl.ePage.Masters.UDF(x,$index)">
                             </div>
-                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="OwnershipTransferGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsStockTransferLine.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':11">
+                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5"
+                                data-ng-if="OwnershipTransferGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsStockTransferLine.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':11">
                                 <error-warning-directive list="OwnershipTransferGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsStockTransferLine.ERROR"
-                                    type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref=""
-                                    row-index="OwnershipTransferGeneralCtrl.ePage.Masters.selectedRow" col-index="11">
+                                    type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref=""
+                                    g-parent-ref="" row-index="OwnershipTransferGeneralCtrl.ePage.Masters.selectedRow"
+                                    col-index="11">
                                 </error-warning-directive>
                             </div>
                         </div>
@@ -725,11 +736,11 @@
                                     <input type="text" class="form-control height-22" placeholder="{{OwnershipTransferGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
                                         datetime-picker="{{OwnershipTransferGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
                                         ng-model="x.PackingDate" is-open="OwnershipTransferGeneralCtrl.ePage.Masters.DatePicker.isOpen['isPackingDate']"
-                                        datepicker-options="OwnershipTransferGeneralCtrl.ePage.Masters.DatePicker.Options" datepicker-append-to-body="false"
-                                        close-on-selection="false" enable-time="false" enable-date="true" default-date="" default-time=""
-                                        when-closed="" save-as="OwnershipTransferGeneralCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                                        datepicker-options="OwnershipTransferGeneralCtrl.ePage.Masters.DatePicker.Options"
+                                        datepicker-append-to-body="false" close-on-selection="false" enable-time="false"
+                                        enable-date="true" default-date="" default-time="" when-closed="" save-as="OwnershipTransferGeneralCtrl.ePage.Masters.DatePicker.Options.saveFormat"
                                         data-ng-click="" data-ng-change="OwnershipTransferGeneralCtrl.ePage.Masters.UDF(x,$index)"
-                                        custom-date-time-format/>
+                                        custom-date-time-format />
                                     <span class="input-group-btn height-22">
                                         <button type="button" class="btn btn-default" data-ng-click="OwnershipTransferGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isPackingDate')">
                                             <i class="fa fa-calendar"></i>
@@ -737,10 +748,12 @@
                                     </span>
                                 </div>
                             </div>
-                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="OwnershipTransferGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsStockTransferLine.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':12">
+                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5"
+                                data-ng-if="OwnershipTransferGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsStockTransferLine.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':12">
                                 <error-warning-directive list="OwnershipTransferGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsStockTransferLine.ERROR"
-                                    type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref=""
-                                    row-index="OwnershipTransferGeneralCtrl.ePage.Masters.selectedRow" col-index="12">
+                                    type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref=""
+                                    g-parent-ref="" row-index="OwnershipTransferGeneralCtrl.ePage.Masters.selectedRow"
+                                    col-index="12">
                                 </error-warning-directive>
                             </div>
                         </div>
@@ -758,11 +771,11 @@
                                     <input type="text" class="form-control height-22" placeholder="{{OwnershipTransferGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
                                         datetime-picker="{{OwnershipTransferGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
                                         ng-model="x.ExpiryDate" is-open="OwnershipTransferGeneralCtrl.ePage.Masters.DatePicker.isOpen['isExpiryDate']"
-                                        datepicker-options="OwnershipTransferGeneralCtrl.ePage.Masters.DatePicker.Options" datepicker-append-to-body="false"
-                                        close-on-selection="false" enable-time="false" enable-date="true" default-date="" default-time=""
-                                        when-closed="" save-as="OwnershipTransferGeneralCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                                        datepicker-options="OwnershipTransferGeneralCtrl.ePage.Masters.DatePicker.Options"
+                                        datepicker-append-to-body="false" close-on-selection="false" enable-time="false"
+                                        enable-date="true" default-date="" default-time="" when-closed="" save-as="OwnershipTransferGeneralCtrl.ePage.Masters.DatePicker.Options.saveFormat"
                                         data-ng-click="" data-ng-change="OwnershipTransferGeneralCtrl.ePage.Masters.UDF(x,$index)"
-                                        custom-date-time-format/>
+                                        custom-date-time-format />
                                     <span class="input-group-btn height-22">
                                         <button type="button" class="btn btn-default" data-ng-click="OwnershipTransferGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isExpiryDate')">
                                             <i class="fa fa-calendar"></i>
@@ -770,10 +783,12 @@
                                     </span>
                                 </div>
                             </div>
-                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="OwnershipTransferGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsStockTransferLine.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':13">
+                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5"
+                                data-ng-if="OwnershipTransferGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsStockTransferLine.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':13">
                                 <error-warning-directive list="OwnershipTransferGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsStockTransferLine.ERROR"
-                                    type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref=""
-                                    row-index="OwnershipTransferGeneralCtrl.ePage.Masters.selectedRow" col-index="13">
+                                    type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref=""
+                                    g-parent-ref="" row-index="OwnershipTransferGeneralCtrl.ePage.Masters.selectedRow"
+                                    col-index="13">
                                 </error-warning-directive>
                             </div>
                         </div>
@@ -791,10 +806,10 @@
                                     <input type="text" class="form-control height-22" placeholder="{{OwnershipTransferGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
                                         datetime-picker="{{OwnershipTransferGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
                                         ng-model="x.PickedTime" is-open="OwnershipTransferGeneralCtrl.ePage.Masters.DatePicker.isOpen['isPickedTime']"
-                                        datepicker-options="OwnershipTransferGeneralCtrl.ePage.Masters.DatePicker.Options" datepicker-append-to-body="false"
-                                        close-on-selection="false" enable-time="false" enable-date="true" default-date="" default-time=""
-                                        when-closed="" save-as="OwnershipTransferGeneralCtrl.ePage.Masters.DatePicker.Options.saveFormat"
-                                        data-ng-click="" data-ng-change="" custom-date-time-format/>
+                                        datepicker-options="OwnershipTransferGeneralCtrl.ePage.Masters.DatePicker.Options"
+                                        datepicker-append-to-body="false" close-on-selection="false" enable-time="false"
+                                        enable-date="true" default-date="" default-time="" when-closed="" save-as="OwnershipTransferGeneralCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                                        data-ng-click="" data-ng-change="" custom-date-time-format />
                                     <span class="input-group-btn height-22">
                                         <button type="button" class="btn btn-default" data-ng-click="OwnershipTransferGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isPickedTime')">
                                             <i class="fa fa-calendar"></i>
@@ -817,10 +832,10 @@
                                     <input type="text" class="form-control height-22" placeholder="{{OwnershipTransferGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
                                         datetime-picker="{{OwnershipTransferGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
                                         ng-model="x.PutawayTime" is-open="OwnershipTransferGeneralCtrl.ePage.Masters.DatePicker.isOpen['isPutawayTime']"
-                                        datepicker-options="OwnershipTransferGeneralCtrl.ePage.Masters.DatePicker.Options" datepicker-append-to-body="false"
-                                        close-on-selection="false" enable-time="false" enable-date="true" default-date="" default-time=""
-                                        when-closed="" save-as="OwnershipTransferGeneralCtrl.ePage.Masters.DatePicker.Options.saveFormat"
-                                        data-ng-click="" data-ng-change="" custom-date-time-format/>
+                                        datepicker-options="OwnershipTransferGeneralCtrl.ePage.Masters.DatePicker.Options"
+                                        datepicker-append-to-body="false" close-on-selection="false" enable-time="false"
+                                        enable-date="true" default-date="" default-time="" when-closed="" save-as="OwnershipTransferGeneralCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                                        data-ng-click="" data-ng-change="" custom-date-time-format />
                                     <span class="input-group-btn height-22">
                                         <button type="button" class="btn btn-default" data-ng-click="OwnershipTransferGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isPutawayTime')">
                                             <i class="fa fa-calendar"></i>
@@ -834,7 +849,8 @@
             </tbody>
         </table>
     </div>
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 norecordfound" style="top:330px" ng-if="OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferLine.length==0">No Record Found...</div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 norecordfound" style="top:330px" ng-if="OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferLine.length==0">No
+        Record Found...</div>
 </div>
 <!-- To show Customize Modal -->
 <div ng-if='OwnershipTransferGeneralCtrl.ePage.Masters.EditTableColumns'>
@@ -870,21 +886,24 @@
                 <i class="fa fa-filter txt-color-blueDark"></i> Filter</button>
         </div>
     </div>
-    <div id="INVTable{{OwnershipTransferGeneralCtrl.currentOwnerTransfer.label}}" class="fixedheader mb-0" key-events table-object='OwnershipTransferGeneralCtrl.ePage.Masters.Inventory'
-        enable='OwnershipTransferGeneralCtrl.ePage.Masters.EnableInventory' selected-row='OwnershipTransferGeneralCtrl.ePage.Masters.selectedRowInventory'
-        unique-id='INVTable{{OwnershipTransferGeneralCtrl.currentOwnerTransfer.label}}'>
+    <div id="INVTable{{OwnershipTransferGeneralCtrl.currentOwnerTransfer.label}}" class="fixedheader mb-0" key-events
+        table-object='OwnershipTransferGeneralCtrl.ePage.Masters.Inventory' enable='OwnershipTransferGeneralCtrl.ePage.Masters.EnableInventory'
+        selected-row='OwnershipTransferGeneralCtrl.ePage.Masters.selectedRowInventory' unique-id='INVTable{{OwnershipTransferGeneralCtrl.currentOwnerTransfer.label}}'>
         <table style="height: 200px">
+            <!-- inventory table header -->
             <thead>
                 <tr id="tableHeader">
                     <th id="icheckbox" data-ng-if="OwnershipTransferGeneralCtrl.ePage.Entities.Header.TableProperties.Inventory.icheckbox.isenabled"
                         ng-style="{ 'width': OwnershipTransferGeneralCtrl.ePage.Entities.Header.TableProperties.Inventory.icheckbox.width + 'px' }">
                         <label class="customcheckbox">
-                            <input type="checkbox" ng-change="OwnershipTransferGeneralCtrl.ePage.Masters.SelectAllCheckBoxInventory()" ng-checked="OwnershipTransferGeneralCtrl.ePage.Masters.SelectAllInventory"
-                                ng-model="OwnershipTransferGeneralCtrl.ePage.Masters.SelectAllInventory" ng-disabled="OwnershipTransferGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
+                            <input type="checkbox" ng-change="OwnershipTransferGeneralCtrl.ePage.Masters.SelectAllCheckBoxInventory()"
+                                ng-checked="OwnershipTransferGeneralCtrl.ePage.Masters.SelectAllInventory" ng-model="OwnershipTransferGeneralCtrl.ePage.Masters.SelectAllInventory"
+                                ng-disabled="OwnershipTransferGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
                             <span class="text"></span>
                         </label>
                     </th>
-                    <th id="isno" data-ng-if="OwnershipTransferGeneralCtrl.ePage.Entities.Header.TableProperties.Inventory.isno.isenabled" ng-style="{ 'width': OwnershipTransferGeneralCtrl.ePage.Entities.Header.TableProperties.Inventory.isno.width + 'px' }"
+                    <th id="isno" data-ng-if="OwnershipTransferGeneralCtrl.ePage.Entities.Header.TableProperties.Inventory.isno.isenabled"
+                        ng-style="{ 'width': OwnershipTransferGeneralCtrl.ePage.Entities.Header.TableProperties.Inventory.isno.width + 'px' }"
                         title="S.No">S.No</th>
                     <th id="iproductcode" data-ng-if="OwnershipTransferGeneralCtrl.ePage.Entities.Header.TableProperties.Inventory.iproductcode.isenabled"
                         ng-style="{ 'width': OwnershipTransferGeneralCtrl.ePage.Entities.Header.TableProperties.Inventory.iproductcode.width + 'px' }"
@@ -951,9 +970,10 @@
                         title="Warehouse">Warehouse</th>
                 </tr>
             </thead>
+            <!-- inventory table body -->
             <tbody id="InvCustTable{{OwnershipTransferGeneralCtrl.currentOwnerTransfer.label}}">
-                <tr id="tableBody" ng-repeat="x in OwnershipTransferGeneralCtrl.ePage.Masters.Inventory | orderBy:'CreatedDateTime' " ng-click="OwnershipTransferGeneralCtrl.ePage.Masters.setSelectedRowInventory($index);"
-                    ng-class="{row_active: (OwnershipTransferGeneralCtrl.ePage.Masters.selectedRowInventory==$index),copy_row_active :(x.IsCopied==true)}"
+                <tr id="tableBody" ng-repeat="x in OwnershipTransferGeneralCtrl.ePage.Masters.Inventory | orderBy:'CreatedDateTime' "
+                    ng-click="OwnershipTransferGeneralCtrl.ePage.Masters.setSelectedRowInventory($index);" ng-class="{row_active: (OwnershipTransferGeneralCtrl.ePage.Masters.selectedRowInventory==$index),copy_row_active :(x.IsCopied==true)}"
                     watch-table table-properties="OwnershipTransferGeneralCtrl.ePage.Entities.Header.TableProperties.Inventory"
                     unique-id="InvCustTable{{OwnershipTransferGeneralCtrl.currentOwnerTransfer.label}}" row-position="$index">
                     <td id="icheckbox" data-ng-show='OwnershipTransferGeneralCtrl.ePage.Entities.Header.TableProperties.Inventory.icheckbox.isenabled'
@@ -961,12 +981,15 @@
                         ng-click="OwnershipTransferGeneralCtrl.ePage.Masters.Enable = true">
                         <label class="mb-0 customcheckbox">
                             <input type="checkbox" ng-checked="x.SingleSelectInventory" ng-change="OwnershipTransferGeneralCtrl.ePage.Masters.SingleSelectCheckBoxInventory()"
-                                ng-model="x.SingleSelectInventory" ng-disabled="OwnershipTransferGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable || x.InLocationQty==0"> </input>
+                                ng-model="x.SingleSelectInventory" ng-disabled="OwnershipTransferGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable || x.InLocationQty==0">
+                            </input>
                             <span class="text"></span>
                         </label>
                     </td>
                     <td id="isno" data-ng-show='OwnershipTransferGeneralCtrl.ePage.Entities.Header.TableProperties.Inventory.isno.isenabled'
-                        ng-style="{ 'width': OwnershipTransferGeneralCtrl.ePage.Entities.Header.TableProperties.Inventory.isno.width + 'px' }">{{(($index +1) + ((OwnershipTransferGeneralCtrl.ePage.Masters.Pagination.ItemsPerPage)*(OwnershipTransferGeneralCtrl.ePage.Masters.Pagination.CurrentPage-1)))}}</td>
+                        ng-style="{ 'width': OwnershipTransferGeneralCtrl.ePage.Entities.Header.TableProperties.Inventory.isno.width + 'px' }">{{(($index
+                        +1) +
+                        ((OwnershipTransferGeneralCtrl.ePage.Masters.Pagination.ItemsPerPage)*(OwnershipTransferGeneralCtrl.ePage.Masters.Pagination.CurrentPage-1)))}}</td>
                     <td id="iproductcode" data-ng-show='OwnershipTransferGeneralCtrl.ePage.Entities.Header.TableProperties.Inventory.iproductcode.isenabled'
                         ng-style="{ 'width': OwnershipTransferGeneralCtrl.ePage.Entities.Header.TableProperties.Inventory.iproductcode.width + 'px' }"
                         class="overflow-text">{{x.ProductCode}}</td>
@@ -975,31 +998,38 @@
                         class="overflow-text">{{x.ProductName}}</td>
                     <td id="ireceiptreference" data-ng-show='OwnershipTransferGeneralCtrl.ePage.Entities.Header.TableProperties.Inventory.ireceiptreference.isenabled'
                         ng-style="{ 'width': OwnershipTransferGeneralCtrl.ePage.Entities.Header.TableProperties.Inventory.ireceiptreference.width + 'px' }"
-                        class="overflow-text">{{x.ExternalReference || OwnershipTransferGeneralCtrl.ePage.Masters.emptyText}}</td>
+                        class="overflow-text">{{x.ExternalReference ||
+                        OwnershipTransferGeneralCtrl.ePage.Masters.emptyText}}</td>
                     <td id="istatus" data-ng-show='OwnershipTransferGeneralCtrl.ePage.Entities.Header.TableProperties.Inventory.istatus.isenabled'
                         ng-style="{ 'width': OwnershipTransferGeneralCtrl.ePage.Entities.Header.TableProperties.Inventory.istatus.width + 'px' }"
                         class="overflow-text">{{x.OriginalInventoryStatus}} - {{x.OriginalInventoryStatusDesc}}</td>
                     <td id="iavailabletopick" data-ng-show='OwnershipTransferGeneralCtrl.ePage.Entities.Header.TableProperties.Inventory.iavailabletopick.isenabled'
                         ng-style="{ 'width': OwnershipTransferGeneralCtrl.ePage.Entities.Header.TableProperties.Inventory.iavailabletopick.width + 'px' }"
-                        class="overflow-text">{{ x.AvailableToPick||OwnershipTransferGeneralCtrl.ePage.Masters.emptyText}}</td>
+                        class="overflow-text">{{
+                        x.AvailableToPick||OwnershipTransferGeneralCtrl.ePage.Masters.emptyText}}</td>
                     <td id="iinlocationqty" data-ng-show='OwnershipTransferGeneralCtrl.ePage.Entities.Header.TableProperties.Inventory.iinlocationqty.isenabled'
                         ng-style="{ 'width': OwnershipTransferGeneralCtrl.ePage.Entities.Header.TableProperties.Inventory.iinlocationqty.width + 'px' }"
-                        class="overflow-text">{{x.InLocationQty || OwnershipTransferGeneralCtrl.ePage.Masters.emptyText}}</td>
+                        class="overflow-text">{{x.InLocationQty ||
+                        OwnershipTransferGeneralCtrl.ePage.Masters.emptyText}}</td>
                     <td id="icommittedqty" data-ng-show='OwnershipTransferGeneralCtrl.ePage.Entities.Header.TableProperties.Inventory.icommittedqty.isenabled'
                         ng-style="{ 'width': OwnershipTransferGeneralCtrl.ePage.Entities.Header.TableProperties.Inventory.icommittedqty.width + 'px' }"
-                        class="overflow-text">{{x.CommitedUnit || OwnershipTransferGeneralCtrl.ePage.Masters.emptyText}}</td>
+                        class="overflow-text">{{x.CommitedUnit ||
+                        OwnershipTransferGeneralCtrl.ePage.Masters.emptyText}}</td>
                     <td id="iintransitqty" data-ng-show='OwnershipTransferGeneralCtrl.ePage.Entities.Header.TableProperties.Inventory.iintransitqty.isenabled'
                         ng-style="{ 'width': OwnershipTransferGeneralCtrl.ePage.Entities.Header.TableProperties.Inventory.iintransitqty.width + 'px' }"
-                        class="overflow-text">{{x.InTransitUnit || OwnershipTransferGeneralCtrl.ePage.Masters.emptyText}}</td>
+                        class="overflow-text">{{x.InTransitUnit ||
+                        OwnershipTransferGeneralCtrl.ePage.Masters.emptyText}}</td>
                     <td id="ireservedqty" data-ng-show='OwnershipTransferGeneralCtrl.ePage.Entities.Header.TableProperties.Inventory.ireservedqty.isenabled'
                         ng-style="{ 'width': OwnershipTransferGeneralCtrl.ePage.Entities.Header.TableProperties.Inventory.ireservedqty.width + 'px' }"
-                        class="overflow-text">{{x.ReservedUnit || OwnershipTransferGeneralCtrl.ePage.Masters.emptyText}}</td>
+                        class="overflow-text">{{x.ReservedUnit ||
+                        OwnershipTransferGeneralCtrl.ePage.Masters.emptyText}}</td>
                     <td id="itotalqty" data-ng-show='OwnershipTransferGeneralCtrl.ePage.Entities.Header.TableProperties.Inventory.itotalqty.isenabled'
                         ng-style="{ 'width': OwnershipTransferGeneralCtrl.ePage.Entities.Header.TableProperties.Inventory.itotalqty.width + 'px' }"
                         class="overflow-text">{{ x.TotalUnits||OwnershipTransferGeneralCtrl.ePage.Masters.emptyText}}</td>
                     <td id="iarrivaldate" data-ng-show='OwnershipTransferGeneralCtrl.ePage.Entities.Header.TableProperties.Inventory.iarrivaldate.isenabled'
                         ng-style="{ 'width': OwnershipTransferGeneralCtrl.ePage.Entities.Header.TableProperties.Inventory.iarrivaldate.width + 'px' }"
-                        class="overflow-text">{{x.AdjustmentArrivalDate || OwnershipTransferGeneralCtrl.ePage.Masters.emptyText | dateFormat}}</td>
+                        class="overflow-text">{{x.AdjustmentArrivalDate ||
+                        OwnershipTransferGeneralCtrl.ePage.Masters.emptyText | dateFormat}}</td>
                     <td id="ilocation" data-ng-show='OwnershipTransferGeneralCtrl.ePage.Entities.Header.TableProperties.Inventory.ilocation.isenabled'
                         ng-style="{ 'width': OwnershipTransferGeneralCtrl.ePage.Entities.Header.TableProperties.Inventory.ilocation.width + 'px' }"
                         class="overflow-text">{{x.Location ||OwnershipTransferGeneralCtrl.ePage.Masters.emptyText}}</td>
@@ -1020,10 +1050,12 @@
                         class="overflow-text">{{x.PartAttrib3 || OwnershipTransferGeneralCtrl.ePage.Masters.emptyText}}</td>
                     <td id="ipackingdate" data-ng-show='OwnershipTransferGeneralCtrl.ePage.Entities.Header.TableProperties.Inventory.ipackingdate.isenabled'
                         ng-style="{ 'width': OwnershipTransferGeneralCtrl.ePage.Entities.Header.TableProperties.Inventory.ipackingdate.width + 'px' }"
-                        class="overflow-text">{{x.PackingDate || OwnershipTransferGeneralCtrl.ePage.Masters.emptyText | dateFormat}}</td>
+                        class="overflow-text">{{x.PackingDate || OwnershipTransferGeneralCtrl.ePage.Masters.emptyText |
+                        dateFormat}}</td>
                     <td id="iexpirydate" data-ng-show='OwnershipTransferGeneralCtrl.ePage.Entities.Header.TableProperties.Inventory.iexpirydate.isenabled'
                         ng-style="{ 'width': OwnershipTransferGeneralCtrl.ePage.Entities.Header.TableProperties.Inventory.iexpirydate.width + 'px' }"
-                        class="overflow-text">{{x.ExpiryDate || OwnershipTransferGeneralCtrl.ePage.Masters.emptyText | dateFormat}}</td>
+                        class="overflow-text">{{x.ExpiryDate || OwnershipTransferGeneralCtrl.ePage.Masters.emptyText |
+                        dateFormat}}</td>
                     <td id="iclient" data-ng-show='OwnershipTransferGeneralCtrl.ePage.Entities.Header.TableProperties.Inventory.iclient.isenabled'
                         ng-style="{ 'width': OwnershipTransferGeneralCtrl.ePage.Entities.Header.TableProperties.Inventory.iclient.width + 'px' }"
                         class="overflow-text">{{x.ClientCode}} - {{x.ClientName}}</td>
@@ -1037,25 +1069,28 @@
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 norecordfound" style="top:570px" ng-if="OwnershipTransferGeneralCtrl.ePage.Masters.InventoryLoading">
         <i class="fa fa-spin fa-spinner font-160"></i>
     </div>
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 norecordfound" style="top:570px" ng-if="OwnershipTransferGeneralCtrl.ePage.Masters.Inventory.length==0 && !OwnershipTransferGeneralCtrl.ePage.Masters.InventoryLoading">No Record Found...</div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 norecordfound" style="top:570px" ng-if="OwnershipTransferGeneralCtrl.ePage.Masters.Inventory.length==0 && !OwnershipTransferGeneralCtrl.ePage.Masters.InventoryLoading">No
+        Record Found...</div>
 
     <!-- To show Customize Modal -->
     <div ng-if='OwnershipTransferGeneralCtrl.ePage.Masters.EditTableColumnsInventory'>
-        <customize-table table-properties="OwnershipTransferGeneralCtrl.ePage.Entities.Header.TableProperties.Inventory" enable="OwnershipTransferGeneralCtrl.ePage.Masters.EditTableColumnsInventory"
-            unique-id="InvCustTable{{OwnershipTransferGeneralCtrl.currentOwnerTransfer.label}}" user-value='OwnershipTransferGeneralCtrl.ePage.Masters.UserValueForInventory'
-            entity-source='WMS_OWNERTRANSFERINVENTORY'></customize-table>
+        <customize-table table-properties="OwnershipTransferGeneralCtrl.ePage.Entities.Header.TableProperties.Inventory"
+            enable="OwnershipTransferGeneralCtrl.ePage.Masters.EditTableColumnsInventory" unique-id="InvCustTable{{OwnershipTransferGeneralCtrl.currentOwnerTransfer.label}}"
+            user-value='OwnershipTransferGeneralCtrl.ePage.Masters.UserValueForInventory' entity-source='WMS_OWNERTRANSFERINVENTORY'></customize-table>
     </div>
     <!-- Call Directive If user has value -->
     <div ng-if='OwnershipTransferGeneralCtrl.ePage.Masters.UserHasValueForInventory' ng-init="OwnershipTransferGeneralCtrl.ePage.Masters.UserHasValueForInventory=false">
-        <watch-table table-properties="OwnershipTransferGeneralCtrl.ePage.Entities.Header.TableProperties.Inventory" unique-id="InvCustTable{{OwnershipTransferGeneralCtrl.currentOwnerTransfer.label}}"></watch-table>
+        <watch-table table-properties="OwnershipTransferGeneralCtrl.ePage.Entities.Header.TableProperties.Inventory"
+            unique-id="InvCustTable{{OwnershipTransferGeneralCtrl.currentOwnerTransfer.label}}"></watch-table>
     </div>
 
     <!-- Pagination -->
     <div class="mr-10 ml-10">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 pagination-border">
             <div class="col-xs-4 col-sm-4 col-md-3 col-lg-2 col-xl-2 pt-10 p-0">
-                <ul uib-pagination boundary-links="true" total-items="OwnershipTransferGeneralCtrl.ePage.Masters.InventoryCount" ng-model="OwnershipTransferGeneralCtrl.ePage.Masters.Pagination.CurrentPage"
-                    class="pagination-sm" max-size="OwnershipTransferGeneralCtrl.ePage.Masters.Pagination.MaxSize" items-per-page="OwnershipTransferGeneralCtrl.ePage.Masters.Pagination.ItemsPerPage"
+                <ul uib-pagination boundary-links="true" total-items="OwnershipTransferGeneralCtrl.ePage.Masters.InventoryCount"
+                    ng-model="OwnershipTransferGeneralCtrl.ePage.Masters.Pagination.CurrentPage" class="pagination-sm"
+                    max-size="OwnershipTransferGeneralCtrl.ePage.Masters.Pagination.MaxSize" items-per-page="OwnershipTransferGeneralCtrl.ePage.Masters.Pagination.ItemsPerPage"
                     num-pages="OwnershipTransferGeneralCtrl.ePage.Masters.Pagination.TotalPage" data-ng-change="OwnershipTransferGeneralCtrl.ePage.Masters.Filter()"
                     previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></ul>
             </div>
@@ -1067,7 +1102,8 @@
                 </select> Records Per Page.
             </div>
             <div class="col-xs-4 col-sm-4 col-md-3 col-lg-2 col-xl-2 pt-10 pull-right">
-                <div class="">Page : {{OwnershipTransferGeneralCtrl.ePage.Masters.Pagination.CurrentPage}} / {{OwnershipTransferGeneralCtrl.ePage.Masters.Pagination.TotalPage}}</div>
+                <div class="">Page : {{OwnershipTransferGeneralCtrl.ePage.Masters.Pagination.CurrentPage}} /
+                    {{OwnershipTransferGeneralCtrl.ePage.Masters.Pagination.TotalPage}}</div>
                 <div class="">Total Records : {{OwnershipTransferGeneralCtrl.ePage.Masters.InventoryCount}}</div>
             </div>
         </div>
@@ -1078,7 +1114,7 @@
 <!--FIlter Bar  -->
 <div id="filterSideBar{{OwnershipTransferGeneralCtrl.ePage.Masters.DynamicControl.DataEntryName}}{{OwnershipTransferGeneralCtrl.currentOwnerTransfer.label}}"
     data-ng-if="OwnershipTransferGeneralCtrl.ePage.Masters.DynamicControl" class="dynamic-filter-sidebar-wrapper  clearfix filter-text"
-    style="top:439px;height:200px;overflow-y: overlay;z-index: 13" data-ng-class="OwnershipTransferGeneralCtrl.ePage.Masters.ViewType == 1 ? 'one-column' : 'two-column'">
+    style="top:520px;height:200px;overflow-y: overlay;z-index: 13" data-ng-class="OwnershipTransferGeneralCtrl.ePage.Masters.ViewType == 1 ? 'one-column' : 'two-column'">
     <form name="filterSidebar" novalidate>
         <div class="header clearfix">
             <div class="title pull-left">
@@ -1099,8 +1135,9 @@
         </div>
         <div class="filter-list clearfix">
             <div class="clearfix" data-ng-if="OwnershipTransferGeneralCtrl.ePage.Masters.DynamicControl">
-                <dynamic-control input="OwnershipTransferGeneralCtrl.ePage.Masters.DynamicControl" mode="S" control-style="" default-filter="OwnershipTransferGeneralCtrl.ePage.Masters.defaultFilter"
-                    toggle="OwnershipTransferGeneralCtrl.ePage.Masters.IsDynamicControlAccess" view-type="OwnershipTransferGeneralCtrl.ePage.Masters.ViewType"></dynamic-control>
+                <dynamic-control input="OwnershipTransferGeneralCtrl.ePage.Masters.DynamicControl" mode="S"
+                    control-style="" default-filter="OwnershipTransferGeneralCtrl.ePage.Masters.defaultFilter" toggle="OwnershipTransferGeneralCtrl.ePage.Masters.IsDynamicControlAccess"
+                    view-type="OwnershipTransferGeneralCtrl.ePage.Masters.ViewType"></dynamic-control>
             </div>
         </div>
     </form>

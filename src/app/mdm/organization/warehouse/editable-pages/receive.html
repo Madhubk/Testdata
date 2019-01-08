@@ -1,5 +1,7 @@
 <div class="modal-header">
-    <span class="modal-title modalheader">{{EditableCtrl.ePage.Entities.Data.OrgHeader.Code}}</span>
+    <span class="modal-title modalheader">{{EditableCtrl.ePage.Entities.Header.Data.OrgHeader.Code}}</span>
+    <button class="btn btn-xs btn-warning pull-right ml-5" ng-click="EditableCtrl.ePage.Masters.Cancel()" ng-disabled="EditableCtrl.ePage.Masters.IsDisableSave">Close</button>
+    <button class="btn btn-xs btn-primary pull-right" ng-click="EditableCtrl.ePage.Masters.Validation('OrgMiscServ')" ng-disabled="EditableCtrl.ePage.Masters.IsDisableSave">{{EditableCtrl.ePage.Masters.SaveButtonText}}</button>
 </div>
 <div class="modal-body pb-50">
 
@@ -10,14 +12,14 @@
         </div>
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-10">    
             <label>
-                <input type="checkbox" ng-checked="EditableCtrl.ePage.Entities.Data.OrgMiscServ.WmsPutawaySameProductTogether"  ng-model="EditableCtrl.ePage.Entities.Data.OrgMiscServ.WmsPutawaySameProductTogether">
+                <input type="checkbox" ng-checked="EditableCtrl.ePage.Entities.Header.Data.OrgMiscServ.WmsPutawaySameProductTogether"  ng-model="EditableCtrl.ePage.Entities.Header.Data.OrgMiscServ.WmsPutawaySameProductTogether">
                 <span class="text">Putaway Same Product Together</span>
             </label>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-10">    
             <label>
-                <input type="checkbox" ng-checked="EditableCtrl.ePage.Entities.Data.OrgMiscServ.WmsOverrideSystemPutawayRules"  ng-model="EditableCtrl.ePage.Entities.Data.OrgMiscServ.WmsOverrideSystemPutawayRules"
-                ng-change = "EditableCtrl.ePage.Masters.OverridingSystemSetting(EditableCtrl.ePage.Entities.Data.OrgMiscServ.WmsOverrideSystemPutawayRules)" >
+                <input type="checkbox" ng-checked="EditableCtrl.ePage.Entities.Header.Data.OrgMiscServ.WmsOverrideSystemPutawayRules"  ng-model="EditableCtrl.ePage.Entities.Header.Data.OrgMiscServ.WmsOverrideSystemPutawayRules"
+                ng-change = "EditableCtrl.ePage.Masters.OverridingSystemSetting(EditableCtrl.ePage.Entities.Header.Data.OrgMiscServ.WmsOverrideSystemPutawayRules)" >
                 <span class="text">Overriding System Setting</span>
             </label>
         </div>
@@ -34,7 +36,7 @@
                 <div class="form-group">
                     <div class="">
                         <label>Location Fallback</label>
-                        <input type="text"  class="form-control input-sm"  data-ng-model="EditableCtrl.ePage.Entities.Data.OrgMiscServ.WmsPutawayToLocation" readonly=''/>
+                        <input type="text"  class="form-control input-sm"  data-ng-model="EditableCtrl.ePage.Entities.Header.Data.OrgMiscServ.WmsPutawayToLocation" readonly=''/>
                     </div>    
                 </div>
             </div>
@@ -42,7 +44,7 @@
                 <div class="form-group">
                     <div class="">
                         <label></label>
-                        <select class="custom_width" ng-model='LocationFallBack' ng-disabled = "!EditableCtrl.ePage.Entities.Data.OrgMiscServ.WmsOverrideSystemPutawayRules"
+                        <select class="custom_width" ng-model='LocationFallBack' ng-disabled = "!EditableCtrl.ePage.Entities.Header.Data.OrgMiscServ.WmsOverrideSystemPutawayRules"
                                 ng-change = "EditableCtrl.ePage.Masters.UpdatingReceivingValue(LocationFallBack,'LOCATION')">
                             <option ng-repeat="x in EditableCtrl.ePage.Masters.ReceivingSequence" ng-class="{custom_disable: x.disabled}">{{x.displayvalue}}</option>
                         </select>
@@ -56,7 +58,7 @@
                 <div class="form-group">
                     <div class="">
                         <label>Pick Face</label>
-                        <input type="text"  class="form-control input-sm"  data-ng-model="EditableCtrl.ePage.Entities.Data.OrgMiscServ.WmsPutawayToPickFace" readonly=''/>
+                        <input type="text"  class="form-control input-sm"  data-ng-model="EditableCtrl.ePage.Entities.Header.Data.OrgMiscServ.WmsPutawayToPickFace" readonly=''/>
                     </div>    
                 </div>
             </div>
@@ -64,7 +66,7 @@
                 <div class="form-group">
                     <div class="">
                         <label></label>
-                        <select class="custom_width" ng-model='PickFace' ng-disabled = "!EditableCtrl.ePage.Entities.Data.OrgMiscServ.WmsOverrideSystemPutawayRules"
+                        <select class="custom_width" ng-model='PickFace' ng-disabled = "!EditableCtrl.ePage.Entities.Header.Data.OrgMiscServ.WmsOverrideSystemPutawayRules"
                                 ng-change = "EditableCtrl.ePage.Masters.UpdatingReceivingValue(PickFace,'PICKFACE')">
                             <option ng-repeat="x in EditableCtrl.ePage.Masters.ReceivingSequence" ng-class="{custom_disable: x.disabled}">{{x.displayvalue}}</option>
                         </select>
@@ -79,7 +81,7 @@
                 <div class="form-group">
                     <div class="">
                         <label>Client Area</label>
-                        <input type="text"  class="form-control input-sm"  data-ng-model="EditableCtrl.ePage.Entities.Data.OrgMiscServ.WmsPutawayToClientArea" readonly=''/>
+                        <input type="text"  class="form-control input-sm"  data-ng-model="EditableCtrl.ePage.Entities.Header.Data.OrgMiscServ.WmsPutawayToClientArea" readonly=''/>
                     </div>    
                 </div>
             </div>
@@ -87,7 +89,7 @@
                 <div class="form-group">
                     <div class="">
                         <label></label>
-                        <select class="custom_width" ng-model='ClientArea' ng-disabled = "!EditableCtrl.ePage.Entities.Data.OrgMiscServ.WmsOverrideSystemPutawayRules"
+                        <select class="custom_width" ng-model='ClientArea' ng-disabled = "!EditableCtrl.ePage.Entities.Header.Data.OrgMiscServ.WmsOverrideSystemPutawayRules"
                                 ng-change = "EditableCtrl.ePage.Masters.UpdatingReceivingValue(ClientArea,'CLIENTAREA')">
                             <option ng-repeat="x in EditableCtrl.ePage.Masters.ReceivingSequence" ng-class="{custom_disable: x.disabled}">{{x.displayvalue}}</option>
                         </select>
@@ -101,7 +103,7 @@
                 <div class="form-group">
                     <div class="">
                         <label>Product Area</label>
-                        <input type="text"  class="form-control input-sm"  data-ng-model="EditableCtrl.ePage.Entities.Data.OrgMiscServ.WmsPutawayToProductArea" readonly=''/>
+                        <input type="text"  class="form-control input-sm"  data-ng-model="EditableCtrl.ePage.Entities.Header.Data.OrgMiscServ.WmsPutawayToProductArea" readonly=''/>
                     </div>    
                 </div>
             </div>
@@ -109,7 +111,7 @@
                 <div class="form-group">
                     <div class="">
                         <label></label>
-                        <select class="custom_width" ng-model='ProductArea' ng-disabled = "!EditableCtrl.ePage.Entities.Data.OrgMiscServ.WmsOverrideSystemPutawayRules"
+                        <select class="custom_width" ng-model='ProductArea' ng-disabled = "!EditableCtrl.ePage.Entities.Header.Data.OrgMiscServ.WmsOverrideSystemPutawayRules"
                                 ng-change = "EditableCtrl.ePage.Masters.UpdatingReceivingValue(ProductArea,'PRODUCTAREA')">
                             <option ng-repeat="x in EditableCtrl.ePage.Masters.ReceivingSequence" ng-class="{custom_disable: x.disabled}">{{x.displayvalue}}</option>
                         </select>
@@ -132,7 +134,7 @@
                 <span><button type="button" class="btn btn-sm btn-outline-primary font-10"  title="Delete"  data-ng-click="EditableCtrl.ePage.Masters.RemoveRow()" ng-disabled="!EditableCtrl.ePage.Masters.EnableDeleteButton"><span class="fa fa-trash"></span>&nbsp;&nbsp;Delete</button></span>
             </div>
         </div>
-        <div class="fixedheader" id="WarehouseTable{{EditableCtrl.ePage.Entities.Data.OrgHeader.PK}}"  key-events table-object='EditableCtrl.ePage.Entities.Data.WmsClientParameterByWarehouse' enable='EditableCtrl.ePage.Masters.Enable' selected-row='EditableCtrl.ePage.Masters.selectedRow' unique-id="WarehouseTable{{EditableCtrl.ePage.Entities.Data.OrgHeader.PK}}">
+        <div class="fixedheader" id="WarehouseTable{{EditableCtrl.ePage.Entities.Header.Data.OrgHeader.PK}}"  key-events table-object='EditableCtrl.ePage.Entities.Header.Data.WmsClientParameterByWarehouse' enable='EditableCtrl.ePage.Masters.Enable' selected-row='EditableCtrl.ePage.Masters.selectedRow' unique-id="WarehouseTable{{EditableCtrl.ePage.Entities.Header.Data.OrgHeader.PK}}">
             <table id="EditableCtrl.ePage.Masters.AddScroll" style="height: 200px">
                 <thead>
                     <tr id="tableHeader">
@@ -148,8 +150,8 @@
                         <th  ng-style="{ 'width': '250px' }" title="Warehouse Area">Warehouse Area</th>
                     </tr>
                 </thead>
-                <tbody id="WarehouseCustomTable{{EditableCtrl.ePage.Entities.Data.OrgHeader.PK}}"> 
-                    <tr id="tableBody" ng-repeat="x in EditableCtrl.ePage.Entities.Data.WmsClientParameterByWarehouse">
+                <tbody id="WarehouseCustomTable{{EditableCtrl.ePage.Entities.Header.Data.OrgHeader.PK}}"> 
+                    <tr id="tableBody" ng-repeat="x in EditableCtrl.ePage.Entities.Header.Data.WmsClientParameterByWarehouse">
                         <td id="checkbox"  ng-style="{ 'width': '40px','padding-top':'0px' }">
                             <label class="mb-0 customcheckbox">
                                 <input type="checkbox" ng-checked="x.SingleSelect" ng-change="EditableCtrl.ePage.Masters.SingleSelectCheckBox()"

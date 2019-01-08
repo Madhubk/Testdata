@@ -57,17 +57,19 @@
                 controller: 'EditableController as EditableCtrl',
                 bindToController: true,
                 resolve: {
-                    entity: function () {
+                    param: function () {
                         var exports = {
-                            "Data": OrgWarehouseCtrl.ePage.Entities.Header.Data,
+                            "Entity": OrgWarehouseCtrl.currentOrganization,
                         };
                         return exports;
                     }
                 }
             }).result.then(function(response){
-                if(response)
-                OrgWarehouseCtrl.ePage.Entities.Header.Data = response;
-            })
+                if(response){
+                    OrgWarehouseCtrl.currentOrganization[OrgWarehouseCtrl.currentOrganization.label].ePage.Entities.Header.Data = response.data;
+                    OrgWarehouseCtrl.ePage.Entities.Header.Data = response.data;
+                }
+            });
         }
 
         Init();
