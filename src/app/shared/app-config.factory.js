@@ -39,7 +39,7 @@
                         "PublishPrivilegesByUser": {
                             "IsAPI": "true",
                             "HttpType": "POST",
-                            "Url": "UserPrivileges/PublishPrivilegesByUser"
+                            "Url": "UsePrivileges/PublishPrivilegesByUser"
                         },
                         "AppTenantRolePublish": {
                             "IsAPI": "true",

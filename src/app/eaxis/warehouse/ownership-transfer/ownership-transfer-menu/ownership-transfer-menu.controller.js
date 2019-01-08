@@ -136,7 +136,7 @@
                     }
                     console.log("Success");
 
-
+                    OwnershipTransferMenuCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.TransferFrom_ORG = OwnershipTransferMenuCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.TransferFrom_ORG_Code + ' - ' + OwnershipTransferMenuCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.TransferFrom_ORG_FullName;
                     if (OwnershipTransferMenuCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.WorkOrderStatus == 'CAN') {
                         toastr.success("Cancelled Successfully...!");
                     } else {
