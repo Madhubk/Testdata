@@ -208,3 +208,55 @@
     color: #00ac14;
     font-weight: 600;
   }
+
+
+  /* From custom beyond css */
+  .dms-menu-wraper label {
+    color: gray;
+    font-weight: 600;
+    font-size: 12px;
+  }
+
+  .dms-menu.tabs-left.tabbable>.nav.nav.nav-tabs {
+    background-color: #f0f0f0;
+    height: 100vh;
+    width: 230px;
+}
+
+.dms-menu.tabs-left.tabbable>.tab-content {
+    padding: 0;
+    height: 100vh
+}
+
+.dms-menu.tabs-left.tabbable>.nav-tabs>li.active>a,
+.dms-menu.tabs-left.tabbable>.nav-tabs>li.active>a:hover,
+.dms-menu.tabs-left.tabbable>.nav-tabs>li.active>a:focus,
+.dms-menu.tabs-left.tabbable>.nav-tabs>li.active>a:active {
+    border-left: 3px solid #fbbc05 !important;
+    color: #ddd !important;
+    background-color: #4385f5;
+    line-height: 16px;
+    font-size: 14px;
+}
+
+/* --------------------DMS------------------ */
+.tab-profile {
+    width: 100%;
+    color: #908787;
+    padding: 32px 5px;
+    position: relative;
+    height: 90px;
+}
+
+.tab-profile .tab-profile-title {
+    font-size: 20px;
+}
+
+.tab-profile .tab-rofile-avatar {
+    margin-bottom: 5px;
+}
+
+.tab-profile .tab-rofile-avatar .avatar {
+    width: 60px;
+    height: 60px;
+}
