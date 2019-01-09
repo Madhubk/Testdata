@@ -125,7 +125,7 @@
             }
         }
 
-        function SaveEntity(callback) {            
+        function SaveEntity(callback) {
             ActivityTemplateDelivery2Ctrl.ePage.Masters.IsDisableSaveBtn = true;
             ActivityTemplateDelivery2Ctrl.ePage.Masters.SaveBtnText = "Please Wait..";
             if (ActivityTemplateDelivery2Ctrl.taskObj.WSI_StepName == "Create Delivery Challan") {
@@ -164,7 +164,13 @@
                     };
                     ActivityTemplateDelivery2Ctrl.ePage.Masters.ErrorWarningConfig.Modules.MyTask.Entity[ActivityTemplateDelivery2Ctrl.ePage.Masters.EntityObj.UIWmsDelivery.WorkOrderID].GlobalErrorWarningList = _errorcount;
                 }
+
                 if (_errorcount.length == 0) {
+                    if (callback) {
+                        myTaskActivityConfig.Entities.Delivery[myTaskActivityConfig.Entities.Delivery.label].ePage.Entities.Header.Data.UIWmsWorkorderReport.AcknowledgementDateTime = new Date();
+                        myTaskActivityConfig.Entities.Delivery[myTaskActivityConfig.Entities.Delivery.label].ePage.Entities.Header.Data.UIWmsWorkorderReport.AcknowledgedPerson = authService.getUserInfo().UserId;
+                        myTaskActivityConfig.Entities.Delivery[myTaskActivityConfig.Entities.Delivery.label].ePage.Entities.Header.Data.UIWmsWorkorderReport.DeliveryRequestedDateTime = new Date();
+                    }
                     saves(callback);
                 } else {
                     ActivityTemplateDelivery2Ctrl.ePage.Masters.IsDisableSaveBtn = false;
@@ -178,11 +184,19 @@
             }
         }
 
-        function saves(callback) {
+        function saves(callback) {            
             ActivityTemplateDelivery2Ctrl.ePage.Masters.IsDisableSaveBtn = true;
             ActivityTemplateDelivery2Ctrl.ePage.Masters.SaveBtnText = "Please Wait..";
+            if (ActivityTemplateDelivery2Ctrl.taskObj.WSI_StepName == "Create Delivery Challan") {
+                if (callback) {
+                    ActivityTemplateDelivery2Ctrl.ePage.Masters.EntityObj.UIWmsDelivery.WorkOrderStatus = "DIP";
+                    angular.forEach(ActivityTemplateDelivery2Ctrl.ePage.Masters.EntityObj.UIWmsDeliveryLine, function (value, key) {
+                        value.WorkOrderLineStatus = "DIP";
+                    });
+                }
+            }
             var _input = angular.copy(ActivityTemplateDelivery2Ctrl.ePage.Masters.EntityObj);
-            _input.UIWmsDelivery.IsModified = true;
+            _input = filterObjectUpdate(_input, "IsModified");
             apiService.post("eAxisAPI", appConfig.Entities.WmsDeliveryList.API.Update.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     apiService.get("eAxisAPI", appConfig.Entities.WmsDeliveryList.API.GetById.Url + response.data.Response.UIWmsDelivery.PK).then(function (response) {
@@ -203,11 +217,41 @@
                                 code: ActivityTemplateDelivery2Ctrl.ePage.Masters.EntityObj.UIWmsDelivery.WorkOrderID,
                                 isNew: false
                             };
+
                             myTaskActivityConfig.Entities.Delivery = ActivityTemplateDelivery2Ctrl.currentDelivery;
                             ActivityTemplateDelivery2Ctrl.ePage.Masters.Config.IsReload = true;
                             toastr.success("Delivery Saved Successfully...!");
-                            if (callback)
+                            if (callback) {
+                                if (ActivityTemplateDelivery2Ctrl.taskObj.WSI_StepName == "Acknowledge Delivery Request") {
+                                    var _smsInput = {
+                                        "MobileNo": myTaskActivityConfig.Entities.Delivery[myTaskActivityConfig.Entities.Delivery.label].ePage.Entities.Header.Data.UIWmsWorkorderReport.RequesterContactNo,
+                                        "Message": "Delivery Request " + myTaskActivityConfig.Entities.Delivery[myTaskActivityConfig.Entities.Delivery.label].ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderID + " Acknowledged Successfully."
+                                    }
+                                    apiService.post("authAPI", appConfig.Entities.Notification.API.SendSms.Url, _smsInput).then(function (response) {
+
+                                    });
+
+                                    if (deliveryConfig.Entities.ClientContact.length > 0) {
+                                        var _smsInput = {
+                                            "MobileNo": deliveryConfig.Entities.ClientContact[0].Mobile,
+                                            "Message": "Delivery Request " + myTaskActivityConfig.Entities.Delivery[myTaskActivityConfig.Entities.Delivery.label].ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderID + " Acknowledged Successfully."
+                                        }
+                                        apiService.post("authAPI", appConfig.Entities.Notification.API.SendSms.Url, _smsInput).then(function (response) {
+
+                                        });
+                                    }
+                                    if (deliveryConfig.Entities.WarehouseContact.length > 0) {
+                                        var _smsInput = {
+                                            "MobileNo": deliveryConfig.Entities.WarehouseContact[0].Mobile,
+                                            "Message": "Delivery Request " + myTaskActivityConfig.Entities.Delivery[myTaskActivityConfig.Entities.Delivery.label].ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderID + " Acknowledged Successfully."
+                                        }
+                                        apiService.post("authAPI", appConfig.Entities.Notification.API.SendSms.Url, _smsInput).then(function (response) {
+
+                                        });
+                                    }                                    
+                                }
                                 callback();
+                            }
                         }
                     });
                 } else {
@@ -268,23 +312,7 @@
             ActivityTemplateDelivery2Ctrl.ePage.Masters.StandardConfigInput = {
                 IsDisableRefreshButton: true,
                 IsDisableDeleteHistoryButton: true,
-                // IsDisableUpload: true,
-                // IsDisableGenerate: true,
                 IsDisableRelatedDocument: true,
-                // IsDisableCount: true,
-                // IsDisableDownloadCount: true,
-                // IsDisableAmendCount: true,
-                // IsDisableFileName: true,
-                // IsDisableEditFileName: true,
-                // IsDisableDocumentType: true,
-                // IsDisableOwner: true,
-                // IsDisableCreatedOn: true,
-                // IsDisableShare: true,
-                // IsDisableVerticalMenu: true,
-                // IsDisableVerticalMenuDownload: true,
-                // IsDisableVerticalMenuAmend: true,
-                // IsDisableVerticalMenuEmailAttachment: true,
-                // IsDisableVerticalMenuRemove: true
             };
 
             ActivityTemplateDelivery2Ctrl.ePage.Masters.CommentConfig = {
@@ -307,11 +335,6 @@
                         SubModuleCode: "DEL",
                     },
                     GroupCode: ActivityTemplateDelivery2Ctrl.ePage.Masters.ValidationSource[0].Code,
-                    // RelatedBasicDetails: [{
-                    //     "UIField": "TEST",
-                    //     "DbField": "TEST",
-                    //     "Value": "TEST"
-                    // }],
                     EntityObject: ActivityTemplateDelivery2Ctrl.ePage.Masters.EntityObj,
                     ErrorCode: []
                 };
@@ -471,11 +494,6 @@
         function CompleteWithSave() {
             ActivityTemplateDelivery2Ctrl.ePage.Masters.CompleteBtnText = "Please Wait...";
             ActivityTemplateDelivery2Ctrl.ePage.Masters.IsDisableCompleteBtn = true;
-            if (ActivityTemplateDelivery2Ctrl.taskObj.WSI_StepName == "Acknowledge Delivery Request") {
-                ActivityTemplateDelivery2Ctrl.ePage.Masters.EntityObj.UIWmsWorkorderReport.AcknowledgementDateTime = new Date();
-                ActivityTemplateDelivery2Ctrl.ePage.Masters.EntityObj.UIWmsWorkorderReport.AcknowledgedPerson = authService.getUserInfo().UserId;
-                ActivityTemplateDelivery2Ctrl.ePage.Masters.EntityObj.UIWmsWorkorderReport.DeliveryRequestedDateTime = new Date();
-            }
             SaveEntity(function () {
                 SaveOnly().then(function (response) {
                     if (response.data.Status == "Success") {
@@ -499,6 +517,18 @@
 
         function ShowErrorWarningModal(EntityObject) {
             $("#errorWarningContainer" + EntityObject).toggleClass("open");
+        }
+
+        function filterObjectUpdate(obj, key) {
+            for (var i in obj) {
+                if (!obj.hasOwnProperty(i)) continue;
+                if (typeof obj[i] == 'object') {
+                    filterObjectUpdate(obj[i], key);
+                } else if (i == key) {
+                    obj[key] = true;
+                }
+            }
+            return obj;
         }
 
         Init();

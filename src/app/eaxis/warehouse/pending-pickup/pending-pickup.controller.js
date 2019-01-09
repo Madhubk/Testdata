@@ -6,7 +6,7 @@
         .controller("PendingPickupController", PendingPickupController);
 
     PendingPickupController.$inject = ["$location", "helperService"];
-    function PendingPickupController($location,helperService) {
+    function PendingPickupController($location, helperService) {
         var PendingPickupCtrl = this,
             location = $location;
 
@@ -20,8 +20,9 @@
             };
 
             PendingPickupCtrl.ePage.Masters.dataentryName = "PickupLine";
-            PendingPickupCtrl.ePage.Masters.defaultFilter={
-                "CancelledDate": "NULL"
+            PendingPickupCtrl.ePage.Masters.defaultFilter = {
+                "CancelledDate": "NULL",
+                "DL_WorkOrderLineStatus": "DEL"
             }
         }
         Init();

@@ -25,7 +25,9 @@
                         icon="fa fa-warning" parent-type="'GParent'" parent-ref="" g-parent-ref="x.GParentRef"></error-warning-directive>
                 </uib-tab-heading>
                 <div class="finalisedstate" ng-show="DeliveryMenuCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
-                    <span class="finaliseddatedescription">Delivery {{DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderStatusDesc}} and it cannot
+                    <span class="finaliseddatedescription" data-ng-if="DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderStatus != 'RDL'">Delivery {{DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderStatusDesc}} and it cannot
+                        be edited</span>
+                    <span class="finaliseddatedescription" data-ng-if="DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderStatus == 'RDL'"> {{DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderStatusDesc}} and it cannot
                         be edited</span>
                 </div>
                 <div>

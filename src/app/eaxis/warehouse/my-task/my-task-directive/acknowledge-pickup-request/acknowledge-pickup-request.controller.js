@@ -70,7 +70,36 @@
             AckPickupReqCtrl.ePage.Entities.Header.Data.UIWmsPickup.Warehouse = AckPickupReqCtrl.ePage.Entities.Header.Data.UIWmsPickup.WarehouseCode + ' - ' + AckPickupReqCtrl.ePage.Entities.Header.Data.UIWmsPickup.WarehouseName;
             if (AckPickupReqCtrl.ePage.Entities.Header.Data.UIWmsPickup.Warehouse == " - ")
                 AckPickupReqCtrl.ePage.Entities.Header.Data.UIWmsPickup.Warehouse = "";
+            GetContact();
         }
+
+        function GetContact() {            
+            var _filter = {
+                "ORG_FK": AckPickupReqCtrl.ePage.Entities.Header.Data.UIWmsPickup.WAR_FK
+            };
+            var _input = {
+                "searchInput": helperService.createToArrayOfObject(_filter),
+                "FilterID": appConfig.Entities.OrgContact.API.FindAll.FilterID
+            };
+            apiService.post("eAxisAPI", appConfig.Entities.OrgContact.API.FindAll.Url, _input).then(function (response) {
+                if (response.data.Response) {
+                    pickupConfig.Entities.WarehouseContact = response.data.Response;
+                }
+            });
+            var _filter = {
+                "ORG_FK": AckPickupReqCtrl.ePage.Entities.Header.Data.UIWmsPickup.ORG_Client_FK
+            };
+            var _input = {
+                "searchInput": helperService.createToArrayOfObject(_filter),
+                "FilterID": appConfig.Entities.OrgContact.API.FindAll.FilterID
+            };
+            apiService.post("eAxisAPI", appConfig.Entities.OrgContact.API.FindAll.Url, _input).then(function (response) {
+                if (response.data.Response) {
+                    pickupConfig.Entities.ClientContact = response.data.Response;
+                }
+            });
+        }
+
 
         function GetDynamicLookupConfig() {
             // Get DataEntryNameList 

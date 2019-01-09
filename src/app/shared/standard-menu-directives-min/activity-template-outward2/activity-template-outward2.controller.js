@@ -124,7 +124,7 @@
             }
         }
 
-        function SaveEntity(callback) {            
+        function SaveEntity(callback) {
             ActivityTemplateOutward2Ctrl.ePage.Masters.IsDisableSaveBtn = true;
             ActivityTemplateOutward2Ctrl.ePage.Masters.SaveBtnText = "Please Wait..";
             if (ActivityTemplateOutward2Ctrl.taskObj.ProcessName == "WMS_DeliveryMaterial" || ActivityTemplateOutward2Ctrl.taskObj.WSI_StepName == "Transfer Material") {
@@ -132,6 +132,7 @@
                     myTaskActivityConfig.Entities.DeliveryData = filterObjectUpdate(myTaskActivityConfig.Entities.DeliveryData, "IsModified");
                     apiService.post("eAxisAPI", appConfig.Entities.WmsDeliveryList.API.Update.Url, myTaskActivityConfig.Entities.DeliveryData).then(function (response) {
                         if (response.data.Response) {
+                            myTaskActivityConfig.Entities.DeliveryData = response.data.Response;
                             if (myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data.UIWmsOutwardHeader.PickNo) {
                                 if (myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data.UIWmsOutwardHeader.AdditionalRef1Code) {
                                     myTaskActivityConfig.Entities.PickData[myTaskActivityConfig.Entities.PickData.label].ePage.Entities.Header.Data.UIWmsOutward[0] = myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data.UIWmsOutwardHeader;
@@ -155,6 +156,29 @@
                                                         myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data = response.data.Response;
                                                         ActivityTemplateOutward2Ctrl.ePage.Masters.IsDisableSaveBtn = false;
                                                         ActivityTemplateOutward2Ctrl.ePage.Masters.SaveBtnText = "Save";
+                                                        
+                                                        var count = 0;
+                                                        if (ActivityTemplateOutward2Ctrl.taskObj.WSI_StepName == "Confirm Delivery" && callback) {
+                                                            angular.forEach(response.data.Response.UIWmsWorkOrderLine, function (value, key) {
+                                                                angular.forEach(myTaskActivityConfig.Entities.DeliveryData.UIWmsDeliveryLine, function (value1, key1) {
+                                                                    if (value.AdditionalRef1Code == value1.AdditionalRef1Code) {
+                                                                        value1.WorkOrderLineStatus = "DEL";
+                                                                    }
+                                                                    if (value1.WorkOrderLineStatus == "DEL") {
+                                                                        count = count + 1;
+                                                                    }
+                                                                });
+                                                            });
+                                                            if (count == myTaskActivityConfig.Entities.DeliveryData.UIWmsDeliveryLine.length) {
+                                                                myTaskActivityConfig.Entities.DeliveryData.UIWmsDelivery.WorkOrderStatus = "DEL";
+                                                            }
+                                                            myTaskActivityConfig.Entities.DeliveryData = filterObjectUpdate(myTaskActivityConfig.Entities.DeliveryData, "IsModified");
+                                                            apiService.post("eAxisAPI", appConfig.Entities.WmsDeliveryList.API.Update.Url, myTaskActivityConfig.Entities.DeliveryData).then(function (response) {
+                                                                if (response.data.Response) {
+                                                                    myTaskActivityConfig.Entities.DeliveryData = response.data.Response;
+                                                                }
+                                                            });
+                                                        }
                                                         if (callback)
                                                             callback();
                                                     }
