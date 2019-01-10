@@ -258,3 +258,35 @@ font-weight: 600;
   margin-bottom: 40px;
 }
 
+
+
+/* Form custom-beyond css */
+
+.wms-menu-wraper label {
+  color: gray;
+  font-weight: 600;
+  font-size: 12px;
+}
+
+.wms-menu.tabs-left.tabbable>.nav.nav.nav-tabs {
+  background-color: #f0f0f0;
+  height: 100vh;
+  width: 205px;
+}
+
+.wms-menu.tabs-left.tabbable>.tab-content {
+  padding: 0;
+  height: 100vh
+}
+
+.wms-menu.tabs-left.tabbable>.nav-tabs>li.active>a,
+.wms-menu.tabs-left.tabbable>.nav-tabs>li.active>a:hover,
+.wms-menu.tabs-left.tabbable>.nav-tabs>li.active>a:focus,
+.wms-menu.tabs-left.tabbable>.nav-tabs>li.active>a:active {
+  border-left: 3px solid #fbbc05 !important;
+  color: #ddd !important;
+  background-color: #4385f5;
+  line-height: 16px;
+  font-size: 14px;
+}
+
