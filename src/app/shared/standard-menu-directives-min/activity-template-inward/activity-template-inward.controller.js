@@ -108,6 +108,7 @@
                             myTaskActivityConfig.Entities.Inward = ActivityTemplateInwardCtrl.currentInward;
                             getTaskConfigData();
                         } else {
+                            inwardConfig.TabList = [];
                             inwardConfig.GetTabDetails(ActivityTemplateInwardCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader, false).then(function (response) {
                                 angular.forEach(response, function (value, key) {
                                     if (value.label == ActivityTemplateInwardCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.WorkOrderID) {
@@ -123,7 +124,7 @@
             }
         }
 
-        function SaveEntity(callback) {            
+        function SaveEntity(callback) {
             ActivityTemplateInwardCtrl.ePage.Masters.SaveBtnText = "Please Wait...";
             ActivityTemplateInwardCtrl.ePage.Masters.IsDisableSaveBtn = true;
             if (ActivityTemplateInwardCtrl.taskObj.WSI_StepName == "Receive Transferred Material") {
@@ -220,7 +221,8 @@
                                     response.data.Response.UIWmsInwardHeader.Client = response.data.Response.UIWmsInwardHeader.ClientCode + "-" + response.data.Response.UIWmsInwardHeader.ClientName;
                                     response.data.Response.UIWmsInwardHeader.TransferWarehouse = response.data.Response.UIWmsInwardHeader.TransferTo_WAR_Code + "-" + response.data.Response.UIWmsInwardHeader.TransferTo_WAR_Name;
                                     myTaskActivityConfig.Entities.Inward[myTaskActivityConfig.Entities.Inward.label].ePage.Entities.Header.Data = response.data.Response;
-                                    angular.forEach(myTaskActivityConfig.Entities.Inward[myTaskActivityConfig.Entities.Inward.label].ePage.Entities.Header.Data.UIWmsWorkOrderLine, function (value, key) {
+                                    var count = 0;
+                                    angular.forEach(myTaskActivityConfig.Entities.Inward[myTaskActivityConfig.Entities.Inward.label].ePage.Entities.Header.Data.UIWmsWorkOrderLine, function (value, key) {                                        
                                         angular.forEach(myTaskActivityConfig.Entities.PickupData.UIWmsPickupLine, function (value1, key1) {
                                             if (value.AdditionalRef1Code == value1.AdditionalRef1Code) {
                                                 if (value1.WAR_WarehouseCode == "BDL001") {
@@ -228,9 +230,15 @@
                                                 } else {
                                                     value1.WorkOrderLineStatus = "STO";
                                                 }
+                                                if (value1.WorkOrderLineStatus == "STO" || value1.WorkOrderLineStatus == "SCWS") {
+                                                    count = count + 1;
+                                                }
                                             }
                                         });
                                     });
+                                    if (count == myTaskActivityConfig.Entities.PickupData.UIWmsPickupLine.length) {
+                                        myTaskActivityConfig.Entities.PickupData.UIWmsPickup.WorkOrderStatus = "PICD";
+                                    }
                                     myTaskActivityConfig.Entities.PickupData = filterObjectUpdate(myTaskActivityConfig.Entities.PickupData, "IsModified");
                                     apiService.post("eAxisAPI", appConfig.Entities.WmsPickupList.API.Update.Url, myTaskActivityConfig.Entities.PickupData).then(function (response) {
                                         myTaskActivityConfig.Entities.PickupData = response.data.Response;

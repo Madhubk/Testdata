@@ -54,7 +54,7 @@
                     GetMyTaskList(_menuList, _index);
                 }
             }
-            if (PickupMenuCtrl.ePage.Entities.Header.Data.UIWmsPickup.WorkOrderStatus == 'FIN' || PickupMenuCtrl.ePage.Entities.Header.Data.UIWmsPickup.WorkOrderStatus == 'CAN') {
+            if (PickupMenuCtrl.ePage.Entities.Header.Data.UIWmsPickup.WorkOrderStatus == 'PICD' || PickupMenuCtrl.ePage.Entities.Header.Data.UIWmsPickup.WorkOrderStatus == 'CAN') {
                 PickupMenuCtrl.ePage.Entities.Header.GlobalVariables.NonEditable = true;
                 PickupMenuCtrl.ePage.Masters.DisableSave = true;
             }

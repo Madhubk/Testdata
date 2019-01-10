@@ -109,6 +109,7 @@
                             myTaskActivityConfig.Entities.Outward = ActivityTemplateOutward2Ctrl.currentOutward;
                             getTaskConfigData();
                         } else {
+                            outwardConfig.TabList = [];
                             outwardConfig.GetTabDetails(ActivityTemplateOutward2Ctrl.ePage.Entities.Header.Data.UIWmsOutwardHeader, false).then(function (response) {
                                 angular.forEach(response, function (value, key) {
                                     if (value.label == ActivityTemplateOutward2Ctrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WorkOrderID) {
@@ -156,7 +157,7 @@
                                                         myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data = response.data.Response;
                                                         ActivityTemplateOutward2Ctrl.ePage.Masters.IsDisableSaveBtn = false;
                                                         ActivityTemplateOutward2Ctrl.ePage.Masters.SaveBtnText = "Save";
-                                                        
+
                                                         var count = 0;
                                                         if (ActivityTemplateOutward2Ctrl.taskObj.WSI_StepName == "Confirm Delivery" && callback) {
                                                             angular.forEach(response.data.Response.UIWmsWorkOrderLine, function (value, key) {

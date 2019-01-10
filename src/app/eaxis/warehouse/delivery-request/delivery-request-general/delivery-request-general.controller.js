@@ -301,6 +301,7 @@
         function SelectedLookupWarehouse(item) {
             DeliveryGeneralCtrl.ePage.Entities.Header.Data.UIWmsDelivery.Warehouse = item.WarehouseCode + "-" + item.WarehouseName;
             DeliveryGeneralCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WarehouseCode = item.WarehouseCode;
+            DeliveryGeneralCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WAR_FK = item.WAR_PK;
             OnChangeValues(DeliveryGeneralCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WarehouseCode, 'E3051');
             DeliveryGeneralCtrl.ePage.Entities.Header.Data.UIWmsDelivery.TempWarehouse = DeliveryGeneralCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WarehouseCode;
             getReceiveParamWarehouse();
