@@ -320,6 +320,7 @@
                             data: response.data.Response.Response,
                             Validations: response.data.Response.Validations
                         };
+                        myTaskActivityConfig.CallEntity = true;
                         AddTab(_obj, true);
                         if (type == "OUT")
                             CreateDelChallanCtrl.ePage.Masters.CreateOutwardText = "Create Outward";
@@ -463,7 +464,7 @@
             }
         }
 
-        function setSelectedRow(index, item) {            
+        function setSelectedRow(index, item) {
             CreateDelChallanCtrl.ePage.Masters.selectedRow = index;
             CreateDelChallanCtrl.ePage.Masters.defaultFilter = {
                 "ClientCode": CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ClientCode,

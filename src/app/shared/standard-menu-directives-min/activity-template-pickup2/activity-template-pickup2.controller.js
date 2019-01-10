@@ -125,20 +125,24 @@
             }
         }
 
-        function SaveEntity(callback) {
+        function SaveEntity(callback) {            
             ActivityTemplatePickup2Ctrl.ePage.Masters.IsDisableSaveBtn = true;
             ActivityTemplatePickup2Ctrl.ePage.Masters.SaveBtnText = "Please Wait..";
             if (ActivityTemplatePickup2Ctrl.taskObj.WSI_StepName == "Create Pickup Challan") {
-                $rootScope.SaveInwardFromTask(function (response) {
-                    if (response == "error") {
-                        ActivityTemplatePickup2Ctrl.ePage.Masters.IsDisableSaveBtn = false;
-                        ActivityTemplatePickup2Ctrl.ePage.Masters.SaveBtnText = "Save";
-                        ActivityTemplatePickup2Ctrl.ePage.Masters.CompleteBtnText = "Complete";
-                        ActivityTemplatePickup2Ctrl.ePage.Masters.IsDisableCompleteBtn = false;
-                    } else {
-                        saves(callback);
-                    }
-                });
+                if (myTaskActivityConfig.CallEntity == true) {
+                    $rootScope.SaveInwardFromTask(function (response) {
+                        if (response == "error") {
+                            ActivityTemplatePickup2Ctrl.ePage.Masters.IsDisableSaveBtn = false;
+                            ActivityTemplatePickup2Ctrl.ePage.Masters.SaveBtnText = "Save";
+                            ActivityTemplatePickup2Ctrl.ePage.Masters.CompleteBtnText = "Complete";
+                            ActivityTemplatePickup2Ctrl.ePage.Masters.IsDisableCompleteBtn = false;
+                        } else {
+                            saves(callback);
+                        }
+                    });
+                } else {
+                    saves(callback);
+                }
             } else if (ActivityTemplatePickup2Ctrl.taskObj.WSI_StepName == "Acknowledge Pickup Request") {
                 var _Data = myTaskActivityConfig.Entities.Pickup[myTaskActivityConfig.Entities.Pickup.label].ePage.Entities,
                     _input = _Data.Header.Data,
@@ -185,9 +189,10 @@
         function saves(callback) {
             ActivityTemplatePickup2Ctrl.ePage.Masters.IsDisableSaveBtn = true;
             ActivityTemplatePickup2Ctrl.ePage.Masters.SaveBtnText = "Please Wait..";
-            if (callback) {                
+            if (callback) {
                 if (ActivityTemplatePickup2Ctrl.taskObj.WSI_StepName == "Create Pickup Challan") {
                     myTaskActivityConfig.Entities.Pickup[myTaskActivityConfig.Entities.Pickup.label].ePage.Entities.Header.Data.UIWmsPickup.WorkOrderStatus = "DIP";
+                    myTaskActivityConfig.CallEntity = false;
                 }
             }
             var _input = angular.copy(myTaskActivityConfig.Entities.Pickup[myTaskActivityConfig.Entities.Pickup.label].ePage.Entities.Header.Data);
