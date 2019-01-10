@@ -155,7 +155,7 @@
     <div ng-if='InventoryGeneralCtrl.ePage.Masters.EditTableColumnsForGeneral'>
         <customize-table table-properties="InventoryGeneralCtrl.ePage.Entities.Header.TableProperties.General" enable="InventoryGeneralCtrl.ePage.Masters.EditTableColumnsForGeneral" unique-id="GenCustomTable{{InventoryGeneralCtrl.currentInventory.label}}"></customize-table>
     </div>
-    <button data-ng-click="InventoryGeneralCtrl.ePage.Masters.UpdateInventory()" data-ng-if="InventoryGeneralCtrl.ePage.Entities.Header.CheckPoints.DataEntryName=='WarehouseInventory' && InventoryGeneralCtrl.ePage.Entities.Header.Data.length == 1 && InventoryGeneralCtrl.ePage.Entities.Header.Data[0].InLocationQty >0 && (InventoryGeneralCtrl.ePage.Entities.Header.Data[0].OriginalInventoryStatusDesc == 'Available' || InventoryGeneralCtrl.ePage.Entities.Header.Data[0].OriginalInventoryStatusDesc == 'Held')" class="btn btn-primary btn-sm">Update Inventory</button>
+    <button data-ng-click="InventoryGeneralCtrl.ePage.Masters.UpdateInventory()" data-ng-if="InventoryGeneralCtrl.ePage.Entities.Header.CheckPoints.DataEntryName=='WarehouseInventory' && InventoryGeneralCtrl.ePage.Entities.Header.Data.length == 1 && InventoryGeneralCtrl.ePage.Entities.Header.Data[0].InLocationQty >0 && (InventoryGeneralCtrl.ePage.Entities.Header.Data[0].OriginalInventoryStatusDesc == 'Available' || InventoryGeneralCtrl.ePage.Entities.Header.Data[0].OriginalInventoryStatusDesc == 'Held')" class="btn btn-primary btn-sm pull-right" style="margin-right: 10px;">Update Inventory</button>
 </div>
 
 <div class="p-15" data-ng-if="InventoryGeneralCtrl.ePage.Entities.Header.CheckPoints.DataEntryName=='WarehouseInventory'">

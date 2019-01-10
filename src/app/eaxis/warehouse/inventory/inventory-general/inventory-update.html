@@ -12,7 +12,8 @@
         <tr><td style="width: 190px; padding : 6px; " class="overflow-text">Available to Pick</td><td>{{InventoryGeneralCtrl.ePage.Entities.Header.Data[0].InLocationQty}}</td></tr>
         <tr data-ng-if="InventoryGeneralCtrl.ePage.Entities.Header.Data[0].OriginalInventoryStatusDesc != 'Held'"><td id="Qty" style="width: 190px; padding : 6px; " class="overflow-text">Damaged Qty</td><td><input data-ng-model="InventoryGeneralCtrl.ePage.Masters.AdjQty" type="text"></td></tr>
         <tr data-ng-if="InventoryGeneralCtrl.ePage.Entities.Header.Data[0].OriginalInventoryStatusDesc == 'Held'"><td style="width: 190px; padding : 6px; " class="overflow-text">Product in Good condition</td><td><input data-ng-model="InventoryGeneralCtrl.ePage.Masters.AdjQty" id="adjustQty" type="text"></td></tr>
+        <tr><td></td><td><button data-ng-disabled="!InventoryGeneralCtrl.ePage.Masters.AdjQty" data-ng-click="InventoryGeneralCtrl.ePage.Masters.UpdateData()" class="btn btn-primary btn-sm" style="margin-top: 15px;">Update</button></td></tr>
     </table>
-    <button data-ng-disabled="!InventoryGeneralCtrl.ePage.Masters.AdjQty" data-ng-click="InventoryGeneralCtrl.ePage.Masters.UpdateData()" class="btn btn-primary btn-sm">Update</button>
+    
 </div>
 </div>
