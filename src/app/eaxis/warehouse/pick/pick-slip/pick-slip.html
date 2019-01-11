@@ -58,7 +58,7 @@
                         <div data-ng-if="$index==PickSlipCtrl.ePage.Masters.selectedRowForPickLineSummary &&  !PickSlipCtrl.ePage.Entities.Header.GlobalVariables.NonEditable &&  x.IsPicked!='True'">
                             <div class="height-22 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 p-0">
                                 <input type="text" numbers-only-dot  class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Picked Qty" data-ng-model="x.PickedQty" ng-change="PickSlipCtrl.ePage.Masters.UpdatePickedDate(x)"
-                                    data-ng-disabled = "(x.IMPartAttrib1Type=='SER' && x.PartAttrib1 && !x.IsPartAttrib1ReleaseCaptured) || (x.IMPartAttrib2Type=='SER' && x.PartAttrib2 && !x.IsPartAttrib2ReleaseCaptured) || (x.IMPartAttrib3Type=='SER' && x.PartAttrib3 && !x.IsPartAttrib3ReleaseCaptured)">                                        
+                                    data-ng-disabled = "(x.IMPartAttrib1Type=='SER') || (x.IMPartAttrib2Type=='SER') || (x.IMPartAttrib3Type=='SER')">                                        
                             </div>
                         </div>
                     </td> 
