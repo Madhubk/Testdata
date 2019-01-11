@@ -186,6 +186,7 @@
                     if (response.data.Response.length > 0) {
                         SMDocumentCtrl.ePage.Masters.Document.ListSource.map(function (value, key) {
                             value.DocumentNameTemp = value.DocumentName;
+                            PrepareEmailAsAttachment(value);
                         });
 
                         if (SMDocumentCtrl.mode == "1") {
@@ -287,16 +288,15 @@
         }
 
         function DeleteRecord($item) {
-            // var _input = $item;
-            // _input.IsActive = true;
-            // _input.Status = "Deleted";
-            // _input.IsModified = true;
-
             apiService.get("eAxisAPI", appConfig.Entities.JobDocument.API.Delete.Url + $item.PK + '/' + authService.getUserInfo().AppPK).then(function (response) {
-                if (response.data.Response) {
-                    // if ($index != -1) {
-                    //     SMDocumentCtrl.ePage.Masters.Document.ListSource.splice($index, 1);
-                    // }
+                if (response.data.Response == "Success") {
+                    var _index = SMDocumentCtrl.ePage.Masters.Document.ListSource.map(function(value, key){
+                        return value.PK;
+                    }).indexOf($item.PK);
+
+                    if (_index != -1) {
+                        SMDocumentCtrl.ePage.Masters.Document.ListSource.splice(_index, 1);
+                    }
                 }
             });
         }
@@ -373,7 +373,6 @@
                 files.map(function (value1, key1) {
                     if(SMDocumentCtrl.ePage.Masters.Document.ListSource && SMDocumentCtrl.ePage.Masters.Document.ListSource.length > 0){
                         SMDocumentCtrl.ePage.Masters.Document.ListSource.map(function (value2, key2) {
-                            // if (value1.FileName == value2.name && value1.DocType == value2.type) {
                             if (value1.FileName == value2.name) {
                                 if (mode === "amend") {
                                     value2.DocumentType = row.DocumentType;
@@ -430,6 +429,8 @@
                         if (SMDocumentCtrl.mode == "1") {
                             PrepareGroupMapping(response.data.Response);
                         }
+
+                        PrepareEmailAsAttachment(row);
                         toastr.success("Saved Successfully...!");
                     }
                 } else {
@@ -499,6 +500,8 @@
                         if (mode != "update" && SMDocumentCtrl.mode == "1") {
                             PrepareGroupMapping(row);
                         }
+
+                        PrepareEmailAsAttachment(row);
                     } else {
                         toastr.error("Failed to Save...!");
                     }
@@ -564,6 +567,8 @@
                             if (mode != "update" && SMDocumentCtrl.mode == "1") {
                                 PrepareGroupMapping(row);
                             }
+
+                            PrepareEmailAsAttachment(row);
                         }
                     } else {
                         toastr.error("Failed to Save...!");
@@ -573,8 +578,22 @@
             }
         }
 
+        function PrepareEmailAsAttachment($item){
+            var _value = angular.copy($item);
+            $item.MailObj = {
+                // Subject: "_subject",
+                // Template: "OrderSummaryReport",
+                // TemplateObj: {
+                //     Key: "OrderSummaryReport",
+                //     Description: "Order Summary Report"
+                // },
+                AttachmentList: [_value]
+            };
+        }
+
         function PrepareGroupMapping($item) {
             $item.GroupMapping = undefined;
+
             $timeout(function () {
                 $item.GroupMapping = {
                     "MappingCode": "DOCU_GRUP_APP_TNT",

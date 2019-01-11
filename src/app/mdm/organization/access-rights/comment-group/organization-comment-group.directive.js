@@ -177,7 +177,9 @@
                 BasedOnCode: OrganizationCommentGroupCtrl.ePage.Entities.Header.Data.OrgHeader.Code,
 
                 SAP_FK: authService.getUserInfo().AppPK,
-                SAP_Code: authService.getUserInfo().AppCode
+                SAP_Code: authService.getUserInfo().AppCode,
+                PartyMappingAPI: "GroupCommentTypeOrganisation",
+                PartyRoleMappingAPI: "GroupRoleCommentTypeOrganisation"
             };
         }
 

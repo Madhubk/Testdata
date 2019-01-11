@@ -116,7 +116,16 @@
 
             if(!ReleaseLine){
                 if(item.PickedDateTime && !item.PickedQty){
-                    item.PickedQty = item.Units;
+
+                    //We have restricted Picked Qty field while UDF is serialized in UI. Adding unit as 1 in controller
+                    if(item.IMPartAttrib1Type=="SER" || item.IMPartAttrib2Type=="SER" || item.IMPartAttrib3Type=="SER"){
+                        if(item.PartAttrib1 || item.PartAttrib2 || item.PartAttrib3 || item.IsPartAttrib1ReleaseCaptured || 
+                            item.IsPartAttrib2ReleaseCaptured || item.IsPartAttrib3ReleaseCaptured){
+                                item.PickedQty = 1;
+                            }
+                    }else{
+                        item.PickedQty = item.Units;
+                    }
                 }
                 if(item.PickedQty && !item.PickedDateTime){
                     item.PickedQty = '';

@@ -235,7 +235,7 @@
                                             </li>
                                             <!-- Email As Attachment -->
                                             <li class="clearfix cursor-pointer text-single-line dropdown-list"
-                                                data-ng-click="" data-ng-if="SMDocumentCtrl.Config.IsDisableVerticalMenuEmailAttachment != true && !SMDocumentCtrl.ePage.Entities.IsReadOnly">
+                                                data-ng-click="" data-ng-if="SMDocumentCtrl.Config.IsDisableVerticalMenuEmailAttachment != true && !SMDocumentCtrl.ePage.Entities.IsReadOnly && x.MailObj.AttachmentList.length > 0" email-modal input="SMDocumentCtrl.ePage.Entities" mode="2" type="x.MailObj" close-modal="EmailModalCtrl.ePage.Masters.Close()" on-complete="EmailModalCtrl.ePage.Masters.OnComplete($item)">
                                                 <span class="glyphicons glyphicons-paperclip mr-5 doc-menu-icon"></span>
                                                 <span data-ng-bind="'Email As Attachment'"></span>
                                             </li>

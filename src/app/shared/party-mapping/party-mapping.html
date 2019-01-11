@@ -17,7 +17,7 @@
 		<div class="col-sm-3">
 			<div class="checkbox" data-ng-if="x.IsChecked">
 				<label>
-					<input type="checkbox" class="colored-blue" data-ng-model="x.MappingObj.IsDefault" data-ng-click="!isDefault && PartyMapping.UpdatePartyMapping($event, x)"
+					<input type="checkbox" class="colored-blue" data-ng-model="x.MappingObj.IsDefault" data-ng-click="!isDefault && PartyMapping.UpdatePartyMapping(x)"
 					 data-ng-disabled="isDefault">
 					<span class="text text-single-line">Is Default</span>
 				</label>
@@ -26,7 +26,7 @@
 		<div class="col-sm-3">
 			<div class="checkbox" data-ng-if="x.IsChecked && isRestricted">
 				<label>
-					<input type="checkbox" class="colored-blue" data-ng-model="x.MappingObj.IsResticted" data-ng-click="PartyMapping.UpdatePartyMapping($event, x)">
+					<input type="checkbox" class="colored-blue" data-ng-model="x.MappingObj.IsResticted" data-ng-click="PartyMapping.UpdatePartyMapping(x)">
 					<span class="text text-single-line">Is Restricted</span>
 				</label>
 			</div>
@@ -46,19 +46,19 @@
 		</h5>
 	</div>
 	<div class="modal-body pt-10" id="modal-body">
-		<div class="clearfix border-bottom" data-ng-repeat="x in RoleMapping.ActiveParty.Role">
+		<div class="clearfix border-bottom" data-ng-repeat="x in RoleMapping.ActiveParty.RoleList">
 			<div class="col-sm-6">
 				<div class="checkbox">
 					<label>
 						<input type="checkbox" class="colored-blue" data-ng-model="x.IsChecked" data-ng-click="RoleMapping.OnRoleClick($event, x)">
-						<span class="text text-single-line" data-ng-bind="x.AccessCode"></span>
+						<span class="text text-single-line" data-ng-bind="x.Name"></span>
 					</label>
 				</div>
 			</div>
 			<div class="col-sm-6">
-				<div class="checkbox">
+				<div class="checkbox" data-ng-if="x.IsChecked">
 					<label>
-						<input type="checkbox" class="colored-blue" data-ng-model="x.MappingObj.IsDefault" data-ng-click="RoleMapping.UpdateRoleMapping($event, x)" data-ng-disabled="!x.IsChecked">
+						<input type="checkbox" class="colored-blue" data-ng-model="x.MappingObj.IsDefault" data-ng-click="RoleMapping.UpdateRoleMapping(x)" data-ng-disabled="!x.IsChecked">
 						<span class="text text-single-line" data-ng-bind="'Is Default'"></span>
 					</label>
 				</div>

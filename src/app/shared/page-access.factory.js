@@ -46,7 +46,7 @@
 
         function CheckPageAccess(url) {
             var deferred = $q.defer();
-
+            
             if (authService.getUserInfo().AuthToken && authService.getUserInfo().Version === APP_CONSTANT.Version) {
                 CheckAuthAccess(url).then(function (response) {
                     deferred.resolve(response);

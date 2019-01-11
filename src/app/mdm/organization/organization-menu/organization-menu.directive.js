@@ -23,9 +23,9 @@
         .module("Application")
         .controller("OrganizationMenuController", OrganizationMenuController);
 
-    OrganizationMenuController.$inject = ["$rootScope", "$timeout", "apiService", "authService", "organizationConfig", "helperService", "appConfig", "toastr", "errorWarningService"];
+    OrganizationMenuController.$inject = ["$rootScope", "$timeout", "apiService", "authService", "organizationConfig", "helperService", "toastr", "errorWarningService"];
 
-    function OrganizationMenuController($rootScope, $timeout, apiService, authService, organizationConfig, helperService, appConfig, toastr, errorWarningService) {
+    function OrganizationMenuController($rootScope, $timeout, apiService, authService, organizationConfig, helperService, toastr, errorWarningService) {
         var OrganizationMenuCtrl = this;
 
         function Init() {
@@ -68,10 +68,10 @@
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.CfxMenus.API.FindAll.FilterID
+                "FilterID": organizationConfig.Entities.API.CfxMenus.API.FindAll.FilterID
             };
 
-            apiService.post("eAxisAPI", appConfig.Entities.CfxMenus.API.FindAll.Url, _input).then(function (response) {
+            apiService.post("eAxisAPI", organizationConfig.Entities.API.CfxMenus.API.FindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     OrganizationMenuCtrl.ePage.Masters.OrganizationMenu.ListSource = angular.copy(response.data.Response);
 

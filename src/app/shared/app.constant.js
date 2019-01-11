@@ -9,7 +9,8 @@
                 files: [
                     'app/login/login.css',
                     'app/login/login.controller.js',
-                    'app/login/login-form/login-form.controller.js',
+                    'app/login/login-form/login-form.css',
+                    'app/login/login-form/login-form.directive.js',
                 ]
             }, {
                 name: 'TenantList',

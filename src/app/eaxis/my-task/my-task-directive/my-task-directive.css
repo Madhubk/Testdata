@@ -106,6 +106,33 @@
     width: 100%;
 }
 
+.my-task-primary-btn {
+    border-radius: 3px;
+    border-style: solid;
+    border-width: 1px;
+    cursor: pointer;
+    display: inline-block;
+    text-align: center;
+    text-decoration: none !important;
+    vertical-align: middle;
+    background: #0096ff;
+    border-color: #007fd8 #0277c9 #016db9;
+    background: -webkit-linear-gradient(top, #4385f5, #4385f5);
+    background: linear-gradient(to bottom, #4385f5, #4385f5);
+    overflow: hidden;
+    height: 35px;
+    box-shadow: 0 1px 0 rgba(255, 255, 255, .6) inset;
+    border-radius: 2px;
+    font-size: 13px;
+    line-height: 30px;
+    white-space: nowrap;
+    color: #fff;
+}
+
+.my-task-primary-btn.my-task-directive-btn {
+    width: 100%;
+}
+
 .my-task-wrapper .my-task-body .my-task-directive-icon-wrapper {
     text-align: center;
     padding: 10px 0;

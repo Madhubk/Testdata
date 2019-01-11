@@ -33,13 +33,23 @@
                         }
                     }
                 },
+                "AuthTokenLink": {
+                    "RowIndex": -1,
+                    "API": {
+                        "GetById": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "AuthTokenLink/GetById/"
+                        }
+                    }
+                },
                 "UserPrivileges": {
                     "RowIndex": -1,
                     "API": {
                         "PublishPrivilegesByUser": {
                             "IsAPI": "true",
                             "HttpType": "POST",
-                            "Url": "UsePrivileges/PublishPrivilegesByUser"
+                            "Url": "UserPrivileges/PublishPrivilegesByUser"
                         },
                         "AppTenantRolePublish": {
                             "IsAPI": "true",
@@ -130,6 +140,21 @@
                             "HttpType": "POST",
                             "Url": "SecMappings/FindAll",
                             "FilterID": "SECMAPP"
+                        },
+                        "Insert": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "SecMappings/Insert"
+                        },
+                        "Update": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "SecMappings/Update"
+                        },
+                        "Delete": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "SecMappings/Delete/"
                         },
                         "GetColumnValuesWithFilters": {
                             "IsAPI": "true",
@@ -1000,6 +1025,578 @@
                             "IsAPI": "true",
                             "HttpType": "POST",
                             "Url": "Scripts/WriteScript"
+                        }
+                    }
+                },
+                "GroupEventType": {
+                    "RowIndex": -1,
+                    "API": {
+                        "FindAll": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "GroupEventType/FindAll",
+                            "FilterID": "SECMAPP"
+                        },
+                        "Insert": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "GroupEventType/Insert"
+                        },
+                        "Update": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "GroupEventType/Update"
+                        },
+                        "Delete": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "GroupEventType/Delete/"
+                        }
+                    }
+                },
+                "GroupRoleEventType": {
+                    "RowIndex": -1,
+                    "API": {
+                        "FindAll": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "GroupRoleEventType/FindAll",
+                            "FilterID": "SECMAPP"
+                        },
+                        "Insert": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "GroupRoleEventType/Insert"
+                        },
+                        "Update": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "GroupRoleEventType/Update"
+                        },
+                        "Delete": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "GroupRoleEventType/Delete/"
+                        }
+                    }
+                },
+                "GroupCommentType": {
+                    "RowIndex": -1,
+                    "API": {
+                        "FindAll": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "GroupCommentType/FindAll",
+                            "FilterID": "SECMAPP"
+                        },
+                        "Insert": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "GroupCommentType/Insert"
+                        },
+                        "Update": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "GroupCommentType/Update"
+                        },
+                        "Delete": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "GroupCommentType/Delete/"
+                        }
+                    }
+                },
+                "GroupRoleCommentType": {
+                    "RowIndex": -1,
+                    "API": {
+                        "FindAll": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "GroupRoleCommentType/FindAll",
+                            "FilterID": "SECMAPP"
+                        },
+                        "Insert": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "GroupRoleCommentType/Insert"
+                        },
+                        "Update": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "GroupRoleCommentType/Update"
+                        },
+                        "Delete": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "GroupRoleCommentType/Delete/"
+                        }
+                    }
+                },
+                "GroupDocumentType": {
+                    "RowIndex": -1,
+                    "API": {
+                        "FindAll": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "GroupDocumentType/FindAll",
+                            "FilterID": "SECMAPP"
+                        },
+                        "Insert": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "GroupDocumentType/Insert"
+                        },
+                        "Update": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "GroupDocumentType/Update"
+                        },
+                        "Delete": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "GroupDocumentType/Delete/"
+                        }
+                    }
+                },
+                "GroupRoleDocumentType": {
+                    "RowIndex": -1,
+                    "API": {
+                        "FindAll": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "GroupRoleDocumentType/FindAll",
+                            "FilterID": "SECMAPP"
+                        },
+                        "Insert": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "GroupRoleDocumentType/Insert"
+                        },
+                        "Update": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "GroupRoleDocumentType/Update"
+                        },
+                        "Delete": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "GroupRoleDocumentType/Delete/"
+                        }
+                    }
+                },
+                "GroupEmailType": {
+                    "RowIndex": -1,
+                    "API": {
+                        "FindAll": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "GroupEmailType/FindAll",
+                            "FilterID": "SECMAPP"
+                        },
+                        "Insert": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "GroupEmailType/Insert"
+                        },
+                        "Update": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "GroupEmailType/Update"
+                        },
+                        "Delete": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "GroupEmailType/Delete/"
+                        }
+                    }
+                },
+                "GroupRoleEmailType": {
+                    "RowIndex": -1,
+                    "API": {
+                        "FindAll": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "GroupRoleEmailType/FindAll",
+                            "FilterID": "SECMAPP"
+                        },
+                        "Insert": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "GroupRoleEmailType/Insert"
+                        },
+                        "Update": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "GroupRoleEmailType/Update"
+                        },
+                        "Delete": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "GroupRoleEmailType/Delete/"
+                        }
+                    }
+                },
+                "GroupExceptionType": {
+                    "RowIndex": -1,
+                    "API": {
+                        "FindAll": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "GroupExceptionType/FindAll",
+                            "FilterID": "SECMAPP"
+                        },
+                        "Insert": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "GroupExceptionType/Insert"
+                        },
+                        "Update": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "GroupExceptionType/Update"
+                        },
+                        "Delete": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "GroupExceptionType/Delete/"
+                        }
+                    }
+                },
+                "GroupRoleExceptionType": {
+                    "RowIndex": -1,
+                    "API": {
+                        "FindAll": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "GroupRoleExceptionType/FindAll",
+                            "FilterID": "SECMAPP"
+                        },
+                        "Insert": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "GroupRoleExceptionType/Insert"
+                        },
+                        "Update": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "GroupRoleExceptionType/Update"
+                        },
+                        "Delete": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "GroupRoleExceptionType/Delete/"
+                        }
+                    }
+                },
+                "GroupEventTypeOrganisation": {
+                    "RowIndex": -1,
+                    "API": {
+                        "FindAll": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "GroupEventTypeOrganisation/FindAll",
+                            "FilterID": "SECMAPP"
+                        },
+                        "Insert": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "GroupEventTypeOrganisation/Insert",
+                        },
+                        "Update": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "GroupEventTypeOrganisation/Update",
+                        },
+                        "Delete": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "GroupEventTypeOrganisation/Delete/",
+                        }
+                    }
+                },
+                "GroupRoleEventTypeOrganisation": {
+                    "RowIndex": -1,
+                    "API": {
+                        "FindAll": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "GroupRoleEventTypeOrganisation/FindAll",
+                            "FilterID": "SECMAPP"
+                        },
+                        "Insert": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "GroupRoleEventTypeOrganisation/Insert",
+                        },
+                        "Update": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "GroupRoleEventTypeOrganisation/Update",
+                        },
+                        "Delete": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "GroupRoleEventTypeOrganisation/Delete/",
+                        }
+                    }
+                },
+                "GroupTaskTypeOrganisation": {
+                    "RowIndex": -1,
+                    "API": {
+                        "FindAll": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "GroupTaskTypeOrganisation/FindAll",
+                            "FilterID": "SECMAPP"
+                        },
+                        "Insert": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "GroupTaskTypeOrganisation/Insert",
+                        },
+                        "Update": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "GroupTaskTypeOrganisation/Update",
+                        },
+                        "Delete": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "GroupTaskTypeOrganisation/Delete/",
+                        }
+                    }
+                },
+                "GroupRoleTaskTypeOrganisation": {
+                    "RowIndex": -1,
+                    "API": {
+                        "FindAll": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "GroupRoleTaskTypeOrganisation/FindAll",
+                            "FilterID": "SECMAPP"
+                        },
+                        "Insert": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "GroupRoleTaskTypeOrganisation/Insert",
+                        },
+                        "Update": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "GroupRoleTaskTypeOrganisation/Update",
+                        },
+                        "Delete": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "GroupRoleTaskTypeOrganisation/Delete/",
+                        }
+                    }
+                },
+                "GroupCommentTypeOrganisation": {
+                    "RowIndex": -1,
+                    "API": {
+                        "FindAll": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "GroupCommentTypeOrganisation/FindAll",
+                            "FilterID": "SECMAPP"
+                        },
+                        "Insert": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "GroupCommentTypeOrganisation/Insert"
+                        },
+                        "Update": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "GroupCommentTypeOrganisation/Update"
+                        },
+                        "Delete": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "GroupCommentTypeOrganisation/Delete/"
+                        }
+                    }
+                },
+                "GroupRoleCommentTypeOrganisation": {
+                    "RowIndex": -1,
+                    "API": {
+                        "FindAll": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "GroupRoleCommentTypeOrganisation/FindAll",
+                            "FilterID": "SECMAPP"
+                        },
+                        "Insert": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "GroupRoleCommentTypeOrganisation/Insert"
+                        },
+                        "Update": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "GroupRoleCommentTypeOrganisation/Update"
+                        },
+                        "Delete": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "GroupRoleCommentTypeOrganisation/Delete/"
+                        }
+                    }
+                },
+                "GroupDocumentTypeOrganisation": {
+                    "RowIndex": -1,
+                    "API": {
+                        "FindAll": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "GroupDocumentTypeOrganisation/FindAll",
+                            "FilterID": "SECMAPP"
+                        },
+                        "Insert": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "GroupDocumentTypeOrganisation/Insert"
+                        },
+                        "Update": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "GroupDocumentTypeOrganisation/Update"
+                        },
+                        "Delete": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "GroupDocumentTypeOrganisation/Delete/"
+                        }
+                    }
+                },
+                "GroupRoleDocumentTypeOrganisation": {
+                    "RowIndex": -1,
+                    "API": {
+                        "FindAll": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "GroupRoleDocumentTypeOrganisation/FindAll",
+                            "FilterID": "SECMAPP"
+                        },
+                        "Insert": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "GroupRoleDocumentTypeOrganisation/Insert"
+                        },
+                        "Update": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "GroupRoleDocumentTypeOrganisation/Update"
+                        },
+                        "Delete": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "GroupRoleDocumentTypeOrganisation/Delete/"
+                        }
+                    }
+                },
+                "GroupExceptionTypeOrganisation": {
+                    "RowIndex": -1,
+                    "API": {
+                        "FindAll": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "GroupExceptionTypeOrganisation/FindAll",
+                            "FilterID": "SECMAPP"
+                        },
+                        "Insert": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "GroupExceptionTypeOrganisation/Insert"
+                        },
+                        "Update": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "GroupExceptionTypeOrganisation/Update"
+                        },
+                        "Delete": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "GroupExceptionTypeOrganisation/Delete/"
+                        }
+                    }
+                },
+                "GroupRoleExceptionTypeOrganisation": {
+                    "RowIndex": -1,
+                    "API": {
+                        "FindAll": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "GroupRoleExceptionTypeOrganisation/FindAll",
+                            "FilterID": "SECMAPP"
+                        },
+                        "Insert": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "GroupRoleExceptionTypeOrganisation/Insert"
+                        },
+                        "Update": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "GroupRoleExceptionTypeOrganisation/Update"
+                        },
+                        "Delete": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "GroupRoleExceptionTypeOrganisation/Delete/"
+                        }
+                    }
+                },
+                "GroupEmailTypeOrganisation": {
+                    "RowIndex": -1,
+                    "API": {
+                        "FindAll": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "GroupEmailTypeOrganisation/FindAll",
+                            "FilterID": "SECMAPP"
+                        },
+                        "Insert": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "GroupEmailTypeOrganisation/Insert"
+                        },
+                        "Update": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "GroupEmailTypeOrganisation/Update"
+                        },
+                        "Delete": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "GroupEmailTypeOrganisation/Delete/"
+                        }
+                    }
+                },
+                "GroupRoleEmailTypeOrganisation": {
+                    "RowIndex": -1,
+                    "API": {
+                        "FindAll": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "GroupRoleEmailTypeOrganisation/FindAll",
+                            "FilterID": "SECMAPP"
+                        },
+                        "Insert": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "GroupRoleEmailTypeOrganisation/Insert"
+                        },
+                        "Update": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "GroupRoleEmailTypeOrganisation/Update"
+                        },
+                        "Delete": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "GroupRoleEmailTypeOrganisation/Delete/"
                         }
                     }
                 },
@@ -2159,21 +2756,16 @@
                 "AppCounter": {
                     "RowIndex": -1,
                     "API": {
+                        "FindAll": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "AppCounter/FindAll",
+                            "FilterID": "APPCOUNT",
+                        },
                         "Update": {
                             "IsAPI": "true",
                             "HttpType": "POST",
                             "Url": "AppCounter/Update"
-                        }
-                    }
-                },
-                "WmsTestID": {
-                    "RowIndex": -1,
-                    "API": {
-                        "FindAll": {
-                            "IsAPI": "true",
-                            "HttpType": "POST",
-                            "Url": "TestID/FindAll",
-                            "FilterID": "APPCOUNT"
                         }
                     }
                 },
@@ -2532,16 +3124,6 @@
 
                     }
                 },
-                "Notification": {
-                    "RowIndex": -1,
-                    "API": {
-                        "SendSms": {
-                            "IsAPI": "true",
-                            "HttpType": "POST",
-                            "Url": "Notification/SendSms"
-                        },
-                    }
-                },
                 "TeamTargetRelease": {
                     "RowIndex": -1,
                     "API": {
@@ -2850,10 +3432,6 @@
                         "CompleteProcess": {
                             "IsAPI": true,
                             "Url": "EBPMEngine/CompleteProcess",
-                        },
-                        "SuspendInstance": {
-                            "IsAPI": true,
-                            "Url": "EBPMEngine/SuspendInstance/",
                         }
                     }
                 },
