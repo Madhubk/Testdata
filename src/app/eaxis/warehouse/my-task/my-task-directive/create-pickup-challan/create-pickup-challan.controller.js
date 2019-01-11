@@ -206,6 +206,7 @@
                                         data: response.data.Response.Response,
                                         Validations: response.data.Response.Validations
                                     };
+                                    myTaskActivityConfig.CallEntity = true;
                                     AddTab(_obj, true);
                                     CreatePickupChallanCtrl.ePage.Masters.CreateInwardText = "Create Inward";
                                     CreatePickupChallanCtrl.ePage.Masters.IsDisabled = false;

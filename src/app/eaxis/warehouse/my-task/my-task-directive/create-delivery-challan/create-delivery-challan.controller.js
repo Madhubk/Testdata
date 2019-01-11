@@ -266,7 +266,7 @@
                         if (type == "MTR")
                             response.data.Response.Response.UIWmsOutwardHeader.WorkOrderSubType = "MTR";
                         response.data.Response.Response.UIWmsOutwardHeader.WOD_Parent_FK = CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.PK;
-                        
+
                         angular.forEach(CreateDelChallanCtrl.ePage.Masters.SelectedDeliveryLine, function (value, key) {
                             var obj = {
                                 "Parent_FK": value.DL_PK,
@@ -320,6 +320,7 @@
                             data: response.data.Response.Response,
                             Validations: response.data.Response.Validations
                         };
+                        myTaskActivityConfig.CallEntity = true;
                         AddTab(_obj, true);
                         if (type == "OUT")
                             CreateDelChallanCtrl.ePage.Masters.CreateOutwardText = "Create Outward";
@@ -468,7 +469,7 @@
             CreateDelChallanCtrl.ePage.Masters.defaultFilter = {
                 "ClientCode": CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ClientCode,
                 "WAR_WarehouseCode": CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WarehouseCode,
-                "InventoryStatusIn": "AVL,HEL",
+                "InventoryStatusIn": item.DL_ProductCondition == 'GDC' ? 'AVL' : 'HEL',
                 "ProductCode": item.DL_Req_PrdCode
             };
             CreateDelChallanCtrl.ePage.Masters.DynamicControl = undefined;

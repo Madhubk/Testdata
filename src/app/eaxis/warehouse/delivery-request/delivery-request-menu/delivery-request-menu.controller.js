@@ -48,7 +48,7 @@
             } else {
                 GetMyTaskList(_menuList, _index);
             }
-            if (DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderStatus == 'FIN' || DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderStatus == 'CAN') {
+            if (DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderStatus == 'DEL' || DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderStatus == 'RDL' || DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderStatus == 'CAN') {
                 DeliveryMenuCtrl.ePage.Entities.Header.GlobalVariables.NonEditable = true;
                 DeliveryMenuCtrl.ePage.Masters.DisableSave = true;
             }
