@@ -7,7 +7,7 @@
         <div class="inner-dashboard-box">
             <div class="rows border-bottom">
                 <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 col-xl-5 height-40 border-right pt-10 pb-10">
-                    <span class="dashboard-stock-icon-box">
+                    <span class="dashboard-own_stock-icon-box">
                         <i class="icomoon icon-organization-client"></i>
                     </span>
                     <label class="ml-5 control-label">Transfer From Client</label>
@@ -23,7 +23,7 @@
                 <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7 col-xl-7 height-40 p-5">
                     <div class="input-group input-group-sm">
                         <!-- Dynamic look up Search in textbox -->
-                        <div dynamic-lookup placeholder="Transfer From Client Code And Name" my-ng-model="OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.TransferFrom_ORG"
+                        <div dynamic-lookup placeholder="Transfer From Client Code And Name" my-ng-model="OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.TransferFrom_Client"
                             auto-complete-on-select="OwnershipTransferGeneralCtrl.ePage.Masters.SelectedLookupTransferFromClient($item)"
                             obj="OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader"
                             page-name="'OrganizationList'" control-id="'TransferFromClient'" control-key="'TransferFromClient_4124'"
@@ -38,14 +38,14 @@
                                 <i class="fa fa-ellipsis-h"></i>
                             </button>
                         </span>
-                        <span ng-if='!OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.TransferFrom_ORG&&!OwnershipTransferGeneralCtrl.currentOwnerTransfer.isNew'>
-                            <div ng-init="OwnershipTransferGeneralCtrl.ePage.Masters.OnChangeValues(OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.TransferFrom_ORG,'E11011')"></div>
+                        <span ng-if='!OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.TransferFrom_Client && !OwnershipTransferGeneralCtrl.currentOwnerTransfer.isNew'>
+                            <div ng-init="OwnershipTransferGeneralCtrl.ePage.Masters.OnChangeValues(OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.TransferFrom_Client,'E11011')"></div>
                         </span>
                     </div>
                 </div>
             </div>
             <div class="rows p-5 height-103">
-                <div ng-show="OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.TransferFrom_ORG"
+                <div ng-show="OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.TransferFrom_Client"
                     ng-repeat="x in OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIJobAddress | filter: {AddressType:'SND'}">
                     <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8 addressstyle">
                         <div class="text-single-line font-12" title='{{x.Address1}}'>{{x.Address1}}</div>
@@ -71,7 +71,7 @@
         <div class="inner-dashboard-box">
             <div class="rows border-bottom">
                 <div class="col-xs-3 col-sm-3 col-md-4 col-lg-3 col-xl-3 height-40 border-right pt-10 pb-10">
-                    <span class="dashboard-stock-icon-box">
+                    <span class="dashboard-own_stock-icon-box">
                         <i class="icomoon icon-organization-client"></i>
                     </span>
                     <label class="ml-5 control-label">Client</label>
@@ -309,8 +309,8 @@
                     <th id="rlocation" data-ng-if="OwnershipTransferGeneralCtrl.ePage.Entities.Header.TableProperties.UIWmsStockTransferLine.rlocation.isenabled"
                         ng-style="{ 'width': OwnershipTransferGeneralCtrl.ePage.Entities.Header.TableProperties.UIWmsStockTransferLine.rlocation.width + 'px' }"
                         title="Location">Location</th>
-                    <th id="rpalletidsource" data-ng-if="OwnershipTransferGeneralCtrl.ePage.Entities.Header.TableProperties.UIWmsStockTransferLine.rpalletidsource.isenabled"
-                        ng-style="{ 'width': OwnershipTransferGeneralCtrl.ePage.Entities.Header.TableProperties.UIWmsStockTransferLine.rpalletidsource.width + 'px' }"
+                    <th id="rpalletid" data-ng-if="OwnershipTransferGeneralCtrl.ePage.Entities.Header.TableProperties.UIWmsStockTransferLine.rpalletid.isenabled"
+                        ng-style="{ 'width': OwnershipTransferGeneralCtrl.ePage.Entities.Header.TableProperties.UIWmsStockTransferLine.rpalletid.width + 'px' }"
                         title="Pallet ID Source">Pallet ID Source</th>
                     <th id="rpalletiddestination" data-ng-if="OwnershipTransferGeneralCtrl.ePage.Entities.Header.TableProperties.UIWmsStockTransferLine.rpalletiddestination.isenabled"
                         ng-style="{ 'width': OwnershipTransferGeneralCtrl.ePage.Entities.Header.TableProperties.UIWmsStockTransferLine.rpalletiddestination.width + 'px' }"
@@ -621,8 +621,8 @@
                             </div>
                         </div>
                     </td>
-                    <td id="rpalletidsource" data-ng-show='OwnershipTransferGeneralCtrl.ePage.Entities.Header.TableProperties.UIWmsStockTransferLine.rpalletidsource.isenabled'
-                        ng-style="{ 'width': OwnershipTransferGeneralCtrl.ePage.Entities.Header.TableProperties.UIWmsStockTransferLine.rpalletidsource.width + 'px' }"
+                    <td id="rpalletid" data-ng-show='OwnershipTransferGeneralCtrl.ePage.Entities.Header.TableProperties.UIWmsStockTransferLine.rpalletid.isenabled'
+                        ng-style="{ 'width': OwnershipTransferGeneralCtrl.ePage.Entities.Header.TableProperties.UIWmsStockTransferLine.rpalletid.width + 'px' }"
                         ng-click="OwnershipTransferGeneralCtrl.ePage.Masters.Enable = true">
                         <div data-ng-if="$index!=OwnershipTransferGeneralCtrl.ePage.Masters.selectedRow || OwnershipTransferGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable"
                             class="overflow-text">
@@ -962,8 +962,8 @@
                     <th id="iexpirydate" data-ng-if="OwnershipTransferGeneralCtrl.ePage.Entities.Header.TableProperties.Inventory.iexpirydate.isenabled"
                         ng-style="{ 'width': OwnershipTransferGeneralCtrl.ePage.Entities.Header.TableProperties.Inventory.iexpirydate.width + 'px' }"
                         title="Expiry Date">Expiry Date</th>
-                    <th id="iclient" data-ng-if="OwnershipTransferGeneralCtrl.ePage.Entities.Header.TableProperties.Inventory.iclient.isenabled"
-                        ng-style="{ 'width': OwnershipTransferGeneralCtrl.ePage.Entities.Header.TableProperties.Inventory.iclient.width + 'px' }"
+                    <th id="itransferfromclient" data-ng-if="OwnershipTransferGeneralCtrl.ePage.Entities.Header.TableProperties.Inventory.itransferfromclient.isenabled"
+                        ng-style="{ 'width': OwnershipTransferGeneralCtrl.ePage.Entities.Header.TableProperties.Inventory.itransferfromclient.width + 'px' }"
                         title="Client">Client</th>
                     <th id="iwarehouse" data-ng-if="OwnershipTransferGeneralCtrl.ePage.Entities.Header.TableProperties.Inventory.iwarehouse.isenabled"
                         ng-style="{ 'width': OwnershipTransferGeneralCtrl.ePage.Entities.Header.TableProperties.Inventory.iwarehouse.width + 'px' }"
@@ -1056,8 +1056,8 @@
                         ng-style="{ 'width': OwnershipTransferGeneralCtrl.ePage.Entities.Header.TableProperties.Inventory.iexpirydate.width + 'px' }"
                         class="overflow-text">{{x.ExpiryDate || OwnershipTransferGeneralCtrl.ePage.Masters.emptyText |
                         dateFormat}}</td>
-                    <td id="iclient" data-ng-show='OwnershipTransferGeneralCtrl.ePage.Entities.Header.TableProperties.Inventory.iclient.isenabled'
-                        ng-style="{ 'width': OwnershipTransferGeneralCtrl.ePage.Entities.Header.TableProperties.Inventory.iclient.width + 'px' }"
+                    <td id="itransferfromclient" data-ng-show='OwnershipTransferGeneralCtrl.ePage.Entities.Header.TableProperties.Inventory.itransferfromclient.isenabled'
+                        ng-style="{ 'width': OwnershipTransferGeneralCtrl.ePage.Entities.Header.TableProperties.Inventory.itransferfromclient.width + 'px' }"
                         class="overflow-text">{{x.ClientCode}} - {{x.ClientName}}</td>
                     <td id="iwarehouse" data-ng-show='OwnershipTransferGeneralCtrl.ePage.Entities.Header.TableProperties.Inventory.iwarehouse.isenabled'
                         ng-style="{ 'width': OwnershipTransferGeneralCtrl.ePage.Entities.Header.TableProperties.Inventory.iwarehouse.width + 'px' }"
