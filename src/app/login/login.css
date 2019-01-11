@@ -1,32 +1,3 @@
-/* Login Form Styles */
-.login-forgot-password-form-container .title {
-    font-size: 22px;
-    font-weight: 300;
-}
-
-.login-forgot-password-form-container .form-group .form-control {
-    border: 0;
-    border-bottom: 1px solid #ddd;
-    outline: none;
-    box-shadow: none;
-}
-
-.login-forgot-password-form-container .form-group .forgot-password-link,
-.login-forgot-password-form-container .form-group .login-link {
-    color: #666;
-}
-
-.login-form-container .login-btn,
-.forgot-password-form-container .send-btn,
-.login-form-container .login-btn:focus,
-.forgot-password-form-container .send-btn:focus {
-    border: 1px solid #d71920 !important;
-    color: #fff;
-    background-image: linear-gradient(to bottom, #a70b11, #D6171F);
-    padding: 10px 0;
-    outline: none;
-}
-
 /* Login Page Styles */
 .login-wrapper {
     background: url('../../assets/img/bg.jpg') center top no-repeat #fff;

@@ -41,6 +41,17 @@
                             }
                         }
                     },
+                    "CfxMenus": {
+                        "RowIndex": -1,
+                        "API": {
+                            "FindAll": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "CfxMenus/FindAll",
+                                "FilterID": "CFXMENU"
+                            }
+                        }
+                    },
                     "MstCountry": {
                         "RowIndex": -1,
                         "API": {
@@ -188,32 +199,6 @@
                             }
                         }
                     },
-                    "GroupTaskTypeOrganisation": {
-                        "RowIndex": -1,
-                        "API": {
-                            "FindAll": {
-                                "IsAPI": "true",
-                                "HttpType": "POST",
-                                "Url": "GroupTaskTypeOrganisation/FindAll",
-                                "FilterID": "SECMAPP"
-                            },
-                            "Insert": {
-                                "IsAPI": "true",
-                                "HttpType": "POST",
-                                "Url": "GroupTaskTypeOrganisation/Insert",
-                            },
-                            "Update": {
-                                "IsAPI": "true",
-                                "HttpType": "POST",
-                                "Url": "GroupTaskTypeOrganisation/Update",
-                            },
-                            "Delete": {
-                                "IsAPI": "true",
-                                "HttpType": "GET",
-                                "Url": "GroupTaskTypeOrganisation/Delete/",
-                            }
-                        }
-                    },
                     "GroupRoleEventTypeOrganisation": {
                         "RowIndex": -1,
                         "API": {
@@ -237,6 +222,32 @@
                                 "IsAPI": "true",
                                 "HttpType": "GET",
                                 "Url": "GroupRoleEventTypeOrganisation/Delete/",
+                            }
+                        }
+                    },
+                    "GroupTaskTypeOrganisation": {
+                        "RowIndex": -1,
+                        "API": {
+                            "FindAll": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "GroupTaskTypeOrganisation/FindAll",
+                                "FilterID": "SECMAPP"
+                            },
+                            "Insert": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "GroupTaskTypeOrganisation/Insert",
+                            },
+                            "Update": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "GroupTaskTypeOrganisation/Update",
+                            },
+                            "Delete": {
+                                "IsAPI": "true",
+                                "HttpType": "GET",
+                                "Url": "GroupTaskTypeOrganisation/Delete/",
                             }
                         }
                     },

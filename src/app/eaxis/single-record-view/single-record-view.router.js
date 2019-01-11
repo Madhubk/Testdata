@@ -491,7 +491,7 @@
                 }
             })
             .state('EA.singleRecordView.organization', {
-                url: '/organization/:id',
+                url: '/organization',
                 templateUrl: 'app/eaxis/single-record-view/organization/organization.html',
                 controller: "SRVOrganizationController as SRVOrganizationCtrl",
                 ncyBreadcrumb: {

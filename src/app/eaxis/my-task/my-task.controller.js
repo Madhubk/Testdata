@@ -563,16 +563,18 @@
 
                     if (response.data.Response.length > 0) {
                         var _queryString = $location.search();
-                        if (_queryString && _queryString.filter && _queryString.filter) {
-                            var _qInput = helperService.decryptData(_queryString.filter);
+                        if (_queryString && _queryString.q && _queryString.q) {
+                            var _qInput = helperService.decryptData(_queryString.q);
                             if (_qInput && typeof _qInput == "string") {
                                 _qInput = JSON.parse(_qInput);
                             }
 
                             var _keys = ["UserStatus", "WSI_StepCode", "WorkItemNo", "ProcessCode", "ProcessName",  "PerformerCode", "PSI_InstanceNo", "KeyReference", "EntityRefKey", "EntitySource", "AccessMode", "AdditionalEntityRefCode", "AdditionalEntityRefKey", "AdditionalEntitySource", "EntityInfo"];
+                            var _isExist = false;
 
                             MyTaskCtrl.ePage.Masters.MyTask.StatusCount.ListSource.map(function (value, key) {
                                 if (value.PSM_FK == _qInput.PSM_FK && value.WSI_FK == _qInput.WSI_FK) {
+                                    _isExist = true;
                                     _keys.map(function(value1, key1){
                                         if(_qInput[value1]){
                                             value[value1] = _qInput[value1];
@@ -586,6 +588,10 @@
                                     SelectedWorkItem(_item);
                                 }
                             });
+
+                            if(!_isExist){
+                                MyTaskCtrl.ePage.Masters.MyTask.WorkItemDetails = [];
+                            }
                         } else {
                             SelectedWorkItem();
                         }

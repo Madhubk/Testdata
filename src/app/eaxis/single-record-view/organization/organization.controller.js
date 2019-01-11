@@ -10,7 +10,7 @@
     function SRVOrganizationController($location, $timeout, apiService, authService, helperService, errorWarningService, organizationConfig, dynamicLookupConfig, appConfig) {
         /* jshint validthis: true */
         var SRVOrganizationCtrl = this,
-            Entity = $location.path().split("/").pop();
+            _queryString = $location.search();
 
         function Init() {
             SRVOrganizationCtrl.ePage = {
@@ -22,20 +22,22 @@
             };
 
             try {
-                SRVOrganizationCtrl.ePage.Masters.Entity = JSON.parse(helperService.decryptData(Entity));
-                SRVOrganizationCtrl.ePage.Masters.ErrorWarningConfig = errorWarningService;
+                if (_queryString.q) {
+                    SRVOrganizationCtrl.ePage.Masters.Entity = JSON.parse(helperService.decryptData(_queryString.q));
+                    SRVOrganizationCtrl.ePage.Masters.ErrorWarningConfig = errorWarningService;
 
-                if (!SRVOrganizationCtrl.ePage.Masters.Entity.PK) {
-                    CreateNew();
-                } else {
-                    var _curRecord = {
-                        PK: SRVOrganizationCtrl.ePage.Masters.Entity.PK,
-                        Code: SRVOrganizationCtrl.ePage.Masters.Entity.Code
-                    };
-                    GetTabDetails(_curRecord, false);
+                    if (!SRVOrganizationCtrl.ePage.Masters.Entity.PK) {
+                        CreateNew();
+                    } else {
+                        var _curRecord = {
+                            PK: SRVOrganizationCtrl.ePage.Masters.Entity.PK,
+                            Code: SRVOrganizationCtrl.ePage.Masters.Entity.Code
+                        };
+                        GetTabDetails(_curRecord, false);
+                    }
+
+                    GetRelatedLookupList();
                 }
-
-                GetRelatedLookupList();
             } catch (ex) {
                 console.log(ex);
             }

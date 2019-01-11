@@ -46,14 +46,13 @@
                     }
                 } else {
                     ELinkCtrl.ePage.Masters.ErrorMessage = response.data.Response;
+                    ELinkCtrl.ePage.Masters.IsLoading = false;
 
                     authService.setUserInfo();
                     $timeout(function () {
                         $location.path("/login").search({});
                     }, 2000);
                 }
-
-                ELinkCtrl.ePage.Masters.IsLoading = false;
             });
         }
 
@@ -64,20 +63,6 @@
             _keys.map(function (value, key) {
                 if (_userInfo[value]) {
                     _userInfo[value] = JSON.parse(_userInfo[value]);
-
-                    if (value == "Logo") {
-                        if (!_userInfo.Logo.Tenant) {
-                            _userInfo.Logo.Tenant = "assets/img/logo/product-logo-dummy.png";
-                        }
-
-                        if (!_userInfo.Logo.Application) {
-                            _userInfo.Logo.Application = "assets/img/logo/app-logo-dummy.png";
-                        }
-
-                        if (!_userInfo.Logo.User) {
-                            _userInfo.Logo.User = "assets/img/logo/user-logo-dummy.png";
-                        }
-                    }
                 }
             });
 
@@ -112,9 +97,50 @@
             }
 
             authService.setUserInfo(helperService.encryptData(_userInfo));
-            $location.path(_userInfo.InternalUrl).search({
-                lpk: _userInfo.LoginPK,
-                tkn: _userInfo.AuthToken
+
+            $timeout(function(){
+                GetPageVariables(_userInfo);
+            });
+        }
+
+        function GetPageVariables(_userInfo) {
+            apiService.get("authAPI", appConfig.Entities.AuthTokenLink.API.GetById.Url + ELinkCtrl.ePage.Masters.QueryString.Id).then(function SuccessCallback(response) {
+                if (response.data.Status == "Success") {
+                    if (response.data.Response) {
+                        var _pageValiables = response.data.Response.PageVariables;
+                        var _filter = {};
+
+                        if (_pageValiables) {
+                            _pageValiables = JSON.parse(_pageValiables);
+                            if (_pageValiables.length > 0) {
+                                _pageValiables.map(function (value, key) {
+                                    _filter[value.UIField] = value.Value;
+                                });
+                            }
+                        }
+
+                        var _isEmpty = angular.equals({}, _filter);
+                        var _queryString = {
+                            lpk: _userInfo.LoginPK,
+                            tkn: _userInfo.AuthToken
+                        };
+
+                        if (!_isEmpty) {
+                            _queryString.q = helperService.encryptData(_filter);
+                        }
+
+                        $location.path(_userInfo.InternalUrl).search(_queryString);
+                    }
+                } else {
+                    ELinkCtrl.ePage.Masters.ErrorMessage = response.data.Response;
+
+                    authService.setUserInfo();
+                    $timeout(function () {
+                        $location.path("/login").search({});
+                    }, 2000);
+                }
+
+                ELinkCtrl.ePage.Masters.IsLoading = false;
             });
         }
 

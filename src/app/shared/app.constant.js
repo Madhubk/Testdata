@@ -9,7 +9,8 @@
                 files: [
                     'app/login/login.css',
                     'app/login/login.controller.js',
-                    'app/login/login-form/login-form.controller.js',
+                    'app/login/login-form/login-form.css',
+                    'app/login/login-form/login-form.directive.js',
                 ]
             }, {
                 name: 'TenantList',
@@ -687,8 +688,8 @@
             //endregion
         ],
         URL: {
-            eAxisAPI: "http://dev.myhubplusapi.20cube.com/wms/",
-            authAPI: "http://dev.myhubplusapi.20cube.com/wmsauth/",
+            eAxisAPI: "http://dev.myhubplusapi.20cube.com/eaxis/",
+            authAPI: "http://dev.myhubplusapi.20cube.com/auth/",
             alertAPI: "http://uat.api.20cube.com/alert/"
         },
         Crypto: {
@@ -785,7 +786,7 @@
                 ['help', ['help']]
             ]
         },
-        Version: "1.0"
+        Version: "1.1"
     };
 
     angular

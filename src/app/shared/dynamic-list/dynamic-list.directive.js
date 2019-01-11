@@ -1600,6 +1600,10 @@
                             ConfigureCustomToolBar($item);
                         }
                     }
+
+                    DynamicListCtrl.selectedGridRow({
+                        $item: $item
+                    });
                 } else {
                     DynamicListCtrl.selectedGridRow({
                         $item: $item

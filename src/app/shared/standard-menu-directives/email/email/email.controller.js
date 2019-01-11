@@ -55,17 +55,24 @@
 
             if (EmailCtrl.mode == "2") {
                 EmailCtrl.ePage.Masters.Email.ListView.ActiveEmail = angular.copy(EmailCtrl.type);
-                if (EmailCtrl.type.TemplateObj) {
-                    if (EmailCtrl.type.TemplateObj.Key) {
-                        if (EmailCtrl.ePage.Masters.Email.EditView.TemplateList && EmailCtrl.ePage.Masters.Email.EditView.TemplateList.length > 0) {
-                            var _index = EmailCtrl.ePage.Masters.Email.EditView.TemplateList.map(function (value, key) {
-                                return value.Key;
-                            }).indexOf(EmailCtrl.type.TemplateObj.Key);
 
-                            if (_index !== -1) {
-                                OnTemplateChange(EmailCtrl.ePage.Masters.Email.EditView.TemplateList[_index]);
+                if(EmailCtrl.type){
+                    if (EmailCtrl.type.TemplateObj) {
+                        if (EmailCtrl.type.TemplateObj.Key) {
+                            if (EmailCtrl.ePage.Masters.Email.EditView.TemplateList && EmailCtrl.ePage.Masters.Email.EditView.TemplateList.length > 0) {
+                                var _index = EmailCtrl.ePage.Masters.Email.EditView.TemplateList.map(function (value, key) {
+                                    return value.Key;
+                                }).indexOf(EmailCtrl.type.TemplateObj.Key);
+
+                                if (_index !== -1) {
+                                    OnTemplateChange(EmailCtrl.ePage.Masters.Email.EditView.TemplateList[_index]);
+                                }
                             }
                         }
+                    }
+
+                    if(EmailCtrl.type.AttachmentList){
+                        EmailCtrl.ePage.Masters.Email.ListView.ActiveEmail.JobDocuments = angular.copy(EmailCtrl.type.AttachmentList);
                     }
                 }
             }
@@ -488,7 +495,7 @@
             if (files.length > 0) {
                 files.map(function (value1, key1) {
                     EmailCtrl.ePage.Masters.Email.ListView.ActiveEmail.AttachmentList.map(function (value2, key2) {
-                        if (value1.FileName == value2.name && value1.DocType == value2.type) {
+                        if (value1.FileName == value2.name) {
                             SaveAttachment(value1);
 
                             // value2.EntityRefKey = EmailCtrl.ePage.Masters.Email.ListView.ActiveEmail.PK;
@@ -515,7 +522,10 @@
                 });
             }
 
-            EmailCtrl.ePage.Masters.Email.ListView.ActiveEmail.JobDocuments = EmailCtrl.ePage.Masters.Email.ListView.ActiveEmail.AttachmentList;
+            if(!EmailCtrl.ePage.Masters.Email.ListView.ActiveEmail.JobDocuments){
+                EmailCtrl.ePage.Masters.Email.ListView.ActiveEmail.JobDocuments = [];
+            }
+            EmailCtrl.ePage.Masters.Email.ListView.ActiveEmail.JobDocuments = EmailCtrl.ePage.Masters.Email.ListView.ActiveEmail.JobDocuments.concat(EmailCtrl.ePage.Masters.Email.ListView.ActiveEmail.AttachmentList);
         }
 
         function SaveAttachment($item) {
@@ -585,13 +595,7 @@
         }
 
         function DeleteAttachment($item) {
-            // var _input = angular.copy($item);
-            // _input.IsActive = true;
-            // _input.Status = "Deleted";
-            // _input.IsModified = true;
-            // _input.IsDeleted = true;
-
-            apiService.get("eAxisAPI", appConfig.Entities.JobDocument.API.Delete.Url + authService.getUserInfo().AppPK, [_input]).then(function (response) {
+            apiService.get("eAxisAPI", appConfig.Entities.JobDocument.API.Delete.Url + $item.PK + "/" + authService.getUserInfo().AppPK, [_input]).then(function (response) {
                 if (response.data.Response) {
                     // if ($index != -1) {
                     //     EmailCtrl.ePage.Masters.Email.ListView.ActiveEmail.AttachmentList.splice($index, 1);

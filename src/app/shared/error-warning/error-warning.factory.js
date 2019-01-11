@@ -104,6 +104,8 @@
                 Code_1: _item.GroupCode,
                 RelatedBasicDetails: _item.RelatedBasicDetails
             };
+            _filter.TenantCode = authService.getUserInfo().TenantCode;
+            _filter.SAP_FK = authService.getUserInfo().AppPK;
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
                 "FilterID": appConfig.Entities.Validation.API.ValidationByGroup.FilterID
