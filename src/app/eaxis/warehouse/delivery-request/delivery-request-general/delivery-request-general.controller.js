@@ -108,7 +108,7 @@
         function GetUserMappedOrganization() {
             var _filter = {
                 "ItemCode": authService.getUserInfo().UserId,
-                "MappingCode": "USER_CMP_BRAN_WH"
+                "MappingCodeIn": "USER_CMP_BRAN_WH,USER_CMP_BRAN_WH_APP_TNT"
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
