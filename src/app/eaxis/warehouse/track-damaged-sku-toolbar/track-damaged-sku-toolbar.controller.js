@@ -38,12 +38,16 @@
             DamagedSkuToolbarCtrl.ePage.Masters.MoveToScrapWarehouseBtnText = "Move To Scrap Warehouse";
             DamagedSkuToolbarCtrl.ePage.Masters.MoveToSiteWarehouseBtnText = "Move To Site Warehouse";
             DamagedSkuToolbarCtrl.ePage.Masters.MoveToCentralWarehouseBtnText = "Move To Central Warehouse";
+            DamagedSkuToolbarCtrl.ePage.Masters.UpdateInventoryBtnText = "Update Inventory";
             DamagedSkuToolbarCtrl.ePage.Masters.IsMoveToTestingWarehouseBtn = false;
             DamagedSkuToolbarCtrl.ePage.Masters.MoveToTestingWarehouse = MoveToTestingWarehouse;
             DamagedSkuToolbarCtrl.ePage.Masters.MoveToRepairWarehouse = MoveToRepairWarehouse;
             DamagedSkuToolbarCtrl.ePage.Masters.MoveToScrapWarehouse = MoveToScrapWarehouse;
             DamagedSkuToolbarCtrl.ePage.Masters.MoveToSiteWarehouse = MoveToSiteWarehouse;
             DamagedSkuToolbarCtrl.ePage.Masters.MoveToCentralWarehouse = MoveToCentralWarehouse;
+            DamagedSkuToolbarCtrl.ePage.Masters.UpdateInventory = UpdateInventory;
+            DamagedSkuToolbarCtrl.ePage.Masters.UpdateData = UpdateData;
+            DamagedSkuToolbarCtrl.ePage.Masters.CloseEditActivityModal = CloseEditActivityModal;
             InitAction();
         }
 
@@ -62,6 +66,149 @@
                 toastr.warning("Selected Warehouse should be same.")
                 DamagedSkuToolbarCtrl.ePage.Masters.IsMoveToTestingWarehouseBtn = true;
             }
+            if (DamagedSkuToolbarCtrl.ePage.Masters.Input.length > 1) {
+                DamagedSkuToolbarCtrl.ePage.Masters.IsUpdateInventoryBtn = true;
+            }
+        }
+
+        function UpdateInventory() {
+            DamagedSkuToolbarCtrl.ePage.Masters.UpdateInventoryBtnText = "Please Wait..."
+            DamagedSkuToolbarCtrl.ePage.Masters.IsUpdateInventoryBtn = true;
+            var count = 0;
+            angular.forEach(DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList, function (value, key) {
+                if (value.PL_WorkOrderLineStatusDesc == "Stock at Testing Warehouse" || value.PL_WorkOrderLineStatusDesc == "Stock at Repair Warehouse") {
+                    count = count + 1;
+                }
+            });
+            if (count == DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList.length) {
+                GetDropDownList();
+                DamagedSkuToolbarCtrl.ePage.Masters.DropDownMasterList = {};
+                var warehouseCode = DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList[0].PL_WorkOrderLineStatusDesc == "Stock at Testing Warehouse" ? "STCLAB" : "REPAIR"
+                var FilterObj = {
+                    "ORG_FK": DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList[0].PIC_ORG_Client_FK,
+                    "WAR_WarehouseCode": warehouseCode,
+                    "ProductCode": DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList[0].PL_Req_PrdCode,
+                    "PartAttrib1": DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList[0].IL_PartAttrib1,
+                    "PartAttrib2": DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList[0].IL_PartAttrib2,
+                    "PartAttrib3": DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList[0].IL_PartAttrib3,
+                    "PackingDate": DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList[0].IL_PackingDate,
+                    "ExpiryDate": DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList[0].IL_ExpiryDate,
+                    "SortColumn": "WOL_WAR_WarehouseCode",
+                    "SortType": "ASC",
+                    "PageNumber": 1,
+                    "PageSize": 1000
+                };
+
+                var _input = {
+                    "searchInput": helperService.createToArrayOfObject(FilterObj),
+                    "FilterID": appConfig.Entities.WmsInventory.API.FindAll.FilterID
+                };
+                apiService.post("eAxisAPI", appConfig.Entities.WmsInventory.API.FindAll.Url, _input).then(function (response) {
+                    DamagedSkuToolbarCtrl.ePage.Masters.Inventory = response.data.Response;
+                    if (DamagedSkuToolbarCtrl.ePage.Masters.Inventory.length > 0) {
+                        OpenModal();
+                    } else {
+                        toastr.warning("Inventory Not Available")
+                        DamagedSkuToolbarCtrl.ePage.Masters.UpdateInventoryBtnText = "Update Inventory"
+                        DamagedSkuToolbarCtrl.ePage.Masters.IsUpdateInventoryBtn = false;
+                    }
+                });
+            } else {
+                toastr.warning("Cannot update the Inventory for this Line(s)");
+                DamagedSkuToolbarCtrl.ePage.Masters.UpdateInventoryBtnText = "Update Inventory"
+                DamagedSkuToolbarCtrl.ePage.Masters.IsUpdateInventoryBtn = false;
+            }
+        }
+
+        function GetDropDownList() {
+            // Get CFXType Dropdown list
+            var typeCodeList = ["ProductCondition"];
+            var dynamicFindAllInput = [];
+
+            typeCodeList.map(function (value, key) {
+                dynamicFindAllInput[key] = {
+                    "FieldName": "TypeCode",
+                    "value": value
+                }
+            });
+            var _input = {
+                "searchInput": dynamicFindAllInput,
+                "FilterID": appConfig.Entities.CfxTypes.API.DynamicFindAll.FilterID
+            };
+
+            apiService.post("eAxisAPI", appConfig.Entities.CfxTypes.API.DynamicFindAll.Url + authService.getUserInfo().AppPK, _input).then(function (response) {
+                if (response.data.Response) {
+                    typeCodeList.map(function (value, key) {
+                        DamagedSkuToolbarCtrl.ePage.Masters.DropDownMasterList[value] = helperService.metaBase();
+                        DamagedSkuToolbarCtrl.ePage.Masters.DropDownMasterList[value].ListSource = response.data.Response[value];
+                    });
+                }
+            });
+        }
+
+        function OpenModal() {
+            return DamagedSkuToolbarCtrl.ePage.Masters.modalInstance = $uibModal.open({
+                animation: true,
+                backdrop: "static",
+                keyboard: false,
+                windowClass: "success-popup",
+                scope: $scope,
+                size: "md",
+                templateUrl: "app/eaxis/warehouse/track-damaged-sku-toolbar/update-inventory.html"
+            });
+        }
+
+        function CloseEditActivityModal() {
+            DamagedSkuToolbarCtrl.ePage.Masters.modalInstance.dismiss('cancel');
+        }
+
+        function UpdateData() {
+            var Status = "";
+            if (DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList[0].PL_ProductCondition == 'DMG') {
+                Status = "Damaged";
+            } else {
+                Status = "Good";
+            }
+            var _input = {
+                "InventoryLine": DamagedSkuToolbarCtrl.ePage.Masters.Inventory[0],
+                "AdjustedQty": 1,
+                "Status": Status,
+                "CreatedBy": authService.getUserInfo().UserEmail
+            }
+            CloseEditActivityModal();
+            apiService.post("eAxisAPI", appConfig.Entities.WmsInventoryAdjustment.API.Insert.Url, _input).then(function (response) {
+                if (response.data.Status == 'Success') {
+                    toastr.success('Inventory Updated Successfully ');
+                    apiService.get("eAxisAPI", appConfig.Entities.WmsPickupList.API.GetById.Url + DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList[0].PIC_PK).then(function (response) {
+                        if (response.data.Response) {
+                            DamagedSkuToolbarCtrl.ePage.Masters.PickupData = response.data.Response;
+                            angular.forEach(DamagedSkuToolbarCtrl.ePage.Masters.PickupData.UIWmsPickupLine, function (value, key) {
+                                if (value.AdditionalRef1Code == DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList[0].PL_AdditionalRef1Code) {
+                                    value.ProductCondition = DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList[0].PL_ProductCondition;
+                                }
+                            });
+                            DamagedSkuToolbarCtrl.ePage.Masters.PickupData = filterObjectUpdate(DamagedSkuToolbarCtrl.ePage.Masters.PickupData, "IsModified");
+                            apiService.post("eAxisAPI", appConfig.Entities.WmsPickupList.API.Update.Url, DamagedSkuToolbarCtrl.ePage.Masters.PickupData).then(function (response) {
+                                if (response.data.Response) {
+                                    DamagedSkuToolbarCtrl.ePage.Masters.PickupData = response.data.Response;
+                                    toastr.success("Pickup Saved Successfully");
+                                    helperService.refreshGrid();
+                                    DamagedSkuToolbarCtrl.ePage.Masters.UpdateInventoryBtnText = "Update Inventory"
+                                    DamagedSkuToolbarCtrl.ePage.Masters.IsUpdateInventoryBtn = true;
+                                    DamagedSkuToolbarCtrl.ePage.Masters.IsMoveToTestingWarehouseBtn = true;
+                                }
+                            });
+                        } else {
+                            DamagedSkuToolbarCtrl.ePage.Masters.UpdateInventoryBtnText = "Update Inventory"
+                            DamagedSkuToolbarCtrl.ePage.Masters.IsUpdateInventoryBtn = false;
+                        }
+                    });
+                } else {
+                    toastr.error("Update Failed");
+                    DamagedSkuToolbarCtrl.ePage.Masters.UpdateInventoryBtnText = "Update Inventory"
+                    DamagedSkuToolbarCtrl.ePage.Masters.IsUpdateInventoryBtn = false;
+                }
+            });
         }
 
         function MoveToCentralWarehouse() {
@@ -81,25 +228,45 @@
                     }
                 });
                 if ((count == DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList.length) || (count1 == DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList.length) || (count2 == DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList.length)) {
-                    DamagedSkuToolbarCtrl.ePage.Masters.IsMoveToTestingWarehouseBtn = true;
-                    DamagedSkuToolbarCtrl.ePage.Masters.MoveToCentralWarehouseBtnText = "Please Wait...";
-                    var _filter = {
-                        "WarehouseType": "CEN"
-                    };
-                    var _input = {
-                        "searchInput": helperService.createToArrayOfObject(_filter),
-                        "FilterID": appConfig.Entities.WmsWarehouse.API.FindAll.FilterID
-                    };
-                    apiService.post("eAxisAPI", appConfig.Entities.WmsWarehouse.API.FindAll.Url, _input).then(function (response) {
-                        if (response.data.Response) {
-                            DamagedSkuToolbarCtrl.ePage.Masters.WarehouseList = response.data.Response;
-                            CreateMaterialTransferOutward('CEN');
-                        }
-                    });
+                    if ((count1 == DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList.length) || (count2 == DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList.length)) {
+                        var modalOptions = {
+                            closeButtonText: 'No',
+                            actionButtonText: 'YES',
+                            headerText: 'Are You Sure?',
+                            bodyText: 'Do You Want To Continue With This Product Condition?'
+                        };
+                        confirmation.showModal({}, modalOptions)
+                            .then(function (result) {
+                                getCentralWarehouse();
+                            }, function () {
+                                toastr.warning("Please update the Inventory");
+                                console.log("Cancelled");
+                            });
+                    } else {
+                        getCentralWarehouse();
+                    }
                 } else {
                     toastr.warning("This line(s) cannot be moved to Central warehouse");
                 }
             }
+        }
+
+        function getCentralWarehouse() {
+            DamagedSkuToolbarCtrl.ePage.Masters.IsMoveToTestingWarehouseBtn = true;
+            DamagedSkuToolbarCtrl.ePage.Masters.MoveToCentralWarehouseBtnText = "Please Wait...";
+            var _filter = {
+                "WarehouseType": "CEN"
+            };
+            var _input = {
+                "searchInput": helperService.createToArrayOfObject(_filter),
+                "FilterID": appConfig.Entities.WmsWarehouse.API.FindAll.FilterID
+            };
+            apiService.post("eAxisAPI", appConfig.Entities.WmsWarehouse.API.FindAll.Url, _input).then(function (response) {
+                if (response.data.Response) {
+                    DamagedSkuToolbarCtrl.ePage.Masters.WarehouseList = response.data.Response;
+                    CreateMaterialTransferOutward('CEN');
+                }
+            });
         }
 
         function MoveToTestingWarehouse() {
@@ -274,7 +441,7 @@
                                     value.AddressType = "CED";
                                 }
                             });
-                            
+
                             angular.forEach(DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList, function (value, key) {
                                 var obj = {
                                     "Parent_FK": value.PL_PK,
@@ -290,7 +457,7 @@
                                     "Commodity": value.PL_Commodity,
                                     "MCC_NKCommodityCode": value.PL_MCC_NKCommodityCode,
                                     "MCC_NKCommodityDesc": value.PL_MCC_NKCommodityDesc,
-                                    "ProductCondition": value.PL_WorkOrderLineStatusDesc == "Stock at Testing Warehouse" ? '' : value.PL_ProductCondition,
+                                    "ProductCondition": value.PL_ProductCondition,
                                     "Packs": value.PL_Packs,
                                     "PAC_PackType": value.PL_PAC_PackType,
                                     "Units": value.PL_Units,
@@ -321,7 +488,7 @@
                                     "WAR_FK": value.PIC_WAR_FK,
                                 };
                                 response.data.Response.Response.UIWmsWorkOrderLine.push(obj);
-                                
+
                                 angular.forEach(DamagedSkuToolbarCtrl.ePage.Masters.PickupData.UIWmsPickupLine, function (value1, key1) {
                                     if (value.PL_PK == value1.PK) {
                                         if (type == "CEN") {

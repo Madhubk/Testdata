@@ -2753,19 +2753,34 @@
                         },
                     }
                 },
+                "WmsInventoryAdjustment": {
+                    "RowIndex": -1,
+                    "API": {
+                        "Insert": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "WmsInventoryAdjustment/Insert",
+                        },
+                    }
+                },
                 "AppCounter": {
+                    "RowIndex": -1,
+                    "API": {                        
+                        "Update": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "AppCounter/Update"
+                        }
+                    }
+                },
+                "WmsTestID": {
                     "RowIndex": -1,
                     "API": {
                         "FindAll": {
                             "IsAPI": "true",
                             "HttpType": "POST",
-                            "Url": "AppCounter/FindAll",
-                            "FilterID": "APPCOUNT",
-                        },
-                        "Update": {
-                            "IsAPI": "true",
-                            "HttpType": "POST",
-                            "Url": "AppCounter/Update"
+                            "Url": "TestID/FindAll",
+                            "FilterID": "APPCOUNT"
                         }
                     }
                 },
@@ -3124,6 +3139,16 @@
 
                     }
                 },
+                "Notification": {
+                    "RowIndex": -1,
+                    "API": {
+                        "SendSms": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "Notification/SendSms"
+                        },
+                    }
+                },
                 "TeamTargetRelease": {
                     "RowIndex": -1,
                     "API": {
@@ -3432,6 +3457,10 @@
                         "CompleteProcess": {
                             "IsAPI": true,
                             "Url": "EBPMEngine/CompleteProcess",
+                        },
+                        "SuspendInstance": {
+                            "IsAPI": true,
+                            "Url": "EBPMEngine/SuspendInstance/",
                         }
                     }
                 },
