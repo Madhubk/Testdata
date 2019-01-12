@@ -14,23 +14,23 @@
     font-size: 12px;
 }
 
-.inner-dashboard-box, .dashboard-stock-icon-box{
+.inner-dashboard-box, .dashboard-own_stock-icon-box{
  border-radius:3px;
 }
 
 
 .inner-dashboard-box{
-    width:100%;
-    float: left;
+width:100%;
+float: left;
  border:1px solid #f5f5f5;
  position:relative;
 }
 
-.dashboard-stock-icon-box i{
+.dashboard-own_stock-icon-box i{
  font-size:16px;
 }
 
-.dashboard-stock-icon-box span{
+.dashboard-own_stock-icon-box span{
  font-size:12px;
 }
 

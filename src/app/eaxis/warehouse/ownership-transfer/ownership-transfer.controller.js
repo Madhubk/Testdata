@@ -88,7 +88,7 @@
                     });
                 });
             } else {
-                toastr.info('WorkOrder ID already opened');
+                toastr.info('Id already opened');
             }
         }
 

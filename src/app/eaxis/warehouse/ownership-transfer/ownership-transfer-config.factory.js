@@ -90,6 +90,7 @@
                                 "UIWmsStockTransferLine": helperService.metaBase(),
                                 "Warehouse": helperService.metaBase(),
                                 "Client": helperService.metaBase(),
+                                "TransferFrom_Client": helperService.metaBase(),
                             },
                         },
                         "GlobalVariables": {
@@ -194,18 +195,10 @@
                                     "display": true
                                 },
                                 {
-                                    "columnname": "Pallet ID Source",
+                                    "columnname": "Pallet ID",
                                     "isenabled": true,
-                                    "property": "rpalletidsource",
+                                    "property": "rpalletid",
                                     "position": "13",
-                                    "width": "100",
-                                    "display": true
-                                },
-                                {
-                                    "columnname": "Pallet ID Destination",
-                                    "isenabled": true,
-                                    "property": "rpalletiddestination",
-                                    "position": "14",
                                     "width": "100",
                                     "display": true
                                 },
@@ -213,7 +206,7 @@
                                     "columnname": "Location Status",
                                     "isenabled": true,
                                     "property": "rlocationstatus",
-                                    "position": "15",
+                                    "position": "14",
                                     "width": "100",
                                     "display": true
                                 },
@@ -221,7 +214,7 @@
                                     "columnname": "UDF 1",
                                     "isenabled": true,
                                     "property": "rudf1",
-                                    "position": "16",
+                                    "position": "15",
                                     "width": "150",
                                     "display": true
                                 },
@@ -229,7 +222,7 @@
                                     "columnname": "UDF 2",
                                     "isenabled": true,
                                     "property": "rudf2",
-                                    "position": "17",
+                                    "position": "16",
                                     "width": "150",
                                     "display": true
                                 },
@@ -237,7 +230,7 @@
                                     "columnname": "UDF 3",
                                     "isenabled": true,
                                     "property": "rudf3",
-                                    "position": "18",
+                                    "position": "17",
                                     "width": "150",
                                     "display": true
                                 },
@@ -245,7 +238,7 @@
                                     "columnname": "Packing Date",
                                     "isenabled": true,
                                     "property": "rpackingdate",
-                                    "position": "19",
+                                    "position": "18",
                                     "width": "150",
                                     "display": true
                                 },
@@ -253,7 +246,7 @@
                                     "columnname": "Expiry Date",
                                     "isenabled": true,
                                     "property": "rexpirydate",
-                                    "position": "20",
+                                    "position": "19",
                                     "width": "150",
                                     "display": true
                                 },
@@ -261,7 +254,7 @@
                                     "columnname": "Picked Time",
                                     "isenabled": true,
                                     "property": "rpickedtime",
-                                    "position": "21",
+                                    "position": "20",
                                     "width": "150",
                                     "display": true
                                 },
@@ -269,7 +262,7 @@
                                     "columnname": "Putaway Time",
                                     "isenabled": true,
                                     "property": "rputawaytime",
-                                    "position": "22",
+                                    "position": "21",
                                     "width": "150",
                                     "display": true
                                 }],
@@ -333,54 +326,49 @@
                                     "position": "12",
                                     "width": "100"
                                 },
-                                "rpalletidsource": {
+                                "rpalletid": {
                                     "isenabled": true,
                                     "position": "13",
                                     "width": "120"
                                 },
-                                "rpalletiddestination": {
-                                    "isenabled": true,
-                                    "position": "14",
-                                    "width": "120"
-                                },
                                 "rlocationstatus": {
                                     "isenabled": true,
-                                    "position": "15",
+                                    "position": "14",
                                     "width": "100"
                                 },
                                 "rudf1": {
                                     "isenabled": true,
-                                    "position": "16",
+                                    "position": "15",
                                     "width": "150"
                                 },
                                 "rudf2": {
                                     "isenabled": true,
-                                    "position": "17",
+                                    "position": "16",
                                     "width": "150"
                                 },
                                 "rudf3": {
                                     "isenabled": true,
-                                    "position": "18",
+                                    "position": "17",
                                     "width": "150"
                                 },
                                 "rpackingdate": {
                                     "isenabled": true,
-                                    "position": "19",
+                                    "position": "18",
                                     "width": "150"
                                 },
                                 "rexpirydate": {
                                     "isenabled": true,
-                                    "position": "20",
+                                    "position": "19",
                                     "width": "150"
                                 },
                                 "rpickedtime": {
                                     "isenabled": true,
-                                    "position": "21",
+                                    "position": "20",
                                     "width": "150"
                                 },
                                 "rputawaytime": {
                                     "isenabled": true,
-                                    "position": "22",
+                                    "position": "21",
                                     "width": "150"
                                 },
                             },
@@ -555,7 +543,7 @@
                                 {
                                     "columnname": "Client",
                                     "isenabled": true,
-                                    "property": "iclient",
+                                    "property": "itransferfromclient",
                                     "position": "22",
                                     "width": "150",
                                     "display": true
@@ -673,7 +661,7 @@
                                     "position": "21",
                                     "width": "150"
                                 },
-                                "iclient": {
+                                "itransferfromclient": {
                                     "isenabled": true,
                                     "position": "22",
                                     "width": "150"
@@ -960,6 +948,7 @@
                 }
             });
         }
+        
         function GeneralValidation($item) {
             var _Data = $item[$item.label].ePage.Entities,
                 _input = _Data.Header.Data;

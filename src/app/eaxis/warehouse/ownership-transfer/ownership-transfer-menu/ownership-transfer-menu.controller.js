@@ -29,7 +29,6 @@
 
             OwnershipTransferMenuCtrl.ePage.Masters.Validation = Validation;
             OwnershipTransferMenuCtrl.ePage.Masters.Save = Save;
-            OwnershipTransferMenuCtrl.ePage.Masters.GenerateReport = GenerateReport;
             OwnershipTransferMenuCtrl.ePage.Masters.CancelTransfer = CancelTransfer;
             OwnershipTransferMenuCtrl.ePage.Masters.Config = ownershipTransferConfig;
 
@@ -254,66 +253,6 @@
             });
         }
 
-        function GenerateReport() {
-            OwnershipTransferMenuCtrl.ePage.Masters.DisableReport = true;
-
-            var _filter = {
-                "SAP_FK": "c0b3b8d9-2248-44cd-a425-99c85c6c36d8",
-                "PageType": "Document",
-                "ModuleCode": "WMS",
-                "SubModuleCode": "TFR"
-            };
-
-            var _input = {
-                "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.CfxMenus.API.MasterFindAll.FilterID
-            };
-            apiService.post("eAxisAPI", appConfig.Entities.CfxMenus.API.MasterFindAll.Url, _input).then(function (response) {
-                if (response.data.Response) {
-                    var item = response.data.Response[0];
-                    var _SearchInputConfig = JSON.parse(item.OtherConfig)
-                    var _output = helperService.getSearchInput(OwnershipTransferMenuCtrl.ePage.Entities.Header.Data, _SearchInputConfig.DocumentInput);
-
-                    if (_output) {
-
-                        _SearchInputConfig.DocumentSource = APP_CONSTANT.URL.eAxisAPI + _SearchInputConfig.DocumentSource;
-                        _SearchInputConfig.DocumentInput = _output;
-                        apiService.post("eAxisAPI", appConfig.Entities.Communication.API.GenerateReport.Url, _SearchInputConfig).then(function SuccessCallback(response) {
-
-                            function base64ToArrayBuffer(base64) {
-                                var binaryString = window.atob(base64);
-                                var binaryLen = binaryString.length;
-                                var bytes = new Uint8Array(binaryLen);
-                                for (var i = 0; i < binaryLen; i++) {
-                                    var ascii = binaryString.charCodeAt(i);
-                                    bytes[i] = ascii;
-                                }
-                                saveByteArray([bytes], item.Description + '-' + OwnershipTransferMenuCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.WorkOrderID + '.pdf');
-                            }
-
-                            var saveByteArray = (function () {
-                                var a = document.createElement("a");
-                                document.body.appendChild(a);
-                                a.style = "display: none";
-                                return function (data, name) {
-                                    var blob = new Blob(data, {
-                                        type: "octet/stream"
-                                    }),
-                                        url = window.URL.createObjectURL(blob);
-                                    a.href = url;
-                                    a.download = name;
-                                    a.click();
-                                    window.URL.revokeObjectURL(url);
-                                };
-                            }());
-
-                            base64ToArrayBuffer(response.data);
-                            OwnershipTransferMenuCtrl.ePage.Masters.DisableReport = false;
-                        });
-                    }
-                }
-            });
-        }
 
         Init();
 
