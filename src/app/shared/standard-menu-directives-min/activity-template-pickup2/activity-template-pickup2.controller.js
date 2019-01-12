@@ -110,6 +110,7 @@
                             myTaskActivityConfig.Entities.Pickup = ActivityTemplatePickup2Ctrl.currentPickup;
                             getTaskConfigData();
                         } else {
+                            pickupConfig.TabList = [];
                             pickupConfig.GetTabDetails(ActivityTemplatePickup2Ctrl.ePage.Entities.Header.Data.UIWmsPickup, false).then(function (response) {
                                 angular.forEach(response, function (value, key) {
                                     if (value.label == ActivityTemplatePickup2Ctrl.ePage.Entities.Header.Data.UIWmsPickup.WorkOrderID) {
@@ -125,7 +126,7 @@
             }
         }
 
-        function SaveEntity(callback) {            
+        function SaveEntity(callback) {
             ActivityTemplatePickup2Ctrl.ePage.Masters.IsDisableSaveBtn = true;
             ActivityTemplatePickup2Ctrl.ePage.Masters.SaveBtnText = "Please Wait..";
             if (ActivityTemplatePickup2Ctrl.taskObj.WSI_StepName == "Create Pickup Challan") {

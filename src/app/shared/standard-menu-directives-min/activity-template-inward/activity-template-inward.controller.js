@@ -222,7 +222,7 @@
                                     response.data.Response.UIWmsInwardHeader.TransferWarehouse = response.data.Response.UIWmsInwardHeader.TransferTo_WAR_Code + "-" + response.data.Response.UIWmsInwardHeader.TransferTo_WAR_Name;
                                     myTaskActivityConfig.Entities.Inward[myTaskActivityConfig.Entities.Inward.label].ePage.Entities.Header.Data = response.data.Response;
                                     var count = 0;
-                                    angular.forEach(myTaskActivityConfig.Entities.Inward[myTaskActivityConfig.Entities.Inward.label].ePage.Entities.Header.Data.UIWmsWorkOrderLine, function (value, key) {                                        
+                                    angular.forEach(myTaskActivityConfig.Entities.Inward[myTaskActivityConfig.Entities.Inward.label].ePage.Entities.Header.Data.UIWmsWorkOrderLine, function (value, key) {
                                         angular.forEach(myTaskActivityConfig.Entities.PickupData.UIWmsPickupLine, function (value1, key1) {
                                             if (value.AdditionalRef1Code == value1.AdditionalRef1Code) {
                                                 if (value1.WAR_WarehouseCode == "BDL001") {
@@ -320,23 +320,23 @@
                                     myTaskActivityConfig.Entities.PickupData.UIWmsPickupLine = $filter('orderBy')(myTaskActivityConfig.Entities.PickupData.UIWmsPickupLine, 'AdditionalRef1Code');
                                     angular.forEach(myTaskActivityConfig.Entities.PickupData.UIvwWmsPickupLine, function (value1, key1) {
                                         angular.forEach(myTaskActivityConfig.Entities.Inward[myTaskActivityConfig.Entities.Inward.label].ePage.Entities.Header.Data.UIWmsWorkOrderLine, function (value, key) {
-                                            // if (value.Parent_FK == value1.PL_PK) {
-                                            if (value1.PL_WorkOrderLineStatus == "ICWS") {
-                                                myTaskActivityConfig.Entities.PickupData.UIWmsPickupLine[key1].WorkOrderLineStatus = "SCWS";
-                                            } else if (value1.PL_WorkOrderLineStatus == "ICWT") {
-                                                myTaskActivityConfig.Entities.PickupData.UIWmsPickupLine[key1].WorkOrderLineStatus = "SCWT";
-                                            } else if (value1.PL_WorkOrderLineStatus == "ICWR") {
-                                                myTaskActivityConfig.Entities.PickupData.UIWmsPickupLine[key1].WorkOrderLineStatus = "SCWR";
-                                            } else if (value1.PL_WorkOrderLineStatus == "ITW") {
-                                                myTaskActivityConfig.Entities.PickupData.UIWmsPickupLine[key1].WorkOrderLineStatus = "STW";
-                                            } else if (value1.PL_WorkOrderLineStatus == "IRW") {
-                                                myTaskActivityConfig.Entities.PickupData.UIWmsPickupLine[key1].WorkOrderLineStatus = "SRW";
-                                            } else if (value1.PL_WorkOrderLineStatus == "ISTW") {
-                                                myTaskActivityConfig.Entities.PickupData.UIWmsPickupLine[key1].WorkOrderLineStatus = "SSTW";
-                                            } else if (value1.PL_WorkOrderLineStatus == "ISW") {
-                                                myTaskActivityConfig.Entities.PickupData.UIWmsPickupLine[key1].WorkOrderLineStatus = "SSW";
+                                            if (value.AdditionalRef1Code == value1.PL_AdditionalRef1Code) {
+                                                if (value1.PL_WorkOrderLineStatus == "ICWS") {
+                                                    myTaskActivityConfig.Entities.PickupData.UIWmsPickupLine[key1].WorkOrderLineStatus = "SCWS";
+                                                } else if (value1.PL_WorkOrderLineStatus == "ICWT") {
+                                                    myTaskActivityConfig.Entities.PickupData.UIWmsPickupLine[key1].WorkOrderLineStatus = "SCWT";
+                                                } else if (value1.PL_WorkOrderLineStatus == "ICWR") {
+                                                    myTaskActivityConfig.Entities.PickupData.UIWmsPickupLine[key1].WorkOrderLineStatus = "SCWR";
+                                                } else if (value1.PL_WorkOrderLineStatus == "ITW") {
+                                                    myTaskActivityConfig.Entities.PickupData.UIWmsPickupLine[key1].WorkOrderLineStatus = "STW";
+                                                } else if (value1.PL_WorkOrderLineStatus == "IRW") {
+                                                    myTaskActivityConfig.Entities.PickupData.UIWmsPickupLine[key1].WorkOrderLineStatus = "SRW";
+                                                } else if (value1.PL_WorkOrderLineStatus == "ISTW") {
+                                                    myTaskActivityConfig.Entities.PickupData.UIWmsPickupLine[key1].WorkOrderLineStatus = "SSTW";
+                                                } else if (value1.PL_WorkOrderLineStatus == "ISW") {
+                                                    myTaskActivityConfig.Entities.PickupData.UIWmsPickupLine[key1].WorkOrderLineStatus = "SSW";
+                                                }
                                             }
-                                            // }
                                         });
                                     });
                                     myTaskActivityConfig.Entities.PickupData = filterObjectUpdate(myTaskActivityConfig.Entities.PickupData, "IsModified");

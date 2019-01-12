@@ -108,23 +108,21 @@
                     </div>
                 </div>
                 <div class="rows p-5 height-80">
-                    <div class="col-lg-8 addressstyle">
-                        <div ng-show="DeliveryGeneralCtrl.ePage.Entities.Header.Data.UIWmsDelivery.Warehouse" ng-repeat="x in DeliveryGeneralCtrl.ePage.Entities.Header.Data.UIJobAddress | filter: {AddressType:'SND'}">
-                            <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8 addressstyle">
-                                <div class="text-single-line font-12" title='{{x.Address1}}'>{{x.Address1}}</div>
-                                <div class="text-single-line" title='{{x.Address2}}'>{{x.Address2}}</div>
-                                <div class="text-single-line" title='{{x.State}}'>{{x.State}}</div>
-                                <div class="text-single-line">
-                                    <span ng-show="x.City" title="{{x.City}}">{{x.City}} -</span>
-                                    <span ng-show="x.PostCode" title="{{x.PostCode}}">{{x.PostCode}}</span>
-                                </div>
+                    <div ng-show="DeliveryGeneralCtrl.ePage.Entities.Header.Data.UIWmsDelivery.Warehouse" ng-repeat="x in DeliveryGeneralCtrl.ePage.Entities.Header.Data.UIJobAddress | filter: {AddressType:'SND'}">
+                        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8 addressstyle">
+                            <div class="text-single-line font-12" title='{{x.Address1}}'>{{x.Address1}}</div>
+                            <div class="text-single-line" title='{{x.Address2}}'>{{x.Address2}}</div>
+                            <div class="text-single-line" title='{{x.State}}'>{{x.State}}</div>
+                            <div class="text-single-line">
+                                <span ng-show="x.City" title="{{x.City}}">{{x.City}} -</span>
+                                <span ng-show="x.PostCode" title="{{x.PostCode}}">{{x.PostCode}}</span>
                             </div>
-                            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 p-0 mt-30">
-                                <div class="pull-right text-single-line font-12" ng-show="x.Mobile" title="{{x.Mobile}}">
-                                    <i class="fa fa-phone ml-5 mr-5"></i>{{x.Mobile}}</div>
-                                <div class="pull-right text-single-line font-12" ng-show="x.Email" title="{{x.Email}}">
-                                    <i class="fa fa-envelope-o ml-5 mr-5"></i>{{x.Email}}</div>
-                            </div>
+                        </div>
+                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 p-0 mt-30">
+                            <div class="pull-right text-single-line font-12" ng-show="x.Mobile" title="{{x.Mobile}}">
+                                <i class="fa fa-phone ml-5 mr-5"></i>{{x.Mobile}}</div>
+                            <div class="pull-right text-single-line font-12" ng-show="x.Email" title="{{x.Email}}">
+                                <i class="fa fa-envelope-o ml-5 mr-5"></i>{{x.Email}}</div>
                         </div>
                     </div>
                 </div>
@@ -176,23 +174,21 @@
                     </div>
                 </div>
                 <div class="rows p-5 height-80">
-                    <div class="col-lg-8 addressstyle">
-                        <div ng-show="DeliveryGeneralCtrl.ePage.Entities.Header.Data.UIWmsDelivery.Consignee" ng-repeat="x in DeliveryGeneralCtrl.ePage.Entities.Header.Data.UIJobAddress | filter: {AddressType:'SUD'}">
-                            <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8 addressstyle">
-                                <div class="text-single-line font-12" title='{{x.Address1}}'>{{x.Address1 }}</div>
-                                <div class="text-single-line" title='{{x.Address2}}'>{{x.Address2 }}</div>
-                                <div class="text-single-line" title='{{x.State}}'>{{x.State}}</div>
-                                <div class="text-single-line">
-                                    <span ng-show="x.City" title="{{x.City}}">{{x.City}} -</span>
-                                    <span ng-show="x.PostCode" title="{{x.PostCode}}">{{x.PostCode}}</span>
-                                </div>
+                    <div ng-show="DeliveryGeneralCtrl.ePage.Entities.Header.Data.UIWmsDelivery.Consignee" ng-repeat="x in DeliveryGeneralCtrl.ePage.Entities.Header.Data.UIJobAddress | filter: {AddressType:'SUD'}">
+                        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8 addressstyle">
+                            <div class="text-single-line font-12" title='{{x.Address1}}'>{{x.Address1 }}</div>
+                            <div class="text-single-line" title='{{x.Address2}}'>{{x.Address2 }}</div>
+                            <div class="text-single-line" title='{{x.State}}'>{{x.State}}</div>
+                            <div class="text-single-line">
+                                <span ng-show="x.City" title="{{x.City}}">{{x.City}} -</span>
+                                <span ng-show="x.PostCode" title="{{x.PostCode}}">{{x.PostCode}}</span>
                             </div>
-                            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 p-0 mt-30">
-                                <div class="pull-right text-single-line font-12" ng-show="x.Mobile" title="{{x.Mobile}}">
-                                    <i class="fa fa-phone ml-5 mr-5"></i>{{x.Mobile}}</div>
-                                <div class="pull-right text-single-line font-12" ng-show="x.Email" title="{{x.Email}}">
-                                    <i class="fa fa-envelope-o ml-5 mr-5"></i>{{x.Email}}</div>
-                            </div>
+                        </div>
+                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 p-0 mt-30">
+                            <div class="pull-right text-single-line font-12" ng-show="x.Mobile" title="{{x.Mobile}}">
+                                <i class="fa fa-phone ml-5 mr-5"></i>{{x.Mobile}}</div>
+                            <div class="pull-right text-single-line font-12" ng-show="x.Email" title="{{x.Email}}">
+                                <i class="fa fa-envelope-o ml-5 mr-5"></i>{{x.Email}}</div>
                         </div>
                     </div>
                 </div>

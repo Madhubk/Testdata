@@ -110,6 +110,7 @@
                             myTaskActivityConfig.Entities.Delivery = ActivityTemplateDelivery2Ctrl.currentDelivery;
                             getTaskConfigData();
                         } else {
+                            deliveryConfig.TabList = [];
                             deliveryConfig.GetTabDetails(ActivityTemplateDelivery2Ctrl.ePage.Entities.Header.Data.UIWmsDelivery, false).then(function (response) {
                                 angular.forEach(response, function (value, key) {
                                     if (value.label == ActivityTemplateDelivery2Ctrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderID) {
@@ -125,7 +126,7 @@
             }
         }
 
-        function SaveEntity(callback) {            
+        function SaveEntity(callback) {
             ActivityTemplateDelivery2Ctrl.ePage.Masters.IsDisableSaveBtn = true;
             ActivityTemplateDelivery2Ctrl.ePage.Masters.SaveBtnText = "Please Wait..";
             if (ActivityTemplateDelivery2Ctrl.taskObj.WSI_StepName == "Create Delivery Challan") {

@@ -41,7 +41,7 @@
             InitAction();
         }
 
-        function InitAction() {            
+        function InitAction() {
             DeliveryRequestToolbarCtrl.ePage.Masters.CancelledDeliveryList = [];
             DeliveryRequestToolbarCtrl.ePage.Masters.CancelledDeliveryCount = 0;
             DeliveryRequestToolbarCtrl.ePage.Masters.OtherCount = 0
@@ -59,7 +59,7 @@
             }
         }
 
-        function CreateDelivery() {            
+        function CreateDelivery() {
             if (DeliveryRequestToolbarCtrl.ePage.Masters.CancelledDeliveryCount > 0) {
                 var TempWarehouse = DeliveryRequestToolbarCtrl.ePage.Masters.CancelledDeliveryList[0].DEL_WAR_Code;
                 var TempConsignee = DeliveryRequestToolbarCtrl.ePage.Masters.CancelledDeliveryList[0].DEL_ConsigneeCode;
@@ -140,12 +140,18 @@
                                             angular.forEach(DeliveryRequestToolbarCtrl.ePage.Masters.CancelledDeliveryList, function (value, key) {
                                                 apiService.get("eAxisAPI", appConfig.Entities.WmsDeliveryList.API.GetById.Url + value.DEL_WorkOrderPk).then(function (response) {
                                                     if (response.data.Response) {
-                                                        response.data.Response.UIWmsDelivery.WorkOrderStatus = "RDL";
+                                                        var count = 0;
                                                         angular.forEach(response.data.Response.UIWmsDeliveryLine, function (value1, key1) {
                                                             if (value1.PK == value.DL_PK) {
                                                                 value1.WorkOrderLineStatus = "RDL";
                                                             }
+                                                            if (value1.WorkOrderLineStatus == "RDL") {
+                                                                count = count + 1;
+                                                            }
                                                         });
+                                                        if (count == response.data.Response.UIWmsDeliveryLine.length) {
+                                                            response.data.Response.UIWmsDelivery.WorkOrderStatus = "RDL";
+                                                        }
                                                         response.data.Response = filterObjectUpdate(response.data.Response, "IsModified");
                                                         apiService.post("eAxisAPI", appConfig.Entities.WmsDeliveryList.API.Update.Url, response.data.Response).then(function (response) {
                                                             if (response.data.Response) {
