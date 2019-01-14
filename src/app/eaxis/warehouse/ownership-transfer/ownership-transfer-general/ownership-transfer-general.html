@@ -2,7 +2,8 @@
 
 <!-- General -->
 <div class="clearfix">
-    <!-- Client -->
+
+    <!-- Transfer From Client -->
     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-5">
         <div class="inner-dashboard-box">
             <div class="rows border-bottom">
@@ -12,11 +13,11 @@
                     </span>
                     <label class="ml-5 control-label">Transfer From Client</label>
                     <span class="error-warning-container">
-                        <error-warning-directive data-ng-if="OwnershipTransferGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.TransferFrom_ORG_Code.IsWarning && !OwnershipTransferGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.TransferFrom_ORG_Code.IsError"
-                            list="OwnershipTransferGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.TransferFrom_ORG_Code.WARNING"
+                        <error-warning-directive data-ng-if="OwnershipTransferGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.TransferFrom_Client.IsWarning && !OwnershipTransferGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.TransferFrom_Client.IsError"
+                            list="OwnershipTransferGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.TransferFrom_Client.WARNING"
                             type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
-                        <error-warning-directive data-ng-if="OwnershipTransferGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.TransferFrom_ORG_Code.IsError"
-                            list="OwnershipTransferGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.TransferFrom_ORG_Code.ERROR"
+                        <error-warning-directive data-ng-if="OwnershipTransferGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.TransferFrom_Client.IsError"
+                            list="OwnershipTransferGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.TransferFrom_Client.ERROR"
                             type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
                     </span>
                 </div>
@@ -39,12 +40,12 @@
                             </button>
                         </span>
                         <span ng-if='!OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.TransferFrom_Client && !OwnershipTransferGeneralCtrl.currentOwnerTransfer.isNew'>
-                            <div ng-init="OwnershipTransferGeneralCtrl.ePage.Masters.OnChangeValues(OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.TransferFrom_Client,'E11011')"></div>
+                            <div ng-init="OwnershipTransferGeneralCtrl.ePage.Masters.OnChangeValues(OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.TransferFrom_Client,'E11032')"></div>
                         </span>
                     </div>
                 </div>
             </div>
-            <div class="rows p-5 height-103">
+            <div class="rows p-5 height-75">
                 <div ng-show="OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.TransferFrom_Client"
                     ng-repeat="x in OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIJobAddress | filter: {AddressType:'SND'}">
                     <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8 addressstyle">
@@ -66,6 +67,7 @@
             </div>
         </div>
     </div>
+
     <!-- Client -->
     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-5">
         <div class="inner-dashboard-box">
@@ -108,9 +110,9 @@
                     </div>
                 </div>
             </div>
-            <div class="rows p-5 height-103">
+            <div class="rows p-5 height-75">
                 <div data-ng-if="OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.Client">
-                    <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8 addressstyle mt-10">
+                    <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8 addressstyle">
                         <div class="text-single-line font-12" title='{{OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_Address1}}'>{{OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_Address1}}</div>
                         <div class="text-single-line" title='{{OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_Address2}}'>{{OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_Address2}}</div>
                         <div class="text-single-line" title='{{OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_State}}'>{{OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_State}}</div>
@@ -134,12 +136,14 @@
             </div>
         </div>
     </div>
+
 </div>
-<!-- Warehouse Refernce -->
-<div class="clearfix col-lg-12 mt-10">
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 pl-0 pr-0">
+
+<!-- Other References -->
+<div class="clearfix mt-10">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
         <div class="inner-dashboard-box">
-            <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 mt-10">
+            <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 col-xl-3 mt-10">
                 <div class="form-group">
                     <div class="error-warning-container">
                         <error-warning-directive data-ng-if="OwnershipTransferGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Warehouse.IsWarning && !OwnershipTransferGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Warehouse.IsError"
@@ -174,7 +178,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 mt-10">
+            <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 col-xl-3 mt-10">
                 <div class=" clearfix form-group">
                     <label class="control-label">Reference</label>
                     <span ng-if='OwnershipTransferGeneralCtrl.currentOwnerTransfer.isNew' ng-init="OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.ExternalReference = ''"></span>
@@ -184,7 +188,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 mt-10">
+            <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 col-xl-3 mt-10">
                 <div class="clearfix form-group">
                     <label class="control-label">Transfer Type</label>
                     <div class="">
@@ -196,7 +200,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 mt-10">
+            <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 col-xl-3 mt-10">
                 <div class="clearfix form-group">
                     <label class="control-label">Status</label>
                     <div class="">
@@ -206,8 +210,8 @@
             </div>
         </div>
     </div>
-
 </div>
+
 <!-- Adjustment Line -->
 <div class="clearfix mt-5">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 custompadding">
@@ -219,7 +223,7 @@
             </span>
             <span>
                 <button type="button" class="btn btn-sm btn-outline-primary font-10" title="Copy" data-ng-click="OwnershipTransferGeneralCtrl.ePage.Masters.CopyRow()"
-                    ng-disabled="!OwnershipTransferGeneralCtrl.ePage.Masters.EnableDeleteButton || OwnershipTransferGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
+                    ng-disabled="!OwnershipTransferGeneralCtrl.ePage.Masters.EnableCopyButton || OwnershipTransferGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
                     <span class="fa fa-copy"></span>&nbsp;&nbsp;Copy</button>
             </span>
             <span>
@@ -1114,7 +1118,7 @@
 <!--FIlter Bar  -->
 <div id="filterSideBar{{OwnershipTransferGeneralCtrl.ePage.Masters.DynamicControl.DataEntryName}}{{OwnershipTransferGeneralCtrl.currentOwnerTransfer.label}}"
     data-ng-if="OwnershipTransferGeneralCtrl.ePage.Masters.DynamicControl" class="dynamic-filter-sidebar-wrapper  clearfix filter-text"
-    style="top:520px;height:200px;overflow-y: overlay;z-index: 13" data-ng-class="OwnershipTransferGeneralCtrl.ePage.Masters.ViewType == 1 ? 'one-column' : 'two-column'">
+    style="top:500px;height:200px;overflow-y: overlay;z-index: 13" data-ng-class="OwnershipTransferGeneralCtrl.ePage.Masters.ViewType == 1 ? 'one-column' : 'two-column'">
     <form name="filterSidebar" novalidate>
         <div class="header clearfix">
             <div class="title pull-left">

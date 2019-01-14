@@ -193,6 +193,9 @@
             StocktransferEntryCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.Client = StocktransferEntryCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.ClientCode + ' - ' + StocktransferEntryCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.ClientName;
             if (StocktransferEntryCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.Client == ' - ')
                 StocktransferEntryCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.Client = "";
+
+            if(StocktransferEntryCtrl.currentStockTransfer.isNew)
+            StocktransferEntryCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.WorkOrderSubType = 'TFR';
         }
 
         function SelectedLookupClient(item) { 
