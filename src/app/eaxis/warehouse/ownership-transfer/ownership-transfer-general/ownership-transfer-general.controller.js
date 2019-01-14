@@ -140,7 +140,6 @@
         //#endregion   
 
         //#region Header Details
-
         function OpenDatePicker($event, opened) {
             $event.preventDefault();
             $event.stopPropagation();
@@ -148,7 +147,7 @@
         }
 
         function GetDropDownList() {
-            var typeCodeList = ["StockTransferStatus", "INW_LINE_UQ", "WMSYESNO", "ProductCondition"];
+            var typeCodeList = ["StockTransferStatus","StockTransferType", "INW_LINE_UQ", "WMSYESNO", "ProductCondition"];
             var dynamicFindAllInput = [];
 
             typeCodeList.map(function (value, key) {
@@ -194,7 +193,8 @@
             OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.Client = OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.ClientCode + ' - ' + OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.ClientName;
             if (OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.Client == ' - ')
                 OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.Client = "";
-            //Transfer from Client
+            
+                //Transfer from Client
             if (OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.TransferFrom_ORG_Code == null) {
                 OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.TransferFrom_ORG_Code = "";
             }
@@ -204,6 +204,9 @@
             OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.TransferFrom_Client = OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.TransferFrom_ORG_Code + ' - ' + OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.TransferFrom_ORG_FullName;
             if (OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.TransferFrom_Client == ' - ')
                 OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.TransferFrom_Client = "";
+
+            if(OwnershipTransferGeneralCtrl.currentOwnerTransfer.isNew)
+            OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.WorkOrderSubType = 'OWN';
         }
 
         function GetNewAddress() {
@@ -235,11 +238,17 @@
 
         function SelectedLookupTransferFromClient(item) {
             OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.TransferFrom_Client = item.Code + "-" + item.FullName;
-            OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.TransferFrom_ORG_Code = item.Code;
-            OnChangeValues(OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.TransferFrom_ORG_Code, '');
+            OnChangeValues(OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.TransferFrom_Client, 'E11032');
+
+            if(OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.TransferFrom_ORG_FK && OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.ORG_Client_FK)
+            if(OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.TransferFrom_ORG_FK == OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.ORG_Client_FK){
+                OnChangeValues(null, 'E11033');
+            }else{
+                OnChangeValues('value', 'E11033');
+            }
 
             angular.forEach(OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIJobAddress, function (value, key) {
-                if (value.AddressType == "SUD") {
+                if (value.AddressType == "SND") {
                     value.ORG_FK = item.PK;
                     value.OAD_Address_FK = item.OAD_PK;
                     value.Address1 = item.OAD_Address1;
@@ -256,13 +265,21 @@
             });
 
             DefaultFilter();
-            GetUDFDetails();
         }
 
         function SelectedLookupClient(item) {
             OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.Client = item.Code + '-' + item.FullName;
             OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader = item;
             OnChangeValues(OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.Client, 'E11011');
+
+            if(OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.TransferFrom_ORG_FK && OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.ORG_Client_FK)
+            if(OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.TransferFrom_ORG_FK == OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.ORG_Client_FK){
+                OnChangeValues(null, 'E11033');
+            }else{
+                OnChangeValues('value', 'E11033');
+            }
+
+            GetUDFDetails();
         }
 
         function SelectedLookupWarehouse(item) {
@@ -272,7 +289,7 @@
         }
 
         function GetUDFDetails() {
-            if (OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.ORG_Client_FK) {
+            if (OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.Client) {
                 var _filter = {
                     "ORG_FK": OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.ORG_Client_FK
                 };
@@ -327,8 +344,8 @@
                 value.WAR_WarehouseName = OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.WarehouseName;
                 value.WAR_FK = OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.WAR_FK;
 
-                if (OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.TransferFrom_Client) {
-                    value.Client = OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.TransferFrom_ORG_Code;
+                if (OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.Client) {
+                    value.Client = OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.ClientCode;
                     value.ClientRelationship = "OWN";
                 }
 
@@ -354,7 +371,7 @@
             OwnershipTransferGeneralCtrl.ePage.Masters.Documents.Autherization = authService.getUserInfo().AuthToken;
             OwnershipTransferGeneralCtrl.ePage.Masters.Documents.fileDetails = [];
             OwnershipTransferGeneralCtrl.ePage.Masters.Documents.fileSize = 10;
-            OwnershipTransferGeneralCtrl.ePage.Entities.Entity = 'OwntransferLines';
+            OwnershipTransferGeneralCtrl.ePage.Entities.Entity = 'Own_TransferLines';
             OwnershipTransferGeneralCtrl.ePage.Entities.EntityRefCode = OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.WorkOrderID;
 
             var _additionalValue = {
@@ -382,7 +399,7 @@
 
         function DownloadReport() {
             OwnershipTransferGeneralCtrl.ePage.Masters.Loading = true;
-            apiService.get("eAxisAPI", appConfig.Entities.DMS.API.DownloadTemplate.Url + "/StockTransferLineBulkUpload").then(function (response) {
+            apiService.get("eAxisAPI", appConfig.Entities.DMS.API.DownloadTemplate.Url + "/ReceiveLineBulkUpload").then(function (response) {
                 OwnershipTransferGeneralCtrl.ePage.Masters.Loading = false;
                 if (response.data.Response) {
                     if (response.data.Response !== "No Records Found!") {
@@ -556,16 +573,16 @@
                     "IsPartAttrib2ReleaseCaptured": false,
                     "IsPartAttrib3ReleaseCaptured": false,
 
-                    "ORG_ClientCode": OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.TransferFrom_ORG_Code,
-                    "ORG_ClientName": OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.TransferFrom_ORG_FullName,
-                    "Client_FK": OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.TransferFrom_ORG_FK,
+                    "ORG_ClientCode": OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.ClientCode,
+                    "ORG_ClientName": OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.ClientName,
+                    "Client_FK": OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.ORG_Client_FK,
 
                     "WAR_WarehouseCode": OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.WarehouseCode,
                     "WAR_WarehouseName": OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.WarehouseName,
                     "WAR_FK": OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.WAR_FK,
                 };
-                if (OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.TransferFrom_Client) {
-                    obj.Client = OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.TransferFrom_ORG_Code
+                if (OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.Client) {
+                    obj.Client = OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.ClientCode
                     obj.ClientRelationship = "OWN";
                 }
                 OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferLine.push(obj);
@@ -636,8 +653,8 @@
                         "OriginalInventoryStatus": "",
                         "OriginalInventoryStatusDesc": "",
                     };
-                    if (OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.TransferFrom_Client) {
-                        obj.Client = OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.TransferFrom_ORG_Code
+                    if (OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.Client) {
+                        obj.Client = OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.ClientCode
                         obj.ClientRelationship = "OWN";
                     }
                     OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferLine.splice(i + 1, 0, obj);
@@ -819,7 +836,7 @@
 
                             value.CSS = {};
                             value.ConfigData.map(function (value2, key2) {
-                                if (value2.PropertyName == 'ClientCode' || value2.PropertyName == 'WAR_WarehouseCode' || value2.PropertyName == 'OriginalInventoryStatus') {
+                                if (value2.PropertyName == 'TransferFrom_ORG_Code' || value2.PropertyName == 'WAR_WarehouseCode' || value2.PropertyName == 'OriginalInventoryStatus') {
                                     value.CSS["Is" + value2.PropertyName + "Visible"] = true;
                                     value.CSS["Is" + value2.PropertyName + "Disable"] = true;
                                 } else {
@@ -834,7 +851,6 @@
                 }
             });
         }
-
 
         function Filter() {
 

@@ -115,7 +115,7 @@
                             <div class="">
                                 <select chosen class="form-control" ng-model="StocktransferEntryCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.WorkOrderSubType"
                                     ng-options="x.Key as x.Key + ' - '  + x.Value for x in StocktransferEntryCtrl.ePage.Masters.DropDownMasterList.StockTransferType.ListSource"
-                                    search-contains="true" ng-disabled="StocktransferEntryCtrl.ePage.Entities.Header.GlobalVariables.NonEditable || StocktransferEntryCtrl.ePage.Entities.Header.Data.UIWmsStockTransferLine.length!=0">
+                                    search-contains="true" ng-disabled="true">
                                     <option value="">--Select--</option>
                                 </select>
                             </div>
