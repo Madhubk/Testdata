@@ -107,11 +107,11 @@
                                             "PAC_PackType": value.DL_PAC_PackType,
                                             "Units": value.DL_Units,
                                             "StockKeepingUnit": value.DL_StockKeepingUnit,
-                                            "PartAttrib1": value.OUT_DeliveredPartAttrib1,
-                                            "PartAttrib2": value.OUT_DeliveredPartAttrib2,
-                                            "PartAttrib3": value.OUT_DeliveredPartAttrib3,
-                                            "PackingDate": value.OUT_DeliveredPackingDate,
-                                            "ExpiryDate": value.OUT_DeliveredExpiryDate,
+                                            "PartAttrib1": "",
+                                            "PartAttrib2": "",
+                                            "PartAttrib3": "",
+                                            "PackingDate": "",
+                                            "ExpiryDate": "",
                                             "UseExpiryDate": value.DL_UseExpiryDate,
                                             "UsePackingDate": value.DL_UsePackingDate,
                                             "UsePartAttrib1": value.DL_UsePartAttrib1,
@@ -145,15 +145,17 @@
                                             // _queryString = helperService.encryptData(_queryString);
                                             // $window.open("#/EA/single-record-view/pendingpickup/" + _queryString, "_blank");
                                             helperService.refreshGrid();
-                                            var _filter = {
-                                                PSM_FK: "b37d7a0a-d29e-4cb2-82e7-f2c47a081f0c",
-                                                WSI_FK: "e89d563a-9bfb-4a2d-aea9-22c666828f18",
-                                                UserStatus: "WITHIN_KPI_AVAILABLE",
-                                                EntityRefKey: response.data.Response.UIWmsPickup.PK
-                                            };
-                                            $location.path("/EA/my-tasks").search({
-                                                filter: helperService.encryptData(_filter)
-                                            });
+                                            $timeout(function () {
+                                                var _filter = {
+                                                    PSM_FK: "b37d7a0a-d29e-4cb2-82e7-f2c47a081f0c",
+                                                    WSI_FK: "e89d563a-9bfb-4a2d-aea9-22c666828f18",
+                                                    UserStatus: "WITHIN_KPI_AVAILABLE",
+                                                    EntityRefKey: response.data.Response.UIWmsPickup.PK
+                                                };
+                                                $location.path("/EA/my-tasks").search({
+                                                    filter: helperService.encryptData(_filter)
+                                                });
+                                            }, 2000);
                                         } else {
                                             toastr.error("Pickup Creation Failed. Please try again later");
                                             PendingPickupToolbarCtrl.ePage.Masters.IsCreatePickupBtn = false;

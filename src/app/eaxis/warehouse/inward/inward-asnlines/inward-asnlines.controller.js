@@ -576,7 +576,7 @@
                 if (!InwardAsnLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.ArrivalDate) {
                     OnChangeValues(null, "E3034", false, undefined);
                     InwardAsnLinesCtrl.ePage.Masters.Config.ShowErrorWarningModal(InwardAsnLinesCtrl.currentInward);
-                } else {                    
+                } else {
                     angular.forEach(InwardAsnLinesCtrl.ePage.Entities.Header.Data.UIWmsAsnLine, function (value, key) {
                         var obj = {
                             "LineNo": value.LineNo,
@@ -594,6 +594,8 @@
                             "PackingDate": value.PackingDate,
                             "ExpiryDate": value.ExpiryDate,
                             "AdditionalRef1Code": value.AdditionalRef1Code,
+                            "AdditionalRef1Type": value.AdditionalRef1Type,
+                            "AdditionalRef1Fk": value.AdditionalRef1Fk,
                             "IsModified": value.IsModified,
                             "IsDeleted": value.IsDeleted,
                             "ProductCode": value.ProductCode,

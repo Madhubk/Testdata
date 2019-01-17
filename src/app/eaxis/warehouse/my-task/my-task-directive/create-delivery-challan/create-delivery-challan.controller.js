@@ -252,6 +252,7 @@
                         }
                         response.data.Response.Response.UIWmsOutwardHeader.AdditionalRef2Fk = CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.PK;
                         response.data.Response.Response.UIWmsOutwardHeader.AdditionalRef2Code = CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderID;
+                        response.data.Response.Response.UIWmsOutwardHeader.AdditionalRef1Type = "Delivery";
                         response.data.Response.Response.UIWmsOutwardHeader.RequiredDate = new Date();
                         response.data.Response.Response.UIWmsOutwardHeader.WorkOrderType = "ORD";
 
@@ -294,6 +295,8 @@
                                 "PackingDate": value.DL_PackingDate,
                                 "ExpiryDate": value.DL_ExpiryDate,
                                 "AdditionalRef1Code": value.DL_AdditionalRef1Code,
+                                "AdditionalRef1Type": "DeliveryLine",
+                                "AdditionalRef1Fk": value.DL_PK,
                                 "UseExpiryDate": value.DL_UseExpiryDate,
                                 "UsePackingDate": value.DL_UsePackingDate,
                                 "UsePartAttrib1": value.DL_UsePartAttrib1,

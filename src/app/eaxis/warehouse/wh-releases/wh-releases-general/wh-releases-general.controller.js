@@ -385,6 +385,7 @@
                         "ExpiryDate": value.ExpiryDate,
                         "AdditionalRef1Code": value.AdditionalRef1Code,
                         "AdditionalRef1Type": value.AdditionalRef1Type,
+                        "AdditionalRef1Fk": value.AdditionalRef1Fk,
                         "UseExpiryDate": value.PackingDate ? true : false,
                         "UsePackingDate": value.ExpiryDate ? true : false,
                         "UsePartAttrib1": value.PartAttrib1 ? true : false,

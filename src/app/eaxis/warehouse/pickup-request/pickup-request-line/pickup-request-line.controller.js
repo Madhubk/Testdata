@@ -43,7 +43,13 @@
             PickupLineCtrl.ePage.Masters.AddNewRow = AddNewRow;
             PickupLineCtrl.ePage.Masters.CopyRow = CopyRow;
             PickupLineCtrl.ePage.Masters.RemoveRow = RemoveRow;
+            PickupLineCtrl.ePage.Masters.Attach = Attach;
             PickupLineCtrl.ePage.Masters.emptyText = '-';
+
+            PickupLineCtrl.ePage.Masters.AttachDefaultFilter = {
+                "CancelledDate": "NULL",
+                "DL_WorkOrderLineStatus": "DEL"
+            }
 
             PickupLineCtrl.ePage.Masters.Pagination = {};
             PickupLineCtrl.ePage.Masters.Pagination.CurrentPage = 1;
@@ -55,6 +61,61 @@
 
             GetUserBasedGridColumList();
             GetDropDownList();
+        }
+
+        function Attach($item) {
+            debugger
+            angular.forEach($item, function (value, key) {
+                var _isExist = PickupLineCtrl.ePage.Entities.Header.Data.UIWmsPickupLine.some(function (value1, index1) {
+                    return value1.WOL_Parent_FK === value.DL_PK;
+                });
+
+                if (!_isExist) {
+                    if (!value.PL_Pk) {
+                        var obj = {
+                            "PK": "",
+                            "WOL_Parent_FK": value.DL_PK,
+                            "ProductCode": value.DL_Req_PrdCode,
+                            "ProductDescription": value.DL_Req_PrdDesc,
+                            "ProductCondition": value.DL_ProductCondition,
+                            "PRO_FK": value.DL_Req_PrdPk,
+                            "MCC_NKCommodityCode": value.DL_MCC_NKCommodityCode,
+                            "Packs": value.DL_Packs,
+                            "PAC_PackType": value.DL_PAC_PackType,
+                            "Units": value.DL_Units,
+                            "StockKeepingUnit": value.DL_StockKeepingUnit,
+                            "PartAttrib1": value.DL_PartAttrib1,
+                            "PartAttrib2": value.DL_PartAttrib2,
+                            "PartAttrib3": value.DL_PartAttrib3,
+                            "PackingDate": value.DL_PackingDate,
+                            "ExpiryDate": value.DL_ExpiryDate,
+                            "UseExpiryDate": value.DL_UseExpiryDate,
+                            "UsePackingDate": value.DL_UsePackingDate,
+                            "UsePartAttrib1": value.DL_UsePartAttrib1,
+                            "UsePartAttrib2": value.DL_UsePartAttrib2,
+                            "UsePartAttrib3": value.DL_UsePartAttrib3,
+                            "IsPartAttrib1ReleaseCaptured": value.DL_IsPartAttrib1ReleaseCaptured,
+                            "IsPartAttrib2ReleaseCaptured": value.DL_IsPartAttrib2ReleaseCaptured,
+                            "IsPartAttrib3ReleaseCaptured": value.DL_IsPartAttrib3ReleaseCaptured,
+                            "WorkOrderLineType": "DEL",
+                            "IsDeleted": false,
+                            "ORG_ClientCode": value.DEL_ClientCode,
+                            "ORG_ClientName": value.DEL_ClientName,
+                            "Client_FK": value.DEL_Client_FK,
+                            "AdditionalRef1Code": "R-" + value.DL_AdditionalRef1Code,
+                            "AdditionalRef1Type": value.DL_AdditionalRef1Type,
+                            "WAR_WarehouseCode": value.DEL_WAR_Code,
+                            "WAR_WarehouseName": value.DEL_WAR_Name,
+                            "WAR_FK": value.DEL_WAR_FK,
+                        };
+                        PickupLineCtrl.ePage.Entities.Header.Data.UIWmsPickupLine.push(obj);
+                    } else {
+                        toastr.warning("Pickup " + value.PIC_WorkOrderId + " Already Available for this Delivery Line " + value.DL_AdditionalRef1Code);
+                    }
+                } else {
+                    toastr.warning(value.DL_AdditionalRef1Code + " Already Available...!");
+                }
+            });
         }
 
         function SelectedLookupProduct(item, index) {
