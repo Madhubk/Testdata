@@ -6,9 +6,9 @@
         .controller("ReleasesPickSlipController", ReleasesPickSlipController);
 
 
-    ReleasesPickSlipController.$inject = ["$scope", "$timeout", "APP_CONSTANT", "apiService", "releaseConfig", "helperService", "appConfig", "authService", "$state", "$filter", "toastr","$window","confirmation"];
+    ReleasesPickSlipController.$inject = ["$scope", "$timeout", "APP_CONSTANT", "apiService", "releaseConfig", "helperService", "appConfig", "authService", "$document", "$filter", "toastr","$window","confirmation"];
 
-    function ReleasesPickSlipController($scope, $timeout, APP_CONSTANT, apiService, releaseConfig, helperService, appConfig, authService, $state, $filter, toastr,$window,confirmation) {
+    function ReleasesPickSlipController($scope, $timeout, APP_CONSTANT, apiService, releaseConfig, helperService, appConfig, authService, $document, $filter, toastr,$window,confirmation) {
 
         var ReleasesPickSlipCtrl = this;
 
@@ -55,11 +55,48 @@
             ReleasesPickSlipCtrl.ePage.Masters.Config = releaseConfig;
             ReleasesPickSlipCtrl.ePage.Masters.ShowAllFunc = ShowAllFunc;
             ReleasesPickSlipCtrl.ePage.Masters.NormalizingPickSlipTab = NormalizingPickSlipTab;
+            ReleasesPickSlipCtrl.ePage.Masters.KeyEventHandling = KeyEventHandling;
 
             GetUserBasedGridColumListForPickLineSummary();
             GetUserBasedGridColumListForUIWmsReleaseLine();
         }
-           
+        
+        function KeyEventHandling(e , textField){
+            if (ReleasesPickSlipCtrl.ePage.Masters.EnableAddOrChooseButton && ReleasesPickSlipCtrl.ePage.Masters.selectedRowForUIWmsReleaseLine!=-1 && e.keyCode == 13) {
+                var TotalUpdated = 0;
+
+                ReleasesPickSlipCtrl.ePage.Entities.Header.Data.UIWmsReleaseLine.map(function(value,key){
+                    if(ReleasesPickSlipCtrl.ePage.Masters.SelectedPickLinePK == value.WPL_FK && value.Units){
+                        TotalUpdated = TotalUpdated + parseFloat(value.Units);
+                    }
+                });
+
+                if(parseFloat(TotalUpdated) <= parseFloat(ReleasesPickSlipCtrl.ePage.Masters.CurrentPickLine.Units)){                        
+                    if(textField == 'UDF1') {
+                        if(ReleasesPickSlipCtrl.ePage.Masters.CurrentPickLine.IsPartAttrib2ReleaseCaptured){
+                            document.getElementById('UDF2').focus()
+                        }else if(ReleasesPickSlipCtrl.ePage.Masters.CurrentPickLine.IsPartAttrib3ReleaseCaptured){
+                            document.getElementById('UDF3').focus()
+                        }else if(parseFloat(TotalUpdated) != parseFloat(ReleasesPickSlipCtrl.ePage.Masters.CurrentPickLine.Units)){
+                            AddNewRowForUIWmsReleaseLine();
+                        }
+                    }
+                    
+                    if(textField == 'UDF2') {
+                        if(ReleasesPickSlipCtrl.ePage.Masters.CurrentPickLine.IsPartAttrib3ReleaseCaptured){
+                            document.getElementById('UDF3').focus()
+                        }else if(parseFloat(TotalUpdated) != parseFloat(ReleasesPickSlipCtrl.ePage.Masters.CurrentPickLine.Units)){
+                            AddNewRowForUIWmsReleaseLine();
+                        }
+                    }
+                    
+                    if(textField == 'UDF3' && (parseFloat(TotalUpdated) != parseFloat(ReleasesPickSlipCtrl.ePage.Masters.CurrentPickLine.Units))) {
+                        AddNewRowForUIWmsReleaseLine();
+                    }
+                }
+            }
+        }
+
         function GetUserBasedGridColumListForPickLineSummary(){
             var _filter = {
                 "SAP_FK": authService.getUserInfo().AppPK,
@@ -190,13 +227,30 @@
                 "IMPartAttrib2Type": ReleasesPickSlipCtrl.ePage.Masters.CurrentPickLine.IMPartAttrib2Type,
                 "IMPartAttrib3Type": ReleasesPickSlipCtrl.ePage.Masters.CurrentPickLine.IMPartAttrib3Type,
             };
+
+            if((obj.IMPartAttrib1Type == "SER" && obj.IsPartAttrib1ReleaseCaptured) || (obj.IMPartAttrib2Type == "SER" && obj.IsPartAttrib2ReleaseCaptured) || (obj.IMPartAttrib3Type == "SER" && obj.IsPartAttrib3ReleaseCaptured)){
+                obj.Units = 1;
+            }else{
+                obj.Units = ReleasesPickSlipCtrl.ePage.Masters.CurrentPickLine.Units;
+            }
+
             ReleasesPickSlipCtrl.ePage.Entities.Header.Data.UIWmsReleaseLine.push(obj);
             ReleasesPickSlipCtrl.ePage.Masters.selectedRowForUIWmsReleaseLine = ReleasesPickSlipCtrl.ePage.Entities.Header.Data.UIWmsReleaseLine.length-1;
         
             $timeout(function () {
                 var objDiv = document.getElementById("ReleasesPickSlipCtrl.ePage.Masters.AddScroll");
                 objDiv.scrollTop = objDiv.scrollHeight;
-            }, 50);
+
+                if(obj.IsPartAttrib1ReleaseCaptured){
+                    document.getElementById('UDF1').focus();
+                }else if(obj.IsPartAttrib2ReleaseCaptured){
+                    document.getElementById('UDF2').focus();
+                }else if(obj.IsPartAttrib3ReleaseCaptured){
+                    document.getElementById('UDF3').focus();
+                }
+
+            }, 200);
+
             ReleasesPickSlipCtrl.ePage.Entities.Header.GlobalVariables.Loading = false;
         };
 
