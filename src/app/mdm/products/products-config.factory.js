@@ -156,6 +156,7 @@
                         },
                         "GlobalVariables":{
                             "Loading":false,
+                            "CanEditProduct":true
                         },
                         "TableProperties":{
                             "UIOrgSupplierPartBarcode":{
