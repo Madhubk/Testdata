@@ -93,7 +93,7 @@
                                         value.PK = "";
                                     });
                                     // response.data.Response.Response.UIWmsWorkorderReport.AcknowledgementDateTime = new Date();
-                                    // response.data.Response.Response.UIWmsWorkorderReport.AcknowledgedPerson = authService.getUserInfo().UserId;                                   
+                                    // response.data.Response.Response.UIWmsWorkorderReport.AcknowledgedPerson = authService.getUserInfo().UserId;                                                                       
                                     angular.forEach(PendingPickupToolbarCtrl.ePage.Masters.PendingPickupList, function (value, key) {
                                         var obj = {
                                             "PK": "",
@@ -127,6 +127,7 @@
                                             "Client_FK": value.DEL_ClientFk,
                                             "AdditionalRef1Code": value.DL_AdditionalRef1Code,
                                             "AdditionalRef1Type": value.DL_AdditionalRef1Type,
+                                            "AdditionalRef1Fk": value.DL_AdditionalRef1Fk,
                                             "WAR_WarehouseCode": value.DEL_WAR_Code,
                                             "WAR_WarehouseName": value.DEL_WAR_Name,
                                             "WAR_FK": value.WOD_WAR_FK,

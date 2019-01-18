@@ -82,6 +82,8 @@
 
                                 $scope.close = function () {
                                     $uibModalInstance.dismiss('cancel');
+                                    DeliveryMenuCtrl.ePage.Masters.CancelButtonText = "Cancel Delivery";
+                                    DeliveryMenuCtrl.ePage.Masters.DisableSave = false;
                                 };
 
                                 $scope.ok = function () {

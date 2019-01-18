@@ -63,8 +63,7 @@
             GetDropDownList();
         }
 
-        function Attach($item) {
-            debugger
+        function Attach($item) {            
             angular.forEach($item, function (value, key) {
                 var _isExist = PickupLineCtrl.ePage.Entities.Header.Data.UIWmsPickupLine.some(function (value1, index1) {
                     return value1.WOL_Parent_FK === value.DL_PK;

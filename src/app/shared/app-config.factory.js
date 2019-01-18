@@ -2765,7 +2765,7 @@
                 },
                 "AppCounter": {
                     "RowIndex": -1,
-                    "API": {                        
+                    "API": {
                         "Update": {
                             "IsAPI": "true",
                             "HttpType": "POST",
@@ -2855,6 +2855,16 @@
                             "Url": "WmsWorkOrderLine/FindAll",
                             "FilterID": "WMSINL"
                         },
+                        "GetById": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "WmsWorkOrderLine/GetById/",
+                        },
+                        "Update": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "WmsWorkOrderLine/Update"
+                        }
                     }
                 },
                 "TMSPickupandDeliverypoint": {

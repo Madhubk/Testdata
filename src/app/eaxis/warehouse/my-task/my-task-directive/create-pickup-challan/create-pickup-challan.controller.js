@@ -168,7 +168,8 @@
                                         value.PK = "";
                                         if (value.AddressType == "CED")
                                             value.AddressType = "SUD";
-                                    });                                    
+                                    });
+                                    
                                     angular.forEach(CreatePickupChallanCtrl.ePage.Masters.SelectedPickupLine, function (value, key) {
                                         var obj = {
                                             "PK": "",
@@ -191,12 +192,13 @@
                                             "PackingDate": value.PL_PackingDate,
                                             "ExpiryDate": value.PL_ExpiryDate,
                                             "AdditionalRef1Code": value.PL_AdditionalRef1Code,
-                                            "AdditionalRef1Type": value.PL_AdditionalRef1Type,
-                                            "UseExpiryDate": value.PL_UseExpiryDate,
-                                            "UsePackingDate": value.PL_UsePackingDate,
-                                            "UsePartAttrib1": value.PL_UsePartAttrib1,
-                                            "UsePartAttrib2": value.PL_UsePartAttrib2,
-                                            "UsePartAttrib3": value.PL_UsePartAttrib3
+                                            "AdditionalRef1Type": "PickupLine",
+                                            "AdditionalRef1Fk": value.PL_PK,
+                                            "UseExpiryDate": value.PIC_UseExpiryDate,
+                                            "UsePackingDate": value.PIC_UsePackingDate,
+                                            "UsePartAttrib1": value.PIC_UsePartAttrib1,
+                                            "UsePartAttrib2": value.PIC_UsePartAttrib2,
+                                            "UsePartAttrib3": value.PIC_UsePartAttrib3
                                         };
                                         response.data.Response.Response.UIWmsAsnLine.push(obj);
                                     });

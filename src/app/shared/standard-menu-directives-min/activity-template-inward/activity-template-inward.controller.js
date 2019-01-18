@@ -312,60 +312,72 @@
                 apiService.post("eAxisAPI", appConfig.Entities.WmsWorkOrder.API.FindAll.Url, _input).then(function (response) {
                     if (response.data.Response) {
                         ActivityTemplateInwardCtrl.ePage.Masters.WorkOrderList = response.data.Response[0];
+                        
                         if (ActivityTemplateInwardCtrl.ePage.Masters.WorkOrderList.WorkOrderType == "PIC") {
-                            apiService.get("eAxisAPI", appConfig.Entities.WmsPickupList.API.GetById.Url + ActivityTemplateInwardCtrl.ePage.Masters.WorkOrderList.PK).then(function (response) {
-                                if (response.data.Response) {
-                                    myTaskActivityConfig.Entities.PickupData = response.data.Response;
-                                    myTaskActivityConfig.Entities.PickupData.UIvwWmsPickupLine = $filter('orderBy')(myTaskActivityConfig.Entities.PickupData.UIvwWmsPickupLine, 'PL_AdditionalRef1Code');
-                                    myTaskActivityConfig.Entities.PickupData.UIWmsPickupLine = $filter('orderBy')(myTaskActivityConfig.Entities.PickupData.UIWmsPickupLine, 'AdditionalRef1Code');
-                                    angular.forEach(myTaskActivityConfig.Entities.PickupData.UIvwWmsPickupLine, function (value1, key1) {
-                                        angular.forEach(myTaskActivityConfig.Entities.Inward[myTaskActivityConfig.Entities.Inward.label].ePage.Entities.Header.Data.UIWmsWorkOrderLine, function (value, key) {
-                                            if (value.AdditionalRef1Code == value1.PL_AdditionalRef1Code) {
-                                                if (value1.PL_WorkOrderLineStatus == "ICWS") {
-                                                    myTaskActivityConfig.Entities.PickupData.UIWmsPickupLine[key1].WorkOrderLineStatus = "SCWS";
-                                                } else if (value1.PL_WorkOrderLineStatus == "ICWT") {
-                                                    myTaskActivityConfig.Entities.PickupData.UIWmsPickupLine[key1].WorkOrderLineStatus = "SCWT";
-                                                } else if (value1.PL_WorkOrderLineStatus == "ICWR") {
-                                                    myTaskActivityConfig.Entities.PickupData.UIWmsPickupLine[key1].WorkOrderLineStatus = "SCWR";
-                                                } else if (value1.PL_WorkOrderLineStatus == "ITW") {
-                                                    myTaskActivityConfig.Entities.PickupData.UIWmsPickupLine[key1].WorkOrderLineStatus = "STW";
-                                                } else if (value1.PL_WorkOrderLineStatus == "IRW") {
-                                                    myTaskActivityConfig.Entities.PickupData.UIWmsPickupLine[key1].WorkOrderLineStatus = "SRW";
-                                                } else if (value1.PL_WorkOrderLineStatus == "ISTW") {
-                                                    myTaskActivityConfig.Entities.PickupData.UIWmsPickupLine[key1].WorkOrderLineStatus = "SSTW";
-                                                } else if (value1.PL_WorkOrderLineStatus == "ISW") {
-                                                    myTaskActivityConfig.Entities.PickupData.UIWmsPickupLine[key1].WorkOrderLineStatus = "SSW";
-                                                }
-                                            }
-                                        });
-                                    });
-                                    myTaskActivityConfig.Entities.PickupData = filterObjectUpdate(myTaskActivityConfig.Entities.PickupData, "IsModified");
-                                    apiService.post("eAxisAPI", appConfig.Entities.WmsPickupList.API.Update.Url, myTaskActivityConfig.Entities.PickupData).then(function (response) {
-                                        myTaskActivityConfig.Entities.PickupData = response.data.Response;
-                                        toastr.success("Pickup Saved Successfully");
-                                        // complete process
-                                        var _inputObj = {
-                                            "CompleteInstanceNo": ActivityTemplateInwardCtrl.ePage.Masters.TaskObj.PSI_InstanceNo,
-                                            "CompleteStepNo": ActivityTemplateInwardCtrl.ePage.Masters.TaskObj.WSI_StepNo,
-                                            "DataSlots": {
-                                                "Val1": "",
-                                                "Val2": "",
-                                                "Val3": "",
-                                                "Val4": "",
-                                                "Val5": "",
-                                                "Val6": "",
-                                                "Val7": "",
-                                                "Val8": "",
-                                                "Val9": "",
-                                                "Val10": ""
+                            // apiService.get("eAxisAPI", appConfig.Entities.WmsPickupList.API.GetById.Url + ActivityTemplateInwardCtrl.ePage.Masters.WorkOrderList.PK).then(function (response) {
+                            //     if (response.data.Response) {
+                            //         myTaskActivityConfig.Entities.PickupData = response.data.Response;
+                            //         myTaskActivityConfig.Entities.PickupData.UIvwWmsPickupLine = $filter('orderBy')(myTaskActivityConfig.Entities.PickupData.UIvwWmsPickupLine, 'PL_AdditionalRef1Code');
+                            //         myTaskActivityConfig.Entities.PickupData.UIWmsPickupLine = $filter('orderBy')(myTaskActivityConfig.Entities.PickupData.UIWmsPickupLine, 'AdditionalRef1Code');
+                            //         angular.forEach(myTaskActivityConfig.Entities.PickupData.UIvwWmsPickupLine, function (value1, key1) {
+                            angular.forEach(myTaskActivityConfig.Entities.Inward[myTaskActivityConfig.Entities.Inward.label].ePage.Entities.Header.Data.UIWmsWorkOrderLine, function (value, key) {
+                                apiService.get("eAxisAPI", appConfig.Entities.WmsWorkOrderLine.API.GetById.Url + value.AdditionalRef1Fk).then(function (response) {
+                                    if (response.data.Response) {
+                                        if (value.AdditionalRef1Code == response.data.Response.AdditionalRef1Code) {
+                                            if (response.data.Response.WorkOrderLineStatus == "ICWS") {
+                                                response.data.Response.WorkOrderLineStatus = "SCWS";
+                                            } else if (response.data.Response.WorkOrderLineStatus == "ICWT") {
+                                                response.data.Response.WorkOrderLineStatus = "SCWT";
+                                            } else if (response.data.Response.WorkOrderLineStatus == "ICWR") {
+                                                response.data.Response.WorkOrderLineStatus = "SCWR";
+                                            } else if (response.data.Response.WorkOrderLineStatus == "ITW") {
+                                                response.data.Response.WorkOrderLineStatus = "STW";
+                                            } else if (response.data.Response.WorkOrderLineStatus == "IRW") {
+                                                response.data.Response.WorkOrderLineStatus = "SRW";
+                                            } else if (response.data.Response.WorkOrderLineStatus == "ISTW") {
+                                                response.data.Response.WorkOrderLineStatus = "SSTW";
+                                            } else if (response.data.Response.WorkOrderLineStatus == "ISW") {
+                                                response.data.Response.WorkOrderLineStatus = "SSW";
                                             }
                                         }
-                                        apiService.post("eAxisAPI", appConfig.Entities.EBPMEngine.API.CompleteProcess.Url, _inputObj).then(function (response) {
-                                            deferred.resolve(response);
+                                        response.data.Response.IsModified = true;
+                                        apiService.post("eAxisAPI", appConfig.Entities.WmsWorkOrderLine.API.Update.Url, response.data.Response).then(function (response) {
+                                            if (response.data.Response) {
+                                            }
                                         });
-                                    });
-                                }
+                                    }
+                                });
                             });
+                            // });
+                            // myTaskActivityConfig.Entities.PickupData = filterObjectUpdate(myTaskActivityConfig.Entities.PickupData, "IsModified");
+                            // apiService.post("eAxisAPI", appConfig.Entities.WmsPickupList.API.Update.Url, myTaskActivityConfig.Entities.PickupData).then(function (response) {
+                            //     myTaskActivityConfig.Entities.PickupData = response.data.Response;
+                            //     toastr.success("Pickup Saved Successfully");
+                            $timeout(function () {
+                                // complete process                            
+                                var _inputObj = {
+                                    "CompleteInstanceNo": ActivityTemplateInwardCtrl.ePage.Masters.TaskObj.PSI_InstanceNo,
+                                    "CompleteStepNo": ActivityTemplateInwardCtrl.ePage.Masters.TaskObj.WSI_StepNo,
+                                    "DataSlots": {
+                                        "Val1": "",
+                                        "Val2": "",
+                                        "Val3": "",
+                                        "Val4": "",
+                                        "Val5": "",
+                                        "Val6": "",
+                                        "Val7": "",
+                                        "Val8": "",
+                                        "Val9": "",
+                                        "Val10": ""
+                                    }
+                                }
+                                apiService.post("eAxisAPI", appConfig.Entities.EBPMEngine.API.CompleteProcess.Url, _inputObj).then(function (response) {
+                                    deferred.resolve(response);
+                                });
+                            }, 2000);
+                            // });
+                            //     }
+                            // });
                         } else {
                             var input = myTaskActivityConfig.Entities.Inward[myTaskActivityConfig.Entities.Inward.label].ePage.Entities.Header.Data;
                             helperService.getFullObjectUsingGetById(appConfig.Entities.WmsOutwardList.API.GetById.Url, 'null').then(function (response) {

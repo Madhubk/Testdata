@@ -469,6 +469,8 @@
                                     "PackingDate": value.PL_PackingDate,
                                     "ExpiryDate": value.PL_ExpiryDate,
                                     "AdditionalRef1Code": value.PL_AdditionalRef1Code,
+                                    "AdditionalRef1Type": "PickupLine",
+                                    "AdditionalRef1Fk": value.PL_PK,
                                     "UseExpiryDate": value.PL_UseExpiryDate,
                                     "UsePackingDate": value.PL_UsePackingDate,
                                     "UsePartAttrib1": value.PL_UsePartAttrib1,
@@ -615,13 +617,15 @@
                                 }
                             });
                         });
+                        $timeout(function () {
+                            response.data.Response = filterObjectUpdate(response.data.Response, "IsModified");
+                            apiService.post("eAxisAPI", appConfig.Entities.WmsPickupList.API.Update.Url, response.data.Response).then(function (response) {
+                                if (response.data.Response) {
+                                    toastr.success("Pickup Saved Successfully");
+                                }
+                            });
+                        }, 2000);
                     }
-                    response.data.Response = filterObjectUpdate(response.data.Response, "IsModified");
-                    apiService.post("eAxisAPI", appConfig.Entities.WmsPickupList.API.Update.Url, response.data.Response).then(function (response) {
-                        if (response.data.Response) {
-                            toastr.success("Pickup Saved Successfully");
-                        }
-                    });
                 });
             });
         }
