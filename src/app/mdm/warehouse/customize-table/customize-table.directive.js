@@ -6,6 +6,7 @@
         .directive("customizeTable", CustomizeTable)
         .directive("keyEvents", KeyEvents)
         .directive("watchTable", WatchTable)
+        .directive("doNotChange", DoNotChange)
         .filter("tableslice", TableSlice);
 
 
@@ -289,5 +290,33 @@
         }
     }
 
+    //Directive for not changing the view value
+    function DoNotChange(){
+        return {
+            require: 'ngModel',
+            restrict :"EA",
+            link : Link,
+            scope : {
+                changed : '='
+            }
+        }
+
+        function Link(scope,ele,att,ngModelCtrl){
+            ngModelCtrl.$parsers.push(function(value) {
+                if(scope.changed==false){
+                    ngModelCtrl.$viewValue = ngModelCtrl.$modelValue;
+                    ngModelCtrl.$render();
+                    return ngModelCtrl.$viewValue;
+                }
+            });
+
+            /* 
+            1.First value assigning view value. We are not using setViewvalue.
+            2.Rendering the UI textfield and updating in View side.
+            3.Return function is used to update the model value. We have assinged ViewValue directly,
+            So model value will alsow be updated so overcome we are returning to update the model value again.
+            */
+        }
+    }
     
 })();

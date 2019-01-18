@@ -12,7 +12,8 @@
                     </div>
                     <label class="control-label text-single-line">Product Code</label>
                     <div class="">
-                        <input  type="text"  maxlength="35" capitalize class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Product Code"  data-ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIProductGeneral.PartNum" ng-change="GeneralCtrl.ePage.Masters.OnChangeValues(GeneralCtrl.ePage.Entities.Header.Data.UIProductGeneral.PartNum,'E7010')">
+                        <input  type="text"  maxlength="35" capitalize class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Product Code"  data-ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIProductGeneral.PartNum" ng-change="GeneralCtrl.ePage.Masters.OnChangeValues(GeneralCtrl.ePage.Entities.Header.Data.UIProductGeneral.PartNum,'E7010')"
+                        ng-disabled="!GeneralCtrl.ePage.Entities.Header.GlobalVariables.CanEditProduct">
                     </div>
                 </div>
             </div>
@@ -26,7 +27,8 @@
                     </div>
                     <label class="control-label text-single-line">Product Description</label>
                     <div class="">
-                        <input type="text" maxlength="75" capitalize class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Product Description"  data-ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIProductGeneral.Desc" ng-change="GeneralCtrl.ePage.Masters.OnChangeValues(GeneralCtrl.ePage.Entities.Header.Data.UIProductGeneral.Desc,'E7011')">
+                        <input type="text" maxlength="75" capitalize class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Product Description"  data-ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIProductGeneral.Desc" ng-change="GeneralCtrl.ePage.Masters.OnChangeValues(GeneralCtrl.ePage.Entities.Header.Data.UIProductGeneral.Desc,'E7011')"
+                        ng-disabled="!GeneralCtrl.ePage.Entities.Header.GlobalVariables.CanEditProduct">
                     </div>
                 </div>
             </div>
@@ -41,7 +43,8 @@
                     <label class="control-label text-single-line">Stock Unit</label>
                     <div class="">
                         <select chosen class="form-control" ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIProductGeneral.StockKeepingUnit" ng-options="x.Key as x.Key + ' - '  + x.Value for x in GeneralCtrl.ePage.Masters.DropDownMasterList.INW_LINE_UQ.ListSource" 
-                            search-contains="true" ng-change="GeneralCtrl.ePage.Masters.OnChangeValues(GeneralCtrl.ePage.Entities.Header.Data.UIProductGeneral.StockKeepingUnit,'E7012')">
+                            search-contains="true" ng-change="GeneralCtrl.ePage.Masters.OnChangeValues(GeneralCtrl.ePage.Entities.Header.Data.UIProductGeneral.StockKeepingUnit,'E7012')"
+                            ng-disabled="!GeneralCtrl.ePage.Entities.Header.GlobalVariables.CanEditProduct">
                             <option value="">--Select--</option>
                         </select>
                     </div>

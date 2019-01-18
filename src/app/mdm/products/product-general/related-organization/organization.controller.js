@@ -50,8 +50,8 @@
             GetDropDownList();
         }
 
-         //#region User Based Table Column
-         function GetUserBasedGridColumList(){
+        //#region User Based Table Column
+        function GetUserBasedGridColumList(){
             var _filter = {
                 "SAP_FK": authService.getUserInfo().AppPK,
                 "TenantCode": authService.getUserInfo().TenantCode,
@@ -62,7 +62,7 @@
                 "searchInput": helperService.createToArrayOfObject(_filter),
                 "FilterID": appConfig.Entities.UserSettings.API.FindAll.FilterID
             };
-    
+
             apiService.post("eAxisAPI", appConfig.Entities.UserSettings.API.FindAll.Url + authService.getUserInfo().AppPK, _input).then(function(response){
                 if(response.data.Response[0]){
                     OrganizationCtrl.ePage.Masters.UserValue= response.data.Response[0];
@@ -78,7 +78,7 @@
         }
         //#endregion
             
-        //#region  General
+        //#region General
         function GetGeneralOperations(){
             angular.forEach(OrganizationCtrl.ePage.Entities.Header.Data.UIOrgPartRelation, function (value, key) {
                 if (value.ClientCode == null)
@@ -166,7 +166,7 @@
         }
         //#endregion
         
-        //#region checkbox selection
+        //#region Checkbox Selection
         function SelectAllCheckBox(){
             angular.forEach(OrganizationCtrl.ePage.Entities.Header.Data.UIOrgPartRelation, function (value, key) {
             if (OrganizationCtrl.ePage.Masters.SelectAll){
@@ -206,7 +206,7 @@
         }
         //#endregion checkbox selection
 
-        //#region Add,copy,delete row
+        //#region Add, Copy, Delete Row
 
         function setSelectedRow(index){
             OrganizationCtrl.ePage.Masters.selectedRow = index;
@@ -243,7 +243,7 @@
                 objDiv.scrollTop = objDiv.scrollHeight;
             }, 50);
             OrganizationCtrl.ePage.Entities.Header.GlobalVariables.Loading = false;
-        };
+        }
 
         function CopyRow() {
             OrganizationCtrl.ePage.Entities.Header.GlobalVariables.Loading = true;
