@@ -83,7 +83,7 @@
 
             if (OwnershipTransferMenuCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.TransferFrom_Client) {
                 var _filter = {
-                    "ORG_FK": OwnershipTransferMenuCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.TransferFrom_Client
+                    "ORG_FK": OwnershipTransferMenuCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.TransferFrom_ORG_FK
                 };
 
                 var _input = {
@@ -104,30 +104,35 @@
                         &&(TransferClientobj.IMPartAttrib2Type == OwnershipTransferMenuCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.IMPartAttrib2Type)
                         &&(TransferClientobj.IMPartAttrib3Type == OwnershipTransferMenuCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.IMPartAttrib3Type)){
 
-                            //Validating product details
-                            var count = 0;
-                            OwnershipTransferMenuCtrl.ePage.Entities.Header.Data.UIWmsStockTransferLine.map(function(value,key){
-                                var _filter1 = {
-                                    "ORG_FK": OwnershipTransferMenuCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.TransferFrom_Client,
-                                    "OSP_FK": OwnershipTransferMenuCtrl.ePage.Entities.Header.Data.UIWmsStockTransferLine.PRO_FK
-                                };
-                
-                                var _input1 = {
-                                    "searchInput": helperService.createToArrayOfObject(_filter1),
-                                    "FilterID": appConfig.Entities.PrdProductRelatedParty.API.FindAll.FilterID
-                                };
 
-                                apiService.post("eAxisAPI", appConfig.Entities.PrdProductRelatedParty.API.FindAll.Url, _input1).then(function(response){
-                                    if(response.data.Response.length>0){
-                                        if((value.UseExpiryDate == response.data.Response[0].UseExpiryDate) && (value.UsePackingDate==response.data.Response[0].UsePackingDate) && (value.UsePartAttrib1==response.data.Response[0].UsePartAttrib1)
-                                        && (value.UsePartAttrib2==response.data.Response[0].UsePartAttrib2) && (value.UsePartAttrib3==response.data.Response[0].UsePartAttrib3)
-                                        && (value.IsPartAttrib1ReleaseCaptured==response.data.Response[0].IsPartAttrib1ReleaseCaptured)  && (value.IsPartAttrib2ReleaseCaptured==response.data.Response[0].IsPartAttrib2ReleaseCaptured)
-                                        && (value.IsPartAttrib3ReleaseCaptured==response.data.Response[0].IsPartAttrib3ReleaseCaptured)){
-                                            count++;
+                            //#region Validating Product Details
+                            if(OwnershipTransferMenuCtrl.ePage.Entities.Header.Data.UIWmsStockTransferLine.length>0){
+                                var count = 0;
+                                OwnershipTransferMenuCtrl.ePage.Entities.Header.Data.UIWmsStockTransferLine.map(function(value,key){
+                                    var _filter1 = {
+                                        "ORG_FK": OwnershipTransferMenuCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.ORG_Client_FK,
+                                        "OSP_FK": value.PRO_FK
+                                    };
+                    
+                                    var _input1 = {
+                                        "searchInput": helperService.createToArrayOfObject(_filter1),
+                                        "FilterID": appConfig.Entities.PrdProductRelatedParty.API.FindAll.FilterID
+                                    };
+    
+                                    apiService.post("eAxisAPI", appConfig.Entities.PrdProductRelatedParty.API.FindAll.Url, _input1).then(function(response){
+                                        if(response.data.Response.length>0){
+                                            if((value.UseExpiryDate == response.data.Response[0].UseExpiryDate) && (value.UsePackingDate==response.data.Response[0].UsePackingDate) && (value.UsePartAttrib1==response.data.Response[0].UsePartAttrib1)
+                                            && (value.UsePartAttrib2==response.data.Response[0].UsePartAttrib2) && (value.UsePartAttrib3==response.data.Response[0].UsePartAttrib3)
+                                            && (value.IsPartAttrib1ReleaseCaptured==response.data.Response[0].IsPartAttrib1ReleaseCaptured)  && (value.IsPartAttrib2ReleaseCaptured==response.data.Response[0].IsPartAttrib2ReleaseCaptured)
+                                            && (value.IsPartAttrib3ReleaseCaptured==response.data.Response[0].IsPartAttrib3ReleaseCaptured)){
+                                                count++;
+                                            }else{
+                                                OwnershipTransferMenuCtrl.ePage.Masters.Config.PushErrorWarning('E11035', 'Product Configuration is  missing', "E", false, 'UIWmsStockTransferLine', OwnershipTransferMenuCtrl.currentOwnerTransfer.label, true, key, 2, 'Product', undefined, undefined);
+                                            }
                                         }else{
-                                            OwnershipTransferMenuCtrl.ePage.Masters.Config.PushErrorWarning('E11035', 'Product Configuration is  missing', "E", false, 'UIWmsStockTransferLine', OwnershipTransferMenuCtrl.currentOwnerTransfer.label, true, key, 1, 'Product', undefined, undefined);
-                                        }  
-                                        
+                                            OwnershipTransferMenuCtrl.ePage.Masters.Config.PushErrorWarning('E11035', 'Product Configuration is  missing', "E", false, 'UIWmsStockTransferLine', OwnershipTransferMenuCtrl.currentOwnerTransfer.label, true, key, 2, 'Product', undefined, undefined);
+                                        }
+
                                         if(count == OwnershipTransferMenuCtrl.ePage.Entities.Header.Data.UIWmsStockTransferLine.length){
                                             Saveonly(OwnershipTransferMenuCtrl.currentOwnerTransfer);
                                         }else{
@@ -135,15 +140,20 @@
                                             OwnershipTransferMenuCtrl.ePage.Masters.DisableSave = false;
                                             OwnershipTransferMenuCtrl.ePage.Entities.Header.GlobalVariables.Loading = false;
                                         }
-                                    }
-                                });
-                            })
+
+                                    });
+                                })
+                            }
+                            else{
+                                Saveonly(OwnershipTransferMenuCtrl.currentOwnerTransfer);
+                            }
+                            //#endregion
 
                         }else{
-                            OwnershipTransferMenuCtrl.ePage.Masters.Config.PushErrorWarning('E11034', 'From and To Client configuation should be same in UDF level', "E", false, 'TransferFrom_Client', OwnershipTransferMenuCtrl.currentOwnerTransfer.label, false, undefined, undefined, undefined, undefined, undefined);
+                            OwnershipTransferMenuCtrl.ePage.Masters.Config.PushErrorWarning('E11034', 'From and To Client configuation should be same in UDF level', "E", false, 'Client', OwnershipTransferMenuCtrl.currentOwnerTransfer.label, false, undefined, undefined, undefined, undefined, undefined);
                             OwnershipTransferMenuCtrl.ePage.Masters.DisableText = "";
-                            OwnershipTransferMenuCtrl.ePage.Masters.DisableSave = true;
-                            OwnershipTransferMenuCtrl.ePage.Entities.Header.GlobalVariables.Loading = true;
+                            OwnershipTransferMenuCtrl.ePage.Masters.DisableSave = false;
+                            OwnershipTransferMenuCtrl.ePage.Entities.Header.GlobalVariables.Loading = false;
                         }
                     }
                 });

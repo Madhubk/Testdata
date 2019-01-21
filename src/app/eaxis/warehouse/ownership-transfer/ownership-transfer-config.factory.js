@@ -970,6 +970,9 @@
 
             if (_input.UIWmsStockTransferLine.length > 0) {
                 angular.forEach(_input.UIWmsStockTransferLine, function (value, key) {
+
+                    OnChangeValues('value', 'E11035', true, key, $item.label);
+
                     OnChangeValues(value.ProductCode, 'E11004', true, key, $item.label);
 
                     OnChangeValues(parseFloat(value.Packs), 'E11005', true, key, $item.label);
@@ -982,9 +985,6 @@
 
                     if (!value.WLO_Location && exports.EnableFinaliseValidation == true || value.WLO_Location && exports.EnableFinaliseValidation == true)
                         OnChangeValues(value.WLO_Location, 'E11009', true, key, $item.label);
-
-                    if (!value.WLO_TransferFrom || value.WLO_TransferFrom)
-                        OnChangeValues(value.WLO_TransferFrom, 'E11008', true, key, $item.label);
 
                     if (!value.PAC_PackType || value.PAC_PackType)
                         OnChangeValues(value.PAC_PackType, 'E11010', true, key, $item.label);

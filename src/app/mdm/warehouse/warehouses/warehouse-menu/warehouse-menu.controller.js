@@ -35,7 +35,7 @@
         }
 
         function GetInventoryDetails(){
-            if(WarehouseMenuCtrl.ePage.Entities.Header.Data.WmsWarehouse.PK){
+            if(!WarehouseMenuCtrl.currentWarehouse.isNew){
                 WarehouseMenuCtrl.ePage.Entities.Header.GlobalVariables.Loading = true;
                 var _filter = {
                     "WAR_FK": WarehouseMenuCtrl.ePage.Entities.Header.Data.WmsWarehouse.PK,

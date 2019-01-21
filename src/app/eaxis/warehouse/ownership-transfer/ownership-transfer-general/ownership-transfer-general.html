@@ -315,7 +315,7 @@
                         title="Location">Location</th>
                     <th id="rpalletid" data-ng-if="OwnershipTransferGeneralCtrl.ePage.Entities.Header.TableProperties.UIWmsStockTransferLine.rpalletid.isenabled"
                         ng-style="{ 'width': OwnershipTransferGeneralCtrl.ePage.Entities.Header.TableProperties.UIWmsStockTransferLine.rpalletid.width + 'px' }"
-                        title="Pallet ID Source">Pallet ID Source</th>
+                        title="Pallet ID">Pallet ID</th>
                     <th id="rlocationstatus" data-ng-if="OwnershipTransferGeneralCtrl.ePage.Entities.Header.TableProperties.UIWmsStockTransferLine.rlocationstatus.isenabled"
                         ng-style="{ 'width': OwnershipTransferGeneralCtrl.ePage.Entities.Header.TableProperties.UIWmsStockTransferLine.rlocationstatus.width + 'px' }"
                         title="Destination Location Status">Location Status</th>
@@ -627,12 +627,12 @@
                         ng-click="OwnershipTransferGeneralCtrl.ePage.Masters.Enable = true">
                         <div data-ng-if="$index!=OwnershipTransferGeneralCtrl.ePage.Masters.selectedRow || OwnershipTransferGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable"
                             class="overflow-text">
-                            {{ x.TransferFromPalletId || OwnershipTransferGeneralCtrl.ePage.Masters.emptyText}}
+                            {{ x.PalletID || OwnershipTransferGeneralCtrl.ePage.Masters.emptyText}}
                         </div>
                         <div data-ng-if="$index==OwnershipTransferGeneralCtrl.ePage.Masters.selectedRow && !OwnershipTransferGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
                             <div class="height-22 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 p-0">
                                 <input type="text" maxlength="25" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
-                                    placeholder="Pallet ID Source" data-ng-model="x.TransferFromPalletId">
+                                    placeholder="Pallet ID" data-ng-model="x.PalletID">
                             </div>
                         </div>
                     </td>

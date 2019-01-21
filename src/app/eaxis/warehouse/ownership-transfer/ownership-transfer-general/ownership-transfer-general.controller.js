@@ -1057,7 +1057,6 @@
                 OnChangeValues('value', "E11005", true, i);
                 OnChangeValues('value', "E11006", true, i);
                 OnChangeValues('value', "E11007", true, i);
-                OnChangeValues('value', "E11008", true, i);
                 OnChangeValues('value', "E11009", true, i);
                 OnChangeValues('value', "E11010", true, i);
                 OnChangeValues('value', "E11015", true, i);
@@ -1075,6 +1074,7 @@
                 OnChangeValues('value', "E11028", true, i);
                 OnChangeValues('value', "E11029", true, i);
                 OnChangeValues('value', 'E11031', true, i);
+                OnChangeValues('value', 'E11035', true, i);
             }
             return true;
         }

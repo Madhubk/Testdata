@@ -44,7 +44,7 @@
         }
 
         function GetInventoryDetails() {
-            if (OrgWarehouseCtrl.currentOrganization.isNew) {
+            if (!OrgWarehouseCtrl.currentOrganization.isNew) {
                 OrgWarehouseCtrl.ePage.Masters.Loading = true;
                 var _filter = {
                     "ORG_FK": OrgWarehouseCtrl.ePage.Entities.Header.Data.OrgHeader.PK,
