@@ -957,6 +957,8 @@
 
             OnChangeValues(_input.UIWmsStockTransferHeader.TransferFrom_Client, 'E11032', false, undefined, $item.label);
 
+            OnChangeValues('value', 'E11034', false, undefined, $item.label);
+
             OnChangeValues(_input.UIWmsStockTransferHeader.Warehouse, 'E11012', false, undefined, $item.label);
 
             if(_input.UIWmsStockTransferHeader.TransferFrom_ORG_FK && _input.UIWmsStockTransferHeader.ORG_Client_FK)

@@ -50,9 +50,7 @@
                 ownershipTransferConfig.RemoveErrorWarning('E11020', "E", 'UIWmsStockTransferLine', $item.label, true, key, '11');
                 ownershipTransferConfig.RemoveErrorWarning('E11021', "E", 'UIWmsStockTransferLine', $item.label, true, key, '12');
                 ownershipTransferConfig.RemoveErrorWarning('E11022', "E", 'UIWmsStockTransferLine', $item.label, true, key, '13');
-
             })
-
             Validation($item);
         }
 
@@ -69,18 +67,91 @@
 
             if (_errorcount.length == 0) {
                 OwnershipTransferMenuCtrl.ePage.Masters.Config.ShowErrorWarningModal(OwnershipTransferMenuCtrl.currentOwnerTransfer);
-                Saveonly($item);
+                ValidatingClientAndProduct();
             } else {
                 OwnershipTransferMenuCtrl.ePage.Masters.Finalizesave = false;
                 OwnershipTransferMenuCtrl.ePage.Masters.Config.ShowErrorWarningModal(OwnershipTransferMenuCtrl.currentOwnerTransfer);
             }
         }
 
-        function Saveonly($item) {
-
+        function ValidatingClientAndProduct(){
+            // Client Validation 
+            var TransferClientobj = {};
+            OwnershipTransferMenuCtrl.ePage.Masters.DisableText = "Validating Client And Product";
             OwnershipTransferMenuCtrl.ePage.Masters.DisableSave = true;
             OwnershipTransferMenuCtrl.ePage.Entities.Header.GlobalVariables.Loading = true;
 
+            if (OwnershipTransferMenuCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.TransferFrom_Client) {
+                var _filter = {
+                    "ORG_FK": OwnershipTransferMenuCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.TransferFrom_Client
+                };
+
+                var _input = {
+                    "searchInput": helperService.createToArrayOfObject(_filter),
+                    "FilterID": appConfig.Entities.OrgMiscServ.API.FindAll.FilterID
+                };
+
+                apiService.post("eAxisAPI", appConfig.Entities.OrgMiscServ.API.FindAll.Url, _input).then(function (response) {
+                    if (response.data.Response) {
+                        TransferClientobj.IMPartAttrib1Name = response.data.Response[0].IMPartAttrib1Name;
+                        TransferClientobj.IMPartAttrib2Name = response.data.Response[0].IMPartAttrib2Name;
+                        TransferClientobj.IMPartAttrib3Name = response.data.Response[0].IMPartAttrib3Name;
+                        TransferClientobj.IMPartAttrib1Type = response.data.Response[0].IMPartAttrib1Type;
+                        TransferClientobj.IMPartAttrib2Type = response.data.Response[0].IMPartAttrib2Type;
+                        TransferClientobj.IMPartAttrib3Type = response.data.Response[0].IMPartAttrib3Type;
+
+                        if((TransferClientobj.IMPartAttrib1Type == OwnershipTransferMenuCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.IMPartAttrib1Type)
+                        &&(TransferClientobj.IMPartAttrib2Type == OwnershipTransferMenuCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.IMPartAttrib2Type)
+                        &&(TransferClientobj.IMPartAttrib3Type == OwnershipTransferMenuCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.IMPartAttrib3Type)){
+
+                            //Validating product details
+                            var count = 0;
+                            OwnershipTransferMenuCtrl.ePage.Entities.Header.Data.UIWmsStockTransferLine.map(function(value,key){
+                                var _filter1 = {
+                                    "ORG_FK": OwnershipTransferMenuCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.TransferFrom_Client,
+                                    "OSP_FK": OwnershipTransferMenuCtrl.ePage.Entities.Header.Data.UIWmsStockTransferLine.PRO_FK
+                                };
+                
+                                var _input1 = {
+                                    "searchInput": helperService.createToArrayOfObject(_filter1),
+                                    "FilterID": appConfig.Entities.PrdProductRelatedParty.API.FindAll.FilterID
+                                };
+
+                                apiService.post("eAxisAPI", appConfig.Entities.PrdProductRelatedParty.API.FindAll.Url, _input1).then(function(response){
+                                    if(response.data.Response.length>0){
+                                        if((value.UseExpiryDate == response.data.Response[0].UseExpiryDate) && (value.UsePackingDate==response.data.Response[0].UsePackingDate) && (value.UsePartAttrib1==response.data.Response[0].UsePartAttrib1)
+                                        && (value.UsePartAttrib2==response.data.Response[0].UsePartAttrib2) && (value.UsePartAttrib3==response.data.Response[0].UsePartAttrib3)
+                                        && (value.IsPartAttrib1ReleaseCaptured==response.data.Response[0].IsPartAttrib1ReleaseCaptured)  && (value.IsPartAttrib2ReleaseCaptured==response.data.Response[0].IsPartAttrib2ReleaseCaptured)
+                                        && (value.IsPartAttrib3ReleaseCaptured==response.data.Response[0].IsPartAttrib3ReleaseCaptured)){
+                                            count++;
+                                        }else{
+                                            OwnershipTransferMenuCtrl.ePage.Masters.Config.PushErrorWarning('E11035', 'Product Configuration is  missing', "E", false, 'UIWmsStockTransferLine', OwnershipTransferMenuCtrl.currentOwnerTransfer.label, true, key, 1, 'Product', undefined, undefined);
+                                        }  
+                                        
+                                        if(count == OwnershipTransferMenuCtrl.ePage.Entities.Header.Data.UIWmsStockTransferLine.length){
+                                            Saveonly(OwnershipTransferMenuCtrl.currentOwnerTransfer);
+                                        }else{
+                                            OwnershipTransferMenuCtrl.ePage.Masters.DisableText = "";
+                                            OwnershipTransferMenuCtrl.ePage.Masters.DisableSave = false;
+                                            OwnershipTransferMenuCtrl.ePage.Entities.Header.GlobalVariables.Loading = false;
+                                        }
+                                    }
+                                });
+                            })
+
+                        }else{
+                            OwnershipTransferMenuCtrl.ePage.Masters.Config.PushErrorWarning('E11034', 'From and To Client configuation should be same in UDF level', "E", false, 'TransferFrom_Client', OwnershipTransferMenuCtrl.currentOwnerTransfer.label, false, undefined, undefined, undefined, undefined, undefined);
+                            OwnershipTransferMenuCtrl.ePage.Masters.DisableText = "";
+                            OwnershipTransferMenuCtrl.ePage.Masters.DisableSave = true;
+                            OwnershipTransferMenuCtrl.ePage.Entities.Header.GlobalVariables.Loading = true;
+                        }
+                    }
+                });
+            }
+        }
+
+        function Saveonly($item) {
+            OwnershipTransferMenuCtrl.ePage.Masters.DisableText = "Saving Your Data";
             var _Data = $item[$item.label].ePage.Entities,
                 _input = _Data.Header.Data;
 
@@ -109,6 +180,7 @@
 
                 OwnershipTransferMenuCtrl.ePage.Masters.DisableSave = false;
                 OwnershipTransferMenuCtrl.ePage.Entities.Header.GlobalVariables.Loading = false;
+                OwnershipTransferMenuCtrl.ePage.Masters.DisableText = "";
 
                 if (response.Status === "success") {
 
