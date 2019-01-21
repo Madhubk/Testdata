@@ -62,7 +62,7 @@
         }
         
         function KeyEventHandling(e , textField){
-            if (ReleasesPickSlipCtrl.ePage.Masters.EnableAddOrChooseButton && ReleasesPickSlipCtrl.ePage.Masters.selectedRowForUIWmsReleaseLine!=-1 && e.keyCode == 13) {
+            if (ReleasesPickSlipCtrl.ePage.Masters.EnableAddOrChooseButton && ReleasesPickSlipCtrl.ePage.Masters.selectedRowForUIWmsReleaseLine!=-1 && (e.keyCode == 13 ||e.keyCode == 0)) {
                 var TotalUpdated = 0;
 
                 ReleasesPickSlipCtrl.ePage.Entities.Header.Data.UIWmsReleaseLine.map(function(value,key){
@@ -303,6 +303,7 @@
                     ReleasesPickSlipCtrl.ePage.Masters.SelectAllForUIWmsReleaseLine = false;
                     ReleasesPickSlipCtrl.ePage.Entities.Header.GlobalVariables.Loading = false;
                     ReleasesPickSlipCtrl.ePage.Masters.EnableDeleteButtonForUIWmsReleaseLine = false;
+                    ReleasesPickSlipCtrl.ePage.Masters.EnableCopyButtonForUIWmsReleaseLine = false;
                 }, function () {
                     console.log("Cancelled");
             });

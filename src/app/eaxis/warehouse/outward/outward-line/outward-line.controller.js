@@ -582,7 +582,7 @@
                 .then(function (result) {
                     OutwardLineCtrl.ePage.Entities.Header.GlobalVariables.Loading = true;
 
-                    SaveWhileDelete(OutwardLineController.currentOutward ,function(response){
+                    SaveWhileDelete(OutwardLineCtrl.ePage.Entities.Header.Data ,function(response){
 
                         if(response=="Success"){
                             angular.forEach(OutwardLineCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine,function(value,key){
@@ -625,7 +625,7 @@
         function SaveWhileDelete($item , callback){
             apiService.post("eAxisAPI", OutwardLineCtrl.ePage.Entities.Header.API.UpdateOutward.Url, $item).then(function (response) {
                 if (response.data.Status == 'Success') {
-                    OutwardMenuCtrl.ePage.Entities.Header.Data = response.data.Response;
+                    OutwardLineCtrl.ePage.Entities.Header.Data = response.data.Response;
                     callback("Success")
                 }else{
                     callback("Failed")
