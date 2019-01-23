@@ -464,7 +464,7 @@
                 "TNTCode": authService.getUserInfo().TenantCode,
                 "RoleCode": RolesCtrl.ePage.Masters.Role.ActiveRole.RoleName,
             };
-            apiService.post("authAPI", trustCenterConfig.Entities.API.UserPrivileges.API.AppTenantRolePublish.Url, _input).then(function SuccessCallback(response) {
+            apiService.post("authAPI", trustCenterConfig.Entities.API.UsePrivileges.API.AppTenantRolePublish.Url, _input).then(function SuccessCallback(response) {
                 if (response.data.Response) {
                     var _response = response.data.Response;
                     if (_response.length > 0) {

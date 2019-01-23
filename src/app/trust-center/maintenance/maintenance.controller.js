@@ -181,7 +181,7 @@
                 TCMaintenanceCtrl.ePage.Masters.Maintenance.Publish.UserAppTnt.PublishBtnTxt = "Please Wait...";
                 TCMaintenanceCtrl.ePage.Masters.Maintenance.Publish.UserAppTnt.IsDisablePublishBtn = true;
 
-                apiService.post("authAPI", trustCenterConfig.Entities.API.UserPrivileges.API.PublishPrivilegesByUser.Url, _input).then(function SuccessCallback(response) {
+                apiService.post("authAPI", trustCenterConfig.Entities.API.UsePrivileges.API.PublishPrivilegesByUser.Url, _input).then(function SuccessCallback(response) {
                     if (response.data.Response) {
                         var _response = response.data.Response;
 
@@ -218,7 +218,7 @@
                 TCMaintenanceCtrl.ePage.Masters.Maintenance.Publish.RoleAppTnt.PublishBtnTxt = "Please Wait...";
                 TCMaintenanceCtrl.ePage.Masters.Maintenance.Publish.RoleAppTnt.IsDisablePublishBtn = true;
 
-                apiService.post("authAPI", trustCenterConfig.Entities.API.UserPrivileges.API.AppTenantRolePublish.Url, _input).then(function SuccessCallback(response) {
+                apiService.post("authAPI", trustCenterConfig.Entities.API.UsePrivileges.API.AppTenantRolePublish.Url, _input).then(function SuccessCallback(response) {
                     if (response.data.Response) {
                         var _response = response.data.Response;
                         TCMaintenanceCtrl.ePage.Masters.Maintenance.Publish.PublishedResponse = _response;
@@ -236,14 +236,14 @@
             var _filter = angular.copy(TCMaintenanceCtrl.ePage.Masters.Maintenance.Publish.User.Model);
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": trustCenterConfig.Entities.API.UserPrivileges.API.PublishAllUsers.FilterID
+                "FilterID": trustCenterConfig.Entities.API.UsePrivileges.API.PublishAllUsers.FilterID
             };
 
             if (_filter.UserName) {
                 TCMaintenanceCtrl.ePage.Masters.Maintenance.Publish.User.PublishBtnTxt = "Please Wait...";
                 TCMaintenanceCtrl.ePage.Masters.Maintenance.Publish.User.IsDisablePublishBtn = true;
 
-                apiService.post("authAPI", trustCenterConfig.Entities.API.UserPrivileges.API.PublishAllUsers.Url, _input).then(function SuccessCallback(response) {
+                apiService.post("authAPI", trustCenterConfig.Entities.API.UsePrivileges.API.PublishAllUsers.Url, _input).then(function SuccessCallback(response) {
                     if (response.data.Response) {
                         var _response = response.data.Response;
                         TCMaintenanceCtrl.ePage.Masters.Maintenance.Publish.PublishedResponse = _response;
@@ -263,10 +263,10 @@
             var _filter = {};
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": trustCenterConfig.Entities.API.UserPrivileges.API.PublishAllUsers.FilterID
+                "FilterID": trustCenterConfig.Entities.API.UsePrivileges.API.PublishAllUsers.FilterID
             };
 
-            apiService.post("authAPI", trustCenterConfig.Entities.API.UserPrivileges.API.PublishAllUsers.Url, _input).then(function SuccessCallback(response) {
+            apiService.post("authAPI", trustCenterConfig.Entities.API.UsePrivileges.API.PublishAllUsers.Url, _input).then(function SuccessCallback(response) {
                 if (response.data.Response) {
                     var _response = response.data.Response;
                     TCMaintenanceCtrl.ePage.Masters.Maintenance.Publish.PublishedResponse = _response;

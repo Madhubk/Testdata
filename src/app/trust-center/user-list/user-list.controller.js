@@ -365,7 +365,7 @@
                 "userName": $item.UserName
             };
 
-            apiService.post("authAPI", trustCenterConfig.Entities.API.UserPrivileges.API.PublishPrivilegesByUser.Url, _input).then(function SuccessCallback(response) {
+            apiService.post("authAPI", trustCenterConfig.Entities.API.UsePrivileges.API.PublishPrivilegesByUser.Url, _input).then(function SuccessCallback(response) {
                 if (response.data.Response) {
                     var _response = response.data.Response;
 

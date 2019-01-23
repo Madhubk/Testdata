@@ -43,28 +43,28 @@
                         }
                     }
                 },
-                "UserPrivileges": {
+                "UsePrivileges": {
                     "RowIndex": -1,
                     "API": {
                         "PublishPrivilegesByUser": {
                             "IsAPI": "true",
                             "HttpType": "POST",
-                            "Url": "UserPrivileges/PublishPrivilegesByUser"
+                            "Url": "UsePrivileges/PublishPrivilegesByUser"
                         },
                         "AppTenantRolePublish": {
                             "IsAPI": "true",
                             "HttpType": "POST",
-                            "Url": "UserPrivileges/AppTenantRolePublish"
+                            "Url": "UsePrivileges/AppTenantRolePublish"
                         },
                         "UserTenantRolePublish": {
                             "IsAPI": "true",
                             "HttpType": "POST",
-                            "Url": "UserPrivileges/UserTenantRolePublish"
+                            "Url": "UsePrivileges/UserTenantRolePublish"
                         },
                         "PublishAllUsers": {
                             "IsAPI": "true",
                             "HttpType": "POST",
-                            "Url": "UserPrivileges/PublishAllUsers"
+                            "Url": "UsePrivileges/PublishAllUsers"
                         }
                     }
                 },
