@@ -707,7 +707,7 @@
                 OnChangeValues('value', "E3520", true, i);
                 OnChangeValues('value', "E3521", true, i);
                 OnChangeValues('value', "E3530", true, i);
-                OnChangeValues('value', 'E3531', true, i);
+                OnChangeValues('value', 'E3543', true, i);
             }
             return true;
         }
