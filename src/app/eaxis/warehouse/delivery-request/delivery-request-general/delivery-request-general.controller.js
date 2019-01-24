@@ -275,22 +275,40 @@
             DeliveryGeneralCtrl.ePage.Entities.Header.Data.UIWmsDelivery.Consignee = item.Code + '-' + item.FullName;
             DeliveryGeneralCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ConsigneeCode = item.Code;
             DeliveryGeneralCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ORG_Consignee_FK = item.PK;
-            DeliveryGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkorderReport.AdditionalRef1Code = item.OAD_City;
 
-            angular.forEach(DeliveryGeneralCtrl.ePage.Entities.Header.Data.UIJobAddress, function (value, key) {
-                if (value.AddressType == "SUD") {
-                    value.ORG_FK = item.PK;
-                    value.OAD_Address_FK = item.OAD_PK;
-                    value.Address1 = item.OAD_Address1;
-                    value.Address2 = item.OAD_Address2;
-                    value.State = item.OAD_State;
-                    value.Postcode = item.OAD_PostCode;
-                    value.City = item.OAD_City;
-                    value.Email = item.OAD_Email;
-                    value.Mobile = item.OAD_Mobile;
-                    value.Phone = item.OAD_Phone;
-                    value.RN_NKCountryCode = item.OAD_CountryCode;
-                    value.Fax = item.OAD_Fax;
+            var _filter = {
+                "ORG_FK": item.PK
+            };
+            var _input = {
+                "searchInput": helperService.createToArrayOfObject(_filter),
+                "FilterID": appConfig.Entities.OrgAddress.API.FindAll.FilterID
+            };
+            apiService.post("eAxisAPI", appConfig.Entities.OrgAddress.API.FindAll.Url, _input).then(function (response) {
+                if (response.data.Response) {
+                    angular.forEach(response.data.Response, function (value, key) {
+                        angular.forEach(value.AddressCapability, function (value1, key1) {
+                            if (value1.IsMainAddress) {
+                                DeliveryGeneralCtrl.ePage.Masters.SiteMainAddress = value;
+                            }
+                        });
+                    });
+                    DeliveryGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkorderReport.AdditionalRef1Code = DeliveryGeneralCtrl.ePage.Masters.SiteMainAddress.City;
+                    angular.forEach(DeliveryGeneralCtrl.ePage.Entities.Header.Data.UIJobAddress, function (value, key) {
+                        if (value.AddressType == "SUD") {
+                            value.ORG_FK = DeliveryGeneralCtrl.ePage.Masters.SiteMainAddress.ORG_FK;
+                            value.OAD_Address_FK = DeliveryGeneralCtrl.ePage.Masters.SiteMainAddress.PK;
+                            value.Address1 = DeliveryGeneralCtrl.ePage.Masters.SiteMainAddress.Address1;
+                            value.Address2 = DeliveryGeneralCtrl.ePage.Masters.SiteMainAddress.Address2;
+                            value.State = DeliveryGeneralCtrl.ePage.Masters.SiteMainAddress.State;
+                            value.Postcode = DeliveryGeneralCtrl.ePage.Masters.SiteMainAddress.PostCode;
+                            value.City = DeliveryGeneralCtrl.ePage.Masters.SiteMainAddress.City;
+                            value.Email = DeliveryGeneralCtrl.ePage.Masters.SiteMainAddress.Email;
+                            value.Mobile = DeliveryGeneralCtrl.ePage.Masters.SiteMainAddress.Mobile;
+                            value.Phone = DeliveryGeneralCtrl.ePage.Masters.SiteMainAddress.Phone;
+                            value.RN_NKCountryCode = DeliveryGeneralCtrl.ePage.Masters.SiteMainAddress.CountryCode;
+                            value.Fax = DeliveryGeneralCtrl.ePage.Masters.SiteMainAddress.Fax;
+                        }
+                    });
                 }
             });
 

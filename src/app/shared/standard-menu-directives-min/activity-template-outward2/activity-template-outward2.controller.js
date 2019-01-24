@@ -151,9 +151,9 @@
                                             } else {
                                                 apiService.get("eAxisAPI", appConfig.Entities.WmsOutwardList.API.GetById.Url + ActivityTemplateOutward2Ctrl.ePage.Masters.TaskObj.EntityRefKey).then(function (response) {
                                                     if (response.data.Response) {
-                                                        response.data.Response.UIWmsOutwardHeader.Warehouse = response.data.Response.UIWmsOutwardHeader.WarehouseCode + "-" + response.data.Response.UIWmsOutwardHeader.WarehouseName;
-                                                        response.data.Response.UIWmsOutwardHeader.Client = response.data.Response.UIWmsOutwardHeader.ClientCode + "-" + response.data.Response.UIWmsOutwardHeader.ClientName;
-                                                        response.data.Response.UIWmsOutwardHeader.TransferWarehouse = response.data.Response.UIWmsOutwardHeader.TransferTo_WAR_Code + "-" + response.data.Response.UIWmsOutwardHeader.TransferTo_WAR_Name;
+                                                        response.data.Response.UIWmsOutwardHeader.Warehouse = response.data.Response.UIWmsOutwardHeader.WarehouseCode + " - " + response.data.Response.UIWmsOutwardHeader.WarehouseName;
+                                                        response.data.Response.UIWmsOutwardHeader.Client = response.data.Response.UIWmsOutwardHeader.ClientCode + " - " + response.data.Response.UIWmsOutwardHeader.ClientName;
+                                                        response.data.Response.UIWmsOutwardHeader.TransferWarehouse = response.data.Response.UIWmsOutwardHeader.TransferTo_WAR_Code + " - " + response.data.Response.UIWmsOutwardHeader.TransferTo_WAR_Name;
                                                         myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data = response.data.Response;
                                                         ActivityTemplateOutward2Ctrl.ePage.Masters.IsDisableSaveBtn = false;
                                                         ActivityTemplateOutward2Ctrl.ePage.Masters.SaveBtnText = "Save";
@@ -205,7 +205,7 @@
                             }
                         }
                     });
-                } else if (myTaskActivityConfig.Entities.PickupData) {                    
+                } else if (myTaskActivityConfig.Entities.PickupData) {
                     if (callback) {
                         // myTaskActivityConfig.Entities.PickupData.UIvwWmsPickupLine = $filter('orderBy')(myTaskActivityConfig.Entities.PickupData.UIvwWmsPickupLine, 'PL_AdditionalRef1Code');
                         // myTaskActivityConfig.Entities.PickupData.UIWmsPickupLine = $filter('orderBy')(myTaskActivityConfig.Entities.PickupData.UIWmsPickupLine, 'AdditionalRef1Code');
@@ -261,9 +261,9 @@
                                         } else {
                                             apiService.get("eAxisAPI", appConfig.Entities.WmsOutwardList.API.GetById.Url + ActivityTemplateOutward2Ctrl.ePage.Masters.TaskObj.EntityRefKey).then(function (response) {
                                                 if (response.data.Response) {
-                                                    response.data.Response.UIWmsOutwardHeader.Warehouse = response.data.Response.UIWmsOutwardHeader.WarehouseCode + "-" + response.data.Response.UIWmsOutwardHeader.WarehouseName;
-                                                    response.data.Response.UIWmsOutwardHeader.Client = response.data.Response.UIWmsOutwardHeader.ClientCode + "-" + response.data.Response.UIWmsOutwardHeader.ClientName;
-                                                    response.data.Response.UIWmsOutwardHeader.TransferWarehouse = response.data.Response.UIWmsOutwardHeader.TransferTo_WAR_Code + "-" + response.data.Response.UIWmsOutwardHeader.TransferTo_WAR_Name;
+                                                    response.data.Response.UIWmsOutwardHeader.Warehouse = response.data.Response.UIWmsOutwardHeader.WarehouseCode + " - " + response.data.Response.UIWmsOutwardHeader.WarehouseName;
+                                                    response.data.Response.UIWmsOutwardHeader.Client = response.data.Response.UIWmsOutwardHeader.ClientCode + " - " + response.data.Response.UIWmsOutwardHeader.ClientName;
+                                                    response.data.Response.UIWmsOutwardHeader.TransferWarehouse = response.data.Response.UIWmsOutwardHeader.TransferTo_WAR_Code + " - " + response.data.Response.UIWmsOutwardHeader.TransferTo_WAR_Name;
                                                     myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data = response.data.Response;
                                                     ActivityTemplateOutward2Ctrl.ePage.Masters.IsDisableSaveBtn = false;
                                                     ActivityTemplateOutward2Ctrl.ePage.Masters.SaveBtnText = "Save";
