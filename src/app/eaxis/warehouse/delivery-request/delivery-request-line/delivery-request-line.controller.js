@@ -43,7 +43,7 @@
             DeliveryLineCtrl.ePage.Masters.RemoveRow = RemoveRow;
             DeliveryLineCtrl.ePage.Masters.emptyText = '-';
 
-           
+
 
             GetUserBasedGridColumList();
             GetDropDownList();
@@ -104,7 +104,7 @@
             DeliveryLineCtrl.ePage.Masters.DatePicker.isOpen[opened] = true;
         }
 
-        function GetUserBasedGridColumList() {            
+        function GetUserBasedGridColumList() {
             var _filter = {
                 "SAP_FK": authService.getUserInfo().AppPK,
                 "TenantCode": authService.getUserInfo().TenantCode,
@@ -264,10 +264,16 @@
                         } else if (!value.PK && value.SingleSelect == true) {
                             var ReturnValue = RemoveAllLineErrors();
                             if (ReturnValue) {
-                                if (DeliveryLineCtrl.ePage.Entities.Header.Data.UIWmsDeliveryLine[key].SingleSelect == true)
-                                    DeliveryLineCtrl.ePage.Entities.Header.Data.UIWmsDeliveryLine.splice(key, 1);
+                                for (var i = DeliveryLineCtrl.ePage.Entities.Header.Data.UIWmsDeliveryLine.length - 1; i >= 0; i--) {
+                                    if (DeliveryLineCtrl.ePage.Entities.Header.Data.UIWmsDeliveryLine[i].SingleSelect == true)
+                                        DeliveryLineCtrl.ePage.Entities.Header.Data.UIWmsDeliveryLine.splice(i, 1);
+                                }
                                 toastr.success('Record Removed Successfully');
                                 DeliveryLineCtrl.ePage.Masters.Config.GeneralValidation(DeliveryLineCtrl.currentDelivery);
+                                DeliveryLineCtrl.ePage.Masters.selectedRow = -1;
+                                DeliveryLineCtrl.ePage.Masters.SelectAll = false;
+                                DeliveryLineCtrl.ePage.Entities.Header.GlobalVariables.Loading = false;
+                                DeliveryLineCtrl.ePage.Masters.EnableDeleteButton = false;
                             }
                         }
                     });
@@ -311,45 +317,21 @@
         //#region checkbox selection
         function SelectAllCheckBox() {
             angular.forEach(DeliveryLineCtrl.ePage.Entities.Header.Data.UIWmsDeliveryLine, function (value, key) {
-                var startData = DeliveryLineCtrl.ePage.Masters.CurrentPageStartingIndex
-                var LastData = DeliveryLineCtrl.ePage.Masters.CurrentPageStartingIndex + (DeliveryLineCtrl.ePage.Masters.Pagination.ItemsPerPage);
-
                 if (DeliveryLineCtrl.ePage.Masters.SelectAll) {
-
-                    // Enable and disable based on page wise
-                    if ((key >= startData) && (key < LastData)) {
-                        value.SingleSelect = true;
-                    }
-                }
-                else {
-                    if ((key >= startData) && (key < LastData)) {
-                        value.SingleSelect = false;
-                    }
+                    value.SingleSelect = true;
+                    DeliveryLineCtrl.ePage.Masters.EnableDeleteButton = true;
+                    DeliveryLineCtrl.ePage.Masters.EnableCopyButton = true;
+                } else {
+                    value.SingleSelect = false;
+                    DeliveryLineCtrl.ePage.Masters.EnableDeleteButton = false;
+                    DeliveryLineCtrl.ePage.Masters.EnableCopyButton = false;
                 }
             });
-
-            var Checked1 = DeliveryLineCtrl.ePage.Entities.Header.Data.UIWmsDeliveryLine.some(function (value, key) {
-                return value.SingleSelect == true;
-            });
-            if (Checked1) {
-                DeliveryLineCtrl.ePage.Masters.EnableDeleteButton = true;
-                DeliveryLineCtrl.ePage.Masters.EnableCopyButton = true;
-            } else {
-                DeliveryLineCtrl.ePage.Masters.EnableDeleteButton = false;
-                DeliveryLineCtrl.ePage.Masters.EnableCopyButton = false;
-            }
         }
-
         function SingleSelectCheckBox() {
-            var startData = DeliveryLineCtrl.ePage.Masters.CurrentPageStartingIndex
-            var LastData = DeliveryLineCtrl.ePage.Masters.CurrentPageStartingIndex + (DeliveryLineCtrl.ePage.Masters.Pagination.ItemsPerPage);
-
             var Checked = DeliveryLineCtrl.ePage.Entities.Header.Data.UIWmsDeliveryLine.some(function (value, key) {
-                // Enable and disable based on page wise
-                if ((key >= startData) && (key < LastData)) {
-                    if (!value.SingleSelect)
-                        return true;
-                }
+                if (!value.SingleSelect)
+                    return true;
             });
             if (Checked) {
                 DeliveryLineCtrl.ePage.Masters.SelectAll = false;
@@ -368,6 +350,7 @@
                 DeliveryLineCtrl.ePage.Masters.EnableCopyButton = false;
             }
         }
+        //#endregion
         function OnChangeValues(fieldvalue, code) {
             angular.forEach(DeliveryLineCtrl.ePage.Masters.Config.ValidationValues, function (value, key) {
                 if (value.Code.trim() === code) {
