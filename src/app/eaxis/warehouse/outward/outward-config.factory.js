@@ -1281,7 +1281,7 @@
 
                     OnChangeValues(value.StockKeepingUnit, 'E3521', true, key, $item.label);
 
-                    OnChangeValues(value.ProductCondition, 'E3531', true, key, $item.label);
+                    OnChangeValues(value.ProductCondition, 'E3543', true, key, $item.label);
 
                     if (!value.PRO_FK && value.ProductCode || value.PRO_FK && value.ProductCode)
                         OnChangeValues(value.PRO_FK, 'E3530', true, key, $item.label);

@@ -62,38 +62,45 @@
         }
         
         function KeyEventHandling(e , textField){
+            
             if (ReleasesPickSlipCtrl.ePage.Masters.EnableAddOrChooseButton && ReleasesPickSlipCtrl.ePage.Masters.selectedRowForUIWmsReleaseLine!=-1 && (e.keyCode == 13 ||e.keyCode == 0)) {
-                var TotalUpdated = 0;
+                ReleasesPickSlipCtrl.ePage.Entities.Header.GlobalVariables.Loading = true;
+                $timeout(function () {
+                    var TotalUpdated = 0;
 
-                ReleasesPickSlipCtrl.ePage.Entities.Header.Data.UIWmsReleaseLine.map(function(value,key){
-                    if(ReleasesPickSlipCtrl.ePage.Masters.SelectedPickLinePK == value.WPL_FK && value.Units){
-                        TotalUpdated = TotalUpdated + parseFloat(value.Units);
-                    }
-                });
+                    ReleasesPickSlipCtrl.ePage.Entities.Header.Data.UIWmsReleaseLine.map(function(value,key){
+                        if(ReleasesPickSlipCtrl.ePage.Masters.SelectedPickLinePK == value.WPL_FK && value.Units){
+                            TotalUpdated = TotalUpdated + parseFloat(value.Units);
+                        }
+                    });
 
-                if(parseFloat(TotalUpdated) <= parseFloat(ReleasesPickSlipCtrl.ePage.Masters.CurrentPickLine.Units)){                        
-                    if(textField == 'UDF1') {
-                        if(ReleasesPickSlipCtrl.ePage.Masters.CurrentPickLine.IsPartAttrib2ReleaseCaptured){
-                            document.getElementById('UDF2').focus()
-                        }else if(ReleasesPickSlipCtrl.ePage.Masters.CurrentPickLine.IsPartAttrib3ReleaseCaptured){
-                            document.getElementById('UDF3').focus()
-                        }else if(parseFloat(TotalUpdated) != parseFloat(ReleasesPickSlipCtrl.ePage.Masters.CurrentPickLine.Units)){
+                    if(parseFloat(TotalUpdated) <= parseFloat(ReleasesPickSlipCtrl.ePage.Masters.CurrentPickLine.Units)){                        
+                        if(textField == 'UDF1') {
+                            if(ReleasesPickSlipCtrl.ePage.Masters.CurrentPickLine.IsPartAttrib2ReleaseCaptured){
+                                document.getElementById('UDF2').focus()
+                            }else if(ReleasesPickSlipCtrl.ePage.Masters.CurrentPickLine.IsPartAttrib3ReleaseCaptured){
+                                document.getElementById('UDF3').focus()
+                            }else if(parseFloat(TotalUpdated) != parseFloat(ReleasesPickSlipCtrl.ePage.Masters.CurrentPickLine.Units)){
+                                AddNewRowForUIWmsReleaseLine();
+                            }
+                        }
+                        
+                        if(textField == 'UDF2') {
+                            if(ReleasesPickSlipCtrl.ePage.Masters.CurrentPickLine.IsPartAttrib3ReleaseCaptured){
+                                document.getElementById('UDF3').focus()
+                            }else if(parseFloat(TotalUpdated) != parseFloat(ReleasesPickSlipCtrl.ePage.Masters.CurrentPickLine.Units)){
+                                AddNewRowForUIWmsReleaseLine();
+                            }
+                        }
+                        
+                        if(textField == 'UDF3' && (parseFloat(TotalUpdated) != parseFloat(ReleasesPickSlipCtrl.ePage.Masters.CurrentPickLine.Units))) {
                             AddNewRowForUIWmsReleaseLine();
                         }
                     }
-                    
-                    if(textField == 'UDF2') {
-                        if(ReleasesPickSlipCtrl.ePage.Masters.CurrentPickLine.IsPartAttrib3ReleaseCaptured){
-                            document.getElementById('UDF3').focus()
-                        }else if(parseFloat(TotalUpdated) != parseFloat(ReleasesPickSlipCtrl.ePage.Masters.CurrentPickLine.Units)){
-                            AddNewRowForUIWmsReleaseLine();
-                        }
-                    }
-                    
-                    if(textField == 'UDF3' && (parseFloat(TotalUpdated) != parseFloat(ReleasesPickSlipCtrl.ePage.Masters.CurrentPickLine.Units))) {
-                        AddNewRowForUIWmsReleaseLine();
-                    }
-                }
+
+                    ReleasesPickSlipCtrl.ePage.Entities.Header.GlobalVariables.Loading = false;
+                }, 1000);
+                
             }
         }
 
