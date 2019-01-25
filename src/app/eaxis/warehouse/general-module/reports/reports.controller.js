@@ -101,6 +101,7 @@
             
             ReportCtrl.ePage.Masters.ChildMenuList = [];
             var _filter = {
+                "USR_TenantCode": authService.getUserInfo().TenantCode,
                 "USR_SAP_FK": authService.getUserInfo().AppPK,
                 "PageType": "Report",
                 "ModuleCode": "WMS",
