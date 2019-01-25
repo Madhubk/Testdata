@@ -142,9 +142,10 @@
                         } else {
                             apiService.get("eAxisAPI", appConfig.Entities.InwardList.API.GetById.Url + ActivityTemplateInwardCtrl.ePage.Masters.TaskObj.EntityRefKey).then(function (response) {
                                 if (response.data.Response) {
-                                    response.data.Response.UIWmsInwardHeader.Warehouse = response.data.Response.UIWmsInwardHeader.WarehouseCode + "-" + response.data.Response.UIWmsInwardHeader.WarehouseName;
-                                    response.data.Response.UIWmsInwardHeader.Client = response.data.Response.UIWmsInwardHeader.ClientCode + "-" + response.data.Response.UIWmsInwardHeader.ClientName;
-                                    response.data.Response.UIWmsInwardHeader.TransferWarehouse = response.data.Response.UIWmsInwardHeader.TransferTo_WAR_Code + "-" + response.data.Response.UIWmsInwardHeader.TransferTo_WAR_Name;
+                                    response.data.Response.UIWmsInwardHeader.Warehouse = response.data.Response.UIWmsInwardHeader.WarehouseCode + " - " + response.data.Response.UIWmsInwardHeader.WarehouseName;
+                                    response.data.Response.UIWmsInwardHeader.Client = response.data.Response.UIWmsInwardHeader.ClientCode + " - " + response.data.Response.UIWmsInwardHeader.ClientName;
+                                    response.data.Response.UIWmsInwardHeader.Supplier = response.data.Response.UIWmsInwardHeader.SupplierCode + " - " + response.data.Response.UIWmsInwardHeader.SupplierName;
+                                    response.data.Response.UIWmsInwardHeader.TransferWarehouse = response.data.Response.UIWmsInwardHeader.TransferTo_WAR_Code + " - " + response.data.Response.UIWmsInwardHeader.TransferTo_WAR_Name;
                                     myTaskActivityConfig.Entities.Inward[myTaskActivityConfig.Entities.Inward.label].ePage.Entities.Header.Data = response.data.Response;
                                     ActivityTemplateInwardCtrl.ePage.Masters.IsDisableSaveBtn = false;
                                     ActivityTemplateInwardCtrl.ePage.Masters.SaveBtnText = "Save";
@@ -164,9 +165,10 @@
                         } else {
                             apiService.get("eAxisAPI", appConfig.Entities.InwardList.API.GetById.Url + ActivityTemplateInwardCtrl.ePage.Masters.TaskObj.EntityRefKey).then(function (response) {
                                 if (response.data.Response) {
-                                    response.data.Response.UIWmsInwardHeader.Warehouse = response.data.Response.UIWmsInwardHeader.WarehouseCode + "-" + response.data.Response.UIWmsInwardHeader.WarehouseName;
-                                    response.data.Response.UIWmsInwardHeader.Client = response.data.Response.UIWmsInwardHeader.ClientCode + "-" + response.data.Response.UIWmsInwardHeader.ClientName;
-                                    response.data.Response.UIWmsInwardHeader.TransferWarehouse = response.data.Response.UIWmsInwardHeader.TransferTo_WAR_Code + "-" + response.data.Response.UIWmsInwardHeader.TransferTo_WAR_Name;
+                                    response.data.Response.UIWmsInwardHeader.Warehouse = response.data.Response.UIWmsInwardHeader.WarehouseCode + " - " + response.data.Response.UIWmsInwardHeader.WarehouseName;
+                                    response.data.Response.UIWmsInwardHeader.Client = response.data.Response.UIWmsInwardHeader.ClientCode + " - " + response.data.Response.UIWmsInwardHeader.ClientName;
+                                    response.data.Response.UIWmsInwardHeader.Supplier = response.data.Response.UIWmsInwardHeader.SupplierCode + " - " + response.data.Response.UIWmsInwardHeader.SupplierName;
+                                    response.data.Response.UIWmsInwardHeader.TransferWarehouse = response.data.Response.UIWmsInwardHeader.TransferTo_WAR_Code + " - " + response.data.Response.UIWmsInwardHeader.TransferTo_WAR_Name;
                                     myTaskActivityConfig.Entities.Inward[myTaskActivityConfig.Entities.Inward.label].ePage.Entities.Header.Data = response.data.Response;
                                     ActivityTemplateInwardCtrl.ePage.Masters.IsDisableSaveBtn = false;
                                     ActivityTemplateInwardCtrl.ePage.Masters.SaveBtnText = "Save";
@@ -185,9 +187,10 @@
                     } else {
                         apiService.get("eAxisAPI", appConfig.Entities.InwardList.API.GetById.Url + ActivityTemplateInwardCtrl.ePage.Masters.TaskObj.EntityRefKey).then(function (response) {
                             if (response.data.Response) {
-                                response.data.Response.UIWmsInwardHeader.Warehouse = response.data.Response.UIWmsInwardHeader.WarehouseCode + "-" + response.data.Response.UIWmsInwardHeader.WarehouseName;
-                                response.data.Response.UIWmsInwardHeader.Client = response.data.Response.UIWmsInwardHeader.ClientCode + "-" + response.data.Response.UIWmsInwardHeader.ClientName;
-                                response.data.Response.UIWmsInwardHeader.TransferWarehouse = response.data.Response.UIWmsInwardHeader.TransferTo_WAR_Code + "-" + response.data.Response.UIWmsInwardHeader.TransferTo_WAR_Name;
+                                response.data.Response.UIWmsInwardHeader.Warehouse = response.data.Response.UIWmsInwardHeader.WarehouseCode + " - " + response.data.Response.UIWmsInwardHeader.WarehouseName;
+                                response.data.Response.UIWmsInwardHeader.Client = response.data.Response.UIWmsInwardHeader.ClientCode + " - " + response.data.Response.UIWmsInwardHeader.ClientName;
+                                response.data.Response.UIWmsInwardHeader.Supplier = response.data.Response.UIWmsInwardHeader.SupplierCode + " - " + response.data.Response.UIWmsInwardHeader.SupplierName;
+                                response.data.Response.UIWmsInwardHeader.TransferWarehouse = response.data.Response.UIWmsInwardHeader.TransferTo_WAR_Code + " - " + response.data.Response.UIWmsInwardHeader.TransferTo_WAR_Name;
                                 myTaskActivityConfig.Entities.Inward[myTaskActivityConfig.Entities.Inward.label].ePage.Entities.Header.Data = response.data.Response;
                                 myTaskActivityConfig.Entities.PickupData = filterObjectUpdate(myTaskActivityConfig.Entities.PickupData, "IsModified");
                                 apiService.post("eAxisAPI", appConfig.Entities.WmsPickupList.API.Update.Url, myTaskActivityConfig.Entities.PickupData).then(function (response) {
@@ -217,9 +220,10 @@
                         } else {
                             apiService.get("eAxisAPI", appConfig.Entities.InwardList.API.GetById.Url + ActivityTemplateInwardCtrl.ePage.Masters.TaskObj.EntityRefKey).then(function (response) {
                                 if (response.data.Response) {
-                                    response.data.Response.UIWmsInwardHeader.Warehouse = response.data.Response.UIWmsInwardHeader.WarehouseCode + "-" + response.data.Response.UIWmsInwardHeader.WarehouseName;
-                                    response.data.Response.UIWmsInwardHeader.Client = response.data.Response.UIWmsInwardHeader.ClientCode + "-" + response.data.Response.UIWmsInwardHeader.ClientName;
-                                    response.data.Response.UIWmsInwardHeader.TransferWarehouse = response.data.Response.UIWmsInwardHeader.TransferTo_WAR_Code + "-" + response.data.Response.UIWmsInwardHeader.TransferTo_WAR_Name;
+                                    response.data.Response.UIWmsInwardHeader.Warehouse = response.data.Response.UIWmsInwardHeader.WarehouseCode + " - " + response.data.Response.UIWmsInwardHeader.WarehouseName;
+                                    response.data.Response.UIWmsInwardHeader.Client = response.data.Response.UIWmsInwardHeader.ClientCode + " - " + response.data.Response.UIWmsInwardHeader.ClientName;
+                                    response.data.Response.UIWmsInwardHeader.Supplier = response.data.Response.UIWmsInwardHeader.SupplierCode + " - " + response.data.Response.UIWmsInwardHeader.SupplierName;
+                                    response.data.Response.UIWmsInwardHeader.TransferWarehouse = response.data.Response.UIWmsInwardHeader.TransferTo_WAR_Code + " - " + response.data.Response.UIWmsInwardHeader.TransferTo_WAR_Name;
                                     myTaskActivityConfig.Entities.Inward[myTaskActivityConfig.Entities.Inward.label].ePage.Entities.Header.Data = response.data.Response;
                                     var count = 0;
                                     angular.forEach(myTaskActivityConfig.Entities.Inward[myTaskActivityConfig.Entities.Inward.label].ePage.Entities.Header.Data.UIWmsWorkOrderLine, function (value, key) {
@@ -262,9 +266,10 @@
                         } else {
                             apiService.get("eAxisAPI", appConfig.Entities.InwardList.API.GetById.Url + ActivityTemplateInwardCtrl.ePage.Masters.TaskObj.EntityRefKey).then(function (response) {
                                 if (response.data.Response) {
-                                    response.data.Response.UIWmsInwardHeader.Warehouse = response.data.Response.UIWmsInwardHeader.WarehouseCode + "-" + response.data.Response.UIWmsInwardHeader.WarehouseName;
-                                    response.data.Response.UIWmsInwardHeader.Client = response.data.Response.UIWmsInwardHeader.ClientCode + "-" + response.data.Response.UIWmsInwardHeader.ClientName;
-                                    response.data.Response.UIWmsInwardHeader.TransferWarehouse = response.data.Response.UIWmsInwardHeader.TransferTo_WAR_Code + "-" + response.data.Response.UIWmsInwardHeader.TransferTo_WAR_Name;
+                                    response.data.Response.UIWmsInwardHeader.Warehouse = response.data.Response.UIWmsInwardHeader.WarehouseCode + " - " + response.data.Response.UIWmsInwardHeader.WarehouseName;
+                                    response.data.Response.UIWmsInwardHeader.Client = response.data.Response.UIWmsInwardHeader.ClientCode + " - " + response.data.Response.UIWmsInwardHeader.ClientName;
+                                    response.data.Response.UIWmsInwardHeader.Supplier = response.data.Response.UIWmsInwardHeader.SupplierCode + " - " + response.data.Response.UIWmsInwardHeader.SupplierName;
+                                    response.data.Response.UIWmsInwardHeader.TransferWarehouse = response.data.Response.UIWmsInwardHeader.TransferTo_WAR_Code + " - " + response.data.Response.UIWmsInwardHeader.TransferTo_WAR_Name;
                                     myTaskActivityConfig.Entities.Inward[myTaskActivityConfig.Entities.Inward.label].ePage.Entities.Header.Data = response.data.Response;
                                     myTaskActivityConfig.Entities.PickupData = filterObjectUpdate(myTaskActivityConfig.Entities.PickupData, "IsModified");
                                     apiService.post("eAxisAPI", appConfig.Entities.WmsPickupList.API.Update.Url, myTaskActivityConfig.Entities.PickupData).then(function (response) {
@@ -312,7 +317,7 @@
                 apiService.post("eAxisAPI", appConfig.Entities.WmsWorkOrder.API.FindAll.Url, _input).then(function (response) {
                     if (response.data.Response) {
                         ActivityTemplateInwardCtrl.ePage.Masters.WorkOrderList = response.data.Response[0];
-                        
+
                         if (ActivityTemplateInwardCtrl.ePage.Masters.WorkOrderList.WorkOrderType == "PIC") {
                             // apiService.get("eAxisAPI", appConfig.Entities.WmsPickupList.API.GetById.Url + ActivityTemplateInwardCtrl.ePage.Masters.WorkOrderList.PK).then(function (response) {
                             //     if (response.data.Response) {

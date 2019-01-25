@@ -63,7 +63,7 @@
             GetDropDownList();
         }
 
-        function Attach($item) {            
+        function Attach($item) {
             angular.forEach($item, function (value, key) {
                 var _isExist = PickupLineCtrl.ePage.Entities.Header.Data.UIWmsPickupLine.some(function (value1, index1) {
                     return value1.WOL_Parent_FK === value.DL_PK;
@@ -330,10 +330,15 @@
                         } else if (!value.PK && value.SingleSelect == true) {
                             var ReturnValue = RemoveAllLineErrors();
                             if (ReturnValue) {
-                                if (PickupLineCtrl.ePage.Entities.Header.Data.UIWmsPickupLine[key].SingleSelect == true)
-                                    PickupLineCtrl.ePage.Entities.Header.Data.UIWmsPickupLine.splice(key, 1);
+                                for (var i = PickupLineCtrl.ePage.Entities.Header.Data.UIWmsPickupLine.length - 1; i >= 0; i--) {
+                                    if (PickupLineCtrl.ePage.Entities.Header.Data.UIWmsPickupLine[key].SingleSelect == true)
+                                        PickupLineCtrl.ePage.Entities.Header.Data.UIWmsPickupLine.splice(key, 1);
+                                }
                                 toastr.success('Record Removed Successfully');
+                                PickupLineCtrl.ePage.Masters.selectedRow = -1;
+                                PickupLineCtrl.ePage.Masters.SelectAll = false;
                                 PickupLineCtrl.ePage.Entities.Header.GlobalVariables.Loading = false;
+                                PickupLineCtrl.ePage.Masters.EnableDeleteButton = false;
                                 PickupLineCtrl.ePage.Masters.Config.GeneralValidation(PickupLineCtrl.currentPickup);
                             }
                         }
@@ -378,45 +383,22 @@
         //#region checkbox selection
         function SelectAllCheckBox() {
             angular.forEach(PickupLineCtrl.ePage.Entities.Header.Data.UIWmsPickupLine, function (value, key) {
-                var startData = PickupLineCtrl.ePage.Masters.CurrentPageStartingIndex
-                var LastData = PickupLineCtrl.ePage.Masters.CurrentPageStartingIndex + (PickupLineCtrl.ePage.Masters.Pagination.ItemsPerPage);
-
                 if (PickupLineCtrl.ePage.Masters.SelectAll) {
-
-                    // Enable and disable based on page wise
-                    if ((key >= startData) && (key < LastData)) {
-                        value.SingleSelect = true;
-                    }
-                }
-                else {
-                    if ((key >= startData) && (key < LastData)) {
-                        value.SingleSelect = false;
-                    }
+                    value.SingleSelect = true;
+                    PickupLineCtrl.ePage.Masters.EnableDeleteButton = true;
+                    PickupLineCtrl.ePage.Masters.EnableCopyButton = true;
+                } else {
+                    value.SingleSelect = false;
+                    PickupLineCtrl.ePage.Masters.EnableDeleteButton = false;
+                    PickupLineCtrl.ePage.Masters.EnableCopyButton = false;
                 }
             });
-
-            var Checked1 = PickupLineCtrl.ePage.Entities.Header.Data.UIWmsPickupLine.some(function (value, key) {
-                return value.SingleSelect == true;
-            });
-            if (Checked1) {
-                PickupLineCtrl.ePage.Masters.EnableDeleteButton = true;
-                PickupLineCtrl.ePage.Masters.EnableCopyButton = true;
-            } else {
-                PickupLineCtrl.ePage.Masters.EnableDeleteButton = false;
-                PickupLineCtrl.ePage.Masters.EnableCopyButton = false;
-            }
         }
 
         function SingleSelectCheckBox() {
-            var startData = PickupLineCtrl.ePage.Masters.CurrentPageStartingIndex
-            var LastData = PickupLineCtrl.ePage.Masters.CurrentPageStartingIndex + (PickupLineCtrl.ePage.Masters.Pagination.ItemsPerPage);
-
             var Checked = PickupLineCtrl.ePage.Entities.Header.Data.UIWmsPickupLine.some(function (value, key) {
-                // Enable and disable based on page wise
-                if ((key >= startData) && (key < LastData)) {
-                    if (!value.SingleSelect)
-                        return true;
-                }
+                if (!value.SingleSelect)
+                    return true;
             });
             if (Checked) {
                 PickupLineCtrl.ePage.Masters.SelectAll = false;
@@ -435,6 +417,7 @@
                 PickupLineCtrl.ePage.Masters.EnableCopyButton = false;
             }
         }
+        //#endregion
         function OnChangeValues(fieldvalue, code) {
             angular.forEach(PickupLineCtrl.ePage.Masters.Config.ValidationValues, function (value, key) {
                 if (value.Code.trim() === code) {
