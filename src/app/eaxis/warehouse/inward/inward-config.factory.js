@@ -677,18 +677,10 @@
                                     "display":true
                                 },
                                 {
-                                    "columnname":"Product Condition",
-                                    "isenabled":true,
-                                    "property":"aproductcondition",
-                                    "position":"5",
-                                    "width":"100",
-                                    "display":true
-                                },
-                                {
                                     "columnname":"Commodity",
                                     "isenabled":true,
                                     "property":"acommodity",
-                                    "position":"6",
+                                    "position":"5",
                                     "width":"100",
                                     "display":true
                                 },
@@ -696,7 +688,7 @@
                                     "columnname":"Pack",
                                     "isenabled":true,
                                     "property":"apack",
-                                    "position":"7",
+                                    "position":"6",
                                     "width":"100",
                                     "display":true
                                 },
@@ -704,7 +696,7 @@
                                     "columnname":"Pack UQ",
                                     "isenabled":true,
                                     "property":"apackuq",
-                                    "position":"8",
+                                    "position":"7",
                                     "width":"100",
                                     "display":true
                                 },
@@ -712,7 +704,7 @@
                                     "columnname":"Quantity",
                                     "isenabled":true,
                                     "property":"aquantity",
-                                    "position":"9",
+                                    "position":"8",
                                     "width":"100",
                                     "display":true
                                 },
@@ -720,6 +712,14 @@
                                     "columnname":"Quantity UQ",
                                     "isenabled":true,
                                     "property":"aquantityuq",
+                                    "position":"9",
+                                    "width":"100",
+                                    "display":true
+                                },
+                                {
+                                    "columnname":"Product Condition",
+                                    "isenabled":true,
+                                    "property":"aproductcondition",
                                     "position":"10",
                                     "width":"100",
                                     "display":true
@@ -800,32 +800,32 @@
                                     "position":"4",
                                     "width":"100"
                                 },
-                                "aproductcondition":{
+                                "acommodity":{
                                     "isenabled":true,
                                     "position":"5",
                                     "width":"100"
                                 },
-                                "acommodity":{
+                                "apack":{
                                     "isenabled":true,
                                     "position":"6",
                                     "width":"100"
                                 },
-                                "apack":{
+                                "apackuq":{
                                     "isenabled":true,
                                     "position":"7",
                                     "width":"100"
                                 },
-                                "apackuq":{
+                                "aquantity":{
                                     "isenabled":true,
                                     "position":"8",
                                     "width":"100"
                                 },
-                                "aquantity":{
+                                "aquantityuq":{
                                     "isenabled":true,
                                     "position":"9",
                                     "width":"100"
                                 },
-                                "aquantityuq":{
+                                "aproductcondition":{
                                     "isenabled":true,
                                     "position":"10",
                                     "width":"100"
