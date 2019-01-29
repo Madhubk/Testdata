@@ -153,11 +153,11 @@
                          if (Remaining_OrdQty < parseFloat(item.InLocationQty)) {
                             item.AllocatedQty = Remaining_OrdQty;
                             item.InLocationQty = (parseFloat(item.InLocationQty) - Remaining_OrdQty).toFixed(7);
-                            item.CommitedUnit = ( (parseFloat(item.TotalUnits)) - ( parseFloat(item.InLocationQty) + parseFloat(item.CommitedUnit) + parseFloat(item.InTransitUnit) + parseFloat(item.ReservedUnit) ) ).toFixed(7);
+                            item.CommitedUnit = ( parseFloat(item.CommitedUnit) + parseFloat(item.AllocatedQty)  ).toFixed(7);
                         } else {
                             item.AllocatedQty = parseFloat(item.InLocationQty);
                             item.InLocationQty = 0;
-                            item.CommitedUnit = ( (parseFloat(item.TotalUnits)) - ( parseFloat(item.InLocationQty) + parseFloat(item.CommitedUnit) + parseFloat(item.InTransitUnit) + parseFloat(item.ReservedUnit) ) ).toFixed(7);
+                            item.CommitedUnit = ( parseFloat(item.CommitedUnit) + parseFloat(item.AllocatedQty)  ).toFixed(7);
                         }
                     }
                 } 
@@ -208,11 +208,12 @@
             if (parseFloat(item.AllocatedQty)) {
                 item.IsAllocate = true;
 
-                //If OverallAllocated value is greater than Ordered Qty
-                if (OverallAllocatedValue_In_Inv > parseFloat(PickAllocationCtrl.ePage.Masters.SelectedOutwardLineDetails.Units)) {
+                /*If OverallAllocated value is greater than Ordered Qty. We have taken shortfall because if stock is partially
+                allocated then moved to intransit again if they want to allocate remaining we need to check the shortfall qty only */
+                if (OverallAllocatedValue_In_Inv > parseFloat(PickAllocationCtrl.ePage.Masters.SelectedOutwardLineDetails.ShortFallQty)) {
                     item.AllocatedQty = 0;
                     item.IsAllocate = false;
-                    toastr.warning("Allocated Qty should not be greater than ordered Qty");
+                    toastr.warning("Allocated Qty should not be greater than Shortfall Qty");
                 }
 
                 // if Inlocation is less than allocated qty
@@ -230,7 +231,7 @@
 
             // After Adding Or removing line from Pickline Calculating CommitedUnit and Inlocation qty and Available to pick
             item.InLocationQty = (parseFloat(item.InLocationQty) - parseFloat(item.AllocatedQty)).toFixed(7);
-            item.CommitedUnit = ( (parseFloat(item.TotalUnits)) - ( parseFloat(item.InLocationQty) + parseFloat(item.CommitedUnit) + parseFloat(item.InTransitUnit) + parseFloat(item.ReservedUnit) ) ).toFixed(7);
+            item.CommitedUnit = (parseFloat(item.CommitedUnit) + parseFloat(item.AllocatedQty)).toFixed(7);
             if(item.ProductCondition=="GDC"){
                 item.AvailableToPick = item.InLocationQty;
             }

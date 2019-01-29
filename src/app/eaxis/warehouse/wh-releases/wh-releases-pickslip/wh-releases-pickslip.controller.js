@@ -61,48 +61,8 @@
             GetUserBasedGridColumListForUIWmsReleaseLine();
         }
         
-        function KeyEventHandling(e , textField){
-            
-            if (ReleasesPickSlipCtrl.ePage.Masters.EnableAddOrChooseButton && ReleasesPickSlipCtrl.ePage.Masters.selectedRowForUIWmsReleaseLine!=-1 && (e.keyCode == 13 ||e.keyCode == 0)) {
-                ReleasesPickSlipCtrl.ePage.Entities.Header.GlobalVariables.Loading = true;
-                $timeout(function () {
-                    var TotalUpdated = 0;
 
-                    ReleasesPickSlipCtrl.ePage.Entities.Header.Data.UIWmsReleaseLine.map(function(value,key){
-                        if(ReleasesPickSlipCtrl.ePage.Masters.SelectedPickLinePK == value.WPL_FK && value.Units){
-                            TotalUpdated = TotalUpdated + parseFloat(value.Units);
-                        }
-                    });
-
-                    if(parseFloat(TotalUpdated) <= parseFloat(ReleasesPickSlipCtrl.ePage.Masters.CurrentPickLine.Units)){                        
-                        if(textField == 'UDF1') {
-                            if(ReleasesPickSlipCtrl.ePage.Masters.CurrentPickLine.IsPartAttrib2ReleaseCaptured){
-                                document.getElementById('UDF2').focus()
-                            }else if(ReleasesPickSlipCtrl.ePage.Masters.CurrentPickLine.IsPartAttrib3ReleaseCaptured){
-                                document.getElementById('UDF3').focus()
-                            }else if(parseFloat(TotalUpdated) != parseFloat(ReleasesPickSlipCtrl.ePage.Masters.CurrentPickLine.Units)){
-                                AddNewRowForUIWmsReleaseLine();
-                            }
-                        }
-                        
-                        if(textField == 'UDF2') {
-                            if(ReleasesPickSlipCtrl.ePage.Masters.CurrentPickLine.IsPartAttrib3ReleaseCaptured){
-                                document.getElementById('UDF3').focus()
-                            }else if(parseFloat(TotalUpdated) != parseFloat(ReleasesPickSlipCtrl.ePage.Masters.CurrentPickLine.Units)){
-                                AddNewRowForUIWmsReleaseLine();
-                            }
-                        }
-                        
-                        if(textField == 'UDF3' && (parseFloat(TotalUpdated) != parseFloat(ReleasesPickSlipCtrl.ePage.Masters.CurrentPickLine.Units))) {
-                            AddNewRowForUIWmsReleaseLine();
-                        }
-                    }
-
-                    ReleasesPickSlipCtrl.ePage.Entities.Header.GlobalVariables.Loading = false;
-                }, 1000);
-                
-            }
-        }
+        //#region Pick Line Funcationlities
 
         function GetUserBasedGridColumListForPickLineSummary(){
             var _filter = {
@@ -132,7 +92,12 @@
 
         function setSelectedRowForPickLineSummary(index){
             ReleasesPickSlipCtrl.ePage.Masters.selectedRowForPickLineSummary = index;
+            CalculatingReleaseQty();
         }
+
+        //#endregion
+
+        //#region Release Line Functionaities
 
         function GetUserBasedGridColumListForUIWmsReleaseLine(){
             var _filter = {
@@ -158,6 +123,53 @@
                     ReleasesPickSlipCtrl.ePage.Masters.UserValueForUIWmsReleaseLine = undefined;
                 }
             })
+        }
+
+        function CalculatingReleaseQty(){
+            ReleasesPickSlipCtrl.ePage.Masters.TotalReleaseQtyAgainstCurrentPickLine = 0;
+
+            ReleasesPickSlipCtrl.ePage.Entities.Header.Data.UIWmsReleaseLine.map(function(value,key){
+                if(ReleasesPickSlipCtrl.ePage.Masters.SelectedPickLinePK == value.WPL_FK && value.Units){
+                    ReleasesPickSlipCtrl.ePage.Masters.TotalReleaseQtyAgainstCurrentPickLine = ReleasesPickSlipCtrl.ePage.Masters.TotalReleaseQtyAgainstCurrentPickLine + parseFloat(value.Units);
+                }
+            });
+        }
+
+        function KeyEventHandling(e , textField){
+            if (ReleasesPickSlipCtrl.ePage.Masters.EnableAddOrChooseButton && ReleasesPickSlipCtrl.ePage.Masters.selectedRowForUIWmsReleaseLine!=-1 && (e.keyCode == 13 ||e.keyCode == 0)) {
+                CalculatingReleaseQty();
+
+                if(parseFloat(ReleasesPickSlipCtrl.ePage.Masters.TotalReleaseQtyAgainstCurrentPickLine) <= parseFloat(ReleasesPickSlipCtrl.ePage.Masters.CurrentPickLine.Units)){                        
+                    if(textField == 'UDF1') {
+                        if(ReleasesPickSlipCtrl.ePage.Masters.CurrentPickLine.IsPartAttrib2ReleaseCaptured){
+                            document.getElementById('UDF2').focus()
+                        }else if(ReleasesPickSlipCtrl.ePage.Masters.CurrentPickLine.IsPartAttrib3ReleaseCaptured){
+                            document.getElementById('UDF3').focus()
+                        }else if(parseFloat(ReleasesPickSlipCtrl.ePage.Masters.TotalReleaseQtyAgainstCurrentPickLine) != parseFloat(ReleasesPickSlipCtrl.ePage.Masters.CurrentPickLine.Units)){
+                            AddNewRowForUIWmsReleaseLine();
+                        }
+                    }
+                    
+                    if(textField == 'UDF2') {
+                        if(ReleasesPickSlipCtrl.ePage.Masters.CurrentPickLine.IsPartAttrib3ReleaseCaptured){
+                            document.getElementById('UDF3').focus()
+                        }else if(parseFloat(ReleasesPickSlipCtrl.ePage.Masters.TotalReleaseQtyAgainstCurrentPickLine) != parseFloat(ReleasesPickSlipCtrl.ePage.Masters.CurrentPickLine.Units)){
+                            AddNewRowForUIWmsReleaseLine();
+                        }
+                    }
+                    
+                    if(textField == 'UDF3' && (parseFloat(ReleasesPickSlipCtrl.ePage.Masters.TotalReleaseQtyAgainstCurrentPickLine) != parseFloat(ReleasesPickSlipCtrl.ePage.Masters.CurrentPickLine.Units))) {
+                        AddNewRowForUIWmsReleaseLine();
+                    }
+
+                    if(ReleasesPickSlipCtrl.ePage.Masters.CurrentPickLine.Units == ReleasesPickSlipCtrl.ePage.Masters.TotalReleaseQtyAgainstCurrentPickLine){
+                        toastr.success("All the quantities are scanned");
+                        document.getElementById("UDF1").blur();
+                        document.getElementById("UDF2").blur();
+                        document.getElementById("UDF3").blur();
+                    }
+                } 
+            }
         }
 
         function SelectAllCheckBoxForUIWmsReleaseLine(){
@@ -211,7 +223,7 @@
             }
         }
 
-          //#region Add,copy,delete row
+        //#region Add,copy,delete row
 
         function setSelectedRowForUIWmsReleaseLine(index){
             ReleasesPickSlipCtrl.ePage.Masters.selectedRowForUIWmsReleaseLine = index;
@@ -306,6 +318,7 @@
                         ReleasesPickSlipCtrl.ePage.Masters.Config.GeneralValidation(ReleasesPickSlipCtrl.currentRelease);
                     }
                     toastr.success('Record Removed Successfully');
+                    CalculatingReleaseQty();
                     ReleasesPickSlipCtrl.ePage.Masters.selectedRowForUIWmsReleaseLine = -1;
                     ReleasesPickSlipCtrl.ePage.Masters.SelectAllForUIWmsReleaseLine = false;
                     ReleasesPickSlipCtrl.ePage.Entities.Header.GlobalVariables.Loading = false;
@@ -372,6 +385,10 @@
         
         //#endregion
 
+        //#endregion
+
+        //#region  Validation
+
         function UnitValidation(item,index){
             if(item.Units){
                 OnChangeValues('value', 'E8021', true, index);
@@ -430,6 +447,8 @@
                 ReleasesPickSlipCtrl.ePage.Masters.Config.RemoveErrorWarning(value.Code, "E", value.CtrlKey.trim(), ReleasesPickSlipCtrl.currentRelease.label, IsArray, RowIndex, value.ColIndex);
             }
         }
+
+        //#endregion
 
         Init();
 

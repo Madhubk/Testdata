@@ -232,7 +232,7 @@
 
         function GetDropdownList() {
             // Get CFXType Dropdown list
-            var typeCodeList = ["INW_LINE_UQ"];
+            var typeCodeList = ["INW_LINE_UQ","ProductCondition"];
             var dynamicFindAllInput = [];
 
             typeCodeList.map(function (value, key) {
@@ -416,6 +416,7 @@
                 "POR_FK": "",
                 "MCC_NKCommodityCode": "",
                 "MCC_NKCommodityDesc": "",
+                "ProductCondition":"GDC",
                 "Commodity": "",
                 "Packs": "",
                 "PAC_PackType": "",
@@ -470,6 +471,7 @@
                         "MCC_NKCommodityCode": item.MCC_NKCommodityCode,
                         "MCC_NKCommodityDesc": item.MCC_NKCommodityDesc,
                         "Commodity": item.Commodity,
+                        "ProductCondition":item.ProductCondition,
                         "Packs": item.Packs,
                         "PAC_PackType": item.PAC_PackType,
                         "Quantity": item.Quantity,

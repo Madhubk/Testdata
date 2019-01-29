@@ -582,56 +582,37 @@
                 .then(function (result) {
                     OutwardLineCtrl.ePage.Entities.Header.GlobalVariables.Loading = true;
 
-                    SaveWhileDelete(OutwardLineCtrl.ePage.Entities.Header.Data ,function(response){
-
-                        if(response=="Success"){
-                            angular.forEach(OutwardLineCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine,function(value,key){
-                                //Incase of by mistake deleting allocated line then we need to remove that one
-                                if(x.AllocatedQty) {x.SingleSelect = false;}
-                                
-                                if(value.SingleSelect==true && value.PK){
-                                    apiService.get("eAxisAPI", OutwardLineCtrl.ePage.Entities.Header.API.LineDelete.Url + value.PK).then(function (response) {
-                                    });
-                                }
+                    angular.forEach(OutwardLineCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine,function(value,key){
+                        //Incase of by mistake deleting allocated line then we need to remove that one
+                        if(value.AllocatedQty) {value.SingleSelect = false;}
+                        
+                        if(value.SingleSelect==true && value.PK){
+                            apiService.get("eAxisAPI", OutwardLineCtrl.ePage.Entities.Header.API.LineDelete.Url + value.PK).then(function (response) {
                             });
-                    
-                            var ReturnValue = RemoveAllLineErrors();
-                            if(ReturnValue){
-                                for (var i = OutwardLineCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine.length -1; i >= 0; i--){
-                                    if(OutwardLineCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine[i].SingleSelect==true)
-                                    OutwardLineCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine.splice(i,1);
-                                }
-                                OutwardLineCtrl.ePage.Masters.Config.GeneralValidation(OutwardLineCtrl.currentOutward);
-                            }
-                            GetPercentageValues();
-                            toastr.success('Record Removed Successfully');
-                            OutwardLineCtrl.ePage.Masters.selectedRow = -1;
-                            OutwardLineCtrl.ePage.Masters.SelectAll = false;
-                            OutwardLineCtrl.ePage.Entities.Header.GlobalVariables.Loading = false;
-                            OutwardLineCtrl.ePage.Masters.EnableDeleteButton = false; 
-                        }else{
-                            toastr.error("Version Conflict Please Take Latest");
-                            OutwardLineCtrl.ePage.Entities.Header.GlobalVariables.Loading = false;
                         }
                     });
+            
+                    var ReturnValue = RemoveAllLineErrors();
+                    if(ReturnValue){
+                        for (var i = OutwardLineCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine.length -1; i >= 0; i--){
+                            if(OutwardLineCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine[i].SingleSelect==true)
+                            OutwardLineCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine.splice(i,1);
+                        }
+                        OutwardLineCtrl.ePage.Masters.Config.GeneralValidation(OutwardLineCtrl.currentOutward);
+                    }
+                    GetPercentageValues();
+                    toastr.success('Record Removed Successfully');
+                    OutwardLineCtrl.ePage.Masters.selectedRow = -1;
+                    OutwardLineCtrl.ePage.Masters.SelectAll = false;
+                    OutwardLineCtrl.ePage.Entities.Header.GlobalVariables.Loading = false;
+                    OutwardLineCtrl.ePage.Masters.EnableDeleteButton = false; 
+
                 }, function () {
                     console.log("Cancelled");
             });
         }
 
-        /*While deleting line Pick and release will get affected because it may be modified so to restrict
-        that one we are saving first. */
 
-        function SaveWhileDelete($item , callback){
-            apiService.post("eAxisAPI", OutwardLineCtrl.ePage.Entities.Header.API.UpdateOutward.Url, $item).then(function (response) {
-                if (response.data.Status == 'Success') {
-                    OutwardLineCtrl.ePage.Entities.Header.Data = response.data.Response;
-                    callback("Success")
-                }else{
-                    callback("Failed")
-                }
-            });
-        }
 
         //#endregion Add,copy,delete row
 

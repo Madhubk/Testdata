@@ -97,8 +97,9 @@
                     <input type="checkbox" ng-checked="ReleasesPickSlipCtrl.ePage.Masters.ShowAllLines" ng-change="ReleasesPickSlipCtrl.ePage.Masters.ShowAllFunc(ReleasesPickSlipCtrl.ePage.Masters.ShowAllLines)"
                         ng-model="ReleasesPickSlipCtrl.ePage.Masters.ShowAllLines" ng-disabled="ReleasesPickSlipCtrl.ePage.Masters.selectedRowForPickLineSummary==-1"> </input>
                     <span class="text" style="font-weight: 600">Show All</span>
-            </label>
-        </span>
+                </label>
+            </span>
+            <span class="pl-100" data-ng-if="ReleasesPickSlipCtrl.ePage.Masters.selectedRowForPickLineSummary>=0">{{ReleasesPickSlipCtrl.ePage.Masters.TotalReleaseQtyAgainstCurrentPickLine || 0}} / {{ReleasesPickSlipCtrl.ePage.Masters.CurrentPickLine.Units}} Quantity Picked</span>
         </div>
         <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 p-0 pull-right">
             <div class="input-group">
