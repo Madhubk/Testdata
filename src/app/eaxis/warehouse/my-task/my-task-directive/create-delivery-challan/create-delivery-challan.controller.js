@@ -5,9 +5,9 @@
         .module("Application")
         .controller("CreateDelChallanController", CreateDelChallanController);
 
-    CreateDelChallanController.$inject = ["$scope", "apiService", "helperService", "appConfig", "myTaskActivityConfig", "APP_CONSTANT", "errorWarningService", "dynamicLookupConfig", "outwardConfig", "toastr", "$timeout", "$uibModal"];
+    CreateDelChallanController.$inject = ["$scope", "apiService", "helperService", "appConfig", "myTaskActivityConfig", "APP_CONSTANT", "errorWarningService", "dynamicLookupConfig", "outwardConfig", "toastr", "$timeout", "$uibModal", "$filter"];
 
-    function CreateDelChallanController($scope, apiService, helperService, appConfig, myTaskActivityConfig, APP_CONSTANT, errorWarningService, dynamicLookupConfig, outwardConfig, toastr, $timeout, $uibModal) {
+    function CreateDelChallanController($scope, apiService, helperService, appConfig, myTaskActivityConfig, APP_CONSTANT, errorWarningService, dynamicLookupConfig, outwardConfig, toastr, $timeout, $uibModal, $filter) {
         var CreateDelChallanCtrl = this;
 
         function Init() {
@@ -100,6 +100,7 @@
                     value.SingleSelect = false;
                 }
             });
+            setSelectedRow();
         }
 
         function SingleSelectCheckBox() {
@@ -162,16 +163,70 @@
                     });
                     CreateDelChallanCtrl.ePage.Masters.TempCSR = CreateDelChallanCtrl.ePage.Masters.TempCSR.slice(0, -1);
                     if (temp == 0) {
+                        CreateDelChallanCtrl.ePage.Masters.SelectedInventory = [];
+                        CreateDelChallanCtrl.ePage.Masters.WarehouseInventory = [];
+                        CreateDelChallanCtrl.ePage.Masters.NotWarehouseInventory = [];
+                        var TempSelectedLine = _.groupBy(CreateDelChallanCtrl.ePage.Masters.SelectedDeliveryLine, 'DL_Req_PrdCode');
+                        angular.forEach(TempSelectedLine, function (value, key) {
+                            CreateDelChallanCtrl.ePage.Masters.SelectedInventory = CreateDelChallanCtrl.ePage.Masters.SelectedInventory.concat($filter('filter')(CreateDelChallanCtrl.ePage.Masters.InventoryDetails, function (val1, key1) {
+                                return val1.ProductCode == key
+                            }));
+                            CreateDelChallanCtrl.ePage.Masters.WarehouseInventory = CreateDelChallanCtrl.ePage.Masters.WarehouseInventory.concat($filter('filter')(CreateDelChallanCtrl.ePage.Masters.SelectedInventory, function (val1, key1) {
+                                return (val1.ProductCode == key && val1.WAR_WarehouseCode == CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WarehouseCode)
+                            }));
+                            CreateDelChallanCtrl.ePage.Masters.NotWarehouseInventory = CreateDelChallanCtrl.ePage.Masters.NotWarehouseInventory.concat($filter('filter')(CreateDelChallanCtrl.ePage.Masters.SelectedInventory, function (val1, key1) {
+                                return ((val1.ProductCode == key) && (val1.WAR_WarehouseCode != CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WarehouseCode))
+                            }));
+                        });
+
                         if (type == "OUT") {
-                            GoToOutwardCreation(type);
+                            var TempWarInv = _.groupBy(CreateDelChallanCtrl.ePage.Masters.WarehouseInventory, 'ProductCode');
+                            var TempWarInvCount = _.keys(TempWarInv).length;
+                            var TempSelectedLineCount = _.keys(TempSelectedLine).length;
+                            if (TempWarInvCount == TempSelectedLineCount) {
+                                GoToOutwardCreation(type);
+                            } else {
+                                toastr.warning("Inventory not available for this product(s)");
+                            }
                         } else if (type == "MTR") {
-                            openModel().result.then(function (response) {
-                                if (response == "MTR") {
-                                    GoToOutwardCreation(type);
+                            var TempWarInv = _.groupBy(CreateDelChallanCtrl.ePage.Masters.NotWarehouseInventory, 'ProductCode');
+                            var TempWarInvCount = _.keys(TempWarInv).length;
+                            var TempSelectedLineCount = _.keys(TempSelectedLine).length;
+                            if (TempWarInvCount == TempSelectedLineCount) {
+                                var results = groupBy(CreateDelChallanCtrl.ePage.Masters.NotWarehouseInventory, function (item) {
+                                    return [item.WAR_WarehouseCode, item.ProductCode];
+                                });
+                                var war = [];
+                                angular.forEach(results, function (value, key) {
+                                    var str;
+                                    if (typeof key == "string") {
+                                        str = JSON.parse(key);
+                                    }
+                                    war.push(str[0]);
+                                });
+                                var result = GetWarCount(war);
+                                var WarehosueList = "";
+                                angular.forEach(result, function (val, key) {
+                                    if (val == TempSelectedLineCount) {
+                                        WarehosueList = WarehosueList + key + ",";
+                                    }
+                                });
+                                WarehosueList = WarehosueList.slice(0, -1);
+                                if (WarehosueList) {
+                                    CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.TempWarehouse = WarehosueList;
+                                    openModel().result.then(function (response) {
+                                        if (response == "MTR") {
+                                            GoToOutwardCreation(type);
+                                        }
+                                    }, function () {
+                                        console.log("Cancelled");
+                                    });
+                                } else {
+                                    toastr.warning("Inventory not available for this product(s) in same warehouse.")
                                 }
-                            }, function () {
-                                console.log("Cancelled");
-                            });
+                            } else {
+                                toastr.warning("Inventory not available for this product(s)");
+                            }
                         }
                     } else {
                         if (type == "OUT")
@@ -195,7 +250,29 @@
             }
         }
 
+        function GetWarCount(arr) {
+            var counts = {};
+            for (var i = 0; i < arr.length; i++) {
+                var num = arr[i];
+                counts[num] = counts[num] ? counts[num] + 1 : 1;
+            }
+            return counts;
+        }
+
+        function groupBy(array, f) {
+            var groups = {};
+            array.forEach(function (o) {
+                var group = JSON.stringify(f(o));
+                groups[group] = groups[group] || [];
+                groups[group].push(o);
+            });
+            // return Object.keys(groups).map(function (group) {
+            return groups;
+            // })
+        }
+
         function Close() {
+            CreateDelChallanCtrl.ePage.Masters.selectedRow = -1;
             CreateDelChallanCtrl.ePage.Masters.modalInstance.close('close');
         }
 
@@ -467,13 +544,37 @@
             }
         }
 
-        function setSelectedRow(index, item) {
-            CreateDelChallanCtrl.ePage.Masters.selectedRow = index;
+        function setSelectedRow(index, item) {            
+            var SelectedDeliveryLine = [];
+            angular.forEach(CreateDelChallanCtrl.ePage.Entities.Header.Data.UIvwWmsDeliveryList, function (value, key) {
+                if (value.SingleSelect) {
+                    SelectedDeliveryLine.push(value);
+                }
+            });
+            var TempSelectedDeliveryLine = _.groupBy(SelectedDeliveryLine, 'DL_Req_PrdCode');
+            var TempProduct = "";
+            angular.forEach(TempSelectedDeliveryLine, function (value, key) {
+                TempProduct = TempProduct + key + ",";
+            });
+            TempProduct = TempProduct.slice(0, -1);
+            // if (SelectedDeliveryLine.length > 1) {
+            //     CreateDelChallanCtrl.ePage.Masters.selectedRow = -1;
+            // } else {
+            //     CreateDelChallanCtrl.ePage.Masters.selectedRow = index;
+            // }
+            // var WarehouseCode;
+            // if (!CreateDelChallanCtrl.ePage.Masters.SelectAll && SelectedDeliveryLine.length == 0) {
+            //     WarehouseCode = undefined;
+            // } else {
+            //     WarehouseCode = CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WarehouseCode;
+            // }
             CreateDelChallanCtrl.ePage.Masters.defaultFilter = {
                 "ClientCode": CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ClientCode,
-                "WAR_WarehouseCode": CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WarehouseCode,
-                "InventoryStatusIn": item.DL_ProductCondition == 'GDC' ? 'AVL' : 'HEL',
-                "ProductCode": item.DL_Req_PrdCode
+                // "WAR_WarehouseCode": WarehouseCode,
+                "InventoryStatusIn": 'AVL',
+                // "ProductCode": item.DL_Req_PrdCode,
+                "AvlToPickNotEquals": "0",
+                "ProductIn": TempProduct,
             };
             CreateDelChallanCtrl.ePage.Masters.DynamicControl = undefined;
             GetConfigDetails();
@@ -491,11 +592,19 @@
         }
 
         function DefaultFilter() {
-            if (CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ClientCode && CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WarehouseCode) {
+            if (CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ClientCode && CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WarehouseCode && CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDeliveryLine.length > 0) {
+                var TempDeliveryLine = _.groupBy(CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDeliveryLine, 'ProductCode');
+                var TempProduct = "";
+                angular.forEach(TempDeliveryLine, function (value, key) {
+                    TempProduct = TempProduct + key + ",";
+                });
+                TempProduct = TempProduct.slice(0, -1);
                 CreateDelChallanCtrl.ePage.Masters.defaultFilter = {
                     "ClientCode": CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ClientCode,
-                    "WAR_WarehouseCode": CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WarehouseCode,
-                    "InventoryStatusIn": "AVL,HEL"
+                    // "WAR_WarehouseCode": CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WarehouseCode,
+                    "InventoryStatusIn": "AVL",
+                    "ProductIn": TempProduct,
+                    "AvlToPickNotEquals": "0"
                 };
                 CreateDelChallanCtrl.ePage.Masters.DynamicControl = undefined;
                 GetConfigDetails();
@@ -518,7 +627,6 @@
                     console.log("Dynamic control config Empty Response");
                 } else {
                     CreateDelChallanCtrl.ePage.Masters.DynamicControl = response.data.Response;
-
                     if (CreateDelChallanCtrl.ePage.Masters.defaultFilter !== undefined) {
                         CreateDelChallanCtrl.ePage.Masters.DynamicControl.Entities.map(function (value, key) {
                             value.Data = CreateDelChallanCtrl.ePage.Masters.defaultFilter;
@@ -559,6 +667,8 @@
                     "Location": CreateDelChallanCtrl.ePage.Masters.DynamicControl.Entities[0].Data.Location,
                     "PalletID": CreateDelChallanCtrl.ePage.Masters.DynamicControl.Entities[0].Data.PalletID,
                     "ProductCode": CreateDelChallanCtrl.ePage.Masters.DynamicControl.Entities[0].Data.ProductCode,
+                    "ProductIn": CreateDelChallanCtrl.ePage.Masters.DynamicControl.Entities[0].Data.ProductIn,
+                    "AvlToPickNotEquals": CreateDelChallanCtrl.ePage.Masters.DynamicControl.Entities[0].Data.AvlToPickNotEquals,
                     "WOL_AdjustmentArrivalDate": CreateDelChallanCtrl.ePage.Masters.DynamicControl.Entities[0].Data.WOL_AdjustmentArrivalDate,
                     "PartAttrib1": CreateDelChallanCtrl.ePage.Masters.DynamicControl.Entities[0].Data.PartAttrib1,
                     "PartAttrib2": CreateDelChallanCtrl.ePage.Masters.DynamicControl.Entities[0].Data.PartAttrib2,
@@ -577,6 +687,10 @@
                 };
                 apiService.post("eAxisAPI", appConfig.Entities.WmsInventory.API.FindAll.Url, _input).then(function (response) {
                     CreateDelChallanCtrl.ePage.Masters.Inventory = response.data.Response;
+
+                    if (CreateDelChallanCtrl.ePage.Masters.defaultFilter.ProductIn) {
+                        CreateDelChallanCtrl.ePage.Masters.InventoryDetails = response.data.Response;
+                    }
                     CreateDelChallanCtrl.ePage.Masters.InventoryCount = response.data.Count;
                     CreateDelChallanCtrl.ePage.Masters.InventoryLoading = false;
                 });

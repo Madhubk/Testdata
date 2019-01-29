@@ -298,53 +298,53 @@
                 <thead>
                     <tr id="tableHeader">
                         <th ng-style="{ 'width':  '40px' }" title="S.No">S.No</th>
-                        <th ng-style="{ 'width':  '150px' }" title="Product Code">Product Code</th>
-                        <th ng-style="{ 'width':  '275px' }" title="Product Description">Product Description</th>
-                        <th ng-style="{ 'width':  '150px' }" title="Receipt Reference">Receipt Reference</th>
-                        <th ng-style="{ 'width':  '150px' }" title="Inventory Status">Inventory Status</th>
-                        <th ng-style="{ 'width':  '100px' }" title="Available To Pick">Avl To Pick</th>
-                        <th ng-style="{ 'width':  '100px' }" title="In-Location Quantity">In-Loc Quantity</th>
-                        <th ng-style="{ 'width':  '100px' }" title="Committed Quantity">Committed Qty</th>
-                        <th ng-style="{ 'width':  '100px' }" title="In-Transit Quantity">In-Transit Qty</th>
-                        <th ng-style="{ 'width':  '100px' }" title="Reserved Quantity">Reserved Qty</th>
-                        <th ng-style="{ 'width':  '100px' }" title="Total Quantity">Total Qty</th>
-                        <th ng-style="{ 'width':  '150px' }" title="Arrival Date">Arrival Date</th>
-                        <th ng-style="{ 'width':  '150px' }" title="Location">Location</th>
-                        <th ng-style="{ 'width':  '150px' }" title="Location Status">Location Status</th>
-                        <th ng-style="{ 'width':  '150px' }" title="Pallet ID">Pallet ID</th>
-                        <th ng-style="{ 'width':  '150px' }" title="UDF 1">UDF 1</th>
-                        <th ng-style="{ 'width':  '150px' }" title="UDF 2">UDF 2</th>
-                        <th ng-style="{ 'width':  '150px' }" title="UDF 3">UDF 3</th>
-                        <th ng-style="{ 'width':  '150px' }" title="Packing Date">Packing Date</th>
-                        <th ng-style="{ 'width':  '150px' }" title="Expiry Date">Expiry Date</th>
+                        <th ng-style="{ 'width':  '130px' }" title="Product Code">Product Code</th>
+                        <th ng-style="{ 'width':  '200px' }" title="Product Description">Product Description</th>
+                        <th ng-style="{ 'width':  '180px' }" title="Warehouse">Warehouse</th>
+                        <th ng-style="{ 'width':  '130px' }" title="Receipt Reference">Receipt Reference</th>
+                        <th ng-style="{ 'width':  '130px' }" title="Inventory Status">Inventory Status</th>
+                        <th ng-style="{ 'width':  '80px' }" title="Available To Pick">Avl To Pick</th>
+                        <th ng-style="{ 'width':  '80px' }" title="In-Location Quantity">In-Loc Quantity</th>
+                        <th ng-style="{ 'width':  '80px' }" title="Committed Quantity">Committed Qty</th>
+                        <th ng-style="{ 'width':  '80px' }" title="In-Transit Quantity">In-Transit Qty</th>
+                        <th ng-style="{ 'width':  '80px' }" title="Reserved Quantity">Reserved Qty</th>
+                        <th ng-style="{ 'width':  '80px' }" title="Total Quantity">Total Qty</th>
+                        <th ng-style="{ 'width':  '130px' }" title="Arrival Date">Arrival Date</th>
+                        <th ng-style="{ 'width':  '130px' }" title="Location">Location</th>
+                        <th ng-style="{ 'width':  '130px' }" title="Location Status">Location Status</th>
+                        <th ng-style="{ 'width':  '130px' }" title="Pallet ID">Pallet ID</th>
+                        <th ng-style="{ 'width':  '130px' }" title="UDF 1">UDF 1</th>
+                        <th ng-style="{ 'width':  '130px' }" title="UDF 2">UDF 2</th>
+                        <th ng-style="{ 'width':  '130px' }" title="UDF 3">UDF 3</th>
+                        <th ng-style="{ 'width':  '130px' }" title="Packing Date">Packing Date</th>
+                        <th ng-style="{ 'width':  '130px' }" title="Expiry Date">Expiry Date</th>
                         <th ng-style="{ 'width':  '150px' }" title="Client">Client</th>
-                        <th ng-style="{ 'width':  '150px' }" title="Warehouse">Warehouse</th>
                     </tr>
                 </thead>
                 <tbody id="InwardLineCustTable{{CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderID}}">
-                    <tr id="tableBody" ng-repeat="x in CreateDelChallanCtrl.ePage.Masters.Inventory | orderBy:'CreatedDateTime'" ng-class="{row_active: (CreateDelChallanCtrl.ePage.Masters.selectedRowInventory==$index),copy_row_active :(x.IsCopied==true)}">
+                    <tr id="tableBody" ng-repeat="x in CreateDelChallanCtrl.ePage.Masters.Inventory | orderBy:'CreatedDateTime'" ng-class="{bg_green: x.WAR_WarehouseCode==CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WarehouseCode, bg_pink: x.WAR_WarehouseCode!=CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WarehouseCode}">
                         <td ng-style="{ 'width':  '40px' }" class="overflow-text">{{$index +1}}</td>
-                        <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.ProductCode}}</td>
-                        <td ng-style="{ 'width':  '275px' }" class="overflow-text">{{x.ProductName}}</td>
-                        <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.ExternalReference}}</td>
-                        <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.OriginalInventoryStatusDesc}}</td>
-                        <td ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.AvailableToPick}}</td>
-                        <td ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.InLocationQty}}</td>
-                        <td ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.CommitedUnit}}</td>
-                        <td ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.InTransitUnit}}</td>
-                        <td ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.ReservedUnit}}</td>
-                        <td ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.TotalUnits}}</td>
-                        <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.AdjustmentArrivalDate | date:'dd-MMM-yyyy hh:mm a'}}</td>
-                        <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.Location}}</td>
-                        <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.LocationStatusDescription}}</td>
-                        <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.PalletID}}</td>
-                        <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.PartAttrib1}}</td>
-                        <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.PartAttrib2}}</td>
-                        <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.PartAttrib3}}</td>
-                        <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.PackingDate | dateFormat}}</td>
-                        <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.ExpiryDate | dateFormat}}</td>
+                        <td ng-style="{ 'width':  '130px' }" class="overflow-text">{{x.ProductCode}}</td>
+                        <td ng-style="{ 'width':  '200px' }" class="overflow-text">{{x.ProductName}}</td>
+                        <td ng-style="{ 'width':  '180px' }" class="overflow-text">{{x.WAR_WarehouseCode}} - {{x.WAR_WarehouseName}}</td>
+                        <td ng-style="{ 'width':  '130px' }" class="overflow-text">{{x.ExternalReference}}</td>
+                        <td ng-style="{ 'width':  '130px' }" class="overflow-text">{{x.OriginalInventoryStatusDesc}}</td>
+                        <td ng-style="{ 'width':  '80px' }" class="overflow-text">{{x.AvailableToPick}}</td>
+                        <td ng-style="{ 'width':  '80px' }" class="overflow-text">{{x.InLocationQty}}</td>
+                        <td ng-style="{ 'width':  '80px' }" class="overflow-text">{{x.CommitedUnit}}</td>
+                        <td ng-style="{ 'width':  '80px' }" class="overflow-text">{{x.InTransitUnit}}</td>
+                        <td ng-style="{ 'width':  '80px' }" class="overflow-text">{{x.ReservedUnit}}</td>
+                        <td ng-style="{ 'width':  '80px' }" class="overflow-text">{{x.TotalUnits}}</td>
+                        <td ng-style="{ 'width':  '130px' }" class="overflow-text">{{x.AdjustmentArrivalDate | date:'dd-MMM-yyyy hh:mm a'}}</td>
+                        <td ng-style="{ 'width':  '130px' }" class="overflow-text">{{x.Location}}</td>
+                        <td ng-style="{ 'width':  '130px' }" class="overflow-text">{{x.LocationStatusDescription}}</td>
+                        <td ng-style="{ 'width':  '130px' }" class="overflow-text">{{x.PalletID}}</td>
+                        <td ng-style="{ 'width':  '130px' }" class="overflow-text">{{x.PartAttrib1}}</td>
+                        <td ng-style="{ 'width':  '130px' }" class="overflow-text">{{x.PartAttrib2}}</td>
+                        <td ng-style="{ 'width':  '130px' }" class="overflow-text">{{x.PartAttrib3}}</td>
+                        <td ng-style="{ 'width':  '130px' }" class="overflow-text">{{x.PackingDate | dateFormat}}</td>
+                        <td ng-style="{ 'width':  '130px' }" class="overflow-text">{{x.ExpiryDate | dateFormat}}</td>
                         <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.ClientCode}} - {{x.ClientName}}</td>
-                        <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.WAR_WarehouseCode}} - {{x.WAR_WarehouseName}}</td>
                     </tr>
                 </tbody>
             </table>
