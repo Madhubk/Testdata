@@ -386,3 +386,20 @@
         </form>
     </div>
 </div>
+
+<!-- Inventory Popup -->
+<script type="text/ng-template" id="myModalContent.html">
+    <div class="modal-header">
+        <h3 class="modal-title">Are you sure?</h3>
+    </div>
+    <div class="modal-body"  style="height:130px">
+        <div class="form-group">
+            <label for="comment">Inventory not available for this product(s). Still do you want to continue?</label>
+            <!-- <textarea class="form-control" rows="2"  ng-model="comment"></textarea> -->
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click="ok()" >OK</button>
+        <button class="btn btn-warning" type="button" ng-click="close()">Close</button>
+    </div>
+</script>

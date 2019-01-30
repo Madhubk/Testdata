@@ -186,7 +186,20 @@
                             if (TempWarInvCount == TempSelectedLineCount) {
                                 GoToOutwardCreation(type);
                             } else {
-                                toastr.warning("Inventory not available for this product(s)");
+                                $uibModal.open({
+                                    templateUrl: 'myModalContent.html',
+                                    windowClass: "success-popup",
+                                    controller: function ($scope, $uibModalInstance) {
+                                        $scope.close = function () {
+                                            $uibModalInstance.dismiss('cancel');
+                                            toastr.warning("Inventory not available for this product(s)");
+                                        };
+                                        $scope.ok = function () {
+                                            $uibModalInstance.dismiss('cancel');
+                                            GoToOutwardCreation(type);
+                                        }
+                                    }
+                                });
                             }
                         } else if (type == "MTR") {
                             var TempWarInv = _.groupBy(CreateDelChallanCtrl.ePage.Masters.NotWarehouseInventory, 'ProductCode');
@@ -544,7 +557,7 @@
             }
         }
 
-        function setSelectedRow(index, item) {            
+        function setSelectedRow(index, item) {
             var SelectedDeliveryLine = [];
             angular.forEach(CreateDelChallanCtrl.ePage.Entities.Header.Data.UIvwWmsDeliveryList, function (value, key) {
                 if (value.SingleSelect) {
