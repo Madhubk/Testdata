@@ -33,13 +33,15 @@
     <!--Order Details-->
     <div>
         <span>
-            <button dynamic-list-modal obj="ManifestItemCtrl.ePage.Entities.Header.Data.TmsManifestHeader" default-filter="ManifestItemCtrl.ePage.Masters.AttachDefaultFilter"
-                selected-data="ManifestItemCtrl.ePage.Masters.Attach($item)" page-name="'WorkOrderOutwardLine'" mode="3" grid-refresh-fun-name=""
-                grid-refresh-fun="" class="btn btn-sm btn-outline-primary" type="button">
+            <button dynamic-list-modal obj="ManifestItemCtrl.ePage.Entities.Header.Data.TmsManifestHeader"
+                default-filter="ManifestItemCtrl.ePage.Masters.AttachDefaultFilter" selected-data="ManifestItemCtrl.ePage.Masters.Attach($item)"
+                page-name="'WorkOrderOutwardLine'" mode="3" grid-refresh-fun-name="" grid-refresh-fun="" class="btn btn-sm btn-outline-primary"
+                type="button">
                 <i class="fa fa-plus-circle"></i> Attach</button>
         </span>
         <span ng-hide='ManifestItemCtrl.ePage.Masters.selectedRow==-1'>
-            <button type="button" class="btn btn-sm btn-outline-primary" style="font-size:11px" title="Delete" data-ng-click="ManifestItemCtrl.ePage.Masters.RemoveRow(ManifestItemCtrl.ePage.Entities.Header.Data.TmsManifestItem[ManifestItemCtrl.ePage.Masters.selectedRow])">
+            <button type="button" class="btn btn-sm btn-outline-primary" style="font-size:11px" title="Delete"
+                data-ng-click="ManifestItemCtrl.ePage.Masters.RemoveRow(ManifestItemCtrl.ePage.Entities.Header.Data.TmsManifestItem[ManifestItemCtrl.ePage.Masters.selectedRow])">
                 <i class="fa fa-minus-circle"></i> Detach</button>
         </span>
     </div>
@@ -69,7 +71,8 @@
                 style="font-size: 11px;">
                 <div class='table_small'>
                     <div class='table_cell'>Item</div>
-                    <div class='table_cell'>{{x.TIT_ItemCode || ManifestItemCtrl.ePage.Masters.emptyText}} - {{x.TIT_ItemDesc || ManifestItemCtrl.ePage.Masters.emptyText}}</div>
+                    <div class='table_cell'>{{x.TIT_ItemCode || ManifestItemCtrl.ePage.Masters.emptyText}} -
+                        {{x.TIT_ItemDesc || ManifestItemCtrl.ePage.Masters.emptyText}}</div>
                 </div>
                 <div class='table_small'>
                     <div class='table_cell'>MHU Type</div>
@@ -81,11 +84,13 @@
                 </div>
                 <div class='table_small'>
                     <div class='table_cell'>Sender</div>
-                    <div class='table_cell'>{{x.TIT_SenderCode || ManifestItemCtrl.ePage.Masters.emptyText}} - {{x.TIT_SenderName || ManifestItemCtrl.ePage.Masters.emptyText}}</div>
+                    <div class='table_cell'>{{x.TIT_SenderCode || ManifestItemCtrl.ePage.Masters.emptyText}} -
+                        {{x.TIT_SenderName || ManifestItemCtrl.ePage.Masters.emptyText}}</div>
                 </div>
                 <div class='table_small'>
                     <div class='table_cell'>Receiver</div>
-                    <div class='table_cell'>{{x.TIT_ReceiverCode || ManifestItemCtrl.ePage.Masters.emptyText}} - {{x.TIT_ReceiverName || ManifestItemCtrl.ePage.Masters.emptyText}}</div>
+                    <div class='table_cell'>{{x.TIT_ReceiverCode || ManifestItemCtrl.ePage.Masters.emptyText}} -
+                        {{x.TIT_ReceiverName || ManifestItemCtrl.ePage.Masters.emptyText}}</div>
                 </div>
                 <div class='table_small'>
                     <div class='table_cell'>Status</div>
@@ -93,7 +98,8 @@
                 </div>
                 <div class='table_small'>
                     <div class='table_cell'>Consignment Number</div>
-                    <div class='table_cell'> {{x.TMC_ConsignmentNumber || ManifestItemCtrl.ePage.Masters.emptyText}} </div>
+                    <div class='table_cell'> {{x.TMC_ConsignmentNumber || ManifestItemCtrl.ePage.Masters.emptyText}}
+                    </div>
                 </div>
                 <div class='table_small'>
                     <div class='table_cell'>UDF 1</div>
@@ -119,7 +125,7 @@
         </div>
     </div>
 </div>
-<div class="clearfix col-lg-12">
+<div class="clearfix col-lg-12" data-ng-if="ManifestItemCtrl.ePage.Masters.Config.SelectedValue=='SalesOrder'">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 custompadding">
         <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 col-xl-5 p-0">
             <span>
@@ -146,8 +152,8 @@
                 <div class='theader'>
                     <div class='table_header'>
                         <label>
-                            <input type="checkbox" ng-change="ManifestItemCtrl.ePage.Masters.SelectAllCheckBox()" ng-checked="ManifestItemCtrl.ePage.Masters.SelectAll"
-                                ng-model="ManifestItemCtrl.ePage.Masters.SelectAll">
+                            <input type="checkbox" ng-change="ManifestItemCtrl.ePage.Masters.SelectAllCheckBox()"
+                                ng-checked="ManifestItemCtrl.ePage.Masters.SelectAll" ng-model="ManifestItemCtrl.ePage.Masters.SelectAll">
                             <span class="text"></span>
                         </label>
                     </div>
@@ -175,14 +181,16 @@
                         <div class='table_cell'></div>
                         <div class='table_cell pt-0 pb-0'>
                             <label class="mb-0">
-                                <input type="checkbox" ng-checked="x.SingleSelect" ng-change="ManifestItemCtrl.ePage.Masters.SingleSelectCheckBox()" ng-model="x.SingleSelect"> </input>
+                                <input type="checkbox" ng-checked="x.SingleSelect" ng-change="ManifestItemCtrl.ePage.Masters.SingleSelectCheckBox()"
+                                    ng-model="x.SingleSelect"> </input>
                                 <span class="text"></span>
                             </label>
                         </div>
                     </div>
                     <div class='table_small'>
                         <div class='table_cell'>Product</div>
-                        <div class='table_cell'>{{x.ProductCode || ManifestItemCtrl.ePage.Masters.emptyText}} - {{x.ProductDescription || ManifestItemCtrl.ePage.Masters.emptyText}}</div>
+                        <div class='table_cell'>{{x.ProductCode || ManifestItemCtrl.ePage.Masters.emptyText}} -
+                            {{x.ProductDescription || ManifestItemCtrl.ePage.Masters.emptyText}}</div>
                     </div>
                     <div class='table_small'>
                         <div class='table_cell'>Units</div>
@@ -194,7 +202,9 @@
                     </div>
                     <div class='table_small'>
                         <div class='table_cell'>Client</div>
-                        <div class='table_cell'>{{x.WOD_ConsigneeCode || ManifestItemCtrl.ePage.Masters.emptyText}}-{{x.WOD_ConsigneeName || ManifestItemCtrl.ePage.Masters.emptyText}}</div>
+                        <div class='table_cell'>{{x.WOD_ConsigneeCode ||
+                            ManifestItemCtrl.ePage.Masters.emptyText}}-{{x.WOD_ConsigneeName ||
+                            ManifestItemCtrl.ePage.Masters.emptyText}}</div>
                     </div>
                     <div class='table_small'>
                         <div class='table_cell'>Reference No</div>
@@ -236,8 +246,8 @@
 </div>
 <!--FIlter Bar  -->
 <div id="filterSideBar{{ManifestItemCtrl.ePage.Masters.DynamicControl.DataEntryName}}{{ManifestItemCtrl.currentManifest.label}}"
-    data-ng-if="ManifestItemCtrl.ePage.Masters.DynamicControl" class="dynamic-filter-sidebar-wrapper  clearfix filter-text" style="top: 314px; height: 200px; overflow-y: overlay;"
-    data-ng-class="ManifestItemCtrl.ePage.Masters.ViewType == 1 ? 'one-column' : 'two-column'">
+    data-ng-if="ManifestItemCtrl.ePage.Masters.DynamicControl" class="dynamic-filter-sidebar-wrapper  clearfix filter-text"
+    style="top: 314px; height: 200px; overflow-y: overlay;" data-ng-class="ManifestItemCtrl.ePage.Masters.ViewType == 1 ? 'one-column' : 'two-column'">
     <form name="filterSidebar" novalidate>
         <div class="header clearfix">
             <div class="title pull-left">
@@ -260,7 +270,8 @@
                         <button class="filter-title-btn" ng-click="ManifestItemCtrl.ePage.Masters.Clear()">Clear</button>
                     </li>
                     <li>
-                        <input type="submit" class="filter-title-btn" ng-click="ManifestItemCtrl.ePage.Masters.Filter();" value="Apply">
+                        <input type="submit" class="filter-title-btn" ng-click="ManifestItemCtrl.ePage.Masters.Filter();"
+                            value="Apply">
                     </li>
                     <li>
                         <span class="filter-toggle-icon" ng-click="ManifestItemCtrl.ePage.Masters.CloseFilterList()">
@@ -272,8 +283,9 @@
         </div>
         <div class="filter-list clearfix">
             <div class="clearfix" data-ng-if="ManifestItemCtrl.ePage.Masters.DynamicControl">
-                <dynamic-control input="ManifestItemCtrl.ePage.Masters.DynamicControl" mode="S" control-style="" default-filter="ManifestItemCtrl.ePage.Masters.defaultFilter"
-                    toggle="ManifestItemCtrl.ePage.Masters.IsDynamicControlAccess" view-type="ManifestItemCtrl.ePage.Masters.ViewType"></dynamic-control>
+                <dynamic-control input="ManifestItemCtrl.ePage.Masters.DynamicControl" mode="S" control-style=""
+                    default-filter="ManifestItemCtrl.ePage.Masters.defaultFilter" toggle="ManifestItemCtrl.ePage.Masters.IsDynamicControlAccess"
+                    view-type="ManifestItemCtrl.ePage.Masters.ViewType"></dynamic-control>
             </div>
         </div>
     </form>

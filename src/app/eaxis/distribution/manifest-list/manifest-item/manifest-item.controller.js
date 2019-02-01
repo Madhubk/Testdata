@@ -49,6 +49,9 @@
             ManifestItemCtrl.ePage.Masters.Filter = Filter;
             ManifestItemCtrl.ePage.Masters.SaveButtonText = "Save";
             GetConfigDetails();
+            if (!dmsManifestConfig.SelectedValue) {
+                dmsManifestConfig.SelectedValue = "SalesOrder";
+            }
 
             ManifestItemCtrl.ePage.Masters.Config.TempConsignmentNumber = '';
             if (ManifestItemCtrl.ePage.Entities.Header.Data.TmsManifestConsignment.length > 0) {

@@ -522,8 +522,6 @@
             ManifestGeneralCtrl.ePage.Masters.selectedRow = index;
         }
 
-
-
         Init();
     }
 
