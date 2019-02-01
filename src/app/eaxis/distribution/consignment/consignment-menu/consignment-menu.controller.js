@@ -134,6 +134,7 @@
 
             _input.TmsConsignmentItem.map(function (value, key) {
                 value.TMC_FK = _input.TmsConsignmentHeader.PK;
+                value.TIT_IsModified = true;
             });
 
             helperService.SaveEntity($item, 'Consignment').then(function (response) {

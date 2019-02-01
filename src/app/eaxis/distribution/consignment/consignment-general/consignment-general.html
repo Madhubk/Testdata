@@ -190,7 +190,7 @@
                             datepicker-append-to-body="false" close-on-selection="false" enable-date="true" enable-time="false"
                             default-date="" default-time="" when-closed="" save-as="DMSConsignmentGeneralCtrl.ePage.Masters.DatePicker.Options.saveFormat"
                             popup-placement="bottom-right" data-ng-click="DMSConsignmentGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isExpectedPickupDateTime')"
-                            ng-change='DMSConsignmentGeneralCtrl.ePage.Masters.OnChangeValues(ConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.ExpectedPickupDateTime,"E5521",false,undefined)'
+                            ng-change='DMSConsignmentGeneralCtrl.ePage.Masters.OnChangeValues(DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.ExpectedPickupDateTime,"E5521",false,undefined)'
                             custom-date-time-format />
                         <span class="input-group-btn">
                             <button type="button" class="btn btn-default" data-ng-click="DMSConsignmentGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isExpectedPickupDateTime')">
@@ -222,7 +222,7 @@
                             datepicker-append-to-body="false" close-on-selection="false" enable-date="true" enable-time="false"
                             default-date="" default-time="" save-as="DMSConsignmentGeneralCtrl.ePage.Masters.DatePicker.Options.saveFormat"
                             popup-placement="bottom-right" data-ng-click="DMSConsignmentGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isExpectedDeliveryDateTime')"
-                            ng-change='DMSConsignmentGeneralCtrl.ePage.Masters.OnChangeValues(ConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.ExpectedDeliveryDateTime,"E5563",false,undefined)'
+                            ng-change='DMSConsignmentGeneralCtrl.ePage.Masters.OnChangeValues(DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.ExpectedDeliveryDateTime,"E5563",false,undefined)'
                             custom-date-time-format />
                         <span class="input-group-btn">
                             <button type="button" class="btn btn-default" data-ng-click="DMSConsignmentGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isExpectedDeliveryDateTime')">
@@ -455,6 +455,14 @@
                                     </span>
                                 </div>
                             </div>
+                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5"
+                                data-ng-if="DMSConsignmentGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.TmsConsignmentItem.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':1">
+                                <error-warning-directive list="DMSConsignmentGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.TmsConsignmentItem.ERROR"
+                                    type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref=""
+                                    g-parent-ref="" row-index="DMSConsignmentGeneralCtrl.ePage.Masters.selectedRow"
+                                    col-index="1">
+                                </error-warning-directive>
+                            </div>
                         </div>
                     </td>
                     <td id="ritemdescription" data-ng-show='DMSConsignmentGeneralCtrl.ePage.Entities.Header.TableProperties.TmsConsignmentItem.ritemdescription.isenabled'
@@ -466,7 +474,7 @@
                         </div>
                         <div data-ng-if="$index==DMSConsignmentGeneralCtrl.ePage.Masters.selectedRow &&!DMSConsignmentGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
                             <div class="height-22 col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0">
-                                <input type="text" maxlength="9" numbers-only-dot class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
+                                <input type="text" maxlength="9" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
                                     placeholder="Item Description" data-ng-model="x.TIT_ItemDesc">
                             </div>
                         </div>
@@ -474,15 +482,22 @@
                     </td>
                     <td id="rquantity" data-ng-show='DMSConsignmentGeneralCtrl.ePage.Entities.Header.TableProperties.TmsConsignmentItem.rquantity.isenabled'
                         ng-style="{ 'width': DMSConsignmentGeneralCtrl.ePage.Entities.Header.TableProperties.TmsConsignmentItem.rquantity.width + 'px' }"
-                        ng-click="DMSConsignmentGeneralCtrl.ePage.Masters.Enable = true">
-                        <div data-ng-if="$index!=DMSConsignmentGeneralCtrl.ePage.Masters.selectedRow || DMSConsignmentGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable"
-                            class="overflow-text">
+                        class="overflow-text" ng-click="DMSConsignmentGeneralCtrl.ePage.Masters.Enable = true">
+                        <div data-ng-if="$index!=DMSConsignmentGeneralCtrl.ePage.Masters.selectedRow || DMSConsignmentGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
                             {{ x.Quantity || DMSConsignmentGeneralCtrl.ePage.Masters.emptyText}}
                         </div>
                         <div data-ng-if="$index==DMSConsignmentGeneralCtrl.ePage.Masters.selectedRow &&!DMSConsignmentGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
                             <div class="height-22 col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0">
                                 <input type="text" maxlength="9" numbers-only-dot class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
                                     placeholder="Quantity" data-ng-model="x.Quantity">
+                            </div>
+                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5"
+                                data-ng-if="DMSConsignmentGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.TmsConsignmentItem.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':3">
+                                <error-warning-directive list="DMSConsignmentGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.TmsConsignmentItem.ERROR"
+                                    type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref=""
+                                    g-parent-ref="" row-index="DMSConsignmentGeneralCtrl.ePage.Masters.selectedRow"
+                                    col-index="3">
+                                </error-warning-directive>
                             </div>
                         </div>
                     </td>
@@ -499,6 +514,14 @@
                                     search-contains="true">
                                     <option value="">--Select--</option>
                                 </select>
+                            </div>
+                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5"
+                                data-ng-if="DMSConsignmentGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.TmsConsignmentItem.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':2">
+                                <error-warning-directive list="DMSConsignmentGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.TmsConsignmentItem.ERROR"
+                                    type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref=""
+                                    g-parent-ref="" row-index="DMSConsignmentGeneralCtrl.ePage.Masters.selectedRow"
+                                    col-index="2">
+                                </error-warning-directive>
                             </div>
                         </div>
                     </td>
