@@ -84,7 +84,8 @@
             "ValidationValues": "",
             "ShowErrorWarningModal": ShowErrorWarningModal,
             "TempConsignmentNumber": "",
-            "activeTabIndex": 0
+            "activeTabIndex": 0,
+            "SelectedValue":""
         };
 
         return exports;
@@ -131,6 +132,12 @@
                                 "HttpType": "POST",
                                 "Url": "WmsPickLineSummary/FindAll",
                                 "FilterID": "WMSPLS"
+                            },
+                            "GetConsignmentList": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "TmsConsignment/FindAll",
+                                "FilterID": "TMSCON"
                             },
                             "OrgHeader": {
                                 "IsAPI": "true",

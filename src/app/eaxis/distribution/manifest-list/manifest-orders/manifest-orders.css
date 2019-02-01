@@ -1,3 +1,9 @@
+.radio {
+    position: relative;
+    display: block;
+    margin-top: 2px;
+    margin-bottom: 5px;
+}
 .tms-manifest-container >.tab-content{
     background: transparent;
 }

@@ -8,7 +8,11 @@
                 name: 'eAxisDistribution',
                 files: [
                     'app/eaxis/distribution/distribution.css',
-                    'app/eaxis/distribution/distribution.controller.js'
+                    'app/eaxis/distribution/distribution.controller.js',
+                    'app/mdm/warehouse/customize-table/customize-table.css',
+                    'app/mdm/warehouse/customize-table/customize-table.directive.js',
+                    'app/mdm/warehouse/custom/customfilter.js'
+
                 ]
             },
             // region
@@ -469,7 +473,40 @@
                 ]
             },
             //endregion
-
+            // region
+            // consignment screen in DMS
+            {
+                name: 'dmsconsignment',
+                files: [
+                    'app/eaxis/distribution/consignment/consignment.css',
+                    'app/eaxis/distribution/consignment/consignment.controller.js',
+                    'app/eaxis/distribution/consignment/consignment-config.factory.js'
+                ]
+            },
+            {
+                name: 'dmsconsignmentMenu',
+                files: [
+                    'app/eaxis/distribution/consignment/consignment-menu/consignment-menu.css',
+                    'app/eaxis/distribution/consignment/consignment-menu/consignment-menu.controller.js',
+                    'app/eaxis/distribution/consignment/consignment-menu/consignment-menu.directive.js'
+                ]
+            },
+            {
+                name: 'dmsconsignmentGeneral',
+                files: [
+                    'app/eaxis/distribution/consignment/consignment-general/consignment-general.css',
+                    'app/eaxis/distribution/consignment/consignment-general/consignment-general.controller.js',
+                    'app/eaxis/distribution/consignment/consignment-general/consignment-general.directive.js'
+                ]
+            },
+            {
+                name: 'dmsconsignmentaddress',
+                files: [
+                    'app/eaxis/distribution/consignment/consignment-general/consignment-address/consignment-address.css',
+                    'app/eaxis/distribution/consignment/consignment-general/consignment-address/consignment-address.controller.js'
+                ]
+            },
+            // endregion
             //OTP
             {
                 name: 'otpList',

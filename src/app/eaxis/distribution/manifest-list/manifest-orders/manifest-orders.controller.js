@@ -33,12 +33,16 @@
                 "Consignmentstatus": "DRF",
                 "ConsignStatus": "NULL",
             }
+            ManifestOrdersCtrl.ePage.Masters.AttachCONDefaultFilter = {
+                "ConsignmentStatus": "DRF",
+                "ServiceTypeIn": "LOP,LOD"
+            }
 
             ManifestOrdersCtrl.ePage.Masters.Empty = "-";
             ManifestOrdersCtrl.ePage.Masters.Config = dmsManifestConfig;
             ManifestOrdersCtrl.ePage.Masters.DropDownMasterList = {};
             ManifestOrdersCtrl.ePage.Masters.IsDisable = true;
-
+            // SO Attach
             ManifestOrdersCtrl.ePage.Masters.Attach = Attach;
             ManifestOrdersCtrl.ePage.Masters.AddToLine = AddToLine;
             ManifestOrdersCtrl.ePage.Masters.SingleSelectCheckBox = SingleSelectCheckBox;
@@ -59,11 +63,38 @@
             ManifestOrdersCtrl.ePage.Masters.DatePicker.isOpen = [];
             ManifestOrdersCtrl.ePage.Masters.DatePicker.OpenDatePicker = OpenDatePicker;
 
+            // Consignment Attach
+            ManifestOrdersCtrl.ePage.Masters.AttachConsignment = AttachConsignment;
+            ManifestOrdersCtrl.ePage.Masters.AddConsignment = AddConsignment;
+
+            // Default Load of add order
+            ManifestOrdersCtrl.ePage.Masters.SelectRadioBtn = 'SalesOrder'
+            ManifestOrdersCtrl.ePage.Masters.SalesOrder = true;
+            ManifestOrdersCtrl.ePage.Masters.RadioButton = RadioButton;
             getOrderDetails();
             GetConfigDetails();
             DefaultFilter();
         }
-
+        // RadioButton For Dynamic Attach Button loading for SO/ASN/Consignment
+        function RadioButton(value) {
+            dmsManifestConfig.SelectedValue=value;
+            if (value == "Consignment") {
+                getConsignmentDetails();
+                ManifestOrdersCtrl.ePage.Masters.Consignment = true;
+                ManifestOrdersCtrl.ePage.Masters.SalesOrder = false;
+                ManifestOrdersCtrl.ePage.Masters.ASNLine = false;
+            } else if (value == "ASNLine") {
+                ManifestOrdersCtrl.ePage.Masters.ASNLine = true;
+                ManifestOrdersCtrl.ePage.Masters.Consignment = false;
+                ManifestOrdersCtrl.ePage.Masters.SalesOrder = false;
+            } else if (value == "SalesOrder") {
+                getOrderDetails();
+                ManifestOrdersCtrl.ePage.Masters.SalesOrder = true;
+                ManifestOrdersCtrl.ePage.Masters.ASNLine = false;
+                ManifestOrdersCtrl.ePage.Masters.Consignment = false;
+            }
+            GetConfigDetails(value);
+        }
         function Clear() {
             ManifestOrdersCtrl.ePage.Masters.DynamicControl.Entities.map(function (value, key) {
                 value.Data = {};
@@ -157,13 +188,26 @@
         }
 
         function CloseFilterList() {
-            $('#filterSideBar' + "WorkOrder" + ManifestOrdersCtrl.currentManifest.label).removeClass('open');
+            if(ManifestOrdersCtrl.ePage.Masters.SelectRadioBtn == "SalesOrder"){
+                $('#filterSideBar' + "WorkOrder" + ManifestOrdersCtrl.currentManifest.label).removeClass('open');
+            }
+            else(ManifestOrdersCtrl.ePage.Masters.SelectRadioBtn == "Consignment")
+            {
+                $('#filterSideBar' + "DistributionConsignment" + ManifestOrdersCtrl.currentManifest.label).removeClass('open');
+            }
         }
 
         function GetFilterList() {
-            $timeout(function () {
-                $('#filterSideBar' + "WorkOrder" + ManifestOrdersCtrl.currentManifest.label).toggleClass('open');
-            });
+            if (ManifestOrdersCtrl.ePage.Masters.SelectRadioBtn == "SalesOrder") {
+                $timeout(function () {
+                    $('#filterSideBar' + "WorkOrder" + ManifestOrdersCtrl.currentManifest.label).toggleClass('open');
+                });
+            }
+            else if (ManifestOrdersCtrl.ePage.Masters.SelectRadioBtn == "Consignment") {
+                $timeout(function () {
+                    $('#filterSideBar' + "DistributionConsignment" + ManifestOrdersCtrl.currentManifest.label).toggleClass('open');
+                });
+            }
         }
 
         function DefaultFilter() {
@@ -196,10 +240,17 @@
             GetConfigDetails();
         }
 
-        function GetConfigDetails() {
+        function GetConfigDetails(value) {
+            var _dataEntryName;
+            if (value == "Consignment") {
+                _dataEntryName = "DistributionConsignment"
+            }
+            else {
+                _dataEntryName = "WorkOrder"
+            }
             // Get Dynamic filter controls
             var _filter = {
-                DataEntryName: "WorkOrder"
+                DataEntryName: _dataEntryName
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
@@ -221,7 +272,7 @@
                 }
             });
         }
-
+        //#region of ADD Order/Consignment to Line
         function AddToLine() {
 
             angular.forEach(ManifestOrdersCtrl.ePage.Masters.OrderDetails, function (value, key) {
@@ -302,7 +353,7 @@
             }
             ManifestOrdersCtrl.ePage.Masters.SelectAll = false;
         }
-
+        //#endregion
         function GetOutwardLineDetails() {
             var _filter = {
                 "WorkOrderID": ManifestOrdersCtrl.ePage.Masters.Config.TempConsignmentNumber,
@@ -480,6 +531,163 @@
             }
         }
 
+        //#region Consignment Attach and Consignment Load in table 
+        function AttachConsignment($item) {
+            angular.forEach($item, function (value, key) {
+                var TempTMC_FK;
+                if (!value.PK) {
+                    TempTMC_FK = "";
+                } else {
+                    TempTMC_FK = value.PK;
+                }
+                var TempConsignmentNumber = value.ConsignmentNumber;
+                var TempExpectedDeliveryDateTime = value.ExpectedDeliveryDateTime;
+                var TempExpectedPickupDateTime = value.ExpectedPickupDateTime;
+                var TempReceiverCode = value.ReceiverCode;
+                var TempReceiverName = value.ReceiverName;
+                var TempReceiver_ORG_FK = value.Receiver_ORG_FK;
+                var TempSenderCode = value.SenderCode;
+                var TempSenderName = value.SenderName;
+                var TempSender_ORG_FK = value.Sender_ORG_FK;
+                var TempServiceType = value.ServiceType;
+                var TempIsDeleted = value.IsDeleted;
+                var TempIsModified = value.IsModified;
+                // var TempStatus = value.Status;
+
+                apiService.get("eAxisAPI", 'TmsConsignmentList/GetById/' + TempTMC_FK).then(function (response) {
+                    if (response.data.Response.TmsConsignmentItem.length > 0) {
+                        var _isExist = ManifestOrdersCtrl.ePage.Entities.Header.Data.TmsManifestConsignment.some(function (value1, index1) {
+                            return value1.TMC_FK === TempTMC_FK;
+                        });
+                        if (!_isExist) {
+                            var obj = {
+                                "TMC_ConsignmentNumber": TempConsignmentNumber,
+                                "TMC_ExpectedDeliveryDateTime": TempExpectedDeliveryDateTime,
+                                "TMC_ExpectedPickupDateTime": TempExpectedPickupDateTime,
+                                "TMC_ReceiverCode": TempReceiverCode,
+                                "TMC_ReceiverName": TempReceiverName,
+                                "TMC_Receiver_ORG_FK": TempReceiver_ORG_FK,
+                                "TMC_SenderCode": TempSenderCode,
+                                "TMC_SenderName": TempSenderName,
+                                "TMC_Sender_ORG_FK": TempSender_ORG_FK,
+                                "TMC_ServiceType": TempServiceType,
+                                "TMC_FK": TempTMC_FK,
+                                "IsDeleted": TempIsDeleted,
+                                "IsModified": TempIsModified,
+                                "TMC_Status": "MAN",
+                                "TMM_FK": ManifestOrdersCtrl.ePage.Entities.Header.Data.TmsManifestHeader.PK,
+                                "TMC_CurrentLocation_FK": ManifestOrdersCtrl.ePage.Entities.Header.Data.TmsManifestHeader.Sender_ORG_FK
+                            }
+                            ManifestOrdersCtrl.ePage.Entities.Header.Data.TmsManifestConsignment.push(obj);
+                            GetManifestItemDetails();
+                        } else {
+                            toastr.warning(value.TMC_ConsignmentNumber + " Already Available...!");
+                        }
+                    } else {
+                        toastr.warning("Consignment Number:" + value.TMC_ConsignmentNumber + " having No Items...!");
+                    }
+                });
+            });
+        }
+        function GetManifestItemDetails() {
+            ManifestOrdersCtrl.ePage.Masters.Config.allDisable = true;
+            ManifestOrdersCtrl.ePage.Masters.IsLoadingToSave = true;
+            var item = filterObjectUpdate(ManifestOrdersCtrl.ePage.Entities.Header.Data, "IsModified");
+            ManifestOrdersCtrl.ePage.Entities.Header.Data.IsConsignmentAttach = true;
+            apiService.post("eAxisAPI", 'TmsManifestList/Update', ManifestOrdersCtrl.ePage.Entities.Header.Data).then(function (response) {
+                if (response.data.Response) {
+                    apiService.get("eAxisAPI", 'TmsManifestList/GetById/' + response.data.Response.Response.PK).then(function (response) {
+                        ManifestOrdersCtrl.ePage.Entities.Header.Data = response.data.Response;
+                        ManifestOrdersCtrl.ePage.Masters.Config.allDisable = false;
+                        ManifestOrdersCtrl.ePage.Masters.IsLoadingToSave = false;
+                    });
+                } else {
+                    ManifestOrdersCtrl.ePage.Masters.Config.allDisable = false;
+                    ManifestOrdersCtrl.ePage.Masters.IsLoadingToSave = false;
+                }
+            });
+        }
+        function getConsignmentDetails() {
+            ManifestOrdersCtrl.ePage.Masters.IsLoading = true;
+            var _filter = {
+                "ConsignmentStatus": "DRF",
+                "ServiceTypeIn": "LOP,LOD",
+            };
+            var _input = {
+                "searchInput": helperService.createToArrayOfObject(_filter),
+                "FilterID": ManifestOrdersCtrl.ePage.Entities.Header.API.GetConsignmentList.FilterID,
+            };
+            apiService.post("eAxisAPI", ManifestOrdersCtrl.ePage.Entities.Header.API.GetConsignmentList.Url, _input).then(function (response) {
+                angular.forEach(response.data.Response, function (value, key) {
+                    value.SingleSelect = false;
+                });
+                ManifestOrdersCtrl.ePage.Masters.OrderDetails = response.data.Response;
+                ManifestOrdersCtrl.ePage.Masters.IsLoading = false;
+            });
+        }
+        // ADD Consignment to Line
+        function AddConsignment() {
+            angular.forEach(ManifestOrdersCtrl.ePage.Masters.OrderDetails, function (value, key) {
+                if (value.SingleSelect) {
+                    var TempTMC_FK;
+                    if (!value.PK) {
+                        TempTMC_FK = "";
+                    } else {
+                        TempTMC_FK = value.PK;
+                    }
+                    var TempConsignmentNumber = value.ConsignmentNumber;
+                    var TempExpectedDeliveryDateTime = value.ExpectedDeliveryDateTime;
+                    var TempExpectedPickupDateTime = value.ExpectedPickupDateTime;
+                    var TempReceiverCode = value.ReceiverCode;
+                    var TempReceiverName = value.ReceiverName;
+                    var TempReceiver_ORG_FK = value.Receiver_ORG_FK;
+                    var TempSenderCode = value.SenderCode;
+                    var TempSenderName = value.SenderName;
+                    var TempSender_ORG_FK = value.Sender_ORG_FK;
+                    var TempServiceType = value.ServiceType;
+                    var TempIsDeleted = value.IsDeleted;
+                    var TempIsModified = value.IsModified;
+                    // var TempStatus = value.Status;
+
+                    apiService.get("eAxisAPI", 'TmsConsignmentList/GetById/' + TempTMC_FK).then(function (response) {
+                        if (response.data.Response.TmsConsignmentItem.length > 0) {
+                            var _isExist = ManifestOrdersCtrl.ePage.Entities.Header.Data.TmsManifestConsignment.some(function (value1, index1) {
+                                return value1.TMC_FK === TempTMC_FK;
+                            });
+                            if (!_isExist) {
+                                var obj = {
+                                    "TMC_ConsignmentNumber": TempConsignmentNumber,
+                                    "TMC_ExpectedDeliveryDateTime": TempExpectedDeliveryDateTime,
+                                    "TMC_ExpectedPickupDateTime": TempExpectedPickupDateTime,
+                                    "TMC_ReceiverCode": TempReceiverCode,
+                                    "TMC_ReceiverName": TempReceiverName,
+                                    "TMC_Receiver_ORG_FK": TempReceiver_ORG_FK,
+                                    "TMC_SenderCode": TempSenderCode,
+                                    "TMC_SenderName": TempSenderName,
+                                    "TMC_Sender_ORG_FK": TempSender_ORG_FK,
+                                    "TMC_ServiceType": TempServiceType,
+                                    "TMC_FK": TempTMC_FK,
+                                    "IsDeleted": TempIsDeleted,
+                                    "IsModified": TempIsModified,
+                                    "TMC_Status": "MAN",
+                                    "TMM_FK": ManifestOrdersCtrl.ePage.Entities.Header.Data.TmsManifestHeader.PK,
+                                    "TMC_CurrentLocation_FK": ManifestOrdersCtrl.ePage.Entities.Header.Data.TmsManifestHeader.Sender_ORG_FK
+                                }
+                                ManifestOrdersCtrl.ePage.Entities.Header.Data.TmsManifestConsignment.push(obj);
+                                GetManifestItemDetails();
+                            } else {
+                                toastr.warning(value.TMC_ConsignmentNumber + " Already Available...!");
+                            }
+                        } else {
+                            toastr.warning("Consignment Number:" + value.TMC_ConsignmentNumber + " having No Items...!");
+                        }
+                    });
+                }
+                value.SingleSelect = false;
+            });
+        }
+        //#endregion
+        // Get Sales Order Details in Attach
         function getOrderDetails() {
             if (ManifestOrdersCtrl.ePage.Entities.Header.CheckPoints.ReceiverClient) {
                 if (ManifestOrdersCtrl.ePage.Entities.Header.CheckPoints.WarehouseClient) {
