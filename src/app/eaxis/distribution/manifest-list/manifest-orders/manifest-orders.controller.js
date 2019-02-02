@@ -77,7 +77,7 @@
         }
         // RadioButton For Dynamic Attach Button loading for SO/ASN/Consignment
         function RadioButton(value) {
-            dmsManifestConfig.SelectedValue=value;
+            dmsManifestConfig.SelectedValue = value;
             if (value == "Consignment") {
                 getConsignmentDetails();
                 ManifestOrdersCtrl.ePage.Masters.Consignment = true;
@@ -161,37 +161,59 @@
         function Filter() {
             $(".filter-sidebar-wrapper").toggleClass("open");
             ManifestOrdersCtrl.ePage.Masters.IsLoading = true;
-            var FilterObj = {
-                "WorkOrderID": ManifestOrdersCtrl.ePage.Masters.DynamicControl.Entities[0].Data.WorkOrderID,
-                "ClientCode": ManifestOrdersCtrl.ePage.Masters.DynamicControl.Entities[0].Data.ClientCode,
-                "SupplierCode": ManifestOrdersCtrl.ePage.Masters.DynamicControl.Entities[0].Data.SupplierCode,
-                "WorkOrderStatusIn": "OAS,OCP",
-                "WarehouseCode": ManifestOrdersCtrl.ePage.Masters.DynamicControl.Entities[0].Data.WarehouseCode,
-                "WorkOrderType": ManifestOrdersCtrl.ePage.Masters.DynamicControl.Entities[0].Data.WorkOrderType,
-                "ConsigneeCode": ManifestOrdersCtrl.ePage.Masters.DynamicControl.Entities[0].Data.ConsigneeCode,
-                "Consignmentstatus": "DRF",
-                "ConsignStatus": "NULL",
-                "SortColumn": "TMC_WorkOrderID",
-                "SortType": "ASC",
-                "PageNumber": 1,
-                "PageSize": 5000
-            };
+            if (ManifestOrdersCtrl.ePage.Masters.SelectRadioBtn == "SalesOrder") {
+                var FilterObj = {
+                    "WorkOrderID": ManifestOrdersCtrl.ePage.Masters.DynamicControl.Entities[0].Data.WorkOrderID,
+                    "ClientCode": ManifestOrdersCtrl.ePage.Masters.DynamicControl.Entities[0].Data.ClientCode,
+                    "SupplierCode": ManifestOrdersCtrl.ePage.Masters.DynamicControl.Entities[0].Data.SupplierCode,
+                    "WorkOrderStatusIn": "OAS,OCP",
+                    "WarehouseCode": ManifestOrdersCtrl.ePage.Masters.DynamicControl.Entities[0].Data.WarehouseCode,
+                    "WorkOrderType": ManifestOrdersCtrl.ePage.Masters.DynamicControl.Entities[0].Data.WorkOrderType,
+                    "ConsigneeCode": ManifestOrdersCtrl.ePage.Masters.DynamicControl.Entities[0].Data.ConsigneeCode,
+                    "Consignmentstatus": "DRF",
+                    "ConsignStatus": "NULL",
+                    "SortColumn": "TMC_WorkOrderID",
+                    "SortType": "ASC",
+                    "PageNumber": 1,
+                    "PageSize": 5000
+                };
 
-            var _input = {
-                "searchInput": helperService.createToArrayOfObject(FilterObj),
-                "FilterID": ManifestOrdersCtrl.ePage.Entities.Header.API.GetOrderList.FilterID,
-            };
-            apiService.post("eAxisAPI", ManifestOrdersCtrl.ePage.Entities.Header.API.GetOrderList.Url, _input).then(function (response) {
-                ManifestOrdersCtrl.ePage.Masters.OrderDetails = response.data.Response;
-                ManifestOrdersCtrl.ePage.Masters.IsLoading = false;
-            });
+                var _input = {
+                    "searchInput": helperService.createToArrayOfObject(FilterObj),
+                    "FilterID": ManifestOrdersCtrl.ePage.Entities.Header.API.GetOrderList.FilterID,
+                };
+                apiService.post("eAxisAPI", ManifestOrdersCtrl.ePage.Entities.Header.API.GetOrderList.Url, _input).then(function (response) {
+                    ManifestOrdersCtrl.ePage.Masters.OrderDetails = response.data.Response;
+                    ManifestOrdersCtrl.ePage.Masters.IsLoading = false;
+                });
+            } else if (ManifestOrdersCtrl.ePage.Masters.SelectRadioBtn == "Consignment") {
+                var _filter = {
+                    "ConsignmentNumber": ManifestOrdersCtrl.ePage.Masters.DynamicControl.Entities[0].Data.ConsignmentNumber,
+                    "Sender": ManifestOrdersCtrl.ePage.Masters.DynamicControl.Entities[0].Data.SenderCode,
+                    "Receiver": ManifestOrdersCtrl.ePage.Masters.DynamicControl.Entities[0].Data.ReceiverCode,
+                    "ConsignmentStatus": "DRF",
+                    "ServiceTypeIn": ManifestOrdersCtrl.ePage.Masters.DynamicControl.Entities[0].Data.ServiceType,
+                    "SortColumn": "TMC_ConsignmentNumber",
+                    "SortType": "ASC",
+                    "PageNumber": 1,
+                    "PageSize": 5000
+                };
+                var _input = {
+                    "searchInput": helperService.createToArrayOfObject(_filter),
+                    "FilterID": ManifestOrdersCtrl.ePage.Entities.Header.API.GetConsignmentList.FilterID,
+                };
+                apiService.post("eAxisAPI", ManifestOrdersCtrl.ePage.Entities.Header.API.GetConsignmentList.Url, _input).then(function (response) {
+                    ManifestOrdersCtrl.ePage.Masters.OrderDetails = response.data.Response;
+                    ManifestOrdersCtrl.ePage.Masters.IsLoading = false;
+                });
+            }
         }
 
         function CloseFilterList() {
-            if(ManifestOrdersCtrl.ePage.Masters.SelectRadioBtn == "SalesOrder"){
+            if (ManifestOrdersCtrl.ePage.Masters.SelectRadioBtn == "SalesOrder") {
                 $('#filterSideBar' + "WorkOrder" + ManifestOrdersCtrl.currentManifest.label).removeClass('open');
             }
-            else(ManifestOrdersCtrl.ePage.Masters.SelectRadioBtn == "Consignment")
+            else (ManifestOrdersCtrl.ePage.Masters.SelectRadioBtn == "Consignment")
             {
                 $('#filterSideBar' + "DistributionConsignment" + ManifestOrdersCtrl.currentManifest.label).removeClass('open');
             }
