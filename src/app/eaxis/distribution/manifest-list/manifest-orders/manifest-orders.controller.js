@@ -682,10 +682,10 @@
             apiService.post("eAxisAPI", ManifestOrdersCtrl.ePage.Entities.Header.API.GetConsignmentItem.Url, _input).then(function (response) {
                 ManifestOrdersCtrl.ePage.Masters.IsLoading = false;
                 ManifestOrdersCtrl.ePage.Masters.GetConsignmentListValue = response.data.Response;
-                var TempItem=[];
+                var TempItem = [];
                 angular.forEach(ManifestOrdersCtrl.ePage.Masters.GetConsignmentListValue, function (value, key) {
                     var _isExist = ManifestOrdersCtrl.ePage.Entities.Header.Data.TmsManifestItem.some(function (value1, index1) {
-                        return value1.TMC_FK === value.PK;
+                        return value1.TIT_FK === value.TIT_FK;
                     });
 
                     if (!_isExist) {
@@ -721,7 +721,7 @@
                     }
 
                 });
-                ManifestOrdersCtrl.ePage.Entities.Header.Data.TmsManifestItem=TempItem;
+                ManifestOrdersCtrl.ePage.Entities.Header.Data.TmsManifestItem = TempItem;
 
                 var item = filterObjectUpdate(ManifestOrdersCtrl.ePage.Entities.Header.Data, "IsModified");
                 apiService.post("eAxisAPI", ManifestOrdersCtrl.ePage.Entities.Header.API.UpdateManifest.Url, ManifestOrdersCtrl.ePage.Entities.Header.Data).then(function (response) {
@@ -757,7 +757,7 @@
             });
         }
 
-         function AddConsignment() {
+        function AddConsignment() {
             angular.forEach(ManifestOrdersCtrl.ePage.Masters.OrderDetails, function (value, key) {
                 if (value.SingleSelect) {
                     var _isExist = ManifestOrdersCtrl.ePage.Entities.Header.Data.TmsManifestConsignment.some(function (value1, index1) {
@@ -781,12 +781,12 @@
                             "TMC_ReceiverName": value.ReceiverName,
                             "TMC_Receiver_ORG_FK": value.Receiver_ORG_FK,
                             "TMC_ServiceType": value.ServiceType,
-							"TMC_ExpectedDeliveryDateTime": value.ExpectedDeliveryDateTime,
+                            "TMC_ExpectedDeliveryDateTime": value.ExpectedDeliveryDateTime,
                             "TMC_ExpectedPickupDateTime": value.ExpectedPickupDateTime,
                             "IsDeleted": false,
                             "IsModified": true,
                             "TMM_FK": ManifestOrdersCtrl.ePage.Entities.Header.Data.TmsManifestHeader.PK,
-							"TMC_CurrentLocation_FK": ManifestOrdersCtrl.ePage.Entities.Header.Data.TmsManifestHeader.Sender_ORG_FK
+                            "TMC_CurrentLocation_FK": ManifestOrdersCtrl.ePage.Entities.Header.Data.TmsManifestHeader.Sender_ORG_FK
                         }
 
                         ManifestOrdersCtrl.ePage.Entities.Header.Data.TmsManifestConsignment.push(obj);
@@ -829,7 +829,7 @@
             }
             ManifestOrdersCtrl.ePage.Masters.SelectAll = false;
         }
-        
+
         //#endregion
         function filterObjectUpdate(obj, key) {
             for (var i in obj) {
