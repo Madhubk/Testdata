@@ -133,6 +133,11 @@
                                 "Url": "WmsPickLineSummary/FindAll",
                                 "FilterID": "WMSPLS"
                             },
+                            "GetConsignmentItem": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "TmsConsignmentItem/FindAll"
+                            },
                             "GetConsignmentList": {
                                 "IsAPI": "true",
                                 "HttpType": "POST",
