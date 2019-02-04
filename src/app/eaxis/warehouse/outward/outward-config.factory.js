@@ -1285,6 +1285,14 @@
 
                     if (!value.PRO_FK && value.ProductCode || value.PRO_FK && value.ProductCode)
                         OnChangeValues(value.PRO_FK, 'E3530', true, key, $item.label);
+
+                    if ((_input.UIWmsOutwardHeader.IMPartAttrib1Type == "SER" &&(value.UsePartAttrib1 || value.IsPartAttrib1ReleaseCaptured)) || (_input.UIWmsOutwardHeader.IMPartAttrib2Type == "SER" &&(value.UsePartAttrib2 || value.IsPartAttrib2ReleaseCaptured)) || (_input.UIWmsOutwardHeader.IMPartAttrib3Type == "SER" &&(value.UsePartAttrib3 || value.IsPartAttrib3ReleaseCaptured))) {
+                        if ((parseFloat(value.Units)%1) != 0) {
+                            OnChangeValues(null, "E3544", true, key , $item.label);
+                        } else  {
+                            OnChangeValues('value', "E3544", true, key, $item.label);
+                        }
+                    }
                 });
             }
 

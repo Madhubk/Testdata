@@ -1061,6 +1061,14 @@
                             OnChangeValues(value.ExpiryDate, 'E11022', true, key, $item.label);
                     }
 
+                    if ((_input.UIWmsStockTransferHeader.IMPartAttrib1Type == "SER" &&(value.UsePartAttrib1 || value.IsPartAttrib1ReleaseCaptured)) || (_input.UIWmsStockTransferHeader.IMPartAttrib2Type == "SER" &&(value.UsePartAttrib2 || value.IsPartAttrib2ReleaseCaptured)) || (_input.UIWmsStockTransferHeader.IMPartAttrib3Type == "SER" &&(value.UsePartAttrib3 || value.IsPartAttrib3ReleaseCaptured))) {
+                        if ((parseFloat(value.Units)%1) != 0) {
+                            OnChangeValues(null, "E11036", true, key , $item.label);
+                        } else  {
+                            OnChangeValues('value', "E11036", true, key, $item.label);
+                        }
+                    }
+
                     OnChangeValues('value','E11023',true,key, $item.label);
                     OnChangeValues('value','E11024',true,key, $item.label);
                     OnChangeValues('value','E11025',true,key, $item.label);

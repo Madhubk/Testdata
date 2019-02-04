@@ -1555,6 +1555,14 @@
                         OnChangeValues('value', 'E3038', true, key, $item.label);
                     }
 
+                    if ((_input.UIWmsInwardHeader.IMPartAttrib1Type == "SER" &&(value.UsePartAttrib1 || value.IsPartAttrib1ReleaseCaptured)) || (_input.UIWmsInwardHeader.IMPartAttrib2Type == "SER" &&(value.UsePartAttrib2 || value.IsPartAttrib2ReleaseCaptured)) || (_input.UIWmsInwardHeader.IMPartAttrib3Type == "SER" &&(value.UsePartAttrib3 || value.IsPartAttrib3ReleaseCaptured))) {
+                        if ((parseFloat(value.Units)%1) != 0) {
+                            OnChangeValues(null, "E3062", true, key , $item.label);
+                        } else  {
+                            OnChangeValues('value', "E3062", true, key, $item.label);
+                        }
+                    }
+
                     OnChangeValues('value', 'E3021', true, key, $item.label);
                     OnChangeValues('value', 'E3022', true, key, $item.label);
                     OnChangeValues('value', 'E3023', true, key, $item.label);

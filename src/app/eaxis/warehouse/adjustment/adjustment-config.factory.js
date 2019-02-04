@@ -1005,6 +1005,14 @@
                         }
                     }
 
+                    if ((_input.UIAdjustmentHeader.IMPartAttrib1Type == "SER" &&(value.UsePartAttrib1 || value.IsPartAttrib1ReleaseCaptured)) || (_input.UIAdjustmentHeader.IMPartAttrib2Type == "SER" &&(value.UsePartAttrib2 || value.IsPartAttrib2ReleaseCaptured)) || (_input.UIAdjustmentHeader.IMPartAttrib3Type == "SER" &&(value.UsePartAttrib3 || value.IsPartAttrib3ReleaseCaptured))) {
+                        if ((parseFloat(value.Units)%1) != 0) {
+                            OnChangeValues(null, "E10029", true, key , $item.label);
+                        } else  {
+                            OnChangeValues('value', "E10029", true, key, $item.label);
+                        }
+                    }
+                    
                     OnChangeValues('value', 'E10022', true, key, $item.label);
                     OnChangeValues('value', 'E10023', true, key, $item.label);
                     OnChangeValues('value', 'E10024', true, key, $item.label);

@@ -5,9 +5,9 @@
         .module("Application")
         .controller("AdjustmentGeneralController", AdjustmentGeneralController);
 
-    AdjustmentGeneralController.$inject = ["$rootScope", "$scope", "$state", "$q", "$location", "$timeout", "APP_CONSTANT", "authService", "apiService", "appConfig", "adjustmentConfig", "helperService", "toastr", "$filter", "$document", "confirmation"];
+    AdjustmentGeneralController.$inject = ["$rootScope", "$scope", "$state", "$q", "$location", "$timeout", "APP_CONSTANT", "authService", "apiService", "appConfig", "adjustmentConfig", "helperService", "toastr", "$filter", "$document", "confirmation","dynamicLookupConfig"];
 
-    function AdjustmentGeneralController($rootScope, $scope, $state, $q, $location, $timeout, APP_CONSTANT, authService, apiService, appConfig, adjustmentConfig, helperService, toastr, $filter, $document, confirmation) {
+    function AdjustmentGeneralController($rootScope, $scope, $state, $q, $location, $timeout, APP_CONSTANT, authService, apiService, appConfig, adjustmentConfig, helperService, toastr, $filter, $document, confirmation,dynamicLookupConfig) {
 
         var AdjustmentGeneralCtrl = this;
 
@@ -519,6 +519,14 @@
                     OnChangeValues(null, "E10021", true, AdjustmentGeneralCtrl.ePage.Masters.selectedRow);
                 }
             }
+
+            if ((AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIAdjustmentHeader.IMPartAttrib1Type == "SER" &&(item.UsePartAttrib1 || item.IsPartAttrib1ReleaseCaptured)) || (AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIAdjustmentHeader.IMPartAttrib2Type == "SER" &&(item.UsePartAttrib2 || item.IsPartAttrib2ReleaseCaptured)) || (AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIAdjustmentHeader.IMPartAttrib3Type == "SER" &&(item.UsePartAttrib3 || item.IsPartAttrib3ReleaseCaptured))) {
+                if ((parseFloat(item.Units)%1) != 0) {
+                    OnChangeValues(null, "E10029", true, AdjustmentGeneralCtrl.ePage.Masters.selectedRow);
+                } else  {
+                    OnChangeValues('value', "E10029", true, AdjustmentGeneralCtrl.ePage.Masters.selectedRow);
+                }
+            }
         }
 
         //#endregion
@@ -845,6 +853,7 @@
                 OnChangeValues('value', "E10026", true, i);
                 OnChangeValues('value', "E10027", true, i);
                 OnChangeValues('value', "E10028", true, i);
+                OnChangeValues('value', "E10029", true, i);
             }
             return true;
         }
@@ -893,6 +902,8 @@
                     console.log("Dynamic control config Empty Response");
                 } else {
                     AdjustmentGeneralCtrl.ePage.Masters.DynamicControl = response.data.Response;
+
+                    dynamicLookupConfig.Entities = Object.assign({}, dynamicLookupConfig.Entities, response.data.Response.LookUpList);
 
                     if (AdjustmentGeneralCtrl.ePage.Masters.defaultFilter !== undefined) {
                         AdjustmentGeneralCtrl.ePage.Masters.DynamicControl.Entities.map(function (value, key) {

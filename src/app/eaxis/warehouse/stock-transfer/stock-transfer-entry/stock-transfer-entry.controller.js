@@ -5,9 +5,9 @@
         .module("Application")
         .controller("StocktransferEntryController", StocktransferEntryController);
 
-    StocktransferEntryController.$inject = ["$rootScope", "$scope", "$state", "$timeout", "$location", "$window", "APP_CONSTANT", "authService", "apiService", "helperService", "stocktransferConfig", "appConfig", "toastr", "$document", "confirmation", "$filter"];
+    StocktransferEntryController.$inject = ["$rootScope", "$scope", "$state", "$timeout", "$location", "$window", "APP_CONSTANT", "authService", "apiService", "helperService", "stocktransferConfig", "appConfig", "toastr", "$document", "confirmation", "$filter","dynamicLookupConfig"];
 
-    function StocktransferEntryController($rootScope, $scope, $state, $timeout, $location, $window, APP_CONSTANT, authService, apiService, helperService, stocktransferConfig, appConfig, toastr, $document, confirmation, $filter) {
+    function StocktransferEntryController($rootScope, $scope, $state, $timeout, $location, $window, APP_CONSTANT, authService, apiService, helperService, stocktransferConfig, appConfig, toastr, $document, confirmation, $filter,dynamicLookupConfig) {
         /* jshint validthis: true */
         var StocktransferEntryCtrl = this;
 
@@ -674,6 +674,14 @@
                     OnChangeValues('value', "E11017", true, StocktransferEntryCtrl.ePage.Masters.selectedRow);
                 }
             }
+
+            if ((StocktransferEntryCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.IMPartAttrib1Type == "SER" &&(item.UsePartAttrib1 || item.IsPartAttrib1ReleaseCaptured)) || (StocktransferEntryCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.IMPartAttrib2Type == "SER" &&(item.UsePartAttrib2 || item.IsPartAttrib2ReleaseCaptured)) || (StocktransferEntryCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.IMPartAttrib3Type == "SER" &&(item.UsePartAttrib3 || item.IsPartAttrib3ReleaseCaptured))) {
+                if ((parseFloat(item.Units)%1) != 0) {
+                    OnChangeValues(null, "E11036", true, StocktransferEntryCtrl.ePage.Masters.selectedRow);
+                } else  {
+                    OnChangeValues('value', "E11036", true, StocktransferEntryCtrl.ePage.Masters.selectedRow);
+                }
+            }
         }
 
         //#endregion
@@ -783,7 +791,7 @@
                     console.log("Dynamic control config Empty Response");
                 } else {
                     StocktransferEntryCtrl.ePage.Masters.DynamicControl = response.data.Response;
-
+                    dynamicLookupConfig.Entities = Object.assign({}, dynamicLookupConfig.Entities, response.data.Response.LookUpList);
 
                     if (StocktransferEntryCtrl.ePage.Masters.defaultFilter !== undefined) {
                         StocktransferEntryCtrl.ePage.Masters.DynamicControl.Entities.map(function (value, key) {
@@ -1036,6 +1044,7 @@
                 OnChangeValues('value', "E11028", true, i);
                 OnChangeValues('value', "E11029", true, i);
                 OnChangeValues('value', 'E11031', true, i);
+                OnChangeValues('value', 'E11036', true, i);
             }
             return true;
         }
