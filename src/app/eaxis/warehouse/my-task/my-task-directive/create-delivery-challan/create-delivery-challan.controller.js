@@ -68,11 +68,11 @@
 
         function CreateMaterial() {
             if (CreateDelChallanCtrl.ePage.Masters.WarehouseCode) {
-                // if (CreateDelChallanCtrl.ePage.Masters.WarehouseCode == CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WarehouseCode) {
-                //     toastr.warning("Transfer From and To warehouse's are same. Select another warehouse");
-                // } else {
-                CreateDelChallanCtrl.ePage.Masters.modalInstance.close('MTR');
-                // }
+                if (CreateDelChallanCtrl.ePage.Masters.WarehouseCode == CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WarehouseCode) {
+                    toastr.warning("Transfer From and To warehouse's are same. Select another warehouse");
+                } else {
+                    CreateDelChallanCtrl.ePage.Masters.modalInstance.close('MTR');
+                }
             } else {
                 toastr.warning("Please enter Transfer From Warehouse");
             }
@@ -226,7 +226,8 @@
                                 });
                                 WarehosueList = WarehosueList.slice(0, -1);
                                 if (WarehosueList) {
-                                    CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.TempWarehouse = WarehosueList;
+                                    CreateDelChallanCtrl.ePage.Entities.Header.Data.TempUIWmsDelivery = {};
+                                    CreateDelChallanCtrl.ePage.Entities.Header.Data.TempUIWmsDelivery.TempWarehouse = WarehosueList;
                                     openModel().result.then(function (response) {
                                         if (response == "MTR") {
                                             GoToOutwardCreation(type);
