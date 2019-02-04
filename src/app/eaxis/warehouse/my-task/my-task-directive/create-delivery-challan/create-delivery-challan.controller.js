@@ -68,11 +68,11 @@
 
         function CreateMaterial() {
             if (CreateDelChallanCtrl.ePage.Masters.WarehouseCode) {
-                if (CreateDelChallanCtrl.ePage.Masters.WarehouseCode == CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WarehouseCode) {
-                    toastr.warning("Transfer From and To warehouse's are same. Select another warehouse");
-                } else {
-                    CreateDelChallanCtrl.ePage.Masters.modalInstance.close('MTR');
-                }
+                // if (CreateDelChallanCtrl.ePage.Masters.WarehouseCode == CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WarehouseCode) {
+                //     toastr.warning("Transfer From and To warehouse's are same. Select another warehouse");
+                // } else {
+                CreateDelChallanCtrl.ePage.Masters.modalInstance.close('MTR');
+                // }
             } else {
                 toastr.warning("Please enter Transfer From Warehouse");
             }
