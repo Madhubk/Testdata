@@ -193,7 +193,7 @@
             var mydata = $filter('filter')(ReleasesGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardLines, value.PK);
 
             var validate = mydata.some(function (value, key) {
-                if (value.Packs === value.ShortFallQty)
+                if (parseFloat(value.ShortFallQty) > 0)
                     return value.ShortFallQty;
             });
 

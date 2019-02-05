@@ -639,6 +639,13 @@
                     });
                 }
             }
+            if ((OutwardLineCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.IMPartAttrib1Type == "SER" &&(item.UsePartAttrib1 || item.IsPartAttrib1ReleaseCaptured)) || (OutwardLineCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.IMPartAttrib2Type == "SER" &&(item.UsePartAttrib2 || item.IsPartAttrib2ReleaseCaptured)) || (OutwardLineCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.IMPartAttrib3Type == "SER" &&(item.UsePartAttrib3 || item.IsPartAttrib3ReleaseCaptured))) {
+                if ((parseFloat(item.Units)%1) != 0) {
+                    OnChangeValues(null, "E3544", true, OutwardLineCtrl.ePage.Masters.selectedRow);
+                } else  {
+                    OnChangeValues('value', "E3544", true, OutwardLineCtrl.ePage.Masters.selectedRow);
+                }
+            }
         }
         //#endregion
         
@@ -689,6 +696,7 @@
                 OnChangeValues('value', "E3521", true, i);
                 OnChangeValues('value', "E3530", true, i);
                 OnChangeValues('value', 'E3543', true, i);
+                OnChangeValues('value', 'E3544', true, i);
             }
             return true;
         }

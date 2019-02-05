@@ -80,6 +80,14 @@
                 value.WPK_FK = _input.UIWmsPickHeader.PK;
             })
 
+            // Changing IsModified if only values has been touched.
+            _input.UIWmsPickLine.map(function(v,k){
+                if(v.IsTouched){
+                    v.IsModified = true;
+                }else{
+                    v.IsModified = false;
+                }
+            });
 
             //Updating the status when manual allocation and deallocation happens
             _input.UIWmsOutward.map(function (value, key) {

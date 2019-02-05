@@ -113,6 +113,16 @@
                 $item = filterObjectUpdate($item, "IsModified");
             }
 
+            
+            // Changing IsModified if only values has been touched.
+            _input.UIWmsPickLine.map(function(v,k){
+                if(v.IsTouched){
+                    v.IsModified = true;
+                }else{
+                    v.IsModified = false;
+                }
+            });
+
             //Updating the status when manual allocation and deallocation happens
             _input.UIWmsOutward.map(function (value, key) {
                 _input.UIWmsPickLine.map(function (val, k) {
@@ -124,7 +134,7 @@
                             value.WorkOrderStatusDesc = "Pick Started";
                         }
                     }
-                })
+                });
             });
 
             helperService.SaveEntity($item, 'Pick').then(function (response) {

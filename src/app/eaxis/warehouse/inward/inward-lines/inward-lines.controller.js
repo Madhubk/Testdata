@@ -494,6 +494,7 @@
                 OnChangeValues('value', "E3046", true, i);
                 OnChangeValues('value', "E3047", true, i);
                 OnChangeValues('value', 'E3049', true, i);
+                OnChangeValues('value', 'E3062', true, i);
             }
             return true;
         }
@@ -795,6 +796,14 @@
                     OnChangeValues(null, "E3038", true, InwardLinesCtrl.ePage.Masters.selectedRow);
                 } else if (parseFloat(item.Units) == 1) {
                     OnChangeValues('value', "E3038", true, InwardLinesCtrl.ePage.Masters.selectedRow);
+                }
+            }
+
+            if ((InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.IMPartAttrib1Type == "SER" &&(item.UsePartAttrib1 || item.IsPartAttrib1ReleaseCaptured)) || (InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.IMPartAttrib2Type == "SER" &&(item.UsePartAttrib2 || item.IsPartAttrib2ReleaseCaptured)) || (InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.IMPartAttrib3Type == "SER" &&(item.UsePartAttrib3 || item.IsPartAttrib3ReleaseCaptured))) {
+                if ((parseFloat(item.Units)%1) != 0) {
+                    OnChangeValues(null, "E3062", true, InwardLinesCtrl.ePage.Masters.selectedRow);
+                } else  {
+                    OnChangeValues('value', "E3062", true, InwardLinesCtrl.ePage.Masters.selectedRow);
                 }
             }
         }

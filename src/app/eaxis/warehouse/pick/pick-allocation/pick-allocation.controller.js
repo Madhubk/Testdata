@@ -119,7 +119,7 @@
         
 
         function ManualAllocationUsingCheckBox(item) {
-            
+
             // if checkbox enabled
             if (item.IsAllocate) {
 
@@ -259,6 +259,7 @@
                         } else {
                             value.Units = 0;
                             value.IsDeleted = true;
+                            item.IsTouched = true;
                         }
                         myData = true;
                     }
@@ -271,7 +272,8 @@
                     "WOL_TransactionLine": PickAllocationCtrl.ePage.Masters.SelectedOutwardLineDetails.PK,
                     "Units": parseFloat(item.AllocatedQty),
                     "IsDeleted": false,
-                    "IsModified": true
+                    "IsModified": true,
+                    "IsTouched" : true
                 }
                 PickAllocationCtrl.ePage.Entities.Header.Data.UIWmsPickLine.push(obj);
             }
@@ -378,6 +380,15 @@
                 PickAllocationCtrl.ePage.Masters.LoadingValue = "Allocating Stock..";
 
                 PickAllocationCtrl.currentPick = filterObjectUpdate(PickAllocationCtrl.currentPick, "IsModified");
+
+                // Changing IsModified if only values has been touched.
+                PickAllocationCtrl.ePage.Entities.Header.Data.UIWmsPickLine.map(function(v,k){
+                    if(v.IsTouched){
+                        v.IsModified = true;
+                    }else{
+                        v.IsModified = false;
+                    }
+                });
 
                 apiService.post("eAxisAPI", PickAllocationCtrl.ePage.Entities.Header.API.AllocateStock.Url, PickAllocationCtrl.ePage.Entities.Header.Data).then(function (response) {
                     PickAllocationCtrl.ePage.Masters.Loading = false;
