@@ -1,4 +1,5 @@
-<div class="grid-loading-norecord-container ng-scope" style='z-index: 15;' data-ng-if="DMSConsignmentGeneralCtrl.ePage.Masters.Loading"></div>
+<!-- Non Editable -->
+<div class="noneditable ng-scope" data-ng-if="DMSConsignmentGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable"></div>
 
 <!-- General -->
 <div class="clearfix">
@@ -350,7 +351,7 @@
     <div id="ConItemTable{{DMSConsignmentGeneralCtrl.currentConsignment.label}}" class="fixedheader mb-0" key-events
         table-object='DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentItem' enable='DMSConsignmentGeneralCtrl.ePage.Masters.Enable'
         selected-row='DMSConsignmentGeneralCtrl.ePage.Masters.selectedRow' unique-id='ConItemTable{{DMSConsignmentGeneralCtrl.currentConsignment.label}}'>
-        <table id="DMSConsignmentGeneralCtrl.ePage.Masters.AddScroll" style="height: 300px">
+        <table id="DMSConsignmentGeneralCtrl.ePage.Masters.AddScroll" style="height: 200px">
             <thead>
                 <tr id="tableHeader">
                     <th id="rcheckbox" data-ng-if="DMSConsignmentGeneralCtrl.ePage.Entities.Header.TableProperties.TmsConsignmentItem.rcheckbox.isenabled"

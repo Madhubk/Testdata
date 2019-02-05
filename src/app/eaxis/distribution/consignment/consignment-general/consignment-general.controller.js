@@ -49,14 +49,17 @@
             DMSConsignmentGeneralCtrl.ePage.Masters.RemoveRow = RemoveRow;
 
             DMSConsignmentGeneralCtrl.ePage.Masters.DropDownMasterList = {};
+            // Date Picker
             DMSConsignmentGeneralCtrl.ePage.Masters.DatePicker = {};
-            DMSConsignmentGeneralCtrl.ePage.Masters.DatePicker.Options = APP_CONSTANT.DatePicker;
+            DMSConsignmentGeneralCtrl.ePage.Masters.DatePicker.Options = angular.copy(APP_CONSTANT.DatePicker);
             DMSConsignmentGeneralCtrl.ePage.Masters.DatePicker.isOpen = [];
             DMSConsignmentGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker = OpenDatePicker;
             GetUserBasedGridColumList();
             GetDropDownList();
             GeneralOperation();
             GetNewItemAddress();
+            // Mini date is Today
+            DMSConsignmentGeneralCtrl.ePage.Masters.DatePicker.Options['minDate'] = new Date() + 1;
         }
         //#region Get Address
         function GetOrgSenderAddress() {
