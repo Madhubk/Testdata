@@ -36,7 +36,7 @@
             DMSConsignmentMenuCtrl.ePage.Masters.OnChangeValues = OnChangeValues;
             DMSConsignmentMenuCtrl.ePage.Masters.IsActiveMenu = DMSConsignmentMenuCtrl.activeMenu;
             Orgheader();
-            if (DMSConsignmentMenuCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.Status == 'MAN' || DMSConsignmentMenuCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.Status == 'DEL') {
+            if (DMSConsignmentMenuCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.Status == 'MAN' || DMSConsignmentMenuCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.Status == 'DEL' || DMSConsignmentMenuCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.Status == 'DSP') {
                 DMSConsignmentMenuCtrl.ePage.Entities.Header.GlobalVariables.NonEditable = true;
                 DMSConsignmentMenuCtrl.ePage.Masters.DisableSave = true;
             }
