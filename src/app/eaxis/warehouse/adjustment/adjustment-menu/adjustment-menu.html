@@ -56,7 +56,13 @@
             <span class="dropup pull-right">
                 <button class="btn btn-primary btn-sm margin-right-10 mt-6 dropdown-toggle" type="button" data-toggle="dropdown" ng-disabled="AdjustmentMenuCtrl.ePage.Masters.DisableReport ||AdjustmentMenuCtrl.currentAdjustment.isNew">Documents<span class="ml-5 caret"></span></button>
                 <ul class="dropdown-menu dropdown-menu-right">
-                    <li><a href="javascript:void(0);" data-ng-click="AdjustmentMenuCtrl.ePage.Masters.GenerateReport()" >Adjustment Document</a></li>
+                    <li ng-repeat="x in AdjustmentMenuCtrl.ePage.Masters.AllDocumentValues">
+                        <a href="javascript:void(0);" data-ng-click="AdjustmentMenuCtrl.ePage.Masters.GenerateDocuments(x,'pdf')">{{x.Description}} - Pdf</a>
+                    </li>
+                    <li class="divider"></li>
+                    <li ng-repeat="x in AdjustmentMenuCtrl.ePage.Masters.AllDocumentValues">
+                        <a href="javascript:void(0);" data-ng-click="AdjustmentMenuCtrl.ePage.Masters.GenerateDocuments(x,'excel')">{{x.Description}} - Excel</a>
+                    </li>
                 </ul>
             </span> 
         </div>

@@ -53,7 +53,7 @@
                     <td id="sexpirydate"   data-ng-show='PickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.sexpirydate.isenabled' ng-style="{ 'width': PickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.sexpirydate.width + 'px' }" class="overflow-text">{{x.ExpiryDate || PickSlipCtrl.ePage.Masters.emptyText | dateFormat}}</td>
                     <td id="spickedqty"   data-ng-show='PickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.spickedqty.isenabled' ng-style="{ 'width': PickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.spickedqty.width + 'px' }" >
                         <div data-ng-if="$index!=PickSlipCtrl.ePage.Masters.selectedRowForPickLineSummary || PickSlipCtrl.ePage.Entities.Header.GlobalVariables.NonEditable  || x.IsPicked=='True'" class="overflow-text">
-                            {{ x.PickedQty || PickSlipCtrl.ePage.Masters.emptyText | dateFormat}}
+                            {{ x.PickedQty || PickSlipCtrl.ePage.Masters.emptyText}}
                         </div>
                         <div data-ng-if="$index==PickSlipCtrl.ePage.Masters.selectedRowForPickLineSummary &&  !PickSlipCtrl.ePage.Entities.Header.GlobalVariables.NonEditable &&  x.IsPicked!='True'">
                             <div class="height-22 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 p-0">

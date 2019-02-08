@@ -29,7 +29,7 @@
 
             StockTransferMenuCtrl.ePage.Masters.Validation = Validation;
             StockTransferMenuCtrl.ePage.Masters.Save = Save;
-            StockTransferMenuCtrl.ePage.Masters.GenerateReport = GenerateReport;
+            StockTransferMenuCtrl.ePage.Masters.GenerateDocuments = GenerateDocuments;
             StockTransferMenuCtrl.ePage.Masters.CancelTransfer = CancelTransfer;
             StockTransferMenuCtrl.ePage.Masters.Config = stocktransferConfig;
 
@@ -37,6 +37,8 @@
                 StockTransferMenuCtrl.ePage.Entities.Header.GlobalVariables.NonEditable = true;
                 StockTransferMenuCtrl.ePage.Masters.DisableSave = true;
             }
+
+            DonwloadDocument()
         }
 
         //Normal save function without Finalise validation, so remove all errors and save
@@ -254,65 +256,51 @@
             });
         }
 
-        function GenerateReport() {
-            StockTransferMenuCtrl.ePage.Masters.DisableReport = true;
-
+        function DonwloadDocument(){
             var _filter = {
                 "SAP_FK": "c0b3b8d9-2248-44cd-a425-99c85c6c36d8",
                 "PageType": "Document",
                 "ModuleCode": "WMS",
-                "SubModuleCode": "TFR"
+                "SubModuleCode": "ADJ"
             };
 
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
                 "FilterID": appConfig.Entities.CfxMenus.API.MasterFindAll.FilterID
             };
+
             apiService.post("eAxisAPI", appConfig.Entities.CfxMenus.API.MasterFindAll.Url, _input).then(function (response) {
-                if (response.data.Response) {
-                    var item = response.data.Response[0];
-                    var _SearchInputConfig = JSON.parse(item.OtherConfig)
-                    var _output = helperService.getSearchInput(StockTransferMenuCtrl.ePage.Entities.Header.Data, _SearchInputConfig.DocumentInput);
-
-                    if (_output) {
-
-                        _SearchInputConfig.DocumentSource = APP_CONSTANT.URL.eAxisAPI + _SearchInputConfig.DocumentSource;
-                        _SearchInputConfig.DocumentInput = _output;
-                        apiService.post("eAxisAPI", appConfig.Entities.Communication.API.GenerateReport.Url, _SearchInputConfig).then(function SuccessCallback(response) {
-
-                            function base64ToArrayBuffer(base64) {
-                                var binaryString = window.atob(base64);
-                                var binaryLen = binaryString.length;
-                                var bytes = new Uint8Array(binaryLen);
-                                for (var i = 0; i < binaryLen; i++) {
-                                    var ascii = binaryString.charCodeAt(i);
-                                    bytes[i] = ascii;
-                                }
-                                saveByteArray([bytes], item.Description + '-' + StockTransferMenuCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.WorkOrderID + '.pdf');
-                            }
-
-                            var saveByteArray = (function () {
-                                var a = document.createElement("a");
-                                document.body.appendChild(a);
-                                a.style = "display: none";
-                                return function (data, name) {
-                                    var blob = new Blob(data, {
-                                        type: "octet/stream"
-                                    }),
-                                        url = window.URL.createObjectURL(blob);
-                                    a.href = url;
-                                    a.download = name;
-                                    a.click();
-                                    window.URL.revokeObjectURL(url);
-                                };
-                            }());
-
-                            base64ToArrayBuffer(response.data);
-                            StockTransferMenuCtrl.ePage.Masters.DisableReport = false;
-                        });
-                    }
-                }
+                StockTransferMenuCtrl.ePage.Masters.AllDocumentValues = $filter('orderBy')(response.data.Response,'DisplayOrder');
+                StockTransferMenuCtrl.ePage.Masters.AllDocumentValues.map(function(value,key){
+                    value.OtherConfig = JSON.parse(value.OtherConfig);
+                });
             });
+        }
+
+        function GenerateDocuments(item, format) {
+            StockTransferMenuCtrl.ePage.Masters.DisableReport = true;
+
+            var obj = item.OtherConfig.ReportTemplate;
+
+            obj.JobDocs.EntityRefKey = item.Id;
+            obj.JobDocs.EntitySource = 'WMS';
+            obj.JobDocs.EntityRefCode = item.Description;
+            obj.DataObjs[0].ApiName = obj.DataObjs[0].ApiName + StockTransferMenuCtrl.ePage.Entities.Header.Data.PK;
+
+            apiService.post("eAxisAPI", appConfig.Entities.Export.API.Excel.Url, obj).then(function(response){
+                if(response.data.Response.Status=='Success'){
+                 apiService.get("eAxisAPI", appConfig.Entities.Communication.API.JobDocument.Url + response.data.Response.PK +"/"+ authService.getUserInfo().AppPK).then(function(response){
+                     if (response.data.Response) {
+                         if (response.data.Response !== "No Records Found!") {
+                             helperService.DownloadDocument(response.data.Response);
+                             StockTransferMenuCtrl.ePage.Masters.DisableReport = false;
+                         }
+                     } else {
+                         console.log("Invalid response");
+                     }
+                 })
+                }
+             })
         }
 
         Init();
