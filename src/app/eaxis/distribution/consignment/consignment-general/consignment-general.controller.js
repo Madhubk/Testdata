@@ -270,7 +270,7 @@
             _input.TmsConsignmentItem.map(function (value, key) {
                 value.TMC_FK = _input.TmsConsignmentHeader.PK;
             });
-            
+
             helperService.SaveEntity($item, 'Consignment').then(function (response) {
                 DMSConsignmentGeneralCtrl.ePage.Masters.Config.DisableSave = false;
                 if (DMSConsignmentGeneralCtrl.ePage.Masters.SaveAndClose) {
@@ -360,6 +360,9 @@
                     typeCodeList.map(function (value, key) {
                         DMSConsignmentGeneralCtrl.ePage.Masters.DropDownMasterList[value] = helperService.metaBase();
                         DMSConsignmentGeneralCtrl.ePage.Masters.DropDownMasterList[value].ListSource = response.data.Response[value];
+                        if (value == 'SERVICETYPES') {
+                            DMSConsignmentGeneralCtrl.ePage.Masters.DropDownMasterList[value].ListSource = $filter('orderBy')(DMSConsignmentGeneralCtrl.ePage.Masters.DropDownMasterList[value].ListSource, 'Sequence')
+                        }
                     });
                 }
             });
@@ -372,6 +375,15 @@
                 }
             });
             DMSConsignmentGeneralCtrl.ePage.Masters.OnChangeValues(DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.ServiceType, "E5518", false, undefined);
+
+            //For not allowing to create consignment using INW and ORD Service Type
+
+            if (DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.ServiceType == 'INW' || DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.ServiceType == 'ORD') {
+                DMSConsignmentGeneralCtrl.ePage.Masters.OnChangeValues('', "E5566", false, undefined);
+                toastr.error('Cannot Create Consignment with INW and ORD Service Type');
+            } else if (DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.ServiceType == 'LOP' || DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.ServiceType == 'LOD') {
+                DMSConsignmentGeneralCtrl.ePage.Masters.OnChangeValues(DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.ServiceType, "E5566", false, undefined);
+            }
         }
         // #endregion
 
@@ -464,7 +476,7 @@
                 DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentItem[index].TIT_Volumn = "",
                 DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentItem[index].TIT_Length = ""
 
-                DMSConsignmentGeneralCtrl.ePage.Masters.OnChangeValues(DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentItem[index].TIT_ItemCode, "E5547", false, undefined);
+            DMSConsignmentGeneralCtrl.ePage.Masters.OnChangeValues(DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentItem[index].TIT_ItemCode, "E5547", false, undefined);
         }
 
         //#endregion
@@ -553,7 +565,7 @@
                 DMSConsignmentGeneralCtrl.ePage.Entities.Header.GlobalVariables.Loading = true;
                 var obj = {
                     "TIT_ItemRef_ID": "",
-                    "TIT_ItemRefType":"Consignment Item",
+                    "TIT_ItemRefType": "Consignment Item",
                     "TIT_ItemCode": "",
                     "TIT_ItemDesc": "",
                     "Quantity": "",
@@ -567,7 +579,7 @@
                     "TIT_UOM": "",
                     "TIT_VolumeUQ": "",
                     "TIT_WeightUQ": "",
-                    "TIT_FK":"",
+                    "TIT_FK": "",
                     "TIT_Receiver_ORG_FK": DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.Receiver_ORG_FK,
                     "TIT_ReceiverName": DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.ReceiverName,
                     "TIT_ReceiverCode": DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.ReceiverCode,
@@ -597,7 +609,7 @@
                     var item = angular.copy(DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentItem[i]);
                     var obj = {
                         "TIT_ItemRef_ID": item.TIT_ItemRef_ID,
-                        "TIT_ItemRefType":"Consignment Item",
+                        "TIT_ItemRefType": "Consignment Item",
                         "TIT_ItemCode": item.TIT_ItemCode,
                         "TIT_ItemDesc": item.TIT_ItemDesc,
                         "Quantity": item.Quantity,
