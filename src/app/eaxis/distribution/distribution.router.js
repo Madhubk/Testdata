@@ -98,6 +98,28 @@
                     }]
                 }
             })
+            // region Consignment screen in DMS
+            .state('EA.DMS.consignment', {
+                url: '/consignment',
+                templateUrl: 'app/eaxis/distribution/consignment/consignment.html',
+                controller: "DMSConsignmentController as DMSConsignmentCtrl",
+                ncyBreadcrumb: {
+                    label: 'Consignment'
+                },
+                resolve: {
+                    CheckAccess: ["$q", "pageAccessService", function ($q, pageAccessService) {
+                        var deferred = $q.defer();
+                        if (pageAccessService.CheckAuthToken()) {
+                            deferred.resolve();
+                        }
+                        return deferred.promise;
+                    }],
+                    LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
+                        return $ocLazyLoad.load(["chromeTab", "errorWarning", "confirmation", "compareDate", "dynamicListModal", "dynamicList", "dynamicLookup", "dynamicControl", "dynamicGrid", "dmsconsignment", "dmsconsignmentMenu","dmsconsignmentGeneral","dmsconsignmentaddress"]);
+                    }]
+                }
+            })
+            // end region
             .state('EA.DMS.Dashboard', {
                 url: '/dashboard',
                 templateUrl: 'app/eaxis/distribution/dashboard/dashboard.html',

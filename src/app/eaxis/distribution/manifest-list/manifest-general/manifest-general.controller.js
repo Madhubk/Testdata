@@ -49,10 +49,11 @@
 
             // DatePicker
             ManifestGeneralCtrl.ePage.Masters.DatePicker = {};
-            ManifestGeneralCtrl.ePage.Masters.DatePicker.Options = APP_CONSTANT.DatePicker;
+            ManifestGeneralCtrl.ePage.Masters.DatePicker.Options = angular.copy(APP_CONSTANT.DatePicker);
 
             ManifestGeneralCtrl.ePage.Masters.DatePicker.isOpen = [];
             ManifestGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker = OpenDatePicker;
+            ManifestGeneralCtrl.ePage.Masters.DatePicker.Options['minDate'] = new Date() + 1;
 
             ManifestGeneralCtrl.ePage.Masters.TransportMode = ["Road", "Air", "Sea"];
 
@@ -521,8 +522,6 @@
         function setSelectedRow(index) {
             ManifestGeneralCtrl.ePage.Masters.selectedRow = index;
         }
-
-
 
         Init();
     }

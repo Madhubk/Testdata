@@ -5,9 +5,9 @@
         .module("Application")
         .controller("DeliverMaterialController", DeliverMaterialController);
 
-    DeliverMaterialController.$inject = ["$scope", "apiService", "helperService", "appConfig", "myTaskActivityConfig", "APP_CONSTANT", "errorWarningService", "dynamicLookupConfig", "outwardConfig", "$injector", "toastr"];
+    DeliverMaterialController.$inject = ["$scope", "apiService", "helperService", "appConfig", "myTaskActivityConfig", "APP_CONSTANT", "errorWarningService", "dynamicLookupConfig", "outwardConfig", "$injector", "toastr", "$filter"];
 
-    function DeliverMaterialController($scope, apiService, helperService, appConfig, myTaskActivityConfig, APP_CONSTANT, errorWarningService, dynamicLookupConfig, outwardConfig, $injector, toastr) {
+    function DeliverMaterialController($scope, apiService, helperService, appConfig, myTaskActivityConfig, APP_CONSTANT, errorWarningService, dynamicLookupConfig, outwardConfig, $injector, toastr, $filter) {
         var DeliverMaterialCtrl = this;
         var Config = $injector.get("pickConfig");
 
@@ -103,9 +103,11 @@
                             response.data.Response.TmsManifestHeader.Sender_ORG_FK = DeliverMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WAR_ORG_FK;
                             response.data.Response.TmsManifestHeader.ReceiverCode = DeliverMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.ConsigneeCode;
                             response.data.Response.TmsManifestHeader.ReceiverName = DeliverMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.ConsigneeName;
-                            response.data.Response.TmsManifestHeader.Receiver_ORG_FK = DeliverMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.ORG_Consignee_FK;
+                            response.data.Response.TmsManifestHeader.Receiver_ORG_FK = DeliverMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.ORG_Consignee_FK;                            
                             response.data.Response.TmsManifestHeader.EstimatedDispatchDate = new Date();
                             response.data.Response.TmsManifestHeader.EstimatedDeliveryDate = new Date();
+                            response.data.Response.TmsManifestHeader.EstimatedDispatchDate = $filter('date')(new Date(), "dd-MMM-yyyy hh:mm a")
+                            response.data.Response.TmsManifestHeader.EstimatedDeliveryDate = $filter('date')(new Date(), "dd-MMM-yyyy hh:mm a")
                             DeliverMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.AdditionalRef1Fk = response.data.Response.TmsManifestHeader.PK;
                             DeliverMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.IsModified = true;
 

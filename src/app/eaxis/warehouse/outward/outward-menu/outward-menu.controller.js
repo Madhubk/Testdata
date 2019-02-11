@@ -5,9 +5,9 @@
         .module("Application")
         .controller("OutwardMenuController", OutwardMenuController);
 
-    OutwardMenuController.$inject = ["$scope", "$rootScope", "$timeout", "APP_CONSTANT", "apiService", "outwardConfig", "helperService", "appConfig", "authService", "$location", "$state", "toastr", "confirmation", "$injector", "$window", "$uibModal", "$ocLazyLoad"];
+    OutwardMenuController.$inject = ["$scope", "$rootScope", "$timeout", "APP_CONSTANT", "apiService", "outwardConfig", "helperService", "appConfig", "authService", "$location", "$state", "toastr", "confirmation", "$injector", "$window", "$uibModal", "$ocLazyLoad", "$filter"];
 
-    function OutwardMenuController($scope, $rootScope, $timeout, APP_CONSTANT, apiService, outwardConfig, helperService, appConfig, authService, $location, $state, toastr, confirmation, $injector, $window, $uibModal, $ocLazyLoad) {
+    function OutwardMenuController($scope, $rootScope, $timeout, APP_CONSTANT, apiService, outwardConfig, helperService, appConfig, authService, $location, $state, toastr, confirmation, $injector, $window, $uibModal, $ocLazyLoad, $filter) {
 
         var OutwardMenuCtrl = this;
         var Config = $injector.get("pickConfig");
@@ -451,6 +451,8 @@
                                                                     response.data.Response.TmsManifestHeader.Receiver_ORG_FK = OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.ORG_Consignee_FK;
                                                                     response.data.Response.TmsManifestHeader.EstimatedDispatchDate = new Date();
                                                                     response.data.Response.TmsManifestHeader.EstimatedDeliveryDate = new Date();
+                                                                    response.data.Response.TmsManifestHeader.EstimatedDispatchDate = $filter('date')(new Date(), "dd-MMM-yyyy hh:mm a")
+                                                                    response.data.Response.TmsManifestHeader.EstimatedDeliveryDate = $filter('date')(new Date(), "dd-MMM-yyyy hh:mm a")
                                                                     OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.AdditionalRef1Code = response.data.Response.TmsManifestHeader.ManifestNumber;
                                                                     OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.AdditionalRef1Fk = response.data.Response.TmsManifestHeader.PK;
                                                                     OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.IsModified = true;
