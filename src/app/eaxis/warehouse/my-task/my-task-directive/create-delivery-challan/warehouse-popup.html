@@ -10,13 +10,15 @@
                 <div class="input-group input-group-sm">
                     <!-- Dynamic look up Search in textbox -->
                     <div dynamic-lookup placeholder="Warehouse" my-ng-model="CreateDelChallanCtrl.ePage.Masters.Warehouse" auto-complete-on-select="CreateDelChallanCtrl.ePage.Masters.SelectedLookupWarehouse($item)"
-                        obj="CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery" page-name="'Warehouse'" control-id="'Warehouse'" control-key="'Warehouse_3067'">
+                        obj="CreateDelChallanCtrl.ePage.Entities.Header.Data.TempUIWmsDelivery" page-name="'Warehouse'" control-id="'Warehouse'"
+                        control-key="'Warehouse_3067'">
                     </div>
                     <!-- Look Up page opens when button clicks -->
                     <span class="input-group-btn">
-                        <button dynamic-list-modal obj="CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery" control-id="'Warehouse'" control-key="'Warehouse_3067'"
-                            selected-data="CreateDelChallanCtrl.ePage.Masters.SelectedLookupWarehouse($item.data.entity)" page-name="'Warehouse'"
-                            mode="2" grid-refresh-fun-name="" grid-refresh-fun="" class="btn btn-default shiny" type="button">
+                        <button dynamic-list-modal obj="CreateDelChallanCtrl.ePage.Entities.Header.Data.TempUIWmsDelivery" control-id="'Warehouse'"
+                            control-key="'Warehouse_3067'" selected-data="CreateDelChallanCtrl.ePage.Masters.SelectedLookupWarehouse($item.data.entity)"
+                            page-name="'Warehouse'" mode="2" grid-refresh-fun-name="" grid-refresh-fun="" class="btn btn-default shiny"
+                            type="button">
                             <i class="fa fa-ellipsis-h"></i>
                         </button>
                     </span>

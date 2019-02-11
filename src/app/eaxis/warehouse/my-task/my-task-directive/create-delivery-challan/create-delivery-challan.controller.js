@@ -66,16 +66,26 @@
 
         }
 
-        function CreateMaterial() {
-            if (CreateDelChallanCtrl.ePage.Masters.WarehouseCode) {
-                if (CreateDelChallanCtrl.ePage.Masters.WarehouseCode == CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WarehouseCode) {
-                    toastr.warning("Transfer From and To warehouse's are same. Select another warehouse");
-                } else {
-                    CreateDelChallanCtrl.ePage.Masters.modalInstance.close('MTR');
+        // #region - lookup 
+        function GetDynamicLookupConfig() {
+            // Get DataEntryNameList 
+            var _filter = {
+                pageName: 'WarehouseOutward'
+            };
+            var _input = {
+                "searchInput": helperService.createToArrayOfObject(_filter),
+                "FilterID": appConfig.Entities.DYN_RelatedLookup.API.GroupFindAll.FilterID
+            };
+
+            apiService.post("eAxisAPI", appConfig.Entities.DYN_RelatedLookup.API.GroupFindAll.Url, _input).then(function (response) {
+                if (response.data.Response) {
+                    var _isEmpty = angular.equals({}, response.data.Response);
+
+                    if (!_isEmpty) {
+                        dynamicLookupConfig.Entities = Object.assign({}, dynamicLookupConfig.Entities, response.data.Response);
+                    }
                 }
-            } else {
-                toastr.warning("Please enter Transfer From Warehouse");
-            }
+            });
         }
 
         function SelectedLookupWarehouse(item) {
@@ -85,12 +95,34 @@
             CreateDelChallanCtrl.ePage.Masters.WAR_PK = item.PK;
         }
 
-        function CallIsReload() {
-            CreateDelChallanCtrl.ePage.Masters.Config.IsReload = false;
-            CreateDelChallanCtrl.ePage.Entities.Header.Data = myTaskActivityConfig.Entities.Delivery[myTaskActivityConfig.Entities.Delivery.label].ePage.Entities.Header.Data;
+        function GeneralOperation() {
+            // Client
+            if (CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ClientCode == null)
+                CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ClientCode = "";
+            if (CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ClientName == null)
+                CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ClientName = "";
+            CreateDelChallanCtrl.ePage.Masters.Client = CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ClientCode + ' - ' + CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ClientName;
+            if (CreateDelChallanCtrl.ePage.Masters.Client == " - ")
+                CreateDelChallanCtrl.ePage.Masters.Client = "";
+            // Consignee
+            if (CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ConsigneeCode == null)
+                CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ConsigneeCode = "";
+            if (CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ConsigneeName == null)
+                CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ConsigneeName = "";
+            CreateDelChallanCtrl.ePage.Masters.Consignee = CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ConsigneeCode + ' - ' + CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ConsigneeName;
+            if (CreateDelChallanCtrl.ePage.Masters.Consignee == " - ")
+                CreateDelChallanCtrl.ePage.Masters.Consignee = "";
+            // Warehouse
+            if (CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WarehouseCode == null)
+                CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WarehouseCode = "";
+            if (CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WarehouseName == null)
+                CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WarehouseName = "";
+            CreateDelChallanCtrl.ePage.Masters.WarehouseCodeName = CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WarehouseCode + ' - ' + CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WarehouseName;
+            if (CreateDelChallanCtrl.ePage.Masters.WarehouseCodeName == " - ")
+                CreateDelChallanCtrl.ePage.Masters.WarehouseCodeName = "";
         }
-
-        //#region checkbox selection
+        // #endregion
+        // #region checkbox selection
         function SelectAllCheckBox() {
             angular.forEach(CreateDelChallanCtrl.ePage.Entities.Header.Data.UIvwWmsDeliveryList, function (value, key) {
                 if (CreateDelChallanCtrl.ePage.Masters.SelectAll) {
@@ -120,23 +152,53 @@
             });
         }
 
-        function getOutwardList() {
-            var _filter = {
-                "WOD_Parent_FK": CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.PK
-            };
-            var _input = {
-                "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.WmsOutwardList.API.FindAll.FilterID
-            };
-            apiService.post("eAxisAPI", appConfig.Entities.WmsOutwardList.API.FindAll.Url, _input).then(function (response) {
-                if (response.data.Response) {
-                    CreateDelChallanCtrl.ePage.Masters.OutwardList = response.data.Response;
-                    outwardConfig.ValidationFindall();
-                    angular.forEach(CreateDelChallanCtrl.ePage.Masters.OutwardList, function (value, key) {
-                        AddTab(value, false);
-                    });
+        function setSelectedRow(index, item) {
+            var SelectedDeliveryLine = [];
+            angular.forEach(CreateDelChallanCtrl.ePage.Entities.Header.Data.UIvwWmsDeliveryList, function (value, key) {
+                if (value.SingleSelect) {
+                    SelectedDeliveryLine.push(value);
                 }
             });
+            var TempSelectedDeliveryLine = _.groupBy(SelectedDeliveryLine, 'DL_Req_PrdCode');
+            var TempProduct = "";
+            angular.forEach(TempSelectedDeliveryLine, function (value, key) {
+                TempProduct = TempProduct + key + ",";
+            });
+            TempProduct = TempProduct.slice(0, -1);
+            // if (SelectedDeliveryLine.length > 1) {
+            //     CreateDelChallanCtrl.ePage.Masters.selectedRow = -1;
+            // } else {
+            //     CreateDelChallanCtrl.ePage.Masters.selectedRow = index;
+            // }
+            // var WarehouseCode;
+            // if (!CreateDelChallanCtrl.ePage.Masters.SelectAll && SelectedDeliveryLine.length == 0) {
+            //     WarehouseCode = undefined;
+            // } else {
+            //     WarehouseCode = CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WarehouseCode;
+            // }
+            CreateDelChallanCtrl.ePage.Masters.defaultFilter = {
+                "ClientCode": CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ClientCode,
+                // "WAR_WarehouseCode": WarehouseCode,
+                "InventoryStatusIn": 'AVL',
+                // "ProductCode": item.DL_Req_PrdCode,
+                "AvlToPickNotEquals": "0",
+                "ProductIn": TempProduct,
+            };
+            CreateDelChallanCtrl.ePage.Masters.DynamicControl = undefined;
+            GetConfigDetails();
+        }
+        // #endregion
+        // #region Create Outward or MTR
+        function CreateMaterial() {
+            if (CreateDelChallanCtrl.ePage.Masters.WarehouseCode) {
+                if (CreateDelChallanCtrl.ePage.Masters.WarehouseCode == CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WarehouseCode) {
+                    toastr.warning("Transfer From and To warehouse's are same. Select another warehouse");
+                } else {
+                    CreateDelChallanCtrl.ePage.Masters.modalInstance.close('MTR');
+                }
+            } else {
+                toastr.warning("Please enter Transfer From Warehouse");
+            }
         }
 
         function CreateOutward(type) {
@@ -202,43 +264,50 @@
                                 });
                             }
                         } else if (type == "MTR") {
-                            var TempWarInv = _.groupBy(CreateDelChallanCtrl.ePage.Masters.NotWarehouseInventory, 'ProductCode');
-                            var TempWarInvCount = _.keys(TempWarInv).length;
-                            var TempSelectedLineCount = _.keys(TempSelectedLine).length;
-                            if (TempWarInvCount == TempSelectedLineCount) {
-                                var results = groupBy(CreateDelChallanCtrl.ePage.Masters.NotWarehouseInventory, function (item) {
-                                    return [item.WAR_WarehouseCode, item.ProductCode];
-                                });
-                                var war = [];
-                                angular.forEach(results, function (value, key) {
-                                    var str;
-                                    if (typeof key == "string") {
-                                        str = JSON.parse(key);
-                                    }
-                                    war.push(str[0]);
-                                });
-                                var result = GetWarCount(war);
-                                var WarehosueList = "";
-                                angular.forEach(result, function (val, key) {
-                                    if (val == TempSelectedLineCount) {
-                                        WarehosueList = WarehosueList + key + ",";
-                                    }
-                                });
-                                WarehosueList = WarehosueList.slice(0, -1);
-                                if (WarehosueList) {
-                                    CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.TempWarehouse = WarehosueList;
-                                    openModel().result.then(function (response) {
-                                        if (response == "MTR") {
-                                            GoToOutwardCreation(type);
-                                        }
-                                    }, function () {
-                                        console.log("Cancelled");
+                            var TempWar = _.groupBy(CreateDelChallanCtrl.ePage.Masters.WarehouseInventory, 'ProductCode');
+                            var TempWarCount = _.keys(TempWar).length;
+                            if (TempWarCount == 0) {
+                                var TempWarInv = _.groupBy(CreateDelChallanCtrl.ePage.Masters.NotWarehouseInventory, 'ProductCode');
+                                var TempWarInvCount = _.keys(TempWarInv).length;
+                                var TempSelectedLineCount = _.keys(TempSelectedLine).length;
+                                if (TempWarInvCount == TempSelectedLineCount) {
+                                    var results = groupBy(CreateDelChallanCtrl.ePage.Masters.NotWarehouseInventory, function (item) {
+                                        return [item.WAR_WarehouseCode, item.ProductCode];
                                     });
+                                    var war = [];
+                                    angular.forEach(results, function (value, key) {
+                                        var str;
+                                        if (typeof key == "string") {
+                                            str = JSON.parse(key);
+                                        }
+                                        war.push(str[0]);
+                                    });
+                                    var result = GetWarCount(war);
+                                    var WarehosueList = "";
+                                    angular.forEach(result, function (val, key) {
+                                        if (val == TempSelectedLineCount) {
+                                            WarehosueList = WarehosueList + key + ",";
+                                        }
+                                    });
+                                    WarehosueList = WarehosueList.slice(0, -1);
+                                    if (WarehosueList) {
+                                        CreateDelChallanCtrl.ePage.Entities.Header.Data.TempUIWmsDelivery = {};
+                                        CreateDelChallanCtrl.ePage.Entities.Header.Data.TempUIWmsDelivery.TempWarehouse = WarehosueList;
+                                        openModel().result.then(function (response) {
+                                            if (response == "MTR") {
+                                                GoToOutwardCreation(type);
+                                            }
+                                        }, function () {
+                                            console.log("Cancelled");
+                                        });
+                                    } else {
+                                        toastr.warning("Inventory not available for this product(s) in same warehouse.")
+                                    }
                                 } else {
-                                    toastr.warning("Inventory not available for this product(s) in same warehouse.")
+                                    toastr.warning("Inventory not available for this product(s)");
                                 }
                             } else {
-                                toastr.warning("Inventory not available for this product(s)");
+                                toastr.warning("Inventory available in the Requested Warehouse. Click Create Outward to continue");
                             }
                         }
                     } else {
@@ -282,23 +351,6 @@
             // return Object.keys(groups).map(function (group) {
             return groups;
             // })
-        }
-
-        function Close() {
-            CreateDelChallanCtrl.ePage.Masters.selectedRow = -1;
-            CreateDelChallanCtrl.ePage.Masters.modalInstance.close('close');
-        }
-
-        function openModel() {
-            return CreateDelChallanCtrl.ePage.Masters.modalInstance = $uibModal.open({
-                animation: true,
-                backdrop: "static",
-                keyboard: false,
-                windowClass: "success-popup",
-                scope: $scope,
-                size: "md",
-                templateUrl: "app/eaxis/warehouse/my-task/my-task-directive/create-delivery-challan/warehouse-popup.html"
-            });
         }
 
         function GoToOutwardCreation(type) {
@@ -425,6 +477,43 @@
             }
         }
 
+        function openModel() {
+            return CreateDelChallanCtrl.ePage.Masters.modalInstance = $uibModal.open({
+                animation: true,
+                backdrop: "static",
+                keyboard: false,
+                windowClass: "success-popup",
+                scope: $scope,
+                size: "md",
+                templateUrl: "app/eaxis/warehouse/my-task/my-task-directive/create-delivery-challan/warehouse-popup.html"
+            });
+        }
+
+        function Close() {
+            CreateDelChallanCtrl.ePage.Masters.selectedRow = -1;
+            CreateDelChallanCtrl.ePage.Masters.modalInstance.close('close');
+        }
+        // #endregion
+        // #region - Show the Created Outward Details
+        function getOutwardList() {
+            var _filter = {
+                "WOD_Parent_FK": CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.PK
+            };
+            var _input = {
+                "searchInput": helperService.createToArrayOfObject(_filter),
+                "FilterID": appConfig.Entities.WmsOutwardList.API.FindAll.FilterID
+            };
+            apiService.post("eAxisAPI", appConfig.Entities.WmsOutwardList.API.FindAll.Url, _input).then(function (response) {
+                if (response.data.Response) {
+                    CreateDelChallanCtrl.ePage.Masters.OutwardList = response.data.Response;
+                    outwardConfig.ValidationFindall();
+                    angular.forEach(CreateDelChallanCtrl.ePage.Masters.OutwardList, function (value, key) {
+                        AddTab(value, false);
+                    });
+                }
+            });
+        }
+
         function AddTab(currentDelivery, isNew) {
             CreateDelChallanCtrl.ePage.Masters.currentDelivery = undefined;
 
@@ -475,125 +564,8 @@
             }
             CreateDelChallanCtrl.ePage.Masters.currentDelivery = currentTab;
         }
-
-        function GeneralOperation() {
-            // Client
-            if (CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ClientCode == null)
-                CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ClientCode = "";
-            if (CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ClientName == null)
-                CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ClientName = "";
-            CreateDelChallanCtrl.ePage.Masters.Client = CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ClientCode + ' - ' + CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ClientName;
-            if (CreateDelChallanCtrl.ePage.Masters.Client == " - ")
-                CreateDelChallanCtrl.ePage.Masters.Client = "";
-            // Consignee
-            if (CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ConsigneeCode == null)
-                CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ConsigneeCode = "";
-            if (CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ConsigneeName == null)
-                CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ConsigneeName = "";
-            CreateDelChallanCtrl.ePage.Masters.Consignee = CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ConsigneeCode + ' - ' + CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ConsigneeName;
-            if (CreateDelChallanCtrl.ePage.Masters.Consignee == " - ")
-                CreateDelChallanCtrl.ePage.Masters.Consignee = "";
-            // Warehouse
-            if (CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WarehouseCode == null)
-                CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WarehouseCode = "";
-            if (CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WarehouseName == null)
-                CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WarehouseName = "";
-            CreateDelChallanCtrl.ePage.Masters.WarehouseCodeName = CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WarehouseCode + ' - ' + CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WarehouseName;
-            if (CreateDelChallanCtrl.ePage.Masters.WarehouseCodeName == " - ")
-                CreateDelChallanCtrl.ePage.Masters.WarehouseCodeName = "";
-        }
-
-        function GetDynamicLookupConfig() {
-            // Get DataEntryNameList 
-            var _filter = {
-                pageName: 'WarehouseOutward'
-            };
-            var _input = {
-                "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.DYN_RelatedLookup.API.GroupFindAll.FilterID
-            };
-
-            apiService.post("eAxisAPI", appConfig.Entities.DYN_RelatedLookup.API.GroupFindAll.Url, _input).then(function (response) {
-                if (response.data.Response) {
-                    var _isEmpty = angular.equals({}, response.data.Response);
-
-                    if (!_isEmpty) {
-                        dynamicLookupConfig.Entities = Object.assign({}, dynamicLookupConfig.Entities, response.data.Response);
-                    }
-                }
-            });
-        }
-
-        function OnFieldValueChange(code) {
-            var _obj = {
-                ModuleName: ["MyTask"],
-                Code: [myTaskActivityConfig.Entities.Delivery.label],
-                API: "Validation", // Validation/Group
-                FilterInput: {
-                    ModuleCode: "WMS",
-                    SubModuleCode: "DEL",
-                    // Code: "E0013"
-                },
-                EntityObject: CreateDelChallanCtrl.ePage.Entities.Header.Data,
-                ErrorCode: code ? [code] : []
-            };
-            errorWarningService.ValidateValue(_obj);
-        }
-
-        function OpenDatePicker($event, opened) {
-            $event.preventDefault();
-            $event.stopPropagation();
-
-            CreateDelChallanCtrl.ePage.Masters.DatePicker.isOpen[opened] = true;
-        }
-
-        function GetEntityObj() {
-            if (CreateDelChallanCtrl.ePage.Masters.TaskObj.EntityRefKey) {
-                apiService.get("eAxisAPI", appConfig.Entities.WmsDeliveryList.API.GetById.Url + CreateDelChallanCtrl.ePage.Masters.TaskObj.EntityRefKey).then(function (response) {
-                    if (response.data.Response) {
-                        CreateDelChallanCtrl.ePage.Masters.EntityObj = response.data.Response;
-                    }
-                });
-            }
-        }
-
-        function setSelectedRow(index, item) {
-            var SelectedDeliveryLine = [];
-            angular.forEach(CreateDelChallanCtrl.ePage.Entities.Header.Data.UIvwWmsDeliveryList, function (value, key) {
-                if (value.SingleSelect) {
-                    SelectedDeliveryLine.push(value);
-                }
-            });
-            var TempSelectedDeliveryLine = _.groupBy(SelectedDeliveryLine, 'DL_Req_PrdCode');
-            var TempProduct = "";
-            angular.forEach(TempSelectedDeliveryLine, function (value, key) {
-                TempProduct = TempProduct + key + ",";
-            });
-            TempProduct = TempProduct.slice(0, -1);
-            // if (SelectedDeliveryLine.length > 1) {
-            //     CreateDelChallanCtrl.ePage.Masters.selectedRow = -1;
-            // } else {
-            //     CreateDelChallanCtrl.ePage.Masters.selectedRow = index;
-            // }
-            // var WarehouseCode;
-            // if (!CreateDelChallanCtrl.ePage.Masters.SelectAll && SelectedDeliveryLine.length == 0) {
-            //     WarehouseCode = undefined;
-            // } else {
-            //     WarehouseCode = CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WarehouseCode;
-            // }
-            CreateDelChallanCtrl.ePage.Masters.defaultFilter = {
-                "ClientCode": CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ClientCode,
-                // "WAR_WarehouseCode": WarehouseCode,
-                "InventoryStatusIn": 'AVL',
-                // "ProductCode": item.DL_Req_PrdCode,
-                "AvlToPickNotEquals": "0",
-                "ProductIn": TempProduct,
-            };
-            CreateDelChallanCtrl.ePage.Masters.DynamicControl = undefined;
-            GetConfigDetails();
-        }
-
-        //#region Inventory Line Functionlities
+        // #endregion
+        // #region Filter - Inventory Line Functionlities
         function CloseFilterList() {
             $('#filterSideBar' + "WarehouseInventory" + CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderID).removeClass('open');
         }
@@ -709,6 +681,44 @@
                 });
             } else {
                 toastr.warning("Please Enter Chosen Client And Warehouse in Filter");
+            }
+        }
+        // #endregion
+        function CallIsReload() {
+            CreateDelChallanCtrl.ePage.Masters.Config.IsReload = false;
+            CreateDelChallanCtrl.ePage.Entities.Header.Data = myTaskActivityConfig.Entities.Delivery[myTaskActivityConfig.Entities.Delivery.label].ePage.Entities.Header.Data;
+        }
+
+        function OnFieldValueChange(code) {
+            var _obj = {
+                ModuleName: ["MyTask"],
+                Code: [myTaskActivityConfig.Entities.Delivery.label],
+                API: "Validation", // Validation/Group
+                FilterInput: {
+                    ModuleCode: "WMS",
+                    SubModuleCode: "DEL",
+                    // Code: "E0013"
+                },
+                EntityObject: CreateDelChallanCtrl.ePage.Entities.Header.Data,
+                ErrorCode: code ? [code] : []
+            };
+            errorWarningService.ValidateValue(_obj);
+        }
+
+        function OpenDatePicker($event, opened) {
+            $event.preventDefault();
+            $event.stopPropagation();
+
+            CreateDelChallanCtrl.ePage.Masters.DatePicker.isOpen[opened] = true;
+        }
+
+        function GetEntityObj() {
+            if (CreateDelChallanCtrl.ePage.Masters.TaskObj.EntityRefKey) {
+                apiService.get("eAxisAPI", appConfig.Entities.WmsDeliveryList.API.GetById.Url + CreateDelChallanCtrl.ePage.Masters.TaskObj.EntityRefKey).then(function (response) {
+                    if (response.data.Response) {
+                        CreateDelChallanCtrl.ePage.Masters.EntityObj = response.data.Response;
+                    }
+                });
             }
         }
 
