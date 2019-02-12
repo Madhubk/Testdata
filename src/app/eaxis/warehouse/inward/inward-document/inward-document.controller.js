@@ -4,9 +4,9 @@
         .module("Application")
         .controller("InwardDocumentController", InwardDocumentController);
 
-    InwardDocumentController.$inject = ["$scope", "$timeout", "APP_CONSTANT", "apiService", "inwardConfig", "helperService", "$uibModal", "$http", "$document", "appConfig", "authService", "$location", "toastr", "confirmation", "$state", "$rootScope","$filter"];
+    InwardDocumentController.$inject = ["APP_CONSTANT", "apiService","helperService",  "appConfig","authService","$filter"];
 
-    function InwardDocumentController($scope, $timeout, APP_CONSTANT, apiService, inwardConfig, helperService, $uibModal, $http, $document, appConfig, authService, $location, toastr, confirmation, $state, $rootScope,$filter) {
+    function InwardDocumentController(APP_CONSTANT, apiService, helperService, appConfig, authService,$filter) {
 
         var InwardDocumentCtrl = this;
 
@@ -26,6 +26,8 @@
             GetDocuments()
         }
         function GetDocuments() {
+            InwardDocumentCtrl.ePage.Masters.GeneralDocument = [];
+            InwardDocumentCtrl.ePage.Masters.CustomizeDocument =[];
             var _filter = {
                 "SAP_FK": "c0b3b8d9-2248-44cd-a425-99c85c6c36d8",
                 "PageType": "Document",
@@ -39,15 +41,28 @@
             };
             apiService.post("eAxisAPI", appConfig.Entities.CfxMenus.API.MasterFindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
-                    InwardDocumentCtrl.ePage.Masters.DocumentValues = $filter('orderBy')(response.data.Response,'DisplayOrder');
+                    InwardDocumentCtrl.ePage.Masters.AllDocumentValues = $filter('orderBy')(response.data.Response,'DisplayOrder');
+                    InwardDocumentCtrl.ePage.Masters.AllDocumentValues.map(function(value,key){
+                        value.OtherConfig = JSON.parse(value.OtherConfig);
+                        if(value.OtherConfig.OtherProperties.IsFrameWorkDocument == true){
+                            InwardDocumentCtrl.ePage.Masters.GeneralDocument.push(value);
+                        }else{
+                            InwardDocumentCtrl.ePage.Masters.CustomizeDocument.push(value);
+                        }
+                    });
                 }
             });
         }
 
-        function GenerateReport(item, index) {
-            if(index==3){
-                InwardDocumentCtrl.ePage.Masters.DocumentText[index] = true;
-                var obj = JSON.parse(item.OtherConfig)
+        function GenerateReport(item,format,mode, index) {
+            if(mode=="General"){
+                var obj = item.OtherConfig.ReportTemplate;
+
+                if(format=="PDF"){
+                    item.PDFGenerating = true;
+                }else{
+                    item.EXCELGenerating = true;
+                }
 
                 obj.JobDocs.EntityRefKey = item.Id;
                 obj.JobDocs.EntitySource = 'WMS';
@@ -60,7 +75,12 @@
                         if (response.data.Response) {
                             if (response.data.Response !== "No Records Found!") {
                                 helperService.DownloadDocument(response.data.Response);
-                                InwardDocumentCtrl.ePage.Masters.DocumentText[index] = false;
+                                var extn = response.data.Response.Name.split(".").pop();
+                                if(extn=='pdf'){
+                                    item.PDFGenerating = false;
+                                }else{
+                                    item.EXCELGenerating = false;
+                                }
                             }
                         } else {
                             console.log("Invalid response");
@@ -70,7 +90,7 @@
                 })
             }else{
                 InwardDocumentCtrl.ePage.Masters.DocumentText[index] = true;
-                var _SearchInputConfig = JSON.parse(item.OtherConfig)
+                var _SearchInputConfig = item.OtherConfig.ReportTemplate;
                 var _output = helperService.getSearchInput(InwardDocumentCtrl.ePage.Entities.Header.Data, _SearchInputConfig.DocumentInput);
     
                 if (_output) {

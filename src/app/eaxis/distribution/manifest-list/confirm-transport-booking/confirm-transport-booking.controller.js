@@ -34,7 +34,8 @@
 
             // DatePicker
             ConfirmTransportCtrl.ePage.Masters.DatePicker = {};
-            ConfirmTransportCtrl.ePage.Masters.DatePicker.Options = APP_CONSTANT.DatePicker;
+            ConfirmTransportCtrl.ePage.Masters.DatePicker.Options = angular.copy(APP_CONSTANT.DatePicker);
+            ConfirmTransportCtrl.ePage.Masters.DatePicker.Options['minDate'] = new Date() + 1;
 
             ConfirmTransportCtrl.ePage.Masters.DatePicker.isOpen = [];
             ConfirmTransportCtrl.ePage.Masters.DatePicker.OpenDatePicker = OpenDatePicker;

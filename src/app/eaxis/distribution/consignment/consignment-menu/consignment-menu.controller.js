@@ -36,6 +36,10 @@
             DMSConsignmentMenuCtrl.ePage.Masters.OnChangeValues = OnChangeValues;
             DMSConsignmentMenuCtrl.ePage.Masters.IsActiveMenu = DMSConsignmentMenuCtrl.activeMenu;
             Orgheader();
+            if (DMSConsignmentMenuCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.Status == 'MAN' || DMSConsignmentMenuCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.Status == 'DEL' || DMSConsignmentMenuCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.Status == 'DSP') {
+                DMSConsignmentMenuCtrl.ePage.Entities.Header.GlobalVariables.NonEditable = true;
+                DMSConsignmentMenuCtrl.ePage.Masters.DisableSave = true;
+            }
         }
 
         // Header Details
@@ -76,11 +80,11 @@
             if (DMSConsignmentMenuCtrl.ePage.Entities.Header.Validations) {
                 DMSConsignmentMenuCtrl.ePage.Masters.Config.RemoveApiErrors(DMSConsignmentMenuCtrl.ePage.Entities.Header.Validations, $item.label);
             }
-            if(_errorcount.length == 0) {
+            if (_errorcount.length == 0) {
                 DMSConsignmentMenuCtrl.ePage.Masters.Config.ShowErrorWarningModal(DMSConsignmentMenuCtrl.currentConsignment)
                 Save($item);
-            }else {
-                DMSConsignmentMenuCtrl.ePage.Entities.Header.CheckPoints.DisableSave = false;
+            } else {
+                DMSConsignmentMenuCtrl.ePage.Masters.DisableSave = false;
                 DMSConsignmentMenuCtrl.ePage.Masters.Config.ShowErrorWarningModal(DMSConsignmentMenuCtrl.currentConsignment)
             }
         }
@@ -115,13 +119,17 @@
             }
         }
         function Save($item) {
-            DMSConsignmentMenuCtrl.ePage.Entities.Header.CheckPoints.IsLoadingToSave = true;
+            // DMSConsignmentMenuCtrl.ePage.Entities.Header.GlobalVariables.Loading = true;
             if (DMSConsignmentMenuCtrl.ePage.Masters.SaveAndClose) {
                 DMSConsignmentMenuCtrl.ePage.Masters.SaveAndCloseButtonText = "Please Wait...";
-            }else{
+                DMSConsignmentMenuCtrl.ePage.Entities.Header.GlobalVariables.Loading = true;
+                DMSConsignmentMenuCtrl.ePage.Masters.DisableSave = true;
+            } else {
                 DMSConsignmentMenuCtrl.ePage.Masters.SaveButtonText = "Please Wait...";
+                DMSConsignmentMenuCtrl.ePage.Entities.Header.GlobalVariables.Loading = true;
+                DMSConsignmentMenuCtrl.ePage.Masters.DisableSave = true;
             }
-            DMSConsignmentMenuCtrl.ePage.Masters.Config.DisableSave = true;
+            // DMSConsignmentMenuCtrl.ePage.Masters.DisableSave = true;
 
             var _Data = $item[$item.label].ePage.Entities,
                 _input = _Data.Header.Data;
@@ -138,11 +146,15 @@
             });
 
             helperService.SaveEntity($item, 'Consignment').then(function (response) {
-                DMSConsignmentMenuCtrl.ePage.Masters.Config.DisableSave = false;
+                // DMSConsignmentMenuCtrl.ePage.Masters.DisableSave = false;
                 if (DMSConsignmentMenuCtrl.ePage.Masters.SaveAndClose) {
                     DMSConsignmentMenuCtrl.ePage.Masters.SaveAndCloseButtonText = "Save & Close";
+                    DMSConsignmentMenuCtrl.ePage.Masters.DisableSave = false;
+                    DMSConsignmentMenuCtrl.ePage.Entities.Header.GlobalVariables.Loading = false;
                 } else {
                     DMSConsignmentMenuCtrl.ePage.Masters.SaveButtonText = "Save";
+                    DMSConsignmentMenuCtrl.ePage.Masters.DisableSave = false;
+                    DMSConsignmentMenuCtrl.ePage.Entities.Header.GlobalVariables.Loading = false;
                 }
                 if (response.Status === "success") {
                     toastr.success("Saved Successfully");
@@ -154,38 +166,39 @@
                             apiService.get("eAxisAPI", 'TmsConsignmentList/GetById/' + DMSConsignmentMenuCtrl.currentConsignment[DMSConsignmentMenuCtrl.currentConsignment.label].ePage.Entities.Header.Data.PK).then(function (response) {
                                 if (response.data.Response) {
                                     DMSConsignmentMenuCtrl.ePage.Masters.Config.TabList[_index][DMSConsignmentMenuCtrl.ePage.Masters.Config.TabList[_index].label].ePage.Entities.Header.Data = response.data.Response;
-                                
-                                DMSConsignmentMenuCtrl.ePage.Masters.Config.TabList.map(function (value, key) {
-                                    if (_index == key) {
-                                        if (value.New) {
-                                            value.label = DMSConsignmentMenuCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.ConsignmentNumber;
-                                            value[DMSConsignmentMenuCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.ConsignmentNumber] = value.New;
-                                            delete value.New;
+
+                                    DMSConsignmentMenuCtrl.ePage.Masters.Config.TabList.map(function (value, key) {
+                                        if (_index == key) {
+                                            if (value.New) {
+                                                value.label = DMSConsignmentMenuCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.ConsignmentNumber;
+                                                value[DMSConsignmentMenuCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.ConsignmentNumber] = value.New;
+                                                delete value.New;
+                                            }
                                         }
+                                    });
+                                    if (DMSConsignmentMenuCtrl.ePage.Masters.SaveAndClose) {
+                                        DMSConsignmentMenuCtrl.ePage.Masters.Config.SaveAndClose = true;
+                                        DMSConsignmentMenuCtrl.ePage.Masters.SaveAndClose = false;
                                     }
-                                }); 
                                 }
                             });
-                        }else{
+                        } else {
                             DMSConsignmentMenuCtrl.ePage.Masters.Config.SaveAndClose = true;
-                        }
-                        if (DMSConsignmentMenuCtrl.ePage.Masters.SaveAndClose) {
-                            DMSConsignmentMenuCtrl.ePage.Masters.Config.SaveAndClose = true;
-                            DMSConsignmentMenuCtrl.ePage.Masters.SaveAndClose = false;
                         }
                         
+
                         DMSConsignmentMenuCtrl.ePage.Masters.Config.TabList[_index].isNew = false;
                         if ($state.current.url == "/consignment") {
                             helperService.refreshGrid();
                         }
                     }
-                    if (!DMSConsignmentMenuCtrl.ePage.Masters.IsSaveMsg) {
-                        toastr.success("Saved Successfully");
-                    }
-                    DMSConsignmentMenuCtrl.ePage.Masters.IsSaveMsg=false;
-                    DMSConsignmentMenuCtrl.ePage.Entities.Header.CheckPoints.IsLoadingToSave = false;
+                    // if (!DMSConsignmentMenuCtrl.ePage.Masters.IsSaveMsg) {
+                    //     toastr.success("Saved Successfully");
+                    // }
+                    // DMSConsignmentMenuCtrl.ePage.Masters.IsSaveMsg = false;
+                    DMSConsignmentMenuCtrl.ePage.Entities.Header.GlobalVariables.Loading = false;
                 } else if (response.Status === "failed") {
-                    DMSConsignmentMenuCtrl.ePage.Entities.Header.CheckPoints.IsLoadingToSave = false;
+                    DMSConsignmentMenuCtrl.ePage.Entities.Header.GlobalVariables.Loading = false;
                     toastr.error("save failed");
                     DMSConsignmentMenuCtrl.ePage.Entities.Header.Validations = response.Validations;
                     angular.forEach(response.Validations, function (value, key) {

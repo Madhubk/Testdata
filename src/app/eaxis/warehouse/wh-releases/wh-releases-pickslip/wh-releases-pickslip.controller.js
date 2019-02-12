@@ -92,7 +92,6 @@
 
         function setSelectedRowForPickLineSummary(index){
             ReleasesPickSlipCtrl.ePage.Masters.selectedRowForPickLineSummary = index;
-            CalculatingReleaseQty();
         }
 
         //#endregion
@@ -373,6 +372,7 @@
             }else{
                 ReleasesPickSlipCtrl.ePage.Masters.SelectedPickLinePK = '';
             }
+            CalculatingReleaseQty();
         }
 
         function ShowAllFunc(item){

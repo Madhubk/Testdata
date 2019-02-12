@@ -106,7 +106,7 @@
                             "LineDelete": {
                                 "IsAPI": "true",
                                 "HttpType": "Get",
-                                "Url":"TmsConsignmentItem/Delete/"
+                                "Url": "TmsConsignmentItem/Delete/"
                             },
                             "ItemDetails": {
                                 "IsAPI": "true",
@@ -125,7 +125,7 @@
                             "Language": helperService.metaBase(),
                             "ErrorWarning": {
                                 "GlobalErrorWarningList": [],
-                                "TmsConsignmentItem":helperService.metaBase(),
+                                "TmsConsignmentItem": helperService.metaBase(),
                                 "SenderCode": helperService.metaBase(),
                                 "ReceiverCode": helperService.metaBase(),
                                 "ServiceType": helperService.metaBase(),
@@ -581,11 +581,16 @@
             //General Page Validation
             var _Data = $item[$item.label].ePage.Entities,
                 _input = _Data.Header.Data;
-                OnChangeValues(_input.TmsConsignmentHeader.SenderCode, 'E5516', false, undefined, $item.label);
-                OnChangeValues(_input.TmsConsignmentHeader.ReceiverCode, 'E5517', false, undefined, $item.label);
-                OnChangeValues(_input.TmsConsignmentHeader.ServiceType, 'E5518', false, undefined, $item.label);
-                OnChangeValues(_input.TmsConsignmentHeader.ExpectedPickupDateTime, 'E5521', false, undefined, $item.label);
-                OnChangeValues(_input.TmsConsignmentHeader.ExpectedDeliveryDateTime, 'E5563', false, undefined, $item.label);
+            OnChangeValues(_input.TmsConsignmentHeader.SenderCode, 'E5516', false, undefined, $item.label);
+            OnChangeValues(_input.TmsConsignmentHeader.ReceiverCode, 'E5517', false, undefined, $item.label);
+            OnChangeValues(_input.TmsConsignmentHeader.ServiceType, 'E5518', false, undefined, $item.label);
+            if (_input.TmsConsignmentHeader.ServiceType == "INW" || _input.TmsConsignmentHeader.ServiceType == "ORD") {
+                OnChangeValues('', 'E5566', false, undefined, $item.label);
+            }else if (_input.TmsConsignmentHeader.ServiceType == "LOP" || _input.TmsConsignmentHeader.ServiceType == "LOD") {
+                OnChangeValues(_input.TmsConsignmentHeader.ServiceType, 'E5566', false, undefined, $item.label);
+            }
+            OnChangeValues(_input.TmsConsignmentHeader.ExpectedPickupDateTime, 'E5521', false, undefined, $item.label);
+            OnChangeValues(_input.TmsConsignmentHeader.ExpectedDeliveryDateTime, 'E5563', false, undefined, $item.label);
 
             //item Validation
             if (_input.TmsConsignmentItem.length > 0) {
