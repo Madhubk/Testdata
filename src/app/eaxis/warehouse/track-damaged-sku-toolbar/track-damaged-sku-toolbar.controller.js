@@ -448,6 +448,7 @@
                                     "PK": "",
                                     "WorkOrderType": "ORD",
                                     "WorkOrderLineType": "ORD",
+                                    "WorkOrderLineStatus": "",
                                     "WorkOrderID": response.data.Response.Response.UIWmsOutwardHeader.WorkOrderID,
                                     "ExternalReference": response.data.Response.Response.UIWmsOutwardHeader.WorkOrderID,
                                     "WOD_FK": response.data.Response.Response.PK,
