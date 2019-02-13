@@ -5,9 +5,9 @@
         .module("Application")
         .controller("StockTransferMenuController", StockTransferMenuController);
 
-    StockTransferMenuController.$inject = ["$scope", "$timeout", "APP_CONSTANT", "apiService", "stocktransferConfig", "helperService", "appConfig", "authService", "$state", "confirmation", "toastr", "$uibModal"];
+    StockTransferMenuController.$inject = ["$scope", "$timeout", "APP_CONSTANT", "apiService", "stocktransferConfig", "helperService", "appConfig", "authService", "$state", "confirmation", "toastr", "$uibModal","$filter"];
 
-    function StockTransferMenuController($scope, $timeout, APP_CONSTANT, apiService, stocktransferConfig, helperService, appConfig, authService, $state, confirmation, toastr, $uibModal) {
+    function StockTransferMenuController($scope, $timeout, APP_CONSTANT, apiService, stocktransferConfig, helperService, appConfig, authService, $state, confirmation, toastr, $uibModal,$filter) {
 
         var StockTransferMenuCtrl = this;
 

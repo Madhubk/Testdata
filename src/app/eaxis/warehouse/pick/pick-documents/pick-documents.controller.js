@@ -29,6 +29,8 @@
         }
 
         function GetDocuments() {
+            PickDocumentsCtrl.ePage.Masters.GeneralDocument =[];
+            PickDocumentsCtrl.ePage.Masters.CustomizeDocument = [];
             var _filter = {
                 "SAP_FK": "c0b3b8d9-2248-44cd-a425-99c85c6c36d8",
                 "PageType": "Document",
@@ -43,12 +45,15 @@
             apiService.post("eAxisAPI", appConfig.Entities.CfxMenus.API.MasterFindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     
-                    PickDocumentsCtrl.ePage.Masters.DocumentValues = response.data.Response;
-                    PickDocumentsCtrl.ePage.Masters.DocumentValues.map(function(value,key){
-                        value.PDFGenerating = false;
-                        value.EXCELGenerating = false;
+                    PickDocumentsCtrl.ePage.Masters.AllDocumentValues = $filter('orderBy')(response.data.Response,'DisplayOrder');
+                    PickDocumentsCtrl.ePage.Masters.AllDocumentValues.map(function(value,key){
+                        value.OtherConfig = JSON.parse(value.OtherConfig);
+                        if(value.OtherConfig.OtherProperties.IsFrameWorkDocument == true){
+                            PickDocumentsCtrl.ePage.Masters.GeneralDocument.push(value);
+                        }else{
+                            PickDocumentsCtrl.ePage.Masters.CustomizeDocument.push(value);
+                        }
                     });
-                    PickDocumentsCtrl.ePage.Masters.DocumentValues = $filter('orderBy')(response.data.Response,'DisplayOrder');
                 }
             });
         }
@@ -60,7 +65,7 @@
                 item.EXCELGenerating = true;
             }
 
-            var obj = JSON.parse(item.OtherConfig)
+            var obj = item.OtherConfig.ReportTemplate;
             obj.FileType = format;
             obj.JobDocs.EntityRefKey = item.Id;
             obj.JobDocs.EntitySource = 'WMS';

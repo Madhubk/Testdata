@@ -428,28 +428,24 @@
 
             apiService.post("eAxisAPI", appConfig.Entities.CfxMenus.API.MasterFindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
-                    CycleCountMenuCtrl.ePage.Masters.DocumentValues = response.data.Response;
+                    CycleCountMenuCtrl.ePage.Masters.AllDocumentValues = $filter('orderBy')(response.data.Response,'DisplayOrder');
+                    CycleCountMenuCtrl.ePage.Masters.AllDocumentValues.map(function(value,key){
+                        value.OtherConfig = JSON.parse(value.OtherConfig);
+                    });
                 }
             });
         }
 
         function GenerateDocuments(item, type) {
-
             CycleCountMenuCtrl.ePage.Masters.DisableReport = true;
 
-            var obj = JSON.parse(item.OtherConfig)
+            var obj = item.OtherConfig.ReportTemplate;
             if (type == 'excel') {
                 obj.FileType = "Excel"
             }
             obj.JobDocs.EntityRefKey = item.Id;
             obj.JobDocs.EntitySource = 'WMS';
             obj.JobDocs.EntityRefCode = item.Description;
-            obj.DataObjs[0].DataObject.Date = new Date();
-            obj.DataObjs[0].DataObject.Date = $filter('date')(obj.DataObjs[0].DataObject.Date, 'yyyy-MM-dd');
-            obj.DataObjs[0].DataObject.StocktakeNumber = CycleCountMenuCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader.StocktakeNumber;
-            obj.DataObjs[0].DataObject.CycleCountTypeDesc = CycleCountMenuCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader.CycleCountTypeDesc;
-            obj.DataObjs[0].DataObject.WarehouseName = CycleCountMenuCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader.WarehouseName;
-            obj.DataObjs[0].DataObject.ClientName = CycleCountMenuCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader.ClientName;
             obj.DataObjs[1].ApiName = obj.DataObjs[1].ApiName + CycleCountMenuCtrl.ePage.Entities.Header.Data.PK;
 
             apiService.post("eAxisAPI", appConfig.Entities.Export.API.Excel.Url, obj).then(function (response) {
