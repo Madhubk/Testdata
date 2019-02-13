@@ -158,9 +158,24 @@
                         RaiseCSRCtrl.ePage.Entities.Header.Data = response.data.Response;
                         $item[$item.label].ePage.Entities.Header.Data = response.data.Response;
                         RaiseCSRCtrl.ePage.Entities.Header.Data.UIWmsDelivery.Consignee = RaiseCSRCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ConsigneeCode + ' - ' + RaiseCSRCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ConsigneeName;
+
+                        var DeliveryTime;
+                        if (RaiseCSRCtrl.ePage.Entities.Header.Data.UIWmsWorkorderReport.ResponseType == "NR") {
+                            DeliveryTime = 8;
+                        } else if (RaiseCSRCtrl.ePage.Entities.Header.Data.UIWmsWorkorderReport.ResponseType == "QR") {
+                            DeliveryTime = 4;
+                        } else if (RaiseCSRCtrl.ePage.Entities.Header.Data.UIWmsWorkorderReport.ResponseType == "CR") {
+                            DeliveryTime = 2;
+                        }
+
+                        var temp = "";
+                        angular.forEach(RaiseCSRCtrl.ePage.Entities.Header.Data.UIWmsDeliveryLine, function (value, key) {
+                            temp = temp + "\n " + value.ProductCode + "\xa0\xa0\xa0" + value.Units + "\xa0\xa0\xa0" + value.StockKeepingUnit + "\n";
+                        });
+
                         var _smsInput = {
                             "MobileNo": RaiseCSRCtrl.ePage.Entities.Header.Data.UIWmsWorkorderReport.RequesterContactNo,
-                            "Message": "Delivery Request " + RaiseCSRCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderID + " Acknowledged Successfully."
+                            "Message": "Dear " + RaiseCSRCtrl.ePage.Entities.Header.Data.UIWmsWorkorderReport.Requester + "," + "\nWe received your request to deliver below products to Dhaka. Your delivery reference no: " + RaiseCSRCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderID + ".\n" + temp + "\nThis will be delivered with in next " + DeliveryTime + " hours.Thank you."
                         }
                         apiService.post("authAPI", appConfig.Entities.Notification.API.SendSms.Url, _smsInput).then(function (response) {
 
@@ -168,7 +183,7 @@
                         if (deliveryConfig.Entities.ClientContact.length > 0) {
                             var _smsInput = {
                                 "MobileNo": deliveryConfig.Entities.ClientContact[0].Mobile,
-                                "Message": "Delivery Request " + RaiseCSRCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderID + " Acknowledged Successfully."
+                                "Message": "Dear " + RaiseCSRCtrl.ePage.Entities.Header.Data.UIWmsWorkorderReport.Requester + "," + "\nWe received your request to deliver below products to Dhaka. Your delivery reference no: " + RaiseCSRCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderID + ".\n" + temp + "\nThis will be delivered with in next " + DeliveryTime + " hours.Thank you."
                             }
                             apiService.post("authAPI", appConfig.Entities.Notification.API.SendSms.Url, _smsInput).then(function (response) {
 
@@ -177,7 +192,7 @@
                         if (deliveryConfig.Entities.WarehouseContact.length > 0) {
                             var _smsInput = {
                                 "MobileNo": deliveryConfig.Entities.WarehouseContact[0].Mobile,
-                                "Message": "Delivery Request " + RaiseCSRCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderID + " Acknowledged Successfully."
+                                "Message": "Dear " + RaiseCSRCtrl.ePage.Entities.Header.Data.UIWmsWorkorderReport.Requester + "," + "\nWe received your request to deliver below products to Dhaka. Your delivery reference no: " + RaiseCSRCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderID + ".\n" + temp + "\nThis will be delivered with in next " + DeliveryTime + " hours.Thank you."
                             }
                             apiService.post("authAPI", appConfig.Entities.Notification.API.SendSms.Url, _smsInput).then(function (response) {
 

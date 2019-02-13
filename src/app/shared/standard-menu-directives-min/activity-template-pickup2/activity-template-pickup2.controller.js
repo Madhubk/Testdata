@@ -149,8 +149,10 @@
                     _input = _Data.Header.Data,
                     _errorcount = _Data.Header.Meta.ErrorWarning.GlobalErrorWarningList;
                 pickupConfig.GeneralValidation(myTaskActivityConfig.Entities.Pickup);
+                debugger
                 if (ActivityTemplatePickup2Ctrl.ePage.Masters.ErrorWarningConfig.Modules.MyTask) {
                     if (ActivityTemplatePickup2Ctrl.ePage.Masters.ErrorWarningConfig.Modules.MyTask.Entity) {
+                        ActivityTemplatePickup2Ctrl.ePage.Masters.ErrorWarningConfig.Modules.MyTask.Entity = {};
                         ActivityTemplatePickup2Ctrl.ePage.Masters.ErrorWarningConfig.Modules.MyTask.Entity[ActivityTemplatePickup2Ctrl.ePage.Masters.EntityObj.UIWmsPickup.WorkOrderID].GlobalErrorWarningList = _errorcount;
                     } else {
                         ActivityTemplatePickup2Ctrl.ePage.Masters.ErrorWarningConfig.Modules.MyTask.Entity = {
@@ -212,9 +214,23 @@
                             toastr.success("Pickup Saved Successfully...!");
                             if (callback) {
                                 if (ActivityTemplatePickup2Ctrl.taskObj.WSI_StepName == "Acknowledge Pickup Request") {
+                                    var PickupTime;
+                                    if (ActivityTemplatePickup2Ctrl.ePage.Entities.Header.Data.UIWmsWorkorderReport.ResponseType == "NR") {
+                                        PickupTime = 8;
+                                    } else if (ActivityTemplatePickup2Ctrl.ePage.Entities.Header.Data.UIWmsWorkorderReport.ResponseType == "QR") {
+                                        PickupTime = 4;
+                                    } else if (ActivityTemplatePickup2Ctrl.ePage.Entities.Header.Data.UIWmsWorkorderReport.ResponseType == "CR") {
+                                        PickupTime = 2;
+                                    }
+
+                                    var temp = "";
+                                    angular.forEach(ActivityTemplatePickup2Ctrl.ePage.Entities.Header.Data.UIWmsPickupLine, function (value, key) {
+                                        temp = temp + "\n " + value.ProductCode + "\xa0\xa0\xa0" + value.Units + "\xa0\xa0\xa0" + value.StockKeepingUnit + "\n";
+                                    });
+
                                     var _smsInput = {
                                         "MobileNo": myTaskActivityConfig.Entities.Pickup[myTaskActivityConfig.Entities.Pickup.label].ePage.Entities.Header.Data.UIWmsWorkorderReport.RequesterContactNo,
-                                        "Message": "Pickup Request " + myTaskActivityConfig.Entities.Pickup[myTaskActivityConfig.Entities.Pickup.label].ePage.Entities.Header.Data.UIWmsPickup.WorkOrderID + " Acknowledged Successfully."
+                                        "Message": "Dear " + ActivityTemplatePickup2Ctrl.ePage.Entities.Header.Data.UIWmsWorkorderReport.Requester + "," + "\nWe received your request to pickup below products to Dhaka. Your pickup reference no: " + ActivityTemplatePickup2Ctrl.ePage.Entities.Header.Data.UIWmsPickup.WorkOrderID + ".\n" + temp + "\nThis will be Picked with in next " + PickupTime + " hours.Thank you."
                                     }
                                     apiService.post("authAPI", appConfig.Entities.Notification.API.SendSms.Url, _smsInput).then(function (response) {
 
@@ -223,7 +239,7 @@
                                     if (pickupConfig.Entities.ClientContact.length > 0) {
                                         var _smsInput = {
                                             "MobileNo": pickupConfig.Entities.ClientContact[0].Mobile,
-                                            "Message": "Pickup Request " + myTaskActivityConfig.Entities.Pickup[myTaskActivityConfig.Entities.Pickup.label].ePage.Entities.Header.Data.UIWmsPickup.WorkOrderID + " Acknowledged Successfully."
+                                            "Message": "Dear " + ActivityTemplatePickup2Ctrl.ePage.Entities.Header.Data.UIWmsWorkorderReport.Requester + "," + "\nWe received your request to pickup below products to Dhaka. Your pickup reference no: " + ActivityTemplatePickup2Ctrl.ePage.Entities.Header.Data.UIWmsPickup.WorkOrderID + ".\n" + temp + "\nThis will be Picked with in next " + PickupTime + " hours.Thank you."
                                         }
                                         apiService.post("authAPI", appConfig.Entities.Notification.API.SendSms.Url, _smsInput).then(function (response) {
 
@@ -232,7 +248,7 @@
                                     if (pickupConfig.Entities.WarehouseContact.length > 0) {
                                         var _smsInput = {
                                             "MobileNo": pickupConfig.Entities.WarehouseContact[0].Mobile,
-                                            "Message": "Pickup Request " + myTaskActivityConfig.Entities.Pickup[myTaskActivityConfig.Entities.Pickup.label].ePage.Entities.Header.Data.UIWmsPickup.WorkOrderID + " Acknowledged Successfully."
+                                            "Message": "Dear " + ActivityTemplatePickup2Ctrl.ePage.Entities.Header.Data.UIWmsWorkorderReport.Requester + "," + "\nWe received your request to pickup below products to Dhaka. Your pickup reference no: " + ActivityTemplatePickup2Ctrl.ePage.Entities.Header.Data.UIWmsPickup.WorkOrderID + ".\n" + temp + "\nThis will be Picked with in next " + PickupTime + " hours.Thank you."
                                         }
                                         apiService.post("authAPI", appConfig.Entities.Notification.API.SendSms.Url, _smsInput).then(function (response) {
 

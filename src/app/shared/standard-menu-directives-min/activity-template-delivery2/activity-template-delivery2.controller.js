@@ -229,9 +229,24 @@
                             toastr.success("Delivery Saved Successfully...!");
                             if (callback) {
                                 if (ActivityTemplateDelivery2Ctrl.taskObj.WSI_StepName == "Acknowledge Delivery Request") {
+
+                                    var DeliveryTime;
+                                    if (ActivityTemplateDelivery2Ctrl.ePage.Entities.Header.Data.UIWmsWorkorderReport.ResponseType == "NR") {
+                                        DeliveryTime = 8;
+                                    } else if (ActivityTemplateDelivery2Ctrl.ePage.Entities.Header.Data.UIWmsWorkorderReport.ResponseType == "QR") {
+                                        DeliveryTime = 4;
+                                    } else if (ActivityTemplateDelivery2Ctrl.ePage.Entities.Header.Data.UIWmsWorkorderReport.ResponseType == "CR") {
+                                        DeliveryTime = 2;
+                                    }
+
+                                    var temp = "";
+                                    angular.forEach(ActivityTemplateDelivery2Ctrl.ePage.Entities.Header.Data.UIWmsDeliveryLine, function (value, key) {
+                                        temp = temp + "\n " + value.ProductCode + "\xa0\xa0\xa0" + value.Units + "\xa0\xa0\xa0" + value.StockKeepingUnit + "\n";
+                                    });
+
                                     var _smsInput = {
                                         "MobileNo": myTaskActivityConfig.Entities.Delivery[myTaskActivityConfig.Entities.Delivery.label].ePage.Entities.Header.Data.UIWmsWorkorderReport.RequesterContactNo,
-                                        "Message": "Delivery Request " + myTaskActivityConfig.Entities.Delivery[myTaskActivityConfig.Entities.Delivery.label].ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderID + " Acknowledged Successfully."
+                                        "Message": "Dear " + ActivityTemplateDelivery2Ctrl.ePage.Entities.Header.Data.UIWmsWorkorderReport.Requester + "," + "\nWe received your request to deliver below products to Dhaka. Your delivery reference no: " + ActivityTemplateDelivery2Ctrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderID + ".\n" + temp + "\nThis will be delivered with in next " + DeliveryTime + " hours.Thank you."
                                     }
                                     apiService.post("authAPI", appConfig.Entities.Notification.API.SendSms.Url, _smsInput).then(function (response) {
 
@@ -240,7 +255,7 @@
                                     if (deliveryConfig.Entities.ClientContact.length > 0) {
                                         var _smsInput = {
                                             "MobileNo": deliveryConfig.Entities.ClientContact[0].Mobile,
-                                            "Message": "Delivery Request " + myTaskActivityConfig.Entities.Delivery[myTaskActivityConfig.Entities.Delivery.label].ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderID + " Acknowledged Successfully."
+                                            "Message": "Dear " + ActivityTemplateDelivery2Ctrl.ePage.Entities.Header.Data.UIWmsWorkorderReport.Requester + "," + "\nWe received your request to deliver below products to Dhaka. Your delivery reference no: " + ActivityTemplateDelivery2Ctrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderID + ".\n" + temp + "\nThis will be delivered with in next " + DeliveryTime + " hours.Thank you."
                                         }
                                         apiService.post("authAPI", appConfig.Entities.Notification.API.SendSms.Url, _smsInput).then(function (response) {
 
@@ -249,7 +264,7 @@
                                     if (deliveryConfig.Entities.WarehouseContact.length > 0) {
                                         var _smsInput = {
                                             "MobileNo": deliveryConfig.Entities.WarehouseContact[0].Mobile,
-                                            "Message": "Delivery Request " + myTaskActivityConfig.Entities.Delivery[myTaskActivityConfig.Entities.Delivery.label].ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderID + " Acknowledged Successfully."
+                                            "Message": "Dear " + ActivityTemplateDelivery2Ctrl.ePage.Entities.Header.Data.UIWmsWorkorderReport.Requester + "," + "\nWe received your request to deliver below products to Dhaka. Your delivery reference no: " + ActivityTemplateDelivery2Ctrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderID + ".\n" + temp + "\nThis will be delivered with in next " + DeliveryTime + " hours.Thank you."
                                         }
                                         apiService.post("authAPI", appConfig.Entities.Notification.API.SendSms.Url, _smsInput).then(function (response) {
 

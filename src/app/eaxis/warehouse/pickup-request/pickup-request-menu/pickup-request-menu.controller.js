@@ -216,9 +216,22 @@
                         PickupMenuCtrl.ePage.Entities.Header.Data.UIWmsPickup.Consignee = PickupMenuCtrl.ePage.Entities.Header.Data.UIWmsPickup.ConsigneeCode + ' - ' + PickupMenuCtrl.ePage.Entities.Header.Data.UIWmsPickup.ConsigneeName;
                         PickupMenuCtrl.ePage.Entities.Header.Data.UIWmsPickup.Warehouse = PickupMenuCtrl.ePage.Entities.Header.Data.UIWmsPickup.WarehouseCode + ' - ' + PickupMenuCtrl.ePage.Entities.Header.Data.UIWmsPickup.WarehouseName;
                         if ($item.isNew) {
+                            var PickupTime;
+                            if (PickupMenuCtrl.ePage.Entities.Header.Data.UIWmsWorkorderReport.ResponseType == "NR") {
+                                PickupTime = 8;
+                            } else if (PickupMenuCtrl.ePage.Entities.Header.Data.UIWmsWorkorderReport.ResponseType == "QR") {
+                                PickupTime = 4;
+                            } else if (PickupMenuCtrl.ePage.Entities.Header.Data.UIWmsWorkorderReport.ResponseType == "CR") {
+                                PickupTime = 2;
+                            }
+
+                            var temp = "";
+                            angular.forEach(PickupMenuCtrl.ePage.Entities.Header.Data.UIWmsPickupLine, function (value, key) {
+                                temp = temp + "\n " + value.ProductCode + "\xa0\xa0\xa0" + value.Units + "\xa0\xa0\xa0" + value.StockKeepingUnit + "\n";
+                            });
                             var _smsInput = {
                                 "MobileNo": PickupMenuCtrl.ePage.Entities.Header.Data.UIWmsWorkorderReport.RequesterContactNo,
-                                "Message": "Pickup Request " + PickupMenuCtrl.ePage.Entities.Header.Data.UIWmsPickup.WorkOrderID + " Acknowledged Successfully."
+                                "Message": "Dear " + PickupMenuCtrl.ePage.Entities.Header.Data.UIWmsWorkorderReport.Requester + "," + "\nWe received your request to pickup below products to Dhaka. Your pickup reference no: " + PickupMenuCtrl.ePage.Entities.Header.Data.UIWmsPickup.WorkOrderID + ".\n" + temp + "\nThis will be Picked with in next " + PickupTime + " hours.Thank you."
                             }
                             apiService.post("authAPI", appConfig.Entities.Notification.API.SendSms.Url, _smsInput).then(function (response) {
 
@@ -226,7 +239,7 @@
                             if (pickupConfig.Entities.ClientContact.length > 0) {
                                 var _smsInput = {
                                     "MobileNo": pickupConfig.Entities.ClientContact[0].Mobile,
-                                    "Message": "Pickup Request " + PickupMenuCtrl.ePage.Entities.Header.Data.UIWmsPickup.WorkOrderID + " Acknowledged Successfully."
+                                    "Message": "Dear " + PickupMenuCtrl.ePage.Entities.Header.Data.UIWmsWorkorderReport.Requester + "," + "\nWe received your request to pickup below products to Dhaka. Your pickup reference no: " + PickupMenuCtrl.ePage.Entities.Header.Data.UIWmsPickup.WorkOrderID + ".\n" + temp + "\nThis will be picked with in next " + PickupTime + " hours.Thank you."
                                 }
                                 apiService.post("authAPI", appConfig.Entities.Notification.API.SendSms.Url, _smsInput).then(function (response) {
 
@@ -235,7 +248,7 @@
                             if (pickupConfig.Entities.WarehouseContact.length > 0) {
                                 var _smsInput = {
                                     "MobileNo": pickupConfig.Entities.WarehouseContact[0].Mobile,
-                                    "Message": "Pickup Request " + PickupMenuCtrl.ePage.Entities.Header.Data.UIWmsPickup.WorkOrderID + " Acknowledged Successfully."
+                                    "Message": "Dear " + PickupMenuCtrl.ePage.Entities.Header.Data.UIWmsWorkorderReport.Requester + "," + "\nWe received your request to pickup below products to Dhaka. Your pickup reference no: " + PickupMenuCtrl.ePage.Entities.Header.Data.UIWmsPickup.WorkOrderID + ".\n" + temp + "\nThis will be picked with in next " + PickupTime + " hours.Thank you."
                                 }
                                 apiService.post("authAPI", appConfig.Entities.Notification.API.SendSms.Url, _smsInput).then(function (response) {
 
