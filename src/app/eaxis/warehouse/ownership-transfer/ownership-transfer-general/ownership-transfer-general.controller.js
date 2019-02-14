@@ -917,7 +917,7 @@
                         "WorkOrderLineStatusDesc": "",
                         "OriginalInventoryStatus": "",
                         "OriginalInventoryStatusDesc": "",
-                        "PalletID": "value.PalletID,",
+                        "PalletID": value.PalletID,
                         "WLO_Location": value.Location,
                         "WLO_FK": value.WLO_FK,
                         "AdjustmentArrivalDate": value.AdjustmentArrivalDate,

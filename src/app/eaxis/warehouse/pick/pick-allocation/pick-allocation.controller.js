@@ -487,14 +487,14 @@
             apiService.post("eAxisAPI", PickAllocationCtrl.ePage.Entities.Header.API.UpdatePick.Url, _input).then(function (response) {
                 PickAllocationCtrl.ePage.Masters.Loading = false;
                 if (response.data.Status === "Success") {
-
                     PickAllocationCtrl.ePage.Entities.Header.Data = response.data.Response;
                     PickAllocationCtrl.ePage.Entities.Header.Data.UIWmsPickHeader.WorkOrderStatus = 'ENT';
                     PickAllocationCtrl.ePage.Entities.Header.Data.UIWmsOutwardLines = $filter('orderBy')(PickAllocationCtrl.ePage.Entities.Header.Data.UIWmsOutwardLines, 'PK');
 
                     deferred.resolve(true);
-                } else if (response.data.Status === "failed") {
+                } else{
                     toastr.error("Could not Save...!");
+                    PickAllocationCtrl.ePage.Masters.InventoryDetails = [];
                     PickAllocationCtrl.ePage.Entities.Header.Validations = response.Validations;
                     angular.forEach(response.Validations, function (value, key) {
                         PickAllocationCtrl.ePage.Masters.Config.PushErrorWarning(value.Code, value.Message, "E", false, value.CtrlKey.trim(), PickAllocationCtrl.currentPick.label, false, undefined, undefined, undefined, undefined, undefined);

@@ -50,6 +50,7 @@
                 ownershipTransferConfig.RemoveErrorWarning('E11020', "E", 'UIWmsStockTransferLine', $item.label, true, key, '11');
                 ownershipTransferConfig.RemoveErrorWarning('E11021', "E", 'UIWmsStockTransferLine', $item.label, true, key, '12');
                 ownershipTransferConfig.RemoveErrorWarning('E11022', "E", 'UIWmsStockTransferLine', $item.label, true, key, '13');
+                ownershipTransferConfig.RemoveErrorWarning('E11035', "E", 'UIWmsStockTransferLine', $item.label, true, key, '2');
             })
             Validation($item);
         }

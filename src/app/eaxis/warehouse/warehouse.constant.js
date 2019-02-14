@@ -996,6 +996,16 @@
             ]
         },
             // #endregion
+
+            // #region inventory-view
+        {
+            name: 'inventoryView',
+            files: [
+            'app/eaxis/warehouse/customer-view/inventory-customer-system-view/inventory-customer-system-view.css',
+            'app/eaxis/warehouse/customer-view/inventory-customer-system-view/inventory-customer-system-view.controller.js'
+            ]
+        }
+        // #endregion
         ]
     };
 

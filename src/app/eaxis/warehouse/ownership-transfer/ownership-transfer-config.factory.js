@@ -961,11 +961,12 @@
 
             OnChangeValues(_input.UIWmsStockTransferHeader.Warehouse, 'E11012', false, undefined, $item.label);
 
-            if(_input.UIWmsStockTransferHeader.TransferFrom_ORG_FK && _input.UIWmsStockTransferHeader.ORG_Client_FK)
-            if(_input.UIWmsStockTransferHeader.TransferFrom_ORG_FK == _input.UIWmsStockTransferHeader.ORG_Client_FK){
-                OnChangeValues(null, 'E11033', false, undefined, $item.label);
-            }else{
-                OnChangeValues('value', 'E11033', false, undefined, $item.label);
+            if(_input.UIWmsStockTransferHeader.TransferFrom_ORG_FK && _input.UIWmsStockTransferHeader.ORG_Client_FK){
+                if(_input.UIWmsStockTransferHeader.TransferFrom_ORG_FK == _input.UIWmsStockTransferHeader.ORG_Client_FK){
+                    OnChangeValues(null, 'E11033', false, undefined, $item.label);
+                }else{
+                    OnChangeValues('value', 'E11033', false, undefined, $item.label);
+                }
             }
 
             if (_input.UIWmsStockTransferLine.length > 0) {

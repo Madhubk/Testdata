@@ -1,0 +1,14 @@
+<uib-tabset id="chromeTab" active="InventoryViewCtrl.ePage.Masters.activeTabIndex" class="tab-container chrometab-box">
+    <uib-tab>
+        <uib-tab-heading title="Inventory">
+            <span data-ng-bind="'Inventory'" class="ng-binding">Inventory</span>
+            <i class="fa fa-thumb-tack pinned-tab"></i>
+        </uib-tab-heading>
+        <div class="no-padding tab-list-view-wrapper">
+            <dynamic-list data-ng-if="InventoryViewCtrl.ePage.Masters.dataentryName" dataentry-name="InventoryViewCtrl.ePage.Masters.dataentryName"
+                task-name="InventoryViewCtrl.ePage.Masters.taskName" grid-config-type="0" selected-grid-row="InventoryViewCtrl.ePage.Masters.SelectedGridRow($item)"
+                mode="1" dataentry-object="InventoryViewCtrl.ePage.Masters.DataEntryObject"></dynamic-list>
+            <div class="tab-loading" data-ng-show="InventoryViewCtrl.ePage.Masters.IsTabClick"></div>
+        </div>
+    </uib-tab>
+</uib-tabset>

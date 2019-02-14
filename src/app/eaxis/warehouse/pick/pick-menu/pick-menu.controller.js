@@ -159,8 +159,7 @@
                         PickMenuCtrl.ePage.Masters.SaveAndClose = false;
                     }
 
-                } else if (response.Status === "failed") {
-                    console.log("Failed");
+                } else {
                     toastr.error("Could not Save...!");
                     PickMenuCtrl.ePage.Entities.Header.Validations = response.Validations;
                     angular.forEach(response.Validations, function (value, key) {

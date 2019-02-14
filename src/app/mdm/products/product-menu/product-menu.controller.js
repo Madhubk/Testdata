@@ -61,7 +61,7 @@
                         toastr.warning('Product available in inventory. So you can not edit some fields.', {
                             tapToDismiss: false,
                             closeButton: true,
-                            timeOut: 0
+                            timeOut: 20000
                         });
                     }
                 });
