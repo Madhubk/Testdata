@@ -208,12 +208,10 @@
             if (parseFloat(item.AllocatedQty)) {
                 item.IsAllocate = true;
 
-                /*If OverallAllocated value is greater than Ordered Qty. We have taken shortfall because if stock is partially
-                allocated then moved to intransit again if they want to allocate remaining we need to check the shortfall qty only */
-                if (OverallAllocatedValue_In_Inv > parseFloat(PickAllocationCtrl.ePage.Masters.SelectedOutwardLineDetails.ShortFallQty)) {
+                if (OverallAllocatedValue_In_Inv > parseFloat(PickAllocationCtrl.ePage.Masters.SelectedOutwardLineDetails.Units)) {
                     item.AllocatedQty = 0;
                     item.IsAllocate = false;
-                    toastr.warning("Allocated Qty should not be greater than Shortfall Qty");
+                    toastr.warning("Allocated Qty should not be greater than Ordered Qty");
                 }
 
                 // if Inlocation is less than allocated qty
@@ -470,6 +468,22 @@
                 value.WPK_FK = _input.UIWmsPickHeader.PK;
             })
 
+            // Changing IsModified if only values has been touched.
+            _input.UIWmsPickLine.map(function(v,k){
+                if(v.IsTouched){
+                    v.IsModified = true;
+                }else{
+                    v.IsModified = false;
+                }
+            });
+            _input.UIWmsPickLineSummary.map(function(v,k){
+                if(v.IsTouched){
+                    v.IsModified = true;
+                }else{
+                    v.IsModified = false;
+                }
+            });
+            
             //Updating the status when manual allocation and deallocation happens
             _input.UIWmsOutward.map(function(value,key){
                 _input.UIWmsPickLine.map(function(val,k){

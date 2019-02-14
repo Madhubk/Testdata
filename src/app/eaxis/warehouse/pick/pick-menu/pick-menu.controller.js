@@ -88,6 +88,13 @@
                     v.IsModified = false;
                 }
             });
+            _input.UIWmsPickLineSummary.map(function(v,k){
+                if(v.IsTouched){
+                    v.IsModified = true;
+                }else{
+                    v.IsModified = false;
+                }
+            });
 
             //Updating the status when manual allocation and deallocation happens
             _input.UIWmsOutward.map(function (value, key) {

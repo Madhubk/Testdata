@@ -84,7 +84,7 @@
 
         
         function UpdatePickedDate(item){
-            
+            item.IsTouched = true;
             var ReleaseLine = PickSlipCtrl.ePage.Entities.Header.Data.UIWmsReleaseLine.some(function(value,key){
                 return value.WPL_FK == item.PK;
             });
@@ -110,6 +110,7 @@
         }
 
         function UpdatePickedQty(item){
+            item.IsTouched = true;
             var ReleaseLine = PickSlipCtrl.ePage.Entities.Header.Data.UIWmsReleaseLine.some(function(value,key){
                 return value.WPL_FK == item.PK;
             });
