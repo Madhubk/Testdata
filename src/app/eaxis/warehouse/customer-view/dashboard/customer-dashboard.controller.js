@@ -41,7 +41,7 @@
         function GetWarehouseDetails(){
             DashboardCtrl.ePage.Masters.IsLoading = true;
             var _filter = {
-                MappingCode: 'USER_CMP_BRAN_WH',
+                MappingCode: 'USER_CMP_BRAN_WH_APP_TNT',
                 SAP_FK: authService.getUserInfo().AppPK,
                 TenantCode: authService.getUserInfo().TenantCode,
                 Item_FK:authService.getUserInfo().UserPK
