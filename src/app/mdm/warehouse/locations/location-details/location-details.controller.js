@@ -105,6 +105,8 @@
                     }
                     callback();
                 });
+            }else{
+                callback();
             }
         }
 
