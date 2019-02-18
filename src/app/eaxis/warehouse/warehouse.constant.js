@@ -870,6 +870,7 @@
             files: [
                 'app/eaxis/warehouse/track-damaged-sku-toolbar/track-damaged-sku-toolbar.controller.js',
                 'app/eaxis/warehouse/track-damaged-sku-toolbar/track-damaged-sku-toolbar.directive.js',
+                'app/eaxis/warehouse/track-damaged-sku-toolbar/track-damaged-sku-toolbar.css',
             ]
         }, {
             name: 'deliveryRequestToolbar',
