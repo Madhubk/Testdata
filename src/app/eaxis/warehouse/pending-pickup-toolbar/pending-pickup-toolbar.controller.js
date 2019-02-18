@@ -53,7 +53,7 @@
                     PendingPickupToolbarCtrl.ePage.Masters.PendingPickupList.push(value);
                 } else {
                     PendingPickupToolbarCtrl.ePage.Masters.OtherCount = PendingPickupToolbarCtrl.ePage.Masters.OtherCount + 1;
-                    PendingPickupToolbarCtrl.ePage.Masters.OtherList = PendingPickupToolbarCtrl.ePage.Masters.OtherList + value.AdditionalRef1Code + ",";
+                    PendingPickupToolbarCtrl.ePage.Masters.OtherList = PendingPickupToolbarCtrl.ePage.Masters.OtherList + value.DL_AdditionalRef1Code + ",";
                 }
             });
             PendingPickupToolbarCtrl.ePage.Masters.OtherList = PendingPickupToolbarCtrl.ePage.Masters.OtherList.slice(0, -1);
