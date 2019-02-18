@@ -1,12 +1,15 @@
 .pickup-color {
     background-color: #53a93fe3 !important;
 }
+
 .delivery-color {
     background-color: #f4b400e0 !important;
 }
+
 .bg-white {
     background-color: #fff !important;
 }
+
 .controls {
     margin-top: 10px;
     border: 1px solid transparent;
@@ -76,6 +79,7 @@
 
 .set-bg-white {
     background-color: #ffffff47;
+    padding: 10px !important;
 }
 
 .org_circle {
