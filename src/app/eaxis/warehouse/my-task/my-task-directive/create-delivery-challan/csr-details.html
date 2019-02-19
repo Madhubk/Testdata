@@ -249,7 +249,7 @@
                     </tr>
                 </thead>
                 <tbody id="InwardLineCustTable{{CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderID}}">
-                    <tr id="tableBody" ng-repeat="x in CreateDelChallanCtrl.ePage.Entities.Header.Data.UIvwWmsDeliveryList" ng-click="CreateDelChallanCtrl.ePage.Masters.setSelectedRow($index,x);"
+                    <tr id="tableBody" ng-repeat="x in CreateDelChallanCtrl.ePage.Entities.Header.Data.UIvwWmsDeliveryList" 
                         ng-class="{row_active: (CreateDelChallanCtrl.ePage.Masters.selectedRow==$index),copy_row_active :(x.IsCopied==true)}">
                         <td id="delcheckbox" ng-style="{ 'width':  '40px' ,'padding-top':'0px' }" ng-click="CreateDelChallanCtrl.ePage.Masters.Enable = true">
                             <label class="mb-0 customcheckbox">
