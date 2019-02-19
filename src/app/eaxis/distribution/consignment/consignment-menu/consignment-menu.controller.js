@@ -51,9 +51,9 @@
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": "ORGHEAD"
+                "FilterID": DMSConsignmentMenuCtrl.ePage.Entities.Header.API.OrgHeader.FilterID
             };
-            apiService.post("eAxisAPI", "OrgHeader/FindAll", _input).then(function (response) {
+            apiService.post("eAxisAPI", DMSConsignmentMenuCtrl.ePage.Entities.Header.API.OrgHeader.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     DMSConsignmentMenuCtrl.ePage.Entities.Header.CheckPoints.SenderObj = response.data.Response;
                 }
@@ -163,7 +163,7 @@
                     }).indexOf(DMSConsignmentMenuCtrl.currentConsignment[DMSConsignmentMenuCtrl.currentConsignment.label].ePage.Entities.Header.Data.PK);
                     if (_index !== -1) {
                         if (DMSConsignmentMenuCtrl.currentConsignment[DMSConsignmentMenuCtrl.currentConsignment.label].ePage.Entities.Header.Data.TmsConsignmentHeader.IsCancel != true) {
-                            apiService.get("eAxisAPI", 'TmsConsignmentList/GetById/' + DMSConsignmentMenuCtrl.currentConsignment[DMSConsignmentMenuCtrl.currentConsignment.label].ePage.Entities.Header.Data.PK).then(function (response) {
+                            apiService.get("eAxisAPI", DMSConsignmentMenuCtrl.ePage.Entities.Header.API.GetByID.Url + DMSConsignmentMenuCtrl.currentConsignment[DMSConsignmentMenuCtrl.currentConsignment.label].ePage.Entities.Header.Data.PK).then(function (response) {
                                 if (response.data.Response) {
                                     DMSConsignmentMenuCtrl.ePage.Masters.Config.TabList[_index][DMSConsignmentMenuCtrl.ePage.Masters.Config.TabList[_index].label].ePage.Entities.Header.Data = response.data.Response;
 
