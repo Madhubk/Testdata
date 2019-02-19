@@ -1,3 +1,5 @@
+<!-- Non Editable -->
+<div class="noneditable ng-scope" data-ng-if="OutwardDispatchCtrl.ePage.Entities.Header.GlobalVariables.NonEditable"></div>
 <div class="col-lg-12 mt-15">
     <div class="rows border-box border-radius-2 bg-fbfbfb">
         <div class="col-xs-4 col-sm-4 col-md-2 col-lg-2 col-xl-2 pt-10 pb-10">
@@ -40,15 +42,15 @@
                 <label class="control-label text-single-line">Transporter</label>
                 <div class="input-group input-group-sm">
                     <!-- Dynamic look up Search in textbox -->
-                    <div dynamic-lookup placeholder="Transporter" my-ng-model="OutwardDispatchCtrl.ePage.Masters.Transporter" auto-complete-on-select="OutwardDispatchCtrl.ePage.Masters.SelectedLookupCarrier($item)"
-                        obj="OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader" page-name="'OrganizationList'"
-                        control-key="'SenderCarrier_3239'" control-id="'SenderCarrier'">
+                    <div dynamic-lookup placeholder="Transporter" my-ng-model="OutwardDispatchCtrl.ePage.Masters.Transporter"
+                        auto-complete-on-select="OutwardDispatchCtrl.ePage.Masters.SelectedLookupCarrier($item)" obj="OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader"
+                        page-name="'OrganizationList'" control-key="'SenderCarrier_3239'" control-id="'SenderCarrier'">
                     </div>
 
                     <!-- Look Up page opens when button clicks -->
                     <span class="input-group-btn">
-                        <button dynamic-list-modal obj="OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader" control-id="'SenderCarrier'"
-                            control-key="'SenderCarrier_3239'" selected-data="OutwardDispatchCtrl.ePage.Masters.SelectedLookupCarrier($item.data.entity)"
+                        <button dynamic-list-modal obj="OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader"
+                            control-id="'SenderCarrier'" control-key="'SenderCarrier_3239'" selected-data="OutwardDispatchCtrl.ePage.Masters.SelectedLookupCarrier($item.data.entity)"
                             page-name="'OrganizationList'" mode="2" grid-refresh-fun-name="" grid-refresh-fun="" class="btn btn-default shiny"
                             type="button">
                             <i class="fa fa-ellipsis-h"></i>
@@ -71,8 +73,9 @@
                     <error-warning-directive data-ng-if="OutwardDispatchCtrl.ePage.Entities.Header.Meta.ErrorWarning.ManifestType.IsWarning && !OutwardDispatchCtrl.ePage.Entities.Header.Meta.ErrorWarning.ManifestType.IsError"
                         list="OutwardDispatchCtrl.ePage.Entities.Header.Meta.ErrorWarning.ManifestType.WARNING" type="'warning'"
                         icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
-                    <error-warning-directive data-ng-if="OutwardDispatchCtrl.ePage.Entities.Header.Meta.ErrorWarning.ManifestType.IsError" list="OutwardDispatchCtrl.ePage.Entities.Header.Meta.ErrorWarning.ManifestType.ERROR"
-                        type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                    <error-warning-directive data-ng-if="OutwardDispatchCtrl.ePage.Entities.Header.Meta.ErrorWarning.ManifestType.IsError"
+                        list="OutwardDispatchCtrl.ePage.Entities.Header.Meta.ErrorWarning.ManifestType.ERROR" type="'error'"
+                        icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
                 </span>
                 <label class="control-label text-single-line">Manifest Type</label>
                 <select chosen class="form-control" style="height: 30px;" ng-model="OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.ManifestType"
@@ -108,8 +111,9 @@
                     <error-warning-directive data-ng-if="OutwardDispatchCtrl.ePage.Entities.Header.Meta.ErrorWarning.LoadType.IsWarning && !OutwardDispatchCtrl.ePage.Entities.Header.Meta.ErrorWarning.LoadType.IsError"
                         list="OutwardDispatchCtrl.ePage.Entities.Header.Meta.ErrorWarning.LoadType.WARNING" type="'warning'"
                         icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
-                    <error-warning-directive data-ng-if="OutwardDispatchCtrl.ePage.Entities.Header.Meta.ErrorWarning.LoadType.IsError" list="OutwardDispatchCtrl.ePage.Entities.Header.Meta.ErrorWarning.LoadType.ERROR"
-                        type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                    <error-warning-directive data-ng-if="OutwardDispatchCtrl.ePage.Entities.Header.Meta.ErrorWarning.LoadType.IsError"
+                        list="OutwardDispatchCtrl.ePage.Entities.Header.Meta.ErrorWarning.LoadType.ERROR" type="'error'"
+                        icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
                 </span>
                 <label class="control-label text-single-line">Load Type</label>
                 <select chosen class="form-control" style="height: 30px;" ng-model="OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.LoadType"
@@ -125,12 +129,14 @@
                     <error-warning-directive data-ng-if="OutwardDispatchCtrl.ePage.Entities.Header.Meta.ErrorWarning.TransportMode.IsWarning && !OutwardDispatchCtrl.ePage.Entities.Header.Meta.ErrorWarning.TransportMode.IsError"
                         list="OutwardDispatchCtrl.ePage.Entities.Header.Meta.ErrorWarning.TransportMode.WARNING" type="'warning'"
                         icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
-                    <error-warning-directive data-ng-if="OutwardDispatchCtrl.ePage.Entities.Header.Meta.ErrorWarning.TransportMode.IsError" list="OutwardDispatchCtrl.ePage.Entities.Header.Meta.ErrorWarning.TransportMode.ERROR"
-                        type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                    <error-warning-directive data-ng-if="OutwardDispatchCtrl.ePage.Entities.Header.Meta.ErrorWarning.TransportMode.IsError"
+                        list="OutwardDispatchCtrl.ePage.Entities.Header.Meta.ErrorWarning.TransportMode.ERROR" type="'error'"
+                        icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
                 </span>
                 <label class="control-label text-single-line">Mode Of Transport </label>
                 <select chosen class="form-control" style="height: 30px;" ng-model="OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.TransportMode"
-                    ng-options="x as x for x in OutwardDispatchCtrl.ePage.Masters.TransportMode" search-contains="true" data-ng-change="OutwardDispatchCtrl.ePage.Masters.OnChangeValues(OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.TransportMode,'E3068');">
+                    ng-options="x as x for x in OutwardDispatchCtrl.ePage.Masters.TransportMode" search-contains="true"
+                    data-ng-change="OutwardDispatchCtrl.ePage.Masters.OnChangeValues(OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.TransportMode,'E3068');">
                     <option value="">--Select--</option>
                 </select>
             </div>
@@ -147,8 +153,8 @@
                 </span>
                 <label class="control-label text-single-line">Transporter Reference No</label>
                 <div class="">
-                    <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Transporter Reference No"
-                        data-ng-model="OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.TransportRefNo"
+                    <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
+                        placeholder="Transporter Reference No" data-ng-model="OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.TransportRefNo"
                         data-ng-change="OutwardDispatchCtrl.ePage.Masters.OnChangeValues(OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.TransportRefNo,'E3069');">
                 </div>
             </div>
@@ -159,13 +165,14 @@
                     <error-warning-directive data-ng-if="OutwardDispatchCtrl.ePage.Entities.Header.Meta.ErrorWarning.VehicleNo.IsWarning && !OutwardDispatchCtrl.ePage.Entities.Header.Meta.ErrorWarning.VehicleNo.IsError"
                         list="OutwardDispatchCtrl.ePage.Entities.Header.Meta.ErrorWarning.VehicleNo.WARNING" type="'warning'"
                         icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
-                    <error-warning-directive data-ng-if="OutwardDispatchCtrl.ePage.Entities.Header.Meta.ErrorWarning.VehicleNo.IsError" list="OutwardDispatchCtrl.ePage.Entities.Header.Meta.ErrorWarning.VehicleNo.ERROR"
-                        type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                    <error-warning-directive data-ng-if="OutwardDispatchCtrl.ePage.Entities.Header.Meta.ErrorWarning.VehicleNo.IsError"
+                        list="OutwardDispatchCtrl.ePage.Entities.Header.Meta.ErrorWarning.VehicleNo.ERROR" type="'error'"
+                        icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
                 </span>
                 <label class="control-label text-single-line">Expected Vehicle No</label>
                 <div class="">
-                    <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Expected Vehicle No"
-                        data-ng-model="OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.VehicleNo"
+                    <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
+                        placeholder="Expected Vehicle No" data-ng-model="OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.VehicleNo"
                         data-ng-change="OutwardDispatchCtrl.ePage.Masters.OnChangeValues(OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.VehicleNo,'E3070');">
                 </div>
             </div>
@@ -177,13 +184,14 @@
                     <error-warning-directive data-ng-if="OutwardDispatchCtrl.ePage.Entities.Header.Meta.ErrorWarning.DriveName.IsWarning && !OutwardDispatchCtrl.ePage.Entities.Header.Meta.ErrorWarning.DriveName.IsError"
                         list="OutwardDispatchCtrl.ePage.Entities.Header.Meta.ErrorWarning.DriveName.WARNING" type="'warning'"
                         icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
-                    <error-warning-directive data-ng-if="OutwardDispatchCtrl.ePage.Entities.Header.Meta.ErrorWarning.DriveName.IsError" list="OutwardDispatchCtrl.ePage.Entities.Header.Meta.ErrorWarning.DriveName.ERROR"
-                        type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                    <error-warning-directive data-ng-if="OutwardDispatchCtrl.ePage.Entities.Header.Meta.ErrorWarning.DriveName.IsError"
+                        list="OutwardDispatchCtrl.ePage.Entities.Header.Meta.ErrorWarning.DriveName.ERROR" type="'error'"
+                        icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
                 </span>
                 <label class="control-label text-single-line">Expected Driver Name</label>
                 <div class="">
-                    <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Expected Driver Name"
-                        data-ng-model="OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.DriveName"
+                    <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
+                        placeholder="Expected Driver Name" data-ng-model="OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.DriveName"
                         data-ng-change="OutwardDispatchCtrl.ePage.Masters.OnChangeValues(OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.DriveName,'E3071');">
                 </div>
             </div>
@@ -201,8 +209,8 @@
                 </span>
                 <label class="control-label text-single-line">Driver Contact No</label>
                 <div class="">
-                    <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Driver Contact No"
-                        data-ng-model="OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.DriverContactNo"
+                    <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
+                        placeholder="Driver Contact No" data-ng-model="OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.DriverContactNo"
                         data-ng-change="OutwardDispatchCtrl.ePage.Masters.OnChangeValues(OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.DriverContactNo,'E3072');">
                 </div>
             </div>
@@ -211,22 +219,24 @@
             <div class="form-group">
                 <span class="error-warning-container">
                     <error-warning-directive data-ng-if="OutwardDispatchCtrl.ePage.Entities.Header.Meta.ErrorWarning.EstimatedDispatchDate.IsWarning && !OutwardDispatchCtrl.ePage.Entities.Header.Meta.ErrorWarning.EstimatedDispatchDate.IsError"
-                        list="OutwardDispatchCtrl.ePage.Entities.Header.Meta.ErrorWarning.EstimatedDispatchDate.WARNING" type="'warning'"
-                        icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                        list="OutwardDispatchCtrl.ePage.Entities.Header.Meta.ErrorWarning.EstimatedDispatchDate.WARNING"
+                        type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
                     <error-warning-directive data-ng-if="OutwardDispatchCtrl.ePage.Entities.Header.Meta.ErrorWarning.EstimatedDispatchDate.IsError"
-                        list="OutwardDispatchCtrl.ePage.Entities.Header.Meta.ErrorWarning.EstimatedDispatchDate.ERROR" type="'error'"
-                        icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                        list="OutwardDispatchCtrl.ePage.Entities.Header.Meta.ErrorWarning.EstimatedDispatchDate.ERROR"
+                        type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
                 </span>
                 <label class="control-label text-single-line">Estimated Dispatch Date Time</label>
                 <div class="input-group input-group-sm">
                     <input type="text" class="form-control" placeholder="{{OutwardDispatchCtrl.ePage.Masters.DatePicker.Options.dateTimeFormat}}"
-                        datetime-picker="{{OutwardDispatchCtrl.ePage.Masters.DatePicker.Options.dateTimeFormat}}" ng-model="OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.EstimatedDispatchDate"
-                        is-open="OutwardDispatchCtrl.ePage.Masters.DatePicker.isOpen['isEstimatedDispatchDate']" datepicker-options="OutwardDispatchCtrl.ePage.Masters.DatePicker.Options"
-                        datepicker-append-to-body="false" close-on-selection="false" enable-date="true" enable-time="true" default-date=""
-                        default-time="" when-closed="" save-as="OutwardDispatchCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                        datetime-picker="{{OutwardDispatchCtrl.ePage.Masters.DatePicker.Options.dateTimeFormat}}"
+                        ng-model="OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.EstimatedDispatchDate"
+                        is-open="OutwardDispatchCtrl.ePage.Masters.DatePicker.isOpen['isEstimatedDispatchDate']"
+                        datepicker-options="OutwardDispatchCtrl.ePage.Masters.DatePicker.Options"
+                        datepicker-append-to-body="false" close-on-selection="false" enable-date="true" enable-time="true"
+                        default-date="" default-time="" when-closed="" save-as="OutwardDispatchCtrl.ePage.Masters.DatePicker.Options.saveFormat"
                         popup-placement="bottom-right" data-ng-click="OutwardDispatchCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isEstimatedDispatchDate')"
                         data-ng-change="OutwardDispatchCtrl.ePage.Masters.OnChangeValues(OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.EstimatedDispatchDate,'E3073');"
-                        custom-date-time-format/>
+                        custom-date-time-format />
                     <span class="input-group-btn">
                         <button type="button" class="btn btn-default" data-ng-click="OutwardDispatchCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isEstimatedDispatchDate')">
                             <i class="fa fa-calendar"></i>
@@ -239,22 +249,24 @@
             <div class="form-group">
                 <span class="error-warning-container">
                     <error-warning-directive data-ng-if="OutwardDispatchCtrl.ePage.Entities.Header.Meta.ErrorWarning.EstimatedDeliveryDate.IsWarning && !OutwardDispatchCtrl.ePage.Entities.Header.Meta.ErrorWarning.EstimatedDeliveryDate.IsError"
-                        list="OutwardDispatchCtrl.ePage.Entities.Header.Meta.ErrorWarning.EstimatedDeliveryDate.WARNING" type="'warning'"
-                        icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                        list="OutwardDispatchCtrl.ePage.Entities.Header.Meta.ErrorWarning.EstimatedDeliveryDate.WARNING"
+                        type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
                     <error-warning-directive data-ng-if="OutwardDispatchCtrl.ePage.Entities.Header.Meta.ErrorWarning.EstimatedDeliveryDate.IsError"
-                        list="OutwardDispatchCtrl.ePage.Entities.Header.Meta.ErrorWarning.EstimatedDeliveryDate.ERROR" type="'error'"
-                        icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                        list="OutwardDispatchCtrl.ePage.Entities.Header.Meta.ErrorWarning.EstimatedDeliveryDate.ERROR"
+                        type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
                 </span>
                 <label class="control-label text-single-line">Estimated Delivery Date Time</label>
                 <div class="input-group input-group-sm">
                     <input type="text" class="form-control" placeholder="{{OutwardDispatchCtrl.ePage.Masters.DatePicker.Options.dateTimeFormat}}"
-                        datetime-picker="{{OutwardDispatchCtrl.ePage.Masters.DatePicker.Options.dateTimeFormat}}" ng-model="OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.EstimatedDeliveryDate"
-                        is-open="OutwardDispatchCtrl.ePage.Masters.DatePicker.isOpen['isEstimatedDeliveryDate']" datepicker-options="OutwardDispatchCtrl.ePage.Masters.DatePicker.Options"
-                        datepicker-append-to-body="false" close-on-selection="false" enable-date="true" enable-time="true" default-date=""
-                        default-time="" when-closed="" save-as="OutwardDispatchCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                        datetime-picker="{{OutwardDispatchCtrl.ePage.Masters.DatePicker.Options.dateTimeFormat}}"
+                        ng-model="OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.EstimatedDeliveryDate"
+                        is-open="OutwardDispatchCtrl.ePage.Masters.DatePicker.isOpen['isEstimatedDeliveryDate']"
+                        datepicker-options="OutwardDispatchCtrl.ePage.Masters.DatePicker.Options"
+                        datepicker-append-to-body="false" close-on-selection="false" enable-date="true" enable-time="true"
+                        default-date="" default-time="" when-closed="" save-as="OutwardDispatchCtrl.ePage.Masters.DatePicker.Options.saveFormat"
                         popup-placement="bottom-right" data-ng-click="OutwardDispatchCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isEstimatedDeliveryDate')"
                         data-ng-change="OutwardDispatchCtrl.ePage.Masters.OnChangeValues(OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.EstimatedDeliveryDate,'E3074');"
-                        custom-date-time-format/>
+                        custom-date-time-format />
                     <span class="input-group-btn">
                         <button type="button" class="btn btn-default" data-ng-click="OutwardDispatchCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isEstimatedDeliveryDate')">
                             <i class="fa fa-calendar"></i>
@@ -268,7 +280,8 @@
 <div class="col-lg-12 p-5">
     <div id="ManifestConsignmentTable{{OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.ManifestNumber}}"
         class="fixedheader mb-0" key-events table-object='OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestConsignment'
-        enable='OutwardDispatchCtrl.ePage.Masters.Enable' selected-row='OutwardDispatchCtrl.ePage.Masters.selectedRow' unique-id='ManifestConsignmentTable{{OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.ManifestNumber}}'>
+        enable='OutwardDispatchCtrl.ePage.Masters.Enable' selected-row='OutwardDispatchCtrl.ePage.Masters.selectedRow'
+        unique-id='ManifestConsignmentTable{{OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.ManifestNumber}}'>
         <table style="height: 200px">
             <thead>
                 <tr id="tableHeader">
@@ -281,35 +294,40 @@
                     <th ng-style="{ 'width':  '150px' }" title="Sender Reference">Sender Reference</th>
                     <th ng-style="{ 'width':  '150px' }" title="Receiver Reference">Receiver Reference</th>
                     <th ng-style="{ 'width':  '150px' }" title="Expected Pickup Date Time">Expected Pickup Date Time</th>
-                    <th ng-style="{ 'width':  '150px' }" title="Expected Delivery Date Time">Expected Delivery Date Time</th>
+                    <th ng-style="{ 'width':  '150px' }" title="Expected Delivery Date Time">Expected Delivery Date
+                        Time</th>
                     <th ng-style="{ 'width':  '150px' }" title="Actual Pickup Date Time">Actual Pickup Date Time</th>
                     <th ng-style="{ 'width':  '150px' }" title="Actual Delivery Date Time">Actual Delivery Date Time</th>
                     <th ng-style="{ 'width':  '100px' }" title="Document">Document</th>
                 </tr>
             </thead>
             <tbody id="ManifestConsignmentLineTable{{OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.ManifestNumber}}">
-                <tr id="tableBody" ng-repeat="x in OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestConsignment" ng-click="OutwardDispatchCtrl.ePage.Masters.setSelectedRow($index);"
-                    ng-class="{row_active: (OutwardDispatchCtrl.ePage.Masters.selectedRow==$index),copy_row_active :(x.IsCopied==true)}">
+                <tr id="tableBody" ng-repeat="x in OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestConsignment"
+                    ng-click="OutwardDispatchCtrl.ePage.Masters.setSelectedRow($index);" ng-class="{row_active: (OutwardDispatchCtrl.ePage.Masters.selectedRow==$index),copy_row_active :(x.IsCopied==true)}">
                     <td ng-style="{ 'width':  '40px' }" class="overflow-text">{{$index +1}}</td>
                     <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.TMC_ConsignmentNumber}}</td>
-                    <td ng-style="{ 'width':  '250px' }" class="overflow-text">{{x.TMC_SenderCode}} - {{x.TMC_SenderName}}</td>
-                    <td ng-style="{ 'width':  '250px' }" class="overflow-text">{{x.TMC_ReceiverCode}} - {{x.TMC_ReceiverName}}</td>
+                    <td ng-style="{ 'width':  '250px' }" class="overflow-text">{{x.TMC_SenderCode}} -
+                        {{x.TMC_SenderName}}</td>
+                    <td ng-style="{ 'width':  '250px' }" class="overflow-text">{{x.TMC_ReceiverCode}} -
+                        {{x.TMC_ReceiverName}}</td>
                     <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.TMC_ClientId}}</td>
                     <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.TMC_ServiceType}}</td>
                     <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.TMC_SenderRef}}</td>
                     <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.TMC_ReceiverRef}}</td>
-                    <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.TMC_ExpectedPickupDateTime | date:"dd-MMM-yyyy hh:mm a"}}</td>
-                    <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.TMC_ExpectedDeliveryDateTime | date:"dd-MMM-yyyy hh:mm a"}}</td>
+                    <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.TMC_ExpectedPickupDateTime |
+                        date:"dd-MMM-yyyy hh:mm a"}}</td>
+                    <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.TMC_ExpectedDeliveryDateTime |
+                        date:"dd-MMM-yyyy hh:mm a"}}</td>
                     <td ng-style="{ 'width':  '150px' }">
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 p-0">
                             <div class="input-group input-group-sm">
                                 <input type="text" class="form-control height-22" placeholder="{{OutwardDispatchCtrl.ePage.Masters.DatePicker.Options.dateTimeFormat}}"
                                     datetime-picker="{{OutwardDispatchCtrl.ePage.Masters.DatePicker.Options.dateTimeFormat}}"
                                     ng-model="x.TMC_ActualPickupDateTime" is-open="OutwardDispatchCtrl.ePage.Masters.DatePicker.isOpen['isTMC_ActualPickupDateTime']"
-                                    datepicker-options="OutwardDispatchCtrl.ePage.Masters.DatePicker.Options" datepicker-append-to-body="false"
-                                    close-on-selection="false" enable-time="true" enable-date="true" default-date="" default-time=""
-                                    when-closed="" save-as="OutwardDispatchCtrl.ePage.Masters.DatePicker.Options.saveFormat"
-                                    data-ng-click="" data-ng-change="" custom-date-time-format/>
+                                    datepicker-options="OutwardDispatchCtrl.ePage.Masters.DatePicker.Options"
+                                    datepicker-append-to-body="false" close-on-selection="false" enable-time="true"
+                                    enable-date="true" default-date="" default-time="" when-closed="" save-as="OutwardDispatchCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                                    data-ng-click="" data-ng-change="" custom-date-time-format />
                                 <span class="input-group-btn height-22">
                                     <button type="button" class="btn btn-default" data-ng-click="OutwardDispatchCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isTMC_ActualPickupDateTime')">
                                         <i class="fa fa-calendar"></i>
@@ -318,16 +336,17 @@
                             </div>
                         </div>
                     </td>
-                    <td ng-style="{ 'width':  '150px' }" >
+                    <td ng-style="{ 'width':  '150px' }">
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 p-0">
                             <div class="input-group input-group-sm">
                                 <input type="text" class="form-control height-22" placeholder="{{OutwardDispatchCtrl.ePage.Masters.DatePicker.Options.dateTimeFormat}}"
                                     datetime-picker="{{OutwardDispatchCtrl.ePage.Masters.DatePicker.Options.dateTimeFormat}}"
                                     ng-model="x.TMC_ActualDeliveryDateTime" is-open="OutwardDispatchCtrl.ePage.Masters.DatePicker.isOpen['isTMC_ActualDeliveryDateTime']"
-                                    datepicker-options="OutwardDispatchCtrl.ePage.Masters.DatePicker.Options" datepicker-append-to-body="false"
-                                    close-on-selection="false" enable-time="true" enable-date="true" default-date="" default-time=""
-                                    when-closed="" save-as="OutwardDispatchCtrl.ePage.Masters.DatePicker.Options.saveFormat"
-                                    data-ng-click="" data-ng-change="OutwardDispatchCtrl.ePage.Masters.OnChangeDate(x)" custom-date-time-format/>
+                                    datepicker-options="OutwardDispatchCtrl.ePage.Masters.DatePicker.Options"
+                                    datepicker-append-to-body="false" close-on-selection="false" enable-time="true"
+                                    enable-date="true" default-date="" default-time="" when-closed="" save-as="OutwardDispatchCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                                    data-ng-click="" data-ng-change="OutwardDispatchCtrl.ePage.Masters.OnChangeDate(x)"
+                                    custom-date-time-format />
                                 <span class="input-group-btn height-22">
                                     <button type="button" class="btn btn-default" data-ng-click="OutwardDispatchCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isTMC_ActualDeliveryDateTime')">
                                         <i class="fa fa-calendar"></i>
@@ -349,7 +368,8 @@
 <div class="col-lg-12 p-5">
     <div id="ManifestItemTable{{OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.ManifestNumber}}"
         class="fixedheader mb-0" key-events table-object='OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestItem'
-        enable='OutwardDispatchCtrl.ePage.Masters.Enable' selected-row='OutwardDispatchCtrl.ePage.Masters.selectedRow' unique-id='ManifestItemTable{{OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.ManifestNumber}}'>
+        enable='OutwardDispatchCtrl.ePage.Masters.Enable' selected-row='OutwardDispatchCtrl.ePage.Masters.selectedRow'
+        unique-id='ManifestItemTable{{OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.ManifestNumber}}'>
         <table style="height: 200px">
             <thead>
                 <tr id="tableHeader">
@@ -368,8 +388,8 @@
                 </tr>
             </thead>
             <tbody id="ManifestItemLineTable{{OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.ManifestNumber}}">
-                <tr id="tableBody" ng-repeat="x in OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestItem" ng-click="OutwardDispatchCtrl.ePage.Masters.setSelectedRow($index);"
-                    ng-class="{row_active: (OutwardDispatchCtrl.ePage.Masters.selectedRow==$index),copy_row_active :(x.IsCopied==true)}">
+                <tr id="tableBody" ng-repeat="x in OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestItem"
+                    ng-click="OutwardDispatchCtrl.ePage.Masters.setSelectedRow($index);" ng-class="{row_active: (OutwardDispatchCtrl.ePage.Masters.selectedRow==$index),copy_row_active :(x.IsCopied==true)}">
                     <td ng-style="{ 'width':  '40px' }" class="overflow-text">{{$index +1}}</td>
                     <td ng-style="{ 'width':  '250px' }" class="overflow-text">{{x.TIT_ItemCode}} - {{x.TIT_ItemDesc}}</td>
                     <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.TIT_ItemRef_ID}}</td>

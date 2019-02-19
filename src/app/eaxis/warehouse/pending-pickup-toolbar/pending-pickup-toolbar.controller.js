@@ -156,7 +156,7 @@
                                                 $location.path("/EA/my-tasks").search({
                                                     filter: helperService.encryptData(_filter)
                                                 });
-                                            }, 2000);
+                                            }, 3000);
                                         } else {
                                             toastr.error("Pickup Creation Failed. Please try again later");
                                             PendingPickupToolbarCtrl.ePage.Masters.IsCreatePickupBtn = false;
