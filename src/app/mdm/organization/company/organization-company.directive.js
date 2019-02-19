@@ -54,6 +54,7 @@
 
                 if (OrganizationCompanyCtrl.ePage.Entities.Header.Data.OrgCompanyData && OrganizationCompanyCtrl.ePage.Entities.Header.Data.OrgCompanyData.length > 0) {
                     OnCompanySelect(OrganizationCompanyCtrl.ePage.Entities.Header.Data.OrgCompanyData[0]);
+                    PrepareGenerateScriptInput();
                 }
             } catch (ex) {
                 console.log(ex);
@@ -151,6 +152,8 @@
 
                         if (OrganizationCompanyCtrl.ePage.Entities.Header.Data.OrgCompanyData && OrganizationCompanyCtrl.ePage.Entities.Header.Data.OrgCompanyData.length > 0) {
                             OnCompanySelect(OrganizationCompanyCtrl.ePage.Entities.Header.Data.OrgCompanyData[OrganizationCompanyCtrl.ePage.Entities.Header.Data.OrgCompanyData.length - 1]);
+
+                            PrepareGenerateScriptInput();
                         }
                     }
                 },
@@ -160,6 +163,20 @@
             );
         }
 
+        function PrepareGenerateScriptInput() {
+            OrganizationCompanyCtrl.ePage.Entities.Header.Data.OrgCompanyData.map(function (value, key) {
+                value.GenerateScriptInput = {
+                    ObjectName: "OrgCompanyData",
+                    ObjectId: value.PK
+                };
+                value.GenerateScriptConfig = {
+                    IsEnableTable: false,
+                    IsEnablePK: false,
+                    IsEnableTenant: false
+                };
+            });
+        }
+        
         Init();
     }
 })();

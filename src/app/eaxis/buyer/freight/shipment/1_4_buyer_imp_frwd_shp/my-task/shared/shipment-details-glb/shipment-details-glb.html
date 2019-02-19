@@ -1,0 +1,459 @@
+<div class="clearfix">
+    <div class="col-lg-12 col-md-12 col-xl-12 col-sm-12 col-xs-12 mb-10 no-padding">
+        <uib-tabset id="ShippingBillDeatils">
+            <!--Shipment Details Tab-->
+            <uib-tab>
+                <uib-tab-heading title="Shipment">
+                    <i class="menu-icon icomoon icon-shipment"></i>
+                    <span class="text-single-line fs-13" data-ng-bind="'Shipment'"></span>
+                </uib-tab-heading>
+                <div data-ng-if="ShipmentGlbCtrl.currentShipment">
+                    <div class="clearfix mt-10 col-lg-12 no-padding">
+                        <!--House Bill-->
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                            <div class="form-group ship-font">
+                                <label class="control-label">House Bill </label>
+                                <input type="text" class="form-control input-sm" max-length="40" data-ng-model="ShipmentGlbCtrl.ePage.Entities.Header.Data.UIShipmentHeader.HouseBill"
+                                    placeholder="House Bill" />
+                            </div>
+                        </div>
+                        <!--Mode-->
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                            <span class="error-warning-container">
+                                <error-warning-directive data-ng-if="ShipmentGlbCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.PackingMode.IsWarning && !ShipmentGlbCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.PackingMode.IsError"
+                                    list="ShipmentGlbCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.PackingMode.WARNING"
+                                    type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                                <error-warning-directive data-ng-if="ShipmentGlbCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.PackingMode.IsError"
+                                    list="ShipmentGlbCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.PackingMode.ERROR"
+                                    type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                            </span>
+                            <div class="form-group ship-font">
+                                <label class="control-label text-single-line"> Mode</label>
+                                <select chosen class="form-control" ng-model="ShipmentGlbCtrl.ePage.Masters.shpselectedMode" ng-options="term as (term.Key+'-'+term.PARENT_Value + '(' + term.Key+')') for term in ShipmentGlbCtrl.ePage.Masters.CfxTypesList.ShpCntType"
+                                    search-contains="true" ng-change="ShipmentGlbCtrl.ePage.Masters.ModeChange(ShipmentGlbCtrl.ePage.Masters.shpselectedMode)">
+                                    <option value="">--Select--</option>
+                                </select>
+                            </div>
+                        </div>
+                        <!--Inco Term-->
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                            <div class="form-group ship-font">
+                                <label class="control-label text-single-line">Inco Term</label>
+                                <div class="">
+                                    <select chosen name="category-group" class="form-control" ng-model="ShipmentGlbCtrl.ePage.Entities.Header.Data.UIShipmentHeader.IncoTerm"
+                                        ng-options="x.Key as x.Description for x in ShipmentGlbCtrl.ePage.Masters.DropDownMasterList.INCOTERM.ListSource"
+                                        search-contains="true">
+                                        <option value="">--Select--</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Origin-->
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                            <div class="form-group ship-font">
+                                <label class="control-label text-single-line">Origin </label>
+                                <div class="input-group input-group-sm">
+                                    <div dynamic-lookup placeholder="Origin" my-ng-model="ShipmentGlbCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Origin"
+                                        obj="ShipmentGlbCtrl.ePage.Entities.Header.Data.UIShipmentHeader" page-name="'MstUNLOCO'"
+                                        control-key="'ShpGeneralOrigin_3107'" control-id="'ShpGeneralOrigin'"></div>
+                                    <span class="input-group-btn">
+                                        <button dynamic-list-modal obj="ShipmentGlbCtrl.ePage.Entities.Header.Data.UIShipmentHeader" page-name="'MstUNLOCO'"
+                                            control-key="'ShpGeneralOrigin_3107'" control-id="'ShpGeneralOrigin'" mode="2" grid-refresh-fun-name=""
+                                            grid-refresh-fun="" selected-data="ShipmentGlbCtrl.ePage.Masters.SelectedLookupData($item)"
+                                            class="btn btn-default shiny" type="button">
+                                            <i class="fa fa-ellipsis-h"></i>
+                                        </button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Destination-->
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                            <div class="form-group ship-font">
+                                <label class="control-label text-single-line">Destination </label>
+                                <div class="input-group input-group-sm">
+                                    <div dynamic-lookup placeholder="Destination" my-ng-model="ShipmentGlbCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Destination"
+                                        obj="ShipmentGlbCtrl.ePage.Entities.Header.Data.UIShipmentHeader" page-name="'MstUNLOCO'"
+                                        control-key="'ShpGeneralDestination_3104'" control-id="'ShpGeneralDestination'"></div>
+                                    <span class="input-group-btn">
+                                        <button dynamic-list-modal obj="ShipmentGlbCtrl.ePage.Entities.Header.Data.UIShipmentHeader" page-name="'MstUNLOCO'"
+                                            control-key="'ShpGeneralDestination_3104'" control-id="'ShpGeneralDestination'" mode="2"
+                                            grid-refresh-fun-name="" grid-refresh-fun="" selected-data="ShipmentGlbCtrl.ePage.Masters.SelectedLookupData($item)"
+                                            class="btn btn-default shiny" type="button">
+                                            <i class="fa fa-ellipsis-h"></i>
+                                        </button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <!--ETD-->
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                            <span class="error-warning-container">
+                                <error-warning-directive data-ng-if="ShipmentGlbCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ETD.IsWarning && !ShipmentGlbCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ETD.IsError"
+                                    list="ShipmentGlbCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ETD.WARNING"
+                                    type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                                <error-warning-directive data-ng-if="ShipmentGlbCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ETD.IsError"
+                                    list="ShipmentGlbCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ETD.ERROR"
+                                    type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                            </span>
+                            <div class="form-group ship-font">
+                                <label class="ontrol-label">ETD</label>
+                                <div class="input-group input-group-sm">
+                                    <input type="text" class="form-control" placeholder="{{ShipmentGlbCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                        ng-model="ShipmentGlbCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ETD" datetime-picker="{{ShipmentGlbCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                        datepicker-options="ShipmentGlbCtrl.ePage.Masters.DatePicker.Options" datepicker-append-to-body="false"
+                                        close-on-selection="false" enable-time="false" enable-date="true" default-date="" default-time=""
+                                        save-as="ShipmentGlbCtrl.ePage.Masters.DatePicker.Options.saveFormat" is-open="ShipmentGlbCtrl.ePage.Masters.DatePicker.isOpen['isETD']"
+                                        when-closed="" data-ng-click="" custom-date-time-format data-ng-change="ShipmentGlbCtrl.ePage.Masters.CheckFutureDate(ShipmentGlbCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ETD,ShipmentGlbCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ETA,'E0042')"
+                                    />
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default shiny" data-ng-click="ShipmentGlbCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isETD')">
+                                            <i class="fa fa-calendar"></i>
+                                        </button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <!--ETA-->
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                            <span class="error-warning-container">
+                                <error-warning-directive data-ng-if="ShipmentGlbCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ETA.IsWarning && !ShipmentGlbCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ETA.IsError"
+                                    list="ShipmentGlbCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ETA.WARNING"
+                                    type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                                <error-warning-directive data-ng-if="ShipmentGlbCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ETA.IsError"
+                                    list="ShipmentGlbCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ETA.ERROR"
+                                    type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                            </span>
+                            <div class="form-group ship-font">
+                                <label class="control-label text-single-line">ETA </label>
+                                <div class="input-group input-group-sm">
+                                    <input type="text" class="form-control" placeholder="{{ShipmentGlbCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                        ng-model="ShipmentGlbCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ETA" datetime-picker="{{ShipmentGlbCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                        datepicker-options="ShipmentGlbCtrl.ePage.Masters.DatePicker.Options" datepicker-append-to-body="false"
+                                        close-on-selection="false" enable-time="false" enable-date="true" default-date="" default-time=""
+                                        save-as="ShipmentGlbCtrl.ePage.Masters.DatePicker.Options.saveFormat" is-open="ShipmentGlbCtrl.ePage.Masters.DatePicker.isOpen['isETA']"
+                                        when-closed="" data-ng-click="" custom-date-time-format data-ng-change="ShipmentGlbCtrl.ePage.Masters.CheckFutureDate(ShipmentGlbCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ETA,ShipmentGlbCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ETD,'E0043')"
+                                    />
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default shiny" data-ng-click="ShipmentGlbCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isETA')">
+                                            <i class="fa fa-calendar"></i>
+                                        </button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Sending Agent -->
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                            <span class="error-warning-container">
+                                <error-warning-directive data-ng-if="ShipmentGlbCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ExportForwarder_Code.IsWarning && !ShipmentGlbCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ExportForwarder_Code.IsError"
+                                    list="ShipmentGlbCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ExportForwarder_Code.WARNING"
+                                    type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                                <error-warning-directive data-ng-if="ShipmentGlbCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ExportForwarder_Code.IsError"
+                                    list="ShipmentGlbCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ExportForwarder_Code.ERROR"
+                                    type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                            </span>
+                            <div class="form-group ship-font">
+                                <label class="control-label text-single-line">Sending Agent</label>
+                                <div class="input-group input-group-sm">
+                                    <input type="hidden" my-ng-model="ShipmentGlbCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ExportForwarder_FK">
+                                    <div dynamic-lookup placeholder="Sending Agent" my-ng-model="ShipmentGlbCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ExportForwarder_Code"
+                                        obj="ShipmentGlbCtrl.ePage.Entities.Header.Data.UIShipmentHeader" page-name="'OrganizationList'"
+                                        control-key="'JobAddressOrgSendingForwarder_3246'" control-id="'JobAddressOrgSendingForwarder'"
+                                        auto-complete-on-select="ShipmentGlbCtrl.ePage.Masters.AutoCompleteOnSelect($item,ShipmentGlbCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ExportForwarder_Code,'E0047',false)"></div>
+                                    <span class="input-group-btn">
+                                        <button dynamic-list-modal obj="ShipmentGlbCtrl.ePage.Entities.Header.Data.UIShipmentHeader" page-name="'OrganizationList'"
+                                            control-key="'JobAddressOrgSendingForwarder_3246'" control-id="'JobAddressOrgSendingForwarder'"
+                                            mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="ShipmentGlbCtrl.ePage.Masters.SelectedLookupData($item,ShipmentGlbCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ExportForwarder_Code,'E0047',false)"
+                                            class="btn btn-default shiny" type="button">
+                                            <i class="fa fa-ellipsis-h"></i>
+                                        </button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Receiving Agent -->
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                            <span class="error-warning-container">
+                                <error-warning-directive data-ng-if="ShipmentGlbCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ImportForwarder_Code.IsWarning && !ShipmentGlbCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ImportForwarder_Code.IsError"
+                                    list="ShipmentGlbCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ImportForwarder_Code.WARNING"
+                                    type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                                <error-warning-directive data-ng-if="ShipmentGlbCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ImportForwarder_Code.IsError"
+                                    list="ShipmentGlbCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ImportForwarder_Code.ERROR"
+                                    type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                            </span>
+                            <div class="form-group ship-font">
+                                <label class="control-label text-single-line">Receiving Agent</label>
+                                <div class="input-group input-group-sm">
+                                    <input type="hidden" my-ng-model="ShipmentGlbCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ImportForwarder_FK">
+                                    <div dynamic-lookup placeholder="Receiving Agent" my-ng-model="ShipmentGlbCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ImportForwarder_Code"
+                                        obj="ShipmentGlbCtrl.ePage.Entities.Header.Data.UIShipmentHeader" page-name="'OrganizationList'"
+                                        control-key="'JobAddressOrgReceivingForwarder_3250'" control-id="'JobAddressOrgReceivingForwarder'"
+                                        auto-complete-on-select="ShipmentGlbCtrl.ePage.Masters.AutoCompleteOnSelect($item,ShipmentGlbCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ImportForwarder_Code,'E0048',false)"></div>
+                                    <span class="input-group-btn">
+                                        <button dynamic-list-modal obj="ShipmentGlbCtrl.ePage.Entities.Header.Data.UIShipmentHeader" page-name="'OrganizationList'"
+                                            control-key="'JobAddressOrgReceivingForwarder_3250'" control-id="'JobAddressOrgReceivingForwarder'"
+                                            mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="ShipmentGlbCtrl.ePage.Masters.SelectedLookupData($item,ShipmentGlbCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ImportForwarder_Code,'E0048',false)"
+                                            class="btn btn-default shiny" type="button">
+                                            <i class="fa fa-ellipsis-h"></i>
+                                        </button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Shipment Type-->
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                            <span class="error-warning-container">
+                                <error-warning-directive data-ng-if="ShipmentGlbCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ShipmentType.IsWarning && !ShipmentGlbCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ShipmentType.IsError"
+                                    list="ShipmentGlbCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ShipmentType.WARNING"
+                                    type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                                <error-warning-directive data-ng-if="ShipmentGlbCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ShipmentType.IsError"
+                                    list="ShipmentGlbCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ShipmentType.ERROR"
+                                    type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                            </span>
+                            <div class="form-group ship-font">
+                                <label class="control-label text-single-line">Shipment Type</label>
+                                <div class="">
+                                    <select chosen class="form-control" ng-model="ShipmentGlbCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ShipmentType"
+                                        ng-options="x.Key as x.Description for x in ShipmentGlbCtrl.ePage.Masters.DropDownMasterList.SHPTYPE.ListSource"
+                                        ng-change="ShipmentGlbCtrl.ePage.Masters.ErrorWarningConfig.OnFieldValueChange('Shipment', ShipmentGlbCtrl.currentShipment.code, ShipmentGlbCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ShipmentType, 'E0041', false)"
+                                        search-contains="true">
+                                        <!-- <option value="">--Select--</option> -->
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Weight Level-->
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                            <div class="form-group ship-font">
+                                <label class="control-label text-single-line">Weight </label>
+                                <div class="clearfix">
+                                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 no-padding">
+                                        <input type="text" class="form-control input-sm no-border-right" numbers-only-dot sb-precision="3" placeholder="Weight" maxlength="9"
+                                            data-ng-model="ShipmentGlbCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Weight"
+                                        />
+                                    </div>
+                                    <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8 no-padding">
+                                        <select chosen name="category-group" class="form-control" data-ng-model="ShipmentGlbCtrl.ePage.Entities.Header.Data.UIShipmentHeader.UnitOfWeight"
+                                            data-ng-options="x.Key as x.Description for x in ShipmentGlbCtrl.ePage.Masters.DropDownMasterList.WEIGHTUNIT.ListSource"
+                                            search-contains="true">
+                                            <!-- <option value="">--Select--</option> -->
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Volumeional Terms-->
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                            <div class="form-group ship-font">
+                                <label class="control-label text-single-line">Volume </label>
+                                <div class="clearfix">
+                                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 no-padding">
+                                        <input type="text" class="form-control input-sm no-border-right" numbers-only-dot sb-precision="3" placeholder="Volume" maxlength="9"
+                                            data-ng-model="ShipmentGlbCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Volume"
+                                        />
+                                    </div>
+                                    <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8 no-padding">
+                                        <select chosen name="category-group" class="form-control" data-ng-model="ShipmentGlbCtrl.ePage.Entities.Header.Data.UIShipmentHeader.UnitOfVolume"
+                                            data-ng-options="x.Key as x.Description for x in ShipmentGlbCtrl.ePage.Masters.DropDownMasterList.VOLUMEUNIT.ListSource"
+                                            search-contains="true">
+                                            <!-- <option value="">--Select--</option> -->
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Outer Packs-->
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                            <div class="form-group ship-font">
+                                <label class="control-label text-single-line">Outer Packs </label>
+                                <div class="clearfix">
+                                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 no-padding">
+                                        <input type="text" class="form-control input-sm no-border-right" maxlength="4" data-ng-model="ShipmentGlbCtrl.ePage.Entities.Header.Data.UIShipmentHeader.OuterPackCount"
+                                            placeholder="Packs" />
+                                    </div>
+                                    <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8 no-padding">
+                                        <select chosen class="form-control" data-ng-model="ShipmentGlbCtrl.ePage.Entities.Header.Data.UIShipmentHeader.OuterPackType"
+                                            ng-options="x.Code as x.Value for x in ShipmentGlbCtrl.ePage.Masters.DropDownMasterList.PackType.ListSource"
+                                            search-contains="true">
+                                            <!-- <option value="">--Select--</option> -->
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Inner Packs-->
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                            <div class="form-group ship-font">
+                                <label class="control-label text-single-line">Inner Packs </label>
+                                <div class="clearfix">
+                                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 no-padding">
+                                        <input type="text" class="form-control input-sm no-border-right" maxlength="4" data-ng-model="ShipmentGlbCtrl.ePage.Entities.Header.Data.UIShipmentHeader.InnerPackCount"
+                                            placeholder="Inner Packs" />
+                                    </div>
+                                    <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8 no-padding">
+                                        <select chosen class="form-control" data-ng-model="ShipmentGlbCtrl.ePage.Entities.Header.Data.UIShipmentHeader.InnerPackType"
+                                            data-ng-options="x.Code as x.Value for x in ShipmentGlbCtrl.ePage.Masters.DropDownMasterList.PackType.ListSource"
+                                            search-contains="true">
+                                            <!-- <option value="">--Select--</option> -->
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--House Bill Type-->
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                            <div class="form-group ship-font">
+                                <label class="control-label">House Bill Type </label>
+                                <div class="">
+                                    <select chosen name="category-group" class="form-control" ng-model="ShipmentGlbCtrl.ePage.Entities.Header.Data.UIShipmentHeader.HouseBillType"
+                                        ng-options="x.Key as x.Description for x in ShipmentGlbCtrl.ePage.Masters.DropDownMasterList.HOUSEBILL.ListSource"
+                                        search-contains="true">
+                                        <!-- <option value="">--Select--</option> -->
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <!--HBL Issue Date-->
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                            <div class="form-group ship-font">
+                                <label class="control-label">HBL Issue Date </label>
+                                <div class="input-group input-group-sm">
+                                    <input type="text" class="form-control" placeholder="{{ShipmentGlbCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                        ng-model="ShipmentGlbCtrl.ePage.Entities.Header.Data.UIShipmentHeader.HouseBillIssueDate"
+                                        datetime-picker="{{ShipmentGlbCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                        datepicker-options="ShipmentGlbCtrl.ePage.Masters.DatePicker.Options" datepicker-append-to-body="false"
+                                        close-on-selection="false" enable-time="false" enable-date="true" default-date="" default-time=""
+                                        save-as="ShipmentGlbCtrl.ePage.Masters.DatePicker.Options.saveFormat" is-open="ShipmentGlbCtrl.ePage.Masters.DatePicker.isOpen['isHBLContIssueDate']"
+                                        when-closed="" data-ng-click="" data-ng-change="" custom-date-time-format />
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default shiny" type="button" data-ng-click="ShipmentGlbCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isHBLContIssueDate')">
+                                            <i class="fa fa-calendar"></i>
+                                        </button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Expiry Date-->
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                            <span class="error-warning-container">
+                                <error-warning-directive data-ng-if="ShipmentGlbCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ExpiryDate.IsWarning && !ShipmentGlbCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ExpiryDate.IsError"
+                                    list="ShipmentGlbCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ExpiryDate.WARNING"
+                                    type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                                <error-warning-directive data-ng-if="ShipmentGlbCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ExpiryDate.IsError"
+                                    list="ShipmentGlbCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ExpiryDate.ERROR"
+                                    type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                            </span>
+                            <div class="form-group ship-font">
+                                <label class="control-label">Expiry Date </label>
+                                <div class="input-group input-group-sm">
+                                    <input type="text" class="form-control" placeholder="{{ShipmentGlbCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                        ng-model="ShipmentGlbCtrl.ePage.Entities.Header.Data.UIJobEntryNumsObj.ExpiryDate"
+                                        datetime-picker="{{ShipmentGlbCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                        datepicker-options="ShipmentGlbCtrl.ePage.Masters.DatePicker.Options" datepicker-append-to-body="false"
+                                        close-on-selection="false" enable-time="false" enable-date="true" default-date="" default-time=""
+                                        save-as="ShipmentGlbCtrl.ePage.Masters.DatePicker.Options.saveFormat" is-open="ShipmentGlbCtrl.ePage.Masters.DatePicker.isOpen['isExpiryDate']"
+                                        when-closed="" data-ng-click="" data-ng-disabled="!ShipmentGlbCtrl.ePage.Entities.Header.Data.UIJobEntryNumsObj.EntryNum"
+                                        data-ng-change="ShipmentGlbCtrl.ePage.Masters.CheckFutureDate(ShipmentGlbCtrl.ePage.Entities.Header.Data.UIJobEntryNumsObj.ExpiryDate,ShipmentGlbCtrl.ePage.Entities.Header.Data.UIJobEntryNumsObj.IssueDate,'E0045')"
+                                        custom-date-time-format />
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default shiny" type="button" data-ng-disabled="!ShipmentGlbCtrl.ePage.Entities.Header.Data.UIJobEntryNumsObj.EntryNum"
+                                            data-ng-click="ShipmentGlbCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isExpiryDate')">
+                                            <i class="fa fa-calendar"></i>
+                                        </button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Release Type-->
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                            <div class="form-group ship-font">
+                                <label class="control-label">Release Type</label>
+                                <div class="">
+                                    <select chosen name="category-group" class="form-control" ng-model="ShipmentGlbCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ReleaseType"
+                                        ng-options="x.Key as x.Description for x in ShipmentGlbCtrl.ePage.Masters.DropDownMasterList.RELEASETYPE.ListSource"
+                                        search-contains="true">
+                                        <!-- <option value="">--Select--</option> -->
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <!--On Board-->
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                            <div class="form-group ship-font">
+                                <label class="control-label">On Board </label>
+                                <div class="">
+                                    <select chosen name="category-group" class="form-control" ng-model="ShipmentGlbCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ShippedOnBoard"
+                                        ng-options="x.Key as x.Description for x in ShipmentGlbCtrl.ePage.Masters.DropDownMasterList.ONBOARD.ListSource"
+                                        search-contains="true">
+                                        <!-- <option value="">--Select--</option> -->
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <!--On Board Date-->
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                            <div class="form-group ship-font">
+                                <label class="control-label">On Board Date </label>
+                                <div class="input-group input-group-sm">
+                                    <input type="text" class="form-control" placeholder="{{ShipmentGlbCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                        ng-model="ShipmentGlbCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ShippedOnBoardDate"
+                                        datetime-picker="{{ShipmentGlbCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                        datepicker-options="ShipmentGlbCtrl.ePage.Masters.DatePicker.Options" datepicker-append-to-body="false"
+                                        close-on-selection="false" enable-time="false" enable-date="true" default-date="" default-time=""
+                                        save-as="ShipmentGlbCtrl.ePage.Masters.DatePicker.Options.saveFormat" is-open="ShipmentGlbCtrl.ePage.Masters.DatePicker.isOpen['isOnBoardDate']"
+                                        when-closed="" data-ng-click="" data-ng-change="" custom-date-time-format />
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default shiny" type="button" data-ng-click="ShipmentGlbCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isOnBoardDate')">
+                                            <i class="fa fa-calendar"></i>
+                                        </button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <!--No Of Originals -->
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                            <div class="form-group ship-font">
+                                <label class="control-label">No Of Originals </label>
+                                <input type="text" class="form-control input-sm" max-length="1" data-ng-model="ShipmentGlbCtrl.ePage.Entities.Header.Data.UIShipmentHeader.NoOfOriginals"
+                                    placeholder="No Of Originals" />
+                            </div>
+                        </div>
+                        <!--No Of Copies-->
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                            <div class="form-group ship-font">
+                                <label class="control-label">No Of Copies </label>
+                                <input type="text" class="form-control input-sm" max-length="1" data-ng-model="ShipmentGlbCtrl.ePage.Entities.Header.Data.UIShipmentHeader.NoOfCopies"
+                                    placeholder="No Of Copies" />
+                            </div>
+                        </div>
+                        <!--Charges Apply-->
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                            <div class="form-group ship-font">
+                                <label class="control-label">Charges Apply </label>
+                                <div class="">
+                                    <select chosen name="category-group" class="form-control" ng-model="ShipmentGlbCtrl.ePage.Entities.Header.Data.UIShipmentHeader.HouseBillCharges"
+                                        ng-options="x.Key as x.Description for x in ShipmentGlbCtrl.ePage.Masters.DropDownMasterList.CHARGEAPLY.ListSource"
+                                        search-contains="true">
+                                        <!-- <option value="">--Select--</option> -->
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </uib-tab>
+            <!--Packing Details Tab-->
+            <uib-tab>
+                <uib-tab-heading title="package">
+                    <i class="fa fa-suitcase margin-right-5"></i>
+                    <span class="text-single-line fs-13" data-ng-bind="'Packages'"></span>
+                </uib-tab-heading>
+                <div class="clearfix">
+                    <div data-ng-if="ShipmentGlbCtrl.currentShipment">
+                        <packing-grid current-object="ShipmentGlbCtrl.currentShipment" freight-mode="'OUT'" btn-visible="{'AddNew':true,'Delete':true,'More':true}"></packing-grid>
+                    </div>
+                </div>
+            </uib-tab>
+        </uib-tabset>
+    </div>
+</div>

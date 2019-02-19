@@ -18,7 +18,7 @@
                 "Meta": helperService.metaBase(),
                 "Entities": {}
             };
-            
+
             ModePopUpModalCtrl.ePage.Masters.ModeData = {};
             ModePopUpModalCtrl.ePage.Masters.Ok = Save;
             ModePopUpModalCtrl.ePage.Masters.SaveButtonDisable = false;
@@ -30,9 +30,10 @@
             ModePopUpModalCtrl.ePage.Masters.PickupAddress.ListSource = [];
             ModePopUpModalCtrl.ePage.Masters.PickupContact = {};
             ModePopUpModalCtrl.ePage.Masters.PickupContact.ListSource = [];
-
+            ModePopUpModalCtrl.ePage.Masters.SelectedLookupData = SelectedLookupData;
+            ModePopUpModalCtrl.ePage.Masters.AutoCompleteOnSelect = AutoCompleteOnSelect;
             ModePopUpModalCtrl.ePage.Masters.Cancel = Cancel;
-            if(param.Mode == "New") { 
+            if (param.Mode == "New") {
                 ModePopUpModalCtrl.ePage.Masters.SaveButtonText = "Add";
                 ModePopUpModalCtrl.ePage.Masters.ModeData.FormView = param.Data;
             } else {
@@ -44,8 +45,22 @@
 
         }
 
+        function AutoCompleteOnSelect($item, _input) {
+            if (_input) {
+                ModePopUpModalCtrl.ePage.Masters.ModeData.FormView[_input + 'Code'] = $item.Code;
+                ModePopUpModalCtrl.ePage.Masters.ModeData.FormView[_input + 'PK'] = $item.PK;
+            }
+        }
+
+        function SelectedLookupData($item, _input) {
+            if (_input) {
+                ModePopUpModalCtrl.ePage.Masters.ModeData.FormView[_input + 'Code'] = $item.data.entity.Code;
+                ModePopUpModalCtrl.ePage.Masters.ModeData.FormView[_input + 'PK'] = $item.data.entity.PK;
+            }
+        }
+
         function GetCfxTypeList() {
-            var typeCodeList = ["TRANSTYPE", "CNTTYPE", "INCOTERM", "WEIGHTUNIT", "VOLUMEUNIT", "ORDSTATUS","JOBADDR"];
+            var typeCodeList = ["TRANSTYPE", "CNTTYPE", "INCOTERM", "WEIGHTUNIT", "VOLUMEUNIT", "ORDSTATUS", "JOBADDR"];
             var dynamicFindAllInput = [];
 
             typeCodeList.map(function (value, key) {
@@ -83,15 +98,16 @@
             // body...
             $uibModalInstance.dismiss('cancel');
         }
+
         function Save() {
             // body...
             var _isEmpty = angular.equals({}, ModePopUpModalCtrl.ePage.Masters.ModeData.FormView);
-    
+            console.log(ModePopUpModalCtrl.ePage.Masters.ModeData.FormView);
             ModePopUpModalCtrl.ePage.Masters.SaveButtonDisable = true;
             ModePopUpModalCtrl.ePage.Masters.SaveButtonText = "Please wait...";
 
             if (!_isEmpty) {
-                if (param.Mode=="New") {
+                if (param.Mode == "New") {
                     ModePopUpModalCtrl.ePage.Masters.ModeData.FormView.PK = "";
                     ModePopUpModalCtrl.ePage.Masters.ModeData.FormView.IsModified = false;
                     ModePopUpModalCtrl.ePage.Masters.ModeData.FormView.IsDeleted = false;
@@ -114,7 +130,7 @@
                 } else if (param.Mode == "Edit") {
                     ModePopUpModalCtrl.ePage.Masters.ModeData.FormView = filterObjectUpdate(ModePopUpModalCtrl.ePage.Masters.ModeData.FormView, "IsModified");
 
-                    apiService.post("eAxisAPI", param.Header.OrgBuySupMappingTrnMode.API.Update.Url, ModePopUpModalCtrl.ePage.Masters.ModeData.FormView).then(function(response){
+                    apiService.post("eAxisAPI", param.Header.OrgBuySupMappingTrnMode.API.Update.Url, ModePopUpModalCtrl.ePage.Masters.ModeData.FormView).then(function (response) {
                         if (response.data.Response) {
                             console.log(response.data.Response)
                             ModePopUpModalCtrl.ePage.Masters.SaveButtonDisable = false;
@@ -131,8 +147,9 @@
             } else {
                 toastr.warning("Cannot allow to empty Save...")
             }
-            
+
         }
+
         function filterObjectUpdate(obj, key) {
             for (var i in obj) {
                 if (!obj.hasOwnProperty(i)) continue;

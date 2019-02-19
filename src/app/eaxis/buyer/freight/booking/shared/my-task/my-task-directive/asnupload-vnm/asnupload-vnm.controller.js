@@ -58,7 +58,7 @@
         function GetDocumentsList() {
             var _filter = {
                 "EntityRefKey": AsnUploadVnmDirectiveCtrl.ePage.Masters.MyTask.EntityRefKey,
-                "EntitySource": AsnUploadVnmDirectiveCtrl.ePage.Masters.MyTask.EntitySource,
+                "EntitySource": "SHP",
                 "EntityRefCode": AsnUploadVnmDirectiveCtrl.ePage.Masters.MyTask.KeyReference
                 // "Status": "Success"
             };
@@ -142,12 +142,12 @@
                     if (response.data.Response.length > 0) {
                         TaskCompletion();
                     } else {
-                        toastr.warning("Please create atleast one order to complete...");
+                        toastr.warning("Please create atleast one booking to complete...");
                         AsnUploadVnmDirectiveCtrl.ePage.Masters.CompleteBtnTxt = "Complete";
                         AsnUploadVnmDirectiveCtrl.ePage.Masters.CompleteBtnDisabled = false;
                     }
                 } else {
-                    toastr.warning("Please create atleast one order to complete...");
+                    toastr.warning("Please create atleast one booking to complete...");
                     AsnUploadVnmDirectiveCtrl.ePage.Masters.CompleteBtnTxt = "Complete";
                     AsnUploadVnmDirectiveCtrl.ePage.Masters.CompleteBtnDisabled = false;
                 }
@@ -157,16 +157,24 @@
         function TaskCompletion() {
             UpdateRecords("COMPLETED").then(function (response) {
                 if (response.data.Status === "Success") {
-                    toastr.success("Task Completed...");
-                    AsnUploadVnmDirectiveCtrl.ePage.Masters.CompleteBtnTxt = "Complete";
-                    AsnUploadVnmDirectiveCtrl.ePage.Masters.CompleteBtnDisabled = false;
-                    var _data = {
-                        IsRefreshTask: true,
-                        IsRefreshStatusCount: true,
-                        Item: AsnUploadVnmDirectiveCtrl.ePage.Masters.MyTask
-                    };
-                    AsnUploadVnmDirectiveCtrl.onComplete({
-                        $item: _data
+                    CompleteWithSave().then(function (response) {
+                        if (response.data.Status === "Success") {
+                            toastr.success("Task completed...");
+                            AsnUploadVnmDirectiveCtrl.ePage.Masters.CompleteBtnTxt = "Complete";
+                            AsnUploadVnmDirectiveCtrl.ePage.Masters.CompleteBtnDisabled = false;
+                            var _data = {
+                                IsRefreshTask: true,
+                                IsRefreshStatusCount: true,
+                                Item: AsnUploadVnmDirectiveCtrl.ePage.Masters.MyTask
+                            };
+                            AsnUploadVnmDirectiveCtrl.onComplete({
+                                $item: _data
+                            });
+                        } else {
+                            AsnUploadVnmDirectiveCtrl.ePage.Masters.CompleteBtnTxt = "Complete";
+                            AsnUploadVnmDirectiveCtrl.ePage.Masters.CompleteBtnDisabled = false;
+                            toastr.error("Task Completion failed...");
+                        }
                     });
                 } else {
                     AsnUploadVnmDirectiveCtrl.ePage.Masters.CompleteBtnTxt = "Complete";
@@ -196,6 +204,19 @@
             return deferred.promise;
         }
 
+        function CompleteWithSave() {
+            var deferred = $q.defer();
+            var _input = InputData(AsnUploadVnmDirectiveCtrl.ePage.Masters.MyTask);
+            apiService.post("eAxisAPI", appConfig.Entities.EBPMEngine.API.CompleteProcess.Url, _input).then(function (response) {
+                if (response.data.Response) {
+                    deferred.resolve(response);
+                } else {
+                    deferred.reject('failed');
+                }
+            });
+            return deferred.promise;
+        }
+
         function OpenActivity(_obj) {
             var _queryString = {
                 PK: _obj.EntityRefKey,
@@ -203,7 +224,7 @@
                 BookingType: 'ASN'
             };
             _queryString = helperService.encryptData(_queryString);
-            $window.open("#/EA/single-record-view/booking/" + _queryString, "_blank");
+            $window.open("#/EA/single-record-view/booking?q=" + _queryString, "_blank");
         }
 
         function StandardMenuConfig() {
@@ -251,6 +272,19 @@
             AsnUploadVnmDirectiveCtrl.ePage.Masters.CommentConfig = {
                 IsDisableRefreshButton: true
             };
+        }
+
+        function InputData(_data) {
+            var _filterInput = {
+                "ProcessName": _data.ProcessName,
+                "EntitySource": _data.EntitySource,
+                "EntityRefKey": _data.EntityRefKey,
+                "KeyReference": _data.KeyReference,
+                "CompleteInstanceNo": _data.PSI_InstanceNo,
+                "CompleteStepNo": _data.WSI_StepNo,
+                "IsModified": true
+            };
+            return _filterInput;
         }
 
         Init();

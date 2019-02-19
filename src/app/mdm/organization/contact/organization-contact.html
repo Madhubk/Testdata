@@ -25,6 +25,12 @@
                             <span class="glyphicons glyphicons-bin mr-5 doc-menu-icon"></span>
                             <span data-ng-bind="'Delete'"></span>
                         </li>
+                        <!-- Generate Script-->
+                        <li class="clearfix cursor-pointer text-single-line dropdown-list" title="Generate Script"
+                            generate-db-script input="x.GenerateScriptInput" config="x.GenerateScriptConfig" data-ng-if="x.GenerateScriptInput.ObjectName && x.GenerateScriptInput.ObjectId && x.PK">
+                            <i class="fa fa-file-code-o mr-5 doc-menu-icon"></i>
+                            <span data-ng-bind="'Generate Script'"></span>
+                        </li>
                     </ul>
                 </span>
                 <div class="clearfix pr-20">

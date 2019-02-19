@@ -1,0 +1,264 @@
+<div class="clearfix mt-10">
+    <div class="col-lg-3">
+        <div class="ex-line-padding">
+            <div class="ex-line-box2">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-2 pr-0 padding-top-10">
+                    <div class="form-group ex-line-font">
+                        <label class="control-label text-single-line">ContainerNo</label>
+                        <span class="fs-16 set-color-blue">
+                            {{cntBuyerViewGeneralCtrl.ePage.Entities.Header.Data.Response.ContainerNo}}
+                        </span>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-3 pr-0 pt-5">
+                    <div class="form-group ex-line-font">
+                        <label class="control-label">Created Date</label>
+                        <div class="input-group input-group-sm col-lg-11">
+                            <span>
+                                {{cntBuyerViewGeneralCtrl.ePage.Entities.Header.Data.Response.CreatedDateTime | date:'dd-MMM-yyyy'}}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-9 pl-0">
+        <div class="col-lg-6 pl-0">
+            <div class="panel panel-default ex-line-box2 mb-0">
+                <div class="panel-heading height-30 pt-5 position-relative">
+                    <span class="form-group ex-line-font"><label class="control-label text-single-line">Supplier</label></span>
+                </div>
+                <div class="clearfix height-120 pt-10 pb-10">
+                    <div class="col-lg-2">
+                        <!--<img src="assets/img/ExportGray.png">-->
+                        <i class="fa fa-angle-double-up text-center fa-3x set-color-blue pt-15"></i>
+                    </div>
+                    <div class="col-lg-10">
+                        <div class="mt-5">
+                            <b>{{cntBuyerViewGeneralCtrl.ePage.Entities.Header.Data.Shipment.UIShipmentHeader.ShipperName}}</b>
+                        </div>
+                        <div class="mt-5">{{cntBuyerViewGeneralCtrl.ePage.Entities.Header.Data.Shipment.UIAddressContactList.CRD.Address1}}</div>
+
+                        <!-- <div class="mt-5">{{cntBuyerViewGeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRA.Address2}}</div> -->
+                        <div class="mt-5">
+                            Origin -
+                            <span class="set-color-blue">{{cntBuyerViewGeneralCtrl.ePage.Entities.Header.Data.Shipment.UIShipmentHeader.OriginDesc}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 pl-0 pr-0">
+            <div class="panel panel-default ex-line-box2 mb-0">
+                <div class="panel-heading height-30 pt-5 position-relative">
+                    <span class="form-group ex-line-font"><label class="control-label text-single-line">Buyer</label></span>
+                </div>
+                <div class="clearfix pt-10 pb-10">
+                    <div class="col-lg-2">
+                        <i class="fa fa-angle-double-down text-center fa-3x set-color-blue pt-15"></i>
+
+                    </div>
+
+                    <div class="col-lg-10 pl-0">
+
+                        <div class="mt-5">
+                            <b>{{cntBuyerViewGeneralCtrl.ePage.Entities.Header.Data.Shipment.UIShipmentHeader.ConsigneeName}}</b>
+                        </div>
+                        <div class="mt-5">{{cntBuyerViewGeneralCtrl.ePage.Entities.Header.Data.Shipment.UIAddressContactList.CED.Address1}}</div>
+                        <!-- <div class="mt-5">{{cntBuyerViewGeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.SCP.Address2}}</div> -->
+                        <div class="mt-5">
+                            Destination -
+                            <span class="set-color-blue">{{cntBuyerViewGeneralCtrl.ePage.Entities.Header.Data.Shipment.UIShipmentHeader.DestinationDesc}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="clearfix p-15">
+    <div class="widget-main" style="border:1px solid #eee">
+        <div class="clearfix p-10 mb-0">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-3">
+                    <div class="form-group ex-line-font">
+                        <label class="control-label text-single-line">SealNo</label>
+                        <div class="">
+                            <span>
+                                {{cntBuyerViewGeneralCtrl.ePage.Entities.Header.Data.Response.SealNo}}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-3">
+                    <div class="form-group ex-line-font">
+                        <label class="control-label text-single-line">SealNo2</label>
+                        <div class="">
+                            <span>
+                                {{cntBuyerViewGeneralCtrl.ePage.Entities.Header.Data.Response.SealNo2}}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-3">
+                    <div class="form-group ex-line-font">
+                        <label class="control-label text-single-line">SealNo3</label>
+                        <div class="">
+                            <span>
+                                {{cntBuyerViewGeneralCtrl.ePage.Entities.Header.Data.Response.SealNo3}}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-3">
+                    <div class="form-group ex-line-font">
+                        <label class="control-label text-single-line">ContainerMode</label>
+                        <div class="">
+                            <span>
+                                {{cntBuyerViewGeneralCtrl.ePage.Entities.Header.Data.Response.ContainerMode}}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-3">
+                    <div class="form-group ex-line-font">
+                        <label class="control-label text-single-line">Mode</label>
+                        <div class="">
+                            <span>
+                                {{cntBuyerViewGeneralCtrl.ePage.Entities.Header.Data.Response.Mode}}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <!-- HBL -->
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-3">
+                    <div class="form-group ex-line-font">
+                        <label class="control-label text-single-line">HBL</label>
+                        <div class="">
+                            <span>{{cntBuyerViewGeneralCtrl.ePage.Entities.Header.Data.Shipment.UIShipmentHeader.HouseBill}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-3">
+                    <div class="form-group ex-line-font">
+                        <label class="control-label text-single-line">POL</label>
+                        <div class="">
+                            <span>
+                                <span>
+                                    {{cntBuyerViewGeneralCtrl.ePage.Entities.Header.Data.Shipment.UIShipmentHeader.PortOfLoading}}
+                                </span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <!-- POD-->
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-3">
+                    <div class="form-group ex-line-font">
+                        <label class="control-label text-single-line">POD</label>
+                        <div class="">
+                            <span>
+                                {{cntBuyerViewGeneralCtrl.ePage.Entities.Header.Data.Shipment.UIShipmentHeader.PortOfDischarge}}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-3">
+                    <div class="form-group ex-line-font">
+                        <label class="control-label text-single-line">Carrier</label>
+                        <div class="">
+                            <span>{{cntBuyerViewGeneralCtrl.ePage.Entities.Header.Data.Shipment.UIShipmentHeader.CarrierReference}}</span>
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-6">
+                    <div class="form-group ex-line-font">
+                        <label class="control-label text-single-line">Vessel-Voyage/Flight</label>
+                        <div class="">
+                            <span>{{cntBuyerViewGeneralCtrl.ePage.Entities.Header.Data.Shipment.UIShipmentHeader.Vessel}}</span>
+                        </div>
+                    </div>
+                </div>
+        
+                <!-- <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-3">
+                    <div class="form-group ex-line-font">
+                        <label class="control-label text-single-line">Voyage/Flight</label>
+                        <div class="">
+                            <span>{{cntBuyerViewGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Voyage}}</span>
+                        </div>
+                    </div>
+                </div> -->
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-3">
+                    <div class="form-group ex-line-font">
+                        <label class="control-label text-single-line">ETD</label>
+                        <div class="">
+                            <span>
+                                {{cntBuyerViewGeneralCtrl.ePage.Entities.Header.Data.Shipment.UIShipmentHeader.ETD | date:'dd-MMM-yyyy'}}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-3">
+                    <div class="form-group ex-line-font">
+                        <label class="control-label text-single-line">ATD</label>
+                        <div class="">
+                            <span>
+                                {{cntBuyerViewGeneralCtrl.ePage.Entities.Header.Data.Shipment.UIShipmentHeader.ATD | date:'dd-MMM-yyyy'}}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-3">
+                    <div class="form-group ex-line-font">
+                        <label class="control-label text-single-line">ETA</label>
+                        <div class="">
+                            <span>
+                                {{cntBuyerViewGeneralCtrl.ePage.Entities.Header.Data.Shipment.UIShipmentHeader.ETA | date:'dd-MMM-yyyy'}}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-3">
+                    <div class="form-group ex-line-font">
+                        <label class="control-label text-single-line">ATA</label>
+                        <div class="">
+                            <span>
+                                {{cntBuyerViewGeneralCtrl.ePage.Entities.Header.Data.Shipment.UIShipmentHeader.ATA | date:'dd-MMM-yyyy'}}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <!-- MBL -->
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-3">
+                    <div class="form-group ex-line-font">
+                        <label class="control-label text-single-line">MBL</label>
+                        <div class="">
+                            <span>{{cntBuyerViewGeneralCtrl.ePage.Entities.Header.Data.Shipment.UIShipmentHeader.MasterBillno}}</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Volume -->
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-3">
+                    <div class="form-group ex-line-font">
+                        <label class="control-label text-single-line">Volume</label>
+                        <div class="">
+                            <span>{{cntBuyerViewGeneralCtrl.ePage.Entities.Header.Data.Shipment.UIShipmentHeader.Volume}}-{{cntBuyerViewGeneralCtrl.ePage.Entities.Header.Data.Shipment.UIShipmentHeader.UnitOfVolume}}</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Weight -->
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-3">
+                    <div class="form-group ex-line-font">
+                        <label class="control-label text-single-line">Weight</label>
+                        <div class="">
+                            <span>{{cntBuyerViewGeneralCtrl.ePage.Entities.Header.Data.Shipment.UIShipmentHeader.Weight}}-{{cntBuyerViewGeneralCtrl.ePage.Entities.Header.Data.Shipment.UnitOfWeight}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

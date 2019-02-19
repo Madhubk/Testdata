@@ -5,9 +5,9 @@
         .module("Application")
         .controller("shpBuyerViewOrderController", shpBuyerViewOrderController);
 
-    shpBuyerViewOrderController.$inject = ["helperService", "appConfig", "apiService"];
+    shpBuyerViewOrderController.$inject = ["helperService", "orderApiConfig", "apiService", "$window"];
 
-    function shpBuyerViewOrderController(helperService, appConfig, apiService) {
+    function shpBuyerViewOrderController(helperService, orderApiConfig, apiService, $window) {
         /* jshint validthis: true */
         var shpBuyerViewOrderCtrl = this;
 
@@ -21,6 +21,7 @@
                 "Entities": obj
             };
             shpBuyerViewOrderCtrl.ePage.Masters.EmptyText = '-';
+            shpBuyerViewOrderCtrl.ePage.Masters.SingleRecordView = SingleRecordView;
             GetOrderListing();
         }
 
@@ -34,14 +35,27 @@
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.PorOrderHeader.API.FindAll.FilterID
+                "FilterID": orderApiConfig.Entities.BuyerOrder.API.findall.FilterID
             };
 
-            apiService.post("eAxisAPI", appConfig.Entities.PorOrderHeader.API.FindAll.Url, _input).then(function (response) {
+            apiService.post("eAxisAPI", orderApiConfig.Entities.BuyerOrder.API.findall.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     shpBuyerViewOrderCtrl.ePage.Entities.Header.Data.UIOrderHeaders = response.data.Response;
                 }
             });
+        }
+
+        function SingleRecordView(obj) {
+            var _queryString = {
+                PK: obj.PK,
+                OrderNo: obj.OrderCumSplitNo
+            };
+            _queryString = helperService.encryptData(_queryString);
+            if (obj.OrderType == 'POR') {
+                $window.open("#/EA/single-record-view/order-view?q=" + _queryString, "_blank");
+            } else if (obj.OrderType == 'DOR') {
+                $window.open("#/EA/single-record-view/delivery-order-view?q=" + _queryString, "_blank");
+            }
         }
 
 

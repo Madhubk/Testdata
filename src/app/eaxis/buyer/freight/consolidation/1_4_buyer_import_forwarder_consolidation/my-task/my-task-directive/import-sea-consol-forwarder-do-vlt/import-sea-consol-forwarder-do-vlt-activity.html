@@ -1,0 +1,80 @@
+<!--Forwarders DO Release Edit Activity-->
+<div class="clearfix">
+    <div class="clearfix padding-top-10">
+        <!-- MBL -->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <span class="error-warning-container">
+                <error-warning-directive data-ng-if="ImportSeaConsolForwarderDoVltCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.SIFilingDate.IsWarning && !ImportSeaConsolForwarderDoVltCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.SIFilingDate.IsError"
+                    list="ImportSeaConsolForwarderDoVltCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.SIFilingDate.WARNING"
+                    type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                <error-warning-directive data-ng-if="ImportSeaConsolForwarderDoVltCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.SIFilingDate.IsError"
+                    list="ImportSeaConsolForwarderDoVltCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.SIFilingDate.ERROR"
+                    type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+            </span>
+            <div class="form-group">
+                <label class="control-label">MBL #</label>
+            </div>
+            <div class="form-group">
+                <input disabled type="text" maxlength="30" ng-model="ImportSeaConsolForwarderDoVltCtrl.ePage.Entities.Header.Data.UIConsolExtendedInfo.SIFilingRefNo"
+                    maxlength="12" class="form-control input-sm" placeholder="MBL #">
+            </div>
+        </div>
+        <!-- consignee -->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="control-label">Consginee</label>
+            </div>
+            <div class="form-group">
+                <input disabled type="text" maxlength="30" ng-model="ImportSeaConsolForwarderDoVltCtrl.ePage.Entities.Header.Data.UIConsolExtendedInfo.SIFilingRefNo"
+                    maxlength="12" class="form-control input-sm" placeholder="Consignee">
+            </div>
+        </div>
+        <!-- DO Number -->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="control-label text-single-line">DO #</label>
+            </div>
+            <div class="form-group">
+                <input type="text" maxlength="30" ng-model="ImportSeaConsolForwarderDoVltCtrl.ePage.Entities.Header.Data.UIConsolExtendedInfo.SIFilingRefNo"
+                    maxlength="12" class="form-control input-sm" placeholder="DO #">
+            </div>
+        </div>
+        <!-- Date -->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <span class="error-warning-container">
+                <error-warning-directive data-ng-if="ImportSeaConsolForwarderDoVltCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.SIFilingDate.IsWarning && !ImportSeaConsolForwarderDoVltCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.SIFilingDate.IsError"
+                    list="ImportSeaConsolForwarderDoVltCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.SIFilingDate.WARNING"
+                    type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                <error-warning-directive data-ng-if="ImportSeaConsolForwarderDoVltCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.SIFilingDate.IsError"
+                    list="ImportSeaConsolForwarderDoVltCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.SIFilingDate.ERROR"
+                    type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+            </span>
+            <div class="form-group">
+                <label class="control-label">Date</label>
+            </div>
+            <div class="form-group">
+                <div class="input-group input-group-sm con-dt-value">
+                    <input type="text" class="form-control" placeholder="{{ImportSeaConsolForwarderDoVltCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                        data-ng-model="ImportSeaConsolForwarderDoVltCtrl.ePage.Entities.Header.Data.UIConsolExtendedInfo.SIFilingDate"
+                        datetime-picker="{{ImportSeaConsolForwarderDoVltCtrl.ePage.Masters.DatePicker.Options.dateFormat}}" datepicker-options="ImportSeaConsolForwarderDoVltCtrl.ePage.Masters.DatePicker.Options"
+                        datepicker-append-to-body="false" close-on-selection="false" enable-time="false" enable-date="true" default-date=""
+                        default-time="" save-as="ImportSeaConsolForwarderDoVltCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                        is-open="ImportSeaConsolForwarderDoVltCtrl.ePage.Masters.DatePicker.isOpen['isSIFilingDate']" when-closed=""
+                        data-ng-click="" data-ng-change="ImportSeaConsolForwarderDoVltCtrl.ePage.Masters.OnFieldValueChange('E11100')"
+                        custom-date-time-format />
+                    <span class="input-group-btn">
+                        <button class="btn btn-default shiny" data-ng-click="ImportSeaConsolForwarderDoVltCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isSIFilingDate')">
+                            <i class="fa fa-calendar"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix padding-top-10">
+        <container-grid current-object="ImportSeaConsolForwarderDoVltCtrl.currentConsol" key-object-name="'CON'" api-header-name="'UIConConsolHeader'"
+            api-header-field-name="'CON_FK'" api-header-value-name="'UICntContainers'" btn-visible="{'AddNew':false,'Delete':false,'More':false}"
+            table-properties="ImportSeaConsolForwarderDoVltCtrl.ePage.Masters.TableProperties" read-only="true">
+        </container-grid>
+    </div>
+</div>

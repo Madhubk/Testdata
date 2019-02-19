@@ -8,9 +8,9 @@
         .module("Application")
         .controller("bookingDetailsController", bookingDetailsController);
 
-    bookingDetailsController.$inject = ["$scope", "apiService", "helperService", "appConfig", "myTaskActivityConfig", "authService", "APP_CONSTANT"];
+    bookingDetailsController.$inject = ["$scope", "$timeout", "apiService", "helperService", "appConfig", "myTaskActivityConfig", "authService", "APP_CONSTANT"];
 
-    function bookingDetailsController($scope, apiService, helperService, appConfig, myTaskActivityConfig, authService, APP_CONSTANT) {
+    function bookingDetailsController($scope, $timeout, apiService, helperService, appConfig, myTaskActivityConfig, authService, APP_CONSTANT) {
         var bookingDetailsCtrl = this;
 
         function Init() {
@@ -39,6 +39,8 @@
             bookingDetailsCtrl.ePage.Masters.DatePicker.OpenDatePicker = OpenDatePicker;
             GetMastersList();
             getServices();
+            GetContainerList();
+            GetPackingList()
 
             bookingDetailsCtrl.ePage.Masters.DropDownMasterList = {};
 
@@ -149,6 +151,73 @@
                 }
             });
 
+        }
+
+        function GetContainerList() {
+            // Container grid list
+            bookingDetailsCtrl.ePage.Masters.Container = {};
+            var _filter = [{
+                "FieldName": "BookingOnlyLink",
+                "value": bookingDetailsCtrl.ePage.Entities.Header.Data.PK
+            }];
+
+            var _input = {
+                "searchInput": _filter,
+                "FilterID": appConfig.Entities.BuyerCntContainer.API.FindAllCnt.FilterID
+            };
+            bookingDetailsCtrl.ePage.Masters.Container.GridData = undefined;
+            apiService.post("eAxisAPI", appConfig.Entities.BuyerCntContainer.API.FindAllCnt.Url, _input).then(function (response) {
+                if (response.data.Response) {
+                    bookingDetailsCtrl.ePage.Masters.Container.GridData = response.data.Response;
+                } else {
+                    bookingDetailsCtrl.ePage.Masters.Container.GridData = [];
+                }
+            });
+        }
+
+        function GetPackingList() {
+            var _filter = {
+                "SHP_FK": bookingDetailsCtrl.ePage.Entities.Header.Data.PK
+            };
+            var _input = {
+                "searchInput": helperService.createToArrayOfObject(_filter),
+                "FilterID": appConfig.Entities.JobPackLines.API.FindAll.FilterID
+            };
+
+            apiService.post("eAxisAPI", appConfig.Entities.JobPackLines.API.FindAll.Url, _input).then(function (response) {
+                if (response.data.Response) {
+                    response.data.Response.map(function (value, key) {
+                        var _isExist = bookingDetailsCtrl.ePage.Entities.Header.Data.UIJobPackLines.some(function (value1, index) {
+                            return value1.PK === value.PK;
+                        });
+
+                        if (!_isExist) {
+                            bookingDetailsCtrl.ePage.Entities.Header.Data.UIJobPackLines.push(value);
+                        }
+                    });
+                    GetPackingDetails();
+                }
+            });
+        }
+
+        // Package Details     
+        function GetPackingDetails() {
+            bookingDetailsCtrl.ePage.Masters.Package = {};
+            var _gridData = [];
+            bookingDetailsCtrl.ePage.Masters.Package.GridData = undefined;
+            $timeout(function () {
+                if (bookingDetailsCtrl.ePage.Entities.Header.Data.UIJobPackLines.length > 0) {
+                    bookingDetailsCtrl.ePage.Entities.Header.Data.UIJobPackLines.map(function (value, key) {
+                        if (value.FreightMode === "OUT") {
+                            _gridData.push(value);
+                        }
+                    });
+                } else {
+                    console.log("Package List is Empty");
+                }
+
+                bookingDetailsCtrl.ePage.Masters.Package.GridData = _gridData;
+            });
         }
 
         Init();

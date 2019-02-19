@@ -1,0 +1,24 @@
+<div class="clearfix">
+    <div class="col-lg-4">
+        <div>Consingor :</div>
+        <a class="my-task-content-shipper-link" href="javascript: void(0)">{{BlDataIntegrationDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ORG_Shipper_Code}}</a>
+    </div>
+    <div class="col-lg-4">
+        <div>Consingee :</div>
+        <a class="my-task-content-shipper-link" href="javascript: void(0)">{{BlDataIntegrationDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ORG_Consignee_Code}}</a>
+    </div>
+
+</div>
+<div class="row mt-10" id="style-4">
+    <div class="col-lg-8" data-ng-if="BlDataIntegrationDirectiveCtrl.ePage.Masters.StandardMenuInput"
+        is-document-uploaded="BlDataIntegrationDirectiveCtrl.ePage.Masters.IsDocumentUploaded" view-document-ord
+        doc-type-dsc="BlDataIntegrationDirectiveCtrl.ePage.Masters.MyTask.WSI_StepName" input="BlDataIntegrationDirectiveCtrl.ePage.Masters.StandardMenuInput"
+        mode="3" config="BlDataIntegrationDirectiveCtrl.ePage.Masters.StandardConfigInput" class="my-task-icon fa fa-file-text-o mr-5">
+    </div>
+    <div class="col-lg-4">
+        <button class="my-task-primary-btn my-task-directive-btn" data-ng-click="BlDataIntegrationDirectiveCtrl.ePage.Masters.Complete()"
+            data-ng-disabled="BlDataIntegrationDirectiveCtrl.ePage.Masters.CompleteBtnDisabled">
+            {{BlDataIntegrationDirectiveCtrl.ePage.Masters.CompleteBtnTxt}}
+        </button>
+    </div>
+</div>

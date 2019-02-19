@@ -186,6 +186,8 @@
                             }).indexOf(bookingBuyerSupplierTemplateCtrl.currentBooking.code);
 
                             if (_index !== -1) {
+                                bookingBuyerSupplierTemplateCtrl.ePage.Masters.MenuObj = three_BookingConfig.TabList[_index];
+                                bookingBuyerSupplierTemplateCtrl.ePage.Masters.MenuObj.TabTitle = three_BookingConfig.TabList[_index].label;
                                 three_BookingConfig.TabList[_index][three_BookingConfig.TabList[_index].label].ePage.Entities.Header.Data.UICustomEntity = response.Data.UICustomEntity;
                                 three_BookingConfig.TabList[_index][three_BookingConfig.TabList[_index].label].ePage.Entities.Header.Data.UIJobPickupAndDelivery = response.Data.UIJobPickupAndDelivery;
                                 three_BookingConfig.TabList[_index][three_BookingConfig.TabList[_index].label].ePage.Entities.Header.Data.UIShipmentHeader = response.Data.UIShipmentHeader;
@@ -203,21 +205,22 @@
                                 if (three_BookingConfig.TabList[_index].isNew) {
                                     bookingBuyerSupplierTemplateCtrl.ePage.Masters.SaveBookingApprovalDisabled = true;
                                     bookingBuyerSupplierTemplateCtrl.ePage.Masters.SaveBookingApproval = "Please wait";
-                                    var modalOptions = {
-                                        closeButtonText: 'Cancel',
-                                        closeButtonVisible: false,
-                                        actionButtonText: 'Ok',
-                                        headerText: 'Booking Created Successfully..',
-                                        bodyText: bookingBuyerSupplierTemplateCtrl.currentBooking.code
-                                    };
+                                    // var modalOptions = {
+                                    //     closeButtonText: 'Cancel',
+                                    //     closeButtonVisible: false,
+                                    //     actionButtonText: 'Ok',
+                                    //     headerText: 'Booking Created Successfully..',
+                                    //     bodyText: bookingBuyerSupplierTemplateCtrl.currentBooking.code
+                                    // };
 
-                                    confirmation.showModal({}, modalOptions)
-                                        .then(function (result) {
-                                            three_BookingConfig.TabList.splice(_index, 1)
-                                            helperService.refreshGrid();
-                                        }, function () {
-                                            console.log("Cancelled");
-                                        });
+                                    // confirmation.showModal({}, modalOptions)
+                                    //     .then(function (result) {
+                                    //         three_BookingConfig.TabList.splice(_index, 1)
+                                    //         helperService.refreshGrid();
+                                    //     }, function () {
+                                    //         console.log("Cancelled");
+                                    //     });
+                                    helperService.refreshGrid();
                                 } else {
                                     bookingBuyerSupplierTemplateCtrl.ePage.Masters.SaveButtonText = "Save";
                                     bookingBuyerSupplierTemplateCtrl.ePage.Masters.IsDisableSave = false;

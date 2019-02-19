@@ -1,0 +1,196 @@
+<!--Custom declaration  Edit Activity-->
+<div class="clearfix">
+    <div class="clearfix padding-top-10">
+        <!-- HBL -->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <span class="error-warning-container">
+                <error-warning-directive data-ng-if="ImportSeaShipmentCustomDeclarationVltCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.SIFilingDate.IsWarning && !ImportSeaShipmentCustomDeclarationVltCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.SIFilingDate.IsError"
+                    list="ImportSeaShipmentCustomDeclarationVltCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.SIFilingDate.WARNING"
+                    type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                <error-warning-directive data-ng-if="ImportSeaShipmentCustomDeclarationVltCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.SIFilingDate.IsError"
+                    list="ImportSeaShipmentCustomDeclarationVltCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.SIFilingDate.ERROR"
+                    type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+            </span>
+            <div class="form-group">
+                <label class="control-label">HBL #</label>
+            </div>
+            <div class="form-group">
+                <input disabled type="text" maxlength="30" ng-model="ImportSeaShipmentCustomDeclarationVltCtrl.ePage.Entities.Header.Data.UIShipmentHeader.HouseBill"
+                    maxlength="12" class="form-control input-sm" placeholder="HBL #">
+            </div>
+        </div>
+        <!-- Checklist No  -->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="control-label text-single-line">Checklist No</label>
+            </div>
+            <div class="form-group">
+                <input type="text" maxlength="30" ng-model="ImportSeaShipmentCustomDeclarationVltCtrl.ePage.Entities.Header.Data.UIShipmentHeader.SIFilingRefNo"
+                    maxlength="12" class="form-control input-sm" placeholder="CheckList #">
+            </div>
+        </div>
+        <!-- Date -->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <span class="error-warning-container">
+                <error-warning-directive data-ng-if="ImportSeaShipmentCustomDeclarationVltCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.SIFilingDate.IsWarning && !ImportSeaShipmentCustomDeclarationVltCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.SIFilingDate.IsError"
+                    list="ImportSeaShipmentCustomDeclarationVltCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.SIFilingDate.WARNING"
+                    type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                <error-warning-directive data-ng-if="ImportSeaShipmentCustomDeclarationVltCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.SIFilingDate.IsError"
+                    list="ImportSeaShipmentCustomDeclarationVltCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.SIFilingDate.ERROR"
+                    type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+            </span>
+            <div class="form-group">
+                <label class="control-label">Date</label>
+            </div>
+            <div class="form-group">
+                <div class="input-group input-group-sm con-dt-value">
+                    <input type="text" class="form-control" placeholder="{{ImportSeaShipmentCustomDeclarationVltCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                        data-ng-model="ImportSeaShipmentCustomDeclarationVltCtrl.ePage.Entities.Header.Data.UIShipmentHeader.SIFilingDate"
+                        datetime-picker="{{ImportSeaShipmentCustomDeclarationVltCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                        datepicker-options="ImportSeaShipmentCustomDeclarationVltCtrl.ePage.Masters.DatePicker.Options"
+                        datepicker-append-to-body="false" close-on-selection="false" enable-time="false" enable-date="true"
+                        default-date="" default-time="" save-as="ImportSeaShipmentCustomDeclarationVltCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                        is-open="ImportSeaShipmentCustomDeclarationVltCtrl.ePage.Masters.DatePicker.isOpen['isSIFilingDate']"
+                        when-closed="" data-ng-click="" data-ng-change="ImportSeaShipmentCustomDeclarationVltCtrl.ePage.Masters.OnFieldValueChange('E11100')"
+                        custom-date-time-format />
+                    <span class="input-group-btn">
+                        <button class="btn btn-default shiny" data-ng-click="ImportSeaShipmentCustomDeclarationVltCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isSIFilingDate')">
+                            <i class="fa fa-calendar"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <!-- Approved By -->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="control-label text-single-line">Approved By</label>
+            </div>
+            <div class="form-group">
+                <input type="text" maxlength="30" ng-model="ImportSeaShipmentCustomDeclarationVltCtrl.ePage.Entities.Header.Data.UIShipmentHeader.SIFilingRefNo"
+                    maxlength="12" class="form-control input-sm" placeholder="Approved By #">
+            </div>
+        </div>
+        <!-- Approved On -->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <span class="error-warning-container">
+                <error-warning-directive data-ng-if="ImportSeaShipmentCustomDeclarationVltCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.SIFilingDate.IsWarning && !ImportSeaShipmentCustomDeclarationVltCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.SIFilingDate.IsError"
+                    list="ImportSeaShipmentCustomDeclarationVltCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.SIFilingDate.WARNING"
+                    type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                <error-warning-directive data-ng-if="ImportSeaShipmentCustomDeclarationVltCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.SIFilingDate.IsError"
+                    list="ImportSeaShipmentCustomDeclarationVltCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.SIFilingDate.ERROR"
+                    type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+            </span>
+            <div class="form-group">
+                <label class="control-label">Approved On</label>
+            </div>
+            <div class="form-group">
+                <div class="input-group input-group-sm con-dt-value">
+                    <input type="text" class="form-control" placeholder="{{ImportSeaShipmentCustomDeclarationVltCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                        data-ng-model="ImportSeaShipmentCustomDeclarationVltCtrl.ePage.Entities.Header.Data.UIShipmentHeader.SIFilingDate"
+                        datetime-picker="{{ImportSeaShipmentCustomDeclarationVltCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                        datepicker-options="ImportSeaShipmentCustomDeclarationVltCtrl.ePage.Masters.DatePicker.Options"
+                        datepicker-append-to-body="false" close-on-selection="false" enable-time="false" enable-date="true"
+                        default-date="" default-time="" save-as="ImportSeaShipmentCustomDeclarationVltCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                        is-open="ImportSeaShipmentCustomDeclarationVltCtrl.ePage.Masters.DatePicker.isOpen['isSIFilingDate']"
+                        when-closed="" data-ng-click="" data-ng-change="ImportSeaShipmentCustomDeclarationVltCtrl.ePage.Masters.OnFieldValueChange('E11100')"
+                        custom-date-time-format />
+                    <span class="input-group-btn">
+                        <button class="btn btn-default shiny" data-ng-click="ImportSeaShipmentCustomDeclarationVltCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isSIFilingDate')">
+                            <i class="fa fa-calendar"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix padding-top-10">
+        <!-- DO Number -->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="control-label text-single-line">DO #</label>
+            </div>
+            <div class="form-group">
+                <input type="text" maxlength="30" ng-model="ImportSeaShipmentCustomDeclarationVltCtrl.ePage.Entities.Header.Data.UIShipmentHeader.SIFilingRefNo"
+                    maxlength="12" class="form-control input-sm" placeholder="DO #">
+            </div>
+        </div>
+        <!-- Date -->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <span class="error-warning-container">
+                <error-warning-directive data-ng-if="ImportSeaShipmentCustomDeclarationVltCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.SIFilingDate.IsWarning && !ImportSeaShipmentCustomDeclarationVltCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.SIFilingDate.IsError"
+                    list="ImportSeaShipmentCustomDeclarationVltCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.SIFilingDate.WARNING"
+                    type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                <error-warning-directive data-ng-if="ImportSeaShipmentCustomDeclarationVltCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.SIFilingDate.IsError"
+                    list="ImportSeaShipmentCustomDeclarationVltCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.SIFilingDate.ERROR"
+                    type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+            </span>
+            <div class="form-group">
+                <label class="control-label">Date</label>
+            </div>
+            <div class="form-group">
+                <div class="input-group input-group-sm con-dt-value">
+                    <input type="text" class="form-control" placeholder="{{ImportSeaShipmentCustomDeclarationVltCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                        data-ng-model="ImportSeaShipmentCustomDeclarationVltCtrl.ePage.Entities.Header.Data.UIShipmentHeader.SIFilingDate"
+                        datetime-picker="{{ImportSeaShipmentCustomDeclarationVltCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                        datepicker-options="ImportSeaShipmentCustomDeclarationVltCtrl.ePage.Masters.DatePicker.Options"
+                        datepicker-append-to-body="false" close-on-selection="false" enable-time="false" enable-date="true"
+                        default-date="" default-time="" save-as="ImportSeaShipmentCustomDeclarationVltCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                        is-open="ImportSeaShipmentCustomDeclarationVltCtrl.ePage.Masters.DatePicker.isOpen['isSIFilingDate']"
+                        when-closed="" data-ng-click="" data-ng-change="ImportSeaShipmentCustomDeclarationVltCtrl.ePage.Masters.OnFieldValueChange('E11100')"
+                        custom-date-time-format />
+                    <span class="input-group-btn">
+                        <button class="btn btn-default shiny" data-ng-click="ImportSeaShipmentCustomDeclarationVltCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isSIFilingDate')">
+                            <i class="fa fa-calendar"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix padding-top-10">
+        <!-- BOE Number -->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="control-label text-single-line">BOE No #</label>
+            </div>
+            <div class="form-group">
+                <input type="text" maxlength="30" ng-model="ImportSeaShipmentCustomDeclarationVltCtrl.ePage.Entities.Header.Data.UIShipmentHeader.SIFilingRefNo"
+                    maxlength="12" class="form-control input-sm" placeholder="BOE No#">
+            </div>
+        </div>
+        <!-- Date -->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <span class="error-warning-container">
+                <error-warning-directive data-ng-if="ImportSeaShipmentCustomDeclarationVltCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.SIFilingDate.IsWarning && !ImportSeaShipmentCustomDeclarationVltCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.SIFilingDate.IsError"
+                    list="ImportSeaShipmentCustomDeclarationVltCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.SIFilingDate.WARNING"
+                    type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                <error-warning-directive data-ng-if="ImportSeaShipmentCustomDeclarationVltCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.SIFilingDate.IsError"
+                    list="ImportSeaShipmentCustomDeclarationVltCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.SIFilingDate.ERROR"
+                    type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+            </span>
+            <div class="form-group">
+                <label class="control-label">Date</label>
+            </div>
+            <div class="form-group">
+                <div class="input-group input-group-sm con-dt-value">
+                    <input type="text" class="form-control" placeholder="{{ImportSeaShipmentCustomDeclarationVltCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                        data-ng-model="ImportSeaShipmentCustomDeclarationVltCtrl.ePage.Entities.Header.Data.UIShipmentHeader.SIFilingDate"
+                        datetime-picker="{{ImportSeaShipmentCustomDeclarationVltCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                        datepicker-options="ImportSeaShipmentCustomDeclarationVltCtrl.ePage.Masters.DatePicker.Options"
+                        datepicker-append-to-body="false" close-on-selection="false" enable-time="false" enable-date="true"
+                        default-date="" default-time="" save-as="ImportSeaShipmentCustomDeclarationVltCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                        is-open="ImportSeaShipmentCustomDeclarationVltCtrl.ePage.Masters.DatePicker.isOpen['isSIFilingDate']"
+                        when-closed="" data-ng-click="" data-ng-change="ImportSeaShipmentCustomDeclarationVltCtrl.ePage.Masters.OnFieldValueChange('E11100')"
+                        custom-date-time-format />
+                    <span class="input-group-btn">
+                        <button class="btn btn-default shiny" data-ng-click="ImportSeaShipmentCustomDeclarationVltCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isSIFilingDate')">
+                            <i class="fa fa-calendar"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

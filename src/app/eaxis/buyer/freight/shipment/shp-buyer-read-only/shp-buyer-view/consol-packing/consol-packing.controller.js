@@ -5,9 +5,9 @@
         .module("Application")
         .controller("shpBuyerViewConsolPackingController", shpBuyerViewConsolPackingController);
 
-    shpBuyerViewConsolPackingController.$inject = ["helperService", "appConfig", "apiService"];
+    shpBuyerViewConsolPackingController.$inject = ["helperService", "appConfig", "apiService", "$window"];
 
-    function shpBuyerViewConsolPackingController(helperService, appConfig, apiService) {
+    function shpBuyerViewConsolPackingController(helperService, appConfig, apiService, $window) {
         /* jshint validthis: true */
         var shpBuyerViewConsolPackingCtrl = this;
 
@@ -21,6 +21,7 @@
                 "Entities": obj
             };
             shpBuyerViewConsolPackingCtrl.ePage.Masters.EmptyText = '-';
+            shpBuyerViewConsolPackingCtrl.ePage.Masters.SingleRecordView = SingleRecordView;
             GetConsolListing();
         }
 
@@ -51,6 +52,7 @@
 
                         if (!_isExist) {
                             var _obj = {
+                                "PK": value2.CNT_FK,
                                 "ContainerNo": value2.ContainerNo,
                                 "CNT": value2.PK,
                                 "ContainerCount": value2.ContainerCount,
@@ -65,6 +67,16 @@
             } else {
                 shpBuyerViewConsolPackingCtrl.ePage.Entities.Header.Meta.Container.ListSource = [];
             }
+        }
+
+        function SingleRecordView(obj) {
+            console.log(obj)
+            var _queryString = {
+                PK: obj.PK,
+                ContainerNo: obj.ContainerNo
+            };
+            _queryString = helperService.encryptData(_queryString);
+            $window.open("#/EA/single-record-view/container-view?q=" + _queryString, "_blank");
         }
 
 

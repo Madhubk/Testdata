@@ -1,51 +1,5 @@
-<div data-ng-if="!BookingSRVCtrl.ePage.Masters.ShowLists">
-    <div class="clearfix">
-        <div class="col-lg-12 bkg-booking-header pt-5 pb-5">
-            <span class="pull-left fs-20">Create Booking</span>
-            <button class="btn btn-default fs-12 pull-right" data-ng-click="BookingSRVCtrl.ePage.Masters.ShipmentSelection('bookinglist')">Booking
-                Lists
-            </button>
-            <button class="btn btn-default fs-12 pull-right" data-ng-click="BookingSRVCtrl.ePage.Masters.ShipmentSelection('asnlist')">ASN
-                Lists
-            </button>
-        </div>
-    </div>
-    <div class="pt-15 pb-15">
-        <div class="clearfix text-center pt-20 pb-30">
-            <div class="fs-22">Multiple options for Booking</div>
-            <div class="mt-10">Choose an action from below</div>
-        </div>
-        <div class="col-lg-4 col-md-4 col-sm-6 pl-5 pr-5 mb-10">
-            <div class="set-bg-white border-f5f5f5 text-center pt-20 pb-20">
-                <img src="assets/img/shipment-booking/override.png">
-                <div class="tile-heading til-bo mt-10">SLI Upload</div>
-                <div class="set-color-999">Upload your SLI Document,</div>
-                <div class="set-color-999">then We'll do Booking for you!</div>
-                <input class="btn btn-default mt-20" type="submit" value="SLI Override" data-ng-click="BookingSRVCtrl.ePage.Masters.ShipmentSelection('SLI')">
-            </div>
-        </div>
-        <div class="col-lg-4 col-md-4 col-sm-6 pl-5 mb-10">
-            <div class="set-bg-white border-f5f5f5 text-center pt-20 pb-20">
-                <img src="assets/img/shipment-booking/completed.png">
-                <div class="tile-heading til-bo mt-10">ASN Upload</div>
-                <div class="set-color-999">Upload your ASN Document,</div>
-                <div class="set-color-999">then We'll do Booking for you!</div>
-                <input class="btn btn-default mt-20" type="submit" value="ASN Upload" data-ng-click="BookingSRVCtrl.ePage.Masters.ShipmentSelection('ASN')">
-            </div>
-        </div>
-        <div class="col-lg-4 col-md-4 col-sm-6 pl-5 pr-5">
-            <div class="set-bg-white border-f5f5f5 text-center pt-20 pb-20">
-                <img src="assets/img/shipment-booking/create.png">
-                <div class="tile-heading til-bo mt-10">Create New Booking</div>
-                <div class="set-color-999 text-wrap">Create Booking Using Data Entry</div>
-                <input class="btn btn-default mt-20" type="submit" value="Create New Booking" data-ng-click="BookingSRVCtrl.ePage.Masters.ShipmentSelection('CNFBooking')">
-            </div>
-        </div>
-    </div>
-</div>
 <!-- Booking Grid -->
-<uib-tabset id="chromeTab" data-ng-if="(BookingSRVCtrl.ePage.Masters.ShowLists || BookingSRVCtrl.ePage.Masters.CNFShipment) && !BookingSRVCtrl.ePage.Masters.ASN"
-    active="BookingSRVCtrl.ePage.Masters.activeTabIndex" class="tab-container chrometab-box">
+<uib-tabset id="chromeTab" active="BookingSRVCtrl.ePage.Masters.activeTabIndex" class="tab-container chrometab-box">
     <uib-tab>
         <uib-tab-heading title="">
             <span data-ng-bind="BookingSRVCtrl.ePage.Masters.CreateBtn?'Booking':'ASN Uploaded List'"></span>
@@ -88,22 +42,13 @@
         </uib-tab-heading>
         <div class="padding-bottom-10 clearfix">
             <!--Booking Menu Directive-->
-            <booking-buyer-forwarder-template current-Booking="tab" data-ng-if="BookingSRVCtrl.ePage.Masters.currentBooking && (tab['New'].ePage.Entities.Header.Data.UIShipmentHeader.IsBooking || tab[BookingSRVCtrl.ePage.Masters.currentBooking].ePage.Entities.Header.Data.UIShipmentHeader.IsBooking)  && (BookingSRVCtrl.ePage.Masters.RoleCode=='BUYER_EXPORT_CS' || BookingSRVCtrl.ePage.Masters.RoleCode=='BUYER_PO_DESK')"
-                dataentry-object="BookingSRVCtrl.ePage.Masters.DataEntryObject"></booking-buyer-forwarder-template>
-            <booking-buyer-supplier-template current-Booking="tab" data-ng-if="BookingSRVCtrl.ePage.Masters.currentBooking && (tab['New'].ePage.Entities.Header.Data.UIShipmentHeader.IsBooking || tab[BookingSRVCtrl.ePage.Masters.currentBooking].ePage.Entities.Header.Data.UIShipmentHeader.IsBooking) && BookingSRVCtrl.ePage.Masters.RoleCode=='BUYER_SUPPLIER_SHIPMENT_COORDINATOR'"
-                dataentry-object="BookingSRVCtrl.ePage.Masters.DataEntryObject"></booking-buyer-supplier-template>
-            <track-shipment-details-directive data-ng-if="!tab.isNew && !tab[BookingSRVCtrl.ePage.Masters.currentBooking].ePage.Entities.Header.Data.UIShipmentHeader.IsBooking"
-                current-shipment="tab"></track-shipment-details-directive>
+            <booking-buyer-warehouse-provider-template current-Booking="tab" data-ng-if="BookingSRVCtrl.ePage.Masters.currentBooking"
+                dataentry-object="BookingSRVCtrl.ePage.Masters.DataEntryObject"></booking-buyer-warehouse-provider-template>
+            <!-- <booking-buyer-forwarder-template current-Booking="tab" data-ng-if="BookingSRVCtrl.ePage.Masters.currentBooking"
+                dataentry-object="BookingSRVCtrl.ePage.Masters.DataEntryObject"></booking-buyer-forwarder-template> -->
         </div>
     </uib-tab>
     <button class="btn btn-default" data-ng-if="BookingSRVCtrl.ePage.Masters.CreateBtn" ng-click="BookingSRVCtrl.ePage.Masters.CreateNewBooking()"
         data-ng-disabled="BookingSRVCtrl.ePage.Masters.IsNewBookingClicked">+</button>
-    <button class="btn btn-default bkg-shipment-booking" data-ng-disabled="BookingSRVCtrl.ePage.Masters.IsNewBookingClicked"
-        data-ng-click="BookingSRVCtrl.ePage.Masters.ShipmentSelection('dashboard');BookingSRVCtrl.ePage.Masters.RemoveAllTab();">
-        <i class="fa fa-anlgle-double-left"></i> Back to Dashboard</button>
 </uib-tabset>
 <!--End of Booking Grid -->
-<!-- SLI Override -->
-<one-two-asn-upload data-ng-if="BookingSRVCtrl.ePage.Masters.ShowLists && BookingSRVCtrl.ePage.Masters.ASN"
-    back-dashboard="BookingSRVCtrl.ePage.Masters.ShipmentSelection()"></one-two-asn-upload>
-<!-- End of SLI Override -->

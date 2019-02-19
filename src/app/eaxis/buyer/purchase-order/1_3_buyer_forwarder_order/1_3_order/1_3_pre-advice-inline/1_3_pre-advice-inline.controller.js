@@ -175,7 +175,7 @@
 
         function GetRelatedLookupList() {
             var _filter = {
-                Key: "OrdCarrierPlanning_2834,OrdVesselPlanning_3187,VesselPOL_3309,VesselPOD_3310",
+                Key: "BP_OrdCarrierPlanning_12834,BP_OrdVesselPlanning_13187,BP_VesselPOL_13309,BP_VesselPOD_13310",
                 SAP_FK: authService.getUserInfo().AppPK
             };
             var _input = {

@@ -1,0 +1,39 @@
+<div class="clearfix" data-ng-if="!FTZDocDhcDirectiveCtrl.ePage.Masters.IsLoading && !FTZDocDhcDirectiveCtrl.ePage.Masters.PageNotFound">
+    <div class="col-lg-4">
+        <div>Consingor :</div>
+        <a class="my-task-content-shipper-link" href="javascript: void(0)">{{FTZDocDhcDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ShipperName}}</a>
+    </div>
+    <div class="col-lg-4">
+        <div>Consingee :</div>
+        <a class="my-task-content-shipper-link" href="javascript: void(0)">{{FTZDocDhcDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ConsigneeName}}</a>
+    </div>
+    <div class="col-lg-4">
+        <div>Shipment #</div>
+        <a class="my-task-content-shipper-link" href="javascript: void(0)" data-ng-click="FTZDocDhcDirectiveCtrl.ePage.Masters.SingleRecordView(FTZDocDhcDirectiveCtrl.ePage.Entities.Header.Data)">{{FTZDocDhcDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ShipmentNo}}</a>
+    </div>
+</div>
+<div class="row mt-10" id="style-4" data-ng-if="!FTZDocDhcDirectiveCtrl.ePage.Masters.IsLoading && !FTZDocDhcDirectiveCtrl.ePage.Masters.PageNotFound">
+    <div class="col-lg-12" data-ng-if="FTZDocDhcDirectiveCtrl.ePage.Masters.StandardMenuInput" upload-document-ord
+        doc-type-dsc="FTZDocDhcDirectiveCtrl.ePage.Masters.MyTask.WSI_StepName" input="FTZDocDhcDirectiveCtrl.ePage.Masters.StandardMenuInput"
+        is-uploaded="FTZDocDhcDirectiveCtrl.ePage.Masters.IsUploaded({ $item: $item })" config="FTZDocDhcDirectiveCtrl.ePage.Masters.StandardConfigInput"
+        class="my-task-icon fa fa-file-text-o mr-5">
+    </div>
+    <div class="col-lg-8" data-ng-if="FTZDocDhcDirectiveCtrl.ePage.Masters.StandardMenuInput" is-document-uploaded="FTZDocDhcDirectiveCtrl.ePage.Masters.IsDocumentUploaded"
+        view-document-ord doc-type-dsc="FTZDocDhcDirectiveCtrl.ePage.Masters.MyTask.WSI_StepName" input="FTZDocDhcDirectiveCtrl.ePage.Masters.StandardMenuInput"
+        mode="3" config="FTZDocDhcDirectiveCtrl.ePage.Masters.StandardConfigInput" class="my-task-icon fa fa-file-text-o mr-5">
+    </div>
+    <div class="col-lg-4">
+        <button class="my-task-primary-btn my-task-directive-btn" data-ng-click="FTZDocDhcDirectiveCtrl.ePage.Masters.Complete()"
+            data-ng-disabled="FTZDocDhcDirectiveCtrl.ePage.Masters.CompleteBtnDisabled">
+            {{FTZDocDhcDirectiveCtrl.ePage.Masters.CompleteBtnTxt}}
+        </button>
+    </div>
+</div>
+<!-- Not Found -->
+<div id="notfound" data-ng-if="FTZDocDhcDirectiveCtrl.ePage.Masters.PageNotFound">
+    <div data-ng-include="'app/eaxis/buyer/shared/page-404.html'"></div>
+</div>
+<!-- Loading -->
+<div class="clearfix p-30 text-center" data-ng-if="FTZDocDhcDirectiveCtrl.ePage.Masters.IsLoading && !FTZDocDhcDirectiveCtrl.ePage.Masters.PageNotFound">
+    <i class="fa fa-spin fa-spinner" style="font-size: 18px;"></i>
+</div>

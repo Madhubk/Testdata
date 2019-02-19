@@ -4,16 +4,6 @@
     margin-top: 2px;
 }
 
-.total-alignment {
-    background: #fbfbfb;
-    border-top: 1px solid #cdcaca;
-    position: absolute;
-    bottom: 145px;
-    border-bottom: 1px solid #cdcaca;
-    left: 0;
-    width: 100%;
-}
-
 .ordline-modal-hide {
     overflow: hidden;
     position: relative;

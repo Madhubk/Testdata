@@ -5,9 +5,9 @@
         .module("Application")
         .controller("one_one_ActionModalController", one_one_ActionModalController);
 
-    one_one_ActionModalController.$inject = ["apiService", "one_order_listConfig", "appConfig", "helperService", "$uibModalInstance", "param"];
+    one_one_ActionModalController.$inject = ["apiService", "one_order_listConfig", "orderApiConfig", "helperService", "$uibModalInstance", "param"];
 
-    function one_one_ActionModalController(apiService, one_order_listConfig, appConfig, helperService, $uibModalInstance, param) {
+    function one_one_ActionModalController(apiService, one_order_listConfig, orderApiConfig, helperService, $uibModalInstance, param) {
         var one_one_ActionModalCtrl = this;
 
         function Init() {
@@ -30,7 +30,7 @@
         }
 
         function SplitOrder() {
-            apiService.get("eAxisAPI", appConfig.Entities.BuyerOrder.API.split.Url + one_one_ActionModalCtrl.ePage.Entities.Header.Data.UIOrder_Buyer.PK).then(function (response) {
+            apiService.get("eAxisAPI", orderApiConfig.Entities.BuyerOrder.API.split.Url + one_one_ActionModalCtrl.ePage.Entities.Header.Data.UIOrder_Buyer.PK).then(function (response) {
                 if (response.data.Response) {
                     var __obj = {
                         entity: response.data.Response.UIOrder_Buyer,
@@ -45,7 +45,7 @@
         }
 
         function CreateOrder() {
-            helperService.getFullObjectUsingGetById(appConfig.Entities.BuyerOrder.API["1_1_listgetbyid"].Url, 'null').then(function (response) {
+            helperService.getFullObjectUsingGetById(orderApiConfig.Entities.BuyerOrder.API["1_1_listgetbyid"].Url, 'null').then(function (response) {
                 if (response.data.Response) {
                     response.data.Response.Response.UIOrder_Buyer.PAR_AccessCode = "1_1";
                     var _obj = {

@@ -753,14 +753,14 @@
             one_one_OrdGeneralCtrl.ePage.Masters.DynamicControl = undefined;
             if (mode == "ORG") {
                 var _filter = {
-                    DataEntryName: "OrderHeaderCustomOrg",
+                    DataEntryName: "BPOrderHeaderCustomOrg",
                     IsRoleBased: false,
                     IsAccessBased: false,
                     OrganizationCode: one_one_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer.Buyer
                 };
             } else {
                 var _filter = {
-                    DataEntryName: "OrderHeaderCustom"
+                    DataEntryName: "BPOrderHeaderCustom"
                 };
             }
             var _input = {

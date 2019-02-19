@@ -43,6 +43,16 @@
 
             try {
                 InitOrgHeader();
+
+                OrganizationGeneralCtrl.ePage.Masters.GenerateScriptInput = {
+                    ObjectName: "OrgHeader",
+                    ObjectId: currentOrganization.Header.Data.OrgHeader.PK
+                };
+                OrganizationGeneralCtrl.ePage.Masters.GenerateScriptConfig = {
+                    IsEnableTable: false,
+                    IsEnablePK: false,
+                    IsEnableTenant: false
+                };
             } catch (ex) {
                 console.log(ex);
             }
@@ -87,6 +97,9 @@
             }, {
                 "DispName": "Store",
                 "Value": "IsStore"
+            }, {
+                "DispName": "Carrier",
+                "Value": "IsShippingProvider"
             }];
         }
 

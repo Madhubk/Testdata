@@ -86,7 +86,7 @@
             if (_arrayObject.length > 0) {
                 one_one_OrderActivationCtrl.ePage.Masters[btn] = "Please wait...";
                 one_one_OrderActivationCtrl.ePage.Masters["IsDisabled" + btn] = true;
-                apiService.post("eAxisAPI", appConfig.Entities.PorOrderHeader.API.UpdateRecords.Url, _arrayObject).then(function (response) {
+                apiService.post("eAxisAPI", orderApiConfig.Entities.BuyerOrder.API.updaterecords.Url, _arrayObject).then(function (response) {
                     if (response.data.Status == 'Success') {
                         var _label = CommaSeperatedField(response.data.Response, 'OrderCumSplitNo');
                         if (type != 'active') {

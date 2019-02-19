@@ -191,11 +191,16 @@
             TCDocumentTypeConfigureCtrl.ePage.Masters.Parties.MappingInput = {
                 MappingCode: "GRUP_DTYP_APP_TNT",
                 ChildMappingCode: "GRUP_ROLE_DTYP_APP_TNT",
-                Access_FK: TCDocumentTypeConfigureCtrl.ePage.Masters.DocumentType.FormView.PK,
+
                 AccessTo: "DOCUMENT",
+                Access_FK: TCDocumentTypeConfigureCtrl.ePage.Masters.DocumentType.FormView.PK,
                 AccessCode: TCDocumentTypeConfigureCtrl.ePage.Masters.DocumentType.FormView.DocType,
+
                 SAP_FK: TCDocumentTypeConfigureCtrl.ePage.Masters.QueryString.AppPk,
-                SAP_Code: TCDocumentTypeConfigureCtrl.ePage.Masters.QueryString.AppCode
+                SAP_Code: TCDocumentTypeConfigureCtrl.ePage.Masters.QueryString.AppCode,
+
+                PartyMappingAPI: "GroupDocumentType",
+                PartyRoleMappingAPI: "GroupRoleDocumentType"
             };
         }
 

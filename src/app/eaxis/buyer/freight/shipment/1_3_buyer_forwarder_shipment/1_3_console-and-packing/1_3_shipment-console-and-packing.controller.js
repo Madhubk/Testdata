@@ -275,19 +275,28 @@
                     if (Value.FreightMode == 'OUT') {
                         _PackageCount = _PackageCount + parseInt(Value.PackageCount)
                     }
-                    if (FreightMode == 'OUT') {
+                    if (Value.FreightMode == 'OUT') {
                         _ActualWeight = (parseFloat(_ActualWeight) + parseFloat(Value.ActualWeight)).toFixed(3);
                     }
-                    if (FreightMode == 'OUT') {
+                    if (Value.FreightMode == 'OUT') {
                         _ActualVolume = (parseFloat(_ActualVolume) + parseFloat(Value.ActualVolume)).toFixed(3);
                     }
-                    oneThreeShipmentConsoleAndPackingCtrl.ePage.Entities.Header.Data.OutPackageSum[0].PackageCount = _PackageCount;
-                    oneThreeShipmentConsoleAndPackingCtrl.ePage.Entities.Header.Data.OutPackageSum[0].ActualWeight = _ActualWeight;
-                    oneThreeShipmentConsoleAndPackingCtrl.ePage.Entities.Header.Data.OutPackageSum[0].ActualVolume = _ActualVolume;
-                    oneThreeShipmentConsoleAndPackingCtrl.ePage.Entities.Header.Data.OutPackageSum[0].InnerPackType = oneThreeShipmentConsoleAndPackingCtrl.ePage.Masters.Package.GridData[0].F3_NKPackType;
-                    oneThreeShipmentConsoleAndPackingCtrl.ePage.Entities.Header.Data.OutPackageSum[0].UnitOfWeight = oneThreeShipmentConsoleAndPackingCtrl.ePage.Masters.Package.GridData[0].ActualWeightUQ;
-                    oneThreeShipmentConsoleAndPackingCtrl.ePage.Entities.Header.Data.OutPackageSum[0].UnitOfVolume = oneThreeShipmentConsoleAndPackingCtrl.ePage.Masters.Package.GridData[0].ActualVolumeUQ;
-                    oneThreeShipmentConsoleAndPackingCtrl.ePage.Entities.Header.Data.OutPackageSum[0].IsLength = oneThreeShipmentConsoleAndPackingCtrl.ePage.Masters.Package.GridData.length;
+                    if (oneThreeShipmentConsoleAndPackingCtrl.ePage.Entities.Header.Data.OutPackageSum.length > 0) {
+                        oneThreeShipmentConsoleAndPackingCtrl.ePage.Entities.Header.Data.OutPackageSum[0].PackageCount = _PackageCount;
+                        oneThreeShipmentConsoleAndPackingCtrl.ePage.Entities.Header.Data.OutPackageSum[0].ActualWeight = _ActualWeight;
+                        oneThreeShipmentConsoleAndPackingCtrl.ePage.Entities.Header.Data.OutPackageSum[0].ActualVolume = _ActualVolume;
+                        oneThreeShipmentConsoleAndPackingCtrl.ePage.Entities.Header.Data.OutPackageSum[0].InnerPackType = oneThreeShipmentConsoleAndPackingCtrl.ePage.Masters.Package.GridData[0].F3_NKPackType;
+                        oneThreeShipmentConsoleAndPackingCtrl.ePage.Entities.Header.Data.OutPackageSum[0].UnitOfWeight = oneThreeShipmentConsoleAndPackingCtrl.ePage.Masters.Package.GridData[0].ActualWeightUQ;
+                        oneThreeShipmentConsoleAndPackingCtrl.ePage.Entities.Header.Data.OutPackageSum[0].UnitOfVolume = oneThreeShipmentConsoleAndPackingCtrl.ePage.Masters.Package.GridData[0].ActualVolumeUQ;
+                        oneThreeShipmentConsoleAndPackingCtrl.ePage.Entities.Header.Data.OutPackageSum[0].IsLength = oneThreeShipmentConsoleAndPackingCtrl.ePage.Masters.Package.GridData.length;
+                    } else {
+                        oneThreeShipmentConsoleAndPackingCtrl.ePage.Entities.Header.Data.OutPackageSum = [{
+                            "PackageCount": 0,
+                            "ActualWeight": 0,
+                            "ActualVolume": 0,
+                            "IsLength": 0
+                        }];
+                    }
                 });
             } else {
                 oneThreeShipmentConsoleAndPackingCtrl.ePage.Entities.Header.Data.OutPackageSum = [{

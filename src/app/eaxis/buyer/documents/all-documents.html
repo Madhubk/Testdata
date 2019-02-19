@@ -1,0 +1,13 @@
+<uib-tabset id="chromeTab" active="FreightAllDocumentsCtrl.ePage.Masters.activeTabIndex" class="tab-container chrometab-box">
+    <uib-tab>
+        <uib-tab-heading title="All Documents List">
+            <span data-ng-bind="'All Documents List'"></span>
+            <i class="fa fa-thumb-tack pinned-tab"></i>
+        </uib-tab-heading>
+        <div class="no-padding tab-list-view-wrapper">
+            <!--Document Grid Page-->
+            <dynamic-list dataentry-name="FreightAllDocumentsCtrl.ePage.Masters.dataentryName" selected-grid-row="FreightAllDocumentsCtrl.ePage.Masters.SelectedGridRow($item)"
+                mode="1" dataentry-object="FreightAllDocumentsCtrl.ePage.Masters.DataEntryObject"></dynamic-list>
+        </div>
+    </uib-tab>
+</uib-tabset>

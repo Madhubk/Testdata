@@ -1,5 +1,5 @@
 <div class="clearfix padding-10">
-    <div id='' class="Shipmentstable_scroll">
+    <div id='' class="common_table_scroll common_table_hgt">
         <div class="table tab-position" id="results">
             <div class='theader'>
                 <div class='table_header'>Consol #</div>
@@ -23,74 +23,74 @@
                     <div class='table_cell'>Consol #</div>
                     <div class='table_cell'>
                         <b>
-                            <span data-ng-bind="x.ConsolNo || shpBuyerViewOrderCtrl.ePage.Masters.EmptyText"></span>
+                            <span data-ng-bind="x.ConsolNo || shpBuyerViewConsolPackingCtrl.ePage.Masters.EmptyText"></span>
                         </b>
                     </div>
                 </div>
                 <div class='table_small'>
                     <div class='table_cell'>Mode</div>
                     <div class='table_cell'>
-                        <span data-ng-bind="x.ContainerMode || shpBuyerViewOrderCtrl.ePage.Masters.EmptyText"></span>
+                        <span data-ng-bind="x.ContainerMode || shpBuyerViewConsolPackingCtrl.ePage.Masters.EmptyText"></span>
                     </div>
                 </div>
                 <div class='table_small'>
                     <div class='table_cell'>Leg Order</div>
                     <div class='table_cell'>
-                        <span data-ng-bind="x.LegOrder || shpBuyerViewOrderCtrl.ePage.Masters.EmptyText"></span>
+                        <span data-ng-bind="x.LegOrder || shpBuyerViewConsolPackingCtrl.ePage.Masters.EmptyText"></span>
                     </div>
                 </div>
                 <div class='table_small'>
                     <div class='table_cell'>Transport Type</div>
                     <div class='table_cell'>
-                        <span data-ng-bind="x.TransportMode || shpBuyerViewOrderCtrl.ePage.Masters.EmptyText"></span>
+                        <span data-ng-bind="x.TransportMode || shpBuyerViewConsolPackingCtrl.ePage.Masters.EmptyText"></span>
                     </div>
                 </div>
                 <div class='table_small'>
                     <div class='table_cell'>Vessel</div>
                     <div class='table_cell'>
-                        <span data-ng-bind="x.FirstLegVessel || shpBuyerViewOrderCtrl.ePage.Masters.EmptyText"></span>
+                        <span data-ng-bind="x.FirstLegVessel || shpBuyerViewConsolPackingCtrl.ePage.Masters.EmptyText"></span>
                     </div>
                 </div>
                 <div class='table_small'>
                     <div class='table_cell'>Voyage/Flight</div>
                     <div class='table_cell'>
-                        <span data-ng-bind="x.FirstLegVoyage || shpBuyerViewOrderCtrl.ePage.Masters.EmptyText"></span>
+                        <span data-ng-bind="x.FirstLegVoyage || shpBuyerViewConsolPackingCtrl.ePage.Masters.EmptyText"></span>
                     </div>
                 </div>
                 <div class='table_small'>
                     <div class='table_cell'>Load Port</div>
                     <div class='table_cell'>
-                        <span data-ng-bind="x.FirstLoadPort || shpBuyerViewOrderCtrl.ePage.Masters.EmptyText"></span>
+                        <span data-ng-bind="x.FirstLoadPort || shpBuyerViewConsolPackingCtrl.ePage.Masters.EmptyText"></span>
                     </div>
                 </div>
                 <div class='table_small'>
                     <div class='table_cell'>Disc Port</div>
                     <div class='table_cell'>
-                        <span data-ng-bind="x.LastDischargePort || shpBuyerViewOrderCtrl.ePage.Masters.EmptyText"></span>
+                        <span data-ng-bind="x.LastDischargePort || shpBuyerViewConsolPackingCtrl.ePage.Masters.EmptyText"></span>
                     </div>
                 </div>
                 <div class='table_small'>
                     <div class='table_cell'>ETD</div>
                     <div class='table_cell'>
-                        <span data-ng-bind="x.FirstLegETD | date:'dd-MMM-yyyy' || shpBuyerViewOrderCtrl.ePage.Masters.EmptyText"></span>
+                        <span data-ng-bind="x.FirstLegETD | date:'dd-MMM-yyyy' || shpBuyerViewConsolPackingCtrl.ePage.Masters.EmptyText"></span>
                     </div>
                 </div>
                 <div class='table_small'>
                     <div class='table_cell'>ATD</div>
                     <div class='table_cell'>
-                        <span data-ng-bind="x.FirstLegATD | date:'dd-MMM-yyyy'  || shpBuyerViewOrderCtrl.ePage.Masters.EmptyText"></span>
+                        <span data-ng-bind="x.FirstLegATD | date:'dd-MMM-yyyy'  || shpBuyerViewConsolPackingCtrl.ePage.Masters.EmptyText"></span>
                     </div>
                 </div>
                 <div class='table_small'>
                     <div class='table_cell'>ETA</div>
                     <div class='table_cell'>
-                        <span data-ng-bind="x.FirstLegETA | date:'dd-MMM-yyyy'  || shpBuyerViewOrderCtrl.ePage.Masters.EmptyText"></span>
+                        <span data-ng-bind="x.FirstLegETA | date:'dd-MMM-yyyy'  || shpBuyerViewConsolPackingCtrl.ePage.Masters.EmptyText"></span>
                     </div>
                 </div>
                 <div class='table_small'>
                     <div class='table_cell'>ATA</div>
                     <div class='table_cell'>
-                        <span data-ng-bind="x.FirstLegATA | date:'dd-MMM-yyyy'  || shpBuyerViewOrderCtrl.ePage.Masters.EmptyText"></span>
+                        <span data-ng-bind="x.FirstLegATA | date:'dd-MMM-yyyy'  || shpBuyerViewConsolPackingCtrl.ePage.Masters.EmptyText"></span>
                     </div>
                 </div>
             </div>
@@ -103,7 +103,7 @@
     </div>
 </div>
 <div class="clearfix padding-10">
-    <div id='' class="Shipmentstable_scroll">
+    <div id='' class="common_table_scroll common_table_hgt">
         <div class="table tab-position" id="results">
             <div class='theader'>
                 <div class='table_header'>Container #</div>
@@ -119,26 +119,27 @@
                     <div class='table_cell'>Container #</div>
                     <div class='table_cell'>
                         <b>
-                            <span data-ng-bind="x.ContainerNo || shpBuyerViewOrderCtrl.ePage.Masters.EmptyText"></span>
+                            <a href="javascript:void(0)" data-ng-click="shpBuyerViewConsolPackingCtrl.ePage.Masters.SingleRecordView(x)"><span
+                                    data-ng-bind="x.ContainerNo || shpBuyerViewConsolPackingCtrl.ePage.Masters.EmptyText"></span></a>
                         </b>
                     </div>
                 </div>
                 <div class='table_small'>
                     <div class='table_cell'>Type</div>
                     <div class='table_cell'>
-                        <span data-ng-bind="x.RC_Type || shpBuyerViewOrderCtrl.ePage.Masters.EmptyText"></span>
+                        <span data-ng-bind="x.RC_Type || shpBuyerViewConsolPackingCtrl.ePage.Masters.EmptyText"></span>
                     </div>
                 </div>
                 <div class='table_small'>
                     <div class='table_cell'>Seal1</div>
                     <div class='table_cell'>
-                        <span data-ng-bind="x.SealNo || shpBuyerViewOrderCtrl.ePage.Masters.EmptyText"></span>
+                        <span data-ng-bind="x.SealNo || shpBuyerViewConsolPackingCtrl.ePage.Masters.EmptyText"></span>
                     </div>
                 </div>
                 <div class='table_small'>
                     <div class='table_cell'>Seal2</div>
                     <div class='table_cell'>
-                        <span data-ng-bind="x.SealNo2 || shpBuyerViewOrderCtrl.ePage.Masters.EmptyText"></span>
+                        <span data-ng-bind="x.SealNo2 || shpBuyerViewConsolPackingCtrl.ePage.Masters.EmptyText"></span>
                     </div>
                 </div>
             </div>

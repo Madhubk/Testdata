@@ -5,9 +5,9 @@
         .module("Application")
         .controller("bkgBuyerSupplierDirectiveController", bkgBuyerSupplierDirectiveController);
 
-    bkgBuyerSupplierDirectiveController.$inject = ["$rootScope", "$scope", "$state", "$q", "$location", "$timeout", "APP_CONSTANT", "authService", "apiService", "helperService", "appConfig", "$filter", "three_BookingConfig", "toastr", "dynamicLookupConfig", "$injector", "confirmation", "$uibModal", "errorWarningService"];
+    bkgBuyerSupplierDirectiveController.$inject = ["APP_CONSTANT", "authService", "apiService", "helperService", "appConfig", "$filter", "three_BookingConfig", "errorWarningService"];
 
-    function bkgBuyerSupplierDirectiveController($rootScope, $scope, $state, $q, $location, $timeout, APP_CONSTANT, authService, apiService, helperService, appConfig, $filter, three_BookingConfig, toastr, dynamicLookupConfig, $injector, confirmation, $uibModal, errorWarningService) {
+    function bkgBuyerSupplierDirectiveController(APP_CONSTANT, authService, apiService, helperService, appConfig, $filter, three_BookingConfig, errorWarningService) {
         /* jshint validthis: true */
         var bkgBuyerSupplierDirectiveCtrl = this;
 
@@ -453,10 +453,6 @@
                 }
             });
         }
-
-
-
-
 
         Init();
     }

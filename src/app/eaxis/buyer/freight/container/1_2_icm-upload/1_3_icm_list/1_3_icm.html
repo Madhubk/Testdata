@@ -1,0 +1,83 @@
+﻿<!-- Booking Grid -->
+<div data-ng-if="!one_three_IcmCtrl.ePage.Masters.ShowLists">
+    <button class="btn btn-default fs-12 pull-right" data-ng-if="one_three_IcmCtrl.ePage.Masters.CreateBtn" ng-click="one_three_IcmCtrl.ePage.Masters.ShipmentSelection('icmlist')"
+        data-ng-disabled="one_three_IcmCtrl.ePage.Masters.IsNewBookingClicked"><i class="fa fa-anlgle-double-left"></i>ICM
+        List</button>
+
+    <button class="btn btn-default fs-12 pull-right" data-ng-if="one_three_IcmCtrl.ePage.Masters.CreateBtn" ng-click="one_three_IcmCtrl.ePage.Masters.UploadIcm('ICM')"
+        data-ng-disabled="one_three_IcmCtrl.ePage.Masters.IsNewBookingClicked"><i class="fa fa-anlgle-double-left"></i>
+        Upload ICM</button>
+    <button class="btn btn-default fs-12 pull-right" data-ng-if="one_three_IcmCtrl.ePage.Masters.CreateBtn" ng-click="one_three_IcmCtrl.ePage.Masters.ContainerDeliveryDetails('ContainerDetails')"
+        data-ng-disabled="one_three_IcmCtrl.ePage.Masters.IsNewBookingClicked"><i class="fa fa-anlgle-double-left"></i>
+        Update Delivery Details</button>
+</div>
+<uib-tabset id="chromeTab" active="one_three_IcmCtrl.ePage.Masters.activeTabIndex" class="tab-container chrometab-box">
+    <uib-tab>
+        <uib-tab-heading title="">
+            <span data-ng-bind="one_three_IcmCtrl.ePage.Masters.CreateBtn?'Container':'ICM Uploaded List'"></span>
+            <i class="fa fa-thumb-tack pinned-tab"></i>
+        </uib-tab-heading>
+        <div class="no-padding tab-list-view-wrapper" data-ng-if="one_three_IcmCtrl.ePage.Masters.dataentryName=='BPICMList'">
+            <!--Booking Grid Page-->
+            <!-- <dynamic-list dataentry-name="one_three_IcmCtrl.ePage.Masters.dataentryName" task-name="one_three_IcmCtrl.ePage.Masters.taskName" grid-config-type="0"
+                selected-grid-row="one_three_IcmCtrl.ePage.Masters.SelectedGridRow($item)" mode="1" default-filter="one_three_IcmCtrl.ePage.Masters.defaultFilter"></dynamic-list> -->
+            <dynamic-list dataentry-name="'BPICMList'" selected-grid-row="one_three_IcmCtrl.ePage.Masters.MulitiSelect($item)"
+                mode="1" default-filter="one_three_IcmCtrl.ePage.Masters.defaultFilter" dataentry-object="one_three_IcmCtrl.ePage.Masters.DataEntryObject"></dynamic-list>
+            <div class="tab-loading" data-ng-show="one_three_IcmCtrl.ePage.Masters.IsTabClick"></div>
+        </div>
+        <div class="no-padding tab-list-view-wrapper" data-ng-if="one_three_IcmCtrl.ePage.Masters.dataentryName=='BPICMUploadList'">
+            <!--Booking Grid Page-->
+            <!-- <dynamic-list dataentry-name="one_three_IcmCtrl.ePage.Masters.dataentryName" task-name="one_three_IcmCtrl.ePage.Masters.taskName" grid-config-type="0"
+                selected-grid-row="one_three_IcmCtrl.ePage.Masters.SelectedGridRow($item)" mode="1" default-filter="one_three_IcmCtrl.ePage.Masters.defaultFilter"></dynamic-list> -->
+            <dynamic-list dataentry-name="'BPICMUploadList'" selected-grid-row="one_three_IcmCtrl.ePage.Masters.SelectedGridRow($item)"
+                mode="1" default-filter="one_three_IcmCtrl.ePage.Masters.defaultFilter" dataentry-object="one_three_IcmCtrl.ePage.Masters.DataEntryObject"></dynamic-list>
+            <div class="tab-loading" data-ng-show="one_three_IcmCtrl.ePage.Masters.IsTabClick"></div>
+        </div>
+    </uib-tab>
+    <uib-tab id='top' active="one_three_IcmCtrl.ePage.Masters.activeTabIndex == $index" ng-repeat="tab in one_three_IcmCtrl.ePage.Masters.TabList">
+        <uib-tab-heading title="{{tab.label}}">
+            <span data-ng-bind="tab.label"></span>
+            <i class="glyphicon glyphicon-remove" ng-click="one_three_IcmCtrl.ePage.Masters.RemoveTab($event, $index, tab)"></i>
+        </uib-tab-heading>
+        <div class="padding-bottom-10 clearfix">
+            <cnt-buyer-view-template current-container="tab" data-ng-if="one_three_IcmCtrl.ePage.Entities.Header.Data"
+                dataentry-object="one_three_IcmCtrl.ePage.Masters.DataEntryObject"></cnt-buyer-view-template>
+        </div>
+    </uib-tab>
+    <!-- <uib-tab active="one_three_IcmCtrl.ePage.Masters.activeTabIndex == $index" ng-repeat="tab in one_three_IcmCtrl.ePage.Masters.TabList"
+        ng-click="one_three_IcmCtrl.ePage.Masters.CurrentActiveTab(tab.label)">
+        <uib-tab-heading title="{{tab.label}}">
+            <span data-ng-bind="tab.label"></span>
+            <span class="error-warning-container-common" data-ng-if="one_three_IcmCtrl.ePage.Masters.ErrorWarningConfig.Modules.Booking.Entity[tab.code].GlobalErrorWarningList.length > 0">
+                <span class="custom-warning-container" data-ng-if="(one_three_IcmCtrl.ePage.Masters.ErrorWarningConfig.Modules.Booking.Entity[tab.code].GlobalErrorWarningList | listCount: 'MessageType': 'W') > 0 && (one_three_IcmCtrl.ePage.Masters.ErrorWarningConfig.Modules.Booking.Entity[tab.code].GlobalErrorWarningList | listCount: 'MessageType': 'E') == 0">
+                    <button class="btn-warning" data-ng-click="one_three_IcmCtrl.ePage.Masters.ErrorWarningConfig.ShowErrorWarningModal(tab)">
+                        <i class="fa fa-warning"></i>
+                    </button>
+                    <span class="custom-warning-count">{{one_three_IcmCtrl.ePage.Masters.ErrorWarningConfig.Modules.Booking.Entity[tab.code].GlobalErrorWarningList
+                        |
+                        listCount: 'MessageType': 'W'}}
+                    </span>
+                </span>
+                <span class="custom-error-container" data-ng-if="(one_three_IcmCtrl.ePage.Masters.ErrorWarningConfig.Modules.Booking.Entity[tab.code].GlobalErrorWarningList | listCount: 'MessageType': 'E') > 0">
+                    <button class="btn-error" data-ng-click="one_three_IcmCtrl.ePage.Masters.ErrorConfig.ShowErrorWarningModal(tab)">
+                        <i class="fa fa-warning"></i>
+                    </button>
+                    <span class="custom-error-count">{{one_three_IcmCtrl.ePage.Masters.ErrorWarningConfig.Modules.Booking.Entity[tab.code].GlobalErrorWarningList
+                        |
+                        listCount: 'MessageType': 'E'}}
+                    </span>
+                </span>
+            </span>
+            <i class="glyphicon glyphicon-remove" ng-click="one_three_IcmCtrl.ePage.Masters.RemoveTab($event, $index, tab)"></i>
+        </uib-tab-heading>
+        <div class="padding-bottom-10 clearfix"> -->
+    <!--Booking Menu Directive-->
+    <!-- <booking-buyer-forwarder-template current-Booking="tab" data-ng-if="one_three_IcmCtrl.ePage.Masters.currentBooking && (tab['New'].ePage.Entities.Header.Data.UIShipmentHeader.IsBooking || tab[one_three_IcmCtrl.ePage.Masters.currentBooking].ePage.Entities.Header.Data.UIShipmentHeader.IsBooking)  && (one_three_IcmCtrl.ePage.Masters.RoleCode=='BUYER_EXPORT_CS' || one_three_IcmCtrl.ePage.Masters.RoleCode=='BUYER_PO_DESK')"
+                dataentry-object="one_three_IcmCtrl.ePage.Masters.DataEntryObject"></booking-buyer-forwarder-template>
+            <booking-buyer-supplier-template current-Booking="tab" data-ng-if="one_three_IcmCtrl.ePage.Masters.currentBooking && (tab['New'].ePage.Entities.Header.Data.UIShipmentHeader.IsBooking || tab[one_three_IcmCtrl.ePage.Masters.currentBooking].ePage.Entities.Header.Data.UIShipmentHeader.IsBooking) && one_three_IcmCtrl.ePage.Masters.RoleCode=='BUYER_SUPPLIER_SHIPMENT_COORDINATOR'"
+                dataentry-object="one_three_IcmCtrl.ePage.Masters.DataEntryObject"></booking-buyer-supplier-template>
+            <track-shipment-details-directive data-ng-if="!tab.isNew && !tab[one_three_IcmCtrl.ePage.Masters.currentBooking].ePage.Entities.Header.Data.UIShipmentHeader.IsBooking"
+                current-shipment="tab"></track-shipment-details-directive>
+        </div>
+    </uib-tab> -->
+</uib-tabset>

@@ -33,7 +33,7 @@
                         return deferred.promise;
                     }],
                     LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
-                        return $ocLazyLoad.load(["singleRecordView"]);
+                        return $ocLazyLoad.load(["singleRecordView", 'Order']);
                     }]
                 }
             })
@@ -58,7 +58,7 @@
                 }
             })
             .state('EA.singleRecordView.booking', {
-                url: '/booking/:taskNo',
+                url: '/booking',
                 templateUrl: 'app/eaxis/buyer/freight/booking/shared/single-record-view/booking/bookingSRV.html',
                 controller: "BookingSRVController as BookingSRVCtrl",
                 ncyBreadcrumb: {
@@ -77,11 +77,35 @@
                             // Buyer_Forwarder 
                             "1_3_BookingMenu", "1_3_BookingDirective", "1_3_BookingOrder", "1_3_BookingPlanning",
                             // Buyer_Supplier
+                            "1_2_BookingMenu", "1_2_BookingDirective", "1_2_BookingOrder", "1_2_BookingPlanning"
+							,"shipmentDetailsTrackingDirective", "1_3_Ext_WHP_BookingMenu"
+                        ]);
+                    }]
+                }
+            })
+            .state('EA.singleRecordView.shipments', {
+                url: '/shipments',
+                templateUrl: 'app/eaxis/buyer/freight/booking/shared/single-record-view/shipments/shipmentSRV.html',
+                controller: "ShipmentSRVController as ShipmentSRVCtrl",
+                ncyBreadcrumb: {
+                    label: 'SRV - Shipment'
+                },
+                resolve: {
+                    CheckAccess: ["$q", "pageAccessService", function ($q, pageAccessService) {
+                        var deferred = $q.defer();
+                        if (pageAccessService.CheckAuthToken()) {
+                            deferred.resolve();
+                        }
+                        return deferred.promise;
+                    }],
+                    LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
+                        return $ocLazyLoad.load(["SRVShipment-vnm", "chromeTab", "dynamicTable", "errorWarning", "confirmation", "compareDate", "dynamicListModal", "dynamicList", "dynamicLookup", "dynamicControl", "dynamicGrid", "drogAndDrop", "oneLevelMapping", "Summernote", "CustomFileUpload", "DynamicTabLeft", "standardMenu", "Comment", "CommentModal", "Document", "DocumentModal", "Email", "EmailModal", "EmailDirective", "Exception", "ExceptionModal", "Event", "EventModal", "customToolbar", "addressDirective", "addressWrapper", "addressModal", "PackingGridDirective", "EditableTableDirective", "RoutingGridDirective", "ContainerEditableGridDirective", "3_BookingList",
+                            // Buyer_Forwarder 
+                            "1_3_BookingMenu", "1_3_BookingDirective", "1_3_BookingOrder", "1_3_BookingPlanning",
+                            // Buyer_Supplier
                             "1_2_BookingMenu", "1_2_BookingDirective", "1_2_BookingOrder", "1_2_BookingPlanning",
                             //Track Shipment
-                            "shipmentDetailsTrackingDirective",
-                            //ASN Upload
-                            "1_2_BookingASNUpload", "1_2_BookingASNUploadDirective", "doc-upload-modal"
+                            "shipmentDetailsTrackingDirective"
                         ]);
                     }]
                 }
@@ -368,7 +392,7 @@
                 }
             })
             .state('EA.singleRecordView.poOrder', {
-                url: '/po-order/:taskNo',
+                url: '/po-order',
                 templateUrl: 'app/eaxis/single-record-view/po-order/po-orderSRV.html',
                 controller: "SRVPOOrderController as SRVPOOrderCtrl",
                 ncyBreadcrumb: {
@@ -428,9 +452,32 @@
                     }]
                 }
             })
+            .state('EA.singleRecordView.containerView', {
+                url: '/container-view',
+                templateUrl: 'app/eaxis/buyer/freight/container/shared/single-record-view/container-view/container-view.html',
+                controller: "SRVContainerViewController as SRVContainerViewCtrl",
+                ncyBreadcrumb: {
+                    label: 'SRV - Container view'
+                },
+                resolve: {
+                    CheckAccess: ["$q", "pageAccessService", function ($q, pageAccessService) {
+                        var deferred = $q.defer();
+                        if (pageAccessService.CheckAuthToken()) {
+                            deferred.resolve();
+                        }
+                        return deferred.promise;
+                    }],
+                    loadMyCtrl: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
+                        return $ocLazyLoad.load(["SRVContainerView", "chromeTab", "dynamicTable", "confirmation", "compareDate", "dynamicListModal", "dynamicList", "dynamicLookup", "dynamicControl", "dynamicGrid", "drogAndDrop", "DynamicTabLeft",
+                            "standardMenu", "Comment", "CommentModal", "Document", "DocumentModal", "Email", "EmailModal", "EmailDirective", "Exception", "ExceptionModal", "Event", "EventModal", "AuditLog", "AuditLogModal", "Parties", "PartiesModal", "Task", "TaskModal", "Summernote",
+                            "cnt-buyer-view-template-list", "cnt-buyer-view-template", "cnt-buyer-view-general", "cnt-buyer-view-order", "cnt-buyer-view-shipment"
+                        ]);
+                    }]
+                }
+            })
             .state('EA.singleRecordView.orderView', {
-                url: '/order-view/:taskNo',
-                templateUrl: 'app/eaxis/buyer/purchase-order/shared/single-record-view/order-view/order-view.html',
+                url: '/order-view',
+                templateUrl: 'app/eaxis/buyer/purchase-order/order-shared/single-record-view/order-view/order-view.html',
                 controller: "SRVOrderViewController as SRVOrderViewCtrl",
                 ncyBreadcrumb: {
                     label: 'SRV - Order(s) view'
@@ -444,7 +491,73 @@
                         return deferred.promise;
                     }],
                     loadMyCtrl: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
-                        return $ocLazyLoad.load(["SRVOrderView", "chromeTab", "confirmation", "compareDate", "dynamicListModal", "dynamicList", "dynamicLookup", "dynamicControl", "dynamicGrid", "drogAndDrop", "customToolbar", "oneLevelMapping", "CustomFileUpload", "standardMenu", "Comment", "CommentModal", "Document", "DocumentModal", "Email", "EmailModal", "EmailDirective", "Exception", "ExceptionModal", "Event", "EventModal", "AuditLog", "AuditLogModal", "Parties", "PartiesModal", "Task", "TaskModal", "Summernote", "pagination", "addressDirective", "addressWrapper", "addressModal", "errorWarning", "ActivityTab", "MyTaskDirective", "WorkItemListView", "ProcessInstanceWorkItemDetails", "TaskAssignStartComplete", "MyTaskConfig", "MyTaskDynamicDirective", "MyTaskDefaultEditDirective", "1_order_list", "1_1_order-menu", "1_1_order-general", "1_1_orderLines", "1_1_orderLinesFormDirective", "1_1_prodSummary", "1_1_orderCargoReadiness", "1_1_orderShipmentPreAdvice", "1_1_orderVesselPlanning", "1_1_orderShipment", "1_1_orderSplit", "1_1_orderAction", "1_1_OrderCustomToolBar", "1_1_ActiveCustomToolBar", "1_1_OrderConfirmationDirective", "1_1_ConfrimDirective", "1_1_CargoReadinessToolBarDirective", "EditableTableDirective", "1_1_CargoReadinessInLineEditDirective", "1_1_PreAdviceToolBarDirective", "1_1_PreAdviceInLineEditDirective", "3_1_order-general", "1_2_view-template", "DynamicTabLeft", "1_1_my-task", "1_2_order-view-default-general", "1_2_order-view-default-shipment", "1_2_order-view-default-sub-po", "1_2_order-view-default-order-line", "1_3_order-menu", "1_3_order_general", "1_3_orderLines", "1_3_orderLinesFormDirective", "1_3_prodSummary", "1_3_orderCargoReadiness", "1_3_orderShipmentPreAdvice", "1_3_orderVesselPlanning", "1_3_orderShipment", "1_3_orderSplit", "1_3_orderAction", "1_3_my-task", "ord-buyer-view-template", "ord-buyer-view-general", "ord-buyer-view-order-line", "ord-buyer-view-shipment", "ord-buyer-view-sub-po"]);
+                        return $ocLazyLoad.load(["SRVOrderView", "chromeTab", "confirmation", "compareDate", "dynamicListModal", "dynamicList", "dynamicLookup", "dynamicControl", "dynamicGrid", "drogAndDrop", "customToolbar", "oneLevelMapping", "CustomFileUpload", "standardMenu", "Comment", "CommentModal", "Document", "DocumentModal", "Email", "EmailModal", "EmailDirective", "Exception", "ExceptionModal", "Event", "EventModal", "AuditLog", "AuditLogModal", "Parties", "PartiesModal", "Task", "TaskModal", "Summernote", "pagination", "addressDirective", "addressWrapper", "addressModal", "errorWarning", "ActivityTab", "MyTaskDirective", "WorkItemListView", "ProcessInstanceWorkItemDetails", "TaskAssignStartComplete", "MyTaskConfig", "MyTaskDynamicDirective", "MyTaskDefaultEditDirective", "1_order_list", "DynamicTabLeft", "ord-buyer-view-template", "ord-buyer-view-general", "ord-buyer-view-order-line", "ord-buyer-view-shipment", "ord-buyer-view-sub-po","ord-buyer-view-general-dhc","ord-buyer-view-order-line-dhc","ord-buyer-view-shipment-dhc","ord-buyer-view-sub-po-dhc"]);
+                    }]
+                }
+            })
+            .state('EA.singleRecordView.deliveryOrderView', {
+                url: '/delivery-order-view',
+                templateUrl: 'app/eaxis/buyer/purchase-order/order-shared/single-record-view/delivery-order-view/delivery-order-view.html',
+                controller: "SRVDeliveryOrderViewController as SRVDeliveryOrderViewCtrl",
+                ncyBreadcrumb: {
+                    label: 'SRV - Delivery Order(s) view'
+                },
+                resolve: {
+                    CheckAccess: ["$q", "pageAccessService", function ($q, pageAccessService) {
+                        var deferred = $q.defer();
+                        if (pageAccessService.CheckAuthToken()) {
+                            deferred.resolve();
+                        }
+                        return deferred.promise;
+                    }],
+                    loadMyCtrl: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
+                        return $ocLazyLoad.load(["SRVDeliveryOrderView", "chromeTab", "confirmation", "compareDate", "dynamicListModal", "dynamicList", "dynamicLookup", "dynamicControl", "dynamicGrid", "drogAndDrop", "customToolbar", "oneLevelMapping", "CustomFileUpload", "standardMenu", "Comment", "CommentModal", "Document", "DocumentModal", "Email", "EmailModal", "EmailDirective", "Exception", "ExceptionModal", "Event", "EventModal", "AuditLog", "AuditLogModal", "Parties", "PartiesModal", "Task", "TaskModal", "Summernote", "pagination", "addressDirective", "addressWrapper", "addressModal", "errorWarning", "ActivityTab", "MyTaskDirective", "WorkItemListView", "ProcessInstanceWorkItemDetails", "TaskAssignStartComplete", "MyTaskConfig", "MyTaskDynamicDirective", "MyTaskDefaultEditDirective", "1_order_list", "DynamicTabLeft", "delivery-ord-buyer-view-template", "delivery-ord-buyer-view-general", "delivery-ord-buyer-view-order-line", "ord-buyer-view-shipment", "ord-buyer-view-sub-po"]);
+                    }]
+                }
+            })
+            .state('EA.singleRecordView.bookingView', {
+                url: '/booking-view',
+                templateUrl: 'app/eaxis/buyer/freight/booking/shared/single-record-view/booking-view/booking-view.html',
+                controller: "SRVBookingViewController as SRVBookingViewCtrl",
+                ncyBreadcrumb: {
+                    label: 'SRV - Booking'
+                },
+                resolve: {
+                    CheckAccess: ["$q", "pageAccessService", function ($q, pageAccessService) {
+                        var deferred = $q.defer();
+                        if (pageAccessService.CheckAuthToken()) {
+                            deferred.resolve();
+                        }
+                        return deferred.promise;
+                    }],
+                    loadMyCtrl: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
+                        return $ocLazyLoad.load(["SRVBookingView", "chromeTab", "dynamicTable", "confirmation", "compareDate", "dynamicListModal", "dynamicList", "dynamicLookup", "dynamicControl", "dynamicGrid", "drogAndDrop", "DynamicTabLeft",
+                            "standardMenu", "Comment", "CommentModal", "Document", "DocumentModal", "Email", "EmailModal", "EmailDirective", "Exception", "ExceptionModal", "Event", "EventModal", "AuditLog", "AuditLogModal", "Parties", "PartiesModal", "Task", "TaskModal", "Summernote",
+                            "shp-buyer-view-template-list", "shp-buyer-view-template", "shp-buyer-view-general", "shp-buyer-view-order", "shp-buyer-view-consol-packing"
+                        ]);
+                    }]
+                }
+            })
+            .state('EA.singleRecordView.shipmentView', {
+                url: '/shipment-view',
+                templateUrl: 'app/eaxis/buyer/freight/booking/shared/single-record-view/shipment-view/shipment-view.html',
+                controller: "SRVShipmentViewController as SRVShipmentViewCtrl",
+                ncyBreadcrumb: {
+                    label: 'SRV - Shipment'
+                },
+                resolve: {
+                    CheckAccess: ["$q", "pageAccessService", function ($q, pageAccessService) {
+                        var deferred = $q.defer();
+                        if (pageAccessService.CheckAuthToken()) {
+                            deferred.resolve();
+                        }
+                        return deferred.promise;
+                    }],
+                    loadMyCtrl: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
+                        return $ocLazyLoad.load(["SRVShipmentView", "chromeTab", "dynamicTable", "confirmation", "compareDate", "dynamicListModal", "dynamicList", "dynamicLookup", "dynamicControl", "dynamicGrid", "drogAndDrop", "DynamicTabLeft",
+                            "standardMenu", "Comment", "CommentModal", "Document", "DocumentModal", "Email", "EmailModal", "EmailDirective", "Exception", "ExceptionModal", "Event", "EventModal", "AuditLog", "AuditLogModal", "Parties", "PartiesModal", "Task", "TaskModal", "Summernote",
+                            "shp-buyer-view-template-list", "shp-buyer-view-template", "shp-buyer-view-general", "shp-buyer-view-order", "shp-buyer-view-consol-packing"
+                        ]);
                     }]
                 }
             })
@@ -506,7 +619,7 @@
                         return deferred.promise;
                     }],
                     LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
-                        return $ocLazyLoad.load(["chromeTab", "confirmation", "compareDate", "dynamicListModal", "dynamicList", "dynamicLookup", "dynamicControl", "dynamicGrid", "drogAndDrop", "JsonModal", "errorWarning", "dynamicTable", "organization", "organizationMenu", "organizationGeneral", "organizationAddress", "organizationContact", "organizationCompany", "organizationEmployee", "organizationRelatedParties", "organizationRelatedPartiesModal", "organizationVisibility", "organizationConsignee", "organizationConsigneeModal", "organizationConsigneeDocModal", "organizationConsignor", "organizationConsignorModal", "organizationConsignorDocModal", "organizationWarehouse", "organizationGenRelatedPartiesModal", "organizationGenRelatedParties", "organizationReference",  "organizationAccessRights", "ExpressionFormatter", "ExpressionGroupFormatter", "NotificationFormatter", "NotificationTemplateFormatter", "TaskConfigFormatter", "PartyMapping", "MDM", "SRVOrganization"]);
+                        return $ocLazyLoad.load(["chromeTab", "confirmation", "compareDate", "dynamicListModal", "dynamicList", "dynamicLookup", "dynamicControl", "dynamicGrid", "drogAndDrop", "JsonModal", "errorWarning", "dynamicTable", "organization", "organizationMenu", "organizationGeneral", "organizationAddress", "organizationContact", "organizationCompany", "organizationEmployee", "organizationRelatedParties", "organizationRelatedPartiesModal", "organizationVisibility", "organizationConsignee", "organizationConsigneeModal", "organizationConsigneeDocModal", "organizationConsignor", "organizationConsignorModal", "organizationConsignorDocModal", "organizationWarehouse", "organizationGenRelatedPartiesModal", "organizationGenRelatedParties", "organizationReference", "organizationAccessRights", "ExpressionFormatter", "ExpressionGroupFormatter", "NotificationFormatter", "NotificationTemplateFormatter", "TaskConfigFormatter", "PartyMapping", "MDM", "SRVOrganization"]);
                     }]
                 }
             });

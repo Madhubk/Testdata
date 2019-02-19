@@ -1,0 +1,311 @@
+<div class="clearfix p-10 mb-0">
+    <div class="row">
+        <!-- Shipment -->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-3">
+            <div class="form-group ex-line-font">
+                <label class="control-label text-single-line">Shipment #</label>
+                <div class="">
+                    <!-- <span>{{OrdBuyerViewGeneralCtrl.ePage.Entities.Header.Data.UIShipment_Buyer_Supplier.HouseBill}}</span> -->
+                    <span><a href="javascript:void(0)" data-ng-click="OrdBuyerViewGeneralCtrl.ePage.Masters.SelectedShipmentRow(OrdBuyerViewGeneralCtrl.ePage.Entities.Header.Data);">{{OrdBuyerViewGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer.ShipmentNo}}</a></span>
+                </div>
+            </div>
+        </div>
+        <!-- T.Mode -->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-3">
+            <div class="form-group ex-line-font">
+                <label class="control-label text-single-line">Mode</label>
+                <div class="">
+                    <!-- <span>{{OrdBuyerViewGeneralCtrl.ePage.Entities.Header.Data.UIShipment_Buyer_Supplier.HouseBill}}</span> -->
+                    <span>{{OrdBuyerViewGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer.TransportMode}} -
+                        {{OrdBuyerViewGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer.ContainerMode}}</span>
+                </div>
+            </div>
+        </div>
+        <!-- Inco Term -->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-3">
+            <div class="form-group ex-line-font">
+                <label class="control-label text-single-line">Inco Term</label>
+                <div class="">
+                    <!-- <span>{{OrdBuyerViewGeneralCtrl.ePage.Entities.Header.Data.UIShipment_Buyer_Supplier.HouseBill}}</span> -->
+                    <span>{{OrdBuyerViewGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer.IncoTerm}}</span>
+                </div>
+            </div>
+        </div>
+        <!-- Country of Supply -->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-3">
+            <div class="form-group ex-line-font">
+                <label class="control-label text-single-line">Country Of Supply</label>
+                <div class="">
+                    <span>{{OrdBuyerViewGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer.OriginCountry}}</span>
+                </div>
+            </div>
+        </div>
+        <!-- Currency -->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-3">
+            <div class="form-group ex-line-font">
+                <label class="control-label text-single-line">Currency</label>
+                <div class="">
+                    <span>{{OrdBuyerViewGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer.OrderCurrency}}</span>
+                </div>
+            </div>
+        </div>
+        <!-- WH Code -->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-3">
+            <div class="form-group ex-line-font">
+                <label class="control-label text-single-line">Warehouse Code</label>
+                <div class="">
+                    <span>{{OrdBuyerViewGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer.WHCode}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <!-- WH Name -->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-3">
+            <div class="form-group ex-line-font">
+                <label class="control-label text-single-line">Warehouse Name</label>
+                <div class="">
+                    <span>{{OrdBuyerViewGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer.WHName}}</span>
+                </div>
+            </div>
+        </div>
+        <!-- Request Delivery Date -->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-3">
+            <div class="form-group ex-line-font">
+                <label class="control-label text-single-line">Request Delivery Date</label>
+                <div class="">
+                    <span>
+                        {{
+                        OrdBuyerViewGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer.RequiredDeliveryDate
+                        | date:'dd-MMM-yyyy'
+                        }}
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-3">
+            <div class="form-group ex-line-font">
+                <label class="control-label text-single-line">Confirm #</label>
+                <div class="">
+                    <span>{{OrdBuyerViewGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer.ConfirmNo}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-3">
+            <div class="form-group ex-line-font">
+                <label class="control-label text-single-line">Confirm Date</label>
+                <div class="">
+                    <span>
+                        <span>
+                            {{
+                            OrdBuyerViewGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer.ConfirmDate
+                            | date:'dd-MMM-yyyy'
+                            }}
+                        </span>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <!-- CRD Date -->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-3">
+            <div class="form-group ex-line-font">
+                <label class="control-label text-single-line">Cargo Ready Date</label>
+                <div class="">
+                    <span>
+                        {{
+                        OrdBuyerViewGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer.CargoReadyDate
+                        | date:'dd-MMM-yyyy'
+                        }}
+                    </span>
+                </div>
+            </div>
+        </div>
+        <!-- status -->
+        <!--<div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-3">
+            <div class="form-group ex-line-font">
+                <label class="control-label text-single-line">Order Status</label>
+                <div class="">
+                    <span>{{OrdBuyerViewGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer.OrderStatusDesc}}</span>
+                </div>
+            </div>
+        </div>-->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-3">
+            <div class="form-group ex-line-font">
+                <label class="control-label text-single-line">Planned Carrier</label>
+                <div class="">
+                    <span>{{OrdBuyerViewGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer.PlannedCarrier}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-3">
+            <div class="form-group ex-line-font">
+                <label class="control-label text-single-line">Planned Vessel</label>
+                <div class="">
+                    <span>{{OrdBuyerViewGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer.PlannedVessel}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-3">
+            <div class="form-group ex-line-font">
+                <label class="control-label text-single-line">Planned Voyage/Flight</label>
+                <div class="">
+                    <span>{{OrdBuyerViewGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer.PlannedVoyage}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-3">
+            <div class="form-group ex-line-font">
+                <label class="control-label text-single-line">Planned ETD</label>
+                <div class="">
+                    <span>
+                        {{
+                        OrdBuyerViewGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer.PlannedETD
+                        | date:'dd-MMM-yyyy'
+                        }}
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-3">
+            <div class="form-group ex-line-font">
+                <label class="control-label text-single-line">Planned ETA</label>
+                <div class="">
+                    <span>
+                        {{
+                        OrdBuyerViewGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer.PlannedETA
+                        | date:'dd-MMM-yyyy'
+                        }}
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-3">
+            <div class="form-group ex-line-font">
+                <label class="control-label text-single-line">Carrier</label>
+                <div class="">
+                    <span>{{OrdBuyerViewGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer.PlannedCarrier}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-3">
+            <div class="form-group ex-line-font">
+                <label class="control-label text-single-line">Vessel</label>
+                <div class="">
+                    <span>{{OrdBuyerViewGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer.PlannedVessel}}</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-3">
+            <div class="form-group ex-line-font">
+                <label class="control-label text-single-line">Voyage</label>
+                <div class="">
+                    <span>{{OrdBuyerViewGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer.PlannedVoyage}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-3">
+            <div class="form-group ex-line-font">
+                <label class="control-label text-single-line">ETD</label>
+                <div class="">
+                    <span>
+                        {{
+                        OrdBuyerViewGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer.ETD |
+                        date:'dd-MMM-yyyy'
+                        }}
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-3">
+            <div class="form-group ex-line-font">
+                <label class="control-label text-single-line">ETA</label>
+                <div class="">
+                    <span>
+                        {{
+                        OrdBuyerViewGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer.ETA |
+                        date:'dd-MMM-yyyy'
+                        }}
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-3">
+            <div class="form-group ex-line-font">
+                <label class="control-label text-single-line">ATD</label>
+                <div class="">
+                    <span>
+                        {{
+                        OrdBuyerViewGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer.ATD |
+                        date:'dd-MMM-yyyy'
+                        }}
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-3">
+            <div class="form-group ex-line-font">
+                <label class="control-label text-single-line">ATA</label>
+                <div class="">
+                    <span>
+                        {{
+                        OrdBuyerViewGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer.ATA |
+                        date:'dd-MMM-yyyy'
+                        }}
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-3">
+            <div class="form-group ex-line-font">
+                <label class="control-label text-single-line">POL</label>
+                <div class="">
+                    <span>{{OrdBuyerViewGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer.PortOfLoading}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-3">
+            <div class="form-group ex-line-font">
+                <label class="control-label text-single-line">POD</label>
+                <div class="">
+                    <span>{{OrdBuyerViewGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer.PortOfDischarge}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-3">
+            <div class="form-group ex-line-font">
+                <label class="control-label text-single-line">Booking Date</label>
+                <div class="">
+                    <span>
+                        {{
+                        OrdBuyerViewGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer.ShpCreatedDate
+                        | date:'dd-MMM-yyyy'
+                        }}
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-3">
+            <div class="form-group ex-line-font">
+                <label class="control-label text-single-line">Factory Invoice #</label>
+                <div class="">
+                    <span>{{OrdBuyerViewGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer.FactoryInvoiceNo}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-3">
+            <div class="form-group ex-line-font">
+                <label class="control-label text-single-line">Factory PackLine # </label>
+                <div class="">
+                    <span>{{OrdBuyerViewGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer.FactoryPKLNo}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

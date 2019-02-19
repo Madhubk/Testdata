@@ -75,8 +75,6 @@
         }
 
         function Save($item, type, flag) {
-
-
             var _Data = $item[$item.label].ePage.Entities,
                 _input = _Data.Header.Data;
 
@@ -90,7 +88,7 @@
             _array.map(function (value, key) {
                 _Data.Header.Data.UIJobAddress.push(value);
             });
-            console.log(_Data.Header.Data.UIJobAddress)
+
             var _isEmpty = angular.equals({}, _Data.Header.Data.UIAddressContactList);
             if (!_isEmpty) {
                 _Data.Header.Data.UIShipmentHeader.ORG_PickupAgent_FK = _Data.Header.Data.UIAddressContactList.PAG.ORG_FK;
@@ -112,7 +110,7 @@
             }
 
             var _obj = {
-                ModuleName: ["BookingForwarder"],
+                ModuleName: ["Booking"],
                 Code: [$item.code],
                 API: "Group", // Validation/Group
                 FilterInput: {
@@ -131,7 +129,7 @@
             };
             errorWarningService.ValidateValue(_obj);
             $timeout(function () {
-                var _errorcount = errorWarningService.Modules.BookingForwarder.Entity[$item.code].GlobalErrorWarningList;
+                var _errorcount = errorWarningService.Modules.Booking.Entity[$item.code].GlobalErrorWarningList;
                 if (_errorcount.length > 0) {
                     bookingBuyerForwarderTemplateCtrl.ePage.Masters.config.ShowErrorWarningModal($item);
                 } else {
@@ -169,6 +167,8 @@
                             }).indexOf(bookingBuyerForwarderTemplateCtrl.currentBooking.code);
 
                             if (_index !== -1) {
+                                bookingBuyerForwarderTemplateCtrl.ePage.Masters.MenuObj = three_BookingConfig.TabList[_index];
+                                bookingBuyerForwarderTemplateCtrl.ePage.Masters.MenuObj.TabTitle = three_BookingConfig.TabList[_index].label;
                                 three_BookingConfig.TabList[_index][three_BookingConfig.TabList[_index].label].ePage.Entities.Header.Data.UICustomEntity = response.Data.UICustomEntity;
                                 three_BookingConfig.TabList[_index][three_BookingConfig.TabList[_index].label].ePage.Entities.Header.Data.UIJobPickupAndDelivery = response.Data.UIJobPickupAndDelivery;
                                 three_BookingConfig.TabList[_index][three_BookingConfig.TabList[_index].label].ePage.Entities.Header.Data.UIShipmentHeader = response.Data.UIShipmentHeader;
@@ -184,28 +184,31 @@
                                     three_BookingConfig.TabList[_index][three_BookingConfig.TabList[_index].label].ePage.Entities.Header.Data.UIAddressContactList[val.AddressType] = val;
                                 });
                                 if (three_BookingConfig.TabList[_index].isNew) {
-                                    bookingBuyerForwarderTemplateCtrl.ePage.Masters["SaveBooking" + type + "Disabled"] = false;
-                                    bookingBuyerForwarderTemplateCtrl.ePage.Masters.SaveBothButtonDisabled = false
-                                    if (type == 'Approval') {
-                                        bookingBuyerForwarderTemplateCtrl.ePage.Masters["SaveBooking" + type] = 'Send For Booking Approval'
-                                    } else {
-                                        bookingBuyerForwarderTemplateCtrl.ePage.Masters["SaveBooking" + type] = 'Confirm Booking'
-                                    }
-                                    var modalOptions = {
-                                        closeButtonText: 'Cancel',
-                                        closeButtonVisible: false,
-                                        actionButtonText: 'Ok',
-                                        headerText: 'Booking Created Successfully..',
-                                        bodyText: bookingBuyerForwarderTemplateCtrl.currentBooking.code
-                                    };
+                                    // bookingBuyerForwarderTemplateCtrl.ePage.Masters["SaveBooking" + type + "Disabled"] = false;
+                                    // bookingBuyerForwarderTemplateCtrl.ePage.Masters.SaveBothButtonDisabled = false
+                                    // if (type == 'Approval') {
+                                    //     bookingBuyerForwarderTemplateCtrl.ePage.Masters["SaveBooking" + type] = 'Send For Booking Approval'
+                                    // } else {
+                                    //     bookingBuyerForwarderTemplateCtrl.ePage.Masters["SaveBooking" + type] = 'Confirm Booking'
+                                    // }
+                                    // var modalOptions = {
+                                    //     closeButtonText: 'Cancel',
+                                    //     closeButtonVisible: false,
+                                    //     actionButtonText: 'Ok',
+                                    //     headerText: 'Booking Created Successfully..',
+                                    //     bodyText: bookingBuyerForwarderTemplateCtrl.currentBooking.code
+                                    // };
 
-                                    confirmation.showModal({}, modalOptions)
-                                        .then(function (result) {
-                                            three_BookingConfig.TabList.splice(_index, 1)
-                                            helperService.refreshGrid();
-                                        }, function () {
-                                            console.log("Cancelled");
-                                        });
+                                    // confirmation.showModal({}, modalOptions)
+                                    //     .then(function (result) {
+                                    //         three_BookingConfig.TabList.splice(_index, 1)
+                                    //         helperService.refreshGrid();
+                                    //     }, function () {
+                                    //         console.log("Cancelled");
+                                    //     });
+                                    bookingBuyerForwarderTemplateCtrl.ePage.Masters.SaveButtonText = "Save";
+                                    bookingBuyerForwarderTemplateCtrl.ePage.Masters.IsDisableSave = false;
+                                    helperService.refreshGrid();
                                 } else {
                                     bookingBuyerForwarderTemplateCtrl.ePage.Masters.SaveButtonText = "Save";
                                     bookingBuyerForwarderTemplateCtrl.ePage.Masters.IsDisableSave = false;
@@ -226,7 +229,7 @@
         function ValidationCall(entity) {
             // validation findall call
             var _obj = {
-                ModuleName: ["BookingForwarder"],
+                ModuleName: ["Booking"],
                 Code: [bookingBuyerForwarderTemplateCtrl.currentBooking.code],
                 API: "Group", // Validation/Group
                 FilterInput: {

@@ -14,7 +14,8 @@
             bindToController: true,
             scope: {
                 input: "=",
-                isDocumentUploaded: "="
+                isDocumentUploaded: "=",
+                mode: "="
             },
             link: Link
         };

@@ -5,9 +5,9 @@
         .module("Application")
         .controller("UploadLeasingContractVnmDirectiveController", UploadLeasingContractVnmDirectiveController);
 
-    UploadLeasingContractVnmDirectiveController.$inject = ["helperService", "$q", "apiService", "authService", "appConfig", "toastr", "errorWarningService", "$filter", "$timeout", "freightApiConfig"];
+    UploadLeasingContractVnmDirectiveController.$inject = ["$window", "helperService", "$q", "apiService", "authService", "appConfig", "toastr", "errorWarningService", "$filter", "$timeout", "freightApiConfig"];
 
-    function UploadLeasingContractVnmDirectiveController(helperService, $q, apiService, authService, appConfig, toastr, errorWarningService, $filter, $timeout, freightApiConfig) {
+    function UploadLeasingContractVnmDirectiveController($window, helperService, $q, apiService, authService, appConfig, toastr, errorWarningService, $filter, $timeout, freightApiConfig) {
         var UploadLeasingContractVnmDirectiveCtrl = this;
 
         function Init() {
@@ -29,9 +29,12 @@
         function InitPoUpload() {
             UploadLeasingContractVnmDirectiveCtrl.ePage.Masters.CompleteBtnTxt = "Complete";
             UploadLeasingContractVnmDirectiveCtrl.ePage.Masters.CompleteBtnDisabled = false;
+            UploadLeasingContractVnmDirectiveCtrl.ePage.Masters.PageNotFound = false;
+            UploadLeasingContractVnmDirectiveCtrl.ePage.Masters.IsLoading = true;
             UploadLeasingContractVnmDirectiveCtrl.ePage.Masters.MyTask = UploadLeasingContractVnmDirectiveCtrl.taskObj;
             UploadLeasingContractVnmDirectiveCtrl.ePage.Masters.Complete = Complete;
             UploadLeasingContractVnmDirectiveCtrl.ePage.Masters.IsUploaded = IsUploaded;
+            UploadLeasingContractVnmDirectiveCtrl.ePage.Masters.SingleRecordView = SingleRecordView;
 
             if (UploadLeasingContractVnmDirectiveCtrl.ePage.Masters.MyTask.OtherConfig) {
                 if (typeof UploadLeasingContractVnmDirectiveCtrl.ePage.Masters.MyTask.OtherConfig == "string") {
@@ -41,6 +44,7 @@
 
             TaskGetById();
             StandardMenuConfig();
+            getTaskConfigData();
         }
 
         function TaskGetById() {
@@ -49,7 +53,11 @@
                     if (response.data.Response) {
                         response.data.Response.EntityObj = {};
                         UploadLeasingContractVnmDirectiveCtrl.ePage.Entities.Header.Data = response.data.Response;
-                        getTaskConfigData();
+                        UploadLeasingContractVnmDirectiveCtrl.ePage.Masters.IsLoading = false;
+                    } else {
+                        UploadLeasingContractVnmDirectiveCtrl.ePage.Entities.Header.Data.EntityObj = {};
+                        UploadLeasingContractVnmDirectiveCtrl.ePage.Masters.PageNotFound = true;
+                        UploadLeasingContractVnmDirectiveCtrl.ePage.Masters.IsLoading = false;
                     }
                 });
             }
@@ -98,7 +106,7 @@
             if (UploadLeasingContractVnmDirectiveCtrl.ePage.Masters.MyTask) {
                 // validation findall call
                 var _obj = {
-                    ModuleName: ["MyTask"],
+                    ModuleName: [UploadLeasingContractVnmDirectiveCtrl.ePage.Masters.MyTask.PSI_InstanceNo],
                     Code: [UploadLeasingContractVnmDirectiveCtrl.ePage.Masters.MyTask.PSI_InstanceNo],
                     API: "Group",
                     FilterInput: {
@@ -112,8 +120,8 @@
                 errorWarningService.GetErrorCodeList(_obj);
 
                 UploadLeasingContractVnmDirectiveCtrl.ePage.Masters.ErrorWarningConfig = errorWarningService;
-                UploadLeasingContractVnmDirectiveCtrl.ePage.Masters.ErrorWarningConfig.GlobalErrorWarningList = errorWarningService.Modules.MyTask.Entity[UploadLeasingContractVnmDirectiveCtrl.taskObj.PSI_InstanceNo].GlobalErrorWarningList;
-                UploadLeasingContractVnmDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj = errorWarningService.Modules.MyTask.Entity[UploadLeasingContractVnmDirectiveCtrl.taskObj.PSI_InstanceNo];
+                UploadLeasingContractVnmDirectiveCtrl.ePage.Masters.ErrorWarningConfig.GlobalErrorWarningList = errorWarningService.Modules[UploadLeasingContractVnmDirectiveCtrl.ePage.Masters.MyTask.PSI_InstanceNo].Entity[UploadLeasingContractVnmDirectiveCtrl.taskObj.PSI_InstanceNo].GlobalErrorWarningList;
+                UploadLeasingContractVnmDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj = errorWarningService.Modules[UploadLeasingContractVnmDirectiveCtrl.ePage.Masters.MyTask.PSI_InstanceNo].Entity[UploadLeasingContractVnmDirectiveCtrl.taskObj.PSI_InstanceNo];
             }
         }
 
@@ -128,7 +136,7 @@
                         UploadLeasingContractVnmDirectiveCtrl.ePage.Entities.Header.Data.EntityObj.Document = null;
                     }
                     var _obj = {
-                        ModuleName: ["MyTask"],
+                        ModuleName: [UploadLeasingContractVnmDirectiveCtrl.ePage.Masters.MyTask.PSI_InstanceNo],
                         Code: [UploadLeasingContractVnmDirectiveCtrl.taskObj.PSI_InstanceNo],
                         API: "Group",
                         FilterInput: {
@@ -142,7 +150,7 @@
                 });
             }
             $timeout(function () {
-                var _errorcount = errorWarningService.Modules.MyTask.Entity[UploadLeasingContractVnmDirectiveCtrl.taskObj.PSI_InstanceNo].GlobalErrorWarningList;
+                var _errorcount = errorWarningService.Modules[UploadLeasingContractVnmDirectiveCtrl.ePage.Masters.MyTask.PSI_InstanceNo].Entity[UploadLeasingContractVnmDirectiveCtrl.taskObj.PSI_InstanceNo].GlobalErrorWarningList;
                 if (_errorcount.length > 0) {
                     if (UploadLeasingContractVnmDirectiveCtrl.ePage.Masters.DocumentValidation.length > 0) {
                         angular.forEach(_errorcount, function (value, key) {
@@ -154,13 +162,13 @@
                                 angular.forEach(UploadLeasingContractVnmDirectiveCtrl.ePage.Masters.docTypeSource, function (value, key) {
                                     doctypedesc = doctypedesc + value.DocTypeDesc + ",";
                                 });
-                                value.Message = 'Please Upload Document';
+                                value.Message = 'Please Upload ';
                                 doctypedesc = doctypedesc.slice(0, -1);
-                                value.Message = value.Message + " for this " + doctypedesc + " Document type";
+                                value.Message = value.Message + doctypedesc;
                             }
                         });
                     }
-                    // toastr.warning(_errorcount[0].Message);
+                    toastr.warning(_errorcount[0].Message + " for this " + "instance # " + UploadLeasingContractVnmDirectiveCtrl.ePage.Masters.MyTask.PSI_InstanceNo);
                     UploadLeasingContractVnmDirectiveCtrl.ePage.Masters.CompleteBtnTxt = "Complete";
                     UploadLeasingContractVnmDirectiveCtrl.ePage.Masters.CompleteBtnDisabled = false;
                 } else {
@@ -170,23 +178,25 @@
         }
 
         function CompleteWithSave() {
-            var _input = InputData(UploadLeasingContractVnmDirectiveCtrl.ePage.Masters.MyTask, 6);
+            var _input = InputData(UploadLeasingContractVnmDirectiveCtrl.ePage.Masters.MyTask);
             apiService.post("eAxisAPI", appConfig.Entities.EBPMEngine.API.CompleteProcess.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     toastr.success("Task completed succesfully...");
+                    UploadLeasingContractVnmDirectiveCtrl.ePage.Masters.CompleteBtnTxt = "Complete";
+                    UploadLeasingContractVnmDirectiveCtrl.ePage.Masters.CompleteBtnDisabled = false;
+                    var _data = {
+                        IsRefreshTask: true,
+                        IsRefreshStatusCount: true,
+                        Item: UploadLeasingContractVnmDirectiveCtrl.ePage.Masters.MyTask
+                    };
+                    UploadLeasingContractVnmDirectiveCtrl.onComplete({
+                        $item: _data
+                    });
                 } else {
+                    UploadLeasingContractVnmDirectiveCtrl.ePage.Masters.CompleteBtnTxt = "Complete";
+                    UploadLeasingContractVnmDirectiveCtrl.ePage.Masters.CompleteBtnDisabled = false;
                     toastr.error("Task completion failed...");
                 }
-            });
-            UploadLeasingContractVnmDirectiveCtrl.ePage.Masters.CompleteBtnTxt = "Complete";
-            UploadLeasingContractVnmDirectiveCtrl.ePage.Masters.CompleteBtnDisabled = false;
-            var _data = {
-                IsRefreshTask: true,
-                IsRefreshStatusCount: true,
-                Item: UploadLeasingContractVnmDirectiveCtrl.ePage.Masters.MyTask
-            };
-            UploadLeasingContractVnmDirectiveCtrl.onComplete({
-                $item: _data
             });
         }
 
@@ -257,9 +267,9 @@
                 // Additional Entity
                 "AdditionalEntityRefKey": undefined,
                 "AdditionalEntityRefCode": undefined,
-                "AdditionalEntitySource": undefined,
-                "IsDisableParentEntity": true,
-                "IsDisableAdditionalEntity": true
+                "AdditionalEntitySource": undefined
+                // "IsDisableParentEntity": true,
+                // "IsDisableAdditionalEntity": true
             };
             UploadLeasingContractVnmDirectiveCtrl.ePage.Masters.StandardConfigInput = {
                 IsDisableRefreshButton: true,
@@ -288,17 +298,26 @@
             };
         }
 
-        function InputData(_data, CompleteStepNo) {
+        function InputData(_data) {
             var _filterInput = {
                 "ProcessName": _data.ProcessName,
                 "EntitySource": _data.EntitySource,
                 "EntityRefKey": _data.EntityRefKey,
                 "KeyReference": _data.KeyReference,
                 "CompleteInstanceNo": _data.PSI_InstanceNo,
-                "CompleteStepNo": CompleteStepNo,
+                "CompleteStepNo": _data.WSI_StepNo,
                 "IsModified": true
             };
             return _filterInput;
+        }
+
+        function SingleRecordView(obj) {
+            var _queryString = {
+                PK: obj.UIShipmentHeader.PK,
+                ShipmentNo: obj.UIShipmentHeader.ShipmentNo
+            };
+            _queryString = helperService.encryptData(_queryString);
+            $window.open("#/EA/single-record-view/booking-view?q=" + _queryString, "_blank");
         }
 
         Init();

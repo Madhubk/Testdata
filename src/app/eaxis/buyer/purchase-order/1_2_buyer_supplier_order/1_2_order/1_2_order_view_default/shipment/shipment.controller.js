@@ -41,10 +41,10 @@
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.ConShpMapping.API.FindAll.FilterID
+                "FilterID": appConfig.Entities.BuyerConShpMapping.API.FindAll.FilterID
             };
             if (shp_pk != null) {
-                apiService.post("eAxisAPI", appConfig.Entities.ConShpMapping.API.FindAll.Url, _input).then(function (response) {
+                apiService.post("eAxisAPI", appConfig.Entities.BuyerConShpMapping.API.FindAll.Url, _input).then(function (response) {
                     if (response.data.Response) {
                         OrderViewDefaultShipmentCtrl.ePage.Masters.ConshpMappingList = response.data.Response;
                         OrderViewDefaultShipmentCtrl.ePage.Masters.ShipmentDetailsShow = true;
@@ -61,7 +61,7 @@
                 Code: curEntity.UIShipment_Buyer_Supplier.ShipmentNo
             };
             _queryString = helperService.encryptData(_queryString);
-            $window.open("#/EA/single-record-view/shipment/" + _queryString, "_blank");
+            $window.open("#/EA/single-record-view/shipment-view?q=" + _queryString, "_blank");
         }
 
         Init();

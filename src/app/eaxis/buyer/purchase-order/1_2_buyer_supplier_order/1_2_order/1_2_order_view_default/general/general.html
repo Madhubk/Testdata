@@ -38,13 +38,12 @@
                         <i class="fa fa-angle-double-up text-center fa-3x set-color-blue pt-15"></i>
                     </div>
                     <div class="col-lg-10">
-                        <div class="mt-5">
-                            <b>{{OrderViewDefaultGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Supplier.SupplierName}}</b>
+                        <div class="">
+                            <b>{{OrderViewDefaultGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Supplier.ConsignorName}}</b>
                         </div>
-                        <div class="mt-5">{{OrderViewDefaultGeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRA.Address1}}</div>
-
-                        <!-- <div class="mt-5">{{OrderViewDefaultGeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRA.Address2}}</div> -->
-                        <div class="mt-5">
+                        <div class="mt-5 text-ellipsis" title="{{OrderViewDefaultGeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRA.Address1}}">{{OrderViewDefaultGeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRA.Address1}}</div>
+                        <div class="text-ellipsis" title="{{OrderViewDefaultGeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRA.Address2}}">{{OrderViewDefaultGeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRA.Address2}}</div>
+                        <div class="mt-2">
                             Origin -
                             <span class="set-color-blue">{{OrderViewDefaultGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Supplier.GoodsAvailableAt}}</span>
                         </div>
@@ -60,17 +59,14 @@
                 <div class="clearfix pt-10 pb-10">
                     <div class="col-lg-2">
                         <i class="fa fa-angle-double-down text-center fa-3x set-color-blue pt-15"></i>
-
                     </div>
-
                     <div class="col-lg-10 pl-0">
-
-                        <div class="mt-5">
-                            <b>{{OrderViewDefaultGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Supplier.BuyerName}}</b>
+                        <div class="">
+                            <b>{{OrderViewDefaultGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Supplier.ConsigneeName}}</b>
                         </div>
-                        <div class="mt-5">{{OrderViewDefaultGeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.SCP.Address1}}</div>
-                        <!-- <div class="mt-5">{{OrderViewDefaultGeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.SCP.Address2}}</div> -->
-                        <div class="mt-5">
+                        <div class="mt-5 text-ellipsis" title="{{OrderViewDefaultGeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.SCP.Address1}}">{{OrderViewDefaultGeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.SCP.Address1}}</div>
+                        <div class="text-ellipsis" title="{{OrderViewDefaultGeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.SCP.Address2}}">{{OrderViewDefaultGeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.SCP.Address2}}</div>
+                        <div class="mt-2">
                             Destination -
                             <span class="set-color-blue">{{OrderViewDefaultGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Supplier.GoodsDeliveredTo}}</span>
                         </div>

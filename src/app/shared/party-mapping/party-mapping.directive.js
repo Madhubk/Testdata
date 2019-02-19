@@ -216,7 +216,7 @@
 			function GetRoleList() {
 				scope.RoleMapping.ActiveParty.RoleList = undefined;
 				var _filter = {
-					"SAP_Code": authService.getUserInfo().AppCode,
+					"SAP_Code": scope.mappingInput.SAP_Code,
 					"PartyCode": scope.RoleMapping.ActiveParty.Code,
 				};
 				var _input = {
@@ -226,12 +226,17 @@
 
 				apiService.post("authAPI", appConfig.Entities.SecMappings.API.GetRoleByUserApp.Url, _input).then(function SuccessCallback(response) {
 					if (response.data.Response) {
-						scope.RoleMapping.ActiveParty.RoleList = response.data.Response;
-
-						if (scope.RoleMapping.ActiveParty.RoleList.length > 0) {
-							GetPartyRoleMappingList();
-						} else {
+						if (response.data.Response == "No roles Mapped!") {
+							scope.RoleMapping.ActiveParty.RoleList = [];
 							toastr.warning("No Role mapped with this Party...!");
+						} else {
+							scope.RoleMapping.ActiveParty.RoleList = response.data.Response;
+
+							if (scope.RoleMapping.ActiveParty.RoleList.length > 0) {
+								GetPartyRoleMappingList();
+							} else {
+								toastr.warning("No Role mapped with this Party...!");
+							}
 						}
 					} else {
 						scope.RoleMapping.ActiveParty.RoleList = [];

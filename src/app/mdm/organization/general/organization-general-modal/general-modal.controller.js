@@ -83,6 +83,9 @@
             }, {
                 "DispName": "Store",
                 "Value": "IsStore"
+            }, {
+                "DispName": "Carrier",
+                "Value": "IsShippingProvider"
             }];
         }
 
@@ -209,7 +212,7 @@
             var _input = angular.copy(OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data);
             _input.OrgHeader.IsModified = true;
             _input.OrgHeader.Code = _input.OrgHeader.Code.replace(/\s/g, '').toUpperCase();
-            _input.OrgHeader.FullName = _input.OrgHeader.FullName.replace(/\s/g, '').toUpperCase();
+            _input.OrgHeader.FullName = _input.OrgHeader.FullName.toUpperCase();
             _input.OrgHeader.TenantCode = authService.getUserInfo().TenantCode;
 
             if (OrgGeneralModalCtrl.ePage.Masters.param.Entity.isNew == true) {

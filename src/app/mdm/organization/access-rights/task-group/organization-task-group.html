@@ -110,9 +110,12 @@
                     <div class="form-group">
                         <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Email</label>
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
-                            <select chosen multiple class="form-control" data-ng-model="OrganizationTaskGroupCtrl.ePage.Masters.TaskAction.ActiveTaskAction.EmailTemplate.contactlist"
+                            <!-- <select chosen multiple class="form-control" data-ng-model="OrganizationTaskGroupCtrl.ePage.Masters.TaskAction.ActiveTaskAction.EmailTemplate.contactlist"
                                 data-ng-options="y.Email as y.ContactName for y in OrganizationTaskGroupCtrl.ePage.Masters.TaskAction.ContactList"
-                                search-contains="true"></select>
+                                search-contains="true"></select> -->
+
+                                <textarea class="form-control input-sm no-resize" rows="3" data-ng-model="OrganizationTaskGroupCtrl.ePage.Masters.TaskAction.ActiveTaskAction.EmailTemplate.contactlist"
+                                placeholder="Contact"></textarea>
                         </div>
                     </div>
                 </div>

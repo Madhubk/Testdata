@@ -5,9 +5,9 @@
         .module("Application")
         .controller("one_three_orderActionController", one_three_orderActionController);
 
-    one_three_orderActionController.$inject = ["$scope", "$injector", "apiService", "helperService", "appConfig", "orderApiConfig", "confirmation", "toastr"];
+    one_three_orderActionController.$inject = ["$scope", "$injector", "apiService", "helperService", "orderApiConfig", "confirmation", "toastr"];
 
-    function one_three_orderActionController($scope, $injector, apiService, helperService, appConfig, orderApiConfig, confirmation, toastr) {
+    function one_three_orderActionController($scope, $injector, apiService, helperService, orderApiConfig, confirmation, toastr) {
         /* jshint validthis: true */
         var one_three_OrderActionCtrl = this;
 

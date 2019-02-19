@@ -38,13 +38,12 @@
                         <i class="fa fa-angle-double-up text-center fa-3x set-color-blue pt-15"></i>
                     </div>
                     <div class="col-lg-10">
-                        <div class="mt-5">
+                        <div class="">
                             <b>{{shpBuyerViewGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ShipperName}}</b>
                         </div>
-                        <div class="mt-5">{{shpBuyerViewGeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.Address1}}</div>
-
-                        <!-- <div class="mt-5">{{shpBuyerViewGeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRA.Address2}}</div> -->
-                        <div class="mt-5">
+                        <div class="mt-5 text-ellipsis" title="{{shpBuyerViewGeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.Address1}}">{{shpBuyerViewGeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.Address1}}</div>
+                        <div class="text-ellipsis" title="{{shpBuyerViewGeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.Address2}}">{{shpBuyerViewGeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.Address2}}</div>
+                        <div class="mt-2">
                             Origin -
                             <span class="set-color-blue">{{shpBuyerViewGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Origin}}</span>
                         </div>
@@ -60,17 +59,14 @@
                 <div class="clearfix pt-10 pb-10">
                     <div class="col-lg-2">
                         <i class="fa fa-angle-double-down text-center fa-3x set-color-blue pt-15"></i>
-
                     </div>
-
                     <div class="col-lg-10 pl-0">
-
-                        <div class="mt-5">
+                        <div class="">
                             <b>{{shpBuyerViewGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ConsigneeName}}</b>
                         </div>
-                        <div class="mt-5">{{shpBuyerViewGeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.Address1}}</div>
-                        <!-- <div class="mt-5">{{shpBuyerViewGeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.SCP.Address2}}</div> -->
-                        <div class="mt-5">
+                        <div class="mt-5 text-ellipsis" title="{{shpBuyerViewGeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.Address1}}">{{shpBuyerViewGeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.Address1}}</div>
+                        <div class="text-ellipsis" title="{{shpBuyerViewGeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.Address2}}">{{shpBuyerViewGeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.Address2}}</div>
+                        <div class="mt-2">
                             Destination -
                             <span class="set-color-blue">{{shpBuyerViewGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Destination}}</span>
                         </div>
@@ -80,8 +76,25 @@
         </div>
     </div>
 </div>
-<div class="clearfix p-15">
+<div class="col-lg-12 mt-10">
     <div class="widget-main" style="border:1px solid #eee">
-        <div data-ng-include="'app/eaxis/buyer/freight/shipment/shp-buyer-read-only/shp-buyer-view/general/details.html'"></div>
+        <uib-tabset id="OrderBasic">
+            <!--Order Details-->
+            <uib-tab>
+                <uib-tab-heading title="General">
+                    <i class="fa fa-file-o margin-right-5"></i>
+                    <span class="text-single-line" data-ng-bind="'General'"></span>
+                </uib-tab-heading>
+                <div data-ng-include="'app/eaxis/buyer/freight/shipment/shp-buyer-read-only/shp-buyer-view/general/details.html'"></div>
+            </uib-tab>
+            <!-- Routing Details-->
+            <uib-tab>
+                <uib-tab-heading title="Routing Details">
+                    <i class="fa fa-external-link margin-right-5"></i>
+                    <span class="text-single-line" data-ng-bind="'Routing Details'"></span>
+                </uib-tab-heading>
+                <div data-ng-include="'app/eaxis/buyer/freight/shipment/shp-buyer-read-only/shp-buyer-view/general/routing-details.html'"></div>
+            </uib-tab>
+        </uib-tabset>
     </div>
 </div>

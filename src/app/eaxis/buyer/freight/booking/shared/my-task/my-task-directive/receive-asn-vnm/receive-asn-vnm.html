@@ -1,42 +1,103 @@
-<div class="clearfix">
-	<div class="col-lg-4">
-		<div>Consingor :</div>
-		<a class="my-task-content-shipper-link" href="javascript: void(0)">{{ReceiveAsnVnmDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ORG_Shipper_Code}}</a>
+<div class="clearfix" data-ng-if="!ReceiveAsnVnmDirectiveCtrl.ePage.Masters.IsLoading && !ReceiveAsnVnmDirectiveCtrl.ePage.Masters.PageNotFound">
+	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+		<div class="form-group ex-line-font">
+			<label class="control-label text-single-line">Consingor</label>
+			<div class="text-ellipsis" title="{{ReceiveAsnVnmDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ShipperName}}">
+				<span>{{ReceiveAsnVnmDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ShipperName}}</span>
+			</div>
+		</div>
 	</div>
-	<div class="col-lg-4">
-		<div>Consingee :</div>
-		<a class="my-task-content-shipper-link" href="javascript: void(0)">{{ReceiveAsnVnmDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ORG_Consignee_Code}}</a>
+	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+		<div class="form-group ex-line-font">
+			<label class="control-label text-single-line">Consingee</label>
+			<div class="text-ellipsis" title="{{ReceiveAsnVnmDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ConsigneeName}}">
+				<span>{{ReceiveAsnVnmDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ConsigneeName}}</span>
+			</div>
+		</div>
 	</div>
-	<div class="col-lg-4 text-right pr-0 pl-28">
+	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+		<div class="form-group ex-line-font">
+			<label class="control-label text-single-line">Booking #</label>
+			<div class="">
+				<a href="javascript: void(0)" data-ng-click="ReceiveAsnVnmDirectiveCtrl.ePage.Masters.SingleRecordView(ReceiveAsnVnmDirectiveCtrl.ePage.Entities.Header.Data)">{{ReceiveAsnVnmDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ShipmentNo}}</a>
+			</div>
+		</div>
+	</div>
+	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+		<div class="form-group ex-line-font">
+			<label class="control-label text-single-line">Order(s) #</label>
+			<div class="text-ellipsis" title="{{ReceiveAsnVnmDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.OrderNos}}">
+				<span>{{ReceiveAsnVnmDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.OrderNos}}</span>
+			</div>
+		</div>
+	</div>
+	<!-- <div class="col-lg-4 text-right pr-0 pl-28">
 		<div class="row mt-10">
 			<div class="col-lg-6">
 				<button class="btn btn-primary btn-sm pull-right fs-12 mt-5 mb-5 ml-10" ata-ng-disabled="ReceiveAsnVnmDirectiveCtrl.ePage.Masters.IsMisMatch"
 				 data-ng-click="ReceiveAsnVnmDirectiveCtrl.ePage.Masters.Approval('Yes')">{{ReceiveAsnVnmDirectiveCtrl.ePage.Masters.IsMisMatchBtn}}</button>
 			</div>
 			<div class="col-lg-6">
-				<button class="btn btn-secondary btn-sm pull-right fs-12 mt-5 mb-5" data-ng-disabled="ReceiveAsnVnmDirectiveCtrl.ePage.Masters.IsNoMisMatch"
+				<button class="btn btn-default btn-sm pull-right fs-12 mt-5 mb-5" data-ng-disabled="ReceiveAsnVnmDirectiveCtrl.ePage.Masters.IsNoMisMatch"
 				 data-ng-click="ReceiveAsnVnmDirectiveCtrl.ePage.Masters.Approval('No')">{{ReceiveAsnVnmDirectiveCtrl.ePage.Masters.IsNoMisMatchBtn}}</button>
+			</div>
+		</div>
+	</div> -->
+</div>
+<div class="clearfix mt-5" data-ng-if="!ReceiveAsnVnmDirectiveCtrl.ePage.Masters.IsLoading && !ReceiveAsnVnmDirectiveCtrl.ePage.Masters.PageNotFound">
+	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+		<div class="form-group ex-line-font">
+			<label class="control-label text-single-line">Factory Invoice #</label>
+			<div class="">
+				<span>{{ReceiveAsnVnmDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.InvoiceRefNo}}</span>
+			</div>
+		</div>
+	</div>
+	<div class="col-lg-6">
+		<div class="control-group">
+			<div class="radio-inline pl-0">
+				<label>
+					<input type="radio" data-ng-model="ReceiveAsnVnmDirectiveCtrl.ePage.Masters.IsApproval" data-ng-value="false">
+					<span class="text">Stock MisMatch </span>
+				</label>
+			</div>
+			<div class="radio-inline">
+				<label>
+					<input type="radio" data-ng-model="ReceiveAsnVnmDirectiveCtrl.ePage.Masters.IsApproval" data-ng-value="true">
+					<span class="text">No MisMatch</span>
+				</label>
 			</div>
 		</div>
 	</div>
 </div>
-<div class="row mt-10" id="style-4">
+<div class="row mt-5" id="style-4" data-ng-if="!ReceiveAsnVnmDirectiveCtrl.ePage.Masters.IsLoading && !ReceiveAsnVnmDirectiveCtrl.ePage.Masters.PageNotFound">
 	<span class="error-warning-container error-warnig-doc">
 		<!-- valid order # -->
-		<error-warning-directive data-ng-if="ReceiveAsnVnmDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Document.IsWarning && !ReceiveAsnVnmDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Document.IsError"
-		 list="ReceiveAsnVnmDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Document.WARNING" type="'warning'"
-		 icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
-		<error-warning-directive data-ng-if="ReceiveAsnVnmDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Document.IsError"
+		<!-- <error-warning-directive data-ng-if="ReceiveAsnVnmDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Document.IsError"
 		 list="ReceiveAsnVnmDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Document.ERROR" type="'error'"
-		 icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+		 icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive> -->
 	</span>
 	<div class="col-lg-12" data-ng-if="ReceiveAsnVnmDirectiveCtrl.ePage.Masters.StandardMenuInput" upload-document-ord
 	 doc-type-dsc="ReceiveAsnVnmDirectiveCtrl.ePage.Masters.DocTypeDesc" input="ReceiveAsnVnmDirectiveCtrl.ePage.Masters.StandardMenuInput"
-	 is-uploaded="ReceiveAsnVnmDirectiveCtrl.ePage.Masters.IsUploaded({ $item: $item })" config="ReceiveAsnVnmDirectiveCtrl.ePage.Masters.StandardConfigInput"
-	 class="my-task-icon fa fa-file-text-o mr-5">
+	 is-uploaded="ReceiveAsnVnmDirectiveCtrl.ePage.Masters.IsUploaded({ $item: $item })" allow-to-upload="ReceiveAsnVnmDirectiveCtrl.ePage.Masters.IsApproval"
+	 config="ReceiveAsnVnmDirectiveCtrl.ePage.Masters.StandardConfigInput" class="my-task-icon fa fa-file-text-o mr-5">
 	</div>
 	<div class="col-lg-8" data-ng-if="ReceiveAsnVnmDirectiveCtrl.ePage.Masters.StandardMenuInput" is-document-uploaded="ReceiveAsnVnmDirectiveCtrl.ePage.Masters.IsDocumentUploaded"
-	 view-document-ord doc-type-dsc="ReceiveAsnVnmDirectiveCtrl.ePage.Masters.MyTask.WSI_StepName" input="ReceiveAsnVnmDirectiveCtrl.ePage.Masters.StandardMenuInput"
-	 mode="3" config="ReceiveAsnVnmDirectiveCtrl.ePage.Masters.StandardConfigInput" class="my-task-icon fa fa-file-text-o mr-5">
+	 view-document-ord input="ReceiveAsnVnmDirectiveCtrl.ePage.Masters.StandardMenuInput" mode="3" config="ReceiveAsnVnmDirectiveCtrl.ePage.Masters.StandardConfigInput"
+	 class="my-task-icon fa fa-file-text-o mr-5">
 	</div>
+	<div class="col-lg-4">
+		<button class="my-task-primary-btn my-task-directive-btn" data-ng-click="ReceiveAsnVnmDirectiveCtrl.ePage.Masters.Approval(ReceiveAsnVnmDirectiveCtrl.ePage.Masters.IsApproval)"
+		 data-ng-disabled="ReceiveAsnVnmDirectiveCtrl.ePage.Masters.CompleteBtnDisabled">
+			{{ReceiveAsnVnmDirectiveCtrl.ePage.Masters.CompleteBtnTxt}}
+		</button>
+	</div>
+</div>
+<!-- Not Found -->
+<div id="notfound" data-ng-if="ReceiveAsnVnmDirectiveCtrl.ePage.Masters.PageNotFound">
+    <div data-ng-include="'app/eaxis/buyer/shared/page-404.html'"></div>
+</div>
+<!-- Loading -->
+<div class="clearfix p-30 text-center" data-ng-if="ReceiveAsnVnmDirectiveCtrl.ePage.Masters.IsLoading && !ReceiveAsnVnmDirectiveCtrl.ePage.Masters.PageNotFound">
+    <i class="fa fa-spin fa-spinner" style="font-size: 18px;"></i>
 </div>

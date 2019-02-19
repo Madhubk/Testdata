@@ -1,0 +1,741 @@
+<!--General-->
+<div class="clearfix margin-top-10">
+    <div class="row margin-right-10 margin-left-10 margin-top-10 address-panel">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 pr-0 padding-top-10 address-design">
+            <span class="error-warning-container">
+                <error-warning-directive data-ng-if="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Consignor.IsWarning && !bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Consignor.IsError"
+                    list="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Consignor.WARNING"
+                    type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                <error-warning-directive data-ng-if="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Consignor.IsError"
+                    list="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Consignor.ERROR"
+                    type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+            </span>
+            <!--Pickup Drop Mode-->
+            <div class="padding-bottom-5">
+                <div class="ex-line-font">
+                    <!--<i class="fa fa-map-marker"></i>-->
+                    <label class="control-label"> Supplier</label>
+                </div>
+            </div>
+            <!--Estimated Pickup-->
+            <div class="padding-right-10">
+                <div class="form-group">
+                    <div class="input-group input-group-sm">
+                        <input type="hidden" ng-model="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.ORG_FK">
+                        <div dynamic-lookup placeholder="Organization Code" my-ng-model="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.ORG_Code"
+                            obj="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD"
+                            page-name="'OrganizationList'" control-id="'BP_JobAddressOrgConsignor'" control-key="'BP_JobAddressOrgConsignor_13241'"
+                            auto-complete-on-select="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.AutoCompleteOnSelect($item,'Code','PK','ORG_Shipper_Code', 'address', 'CRD')">
+                        </div>
+                        <span class="input-group-btn">
+                            <button dynamic-list-modal obj="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD"
+                                page-name="'OrganizationList'" control-id="'BP_JobAddressOrgConsignor'" control-key="'BP_JobAddressOrgConsignor_13241'"
+                                mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.SelectedLookupData($item,'ORG_Shipper_Code','address', 'CRD')"
+                                class="btn btn-default shiny" type="button">
+                                <i class="fa fa-ellipsis-h"></i>
+                            </button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="padding-right-10">
+                <div class="form-group">
+                    <div class="input-group input-group-sm">
+                        <input type="hidden" ng-model="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.OAD_Address_FK">
+
+                        <textarea class="form-control no-resize txtarea-height-45" disabled="disabled" placeholder="Please select consignor address"
+                            data-ng-model="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.AddressContactBinding((bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.AddressList | filter: {PK: bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.OAD_Address_FK})[0],'Address')"
+                            ng-model-options="{ getterSetter: true }"></textarea>
+                        <span class="input-group-btn">
+                            <button class="btn btn-default txtarea-height-45" type="button" data-ng-click="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.IsCRDAddressOpen=!bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.IsCRDAddressOpen">
+                                <i class="fa fa-address-book-o"></i>
+                                <!--<i class="fa fa-caret-down"></i>-->
+                            </button>
+                        </span>
+                        <div class="dropdownWrapLeft dropdownWrapBig animated fadeInDown" data-ng-show="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.IsCRDAddressOpen">
+                            <address-wrapper obj="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.AddressList"
+                                type="'CRD'" list-source="'AddressList'" selected="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.OAD_Address_FK"
+                                on-address-edit="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.OnAddressEdit($item, 'CRD', 'Address')"
+                                on-address-change="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.OnAddressChange($item, 'CRD', 'Address')"></address-wrapper>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="padding-right-10">
+                <div class="form-group">
+                    <div class="input-group input-group-sm">
+
+                        <input type="hidden" ng-model="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.OCT_FK">
+
+                        <textarea class="form-control no-resize txtarea-height-45" disabled="disabled" placeholder="Please select consignor contact"
+                            data-ng-model="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.AddressContactBinding((bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.ContactList | filter: {PK: bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.OCT_FK})[0],'Contact')"
+                            ng-model-options="{ getterSetter: true }"></textarea>
+                        <span class="input-group-btn">
+                            <button class="btn btn-default txtarea-height-45" type="button" data-ng-click="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.IsCRDContactOpen=!bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.IsCRDContactOpen">
+                                <i class="fa fa-phone"></i>
+                            </button>
+                        </span>
+                        <div class="dropdownWrapLeft dropdownWrapBig animated fadeInDown" data-ng-show="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.IsCRDContactOpen">
+                            <address-wrapper obj="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.ContactList"
+                                type="'CRD'" list-source="'ContactList'" selected="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.OCT_FK"
+                                on-address-change="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.OnContactChange($item, 'CRD', 'Contact')"></address-wrapper>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 pr-0 padding-top-10 address-consignee">
+            <span class="error-warning-container">
+                <error-warning-directive data-ng-if="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Consignee.IsWarning && !bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Consignee.IsError"
+                    list="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Consignee.WARNING"
+                    type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                <error-warning-directive data-ng-if="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Consignee.IsError"
+                    list="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Consignee.ERROR"
+                    type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+            </span>
+            <!--Pickup Drop Mode-->
+            <div class="padding-bottom-5">
+                <div class="ex-line-font">
+                    <!--<i class="fa fa-globe"></i>-->
+                    <label class="control-label"> Buyer</label>
+                </div>
+            </div>
+            <!--Estimated Pickup-->
+            <!--Estimated Pickup-->
+            <div class="padding-right-10">
+                <div class="form-group">
+                    <div class="input-group input-group-sm">
+                        <input type="hidden" ng-model="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.ORG_FK">
+                        <div dynamic-lookup placeholder="Organization Code" my-ng-model="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.ORG_Code"
+                            obj="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED"
+                            page-name="'OrganizationList'" control-id="'BP_JobAddressOrgConsignee'" control-key="'BP_JobAddressOrgConsignee_13245'"
+                            auto-complete-on-select="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.AutoCompleteOnSelect($item,'Code','PK','ORG_Consignee_Code',  'address', 'CED')">
+                        </div>
+                        <span class="input-group-btn">
+                            <button dynamic-list-modal obj="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED"
+                                page-name="'OrganizationList'" control-id="'BP_JobAddressOrgConsignee'" control-key="'BP_JobAddressOrgConsignee_13245'"
+                                mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.SelectedLookupData($item,'ORG_Consignee_Code', 'address', 'CED')"
+                                class="btn btn-default shiny" type="button">
+                                <i class="fa fa-ellipsis-h"></i>
+                            </button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="padding-right-10">
+                <div class="form-group">
+                    <div class="input-group input-group-sm">
+
+                        <input type="hidden" ng-model="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.OAD_Address_FK">
+
+                        <textarea class="form-control no-resize txtarea-height-45" disabled="disabled" placeholder="Please select consignee address"
+                            data-ng-model="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.AddressContactBinding((bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.AddressList | filter: {PK: bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.OAD_Address_FK})[0],'Address')"
+                            ng-model-options="{ getterSetter: true }"></textarea>
+                        <span class="input-group-btn">
+                            <button class="btn btn-default txtarea-height-45" type="button" data-ng-click="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.IsCEDAddressOpen=!bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.IsCEDAddressOpen">
+                                <i class="fa fa-address-book-o"></i>
+                            </button>
+                        </span>
+                        <div class="dropdownWrapLast dropdownWrapBig animated fadeInDown" data-ng-show="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.IsCEDAddressOpen">
+                            <address-wrapper obj="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.AddressList"
+                                type="'CED'" list-source="'AddressList'" selected="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.OAD_Address_FK"
+                                on-address-edit="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.OnAddressEdit($item, 'CED', 'Address')"
+                                on-address-change="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.OnAddressChange($item, 'CED', 'Address')"></address-wrapper>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="padding-right-10">
+                <div class="form-group">
+                    <div class="input-group input-group-sm">
+
+                        <input type="hidden" ng-model="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.OCT_FK">
+
+                        <textarea class="form-control no-resize txtarea-height-45" disabled="disabled" placeholder="Please select consignee contact"
+                            data-ng-model="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.AddressContactBinding((bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.ContactList | filter: {PK: bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.OCT_FK})[0],'Contact')"
+                            ng-model-options="{ getterSetter: true }"></textarea>
+                        <span class="input-group-btn">
+                            <button class="btn btn-default txtarea-height-45" type="button" data-ng-click="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.IsCEDContactOpen=!bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.IsCEDContactOpen">
+                                <i class="fa fa-phone"></i>
+                            </button>
+                        </span>
+                        <div class="dropdownWrapLast dropdownWrapBig animated fadeInDown" data-ng-show="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.IsCEDContactOpen">
+                            <address-wrapper obj="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.ContactList"
+                                type="'CED'" list-source="'ContactList'" selected="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.OCT_FK"
+                                on-address-change="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.OnContactChange($item, 'CED', 'Contact')"></address-wrapper>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+<div class="clearfix margin-top-10">
+    <article class="col-sm-12 col-md-12 col-lg-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <i class="fa fa-lg fa-fw fa-file-text"></i>
+                <!-- <i class="fa fa-lg fa-fw icon-delivery21"></i> -->
+                <span>Open Orders</span>
+            </div>
+            <div class="panel-body no-padding">
+                <div style="width: 100%; height: 230px;">
+                    <div class="clearfix">
+                        <div id="grid" ui-grid="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.gridOptions"
+                            ui-grid-auto-resize ui-grid-resize-columns style="font-size:11px;height:230px;">
+                            <div class="grid-loading-norecord-container" data-ng-if="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.IsLoading">
+                                <div class="grid-loading">Loading...</div>
+                            </div>
+                            <div class="grid-loading-norecord-container" data-ng-if="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.IsNoRecords">
+                                <div class="grid-no-record">No records found...</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </article>
+    <article class="col-sm-12 col-md-12 col-lg-8">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <i class="fa fa-lg fa-fw fa-file-text"></i>
+                <!-- <i class="fa fa-lg fa-fw icon-delivery38"></i> -->
+                <span>Attached Orders</span>
+            </div>
+            <div class="panel-body no-padding">
+                <div class="common_table_scroll" style="min-height: 230px;">
+                    <div class="table tab-position" id="results">
+                        <div class='theader'>
+                            <div class='table_header'>De-attach</div>
+                            <div class='table_header'>Edit</div>
+                            <div class='table_header'>Order #</div>
+                            <div class='table_header'>Order Date</div>
+                            <div class='table_header'>Follow Up Date</div>
+                            <div class='table_header'>Consignee</div>
+                            <div class='table_header'>Consignor</div>
+                            <div class='table_header'>T.Mode</div>
+                            <div class='table_header'>C.Mode</div>
+                            <div class='table_header'>Cargo Ready Date</div>
+                            <div class='table_header'>Req In Store</div>
+                            <div class='table_header'>Req Ex. Store</div>
+                        </div>
+                        <!-- List Empty Response -->
+                        <!-- List Order(s) -->
+                        <div class='table_row' ng-repeat="x in bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Entities.Header.Data.UIOrderHeaders | filter:{'IsDeleted':false}"
+                            style="font-size: 11px;">
+
+                            <div class='table_small'>
+                                <div class='table_cell'>De-attach</div>
+                                <div class='table_cell text-center'>
+                                    <i class="fa fa-arrow-circle-left" style="font-size: 16px; color: #3276b1;cursor: pointer;"
+                                        ng-click="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.deAttachOrder(x,$index)"></i>
+                                </div>
+                            </div>
+                            <div class='table_small'>
+                                <div class='table_cell'>Edit</div>
+                                <div class='table_cell'>
+                                    <a href="javascript:void(0)" ng-click="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.addLineItem(x,$index,'true')">
+                                        <i class="fa fa-edit "></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class='table_small'>
+                                <div class='table_cell'>Order #</div>
+                                <div class='table_cell'>
+                                    <a href="javascript:void(0)" data-ng-click="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.singleRecordView(x)">{{x.OrderCumSplitNo}}</a>
+                                </div>
+                            </div>
+                            <div class='table_small'>
+                                <div class='table_cell'>Order Date</div>
+                                <div class='table_cell'>{{x.OrderDate | date:'dd-MMM-yyyy'}}</div>
+                            </div>
+                            <div class='table_small'>
+                                <div class='table_cell'>Follow Up Date</div>
+                                <div class='table_cell'>{{x.FollowUpDate | date:'dd-MMM-yyyy'}}</div>
+                            </div>
+                            <div class='table_small'>
+                                <div class='table_cell'>Consignee</div>
+                                <div class='table_cell'>{{x.Buyer}}</div>
+                            </div>
+                            <div class='table_small'>
+                                <div class='table_cell'>Consignor</div>
+                                <div class='table_cell'>{{x.Supplier}}</div>
+                            </div>
+                            <div class='table_small'>
+                                <div class='table_cell'>T.Mode</div>
+                                <div class='table_cell'>{{x.TransportMode}}</div>
+                            </div>
+                            <div class='table_small'>
+                                <div class='table_cell'>C.Mode</div>
+                                <div class='table_cell'>{{x.ContainerMode}}</div>
+                            </div>
+                            <div class='table_small CargoDate'>
+                                <div class='table_cell'>Cargo Ready Date</div>
+                                <div class='table_cell'>
+                                    {{x.CargoReadyDate | date:'dd-MMM-yyyy'}}
+                                </div>
+                            </div>
+                            <div class='table_small'>
+                                <div class='table_cell'>Req In Store</div>
+                                <div class='table_cell'>{{x.RequiredDeliveryDate | date:'dd-MMM-yyyy'}}</div>
+                            </div>
+                            <div class='table_small'>
+                                <div class='table_cell'>Req Ex. Store</div>
+                                <div class='table_cell'>{{x.RequiredExWorksDate | date:'dd-MMM-yyyy'}}</div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div data-ng-if="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Entities.Header.Data.UIOrderHeaders.length==0">
+                        <div class="grid-no-record-common_table">No record found..</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </article>
+</div>
+<div class="clearfix margin-top-10">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+            <span class="error-warning-container">
+                <error-warning-directive data-ng-if="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.PackingMode.IsWarning && !bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.PackingMode.IsError"
+                    list="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.PackingMode.WARNING"
+                    type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                <error-warning-directive data-ng-if="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.PackingMode.IsError"
+                    list="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.PackingMode.ERROR"
+                    type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+            </span>
+            <div class="form-group ex-line-font">
+                <label class="control-label text-single-line"> Mode</label>
+                <select chosen class="form-control" ng-model="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.selectedMode"
+                    ng-options="term as (term.Key+'-'+term.PARENT_Value + '(' + term.Key+')') for term in bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.cfxTypeList.CNTTYPE"
+                    search-contains="true" ng-change="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.modeChange(bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.selectedMode)">
+                    <option value="">--Select--</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+            <span class="error-warning-container">
+                <error-warning-directive data-ng-if="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.IncoTerm.IsWarning && !bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.IncoTerm.IsError"
+                    list="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.IncoTerm.WARNING"
+                    type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                <error-warning-directive data-ng-if="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.IncoTerm.IsError"
+                    list="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.IncoTerm.ERROR"
+                    type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+            </span>
+            <div class="form-group ex-line-font">
+                <label class="control-label text-single-line">IncoTerm</label>
+                <select chosen class="form-control" ng-model="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.IncoTerm"
+                    ng-options="term.Key as (term.Key + ' - ' + term.Value) for term in bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.DropDownMasterList.INCOTERM.ListSource"
+                    search-contains="true" data-ng-change="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.OnFieldValueChange()">
+                    <option value="">--Select--</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+            <span class="error-warning-container">
+                <error-warning-directive data-ng-if="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.HBLAWBChargesDisplay.IsWarning && !bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.HBLAWBChargesDisplay.IsError"
+                    list="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.HBLAWBChargesDisplay.WARNING"
+                    type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                <error-warning-directive data-ng-if="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.HBLAWBChargesDisplay.IsError"
+                    list="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.HBLAWBChargesDisplay.ERROR"
+                    type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+            </span>
+            <div class="form-group ex-line-font">
+                <label class="control-label text-single-line">Freight Terms</label>
+                <select chosen class="form-control" ng-model="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.HBLAWBChargesDisplay"
+                    ng-options="term.Key as (term.Key + ' - ' + term.Value) for term in bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.DropDownMasterList.FREIGHTTERMS.ListSource"
+                    search-contains="true" data-ng-change="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.OnFieldValueChange()">
+                    <option value="">--Select--</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+            <div class="form-group ex-line-font">
+                <label class="control-label text-single-line">Cargo Ready Date</label>
+                <div class="input-group input-group-sm">
+                    <input type="text" class="form-control" placeholder="{{bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                        ng-model="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.CargoReadyDate"
+                        datetime-picker="{{bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                        datepicker-options="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.DatePicker.Options"
+                        datepicker-append-to-body="false" close-on-selection="false" enable-time="false" enable-date="true"
+                        default-date="" default-time="" save-as="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                        is-open="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.DatePicker.isOpen['isCargoReadyDate']"
+                        when-closed="" data-ng-click="" custom-date-time-format />
+                    <span class="input-group-btn">
+                        <button class="btn btn-default shiny" data-ng-click="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isCargoReadyDate')">
+                            <i class="fa fa-calendar"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+            <span class="error-warning-container">
+                <error-warning-directive data-ng-if="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Origin.IsWarning && !bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Origin.IsError"
+                    list="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Origin.WARNING"
+                    type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                <error-warning-directive data-ng-if="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Origin.IsError"
+                    list="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Origin.ERROR"
+                    type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+            </span>
+            <div class="form-group ex-line-font">
+                <label class="control-label text-single-line">Origin</label>
+                <div class="input-group input-group-sm">
+                    <div dynamic-lookup placeholder="" my-ng-model="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Origin"
+                        obj="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader"
+                        page-name="'MstUNLOCO'" control-id="'BP_ShpGeneralOrigin'" control-key="'BP_ShpGeneralOrigin_13107'"
+                        auto-complete-on-select="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.AutoCompleteOnSelect($item,'Code',null,'Origin')"></div>
+                    <span class="input-group-btn">
+                        <button dynamic-list-modal obj="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader"
+                            page-name="'MstUNLOCO'" control-id="'BP_ShpGeneralOrigin'" control-key="'BP_ShpGeneralOrigin_13107'"
+                            mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.SelectedLookupData($item,'Origin','Code',null)"
+                            class="btn btn-default shiny" type="button">
+                            <i class="fa fa-ellipsis-h"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+            <span class="error-warning-container">
+                <error-warning-directive data-ng-if="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.PortOfLoading.IsWarning && !bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.PortOfLoading.IsError"
+                    list="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.PortOfLoading.WARNING"
+                    type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                <error-warning-directive data-ng-if="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.PortOfLoading.IsError"
+                    list="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.PortOfLoading.ERROR"
+                    type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+            </span>
+            <div class="form-group ex-line-font">
+                <label class="control-label text-single-line">POL</label>
+                <div class="input-group input-group-sm">
+                    <div dynamic-lookup placeholder="" my-ng-model="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.PortOfLoading"
+                        obj="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader"
+                        page-name="'MstUNLOCO'" control-id="'BP_OrdListPortOfLoading'" control-key="'BP_OrdListPortOfLoading_13087'"
+                        auto-complete-on-select="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.AutoCompleteOnSelect($item,'Code',null,'PortOfLoading')"></div>
+                    <span class="input-group-btn">
+                        <button dynamic-list-modal obj="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader"
+                            page-name="'MstUNLOCO'" control-id="'BP_OrdListPortOfLoading'" control-key="'BP_OrdListPortOfLoading_13087'"
+                            mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.SelectedLookupData($item,'PortOfLoading','Code',null)"
+                            class="btn btn-default shiny" type="button">
+                            <i class="fa fa-ellipsis-h"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+            <span class="error-warning-container">
+                <error-warning-directive data-ng-if="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.PortOfDischarge.IsWarning && !bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.PortOfDischarge.IsError"
+                    list="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.PortOfDischarge.WARNING"
+                    type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                <error-warning-directive data-ng-if="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.PortOfDischarge.IsError"
+                    list="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.PortOfDischarge.ERROR"
+                    type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+            </span>
+            <div class="form-group ex-line-font">
+                <label class="control-label text-single-line">POD</label>
+                <div class="input-group input-group-sm">
+                    <div dynamic-lookup placeholder="" my-ng-model="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.PortOfDischarge"
+                        obj="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader"
+                        page-name="'MstUNLOCO'" control-id="'BP_PortOfDischarge'" control-key="'BP_PortOfDischarge_13077'"
+                        auto-complete-on-select="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.AutoCompleteOnSelect($item,'Code',null,'PortOfDischarge')"></div>
+                    <span class="input-group-btn">
+                        <button dynamic-list-modal obj="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader"
+                            page-name="'MstUNLOCO'" control-id="'BP_PortOfDischarge'" control-key="'BP_PortOfDischarge_13077'"
+                            mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.SelectedLookupData($item,'PortOfDischarge','Code',null)"
+                            class="btn btn-default shiny" type="button">
+                            <i class="fa fa-ellipsis-h"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+            <span class="error-warning-container">
+                <error-warning-directive data-ng-if="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Destination.IsWarning && !bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Destination.IsError"
+                    list="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Destination.WARNING"
+                    type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                <error-warning-directive data-ng-if="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Destination.IsError"
+                    list="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Destination.ERROR"
+                    type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+            </span>
+            <div class="form-group ex-line-font">
+                <label class="control-label text-single-line">Destination</label>
+                <div class="input-group input-group-sm">
+                    <div dynamic-lookup placeholder="" my-ng-model="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Destination"
+                        obj="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader"
+                        page-name="'MstUNLOCO'" control-id="'BP_ShpGeneralDestination'" control-key="'BP_ShpGeneralDestination_13104'"
+                        auto-complete-on-select="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.AutoCompleteOnSelect($item,'Code',null,'Destination')"></div>
+                    <span class="input-group-btn">
+                        <button dynamic-list-modal obj="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader"
+                            page-name="'MstUNLOCO'" control-id="'BP_ShpGeneralDestination'" control-key="'BP_ShpGeneralDestination_13104'"
+                            mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.SelectedLookupData($item,'Destination','Code',null)"
+                            class="btn btn-default shiny" type="button">
+                            <i class="fa fa-ellipsis-h"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix">
+            <div class="row">
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                        <div class="form-group ex-line-font">
+                            <label class="mt-30">
+                                <input type="checkbox" ng-true-value="'PIC'" ng-false-value="'false'" ng-change="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.addRemoveServiceType('PIC',bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.serviceTypes.Pickup)"
+                                    ng-model="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.serviceTypes.Pickup">
+                                <span class="text control-label"></span>Pickup
+                            </label>
+                            <!-- <label class="control-label text-single-line">Pickup</label>
+                            <select chosen class="form-control" ng-model="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.serviceTypes.Pickup"
+                                ng-change="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.addRemoveServiceType('PIC',bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.serviceTypes.Pickup)"
+                                search-contains="true ">
+                                <option value="false">No</option>
+                                <option value="PIC">Yes</option>
+                            </select> -->
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                        <div class="form-group ex-line-font">
+                            <label class="mt-30">
+                                <input type="checkbox" ng-true-value="'EXC'" ng-false-value="'false'" ng-change="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.addRemoveServiceType('EXC',bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.serviceTypes.ExportClearance)"
+                                    ng-model="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.serviceTypes.ExportClearance">
+                                <span class="text control-label"></span>Export Clearance
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                        <div class="form-group ex-line-font">
+                            <label class="mt-30">
+                                <input type="checkbox" ng-true-value="'FAS'" ng-false-value="'false'" ng-change="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.addRemoveServiceType('FAS',bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.serviceTypes.FactoryStuffing)"
+                                    ng-model="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.serviceTypes.FactoryStuffing">
+                                <span class="text control-label"></span>Factory Stuffing
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                        <div class="form-group ex-line-font">
+                            <label class="mt-30">
+                                <input type="checkbox" ng-true-value="'DLV'" ng-false-value="'false'" ng-change="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.addRemoveServiceType('DLV',bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.serviceTypes.Delivery)"
+                                    ng-model="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.serviceTypes.Delivery">
+                                <span class="text control-label"></span>Delivery
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                        <div class="form-group ex-line-font">
+                            <label class="mt-30">
+                                <input type="checkbox" ng-true-value="'IMC'" ng-false-value="'false'" ng-change="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.addRemoveServiceType('IMC',bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.serviceTypes.ImportClearance)"
+                                    ng-model="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.serviceTypes.ImportClearance">
+                                <span class="text control-label"></span>Import Clearance
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                        <div class="form-group ex-line-font">
+                            <label class="mt-30">
+                                <input type="checkbox" ng-true-value="'CAI'" ng-false-value="'false'" ng-change="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.addRemoveServiceType('CAI',bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.serviceTypes.CargoInsurance)"
+                                    ng-model="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.serviceTypes.CargoInsurance">
+                                <span class="text control-label"></span>Cargo Insurance
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 pl-0">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                        <span class="error-warning-container">
+                            <error-warning-directive data-ng-if="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ExportForwarder_Code.IsWarning && !bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ExportForwarder_Code.IsError"
+                                list="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ExportForwarder_Code.WARNING"
+                                type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                            <error-warning-directive data-ng-if="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ExportForwarder_Code.IsError"
+                                list="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ExportForwarder_Code.ERROR"
+                                type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                        </span>
+                        <div class="form-group ex-line-font">
+                            <label class="control-label text-single-line">Sending Agent</label>
+                            <div class="input-group input-group-sm">
+                                <input type="hidden" my-ng-model="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ExportForwarder_FK">
+                                <div dynamic-lookup placeholder="" my-ng-model="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ExportForwarder_Code"
+                                    obj="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader"
+                                    page-name="'OrganizationList'" control-id="'BP_JobAddressOrgSendingForwarder'"
+                                    control-key="'BP_JobAddressOrgSendingForwarder_13246'" auto-complete-on-select="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.AutoCompleteOnSelect($item,'Code',null,'ExportForwarder_Code')"></div>
+                                <span class="input-group-btn">
+                                    <button dynamic-list-modal obj="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader"
+                                        page-name="'OrganizationList'" control-id="'BP_JobAddressOrgSendingForwarder'"
+                                        control-key="'BP_JobAddressOrgSendingForwarder_13246'" mode="2"
+                                        grid-refresh-fun-name="" grid-refresh-fun="" selected-data="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.SelectedLookupData($item,'ExportForwarder_Code','Code',null)"
+                                        class="btn btn-default shiny" type="button">
+                                        <i class="fa fa-ellipsis-h"></i>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                        <span class="error-warning-container">
+                            <error-warning-directive data-ng-if="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ImportForwarder_Code.IsWarning && !bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ImportForwarder_Code.IsError"
+                                list="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ImportForwarder_Code.WARNING"
+                                type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                            <error-warning-directive data-ng-if="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ImportForwarder_Code.IsError"
+                                list="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ImportForwarder_Code.ERROR"
+                                type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                        </span>
+                        <div class="form-group ex-line-font">
+                            <label class="control-label text-single-line">Receiving Agent</label>
+                            <div class="input-group input-group-sm">
+                                <input type="hidden" my-ng-model="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ImportForwarder_FK">
+                                <div dynamic-lookup placeholder="" my-ng-model="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ImportForwarder_Code"
+                                    obj="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader"
+                                    page-name="'OrganizationList'" control-id="'BP_JobAddressOrgReceivingForwarder'"
+                                    control-key="'BP_JobAddressOrgReceivingForwarder_13250'" config="'JobAddressOrgReceivingForwarder'"
+                                    auto-complete-on-select="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.AutoCompleteOnSelect($item,'Code',null,'ImportForwarder_Code')"></div>
+                                <span class="input-group-btn">
+                                    <button dynamic-list-modal obj="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader"
+                                        page-name="'OrganizationList'" control-id="'BP_JobAddressOrgReceivingForwarder'"
+                                        control-key="'BP_JobAddressOrgReceivingForwarder_13250'" mode="2"
+                                        grid-refresh-fun-name="" grid-refresh-fun="" selected-data="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.SelectedLookupData($item,'ImportForwarder_Code','Code',null)"
+                                        class="btn btn-default shiny" type="button">
+                                        <i class="fa fa-ellipsis-h"></i>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Controlling Customer -->
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                        <div class="form-group ex-line-font">
+                            <input type="hidden" data-ng-model="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ORG_ControlCustom_FK" />
+                            <label class="control-label text-single-line">Controlling Customer</label>
+                            <div class="input-group input-group-sm">
+                                <div dynamic-lookup my-ng-model="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ORG_ControlCustomCode"
+                                    obj="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader"
+                                    page-name="'OrganizationList'" control-key="'BP_ControlCustomer_13331'" control-id="'BP_ControlCustomer'"
+                                    auto-complete-on-select="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.AutoCompleteOnSelect($item,'Code',null,'ORG_ControlCustomCode')"></div>
+                                <span class="input-group-btn">
+                                    <button dynamic-list-modal obj="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader"
+                                        control-key="'BP_ControlCustomer_13331'" control-id="'BP_ControlCustomer'"
+                                        page-name="'OrganizationList'" mode="2" grid-refresh-fun-name=""
+                                        grid-refresh-fun="" selected-data="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.SelectedLookupData($item,'ControlCustomCode','Code',null)"
+                                        class="btn btn-default shiny" type="button">
+                                        <i class="fa fa-ellipsis-h"></i>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Buying House Agent -->
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                        <div class="form-group ex-line-font">
+                            <input type="hidden" data-ng-model="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.BuyingHouseAgent_FK" />
+                            <label class="control-label text-single-line">Buying House Agent</label>
+                            <div class="input-group input-group-sm">
+                                <div dynamic-lookup my-ng-model="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.BuyingHouseAgent_Code"
+                                    obj="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader"
+                                    page-name="'OrganizationList'" control-key="'BP_BuyingHouseAgent_13325'" control-id="'BP_BuyingHouseAgent'"
+                                    auto-complete-on-select="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.AutoCompleteOnSelect($item,'Code',null, 'BuyingHouseAgent_Code')"></div>
+                                <span class="input-group-btn">
+                                    <button dynamic-list-modal obj="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader"
+                                        control-key="'BP_BuyingHouseAgent_13325'" control-id="'BP_BuyingHouseAgent'"
+                                        page-name="'OrganizationList'" mode="2" grid-refresh-fun-name=""
+                                        grid-refresh-fun="" selected-data="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.SelectedLookupData($item,'BuyingHouseAgent_Code','Code',null)"
+                                        class="btn btn-default shiny" type="button">
+                                        <i class="fa fa-ellipsis-h"></i>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <!-- Factory Invoice # -->
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                    <div class="form-group ex-line-font">
+                        <label class="control-label text-single-line">Factory Invoice #</label>
+                        <div class="">
+                            <input type="text" class="form-control input-sm" placeholder="Factory Invoice #" maxlength="50"
+                                data-ng-model="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.InvoiceRefNo" />
+                        </div>
+                    </div>
+                </div>
+                <!-- Factory PKL # -->
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                    <div class="form-group ex-line-font">
+                        <label class="control-label text-single-line">Factory PKL #</label>
+                        <div class="">
+                            <input type="text" class="form-control input-sm" placeholder="Factory PKL #" maxlength="50"
+                                data-ng-model="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.FactoryPKLNo" />
+                        </div>
+                    </div>
+                </div>
+                <!-- Invoice # -->
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                    <div class="form-group ex-line-font">
+                        <label class="control-label text-single-line">Supplier Invoice #</label>
+                        <div class="">
+                            <input type="text" class="form-control input-sm" placeholder="Factory Invoice #" maxlength="50"
+                                data-ng-model="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.SupplierInvoiceNo" />
+                        </div>
+                    </div>
+                </div>
+
+                <!--Requested Delivery Date-->
+                <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+                    <div class="form-group ex-line-font">
+                        <label class="control-label text-single-line">Requested Delivery Date</label>
+                        <div class="input-group input-group-sm">
+                            <input type="text" class="form-control" placeholder="{{bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                ng-model="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ETD"
+                                datetime-picker="{{bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                datepicker-options="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.DatePicker.Options"
+                                datepicker-append-to-body="false" close-on-selection="false" enable-time="false"
+                                enable-date="true" default-date="" default-time="" save-as="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                                is-open="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.DatePicker.isOpen['isETD']"
+                                when-closed="" data-ng-click="" custom-date-time-format />
+                            <span class="input-group-btn">
+                                <button class="btn btn-default shiny" data-ng-click="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isETD')">
+                                    <i class="fa fa-calendar"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <!-- WH Name -->
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                    <div class="form-group ex-line-font">
+                        <label class="control-label text-single-line">WH Name</label>
+                        <div class="">
+                            <input type="text" class="form-control input-sm" placeholder="WH Name" maxlength="50"
+                                data-ng-model="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Entities.Header.Data.UIShpExtendedInfo.DeliveryToName" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                    <div class="form-group ex-line-font">
+                        <label class="control-label text-single-line">Additional Terms</label>
+                        <div class="input-group">
+                            <textarea rows="3" style="width: 240px" class="col-lg-12" maxlength="250" name="info"
+                                ng-model="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.AdditionalTerms"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                    <div class="form-group ex-line-font">
+                        <label class="control-label text-single-line">Goods Desc</label>
+                        <div class="input-group">
+                            <textarea rows="3" style="width: 240px" class="col-lg-12" maxlength="250" name="info"
+                                ng-model="bkgBuyerWarehouseProviderDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.GoodsDesc"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

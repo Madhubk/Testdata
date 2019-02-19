@@ -95,12 +95,12 @@
                             <input type="hidden" data-ng-model="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.SCP.ORG_FK">
                             <div dynamic-lookup placeholder="Organization Code" my-ng-model="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.SCP.ORG_Code"
                                 obj="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.SCP"
-                                page-name="'OrganizationList'" control-key="'JobAddressOrgConsignee_3245'" control-id="'JobAddressOrgConsignee'"
-                                auto-complete-on-select="one_three_OrdGeneralCtrl.ePage.Masters.AutoCompleteOnSelect($item, 'address', 'SCP')">
+                                page-name="'OrganizationList'" control-key="'BP_JobAddressOrgConsignee_13245'"
+                                control-id="'BP_JobAddressOrgConsignee'" auto-complete-on-select="one_three_OrdGeneralCtrl.ePage.Masters.AutoCompleteOnSelect($item, 'address', 'SCP')">
                             </div>
                             <span class="input-group-btn">
                                 <button dynamic-list-modal obj="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.SCP"
-                                    control-key="'JobAddressOrgConsignee_3245'" control-id="'JobAddressOrgConsignee'"
+                                    control-key="'BP_JobAddressOrgConsignee_13245'" control-id="'BP_JobAddressOrgConsignee'"
                                     page-name="'OrganizationList'" mode="2" grid-refresh-fun-name="" grid-refresh-fun=""
                                     selected-data="one_three_OrdGeneralCtrl.ePage.Masters.SelectedLookupData($item, 'address', 'SCP')"
                                     class="btn btn-default shiny" type="button">
@@ -174,12 +174,12 @@
                             <input type="hidden" data-ng-model="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRA.ORG_FK">
                             <div dynamic-lookup placeholder="Organization Code" my-ng-model="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRA.ORG_Code"
                                 obj="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRA"
-                                page-name="'OrganizationList'" control-key="'JobAddressOrgConsignor_3241'" control-id="'JobAddressOrgConsignor'"
-                                auto-complete-on-select="one_three_OrdGeneralCtrl.ePage.Masters.AutoCompleteOnSelect($item, 'address', 'CRA')">
+                                page-name="'OrganizationList'" control-key="'BP_JobAddressOrgConsignor_13241'"
+                                control-id="'BP_JobAddressOrgConsignor'" auto-complete-on-select="one_three_OrdGeneralCtrl.ePage.Masters.AutoCompleteOnSelect($item, 'address', 'CRA')">
                             </div>
                             <span class="input-group-btn">
                                 <button dynamic-list-modal obj="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRA"
-                                    control-key="'JobAddressOrgConsignor_3241'" control-id="'JobAddressOrgConsignor'"
+                                    control-key="'BP_JobAddressOrgConsignor_13241'" control-id="'BP_JobAddressOrgConsignor'"
                                     page-name="'OrganizationList'" mode="2" grid-refresh-fun-name="" grid-refresh-fun=""
                                     selected-data="one_three_OrdGeneralCtrl.ePage.Masters.SelectedLookupData($item, 'address', 'CRA')"
                                     class="btn btn-default shiny" type="button">
@@ -519,7 +519,7 @@
     <!-- Handover Date -->
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-3">
         <div class="form-group ex-line-font">
-            <label class="ontrol-label">Handover Date</label>
+            <label class="control-label">Handover Date</label>
             <div class="input-group input-group-sm">
                 <input type="text" class="form-control" placeholder="{{one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
                     data-ng-model="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.HandoverDate"
@@ -541,7 +541,7 @@
     <!-- FOB Date -->
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-3">
         <div class="form-group ex-line-font">
-            <label class="ontrol-label">FOB Date</label>
+            <label class="control-label">FOB Date</label>
             <div class="input-group input-group-sm">
                 <input type="text" class="form-control" placeholder="{{one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
                     data-ng-model="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.FOBDate"
@@ -563,7 +563,7 @@
     <!-- Required Delivery Date -->
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-3">
         <div class="form-group ex-line-font">
-            <label class="ontrol-label">Required Delivery Date</label>
+            <label class="control-label">Required Delivery Date</label>
             <div class="input-group input-group-sm">
                 <input type="text" class="form-control" placeholder="{{one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
                     data-ng-model="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.RequiredDeliveryDate"
@@ -585,7 +585,7 @@
     <!-- Origin Cut Off Date -->
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-3">
         <div class="form-group ex-line-font">
-            <label class="ontrol-label">Origin Cut Off Date</label>
+            <label class="control-label">Origin Cut Off Date</label>
             <div class="input-group input-group-sm">
                 <input type="text" class="form-control" placeholder="{{one_three_OrdGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
                     data-ng-model="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.DepartureVesselCutoffDate"
@@ -699,6 +699,19 @@
             <div class="">
                 <textarea class="form-control input-sm no-resize" placeholder="Additional Terms" data-ng-model="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.AdditionalTerms"
                     rows="1" maxlength="50"></textarea>
+            </div>
+        </div>
+    </div>
+    <!-- Order Type -->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-3">
+        <div class="form-group ex-line-font">
+            <label class="control-label text-single-line">Order Type</label>
+            <div class="">
+                <select chosen class="form-control" data-ng-model="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.OrderType"
+                    data-ng-options="x.Code as x.Code + ' - ' + x.Desc for x in one_three_OrdGeneralCtrl.ePage.Masters.OrderListSource"
+                    search-contains="true">
+                    <option value="">--Select--</option>
+                </select>
             </div>
         </div>
     </div>

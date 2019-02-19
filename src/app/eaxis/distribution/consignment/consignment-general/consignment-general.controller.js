@@ -285,7 +285,7 @@
                     }).indexOf(DMSConsignmentGeneralCtrl.currentConsignment[DMSConsignmentGeneralCtrl.currentConsignment.label].ePage.Entities.Header.Data.PK);
                     if (_index !== -1) {
                         if (DMSConsignmentGeneralCtrl.currentConsignment[DMSConsignmentGeneralCtrl.currentConsignment.label].ePage.Entities.Header.Data.TmsConsignmentHeader.IsCancel != true) {
-                            apiService.get("eAxisAPI", DMSConsignmentGeneralCtrl.ePage.Entities.Header.API.GetByID.Url + DMSConsignmentGeneralCtrl.currentConsignment[DMSConsignmentGeneralCtrl.currentConsignment.label].ePage.Entities.Header.Data.PK).then(function (response) {
+                            apiService.get("eAxisAPI", 'TmsConsignmentList/GetById/' + DMSConsignmentGeneralCtrl.currentConsignment[DMSConsignmentGeneralCtrl.currentConsignment.label].ePage.Entities.Header.Data.PK).then(function (response) {
                                 if (response.data.Response) {
                                     DMSConsignmentGeneralCtrl.ePage.Masters.Config.TabList[_index][DMSConsignmentGeneralCtrl.ePage.Masters.Config.TabList[_index].label].ePage.Entities.Header.Data = response.data.Response;
 

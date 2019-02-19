@@ -1,0 +1,224 @@
+<!--Inspection & clearance  Edit Activity-->
+<div class="clearfix">
+    <div class="clearfix padding-top-10">
+        <!-- HBL -->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <div class="form-group ship-font">
+                <label class="control-label">HBL No</label>
+                <input disabled type="text" maxlength="30" ng-model="ImportSeaShipmentCustomInspectionVltCtrl.ePage.Entities.Header.Data.UIShipmentHeader.HouseBill"
+                    maxlength="12" class="form-control input-sm" placeholder="HBL No">
+            </div>
+        </div>
+        <!-- Checklist No  -->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <div class="form-group ship-font">
+                <label class="control-label text-single-line">Checklist No</label>
+
+                <input type="text" maxlength="30" disabled ng-model="ImportSeaShipmentCustomInspectionVltCtrl.ePage.Entities.Header.Data.UIShpExtendedInfo.CheckListNumber"
+                    maxlength="12" class="form-control input-sm" placeholder="CheckList No">
+            </div>
+        </div>
+        <!-- Date -->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <div class="form-group ship-font">
+                <label class="control-label">Date</label>
+                <div class="input-group input-group-sm con-dt-value">
+                    <input type="text" disabled class="form-control" placeholder="{{ImportSeaShipmentCustomInspectionVltCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                        data-ng-model="ImportSeaShipmentCustomInspectionVltCtrl.ePage.Entities.Header.Data.UIShpExtendedInfo.ChecklistDate"
+                        datetime-picker="{{ImportSeaShipmentCustomInspectionVltCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                        datepicker-options="ImportSeaShipmentCustomInspectionVltCtrl.ePage.Masters.DatePicker.Options"
+                        datepicker-append-to-body="false" close-on-selection="false" enable-time="false" enable-date="true"
+                        default-date="" default-time="" save-as="ImportSeaShipmentCustomInspectionVltCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                        is-open="ImportSeaShipmentCustomInspectionVltCtrl.ePage.Masters.DatePicker.isOpen['isChecklistDate']"
+                        when-closed="" data-ng-click="" data-ng-change="ImportSeaShipmentCustomInspectionVltCtrl.ePage.Masters.OnFieldValueChange('E11100')"
+                        custom-date-time-format />
+                    <span class="input-group-btn">
+                        <button class="btn btn-default shiny" disabled data-ng-click="ImportSeaShipmentCustomInspectionVltCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isChecklistDate')">
+                            <i class="fa fa-calendar"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <!-- Approved By -->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <div class="form-group ship-font">
+                <label class="control-label text-single-line">Approved By</label>
+                <input type="text" disabled maxlength="30" ng-model="ImportSeaShipmentCustomInspectionVltCtrl.ePage.Entities.Header.Data.UIShpExtendedInfo.CheckListApprovedBy"
+                    maxlength="12" class="form-control input-sm" placeholder="Approved By">
+            </div>
+        </div>
+        <!-- Approved On -->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <div class="form-group ship-font">
+                <label class="control-label">Approved On</label>
+                <div class="input-group input-group-sm con-dt-value">
+                    <input type="text" disabled class="form-control" placeholder="{{ImportSeaShipmentCustomInspectionVltCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                        data-ng-model="ImportSeaShipmentCustomInspectionVltCtrl.ePage.Entities.Header.Data.UIShpExtendedInfo.CheckListApprovalDate"
+                        datetime-picker="{{ImportSeaShipmentCustomInspectionVltCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                        datepicker-options="ImportSeaShipmentCustomInspectionVltCtrl.ePage.Masters.DatePicker.Options"
+                        datepicker-append-to-body="false" close-on-selection="false" enable-time="false" enable-date="true"
+                        default-date="" default-time="" save-as="ImportSeaShipmentCustomInspectionVltCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                        is-open="ImportSeaShipmentCustomInspectionVltCtrl.ePage.Masters.DatePicker.isOpen['isCheckListApprovalDate']"
+                        when-closed="" data-ng-click="" data-ng-change="ImportSeaShipmentCustomInspectionVltCtrl.ePage.Masters.OnFieldValueChange('E11100')"
+                        custom-date-time-format />
+                    <span class="input-group-btn">
+                        <button class="btn btn-default shiny" disabled data-ng-click="ImportSeaShipmentCustomInspectionVltCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isCheckListApprovalDate')">
+                            <i class="fa fa-calendar"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <!-- BOE Number -->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <div class="form-group ship-font">
+                <label class="control-label text-single-line">BOE No</label>
+                <input type="text" disabled maxlength="30" ng-model="ImportSeaShipmentCustomInspectionVltCtrl.ePage.Entities.Header.Data.UIShpExtendedInfo.BOENumber"
+                    maxlength="12" class="form-control input-sm" placeholder="BOE No">
+            </div>
+        </div>
+        <!-- Date -->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <div class="form-group ship-font">
+                <label class="control-label">BOE Date</label>
+                <div class="input-group input-group-sm con-dt-value">
+                    <input type="text" class="form-control" disabled placeholder="{{ImportSeaShipmentCustomInspectionVltCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                        data-ng-model="ImportSeaShipmentCustomInspectionVltCtrl.ePage.Entities.Header.Data.UIShpExtendedInfo.BOEDate"
+                        datetime-picker="{{ImportSeaShipmentCustomInspectionVltCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                        datepicker-options="ImportSeaShipmentCustomInspectionVltCtrl.ePage.Masters.DatePicker.Options"
+                        datepicker-append-to-body="false" close-on-selection="false" enable-time="false" enable-date="true"
+                        default-date="" default-time="" save-as="ImportSeaShipmentCustomInspectionVltCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                        is-open="ImportSeaShipmentCustomInspectionVltCtrl.ePage.Masters.DatePicker.isOpen['isBOEDate']"
+                        when-closed="" data-ng-click="" data-ng-change="ImportSeaShipmentCustomInspectionVltCtrl.ePage.Masters.OnFieldValueChange('E11100')"
+                        custom-date-time-format />
+                    <span class="input-group-btn">
+                        <button class="btn btn-default shiny" disabled disabled data-ng-click="ImportSeaShipmentCustomInspectionVltCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isBOEDate')">
+                            <i class="fa fa-calendar"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <!-- Inspected On -->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <span class="error-warning-container">
+                    <error-warning-directive data-ng-if="ImportSeaShipmentCustomInspectionVltCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.InspectionDate.IsWarning && !ImportSeaShipmentCustomInspectionVltCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.InspectionDate.IsError"
+                        list="ImportSeaShipmentCustomInspectionVltCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.InspectionDate.WARNING"
+                        type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                    <error-warning-directive data-ng-if="ImportSeaShipmentCustomInspectionVltCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.InspectionDate.IsError"
+                        list="ImportSeaShipmentCustomInspectionVltCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.InspectionDate.ERROR"
+                        type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                </span>
+            <div class="form-group ship-font">
+                <label class="control-label">Inspected On </label>
+                <div class="input-group input-group-sm con-dt-value">
+                    <input type="text" class="form-control" placeholder="{{ImportSeaShipmentCustomInspectionVltCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                        data-ng-model="ImportSeaShipmentCustomInspectionVltCtrl.ePage.Entities.Header.Data.UIShpExtendedInfo.InspectionDate"
+                        datetime-picker="{{ImportSeaShipmentCustomInspectionVltCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                        datepicker-options="ImportSeaShipmentCustomInspectionVltCtrl.ePage.Masters.DatePicker.Options"
+                        datepicker-append-to-body="false" close-on-selection="false" enable-time="false" enable-date="true"
+                        default-date="" default-time="" save-as="ImportSeaShipmentCustomInspectionVltCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                        is-open="ImportSeaShipmentCustomInspectionVltCtrl.ePage.Masters.DatePicker.isOpen['isInspectionDate']"
+                        when-closed="" data-ng-click="" data-ng-change="ImportSeaShipmentCustomInspectionVltCtrl.ePage.Masters.OnFieldValueChange('EV11015,EV11016')"
+                        custom-date-time-format />
+                    <span class="input-group-btn">
+                        <button class="btn btn-default shiny" data-ng-click="ImportSeaShipmentCustomInspectionVltCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isInspectionDate')">
+                            <i class="fa fa-calendar"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <!-- Duty payment notice  -->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <span class="error-warning-container">
+                    <error-warning-directive data-ng-if="ImportSeaShipmentCustomInspectionVltCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.DutyPaymentNoticeDate.IsWarning && !ImportSeaShipmentCustomInspectionVltCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.DutyPaymentNoticeDate.IsError"
+                        list="ImportSeaShipmentCustomInspectionVltCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.DutyPaymentNoticeDate.WARNING"
+                        type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                    <error-warning-directive data-ng-if="ImportSeaShipmentCustomInspectionVltCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.DutyPaymentNoticeDate.IsError"
+                        list="ImportSeaShipmentCustomInspectionVltCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.DutyPaymentNoticeDate.ERROR"
+                        type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                </span>
+            <div class="form-group ship-font">
+                <label class="control-label">Duty payment notice </label>
+                <div class="input-group input-group-sm con-dt-value">
+                    <input type="text" class="form-control" placeholder="{{ImportSeaShipmentCustomInspectionVltCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                        data-ng-model="ImportSeaShipmentCustomInspectionVltCtrl.ePage.Entities.Header.Data.UIShpExtendedInfo.DutyPaymentNoticeDate"
+                        datetime-picker="{{ImportSeaShipmentCustomInspectionVltCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                        datepicker-options="ImportSeaShipmentCustomInspectionVltCtrl.ePage.Masters.DatePicker.Options"
+                        datepicker-append-to-body="false" close-on-selection="false" enable-time="false" enable-date="true"
+                        default-date="" default-time="" save-as="ImportSeaShipmentCustomInspectionVltCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                        is-open="ImportSeaShipmentCustomInspectionVltCtrl.ePage.Masters.DatePicker.isOpen['isDutyPaymentNoticeDate']"
+                        when-closed="" data-ng-click="" data-ng-change="ImportSeaShipmentCustomInspectionVltCtrl.ePage.Masters.OnFieldValueChange('EV11017,EV11018')"
+                        custom-date-time-format />
+                    <span class="input-group-btn">
+                        <button class="btn btn-default shiny" data-ng-click="ImportSeaShipmentCustomInspectionVltCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isDutyPaymentNoticeDate')">
+                            <i class="fa fa-calendar"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <!-- Duty Paid On -->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <span class="error-warning-container">
+                    <error-warning-directive data-ng-if="ImportSeaShipmentCustomInspectionVltCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.DutyPaymentDate.IsWarning && !ImportSeaShipmentCustomInspectionVltCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.DutyPaymentDate.IsError"
+                        list="ImportSeaShipmentCustomInspectionVltCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.DutyPaymentDate.WARNING"
+                        type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                    <error-warning-directive data-ng-if="ImportSeaShipmentCustomInspectionVltCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.DutyPaymentDate.IsError"
+                        list="ImportSeaShipmentCustomInspectionVltCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.DutyPaymentDate.ERROR"
+                        type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                </span>
+            <div class="form-group ship-font">
+                <label class="control-label">Duty Paid On</label>
+                <div class="input-group input-group-sm con-dt-value">
+                    <input type="text" class="form-control" placeholder="{{ImportSeaShipmentCustomInspectionVltCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                        data-ng-model="ImportSeaShipmentCustomInspectionVltCtrl.ePage.Entities.Header.Data.UIShpExtendedInfo.DutyPaymentDate"
+                        datetime-picker="{{ImportSeaShipmentCustomInspectionVltCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                        datepicker-options="ImportSeaShipmentCustomInspectionVltCtrl.ePage.Masters.DatePicker.Options"
+                        datepicker-append-to-body="false" close-on-selection="false" enable-time="false" enable-date="true"
+                        default-date="" default-time="" save-as="ImportSeaShipmentCustomInspectionVltCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                        is-open="ImportSeaShipmentCustomInspectionVltCtrl.ePage.Masters.DatePicker.isOpen['isDutyPaymentDate']"
+                        when-closed="" data-ng-click="" data-ng-change="ImportSeaShipmentCustomInspectionVltCtrl.ePage.Masters.OnFieldValueChange('EV11019,EV11028')"
+                        custom-date-time-format />
+                    <span class="input-group-btn">
+                        <button class="btn btn-default shiny" data-ng-click="ImportSeaShipmentCustomInspectionVltCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isDutyPaymentDate')">
+                            <i class="fa fa-calendar"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <!-- OOC / Cleared On -->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <span class="error-warning-container">
+                    <error-warning-directive data-ng-if="ImportSeaShipmentCustomInspectionVltCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.OOCClearedDate.IsWarning && !ImportSeaShipmentCustomInspectionVltCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.OOCClearedDate.IsError"
+                        list="ImportSeaShipmentCustomInspectionVltCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.OOCClearedDate.WARNING"
+                        type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                    <error-warning-directive data-ng-if="ImportSeaShipmentCustomInspectionVltCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.OOCClearedDate.IsError"
+                        list="ImportSeaShipmentCustomInspectionVltCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.OOCClearedDate.ERROR"
+                        type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                </span>
+            <div class="form-group ship-font">
+                <label class="control-label">OOC / Cleared On </label>
+                <div class="input-group input-group-sm con-dt-value">
+                    <input type="text" class="form-control" placeholder="{{ImportSeaShipmentCustomInspectionVltCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                        data-ng-model="ImportSeaShipmentCustomInspectionVltCtrl.ePage.Entities.Header.Data.UIShpExtendedInfo.OOCClearedDate"
+                        datetime-picker="{{ImportSeaShipmentCustomInspectionVltCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                        datepicker-options="ImportSeaShipmentCustomInspectionVltCtrl.ePage.Masters.DatePicker.Options"
+                        datepicker-append-to-body="false" close-on-selection="false" enable-time="false" enable-date="true"
+                        default-date="" default-time="" save-as="ImportSeaShipmentCustomInspectionVltCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                        is-open="ImportSeaShipmentCustomInspectionVltCtrl.ePage.Masters.DatePicker.isOpen['isOOCClearedDate']"
+                        when-closed="" data-ng-click="" data-ng-change="ImportSeaShipmentCustomInspectionVltCtrl.ePage.Masters.OnFieldValueChange('EV11020,EV11029')"
+                        custom-date-time-format />
+                    <span class="input-group-btn">
+                        <button class="btn btn-default shiny" data-ng-click="ImportSeaShipmentCustomInspectionVltCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isOOCClearedDate')">
+                            <i class="fa fa-calendar"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -34,6 +34,8 @@
             OrganizationConsigneeCtrl.ePage.Masters.Supplier.SaveTrans = SaveTrans;
             OrganizationConsigneeCtrl.ePage.Masters.Supplier.IsDisabled = false;
             OrganizationConsigneeCtrl.ePage.Masters.Supplier.SaveButtonText = "Save";
+            OrganizationConsigneeCtrl.ePage.Masters.SelectedLookupData = SelectedLookupData;
+            OrganizationConsigneeCtrl.ePage.Masters.AutoCompleteOnSelect = AutoCompleteOnSelect;
             // DatePicker
             OrganizationConsigneeCtrl.ePage.Masters.DatePicker = {};
             OrganizationConsigneeCtrl.ePage.Masters.DatePicker.Options = APP_CONSTANT.DatePicker;
@@ -55,6 +57,20 @@
             GetAuthorityList();
             GetTransferRelatedList();
             GetValuationBasis();
+        }
+
+        function AutoCompleteOnSelect($item, _input) {
+            if (_input) {
+                OrganizationConsigneeCtrl.ePage.Masters.Supplier.TransModeObj[_input + 'Code'] = $item.Code;
+                OrganizationConsigneeCtrl.ePage.Masters.Supplier.TransModeObj[_input + 'PK'] = $item.PK;
+            }
+        }
+
+        function SelectedLookupData($item, _input) {
+            if (_input) {
+                OrganizationConsigneeCtrl.ePage.Masters.Supplier.TransModeObj[_input + 'Code'] = $item.data.entity.Code;
+                OrganizationConsigneeCtrl.ePage.Masters.Supplier.TransModeObj[_input + 'PK'] = $item.data.entity.PK;
+            }
         }
         // -------------Date time picker-------------
         function OpenDatePicker($event, opened) {
@@ -469,7 +485,7 @@
                 // size : "sm",
                 templateUrl: "app/mdm/organization/consignee/consignee-modal/consignee-modal.html",
                 controller: 'modePopUpModalController',
-                controllerAs: "ModePopUpModalCtrl",
+                controllerAs: "OrganizationConsigneeCtrl",
                 bindToController: true,
                 resolve: {
                     param: function () {

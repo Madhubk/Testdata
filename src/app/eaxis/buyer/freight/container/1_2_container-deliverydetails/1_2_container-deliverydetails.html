@@ -1,0 +1,120 @@
+<div class="modal-header">
+    <button type="button" class="close" ng-click="containerDeliveryDetailsCtrl.ePage.Masters.modalClose()">×</button>
+    <h5 class="modal-title" id="modal-title">
+        <strong>Update Delivery Details</strong>
+    </h5>
+</div>
+<div class="clearfix mt-10 pl-15 pr-15">
+    <div class="table tab-position" id="results">
+        <div class='theader'>
+            <div class='table_header'><strong>Container #</strong> </div>
+            <div class='table_header'><strong>Container Type</strong></div>
+            <div class='table_header'><strong>Customs Clearence Date</strong></div>
+            <div class='table_header'><strong>Estimated Delivery Date</strong></div>
+            <div class='table_header'><strong>Actual Delivery Date</strong></div>
+            <div class='table_header'><strong>Actual Pickup</strong></div>
+        </div>
+
+        <div class='table_row' data-ng-repeat="x in containerDeliveryDetailsCtrl.ePage.Entities.Header.Data.UICntContainer"
+            style="font-size: 11px;">
+            <div class='table_small'>
+                <div class='table_cell'>Container #</div>
+                <div class='table_cell'>
+                    <b>{{x.ContainerNo}}</b>
+                </div>
+            </div>
+            <div class='table_small'>
+                <div class='table_cell'>Type</div>
+                <div class='table_cell'>{{x.RC_Type}}</div>
+            </div>
+            <div class='table_small'>
+                <div class='table_cell'>Customs Clearance Date</div>
+                <div class='table_cell'>
+                    <div class="input-group input-group-sm">
+                        <input type="text" class="form-control" placeholder="{{containerDeliveryDetailsCtrl.ePage.Masters.DatePicker.OptionsDis.dateFormat}}"
+                            datetime-picker="{{containerDeliveryDetailsCtrl.ePage.Masters.DatePicker.OptionsDel.dateFormat}}"
+                            ng-model="x.CustomsClearenceDate" is-open="containerDeliveryDetailsCtrl.ePage.Masters.DatePicker.isOpen['isCustomsClearence'+$index]"
+                            datepicker-options="containerDeliveryDetailsCtrl.ePage.Masters.DatePicker.OptionsDel"
+                            datepicker-append-to-body="false" close-on-selection="false" enable-date="true" enable-time="false"
+                            default-date="" default-time="" when-closed="" save-as="containerDeliveryDetailsCtrl.ePage.Masters.DatePicker.OptionsDel.saveFormat"
+                            popup-placement="bottom-right" data-ng-click="containerDeliveryDetailsCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isCustomsClearence'+$index)"
+                            ng-change="" custom-date-time-format />
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" data-ng-click="containerDeliveryDetailsCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isCustomsClearence'+$index)">
+                                <i class="fa fa-calendar"></i>
+                            </button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class='table_small'>
+                <div class='table_cell'>Estimated Delivery Date</div>
+                <div class='table_cell'>
+                    <div class="input-group input-group-sm">
+                        <input type="text" class="form-control" placeholder="{{containerDeliveryDetailsCtrl.ePage.Masters.DatePicker.OptionsDis.dateTimeFullFormat}}"
+                            datetime-picker="{{containerDeliveryDetailsCtrl.ePage.Masters.DatePicker.OptionsDel.dateTimeFullFormat}}"
+                            ng-model="x.PlannedDelivery" is-open="containerDeliveryDetailsCtrl.ePage.Masters.DatePicker.isOpen['isPlannedDelivery'+$index]"
+                            datepicker-options="containerDeliveryDetailsCtrl.ePage.Masters.DatePicker.OptionsDel"
+                            datepicker-append-to-body="true" close-on-selection="false" enable-date="true" enable-time="true"
+                            default-date="" default-time="" when-closed="" save-as="containerDeliveryDetailsCtrl.ePage.Masters.DatePicker.OptionsDel.saveFormat"
+                            popup-placement="bottom-right" data-ng-click="containerDeliveryDetailsCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isPlannedDelivery'+$index)"
+                            ng-change="" custom-date-time-format />
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" data-ng-click="containerDeliveryDetailsCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isPlannedDelivery'+$index)">
+                                <i class="fa fa-calendar"></i>
+                            </button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class='table_small'>
+                <div class='table_cell'>Actual Delivery Date</div>
+                <div class='table_cell'>
+                    <div class="input-group input-group-sm">
+                        <input type="text" class="form-control" placeholder="{{containerDeliveryDetailsCtrl.ePage.Masters.DatePicker.OptionsDis.dateTimeFullFormat}}"
+                            datetime-picker="{{containerDeliveryDetailsCtrl.ePage.Masters.DatePicker.OptionsDel.dateTimeFullFormat}}"
+                            ng-model="x.ArrivalCartageComplete" is-open="containerDeliveryDetailsCtrl.ePage.Masters.DatePicker.isOpen['isActualDelivery'+$index]"
+                            datepicker-options="containerDeliveryDetailsCtrl.ePage.Masters.DatePicker.OptionsDel"
+                            datepicker-append-to-body="true" close-on-selection="false" enable-date="true" enable-time="true"
+                            default-date="" default-time="" when-closed="" save-as="containerDeliveryDetailsCtrl.ePage.Masters.DatePicker.OptionsDel.saveFormat"
+                            popup-placement="bottom-right" data-ng-click="containerDeliveryDetailsCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isActualDelivery'+$index)"
+                            ng-change="" custom-date-time-format />
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" data-ng-click="containerDeliveryDetailsCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isActualDelivery'+$index)">
+                                <i class="fa fa-calendar"></i>
+                            </button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class='table_small'>
+                <div class='table_cell'>Actual Pickup</div>
+                <div class='table_cell'>
+                    <div class='table_cell'>
+                        <div class="input-group input-group-sm">
+                            <input type="text" class="form-control" placeholder="{{containerDeliveryDetailsCtrl.ePage.Masters.DatePicker.OptionsDis.dateTimeFullFormat}}"
+                                datetime-picker="{{containerDeliveryDetailsCtrl.ePage.Masters.DatePicker.OptionsDel.dateTimeFullFormat}}"
+                                ng-model="x.DepartureActualPickup" is-open="containerDeliveryDetailsCtrl.ePage.Masters.DatePicker.isOpen['isDepartureActualPickup'+$index]"
+                                datepicker-options="containerDeliveryDetailsCtrl.ePage.Masters.DatePicker.OptionsDel"
+                                datepicker-append-to-body="true" close-on-selection="false" enable-date="true"
+                                enable-time="true" default-date="" default-time="" when-closed="" save-as="containerDeliveryDetailsCtrl.ePage.Masters.DatePicker.OptionsDel.saveFormat"
+                                popup-placement="bottom-right" data-ng-click="containerDeliveryDetailsCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isDepartureActualPickup'+$index)"
+                                ng-change="" custom-date-time-format />
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-default" data-ng-click="containerDeliveryDetailsCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isDepartureActualPickup'+$index)">
+                                    <i class="fa fa-calendar"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- List Empty Response -->
+
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary btn-sm pull-right margin-right-10 mb-20" data-ng-click="containerDeliveryDetailsCtrl.ePage.Masters.UpdateContainer(containerDeliveryDetailsCtrl.ePage.Entities.Header.Data.UICntContainer)"
+        data-ng-bind="containerDeliveryDetailsCtrl.ePage.Masters.SaveButtonText" data-ng-disabled="containerDeliveryDetailsCtrl.ePage.Masters.currentAsn"></button>
+</div>

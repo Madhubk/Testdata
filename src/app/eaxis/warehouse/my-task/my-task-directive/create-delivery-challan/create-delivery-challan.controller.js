@@ -150,10 +150,9 @@
             var Checked1 = CreateDelChallanCtrl.ePage.Entities.Header.Data.UIvwWmsDeliveryList.some(function (value, key) {
                 return value.SingleSelect == true;
             });
-            setSelectedRow();
         }
 
-        function setSelectedRow() {
+        function setSelectedRow(index, item) {
             var SelectedDeliveryLine = [];
             angular.forEach(CreateDelChallanCtrl.ePage.Entities.Header.Data.UIvwWmsDeliveryList, function (value, key) {
                 if (value.SingleSelect) {

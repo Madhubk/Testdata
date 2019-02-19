@@ -34,9 +34,9 @@
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.ConShpMapping.API.FindAll.FilterID
+                "FilterID": appConfig.Entities.BuyerConShpMapping.API.FindAll.FilterID
             };
-            apiService.post("eAxisAPI", appConfig.Entities.ConShpMapping.API.FindAll.Url, _input).then(function (response) {
+            apiService.post("eAxisAPI", appConfig.Entities.BuyerConShpMapping.API.FindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     oneThreeContainerGridCtrl.ePage.Entities.Header.Data.UIConShpMappings = response.data.Response;
                     GetContainerList(response.data.Response);

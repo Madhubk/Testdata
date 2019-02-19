@@ -1,0 +1,39 @@
+<div class="clearfix" data-ng-if="!ISFUploadDhcDirectiveCtrl.ePage.Masters.IsLoading && !ISFUploadDhcDirectiveCtrl.ePage.Masters.PageNotFound">
+    <div class="col-lg-4">
+        <div>Consingor :</div>
+        <a class="my-task-content-shipper-link" href="javascript: void(0)">{{ISFUploadDhcDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ShipperName}}</a>
+    </div>
+    <div class="col-lg-4">
+        <div>Consingee :</div>
+        <a class="my-task-content-shipper-link" href="javascript: void(0)">{{ISFUploadDhcDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ConsigneeName}}</a>
+    </div>
+    <div class="col-lg-4">
+        <div>Shipment #</div>
+        <a class="my-task-content-shipper-link" href="javascript: void(0)" data-ng-click="ISFUploadDhcDirectiveCtrl.ePage.Masters.SingleRecordView(ISFUploadDhcDirectiveCtrl.ePage.Entities.Header.Data)">{{ISFUploadDhcDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ShipmentNo}}</a>
+    </div>
+</div>
+<div class="row mt-10" id="style-4" data-ng-if="!ISFUploadDhcDirectiveCtrl.ePage.Masters.IsLoading && !ISFUploadDhcDirectiveCtrl.ePage.Masters.PageNotFound">
+    <div class="col-lg-12" data-ng-if="ISFUploadDhcDirectiveCtrl.ePage.Masters.StandardMenuInput" upload-document-ord
+        doc-type-dsc="ISFUploadDhcDirectiveCtrl.ePage.Masters.MyTask.WSI_StepName" input="ISFUploadDhcDirectiveCtrl.ePage.Masters.StandardMenuInput"
+        is-uploaded="ISFUploadDhcDirectiveCtrl.ePage.Masters.IsUploaded({ $item: $item })" config="ISFUploadDhcDirectiveCtrl.ePage.Masters.StandardConfigInput"
+        class="my-task-icon fa fa-file-text-o mr-5">
+    </div>
+    <div class="col-lg-8" data-ng-if="ISFUploadDhcDirectiveCtrl.ePage.Masters.StandardMenuInput" is-document-uploaded="ISFUploadDhcDirectiveCtrl.ePage.Masters.IsDocumentUploaded"
+        view-document-ord doc-type-dsc="ISFUploadDhcDirectiveCtrl.ePage.Masters.MyTask.WSI_StepName" input="ISFUploadDhcDirectiveCtrl.ePage.Masters.StandardMenuInput"
+        mode="3" config="ISFUploadDhcDirectiveCtrl.ePage.Masters.StandardConfigInput" class="my-task-icon fa fa-file-text-o mr-5">
+    </div>
+    <div class="col-lg-4 pr-0 pl-28 pull-right">
+        <button class="my-task-primary-btn my-task-directive-btn" data-ng-click="ISFUploadDhcDirectiveCtrl.ePage.Masters.Complete()"
+            data-ng-disabled="ISFUploadDhcDirectiveCtrl.ePage.Masters.CompleteBtnDisabled">
+            {{ISFUploadDhcDirectiveCtrl.ePage.Masters.CompleteBtnTxt}}
+        </button>
+    </div>
+</div>
+<!-- Not Found -->
+<div id="notfound" data-ng-if="ISFUploadDhcDirectiveCtrl.ePage.Masters.PageNotFound">
+    <div data-ng-include="'app/eaxis/buyer/shared/page-404.html'"></div>
+</div>
+<!-- Loading -->
+<div class="clearfix p-30 text-center" data-ng-if="ISFUploadDhcDirectiveCtrl.ePage.Masters.IsLoading && !ISFUploadDhcDirectiveCtrl.ePage.Masters.PageNotFound">
+    <i class="fa fa-spin fa-spinner" style="font-size: 18px;"></i>
+</div>

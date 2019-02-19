@@ -12,7 +12,7 @@
             </span>
             <!--Pickup Drop Mode-->
             <div class="padding-bottom-5">
-                <div class="">
+                <div class="ex-line-font">
                     <!--<i class="fa fa-map-marker"></i>-->
                     <label class="control-label"> Supplier</label>
                 </div>
@@ -21,22 +21,20 @@
             <div class="padding-right-10">
                 <div class="form-group">
                     <div class="input-group input-group-sm">
-
                         <input type="hidden" ng-model="bkgBuyerSupplierDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.ORG_FK">
                         <div dynamic-lookup placeholder="Organization Code" my-ng-model="bkgBuyerSupplierDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.ORG_Code"
                             obj="bkgBuyerSupplierDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD"
-                            page-name="'OrganizationList'" control-id="'JobAddressOrgConsignor'" control-key="'JobAddressOrgConsignor_3241'"
+                            page-name="'OrganizationList'" control-id="'BP_JobAddressOrgConsignor'" control-key="'JobAddressOrgConsignor_13241'"
                             auto-complete-on-select="bkgBuyerSupplierDirectiveCtrl.ePage.Masters.AutoCompleteOnSelect($item,'Code','PK','ORG_Shipper_Code', 'address', 'CRD')">
                         </div>
                         <span class="input-group-btn">
                             <button dynamic-list-modal obj="bkgBuyerSupplierDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD"
-                                page-name="'OrganizationList'" control-id="'JobAddressOrgConsignor'" control-key="'JobAddressOrgConsignor_3241'"
+                                page-name="'OrganizationList'" control-id="'BP_JobAddressOrgConsignor'" control-key="'JobAddressOrgConsignor_13241'"
                                 mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="bkgBuyerSupplierDirectiveCtrl.ePage.Masters.SelectedLookupData($item,'ORG_Shipper_Code','address', 'CRD')"
                                 class="btn btn-default shiny" type="button">
                                 <i class="fa fa-ellipsis-h"></i>
                             </button>
                         </span>
-
                     </div>
                 </div>
             </div>
@@ -44,7 +42,6 @@
                 <div class="form-group">
                     <div class="input-group input-group-sm">
                         <input type="hidden" ng-model="bkgBuyerSupplierDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.OAD_Address_FK">
-
                         <textarea class="form-control no-resize txtarea-height-45" disabled="disabled" placeholder="Please select consignor address"
                             data-ng-model="bkgBuyerSupplierDirectiveCtrl.ePage.Masters.AddressContactBinding((bkgBuyerSupplierDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.AddressList | filter: {PK: bkgBuyerSupplierDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.OAD_Address_FK})[0],'Address')"
                             ng-model-options="{ getterSetter: true }"></textarea>
@@ -66,9 +63,7 @@
             <div class="padding-right-10">
                 <div class="form-group">
                     <div class="input-group input-group-sm">
-
                         <input type="hidden" ng-model="bkgBuyerSupplierDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.OCT_FK">
-
                         <textarea class="form-control no-resize txtarea-height-45" disabled="disabled" placeholder="Please select consignor contact"
                             data-ng-model="bkgBuyerSupplierDirectiveCtrl.ePage.Masters.AddressContactBinding((bkgBuyerSupplierDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.ContactList | filter: {PK: bkgBuyerSupplierDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.OCT_FK})[0],'Contact')"
                             ng-model-options="{ getterSetter: true }"></textarea>
@@ -85,8 +80,6 @@
                     </div>
                 </div>
             </div>
-
-
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 pr-0 padding-top-10 address-consignee">
             <span class="error-warning-container">
@@ -99,41 +92,36 @@
             </span>
             <!--Pickup Drop Mode-->
             <div class="padding-bottom-5">
-                <div class="">
+                <div class="ex-line-font">
                     <!--<i class="fa fa-globe"></i>-->
                     <label class="control-label"> Buyer</label>
                 </div>
             </div>
             <!--Estimated Pickup-->
-            <!--Estimated Pickup-->
             <div class="padding-right-10">
                 <div class="form-group">
                     <div class="input-group input-group-sm">
-
                         <input type="hidden" ng-model="bkgBuyerSupplierDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.ORG_FK">
                         <div dynamic-lookup placeholder="Organization Code" my-ng-model="bkgBuyerSupplierDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.ORG_Code"
                             obj="bkgBuyerSupplierDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED"
-                            page-name="'OrganizationList'" control-id="'JobAddressOrgConsignee'" control-key="'JobAddressOrgConsignee_3245'"
+                            page-name="'OrganizationList'" control-id="'BP_JobAddressOrgConsignee'" control-key="'JobAddressOrgConsignee_13245'"
                             auto-complete-on-select="bkgBuyerSupplierDirectiveCtrl.ePage.Masters.AutoCompleteOnSelect($item,'Code','PK','ORG_Consignee_Code',  'address', 'CED')">
                         </div>
                         <span class="input-group-btn">
                             <button dynamic-list-modal obj="bkgBuyerSupplierDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED"
-                                page-name="'OrganizationList'" control-id="'JobAddressOrgConsignee'" control-key="'JobAddressOrgConsignee_3245'"
+                                page-name="'OrganizationList'" control-id="'BP_JobAddressOrgConsignee'" control-key="'JobAddressOrgConsignee_13245'"
                                 mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="bkgBuyerSupplierDirectiveCtrl.ePage.Masters.SelectedLookupData($item,'ORG_Consignee_Code', 'address', 'CED')"
                                 class="btn btn-default shiny" type="button">
                                 <i class="fa fa-ellipsis-h"></i>
                             </button>
                         </span>
-
                     </div>
                 </div>
             </div>
             <div class="padding-right-10">
                 <div class="form-group">
                     <div class="input-group input-group-sm">
-
                         <input type="hidden" ng-model="bkgBuyerSupplierDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.OAD_Address_FK">
-
                         <textarea class="form-control no-resize txtarea-height-45" disabled="disabled" placeholder="Please select consignee address"
                             data-ng-model="bkgBuyerSupplierDirectiveCtrl.ePage.Masters.AddressContactBinding((bkgBuyerSupplierDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.AddressList | filter: {PK: bkgBuyerSupplierDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.OAD_Address_FK})[0],'Address')"
                             ng-model-options="{ getterSetter: true }"></textarea>
@@ -193,7 +181,7 @@
                     list="bkgBuyerSupplierDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.PackingMode.ERROR"
                     type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
             </span>
-            <div class="form-group">
+            <div class="form-group ex-line-font">
                 <label class="control-label text-single-line"> Mode</label>
                 <select chosen class="form-control" ng-model="bkgBuyerSupplierDirectiveCtrl.ePage.Masters.selectedMode"
                     ng-options="term as (term.Key+'-'+term.PARENT_Value + '(' + term.Key+')') for term in bkgBuyerSupplierDirectiveCtrl.ePage.Masters.cfxTypeList.CNTTYPE"
@@ -211,7 +199,7 @@
                     list="bkgBuyerSupplierDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.IncoTerm.ERROR"
                     type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
             </span>
-            <div class="form-group">
+            <div class="form-group ex-line-font">
                 <label class="control-label text-single-line">IncoTerm</label>
                 <select chosen class="form-control" ng-model="bkgBuyerSupplierDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.IncoTerm"
                     ng-options="term.Key as (term.Key + ' - ' + term.Value) for term in bkgBuyerSupplierDirectiveCtrl.ePage.Masters.DropDownMasterList.INCOTERM.ListSource"
@@ -229,7 +217,7 @@
                     list="bkgBuyerSupplierDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.HBLAWBChargesDisplay.ERROR"
                     type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
             </span>
-            <div class="form-group">
+            <div class="form-group ex-line-font">
                 <label class="control-label text-single-line">Freight Terms</label>
                 <select chosen class="form-control" ng-model="bkgBuyerSupplierDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.HBLAWBChargesDisplay"
                     ng-options="term.Key as (term.Key + ' - ' + term.Value) for term in bkgBuyerSupplierDirectiveCtrl.ePage.Masters.DropDownMasterList.FREIGHTTERMS.ListSource"
@@ -239,7 +227,7 @@
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
-            <div class="form-group">
+            <div class="form-group ex-line-font">
                 <label class="control-label text-single-line">Cargo Ready Date</label>
                 <div class="input-group input-group-sm">
                     <input type="text" class="form-control" placeholder="{{bkgBuyerSupplierDirectiveCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
@@ -267,15 +255,16 @@
                     list="bkgBuyerSupplierDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Origin.ERROR"
                     type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
             </span>
-            <div class="form-group">
+            <div class="form-group ex-line-font">
                 <label class="control-label text-single-line">Origin</label>
                 <div class="input-group input-group-sm">
                     <div dynamic-lookup placeholder="" my-ng-model="bkgBuyerSupplierDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Origin"
                         obj="bkgBuyerSupplierDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader" page-name="'MstUNLOCO'"
-                        control-id="'ShpGeneralOrigin'" control-key="'ShpGeneralOrigin_3107'" auto-complete-on-select="bkgBuyerSupplierDirectiveCtrl.ePage.Masters.AutoCompleteOnSelect($item,'Code',null,'Origin')"></div>
+                        control-id="'BP_ShpGeneralOrigin'" control-key="'ShpGeneralOrigin_13107'"
+                        auto-complete-on-select="bkgBuyerSupplierDirectiveCtrl.ePage.Masters.AutoCompleteOnSelect($item,'Code',null,'Origin')"></div>
                     <span class="input-group-btn">
                         <button dynamic-list-modal obj="bkgBuyerSupplierDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader"
-                            page-name="'MstUNLOCO'" control-id="'ShpGeneralOrigin'" control-key="'ShpGeneralOrigin_3107'"
+                            page-name="'MstUNLOCO'" control-id="'BP_ShpGeneralOrigin'" control-key="'ShpGeneralOrigin_13107'"
                             mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="bkgBuyerSupplierDirectiveCtrl.ePage.Masters.SelectedLookupData($item,'Origin')"
                             class="btn btn-default shiny" type="button">
                             <i class="fa fa-ellipsis-h"></i>
@@ -294,16 +283,16 @@
                     list="bkgBuyerSupplierDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.PortOfLoading.ERROR"
                     type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
             </span>
-            <div class="form-group">
+            <div class="form-group ex-line-font">
                 <label class="control-label text-single-line">POL</label>
                 <div class="input-group input-group-sm">
                     <div dynamic-lookup placeholder="" my-ng-model="bkgBuyerSupplierDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.PortOfLoading"
                         obj="bkgBuyerSupplierDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader" page-name="'MstUNLOCO'"
-                        control-id="'OrdListPortOfLoading'" control-key="'OrdListPortOfLoading_3087'"
+                        control-id="'BP_OrdListPortOfLoading'" control-key="'OrdListPortOfLoading_13087'"
                         auto-complete-on-select="bkgBuyerSupplierDirectiveCtrl.ePage.Masters.AutoCompleteOnSelect($item,'Code',null,'PortOfLoading')"></div>
                     <span class="input-group-btn">
                         <button dynamic-list-modal obj="bkgBuyerSupplierDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader"
-                            page-name="'MstUNLOCO'" control-id="'OrdListPortOfLoading'" control-key="'OrdListPortOfLoading_3087'"
+                            page-name="'MstUNLOCO'" control-id="'BP_OrdListPortOfLoading'" control-key="'OrdListPortOfLoading_13087'"
                             mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="bkgBuyerSupplierDirectiveCtrl.ePage.Masters.SelectedLookupData($item,'PortOfLoading')"
                             class="btn btn-default shiny" type="button">
                             <i class="fa fa-ellipsis-h"></i>
@@ -321,15 +310,15 @@
                     list="bkgBuyerSupplierDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.PortOfDischarge.ERROR"
                     type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
             </span>
-            <div class="form-group">
+            <div class="form-group ex-line-font">
                 <label class="control-label text-single-line">POD</label>
                 <div class="input-group input-group-sm">
                     <div dynamic-lookup placeholder="" my-ng-model="bkgBuyerSupplierDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.PortOfDischarge"
                         obj="bkgBuyerSupplierDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader" page-name="'MstUNLOCO'"
-                        control-id="'PortOfDischarge'" control-key="'PortOfDischarge_3077'" auto-complete-on-select="bkgBuyerSupplierDirectiveCtrl.ePage.Masters.AutoCompleteOnSelect($item,'Code',null,'PortOfDischarge')"></div>
+                        control-id="'BP_PortOfDischarge'" control-key="'PortOfDischarge_13077'" auto-complete-on-select="bkgBuyerSupplierDirectiveCtrl.ePage.Masters.AutoCompleteOnSelect($item,'Code',null,'PortOfDischarge')"></div>
                     <span class="input-group-btn">
                         <button dynamic-list-modal obj="bkgBuyerSupplierDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader"
-                            page-name="'MstUNLOCO'" control-id="'PortOfDischarge'" control-key="'PortOfDischarge_3077'"
+                            page-name="'MstUNLOCO'" control-id="'BP_PortOfDischarge'" control-key="'PortOfDischarge_13077'"
                             mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="bkgBuyerSupplierDirectiveCtrl.ePage.Masters.SelectedLookupData($item,'PortOfDischarge')"
                             class="btn btn-default shiny" type="button">
                             <i class="fa fa-ellipsis-h"></i>
@@ -347,16 +336,16 @@
                     list="bkgBuyerSupplierDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Destination.ERROR"
                     type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
             </span>
-            <div class="form-group">
+            <div class="form-group ex-line-font">
                 <label class="control-label text-single-line">Destination</label>
                 <div class="input-group input-group-sm">
                     <div dynamic-lookup placeholder="" my-ng-model="bkgBuyerSupplierDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Destination"
                         obj="bkgBuyerSupplierDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader" page-name="'MstUNLOCO'"
-                        control-id="'ShpGeneralDestination'" control-key="'ShpGeneralDestination_3104'"
+                        control-id="'BP_ShpGeneralDestination'" control-key="'ShpGeneralDestination_13104'"
                         auto-complete-on-select="bkgBuyerSupplierDirectiveCtrl.ePage.Masters.AutoCompleteOnSelect($item,'Code',null,'Destination')"></div>
                     <span class="input-group-btn">
                         <button dynamic-list-modal obj="bkgBuyerSupplierDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader"
-                            page-name="'MstUNLOCO'" control-id="'ShpGeneralDestination'" control-key="'ShpGeneralDestination_3104'"
+                            page-name="'MstUNLOCO'" control-id="'BP_ShpGeneralDestination'" control-key="'ShpGeneralDestination_13104'"
                             mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="bkgBuyerSupplierDirectiveCtrl.ePage.Masters.SelectedLookupData($item,'Destination')"
                             class="btn btn-default shiny" type="button">
                             <i class="fa fa-ellipsis-h"></i>
@@ -369,11 +358,11 @@
             <div class="row">
                 <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
                     <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
-                        <div class="form-group">
+                        <div class="form-group ex-line-font">
                             <label class="mt-30">
                                 <input type="checkbox" ng-true-value="'PIC'" ng-false-value="'false'" ng-change="bkgBuyerSupplierDirectiveCtrl.ePage.Masters.addRemoveServiceType('PIC',bkgBuyerSupplierDirectiveCtrl.ePage.Masters.serviceTypes.Pickup)"
                                     ng-model="bkgBuyerSupplierDirectiveCtrl.ePage.Masters.serviceTypes.Pickup">
-                                <span class="text"></span>Pickup
+                                <span class="text control-label"></span>Pickup
                             </label>
                             <!-- <label class="control-label text-single-line">Pickup</label>
                             <select chosen class="form-control" ng-model="bkgBuyerSupplierDirectiveCtrl.ePage.Masters.serviceTypes.Pickup"
@@ -385,47 +374,47 @@
                         </div>
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
-                        <div class="form-group">
+                        <div class="form-group ex-line-font">
                             <label class="mt-30">
                                 <input type="checkbox" ng-true-value="'EXC'" ng-false-value="'false'" ng-change="bkgBuyerSupplierDirectiveCtrl.ePage.Masters.addRemoveServiceType('EXC',bkgBuyerSupplierDirectiveCtrl.ePage.Masters.serviceTypes.ExportClearance)"
                                     ng-model="bkgBuyerSupplierDirectiveCtrl.ePage.Masters.serviceTypes.ExportClearance">
-                                <span class="text"></span>Export Clearance
+                                <span class="text control-label"></span>Export Clearance
                             </label>
                         </div>
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
-                        <div class="form-group">
+                        <div class="form-group ex-line-font">
                             <label class="mt-30">
                                 <input type="checkbox" ng-true-value="'FAS'" ng-false-value="'false'" ng-change="bkgBuyerSupplierDirectiveCtrl.ePage.Masters.addRemoveServiceType('FAS',bkgBuyerSupplierDirectiveCtrl.ePage.Masters.serviceTypes.FactoryStuffing)"
                                     ng-model="bkgBuyerSupplierDirectiveCtrl.ePage.Masters.serviceTypes.FactoryStuffing">
-                                <span class="text"></span>Factory Stuffing
+                                <span class="text control-label"></span>Factory Stuffing
                             </label>
                         </div>
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
-                        <div class="form-group">
+                        <div class="form-group ex-line-font">
                             <label class="mt-30">
                                 <input type="checkbox" ng-true-value="'DLV'" ng-false-value="'false'" ng-change="bkgBuyerSupplierDirectiveCtrl.ePage.Masters.addRemoveServiceType('DLV',bkgBuyerSupplierDirectiveCtrl.ePage.Masters.serviceTypes.Delivery)"
                                     ng-model="bkgBuyerSupplierDirectiveCtrl.ePage.Masters.serviceTypes.Delivery">
-                                <span class="text"></span>Delivery
+                                <span class="text control-label"></span>Delivery
                             </label>
                         </div>
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
-                        <div class="form-group">
+                        <div class="form-group ex-line-font">
                             <label class="mt-30">
                                 <input type="checkbox" ng-true-value="'IMC'" ng-false-value="'false'" ng-change="bkgBuyerSupplierDirectiveCtrl.ePage.Masters.addRemoveServiceType('IMC',bkgBuyerSupplierDirectiveCtrl.ePage.Masters.serviceTypes.ImportClearance)"
                                     ng-model="bkgBuyerSupplierDirectiveCtrl.ePage.Masters.serviceTypes.ImportClearance">
-                                <span class="text"></span>Import Clearance
+                                <span class="text control-label"></span>Import Clearance
                             </label>
                         </div>
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
-                        <div class="form-group">
+                        <div class="form-group ex-line-font">
                             <label class="mt-30">
                                 <input type="checkbox" ng-true-value="'CAI'" ng-false-value="'false'" ng-change="bkgBuyerSupplierDirectiveCtrl.ePage.Masters.addRemoveServiceType('CAI',bkgBuyerSupplierDirectiveCtrl.ePage.Masters.serviceTypes.CargoInsurance)"
                                     ng-model="bkgBuyerSupplierDirectiveCtrl.ePage.Masters.serviceTypes.CargoInsurance">
-                                <span class="text"></span>Cargo Insurance
+                                <span class="text control-label"></span>Cargo Insurance
                             </label>
                         </div>
                     </div>
@@ -440,18 +429,18 @@
                                 list="bkgBuyerSupplierDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ExportForwarder_Code.ERROR"
                                 type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
                         </span>
-                        <div class="form-group">
+                        <div class="form-group ex-line-font">
                             <label class="control-label text-single-line">Sending Agent</label>
                             <div class="input-group input-group-sm">
                                 <input type="hidden" my-ng-model="bkgBuyerSupplierDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ExportForwarder_FK">
                                 <div dynamic-lookup placeholder="" my-ng-model="bkgBuyerSupplierDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ExportForwarder_Code"
                                     obj="bkgBuyerSupplierDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader"
-                                    page-name="'OrganizationList'" control-id="'JobAddressOrgSendingForwarder'" control-key="'JobAddressOrgSendingForwarder_3246'"
-                                    auto-complete-on-select="bkgBuyerSupplierDirectiveCtrl.ePage.Masters.AutoCompleteOnSelect($item,'Code',null,'ExportForwarder_Code')"></div>
+                                    page-name="'OrganizationList'" control-id="'BP_JobAddressOrgSendingForwarder'"
+                                    control-key="'JobAddressOrgSendingForwarder_13246'" auto-complete-on-select="bkgBuyerSupplierDirectiveCtrl.ePage.Masters.AutoCompleteOnSelect($item,'Code',null,'ExportForwarder_Code')"></div>
                                 <span class="input-group-btn">
                                     <button dynamic-list-modal obj="bkgBuyerSupplierDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader"
-                                        page-name="'OrganizationList'" control-id="'JobAddressOrgSendingForwarder'"
-                                        control-key="'JobAddressOrgSendingForwarder_3246'" mode="2"
+                                        page-name="'OrganizationList'" control-id="'BP_JobAddressOrgSendingForwarder'"
+                                        control-key="'JobAddressOrgSendingForwarder_13246'" mode="2"
                                         grid-refresh-fun-name="" grid-refresh-fun="" selected-data="bkgBuyerSupplierDirectiveCtrl.ePage.Masters.SelectedLookupData($item,'ExportForwarder_Code')"
                                         class="btn btn-default shiny" type="button">
                                         <i class="fa fa-ellipsis-h"></i>
@@ -469,18 +458,19 @@
                                 list="bkgBuyerSupplierDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ImportForwarder_Code.ERROR"
                                 type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
                         </span>
-                        <div class="form-group">
+                        <div class="form-group ex-line-font">
                             <label class="control-label text-single-line">Receiving Agent</label>
                             <div class="input-group input-group-sm">
                                 <input type="hidden" my-ng-model="bkgBuyerSupplierDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ImportForwarder_FK">
                                 <div dynamic-lookup placeholder="" my-ng-model="bkgBuyerSupplierDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ImportForwarder_Code"
                                     obj="bkgBuyerSupplierDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader"
-                                    page-name="'OrganizationList'" control-id="'JobAddressOrgReceivingForwarder'" control-key="'JobAddressOrgReceivingForwarder_3250'"
-                                    config="'JobAddressOrgReceivingForwarder'" auto-complete-on-select="bkgBuyerSupplierDirectiveCtrl.ePage.Masters.AutoCompleteOnSelect($item,'Code',null,'ImportForwarder_Code')"></div>
+                                    page-name="'OrganizationList'" control-id="'BP_JobAddressOrgReceivingForwarder'"
+                                    control-key="'JobAddressOrgReceivingForwarder_13250'" config="'JobAddressOrgReceivingForwarder'"
+                                    auto-complete-on-select="bkgBuyerSupplierDirectiveCtrl.ePage.Masters.AutoCompleteOnSelect($item,'Code',null,'ImportForwarder_Code')"></div>
                                 <span class="input-group-btn">
                                     <button dynamic-list-modal obj="bkgBuyerSupplierDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader"
-                                        page-name="'OrganizationList'" control-id="'JobAddressOrgReceivingForwarder'"
-                                        control-key="'JobAddressOrgReceivingForwarder_3250'" mode="2"
+                                        page-name="'OrganizationList'" control-id="'BP_JobAddressOrgReceivingForwarder'"
+                                        control-key="'JobAddressOrgReceivingForwarder_13250'" mode="2"
                                         grid-refresh-fun-name="" grid-refresh-fun="" selected-data="bkgBuyerSupplierDirectiveCtrl.ePage.Masters.SelectedLookupData($item,'ImportForwarder_Code')"
                                         class="btn btn-default shiny" type="button">
                                         <i class="fa fa-ellipsis-h"></i>
@@ -490,7 +480,7 @@
                         </div>
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
-                        <div class="form-group">
+                        <div class="form-group ex-line-font">
                             <label class="control-label text-single-line">Additional Terms</label>
                             <div class="input-group">
                                 <textarea rows="3" style="width: 240px" class="col-lg-12" maxlength="250" name="info"
@@ -499,11 +489,42 @@
                         </div>
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
-                        <div class="form-group">
+                        <div class="form-group ex-line-font">
                             <label class="control-label text-single-line">Goods Desc</label>
                             <div class="input-group">
                                 <textarea rows="3" style="width: 240px" class="col-lg-12" maxlength="250" name="info"
                                     ng-model="bkgBuyerSupplierDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.GoodsDesc"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Factory Invoice # -->
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-3">
+                        <div class="form-group ex-line-font">
+                            <label class="control-label text-single-line">Factory Invoice #</label>
+                            <div class="">
+                                <input type="text" class="form-control input-sm" placeholder="Factory Invoice #"
+                                    maxlength="50" data-ng-model="bkgBuyerSupplierDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.InvoiceRefNo" />
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Factory PKL # -->
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-3">
+                        <div class="form-group ex-line-font">
+                            <label class="control-label text-single-line">Factory PKL #</label>
+                            <div class="">
+                                <input type="text" class="form-control input-sm" placeholder="Factory PKL #" maxlength="50"
+                                    data-ng-model="bkgBuyerSupplierDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.FactoryPKLNo" />
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Invoice # -->
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-3">
+                        <div class="form-group ex-line-font">
+                            <label class="control-label text-single-line">Supplier Invoice #</label>
+                            <div class="">
+                                <input type="text" class="form-control input-sm" placeholder="Factory Invoice #"
+                                    maxlength="50" data-ng-model="bkgBuyerSupplierDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.SupplierInvoiceNo" />
                             </div>
                         </div>
                     </div>

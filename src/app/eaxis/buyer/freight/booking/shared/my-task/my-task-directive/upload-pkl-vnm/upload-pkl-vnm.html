@@ -1,35 +1,73 @@
-<div class="clearfix">
-	<div class="col-lg-4">
-		<div>Consingor :</div>
-		<a class="my-task-content-shipper-link" href="javascript: void(0)">{{UploadPklVnmDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ORG_Shipper_Code}}</a>
+<div class="clearfix" data-ng-if="!UploadPklVnmDirectiveCtrl.ePage.Masters.IsLoading && !UploadPklVnmDirectiveCtrl.ePage.Masters.PageNotFound">
+	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+		<div class="form-group ex-line-font">
+			<label class="control-label text-single-line">Consingor</label>
+			<div class="text-ellipsis" title="{{UploadPklVnmDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ShipperName}}">
+				<span>{{UploadPklVnmDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ShipperName}}</span>
+			</div>
+		</div>
 	</div>
-	<div class="col-lg-4">
-		<div>Consingee :</div>
-		<a class="my-task-content-shipper-link" href="javascript: void(0)">{{UploadPklVnmDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ORG_Consignee_Code}}</a>
+	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+		<div class="form-group ex-line-font">
+			<label class="control-label text-single-line">Consingee</label>
+			<div class="text-ellipsis" title="{{UploadPklVnmDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ConsigneeName}}">
+				<span>{{UploadPklVnmDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ConsigneeName}}</span>
+			</div>
+		</div>
+	</div>
+	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+		<div class="form-group ex-line-font">
+			<label class="control-label text-single-line">Booking #</label>
+			<div class="">
+				<a href="javascript: void(0)" data-ng-click="UploadPklVnmDirectiveCtrl.ePage.Masters.SingleRecordView(UploadPklVnmDirectiveCtrl.ePage.Entities.Header.Data)">{{UploadPklVnmDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ShipmentNo}}</a>
+			</div>
+		</div>
+	</div>
+	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+		<div class="form-group ex-line-font">
+			<label class="control-label text-single-line">Order(s) #</label>
+			<div class="text-ellipsis" title="{{UploadPklVnmDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.OrderNos}}">
+				<span>{{UploadPklVnmDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.OrderNos}}</span>
+			</div>
+		</div>
 	</div>
 </div>
-<div class="row mt-10" id="style-4">
+<div class="clearfix mt-5" data-ng-if="!UploadPklVnmDirectiveCtrl.ePage.Masters.IsLoading && !UploadPklVnmDirectiveCtrl.ePage.Masters.PageNotFound">
+	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+		<div class="form-group ex-line-font">
+			<label class="control-label text-single-line">Factory Invoice #</label>
+			<div class="">
+				<span>{{UploadPklVnmDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.InvoiceRefNo}}</span>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="row mt-5" id="style-4" data-ng-if="!UploadPklVnmDirectiveCtrl.ePage.Masters.IsLoading && !UploadPklVnmDirectiveCtrl.ePage.Masters.PageNotFound">
 	<span class="error-warning-container error-warnig-doc">
 		<!-- valid order # -->
-		<error-warning-directive data-ng-if="UploadPklVnmDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Document.IsWarning && !UploadPklVnmDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Document.IsError"
-		 list="UploadPklVnmDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Document.WARNING" type="'warning'"
-		 icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
-		<error-warning-directive data-ng-if="UploadPklVnmDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Document.IsError"
-		 list="UploadPklVnmDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Document.ERROR" type="'error'"
-		 icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+		<!-- <error-warning-directive data-ng-if="UploadPklVnmDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Document.IsError"
+		 list="UploadPklVnmDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Document.ERROR" type="'error'" icon="fa fa-warning"
+		 parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive> -->
 	</span>
-	<div class="col-lg-8" data-ng-if="UploadPklVnmDirectiveCtrl.ePage.Masters.StandardMenuInput" upload-document input="UploadPklVnmDirectiveCtrl.ePage.Masters.StandardMenuInput"
-	 is-uploaded="UploadPklVnmDirectiveCtrl.ePage.Masters.IsUploaded({ $item: $item })" config="UploadPklVnmDirectiveCtrl.ePage.Masters.StandardConfigInput"
+	<div class="col-lg-6" data-ng-if="UploadPklVnmDirectiveCtrl.ePage.Masters.StandardMenuInput" upload-document-ord input="UploadPklVnmDirectiveCtrl.ePage.Masters.StandardMenuInput"
+	 is-uploaded="UploadPklVnmDirectiveCtrl.ePage.Masters.IsUploaded({ $item: $item })" allow-to-upload="'true'" config="UploadPklVnmDirectiveCtrl.ePage.Masters.StandardConfigInput"
+	 class="my-task-icon fa fa-file-text-o mr-5" mode="1">
+	</div>
+	<div class="col-lg-6" data-ng-if="UploadPklVnmDirectiveCtrl.ePage.Masters.StandardMenuInput" view-document-ord input="UploadPklVnmDirectiveCtrl.ePage.Masters.StandardMenuInput"
+	 mode="1" is-document-uploaded="UploadPklVnmDirectiveCtrl.ePage.Masters.IsDocumentUploaded" config="UploadPklVnmDirectiveCtrl.ePage.Masters.StandardConfigInput"
 	 class="my-task-icon fa fa-file-text-o mr-5">
 	</div>
-	<div class="col-lg-4" data-ng-if="UploadPklVnmDirectiveCtrl.ePage.Masters.StandardMenuInput" view-document input="UploadPklVnmDirectiveCtrl.ePage.Masters.StandardMenuInput"
-	 mode="3" config="UploadPklVnmDirectiveCtrl.ePage.Masters.StandardConfigInput" class="my-task-icon fa fa-file-text-o mr-5">
-	</div>
-	<div class="col-lg-8">
-
-	</div>
-	<div class="col-lg-4">
-		<button class="my-task-btn my-task-directive-btn" data-ng-click="UploadPklVnmDirectiveCtrl.ePage.Masters.Complete()"
+	<div class="col-lg-8 mt-5"></div>
+	<div class="col-lg-4 mt-5">
+		<button class="my-task-primary-btn my-task-directive-btn" data-ng-click="UploadPklVnmDirectiveCtrl.ePage.Masters.Complete()"
 		 data-ng-disabled="UploadPklVnmDirectiveCtrl.ePage.Masters.CompleteBtnDisabled">{{UploadPklVnmDirectiveCtrl.ePage.Masters.CompleteBtnTxt}}</button>
 	</div>
+</div>
+<!-- Not Found -->
+<div id="notfound" data-ng-if="UploadPklVnmDirectiveCtrl.ePage.Masters.PageNotFound">
+    <div data-ng-include="'app/eaxis/buyer/shared/page-404.html'"></div>
+</div>
+<!-- Loading -->
+<div class="clearfix p-30 text-center" data-ng-if="UploadPklVnmDirectiveCtrl.ePage.Masters.IsLoading && !UploadPklVnmDirectiveCtrl.ePage.Masters.PageNotFound">
+    <i class="fa fa-spin fa-spinner" style="font-size: 18px;"></i>
 </div>

@@ -5,9 +5,9 @@
         .module("Application")
         .controller("one_three_OrdLinesFormController", one_three_OrdLinesFormController);
 
-    one_three_OrdLinesFormController.$inject = ["$scope", "$injector", "APP_CONSTANT", "authService", "apiService", "appConfig", "helperService", "toastr", "confirmation"];
+    one_three_OrdLinesFormController.$inject = ["$scope", "$injector", "APP_CONSTANT", "authService", "apiService", "appConfig", "orderApiConfig", "helperService", "toastr", "confirmation"];
 
-    function one_three_OrdLinesFormController($scope, $injector, APP_CONSTANT, authService, apiService, appConfig, helperService, toastr, confirmation) {
+    function one_three_OrdLinesFormController($scope, $injector, APP_CONSTANT, authService, apiService, appConfig, orderApiConfig, helperService, toastr, confirmation) {
         var one_three_OrdLinesFormCtrl = this,
             dynamicLookupConfig = $injector.get("dynamicLookupConfig");
 
@@ -105,7 +105,7 @@
 
         function GetRelatedLookupList() {
             var _filter = {
-                Key: "DestinationPort_3094,DestinationPort_3094",
+                Key: "BP_DestinationPort_13094,BP_DeliveryPoint_13315",
                 SAP_FK: authService.getUserInfo().AppPK
             };
             var _input = {
@@ -336,9 +336,9 @@
             }
             var _filter = {
                 "searchInput": helperService.createToArrayOfObject(_input),
-                "FilterID": appConfig.Entities.PorOrderLineDelivery.API.FindAll.FilterID
+                "FilterID": orderApiConfig.Entities.OrderLineDelivery_BuyerForwarder.API.findall.FilterID
             };
-            apiService.post("eAxisAPI", appConfig.Entities.PorOrderLineDelivery.API.FindAll.Url, _filter).then(function (response) {
+            apiService.post("eAxisAPI", orderApiConfig.Entities.OrderLineDelivery_BuyerForwarder.API.findall.Url, _filter).then(function (response) {
                 if (response.data.Response) {
                     one_three_OrdLinesFormCtrl.ePage.Masters.LineDelivery.GridData = response.data.Response;
                 } else {
@@ -363,7 +363,7 @@
                 OrderLineGetByIdList(_item);
                 // GetDynamicControl1();
             } else {
-                apiService.get("eAxisAPI", appConfig.Entities.PorOrderLineDelivery.API.Delete.Url + _item.PK).then(function (response) {
+                apiService.get("eAxisAPI", orderApiConfig.Entities.OrderLineDelivery_BuyerForwarder.API.delete.Url + _item.PK).then(function (response) {
                     if (response.data.Response) {
                         one_three_OrdLinesFormCtrl.ePage.Masters.LineDelivery.GridData.map(function (value, key) {
                             if (value.PK == _item.PK) {
@@ -376,7 +376,7 @@
         }
 
         function OrderLineGetByIdList(_getInput) {
-            apiService.get("eAxisAPI", appConfig.Entities.PorOrderLineDelivery.API.GetById.Url + _getInput.PK).then(function (response) {
+            apiService.get("eAxisAPI", orderApiConfig.Entities.OrderLineDelivery_BuyerForwarder.API.getbyid.Url + _getInput.PK).then(function (response) {
                 if (response.data.Response) {
                     one_three_OrdLinesFormCtrl.ePage.Masters.LineDelivery.FormView = response.data.Response;
                     one_three_OrdLinesFormCtrl.ePage.Masters.LineDelivery.FormView.UICustomEntity = response.data.Response.UIJobCustom;
@@ -388,7 +388,7 @@
         function AddToGridLineDelivery(type) {
             if (type != "Save") {
                 one_three_OrdLinesFormCtrl.ePage.Masters.LineDelivery.FormView.IsModified = true;
-                apiService.post("eAxisAPI", appConfig.Entities.PorOrderLineDelivery.API.Update.Url, one_three_OrdLinesFormCtrl.ePage.Masters.LineDelivery.FormView).then(function (response) {
+                apiService.post("eAxisAPI", orderApiConfig.Entities.OrderLineDelivery_BuyerForwarder.API.update.Url, one_three_OrdLinesFormCtrl.ePage.Masters.LineDelivery.FormView).then(function (response) {
                     if (response.data.Response) {
                         one_three_OrdLinesFormCtrl.ePage.Masters.LineDelivery.GridData.map(function (value, key) {
                             if (value.PK == response.data.Response.PK) {
@@ -413,7 +413,7 @@
                     "SourceRefKey": one_three_OrdLinesFormCtrl.ePage.Masters.Data.UIOrderLine_Buyer_Forwarder.PK,
                     "UIJobCustom": one_three_OrdLinesFormCtrl.ePage.Masters.LineDelivery.FormView.UICustomEntity
                 }
-                apiService.post("eAxisAPI", appConfig.Entities.PorOrderLineDelivery.API.Insert.Url, [_inputDelivery]).then(function (response) {
+                apiService.post("eAxisAPI", orderApiConfig.Entities.OrderLineDelivery_BuyerForwarder.API.insert.Url, [_inputDelivery]).then(function (response) {
                     if (response.data.Response) {
                         one_three_OrdLinesFormCtrl.ePage.Masters.LineDelivery.GridData.push(response.data.Response[0]);
                         one_three_OrdLinesFormCtrl.ePage.Masters.LineDelivery.IsFormView = false;
@@ -480,8 +480,12 @@
         function GetDynamicControl() {
             // Get Dynamic filter controls
             var _filter = {
-                DataEntryName: "OrderLineCustom"
+                DataEntryName: "BPOrderLineCustom"
+                // IsRoleBased: false,
+                // IsAccessBased: false,
+                // OrganizationCode: one_three_OrdLinesFormCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.Buyer
             };
+
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
                 "FilterID": appConfig.Entities.DataEntry.API.FindConfig.FilterID
@@ -503,7 +507,7 @@
         function GetDynamicControl1() {
             // Get Dynamic filter controls
             var _filter = {
-                DataEntryName: "OrderLineDeliveryCustom"
+                DataEntryName: "BPOrderLineDeliveryCustom"
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),

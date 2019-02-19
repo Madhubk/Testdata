@@ -54,10 +54,10 @@
 
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.JobDocument.API.FindAll.FilterID
+                "FilterID": appConfig.Entities.JobDocument.API.FindAllWithAccess.FilterID
             };
 
-            apiService.post("eAxisAPI", appConfig.Entities.JobDocument.API.FindAll.Url + authService.getUserInfo().AppPK, _input).then(function (response) {
+            apiService.post("eAxisAPI", appConfig.Entities.JobDocument.API.FindAllWithAccess.Url + authService.getUserInfo().AppPK, _input).then(function (response) {
                 if (response.data.Response) {
                     ViewDocumentOrdCtrl.ePage.Masters.Document.ListSource = response.data.Response;
                     ViewDocumentOrdCtrl.ePage.Masters.Document.TempListSource = $filter('filter')(ViewDocumentOrdCtrl.ePage.Masters.Document.ListSource, {

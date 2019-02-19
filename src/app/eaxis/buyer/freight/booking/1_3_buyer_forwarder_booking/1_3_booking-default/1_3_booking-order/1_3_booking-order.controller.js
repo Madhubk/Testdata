@@ -5,7 +5,7 @@
         .module("Application")
         .controller("bkgBuyerForwarderOrderController", bkgBuyerForwarderOrderController);
 
-        bkgBuyerForwarderOrderController.$inject = ["$rootScope", "$scope", "$state", "$q", "$location", "$timeout", "$uibModal", "APP_CONSTANT", "authService", "apiService", "appConfig", "three_BookingConfig", "helperService", "toastr", "confirmation"];
+    bkgBuyerForwarderOrderController.$inject = ["$rootScope", "$scope", "$state", "$q", "$location", "$timeout", "$uibModal", "APP_CONSTANT", "authService", "apiService", "appConfig", "three_BookingConfig", "helperService", "toastr", "confirmation"];
 
     function bkgBuyerForwarderOrderController($rootScope, $scope, $state, $q, $location, $timeout, $uibModal, APP_CONSTANT, authService, apiService, appConfig, three_BookingConfig, helperService, toastr, confirmation) {
         /* jshint validthis: true */
@@ -52,10 +52,10 @@
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.PorOrderHeader.API.FindAll.FilterID
+                "FilterID": bkgBuyerForwarderOrderCtrl.ePage.Entities.Header.API.OrderBuyerForwarderFindall.FilterID
             };
 
-            apiService.post("eAxisAPI", appConfig.Entities.PorOrderHeader.API.FindAll.Url, _input).then(function (response) {
+            apiService.post("eAxisAPI", bkgBuyerForwarderOrderCtrl.ePage.Entities.Header.API.OrderBuyerForwarderFindall.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     bkgBuyerForwarderOrderCtrl.ePage.Entities.Header.Data.UIOrderHeaders = response.data.Response;
                 }
@@ -136,7 +136,7 @@
                             "PropertyNewValue": bkgBuyerForwarderOrderCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ShipmentNo
                         }]
                     };
-                    if (val.SHP_FK == null || val.SHP_FK == '') {
+                    if (val.SHP_FK == null || val.SHP_FK == '00000000-0000-0000-0000-000000000000') {
                         _tempArray.push(_tempObj)
                     } else {
                         toastr.warning(val.OrderNo + " Already attached another shipment...!");

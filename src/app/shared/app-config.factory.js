@@ -33,6 +33,16 @@
                         }
                     }
                 },
+				"WmsInventoryAdjustment": {
+                    "RowIndex": -1,
+                    "API": {
+                        "Insert": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "WmsInventoryAdjustment/Insert",
+                        },
+                    }
+                },
                 "AuthTokenLink": {
                     "RowIndex": -1,
                     "API": {
@@ -43,28 +53,28 @@
                         }
                     }
                 },
-                "UsePrivileges": {
+                "UserPrivileges": {
                     "RowIndex": -1,
                     "API": {
                         "PublishPrivilegesByUser": {
                             "IsAPI": "true",
                             "HttpType": "POST",
-                            "Url": "UsePrivileges/PublishPrivilegesByUser"
+                            "Url": "UserPrivileges/PublishPrivilegesByUser"
                         },
                         "AppTenantRolePublish": {
                             "IsAPI": "true",
                             "HttpType": "POST",
-                            "Url": "UsePrivileges/AppTenantRolePublish"
+                            "Url": "UserPrivileges/AppTenantRolePublish"
                         },
                         "UserTenantRolePublish": {
                             "IsAPI": "true",
                             "HttpType": "POST",
-                            "Url": "UsePrivileges/UserTenantRolePublish"
+                            "Url": "UserPrivileges/UserTenantRolePublish"
                         },
                         "PublishAllUsers": {
                             "IsAPI": "true",
                             "HttpType": "POST",
-                            "Url": "UsePrivileges/PublishAllUsers"
+                            "Url": "UserPrivileges/PublishAllUsers"
                         }
                     }
                 },
@@ -2517,6 +2527,36 @@
                             "FilterID": "ORDHEAD"
                         },
                     }
+                },"buyerShipmentList": {
+                    "RowIndex": -1,
+                    "API": {
+                        "GetById": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "ShipmentList/buyer/GetById/"
+                        },
+                        "ShipmentActivityClose": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "ShipmentList/buyer/ShipmentActivityClose/"
+                        },
+                        "Insert": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "ShipmentList/buyer/Insert"
+                        },
+                        "Update": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "ShipmentList/buyer/Update"
+                        },
+                        "OrderCopy": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "ShipmentList/buyer/OrderCopy/",
+                            "FilterID": "ORDHEAD"
+                        },
+                    }
                 },
                 "JobPackLines": {
                     "RowIndex": -1,
@@ -2753,34 +2793,19 @@
                         },
                     }
                 },
-                "WmsInventoryAdjustment": {
-                    "RowIndex": -1,
-                    "API": {
-                        "Insert": {
-                            "IsAPI": "true",
-                            "HttpType": "POST",
-                            "Url": "WmsInventoryAdjustment/Insert",
-                        },
-                    }
-                },
                 "AppCounter": {
-                    "RowIndex": -1,
-                    "API": {
-                        "Update": {
-                            "IsAPI": "true",
-                            "HttpType": "POST",
-                            "Url": "AppCounter/Update"
-                        }
-                    }
-                },
-                "WmsTestID": {
                     "RowIndex": -1,
                     "API": {
                         "FindAll": {
                             "IsAPI": "true",
                             "HttpType": "POST",
-                            "Url": "TestID/FindAll",
-                            "FilterID": "APPCOUNT"
+                            "Url": "AppCounter/FindAll",
+                            "FilterID": "APPCOUNT",
+                        },
+                        "Update": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "AppCounter/Update"
                         }
                     }
                 },
@@ -2855,16 +2880,6 @@
                             "Url": "WmsWorkOrderLine/FindAll",
                             "FilterID": "WMSINL"
                         },
-                        "GetById": {
-                            "IsAPI": "true",
-                            "HttpType": "GET",
-                            "Url": "WmsWorkOrderLine/GetById/",
-                        },
-                        "Update": {
-                            "IsAPI": "true",
-                            "HttpType": "POST",
-                            "Url": "WmsWorkOrderLine/Update"
-                        }
                     }
                 },
                 "TMSPickupandDeliverypoint": {
@@ -2954,6 +2969,27 @@
                             "IsAPI": "true",
                             "HttpType": "GET",
                             "Url": "Org/GetById/"
+                        }
+                    }
+                },
+				 "WmsWorkOrderLine": {
+                    "RowIndex": -1,
+                    "API": {
+                        "FindAll": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "WmsWorkOrderLine/FindAll",
+                            "FilterID": "WMSINL"
+                        },
+                        "GetById": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "WmsWorkOrderLine/GetById/",
+                        },
+                        "Update": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "WmsWorkOrderLine/Update"
                         }
                     }
                 },
@@ -3149,7 +3185,7 @@
 
                     }
                 },
-                "Notification": {
+				 "Notification": {
                     "RowIndex": -1,
                     "API": {
                         "SendSms": {
@@ -3468,10 +3504,10 @@
                             "IsAPI": true,
                             "Url": "EBPMEngine/CompleteProcess",
                         },
-                        "SuspendInstance": {
-                            "IsAPI": true,
-                            "Url": "EBPMEngine/SuspendInstance/",
-                        }
+						"SuspendInstance": {
+						"IsAPI": true,
+						"Url": "EBPMEngine/SuspendInstance/",
+						}
                     }
                 },
                 "EBPMProcessInstance": {
@@ -3992,6 +4028,11 @@
                             "IsAPI": "true",
                             "HttpType": "POST",
                             "Url": "CntContainer/Delete/"
+                        },
+                        "UpdateRecords": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "cntcontainer/buyer/updaterecords"
                         }
                     }
                 },
@@ -4687,19 +4728,106 @@
                         }
                     }
                 },
+                "ICMOrder_Buyer": {
+                    "API": {
+                        "GetById": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "icmorder/buyer/getbyid/"
+                        },
+                        "FindAllICM": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "icmorder/buyer/findall",
+                            "FilterID": "BPICMORD"
+                        }
+                    }
+                },
+                "BuyerTrackContainer": {
+                    "API": {
+                        "GetById": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "trackcontainer/buyer/getbyid/"
+                        },
+                        "FindAll": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "trackcontainer/buyer/findall",
+                            "FilterID": "BPTRACKCNT"
+                        }
+                    }
+                },
+                
+                "BuyerTrackOrderLine": {
+                    "API": {
+                        "GetById": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "trackorderline/buyer/getbyid/"
+                        },
+                        "FindAll": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "trackorderline/buyer/findall",
+                            "FilterID": "BPTRACKORDL"
+                        }
+                    }
+                },
+                "BuyerTrackShipment": {
+                    "API": {
+                        "GetById": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "trackshipment/buyer/getbyid/"
+                        },
+                        "FindAll": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "trackshipment/buyer/findall",
+                            "FilterID": "BPTRACKSHP"
+                        }
+                    }
+                }, "BuyerForwardTrackShipment": {
+                    "API": {
+                        "GetById": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "trackshipment/buyerforwarder/getbyid/"
+                        },
+                        "FindAll": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "trackshipment/buyerforwarder/findall",
+                            "FilterID": "BPTRACKSHP"
+                        }
+                    }
+                },
                 "BuyerCntContainer": {
                     "RowIndex": -1,
                     "API": {
                         "GetById": {
                             "IsAPI": "true",
                             "HttpType": "GET",
-                            "Url": "containerlist/buyer/getbyid/"
+                            "Url": "cntcontainer/buyer/getbyid/"
                         },
                         "FindAll": {
                             "IsAPI": "true",
                             "HttpType": "POST",
                             "Url": "containerlist/buyer/findall",
                             "FilterID": "CONTHEAD"
+                        },
+                        "FindAllCnt": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "cntcontainer/buyer/findall",
+                            "FilterID": "CONTHEAD"
+                        },
+                        "findall": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "trackcontainer/buyer/findall",
+                            "FilterID": "BPTRACKCNT"
                         },
                         "Insert": {
                             "IsAPI": "true",
@@ -4715,12 +4843,22 @@
                             "IsAPI": "true",
                             "HttpType": "POST",
                             "Url": "cntcontainer/buyer/delete/"
+                        },
+                        "UpdateRecords": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "cntcontainer/buyer/updaterecords"
                         }
                     }
                 },
                 "BuyerShipmentHeader": {
                     "RowIndex": -1,
                     "API": {
+                        "GetById": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "shipmentheader/buyer/getbyid/"
+                        },
                         "FindAll": {
                             "IsAPI": "true",
                             "HttpType": "POST",
@@ -4781,7 +4919,70 @@
                             "Url": "conshpmapping/buyer/getbyid/"
                         }
                     }
-                }
+                },
+                "GroupDocumentType": {
+                    "RowIndex": -1,
+                    "API": {
+                        "FindAll": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "GroupDocumentType/FindAll",
+                            "FilterID": "SECMAPP"
+                        },
+                        "Insert": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "GroupDocumentType/Insert"
+                        },
+                        "Update": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "GroupDocumentType/Update"
+                        },
+                        "Delete": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "GroupDocumentType/Delete/"
+                        }
+                    }
+                },
+                "GroupRoleDocumentType": {
+                    "RowIndex": -1,
+                    "API": {
+                        "FindAll": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "GroupRoleDocumentType/FindAll",
+                            "FilterID": "SECMAPP"
+                        },
+                        "Insert": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "GroupRoleDocumentType/Insert"
+                        },
+                        "Update": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "GroupRoleDocumentType/Update"
+                        },
+                        "Delete": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "GroupRoleDocumentType/Delete/"
+                        }
+                    }
+                },
+				"WmsTestID": {
+                    "RowIndex": -1,
+                    "API": {
+                        "FindAll": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "TestID/FindAll",
+                            "FilterID": "APPCOUNT"
+                        }
+                    }
+                },
             }
         };
 

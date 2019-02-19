@@ -1,0 +1,11 @@
+<div class="modal-header">
+	<button type="button" class="close" data-ng-click="DocModalCtrl.ePage.Masters.Cancel()">&times;</button>
+	<h5 class="modal-title" id="modal-title">
+	</h5>
+</div>
+<div class="modal-body po-modal-hide" id="modal-body">
+	<!-- document modal -->
+	<div data-ng-if="DocModalCtrl.ePage.Masters.Param.Input">
+		<document mode="3" input="DocModalCtrl.ePage.Masters.Param.Input" config="DocModalCtrl.ePage.Masters.Param.Config"></document>
+	</div>
+</div>

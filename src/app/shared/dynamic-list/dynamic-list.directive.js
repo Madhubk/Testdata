@@ -18,6 +18,7 @@
                 defaultFilter: "=",
                 baseFilter: "=",
                 selectedGridRow: "&",
+               // selectedGridMultiple:"&",
                 lookupConfigControlKey: "=",
                 isNewButton: "=",
                 overrideUrl: "="
@@ -1637,6 +1638,8 @@
                     $item: $item
                 });
             }
+
+          //  DynamicListCtrl.selectedGridRow({ $item: $item });
         }
 
         function SaveFavoriteItem(item) {

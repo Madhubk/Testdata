@@ -1,0 +1,88 @@
+<div id='' class="common_table_scroll common_table_hgt pt-2">
+    <div class="table tab-position" id="results">
+        <div class='theader'>
+            <div class='table_header'>Carrier</div>
+            <div class='table_header'>Vessel</div>
+            <div class='table_header'>Voyage</div>
+            <div class='table_header'>ETD</div>
+            <div class='table_header'>ETA</div>
+            <div class='table_header'>POL</div>
+            <div class='table_header'>POD</div>
+            <div class='table_header'>Cargo Cut Off Date</div>
+            <div class='table_header'>Document Cut Off Date</div>
+            <div class='table_header'>Action</div>
+        </div>
+        <!-- routing deails -->
+        <div class='table_row' data-ng-repeat="x in shpBuyerViewGeneralCtrl.ePage.Masters.UIJobRoutes.GridData | filter:{'IsDeleted':false}"
+            data-ng-if="shpBuyerViewGeneralCtrl.ePage.Masters.UIJobRoutes.GridData && shpBuyerViewGeneralCtrl.ePage.Masters.UIJobRoutes.GridData.length > 0"
+            style="font-size: 11px;">
+            <div class='table_small'>
+                <div class='table_cell'>Carrier</div>
+                <div class='table_cell'>
+                    <b>{{x.CarrierOrg_Code}}</b>
+                </div>
+            </div>
+            <div class='table_small'>
+                <div class='table_cell'>Vessel</div>
+                <div class='table_cell'>{{x.Vessel}}</div>
+            </div>
+            <div class='table_small'>
+                <div class='table_cell'>Voyage</div>
+                <div class='table_cell'>
+                    {{x.VoyageFlight}}
+                </div>
+            </div>
+            <div class='table_small'>
+                <div class='table_cell'>ETD</div>
+                <div class='table_cell'>
+                    {{x.ETD | date:'dd-MMM-yy'}}
+                </div>
+            </div>
+            <div class='table_small'>
+                <div class='table_cell'>ETA</div>
+                <div class='table_cell'>
+                    {{x.ETA | date:'dd-MMM-yy'}}
+                </div>
+            </div>
+            <div class='table_small'>
+                <div class='table_cell'>POL</div>
+                <div class='table_cell'>
+                    {{x.LoadPort}}
+                </div>
+            </div>
+            <div class='table_small'>
+                <div class='table_cell'>POD</div>
+                <div class='table_cell'>
+                    {{x.DischargePort}}
+                </div>
+            </div>
+            <div class='table_small'>
+                <div class='table_cell'>Cargo Cut Off Date</div>
+                <div class='table_cell'>
+                    {{x.CargoCutOffDate | date:'dd-MMM-yy'}}
+                </div>
+            </div>
+            <div class='table_small'>
+                <div class='table_cell'>Document Cut Off Date</div>
+                <div class='table_cell'>
+                    {{x.DocumentCutOffDate | date:'dd-MMM-yy'}}
+                </div>
+            </div>
+            <div class='table_small'>
+                <div class='table_cell'>Action</div>
+                <div class='table_cell'>
+                    <i class="fa fa-pencil order-icon" data-ng-click="shpBuyerViewGeneralCtrl.ePage.Masters.UIJobRoutes.SelectedGridRow(x,'edit')"></i>
+                    <i class="fa fa-trash order-icon" data-ng-click="shpBuyerViewGeneralCtrl.ePage.Masters.UIJobRoutes.SelectedGridRow(x,'delete')"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- List Empty Response -->
+    <div class="text-center grid-view-loader" data-ng-if="!shpBuyerViewGeneralCtrl.ePage.Masters.UIJobRoutes.GridData">
+        <i class="fa fa-spin fa-spinner font-160"></i>
+    </div>
+    <div>
+        <div class="grid-no-record-common_table" data-ng-if="shpBuyerViewGeneralCtrl.ePage.Masters.UIJobRoutes.GridData.length==0">No
+            records found...</div>
+    </div>
+</div>

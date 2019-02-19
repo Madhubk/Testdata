@@ -2,6 +2,7 @@
     <div class="org-header">
         <span data-ng-bind="((OrganizationGeneralCtrl.ePage.Entities.Header.Data.OrgHeader.Code) ?  OrganizationGeneralCtrl.ePage.Entities.Header.Data.OrgHeader.Code : 'Organization Code') + ' - ' + ((OrganizationGeneralCtrl.ePage.Entities.Header.Data.OrgHeader.FullName) ?  OrganizationGeneralCtrl.ePage.Entities.Header.Data.OrgHeader.FullName : 'Name')"></span>
         <button class="btn btn-xs btn-primary pull-right" data-ng-click="OrganizationGeneralCtrl.ePage.Masters.OrgHeader.EditOrganization()">Edit</button>
+        <button class="btn btn-xs btn-primary pull-right mr-10 ng-isolate-scope" generate-db-script="" input="OrganizationGeneralCtrl.ePage.Masters.GenerateScriptInput" config="OrganizationGeneralCtrl.ePage.Masters.GenerateScriptConfig" data-ng-disabled="!OrganizationGeneralCtrl.ePage.Masters.GenerateScriptInput.ObjectName || !OrganizationGeneralCtrl.ePage.Masters.GenerateScriptInput.ObjectId || !OrganizationGeneralCtrl.ePage.Entities.Header.Data.OrgHeader.PK">Generate Script</button>
     </div>
     <div class="org-general-label-container">
         <span class="label" style="margin: 10px 5px; background-color: #aaa; color: #fff;" data-ng-repeat="x in OrganizationGeneralCtrl.ePage.Masters.OrgHeader.DataList" data-ng-if="OrganizationGeneralCtrl.ePage.Entities.Header.Data.OrgHeader[x.Value]"

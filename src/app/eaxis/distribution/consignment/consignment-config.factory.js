@@ -97,11 +97,6 @@
                                 "Url": "OrgAddress/FindAll",
                                 "FilterID": "ORGADDR"
                             },
-                            "GetByID": {
-                                "IsAPI": "true",
-                                "HttpType": "GET",
-                                "Url": "TmsConsignmentList/GetById/"
-                            },
                             "CfxTypes": {
                                 "IsAPI": "true",
                                 "HttpType": "POST",

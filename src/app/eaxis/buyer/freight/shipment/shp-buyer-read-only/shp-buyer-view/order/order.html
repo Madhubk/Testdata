@@ -1,5 +1,5 @@
 <div class="clearfix padding-10">
-    <div id='' class="Shipmentstable_scroll order-hgt">
+    <div id='' class="common_table_scroll common_table_hgt">
         <div class="table tab-position" id="results">
             <div class='theader'>
                 <div class='table_header'>Order #</div>
@@ -8,11 +8,13 @@
                 <div class='table_header'>T.Mode</div>
                 <div class='table_header'>C.Mode</div>
                 <div class='table_header'>IncoTerm</div>
+                <div class='table_header'>Factory Invoice #</div>
+                <div class='table_header'>Factory PKL #</div>
                 <div class='table_header'>Origin</div>
                 <div class='table_header'>Confirm #</div>
                 <div class='table_header'>Req. Delivery Date</div>
             </div>
-           
+
             <div class='table_row' data-ng-repeat="x in shpBuyerViewOrderCtrl.ePage.Entities.Header.Data.UIOrderHeaders"
                 data-ng-if="shpBuyerViewOrderCtrl.ePage.Entities.Header.Data.UIOrderHeaders && shpBuyerViewOrderCtrl.ePage.Entities.Header.Data.UIOrderHeaders.length > 0"
                 style="font-size: 11px;">
@@ -20,7 +22,8 @@
                     <div class='table_cell'>Order #</div>
                     <div class='table_cell'>
                         <b>
-                            <span data-ng-bind="x.OrderNo || shpBuyerViewOrderCtrl.ePage.Masters.EmptyText"></span>
+                            <a href="javascript:void(0)" data-ng-click="shpBuyerViewOrderCtrl.ePage.Masters.SingleRecordView(x)"><span
+                                    data-ng-bind="x.OrderNo || shpBuyerViewOrderCtrl.ePage.Masters.EmptyText"></span></a>
                         </b>
                     </div>
                 </div>
@@ -33,7 +36,7 @@
                 <div class='table_small'>
                     <div class='table_cell'>Order Date</div>
                     <div class='table_cell'>
-                        <span data-ng-bind="x.OrderDate || shpBuyerViewOrderCtrl.ePage.Masters.EmptyText"></span>
+                        <span data-ng-bind="x.OrderDate | date:'dd-MMM-yyyy' || shpBuyerViewOrderCtrl.ePage.Masters.EmptyText"></span>
                     </div>
                 </div>
                 <div class='table_small'>
@@ -54,6 +57,18 @@
                         <span data-ng-bind="x.IncoTerm || shpBuyerViewOrderCtrl.ePage.Masters.EmptyText"></span>
                     </div>
                 </div>
+                <div class='table_small'>
+                        <div class='table_cell'>Factory Invoice #</div>
+                        <div class='table_cell'>
+                            <span data-ng-bind="x.FactoryInvoiceNo || shpBuyerViewOrderCtrl.ePage.Masters.EmptyText"></span>
+                        </div>
+                    </div>
+                    <div class='table_small'>
+                            <div class='table_cell'>Factory PKL #</div>
+                            <div class='table_cell'>
+                                <span data-ng-bind="x.FactoryPKLNo || shpBuyerViewOrderCtrl.ePage.Masters.EmptyText"></span>
+                            </div>
+                        </div>
                 <div class='table_small'>
                     <div class='table_cell'>Origin</div>
                     <div class='table_cell'>

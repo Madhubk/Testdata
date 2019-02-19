@@ -1,0 +1,56 @@
+<div class="col-lg-12 col-md-12 col-xl-12 col-sm-12 col-xs-12 mt-5 no-padding">
+    <div class="col-lg-8 col-md-8 col-xl-8 col-sm-8 col-xs-8 no-padding">
+        <div class="clearfix">
+            <div class="task-step-header-wrapper">
+                <div class="clearfix task-step-header">
+                    <div class="task-title">
+                        <i class="fa fa-list-alt margin-right-5"></i>
+                        <span class="text-single-line fs-13">{{ActivityFormTemplate1Ctrl.ePage.Masters.TaskObj.WSI_StepName}}</span>
+                    </div>
+                </div>
+                <div class="clearfix edit-activity-body pb-50">
+                    <div class="clearfix pb-10 col-lg-12 no-padding" id="style-3" style="height: 215px;  max-height: 220px;overflow-y: auto;">
+                        <div buyer-task-activity-dynamic-directive></div>
+                    </div>
+                    <div class="clearfix col-lg-12" id="style-4" style="height: 125px;  max-height: 130px;overflow-y: auto;">
+                        <div class="ml-5" data-ng-if="ActivityFormTemplate1Ctrl.ePage.Masters.StandardMenuInput" upload-document input="ActivityFormTemplate1Ctrl.ePage.Masters.StandardMenuInput"
+                            config="ActivityFormTemplate1Ctrl.ePage.Masters.StandardConfigInput" class="my-task-icon fa fa-file-text-o mr-5">
+                        </div>
+                    </div>
+                    <div class="clearfix col-lg-12">
+                        <div class="ml-5" data-ng-if="ActivityFormTemplate1Ctrl.ePage.Masters.StandardMenuInput" add-comment input="ActivityFormTemplate1Ctrl.ePage.Masters.StandardMenuInput"
+                            config="ActivityFormTemplate1Ctrl.ePage.Masters.StandardConfigInput" class="my-task-icon fa fa-file-text-o mr-5">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4 col-md-4 col-xl-4 col-sm-4 col-xs-4 no-padding">
+        <div class="clearfix">
+            <div class="task-step-header-wrapper">
+                <div class="clearfix task-step-header">
+                    <div class="task-title">
+                        <i class="fa fa-list-alt margin-right-5"></i>
+                        <span class="text-single-line fs-13">Information Summary</span>
+                    </div>
+                </div>
+                <div class="clearfix edit-activity-body pb-50">
+                    <div class="col-lg-12 mt-10 no-padding" id="style-5" style="height: 240px;  max-height: 250px;overflow-y: auto;">
+                        <div dynamic-information-summary></div>
+                    </div>
+                    <div class="clearfix col-lg-12 mt-10 no-padding">
+                        <div class="ml-5" data-ng-if="ActivityFormTemplate1Ctrl.ePage.Masters.StandardMenuInput" view-document input="ActivityFormTemplate1Ctrl.ePage.Masters.StandardMenuInput"
+                            mode="3" config="ActivityFormTemplate1Ctrl.ePage.Masters.StandardConfigInput" class="my-task-icon fa fa-file-text-o mr-5">
+                        </div>
+                    </div>
+                    <div class="clearfix col-lg-12 mt-10 no-padding">
+                        <div class="ml-5" data-ng-if="ActivityFormTemplate1Ctrl.ePage.Masters.StandardMenuInput" view-comment input="ActivityFormTemplate1Ctrl.ePage.Masters.StandardMenuInput"
+                            mode="3" config="ActivityFormTemplate1Ctrl.ePage.Masters.StandardConfigInput" class="my-task-icon fa fa-file-text-o mr-5">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

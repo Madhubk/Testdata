@@ -226,7 +226,8 @@
 
         function GetSecRoleList($viewValue) {
             var _filter = {
-                "TenantCode": authService.getUserInfo().TenantCode
+                "TenantCode": authService.getUserInfo().TenantCode,
+                "UserName": TCUserOrganizationAppTenantCtrl.ePage.Masters.QueryString.ItemCode
             };
             if ($viewValue !== "#") {
                 _filter.Autocompletefield = $viewValue;

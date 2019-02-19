@@ -52,6 +52,8 @@
 
                 if (OrganizationEmployeeCtrl.ePage.Entities.Header.Data.OrgCompanyData && OrganizationEmployeeCtrl.ePage.Entities.Header.Data.OrgCompanyData.length > 0) {
                     OnCompanySelect(OrganizationEmployeeCtrl.ePage.Entities.Header.Data.OrgCompanyData[0]);
+
+                    PrepareGenerateScriptInput();
                 }
             } catch (ex) {
                 console.log(ex);
@@ -96,6 +98,8 @@
                         OrganizationEmployeeCtrl.ePage.Entities.Header.Data = response.data;
 
                         OrganizationEmployeeCtrl.currentOrganization[OrganizationEmployeeCtrl.currentOrganization.code].ePage.Entities.Header.Data = OrganizationEmployeeCtrl.ePage.Entities.Header.Data;
+
+                        PrepareGenerateScriptInput();
                     }
                 },
                 function () {
@@ -130,6 +134,20 @@
                         OrganizationEmployeeCtrl.ePage.Entities.Header.Data.OrgStaffAssignments.splice(_index, 1);
                     }
                 }
+            });
+        }
+
+        function PrepareGenerateScriptInput() {
+            OrganizationEmployeeCtrl.ePage.Entities.Header.Data.OrgStaffAssignments.map(function (value, key) {
+                value.GenerateScriptInput = {
+                    ObjectName: "OrgStaffAssignments",
+                    ObjectId: value.PK
+                };
+                value.GenerateScriptConfig = {
+                    IsEnableTable: false,
+                    IsEnablePK: false,
+                    IsEnableTenant: false
+                };
             });
         }
 

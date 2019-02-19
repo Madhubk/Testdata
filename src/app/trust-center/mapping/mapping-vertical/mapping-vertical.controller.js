@@ -548,7 +548,7 @@
                 "TNTCode": authService.getUserInfo().TenantCode,
                 "userName": MappingVerticalCtrl.ePage.Masters.QueryString.ItemCode,
             };
-            apiService.post("authAPI", trustCenterConfig.Entities.API.UsePrivileges.API.PublishPrivilegesByUser.Url, _input).then(function SuccessCallback(response) {
+            apiService.post("authAPI", trustCenterConfig.Entities.API.UserPrivileges.API.PublishPrivilegesByUser.Url, _input).then(function SuccessCallback(response) {
                 if (response.data.Response) {
                     MappingVerticalCtrl.ePage.Masters.MappingVertical.RePublishAccessList = response.data.Response;
 

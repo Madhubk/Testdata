@@ -24,14 +24,21 @@
                         </li>
                         <!-- Delete -->
                         <li class="clearfix cursor-pointer text-single-line dropdown-list" data-ng-click="OrganizationAddressCtrl.ePage.Masters.DeleteConfirmation(x)"
-                        data-ng-if="!x.IsMainAddress">
+                            data-ng-if="!x.IsMainAddress">
                             <span class="glyphicons glyphicons-bin mr-5 doc-menu-icon"></span>
                             <span data-ng-bind="'Delete'"></span>
                         </li>
                         <!-- Sat As Default -->
-                        <li class="clearfix cursor-pointer text-single-line dropdown-list" data-ng-click="OrganizationAddressCtrl.ePage.Masters.SetAsDefaultAddress(x)" data-ng-if="!x.IsMainAddress">
+                        <li class="clearfix cursor-pointer text-single-line dropdown-list" data-ng-click="OrganizationAddressCtrl.ePage.Masters.SetAsDefaultAddress(x)"
+                            data-ng-if="!x.IsMainAddress">
                             <span class="	glyphicon glyphicon-ok mr-5 doc-menu-icon"></span>
                             <span data-ng-bind="'Set As Default'"></span>
+                        </li>
+                        <!-- Sat As Default -->
+                        <li class="clearfix cursor-pointer text-single-line dropdown-list" title="Generate Script"
+                            generate-db-script input="x.GenerateScriptInput" config="x.GenerateScriptConfig" data-ng-if="x.GenerateScriptInput.ObjectName && x.GenerateScriptInput.ObjectId && x.PK">
+                            <i class="fa fa-file-code-o mr-5 doc-menu-icon"></i>
+                            <span data-ng-bind="'Generate Script'"></span>
                         </li>
                     </ul>
                 </span>

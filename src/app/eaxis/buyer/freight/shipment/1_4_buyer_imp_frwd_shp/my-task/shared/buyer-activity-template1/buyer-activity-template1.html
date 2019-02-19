@@ -1,0 +1,91 @@
+<div style="overflow: hidden;position: relative;">
+    <div class="clearfix my-task-edit-container" ng-if="!BuyerActivityTemplate1Ctrl.ePage.Masters.IsConsolAvailable">
+        <dynamic-tab-left ng-if="BuyerActivityTemplate1Ctrl.currentShipment" list-source="BuyerActivityTemplate1Ctrl.ePage.Masters.MenuListSource"
+            obj="BuyerActivityTemplate1Ctrl.ePage.Masters.MenuObj"></dynamic-tab-left>
+    </div>
+    <div class="clearfix my-task-edit-container" ng-if="BuyerActivityTemplate1Ctrl.ePage.Masters.IsConsolAvailable">
+        <dynamic-tab-left ng-if="BuyerActivityTemplate1Ctrl.currentConsol" list-source="BuyerActivityTemplate1Ctrl.ePage.Masters.MenuListSource"
+            obj="BuyerActivityTemplate1Ctrl.ePage.Masters.MenuObj"></dynamic-tab-left>
+    </div>
+    <div class="eaxis-footer-strip">
+        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
+            <div class="clearfix standard-menu-wrapper">
+                <div class="eaxis-footer-left">
+                    <ul>
+                        <li>
+                            <a href="javascript:void(0);" comment-modal mode="1" input="BuyerActivityTemplate1Ctrl.ePage.Masters.StandardMenuInput">
+                                <i class="eaxis-footer-icon fa fa-comments"></i>
+                                <span class="eaxis-footer-text">Comment</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);" document-modal mode="1" input="BuyerActivityTemplate1Ctrl.ePage.Masters.StandardMenuInput">
+                                <i class="eaxis-footer-icon fa fa-file"></i>
+                                <span class="eaxis-footer-text">Document</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);" email-modal mode="1" input="BuyerActivityTemplate1Ctrl.ePage.Masters.StandardMenuInput">
+                                <i class="eaxis-footer-icon fa fa-envelope"></i>
+                                <span class="eaxis-footer-text">Email</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);" exception-modal mode="1" input="BuyerActivityTemplate1Ctrl.ePage.Masters.StandardMenuInput">
+                                <i class="eaxis-footer-icon fa fa-warning"></i>
+                                <span class="eaxis-footer-text">Exception</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);" delay-reason-modal mode="1" input="BuyerActivityTemplate1Ctrl.ePage.Masters.StandardMenuInput">
+                                <i class="eaxis-footer-icon fa fa-envelope"></i>
+                                <span class="eaxis-footer-text">Delay Reason</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);" checklist-modal mode="1" input="BuyerActivityTemplate1Ctrl.ePage.Masters.StandardMenuInput">
+                                <i class="eaxis-footer-icon fa fa-check-square-o"></i>
+                                <span class="eaxis-footer-text">Checklist</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
+            <input type="button" class="btn btn-secondary btn-sm pull-right ml-5 mt-5" data-ng-click="BuyerActivityTemplate1Ctrl.ePage.Masters.TaskSave()"
+                data-ng-disabled="BuyerActivityTemplate1Ctrl.ePage.Masters.IsDisableSaveBtn" value="{{BuyerActivityTemplate1Ctrl.ePage.Masters.SaveBtnText}}">
+        </div>
+        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
+            <input type="button" class="btn btn-primary btn-sm pull-right ml-5 mt-5" data-ng-click="BuyerActivityTemplate1Ctrl.ePage.Masters.Complete()"
+                data-ng-disabled="BuyerActivityTemplate1Ctrl.ePage.Masters.IsDisableCompleteBtn" value="{{BuyerActivityTemplate1Ctrl.ePage.Masters.CompleteBtnText}}">
+        </div>
+    </div>
+    <div class="error-warning-container right" id="errorWarningContainer{{BuyerActivityTemplate1Ctrl.taskObj.PSI_InstanceNo}}">
+        <div class="error-warning-header clearfix">
+            <span class="title pull-left">
+                Errors & Warnings
+            </span>
+            <span class="error-warning-toggle-icon pull-right" data-ng-click="BuyerActivityTemplate1Ctrl.ePage.Masters.ShowErrorWarningModal(BuyerActivityTemplate1Ctrl.taskObj.PSI_InstanceNo)">
+                <i class="fa fa-arrow-right"></i>
+            </span>
+        </div>
+        <div class="error-warning-body">
+            <div class="clearfix" data-ng-if="BuyerActivityTemplate1Ctrl.ePage.Masters.ErrorWarningConfig.Modules[BuyerActivityTemplate1Ctrl.ePage.Masters.TaskObj.WSI_StepCode].Entity[BuyerActivityTemplate1Ctrl.ePage.Masters.TaskObj.WSI_StepCode].GlobalErrorWarningList.length>0">
+                <div class="clearfix">
+                    <div class="p-5 error-warnig-list clearfix" data-ng-repeat="x in BuyerActivityTemplate1Ctrl.ePage.Masters.ErrorWarningConfig.Modules[BuyerActivityTemplate1Ctrl.ePage.Masters.TaskObj.WSI_StepCode].Entity[BuyerActivityTemplate1Ctrl.ePage.Masters.TaskObj.WSI_StepCode].GlobalErrorWarningList">
+                        <div class="clearfix">
+                            <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 p-0 text-center">
+                                <span class=" fa fa-warning" data-ng-style="{color: {'W':'#FFAD33', 'E':'#ED4337'}[x.MessageType]}"></span>
+                            </div>
+                            <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11 pr-0">
+                                <div class="message" data-ng-bind="x.Code + ' - ' + x.Message"></div>
+                                <div class="meta-object" data-ng-bind="x.MetaObject"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

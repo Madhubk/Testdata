@@ -1,8 +1,246 @@
 <div class="clearfix margin-top-10">
-    <div class="row padding-10 pb-0">
-        <div class="col-sm-12 col-md-8 col-lg-12">
-            <packing-grid ng-if="bkgBuyerForwarderPlanningCtrl.obj" current-object="bkgBuyerForwarderPlanningCtrl.obj"
-                freight-mode="'OUT'" btn-visible="{'AddNew':true,'Delete':true,'More':false}"></packing-grid>
+    <!--Pack-->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group">
+            <label class="control-label text-single-line">Pack </label>
+            <div class="clearfix">
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 no-padding">
+                    <input type="text" numbers-only class="form-control input-sm no-border-right" max-length="4"
+                        data-ng-model="bkgBuyerForwarderPlanningCtrl.ePage.Masters.Package.FormView.PackageCount"
+                        placeholder="Pack Count" />
+                </div>
+                <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8 no-padding">
+                    <select chosen name="category-group" class="form-control" ng-model="bkgBuyerForwarderPlanningCtrl.ePage.Masters.Package.FormView.F3_NKPackType"
+                        ng-options="x.Code as x.Value for x in bkgBuyerForwarderPlanningCtrl.ePage.Masters.DropDownMasterList.PackType.ListSource"
+                        search-contains="true">
+                        <option value="">--Select--</option>
+                    </select>
+                </div>
+            </div>
         </div>
+    </div>
+    <!--Length, Width, Height-->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 no-padding">
+            <div class="form-group">
+                <label class="control-label text-single-line">Length </label>
+                <div class="clearfix">
+                    <input type="text" numbers-only-dot sb-precision="3" class="form-control input-sm no-border-right"
+                        max-length="9" data-ng-model="bkgBuyerForwarderPlanningCtrl.ePage.Masters.Package.FormView.Length"
+                        placeholder="Length" />
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 no-padding">
+            <div class="form-group">
+                <label class="control-label text-single-line">Width </label>
+                <div class="clearfix">
+                    <input type="text" numbers-only-dot sb-precision="3" class="form-control input-sm no-border-right"
+                        max-length="9" data-ng-model="bkgBuyerForwarderPlanningCtrl.ePage.Masters.Package.FormView.Width"
+                        placeholder="Width" />
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 no-padding">
+            <div class="form-group">
+                <label class="control-label text-single-line">Height </label>
+                <div class="clearfix">
+                    <input type="text" numbers-only-dot sb-precision="3" class="form-control input-sm" max-length="9"
+                        data-ng-model="bkgBuyerForwarderPlanningCtrl.ePage.Masters.Package.FormView.Height" placeholder="Height" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Unit Of Dimension-->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group">
+            <label class="control-label">Unit Of Dimension </label>
+            <div class="">
+                <select chosen name="category-group" class="form-control" data-ng-model="bkgBuyerForwarderPlanningCtrl.ePage.Masters.Package.FormView.UnitOfDimension"
+                    ng-options="x.Key as x.Description for x in bkgBuyerForwarderPlanningCtrl.ePage.Masters.DropDownMasterList.HEIGHTUNIT.ListSource"
+                    search-contains="true">
+                    <option value="">--Select--</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <!--Weight-->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group">
+            <label class="control-label text-single-line">Weight </label>
+            <div class="clearfix">
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 no-padding">
+                    <input type="text" numbers-only-dot sb-precision="3" class="form-control input-sm no-border-right"
+                        data-ng-model="bkgBuyerForwarderPlanningCtrl.ePage.Masters.Package.FormView.ActualWeight"
+                        placeholder="Weight" />
+                </div>
+                <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8 no-padding">
+                    <select chosen name="category-group" class="form-control" data-ng-model="bkgBuyerForwarderPlanningCtrl.ePage.Masters.Package.FormView.ActualWeightUQ"
+                        ng-options="x.Key as x.Description for x in bkgBuyerForwarderPlanningCtrl.ePage.Masters.DropDownMasterList.WEIGHTUNIT.ListSource"
+                        search-contains="true">
+                        <option value="">--Select--</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Volume-->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group">
+            <label class="control-label text-single-line">Volume </label>
+            <div class="clearfix">
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 no-padding">
+                    <input type="text" numbers-only-dot sb-precision="3" class="form-control input-sm no-border-right"
+                        data-ng-model="bkgBuyerForwarderPlanningCtrl.ePage.Masters.Package.FormView.ActualVolume"
+                        placeholder="Volume" />
+                </div>
+                <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8 no-padding">
+                    <select chosen name="category-group" class="form-control" data-ng-model="bkgBuyerForwarderPlanningCtrl.ePage.Masters.Package.FormView.ActualVolumeUQ"
+                        ng-options="x.Key as x.Description for x in bkgBuyerForwarderPlanningCtrl.ePage.Masters.DropDownMasterList.VOLUMEUNIT.ListSource"
+                        search-contains="true">
+                        <option value="">--Select--</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group">
+            <label class="control-label">Commodity</label>
+            <div class="input-group input-group-sm">
+                <div dynamic-lookup my-ng-model="bkgBuyerForwarderPlanningCtrl.ePage.Masters.Package.FormView.RH_NKCommodityCode"
+                    obj="bkgBuyerForwarderPlanningCtrl.ePage.Masters.Package.FormView" prefix-data="'MstCommodity'"
+                    config="'PackageCommodity'"></div>
+                <span class="input-group-btn">
+                    <button dynamic-list-modal obj="bkgBuyerForwarderPlanningCtrl.ePage.Masters.Package.FormView"
+                        field-name="'PackageCommodity'" prefix-data="'MstCommodity'" mode="2" grid-refresh-fun-name=""
+                        grid-refresh-fun="" selected-data="bkgBuyerForwarderPlanningCtrl.ePage.Masters.SelectedData($item)"
+                        class="btn btn-default shiny" type="button">
+                        <i class="fa fa-ellipsis-h"></i>
+                    </button>
+                </span>
+            </div>
+        </div>
+    </div> -->
+
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 margin-top-30">
+        <input type="button" class="btn btn-sm btn-outline-secondary pull-right margin-left-5" data-ng-click="bkgBuyerForwarderPlanningCtrl.ePage.Masters.Package.AddToPackageGrid()"
+            value="{{bkgBuyerForwarderPlanningCtrl.ePage.Masters.Package.AddNewAndUpdate}}">
+    </div>
+</div>
+<div class="horizontal-space"></div>
+<div class="clearfix">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+        <div id='' class="common_table_scroll common_table_hgt pt-2">
+            <div class="table tab-position" id="results">
+                <div class='theader'>
+                    <div class='table_header'>Pack Cnt</div>
+                    <div class='table_header'>Pack Type</div>
+                    <div class='table_header'>Length</div>
+                    <div class='table_header'>Width</div>
+                    <div class='table_header'>Height</div>
+                    <div class='table_header'>UD</div>
+                    <div class='table_header'>Weight</div>
+                    <div class='table_header'>UW</div>
+                    <div class='table_header'>Volume</div>
+                    <div class='table_header'>UV</div>
+                    <!-- <div class='table_header'>Commodity</div> -->
+                    <div class='table_header'>Action</div>
+                </div>
+                <div class='table_row' data-ng-repeat="x in bkgBuyerForwarderPlanningCtrl.ePage.Masters.Package.GridData | filter:{'IsDeleted':false}"
+                    data-ng-if="bkgBuyerForwarderPlanningCtrl.ePage.Masters.Package.GridData && bkgBuyerForwarderPlanningCtrl.ePage.Masters.Package.GridData.length > 0"
+                    style="font-size: 11px;">
+
+                    <div class='table_small'>
+                        <div class='table_cell'>Pack Cnt</div>
+                        <div class='table_cell'>
+                            <b>{{x.PackageCount}}</b>
+                        </div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Pack Type</div>
+                        <div class='table_cell'>{{x.F3_NKPackType}}</div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Length</div>
+                        <div class='table_cell'>
+                            {{x.Length}}
+                        </div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Width</div>
+                        <div class='table_cell'>
+                            {{x.Width}}
+                        </div>
+
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Height</div>
+                        <div class='table_cell'>
+                            {{x.Height}}
+                        </div>
+
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>UD</div>
+                        <div class='table_cell'>
+                            {{x.UnitOfDimension}}
+                        </div>
+
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Weight</div>
+                        <div class='table_cell'>
+                            {{x.ActualWeight}}
+                        </div>
+
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>UW</div>
+                        <div class='table_cell'>
+                            {{x.ActualWeightUQ}}
+                        </div>
+
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Volume</div>
+                        <div class='table_cell'>
+                            {{x.ActualVolume}}
+                        </div>
+
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>UV</div>
+                        <div class='table_cell'>
+                            {{x.ActualVolumeUQ}}
+                        </div>
+
+                    </div>
+                    <!-- <div class='table_small'>
+                        <div class='table_cell'>Commodity</div>
+                        <div class='table_cell'>
+                            {{x.RH_NKCommodityCode}}
+                        </div>
+
+                    </div> -->
+                    <div class='table_small'>
+                        <div class='table_cell'>Action</div>
+                        <div class='table_cell'>
+                            <i class="fa fa-pencil order-icon" data-ng-click="bkgBuyerForwarderPlanningCtrl.ePage.Masters.Package.SelectedGridRow(x,'edit')"></i>
+                            <i class="fa fa-trash order-icon" data-ng-click="bkgBuyerForwarderPlanningCtrl.ePage.Masters.Package.SelectedGridRow(x,'delete')"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- List Empty Response -->
+            <div class="text-center grid-view-loader" data-ng-if="!bkgBuyerForwarderPlanningCtrl.ePage.Masters.Package.GridData">
+                <i class="fa fa-spin fa-spinner font-160"></i>
+            </div>
+            <div>
+                <div class="grid-no-record-common_table" data-ng-if="bkgBuyerForwarderPlanningCtrl.ePage.Masters.Package.GridData.length==0">No
+                    records found...</div>
+            </div>
+        </div>
+
     </div>
 </div>

@@ -352,11 +352,16 @@
             TCEventConfigureCtrl.ePage.Masters.Parties.MappingInput = {
                 MappingCode: "GRUP_EVTYP_APP_TNT",
                 ChildMappingCode: "GRUP_ROLE_EVTYP_APP_TNT",
+
+                AccessTo: "EVENT",
                 Access_FK: TCEventConfigureCtrl.ePage.Masters.Event.FormView.PK,
                 AccessCode: TCEventConfigureCtrl.ePage.Masters.Event.FormView.Code,
-                AccessTo: "EVENT",
+
                 SAP_FK: TCEventConfigureCtrl.ePage.Masters.QueryString.AppPk,
                 SAP_Code: TCEventConfigureCtrl.ePage.Masters.QueryString.AppCode,
+
+                PartyMappingAPI: "GroupEventType",
+                PartyRoleMappingAPI: "GroupRoleEventType"
             };
         }
 

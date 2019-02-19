@@ -52,6 +52,7 @@
                 OrganizationAddressCtrl.ePage.Masters.SetAsDefaultAddress = SetAsDefaultAddress;
 
                 GetAddressCapablilityList();
+                PrepareGenerateScriptInput();
             } catch (ex) {
                 console.log(ex);
             }
@@ -136,6 +137,7 @@
                         OrganizationAddressCtrl.currentOrganization[OrganizationAddressCtrl.currentOrganization.code].ePage.Entities.Header.Data = response.data;
 
                         OrganizationAddressCtrl.ePage.Entities.Header.Data = response.data;
+                        PrepareGenerateScriptInput();
                     }
                 },
                 function () {
@@ -206,6 +208,20 @@
                         toastr.warning("Failed to Save...!");
                     }
                 }
+            });
+        }
+
+        function PrepareGenerateScriptInput() {
+            OrganizationAddressCtrl.ePage.Entities.Header.Data.OrgAddress.map(function (value, key) {
+                value.GenerateScriptInput = {
+                    ObjectName: "OrgAddress",
+                    ObjectId: value.PK
+                };
+                value.GenerateScriptConfig = {
+                    IsEnableTable: false,
+                    IsEnablePK: false,
+                    IsEnableTenant: false
+                };
             });
         }
 

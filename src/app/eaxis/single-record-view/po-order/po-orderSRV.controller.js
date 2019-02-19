@@ -9,7 +9,8 @@
 
     function SRVPOOrderController($timeout, $location, authService, apiService, helperService, one_order_listConfig, toastr, appConfig, errorWarningService) {
         var SRVPOOrderCtrl = this,
-            Entity = $location.path().split("/").pop();
+            _queryString = $location.search();
+        // Entity = $location.path().split("/").pop();
 
         function Init() {
             SRVPOOrderCtrl.ePage = {
@@ -37,7 +38,7 @@
 
         function InitOrder() {
             // For list directive
-            SRVPOOrderCtrl.ePage.Masters.dataentryName = "OrderHeaderBuyer";
+            SRVPOOrderCtrl.ePage.Masters.dataentryName = "BPOrderHeaderBuyer";
             SRVPOOrderCtrl.ePage.Entities.Header.Data = {};
             SRVPOOrderCtrl.ePage.Masters.TabList = [];
             SRVPOOrderCtrl.ePage.Masters.activeTabIndex = 0;
@@ -48,33 +49,16 @@
             // Remove all Tabs while load shipment
             one_order_listConfig.TabList = [];
             SRVPOOrderCtrl.ePage.Masters.Configdetails = one_order_listConfig;
-            SRVPOOrderCtrl.ePage.Masters.Entity = JSON.parse(helperService.decryptData(Entity));
             // error warning service
             SRVPOOrderCtrl.ePage.Masters.ErrorWarningConfig = errorWarningService;
             // role access
             switch (SRVPOOrderCtrl.ePage.Masters.UserProfile.roleCode) {
-                case "BUYER_SHIPMENT_COORDINATOR":
-                    SRVPOOrderCtrl.ePage.Masters.RoleView.roleApi = "Buyer";
-                    SRVPOOrderCtrl.ePage.Masters.RoleView.roleAccess = "1_1";
-                    SRVPOOrderCtrl.ePage.Masters.RoleView.roleResponse = "Buyer";
-                    break;
-                case "BUYER_SUPPLIER_SHIPMENT_COORDINATOR":
-                    SRVPOOrderCtrl.ePage.Masters.RoleView.roleApi = "BuyerSupplier";
-                    SRVPOOrderCtrl.ePage.Masters.RoleView.roleAccess = "1_2";
-                    SRVPOOrderCtrl.ePage.Masters.RoleView.roleResponse = "Buyer_Supplier";
-                    break;
-                case "BUYER_EXPORT_CS":
-                    SRVPOOrderCtrl.ePage.Masters.RoleView.roleApi = "BuyerForwarder";
-                    SRVPOOrderCtrl.ePage.Masters.RoleView.roleAccess = "1_3";
-                    SRVPOOrderCtrl.ePage.Masters.RoleView.roleResponse = "Buyer_Forwarder";
-                    break;
                 default:
                     SRVPOOrderCtrl.ePage.Masters.RoleView.roleApi = "BuyerForwarder";
                     SRVPOOrderCtrl.ePage.Masters.RoleView.roleAccess = "1_3";
                     SRVPOOrderCtrl.ePage.Masters.RoleView.roleResponse = "Buyer_Forwarder";
                     break;
             }
-
             InitOrderFunc();
         }
 
@@ -88,7 +72,15 @@
             SRVPOOrderCtrl.ePage.Masters.CheckUIControl = CheckUIControl;
             // freight dashboard
             GetUIControlList();
-            (SRVPOOrderCtrl.ePage.Masters.Entity) ? CreateNewOrder(): false;
+
+            try {
+                if (_queryString.q) {
+                    SRVPOOrderCtrl.ePage.Masters.Entity = JSON.parse(helperService.decryptData(_queryString.q));
+                    (SRVPOOrderCtrl.ePage.Masters.Entity) ? CreateNewOrder(): false;
+                }
+            } catch (ex) {
+                console.log(ex);
+            }
         }
 
         function GetUIControlList() {
@@ -142,6 +134,7 @@
                             entity: response.data.Response.Response["UIOrder_" + SRVPOOrderCtrl.ePage.Masters.RoleView.roleResponse],
                             data: response.data.Response.Response
                         };
+                        _obj.data.UIOrder_Buyer_Forwarder.OrderType = SRVPOOrderCtrl.ePage.Masters.Entity.OrderType;
                         _obj.data.UIOrder_Buyer_Forwarder.BatchUploadNo = SRVPOOrderCtrl.ePage.Masters.Entity.BatchUploadNo;
                         _obj.data.UIOrder_Buyer_Forwarder.POB_FK = SRVPOOrderCtrl.ePage.Masters.Entity.PK;
                         SRVPOOrderCtrl.ePage.Entities.AddTab(_obj, true);

@@ -50,6 +50,7 @@
 
             try {
                 GetContactList();
+                PrepareGenerateScriptInput();
             } catch (ex) {
                 console.log(ex);
             }
@@ -89,6 +90,8 @@
                     OrganizationContactCtrl.ePage.Entities.Header.Data = response.data;
 
                     GetContactList();
+
+                    PrepareGenerateScriptInput();
                 },
                 function () {
                     console.log("Cancelled");
@@ -124,6 +127,20 @@
                         toastr.error("Could not Delete...!");
                     }
                 }
+            });
+        }
+
+        function PrepareGenerateScriptInput() {
+            OrganizationContactCtrl.ePage.Entities.Header.Data.OrgContact.map(function (value, key) {
+                value.GenerateScriptInput = {
+                    ObjectName: "OrgContact",
+                    ObjectId: value.PK
+                };
+                value.GenerateScriptConfig = {
+                    IsEnableTable: false,
+                    IsEnablePK: false,
+                    IsEnableTenant: false
+                };
             });
         }
 

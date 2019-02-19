@@ -1,0 +1,17 @@
+<div class="clearfix">
+    <div class="col-lg-12 col-md-12 col-xl-12 col-sm-12 col-xs-12 mb-10 no-padding">
+        <uib-tabset id="Routing">
+            <uib-tab>
+                <uib-tab-heading title="Routing">
+                    <i class="fa fa-list-alt margin-right-5"></i>
+                    <span class="text-single-line fs-13" data-ng-bind="'Routing'"></span>
+                </uib-tab-heading>
+                <div data-ng-if="RoutingDetailsGlbCtrl.currentConsol">
+                    <routing-grid current-object="RoutingDetailsGlbCtrl.currentConsol" key-object-name="'CON'" fk-name="'PK'" api-header-name="'UIConConsolHeader'"
+                        api-header-field-name="'PK'" api-header-value-name="'CON_FK'" btn-visible="{'AddNew':true,'Delete':true,'More':true}"
+                        table-properties=""></routing-grid>
+                </div>
+            </uib-tab>
+        </uib-tabset>
+    </div>
+</div>

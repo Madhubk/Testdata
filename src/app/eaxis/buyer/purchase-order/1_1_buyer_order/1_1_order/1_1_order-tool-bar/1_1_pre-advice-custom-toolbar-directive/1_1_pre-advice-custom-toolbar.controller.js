@@ -5,9 +5,9 @@
         .module("Application")
         .controller("one_one_PreAdviceCustomToolBarController", one_one_PreAdviceCustomToolBarController);
 
-    one_one_PreAdviceCustomToolBarController.$inject = ["$scope", "helperService", "apiService", "appConfig", "toastr"];
+    one_one_PreAdviceCustomToolBarController.$inject = ["$scope", "helperService", "apiService", "appConfig", "orderApiConfig", "toastr"];
 
-    function one_one_PreAdviceCustomToolBarController($scope, helperService, apiService, appConfig, toastr) {
+    function one_one_PreAdviceCustomToolBarController($scope, helperService, apiService, appConfig, orderApiConfig, toastr) {
         var one_one_PreAdviceCustomToolBarCtrl = this;
 
         function Init() {
@@ -186,7 +186,7 @@
                 };
                 _updateInput.push(_tempObj);
             }
-            apiService.post('eAxisAPI', appConfig.Entities.PorOrderHeader.API.UpdateRecords.Url, _updateInput).then(function (response) {
+            apiService.post('eAxisAPI', orderApiConfig.Entities.BuyerOrder.API.updaterecords.Url, _updateInput).then(function (response) {
                 if (response.data.Response) {
                     toastr.success("Successfully saved...");
                 } else {

@@ -38,16 +38,11 @@
         </uib-tab-heading>
         <div class="padding-bottom-10 clearfix">
             <!--Order Menu Directive-->
-            <one-one-order-menu current-order="tab" data-ng-if="SRVPOOrderCtrl.ePage.Masters.currentOrder && (tab[SRVPOOrderCtrl.ePage.Masters.currentOrder].ePage.Entities.Header.Data.UIOrder_Buyer.PAR_AccessCode=='1_1' || tab['New'].ePage.Entities.Header.Data.UIOrder_Buyer.PAR_AccessCode=='1_1')"
-                dataentry-object="SRVPOOrderCtrl.ePage.Masters.DataEntryObject"></one-one-order-menu>
-            <ord-buyer-supplier-view-template current-order="tab" data-ng-if="SRVPOOrderCtrl.ePage.Masters.currentOrder && tab[SRVPOOrderCtrl.ePage.Masters.currentOrder].ePage.Entities.Header.Data.UIOrder_Buyer_Supplier.PAR_AccessCode=='1_2'"
-                dataentry-object="SRVPOOrderCtrl.ePage.Masters.DataEntryObject"></ord-buyer-supplier-view-template>
-            <one-three-order-menu current-order="tab" data-ng-if="SRVPOOrderCtrl.ePage.Masters.currentOrder && (tab[SRVPOOrderCtrl.ePage.Masters.currentOrder].ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.PAR_AccessCode=='1_3' || tab['New'].ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.PAR_AccessCode=='1_3')"
+            <one-three-order-menu current-order="tab" data-ng-if="SRVPOOrderCtrl.ePage.Masters.currentOrder"
                 dataentry-object="SRVPOOrderCtrl.ePage.Masters.DataEntryObject"></one-three-order-menu>
-            <three-one-order-general current-order="tab" data-ng-if="SRVPOOrderCtrl.ePage.Masters.currentOrder && tab[SRVPOOrderCtrl.ePage.Masters.currentOrder].ePage.Entities.Header.Data.UIOrder_Forwarder_Buyer.PAR_AccessCode=='3_1'"></three-one-order-general>
         </div>
     </uib-tab>
-    <button class="btn btn-default" data-ng-click="SRVPOOrderCtrl.ePage.Masters.CreateNewOrder()" data-ng-disabled="SRVPOOrderCtrl.ePage.Masters.CheckUIControl('CREATE_ORDER') && SRVPOOrderCtrl.ePage.Masters.IsNewOrderClicked">+</button>
+    <button class="btn btn-default" data-ng-click="SRVPOOrderCtrl.ePage.Masters.CreateNewOrder()" data-ng-disabled="!SRVPOOrderCtrl.ePage.Masters.CheckUIControl('CREATE_ORDER') && SRVPOOrderCtrl.ePage.Masters.IsNewOrderClicked">+</button>
 </uib-tabset>
 
 <div class="clearfix order-activity-page-warpper" data-ng-if="SRVPOOrderCtrl.ePage.Entities.GlobalVar.IsShowEditActivityPage">

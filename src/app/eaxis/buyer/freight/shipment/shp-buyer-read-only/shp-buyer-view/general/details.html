@@ -107,8 +107,7 @@
                 </div>
             </div>
         </div>
-
-
+        <!-- carrier -->
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-3">
             <div class="form-group ex-line-font">
                 <label class="control-label text-single-line">Carrier</label>
@@ -117,6 +116,7 @@
                 </div>
             </div>
         </div>
+        <!-- vessel -->
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-3">
             <div class="form-group ex-line-font">
                 <label class="control-label text-single-line">Vessel</label>
@@ -125,9 +125,9 @@
                 </div>
             </div>
         </div>
-
     </div>
     <div class="row">
+        <!-- voyage -->
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-3">
             <div class="form-group ex-line-font">
                 <label class="control-label text-single-line">Voyage/Flight</label>
@@ -136,6 +136,7 @@
                 </div>
             </div>
         </div>
+        <!-- consignee ref -->
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-3">
             <div class="form-group ex-line-font">
                 <label class="control-label text-single-line">Consignee Reference</label>
@@ -188,6 +189,61 @@
                 <label class="control-label text-single-line">Goods Desc.</label>
                 <div class="">
                     <span>{{shpBuyerViewGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.GoodsDesc}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <!-- Factory Invoice # -->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-3">
+            <div class="form-group ex-line-font">
+                <label class="control-label text-single-line">Factory Invoice #</label>
+                <div class="">
+                    <span>{{shpBuyerViewGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.InvoiceRefNo}}</span>
+                </div>
+            </div>
+        </div>
+        <!-- Packing List # -->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-3">
+            <div class="form-group ex-line-font">
+                <label class="control-label text-single-line">Packing List #</label>
+                <div class="">
+                    <span>{{shpBuyerViewGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.FactoryPKLNo}}</span>
+                </div>
+            </div>
+        </div>
+        <!-- Supplier Invoice # -->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-3">
+            <div class="form-group ex-line-font">
+                <label class="control-label text-single-line">Supplier Invoice #</label>
+                <div class="">
+                    <span>
+                        {{shpBuyerViewGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.SupplierInvoiceNo}}
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-3">
+            <div class="form-group ex-line-font">
+                <label class="control-label text-single-line">Request Delivery Date</label>
+                <div class="">
+                    <span>
+                        {{
+                        shpBuyerViewGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ETD |
+                        date:'dd-MMM-yyyy'
+                        }}
+                    </span>
+                </div>
+            </div>
+        </div>
+        <!-- Bonded Warehouse -->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-3">
+            <div class="form-group ex-line-font">
+                <label class="control-label text-single-line">Bonded Warehouse</label>
+                <div class="">
+                    <span>
+                        {{shpBuyerViewGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.DeliveryToName}}
+                    </span>
                 </div>
             </div>
         </div>

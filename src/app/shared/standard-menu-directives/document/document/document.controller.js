@@ -770,8 +770,9 @@
             var _filter = {
                 SourceEntityRefKey: "DocType",
                 EntitySource: "CONFIGURATION",
-                ModuleCode: SMDocumentCtrl.input.EntitySource,
-                Key: SMDocumentCtrl.input.Entity,
+                // ModuleCode: SMDocumentCtrl.input.EntitySource,
+                ModuleCode: "GEN",
+                Key: "Shipment_Document",
                 SAP_FK: authService.getUserInfo().AppPK,
                 TenantCode: authService.getUserInfo().TenantCode
             };
@@ -834,7 +835,6 @@
         }
 
         function OnDocumentGenerate($item) {
-            debugger
             var _code;
             if (!$item) {
                 SMDocumentCtrl.ePage.Masters.DocumentGenerate.GenerateBtnTxt = "Please Wait...!";
@@ -850,12 +850,11 @@
                 SourceEntityRefKey: "Documents",
                 EntitySource: "EXCELCONFIG",
                 ModuleCode: SMDocumentCtrl.input.EntitySource,
-               // Key: "WHS_INW_ASN_DOCUMENT",
-                Key :_code,
+                Key: _code,
                 SAP_FK: authService.getUserInfo().AppPK,
                 TenantCode: authService.getUserInfo().TenantCode,
             };
-            
+
             helperService.excelDocObjPreparation(_filter, SMDocumentCtrl.input.RowObj).then(function (response) {
                 if (response) {
                     if (!SMDocumentCtrl.ePage.Masters.Document.ListSource) {

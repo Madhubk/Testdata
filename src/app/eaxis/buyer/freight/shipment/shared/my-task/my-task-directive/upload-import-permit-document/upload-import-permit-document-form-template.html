@@ -1,0 +1,117 @@
+<div class="col-lg-12 col-md-12 col-xl-12 col-sm-12 col-xs-12 mt-5 no-padding">
+    <div class="clearfix">
+        <div class="clearfix edit-activity-body pb-50">
+            <div class="clearfix pt-10">
+                <div class="clearfix mt-10">
+                    <div class="col-lg-3">
+                        <div class="ex-line-padding">
+                            <div class="ex-line-box2">
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-2 pr-0 padding-top-10">
+                                    <div class="form-group ex-line-font">
+                                        <label class="control-label text-single-line">Shipment #</label>
+                                        <span class="fs-16 set-color-blue">
+                                            {{UploadImportPermitDocumentCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ShipmentNo}}
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-3 pr-0 pt-5">
+                                    <div class="form-group ex-line-font">
+                                        <label class="control-label">Created Date</label>
+                                        <div class="input-group input-group-sm col-lg-11">
+                                            <span>
+                                                {{
+                                                UploadImportPermitDocumentCtrl.ePage.Entities.Header.Data.UIShipmentHeader.CreatedDateTime
+                                                | date:'dd-MMM-yyyy'
+                                                }}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-9 pl-0">
+                        <div class="col-lg-6 pl-0">
+                            <div class="panel panel-default ex-line-box2 mb-0">
+                                <div class="panel-heading height-30 pt-5 position-relative">
+                                    <span class="form-group ex-line-font"><label class="control-label text-single-line">Supplier</label></span>
+                                </div>
+                                <div class="clearfix height-120 pt-10 pb-10">
+                                    <div class="col-lg-2">
+                                        <!--<img src="assets/img/ExportGray.png">-->
+                                        <i class="fa fa-angle-double-up text-center fa-3x set-color-blue pt-15"></i>
+                                    </div>
+                                    <div class="col-lg-10">
+                                        <div class="">
+                                            <b>{{UploadImportPermitDocumentCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ShipperName}}</b>
+                                        </div>
+                                        <div class="mt-5">{{UploadImportPermitDocumentCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.Address1}}</div>
+
+                                        <div class="">{{UploadImportPermitDocumentCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRA.Address2}}</div>
+                                        <div class="mt-2">
+                                            Origin -
+                                            <span class="set-color-blue">{{UploadImportPermitDocumentCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Origin}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 pl-0 pr-0">
+                            <div class="panel panel-default ex-line-box2 mb-0">
+                                <div class="panel-heading height-30 pt-5 position-relative">
+                                    <span class="form-group ex-line-font"><label class="control-label text-single-line">Buyer</label></span>
+                                </div>
+                                <div class="clearfix pt-10 pb-10">
+                                    <div class="col-lg-2">
+                                        <i class="fa fa-angle-double-down text-center fa-3x set-color-blue pt-15"></i>
+
+                                    </div>
+
+                                    <div class="col-lg-10 pl-0">
+
+                                        <div class="">
+                                            <b>{{UploadImportPermitDocumentCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ConsigneeName}}</b>
+                                        </div>
+                                        <div class="mt-5">{{UploadImportPermitDocumentCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.Address1}}</div>
+                                        <div class="">{{UploadImportPermitDocumentCtrl.ePage.Entities.Header.Data.UIAddressContactList.SCP.Address2}}</div>
+                                        <div class="mt-2">
+                                            Destination -
+                                            <span class="set-color-blue">{{UploadImportPermitDocumentCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Destination}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix pb-10 col-lg-12 no-padding" id="style-3">
+                <div task-activity-dynamic-directive-task-save></div>
+            </div>
+            <div class="clearfix col-lg-12" id="style-4">
+                <div class="" data-ng-if="UploadImportPermitDocumentCtrl.ePage.Masters.StandardMenuInput1"
+                    upload-document input="UploadImportPermitDocumentCtrl.ePage.Masters.StandardMenuInput1" config="UploadImportPermitDocumentCtrl.ePage.Masters.StandardConfigInput1"
+                    class="my-task-icon fa fa-file-text-o mr-5">
+                </div>
+            </div>
+            <div class="clearfix col-lg-12 padding-15">
+                <div class="" data-ng-if="UploadImportPermitDocumentCtrl.ePage.Masters.StandardMenuInput1"
+                    view-document input="UploadImportPermitDocumentCtrl.ePage.Masters.StandardMenuInput1" mode="3"
+                    config="UploadImportPermitDocumentCtrl.ePage.Masters.StandardConfigInput1" class="my-task-icon fa fa-file-text-o mr-5">
+                </div>
+            </div>
+            <div class="clearfix col-lg-12">
+                <div class="" data-ng-if="UploadImportPermitDocumentCtrl.ePage.Masters.StandardMenuInput1" add-comment
+                    input="UploadImportPermitDocumentCtrl.ePage.Masters.StandardMenuInput1" config="UploadImportPermitDocumentCtrl.ePage.Masters.StandardConfigInput1"
+                    class="my-task-icon fa fa-file-text-o mr-5">
+                </div>
+            </div>
+            <div class="clearfix col-lg-12 padding-15">
+                <div class="" data-ng-if="UploadImportPermitDocumentCtrl.ePage.Masters.StandardMenuInput1" view-comment
+                    input="UploadImportPermitDocumentCtrl.ePage.Masters.StandardMenuInput1" mode="3" config="UploadImportPermitDocumentCtrl.ePage.Masters.StandardConfigInput1"
+                    class="my-task-icon fa fa-file-text-o mr-5">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

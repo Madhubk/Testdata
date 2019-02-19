@@ -159,8 +159,6 @@
         }
 
         function CloseEditActivityModal() {
-            DamagedSkuToolbarCtrl.ePage.Masters.UpdateInventoryBtnText = "Update Inventory"
-            DamagedSkuToolbarCtrl.ePage.Masters.IsUpdateInventoryBtn = false;
             DamagedSkuToolbarCtrl.ePage.Masters.modalInstance.dismiss('cancel');
         }
 

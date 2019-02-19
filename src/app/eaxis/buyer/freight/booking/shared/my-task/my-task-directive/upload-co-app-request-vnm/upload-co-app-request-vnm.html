@@ -1,0 +1,70 @@
+<div class="clearfix" data-ng-if="!UploadCoAppRequestVnmDirectiveCtrl.ePage.Masters.IsLoading && !UploadCoAppRequestVnmDirectiveCtrl.ePage.Masters.PageNotFound">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group ex-line-font">
+            <label class="control-label text-single-line">Consingor</label>
+            <div class="text-ellipsis" title="{{UploadCoAppRequestVnmDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ShipperName}}">
+                <span>{{UploadCoAppRequestVnmDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ShipperName}}</span>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group ex-line-font">
+            <label class="control-label text-single-line">Consingee</label>
+            <div class="text-ellipsis" title="{{UploadCoAppRequestVnmDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ConsigneeName}}">
+                <span>{{UploadCoAppRequestVnmDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ConsigneeName}}</span>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group ex-line-font">
+            <label class="control-label text-single-line">Booking #</label>
+            <div class="">
+                <a href="javascript: void(0)" data-ng-click="UploadCoAppRequestVnmDirectiveCtrl.ePage.Masters.SingleRecordView(UploadCoAppRequestVnmDirectiveCtrl.ePage.Entities.Header.Data)">{{UploadCoAppRequestVnmDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ShipmentNo}}</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group ex-line-font">
+            <label class="control-label text-single-line">Order(s) #</label>
+            <div class="text-ellipsis" title="{{UploadCoAppRequestVnmDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.OrderNos}}">
+                <span>{{UploadCoAppRequestVnmDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.OrderNos}}</span>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="clearfix mt-5" data-ng-if="!UploadCoAppRequestVnmDirectiveCtrl.ePage.Masters.IsLoading && !UploadCoAppRequestVnmDirectiveCtrl.ePage.Masters.PageNotFound">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group ex-line-font">
+            <label class="control-label text-single-line">Factory Invoice #</label>
+            <div class="">
+                <span>{{UploadCoAppRequestVnmDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.InvoiceRefNo}}</span>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row mt-10" id="style-4" data-ng-if="!UploadCoAppRequestVnmDirectiveCtrl.ePage.Masters.IsLoading && !UploadCoAppRequestVnmDirectiveCtrl.ePage.Masters.PageNotFound">
+    <div class="col-lg-12" data-ng-if="UploadCoAppRequestVnmDirectiveCtrl.ePage.Masters.StandardMenuInput"
+        upload-document-ord doc-type-dsc="UploadCoAppRequestVnmDirectiveCtrl.ePage.Masters.MyTask.WSI_StepName" input="UploadCoAppRequestVnmDirectiveCtrl.ePage.Masters.StandardMenuInput"
+        is-uploaded="UploadCoAppRequestVnmDirectiveCtrl.ePage.Masters.IsUploaded({ $item: $item })" config="UploadCoAppRequestVnmDirectiveCtrl.ePage.Masters.StandardConfigInput"
+        class="my-task-icon fa fa-file-text-o mr-5">
+    </div>
+    <div class="col-lg-8" data-ng-if="UploadCoAppRequestVnmDirectiveCtrl.ePage.Masters.StandardMenuInput"
+        is-document-uploaded="UploadCoAppRequestVnmDirectiveCtrl.ePage.Masters.IsDocumentUploaded" view-document-ord
+        doc-type-dsc="UploadCoAppRequestVnmDirectiveCtrl.ePage.Masters.MyTask.WSI_StepName" input="UploadCoAppRequestVnmDirectiveCtrl.ePage.Masters.StandardMenuInput"
+        mode="3" config="UploadCoAppRequestVnmDirectiveCtrl.ePage.Masters.StandardConfigInput" class="my-task-icon fa fa-file-text-o mr-5">
+    </div>
+    <div class="col-lg-4">
+        <button class="my-task-primary-btn my-task-directive-btn" data-ng-click="UploadCoAppRequestVnmDirectiveCtrl.ePage.Masters.Complete()"
+            data-ng-disabled="UploadCoAppRequestVnmDirectiveCtrl.ePage.Masters.CompleteBtnDisabled">
+            {{UploadCoAppRequestVnmDirectiveCtrl.ePage.Masters.CompleteBtnTxt}}
+        </button>
+    </div>
+</div>
+<!-- Not Found -->
+<div id="notfound" data-ng-if="UploadCoAppRequestVnmDirectiveCtrl.ePage.Masters.PageNotFound">
+    <div data-ng-include="'app/eaxis/buyer/shared/page-404.html'"></div>
+</div>
+<!-- Loading -->
+<div class="clearfix p-30 text-center" data-ng-if="UploadCoAppRequestVnmDirectiveCtrl.ePage.Masters.IsLoading && !UploadCoAppRequestVnmDirectiveCtrl.ePage.Masters.PageNotFound">
+    <i class="fa fa-spin fa-spinner" style="font-size: 18px;"></i>
+</div>

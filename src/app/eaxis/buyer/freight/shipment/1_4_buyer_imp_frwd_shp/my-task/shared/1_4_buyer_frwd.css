@@ -1,0 +1,11 @@
+.hbl-con{
+    font-size: 18px;
+    color: red;
+    margin-top: 100px;
+    margin-left: 500px;
+}
+.ship-font label {
+    color: gray;
+    font-weight: 600;
+    font-size: 12px;
+}

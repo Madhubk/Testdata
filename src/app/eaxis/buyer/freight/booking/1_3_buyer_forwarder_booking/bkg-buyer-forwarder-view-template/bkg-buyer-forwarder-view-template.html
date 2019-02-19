@@ -15,9 +15,9 @@
             <input type="button" data-ng-if="bookingBuyerForwarderTemplateCtrl.currentBooking.isNew" ng-disabled="bookingBuyerForwarderTemplateCtrl.ePage.Masters.SaveBookingVerifiedDisabled || bookingBuyerForwarderTemplateCtrl.ePage.Masters.SaveBothButtonDisabled"
                 value="{{bookingBuyerForwarderTemplateCtrl.ePage.Masters.SaveBookingVerified}}" class="btn btn-primary btn-sm pull-right margin-right-10 mt-6"
                 ng-click="bookingBuyerForwarderTemplateCtrl.ePage.Masters.Save(bookingBuyerForwarderTemplateCtrl.currentBooking,'Verified','VerificationRequired') ">
-            <input type="button" data-ng-if="bookingBuyerForwarderTemplateCtrl.currentBooking.isNew" ng-disabled="bookingBuyerForwarderTemplateCtrl.ePage.Masters.SaveBookingApprovalDisabled || bookingBuyerForwarderTemplateCtrl.ePage.Masters.SaveBothButtonDisabled"
+            <!-- <input type="button" data-ng-if="bookingBuyerForwarderTemplateCtrl.currentBooking.isNew" ng-disabled="bookingBuyerForwarderTemplateCtrl.ePage.Masters.SaveBookingApprovalDisabled || bookingBuyerForwarderTemplateCtrl.ePage.Masters.SaveBothButtonDisabled"
                 value="{{bookingBuyerForwarderTemplateCtrl.ePage.Masters.SaveBookingApproval}}" class="btn btn-primary btn-sm pull-right margin-right-10 mt-6"
-                ng-click="bookingBuyerForwarderTemplateCtrl.ePage.Masters.Save(bookingBuyerForwarderTemplateCtrl.currentBooking,'Approval','ApprovalRequired') ">
+                ng-click="bookingBuyerForwarderTemplateCtrl.ePage.Masters.Save(bookingBuyerForwarderTemplateCtrl.currentBooking,'Approval','ApprovalRequired') "> -->
             <button class="btn btn-primary btn-sm pull-right margin-right-10 mt-6" data-ng-if="!bookingBuyerForwarderTemplateCtrl.currentBooking.isNew"
                 data-ng-click="bookingBuyerForwarderTemplateCtrl.ePage.Masters.Save(bookingBuyerForwarderTemplateCtrl.currentBooking)"
                 data-ng-bind="bookingBuyerForwarderTemplateCtrl.ePage.Masters.SaveButtonText" data-ng-disabled="bookingBuyerForwarderTemplateCtrl.ePage.Masters.IsDisableSave"></button>
@@ -35,9 +35,9 @@
             </span>
         </div>
         <div class="error-warning-body">
-            <div class="clearfix" data-ng-if="bookingBuyerForwarderTemplateCtrl.ePage.Masters.ErrorWarningConfig.Modules.BookingForwarder.Entity[bookingBuyerForwarderTemplateCtrl.currentBooking.code].GlobalErrorWarningList.length>0">
+            <div class="clearfix" data-ng-if="bookingBuyerForwarderTemplateCtrl.ePage.Masters.ErrorWarningConfig.Modules.Booking.Entity[bookingBuyerForwarderTemplateCtrl.currentBooking.code].GlobalErrorWarningList.length>0">
                 <div class="clearfix">
-                    <div class="p-5 error-warnig-list clearfix" data-ng-repeat="x in bookingBuyerForwarderTemplateCtrl.ePage.Masters.ErrorWarningConfig.Modules.BookingForwarder.Entity[bookingBuyerForwarderTemplateCtrl.currentBooking.code].GlobalErrorWarningList">
+                    <div class="p-5 error-warnig-list clearfix" data-ng-repeat="x in bookingBuyerForwarderTemplateCtrl.ePage.Masters.ErrorWarningConfig.Modules.Booking.Entity[bookingBuyerForwarderTemplateCtrl.currentBooking.code].GlobalErrorWarningList">
                         <div class="clearfix">
                             <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 p-0 text-center">
                                 <span class=" fa fa-warning" data-ng-style="{color: {'W':'#FFAD33', 'E':'#ED4337'}[x.MessageType]}"></span>

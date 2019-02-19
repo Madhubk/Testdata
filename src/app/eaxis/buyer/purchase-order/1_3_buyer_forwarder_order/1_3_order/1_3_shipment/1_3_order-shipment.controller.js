@@ -5,9 +5,9 @@
         .module("Application")
         .controller("one_three_OrderShipmentController", one_three_OrderShipmentController);
 
-    one_three_OrderShipmentController.$inject = ["$window", "apiService", "appConfig", "helperService", "toastr"];
+    one_three_OrderShipmentController.$inject = ["$window", "apiService", "appConfig", "helperService", "orderApiConfig", "toastr"];
 
-    function one_three_OrderShipmentController($window, apiService, appConfig, helperService, toastr) {
+    function one_three_OrderShipmentController($window, apiService, appConfig, helperService, orderApiConfig, toastr) {
         /* jshint validthis: true */
         var one_three_OrderShipmentCtrl = this;
 
@@ -35,6 +35,10 @@
                 if (one_three_OrderShipmentCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.SHP_FK && one_three_OrderShipmentCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.SHP_FK != '00000000-0000-0000-0000-000000000000') {
                     GetShpConMapping(one_three_OrderShipmentCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.SHP_FK, "Edit");
                 }
+            }
+            one_three_OrderShipmentCtrl.ePage.Masters.DefaultFilterShipmnetSearch = {
+                ORG_Consignee_Code: one_three_OrderShipmentCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.Buyer,
+                ORG_Shipper_Code: one_three_OrderShipmentCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.Supplier
             }
         }
 
@@ -88,7 +92,7 @@
                     "PropertyNewValue": "SHP"
                 }]
             };
-            apiService.post('eAxisAPI', appConfig.Entities.PorOrderHeader.API.UpdateRecords.Url, [_tempObj]).then(function (response) {
+            apiService.post('eAxisAPI', orderApiConfig.Entities.BuyerOrder.API.updaterecords.Url, [_tempObj]).then(function (response) {
                 if (response.data.Response) {
                     if (response.data.Response.length > 0) {
                         one_three_OrderShipmentCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.OrderStatus = response.data.Response[0].OrderStatus;
@@ -102,10 +106,10 @@
         function EditSingleRecordView(curEntity) {
             var _queryString = {
                 PK: curEntity.UIShipment_Buyer_Forwarder.PK,
-                Code: curEntity.UIShipment_Buyer_Forwarder.ShipmentNo
+                ShipmentNo: curEntity.UIShipment_Buyer_Forwarder.ShipmentNo
             };
             _queryString = helperService.encryptData(_queryString);
-            $window.open("#/EA/single-record-view/shipment/" + _queryString, "_blank");
+            $window.open("#/EA/single-record-view/shipment-view?q=" + _queryString, "_blank");
         }
 
         Init();

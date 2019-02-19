@@ -1,4 +1,4 @@
-<div class="clearfix mt-10 no-padding">
+<div class="clearfix mt-10 no-padding" data-ng-if="ViewDocumentOrdCtrl.mode==3">
     <div class="col-lg-12 no-padding">
         <div class="col-lg-6 mt-8 no-padding" data-ng-if="ViewDocumentOrdCtrl.ePage.Masters.Document.ListSource"
             data-ng-repeat="x in ViewDocumentOrdCtrl.ePage.Masters.Document.TempListDocument">
@@ -26,3 +26,35 @@
     </div>
 </div>
 <div data-ng-if="ViewDocumentOrdCtrl.isDocumentUploaded" data-ng-init="ViewDocumentOrdCtrl.ePage.Masters.GetDocumentList()"></div>
+<div class="" data-ng-if="ViewDocumentOrdCtrl.mode==1">
+    <div id='' class="common_table_scroll common_table_hgt pt-2">
+        <div class="table tab-position" id="results">
+            <div class='theader'>
+                <div class='table_header text-ellipsis'>File Name</div>
+                <div class='table_header text-ellipsis'>Document Type</div>
+            </div>
+
+            <div class='table_row' data-ng-repeat="x in ViewDocumentOrdCtrl.ePage.Masters.Document.ListSource  | orderBy:'LineNo'"
+                style="font-size: 11px;">
+                <div class='table_small'>
+                    <div class='table_cell text-ellipsis'>File Name</div>
+                    <div class='table_cell text-ellipsis'>
+                        <span title="{{x.FileName}}">{{x.FileName}}</span>
+                    </div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell text-ellipsis'>Document Type</div>
+                    <div class='table_cell text-ellipsis'>
+                        <span title="{{x.DocumentType}}">{{x.DocumentType}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- List Empty Response -->
+        <div class="grid-no-record-common_table" data-ng-if="ViewDocumentOrdCtrl.ePage.Masters.Document.ListSource.length==0">No
+            Documents Uploaded.</div>
+        <!-- Loading -->
+        <div class="grid-no-record-common_table" data-ng-if="!ViewDocumentOrdCtrl.ePage.Masters.Document.ListSource">
+            Loading...</div>
+    </div>
+</div>

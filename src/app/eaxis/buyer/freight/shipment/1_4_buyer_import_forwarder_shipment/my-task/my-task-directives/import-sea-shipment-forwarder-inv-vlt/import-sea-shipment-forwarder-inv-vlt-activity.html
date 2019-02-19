@@ -1,0 +1,62 @@
+<!--Forwarders DO Release Edit Activity-->
+<div class="clearfix">
+    <div class="clearfix padding-top-10">
+        <!-- MBL -->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <label class="control-label text-single-line">Invoice No</label>
+            <div class="form-group">
+                <input type="text" maxlength="30" ng-model="ImportSeaShipmentForwarderInvoiceVltCtrl.ePage.Entities.Header.Data.UIConsolExtendedInfo_Forwarder.SIFilingRefNo"
+                    maxlength="12" class="form-control input-sm" placeholder="Invoice No">
+            </div>
+        </div>
+        <!-- consignee -->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <label class="control-label text-single-line">Invoice Amount</label>
+            <div class="form-group">
+                <input type="text" maxlength="30" ng-model="ImportSeaShipmentForwarderInvoiceVltCtrl.ePage.Entities.Header.Data.UIConsolExtendedInfo_Forwarder.SIFilingRefNo"
+                    maxlength="12" class="form-control input-sm" placeholder="Invoice Amt">
+            </div>
+        </div>
+        <!-- DO Number -->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <label class="control-label text-single-line">Invoice Date</label>
+            <div class="form-group">
+                <div class="input-group input-group-sm con-dt-value">
+                    <input type="text" class="form-control" placeholder="{{ImportSeaShipmentForwarderInvoiceVltCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                        data-ng-model="ImportSeaShipmentForwarderInvoiceVltCtrl.ePage.Entities.Header.Data.UIConsolExtendedInfo_Forwarder.SIFilingDate"
+                        datetime-picker="{{ImportSeaShipmentForwarderInvoiceVltCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                        datepicker-options="ImportSeaShipmentForwarderInvoiceVltCtrl.ePage.Masters.DatePicker.Options" datepicker-append-to-body="false"
+                        close-on-selection="false" enable-time="false" enable-date="true" default-date="" default-time="" save-as="ImportSeaShipmentForwarderInvoiceVltCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                        is-open="ImportSeaShipmentForwarderInvoiceVltCtrl.ePage.Masters.DatePicker.isOpen['isSIFilingDate']"
+                        when-closed="" data-ng-click="" custom-date-time-format />
+                    <span class="input-group-btn">
+                        <button class="btn btn-default shiny" data-ng-click="ImportSeaShipmentForwarderInvoiceVltCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isSIFilingDate')">
+                            <i class="fa fa-calendar"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <!-- Date -->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <label class="control-label"> Dispatched Date</label>
+            <div class="form-group">
+                <div class="input-group input-group-sm con-dt-value">
+                    <input type="text" class="form-control" placeholder="{{ImportSeaShipmentForwarderInvoiceVltCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                        data-ng-model="ImportSeaShipmentForwarderInvoiceVltCtrl.ePage.Entities.Header.Data.UIConsolExtendedInfo_Forwarder.SIFilingDate"
+                        datetime-picker="{{ImportSeaShipmentForwarderInvoiceVltCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                        datepicker-options="ImportSeaShipmentForwarderInvoiceVltCtrl.ePage.Masters.DatePicker.Options" datepicker-append-to-body="false"
+                        close-on-selection="false" enable-time="false" enable-date="true" default-date="" default-time="" save-as="ImportSeaShipmentForwarderInvoiceVltCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                        is-open="ImportSeaShipmentForwarderInvoiceVltCtrl.ePage.Masters.DatePicker.isOpen['isSIFilingDate']"
+                        when-closed="" data-ng-click="" data-ng-change="ImportSeaShipmentForwarderInvoiceVltCtrl.ePage.Masters.OnFieldValueChange('E11100')"
+                        custom-date-time-format />
+                    <span class="input-group-btn">
+                        <button class="btn btn-default shiny" data-ng-click="ImportSeaShipmentForwarderInvoiceVltCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isSIFilingDate')">
+                            <i class="fa fa-calendar"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

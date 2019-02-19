@@ -1,0 +1,75 @@
+<div class="clearfix">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group ship-font">
+            <label class="control-label">Custom Broker</label>
+            <div class="">
+                <span>{{IcmActualPickupCtrl.ePage.Masters.emptyText}}</span>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group ship-font">
+            <label class="control-label">Warehouse</label>
+            <div class="">
+                <span>{{IcmActualPickupCtrl.ePage.Masters.emptyText}}</span>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group ship-font">
+            <label class="control-label">Pick Up Container Yard</label>
+            <div class="">
+                <span>{{IcmActualPickupCtrl.ePage.Masters.emptyText}}</span>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group ship-font">
+            <label class="control-label">Transporter</label>
+            <div class="">
+                <span>{{IcmActualPickupCtrl.ePage.Masters.emptyText}}</span>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group ship-font">
+            <label class="control-label">Planned Pick Up</label>
+            <div class="">
+                <span>{{IcmActualPickupCtrl.ePage.Masters.emptyText}}</span>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="clearfix pl-15 pr-15">
+    <div id='' class="common_table_scroll common_table_hgt pt-2">
+        <div class="table tab-position" id="results">
+            <div class='theader'>
+                <div class='table_header'>Container #</div>
+                <div class='table_header'>Type</div>
+                <div class='table_header'>Requested Delivery</div>
+                <div class='table_header'>Planned Delivery</div>
+            </div>
+            <div class='table_row' data-ng-repeat="x in IcmActualPickupCtrl.ePage.Entities.Header.Data.ContainerList"
+                style="font-size: 11px;">
+                <div class='table_small'>
+                    <div class='table_cell'>Container #</div>
+                    <div class='table_cell'>
+                        <b>{{x.ContainerNo}}</b>
+                    </div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Type</div>
+                    <div class='table_cell'>{{x.RC_Type}}</div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Request Delivery</div>
+                    <div class='table_cell'>{{x.RequestedDelivery | date:"medium"}}</div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Planned Delivery</div>
+                    <div class='table_cell'>{{x.PlannedDelivery | date:"medium"}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

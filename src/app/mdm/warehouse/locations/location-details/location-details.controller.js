@@ -106,8 +106,8 @@
                     callback();
                 });
             }else{
-                callback();
-            }
+				callback()
+			}
         }
 
         function GeneralOperations(){

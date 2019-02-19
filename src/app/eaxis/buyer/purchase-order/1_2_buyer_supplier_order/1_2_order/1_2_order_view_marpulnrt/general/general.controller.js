@@ -5,7 +5,7 @@
         .module("Application")
         .controller("one_two_ReadOnlyGeneralController", one_two_ReadOnlyGeneralController);
 
-    one_two_ReadOnlyGeneralController.$inject = ["$window" ,"helperService"];
+    one_two_ReadOnlyGeneralController.$inject = ["$window", "helperService"];
 
     function one_two_ReadOnlyGeneralController($window, helperService) {
         var one_two_ReadOnlyGeneralCtrl = this;
@@ -33,7 +33,7 @@
                 Code: curEntity.UIShipment_Buyer_Supplier.ShipmentNo
             };
             _queryString = helperService.encryptData(_queryString);
-            $window.open("#/EA/single-record-view/shipment/" + _queryString, "_blank");
+            $window.open("#/EA/single-record-view/shipment-view?q=" + _queryString, "_blank");
         }
 
         Init();

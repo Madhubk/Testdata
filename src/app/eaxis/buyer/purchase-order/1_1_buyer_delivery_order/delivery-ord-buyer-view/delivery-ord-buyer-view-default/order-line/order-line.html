@@ -1,0 +1,173 @@
+<div style="min-height:610px;">
+    <div class="p-10">
+        <div id='' class="common_table_scroll common_table_hgt pt-2">
+            <div class="table tab-position" id="results">
+                <div class='theader'>
+                    <div class='table_header'>Customer DO #</div>
+                    <div class='table_header'>Line #</div>
+                    <div class='table_header'>PO #</div>
+                    <div class='table_header'>Suppleir Invoice #</div>
+                    <div class='table_header'>Customer Product Code</div>
+                    <div class='table_header'>Supplier Product Code</div>
+                    <div class='table_header'>Customer Product Old Code</div>
+                    <div class='table_header'>ITF Code</div>
+                    <div class='table_header'>UOM</div>
+                    <div class='table_header'>QTY</div>
+                    <div class='table_header'>BIN</div>
+                    <div class='table_header'>Product Desc</div>
+                    <div class='table_header'>Harmonized Tariff Code</div>
+                    <div class='table_header'>Batch</div>
+                    <div class='table_header'>Manufacturing Date</div>
+                    <div class='table_header'>Expiry Date</div>
+                </div>
+
+                <div class='table_row' data-ng-repeat="x in DeliveryOrdBuyerViewOrderLineCtrl.ePage.Entities.Header.Data.UIOrderLine_Buyer  | orderBy:'LineNo'"
+                    style="font-size: 11px;">
+                    <div class='table_small'>
+                        <div class='table_cell'>Customer DO #</div>
+                        <div class='table_cell'>
+                            <a href="javascript:void(0);" data-ng-click="DeliveryOrdBuyerViewOrderLineCtrl.ePage.Masters.SingleRecordView(x);">{{x.PartAttribute1}}</a>
+                        </div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Line #</div>
+                        <div class='table_cell'>
+                            {{x.LineNo}}
+                        </div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>PO #</div>
+                        <div class='table_cell'>
+                            {{x.PartAttribute2}}
+                        </div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Suppleir Invoice #</div>
+                        <div class='table_cell'>
+                            {{x.CommercialInvoiceNo}}
+                        </div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Customer Product Code</div>
+                        <div class='table_cell'>
+                            {{x.PartNo}}
+                        </div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Supplier Product Code</div>
+                        <div class='table_cell'>
+                            {{x.SupplierProductCode}}
+                        </div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Customer Product Old Code</div>
+                        <div class='table_cell'>
+                            {{x.JCT_CustomVarI}}
+                        </div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>ITF Code</div>
+                        <div class='table_cell'>
+                            {{x.JCT_CustomVarII}}
+                        </div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>UOM</div>
+                        <div class='table_cell'>
+                            {{x.OrderUnitOfQuantity}}
+                        </div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>QTY</div>
+                        <div class='table_cell'>
+                            {{x.Quantity}}
+                        </div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>BIN</div>
+                        <div class='table_cell'>
+                            {{x.PartAttribute3}}
+                        </div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Product Desc</div>
+                        <div class='table_cell'>{{x.LineDescription}}</div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Harmonized Tariff Code</div>
+                        <div class='table_cell'>
+                            {{x.HSCode}}
+                        </div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Batch</div>
+                        <div class='table_cell'>
+                            {{x.JCT_CustomVarIII}}
+                        </div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Manufacturing Date</div>
+                        <div class='table_cell'>
+                            {{x.MfgDate | date:'dd-MMM-yyyy'}}
+                        </div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Expiry Date</div>
+                        <div class='table_cell'>
+                            {{x.ExpiryDate | date:'dd-MMM-yyyy'}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- List Empty Response -->
+            <div class="grid-no-record-common_table" data-ng-if="DeliveryOrdBuyerViewOrderLineCtrl.ePage.Entities.Header.Data.UIOrderLine_Buyer.length==0">No
+                records found...</div>
+        </div>
+    </div>
+    <!-- footer -->
+    <div class="clearfix padding-top-10 padding-bottom-10 total-alignment">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            <!-- Line Count-->
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                <div class="">
+                    Total Lines
+                    <div class="padding-top-5">
+                        <b> {{DeliveryOrdBuyerViewOrderLineCtrl.ePage.Masters.Consolidation[0].Count}}</b>
+                    </div>
+                </div>
+            </div>
+            <!-- Inner Packs-->
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <div class="">
+                    Inner Packs :
+                    <b>{{DeliveryOrdBuyerViewOrderLineCtrl.ePage.Masters.Consolidation[0].InnerPacks}}</b>
+                </div>
+                <div class="padding-top-5">
+                    Outer Packs :
+                    <b>{{DeliveryOrdBuyerViewOrderLineCtrl.ePage.Masters.Consolidation[0].OuterPacks}}</b>
+                </div>
+            </div>
+            <!-- Qty Ordered-->
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <div class="">
+                    Qty Ordered :
+                    <b>{{(DeliveryOrdBuyerViewOrderLineCtrl.ePage.Masters.Consolidation[0].Quantity).toFixed(5)}}</b>
+                </div>
+                <div class="padding-top-5">
+                    Qty Invoiced :
+                    <b>{{(DeliveryOrdBuyerViewOrderLineCtrl.ePage.Masters.Consolidation[0].InvoicedQuantity).toFixed(5)}}</b>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <div class="">
+                    Qty Received :
+                    <b>{{(DeliveryOrdBuyerViewOrderLineCtrl.ePage.Masters.Consolidation[0].RecievedQuantity).toFixed(5)}}</b>
+                </div>
+                <div class="padding-top-5">
+                    Qty Remaining :
+                    <b>{{(DeliveryOrdBuyerViewOrderLineCtrl.ePage.Masters.Consolidation[0].QtyRemaining).toFixed(5)}}</b>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

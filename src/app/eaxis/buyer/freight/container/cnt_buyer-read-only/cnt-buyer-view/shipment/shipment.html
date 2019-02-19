@@ -1,0 +1,65 @@
+<div class="row p-5">
+    <div class="p-10">
+        <div id='' class="common_table_scroll common_table_hgt pt-2">
+            <div class="table tab-position" id="results">
+                <div class='theader'>
+                    <div class='table_header'>Shipment #</div>
+                    <div class='table_header'>HBL</div>
+                    <div class='table_header'>Shipper</div>
+                    <div class='table_header'>Consignee</div>
+                    <div class='table_header'>Origin</div>
+                    <div class='table_header'>Destination</div>
+                    <div class='table_header'>Pack Type | Count</div>
+                    <div class='table_header'>Weight</div>
+                    <div class='table_header'>Volume</div>
+                    <div class='table_header'>Terms</div>
+                </div>
+
+                <div class='table_row'
+                    style="font-size: 11px;">
+                    <div class='table_small'>
+                        <div class='table_cell'>Shipment #</div>
+                        <div class='table_cell'><strong>{{cntBuyerViewShipmentCtrl.ePage.Entities.Header.Data.Shipment.UIShipmentHeader.ShipmentNo}}</strong></div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>HBL</div>
+                        <div class='table_cell'><strong>{{cntBuyerViewShipmentCtrl.ePage.Entities.Header.Data.Shipment.UIShipmentHeader.HouseBill}}</strong></div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Shipper</div>
+                        <div class='table_cell'><strong>{{cntBuyerViewShipmentCtrl.ePage.Entities.Header.Data.Shipment.UIShipmentHeader.ShipperName}}</strong></div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Consignee</div>
+                        <div class='table_cell'><strong>{{cntBuyerViewShipmentCtrl.ePage.Entities.Header.Data.Shipment.UIShipmentHeader.ConsigneeName}}</strong></div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Origin</div>
+                        <div class='table_cell'><strong>{{cntBuyerViewShipmentCtrl.ePage.Entities.Header.Data.Shipment.UIShipmentHeader.Origin}}</strong></div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Destination</div>
+                        <div class='table_cell'><strong>{{cntBuyerViewShipmentCtrl.ePage.Entities.Header.Data.Shipment.UIShipmentHeader.Destination}}</strong></div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Pack Type | Count</div>
+                        <div class='table_cell'><strong>{{cntBuyerViewShipmentCtrl.ePage.Entities.Header.Data.Shipment.UIShipmentHeader.PackCount}}</strong></div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Weight</div>
+                        <div class='table_cell'><strong>{{cntBuyerViewShipmentCtrl.ePage.Entities.Header.Data.Shipment.UIShipmentHeader.Volume}}-{{cntBuyerViewShipmentCtrl.ePage.Entities.Header.Data.Shipment.UIShipmentHeader.UnitOfVolume}}</strong></div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Volume</div>
+                        <div class='table_cell'><strong>{{cntBuyerViewShipmentCtrl.ePage.Entities.Header.Data.Shipment.UIShipmentHeader.Weight}}-{{cntBuyerViewShipmentCtrl.ePage.Entities.Header.Data.Shipment.UnitOfWeight}}</strong></div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Terms</div>
+                        <div class='table_cell'><strong>{{cntBuyerViewShipmentCtrl.ePage.Entities.Header.Data.Shipment.UIShipmentHeader.IncoTerm}}</strong></div>
+                    </div>
+                </div>
+            </div>
+            <!-- List Empty Response -->
+        </div>
+    </div>
+</div>

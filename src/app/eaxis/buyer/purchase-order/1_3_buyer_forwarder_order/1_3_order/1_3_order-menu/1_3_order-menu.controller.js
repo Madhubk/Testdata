@@ -56,6 +56,7 @@
             }
             // validation call
             ValidationCall(one_three_orderMenuCtrl.ePage.Entities.Header.Data);
+            one_three_orderMenuCtrl.ePage.Masters.CopyData = angular.copy(one_three_orderMenuCtrl.ePage.Entities.Header.Data);
         }
 
         function GetMyTaskList(menuList, index) {
@@ -379,8 +380,10 @@
                 var tempArray = [];
                 if ($item[$item.label].ePage.Entities.Header.Data.UIOrderLine_Buyer_Forwarder.length > 0) {
                     $item[$item.label].ePage.Entities.Header.Data.UIOrderLine_Buyer_Forwarder.map(function (val, key) {
-                        if (parseInt(val.Quantity) - parseInt(val.RecievedQuantity) > 0) {
-                            tempArray.push(val);
+                        if (parseInt(val.RecievedQuantity) > 0) {
+                            if (parseInt(val.Quantity) - parseInt(val.RecievedQuantity) > 0) {
+                                tempArray.push(val);
+                            }
                         }
                     });
                     if (tempArray.length == 0) {
@@ -460,6 +463,9 @@
                     }).indexOf(one_three_orderMenuCtrl.currentOrder[one_three_orderMenuCtrl.currentOrder.label].ePage.Entities.Header.Data.PK);
 
                     if (_index !== -1) {
+                        // get validation config
+                        (one_three_orderMenuCtrl.ePage.Masters.CopyData.UIOrder_Buyer_Forwarder.OrderNo != $item[$item.label].ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.OrderNo) ? ValidationCall(Config.TabList[_index][Config.TabList[_index].label].ePage.Entities.Header.Data): false;
+                        one_three_orderMenuCtrl.ePage.Masters.CopyData = angular.copy(response.Data);
                         Config.TabList[_index][Config.TabList[_index].label].ePage.Entities.Header.Data = response.Data;
                         response.Data.UIJobAddress.map(function (val, key) {
                             Config.TabList[_index][Config.TabList[_index].label].ePage.Entities.Header.Data.UIAddressContactList[val.AddressType] = val;

@@ -878,7 +878,7 @@
                             "ShipmentAttach": {
                                 "IsAPI": "true",
                                 "HttpType": "POST",
-                                "Url": "shipmentlist/UpdateRecords"
+                                "Url": "shipmentheader/UpdateRecords"
                             }
                         },
                         "Grid": {

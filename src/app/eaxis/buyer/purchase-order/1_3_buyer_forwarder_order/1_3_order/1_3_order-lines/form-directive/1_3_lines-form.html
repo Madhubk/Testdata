@@ -18,18 +18,19 @@
                                 </div>
                             </div>
                         </div>
+                        <!-- Part # -->
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
                             <div class="form-group ex-line-font">
                                 <label class="control-label">Part #</label>
                                 <div class="input-group input-group-sm">
                                     <div dynamic-lookup my-ng-model="one_three_OrdLinesFormCtrl.ePage.Masters.Data.UIOrderLine_Buyer_Forwarder.PartNo"
                                         obj="one_three_OrdLinesFormCtrl.ePage.Masters.Data.UIOrderLine_Buyer_Forwarder"
-                                        page-name="'OrgSupplierPart'" control-key="'OrdOrgSupplierPartNo_3057'"
-                                        control-id="'OrdOrgSupplierPartNo'" is-editable="true"></div>
+                                        page-name="'CustomerOrgSupplierPart'" control-key="'BP_OrdOrgSupplierPartNo_13330'"
+                                        control-id="'BP_OrdOrgSupplierPartNo'" is-editable="true"></div>
                                     <span class="input-group-btn">
                                         <button dynamic-list-modal obj="one_three_OrdLinesFormCtrl.ePage.Masters.Data.UIOrderLine_Buyer_Forwarder"
-                                            control-key="'OrdOrgSupplierPartNo_3057'" control-id="'OrdOrgSupplierPartNo'"
-                                            page-name="'OrgSupplierPart'" mode="2" grid-refresh-fun-name=""
+                                            control-key="'BP_OrdOrgSupplierPartNo_13330'" control-id="'BP_OrdOrgSupplierPartNo'"
+                                            page-name="'CustomerOrgSupplierPart'" mode="2" grid-refresh-fun-name=""
                                             grid-refresh-fun="" selected-data="one_three_OrdLinesFormCtrl.ePage.Masters.SelectedData($item)"
                                             class="btn btn-default shiny" type="button">
                                             <i class="fa fa-ellipsis-h"></i>
@@ -38,6 +39,7 @@
                                 </div>
                             </div>
                         </div>
+                        <!-- part desc -->
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
                             <div class="form-group ex-line-font">
                                 <label class="control-label">Description</label>
@@ -48,6 +50,7 @@
                                 </div>
                             </div>
                         </div>
+                        <!-- qty -->
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
                             <div class="form-group ex-line-font">
                                 <label class="control-label">Quantity</label>
@@ -407,7 +410,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <!--   -->
+                                <!--  Container Packing Order -->
                                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
                                     <div class="form-group ex-line-font">
                                         <label class="control-label">Container Packing Order</label>
@@ -415,6 +418,60 @@
                                             <input type="text" class="form-control input-sm" placeholder="0.00000"
                                                 numbers-only data-ng-model="one_three_OrdLinesFormCtrl.ePage.Masters.Data.UIOrderLine_Buyer_Forwarder.ContainerPackingOrder"
                                                 maxlength="4" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Supplier Product -->
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-2">
+                                    <div class="form-group ex-line-font">
+                                        <label class="control-label">Supplier Product</label>
+                                        <div class="input-group input-group-sm">
+                                            <div dynamic-lookup my-ng-model="one_three_OrdLinesFormCtrl.ePage.Masters.Data.UIOrderLine_Buyer_Forwarder.SupplierProductCode"
+                                                obj="one_three_OrdLinesFormCtrl.ePage.Masters.Data.UIOrderLine_Buyer_Forwarder"
+                                                page-name="'OrgSupplierPart'" control-key="'BP_OrdOrgSupplierPartNo_13057'"
+                                                control-id="'BP_OrdOrgSupplierPartNo'" is-editable="true"></div>
+                                            <span class="input-group-btn">
+                                                <button dynamic-list-modal obj="one_three_OrdLinesFormCtrl.ePage.Masters.Data.UIOrderLine_Buyer_Forwarder"
+                                                    control-key="'BP_OrdOrgSupplierPartNo_13057'" control-id="'BP_OrdOrgSupplierPartNo'"
+                                                    page-name="'OrgSupplierPart'" mode="2" grid-refresh-fun-name=""
+                                                    grid-refresh-fun="" selected-data="one_three_OrdLinesFormCtrl.ePage.Masters.SelectedData($item)"
+                                                    class="btn btn-default shiny" type="button">
+                                                    <i class="fa fa-ellipsis-h"></i>
+                                                </button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Harmonized Tariff Code -->
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                                    <div class="form-group ex-line-font">
+                                        <label class="control-label">Harmonized Tariff Code</label>
+                                        <div class="">
+                                            <input type="text" class="form-control input-sm" placeholder="Harmonized Tariff Code"
+                                                data-ng-model="one_three_OrdLinesFormCtrl.ePage.Masters.Data.UIOrderLine_Buyer_Forwarder.HSCode" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Manufacturing Date -->
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                                    <div class="form-group ex-line-font">
+                                        <label class="control-label">Manufacturing Date</label>
+                                        <div class="input-group input-group-sm">
+                                            <input type="text" class="form-control" placeholder="{{one_three_OrdLinesFormCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                                data-ng-model="one_three_OrdLinesFormCtrl.ePage.Masters.Data.UIOrderLine_Buyer_Forwarder.MfgDate"
+                                                datetime-picker="{{one_three_OrdLinesFormCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                                datepicker-options="one_three_OrdLinesFormCtrl.ePage.Masters.DatePicker.Options"
+                                                datepicker-append-to-body="false" close-on-selection="false"
+                                                enable-time="false" enable-date="true" default-date="" default-time=""
+                                                save-as="one_three_OrdLinesFormCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                                                is-open="one_three_OrdLinesFormCtrl.ePage.Masters.DatePicker.isOpen['isMfgDate']"
+                                                when-closed="" data-ng-click="one_three_OrdLinesFormCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isMfgDate')"
+                                                custom-date-time-format />
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default shiny" data-ng-click="one_three_OrdLinesFormCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isMfgDate')">
+                                                    <i class="fa fa-calendar"></i>
+                                                </button>
+                                            </span>
                                         </div>
                                     </div>
                                 </div>
@@ -479,14 +536,47 @@
                                         <div class="form-group ex-line-font">
                                             <label class="control-label">Container #</label>
                                             <div class="">
-                                                <select chosen multiple search-contains="true" name="category-group"
+                                                <!-- <select chosen multiple search-contains="true" name="category-group"
                                                     class="form-control" data-ng-model="one_three_OrdLinesFormCtrl.ePage.Masters.Data.UIOrderLine_Buyer_Forwarder.ContainerNumber"
                                                     data-ng-options="x.ContainerNo for x in one_three_OrdLinesFormCtrl.ePage.Entities.Header.Meta.Container.ListSource"
                                                     data-ng-change="one_three_OrdLinesFormCtrl.ePage.Masters.OnContainerChange((one_three_OrdLinesFormCtrl.ePage.Entities.Header.Meta.Container.ListSource | filter: {ContainerNo: one_three_OrdLinesFormCtrl.ePage.Masters.Data.UIOrderLine_Buyer_Forwarder.ContainerNumber})[0], one_three_OrdLinesFormCtrl.ePage.Masters.Data.UIOrderLine_Buyer_Forwarder.ContainerNumber)"
                                                     search-contains="true">
                                                     <option value=""></option>
-                                                </select>
+                                                </select> -->
+                                                <!-- <select chosen name="category-group" class="form-control" data-ng-model="one_three_OrdLinesFormCtrl.ePage.Masters.Data.UIOrderLine_Buyer_Forwarder.ContainerNumber"
+                                                data-ng-options="x.ContainerNo as x.ContainerNo for x in one_three_OrdLinesFormCtrl.ePage.Entities.Header.Meta.Container.ListSource"
+                                                search-contains="true" >
+                                                <option value="">--Select--</option>
+                                            </select> -->
+                                            <input type="text" class="form-control input-sm" 
+                                                 data-ng-model="one_three_OrdLinesFormCtrl.ePage.Masters.Data.UIOrderLine_Buyer_Forwarder.ContainerNumber"
+                                                />
                                             </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <!-- Expiry Date -->
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                                    <div class="form-group ex-line-font">
+                                        <label class="control-label">Expiry Date</label>
+                                        <div class="input-group input-group-sm">
+                                            <input type="text" class="form-control" placeholder="{{one_three_OrdLinesFormCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                                data-ng-model="one_three_OrdLinesFormCtrl.ePage.Masters.Data.UIOrderLine_Buyer_Forwarder.ExpiryDate"
+                                                datetime-picker="{{one_three_OrdLinesFormCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                                datepicker-options="one_three_OrdLinesFormCtrl.ePage.Masters.DatePicker.Options"
+                                                datepicker-append-to-body="false" close-on-selection="false"
+                                                enable-time="false" enable-date="true" default-date="" default-time=""
+                                                save-as="one_three_OrdLinesFormCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                                                is-open="one_three_OrdLinesFormCtrl.ePage.Masters.DatePicker.isOpen['isExpiryDate']"
+                                                when-closed="" data-ng-click="one_three_OrdLinesFormCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isExpiryDate')"
+                                                custom-date-time-format />
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default shiny" data-ng-click="one_three_OrdLinesFormCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isExpiryDate')">
+                                                    <i class="fa fa-calendar"></i>
+                                                </button>
+                                            </span>
                                         </div>
                                     </div>
                                 </div>
@@ -503,7 +593,7 @@
                 </uib-tab-heading>
                 <div class="clearfix padding-top-20">
                     <dynamic-control data-ng-if="one_three_OrdLinesFormCtrl.ePage.Masters.DynamicControl" input="one_three_OrdLinesFormCtrl.ePage.Masters.DynamicControl"
-                        mode="S" controls-data="one_three_OrdLinesFormCtrl.ePage.Masters.ControlsData($item)"></dynamic-control>
+                        mode="S" controls-data="one_three_OrdLinesFormCtrl.ePage.Masters.ControlsData($item)" view-type="2"></dynamic-control>
                 </div>
             </uib-tab>
             <!--Job Delivery-->
@@ -585,12 +675,13 @@
                                 <div class="input-group input-group-sm">
                                     <div dynamic-lookup my-ng-model="one_three_OrdLinesFormCtrl.ePage.Masters.LineDelivery.FormView.DeliveryPoint"
                                         obj="one_three_OrdLinesFormCtrl.ePage.Masters.LineDelivery.FormView" page-name="'MstUNLOCO'"
-                                        control-key="'DeliveryPoint_3315'" control-id="'DeliveryPoint'"></div>
+                                        control-key="'BP_DeliveryPoint_13315'" control-id="'BP_DeliveryPoint'"></div>
                                     <span class="input-group-btn">
                                         <button dynamic-list-modal obj="one_three_OrdLinesFormCtrl.ePage.Masters.LineDelivery.FormView"
-                                            control-key="'DeliveryPoint_3315'" control-id="'DeliveryPoint'" page-name="'MstUNLOCO'"
-                                            mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="OrdGeneralCtrl.ePage.Masters.SelectedData($item)"
-                                            class="btn btn-default shiny" type="button">
+                                            control-key="'BP_DeliveryPoint_13315'" control-id="'BP_DeliveryPoint'"
+                                            page-name="'MstUNLOCO'" mode="2" grid-refresh-fun-name="" grid-refresh-fun=""
+                                            selected-data="OrdGeneralCtrl.ePage.Masters.SelectedData($item)" class="btn btn-default shiny"
+                                            type="button">
                                             <i class="fa fa-ellipsis-h"></i>
                                         </button>
                                     </span>
@@ -604,10 +695,10 @@
                                 <div class="input-group input-group-sm">
                                     <div dynamic-lookup my-ng-model="one_three_OrdLinesFormCtrl.ePage.Masters.LineDelivery.FormView.DestinationPort"
                                         obj="one_three_OrdLinesFormCtrl.ePage.Masters.LineDelivery.FormView" page-name="'MstUNLOCO'"
-                                        control-key="'DestinationPort_3094'" control-id="'DestinationPort'"></div>
+                                        control-key="'BP_DestinationPort_13094'" control-id="'BP_DestinationPort'"></div>
                                     <span class="input-group-btn">
                                         <button dynamic-list-modal obj="one_three_OrdLinesFormCtrl.ePage.Masters.LineDelivery.FormView"
-                                            control-key="'DestinationPort_3094'" control-id="'DestinationPort'"
+                                            control-key="'BP_DestinationPort_13094'" control-id="'BP_DestinationPort'"
                                             page-name="'MstUNLOCO'" mode="2" grid-refresh-fun-name="" grid-refresh-fun=""
                                             selected-data="OrdGeneralCtrl.ePage.Masters.SelectedData($item)" class="btn btn-default shiny"
                                             type="button">
@@ -660,7 +751,7 @@
                 </div>
                 <div class="clearfix padding-top-20" data-ng-if="one_three_OrdLinesFormCtrl.ePage.Masters.LineDelivery.IsFormView">
                     <dynamic-control data-ng-if="one_three_OrdLinesFormCtrl.ePage.Masters.DynamicControl1" input="one_three_OrdLinesFormCtrl.ePage.Masters.DynamicControl1"
-                        mode="S" controls-data="one_three_OrdLinesFormCtrl.ePage.Masters.ControlsData($item)"></dynamic-control>
+                        mode="S" controls-data="one_three_OrdLinesFormCtrl.ePage.Masters.ControlsData($item)" view-type="2"></dynamic-control>
                 </div>
             </uib-tab>
         </uib-tabset>

@@ -150,7 +150,7 @@
                 "IsCreated": "POBatch Upload"
             };
             _queryString = helperService.encryptData(_queryString);
-            $location.path('/EA/PO/po-batch-upload').search({
+            $location.path('/EA/Buyer/Order/po-batch-upload').search({
                 item: _queryString
             });
         }

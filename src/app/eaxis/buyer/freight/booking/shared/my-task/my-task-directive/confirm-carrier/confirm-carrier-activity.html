@@ -1,5 +1,419 @@
-<div class="clearfix">
-    <routing-grid current-object="ConfirmCarrierCtrl.ePage.Masters.currentShipment" key-object-name="'SHP'" fk-name="'PK'"
-        api-header-name="'UIShipmentHeader'" api-header-field-name="'PK'" api-header-value-name="'CON_FK'" btn-visible="{'AddNew':false,'Delete':false,'More':false,'Pagination':false}"
-        table-properties="ConfirmCarrierCtrl.ePage.Masters.RoutingHeader" read-only="true"></routing-grid>
-</div>
+<!-- <div class="error-modal-hide"> -->
+    <div class="clearfix mt-10" data-ng-show="!ConfirmCarrierCtrl.ePage.Masters.UIJobRoutes.IsFormView">
+        <div class="clearfix">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                <span>
+                    <button class="btn btn-sm btn-outline-secondary" data-ng-click="ConfirmCarrierCtrl.ePage.Masters.UIJobRoutes.AddNewSailing()"
+                        data-ng-show="!ConfirmCarrierCtrl.ePage.Masters.UIJobRoutes.IsFormView">
+                        <span class="fa fa-plus"></span>&nbsp;&nbsp;Add Sailing
+
+                </span>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            <div id='' class="common_table_scroll common_table_hgt pt-2">
+                <div class="table tab-position" id="results">
+                    <div class='theader'>
+                        <div class='table_header'>Carrier</div>
+                        <div class='table_header'>Vessel</div>
+                        <div class='table_header'>Voyage</div>
+                        <div class='table_header'>ETD</div>
+                        <div class='table_header'>ETA</div>
+                        <div class='table_header'>POL</div>
+                        <div class='table_header'>POD</div>
+                        <div class='table_header'>Cargo Cut Off Date</div>
+                        <div class='table_header'>Document Cut Off Date</div>
+                        <div class='table_header'>Action</div>
+                    </div>
+                    <div class='table_row' data-ng-repeat="x in ConfirmCarrierCtrl.ePage.Masters.UIJobRoutes.GridData"
+                        data-ng-if="ConfirmCarrierCtrl.ePage.Masters.UIJobRoutes.GridData && ConfirmCarrierCtrl.ePage.Masters.UIJobRoutes.GridData.length > 0"
+                        style="font-size: 11px;">
+                        <div class='table_small'>
+                            <div class='table_cell'>Carrier</div>
+                            <div class='table_cell'>
+                                <b>{{x.CarrierOrg_Code}}</b>
+                            </div>
+                        </div>
+                        <div class='table_small'>
+                            <div class='table_cell'>Vessel</div>
+                            <div class='table_cell'>{{x.Vessel}}</div>
+                        </div>
+                        <div class='table_small'>
+                            <div class='table_cell'>Voyage</div>
+                            <div class='table_cell'>
+                                {{x.VoyageFlight}}
+                            </div>
+                        </div>
+                        <div class='table_small'>
+                            <div class='table_cell'>ETD</div>
+                            <div class='table_cell'>
+                                {{x.ETD | date:'dd-MMM-yy'}}
+                            </div>
+                        </div>
+                        <div class='table_small'>
+                            <div class='table_cell'>ETA</div>
+                            <div class='table_cell'>
+                                {{x.ETA | date:'dd-MMM-yy'}}
+                            </div>
+                        </div>
+                        <div class='table_small'>
+                            <div class='table_cell'>POL</div>
+                            <div class='table_cell'>
+                                {{x.LoadPort}}
+                            </div>
+                        </div>
+                        <div class='table_small'>
+                            <div class='table_cell'>POD</div>
+                            <div class='table_cell'>
+                                {{x.DischargePort}}
+                            </div>
+                        </div>
+                        <div class='table_small'>
+                            <div class='table_cell'>Cargo Cut Off Date</div>
+                            <div class='table_cell'>
+                                {{x.CargoCutOffDate | date:'dd-MMM-yy'}}
+                            </div>
+                        </div>
+                        <div class='table_small'>
+                            <div class='table_cell'>Document Cut Off Date</div>
+                            <div class='table_cell'>
+                                {{x.DocumentCutOffDate | date:'dd-MMM-yy'}}
+                            </div>
+                        </div>
+                        <div class='table_small'>
+                            <div class='table_cell'>Action</div>
+                            <div class='table_cell'>
+                                <i class="fa fa-pencil order-icon" data-ng-click="ConfirmCarrierCtrl.ePage.Masters.UIJobRoutes.SelectedGridRow(x,'edit')"></i>
+                                <!-- <i class="fa fa-trash order-icon" data-ng-click="ConfirmCarrierCtrl.ePage.Masters.UIJobRoutes.SelectedGridRow(x,'delete')"></i> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- List Empty Response -->
+                <div class="text-center grid-view-loader" data-ng-if="!ConfirmCarrierCtrl.ePage.Masters.UIJobRoutes.GridData">
+                    <i class="fa fa-spin fa-spinner font-160"></i>
+                </div>
+                <div>
+                    <div class="grid-no-record-common_table" data-ng-if="ConfirmCarrierCtrl.ePage.Masters.UIJobRoutes.GridData.length==0">No
+                        records found...</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix mt-10" data-ng-show="ConfirmCarrierCtrl.ePage.Masters.UIJobRoutes.IsFormView">
+        <div class="clearfix margin-bottom-10 service-details-heading">
+            <div class="text-center clearfix">
+                <i class="fa fa-angle-double-left fa-sm pull-left btn  btn-link" data-ng-click="ConfirmCarrierCtrl.ePage.Masters.UIJobRoutes.IsFormView = false"></i>
+                <span class="heading">Sailing Details</span>
+            </div>
+        </div>
+        <div class="clearfix">
+            <!--Truck Ref-->
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3" data-ng-show="ConfirmCarrierCtrl.ePage.Entities.Header.Data.UIShipmentHeader.TransportMode=='ROA'">
+                <div class="form-group ex-line-font">
+                    <label class="control-label">Truck Ref</label>
+                    <div class="">
+                        <input type="text" class="form-control input-sm" placeholder="Truck Ref" data-ng-model="ConfirmCarrierCtrl.ePage.Masters.UIJobRoutes.FormView.Vessel" />
+                    </div>
+                </div>
+            </div>
+            <!--Type-->
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <span class="error-warning-container">
+                    <error-warning-directive data-ng-if="ConfirmCarrierCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.CarrierOrg_Code.IsWarning && !ConfirmCarrierCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.CarrierOrg_Code.IsError"
+                        list="ConfirmCarrierCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.CarrierOrg_Code.WARNING"
+                        type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                    <error-warning-directive data-ng-if="ConfirmCarrierCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.CarrierOrg_Code.IsError"
+                        list="ConfirmCarrierCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.CarrierOrg_Code.ERROR"
+                        type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                </span>
+                <div class="form-group ex-line-font">
+                    <label class="control-label">Carrier</label>
+                    <div class="input-group input-group-sm">
+                        <input type="hidden" ng-model="ConfirmCarrierCtrl.ePage.Masters.UIJobRoutes.FormView.CarrierOrg_FK">
+                        <div dynamic-lookup my-ng-model="ConfirmCarrierCtrl.ePage.Masters.UIJobRoutes.FormView.CarrierOrg_Code"
+                            obj="ConfirmCarrierCtrl.ePage.Masters.UIJobRoutes.FormView" page-name="'OrgCarrierList'"
+                            control-id="'BP_ShpCarrierOrg'" control-key="'BP_ShpCarrierOrg_12962'"
+                            auto-complete-on-select="ConfirmCarrierCtrl.ePage.Masters.SelectedLookupData($item,'CarrierOrg_Code')"></div>
+                        <span class="input-group-btn">
+                            <button dynamic-list-modal obj="ConfirmCarrierCtrl.ePage.Masters.UIJobRoutes.FormView"
+                                control-id="'BP_ShpCarrierOrg'" control-key="'BP_ShpCarrierOrg_12962'" page-name="'OrgCarrierList'"
+                                mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="ConfirmCarrierCtrl.ePage.Masters.SelectedLookupData($item.data.entity,'CarrierOrg_Code')"
+                                class="btn btn-default shiny" type="button">
+                                <i class="fa fa-ellipsis-h"></i>
+                            </button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <!-- Vessel -->
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <span class="error-warning-container">
+                    <error-warning-directive data-ng-if="ConfirmCarrierCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Vessel.IsWarning && !ConfirmCarrierCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Vessel.IsError"
+                        list="ConfirmCarrierCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Vessel.WARNING" type="'warning'"
+                        icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                    <error-warning-directive data-ng-if="ConfirmCarrierCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Vessel.IsError"
+                        list="ConfirmCarrierCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Vessel.ERROR" type="'error'"
+                        icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                </span>
+                <div class="form-group ex-line-font">
+                    <label class="control-label text-single-line">Vessel</label>
+                    <div class="input-group input-group-sm">
+                        <input type="hidden" ng-model="ConfirmCarrierCtrl.ePage.Masters.UIJobRoutes.FormView.Vessel_FK">
+                        <div dynamic-lookup placeholder="Vessel" my-ng-model="ConfirmCarrierCtrl.ePage.Masters.UIJobRoutes.FormView.Vessel"
+                            obj="ConfirmCarrierCtrl.ePage.Masters.UIJobRoutes.FormView" page-name="'MstVessel'"
+                            control-id="'BP_OrdPlannedVessel'" control-key="'BP_OrdPlannedVessel_13185'"
+                            auto-complete-on-select="ConfirmCarrierCtrl.ePage.Masters.SelectedLookupData($item,'Vessel')"></div>
+                        <span class="input-group-btn">
+                            <button dynamic-list-modal obj="ConfirmCarrierCtrl.ePage.Masters.UIJobRoutes.FormView"
+                                page-name="'MstVessel'" control-id="'BP_OrdPlannedVessel'" control-key="'BP_OrdPlannedVessel_13185'"
+                                mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="ConfirmCarrierCtrl.ePage.Masters.SelectedLookupData($item.data.entity,'Vessel')"
+                                class="btn btn-default shiny" type="button">
+                                <i class="fa fa-ellipsis-h"></i>
+                            </button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <!-- Voyage -->
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <span class="error-warning-container">
+                    <error-warning-directive data-ng-if="ConfirmCarrierCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.VoyageFlight.IsWarning && !ConfirmCarrierCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.VoyageFlight.IsError"
+                        list="ConfirmCarrierCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.VoyageFlight.WARNING"
+                        type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                    <error-warning-directive data-ng-if="ConfirmCarrierCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.VoyageFlight.IsError"
+                        list="ConfirmCarrierCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.VoyageFlight.ERROR"
+                        type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                </span>
+                <div class="form-group ex-line-font">
+                    <label for="" data-ng-show="ConfirmCarrierCtrl.ePage.Entities.Header.Data.UIShipmentHeader.TransportMode =='SEA'"
+                        class="control-label">Voyage</label>
+                    <label for="" data-ng-show="ConfirmCarrierCtrl.ePage.Entities.Header.Data.UIShipmentHeader.TransportMode =='AIR'"
+                        class="control-label">Flight</label>
+                    <label for="" data-ng-show="ConfirmCarrierCtrl.ePage.Entities.Header.Data.UIShipmentHeader.TransportMode =='ROA'"
+                        class="control-label">Truck Reference</label>
+                    <input type="text" data-ng-show="ConfirmCarrierCtrl.ePage.Entities.Header.Data.UIShipmentHeader.TransportMode =='SEA'"
+                        class="form-control input-sm" ng-change="ConfirmCarrierCtrl.ePage.Masters.OnFieldValueChange()"
+                        placeholder="Voyage" max-length="1" data-ng-model="ConfirmCarrierCtrl.ePage.Masters.UIJobRoutes.FormView.VoyageFlight">
+                    <input type="text" data-ng-show="ConfirmCarrierCtrl.ePage.Entities.Header.Data.UIShipmentHeader.TransportMode =='AIR'"
+                        class="form-control input-sm" ng-change="ConfirmCarrierCtrl.ePage.Masters.OnFieldValueChange()"
+                        placeholder="Flight" max-length="1" data-ng-model="ConfirmCarrierCtrl.ePage.Masters.UIJobRoutes.FormView.VoyageFlight">
+                    <input type="text" data-ng-show="ConfirmCarrierCtrl.ePage.Entities.Header.Data.UIShipmentHeader.TransportMode =='ROA'"
+                        class="form-control input-sm" ng-change="ConfirmCarrierCtrl.ePage.Masters.OnFieldValueChange()"
+                        placeholder="Truck Reference" max-length="1" data-ng-model="ConfirmCarrierCtrl.ePage.Masters.UIJobRoutes.FormView.VoyageFlight">
+                </div>
+            </div>
+
+            <!--POL-->
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <span class="error-warning-container">
+                    <error-warning-directive data-ng-if="ConfirmCarrierCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.LoadPort.IsWarning && !ConfirmCarrierCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.LoadPort.IsError"
+                        list="ConfirmCarrierCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.LoadPort.WARNING"
+                        type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                    <error-warning-directive data-ng-if="ConfirmCarrierCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.LoadPort.IsError"
+                        list="ConfirmCarrierCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.LoadPort.ERROR" type="'error'"
+                        icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                </span>
+                <div class="form-group ex-line-font">
+                    <label class="control-label text-single-line">POL </label>
+                    <div class="input-group input-group-sm">
+                        <div dynamic-lookup placeholder="Origin" my-ng-model="ConfirmCarrierCtrl.ePage.Masters.UIJobRoutes.FormView.LoadPort"
+                            obj="ConfirmCarrierCtrl.ePage.Masters.UIJobRoutes.FormView" page-name="'MstUNLOCO'"
+                            control-id="'BP_OrdListPortOfLoading'" control-key="'BP_OrdListPortOfLoading_13087'"
+                            auto-complete-on-select="ConfirmCarrierCtrl.ePage.Masters.SelectedLookupData($item,'LoadPort')"></div>
+                        <span class="input-group-btn">
+                            <button dynamic-list-modal obj="ConfirmCarrierCtrl.ePage.Masters.UIJobRoutes.FormView"
+                                page-name="'MstUNLOCO'" control-id="'BP_OrdListPortOfLoading'" control-key="'BP_OrdListPortOfLoading_13087'"
+                                mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="ConfirmCarrierCtrl.ePage.Masters.SelectedLookupData($item.data.entity,'LoadPort')"
+                                class="btn btn-default shiny" type="button">
+                                <i class="fa fa-ellipsis-h"></i>
+                            </button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <!--POD-->
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <span class="error-warning-container">
+                    <error-warning-directive data-ng-if="ConfirmCarrierCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.DischargePort.IsWarning && !ConfirmCarrierCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.DischargePort.IsError"
+                        list="ConfirmCarrierCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.DischargePort.WARNING"
+                        type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                    <error-warning-directive data-ng-if="ConfirmCarrierCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.DischargePort.IsError"
+                        list="ConfirmCarrierCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.DischargePort.ERROR"
+                        type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                </span>
+                <div class="form-group ex-line-font">
+                    <label class="control-label text-single-line">POD </label>
+                    <div class="input-group input-group-sm">
+                        <div dynamic-lookup placeholder="Destination" my-ng-model="ConfirmCarrierCtrl.ePage.Masters.UIJobRoutes.FormView.DischargePort"
+                            obj="ConfirmCarrierCtrl.ePage.Masters.UIJobRoutes.FormView" page-name="'MstUNLOCO'"
+                            control-id="'BP_PortOfDischarge'" control-key="'BP_PortOfDischarge_13077'"
+                            auto-complete-on-select="ConfirmCarrierCtrl.ePage.Masters.SelectedLookupData($item,'DischargePort')"></div>
+                        <span class="input-group-btn">
+                            <button dynamic-list-modal obj="ConfirmCarrierCtrl.ePage.Masters.UIJobRoutes.FormView"
+                                page-name="'MstUNLOCO'" control-id="'BP_PortOfDischarge'" control-key="'BP_PortOfDischarge_13077'"
+                                mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="ConfirmCarrierCtrl.ePage.Masters.SelectedLookupData($item.data.entity,'DischargePort')"
+                                class="btn btn-default shiny" type="button">
+                                <i class="fa fa-ellipsis-h"></i>
+                            </button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <!--ETD-->
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <span class="error-warning-container">
+                    <error-warning-directive data-ng-if="ConfirmCarrierCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ETD.IsWarning && !ConfirmCarrierCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ETD.IsError"
+                        list="ConfirmCarrierCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ETD.WARNING" type="'warning'"
+                        icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                    <error-warning-directive data-ng-if="ConfirmCarrierCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ETD.IsError"
+                        list="ConfirmCarrierCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ETD.ERROR" type="'error'"
+                        icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                </span>
+                <div class="form-group ex-line-font">
+                    <label class="ontrol-label">ETD</label>
+                    <div class="input-group input-group-sm">
+                        <input type="text" class="form-control" placeholder="{{ConfirmCarrierCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                            data-ng-model="ConfirmCarrierCtrl.ePage.Masters.UIJobRoutes.FormView.ETD" datetime-picker="{{ConfirmCarrierCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                            datepicker-options="ConfirmCarrierCtrl.ePage.Masters.DatePicker.Options"
+                            datepicker-append-to-body="false" close-on-selection="false" enable-time="false"
+                            enable-date="true" default-date="" default-time="" save-as="ConfirmCarrierCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                            is-open="ConfirmCarrierCtrl.ePage.Masters.DatePicker.isOpen['issETD']" when-closed=""
+                            data-ng-click="ConfirmCarrierCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'issETD')"
+                            data-ng-change="ConfirmCarrierCtrl.ePage.Masters.OnFieldValueChange()"
+                            custom-date-time-format />
+                        <span class="input-group-btn">
+                            <button class="btn btn-default shiny" data-ng-click="ConfirmCarrierCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'issETD')">
+                                <i class="fa fa-calendar"></i>
+                            </button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <!--ETA-->
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <span class="error-warning-container">
+                    <error-warning-directive data-ng-if="ConfirmCarrierCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ETA.IsWarning && !ConfirmCarrierCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ETA.IsError"
+                        list="ConfirmCarrierCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ETA.WARNING" type="'warning'"
+                        icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                    <error-warning-directive data-ng-if="ConfirmCarrierCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ETA.IsError"
+                        list="ConfirmCarrierCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ETA.ERROR" type="'error'"
+                        icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                </span>
+                <div class="form-group ex-line-font">
+                    <label class="control-label text-single-line">ETA </label>
+                    <div class="input-group input-group-sm">
+                        <input type="text" class="form-control" placeholder="{{ConfirmCarrierCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                            data-ng-model="ConfirmCarrierCtrl.ePage.Masters.UIJobRoutes.FormView.ETA" datetime-picker="{{ConfirmCarrierCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                            datepicker-options="ConfirmCarrierCtrl.ePage.Masters.DatePicker.Options"
+                            datepicker-append-to-body="false" close-on-selection="false" enable-time="false"
+                            enable-date="true" default-date="" default-time="" save-as="ConfirmCarrierCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                            is-open="ConfirmCarrierCtrl.ePage.Masters.DatePicker.isOpen['issETA']" when-closed=""
+                            data-ng-click="ConfirmCarrierCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'issETA')"
+                            data-ng-change="ConfirmCarrierCtrl.ePage.Masters.OnFieldValueChange()"
+                            custom-date-time-format />
+                        <span class="input-group-btn">
+                            <button class="btn btn-default shiny" data-ng-click="ConfirmCarrierCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'issETA')">
+                                <i class="fa fa-calendar"></i>
+                            </button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <!--Cargo Cut Off Date-->
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <span class="error-warning-container">
+                    <error-warning-directive data-ng-if="ConfirmCarrierCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.CargoCutOffDate.IsWarning && !ConfirmCarrierCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.CargoCutOffDate.IsError"
+                        list="ConfirmCarrierCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.CargoCutOffDate.WARNING"
+                        type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                    <error-warning-directive data-ng-if="ConfirmCarrierCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.CargoCutOffDate.IsError"
+                        list="ConfirmCarrierCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.CargoCutOffDate.ERROR"
+                        type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                </span>
+                <div class="form-group ex-line-font">
+                    <label class="control-label">Cargo Cut Off Date</label>
+                    <div class="input-group input-group-sm">
+                        <input type="text" class="form-control" placeholder="{{ConfirmCarrierCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                            data-ng-model="ConfirmCarrierCtrl.ePage.Masters.UIJobRoutes.FormView.CargoCutOffDate"
+                            datetime-picker="{{ConfirmCarrierCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                            datepicker-options="ConfirmCarrierCtrl.ePage.Masters.DatePicker.Options"
+                            datepicker-append-to-body="false" close-on-selection="false" enable-time="false"
+                            enable-date="true" default-date="" default-time="" save-as="ConfirmCarrierCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                            is-open="ConfirmCarrierCtrl.ePage.Masters.DatePicker.isOpen['issCargoCutOffDate']"
+                            when-closed="" data-ng-click="ConfirmCarrierCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'issCargoCutOffDate')"
+                            data-ng-change="ConfirmCarrierCtrl.ePage.Masters.OnFieldValueChange()"
+                            custom-date-time-format />
+                        <span class="input-group-btn">
+                            <button class="btn btn-default shiny" data-ng-click="ConfirmCarrierCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'issCargoCutOffDate')">
+                                <i class="fa fa-calendar"></i>
+                            </button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <!--Booking Cut Off Date-->
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <span class="error-warning-container">
+                    <error-warning-directive data-ng-if="ConfirmCarrierCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.DocumentCutOffDate.IsWarning && !ConfirmCarrierCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.DocumentCutOffDate.IsError"
+                        list="ConfirmCarrierCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.DocumentCutOffDate.WARNING"
+                        type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                    <error-warning-directive data-ng-if="ConfirmCarrierCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.DocumentCutOffDate.IsError"
+                        list="ConfirmCarrierCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.DocumentCutOffDate.ERROR"
+                        type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                </span>
+                <div class="form-group ex-line-font">
+                    <label class="control-label text-single-line">Document Cut Off Date </label>
+                    <div class="input-group input-group-sm">
+                        <input type="text" class="form-control" placeholder="{{ConfirmCarrierCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                            data-ng-model="ConfirmCarrierCtrl.ePage.Masters.UIJobRoutes.FormView.DocumentCutOffDate"
+                            datetime-picker="{{ConfirmCarrierCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                            datepicker-options="ConfirmCarrierCtrl.ePage.Masters.DatePicker.Options"
+                            datepicker-append-to-body="false" close-on-selection="false" enable-time="false"
+                            enable-date="true" default-date="" default-time="" save-as="ConfirmCarrierCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                            is-open="ConfirmCarrierCtrl.ePage.Masters.DatePicker.isOpen['issDocumentCutOffDate']"
+                            when-closed="" data-ng-click="ConfirmCarrierCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'issDocumentCutOffDate')"
+                            data-ng-change="ConfirmCarrierCtrl.ePage.Masters.OnFieldValueChange()"
+                            custom-date-time-format />
+                        <span class="input-group-btn">
+                            <button class="btn btn-default shiny" data-ng-click="ConfirmCarrierCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'issDocumentCutOffDate')">
+                                <i class="fa fa-calendar"></i>
+                            </button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 margin-top-30">
+                <input type="button" class="btn btn-sm btn-outline-secondary pull-right margin-left-5" data-ng-click="ConfirmCarrierCtrl.ePage.Masters.UIJobRoutes.AddToGridSailing(ConfirmCarrierCtrl.ePage.Masters.UIJobRoutes.AddNewAndUpdate)"
+                    value="{{ConfirmCarrierCtrl.ePage.Masters.UIJobRoutes.AddNewAndUpdate}}">
+            </div>
+        </div>
+    </div>
+    <div class="error-warning-container right" id="errorWarningContainer{{ConfirmCarrierCtrl.ePage.Masters.currentShipment.code}}">
+        <div class="error-warning-header clearfix">
+            <span class="title pull-left">
+                <!-- <i class="fa fa-warning"></i>  -->
+                Errors & Warnings
+            </span>
+            <span class="error-warning-toggle-icon pull-right" data-ng-click="ConfirmCarrierCtrl.ePage.Masters.ShowErrorWarningModal(ConfirmCarrierCtrl.ePage.Masters.currentShipment)">
+                <i class="fa fa-arrow-right"></i>
+            </span>
+        </div>
+        <div class="error-warning-body">
+            <div class="clearfix" data-ng-if="ConfirmCarrierCtrl.ePage.Masters.ErrorWarningConfig.Modules.VesselPlanning.Entity[ConfirmCarrierCtrl.ePage.Masters.currentShipment.code].GlobalErrorWarningList.length>0">
+                <div class="clearfix">
+                    <div class="p-5 error-warnig-list clearfix" data-ng-repeat="x in ConfirmCarrierCtrl.ePage.Masters.ErrorWarningConfig.Modules.VesselPlanning.Entity[ConfirmCarrierCtrl.ePage.Masters.currentShipment.code].GlobalErrorWarningList">
+                        <div class="clearfix">
+                            <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 p-0 text-center">
+                                <span class=" fa fa-warning" data-ng-style="{color: {'W':'#FFAD33', 'E':'#ED4337'}[x.MessageType]}"></span>
+                            </div>
+                            <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11 pr-0">
+                                <div class="message" data-ng-bind="x.Code + ' - ' + x.Message"></div>
+                                <div class="meta-object" data-ng-bind="x.MetaObject"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<!-- </div> -->

@@ -1,0 +1,112 @@
+<div class="clearfix">
+    <div class="col-lg-12 col-md-12 col-xl-12 col-sm-12 col-xs-12 mb-10 no-padding">
+        <uib-tabset id="ShippingBillDeatils">
+            <!--Shipment Details Tab-->
+            <uib-tab>
+                <uib-tab-heading title="Shipment">
+                    <i class="menu-icon icomoon icon-shipment"></i>
+                    <span class="text-single-line fs-13" data-ng-bind="'Shipment'"></span>
+                </uib-tab-heading>
+                <div>
+                    <div id='' class="Consolstable_scroll mt-10" style="height: 450px; overflow-y: auto">
+                        <div class="table tab-position" id="results">
+                            <div class='theader'>
+                                <div class='table_header'>Shipment #</div>
+                                <div class='table_header'>Consignor</div>
+                                <div class='table_header'>Consignee</div>
+                                <div class='table_header'>Origin</div>
+                                <div class='table_header'>Destination</div>
+                                <div class='table_header'>HBL</div>
+                                <div class='table_header'>Outer Pack</div>
+                                <div class='table_header'>Inner Pack</div>
+                                <div class='table_header'>Weight</div>
+                                <div class='table_header'>Volume</div>
+                                <div class='table_header'>ETA</div>
+                                <div class='table_header'>ETD</div>
+                            </div>
+                            <div class='table_row' data-ng-repeat="x in ShipmentListGlbCtrl.ePage.Entities.Header.Data.UIConShpMappings" data-ng-if="ShipmentListGlbCtrl.ePage.Entities.Header.Data.UIConShpMappings.length > 0"
+                                style="font-size: 11px;">
+                                <div class='table_small'>
+                                    <div class='table_cell'>Shipment #</div>
+                                    <div class='table_cell'>
+                                        <span> {{x.ShipmentNo}} </a>
+                                    </div>
+                                </div>
+                                <div class='table_small'>
+                                    <div class='table_cell'>Consignor</div>
+                                    <div class='table_cell'>
+                                        <span data-ng-bind="x.ORG_Shipper_Code"></span>
+                                    </div>
+                                </div>
+                                <div class='table_small'>
+                                    <div class='table_cell'>Consignee</div>
+                                    <div class='table_cell'>
+                                        <span data-ng-bind="x.ORG_Consignee_Code"></span>
+                                    </div>
+                                </div>
+                                <div class='table_small'>
+                                    <div class='table_cell'>Origin</div>
+                                    <div class='table_cell'>
+                                        <span data-ng-bind="x.Origin"></span>
+                                    </div>
+                                </div>
+                                <div class='table_small'>
+                                    <div class='table_cell'>Destination</div>
+                                    <div class='table_cell'>
+                                        <span data-ng-bind="x.Destination"></span>
+                                    </div>
+                                </div>
+                                <div class='table_small'>
+                                    <div class='table_cell'>HBL</div>
+                                    <div class='table_cell'>
+                                        <span data-ng-bind="x.HouseBill"></span>
+                                    </div>
+                                </div>
+                                <div class='table_small'>
+                                    <div class='table_cell'>Outer Pack</div>
+                                    <div class='table_cell'>
+                                        <span data-ng-bind="x.OuterPackCount"></span>
+                                        <span data-ng-bind="x.OuterPackType"></span>
+                                    </div>
+                                </div>
+                                <div class='table_small'>
+                                    <div class='table_cell'>Inner Pack</div>
+                                    <div class='table_cell'>
+                                        <span data-ng-bind="x.InnerPackCount"></span>
+                                        <span data-ng-bind="x.InnerPackType"></span>
+                                    </div>
+                                </div>
+                                <div class='table_small'>
+                                    <div class='table_cell'>Weight</div>
+                                    <div class='table_cell'>
+                                        <span data-ng-bind="x.Weight"></span>
+                                    </div>
+                                </div>
+                                <div class='table_small'>
+                                    <div class='table_cell'>Volume</div>
+                                    <div class='table_cell'>
+                                        <span data-ng-bind="x.Volume"></span>
+                                    </div>
+                                </div>
+                                <div class='table_small'>
+                                    <div class='table_cell'>ETD</div>
+                                    <div class='table_cell'>
+                                        <span data-ng-bind="x.ETD | date:'dd-MMM-yyyy'"></span>
+                                    </div>
+                                </div>
+                                <div class='table_small'>
+                                    <div class='table_cell'>ETA</div>
+                                    <div class='table_cell'>
+                                        <span data-ng-bind="x.ETA | date:'dd-MMM-yyyy'"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- List Empty Response -->
+                        <div class="grid-no-record-border-box text-center p-30" data-ng-if="ShipmentListGlbCtrl.ePage.Entities.Header.Data.UIConShpMappings.length==0">No records found...</div>
+                    </div>
+                </div>
+            </uib-tab>
+        </uib-tabset>
+    </div>
+</div>

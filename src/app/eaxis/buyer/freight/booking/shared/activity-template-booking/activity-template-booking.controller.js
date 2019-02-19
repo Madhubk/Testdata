@@ -5,9 +5,9 @@
         .module("Application")
         .controller("activityTemplateBookingController", activityTemplateBookingController);
 
-    activityTemplateBookingController.$inject = ["helperService", "APP_CONSTANT", "$q", "apiService", "authService", "appConfig", "toastr", "errorWarningService", "myTaskActivityConfig", "$filter", "$timeout"];
+    activityTemplateBookingController.$inject = ["helperService", "APP_CONSTANT", "$q", "apiService", "authService", "appConfig", "toastr", "errorWarningService", "myTaskActivityConfig", "$filter", "$timeout", "freightApiConfig"];
 
-    function activityTemplateBookingController(helperService, APP_CONSTANT, $q, apiService, authService, appConfig, toastr, errorWarningService, myTaskActivityConfig, $filter, $timeout) {
+    function activityTemplateBookingController(helperService, APP_CONSTANT, $q, apiService, authService, appConfig, toastr, errorWarningService, myTaskActivityConfig, $filter, $timeout, freightApiConfig) {
         var activityTemplateBookingCtrl = this;
 
         function Init() {
@@ -218,7 +218,7 @@
             }
             _input.UIShpExtendedInfo.IsModified = true;
             _input.UIShipmentHeader.IsModified = true;
-            apiService.post("eAxisAPI", appConfig.Entities.Booking.API.Update.Url, _input).then(function (response) {
+            apiService.post("eAxisAPI", freightApiConfig.Entities.Booking_BuyerForwarder.API.update.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     toastr.success("Saved Successfully...!");
                     SaveOnly().then(function (response) {

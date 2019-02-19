@@ -15,7 +15,10 @@
             scope: {
                 input: "=",
                 isUploaded: "&",
-                docTypeDsc: "="
+                docTypeDsc: "=",
+                mode: "=",
+                allowToUpload: "=",
+                docVisible: "="
             },
             link: Link
         };

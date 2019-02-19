@@ -10,7 +10,7 @@
                     <div class='table_header'>Action</div>
                 </div>
                 <!-- table row start  -->
-                <div class='table_row' data-ng-repeat="x in one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrderContainer_Buyer"
+                <div class='table_row' data-ng-repeat="x in one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrderContainer_Buyer_Forwarder"
                     style="font-size: 11px;">
                     <div class='table_small'>
                         <div class='table_cell'>Container #</div>
@@ -41,7 +41,7 @@
                 </div>
             </div>
             <!-- List Empty Response -->
-            <div class="grid-no-record-common_table sw-grid" data-ng-if="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrderContainer_Buyer.length==0">No
+            <div class="grid-no-record-common_table sw-grid" data-ng-if="one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrderContainer_Buyer_Forwarder.length==0">No
                 records found...</div>
         </div>
     </div>
@@ -74,11 +74,11 @@
                     <label class="control-label text-single-line">Type</label>
                     <div class="input-group input-group-sm">
                         <div dynamic-lookup="" my-ng-model="one_three_OrdGeneralCtrl.ePage.Masters.formView.RC_Type" obj="one_three_OrdGeneralCtrl.ePage.Masters.formView"
-                            page-name="'MstContainer'" control-id="'OrderContainerType'" control-key="'OrderContainerType_3223'">
+                            page-name="'MstContainer'" control-id="'BP_OrderContainerType'" control-key="'BP_OrderContainerType_13223'">
                         </div>
                         <span class="input-group-btn">
-                            <button dynamic-list-modal="" obj="one_three_OrdGeneralCtrl.ePage.Masters.formView" control-id="'OrderContainerType'"
-                                control-key="'OrderContainerType_3223'" page-name="'MstContainer'" mode="2"
+                            <button dynamic-list-modal="" obj="one_three_OrdGeneralCtrl.ePage.Masters.formView" control-id="'BP_OrderContainerType'"
+                                control-key="'BP_OrderContainerType_13223'" page-name="'MstContainer'" mode="2"
                                 grid-refresh-fun-name="" grid-refresh-fun="" class="btn btn-default shiny" type="button">
                                 <i class="fa fa-ellipsis-h"></i>
                             </button>

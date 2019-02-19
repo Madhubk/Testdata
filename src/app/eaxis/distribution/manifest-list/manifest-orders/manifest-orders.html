@@ -9,7 +9,7 @@
         </div>
 
         <!--Sender-->
-        <div class="col-xs-6 col-sm-6 col-md-8 col-lg-8 col-xl-8 border-left border-right pt-10 pb-10">
+        <div class="col-xs-6 col-sm-6 col-md-8 col-lg-8 col-xl-8 border-left border-right pt-10 pb-10 ">
             <div class="fs-14">
                 <span>
                     {{ManifestOrdersCtrl.ePage.Entities.Header.Data.TmsManifestHeader.SenderName}}
@@ -43,8 +43,7 @@
             <span class="text">Consignment</span>
         </label>
         <!-- <label>
-            <input type="radio" value="ASNLine" ng-model="ManifestOrdersCtrl.ePage.Masters.SelectRadioBtn"
-                data-ng-change="ManifestOrdersCtrl.ePage.Masters.RadioButton(ManifestOrdersCtrl.ePage.Masters.SelectRadioBtn)">
+            <input type="radio" value="ASNLine" ng-model="ManifestOrdersCtrl.ePage.Masters.SelectRadioBtn" data-ng-change="ManifestOrdersCtrl.ePage.Masters.RadioButton(ManifestOrdersCtrl.ePage.Masters.SelectRadioBtn)">
             <span class="text">ASN</span>
         </label> -->
     </div>
@@ -67,13 +66,13 @@
                 <i class="fa fa-plus-circle"></i> Attach</button>
         </span>
         <!-- ASN Line Attach Button -->
-        <span data-ng-if="ManifestOrdersCtrl.ePage.Masters.ASNLine">
+        <!-- <span data-ng-if="ManifestOrdersCtrl.ePage.Masters.ASNLine">
             <button dynamic-list-modal obj="ManifestOrdersCtrl.ePage.Entities.Header.Data.TmsManifestHeader"
-                default-filter="ManifestOrdersCtrl.ePage.Masters.AttachDefaultFilterASN" selected-data="ManifestOrdersCtrl.ePage.Masters.AttachASN($item)"
+                default-filter="ManifestOrdersCtrl.ePage.Masters.AttachDefaultFilterASN" selected-data="ManifestOrdersCtrl.ePage.Masters.AttachConsignment($item)"
                 page-name="'WarehouseInward'" mode="3" grid-refresh-fun-name="" grid-refresh-fun="" class="btn btn-sm btn-outline-primary"
                 type="button">
                 <i class="fa fa-plus-circle"></i> Attach</button>
-        </span>
+        </span> -->
         <!-- Remove Button -->
         <span ng-hide='ManifestOrdersCtrl.ePage.Masters.selectedRow==-1'>
             <button type="button" class="btn btn-sm btn-outline-primary" style="font-size:11px" title="Delete"
@@ -85,7 +84,7 @@
         <div class="table" id="results">
             <div class='theader'>
                 <div class='table_header'>Consignment Number</div>
-
+                <!-- <div class='table_header'>Consignment Status</div> -->
                 <div class='table_header'>Sender</div>
                 <div class='table_header'>Receiver</div>
                 <div class='table_header'>Client</div>
@@ -108,12 +107,14 @@
                 <div class='table_small'>
                     <div class='table_cell'>Consignment Number</div>
                     <div class='table_cell'>
-                        <!-- <a href="" ng-click="ManifestOrdersCtrl.ePage.Masters.getOutwardDetails(x)">{{x.TMC_ConsignmentNumber
-                            || ManifestOrdersCtrl.ePage.Masters.emptyText}}</a> -->
-                        {{x.TMC_ConsignmentNumber || ManifestOrdersCtrl.ePage.Masters.emptyText}}
+                        <a href="" ng-click="ManifestOrdersCtrl.ePage.Masters.getOutwardDetails(x)">{{x.TMC_ConsignmentNumber
+                            || ManifestOrdersCtrl.ePage.Masters.emptyText}}</a>
                     </div>
                 </div>
-
+                <!-- <div class='table_small'>
+                        <div class='table_cell'>Consignment Status</div>
+                        <div class='table_cell'>{{x.TMC_ConsignmentStatusDesc || ManifestOrdersCtrl.ePage.Masters.emptyText}}</div>
+                    </div> -->
                 <div class='table_small'>
                     <div class='table_cell'>Sender</div>
                     <div class='table_cell'>{{x.TMC_SenderCode || ManifestOrdersCtrl.ePage.Masters.emptyText}} -
@@ -196,12 +197,6 @@
                 <span data-ng-if="ManifestOrdersCtrl.ePage.Masters.Consignment">
                     <button type="button" class="btn btn-sm btn-outline-primary font-10" title="Add To Line"
                         data-ng-click="ManifestOrdersCtrl.ePage.Masters.AddConsignment()" ng-disabled="ManifestOrdersCtrl.ePage.Entities.Header.GlobalVariables.Finalized">
-                        <span class="fa fa-plus"></span>&nbsp;&nbsp;Add To Line</button>
-                </span>
-                <!-- ASN ADD to Line -->
-                <span data-ng-if="ManifestOrdersCtrl.ePage.Masters.ASNLine">
-                    <button type="button" class="btn btn-sm btn-outline-primary font-10" title="Add To Line"
-                        data-ng-click="ManifestOrdersCtrl.ePage.Masters.AddASN()" ng-disabled="ManifestOrdersCtrl.ePage.Entities.Header.GlobalVariables.Finalized">
                         <span class="fa fa-plus"></span>&nbsp;&nbsp;Add To Line</button>
                 </span>
                 <span>
@@ -413,13 +408,14 @@
                                 <span class="text"></span>
                             </label>
                         </div>
-                        <div class='table_header'>Inward No</div>
-                        <div class='table_header'>Supplier</div>
+                        <div class='table_header'>Reference No</div>
                         <div class='table_header'>Client</div>
-                        <div class='table_header'>Warehouse</div>
-                        <div class='table_header'>Status</div>
-                        <div class='table_header'>Inward Type</div>
+                        <div class='table_header'>Consignee</div>
                         <div class='table_header'>Order Type</div>
+                        <div class='table_header'>Status</div>
+                        <div class='table_header'>Pick Number</div>
+                        <div class='table_header'>Warehouse</div>
+                        <div class='table_header'>Supplier</div>
                     </div>
 
 
@@ -444,14 +440,8 @@
                             </div>
                         </div>
                         <div class='table_small'>
-                            <div class='table_cell'>Inward No</div>
+                            <div class='table_cell'>Reference No</div>
                             <div class='table_cell'>{{x.WorkOrderID || ManifestOrdersCtrl.ePage.Masters.emptyText}}</div>
-                        </div>
-                        <div class='table_small'>
-                            <div class='table_cell'>Supplier</div>
-                            <div class='table_cell'>{{x.SupplierCode ||
-                                ManifestOrdersCtrl.ePage.Masters.emptyText}}-{{x.SupplierName ||
-                                ManifestOrdersCtrl.ePage.Masters.emptyText}}</div>
                         </div>
                         <div class='table_small'>
                             <div class='table_cell'>Client</div>
@@ -460,9 +450,14 @@
                                 ManifestOrdersCtrl.ePage.Masters.emptyText}}</div>
                         </div>
                         <div class='table_small'>
-                            <div class='table_cell'>Warehouse</div>
-                            <div class='table_cell'>{{x.WarehouseCode ||
-                                ManifestOrdersCtrl.ePage.Masters.emptyText}}-{{x.WarehouseName ||
+                            <div class='table_cell'>Consignee</div>
+                            <div class='table_cell'>{{x.ConsigneeCode ||
+                                ManifestOrdersCtrl.ePage.Masters.emptyText}}-{{x.ConsigneeName ||
+                                ManifestOrdersCtrl.ePage.Masters.emptyText}}</div>
+                        </div>
+                        <div class='table_small'>
+                            <div class='table_cell'>Order Type</div>
+                            <div class='table_cell'>{{x.WorkOrderTypeDesc ||
                                 ManifestOrdersCtrl.ePage.Masters.emptyText}}</div>
                         </div>
                         <div class='table_small'>
@@ -471,13 +466,19 @@
                                 ManifestOrdersCtrl.ePage.Masters.emptyText}}</div>
                         </div>
                         <div class='table_small'>
-                            <div class='table_cell'>Inward Type</div>
-                            <div class='table_cell'>{{x.WorkOrderSubType ||
+                            <div class='table_cell'>Pick Number</div>
+                            <div class='table_cell'>{{x.PickNo || ManifestOrdersCtrl.ePage.Masters.emptyText}}</div>
+                        </div>
+                        <div class='table_small'>
+                            <div class='table_cell'>Warehouse</div>
+                            <div class='table_cell'>{{x.WarehouseCode ||
+                                ManifestOrdersCtrl.ePage.Masters.emptyText}}-{{x.WarehouseName ||
                                 ManifestOrdersCtrl.ePage.Masters.emptyText}}</div>
                         </div>
                         <div class='table_small'>
-                            <div class='table_cell'>Order Type</div>
-                            <div class='table_cell'>{{x.WorkOrderTypeDesc ||
+                            <div class='table_cell'>Supplier</div>
+                            <div class='table_cell'>{{x.SupplierCode ||
+                                ManifestOrdersCtrl.ePage.Masters.emptyText}}-{{x.SupplierName ||
                                 ManifestOrdersCtrl.ePage.Masters.emptyText}}</div>
                         </div>
                     </div>

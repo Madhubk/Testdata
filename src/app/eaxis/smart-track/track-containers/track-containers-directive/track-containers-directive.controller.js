@@ -43,7 +43,6 @@
             TrackContainerDirectiveCtrl.ePage.Masters.TrackContainer.OrderList = {};
             TrackContainerDirectiveCtrl.ePage.Masters.TrackContainer.OrderList.GridData = [];
             TrackContainerDirectiveCtrl.ePage.Masters.TrackContainer.OrderList.SelectedOrderRow = SelectedOrderRow;
-
             TrackContainerPackage();
         }
 
@@ -214,7 +213,7 @@
                 item: _queryString
             });
         }
-
+        
         Init();
     }
 })();

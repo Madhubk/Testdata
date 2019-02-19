@@ -5,9 +5,9 @@
         .module("Application")
         .controller("one_one_OrderConfirmationController", one_one_OrderConfirmationController);
 
-    one_one_OrderConfirmationController.$inject = ["helperService", "apiService", "appConfig", "toastr"];
+    one_one_OrderConfirmationController.$inject = ["helperService", "apiService", "orderApiConfig", "toastr"];
 
-    function one_one_OrderConfirmationController(helperService, apiService, appConfig, toastr) {
+    function one_one_OrderConfirmationController(helperService, apiService, orderApiConfig, toastr) {
         var one_one_OrderConfirmationCtrl = this;
 
         function Init() {
@@ -96,7 +96,7 @@
                 _input.push(_updateInput);
             });
 
-            apiService.post('eAxisAPI', appConfig.Entities.PorOrderHeader.API.UpdateRecords.Url, _input).then(function (response) {
+            apiService.post('eAxisAPI', orderApiConfig.Entities.BuyerOrder.API.updaterecords.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     toastr.success("Successfully Mail Sent...");
                 } else {
