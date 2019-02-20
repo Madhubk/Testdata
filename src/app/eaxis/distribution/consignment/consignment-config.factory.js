@@ -184,7 +184,7 @@
                                     "display": true
                                 },
                                 {
-                                    "columnname": "MHU Type",
+                                    "columnname": "Pack Type",
                                     "isenabled": true,
                                     "property": "rmhutype",
                                     "position": "6",

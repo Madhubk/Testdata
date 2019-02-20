@@ -187,7 +187,7 @@
                 templateUrl: 'app/eaxis/distribution/transports-reports/reports.html',
                 controller: "TransportsReportController as ReportCtrl",
                 ncyBreadcrumb: {
-                    label: 'Manifest'
+                    label: 'Transport Reports'
                 },
                 resolve: {
                     CheckAccess: ["$q", "pageAccessService", function ($q, pageAccessService) {
@@ -208,7 +208,7 @@
                 templateUrl: 'app/eaxis/distribution/otp-list/otp-list.html',
                 controller: "OtpController as OtpCtrl",
                 ncyBreadcrumb: {
-                    label: 'Manifest'
+                    label: 'OTP List'
                 },
                 resolve: {
                     CheckAccess: ["$q", "pageAccessService", function ($q, pageAccessService) {

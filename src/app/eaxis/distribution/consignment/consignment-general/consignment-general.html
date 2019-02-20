@@ -1,5 +1,5 @@
 <!-- Non Editable -->
-<div class="noneditable ng-scope" data-ng-if="DMSConsignmentGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable"></div>
+<!-- <div class="noneditable ng-scope" data-ng-if="DMSConsignmentGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable"></div> -->
 
 <!-- General -->
 <div class="clearfix">
@@ -27,7 +27,7 @@
                         <div dynamic-lookup placeholder="Sender" my-ng-model="DMSConsignmentGeneralCtrl.ePage.Masters.Sender"
                             auto-complete-on-select="DMSConsignmentGeneralCtrl.ePage.Masters.SelectedLookupSender($item)"
                             obj="DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader" page-name="'OrganizationList'"
-                            control-id="'Sender'" control-key="'Sender_3017'" is-disabled="DMSConsignmentGeneralCtrl.ePage.Masters.IsDisabledSender"
+                            control-id="'Sender'" control-key="'Sender_3017'" is-disabled="DMSConsignmentGeneralCtrl.ePage.Masters.IsDisabledSender || DMSConsignmentGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable"
                             title="{{DMSConsignmentGeneralCtrl.ePage.Masters.Sender}}">
                         </div>
 
@@ -36,7 +36,7 @@
                             <button dynamic-list-modal obj="DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader"
                                 control-id="'Sender'" control-key="'Sender_3017'" selected-data="DMSConsignmentGeneralCtrl.ePage.Masters.SelectedLookupSender($item.data.entity)"
                                 page-name="'OrganizationList'" mode="2" grid-refresh-fun-name="" grid-refresh-fun=""
-                                class="btn btn-default shiny" type="button" is-disabled="DMSConsignmentGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable"><i
+                                class="btn btn-default shiny" type="button" is-disabled="DMSConsignmentGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable || DMSConsignmentGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable"><i
                                     class="fa fa-ellipsis-h"></i></button>
                         </span>
                         <span ng-if='!DMSConsignmentGeneralCtrl.ePage.Masters.Sender&&!DMSConsignmentGeneralCtrl.currentConsignment.isNew'>
@@ -90,7 +90,7 @@
                         <div dynamic-lookup placeholder="Receiver" my-ng-model="DMSConsignmentGeneralCtrl.ePage.Masters.Receiver"
                             auto-complete-on-select="DMSConsignmentGeneralCtrl.ePage.Masters.SelectedLookupReceiver($item)"
                             obj="DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader" page-name="'OrganizationList'"
-                            control-id="'Receiver'" control-key="'Receiver_3026'" is-disabled="DMSConsignmentGeneralCtrl.ePage.Masters.IsDisabledReceiver"
+                            control-id="'Receiver'" control-key="'Receiver_3026'" is-disabled="DMSConsignmentGeneralCtrl.ePage.Masters.IsDisabledReceiver || DMSConsignmentGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable"
                             title="{{DMSConsignmentGeneralCtrl.ePage.Masters.Receiver}}">
                         </div>
 
@@ -99,7 +99,7 @@
                             <button dynamic-list-modal obj="DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader"
                                 control-id="'Receiver'" control-key="'Receiver_3026'" selected-data="DMSConsignmentGeneralCtrl.ePage.Masters.SelectedLookupReceiver($item.data.entity)"
                                 page-name="'OrganizationList'" mode="2" grid-refresh-fun-name="" grid-refresh-fun=""
-                                class="btn btn-default shiny" type="button" is-disabled="DMSConsignmentGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable"><i
+                                class="btn btn-default shiny" type="button" is-disabled="DMSConsignmentGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable || DMSConsignmentGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable"><i
                                     class="fa fa-ellipsis-h"></i></button>
                         </span>
 
@@ -148,7 +148,8 @@
                     </label>
                     <select chosen class="form-control" ng-model="DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.ServiceType"
                         ng-options="x.Key as x.Key + ' - '  + x.Value for x in DMSConsignmentGeneralCtrl.ePage.Masters.DropDownMasterList.SERVICETYPES.ListSource"
-                        search-contains="true" ng-change='DMSConsignmentGeneralCtrl.ePage.Masters.OnChangeServiceType(DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.ServiceType)'>
+                        search-contains="true" ng-change='DMSConsignmentGeneralCtrl.ePage.Masters.OnChangeServiceType(DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.ServiceType)'
+                        ng-disabled ='DMSConsignmentGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable'>
                         <option value="">--Select--</option>
                     </select>
                 </div>
@@ -192,9 +193,9 @@
                             default-date="" default-time="" when-closed="" save-as="DMSConsignmentGeneralCtrl.ePage.Masters.DatePicker.Options.saveFormat"
                             popup-placement="bottom-right" data-ng-click="DMSConsignmentGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isExpectedPickupDateTime')"
                             ng-change='DMSConsignmentGeneralCtrl.ePage.Masters.OnChangeValues(DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.ExpectedPickupDateTime,"E5521",false,undefined)'
-                            custom-date-time-format />
+                            custom-date-time-format ng-disabled = 'DMSConsignmentGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable'/>
                         <span class="input-group-btn">
-                            <button type="button" class="btn btn-default" data-ng-click="DMSConsignmentGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isExpectedPickupDateTime')">
+                            <button type="button" class="btn btn-default" data-ng-click="DMSConsignmentGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isExpectedPickupDateTime')" ng-disabled='DMSConsignmentGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable'>
                                 <i class="fa fa-calendar"></i>
                             </button>
                         </span>
@@ -224,9 +225,9 @@
                             default-date="" default-time="" save-as="DMSConsignmentGeneralCtrl.ePage.Masters.DatePicker.Options.saveFormat"
                             popup-placement="bottom-right" data-ng-click="DMSConsignmentGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isExpectedDeliveryDateTime')"
                             ng-change='DMSConsignmentGeneralCtrl.ePage.Masters.OnChangeValues(DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.ExpectedDeliveryDateTime,"E5563",false,undefined)'
-                            custom-date-time-format />
+                            custom-date-time-format ng-disabled='DMSConsignmentGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable'/>
                         <span class="input-group-btn">
-                            <button type="button" class="btn btn-default" data-ng-click="DMSConsignmentGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isExpectedDeliveryDateTime')">
+                            <button type="button" class="btn btn-default" data-ng-click="DMSConsignmentGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isExpectedDeliveryDateTime')" ng-disabled='DMSConsignmentGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable'>
                                 <i class="fa fa-calendar"></i>
                             </button>
                         </span>
@@ -291,7 +292,8 @@
                     <label class="control-label text-single-line mt-5">Special Instructions</label>
                     <div class="">
                         <textarea rows="3" type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
-                            placeholder="Special Instructions" maxlength="1000" data-ng-model="DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.Instructions"></textarea>
+                            placeholder="Special Instructions" maxlength="1000" data-ng-model="DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.Instructions"
+                            ng-disabled='DMSConsignmentGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable'></textarea>
                     </div>
                 </div>
             </div>
@@ -348,7 +350,7 @@
         </div>
     </div>
     <!-- item line -->
-    <div id="ConItemTable{{DMSConsignmentGeneralCtrl.currentConsignment.label}}" class="fixedheader mb-0" key-events
+    <div id="ConItemTable{{DMSConsignmentGeneralCtrl.currentConsignment.label}}" class="fixedheader" key-events
         table-object='DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentItem' enable='DMSConsignmentGeneralCtrl.ePage.Masters.Enable'
         selected-row='DMSConsignmentGeneralCtrl.ePage.Masters.selectedRow' unique-id='ConItemTable{{DMSConsignmentGeneralCtrl.currentConsignment.label}}'>
         <table id="DMSConsignmentGeneralCtrl.ePage.Masters.AddScroll" style="height: 200px">
@@ -377,7 +379,7 @@
                         title="Quantity">Quantity</th>
                     <th id="rmhutype" data-ng-if="DMSConsignmentGeneralCtrl.ePage.Entities.Header.TableProperties.TmsConsignmentItem.rmhutype.isenabled"
                         ng-style="{ 'width': DMSConsignmentGeneralCtrl.ePage.Entities.Header.TableProperties.TmsConsignmentItem.rmhutype.width + 'px' }"
-                        title="MHU Type">MHU Type</th>
+                        title="Pack Type">Pack Type</th>
                     <th id="ritemstatus" data-ng-if="DMSConsignmentGeneralCtrl.ePage.Entities.Header.TableProperties.TmsConsignmentItem.ritemstatus.isenabled"
                         ng-style="{ 'width': DMSConsignmentGeneralCtrl.ePage.Entities.Header.TableProperties.TmsConsignmentItem.ritemstatus.width + 'px' }"
                         title="Item Status">Item Status</th>

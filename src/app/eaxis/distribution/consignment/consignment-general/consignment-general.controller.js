@@ -497,7 +497,7 @@
             apiService.post("eAxisAPI", appConfig.Entities.UserSettings.API.FindAll.Url + authService.getUserInfo().AppPK, _input).then(function (response) {
                 if (response.data.Response[0]) {
                     DMSConsignmentGeneralCtrl.ePage.Masters.UserValue = response.data.Response[0];
-                    if (response.data.Response[0].Value != '') {
+                    if (response.data.Response[0].Value!='') {
                         var obj = JSON.parse(response.data.Response[0].Value)
                         DMSConsignmentGeneralCtrl.ePage.Entities.Header.TableProperties.TmsConsignmentItem = obj;
                         DMSConsignmentGeneralCtrl.ePage.Masters.UserHasValue = true;
