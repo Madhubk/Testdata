@@ -19,10 +19,10 @@
                             </div>
                             <!-- Look Up page opens when button clicks -->
                             <span class="input-group-btn">
-                                <button dynamic-list-modal is-disabled="true" obj="PodReturnCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery" control-id="'Customer'"
-                                    control-key="'Customer_3321'" selected-data="PodReturnCtrl.ePage.Masters.SelectedLookupClient($item.data.entity)"
-                                    page-name="'OrganizationList'" mode="2" grid-refresh-fun-name="" grid-refresh-fun="" class="btn btn-default shiny"
-                                    type="button">
+                                <button dynamic-list-modal is-disabled="true" obj="PodReturnCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery"
+                                    control-id="'Customer'" control-key="'Customer_3321'" selected-data="PodReturnCtrl.ePage.Masters.SelectedLookupClient($item.data.entity)"
+                                    page-name="'OrganizationList'" mode="2" grid-refresh-fun-name="" grid-refresh-fun=""
+                                    class="btn btn-default shiny" type="button">
                                     <i class="fa fa-ellipsis-h"></i>
                                 </button>
                             </span>
@@ -36,8 +36,11 @@
                             <div class="text-single-line" title='{{PodReturnCtrl.ePage.Entities.Header.DeliveryData.UIOrgHeader.OAD_Address2}}'>{{PodReturnCtrl.ePage.Entities.Header.DeliveryData.UIOrgHeader.OAD_Address2}}</div>
                             <div class="text-single-line" title='{{PodReturnCtrl.ePage.Entities.Header.DeliveryData.UIOrgHeader.OAD_State}}'>{{PodReturnCtrl.ePage.Entities.Header.DeliveryData.UIOrgHeader.OAD_State}}</div>
                             <div class="text-single-line">
-                                <span ng-show="PodReturnCtrl.ePage.Entities.Header.DeliveryData.UIOrgHeader.OAD_City" title="{{PodReturnCtrl.ePage.Entities.Header.DeliveryData.UIOrgHeader.OAD_City}}">{{PodReturnCtrl.ePage.Entities.Header.DeliveryData.UIOrgHeader.OAD_City}} -</span>
-                                <span ng-show="PodReturnCtrl.ePage.Entities.Header.DeliveryData.UIOrgHeader.OAD_PostCode" title="{{PodReturnCtrl.ePage.Entities.Header.DeliveryData.UIOrgHeader.OAD_PostCode}}">{{PodReturnCtrl.ePage.Entities.Header.DeliveryData.UIOrgHeader.OAD_PostCode}}</span>
+                                <span ng-show="PodReturnCtrl.ePage.Entities.Header.DeliveryData.UIOrgHeader.OAD_City"
+                                    title="{{PodReturnCtrl.ePage.Entities.Header.DeliveryData.UIOrgHeader.OAD_City}}">{{PodReturnCtrl.ePage.Entities.Header.DeliveryData.UIOrgHeader.OAD_City}}
+                                    -</span>
+                                <span ng-show="PodReturnCtrl.ePage.Entities.Header.DeliveryData.UIOrgHeader.OAD_PostCode"
+                                    title="{{PodReturnCtrl.ePage.Entities.Header.DeliveryData.UIOrgHeader.OAD_PostCode}}">{{PodReturnCtrl.ePage.Entities.Header.DeliveryData.UIOrgHeader.OAD_PostCode}}</span>
                             </div>
                         </div>
                         <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 p-0 mt-30">
@@ -71,10 +74,10 @@
 
                             <!-- Look Up page opens when button clicks -->
                             <span class="input-group-btn">
-                                <button dynamic-list-modal is-disabled="true" obj="PodReturnCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery" control-id="'Warehouse'"
-                                    selected-data="PodReturnCtrl.ePage.Masters.SelectedLookupWarehouse($item.data.entity)" page-name="'OrgHeaderWithWarehouse'"
-                                    control-key="'Warehouse_3323'" mode="2" grid-refresh-fun-name="" grid-refresh-fun="" class="btn btn-default shiny"
-                                    type="button">
+                                <button dynamic-list-modal is-disabled="true" obj="PodReturnCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery"
+                                    control-id="'Warehouse'" selected-data="PodReturnCtrl.ePage.Masters.SelectedLookupWarehouse($item.data.entity)"
+                                    page-name="'OrgHeaderWithWarehouse'" control-key="'Warehouse_3323'" mode="2"
+                                    grid-refresh-fun-name="" grid-refresh-fun="" class="btn btn-default shiny" type="button">
                                     <i class="fa fa-ellipsis-h"></i>
                                 </button>
                             </span>
@@ -122,10 +125,10 @@
 
                             <!-- Look Up page opens when button clicks -->
                             <span class="input-group-btn">
-                                <button dynamic-list-modal is-disabled="true" obj="PodReturnCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery" control-id="'Site'"
-                                    selected-data="PodReturnCtrl.ePage.Masters.SelectedLookupSupplier($item.data.entity)" page-name="'OrganizationList'"
-                                    control-key="'Site_3322'" mode="2" grid-refresh-fun-name="" grid-refresh-fun="" class="btn btn-default shiny"
-                                    type="button">
+                                <button dynamic-list-modal is-disabled="true" obj="PodReturnCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery"
+                                    control-id="'Site'" selected-data="PodReturnCtrl.ePage.Masters.SelectedLookupSupplier($item.data.entity)"
+                                    page-name="'OrganizationList'" control-key="'Site_3322'" mode="2"
+                                    grid-refresh-fun-name="" grid-refresh-fun="" class="btn btn-default shiny" type="button">
                                     <i class="fa fa-ellipsis-h"></i>
                                 </button>
                             </span>
@@ -159,8 +162,8 @@
             <div class="form-group">
                 <label class="control-label text-single-line">Request Mode</label>
                 <div class="">
-                    <input type="text" disabled class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Request Mode"
-                        data-ng-model="PodReturnCtrl.ePage.Entities.Header.DeliveryData.UIWmsWorkorderReport.RequestMode">
+                    <input type="text" disabled class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
+                        placeholder="Request Mode" data-ng-model="PodReturnCtrl.ePage.Entities.Header.DeliveryData.UIWmsWorkorderReport.RequestMode">
                 </div>
             </div>
         </div>
@@ -168,8 +171,8 @@
             <div class="form-group">
                 <label class="control-label text-single-line">Response Type</label>
                 <div class="">
-                    <input type="text" disabled class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Response Type"
-                        data-ng-model="PodReturnCtrl.ePage.Entities.Header.DeliveryData.UIWmsWorkorderReport.ResponseType">
+                    <input type="text" disabled class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
+                        placeholder="Response Type" data-ng-model="PodReturnCtrl.ePage.Entities.Header.DeliveryData.UIWmsWorkorderReport.ResponseType">
                 </div>
             </div>
         </div>
@@ -177,8 +180,9 @@
             <div class="form-group">
                 <label class="control-label text-single-line">Site Engineer</label>
                 <div class="">
-                    <input type="text" disabled class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Site Engineer"
-                        data-ng-model="PodReturnCtrl.ePage.Entities.Header.DeliveryData.UIWmsWorkorderReport.Requester" ng-change="PodReturnCtrl.ePage.Masters.OnChangeValues(PodReturnCtrl.ePage.Entities.Header.DeliveryData.UIWmsWorkorderReport.Requester,'E3055')">
+                    <input type="text" disabled class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
+                        placeholder="Site Engineer" data-ng-model="PodReturnCtrl.ePage.Entities.Header.DeliveryData.UIWmsWorkorderReport.Requester"
+                        ng-change="PodReturnCtrl.ePage.Masters.OnChangeValues(PodReturnCtrl.ePage.Entities.Header.DeliveryData.UIWmsWorkorderReport.Requester,'E3055')">
                 </div>
             </div>
         </div>
@@ -186,8 +190,8 @@
             <div class="form-group">
                 <label class="control-label text-single-line">Contact Number</label>
                 <div class="">
-                    <input type="text" disabled class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Contact Number"
-                        data-ng-model="PodReturnCtrl.ePage.Entities.Header.DeliveryData.UIWmsWorkorderReport.RequesterContactNo">
+                    <input type="text" disabled class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
+                        placeholder="Contact Number" data-ng-model="PodReturnCtrl.ePage.Entities.Header.DeliveryData.UIWmsWorkorderReport.RequesterContactNo">
                 </div>
             </div>
         </div>
@@ -195,8 +199,8 @@
             <div class="form-group">
                 <label class="control-label text-single-line">Drop Point</label>
                 <div class="">
-                    <input type="text" disabled class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Drop Point"
-                        data-ng-model="PodReturnCtrl.ePage.Entities.Header.DeliveryData.UIWmsWorkorderReport.AdditionalRef1Code">
+                    <input type="text" disabled class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
+                        placeholder="Drop Point" data-ng-model="PodReturnCtrl.ePage.Entities.Header.DeliveryData.UIWmsWorkorderReport.AdditionalRef1Code">
                 </div>
             </div>
         </div>
@@ -204,25 +208,42 @@
             <div class="form-group">
                 <label class="control-label text-single-line">Delivery Request No</label>
                 <div class="">
-                    <input type="text" disabled class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Delivery Request No"
-                        data-ng-model="PodReturnCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery.WorkOrderID">
+                    <input type="text" disabled class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
+                        placeholder="Delivery Request No" data-ng-model="PodReturnCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery.WorkOrderID">
                 </div>
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
+            <span class="error-warning-container">
+                <error-warning-directive data-ng-if="PodReturnCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Receiver.IsWarning && !PodReturnCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Receiver.IsError"
+                    list="PodReturnCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Receiver.WARNING" type="'warning'"
+                    icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                <error-warning-directive data-ng-if="PodReturnCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Receiver.IsError"
+                    list="PodReturnCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Receiver.ERROR" type="'error'"
+                    icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+            </span>
             <div class="form-group">
                 <label class="control-label text-single-line">Receiver</label>
                 <div class="">
-                    <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Receiver" data-ng-model="PodReturnCtrl.ePage.Entities.Header.DeliveryData.UIWmsWorkorderReport.Receiver">
+                    <input type="text" no-special-char class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
+                        placeholder="Receiver" data-ng-model="PodReturnCtrl.ePage.Entities.Header.DeliveryData.UIWmsWorkorderReport.Receiver">
                 </div>
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
+            <span class="error-warning-container">
+                <error-warning-directive data-ng-if="PodReturnCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ReceiverContactNo.IsWarning && !PodReturnCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ReceiverContactNo.IsError"
+                    list="PodReturnCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ReceiverContactNo.WARNING"
+                    type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                <error-warning-directive data-ng-if="PodReturnCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ReceiverContactNo.IsError"
+                    list="PodReturnCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ReceiverContactNo.ERROR" type="'error'"
+                    icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+            </span>
             <div class="form-group">
                 <label class="control-label text-single-line">Receiver Contact No</label>
                 <div class="">
-                    <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Receiver Contact No"
-                        data-ng-model="PodReturnCtrl.ePage.Entities.Header.DeliveryData.UIWmsWorkorderReport.ReceiverContactNo">
+                    <input type="text" numbers-only no-special-char class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
+                        placeholder="Receiver Contact No" data-ng-model="PodReturnCtrl.ePage.Entities.Header.DeliveryData.UIWmsWorkorderReport.ReceiverContactNo">
                 </div>
             </div>
         </div>
@@ -250,8 +271,8 @@
                     </tr>
                 </thead>
                 <tbody id="InwardLineCustTable{{PodReturnCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery.WorkOrderID}}">
-                    <tr id="tableBody" ng-repeat="x in PodReturnCtrl.ePage.Entities.Header.DeliveryData.UIWmsDeliveryLine" ng-click="PodReturnCtrl.ePage.Masters.setSelectedRow($index);"
-                        ng-class="{row_active: (PodReturnCtrl.ePage.Masters.selectedRow==$index),copy_row_active :(x.IsCopied==true)}">
+                    <tr id="tableBody" ng-repeat="x in PodReturnCtrl.ePage.Entities.Header.DeliveryData.UIWmsDeliveryLine"
+                        ng-click="PodReturnCtrl.ePage.Masters.setSelectedRow($index);" ng-class="{row_active: (PodReturnCtrl.ePage.Masters.selectedRow==$index),copy_row_active :(x.IsCopied==true)}">
 
                         <td ng-style="{ 'width':  '40px' }" class="overflow-text">{{$index +1}}</td>
                         <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.AdditionalRef1Code}}</td>

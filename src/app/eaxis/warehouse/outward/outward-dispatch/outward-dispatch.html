@@ -153,7 +153,7 @@
                 </span>
                 <label class="control-label text-single-line">Transporter Reference No</label>
                 <div class="">
-                    <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
+                    <input type="text" no-special-char class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
                         placeholder="Transporter Reference No" data-ng-model="OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.TransportRefNo"
                         data-ng-change="OutwardDispatchCtrl.ePage.Masters.OnChangeValues(OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.TransportRefNo,'E3069');">
                 </div>
@@ -190,7 +190,7 @@
                 </span>
                 <label class="control-label text-single-line">Expected Driver Name</label>
                 <div class="">
-                    <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
+                    <input type="text" no-special-char class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
                         placeholder="Expected Driver Name" data-ng-model="OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.DriveName"
                         data-ng-change="OutwardDispatchCtrl.ePage.Masters.OnChangeValues(OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.DriveName,'E3071');">
                 </div>
@@ -209,7 +209,7 @@
                 </span>
                 <label class="control-label text-single-line">Driver Contact No</label>
                 <div class="">
-                    <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
+                    <input type="text" numbers-only no-special-char class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
                         placeholder="Driver Contact No" data-ng-model="OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.DriverContactNo"
                         data-ng-change="OutwardDispatchCtrl.ePage.Masters.OnChangeValues(OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.DriverContactNo,'E3072');">
                 </div>

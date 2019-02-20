@@ -34,6 +34,7 @@
                 ArrangeMaterialCtrl.ePage.Entities.Header.Data = myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data;
                 if (ArrangeMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PickNo) {
                     GetPickDetails();
+                    Config.ValidationFindall();
                 }
                 outwardConfig.ValidationFindall();
                 GetDynamicLookupConfig();
@@ -100,6 +101,7 @@
                         if (response.data.Status == 'Success') {
                             ArrangeMaterialCtrl.ePage.Masters.PickDetails = response.data.Response;
                             ArrangeMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PickNo = response.data.Response.UIWmsPickHeader.PickNo;
+                            Config.ValidationFindall();
                             Config.GetTabDetails(ArrangeMaterialCtrl.ePage.Masters.PickDetails.UIWmsPickHeader, false).then(function (response) {
                                 angular.forEach(response, function (value, key) {
                                     if (value.label == ArrangeMaterialCtrl.ePage.Masters.PickDetails.UIWmsPickHeader.PickNo) {
@@ -107,7 +109,7 @@
                                         myTaskActivityConfig.Entities.PickData = ArrangeMaterialCtrl.ePage.Masters.TabList;
                                         ArrangeMaterialCtrl.ePage.Masters.LoadingValue = "";
                                         ArrangeMaterialCtrl.ePage.Masters.CreatePickText = "Create Pick";
-                                        toastr.success("Pick Created Successfully");                                        
+                                        toastr.success("Pick Created Successfully");
                                         apiService.get("eAxisAPI", appConfig.Entities.WmsOutwardList.API.GetById.Url + ArrangeMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PK).then(function (response) {
                                             if (response.data.Response) {
                                                 response.data.Response.UIWmsOutwardHeader.Client = response.data.Response.UIWmsOutwardHeader.ClientCode + " - " + response.data.Response.UIWmsOutwardHeader.ClientName;

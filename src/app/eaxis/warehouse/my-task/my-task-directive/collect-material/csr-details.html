@@ -14,15 +14,16 @@
                         <div class="input-group input-group-sm">
                             <!-- Dynamic look up Search in textbox -->
                             <div dynamic-lookup placeholder="Service Provider" is-disabled="true" my-ng-model="CollectMaterialCtrl.ePage.Entities.Header.PickupData.UIWmsPickup.Client"
-                                auto-complete-on-select="CollectMaterialCtrl.ePage.Masters.SelectedLookupClient($item)" obj="CollectMaterialCtrl.ePage.Entities.Header.PickupData.UIWmsPickup"
-                                page-name="'OrganizationList'" control-id="'Customer'" control-key="'Customer_3321'">
+                                auto-complete-on-select="CollectMaterialCtrl.ePage.Masters.SelectedLookupClient($item)"
+                                obj="CollectMaterialCtrl.ePage.Entities.Header.PickupData.UIWmsPickup" page-name="'OrganizationList'"
+                                control-id="'Customer'" control-key="'Customer_3321'">
                             </div>
                             <!-- Look Up page opens when button clicks -->
                             <span class="input-group-btn">
-                                <button dynamic-list-modal is-disabled="true" obj="CollectMaterialCtrl.ePage.Entities.Header.PickupData.UIWmsPickup" control-id="'Customer'"
-                                    control-key="'Customer_3321'" selected-data="CollectMaterialCtrl.ePage.Masters.SelectedLookupClient($item.data.entity)"
-                                    page-name="'OrganizationList'" mode="2" grid-refresh-fun-name="" grid-refresh-fun="" class="btn btn-default shiny"
-                                    type="button">
+                                <button dynamic-list-modal is-disabled="true" obj="CollectMaterialCtrl.ePage.Entities.Header.PickupData.UIWmsPickup"
+                                    control-id="'Customer'" control-key="'Customer_3321'" selected-data="CollectMaterialCtrl.ePage.Masters.SelectedLookupClient($item.data.entity)"
+                                    page-name="'OrganizationList'" mode="2" grid-refresh-fun-name="" grid-refresh-fun=""
+                                    class="btn btn-default shiny" type="button">
                                     <i class="fa fa-ellipsis-h"></i>
                                 </button>
                             </span>
@@ -36,8 +37,11 @@
                             <div class="text-single-line" title='{{CollectMaterialCtrl.ePage.Entities.Header.PickupData.UIOrgHeader.OAD_Address2}}'>{{CollectMaterialCtrl.ePage.Entities.Header.PickupData.UIOrgHeader.OAD_Address2}}</div>
                             <div class="text-single-line" title='{{CollectMaterialCtrl.ePage.Entities.Header.PickupData.UIOrgHeader.OAD_State}}'>{{CollectMaterialCtrl.ePage.Entities.Header.PickupData.UIOrgHeader.OAD_State}}</div>
                             <div class="text-single-line">
-                                <span ng-show="CollectMaterialCtrl.ePage.Entities.Header.PickupData.UIOrgHeader.OAD_City" title="{{CollectMaterialCtrl.ePage.Entities.Header.PickupData.UIOrgHeader.OAD_City}}">{{CollectMaterialCtrl.ePage.Entities.Header.PickupData.UIOrgHeader.OAD_City}} -</span>
-                                <span ng-show="CollectMaterialCtrl.ePage.Entities.Header.PickupData.UIOrgHeader.OAD_PostCode" title="{{CollectMaterialCtrl.ePage.Entities.Header.PickupData.UIOrgHeader.OAD_PostCode}}">{{CollectMaterialCtrl.ePage.Entities.Header.PickupData.UIOrgHeader.OAD_PostCode}}</span>
+                                <span ng-show="CollectMaterialCtrl.ePage.Entities.Header.PickupData.UIOrgHeader.OAD_City"
+                                    title="{{CollectMaterialCtrl.ePage.Entities.Header.PickupData.UIOrgHeader.OAD_City}}">{{CollectMaterialCtrl.ePage.Entities.Header.PickupData.UIOrgHeader.OAD_City}}
+                                    -</span>
+                                <span ng-show="CollectMaterialCtrl.ePage.Entities.Header.PickupData.UIOrgHeader.OAD_PostCode"
+                                    title="{{CollectMaterialCtrl.ePage.Entities.Header.PickupData.UIOrgHeader.OAD_PostCode}}">{{CollectMaterialCtrl.ePage.Entities.Header.PickupData.UIOrgHeader.OAD_PostCode}}</span>
                             </div>
                         </div>
                         <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 p-0 mt-30">
@@ -71,10 +75,10 @@
 
                             <!-- Look Up page opens when button clicks -->
                             <span class="input-group-btn">
-                                <button dynamic-list-modal is-disabled="true" obj="CollectMaterialCtrl.ePage.Entities.Header.PickupData.UIWmsPickup" control-id="'Warehouse'"
-                                    selected-data="CollectMaterialCtrl.ePage.Masters.SelectedLookupWarehouse($item.data.entity)"
-                                    page-name="'OrgHeaderWithWarehouse'" control-key="'Warehouse_3323'" mode="2" grid-refresh-fun-name=""
-                                    grid-refresh-fun="" class="btn btn-default shiny" type="button">
+                                <button dynamic-list-modal is-disabled="true" obj="CollectMaterialCtrl.ePage.Entities.Header.PickupData.UIWmsPickup"
+                                    control-id="'Warehouse'" selected-data="CollectMaterialCtrl.ePage.Masters.SelectedLookupWarehouse($item.data.entity)"
+                                    page-name="'OrgHeaderWithWarehouse'" control-key="'Warehouse_3323'" mode="2"
+                                    grid-refresh-fun-name="" grid-refresh-fun="" class="btn btn-default shiny" type="button">
                                     <i class="fa fa-ellipsis-h"></i>
                                 </button>
                             </span>
@@ -116,16 +120,17 @@
                         <div class="input-group input-group-sm">
                             <!-- Dynamic look up Search in textbox -->
                             <div dynamic-lookup placeholder="Site" is-disabled="true" my-ng-model="CollectMaterialCtrl.ePage.Entities.Header.PickupData.UIWmsPickup.Consignee"
-                                auto-complete-on-select="CollectMaterialCtrl.ePage.Masters.SelectedLookupSupplier($item)" obj="CollectMaterialCtrl.ePage.Entities.Header.PickupData.UIWmsPickup"
-                                page-name="'OrganizationList'" control-id="'Site'" control-key="'Site_3322'">
+                                auto-complete-on-select="CollectMaterialCtrl.ePage.Masters.SelectedLookupSupplier($item)"
+                                obj="CollectMaterialCtrl.ePage.Entities.Header.PickupData.UIWmsPickup" page-name="'OrganizationList'"
+                                control-id="'Site'" control-key="'Site_3322'">
                             </div>
 
                             <!-- Look Up page opens when button clicks -->
                             <span class="input-group-btn">
-                                <button dynamic-list-modal is-disabled="true" obj="CollectMaterialCtrl.ePage.Entities.Header.PickupData.UIWmsPickup" control-id="'Site'"
-                                    selected-data="CollectMaterialCtrl.ePage.Masters.SelectedLookupSupplier($item.data.entity)"
-                                    page-name="'OrganizationList'" control-key="'Site_3322'" mode="2" grid-refresh-fun-name=""
-                                    grid-refresh-fun="" class="btn btn-default shiny" type="button">
+                                <button dynamic-list-modal is-disabled="true" obj="CollectMaterialCtrl.ePage.Entities.Header.PickupData.UIWmsPickup"
+                                    control-id="'Site'" selected-data="CollectMaterialCtrl.ePage.Masters.SelectedLookupSupplier($item.data.entity)"
+                                    page-name="'OrganizationList'" control-key="'Site_3322'" mode="2"
+                                    grid-refresh-fun-name="" grid-refresh-fun="" class="btn btn-default shiny" type="button">
                                     <i class="fa fa-ellipsis-h"></i>
                                 </button>
                             </span>
@@ -160,8 +165,8 @@
             <div class="form-group">
                 <label class="control-label text-single-line">Request Mode</label>
                 <div class="">
-                    <input type="text" disabled class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Request Mode"
-                        data-ng-model="CollectMaterialCtrl.ePage.Entities.Header.PickupData.UIWmsWorkorderReport.RequestMode">
+                    <input type="text" disabled class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
+                        placeholder="Request Mode" data-ng-model="CollectMaterialCtrl.ePage.Entities.Header.PickupData.UIWmsWorkorderReport.RequestMode">
                 </div>
             </div>
         </div>
@@ -169,8 +174,8 @@
             <div class="form-group">
                 <label class="control-label text-single-line">Response Type</label>
                 <div class="">
-                    <input type="text" disabled class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Response Type"
-                        data-ng-model="CollectMaterialCtrl.ePage.Entities.Header.PickupData.UIWmsWorkorderReport.ResponseType">
+                    <input type="text" disabled class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
+                        placeholder="Response Type" data-ng-model="CollectMaterialCtrl.ePage.Entities.Header.PickupData.UIWmsWorkorderReport.ResponseType">
                 </div>
             </div>
         </div>
@@ -178,8 +183,9 @@
             <div class="form-group">
                 <label class="control-label text-single-line">Site Engineer</label>
                 <div class="">
-                    <input type="text" disabled class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Site Engineer"
-                        data-ng-model="CollectMaterialCtrl.ePage.Entities.Header.PickupData.UIWmsWorkorderReport.Requester" ng-change="CollectMaterialCtrl.ePage.Masters.OnChangeValues(CollectMaterialCtrl.ePage.Entities.Header.PickupData.UIWmsWorkorderReport.Requester,'E3055')">
+                    <input type="text" disabled class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
+                        placeholder="Site Engineer" data-ng-model="CollectMaterialCtrl.ePage.Entities.Header.PickupData.UIWmsWorkorderReport.Requester"
+                        ng-change="CollectMaterialCtrl.ePage.Masters.OnChangeValues(CollectMaterialCtrl.ePage.Entities.Header.PickupData.UIWmsWorkorderReport.Requester,'E3055')">
                 </div>
             </div>
         </div>
@@ -187,8 +193,8 @@
             <div class="form-group">
                 <label class="control-label text-single-line">Contact Number</label>
                 <div class="">
-                    <input type="text" disabled class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Contact Number"
-                        data-ng-model="CollectMaterialCtrl.ePage.Entities.Header.PickupData.UIWmsWorkorderReport.RequesterContactNo"
+                    <input type="text" disabled class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
+                        placeholder="Contact Number" data-ng-model="CollectMaterialCtrl.ePage.Entities.Header.PickupData.UIWmsWorkorderReport.RequesterContactNo"
                         ng-change="CollectMaterialCtrl.ePage.Masters.OnChangeValues(CollectMaterialCtrl.ePage.Entities.Header.PickupData.UIWmsWorkorderReport.RequesterContactNo,'E3056')">
                 </div>
             </div>
@@ -197,8 +203,8 @@
             <div class="form-group">
                 <label class="control-label text-single-line">Pickup Point</label>
                 <div class="">
-                    <input type="text" disabled class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Pickup Point"
-                        data-ng-model="CollectMaterialCtrl.ePage.Entities.Header.PickupData.UIWmsWorkorderReport.AdditionalRef1Code">
+                    <input type="text" disabled class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
+                        placeholder="Pickup Point" data-ng-model="CollectMaterialCtrl.ePage.Entities.Header.PickupData.UIWmsWorkorderReport.AdditionalRef1Code">
                 </div>
             </div>
         </div>
@@ -206,8 +212,8 @@
             <div class="form-group">
                 <label class="control-label text-single-line">Pickup Request No</label>
                 <div class="">
-                    <input type="text" disabled class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Pickup Request No"
-                        data-ng-model="CollectMaterialCtrl.ePage.Entities.Header.PickupData.UIWmsPickup.WorkOrderID">
+                    <input type="text" disabled class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
+                        placeholder="Pickup Request No" data-ng-model="CollectMaterialCtrl.ePage.Entities.Header.PickupData.UIWmsPickup.WorkOrderID">
                 </div>
             </div>
         </div>
@@ -215,8 +221,8 @@
             <div class="form-group">
                 <label class="control-label text-single-line">Handover Person</label>
                 <div class="">
-                    <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Handover Person"
-                        data-ng-model="CollectMaterialCtrl.ePage.Entities.Header.PickupData.UIWmsWorkorderReport.DeliveryPerson">
+                    <input type="text" no-special-char class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
+                        placeholder="Handover Person" data-ng-model="CollectMaterialCtrl.ePage.Entities.Header.PickupData.UIWmsWorkorderReport.DeliveryPerson">
                 </div>
             </div>
         </div>
@@ -224,8 +230,8 @@
             <div class="form-group">
                 <label class="control-label text-single-line">Handover Person Contact No</label>
                 <div class="">
-                    <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Handover Person Contact No"
-                        data-ng-model="CollectMaterialCtrl.ePage.Entities.Header.PickupData.UIWmsWorkorderReport.DeliveryPersonContactNo">
+                    <input type="text" numbers-only no-special-char class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
+                        placeholder="Handover Person Contact No" data-ng-model="CollectMaterialCtrl.ePage.Entities.Header.PickupData.UIWmsWorkorderReport.DeliveryPersonContactNo">
                 </div>
             </div>
         </div>
@@ -233,7 +239,8 @@
             <div class="form-group">
                 <label class="control-label text-single-line">Receiver</label>
                 <div class="">
-                    <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Receiver" data-ng-model="CollectMaterialCtrl.ePage.Entities.Header.PickupData.UIWmsWorkorderReport.Receiver">
+                    <input type="text" no-special-char class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
+                        placeholder="Receiver" data-ng-model="CollectMaterialCtrl.ePage.Entities.Header.PickupData.UIWmsWorkorderReport.Receiver">
                 </div>
             </div>
         </div>
@@ -241,8 +248,8 @@
             <div class="form-group">
                 <label class="control-label text-single-line">Receiver Contact No</label>
                 <div class="">
-                    <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Receiver Contact No"
-                        data-ng-model="CollectMaterialCtrl.ePage.Entities.Header.PickupData.UIWmsWorkorderReport.ReceiverContactNo">
+                    <input type="text" numbers-only no-special-char class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
+                        placeholder="Receiver Contact No" data-ng-model="CollectMaterialCtrl.ePage.Entities.Header.PickupData.UIWmsWorkorderReport.ReceiverContactNo">
                 </div>
             </div>
         </div>
@@ -270,8 +277,8 @@
                     </tr>
                 </thead>
                 <tbody id="InwardLineCustTable{{CollectMaterialCtrl.ePage.Entities.Header.PickupData.UIWmsPickup.WorkOrderID}}">
-                    <tr id="tableBody" ng-repeat="x in CollectMaterialCtrl.ePage.Entities.Header.PickupData.UIWmsPickupLine" ng-click="CollectMaterialCtrl.ePage.Masters.setSelectedRow($index);"
-                        ng-class="{row_active: (CollectMaterialCtrl.ePage.Masters.selectedRow==$index),copy_row_active :(x.IsCopied==true)}">
+                    <tr id="tableBody" ng-repeat="x in CollectMaterialCtrl.ePage.Entities.Header.PickupData.UIWmsPickupLine"
+                        ng-click="CollectMaterialCtrl.ePage.Masters.setSelectedRow($index);" ng-class="{row_active: (CollectMaterialCtrl.ePage.Masters.selectedRow==$index),copy_row_active :(x.IsCopied==true)}">
 
                         <td ng-style="{ 'width':  '40px' }" class="overflow-text">{{$index +1}}</td>
                         <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.AdditionalRef1Code}}</td>

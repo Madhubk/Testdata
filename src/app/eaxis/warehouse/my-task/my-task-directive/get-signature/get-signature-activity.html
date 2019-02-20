@@ -14,6 +14,26 @@
             <uib-tab-heading title="{{GetSignatureCtrl.ePage.Masters.Config.Entities.Inward.label}}">
                 <i class="fa fa-suitcase margin-right-5"></i>
                 <span class="text-single-line">{{GetSignatureCtrl.ePage.Masters.Config.Entities.Inward.label}}</span>
+                <span class="error-warning-container-common" data-ng-if="GetSignatureCtrl.ePage.Masters.Config.Entities.Inward[GetSignatureCtrl.ePage.Masters.Config.Entities.Inward.label].ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList.length > 0">
+                    <span class="custom-warning-container" data-ng-if="(GetSignatureCtrl.ePage.Masters.Config.Entities.Inward[GetSignatureCtrl.ePage.Masters.Config.Entities.Inward.label].ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList | listCount: 'MessageType': 'W') > 0 && (GetSignatureCtrl.ePage.Masters.Config.Entities.Inward[GetSignatureCtrl.ePage.Masters.Config.Entities.Inward.label].ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList | listCount: 'MessageType': 'E') == 0">
+                        <button class="btn-warning" data-ng-click="GetSignatureCtrl.ePage.Masters.Config.ShowErrorWarningModal(GetSignatureCtrl.ePage.Masters.Config.Entities.Inward)">
+                            <i class="fa fa-warning"></i>
+                        </button>
+                        <span class="custom-warning-count">{{GetSignatureCtrl.ePage.Masters.Config.Entities.Inward[GetSignatureCtrl.ePage.Masters.Config.Entities.Inward.label].ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList
+                            | listCount: 'MessageType':
+                            'W'}}
+                        </span>
+                    </span>
+                    <span class="custom-error-container" data-ng-if="(GetSignatureCtrl.ePage.Masters.Config.Entities.Inward[GetSignatureCtrl.ePage.Masters.Config.Entities.Inward.label].ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList | listCount: 'MessageType': 'E') > 0">
+                        <button class="btn-error" data-ng-click="GetSignatureCtrl.ePage.Masters.Config.ShowErrorWarningModal(GetSignatureCtrl.ePage.Masters.Config.Entities.Inward)">
+                            <i class="fa fa-warning"></i>
+                        </button>
+                        <span class="custom-error-count">{{GetSignatureCtrl.ePage.Masters.Config.Entities.Inward[GetSignatureCtrl.ePage.Masters.Config.Entities.Inward.label].ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList
+                            | listCount: 'MessageType':
+                            'E'}}
+                        </span>
+                    </span>
+                </span>
             </uib-tab-heading>
             <inward-menu ng-if="GetSignatureCtrl.ePage.Masters.Config.Entities.Inward" current-inward="GetSignatureCtrl.ePage.Masters.Config.Entities.Inward"
                 is-hide-menu="true"></inward-menu>

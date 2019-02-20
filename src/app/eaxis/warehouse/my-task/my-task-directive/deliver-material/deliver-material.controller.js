@@ -36,8 +36,10 @@
                 getDeliveryList();
                 if (DeliverMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.AdditionalRef1Fk)
                     GetManifestDetails();
-                if (DeliverMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WPK_FK)
+                if (DeliverMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WPK_FK) {
                     GetPickDetails();
+                    Config.ValidationFindall();
+                }
                 GetDynamicLookupConfig();
 
                 if (errorWarningService.Modules.MyTask)
@@ -103,7 +105,7 @@
                             response.data.Response.TmsManifestHeader.Sender_ORG_FK = DeliverMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WAR_ORG_FK;
                             response.data.Response.TmsManifestHeader.ReceiverCode = DeliverMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.ConsigneeCode;
                             response.data.Response.TmsManifestHeader.ReceiverName = DeliverMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.ConsigneeName;
-                            response.data.Response.TmsManifestHeader.Receiver_ORG_FK = DeliverMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.ORG_Consignee_FK;                            
+                            response.data.Response.TmsManifestHeader.Receiver_ORG_FK = DeliverMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.ORG_Consignee_FK;
                             response.data.Response.TmsManifestHeader.EstimatedDispatchDate = new Date();
                             response.data.Response.TmsManifestHeader.EstimatedDeliveryDate = new Date();
                             response.data.Response.TmsManifestHeader.EstimatedDispatchDate = $filter('date')(new Date(), "dd-MMM-yyyy hh:mm a")

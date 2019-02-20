@@ -26,6 +26,11 @@
             <uib-tab-heading title="CSR Details">
                 <i class="fa fa-truck margin-right-5"></i>
                 <span class="text-single-line" data-ng-bind="'CSR Details'"></span>
+                <span class="error-warning-container">
+                    <error-warning-directive data-ng-if="PodReturnCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ReceiverContactNo.IsError || PodReturnCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Receiver.IsError"
+                        list="PodReturnCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ReceiverContactNo.ERROR"
+                        type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                </span>
             </uib-tab-heading>
             <div data-ng-include="'app/eaxis/warehouse/my-task/my-task-directive/pod-return-out/csr-details.html'"></div>
         </uib-tab>
