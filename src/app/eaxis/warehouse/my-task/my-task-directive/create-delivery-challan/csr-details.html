@@ -292,7 +292,7 @@
             </div>
         </div>
         <div id="InvTable{{CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderID}}" class="fixedheader mb-0"
-            key-events table-object='CreateDelChallanCtrl.ePage.Masters.Inventory' enable='CreateDelChallanCtrl.ePage.Masters.EnableInventory'
+            key-events table-object='CreateDelChallanCtrl.ePage.Masters.MainInventory' enable='CreateDelChallanCtrl.ePage.Masters.EnableInventory'
             selected-row='CreateDelChallanCtrl.ePage.Masters.selectedRowInventory' unique-id='InvTable{{CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderID}}'>
             <table style="height: 200px">
                 <thead>
@@ -322,7 +322,7 @@
                     </tr>
                 </thead>
                 <tbody id="InwardLineCustTable{{CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderID}}">
-                    <tr id="tableBody" ng-repeat="x in CreateDelChallanCtrl.ePage.Masters.Inventory | orderBy:'CreatedDateTime'" ng-class="{bg_green: x.WAR_WarehouseCode==CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WarehouseCode, bg_pink: x.WAR_WarehouseCode!=CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WarehouseCode}">
+                    <tr id="tableBody" ng-repeat="x in CreateDelChallanCtrl.ePage.Masters.MainInventory | orderBy:'CreatedDateTime'" ng-class="{bg_green: x.WAR_WarehouseCode==CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WarehouseCode, bg_pink: x.WAR_WarehouseCode!=CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WarehouseCode}">
                         <td ng-style="{ 'width':  '40px' }" class="overflow-text">{{$index +1}}</td>
                         <td ng-style="{ 'width':  '130px' }" class="overflow-text">{{x.ProductCode}}</td>
                         <td ng-style="{ 'width':  '200px' }" class="overflow-text">{{x.ProductName}}</td>
@@ -352,7 +352,7 @@
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 norecordfound" style="top:560px" ng-if="CreateDelChallanCtrl.ePage.Masters.InventoryLoading">
             <i class="fa fa-spin fa-spinner font-160"></i>
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 norecordfound" style="top:560px" ng-if="CreateDelChallanCtrl.ePage.Masters.Inventory.length==0 && !CreateDelChallanCtrl.ePage.Masters.InventoryLoading">No Record Found...</div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 norecordfound" style="top:560px" ng-if="CreateDelChallanCtrl.ePage.Masters.MainInventory.length==0 && !CreateDelChallanCtrl.ePage.Masters.InventoryLoading">No Record Found...</div>
     </div>
 
     <!--FIlter Bar  -->

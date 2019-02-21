@@ -5,9 +5,9 @@
     .module("Application")
     .controller("ManifestAddressController", ManifestAddressController);
 
-    ManifestAddressController.$inject = ["$rootScope", "$uibModalInstance","$scope", "$state", "$q", "$location", "$timeout", "APP_CONSTANT", "authService", "apiService", "appConfig", "manifestConfig", "helperService", "toastr", "$filter","$injector","myData"];
+    ManifestAddressController.$inject = ["$rootScope", "$uibModalInstance","$scope", "$state", "$q", "$location", "$timeout", "APP_CONSTANT", "authService", "apiService", "appConfig", "dmsManifestConfig", "helperService", "toastr", "$filter","$injector","myData"];
     
-    function ManifestAddressController($rootScope, $uibModalInstance,$scope, $state, $q, $location, $timeout, APP_CONSTANT, authService, apiService, appConfig, manifestConfig, helperService, toastr, $filter,$injector,myData) {
+    function ManifestAddressController($rootScope, $uibModalInstance,$scope, $state, $q, $location, $timeout, APP_CONSTANT, authService, apiService, appConfig, dmsManifestConfig, helperService, toastr, $filter,$injector,myData) {
 
         var ManifestAddressCtrl = this;
 

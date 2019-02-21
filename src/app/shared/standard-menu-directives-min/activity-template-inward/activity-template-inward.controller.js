@@ -391,7 +391,7 @@
                                     response.data.Response.Response.UIWmsOutwardHeader.PK = response.data.Response.Response.PK;
                                     response.data.Response.Response.UIWmsOutwardHeader.CreatedDateTime = new Date();
                                     response.data.Response.Response.UIWmsOutwardHeader.WorkOrderType = 'ORD';
-                                    response.data.Response.Response.UIWmsOutwardHeader.ExternalReference = "Outward " + response.data.Response.Response.UIWmsOutwardHeader.WorkOrderID;
+                                    response.data.Response.Response.UIWmsOutwardHeader.ExternalReference = response.data.Response.Response.UIWmsOutwardHeader.WorkOrderID;
                                     response.data.Response.Response.UIWmsOutwardHeader.ORG_Client_FK = input.UIWmsInwardHeader.ORG_Client_FK;
                                     response.data.Response.Response.UIWmsOutwardHeader.ORG_FK = input.UIWmsInwardHeader.ORG_FK;
                                     response.data.Response.Response.UIWmsOutwardHeader.ClientCode = input.UIWmsInwardHeader.ClientCode;

@@ -208,7 +208,6 @@
                             if (results[0]) {
                                 for (var i = 0; i < results[0].address_components.length; i++) {
                                     var addr = results[0].address_components[i];
-                                    // check if this entry in address_components has a type of country
                                     if (addr.types[0] == 'street_address') // address 1
                                         RoutePlanningCtrl.ePage.Entities.Header.Data.JobAddress[value].Address1 = addr.long_name;
                                     if (addr.types[0] == 'establishment')
@@ -360,13 +359,38 @@
             angular.forEach(RoutePlanningCtrl.ePage.Entities.Header.Data.JobAddress, function (value, key) {
                 value.AddressSequence = key;
                 if (value.AddressType == "PIC" || value.AddressType == "DEL") {
-                    var value1 = angular.copy(value);
-                    value1.IsModified = true;
-                    value1.PK = value.OAD_Address_FK;
-                    value1.Longitude = value.Longtitude;
-                    apiService.post("eAxisAPI", dmsManifestConfig.Entities.Header.API.UpdateOrgAddress.Url, value1).then(function (response) {
-                        if (response.data.Response) {
-                            RoutePlanningCtrl.ePage.Masters.AddressData = response.data.Response;
+                    var _filter = {
+                        "ORG_FK": value.ORG_FK
+                    };
+                    var _input = {
+                        "searchInput": helperService.createToArrayOfObject(_filter),
+                        "FilterID": RoutePlanningCtrl.ePage.Entities.Header.API.OrgAddress.FilterID
+                    };
+                    apiService.post("eAxisAPI", RoutePlanningCtrl.ePage.Entities.Header.API.OrgAddress.Url, _input).then(function (response) {
+                        if (response.data.Response) {                            
+                            RoutePlanningCtrl.ePage.Masters.OrgAddress = response.data.Response;
+                            angular.forEach(response.data.Response, function (value, key) {
+                                angular.forEach(value.AddressCapability, function (value1, key1) {
+                                    if (value1.IsMainAddress) {
+                                        RoutePlanningCtrl.ePage.Masters.MainAddress = value;
+                                    }
+                                });
+                            });
+                            RoutePlanningCtrl.ePage.Masters.MainAddress.Address1 = value.Address1;
+                            RoutePlanningCtrl.ePage.Masters.MainAddress.Address2 = value.Address2;
+                            RoutePlanningCtrl.ePage.Masters.MainAddress.City = value.City;
+                            RoutePlanningCtrl.ePage.Masters.MainAddress.State = value.State;
+                            RoutePlanningCtrl.ePage.Masters.MainAddress.PostCode = value.Postcode;
+                            RoutePlanningCtrl.ePage.Masters.MainAddress.StateId = value.StateId;
+                            RoutePlanningCtrl.ePage.Masters.MainAddress.Latitude = value.Latitude;
+                            RoutePlanningCtrl.ePage.Masters.MainAddress.Longitude = value.Longtitude;
+                            RoutePlanningCtrl.ePage.Masters.MainAddress.IsModified = true;
+                           
+                            apiService.post("eAxisAPI", dmsManifestConfig.Entities.Header.API.UpdateOrgAddress.Url, RoutePlanningCtrl.ePage.Masters.MainAddress).then(function (response) {
+                                if (response.data.Response) {
+                                    RoutePlanningCtrl.ePage.Masters.AddressData = response.data.Response;
+                                }
+                            });
                         }
                     });
                 }
