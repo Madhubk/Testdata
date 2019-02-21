@@ -165,7 +165,7 @@
             angular.forEach(TempSelectedDeliveryLine, function (value, key) {
                 TempProduct = TempProduct + key + ",";
             });
-            TempProduct = TempProduct.slice(0, -1);            
+            TempProduct = TempProduct.slice(0, -1);
             CreateDelChallanCtrl.ePage.Masters.SelectedInv = []
             angular.forEach(TempSelectedDeliveryLine, function (value, key) {
                 CreateDelChallanCtrl.ePage.Masters.SelectedInv = CreateDelChallanCtrl.ePage.Masters.SelectedInv.concat($filter('filter')(CreateDelChallanCtrl.ePage.Masters.InventoryDetails, function (val1, key1) {
@@ -397,7 +397,12 @@
                             response.data.Response.Response.UIWmsOutwardHeader.WorkOrderSubType = "MTR";
                         response.data.Response.Response.UIWmsOutwardHeader.WOD_Parent_FK = CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.PK;
 
-                        angular.forEach(CreateDelChallanCtrl.ePage.Masters.SelectedDeliveryLine, function (value, key) {
+                        angular.forEach(CreateDelChallanCtrl.ePage.Masters.SelectedDeliveryLine, function (value, key) {                            
+                            if (type == "MTR") {
+                                value.MOL_PrdCode = value.DL_Req_PrdCode;
+                            } else if (type == "OUT") {
+                                value.OL_PrdCode = value.DL_Req_PrdCode
+                            }
                             var obj = {
                                 "Parent_FK": value.DL_PK,
                                 "PK": "",
@@ -570,7 +575,7 @@
                 angular.forEach(TempDeliveryLine, function (value, key) {
                     TempProduct = TempProduct + key + ",";
                 });
-                TempProduct = TempProduct.slice(0, -1);                
+                TempProduct = TempProduct.slice(0, -1);
                 // except requested warehouse inventory
                 CreateDelChallanCtrl.ePage.Masters.defaultFilter = {
                     "ClientCode": CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ClientCode,
@@ -679,7 +684,7 @@
                     "FilterID": appConfig.Entities.WmsInventory.API.FindAll.FilterID
                 };
                 apiService.post("eAxisAPI", appConfig.Entities.WmsInventory.API.FindAll.Url, _input).then(function (response) {
-                    CreateDelChallanCtrl.ePage.Masters.MainInventory = angular.copy(response.data.Response);                    
+                    CreateDelChallanCtrl.ePage.Masters.MainInventory = angular.copy(response.data.Response);
                     if (!CreateDelChallanCtrl.ePage.Masters.DynamicControl.Entities[0].Data.ProductCode) {
                         CreateDelChallanCtrl.ePage.Masters.InventoryDetails = angular.copy(response.data.Response);
                         angular.forEach(CreateDelChallanCtrl.ePage.Masters.RequestedWarehouseInventory, function (value, key) {
