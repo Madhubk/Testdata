@@ -766,13 +766,14 @@
         }
 
         function GetDocumentGenerateFilterList() {
+            
             SMDocumentCtrl.ePage.Masters.DocumentGenerate.ListSource = undefined;
             var _filter = {
                 SourceEntityRefKey: "DocType",
                 EntitySource: "CONFIGURATION",
                 // ModuleCode: SMDocumentCtrl.input.EntitySource,
                 ModuleCode: "GEN",
-                Key: "Shipment_Document",
+                Key: SMDocumentCtrl.input.Entity,
                 SAP_FK: authService.getUserInfo().AppPK,
                 TenantCode: authService.getUserInfo().TenantCode
             };

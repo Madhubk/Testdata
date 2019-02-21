@@ -205,7 +205,7 @@
                         });
                     }
                 });
-            } else if (ActivityTemplateInwardCtrl.taskObj.WSI_StepName == "Confirm Delivery and Get Signature") {
+            } else if (ActivityTemplateInwardCtrl.taskObj.WSI_StepName == "Confirm Pickup and Get Signature") {
                 if (callback) {
                     ActivityTemplateInwardCtrl.ePage.Masters.IsDisableSaveBtn = false;
                     ActivityTemplateInwardCtrl.ePage.Masters.SaveBtnText = "Save";
@@ -591,7 +591,7 @@
 
         function Complete() {
             if (ActivityTemplateInwardCtrl.ePage.Masters.ValidationSource.length > 0 || ActivityTemplateInwardCtrl.ePage.Masters.DocumentValidation.length > 0) {
-                if (ActivityTemplateInwardCtrl.taskObj.WSI_StepName == "Collect Material" || ActivityTemplateInwardCtrl.taskObj.WSI_StepName == "Confirm Delivery and Get Signature") {
+                if (ActivityTemplateInwardCtrl.taskObj.WSI_StepName == "Collect Material" || ActivityTemplateInwardCtrl.taskObj.WSI_StepName == "Confirm Pickup and Get Signature") {
                     myTaskActivityConfig.Entities.Inward[myTaskActivityConfig.Entities.Inward.label].ePage.Entities.Header.Data.UIWmsWorkorderReport = myTaskActivityConfig.Entities.PickupData.UIWmsWorkorderReport;
                 }
                 if (ActivityTemplateInwardCtrl.ePage.Masters.ValidationSource.length > 0) {

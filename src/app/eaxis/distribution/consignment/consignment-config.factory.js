@@ -97,6 +97,11 @@
                                 "Url": "OrgAddress/FindAll",
                                 "FilterID": "ORGADDR"
                             },
+                            "GetByID": {
+                                "IsAPI": "true",
+                                "HttpType": "GET",
+                                "Url": "TmsConsignmentList/GetById/"
+                            },
                             "CfxTypes": {
                                 "IsAPI": "true",
                                 "HttpType": "POST",
@@ -179,7 +184,7 @@
                                     "display": true
                                 },
                                 {
-                                    "columnname": "MHU Type",
+                                    "columnname": "Pack Type",
                                     "isenabled": true,
                                     "property": "rmhutype",
                                     "position": "6",
@@ -586,7 +591,7 @@
             OnChangeValues(_input.TmsConsignmentHeader.ServiceType, 'E5518', false, undefined, $item.label);
             if (_input.TmsConsignmentHeader.ServiceType == "INW" || _input.TmsConsignmentHeader.ServiceType == "ORD") {
                 OnChangeValues('', 'E5566', false, undefined, $item.label);
-            }else if (_input.TmsConsignmentHeader.ServiceType == "LOP" || _input.TmsConsignmentHeader.ServiceType == "LOD") {
+            }else if (_input.TmsConsignmentHeader.ServiceType == "LOP" || _input.TmsConsignmentHeader.ServiceType == "LOD" || _input.TmsConsignmentHeader.ServiceType == "OSD") {
                 OnChangeValues(_input.TmsConsignmentHeader.ServiceType, 'E5566', false, undefined, $item.label);
             }
             OnChangeValues(_input.TmsConsignmentHeader.ExpectedPickupDateTime, 'E5521', false, undefined, $item.label);

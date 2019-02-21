@@ -261,7 +261,7 @@
                 "SAP_FK": "c0b3b8d9-2248-44cd-a425-99c85c6c36d8",
                 "PageType": "Document",
                 "ModuleCode": "WMS",
-                "SubModuleCode": "ADJ"
+                "SubModuleCode": "TFR"
             };
 
             var _input = {

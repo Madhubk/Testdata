@@ -747,7 +747,7 @@
 
                         if (_response.Value) {
                             _response.Value = JSON.parse(_response.Value);
-                            _response.Value.DataObjs[0].DataObject = JSON.parse(_response.Value.DataObjs[0].DataObject);
+                            _response.Value.DataObjs[0].DataObject = _response.Value.DataObjs[0].DataObject;
 
                             if (sourceObject) {
                                 var _excelDocumentObject = PrepareExcelDocumentObject(_response.Value, sourceObject);

@@ -29,7 +29,7 @@
             DMSConsignmentGeneralCtrl.ePage.Masters.AddNewItemSave = AddNewItemSave;
             DMSConsignmentGeneralCtrl.ePage.Masters.OnChangeValues = OnChangeValues;
             DMSConsignmentGeneralCtrl.ePage.Masters.OnChangeServiceType = OnChangeServiceType;
-
+            DMSConsignmentGeneralCtrl.ePage.Masters.AddSaveButtonText = "Save and Add New Item";
             //For table
             DMSConsignmentGeneralCtrl.ePage.Masters.SelectAll = false;
             DMSConsignmentGeneralCtrl.ePage.Masters.EnableDeleteButton = false;
@@ -251,7 +251,9 @@
 
         function Save($item) {
             DMSConsignmentGeneralCtrl.ePage.Entities.Header.CheckPoints.IsLoadingToSave = true;
-            if (DMSConsignmentGeneralCtrl.ePage.Masters.SaveAndClose) {
+            if(DMSConsignmentGeneralCtrl.ePage.Masters.AddNewItemSave){
+                DMSConsignmentGeneralCtrl.ePage.Masters.AddSaveButtonText = "Please Wait...";
+            }else if (DMSConsignmentGeneralCtrl.ePage.Masters.SaveAndClose) {
                 DMSConsignmentGeneralCtrl.ePage.Masters.SaveAndCloseButtonText = "Please Wait...";
             } else {
                 DMSConsignmentGeneralCtrl.ePage.Masters.SaveButtonText = "Please Wait...";
@@ -285,7 +287,7 @@
                     }).indexOf(DMSConsignmentGeneralCtrl.currentConsignment[DMSConsignmentGeneralCtrl.currentConsignment.label].ePage.Entities.Header.Data.PK);
                     if (_index !== -1) {
                         if (DMSConsignmentGeneralCtrl.currentConsignment[DMSConsignmentGeneralCtrl.currentConsignment.label].ePage.Entities.Header.Data.TmsConsignmentHeader.IsCancel != true) {
-                            apiService.get("eAxisAPI", 'TmsConsignmentList/GetById/' + DMSConsignmentGeneralCtrl.currentConsignment[DMSConsignmentGeneralCtrl.currentConsignment.label].ePage.Entities.Header.Data.PK).then(function (response) {
+                            apiService.get("eAxisAPI", DMSConsignmentGeneralCtrl.ePage.Entities.Header.API.GetByID.Url + DMSConsignmentGeneralCtrl.currentConsignment[DMSConsignmentGeneralCtrl.currentConsignment.label].ePage.Entities.Header.Data.PK).then(function (response) {
                                 if (response.data.Response) {
                                     DMSConsignmentGeneralCtrl.ePage.Masters.Config.TabList[_index][DMSConsignmentGeneralCtrl.ePage.Masters.Config.TabList[_index].label].ePage.Entities.Header.Data = response.data.Response;
 
@@ -381,7 +383,7 @@
             if (DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.ServiceType == 'INW' || DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.ServiceType == 'ORD') {
                 DMSConsignmentGeneralCtrl.ePage.Masters.OnChangeValues('', "E5566", false, undefined);
                 toastr.error('Cannot Create Consignment with INW and ORD Service Type');
-            } else if (DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.ServiceType == 'LOP' || DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.ServiceType == 'LOD') {
+            } else if (DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.ServiceType == 'LOP' || DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.ServiceType == 'LOD' || DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.ServiceType == 'OSD') {
                 DMSConsignmentGeneralCtrl.ePage.Masters.OnChangeValues(DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.ServiceType, "E5566", false, undefined);
             }
         }
@@ -497,7 +499,7 @@
             apiService.post("eAxisAPI", appConfig.Entities.UserSettings.API.FindAll.Url + authService.getUserInfo().AppPK, _input).then(function (response) {
                 if (response.data.Response[0]) {
                     DMSConsignmentGeneralCtrl.ePage.Masters.UserValue = response.data.Response[0];
-                    if (response.data.Response[0].Value != '') {
+                    if (response.data.Response[0].Value!='') {
                         var obj = JSON.parse(response.data.Response[0].Value)
                         DMSConsignmentGeneralCtrl.ePage.Entities.Header.TableProperties.TmsConsignmentItem = obj;
                         DMSConsignmentGeneralCtrl.ePage.Masters.UserHasValue = true;
