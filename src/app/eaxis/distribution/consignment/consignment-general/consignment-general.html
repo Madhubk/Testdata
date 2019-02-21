@@ -305,8 +305,7 @@
         <div class="col-lg-4">
         </div>
         <div class="col-lg-4" ng-if="!DMSConsignmentGeneralCtrl.ePage.Masters.isActive">
-            <button class="btn btn-blue" data-ng-click="DMSConsignmentGeneralCtrl.ePage.Masters.AddNewItemSave(DMSConsignmentGeneralCtrl.currentConsignment)">Save
-                and Add New Item</button>
+            <button class="btn btn-blue" data-ng-click="DMSConsignmentGeneralCtrl.ePage.Masters.AddNewItemSave(DMSConsignmentGeneralCtrl.currentConsignment)" ng-bind="DMSConsignmentGeneralCtrl.ePage.Masters.AddSaveButtonText"></button>
         </div>
         <div class="col-lg-4">
         </div>

@@ -29,7 +29,7 @@
             DMSConsignmentGeneralCtrl.ePage.Masters.AddNewItemSave = AddNewItemSave;
             DMSConsignmentGeneralCtrl.ePage.Masters.OnChangeValues = OnChangeValues;
             DMSConsignmentGeneralCtrl.ePage.Masters.OnChangeServiceType = OnChangeServiceType;
-
+            DMSConsignmentGeneralCtrl.ePage.Masters.AddSaveButtonText = "Save and Add New Item";
             //For table
             DMSConsignmentGeneralCtrl.ePage.Masters.SelectAll = false;
             DMSConsignmentGeneralCtrl.ePage.Masters.EnableDeleteButton = false;
@@ -251,7 +251,9 @@
 
         function Save($item) {
             DMSConsignmentGeneralCtrl.ePage.Entities.Header.CheckPoints.IsLoadingToSave = true;
-            if (DMSConsignmentGeneralCtrl.ePage.Masters.SaveAndClose) {
+            if(DMSConsignmentGeneralCtrl.ePage.Masters.AddNewItemSave){
+                DMSConsignmentGeneralCtrl.ePage.Masters.AddSaveButtonText = "Please Wait...";
+            }else if (DMSConsignmentGeneralCtrl.ePage.Masters.SaveAndClose) {
                 DMSConsignmentGeneralCtrl.ePage.Masters.SaveAndCloseButtonText = "Please Wait...";
             } else {
                 DMSConsignmentGeneralCtrl.ePage.Masters.SaveButtonText = "Please Wait...";
@@ -381,7 +383,7 @@
             if (DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.ServiceType == 'INW' || DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.ServiceType == 'ORD') {
                 DMSConsignmentGeneralCtrl.ePage.Masters.OnChangeValues('', "E5566", false, undefined);
                 toastr.error('Cannot Create Consignment with INW and ORD Service Type');
-            } else if (DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.ServiceType == 'LOP' || DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.ServiceType == 'LOD') {
+            } else if (DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.ServiceType == 'LOP' || DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.ServiceType == 'LOD' || DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.ServiceType == 'OSD') {
                 DMSConsignmentGeneralCtrl.ePage.Masters.OnChangeValues(DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.ServiceType, "E5566", false, undefined);
             }
         }
