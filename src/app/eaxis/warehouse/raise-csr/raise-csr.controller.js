@@ -150,7 +150,8 @@
                 _input.UIWmsDelivery.WorkOrderType = 'DEL';
                 _input.UIWmsWorkorderReport.AcknowledgementDateTime = new Date();
                 _input.UIWmsWorkorderReport.AcknowledgedPerson = authService.getUserInfo().UserId;
-                _input.UIWmsWorkorderReport.DeliveryRequestedDateTime = new Date();
+                if (!_input.UIWmsWorkorderReport.DeliveryRequestedDateTime)
+                    _input.UIWmsWorkorderReport.DeliveryRequestedDateTime = new Date();
                 _input.UIWmsWorkorderReport.WOD_FK = _input.PK;
                 apiService.post("eAxisAPI", appConfig.Entities.WmsDeliveryList.API.Insert.Url, _input).then(function (response) {
                     if (response.data.Response) {

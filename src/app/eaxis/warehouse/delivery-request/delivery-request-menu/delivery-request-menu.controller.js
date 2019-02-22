@@ -182,7 +182,8 @@
                 _input.UIWmsDelivery.WorkOrderType = 'DEL';
                 _input.UIWmsWorkorderReport.AcknowledgementDateTime = new Date();
                 _input.UIWmsWorkorderReport.AcknowledgedPerson = authService.getUserInfo().UserId;
-                _input.UIWmsWorkorderReport.DeliveryRequestedDateTime = new Date();
+                if (!_input.UIWmsWorkorderReport.DeliveryRequestedDateTime)
+                    _input.UIWmsWorkorderReport.DeliveryRequestedDateTime = new Date();
                 _input.UIWmsWorkorderReport.WOD_FK = _input.PK;
                 if (!_input.UIWmsDelivery.ExternalReference) {
                     _input.UIWmsDelivery.ExternalReference = _input.UIWmsDelivery.WorkOrderID;
@@ -219,7 +220,7 @@
 
                         DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDelivery.Consignee = DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ConsigneeCode + ' - ' + DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ConsigneeName;
                         if ($item.isNew) {
-                            
+
                             var DeliveryTime;
                             if (DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsWorkorderReport.ResponseType == "NR") {
                                 DeliveryTime = 8;
