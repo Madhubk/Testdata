@@ -493,75 +493,27 @@
                         ActivityTemplateOutward2Ctrl.ePage.Masters.CompleteBtnText = "Please Wait...";
                         ActivityTemplateOutward2Ctrl.ePage.Masters.IsDisableCompleteBtn = true;
                         if (ActivityTemplateOutward2Ctrl.taskObj.WSI_StepName == "Transfer Material") {
-                            apiService.get("eAxisAPI", appConfig.Entities.WmsPickList.API.GetById.Url + myTaskActivityConfig.Entities.PickData[myTaskActivityConfig.Entities.PickData.label].ePage.Entities.Header.Data.UIWmsPickHeader.PK).then(function (response) {
-                                if (response.data.Response) {
-                                    response.data.Response.UIWmsPickHeader.PickStatus = 'PIF';
-                                    response.data.Response.UIWmsPickHeader.PickStatusDesc = 'Finalized';
-                                    response.data.Response = filterObjectUpdate(response.data.Response, "IsModified");
-                                    apiService.post("eAxisAPI", appConfig.Entities.WmsPickList.API.Update.Url, response.data.Response).then(function (response) {
-                                        if (response.data.Response) {
-                                            myTaskActivityConfig.Entities.PickData[myTaskActivityConfig.Entities.PickData.label].ePage.Entities.Header.Data = response.data.Response;
-                                            toastr.success("Pick Finalized Successfully");
-                                            CompleteWithSave();
-                                        } else {
-                                            toastr.error("Pick Finalize failed. Try again later.")
-                                            ActivityTemplateOutward2Ctrl.ePage.Masters.CompleteBtnText = "Complete";
-                                            ActivityTemplateOutward2Ctrl.ePage.Masters.IsDisableCompleteBtn = false;
-                                        }
-                                    });
-                                }
-                            });
+                            myTaskActivityConfig.Entities.PickData[myTaskActivityConfig.Entities.PickData.label].ePage.Entities.Header.Data.UIWmsPickHeader.PickStatus = 'PIF';
+                            myTaskActivityConfig.Entities.PickData[myTaskActivityConfig.Entities.PickData.label].ePage.Entities.Header.Data.UIWmsPickHeader.PickStatusDesc = 'Finalized';
+                            CompleteWithSave();
                         } else if (ActivityTemplateOutward2Ctrl.taskObj.WSI_StepName == "Deliver Material") {
-                            // outwardConfig.ValidationFindall();
-                            // var _Data = myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities,
-                            //     _input = _Data.Header.Data,
-                            //     _errorcount = _Data.Header.Meta.ErrorWarning.GlobalErrorWarningList;
-
-                            // //Validation Call
-                            // outwardConfig.GeneralValidation(myTaskActivityConfig.Entities.Outward);
-                            // if (_errorcount.length == 0) {
                             myTaskActivityConfig.Entities.ManifestData.TmsManifestHeader.TransportBookedDateTime = new Date();
                             myTaskActivityConfig.Entities.ManifestData.TmsManifestConsignment[0].TMC_ActualPickupDateTime = new Date();
                             myTaskActivityConfig.Entities.ManifestData.TmsManifestConsignment[0].IsModified = true;
                             myTaskActivityConfig.Entities.ManifestData.TmsManifestHeader.IsModified = true;
-                            // apiService.post("eAxisAPI", appConfig.Entities.TmsManifestList.API.Update.Url, myTaskActivityConfig.Entities.ManifestData).then(function (response) {
-                            //     if (response.data.Response.Response) {
-                            //         myTaskActivityConfig.Entities.ManifestData = response.data.Response.Response;
-                            //         outwardConfig.IsSaveManifest = true;
                             CompleteWithSave();
-                            //     }
-                            // });
-                            // } else {
-                            //     ActivityTemplateOutward2Ctrl.ePage.Masters.ShowErrorWarningModal(ActivityTemplateOutward2Ctrl.taskObj.PSI_InstanceNo);
-                            // }
                         } else if (ActivityTemplateOutward2Ctrl.taskObj.WSI_StepName == "Confirm Delivery") {
-                            apiService.get("eAxisAPI", appConfig.Entities.WmsPickList.API.GetById.Url + myTaskActivityConfig.Entities.PickData[myTaskActivityConfig.Entities.PickData.label].ePage.Entities.Header.Data.UIWmsPickHeader.PK).then(function (response) {
-                                if (response.data.Response) {
-                                    response.data.Response.UIWmsPickHeader.PickStatus = 'PIF';
-                                    response.data.Response.UIWmsPickHeader.PickStatusDesc = 'Finalized';
-                                    response.data.Response = filterObjectUpdate(response.data.Response, "IsModified");
-                                    apiService.post("eAxisAPI", appConfig.Entities.WmsPickList.API.Update.Url, response.data.Response).then(function (response) {
-                                        if (response.data.Response) {
-                                            myTaskActivityConfig.Entities.PickData[myTaskActivityConfig.Entities.PickData.label].ePage.Entities.Header.Data = response.data.Response;
-                                            toastr.success("Pick Finalized Successfully");
-                                            myTaskActivityConfig.Entities.ManifestData.TmsManifestHeader.ManifestCompleteDatetime = new Date();
-                                            myTaskActivityConfig.Entities.ManifestData.TmsManifestHeader.IsModified = true;
-                                            apiService.post("eAxisAPI", appConfig.Entities.TmsManifestList.API.Update.Url, myTaskActivityConfig.Entities.ManifestData).then(function (response) {
-                                                if (response.data.Response.Response) {
-                                                    myTaskActivityConfig.Entities.ManifestData = response.data.Response.Response;
-                                                    outwardConfig.IsSaveManifest = true;
-                                                    CompleteWithSave();
-                                                }
-                                            });
-                                        } else {
-                                            toastr.error("Pick Finalize failed. Try again later.")
-                                            ActivityTemplateOutward2Ctrl.ePage.Masters.CompleteBtnText = "Complete";
-                                            ActivityTemplateOutward2Ctrl.ePage.Masters.IsDisableCompleteBtn = false;
-                                        }
-                                    });
+                            myTaskActivityConfig.Entities.PickData[myTaskActivityConfig.Entities.PickData.label].ePage.Entities.Header.Data.UIWmsPickHeader.PickStatus = 'PIF';
+                            myTaskActivityConfig.Entities.PickData[myTaskActivityConfig.Entities.PickData.label].ePage.Entities.Header.Data.UIWmsPickHeader.PickStatusDesc = 'Finalized';
+                            myTaskActivityConfig.Entities.ManifestData.TmsManifestHeader.ManifestCompleteDatetime = new Date();
+                            myTaskActivityConfig.Entities.ManifestData.TmsManifestHeader.IsModified = true;
+                            apiService.post("eAxisAPI", appConfig.Entities.TmsManifestList.API.Update.Url, myTaskActivityConfig.Entities.ManifestData).then(function (response) {
+                                if (response.data.Response.Response) {
+                                    myTaskActivityConfig.Entities.ManifestData = response.data.Response.Response;
+                                    outwardConfig.IsSaveManifest = true;
+                                    CompleteWithSave();
                                 }
                             });
-
                         } else {
                             CompleteWithSave();
                         }

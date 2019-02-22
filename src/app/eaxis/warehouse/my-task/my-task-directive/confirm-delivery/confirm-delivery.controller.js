@@ -66,7 +66,7 @@
                             ConfirmDeliveryCtrl.ePage.Entities.Header.Data = myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data;
                         }
                     });
-                }, 8000);
+                }, 4000);
             }
         }
 

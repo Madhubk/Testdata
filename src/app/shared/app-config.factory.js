@@ -2754,6 +2754,11 @@
                             "HttpType": "POST",
                             "Url": "WmsPickList/Update"
                         },
+                        "AllocateStock": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "WmsPickList/WmsAllocateStock",
+                        },
                     }
                 },
                 "WmsPickupList": {

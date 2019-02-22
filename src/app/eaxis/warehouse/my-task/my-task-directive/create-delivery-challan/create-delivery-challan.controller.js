@@ -397,7 +397,7 @@
                             response.data.Response.Response.UIWmsOutwardHeader.WorkOrderSubType = "MTR";
                         response.data.Response.Response.UIWmsOutwardHeader.WOD_Parent_FK = CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.PK;
 
-                        angular.forEach(CreateDelChallanCtrl.ePage.Masters.SelectedDeliveryLine, function (value, key) {                            
+                        angular.forEach(CreateDelChallanCtrl.ePage.Masters.SelectedDeliveryLine, function (value, key) {
                             if (type == "MTR") {
                                 value.MOL_PrdCode = value.DL_Req_PrdCode;
                             } else if (type == "OUT") {
@@ -685,12 +685,14 @@
                 };
                 apiService.post("eAxisAPI", appConfig.Entities.WmsInventory.API.FindAll.Url, _input).then(function (response) {
                     CreateDelChallanCtrl.ePage.Masters.MainInventory = angular.copy(response.data.Response);
-                    if (!CreateDelChallanCtrl.ePage.Masters.DynamicControl.Entities[0].Data.ProductCode) {
+                    if (!CreateDelChallanCtrl.ePage.Masters.IsFilter) {
                         CreateDelChallanCtrl.ePage.Masters.InventoryDetails = angular.copy(response.data.Response);
                         angular.forEach(CreateDelChallanCtrl.ePage.Masters.RequestedWarehouseInventory, function (value, key) {
                             CreateDelChallanCtrl.ePage.Masters.MainInventory.push(value);
                             CreateDelChallanCtrl.ePage.Masters.InventoryDetails.push(value);
                         });
+                    } else {
+                        CreateDelChallanCtrl.ePage.Masters.IsFilter = false;
                     }
                     CreateDelChallanCtrl.ePage.Masters.InventoryCount = response.data.Count;
                     CreateDelChallanCtrl.ePage.Masters.InventoryLoading = false;

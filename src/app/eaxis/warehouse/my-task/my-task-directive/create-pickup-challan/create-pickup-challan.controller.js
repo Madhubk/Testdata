@@ -169,8 +169,9 @@
                                         if (value.AddressType == "CED")
                                             value.AddressType = "SUD";
                                     });
-                                    
+
                                     angular.forEach(CreatePickupChallanCtrl.ePage.Masters.SelectedPickupLine, function (value, key) {
+                                        value.IL_PrdCode = value.PL_Req_PrdCode;
                                         var obj = {
                                             "PK": "",
                                             "Parent_FK": value.PL_PK,

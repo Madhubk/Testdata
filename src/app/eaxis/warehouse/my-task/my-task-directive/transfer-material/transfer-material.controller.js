@@ -5,9 +5,9 @@
         .module("Application")
         .controller("TransferMaterialController", TransferMaterialController);
 
-    TransferMaterialController.$inject = ["$scope", "apiService", "helperService", "appConfig", "myTaskActivityConfig", "APP_CONSTANT", "errorWarningService", "dynamicLookupConfig", "outwardConfig", "$injector", "toastr", "$timeout"];
+    TransferMaterialController.$inject = ["$scope", "apiService", "helperService", "appConfig", "myTaskActivityConfig", "APP_CONSTANT", "errorWarningService", "dynamicLookupConfig", "outwardConfig", "$injector", "toastr", "$timeout", "$filter"];
 
-    function TransferMaterialController($scope, apiService, helperService, appConfig, myTaskActivityConfig, APP_CONSTANT, errorWarningService, dynamicLookupConfig, outwardConfig, $injector, toastr, $timeout) {
+    function TransferMaterialController($scope, apiService, helperService, appConfig, myTaskActivityConfig, APP_CONSTANT, errorWarningService, dynamicLookupConfig, outwardConfig, $injector, toastr, $timeout, $filter) {
         var TransferMaterialCtrl = this;
         var Config = $injector.get("releaseConfig");
 
@@ -112,16 +112,38 @@
                     apiService.post("eAxisAPI", Config.Entities.Header.API.InsertPick.Url, response.data.Response.Response).then(function (response) {
                         if (response.data.Status == 'Success') {
                             TransferMaterialCtrl.ePage.Masters.PickDetails = response.data.Response;
-                            TransferMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PickNo = response.data.Response.UIWmsPickHeader.PickNo;
-                            Config.GetTabDetails(TransferMaterialCtrl.ePage.Masters.PickDetails.UIWmsPickHeader, false).then(function (response) {
-                                angular.forEach(response, function (value, key) {
-                                    if (value.label == TransferMaterialCtrl.ePage.Masters.PickDetails.UIWmsPickHeader.PickNo) {
-                                        TransferMaterialCtrl.ePage.Masters.TabList = value;
-                                        myTaskActivityConfig.Entities.PickData = TransferMaterialCtrl.ePage.Masters.TabList;
-                                        TransferMaterialCtrl.ePage.Masters.LoadingValue = "";
-                                        toastr.success("Pick Created Successfully");
+                            toastr.success("Pick Created Successfully");
+                            TransferMaterialCtrl.ePage.Masters.LoadingValue = "Allocating Stock..";
+                            TransferMaterialCtrl.ePage.Masters.PickDetails = filterObjectUpdate(TransferMaterialCtrl.ePage.Masters.PickDetails, "IsModified");
+                            apiService.post("eAxisAPI", appConfig.Entities.WmsPickList.API.AllocateStock.Url, TransferMaterialCtrl.ePage.Masters.PickDetails).then(function (response) {
+                                TransferMaterialCtrl.ePage.Masters.Loading = false;
+                                if (response.data.Status == "Success") {
+                                    if (response.data.Response) {
+                                        TransferMaterialCtrl.ePage.Masters.PickDetails = response.data.Response;
+                                        TransferMaterialCtrl.ePage.Masters.PickDetails.UIWmsOutwardLines = $filter('orderBy')(TransferMaterialCtrl.ePage.Masters.PickDetails.UIWmsOutwardLines, 'PK');
+                                        TransferMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PickNo = response.data.Response.UIWmsPickHeader.PickNo;
+                                        Config.GetTabDetails(TransferMaterialCtrl.ePage.Masters.PickDetails.UIWmsPickHeader, false).then(function (response) {
+                                            angular.forEach(response, function (value, key) {
+                                                if (value.label == TransferMaterialCtrl.ePage.Masters.PickDetails.UIWmsPickHeader.PickNo) {
+                                                    TransferMaterialCtrl.ePage.Masters.TabList = value;
+                                                    myTaskActivityConfig.Entities.PickData = TransferMaterialCtrl.ePage.Masters.TabList;
+                                                    TransferMaterialCtrl.ePage.Masters.LoadingValue = "";
+                                                    toastr.success("Stock allocated successfully");
+                                                    apiService.get("eAxisAPI", appConfig.Entities.WmsOutwardList.API.GetById.Url + TransferMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PK).then(function (response) {
+                                                        if (response.data.Response) {
+                                                            response.data.Response.UIWmsOutwardHeader.Client = response.data.Response.UIWmsOutwardHeader.ClientCode + " - " + response.data.Response.UIWmsOutwardHeader.ClientName;
+                                                            response.data.Response.UIWmsOutwardHeader.Warehouse = response.data.Response.UIWmsOutwardHeader.WarehouseCode + " - " + response.data.Response.UIWmsOutwardHeader.WarehouseName;
+                                                            response.data.Response.UIWmsOutwardHeader.Consignee = response.data.Response.UIWmsOutwardHeader.ConsigneeCode + " - " + response.data.Response.UIWmsOutwardHeader.ConsigneeName;
+                                                            myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data = response.data.Response;
+                                                            myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.GlobalVariables.NonEditable = true;
+                                                            TransferMaterialCtrl.ePage.Entities.Header.Data = myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data;
+                                                        }
+                                                    });
+                                                }
+                                            });
+                                        });
                                     }
-                                });
+                                }
                             });
                         } else {
                             TransferMaterialCtrl.ePage.Masters.LoadingValue = "";
@@ -139,7 +161,19 @@
             });
         }
 
-        function getDeliveryList() {            
+        function filterObjectUpdate(obj, key) {
+            for (var i in obj) {
+                if (!obj.hasOwnProperty(i)) continue;
+                if (typeof obj[i] == 'object') {
+                    filterObjectUpdate(obj[i], key);
+                } else if (i == key) {
+                    obj[key] = true;
+                }
+            }
+            return obj;
+        }
+
+        function getDeliveryList() {
             var _filter = {
                 "PK": TransferMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WOD_Parent_FK
             };
