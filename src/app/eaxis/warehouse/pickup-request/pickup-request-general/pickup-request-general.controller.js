@@ -211,7 +211,7 @@
             }
         }
 
-
+        
         function OpenDatePicker($event, opened) {
             $event.preventDefault();
             $event.stopPropagation();
