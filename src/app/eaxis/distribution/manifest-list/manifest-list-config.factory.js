@@ -85,7 +85,7 @@
             "ShowErrorWarningModal": ShowErrorWarningModal,
             "TempConsignmentNumber": "",
             "activeTabIndex": 0,
-            "SelectedValue":""
+            "SelectedValue": ""
         };
 
         return exports;
@@ -205,26 +205,30 @@
                                     "Icon": "fa fa-truck",
                                     "GParentRef": "manifestgeneral"
                                 }, {
-                                    "DisplayName": "Attach Orders",
+                                    "DisplayName": "Attach Consignment",
                                     "Value": "AttachOrders",
                                     "Icon": "fa fa-plane",
                                     "GParentRef": "manifestorders"
-                                }, {
-                                    "DisplayName": "Add Items",
-                                    "Value": "AttachLines",
-                                    "Icon": "fa fa-plane",
-                                    "GParentRef": "manifestitem"
-                                }, {
+                                },
+                                // {
+                                //     "DisplayName": "Add Items",
+                                //     "Value": "AttachLines",
+                                //     "Icon": "fa fa-plane",
+                                //     "GParentRef": "manifestitem"
+                                // },
+                                {
                                     "DisplayName": "Confirm Manifest",
                                     "Value": "ConfirmManifest",
                                     "Icon": "fa fa-plane",
                                     "GParentRef": "approvemanifest"
-                                }, {
-                                    "DisplayName": "Approve Manifest",
-                                    "Value": "ApproveManifest",
-                                    "Icon": "fa fa-plane",
-                                    "GParentRef": "approvemanifest"
-                                }, {
+                                },
+                                // {
+                                //     "DisplayName": "Approve Manifest",
+                                //     "Value": "ApproveManifest",
+                                //     "Icon": "fa fa-plane",
+                                //     "GParentRef": "approvemanifest"
+                                // },
+                                {
                                     "DisplayName": "Confirm Transport Booking",
                                     "Value": "ConfirmTransportBooking",
                                     "Icon": "fa fa-plane",
@@ -241,26 +245,30 @@
                                     "Icon": "fa fa-truck",
                                     "GParentRef": "manifestgeneral"
                                 }, {
-                                    "DisplayName": "Attach Orders",
+                                    "DisplayName": "Attach Consignment",
                                     "Value": "AttachOrders",
                                     "Icon": "fa fa-plane",
                                     "GParentRef": "manifestorders"
-                                }, {
-                                    "DisplayName": "Add Items",
-                                    "Value": "AttachLines",
-                                    "Icon": "fa fa-plane",
-                                    "GParentRef": "manifestitem"
-                                }, {
+                                },
+                                // {
+                                //     "DisplayName": "Add Items",
+                                //     "Value": "AttachLines",
+                                //     "Icon": "fa fa-plane",
+                                //     "GParentRef": "manifestitem"
+                                // },
+                                {
                                     "DisplayName": "Confirm Manifest",
                                     "Value": "ConfirmManifest",
                                     "Icon": "fa fa-plane",
                                     "GParentRef": "approvemanifest"
-                                }, {
-                                    "DisplayName": "Approve Manifest",
-                                    "Value": "ApproveManifest",
-                                    "Icon": "fa fa-plane",
-                                    "GParentRef": "approvemanifest"
-                                }, {
+                                },
+                                // {
+                                //     "DisplayName": "Approve Manifest",
+                                //     "Value": "ApproveManifest",
+                                //     "Icon": "fa fa-plane",
+                                //     "GParentRef": "approvemanifest"
+                                // },
+                                {
                                     "DisplayName": "Complete Manifest",
                                     "Value": "CompleteManifest",
                                     "Icon": "fa fa-plane",
