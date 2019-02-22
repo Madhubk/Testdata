@@ -136,6 +136,7 @@
                                 "ServiceType": helperService.metaBase(),
                                 "ExpectedPickupDateTime": helperService.metaBase(),
                                 "ExpectedDeliveryDateTime": helperService.metaBase(),
+                                "SenderRef": helperService.metaBase(),
                             },
                         },
                         "GlobalVariables": {
@@ -591,9 +592,10 @@
             OnChangeValues(_input.TmsConsignmentHeader.ServiceType, 'E5518', false, undefined, $item.label);
             if (_input.TmsConsignmentHeader.ServiceType == "INW" || _input.TmsConsignmentHeader.ServiceType == "ORD") {
                 OnChangeValues('', 'E5566', false, undefined, $item.label);
-            }else if (_input.TmsConsignmentHeader.ServiceType == "LOP" || _input.TmsConsignmentHeader.ServiceType == "LOD" || _input.TmsConsignmentHeader.ServiceType == "OSD") {
+            }else if (_input.TmsConsignmentHeader.ServiceType == "LOD" || _input.TmsConsignmentHeader.ServiceType == "UPC" || _input.TmsConsignmentHeader.ServiceType == "STR") {
                 OnChangeValues(_input.TmsConsignmentHeader.ServiceType, 'E5566', false, undefined, $item.label);
             }
+            OnChangeValues(_input.TmsConsignmentHeader.SenderRef, 'E5567', false, undefined, $item.label);
             OnChangeValues(_input.TmsConsignmentHeader.ExpectedPickupDateTime, 'E5521', false, undefined, $item.label);
             OnChangeValues(_input.TmsConsignmentHeader.ExpectedDeliveryDateTime, 'E5563', false, undefined, $item.label);
 

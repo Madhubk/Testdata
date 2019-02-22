@@ -58,6 +58,16 @@
             GetDropDownList();
             GeneralOperation();
             GetNewItemAddress();
+            if (DMSConsignmentGeneralCtrl.currentConsignment.isNew) {
+                DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.ConsignmentStatusDesc = "New";
+                DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.ExpectedPickupDateTime = new Date();
+                DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.ExpectedDeliveryDateTime = new Date();
+            }
+            if (DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.Status == 'DSP' || DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.Status == 'DEL') {
+                DMSConsignmentGeneralCtrl.ePage.Masters.ActualDateHide = true;
+            } else {
+                DMSConsignmentGeneralCtrl.ePage.Masters.ActualDateHide = false;
+            }
             // Mini date is Today
             DMSConsignmentGeneralCtrl.ePage.Masters.DatePicker.Options['minDate'] = new Date() + 1;
         }
@@ -251,9 +261,9 @@
 
         function Save($item) {
             DMSConsignmentGeneralCtrl.ePage.Entities.Header.CheckPoints.IsLoadingToSave = true;
-            if(DMSConsignmentGeneralCtrl.ePage.Masters.AddNewItemSave){
+            if (DMSConsignmentGeneralCtrl.ePage.Masters.AddNewItemSave) {
                 DMSConsignmentGeneralCtrl.ePage.Masters.AddSaveButtonText = "Please Wait...";
-            }else if (DMSConsignmentGeneralCtrl.ePage.Masters.SaveAndClose) {
+            } else if (DMSConsignmentGeneralCtrl.ePage.Masters.SaveAndClose) {
                 DMSConsignmentGeneralCtrl.ePage.Masters.SaveAndCloseButtonText = "Please Wait...";
             } else {
                 DMSConsignmentGeneralCtrl.ePage.Masters.SaveButtonText = "Please Wait...";
@@ -383,7 +393,7 @@
             if (DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.ServiceType == 'INW' || DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.ServiceType == 'ORD') {
                 DMSConsignmentGeneralCtrl.ePage.Masters.OnChangeValues('', "E5566", false, undefined);
                 toastr.error('Cannot Create Consignment with INW and ORD Service Type');
-            } else if (DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.ServiceType == 'LOP' || DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.ServiceType == 'LOD' || DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.ServiceType == 'OSD') {
+            } else if (DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.ServiceType == 'LOD' || DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.ServiceType == 'UPC' || DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.ServiceType == 'STR') {
                 DMSConsignmentGeneralCtrl.ePage.Masters.OnChangeValues(DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.ServiceType, "E5566", false, undefined);
             }
         }
@@ -499,7 +509,7 @@
             apiService.post("eAxisAPI", appConfig.Entities.UserSettings.API.FindAll.Url + authService.getUserInfo().AppPK, _input).then(function (response) {
                 if (response.data.Response[0]) {
                     DMSConsignmentGeneralCtrl.ePage.Masters.UserValue = response.data.Response[0];
-                    if (response.data.Response[0].Value!='') {
+                    if (response.data.Response[0].Value != '') {
                         var obj = JSON.parse(response.data.Response[0].Value)
                         DMSConsignmentGeneralCtrl.ePage.Entities.Header.TableProperties.TmsConsignmentItem = obj;
                         DMSConsignmentGeneralCtrl.ePage.Masters.UserHasValue = true;
