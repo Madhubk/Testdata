@@ -244,6 +244,9 @@
                     typeCodeList.map(function (value, key) {
                         DeliveryGeneralCtrl.ePage.Masters.DropDownMasterList[value] = helperService.metaBase();
                         DeliveryGeneralCtrl.ePage.Masters.DropDownMasterList[value].ListSource = response.data.Response[value];
+                        if (value == 'CSR_Mode') {
+                            DeliveryGeneralCtrl.ePage.Masters.DropDownMasterList[value].ListSource = $filter('orderBy')(DeliveryGeneralCtrl.ePage.Masters.DropDownMasterList[value].ListSource, 'Sequence')
+                        }
                     });
                 }
             });
