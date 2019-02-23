@@ -90,6 +90,10 @@
                         },
                         "TableProperties":{
                             "WmsArea":{
+                                "TableHeight":{
+                                    "isEnabled":true,
+                                    "height":340
+                                },
                                 "HeaderProperties":[{
                                     "columnname":"Checkbox",
                                     "isenabled":true,

@@ -263,6 +263,10 @@
                         },
                         "TableProperties": {
                             "UIWmsWorkOrderContainer": {
+                                "TableHeight":{
+                                    "isEnabled":true,
+                                    "height":350
+                                },
                                 "HeaderProperties": [{
                                     "columnname": "Checkbox",
                                     "isenabled": true,
@@ -381,6 +385,10 @@
                                 },
                             },
                             "UIWmsWorkOrderReference": {
+                                "TableHeight":{
+                                    "isEnabled":true,
+                                    "height":170
+                                },
                                 "HeaderProperties": [{
                                     "columnname": "Checkbox",
                                     "isenabled": true,
@@ -434,6 +442,10 @@
                                 }
                             },
                             "UIJobServices": {
+                                "TableHeight":{
+                                    "isEnabled":true,
+                                    "height":170
+                                },
                                 "HeaderProperties": [{
                                     "columnname": "Checkbox",
                                     "isenabled": true,
@@ -539,6 +551,10 @@
                                 }
                             },
                             "ProductSummaryList": {
+                                "TableHeight":{
+                                    "isEnabled":true,
+                                    "height":350
+                                },
                                 "HeaderProperties": [{
                                     "columnname": "S.No",
                                     "isenabled": true,
@@ -645,6 +661,10 @@
                                 }
                             },
                             "UIWmsAsnLine": {
+                                "TableHeight":{
+                                    "isEnabled":true,
+                                    "height":350
+                                },
                                 "HeaderProperties": [{
                                     "columnname": "Checkbox",
                                     "isenabled": true,
@@ -867,6 +887,10 @@
                                 }
                             },
                             "UIWmsWorkOrderLine": {
+                                "TableHeight":{
+                                    "isEnabled":true,
+                                    "height":250
+                                },
                                 "HeaderProperties": [{
                                     "columnname": "Checkbox",
                                     "isenabled": true,

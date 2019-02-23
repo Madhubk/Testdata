@@ -11,7 +11,7 @@
         </div>
     </div>
     <div id="ProdSumTable{{InwardProductsummaryCtrl.currentInward.label}}" class="fixedheader mb-0" key-events table-object='InwardProductsummaryCtrl.ePage.Masters.Config.ProductSummaryList[InwardProductsummaryCtrl.ePage.Entities.Header.Data.PK]' enable='InwardProductsummaryCtrl.ePage.Masters.Enable' selected-row='InwardProductsummaryCtrl.ePage.Masters.selectedRow' unique-id='ProdSumTable{{InwardProductsummaryCtrl.currentInward.label}}'>
-        <table style="height: 350px">
+        <table ng-style="{ 'height': InwardProductsummaryCtrl.ePage.Entities.Header.TableProperties.ProductSummaryList.TableHeight.height + 'px' }">
             <thead>
                 <tr id="tableHeader">
                     <th id="ssno" data-ng-if="InwardProductsummaryCtrl.ePage.Entities.Header.TableProperties.ProductSummaryList.ssno.isenabled" ng-style="{ 'width': InwardProductsummaryCtrl.ePage.Entities.Header.TableProperties.ProductSummaryList.ssno.width + 'px' }" title="S.No">S.No</th>

@@ -107,7 +107,7 @@
         </div>
     </div>  
     <div id="GenTable{{ReleasesGeneralCtrl.currentRelease.label}}" class="fixedheader" key-events table-object='ReleasesGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutward' enable='ReleasesGeneralCtrl.ePage.Masters.EnableForOutward' selected-row='ReleasesGeneralCtrl.ePage.Masters.selectedRowForOutward' unique-id='GenTable{{ReleasesGeneralCtrl.currentRelease.label}}'>
-        <table  style="height: 275px">
+        <table  ng-style="{ 'height': ReleasesGeneralCtrl.ePage.Entities.Header.TableProperties.UIWmsOutward.TableHeight.height + 'px' }">
             <thead>
                 <tr id="tableHeader">
                     <th id="osno" data-ng-if="ReleasesGeneralCtrl.ePage.Entities.Header.TableProperties.UIWmsOutward.osno.isenabled" ng-style="{ 'width': ReleasesGeneralCtrl.ePage.Entities.Header.TableProperties.UIWmsOutward.osno.width + 'px' }" title="S.No">S.No</th>

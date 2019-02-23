@@ -114,6 +114,10 @@
                         },
                         "TableProperties":{
                             "UIWmsCycleCountLine":{
+                                "TableHeight":{
+                                    "isEnabled":true,
+                                    "height":275
+                                },
                                 "HeaderProperties":[{
                                     "columnname":"Checkbox",
                                     "isenabled":true,

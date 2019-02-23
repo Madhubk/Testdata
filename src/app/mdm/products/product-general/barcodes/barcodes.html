@@ -14,7 +14,7 @@
         </div>
     </div>
     <div id="BarcodeTable{{BarcodesCtrl.ePage.Entities.Header.Data.PK}}" class="fixedheader" key-events table-object='BarcodesCtrl.ePage.Entities.Header.Data.UIOrgSupplierPartBarcode' enable='BarcodesCtrl.ePage.Masters.Enable' selected-row='BarcodesCtrl.ePage.Masters.selectedRow' unique-id='BarcodeTable{{BarcodesCtrl.ePage.Entities.Header.Data.PK}}'>
-        <table id="BarcodesCtrl.ePage.Masters.AddScroll" style="height: 395px">
+        <table id="BarcodesCtrl.ePage.Masters.AddScroll" ng-style="{ 'height': BarcodesCtrl.ePage.Entities.Header.TableProperties.UIOrgSupplierPartBarcode.TableHeight.height + 'px' }">
             <thead>
                 <tr id="tableHeader">
                     <th id="barcodecheckbox" data-ng-if="BarcodesCtrl.ePage.Entities.Header.TableProperties.UIOrgSupplierPartBarcode.barcodecheckbox.isenabled" ng-style="{ 'width': BarcodesCtrl.ePage.Entities.Header.TableProperties.UIOrgSupplierPartBarcode.barcodecheckbox.width + 'px' }">
@@ -61,7 +61,7 @@
                                     <option value="">--Select--</option>
                                 </select>
                             </div>
-                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="BarcodesCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIOrgSupplierPartBarcode.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':1">
+                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="BarcodesCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIOrgSupplierPartBarcode.ERROR | filter:{RowIndex: $index}:true | listCount: 'ColIndex':1">
                                 <error-warning-directive  list="BarcodesCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIOrgSupplierPartBarcode.ERROR"
                                     type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref=""
                                     row-index="BarcodesCtrl.ePage.Masters.selectedRow" col-index="1">
@@ -77,7 +77,7 @@
                             <div class="height-22 col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0" ng-click="BarcodesCtrl.ePage.Masters.Enable = false">
                                 <input type="text" maxlength="30" class="form-control input-sm" placeholder="Barcode" data-ng-model="x.Barcode" ng-change="BarcodesCtrl.ePage.Masters.OnChangeValues(x.Barcode,'E7024',true,$index)"/>              
                             </div>
-                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="BarcodesCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIOrgSupplierPartBarcode.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':2">
+                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="BarcodesCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIOrgSupplierPartBarcode.ERROR | filter:{RowIndex: $index}:true | listCount: 'ColIndex':2">
                                 <error-warning-directive  list="BarcodesCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIOrgSupplierPartBarcode.ERROR"
                                     type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref=""
                                     row-index="BarcodesCtrl.ePage.Masters.selectedRow" col-index="2">

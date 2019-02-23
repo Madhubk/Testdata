@@ -14,7 +14,7 @@
         </div>
     </div>
     <div id="BomTable{{BomCtrl.ePage.Entities.Header.Data.PK}}" class="fixedheader" key-events table-object='BomCtrl.ePage.Entities.Header.Data.UIOrgPartBOM' enable='BomCtrl.ePage.Masters.Enable' selected-row='BomCtrl.ePage.Masters.selectedRow' unique-id='BomTable{{BomCtrl.ePage.Entities.Header.Data.PK}}'>
-        <table id="BomCtrl.ePage.Masters.AddScroll" style="height: 395px">
+        <table id="BomCtrl.ePage.Masters.AddScroll" ng-style="{ 'height': BomCtrl.ePage.Entities.Header.TableProperties.UIOrgPartBOM.TableHeight.height + 'px' }">
             <thead>
                 <tr id="tableHeader">
                     <th id="bomcheckbox" data-ng-if="BomCtrl.ePage.Entities.Header.TableProperties.UIOrgPartBOM.bomcheckbox.isenabled" ng-style="{ 'width': BomCtrl.ePage.Entities.Header.TableProperties.UIOrgPartBOM.bomcheckbox.width + 'px' }">

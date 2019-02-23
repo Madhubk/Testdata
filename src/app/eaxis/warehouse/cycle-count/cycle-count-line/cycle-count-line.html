@@ -15,7 +15,7 @@
             </div>
         </div>
         <div id="CylTable{{CycleCountLineCtrl.currentCycleCount.label}}" class="fixedheader mb-0" key-events table-object='CycleCountLineCtrl.ePage.Entities.Header.Data.UIWmsCycleCountLine' enable='CycleCountLineCtrl.ePage.Masters.Enable' selected-row='CycleCountLineCtrl.ePage.Masters.selectedRow' unique-id='CylTable{{CycleCountLineCtrl.currentCycleCount.label}}'>
-            <table id="CycleCountLineCtrl.ePage.Masters.AddScroll" style="height: 275px">
+            <table id="CycleCountLineCtrl.ePage.Masters.AddScroll" ng-style="{ 'height': CycleCountLineCtrl.ePage.Entities.Header.TableProperties.UIWmsCycleCountLine.TableHeight.height + 'px' }">
                 <thead>
                     <tr id="tableHeader">
                         <th id="checkbox" data-ng-if="CycleCountLineCtrl.ePage.Entities.Header.TableProperties.UIWmsCycleCountLine.checkbox.isenabled"  ng-style="{ 'width': CycleCountLineCtrl.ePage.Entities.Header.TableProperties.UIWmsCycleCountLine.checkbox.width + 'px' }">
@@ -99,12 +99,12 @@
                                         <span class="input-group-btn height-20">
                                             <button dynamic-list-modal obj="x" control-id="'Client'" control-key="'Client_3015'" selected-data="CycleCountLineCtrl.ePage.Masters.SelectedLookupDataClient($item.data.entity,(($index) + CycleCountLineCtrl.ePage.Masters.CurrentPageStartingIndex))"  page-name="'OrganizationList'" mode ="2" grid-refresh-fun-name="" grid-refresh-fun=""  class="btn btn-default shiny" type="button" is-disabled='CycleCountLineCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader.Client'><i class="fa fa-ellipsis-h"></i></button>
                                         </span>
-                                        <span ng-if='!x.Client && x.PK  && (CycleCountLineCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsCycleCountLine.ERROR | filter: {RowIndex: (($index) + CycleCountLineCtrl.ePage.Masters.CurrentPageStartingIndex)} | filter: {ColIndex: 1}).length==0'>
+                                        <span ng-if='!x.Client && x.PK  && (CycleCountLineCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsCycleCountLine.ERROR | filter: {RowIndex: (($index) + CycleCountLineCtrl.ePage.Masters.CurrentPageStartingIndex)}:true | filter: {ColIndex: 1}).length==0'>
                                             <span ng-init="CycleCountLineCtrl.ePage.Masters.OnChangeValues(x.ClientFullName,'E13002',true,(($index) + CycleCountLineCtrl.ePage.Masters.CurrentPageStartingIndex))"></span>
                                         </span>
                                     </div>
                                 </div>
-                                <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="CycleCountLineCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsCycleCountLine.ERROR | filter:{RowIndex:(($parent.$index) + (CycleCountLineCtrl.ePage.Masters.CurrentPageStartingIndex))} | listCount: 'ColIndex':1">
+                                <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="CycleCountLineCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsCycleCountLine.ERROR | filter:{RowIndex:(($parent.$index) + (CycleCountLineCtrl.ePage.Masters.CurrentPageStartingIndex))}:true | listCount: 'ColIndex':1">
                                     <error-warning-directive  list="CycleCountLineCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsCycleCountLine.ERROR"
                                         type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref=""
                                         row-index="((CycleCountLineCtrl.ePage.Masters.selectedRow) + CycleCountLineCtrl.ePage.Masters.CurrentPageStartingIndex)" col-index="1">
@@ -128,12 +128,12 @@
                                         <span class="input-group-btn height-20">
                                             <button dynamic-list-modal obj="x" control-id="'Product'" control-key="'Product_2845'" selected-data="CycleCountLineCtrl.ePage.Masters.SelectedLookupProduct($item.data.entity,(($index) + CycleCountLineCtrl.ePage.Masters.CurrentPageStartingIndex))"  page-name="'ProductRelatedParty'" mode ="2" grid-refresh-fun-name="" grid-refresh-fun=""  class="btn btn-default shiny" type="button" is-disabled='!x.ClientFullName'><i class="fa fa-ellipsis-h"></i></button>
                                         </span>
-                                        <span ng-if='!x.ProductCode && x.PK  && (CycleCountLineCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsCycleCountLine.ERROR | filter: {RowIndex: (($index) + CycleCountLineCtrl.ePage.Masters.CurrentPageStartingIndex)} | filter: {ColIndex: 2}).length==0'>
+                                        <span ng-if='!x.ProductCode && x.PK  && (CycleCountLineCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsCycleCountLine.ERROR | filter: {RowIndex: (($index) + CycleCountLineCtrl.ePage.Masters.CurrentPageStartingIndex)}:true | filter: {ColIndex: 2}).length==0'>
                                             <span ng-init="CycleCountLineCtrl.ePage.Masters.OnChangeValues(x.ProductCode,'E13003',true,(($index) + CycleCountLineCtrl.ePage.Masters.CurrentPageStartingIndex))"></span>
                                         </span>
                                     </div>
                                 </div>
-                                <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="CycleCountLineCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsCycleCountLine.ERROR | filter:{RowIndex:(($parent.$index) + (CycleCountLineCtrl.ePage.Masters.CurrentPageStartingIndex))} | listCount: 'ColIndex':2">
+                                <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="CycleCountLineCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsCycleCountLine.ERROR | filter:{RowIndex:(($parent.$index) + (CycleCountLineCtrl.ePage.Masters.CurrentPageStartingIndex))}:true | listCount: 'ColIndex':2">
                                     <error-warning-directive  list="CycleCountLineCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsCycleCountLine.ERROR"
                                         type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref=""
                                         row-index="((CycleCountLineCtrl.ePage.Masters.selectedRow) + CycleCountLineCtrl.ePage.Masters.CurrentPageStartingIndex)" col-index="2">
@@ -187,12 +187,12 @@
                                         <span class="input-group-btn height-20">
                                             <button location-dashboard-modal filter="CycleCountLineCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader.WarehouseCode" obj="x" control-id="'Location'" control-key="'Location_2948'"  selected-data="CycleCountLineCtrl.ePage.Masters.SelectedLookupLocation($item,(($index) + CycleCountLineCtrl.ePage.Masters.CurrentPageStartingIndex))"  page-name="'WarehouseLocation'" mode ="2" grid-refresh-fun-name="" grid-refresh-fun=""  class="btn btn-default shiny" type="button" is-disabled='CycleCountLineCtrl.ePage.Entities.Header.Data.UIWmsCycleCountHeader.Location'><i class="fa fa-ellipsis-h"></i></button>
                                         </span>
-                                        <span ng-if='!x.Location && x.PK  && (CycleCountLineCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsCycleCountLine.ERROR | filter: {RowIndex: (($index) + CycleCountLineCtrl.ePage.Masters.CurrentPageStartingIndex)} | filter: {ColIndex: 3}).length==0'>
+                                        <span ng-if='!x.Location && x.PK  && (CycleCountLineCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsCycleCountLine.ERROR | filter: {RowIndex: (($index) + CycleCountLineCtrl.ePage.Masters.CurrentPageStartingIndex)}:true | filter: {ColIndex: 3}).length==0'>
                                             <span ng-init="CycleCountLineCtrl.ePage.Masters.OnChangeValues(x.Location,'E13004',true,(($index) + CycleCountLineCtrl.ePage.Masters.CurrentPageStartingIndex))"></span>
                                         </span>
                                     </div>
                                 </div>
-                                <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="CycleCountLineCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsCycleCountLine.ERROR | filter:{RowIndex:(($parent.$index) + (CycleCountLineCtrl.ePage.Masters.CurrentPageStartingIndex))} | listCount: 'ColIndex':3">
+                                <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="CycleCountLineCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsCycleCountLine.ERROR | filter:{RowIndex:(($parent.$index) + (CycleCountLineCtrl.ePage.Masters.CurrentPageStartingIndex))}:true | listCount: 'ColIndex':3">
                                     <error-warning-directive  list="CycleCountLineCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsCycleCountLine.ERROR"
                                         type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref=""
                                         row-index="((CycleCountLineCtrl.ePage.Masters.selectedRow) + CycleCountLineCtrl.ePage.Masters.CurrentPageStartingIndex)" col-index="3">

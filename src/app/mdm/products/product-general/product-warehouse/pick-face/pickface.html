@@ -14,7 +14,7 @@
         </div>
     </div>
     <div id="PickFaceTable{{PickfaceCtrl.ePage.Entities.Header.Data.PK}}" class="fixedheader" key-events table-object='PickfaceCtrl.ePage.Entities.Header.Data.UIWMSPickFace' enable='PickfaceCtrl.ePage.Masters.Enable' selected-row='PickfaceCtrl.ePage.Masters.selectedRow' style="margin-bottom: 0px" unique-id='PickFaceTable{{PickfaceCtrl.ePage.Entities.Header.Data.PK}}'>
-        <table id="PickfaceCtrl.ePage.Masters.AddScroll" style="height: 200px">
+        <table id="PickfaceCtrl.ePage.Masters.AddScroll" ng-style="{ 'height': PickfaceCtrl.ePage.Entities.Header.TableProperties.UIWMSPickFace.TableHeight.height + 'px' }">
             <thead>
                 <tr id="tableHeader">
                     <th id="pickfacecheckbox" data-ng-if="PickfaceCtrl.ePage.Entities.Header.TableProperties.UIWMSPickFace.pickfacecheckbox.isenabled" ng-style="{ 'width': PickfaceCtrl.ePage.Entities.Header.TableProperties.UIWMSPickFace.pickfacecheckbox.width + 'px' }">
@@ -76,7 +76,7 @@
                                     </span>
                                 </div>                                         
                             </div>
-                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="PickfaceCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWMSPickFace.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':1">
+                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="PickfaceCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWMSPickFace.ERROR | filter:{RowIndex: $index}:true | listCount: 'ColIndex':1">
                                 <error-warning-directive  list="PickfaceCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWMSPickFace.ERROR"
                                     type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref=""
                                     row-index="PickfaceCtrl.ePage.Masters.selectedRow" col-index="1">
@@ -106,7 +106,7 @@
                                     </span>
                                 </div>                                         
                             </div>
-                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="PickfaceCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWMSPickFace.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':2">
+                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="PickfaceCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWMSPickFace.ERROR | filter:{RowIndex: $index}:true | listCount: 'ColIndex':2">
                                 <error-warning-directive  list="PickfaceCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWMSPickFace.ERROR"
                                     type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref=""
                                     row-index="PickfaceCtrl.ePage.Masters.selectedRow" col-index="2">
@@ -135,7 +135,7 @@
                                     </span>
                                 </div>                                         
                             </div>
-                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="PickfaceCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWMSPickFace.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':3">
+                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="PickfaceCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWMSPickFace.ERROR | filter:{RowIndex: $index}:true | listCount: 'ColIndex':3">
                                 <error-warning-directive  list="PickfaceCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWMSPickFace.ERROR"
                                     type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref=""
                                     row-index="PickfaceCtrl.ePage.Masters.selectedRow" col-index="3">
@@ -152,7 +152,7 @@
                                 <input type="text" maxlength="4" numbers-only-dot  class="form-control input-sm" placeholder="Replenishment Minimum" data-ng-model="x.ReplenishMinimum"
                                  ng-change="PickfaceCtrl.ePage.Masters.OnChangeValues(x.ReplenishMinimum,'E7033',true,$index);PickfaceCtrl.ePage.Masters.Replenish(x,$index);"/>
                             </div>
-                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="PickfaceCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWMSPickFace.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':4">
+                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="PickfaceCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWMSPickFace.ERROR | filter:{RowIndex: $index}:true | listCount: 'ColIndex':4">
                                 <error-warning-directive  list="PickfaceCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWMSPickFace.ERROR"
                                     type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref=""
                                     row-index="PickfaceCtrl.ePage.Masters.selectedRow" col-index="4">
@@ -169,7 +169,7 @@
                                 <input type="text" maxlength="4" numbers-only-dot  class="form-control input-sm" placeholder="Replenishment Maximum" data-ng-model="x.ReplenishMaximum"
                                     ng-change="PickfaceCtrl.ePage.Masters.OnChangeValues(x.ReplenishMaximum,'E7034',true,$index);PickfaceCtrl.ePage.Masters.Replenish(x,$index)"/>                                
                             </div>
-                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="PickfaceCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWMSPickFace.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':5">
+                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="PickfaceCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWMSPickFace.ERROR | filter:{RowIndex: $index}:true | listCount: 'ColIndex':5">
                                 <error-warning-directive  list="PickfaceCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWMSPickFace.ERROR"
                                     type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref=""
                                     row-index="PickfaceCtrl.ePage.Masters.selectedRow" col-index="5">

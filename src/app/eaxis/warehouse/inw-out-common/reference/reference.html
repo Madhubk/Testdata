@@ -14,7 +14,7 @@
         </div>
     </div>
     <div id="RefTable{{ReferenceCtrl.ePage.Entities.Header.Data.PK}}" class="fixedheader mb-0" key-events table-object='ReferenceCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderReference' enable='ReferenceCtrl.ePage.Masters.Enable' selected-row='ReferenceCtrl.ePage.Masters.selectedRow' unique-id='RefTable{{ReferenceCtrl.ePage.Entities.Header.Data.PK}}'>
-        <table id="ReferenceCtrl.ePage.Masters.AddScroll" style="height: 170px">
+        <table id="ReferenceCtrl.ePage.Masters.AddScroll" ng-style="{ 'height': ReferenceCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderReference.TableHeight.height + 'px' }">
             <thead>
                 <tr id="tableHeader">
                     <th id="referencecheckbox" data-ng-if="ReferenceCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderReference.referencecheckbox.isenabled" ng-style="{ 'width': ReferenceCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderReference.referencecheckbox.width + 'px' }">
@@ -60,7 +60,7 @@
                                     <option value="">--Select--</option>
                                 </select>              
                             </div>
-                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="ReferenceCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderReference.ERROR | filter:{RowIndex:$index} | listCount: 'ColIndex':1">
+                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="ReferenceCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderReference.ERROR | filter:{RowIndex:$index}:true | listCount: 'ColIndex':1">
                                 <error-warning-directive  list="ReferenceCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderReference.ERROR"
                                     type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref=""
                                     row-index="ReferenceCtrl.ePage.Masters.selectedRow" col-index="1">
@@ -76,7 +76,7 @@
                             <div class="height-22  col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0">
                                 <input type="text" maxlength="200" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Reference"  data-ng-model="x.Reference" ng-change="ReferenceCtrl.ePage.Masters.OnChangeValues(x.Reference,'E3016',true,$index)">                                        
                             </div>
-                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="ReferenceCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderReference.ERROR | filter:{RowIndex:$index} | listCount: 'ColIndex':2">
+                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="ReferenceCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderReference.ERROR | filter:{RowIndex:$index}:true | listCount: 'ColIndex':2">
                                 <error-warning-directive  list="ReferenceCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderReference.ERROR"
                                     type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref=""
                                     row-index="ReferenceCtrl.ePage.Masters.selectedRow" col-index="2">

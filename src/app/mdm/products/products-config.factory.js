@@ -160,6 +160,10 @@
                         },
                         "TableProperties":{
                             "UIOrgSupplierPartBarcode":{
+                                "TableHeight":{
+                                    "isEnabled":true,
+                                    "height":395
+                                },
                                 "HeaderProperties":[{
                                     "columnname":"Checkbox",
                                     "isenabled":true,
@@ -213,6 +217,10 @@
                                 },
                             },
                             "UIOrgPartBOM":{
+                                "TableHeight":{
+                                    "isEnabled":true,
+                                    "height":395
+                                },
                                 "HeaderProperties":[{
                                     "columnname":"Checkbox",
                                     "isenabled":true,
@@ -305,6 +313,10 @@
                                 },
                             },
                             "UIWMSPickFace":{
+                                "TableHeight":{
+                                    "isEnabled":true,
+                                    "height":200
+                                },
                                 "HeaderProperties":[{
                                     "columnname":"Checkbox",
                                     "isenabled":true,
@@ -410,6 +422,10 @@
                                 },
                             },
                             "UIWarehouse":{
+                                "TableHeight":{
+                                    "isEnabled":true,
+                                    "height":200
+                                },
                                 "HeaderProperties":[{
                                     "columnname":"Checkbox",
                                     "isenabled":true,
@@ -566,6 +582,10 @@
                                 },
                             },
                             "UIOrgPartRelation":{
+                                "TableHeight":{
+                                    "isEnabled":true,
+                                    "height":395
+                                },
                                 "HeaderProperties":[{
                                     "columnname":"Checkbox",
                                     "isenabled":true,
@@ -775,6 +795,10 @@
                                 },
                             },
                             "UIOrgPartUnit":{
+                                "TableHeight":{
+                                    "isEnabled":true,
+                                    "height":395
+                                },
                                 "HeaderProperties":[{
                                     "columnname":"Checkbox",
                                     "isenabled":true,

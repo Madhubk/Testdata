@@ -99,6 +99,10 @@
                         },
                         "TableProperties":{
                             "UIWmsStockTransferLine":{
+                                "TableHeight":{
+                                    "isEnabled":true,
+                                    "height":200
+                                },
                                 "HeaderProperties":[{
                                     "columnname":"Checkbox",
                                     "isenabled":true,
@@ -399,6 +403,10 @@
                                 },
                             },
                             "Inventory":{
+                                "TableHeight":{
+                                    "isEnabled":true,
+                                    "height":200
+                                },
                                 "HeaderProperties":[{
                                     "columnname":"Checkbox",
                                     "isenabled":true,
