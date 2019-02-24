@@ -14,7 +14,7 @@
         </div>
     </div>
     <div id="ContTable{{ContainerCtrl.ePage.Entities.Header.Data.PK}}" class="fixedheader" key-events table-object='ContainerCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderContainer' enable='ContainerCtrl.ePage.Masters.Enable' selected-row='ContainerCtrl.ePage.Masters.selectedRow' unique-id='ContTable{{ContainerCtrl.ePage.Entities.Header.Data.PK}}'>
-        <table id="ContainerCtrl.ePage.Masters.AddScroll" style="height: 350px">
+        <table id="ContainerCtrl.ePage.Masters.AddScroll" ng-style="{ 'height': ContainerCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderContainer.TableHeight.height + 'px' }">
             <thead>
                 <tr id="tableHeader">
                     <th id="containercheckbox" data-ng-if="ContainerCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderContainer.containercheckbox.isenabled"  ng-style="{ 'width': ContainerCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderContainer.containercheckbox.width + 'px' }">
@@ -63,7 +63,7 @@
                             <div class="height-22 col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0">
                                 <input type="text" maxlength="20" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Container No"  data-ng-model="x.ContainerNumber" ng-change="ContainerCtrl.ePage.Masters.OnChangeValues(x.ContainerNumber,'E3013',true,$index)">                                        
                             </div>
-                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="ContainerCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderContainer.ERROR | filter:{RowIndex:$index} | listCount: 'ColIndex':1">
+                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="ContainerCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderContainer.ERROR | filter:{RowIndex:$index}:true | listCount: 'ColIndex':1">
                                 <error-warning-directive  list="ContainerCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderContainer.ERROR"
                                     type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref=""
                                     row-index="ContainerCtrl.ePage.Masters.selectedRow" col-index="1">
@@ -96,12 +96,12 @@
                                     <span class="input-group-btn">
                                         <button dynamic-list-modal obj="x" control-id="'ContainerType'" control-key="'ContainerType_3224'"  selected-data="ContainerCtrl.ePage.Masters.SelectedLookupType($item,$index)"  page-name="'MstContainer'" mode ="2" grid-refresh-fun-name="" grid-refresh-fun=""  class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
                                     </span>
-                                    <span ng-if='!x.Type && x.PK  && (ContainerCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderContainer.ERROR | filter: {RowIndex: $index} | filter: {ColIndex: 2}).length==0'>
+                                    <span ng-if='!x.Type && x.PK  && (ContainerCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderContainer.ERROR | filter: {RowIndex: $index}:true | filter: {ColIndex: 2}).length==0'>
                                         <span ng-init="ContainerCtrl.ePage.Masters.OnChangeValues(x.Product,'E3014',true,$index)"></span>
                                     </span>  
                                 </div>                                       
                             </div>
-                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="ContainerCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderContainer.ERROR | filter:{RowIndex:$index} | listCount: 'ColIndex':2">
+                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="ContainerCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderContainer.ERROR | filter:{RowIndex:$index}:true | listCount: 'ColIndex':2">
                                 <error-warning-directive  list="ContainerCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderContainer.ERROR"
                                     type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref=""
                                     row-index="ContainerCtrl.ePage.Masters.selectedRow" col-index="2">

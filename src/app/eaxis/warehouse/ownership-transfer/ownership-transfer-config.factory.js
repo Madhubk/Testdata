@@ -99,6 +99,10 @@
                         },
                         "TableProperties": {
                             "UIWmsStockTransferLine": {
+                                "TableHeight":{
+                                    "isEnabled":true,
+                                    "height":200
+                                },
                                 "HeaderProperties": [{
                                     "columnname": "Checkbox",
                                     "isenabled": true,
@@ -249,22 +253,6 @@
                                     "position": "19",
                                     "width": "150",
                                     "display": true
-                                },
-                                {
-                                    "columnname": "Picked Time",
-                                    "isenabled": true,
-                                    "property": "rpickedtime",
-                                    "position": "20",
-                                    "width": "150",
-                                    "display": true
-                                },
-                                {
-                                    "columnname": "Putaway Time",
-                                    "isenabled": true,
-                                    "property": "rputawaytime",
-                                    "position": "21",
-                                    "width": "150",
-                                    "display": true
                                 }],
                                 "rcheckbox": {
                                     "isenabled": true,
@@ -360,19 +348,13 @@
                                     "isenabled": true,
                                     "position": "19",
                                     "width": "150"
-                                },
-                                "rpickedtime": {
-                                    "isenabled": true,
-                                    "position": "20",
-                                    "width": "150"
-                                },
-                                "rputawaytime": {
-                                    "isenabled": true,
-                                    "position": "21",
-                                    "width": "150"
-                                },
+                                }
                             },
                             "Inventory": {
+                                "TableHeight":{
+                                    "isEnabled":true,
+                                    "height":200
+                                },
                                 "HeaderProperties": [{
                                     "columnname": "Checkbox",
                                     "isenabled": true,

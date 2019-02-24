@@ -52,11 +52,11 @@
             OwnershipTransferGeneralCtrl.ePage.Masters.DatePicker.isOpen = [];
             OwnershipTransferGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker = OpenDatePicker;
 
-            //Pagination
-            OwnershipTransferGeneralCtrl.ePage.Masters.Pagination = {};
-            OwnershipTransferGeneralCtrl.ePage.Masters.Pagination.CurrentPage = 1;
-            OwnershipTransferGeneralCtrl.ePage.Masters.Pagination.MaxSize = 3;
-            OwnershipTransferGeneralCtrl.ePage.Masters.Pagination.ItemsPerPage = 25;
+            //PaginationForInventory
+            OwnershipTransferGeneralCtrl.ePage.Masters.PaginationForInventory = {};
+            OwnershipTransferGeneralCtrl.ePage.Masters.PaginationForInventory.CurrentPage = 1;
+            OwnershipTransferGeneralCtrl.ePage.Masters.PaginationForInventory.MaxSize = 3;
+            OwnershipTransferGeneralCtrl.ePage.Masters.PaginationForInventory.ItemsPerPage = 25;
 
             OwnershipTransferGeneralCtrl.ePage.Masters.SelectedLookupClient = SelectedLookupClient;
             OwnershipTransferGeneralCtrl.ePage.Masters.SelectedLookupWarehouse = SelectedLookupWarehouse;
@@ -73,6 +73,22 @@
             OwnershipTransferGeneralCtrl.ePage.Masters.Filter = Filter;
             OwnershipTransferGeneralCtrl.ePage.Masters.OnChangeValues = OnChangeValues;
 
+            //PaginationForStocktransferLine
+            OwnershipTransferGeneralCtrl.ePage.Masters.PaginationForTfrLine = {};
+            OwnershipTransferGeneralCtrl.ePage.Masters.PaginationForTfrLine.CurrentPage = 1;
+            OwnershipTransferGeneralCtrl.ePage.Masters.PaginationForTfrLine.MaxSize = 3;
+            OwnershipTransferGeneralCtrl.ePage.Masters.PaginationForTfrLine.ItemsPerPage = 25;
+            OwnershipTransferGeneralCtrl.ePage.Masters.PaginationChangeForTfrLine = PaginationChangeForTfrLine;
+            OwnershipTransferGeneralCtrl.ePage.Masters.LocalSearchLengthCalculation = LocalSearchLengthCalculation;
+            OwnershipTransferGeneralCtrl.ePage.Masters.PaginationForTfrLine.LocalSearchLength = OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferLine.length;
+
+            OwnershipTransferGeneralCtrl.ePage.Masters.CurrentPageStartingIndex = (OwnershipTransferGeneralCtrl.ePage.Masters.PaginationForTfrLine.ItemsPerPage) * (OwnershipTransferGeneralCtrl.ePage.Masters.PaginationForTfrLine.CurrentPage - 1)
+
+             // Watch when Line length changes
+             $scope.$watch('OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferLine.length', function (val) {
+                LocalSearchLengthCalculation();
+            });
+            
             GetUserBasedGridColumList();
             GetUserBasedGridColumListForInventory();
             GetDropDownList();
@@ -477,25 +493,47 @@
         //#endregion
 
         //#region checkbox selection
-        function SelectAllCheckBox() {
+        function SelectAllCheckBox(){
             angular.forEach(OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferLine, function (value, key) {
-                if (OwnershipTransferGeneralCtrl.ePage.Masters.SelectAll) {
-                    value.SingleSelect = true;
-                    OwnershipTransferGeneralCtrl.ePage.Masters.EnableDeleteButton = true;
-                    OwnershipTransferGeneralCtrl.ePage.Masters.EnableCopyButton = true;
+                var startData = OwnershipTransferGeneralCtrl.ePage.Masters.CurrentPageStartingIndex
+                var LastData = OwnershipTransferGeneralCtrl.ePage.Masters.CurrentPageStartingIndex + (OwnershipTransferGeneralCtrl.ePage.Masters.PaginationForTfrLine.ItemsPerPage);
+                   
+                if (OwnershipTransferGeneralCtrl.ePage.Masters.SelectAll){
+
+                    // Enable and disable based on page wise
+                    if((key>=startData) && (key<LastData)){
+                        value.SingleSelect = true;
+                    }
                 }
-                else {
-                    value.SingleSelect = false;
-                    OwnershipTransferGeneralCtrl.ePage.Masters.EnableDeleteButton = false;
-                    OwnershipTransferGeneralCtrl.ePage.Masters.EnableCopyButton = false;
+                else{
+                    if((key>=startData) && (key<LastData)){
+                        value.SingleSelect = false;
+                    }
                 }
             });
+
+            var Checked1 = OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferLine.some(function (value, key) {
+                return value.SingleSelect == true;
+            });
+            if (Checked1) {
+                OwnershipTransferGeneralCtrl.ePage.Masters.EnableDeleteButton = true;
+                OwnershipTransferGeneralCtrl.ePage.Masters.EnableCopyButton = true;
+            } else {
+                OwnershipTransferGeneralCtrl.ePage.Masters.EnableDeleteButton = false;
+                OwnershipTransferGeneralCtrl.ePage.Masters.EnableCopyButton = false;
+            }
         }
 
         function SingleSelectCheckBox() {
+            var startData = OwnershipTransferGeneralCtrl.ePage.Masters.CurrentPageStartingIndex
+            var LastData = OwnershipTransferGeneralCtrl.ePage.Masters.CurrentPageStartingIndex + (OwnershipTransferGeneralCtrl.ePage.Masters.PaginationForTfrLine.ItemsPerPage);
+                   
             var Checked = OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferLine.some(function (value, key) {
-                if (!value.SingleSelect)
+              // Enable and disable based on page wise
+                if((key>=startData) && (key<LastData)){
+                    if(!value.SingleSelect)
                     return true;
+                }
             });
             if (Checked) {
                 OwnershipTransferGeneralCtrl.ePage.Masters.SelectAll = false;
@@ -513,6 +551,17 @@
                 OwnershipTransferGeneralCtrl.ePage.Masters.EnableDeleteButton = false;
                 OwnershipTransferGeneralCtrl.ePage.Masters.EnableCopyButton = false;
             }
+        }
+
+        function PaginationChangeForTfrLine() {
+            OwnershipTransferGeneralCtrl.ePage.Masters.CurrentPageStartingIndex = (OwnershipTransferGeneralCtrl.ePage.Masters.PaginationForTfrLine.ItemsPerPage) * (OwnershipTransferGeneralCtrl.ePage.Masters.PaginationForTfrLine.CurrentPage - 1)
+            SingleSelectCheckBox();
+        }
+
+        //Required this function when pagination and local search both are used
+        function LocalSearchLengthCalculation() {
+            var myData = $filter('filter')(OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferLine, OwnershipTransferGeneralCtrl.ePage.Masters.SearchTable);
+            OwnershipTransferGeneralCtrl.ePage.Masters.PaginationForTfrLine.LocalSearchLength = myData.length;
         }
         //#endregion checkbox selection
 
@@ -880,8 +929,8 @@
                     "ExpiryDate": OwnershipTransferGeneralCtrl.ePage.Masters.DynamicControl.Entities[0].Data.ExpiryDate,
                     "SortColumn": "WOL_WAR_WarehouseCode",
                     "SortType": "ASC",
-                    "PageNumber": OwnershipTransferGeneralCtrl.ePage.Masters.Pagination.CurrentPage,
-                    "PageSize": OwnershipTransferGeneralCtrl.ePage.Masters.Pagination.ItemsPerPage
+                    "PageNumber": OwnershipTransferGeneralCtrl.ePage.Masters.PaginationForInventory.CurrentPage,
+                    "PageSize": OwnershipTransferGeneralCtrl.ePage.Masters.PaginationForInventory.ItemsPerPage
                 };
 
                 var _input = {

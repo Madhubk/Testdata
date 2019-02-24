@@ -14,7 +14,7 @@
         </div>
     </div>
     <div id="ConversionTable{{ConversionsCtrl.ePage.Entities.Header.Data.PK}}" class="fixedheader" key-events table-object='ConversionsCtrl.ePage.Entities.Header.Data.UIOrgPartUnit' enable='ConversionsCtrl.ePage.Masters.Enable' selected-row='ConversionsCtrl.ePage.Masters.selectedRow' unique-id='ConversionTable{{ConversionsCtrl.ePage.Entities.Header.Data.PK}}'>
-        <table id="ConversionsCtrl.ePage.Masters.AddScroll" style="height: 395px">
+        <table id="ConversionsCtrl.ePage.Masters.AddScroll" ng-style="{ 'height': ConversionsCtrl.ePage.Entities.Header.TableProperties.UIOrgPartUnit.TableHeight.height + 'px' }">
             <thead>
                 <tr id="tableHeader">
                     <th id="unitcheckbox" data-ng-if="ConversionsCtrl.ePage.Entities.Header.TableProperties.UIOrgPartUnit.unitcheckbox.isenabled" ng-style="{ 'width': ConversionsCtrl.ePage.Entities.Header.TableProperties.UIOrgPartUnit.unitcheckbox.width + 'px' }">
@@ -59,7 +59,7 @@
                             <div class=" height-22 col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0" ng-click="ConversionsCtrl.ePage.Masters.Enable = false">
                                 <input type="text" maxlength="9" numbers-only-dot  class="form-control input-sm" placeholder="Quantity In Parent" data-ng-model="x.QuantityInParent" ng-change="ConversionsCtrl.ePage.Masters.OnChangeValues(x.QuantityInParent,'E7017',true,$index)" />
                             </div>
-                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="ConversionsCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIOrgPartUnit.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':1">
+                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="ConversionsCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIOrgPartUnit.ERROR | filter:{RowIndex: $index}:true | listCount: 'ColIndex':1">
                                 <error-warning-directive  list="ConversionsCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIOrgPartUnit.ERROR"
                                     type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref=""
                                     row-index="ConversionsCtrl.ePage.Masters.selectedRow" col-index="1">
@@ -78,7 +78,7 @@
                                     <option value="">--Select--</option>
                                 </select>
                             </div>
-                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="ConversionsCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIOrgPartUnit.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':3">
+                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="ConversionsCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIOrgPartUnit.ERROR | filter:{RowIndex: $index}:true | listCount: 'ColIndex':3">
                                 <error-warning-directive  list="ConversionsCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIOrgPartUnit.ERROR"
                                     type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref=""
                                     row-index="ConversionsCtrl.ePage.Masters.selectedRow" col-index="3">
@@ -97,7 +97,7 @@
                                     <option value="">--Select--</option>
                                 </select>
                             </div>
-                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="ConversionsCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIOrgPartUnit.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':2">
+                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="ConversionsCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIOrgPartUnit.ERROR | filter:{RowIndex: $index}:true | listCount: 'ColIndex':2">
                                 <error-warning-directive  list="ConversionsCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIOrgPartUnit.ERROR"
                                     type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref=""
                                     row-index="ConversionsCtrl.ePage.Masters.selectedRow" col-index="2">

@@ -43,7 +43,7 @@
         </div>
     </div>
     <div id="OutPickTable{{OutwardPickCtrl.currentOutward.label}}" class="fixedheader mb-0" key-events table-object='OutwardPickCtrl.ePage.PickDetails.UIWmsPickLine' enable='OutwardPickCtrl.ePage.Masters.Enable' selected-row='OutwardPickCtrl.ePage.Masters.selectedRow'unique-id='OutPickTable{{OutwardPickCtrl.currentOutward.label}}'>
-        <table style="height: 350px">
+        <table ng-style="{ 'height': OutwardPickCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLine.TableHeight.height + 'px' }">
             <thead>
                 <tr id="tableHeader">
                     <th id="psno" data-ng-if="OutwardPickCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLine.psno.isenabled" ng-style="{ 'width': OutwardPickCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLine.psno.width + 'px' }" title="S.No">S.No</th>

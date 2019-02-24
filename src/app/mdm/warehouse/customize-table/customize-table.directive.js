@@ -226,7 +226,7 @@
         return exports;
 
         function Link(scope, elem, attr) {
-
+            
             // if you declare function with scope.myFunction = function(){} then it will be called by scope.myfunction() but it should be called after the function.
             // If it called before the function declaration line it will show error. Another thing use function without scope. and call without scope. 
             // then we can call even before or after the function declaration.

@@ -437,6 +437,7 @@
         }
 
         function GenerateDocuments(item, type) {
+            
             CycleCountMenuCtrl.ePage.Masters.DisableReport = true;
 
             var obj = item.OtherConfig.ReportTemplate;
@@ -446,7 +447,7 @@
             obj.JobDocs.EntityRefKey = item.Id;
             obj.JobDocs.EntitySource = 'WMS';
             obj.JobDocs.EntityRefCode = item.Description;
-            obj.DataObjs[1].ApiName = obj.DataObjs[1].ApiName + CycleCountMenuCtrl.ePage.Entities.Header.Data.PK;
+            obj.DataObjs[0].ApiName = obj.DataObjs[0].ApiName + CycleCountMenuCtrl.ePage.Entities.Header.Data.PK;
 
             apiService.post("eAxisAPI", appConfig.Entities.Export.API.Excel.Url, obj).then(function (response) {
                 if (response.data.Response.Status == 'Success') {

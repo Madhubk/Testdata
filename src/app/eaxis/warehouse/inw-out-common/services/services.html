@@ -14,7 +14,7 @@
         </div>
     </div>
     <div id="SerTable{{ServiceCtrl.ePage.Entities.Header.Data.PK}}" class="fixedheader mb-0" key-events table-object='ServiceCtrl.ePage.Entities.Header.Data.UIJobServices' enable='ServiceCtrl.ePage.Masters.Enable' selected-row='ServiceCtrl.ePage.Masters.selectedRow' unique-id='SerTable{{ServiceCtrl.ePage.Entities.Header.Data.PK}}'>
-        <table id = "ServiceCtrl.ePage.Masters.AddScroll" style="height: 170px">
+        <table id = "ServiceCtrl.ePage.Masters.AddScroll" ng-style="{ 'height': ServiceCtrl.ePage.Entities.Header.TableProperties.UIJobServices.TableHeight.height + 'px' }">
             <thead>
                 <tr id="tableHeader">
                     <th id="servicecheckbox" data-ng-if="ServiceCtrl.ePage.Entities.Header.TableProperties.UIJobServices.servicecheckbox.isenabled"  ng-style="{ 'width': ServiceCtrl.ePage.Entities.Header.TableProperties.UIJobServices.servicecheckbox.width + 'px' }">
@@ -64,7 +64,7 @@
                                    <option value="">--Select--</option>
                                </select>              
                             </div>
-                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="ServiceCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIJobServices.ERROR | filter:{RowIndex:$index} | listCount: 'ColIndex':1">
+                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="ServiceCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIJobServices.ERROR | filter:{RowIndex:$index}:true | listCount: 'ColIndex':1">
                                 <error-warning-directive  list="ServiceCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIJobServices.ERROR"
                                     type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref=""
                                     row-index="ServiceCtrl.ePage.Masters.selectedRow" col-index="1">

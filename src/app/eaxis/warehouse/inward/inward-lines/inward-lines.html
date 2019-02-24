@@ -54,7 +54,7 @@
     </div>
     <div id="InwardLineTable{{InwardLinesCtrl.currentInward.label}}" class="fixedheader mb-0" key-events table-object='InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine'
         enable='InwardLinesCtrl.ePage.Masters.Enable' selected-row='InwardLinesCtrl.ePage.Masters.selectedRow' unique-id='InwardLineTable{{InwardLinesCtrl.currentInward.label}}'>
-        <table id="InwardLinesCtrl.ePage.Masters.AddScroll" style="height: 250px">
+        <table id="InwardLinesCtrl.ePage.Masters.AddScroll" ng-style="{ 'height': InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.TableHeight.height + 'px' }">
             <thead>
                 <tr id="tableHeader">
                     <th id="rcheckbox" data-ng-if="InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rcheckbox.isenabled"
@@ -187,12 +187,12 @@
                                             <i class="fa fa-ellipsis-h"></i>
                                         </button>
                                     </span>
-                                    <span ng-if='!x.ProductCode && x.PK  && (InwardLinesCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR | filter: {RowIndex: (($index) + (InwardLinesCtrl.ePage.Masters.CurrentPageStartingIndex))} | filter: {ColIndex: 1}).length==0'>
+                                    <span ng-if='!x.ProductCode && x.PK  && (InwardLinesCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR | filter: {RowIndex: (($index) + (InwardLinesCtrl.ePage.Masters.CurrentPageStartingIndex))}:true | filter: {ColIndex: 1}).length==0'>
                                         <span ng-init="InwardLinesCtrl.ePage.Masters.OnChangeValues(x.ProductCode,'E3008',true,(($index) + (InwardLinesCtrl.ePage.Masters.CurrentPageStartingIndex)))"></span>
                                     </span>
                                 </div>
                             </div>
-                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="InwardLinesCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR | filter:{RowIndex:(($parent.$index) + (InwardLinesCtrl.ePage.Masters.CurrentPageStartingIndex))} | listCount: 'ColIndex':1">
+                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="InwardLinesCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR | filter:{RowIndex:(($parent.$index) + (InwardLinesCtrl.ePage.Masters.CurrentPageStartingIndex))}:true | listCount: 'ColIndex':1">
                                 <error-warning-directive list="InwardLinesCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR" type="'error'"
                                     icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref="" row-index="((InwardLinesCtrl.ePage.Masters.selectedRow) + (InwardLinesCtrl.ePage.Masters.CurrentPageStartingIndex))"
                                     col-index="1">
@@ -221,7 +221,7 @@
                                 <input type="text" maxlength="9" numbers-only-dot class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
                                     placeholder="Pack" data-ng-model="x.Packs" ng-change="InwardLinesCtrl.ePage.Masters.FetchQuantity(x,$index);InwardLinesCtrl.ePage.Masters.OnChangeValues(x.Packs,'E3009',true,(($index) + (InwardLinesCtrl.ePage.Masters.CurrentPageStartingIndex)))">
                             </div>
-                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="InwardLinesCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR | filter:{RowIndex:(($parent.$index) + (InwardLinesCtrl.ePage.Masters.CurrentPageStartingIndex))} | listCount: 'ColIndex':2">
+                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="InwardLinesCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR | filter:{RowIndex:(($parent.$index) + (InwardLinesCtrl.ePage.Masters.CurrentPageStartingIndex))}:true | listCount: 'ColIndex':2">
                                 <error-warning-directive list="InwardLinesCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR" type="'error'"
                                     icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref="" row-index="((InwardLinesCtrl.ePage.Masters.selectedRow) + (InwardLinesCtrl.ePage.Masters.CurrentPageStartingIndex))"
                                     col-index="2">
@@ -243,7 +243,7 @@
                                     <option value="">--Select--</option>
                                 </select>
                             </div>
-                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="InwardLinesCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR | filter:{RowIndex:(($parent.$index) + (InwardLinesCtrl.ePage.Masters.CurrentPageStartingIndex))} | listCount: 'ColIndex':3">
+                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="InwardLinesCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR | filter:{RowIndex:(($parent.$index) + (InwardLinesCtrl.ePage.Masters.CurrentPageStartingIndex))}:true | listCount: 'ColIndex':3">
                                 <error-warning-directive list="InwardLinesCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR" type="'error'"
                                     icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref="" row-index="((InwardLinesCtrl.ePage.Masters.selectedRow) + (InwardLinesCtrl.ePage.Masters.CurrentPageStartingIndex))"
                                     col-index="3">
@@ -263,7 +263,7 @@
                                 <input type="text" maxlength="9" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Quantity"
                                     data-ng-model="x.Units" readonly=''>
                             </div>
-                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="InwardLinesCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR | filter:{RowIndex:(($parent.$index) + (InwardLinesCtrl.ePage.Masters.CurrentPageStartingIndex))} | listCount: 'ColIndex':4">
+                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="InwardLinesCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR | filter:{RowIndex:(($parent.$index) + (InwardLinesCtrl.ePage.Masters.CurrentPageStartingIndex))}:true | listCount: 'ColIndex':4">
                                 <error-warning-directive list="InwardLinesCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR" type="'error'"
                                     icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref="" row-index="((InwardLinesCtrl.ePage.Masters.selectedRow) + (InwardLinesCtrl.ePage.Masters.CurrentPageStartingIndex))"
                                     col-index="4">
@@ -283,7 +283,7 @@
                                 <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Quantity UQ" data-ng-model="x.StockKeepingUnit"
                                     readonly=''>
                             </div>
-                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="InwardLinesCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR | filter:{RowIndex:(($parent.$index) + (InwardLinesCtrl.ePage.Masters.CurrentPageStartingIndex))} | listCount: 'ColIndex':5">
+                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="InwardLinesCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR | filter:{RowIndex:(($parent.$index) + (InwardLinesCtrl.ePage.Masters.CurrentPageStartingIndex))}:true | listCount: 'ColIndex':5">
                                 <error-warning-directive list="InwardLinesCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR" type="'error'"
                                     icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref="" row-index="((InwardLinesCtrl.ePage.Masters.selectedRow) + (InwardLinesCtrl.ePage.Masters.CurrentPageStartingIndex))"
                                     col-index="5">
@@ -304,7 +304,7 @@
                                     <option value="">--Select--</option>
                                 </select>
                             </div>
-                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="InwardLinesCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR | filter:{RowIndex:(($parent.$index) + (InwardLinesCtrl.ePage.Masters.CurrentPageStartingIndex))} | listCount: 'ColIndex':12">
+                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="InwardLinesCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR | filter:{RowIndex:(($parent.$index) + (InwardLinesCtrl.ePage.Masters.CurrentPageStartingIndex))}:true | listCount: 'ColIndex':12">
                                 <error-warning-directive list="InwardLinesCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR" type="'error'"
                                     icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref="" row-index="((InwardLinesCtrl.ePage.Masters.selectedRow) + (InwardLinesCtrl.ePage.Masters.CurrentPageStartingIndex))"
                                     col-index="12">
@@ -338,7 +338,7 @@
                                     data-ng-model="x.PartAttrib1" ng-disabled="!x.UsePartAttrib1 || x.IsPartAttrib1ReleaseCaptured"
                                     ng-blur="InwardLinesCtrl.ePage.Masters.UDF(x,(($index) + (InwardLinesCtrl.ePage.Masters.CurrentPageStartingIndex)))">
                             </div>
-                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="InwardLinesCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR | filter:{RowIndex:(($parent.$index) + (InwardLinesCtrl.ePage.Masters.CurrentPageStartingIndex))} | listCount: 'ColIndex':6">
+                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="InwardLinesCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR | filter:{RowIndex:(($parent.$index) + (InwardLinesCtrl.ePage.Masters.CurrentPageStartingIndex))}:true | listCount: 'ColIndex':6">
                                 <error-warning-directive list="InwardLinesCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR" type="'error'"
                                     icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref="" row-index="((InwardLinesCtrl.ePage.Masters.selectedRow) + (InwardLinesCtrl.ePage.Masters.CurrentPageStartingIndex))"
                                     col-index="6">
@@ -358,7 +358,7 @@
                                     data-ng-model="x.PartAttrib2" ng-disabled="!x.UsePartAttrib2 || x.IsPartAttrib2ReleaseCaptured"
                                     ng-blur="InwardLinesCtrl.ePage.Masters.UDF(x,(($index) + (InwardLinesCtrl.ePage.Masters.CurrentPageStartingIndex)))">
                             </div>
-                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="InwardLinesCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR | filter:{RowIndex:(($parent.$index) + (InwardLinesCtrl.ePage.Masters.CurrentPageStartingIndex))} | listCount: 'ColIndex':7">
+                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="InwardLinesCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR | filter:{RowIndex:(($parent.$index) + (InwardLinesCtrl.ePage.Masters.CurrentPageStartingIndex))}:true | listCount: 'ColIndex':7">
                                 <error-warning-directive list="InwardLinesCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR" type="'error'"
                                     icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref="" row-index="((InwardLinesCtrl.ePage.Masters.selectedRow) + (InwardLinesCtrl.ePage.Masters.CurrentPageStartingIndex))"
                                     col-index="7">
@@ -378,7 +378,7 @@
                                     data-ng-model="x.PartAttrib3" ng-disabled="!x.UsePartAttrib3 || x.IsPartAttrib3ReleaseCaptured"
                                     ng-blur="InwardLinesCtrl.ePage.Masters.UDF(x,(($index) + (InwardLinesCtrl.ePage.Masters.CurrentPageStartingIndex)))">
                             </div>
-                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="InwardLinesCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR | filter:{RowIndex:(($parent.$index) + (InwardLinesCtrl.ePage.Masters.CurrentPageStartingIndex))} | listCount: 'ColIndex':8">
+                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="InwardLinesCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR | filter:{RowIndex:(($parent.$index) + (InwardLinesCtrl.ePage.Masters.CurrentPageStartingIndex))}:true | listCount: 'ColIndex':8">
                                 <error-warning-directive list="InwardLinesCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR" type="'error'"
                                     icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref="" row-index="((InwardLinesCtrl.ePage.Masters.selectedRow) + (InwardLinesCtrl.ePage.Masters.CurrentPageStartingIndex))"
                                     col-index="8">
@@ -410,7 +410,7 @@
                                     </span>
                                 </div>
                             </div>
-                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="InwardLinesCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR | filter:{RowIndex:(($parent.$index) + (InwardLinesCtrl.ePage.Masters.CurrentPageStartingIndex))} | listCount: 'ColIndex':9">
+                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="InwardLinesCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR | filter:{RowIndex:(($parent.$index) + (InwardLinesCtrl.ePage.Masters.CurrentPageStartingIndex))}:true | listCount: 'ColIndex':9">
                                 <error-warning-directive list="InwardLinesCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR" type="'error'"
                                     icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref="" row-index="((InwardLinesCtrl.ePage.Masters.selectedRow) + (InwardLinesCtrl.ePage.Masters.CurrentPageStartingIndex))"
                                     col-index="9">
@@ -442,7 +442,7 @@
                                     </span>
                                 </div>
                             </div>
-                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="InwardLinesCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR | filter:{RowIndex:(($parent.$index) + (InwardLinesCtrl.ePage.Masters.CurrentPageStartingIndex))} | listCount: 'ColIndex':10">
+                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="InwardLinesCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR | filter:{RowIndex:(($parent.$index) + (InwardLinesCtrl.ePage.Masters.CurrentPageStartingIndex))}:true | listCount: 'ColIndex':10">
                                 <error-warning-directive list="InwardLinesCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR" type="'error'"
                                     icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref="" row-index="((InwardLinesCtrl.ePage.Masters.selectedRow) + (InwardLinesCtrl.ePage.Masters.CurrentPageStartingIndex))"
                                     col-index="10">
@@ -482,7 +482,7 @@
                                     </span>
                                 </div>
                             </div>
-                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="InwardLinesCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR | filter:{RowIndex:(($parent.$index) + (InwardLinesCtrl.ePage.Masters.CurrentPageStartingIndex))} | listCount: 'ColIndex':11">
+                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="InwardLinesCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR | filter:{RowIndex:(($parent.$index) + (InwardLinesCtrl.ePage.Masters.CurrentPageStartingIndex))}:true | listCount: 'ColIndex':11">
                                 <error-warning-directive list="InwardLinesCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR" type="'error'"
                                     icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref="" row-index="InwardLinesCtrl.ePage.Masters.selectedRow"
                                     col-index="11">

@@ -73,11 +73,27 @@
             AdjustmentGeneralCtrl.ePage.Masters.AddToLine = AddToLine;
             AdjustmentGeneralCtrl.ePage.Masters.Inventory = [];
 
-            //Pagination
-            AdjustmentGeneralCtrl.ePage.Masters.Pagination = {};
-            AdjustmentGeneralCtrl.ePage.Masters.Pagination.CurrentPage = 1;
-            AdjustmentGeneralCtrl.ePage.Masters.Pagination.MaxSize = 3;
-            AdjustmentGeneralCtrl.ePage.Masters.Pagination.ItemsPerPage = 25;
+            //PaginationForInventory
+            AdjustmentGeneralCtrl.ePage.Masters.PaginationForInventory = {};
+            AdjustmentGeneralCtrl.ePage.Masters.PaginationForInventory.CurrentPage = 1;
+            AdjustmentGeneralCtrl.ePage.Masters.PaginationForInventory.MaxSize = 3;
+            AdjustmentGeneralCtrl.ePage.Masters.PaginationForInventory.ItemsPerPage = 25;
+
+            //PaginationForAdjustmentLine
+            AdjustmentGeneralCtrl.ePage.Masters.PaginationForAdjLine = {};
+            AdjustmentGeneralCtrl.ePage.Masters.PaginationForAdjLine.CurrentPage = 1;
+            AdjustmentGeneralCtrl.ePage.Masters.PaginationForAdjLine.MaxSize = 3;
+            AdjustmentGeneralCtrl.ePage.Masters.PaginationForAdjLine.ItemsPerPage = 25;
+            AdjustmentGeneralCtrl.ePage.Masters.PaginationChangeForAdjLine = PaginationChangeForAdjLine;
+            AdjustmentGeneralCtrl.ePage.Masters.LocalSearchLengthCalculation = LocalSearchLengthCalculation;
+            AdjustmentGeneralCtrl.ePage.Masters.PaginationForAdjLine.LocalSearchLength = AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine.length;
+
+            AdjustmentGeneralCtrl.ePage.Masters.CurrentPageStartingIndex = (AdjustmentGeneralCtrl.ePage.Masters.PaginationForAdjLine.ItemsPerPage) * (AdjustmentGeneralCtrl.ePage.Masters.PaginationForAdjLine.CurrentPage - 1)
+
+             // Watch when Line length changes
+             $scope.$watch('AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine.length', function (val) {
+                LocalSearchLengthCalculation();
+            });
 
             if(AdjustmentGeneralCtrl.currentAdjustment.isNew){
                 AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIAdjustmentHeader.ExternalReference = "New";    
@@ -475,6 +491,7 @@
 
             OnChangeValues(item.ProductCode, 'E10003', true, index);
             OnChangeValues(item.StockKeepingUnit, "E10007", true, index);
+            OnChangeValues(item.PAC_PackType, "E10005", true, index);
             OnChangeValues('value', "E10026", true, index);
         }
 
@@ -533,25 +550,47 @@
 
 
         //#region checkbox selection
-         function SelectAllCheckBox(){
+        function SelectAllCheckBox(){
             angular.forEach(AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine, function (value, key) {
-            if (AdjustmentGeneralCtrl.ePage.Masters.SelectAll){
-                value.SingleSelect = true;
+                var startData = AdjustmentGeneralCtrl.ePage.Masters.CurrentPageStartingIndex
+                var LastData = AdjustmentGeneralCtrl.ePage.Masters.CurrentPageStartingIndex + (AdjustmentGeneralCtrl.ePage.Masters.PaginationForAdjLine.ItemsPerPage);
+                   
+                if (AdjustmentGeneralCtrl.ePage.Masters.SelectAll){
+
+                    // Enable and disable based on page wise
+                    if((key>=startData) && (key<LastData)){
+                        value.SingleSelect = true;
+                    }
+                }
+                else{
+                    if((key>=startData) && (key<LastData)){
+                        value.SingleSelect = false;
+                    }
+                }
+            });
+
+            var Checked1 = AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine.some(function (value, key) {
+                return value.SingleSelect == true;
+            });
+            if (Checked1) {
                 AdjustmentGeneralCtrl.ePage.Masters.EnableDeleteButton = true;
                 AdjustmentGeneralCtrl.ePage.Masters.EnableCopyButton = true;
-            }
-            else{
-                value.SingleSelect = false;
+            } else {
                 AdjustmentGeneralCtrl.ePage.Masters.EnableDeleteButton = false;
                 AdjustmentGeneralCtrl.ePage.Masters.EnableCopyButton = false;
             }
-            });
         }
 
         function SingleSelectCheckBox() {
+            var startData = AdjustmentGeneralCtrl.ePage.Masters.CurrentPageStartingIndex
+            var LastData = AdjustmentGeneralCtrl.ePage.Masters.CurrentPageStartingIndex + (AdjustmentGeneralCtrl.ePage.Masters.PaginationForAdjLine.ItemsPerPage);
+                   
             var Checked = AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine.some(function (value, key) {
-                if(!value.SingleSelect)
-                return true;
+              // Enable and disable based on page wise
+                if((key>=startData) && (key<LastData)){
+                    if(!value.SingleSelect)
+                    return true;
+                }
             });
             if (Checked) {
                 AdjustmentGeneralCtrl.ePage.Masters.SelectAll = false;
@@ -570,6 +609,18 @@
                 AdjustmentGeneralCtrl.ePage.Masters.EnableCopyButton = false;
             }
         }
+
+        function PaginationChangeForAdjLine() {
+            AdjustmentGeneralCtrl.ePage.Masters.CurrentPageStartingIndex = (AdjustmentGeneralCtrl.ePage.Masters.PaginationForAdjLine.ItemsPerPage) * (AdjustmentGeneralCtrl.ePage.Masters.PaginationForAdjLine.CurrentPage - 1)
+            SingleSelectCheckBox();
+        }
+
+        //Required this function when pagination and local search both are used
+        function LocalSearchLengthCalculation() {
+            var myData = $filter('filter')(AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine, AdjustmentGeneralCtrl.ePage.Masters.SearchTable);
+            AdjustmentGeneralCtrl.ePage.Masters.PaginationForAdjLine.LocalSearchLength = myData.length;
+        }
+
         //#endregion checkbox selection
 
         //#region Add,copy,delete row
@@ -955,8 +1006,8 @@
                     "ExpiryDate": AdjustmentGeneralCtrl.ePage.Masters.DynamicControl.Entities[0].Data.ExpiryDate,
                     "SortColumn": "WOL_WAR_WarehouseCode",
                     "SortType": "ASC",
-                    "PageNumber": AdjustmentGeneralCtrl.ePage.Masters.Pagination.CurrentPage,
-                    "PageSize": AdjustmentGeneralCtrl.ePage.Masters.Pagination.ItemsPerPage
+                    "PageNumber": AdjustmentGeneralCtrl.ePage.Masters.PaginationForInventory.CurrentPage,
+                    "PageSize": AdjustmentGeneralCtrl.ePage.Masters.PaginationForInventory.ItemsPerPage
                 };
 
                 var _input = {

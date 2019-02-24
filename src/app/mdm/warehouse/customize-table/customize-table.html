@@ -1,7 +1,13 @@
 <div class="modal-header">
     <span class="modal-title modalheader">Customize Table Columns</span>
 </div>
-<div class="modal-body pb-50">
+<div class="modal-body pb-50 ">
+    <div class="clearfix customstyle p-5" data-ng-if="TableProperties.TableHeight.isEnabled">
+        <span class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8 pt-5">Height</span>
+        <span class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
+            <input type="text" numbers-only class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Height" data-ng-model="TableProperties.TableHeight.height">
+        </span>
+    </div>
     <div class="column-list clearfix customstyle" dnd-list="TableProperties.HeaderProperties">
         <div class="col-list clearfix" data-ng-repeat="x in TableProperties.HeaderProperties"
             dnd-draggable="x" dnd-moved="TableProperties.HeaderProperties.splice($index, 1)"

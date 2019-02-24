@@ -207,6 +207,10 @@
                         },
                         "TableProperties": {
                             "UIWmsOutward": {
+                                "TableHeight":{
+                                    "isEnabled":true,
+                                    "height":275
+                                },
                                 "HeaderProperties": [{
                                     "columnname": "S.No",
                                     "isenabled": true,
@@ -339,6 +343,10 @@
                                 }
                             },
                             "UIWmsPickLineSummary": {
+                                "TableHeight":{
+                                    "isEnabled":true,
+                                    "height":200
+                                },
                                 "HeaderProperties": [{
                                     "columnname": "S.No",
                                     "isenabled": true,
@@ -563,6 +571,10 @@
 
                             },
                             "UIWmsOutwardLines": {
+                                "TableHeight":{
+                                    "isEnabled":true,
+                                    "height":200
+                                },
                                 "HeaderProperties": [{
                                     "columnname": "S.No",
                                     "isenabled": true,
@@ -799,6 +811,10 @@
                                 }
                             },
                             "PickInventoryList": {
+                                "TableHeight":{
+                                    "isEnabled":true,
+                                    "height":200
+                                },
                                 "HeaderProperties": [{
                                     "columnname": "Checkbox",
                                     "isenabled": true,
@@ -1060,6 +1076,10 @@
                                 }
                             },
                             "UIWmsReleaseLine": {
+                                "TableHeight":{
+                                    "isEnabled":true,
+                                    "height":200
+                                },
                                 "HeaderProperties": [{
                                     "columnname": "Checkbox",
                                     "isenabled": true,

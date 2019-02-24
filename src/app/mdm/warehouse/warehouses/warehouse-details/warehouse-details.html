@@ -179,7 +179,7 @@
                                         </div>
                                     </div>
                                     <div class="fixedheader" id="WarehouseTable{{WarehouseDetailsCtrl.ePage.Entities.Header.Data.PK}}"  key-events table-object='WarehouseDetailsCtrl.ePage.Entities.Header.Data.WmsArea' enable='WarehouseDetailsCtrl.ePage.Masters.Enable' selected-row='WarehouseDetailsCtrl.ePage.Masters.selectedRow' unique-id="WarehouseTable{{WarehouseDetailsCtrl.ePage.Entities.Header.Data.PK}}">
-                                        <table id="WarehouseDetailsCtrl.ePage.Masters.AddScroll" style="height: 340px">
+                                        <table id="WarehouseDetailsCtrl.ePage.Masters.AddScroll" ng-style="{ 'height': WarehouseDetailsCtrl.ePage.Entities.Header.TableProperties.WmsArea.TableHeight.height + 'px' }">
                                             <thead>
                                                 <tr id="tableHeader">
                                                     <th id="checkbox" data-ng-if="WarehouseDetailsCtrl.ePage.Entities.Header.TableProperties.WmsArea.checkbox.isenabled" ng-style="{ 'width': WarehouseDetailsCtrl.ePage.Entities.Header.TableProperties.WmsArea.sno.width + 'px' }">
@@ -224,7 +224,7 @@
                                                                 <input type="text" maxlength="25" capitalize class="height-22 form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Area Name"  data-ng-model="x.Name"
                                                                     ng-change='WarehouseDetailsCtrl.ePage.Masters.OnChangeValues(x.Name,"E4009",true,$index)'>                                        
                                                             </div>
-                                                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="WarehouseDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.WmsArea.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':1">
+                                                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="WarehouseDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.WmsArea.ERROR | filter:{RowIndex: $index}:true | listCount: 'ColIndex':1">
                                                                 <error-warning-directive  list="WarehouseDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.WmsArea.ERROR"
                                                                     type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref=""
                                                                     row-index="WarehouseDetailsCtrl.ePage.Masters.selectedRow" col-index="1">
@@ -243,7 +243,7 @@
                                                                     <option value="">--Select--</option>
                                                                 </select>              
                                                             </div>
-                                                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="WarehouseDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.WmsArea.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':2">
+                                                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="WarehouseDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.WmsArea.ERROR | filter:{RowIndex: $index}:true | listCount: 'ColIndex':2">
                                                                 <error-warning-directive  list="WarehouseDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.WmsArea.ERROR"
                                                                     type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref=""
                                                                     row-index="WarehouseDetailsCtrl.ePage.Masters.selectedRow" col-index="2">

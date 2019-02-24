@@ -14,7 +14,7 @@
         </div>
     </div>
     <div id="ProdWareTable{{ProductWarehouseCtrl.ePage.Entities.Header.Data.PK}}" class="fixedheader" key-events table-object='ProductWarehouseCtrl.ePage.Entities.Header.Data.UIWarehouse' enable='ProductWarehouseCtrl.ePage.Masters.Enable' selected-row='ProductWarehouseCtrl.ePage.Masters.selectedRow' unique-id='ProdWareTable{{ProductWarehouseCtrl.ePage.Entities.Header.Data.PK}}'>
-        <table id="ProductWarehouseCtrl.ePage.Masters.AddScroll"  style="height: 200px">
+        <table id="ProductWarehouseCtrl.ePage.Masters.AddScroll"  ng-style="{ 'height': ProductWarehouseCtrl.ePage.Entities.Header.TableProperties.UIWarehouse.TableHeight.height + 'px' }">
             <thead>
                 <tr id="tableHeader">
                     <th id="warehousecheckbox" data-ng-if="ProductWarehouseCtrl.ePage.Entities.Header.TableProperties.UIWarehouse.warehousecheckbox.isenabled" ng-style="{ 'width': ProductWarehouseCtrl.ePage.Entities.Header.TableProperties.UIWarehouse.warehousecheckbox.width + 'px' }">
@@ -80,7 +80,7 @@
                                     </span>
                                 </div>                                         
                             </div>
-                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="ProductWarehouseCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWarehouse.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':1">
+                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="ProductWarehouseCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWarehouse.ERROR | filter:{RowIndex: $index}:true | listCount: 'ColIndex':1">
                                 <error-warning-directive  list="ProductWarehouseCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWarehouse.ERROR"
                                     type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref=""
                                     row-index="ProductWarehouseCtrl.ePage.Masters.selectedRow" col-index="1">
@@ -110,7 +110,7 @@
                                     </span>
                                 </div>                                         
                             </div>
-                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="ProductWarehouseCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWarehouse.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':2">
+                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="ProductWarehouseCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWarehouse.ERROR | filter:{RowIndex: $index}:true | listCount: 'ColIndex':2">
                                 <error-warning-directive  list="ProductWarehouseCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWarehouse.ERROR"
                                     type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref=""
                                     row-index="ProductWarehouseCtrl.ePage.Masters.selectedRow" col-index="2">

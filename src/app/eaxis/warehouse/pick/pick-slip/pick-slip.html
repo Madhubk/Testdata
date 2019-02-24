@@ -11,7 +11,7 @@
         </div>
     </div>
     <div id="PickSlipTable{{PickSlipCtrl.currentPick.label}}" class="fixedheader" key-events table-object='PickSlipCtrl.ePage.Entities.Header.Data.UIWmsPickLineSummary' enable='PickSlipCtrl.ePage.Masters.EnableForPickLineSummary' selected-row='PickSlipCtrl.ePage.Masters.selectedRowForPickLineSummary' unique-id='PickSlipTable{{PickSlipCtrl.currentPick.label}}'>
-        <table  style="height: 300px">
+        <table  ng-style="{ 'height': PickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.TableHeight.height + 'px' }">
             <thead>
                 <tr id="tableHeader">
                     <th id="ssno" data-ng-if="PickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.ssno.isenabled" ng-style="{ 'width': PickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.ssno.width + 'px' }" title="S.No">S.No</th>
@@ -82,7 +82,7 @@
                                     </span>
                                 </div>
                             </div>
-                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="PickSlipCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsPickLineSummary.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':1">
+                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="PickSlipCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsPickLineSummary.ERROR | filter:{RowIndex: $index}:true | listCount: 'ColIndex':1">
                                 <error-warning-directive  list="PickSlipCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsPickLineSummary.ERROR"
                                     type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref=""
                                     row-index="PickSlipCtrl.ePage.Masters.selectedRowForPickLineSummary" col-index="1">

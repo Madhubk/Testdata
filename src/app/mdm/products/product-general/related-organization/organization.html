@@ -14,7 +14,7 @@
         </div>
     </div>
     <div id="OrganizationTable{{OrganizationCtrl.ePage.Entities.Header.Data.PK}}" class="fixedheader" key-events table-object='OrganizationCtrl.ePage.Entities.Header.Data.UIOrgPartRelation' enable='OrganizationCtrl.ePage.Masters.Enable' selected-row='OrganizationCtrl.ePage.Masters.selectedRow' unique-id='OrganizationTable{{OrganizationCtrl.ePage.Entities.Header.Data.PK}}'>
-        <table id="OrganizationCtrl.ePage.Masters.AddScroll" style="height: 385px">
+        <table id="OrganizationCtrl.ePage.Masters.AddScroll" ng-style="{ 'height': OrganizationCtrl.ePage.Entities.Header.TableProperties.UIOrgPartRelation.TableHeight.height + 'px' }">
             <thead>
                 <tr id="tableHeader">
                     <th id="partcheckbox" data-ng-if="OrganizationCtrl.ePage.Entities.Header.TableProperties.UIOrgPartRelation.partcheckbox.isenabled" ng-style="{ 'width': OrganizationCtrl.ePage.Entities.Header.TableProperties.UIOrgPartRelation.partcheckbox.width + 'px' }">
@@ -84,7 +84,7 @@
                                     </span>
                                 </div>                                       
                             </div>
-                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="OrganizationCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIOrgPartRelation.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':1">
+                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="OrganizationCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIOrgPartRelation.ERROR | filter:{RowIndex: $index}:true | listCount: 'ColIndex':1">
                                 <error-warning-directive  list="OrganizationCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIOrgPartRelation.ERROR"
                                     type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref=""
                                     row-index="OrganizationCtrl.ePage.Masters.selectedRow" col-index="1">
@@ -103,7 +103,7 @@
                                     <option value="">--Select--</option>
                                 </select>              
                             </div>
-                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="OrganizationCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIOrgPartRelation.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':2">
+                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="OrganizationCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIOrgPartRelation.ERROR | filter:{RowIndex: $index}:true | listCount: 'ColIndex':2">
                                 <error-warning-directive  list="OrganizationCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIOrgPartRelation.ERROR"
                                     type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref=""
                                     row-index="OrganizationCtrl.ePage.Masters.selectedRow" col-index="2">

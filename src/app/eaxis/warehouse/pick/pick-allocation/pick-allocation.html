@@ -17,7 +17,7 @@
         </div>
     </div>
     <div id="PickOutLineTable{{PickAllocationCtrl.currentPick.label}}" class="fixedheader mb-0" key-events table-object='PickAllocationCtrl.ePage.Entities.Header.Data.UIWmsOutwardLines' enable='PickAllocationCtrl.ePage.Masters.Enable' selected-row='PickAllocationCtrl.ePage.Masters.selectedRow' unique-id='PickOutLineTable{{PickAllocationCtrl.currentPick.label}}'>
-        <table style="height: 200px">
+        <table ng-style="{ 'height': PickAllocationCtrl.ePage.Entities.Header.TableProperties.UIWmsOutwardLines.TableHeight.height + 'px' }">
             <thead>
                 <tr id="tableHeader">
                     <th id="lsno" data-ng-if="PickAllocationCtrl.ePage.Entities.Header.TableProperties.UIWmsOutwardLines.lsno.isenabled" ng-style="{ 'width': PickAllocationCtrl.ePage.Entities.Header.TableProperties.UIWmsOutwardLines.lsno.width + 'px' }" title="S.No">S.No</th>
@@ -96,7 +96,7 @@
         </div>
     </div>
     <div id="PickInvenTable{{PickAllocationCtrl.currentPick.label}}" class="fixedheader mb-60" key-events  unique-id='PickInvenTable{{PickAllocationCtrl.currentPick.label}}'>
-        <table style="height: 200px">
+        <table ng-style="{ 'height': PickAllocationCtrl.ePage.Entities.Header.TableProperties.PickInventoryList.TableHeight.height + 'px' }">
             <thead>
                 <tr id="tableHeader">
                     <th id="icheckbox" data-ng-if="PickAllocationCtrl.ePage.Entities.Header.TableProperties.PickInventoryList.icheckbox.isenabled" ng-style="{ 'width': PickAllocationCtrl.ePage.Entities.Header.TableProperties.PickInventoryList.icheckbox.width + 'px' }" title="Is Allocate">Is Allocate</th>

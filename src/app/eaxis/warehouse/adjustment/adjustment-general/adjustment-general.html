@@ -141,12 +141,12 @@
         <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 p-0">
             <div class="input-group">
                 <div class="input-group-addon font-10"><i class="fa fa-search font-10"></i></div>
-                <input type="text" class="form-control height-25 font-10" placeholder="Search" ng-model="AdjustmentGeneralCtrl.ePage.Masters.SearchTable">
+                <input type="text" class="form-control height-25 font-10" placeholder="Search" ng-model="AdjustmentGeneralCtrl.ePage.Masters.SearchTable" data-ng-change="AdjustmentGeneralCtrl.ePage.Masters.LocalSearchLengthCalculation()">
             </div>      
         </div>
     </div>
     <div id="AdjTable{{AdjustmentGeneralCtrl.currentAdjustment.label}}" class="fixedheader mb-0" key-events table-object='AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine' enable='AdjustmentGeneralCtrl.ePage.Masters.Enable' selected-row='AdjustmentGeneralCtrl.ePage.Masters.selectedRow' unique-id='AdjTable{{AdjustmentGeneralCtrl.currentAdjustment.label}}'>
-        <table id="AdjustmentGeneralCtrl.ePage.Masters.AddScroll" style="height: 200px">
+        <table id="AdjustmentGeneralCtrl.ePage.Masters.AddScroll" ng-style="{ 'height': AdjustmentGeneralCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.TableHeight.height + 'px' }">
             <thead>
                 <tr id="tableHeader">
                     <th id="rcheckbox" data-ng-if="AdjustmentGeneralCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rcheckbox.isenabled" ng-style="{ 'width': AdjustmentGeneralCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rcheckbox.width + 'px' }">
@@ -188,7 +188,7 @@
                 </tr>
             </thead>
             <tbody id="AdjCustomTable{{AdjustmentGeneralCtrl.currentAdjustment.label}}">
-                <tr id="tableBody" ng-repeat="x in AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine | filter:AdjustmentGeneralCtrl.ePage.Masters.SearchTable"  ng-click="AdjustmentGeneralCtrl.ePage.Masters.setSelectedRow($index);" ng-class="{row_active: (AdjustmentGeneralCtrl.ePage.Masters.selectedRow==$index),copy_row_active :(x.IsCopied==true)}" 
+                <tr id="tableBody" ng-repeat="x in AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine | filter:AdjustmentGeneralCtrl.ePage.Masters.SearchTable | tableslice : (AdjustmentGeneralCtrl.ePage.Masters.CurrentPageStartingIndex) : (AdjustmentGeneralCtrl.ePage.Masters.PaginationForAdjLine.CurrentPage * AdjustmentGeneralCtrl.ePage.Masters.PaginationForAdjLine.ItemsPerPage)"  ng-click="AdjustmentGeneralCtrl.ePage.Masters.setSelectedRow($index);" ng-class="{row_active: (AdjustmentGeneralCtrl.ePage.Masters.selectedRow==$index),copy_row_active :(x.IsCopied==true)}" 
                     watch-table table-properties="AdjustmentGeneralCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine"  unique-id="AdjCustomTable{{AdjustmentGeneralCtrl.currentAdjustment.label}}" row-position="$index">
                     <td id="rcheckbox" data-ng-show='AdjustmentGeneralCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rcheckbox.isenabled' ng-style="{ 'width': AdjustmentGeneralCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rcheckbox.width + 'px' ,'padding-top':'0px' }" ng-click="AdjustmentGeneralCtrl.ePage.Masters.Enable = true">
                         <label class="mb-0 customcheckbox">
@@ -196,17 +196,17 @@
                                 ng-model="x.SingleSelect" ng-disabled="AdjustmentGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable"> </input>
                             <span class="text"></span>
                         </label>
-                        <span class="list-error-warning" data-ng-if="AdjustmentGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR | listCount: 'RowIndex': $index">
+                        <span class="list-error-warning" data-ng-if="AdjustmentGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR | listCount: 'RowIndex': (($index) + AdjustmentGeneralCtrl.ePage.Masters.CurrentPageStartingIndex)">
                             <error-warning-directive 
                                 list="AdjustmentGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR"
                                 type="'error'" icon="fa fa-warning" parent-type="'arrayObjectRow'" parent-ref=""
-                                g-parent-ref="" row-index="$index"
+                                g-parent-ref="" row-index="(($index) + AdjustmentGeneralCtrl.ePage.Masters.CurrentPageStartingIndex)"
                                 col-index="">
                             </error-warning-directive>
                         </span>
                     </td>
                     <td id="rsno"   data-ng-show='AdjustmentGeneralCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rsno.isenabled' ng-style="{ 'width': AdjustmentGeneralCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rsno.width + 'px' }" ng-click="AdjustmentGeneralCtrl.ePage.Masters.Enable = true">
-                        {{$index+1}}
+                        {{(($index) + AdjustmentGeneralCtrl.ePage.Masters.CurrentPageStartingIndex)+1}}
                     </td>
                     <td id="rproductcode"   data-ng-show='AdjustmentGeneralCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rproductcode.isenabled' ng-style="{ 'width': AdjustmentGeneralCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine.rproductcode.width + 'px' }" ng-click="AdjustmentGeneralCtrl.ePage.Masters.Enable = true">
                         <div data-ng-if="$index!=AdjustmentGeneralCtrl.ePage.Masters.selectedRow || AdjustmentGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable" class="overflow-text">
@@ -217,22 +217,22 @@
                                 <div  class="input-group input-group-sm height-22">
                                     <!-- Dynamic look up Search in textbox -->
                                     <div dynamic-lookup placeholder="Product Code" my-ng-model="x.ProductCode" obj="x"
-                                        page-name="'ProductRelatedParty'" control-id="'Product'" control-key="'Product_2845'" auto-complete-on-select="AdjustmentGeneralCtrl.ePage.Masters.SelectedLookupProduct($item,$index)">
+                                        page-name="'ProductRelatedParty'" control-id="'Product'" control-key="'Product_2845'" auto-complete-on-select="AdjustmentGeneralCtrl.ePage.Masters.SelectedLookupProduct($item,(($index) + AdjustmentGeneralCtrl.ePage.Masters.CurrentPageStartingIndex))">
                                     </div>
 
                                     <!-- Look Up page opens when button clicks -->
                                     <span class="input-group-btn">
-                                        <button dynamic-list-modal obj="x" control-id="'Product'" control-key="'Product_2845'" selected-data="AdjustmentGeneralCtrl.ePage.Masters.SelectedLookupProduct($item.data.entity,$index)"  page-name="'ProductRelatedParty'" mode ="2" grid-refresh-fun-name="" grid-refresh-fun=""  class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
+                                        <button dynamic-list-modal obj="x" control-id="'Product'" control-key="'Product_2845'" selected-data="AdjustmentGeneralCtrl.ePage.Masters.SelectedLookupProduct($item.data.entity,(($index) + AdjustmentGeneralCtrl.ePage.Masters.CurrentPageStartingIndex))"  page-name="'ProductRelatedParty'" mode ="2" grid-refresh-fun-name="" grid-refresh-fun=""  class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
                                     </span>
-                                    <span ng-if='!x.ProductCode && x.PK  && (AdjustmentGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR | filter: {RowIndex: $index} | filter: {ColIndex: 1}).length==0'>
-                                        <span ng-init="AdjustmentGeneralCtrl.ePage.Masters.OnChangeValues(x.Product,'E10003',true,$index)"></span>
+                                    <span ng-if='!x.ProductCode && x.PK  && (AdjustmentGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR | filter: {RowIndex: (($index) + AdjustmentGeneralCtrl.ePage.Masters.CurrentPageStartingIndex)}:true | filter: {ColIndex: 1}).length==0'>
+                                        <span ng-init="AdjustmentGeneralCtrl.ePage.Masters.OnChangeValues(x.Product,'E10003',true,(($index) + AdjustmentGeneralCtrl.ePage.Masters.CurrentPageStartingIndex))"></span>
                                     </span>
                                 </div>
                             </div>
-                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="AdjustmentGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':1">
+                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="AdjustmentGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR | filter:{RowIndex: (($index) + AdjustmentGeneralCtrl.ePage.Masters.CurrentPageStartingIndex)}:true | listCount: 'ColIndex':1">
                                 <error-warning-directive  list="AdjustmentGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR"
                                     type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref=""
-                                    row-index="AdjustmentGeneralCtrl.ePage.Masters.selectedRow" col-index="1">
+                                    row-index="(($index) + AdjustmentGeneralCtrl.ePage.Masters.CurrentPageStartingIndex)" col-index="1">
                                 </error-warning-directive>
                             </div>
                         </div>
@@ -249,13 +249,13 @@
                         </div>
                         <div data-ng-if="$index==AdjustmentGeneralCtrl.ePage.Masters.selectedRow &&!AdjustmentGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
                             <div class="height-22 col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0">
-                                    <input type="text" maxlength="9" numbers-only-dot class="form-control input-sm" placeholder="Packs" ng-model="x.Packs" ng-blur="AdjustmentGeneralCtrl.ePage.Masters.FetchQuantity(x,$index)"
-                                    ng-change="AdjustmentGeneralCtrl.ePage.Masters.OnChangeValues(x.Packs,'E10004',true,$index)"/>                                        
+                                    <input type="text" maxlength="9" numbers-only-dot class="form-control input-sm" placeholder="Packs" ng-model="x.Packs" ng-blur="AdjustmentGeneralCtrl.ePage.Masters.FetchQuantity(x,(($index) + AdjustmentGeneralCtrl.ePage.Masters.CurrentPageStartingIndex))"
+                                    ng-change="AdjustmentGeneralCtrl.ePage.Masters.OnChangeValues(x.Packs,'E10004',true,(($index) + AdjustmentGeneralCtrl.ePage.Masters.CurrentPageStartingIndex))"/>                                        
                             </div>
-                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="AdjustmentGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':2">
+                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="AdjustmentGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR | filter:{RowIndex: (($index) + AdjustmentGeneralCtrl.ePage.Masters.CurrentPageStartingIndex)}:true | listCount: 'ColIndex':2">
                                 <error-warning-directive  list="AdjustmentGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR"
                                     type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref=""
-                                    row-index="AdjustmentGeneralCtrl.ePage.Masters.selectedRow" col-index="2">
+                                    row-index="(($index) + AdjustmentGeneralCtrl.ePage.Masters.CurrentPageStartingIndex)" col-index="2">
                                 </error-warning-directive>
                             </div>
                         </div>
@@ -267,14 +267,14 @@
                         <div data-ng-if="$index==AdjustmentGeneralCtrl.ePage.Masters.selectedRow && !AdjustmentGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
                             <div class="height-22 col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0"  ng-click="AdjustmentGeneralCtrl.ePage.Masters.Enable = false">
                                 <select chosen class="form-control" ng-model="x.PAC_PackType" ng-options="x.Key as x.Key+' - '+x.Value for x in AdjustmentGeneralCtrl.ePage.Masters.DropDownMasterList.INW_LINE_UQ.ListSource"
-                                    ng-change="AdjustmentGeneralCtrl.ePage.Masters.FetchQuantity(x,$index);AdjustmentGeneralCtrl.ePage.Masters.OnChangeValues(x.PAC_PackType,'E10005',true,$index)"search-contains="true">
+                                    ng-change="AdjustmentGeneralCtrl.ePage.Masters.FetchQuantity(x,(($index) + AdjustmentGeneralCtrl.ePage.Masters.CurrentPageStartingIndex));AdjustmentGeneralCtrl.ePage.Masters.OnChangeValues(x.PAC_PackType,'E10005',true,(($index) + AdjustmentGeneralCtrl.ePage.Masters.CurrentPageStartingIndex))"search-contains="true">
                                         <option value="">--Select--</option>
                                 </select>                                        
                             </div>
-                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="AdjustmentGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':3">
+                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="AdjustmentGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR | filter:{RowIndex: (($index) + AdjustmentGeneralCtrl.ePage.Masters.CurrentPageStartingIndex)}:true | listCount: 'ColIndex':3">
                                 <error-warning-directive  list="AdjustmentGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR"
                                     type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref=""
-                                    row-index="AdjustmentGeneralCtrl.ePage.Masters.selectedRow" col-index="3">
+                                    row-index="(($index) + AdjustmentGeneralCtrl.ePage.Masters.CurrentPageStartingIndex)" col-index="3">
                                 </error-warning-directive>
                             </div>
                         </div>
@@ -287,10 +287,10 @@
                             <div class="height-22 col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0">
                                 <input type="text" maxlength="9" class="form-control input-sm" placeholder="Quantity" ng-model="x.Units"readonly='' />
                             </div>
-                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="AdjustmentGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':4">
+                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="AdjustmentGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR | filter:{RowIndex: (($index) + AdjustmentGeneralCtrl.ePage.Masters.CurrentPageStartingIndex)}:true | listCount: 'ColIndex':4">
                                 <error-warning-directive  list="AdjustmentGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR"
                                     type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref=""
-                                    row-index="AdjustmentGeneralCtrl.ePage.Masters.selectedRow" col-index="4">
+                                    row-index="(($index) + AdjustmentGeneralCtrl.ePage.Masters.CurrentPageStartingIndex)" col-index="4">
                                 </error-warning-directive>
                             </div>
                         </div>
@@ -303,10 +303,10 @@
                             <div class="height-22 col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0">
                                 <input type="text" class="form-control input-sm" placeholder="Quantity UQ" ng-model="x.StockKeepingUnit"readonly='' />
                             </div>
-                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="AdjustmentGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':5">
+                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="AdjustmentGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR | filter:{RowIndex: (($index) + AdjustmentGeneralCtrl.ePage.Masters.CurrentPageStartingIndex)}:true | listCount: 'ColIndex':5">
                                 <error-warning-directive  list="AdjustmentGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR"
                                     type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref=""
-                                    row-index="AdjustmentGeneralCtrl.ePage.Masters.selectedRow" col-index="5">
+                                    row-index="(($index) + AdjustmentGeneralCtrl.ePage.Masters.CurrentPageStartingIndex)" col-index="5">
                                 </error-warning-directive>
                             </div>
                         </div>
@@ -317,14 +317,14 @@
                         </div>
                         <div data-ng-if="$index==AdjustmentGeneralCtrl.ePage.Masters.selectedRow && !AdjustmentGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
                             <div class="height-22 col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0"  ng-click="AdjustmentGeneralCtrl.ePage.Masters.Enable = false">
-                                <select chosen class="form-control" ng-model="x.ProductCondition"ng-options="x.Key as x.Key + ' - '  + x.Value for x in AdjustmentGeneralCtrl.ePage.Masters.DropDownMasterList.ProductCondition.ListSource" search-contains="true" data-ng-change="AdjustmentGeneralCtrl.ePage.Masters.OnChangeValues(x.ProductCondition,'E10028',true,$index)">
+                                <select chosen class="form-control" ng-model="x.ProductCondition"ng-options="x.Key as x.Key + ' - '  + x.Value for x in AdjustmentGeneralCtrl.ePage.Masters.DropDownMasterList.ProductCondition.ListSource" search-contains="true" data-ng-change="AdjustmentGeneralCtrl.ePage.Masters.OnChangeValues(x.ProductCondition,'E10028',true,(($index) + AdjustmentGeneralCtrl.ePage.Masters.CurrentPageStartingIndex))">
                                     <option value="">--Select--</option>
                                 </select>                                        
                             </div>
-                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="AdjustmentGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':14">
+                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="AdjustmentGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR | filter:{RowIndex: (($index) + AdjustmentGeneralCtrl.ePage.Masters.CurrentPageStartingIndex)}:true | listCount: 'ColIndex':14">
                                 <error-warning-directive  list="AdjustmentGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR"
                                     type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref=""
-                                    row-index="AdjustmentGeneralCtrl.ePage.Masters.selectedRow" col-index="14">
+                                    row-index="(($index) + AdjustmentGeneralCtrl.ePage.Masters.CurrentPageStartingIndex)" col-index="14">
                                 </error-warning-directive>
                             </div>
                         </div>
@@ -340,7 +340,7 @@
                                         is-open="AdjustmentGeneralCtrl.ePage.Masters.DatePicker.isOpen['isAdjustmentArrivalDate']"
                                         datepicker-options="AdjustmentGeneralCtrl.ePage.Masters.DatePicker.Options" datepicker-append-to-body="false"
                                         close-on-selection="false" enable-time="false" enable-date="true" default-date=""
-                                        default-time="" when-closed="" save-as="AdjustmentGeneralCtrl.ePage.Masters.DatePicker.Options.saveFormat" data-ng-click="" data-ng-change="AdjustmentGeneralCtrl.ePage.Masters.OnChangeValues(x.AdjustmentArrivalDate,'E10009',true,$index);AdjustmentGeneralCtrl.ePage.Masters.CheckFutureDate(x.AdjustmentArrivalDate)"custom-date-time-format/>
+                                        default-time="" when-closed="" save-as="AdjustmentGeneralCtrl.ePage.Masters.DatePicker.Options.saveFormat" data-ng-click="" data-ng-change="AdjustmentGeneralCtrl.ePage.Masters.OnChangeValues(x.AdjustmentArrivalDate,'E10009',true,(($index) + AdjustmentGeneralCtrl.ePage.Masters.CurrentPageStartingIndex));AdjustmentGeneralCtrl.ePage.Masters.CheckFutureDate(x.AdjustmentArrivalDate)"custom-date-time-format/>
                                     <span class="input-group-btn height-22">
                                         <button type="button" class="btn btn-default" data-ng-click="AdjustmentGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isAdjustmentArrivalDate')">
                                             <i class="fa fa-calendar"></i>
@@ -348,10 +348,10 @@
                                     </span>
                                 </div>
                             </div>
-                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="AdjustmentGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':6">
+                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="AdjustmentGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR | filter:{RowIndex: (($index) + AdjustmentGeneralCtrl.ePage.Masters.CurrentPageStartingIndex)}:true | listCount: 'ColIndex':6">
                                 <error-warning-directive  list="AdjustmentGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR"
                                     type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref=""
-                                    row-index="AdjustmentGeneralCtrl.ePage.Masters.selectedRow" col-index="6">
+                                    row-index="(($index) + AdjustmentGeneralCtrl.ePage.Masters.CurrentPageStartingIndex)" col-index="6">
                                 </error-warning-directive>
                             </div>
                         </div>
@@ -363,14 +363,14 @@
                         <div data-ng-if="$index==AdjustmentGeneralCtrl.ePage.Masters.selectedRow && !AdjustmentGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
                             <div class="height-22 col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0"  ng-click="AdjustmentGeneralCtrl.ePage.Masters.Enable = false">
                                 <select chosen class="form-control" ng-model="x.ReasonCode"ng-options="x.Key as x.Key+' - '+ x.Value for x in AdjustmentGeneralCtrl.ePage.Masters.DropDownMasterList.AdjustmentReason.ListSource"
-                                    ng-change="AdjustmentGeneralCtrl.ePage.Masters.OnChangeValues(x.ReasonCode,'E10010',true,$index)"search-contains="true">
+                                    ng-change="AdjustmentGeneralCtrl.ePage.Masters.OnChangeValues(x.ReasonCode,'E10010',true,(($index) + AdjustmentGeneralCtrl.ePage.Masters.CurrentPageStartingIndex))"search-contains="true">
                                         <option value="">--Select--</option>
                                 </select>                                        
                             </div>
-                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="AdjustmentGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':7">
+                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="AdjustmentGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR | filter:{RowIndex: (($index) + AdjustmentGeneralCtrl.ePage.Masters.CurrentPageStartingIndex)}:true | listCount: 'ColIndex':7">
                                 <error-warning-directive  list="AdjustmentGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR"
                                     type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref=""
-                                    row-index="AdjustmentGeneralCtrl.ePage.Masters.selectedRow" col-index="7">
+                                    row-index="(($index) + AdjustmentGeneralCtrl.ePage.Masters.CurrentPageStartingIndex)" col-index="7">
                                 </error-warning-directive>
                             </div>
                         </div>
@@ -382,24 +382,24 @@
                         <div data-ng-if="$index==AdjustmentGeneralCtrl.ePage.Masters.selectedRow && !AdjustmentGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
                             <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0">
                                 <div  class="input-group input-group-sm height-22">
-                                    <div dynamic-lookup placeholder="Location" my-ng-model="x.WLO_Location" auto-complete-on-select="AdjustmentGeneralCtrl.ePage.Masters.SelectedLookupLocation($item,$index)" obj="x"
+                                    <div dynamic-lookup placeholder="Location" my-ng-model="x.WLO_Location" auto-complete-on-select="AdjustmentGeneralCtrl.ePage.Masters.SelectedLookupLocation($item,(($index) + AdjustmentGeneralCtrl.ePage.Masters.CurrentPageStartingIndex))" obj="x"
                                         page-name="'WarehouseLocation'" control-id="'Location'" control-key="'Location_2948'">
                                     </div>
 
                                     <!-- Look Up page opens when button clicks -->
                                     <span class="input-group-btn">
                                         <button location-dashboard-modal filter="x.WAR_WarehouseCode" page-name="'WarehouseLocation'" control-key="'Location_2948'" mode ="2" obj="x" control-id="'Location'" 
-                                        selected-data="AdjustmentGeneralCtrl.ePage.Masters.SelectedLookupLocation($item,$index)"  grid-refresh-fun-name="" grid-refresh-fun=""  class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
+                                        selected-data="AdjustmentGeneralCtrl.ePage.Masters.SelectedLookupLocation($item,(($index) + AdjustmentGeneralCtrl.ePage.Masters.CurrentPageStartingIndex))"  grid-refresh-fun-name="" grid-refresh-fun=""  class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
                                     </span>
-                                    <span ng-if='!x.WLO_Location && x.PK && (AdjustmentGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR | filter: {RowIndex: $index} | filter: {ColIndex: 8}).length==0'>
-                                        <span ng-init="AdjustmentGeneralCtrl.ePage.Masters.OnChangeValues(x.WLO_Location,'E10011',true,$index)"></span>
+                                    <span ng-if='!x.WLO_Location && x.PK && (AdjustmentGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR | filter: {RowIndex: (($index) + AdjustmentGeneralCtrl.ePage.Masters.CurrentPageStartingIndex)}:true | filter: {ColIndex: 8}).length==0'>
+                                        <span ng-init="AdjustmentGeneralCtrl.ePage.Masters.OnChangeValues(x.WLO_Location,'E10011',true,(($index) + AdjustmentGeneralCtrl.ePage.Masters.CurrentPageStartingIndex))"></span>
                                     </span>
                                 </div>
                             </div>
-                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="AdjustmentGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':8">
+                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="AdjustmentGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR | filter:{RowIndex: (($index) + AdjustmentGeneralCtrl.ePage.Masters.CurrentPageStartingIndex)}:true | listCount: 'ColIndex':8">
                                 <error-warning-directive  list="AdjustmentGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR"
                                     type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref=""
-                                    row-index="AdjustmentGeneralCtrl.ePage.Masters.selectedRow" col-index="8">
+                                    row-index="(($index) + AdjustmentGeneralCtrl.ePage.Masters.CurrentPageStartingIndex)" col-index="8">
                                 </error-warning-directive>
                             </div>
                         </div>
@@ -424,12 +424,12 @@
                         <div data-ng-if="$index==AdjustmentGeneralCtrl.ePage.Masters.selectedRow && !AdjustmentGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
                             <div class="height-22 col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0">
                                 <input type="text" maxlength="50" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="UDF 1" data-ng-model="x.PartAttrib1" ng-disabled="!x.UsePartAttrib1 || x.IsPartAttrib1ReleaseCaptured"
-                                ng-blur="AdjustmentGeneralCtrl.ePage.Masters.UDF(x,$index)">
+                                ng-blur="AdjustmentGeneralCtrl.ePage.Masters.UDF(x,(($index) + AdjustmentGeneralCtrl.ePage.Masters.CurrentPageStartingIndex))">
                             </div>
-                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="AdjustmentGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':9">
+                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="AdjustmentGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR | filter:{RowIndex: (($index) + AdjustmentGeneralCtrl.ePage.Masters.CurrentPageStartingIndex)}:true | listCount: 'ColIndex':9">
                                 <error-warning-directive  list="AdjustmentGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR"
                                     type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref=""
-                                    row-index="AdjustmentGeneralCtrl.ePage.Masters.selectedRow" col-index="9">
+                                    row-index="(($index) + AdjustmentGeneralCtrl.ePage.Masters.CurrentPageStartingIndex)" col-index="9">
                                 </error-warning-directive>
                             </div>
                         </div>
@@ -441,12 +441,12 @@
                         <div data-ng-if="$index==AdjustmentGeneralCtrl.ePage.Masters.selectedRow && !AdjustmentGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
                             <div class="height-22 col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0">
                                 <input type="text" maxlength="50" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="UDF 2"data-ng-model="x.PartAttrib2"ng-disabled="!x.UsePartAttrib2 || x.IsPartAttrib2ReleaseCaptured"
-                                ng-blur="AdjustmentGeneralCtrl.ePage.Masters.UDF(x,$index)">
+                                ng-blur="AdjustmentGeneralCtrl.ePage.Masters.UDF(x,(($index) + AdjustmentGeneralCtrl.ePage.Masters.CurrentPageStartingIndex))">
                             </div>
-                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="AdjustmentGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':10">
+                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="AdjustmentGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR | filter:{RowIndex: (($index) + AdjustmentGeneralCtrl.ePage.Masters.CurrentPageStartingIndex)}:true | listCount: 'ColIndex':10">
                                 <error-warning-directive  list="AdjustmentGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR"
                                     type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref=""
-                                    row-index="AdjustmentGeneralCtrl.ePage.Masters.selectedRow" col-index="10">
+                                    row-index="(($index) + AdjustmentGeneralCtrl.ePage.Masters.CurrentPageStartingIndex)" col-index="10">
                                 </error-warning-directive>
                             </div>
                         </div>
@@ -458,12 +458,12 @@
                         <div data-ng-if="$index==AdjustmentGeneralCtrl.ePage.Masters.selectedRow && !AdjustmentGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
                             <div class="height-22 col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0">
                                 <input type="text" maxlength="50" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="UDF 3" data-ng-model="x.PartAttrib3" ng-disabled="!x.UsePartAttrib3 || x.IsPartAttrib3ReleaseCaptured"
-                                ng-blur="AdjustmentGeneralCtrl.ePage.Masters.UDF(x,$index)">
+                                ng-blur="AdjustmentGeneralCtrl.ePage.Masters.UDF(x,(($index) + AdjustmentGeneralCtrl.ePage.Masters.CurrentPageStartingIndex))">
                             </div>
-                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="AdjustmentGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':11">
+                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="AdjustmentGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR | filter:{RowIndex: (($index) + AdjustmentGeneralCtrl.ePage.Masters.CurrentPageStartingIndex)}:true | listCount: 'ColIndex':11">
                                 <error-warning-directive  list="AdjustmentGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR"
                                     type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref=""
-                                    row-index="AdjustmentGeneralCtrl.ePage.Masters.selectedRow" col-index="11">
+                                    row-index="(($index) + AdjustmentGeneralCtrl.ePage.Masters.CurrentPageStartingIndex)" col-index="11">
                                 </error-warning-directive>
                             </div>
                         </div>
@@ -480,7 +480,7 @@
                                         is-open="AdjustmentGeneralCtrl.ePage.Masters.DatePicker.isOpen['isPackingDate']"
                                         datepicker-options="AdjustmentGeneralCtrl.ePage.Masters.DatePicker.Options" datepicker-append-to-body="false"
                                         close-on-selection="false" enable-time="false" enable-date="true" default-date=""
-                                        default-time="" when-closed="" save-as="AdjustmentGeneralCtrl.ePage.Masters.DatePicker.Options.saveFormat" data-ng-click="" data-ng-change="AdjustmentGeneralCtrl.ePage.Masters.UDF(x,$index)" custom-date-time-format/>
+                                        default-time="" when-closed="" save-as="AdjustmentGeneralCtrl.ePage.Masters.DatePicker.Options.saveFormat" data-ng-click="" data-ng-change="AdjustmentGeneralCtrl.ePage.Masters.UDF(x,(($index) + AdjustmentGeneralCtrl.ePage.Masters.CurrentPageStartingIndex))" custom-date-time-format/>
                                     <span class="input-group-btn height-22">
                                         <button type="button" class="btn btn-default" data-ng-click="AdjustmentGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isPackingDate')">
                                             <i class="fa fa-calendar"></i>
@@ -488,10 +488,10 @@
                                     </span>
                                 </div>
                             </div>
-                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="AdjustmentGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':12">
+                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="AdjustmentGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR | filter:{RowIndex: (($index) + AdjustmentGeneralCtrl.ePage.Masters.CurrentPageStartingIndex)}:true | listCount: 'ColIndex':12">
                                 <error-warning-directive  list="AdjustmentGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR"
                                     type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref=""
-                                    row-index="AdjustmentGeneralCtrl.ePage.Masters.selectedRow" col-index="12">
+                                    row-index="(($index) + AdjustmentGeneralCtrl.ePage.Masters.CurrentPageStartingIndex)" col-index="12">
                                 </error-warning-directive>
                             </div>
                         </div>
@@ -508,7 +508,7 @@
                                         is-open="AdjustmentGeneralCtrl.ePage.Masters.DatePicker.isOpen['isExpiryDate']"
                                         datepicker-options="AdjustmentGeneralCtrl.ePage.Masters.DatePicker.Options" datepicker-append-to-body="false"
                                         close-on-selection="false" enable-time="false" enable-date="true" default-date=""
-                                        default-time="" when-closed="" save-as="AdjustmentGeneralCtrl.ePage.Masters.DatePicker.Options.saveFormat" data-ng-click="" data-ng-change="AdjustmentGeneralCtrl.ePage.Masters.UDF(x,$index)" custom-date-time-format/>
+                                        default-time="" when-closed="" save-as="AdjustmentGeneralCtrl.ePage.Masters.DatePicker.Options.saveFormat" data-ng-click="" data-ng-change="AdjustmentGeneralCtrl.ePage.Masters.UDF(x,(($index) + AdjustmentGeneralCtrl.ePage.Masters.CurrentPageStartingIndex))" custom-date-time-format/>
                                     <span class="input-group-btn height-22">
                                         <button type="button" class="btn btn-default" data-ng-click="AdjustmentGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isExpiryDate')">
                                             <i class="fa fa-calendar"></i>
@@ -516,10 +516,10 @@
                                     </span>
                                 </div>
                             </div>
-                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="AdjustmentGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':13">
+                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="AdjustmentGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR | filter:{RowIndex: (($index) + AdjustmentGeneralCtrl.ePage.Masters.CurrentPageStartingIndex)}:true | listCount: 'ColIndex':13">
                                 <error-warning-directive  list="AdjustmentGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsWorkOrderLine.ERROR"
                                     type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref=""
-                                    row-index="AdjustmentGeneralCtrl.ePage.Masters.selectedRow" col-index="13">
+                                    row-index="(($index) + AdjustmentGeneralCtrl.ePage.Masters.CurrentPageStartingIndex)" col-index="13">
                                 </error-warning-directive>
                             </div>
                         </div>
@@ -529,14 +529,43 @@
         </table>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 norecordfound" style="top:260px"  ng-if="AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine.length==0">No Record Found...</div>
-</div>
-<!-- To show Customize Modal -->
-<div ng-if='AdjustmentGeneralCtrl.ePage.Masters.EditTableColumns'>
-    <customize-table table-properties="AdjustmentGeneralCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine" enable="AdjustmentGeneralCtrl.ePage.Masters.EditTableColumns" unique-id="AdjCustomTable{{AdjustmentGeneralCtrl.currentAdjustment.label}}" user-value='AdjustmentGeneralCtrl.ePage.Masters.UserValue' entity-source='WMS_ADJUSTMENT'></customize-table>
-</div>
- <!-- Call Directive If user has value -->
-<div ng-if='AdjustmentGeneralCtrl.ePage.Masters.UserHasValue' ng-init="AdjustmentGeneralCtrl.ePage.Masters.UserHasValue=false">
-    <watch-table table-properties="AdjustmentGeneralCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine"  unique-id="AdjCustomTable{{AdjustmentGeneralCtrl.currentAdjustment.label}}" ></watch-table>
+
+    <!-- To show Customize Modal -->
+    <div ng-if='AdjustmentGeneralCtrl.ePage.Masters.EditTableColumns'>
+        <customize-table table-properties="AdjustmentGeneralCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine" enable="AdjustmentGeneralCtrl.ePage.Masters.EditTableColumns" unique-id="AdjCustomTable{{AdjustmentGeneralCtrl.currentAdjustment.label}}" user-value='AdjustmentGeneralCtrl.ePage.Masters.UserValue' entity-source='WMS_ADJUSTMENT'></customize-table>
+    </div>
+     <!-- Call Directive If user has value -->
+    <div ng-if='AdjustmentGeneralCtrl.ePage.Masters.UserHasValue' ng-init="AdjustmentGeneralCtrl.ePage.Masters.UserHasValue=false">
+        <watch-table table-properties="AdjustmentGeneralCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine"  unique-id="AdjCustomTable{{AdjustmentGeneralCtrl.currentAdjustment.label}}" ></watch-table>
+    </div>
+    
+    <!-- PaginationForAdjustmentLine -->
+    <div class="mr-10 ml-10">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 pagination-border">
+            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3 pt-10 p-0">
+                <ul uib-pagination boundary-links="true" total-items="AdjustmentGeneralCtrl.ePage.Masters.PaginationForAdjLine.LocalSearchLength" ng-model="AdjustmentGeneralCtrl.ePage.Masters.PaginationForAdjLine.CurrentPage"
+                    class="pagination-sm" max-size="AdjustmentGeneralCtrl.ePage.Masters.PaginationForAdjLine.MaxSize" items-per-page="AdjustmentGeneralCtrl.ePage.Masters.PaginationForAdjLine.ItemsPerPage"
+                    num-pages="AdjustmentGeneralCtrl.ePage.Masters.PaginationForAdjLine.TotalPage" data-ng-change="AdjustmentGeneralCtrl.ePage.Masters.PaginationChangeForAdjLine()"
+                    previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></ul>
+            </div>
+            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3 pt-10">
+                <select ng-model="AdjustmentGeneralCtrl.ePage.Masters.PaginationForAdjLine.ItemsPerPage" ng-change="AdjustmentGeneralCtrl.ePage.Masters.PaginationChangeForAdjLine()">
+                    <option ng-selected="true">25</option>
+                    <option>50</option>
+                    <option>100</option>
+                    <option>500</option>
+                </select> Records Per Page.
+            </div>
+            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3 pt-15" data-ng-if="AdjustmentGeneralCtrl.ePage.Masters.SearchTable">
+                <div class="">Search Records : {{AdjustmentGeneralCtrl.ePage.Masters.PaginationForAdjLine.LocalSearchLength}}</div>
+            </div>
+            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3 pt-10 pull-right">
+                <div class="">Page : {{AdjustmentGeneralCtrl.ePage.Masters.PaginationForAdjLine.CurrentPage}} / {{AdjustmentGeneralCtrl.ePage.Masters.PaginationForAdjLine.TotalPage}}</div>
+                <div class="">Total Records : {{AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine.length}}</div>
+            </div>
+        </div>
+    </div>
+    
 </div>
 
 
@@ -556,7 +585,7 @@
         </div>     
     </div>
     <div id="InvTable{{AdjustmentGeneralCtrl.currentAdjustment.label}}" class="fixedheader mb-0" key-events table-object='AdjustmentGeneralCtrl.ePage.Masters.Inventory' enable='AdjustmentGeneralCtrl.ePage.Masters.EnableInventory' selected-row='AdjustmentGeneralCtrl.ePage.Masters.selectedRowInventory' unique-id='InvTable{{AdjustmentGeneralCtrl.currentAdjustment.label}}'>
-        <table style="height: 200px">
+        <table ng-style="{ 'height': AdjustmentGeneralCtrl.ePage.Entities.Header.TableProperties.Inventory.TableHeight.height + 'px' }">
             <thead>
                 <tr id="tableHeader">
                     <th id="icheckbox" data-ng-if="AdjustmentGeneralCtrl.ePage.Entities.Header.TableProperties.Inventory.icheckbox.isenabled"ng-style="{ 'width': AdjustmentGeneralCtrl.ePage.Entities.Header.TableProperties.Inventory.icheckbox.width + 'px' }">
@@ -600,7 +629,7 @@
                             <span class="text"></span>
                         </label>
                     </td>
-                    <td id="isno"   data-ng-show='AdjustmentGeneralCtrl.ePage.Entities.Header.TableProperties.Inventory.isno.isenabled' ng-style="{ 'width': AdjustmentGeneralCtrl.ePage.Entities.Header.TableProperties.Inventory.isno.width + 'px' }" class="overflow-text">{{(($index+1) + ((AdjustmentGeneralCtrl.ePage.Masters.Pagination.ItemsPerPage)*(AdjustmentGeneralCtrl.ePage.Masters.Pagination.CurrentPage-1)))}}</td>
+                    <td id="isno"   data-ng-show='AdjustmentGeneralCtrl.ePage.Entities.Header.TableProperties.Inventory.isno.isenabled' ng-style="{ 'width': AdjustmentGeneralCtrl.ePage.Entities.Header.TableProperties.Inventory.isno.width + 'px' }" class="overflow-text">{{(($index+1) + ((AdjustmentGeneralCtrl.ePage.Masters.PaginationForInventory.ItemsPerPage)*(AdjustmentGeneralCtrl.ePage.Masters.PaginationForInventory.CurrentPage-1)))}}</td>
                     <td id="iproductcode"   data-ng-show='AdjustmentGeneralCtrl.ePage.Entities.Header.TableProperties.Inventory.iproductcode.isenabled' ng-style="{ 'width': AdjustmentGeneralCtrl.ePage.Entities.Header.TableProperties.Inventory.iproductcode.width + 'px' }" class="overflow-text">{{x.ProductCode}}</td>
                     <td id="iproductdescription"   data-ng-show='AdjustmentGeneralCtrl.ePage.Entities.Header.TableProperties.Inventory.iproductdescription.isenabled' ng-style="{ 'width': AdjustmentGeneralCtrl.ePage.Entities.Header.TableProperties.Inventory.iproductdescription.width + 'px' }" class="overflow-text" >{{x.ProductName}}</td>
                     <td id="ireceiptreference"   data-ng-show='AdjustmentGeneralCtrl.ePage.Entities.Header.TableProperties.Inventory.ireceiptreference.isenabled' ng-style="{ 'width': AdjustmentGeneralCtrl.ePage.Entities.Header.TableProperties.Inventory.ireceiptreference.width + 'px' }" class="overflow-text" >{{x.ExternalReference || AdjustmentGeneralCtrl.ePage.Masters.emptyText}}</td>
@@ -626,8 +655,8 @@
             </tbody>
         </table>
     </div>
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 norecordfound" style="top:500px" ng-if="AdjustmentGeneralCtrl.ePage.Masters.InventoryLoading"><i class="fa fa-spin fa-spinner font-160"></i></div>
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 norecordfound" style="top:500px" ng-if="AdjustmentGeneralCtrl.ePage.Masters.Inventory.length==0 && !AdjustmentGeneralCtrl.ePage.Masters.InventoryLoading">No Record Found...</div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 norecordfound" style="top:625px" ng-if="AdjustmentGeneralCtrl.ePage.Masters.InventoryLoading"><i class="fa fa-spin fa-spinner font-160"></i></div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 norecordfound" style="top:625px" ng-if="AdjustmentGeneralCtrl.ePage.Masters.Inventory.length==0 && !AdjustmentGeneralCtrl.ePage.Masters.InventoryLoading">No Record Found...</div>
 
     <!-- To show Customize Modal -->
     <div ng-if='AdjustmentGeneralCtrl.ePage.Masters.EditTableColumnsInventory'>
@@ -638,17 +667,17 @@
         <watch-table table-properties="AdjustmentGeneralCtrl.ePage.Entities.Header.TableProperties.Inventory"  unique-id="InvCustomTable{{AdjustmentGeneralCtrl.currentAdjustment.label}}"></watch-table>
     </div>
 
-    <!-- Pagination -->
+    <!-- PaginationForInventory -->
     <div class="mr-10 ml-10">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 pagination-border">
             <div class="col-xs-4 col-sm-4 col-md-3 col-lg-2 col-xl-2 pt-10 p-0">
-                <ul uib-pagination boundary-links="true" total-items="AdjustmentGeneralCtrl.ePage.Masters.InventoryCount" ng-model="AdjustmentGeneralCtrl.ePage.Masters.Pagination.CurrentPage" class="pagination-sm" max-size="AdjustmentGeneralCtrl.ePage.Masters.Pagination.MaxSize" items-per-page="AdjustmentGeneralCtrl.ePage.Masters.Pagination.ItemsPerPage" num-pages="AdjustmentGeneralCtrl.ePage.Masters.Pagination.TotalPage" data-ng-change="AdjustmentGeneralCtrl.ePage.Masters.Filter()" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></ul>
+                <ul uib-pagination boundary-links="true" total-items="AdjustmentGeneralCtrl.ePage.Masters.InventoryCount" ng-model="AdjustmentGeneralCtrl.ePage.Masters.PaginationForInventory.CurrentPage" class="pagination-sm" max-size="AdjustmentGeneralCtrl.ePage.Masters.PaginationForInventory.MaxSize" items-per-page="AdjustmentGeneralCtrl.ePage.Masters.PaginationForInventory.ItemsPerPage" num-pages="AdjustmentGeneralCtrl.ePage.Masters.PaginationForInventory.TotalPage" data-ng-change="AdjustmentGeneralCtrl.ePage.Masters.Filter()" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></ul>
             </div>
             <div class="col-xs-4 col-sm-4 col-md-3 col-lg-2 col-xl-2 pt-10">
-                <select ng-model="AdjustmentGeneralCtrl.ePage.Masters.Pagination.ItemsPerPage" ng-change="AdjustmentGeneralCtrl.ePage.Masters.Filter()"><option ng-selected="true">25</option><option>50</option><option>100</option></select> Records Per Page.
+                <select ng-model="AdjustmentGeneralCtrl.ePage.Masters.PaginationForInventory.ItemsPerPage" ng-change="AdjustmentGeneralCtrl.ePage.Masters.Filter()"><option ng-selected="true">25</option><option>50</option><option>100</option></select> Records Per Page.
             </div>
             <div class="col-xs-4 col-sm-4 col-md-3 col-lg-2 col-xl-2 pt-10 pull-right">
-                <div class="">Page : {{AdjustmentGeneralCtrl.ePage.Masters.Pagination.CurrentPage}} / {{AdjustmentGeneralCtrl.ePage.Masters.Pagination.TotalPage}}</div>
+                <div class="">Page : {{AdjustmentGeneralCtrl.ePage.Masters.PaginationForInventory.CurrentPage}} / {{AdjustmentGeneralCtrl.ePage.Masters.PaginationForInventory.TotalPage}}</div>
                 <div class="">Total Records : {{AdjustmentGeneralCtrl.ePage.Masters.InventoryCount}}</div>
             </div>
         </div>
@@ -658,7 +687,7 @@
 <!--FIlter Bar  -->
 <div id="filterSideBar{{AdjustmentGeneralCtrl.ePage.Masters.DynamicControl.DataEntryName}}{{AdjustmentGeneralCtrl.currentAdjustment.label}}"
     data-ng-if="AdjustmentGeneralCtrl.ePage.Masters.DynamicControl" class="dynamic-filter-sidebar-wrapper  clearfix filter-text"
-    style="top:439px;height:200px;overflow-y: overlay;z-index: 13" data-ng-class="AdjustmentGeneralCtrl.ePage.Masters.ViewType == 1 ? 'one-column' : 'two-column'">
+    style="top:526px;height:200px;overflow-y: overlay;z-index: 13" data-ng-class="AdjustmentGeneralCtrl.ePage.Masters.ViewType == 1 ? 'one-column' : 'two-column'">
     <form name="filterSidebar" novalidate>
         <div class="header clearfix">
             <div class="title pull-left">

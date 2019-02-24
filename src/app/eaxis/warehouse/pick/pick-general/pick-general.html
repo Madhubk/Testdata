@@ -109,7 +109,7 @@
         </div>
     </div>  
     <div id="GeneralTable{{PickGeneralCtrl.currentPick.label}}" class="fixedheader" key-events table-object='PickGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutward' enable='PickGeneralCtrl.ePage.Masters.EnableForOutward' selected-row='PickGeneralCtrl.ePage.Masters.selectedRowForOutward' unique-id='GeneralTable{{PickGeneralCtrl.currentPick.label}}'>
-        <table  style="height: 275px">
+        <table  ng-style="{ 'height': PickGeneralCtrl.ePage.Entities.Header.TableProperties.UIWmsOutward.TableHeight.height + 'px' }">
             <thead>
                 <tr id="tableHeader">
                     <th id="osno" data-ng-if="PickGeneralCtrl.ePage.Entities.Header.TableProperties.UIWmsOutward.osno.isenabled" ng-style="{ 'width': PickGeneralCtrl.ePage.Entities.Header.TableProperties.UIWmsOutward.osno.width + 'px' }" title="S.No">S.No</th>

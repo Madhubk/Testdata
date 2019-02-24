@@ -132,6 +132,10 @@
                         },
                         "TableProperties":{
                             "WmsLocation":{
+                                "TableHeight":{
+                                    "isEnabled":true,
+                                    "height":260
+                                },
                                 "HeaderProperties":[{
                                     "columnname":"Checkbox",
                                     "isenabled":true,

@@ -12,7 +12,7 @@
     </div>
 
     <div id="PickLineSumm{{ReleasesPickSlipCtrl.currentRelease.label}}" class="fixedheader" key-events table-object='ReleasesPickSlipCtrl.ePage.Entities.Header.Data.UIWmsPickLineSummary' enable='ReleasesPickSlipCtrl.ePage.Masters.EnableForPickLineSummary' selected-row='ReleasesPickSlipCtrl.ePage.Masters.selectedRowForPickLineSummary' unique-id='PickLineSumm{{ReleasesPickSlipCtrl.currentRelease.label}}'>
-        <table style="height: 200px">
+        <table ng-style="{ 'height': ReleasesPickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.TableHeight.height + 'px' }">
             <thead>
                 <tr id="tableHeader">
                     <th id="ssno" data-ng-if="ReleasesPickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.ssno.isenabled" ng-style="{ 'width': ReleasesPickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.ssno.width + 'px' }" title="S.No">S.No</th>
@@ -109,7 +109,7 @@
         </div>
     </div>
     <div class="fixedheader mb-60" id="RelCaptTable{{ReleasesPickSlipCtrl.currentRelease.label}}"  key-events table-object='ReleasesPickSlipCtrl.ePage.Entities.Header.Data.UIWmsReleaseLine' enable='ReleasesPickSlipCtrl.ePage.Masters.EnableForUIWmsReleaseLine' selected-row='ReleasesPickSlipCtrl.ePage.Masters.selectedRowForRelaseCaptures' unique-id="RelCaptTable{{ReleasesPickSlipCtrl.currentRelease.label}}">
-        <table id="ReleasesPickSlipCtrl.ePage.Masters.AddScroll" style="height: 200px">
+        <table id="ReleasesPickSlipCtrl.ePage.Masters.AddScroll" ng-style="{ 'height': ReleasesPickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsReleaseLine.TableHeight.height + 'px' }">
             <thead>
                 <tr id="tableHeader">
                     <th id="rcheckbox" data-ng-if="ReleasesPickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsReleaseLine.rcheckbox.isenabled" ng-style="{ 'width': ReleasesPickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsReleaseLine.rcheckbox.width + 'px' }">
@@ -155,7 +155,7 @@
                             <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0">
                                 <input type="text" id="Units" numbers-only-dot maxlength="9" class="height-22 form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Units"  data-ng-model="x.Units" ng-change="ReleasesPickSlipCtrl.ePage.Masters.UnitValidation(x,$index)" ng-disabled="x.WorkOrderLineStatus =='FIN'">                                        
                             </div>
-                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="ReleasesPickSlipCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsReleaseLine.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':4">
+                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="ReleasesPickSlipCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsReleaseLine.ERROR | filter:{RowIndex: $index}:true | listCount: 'ColIndex':4">
                                 <error-warning-directive  list="ReleasesPickSlipCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsReleaseLine.ERROR"
                                     type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref=""
                                     row-index="ReleasesPickSlipCtrl.ePage.Masters.selectedRowForUIWmsReleaseLine" col-index="4">
@@ -172,7 +172,7 @@
                                 <input type="text" id = "UDF1" maxlength="50" class="height-22 form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="UDF 1"  data-ng-model="x.PartAttrib1" ng-disabled="!x.IsPartAttrib1ReleaseCaptured || x.WorkOrderLineStatus =='FIN'" 
                                 ng-blur="ReleasesPickSlipCtrl.ePage.Masters.UDF(x,$index)" ng-keyup = "ReleasesPickSlipCtrl.ePage.Masters.KeyEventHandling($event, 'UDF1')">                                        
                             </div>
-                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="ReleasesPickSlipCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsReleaseLine.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':1">
+                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="ReleasesPickSlipCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsReleaseLine.ERROR | filter:{RowIndex: $index}:true | listCount: 'ColIndex':1">
                                 <error-warning-directive  list="ReleasesPickSlipCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsReleaseLine.ERROR"
                                     type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref=""
                                     row-index="ReleasesPickSlipCtrl.ePage.Masters.selectedRowForUIWmsReleaseLine" col-index="1">
@@ -189,7 +189,7 @@
                                 <input type="text" id= "UDF2" maxlength="50" class="height-22 form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="UDF 2"  data-ng-model="x.PartAttrib2" ng-disabled="!x.IsPartAttrib2ReleaseCaptured || x.WorkOrderLineStatus =='FIN'" 
                                 ng-blur="ReleasesPickSlipCtrl.ePage.Masters.UDF(x,$index)" ng-keyup = "ReleasesPickSlipCtrl.ePage.Masters.KeyEventHandling($event, 'UDF2')">                                        
                             </div>
-                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="ReleasesPickSlipCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsReleaseLine.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':2">
+                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="ReleasesPickSlipCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsReleaseLine.ERROR | filter:{RowIndex: $index}:true | listCount: 'ColIndex':2">
                                 <error-warning-directive  list="ReleasesPickSlipCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsReleaseLine.ERROR"
                                     type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref=""
                                     row-index="ReleasesPickSlipCtrl.ePage.Masters.selectedRowForUIWmsReleaseLine" col-index="2">
@@ -206,7 +206,7 @@
                                 <input type="text" id= "UDF3"  maxlength="50" class="height-22 form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="UDF 3"  data-ng-model="x.PartAttrib3" ng-disabled="!x.IsPartAttrib3ReleaseCaptured || x.WorkOrderLineStatus =='FIN'" 
                                 ng-blur="ReleasesPickSlipCtrl.ePage.Masters.UDF(x,$index)" ng-keyup = "ReleasesPickSlipCtrl.ePage.Masters.KeyEventHandling($event, 'UDF3')">                                        
                             </div>
-                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="ReleasesPickSlipCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsReleaseLine.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':3">
+                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="ReleasesPickSlipCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsReleaseLine.ERROR | filter:{RowIndex: $index}:true | listCount: 'ColIndex':3">
                                 <error-warning-directive  list="ReleasesPickSlipCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsReleaseLine.ERROR"
                                     type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref=""
                                     row-index="ReleasesPickSlipCtrl.ePage.Masters.selectedRowForUIWmsReleaseLine" col-index="3">

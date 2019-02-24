@@ -122,7 +122,7 @@
         </div>      
     </div>
     <div id="LocationTable{{LocationDetailsCtrl.ePage.Entities.Header.Data.PK}}" class="fixedheader" key-events table-object='LocationDetailsCtrl.ePage.Entities.Header.Data.WmsLocation' enable='LocationDetailsCtrl.ePage.Masters.Enable' selected-row='LocationDetailsCtrl.ePage.Masters.selectedRow' unique-id='LocationTable{{LocationDetailsCtrl.ePage.Entities.Header.Data.PK}}'>
-        <table style="height: 260px">
+        <table ng-style="{ 'height': LocationDetailsCtrl.ePage.Entities.Header.TableProperties.WmsLocation.TableHeight.height + 'px' }">
             <thead>
                 <tr id="tableHeader">
                     <th id="checkbox" data-ng-if="LocationDetailsCtrl.ePage.Entities.Header.TableProperties.WmsLocation.checkbox.isenabled" ng-style="{ 'width': LocationDetailsCtrl.ePage.Entities.Header.TableProperties.WmsLocation.checkbox.width + 'px'}">

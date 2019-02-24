@@ -52,11 +52,11 @@
             StocktransferEntryCtrl.ePage.Masters.DatePicker.isOpen = [];
             StocktransferEntryCtrl.ePage.Masters.DatePicker.OpenDatePicker = OpenDatePicker;
 
-            //Pagination
-            StocktransferEntryCtrl.ePage.Masters.Pagination = {};
-            StocktransferEntryCtrl.ePage.Masters.Pagination.CurrentPage = 1;
-            StocktransferEntryCtrl.ePage.Masters.Pagination.MaxSize = 3;
-            StocktransferEntryCtrl.ePage.Masters.Pagination.ItemsPerPage = 25;
+            //PaginationForInventory
+            StocktransferEntryCtrl.ePage.Masters.PaginationForInventory = {};
+            StocktransferEntryCtrl.ePage.Masters.PaginationForInventory.CurrentPage = 1;
+            StocktransferEntryCtrl.ePage.Masters.PaginationForInventory.MaxSize = 3;
+            StocktransferEntryCtrl.ePage.Masters.PaginationForInventory.ItemsPerPage = 25;
 
             StocktransferEntryCtrl.ePage.Masters.SelectedLookupClient = SelectedLookupClient;
             StocktransferEntryCtrl.ePage.Masters.SelectedLookupWarehouse = SelectedLookupWarehouse;
@@ -71,6 +71,22 @@
             StocktransferEntryCtrl.ePage.Masters.CloseFilterList = CloseFilterList;
             StocktransferEntryCtrl.ePage.Masters.Filter = Filter;
             StocktransferEntryCtrl.ePage.Masters.OnChangeValues = OnChangeValues;
+
+            //PaginationForStocktransferLine
+            StocktransferEntryCtrl.ePage.Masters.PaginationForTfrLine = {};
+            StocktransferEntryCtrl.ePage.Masters.PaginationForTfrLine.CurrentPage = 1;
+            StocktransferEntryCtrl.ePage.Masters.PaginationForTfrLine.MaxSize = 3;
+            StocktransferEntryCtrl.ePage.Masters.PaginationForTfrLine.ItemsPerPage = 25;
+            StocktransferEntryCtrl.ePage.Masters.PaginationChangeForTfrLine = PaginationChangeForTfrLine;
+            StocktransferEntryCtrl.ePage.Masters.LocalSearchLengthCalculation = LocalSearchLengthCalculation;
+            StocktransferEntryCtrl.ePage.Masters.PaginationForTfrLine.LocalSearchLength = StocktransferEntryCtrl.ePage.Entities.Header.Data.UIWmsStockTransferLine.length;
+
+            StocktransferEntryCtrl.ePage.Masters.CurrentPageStartingIndex = (StocktransferEntryCtrl.ePage.Masters.PaginationForTfrLine.ItemsPerPage) * (StocktransferEntryCtrl.ePage.Masters.PaginationForTfrLine.CurrentPage - 1)
+
+             // Watch when Line length changes
+             $scope.$watch('StocktransferEntryCtrl.ePage.Entities.Header.Data.UIWmsStockTransferLine.length', function (val) {
+                LocalSearchLengthCalculation();
+            });
 
             GetUserBasedGridColumList();
             GetUserBasedGridColumListForInventory();
@@ -401,25 +417,47 @@
         //#endregion
 
         //#region checkbox selection
-        function SelectAllCheckBox() {
+        function SelectAllCheckBox(){
             angular.forEach(StocktransferEntryCtrl.ePage.Entities.Header.Data.UIWmsStockTransferLine, function (value, key) {
-                if (StocktransferEntryCtrl.ePage.Masters.SelectAll) {
-                    value.SingleSelect = true;
-                    StocktransferEntryCtrl.ePage.Masters.EnableDeleteButton = true;
-                    StocktransferEntryCtrl.ePage.Masters.EnableCopyButton = true;
+                var startData = StocktransferEntryCtrl.ePage.Masters.CurrentPageStartingIndex
+                var LastData = StocktransferEntryCtrl.ePage.Masters.CurrentPageStartingIndex + (StocktransferEntryCtrl.ePage.Masters.PaginationForTfrLine.ItemsPerPage);
+                   
+                if (StocktransferEntryCtrl.ePage.Masters.SelectAll){
+
+                    // Enable and disable based on page wise
+                    if((key>=startData) && (key<LastData)){
+                        value.SingleSelect = true;
+                    }
                 }
-                else {
-                    value.SingleSelect = false;
-                    StocktransferEntryCtrl.ePage.Masters.EnableDeleteButton = false;
-                    StocktransferEntryCtrl.ePage.Masters.EnableCopyButton = false;
+                else{
+                    if((key>=startData) && (key<LastData)){
+                        value.SingleSelect = false;
+                    }
                 }
             });
+
+            var Checked1 = StocktransferEntryCtrl.ePage.Entities.Header.Data.UIWmsStockTransferLine.some(function (value, key) {
+                return value.SingleSelect == true;
+            });
+            if (Checked1) {
+                StocktransferEntryCtrl.ePage.Masters.EnableDeleteButton = true;
+                StocktransferEntryCtrl.ePage.Masters.EnableCopyButton = true;
+            } else {
+                StocktransferEntryCtrl.ePage.Masters.EnableDeleteButton = false;
+                StocktransferEntryCtrl.ePage.Masters.EnableCopyButton = false;
+            }
         }
 
         function SingleSelectCheckBox() {
+            var startData = StocktransferEntryCtrl.ePage.Masters.CurrentPageStartingIndex
+            var LastData = StocktransferEntryCtrl.ePage.Masters.CurrentPageStartingIndex + (StocktransferEntryCtrl.ePage.Masters.PaginationForTfrLine.ItemsPerPage);
+                   
             var Checked = StocktransferEntryCtrl.ePage.Entities.Header.Data.UIWmsStockTransferLine.some(function (value, key) {
-                if (!value.SingleSelect)
+              // Enable and disable based on page wise
+                if((key>=startData) && (key<LastData)){
+                    if(!value.SingleSelect)
                     return true;
+                }
             });
             if (Checked) {
                 StocktransferEntryCtrl.ePage.Masters.SelectAll = false;
@@ -437,6 +475,17 @@
                 StocktransferEntryCtrl.ePage.Masters.EnableDeleteButton = false;
                 StocktransferEntryCtrl.ePage.Masters.EnableCopyButton = false;
             }
+        }
+
+        function PaginationChangeForTfrLine() {
+            StocktransferEntryCtrl.ePage.Masters.CurrentPageStartingIndex = (StocktransferEntryCtrl.ePage.Masters.PaginationForTfrLine.ItemsPerPage) * (StocktransferEntryCtrl.ePage.Masters.PaginationForTfrLine.CurrentPage - 1)
+            SingleSelectCheckBox();
+        }
+
+        //Required this function when pagination and local search both are used
+        function LocalSearchLengthCalculation() {
+            var myData = $filter('filter')(StocktransferEntryCtrl.ePage.Entities.Header.Data.UIWmsStockTransferLine, StocktransferEntryCtrl.ePage.Masters.SearchTable);
+            StocktransferEntryCtrl.ePage.Masters.PaginationForTfrLine.LocalSearchLength = myData.length;
         }
         //#endregion checkbox selection
 
@@ -745,6 +794,7 @@
 
             OnChangeValues(item.ProductCode, 'E11004', true, index);
             OnChangeValues(item.StockKeepingUnit, 'E11007', true, index);
+            OnChangeValues(item.PAC_PackType, 'E11010', true, index);
             OnChangeValues('value', 'E11027', true, index);
         }
         //#endregion
@@ -844,8 +894,8 @@
                     "ExpiryDate": StocktransferEntryCtrl.ePage.Masters.DynamicControl.Entities[0].Data.ExpiryDate,
                     "SortColumn": "WOL_WAR_WarehouseCode",
                     "SortType": "ASC",
-                    "PageNumber": StocktransferEntryCtrl.ePage.Masters.Pagination.CurrentPage,
-                    "PageSize": StocktransferEntryCtrl.ePage.Masters.Pagination.ItemsPerPage
+                    "PageNumber": StocktransferEntryCtrl.ePage.Masters.PaginationForInventory.CurrentPage,
+                    "PageSize": StocktransferEntryCtrl.ePage.Masters.PaginationForInventory.ItemsPerPage
                 };
 
                 var _input = {

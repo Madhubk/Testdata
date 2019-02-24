@@ -79,6 +79,10 @@
                         },
                         "TableProperties":{
                             "PickSlipDetails":{
+                                "TableHeight":{
+                                    "isEnabled":true,
+                                    "height":300
+                                },
                                 "HeaderProperties":[{
                                     "columnname":"S.No",
                                     "isenabled":true,
@@ -289,6 +293,10 @@
                                 },
                             },
                             "General":{
+                                "TableHeight":{
+                                    "isEnabled":true,
+                                    "height":300
+                                },
                                 "HeaderProperties":[{
                                     "columnname":"S.No",
                                     "isenabled":true,

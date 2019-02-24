@@ -93,7 +93,7 @@
             </div>
         </div>
         <div id="GenTable{{InventoryGeneralCtrl.currentInventory.label}}" class="fixedheader" key-events table-object='InventoryGeneralCtrl.ePage.Entities.Header.Data' enable='InventoryGeneralCtrl.ePage.Masters.EnableForGeneral' selected-row='InventoryGeneralCtrl.ePage.Masters.selectedRowForGeneral' unique-id='GenTable{{InventoryGeneralCtrl.currentInventory.label}}'>
-            <table style="height: 300px">
+            <table ng-style="{ 'height': InventoryGeneralCtrl.ePage.Entities.Header.TableProperties.General.TableHeight.height + 'px' }">
                 <thead>
                     <tr id="tableHeader">
                         <th id="gsno" data-ng-if="InventoryGeneralCtrl.ePage.Entities.Header.TableProperties.General.gsno.isenabled" ng-style="{ 'width': InventoryGeneralCtrl.ePage.Entities.Header.TableProperties.General.gsno.width + 'px' }" title="S.No">S.No</th>
@@ -175,7 +175,7 @@
             </div>
         </div>
         <div id="PickTable{{InventoryGeneralCtrl.currentInventory.label}}" class="fixedheader mb-0" key-events table-object='InventoryGeneralCtrl.ePage.Masters.PickSlipDetails' enable='InventoryGeneralCtrl.ePage.Masters.Enable' selected-row='InventoryGeneralCtrl.ePage.Masters.selectedRow' unique-id='PickTable{{InventoryGeneralCtrl.currentInventory.label}}'>
-            <table style="height: 300px">
+            <table ng-style="{ 'height': InventoryGeneralCtrl.ePage.Entities.Header.TableProperties.PickSlipDetails.TableHeight.height + 'px' }">
                 <thead>
                     <tr id="tableHeader">
                         <th id="psno" data-ng-if="InventoryGeneralCtrl.ePage.Entities.Header.TableProperties.PickSlipDetails.psno.isenabled" ng-style="{ 'width': InventoryGeneralCtrl.ePage.Entities.Header.TableProperties.PickSlipDetails.psno.width + 'px' }" title="S.No">S.No</th>
