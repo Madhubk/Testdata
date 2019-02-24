@@ -166,6 +166,7 @@
                                                                     angular.forEach(myTaskActivityConfig.Entities.DeliveryData.UIWmsDeliveryLine, function (value1, key1) {
                                                                         if (value.AdditionalRef1Code == value1.AdditionalRef1Code) {
                                                                             value1.WorkOrderLineStatus = "DEL";
+                                                                            value1.UISPMSDeliveryReport.DeliveryLineStatus = "DEL";
                                                                         }
                                                                         if (value1.WorkOrderLineStatus == "DEL") {
                                                                             count = count + 1;
@@ -182,7 +183,7 @@
                                                                     }
                                                                 });
                                                             }
-                                                            if (ActivityTemplateOutward2Ctrl.taskObj.ProcessName == "WMS_DeliveryMaterial" && callback) {                                                                
+                                                            if (ActivityTemplateOutward2Ctrl.taskObj.ProcessName == "WMS_DeliveryMaterial" && callback) {
                                                                 angular.forEach(myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data.UIWmsWorkOrderLine, function (value, key) {
                                                                     angular.forEach(myTaskActivityConfig.Entities.DeliveryData.UIWmsDeliveryLine, function (value1, key1) {
                                                                         if (value.AdditionalRef1Code == value1.AdditionalRef1Code) {
@@ -234,7 +235,7 @@
                                                                     });
                                                                 });
                                                             }
-                                                            if (ActivityTemplateOutward2Ctrl.taskObj.WSI_StepName == "Transfer Material" && callback) {                                                                
+                                                            if (ActivityTemplateOutward2Ctrl.taskObj.WSI_StepName == "Transfer Material" && callback) {
                                                                 var _filter = {
                                                                     "WOD_Parent_FK": response.data.Response.UIWmsOutwardHeader.PK
                                                                 };

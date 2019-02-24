@@ -46,7 +46,7 @@
             DeliveryRequestToolbarCtrl.ePage.Masters.CancelledDeliveryCount = 0;
             DeliveryRequestToolbarCtrl.ePage.Masters.OtherCount = 0
             angular.forEach(DeliveryRequestToolbarCtrl.ePage.Masters.Input, function (value, key) {
-                if (value.DL_WorkOrderLineStatus == "CAN") {
+                if (value.DeliveryLineStatus == "CAN") {
                     DeliveryRequestToolbarCtrl.ePage.Masters.CancelledDeliveryCount = DeliveryRequestToolbarCtrl.ePage.Masters.CancelledDeliveryCount + 1;
                     DeliveryRequestToolbarCtrl.ePage.Masters.CancelledDeliveryList.push(value);
                 } else {
@@ -61,28 +61,28 @@
 
         function CreateDelivery() {
             if (DeliveryRequestToolbarCtrl.ePage.Masters.CancelledDeliveryCount > 0) {
-                var TempWarehouse = DeliveryRequestToolbarCtrl.ePage.Masters.CancelledDeliveryList[0].DEL_WAR_Code;
-                var TempConsignee = DeliveryRequestToolbarCtrl.ePage.Masters.CancelledDeliveryList[0].DEL_ConsigneeCode;
-                var TempClient = DeliveryRequestToolbarCtrl.ePage.Masters.CancelledDeliveryList[0].DEL_ClientCode;
+                var TempWarehouse = DeliveryRequestToolbarCtrl.ePage.Masters.CancelledDeliveryList[0].WarehouseCode;
+                var TempConsignee = DeliveryRequestToolbarCtrl.ePage.Masters.CancelledDeliveryList[0].ConsigneeCode;
+                var TempClient = DeliveryRequestToolbarCtrl.ePage.Masters.CancelledDeliveryList[0].ClientCode;
                 var count = 0;
                 angular.forEach(DeliveryRequestToolbarCtrl.ePage.Masters.CancelledDeliveryList, function (value, key) {
-                    if ((TempWarehouse == value.DEL_WAR_Code) && (TempConsignee == value.DEL_ConsigneeCode) && (TempClient == value.DEL_ClientCode)) {
+                    if ((TempWarehouse == value.WarehouseCode) && (TempConsignee == value.ConsigneeCode) && (TempClient == value.ClientCode)) {
                         count = count + 1;
                     }
                 });
                 if (count == DeliveryRequestToolbarCtrl.ePage.Masters.CancelledDeliveryList.length) {
                     DeliveryRequestToolbarCtrl.ePage.Masters.IsCreateDeliveryBtn = true;
                     DeliveryRequestToolbarCtrl.ePage.Masters.CreateDeliveryBtnText = "Please Wait...";
-                    apiService.get("eAxisAPI", appConfig.Entities.WmsDeliveryList.API.GetById.Url + DeliveryRequestToolbarCtrl.ePage.Masters.CancelledDeliveryList[0].DEL_WorkOrderPk).then(function (response) {
+                    apiService.get("eAxisAPI", appConfig.Entities.WmsDeliveryList.API.GetById.Url + DeliveryRequestToolbarCtrl.ePage.Masters.CancelledDeliveryList[0].DeliveryRequest_FK).then(function (response) {
                         if (response.data.Response) {
                             DeliveryRequestToolbarCtrl.ePage.Masters.DeliveryData = response.data.Response;
                             helperService.getFullObjectUsingGetById(appConfig.Entities.WmsDeliveryList.API.GetById.Url, 'null').then(function (response) {
                                 if (response.data.Response.Response) {
                                     response.data.Response.Response.UIWmsDelivery.PK = response.data.Response.Response.PK;
                                     response.data.Response.Response.UIWmsDelivery.ExternalReference = response.data.Response.Response.UIWmsDelivery.WorkOrderID;
-                                    response.data.Response.Response.UIWmsDelivery.ORG_Client_FK = DeliveryRequestToolbarCtrl.ePage.Masters.CancelledDeliveryList[0].DEL_Client_FK;
-                                    response.data.Response.Response.UIWmsDelivery.ORG_Consignee_FK = DeliveryRequestToolbarCtrl.ePage.Masters.CancelledDeliveryList[0].DEL_ConsigneeFk
-                                    response.data.Response.Response.UIWmsDelivery.WAR_FK = DeliveryRequestToolbarCtrl.ePage.Masters.CancelledDeliveryList[0].DEL_WAR_FK;
+                                    response.data.Response.Response.UIWmsDelivery.ORG_Client_FK = DeliveryRequestToolbarCtrl.ePage.Masters.CancelledDeliveryList[0].Client_Fk;
+                                    response.data.Response.Response.UIWmsDelivery.ORG_Consignee_FK = DeliveryRequestToolbarCtrl.ePage.Masters.CancelledDeliveryList[0].Consignee_FK
+                                    response.data.Response.Response.UIWmsDelivery.WAR_FK = DeliveryRequestToolbarCtrl.ePage.Masters.CancelledDeliveryList[0].Warehouse_Fk;
                                     response.data.Response.Response.UIWmsWorkorderReport.AdditionalRef1Code = DeliveryRequestToolbarCtrl.ePage.Masters.DeliveryData.UIWmsWorkorderReport.AdditionalRef1Code;
                                     response.data.Response.Response.UIWmsWorkorderReport.ResponseType = DeliveryRequestToolbarCtrl.ePage.Masters.DeliveryData.UIWmsWorkorderReport.ResponseType;
                                     response.data.Response.Response.UIWmsWorkorderReport.RequestMode = DeliveryRequestToolbarCtrl.ePage.Masters.DeliveryData.UIWmsWorkorderReport.RequestMode;
@@ -97,21 +97,21 @@
                                     angular.forEach(DeliveryRequestToolbarCtrl.ePage.Masters.CancelledDeliveryList, function (value, key) {
                                         var obj = {
                                             "PK": "",
-                                            "WOL_Parent_FK": value.DL_PK,
-                                            "ProductCode": value.DL_Req_PrdCode,
-                                            "ProductDescription": value.DL_Req_PrdDesc,
-                                            "ProductCondition": value.DL_ProductCondition,
-                                            "PRO_FK": value.DL_Req_PrdPk,
-                                            "MCC_NKCommodityCode": value.DL_MCC_NKCommodityCode,
-                                            "Packs": value.DL_Packs,
-                                            "PAC_PackType": value.DL_PAC_PackType,
-                                            "Units": value.DL_Units,
-                                            "StockKeepingUnit": value.DL_StockKeepingUnit,
-                                            "PartAttrib1": value.DL_PartAttrib1,
-                                            "PartAttrib2": value.DL_PartAttrib2,
-                                            "PartAttrib3": value.DL_PartAttrib3,
-                                            "PackingDate": value.DL_PackingDate,
-                                            "ExpiryDate": value.DL_ExpiryDate,
+                                            "WOL_Parent_FK": value.DeliveryLine_FK,
+                                            "ProductCode": value.ProductCode,
+                                            "ProductDescription": value.ProductDescription,
+                                            "ProductCondition": value.ProductCondition,
+                                            "PRO_FK": value.PRO_FK,
+                                            "MCC_NKCommodityCode": "",
+                                            "Packs": value.Packs,
+                                            "PAC_PackType": value.PackType,
+                                            "Units": value.Quantity,
+                                            "StockKeepingUnit": value.UQ,
+                                            "PartAttrib1": value.UDF1,
+                                            "PartAttrib2": value.UDF2,
+                                            "PartAttrib3": value.UDF3,
+                                            "PackingDate": value.PackingDate,
+                                            "ExpiryDate": value.ExpiryDate,
                                             "UseExpiryDate": value.DL_UseExpiryDate,
                                             "UsePackingDate": value.DL_UsePackingDate,
                                             "UsePartAttrib1": value.DL_UsePartAttrib1,
@@ -122,16 +122,16 @@
                                             "IsPartAttrib3ReleaseCaptured": value.DL_IsPartAttrib3ReleaseCaptured,
                                             "WorkOrderLineType": "DEL",
                                             "IsDeleted": false,
-                                            "ORG_ClientCode": value.DEL_ClientCode,
-                                            "ORG_ClientName": value.DEL_ClientName,
-                                            "Client_FK": value.DEL_Client_FK,
-                                            "AdditionalRef1Code": "R-" + value.DL_AdditionalRef1Code,
-                                            "AdditionalRef1Type": value.DL_AdditionalRef1Type,
-                                            "WAR_WarehouseCode": value.DEL_WAR_Code,
-                                            "WAR_WarehouseName": value.DEL_WAR_Name,
-                                            "WAR_FK": value.DEL_WAR_FK,
+                                            "ORG_ClientCode": value.ClientCode,
+                                            "ORG_ClientName": value.ClientName,
+                                            "Client_FK": value.Client_Fk,
+                                            "AdditionalRef1Code": "R-" + value.DeliveryLineRefNo,
+                                            "AdditionalRef1Type": "DeliveryLine",
+                                            "WAR_WarehouseCode": value.WarehouseCode,
+                                            "WAR_WarehouseName": value.WarehouseName,
+                                            "WAR_FK": value.Warehouse_Fk,
                                         };
-                                        
+
                                         obj.UISPMSDeliveryReport = {
                                             "PK": "",
                                             "DeliveryLine_FK": "",
@@ -159,19 +159,21 @@
                                             "RequestedDateTime": "",
                                             "RequesterContactNumber": DeliveryRequestToolbarCtrl.ePage.Masters.DeliveryData.UIWmsWorkorderReport.RequesterContactNo,
                                             "DeliveryRequestNo": response.data.Response.Response.UIWmsDelivery.WorkOrderID,
-                                            "DeliveryLineRefNo": "R-" + value.DL_AdditionalRef1Code,
-                                            "ProductCode": value.DL_Req_PrdCode,
-                                            "ProductDescription": value.DL_Req_PrdDesc,
-                                            "Packs": value.DL_Packs,
-                                            "PackType": value.DL_PAC_PackType,
-                                            "Quantity": value.DL_Units,
-                                            "UQ": value.DL_StockKeepingUnit,
-                                            "ProductCondition": value.DL_ProductCondition,
-                                            "UDF1": value.DL_PartAttrib1,
-                                            "UDF2": value.DL_PartAttrib2,
-                                            "UDF3": value.DL_PartAttrib3,
-                                            "PackingDate": value.DL_PackingDate,
-                                            "ExpiryDate": value.DL_ExpiryDate,
+                                            "DeliveryRequest_FK":response.data.Response.Response.UIWmsDelivery.PK,
+                                            "DeliveryLineRefNo": "R-" + value.DeliveryLineRefNo,
+                                            "PRO_FK":value.PRO_FK,
+                                            "ProductCode": value.ProductCode,
+                                            "ProductDescription": value.ProductDescription,
+                                            "Packs": value.Packs,
+                                            "PackType": value.PackType,
+                                            "Quantity": value.Quantity,
+                                            "UQ": value.UQ,
+                                            "ProductCondition": value.ProductCondition,
+                                            "UDF1": value.UDF1,
+                                            "UDF2": value.UDF2,
+                                            "UDF3": value.UDF3,
+                                            "PackingDate": value.PackingDate,
+                                            "ExpiryDate": value.ExpiryDate,
                                             "Receiver": "",
                                             "ReceiverContactNumber": "",
                                             "DeliveryComments": "",
@@ -186,12 +188,13 @@
                                             DeliveryRequestToolbarCtrl.ePage.Masters.IsCreateDeliveryBtn = true;
                                             DeliveryRequestToolbarCtrl.ePage.Masters.CreateDeliveryBtnText = "Create Re-Delivery";
                                             angular.forEach(DeliveryRequestToolbarCtrl.ePage.Masters.CancelledDeliveryList, function (value, key) {
-                                                apiService.get("eAxisAPI", appConfig.Entities.WmsDeliveryList.API.GetById.Url + value.DEL_WorkOrderPk).then(function (response) {
+                                                apiService.get("eAxisAPI", appConfig.Entities.WmsDeliveryList.API.GetById.Url + value.DeliveryRequest_FK).then(function (response) {
                                                     if (response.data.Response) {
                                                         var count = 0;
                                                         angular.forEach(response.data.Response.UIWmsDeliveryLine, function (value1, key1) {
-                                                            if (value1.PK == value.DL_PK) {
+                                                            if (value1.PK == value.DeliveryLine_FK) {
                                                                 value1.WorkOrderLineStatus = "RDL";
+                                                                value1.UISPMSDeliveryReport.DeliveryLineStatus = "RDL";
                                                             }
                                                             if (value1.WorkOrderLineStatus == "RDL") {
                                                                 count = count + 1;

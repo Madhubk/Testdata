@@ -92,8 +92,6 @@
                                     angular.forEach(response.data.Response.Response.UIJobAddress, function (value, key) {
                                         value.PK = "";
                                     });
-                                    // response.data.Response.Response.UIWmsWorkorderReport.AcknowledgementDateTime = new Date();
-                                    // response.data.Response.Response.UIWmsWorkorderReport.AcknowledgedPerson = authService.getUserInfo().UserId;                                                                       
                                     angular.forEach(PendingPickupToolbarCtrl.ePage.Masters.PendingPickupList, function (value, key) {
                                         var obj = {
                                             "PK": "",
@@ -132,6 +130,73 @@
                                             "WAR_WarehouseName": value.DEL_WAR_Name,
                                             "WAR_FK": value.WOD_WAR_FK,
                                         };
+                                        obj.UISPMSPickupReport={
+                                            "PK": "",
+                                            "Client_FK": value.DEL_ClientFk,
+                                            "ClientCode": value.DEL_ClientCode,
+                                            "ClientName": value.ClientName,
+                                            "Warehouse_FK": value.WOD_WAR_FK,
+                                            "WarehouseCode": value.DEL_WAR_Code,
+                                            "WarehouseName":value.DEL_WAR_Name,
+                                            "Consignee_FK": null,
+                                            "ConsigneeCode": null,
+                                            "ConsigneeName": null,
+                                            "SiteCode": null,
+                                            "SiteName": null,
+                                            "StatusCode": null,
+                                            "StatusDesc": null,
+                                            "RequestMode": null,
+                                            "ResponseType": null,
+                                            "PickupPoint": null,
+                                            "RequesterName": null,
+                                            "ReceiverName": null,
+                                            "ReceiverMailId": null,
+                                            "AcknowledgedPerson": null,
+                                            "AcknowledgedDateTime": null,
+                                            "RequestedDateTime": null,
+                                            "RequesterContactNumber": null,
+                                            "PickupRequestNo": null,
+                                            "PickupLineRefNo": null,
+                                            "ProductCode": null,
+                                            "ProductDescription": null,
+                                            "Packs": null,
+                                            "PackType": null,
+                                            "Quantity": null,
+                                            "UQ": null,
+                                            "ProductCondition": null,
+                                            "PickupProductStatus": null,
+                                            "UDF1": null,
+                                            "UDF2": null,
+                                            "UDF3": null,
+                                            "PackingDate": null,
+                                            "ExpiryDate": null,
+                                            "PIW_RefNo": null,
+                                            "PIW_Fk": null,
+                                            "PIW_ExternalRefNo": null,
+                                            "PIW_CustomerReference": null,
+                                            "PIW_ArrivalDate": null,
+                                            "PIW_CreatedDateTime": null,
+                                            "PIW_AsnLine_Fk": null,
+                                            "PIL_Fk": null,
+                                            "PIL_Product_Fk": null,
+                                            "PIL_ProductCode": null,
+                                            "PIL_ProductDesc": null,
+                                            "PIL_UDF1": null,
+                                            "PIL_UDF2": null,
+                                            "PIL_UDF3": null,
+                                            "PickupPerson": null,
+                                            "PickupPersonContactNo": null,
+                                            "HandOverPerson": null,
+                                            "HandOverPersonContactNo": null,
+                                            "Receiver": null,
+                                            "ReceiverContactNo": null,
+                                            "ReceivedDateTime": null,
+                                            "PickupComment": null,
+                                            "FaultyDescription": null,                                           
+                                            "IsDeleted": false,
+                                            "IsModified": false,
+                                            "PickupLine_FK": null
+                                          }
                                         response.data.Response.Response.UIWmsPickupLine.push(obj);
                                     });
                                     apiService.post("eAxisAPI", appConfig.Entities.WmsPickupList.API.Insert.Url, response.data.Response.Response).then(function (response) {

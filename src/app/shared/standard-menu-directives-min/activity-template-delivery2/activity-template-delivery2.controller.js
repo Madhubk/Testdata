@@ -228,6 +228,7 @@
                     ActivityTemplateDelivery2Ctrl.ePage.Masters.EntityObj.UIWmsDelivery.WorkOrderStatus = "DIP";
                     angular.forEach(ActivityTemplateDelivery2Ctrl.ePage.Masters.EntityObj.UIWmsDeliveryLine, function (value, key) {
                         value.WorkOrderLineStatus = "DIP";
+                        value.UISPMSDeliveryReport.DeliveryLineStatus = "DIP";
                     });
                     myTaskActivityConfig.CallEntity = false;
                 }

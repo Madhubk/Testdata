@@ -103,6 +103,7 @@
                                         DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderStatusDesc = "Cancelled";
                                         angular.forEach(DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDeliveryLine, function (value, key) {
                                             value.WorkOrderLineStatus = "CAN";
+                                            value.UISPMSDeliveryReport.DeliveryLineStatus = "CAN";
                                         });
                                         // check whether the task available for this entity or not
                                         var _filter = {
@@ -220,8 +221,10 @@
                 value.UISPMSDeliveryReport.RequestedDateTime = _input.UIWmsWorkorderReport.DeliveryRequestedDateTime;
                 value.UISPMSDeliveryReport.RequesterContactNumber = _input.UIWmsWorkorderReport.RequesterContactNo;
                 value.UISPMSDeliveryReport.DeliveryRequestNo = _input.UIWmsDelivery.WorkOrderID;
+                value.UISPMSDeliveryReport.DeliveryRequest_FK = _input.UIWmsDelivery.PK;
                 value.UISPMSDeliveryReport.CancelledDateTime = _input.UIWmsDelivery.CancelledDate;
                 value.UISPMSDeliveryReport.DeliveryLineRefNo = value.AdditionalRef1Code;
+                value.UISPMSDeliveryReport.PRO_FK = value.PRO_FK;
                 value.UISPMSDeliveryReport.ProductCode = value.ProductCode;
                 value.UISPMSDeliveryReport.ProductDescription = value.ProductDescription;
                 value.UISPMSDeliveryReport.Packs = value.Packs;
@@ -238,6 +241,7 @@
                 value.UISPMSDeliveryReport.IsModified = value.IsModified;
                 value.UISPMSDeliveryReport.IsDeleted = value.IsDeleted;
                 value.UISPMSDeliveryReport.DeliveryLine_FK = value.PK;
+                value.UISPMSDeliveryReport.DeliveryLineStatus = value.WorkOrderLineStatus;
             });
 
             helperService.SaveEntity($item, 'Delivery').then(function (response) {
