@@ -178,8 +178,9 @@
                     if (callback) {
                         myTaskActivityConfig.Entities.Delivery[myTaskActivityConfig.Entities.Delivery.label].ePage.Entities.Header.Data.UIWmsWorkorderReport.AcknowledgementDateTime = new Date();
                         myTaskActivityConfig.Entities.Delivery[myTaskActivityConfig.Entities.Delivery.label].ePage.Entities.Header.Data.UIWmsWorkorderReport.AcknowledgedPerson = authService.getUserInfo().UserId;
-                        myTaskActivityConfig.Entities.Delivery[myTaskActivityConfig.Entities.Delivery.label].ePage.Entities.Header.Data.UIWmsWorkorderReport.DeliveryRequestedDateTime = new Date();
-                        
+                        if (!myTaskActivityConfig.Entities.Delivery[myTaskActivityConfig.Entities.Delivery.label].ePage.Entities.Header.Data.UIWmsWorkorderReport.DeliveryRequestedDateTime)
+                            myTaskActivityConfig.Entities.Delivery[myTaskActivityConfig.Entities.Delivery.label].ePage.Entities.Header.Data.UIWmsWorkorderReport.DeliveryRequestedDateTime = new Date();
+
                         angular.forEach(ActivityTemplateDelivery2Ctrl.ePage.Masters.EntityObj.UIWmsDeliveryLine, function (value, key) {
                             var _filter = {
                                 "DeliveryLine_FK": value.PK
@@ -239,7 +240,7 @@
                         if (response.data.Response) {
                             ActivityTemplateDelivery2Ctrl.ePage.Masters.EntityObj = response.data.Response;
                             if (ActivityTemplateDelivery2Ctrl.taskObj.WSI_StepName == "Create Delivery Challan") {
-                                if (callback) {                                    
+                                if (callback) {
                                     angular.forEach(ActivityTemplateDelivery2Ctrl.ePage.Masters.EntityObj.UIvwWmsDeliveryList, function (value, key) {
                                         var _filter = {
                                             "DeliveryLine_FK": value.DL_PK

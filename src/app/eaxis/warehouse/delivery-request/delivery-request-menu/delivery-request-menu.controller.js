@@ -188,7 +188,8 @@
                 _input.UIWmsDelivery.WorkOrderType = 'DEL';
                 _input.UIWmsWorkorderReport.AcknowledgementDateTime = new Date();
                 _input.UIWmsWorkorderReport.AcknowledgedPerson = authService.getUserInfo().UserId;
-                _input.UIWmsWorkorderReport.DeliveryRequestedDateTime = new Date();
+                if (!_input.UIWmsWorkorderReport.DeliveryRequestedDateTime)
+                    _input.UIWmsWorkorderReport.DeliveryRequestedDateTime = new Date();
                 _input.UIWmsWorkorderReport.WOD_FK = _input.PK;
                 if (!_input.UIWmsDelivery.ExternalReference) {
                     _input.UIWmsDelivery.ExternalReference = _input.UIWmsDelivery.WorkOrderID;

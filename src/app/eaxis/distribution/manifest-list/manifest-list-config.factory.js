@@ -85,7 +85,8 @@
             "ShowErrorWarningModal": ShowErrorWarningModal,
             "TempConsignmentNumber": "",
             "activeTabIndex": 0,
-            "SelectedValue": ""
+            "SelectedValue":"",
+            "TransporterTypeValue":""
         };
 
         return exports;

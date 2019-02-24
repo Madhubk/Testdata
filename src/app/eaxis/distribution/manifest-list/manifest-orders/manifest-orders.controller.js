@@ -29,13 +29,14 @@
             }
 
             ManifestOrdersCtrl.ePage.Masters.AttachDefaultFilter = {
+                "WorkOrderType": "ORD",
                 "WorkOrderStatusIn": "OAS,OCP",
                 "Consignmentstatus": "DRF",
                 "ConsignStatus": "NULL",
             }
             ManifestOrdersCtrl.ePage.Masters.AttachCONDefaultFilter = {
                 "ConsignmentStatus": "DRF",
-                "ServiceTypeIn": "LOP,LOD"
+                "ServiceTypeIn": "LOD,UPC,STR"
             }
             // ManifestOrdersCtrl.ePage.Masters.AttachDefaultFilterASN = {
             //     "WorkOrderStatus": "ENT",
@@ -202,7 +203,7 @@
                     "SenderCode": ManifestOrdersCtrl.ePage.Masters.DynamicControl.Entities[0].Data.SenderCode,
                     "ReceiverCode": ManifestOrdersCtrl.ePage.Masters.DynamicControl.Entities[0].Data.ReceiverCode,
                     "ConsignmentStatus": "DRF",
-                    "ServiceTypeIn": "LOP,LOD",
+                    "ServiceTypeIn": "LOD,UPC,STR",
                     "SortColumn": "TMC_ConsignmentNumber",
                     "SortType": "ASC",
                     "PageNumber": 1,
@@ -286,9 +287,9 @@
             }
 
             ManifestOrdersCtrl.ePage.Masters.defaultFilter = {
-                "WarehouseCode": ManifestOrdersCtrl.ePage.Masters.WarehouseCode,
-                "SupplierCode": ManifestOrdersCtrl.ePage.Masters.SupplierCode,
-                "ConsigneeCode": ManifestOrdersCtrl.ePage.Masters.ConsigneeCode,
+            //     "WarehouseCode": ManifestOrdersCtrl.ePage.Masters.WarehouseCode,
+            //     "SupplierCode": ManifestOrdersCtrl.ePage.Masters.SupplierCode,
+            //     "ConsigneeCode": ManifestOrdersCtrl.ePage.Masters.ConsigneeCode,
                 "WorkOrderType": "ORD",
                 "WorkOrderStatusIn": "OAS,OCP",
                 "Consignmentstatus": "DRF",
@@ -357,86 +358,6 @@
         //#endregion
 
         //#region of Sales Order
-        function AddToLine() {
-
-            angular.forEach(ManifestOrdersCtrl.ePage.Masters.OrderDetails, function (value, key) {
-                if (value.SingleSelect) {
-                    var _isExist = ManifestOrdersCtrl.ePage.Entities.Header.Data.TmsManifestConsignment.some(function (value1, index1) {
-                        return value1.TMC_ConsignmentNumber === value.WorkOrderID;
-                    });
-                    var Consignment_FK;
-                    if (!value.PK) {
-                        Consignment_FK = "";
-                    } else {
-                        Consignment_FK = value.PK;
-                    }
-                    if (!_isExist) {
-                        var obj = {
-                            "PK": "",
-                            "TMC_FK": Consignment_FK,
-                            "TMC_ConsignmentNumber": value.WorkOrderID,
-                            "TMC_SenderCode": value.WAR_ORG_Code ? value.WAR_ORG_Code : value.ClientCode,
-                            "TMC_SenderName": value.WAR_ORG_FullName ? value.WAR_ORG_FullName : value.ClientName,
-                            "TMC_Sender_ORG_FK": value.WAR_ORG_FK ? value.WAR_ORG_FK : value.ORG_Client_FK,
-                            "TMC_ClientId": value.ClientCode,
-                            "TMC_Client_ORG_FK": value.ORG_Client_FK,
-                            "TMC_ReceiverCode": value.ConsigneeCode,
-                            "TMC_ReceiverName": value.ConsigneeName,
-                            "TMC_Receiver_ORG_FK": value.ORG_Consignee_FK,
-                            "TMC_ServiceType": value.WorkOrderType,
-                            "TMC_SenderRef": value.ExternalReference,
-                            "TMC_ReceiverRef": value.CustomerReference,
-                            // "TIT_AddRef1Code": value.PartAttrib1,
-                            // "TIT_AddRef2Code": value.PartAttrib2,
-                            // "TIT_AddRef3Code": value.PartAttrib3,
-                            // "TIT_AddRef1Date": value.ExpiryDate,
-                            // "TIT_AddRef2Date": value.PackingDate,
-                            // "TIT_AddRef3Date": "",
-                            "TMC_ExpectedPickupDateTime": ManifestOrdersCtrl.ePage.Entities.Header.Data.TmsManifestHeader.EstimatedDispatchDate,
-                            "TMC_ExpectedDeliveryDateTime": ManifestOrdersCtrl.ePage.Entities.Header.Data.TmsManifestHeader.EstimatedDeliveryDate,
-                            "IsDeleted": false,
-                            "IsModified": true,
-                            "TMM_FK": ManifestOrdersCtrl.ePage.Entities.Header.Data.TmsManifestHeader.PK
-                        }
-
-                        ManifestOrdersCtrl.ePage.Entities.Header.Data.TmsManifestConsignment.push(obj);
-                    } else {
-                        toastr.warning(value.WorkOrderID + " Already Attached...!");
-                    }
-                }
-                value.SingleSelect = false;
-            });
-
-            var count = 0;
-            ManifestOrdersCtrl.ePage.Masters.TempOutward = "";
-            angular.forEach(ManifestOrdersCtrl.ePage.Entities.Header.Data.TmsManifestConsignment, function (value, key) {
-                if (value.TMC_Receiver_ORG_FK) {
-                    count = count + 1;
-                } else {
-                    ManifestOrdersCtrl.ePage.Masters.TempOutward = ManifestOrdersCtrl.ePage.Masters.TempOutward + value.TMC_ConsignmentNumber + ",";
-                }
-            });
-            ManifestOrdersCtrl.ePage.Masters.TempOutward = ManifestOrdersCtrl.ePage.Masters.TempOutward.slice(0, -1);
-            if (count == ManifestOrdersCtrl.ePage.Entities.Header.Data.TmsManifestConsignment.length) {
-                ManifestOrdersCtrl.ePage.Masters.IsLoadingToSave = true;
-                ManifestOrdersCtrl.ePage.Entities.Header.CheckPoints.IsDisableBtn = true;
-                var item = filterObjectUpdate(ManifestOrdersCtrl.ePage.Entities.Header.Data, "IsModified");
-                apiService.post("eAxisAPI", ManifestOrdersCtrl.ePage.Entities.Header.API.UpdateManifest.Url, ManifestOrdersCtrl.ePage.Entities.Header.Data).then(function (response) {
-                    if (response.data.Response) {
-                        apiService.get("eAxisAPI", dmsManifestConfig.Entities.Header.API.GetByID.Url + response.data.Response.Response.PK).then(function (response) {
-                            ManifestOrdersCtrl.ePage.Entities.Header.Data = response.data.Response;
-                            ManifestOrdersCtrl.ePage.Entities.Header.CheckPoints.IsConsignmentAttach = true;
-                            getConsignmentNumber();
-                            ManifestOrdersCtrl.ePage.Masters.IsLoadingToSave = false;
-                            ManifestOrdersCtrl.ePage.Entities.Header.CheckPoints.IsDisableBtn = false;
-                        });
-                    }
-                });
-            } else {
-                toastr.error("Please add consignee for this outward " + ManifestOrdersCtrl.ePage.Masters.TempOutward);
-            }
-            ManifestOrdersCtrl.ePage.Masters.SelectAll = false;
-        }
         function Attach($item) {
             angular.forEach($item, function (value, key) {
                 var _isExist = ManifestOrdersCtrl.ePage.Entities.Header.Data.TmsManifestConsignment.some(function (value1, index1) {
@@ -448,7 +369,6 @@
                 } else {
                     Consignment_FK = value.PK;
                 }
-
                 if (!_isExist) {
                     var obj = {
                         "PK": "",
@@ -477,121 +397,63 @@
                         "IsModified": true,
                         "TMM_FK": ManifestOrdersCtrl.ePage.Entities.Header.Data.TmsManifestHeader.PK
                     }
+
                     ManifestOrdersCtrl.ePage.Entities.Header.Data.TmsManifestConsignment.push(obj);
+                    GetManifestItemDetails();
                 } else {
-                    toastr.warning(value.WorkOrderID + " Already Attached...!");
-                }
-                //     } else {
-                //         toastr.warning("Consignment Number:" + value.WorkOrderID + " having No Items...!");
-                //     }
-                // });
-            });
-            var count = 0;
-            ManifestOrdersCtrl.ePage.Masters.TempOutward = "";
-            angular.forEach(ManifestOrdersCtrl.ePage.Entities.Header.Data.TmsManifestConsignment, function (value, key) {
-                if (value.TMC_Receiver_ORG_FK) {
-                    count = count + 1;
-                } else {
-                    ManifestOrdersCtrl.ePage.Masters.TempOutward = ManifestOrdersCtrl.ePage.Masters.TempOutward + value.TMC_ConsignmentNumber + ",";
+                    toastr.warning(value.WorkOrderID + " Already Available...!");
                 }
             });
-            ManifestOrdersCtrl.ePage.Masters.TempOutward = ManifestOrdersCtrl.ePage.Masters.TempOutward.slice(0, -1);
-            if (count == ManifestOrdersCtrl.ePage.Entities.Header.Data.TmsManifestConsignment.length) {
-                ManifestOrdersCtrl.ePage.Masters.IsLoadingToSave = true;
-                ManifestOrdersCtrl.ePage.Entities.Header.CheckPoints.IsDisableBtn = true;
-                var item = filterObjectUpdate(ManifestOrdersCtrl.ePage.Entities.Header.Data, "IsModified");
-                apiService.post("eAxisAPI", ManifestOrdersCtrl.ePage.Entities.Header.API.UpdateManifest.Url, ManifestOrdersCtrl.ePage.Entities.Header.Data).then(function (response) {
-                    if (response.data.Response) {
-                        apiService.get("eAxisAPI", dmsManifestConfig.Entities.Header.API.GetByID.Url + response.data.Response.Response.PK).then(function (response) {
-                            ManifestOrdersCtrl.ePage.Entities.Header.Data = response.data.Response;
-                            ManifestOrdersCtrl.ePage.Entities.Header.CheckPoints.IsConsignmentAttach = true;
-                            getConsignmentNumber();
-                            ManifestOrdersCtrl.ePage.Masters.IsLoadingToSave = false;
-                            ManifestOrdersCtrl.ePage.Entities.Header.CheckPoints.IsDisableBtn = false;
-                        });
-                    }
-                });
-            } else {
-                toastr.error("Please add consignee for this outward " + ManifestOrdersCtrl.ePage.Masters.TempOutward);
-            }
         }
-        function getConsignmentNumber() {
-            ManifestOrdersCtrl.ePage.Masters.Config.TempConsignmentNumber = '';
-            if (ManifestOrdersCtrl.ePage.Entities.Header.Data.TmsManifestConsignment.length > 0) {
-                angular.forEach(ManifestOrdersCtrl.ePage.Entities.Header.Data.TmsManifestConsignment, function (value, key) {
-                    ManifestOrdersCtrl.ePage.Masters.Config.TempConsignmentNumber = ManifestOrdersCtrl.ePage.Masters.Config.TempConsignmentNumber + value.TMC_ConsignmentNumber + ",";
-                });
-                ManifestOrdersCtrl.ePage.Masters.Config.TempConsignmentNumber = ManifestOrdersCtrl.ePage.Masters.Config.TempConsignmentNumber.slice(0, -1);
-                GetOutwardLineDetails();
-            }
-        }
-        function GetOutwardLineDetails() {
-            var _filter = {
-                "WorkOrderID": ManifestOrdersCtrl.ePage.Masters.Config.TempConsignmentNumber,
-                // "WorkOrderType": "ORD"
-            };
 
-            var _input = {
-                "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": ManifestOrdersCtrl.ePage.Entities.Header.API.GetOrderLineList.FilterID,
-            };
-            apiService.post("eAxisAPI", ManifestOrdersCtrl.ePage.Entities.Header.API.GetOrderLineList.Url, _input).then(function (response) {
-                ManifestOrdersCtrl.ePage.Masters.IsLoading = false;
-                ManifestOrdersCtrl.ePage.Masters.OrderLineDetails = response.data.Response;
-                var TempOrderItem = [];
-                angular.forEach(ManifestOrdersCtrl.ePage.Masters.OrderLineDetails, function (value, key) {
-                    var _isExist = ManifestOrdersCtrl.ePage.Entities.Header.Data.TmsManifestItem.some(function (value1, index1) {
-                        return value1.TIT_ItemRef_PK === value.PK;
+        function AddToLine() {
+            angular.forEach(ManifestOrdersCtrl.ePage.Masters.OrderDetails, function (value, key) {
+                if (value.SingleSelect) {
+                    var _isExist = ManifestOrdersCtrl.ePage.Entities.Header.Data.TmsManifestConsignment.some(function (value1, index1) {
+                        return value1.TMC_ConsignmentNumber === value.WorkOrderID;
                     });
-
+                    var Consignment_FK;
+                    if (!value.PK) {
+                        Consignment_FK = "";
+                    } else {
+                        Consignment_FK = value.PK;
+                    }
                     if (!_isExist) {
                         var obj = {
                             "PK": "",
-                            "Quantity": value.Units,
-                            "TMC_ConsignmentNumber": value.WOD_WorkOrderID,
-                            "TIT_ReceiverCode": value.WOD_ConsigneeCode,
-                            "TIT_ReceiverName": value.WOD_ConsigneeName,
-                            "TIT_Receiver_ORG_FK": value.WOD_ORG_Consignee_FK,
-                            "TIT_SenderCode": value.WOD_WAR_ORG_Code,
-                            "TIT_SenderName": value.WOD_WAR_ORG_FullName,
-                            "TIT_Sender_ORG_FK": value.WOD_WAR_ORG_FK,
-                            "TIT_ItemStatus": value.WorkOrderLineStatus,
-                            "TMC_FK": "",
-                            "IsDeleted": value.IsDeleted,
-                            "IsModified": value.IsModified,
-                            "TIT_ItemRef_ID": value.PAC_PackType,
-                            "TIT_ItemRefType": "Outward Line",
-                            "TIT_ItemRef_PK": value.PK,
-                            "TIT_ItemCode": value.ProductCode,
-                            "TIT_ItemDesc": value.ProductDescription,
-                            "TIT_FK": "",
-                            "TIT_Weight": value.Weight,
-                            "TIT_Volumn": value.Volume,
-                            "TMM_FK": ManifestOrdersCtrl.ePage.Entities.Header.Data.TmsManifestHeader.PK,
-                            "WOM_PartAttrib1": value.PartAttrib1,
-                            "WOM_PartAttrib2": value.PartAttrib2,
-                            "WOM_PartAttrib3": value.PartAttrib3,
-                            "WOM_PackingDate": value.PackingDate,
-                            "WOM_ExpiryDate": value.ExpiryDate,
-                            "WOM_Product_PK": value.PRO_FK
+                            "TMC_FK": Consignment_FK,
+                            "TMC_ConsignmentNumber": value.WorkOrderID,
+                            "TMC_SenderCode": value.WAR_ORG_Code ? value.WAR_ORG_Code : value.ClientCode,
+                            "TMC_SenderName": value.WAR_ORG_FullName ? value.WAR_ORG_FullName : value.ClientName,
+                            "TMC_Sender_ORG_FK": value.WAR_ORG_FK ? value.WAR_ORG_FK : value.ORG_Client_FK,
+                            "TMC_ClientId": value.ClientCode,
+                            "TMC_Client_ORG_FK": value.ORG_Client_FK,
+                            "TMC_ReceiverCode": value.ConsigneeCode,
+                            "TMC_ReceiverName": value.ConsigneeName,
+                            "TMC_Receiver_ORG_FK": value.ORG_Consignee_FK,
+                            "TMC_ServiceType": value.WorkOrderType,
+                            "TMC_SenderRef": value.ExternalReference,
+                            "TMC_ReceiverRef": value.CustomerReference,
+                            "TIT_AddRef1Code": value.PartAttrib1,
+                            "TIT_AddRef2Code": value.PartAttrib2,
+                            "TIT_AddRef3Code": value.PartAttrib3,
+                            "TIT_AddRef1Date": value.ExpiryDate,
+                            "TIT_AddRef2Date": value.PackingDate,
+                            "TIT_AddRef3Date": "",
+                            "TMC_ExpectedPickupDateTime": ManifestOrdersCtrl.ePage.Entities.Header.Data.TmsManifestHeader.EstimatedDispatchDate,
+                            "TMC_ExpectedDeliveryDateTime": ManifestOrdersCtrl.ePage.Entities.Header.Data.TmsManifestHeader.EstimatedDeliveryDate,
+                            "IsDeleted": false,
+                            "IsModified": true,
+                            "TMM_FK": ManifestOrdersCtrl.ePage.Entities.Header.Data.TmsManifestHeader.PK
                         }
-                        // ManifestOrdersCtrl.ePage.Entities.Header.Data.TmsManifestItem.push(obj);
-                        TempOrderItem.push(obj);
-                    }
-                });
-                ManifestOrdersCtrl.ePage.Entities.Header.Data.TmsManifestItem = TempOrderItem;
 
-                var item = filterObjectUpdate(ManifestOrdersCtrl.ePage.Entities.Header.Data, "IsModified");
-                apiService.post("eAxisAPI", ManifestOrdersCtrl.ePage.Entities.Header.API.UpdateManifest.Url, ManifestOrdersCtrl.ePage.Entities.Header.Data).then(function (response) {
-                    if (response.data.Response) {
-                        apiService.get("eAxisAPI", dmsManifestConfig.Entities.Header.API.GetByID.Url + response.data.Response.Response.PK).then(function (response) {
-                            ManifestOrdersCtrl.ePage.Entities.Header.Data = response.data.Response;
-                            if (ManifestOrdersCtrl.ePage.Entities.Header.Data.TmsManifestConsignment.length > 0) {
-                                ManifestOrdersCtrl.ePage.Entities.Header.CheckPoints.IsConsignmentAttach = true;
-                            }
-                        });
+                        ManifestOrdersCtrl.ePage.Entities.Header.Data.TmsManifestConsignment.push(obj);
+                        GetManifestItemDetails();
+                    } else {
+                        toastr.warning(value.WorkOrderID + " Already Available...!");
                     }
-                });
+                }
+                value.SingleSelect = false;
             });
         }
 
@@ -614,11 +476,11 @@
 
             ManifestOrdersCtrl.ePage.Masters.IsLoading = true;
             var _filter = {
-                "WarehouseCode": ManifestOrdersCtrl.ePage.Masters.WarehouseCode,
+                // "WarehouseCode": ManifestOrdersCtrl.ePage.Masters.WarehouseCode,
                 "WorkOrderType": "ORD",
                 "WorkOrderStatusIn": "OAS,OCP",
-                "SupplierCode": ManifestOrdersCtrl.ePage.Masters.SupplierCode,
-                "ConsigneeCode": ManifestOrdersCtrl.ePage.Masters.ConsigneeCode,
+                // "SupplierCode": ManifestOrdersCtrl.ePage.Masters.SupplierCode,
+                // "ConsigneeCode": ManifestOrdersCtrl.ePage.Masters.ConsigneeCode,
                 "Consignmentstatus": "DRF",
                 "ConsignStatus": "NULL"
             };
@@ -640,75 +502,7 @@
         //#region Consignment Attach and Consignment Load in table 
         function AttachConsignment($item) {
             angular.forEach($item, function (value, key) {
-                var _isExist = ManifestOrdersCtrl.ePage.Entities.Header.Data.TmsManifestConsignment.some(function (value1, index1) {
-                    return value1.TMC_ConsignmentNumber === value.ConsignmentNumber;
-                });
-                var Consignment_FK;
-                if (!value.PK) {
-                    Consignment_FK = "";
-                } else {
-                    Consignment_FK = value.PK;
-                }
-
-                if (!_isExist) {
-                    var obj = {
-                        "PK": "",
-                        "TMC_FK": Consignment_FK,
-                        "TMC_ConsignmentNumber": value.ConsignmentNumber,
-                        "TMC_SenderCode": value.SenderCode,
-                        "TMC_SenderName": value.SenderName,
-                        "TMC_Sender_ORG_FK": value.Sender_ORG_FK,
-                        "TMC_ReceiverCode": value.ReceiverCode,
-                        "TMC_ReceiverName": value.ReceiverName,
-                        "TMC_Receiver_ORG_FK": value.Receiver_ORG_FK,
-                        "TMC_ServiceType": value.ServiceType,
-                        "TMC_ExpectedDeliveryDateTime": value.ExpectedDeliveryDateTime,
-                        "TMC_ExpectedPickupDateTime": value.ExpectedPickupDateTime,
-                        "IsDeleted": false,
-                        "IsModified": true,
-                        "TMM_FK": ManifestOrdersCtrl.ePage.Entities.Header.Data.TmsManifestHeader.PK,
-                        "TMC_CurrentLocation_FK": ManifestOrdersCtrl.ePage.Entities.Header.Data.TmsManifestHeader.Sender_ORG_FK
-                    }
-                    ManifestOrdersCtrl.ePage.Entities.Header.Data.TmsManifestConsignment.push(obj);
-
-                } else {
-                    toastr.warning(value.ConsignmentNumber + " Already Attached...!");
-                }
-
-            });
-            var count = 0;
-            ManifestOrdersCtrl.ePage.Masters.TempConsignment = "";
-            angular.forEach(ManifestOrdersCtrl.ePage.Entities.Header.Data.TmsManifestConsignment, function (value, key) {
-                if (value.TMC_Receiver_ORG_FK) {
-                    count = count + 1;
-                } else {
-                    ManifestOrdersCtrl.ePage.Masters.TempConsignment = ManifestOrdersCtrl.ePage.Masters.TempConsignment + value.TMC_ConsignmentNumber + ",";
-                }
-            });
-            ManifestOrdersCtrl.ePage.Masters.TempConsignment = ManifestOrdersCtrl.ePage.Masters.TempConsignment.slice(0, -1);
-            if (count == ManifestOrdersCtrl.ePage.Entities.Header.Data.TmsManifestConsignment.length) {
-                ManifestOrdersCtrl.ePage.Masters.IsLoadingToSave = true;
-                ManifestOrdersCtrl.ePage.Entities.Header.CheckPoints.IsDisableBtn = true;
-                var item = filterObjectUpdate(ManifestOrdersCtrl.ePage.Entities.Header.Data, "IsModified");
-                apiService.post("eAxisAPI", ManifestOrdersCtrl.ePage.Entities.Header.API.UpdateManifest.Url, ManifestOrdersCtrl.ePage.Entities.Header.Data).then(function (response) {
-                    if (response.data.Response) {
-                        apiService.get("eAxisAPI", dmsManifestConfig.Entities.Header.API.GetByID.Url + response.data.Response.Response.PK).then(function (response) {
-                            ManifestOrdersCtrl.ePage.Entities.Header.Data = response.data.Response;
-                            ManifestOrdersCtrl.ePage.Entities.Header.CheckPoints.IsConsignmentAttach = true;
-                            getConsignmentValue();
-                            ManifestOrdersCtrl.ePage.Masters.IsLoadingToSave = false;
-                            ManifestOrdersCtrl.ePage.Entities.Header.CheckPoints.IsDisableBtn = false;
-                        });
-                    }
-                });
-            } else {
-                toastr.error("Please add Receiver for this Consignment " + ManifestOrdersCtrl.ePage.Masters.TempConsignment);
-            }
-
-        }
-        function AddConsignment() {
-            angular.forEach(ManifestOrdersCtrl.ePage.Masters.OrderDetails, function (value, key) {
-                if (value.SingleSelect) {
+                apiService.get("eAxisAPI", ManifestOrdersCtrl.ePage.Entities.Header.API.ConsignmentGetByID.Url + value.PK).then(function (response) {
                     var _isExist = ManifestOrdersCtrl.ePage.Entities.Header.Data.TmsManifestConsignment.some(function (value1, index1) {
                         return value1.TMC_ConsignmentNumber === value.ConsignmentNumber;
                     });
@@ -718,141 +512,105 @@
                     } else {
                         Consignment_FK = value.PK;
                     }
-                    if (!_isExist) {
-                        var obj = {
-                            "PK": "",
-                            "TMC_FK": Consignment_FK,
-                            "TMC_ConsignmentNumber": value.ConsignmentNumber,
-                            "TMC_SenderCode": value.SenderCode,
-                            "TMC_SenderName": value.SenderName,
-                            "TMC_Sender_ORG_FK": value.Sender_ORG_FK,
-                            "TMC_ReceiverCode": value.ReceiverCode,
-                            "TMC_ReceiverName": value.ReceiverName,
-                            "TMC_Receiver_ORG_FK": value.Receiver_ORG_FK,
-                            "TMC_ServiceType": value.ServiceType,
-                            "TMC_ExpectedDeliveryDateTime": value.ExpectedDeliveryDateTime,
-                            "TMC_ExpectedPickupDateTime": value.ExpectedPickupDateTime,
-                            "IsDeleted": false,
-                            "IsModified": true,
-                            "TMM_FK": ManifestOrdersCtrl.ePage.Entities.Header.Data.TmsManifestHeader.PK,
-                            "TMC_CurrentLocation_FK": ManifestOrdersCtrl.ePage.Entities.Header.Data.TmsManifestHeader.Sender_ORG_FK
+                    if (response.data.Response.TmsConsignmentItem.length > 0) {
+                        if (!_isExist) {
+                            var obj = {
+                                "PK": "",
+                                "TMC_FK": Consignment_FK,
+                                "TMC_ConsignmentNumber": value.ConsignmentNumber,
+                                "TMC_SenderCode": value.SenderCode,
+                                "TMC_SenderName": value.SenderName,
+                                "TMC_Sender_ORG_FK": value.Sender_ORG_FK,
+                                "TMC_ReceiverCode": value.ReceiverCode,
+                                "TMC_ReceiverName": value.ReceiverName,
+                                "TMC_Receiver_ORG_FK": value.Receiver_ORG_FK,
+                                "TMC_ServiceType": value.ServiceType,
+                                "TMC_ExpectedDeliveryDateTime": value.ExpectedDeliveryDateTime,
+                                "TMC_ExpectedPickupDateTime": value.ExpectedPickupDateTime,
+                                "TMC_SenderRef": value.SenderRef,
+                                "TMC_ReceiverRef": value.ReceiverRef,
+                                "IsDeleted": false,
+                                "IsModified": true,
+                                "TMM_FK": ManifestOrdersCtrl.ePage.Entities.Header.Data.TmsManifestHeader.PK,
+                                "TMC_CurrentLocation_FK": ManifestOrdersCtrl.ePage.Entities.Header.Data.TmsManifestHeader.Sender_ORG_FK
+                            }
+                            ManifestOrdersCtrl.ePage.Entities.Header.Data.TmsManifestConsignment.push(obj);
+                            GetManifestItemDetails();
+                        } else {
+                            toastr.warning(value.ConsignmentNumber + " Already Attached...!");
                         }
-
-                        ManifestOrdersCtrl.ePage.Entities.Header.Data.TmsManifestConsignment.push(obj);
-
                     } else {
-                        toastr.warning(value.ConsignmentNumber + " Already Attached...!");
+                        toastr.warning("Consignment Number:" + value.ConsignmentNumber + " having No Items...!");
                     }
-
+                });
+            });
+        }
+        function AddConsignment() {
+            angular.forEach(ManifestOrdersCtrl.ePage.Masters.OrderDetails, function (value, key) {
+                if (value.SingleSelect) {
+                    apiService.get("eAxisAPI", ManifestOrdersCtrl.ePage.Entities.Header.API.ConsignmentGetByID.Url + value.PK).then(function (response) {
+                        var _isExist = ManifestOrdersCtrl.ePage.Entities.Header.Data.TmsManifestConsignment.some(function (value1, index1) {
+                            return value1.TMC_ConsignmentNumber === value.ConsignmentNumber;
+                        });
+                        var Consignment_FK;
+                        if (!value.PK) {
+                            Consignment_FK = "";
+                        } else {
+                            Consignment_FK = value.PK;
+                        }
+                        if (response.data.Response.TmsConsignmentItem.length > 0) {
+                            if (!_isExist) {
+                                var obj = {
+                                    "PK": "",
+                                    "TMC_FK": Consignment_FK,
+                                    "TMC_ConsignmentNumber": value.ConsignmentNumber,
+                                    "TMC_SenderCode": value.SenderCode,
+                                    "TMC_SenderName": value.SenderName,
+                                    "TMC_Sender_ORG_FK": value.Sender_ORG_FK,
+                                    "TMC_ReceiverCode": value.ReceiverCode,
+                                    "TMC_ReceiverName": value.ReceiverName,
+                                    "TMC_Receiver_ORG_FK": value.Receiver_ORG_FK,
+                                    "TMC_ServiceType": value.ServiceType,
+                                    "TMC_ExpectedDeliveryDateTime": value.ExpectedDeliveryDateTime,
+                                    "TMC_ExpectedPickupDateTime": value.ExpectedPickupDateTime,
+                                    "TMC_SenderRef": value.SenderRef,
+                                    "TMC_ReceiverRef": value.ReceiverRef,
+                                    "IsDeleted": false,
+                                    "IsModified": true,
+                                    "TMM_FK": ManifestOrdersCtrl.ePage.Entities.Header.Data.TmsManifestHeader.PK,
+                                    "TMC_CurrentLocation_FK": ManifestOrdersCtrl.ePage.Entities.Header.Data.TmsManifestHeader.Sender_ORG_FK
+                                }
+                                ManifestOrdersCtrl.ePage.Entities.Header.Data.TmsManifestConsignment.push(obj);
+                                GetManifestItemDetails();
+                            } else {
+                                toastr.warning(value.ConsignmentNumber + " Already Attached...!");
+                            }
+                        } else {
+                            toastr.warning("Consignment Number:" + value.ConsignmentNumber + " having No Items...!");
+                        }
+                    });
                 }
                 value.SingleSelect = false;
             });
+        }
 
-            var count = 0;
-            ManifestOrdersCtrl.ePage.Masters.TempConsignment = "";
-            angular.forEach(ManifestOrdersCtrl.ePage.Entities.Header.Data.TmsManifestConsignment, function (value, key) {
-                if (value.TMC_Receiver_ORG_FK) {
-                    count = count + 1;
-                } else {
-                    ManifestOrdersCtrl.ePage.Masters.TempConsignment = ManifestOrdersCtrl.ePage.Masters.TempConsignment + value.TMC_ConsignmentNumber + ",";
-                }
-            });
-            ManifestOrdersCtrl.ePage.Masters.TempConsignment = ManifestOrdersCtrl.ePage.Masters.TempConsignment.slice(0, -1);
-            if (count == ManifestOrdersCtrl.ePage.Entities.Header.Data.TmsManifestConsignment.length) {
-                ManifestOrdersCtrl.ePage.Masters.IsLoadingToSave = true;
-                ManifestOrdersCtrl.ePage.Entities.Header.CheckPoints.IsDisableBtn = true;
-                var item = filterObjectUpdate(ManifestOrdersCtrl.ePage.Entities.Header.Data, "IsModified");
-                apiService.post("eAxisAPI", ManifestOrdersCtrl.ePage.Entities.Header.API.UpdateManifest.Url, ManifestOrdersCtrl.ePage.Entities.Header.Data).then(function (response) {
-                    if (response.data.Response) {
-                        apiService.get("eAxisAPI", dmsManifestConfig.Entities.Header.API.GetByID.Url + response.data.Response.Response.PK).then(function (response) {
-                            ManifestOrdersCtrl.ePage.Entities.Header.Data = response.data.Response;
-                            ManifestOrdersCtrl.ePage.Entities.Header.CheckPoints.IsConsignmentAttach = true;
-                            getConsignmentValue();
-                            ManifestOrdersCtrl.ePage.Masters.IsLoadingToSave = false;
-                            ManifestOrdersCtrl.ePage.Entities.Header.CheckPoints.IsDisableBtn = false;
-                        });
-                    }
-                });
-            } else {
-                toastr.error("Please Add all the Details " + ManifestOrdersCtrl.ePage.Masters.TempConsignment);
-            }
-            ManifestOrdersCtrl.ePage.Masters.SelectAll = false;
-        }
-        function getConsignmentValue() {
-            ManifestOrdersCtrl.ePage.Masters.Config.TempConsignmentNumber = '';
-            if (ManifestOrdersCtrl.ePage.Entities.Header.Data.TmsManifestConsignment.length > 0) {
-                angular.forEach(ManifestOrdersCtrl.ePage.Entities.Header.Data.TmsManifestConsignment, function (value, key) {
-                    ManifestOrdersCtrl.ePage.Masters.Config.TempConsignmentNumber = ManifestOrdersCtrl.ePage.Masters.Config.TempConsignmentNumber + value.TMC_ConsignmentNumber + ",";
-                });
-                ManifestOrdersCtrl.ePage.Masters.Config.TempConsignmentNumber = ManifestOrdersCtrl.ePage.Masters.Config.TempConsignmentNumber.slice(0, -1);
-                GetManifestItemDetails();
-            }
-        }
         function GetManifestItemDetails() {
-            var _filter = {
-                "ConsignmentNumber": ManifestOrdersCtrl.ePage.Masters.Config.TempConsignmentNumber,
-            };
-
-            var _input = {
-                "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": "TMSCONIVW"
-            };
-            apiService.post("eAxisAPI", ManifestOrdersCtrl.ePage.Entities.Header.API.GetConsignmentItem.Url, _input).then(function (response) {
-                ManifestOrdersCtrl.ePage.Masters.IsLoading = false;
-                ManifestOrdersCtrl.ePage.Masters.GetConsignmentListValue = response.data.Response;
-                var TempItem = [];
-                angular.forEach(ManifestOrdersCtrl.ePage.Masters.GetConsignmentListValue, function (value, key) {
-                    var _isExist = ManifestOrdersCtrl.ePage.Entities.Header.Data.TmsManifestItem.some(function (value1, index1) {
-                        return value1.TIT_FK === value.TIT_FK;
+            ManifestOrdersCtrl.ePage.Entities.Header.CheckPoints.IsDisableBtn = true;
+            ManifestOrdersCtrl.ePage.Masters.IsLoadingToSave = true;
+            var item = filterObjectUpdate(ManifestOrdersCtrl.ePage.Entities.Header.Data, "IsModified");
+            ManifestOrdersCtrl.ePage.Entities.Header.Data.IsConsignmentAttach = true;
+            apiService.post("eAxisAPI", ManifestOrdersCtrl.ePage.Entities.Header.API.UpdateManifest.Url, ManifestOrdersCtrl.ePage.Entities.Header.Data).then(function (response) {
+                if (response.data.Response) {
+                    apiService.get("eAxisAPI", dmsManifestConfig.Entities.Header.API.GetByID.Url + response.data.Response.Response.PK).then(function (response) {
+                        ManifestOrdersCtrl.ePage.Entities.Header.Data = response.data.Response;
+                        ManifestOrdersCtrl.ePage.Entities.Header.Data.IsConsignmentAttach = true;
+                        ManifestOrdersCtrl.ePage.Entities.Header.CheckPoints.IsDisableBtn = false;
+                        ManifestOrdersCtrl.ePage.Masters.IsLoadingToSave = false;
                     });
-
-                    if (!_isExist) {
-                        var obj = {
-                            "PK": "",
-                            "Quantity": value.Quantity,
-                            "TMC_ConsignmentNumber": value.TMC_ConsignmentNumber,
-                            "TIT_ReceiverCode": value.TIT_ReceiverCode,
-                            "TIT_ReceiverName": value.TIT_ReceiverName,
-                            "TIT_Receiver_ORG_FK": value.TIT_Receiver_ORG_FK,
-                            "TIT_SenderCode": value.TIT_SenderCode,
-                            "TIT_SenderName": value.TIT_SenderName,
-                            "TIT_Sender_ORG_FK": value.TIT_Sender_ORG_FK,
-                            "TIT_ItemStatus": value.TIT_ItemStatus,
-                            "TMC_FK": value.TMC_FK,
-                            "IsDeleted": value.IsDeleted,
-                            "IsModified": value.IsModified,
-                            "TIT_ItemRef_ID": value.TIT_ItemRef_ID,
-                            "TIT_ItemRefType": value.TIT_ItemRefType,
-                            "TIT_ItemRef_PK": value.TIT_ItemRef_PK,
-                            "TIT_ItemCode": value.TIT_ItemCode,
-                            "TIT_ItemDesc": value.TIT_ItemDesc,
-                            "TIT_FK": "",
-                            "TIT_Weight": value.TIT_Weight,
-                            "TIT_Volumn": value.TIT_Volumn,
-                            "TIT_Length": value.TIT_Length,
-                            "TIT_Width": value.TIT_Width,
-                            "TIT_Height": value.TIT_Height,
-                            "TMM_FK": ManifestOrdersCtrl.ePage.Entities.Header.Data.TmsManifestHeader.PK
-                        }
-                        //ManifestOrdersCtrl.ePage.Entities.Header.Data.TmsManifestItem.push(obj);
-                        TempItem.push(obj);
-                    }
-
-                });
-                ManifestOrdersCtrl.ePage.Entities.Header.Data.TmsManifestItem = TempItem;
-
-                var item = filterObjectUpdate(ManifestOrdersCtrl.ePage.Entities.Header.Data, "IsModified");
-                apiService.post("eAxisAPI", ManifestOrdersCtrl.ePage.Entities.Header.API.UpdateManifest.Url, ManifestOrdersCtrl.ePage.Entities.Header.Data).then(function (response) {
-                    if (response.data.Response) {
-                        apiService.get("eAxisAPI", dmsManifestConfig.Entities.Header.API.GetByID.Url + response.data.Response.Response.PK).then(function (response) {
-                            ManifestOrdersCtrl.ePage.Entities.Header.Data = response.data.Response;
-                            if (ManifestOrdersCtrl.ePage.Entities.Header.Data.TmsManifestConsignment.length > 0) {
-                                ManifestOrdersCtrl.ePage.Entities.Header.CheckPoints.IsConsignmentAttach = true;
-                            }
-                        });
-
-                    }
-                });
+                } else {
+                    ManifestOrdersCtrl.ePage.Entities.Header.CheckPoints.IsDisableBtn = false;
+                    ManifestOrdersCtrl.ePage.Masters.IsLoadingToSave = false;
+                }
             });
         }
 
@@ -860,7 +618,7 @@
             ManifestOrdersCtrl.ePage.Masters.IsLoading = true;
             var _filter = {
                 "ConsignmentStatus": "DRF",
-                "ServiceTypeIn": "LOP,LOD",
+                "ServiceTypeIn": "LOD,UPC,STR",
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
@@ -875,7 +633,7 @@
             });
         }
         //#endregion
-        
+
         function filterObjectUpdate(obj, key) {
             for (var i in obj) {
                 if (!obj.hasOwnProperty(i)) continue;
