@@ -319,12 +319,6 @@
                         ActivityTemplateInwardCtrl.ePage.Masters.WorkOrderList = response.data.Response[0];
 
                         if (ActivityTemplateInwardCtrl.ePage.Masters.WorkOrderList.WorkOrderType == "PIC") {
-                            // apiService.get("eAxisAPI", appConfig.Entities.WmsPickupList.API.GetById.Url + ActivityTemplateInwardCtrl.ePage.Masters.WorkOrderList.PK).then(function (response) {
-                            //     if (response.data.Response) {
-                            //         myTaskActivityConfig.Entities.PickupData = response.data.Response;
-                            //         myTaskActivityConfig.Entities.PickupData.UIvwWmsPickupLine = $filter('orderBy')(myTaskActivityConfig.Entities.PickupData.UIvwWmsPickupLine, 'PL_AdditionalRef1Code');
-                            //         myTaskActivityConfig.Entities.PickupData.UIWmsPickupLine = $filter('orderBy')(myTaskActivityConfig.Entities.PickupData.UIWmsPickupLine, 'AdditionalRef1Code');
-                            //         angular.forEach(myTaskActivityConfig.Entities.PickupData.UIvwWmsPickupLine, function (value1, key1) {
                             angular.forEach(myTaskActivityConfig.Entities.Inward[myTaskActivityConfig.Entities.Inward.label].ePage.Entities.Header.Data.UIWmsWorkOrderLine, function (value, key) {
                                 apiService.get("eAxisAPI", appConfig.Entities.WmsWorkOrderLine.API.GetById.Url + value.AdditionalRef1Fk).then(function (response) {
                                     if (response.data.Response) {
@@ -353,11 +347,6 @@
                                     }
                                 });
                             });
-                            // });
-                            // myTaskActivityConfig.Entities.PickupData = filterObjectUpdate(myTaskActivityConfig.Entities.PickupData, "IsModified");
-                            // apiService.post("eAxisAPI", appConfig.Entities.WmsPickupList.API.Update.Url, myTaskActivityConfig.Entities.PickupData).then(function (response) {
-                            //     myTaskActivityConfig.Entities.PickupData = response.data.Response;
-                            //     toastr.success("Pickup Saved Successfully");
                             $timeout(function () {
                                 // complete process                            
                                 var _inputObj = {
@@ -456,7 +445,40 @@
 
                                     //Inserting Outward
                                     apiService.post("eAxisAPI", appConfig.Entities.WmsOutwardList.API.Insert.Url, response.data.Response.Response).then(function (response) {
-                                        if (response.data.Status == 'Success') {
+                                        if (response.data.Status == 'Success') {                                            
+                                            ActivityTemplateInwardCtrl.ePage.Masters.OutwardDetails = response.data.Response;
+                                            angular.forEach(ActivityTemplateInwardCtrl.ePage.Masters.OutwardDetails.UIWmsWorkOrderLine, function (value, key) {
+                                                var _filter = {
+                                                    "DeliveryLineRefNo": value.AdditionalRef1Code
+                                                };
+                                                var _input = {
+                                                    "searchInput": helperService.createToArrayOfObject(_filter),
+                                                    "FilterID": appConfig.Entities.WmsDeliveryReport.API.FindAll.FilterID
+                                                };
+
+                                                apiService.post("eAxisAPI", appConfig.Entities.WmsDeliveryReport.API.FindAll.Url, _input).then(function (response) {
+                                                    if (response.data.Response) {
+                                                        if (response.data.Response.length > 0) {
+                                                            response.data.Response[0].IsModified = true;
+                                                            response.data.Response[0].DEL_OUT_RefNo = ActivityTemplateInwardCtrl.ePage.Masters.OutwardDetails.UIWmsOutwardHeader.WorkOrderID;
+                                                            response.data.Response[0].DEL_OOU_Fk = ActivityTemplateInwardCtrl.ePage.Masters.OutwardDetails.UIWmsOutwardHeader.PK;
+                                                            response.data.Response[0].DEL_OUT_ExternalRefNumber = ActivityTemplateInwardCtrl.ePage.Masters.OutwardDetails.UIWmsOutwardHeader.ExternalReference;
+                                                            response.data.Response[0].DEL_OUT_CustomerReference = ActivityTemplateInwardCtrl.ePage.Masters.OutwardDetails.UIWmsOutwardHeader.CustomerReference;
+                                                            response.data.Response[0].DEL_OUT_CreatedDateTime = ActivityTemplateInwardCtrl.ePage.Masters.OutwardDetails.UIWmsOutwardHeader.CreatedDateTime;
+                                                            response.data.Response[0].DEL_OL_Fk = value.PK;
+                                                            response.data.Response[0].DEL_OL_Product_Fk = value.PRO_FK;
+                                                            response.data.Response[0].DEL_OL_ProductCode = value.ProductCode;
+                                                            response.data.Response[0].DEL_OL_ProductDesc = value.ProductDescription;
+                                                            response.data.Response[0].DEL_MTR_IL_Fk = value.Parent_FK;
+                                                            apiService.post("eAxisAPI", appConfig.Entities.WmsDeliveryReport.API.Update.Url, response.data.Response[0]).then(function (response) {
+                                                                if (response.data.Response) {
+                                                                    console.log("Delivery Report Updated for " + response.data.Response.DeliveryLineRefNo);
+                                                                }
+                                                            });
+                                                        }
+                                                    }
+                                                });
+                                            });
                                             // complete process
                                             var _inputObj = {
                                                 "CompleteInstanceNo": ActivityTemplateInwardCtrl.ePage.Masters.TaskObj.PSI_InstanceNo,

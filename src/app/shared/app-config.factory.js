@@ -33,7 +33,7 @@
                         }
                     }
                 },
-				"WmsInventoryAdjustment": {
+                "WmsInventoryAdjustment": {
                     "RowIndex": -1,
                     "API": {
                         "Insert": {
@@ -2527,7 +2527,7 @@
                             "FilterID": "ORDHEAD"
                         },
                     }
-                },"buyerShipmentList": {
+                }, "buyerShipmentList": {
                     "RowIndex": -1,
                     "API": {
                         "GetById": {
@@ -2716,6 +2716,32 @@
                             "HttpType": "POST",
                             "Url": "WmsDelivery/FindAll",
                             "FilterID": "WMSDEL"
+                        }
+                    }
+                },
+                "WmsDeliveryReport": {
+                    "RowIndex": -1,
+                    "API": {
+                        "GetById": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "WmsDeliveryReport/GetById/",
+                        },
+                        "Update": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "WmsDeliveryReport/Update"
+                        },
+                        "Insert": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "WmsDeliveryReport/Insert"
+                        },
+                        "FindAll": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "WmsDeliveryReport/FindAll",
+                            "FilterID": "WMSWDR"
                         }
                     }
                 },
@@ -2977,7 +3003,7 @@
                         }
                     }
                 },
-				 "WmsWorkOrderLine": {
+                "WmsWorkOrderLine": {
                     "RowIndex": -1,
                     "API": {
                         "FindAll": {
@@ -3190,7 +3216,7 @@
 
                     }
                 },
-				 "Notification": {
+                "Notification": {
                     "RowIndex": -1,
                     "API": {
                         "SendSms": {
@@ -3509,10 +3535,10 @@
                             "IsAPI": true,
                             "Url": "EBPMEngine/CompleteProcess",
                         },
-						"SuspendInstance": {
-						"IsAPI": true,
-						"Url": "EBPMEngine/SuspendInstance/",
-						}
+                        "SuspendInstance": {
+                            "IsAPI": true,
+                            "Url": "EBPMEngine/SuspendInstance/",
+                        }
                     }
                 },
                 "EBPMProcessInstance": {
@@ -4763,7 +4789,7 @@
                         }
                     }
                 },
-                
+
                 "BuyerTrackOrderLine": {
                     "API": {
                         "GetById": {
@@ -4977,7 +5003,7 @@
                         }
                     }
                 },
-				"WmsTestID": {
+                "WmsTestID": {
                     "RowIndex": -1,
                     "API": {
                         "FindAll": {

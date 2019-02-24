@@ -182,6 +182,103 @@
                                                                     }
                                                                 });
                                                             }
+                                                            if (ActivityTemplateOutward2Ctrl.taskObj.ProcessName == "WMS_DeliveryMaterial" && callback) {                                                                
+                                                                angular.forEach(myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data.UIWmsWorkOrderLine, function (value, key) {
+                                                                    angular.forEach(myTaskActivityConfig.Entities.DeliveryData.UIWmsDeliveryLine, function (value1, key1) {
+                                                                        if (value.AdditionalRef1Code == value1.AdditionalRef1Code) {
+                                                                            var _filter = {
+                                                                                "DeliveryLine_FK": value1.PK
+                                                                            };
+                                                                            var _input = {
+                                                                                "searchInput": helperService.createToArrayOfObject(_filter),
+                                                                                "FilterID": appConfig.Entities.WmsDeliveryReport.API.FindAll.FilterID
+                                                                            };
+
+                                                                            apiService.post("eAxisAPI", appConfig.Entities.WmsDeliveryReport.API.FindAll.Url, _input).then(function (response) {
+                                                                                if (response.data.Response) {
+                                                                                    if (response.data.Response.length > 0) {
+                                                                                        response.data.Response[0].IsModified = true;
+                                                                                        if (ActivityTemplateOutward2Ctrl.taskObj.WSI_StepName == "Arrange Material") {
+                                                                                            angular.forEach(myTaskActivityConfig.Entities.PickData[myTaskActivityConfig.Entities.PickData.label].ePage.Entities.Header.Data.UIWmsPickLine, function (v, k) {
+                                                                                                if (value.AdditionalRef1Code == v.AdditionalRef1Code) {
+                                                                                                    response.data.Response[0].DEL_PickUDF1 = v.PartAttrib1;
+                                                                                                    response.data.Response[0].DEL_PickUDF2 = v.PartAttrib2;
+                                                                                                    response.data.Response[0].DEL_PickUDF3 = v.PartAttrib3;
+                                                                                                }
+                                                                                            });
+                                                                                        } else if (ActivityTemplateOutward2Ctrl.taskObj.WSI_StepName == "Deliver Material") {
+                                                                                            response.data.Response[0].ManifestNo = myTaskActivityConfig.Entities.ManifestData.TmsManifestHeader.ManifestNumber;
+                                                                                            response.data.Response[0].Manifest_Fk = myTaskActivityConfig.Entities.ManifestData.TmsManifestHeader.PK;
+                                                                                            response.data.Response[0].Consignment_Fk = myTaskActivityConfig.Entities.ManifestData.TmsManifestConsignment[0].TMC_FK;
+                                                                                            response.data.Response[0].ConsignmentNumber = myTaskActivityConfig.Entities.ManifestData.TmsManifestConsignment[0].TMC_ConsignmentNumber;
+                                                                                        } else if (ActivityTemplateOutward2Ctrl.taskObj.WSI_StepName == "Get POD and Return to Order Desk") {
+                                                                                            response.data.Response[0].ManifestType = myTaskActivityConfig.Entities.ManifestData.TmsManifestHeader.ManifestTypeDesc;
+                                                                                            response.data.Response[0].VehicleType = myTaskActivityConfig.Entities.ManifestData.TmsManifestHeader.VehicleTypeDescription;
+                                                                                            response.data.Response[0].VehicleNo = myTaskActivityConfig.Entities.ManifestData.TmsManifestHeader.VehicleNo;
+                                                                                            response.data.Response[0].DriverName = myTaskActivityConfig.Entities.ManifestData.TmsManifestHeader.DriveName;
+                                                                                            response.data.Response[0].DriverContactNo = myTaskActivityConfig.Entities.ManifestData.TmsManifestHeader.DriverContactNo;
+                                                                                            response.data.Response[0].EstimatedDispatchDate = myTaskActivityConfig.Entities.ManifestData.TmsManifestHeader.EstimatedDispatchDate;
+                                                                                            response.data.Response[0].EstimatedDeliveryDate = myTaskActivityConfig.Entities.ManifestData.TmsManifestHeader.EstimatedDeliveryDate;
+                                                                                            response.data.Response[0].ActualDispatchDate = myTaskActivityConfig.Entities.ManifestData.TmsManifestConsignment[0].TMC_ActualPickupDateTime;
+                                                                                            response.data.Response[0].AcutalDeliveryDate = myTaskActivityConfig.Entities.ManifestData.TmsManifestConsignment[0].TMC_ActualDeliveryDateTime;
+                                                                                        }
+                                                                                        apiService.post("eAxisAPI", appConfig.Entities.WmsDeliveryReport.API.Update.Url, response.data.Response[0]).then(function (response) {
+                                                                                            if (response.data.Response) {
+                                                                                                console.log("Delivery Report Updated for " + response.data.Response.DeliveryLineRefNo);
+                                                                                            }
+                                                                                        });
+                                                                                    }
+                                                                                }
+                                                                            });
+                                                                        }
+                                                                    });
+                                                                });
+                                                            }
+                                                            if (ActivityTemplateOutward2Ctrl.taskObj.WSI_StepName == "Transfer Material" && callback) {                                                                
+                                                                var _filter = {
+                                                                    "WOD_Parent_FK": response.data.Response.UIWmsOutwardHeader.PK
+                                                                };
+                                                                var _input = {
+                                                                    "searchInput": helperService.createToArrayOfObject(_filter),
+                                                                    "FilterID": appConfig.Entities.InwardList.API.FindAll.FilterID
+                                                                };
+
+                                                                apiService.post("eAxisAPI", appConfig.Entities.InwardList.API.FindAll.Url, _input).then(function (response) {
+                                                                    if (response.data.Response) {
+                                                                        if (response.data.Response.length > 0) {
+                                                                            ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails = response.data.Response[0];
+                                                                            angular.forEach(myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data.UIWmsWorkOrderLine, function (value, key) {
+                                                                                angular.forEach(myTaskActivityConfig.Entities.DeliveryData.UIWmsDeliveryLine, function (value1, key1) {
+                                                                                    if (value.AdditionalRef1Code == value1.AdditionalRef1Code) {
+                                                                                        var _filter = {
+                                                                                            "DeliveryLine_FK": value1.PK
+                                                                                        };
+                                                                                        var _input = {
+                                                                                            "searchInput": helperService.createToArrayOfObject(_filter),
+                                                                                            "FilterID": appConfig.Entities.WmsDeliveryReport.API.FindAll.FilterID
+                                                                                        };
+
+                                                                                        apiService.post("eAxisAPI", appConfig.Entities.WmsDeliveryReport.API.FindAll.Url, _input).then(function (response) {
+                                                                                            if (response.data.Response) {
+                                                                                                if (response.data.Response.length > 0) {
+                                                                                                    response.data.Response[0].IsModified = true;
+                                                                                                    response.data.Response[0].DEL_MTR_INW_RefNo = ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails.WorkOrderID;
+                                                                                                    response.data.Response[0].DEL_MTR_INW_Fk = ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails.PK;
+                                                                                                    apiService.post("eAxisAPI", appConfig.Entities.WmsDeliveryReport.API.Update.Url, response.data.Response[0]).then(function (response) {
+                                                                                                        if (response.data.Response) {
+                                                                                                            console.log("Delivery Report Updated for " + response.data.Response.DeliveryLineRefNo);
+                                                                                                        }
+                                                                                                    });
+                                                                                                }
+                                                                                            }
+                                                                                        });
+                                                                                    }
+                                                                                });
+                                                                            });
+                                                                        }
+                                                                    }
+                                                                });
+                                                            }
                                                             if (callback)
                                                                 callback();
                                                         }

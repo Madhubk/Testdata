@@ -360,6 +360,7 @@
             InwardObject.UIWmsInwardHeader.WarehouseName = currentOutward.TransferTo_WAR_Name
             InwardObject.UIWmsInwardHeader.WorkOrderSubType = currentOutward.WorkOrderSubType;
             InwardObject.UIWmsInwardHeader.AdditionalRef2Fk = currentOutward.AdditionalRef2Fk;
+            InwardObject.UIWmsInwardHeader.WOD_Parent_FK = currentOutward.PK;
             //Assigning ASN Line Object
             ReleasesGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickLine.map(function (value, key) {
                 if (value.WOD_FK == currentOutward.PK) {

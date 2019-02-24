@@ -151,7 +151,11 @@
                 deliveryConfig.GeneralValidation(myTaskActivityConfig.Entities.Delivery);
                 if (ActivityTemplateDelivery2Ctrl.ePage.Masters.ErrorWarningConfig.Modules.MyTask) {
                     if (ActivityTemplateDelivery2Ctrl.ePage.Masters.ErrorWarningConfig.Modules.MyTask.Entity) {
-                        ActivityTemplateDelivery2Ctrl.ePage.Masters.ErrorWarningConfig.Modules.MyTask.Entity[ActivityTemplateDelivery2Ctrl.ePage.Masters.EntityObj.UIWmsDelivery.WorkOrderID].GlobalErrorWarningList = _errorcount;
+                        ActivityTemplateDelivery2Ctrl.ePage.Masters.ErrorWarningConfig.Modules.MyTask.Entity = {
+                            [ActivityTemplateDelivery2Ctrl.ePage.Masters.EntityObj.UIWmsDelivery.WorkOrderID]: {
+                                GlobalErrorWarningList: _errorcount
+                            }
+                        };
                     } else {
                         ActivityTemplateDelivery2Ctrl.ePage.Masters.ErrorWarningConfig.Modules.MyTask.Entity = {
                             [ActivityTemplateDelivery2Ctrl.ePage.Masters.EntityObj.UIWmsDelivery.WorkOrderID]: {
@@ -175,6 +179,32 @@
                         myTaskActivityConfig.Entities.Delivery[myTaskActivityConfig.Entities.Delivery.label].ePage.Entities.Header.Data.UIWmsWorkorderReport.AcknowledgementDateTime = new Date();
                         myTaskActivityConfig.Entities.Delivery[myTaskActivityConfig.Entities.Delivery.label].ePage.Entities.Header.Data.UIWmsWorkorderReport.AcknowledgedPerson = authService.getUserInfo().UserId;
                         myTaskActivityConfig.Entities.Delivery[myTaskActivityConfig.Entities.Delivery.label].ePage.Entities.Header.Data.UIWmsWorkorderReport.DeliveryRequestedDateTime = new Date();
+                        
+                        angular.forEach(ActivityTemplateDelivery2Ctrl.ePage.Masters.EntityObj.UIWmsDeliveryLine, function (value, key) {
+                            var _filter = {
+                                "DeliveryLine_FK": value.PK
+                            };
+                            var _input = {
+                                "searchInput": helperService.createToArrayOfObject(_filter),
+                                "FilterID": appConfig.Entities.WmsDeliveryReport.API.FindAll.FilterID
+                            };
+
+                            apiService.post("eAxisAPI", appConfig.Entities.WmsDeliveryReport.API.FindAll.Url, _input).then(function (response) {
+                                if (response.data.Response) {
+                                    if (response.data.Response.length > 0) {
+                                        response.data.Response[0].IsModified = true;
+                                        response.data.Response[0].AcknowledgedPerson = myTaskActivityConfig.Entities.Delivery[myTaskActivityConfig.Entities.Delivery.label].ePage.Entities.Header.Data.UIWmsWorkorderReport.AcknowledgedPerson;
+                                        response.data.Response[0].AcknowledgedDateTime = myTaskActivityConfig.Entities.Delivery[myTaskActivityConfig.Entities.Delivery.label].ePage.Entities.Header.Data.UIWmsWorkorderReport.AcknowledgementDateTime;
+                                        response.data.Response[0].RequestedDateTime = myTaskActivityConfig.Entities.Delivery[myTaskActivityConfig.Entities.Delivery.label].ePage.Entities.Header.Data.UIWmsWorkorderReport.DeliveryRequestedDateTime;
+                                        apiService.post("eAxisAPI", appConfig.Entities.WmsDeliveryReport.API.Update.Url, response.data.Response[0]).then(function (response) {
+                                            if (response.data.Response) {
+                                                console.log("Delivery Report Updated for " + response.data.Response.DeliveryLineRefNo);
+                                            }
+                                        });
+                                    }
+                                }
+                            });
+                        });
                     }
                     saves(callback);
                 } else {
@@ -208,6 +238,56 @@
                     apiService.get("eAxisAPI", appConfig.Entities.WmsDeliveryList.API.GetById.Url + response.data.Response.UIWmsDelivery.PK).then(function (response) {
                         if (response.data.Response) {
                             ActivityTemplateDelivery2Ctrl.ePage.Masters.EntityObj = response.data.Response;
+                            if (ActivityTemplateDelivery2Ctrl.taskObj.WSI_StepName == "Create Delivery Challan") {
+                                if (callback) {                                    
+                                    angular.forEach(ActivityTemplateDelivery2Ctrl.ePage.Masters.EntityObj.UIvwWmsDeliveryList, function (value, key) {
+                                        var _filter = {
+                                            "DeliveryLine_FK": value.DL_PK
+                                        };
+                                        var _input = {
+                                            "searchInput": helperService.createToArrayOfObject(_filter),
+                                            "FilterID": appConfig.Entities.WmsDeliveryReport.API.FindAll.FilterID
+                                        };
+
+                                        apiService.post("eAxisAPI", appConfig.Entities.WmsDeliveryReport.API.FindAll.Url, _input).then(function (response) {
+                                            if (response.data.Response) {
+                                                if (response.data.Response.length > 0) {
+                                                    response.data.Response[0].IsModified = true;
+                                                    response.data.Response[0].DEL_MTR_OUT_RefNo = value.MOT_WorkOrderId;
+                                                    response.data.Response[0].DEL_MTR_OUT_Fk = value.MOT_WorkOrderPk;
+                                                    response.data.Response[0].DEL_MTR_FromWH_Fk = value.MOT_WOD_WAR_FK;
+                                                    response.data.Response[0].DEL_MTR_ToWH_Fk = value.MOT_WOD_TransferTo_WAR_FK;
+                                                    response.data.Response[0].DEL_MTR_FromWH_Code = value.MOT_WAR_Code;
+                                                    response.data.Response[0].DEL_MTR_ToWH_Code = value.MOT_WOD_TransferTo_WAR_Code;
+                                                    response.data.Response[0].DEL_MTR_FromWH_Name = value.MOT_WAR_Name;
+                                                    response.data.Response[0].DEL_MTR_ToWH_Name = value.MOT_WOD_TransferTo_WAR_Name;
+                                                    response.data.Response[0].DEL_MTR_OUT_ExternalRefNumber = value.MOT_ExternalReference;
+                                                    response.data.Response[0].DEL_MTR_CustomerReference = value.MOT_CustomerReference;
+                                                    response.data.Response[0].DEL_MTR_OL_Fk = value.MOL_Pk;
+                                                    response.data.Response[0].DEL_MTR_OUT_CreatedDateTime = value.MOT_CreatedDateTime;
+                                                    response.data.Response[0].DEL_OUT_RefNo = value.OUT_WorkOrderId;
+                                                    response.data.Response[0].DEL_OOU_Fk = value.OUT_WorkOrderPk;
+                                                    response.data.Response[0].DEL_OUT_ExternalRefNumber = value.OUT_ExternalReference;
+                                                    response.data.Response[0].DEL_OUT_CustomerReference = value.OUT_CustomerReference;
+                                                    response.data.Response[0].DEL_OUT_CreatedDateTime = value.OUT_CreatedDateTime;
+                                                    response.data.Response[0].DEL_OL_Fk = value.OL_Pk;
+                                                    response.data.Response[0].DEL_OL_Product_Fk = value.OL_PrdPk;
+                                                    response.data.Response[0].DEL_OL_ProductCode = value.OL_PrdCode;
+                                                    response.data.Response[0].DEL_OL_ProductDesc = value.OL_PrdDesc;
+                                                    response.data.Response[0].StatusCode = ActivityTemplateDelivery2Ctrl.ePage.Masters.EntityObj.UIWmsDelivery.WorkOrderStatus;
+                                                    response.data.Response[0].StatusDescription = ActivityTemplateDelivery2Ctrl.ePage.Masters.EntityObj.UIWmsDelivery.WorkOrderStatusDesc;
+
+                                                    apiService.post("eAxisAPI", appConfig.Entities.WmsDeliveryReport.API.Update.Url, response.data.Response[0]).then(function (response) {
+                                                        if (response.data.Response) {
+                                                            console.log("Delivery Report Updated for " + response.data.Response.DeliveryLineRefNo);
+                                                        }
+                                                    });
+                                                }
+                                            }
+                                        });
+                                    });
+                                }
+                            }
                             ActivityTemplateDelivery2Ctrl.ePage.Entities.Header.Data = ActivityTemplateDelivery2Ctrl.ePage.Masters.EntityObj;
                             ActivityTemplateDelivery2Ctrl.currentDelivery = {
                                 [ActivityTemplateDelivery2Ctrl.ePage.Masters.EntityObj.UIWmsDelivery.WorkOrderID]: {

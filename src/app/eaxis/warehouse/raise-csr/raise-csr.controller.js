@@ -131,7 +131,11 @@
             }
 
             if (_errorcount.length == 0) {
-                Saveonly($item);
+                if (_input.UIWmsDeliveryLine.length == 0) {
+                    toastr.warning("Delivery line should not be empty");
+                } else {
+                    Saveonly($item);
+                }
             } else {
                 RaiseCSRCtrl.ePage.Masters.Config.ShowErrorWarningModal($item);
             }
@@ -152,6 +156,49 @@
                 _input.UIWmsWorkorderReport.AcknowledgedPerson = authService.getUserInfo().UserId;
                 _input.UIWmsWorkorderReport.DeliveryRequestedDateTime = new Date();
                 _input.UIWmsWorkorderReport.WOD_FK = _input.PK;
+
+                angular.forEach(_input.UIWmsDeliveryLine, function (value, key) {
+                    value.UISPMSDeliveryReport.PK = value.UISPMSDeliveryReport.PK;
+                    value.UISPMSDeliveryReport.Client_Fk = _input.UIWmsDelivery.ORG_Client_FK;
+                    value.UISPMSDeliveryReport.ClientCode = _input.UIWmsDelivery.ClientCode;
+                    value.UISPMSDeliveryReport.ClientName = _input.UIWmsDelivery.ClientName;
+                    value.UISPMSDeliveryReport.Warehouse_Fk = _input.UIWmsDelivery.WAR_FK;
+                    value.UISPMSDeliveryReport.WarehouseCode = _input.UIWmsDelivery.WarehouseCode;
+                    value.UISPMSDeliveryReport.WarehouseName = _input.UIWmsDelivery.WarehouseName;
+                    value.UISPMSDeliveryReport.Consignee_FK = _input.UIWmsDelivery.ORG_Consignee_FK;
+                    value.UISPMSDeliveryReport.ConsigneeCode = _input.UIWmsDelivery.ConsigneeCode;
+                    value.UISPMSDeliveryReport.ConsigneeName = _input.UIWmsDelivery.ConsigneeName;
+                    value.UISPMSDeliveryReport.StatusCode = _input.UIWmsDelivery.WorkOrderStatus;
+                    value.UISPMSDeliveryReport.StatusDescription = _input.UIWmsDelivery.WorkOrderStatusDesc;
+                    value.UISPMSDeliveryReport.RequestMode = _input.UIWmsWorkorderReport.RequestMode;
+                    value.UISPMSDeliveryReport.ResponseType = _input.UIWmsWorkorderReport.ResponseType;
+                    value.UISPMSDeliveryReport.DropPoint = _input.UIWmsWorkorderReport.AdditionalRef1Code;
+                    value.UISPMSDeliveryReport.RequesterName = _input.UIWmsWorkorderReport.Requester;
+                    value.UISPMSDeliveryReport.AcknowledgedPerson = _input.UIWmsWorkorderReport.AcknowledgedPerson;
+                    value.UISPMSDeliveryReport.AcknowledgedDateTime = _input.UIWmsWorkorderReport.AcknowledgementDateTime
+                    value.UISPMSDeliveryReport.RequestedDateTime = _input.UIWmsWorkorderReport.DeliveryRequestedDateTime;
+                    value.UISPMSDeliveryReport.RequesterContactNumber = _input.UIWmsWorkorderReport.RequesterContactNo;
+                    value.UISPMSDeliveryReport.DeliveryRequestNo = _input.UIWmsDelivery.WorkOrderID;
+                    value.UISPMSDeliveryReport.CancelledDateTime = _input.UIWmsDelivery.CancelledDate;
+                    value.UISPMSDeliveryReport.DeliveryLineRefNo = value.AdditionalRef1Code;
+                    value.UISPMSDeliveryReport.ProductCode = value.ProductCode;
+                    value.UISPMSDeliveryReport.ProductDescription = value.ProductDescription;
+                    value.UISPMSDeliveryReport.Packs = value.Packs;
+                    value.UISPMSDeliveryReport.PackType = value.PAC_PackType;
+                    value.UISPMSDeliveryReport.Quantity = value.Units;
+                    value.UISPMSDeliveryReport.UQ = value.StockKeepingUnit;
+                    value.UISPMSDeliveryReport.ProductCondition = value.ProductCondition;
+                    value.UISPMSDeliveryReport.UDF1 = value.PartAttrib1;
+                    value.UISPMSDeliveryReport.UDF2 = value.PartAttrib2;
+                    value.UISPMSDeliveryReport.UDF3 = value.PartAttrib3;
+                    value.UISPMSDeliveryReport.PackingDate = value.PackingDate;
+                    value.UISPMSDeliveryReport.ExpiryDate = value.ExpiryDate;
+                    value.UISPMSDeliveryReport.DeliveryComments = value.LineComment;
+                    value.UISPMSDeliveryReport.IsModified = value.IsModified;
+                    value.UISPMSDeliveryReport.IsDeleted = value.IsDeleted;
+                    value.UISPMSDeliveryReport.DeliveryLine_FK = value.PK;
+                });
+
                 apiService.post("eAxisAPI", appConfig.Entities.WmsDeliveryList.API.Insert.Url, _input).then(function (response) {
                     if (response.data.Response) {
                         $item.isNew = false;
@@ -210,6 +257,48 @@
                     RaiseCSRCtrl.ePage.Masters.Loading = false;
                 });
             } else {
+                angular.forEach(_input.UIWmsDeliveryLine, function (value, key) {
+                    value.UISPMSDeliveryReport.PK = value.UISPMSDeliveryReport.PK;
+                    value.UISPMSDeliveryReport.Client_Fk = _input.UIWmsDelivery.ORG_Client_FK;
+                    value.UISPMSDeliveryReport.ClientCode = _input.UIWmsDelivery.ClientCode;
+                    value.UISPMSDeliveryReport.ClientName = _input.UIWmsDelivery.ClientName;
+                    value.UISPMSDeliveryReport.Warehouse_Fk = _input.UIWmsDelivery.WAR_FK;
+                    value.UISPMSDeliveryReport.WarehouseCode = _input.UIWmsDelivery.WarehouseCode;
+                    value.UISPMSDeliveryReport.WarehouseName = _input.UIWmsDelivery.WarehouseName;
+                    value.UISPMSDeliveryReport.Consignee_FK = _input.UIWmsDelivery.ORG_Consignee_FK;
+                    value.UISPMSDeliveryReport.ConsigneeCode = _input.UIWmsDelivery.ConsigneeCode;
+                    value.UISPMSDeliveryReport.ConsigneeName = _input.UIWmsDelivery.ConsigneeName;
+                    value.UISPMSDeliveryReport.StatusCode = _input.UIWmsDelivery.WorkOrderStatus;
+                    value.UISPMSDeliveryReport.StatusDescription = _input.UIWmsDelivery.WorkOrderStatusDesc;
+                    value.UISPMSDeliveryReport.RequestMode = _input.UIWmsWorkorderReport.RequestMode;
+                    value.UISPMSDeliveryReport.ResponseType = _input.UIWmsWorkorderReport.ResponseType;
+                    value.UISPMSDeliveryReport.DropPoint = _input.UIWmsWorkorderReport.AdditionalRef1Code;
+                    value.UISPMSDeliveryReport.RequesterName = _input.UIWmsWorkorderReport.Requester;
+                    value.UISPMSDeliveryReport.AcknowledgedPerson = _input.UIWmsWorkorderReport.AcknowledgedPerson;
+                    value.UISPMSDeliveryReport.AcknowledgedDateTime = _input.UIWmsWorkorderReport.AcknowledgementDateTime
+                    value.UISPMSDeliveryReport.RequestedDateTime = _input.UIWmsWorkorderReport.DeliveryRequestedDateTime;
+                    value.UISPMSDeliveryReport.RequesterContactNumber = _input.UIWmsWorkorderReport.RequesterContactNo;
+                    value.UISPMSDeliveryReport.DeliveryRequestNo = _input.UIWmsDelivery.WorkOrderID;
+                    value.UISPMSDeliveryReport.CancelledDateTime = _input.UIWmsDelivery.CancelledDate;
+                    value.UISPMSDeliveryReport.DeliveryLineRefNo = value.AdditionalRef1Code;
+                    value.UISPMSDeliveryReport.ProductCode = value.ProductCode;
+                    value.UISPMSDeliveryReport.ProductDescription = value.ProductDescription;
+                    value.UISPMSDeliveryReport.Packs = value.Packs;
+                    value.UISPMSDeliveryReport.PackType = value.PAC_PackType;
+                    value.UISPMSDeliveryReport.Quantity = value.Units;
+                    value.UISPMSDeliveryReport.UQ = value.StockKeepingUnit;
+                    value.UISPMSDeliveryReport.ProductCondition = value.ProductCondition;
+                    value.UISPMSDeliveryReport.UDF1 = value.PartAttrib1;
+                    value.UISPMSDeliveryReport.UDF2 = value.PartAttrib2;
+                    value.UISPMSDeliveryReport.UDF3 = value.PartAttrib3;
+                    value.UISPMSDeliveryReport.PackingDate = value.PackingDate;
+                    value.UISPMSDeliveryReport.ExpiryDate = value.ExpiryDate;
+                    value.UISPMSDeliveryReport.DeliveryComments = value.LineComment;
+                    value.UISPMSDeliveryReport.IsModified = value.IsModified;
+                    value.UISPMSDeliveryReport.IsDeleted = value.IsDeleted;
+                    value.UISPMSDeliveryReport.DeliveryLine_FK = value.PK;
+                });
+
                 $item = filterObjectUpdate($item, "IsModified");
                 apiService.post("eAxisAPI", appConfig.Entities.WmsDeliveryList.API.Update.Url, _input).then(function (response) {
                     if (response.data.Response) {
