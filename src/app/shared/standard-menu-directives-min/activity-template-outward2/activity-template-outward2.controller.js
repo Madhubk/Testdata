@@ -196,7 +196,7 @@
                                                                             };
 
                                                                             apiService.post("eAxisAPI", appConfig.Entities.WmsDeliveryReport.API.FindAll.Url, _input).then(function (response) {
-                                                                                if (response.data.Response) {
+                                                                                if (response.data.Response) {                                                                                    
                                                                                     if (response.data.Response.length > 0) {
                                                                                         response.data.Response[0].IsModified = true;
                                                                                         if (ActivityTemplateOutward2Ctrl.taskObj.WSI_StepName == "Arrange Material") {
@@ -212,6 +212,13 @@
                                                                                             response.data.Response[0].Manifest_Fk = myTaskActivityConfig.Entities.ManifestData.TmsManifestHeader.PK;
                                                                                             response.data.Response[0].Consignment_Fk = myTaskActivityConfig.Entities.ManifestData.TmsManifestConsignment[0].TMC_FK;
                                                                                             response.data.Response[0].ConsignmentNumber = myTaskActivityConfig.Entities.ManifestData.TmsManifestConsignment[0].TMC_ConsignmentNumber;
+                                                                                            response.data.Response[0].ManifestType = myTaskActivityConfig.Entities.ManifestData.TmsManifestHeader.ManifestTypeDesc;
+                                                                                            response.data.Response[0].VehicleType = myTaskActivityConfig.Entities.ManifestData.TmsManifestHeader.VehicleTypeDescription;
+                                                                                            response.data.Response[0].VehicleNo = myTaskActivityConfig.Entities.ManifestData.TmsManifestHeader.VehicleNo;
+                                                                                            response.data.Response[0].DriverName = myTaskActivityConfig.Entities.ManifestData.TmsManifestHeader.DriveName;
+                                                                                            response.data.Response[0].DriverContactNo = myTaskActivityConfig.Entities.ManifestData.TmsManifestHeader.DriverContactNo;
+                                                                                            response.data.Response[0].EstimatedDispatchDate = myTaskActivityConfig.Entities.ManifestData.TmsManifestHeader.EstimatedDispatchDate;
+                                                                                            response.data.Response[0].EstimatedDeliveryDate = myTaskActivityConfig.Entities.ManifestData.TmsManifestHeader.EstimatedDeliveryDate;
                                                                                         } else if (ActivityTemplateOutward2Ctrl.taskObj.WSI_StepName == "Get POD and Return to Order Desk") {
                                                                                             response.data.Response[0].ManifestType = myTaskActivityConfig.Entities.ManifestData.TmsManifestHeader.ManifestTypeDesc;
                                                                                             response.data.Response[0].VehicleType = myTaskActivityConfig.Entities.ManifestData.TmsManifestHeader.VehicleTypeDescription;
@@ -222,6 +229,9 @@
                                                                                             response.data.Response[0].EstimatedDeliveryDate = myTaskActivityConfig.Entities.ManifestData.TmsManifestHeader.EstimatedDeliveryDate;
                                                                                             response.data.Response[0].ActualDispatchDate = myTaskActivityConfig.Entities.ManifestData.TmsManifestConsignment[0].TMC_ActualPickupDateTime;
                                                                                             response.data.Response[0].AcutalDeliveryDate = myTaskActivityConfig.Entities.ManifestData.TmsManifestConsignment[0].TMC_ActualDeliveryDateTime;
+                                                                                            response.data.Response[0].Receiver = myTaskActivityConfig.Entities.DeliveryData.UIWmsWorkorderReport.Receiver;
+                                                                                            response.data.Response[0].ReceiverName = myTaskActivityConfig.Entities.DeliveryData.UIWmsWorkorderReport.Receiver;
+                                                                                            response.data.Response[0].ReceiverContactNumber = myTaskActivityConfig.Entities.DeliveryData.UIWmsWorkorderReport.ReceiverContactNo;
                                                                                         }
                                                                                         apiService.post("eAxisAPI", appConfig.Entities.WmsDeliveryReport.API.Update.Url, response.data.Response[0]).then(function (response) {
                                                                                             if (response.data.Response) {
