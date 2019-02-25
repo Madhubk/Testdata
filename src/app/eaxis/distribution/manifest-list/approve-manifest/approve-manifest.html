@@ -1,7 +1,8 @@
 <div class="col-lg-12 mt-15">
     <div class="rows border-box border-radius-2 bg-fbfbfb">
         <div class="col-xs-4 col-sm-4 col-md-2 col-lg-2 col-xl-2 pt-10 pb-10">
-            <div class="tab-profile-title text-single-line fs-16" data-ng-bind="ApproveManifestCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ManifestNumber"></div>
+            <div class="tab-profile-title text-single-line fs-16"
+                data-ng-bind="ApproveManifestCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ManifestNumber"></div>
         </div>
 
         <!--Sender-->
@@ -19,56 +20,58 @@
             </div>
         </div>
         <div class="col-lg-2 mt-10">
-            <div class="tab-profile-sub-title text-single-line fs-14" title="{{ApproveManifestCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ManifestStatus}} - {{ApproveManifestCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ManifestStatusDesc}}"
-                data-ng-bind="ApproveManifestCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ManifestStatusDesc"></div>
+            <div class="tab-profile-sub-title text-single-line fs-14"
+                title="{{ApproveManifestCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ManifestStatus}} - {{ApproveManifestCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ManifestStatusDesc}}"
+                data-ng-bind="ApproveManifestCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ManifestStatusDesc">
+            </div>
         </div>
     </div>
 </div>
 <div class="clearfix col-lg-12 mt-10">
     <div class="rows border-box border-radius-2 pt-15 height-60">
         <div class="col-lg-12 p-0">
-           
-                <div class="col-lg-3">
-                    <div class="form-group">
-                        <div class="color-999 fs-11">Transporter</div>
-                        <div class="text-single-line">
-                            <span>{{ApproveManifestCtrl.ePage.Entities.Header.Data.TmsManifestHeader.TransporterName||ApproveManifestCtrl.ePage.Masters.Empty}}</span>
-                        </div>
+
+            <div class="col-lg-3">
+                <div class="form-group">
+                    <div class="color-999 fs-11">Carrier</div>
+                    <div class="text-single-line">
+                        <span>{{ApproveManifestCtrl.ePage.Entities.Header.Data.TmsManifestHeader.TransporterName||ApproveManifestCtrl.ePage.Masters.Empty}}</span>
                     </div>
                 </div>
-                <div class="col-lg-3">
-                    <div class="form-group">
-                        <div class="color-999 fs-11">Manifest Type</div>
-                        <span>{{ApproveManifestCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ManifestType||ApproveManifestCtrl.ePage.Masters.Empty}}</span>
-                    </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="form-group">
+                    <div class="color-999 fs-11">Manifest Type</div>
+                    <span>{{ApproveManifestCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ManifestType||ApproveManifestCtrl.ePage.Masters.Empty}}</span>
                 </div>
-                <div class="col-lg-3">
-                    <div class="form-group">
-                        <div class="color-999 fs-11">Vehicle Type</div>
-                        <span>{{ApproveManifestCtrl.ePage.Entities.Header.Data.TmsManifestHeader.VehicleTypeDescription||ApproveManifestCtrl.ePage.Masters.Empty}}</span>
-                    </div>
+            </div>
+            <div class="col-lg-3" data-ng-if="ApproveManifestCtrl.ePage.Entities.Header.Data.TmsManifestHeader.TransporterType == 'Transportation' || ApproveManifestCtrl.ePage.Entities.Header.Data.TmsManifestHeader.TransporterType == 'LastMileDelivery'">
+                <div class="form-group">
+                    <div class="color-999 fs-11">Vehicle Type</div>
+                    <span>{{ApproveManifestCtrl.ePage.Entities.Header.Data.TmsManifestHeader.VehicleTypeDescription||ApproveManifestCtrl.ePage.Masters.Empty}}</span>
                 </div>
-                <div class="col-lg-3">
-                    <div class="form-group">
-                        <div class="color-999 fs-11">Load Type</div>
-                        <span>{{ApproveManifestCtrl.ePage.Entities.Header.Data.TmsManifestHeader.LoadType | dateFormat}}</span>
-                    </div>
+            </div>
+            <div class="col-lg-3" data-ng-if="ApproveManifestCtrl.ePage.Entities.Header.Data.TmsManifestHeader.TransporterType == 'Transportation' || ApproveManifestCtrl.ePage.Entities.Header.Data.TmsManifestHeader.TransporterType == 'LastMileDelivery'">
+                <div class="form-group">
+                    <div class="color-999 fs-11">Load Type</div>
+                    <span>{{ApproveManifestCtrl.ePage.Entities.Header.Data.TmsManifestHeader.LoadType | dateFormat}}</span>
                 </div>
-            
-            
-                <div class="col-lg-3">
-                    <div class="form-group">
-                        <div class="color-999 fs-11">Est Delivery Date</div>
-                        <span>{{ApproveManifestCtrl.ePage.Entities.Header.Data.TmsManifestHeader.EstimatedDeliveryDate | date:"dd-MMM-yyyy h:mm a"}}</span>
-                    </div>
+            </div>
+
+
+            <div class="col-lg-3">
+                <div class="form-group">
+                    <div class="color-999 fs-11">Est Delivery Date</div>
+                    <span>{{ApproveManifestCtrl.ePage.Entities.Header.Data.TmsManifestHeader.EstimatedDeliveryDate | date:"dd-MMM-yyyy h:mm a"}}</span>
                 </div>
-                <div class="col-lg-3">
-                    <div class="form-group">
-                        <div class="color-999 fs-11">Est Dispatch Date</div>
-                        <span>{{ApproveManifestCtrl.ePage.Entities.Header.Data.TmsManifestHeader.EstimatedDispatchDate | date:"dd-MMM-yyyy h:mm a"}}</span>
-                    </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="form-group">
+                    <div class="color-999 fs-11">Est Dispatch Date</div>
+                    <span>{{ApproveManifestCtrl.ePage.Entities.Header.Data.TmsManifestHeader.EstimatedDispatchDate | date:"dd-MMM-yyyy h:mm a"}}</span>
                 </div>
-                <div class="col-lg-3">
+            </div>
+            <!-- <div class="col-lg-3">
                     <div class="form-group">
                         <label class="color-999 fs-11">Transportation Cost</label>
                         <div class="">
@@ -76,8 +79,8 @@
                                 data-ng-model="ApproveManifestCtrl.ePage.Entities.Header.Data.TmsManifestHeader.TransportationCost" ng-disabled = "ApproveManifestCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ManifestCompleteDatetime">
                         </div>
                     </div>
-                </div>
-                <div class="col-lg-3">
+                </div> -->
+            <!-- <div class="col-lg-3">
                     <div class="form-group">
                         <label class="color-999 fs-11">Currency</label>
                         <select chosen class="form-control" ng-model="ApproveManifestCtrl.ePage.Entities.Header.Data.TmsManifestHeader.CostCurrency" ng-options="x.Key as x.Key+' - '+x.Value for x in ApproveManifestCtrl.ePage.Masters.DropDownMasterList.Currency.ListSource"
@@ -85,16 +88,17 @@
                                 <option value="">--Select--</option>
                         </select>
                     </div>
-                </div>     
-                        
-            
+                </div>      -->
+
+
         </div>
-        
-        
+
+
     </div>
 </div>
 <div class="clearfix col-lg-12 mt-10">
-    <div class="dmstable_scroll" id='ApproveManifestCtrl.ePage.Masters.your_div' style="height:145px; padding-top: 2px;">
+    <div class="dmstable_scroll" id='ApproveManifestCtrl.ePage.Masters.your_div'
+        style="height:145px; padding-top: 2px;">
         <div class="table" id="results">
             <div class='theader'>
                 <div class='table_header'>Consignment Number</div>
@@ -103,12 +107,12 @@
                 <div class='table_header'>Client</div>
                 <div class='table_header'>Service Type</div>
                 <div class='table_header'>Status</div>
-                <div class='table_header'>Sender Reference</div>
-                <div class='table_header'>Receiver Reference</div>
+                <div class='table_header'>Sender Reference / Invoice No</div>
+                <div class='table_header'>Receiver Reference / Docket No</div>
                 <div class='table_header'>Expected Pickup Date Time</div>
                 <div class='table_header'>Expected Delivery Date Time</div>
-                <div class='table_header'>Billable Amount</div>
-                <div class='table_header pr-30 pl-30'>Currency</div>
+                <!-- <div class='table_header'>Billable Amount</div> -->
+                <!-- <div class='table_header pr-30 pl-30'>Currency</div> -->
             </div>
 
             <!-- List Empty Response -->
@@ -116,20 +120,24 @@
                 <div class="text-no-record grid-width" style="bottom:38px">No Record Found</div>
             </div>
 
-            <div class='table_row' ng-repeat="x in ApproveManifestCtrl.ePage.Entities.Header.Data.TmsManifestConsignment | filter:{IsDeleted:'false'}  track by $index"
-                ng-click="ApproveManifestCtrl.ePage.Masters.setSelectedRow($index)" ng-class="{row_active: ApproveManifestCtrl.ePage.Masters.selectedRow==$index}"
-                style="font-size: 11px;">
+            <div class='table_row'
+                ng-repeat="x in ApproveManifestCtrl.ePage.Entities.Header.Data.TmsManifestConsignment | filter:{IsDeleted:'false'}  track by $index"
+                ng-click="ApproveManifestCtrl.ePage.Masters.setSelectedRow($index)"
+                ng-class="{row_active: ApproveManifestCtrl.ePage.Masters.selectedRow==$index}" style="font-size: 11px;">
                 <div class='table_small'>
                     <div class='table_cell'>Consignment Number</div>
-                    <div class='table_cell'>{{x.TMC_ConsignmentNumber || ApproveManifestCtrl.ePage.Masters.emptyText}}</div>
+                    <div class='table_cell'>{{x.TMC_ConsignmentNumber || ApproveManifestCtrl.ePage.Masters.emptyText}}
+                    </div>
                 </div>
                 <div class='table_small'>
                     <div class='table_cell'>Sender</div>
-                    <div class='table_cell'>{{x.TMC_SenderCode || ApproveManifestCtrl.ePage.Masters.emptyText}} - {{x.TMC_SenderName || ApproveManifestCtrl.ePage.Masters.emptyText}}</div>
+                    <div class='table_cell'>{{x.TMC_SenderCode || ApproveManifestCtrl.ePage.Masters.emptyText}} -
+                        {{x.TMC_SenderName || ApproveManifestCtrl.ePage.Masters.emptyText}}</div>
                 </div>
                 <div class='table_small'>
                     <div class='table_cell'>Receiver</div>
-                    <div class='table_cell'>{{x.TMC_ReceiverCode || ApproveManifestCtrl.ePage.Masters.emptyText}} - {{x.TMC_ReceiverName || ApproveManifestCtrl.ePage.Masters.emptyText}}</div>
+                    <div class='table_cell'>{{x.TMC_ReceiverCode || ApproveManifestCtrl.ePage.Masters.emptyText}} -
+                        {{x.TMC_ReceiverName || ApproveManifestCtrl.ePage.Masters.emptyText}}</div>
                 </div>
                 <div class='table_small'>
                     <div class='table_cell'>Client</div>
@@ -144,11 +152,11 @@
                     <div class='table_cell'>{{x.TMC_Status || ApproveManifestCtrl.ePage.Masters.emptyText}}</div>
                 </div>
                 <div class='table_small'>
-                    <div class='table_cell'>Sender Reference</div>
+                    <div class='table_cell'>Sender Reference / Invoice No</div>
                     <div class='table_cell'>{{x.TMC_SenderRef || ApproveManifestCtrl.ePage.Masters.emptyText}}</div>
                 </div>
                 <div class='table_small'>
-                    <div class='table_cell'>Receiver Reference </div>
+                    <div class='table_cell'>Receiver Reference / Docket No</div>
                     <div class='table_cell'>{{x.TMC_ReceiverRef || ApproveManifestCtrl.ePage.Masters.emptyText}}</div>
                 </div>
                 <div class='table_small'>
@@ -159,7 +167,7 @@
                     <div class='table_cell'>Expected Delivery Date Time</div>
                     <div class='table_cell'>{{x.TMC_ExpectedDeliveryDateTime | date:"dd-MMM-yyyy h:mm a"}}</div>
                 </div>
-                <div class='table_small'>
+                <!-- <div class='table_small'>
                     <div class='table_cell'>Billable Amount</div>
                     <div class='table_cell'>
                         <div class="">
@@ -167,8 +175,8 @@
                             data-ng-model="x.TMC_BillableAmount" ng-disabled = "ApproveManifestCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ManifestCompleteDatetime">
                         </div>
                     </div>
-                </div>
-                <div class='table_small'>
+                </div> -->
+                <!-- <div class='table_small'>
                     <div class='table_cell'>Currency</div>
                     <div class='table_cell'>
                         <div class="">
@@ -178,14 +186,15 @@
                             </select>
                         </div>
                     </div>
-                </div>
+                </div> -->
 
             </div>
         </div>
     </div>
 </div>
 <div class="clearfix col-lg-12 mt-10">
-    <div class="dmstable_scroll" id='ApproveManifestCtrl.ePage.Masters.your_div' style="height:145px; padding-top: 2px; padding-bottom: 40px">
+    <div class="dmstable_scroll" id='ApproveManifestCtrl.ePage.Masters.your_div'
+        style="height:145px; padding-top: 2px; padding-bottom: 40px">
         <div class="table" id="results">
             <div class='theader'>
                 <div class='table_header'>Item</div>
@@ -207,12 +216,14 @@
                 <div class="text-no-record grid-width" style="bottom:38px">No Record Found</div>
             </div>
 
-            <div class='table_row' ng-repeat="x in ApproveManifestCtrl.ePage.Entities.Header.Data.TmsManifestItem | filter:{IsDeleted:'false'}  track by $index"
-                ng-click="ApproveManifestCtrl.ePage.Masters.setSelectedRow($index)" ng-class="{row_active: ApproveManifestCtrl.ePage.Masters.selectedRow==$index}"
-                style="font-size: 11px;">
+            <div class='table_row'
+                ng-repeat="x in ApproveManifestCtrl.ePage.Entities.Header.Data.TmsManifestItem | filter:{IsDeleted:'false'}  track by $index"
+                ng-click="ApproveManifestCtrl.ePage.Masters.setSelectedRow($index)"
+                ng-class="{row_active: ApproveManifestCtrl.ePage.Masters.selectedRow==$index}" style="font-size: 11px;">
                 <div class='table_small'>
                     <div class='table_cell'>Item</div>
-                    <div class='table_cell'>{{x.TIT_ItemCode || ApproveManifestCtrl.ePage.Masters.emptyText}} - {{x.TIT_ItemDesc || ApproveManifestCtrl.ePage.Masters.emptyText}}</div>
+                    <div class='table_cell'>{{x.TIT_ItemCode || ApproveManifestCtrl.ePage.Masters.emptyText}} -
+                        {{x.TIT_ItemDesc || ApproveManifestCtrl.ePage.Masters.emptyText}}</div>
                 </div>
                 <div class='table_small'>
                     <div class='table_cell'>MHU Type</div>
@@ -224,19 +235,23 @@
                 </div>
                 <div class='table_small'>
                     <div class='table_cell'>Sender</div>
-                    <div class='table_cell'>{{x.TIT_SenderCode || ApproveManifestCtrl.ePage.Masters.emptyText}} - {{x.TIT_SenderName || ApproveManifestCtrl.ePage.Masters.emptyText}}</div>
+                    <div class='table_cell'>{{x.TIT_SenderCode || ApproveManifestCtrl.ePage.Masters.emptyText}} -
+                        {{x.TIT_SenderName || ApproveManifestCtrl.ePage.Masters.emptyText}}</div>
                 </div>
                 <div class='table_small'>
                     <div class='table_cell'>Receiver</div>
-                    <div class='table_cell'>{{x.TIT_ReceiverCode || ApproveManifestCtrl.ePage.Masters.emptyText}} - {{x.TIT_ReceiverName || ApproveManifestCtrl.ePage.Masters.emptyText}}</div>
+                    <div class='table_cell'>{{x.TIT_ReceiverCode || ApproveManifestCtrl.ePage.Masters.emptyText}} -
+                        {{x.TIT_ReceiverName || ApproveManifestCtrl.ePage.Masters.emptyText}}</div>
                 </div>
                 <div class='table_small'>
                     <div class='table_cell'>Status</div>
-                    <div class='table_cell'>{{x.TIT_ItemStatusDesc || ApproveManifestCtrl.ePage.Masters.emptyText}}</div>
+                    <div class='table_cell'>{{x.TIT_ItemStatusDesc || ApproveManifestCtrl.ePage.Masters.emptyText}}
+                    </div>
                 </div>
                 <div class='table_small'>
                     <div class='table_cell'>Consignment Number</div>
-                    <div class='table_cell'> {{x.TMC_ConsignmentNumber || ApproveManifestCtrl.ePage.Masters.emptyText}} </div>
+                    <div class='table_cell'> {{x.TMC_ConsignmentNumber || ApproveManifestCtrl.ePage.Masters.emptyText}}
+                    </div>
                 </div>
                 <div class='table_small'>
                     <div class='table_cell'>UDF 1</div>

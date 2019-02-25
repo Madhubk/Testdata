@@ -1,11 +1,13 @@
 <!-- Saving Your Data -->
-<div class="grid-loading-norecord-container ng-scope" style='z-index: 4;' data-ng-if="ManifestOrdersCtrl.ePage.Masters.IsLoadingToSave">
+<div class="grid-loading-norecord-container ng-scope" style='z-index: 4;'
+    data-ng-if="ManifestOrdersCtrl.ePage.Masters.IsLoadingToSave">
     <div class="text-no-record">Saving your Data...</div>
 </div>
 <div class="col-lg-12 mt-5">
     <div class="rows border-box border-radius-2 bg-fbfbfb">
         <div class="col-xs-4 col-sm-4 col-md-2 col-lg-2 col-xl-2 pt-10 pb-10">
-            <div class="tab-profile-title text-single-line fs-16" data-ng-bind="ManifestOrdersCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ManifestNumber"></div>
+            <div class="tab-profile-title text-single-line fs-16"
+                data-ng-bind="ManifestOrdersCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ManifestNumber"></div>
         </div>
 
         <!--Sender-->
@@ -23,55 +25,67 @@
             </div>
         </div>
         <div class="col-lg-2 mt-10">
-            <div class="tab-profile-sub-title text-single-line fs-14" title="{{ManifestOrdersCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ManifestStatus}} - {{ManifestOrdersCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ManifestStatusDesc}}"
+            <div class="tab-profile-sub-title text-single-line fs-14"
+                title="{{ManifestOrdersCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ManifestStatus}} - {{ManifestOrdersCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ManifestStatusDesc}}"
                 data-ng-bind="ManifestOrdersCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ManifestStatusDesc"></div>
         </div>
     </div>
 </div>
 <!--Order Details-->
-<div class="clearfix col-lg-12 mt-10">
-    <!--Radio Button Details-->
-    <div class="radio">
-        <label>
-            <input type="radio" value="SalesOrder" ng-model="ManifestOrdersCtrl.ePage.Masters.SelectRadioBtn"
-                data-ng-change="ManifestOrdersCtrl.ePage.Masters.RadioButton(ManifestOrdersCtrl.ePage.Masters.SelectRadioBtn)">
-            <span class="text">WMS Consignment</span>
-        </label>
-        <label>
-            <input type="radio" value="Consignment" ng-model="ManifestOrdersCtrl.ePage.Masters.SelectRadioBtn"
-                data-ng-change="ManifestOrdersCtrl.ePage.Masters.RadioButton(ManifestOrdersCtrl.ePage.Masters.SelectRadioBtn)">
-            <span class="text">Non-WMS Consignment</span>
-        </label>
-        <!-- <label>
+
+<!--Radio Button Details-->
+<div class="col-lg-12 mt-5" style="margin-bottom: 5px;">
+    <div class="rows border-box border-radius-2 bg-fbfbfb">
+        <div class="radio">
+            <div class="col-xs-4 col-sm-4 col-md-3 col-lg-3 col-xl-3 pt-10 pb-10">
+                <label>
+                    <input type="radio" value="SalesOrder" ng-model="ManifestOrdersCtrl.ePage.Masters.SelectRadioBtn"
+                        data-ng-change="ManifestOrdersCtrl.ePage.Masters.RadioButton(ManifestOrdersCtrl.ePage.Masters.SelectRadioBtn)">
+                    <span class="text">WMS Consignment</span>
+                </label>
+            </div>
+            <div class="col-xs-4 col-sm-4 col-md-3 col-lg-3 col-xl-3 pt-10 pb-10">
+                <label>
+                    <input type="radio" value="Consignment" ng-model="ManifestOrdersCtrl.ePage.Masters.SelectRadioBtn"
+                        data-ng-change="ManifestOrdersCtrl.ePage.Masters.RadioButton(ManifestOrdersCtrl.ePage.Masters.SelectRadioBtn)">
+                    <span class="text">Non-WMS Consignment</span>
+                </label>
+            </div>
+            <div class="col-xs-4 col-sm-4 col-md-6 col-lg-6 col-xl-6 pt-10 pb-10"></div>
+            <!-- <label>
             <input type="radio" value="ASNLine" ng-model="ManifestOrdersCtrl.ePage.Masters.SelectRadioBtn"
                 data-ng-change="ManifestOrdersCtrl.ePage.Masters.RadioButton(ManifestOrdersCtrl.ePage.Masters.SelectRadioBtn)">
             <span class="text">ASN</span>
         </label> -->
+        </div>
     </div>
-    <!-- Buttons -->
+</div>
+<!-- Buttons -->
+<div class="clearfix col-lg-12 mt-10">
     <div>
         <!-- Sales Order Attach Button -->
         <span data-ng-if="ManifestOrdersCtrl.ePage.Masters.SalesOrder">
             <button dynamic-list-modal obj="ManifestOrdersCtrl.ePage.Entities.Header.Data.TmsManifestHeader"
-                default-filter="ManifestOrdersCtrl.ePage.Masters.AttachDefaultFilter" selected-data="ManifestOrdersCtrl.ePage.Masters.Attach($item)"
-                page-name="'WorkOrder'" mode="3" grid-refresh-fun-name="" grid-refresh-fun="" class="btn btn-sm btn-outline-primary"
-                type="button">
+                default-filter="ManifestOrdersCtrl.ePage.Masters.AttachDefaultFilter"
+                selected-data="ManifestOrdersCtrl.ePage.Masters.Attach($item)" page-name="'WorkOrder'" mode="3"
+                grid-refresh-fun-name="" grid-refresh-fun="" class="btn btn-sm btn-outline-primary" type="button">
                 <i class="fa fa-plus-circle"></i> Attach</button>
         </span>
         <!-- Consignment Attach Button -->
         <span data-ng-if="ManifestOrdersCtrl.ePage.Masters.Consignment">
             <button dynamic-list-modal obj="ManifestOrdersCtrl.ePage.Entities.Header.Data.TmsManifestHeader"
-                default-filter="ManifestOrdersCtrl.ePage.Masters.AttachCONDefaultFilter" selected-data="ManifestOrdersCtrl.ePage.Masters.AttachConsignment($item)"
-                page-name="'DistributionConsignment'" mode="3" grid-refresh-fun-name="" grid-refresh-fun="" class="btn btn-sm btn-outline-primary"
-                type="button">
+                default-filter="ManifestOrdersCtrl.ePage.Masters.AttachCONDefaultFilter"
+                selected-data="ManifestOrdersCtrl.ePage.Masters.AttachConsignment($item)"
+                page-name="'DistributionConsignment'" mode="3" grid-refresh-fun-name="" grid-refresh-fun=""
+                class="btn btn-sm btn-outline-primary" type="button">
                 <i class="fa fa-plus-circle"></i> Attach</button>
         </span>
         <!-- ASN Line Attach Button -->
         <span data-ng-if="ManifestOrdersCtrl.ePage.Masters.ASNLine">
             <button dynamic-list-modal obj="ManifestOrdersCtrl.ePage.Entities.Header.Data.TmsManifestHeader"
-                default-filter="ManifestOrdersCtrl.ePage.Masters.AttachDefaultFilterASN" selected-data="ManifestOrdersCtrl.ePage.Masters.AttachASN($item)"
-                page-name="'WarehouseInward'" mode="3" grid-refresh-fun-name="" grid-refresh-fun="" class="btn btn-sm btn-outline-primary"
-                type="button">
+                default-filter="ManifestOrdersCtrl.ePage.Masters.AttachDefaultFilterASN"
+                selected-data="ManifestOrdersCtrl.ePage.Masters.AttachASN($item)" page-name="'WarehouseInward'" mode="3"
+                grid-refresh-fun-name="" grid-refresh-fun="" class="btn btn-sm btn-outline-primary" type="button">
                 <i class="fa fa-plus-circle"></i> Attach</button>
         </span>
         <!-- Remove Button -->
@@ -91,8 +105,8 @@
                 <div class='table_header'>Client</div>
                 <div class='table_header'>Service Type</div>
                 <div class='table_header'>Status</div>
-                <div class='table_header'>Sender Reference</div>
-                <div class='table_header'>Receiver Reference</div>
+                <div class='table_header'>Sender Reference / Invoice No</div>
+                <div class='table_header'>Receiver Reference / Docket No</div>
                 <div class='table_header'>Expected Pickup Date Time</div>
                 <div class='table_header'>Expected Delivery Date Time</div>
             </div>
@@ -102,9 +116,10 @@
                 <div class="text-no-record grid-width" style="bottom:6px">No Record Found</div>
             </div>
 
-            <div class='table_row' ng-repeat="x in ManifestOrdersCtrl.ePage.Entities.Header.Data.TmsManifestConsignment track by $index"
-                ng-click="ManifestOrdersCtrl.ePage.Masters.setSelectedRow($index)" ng-class="{row_active: ManifestOrdersCtrl.ePage.Masters.selectedRow==$index}"
-                style="font-size: 11px;">
+            <div class='table_row'
+                ng-repeat="x in ManifestOrdersCtrl.ePage.Entities.Header.Data.TmsManifestConsignment track by $index"
+                ng-click="ManifestOrdersCtrl.ePage.Masters.setSelectedRow($index)"
+                ng-class="{row_active: ManifestOrdersCtrl.ePage.Masters.selectedRow==$index}" style="font-size: 11px;">
                 <div class='table_small'>
                     <div class='table_cell'>Consignment Number</div>
                     <div class='table_cell'>
@@ -137,25 +152,29 @@
                     <div class='table_cell'>{{x.TMC_Status || ManifestOrdersCtrl.ePage.Masters.emptyText}}</div>
                 </div>
                 <div class='table_small'>
-                    <div class='table_cell'>Sender Reference</div>
+                    <div class='table_cell'>Sender Reference / Invoice No</div>
                     <div class='table_cell'>{{x.TMC_SenderRef || ManifestOrdersCtrl.ePage.Masters.emptyText}}</div>
                 </div>
                 <div class='table_small'>
-                    <div class='table_cell'>Receiver Reference </div>
+                    <div class='table_cell'>Receiver Reference / Docket No</div>
                     <div class='table_cell'>{{x.TMC_ReceiverRef || ManifestOrdersCtrl.ePage.Masters.emptyText}}</div>
                 </div>
                 <div class='table_small'>
                     <div class='table_cell'>Expected Pickup Date Time</div>
                     <div class="input-group input-group-sm p-5">
-                        <input type="text" class="form-control" placeholder="{{ManifestOrdersCtrl.ePage.Masters.DatePicker.Options.dateTimeFormat}}"
+                        <input type="text" class="form-control"
+                            placeholder="{{ManifestOrdersCtrl.ePage.Masters.DatePicker.Options.dateTimeFormat}}"
                             datetime-picker="{{ManifestOrdersCtrl.ePage.Masters.DatePicker.Options.dateTimeFormat}}"
-                            ng-model="x.TMC_ExpectedPickupDateTime" is-open="ManifestOrdersCtrl.ePage.Masters.DatePicker.isOpen['isTMC_ExpectedPickupDateTime'+[$index]]"
+                            ng-model="x.TMC_ExpectedPickupDateTime"
+                            is-open="ManifestOrdersCtrl.ePage.Masters.DatePicker.isOpen['isTMC_ExpectedPickupDateTime'+[$index]]"
                             datepicker-options="ManifestOrdersCtrl.ePage.Masters.DatePicker.Options"
-                            datepicker-append-to-body="false" close-on-selection="false" enable-time="true" enable-date="true"
-                            default-date="" default-time="" when-closed="" save-as="ManifestOrdersCtrl.ePage.Masters.DatePicker.Options.saveFormat"
-                            data-ng-click="" data-ng-change="" custom-date-time-format />
+                            datepicker-append-to-body="false" close-on-selection="false" enable-time="true"
+                            enable-date="true" default-date="" default-time="" when-closed=""
+                            save-as="ManifestOrdersCtrl.ePage.Masters.DatePicker.Options.saveFormat" data-ng-click=""
+                            data-ng-change="" custom-date-time-format />
                         <span class="input-group-btn">
-                            <button type="button" class="btn btn-default" data-ng-click="ManifestOrdersCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isTMC_ExpectedPickupDateTime'+[$index])">
+                            <button type="button" class="btn btn-default"
+                                data-ng-click="ManifestOrdersCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isTMC_ExpectedPickupDateTime'+[$index])">
                                 <i class="fa fa-calendar"></i>
                             </button>
                         </span>
@@ -164,15 +183,19 @@
                 <div class='table_small'>
                     <div class='table_cell'>Expected Delivery Date Time</div>
                     <div class="input-group input-group-sm p-5">
-                        <input type="text" class="form-control" placeholder="{{ManifestOrdersCtrl.ePage.Masters.DatePicker.Options.dateTimeFormat}}"
+                        <input type="text" class="form-control"
+                            placeholder="{{ManifestOrdersCtrl.ePage.Masters.DatePicker.Options.dateTimeFormat}}"
                             datetime-picker="{{ManifestOrdersCtrl.ePage.Masters.DatePicker.Options.dateTimeFormat}}"
-                            ng-model="x.TMC_ExpectedDeliveryDateTime" is-open="ManifestOrdersCtrl.ePage.Masters.DatePicker.isOpen['isTMC_ExpectedDeliveryDateTime'+[$index]]"
+                            ng-model="x.TMC_ExpectedDeliveryDateTime"
+                            is-open="ManifestOrdersCtrl.ePage.Masters.DatePicker.isOpen['isTMC_ExpectedDeliveryDateTime'+[$index]]"
                             datepicker-options="ManifestOrdersCtrl.ePage.Masters.DatePicker.Options"
-                            datepicker-append-to-body="false" close-on-selection="false" enable-time="true" enable-date="true"
-                            default-date="" default-time="" when-closed="" save-as="ManifestOrdersCtrl.ePage.Masters.DatePicker.Options.saveFormat"
-                            data-ng-click="" data-ng-change="" custom-date-time-format />
+                            datepicker-append-to-body="false" close-on-selection="false" enable-time="true"
+                            enable-date="true" default-date="" default-time="" when-closed=""
+                            save-as="ManifestOrdersCtrl.ePage.Masters.DatePicker.Options.saveFormat" data-ng-click=""
+                            data-ng-change="" custom-date-time-format />
                         <span class="input-group-btn">
-                            <button type="button" class="btn btn-default" data-ng-click="ManifestOrdersCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isTMC_ExpectedDeliveryDateTime'+[$index])">
+                            <button type="button" class="btn btn-default"
+                                data-ng-click="ManifestOrdersCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isTMC_ExpectedDeliveryDateTime'+[$index])">
                                 <i class="fa fa-calendar"></i>
                             </button>
                         </span>
@@ -189,19 +212,22 @@
                 <!-- Sales ADD to Line -->
                 <span data-ng-if="ManifestOrdersCtrl.ePage.Masters.SalesOrder">
                     <button type="button" class="btn btn-sm btn-outline-primary font-10" title="Add To Line"
-                        data-ng-click="ManifestOrdersCtrl.ePage.Masters.AddToLine()" ng-disabled="ManifestOrdersCtrl.ePage.Entities.Header.GlobalVariables.Finalized">
+                        data-ng-click="ManifestOrdersCtrl.ePage.Masters.AddToLine()"
+                        ng-disabled="ManifestOrdersCtrl.ePage.Entities.Header.GlobalVariables.Finalized">
                         <span class="fa fa-plus"></span>&nbsp;&nbsp;Add To Line</button>
                 </span>
                 <!-- Consignment ADD to Line -->
                 <span data-ng-if="ManifestOrdersCtrl.ePage.Masters.Consignment">
                     <button type="button" class="btn btn-sm btn-outline-primary font-10" title="Add To Line"
-                        data-ng-click="ManifestOrdersCtrl.ePage.Masters.AddConsignment()" ng-disabled="ManifestOrdersCtrl.ePage.Entities.Header.GlobalVariables.Finalized">
+                        data-ng-click="ManifestOrdersCtrl.ePage.Masters.AddConsignment()"
+                        ng-disabled="ManifestOrdersCtrl.ePage.Entities.Header.GlobalVariables.Finalized">
                         <span class="fa fa-plus"></span>&nbsp;&nbsp;Add To Line</button>
                 </span>
                 <!-- ASN ADD to Line -->
                 <span data-ng-if="ManifestOrdersCtrl.ePage.Masters.ASNLine">
                     <button type="button" class="btn btn-sm btn-outline-primary font-10" title="Add To Line"
-                        data-ng-click="ManifestOrdersCtrl.ePage.Masters.AddASN()" ng-disabled="ManifestOrdersCtrl.ePage.Entities.Header.GlobalVariables.Finalized">
+                        data-ng-click="ManifestOrdersCtrl.ePage.Masters.AddASN()"
+                        ng-disabled="ManifestOrdersCtrl.ePage.Entities.Header.GlobalVariables.Finalized">
                         <span class="fa fa-plus"></span>&nbsp;&nbsp;Add To Line</button>
                 </span>
                 <span>
@@ -210,32 +236,38 @@
                         <span class="fa fa-filter"></span>&nbsp;&nbsp;Customize</button>
                 </span>
             </div>
-            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 custom_label" data-ng-if="ManifestOrdersCtrl.ePage.Masters.SalesOrder">
+            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 custom_label"
+                data-ng-if="ManifestOrdersCtrl.ePage.Masters.SalesOrder">
                 Order Details
             </div>
-            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 custom_label" data-ng-if="ManifestOrdersCtrl.ePage.Masters.Consignment">
+            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 custom_label"
+                data-ng-if="ManifestOrdersCtrl.ePage.Masters.Consignment">
                 Consignment Details
             </div>
-            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 custom_label" data-ng-if="ManifestOrdersCtrl.ePage.Masters.ASNLine">
+            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 custom_label"
+                data-ng-if="ManifestOrdersCtrl.ePage.Masters.ASNLine">
                 ASN Details
             </div>
             <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
 
             </div>
             <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 col-xl-1 pr-0">
-                <button class="btn btn-primary btn-xs filter-sidebar-setting ml-5 dl-filter-btn pull-right" ng-click="ManifestOrdersCtrl.ePage.Masters.GetFilterList()">
+                <button class="btn btn-primary btn-xs filter-sidebar-setting ml-5 dl-filter-btn pull-right"
+                    ng-click="ManifestOrdersCtrl.ePage.Masters.GetFilterList()">
                     <i class="fa fa-filter txt-color-blueDark"></i> Filter</button>
             </div>
         </div>
         <!-- Sales Order -->
-        <div data-ng-if="ManifestOrdersCtrl.ePage.Masters.SalesOrder" class="dmstable_scroll" style="height:200px; padding-top: 2px;margin-bottom:30px">
+        <div data-ng-if="ManifestOrdersCtrl.ePage.Masters.SalesOrder" class="dmstable_scroll"
+            style="height:200px; padding-top: 2px;margin-bottom:30px">
             <div class="" style="position: relative;">
                 <div class="table" id="results">
                     <div class='theader'>
                         <div class='table_header'>
                             <label>
                                 <input type="checkbox" ng-change="ManifestOrdersCtrl.ePage.Masters.SelectAllCheckBox()"
-                                    ng-checked="ManifestOrdersCtrl.ePage.Masters.SelectAll" ng-model="ManifestOrdersCtrl.ePage.Masters.SelectAll">
+                                    ng-checked="ManifestOrdersCtrl.ePage.Masters.SelectAll"
+                                    ng-model="ManifestOrdersCtrl.ePage.Masters.SelectAll">
                                 <span class="text"></span>
                             </label>
                         </div>
@@ -253,18 +285,22 @@
                     <div data-ng-if="ManifestOrdersCtrl.ePage.Masters.OrderDetails.length==0">
                         <div class="text-no-record" style="top:120px;">No records found...</div>
                     </div>
-                    <div class="grid-loading-norecord-container" data-ng-show="ManifestOrdersCtrl.ePage.Masters.IsLoading">
+                    <div class="grid-loading-norecord-container"
+                        data-ng-show="ManifestOrdersCtrl.ePage.Masters.IsLoading">
                         <div class="grid-loading">Loading...</div>
                     </div>
-                    <div data-ng-if="ManifestOrdersCtrl.ePage.Masters.OrderDetails == undefind" data-ng-show="!ManifestOrdersCtrl.ePage.Masters.IsLoading">
+                    <div data-ng-if="ManifestOrdersCtrl.ePage.Masters.OrderDetails == undefind"
+                        data-ng-show="!ManifestOrdersCtrl.ePage.Masters.IsLoading">
                         <div class="text-no-record" style="width: 203px;top:100px">Please filter the Order List</div>
                     </div>
-                    <div class='table_row' ng-repeat="x in ManifestOrdersCtrl.ePage.Masters.OrderDetails" style="font-size: 11px;">
+                    <div class='table_row' ng-repeat="x in ManifestOrdersCtrl.ePage.Masters.OrderDetails"
+                        style="font-size: 11px;">
                         <div class='table_small'>
                             <div class='table_cell'></div>
                             <div class='table_cell pt-0 pb-0'>
                                 <label class="mb-0">
-                                    <input type="checkbox" ng-checked="x.SingleSelect" ng-change="ManifestOrdersCtrl.ePage.Masters.SingleSelectCheckBox()"
+                                    <input type="checkbox" ng-checked="x.SingleSelect"
+                                        ng-change="ManifestOrdersCtrl.ePage.Masters.SingleSelectCheckBox()"
                                         ng-model="x.SingleSelect"> </input>
                                     <span class="text"></span>
                                 </label>
@@ -272,7 +308,8 @@
                         </div>
                         <div class='table_small'>
                             <div class='table_cell'>Reference No</div>
-                            <div class='table_cell'>{{x.WorkOrderID || ManifestOrdersCtrl.ePage.Masters.emptyText}}</div>
+                            <div class='table_cell'>{{x.WorkOrderID || ManifestOrdersCtrl.ePage.Masters.emptyText}}
+                            </div>
                         </div>
                         <div class='table_small'>
                             <div class='table_cell'>Client</div>
@@ -318,14 +355,16 @@
             <div class="mt-40"></div>
         </div>
         <!-- Consignment -->
-        <div data-ng-if="ManifestOrdersCtrl.ePage.Masters.Consignment" class="dmstable_scroll" style="height:200px; padding-top: 2px;margin-bottom:30px">
+        <div data-ng-if="ManifestOrdersCtrl.ePage.Masters.Consignment" class="dmstable_scroll"
+            style="height:200px; padding-top: 2px;margin-bottom:30px">
             <div class="" style="position: relative;">
                 <div class="table" id="results">
                     <div class='theader'>
                         <div class='table_header'>
                             <label>
                                 <input type="checkbox" ng-change="ManifestOrdersCtrl.ePage.Masters.SelectAllCheckBox()"
-                                    ng-checked="ManifestOrdersCtrl.ePage.Masters.SelectAll" ng-model="ManifestOrdersCtrl.ePage.Masters.SelectAll">
+                                    ng-checked="ManifestOrdersCtrl.ePage.Masters.SelectAll"
+                                    ng-model="ManifestOrdersCtrl.ePage.Masters.SelectAll">
                                 <span class="text"></span>
                             </label>
                         </div>
@@ -342,18 +381,23 @@
                     <div data-ng-if="ManifestOrdersCtrl.ePage.Masters.OrderDetails.length==0">
                         <div class="text-no-record" style="top:120px;">No records found...</div>
                     </div>
-                    <div class="grid-loading-norecord-container" data-ng-show="ManifestOrdersCtrl.ePage.Masters.IsLoading">
+                    <div class="grid-loading-norecord-container"
+                        data-ng-show="ManifestOrdersCtrl.ePage.Masters.IsLoading">
                         <div class="grid-loading">Loading...</div>
                     </div>
-                    <div data-ng-if="ManifestOrdersCtrl.ePage.Masters.OrderDetails == undefind" data-ng-show="!ManifestOrdersCtrl.ePage.Masters.IsLoading">
-                        <div class="text-no-record" style="width: 203px;top:100px">Please filter the Consignment List</div>
+                    <div data-ng-if="ManifestOrdersCtrl.ePage.Masters.OrderDetails == undefind"
+                        data-ng-show="!ManifestOrdersCtrl.ePage.Masters.IsLoading">
+                        <div class="text-no-record" style="width: 203px;top:100px">Please filter the Consignment List
+                        </div>
                     </div>
-                    <div class='table_row' ng-repeat="x in ManifestOrdersCtrl.ePage.Masters.OrderDetails" style="font-size: 11px;">
+                    <div class='table_row' ng-repeat="x in ManifestOrdersCtrl.ePage.Masters.OrderDetails"
+                        style="font-size: 11px;">
                         <div class='table_small'>
                             <div class='table_cell'></div>
                             <div class='table_cell pt-0 pb-0'>
                                 <label class="mb-0">
-                                    <input type="checkbox" ng-checked="x.SingleSelect" ng-change="ManifestOrdersCtrl.ePage.Masters.SingleSelectCheckBox()"
+                                    <input type="checkbox" ng-checked="x.SingleSelect"
+                                        ng-change="ManifestOrdersCtrl.ePage.Masters.SingleSelectCheckBox()"
                                         ng-model="x.SingleSelect"> </input>
                                     <span class="text"></span>
                                 </label>
@@ -402,14 +446,16 @@
             <div class="mt-40"></div>
         </div>
         <!-- ASN Line -->
-        <div data-ng-if="ManifestOrdersCtrl.ePage.Masters.ASNLine" class="dmstable_scroll" style="height:200px; padding-top: 2px;margin-bottom:30px">
+        <div data-ng-if="ManifestOrdersCtrl.ePage.Masters.ASNLine" class="dmstable_scroll"
+            style="height:200px; padding-top: 2px;margin-bottom:30px">
             <div class="" style="position: relative;">
                 <div class="table" id="results">
                     <div class='theader'>
                         <div class='table_header'>
                             <label>
                                 <input type="checkbox" ng-change="ManifestOrdersCtrl.ePage.Masters.SelectAllCheckBox()"
-                                    ng-checked="ManifestOrdersCtrl.ePage.Masters.SelectAll" ng-model="ManifestOrdersCtrl.ePage.Masters.SelectAll">
+                                    ng-checked="ManifestOrdersCtrl.ePage.Masters.SelectAll"
+                                    ng-model="ManifestOrdersCtrl.ePage.Masters.SelectAll">
                                 <span class="text"></span>
                             </label>
                         </div>
@@ -426,18 +472,22 @@
                     <div data-ng-if="ManifestOrdersCtrl.ePage.Masters.OrderDetails.length==0">
                         <div class="text-no-record" style="top:120px;">No records found...</div>
                     </div>
-                    <div class="grid-loading-norecord-container" data-ng-show="ManifestOrdersCtrl.ePage.Masters.IsLoading">
+                    <div class="grid-loading-norecord-container"
+                        data-ng-show="ManifestOrdersCtrl.ePage.Masters.IsLoading">
                         <div class="grid-loading">Loading...</div>
                     </div>
-                    <div data-ng-if="ManifestOrdersCtrl.ePage.Masters.OrderDetails == undefind" data-ng-show="!ManifestOrdersCtrl.ePage.Masters.IsLoading">
+                    <div data-ng-if="ManifestOrdersCtrl.ePage.Masters.OrderDetails == undefind"
+                        data-ng-show="!ManifestOrdersCtrl.ePage.Masters.IsLoading">
                         <div class="text-no-record" style="width: 203px;top:100px">Please filter the Order List</div>
                     </div>
-                    <div class='table_row' ng-repeat="x in ManifestOrdersCtrl.ePage.Masters.OrderDetails" style="font-size: 11px;">
+                    <div class='table_row' ng-repeat="x in ManifestOrdersCtrl.ePage.Masters.OrderDetails"
+                        style="font-size: 11px;">
                         <div class='table_small'>
                             <div class='table_cell'></div>
                             <div class='table_cell pt-0 pb-0'>
                                 <label class="mb-0">
-                                    <input type="checkbox" ng-checked="x.SingleSelect" ng-change="ManifestOrdersCtrl.ePage.Masters.SingleSelectCheckBox()"
+                                    <input type="checkbox" ng-checked="x.SingleSelect"
+                                        ng-change="ManifestOrdersCtrl.ePage.Masters.SingleSelectCheckBox()"
                                         ng-model="x.SingleSelect"> </input>
                                     <span class="text"></span>
                                 </label>
@@ -445,7 +495,8 @@
                         </div>
                         <div class='table_small'>
                             <div class='table_cell'>Inward No</div>
-                            <div class='table_cell'>{{x.WorkOrderID || ManifestOrdersCtrl.ePage.Masters.emptyText}}</div>
+                            <div class='table_cell'>{{x.WorkOrderID || ManifestOrdersCtrl.ePage.Masters.emptyText}}
+                            </div>
                         </div>
                         <div class='table_small'>
                             <div class='table_cell'>Supplier</div>
@@ -490,8 +541,9 @@
 
 <!--FIlter Bar  -->
 <div id="filterSideBar{{ManifestOrdersCtrl.ePage.Masters.DynamicControl.DataEntryName}}{{ManifestOrdersCtrl.currentManifest.label}}"
-    data-ng-if="ManifestOrdersCtrl.ePage.Masters.DynamicControl" class="dynamic-filter-sidebar-wrapper  clearfix filter-text"
-    style="top: 295px; height: 200px; overflow-y: overlay;" data-ng-class="ManifestOrdersCtrl.ePage.Masters.ViewType == 1 ? 'one-column' : 'two-column'">
+    data-ng-if="ManifestOrdersCtrl.ePage.Masters.DynamicControl"
+    class="dynamic-filter-sidebar-wrapper  clearfix filter-text" style="top: 295px; height: 200px; overflow-y: overlay;"
+    data-ng-class="ManifestOrdersCtrl.ePage.Masters.ViewType == 1 ? 'one-column' : 'two-column'">
     <form name="filterSidebar" novalidate>
         <div class="header clearfix">
             <div class="title pull-left">
@@ -501,21 +553,26 @@
             <div class="btn-wrapper">
                 <ul class="clearfix">
                     <li style="margin-left: 50px;">
-                        <div class="filter-save-icon filter-save-icon-toggle" ng-if="ManifestOrdersCtrl.ePage.Masters.DataEntryMaster.OtherConfig.IsFavorite"
-                            data-ng-disabled="!ManifestOrdersCtrl.ePage.Masters.DataEntryMaster" data-ng-click="ManifestOrdersCtrl.ePage.Masters.DataEntryMaster.IsShowSaveSettingsTxtBox = !ManifestOrdersCtrl.ePage.Masters.DataEntryMaster.IsShowSaveSettingsTxtBox ">
-                            <i class="" data-ng-class="ManifestOrdersCtrl.ePage.Masters.DataEntryMaster.IsShowSaveSettingsTxtBox ? 'fa fa-star' : 'fa fa-star-o'"></i>
+                        <div class="filter-save-icon filter-save-icon-toggle"
+                            ng-if="ManifestOrdersCtrl.ePage.Masters.DataEntryMaster.OtherConfig.IsFavorite"
+                            data-ng-disabled="!ManifestOrdersCtrl.ePage.Masters.DataEntryMaster"
+                            data-ng-click="ManifestOrdersCtrl.ePage.Masters.DataEntryMaster.IsShowSaveSettingsTxtBox = !ManifestOrdersCtrl.ePage.Masters.DataEntryMaster.IsShowSaveSettingsTxtBox ">
+                            <i class=""
+                                data-ng-class="ManifestOrdersCtrl.ePage.Masters.DataEntryMaster.IsShowSaveSettingsTxtBox ? 'fa fa-star' : 'fa fa-star-o'"></i>
                         </div>
                     </li>
                     <li>
-                        <span style="font-size: 24px;" class="cursor-pointer" data-ng-class="ManifestOrdersCtrl.ePage.Masters.IsDynamicControlAccess ? 'fa fa-toggle-on' : 'fa fa-toggle-off'"
+                        <span style="font-size: 24px;" class="cursor-pointer"
+                            data-ng-class="ManifestOrdersCtrl.ePage.Masters.IsDynamicControlAccess ? 'fa fa-toggle-on' : 'fa fa-toggle-off'"
                             data-ng-click="ManifestOrdersCtrl.ePage.Masters.IsDynamicControlAccess = !ManifestOrdersCtrl.ePage.Masters.IsDynamicControlAccess"></span>
                     </li>
                     <li>
-                        <button class="filter-title-btn" ng-click="ManifestOrdersCtrl.ePage.Masters.Clear()">Clear</button>
+                        <button class="filter-title-btn"
+                            ng-click="ManifestOrdersCtrl.ePage.Masters.Clear()">Clear</button>
                     </li>
                     <li>
-                        <input type="submit" class="filter-title-btn" ng-click="ManifestOrdersCtrl.ePage.Masters.Filter();"
-                            value="Apply">
+                        <input type="submit" class="filter-title-btn"
+                            ng-click="ManifestOrdersCtrl.ePage.Masters.Filter();" value="Apply">
                     </li>
                     <li>
                         <span class="filter-toggle-icon" ng-click="ManifestOrdersCtrl.ePage.Masters.CloseFilterList()">
@@ -528,7 +585,8 @@
         <div class="filter-list clearfix">
             <div class="clearfix" data-ng-if="ManifestOrdersCtrl.ePage.Masters.DynamicControl">
                 <dynamic-control input="ManifestOrdersCtrl.ePage.Masters.DynamicControl" mode="S" control-style=""
-                    default-filter="ManifestOrdersCtrl.ePage.Masters.defaultFilter" toggle="ManifestOrdersCtrl.ePage.Masters.IsDynamicControlAccess"
+                    default-filter="ManifestOrdersCtrl.ePage.Masters.defaultFilter"
+                    toggle="ManifestOrdersCtrl.ePage.Masters.IsDynamicControlAccess"
                     view-type="ManifestOrdersCtrl.ePage.Masters.ViewType"></dynamic-control>
             </div>
         </div>

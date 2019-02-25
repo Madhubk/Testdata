@@ -163,7 +163,7 @@
                                     "Icon": "fa fa-plane",
                                     "GParentRef": "confirmtransportbooking"
                                 }, {
-                                    "DisplayName": "Complete Manifest",
+                                    "DisplayName": "Confirm Verify & Delivery",
                                     "Value": "CompleteManifest",
                                     "Icon": "fa fa-plane",
                                     "GParentRef": "completemanifest"
@@ -194,7 +194,7 @@
                                     "Icon": "fa fa-plane",
                                     "GParentRef": "approvemanifest"
                                 }, {
-                                    "DisplayName": "Complete Manifest",
+                                    "DisplayName": "Confirm Verify & Delivery",
                                     "Value": "CompleteManifest",
                                     "Icon": "fa fa-plane",
                                     "GParentRef": "completemanifest"
@@ -224,6 +224,11 @@
                                     "Value": "Issueexitgatepass",
                                     "Icon": "fa fa-plane",
                                     "GParentRef": "issueexitgatepass"
+                                },{
+                                    "DisplayName": "Generate DRS",
+                                    "Value": "deliveryrunsheet",
+                                    "Icon": "fa fa-plane",
+                                    "GParentRef": "deliveryrunsheet"
                                 }]
                             },
                             "ErrorWarning": {

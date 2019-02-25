@@ -179,6 +179,14 @@
                     'app/eaxis/distribution/manifest-list/start-load/start-load.directive.js'
                 ]
             },
+            {
+                name: 'deliveryRunsheet',
+                files: [
+                    'app/eaxis/distribution/manifest-list/delivery-runsheet/delivery-runsheet.css',
+                    'app/eaxis/distribution/manifest-list/delivery-runsheet/delivery-runsheet.controller.js',
+                    'app/eaxis/distribution/manifest-list/delivery-runsheet/delivery-runsheet.directive.js'
+                ]
+            }, 
             //region read only
             {
                 name: 'CreateManifestView',
