@@ -45,13 +45,13 @@
                     <span>{{ApproveManifestCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ManifestType||ApproveManifestCtrl.ePage.Masters.Empty}}</span>
                 </div>
             </div>
-            <div class="col-lg-3" data-ng-if="ApproveManifestCtrl.ePage.Masters.Config.TransporterTypeValue == 'Transportation' || ApproveManifestCtrl.ePage.Masters.Config.TransporterTypeValue == 'LastMileDelivery'">
+            <div class="col-lg-3" data-ng-if="ApproveManifestCtrl.ePage.Entities.Header.Data.TmsManifestHeader.TransporterType == 'Transportation' || ApproveManifestCtrl.ePage.Entities.Header.Data.TmsManifestHeader.TransporterType == 'LastMileDelivery'">
                 <div class="form-group">
                     <div class="color-999 fs-11">Vehicle Type</div>
                     <span>{{ApproveManifestCtrl.ePage.Entities.Header.Data.TmsManifestHeader.VehicleTypeDescription||ApproveManifestCtrl.ePage.Masters.Empty}}</span>
                 </div>
             </div>
-            <div class="col-lg-3" data-ng-if="ApproveManifestCtrl.ePage.Masters.Config.TransporterTypeValue == 'Transportation' || ApproveManifestCtrl.ePage.Masters.Config.TransporterTypeValue == 'LastMileDelivery'">
+            <div class="col-lg-3" data-ng-if="ApproveManifestCtrl.ePage.Entities.Header.Data.TmsManifestHeader.TransporterType == 'Transportation' || ApproveManifestCtrl.ePage.Entities.Header.Data.TmsManifestHeader.TransporterType == 'LastMileDelivery'">
                 <div class="form-group">
                     <div class="color-999 fs-11">Load Type</div>
                     <span>{{ApproveManifestCtrl.ePage.Entities.Header.Data.TmsManifestHeader.LoadType | dateFormat}}</span>

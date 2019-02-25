@@ -29,6 +29,7 @@
                 CompleteManifestCtrl.ePage.Masters.MenuList = CompleteManifestCtrl.ePage.Entities.Header.Meta.MenuList.LoadMenu;
             }
 
+            CompleteManifestCtrl.ePage.Masters.DropDownMasterList={};
             CompleteManifestCtrl.ePage.Masters.Empty = "-";
             CompleteManifestCtrl.ePage.Masters.Config = dmsManifestConfig;
             GetDropdownList()
