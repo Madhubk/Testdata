@@ -63,7 +63,7 @@
                 }else{
                     item.EXCELGenerating = true;
                 }
-
+                obj.FileType = format;
                 obj.JobDocs.EntityRefKey = item.Id;
                 obj.JobDocs.EntitySource = 'WMS';
                 obj.JobDocs.EntityRefCode = item.Description;
