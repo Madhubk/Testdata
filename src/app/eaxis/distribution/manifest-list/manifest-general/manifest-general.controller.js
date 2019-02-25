@@ -66,8 +66,8 @@
             if (!ManifestGeneralCtrl.currentManifest.isNew)
                 generalOperation();
 
-            ManifestGeneralCtrl.ePage.Masters.TransporterTypeRadioBtn = 'Transportation'
-            ManifestGeneralCtrl.ePage.Masters.Transportation = true;
+            // ManifestGeneralCtrl.ePage.Masters.TransporterTypeRadioBtn = 'Transportation'
+            // ManifestGeneralCtrl.ePage.Masters.Transportation = true;
             ManifestGeneralCtrl.ePage.Masters.SelectRadioButton = SelectRadioButton;
 
             GetNewManifestAddress();
@@ -78,19 +78,9 @@
 
         function SelectRadioButton(value) {
             dmsManifestConfig.TransporterTypeValue = value;
-            if (value == "ExpressDelivery") {
-                ManifestGeneralCtrl.ePage.Masters.ExpressDelivery = true;
-                ManifestGeneralCtrl.ePage.Masters.Transportation = false;
-                ManifestGeneralCtrl.ePage.Masters.LastMileDelivery = false;
-            } else if (value == "LastMileDelivery") {
-                ManifestGeneralCtrl.ePage.Masters.LastMileDelivery = true;
-                ManifestGeneralCtrl.ePage.Masters.ExpressDelivery = false;
-                ManifestGeneralCtrl.ePage.Masters.Transportation = false;
-            } else if (value == "Transportation") {
-                ManifestGeneralCtrl.ePage.Masters.Transportation = true;
-                ManifestGeneralCtrl.ePage.Masters.LastMileDelivery = false;
-                ManifestGeneralCtrl.ePage.Masters.ExpressDelivery = false;
-            }
+            console.log(ManifestGeneralCtrl.ePage.Entities.Header.Data.TmsManifestHeader.TransporterType)
+            console.log(dmsManifestConfig.TransporterTypeValue);
+            ManifestGeneralCtrl.ePage.Entities.Header.Data.TmsManifestHeader.TransporterType = value;
         }
 
         function OnFieldValueChange(code) {
