@@ -65,8 +65,10 @@
                 ManifestGeneralCtrl.ePage.Entities.Header.Data.TmsManifestHeader.TransportMode = ManifestGeneralCtrl.ePage.Masters.TransportMode[0];
             if (!ManifestGeneralCtrl.currentManifest.isNew)
                 generalOperation();
-
-            // ManifestGeneralCtrl.ePage.Masters.TransporterTypeRadioBtn = 'Transportation'
+                
+            if (ManifestGeneralCtrl.currentManifest.isNew) {
+                ManifestGeneralCtrl.ePage.Entities.Header.Data.TmsManifestHeader.TransporterType = 'Transportation'
+            }
             // ManifestGeneralCtrl.ePage.Masters.Transportation = true;
             ManifestGeneralCtrl.ePage.Masters.SelectRadioButton = SelectRadioButton;
 
