@@ -274,6 +274,7 @@
 
             var obj = item.OtherConfig.ReportTemplate;
 
+            obj.FileType = format;
             obj.JobDocs.EntityRefKey = item.Id;
             obj.JobDocs.EntitySource = 'WMS';
             obj.JobDocs.EntityRefCode = item.Description;

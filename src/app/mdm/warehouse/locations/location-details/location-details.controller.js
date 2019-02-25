@@ -125,7 +125,7 @@
                     LocationDetailsCtrl.ePage.Entities.Header.Data.WmsRow.Trays = 1;
                 } 
                 LocationDetailsCtrl.ePage.Masters.DropdownCountForColumns = [];
-                for(var i =0;i<500;i++){
+                for(var i =0;i<1000;i++){
                     var obj = {};
                     obj.Value = i;
                     if(LocationDetailsCtrl.ePage.Entities.Header.GlobalVariables.CanEditLocation && (i<=LocationDetailsCtrl.ePage.Entities.Header.Data.WmsRow.Columns)){
@@ -137,7 +137,7 @@
                 }
 
                 LocationDetailsCtrl.ePage.Masters.DropdownCountForLevels = [];
-                for(var i =0;i<500;i++){
+                for(var i =0;i<1000;i++){
                     var obj = {};
                     obj.Value = i;
                     if(LocationDetailsCtrl.ePage.Entities.Header.GlobalVariables.CanEditLocation && (i<=LocationDetailsCtrl.ePage.Entities.Header.Data.WmsRow.Levels)){

@@ -436,14 +436,13 @@
             });
         }
 
-        function GenerateDocuments(item, type) {
+        function GenerateDocuments(item, format) {
             
             CycleCountMenuCtrl.ePage.Masters.DisableReport = true;
 
             var obj = item.OtherConfig.ReportTemplate;
-            if (type == 'excel') {
-                obj.FileType = "Excel"
-            }
+
+            obj.FileType = format;
             obj.JobDocs.EntityRefKey = item.Id;
             obj.JobDocs.EntitySource = 'WMS';
             obj.JobDocs.EntityRefCode = item.Description;
