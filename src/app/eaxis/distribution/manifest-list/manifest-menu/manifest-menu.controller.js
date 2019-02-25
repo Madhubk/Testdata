@@ -52,12 +52,13 @@
             DMSManifestMenuCtrl.ePage.Masters.RejectButtonText = "Reject Manifest";
             DMSManifestMenuCtrl.ePage.Masters.ApproveText = "Approve Manifest";
             DMSManifestMenuCtrl.ePage.Masters.TransportText = "Confirm Transport";
-            DMSManifestMenuCtrl.ePage.Masters.CompleteText = "Complete Manifest";
+            DMSManifestMenuCtrl.ePage.Masters.CompleteText = "Confirm Verify & Delivery";
             DMSManifestMenuCtrl.ePage.Masters.ConfirmDockText = "Confirm Dock";
             DMSManifestMenuCtrl.ePage.Masters.StartLoadText = "Start Load";
             DMSManifestMenuCtrl.ePage.Masters.CompleteLoadText = "Complete Load";
             DMSManifestMenuCtrl.ePage.Masters.DockoutText = "Dock Out";
             DMSManifestMenuCtrl.ePage.Masters.GateoutText = "Gate Out";
+            DMSManifestMenuCtrl.ePage.Masters.DeliveryRunsheetText = "Generate DRS"
             DMSManifestMenuCtrl.ePage.Masters.CreateManifestText = "Attach Consignment";
             DMSManifestMenuCtrl.ePage.Masters.ConfirmVehicleText = "Confirm Vehicle";
             DMSManifestMenuCtrl.ePage.Masters.ConfirmPickupText = "Confirm Pickup";
@@ -134,8 +135,8 @@
             if (DMSManifestMenuCtrl.ePage.Masters.Confirm) {
                 DMSManifestMenuCtrl.ePage.Masters.ConfirmText = "Please Wait..";
                 DMSManifestMenuCtrl.ePage.Entities.Header.Data.TmsManifestHeader.SubmittedDateTime = new Date();
-                DMSManifestMenuCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ApprovalStatus = "Approved";
-                DMSManifestMenuCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ApproveOrRejectDateTime = new Date();
+                // DMSManifestMenuCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ApprovalStatus = "Approved";
+                // DMSManifestMenuCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ApproveOrRejectDateTime = new Date();
             }
             if (DMSManifestMenuCtrl.ePage.Masters.Reject) {
                 DMSManifestMenuCtrl.ePage.Masters.RejectButtonText = "Please Wait..";
@@ -235,7 +236,7 @@
                                 DMSManifestMenuCtrl.ePage.Masters.Transport = false;
                             }
                             if (DMSManifestMenuCtrl.ePage.Masters.Complete) {
-                                DMSManifestMenuCtrl.ePage.Masters.CompleteText = "Complete Manifest";
+                                DMSManifestMenuCtrl.ePage.Masters.CompleteText = "Confirm Verify & Delivery";
                                 toastr.success("Manifest Completed Successfully");
                                 DMSManifestMenuCtrl.ePage.Masters.Complete = false;
                             }
@@ -254,7 +255,7 @@
                         DMSManifestMenuCtrl.ePage.Masters.RejectButtonText = "Reject Manifest";
                         DMSManifestMenuCtrl.ePage.Masters.ApproveText = "Approve Manifest";
                         DMSManifestMenuCtrl.ePage.Masters.TransportText = "Confirm Transport";
-                        DMSManifestMenuCtrl.ePage.Masters.CompleteText = "Complete Manifest";
+                        DMSManifestMenuCtrl.ePage.Masters.CompleteText = "Confirm Verify & Delivery";
                         DMSManifestMenuCtrl.ePage.Masters.ConfirmPickupText = "Confirm Pickup";
                         DMSManifestMenuCtrl.ePage.Masters.ConfirmDeliveryText = "Confirm Delivery";
                         DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.IsLoadingToSave = false;
@@ -333,6 +334,12 @@
                     DMSManifestMenuCtrl.ePage.Entities.Header.Data.GatepassList[0].DockoutTime = new Date();
                 }
             }
+            if (DMSManifestMenuCtrl.ePage.Masters.DeliveryRunsheet) {
+                DMSManifestMenuCtrl.ePage.Masters.DeliveryRunsheetText = "Please Wait..";
+                if (DMSManifestMenuCtrl.ePage.Entities.Header.Data.GatepassList.length > 0) {
+                    DMSManifestMenuCtrl.ePage.Entities.Header.Data.GatepassList[0].GateoutTime;
+                }
+            }
             if (DMSManifestMenuCtrl.ePage.Masters.Gateout) {
                 var res = DMSManifestMenuCtrl.ePage.Masters.ManifestMenu.ListSource[DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.ActiveMenu].DisplayName.split(" ");
                 if (res[1] == "Pickup") {
@@ -387,9 +394,15 @@
                             }
                             if (DMSManifestMenuCtrl.ePage.Masters.Gateout) {
                                 toastr.success("Gate Out Successfully");
-                                DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.IsCallMenuFunction = true;
+                                // DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.IsCallMenuFunction = true;
                                 DMSManifestMenuCtrl.ePage.Masters.GateoutText = "Gate Out";
                                 DMSManifestMenuCtrl.ePage.Masters.Gateout = false;
+                            }
+                            if (DMSManifestMenuCtrl.ePage.Masters.DeliveryRunsheet) {
+                                toastr.success("Generated DRS Successfully");
+                                DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.IsCallMenuFunction = true;
+                                DMSManifestMenuCtrl.ePage.Masters.DeliveryRunsheetText = "Generate DRS";
+                                DMSManifestMenuCtrl.ePage.Masters.DeliveryRunsheet = false;
                             }
                             DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.IsLoadingToSave = false;
                             $timeout(function () {
@@ -402,6 +415,8 @@
                         DMSManifestMenuCtrl.ePage.Masters.CompleteLoadText = "Complete Load";
                         DMSManifestMenuCtrl.ePage.Masters.DockoutText = "Dock Out";
                         DMSManifestMenuCtrl.ePage.Masters.GateoutText = "Gate Out";
+                        DMSManifestMenuCtrl.ePage.Masters.DeliveryRunsheetText = "Generate DRS";
+                        DMSManifestMenuCtrl.ePage.Masters.DeliveryRunsheet = false;
                         DMSManifestMenuCtrl.ePage.Masters.Gateout = false;
                         DMSManifestMenuCtrl.ePage.Masters.Dockout = false;
                         DMSManifestMenuCtrl.ePage.Masters.CompleteLoad = false;
@@ -636,7 +651,7 @@
                     apiService.post("eAxisAPI", DMSManifestMenuCtrl.ePage.Entities.Header.API.OrgHeaderWarehouse.Url, _input).then(function (response) {
                         if (response.data.Response.length > 0) {
                             DMSManifestMenuCtrl.ePage.Masters.SenderClient = response.data.Response[0].WarehouseCode;
-                            if (DMSManifestMenuCtrl.ePage.Masters.SenderClient) {
+                            if (DMSManifestMenuCtrl.ePage.Masters.SenderClient && (DMSManifestMenuCtrl.ePage.Entities.Header.Data.TmsManifestHeader.TransporterType == 'Transportation' || DMSManifestMenuCtrl.ePage.Entities.Header.Data.TmsManifestHeader.TransporterType == 'LastMileDelivery')) {
                                 MenuList.SubMenu = DMSManifestMenuCtrl.ePage.Entities.Header.Meta.MenuList.SubMenu;
                                 GetDesign(DMSManifestMenuCtrl.ePage.Masters.ManifestMenu.ListSource[DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.ActiveMenu].Value, DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.ActiveMenu, "MainMenu")
                             }
@@ -665,7 +680,7 @@
                     apiService.post("eAxisAPI", DMSManifestMenuCtrl.ePage.Entities.Header.API.OrgHeaderWarehouse.Url, _input).then(function (response) {
                         if (response.data.Response.length > 0) {
                             DMSManifestMenuCtrl.ePage.Masters.ReceiverClient = response.data.Response[0].WarehouseCode;
-                            if (DMSManifestMenuCtrl.ePage.Masters.ReceiverClient) {
+                            if (DMSManifestMenuCtrl.ePage.Masters.ReceiverClient && (DMSManifestMenuCtrl.ePage.Entities.Header.Data.TmsManifestHeader.TransporterType == 'Transportation' || DMSManifestMenuCtrl.ePage.Entities.Header.Data.TmsManifestHeader.TransporterType == 'LastMileDelivery')) {
                                 angular.forEach(DMSManifestMenuCtrl.ePage.Entities.Header.Meta.MenuList.SubMenu, function (value, key) {
                                     if (value.Value == "LoadItems") {
                                         value.DisplayName = "Complete Unload";
@@ -719,24 +734,24 @@
                                         isError = true;
                                     }
                                 }
-                                // else if (mainIndex == 3) {
-                                //     if (DMSManifestMenuCtrl.ePage.Entities.Header.Data.TmsManifestConsignment.length == 0 || DMSManifestMenuCtrl.ePage.Entities.Header.Data.TmsManifestItem.length == 0) {
-                                //         isError = true;
-                                //     }
-                                // } 
                                 else if (mainIndex == 3) {
+                                    if (DMSManifestMenuCtrl.ePage.Entities.Header.Data.TmsManifestConsignment.length == 0 || DMSManifestMenuCtrl.ePage.Entities.Header.Data.TmsManifestItem.length == 0) {
+                                        isError = true;
+                                    }
+                                } 
+                                else if (mainIndex == 4) {
                                     if (!DMSManifestMenuCtrl.ePage.Entities.Header.Data.TmsManifestHeader.SubmittedDateTime) {
                                         isError = true;
                                     }
-                                } else if (mainIndex == 3 && value == "ConfirmTransportBooking") {
+                                } else if (mainIndex == 5 && value == "ConfirmTransportBooking") {
                                     if (!DMSManifestMenuCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ApproveOrRejectDateTime) {
                                         isError = true;
                                     }
-                                } else if (mainIndex > 3 && value != "CompleteManifest") {
+                                } else if (mainIndex > 5 && value != "CompleteManifest") {
                                     if (!DMSManifestMenuCtrl.ePage.Entities.Header.Data.TmsManifestHeader.TransportBookedDateTime) {
                                         isError = true;
                                     }
-                                } else if (mainIndex > 3 && value == "CompleteManifest") {
+                                } else if (mainIndex > 5 && value == "CompleteManifest") {
                                     var deliveryDateCount = 0;
                                     angular.forEach(DMSManifestMenuCtrl.ePage.Entities.Header.Data.TmsManifestConsignment, function (value, key) {
                                         if (value.TMC_ActualDeliveryDateTime) {
@@ -745,12 +760,12 @@
                                     });
                                     if (deliveryDateCount != DMSManifestMenuCtrl.ePage.Entities.Header.Data.TmsManifestConsignment.length) {
                                         isError = true;
-                                    } else if (DMSManifestMenuCtrl.ePage.Entities.Header.Data.TmsManifestConsignment.length == 0) {
-                                        isError = true;
+                                    // } else if (DMSManifestMenuCtrl.ePage.Entities.Header.Data.TmsManifestConsignment.length == 0) {
+                                    //     isError = true;
                                     }
                                 }
                                 if (DMSManifestMenuCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ApprovalStatus == "Rejected") {
-                                    if (mainIndex > 3) {
+                                    if (mainIndex > 4) {
                                         isError = true;
                                     }
                                 }
@@ -758,21 +773,21 @@
                                     if (mainIndex == 2 || mainIndex == 10) {
                                         count = count + 1;
                                     }
-                                    // if (mainIndex == 2) {
-                                    //     count1 = count1 + 1;
-                                    // } 
+
                                     else if (mainIndex == 3) {
+                                        count1 = count1 + 1;
+                                    } else if (mainIndex == 4) {
                                         count3 = count3 + 1;
-                                    } else if (mainIndex == 3 && value == "ConfirmTransportBooking") {
+                                    } else if (mainIndex == 5 && value == "ConfirmTransportBooking") {
                                         count4 = count4 + 1;
-                                    } else if (mainIndex > 3 && value != "CompleteManifest") {
+                                    } else if (mainIndex > 5 && value != "CompleteManifest") {
                                         count5 = count5 + 1;
-                                    } else if (mainIndex > 3 && value == "CompleteManifest") {
+                                    } else if (mainIndex > 5 && value == "CompleteManifest") {
                                         count6 = count6 + 1;
                                     }
 
                                     if (DMSManifestMenuCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ApprovalStatus == "Rejected") {
-                                        if (mainIndex > 3) {
+                                        if (mainIndex > 4) {
                                             count2 = count2 + 1;
                                         }
                                     }
@@ -784,17 +799,17 @@
                                     DMSManifestMenuCtrl.ePage.Masters.ManifestMenu.ListSource[0].DisplayName = "Manifest Created";
                                     if (DMSManifestMenuCtrl.ePage.Entities.Header.Data.TmsManifestHeader.SubmittedDateTime) {
                                         DMSManifestMenuCtrl.ePage.Masters.ManifestMenu.ListSource[1].DisplayName = "Consignment Attached";
-                                        // DMSManifestMenuCtrl.ePage.Masters.ManifestMenu.ListSource[2].DisplayName = "Item Added";
-                                        DMSManifestMenuCtrl.ePage.Masters.ManifestMenu.ListSource[2].DisplayName = "Manifest Confirmed";
+                                        DMSManifestMenuCtrl.ePage.Masters.ManifestMenu.ListSource[2].DisplayName = "Item Added";
+                                        DMSManifestMenuCtrl.ePage.Masters.ManifestMenu.ListSource[3].DisplayName = "Manifest Confirmed";
                                     }
                                     if (DMSManifestMenuCtrl.ePage.Entities.Header.Data.TmsManifestHeader.TransportBookedDateTime) {
-                                        DMSManifestMenuCtrl.ePage.Masters.ManifestMenu.ListSource[3].DisplayName = "Transport Booked";
+                                        DMSManifestMenuCtrl.ePage.Masters.ManifestMenu.ListSource[5].DisplayName = "Transport Booked";
                                     }
-                                    // if (DMSManifestMenuCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ApprovalStatus == "Approved") {
-                                    //     DMSManifestMenuCtrl.ePage.Masters.ManifestMenu.ListSource[4].DisplayName = "Manifest Approved";
-                                    // } else if (DMSManifestMenuCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ApprovalStatus == "Rejected") {
-                                    //     DMSManifestMenuCtrl.ePage.Masters.ManifestMenu.ListSource[4].DisplayName = "Manifest Rejected";
-                                    // }
+                                    if (DMSManifestMenuCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ApprovalStatus == "Approved") {
+                                        DMSManifestMenuCtrl.ePage.Masters.ManifestMenu.ListSource[4].DisplayName = "Manifest Approved";
+                                    } else if (DMSManifestMenuCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ApprovalStatus == "Rejected") {
+                                        DMSManifestMenuCtrl.ePage.Masters.ManifestMenu.ListSource[4].DisplayName = "Manifest Rejected";
+                                    }
                                     if (DMSManifestMenuCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ManifestCompleteDatetime) {
                                         if (DMSManifestMenuCtrl.ePage.Masters.ManifestMenu.ListSource[DMSManifestMenuCtrl.ePage.Masters.ManifestMenu.ListSource.length - 1].Value == "CompleteManifest") {
                                             DMSManifestMenuCtrl.ePage.Masters.ManifestMenu.ListSource[DMSManifestMenuCtrl.ePage.Masters.ManifestMenu.ListSource.length - 1].DisplayName = "Manifest Completed";
@@ -828,17 +843,17 @@
                                         $("#text" + DMSManifestMenuCtrl.currentManifest.label + DMSManifestMenuCtrl.ePage.Masters.ManifestMenu.ListSource[2].Value).addClass('completed-text');
                                         $("#span" + DMSManifestMenuCtrl.currentManifest.label + DMSManifestMenuCtrl.ePage.Masters.ManifestMenu.ListSource[2].Value).addClass('completed-chevron');
 
-                                        // $("#menu" + DMSManifestMenuCtrl.currentManifest.label + DMSManifestMenuCtrl.ePage.Masters.ManifestMenu.ListSource[3].Value).addClass('completed-menu');
-                                        // $("#text" + DMSManifestMenuCtrl.currentManifest.label + DMSManifestMenuCtrl.ePage.Masters.ManifestMenu.ListSource[3].Value).addClass('completed-text');
-                                        // $("#span" + DMSManifestMenuCtrl.currentManifest.label + DMSManifestMenuCtrl.ePage.Masters.ManifestMenu.ListSource[3].Value).addClass('completed-chevron');
+                                         $("#menu" + DMSManifestMenuCtrl.currentManifest.label + DMSManifestMenuCtrl.ePage.Masters.ManifestMenu.ListSource[3].Value).addClass('completed-menu');
+                                         $("#text" + DMSManifestMenuCtrl.currentManifest.label + DMSManifestMenuCtrl.ePage.Masters.ManifestMenu.ListSource[3].Value).addClass('completed-text');
+                                         $("#span" + DMSManifestMenuCtrl.currentManifest.label + DMSManifestMenuCtrl.ePage.Masters.ManifestMenu.ListSource[3].Value).addClass('completed-chevron');
                                     }
-                                    // if (DMSManifestMenuCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ApproveOrRejectDateTime) {
-                                    //     $("#menu" + DMSManifestMenuCtrl.currentManifest.label + DMSManifestMenuCtrl.ePage.Masters.ManifestMenu.ListSource[4].Value).addClass('completed-menu');
-                                    //     $("#text" + DMSManifestMenuCtrl.currentManifest.label + DMSManifestMenuCtrl.ePage.Masters.ManifestMenu.ListSource[4].Value).addClass('completed-text');
-                                    //     $("#span" + DMSManifestMenuCtrl.currentManifest.label + DMSManifestMenuCtrl.ePage.Masters.ManifestMenu.ListSource[4].Value).addClass('completed-chevron');
-                                    // }
+                                    if (DMSManifestMenuCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ApproveOrRejectDateTime) {
+                                        $("#menu" + DMSManifestMenuCtrl.currentManifest.label + DMSManifestMenuCtrl.ePage.Masters.ManifestMenu.ListSource[4].Value).addClass('completed-menu');
+                                        $("#text" + DMSManifestMenuCtrl.currentManifest.label + DMSManifestMenuCtrl.ePage.Masters.ManifestMenu.ListSource[4].Value).addClass('completed-text');
+                                        $("#span" + DMSManifestMenuCtrl.currentManifest.label + DMSManifestMenuCtrl.ePage.Masters.ManifestMenu.ListSource[4].Value).addClass('completed-chevron');
+                                    }
                                     if (DMSManifestMenuCtrl.ePage.Entities.Header.Data.TmsManifestHeader.TransportBookedDateTime) {
-                                        if (DMSManifestMenuCtrl.ePage.Masters.ManifestMenu.ListSource[3].DisplayName == "Transport Booked") {
+                                        if (DMSManifestMenuCtrl.ePage.Masters.ManifestMenu.ListSource[5].DisplayName == "Transport Booked") {
                                             $("#menu" + DMSManifestMenuCtrl.currentManifest.label + DMSManifestMenuCtrl.ePage.Masters.ManifestMenu.ListSource[3].Value).addClass('completed-menu');
                                             $("#text" + DMSManifestMenuCtrl.currentManifest.label + DMSManifestMenuCtrl.ePage.Masters.ManifestMenu.ListSource[3].Value).addClass('completed-text');
                                             $("#span" + DMSManifestMenuCtrl.currentManifest.label + DMSManifestMenuCtrl.ePage.Masters.ManifestMenu.ListSource[3].Value).addClass('completed-chevron');
@@ -956,17 +971,17 @@
                     if (count > 0) {
                         toastr.warning("It can be viewed when the Order(s) available.");
                     }
-                    // if (count1 > 0) {
-                    //     toastr.warning("It can be viewed when the Item(s) available.");
-                    // }
+                    if (count1 > 0) {
+                        toastr.warning("It can be viewed when the Item(s) available.");
+                    }
                     if (count2 > 0) {
                         toastr.warning("Manifest is Rejected.");
                     } if (count3 > 0) {
                         toastr.warning("It can be viewed when the manifest is Confirmed.");
                     }
-                    // if (count4 > 0) {
-                    //     toastr.warning("It can be viewed when the manifest is Approved.");
-                    // } 
+                    if (count4 > 0) {
+                        toastr.warning("It can be viewed when the manifest is Approved.");
+                    } 
                     if (count5 > 0) {
                         toastr.warning("It can be viewed when the transport is Booked.");
                     } if (count6 > 0) {

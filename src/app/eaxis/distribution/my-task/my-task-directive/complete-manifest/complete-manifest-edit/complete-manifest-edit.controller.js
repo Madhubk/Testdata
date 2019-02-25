@@ -36,7 +36,7 @@
             CompleteManifestEditCtrl.ePage.Masters.IsDisableSaveBtn = false;
             CompleteManifestEditCtrl.ePage.Masters.SaveBtnText = "Save";
             CompleteManifestEditCtrl.ePage.Masters.IsDisableCompleteBtn = false;
-            CompleteManifestEditCtrl.ePage.Masters.CompleteBtnText = "Complete Manifest";
+            CompleteManifestEditCtrl.ePage.Masters.CompleteBtnText = "Confirm Verify & Delivery";
 
             CompleteManifestEditCtrl.ePage.Meta.IsLoading = false;
 
@@ -128,7 +128,7 @@
                 SaveOnly('Complete').then(function (response) {
                     if (response.data.Status == "Success") {
                         CompleteManifestEditCtrl.ePage.Masters.IsDisableCompleteBtn = false;
-                        CompleteManifestEditCtrl.ePage.Masters.CompleteBtnText = "Complete Manifest";
+                        CompleteManifestEditCtrl.ePage.Masters.CompleteBtnText = "Confirm Verify & Delivery";
                         toastr.success("Task Completed Successfully...!");
 
                         var _data = {

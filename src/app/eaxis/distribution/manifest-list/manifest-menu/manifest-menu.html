@@ -1,23 +1,35 @@
-<div class="grid-loading-norecord-container ng-scope" style='z-index: 4;' data-ng-if="DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.IsLoadingToSave">
+<div class="grid-loading-norecord-container ng-scope" style='z-index: 4;'
+    data-ng-if="DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.IsLoadingToSave">
     <div class="text-no-record">Saving your Data...</div>
 </div>
 <div class="clearfix">
-    <div class="col-xs-3 col-sm-4 col-md-3 col-lg-3 col-xl-3 set-bg-light-gray" id="style-3" ng-show="DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.IsToggleFilter">
+    <div class="col-xs-3 col-sm-4 col-md-3 col-lg-3 col-xl-3 set-bg-light-gray" id="style-3"
+        ng-show="DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.IsToggleFilter">
         <div class="stepwizard mt-10">
             <div class="stepwizard-row">
                 <div class="stepwizard-step" ng-repeat="x in DMSManifestMenuCtrl.ePage.Masters.ManifestMenu.ListSource">
-                    <div id="menu{{DMSManifestMenuCtrl.currentManifest.label}}{{x.Value}}" class="default-menu text-single-line" ng-click="DMSManifestMenuCtrl.ePage.Masters.GetDesign(x.Value,$index,'MainMenu')">
-                        <button id="btn{{DMSManifestMenuCtrl.currentManifest.label}}{{x.Value}}" type="button" class="btn btn-default btn-circle-manifest">{{$index+1}}</button>
-                        <p id="text{{DMSManifestMenuCtrl.currentManifest.label}}{{x.Value}}" class="menu-text">{{x.DisplayName}}</p>
-                        <span id="span{{DMSManifestMenuCtrl.currentManifest.label}}{{x.Value}}" class="default-chevron"></span>
-                        <span class="manifest-arrow" data-ng-if="x.SubMenu.length > 0" data-toggle="collapse" data-target="#Manifest{{DMSManifestMenuCtrl.currentManifest.label}}{{$index}}">
+                    <div id="menu{{DMSManifestMenuCtrl.currentManifest.label}}{{x.Value}}"
+                        class="default-menu text-single-line"
+                        ng-click="DMSManifestMenuCtrl.ePage.Masters.GetDesign(x.Value,$index,'MainMenu')">
+                        <button id="btn{{DMSManifestMenuCtrl.currentManifest.label}}{{x.Value}}" type="button"
+                            class="btn btn-default btn-circle-manifest">{{$index+1}}</button>
+                        <p id="text{{DMSManifestMenuCtrl.currentManifest.label}}{{x.Value}}" class="menu-text">
+                            {{x.DisplayName}}</p>
+                        <span id="span{{DMSManifestMenuCtrl.currentManifest.label}}{{x.Value}}"
+                            class="default-chevron"></span>
+                        <span class="manifest-arrow" data-ng-if="x.SubMenu.length > 0" data-toggle="collapse"
+                            data-target="#Manifest{{DMSManifestMenuCtrl.currentManifest.label}}{{$index}}">
                             <i class="fa fa-angle-down rotate-icon"></i>
                         </span>
                     </div>
                     <div class="mt-6"></div>
-                    <div data-ng-if="x.SubMenu.length > 0" id="Manifest{{DMSManifestMenuCtrl.currentManifest.label}}{{$index}}" class="collapse">
-                        <div data-ng-repeat="menu in x.SubMenu" style="margin-left: 5px;" ng-click="DMSManifestMenuCtrl.ePage.Masters.GetDesign(menu.Value,DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.ActiveMenu,'SubMenu',$index)">
-                            <button id="submenubtn{{x.Value}}{{DMSManifestMenuCtrl.currentManifest.label}}{{menu.Value}}" type="button" class="btn btn-default btn-circle-submenu">{{$index+1}}</button>
+                    <div data-ng-if="x.SubMenu.length > 0"
+                        id="Manifest{{DMSManifestMenuCtrl.currentManifest.label}}{{$index}}" class="collapse">
+                        <div data-ng-repeat="menu in x.SubMenu" style="margin-left: 5px;"
+                            ng-click="DMSManifestMenuCtrl.ePage.Masters.GetDesign(menu.Value,DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.ActiveMenu,'SubMenu',$index)">
+                            <button
+                                id="submenubtn{{x.Value}}{{DMSManifestMenuCtrl.currentManifest.label}}{{menu.Value}}"
+                                type="button" class="btn btn-default btn-circle-submenu">{{$index+1}}</button>
                             <p class="menu-text" style="font-size: 12px;">{{menu.DisplayName}}</p>
                         </div>
                     </div>
@@ -29,60 +41,87 @@
         id="style-4" style="padding: 0;  height: 500px;">
         <!-- If manifest is not approved -->
         <div ng-if="DMSManifestMenuCtrl.ePage.Masters.IsActive=='CreateManifest' && !DMSManifestMenuCtrl.ePage.Entities.Header.Data.TmsManifestHeader.SubmittedDateTime"
-            dms-manifest-general dataentry-object="DMSManifestMenuCtrl.dataentryObject" current-manifest="DMSManifestMenuCtrl.currentManifest"></div>
+            dms-manifest-general dataentry-object="DMSManifestMenuCtrl.dataentryObject"
+            current-manifest="DMSManifestMenuCtrl.currentManifest"></div>
         <div ng-if="DMSManifestMenuCtrl.ePage.Masters.IsActive=='AttachOrders' && !DMSManifestMenuCtrl.ePage.Entities.Header.Data.TmsManifestHeader.SubmittedDateTime"
-            dms-manifest-orders dataentry-object="DMSManifestMenuCtrl.dataentryObject" current-manifest="DMSManifestMenuCtrl.currentManifest"></div>
+            dms-manifest-orders dataentry-object="DMSManifestMenuCtrl.dataentryObject"
+            current-manifest="DMSManifestMenuCtrl.currentManifest"></div>
         <div ng-if="DMSManifestMenuCtrl.ePage.Masters.IsActive=='AttachLines'&& !DMSManifestMenuCtrl.ePage.Entities.Header.Data.TmsManifestHeader.SubmittedDateTime"
-            dms-manifest-item dataentry-object="DMSManifestMenuCtrl.dataentryObject" current-manifest="DMSManifestMenuCtrl.currentManifest"></div>
+            dms-manifest-item dataentry-object="DMSManifestMenuCtrl.dataentryObject"
+            current-manifest="DMSManifestMenuCtrl.currentManifest"></div>
         <div ng-if="!DMSManifestMenuCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ManifestCompleteDatetime && DMSManifestMenuCtrl.ePage.Masters.IsActive=='ConfirmTransportBooking'"
-            confirm-transport dataentry-object="DMSManifestMenuCtrl.dataentryObject" current-manifest="DMSManifestMenuCtrl.currentManifest"></div>
+            confirm-transport dataentry-object="DMSManifestMenuCtrl.dataentryObject"
+            current-manifest="DMSManifestMenuCtrl.currentManifest"></div>
         <!--if manifest is completed -->
         <div ng-if="DMSManifestMenuCtrl.ePage.Masters.IsActive=='ConfirmTransportBooking' && DMSManifestMenuCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ManifestCompleteDatetime"
-            confirm-booking-view dataentry-object="DMSManifestMenuCtrl.dataentryObject" current-manifest="DMSManifestMenuCtrl.currentManifest"></div>
+            confirm-booking-view dataentry-object="DMSManifestMenuCtrl.dataentryObject"
+            current-manifest="DMSManifestMenuCtrl.currentManifest"></div>
         <!-- If manifest is approved -->
         <div ng-if="DMSManifestMenuCtrl.ePage.Masters.IsActive=='CreateManifest' && DMSManifestMenuCtrl.ePage.Entities.Header.Data.TmsManifestHeader.SubmittedDateTime"
-            create-manifest-view dataentry-object="DMSManifestMenuCtrl.dataentryObject" current-manifest="DMSManifestMenuCtrl.currentManifest"></div>
+            create-manifest-view dataentry-object="DMSManifestMenuCtrl.dataentryObject"
+            current-manifest="DMSManifestMenuCtrl.currentManifest"></div>
         <div ng-if="DMSManifestMenuCtrl.ePage.Masters.IsActive=='AttachOrders' && DMSManifestMenuCtrl.ePage.Entities.Header.Data.TmsManifestHeader.SubmittedDateTime"
-            attach-orders-view dataentry-object="DMSManifestMenuCtrl.dataentryObject" current-manifest="DMSManifestMenuCtrl.currentManifest"></div>
+            attach-orders-view dataentry-object="DMSManifestMenuCtrl.dataentryObject"
+            current-manifest="DMSManifestMenuCtrl.currentManifest"></div>
         <div ng-if="DMSManifestMenuCtrl.ePage.Masters.IsActive=='AttachLines' && DMSManifestMenuCtrl.ePage.Entities.Header.Data.TmsManifestHeader.SubmittedDateTime"
-            add-items-view dataentry-object="DMSManifestMenuCtrl.dataentryObject" current-manifest="DMSManifestMenuCtrl.currentManifest"></div>
-        <div ng-if="DMSManifestMenuCtrl.ePage.Masters.IsActive=='ConfirmManifest'" approve-manifest dataentry-object="DMSManifestMenuCtrl.dataentryObject"
+            add-items-view dataentry-object="DMSManifestMenuCtrl.dataentryObject"
             current-manifest="DMSManifestMenuCtrl.currentManifest"></div>
-        <div ng-if="DMSManifestMenuCtrl.ePage.Masters.IsActive=='ApproveManifest'" approve-manifest dataentry-object="DMSManifestMenuCtrl.dataentryObject"
+        <div ng-if="DMSManifestMenuCtrl.ePage.Masters.IsActive=='ConfirmManifest'" approve-manifest
+            dataentry-object="DMSManifestMenuCtrl.dataentryObject"
             current-manifest="DMSManifestMenuCtrl.currentManifest"></div>
-        <div ng-if="DMSManifestMenuCtrl.ePage.Masters.IsActive=='ConfirmVehicleArrival'" gatepass-list dataentry-object="DMSManifestMenuCtrl.dataentryObject"
+        <div ng-if="DMSManifestMenuCtrl.ePage.Masters.IsActive=='ApproveManifest'" approve-manifest
+            dataentry-object="DMSManifestMenuCtrl.dataentryObject"
+            current-manifest="DMSManifestMenuCtrl.currentManifest"></div>
+        <div ng-if="DMSManifestMenuCtrl.ePage.Masters.IsActive=='ConfirmVehicleArrival'" gatepass-list
+            dataentry-object="DMSManifestMenuCtrl.dataentryObject"
             jobfk="DMSManifestMenuCtrl.ePage.Masters.ManifestMenu.ListSource[DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.ActiveMenu].JobFK"
             orgfk="DMSManifestMenuCtrl.ePage.Masters.ManifestMenu.ListSource[DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.ActiveMenu].ORG_FK"
             current-manifest="DMSManifestMenuCtrl.currentManifest"></div>
-        <div ng-if="DMSManifestMenuCtrl.ePage.Masters.IsActive=='DockinVehicle'" dockin-vehicle dataentry-object="DMSManifestMenuCtrl.dataentryObject"
+        <div ng-if="DMSManifestMenuCtrl.ePage.Masters.IsActive=='DockinVehicle'" dockin-vehicle
+            dataentry-object="DMSManifestMenuCtrl.dataentryObject"
             jobfk="DMSManifestMenuCtrl.ePage.Masters.ManifestMenu.ListSource[DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.ActiveMenu].JobFK"
             orgfk="DMSManifestMenuCtrl.ePage.Masters.ManifestMenu.ListSource[DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.ActiveMenu].ORG_FK"
             current-manifest="DMSManifestMenuCtrl.currentManifest"></div>
-        <div ng-if="DMSManifestMenuCtrl.ePage.Masters.IsActive=='LoadItems'" load-items dataentry-object="DMSManifestMenuCtrl.dataentryObject"
+        <div ng-if="DMSManifestMenuCtrl.ePage.Masters.IsActive=='LoadItems'" load-items
+            dataentry-object="DMSManifestMenuCtrl.dataentryObject"
             jobfk="DMSManifestMenuCtrl.ePage.Masters.ManifestMenu.ListSource[DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.ActiveMenu].JobFK"
             orgfk="DMSManifestMenuCtrl.ePage.Masters.ManifestMenu.ListSource[DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.ActiveMenu].ORG_FK"
             current-manifest="DMSManifestMenuCtrl.currentManifest"></div>
-        <div ng-if="DMSManifestMenuCtrl.ePage.Masters.IsActive=='StartLoad'" start-load dataentry-object="DMSManifestMenuCtrl.dataentryObject"
+        <div ng-if="DMSManifestMenuCtrl.ePage.Masters.IsActive=='StartLoad'" start-load
+            dataentry-object="DMSManifestMenuCtrl.dataentryObject"
             jobfk="DMSManifestMenuCtrl.ePage.Masters.ManifestMenu.ListSource[DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.ActiveMenu].JobFK"
             orgfk="DMSManifestMenuCtrl.ePage.Masters.ManifestMenu.ListSource[DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.ActiveMenu].ORG_FK"
             current-manifest="DMSManifestMenuCtrl.currentManifest"></div>
-        <div ng-if="DMSManifestMenuCtrl.ePage.Masters.IsActive=='DockoutVehicle'" dockout-vehicle dataentry-object="DMSManifestMenuCtrl.dataentryObject"
+        <div ng-if="DMSManifestMenuCtrl.ePage.Masters.IsActive=='DockoutVehicle'" dockout-vehicle
+            dataentry-object="DMSManifestMenuCtrl.dataentryObject"
             jobfk="DMSManifestMenuCtrl.ePage.Masters.ManifestMenu.ListSource[DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.ActiveMenu].JobFK"
             orgfk="DMSManifestMenuCtrl.ePage.Masters.ManifestMenu.ListSource[DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.ActiveMenu].ORG_FK"
             current-manifest="DMSManifestMenuCtrl.currentManifest"></div>
-        <div ng-if="DMSManifestMenuCtrl.ePage.Masters.IsActive=='Issueexitgatepass'" issue-exit-gatepass dataentry-object="DMSManifestMenuCtrl.dataentryObject"
+        <div ng-if="DMSManifestMenuCtrl.ePage.Masters.IsActive=='Issueexitgatepass'" issue-exit-gatepass
+            dataentry-object="DMSManifestMenuCtrl.dataentryObject"
             jobfk="DMSManifestMenuCtrl.ePage.Masters.ManifestMenu.ListSource[DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.ActiveMenu].JobFK"
             orgfk="DMSManifestMenuCtrl.ePage.Masters.ManifestMenu.ListSource[DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.ActiveMenu].ORG_FK"
             current-manifest="DMSManifestMenuCtrl.currentManifest"></div>
-        <div ng-if="DMSManifestMenuCtrl.ePage.Masters.IsActive=='CompleteManifest'" complete-manifest dataentry-object="DMSManifestMenuCtrl.dataentryObject"
+
+        <div ng-if="DMSManifestMenuCtrl.ePage.Masters.IsActive=='deliveryrunsheet'" delivery-runsheet
+            dataentry-object="DMSManifestMenuCtrl.dataentryObject"
+            jobfk="DMSManifestMenuCtrl.ePage.Masters.ManifestMenu.ListSource[DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.ActiveMenu].JobFK"
+            orgfk="DMSManifestMenuCtrl.ePage.Masters.ManifestMenu.ListSource[DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.ActiveMenu].ORG_FK"
+            current-manifest="DMSManifestMenuCtrl.currentManifest"></div>
+
+        <div ng-if="DMSManifestMenuCtrl.ePage.Masters.IsActive=='CompleteManifest'" complete-manifest
+            dataentry-object="DMSManifestMenuCtrl.dataentryObject"
             current-manifest="DMSManifestMenuCtrl.currentManifest"></div>
         <div ng-if="DMSManifestMenuCtrl.ePage.Masters.IsActives==DMSManifestMenuCtrl.ePage.Masters.ManifestMenu.ListSource[DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.ActiveMenu].Value"
-            pickup-delivery dataentry-object="DMSManifestMenuCtrl.dataentryObject" current-manifest="DMSManifestMenuCtrl.currentManifest"
+            pickup-delivery dataentry-object="DMSManifestMenuCtrl.dataentryObject"
+            current-manifest="DMSManifestMenuCtrl.currentManifest"
             orgfk="DMSManifestMenuCtrl.ePage.Masters.ManifestMenu.ListSource[DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.ActiveMenu].ORG_FK"
-            menuvalue="DMSManifestMenuCtrl.ePage.Masters.ManifestMenu.ListSource[DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.ActiveMenu].DisplayName"></div>
+            menuvalue="DMSManifestMenuCtrl.ePage.Masters.ManifestMenu.ListSource[DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.ActiveMenu].DisplayName">
+        </div>
     </div>
 </div>
-<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" data-ng-if="!DMSManifestMenuCtrl.ePage.Masters.isShowFooter">
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"
+    data-ng-if="!DMSManifestMenuCtrl.ePage.Masters.isShowFooter">
     <div class="eaxis-footer-strip">
         <!-- <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 col-xl-1">
             <span class="input-group-btn" style="top: 2px;">
@@ -91,79 +130,122 @@
             </span>
         </div> -->
         <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6" ng-if="!DMSManifestMenuCtrl.currentManifest.isNew">
-            <standard-menu dataentry-object="DMSManifestMenuCtrl.dataentryObject" input="DMSManifestMenuCtrl.currentManifest"></standard-menu>
+            <standard-menu dataentry-object="DMSManifestMenuCtrl.dataentryObject"
+                input="DMSManifestMenuCtrl.currentManifest"></standard-menu>
         </div>
         <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 pull-right">
-            <button class="btn-text btn-blue" ng-disabled="DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.IsDisableBtn" data-ng-if="(DMSManifestMenuCtrl.ePage.Masters.ManifestMenu.ListSource[DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.ActiveMenu].Value == 'AttachOrders' || DMSManifestMenuCtrl.ePage.Masters.ManifestMenu.ListSource[DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.ActiveMenu].Value == 'AttachLines') && !DMSManifestMenuCtrl.ePage.Entities.Header.Data.TmsManifestHeader.SubmittedDateTime"
+            <button class="btn-text btn-blue"
+                ng-disabled="DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.IsDisableBtn"
+                data-ng-if="(DMSManifestMenuCtrl.ePage.Masters.ManifestMenu.ListSource[DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.ActiveMenu].Value == 'AttachOrders' || DMSManifestMenuCtrl.ePage.Masters.ManifestMenu.ListSource[DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.ActiveMenu].Value == 'AttachLines') && !DMSManifestMenuCtrl.ePage.Entities.Header.Data.TmsManifestHeader.SubmittedDateTime"
                 data-ng-click="DMSManifestMenuCtrl.ePage.Masters.getMenu()">
                 {{DMSManifestMenuCtrl.ePage.Masters.ManifestMenu.ListSource[DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.ActiveMenu+1].DisplayName}}
                 <i class="fa fa-chevron-circle-right"></i>
             </button>
-            <button ng-disabled="DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.IsDisableBtn" ng-if="DMSManifestMenuCtrl.ePage.Masters.ManifestMenu.ListSource[DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.ActiveMenu].Value == 'CreateManifest' && !DMSManifestMenuCtrl.ePage.Entities.Header.Data.TmsManifestHeader.SubmittedDateTime"
-                class="btn-text btn-blue" data-ng-click="DMSManifestMenuCtrl.ePage.Masters.CreateManifest=true;DMSManifestMenuCtrl.ePage.Masters.Validation(DMSManifestMenuCtrl.currentManifest)"
+            <button ng-disabled="DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.IsDisableBtn"
+                ng-if="DMSManifestMenuCtrl.ePage.Masters.ManifestMenu.ListSource[DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.ActiveMenu].Value == 'CreateManifest' && !DMSManifestMenuCtrl.ePage.Entities.Header.Data.TmsManifestHeader.SubmittedDateTime"
+                class="btn-text btn-blue"
+                data-ng-click="DMSManifestMenuCtrl.ePage.Masters.CreateManifest=true;DMSManifestMenuCtrl.ePage.Masters.Validation(DMSManifestMenuCtrl.currentManifest)"
                 ng-bind="DMSManifestMenuCtrl.ePage.Masters.CreateManifestText">
                 <i class="fa fa-chevron-circle-right"></i>
             </button>
-            <button ng-disabled="DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.IsDisableBtn" ng-if="DMSManifestMenuCtrl.ePage.Masters.ManifestMenu.ListSource[DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.ActiveMenu].DisplayName=='Confirm Manifest'"
-                class="btn-text btn-blue" data-ng-click="DMSManifestMenuCtrl.ePage.Masters.Confirm=true;DMSManifestMenuCtrl.ePage.Masters.getMenu()"
+            <button ng-disabled="DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.IsDisableBtn"
+                ng-if="DMSManifestMenuCtrl.ePage.Masters.ManifestMenu.ListSource[DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.ActiveMenu].DisplayName=='Confirm Manifest'"
+                class="btn-text btn-blue"
+                data-ng-click="DMSManifestMenuCtrl.ePage.Masters.Confirm=true;DMSManifestMenuCtrl.ePage.Masters.getMenu()"
                 ng-bind="DMSManifestMenuCtrl.ePage.Masters.ConfirmText">
                 <i class="fa fa-chevron-circle-right"></i>
             </button>
-            <button ng-disabled="DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.IsDisableBtn" class="btn-text mr-15" style="background-color: #c2c3c1 !important;"
+            <button ng-disabled="DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.IsDisableBtn"
+                class="btn-text mr-15" style="background-color: #c2c3c1 !important;"
                 ng-if="DMSManifestMenuCtrl.ePage.Masters.ManifestMenu.ListSource[DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.ActiveMenu].DisplayName=='Approve Manifest'"
-                data-ng-click="DMSManifestMenuCtrl.ePage.Masters.Reject=true;DMSManifestMenuCtrl.ePage.Masters.getMenu()" ng-bind="DMSManifestMenuCtrl.ePage.Masters.RejectButtonText">
+                data-ng-click="DMSManifestMenuCtrl.ePage.Masters.Reject=true;DMSManifestMenuCtrl.ePage.Masters.getMenu()"
+                ng-bind="DMSManifestMenuCtrl.ePage.Masters.RejectButtonText">
             </button>
-            <button ng-disabled="DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.IsDisableBtn" ng-if="DMSManifestMenuCtrl.ePage.Masters.ManifestMenu.ListSource[DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.ActiveMenu].DisplayName=='Approve Manifest'"
-                class="btn-text btn-blue mr-15" data-ng-click="DMSManifestMenuCtrl.ePage.Masters.Approve=true;DMSManifestMenuCtrl.ePage.Masters.getMenu()"
+            <button ng-disabled="DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.IsDisableBtn"
+                ng-if="DMSManifestMenuCtrl.ePage.Masters.ManifestMenu.ListSource[DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.ActiveMenu].DisplayName=='Approve Manifest'"
+                class="btn-text btn-blue mr-15"
+                data-ng-click="DMSManifestMenuCtrl.ePage.Masters.Approve=true;DMSManifestMenuCtrl.ePage.Masters.getMenu()"
                 ng-bind="DMSManifestMenuCtrl.ePage.Masters.ApproveText"></button>
-            <button ng-disabled="DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.IsDisableBtn" class="btn-text btn-blue" ng-if="DMSManifestMenuCtrl.ePage.Masters.ManifestMenu.ListSource[DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.ActiveMenu].DisplayName=='Confirm Transport Booking'"
+            <button ng-disabled="DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.IsDisableBtn"
+                class="btn-text btn-blue"
+                ng-if="DMSManifestMenuCtrl.ePage.Masters.ManifestMenu.ListSource[DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.ActiveMenu].DisplayName=='Confirm Transport Booking'"
                 data-ng-click="DMSManifestMenuCtrl.ePage.Masters.Transport=true;DMSManifestMenuCtrl.ePage.Masters.getMenu()"
                 ng-bind="DMSManifestMenuCtrl.ePage.Masters.TransportText">
             </button>
-            <button ng-disabled="DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.IsDisableBtn" class="btn-text btn-blue" ng-if="DMSManifestMenuCtrl.ePage.Masters.IsPickup && !DMSManifestMenuCtrl.ePage.Masters.ManifestMenu.ListSource[DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.ActiveMenu].SubMenu"
+            <button ng-disabled="DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.IsDisableBtn"
+                class="btn-text btn-blue"
+                ng-if="DMSManifestMenuCtrl.ePage.Masters.IsPickup && !DMSManifestMenuCtrl.ePage.Masters.ManifestMenu.ListSource[DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.ActiveMenu].SubMenu"
                 data-ng-click="DMSManifestMenuCtrl.ePage.Masters.ConfirmPickup=true;DMSManifestMenuCtrl.ePage.Masters.getMenu()"
                 data-ng-bind="DMSManifestMenuCtrl.ePage.Masters.ConfirmPickupText">
             </button>
-            <button ng-disabled="DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.IsDisableBtn" class="btn-text btn-blue" ng-if="DMSManifestMenuCtrl.ePage.Masters.IsDelivery && !DMSManifestMenuCtrl.ePage.Masters.ManifestMenu.ListSource[DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.ActiveMenu].SubMenu"
+            <button ng-disabled="DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.IsDisableBtn"
+                class="btn-text btn-blue"
+                ng-if="DMSManifestMenuCtrl.ePage.Masters.IsDelivery && !DMSManifestMenuCtrl.ePage.Masters.ManifestMenu.ListSource[DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.ActiveMenu].SubMenu"
                 data-ng-click="DMSManifestMenuCtrl.ePage.Masters.ConfirmDelivery=true;DMSManifestMenuCtrl.ePage.Masters.getMenu()"
                 data-ng-bind="DMSManifestMenuCtrl.ePage.Masters.ConfirmDeliveryText">
             </button>
-            <button ng-disabled="DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.IsDisableBtn" class="btn-text btn-blue" ng-if="DMSManifestMenuCtrl.ePage.Masters.ManifestMenu.ListSource[DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.ActiveMenu].SubMenu[DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.ActiveSubMenu].DisplayName=='Confirm Vehicle Arrival'"
+            <button ng-disabled="DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.IsDisableBtn"
+                class="btn-text btn-blue"
+                ng-if="DMSManifestMenuCtrl.ePage.Masters.ManifestMenu.ListSource[DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.ActiveMenu].SubMenu[DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.ActiveSubMenu].DisplayName=='Confirm Vehicle Arrival'"
                 data-ng-click="DMSManifestMenuCtrl.ePage.Masters.ConfirmVehicle=true;DMSManifestMenuCtrl.ePage.Masters.getSubMenu()"
                 data-ng-bind="DMSManifestMenuCtrl.ePage.Masters.ConfirmVehicleText">
                 <i class="fa fa-chevron-circle-right"></i>
             </button>
-            <button ng-disabled="DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.IsDisableBtn" class="btn-text btn-blue" ng-if="DMSManifestMenuCtrl.ePage.Masters.ManifestMenu.ListSource[DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.ActiveMenu].SubMenu[DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.ActiveSubMenu].DisplayName=='Dock in Vehicle'"
+            <button ng-disabled="DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.IsDisableBtn"
+                class="btn-text btn-blue"
+                ng-if="DMSManifestMenuCtrl.ePage.Masters.ManifestMenu.ListSource[DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.ActiveMenu].SubMenu[DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.ActiveSubMenu].DisplayName=='Dock in Vehicle'"
                 data-ng-click="DMSManifestMenuCtrl.ePage.Masters.DockIn=true;DMSManifestMenuCtrl.ePage.Masters.getSubMenu()"
                 data-ng-bind="DMSManifestMenuCtrl.ePage.Masters.ConfirmDockText">
                 <i class="fa fa-chevron-circle-right"></i>
             </button>
-            <button ng-disabled="DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.IsDisableBtn" class="btn-text btn-blue" ng-if="DMSManifestMenuCtrl.ePage.Masters.ManifestMenu.ListSource[DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.ActiveMenu].SubMenu[DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.ActiveSubMenu].Value=='StartLoad'"
+            <button ng-disabled="DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.IsDisableBtn"
+                class="btn-text btn-blue"
+                ng-if="DMSManifestMenuCtrl.ePage.Masters.ManifestMenu.ListSource[DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.ActiveMenu].SubMenu[DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.ActiveSubMenu].Value=='StartLoad'"
                 data-ng-click="DMSManifestMenuCtrl.ePage.Masters.StartLoad=true;DMSManifestMenuCtrl.ePage.Masters.getSubMenu()"
                 data-ng-bind="DMSManifestMenuCtrl.ePage.Masters.StartLoadText">
                 <i class="fa fa-chevron-circle-right"></i>
             </button>
-            <button ng-disabled="DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.IsDisableBtn" class="btn-text btn-blue" ng-if="DMSManifestMenuCtrl.ePage.Masters.ManifestMenu.ListSource[DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.ActiveMenu].SubMenu[DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.ActiveSubMenu].Value=='LoadItems'"
+            <button ng-disabled="DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.IsDisableBtn"
+                class="btn-text btn-blue"
+                ng-if="DMSManifestMenuCtrl.ePage.Masters.ManifestMenu.ListSource[DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.ActiveMenu].SubMenu[DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.ActiveSubMenu].Value=='LoadItems'"
                 data-ng-click="DMSManifestMenuCtrl.ePage.Masters.CompleteLoad=true;DMSManifestMenuCtrl.ePage.Masters.getSubMenu()"
                 ng-bind="DMSManifestMenuCtrl.ePage.Masters.CompleteLoadText">
                 <i class="fa fa-chevron-circle-right"></i>
             </button>
-            <button ng-disabled="DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.IsDisableBtn" class="btn-text btn-blue" ng-if="DMSManifestMenuCtrl.ePage.Masters.ManifestMenu.ListSource[DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.ActiveMenu].SubMenu[DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.ActiveSubMenu].DisplayName=='Dock out Vehicle'"
+            <button ng-disabled="DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.IsDisableBtn"
+                class="btn-text btn-blue"
+                ng-if="DMSManifestMenuCtrl.ePage.Masters.ManifestMenu.ListSource[DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.ActiveMenu].SubMenu[DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.ActiveSubMenu].DisplayName=='Dock out Vehicle'"
                 data-ng-click="DMSManifestMenuCtrl.ePage.Masters.Dockout=true;DMSManifestMenuCtrl.ePage.Masters.getSubMenu()"
                 data-ng-bind="DMSManifestMenuCtrl.ePage.Masters.DockoutText">
                 <i class="fa fa-chevron-circle-right"></i>
             </button>
-            <button ng-disabled="DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.IsDisableBtn" ng-if="DMSManifestMenuCtrl.ePage.Masters.ManifestMenu.ListSource[DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.ActiveMenu].SubMenu[DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.ActiveSubMenu].DisplayName=='Gate Out'"
-                class="btn-text btn-blue" data-ng-click="DMSManifestMenuCtrl.ePage.Masters.Gateout=true;DMSManifestMenuCtrl.ePage.Masters.getSubMenu()"
+            <button ng-disabled="DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.IsDisableBtn"
+                ng-if="DMSManifestMenuCtrl.ePage.Masters.ManifestMenu.ListSource[DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.ActiveMenu].SubMenu[DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.ActiveSubMenu].DisplayName=='Gate Out'"
+                class="btn-text btn-blue"
+                data-ng-click="DMSManifestMenuCtrl.ePage.Masters.Gateout=true;DMSManifestMenuCtrl.ePage.Masters.getSubMenu()"
                 ng-bind="DMSManifestMenuCtrl.ePage.Masters.GateoutText">
                 <i class="fa fa-chevron-circle-right"></i>
             </button>
-            <button ng-disabled="DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.IsDisableBtn" class="btn-text btn-blue" ng-if="DMSManifestMenuCtrl.ePage.Masters.ManifestMenu.ListSource[DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.ActiveMenu].DisplayName=='Complete Manifest'"
-                data-ng-click="DMSManifestMenuCtrl.ePage.Masters.Complete=true;DMSManifestMenuCtrl.ePage.Masters.getMenu()" ng-bind="DMSManifestMenuCtrl.ePage.Masters.CompleteText">
+        <!-- delivery Runsheet -->
+            <button ng-disabled="DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.IsDisableBtn"
+                ng-if="DMSManifestMenuCtrl.ePage.Masters.ManifestMenu.ListSource[DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.ActiveMenu].SubMenu[DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.ActiveSubMenu].DisplayName=='Generate DRS'"
+                class="btn-text btn-blue"
+                data-ng-click="DMSManifestMenuCtrl.ePage.Masters.DeliveryRunsheet=true;DMSManifestMenuCtrl.ePage.Masters.getSubMenu()"
+                ng-bind="DMSManifestMenuCtrl.ePage.Masters.DeliveryRunsheetText">
                 <i class="fa fa-chevron-circle-right"></i>
             </button>
-            <button ng-disabled="DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.IsDisableBtn" class="btn-text btn-blue" style="margin-right: 10px;"
-                data-ng-click="DMSManifestMenuCtrl.ePage.Masters.Validation(DMSManifestMenuCtrl.currentManifest)" ng-bind="DMSManifestMenuCtrl.ePage.Masters.SaveButtonText">
+
+            <button ng-disabled="DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.IsDisableBtn"
+                class="btn-text btn-blue"
+                ng-if="DMSManifestMenuCtrl.ePage.Masters.ManifestMenu.ListSource[DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.ActiveMenu].DisplayName=='Confirm Verify & Delivery'"
+                data-ng-click="DMSManifestMenuCtrl.ePage.Masters.Complete=true;DMSManifestMenuCtrl.ePage.Masters.getMenu()"
+                ng-bind="DMSManifestMenuCtrl.ePage.Masters.CompleteText">
+                <i class="fa fa-chevron-circle-right"></i>
+            </button>
+            <button ng-disabled="DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.IsDisableBtn"
+                class="btn-text btn-blue" style="margin-right: 10px;"
+                data-ng-click="DMSManifestMenuCtrl.ePage.Masters.Validation(DMSManifestMenuCtrl.currentManifest)"
+                ng-bind="DMSManifestMenuCtrl.ePage.Masters.SaveButtonText">
                 <i class="fa fa-floppy-o"></i>
             </button>
         </div>
@@ -178,17 +260,21 @@
             <!-- <i class="fa fa-warning"></i>  -->
             Errors & Warnings
         </span>
-        <span class="error-warning-toggle-icon pull-right" data-ng-click="DMSManifestMenuCtrl.ePage.Masters.Config.ShowErrorWarningModal(DMSManifestMenuCtrl.currentManifest)">
+        <span class="error-warning-toggle-icon pull-right"
+            data-ng-click="DMSManifestMenuCtrl.ePage.Masters.Config.ShowErrorWarningModal(DMSManifestMenuCtrl.currentManifest)">
             <i class="fa fa-arrow-right"></i>
         </span>
     </div>
     <div class="error-warning-body">
-        <div class="clearfix" data-ng-if="DMSManifestMenuCtrl.ePage.Masters.ErrorWarningConfig.Modules.Manifest.Entity[DMSManifestMenuCtrl.currentManifest.code].GlobalErrorWarningList.length>0">
+        <div class="clearfix"
+            data-ng-if="DMSManifestMenuCtrl.ePage.Masters.ErrorWarningConfig.Modules.Manifest.Entity[DMSManifestMenuCtrl.currentManifest.code].GlobalErrorWarningList.length>0">
             <div class="clearfix">
-                <div class="p-5 error-warnig-list clearfix" data-ng-repeat="x in DMSManifestMenuCtrl.ePage.Masters.ErrorWarningConfig.Modules.Manifest.Entity[DMSManifestMenuCtrl.currentManifest.code].GlobalErrorWarningList">
+                <div class="p-5 error-warnig-list clearfix"
+                    data-ng-repeat="x in DMSManifestMenuCtrl.ePage.Masters.ErrorWarningConfig.Modules.Manifest.Entity[DMSManifestMenuCtrl.currentManifest.code].GlobalErrorWarningList">
                     <div class="clearfix">
                         <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 p-0 text-center">
-                            <span class=" fa fa-warning" data-ng-style="{color: {'W':'#FFAD33', 'E':'#ED4337'}[x.MessageType]}"></span>
+                            <span class=" fa fa-warning"
+                                data-ng-style="{color: {'W':'#FFAD33', 'E':'#ED4337'}[x.MessageType]}"></span>
                         </div>
                         <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11 pr-0">
                             <div class="message" data-ng-bind="x.Code + ' - ' + x.Message"></div>
@@ -200,8 +286,15 @@
         </div>
     </div>
 </div>
-<div class="" ng-if="DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.IsCallMenuFunction" ng-init="DMSManifestMenuCtrl.ePage.Masters.GetDesign(DMSManifestMenuCtrl.ePage.Masters.ManifestMenu.ListSource[DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.ActiveMenu+1].Value,DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.ActiveMenu+1,'MainMenu')"></div>
-<div class="" ng-if="DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.IsCallSubMenuFunction" ng-init="DMSManifestMenuCtrl.ePage.Masters.GetDesign(DMSManifestMenuCtrl.ePage.Masters.ManifestMenu.ListSource[DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.ActiveMenu].SubMenu[DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.ActiveSubMenu+1].Value,DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.ActiveMenu,'SubMenu',DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.ActiveSubMenu+1)"></div>
-<div class="" ng-if="DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.IsWarehouseClient" ng-init="DMSManifestMenuCtrl.ePage.Masters.GetMenuBasedOnSender()"></div>
-<div ng-if="DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.IsPickupDeliveryList" ng-init="DMSManifestMenuCtrl.ePage.Masters.GetPickupDeliveryDetails()"></div>
-<div data-ng-if="DMSManifestMenuCtrl.ePage.Entities.Header.Data.TmsGatepassList.length>0" data-ng-init="DMSManifestMenuCtrl.ePage.Masters.ChangeManifestValues()"></div>
+<div class="" ng-if="DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.IsCallMenuFunction"
+    ng-init="DMSManifestMenuCtrl.ePage.Masters.GetDesign(DMSManifestMenuCtrl.ePage.Masters.ManifestMenu.ListSource[DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.ActiveMenu+1].Value,DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.ActiveMenu+1,'MainMenu')">
+</div>
+<div class="" ng-if="DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.IsCallSubMenuFunction"
+    ng-init="DMSManifestMenuCtrl.ePage.Masters.GetDesign(DMSManifestMenuCtrl.ePage.Masters.ManifestMenu.ListSource[DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.ActiveMenu].SubMenu[DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.ActiveSubMenu+1].Value,DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.ActiveMenu,'SubMenu',DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.ActiveSubMenu+1)">
+</div>
+<div class="" ng-if="DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.IsWarehouseClient"
+    ng-init="DMSManifestMenuCtrl.ePage.Masters.GetMenuBasedOnSender()"></div>
+<div ng-if="DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.IsPickupDeliveryList"
+    ng-init="DMSManifestMenuCtrl.ePage.Masters.GetPickupDeliveryDetails()"></div>
+<div data-ng-if="DMSManifestMenuCtrl.ePage.Entities.Header.Data.TmsGatepassList.length>0"
+    data-ng-init="DMSManifestMenuCtrl.ePage.Masters.ChangeManifestValues()"></div>

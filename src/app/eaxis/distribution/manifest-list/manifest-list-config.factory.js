@@ -211,31 +211,31 @@
                                     "Icon": "fa fa-plane",
                                     "GParentRef": "manifestorders"
                                 },
-                                // {
-                                //     "DisplayName": "Add Items",
-                                //     "Value": "AttachLines",
-                                //     "Icon": "fa fa-plane",
-                                //     "GParentRef": "manifestitem"
-                                // },
+                                {
+                                    "DisplayName": "Add Items",
+                                    "Value": "AttachLines",
+                                    "Icon": "fa fa-plane",
+                                    "GParentRef": "manifestitem"
+                                },
                                 {
                                     "DisplayName": "Confirm Manifest",
                                     "Value": "ConfirmManifest",
                                     "Icon": "fa fa-plane",
                                     "GParentRef": "approvemanifest"
                                 },
-                                // {
-                                //     "DisplayName": "Approve Manifest",
-                                //     "Value": "ApproveManifest",
-                                //     "Icon": "fa fa-plane",
-                                //     "GParentRef": "approvemanifest"
-                                // },
+                                {
+                                    "DisplayName": "Approve Manifest",
+                                    "Value": "ApproveManifest",
+                                    "Icon": "fa fa-plane",
+                                    "GParentRef": "approvemanifest"
+                                },
                                 {
                                     "DisplayName": "Confirm Transport Booking",
                                     "Value": "ConfirmTransportBooking",
                                     "Icon": "fa fa-plane",
                                     "GParentRef": "confirmtransportbooking"
                                 }, {
-                                    "DisplayName": "Complete Manifest",
+                                    "DisplayName": "Confirm Verify & Delivery",
                                     "Value": "CompleteManifest",
                                     "Icon": "fa fa-plane",
                                     "GParentRef": "completemanifest"
@@ -251,26 +251,26 @@
                                     "Icon": "fa fa-plane",
                                     "GParentRef": "manifestorders"
                                 },
-                                // {
-                                //     "DisplayName": "Add Items",
-                                //     "Value": "AttachLines",
-                                //     "Icon": "fa fa-plane",
-                                //     "GParentRef": "manifestitem"
-                                // },
+                                {
+                                    "DisplayName": "Add Items",
+                                    "Value": "AttachLines",
+                                    "Icon": "fa fa-plane",
+                                    "GParentRef": "manifestitem"
+                                },
                                 {
                                     "DisplayName": "Confirm Manifest",
                                     "Value": "ConfirmManifest",
                                     "Icon": "fa fa-plane",
                                     "GParentRef": "approvemanifest"
                                 },
-                                // {
-                                //     "DisplayName": "Approve Manifest",
-                                //     "Value": "ApproveManifest",
-                                //     "Icon": "fa fa-plane",
-                                //     "GParentRef": "approvemanifest"
-                                // },
                                 {
-                                    "DisplayName": "Complete Manifest",
+                                    "DisplayName": "Approve Manifest",
+                                    "Value": "ApproveManifest",
+                                    "Icon": "fa fa-plane",
+                                    "GParentRef": "approvemanifest"
+                                },
+                                {
+                                    "DisplayName": "Confirm Verify & Delivery",
                                     "Value": "CompleteManifest",
                                     "Icon": "fa fa-plane",
                                     "GParentRef": "completemanifest"
@@ -305,6 +305,12 @@
                                     "Value": "Issueexitgatepass",
                                     "Icon": "fa fa-plane",
                                     "GParentRef": "issueexitgatepass"
+                                },
+                                {
+                                    "DisplayName": "Generate DRS",
+                                    "Value": "deliveryrunsheet",
+                                    "Icon": "fa fa-plane",
+                                    "GParentRef": "deliveryrunsheet"
                                 }]
                             },
                             // "ErrorWarning": {
