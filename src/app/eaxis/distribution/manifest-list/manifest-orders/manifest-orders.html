@@ -105,8 +105,8 @@
                 <div class='table_header'>Client</div>
                 <div class='table_header'>Service Type</div>
                 <div class='table_header'>Status</div>
-                <div class='table_header'>Sender Reference</div>
-                <div class='table_header'>Receiver Reference</div>
+                <div class='table_header'>Sender Reference / Invoice No</div>
+                <div class='table_header'>Receiver Reference / Docket No</div>
                 <div class='table_header'>Expected Pickup Date Time</div>
                 <div class='table_header'>Expected Delivery Date Time</div>
             </div>
@@ -152,11 +152,11 @@
                     <div class='table_cell'>{{x.TMC_Status || ManifestOrdersCtrl.ePage.Masters.emptyText}}</div>
                 </div>
                 <div class='table_small'>
-                    <div class='table_cell'>Sender Reference</div>
+                    <div class='table_cell'>Sender Reference / Invoice No</div>
                     <div class='table_cell'>{{x.TMC_SenderRef || ManifestOrdersCtrl.ePage.Masters.emptyText}}</div>
                 </div>
                 <div class='table_small'>
-                    <div class='table_cell'>Receiver Reference </div>
+                    <div class='table_cell'>Receiver Reference / Docket No</div>
                     <div class='table_cell'>{{x.TMC_ReceiverRef || ManifestOrdersCtrl.ePage.Masters.emptyText}}</div>
                 </div>
                 <div class='table_small'>
