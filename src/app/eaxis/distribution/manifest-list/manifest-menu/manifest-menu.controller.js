@@ -58,7 +58,7 @@
             DMSManifestMenuCtrl.ePage.Masters.CompleteLoadText = "Complete Load";
             DMSManifestMenuCtrl.ePage.Masters.DockoutText = "Dock Out";
             DMSManifestMenuCtrl.ePage.Masters.GateoutText = "Gate Out";
-            DMSManifestMenuCtrl.ePage.Masters.CreateManifestText = "Attach Orders";
+            DMSManifestMenuCtrl.ePage.Masters.CreateManifestText = "Attach Consignment";
             DMSManifestMenuCtrl.ePage.Masters.ConfirmVehicleText = "Confirm Vehicle";
             DMSManifestMenuCtrl.ePage.Masters.ConfirmPickupText = "Confirm Pickup";
             DMSManifestMenuCtrl.ePage.Masters.ConfirmDeliveryText = "Confirm Delivery";

@@ -37,30 +37,30 @@
             GetDropdownList()
         }
 
-        function GetDropdownList(){
-             // Get CFXType Dropdown list
-             var typeCodeList = ["Currency"];
-             var dynamicFindAllInput = [];
- 
-             typeCodeList.map(function (value, key) {
-                 dynamicFindAllInput[key] = {
-                     "FieldName": "TypeCode",
-                     "value": value
-                 }
-             });
-             var _input = {
-                 "searchInput": dynamicFindAllInput,
-                 "FilterID": appConfig.Entities.CfxTypes.API.DynamicFindAll.FilterID
-             };
- 
-             apiService.post("eAxisAPI", appConfig.Entities.CfxTypes.API.DynamicFindAll.Url + authService.getUserInfo().AppPK, _input).then(function (response) {
-                 if (response.data.Response) {
-                     typeCodeList.map(function (value, key) {
-                         ApproveManifestCtrl.ePage.Masters.DropDownMasterList[value] = helperService.metaBase();
-                         ApproveManifestCtrl.ePage.Masters.DropDownMasterList[value].ListSource = response.data.Response[value];
-                     });
-                 }
-             });
+        function GetDropdownList() {
+            // Get CFXType Dropdown list
+            var typeCodeList = ["Currency"];
+            var dynamicFindAllInput = [];
+
+            typeCodeList.map(function (value, key) {
+                dynamicFindAllInput[key] = {
+                    "FieldName": "TypeCode",
+                    "value": value
+                }
+            });
+            var _input = {
+                "searchInput": dynamicFindAllInput,
+                "FilterID": appConfig.Entities.CfxTypes.API.DynamicFindAll.FilterID
+            };
+
+            apiService.post("eAxisAPI", appConfig.Entities.CfxTypes.API.DynamicFindAll.Url + authService.getUserInfo().AppPK, _input).then(function (response) {
+                if (response.data.Response) {
+                    typeCodeList.map(function (value, key) {
+                        ApproveManifestCtrl.ePage.Masters.DropDownMasterList[value] = helperService.metaBase();
+                        ApproveManifestCtrl.ePage.Masters.DropDownMasterList[value].ListSource = response.data.Response[value];
+                    });
+                }
+            });
         }
 
         Init();

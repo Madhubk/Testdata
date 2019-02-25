@@ -42,7 +42,7 @@
 
             ConfirmTransportCtrl.ePage.Masters.OnChangeVehicleType = OnChangeVehicleType;
             ConfirmTransportCtrl.ePage.Masters.SelectedLookupCarrier = SelectedLookupCarrier;
-
+         
             getVehicleType();
             generalOperation();
         }

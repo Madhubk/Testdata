@@ -22,6 +22,7 @@
                 "Meta": helperService.metaBase(),
                 "Entities": currentManifest,
             };
+            CreateManifestViewCtrl.ePage.Masters.Config = dmsManifestConfig;
 
             GetMenuBasedOnSender();
         }

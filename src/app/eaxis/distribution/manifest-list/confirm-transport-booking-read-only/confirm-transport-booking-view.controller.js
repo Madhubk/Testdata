@@ -22,6 +22,8 @@
                 "Meta": helperService.metaBase(),
                 "Entities": currentManifest,
             };
+            ConfirmBookingViewCtrl.ePage.Masters.Config = dmsManifestConfig;
+            
         }
 
         Init();

@@ -26,14 +26,14 @@
 </div>
 <div class="clearfix col-lg-12 mt-10">
     <div class="inner-dashboard-box">
-        <!--Transporter-->
+        <!--Carrier-->
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
             <div class="form-group">
-                <label class="control-label text-single-line">Transporter</label>
+                <label class="control-label text-single-line">Carrier</label>
 
                 <div class="input-group input-group-sm">
                     <!-- Dynamic look up Search in textbox -->
-                    <div dynamic-lookup placeholder="Transporter" my-ng-model="ConfirmTransportCtrl.ePage.Masters.Transporter" auto-complete-on-select="ConfirmTransportCtrl.ePage.Masters.SelectedLookupCarrier($item)"
+                    <div dynamic-lookup placeholder="Carrier" my-ng-model="ConfirmTransportCtrl.ePage.Masters.Transporter" auto-complete-on-select="ConfirmTransportCtrl.ePage.Masters.SelectedLookupCarrier($item)"
                         obj="ConfirmTransportCtrl.ePage.Entities.Header.Data.TmsManifestHeader" page-name="'OrganizationList'"
                         control-key="'SenderCarrier_3239'" control-id="'SenderCarrier'">
                     </div>
@@ -50,18 +50,18 @@
                 </div>
             </div>
         </div>
-        <!-- Transporter Reference No -->
+        <!-- Carrier/Docket/LR Number-->
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
             <div class="form-group">
-                <label class="control-label text-single-line">Transporter Reference No</label>
+                <label class="control-label text-single-line">Carrier/Docket/LR Number</label>
                 <div class="">
-                    <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Transporter Reference No"
+                    <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Carrier/Docket/LR Number"
                         data-ng-model="ConfirmTransportCtrl.ePage.Entities.Header.Data.TmsManifestHeader.TransportRefNo">
                 </div>
             </div>
         </div>
         <!--Vehicle Type-->
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3" data-ng-if="ConfirmTransportCtrl.ePage.Masters.Config.TransporterTypeValue == 'Transportation' || ConfirmTransportCtrl.ePage.Masters.Config.TransporterTypeValue == 'LastMileDelivery'">
             <div class="form-group">
                 <label class="control-label text-single-line">Vehicle Type</label>
                 <select chosen class="form-control" style="height: 30px;" ng-model="ConfirmTransportCtrl.ePage.Entities.Header.Data.TmsManifestHeader.VehicleTypeCode"
@@ -73,7 +73,7 @@
             </div>
         </div>
         <!-- Expected Vehicle No -->
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3" data-ng-if="ConfirmTransportCtrl.ePage.Masters.Config.TransporterTypeValue == 'Transportation' || ConfirmTransportCtrl.ePage.Masters.Config.TransporterTypeValue == 'LastMileDelivery'">
             <div class="form-group">
                 <label class="control-label text-single-line">Expected Vehicle No</label>
                 <div class="">
@@ -83,7 +83,7 @@
             </div>
         </div>
         <!-- Expected Driver Name   -->
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3" data-ng-if="ConfirmTransportCtrl.ePage.Masters.Config.TransporterTypeValue == 'Transportation' || ConfirmTransportCtrl.ePage.Masters.Config.TransporterTypeValue == 'LastMileDelivery'">
             <div class="clearfix form-group">
                 <label class="control-label text-single-line">Expected Driver Name</label>
                 <div class="">
@@ -93,7 +93,7 @@
             </div>
         </div>
         <!-- Driver Contact No   -->
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3" data-ng-if="ConfirmTransportCtrl.ePage.Masters.Config.TransporterTypeValue == 'Transportation' || ConfirmTransportCtrl.ePage.Masters.Config.TransporterTypeValue == 'LastMileDelivery'">
             <div class="clearfix form-group">
                 <label class="control-label text-single-line">Driver Contact No</label>
                 <div class="">
@@ -143,6 +143,89 @@
                             <i class="fa fa-calendar"></i>
                         </button>
                     </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="clearfix col-lg-12 mt-10">
+    <div class="dmstable_scroll" id='ConfirmTransportCtrl.ePage.Masters.your_div'
+        style="height:145px; padding-top: 2px;">
+        <div class="table" id="results">
+            <div class='theader'>
+                <div class='table_header'>Consignment Number</div>
+                <div class='table_header'>Docket Number</div>
+                <div class='table_header'>Sender</div>
+                <div class='table_header'>Receiver</div>
+                <div class='table_header'>Client</div>
+                <div class='table_header'>Service Type</div>
+                <div class='table_header'>Status</div>
+                <div class='table_header'>Sender Reference</div>
+                <!-- <div class='table_header'>Receiver Reference</div> -->
+                <div class='table_header'>Expected Pickup Date Time</div>
+                <div class='table_header'>Expected Delivery Date Time</div>
+            </div>
+
+            <!-- List Empty Response -->
+            <div data-ng-if="ConfirmTransportCtrl.ePage.Entities.Header.Data.TmsManifestConsignment.length==0">
+                <div class="text-no-record grid-width" style="bottom:38px">No Record Found</div>
+            </div>
+
+            <div class='table_row'
+                ng-repeat="x in ConfirmTransportCtrl.ePage.Entities.Header.Data.TmsManifestConsignment | filter:{IsDeleted:'false'}  track by $index"
+                ng-click="ConfirmTransportCtrl.ePage.Masters.setSelectedRow($index)"
+                ng-class="{row_active: ConfirmTransportCtrl.ePage.Masters.selectedRow==$index}" style="font-size: 11px;">
+                <div class='table_small'>
+                    <div class='table_cell'>Consignment Number</div>
+                    <div class='table_cell'>{{x.TMC_ConsignmentNumber || ConfirmTransportCtrl.ePage.Masters.emptyText}}
+                    </div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Docket Number</div>
+                    <div class='table_cell'>
+                        <div class="">
+                            <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Docket Number" 
+                            data-ng-model="x.TMC_ReceiverRef">
+                        </div>
+                    </div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Sender</div>
+                    <div class='table_cell'>{{x.TMC_SenderCode || ConfirmTransportCtrl.ePage.Masters.emptyText}} -
+                        {{x.TMC_SenderName || ConfirmTransportCtrl.ePage.Masters.emptyText}}</div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Receiver</div>
+                    <div class='table_cell'>{{x.TMC_ReceiverCode || ConfirmTransportCtrl.ePage.Masters.emptyText}} -
+                        {{x.TMC_ReceiverName || ConfirmTransportCtrl.ePage.Masters.emptyText}}</div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Client</div>
+                    <div class='table_cell'>{{x.TMC_ClientId || ConfirmTransportCtrl.ePage.Masters.emptyText}}</div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Service Type</div>
+                    <div class='table_cell'>{{x.TMC_ServiceType || ConfirmTransportCtrl.ePage.Masters.emptyText}}</div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Status</div>
+                    <div class='table_cell'>{{x.TMC_Status || ConfirmTransportCtrl.ePage.Masters.emptyText}}</div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Sender Reference</div>
+                    <div class='table_cell'>{{x.TMC_SenderRef || ConfirmTransportCtrl.ePage.Masters.emptyText}}</div>
+                </div>
+                <!-- <div class='table_small'>
+                    <div class='table_cell'>Receiver Reference </div>
+                    <div class='table_cell'>{{x.TMC_ReceiverRef || ConfirmTransportCtrl.ePage.Masters.emptyText}}</div>
+                </div> -->
+                <div class='table_small'>
+                    <div class='table_cell'>Expected Pickup Date Time</div>
+                    <div class='table_cell'>{{x.TMC_ExpectedPickupDateTime | date:"dd-MMM-yyyy h:mm a"}}</div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Expected Delivery Date Time</div>
+                    <div class='table_cell'>{{x.TMC_ExpectedDeliveryDateTime | date:"dd-MMM-yyyy h:mm a"}}</div>
                 </div>
             </div>
         </div>
