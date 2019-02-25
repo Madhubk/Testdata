@@ -484,39 +484,39 @@
                                                                                 }
                                                                                 response.data.Response.TmsManifestConsignment.push(_obj);
 
-                                                                                angular.forEach(OutwardMenuCtrl.ePage.Masters.PickLineList, function (value, key) {
-                                                                                    var obj = {
-                                                                                        "PK": "",
-                                                                                        "Quantity": value.Units,
-                                                                                        "TMC_ConsignmentNumber": value.WOD_WorkOrderID,
-                                                                                        "TIT_ReceiverCode": value.WOD_ConsigneeCode,
-                                                                                        "TIT_ReceiverName": value.WOD_ConsigneeName,
-                                                                                        "TIT_Receiver_ORG_FK": value.WOD_ORG_Consignee_FK,
-                                                                                        "TIT_SenderCode": value.WOD_WAR_ORG_Code,
-                                                                                        "TIT_SenderName": value.WOD_WAR_ORG_FullName,
-                                                                                        "TIT_Sender_ORG_FK": value.WOD_WAR_ORG_FK,
-                                                                                        "TIT_ItemStatus": value.WorkOrderLineStatus,
-                                                                                        "TMC_FK": "",
-                                                                                        "IsDeleted": value.IsDeleted,
-                                                                                        "IsModified": value.IsModified,
-                                                                                        "TIT_ItemRef_ID": value.PAC_PackType,
-                                                                                        "TIT_ItemRefType": "Outward Line",
-                                                                                        "TIT_ItemRef_PK": value.PK,
-                                                                                        "TIT_ItemCode": value.ProductCode,
-                                                                                        "TIT_ItemDesc": value.ProductDescription,
-                                                                                        "TIT_FK": "",
-                                                                                        "TIT_Weight": value.Weight,
-                                                                                        "TIT_Volumn": value.Volume,
-                                                                                        "TMM_FK": response.data.Response.TmsManifestHeader.PK,
-                                                                                        "WOM_PartAttrib1": value.PartAttrib1,
-                                                                                        "WOM_PartAttrib2": value.PartAttrib2,
-                                                                                        "WOM_PartAttrib3": value.PartAttrib3,
-                                                                                        "WOM_PackingDate": value.PackingDate,
-                                                                                        "WOM_ExpiryDate": value.ExpiryDate,
-                                                                                        "WOM_Product_PK": value.PRO_FK
-                                                                                    }
-                                                                                    response.data.Response.TmsManifestItem.push(obj);
-                                                                                });
+                                                                                // angular.forEach(OutwardMenuCtrl.ePage.Masters.PickLineList, function (value, key) {
+                                                                                //     var obj = {
+                                                                                //         "PK": "",
+                                                                                //         "Quantity": value.Units,
+                                                                                //         "TMC_ConsignmentNumber": value.WOD_WorkOrderID,
+                                                                                //         "TIT_ReceiverCode": value.WOD_ConsigneeCode,
+                                                                                //         "TIT_ReceiverName": value.WOD_ConsigneeName,
+                                                                                //         "TIT_Receiver_ORG_FK": value.WOD_ORG_Consignee_FK,
+                                                                                //         "TIT_SenderCode": value.WOD_WAR_ORG_Code,
+                                                                                //         "TIT_SenderName": value.WOD_WAR_ORG_FullName,
+                                                                                //         "TIT_Sender_ORG_FK": value.WOD_WAR_ORG_FK,
+                                                                                //         "TIT_ItemStatus": value.WorkOrderLineStatus,
+                                                                                //         "TMC_FK": "",
+                                                                                //         "IsDeleted": value.IsDeleted,
+                                                                                //         "IsModified": value.IsModified,
+                                                                                //         "TIT_ItemRef_ID": value.PAC_PackType,
+                                                                                //         "TIT_ItemRefType": "Outward Line",
+                                                                                //         "TIT_ItemRef_PK": value.PK,
+                                                                                //         "TIT_ItemCode": value.ProductCode,
+                                                                                //         "TIT_ItemDesc": value.ProductDescription,
+                                                                                //         "TIT_FK": "",
+                                                                                //         "TIT_Weight": value.Weight,
+                                                                                //         "TIT_Volumn": value.Volume,
+                                                                                //         "TMM_FK": response.data.Response.TmsManifestHeader.PK,
+                                                                                //         "WOM_PartAttrib1": value.PartAttrib1,
+                                                                                //         "WOM_PartAttrib2": value.PartAttrib2,
+                                                                                //         "WOM_PartAttrib3": value.PartAttrib3,
+                                                                                //         "WOM_PackingDate": value.PackingDate,
+                                                                                //         "WOM_ExpiryDate": value.ExpiryDate,
+                                                                                //         "WOM_Product_PK": value.PRO_FK
+                                                                                //     }
+                                                                                //     response.data.Response.TmsManifestItem.push(obj);
+                                                                                // });
 
                                                                                 apiService.post("eAxisAPI", appConfig.Entities.TmsManifestList.API.Update.Url, response.data.Response).then(function (response) {
                                                                                     if (response.data.Status == 'Success') {

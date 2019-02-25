@@ -236,7 +236,7 @@
                                 GoToOutwardCreation(type);
                             } else {
                                 $uibModal.open({
-                                    templateUrl: 'myModalContent.html',
+                                    templateUrl: 'myModalInventoryContent.html',
                                     windowClass: "success-popup",
                                     controller: function ($scope, $uibModalInstance) {
                                         $scope.close = function () {

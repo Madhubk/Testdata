@@ -264,7 +264,15 @@
                 "DeliveryComments": null,
                 "CancelledDateTime": null,
                 "IsModified": false,
-                "IsDeleted": false
+                "IsDeleted": false,
+                "UsePartAttrib1": "",
+                "UsePartAttrib2": "",
+                "UsePartAttrib3": "",
+                "IsPartAttrib1ReleaseCaptured": "",
+                "IsPartAttrib2ReleaseCaptured": "",
+                "IsPartAttrib3ReleaseCaptured": "",
+                "UseExpiryDate": "",
+                "UsePackingDate": ""
             }
             if (DeliveryLineCtrl.ePage.Entities.Header.Data.UIWmsDelivery.Client) {
                 obj.Client = DeliveryLineCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ClientCode;
@@ -412,7 +420,15 @@
                         "DeliveryComments": item.UISPMSDeliveryReport.DeliveryComments,
                         "CancelledDateTime": item.UISPMSDeliveryReport.CancelledDateTime,
                         "IsModified": false,
-                        "IsDeleted": false
+                        "IsDeleted": false,
+                        "UsePartAttrib1": item.UISPMSDeliveryReport.UsePartAttrib1,
+                        "UsePartAttrib2": item.UISPMSDeliveryReport.UsePartAttrib2,
+                        "UsePartAttrib3": item.UISPMSDeliveryReport.UsePartAttrib3,
+                        "IsPartAttrib1ReleaseCaptured": item.UISPMSDeliveryReport.IsPartAttrib1ReleaseCaptured,
+                        "IsPartAttrib2ReleaseCaptured": item.UISPMSDeliveryReport.IsPartAttrib2ReleaseCaptured,
+                        "IsPartAttrib3ReleaseCaptured": item.UISPMSDeliveryReport.IsPartAttrib3ReleaseCaptured,
+                        "UseExpiryDate": item.UISPMSDeliveryReport.UseExpiryDate,
+                        "UsePackingDate": item.UISPMSDeliveryReport.UsePackingDate
                     }
                     if (DeliveryLineCtrl.ePage.Entities.Header.Data.UIWmsDelivery.Client) {
                         obj.Client = DeliveryLineCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ClientCode;

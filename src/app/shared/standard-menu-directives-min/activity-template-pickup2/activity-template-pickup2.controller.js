@@ -181,6 +181,39 @@
                         myTaskActivityConfig.Entities.Pickup[myTaskActivityConfig.Entities.Pickup.label].ePage.Entities.Header.Data.UIWmsWorkorderReport.AcknowledgedPerson = authService.getUserInfo().UserId;
                         if (!myTaskActivityConfig.Entities.Pickup[myTaskActivityConfig.Entities.Pickup.label].ePage.Entities.Header.Data.UIWmsWorkorderReport.DeliveryRequestedDateTime)
                             myTaskActivityConfig.Entities.Pickup[myTaskActivityConfig.Entities.Pickup.label].ePage.Entities.Header.Data.UIWmsWorkorderReport.DeliveryRequestedDateTime = new Date();
+
+                        angular.forEach(myTaskActivityConfig.Entities.Pickup[myTaskActivityConfig.Entities.Pickup.label].ePage.Entities.Header.Data.UIWmsPickupLine, function (value, key) {
+                            value.UISPMSPickupReport.AcknowledgedPerson = myTaskActivityConfig.Entities.Pickup[myTaskActivityConfig.Entities.Pickup.label].ePage.Entities.Header.Data.UIWmsWorkorderReport.AcknowledgedPerson;
+                            value.UISPMSPickupReport.AcknowledgedDateTime = myTaskActivityConfig.Entities.Pickup[myTaskActivityConfig.Entities.Pickup.label].ePage.Entities.Header.Data.UIWmsWorkorderReport.AcknowledgementDateTime;
+                            value.UISPMSPickupReport.RequestedDateTime = myTaskActivityConfig.Entities.Pickup[myTaskActivityConfig.Entities.Pickup.label].ePage.Entities.Header.Data.UIWmsWorkorderReport.DeliveryRequestedDateTime;
+                            
+                            var _filter = {
+                                "PickupLine_FK": value.PK
+                            };
+                            var _input = {
+                                "searchInput": helperService.createToArrayOfObject(_filter),
+                                "FilterID": appConfig.Entities.WmsPickupReport.API.FindAll.FilterID
+                            };
+
+                            apiService.post("eAxisAPI", appConfig.Entities.WmsPickupReport.API.FindAll.Url, _input).then(function (response) {
+                                if (response.data.Response) {
+                                    if (response.data.Response.length > 0) {
+                                        response.data.Response[0].IsModified = true;
+                                        response.data.Response[0].AcknowledgedPerson = myTaskActivityConfig.Entities.Pickup[myTaskActivityConfig.Entities.Pickup.label].ePage.Entities.Header.Data.UIWmsWorkorderReport.AcknowledgedPerson;
+                                        response.data.Response[0].AcknowledgedDateTime = myTaskActivityConfig.Entities.Pickup[myTaskActivityConfig.Entities.Pickup.label].ePage.Entities.Header.Data.UIWmsWorkorderReport.AcknowledgementDateTime;
+                                        response.data.Response[0].RequestedDateTime = myTaskActivityConfig.Entities.Pickup[myTaskActivityConfig.Entities.Pickup.label].ePage.Entities.Header.Data.UIWmsWorkorderReport.DeliveryRequestedDateTime;
+                                        response.data.Response[0].PickupProductStatus = value.ProductCondition;
+                                        response.data.Response[0].ProductCondition = value.ProductCondition;
+                                        response.data.Response[0].RequestMode = myTaskActivityConfig.Entities.Pickup[myTaskActivityConfig.Entities.Pickup.label].ePage.Entities.Header.Data.UIWmsWorkorderReport.RequestMode;
+                                        apiService.post("eAxisAPI", appConfig.Entities.WmsPickupReport.API.Update.Url, response.data.Response[0]).then(function (response) {
+                                            if (response.data.Response) {
+                                                console.log("Pickup Report Updated for " + response.data.Response.PickupLineRefNo);
+                                            }
+                                        });
+                                    }
+                                }
+                            });
+                        });
                     }
                     saves(callback);
                 } else {
@@ -211,6 +244,44 @@
                     apiService.get("eAxisAPI", appConfig.Entities.WmsPickupList.API.GetById.Url + response.data.Response.UIWmsPickup.PK).then(function (response) {
                         if (response.data.Response) {
                             ActivityTemplatePickup2Ctrl.ePage.Masters.EntityObj = response.data.Response;
+                            
+                            if (ActivityTemplatePickup2Ctrl.taskObj.WSI_StepName == "Create Delivery Challan") {
+                                if (callback) {
+                                    angular.forEach(ActivityTemplatePickup2Ctrl.ePage.Masters.EntityObj.UIvwWmsPickupLine, function (value, key) {
+                                        var _filter = {
+                                            "PickupLine_FK": value.PL_PK
+                                        };
+                                        var _input = {
+                                            "searchInput": helperService.createToArrayOfObject(_filter),
+                                            "FilterID": appConfig.Entities.WmsPickupReport.API.FindAll.FilterID
+                                        };
+
+                                        apiService.post("eAxisAPI", appConfig.Entities.WmsPickupReport.API.FindAll.Url, _input).then(function (response) {
+                                            if (response.data.Response) {
+                                                
+                                                if (response.data.Response.length > 0) {
+                                                    response.data.Response[0].IsModified = true;
+                                                    response.data.Response[0].PIW_RefNo = value.INW_WorkOrderId;
+                                                    response.data.Response[0].PIW_Fk = value.INW_WorkOrderPk;
+                                                    response.data.Response[0].PIW_ExternalRefNo = value.INW_ExternalReference;
+                                                    response.data.Response[0].PIW_CustomerReference = value.INW_CustomerReference;
+                                                    response.data.Response[0].PIW_CreatedDateTime = value.INW_CreatedDateTime;
+                                                    response.data.Response[0].PIW_AsnLine_Fk = value.ASN_Pk;
+                                                    response.data.Response[0].StatusCode = ActivityTemplatePickup2Ctrl.ePage.Masters.EntityObj.UIWmsPickup.WorkOrderStatus;
+                                                    response.data.Response[0].StatusDescription = ActivityTemplatePickup2Ctrl.ePage.Masters.EntityObj.UIWmsPickup.WorkOrderStatusDesc;
+                                                    response.data.Response[0].PickupLineStatus = "Pickup In Progress";
+
+                                                    apiService.post("eAxisAPI", appConfig.Entities.WmsPickupReport.API.Update.Url, response.data.Response[0]).then(function (response) {
+                                                        if (response.data.Response) {
+                                                            console.log("Pickup Report Updated for " + response.data.Response.PickupLineRefNo);
+                                                        }
+                                                    });
+                                                }
+                                            }
+                                        });
+                                    });
+                                }
+                            }
                             ActivityTemplatePickup2Ctrl.ePage.Entities.Header.Data = ActivityTemplatePickup2Ctrl.ePage.Masters.EntityObj;
                             ActivityTemplatePickup2Ctrl.ePage.Entities.Header.Data.UIWmsPickup.Client = ActivityTemplatePickup2Ctrl.ePage.Entities.Header.Data.UIWmsPickup.ClientCode + ' - ' + ActivityTemplatePickup2Ctrl.ePage.Entities.Header.Data.UIWmsPickup.ClientName;
                             ActivityTemplatePickup2Ctrl.ePage.Entities.Header.Data.UIWmsPickup.Consignee = ActivityTemplatePickup2Ctrl.ePage.Entities.Header.Data.UIWmsPickup.ConsigneeCode + ' - ' + ActivityTemplatePickup2Ctrl.ePage.Entities.Header.Data.UIWmsPickup.ConsigneeName;

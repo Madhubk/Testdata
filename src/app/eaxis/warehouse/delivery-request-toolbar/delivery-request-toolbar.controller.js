@@ -46,7 +46,7 @@
             DeliveryRequestToolbarCtrl.ePage.Masters.CancelledDeliveryCount = 0;
             DeliveryRequestToolbarCtrl.ePage.Masters.OtherCount = 0
             angular.forEach(DeliveryRequestToolbarCtrl.ePage.Masters.Input, function (value, key) {
-                if (value.DeliveryLineStatus == "CAN") {
+                if (value.DeliveryLineStatus == "Cancelled") {
                     DeliveryRequestToolbarCtrl.ePage.Masters.CancelledDeliveryCount = DeliveryRequestToolbarCtrl.ePage.Masters.CancelledDeliveryCount + 1;
                     DeliveryRequestToolbarCtrl.ePage.Masters.CancelledDeliveryList.push(value);
                 } else {
@@ -94,6 +94,7 @@
                                     });
                                     // response.data.Response.Response.UIWmsWorkorderReport.AcknowledgementDateTime = new Date();
                                     // response.data.Response.Response.UIWmsWorkorderReport.AcknowledgedPerson = authService.getUserInfo().UserId;                                   
+                                    
                                     angular.forEach(DeliveryRequestToolbarCtrl.ePage.Masters.CancelledDeliveryList, function (value, key) {
                                         var obj = {
                                             "PK": "",
@@ -112,14 +113,14 @@
                                             "PartAttrib3": value.UDF3,
                                             "PackingDate": value.PackingDate,
                                             "ExpiryDate": value.ExpiryDate,
-                                            "UseExpiryDate": value.DL_UseExpiryDate,
-                                            "UsePackingDate": value.DL_UsePackingDate,
-                                            "UsePartAttrib1": value.DL_UsePartAttrib1,
-                                            "UsePartAttrib2": value.DL_UsePartAttrib2,
-                                            "UsePartAttrib3": value.DL_UsePartAttrib3,
-                                            "IsPartAttrib1ReleaseCaptured": value.DL_IsPartAttrib1ReleaseCaptured,
-                                            "IsPartAttrib2ReleaseCaptured": value.DL_IsPartAttrib2ReleaseCaptured,
-                                            "IsPartAttrib3ReleaseCaptured": value.DL_IsPartAttrib3ReleaseCaptured,
+                                            "UseExpiryDate": value.UseExpiryDate,
+                                            "UsePackingDate": value.UsePackingDate,
+                                            "UsePartAttrib1": value.UsePartAttrib1,
+                                            "UsePartAttrib2": value.UsePartAttrib2,
+                                            "UsePartAttrib3": value.UsePartAttrib3,
+                                            "IsPartAttrib1ReleaseCaptured": value.IsPartAttrib1ReleaseCaptured,
+                                            "IsPartAttrib2ReleaseCaptured": value.IsPartAttrib2ReleaseCaptured,
+                                            "IsPartAttrib3ReleaseCaptured": value.IsPartAttrib3ReleaseCaptured,
                                             "WorkOrderLineType": "DEL",
                                             "IsDeleted": false,
                                             "ORG_ClientCode": value.ClientCode,
@@ -159,9 +160,9 @@
                                             "RequestedDateTime": "",
                                             "RequesterContactNumber": DeliveryRequestToolbarCtrl.ePage.Masters.DeliveryData.UIWmsWorkorderReport.RequesterContactNo,
                                             "DeliveryRequestNo": response.data.Response.Response.UIWmsDelivery.WorkOrderID,
-                                            "DeliveryRequest_FK":response.data.Response.Response.UIWmsDelivery.PK,
+                                            "DeliveryRequest_FK": response.data.Response.Response.UIWmsDelivery.PK,
                                             "DeliveryLineRefNo": "R-" + value.DeliveryLineRefNo,
-                                            "PRO_FK":value.PRO_FK,
+                                            "PRO_FK": value.PRO_FK,
                                             "ProductCode": value.ProductCode,
                                             "ProductDescription": value.ProductDescription,
                                             "Packs": value.Packs,
@@ -174,6 +175,14 @@
                                             "UDF3": value.UDF3,
                                             "PackingDate": value.PackingDate,
                                             "ExpiryDate": value.ExpiryDate,
+                                            "UseExpiryDate": value.UseExpiryDate,
+                                            "UsePackingDate": value.UsePackingDate,
+                                            "UsePartAttrib1": value.UsePartAttrib1,
+                                            "UsePartAttrib2": value.UsePartAttrib2,
+                                            "UsePartAttrib3": value.UsePartAttrib3,
+                                            "IsPartAttrib1ReleaseCaptured": value.IsPartAttrib1ReleaseCaptured,
+                                            "IsPartAttrib2ReleaseCaptured": value.IsPartAttrib2ReleaseCaptured,
+                                            "IsPartAttrib3ReleaseCaptured": value.IsPartAttrib3ReleaseCaptured,
                                             "Receiver": "",
                                             "ReceiverContactNumber": "",
                                             "DeliveryComments": "",
@@ -194,7 +203,7 @@
                                                         angular.forEach(response.data.Response.UIWmsDeliveryLine, function (value1, key1) {
                                                             if (value1.PK == value.DeliveryLine_FK) {
                                                                 value1.WorkOrderLineStatus = "RDL";
-                                                                value1.UISPMSDeliveryReport.DeliveryLineStatus = "RDL";
+                                                                value1.UISPMSDeliveryReport.DeliveryLineStatus = "Re-Delivery Created";
                                                             }
                                                             if (value1.WorkOrderLineStatus == "RDL") {
                                                                 count = count + 1;

@@ -2745,6 +2745,32 @@
                         }
                     }
                 },
+                "WmsPickupReport": {
+                    "RowIndex": -1,
+                    "API": {
+                        "GetById": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "WmsPickupReport/GetById/",
+                        },
+                        "Update": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "WmsPickupReport/Update"
+                        },
+                        "Insert": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "WmsPickupReport/Insert"
+                        },
+                        "FindAll": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "WmsPickupReport/FindAll",
+                            "FilterID": "WMSWPR"
+                        }
+                    }
+                },
                 "WmsClientParameterByWarehouse": {
                     "RowIndex": -1,
                     "API": {

@@ -196,6 +196,46 @@
                                 apiService.post("eAxisAPI", appConfig.Entities.WmsPickupList.API.Update.Url, myTaskActivityConfig.Entities.PickupData).then(function (response) {
                                     myTaskActivityConfig.Entities.PickupData = response.data.Response;
                                     toastr.success("Pickup Saved Successfully");
+                                    
+                                    angular.forEach(myTaskActivityConfig.Entities.Inward[myTaskActivityConfig.Entities.Inward.label].ePage.Entities.Header.Data.UIWmsAsnLine, function (value, key) {
+                                        angular.forEach(myTaskActivityConfig.Entities.PickupData.UIWmsPickupLine, function (value1, key1) {
+                                            if (value.AdditionalRef1Code == value1.AdditionalRef1Code) {
+                                                var _filter = {
+                                                    "PickupLine_FK": value1.PK
+                                                };
+                                                var _input = {
+                                                    "searchInput": helperService.createToArrayOfObject(_filter),
+                                                    "FilterID": appConfig.Entities.WmsPickupReport.API.FindAll.FilterID
+                                                };
+
+                                                apiService.post("eAxisAPI", appConfig.Entities.WmsPickupReport.API.FindAll.Url, _input).then(function (response) {
+                                                    if (response.data.Response) {
+                                                        if (response.data.Response.length > 0) {
+                                                            response.data.Response[0].IsModified = true;
+                                                            response.data.Response[0].PIW_RefNo = myTaskActivityConfig.Entities.Inward[myTaskActivityConfig.Entities.Inward.label].ePage.Entities.Header.Data.UIWmsInwardHeader.WorkOrderID;
+                                                            response.data.Response[0].PIW_Fk = myTaskActivityConfig.Entities.Inward[myTaskActivityConfig.Entities.Inward.label].ePage.Entities.Header.Data.UIWmsInwardHeader.PK;
+                                                            response.data.Response[0].PIW_ExternalRefNo = myTaskActivityConfig.Entities.Inward[myTaskActivityConfig.Entities.Inward.label].ePage.Entities.Header.Data.UIWmsInwardHeader.ExternalReference;
+                                                            response.data.Response[0].PIW_CustomerReference = myTaskActivityConfig.Entities.Inward[myTaskActivityConfig.Entities.Inward.label].ePage.Entities.Header.Data.UIWmsInwardHeader.CustomerReference;
+                                                            response.data.Response[0].PIW_CreatedDateTime = myTaskActivityConfig.Entities.Inward[myTaskActivityConfig.Entities.Inward.label].ePage.Entities.Header.Data.UIWmsInwardHeader.CreatedDateTime;
+                                                            response.data.Response[0].PIW_AsnLine_Fk = value.PK;
+                                                            response.data.Response[0].Receiver = myTaskActivityConfig.Entities.PickupData.UIWmsWorkorderReport.Receiver;
+                                                            response.data.Response[0].ReceiverName = myTaskActivityConfig.Entities.PickupData.UIWmsWorkorderReport.Receiver;
+                                                            response.data.Response[0].ReceiverContactNo = myTaskActivityConfig.Entities.PickupData.UIWmsWorkorderReport.ReceiverContactNo;
+                                                            response.data.Response[0].HandOverPerson = myTaskActivityConfig.Entities.PickupData.UIWmsWorkorderReport.DeliveryPerson;
+                                                            response.data.Response[0].HandOverPersonContactNo = myTaskActivityConfig.Entities.PickupData.UIWmsWorkorderReport.DeliveryPersonContactNo;
+                                                            response.data.Response[0].PickupLineStatus = "Pickup In Progress";
+
+                                                            apiService.post("eAxisAPI", appConfig.Entities.WmsPickupReport.API.Update.Url, response.data.Response[0]).then(function (response) {
+                                                                if (response.data.Response) {
+                                                                    console.log("Pickup Report Updated for " + response.data.Response.PickupLineRefNo);
+                                                                }
+                                                            });
+                                                        }
+                                                    }
+                                                });
+                                            }
+                                        });
+                                    });
                                     ActivityTemplateInwardCtrl.ePage.Masters.IsDisableSaveBtn = false;
                                     ActivityTemplateInwardCtrl.ePage.Masters.SaveBtnText = "Save";
                                     if (callback)
@@ -226,6 +266,7 @@
                                     response.data.Response.UIWmsInwardHeader.TransferWarehouse = response.data.Response.UIWmsInwardHeader.TransferTo_WAR_Code + " - " + response.data.Response.UIWmsInwardHeader.TransferTo_WAR_Name;
                                     myTaskActivityConfig.Entities.Inward[myTaskActivityConfig.Entities.Inward.label].ePage.Entities.Header.Data = response.data.Response;
                                     var count = 0;
+                                    
                                     angular.forEach(myTaskActivityConfig.Entities.Inward[myTaskActivityConfig.Entities.Inward.label].ePage.Entities.Header.Data.UIWmsWorkOrderLine, function (value, key) {
                                         angular.forEach(myTaskActivityConfig.Entities.PickupData.UIWmsPickupLine, function (value1, key1) {
                                             if (value.AdditionalRef1Code == value1.AdditionalRef1Code) {
@@ -237,6 +278,43 @@
                                                 if (value1.WorkOrderLineStatus == "STO" || value1.WorkOrderLineStatus == "SCWS") {
                                                     count = count + 1;
                                                 }
+
+                                                var _filter = {
+                                                    "PickupLine_FK": value1.PK
+                                                };
+                                                var _input = {
+                                                    "searchInput": helperService.createToArrayOfObject(_filter),
+                                                    "FilterID": appConfig.Entities.WmsPickupReport.API.FindAll.FilterID
+                                                };
+
+                                                apiService.post("eAxisAPI", appConfig.Entities.WmsPickupReport.API.FindAll.Url, _input).then(function (response) {
+                                                    if (response.data.Response) {
+                                                        if (response.data.Response.length > 0) {
+                                                            response.data.Response[0].IsModified = true;
+                                                            response.data.Response[0].PIL_FinalisedDate = myTaskActivityConfig.Entities.Inward[myTaskActivityConfig.Entities.Inward.label].ePage.Entities.Header.Data.UIWmsInwardHeader.FinalisedDate;
+                                                            response.data.Response[0].PIL_Fk = value.PK;
+                                                            response.data.Response[0].PIL_ProductCode = value.ProductCode;
+                                                            response.data.Response[0].PIL_ProductDesc = value.ProductDescription;
+                                                            response.data.Response[0].PIL_Product_Fk = value.PRO_FK;
+                                                            response.data.Response[0].PIL_UDF1 = value.PartAttrib1;
+                                                            response.data.Response[0].PIL_UDF2 = value.PartAttrib2;
+                                                            response.data.Response[0].PIL_UDF3 = value.PartAttrib3;
+                                                            response.data.Response[0].PIW_ArrivalDate = myTaskActivityConfig.Entities.Inward[myTaskActivityConfig.Entities.Inward.label].ePage.Entities.Header.Data.UIWmsInwardHeader.ArrivalDate;
+                                                            if (value1.WAR_WarehouseCode == "BDL001") {
+                                                                response.data.Response[0].PickupLineStatus = "Stock at Central Warehouse";
+                                                            } else {
+                                                                response.data.Response[0].PickupLineStatus = "Stock at Site Warehouse";
+                                                            }
+
+                                                            apiService.post("eAxisAPI", appConfig.Entities.WmsPickupReport.API.Update.Url, response.data.Response[0]).then(function (response) {
+                                                                if (response.data.Response) {
+                                                                    console.log("Pickup Report Updated for " + response.data.Response.PickupLineRefNo);
+                                                                }
+                                                            });
+                                                        }
+                                                    }
+                                                });
+
                                             }
                                         });
                                     });
@@ -445,7 +523,7 @@
 
                                     //Inserting Outward
                                     apiService.post("eAxisAPI", appConfig.Entities.WmsOutwardList.API.Insert.Url, response.data.Response.Response).then(function (response) {
-                                        if (response.data.Status == 'Success') {                                            
+                                        if (response.data.Status == 'Success') {
                                             ActivityTemplateInwardCtrl.ePage.Masters.OutwardDetails = response.data.Response;
                                             angular.forEach(ActivityTemplateInwardCtrl.ePage.Masters.OutwardDetails.UIWmsWorkOrderLine, function (value, key) {
                                                 var _filter = {
