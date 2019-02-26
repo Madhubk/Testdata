@@ -29,9 +29,12 @@
                 BillableCostCtrl.ePage.Masters.MenuList = BillableCostCtrl.ePage.Entities.Header.Meta.MenuList.LoadMenu;
             }
 
-            BillableCostCtrl.ePage.Masters.DropDownMasterList={};
+            BillableCostCtrl.ePage.Masters.DropDownMasterList = {};
             BillableCostCtrl.ePage.Masters.Empty = "-";
             BillableCostCtrl.ePage.Masters.Config = dmsManifestConfig;
+            BillableCostCtrl.ePage.Masters.Save = save;
+            BillableCostCtrl.ePage.Masters.SaveButtonText = "Save";
+
             GetDropdownList()
         }
         function GetDropdownList() {
@@ -58,6 +61,39 @@
                     });
                 }
             });
+        }
+
+        function save() {
+            BillableCostCtrl.ePage.Entities.Header.CheckPoints.IsLoadingToSave = true;
+            if (BillableCostCtrl.ePage.Masters.Save) {
+                BillableCostCtrl.ePage.Masters.SaveButtonText = "Please Wait...";
+            }
+            var item = filterObjectUpdate(BillableCostCtrl.ePage.Entities.Header.Data, "IsModified");
+            apiService.post("eAxisAPI", BillableCostCtrl.ePage.Entities.Header.API.UpdateManifest.Url, BillableCostCtrl.ePage.Entities.Header.Data).then(function (response) {
+                if (response.data.Response) {
+                    apiService.get("eAxisAPI", dmsManifestConfig.Entities.Header.API.GetByID.Url + response.data.Response.Response.PK).then(function (response) {
+                        BillableCostCtrl.ePage.Entities.Header.Data = response.data.Response;
+                        BillableCostCtrl.ePage.Entities.Header.CheckPoints.IsDisableBtn = false;
+                        toastr.success("Saved Successfully");
+                        BillableCostCtrl.ePage.Masters.SaveButtonText = "Save";
+                    });
+                } else {
+                    BillableCostCtrl.ePage.Masters.SaveButtonText = "Save";
+                    BillableCostCtrl.ePage.Entities.Header.CheckPoints.IsDisableBtn = false;
+                    BillableCostCtrl.ePage.Entities.Header.CheckPoints.IsLoadingToSave = false;
+                }
+            });
+        }
+        function filterObjectUpdate(obj, key) {
+            for (var i in obj) {
+                if (!obj.hasOwnProperty(i)) continue;
+                if (typeof obj[i] == 'object') {
+                    filterObjectUpdate(obj[i], key);
+                } else if (i == key) {
+                    obj[key] = true;
+                }
+            }
+            return obj;
         }
         Init();
     }
