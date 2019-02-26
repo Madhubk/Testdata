@@ -83,7 +83,7 @@
                     });
                     if (count == PickupMenuCtrl.ePage.Masters.PickupOrders.length) {
                         $uibModal.open({
-                            templateUrl: 'myModalContent.html',
+                            templateUrl: 'myModalPickupContent.html',
                             controller: function ($scope, $uibModalInstance) {
 
                                 $scope.close = function () {
@@ -188,6 +188,53 @@
             } else {
                 $item = filterObjectUpdate($item, "IsModified");
             }
+
+            angular.forEach(_input.UIWmsPickupLine, function (value, key) {
+                value.UISPMSPickupReport.PK = value.UISPMSPickupReport.PK;
+                value.UISPMSPickupReport.Client_FK = _input.UIWmsPickup.ORG_Client_FK;
+                value.UISPMSPickupReport.ClientCode = _input.UIWmsPickup.ClientCode;
+                value.UISPMSPickupReport.ClientName = _input.UIWmsPickup.ClientName;
+                value.UISPMSPickupReport.Warehouse_FK = _input.UIWmsPickup.WAR_FK;
+                value.UISPMSPickupReport.WarehouseCode = _input.UIWmsPickup.WarehouseCode;
+                value.UISPMSPickupReport.WarehouseName = _input.UIWmsPickup.WarehouseName;
+                value.UISPMSPickupReport.Consignee_FK = _input.UIWmsPickup.ORG_Consignee_FK;
+                value.UISPMSPickupReport.ConsigneeCode = _input.UIWmsPickup.ConsigneeCode;
+                value.UISPMSPickupReport.ConsigneeName = _input.UIWmsPickup.ConsigneeName;
+                value.UISPMSPickupReport.SiteCode = value.UISPMSPickupReport.SiteCode;
+                value.UISPMSPickupReport.SiteName = value.UISPMSPickupReport.SiteName;
+                value.UISPMSPickupReport.StatusCode = _input.UIWmsPickup.WorkOrderStatus;
+                value.UISPMSPickupReport.StatusDesc = _input.UIWmsPickup.WorkOrderStatusDesc;
+                value.UISPMSPickupReport.RequestMode = _input.UIWmsWorkorderReport.RequestMode;
+                value.UISPMSPickupReport.ResponseType = _input.UIWmsWorkorderReport.ResponseType;
+                value.UISPMSPickupReport.PickupPoint = _input.UIWmsWorkorderReport.AdditionalRef1Code;
+                value.UISPMSPickupReport.RequesterName = _input.UIWmsWorkorderReport.Requester;
+                value.UISPMSPickupReport.ReceiverName = _input.UIWmsWorkorderReport.Receiver;
+                value.UISPMSPickupReport.ReceiverMailId = _input.UIWmsWorkorderReport.Receiver;
+                value.UISPMSPickupReport.AcknowledgedPerson = _input.UIWmsWorkorderReport.AcknowledgedPerson;
+                value.UISPMSPickupReport.AcknowledgedDateTime = _input.UIWmsWorkorderReport.AcknowledgementDateTime;
+                value.UISPMSPickupReport.RequestedDateTime = _input.UIWmsWorkorderReport.DeliveryRequestedDateTime;
+                value.UISPMSPickupReport.RequesterContactNumber = _input.UIWmsWorkorderReport.RequesterContactNo;
+                value.UISPMSPickupReport.PickupRequestNo = _input.UIWmsPickup.WorkOrderID;
+                value.UISPMSPickupReport.PickupLineRefNo = value.AdditionalRef1Code;
+                value.UISPMSPickupReport.PickupLineStatus = value.WorkOrderStatusDesc;
+                value.UISPMSPickupReport.ProductCode = value.ProductCode;
+                value.UISPMSPickupReport.ProductDescription = value.ProductDescription;
+                value.UISPMSPickupReport.Packs = value.Packs;
+                value.UISPMSPickupReport.PackType = value.PAC_PackType;
+                value.UISPMSPickupReport.Quantity = value.Units;
+                value.UISPMSPickupReport.UQ = value.StockKeepingUnit;
+                value.UISPMSPickupReport.ProductCondition = value.ProductCondition;
+                value.UISPMSPickupReport.PickupProductStatus = value.UISPMSPickupReport.PickupProductStatus;
+                value.UISPMSPickupReport.UDF1 = value.PartAttrib1;
+                value.UISPMSPickupReport.UDF2 = value.PartAttrib2;
+                value.UISPMSPickupReport.UDF3 = value.PartAttrib3;
+                value.UISPMSPickupReport.PackingDate = value.PackingDate;
+                value.UISPMSPickupReport.ExpiryDate = value.ExpiryDate;
+                value.UISPMSPickupReport.IsDeleted = value.IsDeleted;
+                value.UISPMSPickupReport.IsModified = value.IsModified;
+                value.UISPMSPickupReport.PickupLine_FK = value.PK;
+
+            });
 
             helperService.SaveEntity($item, 'Pickup').then(function (response) {
 

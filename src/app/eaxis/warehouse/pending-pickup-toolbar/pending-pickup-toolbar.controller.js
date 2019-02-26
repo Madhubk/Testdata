@@ -48,12 +48,12 @@
             PendingPickupToolbarCtrl.ePage.Masters.PendingPickupCount = 0;
             PendingPickupToolbarCtrl.ePage.Masters.OtherCount = 0
             angular.forEach(PendingPickupToolbarCtrl.ePage.Masters.Input, function (value, key) {
-                if (!value.PL_PrdCode) {
+                if (!value.WPR_PK) {
                     PendingPickupToolbarCtrl.ePage.Masters.PendingPickupCount = PendingPickupToolbarCtrl.ePage.Masters.PendingPickupCount + 1;
                     PendingPickupToolbarCtrl.ePage.Masters.PendingPickupList.push(value);
                 } else {
                     PendingPickupToolbarCtrl.ePage.Masters.OtherCount = PendingPickupToolbarCtrl.ePage.Masters.OtherCount + 1;
-                    PendingPickupToolbarCtrl.ePage.Masters.OtherList = PendingPickupToolbarCtrl.ePage.Masters.OtherList + value.DL_AdditionalRef1Code + ",";
+                    PendingPickupToolbarCtrl.ePage.Masters.OtherList = PendingPickupToolbarCtrl.ePage.Masters.OtherList + value.WDR_DeliveryLineRefNo + ",";
                 }
             });
             PendingPickupToolbarCtrl.ePage.Masters.OtherList = PendingPickupToolbarCtrl.ePage.Masters.OtherList.slice(0, -1);
@@ -65,125 +65,123 @@
 
         function CreatePickup() {
             if (PendingPickupToolbarCtrl.ePage.Masters.PendingPickupCount > 0) {
-                var TempWarehouse = PendingPickupToolbarCtrl.ePage.Masters.PendingPickupList[0].DEL_WAR_Code;
-                var TempConsignee = PendingPickupToolbarCtrl.ePage.Masters.PendingPickupList[0].DEL_ConsigneeCode;
+                var TempWarehouse = PendingPickupToolbarCtrl.ePage.Masters.PendingPickupList[0].WDR_WarehouseCode;
+                var TempConsignee = PendingPickupToolbarCtrl.ePage.Masters.PendingPickupList[0].WDR_ConsigneeCode;
+                var TempClient = PendingPickupToolbarCtrl.ePage.Masters.PendingPickupList[0].WDR_ClientCode;
                 var count = 0;
                 angular.forEach(PendingPickupToolbarCtrl.ePage.Masters.PendingPickupList, function (value, key) {
-                    if ((TempWarehouse == value.DEL_WAR_Code) && (TempConsignee == value.DEL_ConsigneeCode)) {
+                    if ((TempWarehouse == value.WDR_WarehouseCode) && (TempConsignee == value.WDR_ConsigneeCode) && (TempClient == value.WDR_ClientCode)) {
                         count = count + 1;
                     }
                 });
                 if (count == PendingPickupToolbarCtrl.ePage.Masters.PendingPickupList.length) {
                     PendingPickupToolbarCtrl.ePage.Masters.IsCreatePickupBtn = true;
                     PendingPickupToolbarCtrl.ePage.Masters.CreatePickupBtnText = "Please Wait...";
-                    apiService.get("eAxisAPI", appConfig.Entities.WmsDeliveryList.API.GetById.Url + PendingPickupToolbarCtrl.ePage.Masters.PendingPickupList[0].DEL_PK).then(function (response) {
+                    apiService.get("eAxisAPI", appConfig.Entities.WmsDeliveryList.API.GetById.Url + PendingPickupToolbarCtrl.ePage.Masters.PendingPickupList[0].WDR_DeliveryRequest_FK).then(function (response) {
                         if (response.data.Response) {
                             PendingPickupToolbarCtrl.ePage.Masters.DeliveryData = response.data.Response;
                             helperService.getFullObjectUsingGetById(appConfig.Entities.WmsPickupList.API.GetById.Url, 'null').then(function (response) {
                                 if (response.data.Response.Response) {
                                     response.data.Response.Response.UIWmsPickup.PK = response.data.Response.Response.PK;
                                     response.data.Response.Response.UIWmsPickup.ExternalReference = response.data.Response.Response.UIWmsPickup.WorkOrderID;
-                                    response.data.Response.Response.UIWmsPickup.ORG_Client_FK = PendingPickupToolbarCtrl.ePage.Masters.PendingPickupList[0].DEL_ORG_Client_FK;
-                                    response.data.Response.Response.UIWmsPickup.ORG_Consignee_FK = PendingPickupToolbarCtrl.ePage.Masters.PendingPickupList[0].DEL_ORG_Consignee_FK
-                                    response.data.Response.Response.UIWmsPickup.WAR_FK = PendingPickupToolbarCtrl.ePage.Masters.PendingPickupList[0].DEL_WAR_FK;
+                                    response.data.Response.Response.UIWmsPickup.ORG_Client_FK = PendingPickupToolbarCtrl.ePage.Masters.PendingPickupList[0].WDR_Client_Fk;
+                                    response.data.Response.Response.UIWmsPickup.ORG_Consignee_FK = PendingPickupToolbarCtrl.ePage.Masters.PendingPickupList[0].WDR_Consignee_FK
+                                    response.data.Response.Response.UIWmsPickup.WAR_FK = PendingPickupToolbarCtrl.ePage.Masters.PendingPickupList[0].WDR_Warehouse_Fk;
                                     response.data.Response.Response.UIWmsWorkorderReport.AdditionalRef1Code = PendingPickupToolbarCtrl.ePage.Masters.DeliveryData.UIWmsWorkorderReport.AdditionalRef1Code;
                                     response.data.Response.Response.UIWmsWorkorderReport.ResponseType = PendingPickupToolbarCtrl.ePage.Masters.DeliveryData.UIWmsWorkorderReport.ResponseType;
                                     response.data.Response.Response.UIJobAddress = angular.copy(PendingPickupToolbarCtrl.ePage.Masters.DeliveryData.UIJobAddress);
                                     angular.forEach(response.data.Response.Response.UIJobAddress, function (value, key) {
                                         value.PK = "";
                                     });
+                                    
                                     angular.forEach(PendingPickupToolbarCtrl.ePage.Masters.PendingPickupList, function (value, key) {
                                         var obj = {
                                             "PK": "",
-                                            "WOL_Parent_FK": value.DL_PK,
-                                            "ProductCode": value.DL_Req_PrdCode,
-                                            "ProductDescription": value.DL_Req_PrdDesc,
+                                            "WOL_Parent_FK": value.WDR_DeliveryLine_FK,
+                                            "ProductCode": value.WDR_ProductCode,
+                                            "ProductDescription": value.WDR_ProductDescription,
                                             "ProductCondition": "",
-                                            "PRO_FK": value.DL_Req_PrdPk,
-                                            "MCC_NKCommodityCode": value.DL_NKCommodityCode,
-                                            "Packs": value.DL_Packs,
-                                            "PAC_PackType": value.DL_PAC_PackType,
-                                            "Units": value.DL_Units,
-                                            "StockKeepingUnit": value.DL_StockKeepingUnit,
+                                            "PRO_FK": value.WDR_PRO_FK,
+                                            "MCC_NKCommodityCode": "",
+                                            "Packs": value.WDR_Packs,
+                                            "PAC_PackType": value.WDR_PackType,
+                                            "Units": value.WDR_Quantity,
+                                            "StockKeepingUnit": value.WDR_UQ,
                                             "PartAttrib1": "",
                                             "PartAttrib2": "",
                                             "PartAttrib3": "",
                                             "PackingDate": "",
                                             "ExpiryDate": "",
-                                            "UseExpiryDate": value.DL_UseExpiryDate,
-                                            "UsePackingDate": value.DL_UsePackingDate,
-                                            "UsePartAttrib1": value.DL_UsePartAttrib1,
-                                            "UsePartAttrib2": value.DL_UsePartAttrib2,
-                                            "UsePartAttrib3": value.DL_UsePartAttrib3,
-                                            "IsPartAttrib1ReleaseCaptured": value.DL_IsPartAttrib1ReleaseCaptured,
-                                            "IsPartAttrib2ReleaseCaptured": value.DL_IsPartAttrib2ReleaseCaptured,
-                                            "IsPartAttrib3ReleaseCaptured": value.DL_IsPartAttrib3ReleaseCaptured,
+                                            "UseExpiryDate": value.WDR_UseExpiryDate,
+                                            "UsePackingDate": value.WDR_UsePackingDate,
+                                            "UsePartAttrib1": value.WDR_UsePartAttrib1,
+                                            "UsePartAttrib2": value.WDR_UsePartAttrib2,
+                                            "UsePartAttrib3": value.WDR_UsePartAttrib3,
+                                            "IsPartAttrib1ReleaseCaptured": value.WDR_IsPartAttrib1ReleaseCaptured,
+                                            "IsPartAttrib2ReleaseCaptured": value.WDR_IsPartAttrib2ReleaseCaptured,
+                                            "IsPartAttrib3ReleaseCaptured": value.WDR_IsPartAttrib3ReleaseCaptured,
                                             "WorkOrderLineType": "PIC",
                                             "IsDeleted": false,
-                                            "ORG_ClientCode": value.DEL_ClientCode,
-                                            "ORG_ClientName": value.DEL_ClientName,
-                                            "Client_FK": value.DEL_ClientFk,
-                                            "AdditionalRef1Code": value.DL_AdditionalRef1Code,
-                                            "AdditionalRef1Type": value.DL_AdditionalRef1Type,
-                                            "AdditionalRef1Fk": value.DL_AdditionalRef1Fk,
-                                            "WAR_WarehouseCode": value.DEL_WAR_Code,
-                                            "WAR_WarehouseName": value.DEL_WAR_Name,
-                                            "WAR_FK": value.WOD_WAR_FK,
+                                            "ORG_ClientCode": value.WDR_ClientCode,
+                                            "ORG_ClientName": value.WDR_ClientName,
+                                            "Client_FK": value.WDR_Client_Fk,
+                                            "AdditionalRef1Code": value.WDR_DeliveryLineRefNo,
+                                            "AdditionalRef1Type": "DeliveryLine",
+                                            "AdditionalRef1Fk": value.WDR_DeliveryLine_FK,
+                                            "WAR_WarehouseCode": value.WDR_WarehouseCode,
+                                            "WAR_WarehouseName": value.WDR_WarehouseName,
+                                            "WAR_FK": value.WDR_Warehouse_Fk,
                                         };
-                                        obj.UISPMSPickupReport={
+                                        
+                                        obj.UISPMSPickupReport = {
                                             "PK": "",
-                                            "Client_FK": value.DEL_ClientFk,
-                                            "ClientCode": value.DEL_ClientCode,
-                                            "ClientName": value.ClientName,
-                                            "Warehouse_FK": value.WOD_WAR_FK,
-                                            "WarehouseCode": value.DEL_WAR_Code,
-                                            "WarehouseName":value.DEL_WAR_Name,
-                                            "Consignee_FK": null,
-                                            "ConsigneeCode": null,
-                                            "ConsigneeName": null,
+                                            "Client_FK": value.WDR_Client_Fk,
+                                            "ClientCode": value.WDR_ClientCode,
+                                            "ClientName": value.WDR_ConsigneeName,
+                                            "Warehouse_FK": value.WDR_Warehouse_Fk,
+                                            "WarehouseCode": value.WDR_WarehouseCode,
+                                            "WarehouseName": value.WDR_WarehouseName,
+                                            "Consignee_FK": value.WDR_Consignee_FK,
+                                            "ConsigneeCode": value.WDR_ConsigneeCode,
+                                            "ConsigneeName": value.WDR_ConsigneeName,
                                             "SiteCode": null,
                                             "SiteName": null,
-                                            "StatusCode": null,
-                                            "StatusDesc": null,
+                                            "StatusCode": "ENT",
+                                            "StatusDesc": "Entered",
                                             "RequestMode": null,
-                                            "ResponseType": null,
-                                            "PickupPoint": null,
-                                            "RequesterName": null,
+                                            "ResponseType": value.WDR_ResponseType,
+                                            "PickupPoint": value.WDR_DropPoint,
+                                            "RequesterName": value.WDR_RequesterName,
                                             "ReceiverName": null,
                                             "ReceiverMailId": null,
                                             "AcknowledgedPerson": null,
                                             "AcknowledgedDateTime": null,
                                             "RequestedDateTime": null,
                                             "RequesterContactNumber": null,
-                                            "PickupRequestNo": null,
-                                            "PickupLineRefNo": null,
-                                            "ProductCode": null,
-                                            "ProductDescription": null,
-                                            "Packs": null,
-                                            "PackType": null,
-                                            "Quantity": null,
-                                            "UQ": null,
-                                            "ProductCondition": null,
-                                            "PickupProductStatus": null,
-                                            "UDF1": null,
-                                            "UDF2": null,
-                                            "UDF3": null,
-                                            "PackingDate": null,
-                                            "ExpiryDate": null,
-                                            "PIW_RefNo": null,
-                                            "PIW_Fk": null,
-                                            "PIW_ExternalRefNo": null,
-                                            "PIW_CustomerReference": null,
-                                            "PIW_ArrivalDate": null,
-                                            "PIW_CreatedDateTime": null,
-                                            "PIW_AsnLine_Fk": null,
-                                            "PIL_Fk": null,
-                                            "PIL_Product_Fk": null,
-                                            "PIL_ProductCode": null,
-                                            "PIL_ProductDesc": null,
-                                            "PIL_UDF1": null,
-                                            "PIL_UDF2": null,
-                                            "PIL_UDF3": null,
+                                            "PickupRequestNo": response.data.Response.Response.UIWmsPickup.WorkOrderID,
+                                            "PickupRequest_FK": response.data.Response.Response.UIWmsPickup.PK,
+                                            "PickupLineRefNo": value.WDR_DeliveryLineRefNo,
+                                            "ProductCode": value.WDR_ProductCode,
+                                            "ProductDescription": value.WDR_ProductDescription,
+                                            "Packs": value.WDR_Packs,
+                                            "PackType": value.WDR_PackType,
+                                            "Quantity": value.WDR_Quantity,
+                                            "UQ": value.WDR_UQ,
+                                            "ProductCondition": "",
+                                            "PickupProductStatus": "",
+                                            "UDF1": "",
+                                            "UDF2": "",
+                                            "UDF3": "",
+                                            "PackingDate": "",
+                                            "ExpiryDate": "",
+                                            "UseExpiryDate": value.WDR_UseExpiryDate,
+                                            "UsePackingDate": value.WDR_UsePackingDate,
+                                            "UsePartAttrib1": value.WDR_UsePartAttrib1,
+                                            "UsePartAttrib2": value.WDR_UsePartAttrib2,
+                                            "UsePartAttrib3": value.WDR_UsePartAttrib3,
+                                            "IsPartAttrib1ReleaseCaptured": value.WDR_IsPartAttrib1ReleaseCaptured,
+                                            "IsPartAttrib2ReleaseCaptured": value.WDR_IsPartAttrib2ReleaseCaptured,
+                                            "IsPartAttrib3ReleaseCaptured": value.WDR_IsPartAttrib3ReleaseCaptured,
                                             "PickupPerson": null,
                                             "PickupPersonContactNo": null,
                                             "HandOverPerson": null,
@@ -192,11 +190,12 @@
                                             "ReceiverContactNo": null,
                                             "ReceivedDateTime": null,
                                             "PickupComment": null,
-                                            "FaultyDescription": null,                                           
+                                            "FaultyDescription": null,
                                             "IsDeleted": false,
                                             "IsModified": false,
-                                            "PickupLine_FK": null
-                                          }
+                                            "PickupLine_FK": "",
+                                            "PickupLineStatus": "Pickup Requested"
+                                        }
                                         response.data.Response.Response.UIWmsPickupLine.push(obj);
                                     });
                                     apiService.post("eAxisAPI", appConfig.Entities.WmsPickupList.API.Insert.Url, response.data.Response.Response).then(function (response) {
@@ -235,7 +234,7 @@
                         }
                     });
                 } else {
-                    toastr.warning("Selected Warehouse and Consignee should be same");
+                    toastr.warning("Selected Warehouse, Client and Consignee should be same");
                 }
             }
         }

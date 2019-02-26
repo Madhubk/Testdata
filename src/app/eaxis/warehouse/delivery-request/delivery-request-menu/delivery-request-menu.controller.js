@@ -77,7 +77,7 @@
                     });
                     if (count == DeliveryMenuCtrl.ePage.Masters.DeliveryOrders.length) {
                         $uibModal.open({
-                            templateUrl: 'myModalContent.html',
+                            templateUrl: 'myModalDeliveryContent.html',
                             controller: function ($scope, $uibModalInstance) {
 
                                 $scope.close = function () {
@@ -103,7 +103,7 @@
                                         DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderStatusDesc = "Cancelled";
                                         angular.forEach(DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDeliveryLine, function (value, key) {
                                             value.WorkOrderLineStatus = "CAN";
-                                            value.UISPMSDeliveryReport.DeliveryLineStatus = "CAN";
+                                            value.UISPMSDeliveryReport.DeliveryLineStatus = "Cancelled";
                                         });
                                         // check whether the task available for this entity or not
                                         var _filter = {
@@ -197,7 +197,7 @@
                 }
             } else {
                 $item = filterObjectUpdate($item, "IsModified");
-            }
+            }            
 
             angular.forEach(_input.UIWmsDeliveryLine, function (value, key) {
                 value.UISPMSDeliveryReport.PK = value.UISPMSDeliveryReport.PK;
@@ -241,7 +241,15 @@
                 value.UISPMSDeliveryReport.IsModified = value.IsModified;
                 value.UISPMSDeliveryReport.IsDeleted = value.IsDeleted;
                 value.UISPMSDeliveryReport.DeliveryLine_FK = value.PK;
-                value.UISPMSDeliveryReport.DeliveryLineStatus = value.WorkOrderLineStatus;
+                value.UISPMSDeliveryReport.DeliveryLineStatus = value.WorkOrderLineStatusDesc;
+                value.UISPMSDeliveryReport.UsePartAttrib1 = value.UsePartAttrib1;
+                value.UISPMSDeliveryReport.UsePartAttrib2 = value.UsePartAttrib2;
+                value.UISPMSDeliveryReport.UsePartAttrib3 = value.UsePartAttrib3;
+                value.UISPMSDeliveryReport.IsPartAttrib1ReleaseCaptured = value.IsPartAttrib1ReleaseCaptured;
+                value.UISPMSDeliveryReport.IsPartAttrib2ReleaseCaptured = value.IsPartAttrib2ReleaseCaptured;
+                value.UISPMSDeliveryReport.IsPartAttrib3ReleaseCaptured = value.IsPartAttrib3ReleaseCaptured;
+                value.UISPMSDeliveryReport.UseExpiryDate = value.UseExpiryDate;
+                value.UISPMSDeliveryReport.UsePackingDate = value.UsePackingDate;
             });
 
             helperService.SaveEntity($item, 'Delivery').then(function (response) {
