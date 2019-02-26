@@ -598,12 +598,12 @@
             ManifestOrdersCtrl.ePage.Entities.Header.CheckPoints.IsDisableBtn = true;
             ManifestOrdersCtrl.ePage.Masters.IsLoadingToSave = true;
             var item = filterObjectUpdate(ManifestOrdersCtrl.ePage.Entities.Header.Data, "IsModified");
-            ManifestOrdersCtrl.ePage.Entities.Header.Data.IsConsignmentAttach = true;
+            ManifestOrdersCtrl.ePage.Entities.Header.CheckPoints.IsConsignmentAttach = true;
             apiService.post("eAxisAPI", ManifestOrdersCtrl.ePage.Entities.Header.API.UpdateManifest.Url, ManifestOrdersCtrl.ePage.Entities.Header.Data).then(function (response) {
                 if (response.data.Response) {
                     apiService.get("eAxisAPI", dmsManifestConfig.Entities.Header.API.GetByID.Url + response.data.Response.Response.PK).then(function (response) {
                         ManifestOrdersCtrl.ePage.Entities.Header.Data = response.data.Response;
-                        ManifestOrdersCtrl.ePage.Entities.Header.Data.IsConsignmentAttach = true;
+                        ManifestOrdersCtrl.ePage.Entities.Header.CheckPoints.IsConsignmentAttach = true;
                         ManifestOrdersCtrl.ePage.Entities.Header.CheckPoints.IsDisableBtn = false;
                         ManifestOrdersCtrl.ePage.Masters.IsLoadingToSave = false;
                     });
