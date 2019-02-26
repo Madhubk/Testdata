@@ -177,8 +177,10 @@
                 }
                 if (_errorcount.length == 0) {
                     if (callback) {
-                        myTaskActivityConfig.Entities.Pickup[myTaskActivityConfig.Entities.Pickup.label].ePage.Entities.Header.Data.UIWmsWorkorderReport.AcknowledgementDateTime = new Date();
-                        myTaskActivityConfig.Entities.Pickup[myTaskActivityConfig.Entities.Pickup.label].ePage.Entities.Header.Data.UIWmsWorkorderReport.AcknowledgedPerson = authService.getUserInfo().UserId;
+                        if (!myTaskActivityConfig.Entities.Pickup[myTaskActivityConfig.Entities.Pickup.label].ePage.Entities.Header.Data.UIWmsWorkorderReport.AcknowledgementDateTime)
+                            myTaskActivityConfig.Entities.Pickup[myTaskActivityConfig.Entities.Pickup.label].ePage.Entities.Header.Data.UIWmsWorkorderReport.AcknowledgementDateTime = new Date();
+                        if (!myTaskActivityConfig.Entities.Pickup[myTaskActivityConfig.Entities.Pickup.label].ePage.Entities.Header.Data.UIWmsWorkorderReport.AcknowledgedPerson)
+                            myTaskActivityConfig.Entities.Pickup[myTaskActivityConfig.Entities.Pickup.label].ePage.Entities.Header.Data.UIWmsWorkorderReport.AcknowledgedPerson = authService.getUserInfo().UserId;
                         if (!myTaskActivityConfig.Entities.Pickup[myTaskActivityConfig.Entities.Pickup.label].ePage.Entities.Header.Data.UIWmsWorkorderReport.DeliveryRequestedDateTime)
                             myTaskActivityConfig.Entities.Pickup[myTaskActivityConfig.Entities.Pickup.label].ePage.Entities.Header.Data.UIWmsWorkorderReport.DeliveryRequestedDateTime = new Date();
 
@@ -186,7 +188,7 @@
                             value.UISPMSPickupReport.AcknowledgedPerson = myTaskActivityConfig.Entities.Pickup[myTaskActivityConfig.Entities.Pickup.label].ePage.Entities.Header.Data.UIWmsWorkorderReport.AcknowledgedPerson;
                             value.UISPMSPickupReport.AcknowledgedDateTime = myTaskActivityConfig.Entities.Pickup[myTaskActivityConfig.Entities.Pickup.label].ePage.Entities.Header.Data.UIWmsWorkorderReport.AcknowledgementDateTime;
                             value.UISPMSPickupReport.RequestedDateTime = myTaskActivityConfig.Entities.Pickup[myTaskActivityConfig.Entities.Pickup.label].ePage.Entities.Header.Data.UIWmsWorkorderReport.DeliveryRequestedDateTime;
-                            
+
                             var _filter = {
                                 "PickupLine_FK": value.PK
                             };
@@ -244,7 +246,7 @@
                     apiService.get("eAxisAPI", appConfig.Entities.WmsPickupList.API.GetById.Url + response.data.Response.UIWmsPickup.PK).then(function (response) {
                         if (response.data.Response) {
                             ActivityTemplatePickup2Ctrl.ePage.Masters.EntityObj = response.data.Response;
-                            
+
                             if (ActivityTemplatePickup2Ctrl.taskObj.WSI_StepName == "Create Pickup Challan") {
                                 if (callback) {
                                     angular.forEach(ActivityTemplatePickup2Ctrl.ePage.Masters.EntityObj.UIvwWmsPickupLine, function (value, key) {
@@ -258,7 +260,7 @@
 
                                         apiService.post("eAxisAPI", appConfig.Entities.WmsPickupReport.API.FindAll.Url, _input).then(function (response) {
                                             if (response.data.Response) {
-                                                
+
                                                 if (response.data.Response.length > 0) {
                                                     response.data.Response[0].IsModified = true;
                                                     response.data.Response[0].PIW_RefNo = value.INW_WorkOrderId;

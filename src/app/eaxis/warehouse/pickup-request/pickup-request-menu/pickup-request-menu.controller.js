@@ -177,8 +177,10 @@
                 _input.UIWmsPickup.PK = _input.PK;
                 _input.UIWmsPickup.CreatedDateTime = new Date();
                 _input.UIWmsPickup.WorkOrderType = 'PIC';
-                _input.UIWmsWorkorderReport.AcknowledgementDateTime = new Date();
-                _input.UIWmsWorkorderReport.AcknowledgedPerson = authService.getUserInfo().UserId;
+                if (!_input.UIWmsWorkorderReport.AcknowledgementDateTime)
+                    _input.UIWmsWorkorderReport.AcknowledgementDateTime = new Date();
+                if (!_input.UIWmsWorkorderReport.AcknowledgedPerson)
+                    _input.UIWmsWorkorderReport.AcknowledgedPerson = authService.getUserInfo().UserId;
                 if (!_input.UIWmsWorkorderReport.DeliveryRequestedDateTime)
                     _input.UIWmsWorkorderReport.DeliveryRequestedDateTime = new Date();
                 _input.UIWmsWorkorderReport.WOD_FK = _input.PK;

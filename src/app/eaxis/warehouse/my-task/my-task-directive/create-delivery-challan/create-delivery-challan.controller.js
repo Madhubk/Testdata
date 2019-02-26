@@ -253,49 +253,49 @@
                         } else if (type == "MTR") {
                             var TempWar = _.groupBy(CreateDelChallanCtrl.ePage.Masters.WarehouseInventory, 'ProductCode');
                             var TempWarCount = _.keys(TempWar).length;
-                            if (TempWarCount == 0) {
-                                var TempWarInv = _.groupBy(CreateDelChallanCtrl.ePage.Masters.NotWarehouseInventory, 'ProductCode');
-                                var TempWarInvCount = _.keys(TempWarInv).length;
-                                var TempSelectedLineCount = _.keys(TempSelectedLine).length;
-                                if (TempWarInvCount == TempSelectedLineCount) {
-                                    var results = groupBy(CreateDelChallanCtrl.ePage.Masters.NotWarehouseInventory, function (item) {
-                                        return [item.WAR_WarehouseCode, item.ProductCode];
-                                    });
-                                    var war = [];
-                                    angular.forEach(results, function (value, key) {
-                                        var str;
-                                        if (typeof key == "string") {
-                                            str = JSON.parse(key);
-                                        }
-                                        war.push(str[0]);
-                                    });
-                                    var result = GetWarCount(war);
-                                    var WarehosueList = "";
-                                    angular.forEach(result, function (val, key) {
-                                        if (val == TempSelectedLineCount) {
-                                            WarehosueList = WarehosueList + key + ",";
-                                        }
-                                    });
-                                    WarehosueList = WarehosueList.slice(0, -1);
-                                    if (WarehosueList) {
-                                        CreateDelChallanCtrl.ePage.Entities.Header.Data.TempUIWmsDelivery = {};
-                                        CreateDelChallanCtrl.ePage.Entities.Header.Data.TempUIWmsDelivery.TempWarehouse = WarehosueList;
-                                        openModel().result.then(function (response) {
-                                            if (response == "MTR") {
-                                                GoToOutwardCreation(type);
-                                            }
-                                        }, function () {
-                                            console.log("Cancelled");
-                                        });
-                                    } else {
-                                        toastr.warning("Inventory not available for this product(s) in same warehouse.")
+                            // if (TempWarCount == 0) {
+                            var TempWarInv = _.groupBy(CreateDelChallanCtrl.ePage.Masters.NotWarehouseInventory, 'ProductCode');
+                            var TempWarInvCount = _.keys(TempWarInv).length;
+                            var TempSelectedLineCount = _.keys(TempSelectedLine).length;
+                            if (TempWarInvCount == TempSelectedLineCount) {
+                                var results = groupBy(CreateDelChallanCtrl.ePage.Masters.NotWarehouseInventory, function (item) {
+                                    return [item.WAR_WarehouseCode, item.ProductCode];
+                                });
+                                var war = [];
+                                angular.forEach(results, function (value, key) {
+                                    var str;
+                                    if (typeof key == "string") {
+                                        str = JSON.parse(key);
                                     }
+                                    war.push(str[0]);
+                                });
+                                var result = GetWarCount(war);
+                                var WarehosueList = "";
+                                angular.forEach(result, function (val, key) {
+                                    if (val == TempSelectedLineCount) {
+                                        WarehosueList = WarehosueList + key + ",";
+                                    }
+                                });
+                                WarehosueList = WarehosueList.slice(0, -1);
+                                if (WarehosueList) {
+                                    CreateDelChallanCtrl.ePage.Entities.Header.Data.TempUIWmsDelivery = {};
+                                    CreateDelChallanCtrl.ePage.Entities.Header.Data.TempUIWmsDelivery.TempWarehouse = WarehosueList;
+                                    openModel().result.then(function (response) {
+                                        if (response == "MTR") {
+                                            GoToOutwardCreation(type);
+                                        }
+                                    }, function () {
+                                        console.log("Cancelled");
+                                    });
                                 } else {
-                                    toastr.warning("Inventory not available for this product(s)");
+                                    toastr.warning("Inventory not available for this product(s) in same warehouse.")
                                 }
                             } else {
-                                toastr.warning("Inventory available in the Requested Warehouse. Click Create Outward to continue");
+                                toastr.warning("Inventory not available for this product(s)");
                             }
+                            // } else {
+                            //     toastr.warning("Inventory available in the Requested Warehouse. Click Create Outward to continue");
+                            // }
                         }
                     } else {
                         if (type == "OUT")

@@ -196,7 +196,7 @@
                                 apiService.post("eAxisAPI", appConfig.Entities.WmsPickupList.API.Update.Url, myTaskActivityConfig.Entities.PickupData).then(function (response) {
                                     myTaskActivityConfig.Entities.PickupData = response.data.Response;
                                     toastr.success("Pickup Saved Successfully");
-                                    
+
                                     angular.forEach(myTaskActivityConfig.Entities.Inward[myTaskActivityConfig.Entities.Inward.label].ePage.Entities.Header.Data.UIWmsAsnLine, function (value, key) {
                                         angular.forEach(myTaskActivityConfig.Entities.PickupData.UIWmsPickupLine, function (value1, key1) {
                                             if (value.AdditionalRef1Code == value1.AdditionalRef1Code) {
@@ -266,7 +266,7 @@
                                     response.data.Response.UIWmsInwardHeader.TransferWarehouse = response.data.Response.UIWmsInwardHeader.TransferTo_WAR_Code + " - " + response.data.Response.UIWmsInwardHeader.TransferTo_WAR_Name;
                                     myTaskActivityConfig.Entities.Inward[myTaskActivityConfig.Entities.Inward.label].ePage.Entities.Header.Data = response.data.Response;
                                     var count = 0;
-                                    
+
                                     angular.forEach(myTaskActivityConfig.Entities.Inward[myTaskActivityConfig.Entities.Inward.label].ePage.Entities.Header.Data.UIWmsWorkOrderLine, function (value, key) {
                                         angular.forEach(myTaskActivityConfig.Entities.PickupData.UIWmsPickupLine, function (value1, key1) {
                                             if (value.AdditionalRef1Code == value1.AdditionalRef1Code) {
@@ -419,7 +419,52 @@
                                         }
                                         response.data.Response.IsModified = true;
                                         apiService.post("eAxisAPI", appConfig.Entities.WmsWorkOrderLine.API.Update.Url, response.data.Response).then(function (response) {
-                                            if (response.data.Response) {
+                                            if (response.data.Response) {                                                
+                                                var _filter = {
+                                                    "PickupLine_FK": value.AdditionalRef1Fk
+                                                };
+                                                var _input = {
+                                                    "searchInput": helperService.createToArrayOfObject(_filter),
+                                                    "FilterID": appConfig.Entities.WmsPickupReport.API.FindAll.FilterID
+                                                };
+
+                                                apiService.post("eAxisAPI", appConfig.Entities.WmsPickupReport.API.FindAll.Url, _input).then(function (response) {
+                                                    if (response.data.Response) {
+                                                        if (response.data.Response.length > 0) {
+                                                            response.data.Response[0].IsModified = true;
+                                                            if (response.data.Response[0].PickupLineStatus == "In Transit from Site To Central Warehouse") {
+                                                                response.data.Response[0].PickupLineStatus = "Stock at Central Warehouse";
+                                                                response.data.Response[0].STC_IL_Fk = value.PK;
+                                                                response.data.Response[0].STC_ArrivalDate = myTaskActivityConfig.Entities.Inward[myTaskActivityConfig.Entities.Inward.label].ePage.Entities.Header.Data.UIWmsInwardHeader.ArrivalDate;
+                                                            } else if (response.data.Response[0].PickupLineStatus == "In Transit from Testing To Central Warehouse") {
+                                                                response.data.Response[0].PickupLineStatus = "Tested, Stock at Central Warehouse";
+                                                                response.data.Response[0].TTC_IL_Fk = value.PK;
+                                                                response.data.Response[0].TTC_ArrivalDate = myTaskActivityConfig.Entities.Inward[myTaskActivityConfig.Entities.Inward.label].ePage.Entities.Header.Data.UIWmsInwardHeader.ArrivalDate;
+                                                            } else if (response.data.Response[0].PickupLineStatus == "In Transit from Repair To Central Warehouse") {
+                                                                response.data.Response[0].PickupLineStatus = "Repaired, Stock at Central Warehouse";
+                                                                response.data.Response[0].RTC_IL_Fk = value.PK;
+                                                                response.data.Response[0].RTC_ArrivalDate = myTaskActivityConfig.Entities.Inward[myTaskActivityConfig.Entities.Inward.label].ePage.Entities.Header.Data.UIWmsInwardHeader.ArrivalDate;
+                                                            } else if (response.data.Response[0].PickupLineStatus == "In Transit To Testing Warehouse") {
+                                                                response.data.Response[0].PickupLineStatus = "Stock at Testing Warehouse";
+                                                                response.data.Response[0].CTT_IL_Fk = value.PK;
+                                                                response.data.Response[0].CTT_ArrivalDate = myTaskActivityConfig.Entities.Inward[myTaskActivityConfig.Entities.Inward.label].ePage.Entities.Header.Data.UIWmsInwardHeader.ArrivalDate;
+                                                            } else if (response.data.Response[0].PickupLineStatus == "In Transit To Repair Warehouse") {
+                                                                response.data.Response[0].PickupLineStatus = "Stock at Repair Warehouse";
+                                                                response.data.Response[0].CTR_IL_Fk = value.PK;
+                                                                response.data.Response[0].CTR_ArrivalDate = myTaskActivityConfig.Entities.Inward[myTaskActivityConfig.Entities.Inward.label].ePage.Entities.Header.Data.UIWmsInwardHeader.ArrivalDate;
+                                                            } else if (response.data.Response[0].PickupLineStatus == "In Transit To Scrap Warehouse") {
+                                                                response.data.Response[0].PickupLineStatus = "Stock at Scrap Warehouse";
+                                                                response.data.Response[0].CTR_IL_Fk = value.PK;
+                                                                response.data.Response[0].CTR_ArrivalDate = myTaskActivityConfig.Entities.Inward[myTaskActivityConfig.Entities.Inward.label].ePage.Entities.Header.Data.UIWmsInwardHeader.ArrivalDate;
+                                                            }
+                                                            apiService.post("eAxisAPI", appConfig.Entities.WmsPickupReport.API.Update.Url, response.data.Response[0]).then(function (response) {
+                                                                if (response.data.Response) {
+                                                                    console.log("Pickup Report Updated for " + response.data.Response.PickupLineRefNo);
+                                                                }
+                                                            });
+                                                        }
+                                                    }
+                                                });
                                             }
                                         });
                                     }
