@@ -129,10 +129,10 @@
             ActivityTemplateInwardCtrl.ePage.Masters.IsDisableSaveBtn = true;
             if (ActivityTemplateInwardCtrl.taskObj.WSI_StepName == "Receive Transferred Material") {
                 if (callback) {
-                    // ActivityTemplateInwardCtrl.ePage.Masters.IsDisableSaveBtn = false;
-                    // ActivityTemplateInwardCtrl.ePage.Masters.SaveBtnText = "Save";
-                    // ActivityTemplateInwardCtrl.ePage.Masters.CompleteBtnText = "Complete";
-                    // ActivityTemplateInwardCtrl.ePage.Masters.IsDisableCompleteBtn = false;
+                    ActivityTemplateInwardCtrl.ePage.Masters.IsDisableSaveBtn = false;
+                    ActivityTemplateInwardCtrl.ePage.Masters.SaveBtnText = "Save";
+                    ActivityTemplateInwardCtrl.ePage.Masters.CompleteBtnText = "Complete";
+                    ActivityTemplateInwardCtrl.ePage.Masters.IsDisableCompleteBtn = false;
                     $rootScope.FinalizeInwardFromTask(function (response) {
                         if (response == "error") {
                             ActivityTemplateInwardCtrl.ePage.Masters.IsDisableSaveBtn = false;
@@ -247,10 +247,10 @@
                 });
             } else if (ActivityTemplateInwardCtrl.taskObj.WSI_StepName == "Confirm Pickup and Get Signature") {
                 if (callback) {
-                    // ActivityTemplateInwardCtrl.ePage.Masters.IsDisableSaveBtn = false;
-                    // ActivityTemplateInwardCtrl.ePage.Masters.SaveBtnText = "Save";
-                    // ActivityTemplateInwardCtrl.ePage.Masters.CompleteBtnText = "Complete";
-                    // ActivityTemplateInwardCtrl.ePage.Masters.IsDisableCompleteBtn = false;
+                    ActivityTemplateInwardCtrl.ePage.Masters.IsDisableSaveBtn = false;
+                    ActivityTemplateInwardCtrl.ePage.Masters.SaveBtnText = "Save";
+                    ActivityTemplateInwardCtrl.ePage.Masters.CompleteBtnText = "Complete";
+                    ActivityTemplateInwardCtrl.ePage.Masters.IsDisableCompleteBtn = false;
                     $rootScope.FinalizeInwardFromTask(function (response) {
                         if (response == "error") {
                             ActivityTemplateInwardCtrl.ePage.Masters.IsDisableSaveBtn = false;
