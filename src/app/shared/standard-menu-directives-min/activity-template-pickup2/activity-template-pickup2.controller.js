@@ -245,7 +245,7 @@
                         if (response.data.Response) {
                             ActivityTemplatePickup2Ctrl.ePage.Masters.EntityObj = response.data.Response;
                             
-                            if (ActivityTemplatePickup2Ctrl.taskObj.WSI_StepName == "Create Delivery Challan") {
+                            if (ActivityTemplatePickup2Ctrl.taskObj.WSI_StepName == "Create Pickup Challan") {
                                 if (callback) {
                                     angular.forEach(ActivityTemplatePickup2Ctrl.ePage.Masters.EntityObj.UIvwWmsPickupLine, function (value, key) {
                                         var _filter = {
