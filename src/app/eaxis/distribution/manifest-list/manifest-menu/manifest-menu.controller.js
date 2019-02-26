@@ -812,7 +812,7 @@
                                     }
                                     if (DMSManifestMenuCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ManifestCompleteDatetime) {
                                         if (DMSManifestMenuCtrl.ePage.Masters.ManifestMenu.ListSource[DMSManifestMenuCtrl.ePage.Masters.ManifestMenu.ListSource.length - 1].Value == "CompleteManifest") {
-                                            DMSManifestMenuCtrl.ePage.Masters.ManifestMenu.ListSource[DMSManifestMenuCtrl.ePage.Masters.ManifestMenu.ListSource.length - 1].DisplayName = "Manifest Completed";
+                                            DMSManifestMenuCtrl.ePage.Masters.ManifestMenu.ListSource[DMSManifestMenuCtrl.ePage.Masters.ManifestMenu.ListSource.length - 1].DisplayName = "Confirm Verify & Delivery";
                                         }
                                     }
                                     // endregion
@@ -854,9 +854,9 @@
                                     }
                                     if (DMSManifestMenuCtrl.ePage.Entities.Header.Data.TmsManifestHeader.TransportBookedDateTime) {
                                         if (DMSManifestMenuCtrl.ePage.Masters.ManifestMenu.ListSource[5].DisplayName == "Transport Booked") {
-                                            $("#menu" + DMSManifestMenuCtrl.currentManifest.label + DMSManifestMenuCtrl.ePage.Masters.ManifestMenu.ListSource[3].Value).addClass('completed-menu');
-                                            $("#text" + DMSManifestMenuCtrl.currentManifest.label + DMSManifestMenuCtrl.ePage.Masters.ManifestMenu.ListSource[3].Value).addClass('completed-text');
-                                            $("#span" + DMSManifestMenuCtrl.currentManifest.label + DMSManifestMenuCtrl.ePage.Masters.ManifestMenu.ListSource[3].Value).addClass('completed-chevron');
+                                            $("#menu" + DMSManifestMenuCtrl.currentManifest.label + DMSManifestMenuCtrl.ePage.Masters.ManifestMenu.ListSource[5].Value).addClass('completed-menu');
+                                            $("#text" + DMSManifestMenuCtrl.currentManifest.label + DMSManifestMenuCtrl.ePage.Masters.ManifestMenu.ListSource[5].Value).addClass('completed-text');
+                                            $("#span" + DMSManifestMenuCtrl.currentManifest.label + DMSManifestMenuCtrl.ePage.Masters.ManifestMenu.ListSource[5].Value).addClass('completed-chevron');
                                         }
                                     }
                                     if (DMSManifestMenuCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ManifestCompleteDatetime) {
