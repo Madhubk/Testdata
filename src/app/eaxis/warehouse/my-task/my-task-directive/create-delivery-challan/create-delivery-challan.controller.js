@@ -500,6 +500,7 @@
                     CreateDelChallanCtrl.ePage.Masters.OutwardList = response.data.Response;
                     outwardConfig.ValidationFindall();
                     angular.forEach(CreateDelChallanCtrl.ePage.Masters.OutwardList, function (value, key) {
+                        myTaskActivityConfig.CallEntity = true;
                         AddTab(value, false);
                     });
                 }

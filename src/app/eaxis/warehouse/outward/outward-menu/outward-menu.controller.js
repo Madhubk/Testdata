@@ -102,24 +102,28 @@
             if (OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PK == "00000000-0000-0000-0000-000000000000") {
                 Validation(OutwardMenuCtrl.currentOutward, callback)
             } else {
-                apiService.get("eAxisAPI", appConfig.Entities.WmsOutwardList.API.GetById.Url + OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PK).then(function (response) {
-                    if (response.data.Response) {
-                        response.data.Response.UIWmsOutwardHeader.Client = response.data.Response.UIWmsOutwardHeader.ClientCode + "-" + response.data.Response.UIWmsOutwardHeader.ClientName;
-                        response.data.Response.UIWmsOutwardHeader.Warehouse = response.data.Response.UIWmsOutwardHeader.WarehouseCode + "-" + response.data.Response.UIWmsOutwardHeader.WarehouseName;
-                        response.data.Response.UIWmsOutwardHeader.Consignee = response.data.Response.UIWmsOutwardHeader.ConsigneeCode + "-" + response.data.Response.UIWmsOutwardHeader.ConsigneeName;
-                        if (response.data.Response.UIWmsOutwardHeader.TransferTo_WAR_Code == null) {
-                            response.data.Response.UIWmsOutwardHeader.TransferTo_WAR_Code = "";
+                if (OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PickNo) {
+                    apiService.get("eAxisAPI", appConfig.Entities.WmsOutwardList.API.GetById.Url + OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PK).then(function (response) {
+                        if (response.data.Response) {
+                            response.data.Response.UIWmsOutwardHeader.Client = response.data.Response.UIWmsOutwardHeader.ClientCode + "-" + response.data.Response.UIWmsOutwardHeader.ClientName;
+                            response.data.Response.UIWmsOutwardHeader.Warehouse = response.data.Response.UIWmsOutwardHeader.WarehouseCode + "-" + response.data.Response.UIWmsOutwardHeader.WarehouseName;
+                            response.data.Response.UIWmsOutwardHeader.Consignee = response.data.Response.UIWmsOutwardHeader.ConsigneeCode + "-" + response.data.Response.UIWmsOutwardHeader.ConsigneeName;
+                            if (response.data.Response.UIWmsOutwardHeader.TransferTo_WAR_Code == null) {
+                                response.data.Response.UIWmsOutwardHeader.TransferTo_WAR_Code = "";
+                            }
+                            if (response.data.Response.UIWmsOutwardHeader.TransferTo_WAR_Name == null) {
+                                response.data.Response.UIWmsOutwardHeader.TransferTo_WAR_Name = "";
+                            }
+                            response.data.Response.UIWmsOutwardHeader.TransferWarehouse = response.data.Response.UIWmsOutwardHeader.TransferTo_WAR_Code + "-" + response.data.Response.UIWmsOutwardHeader.TransferTo_WAR_Name;
+                            if (response.data.Response.UIWmsOutwardHeader.TransferWarehouse == " - ")
+                                response.data.Response.UIWmsOutwardHeader.TransferWarehouse = "";
+                            OutwardMenuCtrl.currentOutward[OutwardMenuCtrl.currentOutward.label].ePage.Entities.Header.Data = response.data.Response;
+                            Validation(OutwardMenuCtrl.currentOutward, callback)
                         }
-                        if (response.data.Response.UIWmsOutwardHeader.TransferTo_WAR_Name == null) {
-                            response.data.Response.UIWmsOutwardHeader.TransferTo_WAR_Name = "";
-                        }
-                        response.data.Response.UIWmsOutwardHeader.TransferWarehouse = response.data.Response.UIWmsOutwardHeader.TransferTo_WAR_Code + "-" + response.data.Response.UIWmsOutwardHeader.TransferTo_WAR_Name;
-                        if (response.data.Response.UIWmsOutwardHeader.TransferWarehouse == " - ")
-                            response.data.Response.UIWmsOutwardHeader.TransferWarehouse = "";
-                        OutwardMenuCtrl.currentOutward[OutwardMenuCtrl.currentOutward.label].ePage.Entities.Header.Data = response.data.Response;
-                        Validation(OutwardMenuCtrl.currentOutward, callback)
-                    }
-                });
+                    });
+                } else {
+                    Validation(OutwardMenuCtrl.currentOutward, callback)
+                }
             }
         }
 
