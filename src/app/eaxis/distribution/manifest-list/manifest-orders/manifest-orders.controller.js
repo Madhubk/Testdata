@@ -30,7 +30,7 @@
 
             ManifestOrdersCtrl.ePage.Masters.AttachDefaultFilter = {
                 "WorkOrderType": "ORD",
-                "WorkOrderStatusIn": "OAS,OCP",
+                "WorkOrderStatusIn": "OAS,OCP,FIN",
                 "Consignmentstatus": "DRF",
                 "ConsignStatus": "NULL",
             }
@@ -177,7 +177,7 @@
                     "WorkOrderID": ManifestOrdersCtrl.ePage.Masters.DynamicControl.Entities[0].Data.WorkOrderID,
                     "ClientCode": ManifestOrdersCtrl.ePage.Masters.DynamicControl.Entities[0].Data.ClientCode,
                     "SupplierCode": ManifestOrdersCtrl.ePage.Masters.DynamicControl.Entities[0].Data.SupplierCode,
-                    "WorkOrderStatusIn": "OAS,OCP",
+                    "WorkOrderStatusIn": "OAS,OCP,FIN",
                     "WarehouseCode": ManifestOrdersCtrl.ePage.Masters.DynamicControl.Entities[0].Data.WarehouseCode,
                     "WorkOrderType": ManifestOrdersCtrl.ePage.Masters.DynamicControl.Entities[0].Data.WorkOrderType,
                     "ConsigneeCode": ManifestOrdersCtrl.ePage.Masters.DynamicControl.Entities[0].Data.ConsigneeCode,
@@ -291,7 +291,7 @@
             //     "SupplierCode": ManifestOrdersCtrl.ePage.Masters.SupplierCode,
             //     "ConsigneeCode": ManifestOrdersCtrl.ePage.Masters.ConsigneeCode,
                 "WorkOrderType": "ORD",
-                "WorkOrderStatusIn": "OAS,OCP",
+                "WorkOrderStatusIn": "OAS,OCP,FIN",
                 "Consignmentstatus": "DRF",
                 "ConsignStatus": "NULL"
             };
@@ -478,7 +478,7 @@
             var _filter = {
                 // "WarehouseCode": ManifestOrdersCtrl.ePage.Masters.WarehouseCode,
                 "WorkOrderType": "ORD",
-                "WorkOrderStatusIn": "OAS,OCP",
+                "WorkOrderStatusIn": "OAS,OCP,FIN",
                 // "SupplierCode": ManifestOrdersCtrl.ePage.Masters.SupplierCode,
                 // "ConsigneeCode": ManifestOrdersCtrl.ePage.Masters.ConsigneeCode,
                 "Consignmentstatus": "DRF",
