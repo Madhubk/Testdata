@@ -2,37 +2,37 @@
     <div class="rows border-box border-radius-2 bg-fbfbfb">
         <div class="col-xs-4 col-sm-4 col-md-2 col-lg-2 col-xl-2 pt-10 pb-10">
             <div class="tab-profile-title text-single-line fs-16"
-                data-ng-bind="CompleteManifestCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ManifestNumber"></div>
+                data-ng-bind="BillableCostCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ManifestNumber"></div>
         </div>
 
         <!--Sender-->
         <div class="col-xs-6 col-sm-6 col-md-8 col-lg-8 col-xl-8 border-left border-right pt-10 pb-10 ">
             <div class="fs-14">
                 <span>
-                    {{CompleteManifestCtrl.ePage.Entities.Header.Data.TmsManifestHeader.SenderName}}
+                    {{BillableCostCtrl.ePage.Entities.Header.Data.TmsManifestHeader.SenderName}}
                 </span>
                 <span class="ml-15 mr-15">
                     <i class="fa fa-arrow-circle-right"></i>
                 </span>
                 <span>
-                    {{CompleteManifestCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ReceiverName}}
+                    {{BillableCostCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ReceiverName}}
                 </span>
             </div>
         </div>
         <div class="col-lg-2 mt-10">
             <div class="tab-profile-sub-title text-single-line fs-14"
-                title="{{CompleteManifestCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ManifestStatus}} - {{CompleteManifestCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ManifestStatusDesc}}"
-                data-ng-bind="CompleteManifestCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ManifestStatusDesc">
+                title="{{BillableCostCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ManifestStatus}} - {{BillableCostCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ManifestStatusDesc}}"
+                data-ng-bind="BillableCostCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ManifestStatusDesc">
             </div>
         </div>
     </div>
 </div>
-<div class="clearfix col-lg-12 mt-20">
+<!-- <div class="clearfix col-lg-12 mt-20">
     <div class="widget">
 
         <div class="widget-body  no-padding">
             <div class="tickets-container" style="padding: 1px 18px 11px 13px;">
-                <ul class="tickets-list" ng-repeat="x in CompleteManifestCtrl.ePage.Entities.Header.Data.TmsManifestConsignment">
+                <ul class="tickets-list" ng-repeat="x in BillableCostCtrl.ePage.Entities.Header.Data.TmsManifestConsignment">
                     <li class="ticket-item mt-10">
                         <div class="row">
                             <div class="ticket-user col-lg-2 col-sm-12">
@@ -65,9 +65,9 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 
-<!-- <div class="clearfix col-lg-12 mt-10">
+<div class="clearfix col-lg-12 mt-10">
     <div class="rows border-box border-radius-2 pt-15 height-60">
         <div class="col-lg-12 p-0">
             <div class="col-lg-3">
@@ -76,7 +76,7 @@
                     <div class="">
                         <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
                             placeholder="Transportation Cost"
-                            data-ng-model="CompleteManifestCtrl.ePage.Entities.Header.Data.TmsManifestHeader.TransportationCost">
+                            data-ng-model="BillableCostCtrl.ePage.Entities.Header.Data.TmsManifestHeader.TransportationCost">
                     </div>
                 </div>
             </div>
@@ -84,8 +84,8 @@
                 <div class="form-group">
                     <label class="color-999 fs-11">Currency</label>
                     <select chosen class="form-control"
-                        ng-model="CompleteManifestCtrl.ePage.Entities.Header.Data.TmsManifestHeader.CostCurrency"
-                        ng-options="x.Key as x.Key+' - '+x.Value for x in CompleteManifestCtrl.ePage.Masters.DropDownMasterList.Currency.ListSource"
+                        ng-model="BillableCostCtrl.ePage.Entities.Header.Data.TmsManifestHeader.CostCurrency"
+                        ng-options="x.Key as x.Key+' - '+x.Value for x in BillableCostCtrl.ePage.Masters.DropDownMasterList.Currency.ListSource"
                         search-contains="true">
                         <option value="">--Select--</option>
                     </select>
@@ -95,48 +95,49 @@
                 <div class="form-group">
                     <div class="color-999 fs-11">Carrier</div>
                     <div class="text-single-line">
-                        <span>{{CompleteManifestCtrl.ePage.Entities.Header.Data.TmsManifestHeader.TransporterName||CompleteManifestCtrl.ePage.Masters.Empty}}</span>
+                        <span>{{BillableCostCtrl.ePage.Entities.Header.Data.TmsManifestHeader.TransporterName||BillableCostCtrl.ePage.Masters.Empty}}</span>
                     </div>
                 </div>
             </div>
             <div class="col-lg-3">
                 <div class="form-group">
                     <div class="color-999 fs-11">Manifest Type</div>
-                    <span>{{CompleteManifestCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ManifestType||CompleteManifestCtrl.ePage.Masters.Empty}}</span>
+                    <span>{{BillableCostCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ManifestType||BillableCostCtrl.ePage.Masters.Empty}}</span>
                 </div>
             </div>
+        </div>
+        <div class="col-lg-12 p-0">
             <div class="col-lg-3"
-                data-ng-if="CompleteManifestCtrl.ePage.Entities.Header.Data.TmsManifestHeader.TransporterType == 'Transportation' || CompleteManifestCtrl.ePage.Entities.Header.Data.TmsManifestHeader.TransporterType == 'LastMileDelivery'">
+                data-ng-if="BillableCostCtrl.ePage.Entities.Header.Data.TmsManifestHeader.TransporterType == 'Transportation' || BillableCostCtrl.ePage.Entities.Header.Data.TmsManifestHeader.TransporterType == 'LastMileDelivery'">
                 <div class="form-group">
                     <div class="color-999 fs-11">Vehicle Type</div>
-                    <span>{{CompleteManifestCtrl.ePage.Entities.Header.Data.TmsManifestHeader.VehicleTypeDescription||CompleteManifestCtrl.ePage.Masters.Empty}}</span>
+                    <span>{{BillableCostCtrl.ePage.Entities.Header.Data.TmsManifestHeader.VehicleTypeDescription||BillableCostCtrl.ePage.Masters.Empty}}</span>
                 </div>
             </div>
             <div class="col-lg-3"
-                data-ng-if="CompleteManifestCtrl.ePage.Entities.Header.Data.TmsManifestHeader.TransporterType == 'Transportation' || CompleteManifestCtrl.ePage.Entities.Header.Data.TmsManifestHeader.TransporterType == 'LastMileDelivery'">
+                data-ng-if="BillableCostCtrl.ePage.Entities.Header.Data.TmsManifestHeader.TransporterType == 'Transportation' || BillableCostCtrl.ePage.Entities.Header.Data.TmsManifestHeader.TransporterType == 'LastMileDelivery'">
                 <div class="form-group">
                     <div class="color-999 fs-11">Load Type</div>
-                    <span>{{CompleteManifestCtrl.ePage.Entities.Header.Data.TmsManifestHeader.LoadType | dateFormat}}</span>
+                    <span>{{BillableCostCtrl.ePage.Entities.Header.Data.TmsManifestHeader.LoadType | dateFormat}}</span>
                 </div>
             </div>
             <div class="col-lg-3">
                 <div class="form-group">
                     <div class="color-999 fs-11">Est Delivery Date</div>
-                    <span>{{CompleteManifestCtrl.ePage.Entities.Header.Data.TmsManifestHeader.EstimatedDeliveryDate | date:"dd-MMM-yyyy h:mm a"}}</span>
+                    <span>{{BillableCostCtrl.ePage.Entities.Header.Data.TmsManifestHeader.EstimatedDeliveryDate | date:"dd-MMM-yyyy h:mm a"}}</span>
                 </div>
             </div>
             <div class="col-lg-3">
                 <div class="form-group">
                     <div class="color-999 fs-11">Est Dispatch Date</div>
-                    <span>{{CompleteManifestCtrl.ePage.Entities.Header.Data.TmsManifestHeader.EstimatedDispatchDate | date:"dd-MMM-yyyy h:mm a"}}</span>
+                    <span>{{BillableCostCtrl.ePage.Entities.Header.Data.TmsManifestHeader.EstimatedDispatchDate | date:"dd-MMM-yyyy h:mm a"}}</span>
                 </div>
             </div>
         </div>
     </div>
-</div> -->
-<!-- <div class="clearfix col-lg-12 mt-10">
-    <div class="dmstable_scroll" id='CompleteManifestCtrl.ePage.Masters.your_div'
-        style="height:145px; padding-top: 2px;">
+</div>
+<div class="clearfix col-lg-12 mt-10">
+    <div class="dmstable_scroll" id='BillableCostCtrl.ePage.Masters.your_div' style="height:145px; padding-top: 2px;">
         <div class="table" id="results">
             <div class='theader'>
                 <div class='table_header'>Consignment Number</div>
@@ -153,19 +154,18 @@
                 <div class='table_header'>Expected Delivery Date Time</div>
             </div>
 
-
-            <div data-ng-if="CompleteManifestCtrl.ePage.Entities.Header.Data.TmsManifestConsignment.length==0">
+            <!-- List Empty Response -->
+            <div data-ng-if="BillableCostCtrl.ePage.Entities.Header.Data.TmsManifestConsignment.length==0">
                 <div class="text-no-record grid-width" style="bottom:38px">No Record Found</div>
             </div>
 
             <div class='table_row'
-                ng-repeat="x in CompleteManifestCtrl.ePage.Entities.Header.Data.TmsManifestConsignment | filter:{IsDeleted:'false'}  track by $index"
-                ng-click="CompleteManifestCtrl.ePage.Masters.setSelectedRow($index)"
-                ng-class="{row_active: CompleteManifestCtrl.ePage.Masters.selectedRow==$index}"
-                style="font-size: 11px;">
+                ng-repeat="x in BillableCostCtrl.ePage.Entities.Header.Data.TmsManifestConsignment | filter:{IsDeleted:'false'}  track by $index"
+                ng-click="BillableCostCtrl.ePage.Masters.setSelectedRow($index)"
+                ng-class="{row_active: BillableCostCtrl.ePage.Masters.selectedRow==$index}" style="font-size: 11px;">
                 <div class='table_small'>
                     <div class='table_cell'>Consignment Number</div>
-                    <div class='table_cell'>{{x.TMC_ConsignmentNumber || CompleteManifestCtrl.ePage.Masters.emptyText}}
+                    <div class='table_cell'>{{x.TMC_ConsignmentNumber || BillableCostCtrl.ePage.Masters.emptyText}}
                     </div>
                 </div>
                 <div class='table_small'>
@@ -183,7 +183,7 @@
                     <div class='table_cell'>
                         <div class="">
                             <select chosen class="form-control" ng-model="x.TMC_BillableCurrency"
-                                ng-options="x.Key as x.Key+' - '+x.Value for x in CompleteManifestCtrl.ePage.Masters.DropDownMasterList.Currency.ListSource"
+                                ng-options="x.Key as x.Key+' - '+x.Value for x in BillableCostCtrl.ePage.Masters.DropDownMasterList.Currency.ListSource"
                                 search-contains="true">
                                 <option value="">--Select--</option>
                             </select>
@@ -192,33 +192,33 @@
                 </div>
                 <div class='table_small'>
                     <div class='table_cell'>Sender</div>
-                    <div class='table_cell'>{{x.TMC_SenderCode || CompleteManifestCtrl.ePage.Masters.emptyText}} -
-                        {{x.TMC_SenderName || CompleteManifestCtrl.ePage.Masters.emptyText}}</div>
+                    <div class='table_cell'>{{x.TMC_SenderCode || BillableCostCtrl.ePage.Masters.emptyText}} -
+                        {{x.TMC_SenderName || BillableCostCtrl.ePage.Masters.emptyText}}</div>
                 </div>
                 <div class='table_small'>
                     <div class='table_cell'>Receiver</div>
-                    <div class='table_cell'>{{x.TMC_ReceiverCode || CompleteManifestCtrl.ePage.Masters.emptyText}} -
-                        {{x.TMC_ReceiverName || CompleteManifestCtrl.ePage.Masters.emptyText}}</div>
+                    <div class='table_cell'>{{x.TMC_ReceiverCode || BillableCostCtrl.ePage.Masters.emptyText}} -
+                        {{x.TMC_ReceiverName || BillableCostCtrl.ePage.Masters.emptyText}}</div>
                 </div>
                 <div class='table_small'>
                     <div class='table_cell'>Client</div>
-                    <div class='table_cell'>{{x.TMC_ClientId || CompleteManifestCtrl.ePage.Masters.emptyText}}</div>
+                    <div class='table_cell'>{{x.TMC_ClientId || BillableCostCtrl.ePage.Masters.emptyText}}</div>
                 </div>
                 <div class='table_small'>
                     <div class='table_cell'>Service Type</div>
-                    <div class='table_cell'>{{x.TMC_ServiceType || CompleteManifestCtrl.ePage.Masters.emptyText}}</div>
+                    <div class='table_cell'>{{x.TMC_ServiceType || BillableCostCtrl.ePage.Masters.emptyText}}</div>
                 </div>
                 <div class='table_small'>
                     <div class='table_cell'>Status</div>
-                    <div class='table_cell'>{{x.TMC_Status || CompleteManifestCtrl.ePage.Masters.emptyText}}</div>
+                    <div class='table_cell'>{{x.TMC_Status || BillableCostCtrl.ePage.Masters.emptyText}}</div>
                 </div>
                 <div class='table_small'>
                     <div class='table_cell'>Sender Reference / Invoice No</div>
-                    <div class='table_cell'>{{x.TMC_SenderRef || CompleteManifestCtrl.ePage.Masters.emptyText}}</div>
+                    <div class='table_cell'>{{x.TMC_SenderRef || BillableCostCtrl.ePage.Masters.emptyText}}</div>
                 </div>
                 <div class='table_small'>
                     <div class='table_cell'>Receiver Reference / Docket No</div>
-                    <div class='table_cell'>{{x.TMC_ReceiverRef || CompleteManifestCtrl.ePage.Masters.emptyText}}</div>
+                    <div class='table_cell'>{{x.TMC_ReceiverRef || BillableCostCtrl.ePage.Masters.emptyText}}</div>
                 </div>
                 <div class='table_small'>
                     <div class='table_cell'>Expected Pickup Date Time</div>
@@ -231,9 +231,9 @@
             </div>
         </div>
     </div>
-</div> -->
+</div>
 <!-- <div class="clearfix col-lg-12 mt-10">
-    <div class="dmstable_scroll" id='CompleteManifestCtrl.ePage.Masters.your_div'
+    <div class="dmstable_scroll" id='BillableCostCtrl.ePage.Masters.your_div'
         style="height:145px; padding-top: 2px; padding-bottom: 40px">
         <div class="table" id="results">
             <div class='theader'>
@@ -250,59 +250,59 @@
                 <div class='table_header'>Packing Date</div>
                 <div class='table_header'>Expiry Date</div>
             </div>
-            <div data-ng-if="CompleteManifestCtrl.ePage.Entities.Header.Data.TmsManifestItem.length==0">
+            <div data-ng-if="BillableCostCtrl.ePage.Entities.Header.Data.TmsManifestItem.length==0">
                 <div class="text-no-record grid-width" style="bottom:38px">No Record Found</div>
             </div>
 
             <div class='table_row'
-                ng-repeat="x in CompleteManifestCtrl.ePage.Entities.Header.Data.TmsManifestItem | filter:{IsDeleted:'false'}  track by $index"
-                ng-click="CompleteManifestCtrl.ePage.Masters.setSelectedRow($index)"
-                ng-class="{row_active: CompleteManifestCtrl.ePage.Masters.selectedRow==$index}"
+                ng-repeat="x in BillableCostCtrl.ePage.Entities.Header.Data.TmsManifestItem | filter:{IsDeleted:'false'}  track by $index"
+                ng-click="BillableCostCtrl.ePage.Masters.setSelectedRow($index)"
+                ng-class="{row_active: BillableCostCtrl.ePage.Masters.selectedRow==$index}"
                 style="font-size: 11px;">
                 <div class='table_small'>
                     <div class='table_cell'>Item</div>
-                    <div class='table_cell'>{{x.TIT_ItemCode || CompleteManifestCtrl.ePage.Masters.emptyText}} -
-                        {{x.TIT_ItemDesc || CompleteManifestCtrl.ePage.Masters.emptyText}}</div>
+                    <div class='table_cell'>{{x.TIT_ItemCode || BillableCostCtrl.ePage.Masters.emptyText}} -
+                        {{x.TIT_ItemDesc || BillableCostCtrl.ePage.Masters.emptyText}}</div>
                 </div>
                 <div class='table_small'>
                     <div class='table_cell'>MHU Type</div>
-                    <div class='table_cell'>{{x.TIT_ItemRef_ID || CompleteManifestCtrl.ePage.Masters.emptyText}}</div>
+                    <div class='table_cell'>{{x.TIT_ItemRef_ID || BillableCostCtrl.ePage.Masters.emptyText}}</div>
                 </div>
                 <div class='table_small'>
                     <div class='table_cell'>Quantity</div>
-                    <div class='table_cell'>{{x.Quantity || CompleteManifestCtrl.ePage.Masters.emptyText}}</div>
+                    <div class='table_cell'>{{x.Quantity || BillableCostCtrl.ePage.Masters.emptyText}}</div>
                 </div>
                 <div class='table_small'>
                     <div class='table_cell'>Sender</div>
-                    <div class='table_cell'>{{x.TIT_SenderCode || CompleteManifestCtrl.ePage.Masters.emptyText}} -
-                        {{x.TIT_SenderName || CompleteManifestCtrl.ePage.Masters.emptyText}}</div>
+                    <div class='table_cell'>{{x.TIT_SenderCode || BillableCostCtrl.ePage.Masters.emptyText}} -
+                        {{x.TIT_SenderName || BillableCostCtrl.ePage.Masters.emptyText}}</div>
                 </div>
                 <div class='table_small'>
                     <div class='table_cell'>Receiver</div>
-                    <div class='table_cell'>{{x.TIT_ReceiverCode || CompleteManifestCtrl.ePage.Masters.emptyText}} -
-                        {{x.TIT_ReceiverName || CompleteManifestCtrl.ePage.Masters.emptyText}}</div>
+                    <div class='table_cell'>{{x.TIT_ReceiverCode || BillableCostCtrl.ePage.Masters.emptyText}} -
+                        {{x.TIT_ReceiverName || BillableCostCtrl.ePage.Masters.emptyText}}</div>
                 </div>
                 <div class='table_small'>
                     <div class='table_cell'>Status</div>
-                    <div class='table_cell'>{{x.TIT_ItemStatusDesc || CompleteManifestCtrl.ePage.Masters.emptyText}}
+                    <div class='table_cell'>{{x.TIT_ItemStatusDesc || BillableCostCtrl.ePage.Masters.emptyText}}
                     </div>
                 </div>
                 <div class='table_small'>
                     <div class='table_cell'>Consignment Number</div>
-                    <div class='table_cell'> {{x.TMC_ConsignmentNumber || CompleteManifestCtrl.ePage.Masters.emptyText}}
+                    <div class='table_cell'> {{x.TMC_ConsignmentNumber || BillableCostCtrl.ePage.Masters.emptyText}}
                     </div>
                 </div>
                 <div class='table_small'>
                     <div class='table_cell'>UDF 1</div>
-                    <div class='table_cell'>{{x.WOM_PartAttrib1 || CompleteManifestCtrl.ePage.Masters.emptyText}}</div>
+                    <div class='table_cell'>{{x.WOM_PartAttrib1 || BillableCostCtrl.ePage.Masters.emptyText}}</div>
                 </div>
                 <div class='table_small'>
                     <div class='table_cell'>UDF 2</div>
-                    <div class='table_cell'>{{x.WOM_PartAttrib2 || CompleteManifestCtrl.ePage.Masters.emptyText}}</div>
+                    <div class='table_cell'>{{x.WOM_PartAttrib2 || BillableCostCtrl.ePage.Masters.emptyText}}</div>
                 </div>
                 <div class='table_small'>
                     <div class='table_cell'>UDF 3</div>
-                    <div class='table_cell'>{{x.WOM_PartAttrib3 || CompleteManifestCtrl.ePage.Masters.emptyText}}</div>
+                    <div class='table_cell'>{{x.WOM_PartAttrib3 || BillableCostCtrl.ePage.Masters.emptyText}}</div>
                 </div>
                 <div class='table_small'>
                     <div class='table_cell'>Packing Date</div>
@@ -316,3 +316,13 @@
         </div>
     </div>
 </div> -->
+
+<!-- button -->
+
+<div class="col-lg-12 mt-5 mb-40">
+    <div class="pull-right">
+        <button class="btn btn-blue"
+            data-ng-click="BillableCostCtrl.ePage.Masters.Save()"
+            ng-bind="BillableCostCtrl.ePage.Masters.SaveButtonText"></button>
+    </div>
+</div>

@@ -186,7 +186,14 @@
                     'app/eaxis/distribution/manifest-list/delivery-runsheet/delivery-runsheet.controller.js',
                     'app/eaxis/distribution/manifest-list/delivery-runsheet/delivery-runsheet.directive.js'
                 ]
-            }, 
+            }, {
+                name: 'billablecost',
+                files: [
+                    'app/eaxis/distribution/manifest-list/billable-cost/billable-cost.css',
+                    'app/eaxis/distribution/manifest-list/billable-cost/billable-cost.controller.js',
+                    'app/eaxis/distribution/manifest-list/billable-cost/billable-cost.directive.js'
+                ]
+            },
             //region read only
             {
                 name: 'CreateManifestView',

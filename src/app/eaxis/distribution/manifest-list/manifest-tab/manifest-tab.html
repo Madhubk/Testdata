@@ -5,7 +5,8 @@
             <i class="fa fa-truck margin-right-5"></i>
             <span class="text-single-line" data-ng-bind="'Manifest'"></span>
         </uib-tab-heading>
-        <dms-manifest-menu current-manifest="ManifestTabCtrl.currentManifest" dataentry-object="ManifestTabCtrl.dataentryObject"></dms-manifest-menu>
+        <dms-manifest-menu current-manifest="ManifestTabCtrl.currentManifest"
+            dataentry-object="ManifestTabCtrl.dataentryObject"></dms-manifest-menu>
     </uib-tab>
     <!--Details-->
     <uib-tab>
@@ -22,5 +23,12 @@
             <span class="text-single-line" data-ng-bind="'Tracking'"></span>
         </uib-tab-heading>
         <tracking current-manifest="ManifestTabCtrl.currentManifest"></tracking>
+    </uib-tab>
+    <uib-tab>
+        <uib-tab-heading title="Billing">
+            <i class="fa fa-list-alt margin-right-5"></i>
+            <span class="text-single-line" data-ng-bind="'Billing'"></span>
+        </uib-tab-heading>
+        <billable-cost current-manifest="ManifestTabCtrl.currentManifest"></billable-cost>
     </uib-tab>
 </uib-tabset>
