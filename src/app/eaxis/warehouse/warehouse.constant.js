@@ -996,17 +996,25 @@
                 "app/eaxis/warehouse/my-task/my-task-directive/acknowledge-pickup-request/acknowledge-pickup-request.directive.js"
             ]
         },
-            // #endregion
+        // #endregion
 
-            // #region inventory-view
+        // #region inventory-view
         {
             name: 'inventoryView',
             files: [
-            'app/eaxis/warehouse/customer-view/inventory-customer-system-view/inventory-customer-system-view.css',
-            'app/eaxis/warehouse/customer-view/inventory-customer-system-view/inventory-customer-system-view.controller.js'
+                'app/eaxis/warehouse/customer-view/inventory-customer-system-view/inventory-customer-system-view.css',
+                'app/eaxis/warehouse/customer-view/inventory-customer-system-view/inventory-customer-system-view.controller.js'
+            ]
+        },
+        // #endregion
+        // Track delivery
+        {
+            name: 'TrackDelivery',
+            files: [
+                'app/eaxis/warehouse/customer-view/track-delivery/track-delivery.controller.js'
             ]
         }
-        // #endregion
+
         ]
     };
 
