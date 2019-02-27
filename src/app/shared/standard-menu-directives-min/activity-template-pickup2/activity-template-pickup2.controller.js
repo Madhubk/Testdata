@@ -388,7 +388,7 @@
         function StandardMenuConfig() {
             ActivityTemplatePickup2Ctrl.ePage.Masters.StandardMenuInput = {
                 // Entity
-                "Entity": ActivityTemplatePickup2Ctrl.ePage.Masters.TaskObj.Entity,
+                "Entity": ActivityTemplatePickup2Ctrl.ePage.Masters.TaskObj.WSI_StepCode,
                 "EntityRefKey": ActivityTemplatePickup2Ctrl.ePage.Masters.TaskObj.EntityRefKey,
                 "EntityRefCode": ActivityTemplatePickup2Ctrl.ePage.Masters.TaskObj.KeyReference,
                 "EntitySource": ActivityTemplatePickup2Ctrl.ePage.Masters.TaskObj.EntitySource,
