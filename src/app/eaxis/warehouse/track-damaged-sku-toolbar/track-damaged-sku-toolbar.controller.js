@@ -71,7 +71,7 @@
             }
         }
 
-        function UpdateInventory() {            
+        function UpdateInventory() {
             DamagedSkuToolbarCtrl.ePage.Masters.UpdateInventoryBtnText = "Please Wait..."
             DamagedSkuToolbarCtrl.ePage.Masters.IsUpdateInventoryBtn = true;
             var count = 0;
@@ -164,7 +164,9 @@
             DamagedSkuToolbarCtrl.ePage.Masters.modalInstance.dismiss('cancel');
         }
 
-        function UpdateData() {            
+        function UpdateData() {
+            DamagedSkuToolbarCtrl.ePage.Masters.UpdateInventoryBtnText = "Please Wait..."
+            DamagedSkuToolbarCtrl.ePage.Masters.IsUpdateInventoryBtn = true;
             var Status = "";
             if (DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList[0].ProductCondition == 'DMG') {
                 Status = "Damaged";
@@ -187,6 +189,7 @@
                             angular.forEach(DamagedSkuToolbarCtrl.ePage.Masters.PickupData.UIWmsPickupLine, function (value, key) {
                                 if (value.AdditionalRef1Code == DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList[0].PickupLineRefNo) {
                                     value.ProductCondition = DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList[0].ProductCondition;
+                                    value.UISPMSPickupReport.ProductCondition = DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList[0].ProductCondition;
                                 }
                             });
                             DamagedSkuToolbarCtrl.ePage.Masters.PickupData = filterObjectUpdate(DamagedSkuToolbarCtrl.ePage.Masters.PickupData, "IsModified");
@@ -275,7 +278,7 @@
             if (DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList.length > 0) {
                 var count = 0;
                 angular.forEach(DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList, function (value, key) {
-                    if (!value.PickupLineRefNo && value.PickupLineStatus == "Stock at Central Warehouse") {
+                    if (!value.TestingRefNo && value.PickupLineStatus == "Stock at Central Warehouse") {
                         count = count + 1;
                     }
                 });
@@ -305,7 +308,7 @@
             if (DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList.length > 0) {
                 var count = 0;
                 angular.forEach(DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList, function (value, key) {
-                    if (value.PickupLineRefNo && value.PickupLineStatus == "Tested, Stock at Central Warehouse") {
+                    if (value.TestingRefNo && value.PickupLineStatus == "Tested, Stock at Central Warehouse") {
                         count = count + 1;
                     }
                 });
@@ -335,7 +338,7 @@
             if (DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList.length > 0) {
                 var count = 0;
                 angular.forEach(DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList, function (value, key) {
-                    if (value.PickupLineRefNo && value.PickupLineStatus == "Tested, Stock at Central Warehouse") {
+                    if (value.TestingRefNo && value.PickupLineStatus == "Tested, Stock at Central Warehouse") {
                         count = count + 1;
                     }
                 });
@@ -379,7 +382,7 @@
             }
         }
 
-        function CreateMaterialTransferOutward(type) {            
+        function CreateMaterialTransferOutward(type) {
             apiService.get("eAxisAPI", appConfig.Entities.WmsPickupList.API.GetById.Url + DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList[0].PickupRequest_FK).then(function (response) {
                 if (response.data.Response) {
                     DamagedSkuToolbarCtrl.ePage.Masters.PickupData = response.data.Response;
@@ -503,7 +506,7 @@
             });
         }
 
-        function MTRCreation(_outwardInput, type) {            
+        function MTRCreation(_outwardInput, type) {
             apiService.post("eAxisAPI", appConfig.Entities.WmsOutwardList.API.Insert.Url, _outwardInput).then(function (response) {
                 if (response.data.Response) {
                     DamagedSkuToolbarCtrl.ePage.Masters.OutwardData = response.data.Response;
@@ -569,7 +572,7 @@
             });
         }
 
-        function ChangePickupStatus(type) {            
+        function ChangePickupStatus(type) {
             var count = 0;
             var TempPickupList = _.groupBy(DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList, 'PickupRequest_FK');
             var TempPickupListCount = _.keys(TempPickupList).length;
@@ -588,29 +591,29 @@
                                             value1.WorkOrderLineStatus = "MCWR";
                                         }
                                     } else if (type == "TES") {
-                                        // Add STC Number
-                                        var _filter = {
-                                            "Type": "STC"
-                                        };
-                                        var _input = {
-                                            "searchInput": helperService.createToArrayOfObject(_filter),
-                                            "FilterID": appConfig.Entities.WmsTestID.API.FindAll.FilterID
-                                        };
-                                        apiService.post("eAxisAPI", appConfig.Entities.WmsTestID.API.FindAll.Url, _input).then(function (response) {
-                                            if (response.data.Response) {
-                                                if (typeof response.data.Response[0].Value == "string") {
-                                                    response.data.Response[0].Value = JSON.parse(response.data.Response[0].Value);
-                                                }
-                                                value1.AdditionalRef2Code = response.data.Response[0].Prefix + response.data.Response[0].Value;
-                                                value1.AdditionalRef2Type = "STCNo";
-                                                response.data.Response[0].Value = response.data.Response[0].Value + 1;
-                                                response.data.Response[0].IsModified = true;
-                                                apiService.post("eAxisAPI", appConfig.Entities.AppCounter.API.Update.Url, response.data.Response[0]).then(function (response) {
-                                                    if (response.data.Response) {
-                                                    }
-                                                });
-                                            }
-                                        });
+                                        // // Add STC Number
+                                        // var _filter = {
+                                        //     "Type": "STC"
+                                        // };
+                                        // var _input = {
+                                        //     "searchInput": helperService.createToArrayOfObject(_filter),
+                                        //     "FilterID": appConfig.Entities.WmsTestID.API.FindAll.FilterID
+                                        // };
+                                        // apiService.post("eAxisAPI", appConfig.Entities.WmsTestID.API.FindAll.Url, _input).then(function (response) {
+                                        //     if (response.data.Response) {
+                                        //         if (typeof response.data.Response[0].Value == "string") {
+                                        //             response.data.Response[0].Value = JSON.parse(response.data.Response[0].Value);
+                                        //         }
+                                        //         value1.AdditionalRef2Code = response.data.Response[0].Prefix + response.data.Response[0].Value;
+                                        //         value1.AdditionalRef2Type = "STCNo";
+                                        //         response.data.Response[0].Value = response.data.Response[0].Value + 1;
+                                        //         response.data.Response[0].IsModified = true;
+                                        //         apiService.post("eAxisAPI", appConfig.Entities.AppCounter.API.Update.Url, response.data.Response[0]).then(function (response) {
+                                        //             if (response.data.Response) {
+                                        //             }
+                                        //         });
+                                        //     }
+                                        // });
                                         value1.WorkOrderLineStatus = "MTW";
                                     } else if (type == "SCR") {
                                         value1.WorkOrderLineStatus = "MSW";
@@ -641,7 +644,7 @@
         }
 
         function ChangesPickupLineStatus(type) {
-            angular.forEach(DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList, function (value, key) {                
+            angular.forEach(DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList, function (value, key) {
                 var _filter = {
                     "PickupLine_FK": value.PickupLine_FK
                 };

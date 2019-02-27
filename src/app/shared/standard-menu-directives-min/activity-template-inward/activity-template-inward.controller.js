@@ -129,10 +129,10 @@
             ActivityTemplateInwardCtrl.ePage.Masters.IsDisableSaveBtn = true;
             if (ActivityTemplateInwardCtrl.taskObj.WSI_StepName == "Receive Transferred Material") {
                 if (callback) {
-                    ActivityTemplateInwardCtrl.ePage.Masters.IsDisableSaveBtn = false;
-                    ActivityTemplateInwardCtrl.ePage.Masters.SaveBtnText = "Save";
-                    ActivityTemplateInwardCtrl.ePage.Masters.CompleteBtnText = "Complete";
-                    ActivityTemplateInwardCtrl.ePage.Masters.IsDisableCompleteBtn = false;
+                    // ActivityTemplateInwardCtrl.ePage.Masters.IsDisableSaveBtn = false;
+                    // ActivityTemplateInwardCtrl.ePage.Masters.SaveBtnText = "Save";
+                    // ActivityTemplateInwardCtrl.ePage.Masters.CompleteBtnText = "Complete";
+                    // ActivityTemplateInwardCtrl.ePage.Masters.IsDisableCompleteBtn = false;
                     $rootScope.FinalizeInwardFromTask(function (response) {
                         if (response == "error") {
                             ActivityTemplateInwardCtrl.ePage.Masters.IsDisableSaveBtn = false;
@@ -247,10 +247,10 @@
                 });
             } else if (ActivityTemplateInwardCtrl.taskObj.WSI_StepName == "Confirm Pickup and Get Signature") {
                 if (callback) {
-                    ActivityTemplateInwardCtrl.ePage.Masters.IsDisableSaveBtn = false;
-                    ActivityTemplateInwardCtrl.ePage.Masters.SaveBtnText = "Save";
-                    ActivityTemplateInwardCtrl.ePage.Masters.CompleteBtnText = "Complete";
-                    ActivityTemplateInwardCtrl.ePage.Masters.IsDisableCompleteBtn = false;
+                    // ActivityTemplateInwardCtrl.ePage.Masters.IsDisableSaveBtn = false;
+                    // ActivityTemplateInwardCtrl.ePage.Masters.SaveBtnText = "Save";
+                    // ActivityTemplateInwardCtrl.ePage.Masters.CompleteBtnText = "Complete";
+                    // ActivityTemplateInwardCtrl.ePage.Masters.IsDisableCompleteBtn = false;
                     $rootScope.FinalizeInwardFromTask(function (response) {
                         if (response == "error") {
                             ActivityTemplateInwardCtrl.ePage.Masters.IsDisableSaveBtn = false;
@@ -399,7 +399,8 @@
                         if (ActivityTemplateInwardCtrl.ePage.Masters.WorkOrderList.WorkOrderType == "PIC") {
                             angular.forEach(myTaskActivityConfig.Entities.Inward[myTaskActivityConfig.Entities.Inward.label].ePage.Entities.Header.Data.UIWmsWorkOrderLine, function (value, key) {
                                 apiService.get("eAxisAPI", appConfig.Entities.WmsWorkOrderLine.API.GetById.Url + value.AdditionalRef1Fk).then(function (response) {
-                                    if (response.data.Response) {
+                                    if (response.data.Response) {                                        
+                                        ActivityTemplateInwardCtrl.ePage.Masters.WorkOrderLineDetails = response.data.Response;
                                         if (value.AdditionalRef1Code == response.data.Response.AdditionalRef1Code) {
                                             if (response.data.Response.WorkOrderLineStatus == "ICWS") {
                                                 response.data.Response.WorkOrderLineStatus = "SCWS";
@@ -408,6 +409,29 @@
                                             } else if (response.data.Response.WorkOrderLineStatus == "ICWR") {
                                                 response.data.Response.WorkOrderLineStatus = "SCWR";
                                             } else if (response.data.Response.WorkOrderLineStatus == "ITW") {
+                                                // Add STC Number
+                                                var _filter = {
+                                                    "Type": "STC"
+                                                };
+                                                var _input = {
+                                                    "searchInput": helperService.createToArrayOfObject(_filter),
+                                                    "FilterID": appConfig.Entities.WmsTestID.API.FindAll.FilterID
+                                                };
+                                                apiService.post("eAxisAPI", appConfig.Entities.WmsTestID.API.FindAll.Url, _input).then(function (response) {
+                                                    if (response.data.Response) {
+                                                        if (typeof response.data.Response[0].Value == "string") {
+                                                            response.data.Response[0].Value = JSON.parse(response.data.Response[0].Value);
+                                                        }
+                                                        ActivityTemplateInwardCtrl.ePage.Masters.WorkOrderLineDetails.AdditionalRef2Code = response.data.Response[0].Prefix + response.data.Response[0].Value;
+                                                        ActivityTemplateInwardCtrl.ePage.Masters.WorkOrderLineDetails.AdditionalRef2Type = "STCNo";
+                                                        response.data.Response[0].Value = response.data.Response[0].Value + 1;
+                                                        response.data.Response[0].IsModified = true;
+                                                        apiService.post("eAxisAPI", appConfig.Entities.AppCounter.API.Update.Url, response.data.Response[0]).then(function (response) {
+                                                            if (response.data.Response) {
+                                                            }
+                                                        });
+                                                    }
+                                                });
                                                 response.data.Response.WorkOrderLineStatus = "STW";
                                             } else if (response.data.Response.WorkOrderLineStatus == "IRW") {
                                                 response.data.Response.WorkOrderLineStatus = "SRW";
@@ -418,55 +442,59 @@
                                             }
                                         }
                                         response.data.Response.IsModified = true;
-                                        apiService.post("eAxisAPI", appConfig.Entities.WmsWorkOrderLine.API.Update.Url, response.data.Response).then(function (response) {
-                                            if (response.data.Response) {                                                
-                                                var _filter = {
-                                                    "PickupLine_FK": value.AdditionalRef1Fk
-                                                };
-                                                var _input = {
-                                                    "searchInput": helperService.createToArrayOfObject(_filter),
-                                                    "FilterID": appConfig.Entities.WmsPickupReport.API.FindAll.FilterID
-                                                };
+                                        $timeout(function () {
+                                            apiService.post("eAxisAPI", appConfig.Entities.WmsWorkOrderLine.API.Update.Url, response.data.Response).then(function (response) {
+                                                if (response.data.Response) {
+                                                    ActivityTemplateInwardCtrl.ePage.Masters.WorkOrderLineDetails = response.data.Response;
+                                                    var _filter = {
+                                                        "PickupLine_FK": value.AdditionalRef1Fk
+                                                    };
+                                                    var _input = {
+                                                        "searchInput": helperService.createToArrayOfObject(_filter),
+                                                        "FilterID": appConfig.Entities.WmsPickupReport.API.FindAll.FilterID
+                                                    };
 
-                                                apiService.post("eAxisAPI", appConfig.Entities.WmsPickupReport.API.FindAll.Url, _input).then(function (response) {
-                                                    if (response.data.Response) {
-                                                        if (response.data.Response.length > 0) {
-                                                            response.data.Response[0].IsModified = true;
-                                                            if (response.data.Response[0].PickupLineStatus == "In Transit from Site To Central Warehouse") {
-                                                                response.data.Response[0].PickupLineStatus = "Stock at Central Warehouse";
-                                                                response.data.Response[0].STC_IL_Fk = value.PK;
-                                                                response.data.Response[0].STC_ArrivalDate = myTaskActivityConfig.Entities.Inward[myTaskActivityConfig.Entities.Inward.label].ePage.Entities.Header.Data.UIWmsInwardHeader.ArrivalDate;
-                                                            } else if (response.data.Response[0].PickupLineStatus == "In Transit from Testing To Central Warehouse") {
-                                                                response.data.Response[0].PickupLineStatus = "Tested, Stock at Central Warehouse";
-                                                                response.data.Response[0].TTC_IL_Fk = value.PK;
-                                                                response.data.Response[0].TTC_ArrivalDate = myTaskActivityConfig.Entities.Inward[myTaskActivityConfig.Entities.Inward.label].ePage.Entities.Header.Data.UIWmsInwardHeader.ArrivalDate;
-                                                            } else if (response.data.Response[0].PickupLineStatus == "In Transit from Repair To Central Warehouse") {
-                                                                response.data.Response[0].PickupLineStatus = "Repaired, Stock at Central Warehouse";
-                                                                response.data.Response[0].RTC_IL_Fk = value.PK;
-                                                                response.data.Response[0].RTC_ArrivalDate = myTaskActivityConfig.Entities.Inward[myTaskActivityConfig.Entities.Inward.label].ePage.Entities.Header.Data.UIWmsInwardHeader.ArrivalDate;
-                                                            } else if (response.data.Response[0].PickupLineStatus == "In Transit To Testing Warehouse") {
-                                                                response.data.Response[0].PickupLineStatus = "Stock at Testing Warehouse";
-                                                                response.data.Response[0].CTT_IL_Fk = value.PK;
-                                                                response.data.Response[0].CTT_ArrivalDate = myTaskActivityConfig.Entities.Inward[myTaskActivityConfig.Entities.Inward.label].ePage.Entities.Header.Data.UIWmsInwardHeader.ArrivalDate;
-                                                            } else if (response.data.Response[0].PickupLineStatus == "In Transit To Repair Warehouse") {
-                                                                response.data.Response[0].PickupLineStatus = "Stock at Repair Warehouse";
-                                                                response.data.Response[0].CTR_IL_Fk = value.PK;
-                                                                response.data.Response[0].CTR_ArrivalDate = myTaskActivityConfig.Entities.Inward[myTaskActivityConfig.Entities.Inward.label].ePage.Entities.Header.Data.UIWmsInwardHeader.ArrivalDate;
-                                                            } else if (response.data.Response[0].PickupLineStatus == "In Transit To Scrap Warehouse") {
-                                                                response.data.Response[0].PickupLineStatus = "Stock at Scrap Warehouse";
-                                                                response.data.Response[0].CTR_IL_Fk = value.PK;
-                                                                response.data.Response[0].CTR_ArrivalDate = myTaskActivityConfig.Entities.Inward[myTaskActivityConfig.Entities.Inward.label].ePage.Entities.Header.Data.UIWmsInwardHeader.ArrivalDate;
-                                                            }
-                                                            apiService.post("eAxisAPI", appConfig.Entities.WmsPickupReport.API.Update.Url, response.data.Response[0]).then(function (response) {
-                                                                if (response.data.Response) {
-                                                                    console.log("Pickup Report Updated for " + response.data.Response.PickupLineRefNo);
+                                                    apiService.post("eAxisAPI", appConfig.Entities.WmsPickupReport.API.FindAll.Url, _input).then(function (response) {
+                                                        if (response.data.Response) {
+                                                            if (response.data.Response.length > 0) {
+                                                                response.data.Response[0].IsModified = true;
+                                                                if (response.data.Response[0].PickupLineStatus == "In Transit from Site To Central Warehouse") {
+                                                                    response.data.Response[0].PickupLineStatus = "Stock at Central Warehouse";
+                                                                    response.data.Response[0].STC_IL_Fk = value.PK;
+                                                                    response.data.Response[0].STC_ArrivalDate = myTaskActivityConfig.Entities.Inward[myTaskActivityConfig.Entities.Inward.label].ePage.Entities.Header.Data.UIWmsInwardHeader.ArrivalDate;
+                                                                } else if (response.data.Response[0].PickupLineStatus == "In Transit from Testing To Central Warehouse") {
+                                                                    response.data.Response[0].PickupLineStatus = "Tested, Stock at Central Warehouse";
+                                                                    response.data.Response[0].TTC_IL_Fk = value.PK;
+                                                                    response.data.Response[0].TTC_ArrivalDate = myTaskActivityConfig.Entities.Inward[myTaskActivityConfig.Entities.Inward.label].ePage.Entities.Header.Data.UIWmsInwardHeader.ArrivalDate;
+                                                                } else if (response.data.Response[0].PickupLineStatus == "In Transit from Repair To Central Warehouse") {
+                                                                    response.data.Response[0].PickupLineStatus = "Repaired, Stock at Central Warehouse";
+                                                                    response.data.Response[0].RTC_IL_Fk = value.PK;
+                                                                    response.data.Response[0].RTC_ArrivalDate = myTaskActivityConfig.Entities.Inward[myTaskActivityConfig.Entities.Inward.label].ePage.Entities.Header.Data.UIWmsInwardHeader.ArrivalDate;
+                                                                } else if (response.data.Response[0].PickupLineStatus == "In Transit To Testing Warehouse") {
+                                                                    response.data.Response[0].PickupLineStatus = "Stock at Testing Warehouse";
+                                                                    response.data.Response[0].CTT_IL_Fk = value.PK;
+                                                                    response.data.Response[0].CTT_ArrivalDate = myTaskActivityConfig.Entities.Inward[myTaskActivityConfig.Entities.Inward.label].ePage.Entities.Header.Data.UIWmsInwardHeader.ArrivalDate;
+                                                                    response.data.Response[0].TestingRefNo = ActivityTemplateInwardCtrl.ePage.Masters.WorkOrderLineDetails.AdditionalRef2Code;
+                                                                } else if (response.data.Response[0].PickupLineStatus == "In Transit To Repair Warehouse") {
+                                                                    response.data.Response[0].PickupLineStatus = "Stock at Repair Warehouse";
+                                                                    response.data.Response[0].CTR_IL_Fk = value.PK;
+                                                                    response.data.Response[0].CTR_ArrivalDate = myTaskActivityConfig.Entities.Inward[myTaskActivityConfig.Entities.Inward.label].ePage.Entities.Header.Data.UIWmsInwardHeader.ArrivalDate;
+                                                                } else if (response.data.Response[0].PickupLineStatus == "In Transit To Scrap Warehouse") {
+                                                                    response.data.Response[0].PickupLineStatus = "Stock at Scrap Warehouse";
+                                                                    response.data.Response[0].CTR_IL_Fk = value.PK;
+                                                                    response.data.Response[0].CTR_ArrivalDate = myTaskActivityConfig.Entities.Inward[myTaskActivityConfig.Entities.Inward.label].ePage.Entities.Header.Data.UIWmsInwardHeader.ArrivalDate;
                                                                 }
-                                                            });
+                                                                apiService.post("eAxisAPI", appConfig.Entities.WmsPickupReport.API.Update.Url, response.data.Response[0]).then(function (response) {
+                                                                    if (response.data.Response) {
+                                                                        console.log("Pickup Report Updated for " + response.data.Response.PickupLineRefNo);
+                                                                    }
+                                                                });
+                                                            }
                                                         }
-                                                    }
-                                                });
-                                            }
-                                        });
+                                                    });
+                                                }
+                                            });
+                                        }, 2000);
                                     }
                                 });
                             });

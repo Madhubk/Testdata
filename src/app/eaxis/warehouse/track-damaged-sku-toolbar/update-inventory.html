@@ -6,9 +6,9 @@
         </h5>
     </div>
     <div class="modal-body">
-        <div id="InvTable{{DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList[0].PL_AdditionalRef1Code}}" class="fixedheader mb-0"
+        <div id="InvTable{{DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList[0].PickupLineRefNo}}" class="fixedheader mb-0"
             key-events table-object='DamagedSkuToolbarCtrl.ePage.Masters.Inventory' enable='DamagedSkuToolbarCtrl.ePage.Masters.EnableInventory'
-            selected-row='DamagedSkuToolbarCtrl.ePage.Masters.selectedRowInventory' unique-id='InvTable{{DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList[0].PL_AdditionalRef1Code}}'>
+            selected-row='DamagedSkuToolbarCtrl.ePage.Masters.selectedRowInventory' unique-id='InvTable{{DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList[0].PickupLineRefNo}}'>
             <table style="height: 100px">
                 <thead>
                     <tr id="tableHeader">
@@ -30,15 +30,15 @@
                         <th ng-style="{ 'width':  '150px' }" title="Warehouse">Warehouse</th>
                     </tr>
                 </thead>
-                <tbody id="InwardLineCustTable{{DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList[0].PL_AdditionalRef1Code}}">
+                <tbody id="InwardLineCustTable{{DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList[0].PickupLineRefNo}}">
                     <tr id="tableBody">
                         <td ng-style="{ 'width':  '40px' }" class="overflow-text">{{$index +1}}</td>
-                        <td ng-style="{ 'width':  '110px' }" class="overflow-text">{{DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList[0].PL_AdditionalRef1Code}}</td>
+                        <td ng-style="{ 'width':  '110px' }" class="overflow-text">{{DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList[0].PickupLineRefNo}}</td>
                         <td ng-style="{ 'width':  '100px' }" class="overflow-text">{{DamagedSkuToolbarCtrl.ePage.Masters.Inventory[0].ProductCode}}</td>
                         <td ng-style="{ 'width':  '160px' }" class="overflow-text">{{DamagedSkuToolbarCtrl.ePage.Masters.Inventory[0].ProductName}}</td>
                         <td ng-style="{ 'width':  '140px' }" class="overflow-text">
                             <div class="height-22 col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0">
-                                <select chosen class="form-control" ng-model="DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList[0].PL_ProductCondition"
+                                <select chosen class="form-control" ng-model="DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList[0].ProductCondition"
                                     ng-options="x.Key as x.Key + ' - '  + x.Value for x in DamagedSkuToolbarCtrl.ePage.Masters.DropDownMasterList.ProductCondition.ListSource"
                                     search-contains="true">
                                     <option value="">--Select--</option>
@@ -61,7 +61,7 @@
             </table>
         </div>
         <div class="col-lg-12 mt-10">
-            <button data-ng-disabled="!DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList[0].PL_ProductCondition" data-ng-click="DamagedSkuToolbarCtrl.ePage.Masters.UpdateData()"
+            <button data-ng-disabled="!DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList[0].ProductCondition" data-ng-click="DamagedSkuToolbarCtrl.ePage.Masters.UpdateData()"
                 class="btn btn-primary btn-sm">Update</button>
         </div>
     </div>
