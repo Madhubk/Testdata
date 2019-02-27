@@ -148,7 +148,7 @@
                                     "isenabled": true,
                                     "property": "rproductcode",
                                     "position": "4",
-                                    "width": "150",
+                                    "width": "100",
                                     "display": true
                                 },
                                 {
@@ -156,7 +156,7 @@
                                     "isenabled": true,
                                     "property": "rproductdescription",
                                     "position": "5",
-                                    "width": "100",
+                                    "width": "150",
                                     "display": true
                                 },
                                 {
@@ -264,12 +264,12 @@
                                 "rproductcode": {
                                     "isenabled": true,
                                     "position": "4",
-                                    "width": "150"
+                                    "width": "100"
                                 },
                                 "rproductdescription": {
                                     "isenabled": true,
                                     "position": "5",
-                                    "width": "100"
+                                    "width": "150"
                                 },
                                 "rcommodity": {
                                     "isenabled": true,

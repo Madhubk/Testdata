@@ -1,0 +1,15 @@
+<uib-tabset id="chromeTab" active="TrackDeliveryCtrl.ePage.Masters.activeTabIndex" class="tab-container chrometab-box">
+    <uib-tab>
+        <uib-tab-heading title="Inward">
+            <span data-ng-bind="'Track Delivery'" class="ng-binding">Track Delivery</span>
+            <i class="fa fa-thumb-tack pinned-tab"></i>
+        </uib-tab-heading>
+        <div class="no-padding tab-list-view-wrapper">
+            <!--Inward view Grid Page-->
+            <dynamic-list dataentry-name="TrackDeliveryCtrl.ePage.Masters.dataentryName" task-name="TrackDeliveryCtrl.ePage.Masters.taskName" grid-config-type="0"
+                selected-grid-row="TrackDeliveryCtrl.ePage.Masters.SelectedGridRow($item)" mode="1" dataentry-object="TrackDeliveryCtrl.ePage.Masters.DataEntryObject" default-filter="TrackDeliveryCtrl.ePage.Masters.DefaultFilter" base-filter="TrackDeliveryCtrl.ePage.Masters.DefaultFilter"></dynamic-list>
+            <div class="tab-loading" data-ng-show="TrackDeliveryCtrl.ePage.Masters.IsTabClick"></div>
+        </div>
+    </uib-tab>
+    
+</uib-tabset>

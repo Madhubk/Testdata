@@ -5,9 +5,9 @@
         .module("Application")
         .controller("RaiseCSRController", RaiseCSRController);
 
-    RaiseCSRController.$inject = ["$location", "$scope", "APP_CONSTANT", "authService", "apiService", "helperService", "deliveryConfig", "$timeout", "toastr", "appConfig", "$state", "$uibModal", "$window", "dynamicLookupConfig"];
+    RaiseCSRController.$inject = ["$location", "$scope", "APP_CONSTANT", "authService", "apiService", "helperService", "deliveryConfig", "$timeout", "toastr", "appConfig", "$state", "$uibModal", "$window", "dynamicLookupConfig", "confirmation"];
 
-    function RaiseCSRController($location, $scope, APP_CONSTANT, authService, apiService, helperService, deliveryConfig, $timeout, toastr, appConfig, $state, $uibModal, $window, dynamicLookupConfig) {
+    function RaiseCSRController($location, $scope, APP_CONSTANT, authService, apiService, helperService, deliveryConfig, $timeout, toastr, appConfig, $state, $uibModal, $window, dynamicLookupConfig, confirmation) {
 
         var RaiseCSRCtrl = this;
         function Init() {
@@ -45,9 +45,20 @@
             RaiseCSRCtrl.ePage.Masters.modalInstance.close('close');
         }
 
-        function CreateNewDeliveryRequest() {
-            CreateNewDelReq();
-            RaiseCSRCtrl.ePage.Masters.modalInstance.close('close');
+        function CreateNewDeliveryRequest() {            
+            var modalOptions = {
+                closeButtonText: 'Cancel',
+                actionButtonText: 'Ok',
+                headerText: 'Are you Sure?',
+                bodyText: 'Do you want to create New Delivery Request?'
+            };
+            confirmation.showModal({}, modalOptions)
+                .then(function (result) {
+                    CreateNewDelReq();
+                    RaiseCSRCtrl.ePage.Masters.modalInstance.close('close');
+                }, function () {
+                    console.log("Cancelled");
+                });
         }
 
         function CreateNewDelReq() {
@@ -152,8 +163,10 @@
                 _input.UIWmsDelivery.PK = _input.PK;
                 _input.UIWmsDelivery.CreatedDateTime = new Date();
                 _input.UIWmsDelivery.WorkOrderType = 'DEL';
-                _input.UIWmsWorkorderReport.AcknowledgementDateTime = new Date();
-                _input.UIWmsWorkorderReport.AcknowledgedPerson = authService.getUserInfo().UserId;
+                if (!_input.UIWmsWorkorderReport.AcknowledgementDateTime)
+                    _input.UIWmsWorkorderReport.AcknowledgementDateTime = new Date();
+                if (!_input.UIWmsWorkorderReport.AcknowledgedPerson)
+                    _input.UIWmsWorkorderReport.AcknowledgedPerson = authService.getUserInfo().UserId;
                 if (!_input.UIWmsWorkorderReport.DeliveryRequestedDateTime)
                     _input.UIWmsWorkorderReport.DeliveryRequestedDateTime = new Date();
                 _input.UIWmsWorkorderReport.WOD_FK = _input.PK;

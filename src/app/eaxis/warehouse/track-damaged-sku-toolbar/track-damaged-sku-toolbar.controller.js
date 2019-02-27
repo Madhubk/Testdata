@@ -53,10 +53,10 @@
 
         function InitAction() {
             DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList = [];
-            var TempWarehouse = DamagedSkuToolbarCtrl.ePage.Masters.Input[0].PIC_WAR_Code;
+            var TempWarehouse = DamagedSkuToolbarCtrl.ePage.Masters.Input[0].WarehouseCode;
             var count = 0;
             angular.forEach(DamagedSkuToolbarCtrl.ePage.Masters.Input, function (value, key) {
-                if (TempWarehouse == value.PIC_WAR_Code) {
+                if (TempWarehouse == value.WarehouseCode) {
                     count = count + 1;
                     DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList.push(value);
                 }
@@ -76,23 +76,23 @@
             DamagedSkuToolbarCtrl.ePage.Masters.IsUpdateInventoryBtn = true;
             var count = 0;
             angular.forEach(DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList, function (value, key) {
-                if (value.PL_WorkOrderLineStatusDesc == "Stock at Testing Warehouse" || value.PL_WorkOrderLineStatusDesc == "Stock at Repair Warehouse") {
+                if (value.PickupLineStatus == "Stock at Testing Warehouse" || value.PickupLineStatus == "Stock at Repair Warehouse") {
                     count = count + 1;
                 }
             });
             if (count == DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList.length) {
                 GetDropDownList();
                 DamagedSkuToolbarCtrl.ePage.Masters.DropDownMasterList = {};
-                var warehouseCode = DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList[0].PL_WorkOrderLineStatusDesc == "Stock at Testing Warehouse" ? "STCLAB" : "REPAIR"
+                var warehouseCode = DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList[0].PickupLineStatus == "Stock at Testing Warehouse" ? "STCLAB" : "REPAIR"
                 var FilterObj = {
-                    "ORG_FK": DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList[0].PIC_ORG_Client_FK,
+                    "ORG_FK": DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList[0].Client_FK,
                     "WAR_WarehouseCode": warehouseCode,
-                    "ProductCode": DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList[0].PL_Req_PrdCode,
-                    "PartAttrib1": DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList[0].IL_PartAttrib1,
-                    "PartAttrib2": DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList[0].IL_PartAttrib2,
-                    "PartAttrib3": DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList[0].IL_PartAttrib3,
-                    "PackingDate": DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList[0].IL_PackingDate,
-                    "ExpiryDate": DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList[0].IL_ExpiryDate,
+                    "ProductCode": DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList[0].ProductCode,
+                    "PartAttrib1": DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList[0].PIL_UDF1,
+                    "PartAttrib2": DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList[0].PIL_UDF2,
+                    "PartAttrib3": DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList[0].PIL_UDF3,
+                    "PackingDate": DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList[0].PackingDate,
+                    "ExpiryDate": DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList[0].ExpiryDate,
                     "SortColumn": "WOL_WAR_WarehouseCode",
                     "SortType": "ASC",
                     "PageNumber": 1,
@@ -165,8 +165,10 @@
         }
 
         function UpdateData() {
+            DamagedSkuToolbarCtrl.ePage.Masters.UpdateInventoryBtnText = "Please Wait..."
+            DamagedSkuToolbarCtrl.ePage.Masters.IsUpdateInventoryBtn = true;
             var Status = "";
-            if (DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList[0].PL_ProductCondition == 'DMG') {
+            if (DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList[0].ProductCondition == 'DMG') {
                 Status = "Damaged";
             } else {
                 Status = "Good";
@@ -181,12 +183,13 @@
             apiService.post("eAxisAPI", appConfig.Entities.WmsInventoryAdjustment.API.Insert.Url, _input).then(function (response) {
                 if (response.data.Status == 'Success') {
                     toastr.success('Inventory Updated Successfully ');
-                    apiService.get("eAxisAPI", appConfig.Entities.WmsPickupList.API.GetById.Url + DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList[0].PIC_PK).then(function (response) {
+                    apiService.get("eAxisAPI", appConfig.Entities.WmsPickupList.API.GetById.Url + DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList[0].PickupRequest_FK).then(function (response) {
                         if (response.data.Response) {
                             DamagedSkuToolbarCtrl.ePage.Masters.PickupData = response.data.Response;
                             angular.forEach(DamagedSkuToolbarCtrl.ePage.Masters.PickupData.UIWmsPickupLine, function (value, key) {
-                                if (value.AdditionalRef1Code == DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList[0].PL_AdditionalRef1Code) {
-                                    value.ProductCondition = DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList[0].PL_ProductCondition;
+                                if (value.AdditionalRef1Code == DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList[0].PickupLineRefNo) {
+                                    value.ProductCondition = DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList[0].ProductCondition;
+                                    value.UISPMSPickupReport.ProductCondition = DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList[0].ProductCondition;
                                 }
                             });
                             DamagedSkuToolbarCtrl.ePage.Masters.PickupData = filterObjectUpdate(DamagedSkuToolbarCtrl.ePage.Masters.PickupData, "IsModified");
@@ -219,13 +222,13 @@
                 var count1 = 0;
                 var count2 = 0;
                 angular.forEach(DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList, function (value, key) {
-                    if (value.PL_WorkOrderLineStatusDesc == "Stock at Site Warehouse") {
+                    if (value.PickupLineStatus == "Stock at Site Warehouse") {
                         count = count + 1;
                     }
-                    if (value.PL_WorkOrderLineStatusDesc == "Stock at Testing Warehouse") {
+                    if (value.PickupLineStatus == "Stock at Testing Warehouse") {
                         count1 = count1 + 1;
                     }
-                    if (value.PL_WorkOrderLineStatusDesc == "Stock at Repair Warehouse") {
+                    if (value.PickupLineStatus == "Stock at Repair Warehouse") {
                         count2 = count2 + 1;
                     }
                 });
@@ -275,7 +278,7 @@
             if (DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList.length > 0) {
                 var count = 0;
                 angular.forEach(DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList, function (value, key) {
-                    if (!value.PL_AdditionalRef2Code && value.PL_WorkOrderLineStatusDesc == "Stock at Central Warehouse") {
+                    if (!value.TestingRefNo && value.PickupLineStatus == "Stock at Central Warehouse") {
                         count = count + 1;
                     }
                 });
@@ -305,7 +308,7 @@
             if (DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList.length > 0) {
                 var count = 0;
                 angular.forEach(DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList, function (value, key) {
-                    if (!value.REPOUT_Pk && !value.SCROUT_Pk && value.PL_AdditionalRef2Code && value.PL_WorkOrderLineStatusDesc == "Tested, Stock at Central Warehouse") {
+                    if (value.TestingRefNo && value.PickupLineStatus == "Tested, Stock at Central Warehouse") {
                         count = count + 1;
                     }
                 });
@@ -335,7 +338,7 @@
             if (DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList.length > 0) {
                 var count = 0;
                 angular.forEach(DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList, function (value, key) {
-                    if (!value.SCROUT_Pk && !value.REPOUT_Pk && value.PL_AdditionalRef2Code && value.PL_WorkOrderLineStatusDesc == "Tested, Stock at Central Warehouse") {
+                    if (value.TestingRefNo && value.PickupLineStatus == "Tested, Stock at Central Warehouse") {
                         count = count + 1;
                     }
                 });
@@ -365,7 +368,7 @@
             if (DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList.length > 0) {
                 var count = 0;
                 angular.forEach(DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList, function (value, key) {
-                    if (value.REPIN_Pk && value.PL_WorkOrderLineStatusDesc == "Repaired, Stock at Central Warehouse") {
+                    if (value.PickupLineStatus == "Repaired, Stock at Central Warehouse") {
                         count = count + 1;
                     }
                 });
@@ -380,7 +383,7 @@
         }
 
         function CreateMaterialTransferOutward(type) {
-            apiService.get("eAxisAPI", appConfig.Entities.WmsPickupList.API.GetById.Url + DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList[0].PIC_PK).then(function (response) {
+            apiService.get("eAxisAPI", appConfig.Entities.WmsPickupList.API.GetById.Url + DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList[0].PickupRequest_FK).then(function (response) {
                 if (response.data.Response) {
                     DamagedSkuToolbarCtrl.ePage.Masters.PickupData = response.data.Response;
                     helperService.getFullObjectUsingGetById(appConfig.Entities.WmsOutwardList.API.GetById.Url, 'null').then(function (response) {
@@ -396,16 +399,16 @@
                             response.data.Response.Response.UIWmsOutwardHeader.WorkOrderType = "ORD";
                             response.data.Response.Response.UIWmsOutwardHeader.WorkOrderSubType = "MTR";
                             if (type == "CEN") {
-                                if (DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList[0].PL_WorkOrderLineStatusDesc == "Stock at Site Warehouse") {
+                                if (DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList[0].PickupLineStatus == "Stock at Site Warehouse") {
                                     response.data.Response.Response.UIWmsOutwardHeader.Warehouse = DamagedSkuToolbarCtrl.ePage.Masters.PickupData.UIWmsPickup.WarehouseCode + "-" + DamagedSkuToolbarCtrl.ePage.Masters.PickupData.UIWmsPickup.WarehouseName;
                                     response.data.Response.Response.UIWmsOutwardHeader.WarehouseCode = DamagedSkuToolbarCtrl.ePage.Masters.PickupData.UIWmsPickup.WarehouseCode;
                                     response.data.Response.Response.UIWmsOutwardHeader.WarehouseName = DamagedSkuToolbarCtrl.ePage.Masters.PickupData.UIWmsPickup.WarehouseName;
                                     response.data.Response.Response.UIWmsOutwardHeader.WAR_FK = DamagedSkuToolbarCtrl.ePage.Masters.PickupData.UIWmsPickup.WAR_FK;
-                                } else if (DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList[0].PL_WorkOrderLineStatusDesc == "Stock at Testing Warehouse") {
+                                } else if (DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList[0].PickupLineStatus == "Stock at Testing Warehouse") {
                                     response.data.Response.Response.UIWmsOutwardHeader.WarehouseCode = "STCLAB";
                                     response.data.Response.Response.UIWmsOutwardHeader.WarehouseName = "TESTING CENTER";
                                     response.data.Response.Response.UIWmsOutwardHeader.WAR_FK = "2dad2f10-63c4-4dc6-8055-e22c9eb83616";
-                                } else if (DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList[0].PL_WorkOrderLineStatusDesc == "Stock at Repair Warehouse") {
+                                } else if (DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList[0].PickupLineStatus == "Stock at Repair Warehouse") {
                                     response.data.Response.Response.UIWmsOutwardHeader.WarehouseCode = "REPAIR";
                                     response.data.Response.Response.UIWmsOutwardHeader.WarehouseName = "REPAIR WAREHOUSE";
                                     response.data.Response.Response.UIWmsOutwardHeader.WAR_FK = "ac7867ec-9d8f-4c61-9148-27d96d2d95a4";
@@ -446,7 +449,7 @@
 
                             angular.forEach(DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList, function (value, key) {
                                 var obj = {
-                                    "Parent_FK": value.PL_PK,
+                                    "Parent_FK": value.PickupLine_FK,
                                     "PK": "",
                                     "WorkOrderType": "ORD",
                                     "WorkOrderLineType": "ORD",
@@ -454,43 +457,43 @@
                                     "WorkOrderID": response.data.Response.Response.UIWmsOutwardHeader.WorkOrderID,
                                     "ExternalReference": response.data.Response.Response.UIWmsOutwardHeader.WorkOrderID,
                                     "WOD_FK": response.data.Response.Response.PK,
-                                    "ProductCode": value.PL_Req_PrdCode,
-                                    "ProductDescription": value.PL_Req_PrdDesc,
-                                    "PRO_FK": value.PL_Req_PrdPk,
-                                    "Commodity": value.PL_Commodity,
-                                    "MCC_NKCommodityCode": value.PL_MCC_NKCommodityCode,
-                                    "MCC_NKCommodityDesc": value.PL_MCC_NKCommodityDesc,
-                                    "ProductCondition": value.PL_ProductCondition,
-                                    "Packs": value.PL_Packs,
-                                    "PAC_PackType": value.PL_PAC_PackType,
-                                    "Units": value.PL_Units,
-                                    "StockKeepingUnit": value.PL_StockKeepingUnit,
-                                    "PartAttrib1": value.PL_PartAttrib1,
-                                    "PartAttrib2": value.PL_PartAttrib2,
-                                    "PartAttrib3": value.PL_PartAttrib3,
-                                    "LineComment": value.PL_LineComment,
-                                    "PackingDate": value.PL_PackingDate,
-                                    "ExpiryDate": value.PL_ExpiryDate,
-                                    "AdditionalRef1Code": value.PL_AdditionalRef1Code,
+                                    "ProductCode": value.ProductCode,
+                                    "ProductDescription": value.ProductDescription,
+                                    "PRO_FK": value.PIL_Product_Fk,
+                                    "Commodity": "",
+                                    "MCC_NKCommodityCode": "",
+                                    "MCC_NKCommodityDesc": "",
+                                    "ProductCondition": value.ProductCondition,
+                                    "Packs": value.Packs,
+                                    "PAC_PackType": value.PackType,
+                                    "Units": value.Quantity,
+                                    "StockKeepingUnit": value.UQ,
+                                    "PartAttrib1": value.PIL_UDF1,
+                                    "PartAttrib2": value.PIL_UDF2,
+                                    "PartAttrib3": value.PIL_UDF3,
+                                    "LineComment": value.PickupComment,
+                                    "PackingDate": value.PackingDate,
+                                    "ExpiryDate": value.ExpiryDate,
+                                    "AdditionalRef1Code": value.PickupLineRefNo,
                                     "AdditionalRef1Type": "PickupLine",
-                                    "AdditionalRef1Fk": value.PL_PK,
-                                    "UseExpiryDate": value.PL_UseExpiryDate,
-                                    "UsePackingDate": value.PL_UsePackingDate,
-                                    "UsePartAttrib1": value.PL_UsePartAttrib1,
-                                    "UsePartAttrib2": value.PL_UsePartAttrib2,
-                                    "UsePartAttrib3": value.PL_UsePartAttrib3,
-                                    "IsPartAttrib1ReleaseCaptured": value.PL_IsPartAttrib1ReleaseCaptured,
-                                    "IsPartAttrib2ReleaseCaptured": value.PL_IsPartAttrib2ReleaseCaptured,
-                                    "IsPartAttrib3ReleaseCaptured": value.PL_IsPartAttrib3ReleaseCaptured,
+                                    "AdditionalRef1Fk": value.PickupLine_FK,
+                                    "UseExpiryDate": value.UseExpiryDate,
+                                    "UsePackingDate": value.UsePackingDate,
+                                    "UsePartAttrib1": value.UsePartAttrib1,
+                                    "UsePartAttrib2": value.UsePartAttrib2,
+                                    "UsePartAttrib3": value.UsePartAttrib3,
+                                    "IsPartAttrib1ReleaseCaptured": value.IsPartAttrib1ReleaseCaptured,
+                                    "IsPartAttrib2ReleaseCaptured": value.IsPartAttrib2ReleaseCaptured,
+                                    "IsPartAttrib3ReleaseCaptured": value.IsPartAttrib3ReleaseCaptured,
 
                                     "IsDeleted": false,
-                                    "ORG_ClientCode": value.PIC_ClientCode,
-                                    "ORG_ClientName": value.PIC_ClientName,
-                                    "Client_FK": value.PIC_ORG_Client_FK,
+                                    "ORG_ClientCode": value.ClientCode,
+                                    "ORG_ClientName": value.ClientName,
+                                    "Client_FK": value.Client_FK,
 
-                                    "WAR_WarehouseCode": value.PIC_WAR_Code,
-                                    "WAR_WarehouseName": value.PIC_WAR_Name,
-                                    "WAR_FK": value.PIC_WAR_FK,
+                                    "WAR_WarehouseCode": value.WarehouseCode,
+                                    "WAR_WarehouseName": value.WarehouseName,
+                                    "WAR_FK": value.Warehouse_FK,
                                 };
                                 response.data.Response.Response.UIWmsWorkOrderLine.push(obj);
                             });
@@ -570,45 +573,47 @@
         }
 
         function ChangePickupStatus(type) {
-            var TempPickupList = _.groupBy(DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList, 'PIC_PK');
+            var count = 0;
+            var TempPickupList = _.groupBy(DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList, 'PickupRequest_FK');
+            var TempPickupListCount = _.keys(TempPickupList).length;
             angular.forEach(TempPickupList, function (value2, key2) {
                 apiService.get("eAxisAPI", appConfig.Entities.WmsPickupList.API.GetById.Url + key2).then(function (response) {
                     if (response.data.Response) {
                         angular.forEach(value2, function (value, key) {
                             angular.forEach(response.data.Response.UIWmsPickupLine, function (value1, key1) {
-                                if (value.PL_PK == value1.PK) {
+                                if (value.PickupLine_FK == value1.PK) {
                                     if (type == "CEN") {
-                                        if (value.PL_WorkOrderLineStatusDesc == "Stock at Site Warehouse") {
+                                        if (value.PickupLineStatus == "Stock at Site Warehouse") {
                                             value1.WorkOrderLineStatus = "MCWS";
-                                        } else if (value.PL_WorkOrderLineStatusDesc == "Stock at Testing Warehouse") {
+                                        } else if (value.PickupLineStatus == "Stock at Testing Warehouse") {
                                             value1.WorkOrderLineStatus = "MCWT";
-                                        } else if (value.PL_WorkOrderLineStatusDesc == "Stock at Repair Warehouse") {
+                                        } else if (value.PickupLineStatus == "Stock at Repair Warehouse") {
                                             value1.WorkOrderLineStatus = "MCWR";
                                         }
                                     } else if (type == "TES") {
-                                        // Add STC Number
-                                        var _filter = {
-                                            "Type": "STC"
-                                        };
-                                        var _input = {
-                                            "searchInput": helperService.createToArrayOfObject(_filter),
-                                            "FilterID": appConfig.Entities.WmsTestID.API.FindAll.FilterID
-                                        };
-                                        apiService.post("eAxisAPI", appConfig.Entities.WmsTestID.API.FindAll.Url, _input).then(function (response) {
-                                            if (response.data.Response) {
-                                                if (typeof response.data.Response[0].Value == "string") {
-                                                    response.data.Response[0].Value = JSON.parse(response.data.Response[0].Value);
-                                                }
-                                                value1.AdditionalRef2Code = response.data.Response[0].Prefix + response.data.Response[0].Value;
-                                                value1.AdditionalRef2Type = "STCNo";
-                                                response.data.Response[0].Value = response.data.Response[0].Value + 1;
-                                                response.data.Response[0].IsModified = true;
-                                                apiService.post("eAxisAPI", appConfig.Entities.AppCounter.API.Update.Url, response.data.Response[0]).then(function (response) {
-                                                    if (response.data.Response) {
-                                                    }
-                                                });
-                                            }
-                                        });
+                                        // // Add STC Number
+                                        // var _filter = {
+                                        //     "Type": "STC"
+                                        // };
+                                        // var _input = {
+                                        //     "searchInput": helperService.createToArrayOfObject(_filter),
+                                        //     "FilterID": appConfig.Entities.WmsTestID.API.FindAll.FilterID
+                                        // };
+                                        // apiService.post("eAxisAPI", appConfig.Entities.WmsTestID.API.FindAll.Url, _input).then(function (response) {
+                                        //     if (response.data.Response) {
+                                        //         if (typeof response.data.Response[0].Value == "string") {
+                                        //             response.data.Response[0].Value = JSON.parse(response.data.Response[0].Value);
+                                        //         }
+                                        //         value1.AdditionalRef2Code = response.data.Response[0].Prefix + response.data.Response[0].Value;
+                                        //         value1.AdditionalRef2Type = "STCNo";
+                                        //         response.data.Response[0].Value = response.data.Response[0].Value + 1;
+                                        //         response.data.Response[0].IsModified = true;
+                                        //         apiService.post("eAxisAPI", appConfig.Entities.AppCounter.API.Update.Url, response.data.Response[0]).then(function (response) {
+                                        //             if (response.data.Response) {
+                                        //             }
+                                        //         });
+                                        //     }
+                                        // });
                                         value1.WorkOrderLineStatus = "MTW";
                                     } else if (type == "SCR") {
                                         value1.WorkOrderLineStatus = "MSW";
@@ -617,6 +622,7 @@
                                     } else if (type == "SIT") {
                                         value1.WorkOrderLineStatus = "MSTW";
                                     }
+
                                 }
                             });
                         });
@@ -625,9 +631,108 @@
                             apiService.post("eAxisAPI", appConfig.Entities.WmsPickupList.API.Update.Url, response.data.Response).then(function (response) {
                                 if (response.data.Response) {
                                     toastr.success("Pickup Saved Successfully");
+                                    count = count + 1;
+                                    if (TempPickupListCount == count) {
+                                        ChangesPickupLineStatus(type);
+                                    }
                                 }
                             });
                         }, 2000);
+                    }
+                });
+            });
+        }
+
+        function ChangesPickupLineStatus(type) {
+            angular.forEach(DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList, function (value, key) {
+                var _filter = {
+                    "PickupLine_FK": value.PickupLine_FK
+                };
+                var _input = {
+                    "searchInput": helperService.createToArrayOfObject(_filter),
+                    "FilterID": appConfig.Entities.WmsPickupReport.API.FindAll.FilterID
+                };
+
+                apiService.post("eAxisAPI", appConfig.Entities.WmsPickupReport.API.FindAll.Url, _input).then(function (response) {
+                    if (response.data.Response) {
+                        if (response.data.Response.length > 0) {
+                            response.data.Response[0].IsModified = true;
+                            if (type == "CEN") {
+                                if (value.PickupLineStatus == "Stock at Site Warehouse") {
+                                    response.data.Response[0].STC_FromWH_Code = DamagedSkuToolbarCtrl.ePage.Masters.OutwardData.UIWmsOutwardHeader.WarehouseCode;
+                                    response.data.Response[0].STC_FromWH_F = DamagedSkuToolbarCtrl.ePage.Masters.OutwardData.UIWmsOutwardHeader.WAR_FK;
+                                    response.data.Response[0].STC_FromWH_Name = DamagedSkuToolbarCtrl.ePage.Masters.OutwardData.UIWmsOutwardHeader.WarehouseName;
+                                    response.data.Response[0].STC_OUT_CustomerReference = DamagedSkuToolbarCtrl.ePage.Masters.OutwardData.UIWmsOutwardHeader.CustomerReference;
+                                    response.data.Response[0].STC_OUT_ExternalRefNumber = DamagedSkuToolbarCtrl.ePage.Masters.OutwardData.UIWmsOutwardHeader.ExternalReference;
+                                    response.data.Response[0].STC_OUT_Fk = DamagedSkuToolbarCtrl.ePage.Masters.OutwardData.UIWmsOutwardHeader.PK;
+                                    response.data.Response[0].STC_OUT_RefNo = DamagedSkuToolbarCtrl.ePage.Masters.OutwardData.UIWmsOutwardHeader.WorkOrderID;
+                                    response.data.Response[0].STC_ToWH_Code = DamagedSkuToolbarCtrl.ePage.Masters.OutwardData.UIWmsOutwardHeader.TransferTo_WAR_Code;
+                                    response.data.Response[0].STC_ToWH_Fk = DamagedSkuToolbarCtrl.ePage.Masters.OutwardData.UIWmsOutwardHeader.TransferTo_WAR_FK;
+                                    response.data.Response[0].STC_ToWH_Name = DamagedSkuToolbarCtrl.ePage.Masters.OutwardData.UIWmsOutwardHeader.TransferTo_WAR_Name;
+                                    response.data.Response[0].PickupLineStatus = "MTR Raised from Site to Central Warehouse";
+                                } else if (value.PickupLineStatus == "Stock at Testing Warehouse") {
+                                    response.data.Response[0].TTC_FromWH_Code = DamagedSkuToolbarCtrl.ePage.Masters.OutwardData.UIWmsOutwardHeader.WarehouseCode;
+                                    response.data.Response[0].TTC_FromWH_Fk = DamagedSkuToolbarCtrl.ePage.Masters.OutwardData.UIWmsOutwardHeader.WAR_FK;
+                                    response.data.Response[0].TTC_FromWH_Name = DamagedSkuToolbarCtrl.ePage.Masters.OutwardData.UIWmsOutwardHeader.WarehouseName;
+                                    response.data.Response[0].TTC_OUT_CustomerReference = DamagedSkuToolbarCtrl.ePage.Masters.OutwardData.UIWmsOutwardHeader.CustomerReference;
+                                    response.data.Response[0].TTC_OUT_ExternalRefNumber = DamagedSkuToolbarCtrl.ePage.Masters.OutwardData.UIWmsOutwardHeader.ExternalReference;
+                                    response.data.Response[0].TTC_OUT_Fk = DamagedSkuToolbarCtrl.ePage.Masters.OutwardData.UIWmsOutwardHeader.PK;
+                                    response.data.Response[0].TTC_OUT_RefNo = DamagedSkuToolbarCtrl.ePage.Masters.OutwardData.UIWmsOutwardHeader.WorkOrderID;
+                                    response.data.Response[0].TTC_ToWH_Code = DamagedSkuToolbarCtrl.ePage.Masters.OutwardData.UIWmsOutwardHeader.TransferTo_WAR_Code;
+                                    response.data.Response[0].TTC_ToWH_Fk = DamagedSkuToolbarCtrl.ePage.Masters.OutwardData.UIWmsOutwardHeader.TransferTo_WAR_FK;
+                                    response.data.Response[0].TTC_ToWH_Name = DamagedSkuToolbarCtrl.ePage.Masters.OutwardData.UIWmsOutwardHeader.TransferTo_WAR_Name;
+                                    response.data.Response[0].PickupLineStatus = "MTR Raised from Testing to Central Warehouse";
+                                } else if (value.PickupLineStatus == "Stock at Repair Warehouse") {
+                                    response.data.Response[0].RTC_FromWH_Code = DamagedSkuToolbarCtrl.ePage.Masters.OutwardData.UIWmsOutwardHeader.WarehouseCode;
+                                    response.data.Response[0].RTC_FromWH_Fk = DamagedSkuToolbarCtrl.ePage.Masters.OutwardData.UIWmsOutwardHeader.WAR_FK;
+                                    response.data.Response[0].RTC_FromWH_Name = DamagedSkuToolbarCtrl.ePage.Masters.OutwardData.UIWmsOutwardHeader.WarehouseName;
+                                    response.data.Response[0].RTC_CustomerReference = DamagedSkuToolbarCtrl.ePage.Masters.OutwardData.UIWmsOutwardHeader.CustomerReference;
+                                    response.data.Response[0].RTC_OUT_ExternalRefNumber = DamagedSkuToolbarCtrl.ePage.Masters.OutwardData.UIWmsOutwardHeader.ExternalReference;
+                                    response.data.Response[0].RTC_OUT_Fk = DamagedSkuToolbarCtrl.ePage.Masters.OutwardData.UIWmsOutwardHeader.PK;
+                                    response.data.Response[0].RTC_OUT_RefNo = DamagedSkuToolbarCtrl.ePage.Masters.OutwardData.UIWmsOutwardHeader.WorkOrderID;
+                                    response.data.Response[0].RTC_ToWH_Code = DamagedSkuToolbarCtrl.ePage.Masters.OutwardData.UIWmsOutwardHeader.TransferTo_WAR_Code;
+                                    response.data.Response[0].RTC_ToWH_Fk = DamagedSkuToolbarCtrl.ePage.Masters.OutwardData.UIWmsOutwardHeader.TransferTo_WAR_FK;
+                                    response.data.Response[0].RTC_ToWH_Name = DamagedSkuToolbarCtrl.ePage.Masters.OutwardData.UIWmsOutwardHeader.TransferTo_WAR_Name;
+                                    response.data.Response[0].PickupLineStatus = "MTR Raised from Repair to Central Warehouse";
+                                }
+                            } else if (type == "TES") {
+                                response.data.Response[0].CTT_FromWH_Code = DamagedSkuToolbarCtrl.ePage.Masters.OutwardData.UIWmsOutwardHeader.WarehouseCode;
+                                response.data.Response[0].CTT_FromWH_Fk = DamagedSkuToolbarCtrl.ePage.Masters.OutwardData.UIWmsOutwardHeader.WAR_FK;
+                                response.data.Response[0].CTT_FromWH_Name = DamagedSkuToolbarCtrl.ePage.Masters.OutwardData.UIWmsOutwardHeader.WarehouseName;
+                                response.data.Response[0].CTT_OUT_CustomerReference = DamagedSkuToolbarCtrl.ePage.Masters.OutwardData.UIWmsOutwardHeader.CustomerReference;
+                                response.data.Response[0].CTT_OUT_ExternalRefNumber = DamagedSkuToolbarCtrl.ePage.Masters.OutwardData.UIWmsOutwardHeader.ExternalReference;
+                                response.data.Response[0].CTT_OUT_Fk = DamagedSkuToolbarCtrl.ePage.Masters.OutwardData.UIWmsOutwardHeader.PK;
+                                response.data.Response[0].CTT_OUT_RefNo = DamagedSkuToolbarCtrl.ePage.Masters.OutwardData.UIWmsOutwardHeader.WorkOrderID;
+                                response.data.Response[0].CTT_ToWH_Code = DamagedSkuToolbarCtrl.ePage.Masters.OutwardData.UIWmsOutwardHeader.TransferTo_WAR_Code;
+                                response.data.Response[0].CTT_ToWH_Fk = DamagedSkuToolbarCtrl.ePage.Masters.OutwardData.UIWmsOutwardHeader.TransferTo_WAR_FK;
+                                response.data.Response[0].CTT_ToWH_Name = DamagedSkuToolbarCtrl.ePage.Masters.OutwardData.UIWmsOutwardHeader.TransferTo_WAR_Name;
+                                response.data.Response[0].PickupLineStatus = "MTR Raised to Testing Warehouse";
+                            } else if (type == "SCR" || type == "REP") {
+                                if (type == "SCR")
+                                    response.data.Response[0].IsScrapOrRepair = "Scrap";
+                                else if (type == "REP")
+                                    response.data.Response[0].IsScrapOrRepair = "Repair";
+                                response.data.Response[0].CTR_FromWH_Code = DamagedSkuToolbarCtrl.ePage.Masters.OutwardData.UIWmsOutwardHeader.WarehouseCode;
+                                response.data.Response[0].CTR_FromWH_Fk = DamagedSkuToolbarCtrl.ePage.Masters.OutwardData.UIWmsOutwardHeader.WAR_FK;
+                                response.data.Response[0].CTR_FromWH_Name = DamagedSkuToolbarCtrl.ePage.Masters.OutwardData.UIWmsOutwardHeader.WarehouseName;
+                                response.data.Response[0].CTR_CustomerReference = DamagedSkuToolbarCtrl.ePage.Masters.OutwardData.UIWmsOutwardHeader.CustomerReference;
+                                response.data.Response[0].CTR_OUT_ExternalRefNumber = DamagedSkuToolbarCtrl.ePage.Masters.OutwardData.UIWmsOutwardHeader.ExternalReference;
+                                response.data.Response[0].CTR_OUT_Fk = DamagedSkuToolbarCtrl.ePage.Masters.OutwardData.UIWmsOutwardHeader.PK;
+                                response.data.Response[0].CTR_OUT_RefNo = DamagedSkuToolbarCtrl.ePage.Masters.OutwardData.UIWmsOutwardHeader.WorkOrderID;
+                                response.data.Response[0].CTR_ToWH_Code = DamagedSkuToolbarCtrl.ePage.Masters.OutwardData.UIWmsOutwardHeader.TransferTo_WAR_Code;
+                                response.data.Response[0].CTR_ToWH_Fk = DamagedSkuToolbarCtrl.ePage.Masters.OutwardData.UIWmsOutwardHeader.TransferTo_WAR_FK;
+                                response.data.Response[0].CTR_ToWH_Name = DamagedSkuToolbarCtrl.ePage.Masters.OutwardData.UIWmsOutwardHeader.TransferTo_WAR_Name;
+                                if (type == "SCR")
+                                    response.data.Response[0].PickupLineStatus = "MTR Raised to Scrap Warehouse";
+                                else if (type == "REP")
+                                    response.data.Response[0].PickupLineStatus = "MTR Raised to Repair Warehouse";
+                            }
+                            apiService.post("eAxisAPI", appConfig.Entities.WmsPickupReport.API.Update.Url, response.data.Response[0]).then(function (response) {
+                                if (response.data.Response) {
+                                    console.log("Pickup Report Updated for " + response.data.Response.PickupLineRefNo);
+                                }
+                            });
+                        }
                     }
                 });
             });

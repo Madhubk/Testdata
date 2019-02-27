@@ -417,12 +417,16 @@
             if (!_input.UIWmsInwardHeader.ArrivalDate) {
                 InwardMenuCtrl.ePage.Masters.Config.PushErrorWarning("E3034", "Arrival Date Is Mandatory", "E", false, 'ArrivalDate', InwardMenuCtrl.currentInward.label, false, undefined, undefined, 'ArrivalDate', undefined, 'general');
                 InwardMenuCtrl.ePage.Masters.Config.ShowErrorWarningModal(InwardMenuCtrl.currentInward);
+                if (callback)
+                    callback('error');
             } else if (_input.UIWmsWorkOrderLine.length > 0) {
                 var myDate = _input.UIWmsWorkOrderLine.some(function (value, key) {
                     return !value.WLO_FK;
                 })
                 if (myDate) {
                     toastr.info('Location Needs to be Allocated for All Receive Lines');
+                    if (callback)
+                        callback('error');
                 } else {
                     var modalOptions = {
                         closeButtonText: 'No',
@@ -440,6 +444,8 @@
                 }
             } else {
                 toastr.info('Receive Line Should Not Be Empty');
+                if (callback)
+                    callback('error');
             }
         }
 

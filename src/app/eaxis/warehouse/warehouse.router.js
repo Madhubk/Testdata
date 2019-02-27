@@ -810,6 +810,27 @@
                         return $ocLazyLoad.load(["chromeTab", "confirmation", "compareDate", "dynamicListModal", "dynamicList", "dynamicLookup", "dynamicControl", "dynamicGrid", "drogAndDrop", "oneLevelMapping", "Summernote", "inventoryCustomer", "inventoryView"]);
                     }]
                 }
-            });
+            })
+
+            .state('EA.WMS.CUSTOMER_TRACK_ORDER', {
+                url: '/track-delivery',
+                templateUrl: 'app/eaxis/warehouse/customer-view/track-delivery/track-delivery.html',
+                controller: "TrackDeliveryController as TrackDeliveryCtrl",
+                ncyBreadcrumb: {
+                    label: 'Track Delivery'
+                },
+                resolve: {
+                    CheckAccess: ["$q", "pageAccessService", function ($q, pageAccessService) {
+                        var deferred = $q.defer();
+                        if (pageAccessService.CheckAuthToken()) {
+                            deferred.resolve();
+                        }
+                        return deferred.promise;
+                    }],
+                    LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
+                        return $ocLazyLoad.load(["chromeTab", "confirmation", "compareDate", "dynamicListModal", "dynamicList", "dynamicLookup", "dynamicControl", "dynamicGrid", "drogAndDrop", "oneLevelMapping", "Summernote", "TrackDelivery"]);
+                    }]
+                }
+            })
     }
 })();

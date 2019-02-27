@@ -235,6 +235,7 @@
                         <th ng-style="{ 'width':  '150px' }" title="CSR No">CSR No</th>
                         <th ng-style="{ 'width':  '275px' }" title="Product Code">Product Code</th>
                         <th ng-style="{ 'width':  '300px' }" title="Product Description">Product Description</th>
+                        <th ng-style="{ 'width':  '150px' }" title="Product Condition">Product Condition</th>
                         <th ng-style="{ 'width':  '100px' }" title="Pack">Pack</th>
                         <th ng-style="{ 'width':  '100px' }" title="Pack Type">Pack Type</th>
                         <th ng-style="{ 'width':  '100px' }" title="Quantity">Quantity</th>
@@ -262,6 +263,7 @@
                         <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.DL_AdditionalRef1Code}}</td>
                         <td ng-style="{ 'width':  '275px' }" class="overflow-text">{{x.DL_Req_PrdCode}}</td>
                         <td ng-style="{ 'width':  '300px' }" class="overflow-text">{{x.DL_Req_PrdDesc}}</td>
+                        <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.DL_ProductCondition}}</td>
                         <td ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.DL_Packs}}</td>
                         <td ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.DL_PAC_PackType}}</td>
                         <td ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.DL_Units}}</td>
@@ -299,7 +301,7 @@
                     <tr id="tableHeader">
                         <th ng-style="{ 'width':  '40px' }" title="S.No">S.No</th>
                         <th ng-style="{ 'width':  '130px' }" title="Product Code">Product Code</th>
-                        <th ng-style="{ 'width':  '200px' }" title="Product Description">Product Description</th>
+                        <th ng-style="{ 'width':  '200px' }" title="Product Description">Product Description</th>                        
                         <th ng-style="{ 'width':  '180px' }" title="Warehouse">Warehouse</th>
                         <th ng-style="{ 'width':  '130px' }" title="Receipt Reference">Receipt Reference</th>
                         <th ng-style="{ 'width':  '130px' }" title="Inventory Status">Inventory Status</th>
@@ -325,7 +327,7 @@
                     <tr id="tableBody" ng-repeat="x in CreateDelChallanCtrl.ePage.Masters.MainInventory | orderBy:'CreatedDateTime'" ng-class="{bg_green: x.WAR_WarehouseCode==CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WarehouseCode, bg_pink: x.WAR_WarehouseCode!=CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WarehouseCode}">
                         <td ng-style="{ 'width':  '40px' }" class="overflow-text">{{$index +1}}</td>
                         <td ng-style="{ 'width':  '130px' }" class="overflow-text">{{x.ProductCode}}</td>
-                        <td ng-style="{ 'width':  '200px' }" class="overflow-text">{{x.ProductName}}</td>
+                        <td ng-style="{ 'width':  '200px' }" class="overflow-text">{{x.ProductName}}</td>                        
                         <td ng-style="{ 'width':  '180px' }" class="overflow-text">{{x.WAR_WarehouseCode}} - {{x.WAR_WarehouseName}}</td>
                         <td ng-style="{ 'width':  '130px' }" class="overflow-text">{{x.ExternalReference}}</td>
                         <td ng-style="{ 'width':  '130px' }" class="overflow-text">{{x.OriginalInventoryStatusDesc}}</td>

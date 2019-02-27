@@ -357,6 +357,84 @@
                                     response.data.Response.IsModified = true;
                                     apiService.post("eAxisAPI", appConfig.Entities.WmsWorkOrderLine.API.Update.Url, response.data.Response).then(function (response) {
                                         if (response.data.Response) {
+                                            var _filter = {
+                                                "WOD_Parent_FK": myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data.UIWmsOutwardHeader.PK
+                                            };
+                                            var _input = {
+                                                "searchInput": helperService.createToArrayOfObject(_filter),
+                                                "FilterID": appConfig.Entities.InwardList.API.FindAll.FilterID
+                                            };
+
+                                            apiService.post("eAxisAPI", appConfig.Entities.InwardList.API.FindAll.Url, _input).then(function (response) {
+                                                if (response.data.Response) {
+                                                    if (response.data.Response.length > 0) {
+                                                        ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails = response.data.Response[0];
+                                                        var _filter = {
+                                                            "PickupLine_FK": value.AdditionalRef1Fk
+                                                        };
+                                                        var _input = {
+                                                            "searchInput": helperService.createToArrayOfObject(_filter),
+                                                            "FilterID": appConfig.Entities.WmsPickupReport.API.FindAll.FilterID
+                                                        };
+
+                                                        apiService.post("eAxisAPI", appConfig.Entities.WmsPickupReport.API.FindAll.Url, _input).then(function (response) {
+                                                            if (response.data.Response) {
+                                                                if (response.data.Response.length > 0) {
+                                                                    response.data.Response[0].IsModified = true;
+                                                                    if (response.data.Response[0].PickupLineStatus == "MTR Raised from Site to Central Warehouse") {
+                                                                        response.data.Response[0].PickupLineStatus = "In Transit from Site To Central Warehouse";
+                                                                        response.data.Response[0].STC_OL_Fk = value.PK;
+                                                                        response.data.Response[0].STC_INW_CustomerReference = ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails.CustomerReference;
+                                                                        response.data.Response[0].STC_INW_ExternalRefNumber = ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails.ExternalReference;
+                                                                        response.data.Response[0].STC_INW_Fk = ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails.PK;
+                                                                        response.data.Response[0].STC_INW_RefNo = ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails.WorkOrderID;
+                                                                    } else if (response.data.Response[0].PickupLineStatus == "MTR Raised from Testing to Central Warehouse") {
+                                                                        response.data.Response[0].PickupLineStatus = "In Transit from Testing To Central Warehouse";
+                                                                        response.data.Response[0].TTC_OL_Fk = value.PK;
+                                                                        response.data.Response[0].TTC_INW_CustomerReference = ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails.CustomerReference;
+                                                                        response.data.Response[0].TTC_INW_ExternalRefNumber = ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails.ExternalReference;
+                                                                        response.data.Response[0].TTC_INW_Fk = ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails.PK;
+                                                                        response.data.Response[0].TTC_INW_RefNo = ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails.WorkOrderID;
+                                                                    } else if (response.data.Response[0].PickupLineStatus == "MTR Raised from Repair to Central Warehouse") {
+                                                                        response.data.Response[0].PickupLineStatus = "In Transit from Repair To Central Warehouse";
+                                                                        response.data.Response[0].RTC_OL_Fk = value.PK;
+                                                                        response.data.Response[0].RTC_INW_CustomerReference = ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails.CustomerReference;
+                                                                        response.data.Response[0].RTC_INW_ExternalRefNumber = ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails.ExternalReference;
+                                                                        response.data.Response[0].RTC_INW_Fk = ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails.PK;
+                                                                        response.data.Response[0].RTC_INW_RefNo = ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails.WorkOrderID;
+                                                                    } else if (response.data.Response[0].PickupLineStatus == "MTR Raised to Testing Warehouse") {
+                                                                        response.data.Response[0].PickupLineStatus = "In Transit To Testing Warehouse";
+                                                                        response.data.Response[0].CTT_OL_Fk = value.PK;
+                                                                        response.data.Response[0].CTT_INW_CustomerReference = ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails.CustomerReference;
+                                                                        response.data.Response[0].CTT_INW_ExternalRefNumber = ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails.ExternalReference;
+                                                                        response.data.Response[0].CTT_INW_Fk = ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails.PK;
+                                                                        response.data.Response[0].CTT_INW_RefNo = ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails.WorkOrderID;
+                                                                    } else if (response.data.Response[0].PickupLineStatus == "MTR Raised to Repair Warehouse") {
+                                                                        response.data.Response[0].PickupLineStatus = "In Transit To Repair Warehouse";
+                                                                        response.data.Response[0].CTR_OL_Fk = value.PK;
+                                                                        response.data.Response[0].CTR_INW_CustomerReference = ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails.CustomerReference;
+                                                                        response.data.Response[0].CTR_INW_ExternalRefNumber = ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails.ExternalReference;
+                                                                        response.data.Response[0].CTR_INW_Fk = ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails.PK;
+                                                                        response.data.Response[0].CTR_INW_RefNo = ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails.WorkOrderID;
+                                                                    } else if (response.data.Response[0].PickupLineStatus == "MTR Raised to Scrap Warehouse") {
+                                                                        response.data.Response[0].PickupLineStatus = "In Transit To Scrap Warehouse";
+                                                                        response.data.Response[0].CTR_OL_Fk = value.PK;
+                                                                        response.data.Response[0].CTR_INW_CustomerReference = ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails.CustomerReference;
+                                                                        response.data.Response[0].CTR_INW_ExternalRefNumber = ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails.ExternalReference;
+                                                                        response.data.Response[0].CTR_INW_Fk = ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails.PK;
+                                                                        response.data.Response[0].CTR_INW_RefNo = ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails.WorkOrderID;
+                                                                    }
+                                                                    apiService.post("eAxisAPI", appConfig.Entities.WmsPickupReport.API.Update.Url, response.data.Response[0]).then(function (response) {
+                                                                        if (response.data.Response) {
+                                                                            console.log("Pickup Report Updated for " + response.data.Response.PickupLineRefNo);
+                                                                        }
+                                                                    });
+                                                                }
+                                                            }
+                                                        });
+                                                    }
+                                                }
+                                            });
                                         }
                                     });
                                 }

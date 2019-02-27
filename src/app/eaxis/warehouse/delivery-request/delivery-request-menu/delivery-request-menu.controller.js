@@ -187,8 +187,10 @@
                 _input.UIWmsDelivery.PK = _input.PK;
                 _input.UIWmsDelivery.CreatedDateTime = new Date();
                 _input.UIWmsDelivery.WorkOrderType = 'DEL';
-                _input.UIWmsWorkorderReport.AcknowledgementDateTime = new Date();
-                _input.UIWmsWorkorderReport.AcknowledgedPerson = authService.getUserInfo().UserId;
+                if (!_input.UIWmsWorkorderReport.AcknowledgementDateTime)
+                    _input.UIWmsWorkorderReport.AcknowledgementDateTime = new Date();
+                if (!_input.UIWmsWorkorderReport.AcknowledgedPerson)
+                    _input.UIWmsWorkorderReport.AcknowledgedPerson = authService.getUserInfo().UserId;
                 if (!_input.UIWmsWorkorderReport.DeliveryRequestedDateTime)
                     _input.UIWmsWorkorderReport.DeliveryRequestedDateTime = new Date();
                 _input.UIWmsWorkorderReport.WOD_FK = _input.PK;
@@ -197,7 +199,7 @@
                 }
             } else {
                 $item = filterObjectUpdate($item, "IsModified");
-            }            
+            }
 
             angular.forEach(_input.UIWmsDeliveryLine, function (value, key) {
                 value.UISPMSDeliveryReport.PK = value.UISPMSDeliveryReport.PK;
