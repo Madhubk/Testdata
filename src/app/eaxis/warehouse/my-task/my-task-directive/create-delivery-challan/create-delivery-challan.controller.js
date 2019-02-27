@@ -685,18 +685,20 @@
                     "FilterID": appConfig.Entities.WmsInventory.API.FindAll.FilterID
                 };
                 apiService.post("eAxisAPI", appConfig.Entities.WmsInventory.API.FindAll.Url, _input).then(function (response) {
-                    CreateDelChallanCtrl.ePage.Masters.MainInventory = angular.copy(response.data.Response);
-                    if (!CreateDelChallanCtrl.ePage.Masters.IsFilter) {
-                        CreateDelChallanCtrl.ePage.Masters.InventoryDetails = angular.copy(response.data.Response);
-                        angular.forEach(CreateDelChallanCtrl.ePage.Masters.RequestedWarehouseInventory, function (value, key) {
-                            CreateDelChallanCtrl.ePage.Masters.MainInventory.push(value);
-                            CreateDelChallanCtrl.ePage.Masters.InventoryDetails.push(value);
-                        });
-                    } else {
-                        CreateDelChallanCtrl.ePage.Masters.IsFilter = false;
+                    if (response.data.Response) {
+                        CreateDelChallanCtrl.ePage.Masters.MainInventory = angular.copy(response.data.Response);
+                        if (!CreateDelChallanCtrl.ePage.Masters.IsFilter) {
+                            CreateDelChallanCtrl.ePage.Masters.InventoryDetails = angular.copy(response.data.Response);
+                            angular.forEach(CreateDelChallanCtrl.ePage.Masters.RequestedWarehouseInventory, function (value, key) {
+                                CreateDelChallanCtrl.ePage.Masters.MainInventory.unshift(value);
+                                CreateDelChallanCtrl.ePage.Masters.InventoryDetails.push(value);
+                            });
+                        } else {
+                            CreateDelChallanCtrl.ePage.Masters.IsFilter = false;
+                        }
+                        CreateDelChallanCtrl.ePage.Masters.InventoryCount = response.data.Count;
+                        CreateDelChallanCtrl.ePage.Masters.InventoryLoading = false;
                     }
-                    CreateDelChallanCtrl.ePage.Masters.InventoryCount = response.data.Count;
-                    CreateDelChallanCtrl.ePage.Masters.InventoryLoading = false;
                 });
             } else {
                 toastr.warning("Please Enter Chosen Client And Warehouse in Filter");

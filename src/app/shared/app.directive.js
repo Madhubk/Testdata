@@ -19,7 +19,9 @@
         .directive('noSpecialChar', NoSpecialChar)
         .directive('alphabetsOnly', AlphabetsOnly)
         .directive('noSpecialExceptComma', NoSpecialExceptComma)
-        .directive('numbersOnlyDot', NumbersOnlyDot);
+        .directive('numbersOnlyDot', NumbersOnlyDot)
+        .directive('noSpecialExceptHyphen', NoSpecialExceptHyphen);
+
 
     function ChosenDropdown() {
         var _exports = {
@@ -63,9 +65,9 @@
                 // templateSelection: function (d) { return $(d.text); }
             };
 
-            (attrs.multiple) ? _options.multiple = true: _options.multiple = false;
-            (attrs.multiple) ? _options.placeholder = "Select any option": _options.placeholder = undefined;
-            (scope.tags) ? _options.tags = true: _options.tags = false;
+            (attrs.multiple) ? _options.multiple = true : _options.multiple = false;
+            (attrs.multiple) ? _options.placeholder = "Select any option" : _options.placeholder = undefined;
+            (scope.tags) ? _options.tags = true : _options.tags = false;
             if (scope.disableSearch)
                 _options.minimumResultsForSearch = Infinity;
 
@@ -180,7 +182,7 @@
                     if (($document.height() - $window.innerHeight) - $window.scrollY < 20) {
                         scope.loadMore();
                     }
-                    scope.$apply(function () {});
+                    scope.$apply(function () { });
                 });
             }
         };
@@ -396,7 +398,7 @@
             }
         };
     }
-    
+
     // no special Chars
     function NoSpecialChar() {
         return {
@@ -440,6 +442,28 @@
         //         });  
         //     }
         // };
+    }
+
+    // No Special char except Hyphen
+    function NoSpecialExceptHyphen() {
+        return {
+            require: 'ngModel',
+            link: function (scope, element, attr, ngModelCtrl) {
+                function FromUser(text) {
+                    if (text) {
+                        var transformedInput = text.replace(/[^a-zA-Z0-9-\s.]/g, '');
+
+                        if (transformedInput !== text) {
+                            ngModelCtrl.$setViewValue(transformedInput);
+                            ngModelCtrl.$render();
+                        }
+                        return transformedInput;
+                    }
+                    return undefined;
+                }
+                ngModelCtrl.$parsers.push(FromUser);
+            }
+        };
     }
 
     function AlphabetsOnly() {

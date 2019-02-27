@@ -324,7 +324,7 @@
                     </tr>
                 </thead>
                 <tbody id="InwardLineCustTable{{CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderID}}">
-                    <tr id="tableBody" ng-repeat="x in CreateDelChallanCtrl.ePage.Masters.MainInventory | orderBy:'CreatedDateTime'" ng-class="{bg_green: x.WAR_WarehouseCode==CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WarehouseCode, bg_pink: x.WAR_WarehouseCode!=CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WarehouseCode}">
+                    <tr id="tableBody" ng-repeat="x in CreateDelChallanCtrl.ePage.Masters.MainInventory" ng-class="{bg_green: x.WAR_WarehouseCode==CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WarehouseCode, bg_pink: x.WAR_WarehouseCode!=CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WarehouseCode}">
                         <td ng-style="{ 'width':  '40px' }" class="overflow-text">{{$index +1}}</td>
                         <td ng-style="{ 'width':  '130px' }" class="overflow-text">{{x.ProductCode}}</td>
                         <td ng-style="{ 'width':  '200px' }" class="overflow-text">{{x.ProductName}}</td>                        
