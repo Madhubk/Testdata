@@ -28,11 +28,31 @@
                 ManifestOrdersCtrl.ePage.Masters.MenuList = ManifestOrdersCtrl.ePage.Entities.Header.Meta.MenuList.LoadMenu;
             }
 
+            // filter for outward 
+            
+            if (ManifestOrdersCtrl.ePage.Entities.Header.CheckPoints.ReceiverClient) {
+                if (ManifestOrdersCtrl.ePage.Entities.Header.CheckPoints.WarehouseClient) {
+                    ManifestOrdersCtrl.ePage.Masters.WarehouseCode = ManifestOrdersCtrl.ePage.Entities.Header.CheckPoints.WarehouseClient;
+                } else {
+                    ManifestOrdersCtrl.ePage.Masters.WarehouseCode = ManifestOrdersCtrl.ePage.Entities.Header.CheckPoints.ReceiverClient;
+                }
+            } else if (ManifestOrdersCtrl.ePage.Entities.Header.CheckPoints.WarehouseClient) {
+                ManifestOrdersCtrl.ePage.Masters.WarehouseCode = ManifestOrdersCtrl.ePage.Entities.Header.CheckPoints.WarehouseClient;
+            }
+            if (!ManifestOrdersCtrl.ePage.Entities.Header.CheckPoints.ReceiverClient) {
+                ManifestOrdersCtrl.ePage.Masters.ConsigneeCode = ManifestOrdersCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ReceiverCode;
+            }
+            if (!ManifestOrdersCtrl.ePage.Entities.Header.CheckPoints.WarehouseClient) {
+                ManifestOrdersCtrl.ePage.Masters.SupplierCode = ManifestOrdersCtrl.ePage.Entities.Header.Data.TmsManifestHeader.SenderCode;
+            }
             ManifestOrdersCtrl.ePage.Masters.AttachDefaultFilter = {
+                "WarehouseCode": ManifestOrdersCtrl.ePage.Masters.WarehouseCode,
+                "SupplierCode": ManifestOrdersCtrl.ePage.Masters.SupplierCode,
+                "ConsigneeCode": ManifestOrdersCtrl.ePage.Masters.ConsigneeCode,
                 "WorkOrderType": "ORD",
                 "WorkOrderStatusIn": "OAS,OCP,FIN",
                 "Consignmentstatus": "DRF",
-                "ConsignStatus": "NULL",
+                "ConsignStatus": "NULL"
             }
             ManifestOrdersCtrl.ePage.Masters.AttachCONDefaultFilter = {
                 "ConsignmentStatus": "DRF",
@@ -179,7 +199,7 @@
                     "SupplierCode": ManifestOrdersCtrl.ePage.Masters.DynamicControl.Entities[0].Data.SupplierCode,
                     "WorkOrderStatusIn": "OAS,OCP,FIN",
                     "WarehouseCode": ManifestOrdersCtrl.ePage.Masters.DynamicControl.Entities[0].Data.WarehouseCode,
-                    "WorkOrderType": ManifestOrdersCtrl.ePage.Masters.DynamicControl.Entities[0].Data.WorkOrderType,
+                    "WorkOrderType": "ORD",
                     "ConsigneeCode": ManifestOrdersCtrl.ePage.Masters.DynamicControl.Entities[0].Data.ConsigneeCode,
                     "Consignmentstatus": "DRF",
                     "ConsignStatus": "NULL",
@@ -287,9 +307,9 @@
             }
 
             ManifestOrdersCtrl.ePage.Masters.defaultFilter = {
-            //     "WarehouseCode": ManifestOrdersCtrl.ePage.Masters.WarehouseCode,
-            //     "SupplierCode": ManifestOrdersCtrl.ePage.Masters.SupplierCode,
-            //     "ConsigneeCode": ManifestOrdersCtrl.ePage.Masters.ConsigneeCode,
+                "WarehouseCode": ManifestOrdersCtrl.ePage.Masters.WarehouseCode,
+                "SupplierCode": ManifestOrdersCtrl.ePage.Masters.SupplierCode,
+                "ConsigneeCode": ManifestOrdersCtrl.ePage.Masters.ConsigneeCode,
                 "WorkOrderType": "ORD",
                 "WorkOrderStatusIn": "OAS,OCP,FIN",
                 "Consignmentstatus": "DRF",
@@ -476,11 +496,11 @@
 
             ManifestOrdersCtrl.ePage.Masters.IsLoading = true;
             var _filter = {
-                // "WarehouseCode": ManifestOrdersCtrl.ePage.Masters.WarehouseCode,
+                "WarehouseCode": ManifestOrdersCtrl.ePage.Masters.WarehouseCode,
                 "WorkOrderType": "ORD",
                 "WorkOrderStatusIn": "OAS,OCP,FIN",
-                // "SupplierCode": ManifestOrdersCtrl.ePage.Masters.SupplierCode,
-                // "ConsigneeCode": ManifestOrdersCtrl.ePage.Masters.ConsigneeCode,
+                "SupplierCode": ManifestOrdersCtrl.ePage.Masters.SupplierCode,
+                "ConsigneeCode": ManifestOrdersCtrl.ePage.Masters.ConsigneeCode,
                 "Consignmentstatus": "DRF",
                 "ConsignStatus": "NULL"
             };
