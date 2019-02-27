@@ -27,33 +27,7 @@
             } else {
                 ManifestOrdersCtrl.ePage.Masters.MenuList = ManifestOrdersCtrl.ePage.Entities.Header.Meta.MenuList.LoadMenu;
             }
-
-            // filter for outward 
-            
-            if (ManifestOrdersCtrl.ePage.Entities.Header.CheckPoints.ReceiverClient) {
-                if (ManifestOrdersCtrl.ePage.Entities.Header.CheckPoints.WarehouseClient) {
-                    ManifestOrdersCtrl.ePage.Masters.WarehouseCode = ManifestOrdersCtrl.ePage.Entities.Header.CheckPoints.WarehouseClient;
-                } else {
-                    ManifestOrdersCtrl.ePage.Masters.WarehouseCode = ManifestOrdersCtrl.ePage.Entities.Header.CheckPoints.ReceiverClient;
-                }
-            } else if (ManifestOrdersCtrl.ePage.Entities.Header.CheckPoints.WarehouseClient) {
-                ManifestOrdersCtrl.ePage.Masters.WarehouseCode = ManifestOrdersCtrl.ePage.Entities.Header.CheckPoints.WarehouseClient;
-            }
-            if (!ManifestOrdersCtrl.ePage.Entities.Header.CheckPoints.ReceiverClient) {
-                ManifestOrdersCtrl.ePage.Masters.ConsigneeCode = ManifestOrdersCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ReceiverCode;
-            }
-            if (!ManifestOrdersCtrl.ePage.Entities.Header.CheckPoints.WarehouseClient) {
-                ManifestOrdersCtrl.ePage.Masters.SupplierCode = ManifestOrdersCtrl.ePage.Entities.Header.Data.TmsManifestHeader.SenderCode;
-            }
-            ManifestOrdersCtrl.ePage.Masters.AttachDefaultFilter = {
-                "WarehouseCode": ManifestOrdersCtrl.ePage.Masters.WarehouseCode,
-                "SupplierCode": ManifestOrdersCtrl.ePage.Masters.SupplierCode,
-                "ConsigneeCode": ManifestOrdersCtrl.ePage.Masters.ConsigneeCode,
-                "WorkOrderType": "ORD",
-                "WorkOrderStatusIn": "OAS,OCP,FIN",
-                "Consignmentstatus": "DRF",
-                "ConsignStatus": "NULL"
-            }
+           
             ManifestOrdersCtrl.ePage.Masters.AttachCONDefaultFilter = {
                 "ConsignmentStatus": "DRF",
                 "ServiceTypeIn": "LOD,UPC,STR"
@@ -294,7 +268,7 @@
                 if (ManifestOrdersCtrl.ePage.Entities.Header.CheckPoints.WarehouseClient) {
                     ManifestOrdersCtrl.ePage.Masters.WarehouseCode = ManifestOrdersCtrl.ePage.Entities.Header.CheckPoints.WarehouseClient;
                 } else {
-                    ManifestOrdersCtrl.ePage.Masters.WarehouseCode = ManifestOrdersCtrl.ePage.Entities.Header.CheckPoints.ReceiverClient;
+                    ManifestOrdersCtrl.ePage.Masters.ConsigneeCode = ManifestOrdersCtrl.ePage.Entities.Header.CheckPoints.ReceiverClient;
                 }
             } else if (ManifestOrdersCtrl.ePage.Entities.Header.CheckPoints.WarehouseClient) {
                 ManifestOrdersCtrl.ePage.Masters.WarehouseCode = ManifestOrdersCtrl.ePage.Entities.Header.CheckPoints.WarehouseClient;
@@ -302,19 +276,21 @@
             if (!ManifestOrdersCtrl.ePage.Entities.Header.CheckPoints.ReceiverClient) {
                 ManifestOrdersCtrl.ePage.Masters.ConsigneeCode = ManifestOrdersCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ReceiverCode;
             }
-            if (!ManifestOrdersCtrl.ePage.Entities.Header.CheckPoints.WarehouseClient) {
-                ManifestOrdersCtrl.ePage.Masters.SupplierCode = ManifestOrdersCtrl.ePage.Entities.Header.Data.TmsManifestHeader.SenderCode;
-            }
+            // if (!ManifestOrdersCtrl.ePage.Entities.Header.CheckPoints.WarehouseClient) {
+            //     ManifestOrdersCtrl.ePage.Masters.SupplierCode = ManifestOrdersCtrl.ePage.Entities.Header.Data.TmsManifestHeader.SenderCode;
+            // }
 
             ManifestOrdersCtrl.ePage.Masters.defaultFilter = {
                 "WarehouseCode": ManifestOrdersCtrl.ePage.Masters.WarehouseCode,
-                "SupplierCode": ManifestOrdersCtrl.ePage.Masters.SupplierCode,
+                // "SupplierCode": ManifestOrdersCtrl.ePage.Masters.SupplierCode,
                 "ConsigneeCode": ManifestOrdersCtrl.ePage.Masters.ConsigneeCode,
                 "WorkOrderType": "ORD",
                 "WorkOrderStatusIn": "OAS,OCP,FIN",
                 "Consignmentstatus": "DRF",
                 "ConsignStatus": "NULL"
             };
+
+            ManifestOrdersCtrl.ePage.Masters.AttachDefaultFilter=ManifestOrdersCtrl.ePage.Masters.defaultFilter;
             ManifestOrdersCtrl.ePage.Masters.DynamicControl = undefined;
             GetConfigDetails();
         }
@@ -482,7 +458,7 @@
                 if (ManifestOrdersCtrl.ePage.Entities.Header.CheckPoints.WarehouseClient) {
                     ManifestOrdersCtrl.ePage.Masters.WarehouseCode = ManifestOrdersCtrl.ePage.Entities.Header.CheckPoints.WarehouseClient;
                 } else {
-                    ManifestOrdersCtrl.ePage.Masters.WarehouseCode = ManifestOrdersCtrl.ePage.Entities.Header.CheckPoints.ReceiverClient;
+                    ManifestOrdersCtrl.ePage.Masters.ConsigneeCode = ManifestOrdersCtrl.ePage.Entities.Header.CheckPoints.ReceiverClient;
                 }
             } else if (ManifestOrdersCtrl.ePage.Entities.Header.CheckPoints.WarehouseClient) {
                 ManifestOrdersCtrl.ePage.Masters.WarehouseCode = ManifestOrdersCtrl.ePage.Entities.Header.CheckPoints.WarehouseClient;
@@ -490,16 +466,16 @@
             if (!ManifestOrdersCtrl.ePage.Entities.Header.CheckPoints.ReceiverClient) {
                 ManifestOrdersCtrl.ePage.Masters.ConsigneeCode = ManifestOrdersCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ReceiverCode;
             }
-            if (!ManifestOrdersCtrl.ePage.Entities.Header.CheckPoints.WarehouseClient) {
-                ManifestOrdersCtrl.ePage.Masters.SupplierCode = ManifestOrdersCtrl.ePage.Entities.Header.Data.TmsManifestHeader.SenderCode;
-            }
+            // if (!ManifestOrdersCtrl.ePage.Entities.Header.CheckPoints.WarehouseClient) {
+            //     ManifestOrdersCtrl.ePage.Masters.SupplierCode = ManifestOrdersCtrl.ePage.Entities.Header.Data.TmsManifestHeader.SenderCode;
+            // }
 
             ManifestOrdersCtrl.ePage.Masters.IsLoading = true;
             var _filter = {
                 "WarehouseCode": ManifestOrdersCtrl.ePage.Masters.WarehouseCode,
                 "WorkOrderType": "ORD",
                 "WorkOrderStatusIn": "OAS,OCP,FIN",
-                "SupplierCode": ManifestOrdersCtrl.ePage.Masters.SupplierCode,
+                // "SupplierCode": ManifestOrdersCtrl.ePage.Masters.SupplierCode,
                 "ConsigneeCode": ManifestOrdersCtrl.ePage.Masters.ConsigneeCode,
                 "Consignmentstatus": "DRF",
                 "ConsignStatus": "NULL"
