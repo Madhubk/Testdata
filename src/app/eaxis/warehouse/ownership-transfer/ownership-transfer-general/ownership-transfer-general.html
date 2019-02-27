@@ -1021,11 +1021,8 @@
             </tbody>
         </table>
     </div>
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 norecordfound" style="top:680px" ng-if="OwnershipTransferGeneralCtrl.ePage.Masters.InventoryLoading">
-        <i class="fa fa-spin fa-spinner font-160"></i>
-    </div>
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 norecordfound" style="top:680px" ng-if="OwnershipTransferGeneralCtrl.ePage.Masters.Inventory.length==0 && !OwnershipTransferGeneralCtrl.ePage.Masters.InventoryLoading">No
-        Record Found...</div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 norecordfound" ng-style="{ 'top': OwnershipTransferGeneralCtrl.ePage.Entities.Header.TableProperties.UIWmsStockTransferLine.TableHeight.height + 450 + 'px' }" ng-if="OwnershipTransferGeneralCtrl.ePage.Masters.InventoryLoading"><i class="fa fa-spin fa-spinner font-160"></i></div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 norecordfound" ng-style="{ 'top': OwnershipTransferGeneralCtrl.ePage.Entities.Header.TableProperties.UIWmsStockTransferLine.TableHeight.height + 450 + 'px' }" ng-if="OwnershipTransferGeneralCtrl.ePage.Masters.Inventory.length==0 && !OwnershipTransferGeneralCtrl.ePage.Masters.InventoryLoading">No Record Found...</div>
 
     <!-- To show Customize Modal -->
     <div ng-if='OwnershipTransferGeneralCtrl.ePage.Masters.EditTableColumnsInventory'>
@@ -1069,7 +1066,8 @@
 <!--FIlter Bar  -->
 <div id="filterSideBar{{OwnershipTransferGeneralCtrl.ePage.Masters.DynamicControl.DataEntryName}}{{OwnershipTransferGeneralCtrl.currentOwnerTransfer.label}}"
     data-ng-if="OwnershipTransferGeneralCtrl.ePage.Masters.DynamicControl" class="dynamic-filter-sidebar-wrapper  clearfix filter-text"
-    style="top:500px;height:200px;overflow-y: overlay;z-index: 13" data-ng-class="OwnershipTransferGeneralCtrl.ePage.Masters.ViewType == 1 ? 'one-column' : 'two-column'">
+    style="overflow-y: overlay" ng-style="{ 'top': OwnershipTransferGeneralCtrl.ePage.Entities.Header.TableProperties.UIWmsStockTransferLine.TableHeight.height + 386 + 'px','height':OwnershipTransferGeneralCtrl.ePage.Entities.Header.TableProperties.Inventory.TableHeight.height + 'px','z-index': 13 }"  
+    data-ng-class="OwnershipTransferGeneralCtrl.ePage.Masters.ViewType == 1 ? 'one-column' : 'two-column'">
     <form name="filterSidebar" novalidate>
         <div class="header clearfix">
             <div class="title pull-left">

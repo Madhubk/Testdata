@@ -228,7 +228,7 @@
             </tbody>
         </table>
     </div>
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 norecordfound" style="top:350px"  ng-if="ProductWarehouseCtrl.ePage.Entities.Header.Data.UIWarehouse.length==0">No Record Found...</div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 norecordfound" ng-style="{ 'top': ProductWarehouseCtrl.ePage.Entities.Header.TableProperties.UIWMSPickFace.TableHeight.height + 150 + 'px' }" ng-if="ProductWarehouseCtrl.ePage.Entities.Header.Data.UIWarehouse.length==0">No Record Found...</div>
 </div>
 <!-- To show Customize Modal -->
 <div ng-if='ProductWarehouseCtrl.ePage.Masters.EditTableColumns'>

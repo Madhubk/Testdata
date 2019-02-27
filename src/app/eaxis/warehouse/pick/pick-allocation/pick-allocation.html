@@ -156,8 +156,8 @@
             </tbody>
         </table>
     </div>
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 norecordfound" style="top:400px" ng-if="PickAllocationCtrl.ePage.Masters.InventoryDetails.length==0">No Record Found...</div>
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 norecordfound" style="top:400px" ng-if="!PickAllocationCtrl.ePage.Masters.InventoryDetails">Click On the above Ordered Lines to view Inventory..</div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 norecordfound" ng-style="{ 'top': PickAllocationCtrl.ePage.Entities.Header.TableProperties.UIWmsOutwardLines.TableHeight.height + 200 + 'px' }" ng-if="PickAllocationCtrl.ePage.Masters.InventoryDetails.length==0">No Record Found...</div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 norecordfound" ng-style="{ 'top': PickAllocationCtrl.ePage.Entities.Header.TableProperties.UIWmsOutwardLines.TableHeight.height + 200 + 'px' }" ng-if="!PickAllocationCtrl.ePage.Masters.InventoryDetails">Click On the above Ordered Lines to view Inventory..</div>
         
     <!-- To show Customize Modal -->
     <div ng-if='PickAllocationCtrl.ePage.Masters.EditTableColumnsForInventory'>

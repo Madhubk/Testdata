@@ -218,8 +218,8 @@
             </tbody>
         </table>
     </div>
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 norecordfound" style="top:450px" ng-if="ReleasesPickSlipCtrl.ePage.Entities.Header.Data.UIWmsReleaseLine.length==0 && ReleasesPickSlipCtrl.ePage.Masters.selectedRowForPickLineSummary!=-1">No Record Found...</div>
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 norecordfound" style="top:450px" ng-if="ReleasesPickSlipCtrl.ePage.Masters.selectedRowForPickLineSummary==-1">Click on the above pick slip line to Add and View Release Capture Line...</div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 norecordfound" ng-style="{ 'top': ReleasesPickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.TableHeight.height + 250 + 'px' }" ng-if="ReleasesPickSlipCtrl.ePage.Entities.Header.Data.UIWmsReleaseLine.length==0 && ReleasesPickSlipCtrl.ePage.Masters.selectedRowForPickLineSummary!=-1">No Record Found...</div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 norecordfound" ng-style="{ 'top': ReleasesPickSlipCtrl.ePage.Entities.Header.TableProperties.UIWmsPickLineSummary.TableHeight.height + 250 + 'px' }" ng-if="ReleasesPickSlipCtrl.ePage.Masters.selectedRowForPickLineSummary==-1">Click on the above pick slip line to Add and View Release Capture Line...</div>
     
     <!-- To show Customize Modal -->
     <div ng-if='ReleasesPickSlipCtrl.ePage.Masters.EditTableColumnsForUIWmsReleaseLine'>
