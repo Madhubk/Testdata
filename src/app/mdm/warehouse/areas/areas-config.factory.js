@@ -77,7 +77,10 @@
                                 "WAR_WarehouseName": helperService.metaBase(),
                                 "WAR_WarehouseCode": helperService.metaBase(),
                             },    
-                        }
+                        },
+                        "GlobalVariables":{
+                            "CannotEditArea":false
+                        },
                     }
                 }
             };

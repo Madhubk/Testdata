@@ -43,7 +43,7 @@
                     <div class="">
                         <label class="control-label text-single-line">Row Name</label>
                         <input type="text" maxlength="25" capitalize class="form-control" ng-model="LocationDetailsCtrl.ePage.Entities.Header.Data.WmsRow.Name"  
-                        ng-change="LocationDetailsCtrl.ePage.Masters.OnChangeValues(LocationDetailsCtrl.ePage.Entities.Header.Data.WmsRow.Name,'E6002')" ng-disabled="LocationDetailsCtrl.ePage.Entities.Header.GlobalVariables.CanEditLocation">
+                        ng-change="LocationDetailsCtrl.ePage.Masters.OnChangeValues(LocationDetailsCtrl.ePage.Entities.Header.Data.WmsRow.Name,'E6002')" ng-disabled="LocationDetailsCtrl.ePage.Entities.Header.GlobalVariables.CannotEditLocation">
                     </div>
                 </div>
             </div>
@@ -62,7 +62,7 @@
                     <div class="">
                         <label class="control-label ">Row Path Sequence</label>
                         <input type="text" maxlength="4"  class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" numbers-only ng-model="LocationDetailsCtrl.ePage.Entities.Header.Data.WmsRow.PickPathSequence" ng-change="LocationDetailsCtrl.ePage.Masters.OnChangeValues(LocationDetailsCtrl.ePage.Entities.Header.Data.WmsRow.PickPathSequence,'E6006');LocationDetailsCtrl.ePage.Masters.GetPickPathSequenceValue(LocationDetailsCtrl.ePage.Entities.Header.Data.WmsRow.PickPathSequence)" 
-                        ng-disabled="!LocationDetailsCtrl.ePage.Masters.Warehouse || LocationDetailsCtrl.ePage.Entities.Header.GlobalVariables.CanEditLocation">
+                        ng-disabled="!LocationDetailsCtrl.ePage.Masters.Warehouse || LocationDetailsCtrl.ePage.Entities.Header.GlobalVariables.CannotEditLocation">
                     </div>
                 </div>
             </div>

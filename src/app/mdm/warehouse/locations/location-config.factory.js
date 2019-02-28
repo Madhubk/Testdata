@@ -128,7 +128,7 @@
                         },
                         "GlobalVariables":{
                             "Loading":false,
-                            "CanEditLocation":false
+                            "CannotEditLocation":false
                         },
                         "TableProperties":{
                             "WmsLocation":{

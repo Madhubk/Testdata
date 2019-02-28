@@ -24,7 +24,8 @@
                                       </div>
                                       <div class="">
                                         <label class="control-label text-single-line">Area Name</label>
-                                        <input type="text" maxlength="25" capitalize class="form-control ng-pristine ng-untouched ng-valid  ng-not-empty" ng-model="AreasDetailsCtrl.ePage.Entities.Header.Data.Name" ng-change="AreasDetailsCtrl.ePage.Masters.OnChangeValues(AreasDetailsCtrl.ePage.Entities.Header.Data.Name,'E5001')">
+                                        <input type="text" maxlength="25" capitalize class="form-control ng-pristine ng-untouched ng-valid  ng-not-empty" data-ng-disabled="AreasDetailsCtrl.ePage.Entities.Header.GlobalVariables.CannotEditArea"
+                                        ng-model="AreasDetailsCtrl.ePage.Entities.Header.Data.Name" ng-change="AreasDetailsCtrl.ePage.Masters.OnChangeValues(AreasDetailsCtrl.ePage.Entities.Header.Data.Name,'E5001')">
                                       </div>
                                     </div>
                                   </div>
@@ -41,7 +42,8 @@
                                         <label class="control-label text-single-line">Area Type</label>
                                         <div class="">
                                           <select chosen class="form-control" ng-model="AreasDetailsCtrl.ePage.Entities.Header.Data.AreaType" ng-options="x.Key as x.Key + ' - '  + x.Value for x in AreasDetailsCtrl.ePage.Masters.DropDownMasterList.AreaType.ListSource"
-                                          search-contains="true" ng-change="AreasDetailsCtrl.ePage.Masters.OnChangeValues(AreasDetailsCtrl.ePage.Entities.Header.Data.AreaType,'E5002')">
+                                          search-contains="true" ng-change="AreasDetailsCtrl.ePage.Masters.OnChangeValues(AreasDetailsCtrl.ePage.Entities.Header.Data.AreaType,'E5002')"
+                                          data-ng-disabled="AreasDetailsCtrl.ePage.Entities.Header.GlobalVariables.CannotEditArea">
                                           <option value="">--Select--</option>
                                           </select>
                                         </div>
@@ -63,11 +65,12 @@
                                         <!-- Dynamic look up Search in textbox -->
                                         <div dynamic-lookup placeholder="Warehouse Code" my-ng-model="AreasDetailsCtrl.ePage.Entities.Header.Data.WAR_WarehouseCode" auto-complete-on-select="AreasDetailsCtrl.ePage.Masters.SelectedLookupData($item)"
                                         obj="AreasDetailsCtrl.ePage.Entities.Header.Data" page-name="'Warehouse'"
-                                        control-id="'Warehouse'" control-key="'Warehouse_3067'">
+                                        control-id="'Warehouse'" control-key="'Warehouse_3067'" is-disabled="AreasDetailsCtrl.ePage.Entities.Header.GlobalVariables.CannotEditArea">
                                         </div>
                                       <!-- Look Up page opens when button clicks -->
                                         <span class="input-group-btn">
-                                          <button dynamic-list-modal obj="AreasDetailsCtrl.ePage.Entities.Header.Data" control-id="'Warehouse'" control-key="'Warehouse_3067'" selected-data="AreasDetailsCtrl.ePage.Masters.SelectedLookupData($item.data.entity)"  page-name="'Warehouse'" mode ="2" grid-refresh-fun-name="" grid-refresh-fun=""  class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
+                                          <button dynamic-list-modal obj="AreasDetailsCtrl.ePage.Entities.Header.Data" control-id="'Warehouse'" control-key="'Warehouse_3067'" is-disabled="AreasDetailsCtrl.ePage.Entities.Header.GlobalVariables.CannotEditArea"
+                                          selected-data="AreasDetailsCtrl.ePage.Masters.SelectedLookupData($item.data.entity)"  page-name="'Warehouse'" mode ="2" grid-refresh-fun-name="" grid-refresh-fun=""  class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
                                         </span>
                                         </div>
                                       </div>  

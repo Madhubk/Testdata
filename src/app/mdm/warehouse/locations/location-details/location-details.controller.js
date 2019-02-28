@@ -101,7 +101,12 @@
                 apiService.post("eAxisAPI", LocationDetailsCtrl.ePage.Entities.Header.API.Inventory.Url, _input).then(function SuccessCallback(response) {
                     LocationDetailsCtrl.ePage.Entities.Header.GlobalVariables.Loading = false;
                     if(response.data.Response.length>0){
-                        LocationDetailsCtrl.ePage.Entities.Header.GlobalVariables.CanEditLocation = true;
+                        LocationDetailsCtrl.ePage.Entities.Header.GlobalVariables.CannotEditLocation = true;
+                        toastr.warning('Product available in this Row. So you can not edit some fields.', {
+                            tapToDismiss: false,
+                            closeButton: true,
+                            timeOut: 20000
+                        });
                     }
                     callback();
                 });
@@ -128,7 +133,7 @@
                 for(var i =0;i<1000;i++){
                     var obj = {};
                     obj.Value = i;
-                    if(LocationDetailsCtrl.ePage.Entities.Header.GlobalVariables.CanEditLocation && (i<=LocationDetailsCtrl.ePage.Entities.Header.Data.WmsRow.Columns)){
+                    if(LocationDetailsCtrl.ePage.Entities.Header.GlobalVariables.CannotEditLocation && (i<=LocationDetailsCtrl.ePage.Entities.Header.Data.WmsRow.Columns)){
                         obj.isDisabled = true;
                     }else{
                         obj.isDisabled = false;
@@ -140,7 +145,7 @@
                 for(var i =0;i<1000;i++){
                     var obj = {};
                     obj.Value = i;
-                    if(LocationDetailsCtrl.ePage.Entities.Header.GlobalVariables.CanEditLocation && (i<=LocationDetailsCtrl.ePage.Entities.Header.Data.WmsRow.Levels)){
+                    if(LocationDetailsCtrl.ePage.Entities.Header.GlobalVariables.CannotEditLocation && (i<=LocationDetailsCtrl.ePage.Entities.Header.Data.WmsRow.Levels)){
                         obj.isDisabled = true;
                     }else{
                         obj.isDisabled = false;
@@ -347,7 +352,7 @@
         }
 
         function UpdateV2(){
-            if(!LocationDetailsCtrl.ePage.Entities.Header.GlobalVariables.CanEditLocation){
+            if(!LocationDetailsCtrl.ePage.Entities.Header.GlobalVariables.CannotEditLocation){
                 LocationDetailsCtrl.ePage.Entities.Header.GlobalVariables.Loading = true;
 
                 angular.forEach(LocationDetailsCtrl.ePage.Entities.Header.Data.WmsLocation,function(value,key){

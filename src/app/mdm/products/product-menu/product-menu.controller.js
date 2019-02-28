@@ -5,9 +5,9 @@
         .module("Application")
         .controller("ProductMenuController", ProductMenuController);
 
-    ProductMenuController.$inject = ["$scope", "$timeout", "APP_CONSTANT", "apiService", "productConfig", "helperService", "appConfig", "authService", "$state","toastr"];
+    ProductMenuController.$inject = ["$scope", "$timeout", "APP_CONSTANT", "apiService", "productConfig", "helperService", "appConfig", "authService", "$state","toastr","$q"];
 
-    function ProductMenuController($scope, $timeout, APP_CONSTANT, apiService, productConfig, helperService, appConfig, authService, $state,toastr) {
+    function ProductMenuController($scope, $timeout, APP_CONSTANT, apiService, productConfig, helperService, appConfig, authService, $state,toastr,$q) {
 
         var ProductMenuCtrl = this;
 
@@ -41,23 +41,50 @@
 
         function GetInventoryDetails(){
             if(!ProductMenuCtrl.currentProduct.isNew){
-                ProductMenuCtrl.ePage.Entities.Header.GlobalVariables.Loading = true;
-                var _filter = {
-                    "PRO_FK": ProductMenuCtrl.ePage.Entities.Header.Data.PK,
-                    "PageNumber":"1",
-                    "PageSize": "10",
-                    "SortType": "ASC",
-                    "SortColumn":"WOL_CreatedDateTime",
-                };
-                
-                var _input = {
-                    "searchInput": helperService.createToArrayOfObject(_filter),
-                    "FilterID": ProductMenuCtrl.ePage.Entities.Header.API.Inventory.FilterID
-                };
-                apiService.post("eAxisAPI", ProductMenuCtrl.ePage.Entities.Header.API.Inventory.Url, _input).then(function SuccessCallback(response) {
-                    ProductMenuCtrl.ePage.Entities.Header.GlobalVariables.Loading = false;
-                    if(response.data.Response.length>0){
-                        ProductMenuCtrl.ePage.Entities.Header.GlobalVariables.CanEditProduct = false;
+                var LoopPromises = [];
+                angular.forEach(ProductMenuCtrl.ePage.Entities.Header.Data.UIOrgPartRelation,function(value,key){
+                    ProductMenuCtrl.ePage.Entities.Header.GlobalVariables.Loading = true
+                    var def = $q.defer();
+                    LoopPromises.push(def.promise);
+
+                    var _filter = {
+                        "PRO_FK": ProductMenuCtrl.ePage.Entities.Header.Data.PK,
+                        "ORG_FK":value.ORG_FK,
+                        "PageNumber":"1",
+                        "PageSize": "10",
+                        "SortType": "ASC",
+                        "SortColumn":"WOL_CreatedDateTime",
+                    };
+                    
+                    var _input = {
+                        "searchInput": helperService.createToArrayOfObject(_filter),
+                        "FilterID": ProductMenuCtrl.ePage.Entities.Header.API.Inventory.FilterID
+                    };
+                    apiService.post("eAxisAPI", ProductMenuCtrl.ePage.Entities.Header.API.Inventory.Url, _input).then(function SuccessCallback(response) {
+                        if(response.data.Response.length>0){
+                            ProductMenuCtrl.ePage.Entities.Header.GlobalVariables.CannotEditProduct = true;
+                            def.resolve(response.data.Response[0].ORG_FK);
+                        }else{
+                            def.resolve("Failed");
+                        }
+                    });
+                });
+
+                $q.all(LoopPromises).then(function(response){
+                    if(response.length>0){
+                        var mydata = false;
+                        response.map(function(val){
+                            if(val!="Failed"){
+                                mydata = true;
+                                ProductMenuCtrl.ePage.Entities.Header.Data.UIOrgPartRelation.some(function(v){
+                                    if(v.ORG_FK==val){
+                                        v.isDisabled = true;
+                                    }
+                                })
+                            }
+                        });
+                    }
+                    if(mydata){
                         toastr.warning('Product available in inventory. So you can not edit some fields.', {
                             tapToDismiss: false,
                             closeButton: true,
