@@ -542,7 +542,7 @@
         function StandardMenuConfig() {
             ActivityTemplateOutward2Ctrl.ePage.Masters.StandardMenuInput = {
                 // Entity
-                "Entity": ActivityTemplateOutward2Ctrl.ePage.Masters.TaskObj.Entity,
+                "Entity": ActivityTemplateOutward2Ctrl.ePage.Masters.TaskObj.WSI_StepCode,
                 "EntityRefKey": ActivityTemplateOutward2Ctrl.ePage.Masters.TaskObj.EntityRefKey,
                 "EntityRefCode": ActivityTemplateOutward2Ctrl.ePage.Masters.TaskObj.KeyReference,
                 "EntitySource": "ORD",
