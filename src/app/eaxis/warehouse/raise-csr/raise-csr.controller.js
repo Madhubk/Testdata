@@ -45,7 +45,7 @@
             RaiseCSRCtrl.ePage.Masters.modalInstance.close('close');
         }
 
-        function CreateNewDeliveryRequest() {            
+        function CreateNewDeliveryRequest() {
             var modalOptions = {
                 closeButtonText: 'Cancel',
                 actionButtonText: 'Ok',
@@ -193,6 +193,7 @@
                     value.UISPMSDeliveryReport.RequestedDateTime = _input.UIWmsWorkorderReport.DeliveryRequestedDateTime;
                     value.UISPMSDeliveryReport.RequesterContactNumber = _input.UIWmsWorkorderReport.RequesterContactNo;
                     value.UISPMSDeliveryReport.DeliveryRequestNo = _input.UIWmsDelivery.WorkOrderID;
+                    value.UISPMSDeliveryReport.DeliveryRequest_FK = _input.UIWmsDelivery.PK;
                     value.UISPMSDeliveryReport.CancelledDateTime = _input.UIWmsDelivery.CancelledDate;
                     value.UISPMSDeliveryReport.DeliveryLineRefNo = value.AdditionalRef1Code;
                     value.UISPMSDeliveryReport.PRO_FK = value.PRO_FK;

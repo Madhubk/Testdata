@@ -693,7 +693,7 @@
         function StandardMenuConfig() {
             ActivityTemplateInwardCtrl.ePage.Masters.StandardMenuInput = {
                 // Entity
-                "Entity": ActivityTemplateInwardCtrl.ePage.Masters.TaskObj.Entity,
+                "Entity": ActivityTemplateInwardCtrl.ePage.Masters.TaskObj.WSI_StepCode,
                 "EntityRefKey": ActivityTemplateInwardCtrl.ePage.Masters.TaskObj.EntityRefKey,
                 "EntityRefCode": ActivityTemplateInwardCtrl.ePage.Masters.TaskObj.KeyReference,
                 "EntitySource": ActivityTemplateInwardCtrl.ePage.Masters.TaskObj.EntitySource,

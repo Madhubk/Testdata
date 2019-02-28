@@ -400,7 +400,7 @@
         function StandardMenuConfig() {
             ActivityTemplateDelivery2Ctrl.ePage.Masters.StandardMenuInput = {
                 // Entity
-                "Entity": ActivityTemplateDelivery2Ctrl.ePage.Masters.TaskObj.Entity,
+                "Entity": ActivityTemplateDelivery2Ctrl.ePage.Masters.TaskObj.WSI_StepCode,
                 "EntityRefKey": ActivityTemplateDelivery2Ctrl.ePage.Masters.TaskObj.EntityRefKey,
                 "EntityRefCode": ActivityTemplateDelivery2Ctrl.ePage.Masters.TaskObj.KeyReference,
                 "EntitySource": ActivityTemplateDelivery2Ctrl.ePage.Masters.TaskObj.EntitySource,
