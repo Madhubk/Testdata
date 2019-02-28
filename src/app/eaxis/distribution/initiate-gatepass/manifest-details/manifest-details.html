@@ -120,11 +120,11 @@
                     </div>
                     <div class='table_small'>
                         <div class='table_cell'>Expected Pickup Date Time</div>
-                        <div class='table_cell'>{{x.TMC_ExpectedPickupDateTime || ManifestDetailsCtrl.ePage.Masters.emptyText}}</div>
+                        <div class='table_cell'>{{x.TMC_ExpectedPickupDateTime | date:'dd-MM-yyyy hh:mm a'}}</div>
                     </div>
                     <div class='table_small'>
                         <div class='table_cell'>Expected Delivery Date Time</div>
-                        <div class='table_cell'>{{x.TMC_ExpectedDeliveryDateTime || ManifestDetailsCtrl.ePage.Masters.emptyText}}</div>
+                        <div class='table_cell'>{{x.TMC_ExpectedDeliveryDateTime | date:'dd-MM-yyyy hh:mm a'}}</div>
                     </div>
                 </div>
             </div>
