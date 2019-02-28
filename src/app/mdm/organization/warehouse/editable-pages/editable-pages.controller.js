@@ -205,22 +205,17 @@
 
                     angular.forEach(EditableCtrl.ePage.Entities.Header.Data.WmsClientParameterByWarehouse, function (value, key) {
                         if (value.SingleSelect == true && value.PK) {
-                            apiService.get("eAxisAPI", EditableCtrl.ePage.Entities.Header.API.AreaDelete.Url + value.PK).then(function (response) {});
+                            apiService.get("eAxisAPI", organizationConfig.Entities.API.WmsClientParameterByWarehouse.API.Delete.Url + value.PK).then(function (response) {});
                         }
                     });
 
-                    var ReturnValue = RemoveAllLineErrors();
-                    if (ReturnValue) {
-                        for (var i = EditableCtrl.ePage.Entities.Header.Data.WmsClientParameterByWarehouse.length - 1; i >= 0; i--) {
-                            if (EditableCtrl.ePage.Entities.Header.Data.WmsClientParameterByWarehouse[i].SingleSelect == true)
-                                EditableCtrl.ePage.Entities.Header.Data.WmsClientParameterByWarehouse.splice(i, 1);
-                        }
-                        EditableCtrl.ePage.Masters.Config.GeneralValidation(EditableCtrl.currentWarehouse);
+                    for (var i = EditableCtrl.ePage.Entities.Header.Data.WmsClientParameterByWarehouse.length - 1; i >= 0; i--) {
+                        if (EditableCtrl.ePage.Entities.Header.Data.WmsClientParameterByWarehouse[i].SingleSelect == true)
+                            EditableCtrl.ePage.Entities.Header.Data.WmsClientParameterByWarehouse.splice(i, 1);
                     }
                     toastr.success('Record Removed Successfully');
                     EditableCtrl.ePage.Masters.selectedRow = -1;
                     EditableCtrl.ePage.Masters.SelectAll = false;
-                    EditableCtrl.ePage.Entities.Header.GlobalVariables.Loading = false;
                     EditableCtrl.ePage.Masters.EnableDeleteButton = false;
                 }, function () {
                     console.log("Cancelled");

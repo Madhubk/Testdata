@@ -19,7 +19,7 @@
                                 list="OrgGeneralModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Code.ERROR"
                                 type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
                         </span>
-                        <input type="text" class="form-control input-sm" placeholder="Code" style="text-transform: uppercase"
+                        <input type="text" maxlength="23" class="form-control input-sm" placeholder="Code" style="text-transform: uppercase"
                             data-ng-model="OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgHeader.Code"
                             data-ng-disabled="!OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.IsEnableOrgCode" />
                     </div>
@@ -36,7 +36,7 @@
                                 list="OrgGeneralModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.FullName.ERROR"
                                 type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
                         </span>
-                        <input type="text" class="form-control input-sm" placeholder="Full Name" style="text-transform: uppercase" data-ng-model="OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgHeader.FullName" data-ng-blur="OrgGeneralModalCtrl.ePage.Masters.OrgHeader.OnBlurFullName()" />
+                        <input type="text" maxlength="100" class="form-control input-sm" placeholder="Full Name" style="text-transform: uppercase" data-ng-model="OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgHeader.FullName" data-ng-blur="OrgGeneralModalCtrl.ePage.Masters.OrgHeader.OnBlurFullName()" />
                     </div>
                 </div>
             </div>
@@ -94,7 +94,7 @@
                             list="OrgGeneralModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.GeneralAddress1.ERROR"
                             type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
                     </span>
-                    <input type="text" class="form-control input-sm" placeholder="Address1" data-ng-model="OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgAddress[0].Address1" />
+                    <input type="text" maxlength="100" class="form-control input-sm" placeholder="Address1" data-ng-model="OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgAddress[0].Address1" />
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
@@ -108,7 +108,7 @@
                             list="OrgGeneralModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.GeneralAddress2.ERROR"
                             type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
                     </span>
-                    <input type="text" class="form-control input-sm" placeholder="Address2" data-ng-model="OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgAddress[0].Address2" />
+                    <input type="text" maxlength="100" class="form-control input-sm" placeholder="Address2" data-ng-model="OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgAddress[0].Address2" />
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
@@ -122,7 +122,7 @@
                             list="OrgGeneralModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.GeneralCity.ERROR"
                             type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
                     </span>
-                    <input type="text" class="form-control input-sm" placeholder="City" data-ng-model="OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgAddress[0].City" />
+                    <input type="text" maxlength="100" class="form-control input-sm" placeholder="City" data-ng-model="OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgAddress[0].City" />
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
@@ -252,7 +252,7 @@
                             list="OrgGeneralModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.GeneralPostCode.ERROR"
                             type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
                     </span>
-                    <input type="text" numbers-only class="form-control input-sm" placeholder="PostCode" data-ng-model="OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgAddress[0].PostCode" />
+                    <input type="text" maxlength="20" numbers-only class="form-control input-sm" placeholder="PostCode" data-ng-model="OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgAddress[0].PostCode" />
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
@@ -286,7 +286,7 @@
                             list="OrgGeneralModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.GeneralPhone.ERROR"
                             type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
                     </span>
-                    <input type="text" numbers-only class="form-control input-sm" placeholder="Phone" data-ng-model="OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgAddress[0].Phone" />
+                    <input type="text" maxlength="20" numbers-only class="form-control input-sm" placeholder="Phone" data-ng-model="OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgAddress[0].Phone" />
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
@@ -300,7 +300,7 @@
                             list="OrgGeneralModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.GeneralMobile.ERROR"
                             type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
                     </span>
-                    <input type="text" class="form-control input-sm" placeholder="Mobile" data-ng-model="OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgAddress[0].Mobile" />
+                    <input type="text" maxlength="20" class="form-control input-sm" placeholder="Mobile" data-ng-model="OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgAddress[0].Mobile" />
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
@@ -314,7 +314,7 @@
                             list="OrgGeneralModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.GeneralEmail.ERROR"
                             type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
                     </span>
-                    <input type="text" class="form-control input-sm" placeholder="Email" data-ng-model="OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgAddress[0].Email" />
+                    <input type="text" maxlength="100" class="form-control input-sm" placeholder="Email" data-ng-model="OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgAddress[0].Email" />
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
@@ -328,7 +328,7 @@
                             list="OrgGeneralModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.GeneralFax.ERROR"
                             type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
                     </span>
-                    <input type="text" class="form-control input-sm" placeholder="Fax" data-ng-model="OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgAddress[0].Fax" />
+                    <input type="text" maxlength="20" class="form-control input-sm" placeholder="Fax" data-ng-model="OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgAddress[0].Fax" />
                 </div>
             </div>
         </div>
