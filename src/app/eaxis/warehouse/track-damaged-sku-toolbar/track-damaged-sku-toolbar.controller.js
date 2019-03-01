@@ -304,62 +304,136 @@
             }
         }
 
-        function MoveToScrapWarehouse() {
+        function MoveToScrapWarehouse() {            
             if (DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList.length > 0) {
                 var count = 0;
+                var count1 = 0
                 angular.forEach(DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList, function (value, key) {
                     if (value.TestingRefNo && value.PickupLineStatus == "Tested, Stock at Central Warehouse") {
                         count = count + 1;
                     }
+                    if (value.PickupLineStatus == "Stock at Central Warehouse") {
+                        count1 = count1 + 1;
+                    }
                 });
-                if (count == DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList.length) {
-                    DamagedSkuToolbarCtrl.ePage.Masters.IsMoveToTestingWarehouseBtn = true;
-                    DamagedSkuToolbarCtrl.ePage.Masters.MoveToScrapWarehouseBtnText = "Please Wait...";
-                    var _filter = {
-                        "WarehouseType": "SCR"
+                if (count1 > 0) {
+                    var modalOptions = {
+                        closeButtonText: 'No',
+                        actionButtonText: 'YES',
+                        headerText: 'Are You Sure?',
+                        bodyText: 'Do You Want To Continue Without going to Testing Warehouse?'
                     };
-                    var _input = {
-                        "searchInput": helperService.createToArrayOfObject(_filter),
-                        "FilterID": appConfig.Entities.WmsWarehouse.API.FindAll.FilterID
-                    };
-                    apiService.post("eAxisAPI", appConfig.Entities.WmsWarehouse.API.FindAll.Url, _input).then(function (response) {
-                        if (response.data.Response) {
-                            DamagedSkuToolbarCtrl.ePage.Masters.WarehouseList = response.data.Response;
-                            CreateMaterialTransferOutward('SCR');
-                        }
-                    });
+                    confirmation.showModal({}, modalOptions)
+                        .then(function (result) {
+                            if ((count + count1) == DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList.length) {
+                                DamagedSkuToolbarCtrl.ePage.Masters.IsMoveToTestingWarehouseBtn = true;
+                                DamagedSkuToolbarCtrl.ePage.Masters.MoveToScrapWarehouseBtnText = "Please Wait...";
+                                var _filter = {
+                                    "WarehouseType": "SCR"
+                                };
+                                var _input = {
+                                    "searchInput": helperService.createToArrayOfObject(_filter),
+                                    "FilterID": appConfig.Entities.WmsWarehouse.API.FindAll.FilterID
+                                };
+                                apiService.post("eAxisAPI", appConfig.Entities.WmsWarehouse.API.FindAll.Url, _input).then(function (response) {
+                                    if (response.data.Response) {
+                                        DamagedSkuToolbarCtrl.ePage.Masters.WarehouseList = response.data.Response;
+                                        CreateMaterialTransferOutward('SCR');
+                                    }
+                                });
+                            } else {
+                                toastr.warning("This line(s) cannot be moved to Scrap warehouse");
+                            }
+                        }, function () {
+                            console.log("Cancelled");
+                        });
                 } else {
-                    toastr.warning("This line(s) cannot be moved to Scrap warehouse");
+                    if (count == DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList.length) {
+                        DamagedSkuToolbarCtrl.ePage.Masters.IsMoveToTestingWarehouseBtn = true;
+                        DamagedSkuToolbarCtrl.ePage.Masters.MoveToScrapWarehouseBtnText = "Please Wait...";
+                        var _filter = {
+                            "WarehouseType": "SCR"
+                        };
+                        var _input = {
+                            "searchInput": helperService.createToArrayOfObject(_filter),
+                            "FilterID": appConfig.Entities.WmsWarehouse.API.FindAll.FilterID
+                        };
+                        apiService.post("eAxisAPI", appConfig.Entities.WmsWarehouse.API.FindAll.Url, _input).then(function (response) {
+                            if (response.data.Response) {
+                                DamagedSkuToolbarCtrl.ePage.Masters.WarehouseList = response.data.Response;
+                                CreateMaterialTransferOutward('SCR');
+                            }
+                        });
+                    } else {
+                        toastr.warning("This line(s) cannot be moved to Scrap warehouse");
+                    }
                 }
             }
         }
 
-        function MoveToRepairWarehouse() {
+        function MoveToRepairWarehouse() {            
             if (DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList.length > 0) {
                 var count = 0;
+                var count1 = 0;
                 angular.forEach(DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList, function (value, key) {
                     if (value.TestingRefNo && value.PickupLineStatus == "Tested, Stock at Central Warehouse") {
                         count = count + 1;
                     }
+                    if (value.PickupLineStatus == "Stock at Central Warehouse") {
+                        count1 = count1 + 1;
+                    }
                 });
-                if (count == DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList.length) {
-                    DamagedSkuToolbarCtrl.ePage.Masters.IsMoveToTestingWarehouseBtn = true;
-                    DamagedSkuToolbarCtrl.ePage.Masters.MoveToRepairWarehouseBtnText = "Please Wait...";
-                    var _filter = {
-                        "WarehouseType": "REP"
+                if (count1 > 0) {
+                    var modalOptions = {
+                        closeButtonText: 'No',
+                        actionButtonText: 'YES',
+                        headerText: 'Are You Sure?',
+                        bodyText: 'Do You Want To Continue Without going to Testing Warehouse?'
                     };
-                    var _input = {
-                        "searchInput": helperService.createToArrayOfObject(_filter),
-                        "FilterID": appConfig.Entities.WmsWarehouse.API.FindAll.FilterID
-                    };
-                    apiService.post("eAxisAPI", appConfig.Entities.WmsWarehouse.API.FindAll.Url, _input).then(function (response) {
-                        if (response.data.Response) {
-                            DamagedSkuToolbarCtrl.ePage.Masters.WarehouseList = response.data.Response;
-                            CreateMaterialTransferOutward('REP');
-                        }
-                    });
+                    confirmation.showModal({}, modalOptions)
+                        .then(function (result) {
+                            if ((count + count1) == DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList.length) {
+                                DamagedSkuToolbarCtrl.ePage.Masters.IsMoveToTestingWarehouseBtn = true;
+                                DamagedSkuToolbarCtrl.ePage.Masters.MoveToRepairWarehouseBtnText = "Please Wait...";
+                                var _filter = {
+                                    "WarehouseType": "REP"
+                                };
+                                var _input = {
+                                    "searchInput": helperService.createToArrayOfObject(_filter),
+                                    "FilterID": appConfig.Entities.WmsWarehouse.API.FindAll.FilterID
+                                };
+                                apiService.post("eAxisAPI", appConfig.Entities.WmsWarehouse.API.FindAll.Url, _input).then(function (response) {
+                                    if (response.data.Response) {
+                                        DamagedSkuToolbarCtrl.ePage.Masters.WarehouseList = response.data.Response;
+                                        CreateMaterialTransferOutward('REP');
+                                    }
+                                });
+                            } else {
+                                toastr.warning("This line(s) cannot be moved to Repair warehouse");
+                            }
+                        }, function () {
+                            console.log("Cancelled");
+                        });
                 } else {
-                    toastr.warning("This line(s) cannot be moved to Repair warehouse");
+                    if (count == DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList.length) {
+                        DamagedSkuToolbarCtrl.ePage.Masters.IsMoveToTestingWarehouseBtn = true;
+                        DamagedSkuToolbarCtrl.ePage.Masters.MoveToRepairWarehouseBtnText = "Please Wait...";
+                        var _filter = {
+                            "WarehouseType": "REP"
+                        };
+                        var _input = {
+                            "searchInput": helperService.createToArrayOfObject(_filter),
+                            "FilterID": appConfig.Entities.WmsWarehouse.API.FindAll.FilterID
+                        };
+                        apiService.post("eAxisAPI", appConfig.Entities.WmsWarehouse.API.FindAll.Url, _input).then(function (response) {
+                            if (response.data.Response) {
+                                DamagedSkuToolbarCtrl.ePage.Masters.WarehouseList = response.data.Response;
+                                CreateMaterialTransferOutward('REP');
+                            }
+                        });
+                    } else {
+                        toastr.warning("This line(s) cannot be moved to Repair warehouse");
+                    }
                 }
             }
         }

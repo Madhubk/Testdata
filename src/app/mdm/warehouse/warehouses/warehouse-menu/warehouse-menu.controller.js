@@ -4,9 +4,9 @@
         .module("Application")
         .controller("WarehouseMenuController", WarehouseMenuController);
 
-    WarehouseMenuController.$inject = ["$scope", "$timeout", "APP_CONSTANT", "apiService", "warehousesConfig", "helperService", "appConfig", "$state","toastr"];
+    WarehouseMenuController.$inject = ["$scope", "$timeout", "APP_CONSTANT", "apiService", "warehousesConfig", "helperService", "appConfig", "$state", "toastr"];
 
-    function WarehouseMenuController($scope, $timeout, APP_CONSTANT, apiService, warehousesConfig, helperService, appConfig, $state,toastr) {
+    function WarehouseMenuController($scope, $timeout, APP_CONSTANT, apiService, warehousesConfig, helperService, appConfig, $state, toastr) {
         var WarehouseMenuCtrl = this;
 
         function Init() {
@@ -19,7 +19,7 @@
                 "Entities": currentWarehouse
             };
 
-           
+
             // function
             WarehouseMenuCtrl.ePage.Masters.SaveButtonText = "Save";
             WarehouseMenuCtrl.ePage.Masters.DisableSave = false;
@@ -34,17 +34,17 @@
             GetInventoryDetails();
         }
 
-        function GetInventoryDetails(){
-            if(!WarehouseMenuCtrl.currentWarehouse.isNew){
+        function GetInventoryDetails() {
+            if (!WarehouseMenuCtrl.currentWarehouse.isNew) {
                 WarehouseMenuCtrl.ePage.Entities.Header.GlobalVariables.Loading = true;
                 var _filter = {
                     "WAR_FK": WarehouseMenuCtrl.ePage.Entities.Header.Data.WmsWarehouse.PK,
-                    "PageNumber":"1",
+                    "PageNumber": "1",
                     "PageSize": "10",
                     "SortType": "ASC",
-                    "SortColumn":"WOL_CreatedDateTime",
+                    "SortColumn": "WOL_CreatedDateTime",
                 };
-                
+
                 var _input = {
                     "searchInput": helperService.createToArrayOfObject(_filter),
                     "FilterID": WarehouseMenuCtrl.ePage.Entities.Header.API.Inventory.FilterID
@@ -78,8 +78,67 @@
             }
 
             if (_errorcount.length == 0) {
-                Save($item);
+                // Check Warehouse Type 
+                // Whether CEN, REP, SCP warehouse available or not                
+                if (_input.WmsWarehouse.WarehouseType == "CEN" || _input.WmsWarehouse.WarehouseType == "SCR" || _input.WmsWarehouse.WarehouseType == "REP" || _input.WmsWarehouse.WarehouseType == "TES") {
+                    var _filter = {
+                        "WarehouseType": _input.WmsWarehouse.WarehouseType
+                    };
+                    var _input1 = {
+                        "searchInput": helperService.createToArrayOfObject(_filter),
+                        "FilterID": appConfig.Entities.WmsWarehouse.API.FindAll.FilterID
+                    };
+                    apiService.post("eAxisAPI", appConfig.Entities.WmsWarehouse.API.FindAll.Url, _input1).then(function (response) {
+                        if (response.data.Response) {
+                            if (response.data.Response.length > 1) {
+                                WarehouseMenuCtrl.ePage.Masters.Config.PushErrorWarning("E4013", "Warehouse already exist in this Warehouse Type", "E", false, 'WarehouseType', WarehouseMenuCtrl.currentWarehouse.label, false, undefined, undefined, 'WarehouseType', undefined, 'general');
+                                WarehouseMenuCtrl.ePage.Masters.Config.ShowErrorWarningModal(WarehouseMenuCtrl.currentWarehouse);
+                            } else if (response.data.Response.length == 1) {
+                                if (response.data.Response[0].WarehouseCode == _input.WmsWarehouse.WarehouseCode) {
+                                    WarehouseMenuCtrl.ePage.Masters.Config.RemoveErrorWarning("E4013", "E", "WarehouseType", $item.label);
+                                    Save($item);
+                                } else {
+                                    WarehouseMenuCtrl.ePage.Masters.Config.PushErrorWarning("E4013", "Warehouse already exist in this Warehouse Type", "E", false, 'WarehouseType', WarehouseMenuCtrl.currentWarehouse.label, false, undefined, undefined, 'WarehouseType', undefined, 'general');
+                                    WarehouseMenuCtrl.ePage.Masters.Config.ShowErrorWarningModal(WarehouseMenuCtrl.currentWarehouse);
+                                }
+                            } else if (response.data.Response.length == 0) {
+                                WarehouseMenuCtrl.ePage.Masters.Config.RemoveErrorWarning("E4013", "E", "WarehouseType", $item.label);
+                                Save($item);
+                            }
+                        }
+                    });
+                } else {
+                    Save($item);
+                }
             } else {
+                if (_input.WmsWarehouse.WarehouseType == "CEN" || _input.WmsWarehouse.WarehouseType == "SCR" || _input.WmsWarehouse.WarehouseType == "REP" || _input.WmsWarehouse.WarehouseType == "TES") {
+                    var _filter = {
+                        "WarehouseType": _input.WmsWarehouse.WarehouseType
+                    };
+                    var _input1 = {
+                        "searchInput": helperService.createToArrayOfObject(_filter),
+                        "FilterID": appConfig.Entities.WmsWarehouse.API.FindAll.FilterID
+                    };
+                    apiService.post("eAxisAPI", appConfig.Entities.WmsWarehouse.API.FindAll.Url, _input1).then(function (response) {
+                        if (response.data.Response) {
+                            if (response.data.Response.length > 1) {
+                                WarehouseMenuCtrl.ePage.Masters.Config.PushErrorWarning("E4013", "Warehouse already exist in this Warehouse Type", "E", false, 'WarehouseType', WarehouseMenuCtrl.currentWarehouse.label, false, undefined, undefined, 'WarehouseType', undefined, 'general');
+                                WarehouseMenuCtrl.ePage.Masters.Config.ShowErrorWarningModal(WarehouseMenuCtrl.currentWarehouse);
+                            } else if (response.data.Response.length == 1) {
+                                if (response.data.Response[0].WarehouseCode == _input.WmsWarehouse.WarehouseCode) {
+                                    WarehouseMenuCtrl.ePage.Masters.Config.RemoveErrorWarning("E4013", "E", "WarehouseType", $item.label);
+                                    Save($item);
+                                } else {
+                                    WarehouseMenuCtrl.ePage.Masters.Config.PushErrorWarning("E4013", "Warehouse already exist in this Warehouse Type", "E", false, 'WarehouseType', WarehouseMenuCtrl.currentWarehouse.label, false, undefined, undefined, 'WarehouseType', undefined, 'general');
+                                    WarehouseMenuCtrl.ePage.Masters.Config.ShowErrorWarningModal(WarehouseMenuCtrl.currentWarehouse);
+                                }
+                            } else if (response.data.Response.length == 0) {
+                                WarehouseMenuCtrl.ePage.Masters.Config.RemoveErrorWarning("E4013", "E", "WarehouseType", $item.label);
+                                Save($item);
+                            }
+                        }
+                    });
+                }
                 WarehouseMenuCtrl.ePage.Masters.Config.ShowErrorWarningModal(WarehouseMenuCtrl.currentWarehouse);
             }
         }

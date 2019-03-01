@@ -571,6 +571,7 @@
 
         function DefaultFilter() {
             if (CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ClientCode && CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WarehouseCode && CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDeliveryLine.length > 0) {
+                CreateDelChallanCtrl.ePage.Masters.InventoryLoading = true;
                 var TempDeliveryLine = _.groupBy(CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDeliveryLine, 'ProductCode');
                 var TempProduct = "";
                 angular.forEach(TempDeliveryLine, function (value, key) {
@@ -593,6 +594,10 @@
                     "InventoryStatusIn": "AVL",
                     "ProductIn": TempProduct,
                     "AvlToPickNotEquals": "0",
+                    "SortColumn": "WOL_WAR_WarehouseCode",
+                    "SortType": "ASC",
+                    "PageNumber": 1,
+                    "PageSize": 100
                 };
 
                 var _input = {
@@ -691,7 +696,7 @@
                             CreateDelChallanCtrl.ePage.Masters.InventoryDetails = angular.copy(response.data.Response);
                             angular.forEach(CreateDelChallanCtrl.ePage.Masters.RequestedWarehouseInventory, function (value, key) {
                                 CreateDelChallanCtrl.ePage.Masters.MainInventory.unshift(value);
-                                CreateDelChallanCtrl.ePage.Masters.InventoryDetails.push(value);
+                                CreateDelChallanCtrl.ePage.Masters.InventoryDetails.unshift(value);
                             });
                         } else {
                             CreateDelChallanCtrl.ePage.Masters.IsFilter = false;

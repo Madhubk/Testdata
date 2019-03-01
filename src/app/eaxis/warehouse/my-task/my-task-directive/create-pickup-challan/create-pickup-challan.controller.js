@@ -168,16 +168,15 @@
                                         value.PK = "";
                                         if (value.AddressType == "CED")
                                             value.AddressType = "SUD";
-                                    });
-
+                                    });                                    
                                     angular.forEach(CreatePickupChallanCtrl.ePage.Masters.SelectedPickupLine, function (value, key) {
                                         value.IL_PrdCode = value.PL_Req_PrdCode;
                                         var obj = {
                                             "PK": "",
                                             "Parent_FK": value.PL_PK,
-                                            "Client_FK": value.PIC_ORG_Client_FK,
-                                            "ORG_ClientCode": value.DOUT_ClientCode,
-                                            "ORG_ClientName": value.DOUT_ClientName,
+                                            "Client_FK": value.PIC_ClientFk,
+                                            "ORG_ClientCode": value.PIC_ClientCode,
+                                            "ORG_ClientName": value.PIC_ClientName,
                                             "ProductCode": value.PL_Req_PrdCode,
                                             "ProductDescription": value.PL_Req_PrdDesc,
                                             "ProductCondition": value.PL_ProductCondition,
