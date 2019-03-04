@@ -245,7 +245,7 @@
         function OnDepartmentChangeLookup($item) {}
 
         function OnFilterBtnClick() {
-            ControlTowerCtrl.ePage.Masters.ControlTower.Filter.ModelValue = {};
+            // ControlTowerCtrl.ePage.Masters.ControlTower.Filter.ModelValue = {};
 
             $('.control-tower-filter-wrapper').toggleClass('open');
         }
@@ -258,8 +258,8 @@
             CloseFilter();
             ControlTowerCtrl.ePage.Masters.ControlTower.IsEnableWorkItemCountDir = false;
             var _filterInput = angular.copy(ControlTowerCtrl.ePage.Masters.ControlTower.Filter.ModelValue);
-            if (_filterInput.WIP_ProcessName) {
-                _filterInput.WIP_ProcessName = _filterInput.WIP_ProcessName.join(",");
+            if (_filterInput.ProcessInfo) {
+                _filterInput.ProcessInfo = _filterInput.ProcessInfo.join(",");
             }
             if (_filterInput.Period && _filterInput.PeriodDate) {
                 _filterInput[_filterInput.Period] = _filterInput.PeriodDate;

@@ -213,7 +213,6 @@
             LoginHistoryCtrl.ePage.Masters.SessionActivity.GridData = undefined;
             var _filter = {
                 "USN_FK": LoginHistoryCtrl.ePage.Masters.LoginHistory.ActiveLoginHistory.PK
-                // "USN_FK": '6125C072-5977-4325-A67B-55C2685DBF2E'
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),

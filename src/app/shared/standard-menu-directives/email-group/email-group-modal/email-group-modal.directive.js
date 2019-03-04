@@ -8,7 +8,7 @@
     EmailGroupModal.$inject = ["$uibModal", "$templateCache"];
 
     function EmailGroupModal($uibModal, $templateCache) {
-        var _template = `<div class="modal-header">
+        let _template = `<div class="modal-header">
             <button type="button" class="close" ng-click="EmailGroupModalCtrl.ePage.Masters.Close()">&times;</button>
             <h5 class="modal-title" id="modal-title">
                 <strong>Email Group</strong>
@@ -19,7 +19,7 @@
         </div>`;
         $templateCache.put("EmailGroupModal.html", _template);
 
-        var exports = {
+        let exports = {
             restrict: "EA",
             scope: {
                 input: "="
@@ -32,7 +32,7 @@
             ele.on("click", OpenModal);
 
             function OpenModal() {
-                var modalInstance = $uibModal.open({
+                $uibModal.open({
                     animation: true,
                     backdrop: "static",
                     keyboard: true,
@@ -43,18 +43,43 @@
                     bindToController: true,
                     resolve: {
                         param: function () {
-                            var exports = {
+                            let exports = {
                                 input: scope.input
                             };
                             return exports;
                         }
                     }
-                }).result.then(function (response) {
-                    console.log(response);
-                }, function () {
-                    console.log("Cancelled");
-                });
+                }).result.then(response => {}, () => {});
             }
         }
+    }
+
+    angular
+        .module("Application")
+        .controller("EmailGroupModalController", EmailGroupModalController);
+
+    EmailGroupModalController.$inject = ["$uibModalInstance", "helperService", "param"];
+
+    function EmailGroupModalController($uibModalInstance, helperService, param) {
+        /* jshint validthis: true */
+        let EmailGroupModalCtrl = this;
+
+        function Init() {
+            EmailGroupModalCtrl.ePage = {
+                "Title": "",
+                "Prefix": "EmailGroupModal",
+                "Masters": {},
+                "Meta": helperService.metaBase(),
+                "Entities": param.obj
+            };
+
+            EmailGroupModalCtrl.ePage.Masters.Close = Close;
+        }
+
+        function Close() {
+            $uibModalInstance.dismiss('cancel');
+        }
+
+        Init();
     }
 })();

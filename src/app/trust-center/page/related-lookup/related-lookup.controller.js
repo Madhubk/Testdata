@@ -91,8 +91,8 @@
                 };
             } else {
                 TCRelatedLookupCtrl.ePage.Masters.Application.ActiveApplication = angular.copy($item);
-                
-                if(!TCRelatedLookupCtrl.ePage.Masters.Application.ActiveApplication){
+
+                if (!TCRelatedLookupCtrl.ePage.Masters.Application.ActiveApplication) {
                     TCRelatedLookupCtrl.ePage.Masters.Application.ActiveApplication = {
                         "PK": TCRelatedLookupCtrl.ePage.Masters.QueryString.AppPk,
                         "AppCode": TCRelatedLookupCtrl.ePage.Masters.QueryString.AppCode,
@@ -102,9 +102,10 @@
             }
 
             if (TCRelatedLookupCtrl.ePage.Masters.Application.ActiveApplication) {
-                if (TCRelatedLookupCtrl.ePage.Masters.RelatedLookup.DataEntryMasterList) {
-                    GetRelatedLookupList();
-                }
+                GetDataEntryMasterList();
+                // if (TCRelatedLookupCtrl.ePage.Masters.RelatedLookup.DataEntryMasterList) {
+                //     GetRelatedLookupList();
+                // }
             }
         }
 
@@ -126,19 +127,19 @@
             TCRelatedLookupCtrl.ePage.Masters.RelatedLookup.IsDisableSaveBtn = false;
             TCRelatedLookupCtrl.ePage.Masters.RelatedLookup.DeleteBtnText = "Delete";
             TCRelatedLookupCtrl.ePage.Masters.RelatedLookup.IsDisableDeleteBtn = false;
-
-            GetDataEntryMasterList();
         }
 
         function GetDataEntryMasterList() {
             TCRelatedLookupCtrl.ePage.Masters.RelatedLookup.DataEntryMasterList = undefined;
-            var _filter = {};
+            var _filter = {
+                "SAP_FK": TCRelatedLookupCtrl.ePage.Masters.Application.ActiveApplication.PK
+            };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": trustCenterConfig.Entities.API.MasterDYNDataentrymaster.API.FindAll.FilterID
+                "FilterID": trustCenterConfig.Entities.API.DataEntryMaster.API.FindAllColumn.FilterID
             };
 
-            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.MasterDYNDataentrymaster.API.FindAll.Url, _input).then(function (response) {
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.DataEntryMaster.API.FindAllColumn.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     TCRelatedLookupCtrl.ePage.Masters.RelatedLookup.DataEntryMasterListForEdit = angular.copy(response.data.Response);
 
@@ -174,7 +175,7 @@
                 SAP_FK: TCRelatedLookupCtrl.ePage.Masters.Application.ActiveApplication.PK
             };
 
-            (TCRelatedLookupCtrl.ePage.Masters.RelatedLookup.ActiveDataEntryMaster) ? _filter.PageFK = TCRelatedLookupCtrl.ePage.Masters.RelatedLookup.ActiveDataEntryMaster.DataEntry_PK :
+            (TCRelatedLookupCtrl.ePage.Masters.RelatedLookup.ActiveDataEntryMaster) ? _filter.PageFK = TCRelatedLookupCtrl.ePage.Masters.RelatedLookup.ActiveDataEntryMaster.DataEntry_PK:
                 _filter.PageFK_Null = "NULL";
 
             var _input = {
@@ -210,6 +211,18 @@
 
             TCRelatedLookupCtrl.ePage.Masters.RelatedLookup.ActiveRelatedLookup = angular.copy($item);
             TCRelatedLookupCtrl.ePage.Masters.RelatedLookup.ActiveRelatedLookupCopy = angular.copy($item);
+
+            if (TCRelatedLookupCtrl.ePage.Masters.RelatedLookup.ActiveRelatedLookup) {
+                TCRelatedLookupCtrl.ePage.Masters.GenerateScriptInput = {
+                    ObjectName: "DYN_RelatedLookup",
+                    ObjectId: TCRelatedLookupCtrl.ePage.Masters.RelatedLookup.ActiveRelatedLookup.PK
+                };
+                TCRelatedLookupCtrl.ePage.Masters.GenerateScriptConfig = {
+                    IsEnableTable: false,
+                    IsEnablePK: false,
+                    IsEnableTenant: false
+                };
+            }
         }
 
         function AddNew() {
@@ -222,7 +235,7 @@
             TCRelatedLookupCtrl.ePage.Masters.RelatedLookup.SaveBtnText = "Ok";
             TCRelatedLookupCtrl.ePage.Masters.RelatedLookup.IsDisableSaveBtn = false;
 
-            EditModalInstance().result.then(function (response) { }, function () {
+            EditModalInstance().result.then(function (response) {}, function () {
                 Cancel();
             });
         }

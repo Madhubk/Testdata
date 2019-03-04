@@ -54,13 +54,17 @@
 
         function GetRecentTenantList() {
             TenantListCtrl.ePage.Masters.RecentTenantList = undefined;
-            var _filter = {};
+            var _filter = {
+                EntitySource: "TNT",
+                // BasedOn_FK: TenantListCtrl.ePage.Masters.QueryString.UserPK,
+                BasedOnCode: TenantListCtrl.ePage.Masters.QueryString.Username
+            };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.SecMappings.API.FindAllTenantByUser.FilterID
+                "FilterID": appConfig.Entities.SecRecentItems.API.FindAll.FilterID
             };
 
-            apiService.post("authAPI", appConfig.Entities.SecMappings.API.FindAllTenantByUser.Url, _input, TenantListCtrl.ePage.Masters.QueryString.Token).then(function SuccessCallback(response) {
+            apiService.post("authAPI", appConfig.Entities.SecRecentItems.API.FindAll.Url, _input, TenantListCtrl.ePage.Masters.QueryString.Token).then(function SuccessCallback(response) {
                 if (response.data.Response) {
                     TenantListCtrl.ePage.Masters.RecentTenantList = response.data.Response;
 
@@ -108,22 +112,20 @@
             };
 
             apiService.post("authAPI", appConfig.Entities.TenantUserSettings.API.FindAll.Url, _input).then(function SuccessCallback(response) {
-                if (response.data.Response) {
-                    if (response.data.Response.length > 0) {
-                        response.data.Response.map(function (value, key) {
-                            if (value.IsDefault == true) {
-                                TenantListCtrl.ePage.Masters.TenantUserSetting = value;
-                            }
-                        });
+                if (response.data.Response && response.data.Response.length > 0) {
+                    response.data.Response.map(function (value, key) {
+                        if (value.IsDefault == true) {
+                            TenantListCtrl.ePage.Masters.TenantUserSetting = value;
+                        }
+                    });
 
-                        if (TenantListCtrl.ePage.Masters.RecentTenantList && TenantListCtrl.ePage.Masters.RecentTenantList.length > 0 && TenantListCtrl.ePage.Masters.TenantUserSetting) {
-                            var _index = TenantListCtrl.ePage.Masters.RecentTenantList.map(function (value, key) {
-                                return value.TNT_PK;
-                            }).indexOf(TenantListCtrl.ePage.Masters.TenantUserSetting.Tenant_FK);
+                    if (TenantListCtrl.ePage.Masters.RecentTenantList && TenantListCtrl.ePage.Masters.RecentTenantList.length > 0 && TenantListCtrl.ePage.Masters.TenantUserSetting) {
+                        var _index = TenantListCtrl.ePage.Masters.RecentTenantList.map(function (value, key) {
+                            return value.EntityRefKey;
+                        }).indexOf(TenantListCtrl.ePage.Masters.TenantUserSetting.Tenant_FK);
 
-                            if (_index != -1) {
-                                SetAsDefaultTenant(TenantListCtrl.ePage.Masters.RecentTenantList[_index]);
-                            }
+                        if (_index != -1) {
+                            SetAsDefaultTenant(TenantListCtrl.ePage.Masters.RecentTenantList[_index]);
                         }
                     }
                 }
@@ -134,7 +136,7 @@
             var _index = -1;
             TenantListCtrl.ePage.Masters.RecentTenantList.map(function (value, key) {
                 value.IsShowDefault = false;
-                if (value.TNT_PK == $item.TNT_PK) {
+                if (value.EntityRefKey == $item.EntityRefKey) {
                     _index = key;
                 }
             });
@@ -155,7 +157,7 @@
             var _input = {
                 SAP_FK: authService.getUserInfo().AppPK,
                 User_FK: authService.getUserInfo().UserPK,
-                Tenant_FK: $item.TNT_PK
+                Tenant_FK: $item.EntityRefKey
             };
 
             apiService.post("authAPI", appConfig.Entities.TenantUserSettings.API.UpdateDefault.Url, _input).then(function (response) {
@@ -165,7 +167,7 @@
                     toastr.error("Could not Update...!");
 
                     var _index = TenantListCtrl.ePage.Masters.RecentTenantList.map(function (value, key) {
-                        return value.TNT_PK;
+                        return value.EntityRefKey;
                     }).indexOf(authService.getUserInfo().TenantPK);
 
                     if (_index != -1) {
@@ -199,7 +201,7 @@
                 "grant_type": "password",
                 "username": TenantListCtrl.ePage.Masters.QueryString.Username,
                 "AppCode": $item.SAP_Code,
-                "TNTCode": $item.TNT_TenantCode
+                "TNTCode": $item.TNT_TenantCode ? $item.TNT_TenantCode : $item.EntityRefCode
             };
 
             apiService.post("authAPI", appConfig.Entities.Token.API.SoftLoginToken.Url, _input, TenantListCtrl.ePage.Masters.QueryString.Token).then(function SuccessCallback(response) {
@@ -217,11 +219,11 @@
                     TenantListCtrl.ePage.Masters.IsShowTenantListOverlay = false;
                 }
 
-                TenantListCtrl.ePage.Masters.isDisabledNextBtn = false;
+                TenantListCtrl.ePage.Masters.IsDisabledNextBtn = false;
             }, function ErrorCallback(response) {
                 toastr.error("You don't have an access to this Tenant..");;
                 TenantListCtrl.ePage.Masters.IsShowTenantListOverlay = false;
-                TenantListCtrl.ePage.Masters.isDisabledNextBtn = false;
+                TenantListCtrl.ePage.Masters.IsDisabledNextBtn = false;
             });
         }
 

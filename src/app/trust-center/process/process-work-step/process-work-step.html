@@ -51,7 +51,9 @@
                 <div class="process-title text-single-line">{{item.StepName}}</div>
                 <div class="process-description text-single-line">{{item.Description}}</div>
                 <div class="clearfix">
-                  <i class="process-icon glyphicon glyphicon-trash ml-0" title="Delete" data-ng-click="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.RemoveRecord(item, $index)"></i>
+                    <i class="process-icon fa fa-file-code-o ml-0" title="Generate Script" generate-db-script input="item.GenerateScriptInput"
+                    config="item.GenerateScriptConfig" data-ng-if="item.GenerateScriptInput.ObjectName || item.GenerateScriptInput.ObjectId || item.PK"></i>
+                  <i class="process-icon glyphicon glyphicon-trash" title="Delete" data-ng-click="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.RemoveRecord(item, $index)"></i>
                   <i class="process-icon glyphicons glyphicons-lock" title="Rule Access" data-ng-click="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.OnAccessClick(item)"></i>
                   <i class="process-icon glyphicons glyphicons-clock" title="KPI" data-ng-click="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.OpenJsonModal(item, 'KPIConfiguration')"></i>
                   <i class="process-icon glyphicon glyphicon-cog" title="RelatedProcess" data-ng-click="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.OpenJsonModal(item, 'RelatedProcess')"></i>

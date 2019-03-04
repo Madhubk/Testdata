@@ -647,17 +647,6 @@
                             }
                         }
                     },
-                    "WmsClientParameterByWarehouse": {
-                        "RowIndex": -1,
-                        "API": {
-                            "Delete": {
-                                "IsAPI": "true",
-                                "HttpType": "GET",
-                                "Url": "WmsClientParameterByWarehouse/Delete/",
-                                "FilterID": "WMSINV"
-                            }
-                        }
-                    },
                 }
             },
             "TabList": [],
@@ -1114,7 +1103,8 @@
                             },
                             "Meta": {},
                         }
-                    }
+                    },
+                    "MenuList":[]
                 }
             };
 

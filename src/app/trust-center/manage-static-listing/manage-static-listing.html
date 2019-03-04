@@ -53,7 +53,7 @@
                     <div class="text-single-line" data-ng-bind="TCManageStaticListingCtrl.ePage.Masters.StaticListType.ActiveStaticListType"></div>
                 </div>
                 <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-5 pt-4 text-right">
-                    <button class="btn btn-xs btn-info" data-ng-click="TCManageStaticListingCtrl.ePage.Masters.ActiveModule && TCManageStaticListingCtrl.ePage.Masters.StaticListType.AddNew()"
+                    <button class="btn btn-xs btn-info" data-ng-click="TCManageStaticListingCtrl.ePage.Masters.ActiveModule && TCManageStaticListingCtrl.ePage.Masters.StaticListTypeList.AddNew()"
                         data-ng-disabled="!TCManageStaticListingCtrl.ePage.Masters.ActiveModule">New</button>
                 </div>
             </div>
@@ -66,6 +66,9 @@
                 <button class="btn btn-default tc-btn-delete btn-xs pull-right ml-10" data-ng-click="TCManageStaticListingCtrl.ePage.Masters.StaticListTypeList.DeleteConfirmation()"
                     data-ng-bind="TCManageStaticListingCtrl.ePage.Masters.StaticListTypeList.DeleteBtnText"
                     data-ng-disabled="TCManageStaticListingCtrl.ePage.Masters.StaticListTypeList.IsDisableDeleteBtn || !TCManageStaticListingCtrl.ePage.Masters.StaticListTypeList.ActiveStaticListTypeList"></button>
+                    <button class="btn btn-primary btn-xs pull-right ml-10" generate-db-script input="TCManageStaticListingCtrl.ePage.Masters.GenerateScriptInput"
+                    config="TCManageStaticListingCtrl.ePage.Masters.GenerateScriptConfig" data-ng-disabled="!TCManageStaticListingCtrl.ePage.Masters.GenerateScriptInput.ObjectName || !TCManageStaticListingCtrl.ePage.Masters.GenerateScriptInput.ObjectId ||!TCManageStaticListingCtrl.ePage.Masters.StaticListTypeList.ActiveStaticListTypeList">Generate
+                    Script</button>
             </div>
         </div>
     </div>

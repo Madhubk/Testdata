@@ -120,18 +120,18 @@
             };
 
             apiService.post("eAxisAPI", trustCenterConfig.Entities.API.TypeMaster.API.GetColumnValuesWithFilters.Url, _input).then(function SuccessCallback(response) {
-                    if (response.data.Response) {
-                        ManageParameterCtrl.ePage.Masters.ManageParametersListType.ListSource = response.data.Response;
+                if (response.data.Response) {
+                    ManageParameterCtrl.ePage.Masters.ManageParametersListType.ListSource = response.data.Response;
 
-                        if (ManageParameterCtrl.ePage.Masters.ManageParametersListType.ListSource.length > 0) {
-                            OnManageParametersListTypeClick(ManageParameterCtrl.ePage.Masters.ManageParametersListType.ListSource[0]);
-                        } else {
-                            OnManageParametersListTypeClick();
-                        }
+                    if (ManageParameterCtrl.ePage.Masters.ManageParametersListType.ListSource.length > 0) {
+                        OnManageParametersListTypeClick(ManageParameterCtrl.ePage.Masters.ManageParametersListType.ListSource[0]);
                     } else {
-                        ManageParameterCtrl.ePage.Masters.ManageParametersListType.ListSource = [];
+                        OnManageParametersListTypeClick();
                     }
-                });
+                } else {
+                    ManageParameterCtrl.ePage.Masters.ManageParametersListType.ListSource = [];
+                }
+            });
         }
 
         function OnManageParametersListTypeClick($item) {
@@ -206,6 +206,18 @@
         function OnManageParametersListTypeListClick($item) {
             ManageParameterCtrl.ePage.Masters.ManageParametersListTypeList.ActiveManageParametersListTypeList = angular.copy($item);
             ManageParameterCtrl.ePage.Masters.ManageParametersListTypeList.ActiveManageParametersListTypeListCopy = angular.copy($item);
+
+            if (ManageParameterCtrl.ePage.Masters.ManageParametersListTypeList.ActiveManageParametersListTypeList) {
+                ManageParameterCtrl.ePage.Masters.GenerateScriptInput = {
+                    ObjectName: "DYN_TypeMaster",
+                    ObjectId: ManageParameterCtrl.ePage.Masters.ManageParametersListTypeList.ActiveManageParametersListTypeList.PK
+                };
+                ManageParameterCtrl.ePage.Masters.GenerateScriptConfig = {
+                    IsEnableTable: false,
+                    IsEnablePK: false,
+                    IsEnableTenant: false
+                };
+            }
         }
 
         function AddNew() {
@@ -229,7 +241,7 @@
             ManageParameterCtrl.ePage.Masters.ManageParametersListTypeList.SaveBtnText = "OK";
             ManageParameterCtrl.ePage.Masters.ManageParametersListTypeList.IsDisableSaveBtn = false;
 
-            EditModalInstance().result.then(function (response) { }, function () {
+            EditModalInstance().result.then(function (response) {}, function () {
                 Cancel();
             });
         }

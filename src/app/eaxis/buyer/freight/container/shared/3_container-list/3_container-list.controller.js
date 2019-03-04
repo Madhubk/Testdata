@@ -24,7 +24,6 @@
             ThreeContainerCtrl.ePage.Masters.config = ThreeContainerCtrl.ePage.Entities;
             // Remove all Tabs while load shipment
             threeContainerConfig.TabList = [];
-           
 
             ThreeContainerCtrl.ePage.Entities.Header.Data = {};
             ThreeContainerCtrl.ePage.Masters.TabList = [];

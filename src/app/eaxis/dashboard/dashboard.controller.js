@@ -172,7 +172,8 @@
             // };
             var _queryString = helperService.encryptData(curEntity);
             // $window.open("#/EA/single-record-view/shipment/" + _queryString, "_blank");
-            $window.open("#/EA/single-record-view/organization/" + _queryString, "_blank");
+            // $window.open("#/EA/single-record-view/organization/" + _queryString, "_blank");
+            $window.open("#/EA/single-record-view/organization?q=" + _queryString, "_blank");
         }
 
         function PreviewDocument() {
@@ -291,10 +292,10 @@
             var _filter = {
                 PSM_FK: "2cbdea8c-f663-4b04-b1d6-7eb13e9506c6",
                 WSI_FK: "ca54c69e-c3f8-4ba7-b8ef-ced34a5b0f4e",
-                UserStatus: "WITHIN_KPI_AVAILABLE"
+                UserStatus: "OVERDUE_AVAILABLE"
             };
             $location.path("/EA/my-tasks").search({
-                filter: helperService.encryptData(_filter)
+                q: helperService.encryptData(_filter)
             });
         }
 

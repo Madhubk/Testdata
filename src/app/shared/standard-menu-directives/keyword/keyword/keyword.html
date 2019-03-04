@@ -1,32 +1,38 @@
 <div class="keyword-list-container clearfix">
     <!-- Header -->
-    <div class="sm-header clearfix">
-        <div class="col-sm-3 p-0">
+    <div class="clearfix sm-section-top sm-email pt-10 pb-10">
+        <div class="col-sm-3">
             <form class="input-group input-group-sm">
-                <input type="text" class="form-control" data-ng-model="KeywordCtrl.ePage.Masters.Keywords.Keyword" placeholder="Keyword">
+                <input type="text" class="form-control" data-ng-model="KeywordCtrl.ePage.Masters.Keywords.Keyword"
+                    placeholder="Keyword">
                 <span class="input-group-btn">
-                    <input type="submit" class="btn btn-primary" value="{{KeywordCtrl.ePage.Masters.Keywords.AddBtnText}}" data-ng-disabled="KeywordCtrl.ePage.Masters.Keywords.IsDisableAddBtn"
-                        data-ng-click="KeywordCtrl.ePage.Masters.Keywords.AddNewKeyword()" />
+                    <input type="submit" class="btn btn-primary" value="{{KeywordCtrl.ePage.Masters.Keywords.AddBtnText}}"
+                        data-ng-disabled="KeywordCtrl.ePage.Masters.Keywords.IsDisableAddBtn" data-ng-click="KeywordCtrl.ePage.Masters.Keywords.AddNewKeyword()" />
                 </span>
             </form>
         </div>
-        <div class="col-sm-9 pt-2">
-            <button class="btn btn-default btn-sm mr-10" data-ng-click="KeywordCtrl.ePage.Masters.Keywords.Refresh()">Refresh</button>
+        <div class="col-sm-3"></div>
+        <div class="col-sm-3 pt-2">
+            <button class="btn btn-default btn-sm pull-right" data-ng-click="KeywordCtrl.ePage.Masters.Keywords.Refresh()">Refresh</button>
+        </div>
+        <div class="col-sm-3">
+            <input type="text" class="form-control input-sm" data-ng-model="KeywordCtrl.ePage.Masters.Keywords.Search"
+                placeholder="Search">
         </div>
     </div>
     <!-- Body -->
-    <div class="sm-content-wrapper clearfix">
-        <div class="clearfix p-10">
-            <div class="clearfix p-20 text-center" data-ng-if="!KeywordCtrl.ePage.Masters.Keywords.ListSource">
-                <i class="fa fa-spin fa-spinner font-160"></i>
-            </div>
-            <div class="clearfix p-20 text-center" data-ng-if="KeywordCtrl.ePage.Masters.Keywords.ListSource && KeywordCtrl.ePage.Masters.Keywords.ListSource.length == 0">
-                <i>No Records...!</i>
-            </div>
-            <span class="keyword" data-ng-repeat="x in KeywordCtrl.ePage.Masters.Keywords.ListSource" data-ng-if="KeywordCtrl.ePage.Masters.Keywords.ListSource && KeywordCtrl.ePage.Masters.Keywords.ListSource.length > 0">
-                <span data-ng-bind="x.NewValue"></span>
-                <i class="fa fa-close cursor-pointer ml-10" data-ng-click="KeywordCtrl.ePage.Masters.Keywords.DeleteKeyword(x, $index)"></i>
-            </span>
+    <div class="clearfix sm-section-body p-10 sm-keyword-list-wrapper">
+        <div class="clearfix p-20 text-center" data-ng-if="!KeywordCtrl.ePage.Masters.Keywords.ListSource">
+            <i class="fa fa-spin fa-spinner font-120"></i>
+        </div>
+        <div class="clearfix p-20 text-center" data-ng-if="KeywordCtrl.ePage.Masters.Keywords.ListSource && (KeywordCtrl.ePage.Masters.Keywords.ListSource | filter: KeywordCtrl.ePage.Masters.Keywords.Search).length == 0">
+            <i>No Records...!</i>
+        </div>
+        <div class="keyword m-5 pull-left pt-5 pb-5 pl-10 pr-5" data-ng-repeat="x in KeywordCtrl.ePage.Masters.Keywords.ListSource | filter: KeywordCtrl.ePage.Masters.Keywords.Search"
+            data-ng-if="KeywordCtrl.ePage.Masters.Keywords.ListSource && (KeywordCtrl.ePage.Masters.Keywords.ListSource | filter: KeywordCtrl.ePage.Masters.Keywords.Search).length > 0">
+            <span class="pull-left" data-ng-bind="x.NewValue"></span>
+            <i class="fa fa-times-circle-o cursor-pointer ml-30 danger font-130 pull-left" data-ng-click="KeywordCtrl.ePage.Masters.Keywords.DeleteKeyword(x, $index)"
+                title="Remove"></i>
         </div>
     </div>
 </div>

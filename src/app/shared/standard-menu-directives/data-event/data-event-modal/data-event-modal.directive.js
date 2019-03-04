@@ -8,7 +8,7 @@
     DataEventModal.$inject = ["$uibModal", "$templateCache"];
 
     function DataEventModal($uibModal, $templateCache) {
-        var _template = `<div class="modal-header">
+        let _template = `<div class="modal-header">
             <button type="button" class="close" ng-click="DataEventModalCtrl.ePage.Masters.Close()">&times;</button>
             <h5 class="modal-title" id="modal-title">
                 <strong>Data Event</strong>
@@ -19,7 +19,7 @@
         </div>`;
         $templateCache.put("DataEventModal.html", _template);
 
-        var exports = {
+        let exports = {
             restrict: "EA",
             scope: {
                 input: "="
@@ -32,7 +32,7 @@
             ele.on("click", OpenModal);
 
             function OpenModal() {
-                var modalInstance = $uibModal.open({
+                $uibModal.open({
                     animation: true,
                     // backdrop: "static",
                     keyboard: true,
@@ -43,18 +43,43 @@
                     bindToController: true,
                     resolve: {
                         param: function () {
-                            var exports = {
+                            let exports = {
                                 input: scope.input
                             };
                             return exports;
                         }
                     }
-                }).result.then(function (response) {
-                    console.log(response);
-                }, function () {
-                    console.log("Cancelled");
-                });
+                }).result.then(response => {}, () => {});
             }
         }
+    }
+
+    angular
+        .module("Application")
+        .controller("DataEventModalController", DataEventModalController);
+
+    DataEventModalController.$inject = ["$uibModalInstance", "helperService", "param"];
+
+    function DataEventModalController($uibModalInstance, helperService, param) {
+        /* jshint validthis: true */
+        let DataEventModalCtrl = this;
+
+        function Init() {
+            DataEventModalCtrl.ePage = {
+                "Title": "",
+                "Prefix": "DataEventModal",
+                "Masters": {},
+                "Meta": helperService.metaBase(),
+                "Entities": param.obj
+            };
+
+            DataEventModalCtrl.ePage.Masters.Close = Close;
+        }
+
+        function Close() {
+            $uibModalInstance.dismiss('cancel');
+        }
+
+        Init();
     }
 })();

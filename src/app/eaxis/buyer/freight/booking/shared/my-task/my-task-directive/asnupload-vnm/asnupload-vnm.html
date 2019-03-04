@@ -1,23 +1,15 @@
 <div class="clearfix">
-	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-3">
-		<div class="form-group ex-line-font">
-			<label class="control-label text-single-line">Consignee</label>
-			<div class="text-ellipsis" title="{{AsnUploadVnmDirectiveCtrl.ePage.Entities.Header.Data.UIOrderBatchUpload_Buyer.BuyerName}}">
-				<span>{{AsnUploadVnmDirectiveCtrl.ePage.Entities.Header.Data.UIOrderBatchUpload_Buyer.ConsigneeName}}</span>
-			</div>
-		</div>
+	<div class="col-lg-4">
+		<div>Consignee :</div>
+		<a class="my-task-content-shipper-link" href="javascript: void(0)">{{AsnUploadVnmDirectiveCtrl.ePage.Entities.Header.Data.UIOrderBatchUpload_Buyer.Buyer}}</a>
 	</div>
-	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-3">
-		<div class="form-group ex-line-font">
-			<label class="control-label text-single-line">Uploaded By</label>
-			<div class="text-ellipsis" title="{{AsnUploadVnmDirectiveCtrl.ePage.Entities.Header.Data.UIOrderBatchUpload_Buyer.CreatedBy}}">
-				<span>{{AsnUploadVnmDirectiveCtrl.ePage.Entities.Header.Data.UIOrderBatchUpload_Buyer.CreatedBy}}</span>
-			</div>
-		</div>
+	<div class="col-lg-4">
+		<div>Uploaded By :</div>
+		<a class="my-task-content-shipper-link" href="javascript: void(0)">{{AsnUploadVnmDirectiveCtrl.ePage.Entities.Header.Data.UIOrderBatchUpload_Buyer.CreatedBy}}</a>
 	</div>
 	<div class="col-lg-4 text-right pr-0 pl-28">
-		<button class="my-task-btn my-task-directive-btn" data-ng-click="AsnUploadVnmDirectiveCtrl.ePage.Masters.OpenActivity(AsnUploadVnmDirectiveCtrl.ePage.Masters.MyTask)">Create
-			Booking</button>
+		<button class="my-task-btn my-task-directive-btn" data-ng-click="AsnUploadVnmDirectiveCtrl.ePage.Masters.Complete()"
+		 data-ng-disabled="AsnUploadVnmDirectiveCtrl.ePage.Masters.CompleteBtnDisabled">{{AsnUploadVnmDirectiveCtrl.ePage.Masters.CompleteBtnTxt}}</button>
 	</div>
 </div>
 
@@ -39,7 +31,7 @@
 
 <div class="clearfix">
 	<div class="col-lg-4 pr-0 pl-28 pull-right">
-		<button class="my-task-primary-btn my-task-directive-btn" data-ng-click="AsnUploadVnmDirectiveCtrl.ePage.Masters.Complete()"
-		 data-ng-disabled="AsnUploadVnmDirectiveCtrl.ePage.Masters.CompleteBtnDisabled">{{AsnUploadVnmDirectiveCtrl.ePage.Masters.CompleteBtnTxt}}</button>
+		<button class="my-task-btn my-task-directive-btn" data-ng-click="AsnUploadVnmDirectiveCtrl.ePage.Masters.OpenActivity(AsnUploadVnmDirectiveCtrl.ePage.Masters.MyTask)">Create
+			Booking</button>
 	</div>
 </div>

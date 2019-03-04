@@ -71,7 +71,7 @@
 
         function OnPartyTypeChange($item) {
             if ($item) {
-                TCExceptionTypeConfigureCtrl.ePage.Masters.ExceptionType.FormView.PartyType_Code = $item.GroupName;
+                TCExceptionTypeConfigureCtrl.ePage.Masters.ExceptionType.FormView.PartyType_Code = $item.Code;
                 TCExceptionTypeConfigureCtrl.ePage.Masters.ExceptionType.FormView.PartyType_FK = $item.PK;
             } else {
                 TCExceptionTypeConfigureCtrl.ePage.Masters.ExceptionType.FormView.PartyType_Code = undefined;
@@ -160,11 +160,15 @@
             TCExceptionTypeConfigureCtrl.ePage.Masters.Parties.MappingInput = {
                 MappingCode: "GRUP_ETYP_APP_TNT",
                 ChildMappingCode: "GRUP_ROLE_ETYP_APP_TNT",
-                Access_FK: TCExceptionTypeConfigureCtrl.ePage.Masters.ExceptionType.FormView.PK,
+
                 AccessTo: "EXCEPTION",
+                Access_FK: TCExceptionTypeConfigureCtrl.ePage.Masters.ExceptionType.FormView.PK,
                 AccessCode: TCExceptionTypeConfigureCtrl.ePage.Masters.ExceptionType.FormView.Key,
                 SAP_FK: TCExceptionTypeConfigureCtrl.ePage.Masters.QueryString.AppPk,
                 SAP_Code: TCExceptionTypeConfigureCtrl.ePage.Masters.QueryString.AppCode,
+
+                PartyMappingAPI: "GroupExceptionType",
+                PartyRoleMappingAPI: "GroupRoleExceptionType"
             };
         }
 

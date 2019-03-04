@@ -99,7 +99,7 @@
                     if (typeof _decrypted == "string") {
                         _decrypted = JSON.parse(_decrypted);
                     }
-                    DynamicListViewCtrl.ePage.Masters.defaultFilter = _decrypted;
+                    DynamicListViewCtrl.ePage.Masters.baseFilter = _decrypted;
                 }
             }
             

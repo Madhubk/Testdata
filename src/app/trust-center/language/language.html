@@ -58,7 +58,7 @@
                         <th class="th-text">Module</th>
                         <th class="th-text">Control Type</th>
                         <th class="th-text tc-is-active">Is Active</th>
-                        <th class="th-action" colspan="2">Action</th>
+                        <th class="th-action" colspan="3">Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -113,7 +113,14 @@
                                 <i class="glyphicon glyphicon-trash text-danger cursor-pointer"></i>
                             </div>
                         </td>
-                    </tr>
+                        <td>
+                                <div class="tc-language-generate-icon text-center" 
+                                data-ng-style="{'opacity': '0.5'} || {'opacity': '1'}">
+                                <i class="fa fa-file-o cursor-pointer" generate-db-script input="x.GenerateScriptInput"
+                                config="x.GenerateScriptConfig" data-ng-if="x.GenerateScriptInput.ObjectName || x.GenerateScriptInput.ObjectId || x.PK"></i>
+                            </div>  
+                        </td>
+                      </tr>
                     <!-- Add New -->
                     <tr>
                         <td colspan="20">

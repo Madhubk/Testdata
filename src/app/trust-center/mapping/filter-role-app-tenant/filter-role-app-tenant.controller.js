@@ -1,7 +1,7 @@
 (function () {
     "use strict";
 
-        angular
+    angular
         .module("Application")
         .controller("TCFilterRoleAppTenantController", TCFilterRoleAppTenantController);
 
@@ -78,8 +78,8 @@
                     "AppCode": TCFilterRoleAppTenantCtrl.ePage.Masters.QueryString.AppCode,
                     "AppName": TCFilterRoleAppTenantCtrl.ePage.Masters.QueryString.AppName,
                     "AdditionalData": TCFilterRoleAppTenantCtrl.ePage.Masters.QueryString.AdditionalData,
-                    "Type":TCFilterRoleAppTenantCtrl.ePage.Masters.QueryString.Type
-                 },
+                    "Type": TCFilterRoleAppTenantCtrl.ePage.Masters.QueryString.Type
+                },
                 IsActive: false
             }, {
                 Code: "filterRoleAppTenant",
@@ -91,7 +91,7 @@
         }
 
         function OnBreadcrumbClick($item) {
-             if (!$item.IsRequireQueryString && !$item.IsActive) {
+            if (!$item.IsRequireQueryString && !$item.IsActive) {
                 $location.path($item.Link);
             } else if ($item.IsRequireQueryString && !$item.IsActive) {
                 $location.path($item.Link + "/" + helperService.encryptData($item.QueryStringObj));
@@ -100,8 +100,8 @@
 
         // =================== Breadcrumb End ===================== //
 
-         // ========================Application Start========================
-         function InitApplication() {
+        // ========================Application Start========================
+        function InitApplication() {
             TCFilterRoleAppTenantCtrl.ePage.Masters.Application = {};
             TCFilterRoleAppTenantCtrl.ePage.Masters.Application.OnApplicationChange = OnApplicationChange;
         }
@@ -119,7 +119,7 @@
         }
         // ========================Application End========================
 
-        
+
         function InitFilterRoleAppTenant() {
             TCFilterRoleAppTenantCtrl.ePage.Masters.FilterRoleAppTenant = {};
             TCFilterRoleAppTenantCtrl.ePage.Masters.FilterRoleAppTenant.OnFilterRoleAppTenantClick = OnFilterRoleAppTenantClick;
@@ -210,6 +210,18 @@
                     OnFilterRoleAppTenantClick(TCFilterRoleAppTenantCtrl.ePage.Masters.FilterRoleAppTenant.FilterRoleAppTenantList[0]);
                 }
             }
+
+            if (TCFilterRoleAppTenantCtrl.ePage.Masters.FilterRoleAppTenant.ActiveFilterRoleAppTenant) {
+                TCFilterRoleAppTenantCtrl.ePage.Masters.GenerateScriptInput = {
+                    ObjectName: "SECMAPPINGS",
+                    ObjectId: TCFilterRoleAppTenantCtrl.ePage.Masters.FilterRoleAppTenant.ActiveFilterRoleAppTenant.PK
+                };
+                TCFilterRoleAppTenantCtrl.ePage.Masters.GenerateScriptConfig = {
+                    IsEnableTable: false,
+                    IsEnablePK: false,
+                    IsEnableTenant: false
+                };
+            }
         }
 
         function GetRolesList($viewValue) {
@@ -236,7 +248,7 @@
             TCFilterRoleAppTenantCtrl.ePage.Masters.SelectedAutocompleteTenant = $item;
         }
 
-        
+
         function OnBlurAutoCompleteList($event) {
             TCFilterRoleAppTenantCtrl.ePage.Masters.IsSecRoleNoResults = false;
             TCFilterRoleAppTenantCtrl.ePage.Masters.IsSecRoleLoading = false;
@@ -272,7 +284,7 @@
             });
         }
 
-        
+
         function Save() {
             if (TCFilterRoleAppTenantCtrl.ePage.Masters.FilterRoleAppTenant.ActiveFilterRoleAppTenant.PK) {
                 UpdateFilterRoleAppTenant();
@@ -280,7 +292,7 @@
                 InsertFilterRoleAppTenant();
             }
         }
-       
+
         function InsertFilterRoleAppTenant() {
             TCFilterRoleAppTenantCtrl.ePage.Masters.FilterRoleAppTenant.SaveBtnText = "Please Wait...";
             TCFilterRoleAppTenantCtrl.ePage.Masters.FilterRoleAppTenant.IsDisableSaveBtn = true;
@@ -289,7 +301,7 @@
             _input.Item_FK = TCFilterRoleAppTenantCtrl.ePage.Masters.QueryString.ItemPk;
             _input.ItemCode = TCFilterRoleAppTenantCtrl.ePage.Masters.QueryString.ItemCode;
             _input.ItemName = TCFilterRoleAppTenantCtrl.ePage.Masters.QueryString.ItemName;
-             _input.Access_FK = TCFilterRoleAppTenantCtrl.ePage.Masters.FilterRoleAppTenant.ActiveFilterRoleAppTenant.Access_FK;
+            _input.Access_FK = TCFilterRoleAppTenantCtrl.ePage.Masters.FilterRoleAppTenant.ActiveFilterRoleAppTenant.Access_FK;
             _input.AccessCode = TCFilterRoleAppTenantCtrl.ePage.Masters.FilterRoleAppTenant.ActiveFilterRoleAppTenant.AccessCode;
             _input.AccessTo = "ROLE";
             _input.IsModified = true;
@@ -418,6 +430,6 @@
         }
 
 
-    Init();     
+        Init();
     }
 })();

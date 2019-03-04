@@ -155,6 +155,18 @@
         function OnShareTableClick($item) {
             ShareTableCtrl.ePage.Masters.ShareTable.ActiveShareTable = angular.copy($item);
             ShareTableCtrl.ePage.Masters.ShareTable.ActiveShareTableCopy = angular.copy($item);
+
+            if (ShareTableCtrl.ePage.Masters.ShareTable.ActiveShareTable) {
+                ShareTableCtrl.ePage.Masters.GenerateScriptInput = {
+                    ObjectName: "DYN_EntityMaster",
+                    ObjectId: ShareTableCtrl.ePage.Masters.ShareTable.ActiveShareTable.Entity_PK
+                };
+                ShareTableCtrl.ePage.Masters.GenerateScriptConfig = {
+                    IsEnableTable: false,
+                    IsEnablePK: false,
+                    IsEnableTenant: false
+                };
+            }
         }
 
         function EditModalInstance() {
@@ -172,7 +184,7 @@
             ShareTableCtrl.ePage.Masters.ShareTable.SaveBtnText = "OK";
             ShareTableCtrl.ePage.Masters.ShareTable.IsDisableSaveBtn = false;
 
-            EditModalInstance().result.then(function (response) { }, function () {
+            EditModalInstance().result.then(function (response) {}, function () {
                 Cancel();
             });
         }

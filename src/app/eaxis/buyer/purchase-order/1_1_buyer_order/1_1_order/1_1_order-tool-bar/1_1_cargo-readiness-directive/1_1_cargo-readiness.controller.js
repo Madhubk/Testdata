@@ -5,9 +5,9 @@
         .module("Application")
         .controller("one_one_CargoReadinessGridController", one_one_CargoReadinessGridController);
 
-    one_one_CargoReadinessGridController.$inject = ["helperService", "appConfig", "apiService", "orderApiConfig", "toastr"];
+    one_one_CargoReadinessGridController.$inject = ["helperService", "appConfig", "apiService", "toastr"];
 
-    function one_one_CargoReadinessGridController(helperService, appConfig, apiService, orderApiConfig, toastr) {
+    function one_one_CargoReadinessGridController(helperService, appConfig, apiService, toastr) {
         /* jshint validthis: true */
         var one_one_CargoReadinessGridCtrl = this;
 
@@ -85,7 +85,7 @@
                 _updateInput.push(_tempObj);
             }
 
-            apiService.post('eAxisAPI', orderApiConfig.Entities.BuyerOrder.API.updaterecords.Url, _updateInput).then(function (response) {
+            apiService.post('eAxisAPI', appConfig.Entities.PorOrderHeader.API.UpdateRecords.Url, _updateInput).then(function (response) {
                 if (response.data.Response) {
                     JobCommentInsert(response.data.Response);
                     CreateVesselGroup(_items);

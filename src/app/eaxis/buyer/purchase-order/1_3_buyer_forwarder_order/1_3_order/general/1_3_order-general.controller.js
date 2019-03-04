@@ -95,22 +95,13 @@
             one_three_OrdGeneralCtrl.ePage.Masters.ModeChange = ModeChange;
             one_three_OrdGeneralCtrl.ePage.Masters.CommonErrorObjInput = CommonErrorObjInput;
             one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.ValidOrderNo = true;
-            one_three_OrdGeneralCtrl.ePage.Masters.OrderListSource = [{
-                    "Code": "POR",
-                    "Desc": "Purchase Order"
-                },
-                {
-                    "Code": "DOR",
-                    "Desc": "Delivery Order"
-                }
-            ]
+
             if (one_three_OrdGeneralCtrl.currentOrder.isNew) {
                 one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.IncoTerm = "FOB";
                 one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.TransportMode = "SEA";
                 one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.ContainerMode = "FCL";
                 one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.OrderStatus = "PLC";
                 one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.OrderDate = new Date();
-                (one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.OrderType) ? false: one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.OrderType = "POR";
             }
 
             GetCfxTypeList();
@@ -209,50 +200,25 @@
                 case "SCP":
                     one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.Buyer = $item.data.entity.Code;
                     one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.ORG_Buyer_FK = $item.data.entity.PK;
-                    one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.ConsigneeName = $item.data.entity.FullName;
-                    one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.OriginCountry = $item.data.entity.OAD_CountryCode;
                     getMDMMiscService(one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.ORG_Buyer_FK);
                     CommonErrorObjInput("Order", one_three_OrdGeneralCtrl.currentOrder, "ORD", "ORD", ["ED002"]);
                     GetDynamicControl("ORG");
-                    if (one_three_OrdGeneralCtrl.currentOrder.isNew) {
-                        getOrgBuyerSupplierMapping();
-                    }
                     break;
                 case "CRA":
                     one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.Supplier = $item.data.entity.Code;
                     one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.ORG_Supplier_FK = $item.data.entity.PK;
-                    one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.ConsignorName = $item.data.entity.FullName;
+                    one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.OriginCountry = $item.data.entity.OAD_CountryCode;
+                    one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.BuyingHouseAgent_Code = $item.data.entity.Code;
+                    one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.BuyingHouseAgent_FK = $item.data.entity.PK;
                     CommonErrorObjInput("Order", one_three_OrdGeneralCtrl.currentOrder, "ORD", "ORD", ["ED003"]);
                     break;
                 case "Export":
                     one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.SendingAgentCode = $item.data.entity.Code;
                     one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.ORG_SendingAgent_FK = $item.data.entity.PK;
-                    one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.ORG_SendingAgentName = $item.data.entity.FullName;
                     break;
                 case "Import":
                     one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.ReceivingAgentCode = $item.data.entity.Code;
                     one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.ORG_ReceivingAgent_FK = $item.data.entity.PK;
-                    one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.ORG_ReceivingAgentName = $item.data.entity.FullName;
-                    break;
-                case "ExportCHA":
-                    one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.ExportCHA_Code = $item.data.entity.Code;
-                    one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.ExportCHA_FK = $item.data.entity.PK;
-                    one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.ExportCHAName = $item.data.entity.FullName;
-                    break;
-                case "Carrier":
-                    one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.CarrierCode = $item.data.entity.Code;
-                    one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.ORG_Carrier_FK = $item.data.entity.PK;
-                    one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.ORG_CarrierName = $item.data.entity.FullName;
-                    break;
-                case "BuyingHouseAgent":
-                    one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.BuyingHouseAgent_Code = $item.data.entity.Code;
-                    one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.BuyingHouseAgent_FK = $item.data.entity.PK;
-                    one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.BuyingHouseAgentName = $item.data.entity.FullName;
-                    break;
-                case "ControllingCustomer":
-                    one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.ControlCustomCode = $item.data.entity.Code;
-                    one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.ORG_ControlCustom_FK = $item.data.entity.PK;
-                    one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.ORG_ControlCustomName = $item.data.entity.FullName;
                     break;
                 default:
                     break;
@@ -278,50 +244,21 @@
                 case "SCP":
                     one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.Buyer = $item.Code;
                     one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.ORG_Buyer_FK = $item.PK;
-                    one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.ConsigneeName = $item.FullName;
-                    one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.OriginCountry = $item.OAD_CountryCode;
                     getMDMMiscService(one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.ORG_Buyer_FK);
                     CommonErrorObjInput("Order", one_three_OrdGeneralCtrl.currentOrder, "ORD", "ORD", ["ED002"]);
                     GetDynamicControl("ORG");
-                    if (one_three_OrdGeneralCtrl.currentOrder.isNew) {
-                        getOrgBuyerSupplierMapping();
-                    }
                     break;
                 case "CRA":
                     one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.Supplier = $item.Code;
                     one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.ORG_Supplier_FK = $item.PK;
-                    one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.ConsignorName = $item.FullName;
+                    one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.OriginCountry = $item.OAD_CountryCode;
+                    one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.BuyingHouseAgent_Code = $item.Code;
+                    one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.BuyingHouseAgent_FK = $item.PK;
                     CommonErrorObjInput("Order", one_three_OrdGeneralCtrl.currentOrder, "ORD", "ORD", ["ED003"]);
                     break;
                 case "Export":
-                    one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.SendingAgentCode = $item.Code;
-                    one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.ORG_SendingAgent_FK = $item.PK;
-                    one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.ORG_SendingAgentName = $item.FullName;
                     break;
                 case "Import":
-                    one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.ReceivingAgentCode = $item.Code;
-                    one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.ORG_ReceivingAgent_FK = $item.PK;
-                    one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.ORG_ReceivingAgentName = $item.FullName;
-                    break;
-                case "ExportCHA":
-                    one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.ExportCHA_Code = $item.Code;
-                    one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.ExportCHA_FK = $item.PK;
-                    one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.ExportCHAName = $item.FullName;
-                    break;
-                case "Carrier":
-                    one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.CarrierCode = $item.Code;
-                    one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.ORG_Carrier_FK = $item.PK;
-                    one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.ORG_CarrierName = $item.FullName;
-                    break;
-                case "BuyingHouseAgent":
-                    one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.BuyingHouseAgent_Code = $item.Code;
-                    one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.BuyingHouseAgent_FK = $item.PK;
-                    one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.BuyingHouseAgentName = $item.FullName;
-                    break;
-                case "ControllingCustomer":
-                    one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.ControlCustomCode = $item.Code;
-                    one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.ORG_ControlCustom_FK = $item.PK;
-                    one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.ORG_ControlCustomName = $item.FullName;
                     break;
                 default:
                     break;
@@ -342,42 +279,6 @@
             }
         }
 
-        function getOrgBuyerSupplierMapping() {
-            var _inputObj = {
-                "BuyerCode": one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.Buyer
-            }
-            var _input = {
-                "FilterID": appConfig.Entities.OrgBuyerSupplierMapping.API.FindAll.FilterID,
-                "SearchInput": helperService.createToArrayOfObject(_inputObj)
-            }
-            apiService.post("eAxisAPI", appConfig.Entities.OrgBuyerSupplierMapping.API.FindAll.Url, _input).then(function (response) {
-                if (response.data.Response) {
-                    one_three_OrdGeneralCtrl.ePage.Masters.OrgBuyerDetails = response.data.Response;
-                    if (one_three_OrdGeneralCtrl.currentOrder.isNew) {
-                        var tempBuyObj = one_three_OrdGeneralCtrl.ePage.Masters.OrgBuyerDetails[0];
-                        OnSelectSupplier(tempBuyObj);
-                    }
-                }
-            });
-        }
-
-        function OnSelectSupplier($item) {
-            if ($item) {
-                apiService.get("eAxisAPI", appConfig.Entities.OrgHeader.API.GetById.Url + $item.ORG_Supplier).then(function (response) {
-                    if (response.data.Response) {
-                        one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.Supplier = response.data.Response.Code;
-                        one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.ORG_Supplier_FK = response.data.Response.PK;
-                        one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.ConsignorName = response.data.Response.FullName;
-                        one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRA.ORG_FK = response.data.Response.PK;
-                        one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRA.ORG_Code = response.data.Response.Code;
-                        $item = response.data.Response;
-                        AddressContactList($item, 'CRA');
-                        CommonErrorObjInput("Order", one_three_OrdGeneralCtrl.currentOrder, "ORD", "ORD", ["ED003"]);
-                    }
-                });
-            }
-        }
-
         function getMDMMiscService(pk) {
             var _inputObj = {
                 "ORG_FK": pk
@@ -390,7 +291,7 @@
             apiService.post("eAxisAPI", appConfig.Entities.OrgMiscServ.API.FindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     one_three_OrdGeneralCtrl.ePage.Masters.OrgMiscService = response.data.Response[0];
-                    // one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.OrderCurrency = response.data.Response[0].CUR_NKFWDefCurrency;
+                    one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.OrderCurrency = response.data.Response[0].CUR_NKFWDefCurrency;
                 }
             });
         }
@@ -483,13 +384,7 @@
                     }
                 });
                 // Org based POL, POD, Origin and destination auto-populate function
-                (value.length > 0) ? OrgAddressBaseFields(value[0], addressType): false;
-            });
-            ContactList.then(function (value) {
-                if (value.length > 0) {
-                    var _defaultContact = value[0];
-                    OnContactChange(_defaultContact, addressType, "Contact");
-                }
+                OrgAddressBaseFields(value[0], addressType);
             });
         }
 
@@ -676,7 +571,6 @@
                                 one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.ORG_SendingAgent_FK = response.data.Response.UIOrgBuySupMappingTrnMode[0].ORG_SendingAgentPK;
                                 one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.ControlCustomCode = response.data.Response.UIOrgBuySupMappingTrnMode[0].ORG_ControllingCustomerCode;
                                 one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.ORG_ControlCustom_FK = response.data.Response.UIOrgBuySupMappingTrnMode[0].ORG_ControllingCustomerFK;
-                                one_three_OrdGeneralCtrl.ePage.Entities.GlobalVar.IsOrgMapping = true;
                             }
                         }
                         if (response.data.Response.UIOrgBuyerSupplierMapping) {
@@ -786,13 +680,13 @@
                 one_three_OrdGeneralCtrl.ePage.Masters.IsButtonAdd = "Update"
             } else {
                 if (data.PK == undefined) {
-                    one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrderContainer_Buyer_Forwarder.splice(index, 1)
+                    one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrderContainer_Buyer.splice(index, 1)
                 } else {
                     var r = confirm("Are You Sure Want To Delete?");
                     if (r == true) {
                         apiService.get("eAxisAPI", one_three_OrdGeneralCtrl.ePage.Entities.Container.API.Delete.Url + data.PK).then(function (response) {
                             if (response.data.Status == 'Success') {
-                                one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrderContainer_Buyer_Forwarder.splice(index, 1)
+                                one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrderContainer_Buyer.splice(index, 1)
                             }
                         });
                     }
@@ -803,11 +697,11 @@
 
         function AddNew(item, action) {
             if (action == 'Add New') {
-                one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrderContainer_Buyer_Forwarder.push(item);
+                one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrderContainer_Buyer.push(item);
                 one_three_OrdGeneralCtrl.ePage.Masters.formView = {};
             } else {
-                var _index = one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrderContainer_Buyer_Forwarder.indexOf(item);
-                one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrderContainer_Buyer_Forwarder[_index] = item;
+                var _index = one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrderContainer_Buyer.indexOf(item);
+                one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrderContainer_Buyer[_index] = item;
                 one_three_OrdGeneralCtrl.ePage.Masters.formView = {};
                 one_three_OrdGeneralCtrl.ePage.Masters.IsButtonAdd = "Add New";
             }
@@ -855,31 +749,32 @@
         function GetDynamicControl(mode) {
             // Get Dynamic filter controls
             one_three_OrdGeneralCtrl.ePage.Masters.DynamicControl = undefined;
-            // if (mode == "ORG") {
-            //     var _filter = {
-            //         DataEntryName: "BPOrderHeaderCustomOrg",
-            //         IsRoleBased: false,
-            //         IsAccessBased: false,
-            //         OrganizationCode: one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.Buyer
-            //     };
-            // } else {
-            var _filter = {
-                DataEntryName: "BPOrderHeaderCustomOrg"
-            };
-            // }
+            if (mode == "ORG") {
+                var _filter = {
+                    DataEntryName: "OrderHeaderCustomOrg",
+                    IsRoleBased: false,
+                    IsAccessBased: false,
+                    OrganizationCode: one_three_OrdGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Forwarder.Buyer
+                };
+            } else {
+                var _filter = {
+                    DataEntryName: "OrderHeaderCustom"
+                };
+            }
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
                 "FilterID": appConfig.Entities.DataEntry.API.FindConfig.FilterID
             };
 
             apiService.post("eAxisAPI", appConfig.Entities.DataEntry.API.FindConfig.Url, _input).then(function (response) {
-                var _isEmpty = angular.equals({}, response.data.Response)
+                var _isEmpty = angular.equals({}, response.data.Response);
                 if (response.data.Response == null || !response.data.Response || _isEmpty) {
                     console.log("Dynamic control config Empty Response");
                 } else {
                     one_three_OrdGeneralCtrl.ePage.Masters.DynamicControl = response.data.Response;
                 }
             });
+
         }
 
         function CommonErrorObjInput(moduleName, $item, moduleCode, subModuleCode, errorCode) {

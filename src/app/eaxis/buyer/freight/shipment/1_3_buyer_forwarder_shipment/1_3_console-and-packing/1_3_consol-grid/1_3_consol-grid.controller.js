@@ -56,7 +56,7 @@
                 }
             });
             if (_tempArray.length > 0) {
-                apiService.post("eAxisAPI", appConfig.Entities.BuyerConShpMapping.API.Insert.Url, _tempArray).then(function (response) {
+                apiService.post("eAxisAPI", appConfig.Entities.ConShpMapping.API.Insert.Url, _tempArray).then(function (response) {
                     if (response.data.Response) {}
                     GetConsolListing();
                 });
@@ -68,9 +68,9 @@
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.BuyerConShpMapping.API.FindAll.FilterID
+                "FilterID": appConfig.Entities.ConShpMapping.API.FindAll.FilterID
             };
-            apiService.post("eAxisAPI", appConfig.Entities.BuyerConShpMapping.API.FindAll.Url, _input).then(function (response) {
+            apiService.post("eAxisAPI", appConfig.Entities.ConShpMapping.API.FindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     oneThreeConsolGridCtrl.ePage.Entities.Header.Data.UIConShpMappings = response.data.Response;
                 }
@@ -102,7 +102,7 @@
             }).indexOf($item.PK);
 
             if (_index !== -1) {
-                apiService.get("eAxisAPI", appConfig.Entities.BuyerConShpMapping.API.Delete.Url + $item.PK).then(function (response) {
+                apiService.get("eAxisAPI", appConfig.Entities.ConShpMapping.API.Delete.Url + $item.PK).then(function (response) {
                     if (response.data.Response) {
                         GetConsolListing();
                         // $rootScope.GetContainerList();

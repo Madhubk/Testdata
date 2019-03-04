@@ -21,12 +21,9 @@
             scope: {
                 input: "=",
                 dataentryObject: "="
-            },
-            link: Link
+            }
         };
         return exports;
-
-        function Link(scope, ele, attr) {}
     }
 
     angular

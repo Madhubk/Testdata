@@ -68,6 +68,16 @@
         function InitMaintenance() {
             TCMaintenanceCtrl.ePage.Masters.Maintenance = {};
 
+            TCMaintenanceCtrl.ePage.Masters.GenerateScriptInput = {
+                ObjectName: "",
+                ObjectId: ""
+            };
+            TCMaintenanceCtrl.ePage.Masters.GenerateScriptConfig = {
+                IsEnableTable: true,
+                IsEnablePK: true,
+                IsEnableTenant: true
+            };
+
             InitPublish();
         }
 

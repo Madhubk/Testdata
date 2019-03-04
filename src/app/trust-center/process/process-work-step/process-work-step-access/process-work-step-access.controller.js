@@ -93,13 +93,15 @@
         }
 
         function GetSecUserList() {
-            var _filter = {};
+            var _filter = {
+                "TenantCode": authService.getUserInfo().TenantCode
+            };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": trustCenterConfig.Entities.API.UserExtended.API.FindAll.FilterID
+                "FilterID": trustCenterConfig.Entities.API.UserTenantList.API.FindAll.FilterID
             };
 
-            apiService.post("authAPI", trustCenterConfig.Entities.API.UserExtended.API.FindAll.Url, _input).then(function (response) {
+            apiService.post("authAPI", trustCenterConfig.Entities.API.UserTenantList.API.FindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     ProcessWorkStepAccessModalCtrl.ePage.Masters.ProcessWorkStepAccess.SecUserList = response.data.Response;
                 } else {

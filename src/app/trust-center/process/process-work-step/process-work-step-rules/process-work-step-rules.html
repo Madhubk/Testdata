@@ -140,6 +140,7 @@
                     <div class="col-lg-3 p-0 text-center">
                       <div>{{action.InitStepNo}}</div>
                     </div>
+
                   </div>
                 </div>
               </div>
@@ -320,6 +321,9 @@
                     </div>
                   </div>
                 </div>
+              
+                
+
               </div>
             </div>
           </uib-tab>
@@ -330,6 +334,9 @@
           data-ng-disabled="ProcessWorkStepRulesCtrl.ePage.Masters.Rules.IsDisableRulesSaveBtn">{{ProcessWorkStepRulesCtrl.ePage.Masters.Rules.RulesSaveBtnText}}</button>
         <button class="btn btn-danger btn-xs pull-right ml-10" data-ng-click="ProcessWorkStepRulesCtrl.ePage.Masters.Rules.DeleteRules()"
           data-ng-disabled="ProcessWorkStepRulesCtrl.ePage.Masters.Rules.IsDisableRulesDeleteBtn">{{ProcessWorkStepRulesCtrl.ePage.Masters.Rules.RulesDeleteBtnText}}</button>
+          <button class="btn btn-primary btn-xs pull-right ml-10" generate-db-script input="ProcessWorkStepRulesCtrl.ePage.Masters.Rules.GenerateScriptInput"
+          config="ProcessWorkStepRulesCtrl.ePage.Masters.Rules.GenerateScriptConfig" data-ng-disabled="!ProcessWorkStepRulesCtrl.ePage.Masters.Rules.GenerateScriptInput.ObjectName || !ProcessWorkStepRulesCtrl.ePage.Masters.Rules.GenerateScriptInput.ObjectId">Generate
+          Script</button>
       </div>
 
       <div class="clearfix p-5" style="border-top: 1px solid #eee;" data-ng-if="ProcessWorkStepRulesCtrl.ePage.Masters.Rules.ActiveRule && ProcessWorkStepRulesCtrl.ePage.Masters.Rules.ActiveTab == 'Actions'">
@@ -337,6 +344,8 @@
           data-ng-disabled="!ProcessWorkStepRulesCtrl.ePage.Masters.Actions.ActiveAction || ProcessWorkStepRulesCtrl.ePage.Masters.IsDisableActionSaveBtn">{{ProcessWorkStepRulesCtrl.ePage.Masters.ActionSaveBtnText}}</button>
         <button class="btn btn-danger btn-xs pull-right ml-10" data-ng-click="ProcessWorkStepRulesCtrl.ePage.Masters.Actions.DeleteAction()"
           data-ng-disabled="!ProcessWorkStepRulesCtrl.ePage.Masters.Actions.ActiveAction || ProcessWorkStepRulesCtrl.ePage.Masters.IsDisableActionDeleteBtn">{{ProcessWorkStepRulesCtrl.ePage.Masters.ActionDeleteBtnText}}</button>
+          <button class="btn btn-primary btn-xs pull-right ml-10" generate-db-script input="ProcessWorkStepRulesCtrl.ePage.Masters.Actions.GenerateScriptInput" config="ProcessWorkStepRulesCtrl.ePage.Masters.Actions.GenerateScriptConfig" data-ng-disabled="!ProcessWorkStepRulesCtrl.ePage.Masters.Actions.GenerateScriptInput.ObjectName || !ProcessWorkStepRulesCtrl.ePage.Masters.Actions.GenerateScriptInput.ObjectId || !ProcessWorkStepRulesCtrl.ePage.Masters.Actions.ActiveAction">Generate Script</button>
+
       </div>
     </div>
   </div>

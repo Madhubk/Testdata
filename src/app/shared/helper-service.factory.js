@@ -27,7 +27,9 @@
             scrollElement: ScrollElement,
             IsMobile: GetDevice,
             previewDocument: PreviewDocument,
-            getImageBase64Str: GetImageBase64Str
+            getImageBase64Str: GetImageBase64Str,
+            copyToClipboard: CopyToClipboard,
+            completeTask: CompleteTask
         };
         return exports;
 
@@ -110,26 +112,15 @@
             return _isExist;
         }
 
-        function DownloadDocument(fileDetails) {
-            var _fileDetails = fileDetails;
-            // Convert Base64 to bytes
-            function base64ToArrayBuffer(base64) {
-                var binaryString = atob(base64);
-                var binaryLen = binaryString.length;
-                var bytes = new Uint8Array(binaryLen);
-                for (var i = 0; i < binaryLen; i++) {
-                    var ascii = binaryString.charCodeAt(i);
-                    bytes[i] = ascii;
-                }
-                saveByteArray([bytes], _fileDetails.Name);
-            }
+        function DownloadDocument($item) {
+            let _fileDetails = $item;
 
-            var saveByteArray = (function () {
-                var a = document.createElement("a");
+            let saveByteArray = (function () {
+                let a = document.createElement("a");
                 document.body.appendChild(a);
                 a.style = "display: none";
                 return function (data, name) {
-                    var blob = new Blob(data, {
+                    let blob = new Blob(data, {
                             type: "octet/stream"
                         }),
                         url = window.URL.createObjectURL(blob);
@@ -140,11 +131,19 @@
                 };
             }());
 
-            if (_fileDetails.Base64str && _fileDetails.Base64str != "" && _fileDetails.Base64str != ' ') {
-                base64ToArrayBuffer(_fileDetails.Base64str);
-            } else {
-                toastr.error("Invalid File...!");
+            // Convert Base64 to bytes
+            function base64ToArrayBuffer(base64) {
+                let binaryString = atob(base64), 
+                binaryLen = binaryString.length,
+                bytes = new Uint8Array(binaryLen);
+                
+                for (let i = 0; i < binaryLen; i++) {
+                    bytes[i] = binaryString.charCodeAt(i);
+                }
+                saveByteArray([bytes], _fileDetails.Name);
             }
+
+            (_fileDetails && _fileDetails.Base64str && _fileDetails.Base64str != "" && _fileDetails.Base64str != ' ') ? base64ToArrayBuffer(_fileDetails.Base64str): toastr.error("Download Failed...!");
         }
 
         function SaveEntity(entity, module) {
@@ -747,7 +746,8 @@
 
                         if (_response.Value) {
                             _response.Value = JSON.parse(_response.Value);
-                            _response.Value.DataObjs[0].DataObject = _response.Value.DataObjs[0].DataObject;
+
+                            _response.Value.DataObjs[0].DataObject = (typeof _response.Value.DataObjs[0].DataObject == "string") ? JSON.parse(_response.Value.DataObjs[0].DataObject): _response.Value.DataObjs[0].DataObject;
 
                             if (sourceObject) {
                                 var _excelDocumentObject = PrepareExcelDocumentObject(_response.Value, sourceObject);
@@ -977,6 +977,35 @@
                     reject(error);
                 });
             });
+        }
+
+        function CopyToClipboard(GenerateScript) {
+            if (window.clipboardData && window.clipboardData.setData) {
+                // IE specific code path to prevent textarea being shown while dialog is visible.
+                return clipboardData.setData("Text", GenerateScript);
+
+            } else if (document.queryCommandSupported && document.queryCommandSupported("copy")) {
+                var textarea = document.createElement("textarea");
+                textarea.textContent = GenerateScript;
+                textarea.style.position = "fixed"; // Prevent scrolling to bottom of page in MS Edge.
+                document.body.appendChild(textarea);
+                textarea.select();
+                try {
+                    return document.execCommand("copy"); // Security exception may be thrown by some browsers.
+                } catch (ex) {
+                    console.warn("Copy to clipboard failed.", ex);
+                    return false;
+                } finally {
+                    document.body.removeChild(textarea);
+                }
+            }
+        }
+
+        function CompleteTask($item) {
+            var deferred = $q.defer();
+
+            deferred.resolve($item);
+            return deferred.promise;
         }
     }
 

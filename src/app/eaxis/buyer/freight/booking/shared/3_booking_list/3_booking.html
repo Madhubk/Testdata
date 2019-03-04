@@ -1,14 +1,62 @@
-﻿<!-- Booking Grid -->
-<uib-tabset id="chromeTab" active="three_BookingCtrl.ePage.Masters.activeTabIndex" class="tab-container chrometab-box">
+﻿<div data-ng-if="!three_BookingCtrl.ePage.Masters.ShowLists">
+    <div class="clearfix">
+        <div class="col-lg-12 bkg-booking-header pt-5 pb-5">
+            <span class="pull-left fs-20">Create Booking</span>
+            <button class="btn btn-default fs-12 pull-right" data-ng-click="three_BookingCtrl.ePage.Masters.ShipmentSelection('bookinglist')">Booking
+                Lists
+            </button>
+            <button class="btn btn-default fs-12 pull-right" data-ng-click="three_BookingCtrl.ePage.Masters.ShipmentSelection('asnlist')">ASN
+                Lists
+            </button>
+        </div>
+    </div>
+    <div class="pt-15 pb-15">
+        <div class="clearfix text-center pt-20 pb-30">
+            <div class="fs-22">Multiple options for Booking</div>
+            <div class="mt-10">Choose an action from below</div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-6 pl-5 pr-5 mb-10">
+            <div class="set-bg-white border-f5f5f5 text-center pt-20 pb-20">
+                <img src="assets/img/shipment-booking/override.png">
+                <div class="tile-heading til-bo mt-10">SLI Upload</div>
+                <div class="set-color-999">Upload your SLI Document,</div>
+                <div class="set-color-999">then We'll do Booking for you!</div>
+                <input class="btn btn-default mt-20" type="submit" value="SLI Override" data-ng-click="three_BookingCtrl.ePage.Masters.ShipmentSelection('SLI')">
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-6 pl-5 mb-10">
+            <div class="set-bg-white border-f5f5f5 text-center pt-20 pb-20">
+                <img src="assets/img/shipment-booking/completed.png">
+                <div class="tile-heading til-bo mt-10">ASN Upload</div>
+                <div class="set-color-999">Upload your ASN Document,</div>
+                <div class="set-color-999">then We'll do Booking for you!</div>
+                <input class="btn btn-default mt-20" type="submit" value="ASN Upload" data-ng-click="three_BookingCtrl.ePage.Masters.ShipmentSelection('ASN')">
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-6 pl-5 pr-5">
+            <div class="set-bg-white border-f5f5f5 text-center pt-20 pb-20">
+                <img src="assets/img/shipment-booking/create.png">
+                <div class="tile-heading til-bo mt-10">Create New Booking</div>
+                <div class="set-color-999 text-wrap">Create Booking Using Data Entry</div>
+                <input class="btn btn-default mt-20" type="submit" value="Create New Booking" data-ng-click="three_BookingCtrl.ePage.Masters.ShipmentSelection('CNFBooking')">
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Booking Grid -->
+<uib-tabset id="chromeTab" data-ng-if="(three_BookingCtrl.ePage.Masters.ShowLists || three_BookingCtrl.ePage.Masters.CNFShipment) && !three_BookingCtrl.ePage.Masters.ASN"
+    active="three_BookingCtrl.ePage.Masters.activeTabIndex" class="tab-container chrometab-box">
     <uib-tab>
         <uib-tab-heading title="">
-            <span data-ng-bind="'Booking'"></span>
+            <span data-ng-bind="three_BookingCtrl.ePage.Masters.CreateBtn?'Booking':'ASN Uploaded List'"></span>
             <i class="fa fa-thumb-tack pinned-tab"></i>
         </uib-tab-heading>
         <div class="no-padding tab-list-view-wrapper">
+            <!--Booking Grid Page-->
+            <!-- <dynamic-list dataentry-name="three_BookingCtrl.ePage.Masters.dataentryName" task-name="three_BookingCtrl.ePage.Masters.taskName" grid-config-type="0"
+                selected-grid-row="three_BookingCtrl.ePage.Masters.SelectedGridRow($item)" mode="1" default-filter="three_BookingCtrl.ePage.Masters.defaultFilter"></dynamic-list> -->
             <dynamic-list dataentry-name="three_BookingCtrl.ePage.Masters.dataentryName" selected-grid-row="three_BookingCtrl.ePage.Masters.SelectedGridRow($item)"
-                mode="1" default-filter="three_BookingCtrl.ePage.Masters.defaultFilter" base-filter="three_BookingCtrl.ePage.Masters.defaultFilter"
-                dataentry-object="three_BookingCtrl.ePage.Masters.DataEntryObject"></dynamic-list>
+                mode="1" default-filter="three_BookingCtrl.ePage.Masters.defaultFilter" dataentry-object="three_BookingCtrl.ePage.Masters.DataEntryObject"></dynamic-list>
             <div class="tab-loading" data-ng-show="three_BookingCtrl.ePage.Masters.IsTabClick"></div>
         </div>
     </uib-tab>
@@ -40,16 +88,22 @@
         </uib-tab-heading>
         <div class="padding-bottom-10 clearfix">
             <!--Booking Menu Directive-->
-            <booking-buyer-forwarder-template current-Booking="tab" data-ng-if="three_BookingCtrl.ePage.Masters.currentBooking && (tab['New'].ePage.Entities.Header.Data.UIShipmentHeader.IsBooking || tab[three_BookingCtrl.ePage.Masters.currentBooking].ePage.Entities.Header.Data.UIShipmentHeader.IsBooking) && three_BookingCtrl.ePage.Masters.AccessCode=='1_3' && three_BookingCtrl.ePage.Masters.RoleCode=='BUYER_FORWARDER_DATAENTRY_OPERATOR'"
+            <booking-buyer-forwarder-template current-Booking="tab" data-ng-if="three_BookingCtrl.ePage.Masters.currentBooking && (tab['New'].ePage.Entities.Header.Data.UIShipmentHeader.IsBooking || tab[three_BookingCtrl.ePage.Masters.currentBooking].ePage.Entities.Header.Data.UIShipmentHeader.IsBooking)  && (three_BookingCtrl.ePage.Masters.RoleCode=='BUYER_EXPORT_CS' || three_BookingCtrl.ePage.Masters.RoleCode=='BUYER_PO_DESK')"
                 dataentry-object="three_BookingCtrl.ePage.Masters.DataEntryObject"></booking-buyer-forwarder-template>
-            <booking-buyer-supplier-template current-Booking="tab" data-ng-if="three_BookingCtrl.ePage.Masters.currentBooking && (tab['New'].ePage.Entities.Header.Data.UIShipmentHeader.IsBooking || tab[three_BookingCtrl.ePage.Masters.currentBooking].ePage.Entities.Header.Data.UIShipmentHeader.IsBooking) && three_BookingCtrl.ePage.Masters.AccessCode=='1_2'"
+            <booking-buyer-supplier-template current-Booking="tab" data-ng-if="three_BookingCtrl.ePage.Masters.currentBooking && (tab['New'].ePage.Entities.Header.Data.UIShipmentHeader.IsBooking || tab[three_BookingCtrl.ePage.Masters.currentBooking].ePage.Entities.Header.Data.UIShipmentHeader.IsBooking) && three_BookingCtrl.ePage.Masters.RoleCode=='BUYER_SUPPLIER_SHIPMENT_COORDINATOR'"
                 dataentry-object="three_BookingCtrl.ePage.Masters.DataEntryObject"></booking-buyer-supplier-template>
-            <!-- <track-shipment-details-directive data-ng-if="!tab.isNew && !tab[three_BookingCtrl.ePage.Masters.currentBooking].ePage.Entities.Header.Data.UIShipmentHeader.IsBooking"
-                current-shipment="tab"></track-shipment-details-directive> -->
-            <booking-buyer-warehouse-provider-template current-Booking="tab" data-ng-if="three_BookingCtrl.ePage.Masters.currentBooking && (tab['New'].ePage.Entities.Header.Data.UIShipmentHeader.IsBooking || tab[three_BookingCtrl.ePage.Masters.currentBooking].ePage.Entities.Header.Data.UIShipmentHeader.IsBooking) && three_BookingCtrl.ePage.Masters.AccessCode=='1_3' && three_BookingCtrl.ePage.Masters.RoleCode=='BUYER_WHP_SHIPMENT_COORDINATOR'"
-                dataentry-object="three_BookingCtrl.ePage.Masters.DataEntryObject"></booking-buyer-warehouse-provider-template>
+            <track-shipment-details-directive data-ng-if="!tab.isNew && !tab[three_BookingCtrl.ePage.Masters.currentBooking].ePage.Entities.Header.Data.UIShipmentHeader.IsBooking"
+                current-shipment="tab"></track-shipment-details-directive>
         </div>
     </uib-tab>
-    <button class="btn btn-default" ng-click="three_BookingCtrl.ePage.Masters.CreateNewBooking()" data-ng-disabled="three_BookingCtrl.ePage.Masters.IsNewBookingClicked">+</button>
+    <button class="btn btn-default" data-ng-if="three_BookingCtrl.ePage.Masters.CreateBtn" ng-click="three_BookingCtrl.ePage.Masters.CreateNewBooking()"
+        data-ng-disabled="three_BookingCtrl.ePage.Masters.IsNewBookingClicked">+</button>
+    <button class="btn btn-default bkg-shipment-booking" data-ng-disabled="three_BookingCtrl.ePage.Masters.IsNewBookingClicked"
+        data-ng-click="three_BookingCtrl.ePage.Masters.ShipmentSelection('dashboard');three_BookingCtrl.ePage.Masters.RemoveAllTab();">
+        <i class="fa fa-anlgle-double-left"></i> Back to Dashboard</button>
 </uib-tabset>
 <!--End of Booking Grid -->
+<!-- SLI Override -->
+<one-two-asn-upload data-ng-if="three_BookingCtrl.ePage.Masters.ShowLists && three_BookingCtrl.ePage.Masters.ASN"
+    back-dashboard="three_BookingCtrl.ePage.Masters.ShipmentSelection()"></one-two-asn-upload>
+<!-- End of SLI Override -->

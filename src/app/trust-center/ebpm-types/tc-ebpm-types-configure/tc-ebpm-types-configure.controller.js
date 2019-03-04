@@ -30,6 +30,16 @@
                 if (TCEBPMTypesConfigureCtrl.ePage.Masters.QueryString.AppPk) {
                     InitEBPMTypes();
                 }
+                
+                TCEBPMTypesConfigureCtrl.ePage.Masters.GenerateScriptInput = {
+                    ObjectName: "EBPM_CFXTypes",
+                    ObjectId: TCEBPMTypesConfigureCtrl.ePage.Entities.Header.Data.PK
+                };
+                TCEBPMTypesConfigureCtrl.ePage.Masters.GenerateScriptConfig = {
+                    IsEnableTable: false,
+                    IsEnablePK: false,
+                    IsEnableTenant: false
+                };
             } catch (error) {
                 console.log(error)
             }

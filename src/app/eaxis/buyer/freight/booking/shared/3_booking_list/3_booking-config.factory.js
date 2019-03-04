@@ -53,45 +53,6 @@
                                 "IsAPI": "true",
                                 "HttpType": "POST",
                                 "Url": "booking/buyer/update"
-                            },
-                            "OrderBuyerFindall": {
-                                "IsAPI": "true",
-                                "HttpType": "POST",
-                                "Url": "order/buyer/findall",
-                                "FilterID": "ORDHEAD"
-                            },
-                            "OrderBuyerSupplierFindall": {
-                                "IsAPI": "true",
-                                "HttpType": "POST",
-                                "Url": "order/buyersupplier/findall",
-                                "FilterID": "ORDHEAD"
-                            },
-                            "OrderBuyerForwarderFindall": {
-                                "IsAPI": "true",
-                                "HttpType": "POST",
-                                "Url": "order/buyerforwarder/findall",
-                                "FilterID": "ORDHEAD"
-                            },
-                            "cntcontainerfindall": {
-                                "IsAPI": "true",
-                                "HttpType": "POST",
-                                "Url": "cntcontainer/buyer/findall",
-                                "FilterID": "CONTHEAD"
-                            },
-                            "cntcontainerinsertV2": {
-                                "IsAPI": "true",
-                                "HttpType": "POST",
-                                "Url": "cntcontainer/buyer/insertV2",
-                            },
-                            "cntcontainerupdate": {
-                                "IsAPI": "true",
-                                "HttpType": "POST",
-                                "Url": "cntcontainer/buyer/update",
-                            },
-                            "cntcontainerdelete": {
-                                "IsAPI": "true",
-                                "HttpType": "POST",
-                                "Url": "cntcontainer/buyer/delete/",
                             }
                         },
                         "Meta": {

@@ -196,7 +196,20 @@
             if ($item) {
                 GetFilterList();
             }
+
+            if (TCFilterGroupCtrl.ePage.Masters.FilterGroup.ActiveFilterGroup) {
+                TCFilterGroupCtrl.ePage.Masters.GenerateScriptInput = {
+                    ObjectName: "FilterGroup",
+                    ObjectId: TCFilterGroupCtrl.ePage.Masters.FilterGroup.ActiveFilterGroup.Id
+                };
+                TCFilterGroupCtrl.ePage.Masters.GenerateScriptConfig = {
+                    IsEnableTable: false,
+                    IsEnablePK: false,
+                    IsEnableTenant: false
+                };
+            }
         }
+
 
         function EditModalInstance() {
             return TCFilterGroupCtrl.ePage.Masters.FilterGroup.EditModal = $uibModal.open({
@@ -213,7 +226,7 @@
             TCFilterGroupCtrl.ePage.Masters.FilterGroup.SaveBtnText = "OK";
             TCFilterGroupCtrl.ePage.Masters.FilterGroup.IsDisableSaveBtn = false;
 
-            EditModalInstance().result.then(function (response) { }, function () {
+            EditModalInstance().result.then(function (response) {}, function () {
                 Cancel();
             });
         }

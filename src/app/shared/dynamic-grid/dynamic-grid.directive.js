@@ -176,6 +176,8 @@
             _gridOptions.data = GridCtrl.ePage.Masters.gridData;
             _gridOptions.totalItems = GridCtrl.ePage.Masters.gridDataCount;
             _gridOptions.onRegisterApi = OnRegisterAPI;
+            
+            _gridOptions.enableGridMenu = false;
 
             if (_gridOptions.gridMenuCustomItems) {
                 if (_gridOptions.gridMenuCustomItems.length > 0) {
@@ -350,8 +352,7 @@
                     "DataSource": "LOCAL",
                     "DataObject": {
                         "Date": GridCtrl.ePage.Masters.gridOptions.CreatedDateTime,
-                        "Title": GridCtrl.input.Title,
-                        "SubTitle": GridCtrl.ePage.Masters.gridOptions.ShipmentNo
+                        "Title": GridCtrl.input.Title
                     },
                     "IsFilterEnabled": false
                 }, {
@@ -374,7 +375,7 @@
                 }],
                 "JobDocs": {
                     "EntityRefKey": GridCtrl.input.DataEntry_PK,
-                    "EntitySource": "EXCELCONFIG",
+                    "EntitySource": "REPORT",
                     "EntityRefCode": GridCtrl.input.DataEntryName
                 },
                 "IsAsync": false,

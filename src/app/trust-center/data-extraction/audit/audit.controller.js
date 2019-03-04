@@ -160,6 +160,16 @@
             if (DataExtAuditCtrl.ePage.Masters.DataExtAudit.ActiveDataExtAudit) {
                 GetDataExtAuditFieldsList();
                 GetFieldList();
+
+                DataExtAuditCtrl.ePage.Masters.GenerateScriptInput = {
+                    ObjectName: "DATA_Config",
+                    ObjectId: DataExtAuditCtrl.ePage.Masters.DataExtAudit.ActiveDataExtAudit.PK
+                };
+                DataExtAuditCtrl.ePage.Masters.GenerateScriptConfig = {
+                    IsEnableTable: false,
+                    IsEnablePK: false,
+                    IsEnableTenant: false
+                };
             }
         }
 
@@ -233,7 +243,7 @@
         }
 
         function DeleteDataExtAudit() {
-           apiService.get("eAxisAPI", trustCenterConfig.Entities.API.DataConfig.API.Delete.Url + DataExtAuditCtrl.ePage.Masters.DataExtAudit.ActiveDataExtAudit.PK).then(function SuccessCallback(response) {
+            apiService.get("eAxisAPI", trustCenterConfig.Entities.API.DataConfig.API.Delete.Url + DataExtAuditCtrl.ePage.Masters.DataExtAudit.ActiveDataExtAudit.PK).then(function SuccessCallback(response) {
                 if (response.data.Response) {
                     var _index = DataExtAuditCtrl.ePage.Masters.DataExtAudit.DataExtAuditList.map(function (value, key) {
                         return value.PK;
@@ -441,6 +451,9 @@
                     if (DataExtAuditCtrl.ePage.Masters.DataExtAudit.DataExtAuditFields.ListSource.length > 0) {
                         OnDataExtAuditFieldsClick(DataExtAuditCtrl.ePage.Masters.DataExtAudit.DataExtAuditFields.ListSource[0]);
 
+                        DataExtAuditCtrl.ePage.Masters.DataExtAudit.DataExtAuditFields.ListSource.map(function (value, key) {
+                            SetGenerateScriptInput(value);
+                        });
                     } else {
                         OnDataExtAuditFieldsClick();
                     }
@@ -504,7 +517,7 @@
             DataExtAuditCtrl.ePage.Masters.DataExtAudit.DataExtAuditFields.EditModal.dismiss('cancel');
         }
 
-       function DataConfigFieldsSave () {
+        function DataConfigFieldsSave() {
             if (DataExtAuditCtrl.ePage.Masters.DataExtAudit.DataExtAuditFields.ActiveDataExtAuditFields.PK) {
                 UpdateDataConfigFields();
             } else {
@@ -518,19 +531,21 @@
 
             var _input = DataExtAuditCtrl.ePage.Masters.DataExtAudit.DataExtAuditFields.ActiveDataExtAuditFields;
             _input.IsModified = true;
-             apiService.post("eAxisAPI", trustCenterConfig.Entities.API.DataConfigFields.API.Insert.Url, [_input]).then(function SuccessCallback(response) {
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.DataConfigFields.API.Insert.Url, [_input]).then(function SuccessCallback(response) {
                 if (response.data.Response) {
                     if (response.data.Response.length > 0) {
                         var _response = response.data.Response[0];
+                        if (!DataExtAuditCtrl.ePage.Masters.DataExtAudit.DataExtAuditFields.ListSource) {
+                            DataExtAuditCtrl.ePage.Masters.DataExtAudit.DataExtAuditFields.ListSource = [];
+                        }
+                        DataExtAuditCtrl.ePage.Masters.DataExtAudit.DataExtAuditFields.ListSource.push(_response);
 
                         var _index = DataExtAuditCtrl.ePage.Masters.DataExtAudit.DataExtAuditFields.ListSource.map(function (value, key) {
                             return value.PK;
                         }).indexOf(_response.PK);
 
                         if (_index === -1) {
-                            DataExtAuditCtrl.ePage.Masters.DataExtAudit.DataExtAuditFields.ListSource.push(_response);
-                        } else {
-                            DataExtAuditCtrl.ePage.Masters.DataExtAudit.DataExtAuditFields.ListSource[_index] = _response;
+                            SetGenerateScriptInput(DataExtAuditCtrl.ePage.Masters.DataExtAudit.DataExtAuditFields.ListSource[_index]);
                         }
 
                         OnDataExtAuditFieldsClick(_response);
@@ -538,7 +553,7 @@
                 } else {
                     toastr.error("Could not Save...!");
                 }
-                
+
                 DataExtAuditCtrl.ePage.Masters.DataExtAudit.DataExtAuditFields.SaveBtnText = "OK";
                 DataExtAuditCtrl.ePage.Masters.DataExtAudit.DataExtAuditFields.IsDisableSaveBtn = false;
                 DataExtAuditCtrl.ePage.Masters.DataExtAudit.DataExtAuditFields.EditModal.dismiss('cancel');
@@ -556,7 +571,7 @@
                 if (response.data.Response) {
                     var _response = response.data.Response;
 
-                    var _index =  DataExtAuditCtrl.ePage.Masters.DataExtAudit.DataExtAuditFields.ListSource.map(function (value, key) {
+                    var _index = DataExtAuditCtrl.ePage.Masters.DataExtAudit.DataExtAuditFields.ListSource.map(function (value, key) {
                         return value.PK;
                     }).indexOf(_response.PK);
 
@@ -610,6 +625,20 @@
                 }
                 GetDataExtAuditFieldsList()
             });
+        }
+
+        function SetGenerateScriptInput(item) {
+            if (item) {
+                item.GenerateScriptInput = {
+                    ObjectName: "DATA_Config_Fields",
+                    ObjectId: item.PK
+                };
+                item.GenerateScriptConfig = {
+                    IsEnableTable: false,
+                    IsEnablePK: false,
+                    IsEnableTenant: false
+                };
+            }
         }
 
         Init();

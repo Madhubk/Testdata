@@ -5,8 +5,8 @@
             <div class="tab-profile">
                 <div class="tab-profile-title text-single-line text-center" data-ng-bind="OrganizationMenuCtrl.currentTab.label"></div>
             </div>
-            <uib-tab data-ng-repeat="x in OrganizationMenuCtrl.ePage.Masters.OrganizationMenu.ListSource | orderBy: 'DisplayOrder'"
-                data-ng-click="OrganizationMenuCtrl.ePage.Masters.OnMenuClick(x)" deselect="OrganizationMenuCtrl.ePage.Masters.TabSelected(x, $selectedIndex, $event);">
+            <uib-tab data-ng-repeat="x in OrganizationMenuCtrl.ePage.Masters.OrganizationMenu.ListSource"
+                data-ng-click="OrganizationMenuCtrl.ePage.Masters.OnMenuClick(x, $index)" deselect="OrganizationMenuCtrl.ePage.Masters.TabSelected(x, $selectedIndex, $event);" data-ng-if="OrganizationMenuCtrl.ePage.Masters.OrganizationMenu.ListSource && OrganizationMenuCtrl.ePage.Masters.OrganizationMenu.ListSource.length > 0">
                 <uib-tab-heading title="{{x.Description}}">
                     <i class="{{x.Icon.icon}}"></i>
                     <span data-ng-bind="x.Description"></span>
@@ -17,24 +17,7 @@
                         list="OrganizationMenuCtrl.ePage.Masters.GlobalErrorWarningList" type="'error'" icon="fa fa-warning"
                         parent-type="'Parent'" parent-ref="x.ParentRef" g-parent-ref="" class="pull-right" placement="bottom"></error-warning-directive>
                 </uib-tab-heading>
-                <div>
-                    <div data-ng-switch="x.MenuName">
-                        <!--Menu directives-->
-                        <div ng-switch-when="General" organization-general current-organization="OrganizationMenuCtrl.currentTab"></div>
-                        <div ng-switch-when="Address" organization-address current-organization="OrganizationMenuCtrl.currentTab"></div>
-                        <div ng-switch-when="Contact" organization-contact current-organization="OrganizationMenuCtrl.currentTab"></div>
-                        <div ng-switch-when="Visibility" organization-visibility current-organization="OrganizationMenuCtrl.currentTab"></div>
-                        <div ng-switch-when="AccessRights" organization-access-rights current-organization="OrganizationMenuCtrl.currentTab"></div>
-                        <div ng-switch-when="Company" organization-company current-organization="OrganizationMenuCtrl.currentTab"></div>
-                        <div ng-switch-when="Employee" organization-employee current-organization="OrganizationMenuCtrl.currentTab"></div>
-                        <div ng-switch-when="Reference" organization-reference current-organization="OrganizationMenuCtrl.currentTab"></div>
-                        <!-- <div ng-switch-when="Related Parties" organization-related-parties current-organization="OrganizationMenuCtrl.currentTab"></div> -->
-                        <!-- <div ng-switch-when="RelatedParties" organization-gen-related-parties current-organization="OrganizationMenuCtrl.currentTab"></div> -->
-                        <div ng-switch-when="Warehouse" organization-warehouse current-organization="OrganizationMenuCtrl.currentTab"></div>
-                        <div ng-switch-when="Consignee" organization-consignee current-organization="OrganizationMenuCtrl.currentTab"></div>
-                        <div ng-switch-when="Consignor" organization-consignor current-organization="OrganizationMenuCtrl.currentTab"></div>
-                    </div>
-                </div>
+                <div class="clearfix" org-tab-menu tab="x" entity="OrganizationMenuCtrl.currentTab" data-ng-if="x.IsVisited"></div>
             </uib-tab>
         </uib-tabset>
     </div>

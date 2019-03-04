@@ -1,51 +1,52 @@
 <div class="parties-list-container clearfix">
     <!-- Header -->
-    <div class="sm-header clearfix">
-        <!-- <div class="col-sm-3 p-0">
-            <form class="input-group input-group-sm">
-                <input type="text" class="form-control" data-ng-model="PartiesCtrl.ePage.Masters.Parties.Organization.Code" placeholder="Org Code" uib-typeahead="x.Code as x.FullName for x in  PartiesCtrl.ePage.Masters.Parties.GetOrganizationList($viewValue)" typeahead-loading="PartiesCtrl.ePage.Masters.Parties.IsOrgLoading" typeahead-no-results="PartiesCtrl.ePage.Masters.Parties.IsOrgNoResults" typeahead-editable="false" typeahead-append-to-body='true' typeahead-min-length="3" typeahead-on-select="PartiesCtrl.ePage.Masters.Parties.OnSelectAutoCompleteList($item, $model, $label, $event)"  data-ng-blur="PartiesCtrl.ePage.Masters.Parties.OnBlurAutoCompleteList($event)">
-                <div class="clearfix dropdown-menu" data-ng-if="PartiesCtrl.ePage.Masters.Parties.IsOrgNoResults">
-                    <div class="auto-complete-no-result">No Results Found!</div>
-                </div>
-                <div class="clearfix dropdown-menu" data-ng-if="PartiesCtrl.ePage.Masters.Parties.IsOrgLoading">
-                    <div class="auto-complete-no-result">
-                        <i class="fa fa-spin fa-spinner"></i>
-                    </div>
-                </div>
-                <span class="input-group-btn">
-                    <input type="submit" class="btn btn-primary" value="{{PartiesCtrl.ePage.Masters.Parties.AddBtnText}}" data-ng-disabled="PartiesCtrl.ePage.Masters.Parties.IsDisableAddBtn"
-                        data-ng-click="PartiesCtrl.ePage.Masters.Parties.AddNewParties()" />
-                </span>
-            </form>
-        </div> -->
-        <div class="col-sm-9 pt-2">
-            <button class="btn btn-default btn-sm mr-10" data-ng-click="PartiesCtrl.ePage.Masters.Parties.Refresh()">Refresh</button>
+    <div class="clearfix sm-section-top sm-email pt-10 pb-10">
+        <div class="col-sm-3"></div>
+        <div class="col-sm-3"></div>
+        <div class="col-sm-3 pt-2">
+            <button class="btn btn-default btn-sm mr-10 pull-right" data-ng-click="PartiesCtrl.ePage.Masters.Parties.Refresh()">Refresh</button>
+        </div>
+        <div class="col-sm-3">
+            <input type="text" class="form-control input-sm" data-ng-model="PartiesCtrl.ePage.Masters.Parties.Search"
+                placeholder="Search">
         </div>
     </div>
     <!-- Body -->
-    <div class="sm-content-wrapper clearfix">
-        <div class="clearfix p-10">
+    <div class="clearfix sm-section-body">
+        <div class="clearfix heading pt-10 pb-10 bold">
+            <div class="col-sm-1 text-center">Shared</div>
+            <div class="col-sm-3">UI Field</div>
+            <div class="col-sm-3">Organization</div>
+            <div class="col-sm-3">Party Type</div>
+            <div class="col-sm-2"></div>
+        </div>
+        <div class="cleafix list-wrapper sm-parties-list-wrapper">
             <div class="clearfix p-20 text-center" data-ng-if="!PartiesCtrl.ePage.Masters.Parties.ListSource">
                 <i class="fa fa-spin fa-spinner font-160"></i>
             </div>
-            <div class="clearfix p-20 text-center" data-ng-if="PartiesCtrl.ePage.Masters.Parties.ListSource && PartiesCtrl.ePage.Masters.Parties.ListSource.length == 0">
+            <div class="clearfix p-20 text-center" data-ng-if="PartiesCtrl.ePage.Masters.Parties.ListSource && (PartiesCtrl.ePage.Masters.Parties.ListSource | filter: PartiesCtrl.ePage.Masters.Parties.Search).length == 0">
                 <i>No Records...!</i>
             </div>
-            <div class="clearfix parties-list" data-ng-repeat="x in PartiesCtrl.ePage.Masters.Parties.ListSource" data-ng-if="PartiesCtrl.ePage.Masters.Parties.ListSource && PartiesCtrl.ePage.Masters.Parties.ListSource.length > 0">
-                <div class="col-sm-1">
-                    <div class="checkbox is-shared">
+            <div class="clearfix list pt-10 pb-10" data-ng-repeat="x in PartiesCtrl.ePage.Masters.Parties.ListSource | filter: PartiesCtrl.ePage.Masters.Parties.Search"
+                data-ng-if="PartiesCtrl.ePage.Masters.Parties.ListSource && (PartiesCtrl.ePage.Masters.Parties.ListSource | filter: PartiesCtrl.ePage.Masters.Parties.Search).length > 0">
+                <div class="col-sm-1 text-center">
+                    <div class="checkbox m-0">
                         <label>
                             <input type="checkbox" data-ng-model="x.IsShared" class="colored-blue">
-                            <span class="text">Is Shared</span>
+                            <span class="text"></span>
                         </label>
                     </div>
                 </div>
-                <div class="col-sm-5">
-                    <div data-ng-bind="x.UIField"></div>
+                <div class="col-sm-3">
+                    <div class="text-single-line" data-ng-bind="x.UIField || x.FieldName"></div>
                 </div>
-                <div class="col-sm-6">
-                    <div data-ng-bind="x.SharedEntity_Code"></div>
+                <div class="col-sm-3">
+                    <div class="text-single-line" data-ng-bind="x.SharedEntity_Code"></div>
                 </div>
+                <div class="col-sm-3">
+                    <div class="text-single-line" data-ng-bind="x.PartyType_Code"></div>
+                </div>
+                <div class="col-sm-2"></div>
             </div>
         </div>
     </div>

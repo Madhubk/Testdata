@@ -38,6 +38,9 @@
                 <button class="btn btn-default tc-btn-delete btn-xs pull-right ml-10" data-ng-click="TCFilterRoleAppTenantCtrl.ePage.Masters.FilterRoleAppTenant.DeleteConfirmation()"
                     data-ng-bind="TCFilterRoleAppTenantCtrl.ePage.Masters.DeleteBtnText" data-ng-disabled="TCFilterRoleAppTenantCtrl.ePage.Masters.IsDisableDeleteBtn || !TCFilterRoleAppTenantCtrl.ePage.Masters.FilterRoleAppTenant.ActiveFilterRoleAppTenant.PK"
                     data-ng-if="TCFilterRoleAppTenantCtrl.ePage.Masters.FilterRoleAppTenant.UIControlList && TCFilterRoleAppTenantCtrl.ePage.Masters.FilterRoleAppTenant.UIControlList.length > 0 && TCFilterRoleAppTenantCtrl.ePage.Masters.FilterRoleAppTenant.CheckUIControl('TC_MAP_DEL')"></button>
+                    <button class="btn btn-primary btn-xs pull-right ml-10" generate-db-script input="TCFilterRoleAppTenantCtrl.ePage.Masters.GenerateScriptInput"
+                    config="TCFilterRoleAppTenantCtrl.ePage.Masters.GenerateScriptConfig" data-ng-disabled="!TCFilterRoleAppTenantCtrl.ePage.Masters.GenerateScriptInput.ObjectName || !TCFilterRoleAppTenantCtrl.ePage.Masters.GenerateScriptInput.ObjectId">Generate
+                    Script</button>
             </div>
         </div>
     </div>

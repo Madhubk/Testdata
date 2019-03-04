@@ -63,6 +63,9 @@
             apiService.post("eAxisAPI", trustCenterConfig.Entities.API.ValidationGroup.API.FindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     TCValidationGroupCtrl.ePage.Masters.ValidationGroup.ListSource = response.data.Response;
+                    TCValidationGroupCtrl.ePage.Masters.ValidationGroup.ListSource.map(function(value,key){
+                        SetGenerateScriptInput(value)
+                    })
                 } else {
                     TCValidationGroupCtrl.ePage.Masters.ValidationGroup.ListSource = [];
                 }
@@ -90,6 +93,11 @@
                     if (response.data.Response) {
                         if (response.data.Response.length > 0) {
                             TCValidationGroupCtrl.ePage.Masters.ValidationGroup.ListSource.push(response.data.Response[0]);
+                            if(!TCValidationGroupCtrl.ePage.Masters.ValidationGroup.ListSource) {
+                                TCValidationGroupCtrl.ePage.Masters.ValidationGroup.ListSource = [];
+                            }
+
+                            SetGenerateScriptInput(TCValidationGroupCtrl.ePage.Masters.ValidationGroup.ListSource[0]);
                         }
                     } else {
                         toastr.error("Could not Add...!");
@@ -133,6 +141,20 @@
                         toastr.error("Could not Add...!");
                     }
                 });
+            }
+        }
+
+        function SetGenerateScriptInput($item) {
+            if ($item) {
+                $item.GenerateScriptInput = {
+                    ObjectName: "ValidationGroup",
+                    ObjectId: $item.PK
+                };
+               $item.GenerateScriptConfig = {
+                    IsEnableTable: false,
+                    IsEnablePK: false,
+                    IsEnableTenant: false
+                };
             }
         }
 

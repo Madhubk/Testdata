@@ -33,16 +33,6 @@
                         }
                     }
                 },
-                "WmsInventoryAdjustment": {
-                    "RowIndex": -1,
-                    "API": {
-                        "Insert": {
-                            "IsAPI": "true",
-                            "HttpType": "POST",
-                            "Url": "WmsInventoryAdjustment/Insert",
-                        },
-                    }
-                },
                 "AuthTokenLink": {
                     "RowIndex": -1,
                     "API": {
@@ -293,6 +283,28 @@
                         }
                     }
                 },
+                "UserTenantList": {
+                    "RowIndex": -1,
+                    "API": {
+                        "FindAll": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "UserTenantList/FindAll",
+                            "FilterID": "USEREXT"
+                        }
+                    }
+                },
+                "SecRecentItems": {
+                    "RowIndex": -1,
+                    "API": {
+                        "FindAll": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "SecRecentItems/FindAll",
+                            "FilterID": "SECREC"
+                        }
+                    }
+                },
                 "SecUserSession": {
                     "RowIndex": -1,
                     "API": {
@@ -323,6 +335,11 @@
                             "HttpType": "POST",
                             "Url": "SecSessionActivity/FindAll",
                             "FilterID": "SECSESS"
+                        },
+                        "Insert": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "SecSessionActivity/Insert"
                         }
                     }
                 },
@@ -889,6 +906,12 @@
                             "HttpType": "POST",
                             "Url": "CfxMenus/MasterCascadeFindAll",
                             "FilterID": "CFXMENU"
+                        },
+                        "FindRecentItems": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "CfxMenus/FindRecentItems",
+                            "FilterID": "CFXMENU"
                         }
                     }
                 },
@@ -988,6 +1011,12 @@
                             "IsAPI": "true",
                             "HttpType": "POST",
                             "Url": "DataEntryMaster/Upsert"
+                        },
+                        "FindAllColumn": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "DataEntryMaster/FindAllColumn",
+                            "FilterID": "DYNDAT"
                         }
                     }
                 },
@@ -1025,6 +1054,37 @@
                             "HttpType": "POST",
                             "Url": "SecSessionActivity/FindAll",
                             "FilterID": "SECSESS"
+                        }
+                    }
+                },
+                "DataConfigScheduler": {
+                    "RowIndex": -1,
+                    "API": {
+                        "FindAll": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "DataConfigScheduler/FindAll",
+                            "FilterID": "DACSCH"
+                        },
+                        "Insert": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "DataConfigScheduler/Insert"
+                        },
+                        "Update": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "DataConfigScheduler/Update"
+                        },
+                        "Delete": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "DataConfigScheduler/Delete/"
+                        },
+                        "RunScheduleNow": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "DataConfigScheduler/RunScheduleNow"
                         }
                     }
                 },
@@ -1295,6 +1355,58 @@
                             "IsAPI": "true",
                             "HttpType": "GET",
                             "Url": "GroupRoleExceptionType/Delete/"
+                        }
+                    }
+                },
+                "GroupProcessType": {
+                    "RowIndex": -1,
+                    "API": {
+                        "FindAll": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "GroupProcessType/FindAll",
+                            "FilterID": "SECMAPP"
+                        },
+                        "Insert": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "GroupProcessType/Insert"
+                        },
+                        "Update": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "GroupProcessType/Update"
+                        },
+                        "Delete": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "GroupProcessType/Delete/"
+                        }
+                    }
+                },
+                "GroupRoleProcess": {
+                    "RowIndex": -1,
+                    "API": {
+                        "FindAll": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "GroupRoleProcess/FindAll",
+                            "FilterID": "SECMAPP"
+                        },
+                        "Insert": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "GroupRoleProcess/Insert"
+                        },
+                        "Update": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "GroupRoleProcess/Update"
+                        },
+                        "Delete": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "GroupRoleProcess/Delete/"
                         }
                     }
                 },
@@ -2113,7 +2225,7 @@
                         },
                         "Delete": {
                             "IsAPI": "true",
-                            "HttpType": "POST",
+                            "HttpType": "GET",
                             "Url": "JobDocument/Delete/"
                         },
                         "Upsert": {
@@ -2161,6 +2273,11 @@
                             "IsAPI": "true",
                             "HttpType": "GET",
                             "Url": "JobDocument/DownloadExcelFile/"
+                        },
+                        "DocumentCopy": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "JobDocument/DocumentCopy/"
                         }
                     }
                 },
@@ -2223,6 +2340,14 @@
                             "IsAPI": true,
                             "Url": "DataFullTextSearch/FindAll",
                             "FilterID": "DATAFUT"
+                        },
+                        "Insert": {
+                            "IsAPI": true,
+                            "Url": "DataFullTextSearch/Insert"
+                        },
+                        "Delete": {
+                            "IsAPI": true,
+                            "Url": "DataFullTextSearch/Delete/"
                         },
                         "Upsert": {
                             "IsAPI": true,
@@ -2287,6 +2412,12 @@
                             "IsAPI": "true",
                             "HttpType": "GET",
                             "Url": "DMS/DownloadExeclAsPDFFile/"
+                        },
+                        "DownloadZip": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "DMS/DownloadZip",
+                            "FilterID": "JOBDOC"
                         }
                     }
                 },
@@ -2527,36 +2658,6 @@
                             "FilterID": "ORDHEAD"
                         },
                     }
-                }, "buyerShipmentList": {
-                    "RowIndex": -1,
-                    "API": {
-                        "GetById": {
-                            "IsAPI": "true",
-                            "HttpType": "GET",
-                            "Url": "ShipmentList/buyer/GetById/"
-                        },
-                        "ShipmentActivityClose": {
-                            "IsAPI": "true",
-                            "HttpType": "GET",
-                            "Url": "ShipmentList/buyer/ShipmentActivityClose/"
-                        },
-                        "Insert": {
-                            "IsAPI": "true",
-                            "HttpType": "POST",
-                            "Url": "ShipmentList/buyer/Insert"
-                        },
-                        "Update": {
-                            "IsAPI": "true",
-                            "HttpType": "POST",
-                            "Url": "ShipmentList/buyer/Update"
-                        },
-                        "OrderCopy": {
-                            "IsAPI": "true",
-                            "HttpType": "GET",
-                            "Url": "ShipmentList/buyer/OrderCopy/",
-                            "FilterID": "ORDHEAD"
-                        },
-                    }
                 },
                 "JobPackLines": {
                     "RowIndex": -1,
@@ -2719,58 +2820,6 @@
                         }
                     }
                 },
-                "WmsDeliveryReport": {
-                    "RowIndex": -1,
-                    "API": {
-                        "GetById": {
-                            "IsAPI": "true",
-                            "HttpType": "GET",
-                            "Url": "WmsDeliveryReport/GetById/",
-                        },
-                        "Update": {
-                            "IsAPI": "true",
-                            "HttpType": "POST",
-                            "Url": "WmsDeliveryReport/Update"
-                        },
-                        "Insert": {
-                            "IsAPI": "true",
-                            "HttpType": "POST",
-                            "Url": "WmsDeliveryReport/Insert"
-                        },
-                        "FindAll": {
-                            "IsAPI": "true",
-                            "HttpType": "POST",
-                            "Url": "WmsDeliveryReport/FindAll",
-                            "FilterID": "WMSWDR"
-                        }
-                    }
-                },
-                "WmsPickupReport": {
-                    "RowIndex": -1,
-                    "API": {
-                        "GetById": {
-                            "IsAPI": "true",
-                            "HttpType": "GET",
-                            "Url": "WmsPickupReport/GetById/",
-                        },
-                        "Update": {
-                            "IsAPI": "true",
-                            "HttpType": "POST",
-                            "Url": "WmsPickupReport/Update"
-                        },
-                        "Insert": {
-                            "IsAPI": "true",
-                            "HttpType": "POST",
-                            "Url": "WmsPickupReport/Insert"
-                        },
-                        "FindAll": {
-                            "IsAPI": "true",
-                            "HttpType": "POST",
-                            "Url": "WmsPickupReport/FindAll",
-                            "FilterID": "WMSWPR"
-                        }
-                    }
-                },
                 "WmsClientParameterByWarehouse": {
                     "RowIndex": -1,
                     "API": {
@@ -2805,11 +2854,6 @@
                             "IsAPI": "true",
                             "HttpType": "POST",
                             "Url": "WmsPickList/Update"
-                        },
-                        "AllocateStock": {
-                            "IsAPI": "true",
-                            "HttpType": "POST",
-                            "Url": "WmsPickList/WmsAllocateStock",
                         },
                     }
                 },
@@ -3029,27 +3073,6 @@
                         }
                     }
                 },
-                "WmsWorkOrderLine": {
-                    "RowIndex": -1,
-                    "API": {
-                        "FindAll": {
-                            "IsAPI": "true",
-                            "HttpType": "POST",
-                            "Url": "WmsWorkOrderLine/FindAll",
-                            "FilterID": "WMSINL"
-                        },
-                        "GetById": {
-                            "IsAPI": "true",
-                            "HttpType": "GET",
-                            "Url": "WmsWorkOrderLine/GetById/",
-                        },
-                        "Update": {
-                            "IsAPI": "true",
-                            "HttpType": "POST",
-                            "Url": "WmsWorkOrderLine/Update"
-                        }
-                    }
-                },
                 "OrgEmployeeAssignments": {
                     "RowIndex": -1,
                     "API": {
@@ -3240,16 +3263,6 @@
 
                         },
 
-                    }
-                },
-                "Notification": {
-                    "RowIndex": -1,
-                    "API": {
-                        "SendSms": {
-                            "IsAPI": "true",
-                            "HttpType": "POST",
-                            "Url": "Notification/SendSms"
-                        },
                     }
                 },
                 "TeamTargetRelease": {
@@ -3560,10 +3573,6 @@
                         "CompleteProcess": {
                             "IsAPI": true,
                             "Url": "EBPMEngine/CompleteProcess",
-                        },
-                        "SuspendInstance": {
-                            "IsAPI": true,
-                            "Url": "EBPMEngine/SuspendInstance/",
                         }
                     }
                 },
@@ -4085,11 +4094,6 @@
                             "IsAPI": "true",
                             "HttpType": "POST",
                             "Url": "CntContainer/Delete/"
-                        },
-                        "UpdateRecords": {
-                            "IsAPI": "true",
-                            "HttpType": "POST",
-                            "Url": "cntcontainer/buyer/updaterecords"
                         }
                     }
                 },
@@ -4785,106 +4789,19 @@
                         }
                     }
                 },
-                "ICMOrder_Buyer": {
-                    "API": {
-                        "GetById": {
-                            "IsAPI": "true",
-                            "HttpType": "GET",
-                            "Url": "icmorder/buyer/getbyid/"
-                        },
-                        "FindAllICM": {
-                            "IsAPI": "true",
-                            "HttpType": "POST",
-                            "Url": "icmorder/buyer/findall",
-                            "FilterID": "BPICMORD"
-                        }
-                    }
-                },
-                "BuyerTrackContainer": {
-                    "API": {
-                        "GetById": {
-                            "IsAPI": "true",
-                            "HttpType": "GET",
-                            "Url": "trackcontainer/buyer/getbyid/"
-                        },
-                        "FindAll": {
-                            "IsAPI": "true",
-                            "HttpType": "POST",
-                            "Url": "trackcontainer/buyer/findall",
-                            "FilterID": "BPTRACKCNT"
-                        }
-                    }
-                },
-
-                "BuyerTrackOrderLine": {
-                    "API": {
-                        "GetById": {
-                            "IsAPI": "true",
-                            "HttpType": "GET",
-                            "Url": "trackorderline/buyer/getbyid/"
-                        },
-                        "FindAll": {
-                            "IsAPI": "true",
-                            "HttpType": "POST",
-                            "Url": "trackorderline/buyer/findall",
-                            "FilterID": "BPTRACKORDL"
-                        }
-                    }
-                },
-                "BuyerTrackShipment": {
-                    "API": {
-                        "GetById": {
-                            "IsAPI": "true",
-                            "HttpType": "GET",
-                            "Url": "trackshipment/buyer/getbyid/"
-                        },
-                        "FindAll": {
-                            "IsAPI": "true",
-                            "HttpType": "POST",
-                            "Url": "trackshipment/buyer/findall",
-                            "FilterID": "BPTRACKSHP"
-                        }
-                    }
-                }, "BuyerForwardTrackShipment": {
-                    "API": {
-                        "GetById": {
-                            "IsAPI": "true",
-                            "HttpType": "GET",
-                            "Url": "trackshipment/buyerforwarder/getbyid/"
-                        },
-                        "FindAll": {
-                            "IsAPI": "true",
-                            "HttpType": "POST",
-                            "Url": "trackshipment/buyerforwarder/findall",
-                            "FilterID": "BPTRACKSHP"
-                        }
-                    }
-                },
                 "BuyerCntContainer": {
                     "RowIndex": -1,
                     "API": {
                         "GetById": {
                             "IsAPI": "true",
                             "HttpType": "GET",
-                            "Url": "cntcontainer/buyer/getbyid/"
+                            "Url": "containerlist/buyer/getbyid/"
                         },
                         "FindAll": {
                             "IsAPI": "true",
                             "HttpType": "POST",
                             "Url": "containerlist/buyer/findall",
                             "FilterID": "CONTHEAD"
-                        },
-                        "FindAllCnt": {
-                            "IsAPI": "true",
-                            "HttpType": "POST",
-                            "Url": "cntcontainer/buyer/findall",
-                            "FilterID": "CONTHEAD"
-                        },
-                        "findall": {
-                            "IsAPI": "true",
-                            "HttpType": "POST",
-                            "Url": "trackcontainer/buyer/findall",
-                            "FilterID": "BPTRACKCNT"
                         },
                         "Insert": {
                             "IsAPI": "true",
@@ -4900,22 +4817,12 @@
                             "IsAPI": "true",
                             "HttpType": "POST",
                             "Url": "cntcontainer/buyer/delete/"
-                        },
-                        "UpdateRecords": {
-                            "IsAPI": "true",
-                            "HttpType": "POST",
-                            "Url": "cntcontainer/buyer/updaterecords"
                         }
                     }
                 },
                 "BuyerShipmentHeader": {
                     "RowIndex": -1,
                     "API": {
-                        "GetById": {
-                            "IsAPI": "true",
-                            "HttpType": "GET",
-                            "Url": "shipmentheader/buyer/getbyid/"
-                        },
                         "FindAll": {
                             "IsAPI": "true",
                             "HttpType": "POST",
@@ -4976,70 +4883,7 @@
                             "Url": "conshpmapping/buyer/getbyid/"
                         }
                     }
-                },
-                "GroupDocumentType": {
-                    "RowIndex": -1,
-                    "API": {
-                        "FindAll": {
-                            "IsAPI": "true",
-                            "HttpType": "POST",
-                            "Url": "GroupDocumentType/FindAll",
-                            "FilterID": "SECMAPP"
-                        },
-                        "Insert": {
-                            "IsAPI": "true",
-                            "HttpType": "POST",
-                            "Url": "GroupDocumentType/Insert"
-                        },
-                        "Update": {
-                            "IsAPI": "true",
-                            "HttpType": "POST",
-                            "Url": "GroupDocumentType/Update"
-                        },
-                        "Delete": {
-                            "IsAPI": "true",
-                            "HttpType": "GET",
-                            "Url": "GroupDocumentType/Delete/"
-                        }
-                    }
-                },
-                "GroupRoleDocumentType": {
-                    "RowIndex": -1,
-                    "API": {
-                        "FindAll": {
-                            "IsAPI": "true",
-                            "HttpType": "POST",
-                            "Url": "GroupRoleDocumentType/FindAll",
-                            "FilterID": "SECMAPP"
-                        },
-                        "Insert": {
-                            "IsAPI": "true",
-                            "HttpType": "POST",
-                            "Url": "GroupRoleDocumentType/Insert"
-                        },
-                        "Update": {
-                            "IsAPI": "true",
-                            "HttpType": "POST",
-                            "Url": "GroupRoleDocumentType/Update"
-                        },
-                        "Delete": {
-                            "IsAPI": "true",
-                            "HttpType": "GET",
-                            "Url": "GroupRoleDocumentType/Delete/"
-                        }
-                    }
-                },
-                "WmsTestID": {
-                    "RowIndex": -1,
-                    "API": {
-                        "FindAll": {
-                            "IsAPI": "true",
-                            "HttpType": "POST",
-                            "Url": "TestID/FindAll",
-                            "FilterID": "APPCOUNT"
-                        }
-                    }
-                },
+                }
             }
         };
 

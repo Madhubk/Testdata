@@ -1,10 +1,17 @@
-<i class="dropdown-toggle access-dropdown-icon" data-ng-class="OneLevelMappingCtrl.icon ? OneLevelMappingCtrl.icon : 'fa fa-sign-in'" data-toggle="dropdown" aria-haspopup="true"
-    role="button" aria-expanded="false" data-ng-if="OneLevelMappingCtrl.ePage.Masters.AccessToList && OneLevelMappingCtrl.ePage.Masters.AccessToList.length > 0"></i>
+<i class="dropdown-toggle access-dropdown-icon" data-ng-class="OneLevelMappingCtrl.icon ? OneLevelMappingCtrl.icon : 'fa fa-sign-in'"
+    data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false" data-ng-click="OneLevelMappingCtrl.ePage.Masters.OnAccessIconClick()"></i>
+<!-- <i class="dropdown-toggle access-dropdown-icon" data-ng-class="OneLevelMappingCtrl.icon ? OneLevelMappingCtrl.icon : 'fa fa-sign-in'" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false" data-ng-if="OneLevelMappingCtrl.ePage.Masters.AccessToList && OneLevelMappingCtrl.ePage.Masters.AccessToList.length > 0"></i> -->
 <div class="access-dropdown-menu dropdown-menu dropdown-menu-right" role="menu">
     <!-- Mode 1 -->
     <form class="clearfix" role="form" data-ng-show="!OneLevelMappingCtrl.ePage.Masters.ActiveMoreAccess">
         <div class="clearfix access-dropdown-list">
-            <div class="clearfix" data-ng-repeat="x in OneLevelMappingCtrl.ePage.Masters.AccessToList">
+            <div class="clearfix text-center p-20 font-120" data-ng-if="!OneLevelMappingCtrl.ePage.Masters.AccessToList">
+                <i class="fa fa-spin fa-spinner"></i>
+            </div>
+            <div class="clearfix text-center p-20" data-ng-if="OneLevelMappingCtrl.ePage.Masters.AccessToList && OneLevelMappingCtrl.ePage.Masters.AccessToList.length == 0">
+                <i>No Records...</i>
+            </div>
+            <div class="clearfix" data-ng-repeat="x in OneLevelMappingCtrl.ePage.Masters.AccessToList" data-ng-if="OneLevelMappingCtrl.ePage.Masters.AccessToList && OneLevelMappingCtrl.ePage.Masters.AccessToList.length > 0">
                 <div class="checkbox mt-5 mb-5">
                     <label>
                         <input type="checkbox" ng-model="x.IsChecked" class="colored-blue" data-ng-click="OneLevelMappingCtrl.ePage.Masters.OnAccessClick($event, x)">
@@ -21,13 +28,15 @@
         <div class="clearfix access-dropdown-list">
             <div class="clearfix mb-5">
                 <div class="clearfix">
-                    <span class="text-single-line" data-ng-bind="OneLevelMappingCtrl.ePage.Masters.ActiveMoreAccess.ItemCode" style="font-weight: 600; font-size: 14px;"></span>
+                    <span class="text-single-line" data-ng-bind="OneLevelMappingCtrl.ePage.Masters.ActiveMoreAccess.ItemCode"
+                        style="font-weight: 600; font-size: 14px;"></span>
                     <a href="javascript:void(0);" class="pull-right" data-ng-click="OneLevelMappingCtrl.ePage.Masters.HideMoreAccess()">Back</a>
                 </div>
                 <div class="form-group m-0">
                     <div class="checkbox">
                         <label>
-                            <input type="checkbox" ng-model="OneLevelMappingCtrl.ePage.Masters.ActiveMoreAccess.MappingResponse.IsDefault" class="colored-blue">
+                            <input type="checkbox" ng-model="OneLevelMappingCtrl.ePage.Masters.ActiveMoreAccess.MappingResponse.IsDefault"
+                                class="colored-blue">
                             <span class="text">Share Access</span>
                         </label>
                     </div>
@@ -35,15 +44,15 @@
                 <div class="form-group m-0">
                     <div class="checkbox">
                         <label>
-                            <input type="checkbox" ng-model="OneLevelMappingCtrl.ePage.Masters.ActiveMoreAccess.MappingResponse.IsResticted" class="colored-blue">
+                            <input type="checkbox" ng-model="OneLevelMappingCtrl.ePage.Masters.ActiveMoreAccess.MappingResponse.IsResticted"
+                                class="colored-blue">
                             <span class="text">Restrict Edit Access</span>
                         </label>
                     </div>
                 </div>
                 <div class="clearfix pb-5">
                     <input type="submit" class="btn btn-primary btn-xs pull-right" data-ng-click="OneLevelMappingCtrl.ePage.Masters.SaveAccess()"
-                        data-ng-disabled="OneLevelMappingCtrl.ePage.Masters.IsDisableAccessSaveBtn" value="{{OneLevelMappingCtrl.ePage.Masters.AccessSaveBtnText}}"
-                    />
+                        data-ng-disabled="OneLevelMappingCtrl.ePage.Masters.IsDisableAccessSaveBtn" value="{{OneLevelMappingCtrl.ePage.Masters.AccessSaveBtnText}}" />
                 </div>
             </div>
         </div>

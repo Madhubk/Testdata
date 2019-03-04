@@ -259,6 +259,9 @@
                 BasedOn: "ORG",
                 BasedOn_FK: OrganizationTaskGroupCtrl.ePage.Entities.Header.Data.OrgHeader.PK,
                 BasedOnCode: OrganizationTaskGroupCtrl.ePage.Entities.Header.Data.OrgHeader.Code,
+                OtherEntitySource: "PROCESS",
+                OtherEntity_FK: OrganizationTaskGroupCtrl.ePage.Masters.TaskGroup.ActiveTaskGroup.PK,
+                OtherEntityCode: OrganizationTaskGroupCtrl.ePage.Masters.TaskGroup.ActiveTaskGroup.ProcessCode,
                 SAP_FK: authService.getUserInfo().AppPK
             };
             var _input = {
@@ -353,6 +356,9 @@
                 BasedOn: "ORG",
                 BasedOn_FK: OrganizationTaskGroupCtrl.ePage.Entities.Header.Data.OrgHeader.PK,
                 BasedOnCode: OrganizationTaskGroupCtrl.ePage.Entities.Header.Data.OrgHeader.Code,
+                OtherEntitySource: "PROCESS",
+                OtherEntity_FK: OrganizationTaskGroupCtrl.ePage.Masters.TaskGroup.ActiveTaskGroup.PK,
+                OtherEntityCode: OrganizationTaskGroupCtrl.ePage.Masters.TaskGroup.ActiveTaskGroup.ProcessCode,
                 SAP_FK: authService.getUserInfo().AppPK,
                 SAP_Code: authService.getUserInfo().AppCode,
                 TNT_FK: authService.getUserInfo().TenantPK,

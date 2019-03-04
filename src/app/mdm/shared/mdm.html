@@ -2,7 +2,7 @@
 
 <div class="main-container container-fluid">
     <div class="page-container">
-        <side-bar id="sidebar" class="page-sidebar menu-compact" data-ng-if="MdmCtrl.ePage.Masters.MenuVisibleType == 'List'"></side-bar>
+        <side-bar id="sidebar" class="page-sidebar" data-ng-if="MdmCtrl.ePage.Masters.MenuVisibleType == 'List'"></side-bar>
 
         <div class="page-content" data-ng-style="(!MdmCtrl.ePage.Masters.MenuVisibleType || MdmCtrl.ePage.Masters.MenuVisibleType == 'Grid') && {'margin-left': '0'}">
             <div class="page-body p-0" ui-view></div>

@@ -31,7 +31,7 @@
                     InitBreadcrumb();
                     InitApplication();
                     InitUserCmpAppTenant();
-                 }
+                }
             } catch (error) {
                 console.log(error);
             }
@@ -189,9 +189,15 @@
                     TCUserCmpAppTenantCtrl.ePage.Masters.UserCmpAppTenant.UserCmpAppTenantList = response.data.Response;
                     TCUserCmpAppTenantCtrl.ePage.Masters.UserCmpAppTenant.UserCmpAppTenantListCopy = angular.copy(response.data.Response);
 
+                    TCUserCmpAppTenantCtrl.ePage.Masters.UserCmpAppTenant.UserCmpAppTenantList.map(function(value,key){
+                        SetGenerateScriptInput(value);
+                    })
+
                 } else {
                     TCUserCmpAppTenantCtrl.ePage.Masters.UserCmpAppTenant.UserCmpAppTenantList = [];
+                   
                     console.log("Empty Response");
+
                 }
             });
         }
@@ -320,6 +326,20 @@
             TCUserCmpAppTenantCtrl.ePage.Masters.UserCmpAppTenant.UserCmpAppTenantList.push(_obj);
         }
 
+        function SetGenerateScriptInput(row) {
+           if (row) {
+                row.GenerateScriptInput = {
+                    ObjectName: "SECMAPPINGS",
+                    ObjectId: row.PK
+                };
+                row.GenerateScriptConfig = {
+                    IsEnableTable: false,
+                    IsEnablePK: false,
+                    IsEnableTenant: false
+                };
+            }
+        }
+
         function Save(row) {
             if (row.PK) {
                 UpdateUserCmpAppTenant(row);
@@ -361,13 +381,18 @@
                 if (response.data.Response) {
                     if (response.data.Response.length > 0) {
                         var _response = response.data.Response[0];
+                        if(!TCUserCmpAppTenantCtrl.ePage.Masters.UserCmpAppTenant.UserCmpAppTenantList){
+                            TCUserCmpAppTenantCtrl.ePage.Masters.UserCmpAppTenant.UserCmpAppTenantList = [];
+                        }
 
                         var _index = TCUserCmpAppTenantCtrl.ePage.Masters.UserCmpAppTenant.UserCmpAppTenantList.map(function (value, key) {
                             return value.PK;
                         }).indexOf(_response.PK);
 
+                        TCUserCmpAppTenantCtrl.ePage.Masters.UserCmpAppTenant.UserCmpAppTenantList.push(_response);
+
                         if (_index === -1) {
-                            TCUserCmpAppTenantCtrl.ePage.Masters.UserCmpAppTenant.UserCmpAppTenantList.push(_response);
+                            SetGenerateScriptInput(TCUserCmpAppTenantCtrl.ePage.Masters.UserCmpAppTenant.UserCmpAppTenantList[0]);
                         } else {
                             TCUserCmpAppTenantCtrl.ePage.Masters.UserCmpAppTenant.UserCmpAppTenantList[_index] = _response;
                         }
@@ -403,7 +428,7 @@
                         TCUserCmpAppTenantCtrl.ePage.Masters.UserCmpAppTenant.UserCmpAppTenantList[_index] = _response;
                     }
                     GetUserCmpAppTenantList();
-                
+
                     toastr.success("Updated Successfully...!");
                 } else {
                     toastr.error("Could not Update...!");
@@ -412,7 +437,7 @@
             });
         }
 
-       function DeleteConfirmation(row) {
+        function DeleteConfirmation(row) {
             var modalOptions = {
                 closeButtonText: 'Cancel',
                 actionButtonText: 'Ok',

@@ -400,7 +400,6 @@
                     oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Origin = $item.OAD_RelatedPortCode
                     oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ORG_Shipper_FK = $item.PK
                     oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ORG_Shipper_Code = $item.Code
-                    oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ShipperName = $item.FullName
                     getOrgBuyerSupplierMapping();
                     OnFieldValueChange('E0031');
                 }
@@ -409,7 +408,6 @@
                     oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Destination = $item.OAD_RelatedPortCode
                     oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ORG_Consignee_FK = $item.PK
                     oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ORG_Consignee_Code = $item.Code
-                    oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ConsigneeName = $item.FullName
                     if (oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Origin && oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Destination) {
                         IsDomestic(oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Origin, oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Destination)
                     }

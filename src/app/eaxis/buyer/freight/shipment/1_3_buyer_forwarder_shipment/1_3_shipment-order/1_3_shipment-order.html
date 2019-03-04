@@ -58,7 +58,7 @@
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-1 col-xl-1 pull-right">
                         <div class="input-group-sm">
                             <button dynamic-list-modal obj="oneThreeShipmentOrderCtrl.ePage.Entities.Header.Data.UIShipmentHeader"
-                                page-name="'BPOrderHeaderBuyer'" control-id="'BP_ShpAttachOrder'" control-key="BP_ShpAttachOrder_13052"
+                                page-name="'OrderHeaderBuyer'" control-id="'ShpAttachOrder'" control-key="ShpAttachOrder_3052"
                                 mode="3" is-full-obj="true" grid-refresh-fun-name="GetOrderDetails" grid-refresh-fun="oneThreeShipmentOrderCtrl.ePage.Masters.ShipmentOrderGridRefreshFun($item)"
                                 selected-data="oneThreeShipmentOrderCtrl.ePage.Masters.SelectedData($item)" class="btn btn-md btn-outline-secondary pull-right"
                                 type="button">
@@ -73,7 +73,7 @@
 </div>
 </div>
 <!-- attachment order grid -->
-<div id='' class="common_table_scroll common_table_hgt pt-2">
+<div id='' class="Shipmentstable_scroll order-hgt">
     <div class="table tab-position" id="results">
         <div class='theader'>
             <div class='table_header'>Order #</div>
@@ -89,7 +89,14 @@
             <div class='table_header'>POD</div>
             <div class='table_header'>Action</div>
         </div>
-
+        <!-- List Empty Response -->
+        <div class="text-center grid-view-loader-order" data-ng-if="!oneThreeShipmentOrderCtrl.ePage.Entities.Header.Data.UIOrderHeaders">
+            <i class="fa fa-spin fa-spinner font-160"></i>
+        </div>
+        <div>
+            <div class="grid-no-record" data-ng-if="oneThreeShipmentOrderCtrl.ePage.Entities.Header.Data.UIOrderHeaders.length==0">No
+                records found...</div>
+        </div>
         <div class='table_row' data-ng-repeat="x in oneThreeShipmentOrderCtrl.ePage.Entities.Header.Data.UIOrderHeaders"
             data-ng-if="oneThreeShipmentOrderCtrl.ePage.Entities.Header.Data.UIOrderHeaders && oneThreeShipmentOrderCtrl.ePage.Entities.Header.Data.UIOrderHeaders.length > 0"
             style="font-size: 11px;">
@@ -173,13 +180,5 @@
                 </div>
             </div>
         </div>
-    </div>
-    <!-- List Empty Response -->
-    <div class="text-center grid-view-loader-order" data-ng-if="!oneThreeShipmentOrderCtrl.ePage.Entities.Header.Data.UIOrderHeaders">
-        <i class="fa fa-spin fa-spinner font-160"></i>
-    </div>
-    <div>
-        <div class="grid-no-record-common_table" data-ng-if="oneThreeShipmentOrderCtrl.ePage.Entities.Header.Data.UIOrderHeaders.length==0">No
-            records found...</div>
     </div>
 </div>

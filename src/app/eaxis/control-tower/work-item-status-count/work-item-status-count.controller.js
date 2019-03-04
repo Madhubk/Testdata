@@ -43,6 +43,10 @@
         function GetWorkItemCountListCTGeneral() {
             WorkItemStatusCountCtrl.ePage.Masters.WorkItemList = undefined;
             var _filter = {
+                SortColumn: "WIP_ProcessName",
+                SortType: "PASC",
+                PageNumber: "1",
+                PageSize: "1",
                 PivotCount: "0",
                 SAP_FK: authService.getUserInfo().AppPK,
                 TenantCode: authService.getUserInfo().TenantCode
@@ -82,6 +86,10 @@
         function GetWorkItemCountListCTOverdue() {
             WorkItemStatusCountCtrl.ePage.Masters.WorkItemList = undefined;
             var _filter = {
+                SortColumn: "CTM_ProcessName",
+                SortType: "PASC",
+                PageNumber: "1",
+                PageSize: "1",
                 PivotCount: "0",
                 SAP_FK: authService.getUserInfo().AppPK,
                 TenantCode: authService.getUserInfo().TenantCode

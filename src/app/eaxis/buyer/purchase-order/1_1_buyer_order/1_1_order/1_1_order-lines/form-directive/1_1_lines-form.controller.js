@@ -105,7 +105,7 @@
 
         function GetRelatedLookupList() {
             var _filter = {
-                Key: "BP_DestinationPort_13094,BP_DeliveryPoint_13315",
+                Key: "DestinationPort_3094,DestinationPort_3094",
                 SAP_FK: authService.getUserInfo().AppPK
             };
             var _input = {
@@ -479,7 +479,7 @@
         function GetDynamicControl() {
             // Get Dynamic filter controls
             var _filter = {
-                DataEntryName: "BPOrderLineCustom"
+                DataEntryName: "OrderLineCustom"
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
@@ -502,7 +502,7 @@
         function GetDynamicControl1() {
             // Get Dynamic filter controls
             var _filter = {
-                DataEntryName: "BPOrderLineDeliveryCustom"
+                DataEntryName: "OrderLineDeliveryCustom"
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),

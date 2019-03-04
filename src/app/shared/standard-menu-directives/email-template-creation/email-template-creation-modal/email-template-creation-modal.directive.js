@@ -8,7 +8,7 @@
     EmailTemplateCreationModal.$inject = ["$uibModal", "$templateCache"];
 
     function EmailTemplateCreationModal($uibModal, $templateCache) {
-        var _template = `<div class="modal-header">
+        let _template = `<div class="modal-header">
             <button type="button" class="close" ng-click="EmailTemplateCreationModalCtrl.ePage.Masters.Close()">&times;</button>
             <h5 class="modal-title" id="modal-title">
                 <strong>Email Template</strong>
@@ -19,7 +19,7 @@
         </div>`;
         $templateCache.put("EmailTemplateCreationModal.html", _template);
 
-        var exports = {
+        let exports = {
             restrict: "EA",
             scope: {
                 input: "="
@@ -32,7 +32,7 @@
             ele.on("click", OpenModal);
 
             function OpenModal() {
-                var modalInstance = $uibModal.open({
+                $uibModal.open({
                     animation: true,
                     backdrop: "static",
                     keyboard: true,
@@ -43,18 +43,43 @@
                     bindToController: true,
                     resolve: {
                         param: function () {
-                            var exports = {
+                            let exports = {
                                 input: scope.input
                             };
                             return exports;
                         }
                     }
-                }).result.then(function (response) {
-                    console.log(response);
-                }, function () {
-                    console.log("Cancelled");
-                });
+                }).result.then(response => {}, () => {});
             }
         }
+    }
+
+    angular
+        .module("Application")
+        .controller("EmailTemplateCreationModalController", EmailTemplateCreationModalController);
+
+    EmailTemplateCreationModalController.$inject = ["$uibModalInstance", "helperService", "param"];
+
+    function EmailTemplateCreationModalController($uibModalInstance, helperService, param) {
+        /* jshint validthis: true */
+        let EmailTemplateCreationModalCtrl = this;
+
+        function Init() {
+            EmailTemplateCreationModalCtrl.ePage = {
+                "Title": "",
+                "Prefix": "EmailTemplateCreationModal",
+                "Masters": {},
+                "Meta": helperService.metaBase(),
+                "Entities": param.obj
+            };
+
+            EmailTemplateCreationModalCtrl.ePage.Masters.Close = Close;
+        }
+
+        function Close() {
+            $uibModalInstance.dismiss('cancel');
+        }
+
+        Init();
     }
 })();

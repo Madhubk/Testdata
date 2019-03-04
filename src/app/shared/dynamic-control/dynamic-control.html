@@ -177,7 +177,7 @@
                                 placeholder="{{ConfigData.AttributesDetails.LabelText}}" data-ng-disabled="Entity.CSS['Is' + ConfigData.PropertyName + 'Disable'] || DynamicControlCtrl.baseFilterFields['IsDisabled' + ConfigData.PropertyName]" />
                             <!--Mode:D-->
                             <input type="text" class="form-control input-sm" name="{{ConfigData.FieldName}}_{{$index}}"
-                                ng-model="Entity.Data[ConfigData.FieldName]" data-ng-if="ConfigData.Type=='D' && !ConfigData.FieldOtherConfig.External.IsAPIRef"
+                                ng-model="Entity.Data[ConfigData.FieldName]" data-ng-if="(ConfigData.Type=='D' || ConfigData.Type=='B') && !ConfigData.FieldOtherConfig.External.IsAPIRef"
                                 placeholder="{{ConfigData.AttributesDetails.LabelText}}" />
                             <!--IsAPIRef:true && APIType=='1'-->
                             <input type="text" class="form-control input-sm" name="{{ConfigData.FieldName}}_{{$index}}"
@@ -311,6 +311,7 @@
                         <!-- <label class="control-label" title="{{ConfigData.AttributesDetails.LabelText}}">
                             <div class="text-single-line" data-ng-bind="ConfigData.AttributesDetails.LabelText"></div>
                         </label> -->
+                        <label class="control-label" data-ng-if="DynamicControlCtrl.ePage.Masters.ViewType != 1"></label>
                         <div class=" clearfix">
                             <div class="checkbox">
                                 <!--Mode:S-->

@@ -1,0 +1,127 @@
+<!-- Dashboard -->
+<div data-ng-if="FinanceJobCtrl.ePage.Masters.ShowList">
+    <div class="clearfix">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 jobaccount-invoice-header pt-5 pb-5">
+            <span class="pull-left fs-20">Manage Finance Job</span>
+        </div>
+    </div>
+    <div class="clearfix">
+        <div class="text-center mt-20 pt-20 pb-30">
+            <div class="fs-22">Multiple options for Finance Job Invoice</div>
+            <div class="mt-10">Choose an action from below</div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 mt-20">
+            <div class="set-border text-center pt-20 pb-20">
+                <img class="img-responsive center-block" src="assets/img/finance/ja_freight.png" alt="Freight Finance"
+                    width="100" height="100">
+                <div class="mt-10">Freight Finance</div>
+                <div class="set-color">Upload your Invoice Freight Document</div>
+                <input class="btn btn-default mt-20" type="submit" value="Freight Finance List" data-ng-click="FinanceJobCtrl.ePage.Masters.FinanceSelection('FF')">
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 mt-20">
+            <div class="set-border text-center pt-20 pb-20">
+                <img class="img-responsive center-block" src="assets/img/finance/ja_warehouse.png" alt="Warehouse Finance"
+                    width="100" height="100">
+                <div class="mt-10">Warehouse Finance</div>
+                <div class="set-color">Upload your Invoice Warehouse Document</div>
+                <input class="btn btn-default mt-20" type="submit" value="Warehouse Finance List" data-ng-click="FinanceJobCtrl.ePage.Masters.FinanceSelection('WF')">
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 mt-20">
+            <div class="set-border text-center pt-30 pb-30">
+                <img class="img-responsive center-block" src="assets/img/finance/ja_transport.png" alt="Transportation Finance"
+                    width="80" height="80">
+                <div class="mt-10">Transportation Finance</div>
+                <div class="set-color">Upload your Invoice Transportation Finance</div>
+                <input class="btn btn-default mt-20" type="submit" value="Transportation Finance" data-ng-click="FinanceJobCtrl.ePage.Masters.FinanceSelection('TF')">
+            </div>
+        </div>
+    </div>
+</div>
+<!--Grid View -->
+<uib-tabset id="chromeTab" class="tab-container chrometab-box" data-ng-if="!FinanceJobCtrl.ePage.Masters.ShowList && FinanceJobCtrl.ePage.Masters.FF || FinanceJobCtrl.ePage.Masters.WF || FinanceJobCtrl.ePage.Masters.TF"
+    active="FinanceJobCtrl.ePage.Masters.ActiveTabIndex" class="tab-container chrometab-box">
+    <uib-tab data-ng-if="FinanceJobCtrl.ePage.Masters.FF">
+        <uib-tab-heading title="Freight Finance">
+            <span data-ng-bind="'Freight Finance'"></span>
+            <i class="fa fa-thumb-tack pinned-tab ml-10"></i>
+        </uib-tab-heading>
+        <div>
+            <!-- Dynamic Freight Grid Page-->
+            <dynamic-list mode="1" dataentry-name="FinanceJobCtrl.ePage.Masters.dataentryName" dataentry-object="FinanceJobCtrl.ePage.Masters.DataEntryObject"
+                selected-grid-row="FinanceJobCtrl.ePage.Masters.SelectedGridRow($item)" default-filter="FinanceJobCtrl.ePage.Masters.DefaultFilter"></dynamic-list>
+            <div class="tab-loading" data-ng-show="FinanceJobCtrl.ePage.Masters.IsTabClick"></div>
+        </div>
+    </uib-tab>
+    <uib-tab data-ng-if="FinanceJobCtrl.ePage.Masters.WF">
+        <uib-tab-heading title="Warehouse Finance">
+            <span data-ng-bind="'Warehouse Finance'"></span>
+            <i class="fa fa-thumb-tack pinned-tab ml-10"></i>
+        </uib-tab-heading>
+        <div>
+            <!-- Dynamic Warehouse Grid Page -->
+            <dynamic-list mode="1" dataentry-name="FinanceJobCtrl.ePage.Masters.dataentryName" dataentry-object="FinanceJobCtrl.ePage.Masters.DataEntryObject"
+                selected-grid-row="FinanceJobCtrl.ePage.Masters.SelectedGridRow($item)" default-filter="FinanceJobCtrl.ePage.Masters.DefaultFilter"></dynamic-list>
+            <div class="tab-loading" data-ng-show="FinanceJobCtrl.ePage.Masters.IsTabClick"></div>
+        </div>
+    </uib-tab>
+    <uib-tab data-ng-if="FinanceJobCtrl.ePage.Masters.TF">
+        <uib-tab-heading title="Transportation Finance">
+            <span data-ng-bind="'Transportation Finance'"></span>
+            <i class="fa fa-thumb-tack pinned-tab ml-10"></i>
+        </uib-tab-heading>
+        <div>
+            <!-- Dynamic Transport Grid Page -->
+            <dynamic-list mode="1" dataentry-name="FinanceJobCtrl.ePage.Masters.dataentryName" dataentry-object="FinanceJobCtrl.ePage.Masters.DataEntryObject"
+                selected-grid-row="FinanceJobCtrl.ePage.Masters.SelectedGridRow($item)" default-filter="FinanceJobCtrl.ePage.Masters.DefaultFilter"></dynamic-list>
+            <div class="tab-loading" data-ng-show="FinanceJobCtrl.ePage.Masters.IsTabClick"></div>
+        </div>
+    </uib-tab>
+    <!-- Finance JobHeader -->
+    <uib-tab id='top' active="FinanceJobCtrl.ePage.Masters.ActiveTabIndex == $index" data-ng-repeat="tab in FinanceJobCtrl.ePage.Masters.TabList">
+        <uib-tab-heading title="{{tab.label}}">
+            <span data-ng-bind="tab.label"></span>
+            <i class="glyphicon glyphicon-remove" data-ng-click="FinanceJobCtrl.ePage.Masters.RemoveTab($event, $index, tab)"></i>
+            <!-- <span class="error-warning-container-common" data-ng-show="FinanceJobCtrl.ePage.Masters.ErrorWarningConfig.Modules.Finance.Entity[FinanceJobCtrl.ePage.Masters.CurrentFinanceJob.JobNo].GlobalErrorWarningList.length > 0">
+                <span class="custom-warning-container" data-ng-show="(FinanceJobCtrl.ePage.Masters.ErrorWarningConfig.Modules.Finance.Entity[FinanceJobCtrl.ePage.Masters.CurrentFinanceJob.JobNo].GlobalErrorWarningList | listCount: 'MessageType': 'W') > 0 && (FinanceJobCtrl.ePage.Masters.ErrorWarningConfig.Modules.Finance.Entity[FinanceJobCtrl.ePage.Masters.CurrentFinanceJob.JobNo].GlobalErrorWarningList | listCount: 'MessageType': 'E') == 0">
+                    <button class="btn-warning" data-ng-click="FinanceJobCtrl.ePage.Masters.ShowErrorWarningModal(FinanceJobCtrl.ePage.Masters.ErrorWarningConfig.Modules.Finance.Entity[FinanceJobCtrl.ePage.Masters.CurrentFinanceJob.JobNo].GlobalErrorWarningList)">
+                        <i class="fa fa-warning"></i>
+                    </button>
+                    <span class="custom-warning-count">{{FinanceJobCtrl.ePage.Masters.ErrorWarningConfig.Modules.Finance.Entity[FinanceJobCtrl.ePage.Masters.CurrentFinanceJob.JobNo].GlobalErrorWarningList
+                        | listCount: 'MessageType': 'W'}}
+                    </span>
+                </span>
+                <span class="custom-error-container" data-ng-show="(FinanceJobCtrl.ePage.Masters.ErrorWarningConfig.Modules.Finance.Entity[FinanceJobCtrl.ePage.Masters.CurrentFinanceJob.JobNo].GlobalErrorWarningList | listCount: 'MessageType': 'E') > 0">
+                    <button class="btn-error" data-ng-click="FinanceJobCtrl.ePage.Masters.ShowErrorWarningModal(FinanceJobCtrl.ePage.Masters.CurrentFinanceJob.JobNo)">
+                        <i class="fa fa-warning"></i>
+                    </button>
+                    <span class="custom-error-count">{{FinanceJobCtrl.ePage.Masters.ErrorWarningConfig.Modules.Finance.Entity[FinanceJobCtrl.ePage.Masters.CurrentFinanceJob.JobNo].GlobalErrorWarningList
+                        | listCount: 'MessageType': 'E'}}
+                    </span>
+                </span>
+            </span> -->
+            <span class="error-warning-container-common" data-ng-if="tab[tab.code].ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList.length > 0">
+                    <span class="custom-warning-container" data-ng-if="(tab[tab.code].ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList | listCount: 'MessageType': 'W') > 0 && (tab[tab.label].ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList | listCount: 'MessageType': 'E') == 0">
+                        <button class="btn-warning" data-ng-click="FinanceJobCtrl.ePage.Masters.Config.ShowErrorWarningModal(tab)">
+                            <i class="fa fa-warning"></i>
+                        </button>
+                        <span class="custom-warning-count">{{tab[tab.code].ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList | listCount:
+                            'MessageType': 'W'}}</span>
+                    </span>
+                    <span class="custom-error-container" data-ng-if="(tab[tab.code].ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList | listCount: 'MessageType': 'E') > 0">
+                        <button class="btn-error" data-ng-click="FinanceJobCtrl.ePage.Masters.Config.ShowErrorWarningModal(tab)">
+                            <i class="fa fa-warning"></i>
+                        </button>
+                        <span class="custom-error-count">{{tab[tab.code].ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList | listCount:
+                            'MessageType': 'E'}}</span>
+                    </span>
+            </span> 
+        </uib-tab-heading>
+        <job-accounting current-finance-job="tab" active-tab="FinanceJobCtrl.ePage.Masters.ActiveMenuTab" data-ng-if="FinanceJobCtrl.ePage.Masters.FF"></job-accounting>
+        <job-accounting current-finance-job="tab" data-ng-if="FinanceJobCtrl.ePage.Masters.WF" data-ng-if="FinanceJobCtrl.ePage.Masters.WF"></job-accounting>
+        <job-accounting current-finance-job="tab" data-ng-if="FinanceJobCtrl.ePage.Masters.TF" data-ng-if="FinanceJobCtrl.ePage.Masters.TF"></job-accounting>
+    </uib-tab>
+    <button type="button" class="btn btn-default mt-2 mr-15" style="position: absolute; right: 0;" data-ng-click="FinanceJobCtrl.ePage.Masters.FinanceSelection('dashboard');FinanceJobCtrl.ePage.Masters.RemoveAllTab();">
+        <i class="fa fa-anlgle-double-left"></i>Back to Dashboard</button>
+</uib-tabset>

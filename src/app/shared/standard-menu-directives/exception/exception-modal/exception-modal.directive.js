@@ -8,23 +8,25 @@
     ExceptionModal.$inject = ["$uibModal", "$templateCache"];
 
     function ExceptionModal($uibModal, $templateCache) {
-        var _template = `<div class="modal-header">
+        let _template = `<div class="modal-header">
             <button type="button" class="close" ng-click="ExceptionModalCtrl.ePage.Masters.Close()">&times;</button>
             <h5 class="modal-title" id="modal-title">
                 <strong>Exception</strong>
             </h5>
         </div>
         <div class="modal-body" id="modal-body">
-            <exception input="input" mode="mode" type="type"></exception>
+            <exception input="input" mode="mode" type="type" config="config" list-source="listSource"></exception>
         </div>`;
         $templateCache.put("ExceptionModal.html", _template);
 
-        var exports = {
+        let exports = {
             restrict: "EA",
             scope: {
                 input: "=",
+                config: "=",
                 mode: "=",
                 type: "=",
+                listSource: "=",
                 onCloseModal: "&"
             },
             link: Link
@@ -35,7 +37,7 @@
             ele.on("click", OpenModal);
 
             function OpenModal() {
-                var modalInstance = $uibModal.open({
+                $uibModal.open({
                     animation: true,
                     backdrop: "static",
                     keyboard: true,
@@ -46,24 +48,47 @@
                     bindToController: true,
                     resolve: {
                         param: function () {
-                            var exports = {
+                            let exports = {
                                 input: scope.input
                             };
                             return exports;
                         }
                     }
-                }).result.then(function (response) {
-                    console.log(response);
-                    scope.onCloseModal({
-                        $item: "exception"
-                    });
-                }, function () {
-                    console.log("Cancelled");
-                    scope.onCloseModal({
-                        $item: "exception"
-                    });
-                });
+                }).result.then(() => scope.onCloseModal({
+                    $item: "exception"
+                }), () => scope.onCloseModal({
+                    $item: "exception"
+                }));
             }
         }
+    }
+
+    angular
+        .module("Application")
+        .controller("ExceptionModalController", ExceptionModalController);
+
+    ExceptionModalController.$inject = ["$uibModalInstance", "helperService", "param"];
+
+    function ExceptionModalController($uibModalInstance, helperService, param) {
+        /* jshint validthis: true */
+        let ExceptionModalCtrl = this;
+
+        function Init() {
+            ExceptionModalCtrl.ePage = {
+                "Title": "",
+                "Prefix": "ExceptionModal",
+                "Masters": {},
+                "Meta": helperService.metaBase(),
+                "Entities": param.obj
+            };
+
+            ExceptionModalCtrl.ePage.Masters.Close = Close;
+        }
+
+        function Close() {
+            $uibModalInstance.dismiss('cancel');
+        }
+
+        Init();
     }
 })();

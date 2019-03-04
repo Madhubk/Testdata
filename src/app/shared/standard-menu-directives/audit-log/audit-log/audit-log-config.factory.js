@@ -8,7 +8,7 @@
     AuditLogConfig.$inject = [];
 
     function AuditLogConfig() {
-        var exports = {
+        let exports = {
             "Entities": {
                 "SHP": {
                     "ListSource": [{

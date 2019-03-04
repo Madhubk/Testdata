@@ -8,7 +8,7 @@
     DocumentModal.$inject = ["$uibModal", "$templateCache"];
 
     function DocumentModal($uibModal, $templateCache) {
-        var _template = `<div class="modal-header">
+        let _template = `<div class="modal-header">
             <button type="button" class="close" ng-click="DocumentModalCtrl.ePage.Masters.Close()">&times;</button>
             <h5 class="modal-title" id="modal-title">
                 <strong>Document</strong>
@@ -19,7 +19,7 @@
         </div>`;
         $templateCache.put("DocumentModal.html", _template);
 
-        var exports = {
+        let exports = {
             restrict: "EA",
             scope: {
                 input: "=",
@@ -37,7 +37,7 @@
             ele.on("click", OpenModal);
 
             function OpenModal() {
-                var modalInstance = $uibModal.open({
+                $uibModal.open({
                     animation: true,
                     backdrop: "static",
                     keyboard: true,
@@ -48,24 +48,47 @@
                     bindToController: true,
                     resolve: {
                         param: function () {
-                            var exports = {
+                            let exports = {
                                 input: scope.input
                             };
                             return exports;
                         }
                     }
-                }).result.then(function (response) {
-                    console.log(response);
-                    scope.onCloseModal({
-                        $item: "document"
-                    });
-                }, function () {
-                    console.log("Cancelled");
-                    scope.onCloseModal({
-                        $item: "document"
-                    });
-                });
+                }).result.then(() => scope.onCloseModal({
+                    $item: "document"
+                }), () => scope.onCloseModal({
+                    $item: "document"
+                }));
             }
         }
+    }
+
+    angular
+        .module("Application")
+        .controller("DocumentModalController", DocumentModalController);
+
+    DocumentModalController.$inject = ["$uibModalInstance", "helperService", "param"];
+
+    function DocumentModalController($uibModalInstance, helperService, param) {
+        /* jshint validthis: true */
+        let DocumentModalCtrl = this;
+
+        function Init() {
+            DocumentModalCtrl.ePage = {
+                "Title": "",
+                "Prefix": "DocumentModal",
+                "Masters": {},
+                "Meta": helperService.metaBase(),
+                "Entities": param.obj
+            };
+
+            DocumentModalCtrl.ePage.Masters.Close = Close;
+        }
+
+        function Close() {
+            $uibModalInstance.dismiss('cancel');
+        }
+
+        Init();
     }
 })();

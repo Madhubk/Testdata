@@ -53,7 +53,7 @@
                 } else {
                     console.log("Invalid Response...!");
                 }
-                deferred.reject(response);
+                deferred.resolve(response);
             });
 
             return deferred.promise;
@@ -90,7 +90,7 @@
                 } else {
                     console.log("Invalid Response...!");
                 }
-                deferred.reject(response);
+                deferred.resolve(response);
             });
 
             return deferred.promise;

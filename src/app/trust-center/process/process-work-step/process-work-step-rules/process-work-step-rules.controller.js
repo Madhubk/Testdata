@@ -231,12 +231,24 @@
 
             $timeout(function () {
                 ProcessWorkStepRulesCtrl.ePage.Masters.Rules.ActiveRule = $item;
-
                 if (!ProcessWorkStepRulesCtrl.ePage.Masters.Rules.ActiveRule.RuleType) {
                     ProcessWorkStepRulesCtrl.ePage.Masters.Rules.ActiveRule.RuleType = ProcessWorkStepRulesCtrl.ePage.Masters.Rules.RuleTypeList[0].Code;
                 }
+
+                if (ProcessWorkStepRulesCtrl.ePage.Masters.Rules.ActiveRule) {
+                    ProcessWorkStepRulesCtrl.ePage.Masters.Rules.GenerateScriptInput = {
+                        ObjectName: "EBPM_WorkStepRules",
+                        ObjectId: ProcessWorkStepRulesCtrl.ePage.Masters.Rules.ActiveRule.PK
+                    };
+                    ProcessWorkStepRulesCtrl.ePage.Masters.Rules.GenerateScriptConfig = {
+                        IsEnableTable: false,
+                        IsEnablePK: false,
+                        IsEnableTenant: false
+                    };
+                }
                 GetActionList();
             });
+
         }
 
         function SaveRulesValidation() {
@@ -493,23 +505,37 @@
             ProcessWorkStepRulesCtrl.ePage.Masters.Actions.ActiveAction = $item;
             ProcessWorkStepRulesCtrl.ePage.Masters.Actions.FormView = ProcessWorkStepRulesCtrl.ePage.Masters.Actions.ActiveAction;
 
-            if (!ProcessWorkStepRulesCtrl.ePage.Masters.Actions.FormView.NotificationConfig) {
-                ProcessWorkStepRulesCtrl.ePage.Masters.Actions.FormView.NotificationConfig = "[]";
-            }
-            if (!ProcessWorkStepRulesCtrl.ePage.Masters.Actions.FormView.TaskConfig) {
-                ProcessWorkStepRulesCtrl.ePage.Masters.Actions.FormView.TaskConfig = "[]";
-            }
+            if (ProcessWorkStepRulesCtrl.ePage.Masters.Actions.FormView) {
+                if (!ProcessWorkStepRulesCtrl.ePage.Masters.Actions.FormView.NotificationConfig) {
+                    ProcessWorkStepRulesCtrl.ePage.Masters.Actions.FormView.NotificationConfig = "[]";
+                }
+                if (!ProcessWorkStepRulesCtrl.ePage.Masters.Actions.FormView.TaskConfig) {
+                    ProcessWorkStepRulesCtrl.ePage.Masters.Actions.FormView.TaskConfig = "[]";
+                }
 
-            if (ProcessWorkStepRulesCtrl.ePage.Masters.Actions.FormView.NotificationConfig) {
-                if (typeof ProcessWorkStepRulesCtrl.ePage.Masters.Actions.FormView.NotificationConfig == "string") {
-                    ProcessWorkStepRulesCtrl.ePage.Masters.Actions.FormView.NotificationGroup = JSON.parse(ProcessWorkStepRulesCtrl.ePage.Masters.Actions.FormView.NotificationConfig);
+                if (ProcessWorkStepRulesCtrl.ePage.Masters.Actions.FormView.NotificationConfig) {
+                    if (typeof ProcessWorkStepRulesCtrl.ePage.Masters.Actions.FormView.NotificationConfig == "string") {
+                        ProcessWorkStepRulesCtrl.ePage.Masters.Actions.FormView.NotificationGroup = JSON.parse(ProcessWorkStepRulesCtrl.ePage.Masters.Actions.FormView.NotificationConfig);
+                    }
+                }
+
+                if (ProcessWorkStepRulesCtrl.ePage.Masters.Actions.FormView.TaskConfig) {
+                    if (typeof ProcessWorkStepRulesCtrl.ePage.Masters.Actions.FormView.TaskConfig == "string") {
+                        ProcessWorkStepRulesCtrl.ePage.Masters.Actions.FormView.TaskConfigGroup = JSON.parse(ProcessWorkStepRulesCtrl.ePage.Masters.Actions.FormView.TaskConfig);
+                    }
                 }
             }
 
-            if (ProcessWorkStepRulesCtrl.ePage.Masters.Actions.FormView.TaskConfig) {
-                if (typeof ProcessWorkStepRulesCtrl.ePage.Masters.Actions.FormView.TaskConfig == "string") {
-                    ProcessWorkStepRulesCtrl.ePage.Masters.Actions.FormView.TaskConfigGroup = JSON.parse(ProcessWorkStepRulesCtrl.ePage.Masters.Actions.FormView.TaskConfig);
-                }
+            if (ProcessWorkStepRulesCtrl.ePage.Masters.Actions.ActiveAction) {
+                ProcessWorkStepRulesCtrl.ePage.Masters.Actions.GenerateScriptInput = {
+                    ObjectName: "EBPM_WorkStepActions",
+                    ObjectId: ProcessWorkStepRulesCtrl.ePage.Masters.Actions.ActiveAction.PK
+                };
+                ProcessWorkStepRulesCtrl.ePage.Masters.Actions.GenerateScriptConfig = {
+                    IsEnableTable: false,
+                    IsEnablePK: false,
+                    IsEnableTenant: false
+                };
             }
         }
 
@@ -554,6 +580,8 @@
                             ProcessWorkStepRulesCtrl.ePage.Masters.Actions.ActiveAction = ProcessWorkStepRulesCtrl.ePage.Masters.Rules.ActiveRule.WorkStepActions[0];
                         }
                     }
+                    ProcessWorkStepRulesCtrl.ePage.Masters.IsDisableActionDeleteBtn = false;
+                    ProcessWorkStepRulesCtrl.ePage.Masters.ActionDeleteBtnText = "Delete";
                 });
             } else {
                 var _index = ProcessWorkStepRulesCtrl.ePage.Masters.Rules.ActiveRule.WorkStepActions.map(function (value, key) {
@@ -674,7 +702,7 @@
                 ProcessWorkStepRulesCtrl.ePage.Masters.Actions.FormView.NotificationGroup = [];
             }
 
-            EditNotificationModalInstance().result.then(function (response) { }, function () {
+            EditNotificationModalInstance().result.then(function (response) {}, function () {
                 CloseNotificationModal();
             });
         }
@@ -786,12 +814,12 @@
             }
 
             if (ProcessWorkStepRulesCtrl.ePage.Masters.Rules.ActiveRule.ActionType == 'REGULAR') {
-                EditTaskConfigModalInstance().result.then(function (response) { }, function () {
+                EditTaskConfigModalInstance().result.then(function (response) {}, function () {
                     CloseTaskConfigModal();
                 });
             } else {
                 if (ProcessWorkStepRulesCtrl.ePage.Masters.Actions.FormView.Process) {
-                    EditTaskConfigModalInstance().result.then(function (response) { }, function () {
+                    EditTaskConfigModalInstance().result.then(function (response) {}, function () {
                         CloseTaskConfigModal();
                     });
                 } else {

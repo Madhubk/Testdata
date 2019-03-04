@@ -5,7 +5,7 @@
         .module("Application")
         .controller("ProcessScenariosController", ProcessScenariosController);
 
-    ProcessScenariosController.$inject = ["$location", "authService", "apiService", "helperService",  "confirmation", "toastr", "trustCenterConfig"];
+    ProcessScenariosController.$inject = ["$location", "authService", "apiService", "helperService", "confirmation", "toastr", "trustCenterConfig"];
 
     function ProcessScenariosController($location, authService, apiService, helperService, confirmation, toastr, trustCenterConfig) {
         /* jshint validthis: true */
@@ -137,9 +137,9 @@
                 GetProcessScenariosList();
             }
         }
-    //================================Module Code End=================================
+        //================================Module Code End=================================
 
-         function InitProcessScenarios() {
+        function InitProcessScenarios() {
             ProcessScenariosCtrl.ePage.Masters.ProcessScenarios = {};
             ProcessScenariosCtrl.ePage.Masters.Module = {};
             ProcessScenariosCtrl.ePage.Masters.ProcessScenarios.SelectedCompany = {};
@@ -149,7 +149,7 @@
             ProcessScenariosCtrl.ePage.Masters.ProcessScenarios.GetCountryList = GetCountryList;
             ProcessScenariosCtrl.ePage.Masters.ProcessScenarios.OnBlurAutoCompleteListCountry = OnBlurAutoCompleteListCountry;
             ProcessScenariosCtrl.ePage.Masters.ProcessScenarios.OnSelectAutoCompleteListCountry =
-            OnSelectAutoCompleteListCountry;
+                OnSelectAutoCompleteListCountry;
             ProcessScenariosCtrl.ePage.Masters.ProcessScenarios.GetCompanyList = GetCompanyList;
             ProcessScenariosCtrl.ePage.Masters.ProcessScenarios.OnBlurAutoCompleteCompanyList = OnBlurAutoCompleteCompanyList;
             ProcessScenariosCtrl.ePage.Masters.ProcessScenarios.OnSelectAutoCompleteCompanyList = OnSelectAutoCompleteCompanyList;
@@ -184,6 +184,11 @@
                 if (response.data.Response) {
                     ProcessScenariosCtrl.ePage.Masters.ProcessScenarios.ProcessScenariosList = response.data.Response;
                     ProcessScenariosCtrl.ePage.Masters.ProcessScenarios.ProcessScenariosListCopy = angular.copy(response.data.Response);
+
+                    ProcessScenariosCtrl.ePage.Masters.ProcessScenarios.ProcessScenariosList.map(function(value,key){
+                        SetGenerateScriptInput(value);
+                    })
+
 
                 } else {
                     ProcessScenariosCtrl.ePage.Masters.ProcessScenarios.ProcessScenariosList = [];
@@ -357,7 +362,7 @@
             row.ORG_Code = $item.Code;
         }
 
-       function AddNewRow() {
+        function AddNewRow() {
             var _obj = {};
             ProcessScenariosCtrl.ePage.Masters.ProcessScenarios.ProcessScenariosList.push(_obj);
         }
@@ -393,12 +398,17 @@
                     if (response.data.Response.length > 0) {
                         var _response = response.data.Response[0];
 
+                        if(!ProcessScenariosCtrl.ePage.Masters.ProcessScenarios.ProcessScenariosList){
+                            ProcessScenariosCtrl.ePage.Masters.ProcessScenarios.ProcessScenariosList = [];
+                        }
                         var _index = ProcessScenariosCtrl.ePage.Masters.ProcessScenarios.ProcessScenariosList.map(function (value, key) {
                             return value.PK;
                         }).indexOf(_response.PK);
 
+                        ProcessScenariosCtrl.ePage.Masters.ProcessScenarios.ProcessScenariosList.push(_response);
+
                         if (_index === -1) {
-                            ProcessScenariosCtrl.ePage.Masters.ProcessScenarios.ProcessScenariosList.push(_response);
+                            SetGenerateScriptInput(ProcessScenariosCtrl.ePage.Masters.ProcessScenarios.ProcessScenariosList[0])
                         } else {
                             ProcessScenariosCtrl.ePage.Masters.ProcessScenarios.ProcessScenariosList[_index] = _response;
                         }
@@ -443,7 +453,6 @@
             });
         }
 
-
         function DeleteConfirmation(row) {
             var modalOptions = {
                 closeButtonText: 'Cancel',
@@ -475,6 +484,20 @@
                 }
                 GetProcessScenariosList();
             });
+        }
+
+        function SetGenerateScriptInput(row) {
+            if(row) {
+                row.GenerateScriptInput = {
+                    ObjectName: "EBPM_ProcessScenario",
+                    ObjectId: row.PK
+                };
+                row.GenerateScriptConfig = {
+                    IsEnableTable: false,
+                    IsEnablePK: false,
+                    IsEnableTenant: false
+                };
+            }
         }
 
         Init();

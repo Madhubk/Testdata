@@ -38,6 +38,9 @@
                 <button class="btn btn-default tc-btn-delete btn-xs pull-right ml-10" data-ng-click="DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.Delete()"
                     data-ng-bind="DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.DeleteBtnText"
                     data-ng-disabled="DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.IsDisableDeleteBtn || !DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.ActiveDataExtEntityScore.PK"></button>
+                    <button class="btn btn-primary btn-xs pull-right ml-10" generate-db-script input="DataExtEntityScoreCtrl.ePage.Masters.GenerateScriptInput"
+                    config="DataExtEntityScoreCtrl.ePage.Masters.GenerateScriptConfig" data-ng-disabled="!DataExtEntityScoreCtrl.ePage.Masters.GenerateScriptInput.ObjectName || !DataExtEntityScoreCtrl.ePage.Masters.GenerateScriptInput.ObjectId ||!DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.ActiveDataExtEntityScore.PK">Generate
+                    Script</button>
             </div>
         </div>
     </div>
@@ -167,6 +170,10 @@
                             <span class="ml-5 mr-5" data-ng-if="x.ItemType == 'Main'">|</span>
                             <a href="javascript:void(0)" data-ng-click=" DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.DataExtEntityScoreFields.Delete(x)"
                                 title="Delete">Delete</a>
+                                <span class="ml-0 mr-0">|</span>
+                                <a href="javascript:void(0)" generate-db-script 
+                                input="x.GenerateScriptInput" 
+                                config="x.GenerateScriptConfig" data-ng-disabled="x.GenerateScriptInput.ObjectName || x.GenerateScriptInput.ObjectId || x.PK">Generate Script</a>
                         </div>
                     </div>
                 </div>

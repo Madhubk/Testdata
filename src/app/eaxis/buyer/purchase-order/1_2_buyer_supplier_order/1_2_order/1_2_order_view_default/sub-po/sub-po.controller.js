@@ -5,9 +5,9 @@
         .module("Application")
         .controller("OrderViewDefaultSubPoController", OrderViewDefaultSubPoController);
 
-    OrderViewDefaultSubPoController.$inject = ["helperService", "orderApiConfig", "apiService"];
+    OrderViewDefaultSubPoController.$inject = ["helperService", "appConfig", "apiService"];
 
-    function OrderViewDefaultSubPoController(helperService, orderApiConfig, apiService) {
+    function OrderViewDefaultSubPoController(helperService, appConfig, apiService) {
         var OrderViewDefaultSubPoCtrl = this;
 
         function Init() {
@@ -33,7 +33,7 @@
         function Split(data) {
             var _input = data.OrderNo;
             var _input1 = data.OrderNoSplit;
-            apiService.get("eAxisAPI", orderApiConfig.Entities.BuyerSupplierOrder.API.GetSplitOrdersByOrderNo.Url + _input + "/" + _input1).then(function (response) {
+            apiService.get("eAxisAPI", appConfig.Entities.PorOrderHeader.API.GetSplitOrdersByOrderNo.Url + _input + "/" + _input1).then(function (response) {
                 if (response.data.Response) {
                     OrderViewDefaultSubPoCtrl.ePage.Masters.SplitOrderList = response.data.Response.OrderHeaderList;
                 } else {

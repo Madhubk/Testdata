@@ -122,6 +122,17 @@
                     GetLogo();
                 }
             }
+            if (TCTenantCtrl.ePage.Masters.Tenant.ActiveTenant) {
+                TCTenantCtrl.ePage.Masters.GenerateScriptInput = {
+                    ObjectName: "SecTenant",
+                    ObjectId: TCTenantCtrl.ePage.Masters.Tenant.ActiveTenant.PK
+                };
+                TCTenantCtrl.ePage.Masters.GenerateScriptConfig = {
+                    IsEnableTable: false,
+                    IsEnablePK: false,
+                    IsEnableTenant: false
+                };
+            }
         }
 
         function EditModalInstance() {
@@ -144,10 +155,10 @@
             });
         }
 
-       function Save() {
-            if(TCTenantCtrl.ePage.Masters.Tenant.ActiveTenant.PK) {
-                UpdateTenant(); 
-                }else {
+        function Save() {
+            if (TCTenantCtrl.ePage.Masters.Tenant.ActiveTenant.PK) {
+                UpdateTenant();
+            } else {
                 InsertTenant();
             }
         }

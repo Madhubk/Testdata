@@ -130,13 +130,13 @@
                                                             obj="OrganizationConsigneeCtrl.ePage.Masters.SupplierDetails.UIOrgBuyerSupplierMapping"
                                                             page-name="'OrganizationList'" contro-id="'OrgCntrlCusList'"
                                                             control-key="'OrgCntrlCusList_3288'"
-                                                            auto-complete-on-select="OrganizationConsigneeCtrl.ePage.Masters.AutoCompleteOnSelect($item)"></div>
+                                                            auto-complete-on-select="OrganizationConsigneeCtrl.ePage.Masters.AutoCompleteOnSelect($item,'ORG_ContrOBSledBy')"></div>
                                                         <span class="input-group-btn">
                                                             <button dynamic-list-modal obj="OrganizationConsigneeCtrl.ePage.Masters.SupplierDetails.UIOrgBuyerSupplierMapping"
                                                                 page-name="'OrganizationList'" contro-id="'OrgCntrlCusList'"
                                                                 control-key="'OrgCntrlCusList_3288'" mode="2"
                                                                 grid-refresh-fun-name="" grid-refresh-fun=""
-                                                                selected-data="OrganizationConsigneeCtrl.ePage.Masters.SelectedLookupData($item)"
+                                                                selected-data="OrganizationConsigneeCtrl.ePage.Masters.SelectedLookupData($item, 'ORG_ContrOBSledBy')"
                                                                 class="btn btn-default shiny" type="button">
                                                                 <i class="fa fa-ellipsis-h"></i>
                                                             </button>
@@ -154,13 +154,13 @@
                                                             obj="OrganizationConsigneeCtrl.ePage.Masters.SupplierDetails.UIOrgBuyerSupplierMapping"
                                                             page-name="'OrganizationList'" control-id="'OrgImportBroList'"
                                                             control-key="'OrgImportBroList_3289'"
-                                                            auto-complete-on-select="OrganizationConsigneeCtrl.ePage.Masters.AutoCompleteOnSelect($item)"></div>
+                                                            auto-complete-on-select="OrganizationConsigneeCtrl.ePage.Masters.AutoCompleteOnSelect($item, 'ORG_ImportBroker')"></div>
                                                         <span class="input-group-btn">
                                                             <button dynamic-list-modal obj="OrganizationConsigneeCtrl.ePage.Masters.SupplierDetails.UIOrgBuyerSupplierMapping"
                                                                 page-name="'OrganizationList'" control-id="'OrgImportBroList'"
                                                                 control-key="'OrgImportBroList_3289'" prefix-data="'OrganizationList'"
                                                                 mode="2" grid-refresh-fun-name="" grid-refresh-fun=""
-                                                                selected-data="OrganizationConsigneeCtrl.ePage.Masters.SelectedLookupData($item)"
+                                                                selected-data="OrganizationConsigneeCtrl.ePage.Masters.SelectedLookupData($item, 'ORG_ImportBroker')"
                                                                 class="btn btn-default shiny" type="button">
                                                                 <i class="fa fa-ellipsis-h"></i>
                                                             </button>
@@ -464,7 +464,6 @@
                                                             </div>
                                                         </div>
                                                     </div>
-
                                                     <!-- Receiving Agent -->
                                                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
                                                         <div class="form-group">
@@ -483,6 +482,31 @@
                                                                         control-key="'MDMReceivingAgent_3294'" mode="2"
                                                                         grid-refresh-fun-name="" grid-refresh-fun=""
                                                                         selected-data="OrganizationConsigneeCtrl.ePage.Masters.SelectedLookupData($item,'ORG_ReceivingAgent')"
+                                                                        class="btn btn-default shiny" type="button">
+                                                                        <i class="fa fa-ellipsis-h"></i>
+                                                                    </button>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- Receiving Agent -->
+                                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                                                        <div class="form-group">
+                                                            <input type="hidden" ng-model="OrganizationConsigneeCtrl.ePage.Masters.Supplier.TransModeObj.ORG_BuyingHouseAgent_FK" />
+                                                            <label class="control-label text-single-line">Buying House
+                                                                Agent</label>
+                                                            <div class="input-group input-group-sm">
+                                                                <div dynamic-lookup my-ng-model="OrganizationConsigneeCtrl.ePage.Masters.Supplier.TransModeObj.ORG_BuyingHouseAgentCode"
+                                                                    obj="OrganizationConsigneeCtrl.ePage.Masters.Supplier.TransModeObj"
+                                                                    page-name="'OrganizationList'" control-id="'MDMBuyingHouseAgent'"
+                                                                    control-key="'MDMBuyingHouseAgent_3333'"
+                                                                    auto-complete-on-select="OrganizationConsigneeCtrl.ePage.Masters.AutoCompleteOnSelect($item, 'ORG_BuyingHouseAgent')"></div>
+                                                                <span class="input-group-btn">
+                                                                    <button dynamic-list-modal obj="OrganizationConsigneeCtrl.ePage.Masters.Supplier.TransModeObj"
+                                                                        page-name="'OrganizationList'" control-id="'MDMBuyingHouseAgent'"
+                                                                        control-key="'MDMBuyingHouseAgent_3333'" mode="2"
+                                                                        grid-refresh-fun-name="" grid-refresh-fun=""
+                                                                        selected-data="OrganizationConsigneeCtrl.ePage.Masters.SelectedLookupData($item,'ORG_BuyingHouseAgent')"
                                                                         class="btn btn-default shiny" type="button">
                                                                         <i class="fa fa-ellipsis-h"></i>
                                                                     </button>

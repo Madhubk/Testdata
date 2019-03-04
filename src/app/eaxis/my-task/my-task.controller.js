@@ -85,6 +85,7 @@
             InitAdhoc();
             InitAssignTo();
             InitStatusCount();
+            InitOpenActivity();
         }
 
         function OnToggleFilterClick() {
@@ -96,8 +97,6 @@
                 $(".mytask-filter").removeClass("mytask-filter-hide").addClass("mytask-filter-show");
             }
         }
-
-        // =====================================
 
         function SelectedWorkItem($item) {
             if ($item) {
@@ -122,13 +121,10 @@
 
             if (MyTaskCtrl.ePage.Masters.MyTask.ActiveWorkItemCount) {
                 _filter.UserStatus = MyTaskCtrl.ePage.Masters.MyTask.ActiveWorkItemCount.UserStatus.toUpperCase();
-
-                var _keys = ["PSM_FK", "WSI_FK", "UserStatus", "WSI_StepCode", "WorkItemNo", "ProcessCode", "ProcessName", "PerformerCode", "PSI_InstanceNo", "KeyReference", "EntityRefKey", "EntitySource", "AccessMode", "AdditionalEntityRefCode", "AdditionalEntityRefKey", "AdditionalEntitySource", "EntityInfo"];
-                _keys.map(function(value1, key1){
-                    if(MyTaskCtrl.ePage.Masters.MyTask.ActiveWorkItemCount[value1]){
-                        _filter[value1] = MyTaskCtrl.ePage.Masters.MyTask.ActiveWorkItemCount[value1];
-                    }
-                });
+                _filter.PSM_FK = MyTaskCtrl.ePage.Masters.MyTask.ActiveWorkItemCount.PSM_FK;
+                _filter.WSI_FK = MyTaskCtrl.ePage.Masters.MyTask.ActiveWorkItemCount.WSI_FK;
+                _filter.WSI_StepName = MyTaskCtrl.ePage.Masters.MyTask.ActiveWorkItemCount.WSI_StepName;
+                _filter.ProcessName = MyTaskCtrl.ePage.Masters.MyTask.ActiveWorkItemCount.ProcessName;
             }
 
             if (MyTaskCtrl.ePage.Masters.MyTask.Search) {
@@ -170,7 +166,6 @@
 
                             var _StandardMenuInput = {
                                 // Entity
-                                // "Entity": value.ProcessName,
                                 "Entity": value.WSI_StepCode,
                                 "Communication": null,
                                 "Config": undefined,
@@ -182,9 +177,9 @@
                                 "ParentEntityRefCode": value.WSI_StepCode,
                                 "ParentEntitySource": value.EntitySource,
                                 // Additional Entity
-                                "AdditionalEntityRefKey": value.ParentEntityRefKey,
-                                "AdditionalEntityRefCode": value.ParentKeyReference,
-                                "AdditionalEntitySource": value.ParentEntitySource,
+                                "AdditionalEntityRefKey": value.PK,
+                                "AdditionalEntityRefCode": value.WorkItemNo,
+                                "AdditionalEntitySource": "WKI",
                                 "IsDisableParentEntity": true,
                                 "IsDisableAdditionalEntity": true,
                                 "IsReadOnly": false
@@ -281,7 +276,7 @@
                     }
 
                     if (!$item.OtherConfig.Directives.ListPage) {
-                        console.log("Not Form Not Yet Configured...!");
+                        console.log("Form Not Yet Configured...!");
                     }
                 } else {
                     console.log("Not Form Not Yet Configured...!");
@@ -307,6 +302,9 @@
         function CloseEditActivityModal() {
             MyTaskCtrl.ePage.Masters.MyTask.IsShowEditActivityPage = false;
             MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem = undefined;
+
+            RefreshStatusCount();
+            OnRefreshTask();
         }
 
         function OnTaskComplete($item, type) {
@@ -359,7 +357,6 @@
         function OverrideKPI($item) {
             MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem.DueDate = $item.DueDate;
         }
-        // =====================================
 
         function SearchTask() {
             MyTaskCtrl.ePage.Masters.MyTask.WorkItemEntity = [];
@@ -388,8 +385,7 @@
             GetWorkItemList();
         }
 
-        // =====================================
-
+        // #region Assign To
         function InitAssignTo() {
             MyTaskCtrl.ePage.Masters.MyTask.AssignTo = {};
 
@@ -400,14 +396,15 @@
 
         function GetUserList(val) {
             var _filter = {
+                "TenantCode": authService.getUserInfo().TenantCode,
                 "Autocompletefield": val
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.UserExtended.API.FindAll.FilterID
+                "FilterID": appConfig.Entities.UserTenantList.API.FindAll.FilterID
             };
 
-            return apiService.post("authAPI", appConfig.Entities.UserExtended.API.FindAll.Url, _input).then(function (response) {
+            return apiService.post("authAPI", appConfig.Entities.UserTenantList.API.FindAll.Url, _input).then(function (response) {
                 return response.data.Response;
             });
         }
@@ -463,9 +460,9 @@
                 RefreshStatusCount();
             }
         }
+        // #endregion
 
-        // =====================================
-
+        // #region Adhoc
         function InitAdhoc() {
             MyTaskCtrl.ePage.Masters.MyTask.Adhoc = {};
 
@@ -529,9 +526,9 @@
                 MyTaskCtrl.ePage.Masters.MyTask.Adhoc.IsDisableSaveBtn = false;
             });
         }
+        // #endregion
 
-        // =====================================
-
+        // #region Status Count - Right side section
         function InitStatusCount() {
             MyTaskCtrl.ePage.Masters.MyTask.StatusCount = {};
 
@@ -569,17 +566,21 @@
                                 _qInput = JSON.parse(_qInput);
                             }
 
-                            var _keys = ["UserStatus", "WSI_StepCode", "WorkItemNo", "ProcessCode", "ProcessName",  "PerformerCode", "PSI_InstanceNo", "KeyReference", "EntityRefKey", "EntitySource", "AccessMode", "AdditionalEntityRefCode", "AdditionalEntityRefKey", "AdditionalEntitySource", "EntityInfo"];
-                            var _isExist = false;
+                            let _qInputObj = {};
+                            if (_qInput instanceof Array) {
+                                _qInputObj = _qInput.reduce((obj, item) => {
+                                    obj[item.UIField] = item.Value;
+                                    return obj;
+                                }, {});
+                            } else {
+                                _qInputObj = _qInput;
+                            }
 
+                            var _isExist = false;
                             MyTaskCtrl.ePage.Masters.MyTask.StatusCount.ListSource.map(function (value, key) {
-                                if (value.PSM_FK == _qInput.PSM_FK && value.WSI_FK == _qInput.WSI_FK) {
+                                if (value.PSM_FK == _qInputObj.PSM_FK && value.WSI_FK == _qInputObj.WSI_FK) {
                                     _isExist = true;
-                                    _keys.map(function(value1, key1){
-                                        if(_qInput[value1]){
-                                            value[value1] = _qInput[value1];
-                                        }
-                                    });
+                                    value = angular.extend(value, _qInputObj);
 
                                     var _item = {
                                         Data: value,
@@ -589,11 +590,13 @@
                                 }
                             });
 
-                            if(!_isExist){
+                            if (!_isExist) {
                                 MyTaskCtrl.ePage.Masters.MyTask.WorkItemDetails = [];
                             }
                         } else {
-                            SelectedWorkItem();
+                            if (!MyTaskCtrl.ePage.Masters.MyTask.IsRefreshBtnClick) {
+                                SelectedWorkItem();
+                            }
                         }
                     } else {
                         MyTaskCtrl.ePage.Masters.MyTask.WorkItemDetails = [];
@@ -606,7 +609,12 @@
         }
 
         function RefreshStatusCount() {
+            MyTaskCtrl.ePage.Masters.MyTask.IsRefreshBtnClick = true;
             GetStatusCountList();
+
+            setTimeout(() => {
+                MyTaskCtrl.ePage.Masters.MyTask.IsRefreshBtnClick = false;
+            }, 2000);
         }
 
         function OnRefreshStatusCount() {
@@ -662,6 +670,96 @@
                 }
             }
         }
+        // #endregion
+
+        // #region OpenActivity Overlay -  Available Status
+        function InitOpenActivity() {
+            MyTaskCtrl.ePage.Masters.MyTask.OpenActivity = {};
+
+            MyTaskCtrl.ePage.Masters.MyTask.OpenActivity.AssignToMe = AssignToMe;
+            MyTaskCtrl.ePage.Masters.MyTask.OpenActivity.StartMyWork = StartMyWork;
+            MyTaskCtrl.ePage.Masters.MyTask.OpenActivity.Close = CloseOpenActivity;
+
+            MyTaskCtrl.ePage.Masters.MyTask.OpenActivity.AssignToMeBtnTxt = "Assign To Me";
+            MyTaskCtrl.ePage.Masters.MyTask.OpenActivity.IsDisableAssignToMeBtn = false;
+            MyTaskCtrl.ePage.Masters.MyTask.OpenActivity.StartMyWorkBtnTxt = "Start My Work";
+            MyTaskCtrl.ePage.Masters.MyTask.OpenActivity.IsDisableStartMyWorkBtn = false;
+
+            MyTaskCtrl.ePage.Masters.MyTask.OpenActivity.IsShowOpenActivityPageOverlay = false;
+        }
+
+        function CloseOpenActivity() {
+            if (MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem.Status == "AVAILABLE") {
+                MyTaskCtrl.ePage.Masters.MyTask.IsShowEditActivityPage = false;
+                MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem = undefined;
+            } else {
+                MyTaskCtrl.ePage.Masters.MyTask.OpenActivity.IsShowOpenActivityPageOverlay = false;
+            }
+        }
+
+        function AssignToMe() {
+            MyTaskCtrl.ePage.Masters.MyTask.OpenActivity.AssignToMeBtnTxt = "Please Wait...";
+            MyTaskCtrl.ePage.Masters.MyTask.OpenActivity.IsDisableAssignToMeBtn = true;
+
+            var _input = {
+                "InstanceNo": MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem.PSI_InstanceNo,
+                "StepNo": MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem.WSI_StepNo,
+                "UserName": authService.getUserInfo().UserId
+            };
+
+            apiService.post("eAxisAPI", appConfig.Entities.EBPMEngine.API.ReAssignActivity.Url, _input).then(function (response) {
+                if (response.data.Status == "Success") {
+                    if (response.data.Response) {
+                        MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem.Status = response.data.Response.Status;
+                        MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem.IsWorkStartEnabled = response.data.Response.IsWorkStartEnabled;
+                        MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem.IsWorkStartEnabledStr = response.data.Response.IsWorkStartEnabledStr;
+                        MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem.IsWorkStarted = response.data.Response.IsWorkStarted;
+                        MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem.IsWorkStartedStr = response.data.Response.IsWorkStartedStr;
+
+                        MyTaskCtrl.ePage.Masters.MyTask.OpenActivity.IsShowOpenActivityPageOverlay = true;
+                    } else {
+                        toastr.error("Failed...!");
+                    }
+                } else {
+                    toastr.error(response.data.Response);
+                }
+
+                MyTaskCtrl.ePage.Masters.MyTask.OpenActivity.AssignToMeBtnTxt = "Assign To Me";
+                MyTaskCtrl.ePage.Masters.MyTask.OpenActivity.IsDisableAssignToMeBtn = false;
+            });
+        }
+
+        function StartMyWork() {
+            MyTaskCtrl.ePage.Masters.MyTask.OpenActivity.StartMyWorkBtnTxt = "Please Wait...";
+            MyTaskCtrl.ePage.Masters.MyTask.OpenActivity.IsDisableStartMyWorkBtn = true;
+
+            var _input = {
+                "InstanceNo": MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem.PSI_InstanceNo,
+                "StepNo": MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem.WSI_StepNo,
+            };
+
+            apiService.post("eAxisAPI", appConfig.Entities.EBPMEngine.API.StartKPI.Url, _input).then(function (response) {
+                if (response.data.Status == "Success") {
+                    if (response.data.Response) {
+                        MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem.Status = response.data.Response.Status;
+                        MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem.IsWorkStartEnabled = response.data.Response.IsWorkStartEnabled;
+                        MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem.IsWorkStartEnabledStr = response.data.Response.IsWorkStartEnabledStr;
+                        MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem.IsWorkStarted = response.data.Response.IsWorkStarted;
+                        MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem.IsWorkStartedStr = response.data.Response.IsWorkStartedStr;
+
+                        MyTaskCtrl.ePage.Masters.MyTask.OpenActivity.IsShowOpenActivityPageOverlay = false;
+                    } else {
+                        toastr.error("Failed...!");
+                    }
+                } else {
+                    toastr.error(response.data.Response);
+                }
+
+                MyTaskCtrl.ePage.Masters.MyTask.OpenActivity.StartMyWorkBtnTxt = "Start My Work";
+                MyTaskCtrl.ePage.Masters.MyTask.OpenActivity.IsDisableStartMyWorkBtn = false;
+            });
+        }
+        // #endregion
 
         Init();
     }

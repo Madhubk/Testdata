@@ -80,7 +80,7 @@
                 IsActive: false
             }, {
                 Code: "userOrganizationAppTenant",
-                Description: "User Organization App Tenant (" + "USER_ORG_ROLE_APP_TNT" + ")" + " - " + TCUserOrganizationAppTenantCtrl.ePage.Masters.QueryString.DisplayName,
+                Description: "User Organization App Tenant (" + "USER_ORG_APP_TNT" + ")" + " - " + TCUserOrganizationAppTenantCtrl.ePage.Masters.QueryString.DisplayName,
                 Link: "#",
                 IsRequireQueryString: false,
                 IsActive: true
@@ -125,9 +125,9 @@
             TCUserOrganizationAppTenantCtrl.ePage.Masters.UserOrganizationAppTenant.GetOrganizationList = GetOrganizationList;
             TCUserOrganizationAppTenantCtrl.ePage.Masters.UserOrganizationAppTenant.OnBlurAutoCompleteOrganizationList = OnBlurAutoCompleteOrganizationList;
             TCUserOrganizationAppTenantCtrl.ePage.Masters.UserOrganizationAppTenant.OnSelectAutoCompleteOrganizationList = OnSelectAutoCompleteOrganizationList;
-            TCUserOrganizationAppTenantCtrl.ePage.Masters.UserOrganizationAppTenant.GetSecRoleList = GetSecRoleList;
-            TCUserOrganizationAppTenantCtrl.ePage.Masters.UserOrganizationAppTenant.OnBlurAutoCompleteRoleList = OnBlurAutoCompleteRoleList;
-            TCUserOrganizationAppTenantCtrl.ePage.Masters.UserOrganizationAppTenant.OnSelectAutoCompleteRoleList = OnSelectAutoCompleteRoleList;
+            // TCUserOrganizationAppTenantCtrl.ePage.Masters.UserOrganizationAppTenant.GetSecRoleList = GetSecRoleList;
+            // TCUserOrganizationAppTenantCtrl.ePage.Masters.UserOrganizationAppTenant.OnBlurAutoCompleteRoleList = OnBlurAutoCompleteRoleList;
+            // TCUserOrganizationAppTenantCtrl.ePage.Masters.UserOrganizationAppTenant.OnSelectAutoCompleteRoleList = OnSelectAutoCompleteRoleList;
             TCUserOrganizationAppTenantCtrl.ePage.Masters.UserOrganizationAppTenant.CheckUIControl = CheckUIControl;
 
             if (TCUserOrganizationAppTenantCtrl.ePage.Masters.ActiveApplication == "EA") {
@@ -187,6 +187,10 @@
                     TCUserOrganizationAppTenantCtrl.ePage.Masters.UserOrganizationAppTenant.UserOrganizationAppTenantList = response.data.Response;
                     TCUserOrganizationAppTenantCtrl.ePage.Masters.UserOrganizationAppTenant.UserOrganizationAppTenantListCopy = angular.copy(response.data.Response);
 
+                    TCUserOrganizationAppTenantCtrl.ePage.Masters.UserOrganizationAppTenant.UserOrganizationAppTenantList.map(function(value,key){
+                        SetGenerateScriptInput(value)
+                    })
+
                 } else {
                     TCUserOrganizationAppTenantCtrl.ePage.Masters.UserOrganizationAppTenant.UserOrganizationAppTenantList = [];
                     console.log("Empty Response");
@@ -224,41 +228,23 @@
             row.AccessTo = "ORG"
         }
 
-        function GetSecRoleList($viewValue) {
-            var _filter = {
-                "TenantCode": authService.getUserInfo().TenantCode,
-                "UserName": TCUserOrganizationAppTenantCtrl.ePage.Masters.QueryString.ItemCode
-            };
-            if ($viewValue !== "#") {
-                _filter.Autocompletefield = $viewValue;
-            }
-
-            var _input = {
-                "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": trustCenterConfig.Entities.API.SecMappings.API.GetRoleByUserApp.FilterID,
-            };
-
-            return apiService.post("authAPI", trustCenterConfig.Entities.API.SecMappings.API.GetRoleByUserApp.Url, _input).then(function (response) {
-                if (response.data.Response) {
-                    return response.data.Response;
-                }
-            });
-        }
-
-        function OnBlurAutoCompleteRoleList($event, row) {
-            row.IsSecRoleNoResults = false;
-            row.IsSecRoleLoading = false;
-        }
-
-        function OnSelectAutoCompleteRoleList($item, $model, $label, $event, row) {
-            row.BasedOn_FK = $item.PK;
-            row.BasedOnCode = $item.Code;
-            row.BasedOn = "ROLE";
-        }
-
-        function AddNewRow() {
+       function AddNewRow() {
             var _obj = {};
             TCUserOrganizationAppTenantCtrl.ePage.Masters.UserOrganizationAppTenant.UserOrganizationAppTenantList.push(_obj);
+        }
+
+        function SetGenerateScriptInput(row) {
+            if (row) {
+                row.GenerateScriptInput = {
+                    ObjectName: "SECMAPPINGS",
+                    ObjectId: row.PK
+                };
+                row.GenerateScriptConfig = {
+                    IsEnableTable: false,
+                    IsEnablePK: false,
+                    IsEnableTenant: false
+                };
+            }
         }
 
         function Save(row) {
@@ -294,12 +280,17 @@
                     if (response.data.Response.length > 0) {
                         var _response = response.data.Response[0];
 
+                        if(!TCUserOrganizationAppTenantCtrl.ePage.Masters.UserOrganizationAppTenant.UserOrganizationAppTenantList){
+                            TCUserOrganizationAppTenantCtrl.ePage.Masters.UserOrganizationAppTenant.UserOrganizationAppTenantList = [];
+                        }
                         var _index = TCUserOrganizationAppTenantCtrl.ePage.Masters.UserOrganizationAppTenant.UserOrganizationAppTenantList.map(function (value, key) {
                             return value.PK;
                         }).indexOf(_response.PK);
 
+                        TCUserOrganizationAppTenantCtrl.ePage.Masters.UserOrganizationAppTenant.UserOrganizationAppTenantList.push(_response);
+
                         if (_index === -1) {
-                            TCUserOrganizationAppTenantCtrl.ePage.Masters.UserOrganizationAppTenant.UserOrganizationAppTenantList.push(_response);
+                            SetGenerateScriptInput(TCUserOrganizationAppTenantCtrl.ePage.Masters.UserOrganizationAppTenant.UserOrganizationAppTenantList[0]);
                         } else {
                             TCUserOrganizationAppTenantCtrl.ePage.Masters.UserOrganizationAppTenant.UserOrganizationAppTenantList[_index] = _response;
                         }

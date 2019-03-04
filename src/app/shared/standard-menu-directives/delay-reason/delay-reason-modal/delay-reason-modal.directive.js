@@ -8,7 +8,7 @@
     DelayReasonModal.$inject = ["$uibModal", "$templateCache"];
 
     function DelayReasonModal($uibModal, $templateCache) {
-        var _template = `<div class="modal-header">
+        let _template = `<div class="modal-header">
             <button type="button" class="close" ng-click="DelayReasonModalCtrl.ePage.Masters.Close()">&times;</button>
             <h5 class="modal-title" id="modal-title">
                 <strong>Delay Reason</strong>
@@ -19,7 +19,7 @@
         </div>`;
         $templateCache.put("DelayReasonModal.html", _template);
 
-        var exports = {
+        let exports = {
             restrict: "EA",
             scope: {
                 input: "="
@@ -32,9 +32,8 @@
             ele.on("click", OpenModal);
 
             function OpenModal() {
-                var modalInstance = $uibModal.open({
+                $uibModal.open({
                     animation: true,
-                    // backdrop: "static",
                     keyboard: true,
                     windowClass: "right delay-reason",
                     scope: scope,
@@ -43,18 +42,43 @@
                     bindToController: true,
                     resolve: {
                         param: function () {
-                            var exports = {
+                            let exports = {
                                 input: scope.input
                             };
                             return exports;
                         }
                     }
-                }).result.then(function (response) {
-                    console.log(response);
-                }, function () {
-                    console.log("Cancelled");
-                });
+                }).result.then(response => {}, () => {});
             }
         }
+    }
+
+    angular
+        .module("Application")
+        .controller("DelayReasonModalController", DelayReasonModalController);
+
+    DelayReasonModalController.$inject = ["$uibModalInstance", "helperService", "param"];
+
+    function DelayReasonModalController($uibModalInstance, helperService, param) {
+        /* jshint validthis: true */
+        let DelayReasonModalCtrl = this;
+
+        function Init() {
+            DelayReasonModalCtrl.ePage = {
+                "Title": "",
+                "Prefix": "DelayReasonModal",
+                "Masters": {},
+                "Meta": helperService.metaBase(),
+                "Entities": param.obj
+            };
+
+            DelayReasonModalCtrl.ePage.Masters.Close = Close;
+        }
+
+        function Close() {
+            $uibModalInstance.dismiss('cancel');
+        }
+
+        Init();
     }
 })();

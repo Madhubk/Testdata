@@ -73,15 +73,7 @@
                         return deferred.promise;
                     }],
                     loadMyCtrl: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
-                        return $ocLazyLoad.load(["chromeTab", "dynamicTable", "confirmation", "compareDate", 
-                        "dynamicListModal", "dynamicList", "dynamicLookup", "dynamicControl", "dynamicGrid",
-                         "drogAndDrop", "oneLevelMapping", "Summernote", "CustomFileUpload", "standardMenu", 
-                         "Comment", "CommentModal", "Document", "DocumentModal", "Email", "EmailModal", 
-                         "EmailDirective", "Exception", "ExceptionModal", "Event", "EventModal", "AuditLog", 
-                         "AuditLogModal", "DataEvent", "DataEventModal", "EmailGroup", "EmailGroupModal", 
-                         "EmailTemplateCreation", "EmailTemplateCreationModal", "Task", "TaskModal", 
-                         "Keyword", "KeywordModal", "Parties", "PartiesModal", "ActivityTab", 
-                         "orderLinesTracking", "orderLinesTrackingDirective", "orderLinesFiles"]);
+                        return $ocLazyLoad.load(["chromeTab", "dynamicTable", "confirmation", "compareDate", "dynamicListModal", "dynamicList", "dynamicLookup", "dynamicControl", "dynamicGrid", "drogAndDrop", "oneLevelMapping", "Summernote", "CustomFileUpload", "standardMenu", "Comment", "CommentModal", "Document", "DocumentModal", "Email", "EmailModal", "EmailDirective", "Exception", "ExceptionModal", "Event", "EventModal", "AuditLog", "AuditLogModal", "DataEvent", "DataEventModal", "EmailGroup", "EmailGroupModal", "EmailTemplateCreation", "EmailTemplateCreationModal", "Task", "TaskModal", "Keyword", "KeywordModal", "Parties", "PartiesModal", "ActivityTab", "orderLinesTracking", "orderLinesTrackingDirective", "orderLinesFiles"]);
                     }]
                 }
             })

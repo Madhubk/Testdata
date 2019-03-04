@@ -8,7 +8,7 @@
     UserSettingsController.$inject = ["$scope", "$location", "$uibModal", "authService", "apiService", "helperService", "toastr", "confirmation", "jsonEditModal", "trustCenterConfig"];
 
     function UserSettingsController($scope, $location, $uibModal, authService, apiService, helperService, toastr, confirmation, jsonEditModal, trustCenterConfig) {
-        
+
         var UserSettingsCtrl = this;
         var _queryString = $location.path().split("/").pop();
 
@@ -115,7 +115,7 @@
                     "AppName": UserSettingsCtrl.ePage.Masters.QueryString.AppName
                 };
             }
-           
+
             GetDataEntryList();
         }
         // ============ Data Entry Begin ============
@@ -133,10 +133,10 @@
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": trustCenterConfig.Entities.API.DataEntryMaster.API.FindAll.FilterID
+                "FilterID": trustCenterConfig.Entities.API.DataEntryMaster.API.FindAllColumn.FilterID
             };
 
-            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.DataEntryMaster.API.FindAll.Url, _input).then(function (response) {
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.DataEntryMaster.API.FindAllColumn.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     UserSettingsCtrl.ePage.Masters.DataEntry.Listsource = response.data.Response;
                     if (UserSettingsCtrl.ePage.Masters.DataEntry.Listsource.length > 0) {
@@ -218,6 +218,18 @@
         function OnUserSettingsClick($item) {
             UserSettingsCtrl.ePage.Masters.UserSetting.ActiveUserSetting = angular.copy($item);
             UserSettingsCtrl.ePage.Masters.UserSetting.ActiveUserSettingCopy = angular.copy($item);
+
+            if (UserSettingsCtrl.ePage.Masters.UserSetting.ActiveUserSetting) {
+                UserSettingsCtrl.ePage.Masters.GenerateScriptInput = {
+                    ObjectName: "UserSettings",
+                    ObjectId: UserSettingsCtrl.ePage.Masters.UserSetting.ActiveUserSetting.PK
+                };
+                UserSettingsCtrl.ePage.Masters.GenerateScriptConfig = {
+                    IsEnableTable: false,
+                    IsEnablePK: false,
+                    IsEnableTenant: false
+                };
+            }
         }
 
         function EditModalInstance() {
@@ -235,7 +247,7 @@
             UserSettingsCtrl.ePage.Masters.UserSetting.SaveBtnText = "OK";
             UserSettingsCtrl.ePage.Masters.UserSetting.IsDisableSaveBtn = false;
 
-            EditModalInstance().result.then(function (response) { }, function () {
+            EditModalInstance().result.then(function (response) {}, function () {
                 Cancel();
             });
         }

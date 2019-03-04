@@ -179,6 +179,7 @@
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
                 "FilterID": trustCenterConfig.Entities.API.UserExtended.API.FindAll.FilterID
+                // "FilterID": trustCenterConfig.Entities.API.UserTenantList.API.FindAll.FilterID
             };
 
             apiService.post("authAPI", trustCenterConfig.Entities.API.UserExtended.API.FindAll.Url, _input).then(function SuccessCallback(response) {
@@ -208,8 +209,6 @@
                     Icon: "glyphicons glyphicons-user-structure",
                     Link: "EA/admin/user-role-app-tenant",
                     Color: "#36ad97",
-                    AdditionalData: "USER_ROLE_APP_TNT",
-                    BreadcrumbTitle: "User Role - USER_ROLE_APP_TNT",
                     Type: 1
                 }, {
                     Code: "Warehouse",
@@ -217,8 +216,6 @@
                     Icon: "glyphicons glyphicons-home",
                     Link: "EA/admin/user-warehouse-app-tenant",
                     Color: "#01532f",
-                    AdditionalData: "USER_CMP_BRAN_WH_APP_TNT",
-                    BreadcrumbTitle: "User Company Branch Warehouse - USER_CMP_BRAN_WH_APP_TNT",
                     Type: 1
                 }, {
                     Code: "Organization",
@@ -226,8 +223,13 @@
                     Icon: "fa fa-building-o",
                     Link: "EA/admin/user-organization-app-tenant",
                     Color: "#eba4a6",
-                    AdditionalData: "USER_ORG_ROLE_APP_TNT",
-                    BreadcrumbTitle: "User Organization - USER_ORG_ROLE_APP_TNT",
+                    Type: 1
+                }, {
+                    Code: "OrganizationRole",
+                    Description: "Organization Role",
+                    Icon: "fa fa-building-o",
+                    Link: "EA/admin/user-organization-role-app-tenant",
+                    Color: "#eba4a6",
                     Type: 1
                 }];
             } else {
@@ -257,6 +259,13 @@
                     Description: "Organization",
                     Icon: "fa fa-building-o",
                     Link: "TC/user-organization-app-tenant",
+                    Color: "#eba4a6",
+                    Type: 1
+                }, {
+                    Code: "OrganizationRole",
+                    Description: "Organization Role",
+                    Icon: "fa fa-building-o",
+                    Link: "TC/user-organization-role-app-tenant",
                     Color: "#eba4a6",
                     Type: 1
                 }, {
@@ -348,7 +357,10 @@
 
         function SearchUser() {
             TCUserListCtrl.ePage.Masters.Sort.ActiveAlphabet = TCUserListCtrl.ePage.Masters.Search;
-            GetUserList();
+
+            if (TCUserListCtrl.ePage.Masters.Search) {
+                GetUserList();
+            }
         }
 
         function RePublishUser($item) {

@@ -19,9 +19,7 @@
         .directive('noSpecialChar', NoSpecialChar)
         .directive('alphabetsOnly', AlphabetsOnly)
         .directive('noSpecialExceptComma', NoSpecialExceptComma)
-        .directive('numbersOnlyDot', NumbersOnlyDot)
-        .directive('noSpecialExceptHyphen', NoSpecialExceptHyphen);
-
+        .directive('numbersOnlyDot', NumbersOnlyDot);
 
     function ChosenDropdown() {
         var _exports = {
@@ -65,13 +63,24 @@
                 // templateSelection: function (d) { return $(d.text); }
             };
 
-            (attrs.multiple) ? _options.multiple = true : _options.multiple = false;
-            (attrs.multiple) ? _options.placeholder = "Select any option" : _options.placeholder = undefined;
-            (scope.tags) ? _options.tags = true : _options.tags = false;
+            (attrs.multiple) ? _options.multiple = true: _options.multiple = false;
+            (attrs.multiple) ? _options.placeholder = "Select any option": _options.placeholder = undefined;
+            (scope.tags) ? _options.tags = true: _options.tags = false;
             if (scope.disableSearch)
                 _options.minimumResultsForSearch = Infinity;
 
             $el.select2();
+
+            // To Add custom tags
+            // $el.select2({
+            //     tags: true,
+            //     tokenSeparators: [",", " "]
+            // }).on("change", function(e) {
+            //     var isNew = $(this).find('[data-select2-tag="true"]');
+            //     if(isNew.length){
+            //         isNew.replaceWith('<option selected value="'+isNew.val()+'">'+isNew.val()+'</option>');
+            //     }
+            // }).on("select2:unselect", function (e) {});
 
             scope.$watch("model", function () {
                 setTimeout(function () {
@@ -182,7 +191,7 @@
                     if (($document.height() - $window.innerHeight) - $window.scrollY < 20) {
                         scope.loadMore();
                     }
-                    scope.$apply(function () { });
+                    scope.$apply(function () {});
                 });
             }
         };
@@ -217,7 +226,11 @@
                             // ngModel.$render();
                         });
                     } else {
-                        _output = $filter('date')(modelValue, APP_CONSTANT.DatePicker.dateTimeFullFormat);
+                        if(attr.isApiInputAsDisplayFormat == "true"){
+                            _output = $filter('date')(modelValue, attr.datetimePicker);
+                        } else {
+                            _output = $filter('date')(modelValue, APP_CONSTANT.DatePicker.dateTimeFullFormat);
+                        }
                     }
                 }
 
@@ -398,7 +411,7 @@
             }
         };
     }
-
+    
     // no special Chars
     function NoSpecialChar() {
         return {
@@ -442,28 +455,6 @@
         //         });  
         //     }
         // };
-    }
-
-    // No Special char except Hyphen
-    function NoSpecialExceptHyphen() {
-        return {
-            require: 'ngModel',
-            link: function (scope, element, attr, ngModelCtrl) {
-                function FromUser(text) {
-                    if (text) {
-                        var transformedInput = text.replace(/[^a-zA-Z0-9-\s.]/g, '');
-
-                        if (transformedInput !== text) {
-                            ngModelCtrl.$setViewValue(transformedInput);
-                            ngModelCtrl.$render();
-                        }
-                        return transformedInput;
-                    }
-                    return undefined;
-                }
-                ngModelCtrl.$parsers.push(FromUser);
-            }
-        };
     }
 
     function AlphabetsOnly() {

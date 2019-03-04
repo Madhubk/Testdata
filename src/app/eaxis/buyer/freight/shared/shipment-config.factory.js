@@ -16,7 +16,7 @@
                         "insert": {
                             "IsAPI": "true",
                             "HttpType": "POST",
-                            "Url": "shipmentlist/buyer/insert"
+                            "Url": "conshpmapping/buyer/insert"
                         },
                         "update": {
                             "IsAPI": "true",
@@ -111,81 +111,6 @@
                         }
                     }
                 },
-                "Booking_BuyerForwarder": {
-                    "API": {
-                        "insert": {
-                            "IsAPI": "true",
-                            "HttpType": "POST",
-                            "Url": "booking/buyerforwarder/insert"
-                        },
-                        "update": {
-                            "IsAPI": "true",
-                            "HttpType": "POST",
-                            "Url": "booking/buyerforwarder/update"
-                        },
-                        "activityclose": {
-                            "IsAPI": "true",
-                            "HttpType": "GET",
-                            "Url": "booking/buyerforwarder/activityclose/"
-                        }
-                    }
-                },
-                "CntContainer_Buyer": {
-                    "API": {
-                        "insert": {
-                            "IsAPI": "true",
-                            "HttpType": "POST",
-                            "Url": "cntcontainer/buyer/insert"
-                        },
-                        "update": {
-                            "IsAPI": "true",
-                            "HttpType": "POST",
-                            "Url": "cntcontainer/buyer/update"
-                        },
-                        "findall": {
-                            "IsAPI": "true",
-                            "HttpType": "POST",
-                            "Url": "cntcontainer/buyer/findall",
-                            "FilterID": "CONTHEAD"
-                        },
-                        "containerworkitemfindall": {
-                            "IsAPI": "true",
-                            "HttpType": "POST",
-                            "FilterID": "CONTHEAD",
-                            "Url": "cntcontainer/buyer/containerworkitemfindall"
-                        },
-                        "getbyid": {
-                            "IsAPI": "true",
-                            "HttpType": "GET",
-                            "Url": "cntcontainer/buyer/getbyid"
-                        },
-                        "activityclose": {
-                            "IsAPI": "true",
-                            "HttpType": "GET",
-                            "Url": "cntcontainer/buyer/insert"
-                        }
-                    }
-                },
-                "ConsolList_Buyer":{
-                    "API": {
-                        "getbyid": {
-                            "IsAPI": "true",
-                            "HttpType": "GET",
-                            "Url": "consollist/buyer/getbyid/",
-                            "FilterID": "CONSHEAD"
-                        },
-                        "insert": {
-                            "IsAPI": "true",
-                            "HttpType": "POST",
-                            "Url": "consollist/buyer/insert"
-                        },
-                        "updatel": {
-                            "IsAPI": "true",
-                            "HttpType": "POST",
-                            "Url": "consollist/buyer/update"
-                        }
-                    }
-                }
             }
         };
 

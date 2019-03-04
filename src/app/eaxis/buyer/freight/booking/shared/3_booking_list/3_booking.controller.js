@@ -21,13 +21,12 @@
             };
             three_BookingCtrl.ePage.Masters.ErrorWarningConfig = errorWarningService;
             three_BookingCtrl.ePage.Masters.RoleCode = authService.getUserInfo().RoleCode;
-            three_BookingCtrl.ePage.Masters.AccessCode = authService.getUserInfo().AccessCode;
             // For list directive
-            three_BookingCtrl.ePage.Masters.taskName = "BPBooking" ;
-            three_BookingCtrl.ePage.Masters.dataentryName = "BPBooking";
-            three_BookingCtrl.ePage.Masters.defaultFilter = {
-                "IsBooking": "true"
-            }
+            three_BookingCtrl.ePage.Masters.taskName = "Booking_" + three_BookingCtrl.ePage.Masters.RoleCode;
+            three_BookingCtrl.ePage.Masters.dataentryName = "Booking_" + three_BookingCtrl.ePage.Masters.RoleCode;
+            // three_BookingCtrl.ePage.Masters.defaultFilter = {
+            //     "IsBooking": "true"
+            // }
             three_BookingCtrl.ePage.Masters.taskHeader = "";
             three_BookingCtrl.ePage.Masters.config = three_BookingConfig;
 
@@ -46,7 +45,82 @@
             three_BookingCtrl.ePage.Masters.RemoveTab = RemoveTab;
             three_BookingCtrl.ePage.Masters.CurrentActiveTab = CurrentActiveTab;
             three_BookingCtrl.ePage.Masters.SelectedGridRow = SelectedGridRow;
+            three_BookingCtrl.ePage.Masters.ShowLists = false;
+            three_BookingCtrl.ePage.Masters.CNFShipment = false;
+            three_BookingCtrl.ePage.Masters.ASN = false;
+            three_BookingCtrl.ePage.Masters.CreateBtn = true;
+            three_BookingCtrl.ePage.Masters.ShipmentSelection = ShipmentSelection;
 
+        }
+
+        function ShipmentSelection(mode) {
+            three_BookingCtrl.ePage.Masters.dataentryName = three_BookingCtrl.ePage.Masters.dataentryName;
+            switch (mode) {
+                case 'bookinglist':
+                    three_BookingCtrl.ePage.Masters.ShowLists = true;
+                    three_BookingCtrl.ePage.Masters.ASN = false;
+                    three_BookingCtrl.ePage.Masters.CreateBtn = true;
+                    three_BookingCtrl.ePage.Masters.dataentryName = "Booking_" + three_BookingCtrl.ePage.Masters.RoleCode;
+                    three_BookingCtrl.ePage.Masters.RoleCode == 'BUYER_SUPPLIER' ? three_BookingCtrl.ePage.Masters.defaultFilter = {} : three_BookingCtrl.ePage.Masters.RoleCode == 'BUYER_EXPORT_CS' ? three_BookingCtrl.ePage.Masters.defaultFilter = {
+                        "IsBooking": "true"
+                    } : three_BookingCtrl.ePage.Masters.defaultFilter = {
+                        "IsBooking": "true"
+                    };
+                    break;
+                case 'asnlist':
+                    three_BookingCtrl.ePage.Masters.ShowLists = true;
+                    three_BookingCtrl.ePage.Masters.ASN = false;
+                    three_BookingCtrl.ePage.Masters.CreateBtn = false;
+                    three_BookingCtrl.ePage.Masters.dataentryName = "ASN_Upload";
+                    three_BookingCtrl.ePage.Masters.defaultFilter = {
+                        "BatchUploadType": "ASN"
+                    };
+                    break;
+                case 'ASN':
+                    UploadAsn();
+                    break;
+                case 'CNFBooking':
+                    three_BookingCtrl.ePage.Masters.ShowLists = true;
+                    three_BookingCtrl.ePage.Masters.CNFShipment = true;
+                    three_BookingCtrl.ePage.Masters.CreateBtn = true;
+                    CreateNewBooking();
+                    break;
+                case 'dashboard':
+                    three_BookingCtrl.ePage.Masters.ShowLists = false;
+                    three_BookingCtrl.ePage.Masters.ASN = false;
+                    three_BookingCtrl.ePage.Masters.CNFShipment = false;
+                    break;
+                default:
+                    three_BookingCtrl.ePage.Masters.ShowLists = false;
+                    three_BookingCtrl.ePage.Masters.SLI = false;
+                    three_BookingCtrl.ePage.Masters.CNFShipment = false;
+                    break;
+            }
+        }
+
+        function UploadAsn() {
+            var modalInstance = $uibModal.open({
+                animation: true,
+                backdrop: "static",
+                keyboard: false,
+                windowClass: "AsnModal right",
+                scope: $scope,
+                // size : "sm",
+                templateUrl: "app/eaxis/buyer/freight/booking/1_2_asn-upload/1_2_asn-upload.html",
+                controller: 'oneTwoAsnUploadController',
+                controllerAs: "oneTwoAsnUploadCtrl",
+                bindToController: true,
+                resolve: {
+                    param: function () {
+                        var exports = {};
+                        return exports;
+                    }
+                }
+            }).result.then(
+                function (response) {
+
+                }
+            );
         }
 
         function CreateNewBooking() {
@@ -176,10 +250,86 @@
         }
 
         function SelectedGridRow($item) {
-            console.log($item)
-            if ($item.action === "link" || $item.action === "dblClick") {
+            if ($item.action === "link") {
                 three_BookingCtrl.ePage.Masters.AddTab($item.data, false);
+            } else if ($item.action === "icon") {
+                StandardMenuConfig($item.data.entity);
             }
+        }
+
+        function StandardMenuConfig(_data) {
+            three_BookingCtrl.ePage.Masters.StandardMenuInput = {
+                // Entity
+                // "Entity": _data.Source,
+                "EntityRefKey": _data.PK,
+                "EntityRefCode": _data.BatchUploadNo,
+                "EntitySource": "SHP",
+                "Communication": null,
+                "Config": undefined,
+                // Parent Entity
+                "ParentEntityRefKey": undefined,
+                "ParentEntityRefCode": undefined,
+                "ParentEntitySource": undefined,
+                // Additional Entity
+                "AdditionalEntityRefKey": undefined,
+                "AdditionalEntityRefCode": undefined,
+                "AdditionalEntitySource": undefined,
+                "IsDisableParentEntity": true,
+                "IsDisableAdditionalEntity": true
+            };
+            three_BookingCtrl.ePage.Masters.StandardConfigInput = {
+                IsDisableRefreshButton: true,
+                IsDisableDeleteHistoryButton: true,
+                // IsDisableUpload: true,
+                // IsDisableGenerate: true,
+                IsDisableRelatedDocument: true,
+                // IsDisableCount: true,
+                // IsDisableDownloadCount: true,
+                // IsDisableAmendCount: true,
+                // IsDisableFileName: true,
+                // IsDisableEditFileName: true,
+                // IsDisableDocumentType: true,
+                // IsDisableOwner: true,
+                // IsDisableCreatedOn: true,
+                // IsDisableShare: true,
+                // IsDisableVerticalMenu: true,
+                // IsDisableVerticalMenuDownload: true,
+                // IsDisableVerticalMenuAmend: true,
+                // IsDisableVerticalMenuEmailAttachment: true,
+                // IsDisableVerticalMenuRemove: true
+            };
+
+            three_BookingCtrl.ePage.Masters.CommentConfig = {
+                IsDisableRefreshButton: true
+            };
+            three_BookingCtrl.ePage.Masters.DocumentEnable = true;
+            DocumentModal();
+        }
+
+        function DocumentModal() {
+            var modalInstance = $uibModal.open({
+                animation: true,
+                backdrop: "static",
+                keyboard: false,
+                windowClass: "doc-modal right",
+                scope: $scope,
+                // size : "sm",
+                templateUrl: "app/eaxis/buyer/purchase-order/1_1_buyer_order/1_1_order_batch/doc-upload-modal/doc-upload-modal.html",
+                controller: 'DocModalController',
+                controllerAs: "DocModalCtrl",
+                bindToController: true,
+                resolve: {
+                    param: function () {
+                        var exports = {
+                            "Input": three_BookingCtrl.ePage.Masters.StandardMenuInput
+                        };
+                        return exports;
+                    }
+                }
+            }).result.then(
+                function (response) {},
+                function (response) {}
+            );
         }
 
 

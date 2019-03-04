@@ -34,7 +34,7 @@
                 Code: curEntity.UIShipment_Buyer_Supplier.ShipmentNo
             };
             _queryString = helperService.encryptData(_queryString);
-            $window.open("#/EA/single-record-view/shipment-view?q=" + _queryString, "_blank");
+            $window.open("#/EA/single-record-view/shipment/" + _queryString, "_blank");
         }
         // ----------------------------------- Init Custom-----------------------------------
         function InitCustom() {
@@ -46,14 +46,14 @@
             OrderViewDefaultGeneralCtrl.ePage.Masters.DynamicControl = undefined;
             if (mode == "ORG") {
                 var _filter = {
-                    DataEntryName: "BPOrderHeaderCustomOrg",
+                    DataEntryName: "OrderHeaderCustomOrg",
                     IsRoleBased: false,
                     IsAccessBased: false,
                     OrganizationCode: OrderViewDefaultGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Supplier.Buyer
                 };
             } else {
                 var _filter = {
-                    DataEntryName: "BPOrderHeaderCustom"
+                    DataEntryName: "OrderHeaderCustom"
                 };
             }
             var _input = {

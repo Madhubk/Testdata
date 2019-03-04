@@ -98,7 +98,7 @@
 
         //======================== BreadCrumb End =============================//
 
-         function InitMenuRoleAppTenant() {
+        function InitMenuRoleAppTenant() {
             TCMenuRoleAppTenantCtrl.ePage.Masters.MenuRoleAppTenant = {};
             TCMenuRoleAppTenantCtrl.ePage.Masters.MenuRoleAppTenant.OnMenuRoleAppTenantClick = OnMenuRoleAppTenantClick;
             TCMenuRoleAppTenantCtrl.ePage.Masters.MenuRoleAppTenant.GetRolesList = GetRolesList;
@@ -116,11 +116,11 @@
 
             TCMenuRoleAppTenantCtrl.ePage.Masters.DeleteBtnText = "Delete";
             TCMenuRoleAppTenantCtrl.ePage.Masters.IsDisableDeleteBtn = false;
-           
+
             GetUIControlList();
             GetMenuRoleAppTenant();
             GetRedirectLinkList();
-           
+
         }
 
 
@@ -193,6 +193,19 @@
                 if (TCMenuRoleAppTenantCtrl.ePage.Masters.MenuRoleAppTenant.MenuRoleAppTenantList.length > 0) {
                     OnMenuRoleAppTenantClick(TCMenuRoleAppTenantCtrl.ePage.Masters.MenuRoleAppTenant.MenuRoleAppTenantList[0]);
                 }
+            }
+
+
+            if (TCMenuRoleAppTenantCtrl.ePage.Masters.MenuRoleAppTenant.ActiveMenuRoleAppTenant) {
+                TCMenuRoleAppTenantCtrl.ePage.Masters.GenerateScriptInput = {
+                    ObjectName: "SECMAPPINGS",
+                    ObjectId: TCMenuRoleAppTenantCtrl.ePage.Masters.MenuRoleAppTenant.ActiveMenuRoleAppTenant.PK
+                };
+                TCMenuRoleAppTenantCtrl.ePage.Masters.GenerateScriptConfig = {
+                    IsEnableTable: false,
+                    IsEnablePK: false,
+                    IsEnableTenant: false
+                };
             }
         }
 
@@ -339,7 +352,7 @@
                 TCMenuRoleAppTenantCtrl.ePage.Masters.MenuRoleAppTenant.EditModal.dismiss('cancel');
             });
         }
-        
+
         function DeleteConfirmation() {
             var modalOptions = {
                 closeButtonText: 'Cancel',

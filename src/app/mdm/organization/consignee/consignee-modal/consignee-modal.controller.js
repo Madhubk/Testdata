@@ -40,9 +40,9 @@
                 ModePopUpModalCtrl.ePage.Masters.SaveButtonText = "Update";
                 ModePopUpModalCtrl.ePage.Masters.ModeData.FormView = param.Data.data;
             }
-            GetCfxTypeList()
-            GetServiceLevelList()
 
+            GetCfxTypeList();
+            GetServiceLevelList();
         }
 
         function AutoCompleteOnSelect($item, _input) {

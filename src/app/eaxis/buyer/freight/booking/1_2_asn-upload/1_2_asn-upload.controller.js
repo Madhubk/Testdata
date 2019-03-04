@@ -5,12 +5,11 @@
         .module("Application")
         .controller("oneTwoAsnUploadController", oneTwoAsnUploadController);
 
-    oneTwoAsnUploadController.$inject = ["$rootScope", "$timeout", "authService", "apiService", "helperService", "appConfig", "oneTwoAsnUploadConfig", "toastr", "errorWarningService", "$uibModalInstance", "confirmation","$injector","dynamicLookupConfig"];
+    oneTwoAsnUploadController.$inject = ["$rootScope", "$timeout", "authService", "apiService", "helperService", "appConfig", "oneTwoAsnUploadConfig", "toastr", "errorWarningService", "$uibModalInstance", "confirmation"];
 
-    function oneTwoAsnUploadController($rootScope, $timeout, authService, apiService, helperService, appConfig, oneTwoAsnUploadConfig, toastr, errorWarningService, $uibModalInstance, confirmation,$injector,dynamicLookupConfig) {
+    function oneTwoAsnUploadController($rootScope, $timeout, authService, apiService, helperService, appConfig, oneTwoAsnUploadConfig, toastr, errorWarningService, $uibModalInstance, confirmation) {
         /* jshint validthis: true */
         var oneTwoAsnUploadCtrl = this;
-        dynamicLookupConfig = $injector.get("dynamicLookupConfig");
 
         function Init() {
             oneTwoAsnUploadCtrl.ePage = {
@@ -26,7 +25,6 @@
             oneTwoAsnUploadCtrl.ePage.Masters.IsDisableSave = false;
             oneTwoAsnUploadCtrl.ePage.Masters.modalClose = modalClose;
             CreateNewBooking();
-            GetRelatedLookupList();
         }
 
         function CreateNewBooking() {
@@ -101,26 +99,6 @@
                 }
             });
 
-        }
-        function GetRelatedLookupList() {
-            var _filter = {
-                Key: "BP_PoBatchUploadOrg_13256",
-                SAP_FK: authService.getUserInfo().AppPK
-            };
-            var _input = {
-                "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.DYN_RelatedLookup.API.GroupFindAll.FilterID
-            };
-
-            apiService.post("eAxisAPI", appConfig.Entities.DYN_RelatedLookup.API.GroupFindAll.Url, _input).then(function (response) {
-                if (response.data.Response) {
-                    var _isEmpty = angular.equals({}, response.data.Response);
-
-                    if (!_isEmpty) {
-                        dynamicLookupConfig.Entities = Object.assign({}, dynamicLookupConfig.Entities, response.data.Response);
-                    }
-                }
-            });
         }
 
         Init();

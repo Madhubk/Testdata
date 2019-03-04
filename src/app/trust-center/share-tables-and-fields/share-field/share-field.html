@@ -32,6 +32,9 @@
                     data-ng-disabled="!ShareFieldCtrl.ePage.Masters.ShareField.ActiveShareField.Field_PK">Edit</button>
                 <button class="btn btn-default tc-btn-delete btn-xs pull-right ml-10" data-ng-click="ShareFieldCtrl.ePage.Masters.ShareField.DeleteConfirmation()"
                     data-ng-bind="ShareFieldCtrl.ePage.Masters.ShareField.DeleteBtnText" data-ng-disabled="ShareFieldCtrl.ePage.Masters.ShareField.IsDisableDeleteBtn || !ShareFieldCtrl.ePage.Masters.ShareField.ActiveShareField.Field_PK"></button>
+                    <button class="btn btn-primary btn-xs pull-right ml-10" generate-db-script input="ShareFieldCtrl.ePage.Masters.GenerateScriptInput"
+                    config="ShareFieldCtrl.ePage.Masters.GenerateScriptConfig" data-ng-disabled="!ShareFieldCtrl.ePage.Masters.GenerateScriptInput.ObjectName || !ShareFieldCtrl.ePage.Masters.GenerateScriptInput.ObjectId || !ShareFieldCtrl.ePage.Masters.ShareField.ActiveShareField.Field_PK">Generate
+                    Script</button>
             </div>
         </div>
     </div>

@@ -246,6 +246,18 @@
             ProcessCtrl.ePage.Masters.Process.ActiveProcess = angular.copy($item);
             ProcessCtrl.ePage.Masters.Process.ActiveProcessCopy = angular.copy($item);
 
+            if (ProcessCtrl.ePage.Masters.Process.ActiveProcess) {
+                ProcessCtrl.ePage.Masters.GenerateScriptInput = {
+                    ObjectName: "EBPM_ProcessMaster",
+                    ObjectId: ProcessCtrl.ePage.Masters.Process.ActiveProcess.PK
+                };
+                ProcessCtrl.ePage.Masters.GenerateScriptConfig = {
+                    IsEnableTable: false,
+                    IsEnablePK: false,
+                    IsEnableTenant: false
+                };
+            }
+
         }
 
         function EditModalInstance() {
@@ -381,10 +393,10 @@
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": trustCenterConfig.Entities.API.UserExtended.API.FindAll.FilterID
+                "FilterID": trustCenterConfig.Entities.API.UserTenantList.API.FindAll.FilterID
             };
 
-            return apiService.post("authAPI", trustCenterConfig.Entities.API.UserExtended.API.FindAll.Url, _input).then(function SuccessCallback(response) {
+            return apiService.post("authAPI", trustCenterConfig.Entities.API.UserTenantList.API.FindAll.Url, _input).then(function SuccessCallback(response) {
                 if (response.data.Response) {
                     return response.data.Response;
                 }

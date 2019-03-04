@@ -163,6 +163,16 @@
             if (DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.ActiveDataExtReportFields) {
                 GetDataExtReportFieldsFieldsList();
                 GetFieldList();
+
+                DataExtReportFieldsCtrl.ePage.Masters.GenerateScriptInput = {
+                    ObjectName: "DATA_Config",
+                    ObjectId: DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.ActiveDataExtReportFields.PK
+                };
+                DataExtReportFieldsCtrl.ePage.Masters.GenerateScriptConfig = {
+                    IsEnableTable: false,
+                    IsEnablePK: false,
+                    IsEnableTenant: false
+                };
             }
         }
 
@@ -237,7 +247,7 @@
         }
 
         function DeleteDataExtReportFields() {
-           apiService.get("eAxisAPI", trustCenterConfig.Entities.API.DataConfig.API.Delete.Url + DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.ActiveDataExtReportFields.PK).then(function SuccessCallback(response) {
+            apiService.get("eAxisAPI", trustCenterConfig.Entities.API.DataConfig.API.Delete.Url + DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.ActiveDataExtReportFields.PK).then(function SuccessCallback(response) {
                 if (response.data.Response) {
                     var _index = DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsList.map(function (value, key) {
                         return value.PK;
@@ -469,6 +479,10 @@
                     if (DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.DataExtReportFieldsFieldsListSource.length > 0) {
 
                         OnDataExtReportFieldsFieldsClick(DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.DataExtReportFieldsFieldsListSource[0])
+                        DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.DataExtReportFieldsFieldsListSource.map(function(value,key){
+                            SetGenerateScriptInput(value);
+                        })
+
                     } else {
                         OnDataExtReportFieldsFieldsClick();
                     }
@@ -491,9 +505,9 @@
                 EntitySource: "GENERAL",
                 EntityRefCode: "General"
             };
-            
+
             DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.ActiveDataExtReportFieldsFields.ItemType = "Main";
-        
+
             DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.FieldNameList = [];
             GetFieldList();
 
@@ -518,7 +532,7 @@
         function EditReportFieldsField($item) {
             DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.ActiveDataExtReportFieldsFields = angular.copy($item);
 
-            EditReportFieldsFieldsConfigModal().result.then(function (response) { }, function () { });
+            EditReportFieldsFieldsConfigModal().result.then(function (response) {}, function () {});
         }
 
 
@@ -540,13 +554,17 @@
                 if (response.data.Response) {
                     if (response.data.Response.length > 0) {
                         var _response = response.data.Response[0];
-
+                        if(!DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.DataExtReportFieldsFieldsListSource) {
+                            DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.DataExtReportFieldsFieldsListSource = [];
+                        }
                         var _index = DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.DataExtReportFieldsFieldsListSource.map(function (value, key) {
                             return value.PK;
                         }).indexOf(_response.PK);
 
+                        DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.DataExtReportFieldsFieldsListSource.push(_response);
+
                         if (_index === -1) {
-                            DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.DataExtReportFieldsFieldsListSource.push(_response);
+                            SetGenerateScriptInput(DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.DataExtReportFieldsFieldsListSource[0]);
                         } else {
                             DataExtReportFieldsCtrl.ePage.Masters.DataExtReportFields.DataExtReportFieldsFields.DataExtReportFieldsFieldsListSource[_index] = _response;
                         }
@@ -622,6 +640,20 @@
 
                 GetDataExtReportFieldsFieldsList();
             });
+        }
+
+        function SetGenerateScriptInput(item) {
+            if (item) {
+                item.GenerateScriptInput = {
+                    ObjectName: "DATA_Config_Fields",
+                    ObjectId: item.PK
+                };
+                item.GenerateScriptConfig = {
+                    IsEnableTable: false,
+                    IsEnablePK: false,
+                    IsEnableTenant: false
+                };
+            }
         }
 
         // ======== Edit Expression ======= //

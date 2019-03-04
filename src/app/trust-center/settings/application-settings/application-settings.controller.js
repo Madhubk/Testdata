@@ -110,8 +110,8 @@
                 }]
             };
             AppSettingsCtrl.ePage.Masters.Breadcrumb.ListSource = _listSourceType[AppSettingsCtrl.ePage.Masters.QueryString.Type];
-           
-         }
+
+        }
 
         function OnBreadcrumbClick($item) {
             if (!$item.IsRequireQueryString && !$item.IsActive) {
@@ -177,7 +177,7 @@
         function OnModuleChange($item) {
             AppSettingsCtrl.ePage.Masters.Module.ActiveModule = $item;
             GetAppSettingsModuleList();
-           
+
         }
 
         //=============== Module List End ============ // 
@@ -312,6 +312,19 @@
         function OnAppSettingsListClick($item) {
             AppSettingsCtrl.ePage.Masters.AppSettingsList.ActiveAppSettingsList = angular.copy($item);
             AppSettingsCtrl.ePage.Masters.AppSettingsList.ActiveAppSettingsListCopy = angular.copy($item);
+
+            if (AppSettingsCtrl.ePage.Masters.AppSettingsList.ActiveAppSettingsList) {
+                AppSettingsCtrl.ePage.Masters.GenerateScriptInput = {
+                    ObjectName: "AppSettings",
+                    ObjectId: AppSettingsCtrl.ePage.Masters.AppSettingsList.ActiveAppSettingsList.PK
+                };
+                AppSettingsCtrl.ePage.Masters.GenerateScriptConfig = {
+                    IsEnableTable: false,
+                    IsEnablePK: false,
+                    IsEnableTenant: false
+                };
+            }
+
         }
 
         function OnConsolidateClick($item) {
@@ -565,7 +578,7 @@
         }
 
         function OnRedirectListClick($item) {
-          if (AppSettingsCtrl.ePage.Masters.Application.ActiveApplication) {
+            if (AppSettingsCtrl.ePage.Masters.Application.ActiveApplication) {
                 var _queryString = {
                     "AppPk": AppSettingsCtrl.ePage.Masters.Application.ActiveApplication.PK,
                     "AppCode": AppSettingsCtrl.ePage.Masters.Application.ActiveApplication.AppCode,

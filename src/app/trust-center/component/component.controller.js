@@ -5,10 +5,9 @@
         .module("Application")
         .controller("ComponentController", ComponentController);
 
-    ComponentController.$inject = ["$scope", "$location", "$timeout", "$uibModal", "authService", "apiService", "helperService", "toastr", "confirmation", "trustCenterConfig"];
+        ComponentController.$inject = ["$scope", "$location", "$uibModal", "authService", "apiService", "helperService", "toastr", "confirmation", "$timeout", "trustCenterConfig"];
 
-    function ComponentController($scope, $location, $timeout, $uibModal, authService, apiService, helperService, toastr, confirmation, trustCenterConfig) {
-        /* jshint validthis: true */
+    function ComponentController($scope, $location, $uibModal, authService, apiService, helperService, toastr, confirmation, $timeout, trustCenterConfig) {
         var ComponentCtrl = this;
         var _queryString = $location.path().split("/").pop();
 
@@ -22,11 +21,11 @@
             };
 
             ComponentCtrl.ePage.Masters.ActiveApplication = authService.getUserInfo().AppCode;
-
             ComponentCtrl.ePage.Masters.emptyText = "-";
 
             try {
                 ComponentCtrl.ePage.Masters.QueryString = JSON.parse(helperService.decryptData(_queryString));
+
                 if (ComponentCtrl.ePage.Masters.QueryString.AppPk) {
                     InitBreadcrumb();
                     InitApplication();
@@ -48,11 +47,6 @@
         }
 
         function GetBreadcrumbList() {
-            var _breadcrumbTitle = "";
-            if (ComponentCtrl.ePage.Masters.QueryString.AdditionalData.BreadcrumbTitle) {
-                _breadcrumbTitle = " (" + ComponentCtrl.ePage.Masters.QueryString.AdditionalData.BreadcrumbTitle + ")";
-            }
-
             ComponentCtrl.ePage.Masters.Breadcrumb.ListSource = [{
                 Code: "home",
                 Description: "Home",
@@ -71,8 +65,8 @@
                 },
                 IsActive: false
             }, {
-                Code: "component",
-                Description: "Component (" + ComponentCtrl.ePage.Masters.QueryString.AdditionalData.BreadcrumbTitle + ")",
+                Code: "components",
+                Description: "Components",
                 Link: "#",
                 IsRequireQueryString: false,
                 IsActive: true
@@ -88,7 +82,7 @@
         }
 
         // ========================Breadcrumb End========================
-        // ========================Application Start========================
+        // ========================Application Start=====================
         function InitApplication() {
             ComponentCtrl.ePage.Masters.Application = {};
             ComponentCtrl.ePage.Masters.Application.OnApplicationChange = OnApplicationChange;
@@ -105,11 +99,11 @@
                 };
             }
 
-            GetComponentListType();
             GetRedirectionPageList();
+            GetComponentListType();
         }
 
-        // ============== Component List Operation Type =========== 
+        // ============== ManageParameters List Operation Type =========== //
 
         function InitComponentListType() {
             ComponentCtrl.ePage.Masters.ComponentListType = {};
@@ -131,50 +125,41 @@
                     ComponentCtrl.ePage.Masters.ComponentListType.ListSource = response.data.Response;
 
                     if (ComponentCtrl.ePage.Masters.ComponentListType.ListSource.length > 0) {
-                        ComponentCtrl.ePage.Masters.ComponentListType.ListSource.map(function (value, key) {
-                            if (ComponentCtrl.ePage.Masters.QueryString.AdditionalData.Input.Code == "API") {
-                                ComponentCtrl.ePage.Masters.ComponentListType.ListSource = ["API"];
-                            } else {
-                                if (value == "API") {
-                                    ComponentCtrl.ePage.Masters.ComponentListType.ListSource.splice(key, 1);
-                                }
-                            }
-                        });
                         OnComponentListTypeClick(ComponentCtrl.ePage.Masters.ComponentListType.ListSource[0]);
                     } else {
                         OnComponentListTypeClick();
-                        ComponentCtrl.ePage.Masters.ComponentListTypeList.ListSource = [];
                     }
                 } else {
                     ComponentCtrl.ePage.Masters.ComponentListType.ListSource = [];
-                    ComponentCtrl.ePage.Masters.ComponentListTypeList.ListSource = [];
                 }
             });
         }
 
         function OnComponentListTypeClick($item) {
             ComponentCtrl.ePage.Masters.ComponentListType.ActiveComponentListType = $item;
-            ComponentCtrl.ePage.Masters.ComponentListType.ActiveComponentListTypeCopy = $item;
 
             if ($item) {
                 GetComponentListTypeList();
+            } else {
+                ComponentCtrl.ePage.Masters.ComponentListTypeList.ListSource = [];
+                ComponentCtrl.ePage.Masters.ComponentListTypeList.ActiveComponentListTypeList = undefined;
             }
         }
 
-        // ========================Component List Type End========================
+        // ========================Manage Parameters List Type End========================
 
-        // ========================Component List Type List Start========================
+        // ========================Manage Parameters List Type List Start========================
+
         function InitComponentListTypeList() {
             ComponentCtrl.ePage.Masters.ComponentListTypeList = {};
-
             ComponentCtrl.ePage.Masters.ComponentListTypeList.OnComponentListTypeListClick = OnComponentListTypeListClick;
             ComponentCtrl.ePage.Masters.ComponentListTypeList.Cancel = Cancel;
             ComponentCtrl.ePage.Masters.ComponentListTypeList.Save = Save;
+            ComponentCtrl.ePage.Masters.ComponentListTypeList.AddNew = AddNew;
             ComponentCtrl.ePage.Masters.ComponentListTypeList.Edit = Edit;
             ComponentCtrl.ePage.Masters.ComponentListTypeList.DeleteConfirmation = DeleteConfirmation;
             ComponentCtrl.ePage.Masters.ComponentListTypeList.Delete = Delete;
             ComponentCtrl.ePage.Masters.ComponentListTypeList.OnRedirectListClick = OnRedirectListClick;
-            ComponentCtrl.ePage.Masters.ComponentListTypeList.AddNew = AddNew;
 
             ComponentCtrl.ePage.Masters.ComponentListTypeList.SaveBtnText = "OK";
             ComponentCtrl.ePage.Masters.ComponentListTypeList.IsDisableSaveBtn = false;
@@ -185,6 +170,8 @@
 
         function GetComponentListTypeList() {
             ComponentCtrl.ePage.Masters.ComponentListTypeList.ListSource = undefined;
+            ComponentCtrl.ePage.Masters.ComponentListTypeList.ActiveComponentListTypeList = undefined;
+
             var _filter = {
                 "OperationType": ComponentCtrl.ePage.Masters.ComponentListType.ActiveComponentListType,
                 "SAP_FK": ComponentCtrl.ePage.Masters.Application.ActiveApplication.PK
@@ -197,6 +184,7 @@
             apiService.post("authAPI", trustCenterConfig.Entities.API.SecOperation.API.FindAll.Url, _input).then(function SuccessCallback(response) {
                 if (response.data.Response) {
                     ComponentCtrl.ePage.Masters.ComponentListTypeList.ListSource = response.data.Response;
+                    
                     if (ComponentCtrl.ePage.Masters.ComponentListTypeList.ListSource.length > 0) {
                         OnComponentListTypeListClick(ComponentCtrl.ePage.Masters.ComponentListTypeList.ListSource[0]);
                     } else {
@@ -208,16 +196,28 @@
             });
         }
 
+        function OnComponentListTypeListClick($item) {
+            ComponentCtrl.ePage.Masters.ComponentListTypeList.ActiveComponentListTypeList = angular.copy($item);
+            ComponentCtrl.ePage.Masters.ComponentListTypeList.ActiveComponentListTypeListCopy = angular.copy($item);
+
+            if (ComponentCtrl.ePage.Masters.ComponentListTypeList.ActiveComponentListTypeList) {
+                ComponentCtrl.ePage.Masters.GenerateScriptInput = {
+                    ObjectName: "SecOperation",
+                    ObjectId: ComponentCtrl.ePage.Masters.ComponentListTypeList.ActiveComponentListTypeList.PK
+                };
+                ComponentCtrl.ePage.Masters.GenerateScriptConfig = {
+                    IsEnableTable: false,
+                    IsEnablePK: false,
+                    IsEnableTenant: false
+                };
+            }
+        }
+
         function AddNew() {
             ComponentCtrl.ePage.Masters.ComponentListTypeList.ActiveComponentListTypeList = {
                 OperationType: ComponentCtrl.ePage.Masters.ComponentListType.ActiveComponentListType
             };
             Edit();
-        }
-
-        function OnComponentListTypeListClick($item) {
-            ComponentCtrl.ePage.Masters.ComponentListTypeList.ActiveComponentListTypeList = angular.copy($item);
-            ComponentCtrl.ePage.Masters.ComponentListTypeList.ActiveComponentListTypeListCopy = angular.copy($item);
         }
 
         function EditModalInstance() {
@@ -235,7 +235,7 @@
             ComponentCtrl.ePage.Masters.ComponentListTypeList.SaveBtnText = "OK";
             ComponentCtrl.ePage.Masters.ComponentListTypeList.IsDisableSaveBtn = false;
 
-            EditModalInstance().result.then(function (response) { }, function () {
+            EditModalInstance().result.then(function (response) {}, function () {
                 Cancel();
             });
         }
@@ -249,14 +249,15 @@
             _input.TenantCode = authService.getUserInfo().TenantCode;
             _input.SAP_FK = ComponentCtrl.ePage.Masters.Application.ActiveApplication.PK;
             _input.IsModified = true;
-            _input.IsDeleted = false;
+            _input.IsDeleted = false
 
             apiService.post("authAPI", trustCenterConfig.Entities.API.SecOperation.API.Upsert.Url, [_input]).then(function SuccessCallback(response) {
                 if (response.data.Response) {
                     var _response = response.data.Response[0];
+                   
                     var _indexOperationType = ComponentCtrl.ePage.Masters.ComponentListType.ListSource.map(function (e) {
                         return e;
-                    }).indexOf(_response.OperationType);
+                    }).indexOf(_response.TypeCode);
 
                     if (_indexOperationType !== -1) {
                         ComponentCtrl.ePage.Masters.ComponentListType.ActiveComponentListType = _response.OperationType;
@@ -277,11 +278,11 @@
                             ComponentCtrl.ePage.Masters.ComponentListTypeList.EditModal.dismiss('cancel');
                         }, 1000);
                     } else {
-                        ComponentCtrl.ePage.Masters.ComponentListType.ActiveComponentListType = _response.OperationType;
+                        ComponentCtrl.ePage.Masters.ComponentListTypeList.ActiveComponentListType = _response.OperationType;
                         ComponentCtrl.ePage.Masters.ComponentListType.ListSource.push(_response.OperationType);
 
                         ComponentCtrl.ePage.Masters.ComponentListTypeList.ListSource = [];
-                        ComponentCtrl.ePage.Masters.ComponentListTypeList.ActiveComponentListTypeList = angular.copy(_response);
+                        ComponentCtrl.ePage.Masters.ComponentListTypeList.ActiveManageParametersListTypeList = angular.copy(_response);
                         ComponentCtrl.ePage.Masters.ComponentListTypeList.ListSource.push(_response);
 
                         ComponentCtrl.ePage.Masters.ComponentListTypeList.EditModal.dismiss('cancel');
@@ -310,8 +311,9 @@
                 if (_index !== -1) {
                     ComponentCtrl.ePage.Masters.ComponentListTypeList.ActiveComponentListTypeList = angular.copy(ComponentCtrl.ePage.Masters.ComponentListTypeList.ListSource[_index]);
                 }
+            } else if (!ComponentCtrl.ePage.Masters.ComponentListTypeList.ActiveComponentListTypeListCopy) {
+                ComponentCtrl.ePage.Masters.ComponentListTypeList.ActiveComponentListTypeList = undefined;
             }
-
             ComponentCtrl.ePage.Masters.ComponentListTypeList.EditModal.dismiss('cancel');
         }
 
@@ -354,7 +356,7 @@
                         } else {
                             ComponentCtrl.ePage.Masters.ComponentListTypeList.ActiveComponentListTypeList = undefined;
 
-                            var _typeIndex = ComponentCtrl.ePage.Masters.ComponentListType.ListSource.indexOf(ComponentCtrl.ePage.Masters.ComponentListType.ActiveComponentListType);
+                            var _typeIndex = ComponentCtrl.ePage.Masters.ComponentListTypeList.ListSource.indexOf(ComponentCtrl.ePage.Masters.ComponentListType.ActiveComponentListType);
                             if (_typeIndex !== -1) {
                                 ComponentCtrl.ePage.Masters.ComponentListType.ListSource.splice(_typeIndex, 1);
                                 ComponentCtrl.ePage.Masters.ComponentListType.ActiveComponentListType = ComponentCtrl.ePage.Masters.ComponentListType.ListSource[0];
@@ -379,7 +381,7 @@
                 Icon: "fa fa-sign-in",
                 Link: "TC/comp-org-app-tenant",
                 Color: "#bd081c",
-                BreadcrumbTitle: ComponentCtrl.ePage.Masters.QueryString.AdditionalData.BreadcrumbTitle +  " - "+"COMP_ORG_APP_TNT",
+                BreadcrumbTitle: ComponentCtrl.ePage.Masters.QueryString.AdditionalData.BreadcrumbTitle + " - " + "COMP_ORG_APP_TNT",
                 Type: 1
             }, {
                 Code: "RoleAccess",
@@ -387,7 +389,7 @@
                 Icon: "fa fa-sign-in",
                 Link: "TC/comp-role-app-tenant",
                 Color: "#bd081c",
-                BreadcrumbTitle:  ComponentCtrl.ePage.Masters.QueryString.AdditionalData.BreadcrumbTitle   + " - " + "COMP_ROLE_APP_TNT",
+                BreadcrumbTitle: ComponentCtrl.ePage.Masters.QueryString.AdditionalData.BreadcrumbTitle + " - " + "COMP_ROLE_APP_TNT",
                 Type: 1
             }];
         }
@@ -408,12 +410,12 @@
             }
 
             if ($item.Type === 1) {
-                
+
                 _queryString.DisplayName = ComponentCtrl.ePage.Masters.ComponentListTypeList.ActiveComponentListTypeList.OperationDescription;
                 _queryString.ItemPk = ComponentCtrl.ePage.Masters.ComponentListTypeList.ActiveComponentListTypeList.PK;
                 _queryString.ItemCode = ComponentCtrl.ePage.Masters.ComponentListTypeList.ActiveComponentListTypeList.OperationName;
-                _queryString.ItemName =  ComponentCtrl.ePage.Masters.ComponentListTypeList.ActiveComponentListTypeList.OperationType;
-               _queryString.AdditionalData = ComponentCtrl.ePage.Masters.QueryString.AdditionalData;
+                _queryString.ItemName = ComponentCtrl.ePage.Masters.ComponentListTypeList.ActiveComponentListTypeList.OperationType;
+                _queryString.AdditionalData = ComponentCtrl.ePage.Masters.QueryString.AdditionalData;
                 _queryString.BreadcrumbTitle = $item.BreadcrumbTitle;
             }
 
@@ -421,6 +423,7 @@
                 $location.path($item.Link + "/" + helperService.encryptData(_queryString));
             }
         }
-     Init();
+
+        Init();
     }
 })();

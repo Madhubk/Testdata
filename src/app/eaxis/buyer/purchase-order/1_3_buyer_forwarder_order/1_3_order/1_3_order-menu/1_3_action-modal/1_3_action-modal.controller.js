@@ -5,9 +5,9 @@
         .module("Application")
         .controller("one_three_ActionModalController", one_three_ActionModalController);
 
-    one_three_ActionModalController.$inject = ["apiService", "one_order_listConfig", "helperService", "$uibModalInstance", "orderApiConfig", "param"];
+    one_three_ActionModalController.$inject = ["apiService", "one_order_listConfig", "appConfig", "helperService", "$uibModalInstance", "orderApiConfig", "param"];
 
-    function one_three_ActionModalController(apiService, one_order_listConfig, helperService, $uibModalInstance, orderApiConfig, param) {
+    function one_three_ActionModalController(apiService, one_order_listConfig, appConfig, helperService, $uibModalInstance, orderApiConfig, param) {
         var one_three_ActionModalCtrl = this;
 
         function Init() {

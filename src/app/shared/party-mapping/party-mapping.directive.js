@@ -226,7 +226,7 @@
 
 				apiService.post("authAPI", appConfig.Entities.SecMappings.API.GetRoleByUserApp.Url, _input).then(function SuccessCallback(response) {
 					if (response.data.Response) {
-						if (response.data.Response == "No roles Mapped!") {
+						if(response.data.Response == "No roles Mapped!"){
 							scope.RoleMapping.ActiveParty.RoleList = [];
 							toastr.warning("No Role mapped with this Party...!");
 						} else {

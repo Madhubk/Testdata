@@ -18,10 +18,11 @@
                 defaultFilter: "=",
                 baseFilter: "=",
                 selectedGridRow: "&",
-               // selectedGridMultiple:"&",
                 lookupConfigControlKey: "=",
                 isNewButton: "=",
-                overrideUrl: "="
+                overrideUrl: "=",
+                validateFilterInput: "&",
+                isValidateFilter: "="
             },
             bindToController: true
         };
@@ -32,9 +33,9 @@
         .module("Application")
         .controller("DynamicListController", DynamicListController);
 
-    DynamicListController.$inject = ["$timeout", "$filter", "authService", "apiService", "helperService", "toastr", "dynamicLookupConfig", "appConfig", "APP_CONSTANT", "confirmation"];
+    DynamicListController.$inject = ["$scope", "$timeout", "$filter", "authService", "apiService", "helperService", "toastr", "dynamicLookupConfig", "appConfig", "APP_CONSTANT", "confirmation", "$q"];
 
-    function DynamicListController($timeout, $filter, authService, apiService, helperService, toastr, dynamicLookupConfig, appConfig, APP_CONSTANT, confirmation) {
+    function DynamicListController($scope, $timeout, $filter, authService, apiService, helperService, toastr, dynamicLookupConfig, appConfig, APP_CONSTANT, confirmation, $q) {
         var DynamicListCtrl = this;
 
         function Init() {
@@ -47,9 +48,15 @@
             };
 
             InitDynamicList();
+
+            $(document).on('click', '.save-as-filter.dropup', function (e) {
+                e.stopPropagation();
+            });
+
+            $scope.$on('validateFilterResponse', ValidateFilterResponse);
         }
 
-        // region
+        // #region
         function InitDynamicList() {
             DynamicListCtrl.ePage.Masters.DynamicList = {};
             if (DynamicListCtrl.baseFilter) {
@@ -59,6 +66,8 @@
             InitHeader();
             InitFilter();
             InitCustomized();
+            InitExport();
+            InitSearch();
 
             if (DynamicListCtrl.dataentryName && DynamicListCtrl.mode) {
                 GetDataEntryDetails();
@@ -126,7 +135,6 @@
                         DynamicListCtrl.dataentryObject = DynamicListCtrl.ePage.Masters.DynamicList.DataEntry;
 
                         InitGrid();
-
                         if (DynamicListCtrl.mode == 1 && DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.OtherConfig.ListingPageConfig) {
                             if (DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.OtherConfig.ListingPageConfig.EnableFavoriteShortcutFilter) {
                                 GetUserDefaultFilter();
@@ -187,7 +195,7 @@
                             _response.Value = JSON.parse(_response.Value);
 
                             for (var x in _response.Value) {
-                                if (_response.Value[x].indexOf("@") != -1) {
+                                if (typeof _response.Value[x] == "string" && _response.Value[x].indexOf("@") != -1) {
                                     _response.Value[x] = helperService.DateFilter(_response.Value[x]);
                                 }
                             }
@@ -334,17 +342,23 @@
                 for (var x in DynamicListCtrl.ePage.Masters.DynamicList.BaseFilter) {
                     // DynamicListCtrl.ePage.Masters.DynamicList.Filter.DefaultFilter["IsDisabled" + x] = true;
                     DynamicListCtrl.ePage.Masters.DynamicList.BaseFilterFields["IsDisabled" + x] = true;
+
+                    DynamicListCtrl.ePage.Masters.DynamicList.Filter.DefaultFilter[x] = DynamicListCtrl.ePage.Masters.DynamicList.BaseFilter[x];
                 }
             }
 
             if (DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.OtherConfig.ListingPageConfig) {
-                DynamicListCtrl.ePage.Masters.DynamicList.EnableCustomizeButton = DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.OtherConfig.ListingPageConfig.EnableCustomizeButton;
+                DynamicListCtrl.ePage.Masters.DynamicList.EnableCustomizeGridColumnButton = DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.OtherConfig.ListingPageConfig.EnableCustomizeGridColumnButton;
+                DynamicListCtrl.ePage.Masters.DynamicList.EnableCustomizeFilterFieldsButton = DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.OtherConfig.ListingPageConfig.EnableCustomizeFilterFieldsButton;
                 DynamicListCtrl.ePage.Masters.DynamicList.EnableResetButton = DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.OtherConfig.ListingPageConfig.EnableResetButton;
                 DynamicListCtrl.ePage.Masters.DynamicList.EnableNewButton = DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.OtherConfig.ListingPageConfig.EnableNewButton;
                 DynamicListCtrl.ePage.Masters.DynamicList.EnableAttachButton = DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.OtherConfig.ListingPageConfig.EnableAttachButton;
                 DynamicListCtrl.ePage.Masters.DynamicList.EnableFilterButton = DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.OtherConfig.ListingPageConfig.EnableFilterButton;
                 DynamicListCtrl.ePage.Masters.DynamicList.EnableClearButton = DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.OtherConfig.ListingPageConfig.EnableClearButton;
                 DynamicListCtrl.ePage.Masters.DynamicList.EnableUserFavoriteButton = DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.OtherConfig.ListingPageConfig.EnableUserFavoriteButton;
+                DynamicListCtrl.ePage.Masters.DynamicList.EnableRefreshButton = DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.OtherConfig.ListingPageConfig.EnableRefreshBtn;
+                DynamicListCtrl.ePage.Masters.DynamicList.EnableSavedFiltersInSingleMenu = DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.OtherConfig.ListingPageConfig.EnableSavedFiltersInSingleMenu;
+                DynamicListCtrl.ePage.Masters.DynamicList.EnableSearch = DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.OtherConfig.ListingPageConfig.EnableSearch;
 
                 if (DynamicListCtrl.mode == 1) {
                     DynamicListCtrl.ePage.Masters.DynamicList.EnableAttachButton = false;
@@ -364,7 +378,10 @@
                     DynamicListCtrl.ePage.Masters.DynamicList.EnableResetButton = false;
                     DynamicListCtrl.ePage.Masters.DynamicList.EnableUserFavoriteButton = false;
                     DynamicListCtrl.ePage.Masters.DynamicList.EnableClearButton = false;
-                    DynamicListCtrl.ePage.Masters.DynamicList.EnableCustomizeButton = false;
+                    DynamicListCtrl.ePage.Masters.DynamicList.EnableCustomizeGridColumnButton = false;
+                    DynamicListCtrl.ePage.Masters.DynamicList.EnableCustomizeFilterFieldsButton = false;
+                    DynamicListCtrl.ePage.Masters.DynamicList.EnableSavedFiltersInSingleMenu = false;
+                    DynamicListCtrl.ePage.Masters.DynamicList.EnableSearch = false;
 
                     (DynamicListCtrl.isNewButton) ? DynamicListCtrl.ePage.Masters.DynamicList.EnableNewButton = true: DynamicListCtrl.ePage.Masters.DynamicList.EnableNewButton = false;
                     $timeout(function () {
@@ -376,7 +393,10 @@
                     DynamicListCtrl.ePage.Masters.DynamicList.EnableNewButton = false;
                     DynamicListCtrl.ePage.Masters.DynamicList.EnableUserFavoriteButton = false;
                     DynamicListCtrl.ePage.Masters.DynamicList.EnableClearButton = false;
-                    DynamicListCtrl.ePage.Masters.DynamicList.EnableCustomizeButton = false;
+                    DynamicListCtrl.ePage.Masters.DynamicList.EnableCustomizeGridColumnButton = false;
+                    DynamicListCtrl.ePage.Masters.DynamicList.EnableCustomizeFilterFieldsButton = false;
+                    DynamicListCtrl.ePage.Masters.DynamicList.EnableSavedFiltersInSingleMenu = false;
+                    DynamicListCtrl.ePage.Masters.DynamicList.EnableSearch = false;
 
                     $timeout(function () {
                         DynamicControlFilter();
@@ -398,10 +418,9 @@
             //     }
             // }
         }
-        // endregion
+        // #endregion
 
-        // ======================Header======================
-        // region
+        // #region Header
         function InitHeader() {
             DynamicListCtrl.ePage.Masters.DynamicList.Header = {};
             DynamicListCtrl.ePage.Masters.DynamicList.Header.FavoriteShortcutFilter = {};
@@ -418,6 +437,9 @@
             DynamicListCtrl.ePage.Masters.DynamicList.Header.OnRecentFavoriteClick = OnRecentFavoriteClick;
             DynamicListCtrl.ePage.Masters.DynamicList.Header.OnFavoriteStarClick = OnFavoriteStarClick;
             DynamicListCtrl.ePage.Masters.DynamicList.Header.SetUserDeafultFilter = SetUserDeafultFilter;
+
+            DynamicListCtrl.ePage.Masters.DynamicList.Header.UpdateUserFavorite = UpdateUserFavorite;
+            DynamicListCtrl.ePage.Masters.DynamicList.Header.UpdateUserFavoriteWithFilterAndGridColumn = UpdateUserFavoriteWithFilterAndGridColumn;
 
             // Buttons
             DynamicListCtrl.ePage.Masters.DynamicList.Header.Refresh = OnRefreshBtnClick;
@@ -454,6 +476,11 @@
                 if (DynamicListCtrl.mode == 1 && DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.OtherConfig.ListingPageConfig.EnableRecentFilter) {
                     GetRecentFilterList();
                 }
+                if (DynamicListCtrl.mode == 1 && DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.OtherConfig.ListingPageConfig.EnableExport) {
+                    GetExportList();
+                    GetStandardExportList();
+                }
+
                 if (DynamicListCtrl.mode == 1 && DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.OtherConfig.ListingPageConfig.EnableSystemDefaultFilter) {
                     GetSystemFilterList();
                 }
@@ -466,16 +493,17 @@
         function GetRecentFilterList() {
             DynamicListCtrl.ePage.Masters.DynamicList.Header.RecentFilter.ListSource = undefined;
             var _filter = {
-                ActionType: "Transaction",
                 EntitySource: DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.OtherConfig.FilterConfig.EntitySource,
-                CreatedBy: authService.getUserInfo().UserId,
+                BasedOn_FK: authService.getUserInfo().UserPK,
+                BasedOnCode: authService.getUserInfo().UserId
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.SecSessionActivity.API.FindAll.FilterID
+                "FilterID": appConfig.Entities.SecRecentItems.API.FindAll.FilterID
             };
-
-            apiService.post("authAPI", appConfig.Entities.SecSessionActivity.API.FindAll.Url, _input).then(function (response) {
+            let _api = authService.getUserInfo().AppCode === "TC" ? "authAPI": "eAxisAPI";
+            
+            apiService.post(_api, appConfig.Entities.SecRecentItems.API.FindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     DynamicListCtrl.ePage.Masters.DynamicList.Header.RecentFilter.ListSource = response.data.Response;
                 } else {
@@ -528,6 +556,11 @@
             apiService.post("eAxisAPI", appConfig.Entities.UserSettings.API.FindAll.Url + authService.getUserInfo().AppPK, _input).then(function (response) {
                 if (response.data.Response) {
                     DynamicListCtrl.ePage.Masters.DynamicList.Header.UserFilter.ListSource = response.data.Response;
+
+                    DynamicListCtrl.ePage.Masters.DynamicList.Header.UserFilter.ListSource.map(x => {
+                        x.UpdateBtnTxt = "Update";
+                        x.IsDisableUpdateBtn = false;
+                    });
 
                     if (DynamicListCtrl.ePage.Masters.DynamicList.Header.UserFilter.ListSource.length > 0) {
                         MergeSystemUserSettings(DynamicListCtrl.ePage.Masters.DynamicList.Header.UserFilter.ListSource);
@@ -635,7 +668,7 @@
                                         }
                                     });
                                     value1.value = $filter('date')(new Date(_date), APP_CONSTANT.DatePicker[value1.Format]);
-                                } else{
+                                } else {
                                     value1.value = _date;
                                 }
                             }
@@ -881,38 +914,38 @@
                 data: {
                     entity: {
                         PK: $item.EntityRefKey,
-                        [DynamicListCtrl.ePage.Masters.DynamicList.DataEntryCopy.GridConfig.StarredKeyField]: $item.EntityDescription
+                        [DynamicListCtrl.ePage.Masters.DynamicList.DataEntryCopy.GridConfig.StarredKeyField]: $item.EntityRefCode
                     }
                 }
             };
+
+            SelectedGridRow(_obj);
         }
 
         function SetUserDeafultFilter($item, type, isdefaultFilter) {
             var _item = $item;
-            if (_item) {
-                if (_item.Value) {
-                    if (typeof _item.Value == "string") {
-                        _item.Value = JSON.parse(_item.Value);
-                    }
+            if (_item && _item.Value) {
+                if (typeof _item.Value == "string") {
+                    _item.Value = JSON.parse(_item.Value);
+                }
 
-                    if (_item.Value.ExcuteInput) {
-                        if (!isdefaultFilter) {
-                            var _isExist = DynamicListCtrl.ePage.Masters.DynamicList.Header.SystemUserFavouriteList.ListSource.some(function (value, key) {
-                                return value.IsDefaultFilter;
+                if (_item.Value.ExcuteInput) {
+                    if (!isdefaultFilter) {
+                        var _isExist = DynamicListCtrl.ePage.Masters.DynamicList.Header.SystemUserFavouriteList.ListSource.some(function (value, key) {
+                            return value.IsDefaultFilter;
+                        });
+
+                        if (_isExist) {
+                            DynamicListCtrl.ePage.Masters.DynamicList.Header.SystemUserFavouriteList.ListSource.map(function (value, key) {
+                                if (value.IsDefaultFilter) {
+                                    SaveUserDefaultSearchFilter(_item, "delete", "deleteAndInsert");
+                                }
                             });
-
-                            if (_isExist) {
-                                DynamicListCtrl.ePage.Masters.DynamicList.Header.SystemUserFavouriteList.ListSource.map(function (value, key) {
-                                    if (value.IsDefaultFilter) {
-                                        SaveUserDefaultSearchFilter(_item, "delete", "deleteAndInsert");
-                                    }
-                                });
-                            } else {
-                                SaveUserDefaultSearchFilter(_item, "insert", "insert");
-                            }
                         } else {
-                            SaveUserDefaultSearchFilter(_item, "delete", "delete");
+                            SaveUserDefaultSearchFilter(_item, "insert", "insert");
                         }
+                    } else {
+                        SaveUserDefaultSearchFilter(_item, "delete", "delete");
                     }
                 }
             }
@@ -960,13 +993,16 @@
                             }
                         });
 
+                        DynamicListCtrl.ePage.Masters.DynamicList.Filter.AppUserDefaultFilter = undefined;
+                        DynamicListCtrl.ePage.Masters.DynamicList.Filter.UserDefaultFilter = undefined;
+                        DynamicListCtrl.ePage.Masters.DynamicList.Filter.AppDefaultFilter = undefined;
+
                         if (mode == "deleteAndInsert") {
                             SaveUserDefaultSearchFilter($item, "insert");
                         }
                     } else if (type == "insert") {
                         if (response.data.Response.length > 0) {
                             DynamicListCtrl.ePage.Masters.DynamicList.Filter.AppUserDefaultFilter = response.data.Response[0];
-                            DynamicListCtrl.ePage.Masters.DynamicList.Filter.AppUserDefaultFilter.IsDefaultFilter = true;
                             $item.Value = JSON.stringify($item.Value);
                             $item.IsDefaultFilter = true;
                         }
@@ -975,12 +1011,87 @@
             });
         }
 
+        function UpdateUserFavorite($item) {
+            $item.UpdateBtnTxt = "Please Wait...";
+            $item.IsDisableUpdateBtn = true;
+            let _input = $item;
+            _input.IsModified = true;
+
+            apiService.post("eAxisAPI", appConfig.Entities.UserSettings.API.Upsert.Url + authService.getUserInfo().AppPK, [_input]).then(function (response) {
+                if (response.data.Response && response.data.Response.length > 0) {
+                    let _response = response.data.Response[0];
+                    _response.UpdateBtnTxt = "Update";
+                    _response.IsDisableUpdateBtn = false;
+                    let _index = DynamicListCtrl.ePage.Masters.DynamicList.Header.UserFilter.ListSource.findIndex(x => x.PK === _response.PK);
+
+                    if (_index != -1) {
+                        DynamicListCtrl.ePage.Masters.DynamicList.Header.UserFilter.ListSource[_index] = _response;
+                    }
+                    toastr.success("Updated Successfully...!");
+                } else {
+                    toastr.error("Failed to Save...!");
+                }
+
+                $item.UpdateBtnTxt = "Update";
+                $item.IsDisableUpdateBtn = false;
+                $item.IsEditLabel = false;
+            });
+        }
+
+        function UpdateUserFavoriteWithFilterAndGridColumn($item) {
+            $item.UpdateBtnTxt = "Please Wait...";
+            $item.IsDisableUpdateBtn = true;
+            let _input = angular.copy($item);
+            let _value = _input.Value ? JSON.parse(_input.Value) : _input.Value = {};
+            let _filterData = {};
+
+            DynamicListCtrl.ePage.Masters.DynamicList.DataEntryForFilter.Entities.map(x => {
+                if (x.Data)
+                    Object.assign(_filterData, x.Data)
+            });
+
+            _value.Column = DynamicListCtrl.ePage.Masters.DynamicList.DataEntryForFilter.GridConfig.Header;
+            _value.IsAutoListing = (DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.OtherConfig.CSS.IsAutoListing) ? true : false;
+            _value.ExcuteInput = helperService.createToArrayOfObject(_filterData);
+            _value.CountInput = helperService.createToArrayOfObject(_filterData);
+
+            _input.IsModified = true;
+            _input.Value = JSON.stringify(_value);
+
+            apiService.post("eAxisAPI", appConfig.Entities.UserSettings.API.Upsert.Url + authService.getUserInfo().AppPK, [_input]).then(function (response) {
+                if (response.data.Response && response.data.Response.length > 0) {
+                    let _response = response.data.Response[0];
+                    _response.UpdateBtnTxt = "Update";
+                    _response.IsDisableUpdateBtn = false;
+                    let _index = DynamicListCtrl.ePage.Masters.DynamicList.Header.UserFilter.ListSource.findIndex(x => x.PK === _response.PK);
+
+                    if (_index != -1) {
+                        DynamicListCtrl.ePage.Masters.DynamicList.Header.UserFilter.ListSource[_index] = _response;
+                    }
+                    toastr.success("Updated Successfully...!");
+                } else {
+                    toastr.error("Failed to Save...!");
+                }
+
+                $item.UpdateBtnTxt = "Update";
+                $item.IsDisableUpdateBtn = false;
+            });
+        }
+
         // Button Actins
         function OnRefreshBtnClick() {
+            DynamicListCtrl.ePage.Masters.DynamicList.Grid.CustomToolbarInput = undefined;
+            DynamicListCtrl.ePage.Masters.DynamicList.Grid.IsCustomToolbar = false;
+            DynamicListCtrl.ePage.Masters.DynamicList.Grid.StandardMenuInput = undefined;
+            DynamicListCtrl.ePage.Masters.DynamicList.Grid.IsStandardToolbar = false;
             ApplyFilter();
         }
 
         function OnResetBtnClick() {
+            DynamicListCtrl.ePage.Masters.DynamicList.Grid.CustomToolbarInput = undefined;
+            DynamicListCtrl.ePage.Masters.DynamicList.Grid.IsCustomToolbar = false;
+            DynamicListCtrl.ePage.Masters.DynamicList.Grid.StandardMenuInput = undefined;
+            DynamicListCtrl.ePage.Masters.DynamicList.Grid.IsStandardToolbar = false;
             ClearFilterInput();
 
             DynamicListCtrl.ePage.Masters.DynamicList.Header.UserFilter.ActiveFilter = undefined;
@@ -1046,10 +1157,9 @@
         function OnFilterBtnClick() {
             $('#filterSideBar' + DynamicListCtrl.dataentryName).addClass('open');
         }
-        // endregion
+        // #endregion
 
-        // ======================Customized======================
-        // region
+        // #region Customized
         function InitCustomized() {
             DynamicListCtrl.ePage.Masters.DynamicList.Customized = {};
             InitCustomizedGrid();
@@ -1160,7 +1270,9 @@
                     });
                 }
 
-                if (DynamicListCtrl.ePage.Masters.DynamicList.CustomizeGrid.UserBasedGrid.ColumnList) {
+                if ($item && $item.Column) {
+                    _dataEntryCopy.GridConfig.Header = $item.Column;
+                } else if (DynamicListCtrl.ePage.Masters.DynamicList.CustomizeGrid.UserBasedGrid.ColumnList) {
                     if (DynamicListCtrl.ePage.Masters.DynamicList.CustomizeGrid.UserBasedGrid.ColumnList.length > 0) {
                         var _colList = [];
                         _dataEntryCopy.GridConfig.Header.map(function (value1, key1) {
@@ -1175,11 +1287,66 @@
                         // _dataEntryCopy.GridConfig.Header = _colList;
                         _dataEntryCopy.GridConfig.Header = DynamicListCtrl.ePage.Masters.DynamicList.CustomizeGrid.UserBasedGrid.ColumnList;
                     }
+                } else {
+                    _dataEntryCopy.GridConfig.Header = DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.GridConfig.Header;
                 }
+
+                if (_dataEntryCopy.GridConfig.Header.length > 0) {
+                    DynamicListCtrl.ePage.Masters.DynamicList.CustomizeGrid.GridColumnAll.map(function (value1, key1) {
+                        (!value1.IsMandatory) ? value1.IsVisible = false: value1.IsVisible = true;
+
+                        _dataEntryCopy.GridConfig.Header.map(function (value2, key2) {
+                            if (value1.field == value2.field) {
+                                value1.IsVisible = true;
+                                value1.displayName = value2.displayName;
+                                value1.width = value2.width;
+                            }
+                        });
+                    });
+                }
+
+                DynamicListCtrl.ePage.Masters.DynamicList.CustomizeGrid.GridColumn = DynamicListCtrl.ePage.Masters.DynamicList.CustomizeGrid.GridColumnAll;
+                DynamicListCtrl.ePage.Masters.DynamicList.CustomizeGrid.IsAutoListing = $item ? $item.IsAutoListing : true;
+                DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.OtherConfig.CSS.IsAutoListing = $item ? $item.IsAutoListing : true;
+
+                if (DynamicListCtrl.ePage.Masters.DynamicList.Search.EntityInfo && DynamicListCtrl.ePage.Masters.DynamicList.Search.IsDisableSearchBtn) {
+                    let _entityInfo = {
+                        "FieldName": "EntityInfo",
+                        "value": DynamicListCtrl.ePage.Masters.DynamicList.Search.EntityInfo
+                    }
+                    let _index = _defaultFilter.findIndex(x => x.FieldName === "EntityInfo");
+                    _index === -1 ?  _defaultFilter.push(_entityInfo) : _defaultFilter[_index] = _entityInfo;
+                } else {
+                    let _index = _defaultFilter.findIndex(x => x.FieldName === "EntityInfo");
+
+                    if (_index !== -1) {
+                        _defaultFilter.splice(_index, 1);
+                    }
+                    DynamicListCtrl.ePage.Masters.DynamicList.Search.EntityInfo = undefined;
+                }
+
+                let _filterObj = {};
+                _defaultFilter.map(x => _filterObj[x.FieldName] = x.value);
+                _dataEntryCopy.Entities.map(x => Object.assign(x.Data, _filterObj));
+
+                _defaultFilter = _defaultFilter.filter((thing, index, self) => index === self.findIndex(t => t.FieldName === thing.FieldName));
 
                 DynamicListCtrl.ePage.Masters.DynamicList.DataEntryCopy = _dataEntryCopy;
                 DynamicListCtrl.ePage.Masters.DynamicList.DataEntryForFilter = angular.copy(_dataEntryCopy);
                 DynamicListCtrl.ePage.Masters.DynamicList.DefaultFilter = _defaultFilter;
+
+                DynamicListCtrl.ePage.Masters.DynamicList.Search.IsDisableSearchBtn = false;
+
+                let _filterForSchedule = [];
+                DynamicListCtrl.ePage.Masters.DynamicList.DefaultFilter.map(x => {
+                    let _obj = {
+                        "UIField": x.FieldName,
+                        "DbField": x.FieldName,
+                        "Value": x.value
+                    };
+                    _filterForSchedule.push(_obj);
+                });
+                DynamicListCtrl.ePage.Masters.DynamicList.Export.SearchInput = _filterForSchedule;
 
                 if (DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.OtherConfig.Parties) {
                     if (DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.OtherConfig.Parties.IsEnableParties) {
@@ -1215,70 +1382,79 @@
         }
 
         function SaveCustomizeGridColumn() {
-            if (DynamicListCtrl.ePage.Masters.DynamicList.CustomizeGrid.GridColumn) {
-                if (DynamicListCtrl.ePage.Masters.DynamicList.CustomizeGrid.GridColumn.length > 0) {
-                    DynamicListCtrl.ePage.Masters.DynamicList.CustomizeGrid.SaveBtnText = "Please Wait...";
-                    DynamicListCtrl.ePage.Masters.DynamicList.CustomizeGrid.IsSaveBtnDisable = true;
+            if (DynamicListCtrl.ePage.Masters.DynamicList.CustomizeGrid.GridColumn && DynamicListCtrl.ePage.Masters.DynamicList.CustomizeGrid.GridColumn.length > 0) {
+                DynamicListCtrl.ePage.Masters.DynamicList.CustomizeGrid.SaveBtnText = "Please Wait...";
+                DynamicListCtrl.ePage.Masters.DynamicList.CustomizeGrid.IsSaveBtnDisable = true;
 
-                    var _column = [];
-                    DynamicListCtrl.ePage.Masters.DynamicList.CustomizeGrid.GridColumn.map(function (value, key) {
-                        if (value.IsVisible) {
-                            _column.push(value);
-                        }
-                    });
-
-                    if (DynamicListCtrl.ePage.Masters.DynamicList.CustomizeGrid.UserBasedGrid.PK) {
-                        var _input = DynamicListCtrl.ePage.Masters.DynamicList.CustomizeGrid.UserBasedGrid;
-                        if (typeof _input.Value == "string") {
-                            _input.Value = JSON.parse(_input.Value);
-                        }
-                        _input.Value.Column = _column;
-                        _input.Value.IsAutoListing = DynamicListCtrl.ePage.Masters.DynamicList.CustomizeGrid.IsAutoListing;
-                        _input.Value = JSON.stringify(_input.Value);
-                        _input.IsModified = true;
-                    } else {
-                        var _input = {
-                            "SAP_FK": authService.getUserInfo().AppPK,
-                            "AppCode": authService.getUserInfo().AppCode,
-                            "TenantCode": authService.getUserInfo().TenantCode,
-                            "SourceEntityRefKey": authService.getUserInfo().UserId,
-                            "EntitySource": DynamicListCtrl.dataentryName.toUpperCase() + "_GRIDCOLUMN",
-                            "TypeCode": DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.DataEntry_PK,
-                            "Key": "GridColumn",
-                            "Value": {
-                                "Column": _column,
-                                'IsAutoListing': (DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.OtherConfig.CSS.IsAutoListing) ? true : false
-                            },
-                            "IsJSON": true,
-                            "IsModified": true
-                        };
-                        _input.Value = JSON.stringify(_input.Value);
+                var _column = [];
+                DynamicListCtrl.ePage.Masters.DynamicList.CustomizeGrid.GridColumn.map(function (value, key) {
+                    if (value.IsVisible) {
+                        _column.push(value);
                     }
+                });
 
-                    apiService.post("eAxisAPI", appConfig.Entities.UserSettings.API.Upsert.Url + authService.getUserInfo().AppPK, [_input]).then(function (response) {
-                        if (response.data.Response) {
-                            if (response.data.Response.length > 0) {
-                                DynamicListCtrl.ePage.Masters.DynamicList.CustomizeGrid.UserBasedGrid = angular.copy(response.data.Response[0]);
-                                var _value = response.data.Response[0].Value;
-                                if (_value) {
-                                    _value = JSON.parse(_value);
-                                    DynamicListCtrl.ePage.Masters.DynamicList.CustomizeGrid.UserBasedGrid.ColumnList = angular.copy(_value.Column);
-                                    DynamicListCtrl.ePage.Masters.DynamicList.CustomizeGrid.IsAutoListing = angular.copy(_value.IsAutoListing);
-                                    DynamicListCtrl.ePage.Masters.DynamicList.DataEntryForFilter.OtherConfig.CSS.IsAutoListing = _value.IsAutoListing;
-                                }
+                DynamicListCtrl.ePage.Masters.DynamicList.CustomizeGrid.UserBasedGrid.ColumnList = angular.copy(_column);
+                DynamicListCtrl.ePage.Masters.DynamicList.CustomizeGrid.IsAutoListing = angular.copy(DynamicListCtrl.ePage.Masters.DynamicList.CustomizeGrid.IsAutoListing);
+                DynamicListCtrl.ePage.Masters.DynamicList.DataEntryForFilter.OtherConfig.CSS.IsAutoListing = DynamicListCtrl.ePage.Masters.DynamicList.CustomizeGrid.IsAutoListing;
+
+                // if (!DynamicListCtrl.ePage.Masters.DynamicList.DataEntryForFilter.OtherConfig.CSS.IsAutoListing) {
+                //     DynamicListCtrl.ePage.Masters.DynamicList.Filter.DefaultFilter = {};
+                // }
+                // DynamicControlFilter();
+                // DynamicListCtrl.ePage.Masters.DynamicList.CustomizeGrid.SaveBtnText = "Save";
+                // DynamicListCtrl.ePage.Masters.DynamicList.CustomizeGrid.IsSaveBtnDisable = false;
+
+                if (DynamicListCtrl.ePage.Masters.DynamicList.CustomizeGrid.UserBasedGrid.PK) {
+                    var _input = DynamicListCtrl.ePage.Masters.DynamicList.CustomizeGrid.UserBasedGrid;
+                    if (typeof _input.Value == "string") {
+                        _input.Value = JSON.parse(_input.Value);
+                    }
+                    _input.Value.Column = _column;
+                    _input.Value.IsAutoListing = DynamicListCtrl.ePage.Masters.DynamicList.CustomizeGrid.IsAutoListing;
+                    _input.Value = JSON.stringify(_input.Value);
+                    _input.IsModified = true;
+                } else {
+                    var _input = {
+                        "SAP_FK": authService.getUserInfo().AppPK,
+                        "AppCode": authService.getUserInfo().AppCode,
+                        "TenantCode": authService.getUserInfo().TenantCode,
+                        "SourceEntityRefKey": authService.getUserInfo().UserId,
+                        "EntitySource": DynamicListCtrl.dataentryName.toUpperCase() + "_GRIDCOLUMN",
+                        "TypeCode": DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.DataEntry_PK,
+                        "Key": "GridColumn",
+                        "Value": {
+                            "Column": _column,
+                            'IsAutoListing': (DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.OtherConfig.CSS.IsAutoListing) ? true : false
+                        },
+                        "IsJSON": true,
+                        "IsModified": true
+                    };
+                    _input.Value = JSON.stringify(_input.Value);
+                }
+
+                apiService.post("eAxisAPI", appConfig.Entities.UserSettings.API.Upsert.Url + authService.getUserInfo().AppPK, [_input]).then(function (response) {
+                    if (response.data.Response) {
+                        if (response.data.Response.length > 0) {
+                            DynamicListCtrl.ePage.Masters.DynamicList.CustomizeGrid.UserBasedGrid = angular.copy(response.data.Response[0]);
+                            var _value = response.data.Response[0].Value;
+                            if (_value) {
+                                _value = JSON.parse(_value);
+                                DynamicListCtrl.ePage.Masters.DynamicList.CustomizeGrid.UserBasedGrid.ColumnList = angular.copy(_value.Column);
+                                DynamicListCtrl.ePage.Masters.DynamicList.CustomizeGrid.IsAutoListing = angular.copy(_value.IsAutoListing);
+                                DynamicListCtrl.ePage.Masters.DynamicList.DataEntryForFilter.OtherConfig.CSS.IsAutoListing = _value.IsAutoListing;
                             }
                         }
+                    }
 
-                        DynamicListCtrl.ePage.Masters.DynamicList.CustomizeGrid.SaveBtnText = "Save";
-                        DynamicListCtrl.ePage.Masters.DynamicList.CustomizeGrid.IsSaveBtnDisable = false;
-                        ToggleCustomizeGrigPanel();
+                    DynamicListCtrl.ePage.Masters.DynamicList.CustomizeGrid.SaveBtnText = "Save";
+                    DynamicListCtrl.ePage.Masters.DynamicList.CustomizeGrid.IsSaveBtnDisable = false;
+                    ToggleCustomizeGrigPanel();
 
-                        if (!DynamicListCtrl.ePage.Masters.DynamicList.DataEntryForFilter.OtherConfig.CSS.IsAutoListing) {
-                            DynamicListCtrl.ePage.Masters.DynamicList.Filter.DefaultFilter = {};
-                        }
-                        DynamicControlFilter();
-                    });
-                }
+                    if (!DynamicListCtrl.ePage.Masters.DynamicList.DataEntryForFilter.OtherConfig.CSS.IsAutoListing) {
+                        DynamicListCtrl.ePage.Masters.DynamicList.Filter.DefaultFilter = {};
+                    }
+                    DynamicControlFilter();
+                });
             }
         }
 
@@ -1317,10 +1493,9 @@
                 apiService.post("eAxisAPI", appConfig.Entities.UserSettings.API.Upsert.Url + authService.getUserInfo().AppPK, [_input]).then(function (response) {});
             }
         }
-        // endregion
+        // #endregion
 
-        // ======================Filter======================
-        // region
+        // #region Filter
         function InitFilter() {
             DynamicListCtrl.ePage.Masters.DynamicList.Filter = {};
 
@@ -1419,69 +1594,69 @@
                 x.splice(x.length - 1, 1);
                 var strUrl = x.join("/");
                 var allObj = {};
-                DynamicListCtrl.ePage.Masters.DynamicList.DataEntryForFilter.Entities.map(function (value, key) {
-                    var _isEmpty = angular.equals({}, value.Data);
-                    if (!_isEmpty) {
-                        DynamicListCtrl.ePage.Masters.DynamicList.Filter.SaveUserSetting.SaveSettingBtnText = "Please Wait...";
-                        DynamicListCtrl.ePage.Masters.DynamicList.Filter.SaveUserSetting.IsDisableSaveSettingBtn = true;
-
-                        DynamicListCtrl.ePage.Masters.DynamicList.DataEntryForFilter.Entities.map(function (val, key) {
-                            for (var key in val.Data) {
-                                allObj[key] = val.Data[key];
-                            }
-                        });
-
-                        var objJson = {
-                            "ExcuteInput": (helperService.createToArrayOfObject(allObj)),
-                            "CountInput": (helperService.createToArrayOfObject(allObj)),
-                            "ShowCount": true,
-                            "ShowInDashboard": true,
-                            "CountAPI": strUrl + '/FindCount',
-                            "CountFilterID": DynamicListCtrl.ePage.Masters.DynamicList.DataEntryForFilter.FilterID,
-                            "CountRequestMethod": "post",
-                            "ExcuteRequestMethod": "post",
-                            "IsExcute": true,
-                            "API": DynamicListCtrl.ePage.Masters.DynamicList.DataEntryForFilter.FilterAPI,
-                            "FilterID": DynamicListCtrl.ePage.Masters.DynamicList.DataEntryForFilter.FilterID,
-                            "CSS": {
-                                "color": "#e7505a",
-                                "icon": "fa fa-star-o"
-                            }
-                        };
-                        var _input = [{
-                            "SourceEntityRefKey": authService.getUserInfo().UserId,
-                            "EntitySource": DynamicListCtrl.dataentryName.toUpperCase() + "_FAVORITES",
-                            "TypeCode": DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.DataEntry_PK,
-                            "Key": DynamicListCtrl.ePage.Masters.DynamicList.Filter.SaveUserSetting.Input.Key,
-                            "IsJSON": true,
-                            "IsModified": true,
-                            "Value": JSON.stringify(objJson),
-                            "SAP_FK": authService.getUserInfo().AppPK,
-                            "AppCode": authService.getUserInfo().AppCode,
-                            "TenantCode": authService.getUserInfo().TenantCode
-                        }];
-
-                        apiService.post("eAxisAPI", appConfig.Entities.UserSettings.API.Upsert.Url + authService.getUserInfo().AppPK, _input).then(function (response) {
-                            if (response.data.Response) {
-                                if (response.data.Response.length > 0) {
-                                    DynamicListCtrl.ePage.Masters.DynamicList.Header.SystemUserFavouriteList.ListSource.push(response.data.Response[0]);
-                                    DynamicListCtrl.ePage.Masters.DynamicList.Header.UserFilter.ListSource.push(response.data.Response[0]);
-
-                                    DynamicListCtrl.ePage.Masters.DynamicList.DataEntryForFilter.IsShowSaveSettingsTxtBox = !DynamicListCtrl.ePage.Masters.DynamicList.DataEntryForFilter.IsShowSaveSettingsTxtBox;
-
-                                    DynamicListCtrl.ePage.Masters.DynamicList.Filter.SaveUserSetting.Input = {};
-
-                                    DynamicListCtrl.ePage.Masters.DynamicList.Filter.SaveUserSetting.SaveSettingBtnText = "Save";
-                                    DynamicListCtrl.ePage.Masters.DynamicList.Filter.SaveUserSetting.IsDisableSaveSettingBtn = false;
-
-                                    ToggleFilterPanel();
-                                }
-                            }
-                        });
-                    } else {
-                        toastr.warning("Please Select at least one field...!");
+                DynamicListCtrl.ePage.Masters.DynamicList.DataEntryForFilter.Entities.map(function (val, key) {
+                    for (var key in val.Data) {
+                        allObj[key] = val.Data[key];
                     }
                 });
+                var _isEmpty = angular.equals({}, allObj);
+                if (!_isEmpty) {
+                    DynamicListCtrl.ePage.Masters.DynamicList.Filter.SaveUserSetting.SaveSettingBtnText = "Please Wait...";
+                    DynamicListCtrl.ePage.Masters.DynamicList.Filter.SaveUserSetting.IsDisableSaveSettingBtn = true;
+                    var objJson = {
+                        "ExcuteInput": (helperService.createToArrayOfObject(allObj)),
+                        "CountInput": (helperService.createToArrayOfObject(allObj)),
+                        "ShowCount": true,
+                        "ShowInDashboard": true,
+                        "CountAPI": strUrl + '/FindCount',
+                        "CountFilterID": DynamicListCtrl.ePage.Masters.DynamicList.DataEntryForFilter.FilterID,
+                        "CountRequestMethod": "post",
+                        "ExcuteRequestMethod": "post",
+                        "IsExcute": true,
+                        "API": DynamicListCtrl.ePage.Masters.DynamicList.DataEntryForFilter.FilterAPI,
+                        "FilterID": DynamicListCtrl.ePage.Masters.DynamicList.DataEntryForFilter.FilterID,
+                        "CSS": {
+                            "color": "#e7505a",
+                            "icon": "fa fa-star-o"
+                        },
+                        "Column": DynamicListCtrl.ePage.Masters.DynamicList.DataEntryForFilter.GridConfig.Header,
+                        'IsAutoListing': (DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.OtherConfig.CSS.IsAutoListing) ? true : false
+                    };
+                    var _input = [{
+                        "SourceEntityRefKey": authService.getUserInfo().UserId,
+                        "EntitySource": DynamicListCtrl.dataentryName.toUpperCase() + "_FAVORITES",
+                        "TypeCode": DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.DataEntry_PK,
+                        "Key": DynamicListCtrl.ePage.Masters.DynamicList.Filter.SaveUserSetting.Input.Key,
+                        "IsJSON": true,
+                        "IsModified": true,
+                        "Value": JSON.stringify(objJson),
+                        "SAP_FK": authService.getUserInfo().AppPK,
+                        "AppCode": authService.getUserInfo().AppCode,
+                        "TenantCode": authService.getUserInfo().TenantCode
+                    }];
+
+                    apiService.post("eAxisAPI", appConfig.Entities.UserSettings.API.Upsert.Url + authService.getUserInfo().AppPK, _input).then(function (response) {
+                        if (response.data.Response && response.data.Response.length > 0) {
+                            let _response = response.data.Response[0];
+
+                            DynamicListCtrl.ePage.Masters.DynamicList.Header.SystemUserFavouriteList.ListSource.push(response.data.Response[0]);
+                            _response.UpdateBtnTxt = "Update";
+                            _response.IsDisableUpdateBtn = false;
+                            DynamicListCtrl.ePage.Masters.DynamicList.Header.UserFilter.ListSource.push(_response);
+
+                            DynamicListCtrl.ePage.Masters.DynamicList.DataEntryForFilter.IsShowSaveSettingsTxtBox = !DynamicListCtrl.ePage.Masters.DynamicList.DataEntryForFilter.IsShowSaveSettingsTxtBox;
+
+                            DynamicListCtrl.ePage.Masters.DynamicList.Filter.SaveUserSetting.Input = {};
+
+                            DynamicListCtrl.ePage.Masters.DynamicList.Filter.SaveUserSetting.SaveSettingBtnText = "Save";
+                            DynamicListCtrl.ePage.Masters.DynamicList.Filter.SaveUserSetting.IsDisableSaveSettingBtn = false;
+
+                            // ToggleFilterPanel();
+                        }
+                    });
+                } else {
+                    toastr.warning("Please Select at least one field...!");
+                }
             } else {
                 toastr.warning("Please Enter the Name...");
             }
@@ -1510,7 +1685,7 @@
             });
         }
 
-        function ApplyFilter() {
+        function ApplyFilter(event) {
             ToggleFilterPanel();
 
             DynamicListCtrl.ePage.Masters.DynamicList.Header.UserFilter.ActiveFilter = undefined;
@@ -1538,12 +1713,34 @@
 
             DynamicListCtrl.ePage.Masters.DynamicList.BaseFilter = angular.copy(DynamicListCtrl.baseFilter);
 
-            DynamicControlFilter();
-        }
-        // endregion
+            if (event && DynamicListCtrl.mode == "1" && DynamicListCtrl.isValidateFilter == true) {
+                let _item = {
+                    SearchInput: DynamicListCtrl.ePage.Masters.DynamicList.DataEntryCopy.Filter,
+                    EntitySource: DynamicListCtrl.ePage.Masters.DynamicList.DataEntryForFilter.DataEntryName + "_" + DynamicListCtrl.ePage.Masters.DynamicList.DataEntryForFilter.EntitySource + "_" + DynamicListCtrl.ePage.Masters.DynamicList.DataEntryForFilter.EntityRefCode,
+                };
 
-        // ======================Grid======================
-        // region
+                DynamicListCtrl.validateFilterInput({
+                    $item: _item
+                });
+            } else {
+                DynamicControlFilter();
+            }
+        }
+
+        function ValidateFilterResponse($event, $item) {
+            if ($item.IsValidationSuccess == true) {
+                DynamicControlFilter();
+            } else {
+                if ($item.ErrorWarningList && $item.ErrorWarningList.length > 0) {
+
+                } else {
+
+                }
+            }
+        }
+        // #endregion
+
+        // #region Grid
         function InitGrid() {
             DynamicListCtrl.ePage.Masters.DynamicList.Grid = {};
             DynamicListCtrl.ePage.Masters.DynamicList.Grid.SelectedGridRow = SelectedGridRow;
@@ -1638,8 +1835,6 @@
                     $item: $item
                 });
             }
-
-          //  DynamicListCtrl.selectedGridRow({ $item: $item });
         }
 
         function SaveFavoriteItem(item) {
@@ -1715,9 +1910,9 @@
                 DynamicListCtrl.ePage.Masters.DynamicList.Grid.IsCustomToolbar = true;
             });
         }
-        // endregion
+        // #endregion
 
-        // region Parties
+        // #region Parties
         function InitParties() {
             DynamicListCtrl.ePage.Masters.DynamicList.Parties = {};
             DynamicListCtrl.ePage.Masters.DynamicList.Parties.OnPartyChange = OnPartyChange;
@@ -1740,7 +1935,220 @@
 
             DynamicControlFilter();
         }
-        // endregion
+        // #endregion
+
+        // #region Export
+        function InitExport() {
+            DynamicListCtrl.ePage.Masters.DynamicList.Export = {};
+            DynamicListCtrl.ePage.Masters.DynamicList.Export.SearchInput = [];
+
+            DynamicListCtrl.ePage.Masters.DynamicList.Export.FileTypeBasedDownload = FileTypeBasedDownload;            
+        }
+
+        function GetStandardExportList() {
+            let _value = {
+                "FileName": "",
+                "FileType": "EXCEL",
+                "TemplateName": "DynamicReport",
+                "SheetName": "Default",
+                "DataObjs": [{
+                    "SectionName": "Header",
+                    "DataSource": "LOCAL",
+                    "DataObject": {
+                        "Date": "",
+                        "Title": ""
+                    },
+                    "IsFilterEnabled": false
+                }, {
+                    "SectionName": "DynamicRow",
+                    "DataSource": "API",
+                    "IsApi": true,
+                    "ApiName": "",
+                    "HttpMethod": "POST",
+                    "SearchInput": {
+                        "FilterID": "",
+                        "SearchInput": ""
+                    },
+                    "RenderType": true,
+                    "IsList": true,
+                    "IsFilterEnabled": true,
+                    "GridConfig": "",
+                    "IsSelf": true,
+                    "IsAutoHeader": true,
+                    "AutoColumnWidth": 20
+                }],
+                "JobDocs": {
+                    "EntityRefKey": "",
+                    "EntitySource": "REPORT",
+                    "EntityRefCode": ""
+                },
+                "IsAsync": false,
+                "IsLocal": false,
+                "StartRow": 3
+            };
+            let _standardExport = {
+                "Template": "Simple Export",
+                "Event": "STDEVENT",
+                "Source": "SimpleExport",
+                "IsStatic": true,
+                "Value": JSON.stringify(_value),
+                "SourceReference": "StandardExport_" + DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.DataEntry_PK.split("-").join("")
+            };
+            DynamicListCtrl.ePage.Masters.DynamicList.Export.StandardListSource = [_standardExport];
+        }
+
+        function GetExportList() {
+            DynamicListCtrl.ePage.Masters.DynamicList.Export.ListSource = [];
+            if (DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.OtherConfig.GridOptions.gridMenuCustomItems) {
+                DynamicListCtrl.ePage.Masters.DynamicList.Export.ListSource = JSON.parse(DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.OtherConfig.GridOptions.gridMenuCustomItems);
+
+                DynamicListCtrl.ePage.Masters.DynamicList.Export.ListSource.map(x => x.SourceReference = x.Template + "_" + DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.DataEntry_PK.split("-").join(""));
+            }
+        }
+
+        function FileTypeBasedDownload($item, fileType) {
+            if($item.IsStatic){
+                let _value = ($item.Value && (typeof $item.Value == 'string' || $item.Value instanceof String)) ? JSON.parse($item.Value) : $item.Value;
+                let _input = _value.TemplateJson ? _value.TemplateJson : _value;
+                
+                _input ? DownloadExportBasedOnTemplate(_input, fileType, true) : toastr.error("Invalid Input...!");
+            } else {
+                GetTemplate($item.Template).then((response) => {
+                    let _value = (response.Value && (typeof response.Value == 'string' || response.Value instanceof String)) ? JSON.parse(response.Value) : response.Value;
+                    let _input = _value.TemplateJson ? _value.TemplateJson : _value;
+                    
+                    _input ? DownloadExportBasedOnTemplate(_input, fileType, false) : toastr.error("Invalid Input...!");
+                });
+            }
+
+                // let _value = ($item.Value && (typeof $item.Value == 'string' || $item.Value instanceof String)) ? JSON.parse($item.Value) : $item.Value;
+                // let _input = _value.TemplateJson ? _value.TemplateJson : _value;
+                // let _isStandard = (!$item.PK && $item.Key === "Standard Export") ? true : false;
+                
+                // _input ? DownloadExportBasedOnTemplate(_input, fileType, _isStandard) : toastr.error("Invalid Input...!");
+        }
+
+        function GetTemplate($item){
+            let _deferred = $q.defer();
+            var _filter = {
+                "Key": $item,
+                // "SourceEntityRefKey": "Reports",
+                // "TypeCode": DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.DataEntry_PK,
+                EntitySource: "EXCELCONFIG",
+                ModuleCode: DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.OtherConfig.FilterConfig.EntitySource,
+                TenantCode: authService.getUserInfo().TenantCode,
+                AppCode: authService.getUserInfo().AppCode,
+                SAP_FK: authService.getUserInfo().AppPK
+            };
+            var _input = {
+                "searchInput": helperService.createToArrayOfObject(_filter),
+                "FilterID": appConfig.Entities.AppSettings.API.FindAll.FilterID
+            };
+
+            apiService.post("eAxisAPI", appConfig.Entities.AppSettings.API.FindAll.Url + authService.getUserInfo().AppPK, _input).then(function (response) {
+                if (response.data.Response) {
+                    _deferred.resolve(response.data.Response[0]);
+                } else {
+                    _deferred.resolve([]);
+                }
+            });
+
+            return _deferred.promise;
+        }
+
+        function DownloadExportBasedOnTemplate($item, fileType, isStandard) {
+            let _input = angular.copy($item);
+            let _jobDocs = {
+                EntityRefCode: DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.DataEntryName,
+                EntityRefKey: DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.DataEntry_PK,
+                EntitySource: "REPORT"
+            };
+            let _pagination = angular.copy(DynamicListCtrl.ePage.Masters.DynamicList.DataEntryForFilter.OtherConfig.Pagination);
+            _pagination.PageSize = "100000";
+            // Get local Columns
+            let _gridConfig = [];
+            DynamicListCtrl.ePage.Masters.DynamicList.DataEntryForFilter.GridConfig.Header.map((value, key) => {
+                if (value.displayName) {
+                    let _column = {
+                        DisplayName: value.displayName,
+                        FieldName: value.field,
+                        DataType: value.type,
+                        OrdinalPosition: key + 1
+                    };
+                    _gridConfig.push(_column);
+                }
+            });
+            // Get local Filter input
+            let _searchInput = {};
+            DynamicListCtrl.ePage.Masters.DynamicList.DataEntryForFilter.Entities.map(x => Object.assign(_searchInput, x.Data));
+
+            _input.JobDocs = Object.assign(_input.JobDocs, _jobDocs);
+            _input.FileType = fileType;
+            _input.FileName = _input.FileName ? _input.FileName : DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.DataEntryName;
+            _input.IsSaveToDrive = false;
+
+            if (_input.DataObjs && _input.DataObjs.length > 0) {
+                _input.DataObjs.map(x => {
+                    if (x.DataSource === "LOCAL" && !x.IsApi) {
+                        x.DataObject.Date = new Date().toUTCString();
+                        x.DataObject.Title = x.DataObject.Title ? x.DataObject.Title : DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.Title;
+                    } else if (x.DataSource === "API" && x.IsApi) {
+                        x.ApiName = x.ApiName ? x.ApiName : DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.FilterAPI;
+                        x.SearchInput.FilterID = x.SearchInput.FilterID ? x.SearchInput.FilterID : DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.FilterID;
+                        x.GridConfig = x.GridConfig ? x.GridConfig : _gridConfig;
+
+                        if (x.SearchInput.SearchInput && x.SearchInput.SearchInput.length > 0) {
+                            x.SearchInput.SearchInput.map(value => {
+                                for (let _key in _searchInput) {
+                                    if (value.value && value.FieldName === _key) {
+                                        value.value = _searchInput[_key];
+                                    }
+                                }
+                            });
+                        } else {
+                            if (isStandard) {
+                                let _filterInput = Object.assign(_pagination, _searchInput);
+                                _filterInput = helperService.createToArrayOfObject(_filterInput);
+                                x.SearchInput.SearchInput = _filterInput;
+                            } else {
+                                let _paginationFilter = helperService.createToArrayOfObject(_pagination);
+                                x.SearchInput.SearchInput = _paginationFilter;
+                            }
+                        }
+                    }
+                });
+            }
+
+            apiService.post("eAxisAPI", appConfig.Entities.Export.API.GridExcel.Url, _input).then(function (response) {
+                if (response.data.Response) {
+                    helperService.DownloadDocument(response.data.Response);
+                } else {
+                    toastr.error("Failed to Download...!");
+                }
+            });
+        }
+        // #endregion
+
+        // #region Search
+        function InitSearch() {
+            DynamicListCtrl.ePage.Masters.DynamicList.Search = {};
+            DynamicListCtrl.ePage.Masters.DynamicList.Search.OnSearch = OnSearch;
+
+            DynamicListCtrl.ePage.Masters.DynamicList.Search.SearchBtnTxt = "Go";
+            DynamicListCtrl.ePage.Masters.DynamicList.Search.IsDisableSearchBtn = false;
+        }
+
+        function OnSearch() {
+            DynamicListCtrl.ePage.Masters.DynamicList.Search.IsDisableSearchBtn = true;
+            let _input = DynamicListCtrl.ePage.Masters.DynamicList.Search.EntityInfo;
+
+            OnRefreshBtnClick();
+            // $timeout(() => {
+            //     DynamicListCtrl.ePage.Masters.DynamicList.Search.IsDisableSearchBtn = false;
+            //     DynamicListCtrl.ePage.Masters.DynamicList.Search.EntityInfo = undefined;
+            // }, 1000);
+        }
+        // #endregion
 
         Init();
     }

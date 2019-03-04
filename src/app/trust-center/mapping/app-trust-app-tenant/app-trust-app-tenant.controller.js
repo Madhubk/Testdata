@@ -27,7 +27,6 @@
             try {
                 TCAppTrustAppTenantCtrl.ePage.Masters.QueryString = JSON.parse(helperService.decryptData(_queryString));
                 if (TCAppTrustAppTenantCtrl.ePage.Masters.QueryString.AppPk) {
-                    console.log(TCAppTrustAppTenantCtrl.ePage.Masters.QueryString)
                     InitBreadcrumb();
                     InitAppTrustAppTenant();
                 }
@@ -133,9 +132,9 @@
         function GetAppTrustAppTenant() {
             TCAppTrustAppTenantCtrl.ePage.Masters.AppTrustAppTenant.AppTrustAppTenantList = undefined;
             var _filter = {
-                "SAP_FK": TCAppTrustAppTenantCtrl.ePage.Masters.QueryString.AppPk,
                 "Item_FK": TCAppTrustAppTenantCtrl.ePage.Masters.QueryString.ItemPk,
                 "ItemCode": TCAppTrustAppTenantCtrl.ePage.Masters.QueryString.ItemCode,
+                "SAP_FK": authService.getUserInfo().AppPK,
                 "TenantCode": authService.getUserInfo().TenantCode
             };
             var _input = {
@@ -165,12 +164,24 @@
                 if (TCAppTrustAppTenantCtrl.ePage.Masters.AppTrustAppTenant.AppTrustAppTenantList.length > 0) {
                     OnAppTrustAppTenantClick(TCAppTrustAppTenantCtrl.ePage.Masters.AppTrustAppTenant.AppTrustAppTenantList[0]);
                 }
+
+            }
+            if (TCAppTrustAppTenantCtrl.ePage.Masters.AppTrustAppTenant.ActiveAppTrustAppTenant) {
+                TCAppTrustAppTenantCtrl.ePage.Masters.GenerateScriptInput = {
+                    ObjectName: "SECMAPPINGS",
+                    ObjectId: TCAppTrustAppTenantCtrl.ePage.Masters.AppTrustAppTenant.ActiveAppTrustAppTenant.PK
+                };
+                TCAppTrustAppTenantCtrl.ePage.Masters.GenerateScriptConfig = {
+                    IsEnableTable: false,
+                    IsEnablePK: false,
+                    IsEnableTenant: false
+                };
             }
         }
 
         function GetRolesList($viewValue) {
             var _filter = {
-                "SAP_FK": TCAppTrustAppTenantCtrl.ePage.Masters.QueryString.AppPk
+                "SAP_FK": authService.getUserInfo().AppPK
             };
             if ($viewValue != "#") {
                 _filter.Autocompletefield = $viewValue;
@@ -246,8 +257,8 @@
             _input.AccessCode = TCAppTrustAppTenantCtrl.ePage.Masters.AppTrustAppTenant.ActiveAppTrustAppTenant.AccessCode;
             _input.AccessTo = "TRUST";
             _input.IsModified = true;
-            _input.SAP_FK = TCAppTrustAppTenantCtrl.ePage.Masters.QueryString.AppPk;
-            _input.SAP_Code = TCAppTrustAppTenantCtrl.ePage.Masters.QueryString.AppCode;
+            _input.SAP_FK = authService.getUserInfo().AppPK;
+            _input.SAP_Code = authService.getUserInfo().AppCode;
             _input.TenantCode = authService.getUserInfo().TenantCode;
             _input.TNT_FK = authService.getUserInfo().TenantPK;
 
@@ -310,7 +321,7 @@
             });
         }
 
-       function DeleteConfirmation() {
+        function DeleteConfirmation() {
             var modalOptions = {
                 closeButtonText: 'Cancel',
                 actionButtonText: 'Ok',

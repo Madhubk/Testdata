@@ -1,8 +1,3 @@
-.tc-home {
-    /* padding: 50px 100px; */
-    /* padding: 25px; */
-}
-
 .tc-home .tc-home-fixed-height {
     height: calc(100vh - 65px);
     height: -moz-calc(100vh - 65px);
@@ -27,7 +22,7 @@
 }
 
 .tc-home .menu-container:hover {
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .tc-home .menu-container .image {

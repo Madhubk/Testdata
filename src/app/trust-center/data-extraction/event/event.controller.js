@@ -160,6 +160,16 @@
             if (DataExtEventCtrl.ePage.Masters.DataExtEvent.ActiveDataExtEvent) {
                 GetDataExtEventFieldsList();
                 GetFieldList();
+
+                DataExtEventCtrl.ePage.Masters.GenerateScriptInput = {
+                    ObjectName: "DATA_Config",
+                    ObjectId: DataExtEventCtrl.ePage.Masters.DataExtEvent.ActiveDataExtEvent.PK
+                };
+                DataExtEventCtrl.ePage.Masters.GenerateScriptConfig = {
+                    IsEnableTable: false,
+                    IsEnablePK: false,
+                    IsEnableTenant: false
+                };
             }
         }
 
@@ -466,7 +476,11 @@
                     DataExtEventCtrl.ePage.Masters.DataExtEvent.DataExtEventFields.DataExtEventFieldsListSource = response.data.Response;
                     if (DataExtEventCtrl.ePage.Masters.DataExtEvent.DataExtEventFields.DataExtEventFieldsListSource.length > 0) {
 
-                        OnDataExtEventFieldsClick(DataExtEventCtrl.ePage.Masters.DataExtEvent.DataExtEventFields.DataExtEventFieldsListSource[0])
+                        OnDataExtEventFieldsClick(DataExtEventCtrl.ePage.Masters.DataExtEvent.DataExtEventFields.DataExtEventFieldsListSource[0]);
+
+                        DataExtEventCtrl.ePage.Masters.DataExtEvent.DataExtEventFields.DataExtEventFieldsListSource.map(function (value, key) {
+                            SetGenerateScriptInput(value);
+                        });
                     } else {
                         OnDataExtEventFieldsClick();
                     }
@@ -479,6 +493,7 @@
         function OnDataExtEventFieldsClick($item) {
             DataExtEventCtrl.ePage.Masters.DataExtEvent.DataExtEventFields.ActiveDataExtEventFields = angular.copy($item);
             DataExtEventCtrl.ePage.Masters.DataExtEvent.DataExtEventFields.ActiveDataExtEventFieldsCopy = angular.copy($item);
+
         }
 
         function AddNewField($item, type) {
@@ -584,13 +599,17 @@
                 if (response.data.Response) {
                     if (response.data.Response.length > 0) {
                         var _response = response.data.Response[0];
+                        if(!DataExtEventCtrl.ePage.Masters.DataExtEvent.DataExtEventFields.DataExtEventFieldsListSource){
+                            DataExtEventCtrl.ePage.Masters.DataExtEvent.DataExtEventFields.DataExtEventFieldsListSource = [];
+                        }
+                        DataExtEventCtrl.ePage.Masters.DataExtEvent.DataExtEventFields.DataExtEventFieldsListSource.push(_response);
 
                         var _index = DataExtEventCtrl.ePage.Masters.DataExtEvent.DataExtEventFields.DataExtEventFieldsListSource.map(function (value, key) {
                             return value.PK;
                         }).indexOf(_response.PK);
 
                         if (_index === -1) {
-                            DataExtEventCtrl.ePage.Masters.DataExtEvent.DataExtEventFields.DataExtEventFieldsListSource.push(_response);
+                           SetGenerateScriptInput(DataExtEventCtrl.ePage.Masters.DataExtEvent.DataExtEventFields.ListSource[_index]);
                         } else {
                             DataExtEventCtrl.ePage.Masters.DataExtEvent.DataExtEventFields.DataExtEventFieldsListSource[_index] = _response;
                         }
@@ -691,6 +710,20 @@
                 }
                 GetDataExtEventFieldsList();
             });
+        }
+
+        function SetGenerateScriptInput(item) {
+            if (item) {
+               item.GenerateScriptInput = {
+                    ObjectName: "DATA_Config_Fields",
+                    ObjectId: item.PK
+                };
+                item.GenerateScriptConfig = {
+                    IsEnableTable: false,
+                    IsEnablePK: false,
+                    IsEnableTenant: false
+                };
+            }
         }
 
         // *** Data Config Fields End*** //

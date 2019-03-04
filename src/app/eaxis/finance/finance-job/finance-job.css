@@ -1,0 +1,26 @@
+.jobaccount-invoice-header{
+    background-color: #cbd9de;
+    color:black;
+} 
+
+.set-border{
+    border:2px solid #f5f5f5;
+    border-radius: 3px;
+}
+
+.set-color{
+    color:#999999;
+}
+
+.form-group label {
+    color: gray;
+    font-size: 12px;
+}
+
+/* ErrorWarning */ 
+
+.list-error-warning{
+    float: right;
+    padding-top: 3px;
+    padding-right: 2px;
+}

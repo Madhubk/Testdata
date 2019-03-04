@@ -3,15 +3,3 @@
     color: #305d8c;
     background: #d6dde7;
 }
-
-.service-details-heading .heading {
-    font-size: 18px;
-}
-
-.service-details-heading i {
-    font-size: 30px;
-}
-
-.service-details-heading i:hover {
-    text-decoration: none;
-}

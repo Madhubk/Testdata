@@ -61,15 +61,63 @@
 
         function AutoCompleteOnSelect($item, _input) {
             if (_input) {
-                OrganizationConsigneeCtrl.ePage.Masters.Supplier.TransModeObj[_input + 'Code'] = $item.Code;
-                OrganizationConsigneeCtrl.ePage.Masters.Supplier.TransModeObj[_input + 'PK'] = $item.PK;
+                switch (_input) {
+                    case 'ORG_ImportBroker':
+                        OrganizationConsigneeCtrl.ePage.Masters.Supplier.TransModeObj[_input + 'Code'] = $item.Code;
+                        OrganizationConsigneeCtrl.ePage.Masters.Supplier.TransModeObj[_input + '_FK'] = $item.PK;
+                        OrganizationConsigneeCtrl.ePage.Masters.Supplier.TransModeObj[_input + 'Name'] = $item.FullName;
+                        break;
+                    case 'ORG_ContrOBSledBy':
+                        OrganizationConsigneeCtrl.ePage.Masters.Supplier.TransModeObj[_input + 'Code'] = $item.Code;
+                        OrganizationConsigneeCtrl.ePage.Masters.Supplier.TransModeObj[_input + '_FK'] = $item.PK;
+                        OrganizationConsigneeCtrl.ePage.Masters.Supplier.TransModeObj[_input + 'Name'] = $item.FullName;
+                        break;
+                    case 'ORG_BuyingHouseAgent':
+                        OrganizationConsigneeCtrl.ePage.Masters.Supplier.TransModeObj[_input + 'Code'] = $item.Code;
+                        OrganizationConsigneeCtrl.ePage.Masters.Supplier.TransModeObj[_input + '_FK'] = $item.PK;
+                        OrganizationConsigneeCtrl.ePage.Masters.Supplier.TransModeObj[_input + 'Name'] = $item.FullName;
+                        break;
+                    case 'ORG_ControllingCustomer':
+                        OrganizationConsigneeCtrl.ePage.Masters.Supplier.TransModeObj[_input + 'Code'] = $item.Code;
+                        OrganizationConsigneeCtrl.ePage.Masters.Supplier.TransModeObj[_input + 'FK'] = $item.PK;
+                        OrganizationConsigneeCtrl.ePage.Masters.Supplier.TransModeObj[_input + 'Name'] = $item.FullName;
+                        break;
+                    default:
+                        OrganizationConsigneeCtrl.ePage.Masters.Supplier.TransModeObj[_input + 'Code'] = $item.Code;
+                        OrganizationConsigneeCtrl.ePage.Masters.Supplier.TransModeObj[_input + 'PK'] = $item.PK;
+                        OrganizationConsigneeCtrl.ePage.Masters.Supplier.TransModeObj[_input + 'Name'] = $item.FullName;
+                }
             }
         }
 
         function SelectedLookupData($item, _input) {
             if (_input) {
-                OrganizationConsigneeCtrl.ePage.Masters.Supplier.TransModeObj[_input + 'Code'] = $item.data.entity.Code;
-                OrganizationConsigneeCtrl.ePage.Masters.Supplier.TransModeObj[_input + 'PK'] = $item.data.entity.PK;
+                switch (_input) {
+                    case 'ORG_ImportBroker':
+                        OrganizationConsigneeCtrl.ePage.Masters.Supplier.TransModeObj[_input + 'Code'] = $item.data.entity.Code;
+                        OrganizationConsigneeCtrl.ePage.Masters.Supplier.TransModeObj[_input + '_FK'] = $item.data.entity.PK;
+                        OrganizationConsigneeCtrl.ePage.Masters.Supplier.TransModeObj[_input + 'Name'] = $item.data.entity.FullName;
+                        break;
+                    case 'ORG_ContrOBSledBy':
+                        OrganizationConsigneeCtrl.ePage.Masters.Supplier.TransModeObj[_input + 'Code'] = $item.data.entity.Code;
+                        OrganizationConsigneeCtrl.ePage.Masters.Supplier.TransModeObj[_input + '_FK'] = $item.data.entity.PK;
+                        OrganizationConsigneeCtrl.ePage.Masters.Supplier.TransModeObj[_input + 'Name'] = $item.data.entity.FullName;
+                        break;
+                    case 'ORG_BuyingHouseAgent':
+                        OrganizationConsigneeCtrl.ePage.Masters.Supplier.TransModeObj[_input + 'Code'] = $item.data.entity.Code;
+                        OrganizationConsigneeCtrl.ePage.Masters.Supplier.TransModeObj[_input + '_FK'] = $item.data.entity.PK;
+                        OrganizationConsigneeCtrl.ePage.Masters.Supplier.TransModeObj[_input + 'Name'] = $item.data.entity.FullName;
+                        break;
+                    case 'ORG_ControllingCustomer':
+                        OrganizationConsigneeCtrl.ePage.Masters.Supplier.TransModeObj[_input + 'Code'] = $item.data.entity.Code;
+                        OrganizationConsigneeCtrl.ePage.Masters.Supplier.TransModeObj[_input + 'FK'] = $item.data.entity.PK;
+                        OrganizationConsigneeCtrl.ePage.Masters.Supplier.TransModeObj[_input + 'Name'] = $item.data.entity.FullName;
+                        break;
+                    default:
+                        OrganizationConsigneeCtrl.ePage.Masters.Supplier.TransModeObj[_input + 'Code'] = $item.data.entity.Code;
+                        OrganizationConsigneeCtrl.ePage.Masters.Supplier.TransModeObj[_input + 'PK'] = $item.data.entity.PK;
+                        OrganizationConsigneeCtrl.ePage.Masters.Supplier.TransModeObj[_input + 'Name'] = $item.data.entity.FullName;
+                }
             }
         }
         // -------------Date time picker-------------
@@ -287,16 +335,16 @@
                 OrganizationConsigneeCtrl.ePage.Masters.Supplier.TransModeObj = obj
                 OrganizationConsigneeCtrl.ePage.Masters.Supplier.TransModeObj.IsModified = true;
                 OrganizationConsigneeCtrl.ePage.Masters.Supplier.IsFormTransView = true;
-                OrgAddressByShipper()
-                OrgContactByShipper()
+                OrgAddressByShipper();
+                OrgContactByShipper();
             } else if (type == 'delete') {
                 obj.IsDeleted = true;
                 obj.IsModified = true;
             } else {
                 OrganizationConsigneeCtrl.ePage.Masters.Supplier.TransModeObj = {}
                 OrganizationConsigneeCtrl.ePage.Masters.Supplier.IsFormTransView = true;
-                OrgAddressByShipper()
-                OrgContactByShipper()
+                OrgAddressByShipper();
+                OrgContactByShipper();
             }
         }
 
@@ -455,7 +503,6 @@
         }
 
         function ModeGridCall() {
-            console.log(OrganizationConsigneeCtrl.ePage.Masters.SupplierDetails.UIOrgBuySupMappingTrnMode)
             var _filter = {
                 OBS_FK: OrganizationConsigneeCtrl.ePage.Masters.SupplierDetails.PK
             }
@@ -475,7 +522,6 @@
         }
 
         function PopUpModal($item, type) {
-            console.log($item, type)
             var modalInstance = $uibModal.open({
                 animation: true,
                 backdrop: "static",
@@ -521,7 +567,6 @@
         }
 
         function DocModal($item, type) {
-            console.log($item, type)
             var modalInstance = $uibModal.open({
                 animation: true,
                 backdrop: "static",

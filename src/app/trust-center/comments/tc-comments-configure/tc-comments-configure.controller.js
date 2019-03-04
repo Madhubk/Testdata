@@ -190,11 +190,16 @@
             TCCommentsConfigureCtrl.ePage.Masters.Parties.MappingInput = {
                 MappingCode: "GRUP_CTYP_APP_TNT",
                 ChildMappingCode: "GRUP_ROLE_CTYP_APP_TNT",
+
+                AccessTo: "COMMENT",
                 Access_FK: TCCommentsConfigureCtrl.ePage.Masters.Comments.FormView.PK,
                 AccessCode: TCCommentsConfigureCtrl.ePage.Masters.Comments.FormView.TypeCode,
-                AccessTo: "COMMENT",
+
                 SAP_FK: TCCommentsConfigureCtrl.ePage.Masters.QueryString.AppPk,
-                SAP_Code: TCCommentsConfigureCtrl.ePage.Masters.QueryString.AppCode
+                SAP_Code: TCCommentsConfigureCtrl.ePage.Masters.QueryString.AppCode,
+
+                PartyMappingAPI: "GroupCommentType",
+                PartyRoleMappingAPI: "GroupRoleCommentType"
             };
         }
 

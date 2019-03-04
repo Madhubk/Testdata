@@ -6,12 +6,14 @@
             <strong>Validation Group</strong>
         </h5>
     </div>
-    <div class="sm-header clearfix">
-        <div class="col-sm-6 p-0">
+    <div class="clearfix pt-5 pb-5">
+        <div class="col-sm-6">
             <form class="input-group input-group-sm">
-                <input type="text" class="form-control" data-ng-model="TCValidationGroupCtrl.ePage.Masters.ValidationGroup.GroupName" placeholder="GroupName">
+                <input type="text" class="form-control" data-ng-model="TCValidationGroupCtrl.ePage.Masters.ValidationGroup.GroupName"
+                    placeholder="GroupName">
                 <span class="input-group-btn">
-                    <input type="submit" class="btn btn-primary" value="{{TCValidationGroupCtrl.ePage.Masters.ValidationGroup.AddBtnText}}" data-ng-disabled="TCValidationGroupCtrl.ePage.Masters.ValidationGroup.IsDisableAddBtn"
+                    <input type="submit" class="btn btn-primary" value="{{TCValidationGroupCtrl.ePage.Masters.ValidationGroup.AddBtnText}}"
+                        data-ng-disabled="TCValidationGroupCtrl.ePage.Masters.ValidationGroup.IsDisableAddBtn"
                         data-ng-click="TCValidationGroupCtrl.ePage.Masters.ValidationGroup.AddNewValidationGroup()" />
                 </span>
             </form>
@@ -28,10 +30,12 @@
             <div class="clearfix p-20 text-center" data-ng-if="TCValidationGroupCtrl.ePage.Masters.ValidationGroup.ListSource && TCValidationGroupCtrl.ePage.Masters.ValidationGroup.ListSource.length == 0">
                 <i>No Records...!</i>
             </div>
-            <span class="groupname" data-ng-repeat="x in TCValidationGroupCtrl.ePage.Masters.ValidationGroup.ListSource" data-ng-if="TCValidationGroupCtrl.ePage.Masters.ValidationGroup.ListSource && TCValidationGroupCtrl.ePage.Masters.ValidationGroup.ListSource.length > 0">
+            <span class="groupname" data-ng-repeat="x in TCValidationGroupCtrl.ePage.Masters.ValidationGroup.ListSource"
+                data-ng-if="TCValidationGroupCtrl.ePage.Masters.ValidationGroup.ListSource && TCValidationGroupCtrl.ePage.Masters.ValidationGroup.ListSource.length > 0">
                 <span data-ng-bind="x.GroupName"></span>
+                <i class="fa fa-file-code-o cursor-pointer ml-20" title="Generate Script" generate-db-script input="x.GenerateScriptInput"
+                    config="x.GenerateScriptConfig" data-ng-if="x.GenerateScriptInput.ObjectName && x.GenerateScriptInput.ObjectId && x.PK"></i>
                 <i class="fa fa-close cursor-pointer ml-10" data-ng-click="TCValidationGroupCtrl.ePage.Masters.ValidationGroup.DeleteConfirmation(x, $index)"></i>
-            </span>
         </div>
     </div>
 </div>

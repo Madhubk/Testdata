@@ -14,6 +14,7 @@
             'uiGmapgoogle-maps',
             'pascalprecht.translate',
             'tmh.dynamicLocale',
-            'ngTextTruncate'
+            'ngTextTruncate',
+            'angular.filter'
         ]);
 })();

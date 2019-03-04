@@ -40,8 +40,8 @@
             three_ShipmentCtrl.ePage.Masters.Configdetails = three_shipmentConfig;
 
             // For list directive
-            three_ShipmentCtrl.ePage.Masters.taskName = "BPShipment";
-            three_ShipmentCtrl.ePage.Masters.dataentryName = "BPShipment";
+            three_ShipmentCtrl.ePage.Masters.taskName = "Shipment_BUYER_EXPORT_CS";
+            three_ShipmentCtrl.ePage.Masters.dataentryName = "Shipment_BUYER_EXPORT_CS";
             three_ShipmentCtrl.ePage.Masters.taskHeader = "";
             // three_ShipmentCtrl.ePage.Masters.DefaultFilter = {
             //     "IsBooking": "false"
@@ -262,14 +262,12 @@
 
                             confirmation.showModal({}, modalOptions)
                                 .then(function (result) {
-                                    Save($item)
-                                    // HouseBillChange($item);
+                                    HouseBillChange($item);
                                 }, function () {
                                     console.log("Cancel");
                                 });
                         } else if ($item[$item.label].ePage.Entities.Header.Data.UIShipmentHeader.TransportMode != "AIR") {
-                            // HouseBillChange($item);
-                            Save($item)
+                            HouseBillChange($item);
                         }
                     });
                 }

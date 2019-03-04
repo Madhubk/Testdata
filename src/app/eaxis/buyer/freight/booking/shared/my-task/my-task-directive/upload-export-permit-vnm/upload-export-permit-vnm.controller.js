@@ -5,9 +5,9 @@
         .module("Application")
         .controller("UploadExportPermitVnmDirectiveController", UploadExportPermitVnmDirectiveController);
 
-    UploadExportPermitVnmDirectiveController.$inject = ["$window", "helperService", "$q", "apiService", "authService", "appConfig", "toastr", "errorWarningService", "$filter", "$timeout", "freightApiConfig"];
+    UploadExportPermitVnmDirectiveController.$inject = ["helperService", "$q", "apiService", "authService", "appConfig", "toastr", "errorWarningService", "$filter", "$timeout", "freightApiConfig"];
 
-    function UploadExportPermitVnmDirectiveController($window, helperService, $q, apiService, authService, appConfig, toastr, errorWarningService, $filter, $timeout, freightApiConfig) {
+    function UploadExportPermitVnmDirectiveController(helperService, $q, apiService, authService, appConfig, toastr, errorWarningService, $filter, $timeout, freightApiConfig) {
         var UploadExportPermitVnmDirectiveCtrl = this;
 
         function Init() {
@@ -29,12 +29,9 @@
         function InitPoUpload() {
             UploadExportPermitVnmDirectiveCtrl.ePage.Masters.CompleteBtnTxt = "Complete";
             UploadExportPermitVnmDirectiveCtrl.ePage.Masters.CompleteBtnDisabled = false;
-            UploadExportPermitVnmDirectiveCtrl.ePage.Masters.PageNotFound = false;
-            UploadExportPermitVnmDirectiveCtrl.ePage.Masters.IsLoading = true;
             UploadExportPermitVnmDirectiveCtrl.ePage.Masters.MyTask = UploadExportPermitVnmDirectiveCtrl.taskObj;
             UploadExportPermitVnmDirectiveCtrl.ePage.Masters.Complete = Complete;
             UploadExportPermitVnmDirectiveCtrl.ePage.Masters.IsUploaded = IsUploaded;
-            UploadExportPermitVnmDirectiveCtrl.ePage.Masters.SingleRecordView = SingleRecordView;
 
             if (UploadExportPermitVnmDirectiveCtrl.ePage.Masters.MyTask.OtherConfig) {
                 if (typeof UploadExportPermitVnmDirectiveCtrl.ePage.Masters.MyTask.OtherConfig == "string") {
@@ -44,7 +41,6 @@
 
             TaskGetById();
             StandardMenuConfig();
-            getTaskConfigData();
         }
 
         function TaskGetById() {
@@ -53,11 +49,7 @@
                     if (response.data.Response) {
                         response.data.Response.EntityObj = {};
                         UploadExportPermitVnmDirectiveCtrl.ePage.Entities.Header.Data = response.data.Response;
-                        UploadExportPermitVnmDirectiveCtrl.ePage.Masters.IsLoading = false;
-                    } else {
-                        UploadExportPermitVnmDirectiveCtrl.ePage.Entities.Header.Data.EntityObj = {};
-                        UploadExportPermitVnmDirectiveCtrl.ePage.Masters.PageNotFound = true;
-                        UploadExportPermitVnmDirectiveCtrl.ePage.Masters.IsLoading = false;
+                        getTaskConfigData();
                     }
                 });
             }
@@ -106,7 +98,7 @@
             if (UploadExportPermitVnmDirectiveCtrl.ePage.Masters.MyTask) {
                 // validation findall call
                 var _obj = {
-                    ModuleName: [UploadExportPermitVnmDirectiveCtrl.ePage.Masters.MyTask.PSI_InstanceNo],
+                    ModuleName: ["MyTask"],
                     Code: [UploadExportPermitVnmDirectiveCtrl.ePage.Masters.MyTask.PSI_InstanceNo],
                     API: "Group",
                     FilterInput: {
@@ -120,8 +112,8 @@
                 errorWarningService.GetErrorCodeList(_obj);
 
                 UploadExportPermitVnmDirectiveCtrl.ePage.Masters.ErrorWarningConfig = errorWarningService;
-                UploadExportPermitVnmDirectiveCtrl.ePage.Masters.ErrorWarningConfig.GlobalErrorWarningList = errorWarningService.Modules[UploadExportPermitVnmDirectiveCtrl.ePage.Masters.MyTask.PSI_InstanceNo].Entity[UploadExportPermitVnmDirectiveCtrl.taskObj.PSI_InstanceNo].GlobalErrorWarningList;
-                UploadExportPermitVnmDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj = errorWarningService.Modules[UploadExportPermitVnmDirectiveCtrl.ePage.Masters.MyTask.PSI_InstanceNo].Entity[UploadExportPermitVnmDirectiveCtrl.taskObj.PSI_InstanceNo];
+                UploadExportPermitVnmDirectiveCtrl.ePage.Masters.ErrorWarningConfig.GlobalErrorWarningList = errorWarningService.Modules.MyTask.Entity[UploadExportPermitVnmDirectiveCtrl.taskObj.PSI_InstanceNo].GlobalErrorWarningList;
+                UploadExportPermitVnmDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj = errorWarningService.Modules.MyTask.Entity[UploadExportPermitVnmDirectiveCtrl.taskObj.PSI_InstanceNo];
             }
         }
 
@@ -136,7 +128,7 @@
                         UploadExportPermitVnmDirectiveCtrl.ePage.Entities.Header.Data.EntityObj.Document = null;
                     }
                     var _obj = {
-                        ModuleName: [UploadExportPermitVnmDirectiveCtrl.ePage.Masters.MyTask.PSI_InstanceNo],
+                        ModuleName: ["MyTask"],
                         Code: [UploadExportPermitVnmDirectiveCtrl.taskObj.PSI_InstanceNo],
                         API: "Group",
                         FilterInput: {
@@ -150,7 +142,7 @@
                 });
             }
             $timeout(function () {
-                var _errorcount = errorWarningService.Modules[UploadExportPermitVnmDirectiveCtrl.ePage.Masters.MyTask.PSI_InstanceNo].Entity[UploadExportPermitVnmDirectiveCtrl.taskObj.PSI_InstanceNo].GlobalErrorWarningList;
+                var _errorcount = errorWarningService.Modules.MyTask.Entity[UploadExportPermitVnmDirectiveCtrl.taskObj.PSI_InstanceNo].GlobalErrorWarningList;
                 if (_errorcount.length > 0) {
                     if (UploadExportPermitVnmDirectiveCtrl.ePage.Masters.DocumentValidation.length > 0) {
                         angular.forEach(_errorcount, function (value, key) {
@@ -162,13 +154,13 @@
                                 angular.forEach(UploadExportPermitVnmDirectiveCtrl.ePage.Masters.docTypeSource, function (value, key) {
                                     doctypedesc = doctypedesc + value.DocTypeDesc + ",";
                                 });
-                                value.Message = 'Please Upload ';
+                                value.Message = 'Please Upload Document';
                                 doctypedesc = doctypedesc.slice(0, -1);
-                                value.Message = value.Message + doctypedesc;
+                                value.Message = value.Message + " for this " + doctypedesc + " Document type";
                             }
                         });
                     }
-                    toastr.warning(_errorcount[0].Message + " for this " + "instance # " + UploadExportPermitVnmDirectiveCtrl.ePage.Masters.MyTask.PSI_InstanceNo);
+                    // toastr.warning(_errorcount[0].Message);
                     UploadExportPermitVnmDirectiveCtrl.ePage.Masters.CompleteBtnTxt = "Complete";
                     UploadExportPermitVnmDirectiveCtrl.ePage.Masters.CompleteBtnDisabled = false;
                 } else {
@@ -178,25 +170,23 @@
         }
 
         function CompleteWithSave() {
-            var _input = InputData(UploadExportPermitVnmDirectiveCtrl.ePage.Masters.MyTask);
+            var _input = InputData(UploadExportPermitVnmDirectiveCtrl.ePage.Masters.MyTask, 5);
             apiService.post("eAxisAPI", appConfig.Entities.EBPMEngine.API.CompleteProcess.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     toastr.success("Task completed succesfully...");
-                    UploadExportPermitVnmDirectiveCtrl.ePage.Masters.CompleteBtnTxt = "Complete";
-                    UploadExportPermitVnmDirectiveCtrl.ePage.Masters.CompleteBtnDisabled = false;
-                    var _data = {
-                        IsRefreshTask: true,
-                        IsRefreshStatusCount: true,
-                        Item: UploadExportPermitVnmDirectiveCtrl.ePage.Masters.MyTask
-                    };
-                    UploadExportPermitVnmDirectiveCtrl.onComplete({
-                        $item: _data
-                    });
                 } else {
-                    UploadExportPermitVnmDirectiveCtrl.ePage.Masters.CompleteBtnTxt = "Complete";
-                    UploadExportPermitVnmDirectiveCtrl.ePage.Masters.CompleteBtnDisabled = false;
                     toastr.error("Task completion failed...");
                 }
+            });
+            UploadExportPermitVnmDirectiveCtrl.ePage.Masters.CompleteBtnTxt = "Complete";
+            UploadExportPermitVnmDirectiveCtrl.ePage.Masters.CompleteBtnDisabled = false;
+            var _data = {
+                IsRefreshTask: true,
+                IsRefreshStatusCount: true,
+                Item: UploadExportPermitVnmDirectiveCtrl.ePage.Masters.MyTask
+            };
+            UploadExportPermitVnmDirectiveCtrl.onComplete({
+                $item: _data
             });
         }
 
@@ -267,9 +257,9 @@
                 // Additional Entity
                 "AdditionalEntityRefKey": undefined,
                 "AdditionalEntityRefCode": undefined,
-                "AdditionalEntitySource": undefined
-                // "IsDisableParentEntity": true,
-                // "IsDisableAdditionalEntity": true
+                "AdditionalEntitySource": undefined,
+                "IsDisableParentEntity": true,
+                "IsDisableAdditionalEntity": true
             };
             UploadExportPermitVnmDirectiveCtrl.ePage.Masters.StandardConfigInput = {
                 IsDisableRefreshButton: true,
@@ -298,26 +288,17 @@
             };
         }
 
-        function InputData(_data) {
+        function InputData(_data, CompleteStepNo) {
             var _filterInput = {
                 "ProcessName": _data.ProcessName,
                 "EntitySource": _data.EntitySource,
                 "EntityRefKey": _data.EntityRefKey,
                 "KeyReference": _data.KeyReference,
                 "CompleteInstanceNo": _data.PSI_InstanceNo,
-                "CompleteStepNo": _data.WSI_StepNo,
+                "CompleteStepNo": CompleteStepNo,
                 "IsModified": true
             };
             return _filterInput;
-        }
-
-        function SingleRecordView(obj) {
-            var _queryString = {
-                PK: obj.UIShipmentHeader.PK,
-                ShipmentNo: obj.UIShipmentHeader.ShipmentNo
-            };
-            _queryString = helperService.encryptData(_queryString);
-            $window.open("#/EA/single-record-view/booking-view?q=" + _queryString, "_blank");
         }
 
         Init();

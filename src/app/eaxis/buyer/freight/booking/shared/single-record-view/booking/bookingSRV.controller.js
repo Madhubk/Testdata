@@ -10,8 +10,7 @@
     function BookingSRVController($scope, $timeout, $location, authService, apiService, helperService, three_BookingConfig, toastr, errorWarningService, $uibModal) {
         /* jshint validthis: true */
         var BookingSRVCtrl = this,
-            _queryString = $location.search();
-        // Entity = $location.path().split("/").pop();
+            Entity = $location.path().split("/").pop();
 
         function Init() {
             BookingSRVCtrl.ePage = {
@@ -22,10 +21,11 @@
                 "Entities": three_BookingConfig.Entities
             };
             BookingSRVCtrl.ePage.Masters.ErrorWarningConfig = errorWarningService;
+            BookingSRVCtrl.ePage.Masters.Entity = JSON.parse(helperService.decryptData(Entity));
             BookingSRVCtrl.ePage.Masters.RoleCode = authService.getUserInfo().RoleCode;
             // For list directive
-            BookingSRVCtrl.ePage.Masters.taskName = "BPBooking";
-            BookingSRVCtrl.ePage.Masters.dataentryName = "BPBooking";
+            BookingSRVCtrl.ePage.Masters.taskName = "Booking_" + BookingSRVCtrl.ePage.Masters.RoleCode;
+            BookingSRVCtrl.ePage.Masters.dataentryName = "Booking_" + BookingSRVCtrl.ePage.Masters.RoleCode;
             // BookingSRVCtrl.ePage.Masters.defaultFilter = {
             //     "IsBooking": "true"
             // }
@@ -47,19 +47,88 @@
             BookingSRVCtrl.ePage.Masters.RemoveTab = RemoveTab;
             BookingSRVCtrl.ePage.Masters.CurrentActiveTab = CurrentActiveTab;
             BookingSRVCtrl.ePage.Masters.SelectedGridRow = SelectedGridRow;
+            BookingSRVCtrl.ePage.Masters.ShowLists = false;
+            BookingSRVCtrl.ePage.Masters.CNFShipment = false;
+            BookingSRVCtrl.ePage.Masters.ASN = false;
             BookingSRVCtrl.ePage.Masters.CreateBtn = true;
+            BookingSRVCtrl.ePage.Masters.ShipmentSelection = ShipmentSelection;
 
-            try {
-                if (_queryString.q) {
-                    BookingSRVCtrl.ePage.Masters.Entity = JSON.parse(helperService.decryptData(_queryString.q));
-                    (BookingSRVCtrl.ePage.Masters.Entity) ? CreateNewBooking(): false;
-                }
-            } catch (ex) {
-                console.log(ex);
+            (BookingSRVCtrl.ePage.Masters.Entity) ? ShipmentSelection('CNFBooking'): false;
+
+        }
+
+        function ShipmentSelection(mode) {
+            BookingSRVCtrl.ePage.Masters.dataentryName = BookingSRVCtrl.ePage.Masters.dataentryName;
+            switch (mode) {
+                case 'bookinglist':
+                    BookingSRVCtrl.ePage.Masters.ShowLists = true;
+                    BookingSRVCtrl.ePage.Masters.ASN = false;
+                    BookingSRVCtrl.ePage.Masters.CreateBtn = true;
+                    BookingSRVCtrl.ePage.Masters.dataentryName = "Booking_" + BookingSRVCtrl.ePage.Masters.RoleCode;
+                    BookingSRVCtrl.ePage.Masters.RoleCode == 'BUYER_SUPPLIER' ? BookingSRVCtrl.ePage.Masters.defaultFilter = {} : BookingSRVCtrl.ePage.Masters.RoleCode == 'BUYER_EXPORT_CS' ? BookingSRVCtrl.ePage.Masters.defaultFilter = {
+                        "IsBooking": "true"
+                    } : BookingSRVCtrl.ePage.Masters.defaultFilter = {
+                        "IsBooking": "true"
+                    };
+                    break;
+                case 'asnlist':
+                    BookingSRVCtrl.ePage.Masters.ShowLists = true;
+                    BookingSRVCtrl.ePage.Masters.ASN = false;
+                    BookingSRVCtrl.ePage.Masters.CreateBtn = false;
+                    BookingSRVCtrl.ePage.Masters.dataentryName = "ASN_Upload";
+                    BookingSRVCtrl.ePage.Masters.defaultFilter = {
+                        "BatchUploadType": "ASN"
+                    };
+                    break;
+                case 'ASN':
+                    UploadAsn();
+                    break;
+                case 'CNFBooking':
+                    BookingSRVCtrl.ePage.Masters.ShowLists = true;
+                    BookingSRVCtrl.ePage.Masters.CNFShipment = true;
+                    BookingSRVCtrl.ePage.Masters.CreateBtn = true;
+                    CreateNewBooking();
+                    break;
+                case 'dashboard':
+                    BookingSRVCtrl.ePage.Masters.ShowLists = false;
+                    BookingSRVCtrl.ePage.Masters.ASN = false;
+                    BookingSRVCtrl.ePage.Masters.CNFShipment = false;
+                    break;
+                default:
+                    BookingSRVCtrl.ePage.Masters.ShowLists = false;
+                    BookingSRVCtrl.ePage.Masters.SLI = false;
+                    BookingSRVCtrl.ePage.Masters.CNFShipment = false;
+                    break;
             }
         }
 
+        function UploadAsn() {
+            var modalInstance = $uibModal.open({
+                animation: true,
+                backdrop: "static",
+                keyboard: false,
+                windowClass: "AsnModal right",
+                scope: $scope,
+                // size : "sm",
+                templateUrl: "app/eaxis/buyer/freight/booking/1_2_asn-upload/1_2_asn-upload.html",
+                controller: 'oneTwoAsnUploadController',
+                controllerAs: "oneTwoAsnUploadCtrl",
+                bindToController: true,
+                resolve: {
+                    param: function () {
+                        var exports = {};
+                        return exports;
+                    }
+                }
+            }).result.then(
+                function (response) {
+
+                }
+            );
+        }
+
         function CreateNewBooking() {
+
             var _isExist = BookingSRVCtrl.ePage.Masters.TabList.some(function (value) {
                 if (value.label === "New")
                     return true;
@@ -79,7 +148,6 @@
                         _obj.data.UIShipmentHeader.BookingType = BookingSRVCtrl.ePage.Masters.Entity.BookingType;
                         _obj.data.UIShipmentHeader.BatchUploadNo = BookingSRVCtrl.ePage.Masters.Entity.BatchUploadNo;
                         _obj.data.UIShipmentHeader.BUP_FK = BookingSRVCtrl.ePage.Masters.Entity.PK;
-                        _obj.data.UIShipmentHeader.IsDomestic = true;
                         BookingSRVCtrl.ePage.Masters.AddTab(_obj, true);
                         BookingSRVCtrl.ePage.Masters.IsNewBookingClicked = false;
                     } else {
@@ -144,6 +212,7 @@
             event.preventDefault();
             event.stopPropagation();
             var _currentBooking = currentBooking[currentBooking.label].ePage.Entities;
+
             // Close Current Booking
             apiService.get("eAxisAPI", BookingSRVCtrl.ePage.Entities.Header.API.ShipmentActivityClose.Url + _currentBooking.Header.Data.PK).then(function (response) {
                 if (response.data.Response === "Success") {
@@ -152,6 +221,7 @@
                     console.log("Tab close Error : " + response);
                 }
             });
+
             BookingSRVCtrl.ePage.Masters.TabList.splice(index, 1);
         }
 
@@ -250,7 +320,7 @@
                 windowClass: "doc-modal right",
                 scope: $scope,
                 // size : "sm",
-                templateUrl: "app/eaxis/buyer/batch-upload/order-batch-upload/doc-upload-modal/doc-upload-modal.html",
+                templateUrl: "app/eaxis/buyer/purchase-order/1_1_buyer_order/1_1_order_batch/doc-upload-modal/doc-upload-modal.html",
                 controller: 'DocModalController',
                 controllerAs: "DocModalCtrl",
                 bindToController: true,

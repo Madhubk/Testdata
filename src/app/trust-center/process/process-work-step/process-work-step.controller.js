@@ -35,8 +35,7 @@
             }
         }
 
-        // ========================Breadcrumb Start========================
-
+        // #region Breadcrumb
         function InitBreadcrumb() {
             ProcessWorkStepCtrl.ePage.Masters.Breadcrumb = {};
             ProcessWorkStepCtrl.ePage.Masters.Breadcrumb.OnBreadcrumbClick = OnBreadcrumbClick;
@@ -94,15 +93,16 @@
                 $location.path($item.Link + "/" + helperService.encryptData($item.QueryStringObj));
             }
         }
+        // #endregion
 
-        // ========================Breadcrumb End========================
-
+        // #region StepInfo
         function InitProcessWorkStep() {
             ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep = {};
             ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.EditStep = EditStep;
             ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.CloseStep = CloseStep;
             ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.OpenJsonModal = OpenJsonModal;
             ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.OnAccessClick = OnAccessClick;
+
             ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.OnProcessWorkStepClick = OnProcessWorkStepClick;
             ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.AddNewStep = AddNewStep;
             ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ProcessWorkStepListClick = ProcessWorkStepListClick;
@@ -115,6 +115,8 @@
 
             ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.AddRoleBasedForm = AddRoleBasedForm;
             ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.DeleteRoleBasedForm = DeleteRoleBasedForm;
+
+            ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.OnDisableFooterChange = OnDisableFooterChange;
 
             ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.SaveBtnText = "Save";
             ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.IsDisableSaveBtn = false;
@@ -130,6 +132,7 @@
             InitProcessTopics();
             InitDelayReason();
             InitChecklist();
+            InitValidation();
             GetRelatedLookupList();
         }
 
@@ -198,35 +201,40 @@
 
             apiService.post("eAxisAPI", trustCenterConfig.Entities.API.EBPMWorkStepInfo.API.DynamicFindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
-                    ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ProcessWorkStepList = response.data.Response;
+                    ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ProcessWorkStepList = angular.copy(response.data.Response);
                     ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ProcessWorkStepListCopy = angular.copy(response.data.Response);
-                    ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ProcessWorkStepList.map(function (val, key) {
-                        val["Mode"] = [{
-                            "BEFORE_INIT": "BEFORE_INIT",
-                            "AFTER_INIT": "AFTER_INIT",
-                            "BEFORE_COMPLETE": "BEFORE_COMPLETE",
-                            "AFTER_COMPLETE": "AFTER_COMPLETE"
-                        }];
 
-                        if (val.OtherConfig && typeof val.OtherConfig == "string") {
-                            val.OtherConfig = JSON.parse(val.OtherConfig);
-                        }
+                    if (ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ProcessWorkStepList.length > 0) {
+                        ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ProcessWorkStepList.map(function (val, key) {
+                            val["Mode"] = [{
+                                "BEFORE_INIT": "BEFORE_INIT",
+                                "AFTER_INIT": "AFTER_INIT",
+                                "BEFORE_COMPLETE": "BEFORE_COMPLETE",
+                                "AFTER_COMPLETE": "AFTER_COMPLETE"
+                            }];
 
-                        if (val.KPIExpression) {
-                            if (val.KPIExpression.indexOf("[") !== -1) {
-                                val.KPIExpression = JSON.parse(val.KPIExpression);
-                                val.KPIExpression = JSON.stringify(val.KPIExpression, undefined, 2);
+                            if (val.OtherConfig && typeof val.OtherConfig == "string") {
+                                val.OtherConfig = JSON.parse(val.OtherConfig);
                             }
-                        }
-                        if (val.RelatedInput) {
-                            if (val.RelatedInput.indexOf("[") !== -1) {
-                                val.RelatedInput = JSON.parse(val.RelatedInput);
-                                val.RelatedInput = JSON.stringify(val.RelatedInput, undefined, 2);
-                            }
-                        }
-                    });
 
-                    ProcessWorkStepListClick(ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ProcessWorkStepList[0]);
+                            if (val.KPIExpression) {
+                                if (val.KPIExpression.indexOf("[") !== -1) {
+                                    val.KPIExpression = JSON.parse(val.KPIExpression);
+                                    val.KPIExpression = JSON.stringify(val.KPIExpression, undefined, 2);
+                                }
+                            }
+                            if (val.RelatedInput) {
+                                if (val.RelatedInput.indexOf("[") !== -1) {
+                                    val.RelatedInput = JSON.parse(val.RelatedInput);
+                                    val.RelatedInput = JSON.stringify(val.RelatedInput, undefined, 2);
+                                }
+                            }
+
+                            SetGenerateScriptInput(val)
+                        });
+
+                        ProcessWorkStepListClick(ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ProcessWorkStepList[0]);
+                    }
                 } else {
                     ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ProcessWorkStepList = [];
                 }
@@ -336,6 +344,10 @@
                 if (!ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.OtherConfig.Directives) {
                     ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.OtherConfig.Directives = {};
                 }
+
+                if (!ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.OtherConfig.MyTaskFooter) {
+                    ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.OtherConfig.MyTaskFooter = {};
+                }
             }
 
             PreparePartyMappingInput();
@@ -355,6 +367,7 @@
             GetProcessTopicslist();
             GetDelayReasonlist();
             GetChecklistlist();
+            GetValidationlist();
         }
 
         function OnProcessWorkStepClick($item, mode) {
@@ -413,17 +426,23 @@
                     apiService.post("eAxisAPI", trustCenterConfig.Entities.API.EBPMWorkStepInfo.API.Upsert.Url, [_input]).then(function (response) {
                         if (response.data.Response) {
                             var _response = response.data.Response[0];
+                            if (!ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ProcessWorkStepList) {
+                                ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ProcessWorkStepList = [];
+                            }
                             if ($item.PK) {
                                 var _index = ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ProcessWorkStepList.map(function (value, key) {
                                     return value.PK;
                                 }).indexOf(_response.PK);
 
-                                if (_index !== -1) {
-                                    ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ProcessWorkStepList[_index] = _response;
+                                ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ProcessWorkStepList[_index] = _response;
+                                if (_response.OtherConfig && typeof _response.OtherConfig == "string") {
+                                    ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ProcessWorkStepList[_index].OtherConfig = JSON.parse(_response.OtherConfig);
+                                }
 
-                                    if (_response.OtherConfig && typeof _response.OtherConfig == "string") {
-                                        ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ProcessWorkStepList[_index].OtherConfig = JSON.parse(_response.OtherConfig);
-                                    }
+
+                                if (_index !== -1) {
+
+                                    SetGenerateScriptInput(ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ProcessWorkStepList[0])
                                 }
                             } else {
                                 ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ProcessWorkStepList.push(_response);
@@ -508,21 +527,31 @@
             }
         }
 
-        // region Parties
-        function InitParties() {
-            ProcessWorkStepCtrl.ePage.Masters.Parties = {};
-        }
+        function SetGenerateScriptInput($item) {
 
-        function PreparePartyMappingInput() {
-            ProcessWorkStepCtrl.ePage.Masters.Parties.MappingInput = {
-                MappingCode: "GRUP_STYP_APP_TNT",
-                Access_FK: ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.PK,
-                AccessCode: ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.StepCode,
-                AccessTo: "PROCS",
-                SAP_FK: ProcessWorkStepCtrl.ePage.Masters.QueryString.AppPk
+            if ($item) {
+                $item.GenerateScriptInput = {
+                    ObjectName: "EBPM_WorkStepInfo",
+                    ObjectId: $item.PK
+                };
+                $item.GenerateScriptConfig = {
+                    IsEnableTable: false,
+                    IsEnablePK: false,
+                    IsEnableTenant: false
+                };
             }
         }
-        // endregion
+
+        function OnDisableFooterChange($event) {
+            var _target = $event.target;
+            var _isChecked = _target.checked;
+
+            if (_isChecked) {
+                ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.OtherConfig.MyTaskFooter = {
+                    IsDisableFooter: true
+                };
+            }
+        }
 
         function AddRoleBasedForm() {
             var _obj = {
@@ -543,10 +572,9 @@
         function DeleteRoleBasedForm($item, $index) {
             ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.OtherConfig.RoleBasedForm.splice($index, 1);
         }
+        // #endregion
 
-        // ==================================
-
-        // Related Input
+        // #region Related Input
         function InitRelatedInput() {
             ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.RelatedInput = {};
 
@@ -624,8 +652,9 @@
                 CloseEditRelatedInputModal();
             });
         }
+        // #endregion
 
-        // KPI Expression
+        // #region KPI Expression
         function InitKPIExpression() {
             ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.KPIExpression = {};
 
@@ -703,10 +732,9 @@
                 CloseEditKPIExpressionModal();
             });
         }
+        // #endregion
 
-        // KPI Expression
-
-        // Process Type List
+        // #region Process Type List
         function InitProcessTypelist() {
             ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ProcessTypelist = {};
             ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.SelectedData = ProcessTypeListSelectedData;
@@ -800,14 +828,14 @@
                 }
             });
         }
-        // Process Type list
+        // #endregion
 
-        // Process Topics
+        // #region Process Tags
         function InitProcessTopics() {
             ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ProcessTopics = {};
             ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ProcessTopics.DefaultFilter = {
                 "MappingCode": "PROCESS_TOPIC"
-            }
+            };
             ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ProcessTopics.OnProcessTopicsSave = OnProcessTopicsSave;
             ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ProcessTopics.SelectedData = ProcessTopicsSelectedData;
             ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ProcessTopics.Delete = DeleteProcessTopicsConfirmation;
@@ -921,9 +949,9 @@
                 }
             });
         }
-        //endregion
+        // #endregion
 
-        // region Delay Reason
+        // #region Delay Reason
         function InitDelayReason() {
             ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.DelayReason = {};
             ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.DelayReason.DefaultFilter = {
@@ -1021,9 +1049,9 @@
                 }
             });
         }
-        // endregion
+        // #endregion
 
-        // region Checklist
+        // #region Checklist
         function InitChecklist() {
             ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.Checklist = {};
             ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.Checklist.DefaultFilter = {
@@ -1031,6 +1059,7 @@
             }
             ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.Checklist.OnChecklistSave = OnChecklistSave;
             ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.Checklist.SelectedData = ChecklistSelectedData;
+            ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.Checklist.UpdateChecklist = UpdateChecklist;
             ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.Checklist.Delete = DeleteChecklistConfirmation;
         }
 
@@ -1075,7 +1104,7 @@
                             SAP_FK: ProcessWorkStepCtrl.ePage.Masters.QueryString.AppPk,
                             IsModified: true,
                             IsActive: true
-                        }
+                        };
 
                         apiService.post("eAxisAPI", trustCenterConfig.Entities.API.EBPMEntitiesMapping.API.Upsert.Url, [_input]).then(function (response) {
                             if (response.data.Response) {
@@ -1087,6 +1116,20 @@
                     });
                 }
             }
+        }
+
+        function UpdateChecklist($event, $item) {
+            var _target = $event.target;
+            var _isChecked = _target.checked;
+
+            var _input = $item;
+            _input.IsModified = true;
+
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.EBPMEntitiesMapping.API.Upsert.Url, [_input]).then(function (response) {
+                if (response.data.Response) {
+                    if (response.data.Response.length > 0) {}
+                }
+            });
         }
 
         function DeleteChecklistConfirmation($item) {
@@ -1121,7 +1164,127 @@
                 }
             });
         }
-        // endregion
+        // #endregion
+
+        // #region Parties
+        function InitParties() {
+            ProcessWorkStepCtrl.ePage.Masters.Parties = {};
+        }
+
+        function PreparePartyMappingInput() {
+            ProcessWorkStepCtrl.ePage.Masters.Parties.MappingInput = {
+                MappingCode: "GRUP_STYP_APP_TNT",
+                ChildMappingCode: "GRUP_ROLE_STYP_APP_TNT",
+
+                AccessTo: "PROCS",
+                Access_FK: ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.PK,
+                AccessCode: ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.StepCode,
+
+                SAP_FK: ProcessWorkStepCtrl.ePage.Masters.QueryString.AppPk,
+                SAP_Code: ProcessWorkStepCtrl.ePage.Masters.QueryString.AppCode,
+                PartyMappingAPI: "GroupProcessType",
+                PartyRoleMappingAPI: "GroupRoleProcess"
+            }
+        }
+        // #endregion
+
+        // #region Validation
+        function InitValidation() {
+            ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.Validation = {};
+            ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.Validation.DefaultFilter = {};
+            ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.Validation.OnValidationSave = OnValidationSave;
+            ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.Validation.SelectedData = ValidationSelectedData;
+            ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.Validation.Delete = DeleteValidationConfirmation;
+        }
+
+        function GetValidationlist() {
+            ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.Validation.ListSource = undefined;
+            var _filter = {
+                Fk_2: ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.PK,
+                Code_2: ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.StepCode,
+                MappingCode: "VALIDATION",
+            };
+            var _input = {
+                "searchInput": helperService.createToArrayOfObject(_filter),
+                "FilterID": trustCenterConfig.Entities.API.EBPMEntitiesMapping.API.FindAll.FilterID
+            };
+
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.EBPMEntitiesMapping.API.FindAll.Url, _input).then(function (response) {
+                if (response.data.Response) {
+                    ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.Validation.ListSource = response.data.Response;
+                } else {
+                    ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.Validation.ListSource = [];
+                }
+            });
+        }
+
+        function ValidationSelectedData($item) {
+            OnValidationSave($item)
+        }
+
+        function OnValidationSave($item) {
+            if ($item) {
+                if ($item.length > 0) {
+                    $item.map(function (value, key) {
+                        var _input = {
+                            Fk_1: value.PK,
+                            Code_1: value.Code,
+                            Name_1: value.Name,
+
+                            Fk_2: ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.PK,
+                            Code_2: ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.StepCode,
+
+                            MappingCode: "VALIDATION",
+                            SAP_FK: ProcessWorkStepCtrl.ePage.Masters.QueryString.AppPk,
+                            IsModified: true,
+                            IsActive: true
+                        }
+
+                        apiService.post("eAxisAPI", trustCenterConfig.Entities.API.EBPMEntitiesMapping.API.Upsert.Url, [_input]).then(function (response) {
+                            if (response.data.Response) {
+                                if (response.data.Response.length > 0) {
+                                    ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.Validation.ListSource = ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.Validation.ListSource.concat(response.data.Response);
+                                }
+                            }
+                        });
+                    });
+                }
+            }
+        }
+
+        function DeleteValidationConfirmation($item) {
+            var modalOptions = {
+                closeButtonText: 'Cancel',
+                actionButtonText: 'Ok',
+                headerText: 'Delete?',
+                bodyText: 'Are you sure?'
+            };
+
+            confirmation.showModal({}, modalOptions)
+                .then(function (result) {
+                    DeleteProcessTopiclist($item);
+                }, function () {
+                    console.log("Cancelled");
+                });
+        }
+
+        function DeleteProcessTopiclist($item) {
+            var _input = angular.copy($item);
+            _input.IsModified = true;
+            _input.IsDeleted = true;
+
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.EBPMEntitiesMapping.API.Upsert.Url, [_input]).then(function (response) {
+                if (response.data.Response) {
+                    var _index = ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.Validation.ListSource.map(function (value, key) {
+                        return value.PK;
+                    }).indexOf($item.PK);
+                    if (_index !== -1) {
+                        ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.Validation.ListSource.splice(_index, 1);
+                    }
+                }
+            });
+        }
+        // #endregion
 
         Init();
     }

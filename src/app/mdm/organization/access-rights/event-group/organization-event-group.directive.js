@@ -246,6 +246,9 @@
                 BasedOn: "ORG",
                 BasedOn_FK: OrganizationEventGroupCtrl.ePage.Entities.Header.Data.OrgHeader.PK,
                 BasedOnCode: OrganizationEventGroupCtrl.ePage.Entities.Header.Data.OrgHeader.Code,
+                OtherEntitySource: "EVENTGROUP",
+                OtherEntity_FK: OrganizationEventGroupCtrl.ePage.Masters.EventGroup.ActiveEventGroup.PK,
+                OtherEntityCode: OrganizationEventGroupCtrl.ePage.Masters.EventGroup.ActiveEventGroup.GroupName,
                 SAP_FK: authService.getUserInfo().AppPK
             };
             var _input = {
@@ -361,6 +364,9 @@
                 BasedOn: "ORG",
                 BasedOn_FK: OrganizationEventGroupCtrl.ePage.Entities.Header.Data.OrgHeader.PK,
                 BasedOnCode: OrganizationEventGroupCtrl.ePage.Entities.Header.Data.OrgHeader.Code,
+                OtherEntitySource: "EVENTGROUP",
+                OtherEntity_FK: OrganizationEventGroupCtrl.ePage.Masters.EventGroup.ActiveEventGroup.PK,
+                OtherEntityCode: OrganizationEventGroupCtrl.ePage.Masters.EventGroup.ActiveEventGroup.GroupName,
                 SAP_FK: authService.getUserInfo().AppPK,
                 SAP_Code: authService.getUserInfo().AppCode,
                 TNT_FK: authService.getUserInfo().TenantPK,
@@ -472,6 +478,8 @@
 
             if (OrganizationEventGroupCtrl.ePage.Masters.EventAction.ActiveEventAction.EmailTemplate.EmailContact && typeof OrganizationEventGroupCtrl.ePage.Masters.EventAction.ActiveEventAction.EmailTemplate.EmailContact == "object" && OrganizationEventGroupCtrl.ePage.Masters.EventAction.ActiveEventAction.EmailTemplate.EmailContact.length > 0) {
                 _input.EmailContact = OrganizationEventGroupCtrl.ePage.Masters.EventAction.ActiveEventAction.EmailTemplate.EmailContact.join(",");
+            } else {
+                _input.EmailContact = OrganizationEventGroupCtrl.ePage.Masters.EventAction.ActiveEventAction.EmailTemplate.EmailContact;
             }
 
             if (_apiMethod == "Insert") {

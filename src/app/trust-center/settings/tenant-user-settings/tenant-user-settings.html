@@ -100,5 +100,9 @@
     <div class="clearfix p-10">
         <input type="submit" class="btn btn-success btn-xs pull-right ml-10" data-ng-click="TenantUserSettingCtrl.ePage.Masters.SaveTenantUserSettings()"
             value="{{TenantUserSettingCtrl.ePage.Masters.SaveBtnTxt}}" data-ng-disabled=" TenantUserSettingCtrl.ePage.Masters.IsDisabledSaveBtn" />
+        <button class="btn btn-primary btn-xs pull-right ml-10" generate-db-script input="TenantUserSettingCtrl.ePage.Masters.TenantUserSetting.GenerateScriptInput"
+            config="TenantUserSettingCtrl.ePage.Masters.TenantUserSetting.GenerateScriptConfig" data-ng-disabled="!TenantUserSettingCtrl.ePage.Masters.TenantUserSetting.GenerateScriptInput.ObjectName || !TenantUserSettingCtrl.ePage.Masters.TenantUserSetting.GenerateScriptInput.ObjectId || !TenantUserSettingCtrl.ePage.Masters.TenantUserSetting.PK">Generate
+            Script</button>
     </div>
+
 </div>

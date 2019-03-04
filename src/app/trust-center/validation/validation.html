@@ -16,51 +16,70 @@
         <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-xs-12 p-4">
             <tc-application-dropdown query-string="ValidationCtrl.ePage.Masters.QueryString" on-application-change="ValidationCtrl.ePage.Masters.Application.OnApplicationChange($item)"></tc-application-dropdown>
         </div>
-
     </div>
     <!-- Header -->
     <div class="clearfix tc-header-container">
-        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 p-0">
+        <div class="col-xs-12 col-sm-12 col-md-7 col-lg-7 col-xl-7 p-0">
             <div class="tc-header with-drop-down">
-                <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5 col-xl-5 pl-0">
+                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 pl-0">
                     <select chosen class="form-control" data-ng-model="ValidationCtrl.ePage.Masters.ActiveModule.Key"
                         data-ng-options="x.Key as (x.Key + ' - ' + x.Value) for x  in ValidationCtrl.ePage.Masters.ModuleList"
                         data-ng-change="ValidationCtrl.ePage.Masters.OnModuleChange((ValidationCtrl.ePage.Masters.ModuleList | filter: {'Key': ValidationCtrl.ePage.Masters.ActiveModule.Key})[0])">
                         <option value="">--Select--</option>
                     </select>
                 </div>
-                <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5 col-xl-5 pr-0">
+                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 pr-0">
                     <select chosen class="form-control" data-ng-model="ValidationCtrl.ePage.Masters.ValidationGroup.ActiveValidationGroup.PK"
                         data-ng-options="x.PK as x.GroupName for x  in ValidationCtrl.ePage.Masters.ValidationGroup.ListSource"
                         data-ng-change="ValidationCtrl.ePage.Masters.ValidationGroup.OnValidationGroupChange((ValidationCtrl.ePage.Masters.ValidationGroup.ListSource | filter: {'PK': ValidationCtrl.ePage.Masters.ValidationGroup.ActiveValidationGroup.PK})[0])">
                         <option value="">--Select--</option>
                     </select>
                 </div>
-                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pt-4 text-right">
+                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 p-0 pt-4 text-right">
                     <button class="btn btn-xs btn-info" data-ng-disabled="!ValidationCtrl.ePage.Masters.ActiveModule.PK"
                         data-ng-click="ValidationCtrl.ePage.Masters.ActiveModule.PK && ValidationCtrl.ePage.Masters.Validation.AddNew()">New</button>
                 </div>
             </div>
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 p-0">
+        <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5 col-xl-5 p-0">
             <div class="tc-header edit-view">
                 <span data-ng-bind="'Details'"></span>
                 <button class="btn btn-default tc-btn-edit btn-xs pull-right ml-10" data-ng-click="ValidationCtrl.ePage.Masters.Validation.Edit()">Edit</button>
                 <button class="btn btn-default tc-btn-delete btn-xs pull-right ml-10" data-ng-click="ValidationCtrl.ePage.Masters.Validation.Delete()"
                     data-ng-disabled="ValidationCtrl.ePage.Masters.Validation.IsDisableDeleteBtn || !ValidationCtrl.ePage.Masters.Validation.ActiveValidataion.PK">Delete</button>
-                <button class=" btn btn-default btn-xs pull-right" data-ng-click="ValidationCtrl.ePage.Masters.ValidationGroup.OpenValidationGrouptModal()">Validation
+                <button class=" btn btn-default btn-xs pull-right ml-10" data-ng-click="ValidationCtrl.ePage.Masters.ValidationGroup.OpenValidationGrouptModal()">Validation
                     Group
                 </button>
-            </div>
+                <button class="btn btn-primary btn-xs pull-right ml-10" generate-db-script input="ValidationCtrl.ePage.Masters.GenerateScriptInput"
+                    config="ValidationCtrl.ePage.Masters.GenerateScriptConfig" data-ng-disabled="!ValidationCtrl.ePage.Masters.GenerateScriptInput.ObjectName || !ValidationCtrl.ePage.Masters.GenerateScriptInput.ObjectId || !ValidationCtrl.ePage.Masters.Validation.ActiveValidataion.PK">
+                    <i class="fa fa-file-code-o mr-5"></i> Generate Script
+                </button> </div>
         </div>
     </div>
     <!--Body-->
     <div class="clearfix">
-        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 p-0">
+        <div class="col-xs-12 col-sm-12 col-md-7 col-lg-7 col-xl-7 p-0">
             <div class="tc-list-search">
                 <input type="text" class="form-control input-sm" placeholder="Search..." data-ng-model="ValidationCtrl.ePage.Masters.Search">
             </div>
-            <div class="tc-list-container tc-page-height-fixed left">
+            <div class="clearfix tc-list-heading">
+                <div class="col-sm-2">
+                    <div class="text-single-line">Code</div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="text-single-line">Key</div>
+                </div>
+                <div class="col-sm-2">
+                    <div class="text-single-line">Title</div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="text-single-line">Group</div>
+                </div>
+                <div class="col-sm-2">
+                    <div class="text-single-line">Module</div>
+                </div>
+            </div>
+            <div class="tc-list-container tc-page-height-fixed left with-header">
                 <ul class="tc-list-ul">
                     <!-- Loading -->
                     <div class="p-15 text-center tc-loading" data-ng-if="!ValidationCtrl.ePage.Masters.Validation.ListSource">
@@ -77,16 +96,29 @@
                         data-ng-click="ValidationCtrl.ePage.Masters.Validation.ActiveValidataion.PK != x.PK && ValidationCtrl.ePage.Masters.Validation.OnValidataionClick(x)"
                         data-ng-class="{'active': ValidationCtrl.ePage.Masters.Validation.ActiveValidataion.PK == x.PK}">
                         <div class="clearfix tc-list">
-                            <div class="tc-list-name">
-                                <i class="fa fa-circle-o mr-10"></i>
-                                <span class="text-single-line" data-ng-bind="x.Code + ' - ' + x.CtrlKey + ' - ' + x.Title"></span>
+                            <div class="tc-list-name row">
+                                <div class="col-sm-2">
+                                    <div class="text-single-line" title="{{x.Code}}">{{x.Code}}</div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="text-single-line" title="{{x.CtrlKey}}">{{x.CtrlKey}}</div>
+                                </div>
+                                <div class="col-sm-2">
+                                    <div class="text-single-line" title="{{x.Title}}">{{x.Title}}</div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="text-single-line" title="{{x.VLG_Code}}">{{x.VLG_Code}}</div>
+                                </div>
+                                <div class="col-sm-2">
+                                    <div class="text-single-line" title="{{x.ModuleCode}}">{{x.ModuleCode}}</div>
+                                </div>
                             </div>
                         </div>
                     </li>
                 </ul>
             </div>
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 p-0 tc-page-height-fixed" data-ng-if="ValidationCtrl.ePage.Masters.Validation.ActiveValidataion">
+        <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5 col-xl-5 p-0 tc-page-height-fixed" data-ng-if="ValidationCtrl.ePage.Masters.Validation.ActiveValidataion">
             <div class="pt-10 pb-10 tc-details-view clearfix">
                 <div class="clearfix form-group">
                     <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Code</label>
@@ -103,7 +135,8 @@
                     </div>
                 </div>
                 <div class="clearfix form-group">
-                    <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Display Name</label>
+                    <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Display
+                        Name</label>
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
                         <div data-ng-bind="ValidationCtrl.ePage.Masters.Validation.ActiveValidataion.DisplayName
                                 || ValidationCtrl.ePage.Masters.emptyText"></div>
@@ -164,14 +197,16 @@
                     </div>
                 </div>
                 <div class="clearfix form-group">
-                    <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Immediate Alert</label>
+                    <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Immediate
+                        Alert</label>
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
                         <div data-ng-bind="ValidationCtrl.ePage.Masters.Validation.ActiveValidataion.ImmediateAlert 
                                || ValidationCtrl.ePage.Masters.emptyText"></div>
                     </div>
                 </div>
                 <div class="clearfix form-group">
-                    <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">It Has Parameter</label>
+                    <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">It Has
+                        Parameter</label>
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
                         <div data-ng-bind="ValidationCtrl.ePage.Masters.Validation.ActiveValidataion.ItHasParameter == true ? 'true' : 'false'"></div>
                     </div>

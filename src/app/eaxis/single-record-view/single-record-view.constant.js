@@ -106,27 +106,12 @@
         }, {
             name: "SRVOrderView",
             files: [
-                'app/eaxis/buyer/purchase-order/order-shared/single-record-view/order-view/order-view.controller.js'
-            ]
-        }, {
-            name: "SRVContainerView",
-            files: [
-                'app/eaxis/buyer/freight/container/shared/single-record-view/container-view/container-view.controller.js'
-            ]
-        }, {
-            name: "SRVDeliveryOrderView",
-            files: [
-                'app/eaxis/buyer/purchase-order/order-shared/single-record-view/delivery-order-view/delivery-order-view.controller.js'
+                'app/eaxis/buyer/purchase-order/shared/single-record-view/order-view/order-view.controller.js'
             ]
         }, {
             name: "SRVBooking-vnm",
             files: [
                 'app/eaxis/buyer/freight/booking/shared/single-record-view/booking/bookingSRV.controller.js'
-            ]
-        }, {
-            name: "SRVShipment-vnm",
-            files: [
-                'app/eaxis/buyer/freight/booking/shared/single-record-view/shipments/shipmentSRV.controller.js'
             ]
         }, {
             name: 'SRVPendingPickup',
@@ -142,16 +127,6 @@
             name: 'SRVOrganization',
             files: [
                 'app/eaxis/single-record-view/organization/organization.controller.js'
-            ]
-        }, {
-            name: "SRVBookingView",
-            files: [
-                'app/eaxis/buyer/freight/booking/shared/single-record-view/booking-view/booking-view.controller.js'
-            ]
-        }, {
-            name: "SRVShipmentView",
-            files: [
-                'app/eaxis/buyer/freight/booking/shared/single-record-view/shipment-view/shipment-view.controller.js'
             ]
         }]
     };

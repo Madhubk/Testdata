@@ -32,6 +32,9 @@
                     data-ng-disabled="!TCFilterListCtrl.ePage.Masters.FilterList.ActiveFilterList.Id">Edit</button>
                 <button class="btn btn-default tc-btn-delete btn-xs pull-right ml-10" data-ng-click="TCFilterListCtrl.ePage.Masters.FilterList.DeleteConfirmation()"
                     data-ng-bind="TCFilterListCtrl.ePage.Masters.FilterList.DeleteBtnText" data-ng-disabled="TCFilterListCtrl.ePage.Masters.FilterList.IsDisableDeleteBtn || !TCFilterListCtrl.ePage.Masters.FilterList.ActiveFilterList.Id"></button>
+                    <button class="btn btn-primary btn-xs pull-right ml-10" generate-db-script input="TCFilterListCtrl.ePage.Masters.GenerateScriptInput"
+                    config="TCFilterListCtrl.ePage.Masters.GenerateScriptConfig" data-ng-disabled="!TCFilterListCtrl.ePage.Masters.GenerateScriptInput.ObjectName || !TCFilterListCtrl.ePage.Masters.GenerateScriptInput.ObjectId || !TCFilterListCtrl.ePage.Masters.FilterList.ActiveFilterList.Id">Generate
+                    Script</button>
             </div>
         </div>
     </div>

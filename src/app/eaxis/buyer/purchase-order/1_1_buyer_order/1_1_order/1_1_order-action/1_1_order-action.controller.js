@@ -5,9 +5,9 @@
         .module("Application")
         .controller("one_one_orderActionController", one_one_orderActionController);
 
-    one_one_orderActionController.$inject = ["$scope", "$injector", "apiService", "helperService", "confirmation", "toastr", "orderApiConfig"];
+    one_one_orderActionController.$inject = ["$scope", "$injector", "$uibModal", "$state", "apiService", "helperService", "appConfig", "confirmation", "toastr"];
 
-    function one_one_orderActionController($scope, $injector, apiService, helperService, confirmation, toastr, orderApiConfig) {
+    function one_one_orderActionController($scope, $injector, $uibModal, $state, apiService, helperService, appConfig, confirmation, toastr) {
         /* jshint validthis: true */
         var one_one_OrderActionCtrl = this;
 
@@ -81,7 +81,7 @@
             };
             confirmation.showModal({}, modalOptions)
                 .then(function (result) {
-                    apiService.get("eAxisAPI", orderApiConfig.Entities.BuyerOrder.API.ordercopy.Url + _obj[_obj.label].ePage.Entities.Header.Data.PK).then(function (response) {
+                    apiService.get("eAxisAPI", appConfig.Entities.OrderList.API.OrderCopy.Url + _obj[_obj.label].ePage.Entities.Header.Data.PK).then(function (response) {
                         var __obj = {
                             entity: response.data.Response[keyObject],
                             data: response.data.Response
@@ -110,7 +110,7 @@
                             "PropertyNewValue": true,
                         }]
                     }];
-                    apiService.post("eAxisAPI", orderApiConfig.Entities.BuyerOrder.API.updaterecords.Url, __input).then(function (response) {
+                    apiService.post("eAxisAPI", appConfig.Entities.PorOrderHeader.API.UpdateRecords.Url, __input).then(function (response) {
                         if (response.data.Status == 'Success') {
                             toastr.success(_obj.label + " Cancelled Successfully...!");
                             one_one_OrderActionCtrl.ePage.Masters.IsStandardMenu = false;
@@ -163,7 +163,7 @@
                         }];
                     }
 
-                    apiService.post("eAxisAPI", orderApiConfig.Entities.BuyerOrder.API.updaterecords.Url, __input).then(function (response) {
+                    apiService.post("eAxisAPI", appConfig.Entities.PorOrderHeader.API.UpdateRecords.Url, __input).then(function (response) {
                         if (response.data.Status == 'Success') {
                             if (__isValid) {
                                 toastr.success(_obj.label + " Inactive Successfully...!");
@@ -191,7 +191,7 @@
                     };
                     confirmation.showModal({}, modalOptions)
                         .then(function (result) {
-                            apiService.get("eAxisAPI", orderApiConfig.Entities.BuyerOrder.API.split.Url + _obj[_obj.label].ePage.Entities.Header.Data.UIOrder_Buyer.PK).then(function (response) {
+                            apiService.get("eAxisAPI", appConfig.Entities.PorOrderHeader.API.SplitOrderByOrderPk.Url + _obj[_obj.label].ePage.Entities.Header.Data.UIOrder_Buyer.PK).then(function (response) {
                                 var __obj = {
                                     entity: response.data.Response[keyObject],
                                     data: response.data.Response

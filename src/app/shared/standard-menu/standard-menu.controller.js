@@ -46,12 +46,6 @@
                 // "Count": 0,
                 "IsShowCount": (StandardMenuCtrl.dataentryObject.OtherConfig.ListingPageConfig.StandardToolbar.ToolList.email) ? true : false
             }, {
-                "Name": "email-template-creation",
-                "DisplayName": "Email Template",
-                "Icon": "fa fa-envelope",
-                // "Count": 0,
-                "IsShowCount": false
-            }, {
                 "Name": "exception",
                 "DisplayName": "Exception",
                 "Icon": "fa fa-warning",
@@ -70,27 +64,9 @@
                 // "Count": 0,
                 "IsShowCount": (StandardMenuCtrl.dataentryObject.OtherConfig.ListingPageConfig.StandardToolbar.ToolList.task) ? true : false
             }, {
-                "Name": "email-group",
-                "DisplayName": "Email Group",
-                "Icon": "fa fa-envelope",
-                // "Count": 0,
-                "IsShowCount": false
-            }, {
                 "Name": "audit-log",
                 "DisplayName": "Audit Log",
                 "Icon": "fa fa-user",
-                // "Count": 0,
-                "IsShowCount": false
-            }, {
-                "Name": "integration",
-                "DisplayName": "Integration",
-                "Icon": "fa fa-user",
-                // "Count": 0,
-                "IsShowCount": false
-            }, {
-                "Name": "event-data",
-                "DisplayName": "Data Event",
-                "Icon": "fa fa-calendar",
                 // "Count": 0,
                 "IsShowCount": false
             }, {
@@ -103,6 +79,42 @@
                 "Name": "parties",
                 "DisplayName": "Parties",
                 "Icon": "fa fa-gift",
+                // "Count": 0,
+                "IsShowCount": false
+            }, {
+                "Name": "checklist",
+                "DisplayName": "Checklist",
+                "Icon": "fa fa-gift",
+                // "Count": 0,
+                "IsShowCount": false
+            }, {
+                "Name": "delay-reason",
+                "DisplayName": "Delay Reason",
+                "Icon": "fa fa-gift",
+                // "Count": 0,
+                "IsShowCount": false
+            }, {
+                "Name": "email-template-creation",
+                "DisplayName": "Email Template",
+                "Icon": "fa fa-envelope",
+                // "Count": 0,
+                "IsShowCount": false
+            }, {
+                "Name": "email-group",
+                "DisplayName": "Email Group",
+                "Icon": "fa fa-envelope",
+                // "Count": 0,
+                "IsShowCount": false
+            }, {
+                "Name": "event-data",
+                "DisplayName": "Data Event",
+                "Icon": "fa fa-calendar",
+                // "Count": 0,
+                "IsShowCount": false
+            }, {
+                "Name": "task-flow-graph",
+                "DisplayName": "Task Flow Graph",
+                "Icon": "fa fa-user",
                 // "Count": 0,
                 "IsShowCount": false
             }];
@@ -134,6 +146,20 @@
             }
         }
 
+        function OnCloseModal($item) {
+            var _fun = {
+                comment: GetCommentCount,
+                document: GetDocumentCount,
+                email: GetEmailCount,
+                exception: GetExceptionCount,
+                event: GetEventCount,
+                task: GetTaskCount
+            };
+
+            _fun[$item]();
+        }
+
+        // #region Count
         function InitCount() {
             var _fun = {
                 comment: GetCommentCount,
@@ -195,7 +221,8 @@
             var _filter = {
                 "EntityRefKey": StandardMenuCtrl.ePage.Entities.Header.Data.PK,
                 "EntityRefCode": StandardMenuCtrl.input.label,
-                "EntitySource": StandardMenuCtrl.dataentryObject.OtherConfig.ListingPageConfig.EntitySource
+                "EntitySource": StandardMenuCtrl.dataentryObject.OtherConfig.ListingPageConfig.EntitySource,
+                "Status": "Success"
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
@@ -340,19 +367,7 @@
                 }
             });
         }
-
-        function OnCloseModal($item) {
-            var _fun = {
-                comment: GetCommentCount,
-                document: GetDocumentCount,
-                email: GetEmailCount,
-                exception: GetExceptionCount,
-                event: GetEventCount,
-                task: GetTaskCount
-            };
-
-            _fun[$item]();
-        }
+        // #endregion
 
         Init();
     }

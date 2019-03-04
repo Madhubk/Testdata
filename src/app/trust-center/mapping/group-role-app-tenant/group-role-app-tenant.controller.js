@@ -122,7 +122,7 @@
             TCGroupRoleAppTenantCtrl.ePage.Masters.GroupRoleAppTenant = {};
             TCGroupRoleAppTenantCtrl.ePage.Masters.GroupRoleAppTenant.OnGroupRoleAppTenantClick = OnGroupRoleAppTenantClick;
             TCGroupRoleAppTenantCtrl.ePage.Masters.GroupRoleAppTenant.GetRolesList = GetRolesList;
-           
+
             TCGroupRoleAppTenantCtrl.ePage.Masters.GroupRoleAppTenant.OnAutocompleteListSelect = OnAutocompleteListSelect;
             TCGroupRoleAppTenantCtrl.ePage.Masters.GroupRoleAppTenant.OnBlurAutoCompleteList = OnBlurAutoCompleteList;
             TCGroupRoleAppTenantCtrl.ePage.Masters.GroupRoleAppTenant.OnSelectAutoCompleteList = OnSelectAutoCompleteList;
@@ -138,7 +138,7 @@
             TCGroupRoleAppTenantCtrl.ePage.Masters.IsDisableDeleteBtn = false;
 
             GetUIControlList();
-           
+
         }
 
         function GetUIControlList() {
@@ -210,6 +210,18 @@
                 if (TCGroupRoleAppTenantCtrl.ePage.Masters.GroupRoleAppTenant.GroupRoleAppTenantList.length > 0) {
                     OnGroupRoleAppTenantClick(TCCompRoleAppTenantCtrl.ePage.Masters.GroupRoleAppTenant.GroupRoleAppTenantList[0]);
                 }
+            }
+            
+            if (TCGroupRoleAppTenantCtrl.ePage.Masters.GroupRoleAppTenant.ActiveGroupRoleAppTenant) {
+                TCGroupRoleAppTenantCtrl.ePage.Masters.GenerateScriptInput = {
+                    ObjectName: "SECMAPPINGS",
+                    ObjectId: TCGroupRoleAppTenantCtrl.ePage.Masters.GroupRoleAppTenant.ActiveGroupRoleAppTenant.PK
+                };
+                TCGroupRoleAppTenantCtrl.ePage.Masters.GenerateScriptConfig = {
+                    IsEnableTable: false,
+                    IsEnablePK: false,
+                    IsEnableTenant: false
+                };
             }
         }
 
@@ -440,7 +452,7 @@
             }
         }
 
-     Init();
+        Init();
     }
 
 })();

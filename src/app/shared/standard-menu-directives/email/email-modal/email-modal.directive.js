@@ -8,7 +8,7 @@
     EmailModal.$inject = ["$uibModal", "$templateCache"];
 
     function EmailModal($uibModal, $templateCache) {
-        var _template = `<div class="modal-header">
+        let _template = `<div class="modal-header">
             <button type="button" class="close" data-ng-click="EmailModalCtrl.ePage.Masters.Close()">&times;</button>
             <h5 class="modal-title" id="modal-title">
                 <strong>Email</strong>
@@ -19,7 +19,7 @@
         </div>`;
         $templateCache.put("EmailModal.html", _template);
 
-        var exports = {
+        let exports = {
             restrict: "EA",
             scope: {
                 input: "=",
@@ -36,7 +36,7 @@
             ele.on("click", OpenModal);
 
             function OpenModal() {
-                var modalInstance = $uibModal.open({
+                $uibModal.open({
                     animation: true,
                     backdrop: "static",
                     keyboard: true,
@@ -47,24 +47,58 @@
                     bindToController: true,
                     resolve: {
                         param: function () {
-                            var exports = {
+                            let exports = {
                                 input: scope.input
                             };
                             return exports;
                         }
                     }
-                }).result.then(function (response) {
-                    console.log(response);
+                }).result.then(response => {
                     scope.onCloseModal({
                         $item: "email"
                     });
-                }, function () {
-                    console.log("Cancelled");
+                }, () => {
                     scope.onCloseModal({
                         $item: "email"
                     });
                 });
             }
         }
+    }
+
+    angular
+        .module("Application")
+        .controller("EmailModalController", EmailModalController);
+
+    EmailModalController.$inject = ["$scope", "$uibModalInstance", "helperService", "param"];
+
+    function EmailModalController($scope, $uibModalInstance, helperService, param) {
+        /* jshint validthis: true */
+        var EmailModalCtrl = this;
+
+        function Init() {
+            EmailModalCtrl.ePage = {
+                "Title": "",
+                "Prefix": "EmailModal",
+                "Masters": {},
+                "Meta": helperService.metaBase(),
+                "Entities": param.obj
+            };
+
+            EmailModalCtrl.ePage.Masters.Close = Close;
+            EmailModalCtrl.ePage.Masters.OnComplete = OnComplete;
+        }
+
+        function Close() {
+            $uibModalInstance.dismiss('cancel');
+        }
+
+        function OnComplete($item) {
+            $scope.$parent.onComplete({
+                $item: $item
+            });
+        }
+
+        Init();
     }
 })();

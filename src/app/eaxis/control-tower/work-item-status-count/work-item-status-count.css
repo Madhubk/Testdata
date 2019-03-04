@@ -6,6 +6,7 @@
 
  .work-item-status-count .control-tower .work-item-status-count-header .bottom {
      font-size: 12px;
+     font-weight: bold;
  }
 
  .work-item-status-count .control-tower .work-item-count {

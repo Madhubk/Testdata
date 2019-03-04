@@ -43,6 +43,9 @@
                     data-ng-disabled="!ProcessCtrl.ePage.Masters.Process.ActiveProcess.PK">Edit</button>
                 <button class="btn btn-default tc-btn-delete btn-xs pull-right ml-10" data-ng-click="ProcessCtrl.ePage.Masters.Process.DeleteConfirmation()"
                     data-ng-bind="ProcessCtrl.ePage.Masters.Process.DeleteBtnText" data-ng-disabled="ProcessCtrl.ePage.Masters.Process.IsDisableDeleteBtn || !ProcessCtrl.ePage.Masters.Process.ActiveProcess.PK"></button>
+                    <button class="btn btn-primary btn-xs pull-right ml-10" generate-db-script input="ProcessCtrl.ePage.Masters.GenerateScriptInput"
+                    config="ProcessCtrl.ePage.Masters.GenerateScriptConfig" data-ng-disabled="!ProcessCtrl.ePage.Masters.GenerateScriptInput.ObjectName || !ProcessCtrl.ePage.Masters.GenerateScriptInput.ObjectId || !ProcessCtrl.ePage.Masters.Process.ActiveProcess.PK">Generate
+                    Script</button>
             </div>
         </div>
     </div>
@@ -52,7 +55,21 @@
             <div class="tc-list-search">
                 <input type="text" placeholder="Search..." class="form-control input-sm" data-ng-model="ProcessCtrl.ePage.Masters.Search">
             </div>
-            <div class="tc-list-container tc-page-height-fixed left">
+            <div class="clearfix tc-list-heading">
+                    <div class="col-sm-3">
+                        <div class="text-single-line">Code</div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="text-single-line">Name</div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="text-single-line">Type</div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="text-single-line">Module</div>
+                    </div>
+                </div>
+            <div class="tc-list-container tc-page-height-fixed left with-header">
                 <ul class="tc-list-ul">
                     <div class="p-15 text-center tc-loading" data-ng-if="!ProcessCtrl.ePage.Masters.Process.ProcessList">
                         <i class="fa fa-spin fa-spinner"></i>

@@ -202,7 +202,7 @@
                 "IsCreated": "New"
             };
             _queryString = helperService.encryptData(_queryString);
-            $location.path('/EA/Buyer/Order/order').search({
+            $location.path('/EA/PO/order').search({
                 item: _queryString
             });
         }
@@ -212,7 +212,7 @@
                 "IsCreated": "POBatch Upload"
             };
             _queryString = helperService.encryptData(_queryString);
-            $location.path('/EA/Buyer/Order/po-batch-upload').search({
+            $location.path('/EA/PO/po-batch-upload').search({
                 item: _queryString
             });
         }
@@ -222,7 +222,7 @@
                 "IsCreated": "Track Orders"
             };
             _queryString = helperService.encryptData(_queryString);
-            $location.path('/EA/Buyer/Order/order').search({
+            $location.path('/EA/PO/order').search({
                 item: _queryString
             });
         }

@@ -2,7 +2,7 @@
     <!-- Console -->
     <div class="input-group-sm" data-ng-if="ShipmentConsolePackingCtrl.ePage.Entities.Header.Data.UIConShpMappings.length==0">
         <button dynamic-list-modal obj="ShipmentConsolePackingCtrl.ePage.Entities.Header.Data.UIShipmentHeader"
-            page-name="'BuyerConsolHeader'" control-id="'ShpAttachConsol'" control-key="ShpAttachConsol_3122" mode="3"
+            page-name="'ConsolHeader'" control-id="'ShpAttachConsol'" control-key="ShpAttachConsol_3122" mode="3"
             is-full-obj="true" grid-refresh-fun-name="GetConsolDetails" grid-refresh-fun="ShipmentConsolePackingCtrl.ePage.Masters.GridRefreshFun($item)"
             selected-data="ShipmentConsolePackingCtrl.ePage.Masters.SelectedConsoleData($item)" class="btn btn-sm btn-outline-secondary pull-right mb-5"
             type="button">
@@ -18,11 +18,11 @@
         </button>
     </div>
 
-    <consol-grid current-object="ShipmentConsolePackingCtrl.currentShipment" btn-visible="{'AddNew':true}"></consol-grid>
+    <consol-grid current-object="ShipmentConsolePackingCtrl.currentShipment"  btn-visible="{'AddNew':true}"></consol-grid>
 
     <!-- attachment order grid -->
 
-    <div class="common_table_scroll common_table_hgt pt-2">
+    <div class="Shipmentstable_scroll mt-30" style="height: 200px;">
         <div class="table tab-position" id="results">
             <div class='theader'>
                 <div class='table_header'>Container #</div>
@@ -65,8 +65,8 @@
         <div class="text-center grid-view-loader" data-ng-if="!ShipmentConsolePackingCtrl.ePage.Entities.Header.Meta.Container.ListSource">
             <i class="fa fa-spin fa-spinner font-160"></i>
         </div>
-        <div class="grid-no-record-common_table" data-ng-if="ShipmentConsolePackingCtrl.ePage.Entities.Header.Meta.Container.ListSource.length==0">
-            <span class="">No records found...</span>
+        <div class="grid-no-record-border-box text-center p-30" data-ng-if="ShipmentConsolePackingCtrl.ePage.Entities.Header.Meta.Container.ListSource.length==0">
+            <span class="grid-no-record-shipment container-empty-top">No records found...</span>
         </div>
     </div>
 </div>

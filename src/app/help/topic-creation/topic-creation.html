@@ -3,12 +3,14 @@
         <i class="fa fa-spin fa-spinner font-160"></i>
     </div>
     <div class="clearfix header" data-ng-if="HelpTopicCreationCtrl.ePage.Masters.HelpTopic.ListSource">
-        <a href="javascript: void(0);" data-ng-click="HelpTopicCreationCtrl.ePage.Masters.HelpTopic.AddNewTopic()">Add New</a>
+        <a href="javascript: void(0);" data-ng-click="HelpTopicCreationCtrl.ePage.Masters.HelpTopic.AddNewTopic()">Add
+            New</a>
     </div>
     <ul class="clearfix topic-list" data-ng-if="HelpTopicCreationCtrl.ePage.Masters.HelpTopic.ListSource && HelpTopicCreationCtrl.ePage.Masters.HelpTopic.ListSource.length > 0"
         ui-tree-nodes ng-model="HelpTopicCreationCtrl.ePage.Masters.HelpTopic.ListSource">
-        <li class="clearfix" data-ng-repeat="x in HelpTopicCreationCtrl.ePage.Masters.HelpTopic.ListSource" data-ng-include="'helpTopic'"
-            data-ng-mouseover="x.IsShowIcons = true" data-ng-mouseleave="x.IsShowIcons = false" ui-tree-node></li>
+        <li class="clearfix" data-ng-repeat="x in HelpTopicCreationCtrl.ePage.Masters.HelpTopic.ListSource"
+            data-ng-include="'helpTopic'" data-ng-mouseover="x.IsShowIcons = true" data-ng-mouseleave="x.IsShowIcons = false"
+            ui-tree-node></li>
     </ul>
 </div>
 
@@ -60,7 +62,7 @@
                             <div class="p-5 clearfix">
                                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 ">
                                     <div class="form-group">
-                                        <label class="control-label">Title</label>
+                                        <label class="control-label mb-5">Title</label>
                                         <div class="clearfix">
                                             <textarea class="form-control input-sm no-resize mb-5" data-ng-model="HelpTopicCreationCtrl.ePage.Masters.HelpTopic.ModalValue.Title"
                                                 placeholder="Title" rows="3"></textarea>
@@ -81,6 +83,15 @@
                                             <input type="checkbox" class="colored-blue " data-ng-model="HelpTopicCreationCtrl.ePage.Masters.HelpTopic.ModalValue.IsActive">
                                             <span class="text text-single-line">Is Active</span>
                                         </label>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                                    <div class="form-group">
+                                        <label class="control-label mb-5">Display Order</label>
+                                        <div class="clearfix">
+                                            <input type="text" class="form-control input-sm" data-ng-model="HelpTopicCreationCtrl.ePage.Masters.HelpTopic.ModalValue.DisplayOrder"
+                                                placeholder="Display Order">
+                                        </div>
                                     </div>
                                 </div>
                             </div>

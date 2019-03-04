@@ -13,8 +13,8 @@
                         list="oneThreeShipmentGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ORG_Shipper_Code.WARNING"
                         type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
                     <error-warning-directive data-ng-if="oneThreeShipmentGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ORG_Shipper_Code.IsError"
-                        list="oneThreeShipmentGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ORG_Shipper_Code.ERROR"
-                        type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                        list="oneThreeShipmentGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ORG_Shipper_Code.ERROR" type="'error'"
+                        icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
                 </span>
             </div>
 
@@ -23,14 +23,13 @@
                     <input type="hidden" ng-model="oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.ORG_FK">
                     <div dynamic-lookup placeholder="Organization Code" my-ng-model="oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.ORG_Code"
                         obj="oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD" page-name="'OrganizationList'"
-                        control-id="'BP_JobAddressOrgConsignor'" control-key="BP_JobAddressOrgConsignor_13241"
+                        control-id="'JobAddressOrgConsignor'" control-key="JobAddressOrgConsignor_3241"
                         auto-complete-on-select="oneThreeShipmentGeneralCtrl.ePage.Masters.Address.AutoCompleteOnSelect($item, 'address','contact', 'CRD','CRG','E0031')">
                     </div>
                     <span class="input-group-btn">
                         <button dynamic-list-modal obj="oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD"
-                            control-id="'BP_JobAddressOrgConsignor'" control-key="BP_JobAddressOrgConsignor_13241"
-                            page-name="'OrganizationList'" mode="2" grid-refresh-fun-name="" grid-refresh-fun=""
-                            selected-data="oneThreeShipmentGeneralCtrl.ePage.Masters.SelectedLookupData($item, 'address','contact', 'CRD','CRG','E0031')"
+                            control-id="'JobAddressOrgConsignor'" control-key="JobAddressOrgConsignor_3241" page-name="'OrganizationList'"
+                            mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="oneThreeShipmentGeneralCtrl.ePage.Masters.SelectedLookupData($item, 'address','contact', 'CRD','CRG','E0031')"
                             class="btn btn-default shiny" type="button">
                             <i class="fa fa-ellipsis-h"></i>
                         </button>
@@ -118,15 +117,14 @@
                     <input type="hidden" ng-model="oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.ORG_FK">
                     <div dynamic-lookup placeholder="Organization Code" my-ng-model="oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.ORG_Code"
                         obj="oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED" page-name="'OrganizationList'"
-                        control-id="'BP_JobAddressOrgConsignee'" control-key="BP_JobAddressOrgConsignee_13245"
+                        control-id="'JobAddressOrgConsignee'" control-key="JobAddressOrgConsignee_3245"
                         auto-complete-on-select="oneThreeShipmentGeneralCtrl.ePage.Masters.Address.AutoCompleteOnSelect($item, 'address','contact', 'CED','CEG')">
                     </div>
 
                     <span class="input-group-btn">
                         <button dynamic-list-modal obj="oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED"
-                            control-id="'BP_JobAddressOrgConsignee'" control-key="BP_JobAddressOrgConsignee_13245"
-                            page-name="'OrganizationList'" mode="2" grid-refresh-fun-name="" grid-refresh-fun=""
-                            selected-data="oneThreeShipmentGeneralCtrl.ePage.Masters.SelectedLookupData($item, 'address','contact', 'CED','CEG')"
+                            control-id="'JobAddressOrgConsignee'" control-key="JobAddressOrgConsignee_3245" page-name="'OrganizationList'"
+                            mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="oneThreeShipmentGeneralCtrl.ePage.Masters.SelectedLookupData($item, 'address','contact', 'CED','CEG')"
                             class="btn btn-default shiny" type="button">
                             <i class="fa fa-ellipsis-h"></i>
                         </button>
@@ -206,14 +204,13 @@
                     <input type="hidden" ng-model="oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.NPP.ORG_FK">
                     <div dynamic-lookup placeholder="Organization Code" my-ng-model="oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.NPP.ORG_Code"
                         obj="oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.NPP" page-name="'OrganizationList'"
-                        control-id="'BP_JobAddressOrgConsignee'" control-key="BP_JobAddressOrgConsignee_13245"
+                        control-id="'JobAddressOrgConsignee'" control-key="JobAddressOrgConsignee_3245"
                         auto-complete-on-select="oneThreeShipmentGeneralCtrl.ePage.Masters.Address.AutoCompleteOnSelect($item, 'address', 'contact','NPP')">
                     </div>
                     <span class="input-group-btn">
                         <button dynamic-list-modal obj="oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.NPP"
-                            control-id="'BP_JobAddressOrgConsignee'" control-key="BP_JobAddressOrgConsignee_13245"
-                            page-name="'OrganizationList'" mode="2" grid-refresh-fun-name="" grid-refresh-fun=""
-                            selected-data="oneThreeShipmentGeneralCtrl.ePage.Masters.SelectedLookupData($item, 'address','contact', 'NPP')"
+                            control-id="'JobAddressOrgConsignee'" control-key="JobAddressOrgConsignee_3245" page-name="'OrganizationList'"
+                            mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="oneThreeShipmentGeneralCtrl.ePage.Masters.SelectedLookupData($item, 'address','contact', 'NPP')"
                             class="btn btn-default shiny" type="button">
                             <i class="fa fa-ellipsis-h"></i>
                         </button>
@@ -286,22 +283,20 @@
         <div class="form-group ship-font">
             <div class="error-warning-container">
                 <error-warning-directive data-ng-if="oneThreeShipmentGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.BookedDate.IsWarning && !oneThreeShipmentGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.BookedDate.IsError"
-                    list="oneThreeShipmentGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.BookedDate.WARNING"
-                    type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                    list="oneThreeShipmentGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.BookedDate.WARNING" type="'warning'"
+                    icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
                 <error-warning-directive data-ng-if="oneThreeShipmentGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.BookedDate.IsError"
-                    list="oneThreeShipmentGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.BookedDate.ERROR"
-                    type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                    list="oneThreeShipmentGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.BookedDate.ERROR" type="'error'"
+                    icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
             </div>
             <label class="control-label text-single-line">Booked Date </label>
             <div class="input-group input-group-sm">
                 <input type="text" class="form-control" placeholder="{{oneThreeShipmentGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
-                    ng-model="oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.BookedDate"
-                    datetime-picker="{{oneThreeShipmentGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
-                    datepicker-options="oneThreeShipmentGeneralCtrl.ePage.Masters.DatePicker.Options"
-                    datepicker-append-to-body="false" close-on-selection="false" enable-time="false" enable-date="true"
-                    default-date="" default-time="" save-as="oneThreeShipmentGeneralCtrl.ePage.Masters.DatePicker.Options.saveFormat"
-                    is-open="oneThreeShipmentGeneralCtrl.ePage.Masters.DatePicker.isOpen['isBookedDate']" when-closed=""
-                    data-ng-click="" data-ng-change="oneThreeShipmentGeneralCtrl.ePage.Masters.OnFieldValueChange('E0014')"
+                    ng-model="oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.BookedDate" datetime-picker="{{oneThreeShipmentGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                    datepicker-options="oneThreeShipmentGeneralCtrl.ePage.Masters.DatePicker.Options" datepicker-append-to-body="false"
+                    close-on-selection="false" enable-time="false" enable-date="true" default-date="" default-time=""
+                    save-as="oneThreeShipmentGeneralCtrl.ePage.Masters.DatePicker.Options.saveFormat" is-open="oneThreeShipmentGeneralCtrl.ePage.Masters.DatePicker.isOpen['isBookedDate']"
+                    when-closed="" data-ng-click="" data-ng-change="oneThreeShipmentGeneralCtrl.ePage.Masters.OnFieldValueChange('E0014')"
                     custom-date-time-format />
                 <span class="input-group-btn">
                     <button class="btn btn-default shiny" data-ng-click="oneThreeShipmentGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isBookedDate')">
@@ -324,11 +319,11 @@
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
         <div class="error-warning-container">
             <error-warning-directive data-ng-if="oneThreeShipmentGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.TransportMode.IsWarning && !oneThreeShipmentGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.TransportMode.IsError"
-                list="oneThreeShipmentGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.TransportMode.WARNING"
-                type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                list="oneThreeShipmentGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.TransportMode.WARNING" type="'warning'"
+                icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
             <error-warning-directive data-ng-if="oneThreeShipmentGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.TransportMode.IsError"
-                list="oneThreeShipmentGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.TransportMode.ERROR"
-                type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                list="oneThreeShipmentGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.TransportMode.ERROR" type="'error'"
+                icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
         </div>
         <div class="form-group ship-font">
             <label class="control-label text-single-line"> Transport Mode</label>
@@ -344,11 +339,11 @@
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
         <div class="error-warning-container">
             <error-warning-directive data-ng-if="oneThreeShipmentGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ContainerMode.IsWarning && !oneThreeShipmentGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ContainerMode.IsError"
-                list="oneThreeShipmentGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ContainerMode.WARNING"
-                type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                list="oneThreeShipmentGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ContainerMode.WARNING" type="'warning'"
+                icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
             <error-warning-directive data-ng-if="oneThreeShipmentGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ContainerMode.IsError"
-                list="oneThreeShipmentGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ContainerMode.ERROR"
-                type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                list="oneThreeShipmentGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ContainerMode.ERROR" type="'error'"
+                icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
         </div>
         <div class="form-group ship-font">
             <label class="control-label text-single-line"> Container Mode</label>
@@ -407,11 +402,11 @@
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
         <span class="error-warning-container">
             <error-warning-directive data-ng-if="oneThreeShipmentGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.IsDomestic.IsWarning && !oneThreeShipmentGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.IsDomestic.IsError"
-                list="oneThreeShipmentGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.IsDomestic.WARNING"
-                type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                list="oneThreeShipmentGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.IsDomestic.WARNING" type="'warning'"
+                icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
             <error-warning-directive data-ng-if="oneThreeShipmentGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.IsDomestic.IsError"
-                list="oneThreeShipmentGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.IsDomestic.ERROR"
-                type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                list="oneThreeShipmentGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.IsDomestic.ERROR" type="'error'"
+                icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
         </span>
         <div class="form-group ship-font">
             <label class="control-label">Is Domestic</label>
@@ -432,12 +427,12 @@
             <label class="control-label text-single-line">Origin </label>
             <div class="input-group input-group-sm">
                 <div dynamic-lookup placeholder="Origin" my-ng-model="oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Origin"
-                    obj="oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader" page-name="'MstUNLOCO'"
-                    control-id="'BP_ShpGeneralOrigin'" control-key="BP_ShpGeneralOrigin_13107" auto-complete-on-select="oneThreeShipmentGeneralCtrl.ePage.Masters.IsDomestic(oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Origin,oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Destination)"></div>
+                    obj="oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader" page-name="'MstUNLOCO'" control-id="'ShpGeneralOrigin'"
+                    control-key="ShpGeneralOrigin_3107" auto-complete-on-select="oneThreeShipmentGeneralCtrl.ePage.Masters.IsDomestic(oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Origin,oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Destination)"></div>
                 <span class="input-group-btn">
-                    <button dynamic-list-modal obj="oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader"
-                        control-id="'BP_ShpGeneralOrigin'" control-key="BP_ShpGeneralOrigin_13107" page-name="'MstUNLOCO'"
-                        mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="oneThreeShipmentGeneralCtrl.ePage.Masters.SelectedLookupData($item);oneThreeShipmentGeneralCtrl.ePage.Masters.IsDomestic(oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Origin,oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Destination)"
+                    <button dynamic-list-modal obj="oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader" control-id="'ShpGeneralOrigin'"
+                        control-key="ShpGeneralOrigin_3107" page-name="'MstUNLOCO'" mode="2" grid-refresh-fun-name=""
+                        grid-refresh-fun="" selected-data="oneThreeShipmentGeneralCtrl.ePage.Masters.SelectedLookupData($item);oneThreeShipmentGeneralCtrl.ePage.Masters.IsDomestic(oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Origin,oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Destination)"
                         class="btn btn-default shiny" type="button">
                         <i class="fa fa-ellipsis-h"></i>
                     </button>
@@ -451,13 +446,12 @@
             <label class="control-label text-single-line">Destination </label>
             <div class="input-group input-group-sm">
                 <div dynamic-lookup placeholder="Destination" my-ng-model="oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Destination"
-                    obj="oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader" page-name="'MstUNLOCO'"
-                    control-id="'BP_ShpGeneralDestination'" control-key="BP_ShpGeneralDestination_13104"
-                    auto-complete-on-select="oneThreeShipmentGeneralCtrl.ePage.Masters.IsDomestic(oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Origin,oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Destination)"></div>
+                    obj="oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader" page-name="'MstUNLOCO'" control-id="'ShpGeneralDestination'"
+                    control-key="ShpGeneralDestination_3104" auto-complete-on-select="oneThreeShipmentGeneralCtrl.ePage.Masters.IsDomestic(oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Origin,oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Destination)"></div>
                 <span class="input-group-btn">
-                    <button dynamic-list-modal obj="oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader"
-                        control-id="'BP_ShpGeneralDestination'" control-key="BP_ShpGeneralDestination_13104" page-name="'MstUNLOCO'"
-                        mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="oneThreeShipmentGeneralCtrl.ePage.Masters.SelectedLookupData($item);oneThreeShipmentGeneralCtrl.ePage.Masters.IsDomestic(oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Origin,oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Destination)"
+                    <button dynamic-list-modal obj="oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader" control-id="'ShpGeneralDestination'"
+                        control-key="ShpGeneralDestination_3104" page-name="'MstUNLOCO'" mode="2" grid-refresh-fun-name=""
+                        grid-refresh-fun="" selected-data="oneThreeShipmentGeneralCtrl.ePage.Masters.SelectedLookupData($item);oneThreeShipmentGeneralCtrl.ePage.Masters.IsDomestic(oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Origin,oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Destination)"
                         class="btn btn-default shiny" type="button">
                         <i class="fa fa-ellipsis-h"></i>
                     </button>
@@ -471,13 +465,12 @@
             <label class="control-label text-single-line">Port of Loading </label>
             <div class="input-group input-group-sm">
                 <div dynamic-lookup placeholder="Origin" my-ng-model="oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.PortOfLoading"
-                    obj="oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader" page-name="'MstUNLOCO'"
-                    control-id="'BP_ShpRoutingLoadPort'" control-key="BP_ShpRoutingLoadPort_13103"
-                    auto-complete-on-select="oneThreeShipmentGeneralCtrl.ePage.Masters.PortOfLoadingAlert($item)"></div>
+                    obj="oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader" page-name="'MstUNLOCO'" control-id="'ShpRoutingLoadPort'"
+                    control-key="ShpRoutingLoadPort_3103" auto-complete-on-select="oneThreeShipmentGeneralCtrl.ePage.Masters.PortOfLoadingAlert($item)"></div>
                 <span class="input-group-btn">
-                    <button dynamic-list-modal obj="oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader"
-                        control-id="'BP_ShpRoutingLoadPort'" control-key="BP_ShpRoutingLoadPort_13103" page-name="'MstUNLOCO'"
-                        mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="oneThreeShipmentGeneralCtrl.ePage.Masters.PortOfLoadingAlert($item.data.entity);oneThreeShipmentGeneralCtrl.ePage.Masters.SelectedLookupData($item, 'portOfLoading')"
+                    <button dynamic-list-modal obj="oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader" control-id="'ShpRoutingLoadPort'"
+                        control-key="ShpRoutingLoadPort_3103" page-name="'MstUNLOCO'" mode="2" grid-refresh-fun-name=""
+                        grid-refresh-fun="" selected-data="oneThreeShipmentGeneralCtrl.ePage.Masters.PortOfLoadingAlert($item.data.entity);oneThreeShipmentGeneralCtrl.ePage.Masters.SelectedLookupData($item, 'portOfLoading')"
                         class="btn btn-default shiny" type="button">
                         <i class="fa fa-ellipsis-h"></i>
                     </button>
@@ -491,13 +484,12 @@
             <label class="control-label text-single-line">Port of Destination </label>
             <div class="input-group input-group-sm">
                 <div dynamic-lookup placeholder="Destination" my-ng-model="oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.PortOfDischarge"
-                    obj="oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader" page-name="'MstUNLOCO'"
-                    control-id="'BP_ShpRoutingDischargePort'" control-key="BP_ShpRoutingDischargePort_13102"
-                    auto-complete-on-select="oneThreeShipmentGeneralCtrl.ePage.Masters.PortOfLoadingAlert($item)"></div>
+                    obj="oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader" page-name="'MstUNLOCO'" control-id="'ShpRoutingDischargePort'"
+                    control-key="ShpRoutingDischargePort_3102" auto-complete-on-select="oneThreeShipmentGeneralCtrl.ePage.Masters.PortOfLoadingAlert($item)"></div>
                 <span class="input-group-btn">
-                    <button dynamic-list-modal obj="oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader"
-                        control-id="'BP_ShpRoutingDischargePort'" control-key="BP_ShpRoutingDischargePort_13102"
-                        page-name="'MstUNLOCO'" mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="oneThreeShipmentGeneralCtrl.ePage.Masters.PortOfLoadingAlert($item.data.entity);oneThreeShipmentGeneralCtrl.ePage.Masters.SelectedLookupData($item,  'portOfDischarge')"
+                    <button dynamic-list-modal obj="oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader" control-id="'ShpRoutingDischargePort'"
+                        control-key="ShpRoutingDischargePort_3102" page-name="'MstUNLOCO'" mode="2"
+                        grid-refresh-fun-name="" grid-refresh-fun="" selected-data="oneThreeShipmentGeneralCtrl.ePage.Masters.PortOfLoadingAlert($item.data.entity);oneThreeShipmentGeneralCtrl.ePage.Masters.SelectedLookupData($item,  'portOfDischarge')"
                         class="btn btn-default shiny" type="button">
                         <i class="fa fa-ellipsis-h"></i>
                     </button>
@@ -509,23 +501,21 @@
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
         <span class="error-warning-container">
             <error-warning-directive data-ng-if="oneThreeShipmentGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ETD.IsWarning && !oneThreeShipmentGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ETD.IsError"
-                list="oneThreeShipmentGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ETD.WARNING" type="'warning'"
-                icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                list="oneThreeShipmentGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ETD.WARNING" type="'warning'" icon="fa fa-warning"
+                parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
             <error-warning-directive data-ng-if="oneThreeShipmentGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ETD.IsError"
-                list="oneThreeShipmentGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ETD.ERROR" type="'error'"
-                icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                list="oneThreeShipmentGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ETD.ERROR" type="'error'" icon="fa fa-warning"
+                parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
         </span>
         <div class="form-group ship-font">
             <label class="ontrol-label">ETD</label>
             <div class="input-group input-group-sm">
                 <input type="text" class="form-control" placeholder="{{oneThreeShipmentGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
-                    ng-model="oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ETD"
-                    datetime-picker="{{oneThreeShipmentGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
-                    datepicker-options="oneThreeShipmentGeneralCtrl.ePage.Masters.DatePicker.Options"
-                    datepicker-append-to-body="false" close-on-selection="false" enable-time="false" enable-date="true"
-                    default-date="" default-time="" save-as="oneThreeShipmentGeneralCtrl.ePage.Masters.DatePicker.Options.saveFormat"
-                    is-open="oneThreeShipmentGeneralCtrl.ePage.Masters.DatePicker.isOpen['isETD']" when-closed=""
-                    data-ng-click="" custom-date-time-format data-ng-change="oneThreeShipmentGeneralCtrl.ePage.Masters.OnFieldValueChange('E0042');oneThreeShipmentGeneralCtrl.ePage.Masters.ETDChange();" />
+                    ng-model="oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ETD" datetime-picker="{{oneThreeShipmentGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                    datepicker-options="oneThreeShipmentGeneralCtrl.ePage.Masters.DatePicker.Options" datepicker-append-to-body="false"
+                    close-on-selection="false" enable-time="false" enable-date="true" default-date="" default-time=""
+                    save-as="oneThreeShipmentGeneralCtrl.ePage.Masters.DatePicker.Options.saveFormat" is-open="oneThreeShipmentGeneralCtrl.ePage.Masters.DatePicker.isOpen['isETD']"
+                    when-closed="" data-ng-click="" custom-date-time-format data-ng-change="oneThreeShipmentGeneralCtrl.ePage.Masters.OnFieldValueChange('E0042');oneThreeShipmentGeneralCtrl.ePage.Masters.ETDChange();" />
                 <span class="input-group-btn">
                     <button class="btn btn-default shiny" data-ng-click="oneThreeShipmentGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isETD')">
                         <i class="fa fa-calendar"></i>
@@ -538,23 +528,22 @@
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
         <span class="error-warning-container">
             <error-warning-directive data-ng-if="oneThreeShipmentGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ETA.IsWarning && !oneThreeShipmentGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ETA.IsError"
-                list="oneThreeShipmentGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ETA.WARNING" type="'warning'"
-                icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                list="oneThreeShipmentGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ETA.WARNING" type="'warning'" icon="fa fa-warning"
+                parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
             <error-warning-directive data-ng-if="oneThreeShipmentGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ETA.IsError"
-                list="oneThreeShipmentGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ETA.ERROR" type="'error'"
-                icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                list="oneThreeShipmentGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ETA.ERROR" type="'error'" icon="fa fa-warning"
+                parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
         </span>
         <div class="form-group ship-font">
             <label class="control-label text-single-line">ETA</label>
             <div class="input-group input-group-sm">
                 <input type="text" data-ng-disabled='oneThreeShipmentGeneralCtrl.ePage.Masters.etadisable' class="form-control"
                     placeholder="{{oneThreeShipmentGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}" ng-model="oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ETA"
-                    datetime-picker="{{oneThreeShipmentGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
-                    datepicker-options="oneThreeShipmentGeneralCtrl.ePage.Masters.DatePicker.Options"
+                    datetime-picker="{{oneThreeShipmentGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}" datepicker-options="oneThreeShipmentGeneralCtrl.ePage.Masters.DatePicker.Options"
                     datepicker-append-to-body="false" close-on-selection="false" enable-time="false" enable-date="true"
                     default-date="" default-time="" save-as="oneThreeShipmentGeneralCtrl.ePage.Masters.DatePicker.Options.saveFormat"
-                    is-open="oneThreeShipmentGeneralCtrl.ePage.Masters.DatePicker.isOpen['isETA']" when-closed=""
-                    data-ng-click="" custom-date-time-format data-ng-change="oneThreeShipmentGeneralCtrl.ePage.Masters.OnFieldValueChange('E0043')" />
+                    is-open="oneThreeShipmentGeneralCtrl.ePage.Masters.DatePicker.isOpen['isETA']" when-closed="" data-ng-click=""
+                    custom-date-time-format data-ng-change="oneThreeShipmentGeneralCtrl.ePage.Masters.OnFieldValueChange('E0043')" />
                 <span class="input-group-btn">
                     <button data-ng-disabled='oneThreeShipmentGeneralCtrl.ePage.Masters.etadisable' class="btn btn-default shiny"
                         data-ng-click="oneThreeShipmentGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isETA')">
@@ -568,11 +557,11 @@
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
         <span class="error-warning-container">
             <error-warning-directive data-ng-if="oneThreeShipmentGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ExportForwarder_Code.IsWarning && !oneThreeShipmentGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ExportForwarder_Code.IsError"
-                list="oneThreeShipmentGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ExportForwarder_Code.WARNING"
-                type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                list="oneThreeShipmentGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ExportForwarder_Code.WARNING" type="'warning'"
+                icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
             <error-warning-directive data-ng-if="oneThreeShipmentGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ExportForwarder_Code.IsError"
-                list="oneThreeShipmentGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ExportForwarder_Code.ERROR"
-                type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                list="oneThreeShipmentGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ExportForwarder_Code.ERROR" type="'error'"
+                icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
         </span>
         <div class="form-group ship-font">
             <label class="control-label text-single-line">Sending Agent</label>
@@ -580,13 +569,12 @@
                 <input type="hidden" my-ng-model="oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ExportForwarder_FK">
                 <div dynamic-lookup placeholder="Sending Agent" my-ng-model="oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ExportForwarder_Code"
                     obj="oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader" page-name="'OrganizationList'"
-                    control-id="'BP_JobAddressOrgSendingForwarder'" control-key="BP_JobAddressOrgSendingForwarder_13246"
+                    control-id="'JobAddressOrgSendingForwarder'" control-key="JobAddressOrgSendingForwarder_3246"
                     auto-complete-on-select="oneThreeShipmentGeneralCtrl.ePage.Masters.AutoCompleteOnSelect($item,oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ExportForwarder_Code,'E0047',false);oneThreeShipmentGeneralCtrl.ePage.Masters.OnFieldValueChange('E0047');"></div>
                 <span class="input-group-btn">
-                    <button dynamic-list-modal obj="oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader"
-                        control-id="'BP_JobAddressOrgSendingForwarder'" control-key="BP_JobAddressOrgSendingForwarder_13246"
-                        page-name="'OrganizationList'" mode="2" grid-refresh-fun-name="" grid-refresh-fun=""
-                        selected-data="oneThreeShipmentGeneralCtrl.ePage.Masters.SelectedLookupData($item,oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ExportForwarder_Code,'E0047',false);oneThreeShipmentGeneralCtrl.ePage.Masters.OnFieldValueChange('E0047');"
+                    <button dynamic-list-modal obj="oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader" control-id="'JobAddressOrgSendingForwarder'"
+                        control-key="JobAddressOrgSendingForwarder_3246" page-name="'OrganizationList'" mode="2"
+                        grid-refresh-fun-name="" grid-refresh-fun="" selected-data="oneThreeShipmentGeneralCtrl.ePage.Masters.SelectedLookupData($item,oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ExportForwarder_Code,'E0047',false);oneThreeShipmentGeneralCtrl.ePage.Masters.OnFieldValueChange('E0047');"
                         class="btn btn-default shiny" type="button">
                         <i class="fa fa-ellipsis-h"></i>
                     </button>
@@ -598,11 +586,11 @@
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
         <span class="error-warning-container">
             <error-warning-directive data-ng-if="oneThreeShipmentGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ImportForwarder_Code.IsWarning && !oneThreeShipmentGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ImportForwarder_Code.IsError"
-                list="oneThreeShipmentGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ImportForwarder_Code.WARNING"
-                type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                list="oneThreeShipmentGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ImportForwarder_Code.WARNING" type="'warning'"
+                icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
             <error-warning-directive data-ng-if="oneThreeShipmentGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ImportForwarder_Code.IsError"
-                list="oneThreeShipmentGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ImportForwarder_Code.ERROR"
-                type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                list="oneThreeShipmentGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ImportForwarder_Code.ERROR" type="'error'"
+                icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
         </span>
         <div class="form-group ship-font">
             <label class="control-label text-single-line">Receiving Agent</label>
@@ -610,53 +598,12 @@
                 <input type="hidden" my-ng-model="oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ImportForwarder_FK">
                 <div dynamic-lookup placeholder="Receiving Agent" my-ng-model="oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ImportForwarder_Code"
                     obj="oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader" page-name="'OrganizationList'"
-                    control-id="'BP_JobAddressOrgReceivingForwarder'" control-key="BP_JobAddressOrgReceivingForwarder_13250"
+                    control-id="'JobAddressOrgReceivingForwarder'" control-key="JobAddressOrgReceivingForwarder_3250"
                     auto-complete-on-select="oneThreeShipmentGeneralCtrl.ePage.Masters.AutoCompleteOnSelect($item,oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ImportForwarder_Code,'E0048',false);oneThreeShipmentGeneralCtrl.ePage.Masters.OnFieldValueChange('E0048');"></div>
                 <span class="input-group-btn">
-                    <button dynamic-list-modal obj="oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader"
-                        control-id="'BP_JobAddressOrgReceivingForwarder'" control-key="BP_JobAddressOrgReceivingForwarder_13250"
-                        page-name="'OrganizationList'" mode="2" grid-refresh-fun-name="" grid-refresh-fun=""
-                        selected-data="oneThreeShipmentGeneralCtrl.ePage.Masters.SelectedLookupData($item,oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ImportForwarder_Code,'E0048',false);oneThreeShipmentGeneralCtrl.ePage.Masters.OnFieldValueChange('E0048');"
-                        class="btn btn-default shiny" type="button">
-                        <i class="fa fa-ellipsis-h"></i>
-                    </button>
-                </span>
-            </div>
-        </div>
-    </div>
-    <!-- Controlling Customer -->
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-        <div class="form-group ship-font">
-            <label class="control-label text-single-line">Controlling Customer</label>
-            <div class="input-group input-group-sm">
-                <input type="hidden" my-ng-model="oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ORG_ControlCustom_FK">
-                <div dynamic-lookup placeholder="Controlling Customer" my-ng-model="oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ORG_ControlCustomCode"
-                    obj="oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader" page-name="'OrganizationList'"
-                    control-id="'BP_ControlCustomer'" control-key="BP_ControlCustomer_13331" auto-complete-on-select="oneThreeShipmentGeneralCtrl.ePage.Masters.AutoCompleteOnSelect($item,oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ORG_ControlCustomCode)"></div>
-                <span class="input-group-btn">
-                    <button dynamic-list-modal obj="oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader"
-                        control-id="'BP_ControlCustomer'" control-key="BP_ControlCustomer_13331" page-name="'OrganizationList'"
-                        mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="oneThreeShipmentGeneralCtrl.ePage.Masters.SelectedLookupData($item,oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ORG_ControlCustomCode);"
-                        class="btn btn-default shiny" type="button">
-                        <i class="fa fa-ellipsis-h"></i>
-                    </button>
-                </span>
-            </div>
-        </div>
-    </div>
-    <!-- Buying House Agent -->
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-        <div class="form-group ship-font">
-            <label class="control-label text-single-line">Buying House Agent</label>
-            <div class="input-group input-group-sm">
-                <input type="hidden" my-ng-model="oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.BuyingHouseAgent_FK">
-                <div dynamic-lookup placeholder="Buying House Agent" my-ng-model="oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.BuyingHouseAgent_Code"
-                    obj="oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader" page-name="'OrganizationList'"
-                    control-id="'BP_BuyingHouseAgent'" control-key="BP_BuyingHouseAgent_13325" auto-complete-on-select="oneThreeShipmentGeneralCtrl.ePage.Masters.AutoCompleteOnSelect($item,oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.BuyingHouseAgent_Code)"></div>
-                <span class="input-group-btn">
-                    <button dynamic-list-modal obj="oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader"
-                        control-id="'BP_BuyingHouseAgent'" control-key="BP_BuyingHouseAgent_13325" page-name="'OrganizationList'"
-                        mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="oneThreeShipmentGeneralCtrl.ePage.Masters.SelectedLookupData($item,oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.BuyingHouseAgent_Code);"
+                    <button dynamic-list-modal obj="oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader" control-id="'JobAddressOrgReceivingForwarder'"
+                        control-key="JobAddressOrgReceivingForwarder_3250" page-name="'OrganizationList'" mode="2"
+                        grid-refresh-fun-name="" grid-refresh-fun="" selected-data="oneThreeShipmentGeneralCtrl.ePage.Masters.SelectedLookupData($item,oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ImportForwarder_Code,'E0048',false);oneThreeShipmentGeneralCtrl.ePage.Masters.OnFieldValueChange('E0048');"
                         class="btn btn-default shiny" type="button">
                         <i class="fa fa-ellipsis-h"></i>
                     </button>
@@ -668,11 +615,11 @@
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
         <span class="error-warning-container">
             <error-warning-directive data-ng-if="oneThreeShipmentGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ShipmentType.IsWarning && !oneThreeShipmentGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ShipmentType.IsError"
-                list="oneThreeShipmentGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ShipmentType.WARNING"
-                type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                list="oneThreeShipmentGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ShipmentType.WARNING" type="'warning'"
+                icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
             <error-warning-directive data-ng-if="oneThreeShipmentGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ShipmentType.IsError"
-                list="oneThreeShipmentGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ShipmentType.ERROR"
-                type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                list="oneThreeShipmentGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ShipmentType.ERROR" type="'error'"
+                icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
         </span>
         <div class="form-group ship-font">
             <label class="control-label text-single-line">Shipment Type</label>
@@ -715,12 +662,10 @@
             <label class="control-label text-single-line">Cargo Cutoff Date</label>
             <div class="input-group input-group-sm">
                 <input type="text" class="form-control" placeholder="{{oneThreeShipmentGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
-                    ng-model="oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.CargoCutoffDate"
-                    datetime-picker="{{oneThreeShipmentGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
-                    datepicker-options="oneThreeShipmentGeneralCtrl.ePage.Masters.DatePicker.Options"
-                    datepicker-append-to-body="false" close-on-selection="false" enable-time="false" enable-date="true"
-                    default-date="" default-time="" save-as="oneThreeShipmentGeneralCtrl.ePage.Masters.DatePicker.Options.saveFormat"
-                    is-open="oneThreeShipmentGeneralCtrl.ePage.Masters.DatePicker.isOpen['isCargoCutoffDate']"
+                    ng-model="oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.CargoCutoffDate" datetime-picker="{{oneThreeShipmentGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                    datepicker-options="oneThreeShipmentGeneralCtrl.ePage.Masters.DatePicker.Options" datepicker-append-to-body="false"
+                    close-on-selection="false" enable-time="false" enable-date="true" default-date="" default-time=""
+                    save-as="oneThreeShipmentGeneralCtrl.ePage.Masters.DatePicker.Options.saveFormat" is-open="oneThreeShipmentGeneralCtrl.ePage.Masters.DatePicker.isOpen['isCargoCutoffDate']"
                     when-closed="" data-ng-click="" custom-date-time-format data-ng-change="" />
                 <span class="input-group-btn">
                     <button class="btn btn-default shiny" data-ng-click="oneThreeShipmentGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isCargoCutoffDate')">
@@ -737,12 +682,11 @@
             <div class="input-group input-group-sm">
                 <input type="text" class="form-control" placeholder="{{oneThreeShipmentGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
                     ng-model="oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.BookingCutoffDate"
-                    datetime-picker="{{oneThreeShipmentGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
-                    datepicker-options="oneThreeShipmentGeneralCtrl.ePage.Masters.DatePicker.Options"
+                    datetime-picker="{{oneThreeShipmentGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}" datepicker-options="oneThreeShipmentGeneralCtrl.ePage.Masters.DatePicker.Options"
                     datepicker-append-to-body="false" close-on-selection="false" enable-time="false" enable-date="true"
                     default-date="" default-time="" save-as="oneThreeShipmentGeneralCtrl.ePage.Masters.DatePicker.Options.saveFormat"
-                    is-open="oneThreeShipmentGeneralCtrl.ePage.Masters.DatePicker.isOpen['isBookingCutoffDate']"
-                    when-closed="" data-ng-click="" custom-date-time-format data-ng-change="" />
+                    is-open="oneThreeShipmentGeneralCtrl.ePage.Masters.DatePicker.isOpen['isBookingCutoffDate']" when-closed=""
+                    data-ng-click="" custom-date-time-format data-ng-change="" />
                 <span class="input-group-btn">
                     <button class="btn btn-default shiny" data-ng-click="oneThreeShipmentGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isBookingCutoffDate')">
                         <i class="fa fa-calendar"></i>
@@ -758,12 +702,11 @@
             <div class="input-group input-group-sm">
                 <input type="text" class="form-control" placeholder="{{oneThreeShipmentGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
                     ng-model="oneThreeShipmentGeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.DocumentCutoffDate"
-                    datetime-picker="{{oneThreeShipmentGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
-                    datepicker-options="oneThreeShipmentGeneralCtrl.ePage.Masters.DatePicker.Options"
+                    datetime-picker="{{oneThreeShipmentGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}" datepicker-options="oneThreeShipmentGeneralCtrl.ePage.Masters.DatePicker.Options"
                     datepicker-append-to-body="false" close-on-selection="false" enable-time="false" enable-date="true"
                     default-date="" default-time="" save-as="oneThreeShipmentGeneralCtrl.ePage.Masters.DatePicker.Options.saveFormat"
-                    is-open="oneThreeShipmentGeneralCtrl.ePage.Masters.DatePicker.isOpen['isDocumentCutoffDate']"
-                    when-closed="" data-ng-click="" custom-date-time-format data-ng-change="" />
+                    is-open="oneThreeShipmentGeneralCtrl.ePage.Masters.DatePicker.isOpen['isDocumentCutoffDate']" when-closed=""
+                    data-ng-click="" custom-date-time-format data-ng-change="" />
                 <span class="input-group-btn">
                     <button class="btn btn-default shiny" data-ng-click="oneThreeShipmentGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isDocumentCutoffDate')">
                         <i class="fa fa-calendar"></i>

@@ -36,6 +36,9 @@
                     data-ng-disabled="!DataExtAuditCtrl.ePage.Masters.DataExtAudit.ActiveDataExtAudit.PK">Edit</button>
                 <button class="btn btn-default tc-btn-delete btn-xs pull-right ml-10" data-ng-click="DataExtAuditCtrl.ePage.Masters.DataExtAudit.Delete()"
                     data-ng-bind="DataExtAuditCtrl.ePage.Masters.DataExtAudit.DeleteBtnText" data-ng-disabled="DataExtAuditCtrl.ePage.Masters.DataExtAudit.IsDisableDeleteBtn || !DataExtAuditCtrl.ePage.Masters.DataExtAudit.ActiveDataExtAudit.PK"></button>
+                    <button class="btn btn-primary btn-xs pull-right ml-10" generate-db-script input="DataExtAuditCtrl.ePage.Masters.GenerateScriptInput"
+                    config="DataExtAuditCtrl.ePage.Masters.GenerateScriptConfig" data-ng-disabled="!DataExtAuditCtrl.ePage.Masters.GenerateScriptInput.ObjectName || !DataExtAuditCtrl.ePage.Masters.GenerateScriptInput.ObjectId || !DataExtAuditCtrl.ePage.Masters.DataExtAudit.ActiveDataExtAudit.PK">Generate
+                    Script</button>
             </div>
         </div>
     </div>
@@ -165,6 +168,9 @@
                             <span class="ml-5 mr-5" data-ng-if="x.ItemType == 'Main'">|</span>
                             <a href="javascript:void(0)" data-ng-click="DataExtAuditCtrl.ePage.Masters.DataExtAudit.DataExtAuditFields.Delete(x)"
                                 title="Delete">Delete</a>
+                                <span class="ml-0 mr-0">|</span>
+                                <a href="javascript:void(0)"  generate-db-script input="x.GenerateScriptInput" 
+                                config="x.GenerateScriptConfig" data-ng-if="x.GenerateScriptInput.ObjectName || x.GenerateScriptInput.ObjectId || x.PK">Generate Script</a>
                         </div>
                     </div>
                 </div>

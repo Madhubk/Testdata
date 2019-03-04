@@ -167,11 +167,16 @@
             TCEmailConfigureCtrl.ePage.Masters.Parties.MappingInput = {
                 MappingCode: "GRUP_ELTYP_APP_TNT",
                 ChildMappingCode: "GRUP_ROLE_ELTYP_APP_TNT",
+
+                AccessTo: "EMAIL",
                 Access_FK: TCEmailConfigureCtrl.ePage.Masters.Email.FormView.PK,
                 AccessCode: TCEmailConfigureCtrl.ePage.Masters.Email.FormView.TypeCode,
-                AccessTo: "EMAIL",
+                
                 SAP_FK: TCEmailConfigureCtrl.ePage.Masters.QueryString.AppPk,
                 SAP_Code: TCEmailConfigureCtrl.ePage.Masters.QueryString.AppCode,
+
+                PartyMappingAPI: "GroupEmailType",
+                PartyRoleMappingAPI: "GroupRoleEmailType"
             };
         }
 

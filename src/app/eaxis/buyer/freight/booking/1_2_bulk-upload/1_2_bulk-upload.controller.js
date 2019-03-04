@@ -5,13 +5,11 @@
         .module("Application")
         .controller("oneTwoBulkUploadController", oneTwoBulkUploadController);
 
-    oneTwoBulkUploadController.$inject = ["$rootScope", "authService", "apiService", "helperService", "appConfig", "oneTwoBulkUploadConfig", "toastr", "errorWarningService", "$uibModalInstance", "confirmation","$injector","dynamicLookupConfig"];
+    oneTwoBulkUploadController.$inject = ["$rootScope", "$timeout", "authService", "apiService", "helperService", "appConfig", "oneTwoBulkUploadConfig", "toastr", "errorWarningService", "$uibModalInstance", "confirmation"];
 
-    function oneTwoBulkUploadController($rootScope, authService, apiService, helperService, appConfig, oneTwoBulkUploadConfig, toastr, errorWarningService, $uibModalInstance, confirmation,$injector,dynamicLookupConfig) {
+    function oneTwoBulkUploadController($rootScope, $timeout, authService, apiService, helperService, appConfig, oneTwoBulkUploadConfig, toastr, errorWarningService, $uibModalInstance, confirmation) {
         /* jshint validthis: true */
         var oneTwoBulkUploadCtrl = this;
-        dynamicLookupConfig = $injector.get("dynamicLookupConfig");
-
 
         function Init() {
             oneTwoBulkUploadCtrl.ePage = {
@@ -27,7 +25,6 @@
             oneTwoBulkUploadCtrl.ePage.Masters.IsDisableSave = false;
             oneTwoBulkUploadCtrl.ePage.Masters.modalClose = modalClose;
             CreateNewBooking();
-            GetRelatedLookupList();
         }
 
         function CreateNewBooking() {
@@ -76,7 +73,7 @@
         function modalClose() {
             $uibModalInstance.dismiss('close');
         }
-
+        
 
         function Save($item) {
             oneTwoBulkUploadCtrl.ePage.Masters.IsDisableSave = true;
@@ -107,26 +104,7 @@
             console.log(oneTwoBulkUploadCtrl.ePage.Masters.currentAsn);
             //Submit();
         }
-        function GetRelatedLookupList() {
-            var _filter = {
-                Key: "BP_PoBatchUploadOrg_13256",
-                SAP_FK: authService.getUserInfo().AppPK
-            };
-            var _input = {
-                "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.DYN_RelatedLookup.API.GroupFindAll.FilterID
-            };
-
-            apiService.post("eAxisAPI", appConfig.Entities.DYN_RelatedLookup.API.GroupFindAll.Url, _input).then(function (response) {
-                if (response.data.Response) {
-                    var _isEmpty = angular.equals({}, response.data.Response);
-
-                    if (!_isEmpty) {
-                        dynamicLookupConfig.Entities = Object.assign({}, dynamicLookupConfig.Entities, response.data.Response);
-                    }
-                }
-            });
-        }
+      
         Init();
     }
 })();

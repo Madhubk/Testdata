@@ -15,7 +15,7 @@
                     </div>
                     <div data-ng-if="(CompanyListCtrl.ePage.Masters.CompanyListType.ListSource | filter: CompanyListCtrl.ePage.Masters.CompanyListType.Search).length===0"
                         class="p-15 text-center tc-no-records">
-                        <span>No Records...!</span>
+                        <i>No Records...!</i>
                     </div>
                     <li data-ng-repeat="x in CompanyListCtrl.ePage.Masters.CompanyListType.ListSource | filter: CompanyListCtrl.ePage.Masters.CompanyListType.Search"
                         data-ng-click="CompanyListCtrl.ePage.Masters.CompanyListType.ActiveCompanyListType != x && CompanyListCtrl.ePage.Masters.CompanyListType.OnCompanyCodeClick(x)"

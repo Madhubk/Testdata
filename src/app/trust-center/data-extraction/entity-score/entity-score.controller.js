@@ -163,6 +163,16 @@
             if (DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.ActiveDataExtEntityScore) {
                 GetDataExtEntityScoreFieldsList();
                 GetFieldList();
+
+                DataExtEntityScoreCtrl.ePage.Masters.GenerateScriptInput = {
+                    ObjectName: "DATA_Config",
+                    ObjectId: DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.ActiveDataExtEntityScore.PK
+                };
+                DataExtEntityScoreCtrl.ePage.Masters.GenerateScriptConfig = {
+                    IsEnableTable: false,
+                    IsEnablePK: false,
+                    IsEnableTenant: false
+                };
             }
         }
 
@@ -419,7 +429,7 @@
             DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.DataExtEntityScoreFields.Save = DataExtEntityScoreFieldsSave;
             DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.DataExtEntityScoreFields.Delete = DeleteConfirmation;
             DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.DataExtEntityScoreFields.EditDataExtEntityScoreField = EditDataExtEntityScoreField;
-
+         
             DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.DataExtEntityScoreFields.SaveBtnText = "OK";
             DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.DataExtEntityScoreFields.IsDisableSaveBtn = false;
 
@@ -442,6 +452,11 @@
                     DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.DataExtEntityScoreFields.ListSource = response.data.Response;
                     if (DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.DataExtEntityScoreFields.ListSource.length > 0) {
                         OnDataExtEntityScoreFieldsClick(DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.DataExtEntityScoreFields.ListSource[0]);
+
+                        DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.DataExtEntityScoreFields.ListSource.map(function(value,key){
+                            SetGenerateScriptInput(value);
+                        });
+
 
                     } else {
                         OnDataExtEntityScoreFieldsClick();
@@ -523,13 +538,17 @@
                 if (response.data.Response) {
                     if (response.data.Response.length > 0) {
                         var _response = response.data.Response[0];
+                        if(!DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.DataExtEntityScoreFields.ListSource){
+                            DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.DataExtEntityScoreFields.ListSource = [];
+                        }
+                        DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.DataExtEntityScoreFields.ListSource.push(_response);
 
                         var _index = DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.DataExtEntityScoreFields.ListSource.map(function (value, key) {
                             return value.PK;
                         }).indexOf(_response.PK);
 
                         if (_index === -1) {
-                            DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.DataExtEntityScoreFields.ListSource.push(_response);
+                            SetGenerateScriptInput(DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.DataExtEntityScoreFields.ListSource[0]);
                         } else {
                             DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.DataExtEntityScoreFields.ListSource[_index] = _response;
                         }
@@ -601,7 +620,6 @@
                 })
         }
 
-
         function Delete(item) {
             apiService.get("eAxisAPI", trustCenterConfig.Entities.API.DataConfigFields.API.Delete.Url + DataExtEntityScoreCtrl.ePage.Masters.DataExtEntityScore.DataExtEntityScoreFields.ActiveDataExtEntityScoreFields.PK).then(function SuccessCallback(response) {
                 if (response.data.Response) {
@@ -614,6 +632,20 @@
 
                 GetDataExtEntityScoreFieldsList();
             });
+        }
+
+        function SetGenerateScriptInput(item) {
+            if (item) {
+                item.GenerateScriptInput = {
+                    ObjectName: "DATA_Config_Fields",
+                    ObjectId: item.PK
+                };
+                item.GenerateScriptConfig = {
+                    IsEnableTable: false,
+                    IsEnablePK: false,
+                    IsEnableTenant: false
+                };
+            }
         }
 
         // ====== Edit Expression =========== //

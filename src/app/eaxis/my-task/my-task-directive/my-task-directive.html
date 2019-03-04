@@ -51,11 +51,13 @@
                 <my-task-dynamic-directive task-obj="MyTaskDirectiveCtrl.ePage.Masters.MyTaskDirective.TaskObj"
                     on-complete="MyTaskDirectiveCtrl.ePage.Masters.MyTaskDirective.OnTaskComplete($item)"
                     on-refresh-status-count="MyTaskDirectiveCtrl.ePage.Masters.MyTaskDirective.StatusCount.OnRefreshStatusCount($item)"
-                    on-refresh-task="MyTaskDirectiveCtrl.ePage.Masters.MyTaskDirective.OnRefreshTask($item)" get-error-warning-list="MyTaskDirectiveCtrl.ePage.Masters.MyTaskDirective.GetErrorWarningList($item)"></my-task-dynamic-directive>
+                    on-refresh-task="MyTaskDirectiveCtrl.ePage.Masters.MyTaskDirective.OnRefreshTask($item)"
+                    get-error-warning-list="MyTaskDirectiveCtrl.ePage.Masters.MyTaskDirective.GetErrorWarningList($item)"></my-task-dynamic-directive>
             </div>
         </div>
     </div>
     <div class="my-task-footer clearfix">
+        <!-- #region Assign Task -->
         <div class="footer-list" data-ng-if="MyTaskDirectiveCtrl.ePage.Masters.MyTaskDirective.TaskObj.IsWorkStartedStr == '0' && MyTaskDirectiveCtrl.ePage.Masters.MyTaskDirective.TaskObj.Status == 'AVAILABLE'">
             <div class="dropdown my-task-assign-to">
                 <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" role="button"
@@ -95,7 +97,9 @@
                 </div>
             </div>
         </div>
-        <div class="footer-list" data-ng-if="MyTaskDirectiveCtrl.ePage.Masters.MyTaskDirective.TaskObj.RelatedProcess && MyTaskDirectiveCtrl.ePage.Masters.MyTaskDirective.TaskObj.RelatedProcess.length > 0">
+        <!-- #endregion -->
+        <!-- Related Process -->
+        <div class="footer-list" data-ng-if="MyTaskDirectiveCtrl.ePage.Masters.MyTaskDirective.TaskObj.RelatedProcess && MyTaskDirectiveCtrl.ePage.Masters.MyTaskDirective.TaskObj.RelatedProcess.length > 0 && MyTaskDirectiveCtrl.ePage.Masters.MyTaskDirective.TaskObj.Status == 'ASSIGNED' && MyTaskDirectiveCtrl.ePage.Masters.MyTaskDirective.TaskObj.OtherConfig.MyTaskFooter.IsDisableFooter != true && MyTaskDirectiveCtrl.ePage.Masters.MyTaskDirective.TaskObj.OtherConfig.MyTaskFooter.IsDisableRelatedProcess != true">
             <div class="dropdown my-task-adhoc-process">
                 <a href="javascript:void(0);" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">
                     <i class="fa fa-cog"></i>
@@ -130,7 +134,8 @@
                 </div>
             </div>
         </div>
-        <div class="footer-list">
+        <!-- Override KPI -->
+        <div class="footer-list" data-ng-if="MyTaskDirectiveCtrl.ePage.Masters.MyTaskDirective.TaskObj.Status == 'ASSIGNED' && MyTaskDirectiveCtrl.ePage.Masters.MyTaskDirective.TaskObj.OtherConfig.MyTaskFooter.IsDisableFooter != true && MyTaskDirectiveCtrl.ePage.Masters.MyTaskDirective.TaskObj.OtherConfig.MyTaskFooter.IsDisableOverrideKPI != true">
             <div class="dropdown my-task-assign-to">
                 <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" role="button"
                     aria-expanded="false" data-ng-click="MyTaskDirectiveCtrl.ePage.Masters.MyTaskDirective.OnOverrideKPIClick()">
@@ -143,41 +148,45 @@
                 </div>
             </div>
         </div>
-        <div class="footer-list">
+        <!-- Document -->
+        <div class="footer-list" data-ng-if="MyTaskDirectiveCtrl.ePage.Masters.MyTaskDirective.TaskObj.Status == 'ASSIGNED' && MyTaskDirectiveCtrl.ePage.Masters.MyTaskDirective.TaskObj.OtherConfig.MyTaskFooter.IsDisableFooter != true && MyTaskDirectiveCtrl.ePage.Masters.MyTaskDirective.TaskObj.OtherConfig.MyTaskFooter.IsDisableDocument != true">
             <a href="javascript: void(0)" class="my-task-directive-icon" document-modal input="MyTaskDirectiveCtrl.ePage.Masters.MyTaskDirective.TaskObj.StandardMenuInput"
                 config="MyTaskDirectiveCtrl.ePage.Masters.MyTaskDirective.TaskObj.DocumentConfig" mode="3" title="Document">
                 <i class="fa fa-file-text-o"></i>
                 <span>Document</span>
             </a>
         </div>
-        <div class="footer-list">
+        <!-- Comment -->
+        <div class="footer-list" data-ng-if="MyTaskDirectiveCtrl.ePage.Masters.MyTaskDirective.TaskObj.Status == 'ASSIGNED' && MyTaskDirectiveCtrl.ePage.Masters.MyTaskDirective.TaskObj.OtherConfig.MyTaskFooter.IsDisableFooter != true && MyTaskDirectiveCtrl.ePage.Masters.MyTaskDirective.TaskObj.OtherConfig.MyTaskFooter.IsDisableComment != true">
             <a href="javascript: void(0)" class="my-task-directive-icon" comment-modal input="MyTaskDirectiveCtrl.ePage.Masters.MyTaskDirective.TaskObj.StandardMenuInput"
                 config="MyTaskDirectiveCtrl.ePage.Masters.MyTaskDirective.TaskObj.CommentConfig" mode="3" title="Comment">
                 <i class="fa fa-comment-o"></i>
                 <span>Comment</span>
             </a>
         </div>
-        <div class="footer-list">
+        <!-- Email -->
+        <div class="footer-list" data-ng-if="MyTaskDirectiveCtrl.ePage.Masters.MyTaskDirective.TaskObj.Status == 'ASSIGNED' && MyTaskDirectiveCtrl.ePage.Masters.MyTaskDirective.TaskObj.OtherConfig.MyTaskFooter.IsDisableFooter != true && MyTaskDirectiveCtrl.ePage.Masters.MyTaskDirective.TaskObj.OtherConfig.MyTaskFooter.IsDisableEmail != true">
             <a href="javascript: void(0)" class="my-task-directive-icon" email-modal input="MyTaskDirectiveCtrl.ePage.Masters.MyTaskDirective.TaskObj.StandardMenuInput"
                 mode="1" title="Email">
                 <i class="fa fa-envelope-o"></i>
                 <span>Email</span>
             </a>
         </div>
-        <!-- <div class="footer-list">
-            <a href="javascript: void(0)" class="my-task-directive-icon" exception-modal input="MyTaskDirectiveCtrl.ePage.Masters.MyTaskDirective.TaskObj.StandardMenuInput"
-                mode="1" title="Exception">
-                <i class="fa fa-envelope-o"></i>
-                <span>Exception</span>  
-            </a>
-        </div> -->
-        <div class="footer-list">
+        <!-- Checklist -->
+        <div class="footer-list" data-ng-if="MyTaskDirectiveCtrl.ePage.Masters.MyTaskDirective.TaskObj.Status == 'ASSIGNED' && MyTaskDirectiveCtrl.ePage.Masters.MyTaskDirective.TaskObj.OtherConfig.MyTaskFooter.IsDisableFooter != true && MyTaskDirectiveCtrl.ePage.Masters.MyTaskDirective.TaskObj.OtherConfig.MyTaskFooter.IsDisableChecklist != true">
             <a href="javascript: void(0)" class="my-task-directive-icon" checklist-modal input="MyTaskDirectiveCtrl.ePage.Masters.MyTaskDirective.TaskObj.StandardMenuInput"
                 mode="1" title="Checklist">
                 <i class="fa fa-envelope-o"></i>
                 <span>Checklist</span>
             </a>
         </div>
+        <!-- <div class="footer-list">
+            <a href="javascript: void(0)" class="my-task-directive-icon" exception-modal input="MyTaskDirectiveCtrl.ePage.Masters.MyTaskDirective.TaskObj.StandardMenuInput"
+                mode="3" title="Exception">
+                <i class="fa fa-envelope-o"></i>
+                <span>Exception</span>  
+            </a>
+        </div> -->
         <!-- <div class="footer-list">
             <a href="javascript: void(0)" class="my-task-directive-icon" delay-reason-modal input="MyTaskDirectiveCtrl.ePage.Masters.MyTaskDirective.TaskObj.StandardMenuInput"
                 mode="1" title="Delay Reason">

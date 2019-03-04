@@ -1,202 +1,191 @@
-<div class="exception-list-container clearfix">
-    <!-- Header -->
-    <div class="sm-header" data-ng-if="ExceptionCtrl.ePage.Masters.Exception.ViewMode == 'List'">
-        <button class="btn btn-danger btn-sm mr-10" data-ng-click="ExceptionCtrl.ePage.Masters.Exception.Compose()" data-ng-if="ExceptionCtrl.mode == '2' && !ExceptionCtrl.ePage.Entities.IsReadOnly"
-            data-ng-disabled="!ExceptionCtrl.type">Compose</button>
-        <button class="btn btn-default btn-sm mr-10" data-ng-click="ExceptionCtrl.ePage.Masters.Exception.ListView.Refresh()">Refresh</button>
+<div class="sm-exception-container clearfix">
+    <div class="clearfix text-center text-danger p-20" data-ng-if="ExceptionCtrl.mode == '2' && !ExceptionCtrl.type">
+        <i class="font-160">Exception Type Not Found...!</i>
     </div>
-    <!-- Sidebar -->
-    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 col-xl-3 sm-sidebar-container" data-ng-class="(ExceptionCtrl.ePage.Masters.Exception.ViewMode == 'List')? 'list-mode': 'view-mode'"
-        data-ng-style="(ExceptionCtrl.ePage.Masters.Exception.ViewMode != 'List') ? {'background': '#fbfbfb'} : {'background': '#fff'}"
-        data-ng-if="ExceptionCtrl.mode=='1'">
-        <div class="main" data-ng-if="ExceptionCtrl.ePage.Masters.Exception.ViewMode == 'List'">
-            <div class="clearfix text-center p-20" data-ng-if="!ExceptionCtrl.ePage.Masters.Exception.SideBar.MstExceptionList">
-                <i class="fa fa-spin fa-spinner font-160"></i>
+    <div class="clearfix" data-ng-if="(ExceptionCtrl.mode == '2' && ExceptionCtrl.type) || ExceptionCtrl.mode != '2'">
+        <!-- List View -->
+        <div class="clearfix list-view" data-ng-if="ExceptionCtrl.ePage.Masters.Exception.ViewMode == 'List'">
+            <!-- Section Top -->
+            <div class="clearfix sm-section-top sm-exception pt-10 pb-10">
+                <div class="clearfix">
+                    <div class="col-sm-3">
+                        <select chosen class="form-control" data-ng-model="ExceptionCtrl.ePage.Masters.Exception.ListView.ActiveExceptionType.TypeCode"
+                            data-ng-options="x.TypeCode as x.Value for x in ExceptionCtrl.ePage.Masters.Exception.ListView.ExceptionTypeList"
+                            data-ng-change="ExceptionCtrl.ePage.Masters.Exception.ListView.OnExceptionTypeChange((ExceptionCtrl.ePage.Masters.Exception.ListView.ExceptionTypeList | filter: {'TypeCode': ExceptionCtrl.ePage.Masters.Exception.ListView.ActiveExceptionType.TypeCode})[0])"
+                            search-contains="true"></select>
+                    </div>
+                    <div class="col-sm-3">
+                        <button class="btn btn-primary btn-sm mt-2" data-ng-click="ExceptionCtrl.ePage.Masters.Exception.ListView.AddNewException()"
+                            data-ng-disabled="!ExceptionCtrl.ePage.Masters.Exception.ListView.ActiveExceptionType.TypeCode || ExceptionCtrl.ePage.Masters.Exception.ListView.ActiveExceptionType.TypeCode == 'ALL' ">Add
+                            Exception</button>
+                    </div>
+                    <div class="col-sm-3">
+                        <button class="btn btn-default btn-sm pull-right mt-2" data-ng-click="ExceptionCtrl.ePage.Masters.Exception.ListView.Refresh()">Refresh</button>
+                    </div>
+                    <div class="col-sm-3">
+                        <input type="text" class="form-control input-sm" placeholder="Search" data-ng-model="ExceptionCtrl.ePage.Masters.Exception.ListView.Search">
+                    </div>
+                </div>
             </div>
-            <div class="clearfix text-center p-20" data-ng-if="ExceptionCtrl.ePage.Masters.Exception.SideBar.MstExceptionList && ExceptionCtrl.ePage.Masters.Exception.SideBar.MstExceptionList.length == 0">
-                <i class="">No Records...!</i>
-            </div>
-            <ul class="p-0" data-ng-if="ExceptionCtrl.ePage.Masters.Exception.SideBar.MstExceptionList && ExceptionCtrl.ePage.Masters.Exception.SideBar.MstExceptionList.length > 0">
-                <li class="text-single-line" data-ng-class="{'active': x.Key == ExceptionCtrl.ePage.Masters.Exception.SideBar.ActiveMstException.Key}"
-                    data-ng-repeat="x in ExceptionCtrl.ePage.Masters.Exception.SideBar.MstExceptionList" data-ng-click="ExceptionCtrl.ePage.Masters.Exception.SideBar.OnListClick(x)">{{x.Value}}
-                    <i class="fa fa-plus-circle attach-icon" data-ng-if="x.Value != 'All' && !ExceptionCtrl.ePage.Entities.IsReadOnly" data-ng-click="ExceptionCtrl.ePage.Masters.Exception.Compose(x)"></i>
-                </li>
-            </ul>
-        </div>
-        <div class="dummy text-center pt-150" data-ng-if="ExceptionCtrl.ePage.Masters.Exception.ViewMode != 'List'">
-            <img src="assets/img/no-records/exception.png">
-        </div>
-    </div>
-    <!-- Body -->
-    <div class="sm-content-wrapper" data-ng-class="(ExceptionCtrl.mode == '1' ? 'col-xs-12 col-sm-12 col-md-8 col-lg-9 col-xl-9' : 'col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 p-0') + ' ' + (ExceptionCtrl.ePage.Masters.Exception.ViewMode == 'Read' ? 'read-mode' : '')">
-        <div class="template-body">
-            <!-- List View -->
-            <div class="list-view-container clearfix" data-ng-if="ExceptionCtrl.ePage.Masters.Exception.ViewMode == 'List'">
-                <ul class="clearfix">
-                    <!-- Loading -->
-                    <div class="p-20 text-center loading" data-ng-if="!ExceptionCtrl.ePage.Masters.Exception.ListView.ListSource">
+            <!-- Section Body -->
+            <div class="clearfix sm-section-body">
+                <div class="clearfix heading pt-10 pb-10 bold">
+                    <div class="col-sm-2">Exception Type</div>
+                    <div class="col-sm-4">Title</div>
+                    <div class="col-sm-3">Owner</div>
+                    <div class="col-sm-2">Created On</div>
+                    <div class="col-sm-1"></div>
+                </div>
+                <div class="cleafix list-wrapper sm-exception-list-wrapper">
+                    <div class="clearfix p-20 text-center font-120" data-ng-if="!ExceptionCtrl.ePage.Masters.Exception.ListView.ListSource">
                         <i class="fa fa-spin fa-spinner"></i>
                     </div>
-                    <!-- No Records -->
-                    <div class="p-20 text-center" data-ng-if="ExceptionCtrl.ePage.Masters.Exception.ListView.ListSource && ExceptionCtrl.ePage.Masters.Exception.ListView.ListSource.length == 0">
-                        <i>No Records...!</i>
+                    <div class="clearfix p-20 text-center" data-ng-if="ExceptionCtrl.ePage.Masters.Exception.ListView.ListSource && (ExceptionCtrl.ePage.Masters.Exception.ListView.ListSource | fieldFilter: ['Description', 'ProcessCode', 'ReferenceNo', 'Type']: ExceptionCtrl.ePage.Masters.Exception.ListView.Search).length === 0">
+                        <i>No Record...!</i>
                     </div>
-                    <li class="clearfix list" data-ng-if="ExceptionCtrl.ePage.Masters.Exception.ListView.ListSource && ExceptionCtrl.ePage.Masters.Exception.ListView.ListSource.length > 0"
-                        data-ng-repeat="x in ExceptionCtrl.ePage.Masters.Exception.ListView.ListSource | orderBy: 'CreatedDateTime': true"
-                        data-ng-click="ExceptionCtrl.ePage.Masters.Exception.ListView.OnListViewClick(x)">
-                        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
-                            <div class="text-single-line" data-ng-bind="(x.CreatedBy == ExceptionCtrl.ePage.Masters.Exception.UserId) ? 'Me' : x.CreatedBy"
-                                title="{{x.CreatedBy}}"></div>
+                    <div class="clearfix list" data-ng-if="ExceptionCtrl.ePage.Masters.Exception.ListView.ListSource && (ExceptionCtrl.ePage.Masters.Exception.ListView.ListSource | fieldFilter: ['Description', 'ProcessCode', 'ReferenceNo', 'Type']: ExceptionCtrl.ePage.Masters.Exception.ListView.Search).length > 0"
+                        data-ng-repeat="x in ExceptionCtrl.ePage.Masters.Exception.ListView.ListSource | orderBy: 'CreatedDateTime': true | fieldFilter: ['Description', 'ProcessCode', 'ReferenceNo', 'Type']: ExceptionCtrl.ePage.Masters.Exception.ListView.Search">
+                        <div class="col-sm-2 pt-10 pb-10 cursor-pointer" data-ng-click="ExceptionCtrl.ePage.Masters.Exception.ListView.OnExceptionClick(x)">
+                            <div class="text-single-line" title="{{x.Type}}">{{x.Type}}</div>
                         </div>
-                        <div class="col-xs-12 col-sm-12 col-md-7 col-lg-7 col-xl-7">
-                            <div class="text-single-line" data-ng-bind="x.Title" title="{{x.Title}}"></div>
+                        <div class="col-sm-4 pt-10 pb-10 cursor-pointer" data-ng-click="ExceptionCtrl.ePage.Masters.Exception.ListView.OnExceptionClick(x)">
+                            <div class="text-single-line" title="{{x.Title}}">{{x.Title}}</div>
                         </div>
-                        <!-- <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
-                            <div class="text-single-line subject-body">
-                                <div class="body" data-ng-bind="x.Description" title="{{x.Description}}"></div>
-                            </div>
-                        </div> -->
-                        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 text-right">
-                            <div class="text-single-line" data-ng-bind="x.CreatedDateTime | date:'dd-MMM-yy h:mm a'" title="{{x.CreatedDateTime | date:'dd-MMM-yy: h:mm a'}}"></div>
+                        <div class="col-sm-3 pt-10 pb-10 cursor-pointer" data-ng-click="ExceptionCtrl.ePage.Masters.Exception.ListView.OnExceptionClick(x)">
+                            <div class="text-single-line" title="{{x.CreatedBy}}">{{(x.CreatedBy ==
+                                ExceptionCtrl.ePage.Masters.Exception.UserId) ? 'Me' : x.CreatedBy}}</div>
                         </div>
-                    </li>
-                </ul>
-            </div>
-            <!-- Read View -->
-            <div class="read-view-container" data-ng-if="ExceptionCtrl.ePage.Masters.Exception.ViewMode == 'Read'">
-                <div class="subject-header">
-                    <button class="btn btn-default btn-sm mr-10 back-btn" data-ng-click="ExceptionCtrl.ePage.Masters.Exception.ReadView.GoToList()"
-                        data-ng-show="ExceptionCtrl.ePage.Masters.Exception.ViewMode == 'Read'" title="Back">
-                        <i class="fa fa-arrow-left"></i>
-                    </button>
-                    <span data-ng-bind="ExceptionCtrl.ePage.Masters.Exception.ListView.ActiveException.Title"></span>
+                        <div class="col-sm-2 pt-10 pb-10 cursor-pointer" data-ng-click="ExceptionCtrl.ePage.Masters.Exception.ListView.OnExceptionClick(x)">
+                            <div class="text-single-line" title="{{x.CreatedDateTime | date:'dd-MMM-yy: h:mm a'}}">{{x.CreatedDateTime
+                                | date:'dd-MMM-yy h:mm a'}}</div>
+                        </div>
+                        <div class="col-sm-1 pt-10 pb-10">
+                            <!-- Access -->
+                            <div class="pull-right dropdown exception-access-dropdown-menu" data-ng-if="x.GroupMapping && (x.CreatedBy ==  ExceptionCtrl.ePage.Masters.Exception.UserId || (x.CreatedBy != ExceptionCtrl.ePage.Masters.Exception.UserId && !x.IsResticted && x.IsShared)) && ExceptionCtrl.mode == '1'"
+                                one-level-mapping input="x.GroupMapping" object="x" icon="'fa fa-user-plus'"></div>
+                        </div>
+                    </div>
                 </div>
-                <div class="clearfix">
-                    <div class="user-header clearfix">
-                        <div class="user-profile">
-                            <i class="fa fa-user"></i>
+            </div>
+        </div>
+        <!-- Edit View -->
+        <div class="clearfix edit-view" data-ng-if="ExceptionCtrl.ePage.Masters.Exception.ViewMode == 'Edit'">
+            <div class="clearfix pt-10 pb-10">
+                <!-- Title -->
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label class="control-label">Title</label>
+                        <div class="clearfix">
+                            <input type="text" class="form-control input-sm" data-ng-model="ExceptionCtrl.ePage.Masters.Exception.ActiveException.Title"
+                                placeholder="Title" />
                         </div>
-                        <div class="user-name pt-5" data-ng-bind="(ExceptionCtrl.ePage.Masters.Exception.ListView.ActiveException.CreatedBy == ExceptionCtrl.ePage.Masters.Exception.UserId) ? 'Me' : ExceptionCtrl.ePage.Masters.Exception.ListView.ActiveException.CreatedBy"></div>
-                        <!-- Access -->
-                        <div class="pull-right dropdown comment-access-dropdown-menu" data-ng-if="ExceptionCtrl.ePage.Masters.Exception.ReadView.GroupMapping && (ExceptionCtrl.ePage.Masters.Exception.ListView.ActiveException.CreatedBy ==  ExceptionCtrl.ePage.Masters.Exception.UserId || (ExceptionCtrl.ePage.Masters.Exception.ListView.ActiveException.CreatedBy != ExceptionCtrl.ePage.Masters.Exception.UserId && !ExceptionCtrl.ePage.Masters.Exception.ListView.ActiveException.IsResticted && ExceptionCtrl.ePage.Masters.Exception.ListView.ActiveException.IsShared)) && ExceptionCtrl.mode == '1' && !ExceptionCtrl.ePage.Entities.IsReadOnly"
-                            one-level-mapping input="ExceptionCtrl.ePage.Masters.Exception.ReadView.GroupMapping" object="ExceptionCtrl.ePage.Masters.Exception.ListView.ActiveException"></div>
-                        <div class="date pt-5" data-ng-bind="ExceptionCtrl.ePage.Masters.Exception.ListView.ActiveException.CreatedDateTime | date:'MMM dd'"></div>
                     </div>
-                    <div class="message clearfix pb-20">
-                        <!-- <div class="" data-ng-bind-html="ExceptionCtrl.ePage.Masters.Exception.ListView.ActiveException.Description"></div> -->
+                </div>
+                <!-- Description -->
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label class="control-label">Description</label>
+                        <div class="clearfix">
+                            <input type="text" class="form-control input-sm" data-ng-model="ExceptionCtrl.ePage.Masters.Exception.ActiveException.Description"
+                                placeholder="Description" />
+                        </div>
                     </div>
-                    <div class="clearfix position-relative text-center" data-ng-if="ExceptionCtrl.ePage.Masters.Exception.SideBar.DataConfigResponse">
+                </div>
+            </div>
+            <div class="clearfix" data-ng-if="ExceptionCtrl.ePage.Masters.Exception.ActiveException.DataConfig">
+                <dynamic-control input="ExceptionCtrl.ePage.Masters.Exception.ActiveException.DataConfig" mode="D"
+                    view-type="'2'"></dynamic-control>
+            </div>
+            <div class="clearfix">
+                <div class="col-sm-12 pt-10 pb-10">
+                    <button class="btn btn-primary btn-sm pull-right ml-15" data-ng-click="ExceptionCtrl.ePage.Masters.Exception.EditView.CreateException()"
+                        data-ng-bind="ExceptionCtrl.ePage.Masters.Exception.EditView.CreateBtnText" data-ng-disabled="ExceptionCtrl.ePage.Masters.Exception.EditView.IsDisableCreateBtn"></button>
+                    <button class="btn btn-default btn-sm pull-right ml-15" data-ng-click="ExceptionCtrl.ePage.Masters.Exception.EditView.Discard()">Discard</button>
+                </div>
+            </div>
+        </div>
+        <!-- Read View -->
+        <div class="clearfix read-view" data-ng-if="ExceptionCtrl.ePage.Masters.Exception.ViewMode == 'Read'">
+            <div class="clearfix sm-section-top pt-10 pb-10">
+                <div class="col-sm-1">
+                    <button class="btn btn-default btn-sm mr-20 pull-left" data-ng-click="ExceptionCtrl.ePage.Masters.Exception.ReadView.GoToListView()"
+                        title="Back">
+                        <i class="fa fa-arrow-left mr-5"></i> Back
+                    </button>
+                </div>
+                <div class="col-sm-9">
+                    <div class="pull-left bold font-120 text-single-line mt-2" data-ng-bind="ExceptionCtrl.ePage.Masters.Exception.ActiveException.Title"></div>
+                </div>
+                <div class="col-sm-2">
+                    <div class="pull-right mt-5" data-ng-bind="ExceptionCtrl.ePage.Masters.Exception.ActiveException.CreatedDateTime | date:'dd MMM yy'"></div>
+                </div>
+            </div>
+            <div class="clearfix p-15">
+                <div class="clearfix exception-message">
+                    <div class="clearfix mb-10" data-ng-bind-html="ExceptionCtrl.ePage.Masters.Exception.ActiveException.Description"></div>
+
+                    <div class="clearfix position-relative text-center" data-ng-if="ExceptionCtrl.ePage.Masters.Exception.ActiveException.DataConfig">
                         <div class="more-items-line-middle"></div>
-                        <button  class="btn btn-more-items" data-ng-click="ExceptionCtrl.ePage.Masters.Exception.ReadView.IsShowDynamicForm = !ExceptionCtrl.ePage.Masters.Exception.ReadView.IsShowDynamicForm">Show {{ExceptionCtrl.ePage.Masters.Exception.ReadView.IsShowDynamicForm ? 'less' : 'more'}}</button>
+                        <button class="btn btn-more-items" data-ng-click="ExceptionCtrl.ePage.Masters.Exception.ReadView.IsShowDynamicForm = !ExceptionCtrl.ePage.Masters.Exception.ReadView.IsShowDynamicForm">Show
+                            {{ExceptionCtrl.ePage.Masters.Exception.ReadView.IsShowDynamicForm ? 'less' : 'more'}}</button>
                     </div>
+
                     <!-- Dynamic Control -->
                     <div class="clearfix" data-ng-show="ExceptionCtrl.ePage.Masters.Exception.ReadView.IsShowDynamicForm">
-                        <div class="clearfix position-relative" data-ng-if="ExceptionCtrl.ePage.Masters.Exception.SideBar.DataConfigResponse">
-                            <dynamic-control input="ExceptionCtrl.ePage.Masters.Exception.SideBar.DataConfigResponse" mode="D" control-style="" view-type="'2'"></dynamic-control>
+                        <div class="clearfix position-relative" data-ng-if="ExceptionCtrl.ePage.Masters.Exception.ActiveException.DataConfig">
+                            <dynamic-control input="ExceptionCtrl.ePage.Masters.Exception.ActiveException.DataConfig"
+                                mode="D" view-type="'2'"></dynamic-control>
                             <div class="dynamic-control-overlay"></div>
                         </div>
                     </div>
-                    <!-- Attachment -->
-                    <div class="clearfix email-attachment-container mb-20 mt-20">
-                        <div class="comment-header mb-5 clearfix">Attachments</div>
-                        <div class="clearfix p-5" data-ng-if="!ExceptionCtrl.ePage.Entities.IsReadOnly">
-                            <file-upload-custom class="file-upload-directive" ng-model="ExceptionCtrl.ePage.Masters.Exception.Attachment.fileDetails"
-                                size="{{ExceptionCtrl.ePage.Masters.Exception.Attachment.fileSize}}" auth="{{ExceptionCtrl.ePage.Masters.Exception.Attachment.Autherization}}"
-                                additional-value="{{ExceptionCtrl.ePage.Masters.Exception.Attachment.AdditionalValue}}" url="{{ExceptionCtrl.ePage.Masters.Exception.Attachment.UploadUrl}}"
-                                doc-type="*" multiple-file="true" is-disabled="false" fu-class="left" get-uploaded-files="ExceptionCtrl.ePage.Masters.Exception.Attachment.GetUploadedFiles($item)"
-                                get-selected-files="ExceptionCtrl.ePage.Masters.Exception.Attachment.GetSelectedFiles($item)"
-                                modal-template="" template="">
-                                <button class="btn btn-danger btn-sm mr-10">Attach</button>
-                            </file-upload-custom>
+                </div>
+                <!-- Attachment -->
+                <div class="clearfix attachment-wrapper mt-10 mb-10">
+                    <div class="clearfix header pt-10 pb-10 border-bottom bold font-120 mb-10">
+                        <span>Attachments</span>
+                        <file-upload-custom class="file-upload-directive pull-right" data-ng-model="ExceptionCtrl.ePage.Masters.Exception.Attachment.fileDetails"
+                            size="{{ExceptionCtrl.ePage.Masters.Exception.Attachment.fileSize}}" auth="{{ExceptionCtrl.ePage.Masters.Exception.Attachment.Autherization}}"
+                            additional-value="{{ExceptionCtrl.ePage.Masters.Exception.Attachment.AdditionalValue}}" url="{{ExceptionCtrl.ePage.Masters.Exception.Attachment.UploadUrl}}"
+                            doc-type="*" multiple-file="true" is-disabled="false" fu-class="left" get-uploaded-files="ExceptionCtrl.ePage.Masters.Exception.Attachment.GetUploadedFiles($item)"
+                            get-selected-files="ExceptionCtrl.ePage.Masters.Exception.Attachment.GetSelectedFiles($item)">
+                            <button class="btn btn-primary btn-sm">Attach</button>
+                        </file-upload-custom>
+                    </div>
+                    <div class="clearfix">
+                        <div class="clearfix mb-10" data-ng-if="ExceptionCtrl.ePage.Masters.Exception.Attachment.TempListSource && ExceptionCtrl.ePage.Masters.Exception.Attachment.TempListSource.length > 0">
+                            <div class="clearfix p-10 upload-loading-section" data-ng-if="x.IsNew" data-ng-repeat="x in ExceptionCtrl.ePage.Masters.Exception.Attachment.TempListSource">
+                                <div class="file-name" title="{{x.name}}" data-ng-bind="x.name"></div>
+                                <div class="meter">
+                                    <span></span>
+                                </div>
+                            </div>
                         </div>
-                        <div class="clearfix text-center p-20" data-ng-if="!ExceptionCtrl.ePage.Masters.Exception.ListView.ActiveException.AttachmentList">
-                            <i class="fa fa-spin fa-spinner font-160"></i>
+                        <div class="clearfix text-center p-20" data-ng-if="!ExceptionCtrl.ePage.Masters.Exception.Attachment.ListSource">
+                            <i class="fa fa-spin fa-spinner font-120"></i>
                         </div>
-                        <div class="clearfix text-center p-20" data-ng-if="ExceptionCtrl.ePage.Masters.Exception.ListView.ActiveException.AttachmentList && ExceptionCtrl.ePage.Masters.Exception.ListView.ActiveException.AttachmentList.length == 0">
+                        <div class="clearfix text-center p-20" data-ng-if="ExceptionCtrl.ePage.Masters.Exception.Attachment.ListSource && ExceptionCtrl.ePage.Masters.Exception.Attachment.ListSource.length == 0">
                             <i>No Records...!</i>
                         </div>
-                        <div class="clearfix attachment-container-list-view" data-ng-if="ExceptionCtrl.ePage.Masters.Exception.ListView.ActiveException.AttachmentList && ExceptionCtrl.ePage.Masters.Exception.ListView.ActiveException.AttachmentList.length > 0">
-                            <div class="clearfix list" data-ng-if="x.IsNew"
-                                data-ng-repeat="x in ExceptionCtrl.ePage.Masters.Exception.ListView.ActiveException.AttachmentList">
-                                <div class="clearfix p-10" data-ng-if="x.IsNew">
-                                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-                                        <div class="loading-file-name">
-                                            <span>{{x.name}}</span>
-                                        </div>
-                                        <div class="meter">
-                                            <span></span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="clearfix" data-ng-if="!x.IsNew">
-                                    <div class="p-5 text-single-line">
-                                        <span class="action-icon text-danger cursor-pointer mr-10" style="position: relative; top: 3px;" data-ng-click="ExceptionCtrl.ePage.Masters.Exception.Attachment.DeleteAttachment(x, $index)" title="Remove" data-ng-if="!ExceptionCtrl.ePage.Entities.IsReadOnly">
-                                            <i class="glyphicon glyphicon-trash"></i>
-                                        </span>
-                                        <img data-ng-src="assets/img/file-types/{{x.FileName | getFileExtension}}.png" alt="">
-                                        <a href="javascript:void(0);" data-ng-bind="x.FileName" title="{{x.FileName}}" data-ng-click="x.PK && ExceptionCtrl.ePage.Masters.Exception.Attachment.DownloadAttachment(x)"></a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="attachment-list" data-ng-if="!x.IsNew"
-                                data-ng-repeat="x in ExceptionCtrl.ePage.Masters.Exception.ListView.ActiveException.AttachmentList">
-                                <div class="clearfix">
-                                    <div class="clearfix icon">
-                                        <i class="fa fa-file"></i>
-                                        <i class="glyphicon glyphicon-trash" data-ng-click="ExceptionCtrl.ePage.Masters.Exception.Attachment.DeleteAttachment(x, $index)" title="Remove" data-ng-if="!ExceptionCtrl.ePage.Entities.IsReadOnly"></i>
-                                    </div>
-                                    <div class="p-5 text-single-line attachment-name">
-                                        <img data-ng-src="assets/img/file-types/{{x.FileName | getFileExtension}}.png" alt="" class="mr-5">
-                                        <a href="javascript:void(0);" data-ng-bind="x.FileName" title="{{x.FileName}}" data-ng-click="x.PK && ExceptionCtrl.ePage.Masters.Exception.Attachment.DownloadAttachment(x)"></a>
-                                    </div>
+                        <div class="clearfix attachment-container">
+                            <div class="clearfix  attachment-list m-5 pull-left" data-ng-if="ExceptionCtrl.ePage.Masters.Exception.Attachment.ListSource && ExceptionCtrl.ePage.Masters.Exception.Attachment.ListSource.length > 0"
+                                data-ng-repeat="x in ExceptionCtrl.ePage.Masters.Exception.Attachment.ListSource | orderBy: 'CreatedDateTime': true">
+                                <div class="clearfix position-relative pt-10 pb-10 pl-30 pr-50">
+                                    <img class="pull-left" data-ng-src="assets/img/file-types/{{x.FileName | getFileExtension}}.png"
+                                        alt="{{x.FileName}}" style="position: absolute; left: 5px;">
+                                    <a class="pull-left text-single-line" href="javascript:void(0);" data-ng-bind="x.FileName"
+                                        title="{{x.FileName}}" data-ng-click="x.PK && ExceptionCtrl.ePage.Masters.Exception.Attachment.DownloadAttachment(x)"></a>
+                                    <i class="fa fa-times-circle-o danger cursor-pointer font-140 pull-left" style="position: absolute; right: 5px;"
+                                        data-ng-click="ExceptionCtrl.ePage.Masters.Exception.Attachment.DeleteAttachment(x, $index)"
+                                        title="Remove" data-ng-if="ExceptionCtrl.mode == '1'"></i>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <!-- Comment -->
-                    <div class="clearfix pt-10 pb-10" data-ng-if="ExceptionCtrl.ePage.Masters.Exception.ListView.ActiveException.CommentInput">
-                        <div class="comment-header mb-5">Remarks</div>
-                        <comment input="ExceptionCtrl.ePage.Masters.Exception.ListView.ActiveException.CommentInput" mode="'2'" type="'Exception General'"></comment>
-                    </div>
                 </div>
-            </div>
-            <!-- Edit View -->
-            <div class="edit-view-container" data-ng-if="ExceptionCtrl.ePage.Masters.Exception.ViewMode == 'Edit'">
-                <div class="clearfix pt-5">
-                    <form novalidate class="edit-view-fields">
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
-                            <!-- Title -->
-                            <div class="form-group">
-                                <label class="control-label">Title</label>
-                                <div class="clearfix">
-                                    <input type="text" class="form-control input-sm" tabindex="1" ng-model="ExceptionCtrl.ePage.Masters.Exception.ListView.ActiveException.Title"
-                                        placeholder="Title" />
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
-                            <!-- Description -->
-                            <div class="form-group">
-                                <label class="control-label">Description</label>
-                                <div class="clearfix">
-                                    <input type="text" class="form-control input-sm" tabindex="2" ng-model="ExceptionCtrl.ePage.Masters.Exception.ListView.ActiveException.Description"
-                                        placeholder="Description" />
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <div class="clearfix edit-exception-wrapper">
-                    <div class="clearfix" data-ng-if="ExceptionCtrl.ePage.Masters.Exception.SideBar.DataConfigResponse">
-                        <dynamic-control input="ExceptionCtrl.ePage.Masters.Exception.SideBar.DataConfigResponse" mode="D" control-style="" view-type="'2'"></dynamic-control>
-                    </div>
-                </div>
-                <div class="clearfix p-10">
-                    <button class="btn btn-default btn-sm mr-10" data-ng-click="ExceptionCtrl.ePage.Masters.Exception.EditView.Discard()" data-ng-show="ExceptionCtrl.ePage.Masters.Exception.ViewMode == 'Edit'"
-                        data-ng-disabled="ExceptionCtrl.ePage.Masters.Exception.EditView.IsDisableCreateBtn">Discard</button>
-                    <button class="btn btn-primary btn-sm mr-10" data-ng-click="ExceptionCtrl.ePage.Masters.Exception.EditView.Create('insert')"
-                        data-ng-show="ExceptionCtrl.ePage.Masters.Exception.ViewMode == 'Edit'" data-ng-bind="ExceptionCtrl.ePage.Masters.Exception.EditView.CreateBtnText"
-                        data-ng-disabled="ExceptionCtrl.ePage.Masters.Exception.EditView.IsDisableCreateBtn"></button>
+                <!-- Remarks -->
+                <div class="clearfix remarks-wrapper mt-10 mb-10">
+                    <div class="header pt-10 pb-10 border-bottom bold font-120 mb-10">Remarks</div>
+                    <comment input="ExceptionCtrl.ePage.Masters.Exception.ActiveException.CommentInput" mode="'2'" type="'Exception General'"></comment>
                 </div>
             </div>
         </div>

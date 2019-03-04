@@ -5,9 +5,9 @@
         .module("Application")
         .controller("oneThreeShipmentOrderController", oneThreeShipmentOrderController);
 
-    oneThreeShipmentOrderController.$inject = ["$rootScope", "$scope", "$state", "$q", "$location", "$timeout", "$uibModal", "APP_CONSTANT", "authService", "apiService", "appConfig", "three_shipmentConfig", "helperService", "toastr", "confirmation", "orderApiConfig"];
+    oneThreeShipmentOrderController.$inject = ["$rootScope", "$scope", "$state", "$q", "$location", "$timeout", "$uibModal", "APP_CONSTANT", "authService", "apiService", "appConfig", "three_shipmentConfig", "helperService", "toastr", "confirmation"];
 
-    function oneThreeShipmentOrderController($rootScope, $scope, $state, $q, $location, $timeout, $uibModal, APP_CONSTANT, authService, apiService, appConfig, three_shipmentConfig, helperService, toastr, confirmation, orderApiConfig) {
+    function oneThreeShipmentOrderController($rootScope, $scope, $state, $q, $location, $timeout, $uibModal, APP_CONSTANT, authService, apiService, appConfig, three_shipmentConfig, helperService, toastr, confirmation) {
         /* jshint validthis: true */
         var oneThreeShipmentOrderCtrl = this;
 
@@ -51,10 +51,10 @@
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": orderApiConfig.Entities.BuyerForwarderOrder.API.findall.FilterID
+                "FilterID": appConfig.Entities.PorOrderHeader.API.FindAll.FilterID
             };
 
-            apiService.post("eAxisAPI", orderApiConfig.Entities.BuyerForwarderOrder.API.findall.Url, _input).then(function (response) {
+            apiService.post("eAxisAPI", appConfig.Entities.PorOrderHeader.API.FindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     oneThreeShipmentOrderCtrl.ePage.Entities.Header.Data.UIOrderHeaders = response.data.Response;
                 }

@@ -41,11 +41,10 @@
                                 <label class="control-label">Booked </label>
                                 <div class="input-group input-group-sm">
                                     <input type="text" class="form-control" placeholder="{{oneThreeShipmentServiceAndReferenceCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
-                                        ng-model="oneThreeShipmentServiceAndReferenceCtrl.ePage.Masters.Service.FormView.Booked"
-                                        datetime-picker="{{oneThreeShipmentServiceAndReferenceCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                        ng-model="oneThreeShipmentServiceAndReferenceCtrl.ePage.Masters.Service.FormView.Booked" datetime-picker="{{oneThreeShipmentServiceAndReferenceCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
                                         datepicker-options="oneThreeShipmentServiceAndReferenceCtrl.ePage.Masters.DatePicker.Options"
-                                        datepicker-append-to-body="false" close-on-selection="false" enable-time="false"
-                                        enable-date="true" default-date="" default-time="" save-as="oneThreeShipmentServiceAndReferenceCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                                        datepicker-append-to-body="false" close-on-selection="false" enable-time="false" enable-date="true"
+                                        default-date="" default-time="" save-as="oneThreeShipmentServiceAndReferenceCtrl.ePage.Masters.DatePicker.Options.saveFormat"
                                         is-open="oneThreeShipmentServiceAndReferenceCtrl.ePage.Masters.DatePicker.isOpen['isBooked']"
                                         when-closed="" data-ng-click="" data-ng-change="" custom-date-time-format />
                                     <span class="input-group-btn">
@@ -61,8 +60,8 @@
                             <div class="form-group ship-font">
                                 <label class="control-label">Service Count</label>
                                 <div class="">
-                                    <input type="text" class="form-control input-sm" placeholder="Service Count"
-                                        max-length="5" data-ng-model="oneThreeShipmentServiceAndReferenceCtrl.ePage.Masters.Service.FormView.ServiceCount" />
+                                    <input type="text" class="form-control input-sm" placeholder="Service Count" max-length="5" data-ng-model="oneThreeShipmentServiceAndReferenceCtrl.ePage.Masters.Service.FormView.ServiceCount"
+                                    />
                                 </div>
                             </div>
                         </div>
@@ -71,8 +70,8 @@
                             <div class="form-group ship-font">
                                 <label class="control-label">Service Note</label>
                                 <div class="">
-                                    <input type="text" class="form-control input-sm" placeholder="Service Note"
-                                        max-length="-1" data-ng-model="oneThreeShipmentServiceAndReferenceCtrl.ePage.Masters.Service.FormView.ServiceNote" />
+                                    <input type="text" class="form-control input-sm" placeholder="Service Note" max-length="-1" data-ng-model="oneThreeShipmentServiceAndReferenceCtrl.ePage.Masters.Service.FormView.ServiceNote"
+                                    />
                                 </div>
                             </div>
                         </div>
@@ -81,8 +80,8 @@
                             <div class="form-group ship-font">
                                 <label class="control-label">References</label>
                                 <div class="">
-                                    <input type="text" class="form-control input-sm" placeholder="References"
-                                        max-length="70" data-ng-model="oneThreeShipmentServiceAndReferenceCtrl.ePage.Masters.Service.FormView.References" />
+                                    <input type="text" class="form-control input-sm" placeholder="References" max-length="70" data-ng-model="oneThreeShipmentServiceAndReferenceCtrl.ePage.Masters.Service.FormView.References"
+                                    />
                                 </div>
                             </div>
                         </div>
@@ -96,11 +95,11 @@
                                             ng-model="oneThreeShipmentServiceAndReferenceCtrl.ePage.Masters.Service.FormView.Duration"
                                             datetime-picker="{{oneThreeShipmentServiceAndReferenceCtrl.ePage.Masters.DatePicker.Options.timeFormat}}"
                                             datepicker-options="oneThreeShipmentServiceAndReferenceCtrl.ePage.Masters.DatePicker.Options"
-                                            datepicker-append-to-body="false" close-on-selection="false" enable-time="true"
-                                            enable-date="false" default-date="" default-time="" save-as="oneThreeShipmentServiceAndReferenceCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                                            datepicker-append-to-body="false" close-on-selection="false" enable-time="true" enable-date="false"
+                                            default-date="" default-time="" save-as="oneThreeShipmentServiceAndReferenceCtrl.ePage.Masters.DatePicker.Options.saveFormat"
                                             is-open="oneThreeShipmentServiceAndReferenceCtrl.ePage.Masters.DatePicker.isOpen['isDuration']"
                                             when-closed="" data-ng-click="oneThreeShipmentServiceAndReferenceCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isDuration')"
-                                            custom-date-time-format />
+                                            custom-date-time-format/>
                                         <span class="input-group-btn">
                                             <button type="button" class="btn btn-default shiny" data-ng-click="oneThreeShipmentServiceAndReferenceCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isDuration')">
                                                 <i class="fa fa-clock-o"></i>
@@ -117,13 +116,12 @@
                                 <div class="input-group input-group-sm">
                                     <input type="hidden" ng-model="oneThreeShipmentServiceAndReferenceCtrl.ePage.Masters.Service.FormView.ORG_Contractor_FK">
                                     <div dynamic-lookup placeholder="Contractor" my-ng-model="oneThreeShipmentServiceAndReferenceCtrl.ePage.Masters.Service.FormView.ORG_Contractor_Code"
-                                        obj="oneThreeShipmentServiceAndReferenceCtrl.ePage.Masters.Service.FormView"
-                                        page-name="'OrganizationList'" control-id="'BP_ShpServiceContractor'" control-key="BP_ShpServiceContractor_12993"></div>
+                                        obj="oneThreeShipmentServiceAndReferenceCtrl.ePage.Masters.Service.FormView" page-name="'OrganizationList'"
+                                        control-id="'ShpServiceContractor'" control-key="ShpServiceContractor_2993"></div>
                                     <span class="input-group-btn">
-                                        <button dynamic-list-modal obj="oneThreeShipmentServiceAndReferenceCtrl.ePage.Masters.Service.FormView"
-                                            control-id="'BP_ShpServiceContractor'" page-name="'OrganizationList'" mode="2"
-                                            grid-refresh-fun-name="" grid-refresh-fun="" control-key="BP_ShpServiceContractor_12993"
-                                            selected-data="oneThreeShipmentServiceAndReferenceCtrl.ePage.Masters.SelectedData($item)"
+                                        <button dynamic-list-modal obj="oneThreeShipmentServiceAndReferenceCtrl.ePage.Masters.Service.FormView" control-id="'ShpServiceContractor'"
+                                            page-name="'OrganizationList'" mode="2" grid-refresh-fun-name="" grid-refresh-fun=""
+                                            control-key="ShpServiceContractor_2993" selected-data="oneThreeShipmentServiceAndReferenceCtrl.ePage.Masters.SelectedData($item)"
                                             class="btn btn-default shiny" type="button">
                                             <i class="fa fa-ellipsis-h"></i>
                                         </button>
@@ -138,14 +136,12 @@
                                 <div class="input-group input-group-sm">
                                     <input type="hidden" ng-model="oneThreeShipmentServiceAndReferenceCtrl.ePage.Masters.Service.FormView.ORG_Location_FK">
                                     <div dynamic-lookup placeholder="Location" my-ng-model="oneThreeShipmentServiceAndReferenceCtrl.ePage.Masters.Service.FormView.ORG_Location_Code"
-                                        obj="oneThreeShipmentServiceAndReferenceCtrl.ePage.Masters.Service.FormView"
-                                        page-name="'OrganizationList'" control-id="'BP_ShpServiceLocation'" control-key="BP_ShpServiceLocation_12990"
-                                        auto-complete-on-select="oneThreeShipmentServiceAndReferenceCtrl.ePage.Masters.AutoCompleteOnSelect($item, 'Location')"></div>
+                                        obj="oneThreeShipmentServiceAndReferenceCtrl.ePage.Masters.Service.FormView" page-name="'OrganizationList'"
+                                        control-id="'ShpServiceLocation'" control-key="ShpServiceLocation_2990" auto-complete-on-select="oneThreeShipmentServiceAndReferenceCtrl.ePage.Masters.AutoCompleteOnSelect($item, 'Location')"></div>
                                     <span class="input-group-btn">
-                                        <button dynamic-list-modal obj="oneThreeShipmentServiceAndReferenceCtrl.ePage.Masters.Service.FormView"
-                                            control-id="'BP_ShpServiceLocation'" page-name="'OrganizationList'" mode="2"
-                                            grid-refresh-fun-name="" grid-refresh-fun="" control-key="BP_ShpServiceLocation_12990"
-                                            selected-data="oneThreeShipmentServiceAndReferenceCtrl.ePage.Masters.SelectedData($item)"
+                                        <button dynamic-list-modal obj="oneThreeShipmentServiceAndReferenceCtrl.ePage.Masters.Service.FormView" control-id="'ShpServiceLocation'"
+                                            page-name="'OrganizationList'" mode="2" grid-refresh-fun-name="" grid-refresh-fun=""
+                                            control-key="ShpServiceLocation_2990" selected-data="oneThreeShipmentServiceAndReferenceCtrl.ePage.Masters.SelectedData($item)"
                                             class="btn btn-default shiny" type="button" data-ng-click="oneThreeShipmentServiceAndReferenceCtrl.ePage.Masters.Service.IsClicked = 'true'">
                                             <i class="fa fa-ellipsis-h"></i>
                                         </button>
@@ -172,11 +168,10 @@
                                 <label class="control-label">Completed</label>
                                 <div class="input-group input-group-sm">
                                     <input type="text" class="form-control" placeholder="{{oneThreeShipmentServiceAndReferenceCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
-                                        ng-model="oneThreeShipmentServiceAndReferenceCtrl.ePage.Masters.Service.FormView.Completed"
-                                        datetime-picker="{{oneThreeShipmentServiceAndReferenceCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                        ng-model="oneThreeShipmentServiceAndReferenceCtrl.ePage.Masters.Service.FormView.Completed" datetime-picker="{{oneThreeShipmentServiceAndReferenceCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
                                         datepicker-options="oneThreeShipmentServiceAndReferenceCtrl.ePage.Masters.DatePicker.Options"
-                                        datepicker-append-to-body="false" close-on-selection="false" enable-time="false"
-                                        enable-date="true" default-date="" default-time="" save-as="oneThreeShipmentServiceAndReferenceCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                                        datepicker-append-to-body="false" close-on-selection="false" enable-time="false" enable-date="true"
+                                        default-date="" default-time="" save-as="oneThreeShipmentServiceAndReferenceCtrl.ePage.Masters.DatePicker.Options.saveFormat"
                                         is-open="oneThreeShipmentServiceAndReferenceCtrl.ePage.Masters.DatePicker.isOpen['isCompleted']"
                                         when-closed="" data-ng-click="" data-ng-change="" custom-date-time-format />
                                     <span class="input-group-btn">
@@ -188,8 +183,7 @@
                             </div>
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 margin-top-30">
-                            <input type="button" class="btn btn-default set-br-blue set-bg-blue-light fs-12 pull-right"
-                                data-ng-click="oneThreeShipmentServiceAndReferenceCtrl.ePage.Masters.Service.AddToGridService(oneThreeShipmentServiceAndReferenceCtrl.ePage.Masters.Service.AddNewAndUpdate)"
+                            <input type="button" class="btn btn-default set-br-blue set-bg-blue-light fs-12 pull-right" data-ng-click="oneThreeShipmentServiceAndReferenceCtrl.ePage.Masters.Service.AddToGridService(oneThreeShipmentServiceAndReferenceCtrl.ePage.Masters.Service.AddNewAndUpdate)"
                                 value="{{oneThreeShipmentServiceAndReferenceCtrl.ePage.Masters.Service.AddNewAndUpdate}}">
                         </div>
                     </div>
@@ -198,8 +192,7 @@
                 </div>
                 <!-- Service Grid -->
                 <div class="mt-5">
-                    <div id='' data-ng-if="!oneThreeShipmentServiceAndReferenceCtrl.ePage.Masters.Service.IsFormView"
-                        class="common_table_scroll common_table_hgt pt-2">
+                    <div id='' data-ng-if="!oneThreeShipmentServiceAndReferenceCtrl.ePage.Masters.Service.IsFormView" class="Shipmentstable_scroll service-hgt">
                         <div class="table tab-position" id="results">
                             <div class='theader'>
                                 <div class='table_header'>Service Code</div>
@@ -211,8 +204,7 @@
                             </div>
                             <!-- List Empty Response -->
 
-                            <div class='table_row' data-ng-repeat="x in oneThreeShipmentServiceAndReferenceCtrl.ePage.Masters.Service.GridData"
-                                data-ng-if="oneThreeShipmentServiceAndReferenceCtrl.ePage.Masters.Service.GridData && oneThreeShipmentServiceAndReferenceCtrl.ePage.Masters.Service.GridData.length > 0"
+                            <div class='table_row' data-ng-repeat="x in oneThreeShipmentServiceAndReferenceCtrl.ePage.Masters.Service.GridData" data-ng-if="oneThreeShipmentServiceAndReferenceCtrl.ePage.Masters.Service.GridData && oneThreeShipmentServiceAndReferenceCtrl.ePage.Masters.Service.GridData.length > 0"
                                 style="font-size: 11px;">
                                 <div class='table_small'>
                                     <div class='table_cell'>Service Code</div>
@@ -261,8 +253,7 @@
                             <i class="fa fa-spin fa-spinner font-160"></i>
                         </div>
                         <div>
-                            <div class="grid-no-record-common_table" data-ng-if="oneThreeShipmentServiceAndReferenceCtrl.ePage.Masters.Service.GridData.length==0">No
-                                records found...</div>
+                            <div class="grid-no-record-border-box text-center p-30" data-ng-if="oneThreeShipmentServiceAndReferenceCtrl.ePage.Masters.Service.GridData.length==0">No records found...</div>
                         </div>
                     </div>
                 </div>
@@ -340,8 +331,8 @@
                                         ng-model="oneThreeShipmentServiceAndReferenceCtrl.ePage.Masters.Reference.FormView.IssueDate"
                                         datetime-picker="{{oneThreeShipmentServiceAndReferenceCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
                                         datepicker-options="oneThreeShipmentServiceAndReferenceCtrl.ePage.Masters.DatePicker.Options"
-                                        datepicker-append-to-body="false" close-on-selection="false" enable-time="false"
-                                        enable-date="true" default-date="" default-time="" save-as="oneThreeShipmentServiceAndReferenceCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                                        datepicker-append-to-body="false" close-on-selection="false" enable-time="false" enable-date="true"
+                                        default-date="" default-time="" save-as="oneThreeShipmentServiceAndReferenceCtrl.ePage.Masters.DatePicker.Options.saveFormat"
                                         is-open="oneThreeShipmentServiceAndReferenceCtrl.ePage.Masters.DatePicker.isOpen['isIssueDate']"
                                         when-closed="" data-ng-click="" data-ng-change="" custom-date-time-format />
                                     <span class="input-group-btn">
@@ -355,16 +346,14 @@
                     </div>
                     <div class="clearfix">
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                            <input type="button" class="btn btn-default set-br-blue set-bg-blue-light fs-12 pull-right"
-                                data-ng-click="oneThreeShipmentServiceAndReferenceCtrl.ePage.Masters.Reference.AddToGridReference()"
+                            <input type="button" class="btn btn-default set-br-blue set-bg-blue-light fs-12 pull-right" data-ng-click="oneThreeShipmentServiceAndReferenceCtrl.ePage.Masters.Reference.AddToGridReference()"
                                 value="{{oneThreeShipmentServiceAndReferenceCtrl.ePage.Masters.Reference.AddNewAndUpdate}}">
                         </div>
                     </div>
                 </div>
                 <!-- Reference Grid -->
                 <div class="mt-5">
-                    <div id='' data-ng-if="!oneThreeShipmentServiceAndReferenceCtrl.ePage.Masters.Reference.IsFormView"
-                        class="common_table_scroll common_table_hgt pt-2">
+                    <div id='' data-ng-if="!oneThreeShipmentServiceAndReferenceCtrl.ePage.Masters.Reference.IsFormView" class="Shipmentstable_scroll reference-hgt">
                         <div class="table tab-position" id="results">
                             <div class='theader'>
                                 <div class='table_header'>Number</div>
@@ -373,8 +362,7 @@
                             </div>
                             <!-- List Empty Response -->
 
-                            <div class='table_row' data-ng-repeat="x in oneThreeShipmentServiceAndReferenceCtrl.ePage.Masters.Reference.GridData"
-                                data-ng-if="oneThreeShipmentServiceAndReferenceCtrl.ePage.Masters.Reference.GridData && oneThreeShipmentServiceAndReferenceCtrl.ePage.Masters.Reference.GridData.length > 0"
+                            <div class='table_row' data-ng-repeat="x in oneThreeShipmentServiceAndReferenceCtrl.ePage.Masters.Reference.GridData" data-ng-if="oneThreeShipmentServiceAndReferenceCtrl.ePage.Masters.Reference.GridData && oneThreeShipmentServiceAndReferenceCtrl.ePage.Masters.Reference.GridData.length > 0"
                                 style="font-size: 11px;">
                                 <div class='table_small'>
                                     <div class='table_cell'>Number</div>
@@ -407,8 +395,7 @@
                             <i class="fa fa-spin fa-spinner font-160"></i>
                         </div>
                         <div>
-                            <div class="grid-no-record-common_table" data-ng-if="oneThreeShipmentServiceAndReferenceCtrl.ePage.Masters.Reference.GridData.length==0">No
-                                records found...</div>
+                            <div class="grid-no-record-border-box text-center p-30" data-ng-if="oneThreeShipmentServiceAndReferenceCtrl.ePage.Masters.Reference.GridData.length==0">No records found...</div>
                         </div>
                     </div>
                 </div>

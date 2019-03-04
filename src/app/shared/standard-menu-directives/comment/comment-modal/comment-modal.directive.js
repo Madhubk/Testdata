@@ -8,7 +8,7 @@
     CommentModal.$inject = ["$uibModal", "$templateCache"];
 
     function CommentModal($uibModal, $templateCache) {
-        var _template = `<div class="modal-header">
+        let _template = `<div class="modal-header">
             <button type="button" class="close" ng-click="CommentModalCtrl.ePage.Masters.Close()">&times;</button>
             <h5 class="modal-title" id="modal-title">
                 <strong>Comment</strong>
@@ -19,7 +19,7 @@
         </div>`;
         $templateCache.put("CommentModal.html", _template);
 
-        var exports = {
+        let exports = {
             restrict: "EA",
             scope: {
                 input: "=",
@@ -37,7 +37,7 @@
             ele.on("click", OpenModal);
 
             function OpenModal() {
-                var modalInstance = $uibModal.open({
+                $uibModal.open({
                     animation: true,
                     backdrop: "static",
                     keyboard: true,
@@ -48,24 +48,47 @@
                     bindToController: true,
                     resolve: {
                         param: function () {
-                            var exports = {
+                            let exports = {
                                 input: scope.input
                             };
                             return exports;
                         }
                     }
-                }).result.then(function (response) {
-                    console.log(response);
-                    scope.onCloseModal({
-                        $item: "comment"
-                    });
-                }, function () {
-                    scope.onCloseModal({
-                        $item: "comment"
-                    });
-                    console.log("Cancelled");
-                });
+                }).result.then(() => scope.onCloseModal({
+                    $item: "comment"
+                }), () => scope.onCloseModal({
+                    $item: "comment"
+                }));
             }
         }
+    }
+
+    angular
+        .module("Application")
+        .controller("CommentModalController", CommentModalController);
+
+    CommentModalController.$inject = ["$uibModalInstance", "helperService", "param"];
+
+    function CommentModalController($uibModalInstance, helperService, param) {
+        /* jshint validthis: true */
+        let CommentModalCtrl = this;
+
+        function Init() {
+            CommentModalCtrl.ePage = {
+                "Title": "",
+                "Prefix": "CommentModal",
+                "Masters": {},
+                "Meta": helperService.metaBase(),
+                "Entities": param.obj
+            };
+
+            CommentModalCtrl.ePage.Masters.Close = Close;
+        }
+
+        function Close() {
+            $uibModalInstance.dismiss('cancel');
+        }
+
+        Init();
     }
 })();

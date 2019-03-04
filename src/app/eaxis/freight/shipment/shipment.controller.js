@@ -78,7 +78,17 @@
             ShipmentCtrl.ePage.Masters.IsDisableSave = false;
             ShipmentCtrl.ePage.Masters.ActionClose = ActionClose;
 
+            ShipmentCtrl.ePage.Masters.ValidateFilterInput = ValidateFilterInput;
         }
+
+        function ValidateFilterInput($item){
+            var _response = {
+                ErrorWarningList: [],
+                IsValidationSuccess: true
+            };
+            $scope.$broadcast('validateFilterResponse', _response)
+        }
+        
         function ShipmentSelection(mode) {
             ShipmentCtrl.ePage.Masters.dataentryName = 'ShipmentSearch';
             switch (mode) {

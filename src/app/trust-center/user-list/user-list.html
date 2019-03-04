@@ -14,8 +14,7 @@
             </div>
         </div>
         <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-xs-12 p-4">
-            <tc-application-dropdown query-string="TCUserListCtrl.ePage.Masters.QueryString"
-                on-application-change="TCUserListCtrl.ePage.Masters.Application.OnApplicationChange($item)"></tc-application-dropdown>
+            <tc-application-dropdown query-string="TCUserListCtrl.ePage.Masters.QueryString" on-application-change="TCUserListCtrl.ePage.Masters.Application.OnApplicationChange($item)"></tc-application-dropdown>
         </div>
     </div>
     <!-- Alphabetic Sort -->
@@ -39,25 +38,26 @@
     <!-- Body -->
     <div class="clearfix">
         <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 p-0">
-            <div class="tc-list-search input-group input-group-sm">
+            <form class="tc-list-search input-group input-group-sm">
                 <input type="text" class="form-control input-sm" placeholder="Search..." data-ng-model="TCUserListCtrl.ePage.Masters.Search">
                 <div class="input-group-btn">
-                    <button class="btn btn-default" data-ng-click="TCUserListCtrl.ePage.Masters.UserList.Search()">
+                    <button type="submit" class="btn btn-default" data-ng-click="TCUserListCtrl.ePage.Masters.UserList.Search()"
+                        data-ng-disabled="!TCUserListCtrl.ePage.Masters.Search">
                         <i class="glyphicon glyphicon-search"></i>
                     </button>
                 </div>
-            </div>
+            </form>
             <div class="tc-list-container tc-page-height-fixed with-alphabetic-sort left">
                 <ul class="tc-list-ul">
                     <div class="p-15 text-center tc-loading" data-ng-if="!TCUserListCtrl.ePage.Masters.UserList.ListSource">
                         <i class="fa fa-spin fa-spinner"></i>
                     </div>
-                    <div data-ng-if="TCUserListCtrl.ePage.Masters.UserList.ListSource && (TCUserListCtrl.ePage.Masters.UserList.ListSource | filter: TCUserListCtrl.ePage.Masters.Search).length===0"
+                    <div data-ng-if="TCUserListCtrl.ePage.Masters.UserList.ListSource && (TCUserListCtrl.ePage.Masters.UserList.ListSource | fieldFilter: ['DisplayName', 'Email', 'EmailId', 'FirstName', 'MobileNo', 'UserName']: TCUserListCtrl.ePage.Masters.Search).length===0"
                         class="p-15 text-center">
                         <i>No Records...</i>
                     </div>
-                    <li data-ng-if="TCUserListCtrl.ePage.Masters.UserList.ListSource && (TCUserListCtrl.ePage.Masters.UserList.ListSource | filter: TCUserListCtrl.ePage.Masters.Search).length > 0"
-                        data-ng-repeat="x in TCUserListCtrl.ePage.Masters.UserList.ListSource | filter: TCUserListCtrl.ePage.Masters.Search"
+                    <li data-ng-if="TCUserListCtrl.ePage.Masters.UserList.ListSource && (TCUserListCtrl.ePage.Masters.UserList.ListSource | fieldFilter: ['DisplayName', 'Email', 'EmailId', 'FirstName', 'MobileNo', 'UserName']: TCUserListCtrl.ePage.Masters.Search).length > 0"
+                        data-ng-repeat="x in TCUserListCtrl.ePage.Masters.UserList.ListSource | fieldFilter: ['DisplayName', 'Email', 'EmailId', 'FirstName', 'MobileNo', 'UserName']: TCUserListCtrl.ePage.Masters.Search"
                         data-ng-click="TCUserListCtrl.ePage.Masters.UserList.ActiveUserList.Id != x.Id && TCUserListCtrl.ePage.Masters.UserList.OnUserListClick(x)"
                         data-ng-class="{'active': TCUserListCtrl.ePage.Masters.UserList.ActiveUserList.Id == x.Id}">
                         <div class="clearfix tc-list">
@@ -87,7 +87,8 @@
             <div class="tc-list-container tc-list-container-inner-redirect clearfix" data-ng-if="TCUserListCtrl.ePage.Masters.UserList.ActiveUserList.Id">
                 <ul class="tc-list-ul">
                     <li>
-                        <a href="javascript:void(0);" data-ng-click="TCUserListCtrl.ePage.Masters.UserList.RePublishUser(TCUserListCtrl.ePage.Masters.UserList.ActiveUserList)">Publish User Changes</a>
+                        <a href="javascript:void(0);" data-ng-click="TCUserListCtrl.ePage.Masters.UserList.RePublishUser(TCUserListCtrl.ePage.Masters.UserList.ActiveUserList)">Publish
+                            User Changes</a>
                     </li>
                 </ul>
             </div>

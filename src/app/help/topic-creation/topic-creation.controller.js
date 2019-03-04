@@ -63,7 +63,7 @@
                         if (event.dest.nodesScope.$nodeScope) {
                             var _parent = event.dest.nodesScope.$nodeScope.$modelValue;
                         }
-                       // SaveAndUpdateTopicAPICall(_input).then(function(response){
+                        // SaveAndUpdateTopicAPICall(_input).then(function(response){
 
                         // });
 
@@ -136,6 +136,10 @@
         function GetTopicList() {
             HelpTopicCreationCtrl.ePage.Masters.HelpTopic.ListSource = undefined;
             var _filter = {
+                "SortColumn": "TOP_DisplayOrder",
+                "SortType": "ASC",
+                "PageNumber": 1,
+                "PageSize": 1000,
                 "Self_FK": "NULL"
             };
             var _input = {
@@ -417,15 +421,15 @@
             window.open("#/help/content-creation?topic=" + helperService.encryptData(_obj), '_blank');
         }
 
-        function SaveAndUpdateTopicAPICall(input){
-            if(input.PK) {
+        function SaveAndUpdateTopicAPICall(input) {
+            if (input.PK) {
                 UpdateTopicAPICall(input);
-            }else {
+            } else {
                 InsertTopicAPICall(input);
             }
         }
 
-        function InsertTopicAPICall(input){
+        function InsertTopicAPICall(input) {
             var deferred = $q.defer();
             var _input = angular.copy(input);
 

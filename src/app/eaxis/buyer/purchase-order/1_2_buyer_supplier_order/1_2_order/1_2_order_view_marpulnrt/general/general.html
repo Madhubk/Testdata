@@ -24,12 +24,12 @@
                     <img src="assets/img/ExportGray.png">
                 </div>
                 <div class="col-lg-9">
-                    <div class="">
-                        <b>{{one_two_ReadOnlyGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Supplier.ConsignorName}}</b>
+                    <div class="mt-5">
+                        <b>{{one_two_ReadOnlyGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Supplier.SupplierName}}</b>
                     </div>
                     <div class="mt-5">{{one_two_ReadOnlyGeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRA.Address1}}</div>
-                    <div class="">{{one_two_ReadOnlyGeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRA.Address2}}</div>
-                    <div class="mt-2">Origin
+                    <!-- <div class="mt-5">{{one_two_ReadOnlyGeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRA.Address2}}</div> -->
+                    <div class="mt-5">Origin
                         <b class="ml-20">{{one_two_ReadOnlyGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Supplier.GoodsAvailableAt}}</b>
                     </div>
                 </div>
@@ -46,12 +46,12 @@
                     <img src="assets/img/ImportGray.png">
                 </div>
                 <div class="col-lg-9">
-                    <div class="">
-                        <b>{{one_two_ReadOnlyGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Supplier.ConsigneeName}}</b>
+                    <div class="mt-5">
+                        <b>{{one_two_ReadOnlyGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Supplier.BuyerName}}</b>
                     </div>
                     <div class="mt-5">{{one_two_ReadOnlyGeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.SCP.Address1}}</div>
-                    <div class="">{{one_two_ReadOnlyGeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.SCP.Address2}}</div>
-                    <div class="mt-2">Destination
+                    <!-- <div class="mt-5">{{one_two_ReadOnlyGeneralCtrl.ePage.Entities.Header.Data.UIAddressContactList.SCP.Address2}}</div> -->
+                    <div class="mt-5">Destination
                         <b class="ml-20">{{one_two_ReadOnlyGeneralCtrl.ePage.Entities.Header.Data.UIOrder_Buyer_Supplier.GoodsDeliveredTo}}</b>
                     </div>
                 </div>
@@ -68,7 +68,7 @@
                     <i class="fa fa-file-o margin-right-5"></i>
                     <span class="text-single-line" data-ng-bind="'General'"></span>
                 </uib-tab-heading>
-                <div data-ng-include="'app/eaxis/buyer/purchase-order/1_2_buyer_supplier_order/1_2_order/1_2_order_view_marpulnrt/general/details.html'"></div>
+                <div data-ng-include="'app/eaxis/buyer/purchase-order/shared/ord-buyer-read-only/ord-buyer-view/general/details.html'"></div>
             </uib-tab>
             <!--Additional Info-->
             <uib-tab>
@@ -76,7 +76,7 @@
                     <i class="fa fa-external-link margin-right-5"></i>
                     <span class="text-single-line" data-ng-bind="'Additional Info'"></span>
                 </uib-tab-heading>
-                <div data-ng-include="'app/eaxis/buyer/purchase-order/1_2_buyer_supplier_order/1_2_order/1_2_order_view_marpulnrt/general/custom.html'"></div>
+                <div data-ng-include="'app/eaxis/buyer/purchase-order/shared/ord-buyer-read-only/ord-buyer-view/general/custom.html'"></div>
             </uib-tab>
         </uib-tabset>
     </div>

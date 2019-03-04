@@ -8,7 +8,7 @@
     EventModal.$inject = ["$uibModal", "$templateCache"];
 
     function EventModal($uibModal, $templateCache) {
-        var _template = `<div class="modal-header">
+        let _template = `<div class="modal-header">
             <button type="button" class="close" ng-click="EventModalCtrl.ePage.Masters.Close()">&times;</button>
             <h5 class="modal-title" id="modal-title">
                 <strong>Event</strong>
@@ -19,7 +19,7 @@
         </div>`;
         $templateCache.put("EventModal.html", _template);
 
-        var exports = {
+        let exports = {
             restrict: "EA",
             scope: {
                 input: "=",
@@ -33,7 +33,7 @@
             ele.on("click", OpenModal);
 
             function OpenModal() {
-                var modalInstance = $uibModal.open({
+                $uibModal.open({
                     animation: true,
                     // backdrop: "static",
                     keyboard: true,
@@ -44,24 +44,51 @@
                     bindToController: true,
                     resolve: {
                         param: function () {
-                            var exports = {
+                            let exports = {
                                 input: scope.input
                             };
                             return exports;
                         }
                     }
                 }).result.then(function (response) {
-                    console.log(response);
                     scope.onCloseModal({
                         $item: "event"
                     });
                 }, function () {
-                    console.log("Cancelled");
                     scope.onCloseModal({
                         $item: "event"
                     });
                 });
             }
         }
+    }
+
+    angular
+        .module("Application")
+        .controller("EventModalController", EventModalController);
+
+    EventModalController.$inject = ["$uibModalInstance", "helperService", "param"];
+
+    function EventModalController($uibModalInstance, helperService, param) {
+        /* jshint validthis: true */
+        let EventModalCtrl = this;
+
+        function Init() {
+            EventModalCtrl.ePage = {
+                "Title": "",
+                "Prefix": "EventModal",
+                "Masters": {},
+                "Meta": helperService.metaBase(),
+                "Entities": param.obj
+            };
+
+            EventModalCtrl.ePage.Masters.Close = Close;
+        }
+
+        function Close() {
+            $uibModalInstance.dismiss('cancel');
+        }
+
+        Init();
     }
 })();

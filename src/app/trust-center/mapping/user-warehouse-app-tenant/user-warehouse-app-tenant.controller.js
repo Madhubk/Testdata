@@ -188,6 +188,9 @@
                     TCUserWarehouseAppTenantCtrl.ePage.Masters.UserWarehouseAppTenant.UserWarehouseAppTenantList = response.data.Response;
                     TCUserWarehouseAppTenantCtrl.ePage.Masters.UserWarehouseAppTenant.UserWarehouseAppTenantListCopy = angular.copy(response.data.Response);
 
+                    TCUserWarehouseAppTenantCtrl.ePage.Masters.UserWarehouseAppTenant.UserWarehouseAppTenantList.map(function(value,key){
+                        SetGenerateScriptInput(value)
+                    })
                 } else {
                     TCUserWarehouseAppTenantCtrl.ePage.Masters.UserWarehouseAppTenant.UserWarehouseAppTenantList = [];
                     console.log("Empty Response");
@@ -289,6 +292,20 @@
             TCUserWarehouseAppTenantCtrl.ePage.Masters.UserWarehouseAppTenant.UserWarehouseAppTenantList.push(_obj);
         }
 
+        function SetGenerateScriptInput(row) {
+            if (row) {
+                row.GenerateScriptInput = {
+                    ObjectName: "SECMAPPINGS",
+                    ObjectId: row.PK
+                };
+                row.GenerateScriptConfig = {
+                    IsEnableTable: false,
+                    IsEnablePK: false,
+                    IsEnableTenant: false
+                };
+            }
+        }
+
         function Save(row) {
             if (row.PK) {
                 UpdateUserWarehouseAppTenant(row);
@@ -325,12 +342,17 @@
                     if (response.data.Response.length > 0) {
                         var _response = response.data.Response[0];
 
+                        if(!TCUserWarehouseAppTenantCtrl.ePage.Masters.UserWarehouseAppTenant.UserWarehouseAppTenantList){
+                            TCUserWarehouseAppTenantCtrl.ePage.Masters.UserWarehouseAppTenant.UserWarehouseAppTenantList = [];
+                        }
                         var _index = TCUserWarehouseAppTenantCtrl.ePage.Masters.UserWarehouseAppTenant.UserWarehouseAppTenantList.map(function (value, key) {
                             return value.PK;
                         }).indexOf(_response.PK);
 
+                        TCUserWarehouseAppTenantCtrl.ePage.Masters.UserWarehouseAppTenant.UserWarehouseAppTenantList.push(_response);
+
                         if (_index === -1) {
-                            TCUserWarehouseAppTenantCtrl.ePage.Masters.UserWarehouseAppTenant.UserWarehouseAppTenantList.push(_response);
+                            SetGenerateScriptInput(TCUserWarehouseAppTenantCtrl.ePage.Masters.UserWarehouseAppTenant.UserWarehouseAppTenantList[0]);
                         } else {
                             TCUserWarehouseAppTenantCtrl.ePage.Masters.UserWarehouseAppTenant.UserWarehouseAppTenantList[_index] = _response;
                         }

@@ -30,13 +30,14 @@
                 if (TenantUserSettingCtrl.ePage.Masters.QueryString.AppPk) {
                     InitBreadcrumb();
                     InitApplication();
+                    InitTenantUserSetting();
                 }
             } catch (error) {
                 console.log(error)
             }
         }
 
-        // region Breadcrumb
+        // #region Breadcrumb
         function InitBreadcrumb() {
             TenantUserSettingCtrl.ePage.Masters.Breadcrumb = {};
             TenantUserSettingCtrl.ePage.Masters.Breadcrumb.OnBreadcrumbClick = OnBreadcrumbClick;
@@ -94,9 +95,9 @@
                 $location.path($item.Link + "/" + helperService.encryptData($item.QueryStringObj));
             }
         }
-        // endregion
+        // #endregion
 
-        // region Application
+        // #region Application
         function InitApplication() {
             TenantUserSettingCtrl.ePage.Masters.Application = {};
             TenantUserSettingCtrl.ePage.Masters.Application.OnApplicationChange = OnApplicationChange;
@@ -113,11 +114,11 @@
                 };
             }
 
-            InitTenantUserSetting();
+            GetTenantUserSetting();
         }
-        // endregion
+        // #endregion
 
-        // region Tenant User Settings
+        // #region Tenant User Settings
         function InitTenantUserSetting() {
             TenantUserSettingCtrl.ePage.Masters.SaveTenantUserSettings = ValidateTenantUserSettings;
 
@@ -130,7 +131,6 @@
             TenantUserSettingCtrl.ePage.Masters.SaveBtnTxt = "Save";
             TenantUserSettingCtrl.ePage.Masters.IsDisabledSaveBtn = false;
 
-            GetTenantUserSetting();
             GetDefaultMenuList();
             GetDepartmentList();
             GetCountryList();
@@ -153,6 +153,8 @@
                     if (response.data.Response.length > 0) {
                         TenantUserSettingCtrl.ePage.Masters.TenantUserSetting = angular.copy(response.data.Response[0]);
                         TenantUserSettingCtrl.ePage.Masters.TenantUserSettingCopy = angular.copy(response.data.Response[0]);
+
+                        SetGenerateScriptInput();
                     } else {
                         TenantUserSettingCtrl.ePage.Masters.TenantUserSetting = {};
                     }
@@ -172,7 +174,7 @@
             }, {
                 "Code": "Grid",
                 "Name": "Grid"
-            }]
+            }];
         }
 
         function GetCompanyList() {
@@ -416,14 +418,20 @@
             // } else {
             //     toastr.warning("Fill All the Fields...!");
             // }
-
-            SaveTenantUserSettings();
+            if (TenantUserSettingCtrl.ePage.Masters.TenantUserSetting) {
+                SaveTenantUserSettings();
+            }
         }
 
         function SaveTenantUserSettings() {
-            TenantUserSettingCtrl.ePage.Masters.SaveBtnTxt = "Please Wait...";
-            TenantUserSettingCtrl.ePage.Masters.IsDisabledSaveBtn = true;
+            if (TenantUserSettingCtrl.ePage.Masters.TenantUserSetting.PK) {
+                UpdateTenantUserSetting();
+            } else {
+                InsertTenantUserSetting();
+            }
+        }
 
+        function InsertTenantUserSetting() {
             var _input = angular.copy(TenantUserSettingCtrl.ePage.Masters.TenantUserSetting);
             _input.User_FK = TenantUserSettingCtrl.ePage.Masters.QueryString.UserPK;
             _input.SAP_FK = TenantUserSettingCtrl.ePage.Masters.Application.ActiveApplication.PK;
@@ -436,33 +444,54 @@
             // _input.Role_Code = TenantUserSettingCtrl.ePage.Masters.ActiveRole.Code;
             _input.IsModified = true;
 
-            if (_input.PK) {
-                apiService.post("authAPI", trustCenterConfig.Entities.API.TenantUserSettings.API.Update.Url, _input).then(function (response) {
-                    if (response.data.Response) {
-                        TenantUserSettingCtrl.ePage.Masters.TenantUserSetting = response.data.Response;
-                    } else {
-                        toastr.error("Could not Update...!");
-                    }
+            apiService.post("authAPI", trustCenterConfig.Entities.API.TenantUserSettings.API.Insert.Url, [_input]).then(function (response) {
+                if (response.data.Response) {
+                    if (response.data.Response.length > 0) {
+                        var _response = response.data.Response[0];
+                        TenantUserSettingCtrl.ePage.Masters.TenantUserSetting = _response;
 
-                    TenantUserSettingCtrl.ePage.Masters.SaveBtnTxt = "Save";
-                    TenantUserSettingCtrl.ePage.Masters.IsDisabledSaveBtn = false;
-                });
-            } else {
-                apiService.post("authAPI", trustCenterConfig.Entities.API.TenantUserSettings.API.Insert.Url, [_input]).then(function (response) {
-                    if (response.data.Response) {
-                        if (response.data.Response.length > 0) {
-                            TenantUserSettingCtrl.ePage.Masters.TenantUserSetting = response.data.Response[0];
-                        }
-                    } else {
-                        toastr.error("Could not Insert...!");
+                        SetGenerateScriptInput();
                     }
+                } else {
+                    toastr.error("Could not Insert...!");
+                }
 
-                    TenantUserSettingCtrl.ePage.Masters.SaveBtnTxt = "Save";
-                    TenantUserSettingCtrl.ePage.Masters.IsDisabledSaveBtn = false;
-                });
+                TenantUserSettingCtrl.ePage.Masters.SaveBtnTxt = "Save";
+                TenantUserSettingCtrl.ePage.Masters.IsDisabledSaveBtn = false;
+            });
+        }
+
+        function UpdateTenantUserSetting() {
+            var _input = angular.copy(TenantUserSettingCtrl.ePage.Masters.TenantUserSetting);
+            _input.IsModified = true;
+
+            apiService.post("authAPI", trustCenterConfig.Entities.API.TenantUserSettings.API.Update.Url, _input).then(function (response) {
+                if (response.data.Response) {
+                    TenantUserSettingCtrl.ePage.Masters.TenantUserSetting = response.data.Response;
+                } else {
+                    toastr.error("Could not Update...!");
+                }
+
+                TenantUserSettingCtrl.ePage.Masters.SaveBtnTxt = "Save";
+                TenantUserSettingCtrl.ePage.Masters.IsDisabledSaveBtn = false;
+            });
+        }
+
+        // #endregion
+
+        function SetGenerateScriptInput() {
+            if (TenantUserSettingCtrl.ePage.Masters.TenantUserSetting) {
+                TenantUserSettingCtrl.ePage.Masters.TenantUserSetting.GenerateScriptInput = {
+                    ObjectName: "TenantUserSettings",
+                    ObjectId: TenantUserSettingCtrl.ePage.Masters.TenantUserSetting.PK
+                };
+                TenantUserSettingCtrl.ePage.Masters.TenantUserSetting.GenerateScriptConfig = {
+                    IsEnableTable: false,
+                    IsEnablePK: false,
+                    IsEnableTenant: false
+                };
             }
         }
-        // endregion
 
         Init();
     }

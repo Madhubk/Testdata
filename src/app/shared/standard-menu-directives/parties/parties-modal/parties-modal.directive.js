@@ -8,7 +8,7 @@
     PartiesModal.$inject = ["$uibModal", "$templateCache"];
 
     function PartiesModal($uibModal, $templateCache) {
-        var _template = `<div class="modal-header">
+        let _template = `<div class="modal-header">
             <button type="button" class="close" ng-click="PartiesModalCtrl.ePage.Masters.Close()">&times;</button>
             <h5 class="modal-title" id="modal-title">
                 <strong>Parties</strong>
@@ -19,7 +19,7 @@
         </div>`;
         $templateCache.put("PartiesModal.html", _template);
 
-        var exports = {
+        let exports = {
             restrict: "EA",
             scope: {
                 input: "=",
@@ -34,7 +34,7 @@
             ele.on("click", OpenModal);
 
             function OpenModal() {
-                var modalInstance = $uibModal.open({
+                $uibModal.open({
                     animation: true,
                     backdrop: "static",
                     keyboard: true,
@@ -45,18 +45,43 @@
                     bindToController: true,
                     resolve: {
                         param: function () {
-                            var exports = {
+                            let exports = {
                                 input: scope.input
                             };
                             return exports;
                         }
                     }
-                }).result.then(function (response) {
-                    console.log(response);
-                }, function () {
-                    console.log("Cancelled");
-                });
+                }).result.then(response => {}, () => {});
             }
         }
+    }
+
+    angular
+        .module("Application")
+        .controller("PartiesModalController", PartiesModalController);
+
+    PartiesModalController.$inject = ["$uibModalInstance", "helperService", "param"];
+
+    function PartiesModalController($uibModalInstance, helperService, param) {
+        /* jshint validthis: true */
+        let PartiesModalCtrl = this;
+
+        function Init() {
+            PartiesModalCtrl.ePage = {
+                "Title": "",
+                "Prefix": "PartiesModal",
+                "Masters": {},
+                "Meta": helperService.metaBase(),
+                "Entities": param.obj
+            };
+
+            PartiesModalCtrl.ePage.Masters.Close = Close;
+        }
+
+        function Close() {
+            $uibModalInstance.dismiss('cancel');
+        }
+
+        Init();
     }
 })();

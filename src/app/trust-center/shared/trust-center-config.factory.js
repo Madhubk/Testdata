@@ -108,6 +108,21 @@
                                 "IsAPI": "true",
                                 "HttpType": "POST",
                                 "Url": "MenuGroups/Upsert"
+                            },
+                            "Insert": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "MenuGroups/Insert"
+                            },
+                            "Update": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "MenuGroups/Update"
+                            },
+                            "Delete": {
+                                "IsAPI": "true",
+                                "HttpType": "GET",
+                                "Url": "MenuGroups/Delete/"
                             }
                         }
                     },
@@ -129,6 +144,17 @@
                                 "IsAPI": "true",
                                 "HttpType": "POST",
                                 "Url": "UserExtended/Update"
+                            }
+                        }
+                    },
+                    "UserTenantList": {
+                        "RowIndex": -1,
+                        "API": {
+                            "FindAll": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "UserTenantList/FindAll",
+                                "FilterID": "USEREXT"
                             }
                         }
                     },
@@ -667,6 +693,12 @@
                                 "IsAPI": "true",
                                 "HttpType": "POST",
                                 "Url": "DataEntryMaster/Upsert"
+                            },
+                            "FindAllColumn": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "DataEntryMaster/FindAllColumn",
+                                "FilterID": "DYNDAT"
                             }
                         }
                     },
@@ -1575,6 +1607,32 @@
                             }
                         }
                     },
+                    "UserOrganisationRole": {
+                        "RowIndex": -1,
+                        "API": {
+                            "FindAll": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "UserOrganisationRole/FindAll",
+                                "FilterID": "SECMAPP"
+                            },
+                            "Insert": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "UserOrganisationRole/Insert"
+                            },
+                            "Update": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "UserOrganisationRole/Update"
+                            },
+                            "Delete": {
+                                "IsAPI": "true",
+                                "HttpType": "GET",
+                                "Url": "UserOrganisationRole/Delete/"
+                            }
+                        }
+                    },
                     "ComponentRole": {
                         "RowIndex": -1,
                         "API": {
@@ -1713,6 +1771,32 @@
                                 "IsAPI": "true",
                                 "HttpType": "GET",
                                 "Url": "FilterRoleApplicationTenant/Delete/"
+                            }
+                        }
+                    },
+                    "HomeMenuRole": {
+                        "RowIndex": -1,
+                        "API": {
+                            "FindAll": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "HomeMenuRole/FindAll",
+                                "FilterID": "SECMAPP"
+                            },
+                            "Insert": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "HomeMenuRole/Insert"
+                            },
+                            "Update": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "HomeMenuRole/Update"
+                            },
+                            "Delete": {
+                                "IsAPI": "true",
+                                "HttpType": "GET",
+                                "Url": "HomeMenuRole/Delete/"
                             }
                         }
                     }

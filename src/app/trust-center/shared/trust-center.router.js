@@ -1292,6 +1292,30 @@
                     }]
                 }
             })
+            .state('TC.userOrganizationRoleAppTenant', {
+                url: '/user-organization-role-app-tenant/:id',
+                templateUrl: 'app/trust-center/mapping/user-organization-role-app-tenant/user-organization-role-app-tenant.html',
+                controller: "TCUserOrganizationRoleAppTenantController as TCUserOrganizationRoleAppTenantCtrl",
+                ncyBreadcrumb: {
+                    label: 'User Organization Role App Tenant Access'
+                },
+                resolve: {
+                    CheckAccess: ["$q", "pageAccessService", function ($q, pageAccessService) {
+                        var deferred = $q.defer();
+                        pageAccessService.CheckPageAccess("TC/user-organization-role-app-tenant").then(function (response) {
+                            if (response == true) {
+                                deferred.resolve();
+                            }
+                        });
+
+                        deferred.resolve();
+                        return deferred.promise;
+                    }],
+                    LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
+                        return $ocLazyLoad.load(["TCUserOrganizationRoleAppTenant"]);
+                    }]
+                }
+            })
             .state('TC.compRoleAppTenant', {
                 url: '/comp-role-app-tenant/:id',
                 templateUrl: 'app/trust-center/mapping/comp-role-app-tenant/comp-role-app-tenant.html',

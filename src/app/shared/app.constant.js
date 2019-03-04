@@ -53,9 +53,7 @@
             }, {
                 name: 'changePassword',
                 files: [
-                    'app/shared/change-password/change-password.css',
-                    'app/shared/change-password/change-password.directive.js',
-                    'app/shared/change-password/change-password.controller.js'
+                    'app/shared/change-password/change-password.directive.js'
                 ]
             }, {
                 name: 'confirmation',
@@ -74,8 +72,7 @@
                 name: 'oneLevelMapping',
                 files: [
                     'app/shared/one-level-mapping/one-level-mapping.css',
-                    'app/shared/one-level-mapping/one-level-mapping.directive.js',
-                    'app/shared/one-level-mapping/one-level-mapping.controller.js'
+                    'app/shared/one-level-mapping/one-level-mapping.directive.js'
                 ]
             }, {
                 name: 'IconColorList',
@@ -91,22 +88,19 @@
                 name: 'navBar',
                 files: [
                     'app/shared/nav-bar/nav-bar.css',
-                    'app/shared/nav-bar/nav-bar.directive.js',
-                    'app/shared/nav-bar/nav-bar.controller.js'
+                    'app/shared/nav-bar/nav-bar.directive.js'
                 ]
             }, {
                 name: 'navbarDropdownMenu',
                 files: [
                     'app/shared/nav-bar/navbar-dropdown-menu/navbar-dropdown-menu.css',
-                    'app/shared/nav-bar/navbar-dropdown-menu/navbar-dropdown-menu.directive.js',
-                    'app/shared/nav-bar/navbar-dropdown-menu/navbar-dropdown-menu.controller.js'
+                    'app/shared/nav-bar/navbar-dropdown-menu/navbar-dropdown-menu.directive.js'
                 ]
             }, {
                 name: 'sideBar',
                 files: [
                     'app/shared/side-bar/side-bar.css',
-                    'app/shared/side-bar/side-bar.directive.js',
-                    'app/shared/side-bar/side-bar.controller.js'
+                    'app/shared/side-bar/side-bar.directive.js'
                 ]
             }, {
                 name: 'footerBar',
@@ -119,9 +113,7 @@
             {
                 name: 'compareDate',
                 files: [
-                    'app/shared/compare-date/compare-date.css',
-                    'app/shared/compare-date/compare-date.directive.js',
-                    'app/shared/compare-date/compare-date.controller.js'
+                    'app/shared/compare-date/compare-date.directive.js'
                 ]
             },
             // endregion
@@ -129,37 +121,28 @@
             {
                 name: 'standardMenu',
                 files: [
-                    'app/shared/standard-menu/standard-menu.css',
                     'app/shared/standard-menu/standard-menu.directive.js',
                     'app/shared/standard-menu/standard-menu.controller.js'
                 ]
             }, {
                 name: 'Comment',
                 files: [
-                    'app/shared/standard-menu-directives/comment/comment/comment.css',
-                    'app/shared/standard-menu-directives/comment/comment/comment.directive.js',
-                    'app/shared/standard-menu-directives/comment/comment/comment.controller.js'
+                    'app/shared/standard-menu-directives/comment/comment/comment.directive.js'
                 ]
             }, {
                 name: 'CommentModal',
                 files: [
-                    'app/shared/standard-menu-directives/comment/comment-modal/comment-modal.css',
-                    'app/shared/standard-menu-directives/comment/comment-modal/comment-modal.directive.js',
-                    'app/shared/standard-menu-directives/comment/comment-modal/comment-modal.controller.js'
+                    'app/shared/standard-menu-directives/comment/comment-modal/comment-modal.directive.js'
                 ]
             }, {
                 name: 'Document',
                 files: [
-                    'app/shared/standard-menu-directives/document/document/document.css',
-                    'app/shared/standard-menu-directives/document/document/document.directive.js',
-                    'app/shared/standard-menu-directives/document/document/document.controller.js'
+                    'app/shared/standard-menu-directives/document/document/document.directive.js'
                 ]
             }, {
                 name: 'DocumentModal',
                 files: [
-                    'app/shared/standard-menu-directives/document/document-modal/document-modal.css',
-                    'app/shared/standard-menu-directives/document/document-modal/document-modal.directive.js',
-                    'app/shared/standard-menu-directives/document/document-modal/document-modal.controller.js'
+                    'app/shared/standard-menu-directives/document/document-modal/document-modal.directive.js'
                 ]
             }, {
                 name: 'DownloadAmendCountModal',
@@ -170,178 +153,138 @@
             }, {
                 name: 'EmailGroup',
                 files: [
-                    'app/shared/standard-menu-directives/email-group/email-group/email-group.css',
-                    'app/shared/standard-menu-directives/email-group/email-group/email-group.directive.js',
-                    'app/shared/standard-menu-directives/email-group/email-group/email-group.controller.js'
+                    'app/shared/standard-menu-directives/email-group/email-group/email-group.directive.js'
                 ]
             }, {
                 name: 'EmailGroupModal',
                 files: [
-                    'app/shared/standard-menu-directives/email-group/email-group-modal/email-group-modal.css',
-                    'app/shared/standard-menu-directives/email-group/email-group-modal/email-group-modal.directive.js',
-                    'app/shared/standard-menu-directives/email-group/email-group-modal/email-group-modal.controller.js'
+                    'app/shared/standard-menu-directives/email-group/email-group-modal/email-group-modal.directive.js'
                 ]
             }, {
                 name: 'Event',
                 files: [
                     'app/shared/standard-menu-directives/event/event/event.css',
                     'app/shared/standard-menu-directives/event/event/event.directive.js',
-                    'app/shared/standard-menu-directives/event/event/event.controller.js',
                     'app/shared/standard-menu-directives/event/event/sm-event-dynamic-directive/sm-event-dynamic-directive.js',
                     'app/shared/standard-menu-directives/event/event/sm-event-dynamic-directive/sm-event-default/sm-event-default.directive.js'
                 ]
             }, {
                 name: 'EventModal',
                 files: [
-                    'app/shared/standard-menu-directives/event/event-modal/event-modal.css',
-                    'app/shared/standard-menu-directives/event/event-modal/event-modal.directive.js',
-                    'app/shared/standard-menu-directives/event/event-modal/event-modal.controller.js'
+                    'app/shared/standard-menu-directives/event/event-modal/event-modal.directive.js'
                 ]
             }, {
                 name: 'DataEvent',
                 files: [
                     'app/shared/standard-menu-directives/data-event/data-event/data-event.css',
-                    'app/shared/standard-menu-directives/data-event/data-event/data-event.directive.js',
-                    'app/shared/standard-menu-directives/data-event/data-event/data-event.controller.js'
+                    'app/shared/standard-menu-directives/data-event/data-event/data-event.directive.js'
                 ]
             }, {
                 name: 'DataEventModal',
                 files: [
-                    'app/shared/standard-menu-directives/data-event/data-event-modal/data-event-modal.css',
-                    'app/shared/standard-menu-directives/data-event/data-event-modal/data-event-modal.directive.js',
-                    'app/shared/standard-menu-directives/data-event/data-event-modal/data-event-modal.controller.js'
+                    'app/shared/standard-menu-directives/data-event/data-event-modal/data-event-modal.directive.js'
                 ]
             }, {
                 name: 'Exception',
                 files: [
-                    'app/shared/standard-menu-directives/exception/exception/exception.css',
-                    'app/shared/standard-menu-directives/exception/exception/exception.directive.js',
-                    'app/shared/standard-menu-directives/exception/exception/exception.controller.js'
+                    'app/shared/standard-menu-directives/exception/exception/exception.directive.js'
                 ]
             }, {
                 name: 'ExceptionModal',
                 files: [
-                    'app/shared/standard-menu-directives/exception/exception-modal/exception-modal.css',
-                    'app/shared/standard-menu-directives/exception/exception-modal/exception-modal.directive.js',
-                    'app/shared/standard-menu-directives/exception/exception-modal/exception-modal.controller.js'
+                    'app/shared/standard-menu-directives/exception/exception-modal/exception-modal.directive.js'
                 ]
             }, {
                 name: 'AuditLog',
                 files: [
-                    'app/shared/standard-menu-directives/audit-log/audit-log/audit-log.css',
                     'app/shared/standard-menu-directives/audit-log/audit-log/audit-log.directive.js',
-                    'app/shared/standard-menu-directives/audit-log/audit-log/audit-log-config.factory.js',
-                    'app/shared/standard-menu-directives/audit-log/audit-log/audit-log.controller.js'
+                    'app/shared/standard-menu-directives/audit-log/audit-log/audit-log-config.factory.js'
                 ]
             }, {
                 name: 'AuditLogModal',
                 files: [
-                    'app/shared/standard-menu-directives/audit-log/audit-log-modal/audit-log-modal.css',
-                    'app/shared/standard-menu-directives/audit-log/audit-log-modal/audit-log-modal.directive.js',
-                    'app/shared/standard-menu-directives/audit-log/audit-log-modal/audit-log-modal.controller.js'
+                    'app/shared/standard-menu-directives/audit-log/audit-log-modal/audit-log-modal.directive.js'
                 ]
             }, {
                 name: 'Email',
                 files: [
-                    'app/shared/standard-menu-directives/email/email/email.css',
-                    'app/shared/standard-menu-directives/email/email/email.directive.js',
-                    'app/shared/standard-menu-directives/email/email/email.controller.js'
+                    'app/shared/standard-menu-directives/email/email/email.directive.js'
                 ]
             }, {
                 name: 'EmailModal',
                 files: [
-                    'app/shared/standard-menu-directives/email/email-modal/email-modal.css',
-                    'app/shared/standard-menu-directives/email/email-modal/email-modal.directive.js',
-                    'app/shared/standard-menu-directives/email/email-modal/email-modal.controller.js'
-                ]
-            }, {
-                name: 'EmailDirective',
-                files: [
-                    'app/shared/standard-menu-directives/email/email/email-directive/email-directive.js'
+                    'app/shared/standard-menu-directives/email/email-modal/email-modal.directive.js'
                 ]
             }, {
                 name: 'EmailTemplateCreation',
                 files: [
-                    'app/shared/standard-menu-directives/email-template-creation/email-template-creation/email-template-creation.css',
-                    'app/shared/standard-menu-directives/email-template-creation/email-template-creation/email-template-creation.directive.js',
-                    'app/shared/standard-menu-directives/email-template-creation/email-template-creation/email-template-creation.controller.js'
+                    'app/shared/standard-menu-directives/email-template-creation/email-template-creation/email-template-creation.directive.js'
                 ]
             }, {
                 name: 'EmailTemplateCreationModal',
                 files: [
-                    'app/shared/standard-menu-directives/email-template-creation/email-template-creation-modal/email-template-creation-modal.css',
-                    'app/shared/standard-menu-directives/email-template-creation/email-template-creation-modal/email-template-creation-modal.directive.js',
-                    'app/shared/standard-menu-directives/email-template-creation/email-template-creation-modal/email-template-creation-modal.controller.js'
+                    'app/shared/standard-menu-directives/email-template-creation/email-template-creation-modal/email-template-creation-modal.directive.js'
                 ]
             }, {
                 name: 'Task',
                 files: [
-                    'app/shared/standard-menu-directives/task/task/task.css',
-                    'app/shared/standard-menu-directives/task/task/task.directive.js',
-                    'app/shared/standard-menu-directives/task/task/task.controller.js'
+                    'app/shared/standard-menu-directives/task/task/task.directive.js'
                 ]
             }, {
                 name: 'TaskModal',
                 files: [
-                    'app/shared/standard-menu-directives/task/task-modal/task-modal.css',
-                    'app/shared/standard-menu-directives/task/task-modal/task-modal.directive.js',
-                    'app/shared/standard-menu-directives/task/task-modal/task-modal.controller.js'
+                    'app/shared/standard-menu-directives/task/task-modal/task-modal.directive.js'
                 ]
             }, {
                 name: 'Keyword',
                 files: [
-                    'app/shared/standard-menu-directives/keyword/keyword/keyword.css',
-                    'app/shared/standard-menu-directives/keyword/keyword/keyword.directive.js',
-                    'app/shared/standard-menu-directives/keyword/keyword/keyword.controller.js'
+                    'app/shared/standard-menu-directives/keyword/keyword/keyword.directive.js'
                 ]
             }, {
                 name: 'KeywordModal',
                 files: [
-                    'app/shared/standard-menu-directives/keyword/keyword-modal/keyword-modal.css',
-                    'app/shared/standard-menu-directives/keyword/keyword-modal/keyword-modal.directive.js',
-                    'app/shared/standard-menu-directives/keyword/keyword-modal/keyword-modal.controller.js'
+                    'app/shared/standard-menu-directives/keyword/keyword-modal/keyword-modal.directive.js'
                 ]
             }, {
                 name: 'Parties',
                 files: [
-                    'app/shared/standard-menu-directives/parties/parties/parties.css',
-                    'app/shared/standard-menu-directives/parties/parties/parties.directive.js',
-                    'app/shared/standard-menu-directives/parties/parties/parties.controller.js'
+                    'app/shared/standard-menu-directives/parties/parties/parties.directive.js'
                 ]
             }, {
                 name: 'PartiesModal',
                 files: [
-                    'app/shared/standard-menu-directives/parties/parties-modal/parties-modal.css',
-                    'app/shared/standard-menu-directives/parties/parties-modal/parties-modal.directive.js',
-                    'app/shared/standard-menu-directives/parties/parties-modal/parties-modal.controller.js'
+                    'app/shared/standard-menu-directives/parties/parties-modal/parties-modal.directive.js'
                 ]
             }, {
                 name: 'DelayReason',
                 files: [
-                    'app/shared/standard-menu-directives/delay-reason/delay-reason/delay-reason.css',
-                    'app/shared/standard-menu-directives/delay-reason/delay-reason/delay-reason.directive.js',
-                    'app/shared/standard-menu-directives/delay-reason/delay-reason/delay-reason.controller.js'
+                    'app/shared/standard-menu-directives/delay-reason/delay-reason/delay-reason.directive.js'
                 ]
             }, {
                 name: 'DelayReasonModal',
                 files: [
-                    'app/shared/standard-menu-directives/delay-reason/delay-reason-modal/delay-reason-modal.css',
-                    'app/shared/standard-menu-directives/delay-reason/delay-reason-modal/delay-reason-modal.directive.js',
-                    'app/shared/standard-menu-directives/delay-reason/delay-reason-modal/delay-reason-modal.controller.js'
+                    'app/shared/standard-menu-directives/delay-reason/delay-reason-modal/delay-reason-modal.directive.js'
                 ]
             }, {
                 name: 'Checklist',
                 files: [
-                    'app/shared/standard-menu-directives/checklist/checklist/checklist.css',
-                    'app/shared/standard-menu-directives/checklist/checklist/checklist.directive.js',
-                    'app/shared/standard-menu-directives/checklist/checklist/checklist.controller.js'
+                    'app/shared/standard-menu-directives/checklist/checklist/checklist.directive.js'
                 ]
             }, {
                 name: 'ChecklistModal',
                 files: [
-                    'app/shared/standard-menu-directives/checklist/checklist-modal/checklist-modal.css',
-                    'app/shared/standard-menu-directives/checklist/checklist-modal/checklist-modal.directive.js',
-                    'app/shared/standard-menu-directives/checklist/checklist-modal/checklist-modal.controller.js'
+                    'app/shared/standard-menu-directives/checklist/checklist-modal/checklist-modal.directive.js'
+                ]
+            }, {
+                name: 'TaskFlowGraph',
+                files: [
+                    'app/shared/standard-menu-directives/task-flow-graph/task/task.css',
+                    'app/shared/standard-menu-directives/task-flow-graph/task/task.directive.js'
+                ]
+            }, {
+                name: 'TaskFlowGraphModal',
+                files: [
+                    'app/shared/standard-menu-directives/task-flow-graph/task-modal/task-modal.directive.js'
                 ]
             },
             // endregion
@@ -460,8 +403,7 @@
             {
                 name: 'dynamicControl',
                 files: [
-                    'app/shared/dynamic-control/dynamic-control.directive.js',
-                    'app/shared/dynamic-control/dynamic-control.controller.js'
+                    'app/shared/dynamic-control/dynamic-control.directive.js'
                 ]
             }, {
                 name: 'dynamicGrid',
@@ -477,35 +419,29 @@
                 name: 'dynamicList',
                 files: [
                     'app/shared/dynamic-list/dynamic-list.css',
-                    'app/shared/dynamic-list/dynamic-list.directive.js'
+                    'app/shared/dynamic-list/dynamic-list.directive.js',
+                    'app/shared/schedule/schedule.directive.js'
                 ]
             }, {
                 name: 'dynamicListModal',
                 files: [
-                    'app/shared/dynamic-list-modal/dynamic-list-modal-config.factory.js',
-                    'app/shared/dynamic-list-modal/dynamic-list-modal.directive.js',
-                    'app/shared/dynamic-list-modal/dynamic-list-modal.controller.js'
+                    'app/shared/dynamic-list-modal/dynamic-list-modal.directive.js'
                 ]
             }, {
                 name: 'dynamicLookup',
                 files: [
-                    'app/shared/dynamic-lookup/dynamic-lookup-config.factory.js',
-                    'app/shared/dynamic-lookup/dynamic-lookup.directive.js',
-                    'app/shared/dynamic-lookup/dynamic-lookup.controller.js'
+                    'app/shared/dynamic-lookup/dynamic-lookup.directive.js'
                 ]
             }, {
                 name: 'dynamicTable',
                 files: [
                     'app/shared/dynamic-table/dynamic-table.css',
-                    'app/shared/dynamic-table/dynamic-table.directive.js',
-                    'app/shared/dynamic-table/dynamic-table.controller.js'
+                    'app/shared/dynamic-table/dynamic-table.directive.js'
                 ]
             }, {
                 name: 'tcGrid',
                 files: [
-                    'app/shared/tc-grid/tc-grid.css',
-                    'app/shared/tc-grid/tc-grid.directive.js',
-                    'app/shared/tc-grid/tc-grid.controller.js'
+                    'app/shared/tc-grid/tc-grid.directive.js'
                 ]
             },
             // --------------------- Dynamic Details view --------------------------
@@ -513,8 +449,7 @@
             {
                 name: 'dynamicDetailsViewDirective',
                 files: [
-                    'app/shared/dynamic-details-view/dynamic-details-view-directive.directive.js',
-                    'app/shared/dynamic-details-view/dynamic-details-view-directive.controller.js'
+                    'app/shared/dynamic-details-view/dynamic-details-view-directive.directive.js'
                 ]
             },
             // endregion
@@ -524,15 +459,13 @@
                 name: 'TaskAssignStartComplete',
                 files: [
                     'app/shared/task-assign-start-complete/task-assign-start-complete.css',
-                    'app/shared/task-assign-start-complete/task-assign-start-complete.directive.js',
-                    'app/shared/task-assign-start-complete/task-assign-start-complete.controller.js',
+                    'app/shared/task-assign-start-complete/task-assign-start-complete.directive.js'
                 ]
             }, {
                 name: 'OverrideKPI',
                 files: [
                     'app/shared/override-kpi/override-kpi.css',
-                    'app/shared/override-kpi/override-kpi.directive.js',
-                    'app/shared/override-kpi/override-kpi.controller.js',
+                    'app/shared/override-kpi/override-kpi.directive.js'
                 ]
             },
             //endregion
@@ -541,8 +474,7 @@
                 name: 'ProcessInstanceWorkItemDetails',
                 files: [
                     'app/shared/process-instance-work-item-details/process-instance-work-item-details.css',
-                    'app/shared/process-instance-work-item-details/process-instance-work-item-details.directive.js',
-                    'app/shared/process-instance-work-item-details/process-instance-work-item-details.controller.js'
+                    'app/shared/process-instance-work-item-details/process-instance-work-item-details.directive.js'
                 ]
             },
             // endregion
@@ -561,7 +493,6 @@
             }, {
                 name: 'ExpressionGroupFormatter',
                 files: [
-                    'app/shared/expression-builder/expression-group-formatter/expression-group-formatter.css',
                     'app/shared/expression-builder/expression-group-formatter/expression-group-formatter.directive.js'
                 ]
             }, {
@@ -696,7 +627,6 @@
             key: CryptoJS.enc.Base64.parse("2b7e151628aed2a6abf7158809cf4f3c"),
             iv: CryptoJS.enc.Base64.parse("3ad77bb40d7a3660a89ecaf32466ef97")
         },
-        
         DatePicker: {
             showWeeks: false,
             dateFormat: "dd-MMM-yyyy",
@@ -787,6 +717,7 @@
                 ['help', ['help']]
             ]
         },
+        IsInsertErrorLog: false,
         Version: "1.0"
     };
 

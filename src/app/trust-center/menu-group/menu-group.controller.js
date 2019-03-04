@@ -45,6 +45,11 @@
         }
 
         function GetBreadcrumbList() {
+            var _breadcrumbTitle = "";
+            if (MenuGroupsCtrl.ePage.Masters.QueryString.AdditionalData.BreadcrumbTitle) {
+                _breadcrumbTitle = " (" + MenuGroupsCtrl.ePage.Masters.QueryString.AdditionalData.BreadcrumbTitle + ")";
+            }
+
             MenuGroupsCtrl.ePage.Masters.Breadcrumb.ListSource = [{
                 Code: "home",
                 Description: "Home",
@@ -64,7 +69,7 @@
                 IsActive: false
             }, {
                 Code: "menugroup",
-                Description: "Menu Group (" + MenuGroupsCtrl.ePage.Masters.QueryString.AdditionalData.BreadcrumbTitle + ")",
+                Description: "Menu Group " + _breadcrumbTitle,
                 Link: "#",
                 IsRequireQueryString: false,
                 IsActive: true
@@ -99,7 +104,6 @@
             }
 
             GetRedirectLinkList();
-            OnMenuGroupsClick();
             GetMenuGroupsList();
         }
 
@@ -164,6 +168,17 @@
         function OnMenuGroupsClick($item) {
             MenuGroupsCtrl.ePage.Masters.MenuGroups.ActiveMenuGroups = angular.copy($item);
             MenuGroupsCtrl.ePage.Masters.MenuGroups.ActiveMenuGroupsCopy = angular.copy($item);
+            if (MenuGroupsCtrl.ePage.Masters.MenuGroups.ActiveMenuGroups) {
+                MenuGroupsCtrl.ePage.Masters.GenerateScriptInput = {
+                    ObjectName: "MenuGroups",
+                    ObjectId: MenuGroupsCtrl.ePage.Masters.MenuGroups.ActiveMenuGroups.PK
+                };
+                MenuGroupsCtrl.ePage.Masters.GenerateScriptConfig = {
+                    IsEnableTable: false,
+                    IsEnablePK: false,
+                    IsEnableTenant: false
+                };
+            }
         }
 
         function EditModalInstance() {
@@ -187,11 +202,22 @@
         }
 
         function Save() {
+            if (MenuGroupsCtrl.ePage.Masters.MenuGroups.ActiveMenuGroups.PK) {
+                UpdateMenuGroups();
+            } else {
+                InsertMenuGroups();
+            }
+        }
+
+        function InsertMenuGroups() {
             MenuGroupsCtrl.ePage.Masters.MenuGroups.SaveBtnText = "Please Wait...";
             MenuGroupsCtrl.ePage.Masters.MenuGroups.IsDisableSaveBtn = true;
 
-            var _input = angular.copy(MenuGroupsCtrl.ePage.Masters.MenuGroups.ActiveMenuGroups);
+            var _input = MenuGroupsCtrl.ePage.Masters.MenuGroups.ActiveMenuGroups;
             _input.IsModified = true;
+            _input.IsActive = true;
+            _input.ModuleCode = MenuGroupsCtrl.ePage.Masters.Application.ActiveApplication.AppCode;
+            _input.TenantCode = authService.getUserInfo().TenantCode;
 
             if (MenuGroupsCtrl.ePage.Masters.QueryString.AdditionalData.Input.Code == "BPMGroups") {
                 _input.TenantCode = authService.getUserInfo().TenantCode;
@@ -199,14 +225,49 @@
                 _input.TenantCode = "TBASE";
             }
 
-            _input.ModuleCode = MenuGroupsCtrl.ePage.Masters.Application.ActiveApplication.AppCode;
 
-            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.MenuGroups.API.Upsert.Url, [_input]).then(function SuccessCallback(response) {
+
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.MenuGroups.API.Insert.Url, [_input]).then(function SuccessCallback(response) {
                 if (response.data.Response) {
-                    var _response = response.data.Response[0];
-                    MenuGroupsCtrl.ePage.Masters.MenuGroups.ActiveMenuGroups = angular.copy(_response);
-                    var _index = MenuGroupsCtrl.ePage.Masters.MenuGroups.MenuGroupsList.map(function (e) {
-                        return e.PK;
+                    if (response.data.Response.length > 0) {
+                        var _response = response.data.Response[0];
+
+                        var _index = MenuGroupsCtrl.ePage.Masters.MenuGroups.MenuGroupsList.map(function (value, key) {
+                            return value.PK;
+                        }).indexOf(_response.PK);
+
+                        if (_index === -1) {
+                            MenuGroupsCtrl.ePage.Masters.MenuGroups.MenuGroupsList.push(_response);
+                        } else {
+                            MenuGroupsCtrl.ePage.Masters.MenuGroups.MenuGroupsList[_index] = _response;
+                        }
+
+                        OnMenuGroupsClick(_response);
+                    }
+                } else {
+                    toastr.error("Could not Save...!");
+                }
+
+                MenuGroupsCtrl.ePage.Masters.MenuGroups.SaveBtnText = "OK";
+                MenuGroupsCtrl.ePage.Masters.MenuGroups.IsDisableSaveBtn = false;
+                MenuGroupsCtrl.ePage.Masters.MenuGroups.EditModal.dismiss('cancel');
+            });
+        }
+
+        function UpdateMenuGroups() {
+            MenuGroupsCtrl.ePage.Masters.MenuGroups.SaveBtnText = "Please Wait...";
+            MenuGroupsCtrl.ePage.Masters.MenuGroups.IsDisableSaveBtn = true;
+
+            var _input = MenuGroupsCtrl.ePage.Masters.MenuGroups.ActiveMenuGroups;
+            _input.IsModified = true;
+            _input.IsActive = true;
+
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.MenuGroups.API.Update.Url, _input).then(function SuccessCallback(response) {
+                if (response.data.Response) {
+                    var _response = response.data.Response;
+
+                    var _index = MenuGroupsCtrl.ePage.Masters.MenuGroups.MenuGroupsList.map(function (value, key) {
+                        return value.PK;
                     }).indexOf(_response.PK);
 
                     if (_index === -1) {
@@ -263,33 +324,27 @@
         }
 
         function Delete() {
-            MenuGroupsCtrl.ePage.Masters.MenuGroups.DeleteBtnText = "Please Wait...";
-            MenuGroupsCtrl.ePage.Masters.MenuGroups.IsDisableDeleteBtn = true;
+            MenuGroupsCtrl.ePage.Masters.DeleteBtnText = "Delete";
+            MenuGroupsCtrl.ePage.Masters.IsDisableDeleteBtn = true;
 
-            var _input = [MenuGroupsCtrl.ePage.Masters.MenuGroups.ActiveMenuGroups];
-            _input.IsModified = true;
-            _input.IsDeleted = true;
-
-            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.MenuGroups.API.Upsert.Url, _input).then(function SuccessCallback(response) {
+            apiService.get("eAxisAPI", trustCenterConfig.Entities.API.MenuGroups.API.Delete.Url + MenuGroupsCtrl.ePage.Masters.MenuGroups.ActiveMenuGroups.PK).then(function SuccessCallback(response) {
                 if (response.data.Response) {
                     var _index = MenuGroupsCtrl.ePage.Masters.MenuGroups.MenuGroupsList.map(function (value, key) {
                         return value.PK;
                     }).indexOf(MenuGroupsCtrl.ePage.Masters.MenuGroups.ActiveMenuGroups.PK);
 
-                    if (_index !== -1) {
+                    if (_index != -1) {
                         MenuGroupsCtrl.ePage.Masters.MenuGroups.MenuGroupsList.splice(_index, 1);
-                        if (MenuGroupsCtrl.ePage.Masters.MenuGroups.MenuGroupsList.length > 0) {
-                            MenuGroupsCtrl.ePage.Masters.MenuGroups.ActiveMenuGroups = angular.copy(MenuGroupsCtrl.ePage.Masters.MenuGroups.MenuGroupsList[0]);
-                        } else {
-                            OnMenuGroupsClick();
-                        }
                     }
+                    MenuGroupsCtrl.ePage.Masters.MenuGroups.ActiveMenuGroups = undefined;
+                    OnMenuGroupsClick();
                 } else {
-                    toastr.error("Could not Delete...!");
+                    toastr.error("Could not Delete")
                 }
+                GetMenuGroupsList();
 
-                MenuGroupsCtrl.ePage.Masters.MenuGroups.DeleteBtnText = "Delete";
-                MenuGroupsCtrl.ePage.Masters.MenuGroups.IsDisableDeleteBtn = false;
+                MenuGroupsCtrl.ePage.Masters.DeleteBtnText = "Delete";
+                MenuGroupsCtrl.ePage.Masters.IsDisableDeleteBtn = false;
             });
         }
 

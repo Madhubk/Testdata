@@ -207,7 +207,32 @@
     padding-left: 28px;
 }
 
-.error-warnig-doc{
+.error-warnig-doc {
     position: relative;
     left: 15px;
+}
+
+.mytaskdefault-edit-modal .modal-dialog {
+    width: 550px !important;
+}
+
+.my-task-open-activity-overlay {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: calc(100vh - 50px);
+    background-color: rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    text-align: center;
+}
+
+.my-task-open-activity-overlay .assign-task-btn-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    height: 0;
 }

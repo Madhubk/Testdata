@@ -10,8 +10,7 @@
     function MyTaskActivityConfig() {
         var exports = {
             Entities: {},
-            "IsReload": false,
-            "CallEntity": false
+            "IsReload": false
         }
         return exports;
     }

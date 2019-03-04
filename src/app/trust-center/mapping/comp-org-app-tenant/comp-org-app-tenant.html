@@ -38,6 +38,9 @@
                 <button class="btn btn-default tc-btn-delete btn-xs pull-right ml-10" data-ng-click="TCCompOrgAppTenantCtrl.ePage.Masters.CompOrgAppTenant.DeleteConfirmation()"
                     data-ng-bind="TCCompOrgAppTenantCtrl.ePage.Masters.DeleteBtnText" data-ng-disabled="TCCompOrgAppTenantCtrl.ePage.Masters.IsDisableDeleteBtn || !TCCompOrgAppTenantCtrl.ePage.Masters.CompOrgAppTenant.ActiveCompOrgAppTenant.PK"
                     data-ng-if="TCCompOrgAppTenantCtrl.ePage.Masters.CompOrgAppTenant.UIControlList && TCCompOrgAppTenantCtrl.ePage.Masters.CompOrgAppTenant.UIControlList.length > 0 && TCCompOrgAppTenantCtrl.ePage.Masters.CompOrgAppTenant.CheckUIControl('TC_MAP_DEL')"></button>
+                    <button class="btn btn-primary btn-xs pull-right ml-10" generate-db-script input="TCCompOrgAppTenantCtrl.ePage.Masters.GenerateScriptInput"
+                    config="TCCompOrgAppTenantCtrl.ePage.Masters.GenerateScriptConfig" data-ng-disabled="!TCCompOrgAppTenantCtrl.ePage.Masters.GenerateScriptInput.ObjectName || !TCCompOrgAppTenantCtrl.ePage.Masters.GenerateScriptInput.ObjectId || !TCCompOrgAppTenantCtrl.ePage.Masters.CompOrgAppTenant.ActiveCompOrgAppTenant.PK">Generate
+                    Script</button>
             </div>
         </div>
     </div>

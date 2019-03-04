@@ -1,0 +1,1122 @@
+<div class="clearfix mt-20">
+    <!--Header-->
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-20">
+        <!--Local Client-->
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                <div class="finance-dashboard-box p-10">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5 col-xl-5">
+                            <span><i class="icomoon icon-organization-client"></i></span>
+                            <label class="control-label">Local Client</label>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                            <div class="input-group input-group-sm">
+                                <!-- Dynamic look up Search in textbox -->
+                                <div dynamic-lookup placeholder="Local Client" my-ng-model="JobAccountingCtrl.ePage.Entities.Header.Data.UIJobHeader.LocalOrg_Code"
+                                    obj="JobAccountingCtrl.ePage.Entities.Header.Data.UIJobHeader" page-name="'OrganizationList'"
+                                    control-id="'ShpBillingLocalAddress'" control-key="ShpBillingLocalAddress_2959"
+                                    auto-complete-on-select="JobAccountingCtrl.ePage.Masters.SelectedLookupData($index, $item,'Local')"></div>
+                                <!-- Look Up page opens when button clicks -->
+                                <span class="input-group-btn">
+                                    <button dynamic-list-modal class="btn btn-default" type="button" obj="JobAccountingCtrl.ePage.Entities.Header.Data.UIJobHeader"
+                                        page-name="'OrganizationList'" control-id="'ShpBillingLocalAddress'"
+                                        control-key="ShpBillingLocalAddress_2959" mode="2" grid-refresh-fun-name=""
+                                        grid-refresh-fun="" selected-data="JobAccountingCtrl.ePage.Masters.SelectedLookupData($index, $item.data.entity,'Local')">
+                                        <i class="fa fa-ellipsis-h"></i>
+                                    </button>
+                                </span>
+                                <span data-ng-if='!JobAccountingCtrl.ePage.Entities.Header.Data.UIJobHeader.LocalOrg_Code && !JobAccountingCtrl.currentFinanceJob.isNew'>
+                                    <div data-ng-init="JobAccountingCtrl.ePage.Masters.OnChangeValues(JobAccountingCtrl.ePage.Entities.Header.Data.UIJobHeader.LocalOrg_Code,'E1300',false,undefined)"></div>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-1 col-lg-1 col-xl-1">
+                            <div class="error-warning-container">
+                                <error-warning-directive data-ng-if="JobAccountingCtrl.ePage.Entities.Header.Meta.ErrorWarning.LocalOrg_Code.IsWarning && !JobAccountingCtrl.ePage.Entities.Header.Meta.ErrorWarning.LocalOrg_Code.IsError"
+                                    list="JobAccountingCtrl.ePage.Entities.Header.Meta.ErrorWarning.Warehouse.WARNING" type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                                <error-warning-directive data-ng-if="JobAccountingCtrl.ePage.Entities.Header.Meta.ErrorWarning.LocalOrg_Code.IsError" list="JobAccountingCtrl.ePage.Entities.Header.Meta.ErrorWarning.LocalOrg_Code.ERROR"
+                                    type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Address Details-->
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5 col-xl-5 pt-10">
+                            <div class="text-single-line font-12" title='{{}}'>{{JobAccountingCtrl.ePage.Masters.JobAddress.Address1}}</div>
+                            <div class="text-single-line" title='{{}}'>{{JobAccountingCtrl.ePage.Masters.JobAddress.Address2}}</div>
+                            <div class="text-single-line" title='{{}}'>{{JobAccountingCtrl.ePage.Masters.JobAddress.State}}</div>
+                            <div class="text-single-line">
+                                <span title="{{}}">{{JobAccountingCtrl.ePage.Masters.JobAddress.City}} -
+                                </span>
+                                <span title="{{}}">{{JobAccountingCtrl.ePage.Masters.JobAddress.PostCode}}</span>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-7 col-lg-7 col-xl-7 pt-10">
+                            <div class="pull-right text-single-line font-12" title="{{}}">
+                                <i class="fa fa-phone ml-5 mr-5"></i>{{JobAccountingCtrl.ePage.Masters.JobAddress.Mobile}}</div>
+                            <div class="pull-right text-single-line font-12" title="{{}}">
+                                <i class="fa fa-envelope-o ml-5 mr-5"></i>{{JobAccountingCtrl.ePage.Masters.JobAddress.Email}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--Overseas Agent-->
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                <div class="finance-dashboard-box p-10">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5 col-xl-5">
+                            <span><i class="icomoon icon-supplier"></i></span>
+                            <label class="control-label">Overseas Agent</label>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                            <div class="input-group input-group-sm">
+                                <!-- Dynamic look up Search in textbox -->
+                                <div dynamic-lookup placeholder="Overseas Agent" my-ng-model="JobAccountingCtrl.ePage.Entities.Header.Data.UIJobHeader.AgentOrg_Code"
+                                    obj="JobAccountingCtrl.ePage.Entities.Header.Data.UIJobHeader" page-name="'OrganizationList'"
+                                    control-id="'ShpBillingAgentAddress'" control-key="ShpBillingAgentAddress_2958"
+                                    auto-complete-on-select="JobAccountingCtrl.ePage.Masters.SelectedLookupData($index, $item,'Agent')">
+                                </div>
+                                <!-- Look Up page opens when button clicks -->
+                                <span class="input-group-btn">
+                                    <button dynamic-list-modal class="btn btn-default" type="button" obj="JobAccountingCtrl.ePage.Entities.Header.Data.UIJobHeader"
+                                        page-name="'OrganizationList'" control-id="'ShpBillingAgentAddress'"
+                                        control-key="ShpBillingAgentAddress_2958" mode="2" grid-refresh-fun-name=""
+                                        grid-refresh-fun="" selected-data="JobAccountingCtrl.ePage.Masters.SelectedLookupData($index, $item.data.entity,'Agent')">
+                                        <i class="fa fa-ellipsis-h"></i>
+                                    </button>
+                                </span>
+                                <span data-ng-if='!JobAccountingCtrl.ePage.Entities.Header.Data.UIJobHeader.AgentOrg_Code && !JobAccountingCtrl.currentFinanceJob.isNew'>
+                                    <div data-ng-init="JobAccountingCtrl.ePage.Masters.OnChangeValues(JobAccountingCtrl.ePage.Entities.Header.Data.UIJobHeader.AgentOrg_Code,'E1301',false,undefined)"></div>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-1 col-lg-1 col-xl-1">
+                            <div class="error-warning-container">
+                                <error-warning-directive data-ng-if="JobAccountingCtrl.ePage.Entities.Header.Meta.ErrorWarning.AgentOrg_Code.IsWarning && !JobAccountingCtrl.ePage.Entities.Header.Meta.ErrorWarning.AgentOrg_Code.IsError"
+                                    list="JobAccountingCtrl.ePage.Entities.Header.Meta.ErrorWarning.Warehouse.WARNING" type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                                <error-warning-directive data-ng-if="JobAccountingCtrl.ePage.Entities.Header.Meta.ErrorWarning.AgentOrg_Code.IsError" list="JobAccountingCtrl.ePage.Entities.Header.Meta.ErrorWarning.AgentOrg_Code.ERROR"
+                                    type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Address Details-->
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5 col-xl-5 pt-10">
+                            <div class="text-single-line font-12" title='{{}}'>{{JobAccountingCtrl.ePage.Masters.JobAddress1.Address1}}</div>
+                            <div class="text-single-line" title='{{}}'>{{JobAccountingCtrl.ePage.Masters.JobAddress1.Address2}}</div>
+                            <div class="text-single-line" title='{{}}'>{{JobAccountingCtrl.ePage.Masters.JobAddress1.State}}</div>
+                            <div class="text-single-line">
+                                <span title="{{}}">{{JobAccountingCtrl.ePage.Masters.JobAddress1.City}}</span>
+                                <span title="{{}}">{{JobAccountingCtrl.ePage.Masters.JobAddress1.PostCode}}</span>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-7 col-lg-7 col-xl-7 pt-10">
+                            <div class="pull-right text-single-line font-12" title="{{}}">
+                                <i class="fa fa-phone ml-5 mr-5"></i>{{JobAccountingCtrl.ePage.Masters.JobAddress1.Mobile}}</div>
+                            <div class="pull-right text-single-line font-12" title="{{}}">
+                                <i class="fa fa-envelope-o ml-5 mr-5"></i>{{JobAccountingCtrl.ePage.Masters.JobAddress1.Email}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Exchange Rate Table-->
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 exchange-table">
+        <label class="control-label">Exchange Rate</label>
+        <table class="table table-bordered table-responsive">
+            <thead>
+                <tr>
+                    <th>Currency</th>
+                    <th>Cost Ex.Rate</th>
+                    <th>Rate Date</th>
+                    <th>Sall Ex.Rate</th>
+                    <th>Today Rate</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr data-ng-repeat="x in JobAccountingCtrl.ePage.Masters.ExchangeRate">
+                    <td>
+                        <a style="text-decoration:none;cursor:pointer">{{x.Currency}}</a>
+                    </td>
+                    <td>
+                        <div>{{x.CostRate | number:4}}</div>
+                    </td>
+                    <td>
+                        <div> {{x.RateDate}}</div>
+                    </td>
+                    <td>
+                        <div>{{x.SallRate | number:4}}</div>
+                    </td>
+                    <td>
+                        <div>{{ x.TodayRate | number:4}}</div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="clearfix mt-30">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+        <div class="row">
+            <!--Branch-->
+            <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
+                <div class="form-group">
+                    <div class="error-warning-container">
+                        <error-warning-directive data-ng-if="JobAccountingCtrl.ePage.Entities.Header.Meta.ErrorWarning.BranchCode.IsWarning && !JobAccountingCtrl.ePage.Entities.Header.Meta.ErrorWarning.BranchCode.IsError"
+                               list="JobAccountingCtrl.ePage.Entities.Header.Meta.ErrorWarning.Warehouse.WARNING" type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                        <error-warning-directive data-ng-if="JobAccountingCtrl.ePage.Entities.Header.Meta.ErrorWarning.BranchCode.IsError" list="JobAccountingCtrl.ePage.Entities.Header.Meta.ErrorWarning.BranchCode.ERROR"
+                                type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                    </div>
+                    <label class="control-label">Branch</label>
+                    <div class="input-group input-group-sm">
+                        <!-- Dynamic look up Search in textbox -->
+                        <div dynamic-lookup placeholder="Branch" my-ng-model="JobAccountingCtrl.ePage.Entities.Header.Data.UIJobHeader.BranchCode"
+                            obj="JobAccountingCtrl.ePage.Entities.Header.Data.UIJobHeader" page-name="'CmpBranch'"
+                            control-id="'FinanceBranch'" control-key="FinanceBranch_3332" auto-complete-on-select="JobAccountingCtrl.ePage.Masters.SelectedLookupData($index, $item,'Branch')">
+                        </div>
+                        <!-- Look Up page opens when button clicks -->
+                        <span class="input-group-btn">
+                            <button dynamic-list-modal class="btn btn-default" type="button" obj="JobAccountingCtrl.ePage.Entities.Header.Data.UIJobHeader"
+                                page-name="'CmpBranch'" control-id="'FinanceBranch'" control-key="FinanceBranch_3332"
+                                mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="JobAccountingCtrl.ePage.Masters.SelectedLookupData($index, $item.data.entity,'Branch')">
+                                <i class="fa fa-ellipsis-h"></i>
+                            </button>
+                        </span>
+                        <span data-ng-if='!JobAccountingCtrl.ePage.Entities.Header.Data.UIJobHeader.BranchCode && !JobAccountingCtrl.currentFinanceJob.isNew'>
+                            <div data-ng-init="JobAccountingCtrl.ePage.Masters.OnChangeValues(JobAccountingCtrl.ePage.Entities.Header.Data.UIJobHeader.BranchCode,'E1302',false,undefined)"></div>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <!--Department-->
+            <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
+                <div class="form-group">
+                    <div class="error-warning-container">
+                        <error-warning-directive data-ng-if="JobAccountingCtrl.ePage.Entities.Header.Meta.ErrorWarning.DeptCode.IsWarning && !JobAccountingCtrl.ePage.Entities.Header.Meta.ErrorWarning.DeptCode.IsError"
+                            list="JobAccountingCtrl.ePage.Entities.Header.Meta.ErrorWarning.Warehouse.WARNING" type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                        <error-warning-directive data-ng-if="JobAccountingCtrl.ePage.Entities.Header.Meta.ErrorWarning.DeptCode.IsError" list="JobAccountingCtrl.ePage.Entities.Header.Meta.ErrorWarning.DeptCode.ERROR"
+                            type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                    </div>
+                    <label class="control-label">Department</label>
+                    <div class="input-group input-group-sm">
+                        <div dynamic-lookup placeholder="Department" my-ng-model="JobAccountingCtrl.ePage.Entities.Header.Data.UIJobHeader.DeptCode"
+                            obj="JobAccountingCtrl.ePage.Entities.Header.Data.UIJobHeader" page-name="'CmpDepartment'"
+                            control-id="'FinanceDepartment'" control-key="FinanceDepartment_3331"
+                            auto-complete-on-select="JobAccountingCtrl.ePage.Masters.SelectedLookupData($index, $item,'Department')"></div>
+                        <span class="input-group-btn">
+                            <button dynamic-list-modal class="btn btn-default" type="button" obj="JobAccountingCtrl.ePage.Entities.Header.Data.UIJobHeader"
+                                page-name="'CmpDepartment'" control-id="'FinanceDepartment'" control-key="FinanceDepartment_3331"
+                                mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="JobAccountingCtrl.ePage.Masters.SelectedLookupData($index, $item.data.entity,'Department')">
+                                <i class="fa fa-ellipsis-h"></i></button>
+                        </span>
+                        <span data-ng-if='!JobAccountingCtrl.ePage.Entities.Header.Data.UIJobHeader.DeptCode && !JobAccountingCtrl.currentFinanceJob.isNew'>
+                            <div data-ng-init="JobAccountingCtrl.ePage.Masters.OnChangeValues(JobAccountingCtrl.ePage.Entities.Header.Data.UIJobHeader.DeptCode,'E1303',false,undefined)"></div>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <!--Status-->
+            <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
+                    <div class="error-warning-container">
+                        <error-warning-directive data-ng-if="JobAccountingCtrl.ePage.Entities.Header.Meta.ErrorWarning.Status.IsWarning && !JobAccountingCtrl.ePage.Entities.Header.Meta.ErrorWarning.Status.IsError"
+                            list="JobAccountingCtrl.ePage.Entities.Header.Meta.ErrorWarning.Warehouse.WARNING" type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                       <error-warning-directive data-ng-if="JobAccountingCtrl.ePage.Entities.Header.Meta.ErrorWarning.Status.IsError" list="JobAccountingCtrl.ePage.Entities.Header.Meta.ErrorWarning.Status.ERROR"
+                            type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                    </div>
+                <div class="form-group">
+                    <label class="control-label">Status</label>
+                    <select chosen class="form-control" data-ng-model="JobAccountingCtrl.ePage.Entities.Header.Data.UIJobHeader.Status"
+                        data-ng-options="x.Key as x.Description for x in JobAccountingCtrl.ePage.Masters.DropDownMasterList.FinanceStatus.ListSource" data-ng-change="JobAccountingCtrl.ePage.Masters.OnChangeValues(JobAccountingCtrl.ePage.Entities.Header.Data.UIJobHeader.Status,'E1304',false,undefined);">
+                        <option value="">--Select--</option>
+                    </select>
+                </div>
+            </div>
+            <!--Profit and Loss-->
+            <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
+                <div class="form-group">
+                    <label class="control-label">Profit & Loss %</label>
+                    <input type="text" class="form-control" placeholder="Profit & Loss %" data-ng-model="JobAccountingCtrl.ePage.Entities.Header.Data.UIJobHeader.ProfitLoss" data-ng-disabled="true" />
+                </div>
+            </div>
+            <!--Reason For Loss-->
+            <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
+                <div class="form-group">
+                    <label class="control-label">Reason For Loss</label>
+                    <select chosen class="form-control" data-ng-model="JobAccountingCtrl.ePage.Entities.Header.Data.UIJobHeader.ProfitLossReasonCode"
+                        data-ng-options="x.Key as x.Description for x in JobAccountingCtrl.ePage.Masters.DropDownMasterList.FinanceProfitLossReason.ListSource">
+                        <option value="">--Select--</option>
+                    </select>
+                </div>
+            </div>
+            <!--Sales Rep-->
+            <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
+                <div class="form-group">
+                    <label class="control-label">Sales Rep</label>
+                    <div class="input-group input-group-sm">
+                        <!-- Dynamic look up Search in textbox -->
+                        <div dynamic-lookup placeholder="Sales Rep" my-ng-model="JobAccountingCtrl.ePage.Entities.Header.Data.UIJobHeader.GS_NKRepSales"
+                            obj="JobAccountingCtrl.ePage.Entities.Header.Data.UIJobHeader" page-name="'CmpEmployee'"
+                            control-id="'ShpBillingSalesRep'" control-key="ShpBillingSalesRep_3215"
+                            auto-complete-on-select="JobAccountingCtrl.ePage.Masters.SelectedLookupData($index, $item,'SalesRep')">
+                        </div>
+                        <!-- Look Up page opens when button clicks -->
+                        <span class="input-group-btn">
+                            <button dynamic-list-modal class="btn btn-default" type="button" obj="JobAccountingCtrl.ePage.Entities.Header.Data.UIJobHeader"
+                                page-name="'CmpEmployee'" control-id="'ShpBillingSalesRep'" control-key="ShpBillingSalesRep_3215"
+                                mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="JobAccountingCtrl.ePage.Masters.SelectedLookupData($index, $item.data.entity,'SalesRep')">
+                                <i class="fa fa-ellipsis-h"></i>
+                            </button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="clearfix">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+        <div class="row">
+            <!--Open Date-->
+            <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
+                <div class="form-group">
+                    <label class="control-label">Open Date</label>
+                    <div class="input-group input-group-sm">
+                        <input type="text" class="form-control" placeholder="{{JobAccountingCtrl.ePage.Masters.DatePicker.Options.dateTimeFormat}}"
+                            data-ng-model="JobAccountingCtrl.ePage.Entities.Header.Data.UIJobHeader.JobOpenDate"
+                            datetime-picker="{{JobAccountingCtrl.ePage.Masters.DatePicker.Options.dateTimeFormat}}"
+                            datepicker-options="JobAccountingCtrl.ePage.Masters.DatePicker.Options"
+                            datepicker-append-to-body="false" close-on-selection="false" enable-time="true" enable-date="true"
+                            default-date="" default-time="" save-as="JobAccountingCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                            is-open="JobAccountingCtrl.ePage.Masters.DatePicker.isOpen['isOpenDate']" when-closed=""
+                            data-ng-click="" data-ng-change="" custom-date-time-format data-ng-disabled="true" />
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" data-ng-click="JobAccountingCtrl.ePage.Masters.DatePicker.OpenDatePicker($event,'isOpenDate')"
+                                data-ng-disabled="true">
+                                <i class="fa fa-calendar"></i>
+                            </button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <!--Close Date-->
+            <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
+                <div class="form-group">
+                    <label class="control-label">Closed Date</label>
+                    <div class="input-group input-group-sm">
+                        <input type="text" class="form-control" placeholder="{{JobAccountingCtrl.ePage.Masters.DatePicker.Options.dateTimeFormat}}"
+                            data-ng-model="JobAccountingCtrl.ePage.Entities.Header.Data.UIJobHeader.JobClosedDate"
+                            datetime-picker="{{JobAccountingCtrl.ePage.Masters.DatePicker.Options.dateTimeFormat}}"
+                            datepicker-options="JobAccountingCtrl.ePage.Masters.DatePicker.Options"
+                            datepicker-append-to-body="false" close-on-selection="false" enable-time="true" enable-date="true"
+                            default-date="" default-time="" save-as="JobAccountingCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                            is-open="JobAccountingCtrl.ePage.Masters.DatePicker.isOpen['isClosedDate']" when-closed=""
+                            data-ng-click="" data-ng-change="" custom-date-time-format data-ng-disabled="true" />
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" data-ng-click="JobAccountingCtrl.ePage.Masters.DatePicker.OpenDatePicker($event,'isClosedDate')"
+                                data-ng-disabled="true">
+                                <i class="fa fa-calendar"></i>
+                            </button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <!-- CFX% -->
+            <div class="col-xl-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
+                <div class="form-group">
+                    <label class="control-label">CFX%</label>
+                    <input type="text" class="form-control" placeholder="CFX%" data-ng-model="JobAccountingCtrl.ePage.Entities.Header.Data.UIJobHeader.CFX" data-ng-disabled="true" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Charge Details Tabel-->
+<div class="clearfix mt-20">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+        <div class="pull-left">
+            <label class="control-label">Charge Details</label>
+        </div>
+        <!-- <charge-details current-finance-job="JobAccountingCtrl.currentFinanceJob"></charge-details> -->
+        <div class="clearfix mt-30">
+            <span>
+                <button type="button" class="btn btn-sm pull-left btn-outline-secondary font-10" title="Add New" data-ng-click="JobAccountingCtrl.ePage.Masters.AddNewRow()" data-ng-disabled="JobAccountingCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
+                    <span class="fa fa-plus"></span>&nbsp;&nbsp;Add New</button>
+            </span>
+            <span>
+                <button type="button" class="btn btn-sm pull-left btn-outline-primary font-10 ml-5" title="Copy" data-ng-click="JobAccountingCtrl.ePage.Masters.CopyRow()" data-ng-disabled="JobAccountingCtrl.ePage.Masters.EnableCopyButton">
+                    <span class="fa fa-copy"></span>&nbsp;&nbsp;Copy</button>
+            </span>
+            <span>
+                <button type="button" class="btn btn-sm btn-outline-primary font-10 ml-5" title="Delete" data-ng-click="JobAccountingCtrl.ePage.Masters.RemoveRow()" data-ng-disabled="JobAccountingCtrl.ePage.Masters.EnableDeleteButton">
+                    <span class="fa fa-trash"></span>&nbsp;&nbsp;Delete</button>
+            </span>
+            <span>
+                <button type="button" class="btn btn-sm pull-right btn-outline-secondary font-10" title="Add New" data-ng-click="JobAccountingCtrl.ePage.Masters.AddNewRow()">
+                    <span class="fa fa-plus"></span>&nbsp;&nbsp;Add New</button>
+            </span>
+        </div>
+        <div class="fixedheader mt-3" key-events table-object="JobAccountingCtrl.ePage.Entities.Header.Data.UIJobCharge" enable='JobAccountingCtrl.ePage.Masters.Enable'
+            selected-row="JobAccountingCtrl.ePage.Masters.selectedRow" unique-id='{{JobAccountingCtrl.currentFinanceJob.JobNo}}'>
+            <table id="JobAccountingCtrl.ePage.Masters.AddScroll" style="height: 350px">
+                <thead>
+                    <tr id="tableHeader">
+                        <th id="ccheckbox" data-ng-if="JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.ccheckbox.isenabled"
+                            data-ng-style="{'width': JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.ccheckbox.width + 'px' }">
+                            <label class="customcheckbox">
+                                <input type="checkbox" data-ng-change="JobAccountingCtrl.ePage.Masters.SelectAllCheckBox()"
+                                    data-ng-checked="JobAccountingCtrl.ePage.Masters.SelectAll" data-ng-model="JobAccountingCtrl.ePage.Masters.SelectAll"
+                                    data-ng-disabled="JobAccountingCtrl.ePage.Entities.Header.GlobalVariables.NonEditable" />
+                                <span class="text"></span>
+                            </label>
+                        </th>
+                        <th class='header charge' data-ng-if="JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.csno.isenabled"
+                            data-ng-style="{ 'width': JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.csno.width + 'px' }">S.No</th>
+                        <th class='header charge' data-ng-if="JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.cchargecode.isenabled"
+                            data-ng-style="{'width': JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.cchargecode.width + 'px' }">Charge
+                            Code</th>
+                        <th class='header charge' data-ng-if="JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.cdescription.isenabled"
+                            data-ng-style="{'width': JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.cdescription.width + 'px' }">Description</th>
+                        <th class='header charge' data-ng-if="JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.cjobno.isenabled"
+                            data-ng-style="{'width': JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.cjobno.width + 'px' }">Job
+                            No</th>
+                        <th class='header charge' data-ng-if="JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.cbranch.isenabled"
+                            data-ng-style="{'width': JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.cbranch.width + 'px' }">Branch</th>
+                        <th class='header charge' data-ng-if="JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.cdept.isenabled"
+                            data-ng-style="{'width': JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.cdept.width + 'px' }">Dept</th>
+                        <th class='header cost' data-ng-if="JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.ccreditor.isenabled"
+                            data-ng-style="{'width': JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.ccreditor.width + 'px' }">Creditor</th>
+                        <th class='header cost' data-ng-if="JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.ccostinvno.isenabled"
+                            data-ng-style="{'width': JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.ccostinvno.width + 'px' }">Inv.No</th>
+                        <th class='header cost' data-ng-if="JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.ccostinvdate.isenabled"
+                            data-ng-style="{'width': JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.ccostinvdate.width + 'px' }">Inv.Date</th>
+                        <th class='header cost' data-ng-if="JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.ccostpost.isenabled"
+                            data-ng-style="{'width': JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.ccostpost.width + 'px' }">Post</th>
+                        <th class='header cost' data-ng-if="JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.ccostsysref.isenabled"
+                            data-ng-style="{'width': JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.ccostsysref.width + 'px' }">Sys
+                            Ref</th>
+                        <th class='header cost' data-ng-if="JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.ccostcurrency.isenabled"
+                            data-ng-style="{'width': JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.ccostcurrency.width + 'px' }">Currency</th>
+                        <th class='header cost' data-ng-if="JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.cestcost.isenabled"
+                            data-ng-style="{'width': JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.cestcost.width + 'px' }">Est.Cost</th>
+                        <th class='header cost' data-ng-if="JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.cactcost.isenabled"
+                            data-ng-style="{'width': JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.cactcost.width + 'px' }">Act.Cost</th>
+                        <th class='header cost' data-ng-if="JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.ccostvariance.isenabled"
+                            data-ng-style="{'width': JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.ccostvariance.width + 'px' }">Variance</th>
+                        <th class='header cost' data-ng-if="JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.ccostlocalamt.isenabled"
+                            data-ng-style="{'width': JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.ccostlocalamt.width + 'px' }">Local
+                            Cost Amt</th>
+                        <th class='header cost' data-ng-if="JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.ccosttaxcodecost.isenabled"
+                            data-ng-style="{'width': JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.ccosttaxcodecost.width + 'px' }">Tax
+                            Code(Cost)</th>
+                        <th class='header cost' data-ng-if="JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.ccosttaxamtcost.isenabled"
+                            data-ng-style="{'width': JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.ccosttaxamtcost.width + 'px' }">Tax
+                            Amt(Cost)</th>
+                        <th class='header revenue' data-ng-if="JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.cdebitor.isenabled"
+                            data-ng-style="{'width': JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.cdebitor.width + 'px' }">Debitor</th>
+                        <th class='header revenue' data-ng-if="JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.crevenueinvno.isenabled"
+                            data-ng-style="{'width': JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.crevenueinvno.width + 'px' }">Inv.No</th>
+                        <th class='header revenue' data-ng-if="JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.cinvtype.isenabled"
+                            data-ng-style="{'width': JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.cinvtype.width + 'px' }">Inv.Type</th>
+                        <th class='header revenue' data-ng-if="JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.crevenueinvdate.isenabled"
+                            data-ng-style="{'width': JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.crevenueinvdate.width + 'px' }">Inv.Date</th>
+                        <th class='header revenue' data-ng-if="JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.crevenuepost.isenabled"
+                            data-ng-style="{'width': JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.crevenuepost.width + 'px' }">Post</th>
+                        <th class='header revenue' data-ng-if="JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.crevenuesysref.isenabled"
+                            data-ng-style="{'width': JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.crevenuesysref.width + 'px' }">Sys
+                            Ref</th>
+                        <!-- <th class='header revenue' data-ng-if="JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.crevenuelinedescription.isenabled"
+                            data-ng-style="{'width': JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.crevenuelinedescription.width + 'px' }">Line
+                            Description</th> -->
+                        <th class='header revenue' data-ng-if="JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.crevenuecurrency.isenabled"
+                            data-ng-style="{'width': JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.crevenuecurrency.width + 'px' }">Currency</th>
+                        <th class='header revenue' data-ng-if="JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.cestrevenue.isenabled"
+                            data-ng-style="{'width': JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.cestrevenue.width + 'px' }">Est.Revenue</th>
+                        <th class='header revenue' data-ng-if="JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.cactrevenue.isenabled"
+                            data-ng-style="{'width': JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.cactrevenue.width + 'px' }">Act.Revenue</th>
+                        <th class='header revenue' data-ng-if="JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.crevenuevariance.isenabled"
+                            data-ng-style="{'width': JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.crevenuevariance.width + 'px' }">Variance</th>
+                        <th class='header cost' data-ng-if="JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.cselllocalamt.isenabled"
+                            data-ng-style="{'width': JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.cselllocalamt.width + 'px' }">Local
+                            Sell Amt</th>
+                        <th class='header revenue' data-ng-if="JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.crevenuetaxcodecost.isenabled"
+                            data-ng-style="{'width': JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.crevenuetaxcodecost.width + 'px' }">Tax
+                            Code(Revenue)</th>
+                        <th class='header revenue' data-ng-if="JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.crevenuetaxamtcost.isenabled"
+                            data-ng-style="{'width': JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.crevenuetaxamtcost.width + 'px' }">Tax
+                            Amt(Revenue)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr id="tableBody" data-ng-repeat="x in JobAccountingCtrl.ePage.Entities.Header.Data.UIJobCharge"
+                        data-ng-click="JobAccountingCtrl.ePage.Masters.setSelectedRow($index);" data-ng-class="{row_active: (JobAccountingCtrl.ePage.Masters.selectedRow==$index),copy_row_active :(x.IsCopied==true)}"
+                        watch-table table-properties="JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge"
+                        row-position="$index">
+                        <td id="ccheckbox" data-ng-show="JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.ccheckbox.isenabled"
+                            data-ng-style="{'width': JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.ccheckbox.width + 'px' }"
+                            data-ng-click="JobAccountingCtrl.ePage.Masters.Enable = true">
+                            <label class="customcheckbox mb-0">
+                                <input type="checkbox" data-ng-disabled="JobAccountingCtrl.ePage.Entities.Header.GlobalVariables.NonEditable"
+                                    data-ng-checked="x.SingleSelect" data-ng-change="JobAccountingCtrl.ePage.Masters.SingleSelectCheckBox()"
+                                    data-ng-model="x.SingleSelect" />
+                                <span class="text"></span>
+                            </label>
+                            <span class="list-error-warning" data-ng-if="JobAccountingCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIJobCharge.ERROR | listCount: 'RowIndex': $index">
+                                <error-warning-directive list="JobAccountingCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIJobCharge.ERROR"
+                                    type="'error'" icon="fa fa-warning" parent-type="'arrayObjectRow'" parent-ref="" g-parent-ref="" row-index="$index" col-index="">
+                                </error-warning-directive>
+                            </span>
+                        </td>
+                        <td id="csno" data-ng-show="JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.csno.isenabled"
+                            data-ng-style="{ 'width': JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.csno.width + 'px' }"
+                            data-ng-click="JobAccountingCtrl.ePage.Masters.Enable = true">
+                            {{$index + 1}}
+                        </td>
+                        <td id="cchargecode" data-ng-show="JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.cchargecode.isenabled"
+                            data-ng-style="{'width': JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.cchargecode.width + 'px' }"
+                            data-ng-click="JobAccountingCtrl.ePage.Masters.Enable = true">
+                            <div data-ng-if="$index!=JobAccountingCtrl.ePage.Masters.selectedRow || JobAccountingCtrl.ePage.Entities.Header.GlobalVariables.NonEditable"
+                                class="overflow-text">
+                                {{ x.ACCCode || JobAccountingCtrl.ePage.Masters.emptyText}}
+                            </div>
+                            <div data-ng-if="$index==JobAccountingCtrl.ePage.Masters.selectedRow && !JobAccountingCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
+                                <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0 height-22">
+                                    <div class="input-group input-group-sm">
+                                        <div dynamic-lookup placeholder="Service code" my-ng-model="x.ACCCode" obj="x"
+                                            page-name="'accchargecode'" control-id="'FinanceCharge'" control-key="FinanceCharge_3334"
+                                            auto-complete-on-select="JobAccountingCtrl.ePage.Masters.SelectedLookupData($index, $item,'ChargeCode')" is-disabled="x.Costpost || x.Revenuepost"></div>
+                                        <span class="input-group-btn">
+                                            <button dynamic-list-modal class="btn btn-default" type="button" obj="x" page-name="'accchargecode'"
+                                                control-id="'FinanceCharge'" control-key="FinanceCharge_3334" mode="2"
+                                                grid-refresh-fun-name="" grid-refresh-fun="" selected-data="JobAccountingCtrl.ePage.Masters.SelectedLookupData($index, $item.data.entity,'ChargeCode')" is-disabled="x.Costpost || x.Revenuepost">
+                                                <i class="fa fa-ellipsis-h"></i>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="JobAccountingCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIJobCharge.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':2">
+                                    <error-warning-directive  list="JobAccountingCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIJobCharge.ERROR"
+                                        type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref=""
+                                        row-index="JobAccountingCtrl.ePage.Masters.selectedRow" col-index="2">
+                                    </error-warning-directive>
+                                </div>
+                            </div>
+                        </td>
+                        <td data-ng-show="JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.cdescription.isenabled"
+                            data-ng-style="{'width': JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.cdescription.width + 'px' }">
+                            <div data-ng-if="$index!=JobAccountingCtrl.ePage.Masters.selectedRow || JobAccountingCtrl.ePage.Entities.Header.GlobalVariables.NonEditable"
+                                class="overflow-text">
+                                {{x.Desc || JobAccountingCtrl.ePage.Masters.emptyText}}
+                            </div>
+                            <div data-ng-if="$index==JobAccountingCtrl.ePage.Masters.selectedRow && !JobAccountingCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
+                                <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0 height-22">
+                                    <input type="text" class="form-control input-sm" placeholder="Description" data-ng-model="x.Desc" data-ng-disabled="true" />
+                                </div>
+                            </div>
+                        </td>
+                        <td data-ng-show="JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.cjobno.isenabled"
+                            data-ng-style="{'width': JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.cjobno.width + 'px' }">
+                            <div data-ng-if="$index!=JobAccountingCtrl.ePage.Masters.selectedRow || JobAccountingCtrl.ePage.Entities.Header.GlobalVariables.NonEditable"
+                                class="overflow-text">
+                                {{ x.JobNo || JobAccountingCtrl.ePage.Masters.emptyText}}
+                            </div>
+                            <div data-ng-if="$index==JobAccountingCtrl.ePage.Masters.selectedRow && !JobAccountingCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
+                                <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0 height-22">
+                                    <input type="text" class="form-control input-sm" placeholder="Job No" data-ng-model="x.JobNo" data-ng-disabled="true">
+                                </div>
+                            </div>
+                        </td>
+                        <td data-ng-show="JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.cbranch.isenabled"
+                            data-ng-style="{'width': JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.cbranch.width + 'px' }">
+                            <div data-ng-if="$index!=JobAccountingCtrl.ePage.Masters.selectedRow || JobAccountingCtrl.ePage.Entities.Header.GlobalVariables.NonEditable"
+                                class="overflow-text">
+                                {{ x.BranchCode || JobAccountingCtrl.ePage.Masters.emptyText}}
+                            </div>
+                            <div data-ng-if="$index==JobAccountingCtrl.ePage.Masters.selectedRow && !JobAccountingCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
+                                <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0 height-22">
+                                    <div class="input-group input-group-sm">
+                                        <div dynamic-lookup placeholder="Branch" my-ng-model="x.BranchCode" obj="x" page-name="'CmpBranch'"
+                                            control-id="'FinanceBranch'" control-key="FinanceBranch_3332"
+                                            auto-complete-on-select="JobAccountingCtrl.ePage.Masters.SelectedLookupData($index, $item,'ServiceBranch')" is-disabled="x.Costpost || x.Revenuepost">
+                                        </div>
+                                        <span class="input-group-btn">
+                                            <button dynamic-list-modal class="btn btn-default" type="button" obj="x" page-name="'CmpBranch'"
+                                                control-id="'FinanceBranch'" control-key="FinanceBranch_3332" mode="2"
+                                                grid-refresh-fun-name="" grid-refresh-fun="" selected-data="JobAccountingCtrl.ePage.Masters.SelectedLookupData($index, $item.data.entity,'ServiceBranch')" is-disabled="x.Costpost || x.Revenuepost">
+                                                <i class="fa fa-ellipsis-h"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="JobAccountingCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIJobCharge.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':5">
+                                    <error-warning-directive  list="JobAccountingCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIJobCharge.ERROR"
+                                        type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref=""
+                                        row-index="JobAccountingCtrl.ePage.Masters.selectedRow" col-index="5">
+                                    </error-warning-directive>
+                                </div>
+                            </div>
+                        </td>
+                        <td data-ng-show="JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.cdept.isenabled"
+                            data-ng-style="{'width': JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.cdept.width + 'px' }">
+                            <div data-ng-if="$index!=JobAccountingCtrl.ePage.Masters.selectedRow || JobAccountingCtrl.ePage.Entities.Header.GlobalVariables.NonEditable"
+                                class="overflow-text">
+                                {{ x.DeptCode || JobAccountingCtrl.ePage.Masters.emptyText}}
+                            </div>
+                            <div data-ng-if="$index==JobAccountingCtrl.ePage.Masters.selectedRow && !JobAccountingCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
+                                <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0 height-22">
+                                    <div class="input-group input-group-sm">
+                                        <div dynamic-lookup placeholder="Department" my-ng-model="x.DeptCode" obj="x" page-name="'CmpDepartment'"
+                                            control-id="'FinanceDepartment'" control-key="FinanceDepartment_3331"
+                                            auto-complete-on-select="JobAccountingCtrl.ePage.Masters.SelectedLookupData($index, $item,'ServiceDept')" is-disabled="x.Costpost || x.Revenuepost"></div>
+                                        <span class="input-group-btn">
+                                            <button dynamic-list-modal class="btn btn-default" type="button" obj="x" page-name="'CmpDepartment'"
+                                                control-id="'FinanceDepartment'" control-key="FinanceDepartment_3331" mode="2"
+                                                grid-refresh-fun-name="" selected-data="JobAccountingCtrl.ePage.Masters.SelectedLookupData($index, $item.data.entity,'ServiceDept')" is-disabled="x.Costpost || x.Revenuepost"><i
+                                                    class="fa fa-ellipsis-h"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="JobAccountingCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIJobCharge.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':6">
+                                    <error-warning-directive  list="JobAccountingCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIJobCharge.ERROR"
+                                        type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref=""
+                                        row-index="JobAccountingCtrl.ePage.Masters.selectedRow" col-index="6">
+                                    </error-warning-directive>
+                                </div>
+                            </div>
+                        </td>
+                        <td data-ng-show="JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.ccreditor.isenabled" data-ng-class="{'gray-background':x.ChargeType == 'REV' || x.Costpost}"
+                            data-ng-style="{'width': JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.ccreditor.width + 'px'}">
+                            <div data-ng-if="$index!=JobAccountingCtrl.ePage.Masters.selectedRow || JobAccountingCtrl.ePage.Entities.Header.GlobalVariables.NonEditable"
+                                class="overflow-text">
+                                {{x.VendorCode || JobAccountingCtrl.ePage.Masters.emptyText}}
+                            </div>
+                            <div data-ng-if="$index==JobAccountingCtrl.ePage.Masters.selectedRow && !JobAccountingCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
+                                <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0 height-22">
+                                    <div class="input-group input-group-sm">
+                                        <div dynamic-lookup placeholder="Creditor" my-ng-model="x.VendorCode" obj="x" page-name="'OrganizationList'"
+                                            control-id="'ShpBillingLocalAddress'" control-key="ShpBillingLocalAddress_2959"
+                                            auto-complete-on-select="JobAccountingCtrl.ePage.Masters.SelectedLookupData($index, $item,'Creditor')" is-disabled="x.ChargeType =='REV' || x.Costpost"></div>
+                                        <span class="input-group-btn">
+                                            <button dynamic-list-modal class="btn btn-default" type="button" obj="x"  page-name="'OrganizationList'" control-id="'ShpBillingLocalAddress'"
+                                                control-key="ShpBillingLocalAddress_2959" mode="2" grid-refresh-fun-name=""
+                                                grid-refresh-fun="" selected-data="JobAccountingCtrl.ePage.Masters.SelectedLookupData($index, $item.data.entity, 'Creditor')" is-disabled="x.ChargeType =='REV' || x.Costpost">
+                                                <i class="fa fa-ellipsis-h"></i>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="JobAccountingCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIJobCharge.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':8">
+                                    <error-warning-directive  list="JobAccountingCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIJobCharge.ERROR"
+                                        type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref=""
+                                        row-index="JobAccountingCtrl.ePage.Masters.selectedRow" col-index="8">
+                                    </error-warning-directive>
+                                </div>
+                            </div>
+                        </td>
+                        <td data-ng-show="JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.ccostinvno.isenabled" data-ng-class="{'gray-background':x.ChargeType == 'REV' || x.Costpost}"
+                            data-ng-style="{'width': JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.ccostinvno.width + 'px' }">
+                            <div data-ng-if="$index!=JobAccountingCtrl.ePage.Masters.selectedRow || JobAccountingCtrl.ePage.Entities.Header.GlobalVariables.NonEditable"
+                                class="overflow-text">
+                                {{ x.APInvoiceNum || JobAccountingCtrl.ePage.Masters.emptyText }}
+                            </div>
+                            <div data-ng-if="$index==JobAccountingCtrl.ePage.Masters.selectedRow && !JobAccountingCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
+                                <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0 height-22">
+                                    <input type="text" class="form-control input-sm" placeholder="Invoice No" data-ng-model="x.APInvoiceNum" data-ng-change='JobAccountingCtrl.ePage.Masters.OnChangeValues(x.APInvoiceNum,"E1312",true,$index)' data-ng-disabled="x.ChargeType =='REV' || x.Costpost">
+                                </div>
+                                <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="JobAccountingCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIJobCharge.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':9">
+                                    <error-warning-directive  list="JobAccountingCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIJobCharge.ERROR"
+                                        type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref=""
+                                        row-index="JobAccountingCtrl.ePage.Masters.selectedRow" col-index="9">
+                                    </error-warning-directive>
+                                </div>
+                            </div>
+                        </td>
+                        <td data-ng-show="JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.ccostinvdate.isenabled" data-ng-class="{'gray-background':x.ChargeType == 'REV' || x.Costpost}"
+                            data-ng-style="{'width': JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.ccostinvdate.width + 'px' }">
+                            <div data-ng-if="$index!=JobAccountingCtrl.ePage.Masters.selectedRow || JobAccountingCtrl.ePage.Entities.Header.GlobalVariables.NonEditable"
+                                class="overflow-text">
+                                {{x.APInvoiceDate || JobAccountingCtrl.ePage.Masters.emptyText | date:"dd-MMM-yyyy h:mma"}}
+                            </div>
+                            <div data-ng-if="$index==JobAccountingCtrl.ePage.Masters.selectedRow && !JobAccountingCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
+                                <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0 height-22">
+                                    <div class="input-group input-group-sm">
+                                        <input type="text" class="form-control input-sm" placeholder={{JobAccountingCtrl.ePage.Masters.DatePicker.Options.dateTimeFormat}}
+                                            data-ng-model="x.APInvoiceDate" datetime-picker="{{JobAccountingCtrl.ePage.Masters.DatePicker.Options.dateTimeFormat}}"
+                                            datepicker-options="JobAccountingCtrl.ePage.Masters.DatePicker.Options"
+                                            datepicker-append-to-body="false" close-on-selection="false" enable-time="true"
+                                            enable-date="true" default-date="" default-time="" save-as="JobAccountingCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                                            is-open="JobAccountingCtrl.ePage.Masters.DatePicker.isOpen['isCostInvoiceDate']"
+                                            when-closed="" data-ng-click="" custom-date-time-format data-ng-change='JobAccountingCtrl.ePage.Masters.OnChangeValues(x.APInvoiceDate,"E1313",true,$index)' data-ng-disabled="x.ChargeType =='REV' || x.Costpost" />
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" data-ng-click="JobAccountingCtrl.ePage.Masters.DatePicker.OpenDatePicker($event,'isCostInvoiceDate')" data-ng-disabled="x.ChargeType =='REV' || x.Costpost">
+                                                <i class="fa fa-calendar"></i>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="JobAccountingCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIJobCharge.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':10">
+                                    <error-warning-directive  list="JobAccountingCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIJobCharge.ERROR"
+                                        type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref=""
+                                        row-index="JobAccountingCtrl.ePage.Masters.selectedRow" col-index="10">
+                                    </error-warning-directive>
+                                </div>
+                            </div>
+                        </td>
+                        <td data-ng-show="JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.ccostpost.isenabled" data-ng-class="{'gray-background':x.ChargeType == 'REV' || x.Costpost}"
+                            data-ng-style="{'width': JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.ccostpost.width + 'px' }">
+                            <label class="customcheckbox mb-0">
+                                <input type="checkbox" data-ng-disabled="true" data-ng-checked="x.Costpost"/>
+                                <span class="text"></span>
+                            </label>							
+                        </td>
+                        <td data-ng-show="JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.ccostsysref.isenabled" data-ng-class="{'gray-background':x.ChargeType == 'REV' || x.Costpost}"
+                            data-ng-style="{'width': JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.ccostsysref.width + 'px' }">
+                            <div data-ng-if="$index!=JobAccountingCtrl.ePage.Masters.selectedRow || JobAccountingCtrl.ePage.Entities.Header.GlobalVariables.NonEditable"
+                                class="overflow-text">
+                                {{x.CostSysRef || JobAccountingCtrl.ePage.Masters.emptyText}}
+                            </div>
+                            <div data-ng-if="$index==JobAccountingCtrl.ePage.Masters.selectedRow && !JobAccountingCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
+                                <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0 height-22">
+                                    <input type="text" class="form-control input-sm" placeholder="Sys Ref" data-ng-model="x.CostSysRef" data-ng-disabled="true">
+                                </div>
+                            </div>
+                        </td>
+                        <td data-ng-show="JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.ccostcurrency.isenabled" data-ng-class="{'gray-background':x.ChargeType == 'REV' || x.Costpost}"
+                            data-ng-style="{'width': JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.ccostcurrency.width + 'px' }">
+                            <div data-ng-if="$index!=JobAccountingCtrl.ePage.Masters.selectedRow || JobAccountingCtrl.ePage.Entities.Header.GlobalVariables.NonEditable"
+                                class="overflow-text">
+                                {{x.RX_NKCostCurrency || JobAccountingCtrl.ePage.Masters.emptyText}}
+                            </div>
+                            <div data-ng-if="$index==JobAccountingCtrl.ePage.Masters.selectedRow && !JobAccountingCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
+                                <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0 height-22">
+                                    <div class="input-group input-group-sm">
+                                        <div dynamic-lookup placeholder="Currency" my-ng-model="x.RX_NKCostCurrency" obj="x"
+                                            page-name="'CurrencyMaster'" control-id="'FinanceAPCurrency'" control-key="FinanceCurrency_3330"
+                                            auto-complete-on-select="JobAccountingCtrl.ePage.Masters.SelectedLookupData($index, $item,'CostCurrency')" is-disabled="x.ChargeType =='REV' || x.Costpost">
+                                        </div>
+                                        <span class="input-group-btn">
+                                            <button dynamic-list-modal class="btn btn-default" type="button" obj="x" page-name="'CurrencyMaster'"
+                                                control-id="'FinanceAPCurrency'" control-key="FinanceCurrency_3330" mode="2"
+                                                grid-refresh-fun-name="" grid-refresh-fun="" selected-data="JobAccountingCtrl.ePage.Masters.SelectedLookupData($index, $item.data.entity, 'CostCurrency')" is-disabled="x.ChargeType =='REV' || x.Costpost">
+                                                <i class="fa fa-ellipsis-h"></i>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="JobAccountingCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIJobCharge.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':13">
+                                    <error-warning-directive  list="JobAccountingCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIJobCharge.ERROR"
+                                        type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref=""
+                                        row-index="JobAccountingCtrl.ePage.Masters.selectedRow" col-index="13">
+                                    </error-warning-directive>
+                                </div>
+                            </div>
+                        </td>
+                        <td data-ng-show="JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.cestcost.isenabled" data-ng-class="{'gray-background':x.ChargeType == 'REV' || x.Costpost}"
+                            data-ng-style="{'width': JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.cestcost.width + 'px' }">
+                            <div data-ng-if="$index!=JobAccountingCtrl.ePage.Masters.selectedRow || JobAccountingCtrl.ePage.Entities.Header.GlobalVariables.NonEditable"
+                                class="overflow-text">
+                                {{x.EstimatedCost || JobAccountingCtrl.ePage.Masters.emptyText}}
+                            </div>
+                            <div data-ng-if="$index==JobAccountingCtrl.ePage.Masters.selectedRow && !JobAccountingCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
+                                <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0 height-22">
+                                    <input type="text" class="form-control input-sm" placeholder="Estimate Cost" data-ng-model="x.EstimatedCost"
+                                        data-ng-blur="JobAccountingCtrl.ePage.Masters.OnEstimatedAmtChange($index, x.EstimatedCost, 'Cost')" data-ng-change='JobAccountingCtrl.ePage.Masters.OnChangeValues(x.EstimatedCost,"E1194",true,$index)'
+                                        numbers-only-dot sb-precision="4" data-ng-disabled="x.ChargeType =='REV' || x.Costpost"/>
+                                </div>
+                                <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="JobAccountingCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIJobCharge.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':14">
+                                    <error-warning-directive  list="JobAccountingCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIJobCharge.ERROR"
+                                        type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref=""
+                                        row-index="JobAccountingCtrl.ePage.Masters.selectedRow" col-index="14">
+                                    </error-warning-directive>
+                                </div>
+                            </div>
+                        </td>
+                        <td data-ng-show="JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.cactcost.isenabled" data-ng-class="{'gray-background':x.ChargeType == 'REV' || x.Costpost}"
+                            data-ng-style="{'width': JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.cactcost.width + 'px' }">
+                            <div data-ng-if="$index!=JobAccountingCtrl.ePage.Masters.selectedRow || JobAccountingCtrl.ePage.Entities.Header.GlobalVariables.NonEditable"
+                                class="overflow-text">
+                                {{x.OSCostAmt || JobAccountingCtrl.ePage.Masters.emptyText}}
+                            </div>
+                            <div data-ng-if="$index==JobAccountingCtrl.ePage.Masters.selectedRow && !JobAccountingCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
+                                <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0 height-22">
+                                    <input type="text" class="form-control input-sm" placeholder="Actual cost" data-ng-model="x.OSCostAmt"
+                                        data-ng-blur="JobAccountingCtrl.ePage.Masters.OnOSAmtChange($index, x.OSCostAmt, 'CostActualAmt')" data-ng-change="JobAccountingCtrl.ePage.Masters.OnChangeValues(x.OSCostAmt,'E1196',true,$index)"
+                                        numbers-only-dot sb-precision="4" data-ng-disabled="x.ChargeType =='REV' || x.Costpost"/>
+                                </div>
+                                <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="JobAccountingCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIJobCharge.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':15">
+                                    <error-warning-directive  list="JobAccountingCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIJobCharge.ERROR"
+                                        type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref=""
+                                        row-index="JobAccountingCtrl.ePage.Masters.selectedRow" col-index="15">
+                                    </error-warning-directive>
+                                </div>
+                            </div>
+                        </td>
+                        <td data-ng-show="JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.ccostvariance.isenabled" data-ng-class="{'gray-background':x.ChargeType == 'REV' || x.Costpost}"
+                            data-ng-style="{'width': JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.ccostvariance.width + 'px' }">
+                            <div data-ng-if="$index!=JobAccountingCtrl.ePage.Masters.selectedRow || JobAccountingCtrl.ePage.Entities.Header.GlobalVariables.NonEditable"
+                                class="overflow-text">
+                                {{x.APVariance || JobAccountingCtrl.ePage.Masters.emptyText}}
+                            </div>
+                            <div data-ng-if="$index==JobAccountingCtrl.ePage.Masters.selectedRow && !JobAccountingCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
+                                <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0 height-22">
+                                    <input type="text" class="form-control input-sm" placeholder="variance" data-ng-model="x.APVariance" numbers-only-dot sb-precision="4" data-ng-disabled="true" />
+                                </div>
+                            </div>
+                        </td>
+                        <td data-ng-show="JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.ccostlocalamt.isenabled" data-ng-class="{'gray-background':x.ChargeType == 'REV' || x.Costpost}"
+                            data-ng-style="{'width': JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.ccostlocalamt.width + 'px' }">
+                            <div data-ng-if="$index!=JobAccountingCtrl.ePage.Masters.selectedRow || JobAccountingCtrl.ePage.Entities.Header.GlobalVariables.NonEditable"
+                                class="overflow-text">
+                                {{x.LocalCostAmt || JobAccountingCtrl.ePage.Masters.emptyText}}
+                            </div>
+                            <div data-ng-if="$index==JobAccountingCtrl.ePage.Masters.selectedRow && !JobAccountingCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
+                                <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0 height-22">
+                                    <input type="text" class="form-control input-sm" placeholder="LocalCostAMT" data-ng-model="x.LocalCostAmt" data-ng-blur="JobAccountingCtrl.ePage.Masters.OnLocalAmtChange($index, x.LocalCostAmt, 'CostLocalAmt')" data-ng-change='JobAccountingCtrl.ePage.Masters.OnChangeValues(x.LocalCostAmt,"E1308",true,$index)' numbers-only-dot sb-precision="4" data-ng-disabled="x.ChargeType =='REV' || x.Costpost"/>
+                                </div>
+                            </div>
+                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="JobAccountingCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIJobCharge.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':17">
+                                <error-warning-directive  list="JobAccountingCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIJobCharge.ERROR"
+                                    type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref=""
+                                    row-index="JobAccountingCtrl.ePage.Masters.selectedRow" col-index="17">
+                                </error-warning-directive>
+                            </div>
+                        </td>
+                        <td data-ng-show="JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.ccosttaxcodecost.isenabled" data-ng-class="{'gray-background':x.ChargeType == 'REV' || x.Costpost}"
+                            data-ng-style="{'width': JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.ccosttaxcodecost.width + 'px' }">
+                            <div data-ng-if="$index!=JobAccountingCtrl.ePage.Masters.selectedRow || JobAccountingCtrl.ePage.Entities.Header.GlobalVariables.NonEditable"
+                                class="overflow-text">
+                                {{x.CostTaxCode || JobAccountingCtrl.ePage.Masters.emptyText}}
+                            </div>
+                            <div data-ng-if="$index==JobAccountingCtrl.ePage.Masters.selectedRow && !JobAccountingCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
+                                <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0 height-22">
+                                    <input type="text" class="form-control input-sm" placeholder="Tax Code" data-ng-model="x.CostTaxCode" data-ng-disabled="x.ChargeType =='REV' || x.Costpost"/>
+                                </div>
+                            </div>
+                        </td>
+                        <td data-ng-show="JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.ccosttaxamtcost.isenabled" data-ng-class="{'gray-background':x.ChargeType == 'REV' || x.Costpost}"
+                            data-ng-style="{'width': JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.ccosttaxamtcost.width + 'px' }">
+                            <div data-ng-if="$index!=JobAccountingCtrl.ePage.Masters.selectedRow || JobAccountingCtrl.ePage.Entities.Header.GlobalVariables.NonEditable"
+                                class="overflow-text">
+                                {{x.OSCostGSTAmt || JobAccountingCtrl.ePage.Masters.emptyText}}
+                            </div>
+                            <div data-ng-if="$index==JobAccountingCtrl.ePage.Masters.selectedRow && !JobAccountingCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
+                                <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0 height-22">
+                                    <input type="text" class="form-control input-sm" placeholder="Tax amount" data-ng-model="x.OSCostGSTAmt"
+                                        numbers-only-dot data-ng-disabled="true"/>
+                                </div>
+                            </div>
+                        </td>
+                        <td data-ng-show="JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.cdebitor.isenabled" data-ng-class="{'gray-background':x.Revenuepost}"
+                            data-ng-style="{'width': JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.cdebitor.width + 'px' }">
+                            <div data-ng-if="$index!=JobAccountingCtrl.ePage.Masters.selectedRow || JobAccountingCtrl.ePage.Entities.Header.GlobalVariables.NonEditable"
+                                class="overflow-text">
+                                {{x.CustomerCode || JobAccountingCtrl.ePage.Masters.emptyText}}
+                            </div>
+                            <div data-ng-if="$index==JobAccountingCtrl.ePage.Masters.selectedRow && !JobAccountingCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
+                                <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0 height-22">
+                                    <div class="input-group input-group-sm">
+                                        <div dynamic-lookup placeholder="Debitor" my-ng-model="x.CustomerCode" obj="x"
+                                            page-name="'OrganizationList'" control-id="'ShpBillingAgentAddress'" control-key="ShpBillingAgentAddress_2958"
+                                            auto-complete-on-select="JobAccountingCtrl.ePage.Masters.SelectedLookupData($index, $item,'Debeitor')" is-disabled="x.Revenuepost">
+                                        </div>
+                                        <span class="input-group-btn">
+                                            <button dynamic-list-modal class="btn btn-default" type="button" obj="x" page-name="'OrganizationList'" control-id="'ShpBillingAgentAddress'"
+                                            control-key="ShpBillingAgentAddress_2958" grid-refresh-fun-name="" grid-refresh-fun="" mode="2" grid-refresh-fun-name=""
+                                                grid-refresh-fun="" selected-data="JobAccountingCtrl.ePage.Masters.SelectedLookupData($index, $item.data.entity,'Debeitor')" is-disabled="x.Revenuepost">
+                                                <i class="fa fa-ellipsis-h"></i>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="JobAccountingCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIJobCharge.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':21">
+                                    <error-warning-directive  list="JobAccountingCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIJobCharge.ERROR"
+                                        type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref=""
+                                        row-index="JobAccountingCtrl.ePage.Masters.selectedRow" col-index="21">
+                                    </error-warning-directive>
+                                </div>
+                            </div>
+                        </td>
+                        <td data-ng-show="JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.crevenueinvno.isenabled" data-ng-class="{'gray-background':x.Revenuepost}"
+                            data-ng-style="{'width': JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.crevenueinvno.width + 'px' }">
+                            <div data-ng-if="$index!=JobAccountingCtrl.ePage.Masters.selectedRow || JobAccountingCtrl.ePage.Entities.Header.GlobalVariables.NonEditable"
+                                class="overflow-text">
+                                {{x.RevenueInvoiceNo || JobAccountingCtrl.ePage.Masters.emptyText}}
+                            </div>
+                            <div data-ng-if="$index==JobAccountingCtrl.ePage.Masters.selectedRow && !JobAccountingCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
+                                <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0 height-22">
+                                    <input type="text" class="form-control input-sm" placeholder="Invoice No" data-ng-model="x.RevenueInvoiceNo" data-ng-disabled="true" />
+                                </div>
+                            </div>
+                        </td>
+                        <td data-ng-show="JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.cinvtype.isenabled" data-ng-class="{'gray-background':x.Revenuepost}"
+                            data-ng-style="{'width': JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.cinvtype.width + 'px' }">
+                            <div data-ng-if="$index!=JobAccountingCtrl.ePage.Masters.selectedRow || JobAccountingCtrl.ePage.Entities.Header.GlobalVariables.NonEditable"
+                                class="overflow-text">
+                                {{x.InvoiceType || JobAccountingCtrl.ePage.Masters.emptyText}}
+                            </div>
+                            <div data-ng-if="$index==JobAccountingCtrl.ePage.Masters.selectedRow && !JobAccountingCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
+                                <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0 height-22">
+                                    <input type="text" class="form-control input-sm" placeholder="Invoice Type" data-ng-model="x.InvoiceType" data-ng-disabled="true" />
+                                </div>
+                            </div>
+                        </td>
+                        <td data-ng-show="JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.crevenueinvdate.isenabled" data-ng-class="{'gray-background':x.Revenuepost}"
+                            data-ng-style="{'width': JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.crevenueinvdate.width + 'px' }">
+                            <div data-ng-if="$index!=JobAccountingCtrl.ePage.Masters.selectedRow || JobAccountingCtrl.ePage.Entities.Header.GlobalVariables.NonEditable"
+                                class="overflow-text">
+                                {{x.ARInvoiceDate || JobAccountingCtrl.ePage.Masters.emptyText}}
+                            </div>
+                            <div data-ng-if="$index==JobAccountingCtrl.ePage.Masters.selectedRow && !JobAccountingCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
+                                <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0 height-22">
+                                    <div class="input-group input-group-sm">
+                                        <input type="text" class="form-control input-sm" placeholder="{{JobAccountingCtrl.ePage.Masters.DatePicker.Options.dateTimeFormat}}"
+                                            data-ng-model="x.ARInvoiceDate" datetime-picker="{{JobAccountingCtrl.ePage.Masters.DatePicker.Options.dateTimeFormat}}"
+                                            datepicker-options="JobAccountingCtrl.ePage.Masters.DatePicker.Options"
+                                            datepicker-append-to-body="false" close-on-selection="false" enable-time="true"
+                                            enable-date="true" default-date="" default-time="" save-as="JobAccountingCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                                            is-open="JobAccountingCtrl.ePage.Masters.DatePicker.isOpen['isRevenueInvoiceDate']"
+                                            when-closed="" data-ng-click="" custom-date-time-format data-ng-disabled="true" />
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" data-ng-click="JobAccountingCtrl.ePage.Masters.DatePicker.OpenDatePicker($event,'isRevenueInvoiceDate')"
+                                                data-ng-disabled="true">
+                                                <i class="fa fa-calendar"></i>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td data-ng-show="JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.crevenuepost.isenabled" data-ng-class="{'gray-background':x.Revenuepost}"
+                            data-ng-style="{'width': JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.crevenuepost.width + 'px' }">
+                            <label class="customcheckbox mb-0">
+                                <input type="checkbox" data-ng-disabled="true" data-ng-checked="x.Revenuepost"/>
+                                <span class="text"></span>
+                            </label>
+                        </td>
+                        <td data-ng-show="JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.crevenuesysref.isenabled" data-ng-class="{'gray-background':x.Revenuepost}"
+                            data-ng-style="{'width': JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.crevenuesysref.width + 'px' }">
+                            <div data-ng-if="$index!=JobAccountingCtrl.ePage.Masters.selectedRow || JobAccountingCtrl.ePage.Entities.Header.GlobalVariables.NonEditable"
+                                class="overflow-text">
+                                {{x.SellReference || JobAccountingCtrl.ePage.Masters.emptyText}}
+                            </div>
+                            <div data-ng-if="$index==JobAccountingCtrl.ePage.Masters.selectedRow && !JobAccountingCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
+                                <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0 height-22">
+                                    <input type="text" class="form-control input-sm" placeholder="Sys Ref" data-ng-model="x.SellReference" data-ng-disabled="true">
+                                </div>
+                            </div>
+                        </td>
+                        <td data-ng-show="JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.crevenuecurrency.isenabled" data-ng-class="{'gray-background':x.Revenuepost}"
+                            data-ng-style="{'width': JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.crevenuecurrency.width + 'px' }">
+                            <div data-ng-if="$index!=JobAccountingCtrl.ePage.Masters.selectedRow || JobAccountingCtrl.ePage.Entities.Header.GlobalVariables.NonEditable"
+                                class="overflow-text">
+                                {{x.RX_NKSellCurrency || JobAccountingCtrl.ePage.Masters.emptyText}}
+                            </div>
+                            <div data-ng-if="$index==JobAccountingCtrl.ePage.Masters.selectedRow && !JobAccountingCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
+                                <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0 height-22">
+                                    <div class="input-group input-group-sm">
+                                        <div dynamic-lookup placeholder="Currency" my-ng-model="x.RX_NKSellCurrency" obj="x"
+                                            page-name="'CurrencyMaster'" control-id="'FinanceARCurrency'" control-key="FinanceCurrency_3335"
+                                            auto-complete-on-select="JobAccountingCtrl.ePage.Masters.SelectedLookupData($index, $item, 'RevenueCurrency')" is-disabled="x.Revenuepost">
+                                        </div>
+                                        <span class="input-group-btn">
+                                            <button dynamic-list-modal class="btn btn-default" type="button" obj="x" page-name="'CurrencyMaster'"
+                                                control-id="'FinanceARCurrency'" control-key="FinanceCurrency_3335" mode="2"
+                                                grid-refresh-fun-name="" grid-refresh-fun="" selected-data="JobAccountingCtrl.ePage.Masters.SelectedLookupData($index, $item.data.entity, 'RevenueCurrency')" is-disabled="x.Revenuepost">
+                                                <i class="fa fa-ellipsis-h"></i>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="JobAccountingCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIJobCharge.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':27">
+                                    <error-warning-directive  list="JobAccountingCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIJobCharge.ERROR"
+                                        type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref=""
+                                        row-index="JobAccountingCtrl.ePage.Masters.selectedRow" col-index="27">
+                                    </error-warning-directive>
+                                </div>
+                            </div>
+                        </td>
+                        <td data-ng-show="JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.cestrevenue.isenabled" data-ng-class="{'gray-background':x.Revenuepost}"
+                            data-ng-style="{'width': JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.cestrevenue.width + 'px' }">
+                            <div data-ng-if="$index!=JobAccountingCtrl.ePage.Masters.selectedRow || JobAccountingCtrl.ePage.Entities.Header.GlobalVariables.NonEditable"
+                                class="overflow-text">
+                                {{x.EstimatedRevenue || JobAccountingCtrl.ePage.Masters.emptyText}}
+                            </div>
+                            <div data-ng-if="$index==JobAccountingCtrl.ePage.Masters.selectedRow && !JobAccountingCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
+                                <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0 height-22">
+                                    <input type="text" class="form-control input-sm" placeholder="Estimated Revenue"
+                                        data-ng-model="x.EstimatedRevenue" data-ng-blur="JobAccountingCtrl.ePage.Masters.OnEstimatedAmtChange($index, x.EstimatedRevenue, 'Revenue')"
+                                        data-ng-change='JobAccountingCtrl.ePage.Masters.OnChangeValues(x.EstimatedRevenue,"E1195",true,$index)' numbers-only-dot sb-precision="4" data-ng-disabled="x.Revenuepost"/>
+                                </div>
+                                <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="JobAccountingCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIJobCharge.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':28">
+                                    <error-warning-directive  list="JobAccountingCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIJobCharge.ERROR"
+                                        type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref=""
+                                        row-index="JobAccountingCtrl.ePage.Masters.selectedRow" col-index="28">
+                                    </error-warning-directive>
+                                </div>
+                            </div>
+                        </td>
+                        <td data-ng-show="JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.cactrevenue.isenabled" data-ng-class="{'gray-background':x.Revenuepost}"
+                            data-ng-style="{'width': JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.cactrevenue.width + 'px' }">
+                            <div data-ng-if="$index!=JobAccountingCtrl.ePage.Masters.selectedRow || JobAccountingCtrl.ePage.Entities.Header.GlobalVariables.NonEditable"
+                                class="overflow-text">
+                                {{x.OSSellAmt || JobAccountingCtrl.ePage.Masters.emptyText}}
+                            </div>
+                            <div data-ng-if="$index==JobAccountingCtrl.ePage.Masters.selectedRow && !JobAccountingCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
+                                <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0 height-22">
+                                    <input type="text" class="form-control input-sm" placeholder="Actual Revenue" data-ng-model="x.OSSellAmt"
+                                        data-ng-blur="JobAccountingCtrl.ePage.Masters.OnOSAmtChange($index, x.OSSellAmt, 'RevenueActualAmt')"
+                                        data-ng-change='JobAccountingCtrl.ePage.Masters.OnChangeValues(x.OSSellAmt,"E1197",true,$index)' numbers-only-dot sb-precision="4" data-ng-disabled="x.Revenuepost"/>
+                                </div>
+                                <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="JobAccountingCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIJobCharge.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':29">
+                                    <error-warning-directive  list="JobAccountingCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIJobCharge.ERROR"
+                                        type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref=""
+                                        row-index="JobAccountingCtrl.ePage.Masters.selectedRow" col-index="29">
+                                    </error-warning-directive>
+                                </div>
+                            </div>
+                        </td>
+                        <td data-ng-show="JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.crevenuevariance.isenabled" data-ng-class="{'gray-background':x.Revenuepost}"
+                            data-ng-style="{'width': JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.crevenuevariance.width + 'px' }">
+                            <div data-ng-if="$index!=JobAccountingCtrl.ePage.Masters.selectedRow || JobAccountingCtrl.ePage.Entities.Header.GlobalVariables.NonEditable"
+                                class="overflow-text">
+                                {{x.ARVariance || JobAccountingCtrl.ePage.Masters.emptyText}}
+                            </div>
+                            <div data-ng-if="$index==JobAccountingCtrl.ePage.Masters.selectedRow && !JobAccountingCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
+                                <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0 height-22">
+                                    <input type="text" class="form-control input-sm" placeholder="variance" data-ng-model="x.ARVariance" numbers-only-dot sb-precision="4" data-ng-disabled="true" />
+                                </div>
+                            </div>
+                        </td>
+                        <td data-ng-show="JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.cselllocalamt.isenabled" data-ng-class="{'gray-background':x.Revenuepost}"
+                            data-ng-style="{'width': JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.cselllocalamt.width + 'px' }">
+                            <div data-ng-if="$index!=JobAccountingCtrl.ePage.Masters.selectedRow || JobAccountingCtrl.ePage.Entities.Header.GlobalVariables.NonEditable"
+                                class="overflow-text">
+                                {{x.LocalSellAmt || JobAccountingCtrl.ePage.Masters.emptyText}}
+                            </div>
+                            <div data-ng-if="$index==JobAccountingCtrl.ePage.Masters.selectedRow && !JobAccountingCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
+                                <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0 height-22">
+                                    <input type="text" class="form-control input-sm" placeholder="LocalSellAmt" data-ng-model="x.LocalSellAmt" data-ng-blur="JobAccountingCtrl.ePage.Masters.OnLocalAmtChange($index, x.LocalSellAmt, 'RevenueLocalAmt')"
+                                    data-ng-change='JobAccountingCtrl.ePage.Masters.OnChangeValues(x.LocalSellAmt,"E1309",true,$index)' numbers-only-dot sb-precision="4" data-ng-disabled="x.Revenuepost"/>
+                                </div>
+                                <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="JobAccountingCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIJobCharge.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':31">
+                                    <error-warning-directive  list="JobAccountingCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIJobCharge.ERROR"
+                                        type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref=""
+                                        row-index="JobAccountingCtrl.ePage.Masters.selectedRow" col-index="31">
+                                    </error-warning-directive>
+                                </div>
+                            </div>
+                        </td>
+                        <td data-ng-show="JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.crevenuetaxcodecost.isenabled" data-ng-class="{'gray-background':x.Revenuepost}"
+                            data-ng-style="{'width': JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.crevenuetaxcodecost.width + 'px' }">
+                            <div data-ng-if="$index!=JobAccountingCtrl.ePage.Masters.selectedRow || JobAccountingCtrl.ePage.Entities.Header.GlobalVariables.NonEditable"
+                                class="overflow-text">
+                                {{x.RevenueTaxCode || JobAccountingCtrl.ePage.Masters.emptyText}}
+                            </div>
+                            <div data-ng-if="$index==JobAccountingCtrl.ePage.Masters.selectedRow && !JobAccountingCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
+                                <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0 height-22">
+                                    <input type="text" class="form-control input-sm" placeholder="Tax Code" data-ng-model="x.RevenueTaxCode" data-ng-disabled="x.Revenuepost">
+                                </div>
+                            </div>
+                        </td>
+                        <td data-ng-show="JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.crevenuetaxamtcost.isenabled" data-ng-class="{'gray-background':x.Revenuepost}"
+                            data-ng-style="{'width': JobAccountingCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.crevenuetaxamtcost.width + 'px' }">
+                            <div data-ng-if="$index!=JobAccountingCtrl.ePage.Masters.selectedRow || JobAccountingCtrl.ePage.Entities.Header.GlobalVariables.NonEditable"
+                                class="overflow-text">
+                                {{x.OSSellGSTAmt || JobAccountingCtrl.ePage.Masters.emptyText}}
+                            </div>
+                            <div data-ng-if="$index==JobAccountingCtrl.ePage.Masters.selectedRow && !JobAccountingCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
+                                <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0 height-22">
+                                    <input type="text" class="form-control input-sm" placeholder="Tax amount" data-ng-model="x.OSSellGSTAmt" data-ng-disabled="true" numbers-only-dot />
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <!--Cost, Revenue, Profit Caluculation-->
+        <div class="row">
+            <div class="clearfix mt-30">
+                <div class="col-xs-12 col-sm-12 col-md-9 col-lg-7 col-xl-9">
+                    <div class="row">
+                        <div class="clearfix">
+                            <div class="form-group col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-5 col-xl-3 mt-5">
+                                    <strong>Cost:</strong>
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-7 col-xl-9">
+                                    <input type="text" class="form-control" placeholder="Cost" data-ng-model="JobAccountingCtrl.ePage.Masters.Cost" readonly />
+                                </div>
+                            </div>
+                            <div class="form-group col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-5 col-xl-3 mt-5">
+                                    <strong>Revenue:</strong>
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-7 col-xl-9">
+                                    <input type="text" class="form-control" placeholder="Revenue" data-ng-model="JobAccountingCtrl.ePage.Masters.Revenue" readonly />
+                                </div>
+                            </div>
+                            <div class="form-group col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-5 col-xl-3 mt-5">
+                                    <strong>Profit:</strong>
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-7 col-xl-9">
+                                    <input type="text" class="form-control" placeholder="Profit &amp; Loss %" data-ng-model="JobAccountingCtrl.ePage.Masters.ProfitAndLoss" readonly />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-3 col-lg-5 col-xl-3">
+                    <!-- <span class="pull-right">
+                        <button type="button" class="btn btn-primary btn-md">Cancel</button>
+                    </span> -->
+                    <span class="pull-right">
+                        <button type="button" class="btn btn-primary btn-md" data-ng-bind="JobAccountingCtrl.ePage.Masters.PostButtonText" data-ng-click="JobAccountingCtrl.ePage.Masters.Validation(JobAccountingCtrl.currentFinanceJob, 'Post')" data-ng-disabled="JobAccountingCtrl.ePage.Masters.DisablePost"></button>
+                    </span>
+                    <span class="pull-right">
+                        <button type="button" class="btn btn-primary btn-md margin-right-10" data-ng-bind="JobAccountingCtrl.ePage.Masters.PostRevenueButtonText" data-ng-click="JobAccountingCtrl.ePage.Masters.Validation(JobAccountingCtrl.currentFinanceJob, 'PostRevenue')" data-ng-disabled="JobAccountingCtrl.ePage.Masters.DisablePostRevenue"></button>
+                    </span>
+                    <span class="pull-right">
+                        <button type="button" class="btn btn-primary btn-md margin-right-10" data-ng-bind="JobAccountingCtrl.ePage.Masters.PostCostButtonText" data-ng-click="JobAccountingCtrl.ePage.Masters.PostCost(JobAccountingCtrl.currentFinanceJob)" data-ng-disabled="JobAccountingCtrl.ePage.Masters.DisablePostCost"></button>
+                    </span>
+                    <!-- <span class="pull-right">
+                        <button type="button" class="btn btn-primary btn-md margin-right-10">Book Cost</button>
+                    </span> -->
+                    <span class="pull-right">
+                        <button type="button" class="btn btn-primary btn-md margin-right-10" data-ng-bind="JobAccountingCtrl.ePage.Masters.SaveButtonText" data-ng-click="JobAccountingCtrl.ePage.Masters.Validation(JobAccountingCtrl.currentFinanceJob)" data-ng-disabled="JobAccountingCtrl.ePage.Masters.DisableSave"></button>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+ <!-- Error Warning -->
+<div class="error-warning-container right" style="margin-top:0px !important" id="errorWarningContainer{{JobAccountingCtrl.currentFinanceJob.code}}">
+        <div class="error-warning-header clearfix">
+            <span class="title pull-left">
+                <!-- <i class="fa fa-warning"></i>  -->
+                Errors & Warnings
+            </span>
+            <span class="error-warning-toggle-icon pull-right" data-ng-click="JobAccountingCtrl.ePage.Masters.Config.ShowErrorWarningModal(JobAccountingCtrl.currentFinanceJob)">
+                <i class="fa fa-arrow-right"></i>
+            </span>
+        </div>
+         <div class="error-warning-body">
+            <div class="clearfix" data-ng-if="JobAccountingCtrl.ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList.length>0">
+                <div class="clearfix">
+                    <div class="p-5 error-warnig-list clearfix" data-ng-repeat="x in JobAccountingCtrl.ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList">
+                        <div class="clearfix">
+                            <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 p-0 text-center">
+                                <span class=" fa fa-warning" data-ng-style="{color: {'W':'#FFAD33', 'E':'#ED4337'}[x.MessageType]}"></span>
+                            </div>
+                            <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11 pr-0">
+                                <div class="message" data-ng-bind="x.Code + ' - ' + x.Message"></div>
+                                <div class="meta-object" data-ng-bind="x.MetaObject"></div>
+                            </div>    
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> 
+</div>

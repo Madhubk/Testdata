@@ -38,9 +38,12 @@
             <div class="tc-header edit-view">
                 <span data-ng-bind="'Details'"></span>
                 <button class="btn btn-default tc-btn-edit btn-xs pull-right ml-10" data-ng-click="UserSettingsCtrl.ePage.Masters.UserSetting.Edit()"
-                    data-ng-disabled="!UserSettingsCtrl.ePage.Masters.UserSetting.ActiveUserSetting">Edit</button>
+                    data-ng-disabled="!UserSettingsCtrl.ePage.Masters.UserSetting.ActiveUserSetting.PK">Edit</button>
                 <button class="btn btn-default tc-btn-delete btn-xs pull-right ml-10" data-ng-click="UserSettingsCtrl.ePage.Masters.UserSetting.DeleteConfirmation()"
-                    data-ng-bind="UserSettingsCtrl.ePage.Masters.UserSetting.DeleteBtnText" data-ng-disabled="UserSettingsCtrl.ePage.Masters.UserSetting.IsDisableDeleteBtn || !UserSettingsCtrl.ePage.Masters.UserSetting.ActiveUserSetting"></button>
+                    data-ng-bind="UserSettingsCtrl.ePage.Masters.UserSetting.DeleteBtnText" data-ng-disabled="UserSettingsCtrl.ePage.Masters.UserSetting.IsDisableDeleteBtn || !UserSettingsCtrl.ePage.Masters.UserSetting.ActiveUserSetting.PK"></button>
+                <button class="btn btn-primary btn-xs pull-right ml-10" generate-db-script input="UserSettingsCtrl.ePage.Masters.GenerateScriptInput"
+                    config="UserSettingsCtrl.ePage.Masters.GenerateScriptConfig" data-ng-disabled="!UserSettingsCtrl.ePage.Masters.GenerateScriptInput.ObjectName || !UserSettingsCtrl.ePage.Masters.GenerateScriptInput.ObjectId || !UserSettingsCtrl.ePage.Masters.UserSetting.ActiveUserSetting.PK">Generate
+                    Script</button>
             </div>
         </div>
     </div>
@@ -50,7 +53,7 @@
             <div class="tc-list-search">
                 <input type="text" placeholder="Search..." class="form-control input-sm" data-ng-model="UserSettingsCtrl.ePage.Masters.DataEntry.Search">
             </div>
-            <div class="tc-list-container tc-page-height-fixed">
+            <div class="tc-list-container tc-page-height-fixed left">
                 <ul class="tc-list-ul">
                     <div class="p-15 text-center tc-loading" data-ng-if="!UserSettingsCtrl.ePage.Masters.DataEntry.Listsource">
                         <i class="fa fa-spin fa-spinner"></i>
@@ -77,7 +80,7 @@
             <div class="tc-list-search">
                 <input type="text" placeholder="Search..." class="form-control input-sm" data-ng-model="UserSettingsCtrl.ePage.Masters.UserSetting.Search">
             </div>
-            <div class="tc-list-container tc-page-height-fixed">
+            <div class="tc-list-container tc-page-height-fixed left">
                 <ul class="tc-list-ul">
                     <div class="p-15 text-center tc-loading" data-ng-if="!UserSettingsCtrl.ePage.Masters.UserSetting.Listsource">
                         <i class="fa fa-spin fa-spinner"></i>

@@ -58,6 +58,7 @@
                     data-ng-disabled="!PageCtrl.ePage.Masters.Page.ActivePage.DataEntry_PK">Edit</button>
                 <button class="btn btn-default tc-btn-delete btn-xs pull-right ml-10" data-ng-click="PageCtrl.ePage.Masters.Page.DeleteConfirmation()"
                     data-ng-bind="PageCtrl.ePage.Masters.Page.DeleteBtnText" data-ng-disabled="PageCtrl.ePage.Masters.Page.IsDisableDeleteBtn || !PageCtrl.ePage.Masters.Page.ActivePage.DataEntry_PK"></button>
+                    <button class="btn btn-primary btn-xs pull-right ml-10" generate-db-script input="PageCtrl.ePage.Masters.GenerateScriptInput" config="PageCtrl.ePage.Masters.GenerateScriptConfig" data-ng-disabled="!PageCtrl.ePage.Masters.GenerateScriptInput.ObjectName || !PageCtrl.ePage.Masters.GenerateScriptInput.ObjectId || !PageCtrl.ePage.Masters.Page.ActivePage.DataEntry_PK">Generate Script</button>
             </div>
         </div>
     </div>
@@ -67,17 +68,34 @@
             <div class="tc-list-search">
                 <input type="text" placeholder="Search..." class="form-control input-sm" data-ng-model="PageCtrl.ePage.Masters.Search">
             </div>
-            <div class="tc-list-container tc-page-height-fixed left">
+            <div class="clearfix tc-list-heading">
+                    <div class="col-sm-3">
+                        <div class="text-single-line">Data Entry Name</div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="text-single-line">Title</div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="text-single-line">Type</div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="text-single-line">Entity Source</div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="text-single-line">Entity Ref Code</div>
+                    </div>
+                </div>
+            <div class="tc-list-container tc-page-height-fixed left with-header">
                 <ul class="tc-list-ul">
                     <div class="p-15 text-center tc-loading" data-ng-if="!PageCtrl.ePage.Masters.Page.PageList">
                         <i class="fa fa-spin fa-spinner"></i>
                     </div>
-                    <div data-ng-if="PageCtrl.ePage.Masters.Page.PageList && (PageCtrl.ePage.Masters.Page.PageList | filter: PageCtrl.ePage.Masters.Search).length===0"
+                    <div data-ng-if="PageCtrl.ePage.Masters.Page.PageList && (PageCtrl.ePage.Masters.Page.PageList | fieldFilter: ['DataEntryName', 'Title']: PageCtrl.ePage.Masters.Search).length===0"
                         class="p-15 text-center">
                         <i>No Records...</i>
                     </div>
-                    <li data-ng-if="PageCtrl.ePage.Masters.Page.PageList && (PageCtrl.ePage.Masters.Page.PageList | filter: PageCtrl.ePage.Masters.Search).length > 0"
-                        data-ng-repeat="x in PageCtrl.ePage.Masters.Page.PageList | filter: PageCtrl.ePage.Masters.Search"
+                    <li data-ng-if="PageCtrl.ePage.Masters.Page.PageList && (PageCtrl.ePage.Masters.Page.PageList | fieldFilter: ['DataEntryName', 'Title']: PageCtrl.ePage.Masters.Search).length > 0"
+                        data-ng-repeat="x in PageCtrl.ePage.Masters.Page.PageList | fieldFilter: ['DataEntryName', 'Title']: PageCtrl.ePage.Masters.Search"
                         data-ng-click="PageCtrl.ePage.Masters.Page.ActivePage.DataEntry_PK != x.DataEntry_PK && PageCtrl.ePage.Masters.Page.OnPageClick(x)"
                         data-ng-class="{'active': PageCtrl.ePage.Masters.Page.ActivePage.DataEntry_PK == x.DataEntry_PK}">
                         <div class="clearfix tc-list">
@@ -152,6 +170,9 @@
                                 <span class="text-single-line" data-ng-bind="x.Description"></span>
                             </div>
                         </div>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0);" data-ng-click="PageCtrl.ePage.Masters.Page.Publish()">Publish</a>
                     </li>
             </div>
         </div>

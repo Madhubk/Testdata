@@ -208,6 +208,18 @@
                     OnCompRoleAppTenantClick(TCCompRoleAppTenantCtrl.ePage.Masters.CompRoleAppTenant.CompRoleAppTenantList[0]);
                 }
             }
+
+            if (TCCompRoleAppTenantCtrl.ePage.Masters.CompRoleAppTenant.ActiveCompRoleAppTenant) {
+                TCCompRoleAppTenantCtrl.ePage.Masters.GenerateScriptInput = {
+                    ObjectName: "SECMAPPINGS",
+                    ObjectId: TCCompRoleAppTenantCtrl.ePage.Masters.CompRoleAppTenant.ActiveCompRoleAppTenant.PK
+                };
+                TCCompRoleAppTenantCtrl.ePage.Masters.GenerateScriptConfig = {
+                    IsEnableTable: false,
+                    IsEnablePK: false,
+                    IsEnableTenant: false
+                };
+            }
         }
 
         function GetRolesList($viewValue) {
@@ -285,7 +297,7 @@
             _input.Item_FK = TCCompRoleAppTenantCtrl.ePage.Masters.QueryString.ItemPk;
             _input.ItemCode = TCCompRoleAppTenantCtrl.ePage.Masters.QueryString.ItemCode;
             _input.ItemName = TCCompRoleAppTenantCtrl.ePage.Masters.QueryString.ItemName;
-             _input.Access_FK = TCCompRoleAppTenantCtrl.ePage.Masters.CompRoleAppTenant.ActiveCompRoleAppTenant.Access_FK;
+            _input.Access_FK = TCCompRoleAppTenantCtrl.ePage.Masters.CompRoleAppTenant.ActiveCompRoleAppTenant.Access_FK;
             _input.AccessCode = TCCompRoleAppTenantCtrl.ePage.Masters.CompRoleAppTenant.ActiveCompRoleAppTenant.AccessCode;
             _input.AccessTo = "ROLE";
             _input.IsModified = true;

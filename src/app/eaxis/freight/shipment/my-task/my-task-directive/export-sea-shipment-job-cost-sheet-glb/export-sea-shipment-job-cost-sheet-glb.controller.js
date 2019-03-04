@@ -64,8 +64,6 @@
                     if (response.data.Response) {
                         ExportSeaShipmentJobCostSheetGlbCtrl.ePage.Entities.Header.Data = response.data.Response;
                         getTaskConfigData();
-                    } else {
-                        ExportSeaShipmentJobCostSheetGlbCtrl.ePage.Entities.Header.Data.EntityObj = {};
                     }
                 });
             }

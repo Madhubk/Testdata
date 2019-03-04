@@ -253,6 +253,19 @@
                 MenuCtrl.ePage.Masters.Menu.ActiveMenu.Icon = JSON.parse(MenuCtrl.ePage.Masters.Menu.ActiveMenu.Icon);
                 MenuCtrl.ePage.Masters.Menu.ActiveMenu.PageType = MenuCtrl.ePage.Masters.QueryString.AdditionalData.Input.Code;
             }
+
+            if (MenuCtrl.ePage.Masters.Menu.ActiveMenu) {
+                MenuCtrl.ePage.Masters.GenerateScriptInput = {
+                    ObjectName: "Cfxmenus",
+                    ObjectId: MenuCtrl.ePage.Masters.Menu.ActiveMenu.Id
+                };
+                MenuCtrl.ePage.Masters.GenerateScriptConfig = {
+                    IsEnableTable: false,
+                    IsEnablePK: false,
+                    IsEnableTenant: false
+                };
+            }
+
         }
 
         function OnParentChange($item) {

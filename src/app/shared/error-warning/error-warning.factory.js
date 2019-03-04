@@ -5,9 +5,9 @@
         .module("Application")
         .factory("errorWarningService", ErrorWarningService);
 
-    ErrorWarningService.$inject = ["$q", "helperService", "appConfig", "authService", "apiService", "toastr"];
+    ErrorWarningService.$inject = ["$q", "helperService", "appConfig", "authService", "apiService", "toastr", "APP_CONSTANT"];
 
-    function ErrorWarningService($q, helperService, appConfig, authService, apiService, toastr) {
+    function ErrorWarningService($q, helperService, appConfig, authService, apiService, toastr, APP_CONSTANT) {
         var exports = {
             Modules: {},
             GetErrorCodeList: GetErrorCodeList,
@@ -20,13 +20,31 @@
         return exports;
 
         function GetErrorCodeList($item) {
-            AddModule($item).then(function (response) {
-                if ($item.API == "Validation") {
-                    GetValidationListUsingValidationFindAll($item);
-                } else if ($item.API == "Group") {
-                    GetValidationListUsingValidationByGroup($item);
+            let _deferred = $q.defer();
+            let _moduleName = [];
+            $item.ModuleName.map(x => {
+                if (!exports.Modules[x]) {
+                    _moduleName.push(x);
                 }
             });
+            $item.ModuleName = _moduleName;
+
+            if ($item.ModuleName.length > 0) {
+                AddModule($item).then(response => {
+                    if ($item.API == "Validation") {
+                        GetValidationListUsingValidationFindAll($item).then(response => {
+                            _deferred.resolve(response);
+                        });
+                    } else if ($item.API == "Group") {
+                        GetValidationListUsingValidationByGroup($item).then(response => {
+                            _deferred.resolve(response);
+                        });
+                    }
+                });
+            } else {
+                _deferred.resolve();
+            }
+            return _deferred.promise;
         }
 
         function AddModule($item) {
@@ -57,6 +75,7 @@
             var _item = angular.copy($item);
 
             var _filter = _item.FilterInput;
+            _filter.IsClient = true;
             _filter.TenantCode = authService.getUserInfo().TenantCode;
             _filter.SAP_FK = authService.getUserInfo().AppPK;
             var _input = {
@@ -377,7 +396,9 @@
                     exports.Modules[$item.moduleName].Entity[$item.entityName][$item.MetaObject].ERROR[_indexError] = $item;
                 }
 
-                InsertToErrorLog($item);
+                if (APP_CONSTANT.IsInsertErrorLog) {
+                    InsertToErrorLog($item);
+                }
 
                 if ($item.IsAlert) {
                     toastr.error($item.Code, $item.Message);

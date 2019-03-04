@@ -52,10 +52,10 @@
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": bkgBuyerSupplierOrderCtrl.ePage.Entities.Header.API.OrderBuyerSupplierFindall.FilterID
+                "FilterID": appConfig.Entities.PorOrderHeader.API.FindAll.FilterID
             };
 
-            apiService.post("eAxisAPI", bkgBuyerSupplierOrderCtrl.ePage.Entities.Header.API.OrderBuyerSupplierFindall.Url, _input).then(function (response) {
+            apiService.post("eAxisAPI", appConfig.Entities.PorOrderHeader.API.FindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     bkgBuyerSupplierOrderCtrl.ePage.Entities.Header.Data.UIOrderHeaders = response.data.Response;
                 }

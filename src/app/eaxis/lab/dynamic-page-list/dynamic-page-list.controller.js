@@ -26,19 +26,15 @@
         }
 
         function GetDynamicPageList() {
-            var _filter = {};
-            var _input = {
+            let _filter = {
+                "SAP_FK": authService.getUserInfo().AppPK
+            };
+            let _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.MasterDYNDataentrymaster.API.FindAll.FilterID
+                "FilterID": appConfig.Entities.DataEntryMaster.API.FindAllColumn.FilterID
             };
 
-            apiService.post("eAxisAPI", appConfig.Entities.MasterDYNDataentrymaster.API.FindAll.Url, _input).then(function (response) {
-                if (response.data.Response) {
-                    EAxisDynamicPageListCtrl.ePage.Masters.DynamicPageList = response.data.Response;
-                } else {
-                    EAxisDynamicPageListCtrl.ePage.Masters.DynamicPageList = [];
-                }
-            });
+            apiService.post("eAxisAPI", appConfig.Entities.DataEntryMaster.API.FindAllColumn.Url, _input).then(response => EAxisDynamicPageListCtrl.ePage.Masters.DynamicPageList = response.data.Response ? response.data.Response : []);
         }
 
         function RedirectPage($item) {

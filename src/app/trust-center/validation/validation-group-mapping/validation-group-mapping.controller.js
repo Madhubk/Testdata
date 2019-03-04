@@ -41,7 +41,7 @@
             TCValidationGroupMappingCtrl.ePage.Masters.ValidationGroup = {};
             TCValidationGroupMappingCtrl.ePage.Masters.ValidationGroup.OnValidationGroupClick = OnValidationGroupClick;
             TCValidationGroupMappingCtrl.ePage.Masters.ValidationGroup.Close = Close;
-
+            
             GetValidationGroupList();
         }
 
@@ -60,6 +60,9 @@
                 if (response.data.Response) {
                     TCValidationGroupMappingCtrl.ePage.Masters.ValidationGroup.ListSource = response.data.Response;
                     if (response.data.Response.length > 0) {
+                        TCValidationGroupMappingCtrl.ePage.Masters.ValidationGroup.ListSource.map(function(value,key){
+                            SetGenerateScriptInput(value);
+                        })
                         GetValidationGroupMappingList();
                     }
                 } else {
@@ -130,6 +133,20 @@
                     }
                 }
             });
+        }
+
+        function SetGenerateScriptInput(row) {
+         if (row) {
+            row.GenerateScriptInput = {
+                    ObjectName: "EntitiesMapping",
+                    ObjectId:row.PK
+                };
+                row.GenerateScriptConfig = {
+                    IsEnableTable: false,
+                    IsEnablePK: false,
+                    IsEnableTenant: false
+                };
+            }
         }
 
         function Close() {

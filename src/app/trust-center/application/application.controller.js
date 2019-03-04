@@ -20,10 +20,13 @@
                 "Entities": {}
             };
 
-            TCApplicationCtrl.ePage.Masters.ActiveApplication = authService.getUserInfo().AppCode;
-
-            InitBreadcrumb();
-            InitApplication();
+            try {
+                TCApplicationCtrl.ePage.Masters.ActiveApplication = authService.getUserInfo().AppCode;
+                InitBreadcrumb();
+                InitApplication();
+            } catch (error) {
+                console.log(error);
+            }
         }
 
         // ========================Breadcrumb Start========================
@@ -133,6 +136,18 @@
 
                 GetExtenalUrlList();
             }
+
+            if (TCApplicationCtrl.ePage.Masters.Application.ActiveApplication) {
+                TCApplicationCtrl.ePage.Masters.GenerateScriptInput = {
+                    ObjectName: "SecApp",
+                    ObjectId: TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.PK
+                };
+                TCApplicationCtrl.ePage.Masters.GenerateScriptConfig = {
+                    IsEnableTable: false,
+                    IsEnablePK: false,
+                    IsEnableTenant: false
+                };
+            }
         }
 
         function GetExtenalUrlList() {
@@ -194,7 +209,7 @@
             $item.IsModified = true;
         }
 
-       function Save() {
+        function Save() {
             if (TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.PK) {
                 UpdateApplication();
             } else {
@@ -205,7 +220,7 @@
         function InsertApplication() {
             TCApplicationCtrl.ePage.Masters.Application.SaveBtnText = "Please Wait...";
             TCApplicationCtrl.ePage.Masters.Application.IsDisableSaveBtn = true;
-            
+
             var _input = angular.copy(TCApplicationCtrl.ePage.Masters.Application.ActiveApplication);
 
             if (TCApplicationCtrl.ePage.Masters.Application.ActiveApplication.IsModified) {
@@ -280,15 +295,15 @@
         }
 
         function SaveExternalUrl($item) {
-            if($item.PK) {
+            if ($item.PK) {
                 UpdateExternalUrl($item);
-            }else {
+            } else {
                 InsertExternalUrl($item);
             }
         }
 
-        function InsertExternalUrl($item){
-                 var _input = angular.copy($item);
+        function InsertExternalUrl($item) {
+            var _input = angular.copy($item);
 
             apiService.post("authAPI", trustCenterConfig.Entities.API.SecAppUrl.API.Insert.Url, [_input]).then(function SuccessCallback(response) {
                 if (response.data.Response) {} else {
@@ -381,8 +396,8 @@
                 Link: "TC/parties",
                 Color: "#36ad97",
             }, {
-                Code: "ProvideTrustCenterAccess",
-                Description: "Provide Trust center Access",
+                Code: "ProvideTrustCenterHomePageAccess",
+                Description: "Provide Trust Center Home Page Access",
                 Icon: "fa fa fa-sign-in",
                 Link: "TC/app-trust-app-tenant",
                 Color: "#bd081c",

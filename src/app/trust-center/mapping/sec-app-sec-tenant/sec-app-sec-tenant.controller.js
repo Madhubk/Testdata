@@ -162,6 +162,18 @@
                     OnSecAppSecTenantClick(TCSecAppSecTenantCtrl.ePage.Masters.SecAppSecTenant.SecAppSecTenantList[0]);
                 }
             }
+
+            if (TCSecAppSecTenantCtrl.ePage.Masters.SecAppSecTenant.ActiveSecAppSecTenant) {
+                TCSecAppSecTenantCtrl.ePage.Masters.GenerateScriptInput = {
+                    ObjectName: "SECMAPPINGS",
+                    ObjectId: TCSecAppSecTenantCtrl.ePage.Masters.SecAppSecTenant.ActiveSecAppSecTenant.PK
+                };
+                TCSecAppSecTenantCtrl.ePage.Masters.GenerateScriptConfig = {
+                    IsEnableTable: false,
+                    IsEnablePK: false,
+                    IsEnableTenant: false
+                };
+            }
         }
 
         function GetTenantList($viewValue) {
@@ -231,7 +243,7 @@
         }
 
         function InsertSecAppSecTenant() {
-           
+
             TCSecAppSecTenantCtrl.ePage.Masters.SecAppSecTenant.SaveBtnText = "Please Wait...";
             TCSecAppSecTenantCtrl.ePage.Masters.SecAppSecTenant.IsDisableSaveBtn = true;
 
@@ -270,7 +282,7 @@
         }
 
         function UpdateSecAppSecTenant() {
-             TCSecAppSecTenantCtrl.ePage.Masters.SecAppSecTenant.SaveBtnText = "Please Wait...";
+            TCSecAppSecTenantCtrl.ePage.Masters.SecAppSecTenant.SaveBtnText = "Please Wait...";
             TCSecAppSecTenantCtrl.ePage.Masters.SecAppSecTenant.IsDisableSaveBtn = true;
 
             var _input = angular.copy(TCSecAppSecTenantCtrl.ePage.Masters.SecAppSecTenant.ActiveSecAppSecTenant);
@@ -283,7 +295,7 @@
                     var _index = TCSecAppSecTenantCtrl.ePage.Masters.SecAppSecTenant.SecAppSecTenantList.map(function (value, key) {
                         return value.PK;
                     }).indexOf(_response.PK);
-                    
+
                     if (_index === -1) {
                         TCSecAppSecTenantCtrl.ePage.Masters.SecAppSecTenant.SecAppSecTenantList.push(_response);
                     } else {

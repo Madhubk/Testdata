@@ -8,8 +8,8 @@
                     <li data-ng-repeat="x in SessionCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="!x.IsActive">
                         <a href="javascript:void(0);" data-ng-bind="x.Description" data-ng-click="SessionCtrl.ePage.Masters.Breadcrumb.OnBreadcrumbClick(x)"></a>
                     </li>
-                    <li data-ng-repeat="x in SessionCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="x.IsActive" data-ng-bind="x.Description"
-                        class="active"></li>
+                    <li data-ng-repeat="x in SessionCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="x.IsActive"
+                        data-ng-bind="x.Description" class="active"></li>
                 </ol>
             </div>
         </div>
@@ -18,16 +18,15 @@
         </div>
     </div>
     <!-- Header -->
-    <div class="clearfix tc-header-container">
-        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-10 col-xl-8 p-0">
-            <div class="tc-header no-border-right">
-                <div class="text-single-line" data-ng-bind="'Session'"></div>
-            </div>
+    <div class="clearfix" style="box-shadow: 0 0 10px rgba(0,0,0,0.2);">
+        <div class="col-sm-7 pt-7">
+            <div class="text-single-line bold font-130" data-ng-bind="'Session'"></div>
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-2 col-xl-4 p-0">
-            <div class="tc-header p-5" style="font-weight: normal;">
-                <input type="text" placeholder="Search..." class="form-control input-sm" data-ng-model="SessionCtrl.ePage.Masters.Search">
-            </div>
+        <div class="col-sm-2 pt-10">
+            <button class="btn btn-default btn-xs pull-right" data-ng-click="SessionCtrl.ePage.Masters.Session.Refresh()">Refresh</button>
+        </div>
+        <div class="col-sm-3 pt-5 pb-5">
+            <input type="text" placeholder="Search..." class="form-control input-sm" data-ng-model="SessionCtrl.ePage.Masters.Search">
         </div>
     </div>
     <!-- Body -->
@@ -36,17 +35,17 @@
             <div class="session-list-ul clearfix">
                 <!-- Header -->
                 <div class="clearfix">
-                    <div class="clearfix tc-session-header-list">
-                        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
+                    <div class="clearfix p-10 bold border-bottom">
+                        <div class="col-sm-3">
                             <div class="text-single-line">Remote IP</div>
                         </div>
-                        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
+                        <div class="col-sm-3">
                             <div class="text-single-line"> Date Time</div>
                         </div>
-                        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
+                        <div class="col-sm-3">
                             <div class="text-single-line">Expires On</div>
                         </div>
-                        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+                        <div class="col-sm-3">
                             <div class="text-single-line">User</div>
                         </div>
                     </div>
@@ -61,19 +60,20 @@
                     <i>No Records...!</i>
                 </div>
                 <!-- Session List -->
-                <div data-ng-if="(SessionCtrl.ePage.Masters.Session.SessionList | filter: SessionCtrl.ePage.Masters.Search).length > 0" data-ng-repeat="x in SessionCtrl.ePage.Masters.Session.SessionList | filter: SessionCtrl.ePage.Masters.Search | orderBy: 'DateTime': true"
-                    class="tc-session-list-name clearfix">
-                    <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
+                <div data-ng-if="(SessionCtrl.ePage.Masters.Session.SessionList | filter: SessionCtrl.ePage.Masters.Search).length > 0"
+                    data-ng-repeat="x in SessionCtrl.ePage.Masters.Session.SessionList | filter: SessionCtrl.ePage.Masters.Search | orderBy: 'DateTime': true"
+                    class="clearfix p-10">
+                    <div class="col-sm-3">
                         <div class="text-single-line" data-ng-bind="x.RemoteIP"></div>
                     </div>
-                    <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
-                        <div class="text-single-line" data-ng-bind="x.DateTime | date: 'dd-MM-yyyy HH:MM:ss a'"></div>
+                    <div class="col-sm-3">
+                        <div class="text-single-line" data-ng-bind="x.DateTime | date: 'dd-MMM-yyyy h:mm:ss a'"></div>
                     </div>
-                    <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
-                        <div class="text-single-line" data-ng-bind="x.ExpiresOn | date: 'dd-MM-yyyy HH:MM:ss a'"></div>
+                    <div class="col-sm-3">
+                        <div class="text-single-line" data-ng-bind="x.ExpiresOn | date: 'dd-MM-yyyy h:mm:ss a'"></div>
                     </div>
-                    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
-                        <div class="text-single-line" data-ng-bind="x.CreatedBy"></div>
+                    <div class="col-sm-3">
+                        <div class="text-single-line" data-ng-bind="x.UserName"></div>
                     </div>
                 </div>
             </div>

@@ -29,8 +29,8 @@
             bkgBuyerForwarderDirectiveCtrl.ePage.Masters.DatePicker.OpenDatePicker = OpenDatePicker;
 
             bkgBuyerForwarderDirectiveCtrl.ePage.Masters.ErrorWarningConfig = errorWarningService;
-            bkgBuyerForwarderDirectiveCtrl.ePage.Masters.ErrorWarningConfig.GlobalErrorWarningList = errorWarningService.Modules.Booking.Entity[bkgBuyerForwarderDirectiveCtrl.obj.code].GlobalErrorWarningList;
-            bkgBuyerForwarderDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj = errorWarningService.Modules.Booking.Entity[bkgBuyerForwarderDirectiveCtrl.obj.code];
+            bkgBuyerForwarderDirectiveCtrl.ePage.Masters.ErrorWarningConfig.GlobalErrorWarningList = errorWarningService.Modules.BookingForwarder.Entity[bkgBuyerForwarderDirectiveCtrl.obj.code].GlobalErrorWarningList;
+            bkgBuyerForwarderDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj = errorWarningService.Modules.BookingForwarder.Entity[bkgBuyerForwarderDirectiveCtrl.obj.code];
             bkgBuyerForwarderDirectiveCtrl.ePage.Masters.OnFieldValueChange = OnFieldValueChange
             bkgBuyerForwarderDirectiveCtrl.ePage.Masters.modeChange = ModeChange
             bkgBuyerForwarderDirectiveCtrl.ePage.Masters.addRemoveServiceType = AddRemoveServiceType;
@@ -124,32 +124,28 @@
 
         }
 
-        function SelectedLookupData($item, model, type, addressType) {
+        function SelectedLookupData($item, model, code, IsArray, type, addressType) {
             bkgBuyerForwarderDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ORG_Shipper_FK = bkgBuyerForwarderDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.ORG_FK;
             bkgBuyerForwarderDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ORG_Consignee_FK = bkgBuyerForwarderDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.ORG_FK;
-            bkgBuyerForwarderDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader[model] = $item.data.entity.Code;
-            bkgBuyerForwarderDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader[model.split('_')[1] + 'Name'] = $item.data.entity.FullName;
+            bkgBuyerForwarderDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader[model] = $item.data.entity.Code
+            OnFieldValueChange()
+            getMDMDefaulvalues()
             // bkgBuyerForwarderDirectiveCtrl.ePage.Masters.ErrorWarningConfig.OnFieldValueChange("Booking", bkgBuyerForwarderDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ShipmentNo, model, code, IsArray);
             if (type === "address") {
                 AddressContactList($item.data.entity, addressType);
             }
-            if (addressType == 'CRD' && bkgBuyerForwarderDirectiveCtrl.obj.isNew) {
-                getOrgBuyerSupplierMapping()
-            }
         }
 
-        function AutoCompleteOnSelect($item, model, type, addressType) {
+        function AutoCompleteOnSelect($item, model, code, IsArray, type, addressType) {
             console.log($item)
             bkgBuyerForwarderDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ORG_Shipper_FK = bkgBuyerForwarderDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CRD.ORG_FK;
             bkgBuyerForwarderDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ORG_Consignee_FK = bkgBuyerForwarderDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.ORG_FK;
-            bkgBuyerForwarderDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader[model] = $item.Code;
-            bkgBuyerForwarderDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader[model.split('_')[1] + 'Name'] = $item.FullName;
+            bkgBuyerForwarderDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader[model] = $item.Code
+            OnFieldValueChange()
+            getMDMDefaulvalues()
             // bkgBuyerForwarderDirectiveCtrl.ePage.Masters.ErrorWarningConfig.OnFieldValueChange("Booking", bkgBuyerForwarderDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ShipmentNo, model, code, IsArray);
             if (type === "address") {
                 AddressContactList($item, addressType);
-            }
-            if (addressType == 'CRD' && bkgBuyerForwarderDirectiveCtrl.obj.isNew) {
-                getOrgBuyerSupplierMapping()
             }
         }
 
@@ -167,26 +163,8 @@
         }
 
         function AddressContactList($item, addressType) {
-            getMDMDefaulvalues();
-            var AddressList = GetAddressContactList($item, "OrgAddress", "AddressList", "PK", addressType, bkgBuyerForwarderDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList);
-            var ContactList = GetAddressContactList($item, "OrgContact", "ContactList", "PK", addressType, bkgBuyerForwarderDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList);
-            // default main address list find
-            AddressList.then(function (value) {
-                value.map(function (val, key) {
-                    var IsMain = val.AddressCapability.some(function (valu, key) {
-                        return valu.IsMainAddress == true;
-                    });
-                    if (IsMain) {
-                        OnAddressChange(val, addressType, "Address");
-                    }
-                });
-            });
-            // default main contact list find
-            ContactList.then(function (value) {
-                value.map(function (val, key) {
-                    OnContactChange(val, addressType, "Contact")
-                });
-            });
+            GetAddressContactList($item, "OrgAddress", "AddressList", "PK", addressType, bkgBuyerForwarderDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList);
+            GetAddressContactList($item, "OrgContact", "ContactList", "PK", addressType, bkgBuyerForwarderDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList);
         }
 
         function GetAddressContactList(GetSelectedRow, api, listSource, keyName, addressType, obj) {
@@ -201,10 +179,9 @@
                 "FilterID": appConfig.Entities[api].API.FindAll.FilterID
             };
 
-            return apiService.post("eAxisAPI", appConfig.Entities[api].API.FindAll.Url, _input).then(function (response) {
+            apiService.post("eAxisAPI", appConfig.Entities[api].API.FindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     obj[addressType][listSource] = response.data.Response;
-                    return response.data.Response;
                 } else {
                     console.log("Empty Response");
                 }
@@ -343,8 +320,6 @@
                                     bkgBuyerForwarderDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ExportForwarder_FK = response.data.Response.UIOrgBuySupMappingTrnMode[0].ORG_SendingAgentPK;
                                     bkgBuyerForwarderDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ImportForwarder_Code = response.data.Response.UIOrgBuySupMappingTrnMode[0].ORG_ReceivingAgentCode;
                                     bkgBuyerForwarderDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ImportForwarder_FK = response.data.Response.UIOrgBuySupMappingTrnMode[0].ORG_ReceivingAgentPK;
-                                    bkgBuyerForwarderDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ORG_ControlCustomCode = response.data.Response.UIOrgBuySupMappingTrnMode[0].ORG_ControllingCustomerCode;
-                                    bkgBuyerForwarderDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ORG_ControlCustom_FK = response.data.Response.UIOrgBuySupMappingTrnMode[0].ORG_ControllingCustomerFK;
 
                                 }
                             }
@@ -352,7 +327,6 @@
                     }
                 });
             }
-            OnFieldValueChange();
         }
 
         function TransportModeChangesMdm() {
@@ -378,7 +352,7 @@
 
         function OnFieldValueChange() {
             var _obj = {
-                ModuleName: ["Booking"],
+                ModuleName: ["BookingForwarder"],
                 Code: [bkgBuyerForwarderDirectiveCtrl.obj.code],
                 API: "Group", // Validation/Group
                 FilterInput: {
@@ -397,41 +371,6 @@
             };
             errorWarningService.ValidateValue(_obj);
         }
-
-        function getOrgBuyerSupplierMapping() {
-            var _inputObj = {
-                "SupplierCode": bkgBuyerForwarderDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ORG_Shipper_Code
-            }
-            var _input = {
-                "FilterID": appConfig.Entities.OrgBuyerSupplierMapping.API.FindAll.FilterID,
-                "SearchInput": helperService.createToArrayOfObject(_inputObj)
-            }
-            apiService.post("eAxisAPI", appConfig.Entities.OrgBuyerSupplierMapping.API.FindAll.Url, _input).then(function (response) {
-                if (response.data.Response) {
-                    bkgBuyerForwarderDirectiveCtrl.ePage.Masters.OrgBuyerDetails = response.data.Response;
-                    if (bkgBuyerForwarderDirectiveCtrl.obj.isNew) {
-                        var tempBuyObj = bkgBuyerForwarderDirectiveCtrl.ePage.Masters.OrgBuyerDetails[0];
-                        OnSelectSupplier(tempBuyObj);
-                    }
-                }
-            });
-        }
-
-        function OnSelectSupplier($item) {
-            if ($item) {
-                apiService.get("eAxisAPI", appConfig.Entities.OrgHeader.API.GetById.Url + $item.ORG_Buyer).then(function (response) {
-                    if (response.data.Response) {
-                        bkgBuyerForwarderDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ORG_Consignee_Code = response.data.Response.Code;
-                        bkgBuyerForwarderDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ORG_Consignee_FK = response.data.Response.PK;
-                        bkgBuyerForwarderDirectiveCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ConsigneeName = response.data.Response.FullName;
-                        bkgBuyerForwarderDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.ORG_FK = response.data.Response.PK;
-                        bkgBuyerForwarderDirectiveCtrl.ePage.Entities.Header.Data.UIAddressContactList.CED.ORG_Code = response.data.Response.Code;
-                        AddressContactList(response.data.Response, 'CED');
-                    }
-                });
-            }
-        }
-
 
 
 

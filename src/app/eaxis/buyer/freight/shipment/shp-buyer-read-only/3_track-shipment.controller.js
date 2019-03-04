@@ -10,7 +10,8 @@
     function three_TrackShipmentController($rootScope, $scope, $state, $timeout, $location, $q, $http, APP_CONSTANT, authService, apiService, helperService, appConfig, three_TrackshipmentConfig, toastr, freightApiConfig) {
         /* jshint validthis: true */
         var three_TrackShipmentCtrl = this;
-        
+        var location = $location;
+
         function Init() {
             three_TrackShipmentCtrl.ePage = {
                 "Title": "",
@@ -19,15 +20,14 @@
                 "Meta": helperService.metaBase(),
                 "Entities": three_TrackshipmentConfig.Entities
             };
-            var _queryString = $location.search();
+
             // For list directive
-            three_TrackShipmentCtrl.ePage.Masters.taskName = "BPTrackShipment";//BPSHIPMENTTracking
-            three_TrackShipmentCtrl.ePage.Masters.dataentryName = "BPTrackShipment";
+            three_TrackShipmentCtrl.ePage.Masters.taskName = "Shipment_BUYER_EXPORT_CS";
+            three_TrackShipmentCtrl.ePage.Masters.dataentryName = "Shipment_BUYER_EXPORT_CS";
             three_TrackShipmentCtrl.ePage.Masters.taskHeader = "";
-            if(_queryString.item!=undefined&&_queryString.item!=null&&_queryString.item!=''){
-                three_TrackShipmentCtrl.ePage.Masters.DefaultFilter =JSON.parse(helperService.decryptData(_queryString.item));
-            }
-           
+            // three_TrackShipmentCtrl.ePage.Masters.DefaultFilter = {
+            //     "IsBooking": "false"
+            // };
 
             // Remove all Tabs while load shipment
             three_TrackshipmentConfig.TabList = [];

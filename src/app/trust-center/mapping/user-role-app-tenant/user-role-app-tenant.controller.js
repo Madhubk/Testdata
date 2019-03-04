@@ -209,6 +209,18 @@
                 }
 
             }
+
+            if (TCUserRoleAppTenantCtrl.ePage.Masters.UserRoleAppTenant.ActiveUserRoleAppTenant) {
+                TCUserRoleAppTenantCtrl.ePage.Masters.GenerateScriptInput = {
+                    ObjectName: "SECMAPPINGS",
+                    ObjectId: TCUserRoleAppTenantCtrl.ePage.Masters.UserRoleAppTenant.ActiveUserRoleAppTenant.PK
+                };
+                TCUserRoleAppTenantCtrl.ePage.Masters.GenerateScriptConfig = {
+                    IsEnableTable: false,
+                    IsEnablePK: false,
+                    IsEnableTenant: false
+                };
+            }
         }
 
         function GetRolesList($viewValue) {

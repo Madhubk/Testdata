@@ -38,6 +38,9 @@
                 <button class="btn btn-default tc-btn-delete btn-xs pull-right ml-10" data-ng-click="DataExtIntegrationCtrl.ePage.Masters.DataExtIntegration.Delete()"
                     data-ng-bind="DataExtIntegrationCtrl.ePage.Masters.DataExtIntegration.DeleteBtnText"
                     data-ng-disabled="DataExtIntegrationCtrl.ePage.Masters.DataExtIntegration.IsDisableDeleteBtn || !DataExtIntegrationCtrl.ePage.Masters.DataExtIntegration.ActiveDataExtIntegration.PK"></button>
+                    <button class="btn btn-primary btn-xs pull-right ml-10" generate-db-script input="DataExtIntegrationCtrl.ePage.Masters.GenerateScriptInput"
+                    config="DataExtIntegrationCtrl.ePage.Masters.GenerateScriptConfig" data-ng-disabled="!DataExtIntegrationCtrl.ePage.Masters.GenerateScriptInput.ObjectName || !DataExtIntegrationCtrl.ePage.Masters.GenerateScriptInput.ObjectId ||!DataExtIntegrationCtrl.ePage.Masters.DataExtIntegration.ActiveDataExtIntegration.PK">Generate
+                    Script</button>
             </div>
         </div>
     </div>
@@ -163,6 +166,11 @@
                             <span class="ml-5 mr-5">|</span>
                             <a href="javascript:void(0)" data-ng-click=" DataExtIntegrationCtrl.ePage.Masters.DataExtIntegration.DataExtIntegrationFields.Delete(x)"
                                 title="Delete">Delete</a>
+                                <span class="ml-0 mr-0">|</span>
+                                <a href="javascript:void(0)" generate-db-script 
+                                input="x.GenerateScriptInput" 
+                                config="x.GenerateScriptConfig" data-ng-if="x.GenerateScriptInput.ObjectName || x.GenerateScriptInput.ObjectId || x.PK">Generate Script</a>
+
                         </div>
                     </div>
                 </div>

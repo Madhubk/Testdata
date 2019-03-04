@@ -24,9 +24,9 @@
                 "userId": authService.getUserInfo().UserId
             };
             // For list directive
-            three_ConsolidationCtrl.ePage.Masters.dataentryName = "BPBuyerConsolHeader";
-            three_ConsolidationCtrl.ePage.Masters.taskName = "BPBuyerConsolHeader";
-            three_ConsolidationCtrl.ePage.Masters.Config = three_consolidationConfig;
+            three_ConsolidationCtrl.ePage.Masters.dataentryName = "BuyerConsolHeader";
+            three_ConsolidationCtrl.ePage.Masters.taskName = "BuyerConsolHeader";
+            three_ConsolidationCtrl.ePage.Masters.Config = three_consolidationConfig
             // Remove all Tabs while load consol
             three_consolidationConfig.TabList = [];
 

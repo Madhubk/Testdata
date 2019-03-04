@@ -8,7 +8,7 @@
     StandardMenu.$inject = ["$templateCache"];
 
     function StandardMenu($templateCache) {
-        var _template = `<div class="clearfix standard-menu-wrapper">
+        let _template = `<div class="clearfix standard-menu-wrapper">
             <div class="eaxis-footer-left">
                 <ul>
                     <li class="position-relative" data-ng-repeat="x in StandardMenuCtrl.ePage.Masters.MenuList" data-ng-if="StandardMenuCtrl.ePage.Masters.StandardMenuInput.Config[x.Name]">
@@ -21,7 +21,7 @@
         </div>`;
         $templateCache.put("StandardMenu.html", _template);
 
-        var exports = {
+        let exports = {
             restrict: "EA",
             templateUrl: "StandardMenu.html",
             controller: "StandardMenuController",
@@ -32,11 +32,8 @@
                 dataentryObject: "=",
                 onCloseModal: "&"
             },
-            link: Link
         };
         return exports;
-
-        function Link(scope, ele, attr) {}
     }
 
     angular
@@ -44,7 +41,7 @@
         .directive('compileDynamicDirectiveStandardMenu', CompileDynamicDirectiveStandardMenu);
 
     function CompileDynamicDirectiveStandardMenu($compile) {
-        var exports = {
+        let exports = {
             restrict: 'A',
             scope: {
                 obj: '=',
@@ -57,9 +54,13 @@
 
         function Link(scope, elem, attrs) {
             scope.OnCloseModal = OnCloseModal;
-            var template = '<a href="javascript:void(0);" ' + scope.obj.Name + '-modal input="input" mode="1" type="" on-close-modal="OnCloseModal($item)"><i class="eaxis-footer-icon {{obj.Icon}}"></i><span class="eaxis-footer-text" data-ng-bind="obj.DisplayName"></span> </a>';
-            var _element = angular.element(template);
-            var _template = $compile(_element)(scope);
+            let _directiveName = scope.obj.Name;
+            let template = `<a href="javascript:void(0);" ${_directiveName}-modal input="input" mode="1" type="" on-close-modal="OnCloseModal($item)">
+                <i class="eaxis-footer-icon {{obj.Icon}}"></i>
+                <span class="eaxis-footer-text" data-ng-bind="obj.DisplayName"></span>
+            </a>`;
+            let _element = angular.element(template);
+            let _template = $compile(_element)(scope);
             elem.replaceWith(_template);
 
             function OnCloseModal($item) {

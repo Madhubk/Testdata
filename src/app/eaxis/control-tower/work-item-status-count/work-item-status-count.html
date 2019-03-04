@@ -1,5 +1,4 @@
 <div class="clearfix work-item-status-count">
-    <!-- Control tower -->
     <div class="clearfix control-tower">
         <div class="clearfix p-20 text-center font-160" data-ng-if="!WorkItemStatusCountCtrl.ePage.Masters.WorkItemList">
             <i class="fa fa-spin fa-spinner"></i>
@@ -15,7 +14,7 @@
                 </div>
                 <div class="col-sm-4 text-center p-0">
                     <!-- General Total -->
-                    <div class="clearfix section-split-space p-0" data-ng-if="WorkItemStatusCountCtrl.code == 'General'">
+                    <div class="clearfix section-split-space p-0 set-bg-color-1" data-ng-if="WorkItemStatusCountCtrl.code == 'General'">
                         <div class="clearfix top text-single-line">Total</div>
                         <div class="clearfix bottom">
                             <div class="col-sm-4 p-0">Tot</div>
@@ -24,7 +23,7 @@
                         </div>
                     </div>
                     <!-- Within 2 Hrs -->
-                    <div class="clearfix section-split-space p-0" data-ng-if="WorkItemStatusCountCtrl.code == 'Overdue'">
+                    <div class="clearfix section-split-space p-0 set-bg-color-2" data-ng-if="WorkItemStatusCountCtrl.code == 'Overdue'">
                         <div class="clearfix top text-single-line">Within 2 Hrs </div>
                         <div class="clearfix bottom">
                             <div class="col-sm-4 p-0">Tot</div>
@@ -37,7 +36,7 @@
             <div class="col-sm-7 p-0">
                 <!-- Within KPI -->
                 <div class="col-sm-3 p-0 text-center" data-ng-if="WorkItemStatusCountCtrl.code == 'General'">
-                    <div class="clearfix section-split-space p-0">
+                    <div class="clearfix section-split-space p-0 set-bg-color-4">
                         <div class="clearfix top text-single-line">Within KPI</div>
                         <div class="clearfix bottom">
                             <div class="col-sm-4 p-0">Tot</div>
@@ -48,7 +47,7 @@
                 </div>
                 <!-- Overdue -->
                 <div class="col-sm-3 p-0 text-center" data-ng-if="WorkItemStatusCountCtrl.code == 'General'">
-                    <div class="clearfix section-split-space p-0">
+                    <div class="clearfix section-split-space p-0 set-bg-color-3">
                         <div class="clearfix top text-single-line">Overdue</div>
                         <div class="clearfix bottom">
                             <div class="col-sm-4 p-0">Tot</div>
@@ -59,7 +58,7 @@
                 </div>
                 <!-- 2 Hrs - 8 Hrs -->
                 <div class="col-sm-3 p-0 text-center" data-ng-if="WorkItemStatusCountCtrl.code == 'Overdue'">
-                    <div class="clearfix section-split-space p-0">
+                    <div class="clearfix section-split-space p-0 set-bg-color-5">
                         <div class="clearfix top text-single-line">2 Hrs - 8 Hrs</div>
                         <div class="clearfix bottom">
                             <div class="col-sm-4 p-0">Tot</div>
@@ -70,7 +69,7 @@
                 </div>
                 <!-- 1 Day - 7 Days -->
                 <div class="col-sm-3 p-0 text-center" data-ng-if="WorkItemStatusCountCtrl.code == 'Overdue'">
-                    <div class="clearfix section-split-space p-0">
+                    <div class="clearfix section-split-space p-0 set-bg-color-6">
                         <div class="clearfix top text-single-line">1 Day - 7 Days</div>
                         <div class="clearfix bottom">
                             <div class="col-sm-4 p-0">Tot</div>
@@ -81,7 +80,7 @@
                 </div>
                 <!-- 7 Days - 30 Days -->
                 <div class="col-sm-3 p-0 text-center" data-ng-if="WorkItemStatusCountCtrl.code == 'Overdue'">
-                    <div class="clearfix section-split-space p-0">
+                    <div class="clearfix section-split-space p-0 set-bg-color-7">
                         <div class="clearfix top text-single-line">7 Days - 30 Days</div>
                         <div class="clearfix bottom">
                             <div class="col-sm-4 p-0">Tot</div>
@@ -92,7 +91,7 @@
                 </div>
                 <!-- More then Month -->
                 <div class="col-sm-3 p-0 text-center" data-ng-if="WorkItemStatusCountCtrl.code == 'Overdue'">
-                    <div class="clearfix section-split-space p-0">
+                    <div class="clearfix section-split-space p-0 set-bg-color-8">
                         <div class="clearfix top text-single-line">More then Month</div>
                         <div class="clearfix bottom">
                             <div class="col-sm-4 p-0">Tot</div>
@@ -114,7 +113,7 @@
                 </div>
                 <div class="col-sm-4 text-center p-0">
                     <!-- General Total -->
-                    <div class="clearfix section-split-space" data-ng-if="WorkItemStatusCountCtrl.code == 'General'">
+                    <div class="clearfix section-split-space set-bg-color-1" data-ng-if="WorkItemStatusCountCtrl.code == 'General'">
                         <div class="col-sm-4 p-0">
                             <a href="javascript:void(0);" data-ng-bind="x.OVERDUE_TOTAL + x.WITHIN_KPI_TOTAL" title="Total" class="work-item-count txt-color-black"
                                 data-ng-click="WorkItemStatusCountCtrl.ePage.Masters.OnWorkItemClick(x, (x.OVERDUE_TOTAL + x.WITHIN_KPI_TOTAL), undefined, 'General', 'AVAILABLE,ASSIGNED')"></a>
@@ -129,7 +128,7 @@
                         </div>
                     </div>
                     <!-- Within 2 Hrs -->
-                    <div class="clearfix section-split-space" data-ng-if="WorkItemStatusCountCtrl.code == 'Overdue'">
+                    <div class="clearfix section-split-space set-bg-color-2" data-ng-if="WorkItemStatusCountCtrl.code == 'Overdue'">
                         <div class="col-sm-4 p-0">
                             <a href="javascript:void(0);" data-ng-bind="x.OVERDUE_DRILLDOWN_1_AVAILABLE + x.OVERDUE_DRILLDOWN_1_ASSIGNED" title="Total"
                                 class="work-item-count txt-color-black" data-ng-click="WorkItemStatusCountCtrl.ePage.Masters.OnWorkItemClick(x, (x.OVERDUE_DRILLDOWN_1_AVAILABLE + x.OVERDUE_DRILLDOWN_1_ASSIGNED), undefined, 'Overdue', 'AVAILABLE,ASSIGNED')"></a>
@@ -148,7 +147,7 @@
             <div class="col-sm-7 p-0">
                 <!-- Within KPI -->
                 <div class="col-sm-3 p-0 text-center" data-ng-if="WorkItemStatusCountCtrl.code == 'General'">
-                    <div class="clearfix section-split-space">
+                    <div class="clearfix section-split-space set-bg-color-4">
                         <div class="col-sm-4 p-0">
                             <a href="javascript:void(0);" data-ng-bind="x.WITHIN_KPI_TOTAL" title="Within KPI Total" class="work-item-count txt-color-black"
                                 data-ng-click="WorkItemStatusCountCtrl.ePage.Masters.OnWorkItemClick(x, x.WITHIN_KPI_TOTAL, 'WITHIN_KPI_TOTAL', 'General', undefined)"></a>
@@ -165,7 +164,7 @@
                 </div>
                 <!-- Overdue -->
                 <div class="col-sm-3 p-0 text-center" data-ng-if="WorkItemStatusCountCtrl.code == 'General'">
-                    <div class="clearfix section-split-space">
+                    <div class="clearfix section-split-space set-bg-color-3">
                         <div class="col-sm-4 p-0">
                             <a href="javascript:void(0);" data-ng-bind="x.OVERDUE_TOTAL" title="Overdue Total" class="work-item-count txt-color-black"
                                 data-ng-click="WorkItemStatusCountCtrl.ePage.Masters.OnWorkItemClick(x, x.OVERDUE_TOTAL, 'OVERDUE_TOTAL', 'General', undefined)"></a>
@@ -182,7 +181,7 @@
                 </div>
                 <!-- 2 Hrs - 8 Hrs -->
                 <div class="col-sm-3 p-0 text-center" data-ng-if="WorkItemStatusCountCtrl.code == 'Overdue'">
-                    <div class="clearfix section-split-space">
+                    <div class="clearfix section-split-space set-bg-color-5">
                         <div class="col-sm-4 p-0">
                             <a href="javascript:void(0);" data-ng-bind="x.OVERDUE_DRILLDOWN_2_AVAILABLE + x.OVERDUE_DRILLDOWN_2_ASSIGNED" title="Within KPI Assigned"
                                 class="work-item-count txt-color-black" data-ng-click="WorkItemStatusCountCtrl.ePage.Masters.OnWorkItemClick(x, (x.OVERDUE_DRILLDOWN_2_AVAILABLE + x.OVERDUE_DRILLDOWN_2_ASSIGNED), 'OVERDUE_DRILLDOWN_2_AVAILABLE,OVERDUE_DRILLDOWN_2_ASSIGNED', 'Overdue', undefined)"></a>
@@ -199,7 +198,7 @@
                 </div>
                 <!-- 1 Day - 7 Days -->
                 <div class="col-sm-3 p-0 text-center" data-ng-if="WorkItemStatusCountCtrl.code == 'Overdue'">
-                    <div class="clearfix section-split-space">
+                    <div class="clearfix section-split-space set-bg-color-6">
                         <div class="col-sm-4 p-0">
                             <a href="javascript:void(0);" data-ng-bind="x.OVERDUE_DRILLDOWN_3_AVAILABLE + x.OVERDUE_DRILLDOWN_3_ASSIGNED" title="Within KPI Assigned"
                                 class="work-item-count txt-color-black" data-ng-click="WorkItemStatusCountCtrl.ePage.Masters.OnWorkItemClick(x, (x.OVERDUE_DRILLDOWN_3_AVAILABLE + x.OVERDUE_DRILLDOWN_3_ASSIGNED), 'OVERDUE_DRILLDOWN_3_AVAILABLE,OVERDUE_DRILLDOWN_3_ASSIGNED', 'Overdue', undefined)"></a>
@@ -216,7 +215,7 @@
                 </div>
                 <!-- 7 Days - 30 Days -->
                 <div class="col-sm-3 p-0 text-center" data-ng-if="WorkItemStatusCountCtrl.code == 'Overdue'">
-                    <div class="clearfix section-split-space">
+                    <div class="clearfix section-split-space set-bg-color-7">
                         <div class="col-sm-4 p-0">
                             <a href="javascript:void(0);" data-ng-bind="x.OVERDUE_DRILLDOWN_4_AVAILABLE + x.OVERDUE_DRILLDOWN_4_ASSIGNED" title="Within KPI Assigned"
                                 class="work-item-count txt-color-black" data-ng-click="WorkItemStatusCountCtrl.ePage.Masters.OnWorkItemClick(x, 'WITHIN_KPI_ASSIGNED')"></a>
@@ -233,7 +232,7 @@
                 </div>
                 <!-- More then Month -->
                 <div class="col-sm-3 p-0 text-center" data-ng-if="WorkItemStatusCountCtrl.code == 'Overdue'">
-                    <div class="clearfix section-split-space">
+                    <div class="clearfix section-split-space set-bg-color-8">
                         <div class="col-sm-4 p-0">
                             <a href="javascript:void(0);" data-ng-bind="x.OVERDUE_DRILLDOWN_5_AVAILABLE + x.OVERDUE_DRILLDOWN_5_ASSIGNED" title="Within KPI Assigned"
                                 class="work-item-count txt-color-black" data-ng-click="WorkItemStatusCountCtrl.ePage.Masters.OnWorkItemClick(x, 'WITHIN_KPI_ASSIGNED')"></a>

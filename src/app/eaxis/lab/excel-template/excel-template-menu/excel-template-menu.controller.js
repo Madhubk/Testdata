@@ -252,13 +252,20 @@
                     _input.IsLocal = true;
                 }
                 if (ExcelTemplateMenuCtrl.ePage.Masters.TestTemplate.FileType === "EXCEL" || ExcelTemplateMenuCtrl.ePage.Masters.TestTemplate.FileType === "PDF") {
-                    _apiUrl = appConfig.Entities.Export.API.Excel.Url;
+                    _apiUrl = appConfig.Entities.Export.API.GridExcel.Url;
                 } else if (ExcelTemplateMenuCtrl.ePage.Masters.TestTemplate.FileType === "HTML") {
                     _apiUrl = appConfig.Entities.Export.API.AsHtml.Url;
                 }
 
                 apiService.post("eAxisAPI", _apiUrl, _input).then(function (response) {
-                    helperService.DownloadDocument(response.data.Response);
+                    if (ExcelTemplateMenuCtrl.ePage.Masters.TestTemplate.FileType === "HTML") {
+                        let link = document.createElement('a');
+                        link.setAttribute('download', _input.FileName)
+                        link.setAttribute('href', 'data:text/html;charset=utf-8,' + encodeURIComponent(response.data.Response))
+                        link.click();
+                    } else {
+                        helperService.DownloadDocument(response.data.Response);
+                    }
                 });
             }
         }

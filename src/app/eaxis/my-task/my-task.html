@@ -114,113 +114,124 @@
 </div>
 
 <div class="clearfix my-task-activity-page-warpper" data-ng-if="MyTaskCtrl.ePage.Masters.MyTask.IsShowEditActivityPage">
-    <div class="clearfix edit-activity-header-wrapper">
-        <div class="clearfix edit-activity-header">
-            <div class="title">
-                <i class="mr-10 position-relative font-120" style="top: 2px;" data-ng-class="MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem.OtherConfig.icon ? MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem.OtherConfig.icon : 'fa fa-plane'"
-                    data-ng-if="!MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem.OtherConfig.image"></i>
-                <img class="mr-10 position-relative" style="top: 2px;" data-ng-src="{{MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem.OtherConfig.image}}"
-                    data-ng-if="MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem.OtherConfig.image">
-                <span>{{MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem.WSI_StepName}} -
-                    {{MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem.PSI_InstanceNo}}</span>
-            </div>
-            <div class="buttons">
-                <button class="btn btn-warning btn-xs pull-right ml-5" data-ng-click="MyTaskCtrl.ePage.Masters.MyTask.IsShowEditActivityPage = false"
-                    title="Close">Close</i>
-                </button>
-                <div class="dropdown my-task-assign-to pull-right mr-5">
-                    <button class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                        role="button" aria-expanded="false" data-ng-click="MyTaskCtrl.ePage.Masters.MyTask.IsShowOverrideDirective = false; MyTaskCtrl.ePage.Masters.MyTask.IsShowOverrideDirective = true;">
-                        <i class="fa fa-calendar-o"></i>
-                        <span href="javascript:void(0);">Override KPI</span>
-                    </button>
-                    <div class="dropdown-menu" role="menu">
-                        <override-kpi input="MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem" on-submit-response="MyTaskCtrl.ePage.Masters.MyTask.OverrideKPI($item)"
-                            data-ng-if="MyTaskCtrl.ePage.Masters.MyTask.IsShowOverrideDirective"></override-kpi>
-                    </div>
+    <div class="clearfix">
+        <div class="clearfix edit-activity-header-wrapper">
+            <div class="clearfix edit-activity-header">
+                <div class="title">
+                    <i class="mr-10 position-relative font-120" style="top: 2px;" data-ng-class="MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem.OtherConfig.icon ? MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem.OtherConfig.icon : 'fa fa-plane'"
+                        data-ng-if="!MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem.OtherConfig.image"></i>
+                    <img class="mr-10 position-relative" style="top: 2px;" data-ng-src="{{MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem.OtherConfig.image}}"
+                        data-ng-if="MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem.OtherConfig.image">
+                    <span>{{MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem.WSI_StepName}} -
+                        {{MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem.PSI_InstanceNo}}</span>
                 </div>
-                <!-- <button class="btn btn-default btn-xs pull-right mr-5" data-ng-click="MyTaskCtrl.ePage.Masters.MyTask.OverrideKPI(MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem)">Override
+                <div class="buttons">
+                    <button class="btn btn-warning btn-xs pull-right ml-5" data-ng-click="MyTaskCtrl.ePage.Masters.MyTask.CloseEditActivityModal()"
+                        title="Close">Close</i>
+                    </button>
+                    <div class="dropdown my-task-assign-to pull-right mr-5">
+                        <button class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                            role="button" aria-expanded="false" data-ng-click="MyTaskCtrl.ePage.Masters.MyTask.IsShowOverrideDirective = false; MyTaskCtrl.ePage.Masters.MyTask.IsShowOverrideDirective = true;">
+                            <i class="fa fa-calendar-o"></i>
+                            <span href="javascript:void(0);">Override KPI</span>
+                        </button>
+                        <div class="dropdown-menu" role="menu">
+                            <override-kpi input="MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem" on-submit-response="MyTaskCtrl.ePage.Masters.MyTask.OverrideKPI($item)"
+                                data-ng-if="MyTaskCtrl.ePage.Masters.MyTask.IsShowOverrideDirective"></override-kpi>
+                        </div>
+                    </div>
+                    <!-- <button class="btn btn-default btn-xs pull-right mr-5" data-ng-click="MyTaskCtrl.ePage.Masters.MyTask.OverrideKPI(MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem)">Override
                         KPI</button> -->
-                <button class="btn btn-default btn-xs pull-right mr-5 dropdown my-task-assign-to" data-ng-if="MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem.IsWorkStartedStr == '0' && MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem.Status == 'AVAILABLE'">
-                    <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" role="button"
-                        aria-expanded="false">
-                        <i class="fa fa-calendar-o"></i>
-                        <span>Assign Task</span>
-                    </span>
-                    <div class="dropdown-menu" role="menu">
-                        <task-assign-start-complete input="MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem" mode="1"
-                            on-submit-response="MyTaskCtrl.ePage.Masters.MyTask.AssignTo.AssignStartCompleteResponse($item, MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem)"></task-assign-start-complete>
-                    </div>
-                </button>
-                <button class="btn btn-default btn-xs pull-right mr-5 dropdown my-task-assign-to" data-ng-if="MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem.IsWorkStartedStr == '0' && MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem.Status == 'ASSIGNED'">
-                    <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" role="button"
-                        aria-expanded="false">
-                        <i class="fa fa-calendar-o"></i>
-                        <span>Manage Task</span>
-                    </span>
-                    <div class="dropdown-menu" role="menu">
-                        <task-assign-start-complete input="MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem" mode="1"
-                            on-submit-response="MyTaskCtrl.ePage.Masters.MyTask.AssignTo.AssignStartCompleteResponse($item, MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem)"></task-assign-start-complete>
-                    </div>
-                </button>
-                <button class="btn btn-default btn-xs pull-right mr-5 dropdown my-task-assign-to" data-ng-if="MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem.IsWorkStartedStr == '1' && MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem.Status == 'ASSIGNED'">
-                    <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" role="button"
-                        aria-expanded="false">
-                        <i class="fa fa-calendar-o"></i>
-                        <span>Manage Task</span>
-                    </span>
-                    <div class="dropdown-menu" role="menu">
-                        <task-assign-start-complete input="MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem" mode="1"
-                            on-submit-response="MyTaskCtrl.ePage.Masters.MyTask.AssignTo.AssignStartCompleteResponse($item, MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem)"></task-assign-start-complete>
-                    </div>
-                </button>
-                <button class="btn btn-default btn-xs pull-right mr-5 dropdown my-task-adhoc-process" data-ng-if="MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem.RelatedProcess && MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem.RelatedProcess.length > 0">
-                    <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" role="button"
-                        aria-expanded="false">
-                        <i class="fa fa-cog"></i>
-                        <span>Related Process</span>
-                    </span>
-                    <div class="dropdown-menu" role="menu">
-                        <div class="clearfix form-process-list" data-ng-show="!MyTaskCtrl.ePage.Masters.MyTask.Adhoc.ActiveAdhocItem">
-                            <div class="clearfix adhoc-header">Related Process</div>
-                            <div class="clearfix cursor-pointer process-list text-single-line" data-ng-repeat="x in MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem.RelatedProcess"
-                                data-ng-click=" MyTaskCtrl.ePage.Masters.MyTask.Adhoc.OnProcessSelectClick(MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem, x)"
-                                data-ng-bind="x.ProcessName">
+                    <button class="btn btn-default btn-xs pull-right mr-5 dropdown my-task-assign-to" data-ng-if="MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem.IsWorkStartedStr == '0' && MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem.Status == 'AVAILABLE'">
+                        <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" role="button"
+                            aria-expanded="false">
+                            <i class="fa fa-calendar-o"></i>
+                            <span>Assign Task</span>
+                        </span>
+                        <div class="dropdown-menu" role="menu">
+                            <task-assign-start-complete input="MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem" mode="1"
+                                on-submit-response="MyTaskCtrl.ePage.Masters.MyTask.AssignTo.AssignStartCompleteResponse($item, MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem)"></task-assign-start-complete>
+                        </div>
+                    </button>
+                    <button class="btn btn-default btn-xs pull-right mr-5 dropdown my-task-assign-to" data-ng-if="MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem.IsWorkStartedStr == '0' && MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem.Status == 'ASSIGNED'">
+                        <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" role="button"
+                            aria-expanded="false">
+                            <i class="fa fa-calendar-o"></i>
+                            <span>Manage Task</span>
+                        </span>
+                        <div class="dropdown-menu" role="menu">
+                            <task-assign-start-complete input="MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem" mode="1"
+                                on-submit-response="MyTaskCtrl.ePage.Masters.MyTask.AssignTo.AssignStartCompleteResponse($item, MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem)"></task-assign-start-complete>
+                        </div>
+                    </button>
+                    <button class="btn btn-default btn-xs pull-right mr-5 dropdown my-task-assign-to" data-ng-if="MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem.IsWorkStartedStr == '1' && MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem.Status == 'ASSIGNED'">
+                        <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" role="button"
+                            aria-expanded="false">
+                            <i class="fa fa-calendar-o"></i>
+                            <span>Manage Task</span>
+                        </span>
+                        <div class="dropdown-menu" role="menu">
+                            <task-assign-start-complete input="MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem" mode="1"
+                                on-submit-response="MyTaskCtrl.ePage.Masters.MyTask.AssignTo.AssignStartCompleteResponse($item, MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem)"></task-assign-start-complete>
+                        </div>
+                    </button>
+                    <button class="btn btn-default btn-xs pull-right mr-5 dropdown my-task-adhoc-process" data-ng-if="MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem.RelatedProcess && MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem.RelatedProcess.length > 0">
+                        <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" role="button"
+                            aria-expanded="false">
+                            <i class="fa fa-cog"></i>
+                            <span>Related Process</span>
+                        </span>
+                        <div class="dropdown-menu" role="menu">
+                            <div class="clearfix form-process-list" data-ng-show="!MyTaskCtrl.ePage.Masters.MyTask.Adhoc.ActiveAdhocItem">
+                                <div class="clearfix adhoc-header">Related Process</div>
+                                <div class="clearfix cursor-pointer process-list text-single-line" data-ng-repeat="x in MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem.RelatedProcess"
+                                    data-ng-click=" MyTaskCtrl.ePage.Masters.MyTask.Adhoc.OnProcessSelectClick(MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem, x)"
+                                    data-ng-bind="x.ProcessName">
+                                </div>
+                            </div>
+                            <div class="clearfix form-process-assign-to" data-ng-show="MyTaskCtrl.ePage.Masters.MyTask.Adhoc.ActiveAdhocItem">
+                                <div class="clearfix adhoc-header">
+                                    <span class="pull-left" data-ng-bind="MyTaskCtrl.ePage.Masters.MyTask.Adhoc.ActiveAdhocItem.ProcessName"></span>
+                                    <a href="javascript:void(0);" class="pull-right" data-ng-click="MyTaskCtrl.ePage.Masters.MyTask.Adhoc.ActiveAdhocItem = undefined">Back</a>
+                                </div>
+                                <div class="form-group pl-10 pr-10">
+                                    <label>Assign To </label>
+                                    <input type="text" class="form-control input-sm" ng-model="MyTaskCtrl.ePage.Masters.MyTask.ActiveWorkItem.AdhocObj.AssignTo"
+                                        placeholder="User" uib-typeahead="x.EmailId as x.EmailId for x in  MyTaskCtrl.ePage.Masters.GetUserList($viewValue)"
+                                        typeahead-loading="MyTaskCtrl.ePage.Masters.IsLoading" typeahead-no-results="MyTaskCtrl.ePage.Masters.NoRecords">
+                                </div>
+                                <div class="clearfix pb-10 pr-10 pl-10 text-right">
+                                    <input type="submit" class="btn btn-primary btn-xs ml-5" data-ng-click="MyTaskCtrl.ePage.Masters.MyTask.Adhoc.OnAdhocProcessSave( MyTaskCtrl.ePage.Masters.MyTask.ActiveWorkItem,MyTaskCtrl.ePage.Masters.MyTask.Adhoc.ActiveAdhocItem)"
+                                        data-ng-bind="MyTaskCtrl.ePage.Masters.MyTask.Adhoc.SaveBtnText"
+                                        data-ng-disabled="MyTaskCtrl.ePage.Masters.MyTask.Adhoc.IsDisableSaveBtn" />
+                                </div>
                             </div>
                         </div>
-                        <div class="clearfix form-process-assign-to" data-ng-show="MyTaskCtrl.ePage.Masters.MyTask.Adhoc.ActiveAdhocItem">
-                            <div class="clearfix adhoc-header">
-                                <span class="pull-left" data-ng-bind="MyTaskCtrl.ePage.Masters.MyTask.Adhoc.ActiveAdhocItem.ProcessName"></span>
-                                <a href="javascript:void(0);" class="pull-right" data-ng-click="MyTaskCtrl.ePage.Masters.MyTask.Adhoc.ActiveAdhocItem = undefined">Back</a>
-                            </div>
-                            <div class="form-group pl-10 pr-10">
-                                <label>Assign To </label>
-                                <input type="text" class="form-control input-sm" ng-model="MyTaskCtrl.ePage.Masters.MyTask.ActiveWorkItem.AdhocObj.AssignTo"
-                                    placeholder="User" uib-typeahead="x.EmailId as x.EmailId for x in  MyTaskCtrl.ePage.Masters.GetUserList($viewValue)"
-                                    typeahead-loading="MyTaskCtrl.ePage.Masters.IsLoading" typeahead-no-results="MyTaskCtrl.ePage.Masters.NoRecords">
-                            </div>
-                            <div class="clearfix pb-10 pr-10 pl-10 text-right">
-                                <input type="submit" class="btn btn-primary btn-xs ml-5" data-ng-click="MyTaskCtrl.ePage.Masters.MyTask.Adhoc.OnAdhocProcessSave( MyTaskCtrl.ePage.Masters.MyTask.ActiveWorkItem,MyTaskCtrl.ePage.Masters.MyTask.Adhoc.ActiveAdhocItem)"
-                                    data-ng-bind="MyTaskCtrl.ePage.Masters.MyTask.Adhoc.SaveBtnText" data-ng-disabled="MyTaskCtrl.ePage.Masters.MyTask.Adhoc.IsDisableSaveBtn" />
-                            </div>
-                        </div>
+                    </button>
+                    <div class="delay-date mr-20 pt-2 pull-right" title="{{MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem.DueDate | dateTimeDifference: true: 'Desc'}}"
+                        data-ng-class="((MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem.DueDate | dateTimeDifference: true: 'IsDeley')) ? 'lesser-value' : 'greater-value'">
+                        <span>{{MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem.DueDate | dateTimeDifference:
+                            true: 'Desc'}}</span>
+                        <span>-</span>
+                        <span class="text-single-line" title="Due - {{MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem.DueDate | date:'dd MMM h:mm a'}}">{{MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem.DueDate
+                            | date:'dd MMM h:mm a'}}</span>
                     </div>
-                </button>
-                <div class="delay-date mr-20 pt-2 pull-right" title="{{MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem.DueDate | dateTimeDifference: true: 'Desc'}}"
-                    data-ng-class="((MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem.DueDate | dateTimeDifference: true: 'IsDeley')) ? 'lesser-value' : 'greater-value'">
-                    <span>{{MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem.DueDate | dateTimeDifference:
-                        true: 'Desc'}}</span>
-                    <span>-</span>
-                    <span class="text-single-line" title="Due - {{MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem.DueDate | date:'dd MMM h:mm a'}}">{{MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem.DueDate
-                        | date:'dd MMM h:mm a'}}</span>
                 </div>
             </div>
         </div>
+        <div class="clearfix edit-activity-body pb-50">
+            <my-task-dynamic-edit-directive task-obj='MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem' entity-obj=''
+                tab-obj='' on-complete="MyTaskCtrl.ePage.Masters.MyTask.OnTaskComplete($item, 'edit')"
+                on-refresh-status-count="MyTaskCtrl.ePage.Masters.MyTask.StatusCount.OnRefreshStatusCount($item, 'edit')"
+                on-refresh-task="MyTaskCtrl.ePage.Masters.MyTask.OnRefreshTask($item)"></my-task-dynamic-edit-directive>
+        </div>
     </div>
-    <div class="clearfix edit-activity-body pb-50">
-        <my-task-dynamic-edit-directive task-obj='MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem' entity-obj=''
-            tab-obj='' on-complete="MyTaskCtrl.ePage.Masters.MyTask.OnTaskComplete($item, 'edit')"
-            on-refresh-status-count="MyTaskCtrl.ePage.Masters.MyTask.StatusCount.OnRefreshStatusCount($item, 'edit')"
-            on-refresh-task="MyTaskCtrl.ePage.Masters.MyTask.OnRefreshTask($item)"></my-task-dynamic-edit-directive>
+    <div class="clearfix my-task-open-activity-overlay" data-ng-if="MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem.Status == 'AVAILABLE' || MyTaskCtrl.ePage.Masters.MyTask.OpenActivity.IsShowOpenActivityPageOverlay">
+        <div class="clearfix assign-task-btn-container">
+            <button class="btn btn-primary mr-40" data-ng-click="MyTaskCtrl.ePage.Masters.MyTask.OpenActivity.AssignToMe()"
+                data-ng-if="MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem.Status == 'AVAILABLE'" data-ng-disabled="MyTaskCtrl.ePage.Masters.MyTask.OpenActivity.IsDisableAssignToMeBtn" data-ng-bind="MyTaskCtrl.ePage.Masters.MyTask.OpenActivity.AssignToMeBtnTxt"></button>
+            <button class="btn btn-primary mr-40" data-ng-if="MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem.Status == 'ASSIGNED'" data-ng-disabled="MyTaskCtrl.ePage.Masters.MyTask.OpenActivity.IsDisableStartMyWorkBtn" data-ng-bind="MyTaskCtrl.ePage.Masters.MyTask.OpenActivity.StartMyWorkBtnTxt" data-ng-click="MyTaskCtrl.ePage.Masters.MyTask.OpenActivity.StartMyWork()"></button>
+            <button class="btn btn-warning" data-ng-click="MyTaskCtrl.ePage.Masters.MyTask.OpenActivity.Close()">Close</button>
+        </div>
     </div>
 </div>

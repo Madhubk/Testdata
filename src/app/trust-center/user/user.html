@@ -34,31 +34,35 @@
                 <span data-ng-bind="'Details'"></span>
                 <button class="btn btn-default tc-btn-edit btn-xs pull-right ml-10" data-ng-click="TCUserCtrl.ePage.Masters.User.Edit()"
                     data-ng-disabled="!TCUserCtrl.ePage.Masters.User.ActiveUser.Id">Edit</button>
+                <button class="btn btn-primary btn-xs pull-right ml-10" generate-db-script input="TCUserCtrl.ePage.Masters.GenerateScriptInput"
+                    config="TCUserCtrl.ePage.Masters.GenerateScriptConfig" data-ng-disabled="!TCUserCtrl.ePage.Masters.GenerateScriptInput.ObjectName || !TCUserCtrl.ePage.Masters.GenerateScriptInput.ObjectId || !TCUserCtrl.ePage.Masters.User.ActiveUser.Id">Generate
+                    Script</button>
             </div>
         </div>
     </div>
     <!-- Body -->
     <div class="clearfix">
         <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 p-0">
-            <div class="tc-list-search input-group input-group-sm">
+            <form class="tc-list-search input-group input-group-sm">
                 <input type="text" class="form-control input-sm" placeholder="Search..." data-ng-model="TCUserCtrl.ePage.Masters.Search">
                 <div class="input-group-btn">
-                    <button class="btn btn-default" data-ng-click="TCUserCtrl.ePage.Masters.User.SearchUser()">
+                    <button type="submit" class="btn btn-default" data-ng-click="TCUserCtrl.ePage.Masters.User.SearchUser()"
+                        data-ng-disabled="!TCUserCtrl.ePage.Masters.Search">
                         <i class="glyphicon glyphicon-search"></i>
                     </button>
                 </div>
-            </div>
+            </form>
             <div class="tc-list-container tc-page-height-fixed with-alphabetic-sort left">
                 <ul class="tc-list-ul">
                     <div class="p-15 text-center tc-loading" data-ng-if="!TCUserCtrl.ePage.Masters.User.UserList">
                         <i class="fa fa-spin fa-spinner"></i>
                     </div>
-                    <div data-ng-if="TCUserCtrl.ePage.Masters.User.UserList && (TCUserCtrl.ePage.Masters.User.UserList | filter: TCUserCtrl.ePage.Masters.Search).length===0"
+                    <div data-ng-if="TCUserCtrl.ePage.Masters.User.UserList && (TCUserCtrl.ePage.Masters.User.UserList | fieldFilter: ['DisplayName', 'Email', 'EmailId', 'FirstName', 'MobileNo', 'UserName']: TCUserCtrl.ePage.Masters.Search).length===0"
                         class="p-15 text-center">
                         <i>No Records...</i>
                     </div>
-                    <li data-ng-if="TCUserCtrl.ePage.Masters.User.UserList && (TCUserCtrl.ePage.Masters.User.UserList | filter: TCUserCtrl.ePage.Masters.Search).length > 0"
-                        data-ng-repeat="x in TCUserCtrl.ePage.Masters.User.UserList | filter: TCUserCtrl.ePage.Masters.Search"
+                    <li data-ng-if="TCUserCtrl.ePage.Masters.User.UserList && (TCUserCtrl.ePage.Masters.User.UserList | fieldFilter: ['DisplayName', 'Email', 'EmailId', 'FirstName', 'MobileNo', 'UserName']: TCUserCtrl.ePage.Masters.Search).length > 0"
+                        data-ng-repeat="x in TCUserCtrl.ePage.Masters.User.UserList | fieldFilter: ['DisplayName', 'Email', 'EmailId', 'FirstName', 'MobileNo', 'UserName']: TCUserCtrl.ePage.Masters.Search"
                         data-ng-click="TCUserCtrl.ePage.Masters.User.ActiveUser.Id != x.Id && TCUserCtrl.ePage.Masters.User.OnUserClick(x)"
                         data-ng-class="{'active': TCUserCtrl.ePage.Masters.User.ActiveUser.Id == x.Id}">
                         <div class="clearfix tc-list">

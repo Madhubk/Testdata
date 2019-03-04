@@ -36,6 +36,9 @@
                     data-ng-disabled="!DataExtEventCtrl.ePage.Masters.DataExtEvent.ActiveDataExtEvent.PK">Edit</button>
                 <button class="btn btn-default tc-btn-delete btn-xs pull-right ml-10" data-ng-click="DataExtEventCtrl.ePage.Masters.DataExtEvent.Delete()"
                     data-ng-bind="DataExtEventCtrl.ePage.Masters.DataExtEvent.DeleteBtnText" data-ng-disabled="DataExtEventCtrl.ePage.Masters.DataExtEvent.IsDisableDeleteBtn || !DataExtEventCtrl.ePage.Masters.DataExtEvent.ActiveDataExtEvent.PK"></button>
+                    <button class="btn btn-primary btn-xs pull-right ml-10" generate-db-script input="DataExtEventCtrl.ePage.Masters.GenerateScriptInput"
+                    config="DataExtEventCtrl.ePage.Masters.GenerateScriptConfig" data-ng-disabled="!DataExtEventCtrl.ePage.Masters.GenerateScriptInput.ObjectName || !DataExtEventCtrl.ePage.Masters.GenerateScriptInput.ObjectId || !DataExtEventCtrl.ePage.Masters.DataExtEvent.ActiveDataExtEvent.PK">Generate
+                    Script</button>
             </div>
         </div>
     </div>
@@ -123,7 +126,7 @@
             <div class="clearfix mb-30 tc-data-config-field-container tc-list-container" data-ng-if="DataExtEventCtrl.ePage.Masters.DataExtEvent.ActiveDataExtEvent.PK">
                 <div class="tc-list-header ng-binding">DATA CONFIG FIELDS</div>
                 <div class="clearfix header">
-                    <div class="col-lg-3 pr-0">
+                    <div class="col-lg-2 pr-0">
                         <div class="text-single-line" data-ng-bind="'Type'"></div>
                     </div>
                     <div class="col-lg-3 pr-0">
@@ -132,7 +135,7 @@
                     <div class="col-lg-3 pr-0">
                         <div class="text-single-line" data-ng-bind="'Display Name'"></div>
                     </div>
-                    <div class="col-lg-3 text-right">
+                    <div class="col-lg-4 text-right">
                         <!-- <span class="fa fa-plus-circle cursor-pointer" data-ng-click="DataConfigCtrl.ePage.Masters.DataConfig.DataConfigFields.AddNewField(undefined, 'Main')"></span> -->
                         <a href="javascript:void(0)" data-ng-click="DataExtEventCtrl.ePage.Masters.DataExtEvent.AddNewField(undefined, 'Main')">Add</a>
                     </div>
@@ -149,7 +152,7 @@
                         <!-- <div class="col-lg-3 pr-0" data-ng-if="DataExtEventCtrl.ePage.Masters.DataExtEvent.DataExtEventFields.ActiveDataExtEventFields.IsExternalCode">
                             <div class="text-single-line" data-ng-bind="x.External_Code" title="{{x.External_Code}}"></div>
                         </div> -->
-                        <div class="col-lg-3 pr-0">
+                        <div class="col-lg-2 pr-0">
                             <div class="text-single-line" data-ng-bind="x.ItemType" title="{{x.ItemType}}"></div>
                         </div>
                         <div class="col-lg-3 pr-0">
@@ -158,15 +161,19 @@
                         <div class="col-lg-3 pr-0">
                             <div class="text-single-line" data-ng-bind="x.UIField" title="{{x.UIField}}"></div>
                         </div>
-                        <div class="col-lg-3 text-right">
+                        <div class="col-lg-4 text-right">
                             <a href="javascript:void(0)" data-ng-click="DataExtEventCtrl.ePage.Masters.DataExtEvent.AddNewField(x, 'Segment')"
                                 data-ng-if="x.ItemType == 'Main'" title="Add">Add</a>
-                            <span class="ml-5 mr-5" data-ng-if="x.ItemType == 'Main'">|</span>
+                            <span class="ml-0 mr-0" data-ng-if="x.ItemType == 'Main'">|</span>
                             <a href="javascript:void(0)" data-ng-click="DataExtEventCtrl.ePage.Masters.DataExtEvent.DataExtEventFields.EditEventConfigField(x)"
                                 title="Edit">Edit</a>
-                            <span class="ml-5 mr-5">|</span>
+                            <span class="ml-0 mr-0">|</span>
                             <a href="javascript:void(0)" data-ng-click="DataExtEventCtrl.ePage.Masters.DataExtEvent.DataExtEventFields.Delete(x)"
                                 title="Delete">Delete</a>
+                                <span class="ml-0 mr-0">|</span>
+                                <a href="javascript:void(0)" generate-db-script 
+                                input="x.GenerateScriptInput" 
+                                config="x.GenerateScriptConfig" data-ng-if="x.GenerateScriptInput.ObjectName || x.GenerateScriptInput.ObjectId || x.PK">Generate Script</a>
                         </div>
                     </div>
                 </div>

@@ -50,7 +50,7 @@
                     ViewInstanceFlow($item.data.entity);
                 });
             } else if ($item.action === "editActivity") {
-                $ocLazyLoad.load(["dynamicListModal", "dynamicList", "dynamicControl", "dynamicGrid", "errorWarning", "oneLevelMapping", "Summernote", "CustomFileUpload", "Comment", "CommentModal", "Document", "DocumentModal", "Email", "EmailModal", "EmailDirective", "Exception", "ExceptionModal", "DelayReason", "DelayReasonModal", "Checklist", "ChecklistModal", "MyTaskDynamicDirective",  "MyTaskDefaultEditDirective"]).then(function () {
+                $ocLazyLoad.load(["dynamicListModal", "dynamicList", "dynamicControl", "dynamicGrid", "errorWarning", "oneLevelMapping", "Summernote", "CustomFileUpload", "Comment", "CommentModal", "Document", "DocumentModal", "Email", "EmailModal", "Exception", "ExceptionModal", "DelayReason", "DelayReasonModal", "Checklist", "ChecklistModal", "MyTaskDynamicDirective"]).then(function () {
                     var _arr = [];
                     if ($item.data.entity.OtherConfig) {
                         if ($item.data.entity.OtherConfig.Directives) {

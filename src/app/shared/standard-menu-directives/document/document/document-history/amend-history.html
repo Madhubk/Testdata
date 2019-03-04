@@ -6,42 +6,33 @@
 </div>
 
 <div class="modal-body" id="modal-body">
-    <div class="document-list-view-container clearfix">
-        <ul class="clearfix">
-            <li class="clearfix pt-5 pb-5" style="font-weight: bold; background-color: #ccc;">
-                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
-                    <div class="text-single-line">File Name</div>
-                </div>
-                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
-                    <div class="text-single-line">Amended By</div>
-                </div>
-                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
-                    <div class="text-single-line">Amended On</div>
-                </div>
-            </li>
-            <!--Loading-->
-            <li class="clearfix p-20 text-center" data-ng-if="!SMDocumentCtrl.ePage.Masters.Document.AmendHistoryList">
+    <div class="clearfix sm-section-body">
+        <div class="clearfix heading pt-10 pb-10 bold">
+            <div class="col-sm-4">File Name</div>
+            <div class="col-sm-4">Amended By</div>
+            <div class="col-sm-4">Amended On</div>
+        </div>
+        <div class="cleafix list-wrapper">
+            <div class="clearfix p-20 text-center font-120" data-ng-if="!SMDocumentCtrl.ePage.Masters.Document.AmendedHistoryList">
                 <i class="fa fa-spin fa-spinner"></i>
-            </li>
-            <!-- No Records -->
-            <li class="clearfix p-20 text-center" data-ng-if="SMDocumentCtrl.ePage.Masters.Document.AmendHistoryList && SMDocumentCtrl.ePage.Masters.Document.AmendHistoryList.length == 0">
-                <i>No Records...!</i>
-            </li>
-            <li class="clearfix list pt-5 pb-5" data-ng-if="SMDocumentCtrl.ePage.Masters.Document.AmendHistoryList && SMDocumentCtrl.ePage.Masters.Document.AmendHistoryList.length > 0"
-                data-ng-repeat="x in SMDocumentCtrl.ePage.Masters.Document.AmendHistoryList">
-                <div class="clearfix">
-                    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
-                        <img ng-src="assets/img/file-types/{{x.FileName | getFileExtension}}.png" alt="">
-                        <a href="javascript:void(0);" data-ng-bind="x.FileName" title="{{x.FileName}}" data-ng-click="x.PK && SMDocumentCtrl.ePage.Masters.Document.DownloadRecord(x, $index)"></a>
-                    </div>
-                    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
-                        <div class="text-single-line" data-ng-bind="(x.CreatedBy == SMDocumentCtrl.ePage.Masters.UserId) ? 'Me' : x.CreatedBy" title="{{x.CreatedBy}}"></div>
-                    </div>
-                    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
-                        <div class="text-single-line " data-ng-bind="x.CreatedDateTime | date: 'dd-MMM-yy h:mm a'" title="{{x.CreatedDateTime | date: 'dd-MMM-yy h:mm a'}}"></div>
-                    </div>
+            </div>
+            <div class="clearfix p-20 text-center" data-ng-if="SMDocumentCtrl.ePage.Masters.Document.AmendedHistoryList && SMDocumentCtrl.ePage.Masters.Document.AmendedHistoryList.length === 0">
+                <i>No Record...!</i>
+            </div>
+            <div class="clearfix list pt-10 pb-10" data-ng-if="SMDocumentCtrl.ePage.Masters.Document.AmendedHistoryList && SMDocumentCtrl.ePage.Masters.Document.AmendedHistoryList.length > 0"
+                data-ng-repeat="x in SMDocumentCtrl.ePage.Masters.Document.AmendedHistoryList  | orderBy: 'CreatedDateTime': true">
+                <div class="col-sm-4">
+                    <img ng-src="assets/img/file-types/{{x.FileName | getFileExtension}}.png" alt="">
+                    <a href="javascript:void(0);" data-ng-bind="x.FileName" title="{{x.FileName}}" data-ng-click="x.PK && SMDocumentCtrl.ePage.Masters.Document.DownloadRecord(x, $index)"></a>
                 </div>
-            </li>
-        </ul>
+                <div class="col-sm-4">
+                    <div class="text-single-line" data-ng-bind="(x.CreatedBy == SMDocumentCtrl.ePage.Masters.UserId) ? 'Me' : x.CreatedBy"
+                        title="{{x.CreatedBy}}"></div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="text-single-line " data-ng-bind="x.CreatedDateTime | date: 'dd-MMM-yy h:mm a'" title="{{x.CreatedDateTime | date: 'dd-MMM-yy h:mm a'}}"></div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

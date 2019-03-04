@@ -169,6 +169,29 @@
                         return $ocLazyLoad.load(["TCUserOrganizationAppTenant"]);
                     }]
                 }
+            })
+            .state('EA.admin.userOrganizationRoleAppTenant', {
+                url: '/user-organization-role-app-tenant/:id',
+                template: `<div class="clearfix p-0"><div data-ng-include="'app/trust-center/mapping/user-organization-role-app-tenant/user-organization-role-app-tenant.html'"></div></div>`,
+                controller: "TCUserOrganizationRoleAppTenantController as TCUserOrganizationRoleAppTenantCtrl",
+                ncyBreadcrumb: {
+                    label: 'User Organization Role App Tenant Access'
+                },
+                resolve: {
+                    CheckAccess: ["$q", "pageAccessService", function ($q, pageAccessService) {
+                        var deferred = $q.defer();
+                        pageAccessService.CheckPageAccess("/EA/admin/user-organization-role-app-tenant").then(function (response) {
+                            if (response == true) {
+                                deferred.resolve();
+                            }
+                        });
+                        deferred.resolve();
+                        return deferred.promise;
+                    }],
+                    LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
+                        return $ocLazyLoad.load(["TCUserOrganizationRoleAppTenant"]);
+                    }]
+                }
             });
     }
 })();

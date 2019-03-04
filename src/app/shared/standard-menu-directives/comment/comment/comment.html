@@ -1,150 +1,84 @@
-<div class="comments-list-container clearfix">
+<div class="sm-comments-container clearfix">
     <div class="clearfix text-center text-danger p-20" data-ng-if="CommentCtrl.mode == '2' && !CommentCtrl.type">
         <i class="font-160">Comment Type Not Found...!</i>
     </div>
     <div class="clearfix" data-ng-if="(CommentCtrl.mode == '2' && CommentCtrl.type) || CommentCtrl.mode != '2'">
-        <!-- Header -->
-        <div class="sm-header clearfix" style="display: table; width: 100%;" data-ng-if="CommentCtrl.ePage.Masters.Comments.ViewMode == 'List'">
-            <div class="" style="display: table-cell; vertical-align: middle;">
-                <div class="mr-20" style="display: inline-block;" data-ng-if="(!CommentCtrl.Config.IsDisableRefreshButton && CommentCtrl.mode != '2') || CommentCtrl.mode == '2'">
-                    <button class="btn btn-danger btn-sm mr-10" data-ng-click="CommentCtrl.ePage.Masters.Comments.Compose()"
-                        data-ng-if="CommentCtrl.mode == '2' && !CommentCtrl.ePage.Entities.IsReadOnly" data-ng-disabled="!CommentCtrl.type">Add Comment</button>
-                    <button class="btn btn-default btn-sm mr-10" data-ng-click="CommentCtrl.ePage.Masters.Comments.ListView.Refresh()"
-                        data-ng-if="!CommentCtrl.Config.IsDisableRefreshButton">Refresh</button>
+        <!-- Section Top -->
+        <div class="clearfix sm-section-top sm-comment pt-10 pb-10">
+            <div class="clearfix">
+                <div class="col-sm-3">
+                    <select chosen class="form-control" data-ng-model="CommentCtrl.ePage.Masters.Comments.ActiveCommentType.TypeCode"
+                        data-ng-options="x.TypeCode as x.Value for x in CommentCtrl.ePage.Masters.Comments.CommentTypeList"
+                        data-ng-change="CommentCtrl.ePage.Masters.Comments.OnCommentTypeChange((CommentCtrl.ePage.Masters.Comments.CommentTypeList | filter: {'TypeCode': CommentCtrl.ePage.Masters.Comments.ActiveCommentType.TypeCode})[0])"
+                        search-contains="true"></select>
                 </div>
-                <div class="mr-10" style="display: inline-block; width: 250px;" data-ng-if="CommentCtrl.mode=='3'">
-                    <div class="form-group form-horizontal clearfix m-0">
-                        <div class="clearfix">
-                            <select chosen class="form-control" data-ng-model="CommentCtrl.ePage.Masters.Comments.SideBar.ActiveMenu.TypeCode"
-                                data-ng-options="x.TypeCode as x.Value for x in CommentCtrl.ePage.Masters.Comments.CommentDescriptionList"
-                                data-ng-change="CommentCtrl.ePage.Masters.Comments.SideBar.OnListClick((CommentCtrl.ePage.Masters.Comments.CommentDescriptionList | filter: {'TypeCode': CommentCtrl.ePage.Masters.Comments.SideBar.ActiveMenu.TypeCode})[0])"
-                                search-contains="true">
-                                <!-- <option value="">--Select--</option> -->
-                            </select>
-                        </div>
-                    </div>
+                <div class="col-sm-3">
+                    <button class="btn btn-primary btn-sm mt-2" data-ng-click="CommentCtrl.ePage.Masters.Comments.Compose()"
+                        data-ng-disabled="!CommentCtrl.ePage.Masters.Comments.ActiveCommentType.TypeCode || CommentCtrl.ePage.Masters.Comments.ActiveCommentType.TypeCode == 'ALL' ">Add
+                        Comment</button>
                 </div>
-                <div class="mr-20" style="display: inline-block;" data-ng-if="CommentCtrl.mode=='3' && !CommentCtrl.ePage.Entities.IsReadOnly">
-                    <button class="btn btn-default btn-sm mr-10" data-ng-click="CommentCtrl.ePage.Masters.Comments.Compose(CommentCtrl.ePage.Masters.Comments.SideBar.ActiveMenu)"
-                        data-ng-disabled="!CommentCtrl.ePage.Masters.Comments.SideBar.ActiveMenu.TypeCode || CommentCtrl.ePage.Masters.Comments.SideBar.ActiveMenu.TypeCode== 'ALL' ">Add Comment</button>
+                <div class="col-sm-3">
+                    <button class="btn btn-default btn-sm pull-right mt-2" data-ng-click="CommentCtrl.ePage.Masters.Comments.Refresh()">Refresh</button>
+                </div>
+                <div class="col-sm-3">
+                    <input type="text" class="form-control input-sm" placeholder="Search" data-ng-model="CommentCtrl.ePage.Masters.Comments.Search">
+                </div>
+            </div>
+            <div class="clearfix comment-section mt-10" data-ng-if="CommentCtrl.ePage.Masters.Comments.IsShowCommentSection && CommentCtrl.ePage.Masters.Comments.ActiveCommentType.TypeCode != 'ALL'">
+                <div class="col-sm-12 mb-10">
+                    <textarea rows="5" class="form-control no-resize" placeholder="Add comments..." data-ng-model="CommentCtrl.ePage.Masters.Comments.ActiveComment.Comments"></textarea>
+                </div>
+                <div class="col-sm-12">
+                    <button class="btn btn-primary btn-sm pull-right ml-15" data-ng-click="CommentCtrl.ePage.Masters.Comments.Save()"
+                        data-ng-disabled="!CommentCtrl.ePage.Masters.Comments.ActiveComment.Comments || CommentCtrl.ePage.Masters.Comments.IsDisableSaveBtn"
+                        data-ng-bind="CommentCtrl.ePage.Masters.Comments.SaveBtnText"></button>
+                    <button class="btn btn-default btn-sm pull-right" data-ng-click="CommentCtrl.ePage.Masters.Comments.Discard()">Discard</button>
                 </div>
             </div>
         </div>
-        <!-- Sidebar -->
-        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 col-xl-3 sm-sidebar-container" data-ng-class="(CommentCtrl.ePage.Masters.Comments.ViewMode == 'List')? 'list-mode': 'view-mode'"
-            data-ng-style="(CommentCtrl.ePage.Masters.Comments.ViewMode != 'List') ? {'background': '#fbfbfb'} : {'background': '#fff'}"
-            data-ng-if="CommentCtrl.mode=='1'">
-            <div class="main" data-ng-if="CommentCtrl.ePage.Masters.Comments.ViewMode == 'List'">
-                <div class="clearfix text-center p-20" data-ng-if="!CommentCtrl.ePage.Masters.Comments.CommentDescriptionList">
-                    <i class="fa fa-spin fa-spinner font-160"></i>
-                </div>
-                <div class="clearfix text-center p-20" data-ng-if="CommentCtrl.ePage.Masters.Comments.CommentDescriptionList && CommentCtrl.ePage.Masters.Comments.CommentDescriptionList.length == 0">
-                    <i class="">No Records...!</i>
-                </div>
-                <ul class="p-0" data-ng-if="CommentCtrl.ePage.Masters.Comments.CommentDescriptionList && CommentCtrl.ePage.Masters.Comments.CommentDescriptionList.length > 0">
-                    <li class="text-single-line" data-ng-class="{'active': x.Key == CommentCtrl.ePage.Masters.Comments.SideBar.ActiveMenu.Key}"
-                        data-ng-repeat="x in CommentCtrl.ePage.Masters.Comments.CommentDescriptionList" data-ng-click="CommentCtrl.ePage.Masters.Comments.SideBar.ActiveMenu.Value != x.Value && CommentCtrl.ePage.Masters.Comments.SideBar.OnListClick(x)">{{x.Value}}
-                        <i class="fa fa-plus-circle attach-icon" data-ng-if="x.Value != 'All'" data-ng-click="CommentCtrl.ePage.Masters.Comments.Compose(x)"></i>
-                    </li>
-                </ul>
+        <!-- Section Body -->
+        <div class="clearfix sm-section-body">
+            <div class="clearfix heading pt-10 pb-10 bold">
+                <div class="col-sm-2">Comment Type</div>
+                <div class="col-sm-4">Comment</div>
+                <div class="col-sm-3">Owner</div>
+                <div class="col-sm-2">Created On</div>
+                <div class="col-sm-1"></div>
             </div>
-            <div class="dummy text-center pt-150 pb-150" data-ng-if="CommentCtrl.ePage.Masters.Comments.ViewMode != 'List'">
-                <img src="assets/img/no-records/comment.png">
-            </div>
-        </div>
-        <!-- Body -->
-        <div class="sm-comment-wrapper p-0" data-ng-class="(CommentCtrl.mode == '1' ? 'col-xs-12 col-sm-12 col-md-8 col-lg-9 col-xl-9' : 'col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 p-0') + ' ' + (CommentCtrl.ePage.Masters.Comments.ViewMode == 'Read' ? 'read-mode' : '')">
-            <div class="template-body">
-                <!-- List View -->
-                <div class="list-view-container clearfix" data-ng-if="CommentCtrl.ePage.Masters.Comments.ViewMode == 'List'">
-                    <table class="table-responsive sm-comment-table">
-                        <thead>
-                            <tr class="clearfix">
-                                <th data-ng-if="!CommentCtrl.Config.IsDisableCommentType">Comment Type</th>
-                                <th>Comment</th>
-                                <th>Owner</th>
-                                <th>Created On</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- Loading -->
-                            <tr class="clearfix text-center" data-ng-if="!CommentCtrl.ePage.Masters.Comments.ListView.ListSource">
-                                <td colspan="4" class="p-20">
-                                    <i class="fa fa-spin fa-spinner font-160"></i>
-                                </td>
-                            </tr>
-                            <!-- No Records -->
-                            <tr class="clearfix text-center" data-ng-if="CommentCtrl.ePage.Masters.Comments.ListView.ListSource && CommentCtrl.ePage.Masters.Comments.ListView.ListSource.length == 0">
-                                <td colspan="4" class="p-20">
-                                    <i>No Records...!</i>
-                                </td>
-                            </tr>
-                            <tr class="clearfix comment-list position-relative border-bottom" data-ng-if="CommentCtrl.ePage.Masters.Comments.ListView.ListSource && CommentCtrl.ePage.Masters.Comments.ListView.ListSource.length > 0 && CommentCtrl.mode != '2'"
-                                data-ng-repeat="x in CommentCtrl.ePage.Masters.Comments.ListView.ListSource | orderBy: 'CreatedDateTime': true"
-                                data-ng-click="CommentCtrl.ePage.Masters.Comments.ListView.OnListViewClick(x)">
-                                <td data-ng-if="!CommentCtrl.Config.IsDisableCommentType">
-                                    <div class="text-single-line" data-ng-bind="x.Description" title="{{x.Description}}"></div>
-                                </td>
-                                <td>
-                                    <div class="text-single-line subject-body">
-                                        <div class="body" data-ng-bind="x.Comments" title="{{x.Comments}}"></div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="text-single-line" data-ng-bind="(x.CreatedBy == CommentCtrl.ePage.Masters.Comments.UserId) ? 'Me' : x.CreatedBy"
-                                        title="{{x.CreatedBy}}"></div>
-                                </td>
-                                <td>
-                                    <div class="text-single-line" data-ng-bind="x.CreatedDateTime | date:'dd-MMM-yy h:mm a'"
-                                        title="{{x.CreatedDateTime | date:'dd-MMM-yy: h:mm a'}}"></div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+            <div class="cleafix list-wrapper sm-comment-list-wrapper">
+                <div class="clearfix p-20 text-center font-120" data-ng-if="!CommentCtrl.ePage.Masters.Comments.ListSource">
+                    <i class="fa fa-spin fa-spinner"></i>
                 </div>
-                <!-- Read View -->
-                <div class="read-view-container" data-ng-if="CommentCtrl.ePage.Masters.Comments.ViewMode == 'Read'">
-                    <div class="subject-header pl-10 pr-10">
-                        <button class="btn btn-default btn-sm mr-10 back-btn" data-ng-click="CommentCtrl.ePage.Masters.Comments.ReadView.GoToList()"
-                            data-ng-show="CommentCtrl.ePage.Masters.Comments.ViewMode == 'Read'" title="Back">
-                            <i class="fa fa-arrow-left"></i>
-                        </button>
-                        <span data-ng-bind="CommentCtrl.ePage.Masters.Comments.ListView.ActiveComment.Description"></span>
-                    </div>
-                    <div class="clearfix">
-                        <div class="user-header clearfix">
-                            <div class="user-profile">
-                                <i class="fa fa-user"></i>
-                            </div>
-                            <div class="user-name pt-5" data-ng-bind="(CommentCtrl.ePage.Masters.Comments.ListView.ActiveComment.CreatedBy == CommentCtrl.ePage.Masters.Comments.UserId) ? 'Me' : CommentCtrl.ePage.Masters.Comments.ListView.ActiveComment.CreatedBy"></div>
-                            <!-- Access -->
-                            <div class="pull-right dropdown comment-access-dropdown-menu" data-ng-if="CommentCtrl.ePage.Masters.Comments.ReadView.GroupMapping && (CommentCtrl.ePage.Masters.Comments.ListView.ActiveComment.CreatedBy ==  CommentCtrl.ePage.Masters.Comments.UserId || (CommentCtrl.ePage.Masters.Comments.ListView.ActiveComment.CreatedBy !=CommentCtrl.ePage.Masters.Comments.UserId && !CommentCtrl.ePage.Masters.Comments.ListView.ActiveComment.IsResticted && CommentCtrl.ePage.Masters.Comments.ListView.ActiveComment.IsShared)) && CommentCtrl.mode == '1' && !CommentCtrl.ePage.Entities.IsReadOnly"
-                                one-level-mapping input="CommentCtrl.ePage.Masters.Comments.ReadView.GroupMapping"
-                                object="CommentCtrl.ePage.Masters.Comments.ListView.ActiveComment"></div>
-                            <!-- Reply -->
-                            <!-- <div class="reply" title="Reply" data-ng-click="CommentCtrl.ePage.Masters.Comments.ReadView.Reply()">
-                                <i class="fa fa-reply"></i>
-                            </div> -->
-                            <div class="date pt-5" data-ng-bind="CommentCtrl.ePage.Masters.Comments.ListView.ActiveComment.CreatedDateTime | date:'MMM dd'"></div>
-                        </div>
-                        <div class="message clearfix">
-                            <div class="" data-ng-bind-html="CommentCtrl.ePage.Masters.Comments.ListView.ActiveComment.Comments"></div>
-                        </div>
-                    </div>
+                <div class="clearfix p-20 text-center" data-ng-if="CommentCtrl.ePage.Masters.Comments.ListSource && (CommentCtrl.ePage.Masters.Comments.ListSource | fieldFilter: ['CommentsType', 'Comments', 'Description']: CommentCtrl.ePage.Masters.Comments.Search).length === 0">
+                    <i>No Record...!</i>
                 </div>
-                <!-- Edit View -->
-                <div class="edit-view-container" data-ng-if="CommentCtrl.ePage.Masters.Comments.ViewMode == 'Edit'">
-                    <div class="clearfix p-10 pb-0 edit-comments-wrapper">
-                        <textarea rows="5" class="form-control no-resize" placeholder="Add comments..." data-ng-model="CommentCtrl.ePage.Masters.Comments.ListView.ActiveComment.Comments"></textarea>
+                <div class="clearfix list pt-10 pb-10" data-ng-if="CommentCtrl.ePage.Masters.Comments.ListSource && (CommentCtrl.ePage.Masters.Comments.ListSource | fieldFilter: ['CommentsType', 'Comments', 'Description']: CommentCtrl.ePage.Masters.Comments.Search).length > 0"
+                    data-ng-repeat="x in CommentCtrl.ePage.Masters.Comments.ListSource | orderBy: 'CreatedDateTime': true | fieldFilter: ['CommentsType', 'Comments', 'Description']: CommentCtrl.ePage.Masters.Comments.Search">
+                    <div class="col-sm-2">
+                        <div class="text-single-line" title="{{x.Description}}">{{x.Description}}</div>
                     </div>
-                    <div class="clearfix p-10 pr-0">
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 text-right">
-                            <button class="btn btn-default btn-sm ml-10" data-ng-click="CommentCtrl.ePage.Masters.Comments.EditView.Discard()"
-                                data-ng-show="CommentCtrl.ePage.Masters.Comments.ViewMode == 'Edit'" data-ng-disabled="CommentCtrl.ePage.Masters.Comments.EditView.IsDisableSaveBtn">Discard</button>
-                            <button class="btn btn-primary btn-sm ml-10" data-ng-click="CommentCtrl.ePage.Masters.Comments.EditView.Save()"
-                                data-ng-show="CommentCtrl.ePage.Masters.Comments.ViewMode == 'Edit'" data-ng-bind="CommentCtrl.ePage.Masters.Comments.EditView.SaveBtnText"
-                                data-ng-disabled="CommentCtrl.ePage.Masters.Comments.EditView.IsDisableSaveBtn"></button>
-                        </div>
+                    <div class="col-sm-4">
+                        <div class="text-single-line" data-ng-if="!x.IsShowMore" title="{{x.Comments}}">{{x.Comments}}</div>
+                        <div class="comments" data-ng-if="x.IsShowMore" title="{{x.Comments}}">{{x.Comments}}</div>
+                        <span class="cursor-pointer blue font-90" data-ng-if="!x.IsShowMore && x.Comments.length > 75"
+                            data-ng-click="x.IsShowMore = true">Show
+                            more</span>
+                        <span class="cursor-pointer blue font-90" data-ng-if="x.IsShowMore && x.Comments.length > 75"
+                            data-ng-click="x.IsShowMore = false">Show
+                            less</span>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="text-single-line" title="{{x.CreatedBy}}">{{(x.CreatedBy ==
+                            CommentCtrl.ePage.Masters.Comments.UserId) ? 'Me' : x.CreatedBy}}</div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="text-single-line" title="{{x.CreatedDateTime | date:'dd-MMM-yy: h:mm a'}}">{{x.CreatedDateTime
+                            | date:'dd-MMM-yy h:mm a'}}</div>
+                    </div>
+                    <div class="col-sm-1">
+                        <!-- Access -->
+                        <div class="pull-right dropdown comment-access-dropdown-menu" data-ng-if="x.GroupMapping && (x.CreatedBy ==  CommentCtrl.ePage.Masters.Comments.UserId || (x.CreatedBy != CommentCtrl.ePage.Masters.Comments.UserId && !x.IsResticted && x.IsShared)) && CommentCtrl.mode == '1' && !CommentCtrl.ePage.Entities.IsReadOnly"
+                            one-level-mapping input="x.GroupMapping" object="x" icon="'fa fa-user-plus'"></div>
                     </div>
                 </div>
             </div>

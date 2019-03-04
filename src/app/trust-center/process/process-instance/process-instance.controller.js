@@ -101,7 +101,7 @@
             ProcessInstanceCtrl.ePage.Masters.dataentryName = "ProcessInstance";
             ProcessInstanceCtrl.ePage.Masters.config = ProcessInstanceCtrl.ePage.Entities;
 
-            ProcessInstanceCtrl.ePage.Masters.DefaultFilter = {
+            ProcessInstanceCtrl.ePage.Masters.BaseFilter = {
                 "PSM_FK": ProcessInstanceCtrl.ePage.Masters.QueryString.Item.PK
             };
 
@@ -173,7 +173,7 @@
 
         function CreateNewProcessInstance($item, mode) {
             var _winClass = "process-instance-mode-1";
-            (mode == 1) ? _winClass = "process-instance-mode-1" : _winClass = "process-instance-mode-2";
+            (mode == 1) ? _winClass = "process-instance-mode-1": _winClass = "process-instance-mode-2";
             var modalInstance = $uibModal.open({
                 animation: true,
                 backdrop: false,
@@ -203,7 +203,6 @@
         }
 
         function AddTab(currentProcessInstance, isNew) {
-            ProcessInstanceCtrl.ePage.Masters.currentProcessInstance = undefined;
             var _isExist = ProcessInstanceCtrl.ePage.Masters.TabList.some(function (value) {
                 if (!isNew) {
                     return value[value.label].ePage.Entities.Header.Data.PK === currentProcessInstance.entity.PK;
@@ -224,7 +223,7 @@
                     ProcessInstanceCtrl.ePage.Masters.TabList = response;
                     $timeout(function () {
                         ProcessInstanceCtrl.ePage.Masters.activeTabIndex = ProcessInstanceCtrl.ePage.Masters.TabList.length;
-                        ProcessInstanceCtrl.ePage.Masters.CurrentActiveTab(currentProcessInstance.entity.InstanceNo);
+                        ProcessInstanceCtrl.ePage.Masters.CurrentActiveTab(currentProcessInstance.entity);
                         ProcessInstanceCtrl.ePage.Masters.IsTabClick = false;
                     });
                 });
@@ -240,13 +239,23 @@
             ProcessInstanceCtrl.ePage.Masters.TabList.splice(index, 1);
         }
 
-        function CurrentActiveTab(currentTab) {
-            if (currentTab.label !== undefined) {
-                currentTab = currentTab.label
+        function CurrentActiveTab($item) {
+            var _objectId;
+            if ($item.label) {
+                _objectId = $item[$item.label].ePage.Entities.Header.Data.PK;
             } else {
-                currentTab = currentTab;
+                _objectId = $item.PK;
             }
-            ProcessInstanceCtrl.ePage.Masters.currentProcessInstance = currentTab;
+
+            ProcessInstanceCtrl.ePage.Masters.GenerateScriptInput = {
+                ObjectName: "EBPM_ProcessInstance",
+                ObjectId: _objectId
+            };
+            ProcessInstanceCtrl.ePage.Masters.GenerateScriptConfig = {
+                IsEnableTable: false,
+                IsEnablePK: false,
+                IsEnableTenant: false
+            };
         }
 
         function SelectedGridRow($item) {
@@ -254,7 +263,9 @@
                 ProcessInstanceCtrl.ePage.Masters.AddTab($item.data, false);
             }
         }
-        
+
+
+
         Init();
     }
 })();

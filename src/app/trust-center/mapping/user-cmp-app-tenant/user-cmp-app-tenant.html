@@ -27,7 +27,7 @@
                     <th class="tc-th-autocomplete">Branch</th>
                     <th class="tc-th-autocomplete">Department</th>
                     <th class="tc-th-autocomplete">Organization</th>
-                    <th colspan="2" class="th-action">Action</th>
+                    <th colspan="3" class="th-action">Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -46,6 +46,7 @@
                 <!-- List -->
                 <tr data-ng-if="TCUserCmpAppTenantCtrl.ePage.Masters.UserCmpAppTenant.UserCmpAppTenantList && TCUserCmpAppTenantCtrl.ePage.Masters.UserCmpAppTenant.UserCmpAppTenantList.length > 0"
                     data-ng-repeat="item in  TCUserCmpAppTenantCtrl.ePage.Masters.UserCmpAppTenant.UserCmpAppTenantList">
+
                     <td>
                         <input type="text" placeholder="Company" class="form-control input-sm" data-ng-model="item.AccessCode"
                             uib-typeahead="x.Code as x.Code + ' - ' + x.Name  for x in TCUserCmpAppTenantCtrl.ePage.Masters.UserCmpAppTenant.GetCompanyList($viewValue)"
@@ -124,7 +125,13 @@
                             data-ng-if="TCUserCmpAppTenantCtrl.ePage.Masters.UserCmpAppTenant.UIControlList && TCUserCmpAppTenantCtrl.ePage.Masters.UserCmpAppTenant.UIControlList.length > 0 && TCUserCmpAppTenantCtrl.ePage.Masters.UserCmpAppTenant.CheckUIControl('TC_MAP_DEL')"></i>
                     </td>
 
-                </tr>
+                    <td class="text-center p-5">
+                        <i class="fa fa-file-o cursor-pointer" style="font-size: 16px;" 
+                            generate-db-script input="item.GenerateScriptInput" config="item.GenerateScriptConfig"
+                            data-ng-if="item.GenerateScriptInput.ObjectName ||item.GenerateScriptInput.ObjectId || item.PK">
+                        </i>
+                    </td>
+                 </tr>
 
                 <!-- Add New -->
                 <tr>

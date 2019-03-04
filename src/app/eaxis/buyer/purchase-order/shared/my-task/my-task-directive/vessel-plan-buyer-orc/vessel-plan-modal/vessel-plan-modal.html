@@ -1,0 +1,282 @@
+<div class="modal-header">
+	<button type="button" class="close" data-ng-click="VesselPlanModalCtrl.ePage.Masters.Cancel()">&times;</button>
+	<h5 class="modal-title" id="modal-title">
+		<strong>Add Vessel Schedule</strong>
+	</h5>
+</div>
+<div class="modal-body" id="modal-body">
+	<div class="clearfix">
+		<!-- carrier -->
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+			<span class="error-warning-container">
+				<error-warning-directive data-ng-if="VesselPlanModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.CarrierOrg_Code.IsWarning && !VesselPlanModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.CarrierOrg_Code.IsError"
+				 list="VesselPlanModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.CarrierOrg_Code.WARNING" type="'warning'"
+				 icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+				<error-warning-directive data-ng-if="VesselPlanModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.CarrierOrg_Code.IsError"
+				 list="VesselPlanModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.CarrierOrg_Code.ERROR" type="'error'"
+				 icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+			</span>
+			<div class="form-group  padding-top-10">
+				<label class="control-label text-single-line">Carrier</label>
+				<div class="input-group input-group-sm">
+					<input type="hidden" data-ng-model="VesselPlanModalCtrl.ePage.Entities.Header.Data.UIVesselDetails.CarrierOrg_FK">
+					<div dynamic-lookup placeholder="Carrier" my-ng-model="VesselPlanModalCtrl.ePage.Entities.Header.Data.UIVesselDetails.CarrierOrg_Code"
+					 obj="VesselPlanModalCtrl.ePage.Entities.Header.Data.UIVesselDetails" page-name="'OrgCarrierLisst'" control-key="'OrdCarrier_2833'"
+					 control-id="'OrdCarrier'" auto-complete-on-select="VesselPlanModalCtrl.ePage.Masters.AutoCompleteOnSelect($item,['E1011'])"></div>
+					<span class="input-group-btn">
+						<button dynamic-list-modal obj="VesselPlanModalCtrl.ePage.Entities.Header.Data.UIVesselDetails" control-key="'OrdCarrier_2833'"
+						 control-id="'OrdCarrier'" page-name="'OrgCarrierList'" mode="2" grid-refresh-fun-name="" grid-refresh-fun=""
+						 selected-data="VesselPlanModalCtrl.ePage.Masters.SelectedLookupData($item,['E1011'])" class="btn btn-default shiny"
+						 type="button">
+							<i class="fa fa-ellipsis-h"></i>
+						</button>
+					</span>
+				</div>
+			</div>
+		</div>
+		<!-- Vessel -->
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+			<div class="form-group  padding-top-10">
+				<span class="error-warning-container">
+					<error-warning-directive data-ng-if="VesselPlanModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Vessel.IsWarning && !VesselPlanModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Vessel.IsError"
+					 list="VesselPlanModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Vessel.WARNING" type="'warning'" icon="fa fa-warning"
+					 parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+					<error-warning-directive data-ng-if="VesselPlanModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Vessel.IsError"
+					 list="VesselPlanModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Vessel.ERROR" type="'error'" icon="fa fa-warning"
+					 parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+				</span>
+				<label class="control-label text-single-line">Vessel</label>
+				<div class="input-group input-group-sm">
+					<!-- <input type="hidden" data-ng-model="VesselPlanModalCtrl.ePage.Entities.Header.Data.UIVesselDetails.Vessel_PK"> -->
+					<div dynamic-lookup placeholder="Vessel" my-ng-model="VesselPlanModalCtrl.ePage.Entities.Header.Data.UIVesselDetails.Vessel"
+					 obj="VesselPlanModalCtrl.ePage.Entities.Header.Data.UIVesselDetails" page-name="'MstVessel'" control-key="'OrdPlannedVessel_3185'"
+					 control-id="'OrdPlannedVessel'" auto-complete-on-select="VesselPlanModalCtrl.ePage.Masters.AutoCompleteOnSelect($item,['E1019'])"></div>
+					<span class="input-group-btn">
+						<button dynamic-list-modal obj="VesselPlanModalCtrl.ePage.Entities.Header.Data.UIVesselDetails" control-key="'OrdPlannedVessel_3185'"
+						 control-id="'OrdPlannedVessel'" page-name="'MstVessel'" mode="2" grid-refresh-fun-name="" grid-refresh-fun=""
+						 selected-data="VesselPlanModalCtrl.ePage.Masters.SelectedLookupData($item,['E1019'])" class="btn btn-default shiny"
+						 type="button">
+							<i class="fa fa-ellipsis-h"></i>
+						</button>
+					</span>
+				</div>
+			</div>
+		</div>
+		<!-- Voyage -->
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+			<span class="error-warning-container">
+				<error-warning-directive data-ng-if="VesselPlanModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.VoyageFlight.IsWarning && !VesselPlanModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.VoyageFlight.IsError"
+				 list="VesselPlanModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.VoyageFlight.WARNING" type="'warning'"
+				 icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+				<error-warning-directive data-ng-if="VesselPlanModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.VoyageFlight.IsError"
+				 list="VesselPlanModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.VoyageFlight.ERROR" type="'error'" icon="fa fa-warning"
+				 parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+			</span>
+			<div class="form-group padding-top-10">
+				<label for="" data-ng-show="VesselPlanModalCtrl.ePage.Entities.Header.Data.UIOrder_Buyer.TransportMode =='SEA'"
+				 class="control-label">Voyage</label>
+				<label for="" data-ng-show="VesselPlanModalCtrl.ePage.Entities.Header.Data.UIOrder_Buyer.TransportMode =='AIR'"
+				 class="control-label">Flight</label>
+				<label for="" data-ng-show="VesselPlanModalCtrl.ePage.Entities.Header.Data.UIOrder_Buyer.TransportMode =='ROA'"
+				 class="control-label">Truck
+					Reference</label>
+				<input type="text" data-ng-show="VesselPlanModalCtrl.ePage.Entities.Header.Data.UIOrder_Buyer.TransportMode =='SEA'"
+				 class="form-control input-sm" placeholder="Voyage" maxlength="35" data-ng-model="VesselPlanModalCtrl.ePage.Entities.Header.Data.UIVesselDetails.VoyageFlight"
+				 data-ng-blur="VesselPlanModalCtrl.ePage.Masters.OnFieldValueChange(['E1013'])">
+			</div>
+		</div>
+		<!-- ETD -->
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+			<span class="error-warning-container">
+				<error-warning-directive data-ng-if="VesselPlanModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ETD.IsWarning && !VesselPlanModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ETD.IsError"
+				 list="VesselPlanModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ETD.WARNING" type="'warning'" icon="fa fa-warning"
+				 parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+				<error-warning-directive data-ng-if="VesselPlanModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ETD.IsError"
+				 list="VesselPlanModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ETD.ERROR" type="'error'" icon="fa fa-warning"
+				 parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+			</span>
+			<div class="form-group padding-top-10">
+				<label class="control-label text-single-line">ETD</label>
+				<div class="input-group input-group-sm">
+					<input type="text" class="form-control" placeholder="{{VesselPlanModalCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+					 data-ng-model="VesselPlanModalCtrl.ePage.Entities.Header.Data.UIVesselDetails.ETD" datetime-picker="{{VesselPlanModalCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+					 datepicker-options="VesselPlanModalCtrl.ePage.Masters.DatePicker.Options" datepicker-append-to-body="false"
+					 close-on-selection="false" enable-time="false" enable-date="true" default-date="" default-time="" save-as="VesselPlanModalCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+					 is-open="VesselPlanModalCtrl.ePage.Masters.DatePicker.isOpen['isETD']" when-closed="" data-ng-click="VesselPlanModalCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isETD')"
+					 data-ng-change="VesselPlanModalCtrl.ePage.Masters.OnFieldValueChange(['E1012','E1032', 'E1033'])"
+					 custom-date-time-format />
+					<span class="input-group-btn">
+						<button class="btn btn-default fa fa-calendar" type="button" data-ng-click="VesselPlanModalCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isETD'+ $index)"></button>
+					</span>
+				</div>
+			</div>
+		</div>
+		<!-- ETA -->
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+			<span class="error-warning-container">
+				<error-warning-directive data-ng-if="VesselPlanModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ETA.IsWarning && !VesselPlanModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ETA.IsError"
+				 list="VesselPlanModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ETA.WARNING" type="'warning'" icon="fa fa-warning"
+				 parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+				<error-warning-directive data-ng-if="VesselPlanModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ETA.IsError"
+				 list="VesselPlanModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ETA.ERROR" type="'error'" icon="fa fa-warning"
+				 parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+			</span>
+			<div class="form-group padding-top-10">
+				<label class="control-label text-single-line">ETA</label>
+				<div class="input-group input-group-sm">
+					<input type="text" class="form-control" placeholder="{{VesselPlanModalCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+					 data-ng-model="VesselPlanModalCtrl.ePage.Entities.Header.Data.UIVesselDetails.ETA" datetime-picker="{{VesselPlanModalCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+					 datepicker-options="VesselPlanModalCtrl.ePage.Masters.DatePicker.Options" datepicker-append-to-body="false"
+					 close-on-selection="false" enable-time="false" enable-date="true" default-date="" default-time="" save-as="VesselPlanModalCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+					 is-open="VesselPlanModalCtrl.ePage.Masters.DatePicker.isOpen['isETA']" when-closed="" data-ng-click="VesselPlanModalCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isETA')"
+					 data-ng-change="VesselPlanModalCtrl.ePage.Masters.OnFieldValueChange(['E1015','E1032', 'E1033'])"
+					 custom-date-time-format />
+					<span class="input-group-btn">
+						<button class="btn btn-default fa fa-calendar" type="button" data-ng-click="VesselPlanModalCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isETA'+ $index)"></button>
+					</span>
+				</div>
+			</div>
+		</div>
+		<!-- POL -->
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+			<span class="error-warning-container">
+				<error-warning-directive data-ng-if="VesselPlanModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.LoadPort.IsWarning && !VesselPlanModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.LoadPort.IsError"
+				 list="VesselPlanModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.LoadPort.WARNING" type="'warning'" icon="fa fa-warning"
+				 parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+				<error-warning-directive data-ng-if="VesselPlanModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.LoadPort.IsError"
+				 list="VesselPlanModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.LoadPort.ERROR" type="'error'" icon="fa fa-warning"
+				 parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+			</span>
+			<div class="form-group  padding-top-10">
+				<label class="control-label text-single-line">POL</label>
+				<div class="input-group input-group-sm">
+					<!-- <input type="hidden" data-ng-model="VesselPlanModalCtrl.ePage.Entities.Header.Data.UIVesselDetails.PortOfLoading_PK"> -->
+					<div dynamic-lookup placeholder="Port Of Loading" my-ng-model="VesselPlanModalCtrl.ePage.Entities.Header.Data.UIVesselDetails.LoadPort"
+					 obj="VesselPlanModalCtrl.ePage.Entities.Header.Data.UIVesselDetails" page-name="'MstUNLOCO'" control-key="'VesselPOL_3309'"
+					 control-id="'VesselPOL'" auto-complete-on-select="VesselPlanModalCtrl.ePage.Masters.AutoCompleteOnSelect($item,['E1014'])"></div>
+					<span class="input-group-btn">
+						<button class="btn btn-default fa fa-ellipsis-h" dynamic-list-modal obj="VesselPlanModalCtrl.ePage.Entities.Header.Data.UIVesselDetails"
+						 control-key="'VesselPOL_3309'" control-id="'VesselPOL'" page-name="'MstUNLOCO'" mode="2" grid-refresh-fun-name=""
+						 grid-refresh-fun="" selected-data="VesselPlanModalCtrl.ePage.Masters.SelectedLookupData($item,['E1014'])" class="btn btn-default shiny"
+						 type="button"></button>
+					</span>
+				</div>
+			</div>
+		</div>
+		<!-- POD -->
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+			<span class="error-warning-container">
+				<error-warning-directive data-ng-if="VesselPlanModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.DischargePort.IsWarning && !VesselPlanModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.DischargePort.IsError"
+				 list="VesselPlanModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.DischargePort.WARNING" type="'warning'"
+				 icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+				<error-warning-directive data-ng-if="VesselPlanModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.DischargePort.IsError"
+				 list="VesselPlanModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.DischargePort.ERROR" type="'error'"
+				 icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+			</span>
+			<div class="input-group input-group-sm margin-top-5">
+				<label class="control-label text-single-line">POD</label>
+				<div class="input-group input-group-sm">
+					<!-- <input type="hidden" data-ng-model="VesselPlanModalCtrl.ePage.Entities.Header.Data.UIVesselDetails.PortOfDischarge_PK"> -->
+					<div dynamic-lookup placeholder="Port Of Discharge" my-ng-model="VesselPlanModalCtrl.ePage.Entities.Header.Data.UIVesselDetails.DischargePort"
+					 obj="VesselPlanModalCtrl.ePage.Entities.Header.Data.UIVesselDetails" page-name="'MstUNLOCO'" control-key="'VesselPOD_3310'"
+					 control-id="'VesselPOD'" auto-complete-on-select="VesselPlanModalCtrl.ePage.Masters.AutoCompleteOnSelect($item,['E1016'])"></div>
+					<span class="input-group-btn">
+						<button dynamic-list-modal obj="VesselPlanModalCtrl.ePage.Entities.Header.Data.UIVesselDetails" control-key="'VesselPOD_3310'"
+						 control-id="'VesselPOD'" page-name="'MstUNLOCO'" mode="2" grid-refresh-fun-name="" grid-refresh-fun=""
+						 selected-data="VesselPlanModalCtrl.ePage.Masters.SelectedLookupData($item,['E1016'])" class="btn btn-default shiny"
+						 type="button">
+							<i class="fa fa-ellipsis-h"></i>
+						</button>
+					</span>
+				</div>
+			</div>
+		</div>
+		<!-- CargoCutoffdate -->
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+			<span class="error-warning-container">
+				<error-warning-directive data-ng-if="VesselPlanModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.CargoCutOffDate.IsWarning && !VesselPlanModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.CargoCutOffDate.IsError"
+				 list="VesselPlanModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.CargoCutOffDate.WARNING" type="'warning'"
+				 icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+				<error-warning-directive data-ng-if="VesselPlanModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.CargoCutOffDate.IsError"
+				 list="VesselPlanModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.CargoCutOffDate.ERROR" type="'error'"
+				 icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+			</span>
+			<div class="input-group input-group-sm margin-top-5">
+				<label class="control-label text-single-line">Cargo Cut Off Date</label>
+				<div class="input-group input-group-sm">
+					<input type="text" class="form-control" placeholder="{{VesselPlanModalCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+					 data-ng-model="VesselPlanModalCtrl.ePage.Entities.Header.Data.UIVesselDetails.CargoCutOffDate" datetime-picker="{{VesselPlanModalCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+					 datepicker-options="VesselPlanModalCtrl.ePage.Masters.DatePicker.Options" datepicker-append-to-body="false"
+					 close-on-selection="false" enable-time="false" enable-date="true" default-date="" default-time="" save-as="VesselPlanModalCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+					 is-open="VesselPlanModalCtrl.ePage.Masters.DatePicker.isOpen['isCargoCutOffDate']" when-closed="" data-ng-click="VesselPlanModalCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isCargoCutOffDate')"
+					 data-ng-change="VesselPlanModalCtrl.ePage.Masters.OnFieldValueChange(['E1017', 'E1034', 'E1035'])"
+					 custom-date-time-format />
+					<span class="input-group-btn">
+						<button class="btn btn-default fa fa-calendar" type="button" data-ng-click="VesselPlanModalCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isCargoCutOffDate'+ $index)"></button>
+					</span>
+				</div>
+			</div>
+		</div>
+		<!-- Booking Cutoff date -->
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+			<span class="error-warning-container">
+				<error-warning-directive data-ng-if="VesselPlanModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.BookingCutOffDate.IsWarning && !VesselPlanModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.BookingCutOffDate.IsError"
+				 list="VesselPlanModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.BookingCutOffDate.WARNING" type="'warning'"
+				 icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+				<error-warning-directive data-ng-if="VesselPlanModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.BookingCutOffDate.IsError"
+				 list="VesselPlanModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.BookingCutOffDate.ERROR" type="'error'"
+				 icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+			</span>
+			<div class="input-group input-group-sm margin-top-5">
+				<label class="control-label text-single-line">Booking Cut Off Date</label>
+				<div class="input-group input-group-sm">
+					<input type="text" class="form-control" placeholder="{{VesselPlanModalCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+					 data-ng-model="VesselPlanModalCtrl.ePage.Entities.Header.Data.UIVesselDetails.BookingCutOffDate" datetime-picker="{{VesselPlanModalCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+					 datepicker-options="VesselPlanModalCtrl.ePage.Masters.DatePicker.Options" datepicker-append-to-body="false"
+					 close-on-selection="false" enable-time="false" enable-date="true" default-date="" default-time="" save-as="VesselPlanModalCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+					 is-open="VesselPlanModalCtrl.ePage.Masters.DatePicker.isOpen['isBookingCutOffDate']" when-closed="" data-ng-click="VesselPlanModalCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isBookingCutOffDate')"
+					 data-ng-change="VesselPlanModalCtrl.ePage.Masters.OnFieldValueChange(['E1018', 'E1034', 'E1035'])"
+					 custom-date-time-format />
+					<span class="input-group-btn">
+						<button class="btn btn-default fa fa-calendar" type="button" data-ng-click="VesselPlanModalCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isBookingCutOffDate'+ $index)"></button>
+					</span>
+				</div>
+			</div>
+		</div>
+		<!-- Save & Update -->
+		<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 text-right">
+			<div class="input-group input-group-sm margin-top-5">
+				<button class="btn btn-default set-br-blue set-bg-blue-light fs-12 fix-top" data-ng-click="VesselPlanModalCtrl.ePage.Masters.VesselUpdate(VesselPlanModalCtrl.ePage.Entities.Header.Data.UIVesselDetails,VesselPlanModalCtrl.ePage.Masters.SaveText)"
+				 data-ng-disabled="VesselPlanModalCtrl.ePage.Masters.IsDisableSave">{{VesselPlanModalCtrl.ePage.Masters.SaveText}}</button>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="error-warning-container right" id="errorWarningContainer{{VesselPlanModalCtrl.ePage.Masters.TaskObj.PSI_InstanceNo}}">
+	<div class="error-warning-header clearfix">
+		<span class="title pull-left">
+			<!-- <i class="fa fa-warning"></i>  -->
+			Errors & Warnings
+		</span>
+		<span class="error-warning-toggle-icon pull-right" data-ng-click="VesselPlanModalCtrl.ePage.Masters.ShowErrorWarningModal(VesselPlanModalCtrl.ePage.Masters.TaskObj.PSI_InstanceNo)">
+			<i class="fa fa-arrow-right"></i>
+		</span>
+	</div>
+	<div class="error-warning-body">
+		<div class="clearfix" data-ng-if="VesselPlanModalCtrl.ePage.Masters.ErrorWarningConfig.GlobalErrorWarningList.length>0">
+			<div class="clearfix">
+				<div class="p-5 error-warnig-list clearfix" data-ng-repeat="x in VesselPlanModalCtrl.ePage.Masters.ErrorWarningConfig.GlobalErrorWarningList">
+					<div class="clearfix">
+						<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 p-0 text-center">
+							<span class=" fa fa-warning" data-ng-style="{color: {'W':'#FFAD33', 'E':'#ED4337'}[x.MessageType]}"></span>
+						</div>
+						<div class="col-xs-11 col-sm-11 col-md-11 col-lg-11 pr-0">
+							<div class="message" data-ng-bind="x.Code + ' - ' + x.Message"></div>
+							<div class="meta-object" data-ng-bind="x.MetaObject"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

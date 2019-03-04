@@ -304,7 +304,6 @@
         }, {
             name: 'TCSession',
             files: [
-                'app/trust-center/session/session.css',
                 'app/trust-center/session/session.controller.js'
             ]
         }, {
@@ -473,6 +472,12 @@
             files: [
                 'app/trust-center/mapping/user-organization-app-tenant/user-organization-app-tenant.css',
                 'app/trust-center/mapping/user-organization-app-tenant/user-organization-app-tenant.controller.js'
+            ]
+        }, {
+            name: 'TCUserOrganizationRoleAppTenant',
+            files: [
+                'app/trust-center/mapping/user-organization-role-app-tenant/user-organization-role-app-tenant.css',
+                'app/trust-center/mapping/user-organization-role-app-tenant/user-organization-role-app-tenant.controller.js'
             ]
         }, {
             name: 'TCCompRoleAppTenant',

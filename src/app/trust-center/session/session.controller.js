@@ -28,7 +28,7 @@
 
                 if (SessionCtrl.ePage.Masters.QueryString.AppPk) {
                     InitBreadcrumb();
-                    initApplication();
+                    InitApplication();
                     InitSession();
                 }
             } catch (error) {
@@ -82,7 +82,7 @@
 
         // ========================Breadcrumb End========================
 
-        function initApplication() {
+        function InitApplication() {
             SessionCtrl.ePage.Masters.Application = {};
             SessionCtrl.ePage.Masters.Application.OnApplicationChange = OnApplicationChange;
         }
@@ -103,6 +103,11 @@
 
         function InitSession() {
             SessionCtrl.ePage.Masters.Session = {};
+            SessionCtrl.ePage.Masters.Session.Refresh = Refresh;
+        }
+
+        function Refresh(){
+            GetSessionList();
         }
 
         function GetSessionList() {

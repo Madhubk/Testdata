@@ -86,7 +86,7 @@
         // ========================Breadcrumb End========================
 
         function InitEBPMTypeslist() {
-            TCEBPMTypesCtrl.ePage.Masters.DefaultFilter = {
+            TCEBPMTypesCtrl.ePage.Masters.BaseFilter = {
                 "MappingCode": TCEBPMTypesCtrl.ePage.Masters.QueryString.AdditionalData.Input.MappingCode
             }
             TCEBPMTypesCtrl.ePage.Masters.dataentryName = "EBPMCfxTypes";

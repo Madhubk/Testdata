@@ -145,6 +145,17 @@
                     GetLogo();
                 }
             }
+            if (TCUserCtrl.ePage.Masters.User.ActiveUser) {
+                TCUserCtrl.ePage.Masters.GenerateScriptInput = {
+                    ObjectName: "AspNetUsers",
+                    ObjectId: TCUserCtrl.ePage.Masters.User.ActiveUser.Id
+                };
+                TCUserCtrl.ePage.Masters.GenerateScriptConfig = {
+                    IsEnableTable: false,
+                    IsEnablePK: false,
+                    IsEnableTenant: false
+                };
+            }
         }
 
         function EditModalInstance() {
@@ -346,7 +357,10 @@
 
         function SearchUser() {
             TCUserCtrl.ePage.Masters.Sort.ActiveAlphabet = TCUserCtrl.ePage.Masters.Search;
-            GetUserList();
+
+            if (TCUserCtrl.ePage.Masters.Search) {
+                GetUserList();
+            }
         }
 
         // ========================User End========================

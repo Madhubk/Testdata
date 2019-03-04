@@ -148,6 +148,18 @@
             RolesCtrl.ePage.Masters.Menu.DefaultMenu = undefined;
             RolesCtrl.ePage.Masters.Role.ActiveRole = angular.copy($item);
             RolesCtrl.ePage.Masters.Role.ActiveRoleCopy = angular.copy($item);
+
+            if (RolesCtrl.ePage.Masters.Role.ActiveRole) {
+                RolesCtrl.ePage.Masters.GenerateScriptInput = {
+                    ObjectName: "SecRole",
+                    ObjectId: RolesCtrl.ePage.Masters.Role.ActiveRole.PK
+                };
+                RolesCtrl.ePage.Masters.GenerateScriptConfig = {
+                    IsEnableTable: false,
+                    IsEnablePK: false,
+                    IsEnableTenant: false
+                };
+            }
         }
 
         function AddNew() {
@@ -167,7 +179,7 @@
         }
 
         function Edit() {
-            if(RolesCtrl.ePage.Masters.Role.ActiveRole.PK){
+            if (RolesCtrl.ePage.Masters.Role.ActiveRole.PK) {
                 GetMenuList();
             }
 
@@ -362,7 +374,7 @@
             apiService.post("authAPI", trustCenterConfig.Entities.API.SecMappings.API.FindAll.Url, _input).then(function SuccessCallback(response) {
                 if (response.data.Response) {
                     RolesCtrl.ePage.Masters.Menu.ListSource = response.data.Response;
-                    if(RolesCtrl.ePage.Masters.Menu.ListSource.length > 0){
+                    if (RolesCtrl.ePage.Masters.Menu.ListSource.length > 0) {
                         GetMappedMenu();
                     }
                 } else {
@@ -495,7 +507,7 @@
         }
 
         function EditAppTenantModalInstance() {
-            $timeout(function(){
+            $timeout(function () {
                 GetAppTenantPublishList();
             });
 

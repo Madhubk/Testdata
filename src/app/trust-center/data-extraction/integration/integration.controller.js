@@ -162,6 +162,16 @@
             if (DataExtIntegrationCtrl.ePage.Masters.DataExtIntegration.ActiveDataExtIntegration) {
                 GetDataExtIntegrationFieldsList();
                 GetFieldList();
+
+                DataExtIntegrationCtrl.ePage.Masters.GenerateScriptInput = {
+                    ObjectName: "DATA_Config",
+                    ObjectId: DataExtIntegrationCtrl.ePage.Masters.DataExtIntegration.ActiveDataExtIntegration.PK
+                };
+                DataExtIntegrationCtrl.ePage.Masters.GenerateScriptConfig = {
+                    IsEnableTable: false,
+                    IsEnablePK: false,
+                    IsEnableTenant: false
+                };
             }
         }
 
@@ -193,7 +203,7 @@
                     GetTargetFieldList(_obj);
                 }
             }
-            EditDataExtIntegrationModal().result.then(function (response) { }, function () {
+            EditDataExtIntegrationModal().result.then(function (response) {}, function () {
                 CloseDataExtIntegrationModal();
             });
         }
@@ -205,11 +215,10 @@
                 } else {
                     DataExtIntegrationCtrl.ePage.Masters.DataExtIntegration.ActiveDataExtIntegration = undefined;
                 }
-                
-            } else if (DataExtIntegrationCtrl.ePage.Masters.DataExtIntegration.ActiveDataExtIntegrationCopy) 
-            {
+
+            } else if (DataExtIntegrationCtrl.ePage.Masters.DataExtIntegration.ActiveDataExtIntegrationCopy) {
                 var _index = DataExtIntegrationCtrl.ePage.Masters.DataExtIntegration.DataExtIntegrationList.map(function (value, key) {
-                   return value.PK;
+                    return value.PK;
                 }).indexOf(DataExtIntegrationCtrl.ePage.Masters.DataExtIntegration.ActiveDataExtIntegrationCopy.PK);
 
                 if (_index !== -1) {
@@ -332,7 +341,7 @@
                 }
             });
         }
-        
+
         function SaveDataExtIntegration() {
             if (DataExtIntegrationCtrl.ePage.Masters.DataExtIntegration.ActiveDataExtIntegration.PK) {
                 UpdateDataExtIntegration();
@@ -406,8 +415,8 @@
                 DataExtIntegrationCtrl.ePage.Masters.DataExtIntegration.SaveBtnText = "OK";
                 DataExtIntegrationCtrl.ePage.Masters.DataExtIntegration.IsDisableSaveBtn = false;
                 DataExtIntegrationCtrl.ePage.Masters.DataExtIntegration.EditDataExtIntegrationModal.dismiss('cancel');
-             });
-         }
+            });
+        }
 
         // ============ Data Integration End ============= //
 
@@ -422,7 +431,7 @@
             DataExtIntegrationCtrl.ePage.Masters.DataExtIntegration.DataExtIntegrationFields.Save = IntegrationConfigFieldsSave;
             DataExtIntegrationCtrl.ePage.Masters.DataExtIntegration.DataExtIntegrationFields.Delete = DeleteConfirmation;
             DataExtIntegrationCtrl.ePage.Masters.DataExtIntegration.DataExtIntegrationFields.EditDataConfigField = EditDataConfigField;
-
+           
             DataExtIntegrationCtrl.ePage.Masters.DataExtIntegration.DataExtIntegrationFields.SaveBtnText = "OK";
             DataExtIntegrationCtrl.ePage.Masters.DataExtIntegration.DataExtIntegrationFields.IsDisableSaveBtn = false;
 
@@ -447,6 +456,10 @@
                     if (DataExtIntegrationCtrl.ePage.Masters.DataExtIntegration.DataExtIntegrationFields.ListSource.length > 0) {
                         OnDataExtIntegrationFieldsClick(DataExtIntegrationCtrl.ePage.Masters.DataExtIntegration.DataExtIntegrationFields.ListSource[0]);
 
+                        DataExtIntegrationCtrl.ePage.Masters.DataExtIntegration.DataExtIntegrationFields.ListSource.map(function (value, key) {
+                            SetGenerateScriptInput(value);
+                        });
+
                     } else {
                         OnDataExtIntegrationFieldsClick();
                     }
@@ -461,6 +474,7 @@
         function OnDataExtIntegrationFieldsClick($item) {
             DataExtIntegrationCtrl.ePage.Masters.DataExtIntegration.DataExtIntegrationFields.ActiveDataExtIntegrationFields = angular.copy($item);
             DataExtIntegrationCtrl.ePage.Masters.DataExtIntegration.DataExtIntegrationFields.ActiveDataExtIntegrationFieldsCopy = angular.copy($item);
+
         }
 
         function AddNewField(type) {
@@ -474,7 +488,7 @@
             };
             DataExtIntegrationCtrl.ePage.Masters.DataExtIntegration.DataExtIntegrationFields.FieldList = [];
             GetFieldList();
-            EditDataConfigModalInstance().result.then(function (response) { }, function () { });
+            EditDataConfigModalInstance().result.then(function (response) {}, function () {});
         }
 
         function GetFieldList() {
@@ -507,10 +521,10 @@
         }
 
         function CloseDataExtIntegrationFields() {
-             DataExtIntegrationCtrl.ePage.Masters.DataExtIntegration.DataExtIntegrationFields.EditModal.dismiss('cancel');
+            DataExtIntegrationCtrl.ePage.Masters.DataExtIntegration.DataExtIntegrationFields.EditModal.dismiss('cancel');
         }
 
-         function IntegrationConfigFieldsSave() {
+        function IntegrationConfigFieldsSave() {
             if (DataExtIntegrationCtrl.ePage.Masters.DataExtIntegration.DataExtIntegrationFields.ActiveDataExtIntegrationFields.PK) {
                 UpdateIntegrationConfigFields();
             } else {
@@ -521,21 +535,26 @@
         function InsertIntegrationConfigFields() {
             DataExtIntegrationCtrl.ePage.Masters.DataExtIntegration.DataExtIntegrationFields.SaveBtnText = "Please Wait...";
             DataExtIntegrationCtrl.ePage.Masters.DataExtIntegration.DataExtIntegrationFields.IsDisableSaveBtn = true;
-            
+
             var _input = DataExtIntegrationCtrl.ePage.Masters.DataExtIntegration.DataExtIntegrationFields.ActiveDataExtIntegrationFields;
             _input.IsModified = true;
-            
+
             apiService.post("eAxisAPI", trustCenterConfig.Entities.API.DataConfigFields.API.Insert.Url, [_input]).then(function SuccessCallback(response) {
                 if (response.data.Response) {
                     if (response.data.Response.length > 0) {
                         var _response = response.data.Response[0];
+                        if(!DataExtIntegrationCtrl.ePage.Masters.DataExtIntegration.DataExtIntegrationFields.ListSource) {
+                            DataExtIntegrationCtrl.ePage.Masters.DataExtIntegration.DataExtIntegrationFields.ListSource = [];
+                        }
+
+                        DataExtIntegrationCtrl.ePage.Masters.DataExtIntegration.DataExtIntegrationFields.ListSource.push(_response);
 
                         var _index = DataExtIntegrationCtrl.ePage.Masters.DataExtIntegration.DataExtIntegrationFields.ListSource.map(function (value, key) {
                             return value.PK;
                         }).indexOf(_response.PK);
 
                         if (_index === -1) {
-                            DataExtIntegrationCtrl.ePage.Masters.DataExtIntegration.DataExtIntegrationFields.ListSource.push(_response);
+                            SetGenerateScriptInput(DataExtIntegrationCtrl.ePage.Masters.DataExtIntegration.DataExtIntegrationFields.ListSource[0]);
                         } else {
                             DataExtIntegrationCtrl.ePage.Masters.DataExtIntegration.DataExtIntegrationFields.ListSource[_index] = _response;
                         }
@@ -565,7 +584,7 @@
                 if (response.data.Response) {
                     var _response = response.data.Response;
 
-                    var _index =  DataExtIntegrationCtrl.ePage.Masters.DataExtIntegration.DataExtIntegrationFields.ListSource.map(function (value, key) {
+                    var _index = DataExtIntegrationCtrl.ePage.Masters.DataExtIntegration.DataExtIntegrationFields.ListSource.map(function (value, key) {
                         return value.PK;
                     }).indexOf(_response.PK);
 
@@ -586,13 +605,13 @@
                 DataExtIntegrationCtrl.ePage.Masters.DataExtIntegration.DataExtIntegrationFields.IsDisableSaveBtn = false;
                 DataExtIntegrationCtrl.ePage.Masters.DataExtIntegration.DataExtIntegrationFields.EditModal.dismiss('cancel');
             });
-            
+
         }
 
         function EditDataConfigField($item) {
             DataExtIntegrationCtrl.ePage.Masters.DataExtIntegration.DataExtIntegrationFields.ActiveDataExtIntegrationFields = angular.copy($item);
 
-            EditDataConfigModalInstance().result.then(function (response) { }, function () { });
+            EditDataConfigModalInstance().result.then(function (response) {}, function () {});
         }
 
         function OnOpenJsonModal() {
@@ -643,17 +662,30 @@
         }
 
         function Delete(item) {
-            apiService.get("eAxisAPI", trustCenterConfig.Entities.API.DataConfigFields.API.Delete.Url +  item.PK).then(function SuccessCallback(response) {
+            apiService.get("eAxisAPI", trustCenterConfig.Entities.API.DataConfigFields.API.Delete.Url + item.PK).then(function SuccessCallback(response) {
                 if (response.data.Response) {
                     toastr.success("Record Deleted Successfully");
                     OnDataExtIntegrationFieldsClick(item);
-                 } else {
+                } else {
                     toastr.error("Could not Delete")
                 }
                 GetDataExtIntegrationFieldsList();
             });
         }
 
+        function SetGenerateScriptInput(item) {
+            if (item) {
+                item.GenerateScriptInput = {
+                    ObjectName: "DATA_Config_Fields",
+                    ObjectId: item.PK
+                };
+               item.GenerateScriptConfig = {
+                    IsEnableTable: false,
+                    IsEnablePK: false,
+                    IsEnableTenant: false
+                };
+            }
+        }
 
         // ================= Data Integration Fields End ================= //
 
@@ -703,7 +735,7 @@
                 DataExtIntegrationCtrl.ePage.Masters.DataExtIntegration.DataExtIntegrationFields.ActiveDataExtIntegrationFields.ExpressionGroup = [];
             }
 
-            EditExpressionModalInstance().result.then(function (response) { }, function () {
+            EditExpressionModalInstance().result.then(function (response) {}, function () {
                 CloseEditExpressionModal();
             });
         }
@@ -807,7 +839,7 @@
                 DataExtIntegrationCtrl.ePage.Masters.DataExtIntegration.DataExtIntegrationFields.ActiveDataExtIntegrationFields.RelatedInputGroup = [];
             }
 
-            EditRelatedInputModalInstance().result.then(function (response) { }, function () {
+            EditRelatedInputModalInstance().result.then(function (response) {}, function () {
                 CloseEditRelatedInputModal();
             });
         }

@@ -162,6 +162,16 @@
             if (DataExtFullTextSearchCtrl.ePage.Masters.DataExtFullTextSearch.ActiveDataExtFullTextSearch) {
                 GetDataExtFullTextSearchFieldsList();
                 GetFieldList();
+                
+                DataExtFullTextSearchCtrl.ePage.Masters.GenerateScriptInput = {
+                    ObjectName: "DATA_Config",
+                    ObjectId: DataExtFullTextSearchCtrl.ePage.Masters.DataExtFullTextSearch.ActiveDataExtFullTextSearch.PK
+                };
+                DataExtFullTextSearchCtrl.ePage.Masters.GenerateScriptConfig = {
+                    IsEnableTable: false,
+                    IsEnablePK: false,
+                    IsEnableTenant: false
+                };
             }
         }
 
@@ -424,7 +434,7 @@
             DataExtFullTextSearchCtrl.ePage.Masters.DataExtFullTextSearch.DataExtFullTextSearchFields.Save = FullTextSearchConfigFieldsSave;
             DataExtFullTextSearchCtrl.ePage.Masters.DataExtFullTextSearch.DataExtFullTextSearchFields.Delete = DeleteConfirmation;
             DataExtFullTextSearchCtrl.ePage.Masters.DataExtFullTextSearch.DataExtFullTextSearchFields.OnDataExtFullTextSearchFieldsClick = OnDataExtFullTextSearchFieldsClick;
-
+           
             DataExtFullTextSearchCtrl.ePage.Masters.DataExtFullTextSearch.DataExtFullTextSearchFields.SaveBtnText = "Save";
             DataExtFullTextSearchCtrl.ePage.Masters.DataExtFullTextSearch.DataExtFullTextSearchFields.IsDisableSaveBtn = false;
 
@@ -468,9 +478,15 @@
             apiService.post("eAxisAPI", trustCenterConfig.Entities.API.DataConfigFields.API.FindAll.Url, _input).then(function SuccessCallback(response) {
                 if (response.data.Response) {
                     DataExtFullTextSearchCtrl.ePage.Masters.DataExtFullTextSearch.DataExtFullTextSearchFields.DataExtFullTextSearchFieldsListSource = response.data.Response;
+
                     if (DataExtFullTextSearchCtrl.ePage.Masters.DataExtFullTextSearch.DataExtFullTextSearchFields.DataExtFullTextSearchFieldsListSource.length > 0) {
 
-                        OnDataExtFullTextSearchFieldsClick(DataExtFullTextSearchCtrl.ePage.Masters.DataExtFullTextSearch.DataExtFullTextSearchFields.DataExtFullTextSearchFieldsListSource[0])
+                        OnDataExtFullTextSearchFieldsClick(DataExtFullTextSearchCtrl.ePage.Masters.DataExtFullTextSearch.DataExtFullTextSearchFields.DataExtFullTextSearchFieldsListSource[0]);
+                        
+                        DataExtFullTextSearchCtrl.ePage.Masters.DataExtFullTextSearch.DataExtFullTextSearchFields.DataExtFullTextSearchFieldsListSource.map(function(value,key){
+                            SetGenerateScriptInput(value)
+                        });
+
                     } else {
                         OnDataExtFullTextSearchFieldsClick();
                     }
@@ -572,13 +588,17 @@
                 if (response.data.Response) {
                     if (response.data.Response.length > 0) {
                         var _response = response.data.Response[0];
+                        if(!DataExtFullTextSearchCtrl.ePage.Masters.DataExtFullTextSearch.DataExtFullTextSearchFields.DataExtFullTextSearchFieldsListSource){
+                            DataExtFullTextSearchCtrl.ePage.Masters.DataExtFullTextSearch.DataExtFullTextSearchFields.DataExtFullTextSearchFieldsListSource = [];
+                        }
 
+                        DataExtFullTextSearchCtrl.ePage.Masters.DataExtFullTextSearch.DataExtFullTextSearchFields.DataExtFullTextSearchFieldsListSource.push(_response);
                         var _index = DataExtFullTextSearchCtrl.ePage.Masters.DataExtFullTextSearch.DataExtFullTextSearchFields.DataExtFullTextSearchFieldsListSource.map(function (value, key) {
                             return value.PK;
                         }).indexOf(_response.PK);
 
                         if (_index === -1) {
-                            DataExtFullTextSearchCtrl.ePage.Masters.DataExtFullTextSearch.DataExtFullTextSearchFields.DataExtFullTextSearchFieldsListSource.push(_response);
+                            SetGenerateScriptInput(DataExtFullTextSearchCtrl.ePage.Masters.DataExtFullTextSearch.DataExtFullTextSearchFields.DataExtFullTextSearchFieldsListSource[0]);
                         } else {
                             DataExtFullTextSearchCtrl.ePage.Masters.DataExtFullTextSearch.DataExtFullTextSearchFields.DataExtFullTextSearchFieldsListSource[_index] = _response;
                         }
@@ -656,6 +676,20 @@
                 }
                 GetDataExtFullTextSearchFieldsList();
             });
+        }
+
+        function SetGenerateScriptInput(item) {
+            if (item) {
+                item.GenerateScriptInput = {
+                    ObjectName: "DATA_Config_Fields",
+                    ObjectId: item.PK
+                };
+                item.GenerateScriptConfig = {
+                    IsEnableTable: false,
+                    IsEnablePK: false,
+                    IsEnableTenant: false
+                };
+            }
         }
 
 

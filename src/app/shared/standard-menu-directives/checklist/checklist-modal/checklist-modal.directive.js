@@ -8,7 +8,7 @@
     ChecklistModal.$inject = ["$uibModal", "$templateCache"];
 
     function ChecklistModal($uibModal, $templateCache) {
-        var _template = `<div class="modal-header">
+        let _template = `<div class="modal-header">
             <button type="button" class="close" ng-click="ChecklistModalCtrl.ePage.Masters.Close()">&times;</button>
             <h5 class="modal-title" id="modal-title">
                 <strong>Checklist</strong>
@@ -19,7 +19,7 @@
         </div>`;
         $templateCache.put("CheckListModal.html", _template);
 
-        var exports = {
+        let exports = {
             restrict: "EA",
             scope: {
                 input: "="
@@ -32,9 +32,8 @@
             ele.on("click", OpenModal);
 
             function OpenModal() {
-                var modalInstance = $uibModal.open({
+                $uibModal.open({
                     animation: true,
-                    // backdrop: "static",
                     keyboard: true,
                     windowClass: "right checklist",
                     scope: scope,
@@ -43,18 +42,43 @@
                     bindToController: true,
                     resolve: {
                         param: function () {
-                            var exports = {
+                            let exports = {
                                 input: scope.input
                             };
                             return exports;
                         }
                     }
-                }).result.then(function (response) {
-                    console.log(response);
-                }, function () {
-                    console.log("Cancelled");
-                });
+                }).result.then(response => {}, () => {});
             }
         }
+    }
+
+    angular
+        .module("Application")
+        .controller("ChecklistModalController", ChecklistModalController);
+
+    ChecklistModalController.$inject = ["$uibModalInstance", "helperService", "param"];
+
+    function ChecklistModalController($uibModalInstance, helperService, param) {
+        /* jshint validthis: true */
+        let ChecklistModalCtrl = this;
+
+        function Init() {
+            ChecklistModalCtrl.ePage = {
+                "Title": "",
+                "Prefix": "ChecklistModal",
+                "Masters": {},
+                "Meta": helperService.metaBase(),
+                "Entities": param.obj
+            };
+
+            ChecklistModalCtrl.ePage.Masters.Close = Close;
+        }
+
+        function Close() {
+            $uibModalInstance.dismiss('cancel');
+        }
+
+        Init();
     }
 })();

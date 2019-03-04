@@ -95,14 +95,8 @@
                 files: [
                     'app/eaxis/my-task/my-task-dynamic-directive/my-task-dynamic-directive.js',
                     'app/eaxis/my-task/my-task-dynamic-directive/my-task-dynamic-edit-directive.js',
-                    'app/eaxis/my-task/my-task-dynamic-directive/my-task-default/my-task-default.directive.js'
-                ]
-            }, {
-                name: 'MyTaskDefaultEditDirective',
-                files: [
-                    'app/eaxis/my-task/my-task-dynamic-directive/my-task-default/my-task-default-edit/my-task-default-edit.directive.js',
-                    'app/eaxis/my-task/my-task-dynamic-directive/my-task-default/my-task-default-edit/my-task-default-edit.controller.js',
-                    'app/eaxis/my-task/my-task-dynamic-directive/my-task-default/my-task-default-edit/my-task-default-edit.css'
+                    'app/eaxis/my-task/my-task-dynamic-directive/my-task-default/my-task-default.directive.js',
+                    'app/eaxis/my-task/my-task-dynamic-directive/my-task-default/my-task-default-edit/my-task-default-edit.directive.js'
                 ]
             },
             // EXCEPTION NOTIFY

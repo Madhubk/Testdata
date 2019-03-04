@@ -199,6 +199,8 @@
             PageCtrl.ePage.Masters.Page.OnRelatedLookupClick = OnRelatedLookupClick;
             PageCtrl.ePage.Masters.Page.DeleteConfirmation = DeleteConfirmation;
 
+            PageCtrl.ePage.Masters.Page.Publish = Publish;
+
             PageCtrl.ePage.Masters.Page.DeleteBtnText = "Delete";
             PageCtrl.ePage.Masters.Page.IsDisableDeleteBtn = false;
         }
@@ -221,10 +223,10 @@
 
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": trustCenterConfig.Entities.API.DataEntryMaster.API.FindAll.FilterID
+                "FilterID": trustCenterConfig.Entities.API.DataEntryMaster.API.FindAllColumn.FilterID
             };
 
-            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.DataEntryMaster.API.FindAll.Url, _input).then(function (response) {
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.DataEntryMaster.API.FindAllColumn.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     PageCtrl.ePage.Masters.Page.PageList = response.data.Response;
                     if (PageCtrl.ePage.Masters.Page.PageList.length > 0) {
@@ -246,6 +248,18 @@
 
         function OnPageClick($item) {
             PageCtrl.ePage.Masters.Page.ActivePage = angular.copy($item);
+
+            if (PageCtrl.ePage.Masters.Page.ActivePage) {
+                PageCtrl.ePage.Masters.GenerateScriptInput = {
+                    ObjectName: "DYN_DataEntryMaster",
+                    ObjectId: PageCtrl.ePage.Masters.Page.ActivePage.DataEntry_PK
+                };
+                PageCtrl.ePage.Masters.GenerateScriptConfig = {
+                    IsEnableTable: false,
+                    IsEnablePK: false,
+                    IsEnableTenant: false
+                };
+            }
         }
 
         function Edit() {
@@ -370,6 +384,10 @@
             _queryString.EntitySource = PageCtrl.ePage.Masters.Page.ActivePage.EntitySource;
 
             $location.path($item.Link + "/" + helperService.encryptData(_queryString));
+        }
+
+        function Publish(){
+            PageCtrl.ePage.Masters.Page.ActivePage
         }
 
         // ========================Page End========================

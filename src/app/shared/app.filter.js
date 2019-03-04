@@ -3,6 +3,8 @@
 
     angular
         .module("Application")
+        .filter("fieldFilter", FieldFilter)
+        .filter("toArray", ToArray)
         .filter("formatTimer", formatTimerFilter)
         .filter("effortCalculation", EffortCalculation)
         .filter("getCharacters", GetCharacters)
@@ -21,6 +23,41 @@
 
     ConvertHtmlToText.$inject = ["$compile"];
     ConvertToTrustHtml.$inject = ["$sce"];
+
+    function FieldFilter() {
+        return function (input, fields, clause) {
+            let out = [];
+            if (clause && clause.length > 0) {
+                clause = String(clause).toLowerCase();
+                angular.forEach(input, function (cp) {
+                    for (let i = 0; i < fields.length; i++) {
+                        let haystack = String(cp[fields[i]]).toLowerCase();
+                        if (haystack.indexOf(clause) > -1) {
+                            out.push(cp);
+                            break;
+                        }
+                    }
+                })
+            } else {
+                angular.forEach(input, function (cp) {
+                    out.push(cp);
+                })
+            }
+            return out;
+        }
+    }
+
+    function ToArray(){
+        return function (obj) {
+            if (!(obj instanceof Object)) return obj;
+            return _.map(obj, function (val, key) {
+                return Object.defineProperty(val, '$key', {
+                    __proto__: null,
+                    value: key
+                });
+            });
+        }
+    }
 
     function formatTimerFilter() {
         return function (input) {
@@ -145,7 +182,6 @@
     // Audit Group by
     function AuditGroup() {
         return function (item) {
-            console.log(item)
             item.map(function (value, key) {
                 var x = value.CreatedDateTime;
                 var timestamp = new Date(x).getTime();
@@ -304,7 +340,7 @@
                 Desc: (_value.split(' ')[0] > 40) ? input : _value,
                 IsDeley: (suffix == "overdue") ? true : false
             };
-            
+
             return _obj[outputType];
         };
     }

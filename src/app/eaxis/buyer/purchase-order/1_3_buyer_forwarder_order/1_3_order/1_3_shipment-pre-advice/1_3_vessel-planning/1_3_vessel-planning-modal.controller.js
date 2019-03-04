@@ -5,9 +5,9 @@
         .module("Application")
         .controller("one_three_OrdVesselModalController", one_three_OrdVesselModalController);
 
-    one_three_OrdVesselModalController.$inject = ["$timeout", "$injector", "$uibModalInstance", "APP_CONSTANT", "authService", "apiService", "appConfig", "helperService", "param", "toastr", "errorWarningService", "orderApiConfig"];
+    one_three_OrdVesselModalController.$inject = ["$timeout", "$injector", "$uibModalInstance", "APP_CONSTANT", "authService", "apiService", "appConfig", "helperService", "param", "toastr", "errorWarningService", "one_order_listConfig"];
 
-    function one_three_OrdVesselModalController($timeout, $injector, $uibModalInstance, APP_CONSTANT, authService, apiService, appConfig, helperService, param, toastr, errorWarningService, orderApiConfig) {
+    function one_three_OrdVesselModalController($timeout, $injector, $uibModalInstance, APP_CONSTANT, authService, apiService, appConfig, helperService, param, toastr, errorWarningService, one_order_listConfig) {
         var one_three_OrdVesselModalCtrl = this,
             dynamicLookupConfig = $injector.get("dynamicLookupConfig");;
 
@@ -90,7 +90,7 @@
                         ModuleCode: "ORD",
                         SubModuleCode: "ORD"
                     },
-                    GroupCode: "BUY_ORD_PRE_ADV",
+                    GroupCode: "PRE_ADV",
                     //     RelatedBasicDetails: [{
                     //         "UIField": "TEST",
                     //         "DbField": "TEST",
@@ -136,7 +136,7 @@
 
         function GetRelatedLookupList() {
             var _filter = {
-                Key: "BP_OrdCarrier_12833,BP_OrdPlannedVessel_13185,BP_VesselPOL_13309,BP_VesselPOD_13310",
+                Key: "OrdCarrier_2833,OrdPlannedVessel_3185,VesselPOL_3309,VesselPOD_3310",
                 SAP_FK: authService.getUserInfo().AppPK
             };
             var _input = {
@@ -160,23 +160,14 @@
             $timeout(function () {
                 var _errorcount = errorWarningService.Modules.PreAdvice.Entity[param.currentOrder.code].GlobalErrorWarningList;
                 if (_errorcount.length == 0) {
-                    one_three_OrdVesselModalCtrl.ePage.Entities.Header.Data.UIVesselDetails.EntitySource = "POH";
-                    one_three_OrdVesselModalCtrl.ePage.Entities.Header.Data.UIVesselDetails.EntityRefKey = one_three_OrdVesselModalCtrl.ePage.Masters.Param.PK;
-                    apiService.post('eAxisAPI', appConfig.Entities.JobRoutes.API.Insert.Url, [one_three_OrdVesselModalCtrl.ePage.Entities.Header.Data.UIVesselDetails]).then(function (response) {
+                    var _input = InputData(_item, false);
+                    apiService.post('eAxisAPI', appConfig.Entities.SailingDetails.API.ListInsert.Url, _input).then(function (response) {
                         if (response.data.Response) {
-                            UpdateRecords(response.data.Response);
+                            JobRoutes(response.data.Response, _item);
                         } else {
                             toastr.error("Save failed...");
                         }
                     });
-                    // var _input = InputData(_item, false);
-                    // apiService.post('eAxisAPI', appConfig.Entities.SailingDetails.API.ListInsert.Url, _input).then(function (response) {
-                    //     if (response.data.Response) {
-                    //         JobRoutes(response.data.Response, _item);
-                    //     } else {
-                    //         toastr.error("Save failed...");
-                    //     }
-                    // });
                 } else {
                     one_three_OrdVesselModalCtrl.ePage.Masters.ShowErrorWarningModal("Add");
                 }
@@ -244,7 +235,7 @@
                 };
                 _inputUpdateRecord.push(_input);
             });
-            apiService.post('eAxisAPI', orderApiConfig.Entities.BuyerForwarderOrder.API.updaterecords.Url, _inputUpdateRecord).then(function (response) {
+            apiService.post('eAxisAPI', appConfig.Entities.PorOrderHeader.API.UpdateRecords.Url, _inputUpdateRecord).then(function (response) {
                 if (response.data.Response) {
                     $uibModalInstance.close(list);
                 } else {
@@ -274,7 +265,7 @@
                     ModuleCode: "ORD",
                     SubModuleCode: "ORD",
                 },
-                GroupCode: "BUY_ORD_PRE_ADV",
+                GroupCode: "PRE_ADV",
                 // RelatedBasicDetails: [{
                 //     "UIField": "TEST",
                 //     "DbField": "TEST",

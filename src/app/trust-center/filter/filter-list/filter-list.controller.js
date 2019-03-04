@@ -154,6 +154,18 @@
         function OnFilterListClick($item) {
             TCFilterListCtrl.ePage.Masters.FilterList.ActiveFilterList = angular.copy($item);
             TCFilterListCtrl.ePage.Masters.FilterList.ActiveFilterListCopy = angular.copy($item);
+
+            if (TCFilterListCtrl.ePage.Masters.FilterList.ActiveFilterList) {
+                TCFilterListCtrl.ePage.Masters.GenerateScriptInput = {
+                    ObjectName: "FilterList",
+                    ObjectId: TCFilterListCtrl.ePage.Masters.FilterList.ActiveFilterList.Id
+                };
+                TCFilterListCtrl.ePage.Masters.GenerateScriptConfig = {
+                    IsEnableTable: false,
+                    IsEnablePK: false,
+                    IsEnableTenant: false
+                };
+            }
         }
 
         function EditModalInstance() {
@@ -171,7 +183,7 @@
             TCFilterListCtrl.ePage.Masters.FilterList.SaveBtnText = "OK";
             TCFilterListCtrl.ePage.Masters.FilterList.IsDisableSaveBtn = false;
 
-            EditModalInstance().result.then(function (response) { }, function () {
+            EditModalInstance().result.then(function (response) {}, function () {
                 Cancel();
             });
         }

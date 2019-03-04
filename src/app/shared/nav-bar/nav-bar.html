@@ -32,16 +32,88 @@
                                 </ul>
                             </div>
                         </li> -->
+
+                        <!--  -->
+                        <!-- <li class="task-count pl-5" data-ng-if="NavBarCtrl.ePage.Masters.Notification.WorkItemCount != undefined">
+                            <a class="dropdown-toggle" data-toggle="dropdown" title="Tasks" data-ng-class="{'wave in': NavBarCtrl.ePage.Masters.Notification.WorkItemCount > 0}">
+                                <i class="icon fa fa-envelope"></i>
+                                <span class="badge" data-ng-bind="NavBarCtrl.ePage.Masters.Notification.WorkItemCount | roundCount:2"></span>
+                            </a>
+                            <ul class="pull-right dropdown-menu dropdown-arrow dropdown-messages">
+                                <li class="dropdown-header bordered-darkorange">
+                                    <i class="fa fa-tasks"></i>
+                                    {{NavBarCtrl.ePage.Masters.Notification.WorkItemCount}} Tasks In Progress
+                                </li>
+                                <li>
+                                    <a>
+                                        <img src="assets/img/logo/user-logo-dummy.png" class="message-avatar" alt="Divyia Austin">
+                                        <div class="message">
+                                            <span class="message-sender">
+                                                Divyia Austin
+                                            </span>
+                                            <span class="message-time">
+                                                2 minutes ago
+                                            </span>
+                                            <span class="message-subject">
+                                                Here's the recipe for apple pie
+                                            </span>
+                                            <span class="message-body">
+                                                to identify the sending application when the senders image is shown
+                                                for the main icon
+                                            </span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a>
+                                        <img src="assets/img/logo/user-logo-dummy.png" class="message-avatar" alt="Microsoft Bing">
+                                        <div class="message">
+                                            <span class="message-sender">
+                                                Bing.com
+                                            </span>
+                                            <span class="message-time">
+                                                Yesterday
+                                            </span>
+                                            <span class="message-subject">
+                                                Bing Newsletter: The January Issue‏
+                                            </span>
+                                            <span class="message-body">
+                                                Discover new music just in time for the Grammy® Awards.
+                                            </span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a>
+                                        <img src="assets/img/logo/user-logo-dummy.png" class="message-avatar" alt="Divyia Austin">
+                                        <div class="message">
+                                            <span class="message-sender">
+                                                Nicolas
+                                            </span>
+                                            <span class="message-time">
+                                                Friday, September 22
+                                            </span>
+                                            <span class="message-subject">
+                                                New 4K Cameras
+                                            </span>
+                                            <span class="message-body">
+                                                The 4K revolution has come over the horizon and is reaching the
+                                                general populous
+                                            </span>
+                                        </div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li> -->
                         <!-- Task Count -->
                         <li class="task-count pl-5" data-ng-if="NavBarCtrl.ePage.Masters.Notification.WorkItemCount != undefined">
-                            <a title="{{NavBarCtrl.ePage.Masters.Notification.WorkItemCount}}" href="#/EA/my-tasks"
-                                data-ng-class="{'wave in': NavBarCtrl.ePage.Masters.Notification.WorkItemCount > 0}">
+                            <a title="{{NavBarCtrl.ePage.Masters.Notification.WorkItemCount}}" href="#/EA/my-tasks">
                                 <i class="icon fa fa-tasks"></i>
                                 <span class="badge" data-ng-bind="NavBarCtrl.ePage.Masters.Notification.WorkItemCount | roundCount:2"></span>
                             </a>
                         </li>
                         <!-- Menu -->
-                        <li class="menu-icon" data-ng-if="NavBarCtrl.ePage.Masters.MenuType == 'Grid'">
+                        <!-- <li class="menu-icon" data-ng-if="NavBarCtrl.ePage.Masters.MenuType == 'Grid'">
                             <div class="dropdown">
                                 <i class="glyphicon glyphicon-th dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                                     role="button" aria-expanded="false"></i>
@@ -52,6 +124,40 @@
                                                 data-ng-if="NavBarCtrl.ePage.Masters.Menu.ListSource && NavBarCtrl.ePage.Masters.Menu.ListSource.length > 0"></navbar-dropdown-menu>
                                         </div>
                                     </form>
+                                </div>
+                            </div>
+                        </li> -->
+                        <!-- Recent Menu -->
+                        <li class="menu-icon" data-ng-if="NavBarCtrl.ePage.Masters.Menu.RecentMenus && NavBarCtrl.ePage.Masters.Menu.RecentMenus.length > 0" >
+                            <div class="dropdown">
+                                <i class="glyphicon glyphicon-th dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                                    role="button" aria-expanded="false"></i>
+                                <div class="dropdown-menu dropdown-menu-right" role="menu">
+                                    <div class="clearfix recent-menu-dropdown p-10">
+                                        <div class="clearfix p-20 text-center font-120" data-ng-if="!NavBarCtrl.ePage.Masters.Menu.RecentMenus">
+                                            <i class="fa fa-spin fa-spinner"></i>
+                                        </div>
+                                        <div class="clearfix p-20 text-center" data-ng-if="NavBarCtrl.ePage.Masters.Menu.RecentMenus && NavBarCtrl.ePage.Masters.Menu.RecentMenus.length === 0">
+                                            <i>No Recent Menus..!</i>
+                                        </div>
+                                        <div class="clearfix p-10 recent-menu" data-ng-repeat="x in NavBarCtrl.ePage.Masters.Menu.RecentMenus"
+                                            data-ng-if="NavBarCtrl.ePage.Masters.Menu.RecentMenus && NavBarCtrl.ePage.Masters.Menu.RecentMenus.length > 0" title="{{x.Description}}">
+                                            <a class="recent-menu-link text-center" data-ng-href="{{NavBarCtrl.ePage.Masters.Menu.GetMenuLink(x)}}" data-ng-click="NavBarCtrl.ePage.Masters.Menu.OnRecentMenuClick(x)">
+                                                <div class="clearfix mb-5" style="height: 40px;">
+                                                    <i class="{{x.Icon.icon || 'fa fa-circle-o-notch'}}" data-ng-style="{'color': x.Icon.color}"></i>
+                                                </div>
+                                                <div class="text-single-line">{{x.Description}}</div>
+                                            </a>
+
+                                            <!-- <a data-ng-href="{{NavBarCtrl.ePage.Masters.Menu.GetMenuLink(x)}}" data-ng-click="NavBarCtrl.ePage.Masters.Menu.OnRecentMenuClick(x)">
+                                                <i class="{{x.Icon.icon || 'fa fa-circle-o-notch'}} mr-10" data-ng-style="{'color': x.Icon.color}"
+                                                    style="line-height: 1.5;"></i>
+                                                <span>{{x.Description}}</span>
+                                            </a> -->
+                                        </div>
+                                        <!-- <navbar-dropdown-menu menu-list="NavBarCtrl.ePage.Masters.Menu.RecentMenus"
+                                            data-ng-if="NavBarCtrl.ePage.Masters.Menu.RecentMenus && NavBarCtrl.ePage.Masters.Menu.RecentMenus.length > 0"></navbar-dropdown-menu> -->
+                                    </div>
                                 </div>
                             </div>
                         </li>

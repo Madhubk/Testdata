@@ -66,6 +66,25 @@
     border-right: 1px solid #eee;
 }
 
+.ex-line-box1 {
+    width: 109%;
+    height: 176px;
+    float: left;
+    border: 1px solid #eeeded;
+}
+
+.ex-line-font label {
+    color: gray;
+    font-weight: 600;
+    font-size: 12px;
+}
+
+.ex-line-font1 label {
+    color: gray;
+    font-weight: 600;
+    font-size: 14px;
+}
+
 .dropping-cell .dropdown-menu {
     width: 100%;
 }

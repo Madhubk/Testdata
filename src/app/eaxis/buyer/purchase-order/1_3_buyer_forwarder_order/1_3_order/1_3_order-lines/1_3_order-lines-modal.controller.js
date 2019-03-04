@@ -5,9 +5,9 @@
         .module("Application")
         .controller("one_three_OrderLinesFormModalController", one_three_OrderLinesFormModalController);
 
-    one_three_OrderLinesFormModalController.$inject = ["$uibModalInstance", "$timeout", "apiService", "helperService", "toastr", "param", "confirmation", "orderApiConfig", "errorWarningService"];
+    one_three_OrderLinesFormModalController.$inject = ["$uibModalInstance", "$timeout", "apiService", "helperService", "toastr", "param", "confirmation", "appConfig", "errorWarningService"];
 
-    function one_three_OrderLinesFormModalController($uibModalInstance, $timeout, apiService, helperService, toastr, param, confirmation, orderApiConfig, errorWarningService) {
+    function one_three_OrderLinesFormModalController($uibModalInstance, $timeout, apiService, helperService, toastr, param, confirmation, appConfig, errorWarningService) {
         var one_three_OrderLinesFormModalCtrl = this;
 
         function Init() {
@@ -78,7 +78,7 @@
         }
 
         function GetByIdLines() {
-            apiService.get("eAxisAPI", orderApiConfig.Entities.OrderLine_Buyer_Forwarder.API.getbyid.Url + param.Data.PK).then(function (response) {
+            apiService.get("eAxisAPI", appConfig.Entities.PorOrderLine.API.GetById.Url + param.Data.PK).then(function (response) {
                 if (response.data.Response) {
                     one_three_OrderLinesFormModalCtrl.ePage.Entities.Header.Data.UIOrderLine_Buyer_ForwarderCopy = angular.copy(response.data.Response);
                     one_three_OrderLinesFormModalCtrl.ePage.Entities.Header.Data.UIOrderLine_Buyer_Forwarder = response.data.Response;
@@ -99,7 +99,7 @@
                         if (one_three_OrderLinesFormModalCtrl.ePage.Masters.Index != -1) {
                             one_three_OrderLinesFormModalCtrl.ePage.Entities.Header.Data.UIOrderLine_Buyer_Forwarder.IsModified = true;
                             one_three_OrderLinesFormModalCtrl.ePage.Entities.Header.Data.UIOrderLine_Buyer_Forwarder.UICustomEntity.IsModified = true;
-                            apiService.post("eAxisAPI", orderApiConfig.Entities.OrderLine_Buyer_Forwarder.API.upsert.Url, [one_three_OrderLinesFormModalCtrl.ePage.Entities.Header.Data.UIOrderLine_Buyer_Forwarder]).then(function (responses) {
+                            apiService.post("eAxisAPI", appConfig.Entities.PorOrderLine.API.Upsert.Url, [one_three_OrderLinesFormModalCtrl.ePage.Entities.Header.Data.UIOrderLine_Buyer_Forwarder]).then(function (responses) {
                                 if (responses.data.Response) {
                                     one_three_OrderLinesFormModalCtrl.ePage.Masters.SaveButtonText = "Save";
                                     param.List[one_three_OrderLinesFormModalCtrl.ePage.Masters.Index] = responses.data.Response[0];
@@ -118,7 +118,7 @@
                             one_three_OrderLinesFormModalCtrl.ePage.Entities.Header.Data.UIOrderLine_Buyer_Forwarder.POH_FK = param.CurrentOrder.Header.Data.PK;
                             one_three_OrderLinesFormModalCtrl.ePage.Entities.Header.Data.UIOrderLine_Buyer_Forwarder.IsValid = true
 
-                            apiService.post("eAxisAPI", orderApiConfig.Entities.OrderLine_Buyer_Forwarder.API.upsert.Url, [one_three_OrderLinesFormModalCtrl.ePage.Entities.Header.Data.UIOrderLine_Buyer_Forwarder]).then(function (response) {
+                            apiService.post("eAxisAPI", appConfig.Entities.PorOrderLine.API.Upsert.Url, [one_three_OrderLinesFormModalCtrl.ePage.Entities.Header.Data.UIOrderLine_Buyer_Forwarder]).then(function (response) {
                                 if (response.data.Response) {
                                     one_three_OrderLinesFormModalCtrl.ePage.Masters.SaveButtonText = "Save";
                                     param.List.push(response.data.Response[0]);
@@ -152,7 +152,7 @@
                     if (_errorcount.length == 0) {
                         if (one_three_OrderLinesFormModalCtrl.ePage.Masters.Index != -1) {
                             one_three_OrderLinesFormModalCtrl.ePage.Entities.Header.Data.UIOrderLine_Buyer_Forwarder.IsModified = true;
-                            apiService.post("eAxisAPI", orderApiConfig.Entities.OrderLine_Buyer_Forwarder.API.upsert.Url, [one_three_OrderLinesFormModalCtrl.ePage.Entities.Header.Data.UIOrderLine_Buyer_Forwarder]).then(function (responses) {
+                            apiService.post("eAxisAPI", appConfig.Entities.PorOrderLine.API.Upsert.Url, [one_three_OrderLinesFormModalCtrl.ePage.Entities.Header.Data.UIOrderLine_Buyer_Forwarder]).then(function (responses) {
                                 if (responses.data.Response) {
                                     one_three_OrderLinesFormModalCtrl.ePage.Masters.SaveCloseButtonText = "Save & Close";
                                     param.List[one_three_OrderLinesFormModalCtrl.ePage.Masters.Index] = responses.data.Response[0];
@@ -171,7 +171,7 @@
                             one_three_OrderLinesFormModalCtrl.ePage.Entities.Header.Data.UIOrderLine_Buyer_Forwarder.POH_FK = param.CurrentOrder.Header.Data.PK;
                             one_three_OrderLinesFormModalCtrl.ePage.Entities.Header.Data.UIOrderLine_Buyer_Forwarder.IsValid = true
 
-                            apiService.post("eAxisAPI", orderApiConfig.Entities.OrderLine_Buyer_Forwarder.API.upsert.Url, [one_three_OrderLinesFormModalCtrl.ePage.Entities.Header.Data.UIOrderLine_Buyer_Forwarder]).then(function (response) {
+                            apiService.post("eAxisAPI", appConfig.Entities.PorOrderLine.API.Upsert.Url, [one_three_OrderLinesFormModalCtrl.ePage.Entities.Header.Data.UIOrderLine_Buyer_Forwarder]).then(function (response) {
                                 if (response.data.Response) {
                                     one_three_OrderLinesFormModalCtrl.ePage.Masters.SaveCloseButtonText = "Save & Close";
                                     param.List.push(response.data.Response[0]);

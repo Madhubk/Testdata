@@ -61,7 +61,7 @@
                 Code: curEntity.UIShipment_Buyer_Supplier.ShipmentNo
             };
             _queryString = helperService.encryptData(_queryString);
-            $window.open("#/EA/single-record-view/shipment-view?q=" + _queryString, "_blank");
+            $window.open("#/EA/single-record-view/shipment/" + _queryString, "_blank");
         }
 
         Init();

@@ -1,0 +1,55 @@
+<div class="clearfix sm-checklist-container">
+    <!-- Section Top -->
+    <div class="clearfix sm-section-top sm-checklist pt-10 pb-10">
+        <div class="clearfix">
+            <div class="col-sm-3"></div>
+            <div class="col-sm-3"></div>
+            <div class="col-sm-3">
+                <button class="btn btn-default btn-sm pull-right mt-2" data-ng-click="ChecklistCtrl.ePage.Masters.Checklist.Refresh()">Refresh</button>
+            </div>
+            <div class="col-sm-3">
+                <input type="text" class="form-control input-sm" placeholder="Search" data-ng-model="ChecklistCtrl.ePage.Masters.Checklist.Search">
+            </div>
+        </div>
+    </div>
+    <!-- Section Body -->
+    <div class="clearfix sm-section-body">
+        <div class="cleafix list-wrapper sm-checklist-list-wrapper">
+            <div class="clearfix p-20 text-center" data-ng-if="!ChecklistCtrl.ePage.Masters.Checklist.ListSource">
+                <i class="fa fa-spin fa-spinner font-120"></i>
+            </div>
+            <div class="clearfix p-20 text-center" data-ng-if="ChecklistCtrl.ePage.Masters.Checklist.ListSource && (ChecklistCtrl.ePage.Masters.Checklist.ListSource | filter: ChecklistCtrl.ePage.Masters.Checklist.Search).length == 0">
+                <i>No Records...!</i>
+            </div>
+            <div class="clearfix list pt-10 pb-10" data-ng-repeat="x in ChecklistCtrl.ePage.Masters.Checklist.ListSource | filter: ChecklistCtrl.ePage.Masters.Checklist.Search"
+                data-ng-if="ChecklistCtrl.ePage.Masters.Checklist.ListSource && (ChecklistCtrl.ePage.Masters.Checklist.ListSource | filter: ChecklistCtrl.ePage.Masters.Checklist.Search).length > 0">
+                <div class="clearfix">
+                    <div class="col-sm-10">
+                        <div class="checkbox m-0 pr-150">
+                            <span class="mr-5 danger display-inline-block" style="width: 6px;"><i data-ng-if="x.IsMandatory">*</i></span>
+                            <label>
+                                <input type="checkbox" class="colored-blue" data-ng-click="ChecklistCtrl.ePage.Masters.Checklist.OnChecklistChange($event, x)"
+                                    data-ng-model="x.IsChecked">
+                                <span class="text text-single-line">{{x.Name}}</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-sm-2 text-right">
+                        <button class="btn btn-info btn-xs" data-ng-disabled="!x.IsChecked" data-ng-click="x.IsShowRemark = true"
+                            data-ng-if="x.CheckedData && x.IsChecked && !x.IsShowRemark">Edit</button>
+                        <button class="btn btn-xs btn-primary" data-ng-click="ChecklistCtrl.ePage.Masters.Checklist.UpdateChecklist(x)"
+                            data-ng-if="x.IsChecked && x.IsShowRemark" data-ng-bind="x.UpdateBtnTxt" data-ng-disabled="x.IsDisableUpdateBtn"></button>
+                        <button class="btn btn-warning btn-xs ml-15" data-ng-disabled="!x.IsChecked" data-ng-click="x.IsShowRemark = false"
+                            data-ng-if="x.CheckedData && x.IsChecked && x.IsShowRemark">Close</button>
+                    </div>
+                </div>
+                <div class="clearfix mt-10 ml-50 pl-5 pr-15" data-ng-if="x.IsChecked && !x.IsShowRemark && x.Remarks">
+                    <span data-ng-bind="x.Remarks"></span>
+                </div>
+                <div class="clearfix pl-30 pr-15 mt-10" data-ng-if="x.IsChecked && x.IsShowRemark">
+                    <textarea class="form-control no-resize" rows="4" placeholder="Remarks" data-ng-model="x.Remarks"></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

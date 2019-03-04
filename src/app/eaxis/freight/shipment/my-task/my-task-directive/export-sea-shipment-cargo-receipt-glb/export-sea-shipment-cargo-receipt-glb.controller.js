@@ -77,8 +77,6 @@
                     if (response.data.Response) {
                         ExportSeaShipmentCargoReceiptGlbCtrl.ePage.Entities.Header.Data = response.data.Response;
                         getTaskConfigData();
-                    } else {
-                        ExportSeaShipmentCargoReceiptGlbCtrl.ePage.Entities.Header.Data.EntityObj = {};
                     }
                 });
             }

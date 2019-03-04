@@ -20,12 +20,12 @@
                 "Entities": UploadDocumentOrdCtrl.input
             };
 
+            UploadDocumentOrdCtrl.ePage.Masters.OnDocumentUploadChange = OnDocumentUploadChange;
             InitDocument();
-            GetDocumentUploadFilterList(UploadDocumentOrdCtrl.docVisible);
+            GetDocumentUploadFilterList();
         }
 
         function InitDocument() {
-            UploadDocumentOrdCtrl.ePage.Masters.OnDocumentUploadChange = OnDocumentUploadChange;
             UploadDocumentOrdCtrl.ePage.Masters.DocTypeDsc = UploadDocumentOrdCtrl.docTypeDsc;
             UploadDocumentOrdCtrl.ePage.Masters.Document = {};
             UploadDocumentOrdCtrl.ePage.Masters.Document.ListSource = [];
@@ -44,11 +44,9 @@
 
             UploadDocumentOrdCtrl.ePage.Masters.Document.GetUploadedFiles = GetUploadedFiles;
             UploadDocumentOrdCtrl.ePage.Masters.Document.GetSelectedFiles = GetSelectedFiles;
-            UploadDocumentOrdCtrl.ePage.Masters.IsUplaodDisable = false;
         }
 
         function GetSelectedFiles(files, mode, docType, row) {
-            UploadDocumentOrdCtrl.ePage.Masters.IsUplaodDisable = true;
             UploadDocumentOrdCtrl.ePage.Masters.TempFileName = files[0].name;
             UploadDocumentOrdCtrl.ePage.Masters.IsLoading = true;
             if (mode == "mode3") {
@@ -76,7 +74,7 @@
         function GetUploadedFiles(files, mode, docType, row) {
             files.map(function (value1, key1) {
                 UploadDocumentOrdCtrl.ePage.Masters.Document.ListSource.map(function (value2, key2) {
-                    if (value1.FileName == value2.name) {
+                    if (value1.FileName == value2.name && value1.DocType == value2.type) {
                         SaveDocument(value1, value2, mode);
                     }
                 });
@@ -141,32 +139,26 @@
                         row.DocumentNameTemp = row.DocumentName;
                         toastr.success("Document Uploaded Successfully");
                         UploadDocumentOrdCtrl.ePage.Masters.IsLoading = false;
-                        UploadDocumentOrdCtrl.ePage.Masters.IsUplaodDisable = false;
                         UploadDocumentOrdCtrl.isUploaded({
                             $item: $item
                         });
                         // UploadDocumentOrdCtrl.ePage.Masters.IsShowRecords = true;
                         // UploadDocumentOrdCtrl.ePage.Masters.UploadResponse = response.data.Response[0];
-                    } else {
-                        toastr.error("Failed to Upload...!");
-                        UploadDocumentOrdCtrl.ePage.Masters.IsLoading = false;
-                        UploadDocumentOrdCtrl.ePage.Masters.IsUplaodDisable = false;
                     }
                 } else {
-                    toastr.error("Failed to Upload...!");
+                    toastr.error("Failed to Save...!");
                     UploadDocumentOrdCtrl.ePage.Masters.IsLoading = false;
-                    UploadDocumentOrdCtrl.ePage.Masters.IsUplaodDisable = false;
                 }
             });
         }
 
 
-        function GetDocumentUploadFilterList(type) {
+        function GetDocumentUploadFilterList() {
             UploadDocumentOrdCtrl.ePage.Masters.DocumentTypeList = undefined;
             var _filter = {
                 "EntitySource": "CONFIGURATION",
                 "SourceEntityRefKey": "DocType",
-                "Key": (!type ? UploadDocumentOrdCtrl.ePage.Entities.Entity : type)
+                "Key": UploadDocumentOrdCtrl.ePage.Entities.Entity
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
@@ -238,7 +230,10 @@
         function OnDocumentUploadChange($item) {
             UploadDocumentOrdCtrl.ePage.Masters.DocumentUpload = {};
             UploadDocumentOrdCtrl.ePage.Masters.DocumentUpload.ActiveDocumentUpload = angular.copy($item);
-            if ($item) {} else {
+
+            if ($item) {
+
+            } else {
                 UploadDocumentOrdCtrl.ePage.Masters.Document.ListSource = [];
             }
         }

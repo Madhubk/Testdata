@@ -16,16 +16,12 @@
         var exports = {
             restrict: "EA",
             templateUrl: "MyTaskDefault.html",
-            link: Link,
             scope: {
                 taskObj: "=",
                 getErrorWarningList: "&"
-            },
-            link: Link
+            }
         };
 
         return exports;
-
-        function Link(scope, elem, attr) {}
     }
 })();

@@ -31,17 +31,17 @@
                             <th class="th-custom">Custom 1</th>
                             <th class="th-custom">Custom 2</th>
                             <th class="th-custom">Custom 3</th>
-                            <th colspan="2" class="th-action"></th>
+                            <th colspan="3" class="th-action"></th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr data-ng-if="!ProcessScenariosCtrl.ePage.Masters.ProcessScenarios.ProcessScenariosList">
-                            <td colspan="12" class="text-center p-10">
+                            <td colspan="13" class="text-center p-10">
                                 <i class="fa fa-spin fa-spinner" style="font-size:18px;"></i>
                             </td>
                         </tr>
                         <tr data-ng-if="ProcessScenariosCtrl.ePage.Masters.ProcessScenarios.ProcessScenariosList.length==0">
-                            <td colspan="12" class="text-center p-10">
+                            <td colspan="13" class="text-center p-10">
                                 <i>No Records...!</i>
                             </td>
                         </tr>
@@ -164,13 +164,19 @@
                             <td class="text-center p-5">
                                 <i class="fa fa-floppy-o cursor-pointer text-success" style="font-size: 16px;" data-ng-click="ProcessScenariosCtrl.ePage.Masters.ProcessScenarios.Save(item)"></i>
                             </td>
+
                             <td class="text-center p-5">
                                 <i class="glyphicon glyphicon-trash text-danger cursor-pointer" style="font-size: 16px;"
                                     data-ng-click="ProcessScenariosCtrl.ePage.Masters.RemoveRecord(item)"></i>
                             </td>
+                            <td class="text-center p-5">
+                                    <i class="fa fa-file-o cursor-pointer" style="font-size: 16px;" 
+                                    generate-db-script input="item.GenerateScriptInput" config="item.GenerateScriptConfig"
+                                    data-ng-if="item.GenerateScriptInput.ObjectName || item.GenerateScriptInput.ObjectId || item.PK"></i>
+                            </td>
                         </tr>
                         <tr>
-                            <td colspan="12" class="p-10">
+                            <td colspan="13" class="p-10">
                                 <a href="javascript:(0);" data-ng-click="ProcessScenariosCtrl.ePage.Masters.ProcessScenarios.AddNewRow()">Add new Record…</a>
                                 
                             </td>

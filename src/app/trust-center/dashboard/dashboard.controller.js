@@ -5,9 +5,9 @@
         .module("Application")
         .controller("TCDashboardController", TCDashboardController);
 
-    TCDashboardController.$inject = ["$location", "authService", "helperService", "trustCenterConfig"];
+    TCDashboardController.$inject = ["$location", "authService", "helperService", "toastr"];
 
-    function TCDashboardController($location, authService, helperService, trustCenterConfig) {
+    function TCDashboardController($location, authService, helperService, toastr) {
         /* jshint validthis: true */
         var TCDashboardCtrl = this;
         var _queryString = $location.path().split("/").pop();
@@ -36,7 +36,7 @@
             }
         }
 
-        // region Breadcrumb
+        // #region Breadcrumb
         function InitBreadcrumb() {
             TCDashboardCtrl.ePage.Masters.Breadcrumb = {};
             TCDashboardCtrl.ePage.Masters.Breadcrumb.OnBreadcrumbClick = OnBreadcrumbClick;
@@ -67,9 +67,9 @@
                 $location.path($item.Link + "/" + helperService.encryptData($item.QueryStringObj));
             }
         }
-        // endregion
+        // #endregion
 
-        // region Application
+        // #region Application
         function InitApplication() {
             TCDashboardCtrl.ePage.Masters.Application = {};
             TCDashboardCtrl.ePage.Masters.Application.OnApplicationChange = OnApplicationChange;
@@ -86,9 +86,9 @@
                 };
             }
         }
-        // endregion
+        // #endregion
 
-        // region Dashboard
+        // #region Dashboard
         function InitDashboard() {
             TCDashboardCtrl.ePage.Masters.Dashboard = {};
             TCDashboardCtrl.ePage.Masters.Dashboard.OnMenuClick = OnMenuClick;
@@ -103,7 +103,7 @@
                     List: [{
                         Code: "Parties",
                         Description: "Parties",
-                        Icon: "glyphicons glyphicons-group",
+                        Icon: "fa fa-users",
                         Link: "TC/menu-group",
                         Color: "#33a0d3",
                         AdditionalData: {
@@ -115,14 +115,14 @@
                         IsDisable: (authService.getUserInfo().TenantCode == "TBASE") ? false : true
                     }, {
                         Code: "UserList",
-                        Description: "Users",
+                        Description: "User",
                         Icon: "fa fa-user",
                         Link: "TC/user-list",
                         Color: "#dd4b39"
                     }, {
                         Code: "Session",
                         Description: "Session",
-                        Icon: "glyphicons glyphicons-tick",
+                        Icon: "fa fa-calendar",
                         Link: "TC/session",
                         Color: "#00555c"
                     }]
@@ -159,16 +159,12 @@
                         Link: "TC/exception",
                         Color: "#de1829"
                     }, {
-                        Code: "StandardTypelist",
-                        Description: "Standard Typelist",
-                        Icon: "fa fa-list-alt",
-                        Link: "TC/sop-typelist",
-                        Color: "#797979"
-                    }]
-                }],
-                "Column2": [{
-                    Title: "CONFIGURATION",
-                    List: [{
+                        Code: "ManageStaticListing",
+                        Description: "Manage Static Listing",
+                        Icon: "fa fa-list",
+                        Link: "TC/manage-static-listing",
+                        Color: "#1da1f2"
+                    }, {
                         Code: "HtmlComponents",
                         Description: "Html Components",
                         Icon: "fa fa-puzzle-piece",
@@ -199,18 +195,64 @@
                         Link: "TC/validation",
                         Color: "#45668e"
                     }, {
-                        Code: "Languages",
-                        Description: "Languages",
-                        Icon: "fa fa-language",
-                        Link: "TC/language",
-                        Color: "#ff8800"
+                        Code: "StandardTypelist",
+                        Description: "Standard Typelist",
+                        Icon: "fa fa-list-alt",
+                        Link: "TC/sop-typelist",
+                        Color: "#797979"
+                    }]
+                }, {
+                    Title: "ENTITY BASED TAGGING",
+                    List: [{
+                        Code: "DocumentType",
+                        Description: "Document Type",
+                        Icon: "fa fa-file",
+                        Link: "#",
+                        Color: "#33a0d3"
                     }, {
-                        Code: "ManageStaticListing",
-                        Description: "Manage Static Listing",
-                        Icon: "fa fa-list",
-                        Link: "TC/manage-static-listing",
-                        Color: "#1da1f2"
+                        Code: "ExceptionType",
+                        Description: "Exception Type",
+                        Icon: "fa fa-exclamation-triangle",
+                        Link: "#",
+                        Color: "#dd4b39"
                     }, {
+                        Code: "CommentType",
+                        Description: "Comment Type",
+                        Icon: "fa fa-comment",
+                        Link: "#",
+                        Color: "#00555c"
+                    }]
+                }],
+                "Column2": [{
+                    Title: "TEMPLATES",
+                    List: [{
+                        Code: "Document",
+                        Description: "Document",
+                        Icon: "fa fa-file",
+                        Link: "#",
+                        Color: "#33a0d3"
+                    }, {
+                        Code: "Email",
+                        Description: "Email",
+                        Icon: "fa fa-envelope",
+                        Link: "#",
+                        Color: "#dd4b39"
+                    }, {
+                        Code: "Reports",
+                        Description: "Reports",
+                        Icon: "fa fa-bar-chart",
+                        Link: "#",
+                        Color: "#00555c"
+                    }, {
+                        Code: "SMS",
+                        Description: "SMS",
+                        Icon: "fa fa-mobile",
+                        Link: "#",
+                        Color: "#00555c"
+                    }]
+                }, {
+                    Title: "CONFIGURATION",
+                    List: [{
                         Code: "DynamicExpressionFilter",
                         Description: "Dynamic Expression Filter",
                         Icon: "glyphicons glyphicons-filter",
@@ -229,18 +271,15 @@
                             }
                         }
                     }, {
-                        Code: "AppSettingsExcelConfig",
-                        Description: "Excel Template Configuration (Report)",
-                        Icon: "fa fa-file-excel-o",
-                        Link: "TC/application-settings",
-                        Color: "#3b210e",
-                        AdditionalData: {
-                            BreadcrumbTitle: "Excel Template Configuration (Report)",
-                            Input: {
-                                Code: "EXCELCONFIG"
-                            }
-                        }
-                    }, {
+                        Code: "RecentItem",
+                        Description: "Recent Item",
+                        Icon: "fa fa-list-alt",
+                        Link: "#",
+                        Color: "#ff8800"
+                    }]
+                }, {
+                    Title: "OTHERS",
+                    List: [{
                         Code: "AppSettingsSysConfig",
                         Description: "Configuration",
                         Icon: "glyphicons glyphicons-settings",
@@ -252,6 +291,12 @@
                                 Code: "CONFIGURATION"
                             }
                         }
+                    }, {
+                        Code: "Languages",
+                        Description: "Languages",
+                        Icon: "fa fa-language",
+                        Link: "TC/language",
+                        Color: "#ff8800"
                     }, {
                         Code: "AppSettingsEmailSettings",
                         Description: "Email Settings",
@@ -279,13 +324,37 @@
                     }, {
                         Code: "AppSettingsBulkQuery",
                         Description: "Bulk Query",
-                        Icon: "fa fa-th-large",
+                        Icon: "fa fa-question-circle",
                         Link: "TC/application-settings",
                         Color: "#01532f",
                         AdditionalData: {
                             BreadcrumbTitle: "Bulk Query",
                             Input: {
                                 Code: "BULKQUERYOUTPUT"
+                            }
+                        }
+                    }, {
+                        Code: "AppSettingsExcelConfig",
+                        Description: "Excel Template Configuration (Report)",
+                        Icon: "fa fa-file-excel-o",
+                        Link: "TC/application-settings",
+                        Color: "#3b210e",
+                        AdditionalData: {
+                            BreadcrumbTitle: "Excel Template Configuration (Report)",
+                            Input: {
+                                Code: "EXCELCONFIG"
+                            }
+                        }
+                    }, {
+                        Code: "AppSettingsSMSConfig",
+                        Description: "SMS Template Configuration",
+                        Icon: "fa fa-envelope-o",
+                        Link: "TC/application-settings",
+                        Color: "#3b210e",
+                        AdditionalData: {
+                            BreadcrumbTitle: "SMS Template Configuration",
+                            Input: {
+                                Code: "SMSCONFIG"
                             }
                         }
                     }]
@@ -434,7 +503,7 @@
                     }, {
                         Code: "ReportFields",
                         Description: "Report Fields",
-                        Icon: "fa fa-share-alt",
+                        Icon: "fa fa-bar-chart",
                         Link: "/TC/data-extraction/report-fields",
                         Color: "#05b085"
                     }, {
@@ -536,9 +605,11 @@
 
             if ($item.Link !== "#") {
                 $location.path($item.Link + "/" + helperService.encryptData(_queryString));
+            } else {
+                toastr.info("Page not cofigured...!");
             }
         }
-        // endregion
+        // #endregion
 
         Init();
     }

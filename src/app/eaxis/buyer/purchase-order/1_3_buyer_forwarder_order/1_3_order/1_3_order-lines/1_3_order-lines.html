@@ -1,114 +1,112 @@
-<div style="min-height:610px;">
-    <div class="p-10">
-        <div>
-            <span>
-                <button type="button" class="btn btn-sm btn-outline-secondary" title="Add Order Line" data-ng-click="one_three_OrdLinesCtrl.ePage.Masters.PorOrderLine.addNew({'UICustomEntity':{}},'new')">
-                    <i class="fa fa-plus-circle"></i> Add Order Line</button>
-            </span>
-        </div>
-        <div id='' class="common_table_scroll common_table_hgt pt-2">
-            <div class="table tab-position" id="results">
-                <div class='theader'>
-                    <div class='table_header'>Action</div>
-                    <div class='table_header'>Line #</div>
-                    <div class='table_header'>Product Details</div>
-                    <div class='table_header'>Packs</div>
-                    <div class='table_header'>Quantity</div>
-                    <div class='table_header'>Price</div>
-                </div>
-
-                <div class='table_row' data-ng-repeat="x in one_three_OrdLinesCtrl.ePage.Entities.Header.Data.UIOrderLine_Buyer_Forwarder  | orderBy:'LineNo'"
-                    style="font-size: 11px;">
-                    <div class='table_small'>
-                        <div class='table_cell'>Action</div>
-                        <div class='table_cell'>
-                            <i class="fa fa-edit order-icon" data-ng-click="one_three_OrdLinesCtrl.ePage.Masters.PorOrderLine.EditLineItem(x)"></i>
-                            |
-                            <i class="fa fa-trash order-icon" data-ng-click="one_three_OrdLinesCtrl.ePage.Masters.PorOrderLine.RemoveLineItem(x,$index)"></i>
-                        </div>
-                    </div>
-                    <div class='table_small'>
-                        <div class='table_cell'>List #</div>
-                        <div class='table_cell'>
-                            <b>{{x.LineNo}}</b>
-                        </div>
-                    </div>
-                    <div class='table_small'>
-                        <div class='table_cell'>Product Details</div>
-                        <div class='table_cell'>{{x.PartNo}} | {{x.LineDescription}}</div>
-                    </div>
-                    <div class='table_small'>
-                        <div class='table_cell'>Packs</div>
-                        <div class='table_cell'>In :
-                            <b>{{x.InnerPacks}}</b> | Out:
-                            <b>{{x.OuterPacks}}</b>
-                        </div>
-                    </div>
-                    <div class='table_small'>
-                        <div class='table_cell'>Quantity</div>
-                        <div class='table_cell'>Org :
-                            <b>{{(x.Quantity).toFixed(5)}}</b> | Inv :
-                            <b>{{(x.InvoicedQuantity).toFixed(5)}}</b> | Rcv :
-                            <b>{{(x.RecievedQuantity).toFixed(5)}}</b>
-                        </div>
-                    </div>
-                    <div class='table_small'>
-                        <div class='table_cell'>Price</div>
-                        <div class='table_cell'>Item :
-                            <b>{{(x.ItemPrice).toFixed(4)}}</b> | Line :
-                            <b>{{(x.LinePrice).toFixed(4)}}</b>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- List Empty Response -->
-            <div class="grid-no-record-common_table" data-ng-if="one_three_OrdLinesCtrl.ePage.Entities.Header.Data.UIOrderLine_Buyer_Forwarder.length==0">No
-                records found...</div>
-        </div>
+<div class="p-10">
+    <div>
+        <span>
+            <button type="button" class="btn btn-sm btn-outline-secondary" title="Add Order Line" data-ng-click="one_three_OrdLinesCtrl.ePage.Masters.PorOrderLine.addNew({'UICustomEntity':{}},'new')">
+                <i class="fa fa-plus-circle"></i> Add Order Line</button>
+        </span>
     </div>
+    <div id='' class="common_table_scroll common_table_hgt pt-2">
+        <div class="table tab-position" id="results">
+            <div class='theader'>
+                <div class='table_header'>Action</div>
+                <div class='table_header'>Line #</div>
+                <div class='table_header'>Product Details</div>
+                <div class='table_header'>Packs</div>
+                <div class='table_header'>Quantity</div>
+                <div class='table_header'>Price</div>
+            </div>
 
-    <div class="clearfix padding-top-10 padding-bottom-10 total-alignment">
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-            <!-- Line Count-->
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
-                <div class="">
-                    Total Lines
-                    <div class="padding-top-5">
-                        <b> {{one_three_OrdLinesCtrl.ePage.Masters.Consolidation[0].Count}}</b>
+            <div class='table_row' data-ng-repeat="x in one_three_OrdLinesCtrl.ePage.Entities.Header.Data.UIOrderLine_Buyer_Forwarder  | orderBy:'LineNo'"
+                style="font-size: 11px;">
+                <div class='table_small'>
+                    <div class='table_cell'>Action</div>
+                    <div class='table_cell'>
+                        <i class="fa fa-edit order-icon" data-ng-click="one_three_OrdLinesCtrl.ePage.Masters.PorOrderLine.EditLineItem(x)"></i>
+                        |
+                        <i class="fa fa-trash order-icon" data-ng-click="one_three_OrdLinesCtrl.ePage.Masters.PorOrderLine.RemoveLineItem(x,$index)"></i>
+                    </div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>List #</div>
+                    <div class='table_cell'>
+                        <b>{{x.LineNo}}</b>
+                    </div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Product Details</div>
+                    <div class='table_cell'>{{x.PartNo}} | {{x.LineDescription}}</div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Packs</div>
+                    <div class='table_cell'>In :
+                        <b>{{x.InnerPacks}}</b> | Out:
+                        <b>{{x.OuterPacks}}</b>
+                    </div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Quantity</div>
+                    <div class='table_cell'>Org :
+                        <b>{{(x.Quantity).toFixed(5)}}</b> | Inv :
+                        <b>{{(x.InvoicedQuantity).toFixed(5)}}</b> | Rcv :
+                        <b>{{(x.RecievedQuantity).toFixed(5)}}</b>
+                    </div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Price</div>
+                    <div class='table_cell'>Item :
+                        <b>{{(x.ItemPrice).toFixed(4)}}</b> | Line :
+                        <b>{{(x.LinePrice).toFixed(4)}}</b>
                     </div>
                 </div>
             </div>
-            <!-- Inner Packs-->
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-                <div class="">
-                    Inner Packs :
-                    <b>{{one_three_OrdLinesCtrl.ePage.Masters.Consolidation[0].InnerPacks}}</b>
-                </div>
+        </div>
+        <!-- List Empty Response -->
+        <div class="grid-no-record-common_table" data-ng-if="one_three_OrdLinesCtrl.ePage.Entities.Header.Data.UIOrderLine_Buyer_Forwarder.length==0">No
+            records found...</div>
+    </div>
+</div>
+
+<div class="clearfix padding-top-10 padding-bottom-10 total-alignment">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+        <!-- Line Count-->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+            <div class="">
+                Total Lines
                 <div class="padding-top-5">
-                    Outer Packs :
-                    <b>{{one_three_OrdLinesCtrl.ePage.Masters.Consolidation[0].OuterPacks}}</b>
+                    <b> {{one_three_OrdLinesCtrl.ePage.Masters.Consolidation[0].Count}}</b>
                 </div>
             </div>
-            <!-- Qty Ordered-->
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-                <div class="">
-                    Qty Ordered :
-                    <b>{{(one_three_OrdLinesCtrl.ePage.Masters.Consolidation[0].Quantity).toFixed(5)}}</b>
-                </div>
-                <div class="padding-top-5">
-                    Qty Invoiced :
-                    <b>{{(one_three_OrdLinesCtrl.ePage.Masters.Consolidation[0].InvoicedQuantity).toFixed(5)}}</b>
-                </div>
+        </div>
+        <!-- Inner Packs-->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <div class="">
+                Inner Packs :
+                <b>{{one_three_OrdLinesCtrl.ePage.Masters.Consolidation[0].InnerPacks}}</b>
             </div>
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-                <div class="">
-                    Qty Received :
-                    <b>{{(one_three_OrdLinesCtrl.ePage.Masters.Consolidation[0].RecievedQuantity).toFixed(5)}}</b>
-                </div>
-                <div class="padding-top-5">
-                    Qty Remaining :
-                    <b>{{(one_three_OrdLinesCtrl.ePage.Masters.Consolidation[0].QtyRemaining).toFixed(5)}}</b>
-                </div>
+            <div class="padding-top-5">
+                Outer Packs :
+                <b>{{one_three_OrdLinesCtrl.ePage.Masters.Consolidation[0].OuterPacks}}</b>
+            </div>
+        </div>
+        <!-- Qty Ordered-->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <div class="">
+                Qty Ordered :
+                <b>{{(one_three_OrdLinesCtrl.ePage.Masters.Consolidation[0].Quantity).toFixed(5)}}</b>
+            </div>
+            <div class="padding-top-5">
+                Qty Invoiced :
+                <b>{{(one_three_OrdLinesCtrl.ePage.Masters.Consolidation[0].InvoicedQuantity).toFixed(5)}}</b>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+            <div class="">
+                Qty Received :
+                <b>{{(one_three_OrdLinesCtrl.ePage.Masters.Consolidation[0].RecievedQuantity).toFixed(5)}}</b>
+            </div>
+            <div class="padding-top-5">
+                Qty Remaining :
+                <b>{{(one_three_OrdLinesCtrl.ePage.Masters.Consolidation[0].QtyRemaining).toFixed(5)}}</b>
             </div>
         </div>
     </div>

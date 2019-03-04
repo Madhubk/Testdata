@@ -5,9 +5,9 @@
         .module("Application")
         .controller("UploadPklVnmDirectiveController", UploadPklVnmDirectiveController);
 
-    UploadPklVnmDirectiveController.$inject = ["$window", "helperService", "$q", "apiService", "authService", "appConfig", "toastr", "errorWarningService", "$filter", "$timeout", "freightApiConfig"];
+    UploadPklVnmDirectiveController.$inject = ["helperService", "$q", "apiService", "authService", "appConfig", "toastr", "errorWarningService", "$filter", "$timeout", "freightApiConfig"];
 
-    function UploadPklVnmDirectiveController($window, helperService, $q, apiService, authService, appConfig, toastr, errorWarningService, $filter, $timeout, freightApiConfig) {
+    function UploadPklVnmDirectiveController(helperService, $q, apiService, authService, appConfig, toastr, errorWarningService, $filter, $timeout, freightApiConfig) {
         var UploadPklVnmDirectiveCtrl = this;
 
         function Init() {
@@ -29,12 +29,9 @@
         function InitPoUpload() {
             UploadPklVnmDirectiveCtrl.ePage.Masters.CompleteBtnTxt = "Complete";
             UploadPklVnmDirectiveCtrl.ePage.Masters.CompleteBtnDisabled = false;
-            UploadPklVnmDirectiveCtrl.ePage.Masters.PageNotFound = false;
-            UploadPklVnmDirectiveCtrl.ePage.Masters.IsLoading = true;
             UploadPklVnmDirectiveCtrl.ePage.Masters.MyTask = UploadPklVnmDirectiveCtrl.taskObj;
             UploadPklVnmDirectiveCtrl.ePage.Masters.Complete = Complete;
             UploadPklVnmDirectiveCtrl.ePage.Masters.IsUploaded = IsUploaded;
-            UploadPklVnmDirectiveCtrl.ePage.Masters.SingleRecordView = SingleRecordView;
 
             if (UploadPklVnmDirectiveCtrl.ePage.Masters.MyTask.OtherConfig) {
                 if (typeof UploadPklVnmDirectiveCtrl.ePage.Masters.MyTask.OtherConfig == "string") {
@@ -44,7 +41,6 @@
 
             TaskGetById();
             StandardMenuConfig();
-            getTaskConfigData();
         }
 
         function TaskGetById() {
@@ -53,11 +49,7 @@
                     if (response.data.Response) {
                         response.data.Response.EntityObj = {};
                         UploadPklVnmDirectiveCtrl.ePage.Entities.Header.Data = response.data.Response;
-                        UploadPklVnmDirectiveCtrl.ePage.Masters.IsLoading = false;
-                    } else {
-                        UploadPklVnmDirectiveCtrl.ePage.Entities.Header.Data.EntityObj = {};
-                        UploadPklVnmDirectiveCtrl.ePage.Masters.PageNotFound = true;
-                        UploadPklVnmDirectiveCtrl.ePage.Masters.IsLoading = false;
+                        getTaskConfigData();
                     }
                 });
             }
@@ -107,7 +99,7 @@
             if (UploadPklVnmDirectiveCtrl.ePage.Masters.MyTask) {
                 // validation findall call
                 var _obj = {
-                    ModuleName: [UploadPklVnmDirectiveCtrl.ePage.Masters.MyTask.PSI_InstanceNo],
+                    ModuleName: ["MyTask"],
                     Code: [UploadPklVnmDirectiveCtrl.ePage.Masters.MyTask.PSI_InstanceNo],
                     API: "Group",
                     FilterInput: {
@@ -121,8 +113,8 @@
                 errorWarningService.GetErrorCodeList(_obj);
 
                 UploadPklVnmDirectiveCtrl.ePage.Masters.ErrorWarningConfig = errorWarningService;
-                UploadPklVnmDirectiveCtrl.ePage.Masters.ErrorWarningConfig.GlobalErrorWarningList = errorWarningService.Modules[UploadPklVnmDirectiveCtrl.ePage.Masters.MyTask.PSI_InstanceNo].Entity[UploadPklVnmDirectiveCtrl.taskObj.PSI_InstanceNo].GlobalErrorWarningList;
-                UploadPklVnmDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj = errorWarningService.Modules[UploadPklVnmDirectiveCtrl.ePage.Masters.MyTask.PSI_InstanceNo].Entity[UploadPklVnmDirectiveCtrl.taskObj.PSI_InstanceNo];
+                UploadPklVnmDirectiveCtrl.ePage.Masters.ErrorWarningConfig.GlobalErrorWarningList = errorWarningService.Modules.MyTask.Entity[UploadPklVnmDirectiveCtrl.taskObj.PSI_InstanceNo].GlobalErrorWarningList;
+                UploadPklVnmDirectiveCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj = errorWarningService.Modules.MyTask.Entity[UploadPklVnmDirectiveCtrl.taskObj.PSI_InstanceNo];
             }
         }
 
@@ -137,7 +129,7 @@
                         UploadPklVnmDirectiveCtrl.ePage.Entities.Header.Data.EntityObj.Document = null;
                     }
                     var _obj = {
-                        ModuleName: [UploadPklVnmDirectiveCtrl.ePage.Masters.MyTask.PSI_InstanceNo],
+                        ModuleName: ["MyTask"],
                         Code: [UploadPklVnmDirectiveCtrl.taskObj.PSI_InstanceNo],
                         API: "Group",
                         FilterInput: {
@@ -151,7 +143,7 @@
                 });
             }
             $timeout(function () {
-                var _errorcount = errorWarningService.Modules[UploadPklVnmDirectiveCtrl.ePage.Masters.MyTask.PSI_InstanceNo].Entity[UploadPklVnmDirectiveCtrl.taskObj.PSI_InstanceNo].GlobalErrorWarningList;
+                var _errorcount = errorWarningService.Modules.MyTask.Entity[UploadPklVnmDirectiveCtrl.taskObj.PSI_InstanceNo].GlobalErrorWarningList;
                 if (_errorcount.length > 0) {
                     if (UploadPklVnmDirectiveCtrl.ePage.Masters.DocumentValidation.length > 0) {
                         angular.forEach(_errorcount, function (value, key) {
@@ -163,13 +155,13 @@
                                 angular.forEach(UploadPklVnmDirectiveCtrl.ePage.Masters.docTypeSource, function (value, key) {
                                     doctypedesc = doctypedesc + value.DocTypeDesc + ",";
                                 });
-                                value.Message = 'Please Upload ';
+                                value.Message = 'Please Upload Document';
                                 doctypedesc = doctypedesc.slice(0, -1);
-                                value.Message = value.Message + doctypedesc;
+                                value.Message = value.Message + " for this " + doctypedesc + " Document type";
                             }
                         });
                     }
-                    toastr.warning(_errorcount[0].Message + " for this " + "instance # " + UploadPklVnmDirectiveCtrl.ePage.Masters.MyTask.PSI_InstanceNo);
+                    // toastr.warning(_errorcount[0].Message);
                     UploadPklVnmDirectiveCtrl.ePage.Masters.CompleteBtnTxt = "Complete";
                     UploadPklVnmDirectiveCtrl.ePage.Masters.CompleteBtnDisabled = false;
                 } else {
@@ -179,25 +171,23 @@
         }
 
         function CompleteWithSave() {
-            var _input = InputData(UploadPklVnmDirectiveCtrl.ePage.Masters.MyTask);
+            var _input = InputData(UploadPklVnmDirectiveCtrl.ePage.Masters.MyTask, 4);
             apiService.post("eAxisAPI", appConfig.Entities.EBPMEngine.API.CompleteProcess.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     toastr.success("Task completed succesfully...");
-                    UploadPklVnmDirectiveCtrl.ePage.Masters.CompleteBtnTxt = "Complete";
-                    UploadPklVnmDirectiveCtrl.ePage.Masters.CompleteBtnDisabled = false;
-                    var _data = {
-                        IsRefreshTask: true,
-                        IsRefreshStatusCount: true,
-                        Item: UploadPklVnmDirectiveCtrl.ePage.Masters.MyTask
-                    };
-                    UploadPklVnmDirectiveCtrl.onComplete({
-                        $item: _data
-                    });
                 } else {
-                    UploadPklVnmDirectiveCtrl.ePage.Masters.CompleteBtnTxt = "Complete";
-                    UploadPklVnmDirectiveCtrl.ePage.Masters.CompleteBtnDisabled = false;
                     toastr.error("Task completion failed...");
                 }
+            });
+            UploadPklVnmDirectiveCtrl.ePage.Masters.CompleteBtnTxt = "Complete";
+            UploadPklVnmDirectiveCtrl.ePage.Masters.CompleteBtnDisabled = false;
+            var _data = {
+                IsRefreshTask: true,
+                IsRefreshStatusCount: true,
+                Item: UploadPklVnmDirectiveCtrl.ePage.Masters.MyTask
+            };
+            UploadPklVnmDirectiveCtrl.onComplete({
+                $item: _data
             });
         }
 
@@ -268,9 +258,9 @@
                 // Additional Entity
                 "AdditionalEntityRefKey": undefined,
                 "AdditionalEntityRefCode": undefined,
-                "AdditionalEntitySource": undefined
-                // "IsDisableParentEntity": true,
-                // "IsDisableAdditionalEntity": true
+                "AdditionalEntitySource": undefined,
+                "IsDisableParentEntity": true,
+                "IsDisableAdditionalEntity": true
             };
             UploadPklVnmDirectiveCtrl.ePage.Masters.StandardConfigInput = {
                 IsDisableRefreshButton: true,
@@ -299,26 +289,17 @@
             };
         }
 
-        function InputData(_data) {
+        function InputData(_data, CompleteStepNo) {
             var _filterInput = {
                 "ProcessName": _data.ProcessName,
                 "EntitySource": _data.EntitySource,
                 "EntityRefKey": _data.EntityRefKey,
                 "KeyReference": _data.KeyReference,
                 "CompleteInstanceNo": _data.PSI_InstanceNo,
-                "CompleteStepNo": _data.WSI_StepNo,
+                "CompleteStepNo": CompleteStepNo,
                 "IsModified": true
             };
             return _filterInput;
-        }
-
-        function SingleRecordView(obj) {
-            var _queryString = {
-                PK: obj.UIShipmentHeader.PK,
-                ShipmentNo: obj.UIShipmentHeader.ShipmentNo
-            };
-            _queryString = helperService.encryptData(_queryString);
-            $window.open("#/EA/single-record-view/booking-view?q=" + _queryString, "_blank");
         }
 
         Init();

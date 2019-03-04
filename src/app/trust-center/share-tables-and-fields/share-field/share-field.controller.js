@@ -153,6 +153,18 @@
         function OnShareFieldClick($item) {
             ShareFieldCtrl.ePage.Masters.ShareField.ActiveShareField = angular.copy($item);
             ShareFieldCtrl.ePage.Masters.ShareField.ActiveShareFieldCopy = angular.copy($item);
+
+            if (ShareFieldCtrl.ePage.Masters.ShareField.ActiveShareField) {
+                ShareFieldCtrl.ePage.Masters.GenerateScriptInput = {
+                    ObjectName: "DYN_EntityMaster",
+                    ObjectId: ShareFieldCtrl.ePage.Masters.ShareField.ActiveShareField.Field_PK
+                };
+                ShareFieldCtrl.ePage.Masters.GenerateScriptConfig = {
+                    IsEnableTable: false,
+                    IsEnablePK: false,
+                    IsEnableTenant: false
+                };
+            }
         }
 
         function EditModalInstance() {
@@ -170,7 +182,7 @@
             ShareFieldCtrl.ePage.Masters.ShareField.SaveBtnText = "OK";
             ShareFieldCtrl.ePage.Masters.ShareField.IsDisableSaveBtn = false;
 
-            EditModalInstance().result.then(function (response) { }, function () {
+            EditModalInstance().result.then(function (response) {}, function () {
                 Cancel();
             });
         }

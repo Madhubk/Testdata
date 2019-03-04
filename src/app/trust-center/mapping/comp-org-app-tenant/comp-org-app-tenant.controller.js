@@ -81,7 +81,7 @@
                 IsActive: false
             }, {
                 Code: "compOrgAppTenant",
-                Description: "Component Org App Tenant" + _breadcrumbTitle + " - "+TCCompOrgAppTenantCtrl.ePage.Masters.QueryString.DisplayName,
+                Description: "Component Org App Tenant" + _breadcrumbTitle + " - " + TCCompOrgAppTenantCtrl.ePage.Masters.QueryString.DisplayName,
                 Link: "#",
                 IsRequireQueryString: false,
                 IsActive: true
@@ -207,6 +207,18 @@
                 if (TCCompOrgAppTenantCtrl.ePage.Masters.CompOrgAppTenant.CompOrgAppTenantList.length > 0) {
                     OnCompOrgAppTenantClick(TCCompOrgAppTenantCtrl.ePage.Masters.CompOrgAppTenant.CompOrgAppTenantList[0]);
                 }
+            }
+
+            if (TCCompOrgAppTenantCtrl.ePage.Masters.CompOrgAppTenant.ActiveCompOrgAppTenant) {
+                TCCompOrgAppTenantCtrl.ePage.Masters.GenerateScriptInput = {
+                    ObjectName: "SECMAPPINGS",
+                    ObjectId: TCCompOrgAppTenantCtrl.ePage.Masters.CompOrgAppTenant.ActiveCompOrgAppTenant.PK
+                };
+                TCCompOrgAppTenantCtrl.ePage.Masters.GenerateScriptConfig = {
+                    IsEnableTable: false,
+                    IsEnablePK: false,
+                    IsEnableTenant: false
+                };
             }
         }
 

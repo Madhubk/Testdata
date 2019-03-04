@@ -102,9 +102,9 @@
             }
 
             if (LanguageCtrl.ePage.Masters.Module.ActiveModule) {
-             
+
                 GetLanguageList();
-            } 
+            }
         }
         // ========================Module Start========================
 
@@ -199,7 +199,10 @@
 
                 LanguageCtrl.ePage.Masters.LanguageCode.ActiveLanguageCode.LanguageCodeCopy = _keyCopy;
             }
+
         }
+
+
 
         // ========================Language Code End========================
 
@@ -211,6 +214,7 @@
             LanguageCtrl.ePage.Masters.Language.Delete = Delete;
             LanguageCtrl.ePage.Masters.Language.OnModuleChange = OnModuleChange;
             LanguageCtrl.ePage.Masters.Language.RedirectToAppSetting = RedirectToAppSetting;
+            
         }
 
         function GetLanguageList() {
@@ -228,6 +232,9 @@
             apiService.post("authAPI", trustCenterConfig.Entities.API.Multilingual.API.FindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     LanguageCtrl.ePage.Masters.Language.ListSource = response.data.Response;
+                    LanguageCtrl.ePage.Masters.Language.ListSource.map(function(value,key){
+                    SetGenerateScriptInput(value);
+                })
                 } else {
                     LanguageCtrl.ePage.Masters.Language.ListSource = [];
                 }
@@ -255,11 +262,26 @@
                     LanguageCtrl.ePage.Masters.Language.ListSource[$index] = response.data.Response[0];
                     $item.IsDisableSave = false;
                     toastr.success("Saved Successfully...!");
+                    SetGenerateScriptInput(LanguageCtrl.ePage.Masters.Language.ListSource[$index])
                 } else {
                     $item.IsDisableSave = false;
                     toastr.error("Failed to Save...!");
                 }
             });
+        }
+
+        function SetGenerateScriptInput(row) {
+            if (row) {
+                row.GenerateScriptInput = {
+                    ObjectName: "Multilingual",
+                    ObjectId: row.PK
+                };
+                row.GenerateScriptConfig = {
+                    IsEnableTable: false,
+                    IsEnablePK: false,
+                    IsEnableTenant: false
+                };
+            }
         }
 
         function Delete($item, $index) {

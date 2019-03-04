@@ -101,7 +101,7 @@
             GetRedirectLinkList();
             GetValidationGroupList();
 
-            if (ValidationCtrl.ePage.Masters.ActiveModule && ValidationCtrl.ePage.Masters.ValidationGroup.ActiveValidationGroup) {
+            if (ValidationCtrl.ePage.Masters.ActiveModule) {
                 GetValidationList();
             }
         }
@@ -195,6 +195,18 @@
         function OnValidataionClick($item) {
             ValidationCtrl.ePage.Masters.Validation.ActiveValidataion = angular.copy($item);
             ValidationCtrl.ePage.Masters.Validation.ActiveValidataionCopy = angular.copy($item);
+
+            if (ValidationCtrl.ePage.Masters.Validation.ActiveValidataion) {
+                ValidationCtrl.ePage.Masters.GenerateScriptInput = {
+                    ObjectName: "Validation",
+                    ObjectId: ValidationCtrl.ePage.Masters.Validation.ActiveValidataion.PK
+                };
+                ValidationCtrl.ePage.Masters.GenerateScriptConfig = {
+                    IsEnableTable: false,
+                    IsEnablePK: false,
+                    IsEnableTenant: false
+                };
+            }
         }
 
         function AddNew() {
@@ -399,7 +411,7 @@
         function OnValidationGroupChange($item) {
             ValidationCtrl.ePage.Masters.ValidationGroup.ActiveValidationGroup = angular.copy($item);
 
-            if(!ValidationCtrl.ePage.Masters.ValidationGroup.ActiveValidationGroup){
+            if (!ValidationCtrl.ePage.Masters.ValidationGroup.ActiveValidationGroup) {
                 ValidationCtrl.ePage.Masters.ValidationGroup.ActiveValidationGroup = {};
             }
 

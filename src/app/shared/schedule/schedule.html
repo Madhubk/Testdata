@@ -1,0 +1,143 @@
+<div class="modal-header">
+    <button type="button" class="close" ng-click="ScheduleCtrl.ePage.Masters.CloseScheduleModal()">&times;</button>
+    <h5 class="modal-title" id="modal-title">
+        <strong>Schedule {{ScheduleCtrl.template ? (' - ' + ScheduleCtrl.template) : ScheduleCtrl.template}}</strong>
+    </h5>
+</div>
+<div class="modal-body pt-10" id="modal-body">
+    <div class="clearfix" data-ng-if="!ScheduleCtrl.ePage.Masters.IsEditView">
+        <div class="clearfix schedule-header pt-10 pb-10 mb-5 bold border-bottom bg-gray">
+            <div class="col-sm-5">
+                <div class="text-single-line">Title</div>
+            </div>
+            <div class="col-sm-3">
+                <div class="text-single-line">Email To</div>
+            </div>
+            <div class="col-sm-2">
+                <div class="text-single-line">Schedule On</div>
+            </div>
+            <div class="col-sm-2">
+                <button class="btn btn-primary btn-xs pull-right" data-ng-click="ScheduleCtrl.ePage.Masters.AddNew()">Add
+                    New</button>
+            </div>
+        </div>
+        <div class="clearfix p-20 text-center font-120" data-ng-if="!ScheduleCtrl.ePage.Masters.ScheduleList">
+            <i class="fa fa-spin fa-spinner"></i>
+        </div>
+        <div class="clearfix p-20 text-center" data-ng-if="ScheduleCtrl.ePage.Masters.ScheduleList && ScheduleCtrl.ePage.Masters.ScheduleList.length == 0">
+            <i>No Records...!</i>
+        </div>
+        <div class="clearfix schedule-list pt-5 pb-5 mb-5" data-ng-repeat="x in ScheduleCtrl.ePage.Masters.ScheduleList"
+            data-ng-if="ScheduleCtrl.ePage.Masters.ScheduleList && ScheduleCtrl.ePage.Masters.ScheduleList.length > 0">
+            <div class="col-sm-5">
+                <div class="text-single-line" data-ng-class="{'bold': ScheduleCtrl.ePage.Masters.ActiveSchedule.PK === x.PK}">{{x.Title}}</div>
+            </div>
+            <div class="col-sm-3">
+                <div class="text-single-line" data-ng-class="{'bold': ScheduleCtrl.ePage.Masters.ActiveSchedule.PK === x.PK}">{{x.EmailIds}}</div>
+            </div>
+            <div class="col-sm-2">
+                <div class="text-single-line" data-ng-class="{'bold': ScheduleCtrl.ePage.Masters.ActiveSchedule.PK === x.PK}">{{x.NextScheduleOn
+                    | date: 'dd-MMM-yyyy hh:mm a'}}</div>
+            </div>
+            <div class="col-sm-2">
+                <div class="text-single-line">
+                    <button class="btn btn-warning btn-xs pull-right ml-15" data-ng-click="ScheduleCtrl.ePage.Masters.EditSchedule(x)">Edit</button>
+                    <button class="btn btn-danger btn-xs pull-right ml-15" data-ng-click="ScheduleCtrl.ePage.Masters.DeleteSchedule(x)">Delete</button>
+                    <button class="btn btn-default tc-btn-cancel btn-xs pull-right" data-ng-click="ScheduleCtrl.ePage.Masters.SendNow(x)">Send
+                        Now</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix" data-ng-if="ScheduleCtrl.ePage.Masters.IsEditView">
+        <form class="form-horizontal clearfix">
+            <div class="clearfix">
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                    <div class="form-group">
+                        <label class="control-label text-left col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Schedule
+                            Title</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <input type="text" class="form-control input-sm" placeholder="Title" data-ng-model="ScheduleCtrl.ePage.Masters.ActiveSchedule.Title">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label text-left col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Schedule
+                            Start On</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <div class="input-group input-group-sm">
+                                <input type="text" class="form-control" placeholder="{{ScheduleCtrl.ePage.Masters.DatePicker.Options.dateTimeFormat}}"
+                                    data-ng-model="ScheduleCtrl.ePage.Masters.ActiveSchedule.NextScheduleOn"
+                                    datetime-picker="{{ScheduleCtrl.ePage.Masters.DatePicker.Options.dateTimeFormat}}"
+                                    datepicker-options="ScheduleCtrl.ePage.Masters.DatePicker.Options"
+                                    datepicker-append-to-body="false" close-on-selection="false" enable-time="true"
+                                    enable-date="true" default-date="" default-time="" save-as="ScheduleCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                                    is-open="ScheduleCtrl.ePage.Masters.DatePicker.isOpen['isScheduleOn']" when-closed=""
+                                    data-ng-click="" is-api-input-as-display-format="true" />
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default shiny" data-ng-click="ScheduleCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isScheduleOn')">
+                                        <i class="fa fa-calendar"></i>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label text-left col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Email To</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <input type="text" class="form-control input-sm" placeholder="Email" data-ng-model="ScheduleCtrl.ePage.Masters.ActiveSchedule.EmailIds">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label text-left col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Class Source</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8 pt-7">
+                            <div class="clearfix text-single-line">
+                                <div>{{ScheduleCtrl.ePage.Masters.ActiveSchedule.ClassSource}}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label text-left col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Config Type</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8 pt-7">
+                            <div class="clearfix text-single-line">
+                                <div>{{ScheduleCtrl.ePage.Masters.ActiveSchedule.ConfigType}}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label text-left col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">External Code</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8 pt-7">
+                            <div class="clearfix text-single-line">
+                                <div>{{ScheduleCtrl.ePage.Masters.ActiveSchedule.External_Code}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                    <div class="form-group">
+                        <label class="control-label text-left col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Schedule
+                            Info</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <textarea class="form-control input-sm no-resize" rows="10" placeholder="Info"
+                                data-ng-model="ScheduleCtrl.ePage.Masters.ActiveSchedule.ScheduleInfo"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label text-left col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Related
+                            Details</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <textarea class="form-control input-sm no-resize" rows="10" placeholder="Related Details"
+                                data-ng-model="ScheduleCtrl.ePage.Masters.ActiveSchedule.RelatedDetails"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="section-divider-small"></div>
+            <div class="clearfix p-10">
+                <input type="submit" class="btn btn-primary btn-xs pull-right ml-10" data-ng-click="ScheduleCtrl.ePage.Masters.SaveSchedule()"
+                    value="{{ScheduleCtrl.ePage.Masters.SaveScheduleBtnTxt}}" data-ng-disabled="ScheduleCtrl.ePage.Masters.IsDisableSaveScheduleBtn">
+                <button class="btn btn-default btn-xs pull-right ml-10" data-ng-click="ScheduleCtrl.ePage.Masters.Cancel()">Cancel</button>
+            </div>
+            <div class="section-divider-small mb-20"></div>
+        </form>
+    </div>
+</div>

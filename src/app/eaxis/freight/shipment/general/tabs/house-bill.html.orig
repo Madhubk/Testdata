@@ -1,0 +1,230 @@
+<div class="clearfix padding-top-10">
+    <!--House Bill-->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group ship-font">
+            <label class="control-label">House Bill </label>
+            <input type="text" class="form-control input-sm" max-length="40" data-ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.HouseBill"
+                placeholder="House Bill" />
+        </div>
+    </div>
+    <!--Entry Type-->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group ship-font">
+            <label class="control-label">Entry Type</label>
+            <div class="">
+                <select chosen name="category-group" class="form-control" ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIJobEntryNumsObj.EntryType"
+                    ng-options="x.Key as x.Description for x in GeneralCtrl.ePage.Masters.DropDownMasterList.ENTRYDETAILS.ListSource"
+                    search-contains="true">
+                    <!-- <option value="">--Select--</option> -->
+                </select>
+            </div>
+        </div>
+    </div>
+    <!--Entry Number-->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group ship-font">
+            <label class="control-label">Entry Number </label>
+            <input type="text" class="form-control input-sm" data-ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIJobEntryNumsObj.EntryNum"
+                placeholder="Entry Number" />
+        </div>
+    </div>
+    <!--Issue Date-->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <span class="error-warning-container">
+            <error-warning-directive data-ng-if="GeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.IssueDate.IsWarning && !GeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.IssueDate.IsError"
+                list="GeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.IssueDate.WARNING" type="'warning'" icon="fa fa-warning"
+                parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+            <error-warning-directive data-ng-if="GeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.IssueDate.IsError" list="GeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.IssueDate.ERROR"
+                type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+        </span>
+        <div class="form-group ship-font">
+            <label class="control-label text-single-line">Issue Date </label>
+            <div class="input-group input-group-sm">
+                <input type="text" class="form-control" placeholder="{{GeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}" ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIJobEntryNumsObj.IssueDate"
+                    datetime-picker="{{GeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}" datepicker-options="GeneralCtrl.ePage.Masters.DatePicker.Options"
+                    datepicker-append-to-body="false" close-on-selection="false" enable-time="false" enable-date="true" default-date=""
+                    default-time="" save-as="GeneralCtrl.ePage.Masters.DatePicker.Options.saveFormat" is-open="GeneralCtrl.ePage.Masters.DatePicker.isOpen['isIssueDate']"
+                    when-closed="" data-ng-disabled="!GeneralCtrl.ePage.Entities.Header.Data.UIJobEntryNumsObj.EntryNum" data-ng-click=""
+                    data-ng-change="GeneralCtrl.ePage.Masters.CheckFutureDate(GeneralCtrl.ePage.Entities.Header.Data.UIJobEntryNumsObj.IssueDate,GeneralCtrl.ePage.Entities.Header.Data.UIJobEntryNumsObj.ExpiryDate,'E0044')"
+                    custom-date-time-format />
+                <span class="input-group-btn">
+                    <button class="btn btn-default shiny" data-ng-disabled="!GeneralCtrl.ePage.Entities.Header.Data.UIJobEntryNumsObj.EntryNum"
+                        data-ng-click="GeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isIssueDate')">
+                        <i class="fa fa-calendar"></i>
+                    </button>
+                </span>
+            </div>
+        </div>
+    </div>
+    <!--Expiry Date-->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <span class="error-warning-container">
+            <error-warning-directive data-ng-if="GeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ExpiryDate.IsWarning && !GeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ExpiryDate.IsError"
+                list="GeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ExpiryDate.WARNING" type="'warning'" icon="fa fa-warning"
+                parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+            <error-warning-directive data-ng-if="GeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ExpiryDate.IsError" list="GeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ExpiryDate.ERROR"
+                type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+        </span>
+        <div class="form-group ship-font">
+            <label class="control-label">Expiry Date </label>
+            <div class="input-group input-group-sm">
+                <input type="text" class="form-control" placeholder="{{GeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}" ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIJobEntryNumsObj.ExpiryDate"
+                    datetime-picker="{{GeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}" datepicker-options="GeneralCtrl.ePage.Masters.DatePicker.Options"
+                    datepicker-append-to-body="false" close-on-selection="false" enable-time="false" enable-date="true" default-date=""
+                    default-time="" save-as="GeneralCtrl.ePage.Masters.DatePicker.Options.saveFormat" is-open="GeneralCtrl.ePage.Masters.DatePicker.isOpen['isExpiryDate']"
+                    when-closed="" data-ng-click="" data-ng-disabled="!GeneralCtrl.ePage.Entities.Header.Data.UIJobEntryNumsObj.EntryNum"
+                    data-ng-change="GeneralCtrl.ePage.Masters.CheckFutureDate(GeneralCtrl.ePage.Entities.Header.Data.UIJobEntryNumsObj.ExpiryDate,GeneralCtrl.ePage.Entities.Header.Data.UIJobEntryNumsObj.IssueDate,'E0045')"
+                    custom-date-time-format />
+                <span class="input-group-btn">
+                    <button class="btn btn-default shiny" type="button" data-ng-disabled="!GeneralCtrl.ePage.Entities.Header.Data.UIJobEntryNumsObj.EntryNum"
+                        data-ng-click="GeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isExpiryDate')">
+                        <i class="fa fa-calendar"></i>
+                    </button>
+                </span>
+            </div>
+        </div>
+    </div>
+    <!--Release Type-->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group ship-font">
+            <label class="control-label">Release Type</label>
+            <div class="">
+                <select chosen name="category-group" class="form-control" ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ReleaseType"
+                    ng-options="x.Key as x.Description for x in GeneralCtrl.ePage.Masters.DropDownMasterList.RELEASETYPE.ListSource"
+                    search-contains="true">
+                    <!-- <option value="">--Select--</option> -->
+                </select>
+            </div>
+        </div>
+    </div>
+    <!--Airway Bill Dim-->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3" data-ng-if="GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.TransportMode == 'AIR'">
+        <div class="form-group ship-font">
+            <label class="control-label">Airway Bill Dim </label>
+            <div class="">
+                <select chosen name="category-group" class="form-control" ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIJobPickupAndDelivery.PrintOptionForPackagesOnAWB"
+                    ng-options="x.Key as x.Description for x in GeneralCtrl.ePage.Masters.DropDownMasterList.AIRWAY.ListSource"
+                    search-contains="true">
+                    <!-- <option value="">--Select--</option> -->
+                </select>
+            </div>
+        </div>
+    </div>
+    <!--House Bill Type-->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group ship-font">
+            <label class="control-label">House Bill Type </label>
+            <div class="">
+                <select chosen name="category-group" class="form-control" ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.HouseBillType"
+                    ng-options="x.Key as x.Description for x in GeneralCtrl.ePage.Masters.DropDownMasterList.HOUSEBILL.ListSource"
+                    search-contains="true">
+                    <!-- <option value="">--Select--</option> -->
+                </select>
+            </div>
+        </div>
+    </div>
+    <!--On Board-->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group ship-font">
+            <label class="control-label">On Board </label>
+            <div class="">
+                <select chosen name="category-group" class="form-control" ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ShippedOnBoard"
+                    ng-options="x.Key as x.Description for x in GeneralCtrl.ePage.Masters.DropDownMasterList.ONBOARD.ListSource"
+                    search-contains="true">
+                    <!-- <option value="">--Select--</option> -->
+                </select>
+            </div>
+        </div>
+    </div>
+    <!--On Board Date-->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group ship-font">
+            <label class="control-label">On Board Date</label>
+            <div class="input-group input-group-sm">
+                <input type="text" class="form-control" placeholder="{{GeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}" ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ShippedOnBoardDate"
+                    datetime-picker="{{GeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}" datepicker-options="GeneralCtrl.ePage.Masters.DatePicker.Options"
+                    datepicker-append-to-body="false" close-on-selection="false" enable-time="false" enable-date="true" default-date=""
+                    default-time="" save-as="GeneralCtrl.ePage.Masters.DatePicker.Options.saveFormat" is-open="GeneralCtrl.ePage.Masters.DatePicker.isOpen['isOnBoardDate']"
+                    when-closed="" data-ng-click="" data-ng-change="" custom-date-time-format />
+                <span class="input-group-btn">
+                    <button class="btn btn-default shiny" type="button" data-ng-click="GeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isOnBoardDate')">
+                        <i class="fa fa-calendar"></i>
+                    </button>
+                </span>
+            </div>
+        </div>
+    </div>
+    <!--HBL Cont Mode-->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <!-- <div class="form-group ship-font">
+            <label class="control-label">HBL Delivery Mode</label>
+<<<<<<< HEAD
+            <input type="text" class="form-control input-sm" max-length="14" data-ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.HBLContainerPackModeOverride"
+                placeholder="HBL Cont" />
+        </div> -->
+        <div class="form-group ship-font">
+            <label class="control-label">HBL Delivery Mode</label>
+            <div class="">
+                <select chosen data-ng-options="x.Key as x.Key for x in GeneralCtrl.ePage.Masters.DropDownMasterList.CNT_DELIVERYMODE.ListSource"
+                    data-ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.HBLContainerPackModeOverride"
+                    class="form-control" search-contains="true">
+                    <option value="">--Select--</option>
+                </select>
+            </div>
+=======
+            <select chosen name="category-group" class="form-control" ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.HBLContainerPackModeOverride"
+                ng-options="x.Key as x.Key for x in GeneralCtrl.ePage.Masters.DropDownMasterList.CNT_DELIVERYMODE.ListSource"
+                search-contains="true">
+                <option value="">--Select--</option>
+            </select>
+>>>>>>> origin/Process_DurgaV1
+        </div>
+    </div>
+    <!--HBL Issue Date-->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group ship-font">
+            <label class="control-label">HBL Issue Date</label>
+            <div class="input-group input-group-sm">
+                <input type="text" class="form-control" placeholder="{{GeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}" ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.HouseBillIssueDate"
+                    datetime-picker="{{GeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}" datepicker-options="GeneralCtrl.ePage.Masters.DatePicker.Options"
+                    datepicker-append-to-body="false" close-on-selection="false" enable-time="false" enable-date="true" default-date=""
+                    default-time="" save-as="GeneralCtrl.ePage.Masters.DatePicker.Options.saveFormat" is-open="GeneralCtrl.ePage.Masters.DatePicker.isOpen['isHBLContIssueDate']"
+                    when-closed="" data-ng-click="" data-ng-change="" custom-date-time-format />
+                <span class="input-group-btn">
+                    <button class="btn btn-default shiny" type="button" data-ng-click="GeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isHBLContIssueDate')">
+                        <i class="fa fa-calendar"></i>
+                    </button>
+                </span>
+            </div>
+        </div>
+    </div>
+    <!--No Of Originals -->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group ship-font">
+            <label class="control-label">No Of Originals </label>
+            <input type="text" class="form-control input-sm" max-length="1" data-ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.NoOfOriginals"
+                placeholder="No Of Originals" numbers-only />
+        </div>
+    </div>
+    <!--No Of Copies-->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group ship-font">
+            <label class="control-label">No Of Copies </label>
+            <input type="text" class="form-control input-sm" max-length="1" data-ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.NoOfCopies"
+                placeholder="No Of Copies" numbers-only />
+        </div>
+    </div>
+    <!--Charges Apply-->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+        <div class="form-group ship-font">
+            <label class="control-label">Charges Apply</label>
+            <div class="">
+                <select chosen name="category-group" class="form-control" ng-model="GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.HouseBillCharges"
+                    ng-options="x.Key as x.Description for x in GeneralCtrl.ePage.Masters.DropDownMasterList.CHARGEAPLY.ListSource"
+                    search-contains="true">
+                    <!-- <option value="">--Select--</option> -->
+                </select>
+            </div>
+        </div>
+    </div>
+</div>

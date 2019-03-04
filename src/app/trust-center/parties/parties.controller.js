@@ -150,6 +150,18 @@
         function OnPartyClick($item) {
             PartiesCtrl.ePage.Masters.Parties.ActiveParty = angular.copy($item);
             PartiesCtrl.ePage.Masters.Parties.ActivePartyCopy = angular.copy($item);
+
+            if (PartiesCtrl.ePage.Masters.Parties.ActiveParty) {
+                PartiesCtrl.ePage.Masters.GenerateScriptInput = {
+                    ObjectName: "SecParties",
+                    ObjectId: PartiesCtrl.ePage.Masters.Parties.ActiveParty.PK
+                };
+                PartiesCtrl.ePage.Masters.GenerateScriptConfig = {
+                    IsEnableTable: false,
+                    IsEnablePK: false,
+                    IsEnableTenant: false
+                };
+             }
         }
 
         function AddNew() {

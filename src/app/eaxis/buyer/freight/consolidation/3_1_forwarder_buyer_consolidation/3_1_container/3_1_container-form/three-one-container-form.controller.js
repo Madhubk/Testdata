@@ -195,18 +195,16 @@
         }
 
         function SelectedConTypeData($item, RC_Type) {
-            console.log($item)
-
             //ThreeOneContainerFormDirectiveCtrl.ePage.Masters.ErrorWarningConfig.OnFieldValueChange('Consol', ThreeOneContainerFormDirectiveCtrl.refCode + "Container", RC_Type, 'E0007', false)
-            ThreeOneContainerFormDirectiveCtrl.ePage.Masters.Container.FormView.TareWeight = (parseInt($item.TareWeight)).toFixed(3);
-            ThreeOneContainerFormDirectiveCtrl.ePage.Masters.Container.FormView.GrossWeight = (parseInt($item.GrossWeight)).toFixed(3);
-            ThreeOneContainerFormDirectiveCtrl.ePage.Masters.Container.FormView.Height = (parseInt($item.Height)).toFixed(3);
-            ThreeOneContainerFormDirectiveCtrl.ePage.Masters.Container.FormView.Length = (parseInt($item.Length)).toFixed(3);
-            ThreeOneContainerFormDirectiveCtrl.ePage.Masters.Container.FormView.Width = (parseInt($item.Width)).toFixed(3);
-            ThreeOneContainerFormDirectiveCtrl.ePage.Masters.Container.FormView.TotalHeight = (parseInt($item.Height)).toFixed(3);
-            ThreeOneContainerFormDirectiveCtrl.ePage.Masters.Container.FormView.TotalLength = (parseInt($item.Length)).toFixed(3);
-            ThreeOneContainerFormDirectiveCtrl.ePage.Masters.Container.FormView.TotalWidth = (parseInt($item.Width)).toFixed(3);
-            ThreeOneContainerFormDirectiveCtrl.ePage.Masters.Container.FormView.CubicCapacity = (parseInt($item.CubicCapacity)).toFixed(3);
+            ThreeOneContainerFormDirectiveCtrl.ePage.Masters.Container.FormView.CNM_TareWeight = (parseInt($item.CNM_TareWeight)).toFixed(3);
+            ThreeOneContainerFormDirectiveCtrl.ePage.Masters.Container.FormView.CNM_GrossWeight = (parseInt($item.CNM_GrossWeight)).toFixed(3);
+            ThreeOneContainerFormDirectiveCtrl.ePage.Masters.Container.FormView.CNM_Height = (parseInt($item.CNM_Height)).toFixed(3);
+            ThreeOneContainerFormDirectiveCtrl.ePage.Masters.Container.FormView.CNM_Length = (parseInt($item.CNM_Length)).toFixed(3);
+            ThreeOneContainerFormDirectiveCtrl.ePage.Masters.Container.FormView.CNM_Width = (parseInt($item.CNM_Width)).toFixed(3);
+            ThreeOneContainerFormDirectiveCtrl.ePage.Masters.Container.FormView.TotalHeight = (parseInt($item.CNM_Height)).toFixed(3);
+            ThreeOneContainerFormDirectiveCtrl.ePage.Masters.Container.FormView.TotalLength = (parseInt($item.CNM_Length)).toFixed(3);
+            ThreeOneContainerFormDirectiveCtrl.ePage.Masters.Container.FormView.TotalWidth = (parseInt($item.CNM_Width)).toFixed(3);
+            ThreeOneContainerFormDirectiveCtrl.ePage.Masters.Container.FormView.CNM_CubicCapacity = (parseInt($item.CNM_CubicCapacity)).toFixed(3);
             if (ThreeOneContainerFormDirectiveCtrl.ePage.Masters.Container.FormView.RC_Type == '2532' || ThreeOneContainerFormDirectiveCtrl.ePage.Masters.Container.FormView.RC_Type == '25R1' ||
                 ThreeOneContainerFormDirectiveCtrl.ePage.Masters.Container.FormView.RC_Type == '4532' || ThreeOneContainerFormDirectiveCtrl.ePage.Masters.Container.FormView.RC_Type == 'REFR' ||
                 ThreeOneContainerFormDirectiveCtrl.ePage.Masters.Container.FormView.RC_Type == 'REFR1' || ThreeOneContainerFormDirectiveCtrl.ePage.Masters.Container.FormView.RC_Type == 'RRPN') {
@@ -258,16 +256,16 @@
 
                 apiService.post("eAxisAPI", appConfig.Entities.MstContainer.API.FindLookup.Url, _input).then(function (response) {
                     if (response.data.Response) {
-                        var $item = response.data.Response[0];
-                        ThreeOneContainerFormDirectiveCtrl.ePage.Masters.Container.FormView.TareWeight = (parseInt($item.TareWeight)).toFixed(3);
-                        ThreeOneContainerFormDirectiveCtrl.ePage.Masters.Container.FormView.GrossWeight = (parseInt($item.GrossWeight)).toFixed(3);
-                        ThreeOneContainerFormDirectiveCtrl.ePage.Masters.Container.FormView.Height = (parseInt($item.Height)).toFixed(3);
-                        ThreeOneContainerFormDirectiveCtrl.ePage.Masters.Container.FormView.Length = (parseInt($item.Length)).toFixed(3);
-                        ThreeOneContainerFormDirectiveCtrl.ePage.Masters.Container.FormView.Width = (parseInt($item.Width)).toFixed(3);
-                        ThreeOneContainerFormDirectiveCtrl.ePage.Masters.Container.FormView.CubicCapacity = (parseInt($item.CubicCapacity)).toFixed(3);
-                        UpdateMeasures('Height', 'TotalHeight', 'OverhangHeight');
-                        UpdateMeasures('Width', 'TotalWidth', 'OverhangWeight', 'OnFileLeft')
-                        UpdateMeasures('Length', 'TotalLength', 'OverhangLength', 'OverhangFront');
+                        var $item = response.data.Response[0]
+                        ThreeOneContainerFormDirectiveCtrl.ePage.Masters.Container.FormView.CNM_TareWeight = (parseInt($item.CNM_TareWeight)).toFixed(3);
+                        ThreeOneContainerFormDirectiveCtrl.ePage.Masters.Container.FormView.CNM_GrossWeight = (parseInt($item.CNM_GrossWeight)).toFixed(3);
+                        ThreeOneContainerFormDirectiveCtrl.ePage.Masters.Container.FormView.CNM_Height = (parseInt($item.CNM_Height)).toFixed(3);
+                        ThreeOneContainerFormDirectiveCtrl.ePage.Masters.Container.FormView.CNM_Length = (parseInt($item.CNM_Length)).toFixed(3);
+                        ThreeOneContainerFormDirectiveCtrl.ePage.Masters.Container.FormView.CNM_Width = (parseInt($item.CNM_Width)).toFixed(3);
+                        ThreeOneContainerFormDirectiveCtrl.ePage.Masters.Container.FormView.CNM_CubicCapacity = (parseInt($item.CNM_CubicCapacity)).toFixed(3);
+                        UpdateMeasures('CNM_Height', 'TotalHeight', 'OverhangHeight');
+                        UpdateMeasures('CNM_Width', 'TotalWidth', 'OverhangWeight', 'OnFileLeft')
+                        UpdateMeasures('CNM_Length', 'TotalLength', 'OverhangLength', 'OverhangFront');
                         UpdateBackLeft('OverhangFront', 'OverhangBack', 'OverhangLength');
                         UpdateBackLeft('OnFileLeft', 'OverhangRight', 'OverhangWeight');
 

@@ -137,8 +137,6 @@
 
                 if (!_isExist) {
                     var _tempObj = {
-                        "SHP_ShipmentNo": val.ShipmentNo,
-                        "CON_ConsolNo": ThreeOneConsolShipmentCtrl.ePage.Entities.Header.Data.UIConConsolHeader.ConsolNo,
                         "SHP_FK": val.PK,
                         "CON_FK": ThreeOneConsolShipmentCtrl.ePage.Entities.Header.Data.PK,
                         "PK": ""

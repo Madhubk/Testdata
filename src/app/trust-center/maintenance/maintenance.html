@@ -12,7 +12,7 @@
             </ol>
         </div>
     </div>
-    <div class="clearfix p-10">
+    <div class="clearfix p-10 mb-50">
         <div class="clearfix publish-user-app-tnt-container publish-container">
             <div class="header mb-10">Publish User Application Tenant</div>
             <form novalidate class="row">
@@ -177,6 +177,19 @@
                             <button class="btn btn-primary btn-sm" data-ng-click="TCMaintenanceCtrl.ePage.Masters.Maintenance.Publish.AllUsers.Publish()"
                                 data-ng-disabled="TCMaintenanceCtrl.ePage.Masters.Maintenance.Publish.AllUsers.IsDisablePublishBtn"
                                 data-ng-bind="TCMaintenanceCtrl.ePage.Masters.Maintenance.Publish.AllUsers.PublishBtnTxt"></button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="tc-section-divider mb-10"></div>
+        <div class="clearfix publish-all-user-container publish-container">
+            <div class="header mb-10">Generate Script</div>
+            <form novalidate class="row">
+                <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+                    <div class="form-group">
+                        <div class="clearfix">
+                            <button class="btn btn-primary btn-sm" generate-db-script input="TCMaintenanceCtrl.ePage.Masters.GenerateScriptInput" config="TCMaintenanceCtrl.ePage.Masters.GenerateScriptConfig">Generate Script</button>
                         </div>
                     </div>
                 </div>

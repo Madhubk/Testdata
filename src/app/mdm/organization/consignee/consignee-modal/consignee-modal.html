@@ -160,6 +160,24 @@
                             </div>
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                            <div class="form-group">
+                                <input type="hidden" ng-model="ModePopUpModalCtrl.ePage.Masters.ModeData.FormView.ORG_ReceivingAgentPK" />
+                                <label class="control-label text-single-line">Buying House Agent</label>
+                                <div class="input-group input-group-sm">
+                                    <div dynamic-lookup my-ng-model="ModePopUpModalCtrl.ePage.Masters.ModeData.FormView.ORG_ReceivingAgentCode"
+                                        obj="ModePopUpModalCtrl.ePage.Masters.ModeData.FormView"
+                                        auto-complete-on-select="ModePopUpModalCtrl.ePage.Masters.AutoCompleteOnSelect($item, 'ORG_ReceivingAgent')"
+                                        prefix-data="'OrganizationList'" config="'OrgReceivingAgent'"></div>
+                                    <span class="input-group-btn">
+                                        <button dynamic-list-modal obj="ModePopUpModalCtrl.ePage.Masters.ModeData.FormView"
+                                            field-name="'OrgReceivingAgent'" prefix-data="'OrganizationList'" mode="2"
+                                            grid-refresh-fun-name="" grid-refresh-fun="" selected-data="ModePopUpModalCtrl.ePage.Masters.SelectedLookupData($item, 'ORG_ReceivingAgent')"
+                                            class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
                             <div class="form-group"><label class="control-label">Ctrl Customer</label>
                                 <div class="input-group input-group-sm">
                                     <input type="hidden" ng-model="ModePopUpModalCtrl.ePage.Masters.ModeData.FormView.ORG_ControllingCustomerFK">

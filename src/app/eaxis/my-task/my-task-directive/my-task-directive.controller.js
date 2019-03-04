@@ -143,14 +143,15 @@
 
         function GetUserList($viewValue) {
             var _filter = {
+                "TenantCode": authService.getUserInfo().TenantCode,
                 "Autocompletefield": $viewValue
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.UserExtended.API.FindAll.FilterID
+                "FilterID": appConfig.Entities.UserTenantList.API.FindAll.FilterID
             };
 
-            return apiService.post("authAPI", appConfig.Entities.UserExtended.API.FindAll.Url, _input).then(function (response) {
+            return apiService.post("authAPI", appConfig.Entities.UserTenantList.API.FindAll.Url, _input).then(function (response) {
                 return response.data.Response;
             });
         }

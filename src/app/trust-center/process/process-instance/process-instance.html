@@ -25,17 +25,20 @@
                         </uib-tab-heading>
                         <div class="no-padding tab-list-view-wrapper">
                             <!--Process Instance Grid Page-->
-                            <dynamic-list dataentry-name="ProcessInstanceCtrl.ePage.Masters.dataentryName" selected-grid-row="ProcessInstanceCtrl.ePage.Masters.SelectedGridRow($item)" mode="1" default-filter="ProcessInstanceCtrl.ePage.Masters.DefaultFilter" dataentry-object="ProcessInstanceCtrl.ePage.Masters.dataentryObject"></dynamic-list>
+                            <dynamic-list dataentry-name="ProcessInstanceCtrl.ePage.Masters.dataentryName" selected-grid-row="ProcessInstanceCtrl.ePage.Masters.SelectedGridRow($item)" mode="1" base-filter="ProcessInstanceCtrl.ePage.Masters.BaseFilter" dataentry-object="ProcessInstanceCtrl.ePage.Masters.dataentryObject"></dynamic-list>
                             <div class="tab-loading" data-ng-show="ProcessInstanceCtrl.ePage.Masters.IsTabClick"></div>
                         </div>
                     </uib-tab>
                     <uib-tab active="ProcessInstanceCtrl.ePage.Masters.activeTabIndex == $index" ng-repeat="tab in ProcessInstanceCtrl.ePage.Masters.TabList"
-                        ng-click="ProcessInstanceCtrl.ePage.Masters.CurrentActiveTab(tab.label)">
+                        ng-click="ProcessInstanceCtrl.ePage.Masters.CurrentActiveTab(tab)">
                         <uib-tab-heading title="{{tab.label}}">
                             <span data-ng-bind="tab.label"></span>
                             <i class="glyphicon glyphicon-remove" ng-click="ProcessInstanceCtrl.ePage.Masters.RemoveTab($event, $index, tab)"></i>
                         </uib-tab-heading>
                         <div class="pb-150 clearfix">
+                            <div class="clearfix pull-right">
+                                    <button class="btn btn-primary btn-xs pull-right ml-5 mt-3" generate-db-script input="ProcessInstanceCtrl.ePage.Masters.GenerateScriptInput" config="ProcessInstanceCtrl.ePage.Masters.GenerateScriptConfig" data-ng-disabled="!ProcessInstanceCtrl.ePage.Masters.GenerateScriptInput.ObjectName || !ProcessInstanceCtrl.ePage.Masters.GenerateScriptInput.ObjectId">Generate Script</button>
+                            </div>
                             <process-instance-work-item-details current-process-instance="tab" mode="1"></process-instance-work-item-details>
                         </div>
                     </uib-tab>
