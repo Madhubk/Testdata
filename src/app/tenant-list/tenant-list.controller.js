@@ -201,7 +201,7 @@
                 "grant_type": "password",
                 "username": TenantListCtrl.ePage.Masters.QueryString.Username,
                 "AppCode": $item.SAP_Code,
-                "TNTCode": $item.TNT_TenantCode ? $item.TNT_TenantCode : $item.EntityRefCode
+                "TenantCode": $item.TNT_TenantCode ? $item.TNT_TenantCode : $item.EntityRefCode
             };
 
             apiService.post("authAPI", appConfig.Entities.Token.API.SoftLoginToken.Url, _input, TenantListCtrl.ePage.Masters.QueryString.Token).then(function SuccessCallback(response) {

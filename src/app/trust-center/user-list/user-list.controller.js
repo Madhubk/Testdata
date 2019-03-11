@@ -373,7 +373,7 @@
             TCUserListCtrl.ePage.Masters.UserList.RePublishAccess = undefined;
             var _input = {
                 "AppCode": TCUserListCtrl.ePage.Masters.Application.ActiveApplication.AppCode,
-                "TNTCode": authService.getUserInfo().TenantCode,
+                "TenantCode": authService.getUserInfo().TenantCode,
                 "userName": $item.UserName
             };
 

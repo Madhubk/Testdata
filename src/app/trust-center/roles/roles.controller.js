@@ -473,7 +473,7 @@
             RolesCtrl.ePage.Masters.Role.RePublishAccess = undefined;
             var _input = {
                 "AppCode": RolesCtrl.ePage.Masters.QueryString.AppCode,
-                "TNTCode": authService.getUserInfo().TenantCode,
+                "TenantCode": authService.getUserInfo().TenantCode,
                 "RoleCode": RolesCtrl.ePage.Masters.Role.ActiveRole.RoleName,
             };
             apiService.post("authAPI", trustCenterConfig.Entities.API.UserPrivileges.API.AppTenantRolePublish.Url, _input).then(function SuccessCallback(response) {
