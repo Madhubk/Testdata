@@ -150,7 +150,7 @@
                 "grant_type": "password",
                 "username": authService.getUserInfo().UserId,
                 "AppCode": authService.getUserInfo().AppCode,
-                "TNTCode": authService.getUserInfo().TenantCode,
+                "TenantCode": authService.getUserInfo().TenantCode,
                 "Party_Pk": authService.getUserInfo().PartyPK,
                 "Party_Code": authService.getUserInfo().PartyCode,
                 "Role_Pk": RoleListCtrl.ePage.Masters.SelectedRole.PK,

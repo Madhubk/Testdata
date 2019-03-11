@@ -187,7 +187,7 @@
         function PublishUserAppTnt() {
             var _input = angular.copy(TCMaintenanceCtrl.ePage.Masters.Maintenance.Publish.UserAppTnt.Model);
 
-            if (_input.userName && _input.AppCode && _input.TNTCode) {
+            if (_input.userName && _input.AppCode && _input.TenantCode) {
                 TCMaintenanceCtrl.ePage.Masters.Maintenance.Publish.UserAppTnt.PublishBtnTxt = "Please Wait...";
                 TCMaintenanceCtrl.ePage.Masters.Maintenance.Publish.UserAppTnt.IsDisablePublishBtn = true;
 
@@ -224,7 +224,7 @@
         function PublishRoleAppTnt() {
             var _input = angular.copy(TCMaintenanceCtrl.ePage.Masters.Maintenance.Publish.RoleAppTnt.Model);
 
-            if (_input.Role_Code && _input.AppCode && _input.TNTCode) {
+            if (_input.Role_Code && _input.AppCode && _input.TenantCode) {
                 TCMaintenanceCtrl.ePage.Masters.Maintenance.Publish.RoleAppTnt.PublishBtnTxt = "Please Wait...";
                 TCMaintenanceCtrl.ePage.Masters.Maintenance.Publish.RoleAppTnt.IsDisablePublishBtn = true;
 

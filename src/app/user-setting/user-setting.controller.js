@@ -197,7 +197,7 @@
                     "grant_type": "password",
                     "username": UserSettingCtrl.ePage.Masters.UserId,
                     "AppCode": UserSettingCtrl.ePage.Masters.AppCode,
-                    "TNTCode": authService.getUserInfo().TenantCode,
+                    "TenantCode": authService.getUserInfo().TenantCode,
                     "Party_Pk": UserSettingCtrl.ePage.Masters.Party.ActiveParty.PK,
                     "Party_Code": UserSettingCtrl.ePage.Masters.Party.ActiveParty.Code
                 };

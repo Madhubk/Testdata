@@ -545,7 +545,7 @@
         function GetRepublishAccessList() {
             var _input = {
                 "AppCode": MappingVerticalCtrl.ePage.Masters.QueryString.AppCode,
-                "TNTCode": authService.getUserInfo().TenantCode,
+                "TenantCode": authService.getUserInfo().TenantCode,
                 "userName": MappingVerticalCtrl.ePage.Masters.QueryString.ItemCode,
             };
             apiService.post("authAPI", trustCenterConfig.Entities.API.UserPrivileges.API.PublishPrivilegesByUser.Url, _input).then(function SuccessCallback(response) {

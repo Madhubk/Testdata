@@ -52,7 +52,7 @@
                     <div class="form-group">
                         <label class="control-label">Tenant</label>
                         <div class="clearfix">
-                            <select chosen class="form-control" data-ng-model="TCMaintenanceCtrl.ePage.Masters.Maintenance.Publish.UserAppTnt.Model.TNTCode"
+                            <select chosen class="form-control" data-ng-model="TCMaintenanceCtrl.ePage.Masters.Maintenance.Publish.UserAppTnt.Model.TenantCode"
                                 data-ng-options="x.TenantCode as (x.TenantCode + ' - ' + x.TenantName) for x in TCMaintenanceCtrl.ePage.Masters.Maintenance.TenantList">
                                 <option value="">--Select--</option>
                             </select>
@@ -64,7 +64,7 @@
                         <label class="control-label">&nbsp;</label>
                         <div class="clearfix">
                             <button class="btn btn-primary btn-sm" data-ng-click="TCMaintenanceCtrl.ePage.Masters.Maintenance.Publish.UserAppTnt.Publish()"
-                                data-ng-disabled="!TCMaintenanceCtrl.ePage.Masters.Maintenance.Publish.UserAppTnt.Model.userName || !TCMaintenanceCtrl.ePage.Masters.Maintenance.Publish.UserAppTnt.Model.AppCode || !TCMaintenanceCtrl.ePage.Masters.Maintenance.Publish.UserAppTnt.Model.TNTCode || TCMaintenanceCtrl.ePage.Masters.Maintenance.Publish.UserAppTnt.IsDisablePublishBtn"
+                                data-ng-disabled="!TCMaintenanceCtrl.ePage.Masters.Maintenance.Publish.UserAppTnt.Model.userName || !TCMaintenanceCtrl.ePage.Masters.Maintenance.Publish.UserAppTnt.Model.AppCode || !TCMaintenanceCtrl.ePage.Masters.Maintenance.Publish.UserAppTnt.Model.TenantCode || TCMaintenanceCtrl.ePage.Masters.Maintenance.Publish.UserAppTnt.IsDisablePublishBtn"
                                 data-ng-bind="TCMaintenanceCtrl.ePage.Masters.Maintenance.Publish.UserAppTnt.PublishBtnTxt"></button>
                         </div>
                     </div>
@@ -111,7 +111,7 @@
                     <div class="form-group">
                         <label class="control-label">Tenant</label>
                         <div class="clearfix">
-                            <select chosen class="form-control" data-ng-model="TCMaintenanceCtrl.ePage.Masters.Maintenance.Publish.RoleAppTnt.Model.TNTCode"
+                            <select chosen class="form-control" data-ng-model="TCMaintenanceCtrl.ePage.Masters.Maintenance.Publish.RoleAppTnt.Model.TenantCode"
                                 data-ng-options="x.TenantCode as (x.TenantCode + ' - ' + x.TenantName) for x in TCMaintenanceCtrl.ePage.Masters.Maintenance.TenantList">
                                 <option value="">--Select--</option>
                             </select>
@@ -123,7 +123,7 @@
                         <label class="control-label">&nbsp;</label>
                         <div class="clearfix">
                             <button class="btn btn-primary btn-sm" data-ng-click="TCMaintenanceCtrl.ePage.Masters.Maintenance.Publish.RoleAppTnt.Publish()"
-                                data-ng-disabled="!TCMaintenanceCtrl.ePage.Masters.Maintenance.Publish.RoleAppTnt.Model.Role_Code || !TCMaintenanceCtrl.ePage.Masters.Maintenance.Publish.RoleAppTnt.Model.AppCode || !TCMaintenanceCtrl.ePage.Masters.Maintenance.Publish.RoleAppTnt.Model.TNTCode || TCMaintenanceCtrl.ePage.Masters.Maintenance.Publish.RoleAppTnt.IsDisablePublishBtn"
+                                data-ng-disabled="!TCMaintenanceCtrl.ePage.Masters.Maintenance.Publish.RoleAppTnt.Model.Role_Code || !TCMaintenanceCtrl.ePage.Masters.Maintenance.Publish.RoleAppTnt.Model.AppCode || !TCMaintenanceCtrl.ePage.Masters.Maintenance.Publish.RoleAppTnt.Model.TenantCode || TCMaintenanceCtrl.ePage.Masters.Maintenance.Publish.RoleAppTnt.IsDisablePublishBtn"
                                 data-ng-bind="TCMaintenanceCtrl.ePage.Masters.Maintenance.Publish.RoleAppTnt.PublishBtnTxt"></button>
                         </div>
                     </div>
