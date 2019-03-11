@@ -25,6 +25,7 @@
             ActivityTemplatePickup2Ctrl.ePage.Masters.emptyText = "-";
             ActivityTemplatePickup2Ctrl.ePage.Masters.Config = myTaskActivityConfig;
             ActivityTemplatePickup2Ctrl.ePage.Masters.TaskObj = ActivityTemplatePickup2Ctrl.taskObj;
+            myTaskActivityConfig.Entities = {};
             myTaskActivityConfig.Entities.TaskObj = ActivityTemplatePickup2Ctrl.taskObj;
             ActivityTemplatePickup2Ctrl.ePage.Masters.Complete = Complete;
             ActivityTemplatePickup2Ctrl.ePage.Masters.ShowErrorWarningModal = ShowErrorWarningModal;
@@ -274,7 +275,7 @@
                                                     response.data.Response[0].PIW_CreatedDateTime = value.INW_CreatedDateTime;
                                                     response.data.Response[0].PIW_AsnLine_Fk = value.ASN_Pk;
                                                     response.data.Response[0].StatusCode = ActivityTemplatePickup2Ctrl.ePage.Masters.EntityObj.UIWmsPickup.WorkOrderStatus;
-                                                    response.data.Response[0].StatusDescription = ActivityTemplatePickup2Ctrl.ePage.Masters.EntityObj.UIWmsPickup.WorkOrderStatusDesc;
+                                                    response.data.Response[0].StatusDesc = ActivityTemplatePickup2Ctrl.ePage.Masters.EntityObj.UIWmsPickup.WorkOrderStatusDesc;
                                                     response.data.Response[0].PickupLineStatus = "Pickup In Progress";
 
                                                     apiService.post("eAxisAPI", appConfig.Entities.WmsPickupReport.API.Update.Url, response.data.Response[0]).then(function (response) {

@@ -146,7 +146,7 @@
                                             "SiteCode": "",
                                             "SiteName": "",
                                             "StatusCode": "ENT",
-                                            "StatusDescription": "Entered",
+                                            "StatusDesc": "Entered",
                                             "RequestMode": DeliveryRequestToolbarCtrl.ePage.Masters.DeliveryData.UIWmsWorkorderReport.RequestMode,
                                             "ResponseType": DeliveryRequestToolbarCtrl.ePage.Masters.DeliveryData.UIWmsWorkorderReport.ResponseType,
                                             "DropPoint": DeliveryRequestToolbarCtrl.ePage.Masters.DeliveryData.UIWmsWorkorderReport.AdditionalRef1Code,
@@ -202,7 +202,8 @@
                                                         angular.forEach(response.data.Response.UIWmsDeliveryLine, function (value1, key1) {
                                                             if (value1.PK == value.DeliveryLine_FK) {
                                                                 value1.WorkOrderLineStatus = "RDL";
-                                                                value1.UISPMSDeliveryReport.DeliveryLineStatus = "Re-Delivery Created";
+                                                                if (value1.UISPMSDeliveryReport)
+                                                                    value1.UISPMSDeliveryReport.DeliveryLineStatus = "Re-Delivery Created";
                                                             }
                                                             if (value1.WorkOrderLineStatus == "RDL") {
                                                                 count = count + 1;

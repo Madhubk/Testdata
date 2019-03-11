@@ -188,6 +188,7 @@
                         apiService.get("eAxisAPI", appConfig.Entities.WmsPickupList.API.GetById.Url + TransferMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WOD_Parent_FK).then(function (response) {
                             if (response.data.Response) {
                                 TransferMaterialCtrl.ePage.Entities.Header.PickupData = response.data.Response;
+                                myTaskActivityConfig.Entities.DeliveryData = undefined;
                                 myTaskActivityConfig.Entities.PickupData = TransferMaterialCtrl.ePage.Entities.Header.PickupData;
                                 GeneralOperation();
                             }
@@ -196,6 +197,7 @@
                         apiService.get("eAxisAPI", appConfig.Entities.WmsDeliveryList.API.GetById.Url + TransferMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WOD_Parent_FK).then(function (response) {
                             if (response.data.Response) {
                                 TransferMaterialCtrl.ePage.Entities.Header.DeliveryData = response.data.Response;
+                                myTaskActivityConfig.Entities.PickupData = undefined;
                                 myTaskActivityConfig.Entities.DeliveryData = TransferMaterialCtrl.ePage.Entities.Header.DeliveryData;
                                 GeneralOperation();
                             }

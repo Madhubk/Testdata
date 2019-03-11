@@ -24,6 +24,7 @@
             };
             ActivityTemplateOutward2Ctrl.ePage.Masters.emptyText = "-";
             ActivityTemplateOutward2Ctrl.ePage.Masters.TaskObj = ActivityTemplateOutward2Ctrl.taskObj;
+            myTaskActivityConfig.Entities = {};
             myTaskActivityConfig.Entities.TaskObj = ActivityTemplateOutward2Ctrl.taskObj;
             ActivityTemplateOutward2Ctrl.ePage.Masters.Complete = Complete;
             ActivityTemplateOutward2Ctrl.ePage.Masters.ShowErrorWarningModal = ShowErrorWarningModal;
@@ -166,7 +167,8 @@
                                                                     angular.forEach(myTaskActivityConfig.Entities.DeliveryData.UIWmsDeliveryLine, function (value1, key1) {
                                                                         if (value.AdditionalRef1Code == value1.AdditionalRef1Code) {
                                                                             value1.WorkOrderLineStatus = "DEL";
-                                                                            value1.UISPMSDeliveryReport.DeliveryLineStatus = "Delivered";
+                                                                            if (value1.UISPMSDeliveryReport)
+                                                                                value1.UISPMSDeliveryReport.DeliveryLineStatus = "Delivered";
                                                                         }
                                                                         if (value1.WorkOrderLineStatus == "DEL") {
                                                                             count = count + 1;
@@ -632,7 +634,7 @@
                         EntityObject: myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data
                     };
                     errorWarningService.ValidateValue(_obj);
-                    if (ActivityTemplateOutward2Ctrl.taskObj.WSI_StepName == "Transfer Material") {                        
+                    if (ActivityTemplateOutward2Ctrl.taskObj.WSI_StepName == "Transfer Material") {
                         // check whether MTR inward created or not for MTR outward
                         if (myTaskActivityConfig.Entities.PickData) {
                             var filter1 = $filter("filter")(myTaskActivityConfig.Entities.PickData[myTaskActivityConfig.Entities.PickData.label].ePage.Entities.Header.Data.UIWmsOutward, function (value, key) {
@@ -738,7 +740,7 @@
                     } else {
                         ActivityTemplateOutward2Ctrl.ePage.Masters.CompleteBtnText = "Please Wait...";
                         ActivityTemplateOutward2Ctrl.ePage.Masters.IsDisableCompleteBtn = true;
-                        if (ActivityTemplateOutward2Ctrl.taskObj.WSI_StepName == "Transfer Material") {                            
+                        if (ActivityTemplateOutward2Ctrl.taskObj.WSI_StepName == "Transfer Material") {
                             // check whether MTR inward created or not for MTR outward
 
                             var filter1 = $filter("filter")(myTaskActivityConfig.Entities.PickData[myTaskActivityConfig.Entities.PickData.label].ePage.Entities.Header.Data.UIWmsOutward, function (value, key) {
@@ -798,6 +800,7 @@
                         } else if (ActivityTemplateOutward2Ctrl.taskObj.WSI_StepName == "Deliver Material") {
                             myTaskActivityConfig.Entities.ManifestData.TmsManifestHeader.TransportBookedDateTime = new Date();
                             myTaskActivityConfig.Entities.ManifestData.TmsManifestConsignment[0].TMC_ActualPickupDateTime = new Date();
+                            myTaskActivityConfig.Entities.ManifestData.TmsManifestConsignment[0].TMC_ActualPickupDateTime = $filter('date')(new Date(), "dd-MMM-yyyy hh:mm a")
                             myTaskActivityConfig.Entities.ManifestData.TmsManifestConsignment[0].IsModified = true;
                             myTaskActivityConfig.Entities.ManifestData.TmsManifestHeader.IsModified = true;
                             CompleteWithSave();

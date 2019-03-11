@@ -24,6 +24,7 @@
             };
             ActivityTemplateInwardCtrl.ePage.Masters.emptyText = "-";
             ActivityTemplateInwardCtrl.ePage.Masters.TaskObj = ActivityTemplateInwardCtrl.taskObj;
+            myTaskActivityConfig.Entities = {};
             myTaskActivityConfig.Entities.TaskObj = ActivityTemplateInwardCtrl.taskObj;
             ActivityTemplateInwardCtrl.ePage.Masters.Complete = Complete;
             ActivityTemplateInwardCtrl.ePage.Masters.ShowErrorWarningModal = ShowErrorWarningModal;

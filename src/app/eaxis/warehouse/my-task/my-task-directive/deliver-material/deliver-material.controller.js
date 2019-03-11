@@ -117,6 +117,7 @@
                             response.data.Response.TmsManifestHeader.VehicleTypeCode = "0.5T";
                             response.data.Response.TmsManifestHeader.VehicleTypeDescription = "0.5 Ton";
                             response.data.Response.TmsManifestHeader.VehicleNo = "NA";
+                            response.data.Response.TmsManifestHeader.TransporterType = "Transportation";
                             response.data.Response.TmsManifestHeader.EstimatedDispatchDate = new Date();
                             response.data.Response.TmsManifestHeader.EstimatedDeliveryDate = new Date();
                             response.data.Response.TmsManifestHeader.EstimatedDispatchDate = $filter('date')(new Date(), "dd-MMM-yyyy hh:mm a")
