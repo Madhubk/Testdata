@@ -5,9 +5,9 @@
         .module("Application")
         .controller("DMSConsignmentGeneralController", DMSConsignmentGeneralController);
 
-    DMSConsignmentGeneralController.$inject = ["$rootScope", "$scope", "$state", "$timeout", "$location", "$window", "APP_CONSTANT", "authService", "apiService", "helperService", "dmsconsignmentConfig", "appConfig", "toastr", "$document", "confirmation", "$filter"];
+    DMSConsignmentGeneralController.$inject = ["$rootScope", "$scope", "$state", "$timeout", "$location", "$window", "APP_CONSTANT", "authService", "apiService", "helperService", "dmsconsignmentConfig", "appConfig", "toastr", "$document", "confirmation", "$filter", "$uibModal"];
 
-    function DMSConsignmentGeneralController($rootScope, $scope, $state, $timeout, $location, $window, APP_CONSTANT, authService, apiService, helperService, dmsconsignmentConfig, appConfig, toastr, $document, confirmation, $filter) {
+    function DMSConsignmentGeneralController($rootScope, $scope, $state, $timeout, $location, $window, APP_CONSTANT, authService, apiService, helperService, dmsconsignmentConfig, appConfig, toastr, $document, confirmation, $filter, $uibModal) {
         /* jshint validthis: true */
         var DMSConsignmentGeneralCtrl = this;
 
@@ -30,6 +30,7 @@
             DMSConsignmentGeneralCtrl.ePage.Masters.OnChangeValues = OnChangeValues;
             DMSConsignmentGeneralCtrl.ePage.Masters.OnChangeServiceType = OnChangeServiceType;
             DMSConsignmentGeneralCtrl.ePage.Masters.AddSaveButtonText = "Save and Add New Item";
+            DMSConsignmentGeneralCtrl.ePage.Masters.AddAddresses = AddAddresses;
             //For table
             DMSConsignmentGeneralCtrl.ePage.Masters.SelectAll = false;
             DMSConsignmentGeneralCtrl.ePage.Masters.EnableDeleteButton = false;
@@ -54,14 +55,24 @@
             DMSConsignmentGeneralCtrl.ePage.Masters.DatePicker.Options = angular.copy(APP_CONSTANT.DatePicker);
             DMSConsignmentGeneralCtrl.ePage.Masters.DatePicker.isOpen = [];
             DMSConsignmentGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker = OpenDatePicker;
+
+            DMSConsignmentGeneralCtrl.ePage.Masters.PickupDateChange = PickupDateChange;
+            DMSConsignmentGeneralCtrl.ePage.Masters.DeliveryDateChange = DeliveryDateChange;
+
+            DMSConsignmentGeneralCtrl.ePage.Masters.DatePicker.Optionsdel = angular.copy(APP_CONSTANT.DatePicker);
+
             GetUserBasedGridColumList();
             GetDropDownList();
             GeneralOperation();
             GetNewItemAddress();
+            GetOrgSenderAddress();
+            GetOrgReceiverAddress();
+
             if (DMSConsignmentGeneralCtrl.currentConsignment.isNew) {
                 DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.ConsignmentStatusDesc = "New";
-                DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.ExpectedPickupDateTime = new Date();
-                DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.ExpectedDeliveryDateTime = new Date();
+
+                DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.ExpectedPickupDateTime = $filter('date')(new Date(), "dd-MMM-yyyy hh:mm a")
+                DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.ExpectedDeliveryDateTime = $filter('date')(new Date(), "dd-MMM-yyyy hh:mm a");
             }
             if (DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.Status == 'DSP' || DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.Status == 'DEL') {
                 DMSConsignmentGeneralCtrl.ePage.Masters.ActualDateHide = true;
@@ -86,6 +97,7 @@
                     };
                     apiService.post("eAxisAPI", DMSConsignmentGeneralCtrl.ePage.Entities.Header.API.OrgAddress.Url, _input).then(function (response) {
                         if (response.data.Response) {
+                            DMSConsignmentGeneralCtrl.ePage.Masters.OrgSenderAddress = response.data.Response;
                             angular.forEach(response.data.Response, function (value, key) {
                                 angular.forEach(value.AddressCapability, function (value1, key1) {
                                     if (value1.IsMainAddress) {
@@ -131,6 +143,7 @@
                     };
                     apiService.post("eAxisAPI", DMSConsignmentGeneralCtrl.ePage.Entities.Header.API.OrgAddress.Url, _input).then(function (response) {
                         if (response.data.Response) {
+                            DMSConsignmentGeneralCtrl.ePage.Masters.OrgReceiverAddress = response.data.Response;
                             angular.forEach(response.data.Response, function (value, key) {
                                 angular.forEach(value.AddressCapability, function (value1, key1) {
                                     if (value1.IsMainAddress) {
@@ -183,6 +196,41 @@
                     }
                 }
             });
+        }
+
+        function AddAddresses() {
+            var value = DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.OrgReceiver.PK;
+            var modalInstance = $uibModal.open({
+                animation: true,
+                backdrop: "static",
+                keyboard: true,
+                windowClass: "general-edit right address",
+                scope: $scope,
+                templateUrl: "app/eaxis/distribution/consignment/consignment-general/address-model/address-model.html",
+                controller: 'AddressModalController as AddressModalCtrl',
+                bindToController: true,
+                resolve: {
+                    param: function () {
+                        var exports = {
+                            "Entity": DMSConsignmentGeneralCtrl.currentConsignment,
+                            "Item": value,
+                        };
+                        return exports;
+                    }
+                }
+            }).result.then(
+                function (response) {
+                    if (response.data) {
+                        DMSConsignmentGeneralCtrl.currentConsignment[DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.OrgReceiver.Pk].ePage.Entities.Header.Data = response.data;
+
+                        DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data = response.data;
+                    }
+                },
+                function () {
+                    console.log("Cancelled");
+                }
+            );
+
         }
 
         function GetNewItemAddress() {
@@ -299,6 +347,8 @@
                         if (DMSConsignmentGeneralCtrl.currentConsignment[DMSConsignmentGeneralCtrl.currentConsignment.label].ePage.Entities.Header.Data.TmsConsignmentHeader.IsCancel != true) {
                             apiService.get("eAxisAPI", DMSConsignmentGeneralCtrl.ePage.Entities.Header.API.GetByID.Url + DMSConsignmentGeneralCtrl.currentConsignment[DMSConsignmentGeneralCtrl.currentConsignment.label].ePage.Entities.Header.Data.PK).then(function (response) {
                                 if (response.data.Response) {
+                                    DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.ExpectedPickupDateTime = $filter('date')(DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.ExpectedPickupDateTime, "dd-MMM-yyyy hh:mm a");
+                                    DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.ExpectedDeliveryDateTime = $filter('date')(DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.ExpectedDeliveryDateTime, "dd-MMM-yyyy hh:mm a");
                                     DMSConsignmentGeneralCtrl.ePage.Masters.Config.TabList[_index][DMSConsignmentGeneralCtrl.ePage.Masters.Config.TabList[_index].label].ePage.Entities.Header.Data = response.data.Response;
 
                                     DMSConsignmentGeneralCtrl.ePage.Masters.Config.TabList.map(function (value, key) {
@@ -311,7 +361,7 @@
                                         }
                                     });
                                     if (DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.ExpectedDeliveryDateTime)
-                                        DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.ExpectedDeliveryDateTime = $filter('date')(DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.ExpectedDeliveryDateTime, "dd-MMM-yyyy");
+                                        DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.ExpectedDeliveryDateTime = $filter('date')(DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.ExpectedDeliveryDateTime, "dd-MMM-yyyy hh:mm a");
                                     DMSConsignmentGeneralCtrl.ePage.Entities.Header.CheckPoints.IsLoadingToSave = false;
                                 } else {
                                     DMSConsignmentGeneralCtrl.ePage.Entities.Header.CheckPoints.IsLoadingToSave = false;
@@ -399,7 +449,7 @@
         }
         // #endregion
 
-        //#region General
+        //#region Date Pickers and General
         function GeneralOperation() {
             // Sender
             if (DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.SenderCode == null) {
@@ -428,6 +478,17 @@
             $event.preventDefault();
             $event.stopPropagation();
             DMSConsignmentGeneralCtrl.ePage.Masters.DatePicker.isOpen[opened] = true;
+        }
+
+        function PickupDateChange() {
+            OnChangeValues(DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.ExpectedPickupDateTime, "E5521", false, undefined);
+            DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.ExpectedPickupDateTime = $filter('date')(DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.ExpectedPickupDateTime, "dd-MMM-yyyy hh:mm a");
+            DMSConsignmentGeneralCtrl.ePage.Masters.DatePicker.Optionsdel['minDate'] = DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.ExpectedPickupDateTime;
+        }
+
+        function DeliveryDateChange() {
+            OnChangeValues(DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.ExpectedDeliveryDateTime, "E5563", false, undefined);
+            DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.ExpectedDeliveryDateTime = $filter('date')(DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.ExpectedDeliveryDateTime, "dd-MMM-yyyy hh:mm a");
         }
         //#endregion
 

@@ -1,0 +1,27 @@
+<div class="col-lg-8 mt-20 custom-widget">
+    <div class="widget">
+        <div class="widget-header bordered-bottom">
+            <span class="widget-caption">Exception</span>
+        </div>
+        <!--Widget Header-->
+        <div class="widget-body  no-padding">
+            <div class="tickets-container bg-white">
+                <ul class="tickets-list scrollarea" id="style-1">
+                    <li class="border-bottom-eee" data-ng-repeat="x in NotificationCtrl.ePage.Masters.ExceptionList">
+                        <div class="clearfix">
+                            <span class="user-mine">{{x.Title}}</span>
+                        </div>
+                        <div class="clearfix">
+                            <span class="user-company">Consignement No : {{x.EntityRefCode}}</span>
+                        </div>
+                        <div class="clearfix">
+                            <span class="user-at">Exp Date : </span>
+                            <span class="user-at pull-right set-color-blue">Act Date : </span>
+                        </div>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+    </div>
+</div>

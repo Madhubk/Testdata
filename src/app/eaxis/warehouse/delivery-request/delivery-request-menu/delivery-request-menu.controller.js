@@ -193,6 +193,8 @@
                     _input.UIWmsWorkorderReport.AcknowledgedPerson = authService.getUserInfo().UserId;
                 if (!_input.UIWmsWorkorderReport.DeliveryRequestedDateTime)
                     _input.UIWmsWorkorderReport.DeliveryRequestedDateTime = new Date();
+                if (!_input.UIWmsWorkorderReport.AdditionalRef2Code)
+                    _input.UIWmsWorkorderReport.AdditionalRef2Code = authService.getUserInfo().UserId;
                 _input.UIWmsWorkorderReport.WOD_FK = _input.PK;
                 if (!_input.UIWmsDelivery.ExternalReference) {
                     _input.UIWmsDelivery.ExternalReference = _input.UIWmsDelivery.WorkOrderID;
@@ -219,6 +221,7 @@
                 value.UISPMSDeliveryReport.DropPoint = _input.UIWmsWorkorderReport.AdditionalRef1Code;
                 value.UISPMSDeliveryReport.RequesterName = _input.UIWmsWorkorderReport.Requester;
                 value.UISPMSDeliveryReport.AcknowledgedPerson = _input.UIWmsWorkorderReport.AcknowledgedPerson;
+                value.UISPMSDeliveryReport.CSRReceiver = _input.UIWmsWorkorderReport.AdditionalRef2Code;
                 value.UISPMSDeliveryReport.AcknowledgedDateTime = _input.UIWmsWorkorderReport.AcknowledgementDateTime
                 value.UISPMSDeliveryReport.RequestedDateTime = _input.UIWmsWorkorderReport.DeliveryRequestedDateTime;
                 value.UISPMSDeliveryReport.RequesterContactNumber = _input.UIWmsWorkorderReport.RequesterContactNo;
@@ -279,63 +282,69 @@
                             deliveryConfig.TabList[_index][deliveryConfig.TabList[_index].label].ePage.Entities.Header.Data = response.Data.Response;
                         else if (response.Data)
                             deliveryConfig.TabList[_index][deliveryConfig.TabList[_index].label].ePage.Entities.Header.Data = response.Data;
+                        apiService.get("eAxisAPI", appConfig.Entities.WmsDeliveryList.API.GetById.Url + deliveryConfig.TabList[_index][deliveryConfig.TabList[_index].label].ePage.Entities.Header.Data.UIWmsDelivery.PK).then(function (response) {
+                            if (response.data.Response) {
+                                DeliveryMenuCtrl.ePage.Entities.Header.Data = response.data.Response;
 
-                        DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDelivery.Consignee = DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ConsigneeCode + ' - ' + DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ConsigneeName;
-                        if ($item.isNew) {
+                                DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDelivery.Warehouse = DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WarehouseCode + ' - ' + DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WarehouseName;
+                                DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDelivery.Client = DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ClientCode + ' - ' + DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ClientName;
+                                DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDelivery.Consignee = DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ConsigneeCode + ' - ' + DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ConsigneeName;
+                                if ($item.isNew) {
+                                    var DeliveryTime;
+                                    if (DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsWorkorderReport.ResponseType == "NR") {
+                                        DeliveryTime = 8;
+                                    } else if (DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsWorkorderReport.ResponseType == "QR") {
+                                        DeliveryTime = 4;
+                                    } else if (DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsWorkorderReport.ResponseType == "CR") {
+                                        DeliveryTime = 2;
+                                    }
 
-                            var DeliveryTime;
-                            if (DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsWorkorderReport.ResponseType == "NR") {
-                                DeliveryTime = 8;
-                            } else if (DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsWorkorderReport.ResponseType == "QR") {
-                                DeliveryTime = 4;
-                            } else if (DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsWorkorderReport.ResponseType == "CR") {
-                                DeliveryTime = 2;
-                            }
+                                    var temp = "";
+                                    angular.forEach(DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDeliveryLine, function (value, key) {
+                                        temp = temp + "\n " + value.ProductCode + "\xa0\xa0\xa0" + value.Units + "\xa0\xa0\xa0" + value.StockKeepingUnit + "\n";
+                                    });
+                                    var _smsInput = {
+                                        "MobileNo": DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsWorkorderReport.RequesterContactNo,
+                                        "Message": "Dear " + DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsWorkorderReport.Requester + "," + "\nWe received your request to deliver below products to Dhaka. Your delivery reference no: " + DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderID + ".\n" + temp + "\nThis will be delivered with in next " + DeliveryTime + " hours.Thank you."
+                                    }
+                                    apiService.post("authAPI", appConfig.Entities.Notification.API.SendSms.Url, _smsInput).then(function (response) {
 
-                            var temp = "";
-                            angular.forEach(DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDeliveryLine, function (value, key) {
-                                temp = temp + "\n " + value.ProductCode + "\xa0\xa0\xa0" + value.Units + "\xa0\xa0\xa0" + value.StockKeepingUnit + "\n";
-                            });
-                            var _smsInput = {
-                                "MobileNo": DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsWorkorderReport.RequesterContactNo,
-                                "Message": "Dear " + DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsWorkorderReport.Requester + "," + "\nWe received your request to deliver below products to Dhaka. Your delivery reference no: " + DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderID + ".\n" + temp + "\nThis will be delivered with in next " + DeliveryTime + " hours.Thank you."
-                            }
-                            apiService.post("authAPI", appConfig.Entities.Notification.API.SendSms.Url, _smsInput).then(function (response) {
+                                    });
+                                    if (deliveryConfig.Entities.ClientContact.length > 0) {
+                                        var _smsInput = {
+                                            "MobileNo": deliveryConfig.Entities.ClientContact[0].Mobile,
+                                            "Message": "Dear " + DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsWorkorderReport.Requester + "," + "\nWe received your request to deliver below products to Dhaka. Your delivery reference no: " + DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderID + ".\n" + temp + "\nThis will be delivered with in next " + DeliveryTime + " hours.Thank you."
+                                        }
+                                        apiService.post("authAPI", appConfig.Entities.Notification.API.SendSms.Url, _smsInput).then(function (response) {
 
-                            });
-                            if (deliveryConfig.Entities.ClientContact.length > 0) {
-                                var _smsInput = {
-                                    "MobileNo": deliveryConfig.Entities.ClientContact[0].Mobile,
-                                    "Message": "Dear " + DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsWorkorderReport.Requester + "," + "\nWe received your request to deliver below products to Dhaka. Your delivery reference no: " + DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderID + ".\n" + temp + "\nThis will be delivered with in next " + DeliveryTime + " hours.Thank you."
+                                        });
+                                    }
+                                    if (deliveryConfig.Entities.WarehouseContact.length > 0) {
+                                        var _smsInput = {
+                                            "MobileNo": deliveryConfig.Entities.WarehouseContact[0].Mobile,
+                                            "Message": "Dear " + DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsWorkorderReport.Requester + "," + "\nWe received your request to deliver below products to Dhaka. Your delivery reference no: " + DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderID + ".\n" + temp + "\nThis will be delivered with in next " + DeliveryTime + " hours.Thank you."
+                                        }
+                                        apiService.post("authAPI", appConfig.Entities.Notification.API.SendSms.Url, _smsInput).then(function (response) {
+
+                                        });
+                                    }
                                 }
-                                apiService.post("authAPI", appConfig.Entities.Notification.API.SendSms.Url, _smsInput).then(function (response) {
-
-                                });
-                            }
-                            if (deliveryConfig.Entities.WarehouseContact.length > 0) {
-                                var _smsInput = {
-                                    "MobileNo": deliveryConfig.Entities.WarehouseContact[0].Mobile,
-                                    "Message": "Dear " + DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsWorkorderReport.Requester + "," + "\nWe received your request to deliver below products to Dhaka. Your delivery reference no: " + DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderID + ".\n" + temp + "\nThis will be delivered with in next " + DeliveryTime + " hours.Thank you."
+                                deliveryConfig.TabList[_index].isNew = false;
+                                if ($state.current.url == "/delivery-request") {
+                                    helperService.refreshGrid();
                                 }
-                                apiService.post("authAPI", appConfig.Entities.Notification.API.SendSms.Url, _smsInput).then(function (response) {
-
-                                });
+                                if (DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderStatus == "CAN") {
+                                    DeliveryMenuCtrl.ePage.Entities.Header.GlobalVariables.NonEditable = true;
+                                    DeliveryMenuCtrl.ePage.Masters.DisableSave = true;
+                                    DeliveryMenuCtrl.ePage.Masters.active = 1;
+                                }
+                                if (DeliveryMenuCtrl.ePage.Masters.IsCancelButton) {
+                                    DeliveryMenuCtrl.ePage.Masters.CancelButtonText = "Cancel Delivery";
+                                    // DeliveryMenuCtrl.ePage.Masters.DisableSave = false;
+                                    DeliveryMenuCtrl.ePage.Masters.IsCancelButton = false;
+                                }
                             }
-                        }
-                        deliveryConfig.TabList[_index].isNew = false;
-                        if ($state.current.url == "/delivery-request") {
-                            helperService.refreshGrid();
-                        }
-                        if (DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderStatus == "CAN") {
-                            DeliveryMenuCtrl.ePage.Entities.Header.GlobalVariables.NonEditable = true;
-                            DeliveryMenuCtrl.ePage.Masters.DisableSave = true;
-                            DeliveryMenuCtrl.ePage.Masters.active = 1;
-                        }
-                        if (DeliveryMenuCtrl.ePage.Masters.IsCancelButton) {
-                            DeliveryMenuCtrl.ePage.Masters.CancelButtonText = "Cancel Delivery";
-                            // DeliveryMenuCtrl.ePage.Masters.DisableSave = false;
-                            DeliveryMenuCtrl.ePage.Masters.IsCancelButton = false;
-                        }
+                        });
                     }
                     console.log("Success");
                     DeliveryMenuCtrl.ePage.Entities.Header.GlobalVariables.PercentageValues = true;

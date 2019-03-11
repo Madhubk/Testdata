@@ -1,31 +1,33 @@
-(function(){
+(function () {
     "use strict";
 
     angular
-         .module("Application")
-         .directive("inwardMenu",InwardMenu);
+        .module("Application")
+        .directive("inwardMenu", InwardMenu);
 
-    InwardMenu.$inject=[];
+    InwardMenu.$inject = [];
 
-    function InwardMenu(){
+    function InwardMenu() {
 
         var exports = {
-            restrict : "EA",
+            restrict: "EA",
             templateUrl: "app/eaxis/warehouse/inward/inward-menu/inward-menu.html",
             link: Link,
             controller: "InwardMenuController",
             controllerAs: "InwardMenuCtrl",
             scope: {
                 currentInward: "=",
-                dataentryObject:'=',
-                isHideMenu:"="
+                dataentryObject: '=',
+                isHideMenu: "=",
+                hideAsnLine: "=",
+                hideInwardLine: "="
             },
             bindToController: true
 
         };
         return exports;
-        
-        function Link(scope, elem, attr) {}
+
+        function Link(scope, elem, attr) { }
     }
 
 })();

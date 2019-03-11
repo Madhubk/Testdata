@@ -41,14 +41,198 @@
             DeliveryLineCtrl.ePage.Masters.AddNewRow = AddNewRow;
             DeliveryLineCtrl.ePage.Masters.CopyRow = CopyRow;
             DeliveryLineCtrl.ePage.Masters.RemoveRow = RemoveRow;
+            DeliveryLineCtrl.ePage.Masters.AddToOutward = AddToOutward;
             DeliveryLineCtrl.ePage.Masters.emptyText = '-';
-
-
+            DeliveryLineCtrl.ePage.Masters.CloseEditActivityModal = CloseEditActivityModal;
+            DeliveryLineCtrl.ePage.Masters.setSelectedOutwardRow = setSelectedOutwardRow;
+            DeliveryLineCtrl.ePage.Masters.AddDeliveryLineToOutward = AddDeliveryLineToOutward;
 
             GetUserBasedGridColumList();
             GetDropDownList();
         }
+        // #region - adding new delivery line to existing outward
+        function CloseEditActivityModal() {
+            DeliveryLineCtrl.ePage.Masters.modalInstance.dismiss('cancel');
+        }
 
+        function AddDeliveryLineToOutward() {
+            if (DeliveryLineCtrl.ePage.Masters.selectedOutwardRow >= 0) {
+                DeliveryLineCtrl.ePage.Masters.Loading = true;
+                apiService.get("eAxisAPI", appConfig.Entities.WmsOutwardList.API.GetById.Url + DeliveryLineCtrl.ePage.Masters.UnFinalizedOrders[DeliveryLineCtrl.ePage.Masters.selectedOutwardRow].PK).then(function (response) {
+                    if (response.data.Response) {
+                        angular.forEach(DeliveryLineCtrl.ePage.Masters.SelectedDeliveryLine, function (value, key) {
+                            if (DeliveryLineCtrl.ePage.Masters.UnFinalizedOrders[DeliveryLineCtrl.ePage.Masters.selectedOutwardRow].WorkOrderSubType == "MTR") {
+                                value.MOL_PrdCode = value.DL_Req_PrdCode;
+                            } else {
+                                value.OL_PrdCode = value.DL_Req_PrdCode;
+                            }
+                            var obj = {
+                                "Parent_FK": value.DL_PK,
+                                "PK": "",
+                                "WorkOrderType": "ORD",
+                                "WorkOrderLineType": "ORD",
+                                "WorkOrderID": response.data.Response.UIWmsOutwardHeader.WorkOrderID,
+                                "ExternalReference": response.data.Response.UIWmsOutwardHeader.WorkOrderID,
+                                "WOD_FK": response.data.Response.PK,
+                                "ProductCode": value.DL_Req_PrdCode,
+                                "ProductDescription": value.DL_Req_PrdDesc,
+                                "PRO_FK": value.DL_Req_PrdPk,
+                                "Commodity": value.Commodity,
+                                "MCC_NKCommodityCode": value.DL_MCC_NKCommodityCode,
+                                "MCC_NKCommodityDesc": value.DL_MCC_NKCommodityDesc,
+                                "ProductCondition": "GDC",
+                                "Packs": value.DL_Packs,
+                                "PAC_PackType": value.DL_PAC_PackType,
+                                "Units": value.DL_Units,
+                                "StockKeepingUnit": value.DL_StockKeepingUnit,
+                                "PartAttrib1": value.DL_PartAttrib1,
+                                "PartAttrib2": value.DL_PartAttrib2,
+                                "PartAttrib3": value.DL_PartAttrib3,
+                                "LineComment": value.DL_LineComment,
+                                "PackingDate": value.DL_PackingDate,
+                                "ExpiryDate": value.DL_ExpiryDate,
+                                "AdditionalRef1Code": value.DL_AdditionalRef1Code,
+                                "AdditionalRef1Type": "DeliveryLine",
+                                "AdditionalRef1Fk": value.DL_PK,
+                                "UseExpiryDate": value.DL_UseExpiryDate,
+                                "UsePackingDate": value.DL_UsePackingDate,
+                                "UsePartAttrib1": value.DL_UsePartAttrib1,
+                                "UsePartAttrib2": value.DL_UsePartAttrib2,
+                                "UsePartAttrib3": value.DL_UsePartAttrib3,
+                                "IsPartAttrib1ReleaseCaptured": value.DL_IsPartAttrib1ReleaseCaptured,
+                                "IsPartAttrib2ReleaseCaptured": value.DL_IsPartAttrib2ReleaseCaptured,
+                                "IsPartAttrib3ReleaseCaptured": value.DL_IsPartAttrib3ReleaseCaptured,
+
+                                "IsDeleted": false,
+                                "ORG_ClientCode": value.DEL_ClientCode,
+                                "ORG_ClientName": value.DEL_ClientName,
+                                "Client_FK": value.DEL_Client_FK,
+
+                                "WAR_WarehouseCode": value.DEL_WAR_Code,
+                                "WAR_WarehouseName": value.DEL_WAR_Name,
+                                "WAR_FK": value.DEL_WAR_FK,
+                            };
+                            response.data.Response.UIWmsWorkOrderLine.push(obj);
+                        });
+                        response.data.Response = filterObjectUpdate(response.data.Response, "IsModified");
+                        apiService.post("eAxisAPI", appConfig.Entities.WmsOutwardList.API.Update.Url, response.data.Response).then(function (response) {
+                            if (response.data.Status == 'Success') {
+                                DeliveryLineCtrl.ePage.Masters.OutwardDetails = response.data.Response;
+                                toastr.success("Delivery Line added to the Order " + DeliveryLineCtrl.ePage.Masters.OutwardDetails.UIWmsOutwardHeader.WorkOrderID);
+                                DeliveryLineCtrl.ePage.Masters.Loading = false;
+                                deliveryConfig.CallOutwardFunction = true;
+                                DeliveryLineCtrl.ePage.Entities.Header.Data = filterObjectUpdate(DeliveryLineCtrl.ePage.Entities.Header.Data, "IsModified");
+                                apiService.post("eAxisAPI", appConfig.Entities.WmsDeliveryList.API.Update.Url, DeliveryLineCtrl.ePage.Entities.Header.Data).then(function (response) {
+                                    if (response.data.Response) {
+                                        apiService.get("eAxisAPI", appConfig.Entities.WmsDeliveryList.API.GetById.Url + response.data.Response.UIWmsDelivery.PK).then(function (response) {
+                                            if (response.data.Response) {
+                                                DeliveryLineCtrl.ePage.Entities.Header.Data = response.data.Response;
+                                                DeliveryLineCtrl.ePage.Entities.Header.Data.UIWmsDelivery.Warehouse = DeliveryLineCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WarehouseCode + ' - ' + DeliveryLineCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WarehouseName;
+                                                DeliveryLineCtrl.ePage.Entities.Header.Data.UIWmsDelivery.Client = DeliveryLineCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ClientCode + ' - ' + DeliveryLineCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ClientName;
+                                                DeliveryLineCtrl.ePage.Entities.Header.Data.UIWmsDelivery.Consignee = DeliveryLineCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ConsigneeCode + ' - ' + DeliveryLineCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ConsigneeName;
+                                            }
+                                        });
+                                    }
+                                });
+                            }
+                        });
+                    }
+                });
+            } else {
+                toastr.warning("Select the Order");
+            }
+            DeliveryLineCtrl.ePage.Masters.modalInstance.dismiss('cancel');
+        }
+
+        function filterObjectUpdate(obj, key) {
+            for (var i in obj) {
+                if (!obj.hasOwnProperty(i)) continue;
+                if (typeof obj[i] == 'object') {
+                    filterObjectUpdate(obj[i], key);
+                } else if (i == key) {
+                    obj[key] = true;
+                }
+            }
+            return obj;
+        }
+
+        function AddToOutward() {
+            DeliveryLineCtrl.ePage.Entities.Header.GlobalVariables.Loading = true;
+            var count = 0;
+            var SelectedLine = [];
+            angular.forEach(DeliveryLineCtrl.ePage.Entities.Header.Data.UIWmsDeliveryLine, function (value, key) {
+                if (!value.PK && value.SingleSelect == true) {
+                    count = count + 1;
+                } else if (value.PK && value.SingleSelect == true) {
+                    SelectedLine.push(value);
+                }
+            });
+            if (count > 0) {
+                toastr.warning("Save the line(s) before add to Order.")
+            } else {
+                var _filter = {
+                    "WOD_Parent_FK": DeliveryLineCtrl.ePage.Entities.Header.Data.UIWmsDelivery.PK
+                };
+                var _input = {
+                    "searchInput": helperService.createToArrayOfObject(_filter),
+                    "FilterID": appConfig.Entities.WmsOutwardList.API.FindAll.FilterID
+                };
+                apiService.post("eAxisAPI", appConfig.Entities.WmsOutwardList.API.FindAll.Url, _input).then(function (response) {
+                    if (response.data.Response) {
+                        if (response.data.Response.length > 0) {
+                            DeliveryLineCtrl.ePage.Masters.UnFinalizedOrders = [];
+                            DeliveryLineCtrl.ePage.Entities.Header.Data.DeliveryOrders = response.data.Response;
+                            angular.forEach(DeliveryLineCtrl.ePage.Entities.Header.Data.DeliveryOrders, function (v, k) {
+                                if (v.WorkOrderStatus != "FIN") {
+                                    DeliveryLineCtrl.ePage.Masters.UnFinalizedOrders.push(v);
+                                }
+                            });
+                            if (DeliveryLineCtrl.ePage.Masters.UnFinalizedOrders.length > 0) {
+                                DeliveryLineCtrl.ePage.Masters.SelectedDeliveryLine = [];
+                                angular.forEach(DeliveryLineCtrl.ePage.Entities.Header.Data.UIWmsDeliveryLine, function (value, key) {
+                                    if (value.PK && value.SingleSelect == true) {
+                                        angular.forEach(DeliveryLineCtrl.ePage.Entities.Header.Data.UIvwWmsDeliveryList, function (value1, key1) {
+                                            if (value.PK == value1.DL_PK) {
+                                                if (value1.MOL_PrdCode || value1.OL_PrdCode) {
+                                                    var TempOutwardNo = value1.MOL_PrdCode ? value1.MOT_WorkOrderId : value1.OUT_WorkOrderId;
+                                                    toastr.warning("This Delivery line " + value1.DL_AdditionalRef1Code + " already attached to outward " + TempOutwardNo);
+                                                } else {
+                                                    DeliveryLineCtrl.ePage.Masters.SelectedDeliveryLine.push(value1);
+                                                }
+                                            }
+                                        });
+                                    }
+                                });
+                                if (DeliveryLineCtrl.ePage.Masters.SelectedDeliveryLine.length == SelectedLine.length) {
+                                    OpenModal();
+                                }
+                            } else {
+                                toastr.warning("It can be added when the Order(s) is not Finalized.")
+                            }
+                        } else {
+                            toastr.warning("Order not yet created.")
+                        }
+                    }
+                });
+            }
+        }
+
+        function OpenModal() {
+            return DeliveryLineCtrl.ePage.Masters.modalInstance = $uibModal.open({
+                animation: true,
+                backdrop: "static",
+                keyboard: false,
+                windowClass: "success-popup1",
+                scope: $scope,
+                size: "md",
+                templateUrl: "app/eaxis/warehouse/delivery-request/delivery-request-line/outward-details.html"
+            });
+        }
+        function setSelectedOutwardRow(index) {
+            DeliveryLineCtrl.ePage.Masters.selectedOutwardRow = index;
+        }
+        // #endregion
+        // #region - general
         function SelectedLookupProduct(item, index) {
             DeliveryLineCtrl.ePage.Entities.Header.Data.UIWmsDeliveryLine[index].PRO_FK = item.OSP_FK;
 
@@ -129,10 +313,8 @@
                 }
             })
         }
-
-        function setSelectedRow(index) {
-            DeliveryLineCtrl.ePage.Masters.selectedRow = index;
-        }
+        // #endregion
+        // #region -  Add, copy, delete row activities
         function AddNewRow() {
             DeliveryLineCtrl.ePage.Entities.Header.GlobalVariables.Loading = true;
             var obj = {
@@ -200,6 +382,7 @@
                 "ReceiverName": null,
                 "ReceiverMailId": null,
                 "AcknowledgedPerson": null,
+                "CSRReceiver": "",
                 "AcknowledgedDateTime": null,
                 "RequestedDateTime": null,
                 "RequesterContactNumber": null,
@@ -356,6 +539,7 @@
                         "ReceiverName": item.UISPMSDeliveryReport.ReceiverName,
                         "ReceiverMailId": item.UISPMSDeliveryReport.ReceiverMailId,
                         "AcknowledgedPerson": item.UISPMSDeliveryReport.AcknowledgedPerson,
+                        "CSRReceiver": item.UISPMSDeliveryReport.CSRReceiver,
                         "AcknowledgedDateTime": item.UISPMSDeliveryReport.AcknowledgedDateTime,
                         "RequestedDateTime": item.UISPMSDeliveryReport.RequestedDateTime,
                         "RequesterContactNumber": item.UISPMSDeliveryReport.RequesterContactNumber,
@@ -498,7 +682,9 @@
                     console.log("Cancelled");
                 });
         }
-
+        function setSelectedRow(index) {
+            DeliveryLineCtrl.ePage.Masters.selectedRow = index;
+        }
         function RemoveAllLineErrors() {
             for (var i = 0; i < DeliveryLineCtrl.ePage.Entities.Header.Data.UIWmsDeliveryLine.length; i++) {
                 OnChangeValues('value', "E3085", true, i);
@@ -510,8 +696,31 @@
             }
             return true;
         }
-
-        //#region checkbox selection
+        function FetchQuantity(item, index) {
+            if (item.PAC_PackType == item.StockKeepingUnit) {
+                item.Units = item.Packs;
+                // OnChangeValues(item.Units, "E3089");
+            } else {
+                var _input = {
+                    "OSP_FK": item.PRO_FK,
+                    "FromPackType": item.PAC_PackType,
+                    "ToPackType": item.StockKeepingUnit,
+                    "Quantity": item.Packs
+                };
+                if (item.PRO_FK && item.PAC_PackType && item.StockKeepingUnit && item.Packs) {
+                    DeliveryLineCtrl.ePage.Masters.Loading = true;
+                    apiService.post("eAxisAPI", appConfig.Entities.PrdProductUnit.API.FetchQuantity.Url, _input).then(function (response) {
+                        if (response.data.Response) {
+                            item.Units = response.data.Response;
+                            DeliveryLineCtrl.ePage.Masters.Loading = false;
+                            OnChangeValues(item.Units, "E3089");
+                        }
+                    });
+                }
+            }
+        }
+        // #endregion
+        // #region checkbox selection
         function SelectAllCheckBox() {
             angular.forEach(DeliveryLineCtrl.ePage.Entities.Header.Data.UIWmsDeliveryLine, function (value, key) {
                 if (DeliveryLineCtrl.ePage.Masters.SelectAll) {
@@ -548,6 +757,7 @@
             }
         }
         //#endregion
+        // #region - validation
         function OnChangeValues(fieldvalue, code) {
             angular.forEach(DeliveryLineCtrl.ePage.Masters.Config.ValidationValues, function (value, key) {
                 if (value.Code.trim() === code) {
@@ -563,29 +773,7 @@
                 DeliveryLineCtrl.ePage.Masters.Config.RemoveErrorWarning(value.Code, "E", value.CtrlKey, DeliveryLineCtrl.currentDelivery.label);
             }
         }
-        function FetchQuantity(item, index) {
-            if (item.PAC_PackType == item.StockKeepingUnit) {
-                item.Units = item.Packs;
-                // OnChangeValues(item.Units, "E3089");
-            } else {
-                var _input = {
-                    "OSP_FK": item.PRO_FK,
-                    "FromPackType": item.PAC_PackType,
-                    "ToPackType": item.StockKeepingUnit,
-                    "Quantity": item.Packs
-                };
-                if (item.PRO_FK && item.PAC_PackType && item.StockKeepingUnit && item.Packs) {
-                    DeliveryLineCtrl.ePage.Masters.Loading = true;
-                    apiService.post("eAxisAPI", appConfig.Entities.PrdProductUnit.API.FetchQuantity.Url, _input).then(function (response) {
-                        if (response.data.Response) {
-                            item.Units = response.data.Response;
-                            DeliveryLineCtrl.ePage.Masters.Loading = false;
-                            OnChangeValues(item.Units, "E3089");
-                        }
-                    });
-                }
-            }
-        }
+        // #endregion
 
         Init();
     }

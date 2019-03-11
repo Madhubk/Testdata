@@ -63,13 +63,13 @@
 
             <div class="col-lg-3">
                 <div class="form-group">
-                    <div class="color-999 fs-11">Est Delivery Date</div>
+                    <div class="color-999 fs-11">Est Delivery DateTime</div>
                     <span>{{DeliveryRunsheetCtrl.ePage.Entities.Header.Data.TmsManifestHeader.EstimatedDeliveryDate | date:"dd-MMM-yyyy h:mm a"}}</span>
                 </div>
             </div>
             <div class="col-lg-3">
                 <div class="form-group">
-                    <div class="color-999 fs-11">Est Dispatch Date</div>
+                    <div class="color-999 fs-11">Est Dispatch DateTime</div>
                     <span>{{DeliveryRunsheetCtrl.ePage.Entities.Header.Data.TmsManifestHeader.EstimatedDispatchDate | date:"dd-MMM-yyyy h:mm a"}}</span>
                 </div>
             </div>
@@ -185,6 +185,26 @@
                         <div class='table_cell'>Expected Delivery Date Time</div>
                         <div class='table_cell'>{{x.TMC_ExpectedDeliveryDateTime | date:"dd-MMM-yyyy h:mm a"}}</div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Document -->
+    <div class="clearfix p-10 mb-50">
+        <div class="col-lg-12 mt-20 mb-10 headerstyle">
+            <div class="col-lg-6">GENERATE DOCUMENT</div>
+        </div>
+        <div ng-repeat='x in DeliveryRunsheetCtrl.ePage.Masters.CustomizeDocument'>
+            <div class="col-lg-12 mt-10">
+                <div class="col-lg-6">
+                    {{x.Description}}
+                </div>
+                <div class="col-lg-4">
+                    <a href="" ng-click="DeliveryRunsheetCtrl.ePage.Masters.GenerateReport(x,'PDF','Customize',$index)"
+                        ng-if="!DeliveryRunsheetCtrl.ePage.Masters.DocumentText[$index]"><i>Generate</i></a>
+                    <span href=""
+                        ng-if="DeliveryRunsheetCtrl.ePage.Masters.DocumentText[$index]"><i>Generating...</i></span>
                 </div>
             </div>
         </div>

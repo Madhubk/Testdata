@@ -106,6 +106,17 @@
                             response.data.Response.TmsManifestHeader.ReceiverCode = DeliverMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.ConsigneeCode;
                             response.data.Response.TmsManifestHeader.ReceiverName = DeliverMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.ConsigneeName;
                             response.data.Response.TmsManifestHeader.Receiver_ORG_FK = DeliverMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.ORG_Consignee_FK;
+                            response.data.Response.TmsManifestHeader.TransporterCode = DeliverMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WAR_ORG_Code;
+                            response.data.Response.TmsManifestHeader.TransporterName = DeliverMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WAR_ORG_FullName;
+                            response.data.Response.TmsManifestHeader.Transporter_ORG_FK = DeliverMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WAR_ORG_FK;
+                            response.data.Response.TmsManifestHeader.TransportRefNo = response.data.Response.TmsManifestHeader.ManifestNumber;
+                            response.data.Response.TmsManifestHeader.TransportMode = "Road";
+                            response.data.Response.TmsManifestHeader.ManifestType = "LDY";
+                            response.data.Response.TmsManifestHeader.LoadType = "FTL";
+                            response.data.Response.TmsManifestHeader.VehicleType = "8cc09c7b-c12b-493b-8ed8-4a23a313e5f5";
+                            response.data.Response.TmsManifestHeader.VehicleTypeCode = "0.5T";
+                            response.data.Response.TmsManifestHeader.VehicleTypeDescription = "0.5 Ton";
+                            response.data.Response.TmsManifestHeader.VehicleNo = "NA";
                             response.data.Response.TmsManifestHeader.EstimatedDispatchDate = new Date();
                             response.data.Response.TmsManifestHeader.EstimatedDeliveryDate = new Date();
                             response.data.Response.TmsManifestHeader.EstimatedDispatchDate = $filter('date')(new Date(), "dd-MMM-yyyy hh:mm a")
@@ -189,7 +200,7 @@
                                             apiService.get("eAxisAPI", appConfig.Entities.TmsManifestList.API.GetById.Url + response.data.Response.Response.PK).then(function (response) {
                                                 if (response.data.Status == 'Success') {
                                                     DeliverMaterialCtrl.ePage.Masters.LoadingValue = "";
-                                                    toastr.success("Manifest Created Successfully");                                                    
+                                                    toastr.success("Manifest Created Successfully");
                                                     DeliverMaterialCtrl.ePage.Entities.Header.ManifestDetails = response.data.Response;
                                                     myTaskActivityConfig.Entities.ManifestData = DeliverMaterialCtrl.ePage.Entities.Header.ManifestDetails;
 

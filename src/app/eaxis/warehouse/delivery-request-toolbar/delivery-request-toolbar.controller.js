@@ -92,9 +92,7 @@
                                     angular.forEach(response.data.Response.Response.UIJobAddress, function (value, key) {
                                         value.PK = "";
                                     });
-                                    // response.data.Response.Response.UIWmsWorkorderReport.AcknowledgementDateTime = new Date();
-                                    // response.data.Response.Response.UIWmsWorkorderReport.AcknowledgedPerson = authService.getUserInfo().UserId;                                   
-                                    
+
                                     angular.forEach(DeliveryRequestToolbarCtrl.ePage.Masters.CancelledDeliveryList, function (value, key) {
                                         var obj = {
                                             "PK": "",
@@ -156,6 +154,7 @@
                                             "ReceiverName": "",
                                             "ReceiverMailId": "",
                                             "AcknowledgedPerson": "",
+                                            "CSRReceiver": "",
                                             "AcknowledgedDateTime": "",
                                             "RequestedDateTime": "",
                                             "RequesterContactNumber": DeliveryRequestToolbarCtrl.ePage.Masters.DeliveryData.UIWmsWorkorderReport.RequesterContactNo,

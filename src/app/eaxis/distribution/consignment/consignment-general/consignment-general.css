@@ -34,6 +34,9 @@
  font-size:12px;
 }
 
+  .general-edit.address>.modal-dialog {
+    width: 30% !important;
+}
 .inner-dashboard-stock-txt{
  font-size:18px;
  color:#666;

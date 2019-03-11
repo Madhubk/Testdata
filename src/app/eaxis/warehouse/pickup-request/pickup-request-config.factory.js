@@ -38,7 +38,8 @@
             "GetErrorWarningCountParent": GetErrorWarningCountParent,
             "ShowErrorWarningModal": ShowErrorWarningModal,
             "ValidationFindall": ValidationFindall,
-            "TempInwardPK": ""
+            "TempInwardPK": "",
+            "CallInwardFunction": false
         };
 
         return exports;
@@ -111,6 +112,10 @@
                                 "Requester": helperService.metaBase(),
                                 "RequesterContactNo": helperService.metaBase(),
                                 "AdditionalRef1Code": helperService.metaBase(),
+                                "AdditionalRef2Code": helperService.metaBase(),
+                                "DeliveryRequestedDateTime": helperService.metaBase(),
+                                "AcknowledgedPerson": helperService.metaBase(),
+                                "AcknowledgementDateTime": helperService.metaBase(),
                                 "UIWmsPickupLine": helperService.metaBase()
                             },
                         },
@@ -613,6 +618,10 @@
             OnChangeValues(_input.UIWmsWorkorderReport.Requester, 'E3081', false, undefined, $item.label);
             OnChangeValues(_input.UIWmsWorkorderReport.RequesterContactNo, 'E3082', false, undefined, $item.label);
             OnChangeValues(_input.UIWmsWorkorderReport.AdditionalRef1Code, 'E3080', false, undefined, $item.label);
+            OnChangeValues(_input.UIWmsWorkorderReport.AdditionalRef2Code, 'E3109', false, undefined, $item.label);
+            OnChangeValues(_input.UIWmsWorkorderReport.DeliveryRequestedDateTime, 'E3110', false, undefined, $item.label);
+            OnChangeValues(_input.UIWmsWorkorderReport.AcknowledgedPerson, 'E3111', false, undefined, $item.label);
+            OnChangeValues(_input.UIWmsWorkorderReport.AcknowledgementDateTime, 'E3112', false, undefined, $item.label);
 
             //Pickup Lines Validation
             if (_input.UIWmsPickupLine.length > 0) {

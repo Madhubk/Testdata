@@ -1,7 +1,7 @@
 <div data-ng-if="DeliveryDetailsCtrl.ePage.Masters.Config.TempOutwardPK" ng-init="DeliveryDetailsCtrl.ePage.Masters.getOutwardLineList()"></div>
 <div class="clearfix mt-10 col-lg-12">
     <div id="DeliveryOrdersTable{{DeliveryDetailsCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderID}}" class="fixedheader mb-0"
-        key-events table-object='DeliveryDetailsCtrl.ePage.Entities.Header.Data.DeliveryOrdersLine' enable='DeliveryDetailsCtrl.ePage.Masters.Enable'
+        key-events table-object='DeliveryDetailsCtrl.ePage.Masters.DeliveryOrdersLine' enable='DeliveryDetailsCtrl.ePage.Masters.Enable'
         selected-row='DeliveryDetailsCtrl.ePage.Masters.selectedRow' unique-id='DeliveryOrdersTable{{DeliveryDetailsCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderID}}'>
         <table style="height: 400px">
             <thead>
@@ -26,7 +26,7 @@
                 </tr>
             </thead>
             <tbody id="DeliveryOrdersCustTable{{DeliveryDetailsCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderID}}">
-                <tr id="tableBody" ng-repeat="x in DeliveryDetailsCtrl.ePage.Entities.Header.Data.DeliveryOrdersLine" ng-click="DeliveryDetailsCtrl.ePage.Masters.setSelectedRow($index);"
+                <tr id="tableBody" ng-repeat="x in DeliveryDetailsCtrl.ePage.Masters.DeliveryOrdersLine" ng-click="DeliveryDetailsCtrl.ePage.Masters.setSelectedRow($index);"
                     ng-class="{row_active: (DeliveryDetailsCtrl.ePage.Masters.selectedRow==$index),copy_row_active :(x.IsCopied==true)}">
                     <td ng-style="{ 'width':  '40px' }" class="overflow-text">{{$index +1}}</td>
                     <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.WorkOrderID}}</td>

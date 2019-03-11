@@ -1,0 +1,30 @@
+<!-- My Task -->
+<div class="col-lg-4 mt-20 custom-widget">
+        <div class="widget">
+            <div class="widget-header bordered-bottom">
+                <span class="widget-caption">My Task</span>
+            </div>
+            <div class="widget-body  no-padding">
+                <div class="tickets-container bg-white">
+                    <ul class="tickets-list  scrollarea" id="style-1">
+                        <a href='#/EA/my-task' data-ng-if="NotificationCtrl.ePage.Masters.WorkItemList.length>0">
+                            <li ng-repeat="x in NotificationCtrl.ePage.Masters.WorkItemList">
+                                <div class="row">
+                                    <div class="col-lg-2">
+                                        <span class="mycircle">
+                                            {{x.OVERDUE_TOTAL}}
+                                        </span>
+                                    </div>
+                                    <div class="col-lg-10">
+                                        <div class="user-mine">{{x.WSI_StepName}}</div>
+                                        <div class="user-at">{{x.KPIDescription}}</div>
+                                    </div>
+                                </div>
+                            </li>
+                        </a>
+                        <div data-ng-if="NotificationCtrl.ePage.Masters.WorkItemList.length==0">No Records Found!..</div>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>

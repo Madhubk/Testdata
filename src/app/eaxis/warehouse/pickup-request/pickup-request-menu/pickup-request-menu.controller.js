@@ -183,6 +183,8 @@
                     _input.UIWmsWorkorderReport.AcknowledgedPerson = authService.getUserInfo().UserId;
                 if (!_input.UIWmsWorkorderReport.DeliveryRequestedDateTime)
                     _input.UIWmsWorkorderReport.DeliveryRequestedDateTime = new Date();
+                if (!_input.UIWmsWorkorderReport.AdditionalRef2Code)
+                    _input.UIWmsWorkorderReport.AdditionalRef2Code = authService.getUserInfo().UserId;
                 _input.UIWmsWorkorderReport.WOD_FK = _input.PK;
                 if (!_input.UIWmsPickup.ExternalReference) {
                     _input.UIWmsPickup.ExternalReference = _input.UIWmsPickup.WorkOrderID;
@@ -213,6 +215,7 @@
                 value.UISPMSPickupReport.ReceiverName = _input.UIWmsWorkorderReport.Receiver;
                 value.UISPMSPickupReport.ReceiverMailId = _input.UIWmsWorkorderReport.Receiver;
                 value.UISPMSPickupReport.AcknowledgedPerson = _input.UIWmsWorkorderReport.AcknowledgedPerson;
+                value.UISPMSPickupReport.CSRReceiver = _input.UIWmsWorkorderReport.AdditionalRef2Code;
                 value.UISPMSPickupReport.AcknowledgedDateTime = _input.UIWmsWorkorderReport.AcknowledgementDateTime;
                 value.UISPMSPickupReport.RequestedDateTime = _input.UIWmsWorkorderReport.DeliveryRequestedDateTime;
                 value.UISPMSPickupReport.RequesterContactNumber = _input.UIWmsWorkorderReport.RequesterContactNo;
@@ -264,64 +267,71 @@
                         else if (response.Data)
                             pickupConfig.TabList[_index][pickupConfig.TabList[_index].label].ePage.Entities.Header.Data = response.Data;
 
-                        PickupMenuCtrl.ePage.Entities.Header.Data.UIWmsPickup.Consignee = PickupMenuCtrl.ePage.Entities.Header.Data.UIWmsPickup.ConsigneeCode + ' - ' + PickupMenuCtrl.ePage.Entities.Header.Data.UIWmsPickup.ConsigneeName;
-                        PickupMenuCtrl.ePage.Entities.Header.Data.UIWmsPickup.Warehouse = PickupMenuCtrl.ePage.Entities.Header.Data.UIWmsPickup.WarehouseCode + ' - ' + PickupMenuCtrl.ePage.Entities.Header.Data.UIWmsPickup.WarehouseName;
-                        if ($item.isNew) {
-                            var PickupTime;
-                            if (PickupMenuCtrl.ePage.Entities.Header.Data.UIWmsWorkorderReport.ResponseType == "NR") {
-                                PickupTime = 8;
-                            } else if (PickupMenuCtrl.ePage.Entities.Header.Data.UIWmsWorkorderReport.ResponseType == "QR") {
-                                PickupTime = 4;
-                            } else if (PickupMenuCtrl.ePage.Entities.Header.Data.UIWmsWorkorderReport.ResponseType == "CR") {
-                                PickupTime = 2;
-                            }
+                        apiService.get("eAxisAPI", appConfig.Entities.WmsPickupList.API.GetById.Url + pickupConfig.TabList[_index][pickupConfig.TabList[_index].label].ePage.Entities.Header.Data.UIWmsPickup.PK).then(function (response) {
+                            if (response.data.Response) {
+                                PickupMenuCtrl.ePage.Entities.Header.Data = response.data.Response;
 
-                            var temp = "";
-                            angular.forEach(PickupMenuCtrl.ePage.Entities.Header.Data.UIWmsPickupLine, function (value, key) {
-                                temp = temp + "\n " + value.ProductCode + "\xa0\xa0\xa0" + value.Units + "\xa0\xa0\xa0" + value.StockKeepingUnit + "\n";
-                            });
-                            var _smsInput = {
-                                "MobileNo": PickupMenuCtrl.ePage.Entities.Header.Data.UIWmsWorkorderReport.RequesterContactNo,
-                                "Message": "Dear " + PickupMenuCtrl.ePage.Entities.Header.Data.UIWmsWorkorderReport.Requester + "," + "\nWe received your request to pickup below products to Dhaka. Your pickup reference no: " + PickupMenuCtrl.ePage.Entities.Header.Data.UIWmsPickup.WorkOrderID + ".\n" + temp + "\nThis will be Picked with in next " + PickupTime + " hours.Thank you."
-                            }
-                            apiService.post("authAPI", appConfig.Entities.Notification.API.SendSms.Url, _smsInput).then(function (response) {
+                                PickupMenuCtrl.ePage.Entities.Header.Data.UIWmsPickup.Client = PickupMenuCtrl.ePage.Entities.Header.Data.UIWmsPickup.ClientCode + ' - ' + PickupMenuCtrl.ePage.Entities.Header.Data.UIWmsPickup.ClientName;
+                                PickupMenuCtrl.ePage.Entities.Header.Data.UIWmsPickup.Consignee = PickupMenuCtrl.ePage.Entities.Header.Data.UIWmsPickup.ConsigneeCode + ' - ' + PickupMenuCtrl.ePage.Entities.Header.Data.UIWmsPickup.ConsigneeName;
+                                PickupMenuCtrl.ePage.Entities.Header.Data.UIWmsPickup.Warehouse = PickupMenuCtrl.ePage.Entities.Header.Data.UIWmsPickup.WarehouseCode + ' - ' + PickupMenuCtrl.ePage.Entities.Header.Data.UIWmsPickup.WarehouseName;
+                                if ($item.isNew) {
+                                    var PickupTime;
+                                    if (PickupMenuCtrl.ePage.Entities.Header.Data.UIWmsWorkorderReport.ResponseType == "NR") {
+                                        PickupTime = 8;
+                                    } else if (PickupMenuCtrl.ePage.Entities.Header.Data.UIWmsWorkorderReport.ResponseType == "QR") {
+                                        PickupTime = 4;
+                                    } else if (PickupMenuCtrl.ePage.Entities.Header.Data.UIWmsWorkorderReport.ResponseType == "CR") {
+                                        PickupTime = 2;
+                                    }
 
-                            });
-                            if (pickupConfig.Entities.ClientContact.length > 0) {
-                                var _smsInput = {
-                                    "MobileNo": pickupConfig.Entities.ClientContact[0].Mobile,
-                                    "Message": "Dear " + PickupMenuCtrl.ePage.Entities.Header.Data.UIWmsWorkorderReport.Requester + "," + "\nWe received your request to pickup below products to Dhaka. Your pickup reference no: " + PickupMenuCtrl.ePage.Entities.Header.Data.UIWmsPickup.WorkOrderID + ".\n" + temp + "\nThis will be picked with in next " + PickupTime + " hours.Thank you."
+                                    var temp = "";
+                                    angular.forEach(PickupMenuCtrl.ePage.Entities.Header.Data.UIWmsPickupLine, function (value, key) {
+                                        temp = temp + "\n " + value.ProductCode + "\xa0\xa0\xa0" + value.Units + "\xa0\xa0\xa0" + value.StockKeepingUnit + "\n";
+                                    });
+                                    var _smsInput = {
+                                        "MobileNo": PickupMenuCtrl.ePage.Entities.Header.Data.UIWmsWorkorderReport.RequesterContactNo,
+                                        "Message": "Dear " + PickupMenuCtrl.ePage.Entities.Header.Data.UIWmsWorkorderReport.Requester + "," + "\nWe received your request to pickup below products to Dhaka. Your pickup reference no: " + PickupMenuCtrl.ePage.Entities.Header.Data.UIWmsPickup.WorkOrderID + ".\n" + temp + "\nThis will be Picked with in next " + PickupTime + " hours.Thank you."
+                                    }
+                                    apiService.post("authAPI", appConfig.Entities.Notification.API.SendSms.Url, _smsInput).then(function (response) {
+
+                                    });
+                                    if (pickupConfig.Entities.ClientContact.length > 0) {
+                                        var _smsInput = {
+                                            "MobileNo": pickupConfig.Entities.ClientContact[0].Mobile,
+                                            "Message": "Dear " + PickupMenuCtrl.ePage.Entities.Header.Data.UIWmsWorkorderReport.Requester + "," + "\nWe received your request to pickup below products to Dhaka. Your pickup reference no: " + PickupMenuCtrl.ePage.Entities.Header.Data.UIWmsPickup.WorkOrderID + ".\n" + temp + "\nThis will be picked with in next " + PickupTime + " hours.Thank you."
+                                        }
+                                        apiService.post("authAPI", appConfig.Entities.Notification.API.SendSms.Url, _smsInput).then(function (response) {
+
+                                        });
+                                    }
+                                    if (pickupConfig.Entities.WarehouseContact.length > 0) {
+                                        var _smsInput = {
+                                            "MobileNo": pickupConfig.Entities.WarehouseContact[0].Mobile,
+                                            "Message": "Dear " + PickupMenuCtrl.ePage.Entities.Header.Data.UIWmsWorkorderReport.Requester + "," + "\nWe received your request to pickup below products to Dhaka. Your pickup reference no: " + PickupMenuCtrl.ePage.Entities.Header.Data.UIWmsPickup.WorkOrderID + ".\n" + temp + "\nThis will be picked with in next " + PickupTime + " hours.Thank you."
+                                        }
+                                        apiService.post("authAPI", appConfig.Entities.Notification.API.SendSms.Url, _smsInput).then(function (response) {
+
+                                        });
+                                    }
                                 }
-                                apiService.post("authAPI", appConfig.Entities.Notification.API.SendSms.Url, _smsInput).then(function (response) {
 
-                                });
-                            }
-                            if (pickupConfig.Entities.WarehouseContact.length > 0) {
-                                var _smsInput = {
-                                    "MobileNo": pickupConfig.Entities.WarehouseContact[0].Mobile,
-                                    "Message": "Dear " + PickupMenuCtrl.ePage.Entities.Header.Data.UIWmsWorkorderReport.Requester + "," + "\nWe received your request to pickup below products to Dhaka. Your pickup reference no: " + PickupMenuCtrl.ePage.Entities.Header.Data.UIWmsPickup.WorkOrderID + ".\n" + temp + "\nThis will be picked with in next " + PickupTime + " hours.Thank you."
+                                if (PickupMenuCtrl.ePage.Entities.Header.Data.UIWmsPickup.WorkOrderStatus == "CAN") {
+                                    PickupMenuCtrl.ePage.Entities.Header.GlobalVariables.NonEditable = true;
+                                    PickupMenuCtrl.ePage.Masters.DisableSave = true;
+                                    PickupMenuCtrl.ePage.Masters.active = 1;
                                 }
-                                apiService.post("authAPI", appConfig.Entities.Notification.API.SendSms.Url, _smsInput).then(function (response) {
+                                if (PickupMenuCtrl.ePage.Masters.IsCancelButton) {
+                                    PickupMenuCtrl.ePage.Masters.CancelButtonText = "Cancel Pickup";
+                                    // PickupMenuCtrl.ePage.Masters.DisableSave = false;
+                                    PickupMenuCtrl.ePage.Masters.IsCancelButton = false;
+                                }
 
-                                });
+                                pickupConfig.TabList[_index].isNew = false;
+                                if ($state.current.url == "/pickup-request") {
+                                    helperService.refreshGrid();
+                                }
                             }
-                        }
-
-                        if (PickupMenuCtrl.ePage.Entities.Header.Data.UIWmsPickup.WorkOrderStatus == "CAN") {
-                            PickupMenuCtrl.ePage.Entities.Header.GlobalVariables.NonEditable = true;
-                            PickupMenuCtrl.ePage.Masters.DisableSave = true;
-                            PickupMenuCtrl.ePage.Masters.active = 1;
-                        }
-                        if (PickupMenuCtrl.ePage.Masters.IsCancelButton) {
-                            PickupMenuCtrl.ePage.Masters.CancelButtonText = "Cancel Pickup";
-                            // PickupMenuCtrl.ePage.Masters.DisableSave = false;
-                            PickupMenuCtrl.ePage.Masters.IsCancelButton = false;
-                        }
-
-                        pickupConfig.TabList[_index].isNew = false;
-                        if ($state.current.url == "/pickup-request") {
-                            helperService.refreshGrid();
-                        }
+                        });
                     }
                     console.log("Success");
                     PickupMenuCtrl.ePage.Entities.Header.GlobalVariables.PercentageValues = true;

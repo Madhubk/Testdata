@@ -41,7 +41,6 @@
                 ReleaseMenuCtrl.ePage.Entities.Header.GlobalVariables.NonEditable = true;
                 ReleaseMenuCtrl.ePage.Masters.DisableSave = true;
             }
-
         }
 
         function FinalizePick($item) {
@@ -55,7 +54,6 @@
             });
 
             if (filter.length == _input.UIWmsOutward.length) {
-
                 var modalOptions = {
                     closeButtonText: 'Cancel',
                     actionButtonText: 'Ok',
@@ -64,8 +62,49 @@
                 };
                 confirmation.showModal({}, modalOptions)
                     .then(function (result) {
-                        ReleaseMenuCtrl.ePage.Masters.Finalisesave = true;
-                        Validation($item);
+                        // check whether MTR inward created or not for MTR outward
+
+                        var filter1 = $filter("filter")(_input.UIWmsOutward, function (value, key) {
+                            if (value.WorkOrderSubType == 'MTR') {
+                                return value;
+                            }
+                        });
+                        if (filter1.length > 0) {
+                            angular.forEach(filter1, function (value, key) {
+                                // check whether the MTR inward created for Order or Not
+                                var _filter = {
+                                    "WOD_Parent_FK": value.PK
+                                };
+                                var _input = {
+                                    "searchInput": helperService.createToArrayOfObject(_filter),
+                                    "FilterID": appConfig.Entities.InwardList.API.FindAll.FilterID
+                                };
+
+                                apiService.post("eAxisAPI", appConfig.Entities.InwardList.API.FindAll.Url, _input).then(function (response) {
+                                    if (response.data.Response) {
+                                        if (response.data.Response.length > 0) {
+                                            ReleaseMenuCtrl.ePage.Masters.InwardDetails = response.data.Response;
+                                            var InwardDetails = _.groupBy(ReleaseMenuCtrl.ePage.Masters.InwardDetails, 'WOD_Parent_FK');
+                                            var InwardDetailsCount = _.keys(InwardDetails).length;
+                                            if (InwardDetailsCount == filter1.length) {
+                                                ReleaseMenuCtrl.ePage.Masters.Finalisesave = true;
+                                                Validation($item);
+                                            } else {
+                                                ReleaseMenuCtrl.ePage.Masters.Config.PushErrorWarning("E3113", "It can be Finalized when all the Material Transfer Outward having Material Transfer Inward", "E", false, 'InwardDetails', ReleaseMenuCtrl.currentRelease.label, false, undefined, undefined, 'InwardDetails', undefined, 'general');
+                                                ReleaseMenuCtrl.ePage.Masters.Config.ShowErrorWarningModal(ReleaseMenuCtrl.currentRelease);
+                                            }
+                                        } else {
+                                            ReleaseMenuCtrl.ePage.Masters.Config.PushErrorWarning("E3113", "It can be Finalized when all the Material Transfer Outward having Material Transfer Inward", "E", false, 'InwardDetails', ReleaseMenuCtrl.currentRelease.label, false, undefined, undefined, 'InwardDetails', undefined, 'general');
+                                            ReleaseMenuCtrl.ePage.Masters.Config.ShowErrorWarningModal(ReleaseMenuCtrl.currentRelease);
+                                            // toastr.warning("It can be Finalized when all the Material Transfer Outward having Material Transfer Inward");
+                                        }
+                                    }
+                                });
+                            });
+                        } else {
+                            ReleaseMenuCtrl.ePage.Masters.Finalisesave = true;
+                            Validation($item);
+                        }
                     }, function () {
                         console.log("Cancelled");
                     });
@@ -113,23 +152,23 @@
                 $item = filterObjectUpdate($item, "IsModified");
             }
 
-            
+
             // Changing IsModified if only values has been touched.
-            _input.UIWmsPickLine.map(function(v,k){
-                if(v.IsTouched){
+            _input.UIWmsPickLine.map(function (v, k) {
+                if (v.IsTouched) {
                     v.IsModified = true;
-                }else{
+                } else {
                     v.IsModified = false;
                 }
             });
-            _input.UIWmsPickLineSummary.map(function(v,k){
-                if(v.IsTouched){
+            _input.UIWmsPickLineSummary.map(function (v, k) {
+                if (v.IsTouched) {
                     v.IsModified = true;
-                }else{
+                } else {
                     v.IsModified = false;
                 }
             });
-            
+
             //Updating the status when manual allocation and deallocation happens
             _input.UIWmsOutward.map(function (value, key) {
                 _input.UIWmsPickLine.map(function (val, k) {

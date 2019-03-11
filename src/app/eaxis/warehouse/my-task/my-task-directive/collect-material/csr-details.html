@@ -161,7 +161,7 @@
 
     </div>
     <div class="clearfix mt-10">
-        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
+        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-3 col-xl-3">
             <div class="form-group">
                 <label class="control-label text-single-line">Request Mode</label>
                 <div class="">
@@ -170,7 +170,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
+        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-3 col-xl-3">
             <div class="form-group">
                 <label class="control-label text-single-line">Response Type</label>
                 <div class="">
@@ -179,7 +179,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
+        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-3 col-xl-3">
             <div class="form-group">
                 <label class="control-label text-single-line">Site Engineer</label>
                 <div class="">
@@ -189,7 +189,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
+        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-3 col-xl-3">
             <div class="form-group">
                 <label class="control-label text-single-line">Contact Number</label>
                 <div class="">
@@ -199,7 +199,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
+        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-3 col-xl-3">
             <div class="form-group">
                 <label class="control-label text-single-line">Pickup Point</label>
                 <div class="">
@@ -208,7 +208,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
+        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-3 col-xl-3">
             <div class="form-group">
                 <label class="control-label text-single-line">Pickup Request No</label>
                 <div class="">
@@ -217,14 +217,72 @@
                 </div>
             </div>
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
+        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="control-label text-single-line">CSR Receiver</label>
+                <div class="">
+                    <input type="text" disabled class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
+                        placeholder="CSR Receiver" data-ng-model="CollectMaterialCtrl.ePage.Entities.Header.PickupData.UIWmsWorkorderReport.AdditionalRef2Code">
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="control-label text-single-line">Requested Date Time</label>
+                <div class="input-group input-group-sm">
+                    <input type="text" disabled class="form-control" placeholder="{{CollectMaterialCtrl.ePage.Masters.DatePicker.Options.dateTimeFormat}}"
+                        datetime-picker="{{CollectMaterialCtrl.ePage.Masters.DatePicker.Options.dateTimeFormat}}"
+                        ng-model="CollectMaterialCtrl.ePage.Entities.Header.PickupData.UIWmsWorkorderReport.DeliveryRequestedDateTime"
+                        is-open="CollectMaterialCtrl.ePage.Masters.DatePicker.isOpen['isDeliveryRequestedDateTime']"
+                        datepicker-options="CollectMaterialCtrl.ePage.Masters.DatePicker.Options"
+                        datepicker-append-to-body="false" close-on-selection="false" enable-time="true" enable-date="true"
+                        default-date="" default-time="" when-closed="" save-as="CollectMaterialCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                        custom-date-time-format />
+                    <span class="input-group-btn">
+                        <button type="button" disabled class="btn btn-default" data-ng-click="CollectMaterialCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isDeliveryRequestedDateTime')">
+                            <i class="fa fa-calendar"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="control-label text-single-line">Acknowledged Person</label>
+                <div class="">
+                    <input type="text" disabled class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
+                        placeholder="Acknowledged Person" data-ng-model="CollectMaterialCtrl.ePage.Entities.Header.PickupData.UIWmsWorkorderReport.AcknowledgedPerson">
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="control-label text-single-line">Acknowledged Date Time</label>
+                <div class="input-group input-group-sm">
+                    <input type="text" disabled class="form-control" placeholder="{{CollectMaterialCtrl.ePage.Masters.DatePicker.Options.dateTimeFormat}}"
+                        datetime-picker="{{CollectMaterialCtrl.ePage.Masters.DatePicker.Options.dateTimeFormat}}"
+                        ng-model="CollectMaterialCtrl.ePage.Entities.Header.PickupData.UIWmsWorkorderReport.AcknowledgementDateTime"
+                        is-open="CollectMaterialCtrl.ePage.Masters.DatePicker.isOpen['isAcknowledgementDateTime']"
+                        datepicker-options="CollectMaterialCtrl.ePage.Masters.DatePicker.Options"
+                        datepicker-append-to-body="false" close-on-selection="false" enable-time="true" enable-date="true"
+                        default-date="" default-time="" when-closed="" save-as="CollectMaterialCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                        custom-date-time-format />
+                    <span class="input-group-btn">
+                        <button type="button" disabled class="btn btn-default" data-ng-click="CollectMaterialCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isAcknowledgementDateTime')">
+                            <i class="fa fa-calendar"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-3 col-xl-3">
             <span class="error-warning-container">
                 <error-warning-directive data-ng-if="CollectMaterialCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.DeliveryPerson.IsWarning && !CollectMaterialCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Receiver.IsError"
-                    list="CollectMaterialCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.DeliveryPerson.WARNING" type="'warning'"
-                    icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                    list="CollectMaterialCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.DeliveryPerson.WARNING"
+                    type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
                 <error-warning-directive data-ng-if="CollectMaterialCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.DeliveryPerson.IsError"
-                    list="CollectMaterialCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.DeliveryPerson.ERROR" type="'error'"
-                    icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                    list="CollectMaterialCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.DeliveryPerson.ERROR"
+                    type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
             </span>
             <div class="form-group">
                 <label class="control-label text-single-line">Handover Person</label>
@@ -234,14 +292,14 @@
                 </div>
             </div>
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
+        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-3 col-xl-3">
             <span class="error-warning-container">
                 <error-warning-directive data-ng-if="CollectMaterialCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.DeliveryPersonContactNo.IsWarning && !CollectMaterialCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Receiver.IsError"
-                    list="CollectMaterialCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.DeliveryPersonContactNo.WARNING" type="'warning'"
-                    icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                    list="CollectMaterialCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.DeliveryPersonContactNo.WARNING"
+                    type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
                 <error-warning-directive data-ng-if="CollectMaterialCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.DeliveryPersonContactNo.IsError"
-                    list="CollectMaterialCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.DeliveryPersonContactNo.ERROR" type="'error'"
-                    icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                    list="CollectMaterialCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.DeliveryPersonContactNo.ERROR"
+                    type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
             </span>
             <div class="form-group">
                 <label class="control-label text-single-line">Handover Person Contact No</label>
@@ -251,7 +309,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
+        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-3 col-xl-3">
             <span class="error-warning-container">
                 <error-warning-directive data-ng-if="CollectMaterialCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Receiver.IsWarning && !CollectMaterialCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Receiver.IsError"
                     list="CollectMaterialCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Receiver.WARNING" type="'warning'"
@@ -268,14 +326,14 @@
                 </div>
             </div>
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
+        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-3 col-xl-3">
             <span class="error-warning-container">
                 <error-warning-directive data-ng-if="CollectMaterialCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ReceiverContactNo.IsWarning && !CollectMaterialCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Receiver.IsError"
-                    list="CollectMaterialCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ReceiverContactNo.WARNING" type="'warning'"
-                    icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                    list="CollectMaterialCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ReceiverContactNo.WARNING"
+                    type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
                 <error-warning-directive data-ng-if="CollectMaterialCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ReceiverContactNo.IsError"
-                    list="CollectMaterialCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ReceiverContactNo.ERROR" type="'error'"
-                    icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                    list="CollectMaterialCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ReceiverContactNo.ERROR"
+                    type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
             </span>
             <div class="form-group">
                 <label class="control-label text-single-line">Receiver Contact No</label>

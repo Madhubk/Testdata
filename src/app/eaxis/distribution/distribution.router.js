@@ -115,7 +115,7 @@
                         return deferred.promise;
                     }],
                     LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
-                        return $ocLazyLoad.load(["chromeTab", "errorWarning", "confirmation", "compareDate", "dynamicListModal", "dynamicList", "dynamicLookup", "dynamicControl", "dynamicGrid", "dmsconsignment", "dmsconsignmentMenu","dmsconsignmentGeneral","dmsconsignmentaddress"]);
+                        return $ocLazyLoad.load(["chromeTab", "errorWarning", "confirmation", "compareDate", "dynamicListModal", "dynamicList", "dynamicLookup", "dynamicControl", "dynamicGrid", "dmsconsignment", "dmsconsignmentMenu","dmsconsignmentGeneral","dmsconsignmentaddress","addressModel"]);
                     }]
                 }
             })

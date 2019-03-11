@@ -196,20 +196,21 @@
                                 "PickStatus": helperService.metaBase(),
                                 "UIWmsReleaseLine": helperService.metaBase(),
                                 "UIWmsPickLineSummary": helperService.metaBase(),
+                                "InwardDetails": helperService.metaBase()
                             },
                         },
                         "GlobalVariables": {
                             "NonEditable": false,
                             "Loading": false,
                             "FetchingInventoryDetails": false,
-                            "NormalingPickSlipTab":false,
+                            "NormalingPickSlipTab": false,
                             "MiscServDetails": []
                         },
                         "TableProperties": {
                             "UIWmsOutward": {
-                                "TableHeight":{
-                                    "isEnabled":true,
-                                    "height":275
+                                "TableHeight": {
+                                    "isEnabled": true,
+                                    "height": 275
                                 },
                                 "HeaderProperties": [{
                                     "columnname": "S.No",
@@ -343,9 +344,9 @@
                                 }
                             },
                             "UIWmsPickLineSummary": {
-                                "TableHeight":{
-                                    "isEnabled":true,
-                                    "height":200
+                                "TableHeight": {
+                                    "isEnabled": true,
+                                    "height": 200
                                 },
                                 "HeaderProperties": [{
                                     "columnname": "S.No",
@@ -571,9 +572,9 @@
 
                             },
                             "UIWmsOutwardLines": {
-                                "TableHeight":{
-                                    "isEnabled":true,
-                                    "height":200
+                                "TableHeight": {
+                                    "isEnabled": true,
+                                    "height": 200
                                 },
                                 "HeaderProperties": [{
                                     "columnname": "S.No",
@@ -811,9 +812,9 @@
                                 }
                             },
                             "PickInventoryList": {
-                                "TableHeight":{
-                                    "isEnabled":true,
-                                    "height":200
+                                "TableHeight": {
+                                    "isEnabled": true,
+                                    "height": 200
                                 },
                                 "HeaderProperties": [{
                                     "columnname": "Checkbox",
@@ -1076,9 +1077,9 @@
                                 }
                             },
                             "UIWmsReleaseLine": {
-                                "TableHeight":{
-                                    "isEnabled":true,
-                                    "height":200
+                                "TableHeight": {
+                                    "isEnabled": true,
+                                    "height": 200
                                 },
                                 "HeaderProperties": [{
                                     "columnname": "Checkbox",

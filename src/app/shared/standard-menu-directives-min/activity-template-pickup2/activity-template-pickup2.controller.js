@@ -181,11 +181,14 @@
                             myTaskActivityConfig.Entities.Pickup[myTaskActivityConfig.Entities.Pickup.label].ePage.Entities.Header.Data.UIWmsWorkorderReport.AcknowledgementDateTime = new Date();
                         if (!myTaskActivityConfig.Entities.Pickup[myTaskActivityConfig.Entities.Pickup.label].ePage.Entities.Header.Data.UIWmsWorkorderReport.AcknowledgedPerson)
                             myTaskActivityConfig.Entities.Pickup[myTaskActivityConfig.Entities.Pickup.label].ePage.Entities.Header.Data.UIWmsWorkorderReport.AcknowledgedPerson = authService.getUserInfo().UserId;
+                        if (!myTaskActivityConfig.Entities.Pickup[myTaskActivityConfig.Entities.Pickup.label].ePage.Entities.Header.Data.UIWmsWorkorderReport.AdditionalRef2Code)
+                            myTaskActivityConfig.Entities.Pickup[myTaskActivityConfig.Entities.Pickup.label].ePage.Entities.Header.Data.UIWmsWorkorderReport.AdditionalRef2Code = authService.getUserInfo().UserId;
                         if (!myTaskActivityConfig.Entities.Pickup[myTaskActivityConfig.Entities.Pickup.label].ePage.Entities.Header.Data.UIWmsWorkorderReport.DeliveryRequestedDateTime)
                             myTaskActivityConfig.Entities.Pickup[myTaskActivityConfig.Entities.Pickup.label].ePage.Entities.Header.Data.UIWmsWorkorderReport.DeliveryRequestedDateTime = new Date();
 
                         angular.forEach(myTaskActivityConfig.Entities.Pickup[myTaskActivityConfig.Entities.Pickup.label].ePage.Entities.Header.Data.UIWmsPickupLine, function (value, key) {
                             value.UISPMSPickupReport.AcknowledgedPerson = myTaskActivityConfig.Entities.Pickup[myTaskActivityConfig.Entities.Pickup.label].ePage.Entities.Header.Data.UIWmsWorkorderReport.AcknowledgedPerson;
+                            value.UISPMSPickupReport.CSRReceiver = myTaskActivityConfig.Entities.Pickup[myTaskActivityConfig.Entities.Pickup.label].ePage.Entities.Header.Data.UIWmsWorkorderReport.AdditionalRef2Code;
                             value.UISPMSPickupReport.AcknowledgedDateTime = myTaskActivityConfig.Entities.Pickup[myTaskActivityConfig.Entities.Pickup.label].ePage.Entities.Header.Data.UIWmsWorkorderReport.AcknowledgementDateTime;
                             value.UISPMSPickupReport.RequestedDateTime = myTaskActivityConfig.Entities.Pickup[myTaskActivityConfig.Entities.Pickup.label].ePage.Entities.Header.Data.UIWmsWorkorderReport.DeliveryRequestedDateTime;
 
@@ -202,6 +205,7 @@
                                     if (response.data.Response.length > 0) {
                                         response.data.Response[0].IsModified = true;
                                         response.data.Response[0].AcknowledgedPerson = myTaskActivityConfig.Entities.Pickup[myTaskActivityConfig.Entities.Pickup.label].ePage.Entities.Header.Data.UIWmsWorkorderReport.AcknowledgedPerson;
+                                        response.data.Response[0].CSRReceiver = myTaskActivityConfig.Entities.Pickup[myTaskActivityConfig.Entities.Pickup.label].ePage.Entities.Header.Data.UIWmsWorkorderReport.AdditionalRef2Code;
                                         response.data.Response[0].AcknowledgedDateTime = myTaskActivityConfig.Entities.Pickup[myTaskActivityConfig.Entities.Pickup.label].ePage.Entities.Header.Data.UIWmsWorkorderReport.AcknowledgementDateTime;
                                         response.data.Response[0].RequestedDateTime = myTaskActivityConfig.Entities.Pickup[myTaskActivityConfig.Entities.Pickup.label].ePage.Entities.Header.Data.UIWmsWorkorderReport.DeliveryRequestedDateTime;
                                         response.data.Response[0].PickupProductStatus = value.ProductCondition;
@@ -235,7 +239,7 @@
             ActivityTemplatePickup2Ctrl.ePage.Masters.SaveBtnText = "Please Wait..";
             if (callback) {
                 if (ActivityTemplatePickup2Ctrl.taskObj.WSI_StepName == "Create Pickup Challan") {
-                    myTaskActivityConfig.Entities.Pickup[myTaskActivityConfig.Entities.Pickup.label].ePage.Entities.Header.Data.UIWmsPickup.WorkOrderStatus = "DIP";
+                    myTaskActivityConfig.Entities.Pickup[myTaskActivityConfig.Entities.Pickup.label].ePage.Entities.Header.Data.UIWmsPickup.WorkOrderStatus = "PIP";
                     myTaskActivityConfig.CallEntity = false;
                 }
             }

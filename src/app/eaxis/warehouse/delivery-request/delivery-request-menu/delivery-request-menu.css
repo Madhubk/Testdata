@@ -12,4 +12,8 @@
     outline: none;
 }
 
-
+.success-popup1 .modal-dialog {
+    width: 780px;
+    height: 250px;
+    margin: 120px auto;
+}

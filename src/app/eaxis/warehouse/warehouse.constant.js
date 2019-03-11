@@ -806,6 +806,23 @@
             ]
         },
         //#endregion
+        //#region WMS Dynamic Dashboard
+        {
+            name: 'dynamicDashboard',
+            files: [
+                'app/eaxis/warehouse/dynamic-dashboard/dynamic-dashboard.css',
+                'app/eaxis/warehouse/dynamic-dashboard/dynamic-dashboard.controller.js',
+                'app/eaxis/warehouse/dynamic-dashboard/dynamic-dashboard.directive.js',
+            ]
+        }, {
+            name: 'Notification',
+            files: [
+                'app/eaxis/warehouse/dynamic-dashboard/notification/notification.css',
+                'app/eaxis/warehouse/dynamic-dashboard/notification/notification.controller.js',
+                'app/eaxis/warehouse/dynamic-dashboard/notification/notification.directive.js',
+            ]
+        },
+        //#endregion
         // #region Batch Upload
         {
             name: 'batchUpload',

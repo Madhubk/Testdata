@@ -41,10 +41,10 @@
             PickupDeliveryCtrl.ePage.Masters.DocumentInput = [];
 
             var res = PickupDeliveryCtrl.menuvalue.split(" ");
-            if (res[1] == "Pickup") {
+            if (res[1] == "Pickup" || res[1] == "Vehicle" || res[2] == "Dispatch") {
                 PickupDeliveryCtrl.ePage.Entities.Header.CheckPoints.IsPickup = true;
                 PickupDeliveryCtrl.ePage.Entities.Header.CheckPoints.IsDelivery = false;
-            } else if (res[1] == "Delivery") {
+            } else if (res[1] == "Delivery" || res[1] == "Upload" || res[2] == "Delivery") {
                 PickupDeliveryCtrl.ePage.Entities.Header.CheckPoints.IsDelivery = true;
                 PickupDeliveryCtrl.ePage.Entities.Header.CheckPoints.IsPickup = false;
             }
@@ -76,7 +76,7 @@
             $event.stopPropagation();
             PickupDeliveryCtrl.ePage.Masters.DatePicker.isOpen[opened] = true;
         }
-
+        
         Init();
     }
 

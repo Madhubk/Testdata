@@ -5,9 +5,9 @@
         .module("Application")
         .controller("CreatePickupChallanController", CreatePickupChallanController);
 
-    CreatePickupChallanController.$inject = ["$scope", "apiService", "helperService", "appConfig", "myTaskActivityConfig", "APP_CONSTANT", "errorWarningService", "dynamicLookupConfig", "inwardConfig", "toastr", "$timeout"];
+    CreatePickupChallanController.$inject = ["$scope", "apiService", "helperService", "appConfig", "myTaskActivityConfig", "APP_CONSTANT", "errorWarningService", "dynamicLookupConfig", "inwardConfig", "toastr", "$timeout", "$uibModal"];
 
-    function CreatePickupChallanController($scope, apiService, helperService, appConfig, myTaskActivityConfig, APP_CONSTANT, errorWarningService, dynamicLookupConfig, inwardConfig, toastr, $timeout) {
+    function CreatePickupChallanController($scope, apiService, helperService, appConfig, myTaskActivityConfig, APP_CONSTANT, errorWarningService, dynamicLookupConfig, inwardConfig, toastr, $timeout, $uibModal) {
         var CreatePickupChallanCtrl = this;
 
         function Init() {
@@ -48,21 +48,166 @@
             CreatePickupChallanCtrl.ePage.Masters.DatePicker.OpenDatePicker = OpenDatePicker;
 
             CreatePickupChallanCtrl.ePage.Masters.CreateInwardText = "Create Inward";
+            CreatePickupChallanCtrl.ePage.Masters.AddToInwardText = "Add to Existing Inward";
             // CreatePickupChallanCtrl.ePage.Masters.CreateMaterialTransferText = "Create Material Transfer";
             CreatePickupChallanCtrl.ePage.Masters.CreateInward = CreateInward;
             CreatePickupChallanCtrl.ePage.Masters.SelectAllCheckBox = SelectAllCheckBox;
             CreatePickupChallanCtrl.ePage.Masters.SingleSelectCheckBox = SingleSelectCheckBox;
             CreatePickupChallanCtrl.ePage.Masters.CurrentActiveTab = CurrentActiveTab;
             CreatePickupChallanCtrl.ePage.Masters.CallIsReload = CallIsReload;
+
+            CreatePickupChallanCtrl.ePage.Masters.AddToInward = AddToInward;
+            CreatePickupChallanCtrl.ePage.Masters.CloseEditActivityModal = CloseEditActivityModal;
+            CreatePickupChallanCtrl.ePage.Masters.setSelectedInwardRow = setSelectedInwardRow;
+            CreatePickupChallanCtrl.ePage.Masters.AddPickupLineToInward = AddPickupLineToInward;
         }
+        // #region - Add to Existing Inward
+        function AddToInward() {
+            var count = 0;
+            angular.forEach(CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIvwWmsPickupLine, function (value, key) {
+                if (value.SingleSelect) {
+                    count = count + 1;
+                    // value.SingleSelect = false;
+                }
+            });
+            if (count > 0) {
+                var SelectedLine = [];
+                var _filter = {
+                    "WOD_Parent_FK": CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup.PK
+                };
+                var _input = {
+                    "searchInput": helperService.createToArrayOfObject(_filter),
+                    "FilterID": appConfig.Entities.InwardList.API.FindAll.FilterID
+                };
+                apiService.post("eAxisAPI", appConfig.Entities.InwardList.API.FindAll.Url, _input).then(function (response) {
+                    if (response.data.Response) {
+                        if (response.data.Response.length > 0) {
+                            CreatePickupChallanCtrl.ePage.Masters.UnFinalizedOrders = [];
+                            CreatePickupChallanCtrl.ePage.Masters.InwardList = response.data.Response;
+                            CreatePickupChallanCtrl.ePage.Masters.UnFinalizedOrders = [];
+                            angular.forEach(CreatePickupChallanCtrl.ePage.Masters.InwardList, function (v, k) {
+                                if (v.WorkOrderStatus != "FIN") {
+                                    CreatePickupChallanCtrl.ePage.Masters.UnFinalizedOrders.push(v);
+                                }
+                            });
+                            if (CreatePickupChallanCtrl.ePage.Masters.UnFinalizedOrders.length > 0) {
+                                CreatePickupChallanCtrl.ePage.Masters.TempSelectedPickupLine = [];
+                                angular.forEach(CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIvwWmsPickupLine, function (value1, key1) {
+                                    if (value1.SingleSelect == true) {
+                                        SelectedLine.push(value1);
+                                        if (value1.IL_PrdCode) {
+                                            toastr.warning("This Pickup line " + value1.PL_AdditionalRef1Code + " already attached to inward " + value1.INW_WorkOrderId);
+                                        } else {
+                                            CreatePickupChallanCtrl.ePage.Masters.TempSelectedPickupLine.push(value1);
+                                        }
+                                    }
+                                });
 
-        function CallIsReload() {
-            CreatePickupChallanCtrl.ePage.Masters.Config.IsReload = false;
-            CreatePickupChallanCtrl.ePage.Entities.Header.Data = myTaskActivityConfig.Entities.Pickup[myTaskActivityConfig.Entities.Pickup.label].ePage.Entities.Header.Data;
+                                if (CreatePickupChallanCtrl.ePage.Masters.TempSelectedPickupLine.length == SelectedLine.length) {
+                                    OpenModal();
+                                }
+                            } else {
+                                toastr.warning("It can be added when the Order(s) is not Finalized.")
+                            }
+                        } else {
+                            toastr.warning("Order not yet created.")
+                        }
+                    }
+                });
+            } else {
+                toastr.warning("Select atleast one pickup line.");
+            }
         }
-
-
-        //#region checkbox selection
+        function AddPickupLineToInward() {
+            CreatePickupChallanCtrl.ePage.Masters.modalInstance1.dismiss('cancel');
+            if (CreatePickupChallanCtrl.ePage.Masters.selectedInwardRow >= 0) {
+                CreatePickupChallanCtrl.ePage.Masters.Loading = true;
+                apiService.get("eAxisAPI", appConfig.Entities.InwardList.API.GetById.Url + CreatePickupChallanCtrl.ePage.Masters.UnFinalizedOrders[CreatePickupChallanCtrl.ePage.Masters.selectedInwardRow].PK).then(function (response) {
+                    if (response.data.Response) {
+                        angular.forEach(CreatePickupChallanCtrl.ePage.Masters.TempSelectedPickupLine, function (value, key) {
+                            value.IL_PrdCode = value.PL_Req_PrdCode;
+                            value.SingleSelect = false;
+                            var obj = {
+                                "PK": "",
+                                "Parent_FK": value.PL_PK,
+                                "Client_FK": value.PIC_ClientFk,
+                                "ORG_ClientCode": value.PIC_ClientCode,
+                                "ORG_ClientName": value.PIC_ClientName,
+                                "ProductCode": value.PL_Req_PrdCode,
+                                "ProductDescription": value.PL_Req_PrdDesc,
+                                "ProductCondition": value.PL_ProductCondition,
+                                "POR_FK": value.PL_Req_PrdPk,
+                                "Packs": value.PL_Packs,
+                                "PAC_PackType": value.PL_PAC_PackType,
+                                "Quantity": value.PL_Units,
+                                "StockKeepingUnit": value.PL_StockKeepingUnit,
+                                "PalletId": value.PL_PalletID,
+                                "PartAttrib1": value.PL_PartAttrib1,
+                                "PartAttrib2": value.PL_PartAttrib2,
+                                "PartAttrib3": value.PL_PartAttrib3,
+                                "PackingDate": value.PL_PackingDate,
+                                "ExpiryDate": value.PL_ExpiryDate,
+                                "AdditionalRef1Code": value.PL_AdditionalRef1Code,
+                                "AdditionalRef1Type": "PickupLine",
+                                "AdditionalRef1Fk": value.PL_PK,
+                                "UseExpiryDate": value.PIC_UseExpiryDate,
+                                "UsePackingDate": value.PIC_UsePackingDate,
+                                "UsePartAttrib1": value.PIC_UsePartAttrib1,
+                                "UsePartAttrib2": value.PIC_UsePartAttrib2,
+                                "UsePartAttrib3": value.PIC_UsePartAttrib3
+                            };
+                            response.data.Response.UIWmsAsnLine.push(obj);
+                        });
+                        response.data.Response = filterObjectUpdate(response.data.Response, "IsModified");
+                        apiService.post("eAxisAPI", appConfig.Entities.InwardList.API.Update.Url, response.data.Response).then(function (response) {
+                            if (response.data.Status == 'Success') {
+                                CreatePickupChallanCtrl.ePage.Masters.InwardDetails = response.data.Response;
+                                toastr.success("Pickup Line added to the Order " + CreatePickupChallanCtrl.ePage.Masters.InwardDetails.UIWmsInwardHeader.WorkOrderID);
+                                CreatePickupChallanCtrl.ePage.Masters.Loading = false;
+                                inwardConfig.TabList = [];
+                                angular.forEach(CreatePickupChallanCtrl.ePage.Masters.InwardList, function (value, key) {
+                                    myTaskActivityConfig.CallEntity = true;
+                                    AddTab(value, false);
+                                });
+                            }
+                        });
+                    }
+                });
+            } else {
+                toastr.warning("Select the Order");
+            }
+            CreatePickupChallanCtrl.ePage.Masters.modalInstance1.dismiss('cancel');
+        }
+        function setSelectedInwardRow(index) {
+            CreatePickupChallanCtrl.ePage.Masters.selectedInwardRow = index;
+        }
+        function OpenModal() {
+            return CreatePickupChallanCtrl.ePage.Masters.modalInstance1 = $uibModal.open({
+                animation: true,
+                backdrop: "static",
+                keyboard: false,
+                windowClass: "success-popup1",
+                scope: $scope,
+                size: "md",
+                templateUrl: "app/eaxis/warehouse/my-task/my-task-directive/create-pickup-challan/inward-details.html"
+            });
+        }
+        function CloseEditActivityModal() {
+            CreatePickupChallanCtrl.ePage.Masters.modalInstance1.dismiss('cancel');
+        }
+        function filterObjectUpdate(obj, key) {
+            for (var i in obj) {
+                if (!obj.hasOwnProperty(i)) continue;
+                if (typeof obj[i] == 'object') {
+                    filterObjectUpdate(obj[i], key);
+                } else if (i == key) {
+                    obj[key] = true;
+                }
+            }
+            return obj;
+        }
+        // #endregion
+        // #region - checkbox selection
         function SelectAllCheckBox() {
             angular.forEach(CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIvwWmsPickupLine, function (value, key) {
                 if (CreatePickupChallanCtrl.ePage.Masters.SelectAll) {
@@ -90,7 +235,8 @@
                 return value.SingleSelect == true;
             });
         }
-
+        // #endregion
+        // #region - show the created inward
         function getInwardList() {
             var _filter = {
                 "WOD_Parent_FK": CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup.PK
@@ -109,7 +255,8 @@
                 }
             });
         }
-
+        // #endregion
+        // #region - create inward
         function CreateInward() {
             inwardConfig.ValidationFindall();
             if (CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIvwWmsPickupLine.length > 0) {
@@ -168,7 +315,7 @@
                                         value.PK = "";
                                         if (value.AddressType == "CED")
                                             value.AddressType = "SUD";
-                                    });                                    
+                                    });
                                     angular.forEach(CreatePickupChallanCtrl.ePage.Masters.SelectedPickupLine, function (value, key) {
                                         value.IL_PrdCode = value.PL_Req_PrdCode;
                                         var obj = {
@@ -276,8 +423,8 @@
             }
             CreatePickupChallanCtrl.ePage.Masters.currentPickup = currentTab;
         }
-
-
+        // #endregion
+        // #region - General
         function GeneralOperation() {
             // Client
             if (CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup.ClientCode == null)
@@ -359,6 +506,11 @@
             }
         }
 
+        function CallIsReload() {
+            CreatePickupChallanCtrl.ePage.Masters.Config.IsReload = false;
+            CreatePickupChallanCtrl.ePage.Entities.Header.Data = myTaskActivityConfig.Entities.Pickup[myTaskActivityConfig.Entities.Pickup.label].ePage.Entities.Header.Data;
+        }
+        // #endregion
         Init();
     }
 })();

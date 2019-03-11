@@ -14,15 +14,16 @@
                         <div class="input-group input-group-sm">
                             <!-- Dynamic look up Search in textbox -->
                             <div dynamic-lookup placeholder="Service Provider" is-disabled="true" my-ng-model="TransferMaterialCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery.Client"
-                                auto-complete-on-select="TransferMaterialCtrl.ePage.Masters.SelectedLookupClient($item)" obj="TransferMaterialCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery"
-                                page-name="'OrganizationList'" control-id="'Customer'" control-key="'Customer_3321'">
+                                auto-complete-on-select="TransferMaterialCtrl.ePage.Masters.SelectedLookupClient($item)"
+                                obj="TransferMaterialCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery" page-name="'OrganizationList'"
+                                control-id="'Customer'" control-key="'Customer_3321'">
                             </div>
                             <!-- Look Up page opens when button clicks -->
                             <span class="input-group-btn">
-                                <button dynamic-list-modal is-disabled="true" obj="TransferMaterialCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery" control-id="'Customer'"
-                                    control-key="'Customer_3321'" selected-data="TransferMaterialCtrl.ePage.Masters.SelectedLookupClient($item.data.entity)"
-                                    page-name="'OrganizationList'" mode="2" grid-refresh-fun-name="" grid-refresh-fun="" class="btn btn-default shiny"
-                                    type="button">
+                                <button dynamic-list-modal is-disabled="true" obj="TransferMaterialCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery"
+                                    control-id="'Customer'" control-key="'Customer_3321'" selected-data="TransferMaterialCtrl.ePage.Masters.SelectedLookupClient($item.data.entity)"
+                                    page-name="'OrganizationList'" mode="2" grid-refresh-fun-name="" grid-refresh-fun=""
+                                    class="btn btn-default shiny" type="button">
                                     <i class="fa fa-ellipsis-h"></i>
                                 </button>
                             </span>
@@ -36,8 +37,11 @@
                             <div class="text-single-line" title='{{TransferMaterialCtrl.ePage.Entities.Header.DeliveryData.UIOrgHeader.OAD_Address2}}'>{{TransferMaterialCtrl.ePage.Entities.Header.DeliveryData.UIOrgHeader.OAD_Address2}}</div>
                             <div class="text-single-line" title='{{TransferMaterialCtrl.ePage.Entities.Header.DeliveryData.UIOrgHeader.OAD_State}}'>{{TransferMaterialCtrl.ePage.Entities.Header.DeliveryData.UIOrgHeader.OAD_State}}</div>
                             <div class="text-single-line">
-                                <span ng-show="TransferMaterialCtrl.ePage.Entities.Header.DeliveryData.UIOrgHeader.OAD_City" title="{{TransferMaterialCtrl.ePage.Entities.Header.DeliveryData.UIOrgHeader.OAD_City}}">{{TransferMaterialCtrl.ePage.Entities.Header.DeliveryData.UIOrgHeader.OAD_City}} -</span>
-                                <span ng-show="TransferMaterialCtrl.ePage.Entities.Header.DeliveryData.UIOrgHeader.OAD_PostCode" title="{{TransferMaterialCtrl.ePage.Entities.Header.DeliveryData.UIOrgHeader.OAD_PostCode}}">{{TransferMaterialCtrl.ePage.Entities.Header.DeliveryData.UIOrgHeader.OAD_PostCode}}</span>
+                                <span ng-show="TransferMaterialCtrl.ePage.Entities.Header.DeliveryData.UIOrgHeader.OAD_City"
+                                    title="{{TransferMaterialCtrl.ePage.Entities.Header.DeliveryData.UIOrgHeader.OAD_City}}">{{TransferMaterialCtrl.ePage.Entities.Header.DeliveryData.UIOrgHeader.OAD_City}}
+                                    -</span>
+                                <span ng-show="TransferMaterialCtrl.ePage.Entities.Header.DeliveryData.UIOrgHeader.OAD_PostCode"
+                                    title="{{TransferMaterialCtrl.ePage.Entities.Header.DeliveryData.UIOrgHeader.OAD_PostCode}}">{{TransferMaterialCtrl.ePage.Entities.Header.DeliveryData.UIOrgHeader.OAD_PostCode}}</span>
                             </div>
                         </div>
                         <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 p-0 mt-30">
@@ -71,10 +75,10 @@
 
                             <!-- Look Up page opens when button clicks -->
                             <span class="input-group-btn">
-                                <button dynamic-list-modal is-disabled="true" obj="TransferMaterialCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery" control-id="'Warehouse'"
-                                    selected-data="TransferMaterialCtrl.ePage.Masters.SelectedLookupWarehouse($item.data.entity)"
-                                    page-name="'OrgHeaderWithWarehouse'" control-key="'Warehouse_3323'" mode="2" grid-refresh-fun-name=""
-                                    grid-refresh-fun="" class="btn btn-default shiny" type="button">
+                                <button dynamic-list-modal is-disabled="true" obj="TransferMaterialCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery"
+                                    control-id="'Warehouse'" selected-data="TransferMaterialCtrl.ePage.Masters.SelectedLookupWarehouse($item.data.entity)"
+                                    page-name="'OrgHeaderWithWarehouse'" control-key="'Warehouse_3323'" mode="2"
+                                    grid-refresh-fun-name="" grid-refresh-fun="" class="btn btn-default shiny" type="button">
                                     <i class="fa fa-ellipsis-h"></i>
                                 </button>
                             </span>
@@ -82,7 +86,8 @@
                     </div>
                 </div>
                 <div class="rows p-5 height-70">
-                    <div ng-show="TransferMaterialCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery.Warehouse" ng-repeat="x in TransferMaterialCtrl.ePage.Entities.Header.DeliveryData.UIJobAddress | filter: {AddressType:'SND'}">
+                    <div ng-show="TransferMaterialCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery.Warehouse"
+                        ng-repeat="x in TransferMaterialCtrl.ePage.Entities.Header.DeliveryData.UIJobAddress | filter: {AddressType:'SND'}">
                         <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8 addressstyle">
                             <div class="text-single-line font-12" title='{{x.Address1}}'>{{x.Address1 }}</div>
                             <div class="text-single-line" title='{{x.Address2}}'>{{x.Address2 }}</div>
@@ -116,16 +121,17 @@
                         <div class="input-group input-group-sm">
                             <!-- Dynamic look up Search in textbox -->
                             <div dynamic-lookup placeholder="Site" is-disabled="true" my-ng-model="TransferMaterialCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery.Consignee"
-                                auto-complete-on-select="TransferMaterialCtrl.ePage.Masters.SelectedLookupSupplier($item)" obj="TransferMaterialCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery"
-                                page-name="'OrganizationList'" control-id="'Site'" control-key="'Site_3322'">
+                                auto-complete-on-select="TransferMaterialCtrl.ePage.Masters.SelectedLookupSupplier($item)"
+                                obj="TransferMaterialCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery" page-name="'OrganizationList'"
+                                control-id="'Site'" control-key="'Site_3322'">
                             </div>
 
                             <!-- Look Up page opens when button clicks -->
                             <span class="input-group-btn">
-                                <button dynamic-list-modal is-disabled="true" obj="TransferMaterialCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery" control-id="'Site'"
-                                    selected-data="TransferMaterialCtrl.ePage.Masters.SelectedLookupSupplier($item.data.entity)"
-                                    page-name="'OrganizationList'" control-key="'Site_3322'" mode="2" grid-refresh-fun-name=""
-                                    grid-refresh-fun="" class="btn btn-default shiny" type="button">
+                                <button dynamic-list-modal is-disabled="true" obj="TransferMaterialCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery"
+                                    control-id="'Site'" selected-data="TransferMaterialCtrl.ePage.Masters.SelectedLookupSupplier($item.data.entity)"
+                                    page-name="'OrganizationList'" control-key="'Site_3322'" mode="2"
+                                    grid-refresh-fun-name="" grid-refresh-fun="" class="btn btn-default shiny" type="button">
                                     <i class="fa fa-ellipsis-h"></i>
                                 </button>
                             </span>
@@ -133,7 +139,8 @@
                     </div>
                 </div>
                 <div class="rows p-5 height-70">
-                    <div ng-show="TransferMaterialCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery.Consignee" ng-repeat="x in TransferMaterialCtrl.ePage.Entities.Header.DeliveryData.UIJobAddress | filter: {AddressType:'SUD'}">
+                    <div ng-show="TransferMaterialCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery.Consignee"
+                        ng-repeat="x in TransferMaterialCtrl.ePage.Entities.Header.DeliveryData.UIJobAddress | filter: {AddressType:'SUD'}">
                         <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8 addressstyle">
                             <div class="text-single-line font-12" title='{{x.Address1}}'>{{x.Address1 }}</div>
                             <div class="text-single-line" title='{{x.Address2}}'>{{x.Address2 }}</div>
@@ -155,65 +162,125 @@
         </div>
     </div>
     <div class="clearfix mt-10">
-        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
+        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-3 col-xl-3">
             <div class="form-group">
                 <label class="control-label text-single-line">Request Mode</label>
                 <div class="">
-                    <input type="text" disabled class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Request Mode"
-                        data-ng-model="TransferMaterialCtrl.ePage.Entities.Header.DeliveryData.UIWmsWorkorderReport.RequestMode">
+                    <input type="text" disabled class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
+                        placeholder="Request Mode" data-ng-model="TransferMaterialCtrl.ePage.Entities.Header.DeliveryData.UIWmsWorkorderReport.RequestMode">
                 </div>
             </div>
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
+        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-3 col-xl-3">
             <div class="form-group">
                 <label class="control-label text-single-line">Response Type</label>
                 <div class="">
-                    <input type="text" disabled class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Response Type"
-                        data-ng-model="TransferMaterialCtrl.ePage.Entities.Header.DeliveryData.UIWmsWorkorderReport.ResponseType">
+                    <input type="text" disabled class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
+                        placeholder="Response Type" data-ng-model="TransferMaterialCtrl.ePage.Entities.Header.DeliveryData.UIWmsWorkorderReport.ResponseType">
                 </div>
             </div>
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
+        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-3 col-xl-3">
             <div class="form-group">
                 <label class="control-label text-single-line">Site Engineer</label>
                 <div class="">
-                    <input type="text" disabled class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Site Engineer"
-                        data-ng-model="TransferMaterialCtrl.ePage.Entities.Header.DeliveryData.UIWmsWorkorderReport.Requester" ng-change="TransferMaterialCtrl.ePage.Masters.OnChangeValues(TransferMaterialCtrl.ePage.Entities.Header.DeliveryData.UIWmsWorkorderReport.Requester,'E3055')">
+                    <input type="text" disabled class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
+                        placeholder="Site Engineer" data-ng-model="TransferMaterialCtrl.ePage.Entities.Header.DeliveryData.UIWmsWorkorderReport.Requester"
+                        ng-change="TransferMaterialCtrl.ePage.Masters.OnChangeValues(TransferMaterialCtrl.ePage.Entities.Header.DeliveryData.UIWmsWorkorderReport.Requester,'E3055')">
                 </div>
             </div>
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
+        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-3 col-xl-3">
             <div class="form-group">
                 <label class="control-label text-single-line">Contact Number</label>
                 <div class="">
-                    <input type="text" disabled class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Contact Number"
-                        data-ng-model="TransferMaterialCtrl.ePage.Entities.Header.DeliveryData.UIWmsWorkorderReport.RequesterContactNo">
+                    <input type="text" disabled class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
+                        placeholder="Contact Number" data-ng-model="TransferMaterialCtrl.ePage.Entities.Header.DeliveryData.UIWmsWorkorderReport.RequesterContactNo">
                 </div>
             </div>
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
+        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-3 col-xl-3">
             <div class="form-group">
                 <label class="control-label text-single-line">Drop Point</label>
                 <div class="">
-                    <input type="text" disabled class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Drop Point"
-                        data-ng-model="TransferMaterialCtrl.ePage.Entities.Header.DeliveryData.UIWmsWorkorderReport.AdditionalRef1Code">
+                    <input type="text" disabled class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
+                        placeholder="Drop Point" data-ng-model="TransferMaterialCtrl.ePage.Entities.Header.DeliveryData.UIWmsWorkorderReport.AdditionalRef1Code">
                 </div>
             </div>
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
+        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-3 col-xl-3">
             <div class="form-group">
                 <label class="control-label text-single-line">Delivery Request No</label>
                 <div class="">
-                    <input type="text" disabled class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Delivery Request No"
-                        data-ng-model="TransferMaterialCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery.WorkOrderID">
+                    <input type="text" disabled class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
+                        placeholder="Delivery Request No" data-ng-model="TransferMaterialCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery.WorkOrderID">
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="control-label text-single-line">CSR Receiver</label>
+                <div class="">
+                    <input type="text" disabled class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
+                        placeholder="CSR Receiver" data-ng-model="TransferMaterialCtrl.ePage.Entities.Header.DeliveryData.UIWmsWorkorderReport.AdditionalRef2Code">
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="control-label text-single-line">Requested Date Time</label>
+                <div class="input-group input-group-sm">
+                    <input type="text" disabled class="form-control" placeholder="{{TransferMaterialCtrl.ePage.Masters.DatePicker.Options.dateTimeFormat}}"
+                        datetime-picker="{{TransferMaterialCtrl.ePage.Masters.DatePicker.Options.dateTimeFormat}}"
+                        ng-model="TransferMaterialCtrl.ePage.Entities.Header.DeliveryData.UIWmsWorkorderReport.DeliveryRequestedDateTime"
+                        is-open="TransferMaterialCtrl.ePage.Masters.DatePicker.isOpen['isDeliveryRequestedDateTime']"
+                        datepicker-options="TransferMaterialCtrl.ePage.Masters.DatePicker.Options"
+                        datepicker-append-to-body="false" close-on-selection="false" enable-time="true" enable-date="true"
+                        default-date="" default-time="" when-closed="" save-as="TransferMaterialCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                        custom-date-time-format />
+                    <span class="input-group-btn">
+                        <button type="button" disabled class="btn btn-default" data-ng-click="TransferMaterialCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isDeliveryRequestedDateTime')">
+                            <i class="fa fa-calendar"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="control-label text-single-line">Acknowledged Person</label>
+                <div class="">
+                    <input type="text" disabled class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
+                        placeholder="Acknowledged Person" data-ng-model="TransferMaterialCtrl.ePage.Entities.Header.DeliveryData.UIWmsWorkorderReport.AcknowledgedPerson">
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="control-label text-single-line">Acknowledged Date Time</label>
+                <div class="input-group input-group-sm">
+                    <input type="text" disabled class="form-control" placeholder="{{TransferMaterialCtrl.ePage.Masters.DatePicker.Options.dateTimeFormat}}"
+                        datetime-picker="{{TransferMaterialCtrl.ePage.Masters.DatePicker.Options.dateTimeFormat}}"
+                        ng-model="TransferMaterialCtrl.ePage.Entities.Header.DeliveryData.UIWmsWorkorderReport.AcknowledgementDateTime"
+                        is-open="TransferMaterialCtrl.ePage.Masters.DatePicker.isOpen['isAcknowledgementDateTime']"
+                        datepicker-options="TransferMaterialCtrl.ePage.Masters.DatePicker.Options"
+                        datepicker-append-to-body="false" close-on-selection="false" enable-time="true" enable-date="true"
+                        default-date="" default-time="" when-closed="" save-as="TransferMaterialCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                        custom-date-time-format />
+                    <span class="input-group-btn">
+                        <button disabled type="button" class="btn btn-default" data-ng-click="TransferMaterialCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isAcknowledgementDateTime')">
+                            <i class="fa fa-calendar"></i>
+                        </button>
+                    </span>
                 </div>
             </div>
         </div>
     </div>
     <div class="clearfix mt-10">
-        <div id="InwardLineTable{{TransferMaterialCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery.WorkOrderID}}" class="fixedheader mb-0"
-            key-events table-object='TransferMaterialCtrl.ePage.Entities.Header.DeliveryData.UIWmsDeliveryLine' enable='TransferMaterialCtrl.ePage.Masters.Enable'
-            selected-row='TransferMaterialCtrl.ePage.Masters.selectedRow' unique-id='InwardLineTable{{TransferMaterialCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery.WorkOrderID}}'>
+        <div id="InwardLineTable{{TransferMaterialCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery.WorkOrderID}}"
+            class="fixedheader mb-0" key-events table-object='TransferMaterialCtrl.ePage.Entities.Header.DeliveryData.UIWmsDeliveryLine'
+            enable='TransferMaterialCtrl.ePage.Masters.Enable' selected-row='TransferMaterialCtrl.ePage.Masters.selectedRow'
+            unique-id='InwardLineTable{{TransferMaterialCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery.WorkOrderID}}'>
             <table style="height: 200px">
                 <thead>
                     <tr id="tableHeader">
@@ -233,8 +300,8 @@
                     </tr>
                 </thead>
                 <tbody id="InwardLineCustTable{{TransferMaterialCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery.WorkOrderID}}">
-                    <tr id="tableBody" ng-repeat="x in TransferMaterialCtrl.ePage.Entities.Header.DeliveryData.UIWmsDeliveryLine" ng-click="TransferMaterialCtrl.ePage.Masters.setSelectedRow($index);"
-                        ng-class="{row_active: (TransferMaterialCtrl.ePage.Masters.selectedRow==$index),copy_row_active :(x.IsCopied==true)}">
+                    <tr id="tableBody" ng-repeat="x in TransferMaterialCtrl.ePage.Entities.Header.DeliveryData.UIWmsDeliveryLine"
+                        ng-click="TransferMaterialCtrl.ePage.Masters.setSelectedRow($index);" ng-class="{row_active: (TransferMaterialCtrl.ePage.Masters.selectedRow==$index),copy_row_active :(x.IsCopied==true)}">
 
                         <td ng-style="{ 'width':  '40px' }" class="overflow-text">{{$index +1}}</td>
                         <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.AdditionalRef1Code}}</td>

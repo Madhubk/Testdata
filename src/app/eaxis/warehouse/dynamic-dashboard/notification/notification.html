@@ -1,0 +1,26 @@
+<!-- Notification -->
+<div class="col-lg-8 mt-20 custom-widget">
+    <div class="widget">
+        <div class="widget-header bordered-bottom">
+            <span class="widget-caption">Notification</span>
+        </div>
+        <div class="widget-body no-padding">
+            <div class="tickets-container bg-white">
+                <ul class="tickets-list scrollarea" id="style-1">
+                    <li data-ng-repeat="x in NotificationCtrl.ePage.Masters.NotificationDashboardDetails">
+                        <div class="row">
+                            <div class="col-lg-8">
+                                <span class="mycircle">
+                                    <i class="glyphicon glyphicon-saved"></i>
+                                </span>
+                                <span class="p-10">{{x.DisplayText}}</span>
+                            </div>
+                        </div>
+                    </li>
+                    <div data-ng-if="NotificationCtrl.ePage.Masters.NotificationDashboardDetails.length==0">No Records
+                        Found!..</div>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

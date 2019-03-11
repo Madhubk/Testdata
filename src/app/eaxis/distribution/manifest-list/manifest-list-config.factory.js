@@ -70,6 +70,12 @@
                             "HttpType": "POST",
                             "Url": "OrgAddress/Update"
                         },
+                        "CfxMenus": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "CfxMenus/FindAll",
+                            "FilterID": "CFXMENU"
+                        },
                     },
                     "Meta": {
 
@@ -85,8 +91,8 @@
             "ShowErrorWarningModal": ShowErrorWarningModal,
             "TempConsignmentNumber": "",
             "activeTabIndex": 0,
-            "SelectedValue":"",
-            "TransporterTypeValue":""
+            "SelectedValue": "",
+            "TransporterTypeValue": ""
         };
 
         return exports;
@@ -196,6 +202,12 @@
                                 "Url": "TmsGeoRoute/FindAll",
                                 "FilterID": "TMSGEOJ"
                             },
+                            "CfxMenus": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "CfxMenus/FindAll",
+                                "FilterID": "CFXMENU"
+                            },
                         },
 
                         "Meta": {
@@ -211,24 +223,24 @@
                                     "Icon": "fa fa-plane",
                                     "GParentRef": "manifestorders"
                                 },
-                                {
-                                    "DisplayName": "Add Items",
-                                    "Value": "AttachLines",
-                                    "Icon": "fa fa-plane",
-                                    "GParentRef": "manifestitem"
-                                },
+                                // {
+                                //     "DisplayName": "Add Items",
+                                //     "Value": "AttachLines",
+                                //     "Icon": "fa fa-plane",
+                                //     "GParentRef": "manifestitem"
+                                // },
                                 {
                                     "DisplayName": "Confirm Manifest",
                                     "Value": "ConfirmManifest",
                                     "Icon": "fa fa-plane",
                                     "GParentRef": "approvemanifest"
                                 },
-                                {
-                                    "DisplayName": "Approve Manifest",
-                                    "Value": "ApproveManifest",
-                                    "Icon": "fa fa-plane",
-                                    "GParentRef": "approvemanifest"
-                                },
+                                // {
+                                //     "DisplayName": "Approve Manifest",
+                                //     "Value": "ApproveManifest",
+                                //     "Icon": "fa fa-plane",
+                                //     "GParentRef": "approvemanifest"
+                                // },
                                 {
                                     "DisplayName": "Confirm Transport Booking",
                                     "Value": "ConfirmTransportBooking",
@@ -251,23 +263,29 @@
                                     "Icon": "fa fa-plane",
                                     "GParentRef": "manifestorders"
                                 },
-                                {
-                                    "DisplayName": "Add Items",
-                                    "Value": "AttachLines",
-                                    "Icon": "fa fa-plane",
-                                    "GParentRef": "manifestitem"
-                                },
+                                // {
+                                //     "DisplayName": "Add Items",
+                                //     "Value": "AttachLines",
+                                //     "Icon": "fa fa-plane",
+                                //     "GParentRef": "manifestitem"
+                                // },
                                 {
                                     "DisplayName": "Confirm Manifest",
                                     "Value": "ConfirmManifest",
                                     "Icon": "fa fa-plane",
                                     "GParentRef": "approvemanifest"
                                 },
+                                // {
+                                //     "DisplayName": "Approve Manifest",
+                                //     "Value": "ApproveManifest",
+                                //     "Icon": "fa fa-plane",
+                                //     "GParentRef": "approvemanifest"
+                                // },
                                 {
-                                    "DisplayName": "Approve Manifest",
-                                    "Value": "ApproveManifest",
+                                    "DisplayName": "Confirm Transport Booking",
+                                    "Value": "ConfirmTransportBooking",
                                     "Icon": "fa fa-plane",
-                                    "GParentRef": "approvemanifest"
+                                    "GParentRef": "confirmtransportbooking"
                                 },
                                 {
                                     "DisplayName": "Confirm Verify & Delivery",

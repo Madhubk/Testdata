@@ -37,7 +37,7 @@
             };
             apiService.post("eAxisAPI", appConfig.Entities.WmsWorkOrderLine.API.FindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
-                    PickupDetailsCtrl.ePage.Entities.Header.Data.PickupOrdersLine = response.data.Response;
+                    PickupDetailsCtrl.ePage.Masters.PickupOrdersLine = response.data.Response;
                 }
             });
         }

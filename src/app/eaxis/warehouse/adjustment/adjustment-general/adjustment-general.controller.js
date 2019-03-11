@@ -380,7 +380,7 @@
 
         function DownloadReport(){
             AdjustmentGeneralCtrl.ePage.Masters.Loading = true;
-            apiService.get("eAxisAPI", appConfig.Entities.DMS.API.DownloadTemplate.Url + "/AdjustmentLineBulkUpload").then(function (response) {
+            apiService.get("eAxisAPI", appConfig.Entities.DMS.API.DownloadTemplate.Url + "/ReceiveLineBulkUpload").then(function (response) {
                 AdjustmentGeneralCtrl.ePage.Masters.Loading = false;
                 if (response.data.Response) {
                     if (response.data.Response !== "No Records Found!") {
@@ -418,9 +418,7 @@
                         angular.forEach(response.data.Response,function(value,key){
                             value.PK='';
                             value.ReasonCode = 'STA';
-                            if(!value.AdjustmentArrivalDate){
-                                value.AdjustmentArrivalDate = new Date();
-                            }
+                            value.AdjustmentArrivalDate = new Date();
                             if(!value.Packs){
                                 value.Packs = 1;
                                 value.Units = 1;

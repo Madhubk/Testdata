@@ -37,7 +37,7 @@
             };
             apiService.post("eAxisAPI", appConfig.Entities.WmsWorkOrderLine.API.FindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
-                    DeliveryDetailsCtrl.ePage.Entities.Header.Data.DeliveryOrdersLine = response.data.Response;
+                    DeliveryDetailsCtrl.ePage.Masters.DeliveryOrdersLine = response.data.Response;
                 }
             });
         }

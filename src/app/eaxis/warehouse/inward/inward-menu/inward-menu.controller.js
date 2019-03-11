@@ -30,8 +30,10 @@
             InwardMenuCtrl.ePage.Masters.CancelInward = CancelInward;
             InwardMenuCtrl.ePage.Masters.SaveButtonText = "Save";
             InwardMenuCtrl.ePage.Masters.FinaliseSaveText = "Finalize";
-
+            // Hide menu from task
             InwardMenuCtrl.ePage.Masters.IsHideMytaskMenu = InwardMenuCtrl.isHideMenu;
+            InwardMenuCtrl.ePage.Masters.IsHideAsnLineMenu = InwardMenuCtrl.hideAsnLine;
+            InwardMenuCtrl.ePage.Masters.IsHideReceiveLineMenu = InwardMenuCtrl.hideInwardLine;
 
             InwardMenuCtrl.ePage.Masters.OnMenuClick = OnMenuClick;
             InwardMenuCtrl.ePage.Masters.tabSelected = tabSelected;
@@ -47,14 +49,31 @@
                 return value.Value;
             }).indexOf("MyTask");
 
+            var _AsnLineIndex = _menuList.map(function (value, key) {
+                return value.Value;
+            }).indexOf("AsnLines");
+
+            var _ReceiveLineIndex = _menuList.map(function (value, key) {
+                return value.Value;
+            }).indexOf("ReceiveLines");
+
             if (InwardMenuCtrl.currentInward.isNew) {
                 _menuList[_index].IsDisabled = true;
+
+                if (InwardMenuCtrl.ePage.Masters.IsHideAsnLineMenu)
+                    _menuList[_AsnLineIndex].IsDisabled = true;
+                if (InwardMenuCtrl.ePage.Masters.IsHideReceiveLineMenu)
+                    _menuList[_ReceiveLineIndex].IsDisabled = true;
 
                 InwardMenuCtrl.ePage.Masters.InwardMenu.ListSource = _menuList;
                 OnMenuClick(InwardMenuCtrl.ePage.Masters.InwardMenu.ListSource[1]);
             } else {
-                if (InwardMenuCtrl.ePage.Masters.IsHideMytaskMenu) {
+                if (InwardMenuCtrl.ePage.Masters.IsHideMytaskMenu || InwardMenuCtrl.ePage.Masters.IsHideAsnLineMenu || InwardMenuCtrl.ePage.Masters.IsHideReceiveLineMenu) {
                     _menuList[_index].IsDisabled = true;
+                    if (InwardMenuCtrl.ePage.Masters.IsHideAsnLineMenu)
+                        _menuList[_AsnLineIndex].IsDisabled = true;
+                    if (InwardMenuCtrl.ePage.Masters.IsHideReceiveLineMenu)
+                        _menuList[_ReceiveLineIndex].IsDisabled = true;
                     InwardMenuCtrl.ePage.Masters.InwardMenu.ListSource = _menuList;
                 } else {
                     GetMyTaskList(_menuList, _index);

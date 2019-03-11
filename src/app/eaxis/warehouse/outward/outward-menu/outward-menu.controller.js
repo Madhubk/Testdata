@@ -531,26 +531,27 @@
                                                                                                 OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.AdditionalRef1Fk = response.data.Response.TmsManifestHeader.PK;
                                                                                                 OutwardMenuCtrl.ePage.Masters.active = 4;
                                                                                                 OutwardMenuCtrl.ePage.Entities.Header.GlobalVariables.Loading = false;
-                                                                                                apiService.get("eAxisAPI", appConfig.Entities.WmsOutwardList.API.GetById.Url + OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PK).then(function (response) {
-                                                                                                    if (response.data.Response) {
-                                                                                                        OutwardMenuCtrl.ePage.Entities.Header.Data = response.data.Response;
-                                                                                                        OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.AdditionalRef1Code = OutwardMenuCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.ManifestNumber;
-                                                                                                        OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.AdditionalRef1Fk = OutwardMenuCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.PK;
-                                                                                                        OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.IsModified = true;
-                                                                                                        apiService.post("eAxisAPI", appConfig.Entities.WmsOutwardList.API.Update.Url, OutwardMenuCtrl.ePage.Entities.Header.Data).then(function (response) {
-                                                                                                            if (response.data.Status == 'Success') {
-                                                                                                                apiService.get("eAxisAPI", appConfig.Entities.WmsOutwardList.API.GetById.Url + OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PK).then(function (response) {
-                                                                                                                    if (response.data.Response) {
-                                                                                                                        response.data.Response.UIWmsOutwardHeader.Client = response.data.Response.UIWmsOutwardHeader.ClientCode + "-" + response.data.Response.UIWmsOutwardHeader.ClientName;
-                                                                                                                        response.data.Response.UIWmsOutwardHeader.Warehouse = response.data.Response.UIWmsOutwardHeader.WarehouseCode + "-" + response.data.Response.UIWmsOutwardHeader.WarehouseName;
-                                                                                                                        response.data.Response.UIWmsOutwardHeader.Consignee = response.data.Response.UIWmsOutwardHeader.ConsigneeCode + "-" + response.data.Response.UIWmsOutwardHeader.ConsigneeName;
-                                                                                                                        OutwardMenuCtrl.ePage.Entities.Header.Data = response.data.Response;
-                                                                                                                    }
-                                                                                                                });
+                                                                                                // apiService.get("eAxisAPI", appConfig.Entities.WmsOutwardList.API.GetById.Url + OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PK).then(function (response) {
+                                                                                                //     if (response.data.Response) {
+                                                                                                //         OutwardMenuCtrl.ePage.Entities.Header.Data = response.data.Response;
+                                                                                                //         OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.AdditionalRef1Code = OutwardMenuCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.ManifestNumber;
+                                                                                                //         OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.AdditionalRef1Fk = OutwardMenuCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.PK;
+                                                                                                OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.IsModified = true;
+                                                                                                apiService.post("eAxisAPI", appConfig.Entities.WmsOutwardList.API.Update.Url, OutwardMenuCtrl.ePage.Entities.Header.Data).then(function (response) {
+                                                                                                    if (response.data.Status == 'Success') {
+                                                                                                        apiService.get("eAxisAPI", appConfig.Entities.WmsOutwardList.API.GetById.Url + OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PK).then(function (response) {
+                                                                                                            if (response.data.Response) {
+                                                                                                                response.data.Response.UIWmsOutwardHeader.Client = response.data.Response.UIWmsOutwardHeader.ClientCode + "-" + response.data.Response.UIWmsOutwardHeader.ClientName;
+                                                                                                                response.data.Response.UIWmsOutwardHeader.Warehouse = response.data.Response.UIWmsOutwardHeader.WarehouseCode + "-" + response.data.Response.UIWmsOutwardHeader.WarehouseName;
+                                                                                                                response.data.Response.UIWmsOutwardHeader.Consignee = response.data.Response.UIWmsOutwardHeader.ConsigneeCode + "-" + response.data.Response.UIWmsOutwardHeader.ConsigneeName;
+                                                                                                                OutwardMenuCtrl.ePage.Entities.Header.Data = response.data.Response;
+                                                                                                                OutwardMenuCtrl.currentOutward[OutwardMenuCtrl.currentOutward.label].ePage.Entities.Header.Data = response.data.Response;
                                                                                                             }
                                                                                                         });
                                                                                                     }
                                                                                                 });
+                                                                                                //     }
+                                                                                                // });
                                                                                             }
                                                                                         });
                                                                                     }

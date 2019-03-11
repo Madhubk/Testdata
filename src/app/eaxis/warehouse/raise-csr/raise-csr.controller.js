@@ -167,6 +167,8 @@
                     _input.UIWmsWorkorderReport.AcknowledgementDateTime = new Date();
                 if (!_input.UIWmsWorkorderReport.AcknowledgedPerson)
                     _input.UIWmsWorkorderReport.AcknowledgedPerson = authService.getUserInfo().UserId;
+                if (!_input.UIWmsWorkorderReport.AdditionalRef2Code)
+                    _input.UIWmsWorkorderReport.AdditionalRef2Code = authService.getUserInfo().UserId;
                 if (!_input.UIWmsWorkorderReport.DeliveryRequestedDateTime)
                     _input.UIWmsWorkorderReport.DeliveryRequestedDateTime = new Date();
                 _input.UIWmsWorkorderReport.WOD_FK = _input.PK;
@@ -189,6 +191,7 @@
                     value.UISPMSDeliveryReport.DropPoint = _input.UIWmsWorkorderReport.AdditionalRef1Code;
                     value.UISPMSDeliveryReport.RequesterName = _input.UIWmsWorkorderReport.Requester;
                     value.UISPMSDeliveryReport.AcknowledgedPerson = _input.UIWmsWorkorderReport.AcknowledgedPerson;
+                    value.UISPMSDeliveryReport.CSRReceiver = _input.UIWmsWorkorderReport.AdditionalRef2Code;
                     value.UISPMSDeliveryReport.AcknowledgedDateTime = _input.UIWmsWorkorderReport.AcknowledgementDateTime
                     value.UISPMSDeliveryReport.RequestedDateTime = _input.UIWmsWorkorderReport.DeliveryRequestedDateTime;
                     value.UISPMSDeliveryReport.RequesterContactNumber = _input.UIWmsWorkorderReport.RequesterContactNo;
@@ -300,6 +303,7 @@
                     value.UISPMSDeliveryReport.DropPoint = _input.UIWmsWorkorderReport.AdditionalRef1Code;
                     value.UISPMSDeliveryReport.RequesterName = _input.UIWmsWorkorderReport.Requester;
                     value.UISPMSDeliveryReport.AcknowledgedPerson = _input.UIWmsWorkorderReport.AcknowledgedPerson;
+                    value.UISPMSDeliveryReport.CSRReceiver = _input.UIWmsWorkorderReport.AdditionalRef2Code;
                     value.UISPMSDeliveryReport.AcknowledgedDateTime = _input.UIWmsWorkorderReport.AcknowledgementDateTime
                     value.UISPMSDeliveryReport.RequestedDateTime = _input.UIWmsWorkorderReport.DeliveryRequestedDateTime;
                     value.UISPMSDeliveryReport.RequesterContactNumber = _input.UIWmsWorkorderReport.RequesterContactNo;

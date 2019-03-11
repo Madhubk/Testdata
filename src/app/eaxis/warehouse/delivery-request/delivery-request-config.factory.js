@@ -38,7 +38,8 @@
             "GetErrorWarningCountParent": GetErrorWarningCountParent,
             "ShowErrorWarningModal": ShowErrorWarningModal,
             "ValidationFindall": ValidationFindall,
-            "TempOutwardPK": ""
+            "TempOutwardPK": "",
+            "CallOutwardFunction": false
         };
 
         return exports;
@@ -117,6 +118,10 @@
                                 "Requester": helperService.metaBase(),
                                 "RequesterContactNo": helperService.metaBase(),
                                 "AdditionalRef1Code": helperService.metaBase(),
+                                "AdditionalRef2Code": helperService.metaBase(),
+                                "DeliveryRequestedDateTime": helperService.metaBase(),
+                                "AcknowledgedPerson": helperService.metaBase(),
+                                "AcknowledgementDateTime": helperService.metaBase(),
                                 "UIWmsDeliveryLine": helperService.metaBase(),
                             },
                         },
@@ -331,7 +336,7 @@
                                     "isenabled": true,
                                     "position": "16",
                                     "width": "150"
-                                }                                
+                                }
                             }
                         },
                     },
@@ -619,6 +624,10 @@
             OnChangeValues(_input.UIWmsWorkorderReport.Requester, 'E3055', false, undefined, $item.label);
             OnChangeValues(_input.UIWmsWorkorderReport.RequesterContactNo, 'E3056', false, undefined, $item.label);
             OnChangeValues(_input.UIWmsWorkorderReport.AdditionalRef1Code, 'E3083', false, undefined, $item.label);
+            OnChangeValues(_input.UIWmsWorkorderReport.AdditionalRef2Code, 'E3105', false, undefined, $item.label);
+            OnChangeValues(_input.UIWmsWorkorderReport.DeliveryRequestedDateTime, 'E3106', false, undefined, $item.label);
+            OnChangeValues(_input.UIWmsWorkorderReport.AcknowledgedPerson, 'E3107', false, undefined, $item.label);
+            OnChangeValues(_input.UIWmsWorkorderReport.AcknowledgementDateTime, 'E3108', false, undefined, $item.label);
 
             //Delivery Lines Validation
             if (_input.UIWmsDeliveryLine.length > 0) {

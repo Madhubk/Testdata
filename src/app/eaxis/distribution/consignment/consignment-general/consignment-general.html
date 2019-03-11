@@ -48,6 +48,12 @@
                                 is-disabled="DMSConsignmentGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable || DMSConsignmentGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable"><i
                                     class="fa fa-ellipsis-h"></i></button>
                         </span>
+                        <span class="input-group-btn" ng-show="DMSConsignmentGeneralCtrl.ePage.Masters.Sender">
+                            <button class="btn btn-default shiny" type="button"
+                                ng-click="DMSConsignmentGeneralCtrl.ePage.Masters.OtherAddresses(DMSConsignmentGeneralCtrl.ePage.Masters.OrgSenderAddress,'Sender')" ng-disabled='DMSConsignmentGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable'>
+                                <i class="fa fa-address-card-o"></i>
+                            </button>
+                        </span>
                         <span
                             ng-if='!DMSConsignmentGeneralCtrl.ePage.Masters.Sender&&!DMSConsignmentGeneralCtrl.currentConsignment.isNew'>
                             <div
@@ -123,6 +129,20 @@
                                 class="btn btn-default shiny" type="button"
                                 is-disabled="DMSConsignmentGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable || DMSConsignmentGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable"><i
                                     class="fa fa-ellipsis-h"></i></button>
+                        </span>
+                        <!-- Address model -->
+                        <span class="input-group-btn" ng-show="DMSConsignmentGeneralCtrl.ePage.Masters.Receiver">
+                            <button class="btn btn-default shiny" type="button"
+                                ng-click="DMSConsignmentGeneralCtrl.ePage.Masters.OtherAddresses(DMSConsignmentGeneralCtrl.ePage.Masters.OrgReceiverAddress,'Receiver')" ng-disabled='DMSConsignmentGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable'>
+                                <i class="fa fa-address-card-o"></i>
+                            </button>
+                        </span>
+                        <!-- Add Address -->
+                        <span class="input-group-btn" ng-show="DMSConsignmentGeneralCtrl.ePage.Masters.Receiver">
+                            <button class="btn btn-default shiny" type="button"
+                                ng-click="DMSConsignmentGeneralCtrl.ePage.Masters.AddAddresses()" ng-disabled='DMSConsignmentGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable'>
+                                <i class="fa fa-plus"></i>
+                            </button>
                         </span>
 
                         <span
@@ -257,7 +277,7 @@
                             save-as="DMSConsignmentGeneralCtrl.ePage.Masters.DatePicker.Options.saveFormat"
                             popup-placement="bottom-right"
                             data-ng-click="DMSConsignmentGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isExpectedPickupDateTime')"
-                            ng-change='DMSConsignmentGeneralCtrl.ePage.Masters.OnChangeValues(DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.ExpectedPickupDateTime,"E5521",false,undefined)'
+                            ng-change='DMSConsignmentGeneralCtrl.ePage.Masters.PickupDateChange()'
                             custom-date-time-format
                             ng-disabled='DMSConsignmentGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable' />
                         <span class="input-group-btn">
@@ -289,17 +309,17 @@
                     </label>
                     <div class="input-group input-group-sm">
                         <input type="text" class="form-control"
-                            placeholder="{{DMSConsignmentGeneralCtrl.ePage.Masters.DatePicker.Options.dateTimeFormat}}"
-                            datetime-picker="{{DMSConsignmentGeneralCtrl.ePage.Masters.DatePicker.Options.dateTimeFormat}}"
+                            placeholder="{{DMSConsignmentGeneralCtrl.ePage.Masters.DatePicker.Optionsdel.dateTimeFormat}}"
+                            datetime-picker="{{DMSConsignmentGeneralCtrl.ePage.Masters.DatePicker.Optionsdel.dateTimeFormat}}"
                             ng-model="DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.ExpectedDeliveryDateTime"
                             is-open="DMSConsignmentGeneralCtrl.ePage.Masters.DatePicker.isOpen['isExpectedDeliveryDateTime']"
-                            datepicker-options="DMSConsignmentGeneralCtrl.ePage.Masters.DatePicker.Options"
+                            datepicker-options="DMSConsignmentGeneralCtrl.ePage.Masters.DatePicker.Optionsdel"
                             datepicker-append-to-body="false" close-on-selection="false" enable-date="true"
                             enable-time="true" default-date="" default-time=""
-                            save-as="DMSConsignmentGeneralCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                            save-as="DMSConsignmentGeneralCtrl.ePage.Masters.DatePicker.Optionsdel.saveFormat"
                             popup-placement="bottom-right"
                             data-ng-click="DMSConsignmentGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isExpectedDeliveryDateTime')"
-                            ng-change='DMSConsignmentGeneralCtrl.ePage.Masters.OnChangeValues(DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.ExpectedDeliveryDateTime,"E5563",false,undefined)'
+                            ng-change='DMSConsignmentGeneralCtrl.ePage.Masters.DeliveryDateChange()'
                             custom-date-time-format
                             ng-disabled='DMSConsignmentGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable' />
                         <span class="input-group-btn">
@@ -313,7 +333,8 @@
                 </div>
             </div>
             <!-- actual pickup date -->
-            <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 col-xl-4 mt-5" data-ng-if="DMSConsignmentGeneralCtrl.ePage.Masters.ActualDateHide">
+            <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 col-xl-4 mt-5"
+                data-ng-if="DMSConsignmentGeneralCtrl.ePage.Masters.ActualDateHide">
                 <div class="form-group">
                     <label class="control-label text-single-line">Actual Pickup DateTime</label>
                     <div class="input-group input-group-sm">
@@ -342,7 +363,8 @@
                 </div>
             </div>
             <!-- actual delivery date -->
-            <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 col-xl-4 mt-5" data-ng-if="DMSConsignmentGeneralCtrl.ePage.Masters.ActualDateHide">
+            <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 col-xl-4 mt-5"
+                data-ng-if="DMSConsignmentGeneralCtrl.ePage.Masters.ActualDateHide">
                 <div class="form-group">
                     <label class="control-label text-single-line">Actual Delivery DateTime</label>
                     <div class="input-group input-group-sm">

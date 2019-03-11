@@ -124,6 +124,22 @@
                                 "HttpType": "POST",
                                 "Url": "Communication/GenerateReport",
                             },
+                            "CountryState": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "CountryState/FindAll",
+                                "FilterID": "MSTCSTE"
+                            },
+                            "InsertOrganization": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "Org/Insert"
+                            },
+                            "UpdateOrganization": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "Org/Update"
+                            }
                         },
                         "Meta": {
                             "MenuList": [],

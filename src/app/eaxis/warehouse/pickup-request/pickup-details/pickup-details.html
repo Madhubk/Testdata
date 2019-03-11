@@ -1,7 +1,7 @@
 <div data-ng-if="PickupDetailsCtrl.ePage.Masters.Config.TempInwardPK" ng-init="PickupDetailsCtrl.ePage.Masters.getInwardLineList()"></div>
 <div class="clearfix mt-10 col-lg-12">
     <div id="PickupOrdersTable{{PickupDetailsCtrl.ePage.Entities.Header.Data.UIWmsPickup.WorkOrderID}}" class="fixedheader mb-0"
-        key-events table-object='PickupDetailsCtrl.ePage.Entities.Header.Data.PickupOrdersLine' enable='PickupDetailsCtrl.ePage.Masters.Enable'
+        key-events table-object='PickupDetailsCtrl.ePage.Masters.PickupOrdersLine' enable='PickupDetailsCtrl.ePage.Masters.Enable'
         selected-row='PickupDetailsCtrl.ePage.Masters.selectedRow' unique-id='PickupOrdersTable{{PickupDetailsCtrl.ePage.Entities.Header.Data.UIWmsPickup.WorkOrderID}}'>
         <table style="height: 400px">
             <thead>
@@ -26,7 +26,7 @@
                 </tr>
             </thead>
             <tbody id="PickupOrdersCustTable{{PickupDetailsCtrl.ePage.Entities.Header.Data.UIWmsPickup.WorkOrderID}}">
-                <tr id="tableBody" ng-repeat="x in PickupDetailsCtrl.ePage.Entities.Header.Data.PickupOrdersLine" ng-click="PickupDetailsCtrl.ePage.Masters.setSelectedRow($index);"
+                <tr id="tableBody" ng-repeat="x in PickupDetailsCtrl.ePage.Masters.PickupOrdersLine" ng-click="PickupDetailsCtrl.ePage.Masters.setSelectedRow($index);"
                     ng-class="{row_active: (PickupDetailsCtrl.ePage.Masters.selectedRow==$index),copy_row_active :(x.IsCopied==true)}">
                     <td ng-style="{ 'width':  '40px' }" class="overflow-text">{{$index +1}}</td>
                     <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.WorkOrderID}}</td>

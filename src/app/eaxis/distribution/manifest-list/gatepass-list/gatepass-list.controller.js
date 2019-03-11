@@ -33,10 +33,10 @@
 
             var res = GatepassListCtrl.ePage.Masters.MenuList[GatepassListCtrl.ePage.Entities.Header.CheckPoints.ActiveMenu].DisplayName.split(" ");
 
-            if (res[1] == "Pickup") {
+            if (res[1] == "Pickup" || res[1] == "Vehicle" || res[2] == "Dispatch") {
                 GatepassListCtrl.ePage.Masters.Purpose = "ORD";
             }
-            else if (res[1] == "Delivery") {
+            else if (res[1] == "Delivery" || res[1] == "Upload" || res[2] == "Delivery") {
                 GatepassListCtrl.ePage.Masters.Purpose = "INW";
             }
             GatepassListCtrl.ePage.Masters.Empty = "-";

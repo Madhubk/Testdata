@@ -521,6 +521,12 @@
                     'app/eaxis/distribution/consignment/consignment-general/consignment-address/consignment-address.controller.js'
                 ]
             },
+            {
+                name: 'addressModel',
+                files: [
+                    'app/eaxis/distribution/consignment/consignment-general/address-model/address-model.controller.js'
+                ]
+            },
             // endregion
             //OTP
             {

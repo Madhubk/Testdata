@@ -41,11 +41,38 @@
             ReleasesGeneralCtrl.ePage.Masters.Edit = Edit;
             ReleasesGeneralCtrl.ePage.Masters.OnChangeValues = OnChangeValues;
             ReleasesGeneralCtrl.ePage.Masters.FinaliseOrder = FinaliseOrder;
+            ReleasesGeneralCtrl.ePage.Masters.CreateMTRInward = CreateMTRInward;
 
             GetUserBasedGridColumListForOutward();
             GetDropDownList();
             GeneralOperations();
             GetMiscServDetails();
+        }
+
+        function CreateMTRInward(item) {
+            // check whether the selected order is finalized or not
+            if (item.WorkOrderStatus == "FIN") {
+                // check whether the MTR inward created for this Order or Not
+                var _filter = {
+                    "WOD_Parent_FK": item.PK
+                };
+                var _input = {
+                    "searchInput": helperService.createToArrayOfObject(_filter),
+                    "FilterID": appConfig.Entities.InwardList.API.FindAll.FilterID
+                };
+
+                apiService.post("eAxisAPI", appConfig.Entities.InwardList.API.FindAll.Url, _input).then(function (response) {
+                    if (response.data.Response) {
+                        if (response.data.Response.length > 0) {
+                            toastr.warning("Material Transfer Inward already created for this Order");
+                        } else {
+                            FetchingInwardDetails(item);
+                        }
+                    }
+                });
+            } else {
+                toastr.warning("Selected Order is Not Finalized");
+            }
         }
 
         function GetDropDownList() {
@@ -340,6 +367,8 @@
                 } else {
                     toastr.warning("Pickline is not available. So cannot create Inward");
                 }
+            } else {
+                toastr.warning("It can be created when the selected Order is in 'MTR' type");
             }
         }
 
@@ -410,14 +439,12 @@
                 } else {
                     ReleasesGeneralCtrl.ePage.Entities.Header.GlobalVariables.Loading = false;
                     ReleasesGeneralCtrl.ePage.Masters.LoadingValue = "";
-                    toastr.error("Save Failed");
+                    toastr.error("Inward Creation Failed");
                 }
             });
-
         }
 
         Init();
-
     }
 
 })();

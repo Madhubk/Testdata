@@ -24,10 +24,13 @@
             };
 
             PickupOrdersCtrl.ePage.Masters.Config = $injector.get("pickupConfig");
+            PickupOrdersCtrl.ePage.Masters.getInwardList = getInwardList;
             getInwardList();
         }
 
         function getInwardList() {
+            pickupConfig.CallInwardFunction = false;
+            pickupConfig.TempInwardPK = "";
             var _filter = {
                 "WOD_Parent_FK": PickupOrdersCtrl.ePage.Entities.Header.Data.UIWmsPickup.PK
             };
@@ -37,9 +40,9 @@
             };
             apiService.post("eAxisAPI", appConfig.Entities.InwardList.API.FindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
-                    PickupOrdersCtrl.ePage.Entities.Header.Data.PickupOrders = response.data.Response;
+                    PickupOrdersCtrl.ePage.Masters.PickupOrders = response.data.Response;
                     PickupOrdersCtrl.ePage.Masters.TempInwardPK = "";
-                    angular.forEach(PickupOrdersCtrl.ePage.Entities.Header.Data.PickupOrders, function (value, key) {
+                    angular.forEach(PickupOrdersCtrl.ePage.Masters.PickupOrders, function (value, key) {
                         PickupOrdersCtrl.ePage.Masters.TempInwardPK = PickupOrdersCtrl.ePage.Masters.TempInwardPK + value.PK + ",";
                     });
                     PickupOrdersCtrl.ePage.Masters.TempInwardPK = PickupOrdersCtrl.ePage.Masters.TempInwardPK.slice(0, -1);

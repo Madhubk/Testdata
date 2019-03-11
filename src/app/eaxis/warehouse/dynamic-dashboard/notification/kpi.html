@@ -1,0 +1,21 @@
+<!-- KPI -->
+<div class="col-lg-4 mt-20 custom-widget">
+    <div class="widget">
+        <div class="widget-header bordered-bottom">
+            <span class="widget-caption">KPI (for last 30 days)</span>
+        </div>
+        <div class="widget-body no-padding">
+            <div class="tickets-container bg-white">
+                <ul class="tickets-list scrollarea" id="style-1">
+                    <li data-ng-repeat="x in NotificationCtrl.ePage.Masters.KPIDashboardDetails">
+                        <div class="clearfix">
+                            <span class="user-company pull-left">{{x.TGP_Description}}</span>
+                            <span class="badge badge-info pull-right">{{x.TGP_Count || 0 | number : 2 }}{{x.TGP_Units}}</span>.
+                        </div>
+                    </li>
+                    <div data-ng-if="NotificationCtrl.ePage.Masters.KPIDashboardDetails.length==0">No Records Found!..</div>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

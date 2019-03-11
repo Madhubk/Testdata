@@ -1,17 +1,19 @@
 <!-- Non Editable -->
 <div class="noneditable ng-scope" data-ng-if="DeliveryGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
 </div>
-<div class="inner-dashboard-stats-list clearfix mt-10">
+<div class="clearfix mt-10">
     <div class="clearfix mt-10 col-lg-12">
         <!--Client-->
         <div class="col-lg-4">
             <div class="inner-dashboard-box">
                 <div class="rows border-bottom">
-                    <div class="col-lg-5 height-40 border-right pt-10 pb-10">
-                        <!-- <span class="dashboard-inward-icon-box">
-                            <i class="icomoon icon-organization-client"></i>
-                        </span> -->
-                        <label class="ml-5 control-label">Service Provider</label>
+                    <div class="col-lg-6 height-40 border-right pt-10 pb-10">
+                        <div class="text-single-line">
+                            <span class="dashboard-inward-icon-box">
+                                <i class="icomoon icon-organization-client"></i>
+                            </span>
+                            <label class="ml-5 control-label" title="Service Provider">Service Provider</label>
+                        </div>
                         <span class="error-warning-container">
                             <error-warning-directive data-ng-if="DeliveryGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.ClientCode.IsWarning && !DeliveryGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.ClientCode.IsError"
                                 list="DeliveryGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.ClientCode.WARNING"
@@ -22,7 +24,7 @@
                             </error-warning-directive>
                         </span>
                     </div>
-                    <div class="col-lg-7 height-40 p-5">
+                    <div class="col-lg-6 height-40 p-5">
                         <div class="input-group input-group-sm">
                             <!-- Dynamic look up Search in textbox -->
                             <div dynamic-lookup placeholder="Service Provider Code And Name" my-ng-model="DeliveryGeneralCtrl.ePage.Entities.Header.Data.UIWmsDelivery.Client"
@@ -84,10 +86,12 @@
             <div class="inner-dashboard-box">
                 <div class="rows border-bottom">
                     <div class="col-lg-5 height-40 pt-10 pb-10">
-                        <span class="dashboard-inward-icon-box">
-                            <i class="icomoon icon-organization-client"></i>
-                        </span>
-                        <label class="ml-5 control-label">Warehouse</label>
+                        <div class="text-single-line">
+                            <span class="dashboard-inward-icon-box">
+                                <i class="icomoon icon-organization-client"></i>
+                            </span>
+                            <label class="ml-5 control-label" title="Warehouse">Warehouse</label>
+                        </div>
                         <span class="error-warning-container">
                             <error-warning-directive data-ng-if="DeliveryGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.WarehouseCode.IsWarning && !DeliveryGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.WarehouseCode.IsError"
                                 list="DeliveryGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.WarehouseCode.WARNING"
@@ -339,16 +343,37 @@
         </div>
         <div class="col-xs-12 col-sm-12 col-md-2 col-lg-3 col-xl-3">
             <div class="form-group">
+                <span class="error-warning-container">
+                    <error-warning-directive data-ng-if="DeliveryGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.AdditionalRef2Code.IsWarning && !DeliveryGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.AdditionalRef2Code.IsError"
+                        list="DeliveryGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.AdditionalRef2Code.WARNING"
+                        type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
+                    </error-warning-directive>
+                    <error-warning-directive data-ng-if="DeliveryGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.AdditionalRef2Code.IsError"
+                        list="DeliveryGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.AdditionalRef2Code.ERROR"
+                        type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
+                    </error-warning-directive>
+                </span>
                 <label class="control-label text-single-line">CSR Receiver</label>
                 <div class="">
                     <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
-                        placeholder="CSR Receiver" data-ng-model="DeliveryGeneralCtrl.ePage.Entities.Header.Data.UIWmsDelivery.CreatedBy">
+                        placeholder="CSR Receiver" data-ng-model="DeliveryGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkorderReport.AdditionalRef2Code"
+                        ng-change="DeliveryGeneralCtrl.ePage.Masters.OnChangeValues(DeliveryGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkorderReport.AdditionalRef2Code,'E3105')">
                 </div>
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-2 col-lg-3 col-xl-3">
             <div class="form-group">
-                <label class="control-label text-single-line">Requested DateTime</label>
+                <span class="error-warning-container">
+                    <error-warning-directive data-ng-if="DeliveryGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.DeliveryRequestedDateTime.IsWarning && !DeliveryGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.DeliveryRequestedDateTime.IsError"
+                        list="DeliveryGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.DeliveryRequestedDateTime.WARNING"
+                        type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
+                    </error-warning-directive>
+                    <error-warning-directive data-ng-if="DeliveryGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.DeliveryRequestedDateTime.IsError"
+                        list="DeliveryGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.DeliveryRequestedDateTime.ERROR"
+                        type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
+                    </error-warning-directive>
+                </span>
+                <label class="control-label text-single-line">Requested Date Time</label>
                 <div class="input-group input-group-sm">
                     <input type="text" class="form-control" placeholder="{{DeliveryGeneralCtrl.ePage.Masters.DatePicker.Options.dateTimeFormat}}"
                         datetime-picker="{{DeliveryGeneralCtrl.ePage.Masters.DatePicker.Options.dateTimeFormat}}"
@@ -356,7 +381,8 @@
                         is-open="DeliveryGeneralCtrl.ePage.Masters.DatePicker.isOpen['isDeliveryRequestedDateTime']"
                         datepicker-options="DeliveryGeneralCtrl.ePage.Masters.DatePicker.Options"
                         datepicker-append-to-body="false" close-on-selection="false" enable-time="true" enable-date="true"
-                        default-date="" default-time="" when-closed="" save-as="DeliveryGeneralCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                        default-date="" default-time="" when-closed="" ng-change="DeliveryGeneralCtrl.ePage.Masters.OnChangeValues(DeliveryGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkorderReport.DeliveryRequestedDateTime,'E3106')"
+                        save-as="DeliveryGeneralCtrl.ePage.Masters.DatePicker.Options.saveFormat"
                         custom-date-time-format />
                     <span class="input-group-btn">
                         <button type="button" class="btn btn-default" data-ng-click="DeliveryGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isDeliveryRequestedDateTime')">
@@ -368,15 +394,36 @@
         </div>
         <div class="col-xs-12 col-sm-12 col-md-2 col-lg-3 col-xl-3">
             <div class="form-group">
+                <span class="error-warning-container">
+                    <error-warning-directive data-ng-if="DeliveryGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.AcknowledgedPerson.IsWarning && !DeliveryGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.AcknowledgedPerson.IsError"
+                        list="DeliveryGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.AcknowledgedPerson.WARNING"
+                        type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
+                    </error-warning-directive>
+                    <error-warning-directive data-ng-if="DeliveryGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.AcknowledgedPerson.IsError"
+                        list="DeliveryGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.AcknowledgedPerson.ERROR"
+                        type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
+                    </error-warning-directive>
+                </span>
                 <label class="control-label text-single-line">Acknowledged Person</label>
                 <div class="">
                     <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
-                        placeholder="Acknowledged Person" data-ng-model="DeliveryGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkorderReport.AcknowledgedPerson">
+                        placeholder="Acknowledged Person" data-ng-model="DeliveryGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkorderReport.AcknowledgedPerson"
+                        ng-change="DeliveryGeneralCtrl.ePage.Masters.OnChangeValues(DeliveryGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkorderReport.AcknowledgedPerson,'E3107')">
                 </div>
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-2 col-lg-3 col-xl-3">
             <div class="form-group">
+                <span class="error-warning-container">
+                    <error-warning-directive data-ng-if="DeliveryGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.AcknowledgementDateTime.IsWarning && !DeliveryGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.AcknowledgementDateTime.IsError"
+                        list="DeliveryGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.AcknowledgementDateTime.WARNING"
+                        type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
+                    </error-warning-directive>
+                    <error-warning-directive data-ng-if="DeliveryGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.AcknowledgementDateTime.IsError"
+                        list="DeliveryGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.AcknowledgementDateTime.ERROR"
+                        type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
+                    </error-warning-directive>
+                </span>
                 <label class="control-label text-single-line">Acknowledged Date Time</label>
                 <div class="input-group input-group-sm">
                     <input type="text" class="form-control" placeholder="{{DeliveryGeneralCtrl.ePage.Masters.DatePicker.Options.dateTimeFormat}}"
@@ -385,7 +432,8 @@
                         is-open="DeliveryGeneralCtrl.ePage.Masters.DatePicker.isOpen['isAcknowledgementDateTime']"
                         datepicker-options="DeliveryGeneralCtrl.ePage.Masters.DatePicker.Options"
                         datepicker-append-to-body="false" close-on-selection="false" enable-time="true" enable-date="true"
-                        default-date="" default-time="" when-closed="" save-as="DeliveryGeneralCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                        default-date="" default-time="" when-closed="" ng-change="DeliveryGeneralCtrl.ePage.Masters.OnChangeValues(DeliveryGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkorderReport.AcknowledgementDateTime,'E3108')"
+                        save-as="DeliveryGeneralCtrl.ePage.Masters.DatePicker.Options.saveFormat"
                         custom-date-time-format />
                     <span class="input-group-btn">
                         <button type="button" class="btn btn-default" data-ng-click="DeliveryGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isAcknowledgementDateTime')">

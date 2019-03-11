@@ -376,9 +376,8 @@
                     if (response.data.Response) {
                         angular.forEach(response.data.Response, function (value, key) {
                             value.PK = '';
-                            if(!value.AdjustmentArrivalDate){
-                                value.AdjustmentArrivalDate = new Date();
-                            }
+                            value.AdjustmentArrivalDate = new Date();
+                            
                             value.PK='';
                             if(!value.Packs){
                                 value.Packs = 1;

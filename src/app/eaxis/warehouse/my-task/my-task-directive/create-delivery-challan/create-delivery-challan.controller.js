@@ -50,6 +50,7 @@
 
             CreateDelChallanCtrl.ePage.Masters.CreateOutwardText = "Create Outward";
             CreateDelChallanCtrl.ePage.Masters.CreateMaterialTransferText = "Create Material Transfer";
+            CreateDelChallanCtrl.ePage.Masters.AddToOutwardText = "Add to Existing Order";
             CreateDelChallanCtrl.ePage.Masters.CreateOutward = CreateOutward;
             CreateDelChallanCtrl.ePage.Masters.SelectAllCheckBox = SelectAllCheckBox;
             CreateDelChallanCtrl.ePage.Masters.SingleSelectCheckBox = SingleSelectCheckBox;
@@ -59,6 +60,10 @@
             CreateDelChallanCtrl.ePage.Masters.SelectedLookupWarehouse = SelectedLookupWarehouse;
             CreateDelChallanCtrl.ePage.Masters.setSelectedRow = setSelectedRow;
             CreateDelChallanCtrl.ePage.Masters.CreateMaterial = CreateMaterial;
+            CreateDelChallanCtrl.ePage.Masters.AddToOutward = AddToOutward;
+            CreateDelChallanCtrl.ePage.Masters.CloseEditActivityModal = CloseEditActivityModal;
+            CreateDelChallanCtrl.ePage.Masters.setSelectedOutwardRow = setSelectedOutwardRow;
+            CreateDelChallanCtrl.ePage.Masters.AddDeliveryLineToOutward = AddDeliveryLineToOutward;
             // Filter
             CreateDelChallanCtrl.ePage.Masters.GetFilterList = GetFilterList;
             CreateDelChallanCtrl.ePage.Masters.CloseFilterList = CloseFilterList;
@@ -66,6 +71,174 @@
 
         }
 
+        // #region - Add to Existing Outward
+        function AddToOutward() {            
+            var count = 0;
+            angular.forEach(CreateDelChallanCtrl.ePage.Entities.Header.Data.UIvwWmsDeliveryList, function (value, key) {
+                if (value.SingleSelect) {
+                    count = count + 1;
+                    // value.SingleSelect = false;
+                }
+            });
+            if (count > 0) {
+                var SelectedLine = [];
+                var _filter = {
+                    "WOD_Parent_FK": CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.PK
+                };
+                var _input = {
+                    "searchInput": helperService.createToArrayOfObject(_filter),
+                    "FilterID": appConfig.Entities.WmsOutwardList.API.FindAll.FilterID
+                };
+                apiService.post("eAxisAPI", appConfig.Entities.WmsOutwardList.API.FindAll.Url, _input).then(function (response) {
+                    if (response.data.Response) {
+                        if (response.data.Response.length > 0) {
+                            CreateDelChallanCtrl.ePage.Masters.UnFinalizedOrders = [];
+                            CreateDelChallanCtrl.ePage.Masters.OutwardList = response.data.Response;
+                            CreateDelChallanCtrl.ePage.Masters.UnFinalizedOrders = [];
+                            angular.forEach(CreateDelChallanCtrl.ePage.Masters.OutwardList, function (v, k) {
+                                if (v.WorkOrderStatus != "FIN") {
+                                    CreateDelChallanCtrl.ePage.Masters.UnFinalizedOrders.push(v);
+                                }
+                            });
+                            if (CreateDelChallanCtrl.ePage.Masters.UnFinalizedOrders.length > 0) {
+                                CreateDelChallanCtrl.ePage.Masters.SelectedDelLine = [];
+                                angular.forEach(CreateDelChallanCtrl.ePage.Entities.Header.Data.UIvwWmsDeliveryList, function (value1, key1) {
+                                    if (value1.SingleSelect == true) {
+                                        SelectedLine.push(value1);
+                                        if (value1.MOL_PrdCode || value1.OL_PrdCode) {
+                                            var TempOutwardNo = value1.MOL_PrdCode ? value1.MOT_WorkOrderId : value1.OUT_WorkOrderId;
+                                            toastr.warning("This Delivery line " + value1.DL_AdditionalRef1Code + " already attached to outward " + TempOutwardNo);
+                                        } else {
+                                            CreateDelChallanCtrl.ePage.Masters.SelectedDelLine.push(value1);
+                                        }
+                                    }
+                                });
+
+                                if (CreateDelChallanCtrl.ePage.Masters.SelectedDelLine.length == SelectedLine.length) {
+                                    OpenModal();
+                                }
+                            } else {
+                                toastr.warning("It can be added when the Order(s) is not Finalized.")
+                            }
+                        } else {
+                            toastr.warning("Order not yet created.")
+                        }
+                    }
+                });
+            } else {
+                toastr.warning("Select atleast one delivery line.");
+            }
+        }
+        function AddDeliveryLineToOutward() {
+            CreateDelChallanCtrl.ePage.Masters.modalInstance1.dismiss('cancel');
+            if (CreateDelChallanCtrl.ePage.Masters.selectedOutwardRow >= 0) {
+                CreateDelChallanCtrl.ePage.Masters.Loading = true;                
+                apiService.get("eAxisAPI", appConfig.Entities.WmsOutwardList.API.GetById.Url + CreateDelChallanCtrl.ePage.Masters.UnFinalizedOrders[CreateDelChallanCtrl.ePage.Masters.selectedOutwardRow].PK).then(function (response) {
+                    if (response.data.Response) {
+                        angular.forEach(CreateDelChallanCtrl.ePage.Masters.SelectedDelLine, function (value, key) {
+                            if (CreateDelChallanCtrl.ePage.Masters.UnFinalizedOrders[CreateDelChallanCtrl.ePage.Masters.selectedOutwardRow].WorkOrderSubType == "MTR") {
+                                value.MOL_PrdCode = value.DL_Req_PrdCode;
+                            } else {
+                                value.OL_PrdCode = value.DL_Req_PrdCode;
+                            }
+                            value.SingleSelect = false;
+                            var obj = {
+                                "Parent_FK": value.DL_PK,
+                                "PK": "",
+                                "WorkOrderType": "ORD",
+                                "WorkOrderLineType": "ORD",
+                                "WorkOrderID": response.data.Response.UIWmsOutwardHeader.WorkOrderID,
+                                "ExternalReference": response.data.Response.UIWmsOutwardHeader.WorkOrderID,
+                                "WOD_FK": response.data.Response.PK,
+                                "ProductCode": value.DL_Req_PrdCode,
+                                "ProductDescription": value.DL_Req_PrdDesc,
+                                "PRO_FK": value.DL_Req_PrdPk,
+                                "Commodity": value.Commodity,
+                                "MCC_NKCommodityCode": value.DL_MCC_NKCommodityCode,
+                                "MCC_NKCommodityDesc": value.DL_MCC_NKCommodityDesc,
+                                "ProductCondition": "GDC",
+                                "Packs": value.DL_Packs,
+                                "PAC_PackType": value.DL_PAC_PackType,
+                                "Units": value.DL_Units,
+                                "StockKeepingUnit": value.DL_StockKeepingUnit,
+                                "PartAttrib1": value.DL_PartAttrib1,
+                                "PartAttrib2": value.DL_PartAttrib2,
+                                "PartAttrib3": value.DL_PartAttrib3,
+                                "LineComment": value.DL_LineComment,
+                                "PackingDate": value.DL_PackingDate,
+                                "ExpiryDate": value.DL_ExpiryDate,
+                                "AdditionalRef1Code": value.DL_AdditionalRef1Code,
+                                "AdditionalRef1Type": "DeliveryLine",
+                                "AdditionalRef1Fk": value.DL_PK,
+                                "UseExpiryDate": value.DL_UseExpiryDate,
+                                "UsePackingDate": value.DL_UsePackingDate,
+                                "UsePartAttrib1": value.DL_UsePartAttrib1,
+                                "UsePartAttrib2": value.DL_UsePartAttrib2,
+                                "UsePartAttrib3": value.DL_UsePartAttrib3,
+                                "IsPartAttrib1ReleaseCaptured": value.DL_IsPartAttrib1ReleaseCaptured,
+                                "IsPartAttrib2ReleaseCaptured": value.DL_IsPartAttrib2ReleaseCaptured,
+                                "IsPartAttrib3ReleaseCaptured": value.DL_IsPartAttrib3ReleaseCaptured,
+
+                                "IsDeleted": false,
+                                "ORG_ClientCode": value.DEL_ClientCode,
+                                "ORG_ClientName": value.DEL_ClientName,
+                                "Client_FK": value.DEL_Client_FK,
+
+                                "WAR_WarehouseCode": value.DEL_WAR_Code,
+                                "WAR_WarehouseName": value.DEL_WAR_Name,
+                                "WAR_FK": value.DEL_WAR_FK,
+                            };
+                            response.data.Response.UIWmsWorkOrderLine.push(obj);
+                        });
+                        response.data.Response = filterObjectUpdate(response.data.Response, "IsModified");
+                        apiService.post("eAxisAPI", appConfig.Entities.WmsOutwardList.API.Update.Url, response.data.Response).then(function (response) {
+                            if (response.data.Status == 'Success') {
+                                CreateDelChallanCtrl.ePage.Masters.OutwardDetails = response.data.Response;
+                                toastr.success("Delivery Line added to the Order " + CreateDelChallanCtrl.ePage.Masters.OutwardDetails.UIWmsOutwardHeader.WorkOrderID);
+                                CreateDelChallanCtrl.ePage.Masters.Loading = false;                                
+                                outwardConfig.TabList = [];
+                                angular.forEach(CreateDelChallanCtrl.ePage.Masters.OutwardList, function (value, key) {
+                                    myTaskActivityConfig.CallEntity = true;
+                                    AddTab(value, false);
+                                });
+                            }
+                        });
+                    }
+                });
+            } else {
+                toastr.warning("Select the Order");
+            }
+            CreateDelChallanCtrl.ePage.Masters.modalInstance1.dismiss('cancel');
+        }
+        function setSelectedOutwardRow(index) {
+            CreateDelChallanCtrl.ePage.Masters.selectedOutwardRow = index;
+        }
+        function OpenModal() {
+            return CreateDelChallanCtrl.ePage.Masters.modalInstance1 = $uibModal.open({
+                animation: true,
+                backdrop: "static",
+                keyboard: false,
+                windowClass: "success-popup1",
+                scope: $scope,
+                size: "md",
+                templateUrl: "app/eaxis/warehouse/my-task/my-task-directive/create-delivery-challan/outward-details.html"
+            });
+        }
+        function CloseEditActivityModal() {
+            CreateDelChallanCtrl.ePage.Masters.modalInstance1.dismiss('cancel');
+        }
+        function filterObjectUpdate(obj, key) {
+            for (var i in obj) {
+                if (!obj.hasOwnProperty(i)) continue;
+                if (typeof obj[i] == 'object') {
+                    filterObjectUpdate(obj[i], key);
+                } else if (i == key) {
+                    obj[key] = true;
+                }
+            }
+            return obj;
+        }
+        // #endregion
         // #region - lookup 
         function GetDynamicLookupConfig() {
             // Get DataEntryNameList 
@@ -146,10 +319,6 @@
             } else {
                 CreateDelChallanCtrl.ePage.Masters.SelectAll = true;
             }
-
-            var Checked1 = CreateDelChallanCtrl.ePage.Entities.Header.Data.UIvwWmsDeliveryList.some(function (value, key) {
-                return value.SingleSelect == true;
-            });
             setSelectedRow();
         }
 
@@ -198,7 +367,7 @@
                     if (value.SingleSelect) {
                         count = count + 1;
                         CreateDelChallanCtrl.ePage.Masters.SelectedDeliveryLine.push(value);
-                        value.SingleSelect = false;
+                        // value.SingleSelect = false;
                     }
                 });
                 if (count > 0) {
@@ -403,6 +572,7 @@
                             } else if (type == "OUT") {
                                 value.OL_PrdCode = value.DL_Req_PrdCode
                             }
+                            value.SingleSelect = false;
                             var obj = {
                                 "Parent_FK": value.DL_PK,
                                 "PK": "",
@@ -710,6 +880,7 @@
             }
         }
         // #endregion
+        // #region - General
         function CallIsReload() {
             CreateDelChallanCtrl.ePage.Masters.Config.IsReload = false;
             CreateDelChallanCtrl.ePage.Entities.Header.Data = myTaskActivityConfig.Entities.Delivery[myTaskActivityConfig.Entities.Delivery.label].ePage.Entities.Header.Data;
@@ -747,7 +918,7 @@
                 });
             }
         }
-
+        // #endregion
         Init();
     }
 })();

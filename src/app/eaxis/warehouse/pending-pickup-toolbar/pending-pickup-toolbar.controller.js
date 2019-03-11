@@ -93,7 +93,7 @@
                                     angular.forEach(response.data.Response.Response.UIJobAddress, function (value, key) {
                                         value.PK = "";
                                     });
-                                    
+
                                     angular.forEach(PendingPickupToolbarCtrl.ePage.Masters.PendingPickupList, function (value, key) {
                                         var obj = {
                                             "PK": "",
@@ -132,7 +132,7 @@
                                             "WAR_WarehouseName": value.WDR_WarehouseName,
                                             "WAR_FK": value.WDR_Warehouse_Fk,
                                         };
-                                        
+
                                         obj.UISPMSPickupReport = {
                                             "PK": "",
                                             "Client_FK": value.WDR_Client_Fk,
@@ -155,6 +155,7 @@
                                             "ReceiverName": null,
                                             "ReceiverMailId": null,
                                             "AcknowledgedPerson": null,
+                                            "CSRReceiver": "",
                                             "AcknowledgedDateTime": null,
                                             "RequestedDateTime": null,
                                             "RequesterContactNumber": null,

@@ -5,9 +5,9 @@
         .module("Application")
         .controller("DMSConsignmentMenuController", DMSConsignmentMenuController);
 
-    DMSConsignmentMenuController.$inject = ["$scope", "$timeout", "APP_CONSTANT", "apiService", "dmsconsignmentConfig", "helperService", "appConfig", "authService", "$location", "$state", "toastr", "confirmation", "$uibModal"];
+    DMSConsignmentMenuController.$inject = ["$scope", "$timeout", "APP_CONSTANT", "apiService", "dmsconsignmentConfig", "helperService", "appConfig", "authService", "$location", "$state", "toastr", "confirmation", "$uibModal","$filter"];
 
-    function DMSConsignmentMenuController($scope, $timeout, APP_CONSTANT, apiService, dmsconsignmentConfig, helperService, appConfig, authService, $location, $state, toastr, confirmation, $uibModal) {
+    function DMSConsignmentMenuController($scope, $timeout, APP_CONSTANT, apiService, dmsconsignmentConfig, helperService, appConfig, authService, $location, $state, toastr, confirmation, $uibModal,$filter) {
 
         var DMSConsignmentMenuCtrl = this
 
@@ -165,6 +165,9 @@
                         if (DMSConsignmentMenuCtrl.currentConsignment[DMSConsignmentMenuCtrl.currentConsignment.label].ePage.Entities.Header.Data.TmsConsignmentHeader.IsCancel != true) {
                             apiService.get("eAxisAPI", DMSConsignmentMenuCtrl.ePage.Entities.Header.API.GetByID.Url + DMSConsignmentMenuCtrl.currentConsignment[DMSConsignmentMenuCtrl.currentConsignment.label].ePage.Entities.Header.Data.PK).then(function (response) {
                                 if (response.data.Response) {
+                                    DMSConsignmentMenuCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.ExpectedPickupDateTime = $filter('date')(DMSConsignmentMenuCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.ExpectedPickupDateTime, "dd-MMM-yyyy hh:mm a");
+                                    DMSConsignmentMenuCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.ExpectedDeliveryDateTime = $filter('date')(DMSConsignmentMenuCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.ExpectedDeliveryDateTime, "dd-MMM-yyyy hh:mm a");
+
                                     DMSConsignmentMenuCtrl.ePage.Masters.Config.TabList[_index][DMSConsignmentMenuCtrl.ePage.Masters.Config.TabList[_index].label].ePage.Entities.Header.Data = response.data.Response;
 
                                     DMSConsignmentMenuCtrl.ePage.Masters.Config.TabList.map(function (value, key) {

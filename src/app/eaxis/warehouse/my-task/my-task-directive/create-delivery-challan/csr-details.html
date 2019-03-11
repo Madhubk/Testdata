@@ -1,3 +1,7 @@
+<div class="grid-loading-norecord-container ng-scope" style='z-index: 15;' data-ng-if="CreateDelChallanCtrl.ePage.Masters.Loading">
+    <div class="grid-no-record">
+        <i class="fa fa-spinner fa-pulse"></i> Adding To Order </div>
+</div>
 <div data-ng-if="CreateDelChallanCtrl.ePage.Masters.Config.IsReload" data-ng-init="CreateDelChallanCtrl.ePage.Masters.CallIsReload()"></div>
 <div class="col-lg-12 clearfix no-padding" ng-if="CreateDelChallanCtrl.ePage.Entities.Header.Data">
     <div class="clearfix mt-10">
@@ -15,15 +19,16 @@
                         <div class="input-group input-group-sm">
                             <!-- Dynamic look up Search in textbox -->
                             <div dynamic-lookup placeholder="Service Provider" is-disabled="true" my-ng-model="CreateDelChallanCtrl.ePage.Masters.Client"
-                                auto-complete-on-select="CreateDelChallanCtrl.ePage.Masters.SelectedLookupClient($item)" obj="CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery"
-                                page-name="'OrganizationList'" control-id="'Customer'" control-key="'Customer_3321'">
+                                auto-complete-on-select="CreateDelChallanCtrl.ePage.Masters.SelectedLookupClient($item)"
+                                obj="CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery" page-name="'OrganizationList'"
+                                control-id="'Customer'" control-key="'Customer_3321'">
                             </div>
                             <!-- Look Up page opens when button clicks -->
                             <span class="input-group-btn">
-                                <button dynamic-list-modal is-disabled="true" obj="CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery" control-id="'Customer'"
-                                    control-key="'Customer_3321'" selected-data="CreateDelChallanCtrl.ePage.Masters.SelectedLookupClient($item.data.entity)"
-                                    page-name="'OrganizationList'" mode="2" grid-refresh-fun-name="" grid-refresh-fun="" class="btn btn-default shiny"
-                                    type="button">
+                                <button dynamic-list-modal is-disabled="true" obj="CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery"
+                                    control-id="'Customer'" control-key="'Customer_3321'" selected-data="CreateDelChallanCtrl.ePage.Masters.SelectedLookupClient($item.data.entity)"
+                                    page-name="'OrganizationList'" mode="2" grid-refresh-fun-name="" grid-refresh-fun=""
+                                    class="btn btn-default shiny" type="button">
                                     <i class="fa fa-ellipsis-h"></i>
                                 </button>
                             </span>
@@ -37,8 +42,11 @@
                             <div class="text-single-line" title='{{CreateDelChallanCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_Address2}}'>{{CreateDelChallanCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_Address2}}</div>
                             <div class="text-single-line" title='{{CreateDelChallanCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_State}}'>{{CreateDelChallanCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_State}}</div>
                             <div class="text-single-line">
-                                <span ng-show="CreateDelChallanCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_City" title="{{CreateDelChallanCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_City}}">{{CreateDelChallanCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_City}} -</span>
-                                <span ng-show="CreateDelChallanCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_PostCode" title="{{CreateDelChallanCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_PostCode}}">{{CreateDelChallanCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_PostCode}}</span>
+                                <span ng-show="CreateDelChallanCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_City"
+                                    title="{{CreateDelChallanCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_City}}">{{CreateDelChallanCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_City}}
+                                    -</span>
+                                <span ng-show="CreateDelChallanCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_PostCode"
+                                    title="{{CreateDelChallanCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_PostCode}}">{{CreateDelChallanCtrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_PostCode}}</span>
                             </div>
                         </div>
                         <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 p-0 mt-30">
@@ -72,10 +80,10 @@
 
                             <!-- Look Up page opens when button clicks -->
                             <span class="input-group-btn">
-                                <button dynamic-list-modal is-disabled="true" obj="CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery" control-id="'Warehouse'"
-                                    selected-data="CreateDelChallanCtrl.ePage.Masters.SelectedLookupWarehouse($item.data.entity)"
-                                    page-name="'OrgHeaderWithWarehouse'" control-key="'Warehouse_3323'" mode="2" grid-refresh-fun-name=""
-                                    grid-refresh-fun="" class="btn btn-default shiny" type="button">
+                                <button dynamic-list-modal is-disabled="true" obj="CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery"
+                                    control-id="'Warehouse'" selected-data="CreateDelChallanCtrl.ePage.Masters.SelectedLookupWarehouse($item.data.entity)"
+                                    page-name="'OrgHeaderWithWarehouse'" control-key="'Warehouse_3323'" mode="2"
+                                    grid-refresh-fun-name="" grid-refresh-fun="" class="btn btn-default shiny" type="button">
                                     <i class="fa fa-ellipsis-h"></i>
                                 </button>
                             </span>
@@ -116,17 +124,18 @@
                     <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8 height-40  p-5">
                         <div class="input-group input-group-sm">
                             <!-- Dynamic look up Search in textbox -->
-                            <div dynamic-lookup placeholder="Site" is-disabled="true" my-ng-model="CreateDelChallanCtrl.ePage.Masters.Consignee" auto-complete-on-select="CreateDelChallanCtrl.ePage.Masters.SelectedLookupSupplier($item)"
+                            <div dynamic-lookup placeholder="Site" is-disabled="true" my-ng-model="CreateDelChallanCtrl.ePage.Masters.Consignee"
+                                auto-complete-on-select="CreateDelChallanCtrl.ePage.Masters.SelectedLookupSupplier($item)"
                                 obj="CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery" page-name="'OrganizationList'"
                                 control-id="'Site'" control-key="'Site_3322'">
                             </div>
 
                             <!-- Look Up page opens when button clicks -->
                             <span class="input-group-btn">
-                                <button dynamic-list-modal is-disabled="true" obj="CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery" control-id="'Site'"
-                                    selected-data="CreateDelChallanCtrl.ePage.Masters.SelectedLookupSupplier($item.data.entity)"
-                                    page-name="'OrganizationList'" control-key="'Site_3322'" mode="2" grid-refresh-fun-name=""
-                                    grid-refresh-fun="" class="btn btn-default shiny" type="button">
+                                <button dynamic-list-modal is-disabled="true" obj="CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery"
+                                    control-id="'Site'" selected-data="CreateDelChallanCtrl.ePage.Masters.SelectedLookupSupplier($item.data.entity)"
+                                    page-name="'OrganizationList'" control-key="'Site_3322'" mode="2"
+                                    grid-refresh-fun-name="" grid-refresh-fun="" class="btn btn-default shiny" type="button">
                                     <i class="fa fa-ellipsis-h"></i>
                                 </button>
                             </span>
@@ -156,66 +165,126 @@
         </div>
     </div>
     <div class="clearfix mt-10">
-        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
+        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-3 col-xl-3">
             <div class="form-group">
                 <label class="control-label text-single-line">Request Mode</label>
                 <div class="">
-                    <input type="text" disabled class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Request Mode"
-                        data-ng-model="CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsWorkorderReport.RequestMode">
+                    <input type="text" disabled class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
+                        placeholder="Request Mode" data-ng-model="CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsWorkorderReport.RequestMode">
                 </div>
             </div>
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
+        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-3 col-xl-3">
             <div class="form-group">
                 <label class="control-label text-single-line">Response Type</label>
                 <div class="">
-                    <input type="text" disabled class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Response Type"
-                        data-ng-model="CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsWorkorderReport.ResponseType">
+                    <input type="text" disabled class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
+                        placeholder="Response Type" data-ng-model="CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsWorkorderReport.ResponseType">
                 </div>
             </div>
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
+        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-3 col-xl-3">
             <div class="form-group">
                 <label class="control-label text-single-line">Site Engineer</label>
                 <div class="">
-                    <input type="text" disabled class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Site Engineer"
-                        data-ng-model="CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsWorkorderReport.Requester">
+                    <input type="text" disabled class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
+                        placeholder="Site Engineer" data-ng-model="CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsWorkorderReport.Requester">
                 </div>
             </div>
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
+        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-3 col-xl-3">
             <div class="form-group">
                 <label class="control-label text-single-line">Contact Number</label>
                 <div class="">
-                    <input type="text" disabled class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Contact Number"
-                        data-ng-model="CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsWorkorderReport.RequesterContactNo">
+                    <input type="text" disabled class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
+                        placeholder="Contact Number" data-ng-model="CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsWorkorderReport.RequesterContactNo">
                 </div>
             </div>
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
+        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-3 col-xl-3">
             <div class="form-group">
                 <label class="control-label text-single-line">Drop Point</label>
                 <div class="">
-                    <input type="text" disabled class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Drop Point"
-                        data-ng-model="CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsWorkorderReport.AdditionalRef1Code">
+                    <input type="text" disabled class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
+                        placeholder="Drop Point" data-ng-model="CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsWorkorderReport.AdditionalRef1Code">
                 </div>
             </div>
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
+        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-3 col-xl-3">
             <div class="form-group">
                 <label class="control-label text-single-line">Delivery Request No</label>
                 <div class="">
-                    <input type="text" disabled class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Delivery Request No"
-                        data-ng-model="CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderID">
+                    <input type="text" disabled class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
+                        placeholder="Delivery Request No" data-ng-model="CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderID">
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="control-label text-single-line">CSR Receiver</label>
+                <div class="">
+                    <input type="text" disabled class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
+                        placeholder="CSR Receiver" data-ng-model="CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsWorkorderReport.AdditionalRef2Code">
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="control-label text-single-line">Requested Date Time</label>
+                <div class="input-group input-group-sm">
+                    <input type="text" disabled class="form-control" placeholder="{{CreateDelChallanCtrl.ePage.Masters.DatePicker.Options.dateTimeFormat}}"
+                        datetime-picker="{{CreateDelChallanCtrl.ePage.Masters.DatePicker.Options.dateTimeFormat}}"
+                        ng-model="CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsWorkorderReport.DeliveryRequestedDateTime"
+                        is-open="CreateDelChallanCtrl.ePage.Masters.DatePicker.isOpen['isDeliveryRequestedDateTime']"
+                        datepicker-options="CreateDelChallanCtrl.ePage.Masters.DatePicker.Options"
+                        datepicker-append-to-body="false" close-on-selection="false" enable-time="true" enable-date="true"
+                        default-date="" default-time="" when-closed="" save-as="CreateDelChallanCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                        custom-date-time-format />
+                    <span class="input-group-btn">
+                        <button type="button" disabled class="btn btn-default" data-ng-click="CreateDelChallanCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isDeliveryRequestedDateTime')">
+                            <i class="fa fa-calendar"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="control-label text-single-line">Acknowledged Person</label>
+                <div class="">
+                    <input type="text" disabled class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
+                        placeholder="Acknowledged Person" data-ng-model="CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsWorkorderReport.AcknowledgedPerson">
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="control-label text-single-line">Acknowledged Date Time</label>
+                <div class="input-group input-group-sm">
+                    <input type="text" disabled class="form-control" placeholder="{{CreateDelChallanCtrl.ePage.Masters.DatePicker.Options.dateTimeFormat}}"
+                        datetime-picker="{{CreateDelChallanCtrl.ePage.Masters.DatePicker.Options.dateTimeFormat}}"
+                        ng-model="CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsWorkorderReport.AcknowledgementDateTime"
+                        is-open="CreateDelChallanCtrl.ePage.Masters.DatePicker.isOpen['isAcknowledgementDateTime']"
+                        datepicker-options="CreateDelChallanCtrl.ePage.Masters.DatePicker.Options"
+                        datepicker-append-to-body="false" close-on-selection="false" enable-time="true" enable-date="true"
+                        default-date="" default-time="" when-closed="" save-as="CreateDelChallanCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                        custom-date-time-format />
+                    <span class="input-group-btn">
+                        <button disabled type="button" class="btn btn-default" data-ng-click="CreateDelChallanCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isAcknowledgementDateTime')">
+                            <i class="fa fa-calendar"></i>
+                        </button>
+                    </span>
                 </div>
             </div>
         </div>
     </div>
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-20 mb-10">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mb-10">
+        <button class="btn btn-blue btn-sm pull-right ml-10" data-ng-click="CreateDelChallanCtrl.ePage.Masters.AddToOutward()"
+            data-ng-bind="CreateDelChallanCtrl.ePage.Masters.AddToOutwardText" data-ng-disabled="CreateDelChallanCtrl.ePage.Masters.IsDisabled"></button>
         <button class="btn btn-blue btn-sm pull-right ml-10" data-ng-click="CreateDelChallanCtrl.ePage.Masters.CreateOutward('OUT')"
             data-ng-bind="CreateDelChallanCtrl.ePage.Masters.CreateOutwardText" data-ng-disabled="CreateDelChallanCtrl.ePage.Masters.IsDisabled"></button>
-        <button class="btn btn-blue btn-sm pull-right" data-ng-click="CreateDelChallanCtrl.ePage.Masters.CreateOutward('MTR')" data-ng-bind="CreateDelChallanCtrl.ePage.Masters.CreateMaterialTransferText"
-            data-ng-disabled="CreateDelChallanCtrl.ePage.Masters.IsDisabled"></button>
+        <button class="btn btn-blue btn-sm pull-right" data-ng-click="CreateDelChallanCtrl.ePage.Masters.CreateOutward('MTR')"
+            data-ng-bind="CreateDelChallanCtrl.ePage.Masters.CreateMaterialTransferText" data-ng-disabled="CreateDelChallanCtrl.ePage.Masters.IsDisabled"></button>
     </div>
     <div class="clearfix mt-10">
         <div id="InwardLineTable{{CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderID}}" class="fixedheader mb-0"
@@ -226,8 +295,8 @@
                     <tr id="tableHeader">
                         <th id="delcheckbox" ng-style="{ 'width': '40px' }">
                             <label class="customcheckbox">
-                                <input type="checkbox" ng-change="CreateDelChallanCtrl.ePage.Masters.SelectAllCheckBox()" ng-checked="CreateDelChallanCtrl.ePage.Masters.SelectAll"
-                                    ng-model="CreateDelChallanCtrl.ePage.Masters.SelectAll">
+                                <input type="checkbox" ng-change="CreateDelChallanCtrl.ePage.Masters.SelectAllCheckBox()"
+                                    ng-checked="CreateDelChallanCtrl.ePage.Masters.SelectAll" ng-model="CreateDelChallanCtrl.ePage.Masters.SelectAll">
                                 <span class="text"></span>
                             </label>
                         </th>
@@ -250,7 +319,7 @@
                     </tr>
                 </thead>
                 <tbody id="InwardLineCustTable{{CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderID}}">
-                    <tr id="tableBody" ng-repeat="x in CreateDelChallanCtrl.ePage.Entities.Header.Data.UIvwWmsDeliveryList" 
+                    <tr id="tableBody" ng-repeat="x in CreateDelChallanCtrl.ePage.Entities.Header.Data.UIvwWmsDeliveryList"
                         ng-class="{row_active: (CreateDelChallanCtrl.ePage.Masters.selectedRow==$index),copy_row_active :(x.IsCopied==true)}">
                         <td id="delcheckbox" ng-style="{ 'width':  '40px' ,'padding-top':'0px' }" ng-click="CreateDelChallanCtrl.ePage.Masters.Enable = true">
                             <label class="mb-0 customcheckbox">
@@ -301,7 +370,7 @@
                     <tr id="tableHeader">
                         <th ng-style="{ 'width':  '40px' }" title="S.No">S.No</th>
                         <th ng-style="{ 'width':  '130px' }" title="Product Code">Product Code</th>
-                        <th ng-style="{ 'width':  '200px' }" title="Product Description">Product Description</th>                        
+                        <th ng-style="{ 'width':  '200px' }" title="Product Description">Product Description</th>
                         <th ng-style="{ 'width':  '180px' }" title="Warehouse">Warehouse</th>
                         <th ng-style="{ 'width':  '130px' }" title="Receipt Reference">Receipt Reference</th>
                         <th ng-style="{ 'width':  '130px' }" title="Inventory Status">Inventory Status</th>
@@ -327,8 +396,9 @@
                     <tr id="tableBody" ng-repeat="x in CreateDelChallanCtrl.ePage.Masters.MainInventory" ng-class="{bg_green: x.WAR_WarehouseCode==CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WarehouseCode, bg_pink: x.WAR_WarehouseCode!=CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WarehouseCode}">
                         <td ng-style="{ 'width':  '40px' }" class="overflow-text">{{$index +1}}</td>
                         <td ng-style="{ 'width':  '130px' }" class="overflow-text">{{x.ProductCode}}</td>
-                        <td ng-style="{ 'width':  '200px' }" class="overflow-text">{{x.ProductName}}</td>                        
-                        <td ng-style="{ 'width':  '180px' }" class="overflow-text">{{x.WAR_WarehouseCode}} - {{x.WAR_WarehouseName}}</td>
+                        <td ng-style="{ 'width':  '200px' }" class="overflow-text">{{x.ProductName}}</td>
+                        <td ng-style="{ 'width':  '180px' }" class="overflow-text">{{x.WAR_WarehouseCode}} -
+                            {{x.WAR_WarehouseName}}</td>
                         <td ng-style="{ 'width':  '130px' }" class="overflow-text">{{x.ExternalReference}}</td>
                         <td ng-style="{ 'width':  '130px' }" class="overflow-text">{{x.OriginalInventoryStatusDesc}}</td>
                         <td ng-style="{ 'width':  '80px' }" class="overflow-text">{{x.AvailableToPick}}</td>
@@ -337,7 +407,8 @@
                         <td ng-style="{ 'width':  '80px' }" class="overflow-text">{{x.InTransitUnit}}</td>
                         <td ng-style="{ 'width':  '80px' }" class="overflow-text">{{x.ReservedUnit}}</td>
                         <td ng-style="{ 'width':  '80px' }" class="overflow-text">{{x.TotalUnits}}</td>
-                        <td ng-style="{ 'width':  '130px' }" class="overflow-text">{{x.AdjustmentArrivalDate | date:'dd-MMM-yyyy hh:mm a'}}</td>
+                        <td ng-style="{ 'width':  '130px' }" class="overflow-text">{{x.AdjustmentArrivalDate |
+                            date:'dd-MMM-yyyy hh:mm a'}}</td>
                         <td ng-style="{ 'width':  '130px' }" class="overflow-text">{{x.Location}}</td>
                         <td ng-style="{ 'width':  '130px' }" class="overflow-text">{{x.LocationStatusDescription}}</td>
                         <td ng-style="{ 'width':  '130px' }" class="overflow-text">{{x.PalletID}}</td>
@@ -351,16 +422,17 @@
                 </tbody>
             </table>
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 norecordfound" style="top:560px" ng-if="CreateDelChallanCtrl.ePage.Masters.InventoryLoading">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 norecordfound" style="top:675px" ng-if="CreateDelChallanCtrl.ePage.Masters.InventoryLoading">
             <i class="fa fa-spin fa-spinner font-160"></i>
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 norecordfound" style="top:560px" ng-if="CreateDelChallanCtrl.ePage.Masters.MainInventory.length==0 && !CreateDelChallanCtrl.ePage.Masters.InventoryLoading">No Record Found...</div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 norecordfound" style="top:675px" ng-if="CreateDelChallanCtrl.ePage.Masters.MainInventory.length==0 && !CreateDelChallanCtrl.ePage.Masters.InventoryLoading">No
+            Record Found...</div>
     </div>
 
     <!--FIlter Bar  -->
     <div id="filterSideBar{{CreateDelChallanCtrl.ePage.Masters.DynamicControl.DataEntryName}}{{CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderID}}"
         data-ng-if="CreateDelChallanCtrl.ePage.Masters.DynamicControl" class="dynamic-filter-sidebar-wrapper  clearfix filter-text"
-        style="top:504px;height:200px;overflow-y: overlay;z-index: 13" data-ng-class="CreateDelChallanCtrl.ePage.Masters.ViewType == 1 ? 'one-column' : 'two-column'">
+        style="top:620px;height:200px;overflow-y: overlay;z-index: 13" data-ng-class="CreateDelChallanCtrl.ePage.Masters.ViewType == 1 ? 'one-column' : 'two-column'">
         <form name="filterSidebar" novalidate>
             <div class="header clearfix">
                 <div class="title pull-left">
@@ -381,8 +453,9 @@
             </div>
             <div class="filter-list clearfix">
                 <div class="clearfix" data-ng-if="CreateDelChallanCtrl.ePage.Masters.DynamicControl">
-                    <dynamic-control input="CreateDelChallanCtrl.ePage.Masters.DynamicControl" mode="S" control-style="" default-filter="CreateDelChallanCtrl.ePage.Masters.defaultFilter"
-                        toggle="CreateDelChallanCtrl.ePage.Masters.IsDynamicControlAccess" view-type="CreateDelChallanCtrl.ePage.Masters.ViewType"></dynamic-control>
+                    <dynamic-control input="CreateDelChallanCtrl.ePage.Masters.DynamicControl" mode="S" control-style=""
+                        default-filter="CreateDelChallanCtrl.ePage.Masters.defaultFilter" toggle="CreateDelChallanCtrl.ePage.Masters.IsDynamicControlAccess"
+                        view-type="CreateDelChallanCtrl.ePage.Masters.ViewType"></dynamic-control>
                 </div>
             </div>
         </form>

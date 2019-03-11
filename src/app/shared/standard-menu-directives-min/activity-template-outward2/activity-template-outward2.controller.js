@@ -632,6 +632,60 @@
                         EntityObject: myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data
                     };
                     errorWarningService.ValidateValue(_obj);
+                    if (ActivityTemplateOutward2Ctrl.taskObj.WSI_StepName == "Transfer Material") {                        
+                        // check whether MTR inward created or not for MTR outward
+                        if (myTaskActivityConfig.Entities.PickData) {
+                            var filter1 = $filter("filter")(myTaskActivityConfig.Entities.PickData[myTaskActivityConfig.Entities.PickData.label].ePage.Entities.Header.Data.UIWmsOutward, function (value, key) {
+                                if (value.WorkOrderSubType == 'MTR') {
+                                    return value;
+                                }
+                            });
+                            if (filter1.length > 0) {
+                                angular.forEach(filter1, function (value, key) {
+                                    // check whether the MTR inward created for Order or Not
+                                    var _filter = {
+                                        "WOD_Parent_FK": value.PK
+                                    };
+                                    var _input = {
+                                        "searchInput": helperService.createToArrayOfObject(_filter),
+                                        "FilterID": appConfig.Entities.InwardList.API.FindAll.FilterID
+                                    };
+
+                                    apiService.post("eAxisAPI", appConfig.Entities.InwardList.API.FindAll.Url, _input).then(function (response) {
+                                        if (response.data.Response) {
+                                            if (response.data.Response.length > 0) {
+                                                angular.forEach(errorWarningService.Modules.MyTask.Entity[ActivityTemplateOutward2Ctrl.ePage.Masters.EntityObj.UIWmsOutwardHeader.WorkOrderID].GlobalErrorWarningList, function (value, key) {
+                                                    if (value.Code == "E3113") {
+                                                        errorWarningService.Modules.MyTask.Entity[ActivityTemplateOutward2Ctrl.ePage.Masters.EntityObj.UIWmsOutwardHeader.WorkOrderID].GlobalErrorWarningList.splice(key, 1);
+                                                    }
+                                                });
+                                            } else {
+                                                var _obj = {
+                                                    Code: "E3113",
+                                                    EntityCode: ActivityTemplateOutward2Ctrl.ePage.Masters.EntityObj.UIWmsOutwardHeader.WorkOrderID,
+                                                    EntityPK: ActivityTemplateOutward2Ctrl.ePage.Masters.EntityObj.UIWmsOutwardHeader.PK,
+                                                    Message: "It can be Finalized when all the Material Transfer Outward having Material Transfer Inward",
+                                                    MessageType: "E",
+                                                    MetaObject: "InwardDetails",
+                                                    ModuleCode: "WMS",
+                                                    SubModuleCode: "WPK",
+                                                    entityName: ActivityTemplateOutward2Ctrl.ePage.Masters.EntityObj.UIWmsOutwardHeader.WorkOrderID,
+                                                    moduleName: "MyTask",
+                                                }
+                                                angular.forEach(errorWarningService.Modules.MyTask.Entity[ActivityTemplateOutward2Ctrl.ePage.Masters.EntityObj.UIWmsOutwardHeader.WorkOrderID].GlobalErrorWarningList, function (value, key) {
+                                                    if (value.Code == "E3113") {
+                                                        errorWarningService.Modules.MyTask.Entity[ActivityTemplateOutward2Ctrl.ePage.Masters.EntityObj.UIWmsOutwardHeader.WorkOrderID].GlobalErrorWarningList.splice(key, 1);
+                                                    }
+                                                });
+                                                errorWarningService.Modules.MyTask.Entity[ActivityTemplateOutward2Ctrl.ePage.Masters.EntityObj.UIWmsOutwardHeader.WorkOrderID].GlobalErrorWarningList.push(_obj);
+                                                // ActivityTemplateOutward2Ctrl.ePage.Masters.ShowErrorWarningModal(ActivityTemplateOutward2Ctrl.taskObj.PSI_InstanceNo);
+                                            }
+                                        }
+                                    });
+                                });
+                            }
+                        }
+                    }
                 }
 
                 if (ActivityTemplateOutward2Ctrl.ePage.Masters.DocumentValidation.length > 0) {
@@ -684,10 +738,63 @@
                     } else {
                         ActivityTemplateOutward2Ctrl.ePage.Masters.CompleteBtnText = "Please Wait...";
                         ActivityTemplateOutward2Ctrl.ePage.Masters.IsDisableCompleteBtn = true;
-                        if (ActivityTemplateOutward2Ctrl.taskObj.WSI_StepName == "Transfer Material") {
-                            myTaskActivityConfig.Entities.PickData[myTaskActivityConfig.Entities.PickData.label].ePage.Entities.Header.Data.UIWmsPickHeader.PickStatus = 'PIF';
-                            myTaskActivityConfig.Entities.PickData[myTaskActivityConfig.Entities.PickData.label].ePage.Entities.Header.Data.UIWmsPickHeader.PickStatusDesc = 'Finalized';
-                            CompleteWithSave();
+                        if (ActivityTemplateOutward2Ctrl.taskObj.WSI_StepName == "Transfer Material") {                            
+                            // check whether MTR inward created or not for MTR outward
+
+                            var filter1 = $filter("filter")(myTaskActivityConfig.Entities.PickData[myTaskActivityConfig.Entities.PickData.label].ePage.Entities.Header.Data.UIWmsOutward, function (value, key) {
+                                if (value.WorkOrderSubType == 'MTR') {
+                                    return value;
+                                }
+                            });
+                            if (filter1.length > 0) {
+                                angular.forEach(filter1, function (value, key) {
+                                    // check whether the MTR inward created for Order or Not
+                                    var _filter = {
+                                        "WOD_Parent_FK": value.PK
+                                    };
+                                    var _input = {
+                                        "searchInput": helperService.createToArrayOfObject(_filter),
+                                        "FilterID": appConfig.Entities.InwardList.API.FindAll.FilterID
+                                    };
+
+                                    apiService.post("eAxisAPI", appConfig.Entities.InwardList.API.FindAll.Url, _input).then(function (response) {
+                                        if (response.data.Response) {
+                                            if (response.data.Response.length > 0) {
+                                                ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails = response.data.Response;
+                                                var InwardDetails = _.groupBy(ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails, 'WOD_Parent_FK');
+                                                var InwardDetailsCount = _.keys(InwardDetails).length;
+                                                if (InwardDetailsCount == filter1.length) {
+                                                    myTaskActivityConfig.Entities.PickData[myTaskActivityConfig.Entities.PickData.label].ePage.Entities.Header.Data.UIWmsPickHeader.PickStatus = 'PIF';
+                                                    myTaskActivityConfig.Entities.PickData[myTaskActivityConfig.Entities.PickData.label].ePage.Entities.Header.Data.UIWmsPickHeader.PickStatusDesc = 'Finalized';
+                                                    CompleteWithSave();
+                                                }
+                                            } else {
+                                                var _obj = {
+                                                    Code: "E3113",
+                                                    EntityCode: ActivityTemplateOutward2Ctrl.ePage.Masters.EntityObj.UIWmsOutwardHeader.WorkOrderID,
+                                                    EntityPK: ActivityTemplateOutward2Ctrl.ePage.Masters.EntityObj.UIWmsOutwardHeader.PK,
+                                                    Message: "It can be Finalized when all the Material Transfer Outward having Material Transfer Inward",
+                                                    MessageType: "E",
+                                                    MetaObject: "InwardDetails",
+                                                    ModuleCode: "WMS",
+                                                    SubModuleCode: "WPK",
+                                                    entityName: ActivityTemplateOutward2Ctrl.ePage.Masters.EntityObj.UIWmsOutwardHeader.WorkOrderID,
+                                                    moduleName: "MyTask",
+                                                }
+                                                errorWarningService.Modules.MyTask.Entity[ActivityTemplateOutward2Ctrl.ePage.Masters.EntityObj.UIWmsOutwardHeader.WorkOrderID].GlobalErrorWarningList.push(_obj);
+                                                ActivityTemplateOutward2Ctrl.ePage.Masters.ShowErrorWarningModal(ActivityTemplateOutward2Ctrl.taskObj.PSI_InstanceNo);
+                                                // toastr.warning("It can be Finalized when all the Material Transfer Outward having Material Transfer Inward");
+                                                ActivityTemplateOutward2Ctrl.ePage.Masters.CompleteBtnText = "Complete";
+                                                ActivityTemplateOutward2Ctrl.ePage.Masters.IsDisableCompleteBtn = false;
+                                            }
+                                        }
+                                    });
+                                });
+                            } else {
+                                myTaskActivityConfig.Entities.PickData[myTaskActivityConfig.Entities.PickData.label].ePage.Entities.Header.Data.UIWmsPickHeader.PickStatus = 'PIF';
+                                myTaskActivityConfig.Entities.PickData[myTaskActivityConfig.Entities.PickData.label].ePage.Entities.Header.Data.UIWmsPickHeader.PickStatusDesc = 'Finalized';
+                                CompleteWithSave();
+                            }
                         } else if (ActivityTemplateOutward2Ctrl.taskObj.WSI_StepName == "Deliver Material") {
                             myTaskActivityConfig.Entities.ManifestData.TmsManifestHeader.TransportBookedDateTime = new Date();
                             myTaskActivityConfig.Entities.ManifestData.TmsManifestConsignment[0].TMC_ActualPickupDateTime = new Date();
@@ -710,7 +817,7 @@
                             CompleteWithSave();
                         }
                     }
-                }, 1000);
+                }, 2000);
             } else {
                 CompleteWithSave();
             }

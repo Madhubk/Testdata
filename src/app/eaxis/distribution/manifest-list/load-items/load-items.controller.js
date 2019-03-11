@@ -32,10 +32,11 @@
             }
 
             var res = LoadItemsCtrl.ePage.Masters.MenuList[LoadItemsCtrl.ePage.Entities.Header.CheckPoints.ActiveMenu].DisplayName.split(" ");
-            if (res[1] == "Pickup") {
+            
+            if (res[1] == "Pickup" || res[1] == "Vehicle" || res[2] == "Dispatch") {
                 LoadItemsCtrl.ePage.Masters.IsPickup = true;
             }
-            else if (res[1] == "Delivery") {
+            else if (res[1] == "Delivery" || res[1] == "Upload" || res[2] == "Delivery") {
                 LoadItemsCtrl.ePage.Masters.IsDelivery = true;
             }
 
