@@ -647,7 +647,8 @@
                             }
                         }
                     },
-                }
+                },
+                "MenuList":[]
             },
             "TabList": [],
             "GetTabDetails": GetTabDetails
@@ -1104,7 +1105,6 @@
                             "Meta": {},
                         }
                     },
-                    "MenuList":[]
                 }
             };
 

@@ -24,6 +24,7 @@
         .directive("orgTabMenu", OrgTabMenu);
 
     function OrgTabMenu($compile) {
+        debugger
         let exports = {
             restrict: "EA",
             scope: {
@@ -50,7 +51,7 @@
 
     function OrganizationMenuController($rootScope, $filter, $timeout, apiService, authService, organizationConfig, helperService, toastr, errorWarningService) {
         var OrganizationMenuCtrl = this;
-
+debugger
         function Init() {
             let currentTab = OrganizationMenuCtrl.currentTab[OrganizationMenuCtrl.currentTab.code].ePage.Entities;
             OrganizationMenuCtrl.ePage = {
