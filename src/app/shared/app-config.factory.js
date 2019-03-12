@@ -2737,6 +2737,17 @@
                         }
                     }
                 },
+                "WmsTestID": {
+                    "RowIndex": -1,
+                    "API": {
+                        "FindAll": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "TestID/FindAll",
+                            "FilterID": "APPCOUNT"
+                        }
+                    }
+                },
                 "InwardList": {
                     "RowIndex": -1,
                     "API": {
@@ -2894,6 +2905,16 @@
                         },
                     }
                 },
+                "WmsInventoryAdjustment": {
+                    "RowIndex": -1,
+                    "API": {
+                        "Insert": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "WmsInventoryAdjustment/Insert",
+                        },
+                    }
+                },
                 "AppCounter": {
                     "RowIndex": -1,
                     "API": {
@@ -2991,6 +3012,11 @@
                             "HttpType": "POST",
                             "Url": "TMSPickupandDeliverypoint/FindAll",
                             "FilterID": "TMSPICDEVPOI"
+                        },
+                        "GetById": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "WmsWorkOrderLine/GetById/",
                         },
                     }
                 },
@@ -3263,6 +3289,16 @@
 
                         },
 
+                    }
+                },
+                "Notification": {
+                    "RowIndex": -1,
+                    "API": {
+                        "SendSms": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "Notification/SendSms"
+                        },
                     }
                 },
                 "TeamTargetRelease": {
@@ -3573,6 +3609,10 @@
                         "CompleteProcess": {
                             "IsAPI": true,
                             "Url": "EBPMEngine/CompleteProcess",
+                        },
+                        "SuspendInstance": {
+                            "IsAPI": true,
+                            "Url": "EBPMEngine/SuspendInstance/",
                         }
                     }
                 },
