@@ -2866,6 +2866,11 @@
                             "HttpType": "POST",
                             "Url": "WmsPickList/Update"
                         },
+                        "AllocateStock": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "WmsPickList/WmsAllocateStock",
+                        },
                     }
                 },
                 "WmsPickupList": {
@@ -2905,6 +2910,17 @@
                         },
                     }
                 },
+                "OrgHeaderWarehouse": {
+                    "RowIndex": -1,
+                    "API": {
+                        "FindAll": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "OrgHeaderWarehouse/FindAll",
+                            "FilterID": "TMSORGWAREH",
+                        },
+                    }
+                },
                 "WmsInventoryAdjustment": {
                     "RowIndex": -1,
                     "API": {
@@ -2913,6 +2929,59 @@
                             "HttpType": "POST",
                             "Url": "WmsInventoryAdjustment/Insert",
                         },
+                    }
+                },
+
+                "WmsDeliveryReport": {
+                    "RowIndex": -1,
+                    "API": {
+                        "GetById": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "WmsDeliveryReport/GetById/",
+                        },
+                        "Update": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "WmsDeliveryReport/Update"
+                        },
+                        "Insert": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "WmsDeliveryReport/Insert"
+                        },
+                        "FindAll": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "WmsDeliveryReport/FindAll",
+                            "FilterID": "WMSWDR"
+                        }
+                    }
+                },
+                "WmsPickupReport": {
+                    "RowIndex": -1,
+                    "API": {
+                        "GetById": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "WmsPickupReport/GetById/",
+                        },
+                        "Update": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "WmsPickupReport/Update"
+                        },
+                        "Insert": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "WmsPickupReport/Insert"
+                        },
+                        "FindAll": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "WmsPickupReport/FindAll",
+                            "FilterID": "WMSWPR"
+                        }
                     }
                 },
                 "AppCounter": {
@@ -3002,6 +3071,16 @@
                             "Url": "WmsWorkOrderLine/FindAll",
                             "FilterID": "WMSINL"
                         },
+                        "GetById": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "WmsWorkOrderLine/GetById/",
+                        },
+                        "Update": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "WmsWorkOrderLine/Update"
+                        }
                     }
                 },
                 "TMSPickupandDeliverypoint": {
@@ -3012,12 +3091,7 @@
                             "HttpType": "POST",
                             "Url": "TMSPickupandDeliverypoint/FindAll",
                             "FilterID": "TMSPICDEVPOI"
-                        },
-                        "GetById": {
-                            "IsAPI": "true",
-                            "HttpType": "GET",
-                            "Url": "WmsWorkOrderLine/GetById/",
-                        },
+                        }
                     }
                 },
                 "TMSGatepassList": {
