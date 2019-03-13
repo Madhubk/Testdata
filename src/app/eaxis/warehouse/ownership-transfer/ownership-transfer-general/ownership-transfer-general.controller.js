@@ -253,6 +253,8 @@
         }
 
         function SelectedLookupTransferFromClient(item) {
+            OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.TransferFrom_ORG_Code= item.Code;
+            OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.TransferFrom_ORG_FullName= item.FullName;
             OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.TransferFrom_Client = item.Code + "-" + item.FullName;
             OnChangeValues(OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.TransferFrom_Client, 'E11032');
 
@@ -299,6 +301,8 @@
         }
 
         function SelectedLookupWarehouse(item) {
+            OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.WarehouseCode = item.WarehouseCode;
+            OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.WarehouseName = item.WarehouseName;
             OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.Warehouse = item.WarehouseCode + ' - ' + item.WarehouseName;
             DefaultFilter();
             OnChangeValues(OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.Warehouse, 'E11012');

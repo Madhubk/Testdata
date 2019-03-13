@@ -280,6 +280,8 @@
         //#region Selectedlookups
         function SelectedLookupClient(item) {
             AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIAdjustmentHeader.ORG_Client_FK = item.PK;
+            AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIAdjustmentHeader.ClientCode= item.Code;
+            AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIAdjustmentHeader.ClientName= item.FullName;
             AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIAdjustmentHeader.Client = item.Code + ' - ' + item.FullName;
             AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader = item;
             OnChangeValues(AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIAdjustmentHeader.Client, 'E10001');
@@ -289,6 +291,8 @@
 
         function SelectedLookupWarehouse(item) {
             AdjustmentGeneralCtrl.ePage.Masters.DataentryName = undefined;
+            AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIAdjustmentHeader.WarehouseCode = item.WarehouseCode;
+            AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIAdjustmentHeader.WarehouseName = item.WarehouseName;
             AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIAdjustmentHeader.Warehouse = item.WarehouseCode + ' - ' + item.WarehouseName;
             OnChangeValues(AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIAdjustmentHeader.Warehouse, 'E10002')
             DefaultFilter();
