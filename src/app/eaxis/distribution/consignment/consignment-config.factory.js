@@ -634,17 +634,6 @@
             //General Page Validation
             var _Data = $item[$item.label].ePage.Entities,
                 _input = _Data.Header.Data;
-            OnChangeValues(_input.TmsConsignmentHeader.SenderCode, 'E5516', false, undefined, $item.label);
-            OnChangeValues(_input.TmsConsignmentHeader.ReceiverCode, 'E5517', false, undefined, $item.label);
-            OnChangeValues(_input.TmsConsignmentHeader.ServiceType, 'E5518', false, undefined, $item.label);
-            if (_input.TmsConsignmentHeader.ServiceType == "INW" || _input.TmsConsignmentHeader.ServiceType == "ORD") {
-                OnChangeValues('', 'E5566', false, undefined, $item.label);
-            } else if (_input.TmsConsignmentHeader.ServiceType == "LOD" || _input.TmsConsignmentHeader.ServiceType == "UPC" || _input.TmsConsignmentHeader.ServiceType == "STR") {
-                OnChangeValues(_input.TmsConsignmentHeader.ServiceType, 'E5566', false, undefined, $item.label);
-            }
-            OnChangeValues(_input.TmsConsignmentHeader.SenderRef, 'E5567', false, undefined, $item.label);
-            OnChangeValues(_input.TmsConsignmentHeader.ExpectedPickupDateTime, 'E5521', false, undefined, $item.label);
-            OnChangeValues(_input.TmsConsignmentHeader.ExpectedDeliveryDateTime, 'E5563', false, undefined, $item.label);
 
             // address model 
 
@@ -659,15 +648,27 @@
                 OnChangeValues(_AddressDetails.Mobile, 'E5575', false, undefined, $item.label);
                 OnChangeValues(_AddressDetails.Email, 'E5576', false, undefined, $item.label);
                 OnChangeValues(_AddressDetails.RelatedPortCode, 'E5577', false, undefined, $item.label);
-            }
-
-            //item Validation
-            if (_input.TmsConsignmentItem.length > 0) {
-                angular.forEach(_input.TmsConsignmentItem, function (value, key) {
-                    OnChangeValues(value.TIT_ItemCode, 'E5547', true, key, $item.label);
-                    OnChangeValues(value.Quantity, 'E5564', true, key, $item.label);
-                    OnChangeValues(value.TIT_ItemRef_ID, 'E5548', true, key, $item.label);
-                });
+            } else {
+                OnChangeValues(_input.TmsConsignmentHeader.SenderCode, 'E5516', false, undefined, $item.label);
+                OnChangeValues(_input.TmsConsignmentHeader.ReceiverCode, 'E5517', false, undefined, $item.label);
+                OnChangeValues(_input.TmsConsignmentHeader.ServiceType, 'E5518', false, undefined, $item.label);
+                if (_input.TmsConsignmentHeader.ServiceType == "INW" || _input.TmsConsignmentHeader.ServiceType == "ORD") {
+                    OnChangeValues('', 'E5566', false, undefined, $item.label);
+                } else if (_input.TmsConsignmentHeader.ServiceType == "LOD" || _input.TmsConsignmentHeader.ServiceType == "UPC" || _input.TmsConsignmentHeader.ServiceType == "STR") {
+                    OnChangeValues(_input.TmsConsignmentHeader.ServiceType, 'E5566', false, undefined, $item.label);
+                }
+                OnChangeValues(_input.TmsConsignmentHeader.SenderRef, 'E5567', false, undefined, $item.label);
+                OnChangeValues(_input.TmsConsignmentHeader.ExpectedPickupDateTime, 'E5521', false, undefined, $item.label);
+                OnChangeValues(_input.TmsConsignmentHeader.ExpectedDeliveryDateTime, 'E5563', false, undefined, $item.label);
+                
+                //item Validation
+                if (_input.TmsConsignmentItem.length > 0) {
+                    angular.forEach(_input.TmsConsignmentItem, function (value, key) {
+                        OnChangeValues(value.TIT_ItemCode, 'E5547', true, key, $item.label);
+                        OnChangeValues(value.Quantity, 'E5564', true, key, $item.label);
+                        OnChangeValues(value.TIT_ItemRef_ID, 'E5548', true, key, $item.label);
+                    });
+                }
             }
         }
 

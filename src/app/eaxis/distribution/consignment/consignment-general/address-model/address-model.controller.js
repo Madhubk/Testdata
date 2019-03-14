@@ -42,7 +42,7 @@
         //#region general function
         function InitOrgAddress() {
             AddressModalCtrl.ePage.Masters.AddressList = {};
-
+            AddressModalCtrl.ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList = [];
             if (AddressModalCtrl.ePage.Masters.param) {
                 AddressModalCtrl.ePage.Masters.AddressList =
                     {
