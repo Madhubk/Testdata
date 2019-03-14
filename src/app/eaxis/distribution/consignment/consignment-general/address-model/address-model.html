@@ -4,7 +4,7 @@
         <button class="btn btn-warning btn-xs pull-right ml-5"
             data-ng-click="AddressModalCtrl.ePage.Masters.Cancel()">Close</button>
         <button class="btn btn-primary btn-xs pull-right ml-5"
-            data-ng-click="AddressModalCtrl.ePage.Masters.SaveAddress()"
+            data-ng-click="AddressModalCtrl.ePage.Masters.SaveAddress(AddressModalCtrl.ePage.Masters.AddressList)"
             data-ng-bind="AddressModalCtrl.ePage.Masters.SaveButtonText"
             data-ng-disabled="AddressModalCtrl.ePage.Masters.IsDisableSave"></button>
     </div>
@@ -13,60 +13,92 @@
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                 <div class="form-group">
                     <label for="Address1">Address1</label>
+                    <span class="error-warning-container">
+                        <error-warning-directive
+                            data-ng-if="AddressModalCtrl.ePage.Entities.Header.Meta.ErrorWarning.Address1.IsWarning && !AddressModalCtrl.ePage.Entities.Header.Meta.ErrorWarning.Address1.IsError"
+                            list="AddressModalCtrl.ePage.Entities.Header.Meta.ErrorWarning.Address1.WARNING"
+                            type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
+                        </error-warning-directive>
+                        <error-warning-directive
+                            data-ng-if="AddressModalCtrl.ePage.Entities.Header.Meta.ErrorWarning.Address1.IsError"
+                            list="AddressModalCtrl.ePage.Entities.Header.Meta.ErrorWarning.Address1.ERROR"
+                            type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
+                        </error-warning-directive>
+                    </span>
                     <input type="text" class="form-control input-sm" placeholder="Address1"
-                        data-ng-model="AddressModalCtrl.ePage.Masters.OrgAddress.FormView.Address1" />
+                    data-ng-model="AddressModalCtrl.ePage.Masters.AddressList.Address1" ng-change='AddressModalCtrl.ePage.Masters.OnChangeValues(AddressModalCtrl.ePage.Masters.AddressList.Address1,"E5568",false,undefined)'/>
                 </div>
                 <div class="form-group">
                     <label for="Address2">Address2</label>
                     <input type="text" class="form-control input-sm" placeholder="Address2"
-                        data-ng-model="AddressModalCtrl.ePage.Masters.OrgAddress.FormView.Address2" />
+                        data-ng-model="AddressModalCtrl.ePage.Masters.AddressList.Address2" />
                 </div>
                 <div class="form-group">
                     <label for="City">City</label>
+                    <span class="error-warning-container">
+                        <error-warning-directive
+                            data-ng-if="AddressModalCtrl.ePage.Entities.Header.Meta.ErrorWarning.City.IsWarning && !AddressModalCtrl.ePage.Entities.Header.Meta.ErrorWarning.City.IsError"
+                            list="AddressModalCtrl.ePage.Entities.Header.Meta.ErrorWarning.City.WARNING"
+                            type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
+                        </error-warning-directive>
+                        <error-warning-directive
+                            data-ng-if="AddressModalCtrl.ePage.Entities.Header.Meta.ErrorWarning.City.IsError"
+                            list="AddressModalCtrl.ePage.Entities.Header.Meta.ErrorWarning.City.ERROR"
+                            type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
+                        </error-warning-directive>
+                    </span>
                     <input type="text" class="form-control input-sm" placeholder="City"
-                        data-ng-model="AddressModalCtrl.ePage.Masters.OrgAddress.FormView.City" />
+                        data-ng-model="AddressModalCtrl.ePage.Masters.AddressList.City" ng-change='AddressModalCtrl.ePage.Masters.OnChangeValues(AddressModalCtrl.ePage.Masters.AddressList.City,"E5569",false,undefined)' />
                 </div>
                 <div class="form-group">
-                    <label>Region</label>
+                    <label for="RelatedPort">Related Port</label>
+                    <span class="error-warning-container">
+                            <error-warning-directive
+                                data-ng-if="AddressModalCtrl.ePage.Entities.Header.Meta.ErrorWarning.RelatedPortCode.IsWarning && !AddressModalCtrl.ePage.Entities.Header.Meta.ErrorWarning.RelatedPortCode.IsError"
+                                list="AddressModalCtrl.ePage.Entities.Header.Meta.ErrorWarning.RelatedPortCode.WARNING"
+                                type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
+                            </error-warning-directive>
+                            <error-warning-directive
+                                data-ng-if="AddressModalCtrl.ePage.Entities.Header.Meta.ErrorWarning.RelatedPortCode.IsError"
+                                list="AddressModalCtrl.ePage.Entities.Header.Meta.ErrorWarning.RelatedPortCode.ERROR"
+                                type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
+                            </error-warning-directive>
+                        </span>
                     <div class="input-group input-group-sm">
-                        <div dynamic-lookup placeholder="Region"
-                            my-ng-model="AddressModalCtrl.ePage.Masters.OrgAddress.FormView.RGN_Code"
-                            obj="AddressModalCtrl.ePage.Masters.OrgAddress.FormView" page-name="'Region'"
-                            control-id="'Region'" control-key="'Region_3235'"
-                            auto-complete-on-select="AddressModalCtrl.ePage.Masters.OnRegionSelect($item)"></div>
+                        <div dynamic-lookup placeholder="Port"
+                            my-ng-model="AddressModalCtrl.ePage.Masters.AddressList.RelatedPortCode"
+                            obj="AddressModalCtrl.ePage.Masters.AddressList" page-name="'MstUNLOCO'"
+                            control-id="'UNLOCO'" control-key="'UNLOCO_3083'"
+                            auto-complete-on-select="AddressModalCtrl.ePage.Masters.OnRelatedPortSelect($item)"></div>
                         <span class="input-group-btn">
-                            <button dynamic-list-modal obj="AddressModalCtrl.ePage.Masters.OrgAddress.FormView"
-                                control-id="'Region'" control-key="'Region_3235'" page-name="'Region'" mode="2"
+                            <button dynamic-list-modal obj="AddressModalCtrl.ePage.Masters.AddressList"
+                                control-id="'UNLOCO'" control-key="'UNLOCO_3083'" page-name="'MstUNLOCO'" mode="2"
                                 grid-refresh-fun-name="" grid-refresh-fun=""
-                                selected-data="AddressModalCtrl.ePage.Masters.OnRegionSelect($item)"
+                                selected-data="AddressModalCtrl.ePage.Masters.OnRelatedPortSelect($item)"
                                 class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
                         </span>
                     </div>
                 </div>
-                <!-- <div class="form-group">
-                    <label>Zone</label>
-                    <div class="input-group input-group-sm">
-                        <div dynamic-lookup placeholder="Zone"
-                            my-ng-model="AddressModalCtrl.ePage.Masters.OrgAddress.FormView.TMZ_Name"
-                            obj="AddressModalCtrl.ePage.Masters.OrgAddress.FormView" page-name="'OrgZone'"
-                            control-id="'Zone'" control-key="'Zone_3286'"
-                            auto-complete-on-select="AddressModalCtrl.ePage.Masters.OnZoneSelect($item)"></div>
-                        <span class="input-group-btn">
-                            <button dynamic-list-modal obj="AddressModalCtrl.ePage.Masters.OrgAddress.FormView"
-                                control-id="'Zone'" control-key="'Zone_3286'" page-name="'OrgZone'" mode="2"
-                                grid-refresh-fun-name="" grid-refresh-fun=""
-                                selected-data="AddressModalCtrl.ePage.Masters.OnZoneSelect($item)"
-                                class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
-                        </span>
-                    </div>
-                </div> -->
+
                 <div class="form-group">
                     <label for="Country">Country</label>
+                    <span class="error-warning-container">
+                        <error-warning-directive
+                            data-ng-if="AddressModalCtrl.ePage.Entities.Header.Meta.ErrorWarning.CountryCode.IsWarning && !AddressModalCtrl.ePage.Entities.Header.Meta.ErrorWarning.CountryCode.IsError"
+                            list="AddressModalCtrl.ePage.Entities.Header.Meta.ErrorWarning.CountryCode.WARNING"
+                            type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
+                        </error-warning-directive>
+                        <error-warning-directive
+                            data-ng-if="AddressModalCtrl.ePage.Entities.Header.Meta.ErrorWarning.CountryCode.IsError"
+                            list="AddressModalCtrl.ePage.Entities.Header.Meta.ErrorWarning.CountryCode.ERROR"
+                            type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
+                        </error-warning-directive>
+                    </span>
                     <div class="">
                         <select chosen name="Country" class="form-control"
-                            data-ng-model="AddressModalCtrl.ePage.Masters.OrgAddress.FormView.CountryCode"
+                            data-ng-model="AddressModalCtrl.ePage.Masters.AddressList.CountryCode"
                             data-ng-options="x.Code as x.Code + ' - ' + x.Desc for x in AddressModalCtrl.ePage.Masters.DropDownMasterList.Country.ListSource"
-                            data-ng-change="AddressModalCtrl.ePage.Masters.OnCountryChange((AddressModalCtrl.ePage.Masters.DropDownMasterList.Country.ListSource | filter: {'Code': AddressModalCtrl.ePage.Masters.OrgAddress.FormView.CountryCode})[0])"
+                            data-ng-change="AddressModalCtrl.ePage.Masters.OnCountryChange((AddressModalCtrl.ePage.Masters.DropDownMasterList.Country.ListSource | filter: {'Code': AddressModalCtrl.ePage.Masters.AddressList.CountryCode})[0]);AddressModalCtrl.ePage.Masters.OnChangeValues(AddressModalCtrl.ePage.Masters.AddressList.CountryCode,'E5570',false,undefined)"
                             search-contains="true">
                             <option value="">--Select--</option>
                         </select>
@@ -74,46 +106,101 @@
                 </div>
                 <div class="form-group">
                     <label for="State">State</label>
+                    <span class="error-warning-container">
+                        <error-warning-directive
+                            data-ng-if="AddressModalCtrl.ePage.Entities.Header.Meta.ErrorWarning.State.IsWarning && !AddressModalCtrl.ePage.Entities.Header.Meta.ErrorWarning.State.IsError"
+                            list="AddressModalCtrl.ePage.Entities.Header.Meta.ErrorWarning.State.WARNING"
+                            type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
+                        </error-warning-directive>
+                        <error-warning-directive
+                            data-ng-if="AddressModalCtrl.ePage.Entities.Header.Meta.ErrorWarning.State.IsError"
+                            list="AddressModalCtrl.ePage.Entities.Header.Meta.ErrorWarning.State.ERROR"
+                            type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
+                        </error-warning-directive>
+                    </span>
                     <div class="">
                         <select chosen name="State" class="form-control"
-                            data-ng-model="AddressModalCtrl.ePage.Masters.OrgAddress.FormView.State"
+                            data-ng-model="AddressModalCtrl.ePage.Masters.AddressList.State"
                             data-ng-options="x.Code as x.Code + ' - ' + x.Description for x in AddressModalCtrl.ePage.Masters.DropDownMasterList.State.ListSource"
-                            search-contains="true"
-                            data-ng-disabled="!AddressModalCtrl.ePage.Masters.OrgAddress.FormView.CountryCode">
+                            search-contains="true" data-ng-change="AddressModalCtrl.ePage.Masters.OnChangeValues(AddressModalCtrl.ePage.Masters.AddressList.State,'E5571',false,undefined)">
                             <option value="">--Select--</option>
                         </select>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="PostCode">PostCode</label>
+                    <span class="error-warning-container">
+                        <error-warning-directive
+                            data-ng-if="AddressModalCtrl.ePage.Entities.Header.Meta.ErrorWarning.PostCode.IsWarning && !AddressModalCtrl.ePage.Entities.Header.Meta.ErrorWarning.PostCode.IsError"
+                            list="AddressModalCtrl.ePage.Entities.Header.Meta.ErrorWarning.PostCode.WARNING"
+                            type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
+                        </error-warning-directive>
+                        <error-warning-directive
+                            data-ng-if="AddressModalCtrl.ePage.Entities.Header.Meta.ErrorWarning.PostCode.IsError"
+                            list="AddressModalCtrl.ePage.Entities.Header.Meta.ErrorWarning.PostCode.ERROR"
+                            type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
+                        </error-warning-directive>
+                    </span>
                     <input type="text" class="form-control input-sm" numbers-only placeholder="PostCode"
-                        data-ng-model="AddressModalCtrl.ePage.Masters.OrgAddress.FormView.PostCode" />
+                        data-ng-model="AddressModalCtrl.ePage.Masters.AddressList.PostCode" data-ng-change="AddressModalCtrl.ePage.Masters.OnChangeValues(AddressModalCtrl.ePage.Masters.AddressList.PostCode,'E5573',false,undefined)" />
                 </div>
                 <div class="form-group">
                     <label for="Language">Language</label>
+                    <span class="error-warning-container">
+                        <error-warning-directive
+                            data-ng-if="AddressModalCtrl.ePage.Entities.Header.Meta.ErrorWarning.Language.IsWarning && !AddressModalCtrl.ePage.Entities.Header.Meta.ErrorWarning.Language.IsError"
+                            list="AddressModalCtrl.ePage.Entities.Header.Meta.ErrorWarning.Language.WARNING"
+                            type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
+                        </error-warning-directive>
+                        <error-warning-directive
+                            data-ng-if="AddressModalCtrl.ePage.Entities.Header.Meta.ErrorWarning.Language.IsError"
+                            list="AddressModalCtrl.ePage.Entities.Header.Meta.ErrorWarning.Language.ERROR"
+                            type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
+                        </error-warning-directive>
+                    </span>
                     <div class="">
                         <select chosen name="Language" class="form-control"
-                            ng-model="AddressModalCtrl.ePage.Masters.OrgAddress.FormView.Language"
-                            ng-options="x.Key as x.Key + ' - ' + x.Value for x in OrganizationAddressCtrl.ePage.Masters.DropDownMasterList.LANGUAGE.ListSource"
-                            search-contains="true">
+                            ng-model="AddressModalCtrl.ePage.Masters.AddressList.Language"
+                            ng-options="x.Key as x.Key + ' - ' + x.Value for x in AddressModalCtrl.ePage.Masters.DropDownMasterList.LANGUAGE.ListSource"
+                            search-contains="true" data-ng-change="AddressModalCtrl.ePage.Masters.OnChangeValues(AddressModalCtrl.ePage.Masters.AddressList.Language,'E5574',false,undefined)">
                             <option value="">--Select--</option>
                         </select>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="Phone">Phone</label>
-                    <input type="text" class="form-control input-sm" numbers-only placeholder="Phone"
-                        data-ng-model="AddressModalCtrl.ePage.Masters.OrgAddress.FormView.Phone" />
-                </div>
-                <div class="form-group">
+
                     <label for="Mobile">Mobile</label>
+                    <span class="error-warning-container">
+                        <error-warning-directive
+                            data-ng-if="AddressModalCtrl.ePage.Entities.Header.Meta.ErrorWarning.Mobile.IsWarning && !AddressModalCtrl.ePage.Entities.Header.Meta.ErrorWarning.Mobile.IsError"
+                            list="AddressModalCtrl.ePage.Entities.Header.Meta.ErrorWarning.Mobile.WARNING"
+                            type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
+                        </error-warning-directive>
+                        <error-warning-directive
+                            data-ng-if="AddressModalCtrl.ePage.Entities.Header.Meta.ErrorWarning.Mobile.IsError"
+                            list="AddressModalCtrl.ePage.Entities.Header.Meta.ErrorWarning.Mobile.ERROR"
+                            type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
+                        </error-warning-directive>
+                    </span>
                     <input type="text" class="form-control input-sm" placeholder="Mobile"
-                        data-ng-model="AddressModalCtrl.ePage.Masters.OrgAddress.FormView.Mobile" />
+                        data-ng-model="AddressModalCtrl.ePage.Masters.AddressList.Mobile" data-ng-change="AddressModalCtrl.ePage.Masters.OnChangeValues(AddressModalCtrl.ePage.Masters.AddressList.Mobile,'E5575',false,undefined)" />
                 </div>
                 <div class="form-group">
                     <label for="Email">Email</label>
+                    <span class="error-warning-container">
+                        <error-warning-directive
+                            data-ng-if="AddressModalCtrl.ePage.Entities.Header.Meta.ErrorWarning.Email.IsWarning && !AddressModalCtrl.ePage.Entities.Header.Meta.ErrorWarning.Email.IsError"
+                            list="AddressModalCtrl.ePage.Entities.Header.Meta.ErrorWarning.Email.WARNING"
+                            type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
+                        </error-warning-directive>
+                        <error-warning-directive
+                            data-ng-if="AddressModalCtrl.ePage.Entities.Header.Meta.ErrorWarning.Email.IsError"
+                            list="AddressModalCtrl.ePage.Entities.Header.Meta.ErrorWarning.Email.ERROR"
+                            type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
+                        </error-warning-directive>
+                    </span>
                     <input type="text" class="form-control input-sm" placeholder="Email"
-                        data-ng-model="AddressModalCtrl.ePage.Masters.OrgAddress.FormView.Email" />
+                        data-ng-model="AddressModalCtrl.ePage.Masters.AddressList.Email" data-ng-change="AddressModalCtrl.ePage.Masters.OnChangeValues(AddressModalCtrl.ePage.Masters.AddressList.Email,'E5576',false,undefined)" />
                 </div>
             </div>
         </div>
@@ -122,7 +209,7 @@
         <button class="btn btn-warning btn-xs pull-right ml-5"
             data-ng-click="AddressModalCtrl.ePage.Masters.Cancel()">Close</button>
         <button class="btn btn-primary btn-xs pull-right ml-5"
-            data-ng-click="AddressModalCtrl.ePage.Masters.SaveAddress()"
+            data-ng-click="AddressModalCtrl.ePage.Masters.SaveAddress(AddressModalCtrl.ePage.Masters.AddressList)"
             data-ng-bind="AddressModalCtrl.ePage.Masters.SaveButtonText"
             data-ng-disabled="AddressModalCtrl.ePage.Masters.IsDisableSave"></button>
     </div>
