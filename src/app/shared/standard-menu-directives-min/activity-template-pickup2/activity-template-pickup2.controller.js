@@ -31,6 +31,7 @@
             ActivityTemplatePickup2Ctrl.ePage.Masters.ShowErrorWarningModal = ShowErrorWarningModal;
 
             ActivityTemplatePickup2Ctrl.ePage.Masters.ErrorWarningConfig = errorWarningService;
+            errorWarningService.Modules = {};
 
             // DatePicker
             ActivityTemplatePickup2Ctrl.ePage.Masters.DatePicker = {};
