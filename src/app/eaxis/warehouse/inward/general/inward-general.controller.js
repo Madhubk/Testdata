@@ -166,7 +166,7 @@
             //#region JobAccounting
 
             InwardGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.map(function(value,key){
-                if(value.EntityRefKey == InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.PK){
+                if(value.EntityRefKey == InwardGeneralCtrl.ePage.Entities.Header.Data.PK){
                     value.LocalOrg_Code = item.Code;
                     value.LocalOrg_FK = item.PK
                 }
@@ -194,6 +194,17 @@
                     value.Fax = item.OAD_Fax;
                 }
             });
+
+            //#region JobAccounting
+
+            InwardGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.map(function(value,key){
+                if(value.EntityRefKey == InwardGeneralCtrl.ePage.Entities.Header.Data.PK){
+                    value.AgentOrg_Code = item.Code;
+                    value.Agent_Org_FK = item.PK
+                }
+            })
+           
+            //#endregion
             GetOrgAddress();
         }
 
@@ -202,18 +213,17 @@
             InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.Warehouse = item.WarehouseCode + "-" + item.WarehouseName;
             OnChangeValues(InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.Warehouse, 'E3002');
 
-
-             //#region JobAccounting
+            //#region JobAccounting
 
             InwardGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.map(function(value,key){
-                if(value.EntityRefKey == InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.PK){
-                    value.AgentOrg_Code = item.Code;
-                    value.Agent_Org_FK = item.PK
+                if(value.EntityRefKey == InwardGeneralCtrl.ePage.Entities.Header.Data.PK){
+                    value.BranchCode = item.BRN_Code;
+                    value.BranchName = item.BRN_BranchName;
+                    value.GB = item.BRN_FK;
                 }
             })
-           
+
             //#endregion
-           
         }
 
         function SelectedLookupServiceLevel(item) {
