@@ -31,6 +31,7 @@
             ActivityTemplateDelivery2Ctrl.ePage.Masters.ShowErrorWarningModal = ShowErrorWarningModal;
 
             ActivityTemplateDelivery2Ctrl.ePage.Masters.ErrorWarningConfig = errorWarningService;
+            errorWarningService.Modules = {};
 
             // DatePicker
             ActivityTemplateDelivery2Ctrl.ePage.Masters.DatePicker = {};

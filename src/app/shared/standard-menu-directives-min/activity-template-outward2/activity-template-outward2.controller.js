@@ -30,6 +30,7 @@
             ActivityTemplateOutward2Ctrl.ePage.Masters.ShowErrorWarningModal = ShowErrorWarningModal;
 
             ActivityTemplateOutward2Ctrl.ePage.Masters.ErrorWarningConfig = errorWarningService;
+            errorWarningService.Modules = {};
 
             // DatePicker
             ActivityTemplateOutward2Ctrl.ePage.Masters.DatePicker = {};
@@ -334,113 +335,206 @@
                             }
                         }
                     });
-                } else if (myTaskActivityConfig.Entities.PickupData) {
+                } else if (myTaskActivityConfig.Entities.PickupData || !myTaskActivityConfig.Entities.DeliveryData) {
                     if (callback) {
                         angular.forEach(myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data.UIWmsWorkOrderLine, function (value, key) {
-                            apiService.get("eAxisAPI", appConfig.Entities.WmsWorkOrderLine.API.GetById.Url + value.AdditionalRef1Fk).then(function (response) {
-                                if (response.data.Response) {
-                                    if (value.Parent_FK == response.data.Response.PK) {
-                                        if (response.data.Response.WorkOrderLineStatus == "MCWS") {
-                                            response.data.Response.WorkOrderLineStatus = "ICWS";
-                                        } else if (response.data.Response.WorkOrderLineStatus == "MCWT") {
-                                            response.data.Response.WorkOrderLineStatus = "ICWT";
-                                        } else if (response.data.Response.WorkOrderLineStatus == "MCWR") {
-                                            response.data.Response.WorkOrderLineStatus = "ICWR";
-                                        } else if (response.data.Response.WorkOrderLineStatus == "MTW") {
-                                            response.data.Response.WorkOrderLineStatus = "ITW";
-                                        } else if (response.data.Response.WorkOrderLineStatus == "MRW") {
-                                            response.data.Response.WorkOrderLineStatus = "IRW";
-                                        } else if (response.data.Response.WorkOrderLineStatus == "MSTW") {
-                                            response.data.Response.WorkOrderLineStatus = "ISTW";
-                                        } else if (response.data.Response.WorkOrderLineStatus == "MSW") {
-                                            response.data.Response.WorkOrderLineStatus = "ISW";
+                            if (value.AdditionalRef1Fk) {
+                                apiService.get("eAxisAPI", appConfig.Entities.WmsWorkOrderLine.API.GetById.Url + value.AdditionalRef1Fk).then(function (response) {
+                                    if (response.data.Response) {
+                                        if (value.Parent_FK == response.data.Response.PK) {
+                                            if (response.data.Response.WorkOrderLineStatus == "MCWS") {
+                                                response.data.Response.WorkOrderLineStatus = "ICWS";
+                                            } else if (response.data.Response.WorkOrderLineStatus == "MCWT") {
+                                                response.data.Response.WorkOrderLineStatus = "ICWT";
+                                            } else if (response.data.Response.WorkOrderLineStatus == "MCWR") {
+                                                response.data.Response.WorkOrderLineStatus = "ICWR";
+                                            } else if (response.data.Response.WorkOrderLineStatus == "MTW") {
+                                                response.data.Response.WorkOrderLineStatus = "ITW";
+                                            } else if (response.data.Response.WorkOrderLineStatus == "MRW") {
+                                                response.data.Response.WorkOrderLineStatus = "IRW";
+                                            } else if (response.data.Response.WorkOrderLineStatus == "MSTW") {
+                                                response.data.Response.WorkOrderLineStatus = "ISTW";
+                                            } else if (response.data.Response.WorkOrderLineStatus == "MSW") {
+                                                response.data.Response.WorkOrderLineStatus = "ISW";
+                                            }
                                         }
+                                        response.data.Response.IsModified = true;
+                                        apiService.post("eAxisAPI", appConfig.Entities.WmsWorkOrderLine.API.Update.Url, response.data.Response).then(function (response) {
+                                            if (response.data.Response) {
+                                                var _filter = {
+                                                    "WOD_Parent_FK": myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data.UIWmsOutwardHeader.PK
+                                                };
+                                                var _input = {
+                                                    "searchInput": helperService.createToArrayOfObject(_filter),
+                                                    "FilterID": appConfig.Entities.InwardList.API.FindAll.FilterID
+                                                };
+
+                                                apiService.post("eAxisAPI", appConfig.Entities.InwardList.API.FindAll.Url, _input).then(function (response) {
+                                                    if (response.data.Response) {
+                                                        if (response.data.Response.length > 0) {
+                                                            ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails = response.data.Response[0];
+                                                            if (value.AdditionalRef1Fk) {
+                                                                var _filter = {
+                                                                    "PickupLine_FK": value.AdditionalRef1Fk
+                                                                };
+                                                            } else {
+                                                                var _filter = {
+                                                                    "PickupLineRefNo": value.AdditionalRef1Code
+                                                                };
+                                                            }
+                                                            var _input = {
+                                                                "searchInput": helperService.createToArrayOfObject(_filter),
+                                                                "FilterID": appConfig.Entities.WmsPickupReport.API.FindAll.FilterID
+                                                            };
+
+                                                            apiService.post("eAxisAPI", appConfig.Entities.WmsPickupReport.API.FindAll.Url, _input).then(function (response) {
+                                                                if (response.data.Response) {
+                                                                    if (response.data.Response.length > 0) {
+                                                                        response.data.Response[0].IsModified = true;
+                                                                        if (response.data.Response[0].PickupLineStatus == "MTR Raised from Site to Central Warehouse") {
+                                                                            response.data.Response[0].PickupLineStatus = "In Transit from Site To Central Warehouse";
+                                                                            response.data.Response[0].STC_OL_Fk = value.PK;
+                                                                            response.data.Response[0].STC_INW_CustomerReference = ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails.CustomerReference;
+                                                                            response.data.Response[0].STC_INW_ExternalRefNumber = ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails.ExternalReference;
+                                                                            response.data.Response[0].STC_INW_Fk = ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails.PK;
+                                                                            response.data.Response[0].STC_INW_RefNo = ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails.WorkOrderID;
+                                                                        } else if (response.data.Response[0].PickupLineStatus == "MTR Raised from Testing to Central Warehouse") {
+                                                                            response.data.Response[0].PickupLineStatus = "In Transit from Testing To Central Warehouse";
+                                                                            response.data.Response[0].TTC_OL_Fk = value.PK;
+                                                                            response.data.Response[0].TTC_INW_CustomerReference = ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails.CustomerReference;
+                                                                            response.data.Response[0].TTC_INW_ExternalRefNumber = ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails.ExternalReference;
+                                                                            response.data.Response[0].TTC_INW_Fk = ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails.PK;
+                                                                            response.data.Response[0].TTC_INW_RefNo = ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails.WorkOrderID;
+                                                                        } else if (response.data.Response[0].PickupLineStatus == "MTR Raised from Repair to Central Warehouse") {
+                                                                            response.data.Response[0].PickupLineStatus = "In Transit from Repair To Central Warehouse";
+                                                                            response.data.Response[0].RTC_OL_Fk = value.PK;
+                                                                            response.data.Response[0].RTC_INW_CustomerReference = ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails.CustomerReference;
+                                                                            response.data.Response[0].RTC_INW_ExternalRefNumber = ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails.ExternalReference;
+                                                                            response.data.Response[0].RTC_INW_Fk = ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails.PK;
+                                                                            response.data.Response[0].RTC_INW_RefNo = ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails.WorkOrderID;
+                                                                        } else if (response.data.Response[0].PickupLineStatus == "MTR Raised to Testing Warehouse") {
+                                                                            response.data.Response[0].PickupLineStatus = "In Transit To Testing Warehouse";
+                                                                            response.data.Response[0].CTT_OL_Fk = value.PK;
+                                                                            response.data.Response[0].CTT_INW_CustomerReference = ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails.CustomerReference;
+                                                                            response.data.Response[0].CTT_INW_ExternalRefNumber = ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails.ExternalReference;
+                                                                            response.data.Response[0].CTT_INW_Fk = ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails.PK;
+                                                                            response.data.Response[0].CTT_INW_RefNo = ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails.WorkOrderID;
+                                                                        } else if (response.data.Response[0].PickupLineStatus == "MTR Raised to Repair Warehouse") {
+                                                                            response.data.Response[0].PickupLineStatus = "In Transit To Repair Warehouse";
+                                                                            response.data.Response[0].CTR_OL_Fk = value.PK;
+                                                                            response.data.Response[0].CTR_INW_CustomerReference = ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails.CustomerReference;
+                                                                            response.data.Response[0].CTR_INW_ExternalRefNumber = ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails.ExternalReference;
+                                                                            response.data.Response[0].CTR_INW_Fk = ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails.PK;
+                                                                            response.data.Response[0].CTR_INW_RefNo = ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails.WorkOrderID;
+                                                                        } else if (response.data.Response[0].PickupLineStatus == "MTR Raised to Scrap Warehouse") {
+                                                                            response.data.Response[0].PickupLineStatus = "In Transit To Scrap Warehouse";
+                                                                            response.data.Response[0].CTR_OL_Fk = value.PK;
+                                                                            response.data.Response[0].CTR_INW_CustomerReference = ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails.CustomerReference;
+                                                                            response.data.Response[0].CTR_INW_ExternalRefNumber = ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails.ExternalReference;
+                                                                            response.data.Response[0].CTR_INW_Fk = ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails.PK;
+                                                                            response.data.Response[0].CTR_INW_RefNo = ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails.WorkOrderID;
+                                                                        }
+                                                                        apiService.post("eAxisAPI", appConfig.Entities.WmsPickupReport.API.Update.Url, response.data.Response[0]).then(function (response) {
+                                                                            if (response.data.Response) {
+                                                                                console.log("Pickup Report Updated for " + response.data.Response.PickupLineRefNo);
+                                                                            }
+                                                                        });
+                                                                    }
+                                                                }
+                                                            });
+                                                        }
+                                                    }
+                                                });
+                                            }
+                                        });
                                     }
-                                    response.data.Response.IsModified = true;
-                                    apiService.post("eAxisAPI", appConfig.Entities.WmsWorkOrderLine.API.Update.Url, response.data.Response).then(function (response) {
-                                        if (response.data.Response) {
-                                            var _filter = {
-                                                "WOD_Parent_FK": myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data.UIWmsOutwardHeader.PK
-                                            };
+                                });
+                            } else {
+                                var _filter = {
+                                    "WOD_Parent_FK": myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data.UIWmsOutwardHeader.PK
+                                };
+                                var _input = {
+                                    "searchInput": helperService.createToArrayOfObject(_filter),
+                                    "FilterID": appConfig.Entities.InwardList.API.FindAll.FilterID
+                                };
+
+                                apiService.post("eAxisAPI", appConfig.Entities.InwardList.API.FindAll.Url, _input).then(function (response) {
+                                    if (response.data.Response) {
+                                        if (response.data.Response.length > 0) {
+                                            ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails = response.data.Response[0];
+                                            if (value.AdditionalRef1Fk) {
+                                                var _filter = {
+                                                    "PickupLine_FK": value.AdditionalRef1Fk
+                                                };
+                                            } else {
+                                                var _filter = {
+                                                    "PickupLineRefNo": value.AdditionalRef1Code
+                                                };
+                                            }
                                             var _input = {
                                                 "searchInput": helperService.createToArrayOfObject(_filter),
-                                                "FilterID": appConfig.Entities.InwardList.API.FindAll.FilterID
+                                                "FilterID": appConfig.Entities.WmsPickupReport.API.FindAll.FilterID
                                             };
 
-                                            apiService.post("eAxisAPI", appConfig.Entities.InwardList.API.FindAll.Url, _input).then(function (response) {
+                                            apiService.post("eAxisAPI", appConfig.Entities.WmsPickupReport.API.FindAll.Url, _input).then(function (response) {
                                                 if (response.data.Response) {
                                                     if (response.data.Response.length > 0) {
-                                                        ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails = response.data.Response[0];
-                                                        var _filter = {
-                                                            "PickupLine_FK": value.AdditionalRef1Fk
-                                                        };
-                                                        var _input = {
-                                                            "searchInput": helperService.createToArrayOfObject(_filter),
-                                                            "FilterID": appConfig.Entities.WmsPickupReport.API.FindAll.FilterID
-                                                        };
-
-                                                        apiService.post("eAxisAPI", appConfig.Entities.WmsPickupReport.API.FindAll.Url, _input).then(function (response) {
+                                                        response.data.Response[0].IsModified = true;
+                                                        if (response.data.Response[0].PickupLineStatus == "MTR Raised from Site to Central Warehouse") {
+                                                            response.data.Response[0].PickupLineStatus = "In Transit from Site To Central Warehouse";
+                                                            response.data.Response[0].STC_OL_Fk = value.PK;
+                                                            response.data.Response[0].STC_INW_CustomerReference = ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails.CustomerReference;
+                                                            response.data.Response[0].STC_INW_ExternalRefNumber = ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails.ExternalReference;
+                                                            response.data.Response[0].STC_INW_Fk = ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails.PK;
+                                                            response.data.Response[0].STC_INW_RefNo = ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails.WorkOrderID;
+                                                        } else if (response.data.Response[0].PickupLineStatus == "MTR Raised from Testing to Central Warehouse") {
+                                                            response.data.Response[0].PickupLineStatus = "In Transit from Testing To Central Warehouse";
+                                                            response.data.Response[0].TTC_OL_Fk = value.PK;
+                                                            response.data.Response[0].TTC_INW_CustomerReference = ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails.CustomerReference;
+                                                            response.data.Response[0].TTC_INW_ExternalRefNumber = ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails.ExternalReference;
+                                                            response.data.Response[0].TTC_INW_Fk = ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails.PK;
+                                                            response.data.Response[0].TTC_INW_RefNo = ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails.WorkOrderID;
+                                                        } else if (response.data.Response[0].PickupLineStatus == "MTR Raised from Repair to Central Warehouse") {
+                                                            response.data.Response[0].PickupLineStatus = "In Transit from Repair To Central Warehouse";
+                                                            response.data.Response[0].RTC_OL_Fk = value.PK;
+                                                            response.data.Response[0].RTC_INW_CustomerReference = ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails.CustomerReference;
+                                                            response.data.Response[0].RTC_INW_ExternalRefNumber = ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails.ExternalReference;
+                                                            response.data.Response[0].RTC_INW_Fk = ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails.PK;
+                                                            response.data.Response[0].RTC_INW_RefNo = ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails.WorkOrderID;
+                                                        } else if (response.data.Response[0].PickupLineStatus == "MTR Raised to Testing Warehouse") {
+                                                            response.data.Response[0].PickupLineStatus = "In Transit To Testing Warehouse";
+                                                            response.data.Response[0].CTT_OL_Fk = value.PK;
+                                                            response.data.Response[0].CTT_INW_CustomerReference = ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails.CustomerReference;
+                                                            response.data.Response[0].CTT_INW_ExternalRefNumber = ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails.ExternalReference;
+                                                            response.data.Response[0].CTT_INW_Fk = ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails.PK;
+                                                            response.data.Response[0].CTT_INW_RefNo = ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails.WorkOrderID;
+                                                        } else if (response.data.Response[0].PickupLineStatus == "MTR Raised to Repair Warehouse") {
+                                                            response.data.Response[0].PickupLineStatus = "In Transit To Repair Warehouse";
+                                                            response.data.Response[0].CTR_OL_Fk = value.PK;
+                                                            response.data.Response[0].CTR_INW_CustomerReference = ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails.CustomerReference;
+                                                            response.data.Response[0].CTR_INW_ExternalRefNumber = ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails.ExternalReference;
+                                                            response.data.Response[0].CTR_INW_Fk = ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails.PK;
+                                                            response.data.Response[0].CTR_INW_RefNo = ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails.WorkOrderID;
+                                                        } else if (response.data.Response[0].PickupLineStatus == "MTR Raised to Scrap Warehouse") {
+                                                            response.data.Response[0].PickupLineStatus = "In Transit To Scrap Warehouse";
+                                                            response.data.Response[0].CTR_OL_Fk = value.PK;
+                                                            response.data.Response[0].CTR_INW_CustomerReference = ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails.CustomerReference;
+                                                            response.data.Response[0].CTR_INW_ExternalRefNumber = ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails.ExternalReference;
+                                                            response.data.Response[0].CTR_INW_Fk = ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails.PK;
+                                                            response.data.Response[0].CTR_INW_RefNo = ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails.WorkOrderID;
+                                                        }
+                                                        apiService.post("eAxisAPI", appConfig.Entities.WmsPickupReport.API.Update.Url, response.data.Response[0]).then(function (response) {
                                                             if (response.data.Response) {
-                                                                if (response.data.Response.length > 0) {
-                                                                    response.data.Response[0].IsModified = true;
-                                                                    if (response.data.Response[0].PickupLineStatus == "MTR Raised from Site to Central Warehouse") {
-                                                                        response.data.Response[0].PickupLineStatus = "In Transit from Site To Central Warehouse";
-                                                                        response.data.Response[0].STC_OL_Fk = value.PK;
-                                                                        response.data.Response[0].STC_INW_CustomerReference = ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails.CustomerReference;
-                                                                        response.data.Response[0].STC_INW_ExternalRefNumber = ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails.ExternalReference;
-                                                                        response.data.Response[0].STC_INW_Fk = ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails.PK;
-                                                                        response.data.Response[0].STC_INW_RefNo = ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails.WorkOrderID;
-                                                                    } else if (response.data.Response[0].PickupLineStatus == "MTR Raised from Testing to Central Warehouse") {
-                                                                        response.data.Response[0].PickupLineStatus = "In Transit from Testing To Central Warehouse";
-                                                                        response.data.Response[0].TTC_OL_Fk = value.PK;
-                                                                        response.data.Response[0].TTC_INW_CustomerReference = ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails.CustomerReference;
-                                                                        response.data.Response[0].TTC_INW_ExternalRefNumber = ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails.ExternalReference;
-                                                                        response.data.Response[0].TTC_INW_Fk = ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails.PK;
-                                                                        response.data.Response[0].TTC_INW_RefNo = ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails.WorkOrderID;
-                                                                    } else if (response.data.Response[0].PickupLineStatus == "MTR Raised from Repair to Central Warehouse") {
-                                                                        response.data.Response[0].PickupLineStatus = "In Transit from Repair To Central Warehouse";
-                                                                        response.data.Response[0].RTC_OL_Fk = value.PK;
-                                                                        response.data.Response[0].RTC_INW_CustomerReference = ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails.CustomerReference;
-                                                                        response.data.Response[0].RTC_INW_ExternalRefNumber = ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails.ExternalReference;
-                                                                        response.data.Response[0].RTC_INW_Fk = ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails.PK;
-                                                                        response.data.Response[0].RTC_INW_RefNo = ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails.WorkOrderID;
-                                                                    } else if (response.data.Response[0].PickupLineStatus == "MTR Raised to Testing Warehouse") {
-                                                                        response.data.Response[0].PickupLineStatus = "In Transit To Testing Warehouse";
-                                                                        response.data.Response[0].CTT_OL_Fk = value.PK;
-                                                                        response.data.Response[0].CTT_INW_CustomerReference = ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails.CustomerReference;
-                                                                        response.data.Response[0].CTT_INW_ExternalRefNumber = ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails.ExternalReference;
-                                                                        response.data.Response[0].CTT_INW_Fk = ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails.PK;
-                                                                        response.data.Response[0].CTT_INW_RefNo = ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails.WorkOrderID;
-                                                                    } else if (response.data.Response[0].PickupLineStatus == "MTR Raised to Repair Warehouse") {
-                                                                        response.data.Response[0].PickupLineStatus = "In Transit To Repair Warehouse";
-                                                                        response.data.Response[0].CTR_OL_Fk = value.PK;
-                                                                        response.data.Response[0].CTR_INW_CustomerReference = ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails.CustomerReference;
-                                                                        response.data.Response[0].CTR_INW_ExternalRefNumber = ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails.ExternalReference;
-                                                                        response.data.Response[0].CTR_INW_Fk = ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails.PK;
-                                                                        response.data.Response[0].CTR_INW_RefNo = ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails.WorkOrderID;
-                                                                    } else if (response.data.Response[0].PickupLineStatus == "MTR Raised to Scrap Warehouse") {
-                                                                        response.data.Response[0].PickupLineStatus = "In Transit To Scrap Warehouse";
-                                                                        response.data.Response[0].CTR_OL_Fk = value.PK;
-                                                                        response.data.Response[0].CTR_INW_CustomerReference = ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails.CustomerReference;
-                                                                        response.data.Response[0].CTR_INW_ExternalRefNumber = ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails.ExternalReference;
-                                                                        response.data.Response[0].CTR_INW_Fk = ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails.PK;
-                                                                        response.data.Response[0].CTR_INW_RefNo = ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails.WorkOrderID;
-                                                                    }
-                                                                    apiService.post("eAxisAPI", appConfig.Entities.WmsPickupReport.API.Update.Url, response.data.Response[0]).then(function (response) {
-                                                                        if (response.data.Response) {
-                                                                            console.log("Pickup Report Updated for " + response.data.Response.PickupLineRefNo);
-                                                                        }
-                                                                    });
-                                                                }
+                                                                console.log("Pickup Report Updated for " + response.data.Response.PickupLineRefNo);
                                                             }
                                                         });
                                                     }
                                                 }
                                             });
                                         }
-                                    });
-                                }
-                            });
+                                    }
+                                });
+                            }
                         });
                     }
                     $timeout(function () {
@@ -741,62 +835,9 @@
                         ActivityTemplateOutward2Ctrl.ePage.Masters.CompleteBtnText = "Please Wait...";
                         ActivityTemplateOutward2Ctrl.ePage.Masters.IsDisableCompleteBtn = true;
                         if (ActivityTemplateOutward2Ctrl.taskObj.WSI_StepName == "Transfer Material") {
-                            // check whether MTR inward created or not for MTR outward
-
-                            var filter1 = $filter("filter")(myTaskActivityConfig.Entities.PickData[myTaskActivityConfig.Entities.PickData.label].ePage.Entities.Header.Data.UIWmsOutward, function (value, key) {
-                                if (value.WorkOrderSubType == 'MTR') {
-                                    return value;
-                                }
-                            });
-                            if (filter1.length > 0) {
-                                angular.forEach(filter1, function (value, key) {
-                                    // check whether the MTR inward created for Order or Not
-                                    var _filter = {
-                                        "WOD_Parent_FK": value.PK
-                                    };
-                                    var _input = {
-                                        "searchInput": helperService.createToArrayOfObject(_filter),
-                                        "FilterID": appConfig.Entities.InwardList.API.FindAll.FilterID
-                                    };
-
-                                    apiService.post("eAxisAPI", appConfig.Entities.InwardList.API.FindAll.Url, _input).then(function (response) {
-                                        if (response.data.Response) {
-                                            if (response.data.Response.length > 0) {
-                                                ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails = response.data.Response;
-                                                var InwardDetails = _.groupBy(ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails, 'WOD_Parent_FK');
-                                                var InwardDetailsCount = _.keys(InwardDetails).length;
-                                                if (InwardDetailsCount == filter1.length) {
-                                                    myTaskActivityConfig.Entities.PickData[myTaskActivityConfig.Entities.PickData.label].ePage.Entities.Header.Data.UIWmsPickHeader.PickStatus = 'PIF';
-                                                    myTaskActivityConfig.Entities.PickData[myTaskActivityConfig.Entities.PickData.label].ePage.Entities.Header.Data.UIWmsPickHeader.PickStatusDesc = 'Finalized';
-                                                    CompleteWithSave();
-                                                }
-                                            } else {
-                                                var _obj = {
-                                                    Code: "E3113",
-                                                    EntityCode: ActivityTemplateOutward2Ctrl.ePage.Masters.EntityObj.UIWmsOutwardHeader.WorkOrderID,
-                                                    EntityPK: ActivityTemplateOutward2Ctrl.ePage.Masters.EntityObj.UIWmsOutwardHeader.PK,
-                                                    Message: "It can be Finalized when all the Material Transfer Outward having Material Transfer Inward",
-                                                    MessageType: "E",
-                                                    MetaObject: "InwardDetails",
-                                                    ModuleCode: "WMS",
-                                                    SubModuleCode: "WPK",
-                                                    entityName: ActivityTemplateOutward2Ctrl.ePage.Masters.EntityObj.UIWmsOutwardHeader.WorkOrderID,
-                                                    moduleName: "MyTask",
-                                                }
-                                                errorWarningService.Modules.MyTask.Entity[ActivityTemplateOutward2Ctrl.ePage.Masters.EntityObj.UIWmsOutwardHeader.WorkOrderID].GlobalErrorWarningList.push(_obj);
-                                                ActivityTemplateOutward2Ctrl.ePage.Masters.ShowErrorWarningModal(ActivityTemplateOutward2Ctrl.taskObj.PSI_InstanceNo);
-                                                // toastr.warning("It can be Finalized when all the Material Transfer Outward having Material Transfer Inward");
-                                                ActivityTemplateOutward2Ctrl.ePage.Masters.CompleteBtnText = "Complete";
-                                                ActivityTemplateOutward2Ctrl.ePage.Masters.IsDisableCompleteBtn = false;
-                                            }
-                                        }
-                                    });
-                                });
-                            } else {
-                                myTaskActivityConfig.Entities.PickData[myTaskActivityConfig.Entities.PickData.label].ePage.Entities.Header.Data.UIWmsPickHeader.PickStatus = 'PIF';
-                                myTaskActivityConfig.Entities.PickData[myTaskActivityConfig.Entities.PickData.label].ePage.Entities.Header.Data.UIWmsPickHeader.PickStatusDesc = 'Finalized';
-                                CompleteWithSave();
-                            }
+                            myTaskActivityConfig.Entities.PickData[myTaskActivityConfig.Entities.PickData.label].ePage.Entities.Header.Data.UIWmsPickHeader.PickStatus = 'PIF';
+                            myTaskActivityConfig.Entities.PickData[myTaskActivityConfig.Entities.PickData.label].ePage.Entities.Header.Data.UIWmsPickHeader.PickStatusDesc = 'Finalized';
+                            CompleteWithSave();
                         } else if (ActivityTemplateOutward2Ctrl.taskObj.WSI_StepName == "Deliver Material") {
                             myTaskActivityConfig.Entities.ManifestData.TmsManifestHeader.TransportBookedDateTime = new Date();
                             myTaskActivityConfig.Entities.ManifestData.TmsManifestConsignment[0].TMC_ActualPickupDateTime = new Date();

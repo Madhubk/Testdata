@@ -193,7 +193,7 @@
                                 GeneralOperation();
                             }
                         });
-                    } else {
+                    } else if (TransferMaterialCtrl.ePage.Masters.WorkOrderList.WorkOrderType == "DEL") {
                         apiService.get("eAxisAPI", appConfig.Entities.WmsDeliveryList.API.GetById.Url + TransferMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WOD_Parent_FK).then(function (response) {
                             if (response.data.Response) {
                                 TransferMaterialCtrl.ePage.Entities.Header.DeliveryData = response.data.Response;
