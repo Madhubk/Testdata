@@ -495,7 +495,6 @@
 
             OnChangeValues(item.ProductCode, 'E10003', true, index);
             OnChangeValues(item.StockKeepingUnit, "E10007", true, index);
-            OnChangeValues(item.PAC_PackType, "E10005", true, index);
             OnChangeValues('value', "E10026", true, index);
         }
 

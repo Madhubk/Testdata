@@ -798,7 +798,6 @@
 
             OnChangeValues(item.ProductCode, 'E11004', true, index);
             OnChangeValues(item.StockKeepingUnit, 'E11007', true, index);
-            OnChangeValues(item.PAC_PackType, 'E11010', true, index);
             OnChangeValues('value', 'E11027', true, index);
         }
         //#endregion
