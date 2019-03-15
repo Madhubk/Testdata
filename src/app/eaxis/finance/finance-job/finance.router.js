@@ -52,6 +52,24 @@
                     }]
                 }
             })
+            .state("EA.finance.financeJobDashboard", {
+                url: "/finance-job-dashboard",
+                templateUrl: "app/eaxis/finance/finance-job/finance-job-dashboard/finance-job-dashboard.html",
+                controller: "FinanceJobDashboardController as FinanceJobDashboardCtrl",
+                ncyBrandCrumb: {
+                    label: "Finance Job Dashboard"
+                },
+                resolve: {
+                    CheckAccess: ["$q", "pageAccessService", function ($q, pageAccessService) {
+                        var deferred = $q.defer();
+                        deferred.resolve();
+                        return deferred.promise;
+                    }],
+                    LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
+                        return $ocLazyLoad.load(["FinanceJobDashboard"]);
+                    }]
+                }
+            })
             .state("EA.finance.financeJob", {
                 url: "/finance-job",
                 templateUrl: "app/eaxis/finance/finance-job/finance-job.html",
@@ -66,7 +84,7 @@
                         return deferred.promise;
                     }],
                     LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
-                        return $ocLazyLoad.load(["FinanceJob", "dynamicLookup", "dynamicListModal", "dynamicList", "dynamicGrid", "dynamicControl", "compareDate", "customToolbar", "confirmation", "chromeTab", "FinanceJobAccouting", "errorWarning"]);
+                        return $ocLazyLoad.load(["FinanceJob", "dynamicLookup", "dynamicListModal", "dynamicList", "dynamicGrid", "dynamicControl", "compareDate", "customToolbar", "confirmation", "chromeTab", "FinanceJobGeneral", "FinanceJobMenu", "errorWarning"]);
                     }]
                 }
             })

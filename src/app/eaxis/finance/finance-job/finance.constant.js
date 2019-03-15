@@ -5,7 +5,7 @@
             name: "Finance",
             files: [
                 "app/eaxis/finance/finance.controller.js",
-                "app/eaxis/finance/finance-config.factory.js"
+                "app/eaxis/finance/finance-job/finance-config.factory.js"
             ]
         }, {
             name: "FinanceAccountPayable",
@@ -23,22 +23,34 @@
                 "app/eaxis/finance/consol-finance/consol-finance.controller.js"
             ]
         }, {
+            name: "FinanceJobDashboard",
+            files: [
+                "app/eaxis/finance/finance-job/finance-job-dashboard/finance-job-dashboard.controller.js",
+                "app/eaxis/finance/finance-job/finance-job-dashboard/finance-job-dashboard.css"
+            ]
+        }, {
             name: "FinanceJob",
             files: [
                 "app/eaxis/finance/finance-job/finance-job.css",
                 "app/eaxis/finance/finance-job/finance-job.controller.js"
             ]
         }, {
+            name: "FinanceJobGeneral",
+            files: [
+                "app/eaxis/finance/finance-job/finance-job-general/finance-job-general.directive.js",
+                "app/eaxis/finance/finance-job/finance-job-general/finance-job-general.controller.js",
+                "app/eaxis/finance/finance-job/finance-job-general/finance-job-general.css"
+            ]
+        }, {
+            name: "FinanceJobMenu",
+            files: [
+                "app/eaxis/finance/finance-job/finance-job-menu/finance-job-menu.directive.js",
+                "app/eaxis/finance/finance-job/finance-job-menu/finance-job-menu.controller.js",
+            ]
+        }, {
             name: "FinanceReports",
             files: [
                 "app/eaxis/finance/reports-finance/reports-finance.controller.js"
-            ]
-        }, {
-            name: "FinanceJobAccouting",
-            files: [
-                "app/eaxis/finance/shared/job-accounting/job-accounting.directive.js",
-                "app/eaxis/finance/shared/job-accounting/job-accounting.controller.js",
-                "app/eaxis/finance/shared/job-accounting/job-accounting.css",
             ]
         }]
     };

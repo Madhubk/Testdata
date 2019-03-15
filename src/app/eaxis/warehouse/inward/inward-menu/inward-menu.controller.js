@@ -39,6 +39,7 @@
             InwardMenuCtrl.ePage.Masters.tabSelected = tabSelected;
             InwardMenuCtrl.ePage.Masters.Validation = Validation;
             InwardMenuCtrl.ePage.Masters.Config = inwardConfig;
+            InwardMenuCtrl.ePage.Masters.Billing = Billing;
 
             $rootScope.SaveInwardFromTask = SaveInwardFromTask;
             $rootScope.FinalizeInwardFromTask = FinalizeInwardFromTask;
@@ -257,8 +258,7 @@
                                 console.log("Cancelled");
                             });
                     }
-                }
-                else {
+                } else {
                     if (((InwardMenuCtrl.ePage.Masters.InwardMenu.ListSource[0].IsDisabled) && ($index == 1 || $index == 2)) || ((!InwardMenuCtrl.ePage.Masters.InwardMenu.ListSource[0].IsDisabled) && ($index == 2 || $index == 3))) {
                         var mydata = InwardMenuCtrl.currentInward[InwardMenuCtrl.currentInward.label].ePage.Entities.Header.Data;
                         if (mydata.UIWmsInwardHeader.Client && mydata.UIWmsInwardHeader.Warehouse) {
@@ -528,6 +528,88 @@
                 }
             });
         }
+
+
+        //#region Billing Finance
+        function Billing() {
+            var _Data = InwardMenuCtrl.currentInward[InwardMenuCtrl.currentInward.label].ePage.Entities,
+                input = Data.Header.Data;
+
+            console.log("Billing", _input);
+            var obj = {
+                "PK": "",
+                "JobNo": "",
+                // "BranchCode": _input.UIJobHeader[0].BranchCode,
+                // "BRN_FK": _input.UIJobHeader[0].BranchName,
+                // "DeptCode": _input.UIJobHeader[0].BRN_FK,
+                // "DEP_FK": "",
+
+                // "VendorCode":_input.UIJobHeader[0].LocalOrg_Code,
+                // "ORG_CostAccount": _input.UIJobHeader[0].LocalOrg_FK,
+                "APInvoiceNum": "",
+                "APInvoiceDate": "",
+                "APPostDate": "",
+                "CostReference": "",
+                "RX_NKCostCurrency": "",
+                "EstimatedCost": "",
+                "OSCostAmt": "",
+                "APVarience": "",
+                "LocalCostAmt": "",
+                "CostTaxCode": "",
+                "OSCostGSTAmt": "",
+
+                "ORG_SellAccount": "",
+                "RevenueInvoiceNo": "",
+                "InvoiceType": "",
+                "ARInvoiceDate": "",
+                "ARPostDate": "",
+                "SellReference": "",
+                "RX_NKSellCurrency": "",
+                "EstimatedRevenue": "",
+                "OSSellAmt": "",
+                "ARVarience": "",
+                "LocalSellAmt": "",
+                "RevenueTaxCode": "",
+                "OSSellGSTAmt": "",
+
+                "ATL_APLine": "",
+                "ATL_ARLine": "",
+                "EntityRefKey": _input.PK,
+                "Source": "WMS",
+                "TenantCode": "20CUB",
+                "CostPostChecked": "",
+                "Costpost": "",
+                "Revenuepost": "",
+                "IsModified": false,
+                "IsDeleted": false,
+            };
+
+            var modalInstance = $uibModal.open({
+                animation: true,
+                keyboard: false,
+                backdrop: "static",
+                windowClass: "Finance right",
+                scope: $scope,
+                size: "xl",
+                templateUrl: "app/eaxis/finance/finance-job/finance-job-list/finance-job-list.html",
+                controller: "FinanceJobListController",
+                controllerAs: "FinanceJobListCtrl",
+                bindToController: true,
+                resolve: {
+                    CurrentFinanceJob: function () {
+                        return obj;
+                    }
+                }
+            }).result.then(
+                function (response) {
+                    console.log("Success");
+                },
+                function () {
+                    console.log("Cancelled");
+                }
+            );
+        }
+        //#endregion
 
         Init();
     }

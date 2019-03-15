@@ -8,7 +8,7 @@
 
     function FinanceJobController($timeout, helperService, apiService, financeConfig, toastr, errorWarningService) {
         var FinanceJobCtrl = this;
-
+        
         function Init() {
             FinanceJobCtrl.ePage = {
                 "Title": "",
@@ -17,12 +17,9 @@
                 "Meta": helperService.metaBase(),
                 "Entities": financeConfig.Entities
             };
-            FinanceJobCtrl.ePage.Masters.ShowList = true;
-            FinanceJobCtrl.ePage.Masters.FF = false;
-            FinanceJobCtrl.ePage.Masters.WF = false;
-            FinanceJobCtrl.ePage.Masters.TF = false;
 
-            FinanceJobCtrl.ePage.Masters.dataentryName = "JobList";
+            FinanceJobCtrl.ePage.Masters.DataentryName = financeConfig.DataentryName;
+            FinanceJobCtrl.ePage.Masters.Title = financeConfig.DataentryTitle;
             FinanceJobCtrl.ePage.Masters.DefaultFilter = {
                 "IsValid": "true"
             };
@@ -37,7 +34,7 @@
             FinanceJobCtrl.ePage.Masters.ErrorWarningConfig = errorWarningService;
 
             /* Function */
-            FinanceJobCtrl.ePage.Masters.FinanceSelection = FinanceSelection;
+            // FinanceJobCtrl.ePage.Masters.FinanceSelection = FinanceSelection;
             FinanceJobCtrl.ePage.Masters.SelectedGridRow = SelectedGridRow;
             FinanceJobCtrl.ePage.Masters.AddTab = AddTab;
             FinanceJobCtrl.ePage.Masters.RemoveTab = RemoveTab;
@@ -48,40 +45,7 @@
             financeConfig.ValidationFindall();
         }
 
-        function FinanceSelection(mode) {
-            switch (mode) {
-                case 'FF':
-                    FinanceJobCtrl.ePage.Masters.ShowList = false;
-                    FinanceJobCtrl.ePage.Masters.FF = true;
-                    FinanceJobCtrl.ePage.Masters.dataentryName = "FreightJobList";
-                    break;
-                case 'WF':
-                    FinanceJobCtrl.ePage.Masters.ShowList = false;
-                    FinanceJobCtrl.ePage.Masters.WF = true;
-                    FinanceJobCtrl.ePage.Masters.dataentryName = "WarehouseJobList";
-                    break;
-                case 'TF':
-                    FinanceJobCtrl.ePage.Masters.ShowList = false;
-                    FinanceJobCtrl.ePage.Masters.TF = true;
-                    FinanceJobCtrl.ePage.Masters.dataentryName = "TransportJobList";
-                    break
-                case 'dashboard':
-                    FinanceJobCtrl.ePage.Masters.ShowList = true;
-                    FinanceJobCtrl.ePage.Masters.FF = false;
-                    FinanceJobCtrl.ePage.Masters.WF = false;
-                    FinanceJobCtrl.ePage.Masters.TF = false;
-                    break;
-                default:
-                    FinanceJobCtrl.ePage.Masters.ShowList = true;
-                    FinanceJobCtrl.ePage.Masters.FF = false;
-                    FinanceJobCtrl.ePage.Masters.WF = false;
-                    FinanceJobCtrl.ePage.Masters.TF = false;
-                    break;
-            }
-        }
-
         function SelectedGridRow($item) {
-            console.log("SelectedGridRow", $item);
             if ($item.action === "link" || $item.action === "dblClick") {
                 FinanceJobCtrl.ePage.Masters.AddTab($item.data, false);
             } else if ($item.action === "new") {
@@ -92,7 +56,7 @@
         //#region tab
         function AddTab(currentTab, isNew) {
             var _isExist = FinanceJobCtrl.ePage.Masters.TabList.some(function (value) {
-                return value.pk == currentTab.entity.JOB_PK;
+                return value.PK == currentTab.entity.JOB_PK;
             });
 
             if (!_isExist) {
@@ -107,7 +71,6 @@
                 financeConfig.GetTabDetails(_currentTab, isNew).then(function (response) {
                     var _entity = {};
                     FinanceJobCtrl.ePage.Masters.TabList = response;
-                    console.log("TabListObject", FinanceJobCtrl.ePage.Masters.TabList);
                     if (FinanceJobCtrl.ePage.Masters.TabList.length > 0) {
                         FinanceJobCtrl.ePage.Masters.TabList.map(function (value, key) {
                             if (value.code == currentTab.entity.JOB_PK) {

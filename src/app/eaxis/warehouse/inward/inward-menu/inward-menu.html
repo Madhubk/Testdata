@@ -4,7 +4,8 @@
     <div id="wmsMenuWrapper{{InwardMenuCtrl.currentInward.label}}" class="col-sm-12 no-padding-left no-padding-right">
         <uib-tabset class="wms-menu tabs-left tabbable" active="InwardMenuCtrl.ePage.Masters.active">
             <div class="tab-profile">
-                <div class="tab-profile-title text-single-line text-center" style="color: rgb(66, 50, 50);font-weight: 600;" data-ng-bind="InwardMenuCtrl.currentInward.label"></div>
+                <div class="tab-profile-title text-single-line text-center" style="color: rgb(66, 50, 50);font-weight: 600;"
+                    data-ng-bind="InwardMenuCtrl.currentInward.label"></div>
                 <div class="wocstatusmenu text-single-line text-center" title="{{InwardMenuCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.WorkOrderStatus + ' - '+ InwardMenuCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.WorkOrderStatusDesc}}"
                     data-ng-bind="InwardMenuCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.WorkOrderStatusDesc"></div>
             </div>
@@ -17,12 +18,14 @@
                         list="InwardMenuCtrl.ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList" type="'warning'"
                         icon="fa fa-warning" parent-type="'GParent'" parent-ref="" g-parent-ref="x.GParentRef"></error-warning-directive>
                     <error-warning-directive data-ng-if="InwardMenuCtrl.ePage.Masters.Config.GetErrorWarningCountParent(x.GParentRef, InwardMenuCtrl.currentInward.label, 'E', 'GParent').length > 0"
-                        list="InwardMenuCtrl.ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList" type="'error'" icon="fa fa-warning"
-                        parent-type="'GParent'" parent-ref="" g-parent-ref="x.GParentRef"></error-warning-directive>
+                        list="InwardMenuCtrl.ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList" type="'error'"
+                        icon="fa fa-warning" parent-type="'GParent'" parent-ref="" g-parent-ref="x.GParentRef"></error-warning-directive>
                 </uib-tab-heading>
 
                 <div class="finalisedstate" ng-show="InwardMenuCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
-                    <span class="finaliseddatedescription">Inward {{InwardMenuCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.WorkOrderStatusDesc}} and it cannot
+                    <span class="finaliseddatedescription">Inward
+                        {{InwardMenuCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.WorkOrderStatusDesc}} and it
+                        cannot
                         be edited</span>
                 </div>
 
@@ -30,10 +33,11 @@
                     <div ng-switch="x.Value">
 
                         <!--Menu directives-->
-                        <div ng-switch-when="MyTask" inward-my-task data-ng-if="InwardMenuCtrl.ePage.Masters.MyTask.ListSource" list-source="InwardMenuCtrl.ePage.Masters.MyTask.ListSource"
-                            current-inward="InwardMenuCtrl.currentInward"></div>
+                        <div ng-switch-when="MyTask" inward-my-task data-ng-if="InwardMenuCtrl.ePage.Masters.MyTask.ListSource"
+                            list-source="InwardMenuCtrl.ePage.Masters.MyTask.ListSource" current-inward="InwardMenuCtrl.currentInward"></div>
                         <div ng-switch-when="General" inward-general current-inward="InwardMenuCtrl.currentInward"></div>
-                        <div ng-switch-when="AsnLines" inward-asn-lines current-inward="InwardMenuCtrl.currentInward" active-menu="x"></div>
+                        <div ng-switch-when="AsnLines" inward-asn-lines current-inward="InwardMenuCtrl.currentInward"
+                            active-menu="x"></div>
                         <div ng-switch-when="ReceiveLines" inward-lines current-inward="InwardMenuCtrl.currentInward"></div>
                         <div ng-switch-when="ProductSummary" inward-productsummary current-inward="InwardMenuCtrl.currentInward"></div>
                         <div ng-switch-when="Containers" container current-inward="InwardMenuCtrl.currentInward"></div>
@@ -86,23 +90,39 @@
 
 
     <div class="eaxis-footer-strip" data-ng-show="InwardMenuCtrl.ePage.Masters.ActiveMenuTab.Value != 'MyTask'">
-        <div class="col-xs-6 col-sm-8 col-md-8 col-lg-9 col-xl-9">
+        <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 col-xl-4 pr-0">
             <standard-menu dataentry-object="InwardMenuCtrl.dataentryObject" input="InwardMenuCtrl.currentInward"></standard-menu>
         </div>
-        <div class="col-xs-6 col-sm-4 col-md-4 col-lg-3 col-xl-3">
+
+        <!-- Finance -->
+        <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 col-xl-4 pl-0">
+            <ul class="custombilling">
+                <li class="position-relative">
+                    <a href="javascript:void(0);" data-ng-click="InwardMenuCtrl.ePage.Masters.Billing()">
+                        <i class="eaxis-footer-icon fa fa-file"></i>
+                        <span class="eaxis-footer-text">Billing</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-4">
             <span class="dropup pull-right">
-                <button class="btn btn-primary btn-sm margin-right-10 mt-6 dropdown-toggle" type="button" data-toggle="dropdown" ng-disabled="InwardMenuCtrl.ePage.Masters.DisableSave">More
+                <button class="btn btn-primary btn-sm margin-right-10 mt-6 dropdown-toggle" type="button" data-toggle="dropdown"
+                    ng-disabled="InwardMenuCtrl.ePage.Masters.DisableSave">More
                     <span class="ml-5 caret"></span>
                 </button>
                 <ul class="dropdown-menu dropdown-menu-right">
                     <li>
-                        <a href="javascript:void(0);" data-ng-click="InwardMenuCtrl.ePage.Masters.Validation(InwardMenuCtrl.currentInward);InwardMenuCtrl.ePage.Masters.SaveAndClose = true">Save & Close</a>
+                        <a href="javascript:void(0);" data-ng-click="InwardMenuCtrl.ePage.Masters.Validation(InwardMenuCtrl.currentInward);InwardMenuCtrl.ePage.Masters.SaveAndClose = true">Save
+                            & Close</a>
                     </li>
                     <li>
                         <a href="javascript:void(0);" data-ng-click="InwardMenuCtrl.ePage.Masters.FinaliseSave(InwardMenuCtrl.currentInward)">Finalize</a>
                     </li>
                     <li>
-                        <a href="javascript:void(0);" data-ng-click="InwardMenuCtrl.ePage.Masters.CancelInward(InwardMenuCtrl.currentInward)">Cancel Inward</a>
+                        <a href="javascript:void(0);" data-ng-click="InwardMenuCtrl.ePage.Masters.CancelInward(InwardMenuCtrl.currentInward)">Cancel
+                            Inward</a>
                     </li>
                 </ul>
             </span>

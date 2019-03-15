@@ -1,0 +1,35 @@
+<finance-job-general current-finance-job="FinanceJobMenuCtrl.currentFinanceJob"></finance-job-general>
+<div class="eaxis-footer-strip">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+        <span class="dropup pull-right">
+            <span class="pull-right">
+                <button type="button" class="btn btn-primary btn-sm margin-top-5"
+                    data-ng-bind="FinanceJobMenuCtrl.ePage.Masters.PostButtonText"
+                    data-ng-click="FinanceJobMenuCtrl.ePage.Masters.Validation(FinanceJobMenuCtrl.currentFinanceJob, 'Post')"
+                    data-ng-disabled="FinanceJobMenuCtrl.ePage.Entities.Header.GlobalVariables.IsDisablePost">
+                </button>
+            </span>
+            <span class="pull-right">
+                <button type="button" class="btn btn-primary btn-sm margin-top-5 margin-right-10"
+                    data-ng-bind="FinanceJobMenuCtrl.ePage.Masters.PostRevenueButtonText"
+                    data-ng-click="FinanceJobMenuCtrl.ePage.Masters.Validation(FinanceJobMenuCtrl.currentFinanceJob, 'PostRevenue')"
+                    data-ng-disabled="FinanceJobMenuCtrl.ePage.Entities.Header.GlobalVariables.IsDisablePost">
+                </button>
+            </span>
+            <span class="pull-right">
+                <button type="button" class="btn btn-primary btn-sm margin-top-5 margin-right-10"
+                    data-ng-bind="FinanceJobMenuCtrl.ePage.Masters.PostCostButtonText"
+                    data-ng-click="FinanceJobMenuCtrl.ePage.Masters.Validation(FinanceJobMenuCtrl.currentFinanceJob, 'PostCost')"
+                    data-ng-disabled="FinanceJobMenuCtrl.ePage.Entities.Header.GlobalVariables.IsDisablePost">
+                </button>
+            </span>
+            <span class="pull-right">
+                <button type="button" class="btn btn-primary btn-sm margin-top-5 margin-right-10"
+                    data-ng-bind="FinanceJobMenuCtrl.ePage.Masters.SaveButtonText"
+                    data-ng-click="FinanceJobMenuCtrl.ePage.Masters.Validation(FinanceJobMenuCtrl.currentFinanceJob, 'Save')"
+                    data-ng-disabled="FinanceJobMenuCtrl.ePage.Masters.DisableSave">
+                </button>
+            </span>
+        </span>
+    </div>
+</div>
