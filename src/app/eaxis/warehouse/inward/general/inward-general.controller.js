@@ -164,12 +164,14 @@
             AllocateUDF();
 
             //#region JobAccounting
-            InwardGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader[0] = {
-                "LocalOrg_Code": item.Code,
-                "LocalOrg_FK": item.PK
-            };
-            // InwardGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader[0].LocalOrg_Code = item.Code;
-            // InwardGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader[0].LocalOrg_FK = item.PK;
+
+            InwardGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.map(function(value,key){
+                if(value.EntityRefKey == InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.PK){
+                    value.LocalOrg_Code = item.Code;
+                    value.LocalOrg_FK = item.PK
+                }
+            })
+           
             //#endregion
         }
 
@@ -200,16 +202,18 @@
             InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.Warehouse = item.WarehouseCode + "-" + item.WarehouseName;
             OnChangeValues(InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.Warehouse, 'E3002');
 
-            //#region JobAccounting 
-            // InwardGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader[0]={
-            // "BranchCode":item.Code,
-            // "BranchName":item.PK,
-            // "GB":item.BRN_FK
-            // };
-            InwardGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader[0].BranchCode = item.BRN_Code;
-            InwardGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader[0].BranchName = item.BRN_BranchName;
-            InwardGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader[0].GB = item.BRN_FK;
+
+             //#region JobAccounting
+
+            InwardGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.map(function(value,key){
+                if(value.EntityRefKey == InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.PK){
+                    value.AgentOrg_Code = item.Code;
+                    value.Agent_Org_FK = item.PK
+                }
+            })
+           
             //#endregion
+           
         }
 
         function SelectedLookupServiceLevel(item) {
@@ -339,6 +343,44 @@
 
             if (InwardGeneralCtrl.currentInward.isNew) {
                 InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.ExternalReference = '';
+
+                var NewJobHeaderObject = 
+                {
+                    "AgentOrg_Code":"",
+                    "Agent_Org_FK":"",
+                    "GB":"",
+                    "BranchCode":"",
+                    "BranchName":"",
+                    "GC":"",
+                    "CompanyCode":"",
+                    "CompanyName":"",
+                    "GE":"",
+                    "DeptCode":"",
+                    "EntitySource":"WMS",
+                    "JobNo":InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.WorkOrderID,
+                    "EntityRefKey": InwardGeneralCtrl.ePage.Entities.Header.Data.PK,
+                    "HeaderType":"JOB",
+                    "LocalOrg_Code":"",
+                    "LocalOrg_FK":"",
+                }
+                InwardGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.push(NewJobHeaderObject);
+                //Getting Department Value
+
+                var _filter = {
+                    "Code": "LOG"
+                };
+
+                var _input = {
+                    "searchInput": helperService.createToArrayOfObject(_filter),
+                    "FilterID": InwardGeneralCtrl.ePage.Entities.Header.API.CmpDepartment.FilterID
+                };
+
+                apiService.post("eAxisAPI", InwardGeneralCtrl.ePage.Entities.Header.API.CmpDepartment.Url, _input).then(function (response) {
+                    if (response.data.Response) {
+                        InwardGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader[0].DeptCode = response.data.Response[0].Code;
+                        InwardGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader[0].GE = response.data.Response[0].PK;
+                    }
+                });
             }
 
         }

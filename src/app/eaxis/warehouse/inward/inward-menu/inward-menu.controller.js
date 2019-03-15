@@ -532,59 +532,25 @@
 
         //#region JobAccounting
         function Billing() {
-            var _Data = InwardMenuCtrl.currentInward[InwardMenuCtrl.currentInward.label].ePage.Entities,
-                _input = _Data.Header.Data;
 
-            console.log("Billing", _input);
             var obj = {
-                "PK": "",
-                "JobNo": _input.UIWmsInwardHeader.WorkOrderID,
-                // "BranchCode": _input.UIWmsInwardHeader.BranchCode,
-                // "BRN_FK": _input.UIJobHeader[0].BranchName,
-                // "DeptCode": _input.UIJobHeader[0].BRN_FK,
-                // "DEP_FK": "",
-
-                // "VendorCode": _input.UIWmsInwardHeader.Client,
-                // "ORG_CostAccount": _input.UIWmsInwardHeader.ORG_Client_FK,
-                "APInvoiceNum": "",
-                "APInvoiceDate": "",
-                "APPostDate": "",
-                "CostReference": "",
-                "RX_NKCostCurrency": "",
-                "EstimatedCost": "",
-                "OSCostAmt": "",
-                "APVarience": "",
-                "LocalCostAmt": "",
-                "CostTaxCode": "",
-                "OSCostGSTAmt": "",
-
-                "ORG_SellAccount": "",
-                "RevenueInvoiceNo": "",
-                "InvoiceType": "",
-                "ARInvoiceDate": "",
-                "ARPostDate": "",
-                "SellReference": "",
-                "RX_NKSellCurrency": "",
-                "EstimatedRevenue": "",
-                "OSSellAmt": "",
-                "ARVarience": "",
-                "LocalSellAmt": "",
-                "RevenueTaxCode": "",
-                "OSSellGSTAmt": "",
-
-                //"CustomerCode": _input.UIWmsInwardHeader.Supplier,
-                "ATL_APLine": "",
-                "ATL_ARLine": "",
-                "EntityRefKey": _input.PK,
-                "Source": "WMS",
-                "TenantCode": "20CUB",
-                "CostPostChecked": "",
-                "Costpost": "",
-                "Revenuepost": "",
-                "IsModified": false,
-                "IsDeleted": false,
-            };
-
+                "AgentOrg_Code":InwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].AgentOrg_Code,
+                "Agent_Org_FK":InwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].Agent_Org_FK,
+                "GB":InwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].GB,
+                "BranchCode":InwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].BranchCode,
+                "BranchName":InwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].BranchName,
+                "GC":InwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].GC,
+                "CompanyCode":InwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].CompanyCode,
+                "CompanyName":InwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].CompanyName,
+                "GE":InwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].GE,
+                "DeptCode":InwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].DeptCode,
+                "EntitySource":InwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].EntitySource,
+                "JobNo":InwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].JobNo,
+                "EntityRefKey": InwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].EntityRefKey,
+                "HeaderType":InwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].HeaderType,
+                "LocalOrg_Code":InwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].LocalOrg_Code,
+                "LocalOrg_FK":InwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].LocalOrg_FK,
+            }
             var modalInstance = $uibModal.open({
                 animation: true,
                 keyboard: false,

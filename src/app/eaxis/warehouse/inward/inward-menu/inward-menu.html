@@ -96,7 +96,7 @@
 
         <!-- JobAccounting -->
         <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 col-xl-4 pl-0">
-            <ul class="custombilling">
+            <ul class="custombilling" data-ng-if="!InwardMenuCtrl.currentInward.isNew">
                 <li class="position-relative">
                     <a href="javascript:void(0);" data-ng-click="InwardMenuCtrl.ePage.Masters.Billing()">
                         <i class="eaxis-footer-icon fa fa-file"></i>
