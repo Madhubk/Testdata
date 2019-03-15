@@ -10,13 +10,8 @@
         var FinanceJobMenuCtrl = this;
 
         function Init() {
-            // if (FinanceJobMenuCtrl.currentFinanceJob.code) {
-                var currentFinanceJob = FinanceJobMenuCtrl.currentFinanceJob[FinanceJobMenuCtrl.currentFinanceJob.code].ePage.Entities;
-           // }
-            
-            // else {
-            //     var currentFinanceJob = FinanceJobMenuCtrl.currentFinanceJob;
-            // }
+           
+            var currentFinanceJob = FinanceJobMenuCtrl.currentFinanceJob[FinanceJobMenuCtrl.currentFinanceJob.code].ePage.Entities;
 
             FinanceJobMenuCtrl.ePage = {
                 "Title": "",
@@ -138,7 +133,7 @@
                                     financeConfig.TabList[_index][financeConfig.TabList[_index].code].ePage.Entities.Header.Data = response.data;
                                 }
                                 financeConfig.TabList[_index].isNew = false;
-                               // helperService.refreshGrid();
+                                // helperService.refreshGrid();
                             }
                             toastr.success("Saved Successfully...!");
                         }
@@ -371,7 +366,7 @@
                                         financeConfig.TabList[_index][financeConfig.TabList[_index].code].ePage.Entities.Header.Data = response.data;
                                     }
                                     financeConfig.TabList[_index].isNew = false;
-                                   // helperService.refreshGrid();
+                                    // helperService.refreshGrid();
                                 }
                                 toastr.success("Post Revenue Successfully...!");
                             }
@@ -505,7 +500,7 @@
                                         financeConfig.TabList[_index][financeConfig.TabList[_index].code].ePage.Entities.Header.Data = response.data;
                                     }
                                     financeConfig.TabList[_index].isNew = false;
-                                   // helperService.refreshGrid();
+                                    // helperService.refreshGrid();
                                 }
                                 toastr.success("Post Cost Successfully...!");
                             }
