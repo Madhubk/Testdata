@@ -1030,8 +1030,34 @@
             files: [
                 'app/eaxis/warehouse/customer-view/track-delivery/track-delivery.controller.js'
             ]
+        },
+        //#region Finance
+        {
+            name: "Finance",
+            files: [
+                "app/eaxis/finance/finance-job/finance-config.factory.js"
+            ]
+        }, {
+            name: "FinanceJobList",
+            files: [
+                "app/eaxis/finance/finance-job/finance-job-list/finance-job-list.controller.js",
+                "app/eaxis/finance/finance-job/finance-job-list/finance-job-list.css",
+            ]
+        }, {
+            name: "FinanceJobGeneral",
+            files: [
+                "app/eaxis/finance/finance-job/finance-job-general/finance-job-general.directive.js",
+                "app/eaxis/finance/finance-job/finance-job-general/finance-job-general.controller.js",
+                "app/eaxis/finance/finance-job/finance-job-general/finance-job-general.css"
+            ]
+        }, {
+            name: "FinanceJobMenu",
+            files: [
+                "app/eaxis/finance/finance-job/finance-job-menu/finance-job-menu.directive.js",
+                "app/eaxis/finance/finance-job/finance-job-menu/finance-job-menu.controller.js",
+            ]
         }
-
+            //#endregion
         ]
     };
 

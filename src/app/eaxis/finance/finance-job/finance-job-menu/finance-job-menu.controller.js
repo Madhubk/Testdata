@@ -138,7 +138,7 @@
                                     financeConfig.TabList[_index][financeConfig.TabList[_index].code].ePage.Entities.Header.Data = response.data;
                                 }
                                 financeConfig.TabList[_index].isNew = false;
-                                helperService.refreshGrid();
+                               // helperService.refreshGrid();
                             }
                             toastr.success("Saved Successfully...!");
                         }
@@ -261,7 +261,7 @@
                                         financeConfig.TabList[_index][financeConfig.TabList[_index].code].ePage.Entities.Header.Data = response.data;
                                     }
                                     financeConfig.TabList[_index].isNew = false;
-                                    helperService.refreshGrid();
+                                    //helperService.refreshGrid();
                                 }
                                 toastr.success("Post Cost Successfully...!");
                             }
@@ -371,7 +371,7 @@
                                         financeConfig.TabList[_index][financeConfig.TabList[_index].code].ePage.Entities.Header.Data = response.data;
                                     }
                                     financeConfig.TabList[_index].isNew = false;
-                                    helperService.refreshGrid();
+                                   // helperService.refreshGrid();
                                 }
                                 toastr.success("Post Revenue Successfully...!");
                             }
@@ -505,7 +505,7 @@
                                         financeConfig.TabList[_index][financeConfig.TabList[_index].code].ePage.Entities.Header.Data = response.data;
                                     }
                                     financeConfig.TabList[_index].isNew = false;
-                                    helperService.refreshGrid();
+                                   // helperService.refreshGrid();
                                 }
                                 toastr.success("Post Cost Successfully...!");
                             }

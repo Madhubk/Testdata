@@ -533,7 +533,7 @@
         //#region Billing Finance
         function Billing() {
             var _Data = InwardMenuCtrl.currentInward[InwardMenuCtrl.currentInward.label].ePage.Entities,
-                input = Data.Header.Data;
+                _input = _Data.Header.Data;
 
             console.log("Billing", _input);
             var obj = {
