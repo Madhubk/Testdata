@@ -14,20 +14,20 @@
 
 
  /* Finance CSS  */
-.custombilling li a:hover{
+.custombilling_inward li a:hover{
     color:red;
 }
 
-.custombilling li a i{
+.custombilling_inward li a i{
    position: absolute;
-   margin-left:8px;
-   margin-top:2px;
+   margin-left:10px;
+   margin-top:4px;
    color:#3a3333;
 }
 
-.custombilling li a span{
+.custombilling_inward li a span{
     position: absolute;
-    margin-top: 15px;
+    margin-top: 17px;
     color:#3a3333;
  }
 

@@ -193,6 +193,17 @@
             OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.ORG_Client_FK = item.PK;
             OnChangeValues(OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.Client, 'E3501')
             AllocateUDF();
+
+            //#region JobAccounting
+
+            OutwardGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.map(function(value,key){
+                if(value.EntityRefKey == OutwardGeneralCtrl.ePage.Entities.Header.Data.PK){
+                    value.LocalOrg_Code = item.Code;
+                    value.LocalOrg_FK = item.PK
+                }
+            })
+           
+            //#endregion
         }
 
         function SelectedLookupDataConsignee(item) {
@@ -217,6 +228,17 @@
                 }
             });
             GetOrgAddress();
+
+            //#region JobAccounting
+
+            OutwardGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.map(function(value,key){
+                if(value.EntityRefKey == OutwardGeneralCtrl.ePage.Entities.Header.Data.PK){
+                    value.AgentOrg_Code = item.Code;
+                    value.Agent_Org_FK = item.PK
+                }
+            })
+           
+            //#endregion
         }
 
 
@@ -224,6 +246,18 @@
         function SelectedLookupWarehouse(item) {
             OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.Warehouse = item.WarehouseCode + " - " + item.WarehouseName;
             OnChangeValues(OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.Warehouse, 'E3502');
+
+            //#region JobAccounting
+
+            OutwardGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.map(function(value,key){
+                if(value.EntityRefKey == OutwardGeneralCtrl.ePage.Entities.Header.Data.PK){
+                    value.BranchCode = item.BRN_Code;
+                    value.BranchName = item.BRN_BranchName;
+                    value.GB = item.BRN_FK;
+                }
+            })
+
+            //#endregion
         }
 
         function SelectedLookupToWarehouse(item) {
@@ -285,6 +319,45 @@
 
             if (OutwardGeneralCtrl.currentOutward.isNew) {
                 OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.ExternalReference = '';
+
+                var NewJobHeaderObject = 
+                {
+                    "AgentOrg_Code":"",
+                    "Agent_Org_FK":"",
+                    "GB":"",
+                    "BranchCode":"",
+                    "BranchName":"",
+                    "GC":"",
+                    "CompanyCode":"",
+                    "CompanyName":"",
+                    "GE":"",
+                    "DeptCode":"",
+                    "EntitySource":"WMS",
+                    "JobNo":OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WorkOrderID,
+                    "EntityRefKey": OutwardGeneralCtrl.ePage.Entities.Header.Data.PK,
+                    "HeaderType":"JOB",
+                    "LocalOrg_Code":"",
+                    "LocalOrg_FK":"",
+                }
+                OutwardGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.push(NewJobHeaderObject);
+                //Getting Department Value
+
+                var _filter = {
+                    "Code": "LOG"
+                };
+
+                var _input = {
+                    "searchInput": helperService.createToArrayOfObject(_filter),
+                    "FilterID": OutwardGeneralCtrl.ePage.Entities.Header.API.CmpDepartment.FilterID
+                };
+
+                apiService.post("eAxisAPI", OutwardGeneralCtrl.ePage.Entities.Header.API.CmpDepartment.Url, _input).then(function (response) {
+                    if (response.data.Response) {
+                        OutwardGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader[0].DeptCode = response.data.Response[0].Code;
+                        OutwardGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader[0].GE = response.data.Response[0].PK;
+                    }
+                });
+
             }
 
         }

@@ -90,23 +90,24 @@
 
 
     <div class="eaxis-footer-strip" data-ng-show="InwardMenuCtrl.ePage.Masters.ActiveMenuTab.Value != 'MyTask'">
-        <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 col-xl-4 pr-0">
-            <standard-menu dataentry-object="InwardMenuCtrl.dataentryObject" input="InwardMenuCtrl.currentInward"></standard-menu>
-        </div>
-
         <!-- JobAccounting -->
-        <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 col-xl-4 pl-0">
-            <ul class="custombilling" data-ng-if="!InwardMenuCtrl.currentInward.isNew">
+        <div class="col-xs-2 col-sm-2 col-md-1 col-lg-1 col-xl-1" style="width:35px">
+            <ul class="custombilling_inward" data-ng-if="!InwardMenuCtrl.currentInward.isNew">
                 <li class="position-relative">
                     <a href="javascript:void(0);" data-ng-click="InwardMenuCtrl.ePage.Masters.Billing()">
-                        <i class="eaxis-footer-icon fa fa-file"></i>
+                        <i class="eaxis-footer-icon fa fa-money"></i>
                         <span class="eaxis-footer-text">Billing</span>
                     </a>
                 </li>
             </ul>
         </div>
 
-        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-4">
+        <div class="col-xs-6 col-sm-6 col-md-8 col-lg-8 col-xl-8">
+            <standard-menu dataentry-object="InwardMenuCtrl.dataentryObject" input="InwardMenuCtrl.currentInward"></standard-menu>
+        </div>
+
+
+        <div class="col-xs-4 col-sm-4 col-md-3 col-lg-3 col-xl-3">
             <span class="dropup pull-right">
                 <button class="btn btn-primary btn-sm margin-right-10 mt-6 dropdown-toggle" type="button" data-toggle="dropdown"
                     ng-disabled="InwardMenuCtrl.ePage.Masters.DisableSave">More

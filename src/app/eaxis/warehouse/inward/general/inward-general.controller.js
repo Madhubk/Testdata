@@ -205,6 +205,7 @@
             })
            
             //#endregion
+            
             GetOrgAddress();
         }
 
@@ -212,7 +213,7 @@
         function SelectedLookupWarehouse(item) {
             InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.Warehouse = item.WarehouseCode + "-" + item.WarehouseName;
             OnChangeValues(InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.Warehouse, 'E3002');
-
+            
             //#region JobAccounting
 
             InwardGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.map(function(value,key){
