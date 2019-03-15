@@ -163,13 +163,14 @@
             OnChangeValues(InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.Client, 'E3001');
             AllocateUDF();
 
-            // JobHeaderObject
+            //#region JobAccounting
             InwardGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader[0] = {
                 "LocalOrg_Code": item.Code,
                 "LocalOrg_FK": item.PK
             };
             // InwardGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader[0].LocalOrg_Code = item.Code;
             // InwardGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader[0].LocalOrg_FK = item.PK;
+            //#endregion
         }
 
         function SelectedLookupSupplier(item) {
@@ -199,7 +200,7 @@
             InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.Warehouse = item.WarehouseCode + "-" + item.WarehouseName;
             OnChangeValues(InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.Warehouse, 'E3002');
 
-            //JobHeaderObject
+            //#region JobAccounting 
             // InwardGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader[0]={
             // "BranchCode":item.Code,
             // "BranchName":item.PK,
@@ -208,6 +209,7 @@
             InwardGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader[0].BranchCode = item.BRN_Code;
             InwardGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader[0].BranchName = item.BRN_BranchName;
             InwardGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader[0].GB = item.BRN_FK;
+            //#endregion
         }
 
         function SelectedLookupServiceLevel(item) {

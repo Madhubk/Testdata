@@ -118,7 +118,11 @@ border: 1px solid #ddd;
 */
 
 .gray-background{
-    background-color: #cccfd1;
+    background-color: #cccfd1 !important;
+}
+
+.customcheckbox input[type=checkbox]~.text:before{
+    color:black;
 }
   
 

@@ -530,7 +530,7 @@
         }
 
 
-        //#region Billing Finance
+        //#region JobAccounting
         function Billing() {
             var _Data = InwardMenuCtrl.currentInward[InwardMenuCtrl.currentInward.label].ePage.Entities,
                 _input = _Data.Header.Data;
@@ -538,14 +538,14 @@
             console.log("Billing", _input);
             var obj = {
                 "PK": "",
-                "JobNo": "",
-                // "BranchCode": _input.UIJobHeader[0].BranchCode,
+                "JobNo": _input.UIWmsInwardHeader.WorkOrderID,
+                // "BranchCode": _input.UIWmsInwardHeader.BranchCode,
                 // "BRN_FK": _input.UIJobHeader[0].BranchName,
                 // "DeptCode": _input.UIJobHeader[0].BRN_FK,
                 // "DEP_FK": "",
 
-                // "VendorCode":_input.UIJobHeader[0].LocalOrg_Code,
-                // "ORG_CostAccount": _input.UIJobHeader[0].LocalOrg_FK,
+                // "VendorCode": _input.UIWmsInwardHeader.Client,
+                // "ORG_CostAccount": _input.UIWmsInwardHeader.ORG_Client_FK,
                 "APInvoiceNum": "",
                 "APInvoiceDate": "",
                 "APPostDate": "",
@@ -572,6 +572,7 @@
                 "RevenueTaxCode": "",
                 "OSSellGSTAmt": "",
 
+                //"CustomerCode": _input.UIWmsInwardHeader.Supplier,
                 "ATL_APLine": "",
                 "ATL_ARLine": "",
                 "EntityRefKey": _input.PK,
