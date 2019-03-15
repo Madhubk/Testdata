@@ -22,7 +22,7 @@
             };
 
             DMSManifestCtrl.ePage.Masters.ErrorWarningConfig = errorWarningService;
-
+            errorWarningService.Modules={};
             DMSManifestCtrl.ePage.Masters.dataentryName = "TransportsManifest";
             DMSManifestCtrl.ePage.Masters.TabList = [];
             DMSManifestCtrl.ePage.Masters.activeTabIndex = 0;

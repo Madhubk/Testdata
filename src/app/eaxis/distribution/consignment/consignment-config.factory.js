@@ -47,6 +47,24 @@
                             "Url": "OrgHeader/FindAll",
                             "FilterID": "ORGHEAD"
                         },
+                        "CountryState": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "CountryState/FindAll",
+                            "FilterID": "MSTCSTE"
+                        },
+                        "CountryList": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "MstCountry/FindAll",
+                            "FilterID": "MSTCOUN"
+                        },
+                        "InsertAddress": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "OrgAddress/Insert",
+                            "FilterID": "ORGADDR"
+                        }
                     },
                     "Meta": {
 
@@ -130,16 +148,19 @@
                                 "Url": "CountryState/FindAll",
                                 "FilterID": "MSTCSTE"
                             },
-                            "InsertOrganization": {
+                            "CountryList": {
                                 "IsAPI": "true",
                                 "HttpType": "POST",
-                                "Url": "Org/Insert"
+                                "Url": "MstCountry/FindAll",
+                                "FilterID": "MSTCOUN"
                             },
-                            "UpdateOrganization": {
+                            "InsertAddress": {
                                 "IsAPI": "true",
                                 "HttpType": "POST",
-                                "Url": "Org/Update"
+                                "Url": "OrgAddress/Insert",
+                                "FilterID": "ORGADDR"
                             }
+
                         },
                         "Meta": {
                             "MenuList": [],
@@ -153,6 +174,16 @@
                                 "ExpectedPickupDateTime": helperService.metaBase(),
                                 "ExpectedDeliveryDateTime": helperService.metaBase(),
                                 "SenderRef": helperService.metaBase(),
+                                "Address1": helperService.metaBase(),
+                                "City": helperService.metaBase(),
+                                "CountryCode": helperService.metaBase(),
+                                "State": helperService.metaBase(),
+                                "PostCode": helperService.metaBase(),
+                                "Language": helperService.metaBase(),
+                                "Mobile": helperService.metaBase(),
+                                "Email": helperService.metaBase(),
+                                "RelatedPortCode": helperService.metaBase(),
+
                             },
                         },
                         "GlobalVariables": {
@@ -603,25 +634,41 @@
             //General Page Validation
             var _Data = $item[$item.label].ePage.Entities,
                 _input = _Data.Header.Data;
-            OnChangeValues(_input.TmsConsignmentHeader.SenderCode, 'E5516', false, undefined, $item.label);
-            OnChangeValues(_input.TmsConsignmentHeader.ReceiverCode, 'E5517', false, undefined, $item.label);
-            OnChangeValues(_input.TmsConsignmentHeader.ServiceType, 'E5518', false, undefined, $item.label);
-            if (_input.TmsConsignmentHeader.ServiceType == "INW" || _input.TmsConsignmentHeader.ServiceType == "ORD") {
-                OnChangeValues('', 'E5566', false, undefined, $item.label);
-            }else if (_input.TmsConsignmentHeader.ServiceType == "LOD" || _input.TmsConsignmentHeader.ServiceType == "UPC" || _input.TmsConsignmentHeader.ServiceType == "STR") {
-                OnChangeValues(_input.TmsConsignmentHeader.ServiceType, 'E5566', false, undefined, $item.label);
-            }
-            OnChangeValues(_input.TmsConsignmentHeader.SenderRef, 'E5567', false, undefined, $item.label);
-            OnChangeValues(_input.TmsConsignmentHeader.ExpectedPickupDateTime, 'E5521', false, undefined, $item.label);
-            OnChangeValues(_input.TmsConsignmentHeader.ExpectedDeliveryDateTime, 'E5563', false, undefined, $item.label);
 
-            //item Validation
-            if (_input.TmsConsignmentItem.length > 0) {
-                angular.forEach(_input.TmsConsignmentItem, function (value, key) {
-                    OnChangeValues(value.TIT_ItemCode, 'E5547', true, key, $item.label);
-                    OnChangeValues(value.Quantity, 'E5564', true, key, $item.label);
-                    OnChangeValues(value.TIT_ItemRef_ID, 'E5548', true, key, $item.label);
-                });
+            // address model 
+
+            var _AddressDetails = $item[$item.label].ePage.Entities.Header.AddressList;
+            if (_AddressDetails) {
+                OnChangeValues(_AddressDetails.Address1, 'E5568', false, undefined, $item.label);
+                OnChangeValues(_AddressDetails.City, 'E5569', false, undefined, $item.label);
+                OnChangeValues(_AddressDetails.CountryCode, 'E5570', false, undefined, $item.label);
+                OnChangeValues(_AddressDetails.State, 'E5571', false, undefined, $item.label);
+                OnChangeValues(_AddressDetails.PostCode, 'E5573', false, undefined, $item.label);
+                OnChangeValues(_AddressDetails.Language, 'E5574', false, undefined, $item.label);
+                OnChangeValues(_AddressDetails.Mobile, 'E5575', false, undefined, $item.label);
+                OnChangeValues(_AddressDetails.Email, 'E5576', false, undefined, $item.label);
+                OnChangeValues(_AddressDetails.RelatedPortCode, 'E5577', false, undefined, $item.label);
+            } else {
+                OnChangeValues(_input.TmsConsignmentHeader.SenderCode, 'E5516', false, undefined, $item.label);
+                OnChangeValues(_input.TmsConsignmentHeader.ReceiverCode, 'E5517', false, undefined, $item.label);
+                OnChangeValues(_input.TmsConsignmentHeader.ServiceType, 'E5518', false, undefined, $item.label);
+                if (_input.TmsConsignmentHeader.ServiceType == "INW" || _input.TmsConsignmentHeader.ServiceType == "ORD") {
+                    OnChangeValues('', 'E5566', false, undefined, $item.label);
+                } else if (_input.TmsConsignmentHeader.ServiceType == "LOD" || _input.TmsConsignmentHeader.ServiceType == "UPC" || _input.TmsConsignmentHeader.ServiceType == "STR") {
+                    OnChangeValues(_input.TmsConsignmentHeader.ServiceType, 'E5566', false, undefined, $item.label);
+                }
+                OnChangeValues(_input.TmsConsignmentHeader.SenderRef, 'E5567', false, undefined, $item.label);
+                OnChangeValues(_input.TmsConsignmentHeader.ExpectedPickupDateTime, 'E5521', false, undefined, $item.label);
+                OnChangeValues(_input.TmsConsignmentHeader.ExpectedDeliveryDateTime, 'E5563', false, undefined, $item.label);
+                
+                //item Validation
+                if (_input.TmsConsignmentItem.length > 0) {
+                    angular.forEach(_input.TmsConsignmentItem, function (value, key) {
+                        OnChangeValues(value.TIT_ItemCode, 'E5547', true, key, $item.label);
+                        OnChangeValues(value.Quantity, 'E5564', true, key, $item.label);
+                        OnChangeValues(value.TIT_ItemRef_ID, 'E5548', true, key, $item.label);
+                    });
+                }
             }
         }
 

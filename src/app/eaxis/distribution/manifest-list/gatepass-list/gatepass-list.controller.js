@@ -69,7 +69,11 @@
                 "OrgFK": GatepassListCtrl.orgfk,
                 "Purpose": GatepassListCtrl.ePage.Masters.Purpose,
                 "ManifestFK": "NULL",
-                "JDAFK": "NULL"
+                "JDAFK": "NULL",
+                "SortColumn": "TGP_CreatedDateTime",
+                "SortType": "DESC",
+                "PageNumber": "1",
+                "PageSize": "1000"
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
