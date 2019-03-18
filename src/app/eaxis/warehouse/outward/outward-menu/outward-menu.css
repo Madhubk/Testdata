@@ -27,3 +27,22 @@
 }
 
 
+/* Finance CSS  */
+.custombilling_outward li a:hover{
+    color:red;
+}
+
+.custombilling_outward li a i{
+   position: absolute;
+   margin-left:10px;
+   margin-top:4px;
+   color:#3a3333;
+}
+
+.custombilling_outward li a span{
+    position: absolute;
+    margin-top: 17px;
+    color:#3a3333;
+ }
+
+

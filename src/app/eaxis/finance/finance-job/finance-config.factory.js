@@ -45,6 +45,17 @@
                         }
                     }
                 },
+                "JobHeader": {
+                    "RowIndex": -1,
+                    "API": {
+                        "FindAll": {
+                            "IsAPI": "true",
+                            "HttpType": "Post",
+                            "Url": "JobHeader/FindAll",
+                            "FilterID": "JOBHEAD"
+                        }
+                    }
+                },
                 "CfxTypes": {
                     "RowIndex": -1,
                     "API": {
@@ -65,8 +76,9 @@
             "PushErrorWarning": PushErrorWarning,
             "ShowErrorWarningModal": ShowErrorWarningModal,
             "RemoveErrorWarning": RemoveErrorWarning,
-            "RemoveApiErrors": RemoveApiErrors
-
+            "RemoveApiErrors": RemoveApiErrors,
+            "DataentryName": "FreightJobList",
+            "DataentryTitle": "Freight Finance"
         };
         return exports;
 
@@ -105,10 +117,8 @@
                             }
                         },
                         "GlobalVariables": {
-                            "Loading": false,
-                            "NonEditable": false,
-                            "Receiveline": false,
-                            "PercentageValues": false,
+                            "SelectAll": false,
+                            "IsDisablePost": true
                         },
                         "TableProperties": {
                             "UIJobCharge": {
@@ -131,7 +141,7 @@
                                     "isenabled": true,
                                     "property": "cchargecode",
                                     "position": '3',
-                                    "width": "150",
+                                    "width": "100",
                                     "display": false
                                 }, {
                                     "columnname": "Description",
@@ -152,21 +162,21 @@
                                     "isenabled": true,
                                     "property": "cbranch",
                                     "position": '6',
-                                    "width": "150",
+                                    "width": "90",
                                     "display": false
                                 }, {
                                     "columnname": "Dept",
                                     "isenabled": true,
                                     "property": "cdept",
                                     "position": '7',
-                                    "width": "150",
+                                    "width": "90",
                                     "display": false
                                 }, {
                                     "columnname": "Creditor",
                                     "isenabled": true,
                                     "property": "ccreditor",
                                     "position": '8',
-                                    "width": "150",
+                                    "width": "130",
                                     "display": false
                                 }, {
                                     "columnname": "Inv.No",
@@ -180,7 +190,7 @@
                                     "isenabled": true,
                                     "property": "ccostinvdate",
                                     "position": '10',
-                                    "width": "190",
+                                    "width": "135",
                                     "display": false
                                 }, {
                                     "columnname": "Post",
@@ -201,56 +211,56 @@
                                     "isenabled": true,
                                     "property": "ccostcurrency",
                                     "position": '13',
-                                    "width": "150",
+                                    "width": "90",
                                     "display": false
                                 }, {
                                     "columnname": "Est.Cost",
                                     "isenabled": true,
                                     "property": "cestcost",
                                     "position": '14',
-                                    "width": "100",
+                                    "width": "90",
                                     "display": false
                                 }, {
                                     "columnname": "Act.Cost",
                                     "isenabled": true,
                                     "property": "cactcost",
                                     "position": '15',
-                                    "width": "100",
+                                    "width": "90",
                                     "display": false
                                 }, {
                                     "columnname": "Variance",
                                     "isenabled": true,
                                     "property": "ccostvariance",
                                     "position": '16',
-                                    "width": "100",
+                                    "width": "90",
                                     "display": false
                                 }, {
                                     "columnname": "Lolcal cost AMT",
                                     "isenabled": true,
                                     "property": "ccostlocalamt",
                                     "position": '17',
-                                    "width": "100",
+                                    "width": "90",
                                     "display": false
                                 }, {
                                     "columnname": "Tax Code(Cost)",
                                     "isenabled": true,
                                     "property": "ccosttaxcodecost",
                                     "position": '18',
-                                    "width": "100",
+                                    "width": "90",
                                     "display": false
                                 }, {
                                     "columnname": "Tax Amt(Cost)",
                                     "isenabled": true,
                                     "property": "ccosttaxamtcost",
                                     "position": '19',
-                                    "width": "100",
+                                    "width": "90",
                                     "display": false
                                 }, {
                                     "columnname": "Debeitor",
                                     "isenabled": true,
                                     "property": "cdebitor",
                                     "position": '20',
-                                    "width": "150",
+                                    "width": "130",
                                     "display": false
                                 }, {
                                     "columnname": "Inv.No",
@@ -271,7 +281,7 @@
                                     "isenabled": true,
                                     "property": "crevenueinvdate",
                                     "position": '23',
-                                    "width": "190",
+                                    "width": "135",
                                     "display": false
                                 }, {
                                     "columnname": "Post",
@@ -292,7 +302,7 @@
                                     "isenabled": true,
                                     "property": "crevenuecurrency",
                                     "position": '26',
-                                    "width": "150",
+                                    "width": "90",
                                     "display": false
                                 }, {
                                     "columnname": "Est.Revenue",
@@ -350,7 +360,7 @@
                                 "cchargecode": {
                                     "isenabled": true,
                                     "position": '3',
-                                    "width": "150"
+                                    "width": "100"
                                 },
                                 "cdescription": {
                                     "isenabled": true,
@@ -365,17 +375,17 @@
                                 "cbranch": {
                                     "isenabled": true,
                                     "position": '6',
-                                    "width": "150"
+                                    "width": "90"
                                 },
                                 "cdept": {
                                     "isenabled": true,
                                     "position": '7',
-                                    "width": "150"
+                                    "width": "90"
                                 },
                                 "ccreditor": {
                                     "isenabled": true,
                                     "position": '8',
-                                    "width": "150"
+                                    "width": "130"
                                 },
                                 "ccostinvno": {
                                     "isenabled": true,
@@ -385,7 +395,7 @@
                                 "ccostinvdate": {
                                     "isenabled": true,
                                     "position": '10',
-                                    "width": "190"
+                                    "width": "135"
                                 },
                                 "ccostpost": {
                                     "isenabled": true,
@@ -400,42 +410,42 @@
                                 "ccostcurrency": {
                                     "isenabled": true,
                                     "position": '13',
-                                    "width": "150"
+                                    "width": "90"
                                 },
                                 "cestcost": {
                                     "isenabled": true,
                                     "position": '14',
-                                    "width": "100"
+                                    "width": "90"
                                 },
                                 "cactcost": {
                                     "isenabled": true,
                                     "position": '15',
-                                    "width": "100"
+                                    "width": "90"
                                 },
                                 "ccostvariance": {
                                     "isenabled": true,
                                     "position": '16',
-                                    "width": "100"
+                                    "width": "90"
                                 },
                                 "ccostlocalamt": {
                                     "isenabled": true,
                                     "position": '17',
-                                    "width": "100"
+                                    "width": "90"
                                 },
                                 "ccosttaxcodecost": {
                                     "isenabled": true,
                                     "position": '18',
-                                    "width": "100"
+                                    "width": "90"
                                 },
                                 "ccosttaxamtcost": {
                                     "isenabled": true,
                                     "position": '19',
-                                    "width": "100"
+                                    "width": "90"
                                 },
                                 "cdebitor": {
                                     "isenabled": true,
                                     "position": '20',
-                                    "width": "150"
+                                    "width": "130"
                                 },
                                 "crevenueinvno": {
                                     "isenabled": true,
@@ -450,7 +460,7 @@
                                 "crevenueinvdate": {
                                     "isenabled": true,
                                     "position": '23',
-                                    "width": "190"
+                                    "width": "135"
                                 },
                                 "crevenuepost": {
                                     "isenabled": true,
@@ -465,37 +475,37 @@
                                 "crevenuecurrency": {
                                     "isenabled": true,
                                     "position": '26',
-                                    "width": "150"
+                                    "width": "90"
                                 },
                                 "cestrevenue": {
                                     "isenabled": true,
                                     "position": '27',
-                                    "width": "100"
+                                    "width": "90"
                                 },
                                 "cactrevenue": {
                                     "isenabled": true,
                                     "position": '28',
-                                    "width": "100"
+                                    "width": "90"
                                 },
                                 "crevenuevariance": {
                                     "isenabled": true,
                                     "position": '29',
-                                    "width": "100"
+                                    "width": "90"
                                 },
                                 "cselllocalamt": {
                                     "isenabled": true,
                                     "position": '30',
-                                    "width": "100"
+                                    "width": "90"
                                 },
                                 "crevenuetaxcodecost": {
                                     "isenabled": true,
                                     "position": '31',
-                                    "width": "100"
+                                    "width": "90"
                                 },
                                 "crevenuetaxamtcost": {
                                     "isenabled": true,
                                     "position": '32',
-                                    "width": "100"
+                                    "width": "90"
                                 }
                             }
                         }
@@ -506,7 +516,7 @@
 
             if (isNew) {
                 _exports.Entities.Header.Data = currentJobHeader.data;
-                var _code = currentJobHeader.entity.JOB_PK.split("-").join("");
+                var _code = currentJobHeader.entity.PK.split("-").join("");
 
                 var _obj = {
                     [_code]: {
@@ -514,14 +524,14 @@
                     },
                     label: 'New',
                     code: _code,
-                    pk: currentJobHeader.entity.JOB_PK,
+                    pk: currentJobHeader.entity.PK,
                     isNew: isNew
                 };
                 exports.TabList.push(_obj);
                 deferred.resolve(exports.TabList);
             }
             else {
-                helperService.getFullObjectUsingGetById(exports.API.JobHeaderList.API.GetById.Url, currentJobHeader.JOB_PK).then(function (response) {
+                helperService.getFullObjectUsingGetById(exports.API.JobHeaderList.API.GetById.Url, currentJobHeader.PK).then(function (response) {
                     if (response.data.Messages) {
                         response.data.Messages.map(function (value, key) {
                             if (value.Type === "Warning" && value.MessageDesc !== "") {
@@ -532,14 +542,14 @@
                     _exports.Entities.Header.Data = response.data.Response;
                     _exports.Entities.Header.Validations = response.data.Validations;
 
-                    var _code = currentJobHeader.JOB_PK.split("-").join("");
+                    var _code = currentJobHeader.PK.split("-").join("");
                     var obj = {
                         [_code]: {
                             ePage: _exports
                         },
-                        label: currentJobHeader.JOB_JobNo,
+                        label: currentJobHeader.JobNo,
                         code: _code,
-                        pk: currentJobHeader.JOB_PK,
+                        pk: currentJobHeader.PK,
                         isNew: isNew
                     };
                     exports.TabList.push(obj);
@@ -579,7 +589,6 @@
 
             //UIJobcharge Validations
             if (_input.UIJobCharge.length > 0) {
-                debugger;
                 angular.forEach(_input.UIJobCharge, function (value, key) {
                     OnChangeValues(value.ACCCode, 'E1191', true, key, $item.code);
                     OnChangeValues(value.BranchCode, 'E1305', true, key, $item.code);

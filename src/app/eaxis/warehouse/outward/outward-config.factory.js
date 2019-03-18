@@ -145,6 +145,12 @@
                                 "Url": "MstContainer/FindAll",
                                 "FilterID": "MSTCONT"
                             },
+                            "CmpDepartment": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "CmpDepartment/FindAll",
+                                "FilterID": "CMPDEPT"
+                            },
                         },
 
                         "Meta": {

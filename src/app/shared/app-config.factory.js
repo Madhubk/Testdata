@@ -2737,6 +2737,17 @@
                         }
                     }
                 },
+                "WmsTestID": {
+                    "RowIndex": -1,
+                    "API": {
+                        "FindAll": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "TestID/FindAll",
+                            "FilterID": "APPCOUNT"
+                        }
+                    }
+                },
                 "InwardList": {
                     "RowIndex": -1,
                     "API": {
@@ -2855,6 +2866,11 @@
                             "HttpType": "POST",
                             "Url": "WmsPickList/Update"
                         },
+                        "AllocateStock": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "WmsPickList/WmsAllocateStock",
+                        },
                     }
                 },
                 "WmsPickupList": {
@@ -2892,6 +2908,80 @@
                             "Url": "WmsInventory/FindAll",
                             "FilterID": "WMSINV",
                         },
+                    }
+                },
+                "OrgHeaderWarehouse": {
+                    "RowIndex": -1,
+                    "API": {
+                        "FindAll": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "OrgHeaderWarehouse/FindAll",
+                            "FilterID": "TMSORGWAREH",
+                        },
+                    }
+                },
+                "WmsInventoryAdjustment": {
+                    "RowIndex": -1,
+                    "API": {
+                        "Insert": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "WmsInventoryAdjustment/Insert",
+                        },
+                    }
+                },
+
+                "WmsDeliveryReport": {
+                    "RowIndex": -1,
+                    "API": {
+                        "GetById": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "WmsDeliveryReport/GetById/",
+                        },
+                        "Update": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "WmsDeliveryReport/Update"
+                        },
+                        "Insert": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "WmsDeliveryReport/Insert"
+                        },
+                        "FindAll": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "WmsDeliveryReport/FindAll",
+                            "FilterID": "WMSWDR"
+                        }
+                    }
+                },
+                "WmsPickupReport": {
+                    "RowIndex": -1,
+                    "API": {
+                        "GetById": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "WmsPickupReport/GetById/",
+                        },
+                        "Update": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "WmsPickupReport/Update"
+                        },
+                        "Insert": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "WmsPickupReport/Insert"
+                        },
+                        "FindAll": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "WmsPickupReport/FindAll",
+                            "FilterID": "WMSWPR"
+                        }
                     }
                 },
                 "AppCounter": {
@@ -2981,6 +3071,16 @@
                             "Url": "WmsWorkOrderLine/FindAll",
                             "FilterID": "WMSINL"
                         },
+                        "GetById": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "WmsWorkOrderLine/GetById/",
+                        },
+                        "Update": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "WmsWorkOrderLine/Update"
+                        }
                     }
                 },
                 "TMSPickupandDeliverypoint": {
@@ -2991,7 +3091,7 @@
                             "HttpType": "POST",
                             "Url": "TMSPickupandDeliverypoint/FindAll",
                             "FilterID": "TMSPICDEVPOI"
-                        },
+                        }
                     }
                 },
                 "TMSGatepassList": {
@@ -3263,6 +3363,16 @@
 
                         },
 
+                    }
+                },
+                "Notification": {
+                    "RowIndex": -1,
+                    "API": {
+                        "SendSms": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "Notification/SendSms"
+                        },
                     }
                 },
                 "TeamTargetRelease": {
@@ -3573,6 +3683,10 @@
                         "CompleteProcess": {
                             "IsAPI": true,
                             "Url": "EBPMEngine/CompleteProcess",
+                        },
+                        "SuspendInstance": {
+                            "IsAPI": true,
+                            "Url": "EBPMEngine/SuspendInstance/",
                         }
                     }
                 },

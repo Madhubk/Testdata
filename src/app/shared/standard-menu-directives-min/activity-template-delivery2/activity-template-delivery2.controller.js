@@ -24,12 +24,14 @@
             };
             ActivityTemplateDelivery2Ctrl.ePage.Masters.emptyText = "-";
             ActivityTemplateDelivery2Ctrl.ePage.Masters.Config = myTaskActivityConfig;
+            myTaskActivityConfig.Entities = {};
             ActivityTemplateDelivery2Ctrl.ePage.Masters.TaskObj = ActivityTemplateDelivery2Ctrl.taskObj;
             myTaskActivityConfig.Entities.TaskObj = ActivityTemplateDelivery2Ctrl.taskObj;
             ActivityTemplateDelivery2Ctrl.ePage.Masters.Complete = Complete;
             ActivityTemplateDelivery2Ctrl.ePage.Masters.ShowErrorWarningModal = ShowErrorWarningModal;
 
             ActivityTemplateDelivery2Ctrl.ePage.Masters.ErrorWarningConfig = errorWarningService;
+            errorWarningService.Modules = {};
 
             // DatePicker
             ActivityTemplateDelivery2Ctrl.ePage.Masters.DatePicker = {};
@@ -186,10 +188,12 @@
                             myTaskActivityConfig.Entities.Delivery[myTaskActivityConfig.Entities.Delivery.label].ePage.Entities.Header.Data.UIWmsWorkorderReport.DeliveryRequestedDateTime = new Date();
 
                         angular.forEach(ActivityTemplateDelivery2Ctrl.ePage.Masters.EntityObj.UIWmsDeliveryLine, function (value, key) {
-                            value.UISPMSDeliveryReport.AcknowledgedPerson = myTaskActivityConfig.Entities.Delivery[myTaskActivityConfig.Entities.Delivery.label].ePage.Entities.Header.Data.UIWmsWorkorderReport.AcknowledgedPerson;
-                            value.UISPMSDeliveryReport.CSRReceiver = myTaskActivityConfig.Entities.Delivery[myTaskActivityConfig.Entities.Delivery.label].ePage.Entities.Header.Data.UIWmsWorkorderReport.AdditionalRef2Code;
-                            value.UISPMSDeliveryReport.AcknowledgedDateTime = myTaskActivityConfig.Entities.Delivery[myTaskActivityConfig.Entities.Delivery.label].ePage.Entities.Header.Data.UIWmsWorkorderReport.AcknowledgementDateTime;
-                            value.UISPMSDeliveryReport.RequestedDateTime = myTaskActivityConfig.Entities.Delivery[myTaskActivityConfig.Entities.Delivery.label].ePage.Entities.Header.Data.UIWmsWorkorderReport.DeliveryRequestedDateTime;
+                            if (value.UISPMSDeliveryReport) {
+                                value.UISPMSDeliveryReport.AcknowledgedPerson = myTaskActivityConfig.Entities.Delivery[myTaskActivityConfig.Entities.Delivery.label].ePage.Entities.Header.Data.UIWmsWorkorderReport.AcknowledgedPerson;
+                                value.UISPMSDeliveryReport.CSRReceiver = myTaskActivityConfig.Entities.Delivery[myTaskActivityConfig.Entities.Delivery.label].ePage.Entities.Header.Data.UIWmsWorkorderReport.AdditionalRef2Code;
+                                value.UISPMSDeliveryReport.AcknowledgedDateTime = myTaskActivityConfig.Entities.Delivery[myTaskActivityConfig.Entities.Delivery.label].ePage.Entities.Header.Data.UIWmsWorkorderReport.AcknowledgementDateTime;
+                                value.UISPMSDeliveryReport.RequestedDateTime = myTaskActivityConfig.Entities.Delivery[myTaskActivityConfig.Entities.Delivery.label].ePage.Entities.Header.Data.UIWmsWorkorderReport.DeliveryRequestedDateTime;
+                            }
                             var _filter = {
                                 "DeliveryLine_FK": value.PK
                             };
@@ -237,7 +241,8 @@
                     ActivityTemplateDelivery2Ctrl.ePage.Masters.EntityObj.UIWmsDelivery.WorkOrderStatus = "DIP";
                     angular.forEach(ActivityTemplateDelivery2Ctrl.ePage.Masters.EntityObj.UIWmsDeliveryLine, function (value, key) {
                         value.WorkOrderLineStatus = "DIP";
-                        value.UISPMSDeliveryReport.DeliveryLineStatus = "Delivery In Progress";
+                        if (value.UISPMSDeliveryReport)
+                            value.UISPMSDeliveryReport.DeliveryLineStatus = "Delivery In Progress";
                     });
                     myTaskActivityConfig.CallEntity = false;
                 }
@@ -286,7 +291,7 @@
                                                     response.data.Response[0].DEL_OL_ProductCode = value.OL_PrdCode;
                                                     response.data.Response[0].DEL_OL_ProductDesc = value.OL_PrdDesc;
                                                     response.data.Response[0].StatusCode = ActivityTemplateDelivery2Ctrl.ePage.Masters.EntityObj.UIWmsDelivery.WorkOrderStatus;
-                                                    response.data.Response[0].StatusDescription = ActivityTemplateDelivery2Ctrl.ePage.Masters.EntityObj.UIWmsDelivery.WorkOrderStatusDesc;
+                                                    response.data.Response[0].StatusDesc = ActivityTemplateDelivery2Ctrl.ePage.Masters.EntityObj.UIWmsDelivery.WorkOrderStatusDesc;
 
                                                     apiService.post("eAxisAPI", appConfig.Entities.WmsDeliveryReport.API.Update.Url, response.data.Response[0]).then(function (response) {
                                                         if (response.data.Response) {
@@ -456,6 +461,7 @@
 
         function DocumentValidation() {
             if (ActivityTemplateDelivery2Ctrl.ePage.Masters.TaskObj) {
+                errorWarningService.Modules = {};
                 // validation findall call
                 var _obj = {
                     ModuleName: ["MyTask"],

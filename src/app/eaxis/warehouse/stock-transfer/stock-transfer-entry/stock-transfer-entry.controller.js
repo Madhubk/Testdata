@@ -215,6 +215,8 @@
         }
 
         function SelectedLookupClient(item) { 
+            StocktransferEntryCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.ClientCode= item.Code;
+            StocktransferEntryCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.ClientName= item.FullName;
             StocktransferEntryCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.Client = item.Code + '-' + item.FullName;
             StocktransferEntryCtrl.ePage.Entities.Header.Data.UIOrgHeader = item;
             DefaultFilter();
@@ -223,6 +225,8 @@
         }
 
         function SelectedLookupWarehouse(item) {
+            StocktransferEntryCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.WarehouseCode = item.WarehouseCode;
+            StocktransferEntryCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.WarehouseName = item.WarehouseName;
             StocktransferEntryCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.Warehouse = item.WarehouseCode + ' - ' + item.WarehouseName;
             DefaultFilter();
             OnChangeValues(StocktransferEntryCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.Warehouse, 'E11012');
@@ -794,7 +798,6 @@
 
             OnChangeValues(item.ProductCode, 'E11004', true, index);
             OnChangeValues(item.StockKeepingUnit, 'E11007', true, index);
-            OnChangeValues(item.PAC_PackType, 'E11010', true, index);
             OnChangeValues('value', 'E11027', true, index);
         }
         //#endregion

@@ -215,7 +215,7 @@
                 value.UISPMSDeliveryReport.ConsigneeCode = _input.UIWmsDelivery.ConsigneeCode;
                 value.UISPMSDeliveryReport.ConsigneeName = _input.UIWmsDelivery.ConsigneeName;
                 value.UISPMSDeliveryReport.StatusCode = _input.UIWmsDelivery.WorkOrderStatus;
-                value.UISPMSDeliveryReport.StatusDescription = _input.UIWmsDelivery.WorkOrderStatusDesc;
+                value.UISPMSDeliveryReport.StatusDesc = _input.UIWmsDelivery.WorkOrderStatusDesc;
                 value.UISPMSDeliveryReport.RequestMode = _input.UIWmsWorkorderReport.RequestMode;
                 value.UISPMSDeliveryReport.ResponseType = _input.UIWmsWorkorderReport.ResponseType;
                 value.UISPMSDeliveryReport.DropPoint = _input.UIWmsWorkorderReport.AdditionalRef1Code;

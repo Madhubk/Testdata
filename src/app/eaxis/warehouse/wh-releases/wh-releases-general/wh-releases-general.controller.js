@@ -367,9 +367,10 @@
                 } else {
                     toastr.warning("Pickline is not available. So cannot create Inward");
                 }
-            } else {
-                toastr.warning("It can be created when the selected Order is in 'MTR' type");
             }
+            //   else {
+            //     toastr.warning("It can be created when the selected Order is in 'MTR' type");
+            // }
         }
 
         function CreatingInward(InwardObject, currentOutward) {

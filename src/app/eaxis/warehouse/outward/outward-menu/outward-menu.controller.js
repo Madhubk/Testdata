@@ -37,6 +37,7 @@
             OutwardMenuCtrl.ePage.Masters.Config = outwardConfig;
             OutwardMenuCtrl.ePage.Masters.CancelOutward = CancelOutward;
             OutwardMenuCtrl.ePage.Masters.OnMenuClick = OnMenuClick;
+            OutwardMenuCtrl.ePage.Masters.Billing = Billing;
 
             //To show hide menus
             OutwardMenuCtrl.ePage.Masters.IsHideMytaskMenu = OutwardMenuCtrl.isHideMenu;
@@ -458,6 +459,7 @@
                                                                         response.data.Response.TmsManifestHeader.EstimatedDeliveryDate = new Date();
                                                                         response.data.Response.TmsManifestHeader.EstimatedDispatchDate = $filter('date')(new Date(), "dd-MMM-yyyy hh:mm a")
                                                                         response.data.Response.TmsManifestHeader.EstimatedDeliveryDate = $filter('date')(new Date(), "dd-MMM-yyyy hh:mm a")
+                                                                        response.data.Response.TmsManifestHeader.TransporterType = "Transportation";
                                                                         OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.AdditionalRef1Code = response.data.Response.TmsManifestHeader.ManifestNumber;
                                                                         OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.AdditionalRef1Fk = response.data.Response.TmsManifestHeader.PK;
                                                                         OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.IsModified = true;
@@ -826,6 +828,54 @@
                 });
             }
         }
+
+         //#region JobAccounting
+         function Billing() {
+
+            var obj = {
+                "AgentOrg_Code":OutwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].AgentOrg_Code,
+                "Agent_Org_FK":OutwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].Agent_Org_FK,
+                "GB":OutwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].GB,
+                "BranchCode":OutwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].BranchCode,
+                "BranchName":OutwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].BranchName,
+                "GC":OutwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].GC,
+                "CompanyCode":OutwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].CompanyCode,
+                "CompanyName":OutwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].CompanyName,
+                "GE":OutwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].GE,
+                "DeptCode":OutwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].DeptCode,
+                "EntitySource":OutwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].EntitySource,
+                "JobNo":OutwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].JobNo,
+                "EntityRefKey": OutwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].EntityRefKey,
+                "HeaderType":OutwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].HeaderType,
+                "LocalOrg_Code":OutwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].LocalOrg_Code,
+                "LocalOrg_FK":OutwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].LocalOrg_FK,
+            }
+            var modalInstance = $uibModal.open({
+                animation: true,
+                keyboard: false,
+                backdrop: "static",
+                windowClass: "Finance right",
+                scope: $scope,
+                size: "xl",
+                templateUrl: "app/eaxis/finance/finance-job/finance-job-list/finance-job-list.html",
+                controller: "FinanceJobListController",
+                controllerAs: "FinanceJobListCtrl",
+                bindToController: true,
+                resolve: {
+                    CurrentFinanceJob: function () {
+                        return obj;
+                    }
+                }
+            }).result.then(
+                function (response) {
+                    console.log("Success");
+                },
+                function () {
+                    console.log("Cancelled");
+                }
+            );
+        }
+        //#endregion
 
         Init();
     }

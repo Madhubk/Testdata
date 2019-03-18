@@ -6,49 +6,11 @@
 
 /* =========== Exchange Rate Table ========= */
 .exchange-table .table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th{
-    padding: 6px !important;
+    padding: 7px !important;
 }
 
 /* =========== Charge Details Table ========= */
-/* .fixedheader{
-    margin-top: 10px;
-    margin-bottom: 40px;
-    border: 1px solid #cacad6;
-    overflow-x: auto;
-} 
-
-.fixedheader table{
-    display: block;
-    width: 100%;
-    border-collapse: separate;
-    font-weight: 400;
-} 
-
- .fixedheader table thead{
-    height: 35px;
-    border-bottom: #ddd 1px solid;
-    border-top: #ddd 1px solid;
-    background: #f8f8f8;
-    padding: 5px 10px;
-    font-weight: 700;
-    font-size: 12px;
-    border-right: 1px solid #ddd;
-    white-space: nowrap;
-} 
-
- .fixedheader table thead .header {
-    height: 35px;
-    border-bottom: #ddd 1px solid;
-    border-top: #ddd 1px solid;
-    background: #f8f8f8;
-    padding: 5px 10px;
-    font-weight: 700;
-    font-size: 12px;
-    border-right: 1px solid #ddd;
-    white-space: nowrap;
-}  
-*/
-
+/* 
 .fixedheader{
 border: 1px solid #cacad6;
 overflow-x: auto;
@@ -112,7 +74,6 @@ overflow-x: auto;
 }
 
 .fixedheader>table> tbody> tr> td:nth-child(1) { 
-     /*the first cell in each tr*/
      position: relative;
      z-index: 12;
      border-right: 1px solid #ddd !important;
@@ -140,7 +101,7 @@ border: 1px solid #ddd;
     height: 22px !important;
     font-size: 11px !important;
 }
-  
+
 .height-22 .btn{
     height: 22px !important;
     padding: 2px 6px !important;
@@ -154,59 +115,17 @@ border: 1px solid #ddd;
     font-size: 11px !important;
     line-height: 0.5 !important;
 }
+*/
 
 .gray-background{
-    background-color: #cccfd1;
+    background-color: #cccfd1 !important;
+}
+
+.customcheckbox input[type=checkbox]~.text:before{
+    color:black;
 }
   
-/* .fixedheader table thead .charge{
-    background-color: #b3c6ff !important;
-}
 
-.fixedheader table thead .cost{
-    background-color: #E1FED6;
-}
-
-.fixedheader table thead .revenue{
-    background-color: #FFEDCA;
-}   */
-
-/* .checkbox{
-    margin-bottom:0px !important;
-}
- */
-/* .costRevenue_scroll .table {
-    display: table;
-    width: 100%;
-    border-collapse: separate;
-    font-weight: 400;
-} 
-
- .costRevenue_scroll .table .table_header {
-    height: 35px;
-    display: table-cell;
-    border-bottom: #ddd 1px solid;
-    border-top: #ddd 1px solid;
-    background: #f8f8f8;
-    padding: 5px 10px;
-    font-weight: 700;
-    font-size: 12px;
-    border-right: 1px solid #ddd;
-    white-space: nowrap;
-} 
-
-.costRevenue_scroll .table .table_charge{
-    background-color: #b3c6ff !important;
-}
-
-.costRevenue_scroll .table .table_cost{
-    background-color: #E1FED6;
-}
-
-.costRevenue_scroll .table .table_revenue{
-    background-color: #FFEDCA;
-}  */
-                                                           /* boostrap.min.css checkbox override */
 
 
 
