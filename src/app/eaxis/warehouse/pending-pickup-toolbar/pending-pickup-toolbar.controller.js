@@ -76,7 +76,7 @@
                 });
                 if (count == PendingPickupToolbarCtrl.ePage.Masters.PendingPickupList.length) {
                     PendingPickupToolbarCtrl.ePage.Masters.IsCreatePickupBtn = true;
-                    PendingPickupToolbarCtrl.ePage.Masters.CreatePickupBtnText = "Please Wait...";                    
+                    PendingPickupToolbarCtrl.ePage.Masters.CreatePickupBtnText = "Please Wait...";
                     if (PendingPickupToolbarCtrl.ePage.Masters.PendingPickupList[0].WDR_DeliveryRequest_FK) {
                         apiService.get("eAxisAPI", appConfig.Entities.WmsDeliveryList.API.GetById.Url + PendingPickupToolbarCtrl.ePage.Masters.PendingPickupList[0].WDR_DeliveryRequest_FK).then(function (response) {
                             if (response.data.Response) {
@@ -84,7 +84,7 @@
                                 ReadyToCreatePickup();
                             }
                         });
-                    } else {                        
+                    } else {
                         // get Consignee Job address
                         PendingPickupToolbarCtrl.ePage.Masters.DeliveryData = {};
                         PendingPickupToolbarCtrl.ePage.Masters.DeliveryData.UIJobAddress = [];
@@ -180,7 +180,7 @@
             }
         }
 
-        function ReadyToCreatePickup() {            
+        function ReadyToCreatePickup() {
             helperService.getFullObjectUsingGetById(appConfig.Entities.WmsPickupList.API.GetById.Url, 'null').then(function (response) {
                 if (response.data.Response.Response) {
                     response.data.Response.Response.UIWmsPickup.PK = response.data.Response.Response.PK;
@@ -259,7 +259,7 @@
                             "CSRReceiver": "",
                             "AcknowledgedDateTime": null,
                             "RequestedDateTime": null,
-                            "RequesterContactNumber": null,
+                            "RequesterContactNumber": value.WDR_RequesterContactNumber,
                             "PickupRequestNo": response.data.Response.Response.UIWmsPickup.WorkOrderID,
                             "PickupRequest_FK": response.data.Response.Response.UIWmsPickup.PK,
                             "PickupLineRefNo": value.WDR_DeliveryLineRefNo,
