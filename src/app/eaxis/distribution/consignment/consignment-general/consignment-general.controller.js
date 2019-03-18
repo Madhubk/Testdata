@@ -179,7 +179,7 @@
                 animation: true,
                 backdrop: "static",
                 keyboard: true,
-                windowClass: "general-edit right address",
+                windowClass: "general-edits right address",
                 scope: $scope,
 
                 templateUrl: 'app/eaxis/distribution/consignment/consignment-general/consignment-address/consignment-address.html',
@@ -204,7 +204,7 @@
                 animation: true,
                 backdrop: "static",
                 keyboard: true,
-                windowClass: "general-edit right address",
+                windowClass: "general-edits right address",
                 scope: $scope,
                 templateUrl: "app/eaxis/distribution/consignment/consignment-general/address-model/address-model.html",
                 controller: 'AddressModalController as AddressModalCtrl',
@@ -222,7 +222,7 @@
                 function (response) {
                     if (response.data) {
                         DMSConsignmentGeneralCtrl.currentConsignment[DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.OrgReceiver.Pk].ePage.Entities.Header.Data = response.data;
-
+                        
                         DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data = response.data;
                     }
                 },

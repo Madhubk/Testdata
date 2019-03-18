@@ -64,7 +64,7 @@
                 </div>
             </div>
             <div class="rows p-5 height-103">
-                <div nd-show="DMSConsignmentGeneralCtrl.ePage.Masters.Sender"
+                <div data-ng-if="DMSConsignmentGeneralCtrl.ePage.Masters.Sender"
                     ng-repeat="x in DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.JobAddress | filter: {AddressType:'SND'}">
                     <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8 addressstyle mt-10">
                         <div class="text-single-line font-12" title='{{x.Address1}}'>{{x.Address1}}</div>

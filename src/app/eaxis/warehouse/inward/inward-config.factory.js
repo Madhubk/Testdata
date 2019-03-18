@@ -184,6 +184,12 @@
                                 "Url": "WmsInwardList/GetById/",
                                 "FilterID": "WMSWORK"
                             },
+                            "CmpDepartment": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "CmpDepartment/FindAll",
+                                "FilterID": "CMPDEPT"
+                            },
 
                         },
 

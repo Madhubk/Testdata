@@ -195,16 +195,16 @@
         <div class="col-lg-12 mt-20 mb-10 headerstyle">
             <div class="col-lg-6">GENERATE DOCUMENT</div>
         </div>
-        <div ng-repeat='x in DeliveryRunsheetCtrl.ePage.Masters.CustomizeDocument'>
+        <div ng-repeat='x in DeliveryRunsheetCtrl.ePage.Masters.GeneralDocument'>
             <div class="col-lg-12 mt-10">
                 <div class="col-lg-6">
                     {{x.Description}}
                 </div>
                 <div class="col-lg-4">
-                    <a href="" ng-click="DeliveryRunsheetCtrl.ePage.Masters.GenerateReport(x,'PDF','Customize',$index)"
-                        ng-if="!DeliveryRunsheetCtrl.ePage.Masters.DocumentText[$index]"><i>Generate</i></a>
+                    <a href="" ng-click="DeliveryRunsheetCtrl.ePage.Masters.GenerateReport(x,'PDF','General',$index)"
+                        ng-if="!x.PDFGenerating"><i>Generate</i></a>
                     <span href=""
-                        ng-if="DeliveryRunsheetCtrl.ePage.Masters.DocumentText[$index]"><i>Generating...</i></span>
+                        ng-if="x.PDFGenerating"><i>Generating...</i></span>
                 </div>
             </div>
         </div>
