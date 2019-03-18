@@ -164,9 +164,8 @@
             DamagedSkuToolbarCtrl.ePage.Masters.modalInstance.dismiss('cancel');
         }
 
-        function UpdateData() {            
-            DamagedSkuToolbarCtrl.ePage.Masters.UpdateInventoryBtnText = "Please Wait..."
-            DamagedSkuToolbarCtrl.ePage.Masters.IsUpdateInventoryBtn = true;
+        function UpdateData() {
+            CloseEditActivityModal();            
             var Status = "";
             if (DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList[0].ProductCondition == 'DMG') {
                 Status = "Damaged";
@@ -179,7 +178,8 @@
                 "Status": Status,
                 "CreatedBy": authService.getUserInfo().UserEmail
             }
-            CloseEditActivityModal();
+            DamagedSkuToolbarCtrl.ePage.Masters.UpdateInventoryBtnText = "Please Wait..."
+            DamagedSkuToolbarCtrl.ePage.Masters.IsUpdateInventoryBtn = true;
             apiService.post("eAxisAPI", appConfig.Entities.WmsInventoryAdjustment.API.Insert.Url, _input).then(function (response) {
                 if (response.data.Status == 'Success') {
                     toastr.success('Inventory Updated Successfully ');
@@ -498,7 +498,7 @@
                         ReadyToCreateMTROutward(type);
                     }
                 });
-            } else {                
+            } else {
                 DamagedSkuToolbarCtrl.ePage.Masters.PickupData = {};
                 DamagedSkuToolbarCtrl.ePage.Masters.PickupData.UIJobAddress = [];
                 // get Client Job address
@@ -605,7 +605,7 @@
             }
         }
 
-        function ReadyToCreateMTROutward(type) {            
+        function ReadyToCreateMTROutward(type) {
             helperService.getFullObjectUsingGetById(appConfig.Entities.WmsOutwardList.API.GetById.Url, 'null').then(function (response) {
                 if (response.data.Response.Response) {
                     response.data.Response.Response.UIWmsOutwardHeader.PK = response.data.Response.Response.PK;
@@ -791,7 +791,7 @@
         }
         // #endregion
         // #region - Change the status of pickup line and pickup report
-        function ChangePickupStatus(type) {            
+        function ChangePickupStatus(type) {
             if (DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList[0].PickupRequest_FK) {
                 var count = 0;
                 var TempPickupList = _.groupBy(DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList, 'PickupRequest_FK');
@@ -844,7 +844,7 @@
         }
 
         function ChangesPickupLineStatus(type) {
-            angular.forEach(DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList, function (value, key) {                
+            angular.forEach(DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList, function (value, key) {
                 if (value.PickupLine_FK) {
                     var _filter = {
                         "PickupLine_FK": value.PickupLine_FK
