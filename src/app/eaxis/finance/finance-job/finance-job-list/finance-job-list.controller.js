@@ -89,7 +89,6 @@
                     response.data.Response.Response.UIJobHeader.EntitySource = CurrentFinanceJob.EntitySource;
                     response.data.Response.Response.UIJobHeader.EntityRefKey = CurrentFinanceJob.EntityRefKey;
                     response.data.Response.Response.UIJobHeader.HeaderType = CurrentFinanceJob.HeaderType;
-                   // FinanceJobListCtrl.ePage.Masters.CurrentFinanceJob.push(response.data.Response.Response);
                 }
 
                 var _obj = {
@@ -99,7 +98,6 @@
                 };
 
                 financeConfig.GetTabDetails(_obj, true).then(function (response) {
-                    debugger;
                     if (response) {
                         FinanceJobListCtrl.ePage.Masters.FinanceList = false;
                         FinanceJobListCtrl.ePage.Masters.CurrentFinanceJob = response;

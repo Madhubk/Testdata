@@ -1,73 +1,35 @@
-<div class="col-xl-5 col-lg-5 col-md-5 col-sm-12 col-xs-12 p-10">
+<div class="col-xl-6 col-lg-6 col-md-7 col-sm-12 col-xs-12 p-10">
     <div class="orders-container border">
         <div class="" data-ng-repeat="x in InwardDocumentCtrl.ePage.Masters.GeneralDocument">
             <div class="orders-header">
-                <span class="menu-desc">{{x.MenuName}}</span>
-                <span><a class="item-more-icon margin-right-30"  href="" data-toggle="collapse" data-target="#Order{{$index}}"><i></i></a></span>
-            </div>
-            <ul id="Order{{$index}}" class="orders-list collapse">
-                
-                <li class="order-item filter-sidebar-setting"  ng-class="{active_list: InwardDocumentCtrl.ePage.Masters.selectedRow==$index}">
-                    <div class="row">
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                                <div class="item-booker">PDF</div>
-                                <div class="item-time">
-                                    <span class="font-style">Used to Generate Document in PDF Format</span>
-                                </div>
-                            </div>
-                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pt-20">
-                                <div class="meter" data-ng-if="x.PDFGenerating" style="width:150px">
-                                    <span></span>
-                                </div>
-                                <div class="text-single-line" data-ng-if="!x.PDFGenerating">
-                                    <a href=""  data-ng-click="InwardDocumentCtrl.ePage.Masters.GenerateReport(x,'PDF','General',$index)">Generate</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-                <li class="order-item filter-sidebar-setting"  ng-class="{active_list: InwardDocumentCtrl.ePage.Masters.selectedRow==$index}">
-                    <div class="row">
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                                <div class="item-booker">EXCEL</div>
-                                <div class="item-time">
-                                    <span class="font-style">Used to Generate Document in Excel Format</span>
-                                </div>
-                            </div>
-                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pt-20">
-                                <div class="meter" data-ng-if="x.EXCELGenerating" style="width:150px">
-                                    <span></span>
-                                </div>
-                                <div class="text-single-line" data-ng-if="!x.EXCELGenerating">
-                                    <a href=""  data-ng-click="InwardDocumentCtrl.ePage.Masters.GenerateReport(x,'EXCEL','General',$index)">Generate</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-
-            </ul>
-        </div>
-    </div>
-</div>
-
-<div class="clearfix p-10 mb-50">
-    <div class="col-lg-12 mt-10 mb-10 headerstyle">
-        <div class="col-lg-6">DOCUMENT NAME</div>
-    </div>
-    <div ng-repeat='x in InwardDocumentCtrl.ePage.Masters.CustomizeDocument'>
-        <div class="col-lg-12 mt-10">
-            <div class="col-lg-6">
-                {{x.Description}}
-            </div>
-            <div class="col-lg-4">
-                <a href="" ng-click="InwardDocumentCtrl.ePage.Masters.GenerateReport(x,'PDF','Customize',$index)" ng-if="!InwardDocumentCtrl.ePage.Masters.DocumentText[$index]"><i>Generate</i></a>
-                <span href="" ng-if="InwardDocumentCtrl.ePage.Masters.DocumentText[$index]"><i>Generating...</i></span>
+                <div class="col-lg-8 col-xl-8 col-md-8 col-sm-8">
+                    <div data-ng-bind="x.MenuName" class="text-single-line bold" title="{{x.MenuName}}"></div>
+                </div>
+                <div class="col-lg-4 col-xl-4 col-md-4 col-sm-4 text-right font-120">
+                    <i class="fa fa-file-pdf-o mr-30 cursor-pointer danger icons" title="Download as PDF" ng-class="{'hide-icon': x.PDFGenerating}"
+                        data-ng-click="InwardDocumentCtrl.ePage.Masters.GenerateReport(x,'PDF','General',$index)"></i>
+                    <i class="fa fa-file-excel-o mr-30 cursor-pointer success icons" title="Download as Excel" ng-class="{'hide-icon' : x.EXCELGenerating}"
+                        data-ng-click="InwardDocumentCtrl.ePage.Masters.GenerateReport(x,'EXCEL','General',$index)"></i>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
-
+<div class="clearfix  mb-50 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 p-0">
+    <div class="col-xl-6 col-lg-6 col-md-7 col-sm-12 col-xs-12 p-10">
+        <div class="orders-container border">
+            <div class="" data-ng-repeat="x in InwardDocumentCtrl.ePage.Masters.CustomizeDocument">
+                <div class="orders-header">
+                    <div class="col-lg-8 col-xl-8 col-md-8 col-sm-8">
+                        <div data-ng-bind="x.Description" class="text-single-line bold" title="{{x.Description}}"></div>
+                    </div>
+                    <div class="col-lg-4 col-xl-4 col-md-4 col-sm-4 text-right font-120">
+                        <i class="fa fa-file-pdf-o mr-30 cursor-pointer danger icons" title="Download as PDF" ng-class="{'hide-icon': InwardDocumentCtrl.ePage.Masters.DocumentText[$index]}"
+                            data-ng-click="InwardDocumentCtrl.ePage.Masters.GenerateReport(x,'PDF','Customize',$index)"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

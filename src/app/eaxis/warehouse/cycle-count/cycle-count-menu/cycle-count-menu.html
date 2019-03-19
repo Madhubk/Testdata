@@ -83,13 +83,17 @@
                 </span>
                 <span class="dropup pull-right">
                     <button class="btn btn-primary btn-sm margin-right-10 mt-6 dropdown-toggle" type="button" data-toggle="dropdown" ng-disabled="CycleCountMenuCtrl.ePage.Masters.DisableReport ||CycleCountMenuCtrl.currentCycleCount.isNew">Documents<span class="ml-5 caret"></span></button>
-                    <ul class="dropdown-menu dropdown-menu-right">
+                    <ul class="dropdown-menu dropdown-menu-right"style="width:400px">
                         <li ng-repeat="x in CycleCountMenuCtrl.ePage.Masters.AllDocumentValues">
-                            <a href="javascript:void(0);" data-ng-click="CycleCountMenuCtrl.ePage.Masters.GenerateDocuments(x,'PFD')">{{x.Description}} - Pdf</a>
-                        </li>
-                        <li class="divider"></li>
-                        <li ng-repeat="x in CycleCountMenuCtrl.ePage.Masters.AllDocumentValues">
-                            <a href="javascript:void(0);" data-ng-click="CycleCountMenuCtrl.ePage.Masters.GenerateDocuments(x,'EXCEL')">{{x.Description}} - Excel</a>
+                            <div class="col-lg-8 col-xl-8 col-md-8 col-sm-8">
+                                <div data-ng-bind="x.Description" class="text-single-line bold" title="{{x.Description}}"></div>
+                            </div>
+                            <div class="col-lg-4 col-xl-4 col-md-4 col-sm-4 text-right font-120">
+                                <i class="fa fa-file-pdf-o mr-30 cursor-pointer danger icons" title="Download as PDF" ng-class="{'hide-icon': x.PDFGenerating}"
+                                    data-ng-click="CycleCountMenuCtrl.ePage.Masters.GenerateDocuments(x,'PDF')"></i>
+                                <i class="fa fa-file-excel-o mr-30 cursor-pointer success icons" title="Download as Excel" ng-class="{'hide-icon' : x.EXCELGenerating}"
+                                    data-ng-click="CycleCountMenuCtrl.ePage.Masters.GenerateDocuments(x,'EXCEL')"></i>
+                            </div>
                         </li>
                     </ul>
                 </span> 
