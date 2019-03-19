@@ -2,7 +2,7 @@
     <div class="widget-header bordered-bottom">
         <span class="widget-caption">ASN Trend</span>
     </div>
-    <table class="table table-hover" id="style-1" style="height:240px;overflow-y: auto;">
+    <table class="table table-hover">
         <thead class="bordered-darkorange">
             <tr>
                 <th>
@@ -23,7 +23,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="x in AsnTrendCtrl.ePage.Masters.AsnTrendDetails" >
+            <tr ng-repeat="x in AsnTrendCtrl.ePage.Masters.AsnTrendDetails">
                 <td>
                     {{$index+1}}
                 </td>

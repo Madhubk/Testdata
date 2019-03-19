@@ -5,9 +5,9 @@
         .module("Application")
         .controller("DynamicDashboardController", DynamicDashboardController);
 
-    DynamicDashboardController.$inject = ["$location", "$scope", "APP_CONSTANT", "authService", "apiService", "helperService", "$timeout", "toastr", "appConfig", "$state", "$uibModal", "$window", "dynamicLookupConfig", "confirmation"];
+    DynamicDashboardController.$inject = ["helperService", "$filter"];
 
-    function DynamicDashboardController($location, $scope, APP_CONSTANT, authService, apiService, helperService, $timeout, toastr, appConfig, $state, $uibModal, $window, dynamicLookupConfig, confirmation) {
+    function DynamicDashboardController(helperService, $filter) {
 
         var DynamicDashboardCtrl = this;
 
@@ -54,26 +54,26 @@
                 "SequenceNo": 1,
                 "IsShow": true
             },
-            //  {
-            //     "ComponentName": "AsnTrend",
-            //     "Directive": "asn-trend",
-            //     "SequenceNo": 2,
-            //     "IsShow": true
-            // },
+            {
+                "ComponentName": "AsnTrend",
+                "Directive": "asn-trend",
+                "SequenceNo": 3,
+                "IsShow": true
+            },
             {
                 "ComponentName": "Notification",
                 "Directive": "notification",
-                "SequenceNo": 3,
+                "SequenceNo": 5,
                 "IsShow": true
             }, {
                 "ComponentName": "KPI",
                 "Directive": "kpi-directive",
-                "SequenceNo": 4,
+                "SequenceNo": 2,
                 "IsShow": true
             }, {
                 "ComponentName": "MyTask",
                 "Directive": "my-task-directive",
-                "SequenceNo": 5,
+                "SequenceNo": 4,
                 "IsShow": true
             }, {
                 "ComponentName": "Exception",
@@ -81,6 +81,7 @@
                 "SequenceNo": 6,
                 "IsShow": true
             }];
+            DynamicDashboardCtrl.ePage.Masters.ComponentList = $filter('orderBy')(DynamicDashboardCtrl.ePage.Masters.ComponentList, 'SequenceNo');
         }
 
         Init();
