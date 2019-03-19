@@ -9,12 +9,12 @@
 
     function AsnTrendController(authService, apiService, appConfig, helperService, dynamicDashboardConfig) {
 
-        var AsnReceivedCtrl = this;
+        var AsnTrendCtrl = this;
 
         function Init() {
 
 
-            AsnReceivedCtrl.ePage = {
+            AsnTrendCtrl.ePage = {
                 "Title": "",
                 "Prefix": "ASN_Recived_with_Status",
                 "Masters": {},
@@ -22,21 +22,21 @@
                 "Entities": '',
             };
 
-            GetAsnReceivedWithStatusDetails();
+            GetAsnTrendDetails();
         }
 
-        function GetAsnReceivedWithStatusDetails() {            
+        function GetAsnTrendDetails() {            
             var _filter = {
             };
 
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": dynamicDashboardConfig.Entities.WmsAsnLine.API.DashboardFindAll.FilterID
+                "FilterID": dynamicDashboardConfig.Entities.WmsAsnLine.API.ASNTrendFindAll.FilterID
             };
 
-            apiService.post("eAxisAPI", dynamicDashboardConfig.Entities.WmsAsnLine.API.DashboardFindAll.Url, _input).then(function (response) {
+            apiService.post("eAxisAPI", dynamicDashboardConfig.Entities.WmsAsnLine.API.ASNTrendFindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
-                    AsnReceivedCtrl.ePage.Masters.AsnReceivedWithStatusDetails = response.data.Response;
+                    AsnTrendCtrl.ePage.Masters.AsnTrendDetails = response.data.Response;
                 }
             });
         }

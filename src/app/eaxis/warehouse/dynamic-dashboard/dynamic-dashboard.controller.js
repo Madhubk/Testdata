@@ -53,25 +53,32 @@
                 "Directive": "asn-received-status",
                 "SequenceNo": 1,
                 "IsShow": true
-            }, {
+            },
+            //  {
+            //     "ComponentName": "AsnTrend",
+            //     "Directive": "asn-trend",
+            //     "SequenceNo": 2,
+            //     "IsShow": true
+            // },
+            {
                 "ComponentName": "Notification",
                 "Directive": "notification",
-                "SequenceNo": 2,
+                "SequenceNo": 3,
                 "IsShow": true
             }, {
                 "ComponentName": "KPI",
                 "Directive": "kpi-directive",
-                "SequenceNo": 3,
+                "SequenceNo": 4,
                 "IsShow": true
             }, {
                 "ComponentName": "MyTask",
                 "Directive": "my-task-directive",
-                "SequenceNo": 4,
+                "SequenceNo": 5,
                 "IsShow": true
             }, {
                 "ComponentName": "Exception",
                 "Directive": "exception-directive",
-                "SequenceNo": 5,
+                "SequenceNo": 6,
                 "IsShow": true
             }];
         }

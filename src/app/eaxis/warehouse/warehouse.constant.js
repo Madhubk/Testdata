@@ -823,6 +823,13 @@
                 'app/eaxis/warehouse/dynamic-dashboard/asn-received-status/asn-received-status.directive.js',
             ]
         }, {
+            name: 'AsnTrend',
+            files: [
+                // 'app/eaxis/warehouse/dynamic-dashboard/asn-trend/asn-trend.css',
+                'app/eaxis/warehouse/dynamic-dashboard/asn-trend/asn-trend.controller.js',
+                'app/eaxis/warehouse/dynamic-dashboard/asn-trend/asn-trend.directive.js',
+            ]
+        }, {
             name: 'Notification',
             files: [
                 'app/eaxis/warehouse/dynamic-dashboard/notification/notification.css',

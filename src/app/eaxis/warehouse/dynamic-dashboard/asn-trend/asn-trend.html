@@ -1,8 +1,8 @@
 <div class="col-xs-12 col-md-6 col-lg-8 mt-20">
     <div class="widget-header bordered-bottom">
-        <span class="widget-caption">ASN Received with Status</span>
+        <span class="widget-caption">ASN Trend</span>
     </div>
-    <table class="table table-hover">
+    <table class="table table-hover" id="style-1" style="height:240px;overflow-y: auto;">
         <thead class="bordered-darkorange">
             <tr>
                 <th>
@@ -12,24 +12,18 @@
                     Warehouse Name
                 </th>
                 <th>
-                    Customer Code
+                    Total Customers
                 </th>
                 <th>
-                    Customer Name
+                    ASN Customers
                 </th>
                 <th>
-                    Total ASN's
-                </th>
-                <th>
-                    Open
-                </th>
-                <th>
-                    Completed
+                    Percentage
                 </th>
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="x in AsnReceivedCtrl.ePage.Masters.AsnReceivedWithStatusDetails">
+            <tr ng-repeat="x in AsnTrendCtrl.ePage.Masters.AsnTrendDetails" >
                 <td>
                     {{$index+1}}
                 </td>
@@ -37,19 +31,13 @@
                     {{x.WarehouseCode}}
                 </td>
                 <td>
-                    {{x.ClientCode}}
-                </td>
-                <td>
-                    {{x.ClientName}}
-                </td>
-                <td>
                     {{x.TotalCount}}
                 </td>
                 <td>
-                    {{x.UnFinalisedCount}}
+                    {{x.ASNCount}}
                 </td>
                 <td>
-                    {{x.FinalisedCount}}
+                    {{x.Percentage}}
                 </td>
             </tr>
         </tbody>
