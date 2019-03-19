@@ -114,10 +114,10 @@
                     type="button" class="btn btn-sm btn-outline-primary" style="font-size:11px" title="Finalize Order"
                     data-ng-click="ReleasesGeneralCtrl.ePage.Masters.FinaliseOrder(ReleasesGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutward[ReleasesGeneralCtrl.ePage.Masters.selectedRowForOutward])"><span
                         class="fa fa-pencil"></span>&nbsp;&nbsp;Finalize Order</button></span>
-            <span><button style="font-size:11px" ng-disabled="ReleasesGeneralCtrl.ePage.Masters.selectedRowForOutward==-1 || ReleasesGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutward[ReleasesGeneralCtrl.ePage.Masters.selectedRowForOutward].WorkOrderStatus!='FIN' || ReleasesGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable"
+            <span><button style="font-size:11px" ng-disabled="ReleasesGeneralCtrl.ePage.Masters.selectedRowForOutward==-1 || ReleasesGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutward[ReleasesGeneralCtrl.ePage.Masters.selectedRowForOutward].WorkOrderStatus!='FIN' || ReleasesGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutward[ReleasesGeneralCtrl.ePage.Masters.selectedRowForOutward].WorkOrderSubType!='MTR' || ReleasesGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable"
                     type="button" class="btn btn-sm btn-outline-primary" style="font-size:11px" title="Create Material Transfer Inward"
                     data-ng-click="ReleasesGeneralCtrl.ePage.Masters.CreateMTRInward(ReleasesGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutward[ReleasesGeneralCtrl.ePage.Masters.selectedRowForOutward])"><span
-                        class="fa fa-pencil"></span>&nbsp;&nbsp;Create Material Transfer Inward</button></span>
+                        class="icomoon icon-inward"></span>&nbsp;&nbsp;Create Material Transfer Inward</button></span>
             <span><button type="button" style="font-size:11px" class="btn btn-sm btn-outline-primary font-10" title="Customize"
                     data-ng-click="ReleasesGeneralCtrl.ePage.Masters.EditTableColumnsForOutward = true"><span class="fa fa-filter"></span>&nbsp;&nbsp;Customize</button></span>
         </div>
