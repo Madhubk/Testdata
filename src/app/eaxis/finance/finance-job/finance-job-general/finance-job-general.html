@@ -344,21 +344,21 @@
                         <span class="fa fa-plus"></span>&nbsp;&nbsp;Add New</button>
                 </span>
                 <span>
-                    <button type="button" class="btn btn-sm pull-left btn-outline-primary font-10 ml-5" title="Copy" data-ng-click="FinanceJobGeneralCtrl.ePage.Masters.CopyRow()" data-ng-disabled="FinanceJobGeneralCtrl.ePage.Masters.EnableCopyButton">
+                    <button type="button" class="btn btn-sm pull-left btn-outline-secondary font-10 ml-5" title="More" data-ng-click="FinanceJobGeneralCtrl.ePage.Masters.More(FinanceJobGeneralCtrl.ePage.Masters.selectedRow)" data-ng-disabled="FinanceJobGeneralCtrl.ePage.Masters.selectedRow==-1">
+                        <span class="fa fa-ellipsis-v"></span>&nbsp;&nbsp;More</button>
+                </span>
+                <span>
+                    <button type="button" class="btn btn-sm pull-left btn-outline-primary font-10 ml-5" title="Copy" data-ng-click="FinanceJobGeneralCtrl.ePage.Masters.CopyRow()" data-ng-disabled="FinanceJobGeneralCtrl.ePage.Masters.EnableDeleteButton">
                         <span class="fa fa-copy"></span>&nbsp;&nbsp;Copy</button>
                 </span>
                 <span>
-                    <button type="button" class="btn btn-sm btn-outline-primary font-10 ml-5" title="Delete" data-ng-click="FinanceJobGeneralCtrl.ePage.Masters.RemoveRow()" data-ng-disabled="FinanceJobGeneralCtrl.ePage.Masters.EnableDeleteButton">
+                    <button type="button" class="btn btn-sm btn-outline-primary font-10 ml-5" title="Delete" data-ng-click="FinanceJobGeneralCtrl.ePage.Masters.RemoveRow()" data-ng-disabled="FinanceJobGeneralCtrl.ePage.Masters.EnableCopyButton">
                         <span class="fa fa-trash"></span>&nbsp;&nbsp;Delete</button>
-                </span>
-                <span>
-                    <button type="button" class="btn btn-sm pull-right btn-outline-secondary font-10" title="Add New" data-ng-click="FinanceJobGeneralCtrl.ePage.Masters.AddNewRow()">
-                        <span class="fa fa-plus"></span>&nbsp;&nbsp;Add New</button>
                 </span>
             </div>
             <div class="fixedheader mt-3 ml-0 mr-0" key-events table-object="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge" enable='FinanceJobGeneralCtrl.ePage.Masters.Enable'
                 selected-row="FinanceJobGeneralCtrl.ePage.Masters.selectedRow" unique-id='{{FinanceJobGeneralCtrl.currentFinanceJob.JobNo}}'>
-                <table style="height: 300px">
+                <table id="FinanceJobGeneralCtrl.ePage.Masters.AddScroll" style="height: 300px">
                     <thead>
                         <tr id="tableHeader">
                             <th data-ng-if="FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.ccheckbox.isenabled"

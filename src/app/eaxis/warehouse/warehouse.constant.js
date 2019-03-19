@@ -1048,6 +1048,7 @@
             files: [
                 "app/eaxis/finance/finance-job/finance-job-general/finance-job-general.directive.js",
                 "app/eaxis/finance/finance-job/finance-job-general/finance-job-general.controller.js",
+                "app/eaxis/finance/finance-job/finance-job-general/finance-job-general-popup.controller.js",
                 "app/eaxis/finance/finance-job/finance-job-general/finance-job-general.css"
             ]
         }, {
