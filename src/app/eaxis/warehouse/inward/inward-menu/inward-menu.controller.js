@@ -549,8 +549,9 @@
                 "EntityRefKey": InwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].EntityRefKey,
                 "HeaderType":InwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].HeaderType,
                 "LocalOrg_Code":InwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].LocalOrg_Code,
-                "LocalOrg_FK":InwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].LocalOrg_FK,
-            }
+                "LocalOrg_FK":InwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].LocalOrg_FK
+            };
+
             var modalInstance = $uibModal.open({
                 animation: true,
                 keyboard: false,

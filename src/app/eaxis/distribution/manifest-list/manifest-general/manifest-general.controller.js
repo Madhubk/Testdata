@@ -38,6 +38,7 @@
             ManifestGeneralCtrl.ePage.Masters.SelectedLookupReceiver = SelectedLookupReceiver;
             ManifestGeneralCtrl.ePage.Masters.SelectedLookupCarrier = SelectedLookupCarrier;
             ManifestGeneralCtrl.ePage.Masters.OtherAddresses = OtherAddresses;
+            ManifestGeneralCtrl.ePage.Masters.AddAddresses = AddAddresses;
             ManifestGeneralCtrl.ePage.Masters.OnChangeVehicleType = OnChangeVehicleType;
             ManifestGeneralCtrl.ePage.Masters.OnFieldValueChange = OnFieldValueChange;
 
@@ -50,6 +51,7 @@
             // DatePicker
             ManifestGeneralCtrl.ePage.Masters.DatePicker = {};
             ManifestGeneralCtrl.ePage.Masters.DatePicker.Options = angular.copy(APP_CONSTANT.DatePicker);
+            ManifestGeneralCtrl.ePage.Masters.DatePicker.Optiondel = angular.copy(APP_CONSTANT.DatePicker);
 
             ManifestGeneralCtrl.ePage.Masters.DatePicker.isOpen = [];
             ManifestGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker = OpenDatePicker;
@@ -65,12 +67,15 @@
                 ManifestGeneralCtrl.ePage.Entities.Header.Data.TmsManifestHeader.TransportMode = ManifestGeneralCtrl.ePage.Masters.TransportMode[0];
             if (!ManifestGeneralCtrl.currentManifest.isNew)
                 generalOperation();
-                
+
             if (ManifestGeneralCtrl.currentManifest.isNew) {
                 ManifestGeneralCtrl.ePage.Entities.Header.Data.TmsManifestHeader.TransporterType = 'Transportation'
             }
             // ManifestGeneralCtrl.ePage.Masters.Transportation = true;
             ManifestGeneralCtrl.ePage.Masters.SelectRadioButton = SelectRadioButton;
+            ManifestGeneralCtrl.ePage.Masters.DispatchDateChange = DispatchDateChange;
+            ManifestGeneralCtrl.ePage.Masters.DeliveryDateChange = DeliveryDateChange;
+        
 
             GetNewManifestAddress();
             GetOrgReceiverAddress();
@@ -78,6 +83,13 @@
             GetDropDownList();
         }
 
+        function DispatchDateChange() {
+            ManifestGeneralCtrl.ePage.Masters.OnFieldValueChange('E5545');
+            ManifestGeneralCtrl.ePage.Masters.DatePicker.Optiondel['minDate'] = ManifestGeneralCtrl.ePage.Entities.Header.Data.TmsManifestHeader.EstimatedDispatchDate;
+        }
+        function DeliveryDateChange() {
+            ManifestGeneralCtrl.ePage.Masters.OnFieldValueChange('E5546');
+        }
         function SelectRadioButton(value) {
             dmsManifestConfig.TransporterTypeValue = value;
             console.log(ManifestGeneralCtrl.ePage.Entities.Header.Data.TmsManifestHeader.TransporterType)
@@ -91,7 +103,7 @@
                 Code: [ManifestGeneralCtrl.currentManifest.code],
                 API: "Validation", // Validation/Group
                 FilterInput: {
-                    ModuleCode: "TMS",
+                    ModuleCode: "DMS",
                     SubModuleCode: "MAN",
                     // Code: "E0013"
                 },
@@ -475,6 +487,40 @@
             });
         }
 
+        function AddAddresses() {
+            var value = ManifestGeneralCtrl.ePage.Entities.Header.Data.OrgReceiver.PK;
+            var modalInstance = $uibModal.open({
+                animation: true,
+                backdrop: "static",
+                keyboard: true,
+                windowClass: "general-edits right address",
+                scope: $scope,
+                templateUrl: "app/eaxis/distribution/manifest-list/manifest-general/address-model/address-model.html",
+                controller: 'AddressModelController as AddressModelCtrl',
+                bindToController: true,
+                resolve: {
+                    param: function () {
+                        var exports = {
+                            "Entity": ManifestGeneralCtrl.currentManifest,
+                            "Item": value,
+                        };
+                        return exports;
+                    }
+                }
+            }).result.then(
+                function (response) {
+                    if (response.data) {
+                        ManifestGeneralCtrl.currentManifest[ManifestGeneralCtrl.ePage.Entities.Header.Data.OrgReceiver.Pk].ePage.Entities.Header.Data = response.data;
+                        
+                        ManifestGeneralCtrl.ePage.Entities.Header.Data = response.data;
+                    }
+                },
+                function () {
+                    console.log("Cancelled");
+                }
+            );
+
+        }
         function GetNewManifestAddress() {
             var myvalue = ManifestGeneralCtrl.ePage.Entities.Header.Data.JobAddress.some(function (value, key) {
                 return value.AddressType == 'SND';

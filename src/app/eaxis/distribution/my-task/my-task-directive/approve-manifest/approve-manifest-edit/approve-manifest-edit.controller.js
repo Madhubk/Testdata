@@ -97,7 +97,7 @@
                                     Code: [value.label],
                                     API: "Validation",
                                     FilterInput: {
-                                        ModuleCode: "TMS",
+                                        ModuleCode: "DMS",
                                         SubModuleCode: "MAN"
                                     },
                                     EntityObject: ApproveManifestEditCtrl.ePage.Masters.TabList[ApproveManifestEditCtrl.ePage.Masters.TabList.label].ePage.Entities.Header.Data

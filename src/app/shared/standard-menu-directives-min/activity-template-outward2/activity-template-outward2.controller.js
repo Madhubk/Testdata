@@ -690,6 +690,7 @@
 
         function DocumentValidation() {
             if (ActivityTemplateOutward2Ctrl.ePage.Masters.TaskObj) {
+                errorWarningService.Modules = {};
                 // validation findall call
                 var _obj = {
                     ModuleName: ["MyTask"],

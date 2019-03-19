@@ -268,7 +268,7 @@
                         Code: [DMSManifestMenuCtrl.currentManifest.code],
                         API: "Validation",
                         FilterInput: {
-                            ModuleCode: "TMS",
+                            ModuleCode: "DMS",
                             SubModuleCode: "MAN"
                         },
                         EntityObject: DMSManifestMenuCtrl.currentManifest[DMSManifestMenuCtrl.currentManifest.label].ePage.Entities.Header.Data,
@@ -283,7 +283,7 @@
                         Code: [DMSManifestMenuCtrl.currentManifest.code],
                         API: "Validation",
                         FilterInput: {
-                            ModuleCode: "TMS",
+                            ModuleCode: "DMS",
                             SubModuleCode: "MAN"
                         },
                         EntityObject: DMSManifestMenuCtrl.currentManifest[DMSManifestMenuCtrl.currentManifest.label].ePage.Entities.Header.Data,
@@ -431,7 +431,7 @@
                         Code: [DMSManifestMenuCtrl.currentManifest.code],
                         API: "Validation",
                         FilterInput: {
-                            ModuleCode: "TMS",
+                            ModuleCode: "DMS",
                             SubModuleCode: "MAN"
                         },
                         EntityObject: DMSManifestMenuCtrl.currentManifest[DMSManifestMenuCtrl.currentManifest.label].ePage.Entities.Header.Data,
@@ -446,7 +446,7 @@
                         Code: [DMSManifestMenuCtrl.currentManifest.code],
                         API: "Validation",
                         FilterInput: {
-                            ModuleCode: "TMS",
+                            ModuleCode: "DMS",
                             SubModuleCode: "MAN"
                         },
                         EntityObject: DMSManifestMenuCtrl.currentManifest[DMSManifestMenuCtrl.currentManifest.label].ePage.Entities.Header.Data,
@@ -475,7 +475,7 @@
                 Code: [$item.code],
                 API: "Validation",
                 FilterInput: {
-                    ModuleCode: "TMS",
+                    ModuleCode: "DMS",
                     SubModuleCode: "MAN"
                 },
                 EntityObject: $item[$item.label].ePage.Entities.Header.Data,

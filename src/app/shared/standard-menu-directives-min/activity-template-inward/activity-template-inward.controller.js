@@ -244,7 +244,7 @@
                     }
                 });
             } else if (ActivityTemplateInwardCtrl.taskObj.WSI_StepName == "Confirm Pickup and Get Signature") {
-                if (callback) {
+                if (callback) {                    
                     $rootScope.FinalizeInwardFromTask(function (response) {
                         if (response == "error") {
                             ActivityTemplateInwardCtrl.ePage.Masters.IsDisableSaveBtn = false;
@@ -283,7 +283,7 @@
 
                                                 apiService.post("eAxisAPI", appConfig.Entities.WmsPickupReport.API.FindAll.Url, _input).then(function (response) {
                                                     if (response.data.Response) {
-                                                        if (response.data.Response.length > 0) {
+                                                        if (response.data.Response.length > 0) {                                                            
                                                             response.data.Response[0].IsModified = true;
                                                             response.data.Response[0].PIL_FinalisedDate = myTaskActivityConfig.Entities.Inward[myTaskActivityConfig.Entities.Inward.label].ePage.Entities.Header.Data.UIWmsInwardHeader.FinalisedDate;
                                                             response.data.Response[0].PIL_Fk = value.PK;
@@ -294,6 +294,7 @@
                                                             response.data.Response[0].PIL_UDF2 = value.PartAttrib2;
                                                             response.data.Response[0].PIL_UDF3 = value.PartAttrib3;
                                                             response.data.Response[0].PIW_ArrivalDate = myTaskActivityConfig.Entities.Inward[myTaskActivityConfig.Entities.Inward.label].ePage.Entities.Header.Data.UIWmsInwardHeader.ArrivalDate;
+                                                            response.data.Response[0].ReceivedDateTime = myTaskActivityConfig.Entities.PickupData.UIWmsWorkorderReport.ReceivedDateTime;
                                                             if (value1.WAR_WarehouseCode == "BDL001") {
                                                                 response.data.Response[0].PickupLineStatus = "Stock at Central Warehouse";
                                                             } else {
@@ -733,7 +734,7 @@
                             }
                         });
                     });
-                    $timeout(function () {                        
+                    $timeout(function () {
                         // complete process                            
                         var _inputObj = {
                             "CompleteInstanceNo": ActivityTemplateInwardCtrl.ePage.Masters.TaskObj.PSI_InstanceNo,
@@ -836,6 +837,7 @@
 
         function DocumentValidation() {
             if (ActivityTemplateInwardCtrl.ePage.Masters.TaskObj) {
+                errorWarningService.Modules = {};
                 // validation findall call
                 var _obj = {
                     ModuleName: ["MyTask"],

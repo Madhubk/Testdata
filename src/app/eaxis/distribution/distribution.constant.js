@@ -94,6 +94,11 @@
                     'app/eaxis/distribution/manifest-list/manifest-general/address/address.controller.js',
                 ]
             }, {
+                name: 'manifestAddressModel',
+                files: [
+                    'app/eaxis/distribution/manifest-list/manifest-general/address-model/address-model.controller.js'
+                ]
+            }, {
                 name: 'dmsManifestOrders',
                 files: [
                     'app/eaxis/distribution/manifest-list/manifest-orders/manifest-orders.css',

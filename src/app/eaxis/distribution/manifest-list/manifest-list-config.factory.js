@@ -76,6 +76,30 @@
                             "Url": "CfxMenus/FindAll",
                             "FilterID": "CFXMENU"
                         },
+                        "PickList": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "WmsPickReleaseLine/FindAll",
+                            "FilterID": "WMSPICREL"
+                        },
+                        "CountryState": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "CountryState/FindAll",
+                            "FilterID": "MSTCSTE"
+                        },
+                        "CountryList": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "MstCountry/FindAll",
+                            "FilterID": "MSTCOUN"
+                        },
+                        "InsertAddress": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "OrgAddress/Insert",
+                            "FilterID": "ORGADDR"
+                        }
                     },
                     "Meta": {
 
@@ -88,11 +112,18 @@
             "TabList": [],
             "GetTabDetails": GetTabDetails,
             "ValidationValues": "",
-            "ShowErrorWarningModal": ShowErrorWarningModal,
+            
             "TempConsignmentNumber": "",
             "activeTabIndex": 0,
             "SelectedValue": "",
-            "TransporterTypeValue": ""
+            "TransporterTypeValue": "", 
+            // "GeneralValidation": GeneralValidation,
+            // "RemoveApiErrors": RemoveApiErrors,
+            // "PushErrorWarning": PushErrorWarning,
+            // "RemoveErrorWarning": RemoveErrorWarning,
+            // "GetErrorWarningCountParent": GetErrorWarningCountParent,
+            "ShowErrorWarningModal": ShowErrorWarningModal,
+            // "ValidationFindall": ValidationFindall,
         };
 
         return exports;
@@ -208,6 +239,30 @@
                                 "Url": "CfxMenus/FindAll",
                                 "FilterID": "CFXMENU"
                             },
+                            "PickList": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "WmsPickReleaseLine/FindAll",
+                                "FilterID": "WMSPICREL"
+                            },
+                            "CountryState": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "CountryState/FindAll",
+                                "FilterID": "MSTCSTE"
+                            },
+                            "CountryList": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "MstCountry/FindAll",
+                                "FilterID": "MSTCOUN"
+                            },
+                            "InsertAddress": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "OrgAddress/Insert",
+                                "FilterID": "ORGADDR"
+                            }
                         },
 
                         "Meta": {
@@ -331,14 +386,24 @@
                                     "GParentRef": "deliveryrunsheet"
                                 }]
                             },
-                            // "ErrorWarning": {
-                            //     "GlobalErrorWarningList": [],
                             "SenderCode": helperService.metaBase(),
                             "ReceiverCode": helperService.metaBase(),
                             "ManifestType": helperService.metaBase(),
                             "TransporterCode": helperService.metaBase(),
                             "EstimatedDispatchDate": helperService.metaBase(),
-                            "EstimatedDeliveryDate": helperService.metaBase()
+                            "EstimatedDeliveryDate": helperService.metaBase(),
+                            // "ErrorWarning": {
+                                // "GlobalErrorWarningList": [],
+                                "Address1": helperService.metaBase(),
+                                "City": helperService.metaBase(),
+                                "CountryCode": helperService.metaBase(),
+                                "State": helperService.metaBase(),
+                                "PostCode": helperService.metaBase(),
+                                "Language": helperService.metaBase(),
+                                "Mobile": helperService.metaBase(),
+                                "Email": helperService.metaBase(),
+                                "RelatedPortCode": helperService.metaBase(),
+
                             // },
                         },
                         "CheckPoints": {
@@ -400,7 +465,10 @@
         }
 
         function ShowErrorWarningModal(EntityObject) {
-            $("#errorWarningContainer" + EntityObject.code).toggleClass("open");
+            $("#errorWarningContainer" + EntityObject.label).toggleClass("open");
+            // if (EntityObject[EntityObject.label].ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList.length == 0) {
+            //     $("#errorWarningContainer" + EntityObject.label).removeClass("open");
+            // }
         }
     }
 })();

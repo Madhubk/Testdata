@@ -18,8 +18,8 @@
                 "Entities": financeConfig.Entities
             };
 
-            FinanceJobListCtrl.ePage.Masters.CurrentFinanceList = true;
-            FinanceJobListCtrl.ePage.Masters.JobList = [];
+            FinanceJobListCtrl.ePage.Masters.FinanceList = true;
+            FinanceJobListCtrl.ePage.Masters.CurrentFinanceJob = [];
 
             /* Function */
             FinanceJobListCtrl.ePage.Masters.Close = Close;
@@ -44,9 +44,9 @@
 
             apiService.post("eAxisAPI", financeConfig.API.JobHeader.API.FindAll.Url, _input).then(function (response) {
                 if (response.data.Status == "Success") {
-                    FinanceJobListCtrl.ePage.Masters.CurrentFinanceJob = response.data.Response;
+                    FinanceJobListCtrl.ePage.Masters.CurrentFinanceJobList = response.data.Response;
                 }
-                else{
+                else {
                     console.log("GetById Failed");
                 }
             });
@@ -56,21 +56,56 @@
             if ($item) {
                 financeConfig.GetTabDetails($item, false).then(function (response) {
                     if (response) {
-                        FinanceJobListCtrl.ePage.Masters.CurrentFinanceList = false;
-                        FinanceJobListCtrl.ePage.Masters.JobList = response;
+                        FinanceJobListCtrl.ePage.Masters.FinanceList = false;
+                        FinanceJobListCtrl.ePage.Masters.CurrentFinanceJob = response;
                     }
                 });
             }
         }
 
         function Close() {
-            FinanceJobListCtrl.ePage.Masters.JobList.splice(0, 1);
+            FinanceJobListCtrl.ePage.Masters.CurrentFinanceJob.splice(0, 1);
             $uibModalInstance.dismiss('close');
         }
 
-        function AddNewJob($item) {
-            console.log("AddNewJob");
+        function AddNewJob() {
+            FinanceJobListCtrl.ePage.Masters.FinanceList = false;
 
+            helperService.getFullObjectUsingGetById(financeConfig.API.JobHeaderList.API.GetById.Url, 'null').then(function (response) {
+                if (response.data.Response) {
+                    response.data.Response.Response.UIJobHeader.AgentOrg_Code = CurrentFinanceJob.AgentOrg_Code;
+                    response.data.Response.Response.UIJobHeader.Agent_Org_FK = CurrentFinanceJob.Agent_Org_FK;
+                    response.data.Response.Response.UIJobHeader.LocalOrg_Code = CurrentFinanceJob.LocalOrg_Code;
+                    response.data.Response.Response.UIJobHeader.LocalOrg_FK = CurrentFinanceJob.LocalOrg_FK;
+                    response.data.Response.Response.UIJobHeader.JobNo = CurrentFinanceJob.JobNo;
+                    response.data.Response.Response.UIJobHeader.GB = CurrentFinanceJob.GB;
+                    response.data.Response.Response.UIJobHeader.BranchCode = CurrentFinanceJob.BranchCode;
+                    response.data.Response.Response.UIJobHeader.BranchName = CurrentFinanceJob.BranchName;
+                    response.data.Response.Response.UIJobHeader.GC = CurrentFinanceJob.GC;
+                    response.data.Response.Response.UIJobHeader.CompanyCode = CurrentFinanceJob.CompanyCode;
+                    response.data.Response.Response.UIJobHeader.CompanyName = CurrentFinanceJob.CompanyName;
+                    response.data.Response.Response.UIJobHeader.GE = CurrentFinanceJob.GE;
+                    response.data.Response.Response.UIJobHeader.DeptCode = CurrentFinanceJob.DeptCode;
+                    response.data.Response.Response.UIJobHeader.EntitySource = CurrentFinanceJob.EntitySource;
+                    response.data.Response.Response.UIJobHeader.EntityRefKey = CurrentFinanceJob.EntityRefKey;
+                    response.data.Response.Response.UIJobHeader.HeaderType = CurrentFinanceJob.HeaderType;
+                   // FinanceJobListCtrl.ePage.Masters.CurrentFinanceJob.push(response.data.Response.Response);
+                }
+
+                var _obj = {
+                    entity: response.data.Response.Response.UIJobHeader,
+                    data: response.data.Response.Response,
+                    Validations: response.data.Response.Validations
+                };
+
+                financeConfig.GetTabDetails(_obj, true).then(function (response) {
+                    debugger;
+                    if (response) {
+                        FinanceJobListCtrl.ePage.Masters.FinanceList = false;
+                        FinanceJobListCtrl.ePage.Masters.CurrentFinanceJob = response;
+                    }
+                });
+            });
         }
 
         Init();

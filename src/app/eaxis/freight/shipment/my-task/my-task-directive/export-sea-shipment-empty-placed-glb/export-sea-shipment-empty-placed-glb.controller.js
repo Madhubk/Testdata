@@ -14,8 +14,7 @@
         
         var ExportSeaShipmentEmptyPlacedGlbCtrl = this;
 
-        function Init() {
-            debugger
+        function Init() {            
             ExportSeaShipmentEmptyPlacedGlbCtrl.ePage = {
                 "Title": "",
                 "Prefix": "Details_Page",

@@ -241,7 +241,7 @@
             if (!myvalue) {
                 var obj = {
                     "EntityRefKey": DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.PK,
-                    "EntitySource": "TMS",
+                    "EntitySource": "DMS",
                     "AddressType": "SND",
                     "ORG_FK": "",
                     "OAD_Address_FK": "",
@@ -265,7 +265,7 @@
             if (!myvalue1) {
                 var obj1 = {
                     "EntityRefKey": DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.PK,
-                    "EntitySource": "TMS",
+                    "EntitySource": "DMS",
                     "AddressType": "REC",
                     "ORG_FK": "",
                     "OAD_Address_FK": "",
