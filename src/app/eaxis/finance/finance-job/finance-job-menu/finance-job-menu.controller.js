@@ -10,7 +10,7 @@
         var FinanceJobMenuCtrl = this;
 
         function Init() {
-           
+
             var currentFinanceJob = FinanceJobMenuCtrl.currentFinanceJob[FinanceJobMenuCtrl.currentFinanceJob.code].ePage.Entities;
 
             FinanceJobMenuCtrl.ePage = {
@@ -78,11 +78,10 @@
             _input.UIJobHeader.IsActive = true;
 
             if ($item.isNew) {
-                //false
-                //  _input.PK = _input.UIJobHeader.PK;
-                //  _input.UIJobHeader.CreatedDateTime = new Date();
+                _input.PK = _input.UIJobHeader.PK;
+                _input.UIJobHeader.CreatedDateTime = new Date();
 
-                //  //Converting into Upper Case
+                /* Converting into Upper Case */
                 //  _input.UIJobHeader.WarehouseCode = _input.UIJobHeader.WarehouseCode.toUpperCase();
                 //  _input.UIJobHeader.WarehouseName = _input.UIJobHeader.WarehouseName.toUpperCase();
 
@@ -111,12 +110,12 @@
                             financeConfig.TabList.map(function (value, key) {
                                 if (value.New) {
                                     //undefined
-                                    //  if (value.code == '') {
-                                    //      value.label = WarehouseMenuCtrl.ePage.Entities.Header.Data.WmsWarehouse.WarehouseCode;
-                                    //      value[WarehouseMenuCtrl.ePage.Entities.Header.Data.WmsWarehouse.WarehouseCode] = value.New;
-                                    //      delete value.New;
-                                    //      value.code = WarehouseMenuCtrl.ePage.Entities.Header.Data.WmsWarehouse.WarehouseCode;
-                                    //  }
+                                    if (value.code == '') {
+                                        value.label = WarehouseMenuCtrl.ePage.Entities.Header.Data.WmsWarehouse.WarehouseCode;
+                                        value[WarehouseMenuCtrl.ePage.Entities.Header.Data.WmsWarehouse.WarehouseCode] = value.New;
+                                        delete value.New;
+                                        value.code = WarehouseMenuCtrl.ePage.Entities.Header.Data.WmsWarehouse.WarehouseCode;
+                                    }
                                 }
                             });
 

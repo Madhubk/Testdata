@@ -1,0 +1,419 @@
+<div class="modal-header">
+    <button type="button" class="close" data-ng-click="FinanceJobGeneralPopupCtrl.ePage.Masters.Close()">&times;</button>
+    <h5 class="modal-title pull-left">
+        <strong>Finance Job List</strong>
+    </h5>
+    <!--<input type="button" class="btn btn-secondary btn-sm pull-right margin-left-5" value="Close" data-ng-click="FinanceJobGeneralPopupCtrl.ePage.Masters.Close()">
+    <buttton type="button" class="btn btn-primary btn-sm pull-right margin-left-5" data-ng-click="FinanceJobGeneralPopupCtrl.ePage.Masters.Save(FinanceJobGeneralPopupCtrl.ePage.Masters.CurrentFinanceJob)"
+        data-ng-bind="FinanceJobGeneralPopupCtrl.ePage.Masters.SaveButtonText" data-ng-disabled="FinanceJobGeneralPopupCtrl.ePage.Masters.IsDisableSave"> -->
+</div>
+<div class="modal-body">
+    <div class="clearfix">
+        <!-- Charge Detaile -->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-30">
+            <label class="control-label label-header">CHARGE DETAILS</label>
+            <div class="" style="background-color: #f9f9f9; border: 1px solid #eee;width:100%; float: left; float:right;">
+                <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 mt-10">
+                    <div class="form-group">
+                        <label class="control-label">Charge Code</label>
+                        <span class="error-warning-container">
+                            <error-warning-directive data-ng-if="FinanceJobGeneralPopupCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ServiceCode.IsWarning && !FinanceJobGeneralPopupCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ServiceCode.IsError"
+                                list="FinanceJobGeneralPopupCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ServiceCode.WARNING"
+                                type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                            <error-warning-directive data-ng-if="FinanceJobGeneralPopupCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ServiceCode.IsError"
+                                list="FinanceJobGeneralPopupCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ServiceCode.ERROR"
+                                type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                        </span>
+                        <div class="input-group input-group-sm">
+                            <div dynamic-lookup placeholder="Service code" my-ng-model="FinanceJobGeneralPopupCtrl.ePage.Masters.CurrentFinanceJob.ServiceCode"></div>
+                            <span class="input-group-btn">
+                                <button dynamic-list-modal class="btn btn-default" type="button">
+                                    <i class="fa fa-ellipsis-h"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12  col-md-2 col-lg-2 col-xl-2 mt-10">
+                    <div class="form-group">
+                        <label class="control-label">Description</label>
+                        <input type="text" class="form-control" placeholder="Description" data-ng-model="FinanceJobGeneralPopupCtrl.ePage.Masters.CurrentFinanceJob.Desc"
+                            disabled />
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12  col-md-2 col-lg-2 col-xl-2 mt-10">
+                    <div class="form-group">
+                        <label class="control-label">Job Number</label>
+                        <input type="text" class="form-control" placeholder="Job No" data-ng-model="FinanceJobGeneralPopupCtrl.ePage.Masters.CurrentFinanceJob.JobNo"
+                            disabled>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12  col-md-2 col-lg-2 col-xl-2 mt-10">
+                    <div class="form-group">
+                        <label class="control-label">Branch</label>
+                        <div class="input-group input-group-sm">
+                            <!-- Dynamic look up Search in textbox -->
+                            <div dynamic-lookup placeholder="Branch" my-ng-model="FinanceJobGeneralPopupCtrl.ePage.Masters.CurrentFinanceJob.BranchCodeDesc"
+                                obj="FinanceJobGeneralPopupCtrl.ePage.Masters.CurrentFinanceJob" page-name="'CmpBranch'"
+                                control-id="'FinanceBranch'" control-key="FinanceBranch_3332">
+                            </div>
+                            <!-- Look Up page opens when button clicks -->
+                            <span class="input-group-btn">
+                                <button dynamic-list-modal class="btn btn-default" type="button" obj="FinanceJobGeneralPopupCtrl.ePage.Masters.CurrentFinanceJob"
+                                    page-name="'CmpBranch'" control-id="'FinanceBranch'" control-key="FinanceBranch_3332">
+                                    <i class="fa fa-ellipsis-h"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12  col-md-2 col-lg-2 col-xl-2 mt-10">
+                    <div class="form-group">
+                        <label class="">Department</label>
+                        <div class="input-group input-group-sm">
+                            <div dynamic-lookup placeholder="Department" my-ng-model="FinanceJobGeneralPopupCtrl.ePage.Masters.CurrentFinanceJob.DeptCode"
+                                obj="FinanceJobGeneralPopupCtrl.ePage.Masters.CurrentFinanceJob" page-name="'CmpDepartment'"
+                                control-id="'FinanceDepartment'" control-key="FinanceDepartment_3331"></div>
+                            <span class="input-group-btn">
+                                <button dynamic-list-modal class="btn btn-default" type="button" obj="FinanceJobGeneralPopupCtrl.ePage.Masters.CurrentFinanceJob"
+                                    page-name="'CmpDepartment'" control-id="'FinanceDepartment'" control-key="FinanceDepartment_3331"><i
+                                        class="fa fa-ellipsis-h"></i></button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- COST -->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-30">
+            <label class="control-label label-header">COST</label>
+            <div class="" style="background-color: #f9f9f9; border: 1px solid #eee;width:100%; float: left; float:right;">
+                <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 mt-10">
+                    <div class="form-group">
+                        <label class="control-label">Creditor</label>
+                        <div class="input-group input-group-sm">
+                            <div dynamic-lookup placeholder="Vendor" my-ng-model="FinanceJobGeneralPopupCtrl.ePage.Masters.CurrentFinanceJob.LocalOrg_Code"
+                                obj="FinanceJobGeneralPopupCtrl.ePage.Masters.CurrentFinanceJob" page-name="'OrganizationList'"
+                                control-id="'ShpBillingLocalAddress'" control-key="ShpBillingLocalAddress_2959"
+                                auto-complete-on-select="FinanceJobGeneralPopupCtrl.ePage.Masters.VendorAutoCompleteOnSelect($item, 'Local')"></div>
+                            <span class="input-group-btn">
+                                <button dynamic-list-modal class="btn btn-default" type="button" obj="FinanceJobGeneralPopupCtrl.ePage.Masters.CurrentFinanceJob"
+                                    control-id="'ShpBillingLocalAddress'" control-key="" page-name="'OrganizationList'"
+                                    mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="FinanceJobGeneralPopupCtrl.ePage.Masters.VendorAutoCompleteOnSelect($item, 'Local')">
+                                    <i class="fa fa-ellipsis-h"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12  col-md-2 col-lg-2 col-xl-2 mt-10">
+                    <div class="form-group">
+                        <label class="control-label">Invoice No</label>
+                        <input type="text" class="form-control" placeholder="Invoice No" data-ng-model="FinanceJobGeneralPopupCtrl.ePage.Masters.CurrentFinanceJob.CostInvoiceNo">
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12  col-md-2 col-lg-2 col-xl-2 mt-10">
+                    <div class="form-group">
+                        <label class="control-label">Invoice Date</label>
+                        <div class="input-group input-group-sm">
+                            <input type="text" class="form-control" placeholder={{FinanceJobGeneralPopupCtrl.ePage.Masters.DatePicker.Options.dateTimeFormat}}
+                                data-ng-model="FinanceJobGeneralPopupCtrl.ePage.Masters.CurrentFinanceJob.CostInvoiceDate"
+                                datetime-picker="{{FinanceJobGeneralPopupCtrl.ePage.Masters.DatePicker.Options.dateTimeFormat}}"
+                                datepicker-options="FinanceJobGeneralPopupCtrl.ePage.Masters.DatePicker.Options"
+                                datepicker-append-to-body="false" close-on-selection="false" enable-time="true"
+                                enable-date="true" default-date="" default-time="" save-as="FinanceJobGeneralPopupCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                                is-open="FinanceJobGeneralPopupCtrl.ePage.Masters.DatePicker.isOpen['isCostInvoiceDate']"
+                                when-closed="" data-ng-click="" data-ng-change="" custom-date-time-format />
+                            <span class="
+                                input-group-btn">
+                                <button class="btn btn-default" data-ng-click="FinanceJobGeneralPopupCtrl.ePage.Masters.DatePicker.OpenDatePicker($event,'isCostInvoiceDate')">
+                                    <i class="fa fa-calendar"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12  col-md-2 col-lg-2 col-xl-2 mt-10">
+                    <div class="form-group">
+                        <label class="control-label">Post Date</label>
+                        <div class="input-group input-group-sm">
+                            <input type="text" class="form-control" placeholder="{{FinanceJobGeneralPopupCtrl.ePage.Masters.DatePicker.Options.dateTimeFormat}}"
+                                data-ng-model="FinanceJobGeneralPopupCtrl.ePage.Masters.CurrentFinanceJob.CostPostDate"
+                                datetime-picker="{{FinanceJobGeneralPopupCtrl.ePage.Masters.DatePicker.Options.dateTimeFormat}}"
+                                datepicker-options="FinanceJobGeneralPopupCtrl.ePage.Masters.DatePicker.Options"
+                                datepicker-append-to-body="false" close-on-selection="false" enable-time="true"
+                                enable-date="true" default-date="" default-time="" save-as="FinanceJobGeneralPopupCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                                is-open="FinanceJobGeneralPopupCtrl.ePage.Masters.DatePicker.isOpen['isCostPostDate']"
+                                when-closed="" data-ng-click="" data-ng-change="" custom-date-time-format disabled />
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" data-ng-click="FinanceJobGeneralPopupCtrl.ePage.Masters.DatePicker.OpenDatePicker($event,'isCostPostDate')">
+                                    <i class="fa fa-calendar"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12  col-md-2 col-lg-2 col-xl-2 mt-10">
+                    <div class="form-group">
+                        <label class="control-label">Line Description</label>
+                        <input type="text" class="form-control" placeholder="Line Description" data-ng-model="FinanceJobGeneralPopupCtrl.ePage.Masters.CurrentFinanceJob.CostLineDescription" />
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12  col-md-2 col-lg-2 col-xl-2 mt-10">
+                    <div class="form-group">
+                        <label class="control-label">Currency</label>
+                        <span class="error-warning-container">
+                            <error-warning-directive data-ng-if="FinanceJobGeneralPopupCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.CostCurrency.IsWarning && !FinanceJobGeneralPopupCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.CostCurrency.IsError"
+                                list="FinanceJobGeneralPopupCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.CostCurrency.WARNING"
+                                type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                            <error-warning-directive data-ng-if="FinanceJobGeneralPopupCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.CostCurrency.IsError"
+                                list="FinanceJobGeneralPopupCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.CostCurrency.ERROR"
+                                type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                        </span>
+                        <div class="input-group input-group-sm">
+                            <div dynamic-lookup placeholder="Currency" my-ng-model="FinanceJobGeneralPopupCtrl.ePage.Masters.CurrentFinanceJob.CostCurrency"
+                                obj="FinanceJobGeneralPopupCtrl.ePage.Masters.CurrentFinanceJob" page-name="'CurrencyMaster'"
+                                control-id="'FinanceCurrency'" control-key="FinanceCurrency_3330">
+                            </div>
+                            <span class="input-group-btn">
+                                <button dynamic-list-modal class="btn btn-default" type="button" obj="FinanceJobGeneralPopupCtrl.ePage.Masters.CurrentFinanceJob"
+                                    page-name="'CurrencyMaster'" control-id="'FinanceCurrency'" control-key="FinanceCurrency_3330">
+                                    <i class="fa fa-ellipsis-h"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12  col-md-2 col-lg-2 col-xl-2 mt-10">
+                    <div class="form-group">
+                        <label class="control-label">Estimate Cost</label>
+                        <span class="error-warning-container">
+                            <error-warning-directive data-ng-if="FinanceJobGeneralPopupCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.EstimateCost.IsWarning && !FinanceJobGeneralPopupCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.EstimateCost.IsError"
+                                list="FinanceJobGeneralPopupCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.EstimateCost.WARNING"
+                                type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                            <error-warning-directive data-ng-if="FinanceJobGeneralPopupCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.EstimateCost.IsError"
+                                list="FinanceJobGeneralPopupCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.EstimateCost.ERROR"
+                                type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                        </span>
+                        <input type="text" class="form-control" placeholder="Estimate Cost" data-ng-model="FinanceJobGeneralPopupCtrl.ePage.Masters.CurrentFinanceJob.EstimateCost"
+                            data-ng-change="FinanceJobGeneralPopupCtrl.ePage.Masters.EstimateCostChange(FinanceJobGeneralPopupCtrl.ePage.Masters.CurrentFinanceJob.EstimateCost)"
+                            numbers-only-dot sb-precision="4" />
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12  col-md-2 col-lg-2 col-xl-2 mt-10">
+                    <div class="form-group">
+                        <label class="control-label">Actual Cost</label>
+                        <span class="error-warning-container">
+                            <error-warning-directive data-ng-if="FinanceJobGeneralPopupCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ActualCost.IsWarning && !FinanceJobGeneralPopupCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ActualCost.IsError"
+                                list="FinanceJobGeneralPopupCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ActualCost.WARNING"
+                                type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                            <error-warning-directive data-ng-if="FinanceJobGeneralPopupCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ActualCost.IsError"
+                                list="FinanceJobGeneralPopupCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ActualCost.ERROR"
+                                type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                        </span>
+                        <input type="text" class="form-control" placeholder="Actual cost" data-ng-model="FinanceJobGeneralPopupCtrl.ePage.Masters.CurrentFinanceJob.ActualCost"
+                            numbers-only-dot sb-precision="4" />
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12  col-md-2 col-lg-2 col-xl-2 mt-10">
+                    <div class="form-group">
+                        <label class="control-label">Tax Code</label>
+                        <span class="error-warning-container">
+                            <error-warning-directive data-ng-if="FinanceJobGeneralPopupCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.CostTaxCode.IsWarning && !FinanceJobGeneralPopupCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.CostTaxCode.IsError"
+                                list="FinanceJobGeneralPopupCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.CostTaxCode.WARNING"
+                                type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                            <error-warning-directive data-ng-if="FinanceJobGeneralPopupCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.CostTaxCode.IsError"
+                                list="FinanceJobGeneralPopupCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.CostTaxCode.ERROR"
+                                type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                        </span>
+                        <input type="text" class="form-control" placeholder="Tax Code" data-ng-model="FinanceJobGeneralPopupCtrl.ePage.Masters.CurrentFinanceJob.CostTaxCode" />
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12  col-md-2 col-lg-2 col-xl-2 mt-10">
+                    <div class="form-group">
+                        <label class="control-label">Tax amount</label>
+                        <span class="error-warning-container">
+                            <error-warning-directive data-ng-if="FinanceJobGeneralPopupCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.CostTaxAmt.IsWarning && !FinanceJobGeneralPopupCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.CostTaxAmt.IsError"
+                                list="FinanceJobGeneralPopupCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.CostTaxAmt.WARNING"
+                                type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                            <error-warning-directive data-ng-if="FinanceJobGeneralPopupCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.CostTaxAmt.IsError"
+                                list="FinanceJobGeneralPopupCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.CostTaxAmt.ERROR"
+                                type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                        </span>
+                        <input type="text" class="form-control" placeholder="Tax amount" data-ng-model="FinanceJobGeneralPopupCtrl.ePage.Masters.CurrentFinanceJob.CostTaxAmt"
+                            numbers-only-dot />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- REVENUE-->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-30">
+            <label class="control-label label-header">REVENUE</label>
+            <div class="" style="background-color: #f9f9f9; border: 1px solid #eee;width:100%; float: left; float:right;">
+                <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2  mt-10">
+                    <div class="form-group">
+                        <label class="control-label">Customer</label>
+                        <div class="input-group input-group-sm">
+                            <div dynamic-lookup placeholder="Customer" my-ng-model="FinanceJobGeneralPopupCtrl.ePage.Masters.CurrentFinanceJob.AgentOrg_Code"
+                                obj="FinanceJobGeneralPopupCtrl.ePage.Masters.CurrentFinanceJob" page-name="'OrganizationList'"
+                                control-id="'ShpBillingAgentAddress'" control-key="ShpBillingAgentAddress_2958"
+                                auto-complete-on-select="FinanceJobGeneralPopupCtrl.ePage.Masters.CustomerAutoCompleteOnSelect($item,'Agent')">
+                            </div>
+                            <span class="input-group-btn">
+                                <button dynamic-list-modal class="btn btn-default" type="button" obj="FinanceJobGeneralPopupCtrl.ePage.Masters.CurrentFinanceJob"
+                                    control-id="'ShpBillingAgentAddress'" page-name="'OrganizationList'" mode="2"
+                                    grid-refresh-fun-name="" grid-refresh-fun="" control-key="ShpBillingAgentAddress_2958"
+                                    selected-data="FinanceJobGeneralPopupCtrl.ePage.Masters.CustomerAutoCompleteOnSelect($item,'Agent')">
+                                    <i class="fa fa-ellipsis-h"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2  mt-10">
+                    <div class="form-group">
+                        <label class="control-label">Invoice No</label>
+                        <input type="text" class="form-control" placeholder="Invoice No" data-ng-model="FinanceJobGeneralPopupCtrl.ePage.Masters.CurrentFinanceJob.RevenueInvoiceNo"
+                            disabled />
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2  mt-10">
+                    <div class="form-group">
+                        <label class="control-label">Invoice Date</label>
+                        <div class="input-group input-group-sm">
+                            <input type="text" class="form-control" placeholder="{{FinanceJobGeneralPopupCtrl.ePage.Masters.DatePicker.Options.dateTimeFormat}}"
+                                data-ng-model="FinanceJobGeneralPopupCtrl.ePage.Masters.CurrentFinanceJob.RevenueInvoiceDate"
+                                datetime-picker="{{FinanceJobGeneralPopupCtrl.ePage.Masters.DatePicker.Options.dateTimeFormat}}"
+                                datepicker-options="FinanceJobGeneralPopupCtrl.ePage.Masters.DatePicker.Options"
+                                datepicker-append-to-body="false" close-on-selection="false" enable-time="true"
+                                enable-date="true" default-date="" default-time="" save-as="FinanceJobGeneralPopupCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                                is-open="FinanceJobGeneralPopupCtrl.ePage.Masters.DatePicker.isOpen['isRevenueInvoiceDate']"
+                                when-closed="" data-ng-click="" data-ng-change="" custom-date-time-format disabled />
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" data-ng-click="FinanceJobGeneralPopupCtrl.ePage.Masters.DatePicker.OpenDatePicker($event,'isRevenueInvoiceDate')">
+                                    <i class="fa fa-calendar"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2  mt-10">
+                    <div class="form-group">
+                        <label class="control-label">Post Date</label>
+                        <div class="input-group input-group-sm">
+                            <input type="text" class="form-control" placeholder="{{FinanceJobGeneralPopupCtrl.ePage.Masters.DatePicker.Options.dateTimeFormat}}"
+                                data-ng-model="FinanceJobGeneralPopupCtrl.ePage.Masters.CurrentFinanceJob.RevenuePostDate"
+                                datetime-picker="{{FinanceJobGeneralPopupCtrl.ePage.Masters.DatePicker.Options.dateTimeFormat}}"
+                                datepicker-options="FinanceJobGeneralPopupCtrl.ePage.Masters.DatePicker.Options"
+                                datepicker-append-to-body="false" close-on-selection="false" enable-time="true"
+                                enable-date="true" default-date="" default-time="" save-as="FinanceJobGeneralPopupCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                                is-open="FinanceJobGeneralPopupCtrl.ePage.Masters.DatePicker.isOpen['isRevenuePostDate']"
+                                when-closed="" data-ng-click="" data-ng-change="" custom-date-time-format disabled />
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" data-ng-click="FinanceJobGeneralPopupCtrl.ePage.Masters.DatePicker.OpenDatePicker($event,'isRevenuePostDate')">
+                                    <i class="fa fa-calendar"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2  mt-10">
+                    <div class="form-group">
+                        <label class="control-label">Line Description</label>
+                        <input type="text" class="form-control" placeholder="Line Description" data-ng-model="FinanceJobGeneralPopupCtrl.ePage.Masters.CurrentFinanceJob.RevenueLineDescription">
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2  mt-10">
+                    <div class="form-group">
+                        <label class="control-label">Currency</label>
+                        <span class="error-warning-container">
+                            <error-warning-directive data-ng-if="FinanceJobGeneralPopupCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.RevenueCurrency.IsWarning && !FinanceJobGeneralPopupCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.RevenueCurrency.IsError"
+                                list="FinanceJobGeneralPopupCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.RevenueCurrency.WARNING"
+                                type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                            <error-warning-directive data-ng-if="FinanceJobGeneralPopupCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.RevenueCurrency.IsError"
+                                list="FinanceJobGeneralPopupCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.RevenueCurrency.ERROR"
+                                type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                        </span>
+                        <div class="input-group input-group-sm">
+                            <div dynamic-lookup placeholder="Currency" my-ng-model="FinanceJobGeneralPopupCtrl.ePage.Masters.CurrentFinanceJob.RevenueCurrency"
+                                obj="FinanceJobGeneralPopupCtrl.ePage.Masters.CurrentFinanceJob" page-name="'CurrencyMaster'"
+                                control-id="'FinanceCurrency'" control-key="FinanceCurrency_3330">
+                            </div>
+                            <span class="input-group-btn">
+                                <button dynamic-list-modal class="btn btn-default" type="button" obj="FinanceJobGeneralPopupCtrl.ePage.Masters.CurrentFinanceJob"
+                                    page-name="'CurrencyMaster'" control-id="'FinanceCurrency'" control-key="FinanceCurrency_3330">
+                                    <i class="fa fa-ellipsis-h"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2  mt-10">
+                    <div class="form-group">
+                        <label class="control-label">Estimate Revenue</label>
+                        <span class="error-warning-container">
+                            <error-warning-directive data-ng-if="FinanceJobGeneralPopupCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.EstimateRevenue.IsWarning && !FinanceJobGeneralPopupCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.EstimateRevenue.IsError"
+                                list="FinanceJobGeneralPopupCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.EstimateRevenue.WARNING"
+                                type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                            <error-warning-directive data-ng-if="FinanceJobGeneralPopupCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.EstimateRevenue.IsError"
+                                list="FinanceJobGeneralPopupCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.EstimateRevenue.ERROR"
+                                type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                        </span>
+                        <input type="text" class="form-control" placeholder="Estimate Revenue" data-ng-model="FinanceJobGeneralPopupCtrl.ePage.Masters.CurrentFinanceJob.EstimateRevenue"
+                            data-ng-change="FinanceJobGeneralPopupCtrl.ePage.Masters.EstimateRevenueChange(FinanceJobGeneralPopupCtrl.ePage.Masters.CurrentFinanceJob.EstimateRevenue)"
+                            numbers-only-dot sb-precision="4" />
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2  mt-10">
+                    <div class="form-group">
+                        <label class="control-label">Actual Revenue</label>
+                        <span class="error-warning-container">
+                            <error-warning-directive data-ng-if="FinanceJobGeneralPopupCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ActualRevenue.IsWarning && !FinanceJobGeneralPopupCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ActualRevenue.IsError"
+                                list="FinanceJobGeneralPopupCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ActualRevenue.WARNING"
+                                type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                            <error-warning-directive data-ng-if="FinanceJobGeneralPopupCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ActualRevenue.IsError"
+                                list="FinanceJobGeneralPopupCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ActualRevenue.ERROR"
+                                type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                        </span>
+                        <input type="text" class="form-control" placeholder="Actual Revenue" data-ng-model="FinanceJobGeneralPopupCtrl.ePage.Masters.CurrentFinanceJob.ActualRevenue"
+                            numbers-only-dot sb-precision="4" />
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2  mt-10">
+                    <div class="form-group">
+                        <label class="control-label">Tax Code</label>
+                        <span class="error-warning-container">
+                            <error-warning-directive data-ng-if="FinanceJobGeneralPopupCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.RevenueTaxCode.IsWarning && !FinanceJobGeneralPopupCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.RevenueTaxCode.IsError"
+                                list="FinanceJobGeneralPopupCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.RevenueTaxCode.WARNING"
+                                type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                            <error-warning-directive data-ng-if="FinanceJobGeneralPopupCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.RevenueTaxCode.IsError"
+                                list="FinanceJobGeneralPopupCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.RevenueTaxCode.ERROR"
+                                type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                        </span>
+                        <input type="text" class="form-control" placeholder="Tax Code" data-ng-model="FinanceJobGeneralPopupCtrl.ePage.Masters.CurrentFinanceJob.RevenueTaxCode">
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2  mt-10">
+                    <div class="form-group">
+                        <label class="control-label">Tax amount</label>
+                        <span class="error-warning-container">
+                            <error-warning-directive data-ng-if="FinanceJobGeneralPopupCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.RevenueTaxAmt.IsWarning && !FinanceJobGeneralPopupCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.RevenueTaxAmt.IsError"
+                                list="FinanceJobGeneralPopupCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.RevenueTaxAmt.WARNING"
+                                type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                            <error-warning-directive data-ng-if="FinanceJobGeneralPopupCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.RevenueTaxAmt.IsError"
+                                list="FinanceJobGeneralPopupCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.RevenueTaxAmt.ERROR"
+                                type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                        </span>
+                        <input type="text" class="form-control" placeholder="Tax amount" data-ng-model="FinanceJobGeneralPopupCtrl.ePage.Masters.CurrentFinanceJob.RevenueTaxAmt"
+                            numbers-only-dot />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-primary btn-sm pull-right margin-left-5" data-ng-click="FinanceJobGeneralPopupCtrl.ePage.Masters.Save(FinanceJobGeneralPopupCtrl.ePage.Masters.CurrentFinanceJob)"
+        data-ng-bind="FinanceJobGeneralPopupCtrl.ePage.Masters.SaveButtonText" data-ng-disabled="FinanceJobGeneralPopupCtrl.ePage.Masters.IsDisableSave">
+</div>
