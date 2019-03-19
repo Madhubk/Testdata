@@ -58,7 +58,7 @@
                 Code: [GatepassGeneralCtrl.currentGatepass.code],
                 API: "Validation", // Validation/Group
                 FilterInput: {
-                    ModuleCode: "TMS",
+                    ModuleCode: "DMS",
                     SubModuleCode: "GAT",
                     // Code: "E0013"
                 },
@@ -199,7 +199,7 @@
                 Code: [$item.code],
                 API: "Validation",
                 FilterInput: {
-                    ModuleCode: "TMS",
+                    ModuleCode: "DMS",
                     SubModuleCode: "GAT"
                 },
                 EntityObject: $item[$item.label].ePage.Entities.Header.Data,

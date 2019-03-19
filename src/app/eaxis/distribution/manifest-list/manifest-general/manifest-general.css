@@ -71,3 +71,7 @@
 .border-left{
     border-left: 1px solid #f5f5f5;
 }
+
+.general-edits.address>.modal-dialog {
+    width: 30% !important;
+}

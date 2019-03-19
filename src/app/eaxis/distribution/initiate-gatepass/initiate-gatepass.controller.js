@@ -128,7 +128,7 @@
                 Code: [currentTab],
                 API: "Validation",
                 FilterInput: {
-                    ModuleCode: "TMS",
+                    ModuleCode: "DMS",
                     SubModuleCode: "GAT"
                 },
                 EntityObject: entity

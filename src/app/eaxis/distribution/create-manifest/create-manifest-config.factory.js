@@ -525,7 +525,7 @@
         // Validations
         function ValidationFindall() {
             var _filter = {
-                "ModuleCode": "TMS",
+                "ModuleCode": "DMS",
                 "SubModuleCode": "MAN"
             };
             var _input = {

@@ -4,7 +4,7 @@
         <div class="rows border-box border-radius-2 bg-fbfbfb">
             <!-- Radio Button Selection For Transporter Type -->
             <div class="radio">
-                
+
                 <div class="col-xs-4 col-sm-4 col-md-3 col-lg-3 col-xl-3 pt-10 pb-10">
                     <label>
                         <input type="radio" value="Transportation"
@@ -34,7 +34,7 @@
                         Transporter Type:
                     </div> -->
                 </div>
-                
+
             </div>
         </div>
     </div>
@@ -179,6 +179,13 @@
                                     <i class="fa fa-address-card-o"></i>
                                 </button>
                             </span>
+                            <!-- Add Address -->
+                            <span class="input-group-btn" ng-show="ManifestGeneralCtrl.ePage.Masters.Receiver">
+                                <button class="btn btn-default shiny" type="button"
+                                    ng-click="ManifestGeneralCtrl.ePage.Masters.AddAddresses()">
+                                    <i class="fa fa-plus"></i>
+                                </button>
+                            </span>
                             <span ng-if="!ManifestGeneralCtrl.ePage.Masters.Receiver">
                                 <span
                                     data-ng-init="ManifestGeneralCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ReceiverCode=''"></span>
@@ -320,7 +327,8 @@
                 </div>
             </div>
             <!-- Mode Of Transport   -->
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3" data-ng-if="ManifestGeneralCtrl.ePage.Entities.Header.Data.TmsManifestHeader.TransporterType == 'Transportation' || ManifestGeneralCtrl.ePage.Entities.Header.Data.TmsManifestHeader.TransporterType == 'LastMileDelivery'">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3"
+                data-ng-if="ManifestGeneralCtrl.ePage.Entities.Header.Data.TmsManifestHeader.TransporterType == 'Transportation' || ManifestGeneralCtrl.ePage.Entities.Header.Data.TmsManifestHeader.TransporterType == 'LastMileDelivery'">
                 <div class="clearfix form-group">
                     <label class="control-label text-single-line">Mode Of Transport </label>
                     <select chosen class="form-control" style="height: 30px;"
@@ -332,7 +340,8 @@
                 </div>
             </div>
             <!--Vehicle Type-->
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3" data-ng-if="ManifestGeneralCtrl.ePage.Entities.Header.Data.TmsManifestHeader.TransporterType == 'Transportation' || ManifestGeneralCtrl.ePage.Entities.Header.Data.TmsManifestHeader.TransporterType == 'LastMileDelivery'">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3"
+                data-ng-if="ManifestGeneralCtrl.ePage.Entities.Header.Data.TmsManifestHeader.TransporterType == 'Transportation' || ManifestGeneralCtrl.ePage.Entities.Header.Data.TmsManifestHeader.TransporterType == 'LastMileDelivery'">
                 <div class="form-group">
                     <label class="control-label text-single-line">Vehicle Type</label>
                     <select chosen class="form-control" style="height: 30px;"
@@ -345,7 +354,8 @@
                 </div>
             </div>
             <!-- Load type  -->
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3" data-ng-if="ManifestGeneralCtrl.ePage.Entities.Header.Data.TmsManifestHeader.TransporterType == 'Transportation' || ManifestGeneralCtrl.ePage.Entities.Header.Data.TmsManifestHeader.TransporterType == 'LastMileDelivery'">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3"
+                data-ng-if="ManifestGeneralCtrl.ePage.Entities.Header.Data.TmsManifestHeader.TransporterType == 'Transportation' || ManifestGeneralCtrl.ePage.Entities.Header.Data.TmsManifestHeader.TransporterType == 'LastMileDelivery'">
                 <div class="form-group">
                     <label class="control-label text-single-line">Load Type</label>
                     <select chosen class="form-control" style="height: 30px;"
@@ -384,7 +394,7 @@
                             save-as="ManifestGeneralCtrl.ePage.Masters.DatePicker.Options.saveFormat"
                             popup-placement="bottom-right"
                             data-ng-click="ManifestGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isEstimatedDispatchDate')"
-                            ng-change="ManifestGeneralCtrl.ePage.Masters.OnFieldValueChange('E5545')"
+                            ng-change="ManifestGeneralCtrl.ePage.Masters.DispatchDateChange()"
                             custom-date-time-format />
                         <span class="input-group-btn">
                             <button type="button" class="btn btn-default"
@@ -413,17 +423,17 @@
                     <label class="control-label text-single-line">Estimated Delivery Date Time</label>
                     <div class="input-group input-group-sm">
                         <input type="text" class="form-control"
-                            placeholder="{{ManifestGeneralCtrl.ePage.Masters.DatePicker.Options.dateTimeFormat}}"
-                            datetime-picker="{{ManifestGeneralCtrl.ePage.Masters.DatePicker.Options.dateTimeFormat}}"
+                            placeholder="{{ManifestGeneralCtrl.ePage.Masters.DatePicker.Optiondel.dateTimeFormat}}"
+                            datetime-picker="{{ManifestGeneralCtrl.ePage.Masters.DatePicker.Optiondel.dateTimeFormat}}"
                             ng-model="ManifestGeneralCtrl.ePage.Entities.Header.Data.TmsManifestHeader.EstimatedDeliveryDate"
                             is-open="ManifestGeneralCtrl.ePage.Masters.DatePicker.isOpen['isEstimatedDeliveryDate']"
-                            datepicker-options="ManifestGeneralCtrl.ePage.Masters.DatePicker.Options"
+                            datepicker-options="ManifestGeneralCtrl.ePage.Masters.DatePicker.Optiondel"
                             datepicker-append-to-body="false" close-on-selection="false" enable-date="true"
                             enable-time="true" default-date="" default-time="" when-closed=""
-                            save-as="ManifestGeneralCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                            save-as="ManifestGeneralCtrl.ePage.Masters.DatePicker.Optiondel.saveFormat"
                             popup-placement="bottom-right"
                             data-ng-click="ManifestGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isEstimatedDeliveryDate')"
-                            ng-change="ManifestGeneralCtrl.ePage.Masters.OnFieldValueChange('E5546')"
+                            ng-change="ManifestGeneralCtrl.ePage.Masters.DeliveryDateChange()"
                             custom-date-time-format />
                         <span class="input-group-btn">
                             <button type="button" class="btn btn-default"

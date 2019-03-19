@@ -95,7 +95,7 @@
                                     Code: [value.label],
                                     API: "Validation",
                                     FilterInput: {
-                                        ModuleCode: "TMS",
+                                        ModuleCode: "DMS",
                                         SubModuleCode: "MAN"
                                     },
                                     EntityObject: TransportBookingEditCtrl.ePage.Masters.TabList[TransportBookingEditCtrl.ePage.Masters.TabList.label].ePage.Entities.Header.Data
