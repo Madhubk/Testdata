@@ -813,6 +813,14 @@
                 'app/eaxis/warehouse/dynamic-dashboard/dynamic-dashboard.css',
                 'app/eaxis/warehouse/dynamic-dashboard/dynamic-dashboard.controller.js',
                 'app/eaxis/warehouse/dynamic-dashboard/dynamic-dashboard.directive.js',
+                'app/eaxis/warehouse/dynamic-dashboard/dynamic-dashboard-config.factory.js'
+            ]
+        }, {
+            name: 'AsnReceivedWithStatus',
+            files: [
+                // 'app/eaxis/warehouse/dynamic-dashboard/asn-received-status/asn-received-status.css',
+                'app/eaxis/warehouse/dynamic-dashboard/asn-received-status/asn-received-status.controller.js',
+                'app/eaxis/warehouse/dynamic-dashboard/asn-received-status/asn-received-status.directive.js',
             ]
         }, {
             name: 'Notification',
