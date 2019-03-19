@@ -65,9 +65,10 @@
             GetDropDownList();
             GeneralOperation();
             GetNewItemAddress();
-            GetOrgSenderAddress();
-            GetOrgReceiverAddress();
-
+            if (!DMSConsignmentGeneralCtrl.currentConsignment.isNew) {
+                OtherSenderAddress();
+                OtherReceiverAddress();
+            }
             if (DMSConsignmentGeneralCtrl.currentConsignment.isNew) {
                 DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.ConsignmentStatusDesc = "New";
 
@@ -82,156 +83,8 @@
             // Mini date is Today
             DMSConsignmentGeneralCtrl.ePage.Masters.DatePicker.Options['minDate'] = new Date() + 1;
         }
+
         //#region Get Address
-        function GetOrgSenderAddress() {
-            angular.forEach(DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.JobAddress, function (val, key) {
-                if (val.AddressType == "SND") {
-
-                    //Call Org Address API 
-                    var _filter = {
-                        "ORG_FK": DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.Sender_ORG_FK
-                    };
-                    var _input = {
-                        "searchInput": helperService.createToArrayOfObject(_filter),
-                        "FilterID": DMSConsignmentGeneralCtrl.ePage.Entities.Header.API.OrgAddress.FilterID
-                    };
-                    apiService.post("eAxisAPI", DMSConsignmentGeneralCtrl.ePage.Entities.Header.API.OrgAddress.Url, _input).then(function (response) {
-                        if (response.data.Response) {
-                            DMSConsignmentGeneralCtrl.ePage.Masters.OrgSenderAddress = response.data.Response;
-                            angular.forEach(response.data.Response, function (value, key) {
-                                angular.forEach(value.AddressCapability, function (value1, key1) {
-                                    if (value1.IsMainAddress) {
-                                        DMSConsignmentGeneralCtrl.ePage.Masters.SenderMainAddress = value;
-                                    }
-                                });
-                            });
-
-                            angular.forEach(DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.JobAddress, function (value, key) {
-                                if (value.AddressType == "SND") {
-                                    value.ORG_FK = DMSConsignmentGeneralCtrl.ePage.Masters.SenderMainAddress.ORG_FK;
-                                    value.OAD_Address_FK = DMSConsignmentGeneralCtrl.ePage.Masters.SenderMainAddress.PK;
-                                    value.Address1 = DMSConsignmentGeneralCtrl.ePage.Masters.SenderMainAddress.Address1;
-                                    value.Address2 = DMSConsignmentGeneralCtrl.ePage.Masters.SenderMainAddress.Address2;
-                                    value.State = DMSConsignmentGeneralCtrl.ePage.Masters.SenderMainAddress.State;
-                                    value.Postcode = DMSConsignmentGeneralCtrl.ePage.Masters.SenderMainAddress.PostCode;
-                                    value.City = DMSConsignmentGeneralCtrl.ePage.Masters.SenderMainAddress.City;
-                                    value.Email = DMSConsignmentGeneralCtrl.ePage.Masters.SenderMainAddress.Email;
-                                    value.Mobile = DMSConsignmentGeneralCtrl.ePage.Masters.SenderMainAddress.Mobile;
-                                    value.Phone = DMSConsignmentGeneralCtrl.ePage.Masters.SenderMainAddress.Phone;
-                                    value.RN_NKCountryCode = DMSConsignmentGeneralCtrl.ePage.Masters.SenderMainAddress.CountryCode;
-                                    value.Fax = DMSConsignmentGeneralCtrl.ePage.Masters.SenderMainAddress.Fax;
-                                }
-                            });
-                        }
-                    });
-
-                }
-            });
-        }
-
-        function GetOrgReceiverAddress() {
-            angular.forEach(DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.JobAddress, function (val, key) {
-                if (val.AddressType == "REC") {
-
-                    //Call Org Address API 
-                    var _filter = {
-                        "ORG_FK": DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.Receiver_ORG_FK
-                    };
-                    var _input = {
-                        "searchInput": helperService.createToArrayOfObject(_filter),
-                        "FilterID": DMSConsignmentGeneralCtrl.ePage.Entities.Header.API.OrgAddress.FilterID
-                    };
-                    apiService.post("eAxisAPI", DMSConsignmentGeneralCtrl.ePage.Entities.Header.API.OrgAddress.Url, _input).then(function (response) {
-                        if (response.data.Response) {
-                            DMSConsignmentGeneralCtrl.ePage.Masters.OrgReceiverAddress = response.data.Response;
-                            angular.forEach(response.data.Response, function (value, key) {
-                                angular.forEach(value.AddressCapability, function (value1, key1) {
-                                    if (value1.IsMainAddress) {
-                                        DMSConsignmentGeneralCtrl.ePage.Masters.ReceiverMainAddress = value;
-                                    }
-                                });
-                            });
-
-                            angular.forEach(DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.JobAddress, function (value, key) {
-                                if (value.AddressType == "REC") {
-                                    value.ORG_FK = DMSConsignmentGeneralCtrl.ePage.Masters.ReceiverMainAddress.ORG_FK;
-                                    value.OAD_Address_FK = DMSConsignmentGeneralCtrl.ePage.Masters.ReceiverMainAddress.PK;
-                                    value.Address1 = DMSConsignmentGeneralCtrl.ePage.Masters.ReceiverMainAddress.Address1;
-                                    value.Address2 = DMSConsignmentGeneralCtrl.ePage.Masters.ReceiverMainAddress.Address2;
-                                    value.State = DMSConsignmentGeneralCtrl.ePage.Masters.ReceiverMainAddress.State;
-                                    value.Postcode = DMSConsignmentGeneralCtrl.ePage.Masters.ReceiverMainAddress.PostCode;
-                                    value.City = DMSConsignmentGeneralCtrl.ePage.Masters.ReceiverMainAddress.City;
-                                    value.Email = DMSConsignmentGeneralCtrl.ePage.Masters.ReceiverMainAddress.Email;
-                                    value.Mobile = DMSConsignmentGeneralCtrl.ePage.Masters.ReceiverMainAddress.Mobile;
-                                    value.Phone = DMSConsignmentGeneralCtrl.ePage.Masters.ReceiverMainAddress.Phone;
-                                    value.RN_NKCountryCode = DMSConsignmentGeneralCtrl.ePage.Masters.ReceiverMainAddress.CountryCode;
-                                    value.Fax = DMSConsignmentGeneralCtrl.ePage.Masters.ReceiverMainAddress.Fax;
-                                }
-                            });
-                        }
-                    });
-                }
-            });
-        }
-
-        function OtherAddresses(otheraddress, ClientType) {
-            $uibModal.open({
-                animation: true,
-                backdrop: "static",
-                keyboard: true,
-                windowClass: "general-edits right address",
-                scope: $scope,
-
-                templateUrl: 'app/eaxis/distribution/consignment/consignment-general/consignment-address/consignment-address.html',
-                controller: 'ConsignmentAddressController as ConsignmentAddressCtrl',
-                bindToController: true,
-                resolve: {
-                    myData: function () {
-                        var exports = {
-                            "JobAddress": DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.JobAddress,
-                            "otheraddress": otheraddress,
-                            "ClientType": ClientType
-                        };
-                        return exports;
-                    }
-                }
-            });
-        }
-
-        function AddAddresses() {
-            var value = DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.OrgReceiver.PK;
-            var modalInstance = $uibModal.open({
-                animation: true,
-                backdrop: "static",
-                keyboard: true,
-                windowClass: "general-edits right address",
-                scope: $scope,
-                templateUrl: "app/eaxis/distribution/consignment/consignment-general/address-model/address-model.html",
-                controller: 'AddressModalController as AddressModalCtrl',
-                bindToController: true,
-                resolve: {
-                    param: function () {
-                        var exports = {
-                            "Entity": DMSConsignmentGeneralCtrl.currentConsignment,
-                            "Item": value,
-                        };
-                        return exports;
-                    }
-                }
-            }).result.then(
-                function (response) {
-                    if (response.data) {
-                        DMSConsignmentGeneralCtrl.currentConsignment[DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.OrgReceiver.Pk].ePage.Entities.Header.Data = response.data;
-                        
-                        DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data = response.data;
-                    }
-                },
-                function () {
-                    console.log("Cancelled");
-                }
-            );
-
-        }
 
         function GetNewItemAddress() {
             var myvalue = DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.JobAddress.some(function (value, key) {
@@ -283,6 +136,193 @@
                 DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.JobAddress.push(obj1);
             }
         }
+
+        function GetOrgSenderAddress() {
+            angular.forEach(DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.JobAddress, function (val, key) {
+                if (val.AddressType == "SND") {
+
+                    //Call Org Address API 
+                    var _filter = {
+                        "ORG_FK": DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.Sender_ORG_FK
+                    };
+                    var _input = {
+                        "searchInput": helperService.createToArrayOfObject(_filter),
+                        "FilterID": DMSConsignmentGeneralCtrl.ePage.Entities.Header.API.OrgAddress.FilterID
+                    };
+                    apiService.post("eAxisAPI", DMSConsignmentGeneralCtrl.ePage.Entities.Header.API.OrgAddress.Url, _input).then(function (response) {
+                        if (response.data.Response) {
+                            DMSConsignmentGeneralCtrl.ePage.Masters.OrgSenderAddress = response.data.Response;
+                            angular.forEach(response.data.Response, function (value, key) {
+                                angular.forEach(value.AddressCapability, function (value1, key1) {
+                                    if (value1.IsMainAddress) {
+                                        DMSConsignmentGeneralCtrl.ePage.Masters.SenderMainAddress = value;
+                                    }
+                                });
+                            });
+
+                            angular.forEach(DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.JobAddress, function (value, key) {
+                                if (value.AddressType == "SND") {
+                                    value.ORG_FK = DMSConsignmentGeneralCtrl.ePage.Masters.SenderMainAddress.ORG_FK;
+                                    value.OAD_Address_FK = DMSConsignmentGeneralCtrl.ePage.Masters.SenderMainAddress.PK;
+                                    value.Address1 = DMSConsignmentGeneralCtrl.ePage.Masters.SenderMainAddress.Address1;
+                                    value.Address2 = DMSConsignmentGeneralCtrl.ePage.Masters.SenderMainAddress.Address2;
+                                    value.State = DMSConsignmentGeneralCtrl.ePage.Masters.SenderMainAddress.State;
+                                    value.Postcode = DMSConsignmentGeneralCtrl.ePage.Masters.SenderMainAddress.PostCode;
+                                    value.City = DMSConsignmentGeneralCtrl.ePage.Masters.SenderMainAddress.City;
+                                    value.Email = DMSConsignmentGeneralCtrl.ePage.Masters.SenderMainAddress.Email;
+                                    value.Mobile = DMSConsignmentGeneralCtrl.ePage.Masters.SenderMainAddress.Mobile;
+                                    value.Phone = DMSConsignmentGeneralCtrl.ePage.Masters.SenderMainAddress.Phone;
+                                    value.RN_NKCountryCode = DMSConsignmentGeneralCtrl.ePage.Masters.SenderMainAddress.CountryCode;
+                                    value.Fax = DMSConsignmentGeneralCtrl.ePage.Masters.SenderMainAddress.Fax;
+                                }
+                            });
+                            DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.SenderCity = DMSConsignmentGeneralCtrl.ePage.Masters.SenderMainAddress.City;
+                            DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.SenderState = DMSConsignmentGeneralCtrl.ePage.Masters.SenderMainAddress.State;
+                        }
+                    });
+
+                }
+            });
+        }
+
+        function GetOrgReceiverAddress() {
+            angular.forEach(DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.JobAddress, function (val, key) {
+                if (val.AddressType == "REC") {
+
+                    //Call Org Address API 
+                    var _filter = {
+                        "ORG_FK": DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.Receiver_ORG_FK
+                    };
+                    var _input = {
+                        "searchInput": helperService.createToArrayOfObject(_filter),
+                        "FilterID": DMSConsignmentGeneralCtrl.ePage.Entities.Header.API.OrgAddress.FilterID
+                    };
+                    apiService.post("eAxisAPI", DMSConsignmentGeneralCtrl.ePage.Entities.Header.API.OrgAddress.Url, _input).then(function (response) {
+                        if (response.data.Response) {
+                            DMSConsignmentGeneralCtrl.ePage.Masters.OrgReceiverAddress = response.data.Response;
+                            angular.forEach(response.data.Response, function (value, key) {
+                                angular.forEach(value.AddressCapability, function (value1, key1) {
+                                    if (value1.IsMainAddress) {
+                                        DMSConsignmentGeneralCtrl.ePage.Masters.ReceiverMainAddress = value;
+                                    }
+                                });
+                            });
+
+                            angular.forEach(DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.JobAddress, function (value, key) {
+                                if (value.AddressType == "REC") {
+                                    value.ORG_FK = DMSConsignmentGeneralCtrl.ePage.Masters.ReceiverMainAddress.ORG_FK;
+                                    value.OAD_Address_FK = DMSConsignmentGeneralCtrl.ePage.Masters.ReceiverMainAddress.PK;
+                                    value.Address1 = DMSConsignmentGeneralCtrl.ePage.Masters.ReceiverMainAddress.Address1;
+                                    value.Address2 = DMSConsignmentGeneralCtrl.ePage.Masters.ReceiverMainAddress.Address2;
+                                    value.State = DMSConsignmentGeneralCtrl.ePage.Masters.ReceiverMainAddress.State;
+                                    value.Postcode = DMSConsignmentGeneralCtrl.ePage.Masters.ReceiverMainAddress.PostCode;
+                                    value.City = DMSConsignmentGeneralCtrl.ePage.Masters.ReceiverMainAddress.City;
+                                    value.Email = DMSConsignmentGeneralCtrl.ePage.Masters.ReceiverMainAddress.Email;
+                                    value.Mobile = DMSConsignmentGeneralCtrl.ePage.Masters.ReceiverMainAddress.Mobile;
+                                    value.Phone = DMSConsignmentGeneralCtrl.ePage.Masters.ReceiverMainAddress.Phone;
+                                    value.RN_NKCountryCode = DMSConsignmentGeneralCtrl.ePage.Masters.ReceiverMainAddress.CountryCode;
+                                    value.Fax = DMSConsignmentGeneralCtrl.ePage.Masters.ReceiverMainAddress.Fax;
+                                }
+                            });
+                            DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.ReceiverCity = DMSConsignmentGeneralCtrl.ePage.Masters.ReceiverMainAddress.City;
+                            DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.ReceiverState = DMSConsignmentGeneralCtrl.ePage.Masters.ReceiverMainAddress.State;
+
+                        }
+                    });
+                }
+            });
+        }
+
+        function OtherSenderAddress() {
+            var _filter = {
+                "ORG_FK": DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.Sender_ORG_FK
+            };
+            var _input = {
+                "searchInput": helperService.createToArrayOfObject(_filter),
+                "FilterID": DMSConsignmentGeneralCtrl.ePage.Entities.Header.API.OrgAddress.FilterID
+            };
+            apiService.post("eAxisAPI", DMSConsignmentGeneralCtrl.ePage.Entities.Header.API.OrgAddress.Url, _input).then(function (response) {
+                if (response.data.Response) {
+                    DMSConsignmentGeneralCtrl.ePage.Masters.OrgSenderAddress = response.data.Response;
+                }
+            });
+
+        }
+        function OtherReceiverAddress() {
+            var _filter = {
+                "ORG_FK": DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.Receiver_ORG_FK
+            };
+            var _input = {
+                "searchInput": helperService.createToArrayOfObject(_filter),
+                "FilterID": DMSConsignmentGeneralCtrl.ePage.Entities.Header.API.OrgAddress.FilterID
+            };
+            apiService.post("eAxisAPI", DMSConsignmentGeneralCtrl.ePage.Entities.Header.API.OrgAddress.Url, _input).then(function (response) {
+                if (response.data.Response) {
+                    DMSConsignmentGeneralCtrl.ePage.Masters.OrgReceiverAddress = response.data.Response;
+                }
+            });
+
+        }
+        function OtherAddresses(otheraddress, ClientType) {
+            $uibModal.open({
+                animation: true,
+                backdrop: "static",
+                keyboard: true,
+                windowClass: "general-edits right address",
+                scope: $scope,
+
+                templateUrl: 'app/eaxis/distribution/consignment/consignment-general/consignment-address/consignment-address.html',
+                controller: 'ConsignmentAddressController as ConsignmentAddressCtrl',
+                bindToController: true,
+                resolve: {
+                    myData: function () {
+                        var exports = {
+                            "JobAddress": DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.JobAddress,
+                            "TmsConsignmentHeader": DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader,
+                            "otheraddress": otheraddress,
+                            "ClientType": ClientType
+                        };
+                        return exports;
+                    }
+                }
+            });
+        }
+
+        function AddAddresses() {
+            var value = DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.OrgReceiver.PK;
+            var modalInstance = $uibModal.open({
+                animation: true,
+                backdrop: "static",
+                keyboard: true,
+                windowClass: "general-edits right address",
+                scope: $scope,
+                templateUrl: "app/eaxis/distribution/consignment/consignment-general/address-model/address-model.html",
+                controller: 'AddressModalController as AddressModalCtrl',
+                bindToController: true,
+                resolve: {
+                    param: function () {
+                        var exports = {
+                            "Entity": DMSConsignmentGeneralCtrl.currentConsignment,
+                            "Item": value,
+                        };
+                        return exports;
+                    }
+                }
+            }).result.then(
+                function (response) {
+                    if (response.data) {
+                        DMSConsignmentGeneralCtrl.currentConsignment[DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.OrgReceiver.Pk].ePage.Entities.Header.Data = response.data;
+
+                        DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data = response.data;
+                    }
+                },
+                function () {
+                    console.log("Cancelled");
+                }
+            );
+
+        }
+
         //#endregion
 
         //#region save Details
