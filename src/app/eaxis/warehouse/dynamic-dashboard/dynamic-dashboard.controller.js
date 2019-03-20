@@ -80,6 +80,11 @@
                 "Directive": "exception-directive",
                 "SequenceNo": 6,
                 "IsShow": true
+            }, {
+                "ComponentName": "OpenSO",
+                "Directive": "open-so",
+                "SequenceNo": 6,
+                "IsShow": true
             }];
             DynamicDashboardCtrl.ePage.Masters.ComponentList = $filter('orderBy')(DynamicDashboardCtrl.ePage.Masters.ComponentList, 'SequenceNo');
         }

@@ -830,6 +830,13 @@
                 'app/eaxis/warehouse/dynamic-dashboard/asn-trend/asn-trend.directive.js',
             ]
         }, {
+            name: 'OpenSO',
+            files: [
+                // 'app/eaxis/warehouse/dynamic-dashboard/open-so/open-so.css',
+                'app/eaxis/warehouse/dynamic-dashboard/open-so/open-so.controller.js',
+                'app/eaxis/warehouse/dynamic-dashboard/open-so/open-so.directive.js',
+            ]
+        }, {
             name: 'Notification',
             files: [
                 'app/eaxis/warehouse/dynamic-dashboard/notification/notification.css',
