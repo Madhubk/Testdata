@@ -126,6 +126,7 @@
                     <div class='table_header'>Receiver Reference / Docket No</div>
                     <div class='table_header'>Expected Pickup Date Time</div>
                     <div class='table_header'>Expected Delivery Date Time</div>
+                    <div class='table_header'>Volumetric weight</div>
                 </div>
 
                 <!-- List Empty Response -->
@@ -185,6 +186,11 @@
                         <div class='table_cell'>Expected Delivery Date Time</div>
                         <div class='table_cell'>{{x.TMC_ExpectedDeliveryDateTime | date:"dd-MMM-yyyy h:mm a"}}</div>
                     </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Volumetric weight</div>
+                        <div class='table_cell'>
+                            {{x.TMC_VolumentricWeight || DeliveryRunsheetCtrl.ePage.Masters.emptyText}}</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -203,8 +209,7 @@
                 <div class="col-lg-4">
                     <a href="" ng-click="DeliveryRunsheetCtrl.ePage.Masters.GenerateReport(x,'PDF','General',$index)"
                         ng-if="!x.PDFGenerating"><i>Generate</i></a>
-                    <span href=""
-                        ng-if="x.PDFGenerating"><i>Generating...</i></span>
+                    <span href="" ng-if="x.PDFGenerating"><i>Generating...</i></span>
                 </div>
             </div>
         </div>
