@@ -75,10 +75,13 @@
             ManifestGeneralCtrl.ePage.Masters.SelectRadioButton = SelectRadioButton;
             ManifestGeneralCtrl.ePage.Masters.DispatchDateChange = DispatchDateChange;
             ManifestGeneralCtrl.ePage.Masters.DeliveryDateChange = DeliveryDateChange;
-        
+
+            if (!ManifestGeneralCtrl.currentManifest.isNew) {
+                GetOrgSenderAddress();
+                GetOrgReceiverAddress();
+            }
 
             GetNewManifestAddress();
-            GetOrgReceiverAddress();
             getVehicleType();
             GetDropDownList();
         }
@@ -422,6 +425,20 @@
             OnFieldValueChange(code)
         }
 
+        function GetOrgSenderAddress() {
+            var _filter = {
+                "ORG_FK": ManifestGeneralCtrl.ePage.Entities.Header.Data.TmsManifestHeader.Sender_ORG_FK
+            };
+            var _input = {
+                "searchInput": helperService.createToArrayOfObject(_filter),
+                "FilterID": ManifestGeneralCtrl.ePage.Entities.Header.API.OrgAddress.FilterID
+            };
+            apiService.post("eAxisAPI", ManifestGeneralCtrl.ePage.Entities.Header.API.OrgAddress.Url, _input).then(function (response) {
+                if (response.data.Response) {
+                    ManifestGeneralCtrl.ePage.Masters.OrgSenderAddress = response.data.Response;
+                }
+            });
+        }
         function GetOrgReceiverAddress() {
             var _filter = {
                 "ORG_FK": ManifestGeneralCtrl.ePage.Entities.Header.Data.TmsManifestHeader.Receiver_ORG_FK
@@ -433,31 +450,6 @@
             apiService.post("eAxisAPI", ManifestGeneralCtrl.ePage.Entities.Header.API.OrgAddress.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     ManifestGeneralCtrl.ePage.Masters.OrgReceiverAddress = response.data.Response;
-
-                    angular.forEach(response.data.Response, function (value, key) {
-                        angular.forEach(value.AddressCapability, function (value1, key1) {
-                            if (value1.IsMainAddress) {
-                                ManifestGeneralCtrl.ePage.Masters.ReceiverMainAddress = value;
-                            }
-                        });
-                    });
-
-                    angular.forEach(ManifestGeneralCtrl.ePage.Entities.Header.Data.JobAddress, function (value, key) {
-                        if (value.AddressType == "REC") {
-                            value.ORG_FK = ManifestGeneralCtrl.ePage.Masters.ReceiverMainAddress.ORG_FK;
-                            value.OAD_Address_FK = ManifestGeneralCtrl.ePage.Masters.ReceiverMainAddress.PK;
-                            value.Address1 = ManifestGeneralCtrl.ePage.Masters.ReceiverMainAddress.Address1;
-                            value.Address2 = ManifestGeneralCtrl.ePage.Masters.ReceiverMainAddress.Address2;
-                            value.State = ManifestGeneralCtrl.ePage.Masters.ReceiverMainAddress.State;
-                            value.Postcode = ManifestGeneralCtrl.ePage.Masters.ReceiverMainAddress.PostCode;
-                            value.City = ManifestGeneralCtrl.ePage.Masters.ReceiverMainAddress.City;
-                            value.Email = ManifestGeneralCtrl.ePage.Masters.ReceiverMainAddress.Email;
-                            value.Mobile = ManifestGeneralCtrl.ePage.Masters.ReceiverMainAddress.Mobile;
-                            value.Phone = ManifestGeneralCtrl.ePage.Masters.ReceiverMainAddress.Phone;
-                            value.RN_NKCountryCode = ManifestGeneralCtrl.ePage.Masters.ReceiverMainAddress.CountryCode;
-                            value.Fax = ManifestGeneralCtrl.ePage.Masters.ReceiverMainAddress.Fax;
-                        }
-                    });
                 }
             });
         }
@@ -511,7 +503,7 @@
                 function (response) {
                     if (response.data) {
                         ManifestGeneralCtrl.currentManifest[ManifestGeneralCtrl.ePage.Entities.Header.Data.OrgReceiver.Pk].ePage.Entities.Header.Data = response.data;
-                        
+
                         ManifestGeneralCtrl.ePage.Entities.Header.Data = response.data;
                     }
                 },

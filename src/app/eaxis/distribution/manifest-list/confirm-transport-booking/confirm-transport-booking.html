@@ -1,7 +1,8 @@
 <div class="col-lg-12 mt-15">
     <div class="rows border-box border-radius-2 bg-fbfbfb">
         <div class="col-xs-4 col-sm-4 col-md-2 col-lg-2 col-xl-2 pt-10 pb-10">
-            <div class="tab-profile-title text-single-line fs-16" data-ng-bind="ConfirmTransportCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ManifestNumber"></div>
+            <div class="tab-profile-title text-single-line fs-16"
+                data-ng-bind="ConfirmTransportCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ManifestNumber"></div>
         </div>
 
         <!--Sender-->
@@ -19,8 +20,10 @@
             </div>
         </div>
         <div class="col-lg-2 mt-10">
-            <div class="tab-profile-sub-title text-single-line fs-14" title="{{ConfirmTransportCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ManifestStatus}} - {{ConfirmTransportCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ManifestStatusDesc}}"
-                data-ng-bind="ConfirmTransportCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ManifestStatusDesc"></div>
+            <div class="tab-profile-sub-title text-single-line fs-14"
+                title="{{ConfirmTransportCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ManifestStatus}} - {{ConfirmTransportCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ManifestStatusDesc}}"
+                data-ng-bind="ConfirmTransportCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ManifestStatusDesc">
+            </div>
         </div>
     </div>
 </div>
@@ -33,17 +36,21 @@
 
                 <div class="input-group input-group-sm">
                     <!-- Dynamic look up Search in textbox -->
-                    <div dynamic-lookup placeholder="Carrier" my-ng-model="ConfirmTransportCtrl.ePage.Masters.Transporter" auto-complete-on-select="ConfirmTransportCtrl.ePage.Masters.SelectedLookupCarrier($item)"
-                        obj="ConfirmTransportCtrl.ePage.Entities.Header.Data.TmsManifestHeader" page-name="'OrganizationList'"
-                        control-key="'SenderCarrier_3239'" control-id="'SenderCarrier'">
+                    <div dynamic-lookup placeholder="Carrier"
+                        my-ng-model="ConfirmTransportCtrl.ePage.Masters.Transporter"
+                        auto-complete-on-select="ConfirmTransportCtrl.ePage.Masters.SelectedLookupCarrier($item)"
+                        obj="ConfirmTransportCtrl.ePage.Entities.Header.Data.TmsManifestHeader"
+                        page-name="'OrganizationList'" control-key="'SenderCarrier_3239'" control-id="'SenderCarrier'">
                     </div>
 
                     <!-- Look Up page opens when button clicks -->
                     <span class="input-group-btn">
-                        <button dynamic-list-modal obj="ConfirmTransportCtrl.ePage.Entities.Header.Data.TmsManifestHeader" control-id="'SenderCarrier'"
-                            control-key="'SenderCarrier_3239'" selected-data="ConfirmTransportCtrl.ePage.Masters.SelectedLookupCarrier($item)"
-                            page-name="'OrganizationList'" mode="2" grid-refresh-fun-name="" grid-refresh-fun="" class="btn btn-default shiny"
-                            type="button">
+                        <button dynamic-list-modal
+                            obj="ConfirmTransportCtrl.ePage.Entities.Header.Data.TmsManifestHeader"
+                            control-id="'SenderCarrier'" control-key="'SenderCarrier_3239'"
+                            selected-data="ConfirmTransportCtrl.ePage.Masters.SelectedLookupCarrier($item)"
+                            page-name="'OrganizationList'" mode="2" grid-refresh-fun-name="" grid-refresh-fun=""
+                            class="btn btn-default shiny" type="button">
                             <i class="fa fa-ellipsis-h"></i>
                         </button>
                     </span>
@@ -55,16 +62,19 @@
             <div class="form-group">
                 <label class="control-label text-single-line">Carrier/Docket/LR Number</label>
                 <div class="">
-                    <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Carrier/Docket/LR Number"
+                    <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
+                        placeholder="Carrier/Docket/LR Number"
                         data-ng-model="ConfirmTransportCtrl.ePage.Entities.Header.Data.TmsManifestHeader.TransportRefNo">
                 </div>
             </div>
         </div>
         <!--Vehicle Type-->
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3" data-ng-if="ConfirmTransportCtrl.ePage.Entities.Header.Data.TmsManifestHeader.TransporterType == 'Transportation' || ConfirmTransportCtrl.ePage.Entities.Header.Data.TmsManifestHeader.TransporterType == 'LastMileDelivery'">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3"
+            data-ng-if="ConfirmTransportCtrl.ePage.Entities.Header.Data.TmsManifestHeader.TransporterType == 'Transportation' || ConfirmTransportCtrl.ePage.Entities.Header.Data.TmsManifestHeader.TransporterType == 'LastMileDelivery'">
             <div class="form-group">
                 <label class="control-label text-single-line">Vehicle Type</label>
-                <select chosen class="form-control" style="height: 30px;" ng-model="ConfirmTransportCtrl.ePage.Entities.Header.Data.TmsManifestHeader.VehicleTypeCode"
+                <select chosen class="form-control" style="height: 30px;"
+                    ng-model="ConfirmTransportCtrl.ePage.Entities.Header.Data.TmsManifestHeader.VehicleTypeCode"
                     ng-options="x.Code as x.Code + ' - '  + x.Description for x in ConfirmTransportCtrl.ePage.Masters.VehicleType | filter: {IsVehicle:true}"
                     ng-change="ConfirmTransportCtrl.ePage.Masters.OnChangeVehicleType(ConfirmTransportCtrl.ePage.Entities.Header.Data.TmsManifestHeader.VehicleTypeCode,'VehicleType')"
                     search-contains="true">
@@ -73,31 +83,37 @@
             </div>
         </div>
         <!-- Expected Vehicle No -->
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3" data-ng-if="ConfirmTransportCtrl.ePage.Entities.Header.Data.TmsManifestHeader.TransporterType == 'Transportation' || ConfirmTransportCtrl.ePage.Entities.Header.Data.TmsManifestHeader.TransporterType == 'LastMileDelivery'">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3"
+            data-ng-if="ConfirmTransportCtrl.ePage.Entities.Header.Data.TmsManifestHeader.TransporterType == 'Transportation' || ConfirmTransportCtrl.ePage.Entities.Header.Data.TmsManifestHeader.TransporterType == 'LastMileDelivery'">
             <div class="form-group">
                 <label class="control-label text-single-line">Expected Vehicle No</label>
                 <div class="">
-                    <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Expected Vehicle No"
+                    <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
+                        placeholder="Expected Vehicle No"
                         data-ng-model="ConfirmTransportCtrl.ePage.Entities.Header.Data.TmsManifestHeader.VehicleNo">
                 </div>
             </div>
         </div>
         <!-- Expected Driver Name   -->
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3" data-ng-if="ConfirmTransportCtrl.ePage.Entities.Header.Data.TmsManifestHeader.TransporterType == 'Transportation' || ConfirmTransportCtrl.ePage.Entities.Header.Data.TmsManifestHeader.TransporterType == 'LastMileDelivery'">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3"
+            data-ng-if="ConfirmTransportCtrl.ePage.Entities.Header.Data.TmsManifestHeader.TransporterType == 'Transportation' || ConfirmTransportCtrl.ePage.Entities.Header.Data.TmsManifestHeader.TransporterType == 'LastMileDelivery'">
             <div class="clearfix form-group">
                 <label class="control-label text-single-line">Expected Driver Name</label>
                 <div class="">
-                    <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Expected Driver Name"
+                    <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
+                        placeholder="Expected Driver Name"
                         data-ng-model="ConfirmTransportCtrl.ePage.Entities.Header.Data.TmsManifestHeader.DriveName">
                 </div>
             </div>
         </div>
         <!-- Driver Contact No   -->
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3" data-ng-if="ConfirmTransportCtrl.ePage.Entities.Header.Data.TmsManifestHeader.TransporterType == 'Transportation' || ConfirmTransportCtrl.ePage.Entities.Header.Data.TmsManifestHeader.TransporterType == 'LastMileDelivery'">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3"
+            data-ng-if="ConfirmTransportCtrl.ePage.Entities.Header.Data.TmsManifestHeader.TransporterType == 'Transportation' || ConfirmTransportCtrl.ePage.Entities.Header.Data.TmsManifestHeader.TransporterType == 'LastMileDelivery'">
             <div class="clearfix form-group">
                 <label class="control-label text-single-line">Driver Contact No</label>
                 <div class="">
-                    <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Driver Contact No"
+                    <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
+                        placeholder="Driver Contact No"
                         data-ng-model="ConfirmTransportCtrl.ePage.Entities.Header.Data.TmsManifestHeader.DriverContactNo">
                 </div>
             </div>
@@ -107,17 +123,23 @@
             <div class="form-group">
                 <label class="control-label text-single-line">Estimated Dispatch Date Time</label>
                 <div class="input-group input-group-sm">
-                    <input type="text" class="form-control" placeholder="{{ConfirmTransportCtrl.ePage.Masters.DatePicker.Options.dateTimeFormat}}"
-                        datetime-picker="{{ConfirmTransportCtrl.ePage.Masters.DatePicker.Options.dateTimeFormat}}" ng-model="ConfirmTransportCtrl.ePage.Entities.Header.Data.TmsManifestHeader.EstimatedDispatchDate"
-                        is-open="ConfirmTransportCtrl.ePage.Masters.DatePicker.isOpen['isEstimatedDispatchDate']" datepicker-options="ConfirmTransportCtrl.ePage.Masters.DatePicker.Options"
-                        datepicker-append-to-body="false" close-on-selection="false" enable-date="true" enable-time="true" default-date=""
-                        default-time="" when-closed="ConfirmTransportCtrl.ePage.Masters.onchangeEDD(ConfirmTransportCtrl.ePage.Entities.Header.Data.TmsManifestHeader.EstimatedDispatchDate,ConfirmTransportCtrl.ePage.Entities.Header.Data.TmsManifestHeader.EstimatedDeliveryDate)"
-                        save-as="ConfirmTransportCtrl.ePage.Masters.DatePicker.Options.saveFormat" popup-placement="bottom-right"
+                    <input type="text" class="form-control"
+                        placeholder="{{ConfirmTransportCtrl.ePage.Masters.DatePicker.Options.dateTimeFormat}}"
+                        datetime-picker="{{ConfirmTransportCtrl.ePage.Masters.DatePicker.Options.dateTimeFormat}}"
+                        ng-model="ConfirmTransportCtrl.ePage.Entities.Header.Data.TmsManifestHeader.EstimatedDispatchDate"
+                        is-open="ConfirmTransportCtrl.ePage.Masters.DatePicker.isOpen['isEstimatedDispatchDate']"
+                        datepicker-options="ConfirmTransportCtrl.ePage.Masters.DatePicker.Options"
+                        datepicker-append-to-body="false" close-on-selection="false" enable-date="true"
+                        enable-time="true" default-date="" default-time=""
+                        when-closed="ConfirmTransportCtrl.ePage.Masters.onchangeEDD(ConfirmTransportCtrl.ePage.Entities.Header.Data.TmsManifestHeader.EstimatedDispatchDate,ConfirmTransportCtrl.ePage.Entities.Header.Data.TmsManifestHeader.EstimatedDeliveryDate)"
+                        save-as="ConfirmTransportCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                        popup-placement="bottom-right"
                         data-ng-click="ConfirmTransportCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isEstimatedDispatchDate')"
                         ng-change="ConfirmTransportCtrl.ePage.Masters.OnDateChange(ConfirmTransportCtrl.ePage.Entities.Header.Data.TmsManifestHeader.EstimatedDispatchDate)"
-                        custom-date-time-format/>
+                        custom-date-time-format />
                     <span class="input-group-btn">
-                        <button type="button" class="btn btn-default" data-ng-click="ConfirmTransportCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isEstimatedDispatchDate')">
+                        <button type="button" class="btn btn-default"
+                            data-ng-click="ConfirmTransportCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isEstimatedDispatchDate')">
                             <i class="fa fa-calendar"></i>
                         </button>
                     </span>
@@ -129,17 +151,23 @@
             <div class="form-group">
                 <label class="control-label text-single-line">Estimated Delivery Date Time</label>
                 <div class="input-group input-group-sm">
-                    <input type="text" class="form-control" placeholder="{{ConfirmTransportCtrl.ePage.Masters.DatePicker.Options.dateTimeFormat}}"
-                        datetime-picker="{{ConfirmTransportCtrl.ePage.Masters.DatePicker.Options.dateTimeFormat}}" ng-model="ConfirmTransportCtrl.ePage.Entities.Header.Data.TmsManifestHeader.EstimatedDeliveryDate"
-                        is-open="ConfirmTransportCtrl.ePage.Masters.DatePicker.isOpen['isEstimatedDeliveryDate']" datepicker-options="ConfirmTransportCtrl.ePage.Masters.DatePicker.Options"
-                        datepicker-append-to-body="false" close-on-selection="false" enable-date="true" enable-time="true" default-date=""
-                        default-time="" when-closed="ConfirmTransportCtrl.ePage.Masters.onchangeEDD(ConfirmTransportCtrl.ePage.Entities.Header.Data.TmsManifestHeader.EstimatedDispatchDate,ConfirmTransportCtrl.ePage.Entities.Header.Data.TmsManifestHeader.EstimatedDeliveryDate)"
-                        save-as="ConfirmTransportCtrl.ePage.Masters.DatePicker.Options.saveFormat" popup-placement="bottom-right"
+                    <input type="text" class="form-control"
+                        placeholder="{{ConfirmTransportCtrl.ePage.Masters.DatePicker.Options.dateTimeFormat}}"
+                        datetime-picker="{{ConfirmTransportCtrl.ePage.Masters.DatePicker.Options.dateTimeFormat}}"
+                        ng-model="ConfirmTransportCtrl.ePage.Entities.Header.Data.TmsManifestHeader.EstimatedDeliveryDate"
+                        is-open="ConfirmTransportCtrl.ePage.Masters.DatePicker.isOpen['isEstimatedDeliveryDate']"
+                        datepicker-options="ConfirmTransportCtrl.ePage.Masters.DatePicker.Options"
+                        datepicker-append-to-body="false" close-on-selection="false" enable-date="true"
+                        enable-time="true" default-date="" default-time=""
+                        when-closed="ConfirmTransportCtrl.ePage.Masters.onchangeEDD(ConfirmTransportCtrl.ePage.Entities.Header.Data.TmsManifestHeader.EstimatedDispatchDate,ConfirmTransportCtrl.ePage.Entities.Header.Data.TmsManifestHeader.EstimatedDeliveryDate)"
+                        save-as="ConfirmTransportCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                        popup-placement="bottom-right"
                         data-ng-click="ConfirmTransportCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isEstimatedDeliveryDate')"
                         ng-change='ConfirmTransportCtrl.ePage.Masters.ConfirmTransportCtrl.ePage.Masters.OnChangeValues(ConfirmTransportCtrl.ePage.Entities.Header.Data.TmsManifestHeader.EstimatedDeliveryDate,"E5546",false,undefined)'
-                        custom-date-time-format/>
+                        custom-date-time-format />
                     <span class="input-group-btn">
-                        <button type="button" class="btn btn-default" data-ng-click="ConfirmTransportCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isEstimatedDeliveryDate')">
+                        <button type="button" class="btn btn-default"
+                            data-ng-click="ConfirmTransportCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isEstimatedDeliveryDate')">
                             <i class="fa fa-calendar"></i>
                         </button>
                     </span>
@@ -148,7 +176,8 @@
         </div>
     </div>
 </div>
-<div class="clearfix col-lg-12 mt-10" data-ng-if="ConfirmTransportCtrl.ePage.Entities.Header.Data.TmsManifestHeader.TransporterType == 'ExpressDelivery'">
+<div class="clearfix col-lg-12 mt-10"
+    data-ng-if="ConfirmTransportCtrl.ePage.Entities.Header.Data.TmsManifestHeader.TransporterType == 'ExpressDelivery'">
     <div class="dmstable_scroll" id='ConfirmTransportCtrl.ePage.Masters.your_div'
         style="height:145px; padding-top: 2px;">
         <div class="table" id="results">
@@ -164,6 +193,7 @@
                 <!-- <div class='table_header'>Receiver Reference</div> -->
                 <div class='table_header'>Expected Pickup Date Time</div>
                 <div class='table_header'>Expected Delivery Date Time</div>
+                <div class='table_header'>Volumetric weight</div>
             </div>
 
             <!-- List Empty Response -->
@@ -174,7 +204,8 @@
             <div class='table_row'
                 ng-repeat="x in ConfirmTransportCtrl.ePage.Entities.Header.Data.TmsManifestConsignment | filter:{IsDeleted:'false'}  track by $index"
                 ng-click="ConfirmTransportCtrl.ePage.Masters.setSelectedRow($index)"
-                ng-class="{row_active: ConfirmTransportCtrl.ePage.Masters.selectedRow==$index}" style="font-size: 11px;">
+                ng-class="{row_active: ConfirmTransportCtrl.ePage.Masters.selectedRow==$index}"
+                style="font-size: 11px;">
                 <div class='table_small'>
                     <div class='table_cell'>Consignment Number</div>
                     <div class='table_cell'>{{x.TMC_ConsignmentNumber || ConfirmTransportCtrl.ePage.Masters.emptyText}}
@@ -184,8 +215,9 @@
                     <div class='table_cell'>Receiver Reference / Docket No</div>
                     <div class='table_cell'>
                         <div class="">
-                            <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Receiver Reference / Docket No" 
-                            data-ng-model="x.TMC_ReceiverRef">
+                            <input type="text"
+                                class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
+                                placeholder="Receiver Reference / Docket No" data-ng-model="x.TMC_ReceiverRef">
                         </div>
                     </div>
                 </div>
@@ -226,6 +258,11 @@
                 <div class='table_small'>
                     <div class='table_cell'>Expected Delivery Date Time</div>
                     <div class='table_cell'>{{x.TMC_ExpectedDeliveryDateTime | date:"dd-MMM-yyyy h:mm a"}}</div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Volumetric weight</div>
+                    <div class='table_cell'>{{x.TMC_VolumentricWeight || ConfirmTransportCtrl.ePage.Masters.emptyText}}
+                    </div>
                 </div>
             </div>
         </div>

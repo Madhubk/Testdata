@@ -28,7 +28,7 @@
             } else {
                 BillableCostCtrl.ePage.Masters.MenuList = BillableCostCtrl.ePage.Entities.Header.Meta.MenuList.LoadMenu;
             }
-
+            BillableCostCtrl.ePage.Masters.Consignmentlist = [];
             BillableCostCtrl.ePage.Masters.DropDownMasterList = {};
             BillableCostCtrl.ePage.Masters.Empty = "-";
             BillableCostCtrl.ePage.Masters.Config = dmsManifestConfig;
@@ -36,7 +36,16 @@
             BillableCostCtrl.ePage.Masters.SaveButtonText = "Save";
 
             GetDropdownList()
+            // ManifestConsignmentDetails()
         }
+        // function ManifestConsignmentDetails() {
+        //     angular.forEach(BillableCostCtrl.ePage.Entities.Header.Data.TmsConsignmentList, function (value, key) {
+        //         angular.forEach(value, function (value1, key1) {
+        //        console.log(value1)
+        //        console.log(key1)
+        //         });
+        //     });
+        // }
         function GetDropdownList() {
             // Get CFXType Dropdown list
             var typeCodeList = ["Currency"];
@@ -69,6 +78,26 @@
                 BillableCostCtrl.ePage.Masters.SaveButtonText = "Please Wait...";
             }
             var item = filterObjectUpdate(BillableCostCtrl.ePage.Entities.Header.Data, "IsModified");
+
+            // jobcustom manifest input
+            if (!BillableCostCtrl.ePage.Entities.Header.Data.UIJobCustom.PK || BillableCostCtrl.ePage.Entities.Header.Data.UIJobCustom.PK == "00000000-0000-0000-0000-000000000000") {
+                BillableCostCtrl.ePage.Entities.Header.Data.UIJobCustom.IsNewInsert = true;
+            } else if (BillableCostCtrl.ePage.Entities.Header.Data.UIJobCustom.PK) {
+                BillableCostCtrl.ePage.Entities.Header.Data.UIJobCustom.IsModified = true;
+                BillableCostCtrl.ePage.Entities.Header.Data.UIJobCustom.IsNewInsert = false;
+            }
+
+            // consignment
+
+            angular.forEach(BillableCostCtrl.ePage.Entities.Header.Data.TmsConsignmentList, function (value, key) {
+                if (!value.UIJobCustom.PK || value.UIJobCustom.PK == "00000000-0000-0000-0000-000000000000") {
+                    value.UIJobCustom.IsNewInsert = true;
+                } else if (value.UIJobCustom.PK) {
+                    value.IsModified = true;
+                    value.UIJobCustom.IsNewInsert = false;
+                }
+            });
+
             apiService.post("eAxisAPI", BillableCostCtrl.ePage.Entities.Header.API.UpdateManifest.Url, BillableCostCtrl.ePage.Entities.Header.Data).then(function (response) {
                 if (response.data.Response) {
                     apiService.get("eAxisAPI", dmsManifestConfig.Entities.Header.API.GetByID.Url + response.data.Response.Response.PK).then(function (response) {

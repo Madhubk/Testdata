@@ -45,13 +45,15 @@
                     <span>{{ApproveManifestCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ManifestType||ApproveManifestCtrl.ePage.Masters.Empty}}</span>
                 </div>
             </div>
-            <div class="col-lg-3" data-ng-if="ApproveManifestCtrl.ePage.Entities.Header.Data.TmsManifestHeader.TransporterType == 'Transportation' || ApproveManifestCtrl.ePage.Entities.Header.Data.TmsManifestHeader.TransporterType == 'LastMileDelivery'">
+            <div class="col-lg-3"
+                data-ng-if="ApproveManifestCtrl.ePage.Entities.Header.Data.TmsManifestHeader.TransporterType == 'Transportation' || ApproveManifestCtrl.ePage.Entities.Header.Data.TmsManifestHeader.TransporterType == 'LastMileDelivery'">
                 <div class="form-group">
                     <div class="color-999 fs-11">Vehicle Type</div>
                     <span>{{ApproveManifestCtrl.ePage.Entities.Header.Data.TmsManifestHeader.VehicleTypeDescription||ApproveManifestCtrl.ePage.Masters.Empty}}</span>
                 </div>
             </div>
-            <div class="col-lg-3" data-ng-if="ApproveManifestCtrl.ePage.Entities.Header.Data.TmsManifestHeader.TransporterType == 'Transportation' || ApproveManifestCtrl.ePage.Entities.Header.Data.TmsManifestHeader.TransporterType == 'LastMileDelivery'">
+            <div class="col-lg-3"
+                data-ng-if="ApproveManifestCtrl.ePage.Entities.Header.Data.TmsManifestHeader.TransporterType == 'Transportation' || ApproveManifestCtrl.ePage.Entities.Header.Data.TmsManifestHeader.TransporterType == 'LastMileDelivery'">
                 <div class="form-group">
                     <div class="color-999 fs-11">Load Type</div>
                     <span>{{ApproveManifestCtrl.ePage.Entities.Header.Data.TmsManifestHeader.LoadType | dateFormat}}</span>
@@ -111,6 +113,7 @@
                 <div class='table_header'>Receiver Reference / Docket No</div>
                 <div class='table_header'>Expected Pickup Date Time</div>
                 <div class='table_header'>Expected Delivery Date Time</div>
+                <div class='table_header'>Volumetric weight</div>
                 <!-- <div class='table_header'>Billable Amount</div> -->
                 <!-- <div class='table_header pr-30 pl-30'>Currency</div> -->
             </div>
@@ -166,6 +169,10 @@
                 <div class='table_small'>
                     <div class='table_cell'>Expected Delivery Date Time</div>
                     <div class='table_cell'>{{x.TMC_ExpectedDeliveryDateTime | date:"dd-MMM-yyyy h:mm a"}}</div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Volumetric weight</div>
+                    <div class='table_cell'>{{x.TMC_VolumentricWeight || ApproveManifestCtrl.ePage.Masters.emptyText}}</div>
                 </div>
                 <!-- <div class='table_small'>
                     <div class='table_cell'>Billable Amount</div>

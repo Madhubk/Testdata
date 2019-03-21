@@ -621,8 +621,8 @@
             } else {
                 DMSManifestMenuCtrl.ePage.Masters.ManifestMenu.ListSource = DMSManifestMenuCtrl.ePage.Entities.Header.Meta.MenuList.LoadMenu;
                 if (senderReceiver > 0) {
-                    if (DMSManifestMenuCtrl.ePage.Masters.ManifestMenu.ListSource.length != 4) {
-                        DMSManifestMenuCtrl.ePage.Masters.ManifestMenu.ListSource.splice(3, senderReceiver);
+                    if (DMSManifestMenuCtrl.ePage.Masters.ManifestMenu.ListSource.length != 5) {
+                        DMSManifestMenuCtrl.ePage.Masters.ManifestMenu.ListSource.splice(4, senderReceiver);
                     }
                 }
             }

@@ -69,6 +69,9 @@
 
                     }
                 });
+                ConsignmentAddressCtrl.ePage.Entities.TmsConsignmentHeader.SenderCity = item.City;
+                ConsignmentAddressCtrl.ePage.Entities.TmsConsignmentHeader.SenderState = item.State;
+
             } else if (ConsignmentAddressCtrl.ePage.Entities.ClientType == "Receiver") {
                 angular.forEach(ConsignmentAddressCtrl.ePage.Entities.JobAddress, function (value, key) {
                     if (value.AddressType == 'REC') {
@@ -89,6 +92,8 @@
                         ConsignmentAddressCtrl.ePage.Masters.CurrentConsignmentAddress.OAD_Address_FK = item.PK;
                     }
                 });
+                ConsignmentAddressCtrl.ePage.Entities.TmsConsignmentHeader.ReceiverCity = item.City;
+                ConsignmentAddressCtrl.ePage.Entities.TmsConsignmentHeader.ReceiverState = item.State;
             }
             Cancel();
         }

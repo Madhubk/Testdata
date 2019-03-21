@@ -1,14 +1,16 @@
 <div class="clearfix">
     <div class="col-lg-12 mt-20 mb-20 custom-widget">
-        <div class="widget">
-            <div class="clearfix full-page pb-10 col-lg-12 no-padding">
-                <div dynamic-dashboard-directive ng-if="DynamicDashboardCtrl.ePage.Masters.ComponentList"
-                    component-list="DynamicDashboardCtrl.ePage.Masters.ComponentList"></div>
+        <div class="widget clearfix pb-10 no-padding" dnd-list="DynamicDashboardCtrl.ePage.Masters.ComponentList"
+            dnd-drop="DynamicDashboardCtrl.ePage.Masters.dropCallback(item,DynamicDashboardCtrl.ePage.Masters.ComponentList,index,external)">
+            <div ng-if="DynamicDashboardCtrl.ePage.Masters.ComponentList" ng-repeat="x in DynamicDashboardCtrl.ePage.Masters.ComponentList | filter: {IsShow:true}"
+                dnd-draggable="x" dnd-effect-allowed="move" draggable="true">
+                <div dynamic-dashboard-directive component-list="DynamicDashboardCtrl.ePage.Masters.ComponentList"
+                    selected-component="DynamicDashboardCtrl.ePage.Masters.ComponentList[$index]"></div>
             </div>
         </div>
     </div>
-    <div class="clearfix p-20 text-center" data-ng-if="DynamicDashboardCtrl.ePage.Masters.IsVisibleLoadMoreBtn">
+    <!-- <div class="clearfix p-20 text-center" data-ng-if="DynamicDashboardCtrl.ePage.Masters.IsVisibleLoadMoreBtn">
         <button class="btn btn-sm btn-primary" data-ng-click="DynamicDashboardCtrl.ePage.Masters.LoadMore()"
             data-ng-disabled="DynamicDashboardCtrl.ePage.Masters.IsDisabledLoadMoreBtn" data-ng-bind="DynamicDashboardCtrl.ePage.Masters.LoadMoreBtnTxt"></button>
-    </div>
+    </div> -->
 </div>

@@ -578,6 +578,10 @@
                                     ActivityTemplateOutward2Ctrl.ePage.Masters.CompleteBtnText = "Complete";
                                     ActivityTemplateOutward2Ctrl.ePage.Masters.IsDisableCompleteBtn = false;
                                 } else {
+                                    ActivityTemplateOutward2Ctrl.ePage.Masters.IsDisableSaveBtn = false;
+                                    ActivityTemplateOutward2Ctrl.ePage.Masters.SaveBtnText = "Save";
+                                    ActivityTemplateOutward2Ctrl.ePage.Masters.CompleteBtnText = "Complete";
+                                    ActivityTemplateOutward2Ctrl.ePage.Masters.IsDisableCompleteBtn = false;
                                     if (callback)
                                         callback();
                                 }
