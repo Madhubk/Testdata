@@ -80,6 +80,7 @@
                     <div class='table_header'>Receiver Reference</div>
                     <div class='table_header'>Expected Pickup Date Time</div>
                     <div class='table_header'>Expected Delivery Date Time</div>
+                    <div class='table_header'>Volumetric weight</div>
                 </div>
 
                 <!-- List Empty Response -->
@@ -126,6 +127,10 @@
                         <div class='table_cell'>Expected Delivery Date Time</div>
                         <div class='table_cell'>{{x.TMC_ExpectedDeliveryDateTime | date:'dd-MM-yyyy hh:mm a'}}</div>
                     </div>
+                    <div class='table_small'>
+                            <div class='table_cell'>Volumetric weight</div>
+                            <div class='table_cell'>{{x.TMC_VolumentricWeight || ManifestDetailsCtrl.ePage.Masters.emptyText}}</div>
+                        </div>
                 </div>
             </div>
         </div>

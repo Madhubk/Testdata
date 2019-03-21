@@ -83,6 +83,7 @@
                 <div class='table_header'>Sender Reference / Invoice No</div>
                 <div class='table_header'>Expected Pickup Date Time</div>
                 <div class='table_header'>Expected Delivery Date Time</div>
+                <div class='table_header'>Volumetric weight</div>
             </div>
             <div class='theader' ng-if="PickupDeliveryCtrl.ePage.Entities.Header.CheckPoints.IsDelivery">
                 <div class='table_header'>Consignment Number</div>
@@ -96,6 +97,7 @@
                 <div class='table_header'>Sender Reference / Invoice No</div>
                 <div class='table_header'>Expected Pickup Date Time</div>
                 <div class='table_header'>Expected Delivery Date Time</div>
+                <div class='table_header'>Volumetric weight</div>
             </div>
 
             <!-- List Empty Response -->
@@ -169,6 +171,11 @@
                 <div class='table_small'>
                     <div class='table_cell'>Expected Delivery Date Time</div>
                     <div class='table_cell'>{{x.TMC_ExpectedDeliveryDateTime | dateFormat}}</div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Volumetric weight</div>
+                    <div class='table_cell'>{{x.TMC_VolumentricWeight || PickupDeliveryCtrl.ePage.Masters.emptyText}}
+                    </div>
                 </div>
             </div>
             <!-- For Delivery -->
@@ -247,6 +254,11 @@
                 <div class='table_small'>
                     <div class='table_cell'>Expected Delivery Date Time</div>
                     <div class='table_cell'>{{x.TMC_ExpectedDeliveryDateTime | dateFormat}}</div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Volumetric weight</div>
+                    <div class='table_cell'>{{x.TMC_VolumentricWeight || PickupDeliveryCtrl.ePage.Masters.emptyText}}
+                    </div>
                 </div>
             </div>
         </div>

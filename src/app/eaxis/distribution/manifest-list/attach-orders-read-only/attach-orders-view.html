@@ -44,6 +44,7 @@
                             <th class="order-single-line">Receiver Reference / Docket No</th>
                             <th class="order-single-line">Expected Pickup Date Time</th>
                             <th class="order-single-line">Expected Delivery Date Time</th>
+                            <th class="order-single-line">Volumetric weight</th>
                         </tr>
                         <tr ng-repeat="x in AttachOrdersViewCtrl.ePage.Entities.Header.Data.TmsManifestConsignment track by $index">
                             <td class="order-single-line">{{x.TMC_ConsignmentNumber}}</td>
@@ -56,6 +57,7 @@
                             <td class="order-single-line">{{x.TMC_ReceiverRef}}</td>
                             <td class="order-single-line">{{x.TMC_ExpectedPickupDateTime | date:"dd-MMM-yyyy h:mm a"}}</td>
                             <td class="order-single-line">{{x.TMC_ExpectedDeliveryDateTime | date:"dd-MMM-yyyy h:mm a"}}</td>
+                            <td class="order-single-line">{{x.TMC_VolumentricWeight}}</td>
                         </tr>
                     </tbody>
                 </table>
