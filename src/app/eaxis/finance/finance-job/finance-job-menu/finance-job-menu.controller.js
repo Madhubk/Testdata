@@ -37,6 +37,7 @@
 
         //#region Validation
         function Validation($item, type) {
+            console.log("validation", $item, type);
             var _Data = $item[$item.code].ePage.Entities,
                 _input = _Data.Header.Data,
                 _errorcount = _Data.Header.Meta.ErrorWarning.GlobalErrorWarningList;
@@ -80,14 +81,6 @@
             if ($item.isNew) {
                 _input.PK = _input.UIJobHeader.PK;
                 _input.UIJobHeader.CreatedDateTime = new Date();
-
-                /* Converting into Upper Case */
-                //  _input.UIJobHeader.WarehouseCode = _input.UIJobHeader.WarehouseCode.toUpperCase();
-                //  _input.UIJobHeader.WarehouseName = _input.UIJobHeader.WarehouseName.toUpperCase();
-
-                //  _input.UIJobCharge.map(function(value,key){
-                //      value.Name = value.Name.toUpperCase();
-                //  });
             } else {
                 $item = filterObjectUpdate($item, "IsModified");
                 if ($item[$item.code].ePage.Entities.Header.Data.UIJobCharge.length > 0) {
@@ -110,12 +103,12 @@
                             financeConfig.TabList.map(function (value, key) {
                                 if (value.New) {
                                     //undefined
-                                    if (value.code == '') {
-                                        value.label = WarehouseMenuCtrl.ePage.Entities.Header.Data.WmsWarehouse.WarehouseCode;
-                                        value[WarehouseMenuCtrl.ePage.Entities.Header.Data.WmsWarehouse.WarehouseCode] = value.New;
-                                        delete value.New;
-                                        value.code = WarehouseMenuCtrl.ePage.Entities.Header.Data.WmsWarehouse.WarehouseCode;
-                                    }
+                                    // if (value.code == '') {
+                                    //     value.label = WarehouseMenuCtrl.ePage.Entities.Header.Data.WmsWarehouse.WarehouseCode;
+                                    //     value[WarehouseMenuCtrl.ePage.Entities.Header.Data.WmsWarehouse.WarehouseCode] = value.New;
+                                    //     delete value.New;
+                                    //     value.code = WarehouseMenuCtrl.ePage.Entities.Header.Data.WmsWarehouse.WarehouseCode;
+                                    // }
                                 }
                             });
 

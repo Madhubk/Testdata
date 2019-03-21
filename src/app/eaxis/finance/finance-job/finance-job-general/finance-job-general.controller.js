@@ -84,7 +84,7 @@
             FinanceJobGeneralCtrl.ePage.Masters.SingleSelectCheckBox = SingleSelectCheckBox;
             FinanceJobGeneralCtrl.ePage.Masters.setSelectedRow = setSelectedRow;
             FinanceJobGeneralCtrl.ePage.Masters.AddNewRow = AddNewRow;
-            FinanceJobGeneralCtrl.ePage.Masters.More = More;
+            FinanceJobGeneralCtrl.ePage.Masters.MoreRecords = MoreRecords;
             FinanceJobGeneralCtrl.ePage.Masters.CopyRow = CopyRow;
             FinanceJobGeneralCtrl.ePage.Masters.RemoveRow = RemoveRow;
 
@@ -265,7 +265,7 @@
 
                 "ATL_APLine": "",
                 "ATL_ARLine": "",
-                "Source": "SHP",
+                "Source": "WMS",
                 "TenantCode": "20CUB",
                 "CostPostChecked": "",
                 "Costpost": "",
@@ -286,35 +286,34 @@
             FinanceJobGeneralCtrl.ePage.Entities.Header.GlobalVariables.SelectAll = false;
         }
 
-        function More($item) {
-            FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge.map(function (value, key) {
-                if ($item == key) {
-                    var modalInstance = $uibModal.open({
-                        animation: true,
-                        keyboard: false,
-                        backdrop: "static",
-                        windowClass: "Finance right",
-                        scope: $scope,
-                        size: "xl",
-                        templateUrl: "app/eaxis/finance/finance-job/finance-job-general/finance-job-general-popup.html",
-                        controller: "FinanceJobGeneralPopupController",
-                        controllerAs: "FinanceJobGeneralPopupCtrl",
-                        bindToController: true,
-                        resolve: {
-                            CurrentFinanceJob: function () {
-                                return value;
-                            }
-                        }
-                    }).result.then(
-                        function (response) {
-                            console.log("Success");
-                        },
-                        function () {
-                            console.log("Cancelled");
-                        }
-                    );
+        function MoreRecords($item) {
+            var modalInstance = $uibModal.open({
+                animation: true,
+                keyboard: false,
+                backdrop: "static",
+                windowClass: "Finance right",
+                scope: $scope,
+                size: "xl",
+                templateUrl: "app/eaxis/finance/finance-job/finance-job-general/finance-job-general-popup.html",
+                controller: "FinanceJobGeneralPopupController",
+                controllerAs: "FinanceJobGeneralPopupCtrl",
+                bindToController: true,
+                resolve: {
+                    CurrentFinanceJob: function () {
+                        return FinanceJobGeneralCtrl.currentFinanceJob;
+                    },
+                    Index: function () {
+                        return $item;
+                    }
                 }
-            });
+            }).result.then(
+                function (response) {
+                    console.log("Success");
+                },
+                function () {
+                    console.log("Cancelled");
+                }
+            );
         }
 
         function CopyRow() {
