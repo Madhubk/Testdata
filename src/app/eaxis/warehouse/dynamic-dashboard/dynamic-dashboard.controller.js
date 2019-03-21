@@ -90,6 +90,16 @@
                 "Directive": "pick-with-shortfall",
                 "SequenceNo": 8,
                 "IsShow": true
+            },{
+                "ComponentName": "GrnStatus",
+                "Directive": "grn-status",
+                "SequenceNo": 9,
+                "IsShow": true
+            },{
+                "ComponentName": "CycleCountJobs",
+                "Directive": "cycle-count-jobs",
+                "SequenceNo": 10,
+                "IsShow": true
             }];
             DynamicDashboardCtrl.ePage.Masters.ComponentList = $filter('orderBy')(DynamicDashboardCtrl.ePage.Masters.ComponentList, 'SequenceNo');
         }
