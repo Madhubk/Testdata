@@ -93,7 +93,7 @@
                 if (!value.UIJobCustom.PK || value.UIJobCustom.PK == "00000000-0000-0000-0000-000000000000") {
                     value.UIJobCustom.IsNewInsert = true;
                 } else if (value.UIJobCustom.PK) {
-                    value.IsModified = true;
+                    value.TmsManifestCosignmentMapping.IsChanged = true;
                     value.UIJobCustom.IsNewInsert = false;
                 }
             });
