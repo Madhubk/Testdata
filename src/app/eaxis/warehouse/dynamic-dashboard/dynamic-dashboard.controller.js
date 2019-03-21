@@ -5,9 +5,9 @@
         .module("Application")
         .controller("DynamicDashboardController", DynamicDashboardController);
 
-    DynamicDashboardController.$inject = ["helperService", "$filter"];
+    DynamicDashboardController.$inject = ["helperService", "$filter", "dynamicDashboardConfig"];
 
-    function DynamicDashboardController(helperService, $filter) {
+    function DynamicDashboardController(helperService, $filter, dynamicDashboardConfig) {
 
         var DynamicDashboardCtrl = this;
 
@@ -24,6 +24,7 @@
             DynamicDashboardCtrl.ePage.Masters.LoadMore = LoadMore;
             DynamicDashboardCtrl.ePage.Masters.IsVisibleLoadMoreBtn = true;
             DynamicDashboardCtrl.ePage.Masters.dropCallback = dropCallback;
+            DynamicDashboardCtrl.ePage.Masters.Config = dynamicDashboardConfig;
         }
 
         function dropCallback(selectedComponent, ComponentList, index, external) {
@@ -42,9 +43,11 @@
             });
         }
 
-        function LoadMore() {
-            DynamicDashboardCtrl.ePage.Masters.templateDir = '<dynamic-dashboard-directive component-list="DynamicDashboardCtrl.ePage.Masters.ComponentList"></dynamic-dashboard-directive>';
-            angular.element(DynamicDashboardCtrl.ePage.Masters.templateDir);
+        function LoadMore() {            
+            dynamicDashboardConfig.LoadMoreCount = dynamicDashboardConfig.LoadMoreCount + 4;
+            var _ComponentList = angular.copy(DynamicDashboardCtrl.ePage.Masters.ComponentList);
+            DynamicDashboardCtrl.ePage.Masters.ComponentList = undefined;
+            DynamicDashboardCtrl.ePage.Masters.ComponentList = _ComponentList;
         }
 
         function GetJson() {
@@ -53,17 +56,10 @@
                 "Directive": "asn-received-status",
                 "SequenceNo": 1,
                 "IsShow": true
-            },
-            {
+            }, {
                 "ComponentName": "AsnTrend",
                 "Directive": "asn-trend",
                 "SequenceNo": 3,
-                "IsShow": true
-            },
-            {
-                "ComponentName": "Notification",
-                "Directive": "notification",
-                "SequenceNo": 5,
                 "IsShow": true
             }, {
                 "ComponentName": "KPI",

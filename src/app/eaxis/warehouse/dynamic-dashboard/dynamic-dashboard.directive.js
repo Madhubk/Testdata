@@ -4,9 +4,9 @@
         .module("Application")
         .directive("dynamicDashboardDirective", DynamicDashboardDirective);
 
-    DynamicDashboardDirective.$inject = ["$compile", "$injector", "$filter"];
+    DynamicDashboardDirective.$inject = ["$compile", "$injector", "$filter", "dynamicDashboardConfig"];
 
-    function DynamicDashboardDirective($compile, $injector, $filter) {
+    function DynamicDashboardDirective($compile, $injector, $filter, dynamicDashboardConfig) {
         var exports = {
             restrict: "EA",
             scope: {
@@ -18,20 +18,21 @@
         return exports;
 
         function Link(scope, ele, attr) {
-
-            var TempDetails = scope.selectedComponent.Directive.split('-');
-            for (var i = 0; i < TempDetails.length; i++) {
-                if (i != 0) {
-                    TempDetails[i] = TempDetails[i].charAt(0).toUpperCase() + TempDetails[i].slice(1);
+            if (scope.selectedComponent.SequenceNo <= dynamicDashboardConfig.LoadMoreCount) {
+                var TempDetails = scope.selectedComponent.Directive.split('-');
+                for (var i = 0; i < TempDetails.length; i++) {
+                    if (i != 0) {
+                        TempDetails[i] = TempDetails[i].charAt(0).toUpperCase() + TempDetails[i].slice(1);
+                    }
                 }
-            }
-            TempDetails = TempDetails.join('');
-            var _isExist = $injector.has(TempDetails + "Directive");
-            if (_isExist) {
-                scope.templateDir = '<' + scope.selectedComponent.Directive + '/>';
-                var newDirective = angular.element(scope.templateDir);
-                var view = $compile(newDirective)(scope);
-                ele.append(view);
+                TempDetails = TempDetails.join('');
+                var _isExist = $injector.has(TempDetails + "Directive");
+                if (_isExist) {
+                    scope.templateDir = '<' + scope.selectedComponent.Directive + '/>';
+                    var newDirective = angular.element(scope.templateDir);
+                    var view = $compile(newDirective)(scope);
+                    ele.append(view);
+                }
             }
         }
     }
