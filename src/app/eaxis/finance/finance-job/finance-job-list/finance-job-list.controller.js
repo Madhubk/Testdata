@@ -31,8 +31,6 @@
         }
 
         function InitBilling() {
-            console.log("InitBilling", CurrentFinanceJob);
-
             var _filter = {
                 EntityRefKey: CurrentFinanceJob.EntityRefKey,
             };
