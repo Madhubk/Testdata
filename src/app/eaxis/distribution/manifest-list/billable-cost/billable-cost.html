@@ -190,6 +190,7 @@
                 <div class='table_header'>Currency</div>
                 <div class='table_header'>Billable Amount</div>
                 <div class='table_header pr-30 pl-30'>Currency</div>
+                <div class='table_header'>Volumetric weight</div>
                 <div class='table_header'>Sender</div>
                 <div class='table_header'>Receiver</div>
                 <div class='table_header'>Client</div>
@@ -199,7 +200,6 @@
                 <div class='table_header'>Receiver Reference / Docket No</div>
                 <div class='table_header'>Expected Pickup Date Time</div>
                 <div class='table_header'>Expected Delivery Date Time</div>
-                <div class='table_header'>Volumetric weight</div>
 
             </div>
 
@@ -212,10 +212,11 @@
                 ng-repeat="(key,value) in BillableCostCtrl.ePage.Entities.Header.Data.TmsConsignmentList   track by $index"
                 ng-click="BillableCostCtrl.ePage.Masters.setSelectedRow($index)"
                 ng-class="{row_active: BillableCostCtrl.ePage.Masters.selectedRow==$index}" style="font-size: 11px;">
-                
+
                 <div class='table_small'>
                     <div class='table_cell'>Consignment Number</div>
-                    <div class='table_cell'>{{value.TmsManifestCosignmentMapping.TMC_ConsignmentNumber || BillableCostCtrl.ePage.Masters.emptyText}}
+                    <div class='table_cell'>
+                        {{value.TmsManifestCosignmentMapping.TMC_ConsignmentNumber || BillableCostCtrl.ePage.Masters.emptyText}}
                     </div>
                 </div>
                 <div class='table_small'>
@@ -234,7 +235,8 @@
                         <div class="">
                             <input type="text"
                                 class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
-                                placeholder="Unloading Cost/Receipted" data-ng-model="value.UIJobCustom.CustomDecimalII">
+                                placeholder="Unloading Cost/Receipted"
+                                data-ng-model="value.UIJobCustom.CustomDecimalII">
                         </div>
                     </div>
                 </div>
@@ -266,7 +268,8 @@
                         <div class="">
                             <input type="text"
                                 class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
-                                placeholder="Billable Amount" data-ng-model="value.TmsManifestCosignmentMapping.TMC_BillableAmount">
+                                placeholder="Billable Amount"
+                                data-ng-model="value.TmsManifestCosignmentMapping.TMC_BillableAmount">
                         </div>
                     </div>
                 </div>
@@ -274,7 +277,8 @@
                     <div class='table_cell'>Currency</div>
                     <div class='table_cell'>
                         <div class="">
-                            <select chosen class="form-control" ng-model="value.TmsManifestCosignmentMapping.TMC_BillableCurrency"
+                            <select chosen class="form-control"
+                                ng-model="value.TmsManifestCosignmentMapping.TMC_BillableCurrency"
                                 ng-options="x.Key as x.Key+' - '+x.Value for x in BillableCostCtrl.ePage.Masters.DropDownMasterList.Currency.ListSource"
                                 search-contains="true">
                                 <option value="">--Select--</option>
@@ -283,51 +287,72 @@
                     </div>
                 </div>
                 <div class='table_small'>
-                    <div class='table_cell'>Sender</div>
-                    <div class='table_cell'>{{value.TmsManifestCosignmentMapping.TMC_SenderCode || BillableCostCtrl.ePage.Masters.emptyText}} -
-                        {{value.TmsManifestCosignmentMapping.TMC_SenderName || BillableCostCtrl.ePage.Masters.emptyText}}</div>
-                </div>
-                <div class='table_small'>
-                    <div class='table_cell'>Receiver</div>
-                    <div class='table_cell'>{{value.TmsManifestCosignmentMapping.TMC_ReceiverCode || BillableCostCtrl.ePage.Masters.emptyText}} -
-                        {{value.TmsManifestCosignmentMapping.TMC_ReceiverName || BillableCostCtrl.ePage.Masters.emptyText}}</div>
-                </div>
-                <div class='table_small'>
-                    <div class='table_cell'>Client</div>
-                    <div class='table_cell'>{{value.TmsManifestCosignmentMapping.TMC_ClientId || BillableCostCtrl.ePage.Masters.emptyText}}</div>
-                </div>
-                <div class='table_small'>
-                    <div class='table_cell'>Service Type</div>
-                    <div class='table_cell'>{{value.TmsManifestCosignmentMapping.TMC_ServiceType || BillableCostCtrl.ePage.Masters.emptyText}}</div>
-                </div>
-                <div class='table_small'>
-                    <div class='table_cell'>Status</div>
-                    <div class='table_cell'>{{value.TmsManifestCosignmentMapping.TMC_Status || BillableCostCtrl.ePage.Masters.emptyText}}</div>
-                </div>
-                <div class='table_small'>
-                    <div class='table_cell'>Sender Reference / Invoice No</div>
-                    <div class='table_cell'>{{value.TmsManifestCosignmentMapping.TMC_SenderRef || BillableCostCtrl.ePage.Masters.emptyText}}</div>
-                </div>
-                <div class='table_small'>
-                    <div class='table_cell'>Receiver Reference / Docket No</div>
-                    <div class='table_cell'>{{value.TmsManifestCosignmentMapping.TMC_ReceiverRef || BillableCostCtrl.ePage.Masters.emptyText}}</div>
-                </div>
-                <div class='table_small'>
-                    <div class='table_cell'>Expected Pickup Date Time</div>
-                    <div class='table_cell'>{{value.TmsManifestCosignmentMapping.TMC_ExpectedPickupDateTime | date:"dd-MMM-yyyy h:mm a"}}</div>
-                </div>
-                <div class='table_small'>
-                    <div class='table_cell'>Expected Delivery Date Time</div>
-                    <div class='table_cell'>{{value.TmsManifestCosignmentMapping.TMC_ExpectedDeliveryDateTime | date:"dd-MMM-yyyy h:mm a"}}</div>
-                </div>
-                <div class='table_small'>
                     <div class='table_cell'>Volumetric weight</div>
                     <div class='table_cell'>
                         <div class="">
                             <input type="text"
                                 class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
-                                placeholder="Volumetric weight" data-ng-model="value.TmsManifestCosignmentMapping.TMC_VolumentricWeight">
+                                placeholder="Volumetric weight"
+                                data-ng-model="value.TmsManifestCosignmentMapping.TMC_VolumentricWeight">
                         </div>
+                    </div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Sender</div>
+                    <div class='table_cell'>
+                        {{value.TmsManifestCosignmentMapping.TMC_SenderCode || BillableCostCtrl.ePage.Masters.emptyText}}
+                        -
+                        {{value.TmsManifestCosignmentMapping.TMC_SenderName || BillableCostCtrl.ePage.Masters.emptyText}}
+                    </div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Receiver</div>
+                    <div class='table_cell'>
+                        {{value.TmsManifestCosignmentMapping.TMC_ReceiverCode || BillableCostCtrl.ePage.Masters.emptyText}}
+                        -
+                        {{value.TmsManifestCosignmentMapping.TMC_ReceiverName || BillableCostCtrl.ePage.Masters.emptyText}}
+                    </div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Client</div>
+                    <div class='table_cell'>
+                        {{value.TmsManifestCosignmentMapping.TMC_ClientId || BillableCostCtrl.ePage.Masters.emptyText}}
+                    </div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Service Type</div>
+                    <div class='table_cell'>
+                        {{value.TmsManifestCosignmentMapping.TMC_ServiceType || BillableCostCtrl.ePage.Masters.emptyText}}
+                    </div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Status</div>
+                    <div class='table_cell'>
+                        {{value.TmsManifestCosignmentMapping.TMC_Status || BillableCostCtrl.ePage.Masters.emptyText}}
+                    </div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Sender Reference / Invoice No</div>
+                    <div class='table_cell'>
+                        {{value.TmsManifestCosignmentMapping.TMC_SenderRef || BillableCostCtrl.ePage.Masters.emptyText}}
+                    </div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Receiver Reference / Docket No</div>
+                    <div class='table_cell'>
+                        {{value.TmsManifestCosignmentMapping.TMC_ReceiverRef || BillableCostCtrl.ePage.Masters.emptyText}}
+                    </div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Expected Pickup Date Time</div>
+                    <div class='table_cell'>
+                        {{value.TmsManifestCosignmentMapping.TMC_ExpectedPickupDateTime | date:"dd-MMM-yyyy h:mm a"}}
+                    </div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Expected Delivery Date Time</div>
+                    <div class='table_cell'>
+                        {{value.TmsManifestCosignmentMapping.TMC_ExpectedDeliveryDateTime | date:"dd-MMM-yyyy h:mm a"}}
                     </div>
                 </div>
             </div>
