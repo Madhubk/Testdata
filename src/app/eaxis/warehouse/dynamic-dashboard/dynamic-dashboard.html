@@ -2,7 +2,7 @@
     <div class="col-lg-12 mt-20 mb-20 custom-widget">
         <div class="widget clearfix pb-10 no-padding" dnd-list="DynamicDashboardCtrl.ePage.Masters.ComponentList"
             dnd-drop="DynamicDashboardCtrl.ePage.Masters.dropCallback(item,DynamicDashboardCtrl.ePage.Masters.ComponentList,index,external)">
-            <div ng-if="DynamicDashboardCtrl.ePage.Masters.ComponentList" ng-repeat="x in DynamicDashboardCtrl.ePage.Masters.ComponentList | orderBy:'SequenceNo' | filter: {IsShow:true}"
+            <div ng-if="DynamicDashboardCtrl.ePage.Masters.ComponentList" ng-repeat="x in DynamicDashboardCtrl.ePage.Masters.ComponentList | filter: {IsShow:true}"
                 dnd-draggable="x" dnd-effect-allowed="move" draggable="true">
                 <div dynamic-dashboard-directive component-list="DynamicDashboardCtrl.ePage.Masters.ComponentList"
                     selected-component="DynamicDashboardCtrl.ePage.Masters.ComponentList[$index]"></div>

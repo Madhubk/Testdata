@@ -76,14 +76,19 @@
                 "SequenceNo": 4,
                 "IsShow": true
             }, {
-                "ComponentName": "Exception",
-                "Directive": "exception-directive",
+                "ComponentName": "PutawayStatus",
+                "Directive": "putaway-status",
                 "SequenceNo": 6,
                 "IsShow": true
             }, {
                 "ComponentName": "OpenSO",
                 "Directive": "open-so",
-                "SequenceNo": 6,
+                "SequenceNo": 7,
+                "IsShow": true
+            }, {
+                "ComponentName": "PickWithShortfall",
+                "Directive": "pick-with-shortfall",
+                "SequenceNo": 8,
                 "IsShow": true
             }];
             DynamicDashboardCtrl.ePage.Masters.ComponentList = $filter('orderBy')(DynamicDashboardCtrl.ePage.Masters.ComponentList, 'SequenceNo');

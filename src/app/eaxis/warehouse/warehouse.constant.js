@@ -818,23 +818,32 @@
         }, {
             name: 'AsnReceivedWithStatus',
             files: [
-                // 'app/eaxis/warehouse/dynamic-dashboard/asn-received-status/asn-received-status.css',
                 'app/eaxis/warehouse/dynamic-dashboard/asn-received-status/asn-received-status.controller.js',
                 'app/eaxis/warehouse/dynamic-dashboard/asn-received-status/asn-received-status.directive.js',
             ]
         }, {
             name: 'AsnTrend',
             files: [
-                // 'app/eaxis/warehouse/dynamic-dashboard/asn-trend/asn-trend.css',
                 'app/eaxis/warehouse/dynamic-dashboard/asn-trend/asn-trend.controller.js',
                 'app/eaxis/warehouse/dynamic-dashboard/asn-trend/asn-trend.directive.js',
             ]
         }, {
             name: 'OpenSO',
             files: [
-                // 'app/eaxis/warehouse/dynamic-dashboard/open-so/open-so.css',
                 'app/eaxis/warehouse/dynamic-dashboard/open-so/open-so.controller.js',
                 'app/eaxis/warehouse/dynamic-dashboard/open-so/open-so.directive.js',
+            ]
+        }, {
+            name: 'PickWithShortfall',
+            files: [
+                'app/eaxis/warehouse/dynamic-dashboard/pick-with-shortfall/pick-with-shortfall.controller.js',
+                'app/eaxis/warehouse/dynamic-dashboard/pick-with-shortfall/pick-with-shortfall.directive.js',
+            ]
+        }, {
+            name: 'PutawayStatus',
+            files: [
+                'app/eaxis/warehouse/dynamic-dashboard/putaway-status/putaway-status.controller.js',
+                'app/eaxis/warehouse/dynamic-dashboard/putaway-status/putaway-status.directive.js',
             ]
         }, {
             name: 'Notification',
