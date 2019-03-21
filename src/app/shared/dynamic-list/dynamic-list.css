@@ -263,8 +263,6 @@
 .dynamic-filter-sidebar-wrapper {
     position: absolute;
     top: 0;
-    /* height: 99%; */
-    height: 500px;
     border: 1px solid #ccc;
     border-right: 0;
     background-color: #f9f9f9;
@@ -277,10 +275,9 @@
 }
 
 .dynamic-filter-sidebar-wrapper .control-list .filter-set-height {
-    /* height: calc(100vh - 181px);
-    height: -webkit-calc(100vh - 181px);
-    height: -moz-calc(100vh - 181px); */
-    height: 425px;
+    height: calc(100vh - 192px);
+    height: -webkit-calc(100vh - 192px);
+    height: -moz-calc(100vh - 192px);
     overflow-y: auto;
 }
 

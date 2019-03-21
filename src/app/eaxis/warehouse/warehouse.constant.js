@@ -845,7 +845,19 @@
                 'app/eaxis/warehouse/dynamic-dashboard/putaway-status/putaway-status.controller.js',
                 'app/eaxis/warehouse/dynamic-dashboard/putaway-status/putaway-status.directive.js',
             ]
-        }, {
+        },{
+            name: 'GrnStatus',
+            files: [
+                'app/eaxis/warehouse/dynamic-dashboard/grn-status/grn-status.controller.js',
+                'app/eaxis/warehouse/dynamic-dashboard/grn-status/grn-status.directive.js',
+            ]
+        },{
+            name: 'CycleCountJobs',
+            files: [
+                'app/eaxis/warehouse/dynamic-dashboard/cycle-count-jobs/cycle-count-jobs.controller.js',
+                'app/eaxis/warehouse/dynamic-dashboard/cycle-count-jobs/cycle-count-jobs.directive.js',
+            ]
+        },{
             name: 'Notification',
             files: [
                 'app/eaxis/warehouse/dynamic-dashboard/notification/notification.css',

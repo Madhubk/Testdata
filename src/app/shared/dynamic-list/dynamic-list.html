@@ -581,6 +581,7 @@
                         <i class="fa fa-filter"></i>
                         <span>Filter</span>
                     </div>
+                    
                     <div class="btn-wrapper pull-right">
                         <ul class="clearfix">
                             <li data-ng-if="DynamicListCtrl.ePage.Masters.DynamicList.EnableCustomizeFilterFieldsButton">
@@ -595,6 +596,14 @@
                             </li>
                         </ul>
                     </div>
+
+                    <div class="mt-2">
+                        <input type="submit" class="btn btn-sm btn-primary pull-right mr-15" data-ng-click="DynamicListCtrl.ePage.Masters.DynamicList.Filter.Apply($event)"
+                        value="{{DynamicListCtrl.ePage.Masters.DynamicList.Filter.ApplyBtnText}}" data-ng-disabled="DynamicListCtrl.ePage.Masters.DynamicList.Filter.IsApplyBtnDisable">
+                    <button class="btn btn-sm btn-default mr-10 pull-right" data-ng-click="DynamicListCtrl.ePage.Masters.DynamicList.Filter.Clear()"
+                        data-ng-if="DynamicListCtrl.ePage.Masters.DynamicList.EnableClearButton">Clear</button>
+                    </div>
+
                 </div>
                 <div class="control-list clearfix p-0">
                     <div class="clearfix filter-set-height">
