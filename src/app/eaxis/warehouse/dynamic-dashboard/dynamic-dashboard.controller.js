@@ -69,7 +69,7 @@
             }, {
                 "ComponentName": "MyTask",
                 "Directive": "my-task-directive",
-                "SequenceNo": 4,
+                "SequenceNo": 5,
                 "IsShow": true
             }, {
                 "ComponentName": "PutawayStatus",
@@ -79,7 +79,7 @@
             }, {
                 "ComponentName": "OpenSO",
                 "Directive": "open-so",
-                "SequenceNo": 7,
+                "SequenceNo": 4,
                 "IsShow": true
             }, {
                 "ComponentName": "PickWithShortfall",
@@ -94,7 +94,7 @@
             },{
                 "ComponentName": "CycleCountJobs",
                 "Directive": "cycle-count-jobs",
-                "SequenceNo": 10,
+                "SequenceNo": 7,
                 "IsShow": true
             }];
             DynamicDashboardCtrl.ePage.Masters.ComponentList = $filter('orderBy')(DynamicDashboardCtrl.ePage.Masters.ComponentList, 'SequenceNo');

@@ -5,9 +5,8 @@
             <span class="dashboard-dms-title ml-10 fs-25">Dashboard</span>
         </div>
     </div>
-    <div class="col-lg-12 mt-20 mb-20 custom-widget">
-        <div class="widget clearfix pb-10 no-padding" dnd-list="DynamicDashboardCtrl.ePage.Masters.ComponentList"
-            dnd-drop="DynamicDashboardCtrl.ePage.Masters.dropCallback(item,DynamicDashboardCtrl.ePage.Masters.ComponentList,index,external)">
+    <div class="col-lg-12 custom-widget no-padding">
+        <div class="widget clearfix no-padding" dnd-list="DynamicDashboardCtrl.ePage.Masters.ComponentList" dnd-drop="DynamicDashboardCtrl.ePage.Masters.dropCallback(item,DynamicDashboardCtrl.ePage.Masters.ComponentList,index,external)">
             <div ng-if="DynamicDashboardCtrl.ePage.Masters.ComponentList" ng-repeat="x in DynamicDashboardCtrl.ePage.Masters.ComponentList | filter: {IsShow:true}"
                 dnd-draggable="x" dnd-effect-allowed="move" draggable="true">
                 <div dynamic-dashboard-directive component-list="DynamicDashboardCtrl.ePage.Masters.ComponentList"
@@ -15,7 +14,7 @@
             </div>
         </div>
     </div>
-    <div class="clearfix p-20 text-center" data-ng-hide="DynamicDashboardCtrl.ePage.Masters.ComponentList.length < DynamicDashboardCtrl.ePage.Masters.Config.LoadMoreCount">
+    <div class="clearfix col-lg-12 p-20 text-center" data-ng-hide="DynamicDashboardCtrl.ePage.Masters.ComponentList.length < DynamicDashboardCtrl.ePage.Masters.Config.LoadMoreCount">
         <button class="btn btn-sm btn-primary" data-ng-click="DynamicDashboardCtrl.ePage.Masters.LoadMore()"
             data-ng-disabled="DynamicDashboardCtrl.ePage.Masters.IsDisabledLoadMoreBtn" data-ng-bind="DynamicDashboardCtrl.ePage.Masters.LoadMoreBtnTxt"></button>
     </div>
