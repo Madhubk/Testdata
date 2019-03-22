@@ -78,7 +78,8 @@
                     }
                 },
             },
-            "LoadMoreCount": 4
+            "LoadMoreCount": 4,
+            "LoadedDirectiveCount":0
         };
 
         return exports;

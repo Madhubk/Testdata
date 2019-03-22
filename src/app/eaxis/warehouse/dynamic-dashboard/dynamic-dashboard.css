@@ -17,7 +17,7 @@
     box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
 }
 
-tbody {
+/* tbody {
     display: block;
     height: 230px;
     overflow-y: scroll;
@@ -27,7 +27,7 @@ thead, tbody tr {
     display: table;
     width: 100%;
     table-layout: fixed;
-}
+} */
 
 .dashboard-border {
     padding: 0px 0px 1px 1px;
@@ -36,4 +36,86 @@ thead, tbody tr {
 
 .width-50 {
     width: 50px;
+}
+
+.dashboard-widget {
+    height: 300px;
+    display: block;
+    margin-bottom: 30px;
+    overflow: hidden;
+    position: relative;
+    background: #fff;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    -webkit-box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.12), 0 3px 12px 0 rgba(0, 0, 0, 0.09);
+    -moz-box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.12), 0 3px 12px 0 rgba(0, 0, 0, 0.09);
+    box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.12), 0 3px 12px 0 rgba(0, 0, 0, 0.09);
+}
+
+.dashboard-fixedheader {
+    margin-left: 0px !important;
+    margin-top: 0px !important;
+    margin-right: 0px !important;
+    margin-bottom: 0px !important;
+    border: 0px solid #cacad6;
+    overflow-x: auto;
+}
+
+/* custom-widget */
+
+.custom-widget .tickets-container {
+    padding: 15px;
+}
+
+.custom-widget .widget {
+    margin: 0 0 15px 0;
+}
+
+.custom-widget .widget-header {
+    min-height: 45px;
+}
+
+.custom-widget .user-mine {
+    font-size: 14px;
+    font-weight: 600;
+    color: #171515;
+}
+
+.custom-widget .user-at {
+    color: #ccc;
+}
+
+.custom-widget .widget-header>.widget-caption {
+    line-height: 45px;
+    padding: 0;
+    margin: 0;
+    float: left;
+    text-align: left;
+    font-weight: 500 !important;
+    font-size: 16px;
+}
+
+.custom-widget .widget-header.bordered-bottom {
+    border-bottom: 2px solid #eee;
+}
+
+.custom-widget .tickets-container .tickets-list .ticket-item {
+    position: relative;
+    background-color: #fff;
+    -webkit-box-shadow: 0 0 0px rgba(0, 0, 0, .2);
+    -moz-box-shadow: 0 0 3px rgba(0, 0, 0, .2);
+    box-shadow: 0 0 0px rgba(0, 0, 0, .2);
+    -webkit-border-radius: 3px;
+    -webkit-background-clip: padding-box;
+    -moz-border-radius: 3px;
+    -moz-background-clip: padding;
+    border-radius: 3px;
+    background-clip: padding-box;
+    margin-bottom: 8px;
+    vertical-align: top;
+}
+
+.custom-widget .border-bottom-eee {
+    border-bottom: 1px solid #eee;
 }

@@ -43,9 +43,10 @@
             });
         }
 
-        function LoadMore() {            
+        function LoadMore() {
             dynamicDashboardConfig.LoadMoreCount = dynamicDashboardConfig.LoadMoreCount + 4;
             var _ComponentList = angular.copy(DynamicDashboardCtrl.ePage.Masters.ComponentList);
+            dynamicDashboardConfig.LoadedDirectiveCount = 0;
             DynamicDashboardCtrl.ePage.Masters.ComponentList = undefined;
             DynamicDashboardCtrl.ePage.Masters.ComponentList = _ComponentList;
         }
@@ -55,47 +56,79 @@
                 "ComponentName": "AsnReceivedWithStatus",
                 "Directive": "asn-received-status",
                 "SequenceNo": 1,
-                "IsShow": true
+                "IsShow": true,
+                "SetAsDefault": true,
+                "IsLoadAsDefault": true
             }, {
                 "ComponentName": "AsnTrend",
                 "Directive": "asn-trend",
                 "SequenceNo": 3,
-                "IsShow": true
+                "IsShow": true,
+                "SetAsDefault": false,
+                "IsLoadAsDefault": false
             }, {
                 "ComponentName": "KPI",
                 "Directive": "kpi-directive",
                 "SequenceNo": 2,
-                "IsShow": true
+                "IsShow": true,
+                "SetAsDefault": true,
+                "IsLoadAsDefault": true
             }, {
                 "ComponentName": "MyTask",
                 "Directive": "my-task-directive",
                 "SequenceNo": 5,
-                "IsShow": true
+                "IsShow": true,
+                "SetAsDefault": false,
+                "IsLoadAsDefault": false
             }, {
                 "ComponentName": "PutawayStatus",
                 "Directive": "putaway-status",
                 "SequenceNo": 6,
-                "IsShow": true
+                "IsShow": true,
+                "SetAsDefault": false,
+                "IsLoadAsDefault": false
             }, {
                 "ComponentName": "OpenSO",
                 "Directive": "open-so",
                 "SequenceNo": 4,
-                "IsShow": true
+                "IsShow": true,
+                "SetAsDefault": false,
+                "IsLoadAsDefault": false
             }, {
                 "ComponentName": "PickWithShortfall",
                 "Directive": "pick-with-shortfall",
                 "SequenceNo": 8,
-                "IsShow": true
-            },{
+                "IsShow": true,
+                "SetAsDefault": false,
+                "IsLoadAsDefault": false
+            }, {
                 "ComponentName": "GrnStatus",
                 "Directive": "grn-status",
                 "SequenceNo": 9,
-                "IsShow": true
-            },{
+                "IsShow": true,
+                "SetAsDefault": false,
+                "IsLoadAsDefault": false
+            }, {
                 "ComponentName": "CycleCountJobs",
                 "Directive": "cycle-count-jobs",
                 "SequenceNo": 7,
-                "IsShow": true
+                "IsShow": true,
+                "SetAsDefault": false,
+                "IsLoadAsDefault": false
+            }, {
+                "ComponentName": "Notification",
+                "Directive": "notification",
+                "SequenceNo": 10,
+                "IsShow": false,
+                "SetAsDefault": false,
+                "IsLoadAsDefault": false
+            }, {
+                "ComponentName": "Exception",
+                "Directive": "exception-directive",
+                "SequenceNo": 11,
+                "IsShow": false,
+                "SetAsDefault": false,
+                "IsLoadAsDefault": false
             }];
             DynamicDashboardCtrl.ePage.Masters.ComponentList = $filter('orderBy')(DynamicDashboardCtrl.ePage.Masters.ComponentList, 'SequenceNo');
         }
