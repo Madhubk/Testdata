@@ -78,7 +78,7 @@
                     }
                 },
             },
-            // "CallOutwardFunction": false
+            "LoadMoreCount": 4
         };
 
         return exports;

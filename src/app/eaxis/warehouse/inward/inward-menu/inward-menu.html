@@ -91,7 +91,7 @@
 
     <div class="eaxis-footer-strip" data-ng-show="InwardMenuCtrl.ePage.Masters.ActiveMenuTab.Value != 'MyTask'">
         <!-- JobAccounting -->
-        <div class="col-xs-3 col-sm-3 col-md-2 col-lg-2 col-xl-2" style="width:120px">
+        <div class="col-xs-3 col-sm-3 col-md-2 col-lg-2 col-xl-2" style="width:120px" data-ng-if="!InwardMenuCtrl.currentInward.isNew">
             <ul class="custombilling_inward" data-ng-if="!InwardMenuCtrl.currentInward.isNew">
                 <li class="position-relative">
                     <a href="javascript:void(0);" data-ng-click="InwardMenuCtrl.ePage.Masters.Billing()">
@@ -107,7 +107,7 @@
         </div>
 
 
-        <div class="col-xs-4 col-sm-4 col-md-3 col-lg-2 col-xl-2">
+        <div class="col-xs-4 col-sm-4 col-md-3 col-lg-2 col-xl-2 pull-right">
             <span class="dropup pull-right">
                 <button class="btn btn-primary btn-sm margin-right-10 mt-6 dropdown-toggle" type="button" data-toggle="dropdown"
                     ng-disabled="InwardMenuCtrl.ePage.Masters.DisableSave">More
