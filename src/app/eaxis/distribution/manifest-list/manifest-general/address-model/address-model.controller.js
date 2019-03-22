@@ -93,9 +93,9 @@
             // errorWarningService.GetErrorCodeList(_obj);
             // AddressModelCtrl.ePage.Masters.ErrorWarningConfig = errorWarningService;
             if (errorWarningService.Modules.Manifest) {
-                AddressModelCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj = errorWarningService.Modules.Manifest.Entity[param.Entity.label];
+                AddressModelCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj = errorWarningService.Modules.Manifest.Entity[param.Entity.code];
             }
-             errorWarningService.Modules.Manifest.Entity[param.Entity.label].GlobalErrorWarningList = [];
+             errorWarningService.Modules.Manifest.Entity[param.Entity.code].GlobalErrorWarningList = [];
         }
         function CountryList() {
             AddressModelCtrl.ePage.Masters.DropDownMasterList.Country = {};
@@ -194,7 +194,7 @@
         function OnFieldValueChange(code) {
             var _obj = {
                 ModuleName: ["Manifest"],
-                Code: [param.Entity.label],
+                Code: [param.Entity.code],
                 API: "Validation", // Validation/Group
                 FilterInput: {
                     ModuleCode: "DMS",
@@ -220,7 +220,7 @@
 
             var _obj = {
                 ModuleName: ["Manifest"],
-                Code: [param.Entity.label],
+                Code: [param.Entity.code],
                 API: "Validation",
                 FilterInput: {
                     ModuleCode: "DMS",
@@ -230,7 +230,7 @@
                 ErrorCode: ["E5578", "E5579", "E5580", "E5581", "E5582", "E5583", "E5584", "E5585", "E5586"]
             };
             errorWarningService.ValidateValue(_obj);
-            var _errorcount = errorWarningService.Modules.Manifest.Entity[param.Entity.label].GlobalErrorWarningList;
+            var _errorcount = errorWarningService.Modules.Manifest.Entity[param.Entity.code].GlobalErrorWarningList;
 
             if (_errorcount.length == 0) {
                 AddressModelCtrl.ePage.Masters.Config.ShowErrorWarningModal(param.Entity);
@@ -303,7 +303,7 @@
 
         function Cancel() {
             $uibModalInstance.dismiss("cancel");
-            errorWarningService.Modules.Manifest.Entity[param.Entity.label].GlobalErrorWarningList = [];
+            errorWarningService.Modules.Manifest.Entity[param.Entity.code].GlobalErrorWarningList = [];
             AddressModelCtrl.ePage.Entities.Header.AddressList = undefined;
             AddressModelCtrl.ePage.Masters.Config.ShowErrorWarningModal(param.Entity);
         }
