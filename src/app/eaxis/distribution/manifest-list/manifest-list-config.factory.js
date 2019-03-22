@@ -466,9 +466,9 @@
 
         function ShowErrorWarningModal(EntityObject) {
             $("#errorWarningContainer" + EntityObject.label).toggleClass("open");
-            // if (EntityObject[EntityObject.label].ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList.length == 0) {
-            //     $("#errorWarningContainer" + EntityObject.label).removeClass("open");
-            // }
+            if (errorWarningService.Modules.Manifest.Entity[EntityObject.code].GlobalErrorWarningList.length == 0) {
+                $("#errorWarningContainer" + EntityObject.label).removeClass("open");
+            }
         }
     }
 })();
