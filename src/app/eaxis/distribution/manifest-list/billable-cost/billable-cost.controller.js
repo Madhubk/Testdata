@@ -92,8 +92,10 @@
             angular.forEach(BillableCostCtrl.ePage.Entities.Header.Data.TmsConsignmentList, function (value, key) {
                 if (!value.UIJobCustom.PK || value.UIJobCustom.PK == "00000000-0000-0000-0000-000000000000") {
                     value.UIJobCustom.IsNewInsert = true;
+                    value.TmsManifestCosignmentMapping.IsChanged = true;
                 } else if (value.UIJobCustom.PK) {
                     value.TmsManifestCosignmentMapping.IsChanged = true;
+                    value.IsModified = true;
                     value.UIJobCustom.IsNewInsert = false;
                 }
             });
