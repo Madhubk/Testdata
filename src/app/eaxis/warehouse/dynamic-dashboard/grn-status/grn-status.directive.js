@@ -13,7 +13,9 @@
             controller: "GrnStatusController",
             controllerAs: "GrnStatusCtrl",
             scope: {
-                currentObj: "="
+                componentList: "=",
+                selectedComponent: "=",
+                selectedWarehouse: "="
             },
             bindToController: true
 

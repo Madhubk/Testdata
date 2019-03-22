@@ -30,5 +30,10 @@
                 </tbody>
             </table>
         </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 norecordfound" style="color: black;" ng-if="GrnStatusCtrl.ePage.Masters.GrnStatusDetails.length==0">No
+            Record Found...</div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 norecordfound" style="color: black;" ng-if="!GrnStatusCtrl.ePage.Masters.IsLoad"
+            ng-click="GrnStatusCtrl.ePage.Masters.GetGrnStatusDetails()"><a> Click
+                here to View Details...</a></div>
     </div>
 </div>

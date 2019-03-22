@@ -13,7 +13,9 @@
             controller: "PutawayStatusController",
             controllerAs: "PutawayStatusCtrl",
             scope: {
-                currentObj: "="
+                componentList: "=",
+                selectedComponent: "=",
+                selectedWarehouse: "="
             },
             bindToController: true
 

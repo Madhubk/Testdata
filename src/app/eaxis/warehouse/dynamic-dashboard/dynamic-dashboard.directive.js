@@ -11,13 +11,14 @@
             restrict: "EA",
             scope: {
                 componentList: "=",
-                selectedComponent: "="
+                selectedComponent: "=",
+                selectedWarehouse: "="
             },
             link: Link,
         };
         return exports;
 
-        function Link(scope, ele, attr) {            
+        function Link(scope, ele, attr) {
             dynamicDashboardConfig.LoadedDirectiveCount = dynamicDashboardConfig.LoadedDirectiveCount + 1;
             if (dynamicDashboardConfig.LoadedDirectiveCount <= dynamicDashboardConfig.LoadMoreCount) {
                 var TempDetails = scope.selectedComponent.Directive.split('-');
@@ -29,7 +30,7 @@
                 TempDetails = TempDetails.join('');
                 var _isExist = $injector.has(TempDetails + "Directive");
                 if (_isExist) {
-                    scope.templateDir = '<' + scope.selectedComponent.Directive + '/>';
+                    scope.templateDir = '<' + scope.selectedComponent.Directive + ' component-list="componentList" selected-component="selectedComponent" selected-warehouse="selectedWarehouse" />';
                     var newDirective = angular.element(scope.templateDir);
                     var view = $compile(newDirective)(scope);
                     ele.append(view);

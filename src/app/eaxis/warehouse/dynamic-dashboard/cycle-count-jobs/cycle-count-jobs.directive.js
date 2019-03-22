@@ -13,7 +13,9 @@
             controller: "CycleCountJobsController",
             controllerAs: "CycleCountJobsCtrl",
             scope: {
-                currentObj: "="
+                componentList: "=",
+                selectedComponent: "=",
+                selectedWarehouse: "="
             },
             bindToController: true
 

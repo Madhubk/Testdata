@@ -13,7 +13,9 @@
             controller: "AsnTrendController",
             controllerAs: "AsnTrendCtrl",
             scope: {
-                currentObj: "="
+                componentList: "=",
+                selectedComponent: "=",
+                selectedWarehouse: "="
             },
             bindToController: true
 

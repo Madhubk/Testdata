@@ -22,11 +22,19 @@
                 "Entities": '',
             };
 
-            GetPickWithShortfallDetails();
+            if (PickShortfallCtrl.selectedComponent.SetAsDefault) {
+                GetPickWithShortfallDetails();
+                PickShortfallCtrl.ePage.Masters.IsLoad = true;
+            } else {
+                PickShortfallCtrl.ePage.Masters.IsLoad = false;
+            }
+            PickShortfallCtrl.ePage.Masters.GetPickWithShortfallDetails = GetPickWithShortfallDetails;
         }
 
         function GetPickWithShortfallDetails() {
+            PickShortfallCtrl.ePage.Masters.IsLoad = true;
             var _filter = {
+                "WarehouseCode": PickShortfallCtrl.selectedWarehouse.WarehouseCode
             };
 
             var _input = {

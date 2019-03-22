@@ -13,7 +13,9 @@
             controller: "AsnReceivedController",
             controllerAs: "AsnReceivedCtrl",
             scope: {
-                currentObj: "="
+                componentList: "=",
+                selectedComponent: "=",
+                selectedWarehouse: "="
             },
             bindToController: true
 

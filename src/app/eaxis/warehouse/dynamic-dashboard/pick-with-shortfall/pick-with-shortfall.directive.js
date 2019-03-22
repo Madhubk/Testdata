@@ -13,7 +13,9 @@
             controller: "PickShortfallController",
             controllerAs: "PickShortfallCtrl",
             scope: {
-                currentObj: "="
+                componentList: "=",
+                selectedComponent: "=",
+                selectedWarehouse: "="
             },
             bindToController: true
 

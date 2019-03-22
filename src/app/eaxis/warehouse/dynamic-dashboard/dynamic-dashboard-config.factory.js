@@ -51,7 +51,7 @@
                             "IsAPI": "true",
                             "HttpType": "POST",
                             "Url": "WmsCycleCount/CycleCountFindAll",
-                            "FilterID": "WMSINW"
+                            "FilterID": "WMSCYC"
                         }
                     }
                 },

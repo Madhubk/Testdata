@@ -30,5 +30,10 @@
                 </tbody>
             </table>
         </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 norecordfound" style="color: black;" ng-if="PutawayStatusCtrl.ePage.Masters.PutawayStatusDetails.length==0">No
+            Record Found...</div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 norecordfound" style="color: black;" ng-if="!PutawayStatusCtrl.ePage.Masters.IsLoad"
+            ng-click="PutawayStatusCtrl.ePage.Masters.GetPutawayStatusDetails()"><a> Click
+                here to View Details...</a></div>
     </div>
 </div>

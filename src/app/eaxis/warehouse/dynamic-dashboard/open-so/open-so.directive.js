@@ -13,7 +13,9 @@
             controller: "OpenSOController",
             controllerAs: "OpenSOCtrl",
             scope: {
-                currentObj: "="
+                componentList: "=",
+                selectedComponent: "=",
+                selectedWarehouse: "="
             },
             bindToController: true
 

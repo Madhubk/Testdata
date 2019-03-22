@@ -22,11 +22,19 @@
                 "Entities": '',
             };
 
-            GetCycleCountJobsDetails();
+            if (CycleCountJobsCtrl.selectedComponent.SetAsDefault) {
+                GetCycleCountJobsDetails();
+                CycleCountJobsCtrl.ePage.Masters.IsLoad = true;
+            } else {
+                CycleCountJobsCtrl.ePage.Masters.IsLoad = false;
+            }
+            CycleCountJobsCtrl.ePage.Masters.GetCycleCountJobsDetails = GetCycleCountJobsDetails;
         }
 
         function GetCycleCountJobsDetails() {
+            CycleCountJobsCtrl.ePage.Masters.IsLoad = true;
             var _filter = {
+                "WarehouseName": CycleCountJobsCtrl.selectedWarehouse.WarehouseName
             };
 
             var _input = {
@@ -39,10 +47,10 @@
                     CycleCountJobsCtrl.ePage.Masters.CycleCountJobsDetails = response.data.Response;
 
                     angular.forEach(CycleCountJobsCtrl.ePage.Masters.CycleCountJobsDetails, function (value, key) {
-                        if(value.IsScheduledStockTake == true){
-                            value.IsScheduledStockTake ="Scheduled"
-                        }else if(value.IsScheduledStockTake == false){
-                            value.IsScheduledStockTake ="UnScheduled"
+                        if (value.IsScheduledStockTake == true) {
+                            value.IsScheduledStockTake = "Scheduled"
+                        } else if (value.IsScheduledStockTake == false) {
+                            value.IsScheduledStockTake = "UnScheduled"
                         }
                     });
                 }

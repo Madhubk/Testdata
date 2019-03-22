@@ -1,8 +1,14 @@
 <div class="clearfix" style="background-color: #fbfbfbc2;">
-    <div class="clearfix border-bottom pt-10 pb-10" style="background-color: #eeeeeec2 !important;">
-        <div class="col-lg-12">
-            <i class="dashboard-dms-icon-box set-color-blue icon-dashboard fs-22 mt-10"></i>
-            <span class="dashboard-dms-title ml-10 fs-25">Dashboard</span>
+    <div class="clearfix border-bottom pt-5 pb-5" style="background-color: #eeeeeec2 !important;">
+        <div class="col-lg-6">
+            <i class="dashboard-dms-icon-box set-color-blue icon-dashboard fs-22 mt-5"></i>
+            <span class="dashboard-dms-title ml-10 fs-20">Dashboard</span>
+        </div>
+        <div class="col-lg-6">
+            <div class="text-right">
+                <select class="btn btn-default select-rounded fs-12" ng-model="DynamicDashboardCtrl.ePage.Masters.SelectedWarehouse" ng-options="x.WarehouseCode+'-'+x.WarehouseName for x in DynamicDashboardCtrl.ePage.Masters.WarehouseDetails"
+                    ng-change="DynamicDashboardCtrl.ePage.Masters.WarehouseChanged()" search-contains="true"></select>                
+            </div>
         </div>
     </div>
     <div class="col-lg-12 custom-widget no-padding">
@@ -10,7 +16,7 @@
             <div ng-if="DynamicDashboardCtrl.ePage.Masters.ComponentList" ng-repeat="x in DynamicDashboardCtrl.ePage.Masters.ComponentList | filter: {IsShow:true}"
                 dnd-draggable="x" dnd-effect-allowed="move" draggable="true">
                 <div dynamic-dashboard-directive component-list="DynamicDashboardCtrl.ePage.Masters.ComponentList"
-                    selected-component="DynamicDashboardCtrl.ePage.Masters.ComponentList[$index]"></div>
+                    selected-component="DynamicDashboardCtrl.ePage.Masters.ComponentList[$index]" selected-warehouse="DynamicDashboardCtrl.ePage.Masters.SelectedWarehouse"></div>
             </div>
         </div>
     </div>

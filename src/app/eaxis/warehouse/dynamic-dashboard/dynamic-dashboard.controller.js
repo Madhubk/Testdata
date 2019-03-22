@@ -5,9 +5,9 @@
         .module("Application")
         .controller("DynamicDashboardController", DynamicDashboardController);
 
-    DynamicDashboardController.$inject = ["helperService", "$filter", "dynamicDashboardConfig"];
+    DynamicDashboardController.$inject = ["helperService", "$filter", "dynamicDashboardConfig", "appConfig", "apiService"];
 
-    function DynamicDashboardController(helperService, $filter, dynamicDashboardConfig) {
+    function DynamicDashboardController(helperService, $filter, dynamicDashboardConfig, appConfig, apiService) {
 
         var DynamicDashboardCtrl = this;
 
@@ -19,12 +19,39 @@
                 "Meta": helperService.metaBase(),
                 "Entities": {}
             };
-            GetJson();
+
             DynamicDashboardCtrl.ePage.Masters.LoadMoreBtnTxt = "Load More";
             DynamicDashboardCtrl.ePage.Masters.LoadMore = LoadMore;
             DynamicDashboardCtrl.ePage.Masters.IsVisibleLoadMoreBtn = true;
+
             DynamicDashboardCtrl.ePage.Masters.dropCallback = dropCallback;
+            DynamicDashboardCtrl.ePage.Masters.WarehouseChanged = WarehouseChanged;
+
             DynamicDashboardCtrl.ePage.Masters.Config = dynamicDashboardConfig;
+            GetWarehouseValues()
+        }
+
+        function GetWarehouseValues() {
+            //Get Warehouse Details
+            var _input = {
+                "FilterID": appConfig.Entities.WmsWarehouse.API.FindAll.FilterID,
+                "SearchInput": []
+            };
+
+            apiService.post("eAxisAPI", appConfig.Entities.WmsWarehouse.API.FindAll.Url, _input).then(function (response) {
+                if (response.data.Response) {
+                    DynamicDashboardCtrl.ePage.Masters.WarehouseDetails = response.data.Response;
+                    DynamicDashboardCtrl.ePage.Masters.SelectedWarehouse = DynamicDashboardCtrl.ePage.Masters.WarehouseDetails[0];
+                    GetJson();
+                }
+            });
+        }
+
+        function WarehouseChanged() {
+            var _ComponentList = angular.copy(DynamicDashboardCtrl.ePage.Masters.ComponentList);
+            dynamicDashboardConfig.LoadedDirectiveCount = 0;
+            DynamicDashboardCtrl.ePage.Masters.ComponentList = undefined;
+            DynamicDashboardCtrl.ePage.Masters.ComponentList = _ComponentList;
         }
 
         function dropCallback(selectedComponent, ComponentList, index, external) {
@@ -52,7 +79,7 @@
         }
 
         function GetJson() {
-            DynamicDashboardCtrl.ePage.Masters.ComponentList = [{
+            var _obj = [{
                 "ComponentName": "AsnReceivedWithStatus",
                 "Directive": "asn-received-status",
                 "SequenceNo": 1,
@@ -65,7 +92,7 @@
                 "SequenceNo": 3,
                 "IsShow": true,
                 "SetAsDefault": false,
-                "IsLoadAsDefault": false
+                "IsLoadAsDefault": true
             }, {
                 "ComponentName": "KPI",
                 "Directive": "kpi-directive",
@@ -85,7 +112,7 @@
                 "Directive": "putaway-status",
                 "SequenceNo": 6,
                 "IsShow": true,
-                "SetAsDefault": false,
+                "SetAsDefault": true,
                 "IsLoadAsDefault": false
             }, {
                 "ComponentName": "OpenSO",
@@ -106,7 +133,7 @@
                 "Directive": "grn-status",
                 "SequenceNo": 9,
                 "IsShow": true,
-                "SetAsDefault": false,
+                "SetAsDefault": true,
                 "IsLoadAsDefault": false
             }, {
                 "ComponentName": "CycleCountJobs",
@@ -130,7 +157,14 @@
                 "SetAsDefault": false,
                 "IsLoadAsDefault": false
             }];
+
+            var LoadedAsDefaultDetails = $filter('filter')(_obj, { IsLoadAsDefault: true })
+            if (LoadedAsDefaultDetails.length > 0) {
+                dynamicDashboardConfig.LoadMoreCount = LoadedAsDefaultDetails.length;
+            }
+            DynamicDashboardCtrl.ePage.Masters.ComponentList = _obj;
             DynamicDashboardCtrl.ePage.Masters.ComponentList = $filter('orderBy')(DynamicDashboardCtrl.ePage.Masters.ComponentList, 'SequenceNo');
+
         }
 
         Init();
