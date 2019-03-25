@@ -95,7 +95,7 @@
                     <label class="color-999 fs-11">Deduction Cost</label>
                     <div class="">
                         <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
-                            placeholder="Deduction Costt"
+                            placeholder="Deduction Cost"
                             data-ng-model="BillableCostCtrl.ePage.Entities.Header.Data.UIJobCustom.CustomDecimalIII">
                     </div>
                 </div>
@@ -113,7 +113,7 @@
             </div>
         </div>
         <div class="col-lg-12 p-0">
-            <div class="col-lg-3">
+            <!-- <div class="col-lg-3">
                 <div class="form-group">
                     <label class="color-999 fs-11">Transportation Cost</label>
                     <div class="">
@@ -122,8 +122,8 @@
                             data-ng-model="BillableCostCtrl.ePage.Entities.Header.Data.TmsManifestHeader.TransportationCost">
                     </div>
                 </div>
-            </div>
-            <div class="col-lg-3">
+            </div> -->
+            <!-- <div class="col-lg-3">
                 <div class="form-group">
                     <label class="color-999 fs-11">Currency</label>
                     <select chosen class="form-control"
@@ -133,7 +133,7 @@
                         <option value="">--Select--</option>
                     </select>
                 </div>
-            </div>
+            </div> -->
             <div class="col-lg-3">
                 <div class="form-group">
                     <div class="color-999 fs-11">Carrier</div>
@@ -148,8 +148,7 @@
                     <span>{{BillableCostCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ManifestType||BillableCostCtrl.ePage.Masters.Empty}}</span>
                 </div>
             </div>
-        </div>
-        <div class="col-lg-12 p-0">
+
             <div class="col-lg-3"
                 data-ng-if="BillableCostCtrl.ePage.Entities.Header.Data.TmsManifestHeader.TransporterType == 'Transportation' || BillableCostCtrl.ePage.Entities.Header.Data.TmsManifestHeader.TransporterType == 'LastMileDelivery'">
                 <div class="form-group">
@@ -164,6 +163,8 @@
                     <span>{{BillableCostCtrl.ePage.Entities.Header.Data.TmsManifestHeader.LoadType | dateFormat}}</span>
                 </div>
             </div>
+        </div>
+        <div class="col-lg-12 p-0">
             <div class="col-lg-3">
                 <div class="form-group">
                     <div class="color-999 fs-11">Est Delivery Date</div>
@@ -188,8 +189,8 @@
                 <div class='table_header'>Unloading Cost/Receipted</div>
                 <div class='table_header'>Deduction Cost</div>
                 <div class='table_header'>Currency</div>
-                <div class='table_header'>Billable Amount</div>
-                <div class='table_header pr-30 pl-30'>Currency</div>
+                <!-- <div class='table_header'>Billable Amount</div> -->
+                <!-- <div class='table_header pr-30 pl-30'>Currency</div> -->
                 <div class='table_header'>Volumetric weight</div>
                 <div class='table_header'>Sender</div>
                 <div class='table_header'>Receiver</div>
@@ -262,7 +263,7 @@
                         </div>
                     </div>
                 </div>
-                <div class='table_small'>
+                <!-- <div class='table_small'>
                     <div class='table_cell'>Billable Amount</div>
                     <div class='table_cell'>
                         <div class="">
@@ -272,8 +273,8 @@
                                 data-ng-model="value.TmsManifestCosignmentMapping.TMC_BillableAmount">
                         </div>
                     </div>
-                </div>
-                <div class='table_small'>
+                </div> -->
+                <!-- <div class='table_small'>
                     <div class='table_cell'>Currency</div>
                     <div class='table_cell'>
                         <div class="">
@@ -285,7 +286,7 @@
                             </select>
                         </div>
                     </div>
-                </div>
+                </div> -->
                 <div class='table_small'>
                     <div class='table_cell'>Volumetric weight</div>
                     <div class='table_cell'>
