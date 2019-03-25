@@ -264,6 +264,7 @@
 
         }
         function OtherAddresses(otheraddress, ClientType) {
+            OtherReceiverAddress();
             $uibModal.open({
                 animation: true,
                 backdrop: "static",

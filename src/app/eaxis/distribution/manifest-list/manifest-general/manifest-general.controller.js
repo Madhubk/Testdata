@@ -455,6 +455,7 @@
         }
 
         function OtherAddresses(otheraddress, ClientType) {
+            GetOrgReceiverAddress();
             $uibModal.open({
 
                 animation: true,
