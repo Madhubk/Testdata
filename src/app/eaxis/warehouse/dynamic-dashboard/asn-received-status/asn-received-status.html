@@ -8,24 +8,24 @@
             <table style="height: 253px" class="dashboard-table">
                 <thead>
                     <tr id="tableHeader">
-                        <th ng-style="{ 'width':  '40px' }" title="S.No">S.No</th>
-                        <th ng-style="{ 'width':  '120px' }" title="Warehouse Code">Warehouse Code</th>
-                        <th ng-style="{ 'width':  '120px' }" title="Customer Code">Customer Code</th>
-                        <th ng-style="{ 'width':  '170px' }" title="Customer Name">Customer Name</th>
-                        <th ng-style="{ 'width':  '100px' }" title="Total ASN's">Total ASN's</th>
-                        <th ng-style="{ 'width':  '80px' }" title="Open">Open</th>
-                        <th ng-style="{ 'width':  '90px' }" title="Completed">Completed</th>
+                        <th ng-style="{ 'width':  '6%' }" title="S.No">S.No</th>
+                        <th ng-style="{ 'width':  '17%' }" title="Warehouse Code">Warehouse Code</th>
+                        <th ng-style="{ 'width':  '17%' }" title="Customer Code">Customer Code</th>
+                        <th ng-style="{ 'width':  '25%' }" title="Customer Name">Customer Name</th>
+                        <th ng-style="{ 'width':  '13%' }" title="Total ASN's">Total ASN's</th>
+                        <th ng-style="{ 'width':  '9%' }" title="Open">Open</th>
+                        <th ng-style="{ 'width':  '13%' }" title="Completed">Completed</th>
                     </tr>
                 </thead>
                 <tbody id="AsnReceivedStatusCustTable">
                     <tr id="tableBody" ng-repeat="x in AsnReceivedCtrl.ePage.Masters.AsnReceivedWithStatusDetails">
-                        <td ng-style="{ 'width':  '40px' }" class="overflow-text">{{$index +1}}</td>
-                        <td ng-style="{ 'width':  '120px' }" class="overflow-text">{{x.WarehouseCode}}</td>
-                        <td ng-style="{ 'width':  '120px' }" class="overflow-text">{{x.ClientCode}}</td>
-                        <td ng-style="{ 'width':  '170px' }" class="overflow-text">{{x.ClientName}}</td>
-                        <td ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.TotalCount}}</td>
-                        <td ng-style="{ 'width':  '80px' }" class="overflow-text">{{x.UnFinalisedCount}}</td>
-                        <td ng-style="{ 'width':  '90px' }" class="overflow-text">{{x.FinalisedCount}}</td>
+                        <td ng-style="{ 'width':  '6%' }" class="overflow-text">{{$index +1}}</td>
+                        <td ng-style="{ 'width':  '17%' }" class="overflow-text">{{x.WarehouseCode}}</td>
+                        <td ng-style="{ 'width':  '17%' }" class="overflow-text">{{x.ClientCode}}</td>
+                        <td ng-style="{ 'width':  '25%' }" class="overflow-text">{{x.ClientName}}</td>
+                        <td ng-style="{ 'width':  '13%' }" class="overflow-text">{{x.TotalCount}}</td>
+                        <td ng-style="{ 'width':  '9%' }" class="overflow-text">{{x.UnFinalisedCount}}</td>
+                        <td ng-style="{ 'width':  '13%' }" class="overflow-text">{{x.FinalisedCount}}</td>
                     </tr>
                 </tbody>
             </table>

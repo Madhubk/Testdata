@@ -5,27 +5,27 @@
         </div>
         <div id="PickWithShortfallTable" class="dashboard-fixedheader fixedheader" key-events table-object='PickShortfallCtrl.ePage.Masters.PickWithShortfallDetails'
             unique-id='PickWithShortfallTable'>
-            <table style="height: 253px">
+            <table style="height: 253px" class="dashboard-table">
                 <thead>
                     <tr id="tableHeader">
-                        <th ng-style="{ 'width':  '40px' }" title="S.No">S.No</th>
-                        <th ng-style="{ 'width':  '170px' }" title="Warehouse Name">Warehouse Name</th>
-                        <th ng-style="{ 'width':  '120px' }" title="Customer Code">Customer Code</th>
-                        <th ng-style="{ 'width':  '170px' }" title="Customer Name">Customer Name</th>
-                        <th ng-style="{ 'width':  '100px' }" title="Shortfall pick's">Shortfall pick's</th>
-                        <th ng-style="{ 'width':  '80px' }" title="Open">Open</th>
-                        <th ng-style="{ 'width':  '90px' }" title="Completed">Completed</th>
+                        <th ng-style="{ 'width':  '6%' }" title="S.No">S.No</th>
+                        <th ng-style="{ 'width':  '23%' }" title="Warehouse Name">Warehouse Name</th>
+                        <th ng-style="{ 'width':  '15%' }" title="Customer Code">Customer Code</th>
+                        <th ng-style="{ 'width':  '22%' }" title="Customer Name">Customer Name</th>
+                        <th ng-style="{ 'width':  '15%' }" title="Shortfall pick's">Shortfall pick's</th>
+                        <th ng-style="{ 'width':  '8%' }" title="Open">Open</th>
+                        <th ng-style="{ 'width':  '11%' }" title="Completed">Completed</th>
                     </tr>
                 </thead>
                 <tbody id="PickWithShortfallCustTable">
                     <tr id="tableBody" ng-repeat="x in PickShortfallCtrl.ePage.Masters.PickWithShortfallDetails">
-                        <td ng-style="{ 'width':  '40px' }" class="overflow-text">{{$index +1}}</td>
-                        <td ng-style="{ 'width':  '170px' }" class="overflow-text">{{x.WarehouseCode}}</td>
-                        <td ng-style="{ 'width':  '120px' }" class="overflow-text">{{x.ClientCode}}</td>
-                        <td ng-style="{ 'width':  '170px' }" class="overflow-text">{{x.ClientName}}</td>
-                        <td ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.ShortFallCount}}</td>
-                        <td ng-style="{ 'width':  '80px' }" class="overflow-text">{{x.UnFinalisedCount}}</td>
-                        <td ng-style="{ 'width':  '90px' }" class="overflow-text">{{x.FinalisedCount}}</td>
+                        <td ng-style="{ 'width':  '6%' }" class="overflow-text">{{$index +1}}</td>
+                        <td ng-style="{ 'width':  '23%' }" class="overflow-text">{{x.WarehouseCode}}</td>
+                        <td ng-style="{ 'width':  '15%' }" class="overflow-text">{{x.ClientCode}}</td>
+                        <td ng-style="{ 'width':  '22%' }" class="overflow-text">{{x.ClientName}}</td>
+                        <td ng-style="{ 'width':  '15%' }" class="overflow-text">{{x.ShortFallCount}}</td>
+                        <td ng-style="{ 'width':  '8%' }" class="overflow-text">{{x.UnFinalisedCount}}</td>
+                        <td ng-style="{ 'width':  '11%' }" class="overflow-text">{{x.FinalisedCount}}</td>
                     </tr>
                 </tbody>
             </table>

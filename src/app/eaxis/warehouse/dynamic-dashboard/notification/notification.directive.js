@@ -5,7 +5,7 @@
         .module("Application")
         .directive("notification", Notification)
         .directive("kpiDirective", KpiDirective)
-        .directive("myTaskDirective", MyTaskDirective)
+        .directive("myTaskDashboardDirective", MyTaskDirective)
         .directive("exceptionDirective", ExceptionDirective);
 
     function Notification() {

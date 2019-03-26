@@ -5,23 +5,23 @@
         </div>
         <div id="AsnTrendTable" class="dashboard-fixedheader fixedheader" key-events table-object='AsnTrendCtrl.ePage.Masters.AsnTrendDetails'
             unique-id='AsnTrendTable'>
-            <table style="height: 253px">
+            <table style="height: 253px" class="dashboard-table">
                 <thead>
                     <tr id="tableHeader">
-                        <th ng-style="{ 'width':  '40px' }" title="S.No">S.No</th>
-                        <th ng-style="{ 'width':  '150px' }" title="Warehouse Code">Warehouse Code</th>
-                        <th ng-style="{ 'width':  '120px' }" title="Total Customers">Total Customers</th>
-                        <th ng-style="{ 'width':  '120px' }" title="ASN Customers">ASN Customers</th>
-                        <th ng-style="{ 'width':  '100px' }" title="Percentage">Percentage</th>
+                        <th ng-style="{ 'width':  '8%' }" title="S.No">S.No</th>
+                        <th ng-style="{ 'width':  '30%' }" title="Warehouse Code">Warehouse Code</th>
+                        <th ng-style="{ 'width':  '20%' }" title="Total Customers">Total Customers</th>
+                        <th ng-style="{ 'width':  '20%' }" title="ASN Customers">ASN Customers</th>
+                        <th ng-style="{ 'width':  '22%' }" title="Percentage">Percentage</th>
                     </tr>
                 </thead>
                 <tbody id="AsnTrendCustTable">
                     <tr id="tableBody" ng-repeat="x in AsnTrendCtrl.ePage.Masters.AsnTrendDetails">
-                        <td ng-style="{ 'width':  '40px' }" class="overflow-text">{{$index +1}}</td>
-                        <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.WarehouseCode}}</td>
-                        <td ng-style="{ 'width':  '120px' }" class="overflow-text">{{x.ClientCount}}</td>
-                        <td ng-style="{ 'width':  '120px' }" class="overflow-text">{{x.ASNCount}}</td>
-                        <td ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.Percentage}}</td>
+                        <td ng-style="{ 'width':  '8%' }" class="overflow-text">{{$index +1}}</td>
+                        <td ng-style="{ 'width':  '30%' }" class="overflow-text">{{x.WarehouseCode}}</td>
+                        <td ng-style="{ 'width':  '20%' }" class="overflow-text">{{x.ClientCount}}</td>
+                        <td ng-style="{ 'width':  '20%' }" class="overflow-text">{{x.ASNCount}}</td>
+                        <td ng-style="{ 'width':  '22%' }" class="overflow-text">{{x.Percentage}}</td>
                     </tr>
                 </tbody>
             </table>

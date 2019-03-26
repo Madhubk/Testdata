@@ -36,6 +36,7 @@
 
         function Apply(event) {
             dynamicDashboardConfig.LoadedDirectiveCount = 0;
+            DynamicDashboardCtrl.ePage.Masters.TempComponentList = $filter('orderBy')(DynamicDashboardCtrl.ePage.Masters.TempComponentList, '!IsLoadAsDefault');
             var _ComponentList = angular.copy(DynamicDashboardCtrl.ePage.Masters.TempComponentList);
             DynamicDashboardCtrl.ePage.Masters.IsShowDetails = $filter('filter')(_ComponentList, { IsShow: true })
             var LoadedAsDefaultDetails = $filter('filter')(DynamicDashboardCtrl.ePage.Masters.IsShowDetails, { IsLoadAsDefault: true })
@@ -66,7 +67,8 @@
         }
 
         function WarehouseChanged() {
-            var _ComponentList = angular.copy(DynamicDashboardCtrl.ePage.Masters.TempComponentList);
+            // DynamicDashboardCtrl.ePage.Masters.TempComponentList = $filter('orderBy')(DynamicDashboardCtrl.ePage.Masters.TempComponentList, '!IsLoadAsDefault');
+            var _ComponentList = angular.copy(DynamicDashboardCtrl.ePage.Masters.ComponentList);
             var IsShowDetails = $filter('filter')(_ComponentList, { IsShow: true })
             dynamicDashboardConfig.LoadedDirectiveCount = 0;
             DynamicDashboardCtrl.ePage.Masters.ComponentList = undefined;
@@ -96,6 +98,7 @@
 
         function LoadMore() {
             dynamicDashboardConfig.LoadMoreCount = dynamicDashboardConfig.LoadMoreCount + 4;
+            DynamicDashboardCtrl.ePage.Masters.TempComponentList = $filter('orderBy')(DynamicDashboardCtrl.ePage.Masters.TempComponentList, '!IsLoadAsDefault');
             var _ComponentList = angular.copy(DynamicDashboardCtrl.ePage.Masters.TempComponentList);
             var IsShowDetails = $filter('filter')(_ComponentList, { IsShow: true })
             dynamicDashboardConfig.LoadedDirectiveCount = 0;
@@ -106,6 +109,7 @@
         }
 
         function GetJson() {
+            DynamicDashboardCtrl.ePage.Masters.ComponentList = undefined;
             var _obj = [{
                 "ComponentName": "ASN Received With Status",
                 "Directive": "asn-received-status",
@@ -129,7 +133,7 @@
                 "IsLoadAsDefault": false
             }, {
                 "ComponentName": "My Task",
-                "Directive": "my-task-directive",
+                "Directive": "my-task-dashboard-directive",
                 "SequenceNo": 5,
                 "IsShow": true,
                 "SetAsDefault": true,
@@ -187,11 +191,13 @@
 
             _obj = $filter('orderBy')(_obj, 'SequenceNo');
             DynamicDashboardCtrl.ePage.Masters.TempComponentList = angular.copy(_obj);
+            DynamicDashboardCtrl.ePage.Masters.TempComponentList = $filter('orderBy')(DynamicDashboardCtrl.ePage.Masters.TempComponentList, '!IsLoadAsDefault');
             DynamicDashboardCtrl.ePage.Masters.IsShowDetails = $filter('filter')(_obj, { IsShow: true })
             var LoadedAsDefaultDetails = $filter('filter')(DynamicDashboardCtrl.ePage.Masters.IsShowDetails, { IsLoadAsDefault: true })
             if (LoadedAsDefaultDetails.length > 0) {
                 dynamicDashboardConfig.LoadMoreCount = LoadedAsDefaultDetails.length;
             }
+            dynamicDashboardConfig.LoadedDirectiveCount = 0;
             DynamicDashboardCtrl.ePage.Masters.ComponentList = angular.copy(LoadedAsDefaultDetails);
         }
 

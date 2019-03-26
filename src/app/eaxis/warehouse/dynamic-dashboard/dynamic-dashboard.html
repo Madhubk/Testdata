@@ -6,7 +6,7 @@
         </div>
         <div class="col-lg-6">
             <div class="text-right col-lg-10">
-                <select class="btn btn-default select-rounded fs-12" ng-model="DynamicDashboardCtrl.ePage.Masters.SelectedWarehouse"
+                <select class="btn btn-default fs-12" ng-model="DynamicDashboardCtrl.ePage.Masters.SelectedWarehouse"
                     ng-options="x.WarehouseCode+'-'+x.WarehouseName for x in DynamicDashboardCtrl.ePage.Masters.WarehouseDetails"
                     ng-change="DynamicDashboardCtrl.ePage.Masters.WarehouseChanged()" search-contains="true"></select>
             </div>
@@ -41,10 +41,12 @@
                                         <div data-ng-bind="x.ComponentName" class="text-single-line" title="{{x.ComponentName}}"></div>
                                     </div>
                                     <div class="col-sm-5 text-right mt-2">
-                                        <button class="btn  btn-xs" style="width: 85px;" data-ng-class="{'btn-success': x.SetAsDefault, 'btn-default': !x.SetAsDefault}"
+                                        <button class="btn  btn-xs" data-ng-disabled="!x.IsShow" style="width: 85px;"
+                                            data-ng-class="{'btn-success': x.SetAsDefault, 'btn-default': !x.SetAsDefault}"
                                             data-ng-click="x.SetAsDefault?x.SetAsDefault=false:x.SetAsDefault=true"
                                             data-ng-bind="x.SetAsDefault ? 'Default' : 'Set As Default'"></button>
-                                        <button class="btn  btn-xs" style="width: 95px;" data-ng-class="{'btn-success': x.IsLoadAsDefault, 'btn-default': !x.IsLoadAsDefault}"
+                                        <button class="btn  btn-xs" data-ng-disabled="!x.IsShow" style="width: 95px;"
+                                            data-ng-class="{'btn-success': x.IsLoadAsDefault, 'btn-default': !x.IsLoadAsDefault}"
                                             data-ng-click="x.IsLoadAsDefault?x.IsLoadAsDefault=false:x.IsLoadAsDefault=true"
                                             data-ng-bind="x.IsLoadAsDefault ? 'Loaded' : 'Load As Default'"></button>
                                     </div>
@@ -124,7 +126,7 @@
             </div>
         </div>
     </div>
-    <div class="clearfix col-lg-12 p-20 text-center" data-ng-hide="DynamicDashboardCtrl.ePage.Masters.IsShowDetails.length < DynamicDashboardCtrl.ePage.Masters.Config.LoadMoreCount">
+    <div class="clearfix col-lg-12 p-20 text-center" data-ng-hide="DynamicDashboardCtrl.ePage.Masters.IsShowDetails.length <= DynamicDashboardCtrl.ePage.Masters.Config.LoadMoreCount">
         <button class="btn btn-sm btn-primary" data-ng-click="DynamicDashboardCtrl.ePage.Masters.LoadMore()"
             data-ng-disabled="DynamicDashboardCtrl.ePage.Masters.IsDisabledLoadMoreBtn" data-ng-bind="DynamicDashboardCtrl.ePage.Masters.LoadMoreBtnTxt"></button>
     </div>

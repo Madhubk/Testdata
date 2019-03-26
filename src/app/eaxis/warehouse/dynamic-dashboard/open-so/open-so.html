@@ -5,23 +5,23 @@
         </div>
         <div id="OpenSOTable" class="dashboard-fixedheader fixedheader" key-events table-object='OpenSOCtrl.ePage.Masters.OpenSODetails'
             unique-id='OpenSOTable'>
-            <table style="height: 253px">
+            <table style="height: 253px" class="dashboard-table">
                 <thead>
                     <tr id="tableHeader">
-                        <th ng-style="{ 'width':  '40px' }" title="S.No">S.No</th>
-                        <th ng-style="{ 'width':  '120px' }" title="Warehouse Code">Warehouse Code</th>
-                        <th ng-style="{ 'width':  '120px' }" title="Customer Code">Customer Code</th>
-                        <th ng-style="{ 'width':  '170px' }" title="Customer Name">Customer Name</th>
-                        <th ng-style="{ 'width':  '120px' }" title="Open Outbound Orders">Open Outbound Orders</th>
+                        <th ng-style="{ 'width':  '10%' }" title="S.No">S.No</th>
+                        <th ng-style="{ 'width':  '20%' }" title="Warehouse Code">Warehouse Code</th>
+                        <th ng-style="{ 'width':  '20%' }" title="Customer Code">Customer Code</th>
+                        <th ng-style="{ 'width':  '30%' }" title="Customer Name">Customer Name</th>
+                        <th ng-style="{ 'width':  '20%' }" title="Open Outbound Orders">Open Outbound Orders</th>
                     </tr>
                 </thead>
                 <tbody id="OpenSOCustTable">
                     <tr id="tableBody" ng-repeat="x in OpenSOCtrl.ePage.Masters.OpenSODetails">
-                        <td ng-style="{ 'width':  '40px' }" class="overflow-text">{{$index +1}}</td>
-                        <td ng-style="{ 'width':  '120px' }" class="overflow-text">{{x.WarehouseCode}}</td>
-                        <td ng-style="{ 'width':  '120px' }" class="overflow-text">{{x.ClientCode}}</td>
-                        <td ng-style="{ 'width':  '170px' }" class="overflow-text">{{x.ClientName}}</td>
-                        <td ng-style="{ 'width':  '120px' }" class="overflow-text">{{x.UnFinalisedCount}}</td>
+                        <td ng-style="{ 'width':  '10%' }" class="overflow-text">{{$index +1}}</td>
+                        <td ng-style="{ 'width':  '20%' }" class="overflow-text">{{x.WarehouseCode}}</td>
+                        <td ng-style="{ 'width':  '20%' }" class="overflow-text">{{x.ClientCode}}</td>
+                        <td ng-style="{ 'width':  '30%' }" class="overflow-text">{{x.ClientName}}</td>
+                        <td ng-style="{ 'width':  '20%' }" class="overflow-text">{{x.UnFinalisedCount}}</td>
                     </tr>
                 </tbody>
             </table>

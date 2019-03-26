@@ -71,7 +71,8 @@
     position: relative;
     min-height: 40px;
     background-color: #1084ad;
-    background-image: linear-gradient(to right, #1084ad, #ffffffb6);
+    /* background-image: linear-gradient(#1084ad, #ffffff61); */
+    background-image: radial-gradient(circle, #1084ad, #ffffff40);
     color: white;
     -webkit-box-shadow: 0 0 4px rgba(0, 0, 0, .3);
     -moz-box-shadow: 0 0 4px rgba(0, 0, 0, .3);
@@ -135,6 +136,7 @@
     -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
     box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
 }
+
 .filter-set-height {
     height: calc(100vh - 192px);
     height: -webkit-calc(100vh - 192px);
@@ -142,3 +144,6 @@
     overflow-y: auto;
 }
 
+.dashboard-table {
+    display: inline-table !important;
+}
