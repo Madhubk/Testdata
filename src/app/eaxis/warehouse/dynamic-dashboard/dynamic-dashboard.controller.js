@@ -5,9 +5,9 @@
         .module("Application")
         .controller("DynamicDashboardController", DynamicDashboardController);
 
-    DynamicDashboardController.$inject = ["helperService", "$filter", "dynamicDashboardConfig", "appConfig", "apiService", "$timeout"];
+    DynamicDashboardController.$inject = ["helperService", "$filter", "dynamicDashboardConfig", "appConfig", "apiService", "authService", "$timeout"];
 
-    function DynamicDashboardController(helperService, $filter, dynamicDashboardConfig, appConfig, apiService, $timeout) {
+    function DynamicDashboardController(helperService, $filter, dynamicDashboardConfig, appConfig, apiService, authService, $timeout) {
 
         var DynamicDashboardCtrl = this;
 
@@ -24,17 +24,30 @@
             DynamicDashboardCtrl.ePage.Masters.LoadMore = LoadMore;
             DynamicDashboardCtrl.ePage.Masters.IsVisibleLoadMoreBtn = true;
             DynamicDashboardCtrl.ePage.Masters.ApplyBtnText = "Save";
+            DynamicDashboardCtrl.ePage.Masters.SaveSettingBtnText = "Save";
             DynamicDashboardCtrl.ePage.Masters.IsApplyBtnDisable = false;
 
             DynamicDashboardCtrl.ePage.Masters.dropCallback = dropCallback;
             DynamicDashboardCtrl.ePage.Masters.WarehouseChanged = WarehouseChanged;
             DynamicDashboardCtrl.ePage.Masters.Apply = Apply;
+            DynamicDashboardCtrl.ePage.Masters.OnChangeSingleSelect = OnChangeSingleSelect;
+            DynamicDashboardCtrl.ePage.Masters.Save = Save;
+            DynamicDashboardCtrl.ePage.Masters.OnClickSaveRoleButton = OnClickSaveRoleButton;
 
             DynamicDashboardCtrl.ePage.Masters.Config = dynamicDashboardConfig;
-            GetWarehouseValues()
+            GetWarehouseValues();
+            GetRoleList();
         }
 
-        function Apply(event) {
+        function OnClickSaveRoleButton() {
+
+        }
+
+        function Save() {
+
+        }
+
+        function Apply() {
             dynamicDashboardConfig.LoadedDirectiveCount = 0;
             DynamicDashboardCtrl.ePage.Masters.TempComponentList = $filter('orderBy')(DynamicDashboardCtrl.ePage.Masters.TempComponentList, '!IsLoadAsDefault');
             var _ComponentList = angular.copy(DynamicDashboardCtrl.ePage.Masters.TempComponentList);
@@ -118,72 +131,100 @@
                 "SetAsDefault": true,
                 "IsLoadAsDefault": true
             }, {
+                "ComponentName": "Raise Delivery Request",
+                "Directive": "raise-csr-directive",
+                "SequenceNo": 2,
+                "IsShow": true,
+                "SetAsDefault": true,
+                "IsLoadAsDefault": true
+            }, {
+                "ComponentName": "New ASN Request",
+                "Directive": "asn-request-directive",
+                "SequenceNo": 3,
+                "IsShow": true,
+                "SetAsDefault": true,
+                "IsLoadAsDefault": true
+            }, {
+                "ComponentName": "New Inward",
+                "Directive": "new-inward-directive",
+                "SequenceNo": 4,
+                "IsShow": true,
+                "SetAsDefault": true,
+                "IsLoadAsDefault": true
+            }, {
+                "ComponentName": "Track Inward",
+                "Directive": "track-inward-directive",
+                "SequenceNo": 5,
+                "IsShow": true,
+                "SetAsDefault": true,
+                "IsLoadAsDefault": true
+            }, {
                 "ComponentName": "ASN Trend",
                 "Directive": "asn-trend",
-                "SequenceNo": 3,
+                "SequenceNo": 6,
                 "IsShow": false,
                 "SetAsDefault": false,
                 "IsLoadAsDefault": true
             }, {
                 "ComponentName": "KPI",
                 "Directive": "kpi-directive",
-                "SequenceNo": 2,
+                "SequenceNo": 7,
                 "IsShow": true,
                 "SetAsDefault": true,
                 "IsLoadAsDefault": false
             }, {
                 "ComponentName": "My Task",
                 "Directive": "my-task-dashboard-directive",
-                "SequenceNo": 5,
+                "SequenceNo": 8,
                 "IsShow": true,
                 "SetAsDefault": true,
                 "IsLoadAsDefault": true
             }, {
                 "ComponentName": "Putaway Status",
                 "Directive": "putaway-status",
-                "SequenceNo": 6,
+                "SequenceNo": 9,
                 "IsShow": true,
                 "SetAsDefault": true,
                 "IsLoadAsDefault": false
             }, {
                 "ComponentName": "Open SO",
                 "Directive": "open-so",
-                "SequenceNo": 4,
+                "SequenceNo": 10,
                 "IsShow": true,
                 "SetAsDefault": false,
                 "IsLoadAsDefault": false
             }, {
                 "ComponentName": "Pick With Shortfall",
                 "Directive": "pick-with-shortfall",
-                "SequenceNo": 8,
+                "SequenceNo": 11,
                 "IsShow": true,
                 "SetAsDefault": false,
                 "IsLoadAsDefault": false
             }, {
                 "ComponentName": "GRN Status",
                 "Directive": "grn-status",
-                "SequenceNo": 9,
+                "SequenceNo": 12,
                 "IsShow": true,
                 "SetAsDefault": true,
                 "IsLoadAsDefault": false
             }, {
                 "ComponentName": "Cycle Count Jobs",
                 "Directive": "cycle-count-jobs",
-                "SequenceNo": 7,
+                "SequenceNo": 13,
                 "IsShow": true,
                 "SetAsDefault": false,
                 "IsLoadAsDefault": false
             }, {
                 "ComponentName": "Notification",
                 "Directive": "notification",
-                "SequenceNo": 10,
+                "SequenceNo": 14,
                 "IsShow": false,
                 "SetAsDefault": false,
                 "IsLoadAsDefault": false
             }, {
                 "ComponentName": "Exception",
                 "Directive": "exception-directive",
-                "SequenceNo": 11,
+                "SequenceNo": 15,
                 "IsShow": false,
                 "SetAsDefault": false,
                 "IsLoadAsDefault": false
@@ -199,6 +240,33 @@
             }
             dynamicDashboardConfig.LoadedDirectiveCount = 0;
             DynamicDashboardCtrl.ePage.Masters.ComponentList = angular.copy(LoadedAsDefaultDetails);
+        }
+
+        function GetRoleList() {
+            var _filter = {
+                SAP_FK: authService.getUserInfo().AppPK,
+                TenantCode: authService.getUserInfo().TenantCode,
+                Party_FK: authService.getUserInfo().PartyPK
+            };
+
+            var _input = {
+                "searchInput": helperService.createToArrayOfObject(_filter),
+                "FilterID": appConfig.Entities.SecRole.API.FindAll.FilterID
+            };
+
+            apiService.post("authAPI", appConfig.Entities.SecRole.API.FindAll.Url, _input).then(function (response) {
+                if (response.data.Response) {
+                    DynamicDashboardCtrl.ePage.Masters.RoleList = response.data.Response;
+                }
+            });
+        }
+
+        function OnChangeSingleSelect() {            
+            var Checked = DynamicDashboardCtrl.ePage.Masters.RoleList.some(function (value, key) {
+                // Enable and disable based on page wise
+                if (!value.SingleSelect)
+                    return true;
+            });
         }
 
         Init();

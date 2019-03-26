@@ -53,63 +53,42 @@
                                 </div>
                             </div>
                             <div class="footer clearfix p-5" style="background-color: #eee; border-top: 2px solid #ccc;">
-                                <div class="ml-10 save-as-filter dropup pull-left" data-ng-if="DynamicDashboardCtrl.ePage.Masters.EnableUserFavoriteButton">
-                                    <!-- <button class="btn btn-sm btn-warning" data-toggle="dropdown">
-                                            <span class="key">Save as Filter</span>
-                                        </button> -->
-                                    <!-- <div class="save-as-filter dropdown-menu p-0">
-                                            <div class="clearfix inner-section p-10" style="width: 318px;">
-                                                <div class="clearfix">
-                                                    <div class="col-sm-6">
-                                                        <div class="radio">
-                                                            <label>
-                                                                <input name="form-field-radio" type="radio" class="colored-blue"
-                                                                    value="New" data-ng-model="DynamicDashboardCtrl.ePage.Masters.SaveUserSetting.IsNew">
-                                                                <span class="text">New</span>
-                                                            </label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-6">
-                                                        <div class="radio">
-                                                            <label>
-                                                                <input name="form-field-radio" type="radio" class="colored-blue"
-                                                                    value="Existing" data-ng-model="DynamicDashboardCtrl.ePage.Masters.SaveUserSetting.IsNew">
-                                                                <span class="text">Existing</span>
-                                                            </label>
-                                                        </div>
-                                                    </div>
+                                <div class="ml-10 save-as-filter dropup pull-left">
+                                    <button class="btn btn-sm btn-warning" data-ng-click="DynamicDashboardCtrl.ePage.Masters.OnClickSaveRoleButton()">
+                                        <span class="key">Save to Role</span>
+                                    </button>
+                                    <div class="save-as-filter p-0" id="">
+                                        <div class="clearfix inner-section p-10" style="width: 318px;">
+                                            <div class="clearfix col-sm-12" data-ng-repeat="x in DynamicDashboardCtrl.ePage.Masters.RoleList">
+                                                <div class="col-sm-1 p-0 text-center">
+                                                    <label class="mb-0 customcheckbox">
+                                                        <input type="checkbox" ng-checked="x.SingleSelect" ng-change="DynamicDashboardCtrl.ePage.Masters.OnChangeSingleSelect()"
+                                                            ng-model="x.SingleSelect"> </input>
+                                                        <span class="text"></span>
+                                                    </label>
                                                 </div>
-                                                <div class="clearfix pt-15 border-top" data-ng-if="DynamicDashboardCtrl.ePage.Masters.SaveUserSetting.IsNew == 'New'">
-                                                    <div class="input-group input-group-sm">
-                                                        <input type="text" class="form-control input-sm" placeholder="Name"
-                                                            maxlength="35" data-ng-model="DynamicDashboardCtrl.ePage.Masters.SaveUserSetting.Input.Key">
-                                                        <span class="input-group-btn">
-                                                            <input type="submit" class="btn btn-primary" type="button"
-                                                                data-ng-click="DynamicDashboardCtrl.ePage.Masters.SaveUserSetting.Save()"
-                                                                value="{{DynamicDashboardCtrl.ePage.Masters.SaveUserSetting.SaveSettingBtnText}}"
-                                                                data-ng-disabled="DynamicDashboardCtrl.ePage.Masters.SaveUserSetting.IsDisableSaveSettingBtn">
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                                <div class="clearfix pt-15 border-top" style="max-height: 250px; overflow-y: auto;"
-                                                    data-ng-if="DynamicDashboardCtrl.ePage.Masters.SaveUserSetting.IsNew == 'Existing'">
-                                                    <div class="clearfix pt-5 pb-10" data-ng-repeat="x in  DynamicDashboardCtrl.ePage.Masters.UserFilter.ListSource">
-                                                        <div class="col-sm-8">
-                                                            <div class="text-single-line font-90" data-ng-bind="x.Key"></div>
-                                                        </div>
-                                                        <div class="col-sm-4 pl-0 text-right">
-                                                            <button class="btn btn-primary btn-xs" data-ng-click="DynamicDashboardCtrl.ePage.Masters.UpdateUserFavoriteWithFilterAndGridColumn(x)"
-                                                                data-ng-bind="x.UpdateBtnTxt" data-ng-disabled="x.IsDisableUpdateBtn"></button>
-                                                        </div>
-                                                    </div>
+                                                <div class="col-sm-8">
+                                                    <div data-ng-bind="x.RoleDescription" class="text-single-line"
+                                                        title="{{x.RoleDescription}}"></div>
                                                 </div>
                                             </div>
-                                        </div> -->
+                                            <div class="clearfix pt-15 border-top">
+                                                <div class="input-group input-group-sm">
+                                                    <!-- <input type="text" class="form-control input-sm" placeholder="Name"
+                                                        maxlength="35" data-ng-model="DynamicDashboardCtrl.ePage.Masters.SaveUserSetting.Input.Key"> -->
+                                                    <span class="input-group-btn">
+                                                        <input type="submit" class="btn btn-primary" type="button"
+                                                            data-ng-click="DynamicDashboardCtrl.ePage.Masters.Save()"
+                                                            value="{{DynamicDashboardCtrl.ePage.Masters.SaveSettingBtnText}}"
+                                                            data-ng-disabled="DynamicDashboardCtrl.ePage.Masters.IsDisableSaveSettingBtn">
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <input type="submit" class="btn btn-sm btn-primary pull-right mr-15" data-ng-click="DynamicDashboardCtrl.ePage.Masters.Apply($event)"
+                                <input type="submit" class="btn btn-sm btn-primary pull-right mr-15" data-ng-click="DynamicDashboardCtrl.ePage.Masters.Apply()"
                                     value="{{DynamicDashboardCtrl.ePage.Masters.ApplyBtnText}}" data-ng-disabled="DynamicDashboardCtrl.ePage.Masters.IsApplyBtnDisable">
-                                <!-- <button class="btn btn-sm btn-default mr-10 pull-right" data-ng-click="DynamicDashboardCtrl.ePage.Masters.Clear()"
-                                        data-ng-if="DynamicDashboardCtrl.ePage.Masters.EnableClearButton">Clear</button> -->
                             </div>
                         </form>
                     </div>

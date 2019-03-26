@@ -147,3 +147,15 @@
 .dashboard-table {
     display: inline-table !important;
 }
+.dashboard-button-component{
+    /* -webkit-box-shadow: 0 2px 0 #6f9a37;
+    box-shadow: 0 2px 0 #6f9a37; */
+    position: relative;
+    font-size: 16px;
+    padding: 10px 20px;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 100%;
+    font-weight: 600;
+    /* background-color: #82b440; */
+}

@@ -176,6 +176,10 @@
         <div load-script src="app/eaxis/freight/freight.router.js" app="EA" module="freight"></div> -->
 
     <!-- #endregion -->
+    <script>
+        $(document).on('click', '.stop-propagation.dropup', (e) => e.stopPropagation());
+        $(document).on('click', '.stop-propagation.dropdown', (e) => e.stopPropagation());
+    </script>
 </body>
 
 </html>
