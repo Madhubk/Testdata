@@ -17,18 +17,6 @@
     box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
 }
 
-/* tbody {
-    display: block;
-    height: 230px;
-    overflow-y: scroll;
-}
-
-thead, tbody tr {
-    display: table;
-    width: 100%;
-    table-layout: fixed;
-} */
-
 .dashboard-border {
     padding: 0px 0px 1px 1px;
     border: 1px solid #eee;
@@ -45,9 +33,9 @@ thead, tbody tr {
     overflow: hidden;
     position: relative;
     background: #fff;
-    -webkit-border-radius: 2px;
-    -moz-border-radius: 2px;
-    border-radius: 2px;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    border-radius: 6px;
     -webkit-box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.12), 0 3px 12px 0 rgba(0, 0, 0, 0.09);
     -moz-box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.12), 0 3px 12px 0 rgba(0, 0, 0, 0.09);
     box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.12), 0 3px 12px 0 rgba(0, 0, 0, 0.09);
@@ -55,7 +43,7 @@ thead, tbody tr {
 
 .dashboard-fixedheader {
     margin-left: 0px !important;
-    margin-top: 0px !important;
+    margin-top: 1px !important;
     margin-right: 0px !important;
     margin-bottom: 0px !important;
     border: 0px solid #cacad6;
@@ -64,58 +52,93 @@ thead, tbody tr {
 
 /* custom-widget */
 
-.custom-widget .tickets-container {
-    padding: 15px;
-}
-
-.custom-widget .widget {
-    margin: 0 0 15px 0;
-}
-
-.custom-widget .widget-header {
-    min-height: 45px;
-}
-
-.custom-widget .user-mine {
-    font-size: 14px;
-    font-weight: 600;
-    color: #171515;
-}
-
-.custom-widget .user-at {
-    color: #ccc;
-}
-
-.custom-widget .widget-header>.widget-caption {
-    line-height: 45px;
+.dashboard-widget-caption {
+    line-height: 25px;
     padding: 0;
-    margin: 0;
+    margin-top: 7px;
     float: left;
     text-align: left;
+    vertical-align: middle;
     font-weight: 500 !important;
-    font-size: 16px;
+    font-size: 15px !important;
 }
 
-.custom-widget .widget-header.bordered-bottom {
+.bordered-bottom {
     border-bottom: 2px solid #eee;
 }
 
-.custom-widget .tickets-container .tickets-list .ticket-item {
+.dashboard-widget-header {
     position: relative;
-    background-color: #fff;
-    -webkit-box-shadow: 0 0 0px rgba(0, 0, 0, .2);
-    -moz-box-shadow: 0 0 3px rgba(0, 0, 0, .2);
-    box-shadow: 0 0 0px rgba(0, 0, 0, .2);
-    -webkit-border-radius: 3px;
-    -webkit-background-clip: padding-box;
-    -moz-border-radius: 3px;
-    -moz-background-clip: padding;
-    border-radius: 3px;
-    background-clip: padding-box;
-    margin-bottom: 8px;
-    vertical-align: top;
+    min-height: 40px;
+    background-color: #1084ad;
+    background-image: linear-gradient(to right, #1084ad, #ffffffb6);
+    color: white;
+    -webkit-box-shadow: 0 0 4px rgba(0, 0, 0, .3);
+    -moz-box-shadow: 0 0 4px rgba(0, 0, 0, .3);
+    box-shadow: 0 0 4px rgba(0, 0, 0, .3);
+    padding-left: 10px;
+    text-align: right;
 }
 
-.custom-widget .border-bottom-eee {
-    border-bottom: 1px solid #eee;
+/* Customize components */
+
+.dropdown i.icon {
+    float: left;
+    border-right: 1px solid #ddd;
+    padding: 4px 10px;
+    font-size: 16px;
+    cursor: pointer;
+    color: rgb(170, 170, 170);
 }
+
+.dropdown.open>.dropdown-menu.static-width {
+    min-width: 215px;
+    width: 550px;
+}
+
+.dropdown.open>.dropdown-menu {
+    max-height: 545px;
+}
+
+.dropdown.open>.dropdown-menu .input-search {
+    background-color: transparent;
+    border: 0;
+    border-bottom: 1px solid #ddd;
+    box-shadow: none;
+}
+
+.dropdown.open>.dropdown-menu .inner-section {
+    overflow-y: auto;
+    max-height: 450px;
+    width: 100%;
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1000;
+    display: none;
+    float: left;
+    min-width: 160px;
+    padding: 5px 0;
+    margin: 2px 0 0;
+    font-size: 14px;
+    text-align: left;
+    list-style: none;
+    background-color: #fff;
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+    border: 1px solid #ccc;
+    border: 1px solid rgba(0, 0, 0, .15);
+    border-radius: 4px;
+    -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+}
+.filter-set-height {
+    height: calc(100vh - 192px);
+    height: -webkit-calc(100vh - 192px);
+    height: -moz-calc(100vh - 192px);
+    overflow-y: auto;
+}
+
