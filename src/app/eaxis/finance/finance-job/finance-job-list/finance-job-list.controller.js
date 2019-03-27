@@ -10,6 +10,7 @@
         var FinanceJobListCtrl = this;
 
         function Init() {
+            debugger;
             FinanceJobListCtrl.ePage = {
                 "Title": "",
                 "Prefix": "Finance_Job_List",
@@ -27,10 +28,14 @@
             FinanceJobListCtrl.ePage.Masters.SelectedGridRow = SelectedGridRow;
 
             financeConfig.ValidationFindall();
-            InitBilling();
+
+            if (CurrentFinanceJob) {
+                InitBilling();
+            }
         }
 
         function InitBilling() {
+            debugger;
             var _filter = {
                 EntityRefKey: CurrentFinanceJob.EntityRefKey,
             };

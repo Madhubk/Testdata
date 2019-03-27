@@ -65,6 +65,43 @@
                 RateDate: "22/11/2018",
                 SallRate: 2500,
                 TodayRate: 90.88
+            },
+            {
+                Currency: "INR",
+                CostRate: 2500.50,
+                RateDate: "29/11/2018",
+                SallRate: 3000,
+                TodayRate: 71.28
+            }, {
+                Currency: "USD",
+                CostRate: 3500.50,
+                RateDate: "18/11/2018",
+                SallRate: 4500,
+                TodayRate: 0.014
+            }, {
+                Currency: "POUND",
+                CostRate: 2100.5000,
+                RateDate: "22/11/2018",
+                SallRate: 2500,
+                TodayRate: 90.88
+            },{
+                Currency: "INR",
+                CostRate: 2500.50,
+                RateDate: "29/11/2018",
+                SallRate: 3000,
+                TodayRate: 71.28
+            }, {
+                Currency: "USD",
+                CostRate: 3500.50,
+                RateDate: "18/11/2018",
+                SallRate: 4500,
+                TodayRate: 0.014
+            }, {
+                Currency: "POUND",
+                CostRate: 2100.5000,
+                RateDate: "22/11/2018",
+                SallRate: 2500,
+                TodayRate: 90.88
             }];
 
             FinanceJobGeneralCtrl.ePage.Masters.DropDownMasterList = {};
@@ -116,6 +153,7 @@
             };
 
             GetMastersDropDownList();
+            GetExchageRateList();
             Cost();
             Revenue();
             ProfitAndLoss();
@@ -145,6 +183,27 @@
                 }
             });
         }
+        //#endregion
+
+        //#region Exchange Rate
+        function GetExchageRateList(){
+            var _input = {
+                "searchInput": [],
+                "FilterID": financeConfig.API.ExchangeRate.API.FindAll.FilterID
+            };
+            apiService.post("eAxisAPI",financeConfig.API.ExchangeRate.API.FindAll.Url, _input).then(function(response){
+                if(response.data.Response){
+                
+                }
+            });
+
+            /* Add Scroll */
+            $timeout(function () {
+                var objDiv = document.getElementById("FinanceJobGeneralCtrl.ePage.Masters.AddScrollExRate");
+                objDiv.scrollTop = objDiv.scrollHeight;
+            }, 50);
+        }
+
         //#endregion
 
         //#region SelectedLookupData

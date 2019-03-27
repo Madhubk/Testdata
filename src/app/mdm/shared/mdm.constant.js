@@ -750,6 +750,42 @@
                     'app/mdm/transports/types/consol-event/consol-event.controller.js',
                     'app/mdm/transports/types/consol-event/consol-event.directive.js'
                 ]
+            }, {
+                name: 'creaditor',
+                files: [
+                    'app/mdm/creditor/creditor-config.factory.js',
+                    'app/mdm/creditor/creditor.controller.js'
+                ]
+            }, {
+                name: "creaditorMenu",
+                files: [
+                    "app/mdm/creditor/creditor-menu/creditor-menu.directive.js",
+                    "app/mdm/creditor/creditor-menu/creditor-menu.controller.js",
+                ]
+            }, {
+                name: "creaditorGeneral",
+                files: [
+                    "app/mdm/creditor/creditor-general/creditor-general.directive.js",
+                    "app/mdm/creditor/creditor-general/creditor-general.controller.js",
+                ]
+            }, {
+                name: 'debtor',
+                files: [
+                    'app/mdm/debtor/debtor-config.factory.js',
+                    'app/mdm/debtor/debtor.controller.js'
+                ]
+            }, {
+                name: 'debtorMenu',
+                files: [
+                    'app/mdm/debtor/debtor-menu/debtor-menu.directive.js',
+                    'app/mdm/debtor/debtor-menu/debtor-menu.controller.js'
+                ]
+            }, {
+                name: 'debtorGeneral',
+                files: [
+                    'app/mdm/debtor/debtor-general/debtor-general.directive.js',
+                    'app/mdm/debtor/debtor-general/debtor-general.controller.js'
+                ]
             }
         ]
     };

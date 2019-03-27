@@ -16,8 +16,10 @@
                     </i>                           
                   </uib-tab-heading>
                   <div class="no-padding tab-list-view-wrapper">
-                    <!--Shipment Grid Page-->
-                    <dynamic-list task-name="DepartmentCtrl.ePage.Masters.taskName"    grid-config-type="0" selected-grid-row="DepartmentCtrl.ePage.Masters.SelectedGridRow($item)">
+                    <!--Department Grid Page-->
+                    <!-- <dynamic-list task-name="DepartmentCtrl.ePage.Masters.taskName" grid-config-type="0" selected-grid-row="DepartmentCtrl.ePage.Masters.SelectedGridRow($item)">
+                    </dynamic-list> -->
+                    <dynamic-list mode="1" dataentry-name="DepartmentCtrl.ePage.Masters.dataEntryName" dataentry-object="DepartmentCtrl.ePage.Masters.DataEntryObject" selected-grid-row="DepartmentCtrl.ePage.Masters.SelectedGridRow($item)">
                     </dynamic-list>
                     <div class="tab-loading" data-ng-show="DepartmentCtrl.ePage.Masters.IsTabClick">
                     </div>
@@ -31,7 +33,7 @@
                     </i>
                   </uib-tab-heading>
                   <div class="padding-5 padding-bottom-10 clearfix">
-                    <!--Shipment Menu Directive-->
+                    <!--Department Menu Directive-->
                     <department-menu current-department="tab">
                     </department-menu>
                     <div class="horizontal-space">

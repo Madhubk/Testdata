@@ -56,6 +56,17 @@
                         }
                     }
                 },
+                "ExchangeRate": {
+                    "RowIndex": -1,
+                    "API": {
+                        "FindAll": {
+                            "IsAPI": "true",
+                            "HttpType": "Post",
+                            "Url": "MstExchangeRate/FindAll",
+                            "FilterID": "MSTEXCHR"
+                        }
+                    }
+                },
                 "CfxTypes": {
                     "RowIndex": -1,
                     "API": {
@@ -89,7 +100,6 @@
                 "Entities": {
                     "Header": {
                         "Data": {},
-
                         "Validations": "",
                         "RowIndex": -1,
                         "API": {
@@ -362,7 +372,24 @@
                                     "isenabled": true,
                                     "position": '30',
                                     "width": "95"
+                                }
+                            },
+                            "UIExchangeRate": {
+                                "ercurrency": {
+                                    "width": "100"
                                 },
+                                "ercostrate": {
+                                    "width": "124"
+                                },
+                                "erratedate": {
+                                    "width": "125"
+                                },
+                                "ersellrate": {
+                                    "width": "125"
+                                },
+                                "ertodayrate": {
+                                    "width": "125"
+                                }
                             }
                         }
                     },

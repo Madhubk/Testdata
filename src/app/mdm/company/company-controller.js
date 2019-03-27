@@ -24,7 +24,7 @@
             };
             // For list directive
             CompanyCtrl.ePage.Masters.IsDisableSave = false;
-            CompanyCtrl.ePage.Masters.taskName = "CmpCompany";
+            CompanyCtrl.ePage.Masters.dataEntryName = "CmpCompany";
             CompanyCtrl.ePage.Masters.SaveButtonText = "Save";
             CompanyCtrl.ePage.Masters.Save = Save;
             CompanyCtrl.ePage.Masters.TabList = [];
