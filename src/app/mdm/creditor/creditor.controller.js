@@ -90,6 +90,7 @@
             event.preventDefault();
             event.stopPropagation();
             var _currentTab = currentTab[currentTab.code].ePage.Entities;
+            CreditorCtrl.ePage.Masters.TabList.splice(index, 1);
 
             apiService.get("eAxisAPI", creditorConfig.Entities.API.CreditorGroup.API.CreditorGroupActivityClose.Url + _currentTab.Header.Data.PK).then(function (response) {
                 if (response.data.Response === "Success") {
@@ -97,7 +98,6 @@
                     console.log("Tab close Error : " + response);
                 }
             });
-            CreditorCtrl.ePage.Masters.TabList.splice(index, 1);
         }
 
         function CreateNewCreditor() {

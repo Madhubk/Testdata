@@ -13,70 +13,70 @@
                     "Data": {},
                     "Meta": {},
                 },
-            },
-            "API": {
-                "JobHeaderList": {
-                    "RowIndex": -1,
-                    "API": {
-                        "GetById": {
-                            "IsAPI": "true",
-                            "HttpType": "GET",
-                            "Url": "JobHeaderList/GetById/"
-                        },
-                        "Delete": {
-                            "IsAPI": "true",
-                            "HttpType": "Get",
-                            "Url": "JobHeaderList/Delete/"
-                        },
-                        "JobHeaderListActivityClose": {
-                            "IsAPI": "true",
-                            "HttpType": "GET",
-                            "Url": "JobHeaderList/JobHeaderListActivityClose/"
+                "API": {
+                    "JobHeaderList": {
+                        "RowIndex": -1,
+                        "API": {
+                            "GetById": {
+                                "IsAPI": "true",
+                                "HttpType": "GET",
+                                "Url": "JobHeaderList/GetById/"
+                            },
+                            "Delete": {
+                                "IsAPI": "true",
+                                "HttpType": "Get",
+                                "Url": "JobHeaderList/Delete/"
+                            },
+                            "JobHeaderListActivityClose": {
+                                "IsAPI": "true",
+                                "HttpType": "GET",
+                                "Url": "JobHeaderList/JobHeaderListActivityClose/"
+                            }
+                        }
+                    },
+                    // "UIJobCharge": {
+                    //     "RowIndex": -1,
+                    //     "API": {
+                    //         "JobChargeDelete": {
+                    //             "IsAPI": "true",
+                    //             "HttpType": "Get",
+                    //             "Url": "JobCharge/Delete/"
+                    //         }
+                    //     }
+                    // },
+                    "JobHeader": {
+                        "RowIndex": -1,
+                        "API": {
+                            "FindAll": {
+                                "IsAPI": "true",
+                                "HttpType": "Post",
+                                "Url": "JobHeader/FindAll",
+                                "FilterID": "JOBHEAD"
+                            }
+                        }
+                    },
+                    "ExchangeRate": {
+                        "RowIndex": -1,
+                        "API": {
+                            "FindAll": {
+                                "IsAPI": "true",
+                                "HttpType": "Post",
+                                "Url": "MstExchangeRate/FindAll",
+                                "FilterID": "MSTEXCHR"
+                            }
                         }
                     }
-                },
-                "UIJobCharge": {
-                    "RowIndex": -1,
-                    "API": {
-                        "JobChargeDelete": {
-                            "IsAPI": "true",
-                            "HttpType": "Get",
-                            "Url": "JobCharge/Delete/"
-                        }
-                    }
-                },
-                "JobHeader": {
-                    "RowIndex": -1,
-                    "API": {
-                        "FindAll": {
-                            "IsAPI": "true",
-                            "HttpType": "Post",
-                            "Url": "JobHeader/FindAll",
-                            "FilterID": "JOBHEAD"
-                        }
-                    }
-                },
-                "ExchangeRate": {
-                    "RowIndex": -1,
-                    "API": {
-                        "FindAll": {
-                            "IsAPI": "true",
-                            "HttpType": "Post",
-                            "Url": "MstExchangeRate/FindAll",
-                            "FilterID": "MSTEXCHR"
-                        }
-                    }
-                },
-                "CfxTypes": {
-                    "RowIndex": -1,
-                    "API": {
-                        "DynamicFindAll": {
-                            "IsAPI": "true",
-                            "HttpType": "POST",
-                            "Url": "cfxtypes/DynamicFindAll/",
-                            "FilterID": "CFXTYPE"
-                        }
-                    }
+                    // "CfxTypes": {
+                    //     "RowIndex": -1,
+                    //     "API": {
+                    //         "DynamicFindAll": {
+                    //             "IsAPI": "true",
+                    //             "HttpType": "POST",
+                    //             "Url": "cfxtypes/DynamicFindAll/",
+                    //             "FilterID": "CFXTYPE"
+                    //         }
+                    //     }
+                    // }
                 }
             },
             "TabList": [],
@@ -414,7 +414,7 @@
                 deferred.resolve(exports.TabList);
             }
             else {
-                helperService.getFullObjectUsingGetById(exports.API.JobHeaderList.API.GetById.Url, currentJobHeader.PK).then(function (response) {
+                helperService.getFullObjectUsingGetById(exports.Entities.API.JobHeaderList.API.GetById.Url, currentJobHeader.PK).then(function (response) {
                     if (response.data.Messages) {
                         response.data.Messages.map(function (value, key) {
                             if (value.Type === "Warning" && value.MessageDesc !== "") {

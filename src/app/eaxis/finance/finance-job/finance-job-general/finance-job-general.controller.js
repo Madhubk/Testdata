@@ -84,7 +84,7 @@
                 RateDate: "22/11/2018",
                 SallRate: 2500,
                 TodayRate: 90.88
-            },{
+            }, {
                 Currency: "INR",
                 CostRate: 2500.50,
                 RateDate: "29/11/2018",
@@ -186,14 +186,14 @@
         //#endregion
 
         //#region Exchange Rate
-        function GetExchageRateList(){
+        function GetExchageRateList() {
             var _input = {
                 "searchInput": [],
-                "FilterID": financeConfig.API.ExchangeRate.API.FindAll.FilterID
+                "FilterID": financeConfig.Entities.API.ExchangeRate.API.FindAll.FilterID
             };
-            apiService.post("eAxisAPI",financeConfig.API.ExchangeRate.API.FindAll.Url, _input).then(function(response){
-                if(response.data.Response){
-                
+            apiService.post("eAxisAPI", financeConfig.Entities.API.ExchangeRate.API.FindAll.Url, _input).then(function (response) {
+                if (response.data.Response) {
+
                 }
             });
 
@@ -414,7 +414,7 @@
 
                 FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge.map(function (value, key) {
                     if (value.SingleSelect && value.PK && value.IsDeleted) {
-                        apiService.get("eAxisAPI", financeConfig.API.JobHeaderList.API.Delete.Url + value.PK).then(function (response) {
+                        apiService.get("eAxisAPI", financeConfig.Entities.API.JobHeaderList.API.Delete.Url + value.PK).then(function (response) {
                             console.log("Success");
                         });
                     }

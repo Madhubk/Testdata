@@ -25,7 +25,7 @@
                             "DebtorGroupActivityClose": {
                                 "IsAPI": "true",
                                 "HttpType": "GET",
-                                "Url": ""
+                                "Url": "MstDebtorGroup/MstDebtorGroupActivityClose/"
                             }
                         }
                     }

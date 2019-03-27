@@ -39,7 +39,7 @@
             InwardMenuCtrl.ePage.Masters.tabSelected = tabSelected;
             InwardMenuCtrl.ePage.Masters.Validation = Validation;
             InwardMenuCtrl.ePage.Masters.Config = inwardConfig;
-            InwardMenuCtrl.ePage.Masters.Billing = Billing;
+            InwardMenuCtrl.ePage.Masters.JobAccounting = JobAccounting;
 
             $rootScope.SaveInwardFromTask = SaveInwardFromTask;
             $rootScope.FinalizeInwardFromTask = FinalizeInwardFromTask;
@@ -531,7 +531,7 @@
 
 
         //#region JobAccounting
-        function Billing() {
+        function JobAccounting() {
             if (InwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader.length > 0) {
                 var obj = {
                     "AgentOrg_Code": InwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].AgentOrg_Code,

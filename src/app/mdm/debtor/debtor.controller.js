@@ -37,8 +37,8 @@
             DebtorCtrl.ePage.Masters.AddTab = AddTab;
             DebtorCtrl.ePage.Masters.RemoveTab = RemoveTab;
             DebtorCtrl.ePage.Masters.CreateNewDebtor = CreateNewDebtor;
-
         }
+
         //#region SelectedGrid
         function SelectedGridRow($item) {
             if ($item.action === "link" || $item.action === "dblClick") {
@@ -90,6 +90,7 @@
             event.preventDefault();
             event.stopPropagation();
             var _currentTab = currentTab[currentTab.code].ePage.Entities;
+            DebtorCtrl.ePage.Masters.TabList.splice(index, 1);
 
             apiService.get("eAxisAPI", debtorConfig.Entities.API.DebtorGroup.API.DebtorGroupActivityClose.Url + _currentTab.Header.Data.PK).then(function (response) {
                 if (response.data.Response === "Success") {
@@ -97,7 +98,6 @@
                     console.log("Tab close Error : " + response);
                 }
             });
-            DebtorCtrl.ePage.Masters.TabList.splice(index, 1);
         }
 
         function CreateNewDebtor() {

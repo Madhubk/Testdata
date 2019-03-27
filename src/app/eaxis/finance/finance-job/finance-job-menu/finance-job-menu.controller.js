@@ -79,7 +79,7 @@
             _input.UIJobHeader.IsActive = true;
 
             if ($item.isNew) {
-                _input.PK = _input.UIJobHeader.PK;
+                _input.UIJobHeader.PK = _input.PK;
                 _input.UIJobHeader.CreatedDateTime = new Date();
             } else {
                 $item = filterObjectUpdate($item, "IsModified");
@@ -98,7 +98,7 @@
                 // FinanceJobMenuCtrl.ePage.Entities.Header.GlobalVariables.Loading = false;
 
                 if (response.Status === "success") {
-                    apiService.get("eAxisAPI", financeConfig.API.JobHeaderList.API.GetById.Url + response.Data.PK).then(function (response) {
+                    apiService.get("eAxisAPI", financeConfig.Entities.API.JobHeaderList.API.GetById.Url + response.Data.PK).then(function (response) {
                         if (response.data.Status == "Success") {
 
                             var _index = financeConfig.TabList.map(function (value, key) {
@@ -199,7 +199,7 @@
             else if (_PostCost1 && _PostedCost == 0) {
                 FinanceJobMenuCtrl.ePage.Masters.PostCostButtonText = "Please Wait...";
                 if ($item.isNew) {
-                    _input.PK = _input.UIJobHeader.PK;
+                    _input.UIJobHeader.PK = _input.PK;
                     _input.UIJobHeader.CreatedDateTime = new Date();
                 } else {
                     $item = filterObjectUpdate($item, "IsModified");
@@ -216,7 +216,7 @@
                     FinanceJobMenuCtrl.ePage.Entities.Header.GlobalVariables.IsDisablePost = true;
 
                     if (response.Status === "success") {
-                        apiService.get("eAxisAPI", financeConfig.API.JobHeaderList.API.GetById.Url + FinanceJobMenuCtrl.currentFinanceJob.code).then(function (response) {
+                        apiService.get("eAxisAPI", financeConfig.Entities.API.JobHeaderList.API.GetById.Url + FinanceJobMenuCtrl.currentFinanceJob.code).then(function (response) {
                             if (response.data.Status == "Success") {
 
                                 var _index = financeConfig.TabList.map(function (value, key) {
@@ -231,7 +231,7 @@
                                         financeConfig.TabList[_index][financeConfig.TabList[_index].code].ePage.Entities.Header.Data = response.data;
                                     }
                                     financeConfig.TabList[_index].isNew = false;
-                                    //helperService.refreshGrid();
+                                    /* helperService.refreshGrid(); */
                                 }
                                 toastr.success("Post Cost Successfully...!");
                             }
@@ -304,7 +304,7 @@
             else if (_PostRevenue1 && _PostedRevenue == 0) {
                 FinanceJobMenuCtrl.ePage.Masters.PostRevenueButtonText = "Please Wait...";
                 if ($item.isNew) {
-                    _input.PK = _input.UIJobHeader.PK;
+                    _input.UIJobHeader.PK = _input.PK;
                     _input.UIJobHeader.CreatedDateTime = new Date();
                 } else {
                     $item = filterObjectUpdate($item, "IsModified");
@@ -321,7 +321,7 @@
                     FinanceJobMenuCtrl.ePage.Entities.Header.GlobalVariables.IsDisablePost = true;
 
                     if (response.Status === "success") {
-                        apiService.get("eAxisAPI", financeConfig.API.JobHeaderList.API.GetById.Url + FinanceJobMenuCtrl.currentFinanceJob.code).then(function (response) {
+                        apiService.get("eAxisAPI", financeConfig.Entities.API.JobHeaderList.API.GetById.Url + FinanceJobMenuCtrl.currentFinanceJob.code).then(function (response) {
                             if (response.data.Status == "Success") {
 
                                 var _index = financeConfig.TabList.map(function (value, key) {
@@ -336,7 +336,7 @@
                                         financeConfig.TabList[_index][financeConfig.TabList[_index].code].ePage.Entities.Header.Data = response.data;
                                     }
                                     financeConfig.TabList[_index].isNew = false;
-                                    // helperService.refreshGrid();
+                                    /* helperService.refreshGrid(); */
                                 }
                                 toastr.success("Post Revenue Successfully...!");
                             }
@@ -433,7 +433,7 @@
             else if (_PostCost1 && _PostedCost == 0 && _PostRevenue1 && _PostedRevenue == 0) {
                 FinanceJobMenuCtrl.ePage.Masters.PostButtonText = "Please Wait...";
                 if ($item.isNew) {
-                    _input.PK = _input.UIJobHeader.PK;
+                    _input.UIJobHeader.PK = _input.PK;
                     _input.UIJobHeader.CreatedDateTime = new Date();
                 } else {
                     $item = filterObjectUpdate($item, "IsModified");
@@ -450,7 +450,7 @@
                     FinanceJobMenuCtrl.ePage.Entities.Header.GlobalVariables.IsDisablePost = true;
 
                     if (response.Status === "success") {
-                        apiService.get("eAxisAPI", financeConfig.API.JobHeaderList.API.GetById.Url + response.Data.PK).then(function (response) {
+                        apiService.get("eAxisAPI", financeConfig.Entities.API.JobHeaderList.API.GetById.Url + response.Data.PK).then(function (response) {
                             if (response.data.Status == "Success") {
 
                                 var _index = financeConfig.TabList.map(function (value, key) {
@@ -465,7 +465,7 @@
                                         financeConfig.TabList[_index][financeConfig.TabList[_index].code].ePage.Entities.Header.Data = response.data;
                                     }
                                     financeConfig.TabList[_index].isNew = false;
-                                    // helperService.refreshGrid();
+                                    /* helperService.refreshGrid(); */
                                 }
                                 toastr.success("Post Cost Successfully...!");
                             }

@@ -25,7 +25,7 @@
                             "CreditorGroupActivityClose": {
                                 "IsAPI": "true",
                                 "HttpType": "GET",
-                                "Url": ""
+                                "Url": "MstCreditorGroup/MstCreditorGroupActivityClose/"
                             }
                         }
                     }

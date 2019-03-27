@@ -28,7 +28,7 @@
                 <div class='table_header'>Sales Rap</div>
             </div>
              <!-- List Empty Response -->
-             <div class='table_row' style="font-size: 11px;" data-ng-repeat="x in FinanceJobListCtrl.ePage.Masters.CurrentFinanceJobList" data-ng-if="FinanceJobListCtrl.ePage.Masters.CurrentFinanceJobList && FinanceJobListCtrl.ePage.Masters.CurrentFinanceJobList.length > 0" data-ng-click="FinanceJobListCtrl.ePage.Masters.SelectedGridRow(x, $index)">
+             <div class='table_row' style="font-size: 11px;" data-ng-repeat="x in FinanceJobListCtrl.ePage.Masters.CurrentFinanceJobList" data-ng-if="FinanceJobListCtrl.ePage.Masters.CurrentFinanceJobList && FinanceJobListCtrl.ePage.Masters.CurrentFinanceJobList.length > 0" data-ng-click="FinanceJobListCtrl.ePage.Masters.SelectedGridRow(x)">
                 <div class='table_small'>
                     <div class='table_cell'>Job No</div>
                     <div class='table_cell text' style="cursor:pointer;"><b>{{x.JobNo}}</b></div>
@@ -84,7 +84,7 @@
             </div>
         </div>
         <div class="grid-no-record-border-box text-center p-30">
-            <span class="grid-no-record-shipment job-empty-top" data-ng-if="!CurrentFinanceJob">No records found...</span>
+            <span class="grid-no-record-shipment job-empty-top" data-ng-if="FinanceJobListCtrl.ePage.Masters.FinanceListEmpty">No records found...</span>
         </div>
     </div>
 </div>
