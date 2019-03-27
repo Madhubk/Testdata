@@ -39,8 +39,8 @@
             GetRoleList();
         }
 
-        function OnClickSaveRoleButton() {
-
+        function OnClickSaveRoleButton() {            
+            $("#saveToRole").toggleClass("open");
         }
 
         function Save() {
@@ -133,49 +133,49 @@
             }, {
                 "ComponentName": "Raise Delivery Request",
                 "Directive": "raise-csr-directive",
-                "SequenceNo": 2,
+                "SequenceNo": 3,
                 "IsShow": true,
                 "SetAsDefault": true,
                 "IsLoadAsDefault": true
             }, {
                 "ComponentName": "New ASN Request",
                 "Directive": "asn-request-directive",
-                "SequenceNo": 3,
+                "SequenceNo": 4,
                 "IsShow": true,
                 "SetAsDefault": true,
                 "IsLoadAsDefault": true
             }, {
                 "ComponentName": "New Inward",
                 "Directive": "new-inward-directive",
-                "SequenceNo": 4,
+                "SequenceNo": 5,
                 "IsShow": true,
                 "SetAsDefault": true,
                 "IsLoadAsDefault": true
             }, {
                 "ComponentName": "Track Inward",
                 "Directive": "track-inward-directive",
-                "SequenceNo": 5,
+                "SequenceNo": 6,
                 "IsShow": true,
                 "SetAsDefault": true,
                 "IsLoadAsDefault": true
             }, {
                 "ComponentName": "ASN Trend",
                 "Directive": "asn-trend",
-                "SequenceNo": 6,
+                "SequenceNo": 7,
                 "IsShow": false,
                 "SetAsDefault": false,
                 "IsLoadAsDefault": true
             }, {
                 "ComponentName": "KPI",
                 "Directive": "kpi-directive",
-                "SequenceNo": 7,
+                "SequenceNo": 8,
                 "IsShow": true,
                 "SetAsDefault": true,
                 "IsLoadAsDefault": false
             }, {
                 "ComponentName": "My Task",
                 "Directive": "my-task-dashboard-directive",
-                "SequenceNo": 8,
+                "SequenceNo": 2,
                 "IsShow": true,
                 "SetAsDefault": true,
                 "IsLoadAsDefault": true
@@ -261,7 +261,7 @@
             });
         }
 
-        function OnChangeSingleSelect() {            
+        function OnChangeSingleSelect() {
             var Checked = DynamicDashboardCtrl.ePage.Masters.RoleList.some(function (value, key) {
                 // Enable and disable based on page wise
                 if (!value.SingleSelect)

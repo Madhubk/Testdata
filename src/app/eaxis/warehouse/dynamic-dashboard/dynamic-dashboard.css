@@ -147,7 +147,8 @@
 .dashboard-table {
     display: inline-table !important;
 }
-.dashboard-button-component{
+
+.dashboard-button-component {
     /* -webkit-box-shadow: 0 2px 0 #6f9a37;
     box-shadow: 0 2px 0 #6f9a37; */
     position: relative;
@@ -158,4 +159,16 @@
     width: 100%;
     font-weight: 600;
     /* background-color: #82b440; */
+}
+
+.dashboard-component {
+    float: left;
+    cursor: pointer;
+    transition: all .4s ease;
+    border: solid 2px transparent;
+    text-align: center;
+}
+
+.height-310 {
+    height: 310px;
 }
