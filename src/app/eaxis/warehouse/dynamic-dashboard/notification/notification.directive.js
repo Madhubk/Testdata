@@ -10,7 +10,11 @@
         .directive("raiseCsrDirective", RaiseCsrDirective)
         .directive("asnRequestDirective", AsnRequestDirective)
         .directive("newInwardDirective", NewInwardDirective)
-        .directive("trackInwardDirective", TrackInwardDirective);
+        .directive("trackInwardDirective", TrackInwardDirective)
+        .directive("emailDirective", EmailDirective)
+        .directive("userDirective", UserDirective)
+        .directive("musicDirective", MusicDirective)
+        .directive("videoDirective", VideoDirective);
 
     function Notification() {
         var exports = {
@@ -149,6 +153,82 @@
         var exports = {
             restrict: "EA",
             templateUrl: "app/eaxis/warehouse/dynamic-dashboard/notification/track-inward.html",
+            link: Link,
+            controller: "NotificationController",
+            controllerAs: "NotificationCtrl",
+            bindToController: true,
+            scope: {
+                currentObj: "="
+            },
+            link: Link
+        };
+
+        return exports;
+
+        function Link(scope, elem, attr) { }
+    }
+
+    function EmailDirective() {
+        var exports = {
+            restrict: "EA",
+            templateUrl: "app/eaxis/warehouse/dynamic-dashboard/notification/email.html",
+            link: Link,
+            controller: "NotificationController",
+            controllerAs: "NotificationCtrl",
+            bindToController: true,
+            scope: {
+                currentObj: "="
+            },
+            link: Link
+        };
+
+        return exports;
+
+        function Link(scope, elem, attr) { }
+    }
+
+    function UserDirective() {
+        var exports = {
+            restrict: "EA",
+            templateUrl: "app/eaxis/warehouse/dynamic-dashboard/notification/user.html",
+            link: Link,
+            controller: "NotificationController",
+            controllerAs: "NotificationCtrl",
+            bindToController: true,
+            scope: {
+                currentObj: "="
+            },
+            link: Link
+        };
+
+        return exports;
+
+        function Link(scope, elem, attr) { }
+    }
+
+    function MusicDirective() {
+        var exports = {
+            restrict: "EA",
+            templateUrl: "app/eaxis/warehouse/dynamic-dashboard/notification/music.html",
+            link: Link,
+            controller: "NotificationController",
+            controllerAs: "NotificationCtrl",
+            bindToController: true,
+            scope: {
+                currentObj: "="
+            },
+            link: Link
+        };
+
+        return exports;
+
+        function Link(scope, elem, attr) { }
+    }
+
+    function VideoDirective() {
+        var exports = {
+            restrict: "EA",
+            templateUrl: "app/eaxis/warehouse/dynamic-dashboard/notification/video.html",
             link: Link,
             controller: "NotificationController",
             controllerAs: "NotificationCtrl",

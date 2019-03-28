@@ -228,6 +228,34 @@
                 "IsShow": false,
                 "SetAsDefault": false,
                 "IsLoadAsDefault": false
+            }, {
+                "ComponentName": "User",
+                "Directive": "user-directive",
+                "SequenceNo": 16,
+                "IsShow": true,
+                "SetAsDefault": false,
+                "IsLoadAsDefault": true
+            }, {
+                "ComponentName": "Email",
+                "Directive": "email-directive",
+                "SequenceNo": 17,
+                "IsShow": true,
+                "SetAsDefault": false,
+                "IsLoadAsDefault": true
+            }, {
+                "ComponentName": "Music",
+                "Directive": "music-directive",
+                "SequenceNo": 18,
+                "IsShow": true,
+                "SetAsDefault": false,
+                "IsLoadAsDefault": true
+            }, {
+                "ComponentName": "Video",
+                "Directive": "video-directive",
+                "SequenceNo": 19,
+                "IsShow": true,
+                "SetAsDefault": false,
+                "IsLoadAsDefault": true
             }];
 
             _obj = $filter('orderBy')(_obj, 'SequenceNo');
