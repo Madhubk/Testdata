@@ -32,15 +32,15 @@
             DynamicDashboardCtrl.ePage.Masters.Apply = Apply;
             DynamicDashboardCtrl.ePage.Masters.OnChangeSingleSelect = OnChangeSingleSelect;
             DynamicDashboardCtrl.ePage.Masters.Save = Save;
-            DynamicDashboardCtrl.ePage.Masters.OnClickSaveRoleButton = OnClickSaveRoleButton;
+            DynamicDashboardCtrl.ePage.Masters.OnClickCustomizeButton = OnClickCustomizeButton;
 
             DynamicDashboardCtrl.ePage.Masters.Config = dynamicDashboardConfig;
             GetWarehouseValues();
             GetRoleList();
         }
 
-        function OnClickSaveRoleButton() {            
-            $("#saveToRole").toggleClass("open");
+        function OnClickCustomizeButton() {
+            $('#filterSideBar').toggleClass('open');
         }
 
         function Save() {
@@ -60,7 +60,7 @@
             $timeout(function () {
                 DynamicDashboardCtrl.ePage.Masters.ComponentList = LoadedAsDefaultDetails;
             }, 100);
-            $(".dropdown").removeClass("open");
+            $('#filterSideBar').toggleClass('open');
         }
 
         function GetWarehouseValues() {
