@@ -53,7 +53,7 @@
             if (!DeliveryGeneralCtrl.currentDelivery.isNew)
                 GetContact();
         }
-
+        // #region - Create JobAddress Object
         function GetNewAddress() {
             var myvalue = DeliveryGeneralCtrl.ePage.Entities.Header.Data.UIJobAddress.some(function (value, key) {
                 return value.AddressType == 'SND';
@@ -104,8 +104,10 @@
                 DeliveryGeneralCtrl.ePage.Entities.Header.Data.UIJobAddress.push(obj1);
             }
         }
-
+        // #endregion
+        // #region - Get Service provider, Warehouse and Site Based on User Warehouse Access
         function GetUserMappedOrganization() {
+            // Get user mapped Organization
             var _filter = {
                 "ItemCode": authService.getUserInfo().UserId,
                 "MappingCodeIn": "USER_CMP_BRAN_WH,USER_CMP_BRAN_WH_APP_TNT"
@@ -135,6 +137,7 @@
         }
 
         function getReceiveParamWarehouse() {
+            // Get Organization based on User mapped warehouse and Selected Warehouse
             var _filter = {
                 WarehouseCodeIn: DeliveryGeneralCtrl.ePage.Entities.Header.Data.UIWmsDelivery.TempWarehouse
             };
@@ -153,7 +156,8 @@
                 }
             });
         }
-
+        // #endregion
+        // #region - Contact 
         function OtherSiteContact(otheraddress) {
             openContact().result.then(function (response) { }, function () { });
         }
@@ -177,6 +181,7 @@
                 }
             });
         }
+
         function openContact() {
             return DeliveryGeneralCtrl.ePage.Masters.modalInstances = $uibModal.open({
                 animation: true,
@@ -199,7 +204,8 @@
             DeliveryGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkorderReport.RequesterContactNo = item.Mobile;
             CloseEditActivity();
         }
-
+        // #endregion
+        // #region - Validation
         function OnChangeValues(fieldvalue, code) {
             angular.forEach(DeliveryGeneralCtrl.ePage.Masters.Config.ValidationValues, function (value, key) {
                 if (value.Code.trim() === code) {
@@ -215,8 +221,8 @@
                 DeliveryGeneralCtrl.ePage.Masters.Config.RemoveErrorWarning(value.Code, "E", value.CtrlKey, DeliveryGeneralCtrl.currentDelivery.label);
             }
         }
-
-
+        // #endregion
+        // #region - General
         function OpenDatePicker($event, opened) {
             $event.preventDefault();
             $event.stopPropagation();
@@ -251,7 +257,8 @@
                 }
             });
         }
-
+        // #endregion
+        // #region - Lookup
         function SelectedLookupClient(item) {
             DeliveryGeneralCtrl.ePage.Entities.Header.Data.UIWmsDelivery.Client = item.Code + '-' + item.FullName;
             DeliveryGeneralCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ClientCode = item.Code;
@@ -259,6 +266,7 @@
             DeliveryGeneralCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ORG_Client_FK = item.PK;
             OnChangeValues(DeliveryGeneralCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ClientCode, 'E3050');
             AllocateUDF();
+            //    Get Client contact
             var _filter = {
                 "ORG_FK": DeliveryGeneralCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ORG_Client_FK
             };
@@ -278,7 +286,7 @@
             DeliveryGeneralCtrl.ePage.Entities.Header.Data.UIWmsDelivery.Consignee = item.Code + '-' + item.FullName;
             DeliveryGeneralCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ConsigneeCode = item.Code;
             DeliveryGeneralCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ORG_Consignee_FK = item.PK;
-
+            // Get site address
             var _filter = {
                 "ORG_FK": item.PK
             };
@@ -326,7 +334,7 @@
             OnChangeValues(DeliveryGeneralCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WarehouseCode, 'E3051');
             DeliveryGeneralCtrl.ePage.Entities.Header.Data.UIWmsDelivery.TempWarehouse = DeliveryGeneralCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WarehouseCode;
             getReceiveParamWarehouse();
-
+            // get warehouse organization contact
             var _filter = {
                 "ORG_FK": item.PK
             };
@@ -339,7 +347,7 @@
                     deliveryConfig.Entities.WarehouseContact = response.data.Response;
                 }
             });
-
+            // get warehouse organization address
             var _filter = {
                 "ORG_FK": item.PK
             };
@@ -417,7 +425,8 @@
             if (DeliveryGeneralCtrl.ePage.Entities.Header.Data.UIWmsDelivery.Consignee == ' - ')
                 DeliveryGeneralCtrl.ePage.Entities.Header.Data.UIWmsDelivery.Consignee = ""
         }
-
+        // #endregion
+        // #region - Allocate UDF
         function AllocateUDF() {
             if (DeliveryGeneralCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ORG_Client_FK) {
                 var _filter = {
@@ -441,7 +450,7 @@
                 });
             }
         }
-
+        // #endregion
         Init();
     }
 

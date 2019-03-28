@@ -396,7 +396,7 @@
                 "PackType": null,
                 "Quantity": null,
                 "UQ": null,
-                "ProductCondition": null,
+                "ProductCondition": "Good",
                 "UDF1": null,
                 "UDF2": null,
                 "UDF3": null,

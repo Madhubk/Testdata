@@ -27,8 +27,8 @@
             DeliveryOrdersCtrl.ePage.Masters.getOutwardList = getOutwardList;
             getOutwardList();
         }
-
-        function getOutwardList() {            
+        // get Orders which is created against the Delivery line
+        function getOutwardList() {
             deliveryConfig.TempOutwardPK = "";
             deliveryConfig.CallOutwardFunction = false;
             var _filter = {
