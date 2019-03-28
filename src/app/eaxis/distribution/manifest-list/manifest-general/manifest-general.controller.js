@@ -80,7 +80,7 @@
                 GetOrgSenderAddress();
                 GetOrgReceiverAddress();
             }
-
+            JobAccountingFunction();
             GetNewManifestAddress();
             getVehicleType();
             GetDropDownList();
@@ -288,6 +288,22 @@
             }
             OnFieldValueChange(code)
 
+            //#region JobAccounting
+
+            ManifestGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.map(function (value, key) {
+                if (value.EntityRefKey == ManifestGeneralCtrl.ePage.Entities.Header.Data.PK) {
+                    if (item.data) {
+                        value.AgentOrg_Code = item.data.entity.Code;
+                        value.Agent_Org_FK = item.data.entity.PK
+                    } else {
+                        value.AgentOrg_Code = item.Code;
+                        value.Agent_Org_FK = item.PK
+                    }
+                }
+            })
+
+            //#endregion
+
             var WarehouseCode = "";
             if (item.data) {
                 WarehouseCode = item.data.entity.WarehouseCode;
@@ -358,6 +374,23 @@
             }
             OnFieldValueChange(code)
 
+            //#region JobAccounting
+
+            ManifestGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.map(function (value, key) {
+                if (value.EntityRefKey == ManifestGeneralCtrl.ePage.Entities.Header.Data.PK) {
+                    if (item.data) {
+                        value.BranchCode = item.data.entity.BRN_Code;
+                        value.BranchName = item.data.entity.BRN_BranchName;
+                        value.GB = item.data.entity.FBRN_FK;
+                    } else {
+                        value.BranchCode = item.BRN_Code;
+                        value.BranchName = item.BRN_BranchName;
+                        value.GB = item.BRN_FK;
+                    }
+                }
+            })
+
+            //#endregion
             var WarehouseCode = "";
             if (item.data) {
                 WarehouseCode = item.data.entity.WarehouseCode;
@@ -423,6 +456,21 @@
                 ManifestGeneralCtrl.ePage.Masters.Transporter = item.Code + '-' + item.FullName;
             }
             OnFieldValueChange(code)
+            //#region JobAccounting
+
+            ManifestGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.map(function (value, key) {
+                if (value.EntityRefKey == ManifestGeneralCtrl.ePage.Entities.Header.Data.PK) {
+                    if (item.data) {
+                        value.LocalOrg_Code = item.data.entity.Code;
+                        value.LocalOrg_FK = item.data.entity.PK
+                    } else {
+                        value.LocalOrg_Code = item.Code;
+                        value.LocalOrg_FK = item.PK
+                    }
+                }
+            })
+
+            //#endregion
         }
 
         function GetOrgSenderAddress() {
@@ -575,6 +623,48 @@
             ManifestGeneralCtrl.ePage.Masters.selectedRow = index;
         }
 
+        function JobAccountingFunction() {
+            if (ManifestGeneralCtrl.currentManifest.isNew) {
+
+                var NewJobHeaderObject =
+                {
+                    "AgentOrg_Code": "",
+                    "Agent_Org_FK": "",
+                    "GB": "",
+                    "BranchCode": "",
+                    "BranchName": "",
+                    "GC": "",
+                    "CompanyCode": "",
+                    "CompanyName": "",
+                    "GE": "",
+                    "DeptCode": "",
+                    "EntitySource": "DMS",
+                    "JobNo": ManifestGeneralCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ManifestNumber,
+                    "EntityRefKey": ManifestGeneralCtrl.ePage.Entities.Header.Data.PK,
+                    "HeaderType": "JOB",
+                    "LocalOrg_Code": "",
+                    "LocalOrg_FK": "",
+                }
+                ManifestGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.push(NewJobHeaderObject);
+                //Getting Department Value
+
+                var _filter = {
+                    "Code": "LOG"
+                };
+
+                var _input = {
+                    "searchInput": helperService.createToArrayOfObject(_filter),
+                    "FilterID": ManifestGeneralCtrl.ePage.Entities.Header.API.CmpDepartment.FilterID
+                };
+
+                apiService.post("eAxisAPI", ManifestGeneralCtrl.ePage.Entities.Header.API.CmpDepartment.Url, _input).then(function (response) {
+                    if (response.data.Response) {
+                        ManifestGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader[0].DeptCode = response.data.Response[0].Code;
+                        ManifestGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader[0].GE = response.data.Response[0].PK;
+                    }
+                });
+            }
+        }
         Init();
     }
 
