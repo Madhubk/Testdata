@@ -242,10 +242,6 @@ div[class^="icon"] {
     background-size: 45px 45px;
 }
 
-.fa {
-    color: #FFFFFF;
-}
-
 .dashboard-box {
     height: 95px;
     font-size: 4em;
@@ -257,4 +253,5 @@ div[class^="icon"] {
     text-align: center;
     line-height: 76px;
     margin: 0 10px 10px 0;
+    color: #FFFFFF;
 }
