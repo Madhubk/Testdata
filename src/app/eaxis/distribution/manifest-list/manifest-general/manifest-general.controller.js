@@ -293,11 +293,11 @@
             ManifestGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.map(function (value, key) {
                 if (value.EntityRefKey == ManifestGeneralCtrl.ePage.Entities.Header.Data.PK) {
                     if (item.data) {
-                        value.AgentOrg_Code = item.data.entity.Code;
-                        value.Agent_Org_FK = item.data.entity.PK
+                        value.LocalOrg_Code = item.data.entity.Code;
+                        value.LocalOrg_FK = item.data.entity.PK
                     } else {
-                        value.AgentOrg_Code = item.Code;
-                        value.Agent_Org_FK = item.PK
+                        value.LocalOrg_Code = item.Code;
+                        value.LocalOrg_FK = item.PK
                     }
                 }
             })
@@ -461,11 +461,11 @@
             ManifestGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.map(function (value, key) {
                 if (value.EntityRefKey == ManifestGeneralCtrl.ePage.Entities.Header.Data.PK) {
                     if (item.data) {
-                        value.LocalOrg_Code = item.data.entity.Code;
-                        value.LocalOrg_FK = item.data.entity.PK
+                        value.AgentOrg_Code = item.data.entity.Code;
+                        value.Agent_Org_FK = item.data.entity.PK
                     } else {
-                        value.LocalOrg_Code = item.Code;
-                        value.LocalOrg_FK = item.PK
+                        value.AgentOrg_Code = item.Code;
+                        value.Agent_Org_FK = item.PK
                     }
                 }
             })

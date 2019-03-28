@@ -599,21 +599,6 @@
             }
             DMSConsignmentGeneralCtrl.ePage.Masters.OnChangeValues(DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.SenderCode, "E5516", false, undefined);
 
-            //#region JobAccounting
-
-            DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.map(function (value, key) {
-                if (value.EntityRefKey == DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.PK) {
-                    if (item.data) {
-                        value.LocalOrg_Code = item.data.entity.Code;
-                        value.LocalOrg_FK = item.data.entity.PK
-                    } else {
-                        value.LocalOrg_Code = item.Code;
-                        value.LocalOrg_FK = item.PK
-                    }
-                }
-            })
-
-            //#endregion
             GetOrgSenderAddress();
         }
 
@@ -635,16 +620,17 @@
                 DMSConsignmentGeneralCtrl.ePage.Masters.Receiver = item.Code + '-' + item.FullName;
             }
             DMSConsignmentGeneralCtrl.ePage.Masters.OnChangeValues(DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.ReceiverCode, "E5517", false, undefined);
+
             //#region JobAccounting
 
             DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.map(function (value, key) {
                 if (value.EntityRefKey == DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.PK) {
                     if (item.data) {
-                        value.AgentOrg_Code = item.data.entity.Code;
-                        value.Agent_Org_FK = item.data.entity.PK
+                        value.LocalOrg_Code = item.data.entity.Code;
+                        value.LocalOrg_FK = item.data.entity.PK
                     } else {
-                        value.AgentOrg_Code = item.Code;
-                        value.Agent_Org_FK = item.PK
+                        value.LocalOrg_Code = item.Code;
+                        value.LocalOrg_FK = item.PK
                     }
                 }
             })
