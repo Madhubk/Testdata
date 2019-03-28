@@ -99,21 +99,14 @@
             event.preventDefault();
             event.stopPropagation();
             var _currentTab = currentTab[currentTab.code].ePage.Entities;
+            FinanceJobCtrl.ePage.Masters.TabList.splice(index, 1);
 
-            // $timeout(function () {
-            //     FinanceJobCtrl.ePage.Masters.TabList.splice(index, 1);
-            // });
-
-            // apiService.get("eAxisAPI", financeConfig.API.JobHeaderList.API.JobHeaderListActivityClose.Url + _currentTab.Header.Data.PK).then(function (response) { });
-
-            apiService.get("eAxisAPI", financeConfig.API.JobHeaderList.API.JobHeaderListActivityClose.Url + _currentTab.Header.Data.PK).then(function (response) {
+            apiService.get("eAxisAPI", financeConfig.Entities.API.JobHeaderList.API.JobHeaderListActivityClose.Url + _currentTab.Header.Data.PK).then(function (response) {
                 if (response.data.Response === "Success") {
-                    // ShipmentCtrl.ePage.Masters.TabList.splice(index, 1);
                 } else {
                     console.log("Tab close Error : " + response);
                 }
             });
-            FinanceJobCtrl.ePage.Masters.TabList.splice(index, 1);
         }
 
         function RemoveAllTab() {
@@ -121,7 +114,7 @@
             event.stopPropagation();
             FinanceJobCtrl.ePage.Masters.TabList.map(function (value, key) {
                 var _currentTab = value[value.code].ePage.Entities;
-                apiService.get("eAxisAPI", financeConfig.API.JobHeaderList.API.JobHeaderListActivityClose.Url + _currentTab.Header.Data.PK).then(function (response) {
+                apiService.get("eAxisAPI", financeConfig.Entities.API.JobHeaderList.API.JobHeaderListActivityClose.Url + _currentTab.Header.Data.PK).then(function (response) {
                     if (response.data.Status == "Success") {
                         FinanceJobCtrl.ePage.Masters.TabList.shift();
                     } else {

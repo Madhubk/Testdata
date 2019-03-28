@@ -94,7 +94,7 @@
                         return deferred.promise;
                     }],
                     LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
-                        return $ocLazyLoad.load(['MDDepartment', 'MDDepartmentMenu', 'MDDepartmentDetails', 'MDDepartmentDetailsModal']);
+                        return $ocLazyLoad.load(['MDDepartment', 'MDDepartmentMenu', 'MDDepartmentDetails', 'MDDepartmentDetailsModal', 'dynamicLookup', 'dynamicListModal', 'dynamicList', 'dynamicGrid', 'dynamicControl', 'compareDate', 'customToolbar', 'confirmation', 'chromeTab', 'errorWarning']);
                     }]
                 }
             })
@@ -114,7 +114,7 @@
                         return deferred.promise;
                     }],
                     LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
-                        return $ocLazyLoad.load(['MDBranch', 'MDBranchMenu', 'MDBranchDetails', 'MDBranchDetailsModal']);
+                        return $ocLazyLoad.load(['MDBranch', 'MDBranchMenu', 'MDBranchDetails', 'MDBranchDetailsModal', 'dynamicLookup', 'dynamicListModal', 'dynamicList', 'dynamicGrid', 'dynamicControl', 'compareDate', 'customToolbar', 'confirmation', 'chromeTab', 'errorWarning']);
                     }]
                 }
             })
@@ -134,7 +134,7 @@
                         return deferred.promise;
                     }],
                     LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
-                        return $ocLazyLoad.load(['MDCompany', 'MDCompanyMenu', 'MDCompanyDetails', 'MDCompanyDetailsModal']);
+                        return $ocLazyLoad.load(['MDCompany', 'MDCompanyMenu', 'MDCompanyDetails', 'MDCompanyDetailsModal', 'dynamicLookup', 'dynamicListModal', 'dynamicList', 'dynamicGrid', 'dynamicControl', 'compareDate', 'customToolbar', 'confirmation', 'chromeTab', 'errorWarning']);
                     }]
                 }
             })
@@ -461,6 +461,46 @@
                     }],
                     LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
                         return $ocLazyLoad.load(["chromeTab", "confirmation", "compareDate", "dynamicListModal", "dynamicList", "dynamicLookup", "dynamicControl", "dynamicGrid", "drogAndDrop", "errorWarning", "MDMTransports", "types", "typesMenu", "typesServiceType", "typesTags", "typesVehicleType", "typesLevelLoadType", "typesManifestType", "typesConsolEvent"]);
+                    }]
+                }
+            })
+            .state('MD.creditor', {
+                url: '/creditor',
+                templateUrl: 'app/mdm/creditor/creditor.html',
+                controller: "CreditorController as CreditorCtrl",
+                ncyBreadcrumb: {
+                    label: 'Creditor'
+                },
+                resolve: {
+                    CheckAccess: ["$q", "pageAccessService", function ($q, pageAccessService) {
+                        var deferred = $q.defer();
+                        // if (pageAccessService.CheckAuthToken()) {
+                        deferred.resolve();
+                        // }
+                        return deferred.promise;
+                    }],
+                    LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
+                        return $ocLazyLoad.load(["creaditor", "creaditorMenu", "creaditorGeneral", "dynamicLookup", "dynamicListModal", "dynamicList", "dynamicGrid", "dynamicControl", "compareDate", "customToolbar", "confirmation", "chromeTab", "errorWarning"]);
+                    }]
+                }
+            })
+            .state('MD.debtor', {
+                url: '/debtor',
+                templateUrl: 'app/mdm/debtor/debtor.html',
+                controller: "DebtorController as DebtorCtrl",
+                ncyBreadcrumb: {
+                    label: 'Debtor'
+                },
+                resolve: {
+                    CheckAccess: ["$q", "pageAccessService", function ($q, pageAccessService) {
+                        var deferred = $q.defer();
+                        // if (pageAccessService.CheckAuthToken()) {
+                        deferred.resolve();
+                        //  }
+                        return deferred.promise;
+                    }],
+                    LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
+                        return $ocLazyLoad.load(["debtor", "debtorMenu", "debtorGeneral", "dynamicLookup", "dynamicListModal", "dynamicList", "dynamicGrid", "dynamicControl", "compareDate", "customToolbar", "confirmation", "chromeTab", "errorWarning"]);
                     }]
                 }
             });

@@ -24,7 +24,7 @@
             };
             // For list directive
             BranchCtrl.ePage.Masters.IsDisableSave = false;
-            BranchCtrl.ePage.Masters.taskName = "CmpBranch";
+            BranchCtrl.ePage.Masters.dataEntryName = "CmpBranch";
             BranchCtrl.ePage.Masters.SaveButtonText = "Save";
             BranchCtrl.ePage.Masters.Save = Save;
             BranchCtrl.ePage.Masters.TabList = [];

@@ -1,0 +1,27 @@
+<!--Grid View -->
+<uib-tabset id="chromeTab" class="tab-container chrometab-box" active="CreditorCtrl.ePage.Masters.ActiveTabIndex" class="tab-container chrometab-box">
+        <uib-tab >
+            <uib-tab-heading title="CreditorCtrl.ePage.Masters.Title">
+                <span data-ng-bind="CreditorCtrl.ePage.Masters.Title"></span>
+                <i class="fa fa-thumb-tack pinned-tab ml-10"></i>
+            </uib-tab-heading>
+            <div>
+                <!-- Dynamic Grid Page-->
+                <dynamic-list mode="1" dataentry-name="CreditorCtrl.ePage.Masters.DataentryName" dataentry-object="CreditorCtrl.ePage.Masters.DataEntryObject"
+                    selected-grid-row="CreditorCtrl.ePage.Masters.SelectedGridRow($item)" default-filter="CreditorCtrl.ePage.Masters.DefaultFilter"></dynamic-list>
+                <div class="tab-loading" data-ng-show="CreditorCtrl.ePage.Masters.IsTabClick"></div>
+            </div>
+        </uib-tab>
+        <uib-tab id='top' active="CreditorCtrl.ePage.Masters.ActiveTabIndex == $index" data-ng-repeat="tab in CreditorCtrl.ePage.Masters.TabList">
+                <uib-tab-heading title="{{tab.label}}">
+                    <span data-ng-bind="tab.label"></span>
+                    <i class="glyphicon glyphicon-remove" data-ng-click="CreditorCtrl.ePage.Masters.RemoveTab($event, $index, tab)"></i>
+                </uib-tab-heading>
+                <div class="padding-bottom-10 clearfix">
+                    <!--Creditor Menu Directive-->
+                    <creditor-menu current-creditor="tab"></creditor-menu> 
+                    <div class="horizontal-space"></div> 
+                </div>
+        </uib-tab>
+        <button class="btn btn-default" ng-click="CreditorCtrl.ePage.Masters.CreateNewCreditor()" data-ng-disabled="CreditorCtrl.ePage.Masters.isNewClicked">+</button>
+ </uib-tabset>

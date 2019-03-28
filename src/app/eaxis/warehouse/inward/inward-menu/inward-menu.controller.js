@@ -39,7 +39,7 @@
             InwardMenuCtrl.ePage.Masters.tabSelected = tabSelected;
             InwardMenuCtrl.ePage.Masters.Validation = Validation;
             InwardMenuCtrl.ePage.Masters.Config = inwardConfig;
-            InwardMenuCtrl.ePage.Masters.Billing = Billing;
+            InwardMenuCtrl.ePage.Masters.JobAccounting = JobAccounting;
 
             $rootScope.SaveInwardFromTask = SaveInwardFromTask;
             $rootScope.FinalizeInwardFromTask = FinalizeInwardFromTask;
@@ -531,26 +531,28 @@
 
 
         //#region JobAccounting
-        function Billing() {
-            var obj = {
-                "AgentOrg_Code": InwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].AgentOrg_Code,
-                "Agent_Org_FK": InwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].Agent_Org_FK,
-                "GB": InwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].GB,
-                "BranchCode": InwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].BranchCode,
-                "BranchName": InwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].BranchName,
-                "GC": InwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].GC,
-                "CompanyCode": InwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].CompanyCode,
-                "CompanyName": InwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].CompanyName,
-                "GE": InwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].GE,
-                "DeptCode": InwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].DeptCode,
-                "EntitySource": InwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].EntitySource,
-                "JobNo": InwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].JobNo,
-                "EntityRefKey": InwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].EntityRefKey,
-                "HeaderType": InwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].HeaderType,
-                "LocalOrg_Code": InwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].LocalOrg_Code,
-                "LocalOrg_FK": InwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].LocalOrg_FK
-            };
-
+        function JobAccounting() {
+            if (InwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader.length > 0) {
+                var obj = {
+                    "AgentOrg_Code": InwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].AgentOrg_Code,
+                    "Agent_Org_FK": InwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].Agent_Org_FK,
+                    "GB": InwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].GB,
+                    "BranchCode": InwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].BranchCode,
+                    "BranchName": InwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].BranchName,
+                    "GC": InwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].GC,
+                    "CompanyCode": InwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].CompanyCode,
+                    "CompanyName": InwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].CompanyName,
+                    "GE": InwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].GE,
+                    "DeptCode": InwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].DeptCode,
+                    "EntitySource": InwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].EntitySource,
+                    "JobNo": InwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].JobNo,
+                    "EntityRefKey": InwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].EntityRefKey,
+                    "HeaderType": InwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].HeaderType,
+                    "LocalOrg_Code": InwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].LocalOrg_Code,
+                    "LocalOrg_FK": InwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].LocalOrg_FK
+                };
+            }
+            
             var modalInstance = $uibModal.open({
                 animation: true,
                 keyboard: false,
