@@ -4,9 +4,9 @@
     angular.module("Application")
         .controller("DebtorMenuController", DebtorMenuController);
 
-    DebtorMenuController.$inject = ["helperService", "toastr", "authService"];
+    DebtorMenuController.$inject = ["helperService", "toastr", "authService", "debtorConfig"];
 
-    function DebtorMenuController(helperService, toastr, authService) {
+    function DebtorMenuController(helperService, toastr, authService, debtorConfig) {
 
         var DebtorMenuCtrl = this;
 
@@ -23,11 +23,34 @@
 
             DebtorMenuCtrl.ePage.Masters.SaveButtonText = "Save";
             DebtorMenuCtrl.ePage.Masters.DisableSave = false;
+            DebtorMenuCtrl.ePage.Masters.Config = debtorConfig;
 
             /* Function */
+            DebtorMenuCtrl.ePage.Masters.Validation = Validation;
             DebtorMenuCtrl.ePage.Masters.Save = Save;
         }
 
+        //#region Validation
+        function Validation($item) {
+            var _Data = $item[$item.code].ePage.Entities,
+                _input = _Data.Header.Data,
+                _errorcount = _Data.Header.Meta.ErrorWarning.GlobalErrorWarningList;
+
+            /* Validation Call */
+            DebtorMenuCtrl.ePage.Masters.Config.GeneralValidation($item);
+            if (DebtorMenuCtrl.ePage.Entities.Header.Validations) {
+                DebtorMenuCtrl.ePage.Masters.Config.RemoveApiErrors(DebtorMenuCtrl.ePage.Entities.Header.Validations, $item.label);
+            }
+
+            if (_errorcount.length == 0) {
+                Save($item);
+            } else {
+                DebtorMenuCtrl.ePage.Masters.Config.ShowErrorWarningModal(DebtorMenuCtrl.currentDebtor);
+            }
+        }
+        //#endregion
+
+        //#region Save
         function Save($item) {
             DebtorMenuCtrl.ePage.Masters.SaveButtonText = "Please Wait...";
             DebtorMenuCtrl.ePage.Masters.DisableSave = true;
@@ -70,6 +93,8 @@
             }
             return obj;
         }
+        //#endregion
+
 
         Init()
     }

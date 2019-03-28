@@ -4,9 +4,9 @@
     angular.module("Application")
         .controller("DebtorController", DebtorController);
 
-    DebtorController.$inject = ["$timeout", "helperService", "apiService", "debtorConfig", "toastr"];
+    DebtorController.$inject = ["$timeout", "helperService", "apiService", "debtorConfig", "toastr", "errorWarningService"];
 
-    function DebtorController($timeout, helperService, apiService, debtorConfig, toastr) {
+    function DebtorController($timeout, helperService, apiService, debtorConfig, toastr, errorWarningService) {
 
         var DebtorCtrl = this;
 
@@ -37,6 +37,12 @@
             DebtorCtrl.ePage.Masters.AddTab = AddTab;
             DebtorCtrl.ePage.Masters.RemoveTab = RemoveTab;
             DebtorCtrl.ePage.Masters.CreateNewDebtor = CreateNewDebtor;
+
+            /* ErrorWarningConfig */
+            DebtorCtrl.ePage.Masters.Config = debtorConfig;
+            DebtorCtrl.ePage.Masters.ErrorWarningConfig = errorWarningService;
+
+            debtorConfig.ValidationFindall();
         }
 
         //#region SelectedGrid
@@ -79,6 +85,7 @@
                         DebtorCtrl.ePage.Masters.ActiveTabIndex = DebtorCtrl.ePage.Masters.TabList.length;
                         DebtorCtrl.ePage.Masters.IsTabClick = false;
                         var _code = currentTab.entity.PK.split("-").join("");
+                        GetValidationList(_code, _entity);
                     });
                 });
             } else {
@@ -127,6 +134,25 @@
             } else {
                 toastr.info("New Record Already Opened...!");
             }
+        }
+        //#endregion
+
+        //#region Validation
+        function GetValidationList(currentTab, entity) {
+            var _obj = {
+                ModuleName: ["Finance"],
+                Code: [currentTab],
+                API: "Group",
+                //API: "Validation",
+                FilterInput: {
+                    ModuleCode: "Finance",
+                    SubModuleCode: "JBA",
+                },
+                GroupCode: "FINANCE_DEBTOR",
+                RelatedBasicDetails: [{}],
+                EntityObject: entity
+            };
+            errorWarningService.GetErrorCodeList(_obj);
         }
         //#endregion
 

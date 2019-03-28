@@ -4,9 +4,9 @@
     angular.module("Application")
         .controller("CreditorController", CreditorController);
 
-    CreditorController.$inject = ["$timeout", "apiService", "helperService", "creditorConfig", "toastr"];
+    CreditorController.$inject = ["$timeout", "apiService", "helperService", "creditorConfig", "toastr", "errorWarningService"];
 
-    function CreditorController($timeout, apiService, helperService, creditorConfig, toastr) {
+    function CreditorController($timeout, apiService, helperService, creditorConfig, toastr, errorWarningService) {
 
         var CreditorCtrl = this;
 
@@ -37,6 +37,12 @@
             CreditorCtrl.ePage.Masters.AddTab = AddTab;
             CreditorCtrl.ePage.Masters.RemoveTab = RemoveTab;
             CreditorCtrl.ePage.Masters.CreateNewCreditor = CreateNewCreditor;
+            
+            /* ErrorWarningConfig */
+            CreditorCtrl.ePage.Masters.Config = creditorConfig;
+            CreditorCtrl.ePage.Masters.ErrorWarningConfig = errorWarningService;
+
+            creditorConfig.ValidationFindall();
         }
 
         //#region SelectedGrid
@@ -79,6 +85,7 @@
                         CreditorCtrl.ePage.Masters.ActiveTabIndex = CreditorCtrl.ePage.Masters.TabList.length;
                         CreditorCtrl.ePage.Masters.IsTabClick = false;
                         var _code = currentTab.entity.PK.split("-").join("");
+                        GetValidationList(_code, _entity);
                     });
                 });
             } else {
@@ -127,6 +134,25 @@
             } else {
                 toastr.info("New Record Already Opened...!");
             }
+        }
+        //#endregion
+
+        //#region Validation
+        function GetValidationList(currentTab, entity) {
+            var _obj = {
+                ModuleName: ["Finance"],
+                Code: [currentTab],
+                API: "Group",
+                //API: "Validation",
+                FilterInput: {
+                    ModuleCode: "Finance",
+                    SubModuleCode: "JBA",
+                },
+                GroupCode: "FINANCE_CREDITOR",
+                RelatedBasicDetails: [{}],
+                EntityObject: entity
+            };
+            errorWarningService.GetErrorCodeList(_obj);
         }
         //#endregion
 
