@@ -537,11 +537,13 @@
                             response.data.Response.Response.UIWmsOutwardHeader.Warehouse = CreateDelChallanCtrl.ePage.Masters.WarehouseCodeName;
                             response.data.Response.Response.UIWmsOutwardHeader.WarehouseCode = CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WarehouseCode;
                             response.data.Response.Response.UIWmsOutwardHeader.WarehouseName = CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WarehouseName;
-                        } else if (type == "MTR") {
+                            response.data.Response.Response.UIWmsOutwardHeader.Provider_ORG_FK = CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.Provider_ORG_FK;
+                        } else if (type == "MTR") {                            
                             response.data.Response.Response.UIWmsOutwardHeader.Warehouse = CreateDelChallanCtrl.ePage.Masters.Warehouse;
                             response.data.Response.Response.UIWmsOutwardHeader.WarehouseCode = CreateDelChallanCtrl.ePage.Masters.WarehouseCode;
                             response.data.Response.Response.UIWmsOutwardHeader.WarehouseName = CreateDelChallanCtrl.ePage.Masters.WarehouseName;
                             response.data.Response.Response.UIWmsOutwardHeader.WAR_FK = CreateDelChallanCtrl.ePage.Masters.WAR_PK;
+                            response.data.Response.Response.UIWmsOutwardHeader.Provider_ORG_FK = CreateDelChallanCtrl.ePage.Entities.Header.Data.TempUIWmsDelivery.Provider_ORG_FK;
 
                             response.data.Response.Response.UIWmsOutwardHeader.TransferTo_WAR_FK = CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WAR_FK;
                             response.data.Response.Response.UIWmsOutwardHeader.TransferWarehouse = CreateDelChallanCtrl.ePage.Masters.WarehouseCodeName;
