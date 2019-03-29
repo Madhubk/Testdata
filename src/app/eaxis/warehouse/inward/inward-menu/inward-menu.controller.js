@@ -544,6 +544,7 @@
                     "CompanyName": InwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].CompanyName,
                     "GE": InwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].GE,
                     "DeptCode": InwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].DeptCode,
+                    "DeptName": InwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].DeptName,
                     "EntitySource": InwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].EntitySource,
                     "JobNo": InwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].JobNo,
                     "EntityRefKey": InwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].EntityRefKey,
@@ -552,7 +553,7 @@
                     "LocalOrg_FK": InwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].LocalOrg_FK
                 };
             }
-            
+
             var modalInstance = $uibModal.open({
                 animation: true,
                 keyboard: false,

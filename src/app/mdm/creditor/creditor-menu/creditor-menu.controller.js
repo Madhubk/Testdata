@@ -4,9 +4,9 @@
     angular.module("Application")
         .controller("CreditorMenuController", CreditorMenuController);
 
-    CreditorMenuController.$inject = ["helperService", "toastr", "authService", "creditorConfig"];
+    CreditorMenuController.$inject = ["helperService", "toastr", "authService", "creditorConfig", "apiService"];
 
-    function CreditorMenuController(helperService, toastr, authService, creditorConfig) {
+    function CreditorMenuController(helperService, toastr, authService, creditorConfig, apiService) {
 
         var CreditorMenuCtrl = this;
 
@@ -44,7 +44,32 @@
             }
 
             if (_errorcount.length == 0) {
-                Save($item);
+                var _filter = {};
+                var _inputField = {
+                    "searchInput": helperService.createToArrayOfObject(_filter),
+                    "FilterID": creditorConfig.Entities.API.CreditorGroup.API.FindAll.FilterID
+                };
+
+                apiService.post("eAxisAPI", creditorConfig.Entities.API.CreditorGroup.API.FindAll.Url, _inputField).then(function (response) {
+                    if (response.data.Response) {
+                        CreditorMenuCtrl.ePage.Masters.UICreditorList = response.data.Response;
+                    }
+
+                    var _count = CreditorMenuCtrl.ePage.Masters.UICreditorList.some(function (value, key) {
+                        if (value.Code == _input.Code) {
+                            return true;
+                        }
+                        else {
+                            return false;
+                        }
+                    });
+
+                    if (_count) {
+                        toastr.error("Code is Unique, Rename the Code!.");
+                    } else {
+                        Save($item);
+                    }
+                });
             } else {
                 CreditorMenuCtrl.ePage.Masters.Config.ShowErrorWarningModal(CreditorMenuCtrl.currentCreditor);
             }

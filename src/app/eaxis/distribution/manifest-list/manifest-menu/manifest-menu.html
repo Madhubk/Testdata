@@ -103,10 +103,21 @@
                     type="button" data-ng-click="DMSManifestMenuCtrl.ePage.Masters.OnToggleFilterClick()" title="Toggle Filter"></button>
             </span>
         </div> -->
-        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6" ng-if="!DMSManifestMenuCtrl.currentManifest.isNew">
+        <!-- JobAccounting -->
+        <div class="col-xs-3 col-sm-3 col-md-2 col-lg-2 col-xl-2" style="width:120px" data-ng-if="!DMSManifestMenuCtrl.currentManifest.isNew">
+            <ul class="custombilling_inward" data-ng-if="!DMSManifestMenuCtrl.currentInward.isNew">
+                <li class="position-relative">
+                    <a href="javascript:void(0);" data-ng-click="DMSManifestMenuCtrl.ePage.Masters.JobAccounting()">
+                        <i class="eaxis-footer-icon fa fa-money"></i>
+                        <span class="eaxis-footer-text">Job Accounting</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="col-xs-5 col-sm-5 col-md-7 col-lg-8 col-xl-8 pl-0" ng-if="!DMSManifestMenuCtrl.currentManifest.isNew">
             <standard-menu dataentry-object="DMSManifestMenuCtrl.dataentryObject" input="DMSManifestMenuCtrl.currentManifest"></standard-menu>
         </div>
-        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 pull-right">
+        <div class="col-xs-4 col-sm-4 col-md-3 col-lg-2 col-xl-2 pull-right">
             <button class="btn-text btn-blue" ng-disabled="DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.IsDisableBtn"
                 data-ng-if="(DMSManifestMenuCtrl.ePage.Masters.ManifestMenu.ListSource[DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.ActiveMenu].Value == 'AttachOrders' || DMSManifestMenuCtrl.ePage.Masters.ManifestMenu.ListSource[DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.ActiveMenu].Value == 'AttachLines') && !DMSManifestMenuCtrl.ePage.Entities.Header.Data.TmsManifestHeader.SubmittedDateTime"
                 data-ng-click="DMSManifestMenuCtrl.ePage.Masters.getMenu()">

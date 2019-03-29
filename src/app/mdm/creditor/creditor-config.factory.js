@@ -17,6 +17,12 @@
                     "CreditorGroup": {
                         "RowIndex": -1,
                         "API": {
+                            "FindAll":{
+                                "IsAPI": "true",
+                                "HttpType": "Post",
+                                "Url": "MstCreditorGroup/FindAll",
+                                "FilterID": "MSTCEGP"
+                            },
                             "GetById": {
                                 "IsAPI": "true",
                                 "HttpType": "GET",

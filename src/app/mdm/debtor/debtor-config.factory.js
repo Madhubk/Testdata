@@ -17,6 +17,12 @@
                     "DebtorGroup": {
                         "RowIndex": -1,
                         "API": {
+                            "FindAll":{
+                                "IsAPI": "true",
+                                "HttpType": "Post",
+                                "Url": "MstDebtorGroup/FindAll",
+                                "FilterID": "MSTDEGP"
+                            },
                             "GetById": {
                                 "IsAPI": "true",
                                 "HttpType": "GET",
