@@ -159,7 +159,13 @@
                                 "HttpType": "POST",
                                 "Url": "OrgAddress/Insert",
                                 "FilterID": "ORGADDR"
-                            }
+                            },
+                            "CmpDepartment": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "CmpDepartment/FindAll",
+                                "FilterID": "CMPDEPT"
+                            },
 
                         },
                         "Meta": {
@@ -660,7 +666,7 @@
                 OnChangeValues(_input.TmsConsignmentHeader.SenderRef, 'E5567', false, undefined, $item.label);
                 OnChangeValues(_input.TmsConsignmentHeader.ExpectedPickupDateTime, 'E5521', false, undefined, $item.label);
                 OnChangeValues(_input.TmsConsignmentHeader.ExpectedDeliveryDateTime, 'E5563', false, undefined, $item.label);
-                
+
                 //item Validation
                 if (_input.TmsConsignmentItem.length > 0) {
                     angular.forEach(_input.TmsConsignmentItem, function (value, key) {
