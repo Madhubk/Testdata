@@ -1,0 +1,52 @@
+
+<uib-tabset id="chromeTab" active="RateHeaderCtrl.ePage.Masters.activeTabIndex" class="tab-container chrometab-box">
+
+    <uib-tab>
+        <uib-tab-heading title="RateHeader">
+            <span data-ng-bind="'RateHeader'" class="ng-binding">RateHeader</span>
+            <i class="fa fa-thumb-tack pinned-tab"></i>
+        </uib-tab-heading>
+
+        <div class="no-padding tab-list-view-wrapper">
+            <!--Consignment Grid Page-->
+            <dynamic-list dataentry-name="RateHeaderCtrl.ePage.Masters.dataentryName" task-name="RateHeaderCtrl.ePage.Masters.taskName" grid-config-type="0"
+                selected-grid-row="RateHeaderCtrl.ePage.Masters.SelectedGridRow($item)" mode="1" dataentry-object="RateHeaderCtrl.ePage.Masters.DataEntryObject"></dynamic-list>
+            <div class="tab-loading" data-ng-show="RateHeaderCtrl.ePage.Masters.IsTabClick"></div>
+        </div>
+    </uib-tab>
+
+    <uib-tab active="RateHeaderCtrl.ePage.Masters.activeTabIndex == $index" ng-repeat="tab in RateHeaderCtrl.ePage.Masters.TabList" ng-click="RateHeaderCtrl.ePage.Masters.CurrentActiveTab(tab.label)">
+        <uib-tab-heading title="{{tab.label}}">
+            <span data-ng-bind="tab.label"></span>
+            <i class="glyphicon glyphicon-remove" ng-click="RateHeaderCtrl.ePage.Masters.RemoveTab($event, $index, tab)"></i>
+            <span class="error-warning-container-common" data-ng-if="tab[tab.label].ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList.length > 0">
+                <span class="custom-warning-container" data-ng-if="(tab[tab.label].ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList | listCount: 'MessageType': 'W') > 0 && (tab[tab.label].ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList | listCount: 'MessageType': 'E') == 0">
+                    <button class="btn-warning" data-ng-click="RateHeaderCtrl.ePage.Masters.Config.ShowErrorWarningModal(tab)">
+                        <i class="fa fa-warning"></i>
+                    </button>
+                    <span class="custom-warning-count">{{tab[tab.label].ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList | listCount:
+                        'MessageType': 'W'}}</span>
+                </span>
+                <span class="custom-error-container" data-ng-if="(tab[tab.label].ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList | listCount: 'MessageType': 'E') > 0">
+                    <button class="btn-error" data-ng-click="RateHeaderCtrl.ePage.Masters.Config.ShowErrorWarningModal(tab)">
+                        <i class="fa fa-warning"></i>
+                    </button>
+                    <span class="custom-error-count">{{tab[tab.label].ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList | listCount:
+                        'MessageType': 'E'}}</span>
+                </span>
+            </span>
+        </uib-tab-heading>
+
+        <div class="padding-bottom-10 clearfix">
+            <!--Rate Header Menu Directive-->
+            <rate-header-menu current-rateheader="tab" dataentry-object="RateHeaderCtrl.ePage.Masters.DataEntryObject"></rate-header-menu>
+            <div class="horizontal-space"></div>
+        </div>
+        <span ng-if="RateHeaderCtrl.ePage.Masters.Config.SaveAndClose" ng-init="RateHeaderCtrl.ePage.Masters.SaveandClose(RateHeaderCtrl.ePage.Masters.activeTabIndex, tab)"></span>
+    </uib-tab>
+
+    <button class="btn btn-default" ng-click="RateHeaderCtrl.ePage.Masters.CreateNewRateHeader()" data-ng-disabled="RateHeaderCtrl.ePage.Masters.isNewClicked">+</button>
+
+</uib-tabset>
+
+       
