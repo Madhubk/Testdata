@@ -8,7 +8,7 @@
 
     function FinanceJobController($timeout, helperService, apiService, financeConfig, toastr, errorWarningService) {
         var FinanceJobCtrl = this;
-        
+
         function Init() {
             FinanceJobCtrl.ePage = {
                 "Title": "",
@@ -29,10 +29,6 @@
             FinanceJobCtrl.ePage.Masters.ActiveTabIndex = 0;
             FinanceJobCtrl.ePage.Masters.IsTabClick = false;
 
-            /* ErrorWarningConfig */
-            FinanceJobCtrl.ePage.Masters.Config = financeConfig;
-            FinanceJobCtrl.ePage.Masters.ErrorWarningConfig = errorWarningService;
-
             /* Function */
             // FinanceJobCtrl.ePage.Masters.FinanceSelection = FinanceSelection;
             FinanceJobCtrl.ePage.Masters.SelectedGridRow = SelectedGridRow;
@@ -41,6 +37,10 @@
             FinanceJobCtrl.ePage.Masters.RemoveAllTab = RemoveAllTab;
             FinanceJobCtrl.ePage.Masters.ShowErrorWarningModal = ShowErrorWarningModal;
             FinanceJobCtrl.ePage.Masters.HideErrorWarningModal = HideErrorWarningModal;
+
+            /* ErrorWarningConfig */
+            FinanceJobCtrl.ePage.Masters.Config = financeConfig;
+            FinanceJobCtrl.ePage.Masters.ErrorWarningConfig = errorWarningService;
 
             financeConfig.ValidationFindall();
         }

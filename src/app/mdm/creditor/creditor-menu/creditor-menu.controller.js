@@ -4,9 +4,9 @@
     angular.module("Application")
         .controller("CreditorMenuController", CreditorMenuController);
 
-    CreditorMenuController.$inject = ["helperService", "toastr", "authService"];
+    CreditorMenuController.$inject = ["helperService", "toastr", "authService", "creditorConfig"];
 
-    function CreditorMenuController(helperService, toastr, authService) {
+    function CreditorMenuController(helperService, toastr, authService, creditorConfig) {
 
         var CreditorMenuCtrl = this;
 
@@ -24,10 +24,32 @@
 
             CreditorMenuCtrl.ePage.Masters.SaveButtonText = "Save";
             CreditorMenuCtrl.ePage.Masters.DisableSave = false;
+            CreditorMenuCtrl.ePage.Masters.Config = creditorConfig;
 
             /* Function */
+            CreditorMenuCtrl.ePage.Masters.Validation = Validation;
             CreditorMenuCtrl.ePage.Masters.Save = Save;
         }
+
+        //#region  Validation
+        function Validation($item) {
+            var _Data = $item[$item.code].ePage.Entities,
+                _input = _Data.Header.Data,
+                _errorcount = _Data.Header.Meta.ErrorWarning.GlobalErrorWarningList;
+
+            /* Validation Call */
+            CreditorMenuCtrl.ePage.Masters.Config.GeneralValidation($item);
+            if (CreditorMenuCtrl.ePage.Entities.Header.Validations) {
+                CreditorMenuCtrl.ePage.Masters.Config.RemoveApiErrors(CreditorMenuCtrl.ePage.Entities.Header.Validations, $item.label);
+            }
+
+            if (_errorcount.length == 0) {
+                Save($item);
+            } else {
+                CreditorMenuCtrl.ePage.Masters.Config.ShowErrorWarningModal(CreditorMenuCtrl.currentCreditor);
+            }
+        }
+        //#endregion
 
         //#region Save
         function Save($item) {

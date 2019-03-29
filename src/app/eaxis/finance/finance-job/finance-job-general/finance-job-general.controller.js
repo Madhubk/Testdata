@@ -10,12 +10,9 @@
         var FinanceJobGeneralCtrl = this;
 
         function Init() {
-            if (FinanceJobGeneralCtrl.currentFinanceJob.code) {
-                var currentFinanceJob = FinanceJobGeneralCtrl.currentFinanceJob[FinanceJobGeneralCtrl.currentFinanceJob.code].ePage.Entities;
-            } else if (FinanceJobGeneralCtrl.currentFinanceJob) {
-                var currentFinanceJob = financeConfig.Entities;
-            }
 
+            var currentFinanceJob = FinanceJobGeneralCtrl.currentFinanceJob[FinanceJobGeneralCtrl.currentFinanceJob.code].ePage.Entities;
+            
             FinanceJobGeneralCtrl.ePage = {
                 "Title": "",
                 "Prefix": "Finance_Job_General",
@@ -558,7 +555,7 @@
         }
         //#endregion
 
-        //#region ErrorWarning Alert
+        //#region ErrorWarning Alert Validation
         function OnChangeValues(fieldvalue, code, IsArray, RowIndex) {
             angular.forEach(FinanceJobGeneralCtrl.ePage.Masters.Config.ValidationValues, function (value, key) {
                 if (value.Code.trim() === code) {
@@ -595,7 +592,7 @@
             }
             return true;
         }
-        //#endregion Validation
+        //#endregion 
 
         Init();
     }

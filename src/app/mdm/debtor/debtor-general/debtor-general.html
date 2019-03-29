@@ -9,10 +9,21 @@
                             <i class="icomoon icon-organization-client"></i>
                         </span>
                         <label class="ml-5 control-label">Code</label>
+                        <span class="error-warning-container">
+                            <error-warning-directive data-ng-if="DebtorGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Code.IsWarning && !DebtorGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Code.IsError"
+                                list="DebtorGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Code.WARNING"
+                                type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref=""
+                                g-parent-ref="">
+                            </error-warning-directive>
+                            <error-warning-directive data-ng-if="DebtorGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Code.IsError"
+                                list="DebtorGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Code.ERROR"
+                                type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
+                            </error-warning-directive>
+                        </span>
                     </div>
                     <div class="col-xs-9 col-sm-9 col-md-8 col-lg-9 col-xl-9 height-40 p-5">
                         <div class="input-group input-group-sm">
-                            <input type="text" class="form-control input-sm" placeholder="Code" data-ng-model="DebtorGeneralCtrl.ePage.Masters.UIDebtor.Code" />
+                            <input type="text" class="form-control input-sm" placeholder="Code" data-ng-model="DebtorGeneralCtrl.ePage.Masters.UIDebtor.Code" data-ng-change='DebtorGeneralCtrl.ePage.Masters.OnChangeValues(DebtorGeneralCtrl.ePage.Masters.UIDebtor.Code,"E1205")'/>
                         </div>
                     </div>
                 </div>
@@ -27,14 +38,54 @@
                             <i class="icomoon icon-supplier"></i>
                         </span>
                         <label class="ml-5 control-label">Desc</label>
+                        <span class="error-warning-container">
+                            <error-warning-directive data-ng-if="DebtorGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Desc.IsWarning && !DebtorGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Desc.IsError"
+                                list="DebtorGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Desc.WARNING"
+                                type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref=""
+                                g-parent-ref="">
+                            </error-warning-directive>
+                            <error-warning-directive data-ng-if="DebtorGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Desc.IsError"
+                                list="DebtorGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Desc.ERROR"
+                                type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
+                            </error-warning-directive>
+                        </span>
                     </div>
                     <div class="col-xs-9 col-sm-9 col-md-8 col-lg-9 col-xl-9 height-40  p-5">
                         <div class="input-group input-group-sm">
-                            <input type="text" class="form-control" placeholder="Desc" data-ng-model="DebtorGeneralCtrl.ePage.Masters.UIDebtor.Desc" />  
+                            <input type="text" class="form-control" placeholder="Desc" data-ng-model="DebtorGeneralCtrl.ePage.Masters.UIDebtor.Desc" data-ng-change='DebtorGeneralCtrl.ePage.Masters.OnChangeValues(DebtorGeneralCtrl.ePage.Masters.UIDebtor.Desc,"E1206")'/>  
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
+<!-- Error Warning -->
+<div class="error-warning-container right" style="margin-top:0px !important" id="errorWarningContainer{{DebtorGeneralCtrl.currentDebtor.code}}">
+    <div class="error-warning-header clearfix">
+        <span class="title pull-left">
+            <!-- <i class="fa fa-warning"></i>  -->
+               Errors & Warnings
+        </span>
+        <span class="error-warning-toggle-icon pull-right" data-ng-click="DebtorGeneralCtrl.ePage.Masters.Config.ShowErrorWarningModal(DebtorGeneralCtrl.currentDebtor)">
+            <i class="fa fa-arrow-right"></i>
+        </span>
+    </div>
+    <div class="error-warning-body">
+        <div class="clearfix" data-ng-if="DebtorGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList.length>0">
+            <div class="clearfix">
+                <div class="p-5 error-warnig-list clearfix" data-ng-repeat="x in DebtorGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList">
+                    <div class="clearfix">
+                        <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 p-0 text-center">
+                            <span class=" fa fa-warning" data-ng-style="{color: {'W':'#FFAD33', 'E':'#ED4337'}[x.MessageType]}"></span>
+                        </div>
+                    <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11 pr-0">
+                        <div class="message" data-ng-bind="x.Code + ' - ' + x.Message"></div>
+                        <div class="meta-object" data-ng-bind="x.MetaObject"></div>
+                      </div>    
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> 
 </div>
