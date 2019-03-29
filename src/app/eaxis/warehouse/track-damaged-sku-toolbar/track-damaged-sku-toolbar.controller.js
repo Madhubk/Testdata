@@ -165,9 +165,9 @@
         }
 
         function UpdateData() {
-            CloseEditActivityModal();            
-            var Status = "";
-            if (DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList[0].ProductCondition == 'DMG') {
+            CloseEditActivityModal();
+            var Status = "";            
+            if (DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList[0].ProductCondition == 'DMG' || DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList[0].ProductCondition == 'Faulty') {
                 Status = "Damaged";
             } else {
                 Status = "Good";
@@ -187,10 +187,10 @@
                         apiService.get("eAxisAPI", appConfig.Entities.WmsPickupList.API.GetById.Url + DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList[0].PickupRequest_FK).then(function (response) {
                             if (response.data.Response) {
                                 DamagedSkuToolbarCtrl.ePage.Masters.PickupData = response.data.Response;
-                                angular.forEach(DamagedSkuToolbarCtrl.ePage.Masters.PickupData.UIWmsPickupLine, function (value, key) {
+                                angular.forEach(DamagedSkuToolbarCtrl.ePage.Masters.PickupData.UIWmsPickupLine, function (value, key) {                                    
                                     if (value.AdditionalRef1Code == DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList[0].PickupLineRefNo) {
                                         value.ProductCondition = DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList[0].ProductCondition;
-                                        value.UISPMSPickupReport.ProductCondition = DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList[0].ProductCondition;
+                                        value.UISPMSPickupReport.ProductCondition = DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList[0].ProductCondition == "GDC" ? "Good" : "Faulty";
                                     }
                                 });
                                 DamagedSkuToolbarCtrl.ePage.Masters.PickupData = filterObjectUpdate(DamagedSkuToolbarCtrl.ePage.Masters.PickupData, "IsModified");
@@ -221,8 +221,8 @@
                         apiService.post("eAxisAPI", appConfig.Entities.WmsPickupReport.API.FindAll.Url, _input).then(function (response) {
                             if (response.data.Response) {
                                 if (response.data.Response.length > 0) {
-                                    response.data.Response[0].IsModified = true;
-                                    response.data.Response[0].ProductCondition = DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList[0].ProductCondition;
+                                    response.data.Response[0].IsModified = true;                                    
+                                    response.data.Response[0].ProductCondition = DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList[0].ProductCondition == "GDC" ? "Good" : "Faulty";
                                     apiService.post("eAxisAPI", appConfig.Entities.WmsPickupReport.API.Update.Url, response.data.Response[0]).then(function (response) {
                                         if (response.data.Response) {
                                             console.log("Pickup Report Updated for " + response.data.Response.PickupLineRefNo);
@@ -667,7 +667,7 @@
                         }
                     });
 
-                    angular.forEach(DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList, function (value, key) {
+                    angular.forEach(DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList, function (value, key) {                        
                         var obj = {
                             "Parent_FK": value.PickupLine_FK,
                             "PK": "",
@@ -683,7 +683,7 @@
                             "Commodity": "",
                             "MCC_NKCommodityCode": "",
                             "MCC_NKCommodityDesc": "",
-                            "ProductCondition": value.ProductCondition,
+                            "ProductCondition": value.ProductCondition == "Good" ? "GDC" : "DMG",
                             "Packs": value.Packs,
                             "PAC_PackType": value.PackType,
                             "Units": value.Quantity,

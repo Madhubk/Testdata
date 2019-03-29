@@ -77,7 +77,7 @@
             if (PickupLineCtrl.ePage.Masters.selectedInwardRow >= 0) {
                 PickupLineCtrl.ePage.Masters.Loading = true;
                 apiService.get("eAxisAPI", appConfig.Entities.InwardList.API.GetById.Url + PickupLineCtrl.ePage.Masters.UnFinalizedOrders[PickupLineCtrl.ePage.Masters.selectedInwardRow].PK).then(function (response) {
-                    if (response.data.Response) {
+                    if (response.data.Response) {                        
                         angular.forEach(PickupLineCtrl.ePage.Masters.SelectedPickupLine, function (value, key) {
                             value.IL_PrdCode = value.PL_Req_PrdCode;
                             var obj = {

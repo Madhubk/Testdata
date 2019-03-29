@@ -237,9 +237,9 @@
             ActivityTemplateDelivery2Ctrl.ePage.Masters.IsDisableSaveBtn = true;
             ActivityTemplateDelivery2Ctrl.ePage.Masters.SaveBtnText = "Please Wait..";
             if (ActivityTemplateDelivery2Ctrl.taskObj.WSI_StepName == "Create Delivery Challan") {
-                if (callback) {
-                    ActivityTemplateDelivery2Ctrl.ePage.Masters.EntityObj.UIWmsDelivery.WorkOrderStatus = "DIP";
-                    angular.forEach(ActivityTemplateDelivery2Ctrl.ePage.Masters.EntityObj.UIWmsDeliveryLine, function (value, key) {
+                if (callback) {                    
+                    myTaskActivityConfig.Entities.Delivery[myTaskActivityConfig.Entities.Delivery.label].ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderStatus = "DIP";
+                    angular.forEach(myTaskActivityConfig.Entities.Delivery[myTaskActivityConfig.Entities.Delivery.label].ePage.Entities.Header.Data.UIWmsDeliveryLine, function (value, key) {
                         value.WorkOrderLineStatus = "DIP";
                         if (value.UISPMSDeliveryReport)
                             value.UISPMSDeliveryReport.DeliveryLineStatus = "Delivery In Progress";
@@ -247,16 +247,16 @@
                     myTaskActivityConfig.CallEntity = false;
                 }
             }
-            var _input = angular.copy(ActivityTemplateDelivery2Ctrl.ePage.Masters.EntityObj);
+            var _input = angular.copy(myTaskActivityConfig.Entities.Delivery[myTaskActivityConfig.Entities.Delivery.label].ePage.Entities.Header.Data);
             _input = filterObjectUpdate(_input, "IsModified");
             apiService.post("eAxisAPI", appConfig.Entities.WmsDeliveryList.API.Update.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     apiService.get("eAxisAPI", appConfig.Entities.WmsDeliveryList.API.GetById.Url + response.data.Response.UIWmsDelivery.PK).then(function (response) {
                         if (response.data.Response) {
-                            ActivityTemplateDelivery2Ctrl.ePage.Masters.EntityObj = response.data.Response;
+                            myTaskActivityConfig.Entities.Delivery[myTaskActivityConfig.Entities.Delivery.label].ePage.Entities.Header.Data = response.data.Response;
                             if (ActivityTemplateDelivery2Ctrl.taskObj.WSI_StepName == "Create Delivery Challan") {
                                 if (callback) {
-                                    angular.forEach(ActivityTemplateDelivery2Ctrl.ePage.Masters.EntityObj.UIvwWmsDeliveryList, function (value, key) {
+                                    angular.forEach(myTaskActivityConfig.Entities.Delivery[myTaskActivityConfig.Entities.Delivery.label].ePage.Entities.Header.Data.UIvwWmsDeliveryList, function (value, key) {
                                         var _filter = {
                                             "DeliveryLine_FK": value.DL_PK
                                         };
@@ -290,8 +290,8 @@
                                                     response.data.Response[0].DEL_OL_Product_Fk = value.OL_PrdPk;
                                                     response.data.Response[0].DEL_OL_ProductCode = value.OL_PrdCode;
                                                     response.data.Response[0].DEL_OL_ProductDesc = value.OL_PrdDesc;
-                                                    response.data.Response[0].StatusCode = ActivityTemplateDelivery2Ctrl.ePage.Masters.EntityObj.UIWmsDelivery.WorkOrderStatus;
-                                                    response.data.Response[0].StatusDesc = ActivityTemplateDelivery2Ctrl.ePage.Masters.EntityObj.UIWmsDelivery.WorkOrderStatusDesc;
+                                                    response.data.Response[0].StatusCode = myTaskActivityConfig.Entities.Delivery[myTaskActivityConfig.Entities.Delivery.label].ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderStatus;
+                                                    response.data.Response[0].StatusDesc = myTaskActivityConfig.Entities.Delivery[myTaskActivityConfig.Entities.Delivery.label].ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderStatusDesc;
 
                                                     apiService.post("eAxisAPI", appConfig.Entities.WmsDeliveryReport.API.Update.Url, response.data.Response[0]).then(function (response) {
                                                         if (response.data.Response) {
@@ -304,9 +304,9 @@
                                     });
                                 }
                             }
-                            ActivityTemplateDelivery2Ctrl.ePage.Entities.Header.Data = ActivityTemplateDelivery2Ctrl.ePage.Masters.EntityObj;
+                            ActivityTemplateDelivery2Ctrl.ePage.Entities.Header.Data = myTaskActivityConfig.Entities.Delivery[myTaskActivityConfig.Entities.Delivery.label].ePage.Entities.Header.Data;
                             ActivityTemplateDelivery2Ctrl.currentDelivery = {
-                                [ActivityTemplateDelivery2Ctrl.ePage.Masters.EntityObj.UIWmsDelivery.WorkOrderID]: {
+                                [myTaskActivityConfig.Entities.Delivery[myTaskActivityConfig.Entities.Delivery.label].ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderID]: {
                                     ePage: {
                                         Entities: {
                                             Header: {
@@ -315,8 +315,8 @@
                                         }
                                     }
                                 },
-                                label: ActivityTemplateDelivery2Ctrl.ePage.Masters.EntityObj.UIWmsDelivery.WorkOrderID,
-                                code: ActivityTemplateDelivery2Ctrl.ePage.Masters.EntityObj.UIWmsDelivery.WorkOrderID,
+                                label: myTaskActivityConfig.Entities.Delivery[myTaskActivityConfig.Entities.Delivery.label].ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderID,
+                                code: myTaskActivityConfig.Entities.Delivery[myTaskActivityConfig.Entities.Delivery.label].ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderID,
                                 isNew: false
                             };
 
