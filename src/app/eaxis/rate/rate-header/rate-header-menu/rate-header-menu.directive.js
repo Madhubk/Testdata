@@ -16,7 +16,7 @@
             controller: "RateHeaderMenuController",
             controllerAs: "RateHeaderMenuCtrl",
             scope: {
-                currentConsignment: "=",
+                currentRateHeader: "=",
                 dataentryObject:'='
             },
             bindToController: true

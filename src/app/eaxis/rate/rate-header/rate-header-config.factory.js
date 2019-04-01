@@ -36,8 +36,8 @@
                     }
                 }
             },
+
             "TabList": [],
-            // "ValidationValues": "",
             "GetTabDetails": GetTabDetails,
         };
         return exports;
@@ -51,6 +51,22 @@
                         "Validations": "",
                         "RowIndex": -1,
                         "API": {
+                            "InsertRateHeader": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "RateHeader/Insert"
+                            },
+                            "UpdateRateHeader": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "RateHeader/Update"
+                            },
+                            "OrgHeader": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "OrgHeader/FindAll",
+                                "FilterID": "ORGHEAD"
+                            },
                             "GetByID": {
                                 "IsAPI": "true",
                                 "HttpType": "GET",
@@ -73,6 +89,10 @@
                         "CheckPoints": {
                             "DisableSave": false,
                             "DisableAllocate": false,
+                            "ActiveMenu": 0,
+                            "ActiveSubMenu": -1,
+                            "IsDisableBtn": false,
+                            "IsLoadingToSave": false
                         },
                     },
                 }
@@ -80,14 +100,13 @@
             if (isNew) {
                 _exports.Entities.Header.Data = currentRateHeader.data;
                 _exports.Entities.Header.GetById = currentRateHeader.data;
-                _exports.Entities.Header.Validations = currentRateHeader.Validations;
 
                 var _obj = {
                     New: {
                         ePage: _exports
                     },
                     label: 'New',
-                    code: currentRateHeader.entity.RateRefNo,
+                    code: currentRateHeader.data.RateRefNo,
                     isNew: isNew
                 };
                 exports.TabList.push(_obj);

@@ -28,6 +28,14 @@
                 'app/eaxis/rate/rate-header/rate-header-menu/rate-header-menu.directive.js',
             ]
         },
+        {
+            name: 'rateHeaderGeneral',
+            files: [
+                'app/eaxis/rate/rate-header/rate-header-general/rate-header-general.css',
+                'app/eaxis/rate/rate-header/rate-header-general/rate-header-general.controller.js',
+                'app/eaxis/rate/rate-header/rate-header-general/rate-header-general.directive.js',
+            ]
+        },
 
         //#endregion
         ]

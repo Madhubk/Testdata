@@ -1,16 +1,8 @@
 <div class="grid-loading-norecord-container ng-scope" style='z-index: 15;' data-ng-if="RateHeaderMenuCtrl.ePage.Entities.Header.GlobalVariables.Loading"></div>
 
 <div class="clearfix wms-menu-wraper">
-    <!-- Non Editable
-    <div class="finalisedstate" ng-show="RateHeaderMenuCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
-        <span class="finaliseddatedescription">Consignment in
-            {{RateHeaderMenuCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.ConsignmentStatusDesc}} Status and
-            it cannot
-            be edited</span>
-    </div> -->
-
     <!--Menu directives-->
-    <!-- <div consignment-general current-consignment="RateHeaderMenuCtrl.currentRateHeader"></div> -->
+    <div rate-header-general current-rate-header="RateHeaderMenuCtrl.currentRateHeader"></div>
 <!-- 
     <div class="error-warning-container right" id="errorWarningContainer{{RateHeaderMenuCtrl.currentRateHeader.label}}">
         <div class="error-warning-header clearfix">
@@ -48,8 +40,8 @@
         </div>
         <div class="col-xs-6 col-sm-5 col-md-5 col-lg-3 col-xl-3">
             <span class="">
-                <button class="btn btn-primary btn-sm pull-right  margin-right-10 mt-6 mb-5" 
-                    ng-disabled="RateHeaderMenuCtrl.ePage.Masters.DisableSave" ng-bind="RateHeaderMenuCtrl.ePage.Masters.SaveButtonText"></button>
+                <!-- <button class="btn btn-primary btn-sm pull-right  margin-right-10 mt-6 mb-5" 
+                    ng-disabled="RateHeaderMenuCtrl.ePage.Masters.DisableSave" ng-bind="RateHeaderMenuCtrl.ePage.Masters.SaveButtonText" data-ng-click="RateHeaderMenuCtrl.ePage.Masters.Save(RateHeaderMenuCtrl.currentRateHeader)"></button> -->
                 <button class="btn btn-primary btn-sm pull-right  margin-right-10 mt-6 mb-5" data-ng-click="RateHeaderMenuCtrl.ePage.Masters.SaveClose(RateHeaderMenuCtrl.currentRateHeader)"
                     ng-disabled="RateHeaderMenuCtrl.ePage.Masters.DisableSave" ng-bind="RateHeaderMenuCtrl.ePage.Masters.SaveAndCloseButtonText"></button>
             </span>

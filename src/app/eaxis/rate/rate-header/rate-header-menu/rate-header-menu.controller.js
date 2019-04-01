@@ -55,7 +55,7 @@
                 _input = _Data.Header.Data;
 
             if ($item.isNew) {
-                _input.RthRateHeader.PK = _input.PK;
+                _input.PK = _input.PK;
             } else {
                 $item = filterObjectUpdate($item, "IsModified");
             }
@@ -76,7 +76,7 @@
                         return value[value.label].ePage.Entities.Header.Data.PK;
                     }).indexOf(RateHeaderMenuCtrl.currentRateHeader[RateHeaderMenuCtrl.currentRateHeader.label].ePage.Entities.Header.Data.PK);
                     if (_index !== -1) {
-                        if (RateHeaderMenuCtrl.currentRateHeader[RateHeaderMenuCtrl.currentRateHeader.label].ePage.Entities.Header.Data.RthRateHeader.IsCancel != true) {
+                        if (RateHeaderMenuCtrl.currentRateHeader[RateHeaderMenuCtrl.currentRateHeader.label].ePage.Entities.Header.Data.IsCancel != true) {
                             apiService.get("eAxisAPI", RateHeaderMenuCtrl.ePage.Entities.Header.API.GetByID.Url + RateHeaderMenuCtrl.currentRateHeader[RateHeaderMenuCtrl.currentRateHeader.label].ePage.Entities.Header.Data.PK).then(function (response) {
                                 if (response.data.Response) {
                                     RateHeaderMenuCtrl.ePage.Masters.Config.TabList[_index][RateHeaderMenuCtrl.ePage.Masters.Config.TabList[_index].label].ePage.Entities.Header.Data = response.data.Response;
@@ -84,8 +84,8 @@
                                     RateHeaderMenuCtrl.ePage.Masters.Config.TabList.map(function (value, key) {
                                         if (_index == key) {
                                             if (value.New) {
-                                                value.label = RateHeaderMenuCtrl.ePage.Entities.Header.Data.RthRateHeader.RateRefNo;
-                                                value[RateHeaderMenuCtrl.ePage.Entities.Header.Data.RthRateHeader.RateRefNo] = value.New;
+                                                value.label = RateHeaderMenuCtrl.ePage.Entities.Header.Data.RateRefNo;
+                                                value[RateHeaderMenuCtrl.ePage.Entities.Header.Data.RateRefNo] = value.New;
                                                 delete value.New;
                                             }
                                         }
