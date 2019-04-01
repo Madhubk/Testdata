@@ -25,7 +25,6 @@
 
             DeliveryMenuCtrl.ePage.Masters.DeliveryMenu = {};
             DeliveryMenuCtrl.ePage.Masters.MyTask = {};
-            // Menu list from configuration
 
             DeliveryMenuCtrl.ePage.Masters.SaveButtonText = "Save";
             DeliveryMenuCtrl.ePage.Masters.CancelButtonText = "Cancel Delivery";
@@ -53,7 +52,7 @@
                 DeliveryMenuCtrl.ePage.Masters.DisableSave = true;
             }
         }
-
+        // #region - cancal delivery
         function CancelDelivery($item) {
             DeliveryMenuCtrl.ePage.Masters.CancelButtonText = "Please Wait..";
             DeliveryMenuCtrl.ePage.Masters.DisableSave = true;
@@ -103,6 +102,7 @@
                                         DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderStatusDesc = "Cancelled";
                                         angular.forEach(DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDeliveryLine, function (value, key) {
                                             value.WorkOrderLineStatus = "CAN";
+                                            value.WorkOrderLineStatusDesc = "Cancelled";
                                             value.UISPMSDeliveryReport.DeliveryLineStatus = "Cancelled";
                                         });
                                         // check whether the task available for this entity or not
@@ -146,11 +146,8 @@
                 }
             });
         }
-
-        function OnMenuClick($item) {
-            DeliveryMenuCtrl.ePage.Masters.ActiveMenuTab = $item;
-        }
-
+        // #endregion        
+        // #region - saving delivery
         function Validation($item) {
             var _Data = $item[$item.label].ePage.Entities,
                 _input = _Data.Header.Data,
@@ -204,57 +201,63 @@
             }
 
             angular.forEach(_input.UIWmsDeliveryLine, function (value, key) {
-                value.UISPMSDeliveryReport.PK = value.UISPMSDeliveryReport.PK;
-                value.UISPMSDeliveryReport.Client_Fk = _input.UIWmsDelivery.ORG_Client_FK;
-                value.UISPMSDeliveryReport.ClientCode = _input.UIWmsDelivery.ClientCode;
-                value.UISPMSDeliveryReport.ClientName = _input.UIWmsDelivery.ClientName;
-                value.UISPMSDeliveryReport.Warehouse_Fk = _input.UIWmsDelivery.WAR_FK;
-                value.UISPMSDeliveryReport.WarehouseCode = _input.UIWmsDelivery.WarehouseCode;
-                value.UISPMSDeliveryReport.WarehouseName = _input.UIWmsDelivery.WarehouseName;
-                value.UISPMSDeliveryReport.Consignee_FK = _input.UIWmsDelivery.ORG_Consignee_FK;
-                value.UISPMSDeliveryReport.ConsigneeCode = _input.UIWmsDelivery.ConsigneeCode;
-                value.UISPMSDeliveryReport.ConsigneeName = _input.UIWmsDelivery.ConsigneeName;
-                value.UISPMSDeliveryReport.StatusCode = _input.UIWmsDelivery.WorkOrderStatus;
-                value.UISPMSDeliveryReport.StatusDesc = _input.UIWmsDelivery.WorkOrderStatusDesc;
-                value.UISPMSDeliveryReport.RequestMode = _input.UIWmsWorkorderReport.RequestMode;
-                value.UISPMSDeliveryReport.ResponseType = _input.UIWmsWorkorderReport.ResponseType;
-                value.UISPMSDeliveryReport.DropPoint = _input.UIWmsWorkorderReport.AdditionalRef1Code;
-                value.UISPMSDeliveryReport.RequesterName = _input.UIWmsWorkorderReport.Requester;
-                value.UISPMSDeliveryReport.AcknowledgedPerson = _input.UIWmsWorkorderReport.AcknowledgedPerson;
-                value.UISPMSDeliveryReport.CSRReceiver = _input.UIWmsWorkorderReport.AdditionalRef2Code;
-                value.UISPMSDeliveryReport.AcknowledgedDateTime = _input.UIWmsWorkorderReport.AcknowledgementDateTime
-                value.UISPMSDeliveryReport.RequestedDateTime = _input.UIWmsWorkorderReport.DeliveryRequestedDateTime;
-                value.UISPMSDeliveryReport.RequesterContactNumber = _input.UIWmsWorkorderReport.RequesterContactNo;
-                value.UISPMSDeliveryReport.DeliveryRequestNo = _input.UIWmsDelivery.WorkOrderID;
-                value.UISPMSDeliveryReport.DeliveryRequest_FK = _input.UIWmsDelivery.PK;
-                value.UISPMSDeliveryReport.CancelledDateTime = _input.UIWmsDelivery.CancelledDate;
-                value.UISPMSDeliveryReport.DeliveryLineRefNo = value.AdditionalRef1Code;
-                value.UISPMSDeliveryReport.PRO_FK = value.PRO_FK;
-                value.UISPMSDeliveryReport.ProductCode = value.ProductCode;
-                value.UISPMSDeliveryReport.ProductDescription = value.ProductDescription;
-                value.UISPMSDeliveryReport.Packs = value.Packs;
-                value.UISPMSDeliveryReport.PackType = value.PAC_PackType;
-                value.UISPMSDeliveryReport.Quantity = value.Units;
-                value.UISPMSDeliveryReport.UQ = value.StockKeepingUnit;
-                value.UISPMSDeliveryReport.ProductCondition = value.ProductCondition;
-                value.UISPMSDeliveryReport.UDF1 = value.PartAttrib1;
-                value.UISPMSDeliveryReport.UDF2 = value.PartAttrib2;
-                value.UISPMSDeliveryReport.UDF3 = value.PartAttrib3;
-                value.UISPMSDeliveryReport.PackingDate = value.PackingDate;
-                value.UISPMSDeliveryReport.ExpiryDate = value.ExpiryDate;
-                value.UISPMSDeliveryReport.DeliveryComments = value.LineComment;
-                value.UISPMSDeliveryReport.IsModified = value.IsModified;
-                value.UISPMSDeliveryReport.IsDeleted = value.IsDeleted;
-                value.UISPMSDeliveryReport.DeliveryLine_FK = value.PK;
-                value.UISPMSDeliveryReport.DeliveryLineStatus = value.WorkOrderLineStatusDesc;
-                value.UISPMSDeliveryReport.UsePartAttrib1 = value.UsePartAttrib1;
-                value.UISPMSDeliveryReport.UsePartAttrib2 = value.UsePartAttrib2;
-                value.UISPMSDeliveryReport.UsePartAttrib3 = value.UsePartAttrib3;
-                value.UISPMSDeliveryReport.IsPartAttrib1ReleaseCaptured = value.IsPartAttrib1ReleaseCaptured;
-                value.UISPMSDeliveryReport.IsPartAttrib2ReleaseCaptured = value.IsPartAttrib2ReleaseCaptured;
-                value.UISPMSDeliveryReport.IsPartAttrib3ReleaseCaptured = value.IsPartAttrib3ReleaseCaptured;
-                value.UISPMSDeliveryReport.UseExpiryDate = value.UseExpiryDate;
-                value.UISPMSDeliveryReport.UsePackingDate = value.UsePackingDate;
+                if (value.PK == "") {
+                    value.WorkOrderLineStatus = "ENT";
+                    value.WorkOrderLineStatusDesc = "Entered";
+                }
+                if (value.UISPMSDeliveryReport) {
+                    value.UISPMSDeliveryReport.PK = value.UISPMSDeliveryReport.PK;
+                    value.UISPMSDeliveryReport.Client_Fk = _input.UIWmsDelivery.ORG_Client_FK;
+                    value.UISPMSDeliveryReport.ClientCode = _input.UIWmsDelivery.ClientCode;
+                    value.UISPMSDeliveryReport.ClientName = _input.UIWmsDelivery.ClientName;
+                    value.UISPMSDeliveryReport.Warehouse_Fk = _input.UIWmsDelivery.WAR_FK;
+                    value.UISPMSDeliveryReport.WarehouseCode = _input.UIWmsDelivery.WarehouseCode;
+                    value.UISPMSDeliveryReport.WarehouseName = _input.UIWmsDelivery.WarehouseName;
+                    value.UISPMSDeliveryReport.Consignee_FK = _input.UIWmsDelivery.ORG_Consignee_FK;
+                    value.UISPMSDeliveryReport.ConsigneeCode = _input.UIWmsDelivery.ConsigneeCode;
+                    value.UISPMSDeliveryReport.ConsigneeName = _input.UIWmsDelivery.ConsigneeName;
+                    value.UISPMSDeliveryReport.StatusCode = _input.UIWmsDelivery.WorkOrderStatus;
+                    value.UISPMSDeliveryReport.StatusDesc = _input.UIWmsDelivery.WorkOrderStatusDesc;
+                    value.UISPMSDeliveryReport.RequestMode = _input.UIWmsWorkorderReport.RequestMode;
+                    value.UISPMSDeliveryReport.ResponseType = _input.UIWmsWorkorderReport.ResponseType;
+                    value.UISPMSDeliveryReport.DropPoint = _input.UIWmsWorkorderReport.AdditionalRef1Code;
+                    value.UISPMSDeliveryReport.RequesterName = _input.UIWmsWorkorderReport.Requester;
+                    value.UISPMSDeliveryReport.AcknowledgedPerson = _input.UIWmsWorkorderReport.AcknowledgedPerson;
+                    value.UISPMSDeliveryReport.CSRReceiver = _input.UIWmsWorkorderReport.AdditionalRef2Code;
+                    value.UISPMSDeliveryReport.AcknowledgedDateTime = _input.UIWmsWorkorderReport.AcknowledgementDateTime
+                    value.UISPMSDeliveryReport.RequestedDateTime = _input.UIWmsWorkorderReport.DeliveryRequestedDateTime;
+                    value.UISPMSDeliveryReport.RequesterContactNumber = _input.UIWmsWorkorderReport.RequesterContactNo;
+                    value.UISPMSDeliveryReport.DeliveryRequestNo = _input.UIWmsDelivery.WorkOrderID;
+                    value.UISPMSDeliveryReport.DeliveryRequest_FK = _input.UIWmsDelivery.PK;
+                    value.UISPMSDeliveryReport.CancelledDateTime = _input.UIWmsDelivery.CancelledDate;
+                    value.UISPMSDeliveryReport.DeliveryLineRefNo = value.AdditionalRef1Code;
+                    value.UISPMSDeliveryReport.PRO_FK = value.PRO_FK;
+                    value.UISPMSDeliveryReport.ProductCode = value.ProductCode;
+                    value.UISPMSDeliveryReport.ProductDescription = value.ProductDescription;
+                    value.UISPMSDeliveryReport.Packs = value.Packs;
+                    value.UISPMSDeliveryReport.PackType = value.PAC_PackType;
+                    value.UISPMSDeliveryReport.Quantity = value.Units;
+                    value.UISPMSDeliveryReport.UQ = value.StockKeepingUnit;
+                    value.UISPMSDeliveryReport.ProductCondition = "Good";
+                    value.UISPMSDeliveryReport.UDF1 = value.PartAttrib1;
+                    value.UISPMSDeliveryReport.UDF2 = value.PartAttrib2;
+                    value.UISPMSDeliveryReport.UDF3 = value.PartAttrib3;
+                    value.UISPMSDeliveryReport.PackingDate = value.PackingDate;
+                    value.UISPMSDeliveryReport.ExpiryDate = value.ExpiryDate;
+                    value.UISPMSDeliveryReport.DeliveryComments = value.LineComment;
+                    value.UISPMSDeliveryReport.IsModified = value.IsModified;
+                    value.UISPMSDeliveryReport.IsDeleted = value.IsDeleted;
+                    value.UISPMSDeliveryReport.DeliveryLine_FK = value.PK;
+                    value.UISPMSDeliveryReport.DeliveryLineStatus = value.WorkOrderLineStatusDesc;
+                    value.UISPMSDeliveryReport.UsePartAttrib1 = value.UsePartAttrib1;
+                    value.UISPMSDeliveryReport.UsePartAttrib2 = value.UsePartAttrib2;
+                    value.UISPMSDeliveryReport.UsePartAttrib3 = value.UsePartAttrib3;
+                    value.UISPMSDeliveryReport.IsPartAttrib1ReleaseCaptured = value.IsPartAttrib1ReleaseCaptured;
+                    value.UISPMSDeliveryReport.IsPartAttrib2ReleaseCaptured = value.IsPartAttrib2ReleaseCaptured;
+                    value.UISPMSDeliveryReport.IsPartAttrib3ReleaseCaptured = value.IsPartAttrib3ReleaseCaptured;
+                    value.UISPMSDeliveryReport.UseExpiryDate = value.UseExpiryDate;
+                    value.UISPMSDeliveryReport.UsePackingDate = value.UsePackingDate;
+                }
             });
 
             helperService.SaveEntity($item, 'Delivery').then(function (response) {
@@ -290,6 +293,7 @@
                                 DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDelivery.Client = DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ClientCode + ' - ' + DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ClientName;
                                 DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDelivery.Consignee = DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ConsigneeCode + ' - ' + DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ConsigneeName;
                                 if ($item.isNew) {
+                                    //    Sending Acknowledged SMS to Requester, client Contact and Warehouse Organization Contact
                                     var DeliveryTime;
                                     if (DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsWorkorderReport.ResponseType == "NR") {
                                         DeliveryTime = 8;
@@ -382,7 +386,8 @@
             }
             return obj;
         }
-
+        // #endregion
+        // #region - Get My task menu
         function GetMyTaskList(menuList, index) {
             var _DocumentConfig = {
                 IsDisableGenerate: true
@@ -519,7 +524,10 @@
                 });
             });
         }
-
+        function OnMenuClick($item) {
+            DeliveryMenuCtrl.ePage.Masters.ActiveMenuTab = $item;
+        }
+        // #endregion
         Init();
     }
 

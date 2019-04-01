@@ -280,11 +280,11 @@
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mb-10">
         <button class="btn btn-blue btn-sm pull-right ml-10" data-ng-click="CreateDelChallanCtrl.ePage.Masters.AddToOutward()"
-            data-ng-bind="CreateDelChallanCtrl.ePage.Masters.AddToOutwardText" data-ng-disabled="CreateDelChallanCtrl.ePage.Masters.IsDisabled"></button>
+            data-ng-bind="CreateDelChallanCtrl.ePage.Masters.AddToOutwardText" data-ng-disabled="CreateDelChallanCtrl.ePage.Masters.IsDisabled || CreateDelChallanCtrl.ePage.Masters.InventoryLoading"></button>
         <button class="btn btn-blue btn-sm pull-right ml-10" data-ng-click="CreateDelChallanCtrl.ePage.Masters.CreateOutward('OUT')"
-            data-ng-bind="CreateDelChallanCtrl.ePage.Masters.CreateOutwardText" data-ng-disabled="CreateDelChallanCtrl.ePage.Masters.IsDisabled"></button>
+            data-ng-bind="CreateDelChallanCtrl.ePage.Masters.CreateOutwardText" data-ng-disabled="CreateDelChallanCtrl.ePage.Masters.IsDisabled || CreateDelChallanCtrl.ePage.Masters.InventoryLoading"></button>
         <button class="btn btn-blue btn-sm pull-right" data-ng-click="CreateDelChallanCtrl.ePage.Masters.CreateOutward('MTR')"
-            data-ng-bind="CreateDelChallanCtrl.ePage.Masters.CreateMaterialTransferText" data-ng-disabled="CreateDelChallanCtrl.ePage.Masters.IsDisabled"></button>
+            data-ng-bind="CreateDelChallanCtrl.ePage.Masters.CreateMaterialTransferText" data-ng-disabled="CreateDelChallanCtrl.ePage.Masters.IsDisabled || CreateDelChallanCtrl.ePage.Masters.InventoryLoading"></button>
     </div>
     <div class="clearfix mt-10">
         <div id="InwardLineTable{{CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderID}}" class="fixedheader mb-0"

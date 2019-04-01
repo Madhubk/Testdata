@@ -244,7 +244,7 @@
                     }
                 });
             } else if (ActivityTemplateInwardCtrl.taskObj.WSI_StepName == "Confirm Pickup and Get Signature") {
-                if (callback) {                    
+                if (callback) {
                     $rootScope.FinalizeInwardFromTask(function (response) {
                         if (response == "error") {
                             ActivityTemplateInwardCtrl.ePage.Masters.IsDisableSaveBtn = false;
@@ -259,18 +259,14 @@
                                     response.data.Response.UIWmsInwardHeader.Supplier = response.data.Response.UIWmsInwardHeader.SupplierCode + " - " + response.data.Response.UIWmsInwardHeader.SupplierName;
                                     response.data.Response.UIWmsInwardHeader.TransferWarehouse = response.data.Response.UIWmsInwardHeader.TransferTo_WAR_Code + " - " + response.data.Response.UIWmsInwardHeader.TransferTo_WAR_Name;
                                     myTaskActivityConfig.Entities.Inward[myTaskActivityConfig.Entities.Inward.label].ePage.Entities.Header.Data = response.data.Response;
-                                    var count = 0;
-
-                                    angular.forEach(myTaskActivityConfig.Entities.Inward[myTaskActivityConfig.Entities.Inward.label].ePage.Entities.Header.Data.UIWmsWorkOrderLine, function (value, key) {
-                                        angular.forEach(myTaskActivityConfig.Entities.PickupData.UIWmsPickupLine, function (value1, key1) {
+                                    var count = 0;                                    
+                                    angular.forEach(myTaskActivityConfig.Entities.PickupData.UIWmsPickupLine, function (value1, key1) {
+                                        angular.forEach(myTaskActivityConfig.Entities.Inward[myTaskActivityConfig.Entities.Inward.label].ePage.Entities.Header.Data.UIWmsWorkOrderLine, function (value, key) {
                                             if (value.AdditionalRef1Code == value1.AdditionalRef1Code) {
                                                 if (value1.WAR_WarehouseCode == "BDL001") {
                                                     value1.WorkOrderLineStatus = "SCWS";
                                                 } else {
                                                     value1.WorkOrderLineStatus = "STO";
-                                                }
-                                                if (value1.WorkOrderLineStatus == "STO" || value1.WorkOrderLineStatus == "SCWS") {
-                                                    count = count + 1;
                                                 }
 
                                                 var _filter = {
@@ -283,7 +279,7 @@
 
                                                 apiService.post("eAxisAPI", appConfig.Entities.WmsPickupReport.API.FindAll.Url, _input).then(function (response) {
                                                     if (response.data.Response) {
-                                                        if (response.data.Response.length > 0) {                                                            
+                                                        if (response.data.Response.length > 0) {
                                                             response.data.Response[0].IsModified = true;
                                                             response.data.Response[0].PIL_FinalisedDate = myTaskActivityConfig.Entities.Inward[myTaskActivityConfig.Entities.Inward.label].ePage.Entities.Header.Data.UIWmsInwardHeader.FinalisedDate;
                                                             response.data.Response[0].PIL_Fk = value.PK;
@@ -312,6 +308,9 @@
 
                                             }
                                         });
+                                        if (value1.WorkOrderLineStatus == "STO" || value1.WorkOrderLineStatus == "SCWS") {
+                                            count = count + 1;
+                                        }
                                     });
                                     if (count == myTaskActivityConfig.Entities.PickupData.UIWmsPickupLine.length) {
                                         myTaskActivityConfig.Entities.PickupData.UIWmsPickup.WorkOrderStatus = "PICD";

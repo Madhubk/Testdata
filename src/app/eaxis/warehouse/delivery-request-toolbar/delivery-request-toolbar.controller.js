@@ -58,13 +58,14 @@
                 toastr.warning("Re-Delivery Request can be created when the Delivery Status is in Cancelled.");
             }
         }
-
+        // #region - Creating Re-Delivery
         function CreateDelivery() {
             if (DeliveryRequestToolbarCtrl.ePage.Masters.CancelledDeliveryCount > 0) {
                 var TempWarehouse = DeliveryRequestToolbarCtrl.ePage.Masters.CancelledDeliveryList[0].WarehouseCode;
                 var TempConsignee = DeliveryRequestToolbarCtrl.ePage.Masters.CancelledDeliveryList[0].ConsigneeCode;
                 var TempClient = DeliveryRequestToolbarCtrl.ePage.Masters.CancelledDeliveryList[0].ClientCode;
                 var count = 0;
+                // check whether the selected warehouse, client and consignee same or not
                 angular.forEach(DeliveryRequestToolbarCtrl.ePage.Masters.CancelledDeliveryList, function (value, key) {
                     if ((TempWarehouse == value.WarehouseCode) && (TempConsignee == value.ConsigneeCode) && (TempClient == value.ClientCode)) {
                         count = count + 1;
@@ -81,6 +82,7 @@
                             }
                         });
                     } else {
+                        // if the delivery header not available, get the address of warehouse and consignee from address findall
                         // get Consignee Job address
                         DeliveryRequestToolbarCtrl.ePage.Masters.DeliveryData = {};
                         DeliveryRequestToolbarCtrl.ePage.Masters.DeliveryData.UIJobAddress = [];
@@ -176,7 +178,7 @@
             }
         }
 
-        function ReadyToCreateReDelivery() {            
+        function ReadyToCreateReDelivery() {
             helperService.getFullObjectUsingGetById(appConfig.Entities.WmsDeliveryList.API.GetById.Url, 'null').then(function (response) {
                 if (response.data.Response.Response) {
                     response.data.Response.Response.UIWmsDelivery.PK = response.data.Response.Response.PK;
@@ -192,15 +194,14 @@
                     response.data.Response.Response.UIJobAddress = angular.copy(DeliveryRequestToolbarCtrl.ePage.Masters.DeliveryData.UIJobAddress);
                     angular.forEach(response.data.Response.Response.UIJobAddress, function (value, key) {
                         value.PK = "";
-                    });
-
+                    });                    
                     angular.forEach(DeliveryRequestToolbarCtrl.ePage.Masters.CancelledDeliveryList, function (value, key) {
                         var obj = {
                             "PK": "",
                             "WOL_Parent_FK": value.DeliveryLine_FK,
                             "ProductCode": value.ProductCode,
                             "ProductDescription": value.ProductDescription,
-                            "ProductCondition": value.ProductCondition,
+                            "ProductCondition": "GDC",
                             "PRO_FK": value.PRO_FK,
                             "MCC_NKCommodityCode": "",
                             "Packs": value.Packs,
@@ -230,6 +231,8 @@
                             "WAR_WarehouseCode": value.WarehouseCode,
                             "WAR_WarehouseName": value.WarehouseName,
                             "WAR_FK": value.Warehouse_Fk,
+                            "WorkOrderLineStatus": "ENT",
+                            "WorkOrderLineStatusDesc": "Entered"
                         };
 
                         obj.UISPMSDeliveryReport = {
@@ -288,7 +291,8 @@
                             "DeliveryComments": "",
                             "CancelledDateTime": "",
                             "IsModified": false,
-                            "IsDeleted": false
+                            "IsDeleted": false,
+                            "DeliveryLineStatus": "Entered"
                         }
                         response.data.Response.Response.UIWmsDeliveryLine.push(obj);
                     });
@@ -296,32 +300,15 @@
                         if (response.data.Response) {
                             DeliveryRequestToolbarCtrl.ePage.Masters.IsCreateDeliveryBtn = true;
                             DeliveryRequestToolbarCtrl.ePage.Masters.CreateDeliveryBtnText = "Create Re-Delivery";
-                            angular.forEach(DeliveryRequestToolbarCtrl.ePage.Masters.CancelledDeliveryList, function (value, key) {
+                            var DeliveryRequestFkCount = 0;
+                            angular.forEach(DeliveryRequestToolbarCtrl.ePage.Masters.CancelledDeliveryList, function (value, key) {                                
                                 if (value.DeliveryRequest_FK) {
-                                    apiService.get("eAxisAPI", appConfig.Entities.WmsDeliveryList.API.GetById.Url + value.DeliveryRequest_FK).then(function (response) {
-                                        if (response.data.Response) {
-                                            var count = 0;
-                                            angular.forEach(response.data.Response.UIWmsDeliveryLine, function (value1, key1) {
-                                                if (value1.PK == value.DeliveryLine_FK) {
-                                                    value1.WorkOrderLineStatus = "RDL";
-                                                    if (value1.UISPMSDeliveryReport)
-                                                        value1.UISPMSDeliveryReport.DeliveryLineStatus = "Re-Delivery Created";
-                                                }
-                                                if (value1.WorkOrderLineStatus == "RDL") {
-                                                    count = count + 1;
-                                                }
-                                            });
-                                            if (count == response.data.Response.UIWmsDeliveryLine.length) {
-                                                response.data.Response.UIWmsDelivery.WorkOrderStatus = "RDL";
-                                            }
-                                            response.data.Response = filterObjectUpdate(response.data.Response, "IsModified");
-                                            apiService.post("eAxisAPI", appConfig.Entities.WmsDeliveryList.API.Update.Url, response.data.Response).then(function (response) {
-                                                if (response.data.Response) {
-                                                }
-                                            });
-                                        }
-                                    });
-                                } else {                                    
+                                    DeliveryRequestFkCount = DeliveryRequestFkCount + 1;
+                                    if (DeliveryRequestFkCount == DeliveryRequestToolbarCtrl.ePage.Masters.CancelledDeliveryList.length) {
+                                        ChangeDeliveryLineStatus();
+                                    }
+                                } else {
+                                    DeliveryRequestFkCount = DeliveryRequestFkCount + 1;
                                     apiService.get("eAxisAPI", appConfig.Entities.WmsDeliveryReport.API.GetById.Url + value.PK).then(function (response) {
                                         if (response.data.Response) {
                                             // if (response.data.Response.length > 0) {
@@ -360,6 +347,38 @@
                 } else {
                     console.log("Empty New Delivery response");
                 }
+            });
+        }
+
+        function ChangeDeliveryLineStatus() {            
+            var TempDeliveryList = _.groupBy(DeliveryRequestToolbarCtrl.ePage.Masters.CancelledDeliveryList, 'DeliveryRequest_FK');
+            var TempDeliveryListCount = _.keys(TempDeliveryList).length;
+            angular.forEach(TempDeliveryList, function (value2, key2) {
+                apiService.get("eAxisAPI", appConfig.Entities.WmsDeliveryList.API.GetById.Url + key2).then(function (response) {
+                    if (response.data.Response) {
+                        var count = 0;                        
+                        angular.forEach(response.data.Response.UIWmsDeliveryLine, function (value1, key1) {
+                            angular.forEach(value2, function (value, key) {
+                                if (value1.PK == value.DeliveryLine_FK) {
+                                    value1.WorkOrderLineStatus = "RDL";
+                                    if (value1.UISPMSDeliveryReport)
+                                        value1.UISPMSDeliveryReport.DeliveryLineStatus = "Re-Delivery Created";
+                                }
+                            });
+                            if (value1.WorkOrderLineStatus == "RDL") {
+                                count = count + 1;
+                            }
+                        });
+                        if (count == response.data.Response.UIWmsDeliveryLine.length) {
+                            response.data.Response.UIWmsDelivery.WorkOrderStatus = "RDL";
+                        }
+                        response.data.Response = filterObjectUpdate(response.data.Response, "IsModified");
+                        apiService.post("eAxisAPI", appConfig.Entities.WmsDeliveryList.API.Update.Url, response.data.Response).then(function (response) {
+                            if (response.data.Response) {
+                            }
+                        });
+                    }
+                });
             });
         }
 

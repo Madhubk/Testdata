@@ -163,18 +163,18 @@
                                                             ActivityTemplateOutward2Ctrl.ePage.Masters.SaveBtnText = "Save";
 
                                                             var count = 0;
-                                                            if (ActivityTemplateOutward2Ctrl.taskObj.WSI_StepName == "Confirm Delivery" && callback) {
-                                                                angular.forEach(response.data.Response.UIWmsWorkOrderLine, function (value, key) {
-                                                                    angular.forEach(myTaskActivityConfig.Entities.DeliveryData.UIWmsDeliveryLine, function (value1, key1) {
+                                                            if (ActivityTemplateOutward2Ctrl.taskObj.WSI_StepName == "Confirm Delivery" && callback) {                                                                
+                                                                angular.forEach(myTaskActivityConfig.Entities.DeliveryData.UIWmsDeliveryLine, function (value1, key1) {
+                                                                    angular.forEach(response.data.Response.UIWmsWorkOrderLine, function (value, key) {
                                                                         if (value.AdditionalRef1Code == value1.AdditionalRef1Code) {
                                                                             value1.WorkOrderLineStatus = "DEL";
                                                                             if (value1.UISPMSDeliveryReport)
                                                                                 value1.UISPMSDeliveryReport.DeliveryLineStatus = "Delivered";
                                                                         }
-                                                                        if (value1.WorkOrderLineStatus == "DEL") {
-                                                                            count = count + 1;
-                                                                        }
                                                                     });
+                                                                    if (value1.WorkOrderLineStatus == "DEL") {
+                                                                        count = count + 1;
+                                                                    }
                                                                 });
                                                                 if (count == myTaskActivityConfig.Entities.DeliveryData.UIWmsDeliveryLine.length) {
                                                                     myTaskActivityConfig.Entities.DeliveryData.UIWmsDelivery.WorkOrderStatus = "DEL";

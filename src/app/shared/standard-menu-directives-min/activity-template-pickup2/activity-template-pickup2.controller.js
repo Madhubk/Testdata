@@ -203,15 +203,15 @@
                             };
 
                             apiService.post("eAxisAPI", appConfig.Entities.WmsPickupReport.API.FindAll.Url, _input).then(function (response) {
-                                if (response.data.Response) {
+                                if (response.data.Response) {                                
                                     if (response.data.Response.length > 0) {
                                         response.data.Response[0].IsModified = true;
                                         response.data.Response[0].AcknowledgedPerson = myTaskActivityConfig.Entities.Pickup[myTaskActivityConfig.Entities.Pickup.label].ePage.Entities.Header.Data.UIWmsWorkorderReport.AcknowledgedPerson;
                                         response.data.Response[0].CSRReceiver = myTaskActivityConfig.Entities.Pickup[myTaskActivityConfig.Entities.Pickup.label].ePage.Entities.Header.Data.UIWmsWorkorderReport.AdditionalRef2Code;
                                         response.data.Response[0].AcknowledgedDateTime = myTaskActivityConfig.Entities.Pickup[myTaskActivityConfig.Entities.Pickup.label].ePage.Entities.Header.Data.UIWmsWorkorderReport.AcknowledgementDateTime;
                                         response.data.Response[0].RequestedDateTime = myTaskActivityConfig.Entities.Pickup[myTaskActivityConfig.Entities.Pickup.label].ePage.Entities.Header.Data.UIWmsWorkorderReport.DeliveryRequestedDateTime;
-                                        response.data.Response[0].PickupProductStatus = value.ProductCondition;
-                                        response.data.Response[0].ProductCondition = value.ProductCondition;
+                                        response.data.Response[0].PickupProductStatus = value.ProductCondition == "GDC" ? "Good" : "Faulty";
+                                        response.data.Response[0].ProductCondition = value.ProductCondition == "GDC" ? "Good" : "Faulty";
                                         response.data.Response[0].RequestMode = myTaskActivityConfig.Entities.Pickup[myTaskActivityConfig.Entities.Pickup.label].ePage.Entities.Header.Data.UIWmsWorkorderReport.RequestMode;
                                         apiService.post("eAxisAPI", appConfig.Entities.WmsPickupReport.API.Update.Url, response.data.Response[0]).then(function (response) {
                                             if (response.data.Response) {

@@ -10,56 +10,58 @@
                     ng-options="x.WarehouseCode+'-'+x.WarehouseName for x in DynamicDashboardCtrl.ePage.Masters.WarehouseDetails"
                     ng-change="DynamicDashboardCtrl.ePage.Masters.WarehouseChanged()" search-contains="true"></select>
             </div>
-            <div class="col-lg-2">
-                <div class="pull-right dropdown">
-                    <span class="pull-right" data-toggle="dropdown" title="Customize Components">
-                        <i class="fa fa-bars icon pt-8 pb-8" style="border-right: 0px solid #ddd;"></i>
+            <div class="col-lg-2" style="padding-right:0px;">
+                <div class="pull-right dashboard-filter">
+                    <span class="pull-right filter-sidebar-setting" title="Customize Components" data-ng-click="DynamicDashboardCtrl.ePage.Masters.OnClickCustomizeButton()">
+                        <i class="fa fa-bars icon pt-8 pb-8" style="padding: 4px 10px;font-size: 16px;cursor: pointer;color: rgb(170, 170, 170);"></i>
                     </span>
-                    <div class="system-filter static-width dropdown-menu p-0" style="right:0; float:right;" role="menu">
-                        <form class="clearfix">
-                            <div class="clearfix m-5 mb-15">
-                                <input type="text" class="form-control input-sm input-search" placeholder="Search"
-                                    data-ng-model="DynamicDashboardCtrl.ePage.Masters.Search">
-                            </div>
-                            <div class="text-single-line p-15 text-center" data-ng-if="!DynamicDashboardCtrl.ePage.Masters.TempComponentList">
-                                <i class="fa fa-spin fa-spinner"></i>
-                            </div>
-                            <div class="text-single-line p-15 text-center" data-ng-if="DynamicDashboardCtrl.ePage.Masters.TempComponentList && (DynamicDashboardCtrl.ePage.Masters.TempComponentList | filter: DynamicDashboardCtrl.ePage.Masters.Search).length === 0">
-                                <i>No Records...!</i>
-                            </div>
-                            <div class="clearfix inner-section filter-set-height">
-                                <div class="text-single-line list user-list mb-10 mt-5" data-ng-repeat="x in  DynamicDashboardCtrl.ePage.Masters.TempComponentList | filter: DynamicDashboardCtrl.ePage.Masters.Search"
-                                    data-ng-if="DynamicDashboardCtrl.ePage.Masters.TempComponentList && (DynamicDashboardCtrl.ePage.Masters.TempComponentList | filter: DynamicDashboardCtrl.ePage.Masters.Search).length > 0">
-                                    <div class="col-sm-1 p-0 text-center">
-                                        <label class="mb-0 customcheckbox">
-                                            <input type="checkbox" ng-checked="x.IsShow" ng-change="x.IsShow?x.IsShow=true:x.IsShow=false"
-                                                ng-model="x.IsShow"> </input>
-                                            <span class="text"></span>
-                                        </label>
-                                    </div>
-                                    <div class="col-sm-6 p-0 mt-2">
-                                        <div data-ng-bind="x.ComponentName" class="text-single-line" title="{{x.ComponentName}}"></div>
-                                    </div>
-                                    <div class="col-sm-5 text-right mt-2">
-                                        <button class="btn  btn-xs" data-ng-disabled="!x.IsShow" style="width: 85px;"
-                                            data-ng-class="{'btn-success': x.SetAsDefault, 'btn-default': !x.SetAsDefault}"
-                                            data-ng-click="x.SetAsDefault?x.SetAsDefault=false:x.SetAsDefault=true"
-                                            data-ng-bind="x.SetAsDefault ? 'Default' : 'Set As Default'"></button>
-                                        <button class="btn  btn-xs" data-ng-disabled="!x.IsShow" style="width: 95px;"
-                                            data-ng-class="{'btn-success': x.IsLoadAsDefault, 'btn-default': !x.IsLoadAsDefault}"
-                                            data-ng-click="x.IsLoadAsDefault?x.IsLoadAsDefault=false:x.IsLoadAsDefault=true"
-                                            data-ng-bind="x.IsLoadAsDefault ? 'Loaded' : 'Load As Default'"></button>
-                                    </div>
+                    <div id="filterSideBar" class="dynamic-filter-sidebar-wrapper p-0" style="border: 1px solid #eee;top: 35px;z-index: 15;background-color: #fff;width: 500px;"
+                        role="menu">
+                        <!-- <form class="clearfix"> -->
+                        <div class="clearfix m-5 mb-15">
+                            <input type="text" class="form-control input-sm input-search" placeholder="Search"
+                                data-ng-model="DynamicDashboardCtrl.ePage.Masters.Search">
+                        </div>
+                        <div class="text-single-line p-15 text-center" data-ng-if="!DynamicDashboardCtrl.ePage.Masters.TempComponentList">
+                            <i class="fa fa-spin fa-spinner"></i>
+                        </div>
+                        <div class="text-single-line p-15 text-center" data-ng-if="DynamicDashboardCtrl.ePage.Masters.TempComponentList && (DynamicDashboardCtrl.ePage.Masters.TempComponentList | filter: DynamicDashboardCtrl.ePage.Masters.Search).length === 0">
+                            <i>No Records...!</i>
+                        </div>
+                        <div class="clearfix inner-section filter-set-height">
+                            <div class="text-single-line list user-list mb-10 mt-5" data-ng-repeat="x in  DynamicDashboardCtrl.ePage.Masters.TempComponentList | filter: DynamicDashboardCtrl.ePage.Masters.Search"
+                                data-ng-if="DynamicDashboardCtrl.ePage.Masters.TempComponentList && (DynamicDashboardCtrl.ePage.Masters.TempComponentList | filter: DynamicDashboardCtrl.ePage.Masters.Search).length > 0">
+                                <div class="col-sm-1 p-0 text-center">
+                                    <label class="mb-0 customcheckbox">
+                                        <input type="checkbox" ng-checked="x.IsShow" ng-change="x.IsShow?x.IsShow=true:x.IsShow=false"
+                                            ng-model="x.IsShow"> </input>
+                                        <span class="text"></span>
+                                    </label>
+                                </div>
+                                <div class="col-sm-5 p-0 mt-2">
+                                    <div data-ng-bind="x.ComponentName" class="text-single-line" title="{{x.ComponentName}}"></div>
+                                </div>
+                                <div class="col-sm-6 text-right mt-2">
+                                    <button class="btn  btn-xs" data-ng-disabled="!x.IsShow" style="width: 85px;"
+                                        data-ng-class="{'btn-success': x.SetAsDefault, 'btn-default': !x.SetAsDefault}"
+                                        data-ng-click="x.SetAsDefault?x.SetAsDefault=false:x.SetAsDefault=true"
+                                        data-ng-bind="x.SetAsDefault ? 'Default' : 'Set As Default'"></button>
+                                    <button class="btn  btn-xs" data-ng-disabled="!x.IsShow" style="width: 95px;"
+                                        data-ng-class="{'btn-success': x.IsLoadAsDefault, 'btn-default': !x.IsLoadAsDefault}"
+                                        data-ng-click="x.IsLoadAsDefault?x.IsLoadAsDefault=false:x.IsLoadAsDefault=true"
+                                        data-ng-bind="x.IsLoadAsDefault ? 'Loaded' : 'Load As Default'"></button>
                                 </div>
                             </div>
-                            <div class="footer clearfix p-5" style="background-color: #eee; border-top: 2px solid #ccc;">
-                                <div class="ml-10 save-as-filter dropup pull-left">
-                                    <button class="btn btn-sm btn-warning" data-ng-click="DynamicDashboardCtrl.ePage.Masters.OnClickSaveRoleButton()">
-                                        <span class="key">Save to Role</span>
-                                    </button>
-                                    <div class="save-as-filter p-0" id="">
+                        </div>
+                        <div class="footer clearfix p-5" style="background-color: #eee; border-top: 2px solid #ccc;">
+                            <div class="ml-10 save-as-filter dropup pull-left">
+                                <button class="btn btn-sm btn-warning" data-toggle="dropdown">
+                                    <span class="key">Save to Role</span>
+                                </button>
+                                <div class="save-as-filter dropdown-menu p-0">
+                                    <form>
                                         <div class="clearfix inner-section p-10" style="width: 318px;">
-                                            <div class="clearfix col-sm-12" data-ng-repeat="x in DynamicDashboardCtrl.ePage.Masters.RoleList">
+                                            <div class="clearfix col-sm-12 mb-5" data-ng-repeat="x in DynamicDashboardCtrl.ePage.Masters.RoleList">
                                                 <div class="col-sm-1 p-0 text-center">
                                                     <label class="mb-0 customcheckbox">
                                                         <input type="checkbox" ng-checked="x.SingleSelect" ng-change="DynamicDashboardCtrl.ePage.Masters.OnChangeSingleSelect()"
@@ -67,30 +69,24 @@
                                                         <span class="text"></span>
                                                     </label>
                                                 </div>
-                                                <div class="col-sm-8">
+                                                <div class="col-sm-8 mt-3 fs-13">
                                                     <div data-ng-bind="x.RoleDescription" class="text-single-line"
                                                         title="{{x.RoleDescription}}"></div>
                                                 </div>
                                             </div>
-                                            <div class="clearfix pt-15 border-top">
-                                                <div class="input-group input-group-sm">
-                                                    <!-- <input type="text" class="form-control input-sm" placeholder="Name"
-                                                        maxlength="35" data-ng-model="DynamicDashboardCtrl.ePage.Masters.SaveUserSetting.Input.Key"> -->
-                                                    <span class="input-group-btn">
-                                                        <input type="submit" class="btn btn-primary" type="button"
-                                                            data-ng-click="DynamicDashboardCtrl.ePage.Masters.Save()"
-                                                            value="{{DynamicDashboardCtrl.ePage.Masters.SaveSettingBtnText}}"
-                                                            data-ng-disabled="DynamicDashboardCtrl.ePage.Masters.IsDisableSaveSettingBtn">
-                                                    </span>
-                                                </div>
+                                            <div class="clearfix col-lg-12 pt-15 border-top">
+                                                <button class="btn btn-sm btn-primary" data-ng-click="DynamicDashboardCtrl.ePage.Masters.Save()"
+                                                    data-ng-disabled="DynamicDashboardCtrl.ePage.Masters.IsDisableSaveSettingBtn"
+                                                    data-ng-bind="DynamicDashboardCtrl.ePage.Masters.SaveSettingBtnText"></button>
                                             </div>
                                         </div>
-                                    </div>
+                                    </form>
                                 </div>
-                                <input type="submit" class="btn btn-sm btn-primary pull-right mr-15" data-ng-click="DynamicDashboardCtrl.ePage.Masters.Apply()"
-                                    value="{{DynamicDashboardCtrl.ePage.Masters.ApplyBtnText}}" data-ng-disabled="DynamicDashboardCtrl.ePage.Masters.IsApplyBtnDisable">
                             </div>
-                        </form>
+                            <input type="submit" class="btn btn-sm btn-primary pull-right mr-15" data-ng-click="DynamicDashboardCtrl.ePage.Masters.Apply()"
+                                value="{{DynamicDashboardCtrl.ePage.Masters.ApplyBtnText}}" data-ng-disabled="DynamicDashboardCtrl.ePage.Masters.IsApplyBtnDisable">
+                        </div>
+                        <!-- </form> -->
                     </div>
                 </div>
             </div>
