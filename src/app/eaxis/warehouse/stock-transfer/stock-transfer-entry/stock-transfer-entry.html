@@ -776,32 +776,44 @@
 
 
 <!--FIlter Bar  -->
-<div id="filterSideBar{{StocktransferEntryCtrl.ePage.Masters.DynamicControl.DataEntryName}}{{StocktransferEntryCtrl.currentStockTransfer.label}}"
-    data-ng-if="StocktransferEntryCtrl.ePage.Masters.DynamicControl" class="dynamic-filter-sidebar-wrapper  clearfix filter-text"
-    style="overflow-y: overlay" ng-style="{ 'top': StocktransferEntryCtrl.ePage.Entities.Header.TableProperties.UIWmsStockTransferLine.TableHeight.height + 325 + 'px','height':StocktransferEntryCtrl.ePage.Entities.Header.TableProperties.Inventory.TableHeight.height + 'px','z-index': 13 }"  
-    data-ng-class="StocktransferEntryCtrl.ePage.Masters.ViewType == 1 ? 'one-column' : 'two-column'">
-    <form name="filterSidebar" novalidate>
+
+<div id="filterSideBar{{StocktransferEntryCtrl.ePage.Masters.DynamicControl.DataEntryName}}{{StocktransferEntryCtrl.currentStockTransfer.label}}" 
+class="dynamic-filter-sidebar-wrapper" data-ng-class="StocktransferEntryCtrl.ePage.Masters.ViewType == 1 ? 'one-column' : 'two-column'"
+style="overflow-y: overlay" ng-style="{ 'top': StocktransferEntryCtrl.ePage.Entities.Header.TableProperties.UIWmsStockTransferLine.TableHeight.height + 325 + 'px','z-index': 13 }" >
+    <form class="clearfix" novalidate>
         <div class="header clearfix">
             <div class="title pull-left">
                 <i class="fa fa-filter"></i>
                 <span>Filter</span>
             </div>
+            
             <div class="btn-wrapper pull-right">
                 <ul class="clearfix">
                     <li>
-                        <button class="filter-title-btn" ng-click="StocktransferEntryCtrl.ePage.Masters.CloseFilterList()" >Close</button>
-                    </li>
-                    <li>
-                        <input type="submit" class="filter-title-btn" ng-click="StocktransferEntryCtrl.ePage.Masters.Filter();StocktransferEntryCtrl.ePage.Masters.CloseFilterList()" value="Apply">
+                        <span class="toggle-icon" title="Close" data-ng-click="StocktransferEntryCtrl.ePage.Masters.CloseFilterList()">
+                            <i class="fa fa-arrow-right"></i>
+                        </span>
                     </li>
                 </ul>
             </div>
-        </div>
-        <div class="filter-list clearfix">
-            <div class="clearfix" data-ng-if="StocktransferEntryCtrl.ePage.Masters.DynamicControl">
-                <dynamic-control input="StocktransferEntryCtrl.ePage.Masters.DynamicControl" mode="S" control-style="" default-filter="StocktransferEntryCtrl.ePage.Masters.defaultFilter"
-                    toggle="StocktransferEntryCtrl.ePage.Masters.IsDynamicControlAccess" view-type="StocktransferEntryCtrl.ePage.Masters.ViewType"></dynamic-control>
+
+            <div class="mt-2">
+                <input type="submit" class="btn btn-sm btn-primary pull-right mr-15" data-ng-click="StocktransferEntryCtrl.ePage.Masters.Filter();StocktransferEntryCtrl.ePage.Masters.CloseFilterList()"
+                value="Apply">
             </div>
+
+        </div>
+        <div class="control-list clearfix p-0">
+            <div class="clearfix filter-set-height" ng-style="{ 'height':StocktransferEntryCtrl.ePage.Entities.Header.TableProperties.Inventory.TableHeight.height - 23 +'px' }">
+                <dynamic-control  input="StocktransferEntryCtrl.ePage.Masters.DynamicControl"
+                    mode="S" control-style="" default-filter="StocktransferEntryCtrl.ePage.Masters.defaultFilter"
+                    view-type="StocktransferEntryCtrl.ePage.Masters.ViewType" base-filter-fields="StocktransferEntryCtrl.ePage.Masters.BaseFilterFields"
+                    data-ng-if="StocktransferEntryCtrl.ePage.Masters.DynamicControl"></dynamic-control>
+            </div>
+        </div>
+        <div class="footer clearfix p-5" style="background-color: #eee; border-top: 2px solid #ccc;">
+            <input type="submit" class="btn btn-sm btn-primary pull-right mr-15" data-ng-click="StocktransferEntryCtrl.ePage.Masters.Filter();StocktransferEntryCtrl.ePage.Masters.CloseFilterList()"
+                value="Apply">
         </div>
     </form>
 </div>
