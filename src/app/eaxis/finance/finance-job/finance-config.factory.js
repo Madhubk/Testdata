@@ -55,14 +55,14 @@
                             }
                         }
                     },
-                    "ExchangeRate": {
+                    "JobExchangeRate": {
                         "RowIndex": -1,
                         "API": {
                             "FindAll": {
                                 "IsAPI": "true",
                                 "HttpType": "Post",
-                                "Url": "MstExchangeRate/FindAll",
-                                "FilterID": "MSTEXCHR"
+                                "Url": "JobExchangeRates/FindAll",
+                                "FilterID": "JOBEXCH"
                             }
                         }
                     }
@@ -131,7 +131,32 @@
                             "IsDisablePost": true
                         },
                         "TableProperties": {
+                            "UIExchangeRate": {
+                                "TableHeight": {
+                                    "isEnabled": true,
+                                    "height": 240
+                                },
+                                "ercurrency": {
+                                    "width": "100"
+                                },
+                                "erbaserate": {
+                                    "width": "124"
+                                },
+                                "ertodaydate": {
+                                    "width": "125"
+                                },
+                                "erorgrole": {
+                                    "width": "125"
+                                },
+                                "erorganisation": {
+                                    "width": "125"
+                                }
+                            },
                             "UIJobCharge": {
+                                "TableHeight": {
+                                    "isEnabled": true,
+                                    "height": 300
+                                },
                                 "HeaderProperties": [{
                                     "columnname": "Checkbox",
                                     "isenabled": true,
@@ -372,23 +397,6 @@
                                     "isenabled": true,
                                     "position": '30',
                                     "width": "95"
-                                }
-                            },
-                            "UIExchangeRate": {
-                                "ercurrency": {
-                                    "width": "100"
-                                },
-                                "ercostrate": {
-                                    "width": "124"
-                                },
-                                "erratedate": {
-                                    "width": "125"
-                                },
-                                "ersellrate": {
-                                    "width": "125"
-                                },
-                                "ertodayrate": {
-                                    "width": "125"
                                 }
                             }
                         }

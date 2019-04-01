@@ -10,9 +10,8 @@
         var FinanceJobGeneralCtrl = this;
 
         function Init() {
-
             var currentFinanceJob = FinanceJobGeneralCtrl.currentFinanceJob[FinanceJobGeneralCtrl.currentFinanceJob.code].ePage.Entities;
-            
+
             FinanceJobGeneralCtrl.ePage = {
                 "Title": "",
                 "Prefix": "Finance_Job_General",
@@ -46,59 +45,54 @@
 
             FinanceJobGeneralCtrl.ePage.Masters.ExchangeRate = [{
                 Currency: "INR",
-                CostRate: 2500.50,
-                RateDate: "29/11/2018",
-                SallRate: 3000,
-                TodayRate: 71.28
+                BaseRate: 25.5500,
+                TodayRate: 58.3400,
+                OrgRole:"CRD",
+                Organisation : ""
             }, {
                 Currency: "USD",
-                CostRate: 3500.50,
-                RateDate: "18/11/2018",
-                SallRate: 4500,
-                TodayRate: 0.014
+                BaseRate: 35.5000,
+                TodayRate: 71.3400,
+                OrgRole:"DEB",
+                Organisation : ""
             }, {
                 Currency: "POUND",
-                CostRate: 2100.5000,
-                RateDate: "22/11/2018",
-                SallRate: 2500,
-                TodayRate: 90.88
+                BaseRate: 21.5000,
+                TodayRate: 63.3800,
+                OrgRole:"CRD",
+                Organisation : ""
             },
             {
                 Currency: "INR",
-                CostRate: 2500.50,
-                RateDate: "29/11/2018",
-                SallRate: 3000,
-                TodayRate: 71.28
-            }, {
-                Currency: "USD",
-                CostRate: 3500.50,
-                RateDate: "18/11/2018",
-                SallRate: 4500,
-                TodayRate: 0.014
-            }, {
-                Currency: "POUND",
-                CostRate: 2100.5000,
-                RateDate: "22/11/2018",
-                SallRate: 2500,
-                TodayRate: 90.88
-            }, {
+                BaseRate: 25.3400,
+                TodayRate: 71.3400,
+                OrgRole:"DEB",
+                Organisation : ""
+            },{
                 Currency: "INR",
-                CostRate: 2500.50,
-                RateDate: "29/11/2018",
-                SallRate: 3000,
-                TodayRate: 71.28
+                BaseRate: 25.5500,
+                TodayRate: 58.3400,
+                OrgRole:"CRD",
+                Organisation : ""
             }, {
                 Currency: "USD",
-                CostRate: 3500.50,
-                RateDate: "18/11/2018",
-                SallRate: 4500,
-                TodayRate: 0.014
+                BaseRate: 35.5000,
+                TodayRate: 71.3400,
+                OrgRole:"DEB",
+                Organisation : ""
             }, {
                 Currency: "POUND",
-                CostRate: 2100.5000,
-                RateDate: "22/11/2018",
-                SallRate: 2500,
-                TodayRate: 90.88
+                BaseRate: 21.5000,
+                TodayRate: 63.3800,
+                OrgRole:"CRD",
+                Organisation : ""
+            },
+            {
+                Currency: "INR",
+                BaseRate: 25.3400,
+                TodayRate: 71.3400,
+                OrgRole:"DEB",
+                Organisation : ""
             }];
 
             FinanceJobGeneralCtrl.ePage.Masters.DropDownMasterList = {};
@@ -150,13 +144,12 @@
             };
 
             GetMastersDropDownList();
-            GetExchageRateList();
             Cost();
             Revenue();
             ProfitAndLoss();
         }
 
-        //#region  DropDown 
+        //#region  DropDown List
         function GetMastersDropDownList() {
             var typeCodeList = ["FinanceStatus", "FinanceProfitLossReason"];
             var dynamicFindAllInput = [];
@@ -182,27 +175,6 @@
         }
         //#endregion
 
-        //#region Exchange Rate
-        function GetExchageRateList() {
-            var _input = {
-                "searchInput": [],
-                "FilterID": financeConfig.Entities.API.ExchangeRate.API.FindAll.FilterID
-            };
-            apiService.post("eAxisAPI", financeConfig.Entities.API.ExchangeRate.API.FindAll.Url, _input).then(function (response) {
-                if (response.data.Response) {
-
-                }
-            });
-
-            /* Add Scroll */
-            $timeout(function () {
-                var objDiv = document.getElementById("FinanceJobGeneralCtrl.ePage.Masters.AddScrollExRate");
-                objDiv.scrollTop = objDiv.scrollHeight;
-            }, 50);
-        }
-
-        //#endregion
-
         //#region SelectedLookupData
         function SelectedLookupData($index, $item, type) {
             if ($item) {
@@ -221,11 +193,7 @@
                 else if (type == 'ChargeCode') {
                     OnChangeValues($item.Code, 'E1191');
 
-                    if ($item.ChargeType == "MRG") {
-                        FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].ChargeType = $item.ChargeType;
-                    }
-                    else if ($item.ChargeType == "REV") {
-                        FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].ChargeType = $item.ChargeType;
+                    if ($item.ChargeType == "REV") {
                         FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].VendorCode = "";
                         FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].APInvoiceNum = "";
                         FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].APInvoiceDate = "";
@@ -244,8 +212,11 @@
                         Revenue();
                         ProfitAndLoss();
                     }
+                    FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].ChargeType = $item.ChargeType;
                     FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].CustomerCode = FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.LocalOrg_Code;
                     FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].ORG_SellAccount = FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.LocalOrg_FK;
+                    FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].RX_NKCostCurrency = FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.Currency;
+                    FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].RX_NKSellCurrency = FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.Currency;
                 }
                 else if (type == 'ServiceBranch') {
                     OnChangeValues($item.Code, 'E1305');
@@ -261,9 +232,17 @@
                 }
                 else if (type == 'CostCurrency') {
                     OnChangeValues($item.Code, 'E1307');
+
+                    if(FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.Currency != FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].RX_NKCostCurrency){
+                        GetExchageRateDetail();
+                    }
                 }
                 else if (type == 'RevenueCurrency') {
                     OnChangeValues($item.Code, 'E1193');
+
+                    if(FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.Currency != FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].RX_NKSellCurrency){
+                        GetExchageRateDetail();
+                    }
                 }
             }
         }
@@ -274,6 +253,20 @@
             $event.preventDefault();
             $event.stopPropagation();
             FinanceJobGeneralCtrl.ePage.Masters.DatePicker.isOpen[opened] = true;
+        }
+        //#endregion
+
+        //#region ExchangeRateTable
+        function GetExchageRateDetail() {
+            var _input = {
+                "searchInput": [],
+                "FilterID": financeConfig.Entities.API.JobExchangeRate.API.FindAll.FilterID
+            };
+            apiService.post("eAxisAPI", financeConfig.Entities.API.JobExchangeRate.API.FindAll.Url, _input).then(function (response) {
+                if (response.data.Response) {
+
+                }
+            });
         }
         //#endregion
 
