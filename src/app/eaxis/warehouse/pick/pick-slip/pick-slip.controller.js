@@ -84,6 +84,10 @@
 
         
         function UpdatePickedDate(item){
+            PickSlipCtrl.ePage.Entities.Header.Data.UIWmsPickLine.map(function(va){
+                if(va.PK == item.PK)
+                va.IsTouched = true;
+            });
             item.IsTouched = true;
             var ReleaseLine = PickSlipCtrl.ePage.Entities.Header.Data.UIWmsReleaseLine.some(function(value,key){
                 return value.WPL_FK == item.PK;
@@ -110,6 +114,10 @@
         }
 
         function UpdatePickedQty(item){
+            PickSlipCtrl.ePage.Entities.Header.Data.UIWmsPickLine.map(function(va){
+                if(va.PK == item.PK)
+                va.IsTouched = true;
+            });
             item.IsTouched = true;
             var ReleaseLine = PickSlipCtrl.ePage.Entities.Header.Data.UIWmsReleaseLine.some(function(value,key){
                 return value.WPL_FK == item.PK;
