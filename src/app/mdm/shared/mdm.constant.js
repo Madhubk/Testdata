@@ -786,6 +786,24 @@
                     'app/mdm/debtor/debtor-general/debtor-general.directive.js',
                     'app/mdm/debtor/debtor-general/debtor-general.controller.js'
                 ]
+            },{
+                name: 'currency',
+                files: [
+                    'app/mdm/currency/currency.config.factory.js',
+                    'app/mdm/currency/currency.controller.js'
+                ]
+            },{
+                name: 'currencyMenu',
+                files: [
+                    'app/mdm/currency/currency-menu/currency-menu-directive.js',
+                    'app/mdm/currency/currency-menu/currency-menu-controller.js'
+                ]
+            },{
+                name: 'currencyGeneral',
+                files: [
+                    'app/mdm/currency/currency-general/currency-general.directive.js',
+                    'app/mdm/currency/currency-general/currency-general.controller.js'
+                ]
             }
         ]
     };
