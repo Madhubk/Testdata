@@ -4,10 +4,10 @@
     angular.module("Application")
         .controller("CurrencyController", CurrencyController);
 
-        CurrencyController.$inject = ["apiService","helperService","currencyConfig","$timeout"]
+    CurrencyController.$inject = ["apiService", "helperService", "currencyConfig", "$timeout"]
 
-    function CurrencyController(apiService,helperService,currencyConfig,$timeout) {
-        debugger;
+    function CurrencyController(apiService, helperService, currencyConfig, $timeout) {
+
         var CurrencyCtrl = this;
 
         function Init() {
@@ -19,18 +19,18 @@
                 "Entities": currencyConfig.Entities
 
             };
-            debugger
+
             CurrencyCtrl.ePage.Masters.DataentryName = "CurrencyMaster";
             CurrencyCtrl.ePage.Masters.Title = "Currency Master";
             CurrencyCtrl.ePage.Masters.DefaultFilter = {
                 "IsValid": "true"
             };
-            
+
             // Function
             CurrencyCtrl.ePage.Masters.SelectedGridRow = SelectedGridRow;
             CurrencyCtrl.ePage.Masters.AddTab = AddTab;
             CurrencyCtrl.ePage.Masters.CurrentActiveTab = CurrentActiveTab;
-            CurrencyCtrl.ePage.Masters.RemoveTab = RemoveTab;            
+            CurrencyCtrl.ePage.Masters.RemoveTab = RemoveTab;
             CurrencyCtrl.ePage.Masters.CreateNewCurrency = CreateNewCurrency;
 
             /* Tab */
@@ -42,8 +42,8 @@
             CurrencyCtrl.ePage.Masters.Config = currencyConfig;
         }
 
-        function SelectedGridRow($item){
-            debugger;
+        function SelectedGridRow($item) {
+
             if ($item.action === "link" || $item.action === "dblClick") {
                 CurrencyCtrl.ePage.Masters.AddTab($item.data, false);
             } else if ($item.action === "new") {
@@ -57,7 +57,7 @@
 
             var _isExist = CurrencyCtrl.ePage.Masters.TabList.some(function (value) {
                 if (!isNew) {
-                    debugger;
+
                     if (value.label === currencyNew.entity.Code)
                         return true;
                     else
@@ -81,7 +81,6 @@
                 }
 
                 currencyConfig.GetTabDetails(_currencyNew, isNew).then(function (response) {
-                    debugger;
                     CurrencyCtrl.ePage.Masters.TabList = response;
                     console.log(CurrencyCtrl.ePage.Masters.TabList);
                     $timeout(function () {
@@ -95,7 +94,6 @@
             }
         }
         function CurrentActiveTab(currentTab) {
-            debugger;
             if (currentTab.label != undefined) {
                 currentTab = currentTab.label.entity;
             } else {
@@ -103,14 +101,14 @@
             }
             CurrencyCtrl.ePage.Masters.currencyNew = currentTab;
         }
-        
+
         function RemoveTab(event, index, currencyNew) {
             event.preventDefault();
             event.stopPropagation();
             var currencyNew = currencyNew[currencyNew.code].ePage.Entities;
             CurrencyCtrl.ePage.Masters.TabList.splice(index, 1);
 
-            apiService.get("eAxisAPI", CurrencyCtrl.ePage.Entities.Header.API.SessionClose.Url + currencyNew.Header.Data.PK).then(function(response){
+            apiService.get("eAxisAPI", CurrencyCtrl.ePage.Entities.Header.API.SessionClose.Url + currencyNew.Header.Data.PK).then(function (response) {
                 if (response.data.Response === "Success") {
                 } else {
                     console.log("Tab close Error : " + response);
@@ -119,7 +117,6 @@
         }
 
         function CreateNewCurrency() {
-            debugger;
             var _isExist = CurrencyCtrl.ePage.Masters.TabList.some(function (value) {
                 if (value.label === "New")
                     return true;
@@ -127,17 +124,15 @@
                     return false;
             });
 
-            if(!_isExist){
+            if (!_isExist) {
                 CurrencyCtrl.ePage.Entities.Header.Message = false;
                 CurrencyCtrl.ePage.Masters.isNewClicked = true;
                 helperService.getFullObjectUsingGetById(CurrencyCtrl.ePage.Entities.API.CurrencyMaster.API.GetById.Url, 'null').then(function (response) {
                     if (response.data.Response) {
-                        debugger;
                         var _obj = {
-                            
                             entity: response.data.Response,
                             data: response.data.Response,
-                           // Validations: response.data.Response.Validations
+                            // Validations: response.data.Response.Validations
                         };
                         CurrencyCtrl.ePage.Masters.AddTab(_obj, true);
                         CurrencyCtrl.ePage.Masters.isNewClicked = false;
@@ -145,16 +140,16 @@
                         console.log("Empty New Inward response");
                     }
                 });
-            }else{
+            } else {
                 toastr.info("New Record Already Opened...!");
             }
         }
 
-        function SaveandClose(index, currencyNew){
+        function SaveandClose(index, currencyNew) {
             var currencyNew = currencyNew[currencyNew.label].ePage.Entities;
-            CurrencyCtrl.ePage.Masters.TabList.splice(index-1, 1);
+            CurrencyCtrl.ePage.Masters.TabList.splice(index - 1, 1);
             CurrencyCtrl.ePage.Masters.Config.SaveAndClose = false;
-            apiService.get("eAxisAPI", CurrencyCtrl.ePage.Entities.Header.API.SessionClose.Url + currencyNew.Header.Data.PK).then(function(response){
+            apiService.get("eAxisAPI", CurrencyCtrl.ePage.Entities.Header.API.SessionClose.Url + currencyNew.Header.Data.PK).then(function (response) {
                 if (response.data.Response === "Success") {
                 } else {
                     console.log("Tab close Error : " + response);

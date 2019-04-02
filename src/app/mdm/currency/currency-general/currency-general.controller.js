@@ -4,7 +4,7 @@
     angular.module("Application")
         .controller("CurrencyGeneralController", CurrencyGeneralController);
 
-        CurrencyGeneralController.$inject = ["helperService", "currencyConfig"];
+    CurrencyGeneralController.$inject = ["helperService", "currencyConfig"];
 
     function CurrencyGeneralController(helperService, currencyConfig) {
 
@@ -24,7 +24,7 @@
 
             CurrencyGeneralCtrl.ePage.Masters.Config = currencyConfig;
             CurrencyGeneralCtrl.ePage.Masters.UICurrency = CurrencyGeneralCtrl.ePage.Entities.Header.Data;
-            CurrencyGeneralCtrl.ePage.Masters.UICurrency.Country_Code = CurrencyGeneralCtrl.ePage.Masters.UICurrency.Country_Code;
+            CurrencyGeneralCtrl.ePage.Masters.SelectedLookupData = SelectedLookupData;
             console.log(CurrencyGeneralCtrl.ePage.Masters.UICurrency);
 
             /* Function  */
@@ -39,6 +39,10 @@
                     GetErrorMessage(fieldvalue, value, IsArray, RowIndex)
                 }
             });
+        }
+
+        function SelectedLookupData($item) {
+
         }
 
         function GetErrorMessage(fieldvalue, value, IsArray, RowIndex) {

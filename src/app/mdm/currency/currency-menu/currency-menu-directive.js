@@ -6,8 +6,7 @@
 
         currencyMenu.$inject = [];
 
-    function currencyMenu() {
-        debugger;
+    function currencyMenu() {        
         var exports = {
             restrict: "EA",            
             templateUrl: "app/mdm/currency/currency-menu/currency-menu.html",

@@ -86,8 +86,7 @@
                 exports.TabList.push(_obj);
                 deferred.resolve(exports.TabList);
             }
-            else {
-                debugger;
+            else {                
                 helperService.getFullObjectUsingGetById(exports.Entities.API.CurrencyMaster.API.GetById.Url, currentCurrency.PK).then(function (response) {
                     if (response.data.Messages) {
                         response.data.Messages.map(function (value, key) {
