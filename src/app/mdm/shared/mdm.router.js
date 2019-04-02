@@ -464,6 +464,27 @@
                     }]
                 }
             })
+            // Currency Master by Rajesh
+            .state('MD.currency', {
+                url: '/currency',
+                templateUrl: 'app/mdm/currency/currency.html',
+                controller: "CurrencyController as CurrencyCtrl",
+                ncyBreadcrumb: {
+                    label: 'Currency'
+                },
+                resolve: {
+                    CheckAccess: ["$q", "pageAccessService", function ($q, pageAccessService) {
+                        var deferred = $q.defer();
+                        // if (pageAccessService.CheckAuthToken()) {
+                        deferred.resolve();
+                        //  }
+                        return deferred.promise;
+                    }],
+                    LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
+                        return $ocLazyLoad.load(["currency", "currencyMenu", "currencyGeneral", "dynamicLookup", "dynamicListModal", "dynamicList", "dynamicGrid", "dynamicControl", "compareDate", "customToolbar", "confirmation", "chromeTab", "errorWarning"]);
+                    }]
+                }
+            })
             .state('MD.creditor', {
                 url: '/creditor',
                 templateUrl: 'app/mdm/creditor/creditor.html',

@@ -37,7 +37,7 @@
             CreditorCtrl.ePage.Masters.AddTab = AddTab;
             CreditorCtrl.ePage.Masters.RemoveTab = RemoveTab;
             CreditorCtrl.ePage.Masters.CreateNewCreditor = CreateNewCreditor;
-            
+
             /* ErrorWarningConfig */
             CreditorCtrl.ePage.Masters.Config = creditorConfig;
             CreditorCtrl.ePage.Masters.ErrorWarningConfig = errorWarningService;

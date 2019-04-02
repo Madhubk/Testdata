@@ -5,9 +5,9 @@
         .module("Application")
         .controller("DMSConsignmentMenuController", DMSConsignmentMenuController);
 
-    DMSConsignmentMenuController.$inject = ["$scope", "$timeout", "APP_CONSTANT", "apiService", "dmsconsignmentConfig", "helperService", "appConfig", "authService", "$location", "$state", "toastr", "confirmation", "$uibModal","$filter"];
+    DMSConsignmentMenuController.$inject = ["$scope", "$timeout", "$uibModal", "APP_CONSTANT", "apiService", "dmsconsignmentConfig", "helperService", "appConfig", "authService", "$location", "$state", "toastr", "confirmation", "$filter"];
 
-    function DMSConsignmentMenuController($scope, $timeout, APP_CONSTANT, apiService, dmsconsignmentConfig, helperService, appConfig, authService, $location, $state, toastr, confirmation, $uibModal,$filter) {
+    function DMSConsignmentMenuController($scope, $timeout, $uibModal,  APP_CONSTANT, apiService, dmsconsignmentConfig, helperService, appConfig, authService, $location, $state, toastr, confirmation, $filter) {
 
         var DMSConsignmentMenuCtrl = this
 
@@ -35,6 +35,9 @@
             DMSConsignmentMenuCtrl.ePage.Masters.ConsignmentMenu.ListSource = DMSConsignmentMenuCtrl.ePage.Entities.Header.Meta.MenuList;
             DMSConsignmentMenuCtrl.ePage.Masters.OnChangeValues = OnChangeValues;
             DMSConsignmentMenuCtrl.ePage.Masters.IsActiveMenu = DMSConsignmentMenuCtrl.activeMenu;
+
+            DMSConsignmentMenuCtrl.ePage.Masters.JobAccounting = JobAccounting;
+
             Orgheader();
             if (DMSConsignmentMenuCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.Status == 'MAN' || DMSConsignmentMenuCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.Status == 'DEL' || DMSConsignmentMenuCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.Status == 'DSP') {
                 DMSConsignmentMenuCtrl.ePage.Entities.Header.GlobalVariables.NonEditable = true;
@@ -226,6 +229,57 @@
             return obj;
         }
         //#endregion
+
+       //#region  JobAccounting
+       function JobAccounting() {
+        if (DMSConsignmentMenuCtrl.ePage.Entities.Header.Data.UIJobHeader.length > 0) {
+            var obj = {
+                "AgentOrg_Code": DMSConsignmentMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].AgentOrg_Code,
+                "Agent_Org_FK": DMSConsignmentMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].Agent_Org_FK,
+                "GB": DMSConsignmentMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].GB,
+                "BranchCode": DMSConsignmentMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].BranchCode,
+                "BranchName": DMSConsignmentMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].BranchName,
+                "GC": DMSConsignmentMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].GC,
+                "CompanyCode": DMSConsignmentMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].CompanyCode,
+                "CompanyName": DMSConsignmentMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].CompanyName,
+                "GE": DMSConsignmentMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].GE,
+                "DeptCode": DMSConsignmentMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].DeptCode,
+                "DeptName": DMSConsignmentMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].DeptName,
+                "EntitySource": DMSConsignmentMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].EntitySource,
+                "JobNo": DMSConsignmentMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].JobNo,
+                "EntityRefKey": DMSConsignmentMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].EntityRefKey,
+                "HeaderType": DMSConsignmentMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].HeaderType,
+                "LocalOrg_Code": DMSConsignmentMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].LocalOrg_Code,
+                "LocalOrg_FK": DMSConsignmentMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].LocalOrg_FK
+            };
+        }
+
+        var modalInstance = $uibModal.open({
+            animation: true,
+            keyboard: false,
+            backdrop: "static",
+            windowClass: "Finance right",
+            scope: $scope,
+            size: "xl",
+            templateUrl: "app/eaxis/finance/finance-job/finance-job-list/finance-job-list.html",
+            controller: "FinanceJobListController",
+            controllerAs: "FinanceJobListCtrl",
+            bindToController: true,
+            resolve: {
+                CurrentFinanceJob: function () {
+                    return obj;
+                }
+            }
+        }).result.then(
+            function (response) {
+                console.log("Success");
+            },
+            function () {
+                console.log("Cancelled");
+            }
+        );
+    }
+    //#endregion 
 
         Init();
 

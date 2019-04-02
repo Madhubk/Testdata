@@ -5,9 +5,9 @@
         .module("Application")
         .controller("DMSManifestMenuController", DMSManifestMenuController);
 
-    DMSManifestMenuController.$inject = ["$scope", "$timeout", "APP_CONSTANT", "apiService", "dmsManifestConfig", "helperService", "appConfig", "authService", "$location", "$state", "toastr", "confirmation", "$compile", "$filter", "createmanifestConfig", "errorWarningService"];
+    DMSManifestMenuController.$inject = ["$scope", "$timeout", "$uibModal", "APP_CONSTANT", "apiService", "dmsManifestConfig", "helperService", "appConfig", "authService", "$location", "$state", "toastr", "confirmation", "$compile", "$filter", "createmanifestConfig", "errorWarningService"];
 
-    function DMSManifestMenuController($scope, $timeout, APP_CONSTANT, apiService, dmsManifestConfig, helperService, appConfig, authService, $location, $state, toastr, confirmation, $compile, $filter, createmanifestConfig, errorWarningService) {
+    function DMSManifestMenuController($scope, $timeout, $uibModal, APP_CONSTANT, apiService, dmsManifestConfig, helperService, appConfig, authService, $location, $state, toastr, confirmation, $compile, $filter, createmanifestConfig, errorWarningService) {
 
         var DMSManifestMenuCtrl = this
 
@@ -72,6 +72,7 @@
             DMSManifestMenuCtrl.ePage.Masters.GetPickupDeliveryDetails = GetPickupDeliveryDetails;
             DMSManifestMenuCtrl.ePage.Masters.OnToggleFilterClick = OnToggleFilterClick;
             DMSManifestMenuCtrl.ePage.Masters.ChangeManifestValues = ChangeManifestValues;
+            DMSManifestMenuCtrl.ePage.Masters.JobAccounting = JobAccounting;
 
             if ($state.current.url == "/manifest-list") {
                 DMSManifestMenuCtrl.ePage.Masters.Config = dmsManifestConfig;
@@ -758,8 +759,8 @@
         function GetDesign(value, mainIndex, menuType, subIndex) {
             // display menu and menu pages
             // changing menu color
-            DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.ActiveSubMenu = -1;            
-            
+            DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.ActiveSubMenu = -1;
+
             if (!DMSManifestMenuCtrl.currentManifest.isNew) {
                 if (menuType == "MainMenu") {
                     var count = 0, count1 = 0, count2 = 0, count3 = 0, count4 = 0, count5 = 0, count6 = 0;
@@ -1140,6 +1141,57 @@
                 }
             }
         }
+
+        //#region  JobAccounting
+        function JobAccounting() {
+            if (DMSManifestMenuCtrl.ePage.Entities.Header.Data.UIJobHeader.length > 0) {
+                var obj = {
+                    "AgentOrg_Code": DMSManifestMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].AgentOrg_Code,
+                    "Agent_Org_FK": DMSManifestMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].Agent_Org_FK,
+                    "GB": DMSManifestMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].GB,
+                    "BranchCode": DMSManifestMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].BranchCode,
+                    "BranchName": DMSManifestMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].BranchName,
+                    "GC": DMSManifestMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].GC,
+                    "CompanyCode": DMSManifestMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].CompanyCode,
+                    "CompanyName": DMSManifestMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].CompanyName,
+                    "GE": DMSManifestMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].GE,
+                    "DeptCode": DMSManifestMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].DeptCode,
+                    "DeptName": DMSManifestMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].DeptName,
+                    "EntitySource": DMSManifestMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].EntitySource,
+                    "JobNo": DMSManifestMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].JobNo,
+                    "EntityRefKey": DMSManifestMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].EntityRefKey,
+                    "HeaderType": DMSManifestMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].HeaderType,
+                    "LocalOrg_Code": DMSManifestMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].LocalOrg_Code,
+                    "LocalOrg_FK": DMSManifestMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].LocalOrg_FK
+                };
+            }
+
+            var modalInstance = $uibModal.open({
+                animation: true,
+                keyboard: false,
+                backdrop: "static",
+                windowClass: "Finance right",
+                scope: $scope,
+                size: "xl",
+                templateUrl: "app/eaxis/finance/finance-job/finance-job-list/finance-job-list.html",
+                controller: "FinanceJobListController",
+                controllerAs: "FinanceJobListCtrl",
+                bindToController: true,
+                resolve: {
+                    CurrentFinanceJob: function () {
+                        return obj;
+                    }
+                }
+            }).result.then(
+                function (response) {
+                    console.log("Success");
+                },
+                function () {
+                    console.log("Cancelled");
+                }
+            );
+        }
+        //#endregion 
 
         Init();
     }

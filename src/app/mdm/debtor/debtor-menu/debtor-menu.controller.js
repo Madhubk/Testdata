@@ -4,9 +4,9 @@
     angular.module("Application")
         .controller("DebtorMenuController", DebtorMenuController);
 
-    DebtorMenuController.$inject = ["helperService", "toastr", "authService", "debtorConfig"];
+    DebtorMenuController.$inject = ["helperService", "toastr", "authService", "debtorConfig", "apiService"];
 
-    function DebtorMenuController(helperService, toastr, authService, debtorConfig) {
+    function DebtorMenuController(helperService, toastr, authService, debtorConfig, apiService) {
 
         var DebtorMenuCtrl = this;
 
@@ -43,7 +43,32 @@
             }
 
             if (_errorcount.length == 0) {
-                Save($item);
+                var _filter = {};
+                var _inputField = {
+                    "searchInput": helperService.createToArrayOfObject(_filter),
+                    "FilterID": debtorConfig.Entities.API.DebtorGroup.API.FindAll.FilterID
+                };
+
+                apiService.post("eAxisAPI", debtorConfig.Entities.API.DebtorGroup.API.FindAll.Url, _inputField).then(function (response) {
+                    if (response.data.Response) {
+                        DebtorMenuCtrl.ePage.Masters.UIDebtorList = response.data.Response;
+                    }
+
+                    var _count = DebtorMenuCtrl.ePage.Masters.UIDebtorList.some(function (value, key) {
+                        if (value.Code == _input.Code) {
+                            return true;
+                        }
+                        else {
+                            return false;
+                        }
+                    });
+
+                    if (_count) {
+                        toastr.error("Code is Unique, Rename the Code!.");
+                    } else {
+                        Save($item);
+                    }
+                });
             } else {
                 DebtorMenuCtrl.ePage.Masters.Config.ShowErrorWarningModal(DebtorMenuCtrl.currentDebtor);
             }

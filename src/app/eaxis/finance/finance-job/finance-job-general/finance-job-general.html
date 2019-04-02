@@ -143,17 +143,24 @@
                     <label class="control-label">Company</label>
                     <div class="input-group input-group-sm">
                     <!-- Dynamic look up Search in textbox -->
-                    <div dynamic-lookup placeholder="Company" my-ng-model="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.CompanyCode"
+                    <div dynamic-lookup placeholder="Company" my-ng-model="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.CmpCode"
                          obj="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader" page-name="'CmpCompany'" control-id="'FinanceCompany'" control-key="FinanceCompany_5555" 
                          auto-complete-on-select="FinanceJobGeneralCtrl.ePage.Masters.SelectedLookupData($index, $item,'Company')">
                     </div>
                     <!-- Look Up page opens when button clicks -->
                     <span class="input-group-btn">
                         <button dynamic-list-modal class="btn btn-default" type="button" obj="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader" 
-                                page-name="'CmpCompany'" control-id="'FinanceCompany'" control-key="FinanceCompany_5555" auto-complete-on-select="FinanceJobGeneralCtrl.ePage.Masters.SelectedLookupData($index, $item.data.entity,'Company')"><i class="fa fa-ellipsis-h"></i>
+                                page-name="'CmpCompany'" control-id="'FinanceCompany'" control-key="FinanceCompany_5555" mode="2" grid-refresh-fun-name="" grid-refresh-fun="" auto-complete-on-select="FinanceJobGeneralCtrl.ePage.Masters.SelectedLookupData($index, $item.data.entity,'Company')"><i class="fa fa-ellipsis-h"></i>
                     </button>
                     </span>
                     </div>
+                </div>
+            </div>
+            <!--Currency-->
+            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                <div class="form-group">
+                   <label class="control-label">Currency</label>
+                   <input type="text" class="form-control" placeholder="Currency" data-ng-model="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.Currency" data-ng-disabled="true" />
                 </div>
             </div>
             <!--Branch-->
@@ -314,15 +321,15 @@
        </div>
        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 exchange-table">
            <label class="control-label">Exchange Rate</label>
-           <div class="fixedheader mt-3 ml-0 mr-0">
-                <table id="FinanceJobGeneralCtrl.ePage.Masters.AddScrollExRate" style="height: 225px;">
+           <div class="fixedheader mt-3 ml-0 mr-0" id="ExchangeRateTable{{FinanceJobGeneralCtrl.currentFinanceJob.label}}" unique-id='ExchangeRateTable{{FinanceJobGeneralCtrl.currentFinanceJob.label}}' key-events>
+                <table data-ng-style="{'height': FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIExchangeRate.TableHeight.height + 'px' }">
                     <thead>
                         <tr id="tableHeader">
-                            <th class='header charge' data-ng-style="{ 'width': FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIExchangeRate.ercurrency.width + 'px' }">Currency</th>
-                            <th class='header charge' data-ng-style="{ 'width': FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIExchangeRate.ercostrate.width + 'px' }">Cost Ex.Rate</th>
-                            <th class='header charge' data-ng-style="{ 'width': FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIExchangeRate.erratedate.width + 'px' }">Rate Date</th>
-                            <th class='header charge' data-ng-style="{ 'width': FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIExchangeRate.ersellrate.width + 'px' }">Sall Ex.Rate</th>
-                            <th class='header charge' data-ng-style="{ 'width': FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIExchangeRate.ertodayrate.width + 'px' }">Today Rate</th>
+                            <th data-ng-style="{ 'width': FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIExchangeRate.ercurrency.width + 'px' }">Currency</th>
+                            <th data-ng-style="{ 'width': FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIExchangeRate.erbaserate.width + 'px' }">Base Rate</th>
+                            <th data-ng-style="{ 'width': FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIExchangeRate.ertodaydate.width + 'px' }">Today's Rate</th>
+                            <th data-ng-style="{ 'width': FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIExchangeRate.erorgrole.width + 'px' }">Org.Role</th>
+                            <th data-ng-style="{ 'width': FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIExchangeRate.erorganisation.width + 'px' }">Organisation</th>
                         </tr> 
                     </thead>
                     <tbody>
@@ -332,24 +339,24 @@
                                     <a style="text-decoration:none;cursor:pointer">{{x.Currency}}</a>
                                 </div>
                             </td>
-                            <td data-ng-style="{ 'width': FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIExchangeRate.ercostrate.width + 'px' }">
+                            <td data-ng-style="{ 'width': FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIExchangeRate.erbaserate.width + 'px' }">
                                  <div class="overflow-text">
-                                    <div>{{x.CostRate | number:4}}</div>
+                                    <div>{{x.BaseRate | number:4}}</div>
                                  </div>
                             </td>
-                            <td data-ng-style="{ 'width': FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIExchangeRate.erratedate.width + 'px' }">
+                            <td data-ng-style="{ 'width': FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIExchangeRate.ertodaydate.width + 'px' }">
                                  <div class="overflow-text">
-                                    <div> {{x.RateDate}}</div>
+                                    <div> {{x.TodayRate}}</div>
                                 </div>
                             </td>
-                            <td data-ng-style="{ 'width': FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIExchangeRate.ersellrate.width + 'px' }">
+                            <td data-ng-style="{ 'width': FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIExchangeRate.erorgrole.width + 'px' }">
                                 <div class="overflow-text">
-                                    <div>{{x.SallRate | number:4}}</div>
+                                    <div>{{x.OrgRole | number:4}}</div>
                                 </div>
                             </td>
-                            <td data-ng-style="{ 'width': FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIExchangeRate.ertodayrate.width + 'px' }">
+                            <td data-ng-style="{ 'width': FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIExchangeRate.erorganisation.width + 'px' }">
                                 <div class="overflow-text">
-                                    <div>{{ x.TodayRate | number:4}}</div>
+                                    <div>{{ x.Organisation | number:4}}</div>
                                 </div>
                             </td>
                         </tr>
@@ -383,9 +390,9 @@
                         <span class="fa fa-trash"></span>&nbsp;&nbsp;Delete</button>
                 </span>
             </div>
-            <div class="fixedheader mt-3 ml-0 mr-0" key-events table-object="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge" enable='FinanceJobGeneralCtrl.ePage.Masters.Enable'
-                selected-row="FinanceJobGeneralCtrl.ePage.Masters.selectedRow" unique-id='{{FinanceJobGeneralCtrl.currentFinanceJob.JobNo}}'>
-                <table id="FinanceJobGeneralCtrl.ePage.Masters.AddScroll" style="height: 300px">
+            <div id="JobChargeTable{{FinanceJobGeneralCtrl.currentFinanceJob.label}}" class="fixedheader mt-3 ml-0 mr-0" key-events table-object="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge" enable='FinanceJobGeneralCtrl.ePage.Masters.Enable'
+                selected-row="FinanceJobGeneralCtrl.ePage.Masters.selectedRow" unique-id='JobChargeTable{{FinanceJobGeneralCtrl.currentFinanceJob.label}}'>
+                <table id="FinanceJobGeneralCtrl.ePage.Masters.AddScroll" data-ng-style="{'height': FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.TableHeight.height + 'px' }">
                     <thead>
                         <tr id="tableHeader">
                             <th data-ng-if="FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.ccheckbox.isenabled"
@@ -396,71 +403,71 @@
                                     <span class="text"></span>
                                 </label>
                             </th>
-                            <th class='header charge' data-ng-if="FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.csno.isenabled"
+                            <th data-ng-if="FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.csno.isenabled"
                                 data-ng-style="{ 'width': FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.csno.width + 'px' }">S.No</th>
-                            <th class='header charge' data-ng-if="FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.cchargecode.isenabled"
+                            <th data-ng-if="FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.cchargecode.isenabled"
                                 data-ng-style="{'width': FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.cchargecode.width + 'px' }">Charge Code</th>
-                            <th class='header charge' data-ng-if="FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.cdescription.isenabled"
+                            <th data-ng-if="FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.cdescription.isenabled"
                                 data-ng-style="{'width': FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.cdescription.width + 'px' }">Description</th>
-                            <th class='header charge' data-ng-if="FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.cjobno.isenabled"
+                            <th data-ng-if="FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.cjobno.isenabled"
                                 data-ng-style="{'width': FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.cjobno.width + 'px' }">Job No</th>
-                            <th class='header charge' data-ng-if="FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.cbranch.isenabled"
+                            <th data-ng-if="FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.cbranch.isenabled"
                                 data-ng-style="{'width': FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.cbranch.width + 'px' }">Branch</th>
-                            <th class='header charge' data-ng-if="FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.cdept.isenabled"
+                            <th data-ng-if="FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.cdept.isenabled"
                                 data-ng-style="{'width': FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.cdept.width + 'px' }">Dept</th>
-                            <th class='header cost' data-ng-if="FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.ccreditor.isenabled"
+                            <th data-ng-if="FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.ccreditor.isenabled"
                                 data-ng-style="{'width': FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.ccreditor.width + 'px' }">Creditor</th>
-                            <th class='header cost' data-ng-if="FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.ccostinvno.isenabled"
+                            <th data-ng-if="FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.ccostinvno.isenabled"
                                 data-ng-style="{'width': FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.ccostinvno.width + 'px' }">Inv.No</th>
-                            <th class='header cost' data-ng-if="FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.ccostinvdate.isenabled"
+                            <th data-ng-if="FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.ccostinvdate.isenabled"
                                 data-ng-style="{'width': FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.ccostinvdate.width + 'px' }">Inv.Date</th>
-                            <th class='header cost' data-ng-if="FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.ccostpost.isenabled"
+                            <th data-ng-if="FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.ccostpost.isenabled"
                                 data-ng-style="{'width': FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.ccostpost.width + 'px' }">Post</th>
-                            <th class='header cost' data-ng-if="FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.ccostsysref.isenabled"
+                            <th data-ng-if="FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.ccostsysref.isenabled"
                                 data-ng-style="{'width': FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.ccostsysref.width + 'px' }">Sys Ref</th>
-                            <th class='header cost' data-ng-if="FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.ccostcurrency.isenabled"
+                            <th data-ng-if="FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.ccostcurrency.isenabled"
                                 data-ng-style="{'width': FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.ccostcurrency.width + 'px' }">Currency</th>
-                            <th class='header cost' data-ng-if="FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.cestcost.isenabled"
+                            <th data-ng-if="FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.cestcost.isenabled"
                                 data-ng-style="{'width': FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.cestcost.width + 'px' }">Est.Cost</th>
-                            <th class='header cost' data-ng-if="FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.cactcost.isenabled"
+                            <th data-ng-if="FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.cactcost.isenabled"
                                 data-ng-style="{'width': FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.cactcost.width + 'px' }">Act.Cost</th>
-                            <th class='header cost' data-ng-if="FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.ccostvariance.isenabled"
+                            <th data-ng-if="FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.ccostvariance.isenabled"
                                 data-ng-style="{'width': FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.ccostvariance.width + 'px' }">Variance</th>
-                            <th class='header cost' data-ng-if="FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.ccostlocalamt.isenabled"
+                            <th data-ng-if="FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.ccostlocalamt.isenabled"
                                 data-ng-style="{'width': FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.ccostlocalamt.width + 'px' }">Local Cost Amt</th>
-                            <th class='header cost' data-ng-if="FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.ccosttaxcodecost.isenabled"
+                            <th data-ng-if="FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.ccosttaxcodecost.isenabled"
                                 data-ng-style="{'width': FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.ccosttaxcodecost.width + 'px' }">Tax Code(Cost)</th>
-                            <th class='header cost' data-ng-if="FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.ccosttaxamtcost.isenabled"
+                            <th data-ng-if="FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.ccosttaxamtcost.isenabled"
                                 data-ng-style="{'width': FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.ccosttaxamtcost.width + 'px' }">Tax Amt(Cost)</th>
-                            <th class='header revenue' data-ng-if="FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.cdebitor.isenabled"
+                            <th data-ng-if="FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.cdebitor.isenabled"
                                 data-ng-style="{'width': FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.cdebitor.width + 'px' }">Debitor</th>
-                            <th class='header revenue' data-ng-if="FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.crevenueinvno.isenabled"
+                            <th data-ng-if="FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.crevenueinvno.isenabled"
                                 data-ng-style="{'width': FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.crevenueinvno.width + 'px' }">Inv.No</th>
-                            <th class='header revenue' data-ng-if="FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.cinvtype.isenabled"
+                            <th data-ng-if="FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.cinvtype.isenabled"
                                 data-ng-style="{'width': FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.cinvtype.width + 'px' }">Inv.Type</th>
-                            <th class='header revenue' data-ng-if="FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.crevenueinvdate.isenabled"
+                            <th data-ng-if="FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.crevenueinvdate.isenabled"
                                 data-ng-style="{'width': FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.crevenueinvdate.width + 'px' }">Inv.Date</th>
-                            <th class='header revenue' data-ng-if="FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.crevenuepost.isenabled"
+                            <th data-ng-if="FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.crevenuepost.isenabled"
                                 data-ng-style="{'width': FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.crevenuepost.width + 'px' }">Post</th>
-                            <th class='header revenue' data-ng-if="FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.crevenuesysref.isenabled"
+                            <th data-ng-if="FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.crevenuesysref.isenabled"
                                 data-ng-style="{'width': FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.crevenuesysref.width + 'px' }">Sys Ref</th>
-                            <th class='header revenue' data-ng-if="FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.crevenuecurrency.isenabled"
+                            <th data-ng-if="FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.crevenuecurrency.isenabled"
                                 data-ng-style="{'width': FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.crevenuecurrency.width + 'px' }">Currency</th>
-                            <th class='header revenue' data-ng-if="FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.cestrevenue.isenabled"
+                            <th data-ng-if="FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.cestrevenue.isenabled"
                                 data-ng-style="{'width': FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.cestrevenue.width + 'px' }">Est.Revenue</th>
-                            <th class='header revenue' data-ng-if="FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.cactrevenue.isenabled"
+                            <th data-ng-if="FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.cactrevenue.isenabled"
                                 data-ng-style="{'width': FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.cactrevenue.width + 'px' }">Act.Revenue</th>
-                            <th class='header revenue' data-ng-if="FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.crevenuevariance.isenabled"
+                            <th data-ng-if="FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.crevenuevariance.isenabled"
                                 data-ng-style="{'width': FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.crevenuevariance.width + 'px' }">Variance</th>
-                            <th class='header cost' data-ng-if="FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.cselllocalamt.isenabled"
+                            <th data-ng-if="FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.cselllocalamt.isenabled"
                                 data-ng-style="{'width': FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.cselllocalamt.width + 'px' }">Local Sell Amt</th>
-                            <th class='header revenue' data-ng-if="FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.crevenuetaxcodecost.isenabled"
+                            <th data-ng-if="FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.crevenuetaxcodecost.isenabled"
                                 data-ng-style="{'width': FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.crevenuetaxcodecost.width + 'px' }">Tax Code(Revenue)</th>
-                            <th class='header revenue' data-ng-if="FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.crevenuetaxamtcost.isenabled"
+                            <th data-ng-if="FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.crevenuetaxamtcost.isenabled"
                                 data-ng-style="{'width': FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.crevenuetaxamtcost.width + 'px' }">Tax Amt(Revenue)</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="ASNCustTable{{FinanceJobGeneralCtrl.currentFinanceJob.label}}">
                         <tr id="tableBody" data-ng-repeat="x in FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge"
                             data-ng-click="FinanceJobGeneralCtrl.ePage.Masters.setSelectedRow($index);" data-ng-class="{row_active: (FinanceJobGeneralCtrl.ePage.Masters.selectedRow==$index),copy_row_active :(x.IsCopied==true)}"	table-properties="FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIJobCharge"
                             row-position="$index">
