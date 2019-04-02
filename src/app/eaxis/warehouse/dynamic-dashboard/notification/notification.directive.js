@@ -14,7 +14,29 @@
         .directive("emailDirective", EmailDirective)
         .directive("userDirective", UserDirective)
         .directive("musicDirective", MusicDirective)
-        .directive("videoDirective", VideoDirective);
+        .directive("videoDirective", VideoDirective)
+        .directive("asnReceivedChart", AsnReceivedChart);
+
+    function AsnReceivedChart() {
+        var exports = {
+            restrict: "EA",
+            templateUrl: "app/eaxis/warehouse/dynamic-dashboard/notification/asn-received-status-chart.html",
+            link: Link,
+            controller: "NotificationController",
+            controllerAs: "NotificationCtrl",
+            scope: {
+                componentList: "=",
+                selectedComponent: "=",
+                selectedWarehouse: "="
+            },
+            bindToController: true
+
+        };
+        return exports;
+
+        function Link(scope, elem, attr) { }
+
+    }
 
     function Notification() {
         var exports = {
@@ -24,7 +46,9 @@
             controller: "NotificationController",
             controllerAs: "NotificationCtrl",
             scope: {
-                currentObj: "="
+                componentList: "=",
+                selectedComponent: "=",
+                selectedWarehouse: "="
             },
             bindToController: true
 
@@ -44,7 +68,9 @@
             controllerAs: "NotificationCtrl",
             bindToController: true,
             scope: {
-                currentObj: "="
+                componentList: "=",
+                selectedComponent: "=",
+                selectedWarehouse: "="
             },
             link: Link
         };
@@ -63,7 +89,9 @@
             controllerAs: "NotificationCtrl",
             bindToController: true,
             scope: {
-                currentObj: "="
+                componentList: "=",
+                selectedComponent: "=",
+                selectedWarehouse: "="
             },
             link: Link
         };
@@ -82,7 +110,9 @@
             controllerAs: "NotificationCtrl",
             bindToController: true,
             scope: {
-                currentObj: "="
+                componentList: "=",
+                selectedComponent: "=",
+                selectedWarehouse: "="
             },
             link: Link
         };
@@ -101,7 +131,9 @@
             controllerAs: "NotificationCtrl",
             bindToController: true,
             scope: {
-                currentObj: "="
+                componentList: "=",
+                selectedComponent: "=",
+                selectedWarehouse: "="
             },
             link: Link
         };
@@ -120,7 +152,9 @@
             controllerAs: "NotificationCtrl",
             bindToController: true,
             scope: {
-                currentObj: "="
+                componentList: "=",
+                selectedComponent: "=",
+                selectedWarehouse: "="
             },
             link: Link
         };
@@ -139,7 +173,9 @@
             controllerAs: "NotificationCtrl",
             bindToController: true,
             scope: {
-                currentObj: "="
+                componentList: "=",
+                selectedComponent: "=",
+                selectedWarehouse: "="
             },
             link: Link
         };
@@ -158,7 +194,9 @@
             controllerAs: "NotificationCtrl",
             bindToController: true,
             scope: {
-                currentObj: "="
+                componentList: "=",
+                selectedComponent: "=",
+                selectedWarehouse: "="
             },
             link: Link
         };
@@ -177,7 +215,9 @@
             controllerAs: "NotificationCtrl",
             bindToController: true,
             scope: {
-                currentObj: "="
+                componentList: "=",
+                selectedComponent: "=",
+                selectedWarehouse: "="
             },
             link: Link
         };
@@ -196,7 +236,9 @@
             controllerAs: "NotificationCtrl",
             bindToController: true,
             scope: {
-                currentObj: "="
+                componentList: "=",
+                selectedComponent: "=",
+                selectedWarehouse: "="
             },
             link: Link
         };
@@ -215,7 +257,9 @@
             controllerAs: "NotificationCtrl",
             bindToController: true,
             scope: {
-                currentObj: "="
+                componentList: "=",
+                selectedComponent: "=",
+                selectedWarehouse: "="
             },
             link: Link
         };
@@ -234,7 +278,9 @@
             controllerAs: "NotificationCtrl",
             bindToController: true,
             scope: {
-                currentObj: "="
+                componentList: "=",
+                selectedComponent: "=",
+                selectedWarehouse: "="
             },
             link: Link
         };

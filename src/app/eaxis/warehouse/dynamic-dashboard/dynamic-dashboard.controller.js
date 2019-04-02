@@ -162,9 +162,9 @@
                 "ComponentName": "ASN Trend",
                 "Directive": "asn-trend",
                 "SequenceNo": 7,
-                "IsShow": false,
+                "IsShow": true,
                 "SetAsDefault": false,
-                "IsLoadAsDefault": true
+                "IsLoadAsDefault": false
             }, {
                 "ComponentName": "KPI",
                 "Directive": "kpi-directive",
@@ -192,7 +192,7 @@
                 "SequenceNo": 10,
                 "IsShow": true,
                 "SetAsDefault": false,
-                "IsLoadAsDefault": false
+                "IsLoadAsDefault": true
             }, {
                 "ComponentName": "Pick With Shortfall",
                 "Directive": "pick-with-shortfall",
@@ -234,27 +234,34 @@
                 "SequenceNo": 16,
                 "IsShow": true,
                 "SetAsDefault": false,
-                "IsLoadAsDefault": true
+                "IsLoadAsDefault": false
             }, {
                 "ComponentName": "Email",
                 "Directive": "email-directive",
                 "SequenceNo": 17,
                 "IsShow": true,
                 "SetAsDefault": false,
-                "IsLoadAsDefault": true
+                "IsLoadAsDefault": false
             }, {
                 "ComponentName": "Music",
                 "Directive": "music-directive",
                 "SequenceNo": 18,
                 "IsShow": true,
                 "SetAsDefault": false,
-                "IsLoadAsDefault": true
+                "IsLoadAsDefault": false
             }, {
                 "ComponentName": "Video",
                 "Directive": "video-directive",
                 "SequenceNo": 19,
                 "IsShow": true,
                 "SetAsDefault": false,
+                "IsLoadAsDefault": false
+            }, {
+                "ComponentName": "Asn Received Chart",
+                "Directive": "asn-received-chart",
+                "SequenceNo": 20,
+                "IsShow": true,
+                "SetAsDefault": true,
                 "IsLoadAsDefault": true
             }];
 

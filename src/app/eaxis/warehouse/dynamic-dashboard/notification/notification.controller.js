@@ -5,9 +5,9 @@
         .module("Application")
         .controller("NotificationController", NotificationController);
 
-    NotificationController.$inject = ["$rootScope", "$scope", "$state", "$q", "$location", "$timeout", "APP_CONSTANT", "authService", "apiService", "appConfig", "helperService", "toastr", "$filter", "$document", "confirmation", "warehouseConfig"];
+    NotificationController.$inject = ["$rootScope", "$scope", "authService", "apiService", "appConfig", "helperService", "warehouseConfig", "dynamicDashboardConfig"];
 
-    function NotificationController($rootScope, $scope, $state, $q, $location, $timeout, APP_CONSTANT, authService, apiService, appConfig, helperService, toastr, $filter, $document, confirmation, warehouseConfig) {
+    function NotificationController($rootScope, $scope, authService, apiService, appConfig, helperService, warehouseConfig, dynamicDashboardConfig) {
 
         var NotificationCtrl = this;
 
@@ -21,12 +21,81 @@
                 "Meta": helperService.metaBase(),
                 "Entities": '',
             };
-
             NotificationCtrl.ePage.Masters.WarehouseChanged = WarehouseChanged;
 
             GetWarehouseValues();
-            GetTaskDetails();
-            GetExceptionDetails();
+            if (NotificationCtrl.selectedComponent.ComponentName == "My Task")
+                GetTaskDetails();
+            if (NotificationCtrl.selectedComponent.ComponentName == "Exception")
+                GetExceptionDetails();
+            if (NotificationCtrl.selectedComponent.ComponentName == "Asn Received Chart") {
+                if (NotificationCtrl.selectedComponent.SetAsDefault) {
+                    GetAsnReceivedStatusDetails();
+                    NotificationCtrl.ePage.Masters.IsLoad = true;
+                } else {
+                    NotificationCtrl.ePage.Masters.IsLoad = false;
+                }
+                // GetChart();
+            }
+
+        }
+
+        function GetAsnReceivedStatusDetails() {
+            NotificationCtrl.ePage.Masters.IsLoad = true;
+            var _filter = {
+                "WarehouseCode": NotificationCtrl.selectedWarehouse.WarehouseCode
+            };
+
+            var _input = {
+                "searchInput": helperService.createToArrayOfObject(_filter),
+                "FilterID": dynamicDashboardConfig.Entities.WmsOutward.API.GetOutBoundDetails.FilterID
+            };
+
+            apiService.post("eAxisAPI", dynamicDashboardConfig.Entities.WmsOutward.API.GetOutBoundDetails.Url, _input).then(function (response) {
+                if (response.data.Response) {
+                    NotificationCtrl.ePage.Masters.OpenSODetails = response.data.Response;
+                    GetChart();
+                }
+            });
+        }
+
+        function GetChart() {
+            var w = 200;
+            var h = 200;
+            var r = h / 2;
+            var color = d3.scale.category10();
+
+            var data = NotificationCtrl.ePage.Masters.OpenSODetails;
+
+            var vis = d3.select('#chart').append("svg:svg").data([data]).attr("width", w).attr("height", h).append("svg:g").attr("transform", "translate(" + r + "," + r + ")");
+            var pie = d3.layout.pie().value(function (d) { return d.UnFinalisedCount; });
+
+            // declare an arc generator function
+            var arc = d3.svg.arc().outerRadius(r);
+
+            // select paths, use arc generator to draw
+            var arcs = vis.selectAll("g.slice").data(pie).enter().append("svg:g").attr("class", "slice");
+            arcs.append("svg:path")
+                .attr("fill", function (d, i) {
+                    data[i].color = color(i);
+                    return color(i);
+                })
+                .attr("d", function (d) {
+                    // log the result of the arc generator to show how cool it is :)
+                    console.log(arc(d));
+                    return arc(d);
+                });
+
+            // add the text
+            arcs.append("svg:text").attr("transform", function (d) {
+                d.innerRadius = 0;
+                d.outerRadius = r;
+                return "translate(" + arc.centroid(d) + ")";
+            }).attr("text-anchor", "middle").text(function (d, i) {
+                return;
+            }
+            );
+
         }
 
         function GetWarehouseValues() {
@@ -46,8 +115,10 @@
         }
 
         function WarehouseChanged() {
-            GetNotificationValues();
-            GetKPIValues();
+            if (NotificationCtrl.selectedComponent.ComponentName == "Notification")
+                GetNotificationValues();
+            if (NotificationCtrl.selectedComponent.ComponentName == "KPI")
+                GetKPIValues();
         }
 
         function GetNotificationValues() {
