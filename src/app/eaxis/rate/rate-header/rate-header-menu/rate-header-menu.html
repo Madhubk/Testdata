@@ -1,0 +1,50 @@
+<div class="grid-loading-norecord-container ng-scope" style='z-index: 15;' data-ng-if="RateHeaderMenuCtrl.ePage.Entities.Header.GlobalVariables.Loading"></div>
+
+<div class="clearfix wms-menu-wraper">
+    <!--Menu directives-->
+    <div rate-header-general current-rate-header="RateHeaderMenuCtrl.currentRateHeader"></div>
+<!-- 
+    <div class="error-warning-container right" id="errorWarningContainer{{RateHeaderMenuCtrl.currentRateHeader.label}}">
+        <div class="error-warning-header clearfix">
+            <span class="title pull-left">
+                <!-- <i class="fa fa-warning"></i>  -->
+                <!-- Errors & Warnings
+            </span>
+            <span class="error-warning-toggle-icon pull-right" data-ng-click="RateHeaderMenuCtrl.ePage.Masters.Config.ShowErrorWarningModal(RateHeaderMenuCtrl.currentRateHeader)">
+                <i class="fa fa-arrow-right"></i>
+            </span>
+        </div>
+        <div class="error-warning-body">
+            <div class="clearfix" data-ng-if="RateHeaderMenuCtrl.ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList.length>0">
+                <div class="clearfix">
+                    <div class="p-5 error-warnig-list clearfix" data-ng-repeat="x in RateHeaderMenuCtrl.ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList">
+                        <div class="clearfix">
+                            <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 p-0 text-center">
+                                <span class=" fa fa-warning" data-ng-style="{color: {'W':'#FFAD33', 'E':'#ED4337'}[x.MessageType]}"></span>
+                            </div>
+                            <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11 pr-0">
+                                <div class="message" data-ng-bind="x.Code + ' - ' + x.Message"></div>
+                                <div class="meta-object" data-ng-bind="x.MetaObject"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> --> 
+
+    <!--Footer-->
+    <div class="eaxis-footer-strip">
+        <div class="col-xs-6 col-sm-7 col-md-7 col-lg-9 col-xl-9">
+            <standard-menu dataentry-object="RateHeaderMenuCtrl.dataentryObject" input="RateHeaderMenuCtrl.currentRateHeader"></standard-menu>
+        </div>
+        <div class="col-xs-6 col-sm-5 col-md-5 col-lg-3 col-xl-3">
+            <span class="">
+                <!-- <button class="btn btn-primary btn-sm pull-right  margin-right-10 mt-6 mb-5" 
+                    ng-disabled="RateHeaderMenuCtrl.ePage.Masters.DisableSave" ng-bind="RateHeaderMenuCtrl.ePage.Masters.SaveButtonText" data-ng-click="RateHeaderMenuCtrl.ePage.Masters.Save(RateHeaderMenuCtrl.currentRateHeader)"></button> -->
+                <button class="btn btn-primary btn-sm pull-right  margin-right-10 mt-6 mb-5" data-ng-click="RateHeaderMenuCtrl.ePage.Masters.SaveClose(RateHeaderMenuCtrl.currentRateHeader)"
+                    ng-disabled="RateHeaderMenuCtrl.ePage.Masters.DisableSave" ng-bind="RateHeaderMenuCtrl.ePage.Masters.SaveAndCloseButtonText"></button>
+            </span>
+        </div>
+    </div>
+</div>
