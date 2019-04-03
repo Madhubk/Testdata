@@ -11,14 +11,14 @@
                         <label class="ml-5 control-label">Currency Code</label>
                         <span class="error-warning-container">
                             <error-warning-directive
-                                data-ng-if="CurrencyGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Code.IsWarning && !CurrencyGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Code.IsError"
-                                list="CurrencyGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Code.WARNING"
+                                data-ng-if="CurrencyGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.CurrencyCode.IsWarning && !CurrencyGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.CurrencyCode.IsError"
+                                list="CurrencyGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.CurrencyCode.WARNING"
                                 type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref=""
                                 g-parent-ref="">
                             </error-warning-directive>
                             <error-warning-directive
-                                data-ng-if="CurrencyGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Code.IsError"
-                                list="CurrencyGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Code.ERROR"
+                                data-ng-if="CurrencyGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.CurrencyCode.IsError"
+                                list="CurrencyGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.CurrencyCode.ERROR"
                                 type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
                             </error-warning-directive>
                         </span>
@@ -27,7 +27,7 @@
                         <div class="input-group input-group-sm">
                             <input type="text" class="form-control input-sm" placeholder="Currency Code"
                                 data-ng-model="CurrencyGeneralCtrl.ePage.Masters.UICurrency.Code"
-                                data-ng-change='CurrencyGeneralCtrl.ePage.Masters.OnChangeValues(CurrencyGeneralCtrl.ePage.Masters.UICurrency.Code,"E1203")' />
+                                data-ng-change='CurrencyGeneralCtrl.ePage.Masters.OnChangeValues(CurrencyGeneralCtrl.ePage.Masters.UICurrency.Code,"E1314")' />
                         </div>
                     </div>
                 </div>
@@ -44,14 +44,14 @@
                         <label class="ml-5 control-label">Currency Name</label>
                         <span class="error-warning-container">
                             <error-warning-directive
-                                data-ng-if="CurrencyGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Desc.IsWarning && !CurrencyGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Desc.IsError"
-                                list="CurrencyGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Desc.WARNING"
+                                data-ng-if="CurrencyGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.CurrencyName.IsWarning && !CurrencyGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.CurrencyName.IsError"
+                                list="CurrencyGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.CurrencyName.WARNING"
                                 type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref=""
                                 g-parent-ref="">
                             </error-warning-directive>
                             <error-warning-directive
-                                data-ng-if="CurrencyGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Desc.IsError"
-                                list="CurrencyGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Desc.ERROR"
+                                data-ng-if="CurrencyGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.CurrencyName.IsError"
+                                list="CurrencyGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.CurrencyName.ERROR"
                                 type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
                             </error-warning-directive>
                         </span>
@@ -60,7 +60,7 @@
                         <div class="input-group input-group-sm">
                             <input type="text" class="form-control" placeholder="Currency Name"
                                 data-ng-model="CurrencyGeneralCtrl.ePage.Masters.UICurrency.Desc"
-                                data-ng-change='CurrencyGeneralCtrl.ePage.Masters.OnChangeValues(CurrencyGeneralCtrl.ePage.Masters.UICurrency.Desc,"")' />
+                                data-ng-change='CurrencyGeneralCtrl.ePage.Masters.OnChangeValues(CurrencyGeneralCtrl.ePage.Masters.UICurrency.Desc,"E1317")' />
                         </div>
                     </div>
                 </div>
@@ -68,7 +68,39 @@
         </div>
     </div>
     <div class="clearfix">
-        <!--Code-->
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-5">
+                    <div class="inner-dashboard-box">
+                        <div class="rows" style="border: 2px solid #f5f5ff;">
+                            <div class="col-xs-3 col-sm-3 col-md-4 col-lg-3 col-xl-3 height-40  border-right pt-10 pb-10">
+                                <span class="dashboard-inward-icon-box">
+                                    <!-- <i class="icomoon icon-supplier"></i> -->
+                                </span>
+                                <label class="ml-5 control-label">Currency Symbol</label>
+                                <span class="error-warning-container">
+                                    <error-warning-directive
+                                        data-ng-if="CurrencyGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Symbol.IsWarning && !CurrencyGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Symbol.IsError"
+                                        list="CurrencyGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Symbol.WARNING"
+                                        type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref=""
+                                        g-parent-ref="">
+                                    </error-warning-directive>
+                                    <error-warning-directive
+                                        data-ng-if="CurrencyGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Symbol.IsError"
+                                        list="CurrencyGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Symbol.ERROR"
+                                        type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
+                                    </error-warning-directive>
+                                </span>
+                            </div>
+                            <div class="col-xs-9 col-sm-9 col-md-8 col-lg-9 col-xl-9 height-40  p-5">
+                                <div class="input-group input-group-sm">
+                                    <input type="text" class="form-control" placeholder="Currency Symbol"
+                                        data-ng-model="CurrencyGeneralCtrl.ePage.Masters.UICurrency.Symbol"
+                                        data-ng-change='CurrencyGeneralCtrl.ePage.Masters.OnChangeValues(CurrencyGeneralCtrl.ePage.Masters.UICurrency.Symbol,"E1315")' />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        <!--Country-->
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-5">
             <div class="inner-dashboard-box">
                 <div class="rows" style="border: 2px solid #f5f5ff;">
@@ -96,7 +128,7 @@
                         <div class="input-group input-group-sm">
                             <!-- Dynamic look up Search in textbox -->
                             <div dynamic-lookup placeholder="Country"
-                                my-ng-model="CurrencyGeneralCtrl.ePage.Masters.UICurrency.CountryCode"
+                                my-ng-model="CurrencyGeneralCtrl.ePage.Masters.UICurrency.CountryDesc"
                                 obj="CurrencyGeneralCtrl.ePage.Masters.UICurrency" page-name="'MstCountry'"
                                 control-id="'CurrencyCountry'" control-key="CurrencyCountry_3337"
                                 auto-complete-on-select="CurrencyGeneralCtrl.ePage.Masters.SelectedLookupData($index, $item,'Local')">
@@ -122,39 +154,47 @@
                 </div>
             </div>
         </div>
-        <!--Desc-->
-        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-5">
-            <div class="inner-dashboard-box">
-                <div class="rows" style="border: 2px solid #f5f5ff;">
-                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 height-40  border-right pt-10 pb-10">
-                        <span class="dashboard-inward-icon-box">
-                            <!-- <i class="icomoon icon-supplier"></i> -->
-                        </span>
+        
+    </div>
+    <div class="clearfix">
+<!--IsActive-->
+<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-5">
+        <div class="inner-dashboard-box">
+            <div class="rows" style="border: 2px solid #f5f5ff;">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 height-40  border-right pt-10 pb-10">
+                    <!-- <label class="ml-5 control-label">
                         <input type="checkbox" class="form-control"
                             data-ng-model="CurrencyGeneralCtrl.ePage.Masters.UICurrency.IsActive" />
-                        <span class="text"></span>
-                        <label class="ml-5 control-label">Is Active</label>
-
-                        <!-- <span class="error-warning-container">
-                            <error-warning-directive data-ng-if="CurrencyGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Desc.IsWarning && !CurrencyGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Desc.IsError"
-                                list="CurrencyGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Desc.WARNING"
-                                type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref=""
-                                g-parent-ref="">
-                            </error-warning-directive>
-                            <error-warning-directive data-ng-if="CurrencyGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Desc.IsError"
-                                list="CurrencyGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Desc.ERROR"
-                                type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
-                            </error-warning-directive>
-                        </span> -->
-                    </div>
-                    <!-- <div class="col-xs-9 col-sm-9 col-md-8 col-lg-9 col-xl-9 height-40  p-5">
-                        <div class="form-group">
-                                
-                        </div>
-                    </div> -->
+                        <span class="text"></span>Is Active
+                    </label> -->
+                    
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" data-ng-model="CurrencyGeneralCtrl.ePage.Masters.UICurrency.IsActive">
+                                    <span class="text"></span>Is Active
+                                </label>
+                            </div>
+                        
+                    <!-- <span class="error-warning-container">
+                        <error-warning-directive data-ng-if="CurrencyGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Desc.IsWarning && !CurrencyGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Desc.IsError"
+                            list="CurrencyGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Desc.WARNING"
+                            type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref=""
+                            g-parent-ref="">
+                        </error-warning-directive>
+                        <error-warning-directive data-ng-if="CurrencyGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Desc.IsError"
+                            list="CurrencyGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Desc.ERROR"
+                            type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
+                        </error-warning-directive>
+                    </span> -->
                 </div>
+                <!-- <div class="col-xs-9 col-sm-9 col-md-8 col-lg-9 col-xl-9 height-40  p-5">
+                    <div class="form-group">
+                            
+                    </div>
+                </div> -->
             </div>
         </div>
+    </div>
     </div>
 </div>
 <!-- Error Warning -->
