@@ -1,0 +1,210 @@
+<div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-15">
+        <div class="rows border-box border-radius-2 bg-fbfbfb">
+            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3 pt-20 pb-10 pl-40">
+                <div class="tab-profile-title text-single-line fs-20 mt-40"
+                    title="{{InwardViewDetailCustom1Ctrl.ePage.Entities.Header.Data.UIWmsInwardHeader.WorkOrderID}}"
+                    data-ng-bind="InwardViewDetailCustom1Ctrl.currentInwardViewDetail.label"></div>
+
+                <div class="tab-profile-sub-title text-single-line fs-14"
+                    title="{{InwardViewDetailCustom1Ctrl.ePage.Entities.Header.Data.UIWmsInwardHeader.WorkOrderStatus}} - {{InwardViewDetailCustom1Ctrl.ePage.Entities.Header.Data.UIWmsInwardHeader.WorkOrderStatusDesc}}"
+                    data-ng-bind="InwardViewDetailCustom1Ctrl.ePage.Entities.Header.Data.UIWmsInwardHeader.WorkOrderStatusDesc">
+                </div>
+            </div>
+
+            <!--Client-->
+            <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 col-xl-9 pt-20 pb-10">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 border-left border-right pt-20 pb-10">
+                        <div class="fs-20 color-999">Client</div>
+
+                        <div class="fs-14">
+                            <b>{{InwardViewDetailCustom1Ctrl.ePage.Entities.Header.Data.UIWmsInwardHeader.ClientCode}}</b>
+                            -
+                            <b
+                                ng-bind="InwardViewDetailCustom1Ctrl.ePage.Entities.Header.Data.UIWmsInwardHeader.ClientName"></b>
+                        </div>
+
+                        <div class="color-999 mt-5"
+                            ng-show="InwardViewDetailCustom1Ctrl.ePage.Entities.Header.Data.UIWmsInwardHeader.ClientCode">
+                            <div class="text-single-line"
+                                title='{{InwardViewDetailCustom1Ctrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_Address1}}'>
+                                {{InwardViewDetailCustom1Ctrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_Address1 || InwardViewDetailCustom1Ctrl.ePage.Masters.Empty}}
+                            </div>
+
+                            <div class="text-single-line"
+                                title='{{InwardViewDetailCustom1Ctrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_Address2}}'>
+                                {{InwardViewDetailCustom1Ctrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_Address2 || InwardViewDetailCustom1Ctrl.ePage.Masters.Empty}}
+                            </div>
+                            <div class="text-single-line">
+                                <span
+                                    title="{{InwardViewDetailCustom1Ctrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_City}} - {{InwardViewDetailCustom1Ctrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_PostCode}}">{{InwardViewDetailCustom1Ctrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_City || InwardViewDetailCustom1Ctrl.ePage.Masters.Empty}}
+                                    -
+                                    {{InwardViewDetailCustom1Ctrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_PostCode}}
+                                </span>
+                            </div>
+
+                            <div class="text-single-line mt-10">
+                                <span
+                                    title='{{InwardViewDetailCustom1Ctrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_Mobile}}'>
+                                    <b>{{InwardViewDetailCustom1Ctrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_Mobile}}</b>
+                                </span>
+                                <span class="pl-100"
+                                    title="{{InwardViewDetailCustom1Ctrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_Email}}">{{InwardViewDetailCustom1Ctrl.ePage.Entities.Header.Data.UIOrgHeader.OAD_Email}}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--Supplier-->
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 pt-20 pb-10">
+                        <div class="fs-20 color-999">Supplier</div>
+
+                        <div class="fs-14">
+                            <b
+                                ng-bind="InwardViewDetailCustom1Ctrl.ePage.Entities.Header.Data.UIWmsInwardHeader.SupplierCode"></b>
+                            -
+                            <b
+                                ng-bind="InwardViewDetailCustom1Ctrl.ePage.Entities.Header.Data.UIWmsInwardHeader.SupplierName"></b>
+                        </div>
+                        <div class="color-999 mt-5"
+                            data-ng-repeat="x in InwardViewDetailCustom1Ctrl.ePage.Entities.Header.Data.UIJobAddress | filter: {AddressType:'SUD'}">
+                            <div class="text-single-line" title='{{x.Address1}}'>
+                                {{x.Address1 || InwardViewDetailCustom1Ctrl.ePage.Masters.Empty}}</div>
+
+                            <div class="text-single-line" title='{{x.Address2}}'>
+                                {{x.Address2 || InwardViewDetailCustom1Ctrl.ePage.Masters.Empty}}</div>
+                            <div class="text-single-line">
+                                <span title="{{x.City}} - {{x.Postcode}}">{{x.City}} - {{x.Postcode}}</span>
+                            </div>
+
+                            <div class="text-single-line mt-10">
+                                <span class="pl-100"
+                                    title="{{x.Mobile}}">{{x.Mobile || InwardViewDetailCustom1Ctrl.ePage.Masters.Empty}}</span>
+                                <span class="pl-100"
+                                    title="{{x.Email}}">{{x.Email || InwardViewDetailCustom1Ctrl.ePage.Masters.Empty}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--General Detail-->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 pl-15">
+        <div class="rows border-box border-radius-2 pt-15 mt-10 height-100">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+                    <div class="form-group">
+                        <div class="color-999 fs-11">Warehouse</div>
+                        <div class="text-single-line">
+                            <span>{{InwardViewDetailCustom1Ctrl.ePage.Entities.Header.Data.UIWmsInwardHeader.WarehouseCode}}-{{InwardViewDetailCustom1Ctrl.ePage.Entities.Header.Data.UIWmsInwardHeader.WarehouseName}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+                    <div class="form-group">
+                        <div class="color-999 fs-11">MPP PO#</div>
+                        <div class="text-single-line">
+                            <span>{{InwardViewDetailCustom1Ctrl.ePage.Entities.Header.Data.UIWmsInwardHeader.AdditionalRef1}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+                    <div class="form-group">
+                        <div class="color-999 fs-11">Supplier PO#</div>
+                        <div class="text-single-line">
+                            <span>{{InwardViewDetailCustom1Ctrl.ePage.Entities.Header.Data.UIWmsInwardHeader.AdditionalRef2}}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+                    <div class="form-group">
+                        <div class="color-999 fs-11">SupplierJP Invoice#</div>
+                        <div class="text-single-line">
+                            <span>{{InwardViewDetailCustom1Ctrl.ePage.Entities.Header.Data.UIWmsInwardHeader.AdditionalRef3}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+                    <div class="form-group">
+                        <div class="color-999 fs-11">External Receipt Key</div>
+                        <div class="text-single-line">
+                            <span>{{InwardViewDetailCustom1Ctrl.ePage.Entities.Header.Data.UIWmsInwardHeader.CustomerReference}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+                    <div class="form-group">
+                        <div class="color-999 fs-11">Factory Invoice#</div>
+                        <div class="text-single-line">
+                            <span>{{InwardViewDetailCustom1Ctrl.ePage.Entities.Header.Data.UIWmsInwardHeader.TransportRef}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+                    <div class="form-group">
+                        <div class="color-999 fs-11">Receipt Date</div>
+                        <div class="text-single-line">
+                            <span>{{InwardViewDetailCustom1Ctrl.ePage.Entities.Header.Data.UIWmsInwardHeader.ArrivalDate | dateFormat}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Receive Lines -->
+    <div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" style="padding: 3px; margin-bottom: 20px;padding-bottom: 10px;">
+            <div id="ReceiveLineTable{{InwardViewDetailCustom1Ctrl.ePage.Entities.Header.Data.UIWmsInwardHeader.WorkOrderID}}"
+                class="fixedheader mb-0" key-events
+                table-object='InwardViewDetailCustom1Ctrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine'
+                enable='InwardViewDetailCustom1Ctrl.ePage.Masters.Enable'
+                selected-row='InwardViewDetailCustom1Ctrl.ePage.Masters.selectedRow'
+                unique-id='ReceiveLineTable{{InwardViewDetailCustom1Ctrl.ePage.Entities.Header.Data.UIWmsInwardHeader.WorkOrderID}}'>
+                <table style="height: 220px; margin-bottom:20px;">
+                    <thead>
+                        <tr id="tableHeader">
+                            <th ng-style="{ 'width':  '40px' }" title="S.No">S.No</th>
+                            <th ng-style="{ 'width':  '50px' }" title="Line #">Line #</th>
+                            <th ng-style="{ 'width':  '200px' }" title="Customer Product Code">Customer Product Code
+                            </th>
+                            <th ng-style="{ 'width':  '150px' }" title="Supplier Product Code">Supplier Product Code
+                            </th>
+                            <th ng-style="{ 'width':  '200px' }" title="Customer Old Product Code">Customer Old
+                                Product
+                                Code
+                            </th>
+                            <th ng-style="{ 'width':  '150px' }" title="ITFCode">ITFCode</th>
+                            <th ng-style="{ 'width':  '100px' }" title="Quantity">Quantity</th>
+                            <th ng-style="{ 'width':  '150px' }" title="UOM">UOM</th>
+                            <th ng-style="{ 'width':  '150px' }" title="Pack Size">Pack Size</th>
+                            <th ng-style="{ 'width':  '200px' }" title="Supplier Code">Supplier Code</th>
+                        </tr>
+                    </thead>
+                    <tbody
+                        id="ReceiveLineTable{{InwardViewDetailCustom1Ctrl.ePage.Entities.Header.Data.UIWmsInwardHeader.WorkOrderID}}">
+                        <tr id="tableBody"
+                            ng-repeat="x in InwardViewDetailCustom1Ctrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine track by $index"
+                            ng-click="InwardViewDetailCustom1Ctrl.ePage.Masters.setSelectedRow($index);"
+                            ng-class="{row_active: (InwardViewDetailCustom1Ctrl.ePage.Masters.selectedRow==$index),copy_row_active :(x.IsCopied==true)}">
+                            <td ng-style="{ 'width':  '40px' }" class="overflow-text">{{$index +1}}</td>
+                            <td ng-style="{ 'width':  '50px' }" class="overflow-text">{{x.LineNo}}</td>
+                            <td ng-style="{ 'width':  '200px' }" class="overflow-text">{{x.ProductCode}}</td>
+                            <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.PartAttrib1}}</td>
+                            <td ng-style="{ 'width':  '200px' }" class="overflow-text">{{x.PartAttrib2}}</td>
+                            <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.PartAttrib3}}</td>
+                            <td ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.Units}}</td>
+                            <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.StockKeepingUnit}}</td>
+                            <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.Packs}}</td>
+                            <td ng-style="{ 'width':  '200px' }" class="overflow-text">{{x.ProductCode}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 norecordfound" ng-if="InwardViewDetailCustom1Ctrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine.length==0">No Record Found...</div>
+        </div>
+    </div>
+</div>
