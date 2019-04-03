@@ -1,0 +1,12 @@
+<uib-tabset id="chromeTab" active="ConsolidatedDocumentCtrl.ePage.Masters.activeTabIndex" class="tab-container chrometab-box">
+    <uib-tab>
+        <uib-tab-heading title="Consolidated Document">
+            <span data-ng-bind="'Consolidated Document'" class="ng-binding">Consolidated Document</span>
+            <i class="fa fa-thumb-tack pinned-tab"></i>
+        </uib-tab-heading>
+        <div class="no-padding tab-list-view-wrapper">
+            <dynamic-list dataentry-name="ConsolidatedDocumentCtrl.ePage.Masters.dataentryName" task-name="ConsolidatedDocumentCtrl.ePage.Masters.taskName" grid-config-type="0"
+                selected-grid-row="ConsolidatedDocumentCtrl.ePage.Masters.SelectedGridRow($item)" mode="1" dataentry-object="ConsolidatedDocumentCtrl.ePage.Masters.DataEntryObject"></dynamic-list>
+            <div class="tab-loading" data-ng-show="ConsolidatedDocumentCtrl.ePage.Masters.IsTabClick"></div>
+        </div>
+    </uib-tab>

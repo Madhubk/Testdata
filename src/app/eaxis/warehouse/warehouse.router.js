@@ -853,5 +853,27 @@
                     }]
                 }
             })
+
+
+            .state('EA.WMS.ConsolidatedDocument', {
+                url: '/consolidated-document',
+                templateUrl: 'app/eaxis/warehouse/consolidated-document/consolidated-document.html',
+                controller: "ConsolidatedDocumentController as ConsolidatedDocumentCtrl",
+                ncyBreadcrumb: {
+                    label: 'Document'
+                },
+                resolve: {
+                    CheckAccess: ["$q", "pageAccessService", function ($q, pageAccessService) {
+                        var deferred = $q.defer();
+                        if (pageAccessService.CheckAuthToken()) {
+                            deferred.resolve();
+                        }
+                        return deferred.promise;
+                    }],
+                    LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
+                        return $ocLazyLoad.load(["chromeTab", "errorWarning", "confirmation", "compareDate", "dynamicListModal", "dynamicList", "dynamicLookup", "dynamicControl", "dynamicGrid","consolidatedDocument"]);
+                    }]
+                }
+            })
     }
 })();
