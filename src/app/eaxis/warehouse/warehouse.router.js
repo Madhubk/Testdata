@@ -382,7 +382,7 @@
                         return deferred.promise;
                     }],
                     LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
-                        return $ocLazyLoad.load(["chromeTab", "confirmation", "compareDate", "dynamicListModal", "dynamicList", "dynamicLookup", "dynamicControl", "dynamicGrid", "drogAndDrop", "oneLevelMapping", "Summernote", "standardMenu", "Comment", "CommentModal", "Document", "DocumentModal", "inwardView", "inwardViewDetail"]);
+                        return $ocLazyLoad.load(["chromeTab", "confirmation", "compareDate", "dynamicListModal", "dynamicList", "dynamicLookup", "dynamicControl", "dynamicGrid", "drogAndDrop", "oneLevelMapping", "Summernote", "standardMenu", "Comment", "CommentModal", "Document", "DocumentModal", "inwardView", "inwardViewDetail","inwardViewDetailCustom1"]);
                     }]
                 }
             })
@@ -405,7 +405,7 @@
                         return deferred.promise;
                     }],
                     LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
-                        return $ocLazyLoad.load(["chromeTab", "confirmation", "compareDate", "dynamicListModal", "dynamicList", "dynamicLookup", "dynamicControl", "dynamicGrid", "drogAndDrop", "oneLevelMapping", "Summernote", "standardMenu", "Comment", "CommentModal", "Document", "DocumentModal", "outwardView", "outwardViewDetail"]);
+                        return $ocLazyLoad.load(["chromeTab", "confirmation", "compareDate", "dynamicListModal", "dynamicList", "dynamicLookup", "dynamicControl", "dynamicGrid", "drogAndDrop", "oneLevelMapping", "Summernote", "standardMenu", "Comment", "CommentModal", "Document", "DocumentModal", "outwardView", "outwardViewDetail","outwardViewDetailCustom1"]);
                     }]
                 }
             })

@@ -31,6 +31,11 @@
                             "Url": "WmsInwardList/GetById/",
                             "FilterID": "WMSWORK"
                         },
+                        "SessionClose": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "WmsInwardList/InwardHeaderActivityClose/",
+                        },
                     },
                     "Meta": {
 
@@ -73,7 +78,7 @@
                                 "Url": "WmsLineSummary/FindAll",
                                 "FilterID": "WMSLNSM"
                             },
-  
+
                         },
                         "Meta": {
                             "MenuList": [],
@@ -104,7 +109,7 @@
 
                     _exports.Entities.Header.Data = response.data.Response;
                     _exports.Entities.Header.Validations = response.data.Validations;
-                    
+
                     var obj = {
                         [currentInward.WorkOrderID]: {
                             ePage: _exports
@@ -119,7 +124,7 @@
             }
             return deferred.promise;
         }
-       
+
     }
 })();
 

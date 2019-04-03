@@ -3,11 +3,11 @@
 
     angular
         .module("Application")
-        .factory('outwardViewConfig',  OutwardViewConfig);
+        .factory('outwardViewConfig', OutwardViewConfig);
 
-     OutwardViewConfig.$inject = ["$location", "$q", "helperService", "apiService", "toastr"];
+    OutwardViewConfig.$inject = ["$location", "$q", "helperService", "apiService", "toastr"];
 
-    function  OutwardViewConfig($location, $q, helperService, apiService, toastr) {
+    function OutwardViewConfig($location, $q, helperService, apiService, toastr) {
         var exports = {
             "Entities": {
                 "Header": {
@@ -30,6 +30,11 @@
                             "HttpType": "GET",
                             "Url": "WmsOutwardList/GetById/",
                             "FilterID": "WMSWORK"
+                        },
+                        "SessionClose": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "WmsOutwardList/OutwardHeaderActivityClose/",
                         },
                     },
                     "Meta": {
@@ -71,11 +76,11 @@
                                 "HttpType": "GET",
                                 "Url": "WmsPickList/GetById/",
                             },
-                            "LineSummary":{
+                            "LineSummary": {
                                 "IsAPI": "true",
                                 "HttpType": "POST",
                                 "Url": "WmsWorkOrderLineSummary/FindAll",
-                                "FilterID":"WMSWLS"
+                                "FilterID": "WMSWLS"
                             },
 
                         },
@@ -108,7 +113,7 @@
 
                     _exports.Entities.Header.Data = response.data.Response;
                     _exports.Entities.Header.Validations = response.data.Validations;
-                    
+
                     var obj = {
                         [currentOutward.WorkOrderID]: {
                             ePage: _exports
@@ -123,7 +128,7 @@
             }
             return deferred.promise;
         }
-       
+
     }
 })();
 

@@ -543,6 +543,15 @@
         },
 
         {
+            name: 'inwardViewDetailCustom1',
+            files: [
+                'app/eaxis/warehouse/customer-view/inward-customer-view/inward-view-detail-custom1/inward-view-detail-custom1.css',
+                'app/eaxis/warehouse/customer-view/inward-customer-view/inward-view-detail-custom1/inward-view-detail-custom1.controller.js',
+                'app/eaxis/warehouse/customer-view/inward-customer-view/inward-view-detail-custom1/inward-view-detail-custom1.directive.js'
+            ]
+        },
+
+        {
             name: 'outwardView',
             files: [
                 'app/eaxis/warehouse/customer-view/outward-customer-view/outward-view.css',
@@ -557,6 +566,15 @@
                 'app/eaxis/warehouse/customer-view/outward-customer-view/outward-view-detail/outward-view-detail.css',
                 'app/eaxis/warehouse/customer-view/outward-customer-view/outward-view-detail/outward-view-detail.controller.js',
                 'app/eaxis/warehouse/customer-view/outward-customer-view/outward-view-detail/outward-view-detail.directive.js'
+            ]
+        },
+
+        {
+            name: 'outwardViewDetailCustom1',
+            files: [
+                'app/eaxis/warehouse/customer-view/outward-customer-view/outward-view-detail-custom1/outward-view-detail-custom1.css',
+                'app/eaxis/warehouse/customer-view/outward-customer-view/outward-view-detail-custom1/outward-view-detail-custom1.controller.js',
+                'app/eaxis/warehouse/customer-view/outward-customer-view/outward-view-detail-custom1/outward-view-detail-custom1.directive.js'
             ]
         },
 
