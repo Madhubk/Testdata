@@ -36,14 +36,11 @@
         </uib-tab-heading>
         <div class="padding-bottom-10 clearfix">
             <!--finance job Menu Directive-->
-            <!-- <finance-job-menu current-finance-job="tab" dataentry-object="FinanceJobCtrl.ePage.Masters.DataEntryObject"></finance-job-menu> -->
             <finance-job-menu current-finance-job="tab"></finance-job-menu>
             <div class="horizontal-space"></div>
         </div>
-        <!-- <job-accounting current-finance-job="tab" active-tab="FinanceJobCtrl.ePage.Masters.ActiveMenuTab" data-ng-if="FinanceJobCtrl.ePage.Masters.FF"></job-accounting>
-        <job-accounting current-finance-job="tab" data-ng-if="FinanceJobCtrl.ePage.Masters.WF" data-ng-if="FinanceJobCtrl.ePage.Masters.WF"></job-accounting>
-        <job-accounting current-finance-job="tab" data-ng-if="FinanceJobCtrl.ePage.Masters.TF" data-ng-if="FinanceJobCtrl.ePage.Masters.TF"></job-accounting> -->
     </uib-tab>
     <!-- <button type="button" class="btn btn-default mt-2 mr-15" style="position: absolute; right: 0;" data-ng-click="FinanceJobCtrl.ePage.Masters.FinanceSelection('dashboard');FinanceJobCtrl.ePage.Masters.RemoveAllTab();">
         <i class="fa fa-anlgle-double-left"></i>Back to Dashboard</button> -->
+        <button class="btn btn-default" ng-click="FinanceJobCtrl.ePage.Masters.CreateNewJob()" data-ng-disabled="FinanceJobCtrl.ePage.Masters.isNewClicked">+</button>
 </uib-tabset>
