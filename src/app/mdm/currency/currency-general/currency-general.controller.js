@@ -25,7 +25,7 @@
             CurrencyGeneralCtrl.ePage.Masters.Config = currencyConfig;
             CurrencyGeneralCtrl.ePage.Masters.UICurrency = CurrencyGeneralCtrl.ePage.Entities.Header.Data;
             CurrencyGeneralCtrl.ePage.Masters.SelectedLookupData = SelectedLookupData;
-            console.log(CurrencyGeneralCtrl.ePage.Masters.UICurrency);
+            
 
             /* Function  */
             CurrencyGeneralCtrl.ePage.Masters.OnChangeValues = OnChangeValues;
