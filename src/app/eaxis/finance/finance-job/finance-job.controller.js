@@ -35,7 +35,7 @@
             FinanceJobCtrl.ePage.Masters.SelectedGridRow = SelectedGridRow;
             FinanceJobCtrl.ePage.Masters.AddTab = AddTab;
             FinanceJobCtrl.ePage.Masters.RemoveTab = RemoveTab;
-            FinanceJobCtrl.ePage.Masters.RemoveAllTab = RemoveAllTab;
+           // FinanceJobCtrl.ePage.Masters.RemoveAllTab = RemoveAllTab;
             FinanceJobCtrl.ePage.Masters.ShowErrorWarningModal = ShowErrorWarningModal;
             FinanceJobCtrl.ePage.Masters.HideErrorWarningModal = HideErrorWarningModal;
             FinanceJobCtrl.ePage.Masters.CreateNewJob = CreateNewJob;
@@ -136,21 +136,21 @@
             });
         }
 
-        function RemoveAllTab() {
-            event.preventDefault();
-            event.stopPropagation();
-            FinanceJobCtrl.ePage.Masters.TabList.map(function (value, key) {
-                var _currentTab = value[value.code].ePage.Entities;
-                apiService.get("eAxisAPI", financeConfig.Entities.API.JobHeaderList.API.JobHeaderListActivityClose.Url + _currentTab.Header.Data.PK).then(function (response) {
-                    if (response.data.Status == "Success") {
-                        FinanceJobCtrl.ePage.Masters.TabList.shift();
-                    } else {
-                        console.log("Tab close Error : " + response);
-                    }
-                });
-            });
-            FinanceJobCtrl.ePage.Masters.ActiveTabIndex = FinanceJobCtrl.ePage.Masters.TabList.length;
-        }
+        // function RemoveAllTab() {
+        //     event.preventDefault();
+        //     event.stopPropagation();
+        //     FinanceJobCtrl.ePage.Masters.TabList.map(function (value, key) {
+        //         var _currentTab = value[value.code].ePage.Entities;
+        //         apiService.get("eAxisAPI", financeConfig.Entities.API.JobHeaderList.API.JobHeaderListActivityClose.Url + _currentTab.Header.Data.PK).then(function (response) {
+        //             if (response.data.Status == "Success") {
+        //                 FinanceJobCtrl.ePage.Masters.TabList.shift();
+        //             } else {
+        //                 console.log("Tab close Error : " + response);
+        //             }
+        //         });
+        //     });
+        //     FinanceJobCtrl.ePage.Masters.ActiveTabIndex = FinanceJobCtrl.ePage.Masters.TabList.length;
+        // }
         //#endregion
 
         //#region Validation

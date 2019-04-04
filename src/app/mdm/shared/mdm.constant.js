@@ -786,23 +786,41 @@
                     'app/mdm/debtor/debtor-general/debtor-general.directive.js',
                     'app/mdm/debtor/debtor-general/debtor-general.controller.js'
                 ]
-            },{
+            }, {
                 name: 'currency',
                 files: [
                     'app/mdm/currency/currency.config.factory.js',
                     'app/mdm/currency/currency.controller.js'
                 ]
-            },{
+            }, {
                 name: 'currencyMenu',
                 files: [
                     'app/mdm/currency/currency-menu/currency-menu-directive.js',
                     'app/mdm/currency/currency-menu/currency-menu-controller.js'
                 ]
-            },{
+            }, {
                 name: 'currencyGeneral',
                 files: [
                     'app/mdm/currency/currency-general/currency-general.directive.js',
                     'app/mdm/currency/currency-general/currency-general.controller.js'
+                ]
+            }, {
+                name: 'tax',
+                files: [
+                    'app/mdm/tax/tax-config.factory.js',
+                    'app/mdm/tax/tax.controller.js'
+                ]
+            }, {
+                name: 'taxMenu',
+                files: [
+                    'app/mdm/tax/tax-menu/tax-menu.directive.js',
+                    'app/mdm/tax/tax-menu/tax-menu.controller.js'
+                ]
+            }, {
+                name: 'taxGeneral',
+                files: [
+                    'app/mdm/tax/tax-general/tax-general.directive.js',
+                    'app/mdm/tax/tax-general/tax-general.controller.js'
                 ]
             }
         ]

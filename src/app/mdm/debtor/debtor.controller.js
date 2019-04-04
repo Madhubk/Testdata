@@ -55,7 +55,7 @@
         }
         //#endregion
 
-        //#region  AddTab, RemoveTab, NewCreditor
+        //#region  AddTab, RemoveTab, NewDebtor
         function AddTab(currentTab, isNew) {
             var _isExist = DebtorCtrl.ePage.Masters.TabList.some(function (value) {
                 return value.pk == currentTab.entity.PK;
