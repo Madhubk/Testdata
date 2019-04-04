@@ -79,7 +79,9 @@
                                 "CurrencyName": helperService.metaBase(),
                                 "Symbol": helperService.metaBase(),
                                 "Country": helperService.metaBase(),
-                                "IsActive": helperService.metaBase()
+                                "IsActive": helperService.metaBase(),
+                                "Unitname":helperService.metaBase()
+                                
                             }
                         },
                         "GlobalVariables": {

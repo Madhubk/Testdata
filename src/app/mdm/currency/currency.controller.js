@@ -55,7 +55,7 @@
             }
         }
 
-        function AddTab(currencyNew, isNew) {            
+        function AddTab(currencyNew, isNew) {                      
             CurrencyCtrl.ePage.Masters.currencyNew = undefined;
             var _isExist = CurrencyCtrl.ePage.Masters.TabList.some(function (value) {
                 if (!isNew) {
@@ -81,7 +81,7 @@
                 currencyConfig.GetTabDetails(_currencyNew, isNew).then(function (response) {
                     var _entity = {};
                     CurrencyCtrl.ePage.Masters.TabList = response;
-                    console.log(CurrencyCtrl.ePage.Masters.TabList);
+                    //console.log(CurrencyCtrl.ePage.Masters.TabList);
                     if (CurrencyCtrl.ePage.Masters.TabList.length > 0) {
                         CurrencyCtrl.ePage.Masters.TabList.map(function (value, key) {
                             if (value.code == currencyNew.entity.PK) {

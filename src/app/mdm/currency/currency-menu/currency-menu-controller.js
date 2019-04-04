@@ -115,7 +115,7 @@
             });
         }
 
-        function Save($item) {
+        function Save($item) {            
             CurrencyMenuCtrl.ePage.Masters.SaveButtonText = "Please Wait...";
             CurrencyMenuCtrl.ePage.Masters.DisableSave = true;
 
@@ -130,6 +130,8 @@
                 _input.CreatedBy = authService.getUserInfo().UserId;
                 _input.Source = "ERP";
                 _input.TenantCode = "20CUB";
+                _input.UnitName="Test";
+                _input.SubUnitName="Test1";
             } else {
                 $item = filterObjectUpdate($item, "IsModified");
             }
