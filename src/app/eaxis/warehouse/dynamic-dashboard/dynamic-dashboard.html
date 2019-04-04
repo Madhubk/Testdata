@@ -5,7 +5,7 @@
             <span class="dashboard-dms-title ml-10 fs-20">Dashboard</span>
         </div>
         <div class="col-lg-6">
-            <div class="text-right col-lg-10">
+            <div class="text-right col-lg-8">
                 <select class="btn btn-default fs-12" ng-model="DynamicDashboardCtrl.ePage.Masters.SelectedWarehouse"
                     ng-options="x.WarehouseCode+'-'+x.WarehouseName for x in DynamicDashboardCtrl.ePage.Masters.WarehouseDetails"
                     ng-change="DynamicDashboardCtrl.ePage.Masters.WarehouseChanged()" search-contains="true"></select>
@@ -17,7 +17,6 @@
                     </span>
                     <div id="filterSideBar" class="dynamic-filter-sidebar-wrapper p-0" style="border: 1px solid #eee;top: 35px;z-index: 15;background-color: #fff;width: 500px;"
                         role="menu">
-                        <!-- <form class="clearfix"> -->
                         <div class="clearfix m-5 mb-15">
                             <input type="text" class="form-control input-sm input-search" placeholder="Search"
                                 data-ng-model="DynamicDashboardCtrl.ePage.Masters.Search">
@@ -86,13 +85,19 @@
                             <input type="submit" class="btn btn-sm btn-primary pull-right mr-15" data-ng-click="DynamicDashboardCtrl.ePage.Masters.Apply()"
                                 value="{{DynamicDashboardCtrl.ePage.Masters.ApplyBtnText}}" data-ng-disabled="DynamicDashboardCtrl.ePage.Masters.IsApplyBtnDisable">
                         </div>
-                        <!-- </form> -->
                     </div>
+                </div>
+            </div>
+            <div class="col-lg-2" style="padding-right:0px;">
+                <div class="pull-right" data-ng-if="DynamicDashboardCtrl.ePage.Masters.ComponentRoleDetails.length>0">
+                    <span class="pull-right" title="Dashboard Settings" data-ng-click="DynamicDashboardCtrl.ePage.Masters.Settings()">
+                        <i class="fa fa-cog icon pt-8 pb-8" style="padding: 4px 10px;font-size: 16px;cursor: pointer;color: rgb(170, 170, 170);"></i>
+                    </span>
                 </div>
             </div>
         </div>
     </div>
-    <div class="col-lg-12 custom-widget no-padding">
+    <div class="col-lg-12 custom-widget no-padding" data-ng-if="DynamicDashboardCtrl.ePage.Masters.WarehouseDetails.length>0">
         <div class="widget clearfix no-padding" dnd-list="DynamicDashboardCtrl.ePage.Masters.ComponentList" dnd-drop="DynamicDashboardCtrl.ePage.Masters.dropCallback(item,DynamicDashboardCtrl.ePage.Masters.ComponentList,index,external)">
             <div ng-if="DynamicDashboardCtrl.ePage.Masters.ComponentList" ng-repeat="x in DynamicDashboardCtrl.ePage.Masters.ComponentList | filter: {IsShow:true}"
                 dnd-draggable="x" dnd-effect-allowed="move" draggable="true">
@@ -101,7 +106,11 @@
             </div>
         </div>
     </div>
-    <div class="clearfix col-lg-12 p-20 text-center" data-ng-hide="DynamicDashboardCtrl.ePage.Masters.IsShowDetails.length <= DynamicDashboardCtrl.ePage.Masters.Config.LoadMoreCount">
+    <div class="col-lg-12">
+        <div class="text-center pt-20" data-ng-if="DynamicDashboardCtrl.ePage.Masters.WarehouseDetails.length==0"><i>Warehouse
+                Not Mapped</i></div>
+    </div>
+    <div class="clearfix col-lg-12 p-20 text-center" data-ng-hide="(DynamicDashboardCtrl.ePage.Masters.IsShowDetails.length <= DynamicDashboardCtrl.ePage.Masters.Config.LoadMoreCount) || DynamicDashboardCtrl.ePage.Masters.WarehouseDetails.length==0">
         <button class="btn btn-sm btn-primary" data-ng-click="DynamicDashboardCtrl.ePage.Masters.LoadMore()"
             data-ng-disabled="DynamicDashboardCtrl.ePage.Masters.IsDisabledLoadMoreBtn" data-ng-bind="DynamicDashboardCtrl.ePage.Masters.LoadMoreBtnTxt"></button>
     </div>
