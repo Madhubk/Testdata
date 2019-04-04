@@ -30,11 +30,13 @@
             TaxCtrl.ePage.Masters.TabList = [];
             TaxCtrl.ePage.Masters.ActiveTabIndex = 0;
             TaxCtrl.ePage.Masters.IsTabClick = false;
+            TaxCtrl.ePage.Masters.isNewClicked = false;
 
             /* Function */
             TaxCtrl.ePage.Masters.SelectedGridRow = SelectedGridRow;
             TaxCtrl.ePage.Masters.AddTab = AddTab;
             TaxCtrl.ePage.Masters.RemoveTab = RemoveTab;
+            TaxCtrl.ePage.Masters.CreateNewTax = CreateNewTax;
         }
 
         //#region SelectedGrid
@@ -42,7 +44,7 @@
             if ($item.action === "link" || $item.action === "dblClick") {
                 TaxCtrl.ePage.Masters.AddTab($item.data, false);
             } else if ($item.action === "new") {
-                CreateNewTaxMaster();
+                CreateNewTax();
             }
         }
         //#endregion
@@ -98,7 +100,33 @@
             });
         }
 
-        function CreateNewTaxMaster() {
+        function CreateNewTax() {
+            TaxCtrl.ePage.Masters.currentTax = undefined;
+
+            var _isExist = TaxCtrl.ePage.Masters.TabList.some(function (value) {
+                if (value.label === "New")
+                    return true;
+                else
+                    return false;
+            });
+
+            if (!_isExist) {
+                TaxCtrl.ePage.Masters.isNewClicked = true;
+                helperService.getFullObjectUsingGetById(TaxCtrl.ePage.Entities.API.AccTaxRate.API.GetById.Url, 'null').then(function (response) {
+                    if (response.data.Response) {
+                        var _obj = {
+                            entity: response.data.Response,
+                            data: response.data.Response
+                        };
+                        TaxCtrl.ePage.Masters.AddTab(_obj, true);
+                        TaxCtrl.ePage.Masters.isNewClicked = false;
+                    } else {
+                        console.log("Empty New Tax response");
+                    }
+                });
+            } else {
+                toastr.info("New Record Already Opened...!");
+            }
         }
         //#endregion
 

@@ -29,7 +29,6 @@
 
         //#region  Validation
         function Validation($item) {
-            console.log("Validation", $item[$item.code].ePage.Entities.Header.Data);
             var _Data = $item[$item.code].ePage.Entities,
                 _input = _Data.Header.Data;
 
@@ -41,7 +40,7 @@
         //#region Save
         function Save($item) {
             TaxMenuCtrl.ePage.Masters.SaveButtonText = "Please Wait...";
-            //TaxMenuCtrl.ePage.Masters.DisableSave = true;
+            TaxMenuCtrl.ePage.Masters.DisableSave = true;
 
             var _Data = $item[$item.code].ePage.Entities,
                 _input = _Data.Header.Data;
