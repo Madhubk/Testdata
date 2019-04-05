@@ -860,7 +860,7 @@
                 templateUrl: 'app/eaxis/warehouse/consolidated-document/consolidated-document.html',
                 controller: "ConsolidatedDocumentController as ConsolidatedDocumentCtrl",
                 ncyBreadcrumb: {
-                    label: 'Document'
+                    label: 'All Documents'
                 },
                 resolve: {
                     CheckAccess: ["$q", "pageAccessService", function ($q, pageAccessService) {
