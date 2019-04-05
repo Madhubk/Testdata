@@ -5,7 +5,10 @@
             name: "Finance",
             files: [
                 "app/eaxis/finance/finance.controller.js",
-                "app/eaxis/finance/finance-job/finance-config.factory.js"
+                "app/eaxis/finance/finance-job/finance-config.factory.js",
+                'app/mdm/warehouse/customize-table/customize-table.css',
+                'app/mdm/warehouse/customize-table/customize-table.directive.js',
+                'app/mdm/warehouse/custom/customfilter.js'
             ]
         }, {
             name: "FinanceAccountPayable",

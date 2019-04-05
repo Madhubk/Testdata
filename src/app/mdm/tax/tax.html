@@ -1,31 +1,31 @@
  <!--Grid View -->
-<uib-tabset id="chromeTab" class="tab-container chrometab-box" active="DebtorCtrl.ePage.Masters.ActiveTabIndex" class="tab-container chrometab-box">
+ <uib-tabset id="chromeTab" class="tab-container chrometab-box" active="TaxCtrl.ePage.Masters.ActiveTabIndex" class="tab-container chrometab-box">
     <uib-tab >
-        <uib-tab-heading title="DebtorCtrl.ePage.Masters.Title">
-            <span data-ng-bind="DebtorCtrl.ePage.Masters.Title"></span>
+        <uib-tab-heading title="TaxCtrl.ePage.Masters.Title">
+            <span data-ng-bind="TaxCtrl.ePage.Masters.Title"></span>
             <i class="fa fa-thumb-tack pinned-tab ml-10"></i>
         </uib-tab-heading>
         <div>
             <!-- Dynamic Grid Page-->
-            <dynamic-list mode="1" dataentry-name="DebtorCtrl.ePage.Masters.DataentryName" dataentry-object="DebtorCtrl.ePage.Masters.DataEntryObject"
-                selected-grid-row="DebtorCtrl.ePage.Masters.SelectedGridRow($item)" default-filter="DebtorCtrl.ePage.Masters.DefaultFilter"></dynamic-list>
-            <div class="tab-loading" data-ng-show="DebtorCtrl.ePage.Masters.IsTabClick"></div>
+            <dynamic-list mode="1" dataentry-name="TaxCtrl.ePage.Masters.DataentryName" dataentry-object="TaxCtrl.ePage.Masters.DataEntryObject"
+                selected-grid-row="TaxCtrl.ePage.Masters.SelectedGridRow($item)" default-filter="TaxCtrl.ePage.Masters.DefaultFilter"></dynamic-list>
+            <div class="tab-loading" data-ng-show="TaxCtrl.ePage.Masters.IsTabClick"></div>
         </div>
     </uib-tab>
-    <uib-tab id='top' active="DebtorCtrl.ePage.Masters.ActiveTabIndex == $index" data-ng-repeat="tab in DebtorCtrl.ePage.Masters.TabList">
+    <uib-tab id='top' active="TaxCtrl.ePage.Masters.ActiveTabIndex == $index" data-ng-repeat="tab in TaxCtrl.ePage.Masters.TabList">
         <uib-tab-heading title="{{tab.label}}">
             <span data-ng-bind="tab.label"></span>
-            <i class="glyphicon glyphicon-remove" data-ng-click="DebtorCtrl.ePage.Masters.RemoveTab($event, $index, tab)"></i>
+            <i class="glyphicon glyphicon-remove" data-ng-click="TaxCtrl.ePage.Masters.RemoveTab($event, $index, tab)"></i>
             <span class="error-warning-container-common" data-ng-if="tab[tab.code].ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList.length > 0">
                 <span class="custom-warning-container" data-ng-if="(tab[tab.code].ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList | listCount: 'MessageType': 'W') > 0 && (tab[tab.label].ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList | listCount: 'MessageType': 'E') == 0">
-                    <button class="btn-warning" data-ng-click="DebtorCtrl.ePage.Masters.Config.ShowErrorWarningModal(tab)">
+                    <button class="btn-warning" data-ng-click="TaxCtrl.ePage.Masters.Config.ShowErrorWarningModal(tab)">
                         <i class="fa fa-warning"></i>
                     </button>
                     <span class="custom-warning-count">{{tab[tab.code].ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList | listCount:
                         'MessageType': 'W'}}</span>
                 </span>
                 <span class="custom-error-container" data-ng-if="(tab[tab.code].ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList | listCount: 'MessageType': 'E') > 0">
-                    <button class="btn-error" data-ng-click="DebtorCtrl.ePage.Masters.Config.ShowErrorWarningModal(tab)">
+                    <button class="btn-error" data-ng-click="TaxCtrl.ePage.Masters.Config.ShowErrorWarningModal(tab)">
                         <i class="fa fa-warning"></i>
                     </button>
                     <span class="custom-error-count">{{tab[tab.code].ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList | listCount:
@@ -34,13 +34,10 @@
             </span>
         </uib-tab-heading>
         <div class="padding-bottom-10 clearfix">
-            <!--Debtor Menu Directive-->
-            <debtor-menu current-debtor="tab"></debtor-menu> 
+            <!--Tax Menu Directive-->
+            <tax-menu current-tax="tab"></tax-menu> 
             <div class="horizontal-space"></div> 
         </div>
-</uib-tab>
-<button class="btn btn-default" data-ng-click="DebtorCtrl.ePage.Masters.CreateNewDebtor()" data-ng-disabled="DebtorCtrl.ePage.Masters.isNewClicked">+</button>
+    </uib-tab>
+    <button class="btn btn-default" data-ng-click="TaxCtrl.ePage.Masters.CreateNewTax()" data-ng-disabled="TaxCtrl.ePage.Masters.isNewClicked">+</button>
 </uib-tabset>
-
- 
-

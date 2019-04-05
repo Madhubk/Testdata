@@ -524,6 +524,26 @@
                         return $ocLazyLoad.load(["debtor", "debtorMenu", "debtorGeneral", "dynamicLookup", "dynamicListModal", "dynamicList", "dynamicGrid", "dynamicControl", "compareDate", "customToolbar", "confirmation", "chromeTab", "errorWarning"]);
                     }]
                 }
+            })
+            .state('MD.tax', {
+                url: '/tax',
+                templateUrl: 'app/mdm/tax/tax.html',
+                controller: "TaxController as TaxCtrl",
+                ncyBreadcrumb: {
+                    label: 'Tax'
+                },
+                resolve: {
+                    CheckAccess: ["$q", "pageAccessService", function ($q, pageAccessService) {
+                        var deferred = $q.defer();
+                        // if (pageAccessService.CheckAuthToken()) {
+                        deferred.resolve();
+                        //  }
+                        return deferred.promise;
+                    }],
+                    LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
+                        return $ocLazyLoad.load(["tax", "taxMenu", "taxGeneral", "dynamicLookup", "dynamicListModal", "dynamicList", "dynamicGrid", "dynamicControl", "compareDate", "customToolbar", "confirmation", "chromeTab", "errorWarning"]);
+                    }]
+                }
             });
     }
 })();

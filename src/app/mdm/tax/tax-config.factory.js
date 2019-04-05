@@ -2,11 +2,11 @@
     "use strict";
 
     angular.module("Application")
-        .factory('debtorConfig', DebtorConfig);
+        .factory("taxConfig", TaxConfig);
 
-    DebtorConfig.$inject = ["$q", "helperService", "apiService", "appConfig"];
+    TaxConfig.$inject = ["$q", "apiService", "appConfig", "helperService"];
 
-    function DebtorConfig($q, helperService, apiService, appConfig) {
+    function TaxConfig($q, apiService, appConfig, helperService) {
         var exports = {
             "Entities": {
                 "Header": {
@@ -14,24 +14,24 @@
                     "Meta": {}
                 },
                 "API": {
-                    "DebtorGroup": {
+                    "AccTaxRate": {
                         "RowIndex": -1,
                         "API": {
                             "FindAll": {
                                 "IsAPI": "true",
                                 "HttpType": "Post",
-                                "Url": "MstDebtorGroup/FindAll",
-                                "FilterID": "MSTDEGP"
+                                "Url": "AccTaxRate/FindAll",
+                                "FilterID": "ACCTAXRA"
                             },
                             "GetById": {
                                 "IsAPI": "true",
                                 "HttpType": "GET",
-                                "Url": "MstDebtorGroup/GetById/"
+                                "Url": "AccTaxRate/GetById/"
                             },
-                            "DebtorGroupActivityClose": {
+                            "AccTaxRateActivityClose": {
                                 "IsAPI": "true",
                                 "HttpType": "GET",
-                                "Url": "MstDebtorGroup/MstDebtorGroupActivityClose/"
+                                "Url": "AccTaxRate/AccTaxRateGroupActivityClose/"
                             }
                         }
                     }
@@ -46,12 +46,12 @@
             "ShowErrorWarningModal": ShowErrorWarningModal,
             "RemoveErrorWarning": RemoveErrorWarning,
             "RemoveApiErrors": RemoveApiErrors,
-            "DataentryName": "MstDebtorGroup",
-            "DataentryTitle": "Debtor Group"
+            "DataentryName": "AccTaxRate",
+            "DataentryTitle": "Tax Master"
         };
         return exports;
 
-        function GetTabDetails(currentDebtor, isNew) {
+        function GetTabDetails(currentTax, isNew) {
             // Set configuration object to individual Consolidation
             var deferred = $q.defer();
             var _exports = {
@@ -61,15 +61,15 @@
                         "Validations": "",
                         "RowIndex": -1,
                         "API": {
-                            "InsertDebtor": {
+                            "InsertTaxRate": {
                                 "IsAPI": "true",
                                 "HttpType": "POST",
-                                "Url": "MstDebtorGroup/Insert"
+                                "Url": "AccTaxRate/Insert"
                             },
-                            "UpdateDebtor": {
+                            "UpdateTaxRate": {
                                 "IsAPI": "true",
                                 "HttpType": "POST",
-                                "Url": "MstDebtorGroup/Update"
+                                "Url": "AccTaxRate/Update"
                             }
                         },
                         "Meta": {
@@ -77,7 +77,7 @@
                             "ErrorWarning": {
                                 "GlobalErrorWarningList": [],
                                 "Code": helperService.metaBase(),
-                                "Desc": helperService.metaBase(),
+                                "Country": helperService.metaBase(),
                             }
                         }
                     }
@@ -85,8 +85,8 @@
             };
 
             if (isNew) {
-                _exports.Entities.Header.Data = currentDebtor.data;
-                var _code = currentDebtor.entity.PK.split("-").join("");
+                _exports.Entities.Header.Data = currentTax.data;
+                var _code = currentTax.entity.PK.split("-").join("");
 
                 var _obj = {
                     [_code]: {
@@ -94,14 +94,14 @@
                     },
                     label: 'New',
                     code: _code,
-                    pk: currentDebtor.entity.PK,
+                    pk: currentTax.entity.PK,
                     isNew: isNew
                 };
                 exports.TabList.push(_obj);
                 deferred.resolve(exports.TabList);
             }
             else {
-                helperService.getFullObjectUsingGetById(exports.Entities.API.DebtorGroup.API.GetById.Url, currentDebtor.PK).then(function (response) {
+                helperService.getFullObjectUsingGetById(exports.Entities.API.AccTaxRate.API.GetById.Url, currentTax.PK).then(function (response) {
                     if (response.data.Messages) {
                         response.data.Messages.map(function (value, key) {
                             if (value.Type === "Warning" && value.MessageDesc !== "") {
@@ -112,14 +112,14 @@
                     _exports.Entities.Header.Data = response.data.Response;
                     _exports.Entities.Header.Validations = response.data.Validations;
 
-                    var _code = currentDebtor.PK.split("-").join("");
+                    var _code = currentTax.PK.split("-").join("");
                     var obj = {
                         [_code]: {
                             ePage: _exports
                         },
-                        label: currentDebtor.Code,
+                        label: currentTax.Code,
                         code: _code,
-                        pk: currentDebtor.PK,
+                        pk: currentTax.PK,
                         isNew: isNew
                     };
                     exports.TabList.push(obj);
@@ -150,9 +150,9 @@
             var _Data = $item[$item.code].ePage.Entities,
                 _input = _Data.Header.Data;
 
-            //UIDebtor Validations 
-            OnChangeValues(_input.Code, 'E1205', false, undefined, $item.code);
-            OnChangeValues(_input.Desc, 'E1206', false, undefined, $item.code);
+            //UITax Validations 
+            OnChangeValues(_input.Code, 'E1207', false, undefined, $item.code);
+            OnChangeValues(_input.Country, 'E1208', false, undefined, $item.code);
         }
 
         function OnChangeValues(fieldvalue, code, IsArray, RowIndex, label) {

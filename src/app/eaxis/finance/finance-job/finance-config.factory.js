@@ -120,6 +120,7 @@
                                 "GlobalErrorWarningList": [],
                                 "LocalOrg_Code": helperService.metaBase(),
                                 "AgentOrg_Code": helperService.metaBase(),
+                                "CompanyCode": helperService.metaBase(),
                                 "BranchCode": helperService.metaBase(),
                                 "DeptCode": helperService.metaBase(),
                                 "Status": helperService.metaBase(),
@@ -473,6 +474,7 @@
             //UIJobHeader Validations 
             OnChangeValues(_input.UIJobHeader.LocalOrg_Code, 'E1300', false, undefined, $item.code);
             OnChangeValues(_input.UIJobHeader.AgentOrg_Code, 'E1301', false, undefined, $item.code);
+            OnChangeValues(_input.UIJobHeader.CompanyCode, 'E1323', false, undefined, $item.code);
             OnChangeValues(_input.UIJobHeader.BranchCode, 'E1302', false, undefined, $item.code);
             OnChangeValues(_input.UIJobHeader.DeptCode, 'E1303', false, undefined, $item.code);
             OnChangeValues(_input.UIJobHeader.Status, 'E1304', false, undefined, $item.code);

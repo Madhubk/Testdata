@@ -93,6 +93,25 @@
                 TodayRate: 71.3400,
                 OrgRole:"DEB",
                 Organisation : ""
+            }, {
+                Currency: "USD",
+                BaseRate: 35.5000,
+                TodayRate: 71.3400,
+                OrgRole:"DEB",
+                Organisation : ""
+            }, {
+                Currency: "POUND",
+                BaseRate: 21.5000,
+                TodayRate: 63.3800,
+                OrgRole:"CRD",
+                Organisation : ""
+            },
+            {
+                Currency: "INR",
+                BaseRate: 25.3400,
+                TodayRate: 71.3400,
+                OrgRole:"DEB",
+                Organisation : ""
             }];
 
             FinanceJobGeneralCtrl.ePage.Masters.DropDownMasterList = {};
@@ -184,6 +203,9 @@
                 else if (type == 'Agent') {
                     OnChangeValues($item.Code, 'E1301');
                 }
+                else if (type == 'Company') {
+                    OnChangeValues($item.Code, 'E1323');
+                }
                 else if (type == 'Branch') {
                     OnChangeValues($item.Code, 'E1302');
                 }
@@ -215,8 +237,8 @@
                     FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].ChargeType = $item.ChargeType;
                     FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].CustomerCode = FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.LocalOrg_Code;
                     FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].ORG_SellAccount = FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.LocalOrg_FK;
-                    FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].RX_NKCostCurrency = FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.Currency;
-                    FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].RX_NKSellCurrency = FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.Currency;
+                    FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].RX_NKCostCurrency = FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.CompanyLocalCurrency;
+                    FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].RX_NKSellCurrency = FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.CompanyLocalCurrency;
                 }
                 else if (type == 'ServiceBranch') {
                     OnChangeValues($item.Code, 'E1305');
