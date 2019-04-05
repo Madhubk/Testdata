@@ -6,15 +6,16 @@
                     title="{{InwardViewDetailCustom1Ctrl.ePage.Entities.Header.Data.UIWmsInwardHeader.WorkOrderID}}"
                     data-ng-bind="InwardViewDetailCustom1Ctrl.currentInwardViewDetail.label"></div>
 
-                <div class="tab-profile-sub-title text-single-line fs-14"
+                <!-- <div class="tab-profile-sub-title text-single-line fs-14"
                     title="{{InwardViewDetailCustom1Ctrl.ePage.Entities.Header.Data.UIWmsInwardHeader.WorkOrderStatus}} - {{InwardViewDetailCustom1Ctrl.ePage.Entities.Header.Data.UIWmsInwardHeader.WorkOrderStatusDesc}}"
                     data-ng-bind="InwardViewDetailCustom1Ctrl.ePage.Entities.Header.Data.UIWmsInwardHeader.WorkOrderStatusDesc">
-                </div>
+                </div> -->
             </div>
 
-            <!--Client-->
+            <!-- header -->
             <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 col-xl-9 pt-20 pb-10">
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <!--Client-->
                     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 border-left border-right pt-20 pb-10">
                         <div class="fs-20 color-999">Client</div>
 
@@ -105,7 +106,7 @@
                     <div class="form-group">
                         <div class="color-999 fs-11">MPP PO#</div>
                         <div class="text-single-line">
-                            <span>{{InwardViewDetailCustom1Ctrl.ePage.Entities.Header.Data.UIWmsInwardHeader.AdditionalRef1}}</span>
+                            <span>{{InwardViewDetailCustom1Ctrl.ePage.Entities.Header.Data.UIWmsInwardHeader.AdditionalRef1Code}}</span>
                         </div>
                     </div>
                 </div>
@@ -113,7 +114,7 @@
                     <div class="form-group">
                         <div class="color-999 fs-11">Supplier PO#</div>
                         <div class="text-single-line">
-                            <span>{{InwardViewDetailCustom1Ctrl.ePage.Entities.Header.Data.UIWmsInwardHeader.AdditionalRef2}}</span>
+                            <span>{{InwardViewDetailCustom1Ctrl.ePage.Entities.Header.Data.UIWmsInwardHeader.AdditionalRef2Code}}</span>
                         </div>
                     </div>
                 </div>
@@ -122,7 +123,7 @@
                     <div class="form-group">
                         <div class="color-999 fs-11">SupplierJP Invoice#</div>
                         <div class="text-single-line">
-                            <span>{{InwardViewDetailCustom1Ctrl.ePage.Entities.Header.Data.UIWmsInwardHeader.AdditionalRef3}}</span>
+                            <span>{{InwardViewDetailCustom1Ctrl.ePage.Entities.Header.Data.UIWmsInwardHeader.AdditionalRef3Code}}</span>
                         </div>
                     </div>
                 </div>
@@ -140,7 +141,7 @@
                     <div class="form-group">
                         <div class="color-999 fs-11">Factory Invoice#</div>
                         <div class="text-single-line">
-                            <span>{{InwardViewDetailCustom1Ctrl.ePage.Entities.Header.Data.UIWmsInwardHeader.TransportRef}}</span>
+                            <span>{{InwardViewDetailCustom1Ctrl.ePage.Entities.Header.Data.UIWmsInwardHeader.TransportReference}}</span>
                         </div>
                     </div>
                 </div>
@@ -157,7 +158,8 @@
     </div>
     <!-- Receive Lines -->
     <div>
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" style="padding: 3px; margin-bottom: 20px;padding-bottom: 10px;">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"
+            style="padding: 3px; margin-bottom: 20px;padding-bottom: 10px;">
             <div id="ReceiveLineTable{{InwardViewDetailCustom1Ctrl.ePage.Entities.Header.Data.UIWmsInwardHeader.WorkOrderID}}"
                 class="fixedheader mb-0" key-events
                 table-object='InwardViewDetailCustom1Ctrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine'
@@ -193,18 +195,20 @@
                             <td ng-style="{ 'width':  '40px' }" class="overflow-text">{{$index +1}}</td>
                             <td ng-style="{ 'width':  '50px' }" class="overflow-text">{{x.LineNo}}</td>
                             <td ng-style="{ 'width':  '200px' }" class="overflow-text">{{x.ProductCode}}</td>
-                            <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.PartAttrib1}}</td>
-                            <td ng-style="{ 'width':  '200px' }" class="overflow-text">{{x.PartAttrib2}}</td>
-                            <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.PartAttrib3}}</td>
+                            <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.AdditionalRef1Type}}</td>
+                            <td ng-style="{ 'width':  '200px' }" class="overflow-text">{{x.ExternalReference}}</td>
+                            <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.ExternalReference}}</td>
                             <td ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.Units}}</td>
-                            <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.StockKeepingUnit}}</td>
+                            <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.PAC_PackType}}</td>
                             <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.Packs}}</td>
-                            <td ng-style="{ 'width':  '200px' }" class="overflow-text">{{x.ProductCode}}</td>
+                            <td ng-style="{ 'width':  '200px' }" class="overflow-text">{{x.ORG_ClientCode}}</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 norecordfound" ng-if="InwardViewDetailCustom1Ctrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine.length==0">No Record Found...</div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 norecordfound"
+                ng-if="InwardViewDetailCustom1Ctrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine.length==0">No Record
+                Found...</div>
         </div>
     </div>
 </div>

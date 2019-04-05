@@ -5,10 +5,10 @@
                 title="{{OutwardViewDetailCustom1Ctrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WorkOrderID}}"
                 data-ng-bind="OutwardViewDetailCustom1Ctrl.currentOutwardViewDetail.label"></div>
 
-            <div class="tab-profile-sub-title text-single-line fs-14"
+            <!-- <div class="tab-profile-sub-title text-single-line fs-14"
                 title="{{OutwardViewDetailCustom1Ctrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WorkOrderStatus}} - {{OutwardViewDetailCustom1Ctrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WorkOrderStatusDesc}}"
                 data-ng-bind="OutwardViewDetailCustom1Ctrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WorkOrderStatusDesc">
-            </div>
+            </div> -->
         </div>
 
         <!--Client-->
@@ -110,7 +110,7 @@
             </div>
             <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
                 <div class="form-group">
-                    <div class="color-999 fs-11">Shipment#</div>
+                    <div class="color-999 fs-11">Shipment #</div>
                     <div class="text-single-line">
                         <span>{{OutwardViewDetailCustom1Ctrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.ExternalReference}}</span>
                     </div>
@@ -137,7 +137,7 @@
                 <div class="form-group">
                     <div class="color-999 fs-11">Shipped Date</div>
                     <div class="text-single-line">
-                        <span>{{OutwardViewDetailCustom1Ctrl.ePage.Masters.PickListDetails.UIWmsPickHeader.FinalizedDate | dateFormat}}</span>
+                        <span>{{OutwardViewDetailCustom1Ctrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.FinalisedDate | dateFormat}}</span>
                     </div>
                 </div>
             </div>
@@ -145,7 +145,7 @@
                 <div class="form-group">
                     <div class="color-999 fs-11">DO Date</div>
                     <div class="text-single-line">
-                        <span>{{OutwardViewDetailCustom1Ctrl.ePage.Masters.PickListDetails.UIWmsPickHeader.BookingDate | dateFormat}}</span>
+                        <span>{{OutwardViewDetailCustom1Ctrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.BookingDate | dateFormat}}</span>
                     </div>
                 </div>
             </div>
@@ -153,7 +153,7 @@
                 <div class="form-group">
                     <div class="color-999 fs-11">ASKUL Warehouse Code</div>
                     <div class="text-single-line">
-                        <span>{{OutwardViewDetailCustom1Ctrl.ePage.Masters.PickListDetails.UIWmsPickHeader.PickOption}}</span>
+                        <span>{{OutwardViewDetailCustom1Ctrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.AdditionalRef1Code}}</span>
                     </div>
                 </div>
             </div>
@@ -200,14 +200,14 @@
                         ng-class="{row_active: (OutwardViewDetailCustom1Ctrl.ePage.Masters.selectedRow==$index),copy_row_active :(x.IsCopied==true)}">
                         <td ng-style="{ 'width':  '40px' }" class="overflow-text">{{$index +1}}</td>
                         <td ng-style="{ 'width':  '80px' }" class="overflow-text">{{x.LineNo}}</td>
-                        <td ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.AdditionalRef1Code}}</td>
+                        <td ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.PartAttrib1}}</td>
                         <td ng-style="{ 'width':  '120px' }" class="overflow-text">{{x.PartAttrib1}}</td>
-                        <td ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.AdditionalRef1Code}}</td>
-                        <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.AdditionalRef2Code}}</td>
+                        <td ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.PartAttrib2}}</td>
+                        <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.PartAttrib3}}</td>
                         <td ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.Units}}</td>
                         <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.PAC_PackType}}</td>
                         <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.ProductCode}}</td>
-                        <td ng-style="{ 'width':  '200px' }" class="overflow-text">{{x.ProductCode}}</td>
+                        <td ng-style="{ 'width':  '200px' }" class="overflow-text">{{x.AdditionalRef1Type}}</td>
                         <td ng-style="{ 'width':  '200px' }" class="overflow-text">{{x.ProductDescription}}</td>
                     </tr>
                 </tbody>

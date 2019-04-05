@@ -529,7 +529,8 @@
             files: [
                 'app/eaxis/warehouse/customer-view/inward-customer-view/inward-view.css',
                 'app/eaxis/warehouse/customer-view/inward-customer-view/inward-view.controller.js',
-                'app/eaxis/warehouse/customer-view/inward-customer-view//inward-view-config.factory.js'
+                'app/eaxis/warehouse/customer-view/inward-customer-view//inward-view-config.factory.js',
+                'app/eaxis/warehouse/customer-view/inward-customer-view/inward-view.directive.js',
             ]
         },
 
