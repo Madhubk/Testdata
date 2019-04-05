@@ -32,16 +32,86 @@
             DynamicDashboardCtrl.ePage.Masters.Apply = Apply;
             DynamicDashboardCtrl.ePage.Masters.OnChangeSingleSelect = OnChangeSingleSelect;
             DynamicDashboardCtrl.ePage.Masters.OnClickCustomizeButton = OnClickCustomizeButton;
+            DynamicDashboardCtrl.ePage.Masters.OnChangeDashboardList = OnChangeDashboardList;
 
             DynamicDashboardCtrl.ePage.Masters.Settings = Settings;
             DynamicDashboardCtrl.ePage.Masters.CloseEditActivity = CloseEditActivity;
 
             DynamicDashboardCtrl.ePage.Masters.Config = dynamicDashboardConfig;
-            GetWarehouseValues();
             GetRoleList();
             GetSettingsButtonAccess();
             GetDashboardList();
+            GetDashboardListBasedOnRole();
         }
+        // #region - Get dashboard list based on Role
+        function GetDashboardListBasedOnRole() {
+            var _DashboardListBasedOnRole = [{
+                "Role": "DMS_DESK",
+                "DashboardName": "Inward Dashboard",
+                "Icon": "icon-inward",
+                "IsWarehouseBased": true,
+                "IsClientBased": false,
+            }, {
+                "Role": "DMS_DESK",
+                "DashboardName": "DMS Dashboard",
+                "Icon": "fa fa-truck ",
+                "IsWarehouseBased": false,
+                "IsClientBased": false,
+            }, {
+                "Role": "WH_USER",
+                "DashboardName": "Inward Dashboard",
+                "Icon": "icon-inward",
+                "IsWarehouseBased": true,
+                "IsClientBased": false,
+            }, {
+                "Role": "WH_USER",
+                "DashboardName": "Outward Dashboard",
+                "Icon": "icon-outward",
+                "IsWarehouseBased": true,
+                "IsClientBased": false,
+            }, {
+                "Role": "WH_USER",
+                "DashboardName": "Location Dashboard",
+                "Icon": "fa fa-map-marker",
+                "IsWarehouseBased": true,
+                "IsClientBased": false,
+            }, {
+                "Role": "EA_ADMIN",
+                "DashboardName": "Inward Dashboard",
+                "Icon": "icon-inward",
+                "IsWarehouseBased": true,
+                "IsClientBased": false,
+            }, {
+                "Role": "EA_ADMIN",
+                "DashboardName": "Outward Dashboard",
+                "Icon": "icon-outward",
+                "IsWarehouseBased": true,
+                "IsClientBased": false,
+            }, {
+                "Role": "EA_ADMIN",
+                "DashboardName": "Location Dashboard",
+                "Icon": "fa fa-map-marker",
+                "IsWarehouseBased": true,
+                "IsClientBased": false,
+            }, {
+                "Role": "EA_ADMIN",
+                "DashboardName": "DMS Dashboard",
+                "Icon": "fa fa-truck",
+                "IsWarehouseBased": false,
+                "IsClientBased": false,
+            }];
+            DynamicDashboardCtrl.ePage.Masters.DashboardListBasedOnRole = $filter('filter')(_DashboardListBasedOnRole, { Role: authService.getUserInfo().RoleCode })
+            DynamicDashboardCtrl.ePage.Masters.SelectedDashboardDetails = DynamicDashboardCtrl.ePage.Masters.DashboardListBasedOnRole[0];
+            OnChangeDashboardList();
+        }
+
+        function OnChangeDashboardList() {
+            if (DynamicDashboardCtrl.ePage.Masters.SelectedDashboardDetails.IsWarehouseBased)
+                GetWarehouseValues();
+            if (DynamicDashboardCtrl.ePage.Masters.SelectedDashboardDetails.IsClientBased)
+                GetClientDetails();
+        }
+        // #endregion
         // #region - Dashboard settings
         function GetSettingsButtonAccess() {
             var _Roles = "";
@@ -86,12 +156,14 @@
         function CloseEditActivity() {
             DynamicDashboardCtrl.ePage.Masters.modalInstances.dismiss('cancel');
         }
-
+        // #endregion
         // #region - get Dashboard list 
         function GetDashboardList() {
             var _DashboardList = [{
                 "DashboardName": "Inward Dashboard",
                 "Icon": "icon-inward",
+                "IsWarehouseBased": true,
+                "IsClientBased": true,
                 "ComponentList": [
                     {
                         "ComponentName": "ASN Received With Status",
@@ -132,6 +204,8 @@
             }, {
                 "DashboardName": "Outward Dashboard",
                 "Icon": "icon-outward",
+                "IsWarehouseBased": true,
+                "IsClientBased": false,
                 "ComponentList": [
                     {
                         "ComponentName": "Open SO",
@@ -151,6 +225,8 @@
             }, {
                 "DashboardName": "Location Dashboard",
                 "Icon": "fa fa-map-marker",
+                "IsWarehouseBased": true,
+                "IsClientBased": false,
                 "ComponentList": [
                     {
                         "ComponentName": "Cycle Count Jobs",
@@ -160,10 +236,44 @@
                         "SetAsDefault": false,
                         "IsLoadAsDefault": false
                     }]
+            }, {
+                "DashboardName": "DMS Dashboard",
+                "Icon": "fa fa-truck",
+                "IsWarehouseBased": false,
+                "IsClientBased": false,
+                "ComponentList": [
+                    {
+                        "ComponentName": "KPI",
+                        "Directive": "kpi-directive",
+                        "SequenceNo": 8,
+                        "IsShow": true,
+                        "SetAsDefault": true,
+                        "IsLoadAsDefault": false
+                    }, {
+                        "ComponentName": "My Task",
+                        "Directive": "my-task-dashboard-directive",
+                        "SequenceNo": 2,
+                        "IsShow": true,
+                        "SetAsDefault": true,
+                        "IsLoadAsDefault": true
+                    }, {
+                        "ComponentName": "Notification",
+                        "Directive": "notification",
+                        "SequenceNo": 14,
+                        "IsShow": false,
+                        "SetAsDefault": false,
+                        "IsLoadAsDefault": false
+                    }, {
+                        "ComponentName": "Exception",
+                        "Directive": "exception-directive",
+                        "SequenceNo": 15,
+                        "IsShow": false,
+                        "SetAsDefault": false,
+                        "IsLoadAsDefault": false
+                    }]
             }];
             DynamicDashboardCtrl.ePage.Masters.DashboardList = _DashboardList;
         }
-        // #endregion
         // #endregion
         // #region - customize button
         function OnClickCustomizeButton() {
@@ -211,6 +321,27 @@
             $timeout(function () {
                 DynamicDashboardCtrl.ePage.Masters.ComponentList = IsShowDetails;
             }, 100);
+        }
+        // #endregion
+        // #region - Get Client Details
+        function GetClientDetails() {
+            var _filter = {
+                "SortType": "DESC",
+                "SortColumn": "ORG_Code",
+                "PageNumber": 1,
+                "PageSize": 25,
+                "IsWarehouseClient": true,
+            };
+            var _input = {
+                "FilterID": appConfig.Entities.OrgHeader.API.FindAll.FilterID,
+                "SearchInput": helperService.createToArrayOfObject(_filter)
+            }
+            apiService.post("eAxisAPI", appConfig.Entities.OrgHeader.API.FindAll.Url, _input).then(function (response) {
+                if (response.data.Status == "Success") {
+                    DynamicDashboardCtrl.ePage.Masters.ClientDetails = response.data.Response;
+                    DynamicDashboardCtrl.ePage.Masters.SelectedClient = DynamicDashboardCtrl.ePage.Masters.ClientDetails[0];
+                }
+            });
         }
         // #endregion
         // #region - drag component

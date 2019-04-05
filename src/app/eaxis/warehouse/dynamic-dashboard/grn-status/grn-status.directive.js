@@ -15,7 +15,8 @@
             scope: {
                 componentList: "=",
                 selectedComponent: "=",
-                selectedWarehouse: "="
+                selectedWarehouse: "=",
+                selectedClient: "="
             },
             bindToController: true
 
