@@ -1,0 +1,14 @@
+<uib-tabset id="chromeTab" active="AllDocumentCtrl.ePage.Masters.activeTabIndex" class="tab-container chrometab-box">
+    <uib-tab>
+        <uib-tab-heading title="All Documents List">
+            <span data-ng-bind="'All Documents List'" class="ng-binding">All Documents List</span>
+            <i class="fa fa-thumb-tack pinned-tab"></i>
+        </uib-tab-heading>
+        <div class="no-padding tab-list-view-wrapper">
+            <dynamic-list dataentry-name="AllDocumentCtrl.ePage.Masters.dataentryName"
+                task-name="AllDocumentCtrl.ePage.Masters.taskName" grid-config-type="0"
+                selected-grid-row="AllDocumentCtrl.ePage.Masters.SelectedGridRow($item)" mode="1"
+                dataentry-object="AllDocumentCtrl.ePage.Masters.DataEntryObject"></dynamic-list>
+            <div class="tab-loading" data-ng-show="AllDocumentCtrl.ePage.Masters.IsTabClick"></div>
+        </div>
+    </uib-tab>

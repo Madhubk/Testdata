@@ -223,5 +223,26 @@
                     }]
                 }
             })
+
+            .state('EA.DMS.AllConsolidatedDocument', {
+                url: '/all-document',
+                templateUrl: 'app/eaxis/distribution/all-document/all-document.html',
+                controller: "AllDocumentController as AllDocumentCtrl",
+                ncyBreadcrumb: {
+                    label: 'All Documents'
+                },
+                resolve: {
+                    CheckAccess: ["$q", "pageAccessService", function ($q, pageAccessService) {
+                        var deferred = $q.defer();
+                        if (pageAccessService.CheckAuthToken()) {
+                            deferred.resolve();
+                        }
+                        return deferred.promise;
+                    }],
+                    LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
+                        return $ocLazyLoad.load(["chromeTab", "errorWarning", "confirmation", "compareDate", "dynamicListModal", "dynamicList", "dynamicLookup", "dynamicControl", "dynamicGrid", 'otpList']);
+                    }]
+                }
+            })
     }
 })();

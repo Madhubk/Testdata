@@ -568,7 +568,15 @@
                     "app/eaxis/finance/finance-job/finance-job-menu/finance-job-menu.directive.js",
                     "app/eaxis/finance/finance-job/finance-job-menu/finance-job-menu.controller.js",
                 ]
-            }
+            },
+            //#endregion
+             //#region ALL Consolidated Document
+             {
+                name: 'allConsolidatedDocument',
+                files: [
+                    'app/eaxis/distribution/all-document/all-document.controller.js',
+                ]
+            },
             //#endregion
         ]
     };
