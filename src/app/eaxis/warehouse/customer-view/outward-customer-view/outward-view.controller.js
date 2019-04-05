@@ -8,7 +8,7 @@
     OutwardViewController.$inject = ["$location", "APP_CONSTANT", "authService", "apiService", "helperService", "outwardViewConfig", "$timeout", "toastr", "appConfig", "$rootScope", "$scope", "$window"];
 
     function OutwardViewController($location, APP_CONSTANT, authService, apiService, helperService, outwardViewConfig, $timeout, toastr, appConfig, $rootScope, $scope, $window) {
-        
+
         var OutwardViewCtrl = this,
             location = $location;
 
@@ -20,7 +20,7 @@
                 "Meta": helperService.metaBase(),
                 "Entities": outwardViewConfig.Entities
             };
-            
+
 
             OutwardViewCtrl.ePage.Masters.dataentryName = "OutwardCustomerView";
             OutwardViewCtrl.ePage.Masters.taskName = "OutwardCustomerView";
@@ -39,9 +39,27 @@
             OutwardViewCtrl.ePage.Masters.CurrentActiveTab = CurrentActiveTab;
             OutwardViewCtrl.ePage.Masters.RemoveTab = RemoveTab;
 
+            GetDataEntryList();
+
         }
 
-      
+        //#region dataentry
+        function GetDataEntryList() {
+            var _filter = {
+                "DataEntryName": OutwardViewCtrl.ePage.Masters.dataentryName
+            };
+            var _input = {
+                "searchInput": helperService.createToArrayOfObject(_filter),
+                "FilterID": OutwardViewCtrl.ePage.Entities.Header.API.FindConfig.FilterID
+            };
+            apiService.post("eAxisAPI", OutwardViewCtrl.ePage.Entities.Header.API.FindConfig.Url, _input).then(function (response) {
+                if (response.data.Response) {
+                    OutwardViewCtrl.ePage.Masters.DataEntryList = response.data.Response;
+                }
+            });
+        }
+
+        //#endregion
 
         function SelectedGridRow($item) {
             if ($item.action === "link" || $item.action === "dblClick") {
@@ -103,14 +121,14 @@
             event.stopPropagation();
             var currentOutward = currentOutward[currentOutward.label].ePage.Entities;
             OutwardViewCtrl.ePage.Masters.TabList.splice(index, 1);
-            apiService.get("eAxisAPI", OutwardViewCtrl.ePage.Entities.Header.API.SessionClose.Url + currentOutward.Header.Data.PK).then(function(response){
+            apiService.get("eAxisAPI", OutwardViewCtrl.ePage.Entities.Header.API.SessionClose.Url + currentOutward.Header.Data.PK).then(function (response) {
                 if (response.data.Response === "Success") {
                 } else {
                     console.log("Tab close Error : " + response);
                 }
             });
         }
-        
+
         Init();
 
     }

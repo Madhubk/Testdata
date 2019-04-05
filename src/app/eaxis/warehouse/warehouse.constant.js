@@ -557,7 +557,8 @@
             files: [
                 'app/eaxis/warehouse/customer-view/outward-customer-view/outward-view.css',
                 'app/eaxis/warehouse/customer-view/outward-customer-view/outward-view.controller.js',
-                'app/eaxis/warehouse/customer-view/outward-customer-view/outward-view-config.factory.js'
+                'app/eaxis/warehouse/customer-view/outward-customer-view/outward-view-config.factory.js',
+                'app/eaxis/warehouse/customer-view/outward-customer-view/outward-view.directive.js',
             ]
         },
 
