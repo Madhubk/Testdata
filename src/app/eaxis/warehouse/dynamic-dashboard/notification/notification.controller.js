@@ -42,8 +42,10 @@
 
         function GetAsnReceivedStatusDetails() {
             NotificationCtrl.ePage.Masters.IsLoad = true;
+            NotificationCtrl.ePage.Masters.IsLoading = true;
             var _filter = {
-                "WarehouseCode": NotificationCtrl.selectedWarehouse.WarehouseCode
+                "WarehouseCode": NotificationCtrl.selectedWarehouse.WarehouseCode,
+                "ClientCode": NotificationCtrl.selectedClient.AccessCode
             };
 
             var _input = {
@@ -54,6 +56,7 @@
             apiService.post("eAxisAPI", dynamicDashboardConfig.Entities.WmsOutward.API.GetOutBoundDetails.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     NotificationCtrl.ePage.Masters.OpenSODetails = response.data.Response;
+                    NotificationCtrl.ePage.Masters.IsLoading = false;
                     GetChart();
                 }
             });

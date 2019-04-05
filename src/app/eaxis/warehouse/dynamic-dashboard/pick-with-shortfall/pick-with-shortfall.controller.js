@@ -33,8 +33,10 @@
 
         function GetPickWithShortfallDetails() {
             PickShortfallCtrl.ePage.Masters.IsLoad = true;
+            PickShortfallCtrl.ePage.Masters.IsLoading = true;
             var _filter = {
-                "WarehouseCode": PickShortfallCtrl.selectedWarehouse.WarehouseCode
+                "WarehouseCode": PickShortfallCtrl.selectedWarehouse.WarehouseCode,
+                "ClientCode": PickShortfallCtrl.selectedClient.AccessCode
             };
 
             var _input = {
@@ -45,6 +47,7 @@
             apiService.post("eAxisAPI", dynamicDashboardConfig.Entities.WmsOutwardWorkOrderLine.API.DashboardPickShortfall.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     PickShortfallCtrl.ePage.Masters.PickWithShortfallDetails = response.data.Response;
+                    PickShortfallCtrl.ePage.Masters.IsLoading = false;
                 }
             });
         }

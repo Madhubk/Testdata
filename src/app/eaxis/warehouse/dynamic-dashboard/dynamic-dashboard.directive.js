@@ -31,7 +31,7 @@
                 TempDetails = TempDetails.join('');
                 var _isExist = $injector.has(TempDetails + "Directive");
                 if (_isExist) {
-                    scope.templateDir = '<' + scope.selectedComponent.Directive + ' component-list="componentList" selected-component="selectedComponent" selected-warehouse="selectedWarehouse" selected-client: "selectedClient" />';
+                    scope.templateDir = '<' + scope.selectedComponent.Directive + ' component-list="componentList" selected-component="selectedComponent" selected-warehouse="selectedWarehouse" selected-client= "selectedClient" />';
                     var newDirective = angular.element(scope.templateDir);
                     var view = $compile(newDirective)(scope);
                     ele.append(view);

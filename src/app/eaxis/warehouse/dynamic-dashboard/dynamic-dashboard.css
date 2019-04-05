@@ -269,7 +269,7 @@ div[class^="icon"] {
 
 .dashboard-databox {
     display: inline-block;
-    width: 100%;
+    width: 90%;
     height: 65px;
     padding: 0;
     font-size: 0;
@@ -322,7 +322,7 @@ div[class^="icon"] {
 }
 
 .dashboard-setting-edit.address>.modal-dialog {
-    width: 75% !important;
+    width: 90% !important;
 }
 
 .modalheader {
@@ -361,6 +361,7 @@ div[class^="icon"] {
     margin: 4px 0 2px;
     position: relative;
 }
+
 .dashboard-databox .databox-stat .stat-icon.icon-lg {
     font-size: 16px;
 }
@@ -368,4 +369,11 @@ div[class^="icon"] {
 .dashboard-databox .databox-stat .stat-icon {
     display: inline-block;
     font-size: 13px;
+}
+
+.dashboard-setting-icon {
+    padding: 4px 10px;
+    font-size: 13px;
+    cursor: pointer;
+    color: rgb(170, 170, 170);
 }

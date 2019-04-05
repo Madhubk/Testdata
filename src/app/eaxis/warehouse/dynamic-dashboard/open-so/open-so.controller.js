@@ -33,8 +33,10 @@
 
         function GetOpenSODetails() {
             OpenSOCtrl.ePage.Masters.IsLoad = true;
+            OpenSOCtrl.ePage.Masters.IsLoading = true;
             var _filter = {
-                "WarehouseCode": OpenSOCtrl.selectedWarehouse.WarehouseCode
+                "WarehouseCode": OpenSOCtrl.selectedWarehouse.WarehouseCode,
+                "ClientCode": OpenSOCtrl.selectedClient.AccessCode
             };
 
             var _input = {
@@ -45,6 +47,7 @@
             apiService.post("eAxisAPI", dynamicDashboardConfig.Entities.WmsOutward.API.GetOutBoundDetails.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     OpenSOCtrl.ePage.Masters.OpenSODetails = response.data.Response;
+                    OpenSOCtrl.ePage.Masters.IsLoading = false;
                 }
             });
         }

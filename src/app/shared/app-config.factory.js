@@ -2748,6 +2748,17 @@
                         }
                     }
                 },
+                "UserOrganisation": {
+                    "RowIndex": -1,
+                    "API": {
+                        "FindAll": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "UserOrganisation/FindAll",
+                            "FilterID": "SECMAPP"
+                        }
+                    }
+                },
                 "WmsTestID": {
                     "RowIndex": -1,
                     "API": {

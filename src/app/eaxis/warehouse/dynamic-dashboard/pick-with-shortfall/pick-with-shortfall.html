@@ -32,6 +32,7 @@
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 norecordfound" style="color: black;" ng-if="PickShortfallCtrl.ePage.Masters.PickWithShortfallDetails.length==0">No
             Record Found...</div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 norecordfound" style="color: black;" ng-if="PickShortfallCtrl.ePage.Masters.IsLoading">Loading...</div>
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 norecordfound" style="color: black;" ng-if="!PickShortfallCtrl.ePage.Masters.IsLoad"
             ng-click="PickShortfallCtrl.ePage.Masters.GetPickWithShortfallDetails()"><a> Click
                 here to View Details...</a></div>

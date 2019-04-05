@@ -33,8 +33,10 @@
 
         function GetPutawayStatusDetails() {
             PutawayStatusCtrl.ePage.Masters.IsLoad = true;
+            PutawayStatusCtrl.ePage.Masters.IsLoading = true;
             var _filter = {
-                "WarehouseCode": PutawayStatusCtrl.selectedWarehouse.WarehouseCode
+                "WarehouseCode": PutawayStatusCtrl.selectedWarehouse.WarehouseCode,
+                "ClientCode": PutawayStatusCtrl.selectedClient.AccessCode
             };
 
             var _input = {
@@ -45,6 +47,7 @@
             apiService.post("eAxisAPI", dynamicDashboardConfig.Entities.WmsInward.API.PutAwayFindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     PutawayStatusCtrl.ePage.Masters.PutawayStatusDetails = response.data.Response;
+                    PutawayStatusCtrl.ePage.Masters.IsLoading = false;
                 }
             });
         }

@@ -1,23 +1,24 @@
 <div class="clearfix" style="background-color: #fbfbfbc2;">
-    <div class="clearfix border-bottom pt-5 pb-5" style="background-color: #eeeeeec2 !important;">
+    <div class="clearfix border-bottom pt-5 pb-5" data-ng-if="DynamicDashboardCtrl.ePage.Masters.SelectedDashboardDetails"
+        style="background-color: #eeeeeec2 !important;">
         <div class="col-lg-3">
             <i class="dashboard-dms-icon-box {{DynamicDashboardCtrl.ePage.Masters.SelectedDashboardDetails.Icon}} fs-22 mt-5"></i>
             <span class="dashboard-dms-title ml-10 fs-20">{{DynamicDashboardCtrl.ePage.Masters.SelectedDashboardDetails.DashboardName}}</span>
         </div>
         <div class="col-lg-8">
-            <div class="text-right col-lg-3" data-ng-if="DynamicDashboardCtrl.ePage.Masters.DashboardListBasedOnRole.length>0">
-                <select class="btn btn-default fs-12" style="width:160px;" ng-model="DynamicDashboardCtrl.ePage.Masters.SelectedDashboardDetails"
+            <div class="col-lg-3" data-ng-if="DynamicDashboardCtrl.ePage.Masters.DashboardListBasedOnRole.length>0">
+                <select chosen class="btn btn-default fs-12" ng-model="DynamicDashboardCtrl.ePage.Masters.SelectedDashboardDetails"
                     ng-options="x.DashboardName for x in DynamicDashboardCtrl.ePage.Masters.DashboardListBasedOnRole"
                     ng-change="DynamicDashboardCtrl.ePage.Masters.OnChangeDashboardList()" search-contains="true"></select>
             </div>
-            <div class="text-right col-lg-4">
-                <select class="btn btn-default fs-12" data-ng-if="DynamicDashboardCtrl.ePage.Masters.SelectedDashboardDetails.IsClientBased"
-                    style="width:200px;" ng-model="DynamicDashboardCtrl.ePage.Masters.SelectedClient" ng-options="x.Code+'-'+x.FullName for x in DynamicDashboardCtrl.ePage.Masters.ClientDetails"
-                    ng-change="DynamicDashboardCtrl.ePage.Masters.ClientChanged()" search-contains="true"></select>
+            <div class="col-lg-4">
+                <select chosen class="btn btn-default fs-12" data-ng-if="DynamicDashboardCtrl.ePage.Masters.SelectedDashboardDetails.IsClientBased"
+                    ng-model="DynamicDashboardCtrl.ePage.Masters.SelectedClient" ng-options="x.AccessCode for x in DynamicDashboardCtrl.ePage.Masters.ClientDetails"
+                    ng-change="DynamicDashboardCtrl.ePage.Masters.OnChangeClient()" search-contains="true"></select>
             </div>
-            <div class="text-right col-lg-4">
-                <select class="btn btn-default fs-12" data-ng-if="DynamicDashboardCtrl.ePage.Masters.SelectedDashboardDetails.IsWarehouseBased"
-                    style="width:200px;" ng-model="DynamicDashboardCtrl.ePage.Masters.SelectedWarehouse" ng-options="x.WarehouseCode+'-'+x.WarehouseName for x in DynamicDashboardCtrl.ePage.Masters.WarehouseDetails"
+            <div class="col-lg-4">
+                <select chosen class="btn btn-default fs-12" data-ng-if="DynamicDashboardCtrl.ePage.Masters.SelectedDashboardDetails.IsWarehouseBased"
+                    ng-model="DynamicDashboardCtrl.ePage.Masters.SelectedWarehouse" ng-options="x.WarehouseCode+'-'+x.WarehouseName for x in DynamicDashboardCtrl.ePage.Masters.WarehouseDetails"
                     ng-change="DynamicDashboardCtrl.ePage.Masters.WarehouseChanged()" search-contains="true"></select>
             </div>
             <div class="col-lg-1" style="padding-right:0px;">
@@ -63,35 +64,6 @@
                             </div>
                         </div>
                         <div class="footer clearfix p-5" style="background-color: #eee; border-top: 2px solid #ccc;">
-                            <div class="ml-10 save-as-filter dropup pull-left">
-                                <button class="btn btn-sm btn-warning" data-toggle="dropdown">
-                                    <span class="key">Save to Role</span>
-                                </button>
-                                <div class="save-as-filter dropdown-menu p-0">
-                                    <form>
-                                        <div class="clearfix inner-section p-10" style="width: 318px;">
-                                            <div class="clearfix col-sm-12 mb-5" data-ng-repeat="x in DynamicDashboardCtrl.ePage.Masters.RoleList">
-                                                <div class="col-sm-1 p-0 text-center">
-                                                    <label class="mb-0 customcheckbox">
-                                                        <input type="checkbox" ng-checked="x.SingleSelect" ng-change="DynamicDashboardCtrl.ePage.Masters.OnChangeSingleSelect()"
-                                                            ng-model="x.SingleSelect"> </input>
-                                                        <span class="text"></span>
-                                                    </label>
-                                                </div>
-                                                <div class="col-sm-8 mt-3 fs-13">
-                                                    <div data-ng-bind="x.RoleDescription" class="text-single-line"
-                                                        title="{{x.RoleDescription}}"></div>
-                                                </div>
-                                            </div>
-                                            <div class="clearfix col-lg-12 pt-15 border-top">
-                                                <button class="btn btn-sm btn-primary" data-ng-click="DynamicDashboardCtrl.ePage.Masters.Save()"
-                                                    data-ng-disabled="DynamicDashboardCtrl.ePage.Masters.IsDisableSaveSettingBtn"
-                                                    data-ng-bind="DynamicDashboardCtrl.ePage.Masters.SaveSettingBtnText"></button>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
                             <input type="submit" class="btn btn-sm btn-primary pull-right mr-15" data-ng-click="DynamicDashboardCtrl.ePage.Masters.Apply()"
                                 value="{{DynamicDashboardCtrl.ePage.Masters.ApplyBtnText}}" data-ng-disabled="DynamicDashboardCtrl.ePage.Masters.IsApplyBtnDisable">
                         </div>
@@ -107,21 +79,31 @@
             </div>
         </div>
     </div>
-    <div class="col-lg-12 custom-widget no-padding" data-ng-if="DynamicDashboardCtrl.ePage.Masters.WarehouseDetails.length>0">
+    <div class="col-lg-12 custom-widget no-padding" data-ng-if="DynamicDashboardCtrl.ePage.Masters.SelectedDashboardDetails">
         <div class="widget clearfix no-padding" dnd-list="DynamicDashboardCtrl.ePage.Masters.ComponentList" dnd-drop="DynamicDashboardCtrl.ePage.Masters.dropCallback(item,DynamicDashboardCtrl.ePage.Masters.ComponentList,index,external)">
-            <div ng-if="DynamicDashboardCtrl.ePage.Masters.ComponentList" ng-repeat="x in DynamicDashboardCtrl.ePage.Masters.ComponentList | filter: {IsShow:true}"
-                dnd-draggable="x" dnd-effect-allowed="move" draggable="true">
+            <div ng-if="DynamicDashboardCtrl.ePage.Masters.ComponentList && DynamicDashboardCtrl.ePage.Masters.SelectedWarehouse && DynamicDashboardCtrl.ePage.Masters.SelectedClient && DynamicDashboardCtrl.ePage.Masters.SelectedDashboardComponentDetails.length>0"
+                ng-repeat="x in DynamicDashboardCtrl.ePage.Masters.ComponentList | filter: {IsShow:true}" dnd-draggable="x"
+                dnd-effect-allowed="move" draggable="true">
                 <div dynamic-dashboard-directive component-list="DynamicDashboardCtrl.ePage.Masters.ComponentList"
                     selected-component="DynamicDashboardCtrl.ePage.Masters.ComponentList[$index]" selected-warehouse="DynamicDashboardCtrl.ePage.Masters.SelectedWarehouse"
                     selected-client="DynamicDashboardCtrl.ePage.Masters.SelectedClient"></div>
             </div>
         </div>
     </div>
-    <div class="col-lg-12">
-        <div class="text-center pt-20" data-ng-if="DynamicDashboardCtrl.ePage.Masters.WarehouseDetails.length==0"><i>Warehouse
-                Not Mapped</i></div>
+    <div class="col-lg-12 custom-widget no-padding" data-ng-if="DynamicDashboardCtrl.ePage.Masters.ComponentList.length==0">
+        <div class="text-center pt-20"><i>Component does not Configured </i></div>
     </div>
-    <div class="clearfix col-lg-12 p-20 text-center" data-ng-hide="(DynamicDashboardCtrl.ePage.Masters.IsShowDetails.length <= DynamicDashboardCtrl.ePage.Masters.Config.LoadMoreCount) || DynamicDashboardCtrl.ePage.Masters.WarehouseDetails.length==0">
+    <div class="col-lg-12 custom-widget no-padding" data-ng-if="!DynamicDashboardCtrl.ePage.Masters.SelectedDashboardDetails">
+        <div class="text-center pt-20"><i>No Dashboard Mapped for this User</i></div>
+    </div>
+    <div class="col-lg-12 custom-widget no-padding" data-ng-if="!DynamicDashboardCtrl.ePage.Masters.SelectedClient">
+        <div class="text-center pt-20"><i>No Organization Mapped for this User</i></div>
+    </div>
+    <div class="col-lg-12 custom-widget no-padding" data-ng-if="DynamicDashboardCtrl.ePage.Masters.SelectedDashboardComponentDetails.length==0">
+        <div class="text-center pt-20"><i>No Component Mapped for this Dashboard</i></div>
+    </div>
+    <div class="clearfix col-lg-12 p-20 text-center" data-ng-if="DynamicDashboardCtrl.ePage.Masters.SelectedDashboardDetails && DynamicDashboardCtrl.ePage.Masters.SelectedClient"
+        data-ng-hide="(DynamicDashboardCtrl.ePage.Masters.IsShowDetails.length <= DynamicDashboardCtrl.ePage.Masters.Config.LoadMoreCount) || DynamicDashboardCtrl.ePage.Masters.WarehouseDetails.length==0">
         <button class="btn btn-sm btn-primary" data-ng-click="DynamicDashboardCtrl.ePage.Masters.LoadMore()"
             data-ng-disabled="DynamicDashboardCtrl.ePage.Masters.IsDisabledLoadMoreBtn" data-ng-bind="DynamicDashboardCtrl.ePage.Masters.LoadMoreBtnTxt"></button>
     </div>

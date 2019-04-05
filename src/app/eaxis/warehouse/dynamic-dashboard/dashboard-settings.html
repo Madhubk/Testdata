@@ -10,17 +10,29 @@
     <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 col-xl-3 mt-15" ng-repeat="x in DynamicDashboardCtrl.ePage.Masters.DashboardList">
         <div class="dashboard-databox  bg-white radius-bordered">
             <div class="databox-left bg-themeprimary">
-                <div class="databox-piechart">
+                <div class="databox-piechart mt-5">
                     <i class="{{x.Icon}}"></i>
                 </div>
             </div>
             <div class="databox-right">
                 <div class="databox-stat themesecondary radius-bordered">
-                    <i class="fa fa-pencil icon" style="padding: 4px 10px;font-size: 16px;cursor: pointer;color: rgb(170, 170, 170);"></i>
-                    <i class="fa fa-bars icon" style="padding: 4px 10px;font-size: 16px;cursor: pointer;color: rgb(170, 170, 170);"></i>
-                    <i class="fa fa-universal-access icon" style="padding: 4px 10px;font-size: 16px;cursor: pointer;color: rgb(170, 170, 170);"></i>
+                    <i class="fa fa-pencil icon dashboard-setting-icon"></i>
+                    <i class="fa fa-bars icon dashboard-setting-icon"></i>
+                    <i class="fa fa-universal-access icon dashboard-setting-icon"></i>
                 </div>
                 <div class="databox-text darkgray mt-30">{{x.DashboardName}}</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 col-xl-3 mt-15">
+        <div class="dashboard-databox  bg-white radius-bordered">
+            <div class="databox-left bg-themeprimary">
+                <div class="databox-piechart mt-5">
+                    <i class="fa fa-plus"></i>
+                </div>
+            </div>
+            <div class="databox-right">
+                <div class="databox-text darkgray mt-15">New</div>
             </div>
         </div>
     </div>

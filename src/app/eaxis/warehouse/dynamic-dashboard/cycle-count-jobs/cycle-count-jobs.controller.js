@@ -33,8 +33,10 @@
 
         function GetCycleCountJobsDetails() {
             CycleCountJobsCtrl.ePage.Masters.IsLoad = true;
+            CycleCountJobsCtrl.ePage.Masters.IsLoading = true;
             var _filter = {
-                "WarehouseName": CycleCountJobsCtrl.selectedWarehouse.WarehouseName
+                "WarehouseName": CycleCountJobsCtrl.selectedWarehouse.WarehouseName,
+                "ClientCode": CycleCountJobsCtrl.selectedClient.AccessCode
             };
 
             var _input = {
@@ -45,7 +47,7 @@
             apiService.post("eAxisAPI", dynamicDashboardConfig.Entities.WmsCycleCount.API.CycleCountFindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     CycleCountJobsCtrl.ePage.Masters.CycleCountJobsDetails = response.data.Response;
-
+                    CycleCountJobsCtrl.ePage.Masters.IsLoading = false;
                     angular.forEach(CycleCountJobsCtrl.ePage.Masters.CycleCountJobsDetails, function (value, key) {
                         if (value.IsScheduledStockTake == true) {
                             value.IsScheduledStockTake = "Scheduled"
