@@ -80,8 +80,7 @@
                                 "Symbol": helperService.metaBase(),
                                 "Country": helperService.metaBase(),
                                 "IsActive": helperService.metaBase(),
-                                "Unitname":helperService.metaBase()
-                                
+                                "Unitname": helperService.metaBase()
                             }
                         },
                         "GlobalVariables": {
@@ -139,6 +138,7 @@
             return deferred.promise;
         }
 
+        //#region  Validation
         function ValidationFindall() {
             var _filter = {
                 "ModuleCode": "Finance",
@@ -154,7 +154,6 @@
                 }
             });
         }
-
 
         function GeneralValidation($item) {
             var _Data = $item[$item.code].ePage.Entities,
@@ -228,7 +227,7 @@
 
                     if (!_isExistGlobal) {
                         exports.TabList[_index][EntityObject].ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList.push(_obj);
-                    }                    
+                    }
                     exports.TabList[_index][EntityObject].ePage.Entities.Header.Meta.ErrorWarning[MetaObject].IsArray = IsArray;
                     exports.TabList[_index][EntityObject].ePage.Entities.Header.Meta.ErrorWarning[MetaObject].ParentRef = ParentRef;
                     exports.TabList[_index][EntityObject].ePage.Entities.Header.Meta.ErrorWarning[MetaObject].GParentRef = GParentRef;
@@ -385,7 +384,6 @@
                 RemoveErrorWarning(value.Code, "E", value.CtrlKey, label);
             });
         }
-
-
+        //#endregion
     }
 })();

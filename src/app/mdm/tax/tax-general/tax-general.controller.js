@@ -4,9 +4,9 @@
     angular.module("Application")
         .controller("TaxGeneralController", TaxGeneralController);
 
-    TaxGeneralController.$inject = ["helperService", "appConfig", "authService", "apiService"];
+    TaxGeneralController.$inject = ["helperService", "taxConfig", "appConfig", "authService", "apiService"];
 
-    function TaxGeneralController(helperService, appConfig, authService, apiService) {
+    function TaxGeneralController(helperService, taxConfig, appConfig, authService, apiService) {
         var TaxGeneralCtrl = this;
 
         function Init() {
@@ -23,6 +23,12 @@
             TaxGeneralCtrl.ePage.Masters.UITaxRate = TaxGeneralCtrl.ePage.Entities.Header.Data;
             TaxGeneralCtrl.ePage.Masters.TaxCategoryContent = false;
             TaxGeneralCtrl.ePage.Masters.TaxHierarchyContent = false;
+            TaxGeneralCtrl.ePage.Masters.Config = taxConfig;
+
+            /* Function */
+            TaxGeneralCtrl.ePage.Masters.OnChangeValues = OnChangeValues;
+            TaxGeneralCtrl.ePage.Masters.SelectCheckBoxHierarchy = SelectCheckBoxHierarchy;
+            TaxGeneralCtrl.ePage.Masters.SelectedLookupData = SelectedLookupData;
 
             /* DropDown List */
             TaxGeneralCtrl.ePage.Masters.DropDownMasterList = {
@@ -32,11 +38,6 @@
             };
 
             GetMastersDropDownList();
-
-            /* Function */
-            TaxGeneralCtrl.ePage.Masters.OnChangeValues = OnChangeValues;
-            TaxGeneralCtrl.ePage.Masters.SelectCheckBoxHierarchy = SelectCheckBoxHierarchy;
-            TaxGeneralCtrl.ePage.Masters.SelectedLookupData = SelectedLookupData;
         }
 
         //#region GetDropDownList

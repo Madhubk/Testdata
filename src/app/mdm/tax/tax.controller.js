@@ -4,9 +4,9 @@
     angular.module("Application")
         .controller("TaxController", TaxController);
 
-    TaxController.$inject = ["$timeout", "helperService", "taxConfig", "toastr", "apiService"];
+    TaxController.$inject = ["$timeout", "helperService", "taxConfig", "toastr", "apiService", "errorWarningService"];
 
-    function TaxController($timeout, helperService, taxConfig, toastr, apiService) {
+    function TaxController($timeout, helperService, taxConfig, toastr, apiService, errorWarningService) {
 
         var TaxCtrl = this;
 
@@ -37,6 +37,12 @@
             TaxCtrl.ePage.Masters.AddTab = AddTab;
             TaxCtrl.ePage.Masters.RemoveTab = RemoveTab;
             TaxCtrl.ePage.Masters.CreateNewTax = CreateNewTax;
+            
+            /* ErrorWarningConfig */
+            TaxCtrl.ePage.Masters.Config = taxConfig;
+            TaxCtrl.ePage.Masters.ErrorWarningConfig = errorWarningService;
+
+            taxConfig.ValidationFindall();
         }
 
         //#region SelectedGrid
@@ -79,6 +85,7 @@
                         TaxCtrl.ePage.Masters.ActiveTabIndex = TaxCtrl.ePage.Masters.TabList.length;
                         TaxCtrl.ePage.Masters.IsTabClick = false;
                         var _code = currentTab.entity.PK.split("-").join("");
+                        GetValidationList(_code, _entity);
                     });
                 });
             } else {
@@ -130,6 +137,24 @@
         }
         //#endregion
 
+        //#region Validation
+        function GetValidationList(currentTab, entity) {
+            var _obj = {
+                ModuleName: ["Finance"],
+                Code: [currentTab],
+                API: "Group",
+                //API: "Validation",
+                FilterInput: {
+                    ModuleCode: "Finance",
+                    SubModuleCode: "JBA",
+                },
+                GroupCode: "FINANCE_TAX",
+                RelatedBasicDetails: [{}],
+                EntityObject: entity
+            };
+            errorWarningService.GetErrorCodeList(_obj);
+        }
+        //#endregion
 
         Init();
     }

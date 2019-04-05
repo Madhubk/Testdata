@@ -17,7 +17,7 @@
                     "DebtorGroup": {
                         "RowIndex": -1,
                         "API": {
-                            "FindAll":{
+                            "FindAll": {
                                 "IsAPI": "true",
                                 "HttpType": "Post",
                                 "Url": "MstDebtorGroup/FindAll",
@@ -129,6 +129,7 @@
             return deferred.promise;
         }
 
+        //#region Validation
         function ValidationFindall() {
             var _filter = {
                 "ModuleCode": "Finance",
@@ -374,5 +375,6 @@
                 RemoveErrorWarning(value.Code, "E", value.CtrlKey, label);
             });
         }
+        //#endregion
     }
 })();

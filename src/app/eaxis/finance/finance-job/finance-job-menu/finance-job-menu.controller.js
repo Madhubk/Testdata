@@ -37,7 +37,6 @@
 
         //#region Validation
         function Validation($item, type) {
-            console.log("validation", $item, type);
             var _Data = $item[$item.code].ePage.Entities,
                 _input = _Data.Header.Data,
                 _errorcount = _Data.Header.Meta.ErrorWarning.GlobalErrorWarningList;
@@ -81,6 +80,7 @@
             if ($item.isNew) {
                 _input.UIJobHeader.PK = _input.PK;
                 _input.UIJobHeader.CreatedDateTime = new Date();
+                _input.UIJobHeader.EntitySource = "WMS";
             } else {
                 $item = filterObjectUpdate($item, "IsModified");
                 if ($item[$item.code].ePage.Entities.Header.Data.UIJobCharge.length > 0) {
@@ -201,6 +201,7 @@
                 if ($item.isNew) {
                     _input.UIJobHeader.PK = _input.PK;
                     _input.UIJobHeader.CreatedDateTime = new Date();
+                    _input.UIJobHeader.EntitySource = "WMS";
                 } else {
                     $item = filterObjectUpdate($item, "IsModified");
                     if ($item[$item.code].ePage.Entities.Header.Data.UIJobCharge.length > 0) {
@@ -306,6 +307,7 @@
                 if ($item.isNew) {
                     _input.UIJobHeader.PK = _input.PK;
                     _input.UIJobHeader.CreatedDateTime = new Date();
+                    _input.UIJobHeader.EntitySource = "WMS";
                 } else {
                     $item = filterObjectUpdate($item, "IsModified");
                     if ($item[$item.code].ePage.Entities.Header.Data.UIJobCharge.length > 0) {
@@ -435,6 +437,7 @@
                 if ($item.isNew) {
                     _input.UIJobHeader.PK = _input.PK;
                     _input.UIJobHeader.CreatedDateTime = new Date();
+                    _input.UIJobHeader.EntitySource = "WMS";
                 } else {
                     $item = filterObjectUpdate($item, "IsModified");
                     if ($item[$item.code].ePage.Entities.Header.Data.UIJobCharge.length > 0) {

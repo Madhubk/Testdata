@@ -4,9 +4,9 @@
     angular.module("Application")
         .controller("TaxMenuController", TaxMenuController);
 
-    TaxMenuController.$inject = ["helperService", "toastr"];
+    TaxMenuController.$inject = ["helperService", "apiService", "taxConfig", "toastr"];
 
-    function TaxMenuController(helperService, toastr) {
+    function TaxMenuController(helperService, apiService, taxConfig, toastr) {
         var TaxMenuCtrl = this;
 
         function Init() {
@@ -22,6 +22,7 @@
 
             TaxMenuCtrl.ePage.Masters.SaveButtonText = "Save";
             TaxMenuCtrl.ePage.Masters.DisableSave = false;
+            TaxMenuCtrl.ePage.Masters.Config = taxConfig;
 
             /* Function */
             TaxMenuCtrl.ePage.Masters.Validation = Validation;
@@ -30,9 +31,45 @@
         //#region  Validation
         function Validation($item) {
             var _Data = $item[$item.code].ePage.Entities,
-                _input = _Data.Header.Data;
+                _input = _Data.Header.Data,
+                _errorcount = _Data.Header.Meta.ErrorWarning.GlobalErrorWarningList;
 
-            Save($item);
+            /* Validation Call */
+            TaxMenuCtrl.ePage.Masters.Config.GeneralValidation($item);
+            if (TaxMenuCtrl.ePage.Entities.Header.Validations) {
+                TaxMenuCtrl.ePage.Masters.Config.RemoveApiErrors(TaxMenuCtrl.ePage.Entities.Header.Validations, $item.label);
+            }
+
+            if (_errorcount.length == 0) {
+                var _filter = {};
+                var _inputField = {
+                    "searchInput": helperService.createToArrayOfObject(_filter),
+                    "FilterID": taxConfig.Entities.API.AccTaxRate.API.FindAll.FilterID
+                };
+
+                apiService.post("eAxisAPI", taxConfig.Entities.API.AccTaxRate.API.FindAll.Url, _inputField).then(function (response) {
+                    if (response.data.Response) {
+                        TaxMenuCtrl.ePage.Masters.UITaxRate = response.data.Response;
+                    }
+
+                    var _count = TaxMenuCtrl.ePage.Masters.UITaxRate.some(function (value, key) {
+                        if (value.Code == _input.Code) {
+                            return true;
+                        }
+                        else {
+                            return false;
+                        }
+                    });
+
+                    if (_count) {
+                        toastr.error("Code is Unique, Rename the Code!.");
+                    } else {
+                        Save($item);
+                    }
+                });
+            } else {
+                TaxMenuCtrl.ePage.Masters.Config.ShowErrorWarningModal(TaxMenuCtrl.currentTax);
+            }
         }
         //#endregion
 
@@ -48,6 +85,10 @@
             if ($item.isNew) {
                 _input.PK = _input.PK;
                 _input.CreatedDateTime = new Date();
+                _input.Type = "";
+                _input.ExtraTaxRateType = "";
+                _input.ReferenceExtraRateType = "";
+                _input.ReferenceRateType = "";
             } else {
                 $item = filterObjectUpdate($item, "IsModified");
             }

@@ -226,12 +226,12 @@
            </div>
            <!--Status-->
            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
-                   <div class="error-warning-container">
-                       <error-warning-directive data-ng-if="FinanceJobGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Status.IsWarning && !FinanceJobGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Status.IsError"
-                           list="FinanceJobGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Status.WARNING" type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
-                      <error-warning-directive data-ng-if="FinanceJobGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Status.IsError" list="FinanceJobGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Status.ERROR"
-                           type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
-                   </div>
+                <div class="error-warning-container">
+                    <error-warning-directive data-ng-if="FinanceJobGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Status.IsWarning && !FinanceJobGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Status.IsError"
+                        list="FinanceJobGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Status.WARNING" type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                    <error-warning-directive data-ng-if="FinanceJobGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Status.IsError" list="FinanceJobGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Status.ERROR"
+                        type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                </div>
                <div class="form-group">
                    <label class="control-label">Status</label>
                    <select chosen class="form-control" data-ng-model="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.Status"
