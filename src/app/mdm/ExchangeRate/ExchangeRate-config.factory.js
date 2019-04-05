@@ -2,11 +2,11 @@
     "use strict";
 
     angular.module("Application")
-        .factory("currencyConfig", CurrencyConfig);
+        .factory("exchangerateConfig", ExchangerateConfig);
 
-    CurrencyConfig.$inject = ["$q", "apiService", "appConfig", "helperService", "toastr", "errorWarningService"];
+        ExchangerateConfig.$inject = ["$q", "apiService", "appConfig", "helperService", "toastr", "errorWarningService"];
 
-    function CurrencyConfig($q, apiService, appConfig, helperService, toastr) {
+    function ExchangerateConfig($q, apiService, appConfig, helperService, toastr) {
         var exports = {
             "Entities": {
                 "Header": {
@@ -14,24 +14,24 @@
                     "Meta": {},
                 },
                 "API": {
-                    "CurrencyMaster": {
+                    "ExchangerateMaster": {
                         "RowIndex": -1,
                         "API": {
                             "GetById": {
                                 "IsAPI": "true",
                                 "HttpType": "GET",
-                                "Url": "MstCurrency/GetById/"
+                                "Url": "MstExchangeRate/GetById/"
                             },
                             "FindAll": {
                                 "IsAPI": "true",
                                 "HttpType": "Post",
-                                "Url": "MstCurrency/FindAll",
-                                "FilterID": "MSTCURR"
+                                "Url": "MstExchangeRate/FindAll",
+                                "FilterID": "MSTEXCHR"
                             },
                             "CurrencyActivityTabClose": {
                                 "IsAPI": "true",
                                 "HttpType": "GET",
-                                "Url": "MstCurrency/MstCurrencyActivityClose/"
+                                "Url": "MstExchangeRate/MstExchangeRateActivityClose/"
                             }
                         }
                     }
@@ -46,11 +46,11 @@
             "ShowErrorWarningModal": ShowErrorWarningModal,
             "RemoveErrorWarning": RemoveErrorWarning,
             "RemoveApiErrors": RemoveApiErrors,
-            "DataentryName": "MstCurrency",
-            "DataentryTitle": "Currency Master"
+            "DataentryName": "MstCurrencyExchange",
+            "DataentryTitle": "ExchangeRate Master"
         };
         return exports;
-        function GetTabDetails(currentCurrency, isNew) {
+        function GetTabDetails(currentExchange, isNew) {
             /*  Set configuration object to individual Finance invoice */
             var deferred = $q.defer();
             var _exports = {
@@ -60,23 +60,23 @@
                         "Validations": "",
                         "RowIndex": -1,
                         "API": {
-                            "InsertCurrency": {
+                            "InsertExchangeRate": {
                                 "IsAPI": "true",
                                 "HttpType": "POST",
-                                "Url": "MstCurrency/Insert"
+                                "Url": "MstExchangeRate/Insert"
                             },
                             "UpdateCurrency": {
                                 "IsAPI": "true",
                                 "HttpType": "POST",
-                                "Url": "MstCurrency/Update"
+                                "Url": "MstExchangeRate/Update"
                             }
                         },
                         "Meta": {
                             "Language": helperService.metaBase(),
                             "ErrorWarning": {
                                 "GlobalErrorWarningList": [],
-                                "CurrencyCode": helperService.metaBase(),
-                                "CurrencyName": helperService.metaBase(),
+                                "ToCurrency": helperService.metaBase(),
+                                "StartDate": helperService.metaBase(),
                                 "Symbol": helperService.metaBase(),
                                 "Country": helperService.metaBase(),
                                 "IsActive": helperService.metaBase(),
@@ -94,8 +94,8 @@
             };
 
             if (isNew) {
-                _exports.Entities.Header.Data = currentCurrency.data;
-                var _code = currentCurrency.entity.PK.split("-").join("");
+                _exports.Entities.Header.Data = currentExchange.data;
+                var _code = currentExchange.entity.PK.split("-").join("");
 
                 var _obj = {
                     [_code]: {
@@ -103,14 +103,15 @@
                     },
                     label: 'New',
                     code: _code,
-                    pk: currentCurrency.entity.PK,
+                    pk: currentExchange.entity.PK,
                     isNew: isNew
                 };
                 exports.TabList.push(_obj);
                 deferred.resolve(exports.TabList);
             }
             else {
-                helperService.getFullObjectUsingGetById(exports.Entities.API.CurrencyMaster.API.GetById.Url, currentCurrency.PK).then(function (response) {
+                debugger;
+                helperService.getFullObjectUsingGetById(exports.Entities.API.ExchangerateMaster.API.GetById.Url, currentExchange.PK).then(function (response) {
                     if (response.data.Messages) {
                         response.data.Messages.map(function (value, key) {
                             if (value.Type === "Warning" && value.MessageDesc !== "") {
@@ -122,14 +123,14 @@
                     _exports.Entities.Header.Validations = response.data.Validations;
 
 
-                    var _code = currentCurrency.PK.split("-").join("");
+                    var _code = currentExchange.PK.split("-").join("");
                     var obj = {
                         [_code]: {
                             ePage: _exports
                         },
-                        label: currentCurrency.Code,
+                        label: currentExchange.Code,
                         code: _code,
-                        pk: currentCurrency.PK,
+                        pk: currentExchange.PK,
                         isNew: isNew
                     };
                     exports.TabList.push(obj);
@@ -138,7 +139,6 @@
             }
             return deferred.promise;
         }
-
         function ValidationFindall() {
             var _filter = {
                 "ModuleCode": "Finance",
@@ -160,10 +160,10 @@
             var _Data = $item[$item.code].ePage.Entities,
                 _input = _Data.Header.Data;
             //UICurrencyMaster Validations 
-            OnChangeValues(_input.Code, 'E1314', false, undefined, $item.code);
-            OnChangeValues(_input.Desc, 'E1315', false, undefined, $item.code);
-            OnChangeValues(_input.Desc, 'E1316', false, undefined, $item.code);
-            OnChangeValues(_input.Desc, 'E1317', false, undefined, $item.code);
+            OnChangeValues(_input.Code, 'E1318', false, undefined, $item.code);
+            OnChangeValues(_input.Desc, 'E1319', false, undefined, $item.code);
+            // OnChangeValues(_input.Desc, 'E1316', false, undefined, $item.code);
+            // OnChangeValues(_input.Desc, 'E1317', false, undefined, $item.code);
         }
 
         function OnChangeValues(fieldvalue, code, IsArray, RowIndex, label) {
