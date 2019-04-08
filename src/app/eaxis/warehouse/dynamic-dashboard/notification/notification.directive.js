@@ -27,7 +27,8 @@
             scope: {
                 componentList: "=",
                 selectedComponent: "=",
-                selectedWarehouse: "="
+                selectedWarehouse: "=",
+                selectedClient: "="
             },
             bindToController: true
 
@@ -48,7 +49,8 @@
             scope: {
                 componentList: "=",
                 selectedComponent: "=",
-                selectedWarehouse: "="
+                selectedWarehouse: "=",
+                selectedClient: "="
             },
             bindToController: true
 
@@ -70,7 +72,8 @@
             scope: {
                 componentList: "=",
                 selectedComponent: "=",
-                selectedWarehouse: "="
+                selectedWarehouse: "=",
+                selectedClient: "="
             },
             link: Link
         };
@@ -91,7 +94,8 @@
             scope: {
                 componentList: "=",
                 selectedComponent: "=",
-                selectedWarehouse: "="
+                selectedWarehouse: "=",
+                selectedClient: "="
             },
             link: Link
         };
@@ -112,7 +116,8 @@
             scope: {
                 componentList: "=",
                 selectedComponent: "=",
-                selectedWarehouse: "="
+                selectedWarehouse: "=",
+                selectedClient: "="
             },
             link: Link
         };
@@ -133,7 +138,8 @@
             scope: {
                 componentList: "=",
                 selectedComponent: "=",
-                selectedWarehouse: "="
+                selectedWarehouse: "=",
+                selectedClient: "="
             },
             link: Link
         };
@@ -154,7 +160,8 @@
             scope: {
                 componentList: "=",
                 selectedComponent: "=",
-                selectedWarehouse: "="
+                selectedWarehouse: "=",
+                selectedClient: "="
             },
             link: Link
         };
@@ -175,7 +182,8 @@
             scope: {
                 componentList: "=",
                 selectedComponent: "=",
-                selectedWarehouse: "="
+                selectedWarehouse: "=",
+                selectedClient: "="
             },
             link: Link
         };
@@ -196,7 +204,8 @@
             scope: {
                 componentList: "=",
                 selectedComponent: "=",
-                selectedWarehouse: "="
+                selectedWarehouse: "=",
+                selectedClient: "="
             },
             link: Link
         };
@@ -217,7 +226,8 @@
             scope: {
                 componentList: "=",
                 selectedComponent: "=",
-                selectedWarehouse: "="
+                selectedWarehouse: "=",
+                selectedClient: "="
             },
             link: Link
         };
@@ -238,7 +248,8 @@
             scope: {
                 componentList: "=",
                 selectedComponent: "=",
-                selectedWarehouse: "="
+                selectedWarehouse: "=",
+                selectedClient: "="
             },
             link: Link
         };
@@ -259,7 +270,8 @@
             scope: {
                 componentList: "=",
                 selectedComponent: "=",
-                selectedWarehouse: "="
+                selectedWarehouse: "=",
+                selectedClient: "="
             },
             link: Link
         };
@@ -280,7 +292,8 @@
             scope: {
                 componentList: "=",
                 selectedComponent: "=",
-                selectedWarehouse: "="
+                selectedWarehouse: "=",
+                selectedClient: "="
             },
             link: Link
         };

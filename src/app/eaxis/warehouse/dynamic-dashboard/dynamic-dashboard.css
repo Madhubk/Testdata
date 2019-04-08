@@ -183,11 +183,11 @@
 .dashboard-filter .dynamic-filter-sidebar-wrapper.open {
     right: 0;
     top: 5px;
-    left: -395px;
+    left: -330px;
 }
 
 .dashboard-filter .dynamic-filter-sidebar-wrapper {
-    left: 119px;
+    left: 225px;
     position: absolute;
     top: 0;
     border: 1px solid #ccc;
@@ -254,4 +254,126 @@ div[class^="icon"] {
     line-height: 76px;
     margin: 0 10px 10px 0;
     color: #FFFFFF;
+}
+
+/* Dashboard setting - box */
+
+.databox.radius-bordered {
+    -webkit-border-radius: 3px;
+    -webkit-background-clip: padding-box;
+    -moz-border-radius: 3px;
+    -moz-background-clip: padding;
+    border-radius: 3px;
+    background-clip: padding-box;
+}
+
+.dashboard-databox {
+    display: inline-block;
+    width: 90%;
+    height: 65px;
+    padding: 0;
+    font-size: 0;
+    margin-bottom: 30px;
+    vertical-align: top;
+    min-width: 130px;
+}
+
+.bg-white {
+    background-color: #fff !important;
+}
+
+.databox.radius-bordered .databox-left {
+    -webkit-border-radius: 3px 0 0 3px;
+    -webkit-background-clip: padding-box;
+    -moz-border-radius: 3px 0 0 3px;
+    -moz-background-clip: padding;
+    border-radius: 3px 0 0 3px;
+    background-clip: padding-box;
+}
+
+.dashboard-databox .databox-left[class*="bg-"] {
+    color: #fff;
+}
+
+.dashboard-databox .databox-left {
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+    text-align: center;
+    margin: 0;
+    width: 65px;
+    height: 65px;
+    padding: 10px;
+    color: #2dc3e8;
+}
+
+.bg-themeprimary {
+    background-color: #2dc3e8 !important;
+}
+
+.dashboard-databox .databox-piechart {
+    padding-top: 0;
+    margin: 0 auto;
+    display: inline-block;
+    vertical-align: bottom;
+    width: 100%;
+    text-align: center;
+    font-size: 25px;
+}
+
+.dashboard-setting-edit.address>.modal-dialog {
+    width: 90% !important;
+}
+
+.modalheader {
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.dashboard-databox .databox-right {
+    border: 1px solid #eee;
+    border-radius: 0 3px 3px 0;
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+    margin: 0;
+    -lh-property: 0;
+    width: -webkit-calc(100% - 65px);
+    width: -moz-calc(100% - 65px);
+    width: calc(100% - 65px);
+    height: 65px;
+    color: #555;
+    padding: 5px 10px;
+}
+
+.dashboard-databox .databox-stat {
+    display: inline-block;
+    position: absolute;
+    right: 0px;
+    /* top: 7px; */
+    /* padding: 2px 5px; */
+}
+
+.dashboard-databox .databox-text {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    margin: 4px 0 2px;
+    position: relative;
+}
+
+.dashboard-databox .databox-stat .stat-icon.icon-lg {
+    font-size: 16px;
+}
+
+.dashboard-databox .databox-stat .stat-icon {
+    display: inline-block;
+    font-size: 13px;
+}
+
+.dashboard-setting-icon {
+    padding: 4px 10px;
+    font-size: 13px;
+    cursor: pointer;
+    color: rgb(170, 170, 170);
 }

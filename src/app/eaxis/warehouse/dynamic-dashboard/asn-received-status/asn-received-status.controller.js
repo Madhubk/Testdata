@@ -33,8 +33,10 @@
 
         function GetAsnReceivedWithStatusDetails() {
             AsnReceivedCtrl.ePage.Masters.IsLoad = true;
+            AsnReceivedCtrl.ePage.Masters.IsLoading = true;
             var _filter = {
-                "WarehouseCode": AsnReceivedCtrl.selectedWarehouse.WarehouseCode
+                "WarehouseCode": AsnReceivedCtrl.selectedWarehouse.WarehouseCode,
+                "ClientCode": AsnReceivedCtrl.selectedClient.AccessCode
             };
 
             var _input = {
@@ -45,6 +47,7 @@
             apiService.post("eAxisAPI", dynamicDashboardConfig.Entities.WmsAsnLine.API.DashboardFindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     AsnReceivedCtrl.ePage.Masters.AsnReceivedWithStatusDetails = response.data.Response;
+                    AsnReceivedCtrl.ePage.Masters.IsLoading = false;
                 }
             });
         }

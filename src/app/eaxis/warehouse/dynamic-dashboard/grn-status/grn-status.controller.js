@@ -33,8 +33,10 @@
 
         function GetGrnStatusDetails() {
             GrnStatusCtrl.ePage.Masters.IsLoad = true;
+            GrnStatusCtrl.ePage.Masters.IsLoading = true;
             var _filter = {
-                "WarehouseCode": GrnStatusCtrl.selectedWarehouse.WarehouseCode
+                "WarehouseCode": GrnStatusCtrl.selectedWarehouse.WarehouseCode,
+                "ClientCode": GrnStatusCtrl.selectedClient.AccessCode
             };
 
             var _input = {
@@ -45,6 +47,7 @@
             apiService.post("eAxisAPI", dynamicDashboardConfig.Entities.WmsInward.API.GRNFindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     GrnStatusCtrl.ePage.Masters.GrnStatusDetails = response.data.Response;
+                    GrnStatusCtrl.ePage.Masters.IsLoading = false;
                 }
             });
         }

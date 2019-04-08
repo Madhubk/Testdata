@@ -140,11 +140,14 @@
         function SoftLogin() {
             var _input = {
                 "grant_type": "password",
-                "username": authService.getUserInfo().UserId,
+                "Username": authService.getUserInfo().UserId,
+                "User_FK": authService.getUserInfo().UserPK,
                 "AppCode": authService.getUserInfo().AppCode,
+                "SAP_FK": authService.getUserInfo().AppPK,
                 "TenantCode": authService.getUserInfo().TenantCode,
-                "Party_Pk": PartyListCtrl.ePage.Masters.SelectedParty.PK,
-                "Party_Code": PartyListCtrl.ePage.Masters.SelectedParty.Code
+                "Tenant_FK": authService.getUserInfo().TenantPK,
+                "Party_FK": PartyListCtrl.ePage.Masters.SelectedParty.PK,
+                "Party_Code": PartyListCtrl.ePage.Masters.SelectedParty.Code,
             };
 
             apiService.post("authAPI", appConfig.Entities.Token.API.SoftLoginToken.Url, _input, PartyListCtrl.ePage.Masters.QueryString.Token).then(function SuccessCallback(response) {

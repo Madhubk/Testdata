@@ -2726,6 +2726,17 @@
                         }
                     }
                 },
+                "ComponentRole": {
+                    "RowIndex": -1,
+                    "API": {
+                        "FindAll": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "ComponentRole/FindAll",
+                            "FilterID": "SECMAPP"
+                        }
+                    }
+                },
                 "WmsWarehouse": {
                     "RowIndex": -1,
                     "API": {
@@ -2734,6 +2745,17 @@
                             "HttpType": "POST",
                             "Url": "WmsWarehouse/FindAll",
                             "FilterID": "WMSWARH"
+                        }
+                    }
+                },
+                "UserOrganisation": {
+                    "RowIndex": -1,
+                    "API": {
+                        "FindAll": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "UserOrganisation/FindAll",
+                            "FilterID": "SECMAPP"
                         }
                     }
                 },

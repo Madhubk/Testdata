@@ -5,7 +5,7 @@
         .module("Application")
         .controller("RoleListController", RoleListController);
 
-    RoleListController.$inject = ["$location", "$timeout", "helperService", "apiService", "authService", "appConfig", ];
+    RoleListController.$inject = ["$location", "$timeout", "helperService", "apiService", "authService", "appConfig",];
 
     function RoleListController($location, $timeout, helperService, apiService, authService, appConfig) {
         /* jshint validthis: true */
@@ -148,12 +148,15 @@
         function SoftLogin() {
             var _input = {
                 "grant_type": "password",
-                "username": authService.getUserInfo().UserId,
+                "Username": authService.getUserInfo().UserId,
+                "User_FK": authService.getUserInfo().UserPK,
                 "AppCode": authService.getUserInfo().AppCode,
+                "SAP_FK": authService.getUserInfo().AppPK,
                 "TenantCode": authService.getUserInfo().TenantCode,
-                "Party_Pk": authService.getUserInfo().PartyPK,
+                "Tenant_FK": authService.getUserInfo().TenantPK,
+                "Party_FK": authService.getUserInfo().PartyPK,
                 "Party_Code": authService.getUserInfo().PartyCode,
-                "Role_Pk": RoleListCtrl.ePage.Masters.SelectedRole.PK,
+                "Role_FK": RoleListCtrl.ePage.Masters.SelectedRole.PK,
                 "Role_Code": RoleListCtrl.ePage.Masters.SelectedRole.Code
             };
 

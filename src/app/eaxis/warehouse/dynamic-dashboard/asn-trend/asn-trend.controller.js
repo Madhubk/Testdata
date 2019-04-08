@@ -33,8 +33,10 @@
 
         function GetAsnTrendDetails() {
             AsnTrendCtrl.ePage.Masters.IsLoad = true;
+            AsnTrendCtrl.ePage.Masters.IsLoading = true;
             var _filter = {
-                "WarehouseCode": AsnTrendCtrl.selectedWarehouse.WarehouseCode
+                "WarehouseCode": AsnTrendCtrl.selectedWarehouse.WarehouseCode,
+                "ClientCode": AsnTrendCtrl.selectedClient.AccessCode
             };
 
             var _input = {
@@ -45,6 +47,7 @@
             apiService.post("eAxisAPI", dynamicDashboardConfig.Entities.WmsAsnLine.API.ASNTrendFindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     AsnTrendCtrl.ePage.Masters.AsnTrendDetails = response.data.Response;
+                    AsnTrendCtrl.ePage.Masters.IsLoading = false;
                 }
             });
         }
