@@ -325,6 +325,10 @@ div[class^="icon"] {
     width: 90% !important;
 }
 
+.dashboard-setting-edit-details.address>.modal-dialog {
+    width: 30% !important;
+}
+
 .modalheader {
     font-size: 15px;
     font-weight: 700;

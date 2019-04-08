@@ -34,6 +34,12 @@
             DynamicDashboardCtrl.ePage.Masters.OnChangeSingleSelect = OnChangeSingleSelect;
             DynamicDashboardCtrl.ePage.Masters.OnClickCustomizeButton = OnClickCustomizeButton;
             DynamicDashboardCtrl.ePage.Masters.OnChangeDashboardList = OnChangeDashboardList;
+            DynamicDashboardCtrl.ePage.Masters.Edit = Edit;
+            DynamicDashboardCtrl.ePage.Masters.SaveEditDashboardSetting = SaveEditDashboardSetting;
+            DynamicDashboardCtrl.ePage.Masters.CloseEditDetailsActivity = CloseEditDetailsActivity;
+            DynamicDashboardCtrl.ePage.Masters.SelectedIconColor = SelectedIconColor;
+            DynamicDashboardCtrl.ePage.Masters.ComponentList = ComponentList;
+            DynamicDashboardCtrl.ePage.Masters.CloseComponentSettingActivity = CloseComponentSettingActivity;
 
             DynamicDashboardCtrl.ePage.Masters.Settings = Settings;
             DynamicDashboardCtrl.ePage.Masters.CloseEditActivity = CloseEditActivity;
@@ -43,63 +49,131 @@
             GetSettingsButtonAccess();
             GetDashboardListBasedOnRole();
         }
+        // #region - Get component List for Selected Dashboard Setting
+        function ComponentList(item) {            
+            componentListDashboardSetting().result.then(function (response) { }, function () { });
+        }
+        function componentListDashboardSetting() {
+            return DynamicDashboardCtrl.ePage.Masters.componentModalInstances = $uibModal.open({
+                animation: true,
+                backdrop: "static",
+                keyboard: false,
+                windowClass: "dashboard-setting-edit-details right address",
+                scope: $scope,
+                size: "md",
+                templateUrl: "app/eaxis/warehouse/dynamic-dashboard/component-dashboard-settings.html"
+            });
+        }
+        function CloseComponentSettingActivity() {
+            DynamicDashboardCtrl.ePage.Masters.componentModalInstances.dismiss('cancel');
+        }
+        // #endregion
+        // #region - Edit Dashboard setting
+        function Edit(item) {
+            DynamicDashboardCtrl.ePage.Masters.SelectedDashboardSettingDetails = item;
+            editDashboardSetting().result.then(function (response) { }, function () { });
+        }
+        function editDashboardSetting() {
+            return DynamicDashboardCtrl.ePage.Masters.editModalInstances = $uibModal.open({
+                animation: true,
+                backdrop: "static",
+                keyboard: false,
+                windowClass: "dashboard-setting-edit-details right address",
+                scope: $scope,
+                size: "md",
+                templateUrl: "app/eaxis/warehouse/dynamic-dashboard/edit-dashboard-settings.html"
+            });
+        }
+        function CloseEditDetailsActivity() {
+            DynamicDashboardCtrl.ePage.Masters.editModalInstances.dismiss('cancel');
+        }
+        function SaveEditDashboardSetting(item) {
+            angular.forEach(DynamicDashboardCtrl.ePage.Masters.DashboardList, function (value, key) {
+                if (value.PK == item.PK) {
+                    value = item;
+                }
+            });
+            angular.forEach(DynamicDashboardCtrl.ePage.Masters._TempDashboardListBasedOnRole, function (value, key) {
+                if (value.Dashboard_FK == item.PK) {
+                    value.DashboardName = item.DashboardName;
+                    value.Icon = item.Icon;
+                    value.IsWarehouseBased = item.IsWarehouseBased;
+                    value.IsClientBased = item.IsClientBased;
+                }
+            });
+            DynamicDashboardCtrl.ePage.Masters.editModalInstances.dismiss('cancel');
+        }
+        function SelectedIconColor(item) {
+            DynamicDashboardCtrl.ePage.Masters.SelectedDashboardSettingDetails.Icon = item;
+        }
+        // #endregion 
         // #region - Get dashboard list based on Role
         function GetDashboardListBasedOnRole() {
             var _DashboardListBasedOnRole = [{
                 "Role": "DMS_DESK",
+                "Dashboard_FK": "d7ea3cd1-ed85-4da6-8ab6-3497b8dfab52",
                 "DashboardName": "Inward Dashboard",
                 "Icon": "icon-inward",
                 "IsWarehouseBased": false,
                 "IsClientBased": false,
             }, {
                 "Role": "DMS_DESK",
+                "Dashboard_FK": "db100bf9-467c-4217-85c8-2672deaf811d",
                 "DashboardName": "DMS Dashboard",
                 "Icon": "fa fa-truck ",
                 "IsWarehouseBased": false,
                 "IsClientBased": false,
             }, {
                 "Role": "WH_USER",
+                "Dashboard_FK": "d7ea3cd1-ed85-4da6-8ab6-3497b8dfab52",
                 "DashboardName": "Inward Dashboard",
                 "Icon": "icon-inward",
                 "IsWarehouseBased": true,
                 "IsClientBased": true,
             }, {
                 "Role": "WH_USER",
+                "Dashboard_FK": "17aca650-88c4-4cb4-997b-da5b85045e62",
                 "DashboardName": "Outward Dashboard",
                 "Icon": "icon-outward",
                 "IsWarehouseBased": true,
                 "IsClientBased": false,
             }, {
                 "Role": "WH_USER",
+                "Dashboard_FK": "e72d892a-ce24-4712-b279-74124740dd00",
                 "DashboardName": "Location Dashboard",
                 "Icon": "fa fa-map-marker",
                 "IsWarehouseBased": true,
                 "IsClientBased": false,
             }, {
                 "Role": "WH_ADMIN",
+                "Dashboard_FK": "d7ea3cd1-ed85-4da6-8ab6-3497b8dfab52",
                 "DashboardName": "Inward Dashboard",
                 "Icon": "icon-inward",
                 "IsWarehouseBased": true,
                 "IsClientBased": true,
             }, {
                 "Role": "WH_ADMIN",
+                "Dashboard_FK": "17aca650-88c4-4cb4-997b-da5b85045e62",
                 "DashboardName": "Outward Dashboard",
                 "Icon": "icon-outward",
                 "IsWarehouseBased": true,
                 "IsClientBased": false,
             }, {
                 "Role": "WH_ADMIN",
+                "Dashboard_FK": "e72d892a-ce24-4712-b279-74124740dd00",
                 "DashboardName": "Location Dashboard",
                 "Icon": "fa fa-map-marker",
                 "IsWarehouseBased": true,
                 "IsClientBased": false,
             }, {
                 "Role": "WH_ADMIN",
+                "Dashboard_FK": "db100bf9-467c-4217-85c8-2672deaf811d",
                 "DashboardName": "DMS Dashboard",
                 "Icon": "fa fa-truck",
                 "IsWarehouseBased": false,
                 "IsClientBased": false,
             }];
+            DynamicDashboardCtrl.ePage.Masters._TempDashboardListBasedOnRole = _DashboardListBasedOnRole;
             DynamicDashboardCtrl.ePage.Masters.DashboardListBasedOnRole = $filter('filter')(_DashboardListBasedOnRole, { Role: authService.getUserInfo().RoleCode })
             DynamicDashboardCtrl.ePage.Masters.SelectedDashboardDetails = DynamicDashboardCtrl.ePage.Masters.DashboardListBasedOnRole[0];
             if (DynamicDashboardCtrl.ePage.Masters.SelectedDashboardDetails)
@@ -160,6 +234,7 @@
         // #region - get Dashboard list 
         function GetDashboardList() {
             var _DashboardList = [{
+                "PK": "d7ea3cd1-ed85-4da6-8ab6-3497b8dfab52",
                 "DashboardName": "Inward Dashboard",
                 "Icon": "icon-inward",
                 "IsWarehouseBased": true,
@@ -223,6 +298,7 @@
                         "IsLoadAsDefault": false
                     }]
             }, {
+                "PK": "17aca650-88c4-4cb4-997b-da5b85045e62",
                 "DashboardName": "Outward Dashboard",
                 "Icon": "icon-outward",
                 "IsWarehouseBased": true,
@@ -244,6 +320,7 @@
                         "IsLoadAsDefault": false
                     }]
             }, {
+                "PK": "e72d892a-ce24-4712-b279-74124740dd00",
                 "DashboardName": "Location Dashboard",
                 "Icon": "fa fa-map-marker",
                 "IsWarehouseBased": true,
@@ -258,6 +335,7 @@
                         "IsLoadAsDefault": false
                     }]
             }, {
+                "PK": "db100bf9-467c-4217-85c8-2672deaf811d",
                 "DashboardName": "DMS Dashboard",
                 "Icon": "fa fa-truck",
                 "IsWarehouseBased": false,
