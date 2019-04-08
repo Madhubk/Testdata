@@ -1,0 +1,15 @@
+ <!--Grid View -->
+<uib-tabset id="chromeTab" class="tab-container chrometab-box" active="ChargeCodeCtrl.ePage.Masters.ActiveTabIndex" class="tab-container chrometab-box">
+    <uib-tab >
+        <uib-tab-heading title="ChargeCodeCtrl.ePage.Masters.Title">
+            <span data-ng-bind="ChargeCodeCtrl.ePage.Masters.Title"></span>
+            <i class="fa fa-thumb-tack pinned-tab ml-10"></i>
+        </uib-tab-heading>
+        <div>
+            <!-- Dynamic Grid Page-->
+            <dynamic-list mode="1" dataentry-name="ChargeCodeCtrl.ePage.Masters.DataentryName" dataentry-object="ChargeCodeCtrl.ePage.Masters.DataEntryObject"
+                selected-grid-row="ChargeCodeCtrl.ePage.Masters.SelectedGridRow($item)" default-filter="ChargeCodeCtrl.ePage.Masters.DefaultFilter"></dynamic-list>
+            <div class="tab-loading" data-ng-show="ChargeCodeCtrl.ePage.Masters.IsTabClick"></div> 
+        </div>
+    </uib-tab>
+</uib-tabset>

@@ -750,7 +750,9 @@
                     'app/mdm/transports/types/consol-event/consol-event.controller.js',
                     'app/mdm/transports/types/consol-event/consol-event.directive.js'
                 ]
-            }, {
+            },
+            //#region Creditor
+            {
                 name: 'creaditor',
                 files: [
                     'app/mdm/creditor/creditor-config.factory.js',
@@ -768,7 +770,10 @@
                     "app/mdm/creditor/creditor-general/creditor-general.directive.js",
                     "app/mdm/creditor/creditor-general/creditor-general.controller.js",
                 ]
-            }, {
+            },
+            //#endregion
+            //#region Debtor
+            {
                 name: 'debtor',
                 files: [
                     'app/mdm/debtor/debtor-config.factory.js',
@@ -787,8 +792,8 @@
                     'app/mdm/debtor/debtor-general/debtor-general.controller.js'
                 ]
             },
-            // added by Rajesh
-            // begin
+            //#endregion
+            //#region Currency
             {
                 name: 'currency',
                 files: [
@@ -807,7 +812,10 @@
                     'app/mdm/currency/currency-general/currency-general.directive.js',
                     'app/mdm/currency/currency-general/currency-general.controller.js'
                 ]
-            }, {
+            },
+            //#endregion
+            //#region Tax
+            {
                 name: 'tax',
                 files: [
                     'app/mdm/tax/tax-config.factory.js',
@@ -825,7 +833,10 @@
                     'app/mdm/tax/tax-general/tax-general.directive.js',
                     'app/mdm/tax/tax-general/tax-general.controller.js'
                 ]
-            }, {
+            },
+            // #endregion
+            // #region - Exchange Rate
+            {
                 name: 'exchangeRate',
                 files: [
                     'app/mdm/ExchangeRate/ExchangeRate-config.factory.js',
@@ -843,9 +854,17 @@
                     'app/mdm/ExchangeRate/ExchangeRate-general/ExchangeRate-general-directive.js',
                     'app/mdm/ExchangeRate/ExchangeRate-general/ExchangeRate-general-controller.js'
                 ]
+            },
+            //#endregion
+            //#region ChargeCode
+            {
+                name: 'chargeCode',
+                files: [
+                    'app/mdm/chargecode/chargecode-config.factory.js',
+                    'app/mdm/chargecode/chargecode.controller.js'
+                ]
             }
-
-            // end
+            //#endregion
         ]
     };
 
