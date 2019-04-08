@@ -544,6 +544,27 @@
                         return $ocLazyLoad.load(["tax", "taxMenu", "taxGeneral", "dynamicLookup", "dynamicListModal", "dynamicList", "dynamicGrid", "dynamicControl", "compareDate", "customToolbar", "confirmation", "chromeTab", "errorWarning"]);
                     }]
                 }
-            });
+            })
+            .state('MD.chargecode', {
+                url: '/chargecode',
+                templateUrl: 'app/mdm/chargecode/chargecode.html',
+                controller: "ChargeCodeController as ChargeCodeCtrl",
+                ncyBreadcrumb: {
+                    label: 'ChargeCode'
+                },
+                resolve: {
+                    CheckAccess: ["$q", "pageAccessService", function ($q, pageAccessService) {
+                        var deferred = $q.defer();
+                        // if (pageAccessService.CheckAuthToken()) {
+                        deferred.resolve();
+                        //  }
+                        return deferred.promise;
+                    }],
+                    LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
+                        return $ocLazyLoad.load(["chargeCode", "dynamicLookup", "dynamicListModal", "dynamicList", "dynamicGrid", "dynamicControl", "compareDate", "customToolbar", "confirmation", "chromeTab", "errorWarning"]);
+                    }]
+                }
+            })
+            ;
     }
 })();
