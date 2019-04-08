@@ -465,6 +465,7 @@
                 }
             })
             // Currency Master by Rajesh
+            // begin
             .state('MD.currency', {
                 url: '/currency',
                 templateUrl: 'app/mdm/currency/currency.html',
@@ -485,6 +486,28 @@
                     }]
                 }
             })
+            .state('MD.exchangerate', {
+                url: '/exchangerate',
+                templateUrl: 'app/mdm/ExchangeRate/ExchangeRate.html',
+                controller: "ExchangerateController as ExchangeRateCtrl",
+                ncyBreadcrumb: {
+                    label: 'Exchange Rate'
+                },
+                resolve: {
+                    CheckAccess: ["$q", "pageAccessService", function ($q, pageAccessService) {
+                        var deferred = $q.defer();
+                        // if (pageAccessService.CheckAuthToken()) {
+                        deferred.resolve();
+                        //  }
+                        return deferred.promise;
+                    }],
+                    LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
+                        return $ocLazyLoad.load(["exchangeRate", "exchangeRateMenu", "exchangeRateGeneral", "dynamicLookup", "dynamicListModal", "dynamicList", "dynamicGrid", "dynamicControl", "compareDate", "customToolbar", "confirmation", "chromeTab", "errorWarning"]);
+                    }]
+                }
+            })
+            
+            // end
             .state('MD.creditor', {
                 url: '/creditor',
                 templateUrl: 'app/mdm/creditor/creditor.html',
@@ -544,6 +567,27 @@
                         return $ocLazyLoad.load(["tax", "taxMenu", "taxGeneral", "dynamicLookup", "dynamicListModal", "dynamicList", "dynamicGrid", "dynamicControl", "compareDate", "customToolbar", "confirmation", "chromeTab", "errorWarning"]);
                     }]
                 }
-            });
+            })
+            .state('MD.chargecode', {
+                url: '/chargecode',
+                templateUrl: 'app/mdm/chargecode/chargecode.html',
+                controller: "ChargeCodeController as ChargeCodeCtrl",
+                ncyBreadcrumb: {
+                    label: 'ChargeCode'
+                },
+                resolve: {
+                    CheckAccess: ["$q", "pageAccessService", function ($q, pageAccessService) {
+                        var deferred = $q.defer();
+                        // if (pageAccessService.CheckAuthToken()) {
+                        deferred.resolve();
+                        //  }
+                        return deferred.promise;
+                    }],
+                    LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
+                        return $ocLazyLoad.load(["chargeCode", "dynamicLookup", "dynamicListModal", "dynamicList", "dynamicGrid", "dynamicControl", "compareDate", "customToolbar", "confirmation", "chromeTab", "errorWarning"]);
+                    }]
+                }
+            })
+            ;
     }
 })();

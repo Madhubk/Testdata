@@ -65,6 +65,17 @@
                                 "FilterID": "JOBEXCH"
                             }
                         }
+                    },
+                    "MstExchangeRate":{
+                        "RowIndex": -1,
+                        "API":{
+                            "FindAll":{
+                                "IsAPI": "true",
+                                "HttpType": "Post",
+                                "Url": "MstExchangeRate/FindAll",
+                                "FilterID": "MSTEXCHR"  
+                            }
+                        }
                     }
                     // "CfxTypes": {
                     //     "RowIndex": -1,

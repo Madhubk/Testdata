@@ -330,7 +330,7 @@
        </div>
        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 exchange-table">
            <label class="control-label">Exchange Rate</label>
-           <div id="ExchangeRateTable{{FinanceJobGeneralCtrl.currentFinanceJob.label}}" class="fixedheader mt-3 ml-0 mr-0" key-events table-object="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge" enable='FinanceJobGeneralCtrl.ePage.Masters.Enable' unique-id='ExchangeRateTable{{FinanceJobGeneralCtrl.currentFinanceJob.label}}'>
+           <div id="ExchangeRateTable{{FinanceJobGeneralCtrl.currentFinanceJob.label}}" class="fixedheader mt-3 ml-0 mr-0" key-events table-object="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobExchangeRates" enable='FinanceJobGeneralCtrl.ePage.Masters.Enable' unique-id='ExchangeRateTable{{FinanceJobGeneralCtrl.currentFinanceJob.label}}'>
                 <table data-ng-style="{'height': FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIExchangeRate.TableHeight.height + 'px' }">
                     <thead>
                         <tr id="tableHeader">
@@ -342,10 +342,10 @@
                         </tr> 
                     </thead>
                     <tbody>
-                        <tr id="tableBody" data-ng-repeat="x in FinanceJobGeneralCtrl.ePage.Masters.ExchangeRate">
+                        <tr id="tableBody" data-ng-repeat="x in FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobExchangeRates">
                             <td data-ng-style="{ 'width': FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIExchangeRate.ercurrency.width + 'px' }">
                                 <div class="overflow-text">
-                                    <a style="text-decoration:none;cursor:pointer">{{x.Currency}}</a>
+                                    <a style="text-decoration:none;cursor:pointer">{{x.RX_NKExCurrency}}</a>
                                 </div>
                             </td>
                             <td data-ng-style="{ 'width': FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIExchangeRate.erbaserate.width + 'px' }">
@@ -519,10 +519,10 @@
                                 <div data-ng-if="$index==FinanceJobGeneralCtrl.ePage.Masters.selectedRow">
                                     <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0 height-22">
                                         <div class="input-group input-group-sm">
-                                            <div dynamic-lookup placeholder="Charge Code" my-ng-model="x.ACCCode" obj="x" page-name="'accchargecode'" control-id="'FinanceCharge'" control-key="FinanceCharge_3334" 
+                                            <div dynamic-lookup placeholder="Charge Code" my-ng-model="x.ACCCode" obj="x" page-name="'AccChargeCode'" control-id="'FinanceCharge'" control-key="FinanceCharge_3334" 
                                                 auto-complete-on-select="FinanceJobGeneralCtrl.ePage.Masters.SelectedLookupData($index, $item,'ChargeCode')" is-disabled="x.Costpost || x.Revenuepost"></div>
                                             <span class="input-group-btn">
-                                                <button dynamic-list-modal class="btn btn-default" type="button" obj="x" page-name="'accchargecode'" control-id="'FinanceCharge'" control-key="FinanceCharge_3334"
+                                                <button dynamic-list-modal class="btn btn-default" type="button" obj="x" page-name="'AccChargeCode'" control-id="'FinanceCharge'" control-key="FinanceCharge_3334"
                                                     mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="FinanceJobGeneralCtrl.ePage.Masters.SelectedLookupData($index, $item.data.entity,'ChargeCode')" is-disabled="x.Costpost || x.Revenuepost"><i class="fa fa-ellipsis-h"></i>
                                                 </button>
                                             </span>

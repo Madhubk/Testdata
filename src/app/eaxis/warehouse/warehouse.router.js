@@ -382,7 +382,7 @@
                         return deferred.promise;
                     }],
                     LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
-                        return $ocLazyLoad.load(["chromeTab", "confirmation", "compareDate", "dynamicListModal", "dynamicList", "dynamicLookup", "dynamicControl", "dynamicGrid", "drogAndDrop", "oneLevelMapping", "Summernote", "standardMenu", "Comment", "CommentModal", "Document", "DocumentModal", "inwardView", "inwardViewDetail","inwardViewDetailCustom1"]);
+                        return $ocLazyLoad.load(["chromeTab", "confirmation", "compareDate", "dynamicListModal", "dynamicList", "dynamicLookup", "dynamicControl", "dynamicGrid", "drogAndDrop", "oneLevelMapping", "Summernote", "standardMenu", "Comment", "CommentModal", "Document", "DocumentModal", "inwardView", "inwardViewDetail", "inwardViewDetailCustom1"]);
                     }]
                 }
             })
@@ -405,7 +405,7 @@
                         return deferred.promise;
                     }],
                     LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
-                        return $ocLazyLoad.load(["chromeTab", "confirmation", "compareDate", "dynamicListModal", "dynamicList", "dynamicLookup", "dynamicControl", "dynamicGrid", "drogAndDrop", "oneLevelMapping", "Summernote", "standardMenu", "Comment", "CommentModal", "Document", "DocumentModal", "outwardView", "outwardViewDetail","outwardViewDetailCustom1"]);
+                        return $ocLazyLoad.load(["chromeTab", "confirmation", "compareDate", "dynamicListModal", "dynamicList", "dynamicLookup", "dynamicControl", "dynamicGrid", "drogAndDrop", "oneLevelMapping", "Summernote", "standardMenu", "Comment", "CommentModal", "Document", "DocumentModal", "outwardView", "outwardViewDetail", "outwardViewDetailCustom1"]);
                     }]
                 }
             })
@@ -849,7 +849,7 @@
                         return deferred.promise;
                     }],
                     LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
-                        return $ocLazyLoad.load(["chromeTab", "confirmation", "compareDate", "dynamicListModal", "dynamicList", "dynamicLookup", "dynamicControl", "dynamicGrid", "drogAndDrop", "oneLevelMapping", "Summernote", "dynamicDashboard", "AsnReceivedWithStatus", "AsnTrend", "OpenSO", "PickWithShortfall", "PutawayStatus","GrnStatus","CycleCountJobs", "Notification"]);
+                        return $ocLazyLoad.load(["chromeTab", "confirmation", "compareDate", "dynamicListModal", "dynamicList", "dynamicLookup", "dynamicControl", "dynamicGrid", "drogAndDrop", "oneLevelMapping", "Summernote", "IconColorList", "dynamicDashboard", "AsnReceivedWithStatus", "AsnTrend", "OpenSO", "PickWithShortfall", "PutawayStatus", "GrnStatus", "CycleCountJobs", "Notification"]);
                     }]
                 }
             })
@@ -871,7 +871,7 @@
                         return deferred.promise;
                     }],
                     LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
-                        return $ocLazyLoad.load(["chromeTab", "errorWarning", "confirmation", "compareDate", "dynamicListModal", "dynamicList", "dynamicLookup", "dynamicControl", "dynamicGrid","consolidatedDocument"]);
+                        return $ocLazyLoad.load(["chromeTab", "errorWarning", "confirmation", "compareDate", "dynamicListModal", "dynamicList", "dynamicLookup", "dynamicControl", "dynamicGrid", "consolidatedDocument"]);
                     }]
                 }
             })
