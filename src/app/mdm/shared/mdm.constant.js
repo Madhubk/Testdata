@@ -786,7 +786,10 @@
                     'app/mdm/debtor/debtor-general/debtor-general.directive.js',
                     'app/mdm/debtor/debtor-general/debtor-general.controller.js'
                 ]
-            }, {
+            },
+            // added by Rajesh
+            // begin
+            {
                 name: 'currency',
                 files: [
                     'app/mdm/currency/currency.config.factory.js',
@@ -822,7 +825,27 @@
                     'app/mdm/tax/tax-general/tax-general.directive.js',
                     'app/mdm/tax/tax-general/tax-general.controller.js'
                 ]
+            }, {
+                name: 'exchangeRate',
+                files: [
+                    'app/mdm/ExchangeRate/ExchangeRate-config.factory.js',
+                    'app/mdm/ExchangeRate/ExchangeRate.controller.js'
+                ]
+            }, {
+                name: 'exchangeRateMenu',
+                files: [
+                    'app/mdm/ExchangeRate/ExchangeRate-menu/ExchangeRate-menu-directive.js',
+                    'app/mdm/ExchangeRate/ExchangeRate-menu/ExchangeRate-menu-controller.js'
+                ]
+            }, {
+                name: 'exchangeRateGeneral',
+                files: [
+                    'app/mdm/ExchangeRate/ExchangeRate-general/ExchangeRate-general-directive.js',
+                    'app/mdm/ExchangeRate/ExchangeRate-general/ExchangeRate-general-controller.js'
+                ]
             }
+
+            // end
         ]
     };
 
