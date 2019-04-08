@@ -36,7 +36,7 @@
             AsnTrendCtrl.ePage.Masters.IsLoading = true;
             var _filter = {
                 "WarehouseCode": AsnTrendCtrl.selectedWarehouse.WarehouseCode,
-                "ClientCode": AsnTrendCtrl.selectedClient.AccessCode
+                // "ClientCode": AsnTrendCtrl.selectedClient.AccessCode
             };
 
             var _input = {

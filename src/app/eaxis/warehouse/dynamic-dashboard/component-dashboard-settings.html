@@ -7,8 +7,20 @@
     </span>
 </div>
 <div class="modal-body pb-50">
-
+    <div class="text-single-line list user-list mb-10 mt-5" data-ng-repeat="x in  DynamicDashboardCtrl.ePage.Masters.TotalComponentList | filter: DynamicDashboardCtrl.ePage.Masters.Search"
+        data-ng-if="DynamicDashboardCtrl.ePage.Masters.TotalComponentList && (DynamicDashboardCtrl.ePage.Masters.TotalComponentList | filter: DynamicDashboardCtrl.ePage.Masters.Search).length > 0">
+        <div class="col-sm-1 p-0 text-center">
+            <label class="mb-0 customcheckbox">
+                <input type="checkbox" ng-checked="x.IsLoadedInThisDashboard" ng-model="x.IsLoadedInThisDashboard">
+                </input>
+                <span class="text"></span>
+            </label>
+        </div>
+        <div class="col-sm-5 p-0 mt-2">
+            <div data-ng-bind="x.ComponentName" class="text-single-line" title="{{x.ComponentName}}"></div>
+        </div>
+    </div>
 </div>
 <div class="modal-footer">
-    <button class="btn btn-sm mb-15" ng-click="DynamicDashboardCtrl.ePage.Masters.SaveEditDashboardSetting(DynamicDashboardCtrl.ePage.Masters.SelectedDashboardSettingDetails)">Save</button>
+    <button class="btn btn-sm mb-15" ng-click="DynamicDashboardCtrl.ePage.Masters.SaveCompDashboardSetting(DynamicDashboardCtrl.ePage.Masters.SelectedDashboardSettingDetails)">Save</button>
 </div>

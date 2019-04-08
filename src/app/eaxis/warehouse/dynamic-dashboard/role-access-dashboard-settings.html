@@ -1,0 +1,25 @@
+<div class="modal-header">
+    <span class="modal-title modalheader">Role Access Settings</span>
+    <span class="modal-title  pull-right" style="font-size: 18px;" ng-click="DynamicDashboardCtrl.ePage.Masters.CloseRoleSettingActivity()">
+        <a href="javascript:void(0);">
+            <i class="fa fa-times"></i>
+        </a>
+    </span>
+</div>
+<div class="modal-body pb-50">
+    <div class="clearfix">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" data-ng-repeat="x in DynamicDashboardCtrl.ePage.Masters.RoleList">
+            <div class="form-group">
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" class="colored-blue" data-ng-model="x.IsDashboardRole" ng-change="DynamicDashboardCtrl.ePage.Masters.OnChangeIsDashboardRole(x)">
+                        <span class="text" data-ng-bind="x.RoleDescription"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- <div class="modal-footer">
+    <button class="btn btn-sm mb-15" ng-click="DynamicDashboardCtrl.ePage.Masters.SaveCompDashboardSetting(DynamicDashboardCtrl.ePage.Masters.SelectedDashboardSettingDetails)">Save</button>
+</div> -->

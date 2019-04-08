@@ -15,12 +15,12 @@
         .directive("userDirective", UserDirective)
         .directive("musicDirective", MusicDirective)
         .directive("videoDirective", VideoDirective)
-        .directive("asnReceivedChart", AsnReceivedChart);
+        .directive("openSoChart", OpenSoChart);
 
-    function AsnReceivedChart() {
+    function OpenSoChart() {
         var exports = {
             restrict: "EA",
-            templateUrl: "app/eaxis/warehouse/dynamic-dashboard/notification/asn-received-status-chart.html",
+            templateUrl: "app/eaxis/warehouse/dynamic-dashboard/notification/open-so-chart.html",
             link: Link,
             controller: "NotificationController",
             controllerAs: "NotificationCtrl",

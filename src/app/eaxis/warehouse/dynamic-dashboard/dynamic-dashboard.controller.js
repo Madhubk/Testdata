@@ -29,17 +29,20 @@
 
             DynamicDashboardCtrl.ePage.Masters.dropCallback = dropCallback;
             DynamicDashboardCtrl.ePage.Masters.WarehouseChanged = WarehouseChanged;
-            DynamicDashboardCtrl.ePage.Masters.OnChangeClient = OnChangeClient
+            DynamicDashboardCtrl.ePage.Masters.OnChangeClient = OnChangeClient;
             DynamicDashboardCtrl.ePage.Masters.Apply = Apply;
-            DynamicDashboardCtrl.ePage.Masters.OnChangeSingleSelect = OnChangeSingleSelect;
+            DynamicDashboardCtrl.ePage.Masters.OnChangeIsDashboardRole = OnChangeIsDashboardRole;
             DynamicDashboardCtrl.ePage.Masters.OnClickCustomizeButton = OnClickCustomizeButton;
             DynamicDashboardCtrl.ePage.Masters.OnChangeDashboardList = OnChangeDashboardList;
             DynamicDashboardCtrl.ePage.Masters.Edit = Edit;
             DynamicDashboardCtrl.ePage.Masters.SaveEditDashboardSetting = SaveEditDashboardSetting;
             DynamicDashboardCtrl.ePage.Masters.CloseEditDetailsActivity = CloseEditDetailsActivity;
             DynamicDashboardCtrl.ePage.Masters.SelectedIconColor = SelectedIconColor;
-            DynamicDashboardCtrl.ePage.Masters.ComponentList = ComponentList;
+            DynamicDashboardCtrl.ePage.Masters.GetComponentListForDashboardSettings = GetComponentListForDashboardSettings;
             DynamicDashboardCtrl.ePage.Masters.CloseComponentSettingActivity = CloseComponentSettingActivity;
+            DynamicDashboardCtrl.ePage.Masters.SaveCompDashboardSetting = SaveCompDashboardSetting;
+            DynamicDashboardCtrl.ePage.Masters.RoleAccesDashboardSetting = RoleAccesDashboardSetting;
+            DynamicDashboardCtrl.ePage.Masters.CloseRoleSettingActivity = CloseRoleSettingActivity;
 
             DynamicDashboardCtrl.ePage.Masters.Settings = Settings;
             DynamicDashboardCtrl.ePage.Masters.CloseEditActivity = CloseEditActivity;
@@ -48,12 +51,104 @@
             GetRoleList();
             GetSettingsButtonAccess();
             GetDashboardListBasedOnRole();
+            GetJson();
         }
+        // #region - get role list based on party 
+        function RoleAccesDashboardSetting(item) {
+            DynamicDashboardCtrl.ePage.Masters.SelectedDashboardSettingDetails = item;
+            var _filter = {
+                "ItemCode": item.DashboardName,
+                "MappingCode": "DASH_ROLE_APP_TNT"
+            };
+            var _input = {
+                "searchInput": helperService.createToArrayOfObject(_filter),
+                "FilterID": appConfig.Entities.SecMappings.API.FindAll.FilterID
+            };
+            apiService.post("authAPI", appConfig.Entities.SecMappings.API.FindAll.Url, _input).then(function (response) {
+                if (response.data.Response) {
+                    DynamicDashboardCtrl.ePage.Masters.DashboardRoleDetails = response.data.Response;
+                    angular.forEach(DynamicDashboardCtrl.ePage.Masters.RoleList, function (value, key) {
+                        angular.forEach(DynamicDashboardCtrl.ePage.Masters.DashboardRoleDetails, function (value1, key1) {
+                            if (value.RoleName == value1.AccessCode) {
+                                value.IsDashboardRole = true;
+                            }
+                        });
+                    });
+                    OpenRoleAccessDashboardSetting().result.then(function (response) { }, function () { });
+                }
+            });
+        }
+
+        function OpenRoleAccessDashboardSetting() {
+            return DynamicDashboardCtrl.ePage.Masters.roleModalInstances = $uibModal.open({
+                animation: true,
+                backdrop: "static",
+                keyboard: false,
+                windowClass: "dashboard-setting-edit-details right address",
+                scope: $scope,
+                size: "md",
+                templateUrl: "app/eaxis/warehouse/dynamic-dashboard/role-access-dashboard-settings.html"
+            });
+        }
+
+        function CloseRoleSettingActivity() {
+            DynamicDashboardCtrl.ePage.Masters.roleModalInstances.dismiss('cancel');
+        }
+
+        function GetRoleList() {
+            var _filter = {
+                SAP_FK: authService.getUserInfo().AppPK,
+                TenantCode: authService.getUserInfo().TenantCode,
+                Party_FK: authService.getUserInfo().PartyPK
+            };
+
+            var _input = {
+                "searchInput": helperService.createToArrayOfObject(_filter),
+                "FilterID": appConfig.Entities.SecRole.API.FindAll.FilterID
+            };
+
+            apiService.post("authAPI", appConfig.Entities.SecRole.API.FindAll.Url, _input).then(function (response) {
+                if (response.data.Response) {
+                    DynamicDashboardCtrl.ePage.Masters.RoleList = response.data.Response;
+                }
+            });
+        }
+
+        function OnChangeIsDashboardRole(item) {            
+            if (item.IsDashboardRole) {
+                var _obj = {
+                    "MappingCode": "DASH_ROLE_APP_TNT",
+                    "ItemName": "DASHBOARD",
+                    "Item_FK": DynamicDashboardCtrl.ePage.Masters.SelectedDashboardSettingDetails.PK,
+                    "ItemCode": DynamicDashboardCtrl.ePage.Masters.SelectedDashboardSettingDetails.DashboardName,
+                    "AccessTo": "ROLE",
+                    "Access_FK": item.PK,
+                    "AccessCode": item.RoleName,
+                    "SAP_FK": authService.getUserInfo().AppPK,
+                    "SAP_Code": authService.getUserInfo().AppCode,
+                };
+                apiService.post("authAPI", appConfig.Entities.SecMappings.API.Insert.Url, _obj).then(function (response) {
+                    if (response.data.Response) {
+                    }
+                });
+            } else {
+
+            }
+        }
+        // #endregion
         // #region - Get component List for Selected Dashboard Setting
-        function ComponentList(item) {            
-            componentListDashboardSetting().result.then(function (response) { }, function () { });
+        function GetComponentListForDashboardSettings(item) {
+            angular.forEach(DynamicDashboardCtrl.ePage.Masters.TotalComponentList, function (value, key) {
+                angular.forEach(item.ComponentList, function (value1, key1) {
+                    if (value.ComponentName == value1.ComponentName) {
+                        value.IsLoadedInThisDashboard = true;
+                    }
+                });
+            });
+            DynamicDashboardCtrl.ePage.Masters.SelectedDashboardSettingDetails = item;
+            OpenComponentListDashboardSetting().result.then(function (response) { }, function () { });
         }
-        function componentListDashboardSetting() {
+        function OpenComponentListDashboardSetting() {
             return DynamicDashboardCtrl.ePage.Masters.componentModalInstances = $uibModal.open({
                 animation: true,
                 backdrop: "static",
@@ -65,6 +160,29 @@
             });
         }
         function CloseComponentSettingActivity() {
+            DynamicDashboardCtrl.ePage.Masters.componentModalInstances.dismiss('cancel');
+        }
+        function SaveCompDashboardSetting(item) {
+            var _TempList = $filter('filter')(DynamicDashboardCtrl.ePage.Masters.TotalComponentList, { IsLoadedInThisDashboard: true })
+            angular.forEach(DynamicDashboardCtrl.ePage.Masters.DashboardList, function (value, key) {
+                if (value.PK == item.PK) {
+                    value.ComponentList = _TempList;
+                }
+            });
+
+            DynamicDashboardCtrl.ePage.Masters.TempComponentList = angular.copy(_TempList);
+            DynamicDashboardCtrl.ePage.Masters.TempComponentList = $filter('orderBy')(DynamicDashboardCtrl.ePage.Masters.TempComponentList, 'SequenceNo');
+            DynamicDashboardCtrl.ePage.Masters.TempComponentList = $filter('orderBy')(DynamicDashboardCtrl.ePage.Masters.TempComponentList, '!IsLoadAsDefault');
+            DynamicDashboardCtrl.ePage.Masters.IsShowDetails = $filter('filter')(DynamicDashboardCtrl.ePage.Masters.TempComponentList, { IsShow: true })
+            var LoadedAsDefaultDetails = $filter('filter')(DynamicDashboardCtrl.ePage.Masters.IsShowDetails, { IsLoadAsDefault: true })
+            if (LoadedAsDefaultDetails.length > 0) {
+                dynamicDashboardConfig.LoadMoreCount = LoadedAsDefaultDetails.length;
+            }
+            dynamicDashboardConfig.LoadedDirectiveCount = 0;
+            DynamicDashboardCtrl.ePage.Masters.ComponentList = undefined;
+            $timeout(function () {
+                DynamicDashboardCtrl.ePage.Masters.ComponentList = angular.copy(LoadedAsDefaultDetails);
+            }, 100);
             DynamicDashboardCtrl.ePage.Masters.componentModalInstances.dismiss('cancel');
         }
         // #endregion
@@ -102,6 +220,20 @@
                 }
             });
             DynamicDashboardCtrl.ePage.Masters.editModalInstances.dismiss('cancel');
+            if (item.IsWarehouseBased)
+                GetWarehouseValues();
+            else
+                DynamicDashboardCtrl.ePage.Masters.SelectedWarehouse = {};
+            if (item.IsClientBased)
+                GetClientDetails();
+            else
+                DynamicDashboardCtrl.ePage.Masters.SelectedClient = {};
+            var IsShowDetails = angular.copy(DynamicDashboardCtrl.ePage.Masters.ComponentList);
+            dynamicDashboardConfig.LoadedDirectiveCount = 0;
+            DynamicDashboardCtrl.ePage.Masters.ComponentList = undefined;
+            $timeout(function () {
+                DynamicDashboardCtrl.ePage.Masters.ComponentList = IsShowDetails;
+            }, 100);
         }
         function SelectedIconColor(item) {
             DynamicDashboardCtrl.ePage.Masters.SelectedDashboardSettingDetails.Icon = item;
@@ -231,7 +363,7 @@
             DynamicDashboardCtrl.ePage.Masters.modalInstances.dismiss('cancel');
         }
         // #endregion
-        // #region - get Dashboard list 
+        // #region - get Component list based on Dashboard list 
         function GetDashboardList() {
             var _DashboardList = [{
                 "PK": "d7ea3cd1-ed85-4da6-8ab6-3497b8dfab52",
@@ -373,7 +505,7 @@
             }];
             DynamicDashboardCtrl.ePage.Masters.DashboardList = _DashboardList;
 
-            DynamicDashboardCtrl.ePage.Masters.SelectedDashboardComponentDetails = $filter('filter')(DynamicDashboardCtrl.ePage.Masters.DashboardList, { DashboardName: DynamicDashboardCtrl.ePage.Masters.SelectedDashboardDetails.DashboardName })
+            DynamicDashboardCtrl.ePage.Masters.SelectedDashboardComponentDetails = $filter('filter')(DynamicDashboardCtrl.ePage.Masters.DashboardList, { PK: DynamicDashboardCtrl.ePage.Masters.SelectedDashboardDetails.Dashboard_FK })
             DynamicDashboardCtrl.ePage.Masters.TempComponentList = angular.copy(DynamicDashboardCtrl.ePage.Masters.SelectedDashboardComponentDetails[0].ComponentList);
             DynamicDashboardCtrl.ePage.Masters.TempComponentList = $filter('orderBy')(DynamicDashboardCtrl.ePage.Masters.TempComponentList, 'SequenceNo');
             DynamicDashboardCtrl.ePage.Masters.TempComponentList = $filter('orderBy')(DynamicDashboardCtrl.ePage.Masters.TempComponentList, '!IsLoadAsDefault');
@@ -504,7 +636,6 @@
         // #endregion
         // #region - get component details
         function GetJson() {
-            DynamicDashboardCtrl.ePage.Masters.ComponentList = undefined;
             var _obj = [{
                 "ComponentName": "ASN Received With Status",
                 "Directive": "asn-received-status",
@@ -639,8 +770,8 @@
                 "SetAsDefault": false,
                 "IsLoadAsDefault": false
             }, {
-                "ComponentName": "Asn Received Chart",
-                "Directive": "asn-received-chart",
+                "ComponentName": "Open SO Chart",
+                "Directive": "open-so-chart",
                 "SequenceNo": 20,
                 "IsShow": true,
                 "SetAsDefault": true,
@@ -648,45 +779,18 @@
             }];
 
             _obj = $filter('orderBy')(_obj, 'SequenceNo');
-            DynamicDashboardCtrl.ePage.Masters.TempComponentList = angular.copy(_obj);
-            DynamicDashboardCtrl.ePage.Masters.TempComponentList = $filter('orderBy')(DynamicDashboardCtrl.ePage.Masters.TempComponentList, '!IsLoadAsDefault');
-            DynamicDashboardCtrl.ePage.Masters.IsShowDetails = $filter('filter')(_obj, { IsShow: true })
-            var LoadedAsDefaultDetails = $filter('filter')(DynamicDashboardCtrl.ePage.Masters.IsShowDetails, { IsLoadAsDefault: true })
-            if (LoadedAsDefaultDetails.length > 0) {
-                dynamicDashboardConfig.LoadMoreCount = LoadedAsDefaultDetails.length;
-            }
-            dynamicDashboardConfig.LoadedDirectiveCount = 0;
-            DynamicDashboardCtrl.ePage.Masters.ComponentList = angular.copy(LoadedAsDefaultDetails);
+            DynamicDashboardCtrl.ePage.Masters.TotalComponentList = angular.copy(_obj);
+            DynamicDashboardCtrl.ePage.Masters.TotalComponentList = $filter('orderBy')(DynamicDashboardCtrl.ePage.Masters.TotalComponentList, '!IsLoadAsDefault');
+            // DynamicDashboardCtrl.ePage.Masters.IsShowDetails = $filter('filter')(_obj, { IsShow: true })
+            // var LoadedAsDefaultDetails = $filter('filter')(DynamicDashboardCtrl.ePage.Masters.IsShowDetails, { IsLoadAsDefault: true })
+            // if (LoadedAsDefaultDetails.length > 0) {
+            //     dynamicDashboardConfig.LoadMoreCount = LoadedAsDefaultDetails.length;
+            // }
+            // dynamicDashboardConfig.LoadedDirectiveCount = 0;
+            // DynamicDashboardCtrl.ePage.Masters.ComponentList = angular.copy(LoadedAsDefaultDetails);
         }
         // #endregion
-        // #region - get role list based on party 
-        function GetRoleList() {
-            var _filter = {
-                SAP_FK: authService.getUserInfo().AppPK,
-                TenantCode: authService.getUserInfo().TenantCode,
-                Party_FK: authService.getUserInfo().PartyPK
-            };
 
-            var _input = {
-                "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.SecRole.API.FindAll.FilterID
-            };
-
-            apiService.post("authAPI", appConfig.Entities.SecRole.API.FindAll.Url, _input).then(function (response) {
-                if (response.data.Response) {
-                    DynamicDashboardCtrl.ePage.Masters.RoleList = response.data.Response;
-                }
-            });
-        }
-
-        function OnChangeSingleSelect() {
-            var Checked = DynamicDashboardCtrl.ePage.Masters.RoleList.some(function (value, key) {
-                // Enable and disable based on page wise
-                if (!value.SingleSelect)
-                    return true;
-            });
-        }
-        // #endregion
         Init();
 
     }
