@@ -7,8 +7,10 @@
         ExchangeRateMenuController.$inject = ["$scope", "$timeout", "$filter", "APP_CONSTANT", "authService", "apiService", "toastr", "exchangerateConfig", "helperService", "errorWarningService"];
 
     function ExchangeRateMenuController($scope, $timeout, $filter, APP_CONSTANT, authService, apiService, toastr, exchangerateConfig, helperService, errorWarningService) {        
+
         var ExchangeRateMenuCtrl = this;
         function Init() {
+            debugger;
             var currentExchangeRate = ExchangeRateMenuCtrl.currentExchangeRate[ExchangeRateMenuCtrl.currentExchangeRate.code].ePage.Entities;
             ExchangeRateMenuCtrl.ePage = {
                 "Title": "",
@@ -130,8 +132,7 @@
                 _input.CreatedBy = authService.getUserInfo().UserId;
                 _input.Source = "ERP";
                 _input.TenantCode = "20CUB";
-                _input.UnitName="Test";
-                _input.SubUnitName="Test1";
+                
             } else {
                 $item = filterObjectUpdate($item, "IsModified");
             }

@@ -60,7 +60,7 @@
             ExchangeRateCtrl.ePage.Masters.ExchangeRateNew = undefined;
             var _isExist = ExchangeRateCtrl.ePage.Masters.TabList.some(function (value) {
                 if (!isNew) {
-                    if (value.label === ExchangeRateNew.entity.Code)
+                    if (value.label === ExchangeRateNew.entity.FromCurrency)
                         return true;
                     else
                         return false;
@@ -82,7 +82,7 @@
                 exchangerateConfig.GetTabDetails(_ExchangeRateNew, isNew).then(function (response) {
                     var _entity = {};
                     ExchangeRateCtrl.ePage.Masters.TabList = response;
-                    //console.log(ExchangeRateCtrl.ePage.Masters.TabList);
+                    console.log("tab",ExchangeRateCtrl.ePage.Masters.TabLit);
                     if (ExchangeRateCtrl.ePage.Masters.TabList.length > 0) {
                         ExchangeRateCtrl.ePage.Masters.TabList.map(function (value, key) {
                             if (value.code == ExchangeRateNew.entity.PK) {
@@ -92,7 +92,7 @@
                     }
                     $timeout(function () {
                         ExchangeRateCtrl.ePage.Masters.ActiveTabIndex = ExchangeRateCtrl.ePage.Masters.TabList.length;
-                        ExchangeRateCtrl.ePage.Masters.CurrentActiveTab(ExchangeRateNew.entity.Code);
+                        ExchangeRateCtrl.ePage.Masters.CurrentActiveTab(ExchangeRateNew.entity);
                         ExchangeRateCtrl.ePage.Masters.IsTabClick = false;
                         var _code = ExchangeRateNew.entity.PK.split("-").join("");
                         GetValidationList(_code, _entity);

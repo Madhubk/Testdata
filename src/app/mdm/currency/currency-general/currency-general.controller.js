@@ -7,7 +7,7 @@
     CurrencyGeneralController.$inject = ["helperService", "currencyConfig"];
 
     function CurrencyGeneralController(helperService, currencyConfig) {
-
+    
         var CurrencyGeneralCtrl = this;
 
         function Init() {

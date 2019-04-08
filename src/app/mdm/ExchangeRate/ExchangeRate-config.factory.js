@@ -50,7 +50,7 @@
             "DataentryTitle": "ExchangeRate Master"
         };
         return exports;
-        function GetTabDetails(currentExchange, isNew) {
+        function GetTabDetails(currentExchangeRate, isNew) {
             /*  Set configuration object to individual Finance invoice */
             var deferred = $q.defer();
             var _exports = {
@@ -94,8 +94,8 @@
             };
 
             if (isNew) {
-                _exports.Entities.Header.Data = currentExchange.data;
-                var _code = currentExchange.entity.PK.split("-").join("");
+                _exports.Entities.Header.Data = currentExchangeRate.data;
+                var _code = currentExchangeRate.entity.PK.split("-").join("");
 
                 var _obj = {
                     [_code]: {
@@ -103,7 +103,7 @@
                     },
                     label: 'New',
                     code: _code,
-                    pk: currentExchange.entity.PK,
+                    pk: currentExchangeRate.entity.PK,
                     isNew: isNew
                 };
                 exports.TabList.push(_obj);
@@ -111,7 +111,7 @@
             }
             else {
                 debugger;
-                helperService.getFullObjectUsingGetById(exports.Entities.API.ExchangerateMaster.API.GetById.Url, currentExchange.PK).then(function (response) {
+                helperService.getFullObjectUsingGetById(exports.Entities.API.ExchangerateMaster.API.GetById.Url, currentExchangeRate.PK).then(function (response) {
                     if (response.data.Messages) {
                         response.data.Messages.map(function (value, key) {
                             if (value.Type === "Warning" && value.MessageDesc !== "") {
@@ -123,14 +123,14 @@
                     _exports.Entities.Header.Validations = response.data.Validations;
 
 
-                    var _code = currentExchange.PK.split("-").join("");
+                    var _code = currentExchangeRate.PK.split("-").join("");
                     var obj = {
                         [_code]: {
                             ePage: _exports
                         },
-                        label: currentExchange.Code,
+                        label: currentExchangeRate.FromCurrency,
                         code: _code,
-                        pk: currentExchange.PK,
+                        pk: currentExchangeRate.PK,
                         isNew: isNew
                     };
                     exports.TabList.push(obj);
