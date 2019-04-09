@@ -1,0 +1,110 @@
+<div class="clearfix" style="background-color: #fbfbfbc2;">
+    <div class="clearfix border-bottom pt-5 pb-5" style="background-color: #eeeeeec2 !important;">
+        <div class="col-lg-3">
+            <i class="dashboard-dms-icon-box {{PreviewDashboardCtrl.ePage.Masters.SelectedDashboardDetails.Icon}} fs-22 mt-5"></i>
+            <span class="dashboard-dms-title ml-10 fs-20">{{PreviewDashboardCtrl.ePage.Masters.SelectedDashboardDetails.DashboardName}}</span>
+        </div>
+        <div class="col-lg-8">
+            <div class="col-lg-3">
+                <!-- <select chosen class="btn btn-default fs-12" ng-model="PreviewDashboardCtrl.ePage.Masters.SelectedDashboardDetails"
+                    ng-options="x.DashboardName for x in PreviewDashboardCtrl.ePage.Masters.DashboardListBasedOnRole"
+                    ng-change="PreviewDashboardCtrl.ePage.Masters.OnChangeDashboardList()" search-contains="true"></select> -->
+            </div>
+            
+            <div class="col-lg-4">
+                <select chosen class="btn btn-default fs-12" data-ng-if="PreviewDashboardCtrl.ePage.Masters.SelectedDashboardDetails.IsClientBased"
+                    ng-model="PreviewDashboardCtrl.ePage.Masters.SelectedClient" ng-options="x.AccessCode for x in PreviewDashboardCtrl.ePage.Masters.ClientDetails"
+                    ng-change="PreviewDashboardCtrl.ePage.Masters.OnChangeClient()" search-contains="true"></select>
+            </div>
+            <div class="col-lg-4">
+                <select chosen class="btn btn-default fs-12" data-ng-if="PreviewDashboardCtrl.ePage.Masters.SelectedDashboardDetails.IsWarehouseBased"
+                    ng-model="PreviewDashboardCtrl.ePage.Masters.SelectedWarehouse" ng-options="x.WarehouseCode+'-'+x.WarehouseName for x in PreviewDashboardCtrl.ePage.Masters.WarehouseDetails"
+                    ng-change="PreviewDashboardCtrl.ePage.Masters.WarehouseChanged()" search-contains="true"></select>
+            </div>
+            <div class="col-lg-1" style="padding-right:0px;">
+                <div class="pull-right dashboard-filter">
+                    <span class="pull-right filter-sidebar-setting" title="Customize Components" data-ng-click="PreviewDashboardCtrl.ePage.Masters.OnClickCustomizeButton()">
+                        <i class="fa fa-bars icon pt-8 pb-8" style="padding: 4px 10px;font-size: 16px;cursor: pointer;color: rgb(170, 170, 170);"></i>
+                    </span>
+                    <div id="filterSideBar" class="dynamic-filter-sidebar-wrapper p-0" style="border: 1px solid #eee;top: 35px;z-index: 15;background-color: #fff;width: 500px;"
+                        role="menu">
+                        <div class="clearfix m-5 mb-15">
+                            <input type="text" class="form-control input-sm input-search" placeholder="Search"
+                                data-ng-model="PreviewDashboardCtrl.ePage.Masters.Search">
+                        </div>
+                        <div class="text-single-line p-15 text-center" data-ng-if="!PreviewDashboardCtrl.ePage.Masters.TempComponentList">
+                            <i class="fa fa-spin fa-spinner"></i>
+                        </div>
+                        <div class="text-single-line p-15 text-center" data-ng-if="PreviewDashboardCtrl.ePage.Masters.TempComponentList && (PreviewDashboardCtrl.ePage.Masters.TempComponentList | filter: PreviewDashboardCtrl.ePage.Masters.Search).length === 0">
+                            <i>No Records...!</i>
+                        </div>
+                        <div class="clearfix inner-section filter-set-height">
+                            <div class="text-single-line list user-list mb-10 mt-5" data-ng-repeat="x in  PreviewDashboardCtrl.ePage.Masters.TempComponentList | filter: PreviewDashboardCtrl.ePage.Masters.Search"
+                                data-ng-if="PreviewDashboardCtrl.ePage.Masters.TempComponentList && (PreviewDashboardCtrl.ePage.Masters.TempComponentList | filter: PreviewDashboardCtrl.ePage.Masters.Search).length > 0">
+                                <div class="col-sm-1 p-0 text-center">
+                                    <label class="mb-0 customcheckbox">
+                                        <input type="checkbox" ng-checked="x.IsShow" ng-change="x.IsShow?x.IsShow=true:x.IsShow=false"
+                                            ng-model="x.IsShow"> </input>
+                                        <span class="text"></span>
+                                    </label>
+                                </div>
+                                <div class="col-sm-5 p-0 mt-2">
+                                    <div data-ng-bind="x.ComponentName" class="text-single-line" title="{{x.ComponentName}}"></div>
+                                </div>
+                                <div class="col-sm-6 text-right mt-2">
+                                    <button class="btn  btn-xs" data-ng-disabled="!x.IsShow" style="width: 85px;"
+                                        data-ng-class="{'btn-success': x.SetAsDefault, 'btn-default': !x.SetAsDefault}"
+                                        data-ng-click="x.SetAsDefault?x.SetAsDefault=false:x.SetAsDefault=true"
+                                        data-ng-bind="x.SetAsDefault ? 'Default' : 'Set As Default'"></button>
+                                    <button class="btn  btn-xs" data-ng-disabled="!x.IsShow" style="width: 95px;"
+                                        data-ng-class="{'btn-success': x.IsLoadAsDefault, 'btn-default': !x.IsLoadAsDefault}"
+                                        data-ng-click="x.IsLoadAsDefault?x.IsLoadAsDefault=false:x.IsLoadAsDefault=true"
+                                        data-ng-bind="x.IsLoadAsDefault ? 'Loaded' : 'Load As Default'"></button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="footer clearfix p-5" style="background-color: #eee; border-top: 2px solid #ccc;">
+                            <input type="submit" class="btn btn-sm btn-primary pull-right mr-15" data-ng-click="PreviewDashboardCtrl.ePage.Masters.Apply()"
+                                value="{{PreviewDashboardCtrl.ePage.Masters.ApplyBtnText}}" data-ng-disabled="PreviewDashboardCtrl.ePage.Masters.IsApplyBtnDisable">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-1" style="padding-right:0px;">
+            <div class="pull-right" data-ng-if="PreviewDashboardCtrl.ePage.Masters.ComponentRoleDetails.length>0">
+                <span class="pull-right" title="Dashboard Settings" data-ng-click="PreviewDashboardCtrl.ePage.Masters.Settings()">
+                    <i class="fa fa-cog icon pt-8 pb-8" style="padding: 4px 10px;font-size: 16px;cursor: pointer;color: rgb(170, 170, 170);"></i>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-12 custom-widget no-padding" data-ng-if="PreviewDashboardCtrl.ePage.Masters.SelectedDashboardDetails">
+        <div class="widget clearfix no-padding" dnd-list="PreviewDashboardCtrl.ePage.Masters.ComponentList" dnd-drop="PreviewDashboardCtrl.ePage.Masters.dropCallback(item,PreviewDashboardCtrl.ePage.Masters.ComponentList,index,external)">
+            <div ng-if="PreviewDashboardCtrl.ePage.Masters.ComponentList && PreviewDashboardCtrl.ePage.Masters.SelectedWarehouse && PreviewDashboardCtrl.ePage.Masters.SelectedClient && PreviewDashboardCtrl.ePage.Masters.SelectedDashboardComponentDetails.length>0"
+                ng-repeat="x in PreviewDashboardCtrl.ePage.Masters.ComponentList | filter: {IsShow:true}" dnd-draggable="x"
+                dnd-effect-allowed="move" draggable="true">
+                <div dynamic-dashboard-directive component-list="PreviewDashboardCtrl.ePage.Masters.ComponentList"
+                    selected-component="PreviewDashboardCtrl.ePage.Masters.ComponentList[$index]" selected-warehouse="PreviewDashboardCtrl.ePage.Masters.SelectedWarehouse"
+                    selected-client="PreviewDashboardCtrl.ePage.Masters.SelectedClient"></div>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix col-lg-12 p-20 text-center" data-ng-if="PreviewDashboardCtrl.ePage.Masters.SelectedDashboardDetails && PreviewDashboardCtrl.ePage.Masters.SelectedClient && PreviewDashboardCtrl.ePage.Masters.SelectedWarehouse">
+        <button class="btn btn-sm btn-primary" data-ng-click="PreviewDashboardCtrl.ePage.Masters.LoadMore()"
+            data-ng-hide="PreviewDashboardCtrl.ePage.Masters.IsShowDetails.length <= PreviewDashboardCtrl.ePage.Masters.Config.LoadMoreCount"
+            data-ng-disabled="PreviewDashboardCtrl.ePage.Masters.IsDisabledLoadMoreBtn" data-ng-bind="PreviewDashboardCtrl.ePage.Masters.LoadMoreBtnTxt"></button>
+    </div>
+    <div class="col-lg-12 custom-widget no-padding" data-ng-if="PreviewDashboardCtrl.ePage.Masters.ComponentList.length==0 && PreviewDashboardCtrl.ePage.Masters.IsShowDetails.length==0">
+        <div class="text-center pt-20"><i>Component does not Configured </i></div>
+    </div>
+    <div class="col-lg-12 custom-widget no-padding" data-ng-if="!PreviewDashboardCtrl.ePage.Masters.SelectedDashboardDetails">
+        <div class="text-center pt-20"><i>No Dashboard Mapped for this User</i></div>
+    </div>
+    <div class="col-lg-12 custom-widget no-padding" data-ng-if="!PreviewDashboardCtrl.ePage.Masters.SelectedClient">
+        <div class="text-center pt-20"><i>No Organization Mapped for this User</i></div>
+    </div>
+    <div class="col-lg-12 custom-widget no-padding" data-ng-if="PreviewDashboardCtrl.ePage.Masters.SelectedDashboardComponentDetails.length==0">
+        <div class="text-center pt-20"><i>No Component Mapped for this Dashboard</i></div>
+    </div>
+</div>

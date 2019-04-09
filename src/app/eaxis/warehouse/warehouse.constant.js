@@ -836,6 +836,12 @@
                 'app/eaxis/warehouse/dynamic-dashboard/dynamic-dashboard-config.factory.js'
             ]
         }, {
+            name: 'PreviewDashboard',
+            files: [
+                'app/eaxis/warehouse/dynamic-dashboard/preview-dashboard/preview-dashboard.controller.js',
+                // 'app/eaxis/warehouse/dynamic-dashboard/asn-received-status/asn-received-status.directive.js',
+            ]
+        }, {
             name: 'AsnReceivedWithStatus',
             files: [
                 'app/eaxis/warehouse/dynamic-dashboard/asn-received-status/asn-received-status.controller.js',
@@ -1121,15 +1127,15 @@
                 "app/eaxis/finance/finance-job/finance-job-menu/finance-job-menu.controller.js",
             ]
         },
-            //#endregion
+        //#endregion
 
-            //#region Consolidated Document
-            {
-                name: 'consolidatedDocument',
-                files: [
-                    'app/eaxis/warehouse/consolidated-document/consolidated-document.controller.js',
-                ]
-            },
+        //#region Consolidated Document
+        {
+            name: 'consolidatedDocument',
+            files: [
+                'app/eaxis/warehouse/consolidated-document/consolidated-document.controller.js',
+            ]
+        },
             //#endregion
         ]
     };

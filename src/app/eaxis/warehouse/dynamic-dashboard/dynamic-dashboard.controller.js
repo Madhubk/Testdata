@@ -20,6 +20,10 @@
                 "Entities": {}
             };
 
+            InitAction();
+        }
+        // #region - Funcation call and Variable Declaration
+        function InitAction() {
             DynamicDashboardCtrl.ePage.Masters.LoadMoreBtnTxt = "Load More";
             DynamicDashboardCtrl.ePage.Masters.LoadMore = LoadMore;
             DynamicDashboardCtrl.ePage.Masters.IsVisibleLoadMoreBtn = true;
@@ -43,6 +47,9 @@
             DynamicDashboardCtrl.ePage.Masters.SaveCompDashboardSetting = SaveCompDashboardSetting;
             DynamicDashboardCtrl.ePage.Masters.RoleAccesDashboardSetting = RoleAccesDashboardSetting;
             DynamicDashboardCtrl.ePage.Masters.CloseRoleSettingActivity = CloseRoleSettingActivity;
+            DynamicDashboardCtrl.ePage.Masters.PreviewDashboardSetting = PreviewDashboardSetting;
+            DynamicDashboardCtrl.ePage.Masters.ClosePreviewDetailsActivity = ClosePreviewDetailsActivity;
+            DynamicDashboardCtrl.ePage.Masters.SavePreviewActivity = SavePreviewActivity;
 
             DynamicDashboardCtrl.ePage.Masters.Settings = Settings;
             DynamicDashboardCtrl.ePage.Masters.CloseEditActivity = CloseEditActivity;
@@ -53,6 +60,63 @@
             GetDashboardListBasedOnRole();
             GetJson();
         }
+        // #endregion
+        // #region - Preview the dashboard setting
+        function PreviewDashboardSetting(item) {
+            DynamicDashboardCtrl.ePage.Masters.SelectedDashboardSettingDetails = item;
+            var previewModalInstances = $uibModal.open({
+                animation: true,
+                backdrop: "static",
+                keyboard: true,
+                windowClass: "dashboard-setting-edit right address",
+                scope: $scope,
+                templateUrl: "app/eaxis/warehouse/dynamic-dashboard/preview-dashboard/preview-dashboard.html",
+                controller: 'PreviewDashboardController as PreviewDashboardCtrl',
+                bindToController: true,
+                resolve: {
+                    param: function () {
+                        var exports = {
+                            "Entity": DynamicDashboardCtrl.ePage.Masters.SelectedDashboardSettingDetails,
+                            "ClientDetails": DynamicDashboardCtrl.ePage.Masters.ClientDetails,
+                            "WarehouseDetails": DynamicDashboardCtrl.ePage.Masters.WarehouseDetails,
+                            "TempComponentList": DynamicDashboardCtrl.ePage.Masters.TempComponentList,
+                            "ComponentList": DynamicDashboardCtrl.ePage.Masters.ComponentList,
+                            "SelectedWarehouse": DynamicDashboardCtrl.ePage.Masters.SelectedWarehouse,
+                            "SelectedClient": DynamicDashboardCtrl.ePage.Masters.SelectedClient
+                        };
+                        return exports;
+                    }
+                }
+            }).result.then(
+                function (response) {
+                    if (response.data) {
+                    }
+                },
+                function () {
+                    console.log("Cancelled");
+                }
+            );
+            // OpenPreviewDashboardSetting().result.then(function (response) { }, function () { });
+        }
+        // function OpenPreviewDashboardSetting() {
+        // return DynamicDashboardCtrl.ePage.Masters.previewModalInstances = $uibModal.open({
+        //     animation: true,
+        //     backdrop: "static",
+        //     keyboard: false,
+        //     windowClass: "dashboard-setting-edit right address",
+        //     scope: $scope,
+        //     size: "md",
+        //     templateUrl: "app/eaxis/warehouse/dynamic-dashboard/preview-dashboard-settings.html"
+        // });
+
+        // }
+        function ClosePreviewDetailsActivity() {
+            DynamicDashboardCtrl.ePage.Masters.previewModalInstances.dismiss('cancel');
+        }
+        function SavePreviewActivity() {
+
+        }
+        // #endregion 
         // #region - get role list based on party 
         function RoleAccesDashboardSetting(item) {
             DynamicDashboardCtrl.ePage.Masters.SelectedDashboardSettingDetails = item;
@@ -114,7 +178,7 @@
             });
         }
 
-        function OnChangeIsDashboardRole(item) {            
+        function OnChangeIsDashboardRole(item) {
             if (item.IsDashboardRole) {
                 var _obj = {
                     "MappingCode": "DASH_ROLE_APP_TNT",
@@ -175,7 +239,7 @@
             DynamicDashboardCtrl.ePage.Masters.TempComponentList = $filter('orderBy')(DynamicDashboardCtrl.ePage.Masters.TempComponentList, '!IsLoadAsDefault');
             DynamicDashboardCtrl.ePage.Masters.IsShowDetails = $filter('filter')(DynamicDashboardCtrl.ePage.Masters.TempComponentList, { IsShow: true })
             var LoadedAsDefaultDetails = $filter('filter')(DynamicDashboardCtrl.ePage.Masters.IsShowDetails, { IsLoadAsDefault: true })
-            if (LoadedAsDefaultDetails.length > 0) {
+            if (LoadedAsDefaultDetails.length >= 0) {
                 dynamicDashboardConfig.LoadMoreCount = LoadedAsDefaultDetails.length;
             }
             dynamicDashboardConfig.LoadedDirectiveCount = 0;
@@ -189,9 +253,9 @@
         // #region - Edit Dashboard setting
         function Edit(item) {
             DynamicDashboardCtrl.ePage.Masters.SelectedDashboardSettingDetails = item;
-            editDashboardSetting().result.then(function (response) { }, function () { });
+            EditDashboardSetting().result.then(function (response) { }, function () { });
         }
-        function editDashboardSetting() {
+        function EditDashboardSetting() {
             return DynamicDashboardCtrl.ePage.Masters.editModalInstances = $uibModal.open({
                 animation: true,
                 backdrop: "static",
@@ -511,7 +575,7 @@
             DynamicDashboardCtrl.ePage.Masters.TempComponentList = $filter('orderBy')(DynamicDashboardCtrl.ePage.Masters.TempComponentList, '!IsLoadAsDefault');
             DynamicDashboardCtrl.ePage.Masters.IsShowDetails = $filter('filter')(DynamicDashboardCtrl.ePage.Masters.TempComponentList, { IsShow: true })
             var LoadedAsDefaultDetails = $filter('filter')(DynamicDashboardCtrl.ePage.Masters.IsShowDetails, { IsLoadAsDefault: true })
-            if (LoadedAsDefaultDetails.length > 0) {
+            if (LoadedAsDefaultDetails.length >= 0) {
                 dynamicDashboardConfig.LoadMoreCount = LoadedAsDefaultDetails.length;
             }
             dynamicDashboardConfig.LoadedDirectiveCount = 0;
@@ -529,7 +593,7 @@
             var _ComponentList = angular.copy(DynamicDashboardCtrl.ePage.Masters.TempComponentList);
             DynamicDashboardCtrl.ePage.Masters.IsShowDetails = $filter('filter')(_ComponentList, { IsShow: true })
             var LoadedAsDefaultDetails = $filter('filter')(DynamicDashboardCtrl.ePage.Masters.IsShowDetails, { IsLoadAsDefault: true })
-            if (LoadedAsDefaultDetails.length > 0) {
+            if (LoadedAsDefaultDetails.length >= 0) {
                 dynamicDashboardConfig.LoadMoreCount = LoadedAsDefaultDetails.length;
             }
             DynamicDashboardCtrl.ePage.Masters.ComponentList = undefined;
@@ -781,13 +845,6 @@
             _obj = $filter('orderBy')(_obj, 'SequenceNo');
             DynamicDashboardCtrl.ePage.Masters.TotalComponentList = angular.copy(_obj);
             DynamicDashboardCtrl.ePage.Masters.TotalComponentList = $filter('orderBy')(DynamicDashboardCtrl.ePage.Masters.TotalComponentList, '!IsLoadAsDefault');
-            // DynamicDashboardCtrl.ePage.Masters.IsShowDetails = $filter('filter')(_obj, { IsShow: true })
-            // var LoadedAsDefaultDetails = $filter('filter')(DynamicDashboardCtrl.ePage.Masters.IsShowDetails, { IsLoadAsDefault: true })
-            // if (LoadedAsDefaultDetails.length > 0) {
-            //     dynamicDashboardConfig.LoadMoreCount = LoadedAsDefaultDetails.length;
-            // }
-            // dynamicDashboardConfig.LoadedDirectiveCount = 0;
-            // DynamicDashboardCtrl.ePage.Masters.ComponentList = angular.copy(LoadedAsDefaultDetails);
         }
         // #endregion
 

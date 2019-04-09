@@ -90,7 +90,12 @@
             </div>
         </div>
     </div>
-    <div class="col-lg-12 custom-widget no-padding" data-ng-if="DynamicDashboardCtrl.ePage.Masters.ComponentList.length==0">
+    <div class="clearfix col-lg-12 p-20 text-center" data-ng-if="DynamicDashboardCtrl.ePage.Masters.SelectedDashboardDetails && DynamicDashboardCtrl.ePage.Masters.SelectedClient && DynamicDashboardCtrl.ePage.Masters.SelectedWarehouse">
+        <button class="btn btn-sm btn-primary" data-ng-click="DynamicDashboardCtrl.ePage.Masters.LoadMore()"
+            data-ng-hide="DynamicDashboardCtrl.ePage.Masters.IsShowDetails.length <= DynamicDashboardCtrl.ePage.Masters.Config.LoadMoreCount"
+            data-ng-disabled="DynamicDashboardCtrl.ePage.Masters.IsDisabledLoadMoreBtn" data-ng-bind="DynamicDashboardCtrl.ePage.Masters.LoadMoreBtnTxt"></button>
+    </div>
+    <div class="col-lg-12 custom-widget no-padding" data-ng-if="DynamicDashboardCtrl.ePage.Masters.ComponentList.length==0 && DynamicDashboardCtrl.ePage.Masters.IsShowDetails.length==0">
         <div class="text-center pt-20"><i>Component does not Configured </i></div>
     </div>
     <div class="col-lg-12 custom-widget no-padding" data-ng-if="!DynamicDashboardCtrl.ePage.Masters.SelectedDashboardDetails">
@@ -101,10 +106,5 @@
     </div>
     <div class="col-lg-12 custom-widget no-padding" data-ng-if="DynamicDashboardCtrl.ePage.Masters.SelectedDashboardComponentDetails.length==0">
         <div class="text-center pt-20"><i>No Component Mapped for this Dashboard</i></div>
-    </div>
-    <div class="clearfix col-lg-12 p-20 text-center" data-ng-if="DynamicDashboardCtrl.ePage.Masters.SelectedDashboardDetails && DynamicDashboardCtrl.ePage.Masters.SelectedClient && DynamicDashboardCtrl.ePage.Masters.SelectedWarehouse"
-        data-ng-hide="(DynamicDashboardCtrl.ePage.Masters.IsShowDetails.length <= DynamicDashboardCtrl.ePage.Masters.Config.LoadMoreCount) || DynamicDashboardCtrl.ePage.Masters.WarehouseDetails.length==0">
-        <button class="btn btn-sm btn-primary" data-ng-click="DynamicDashboardCtrl.ePage.Masters.LoadMore()"
-            data-ng-disabled="DynamicDashboardCtrl.ePage.Masters.IsDisabledLoadMoreBtn" data-ng-bind="DynamicDashboardCtrl.ePage.Masters.LoadMoreBtnTxt"></button>
     </div>
 </div>
