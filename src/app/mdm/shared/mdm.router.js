@@ -488,7 +488,7 @@
             })
             .state('MD.exchangerate', {
                 url: '/exchangerate',
-                templateUrl: 'app/mdm/ExchangeRate/ExchangeRate.html',
+                templateUrl: 'app/mdm/exchangeRate/exchangeRate.html',
                 controller: "ExchangerateController as ExchangeRateCtrl",
                 ncyBreadcrumb: {
                     label: 'Exchange Rate'

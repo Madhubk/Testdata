@@ -9,11 +9,10 @@
     function ExchangeRateGeneralController(helperService, exchangerateConfig) {
 
         var ExchangeRateGeneralCtrl = this;
-
+        debugger;
         function Init() {
 
             var currentExchangeRate = ExchangeRateGeneralCtrl.currentExchangeRate[ExchangeRateGeneralCtrl.currentExchangeRate.code].ePage.Entities;
-
             ExchangeRateGeneralCtrl.ePage = {
                 "Title": "",
                 "Prefix": "Eaxis_ExchangeRate",
@@ -21,7 +20,7 @@
                 "Meta": helperService.metaBase(),
                 "Entities": currentExchangeRate
             };
-
+            debugger;
             ExchangeRateGeneralCtrl.ePage.Masters.Config = exchangerateConfig;
             ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList = ExchangeRateGeneralCtrl.ePage.Entities.Header.Data;
             ExchangeRateGeneralCtrl.ePage.Masters.SelectedLookupData = SelectedLookupData;
