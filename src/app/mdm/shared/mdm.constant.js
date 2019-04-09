@@ -819,7 +819,10 @@
                 name: 'tax',
                 files: [
                     'app/mdm/tax/tax-config.factory.js',
-                    'app/mdm/tax/tax.controller.js'
+                    'app/mdm/tax/tax.controller.js',
+                    'app/mdm/warehouse/customize-table/customize-table.css',
+                    'app/mdm/warehouse/customize-table/customize-table.directive.js',
+                    'app/mdm/warehouse/custom/customfilter.js'
                 ]
             }, {
                 name: 'taxMenu',

@@ -6,7 +6,7 @@
 
     FinanceJobGeneralController.$inject = ["$uibModal", "$scope", "$filter", "$timeout", "$document", "APP_CONSTANT", "apiService", "financeConfig", "appConfig", "helperService", "authService", "confirmation", "toastr", "errorWarningService"];
 
-    function FinanceJobGeneralController($uibModal, $scope,  $filter, $timeout, $document, APP_CONSTANT, apiService, financeConfig, appConfig, helperService, authService, confirmation, toastr, errorWarningService) {
+    function FinanceJobGeneralController($uibModal, $scope, $filter, $timeout, $document, APP_CONSTANT, apiService, financeConfig, appConfig, helperService, authService, confirmation, toastr, errorWarningService) {
         var FinanceJobGeneralCtrl = this;
 
         function Init() {
@@ -42,80 +42,6 @@
                 Mobile: "9714536480",
                 Phone: "0478-178945"
             };
-
-            console.log("UIJobExchangeRates", FinanceJobGeneralCtrl.ePage.Entities.Header.Data);
-            // FinanceJobGeneralCtrl.ePage.Masters.ExchangeRate = [{
-            //     Currency: "INR",
-            //     BaseRate: 25.5500,
-            //     TodayRate: 58.3400,
-            //     OrgRole: "CRD",
-            //     Organisation: ""
-            // },
-            // {
-            //     Currency: "USD",
-            //     BaseRate: 35.5000,
-            //     TodayRate: 71.3400,
-            //     OrgRole: "DEB",
-            //     Organisation: ""
-            // }, {
-            //     Currency: "POUND",
-            //     BaseRate: 21.5000,
-            //     TodayRate: 63.3800,
-            //     OrgRole: "CRD",
-            //     Organisation: ""
-            // },
-            // {
-            //     Currency: "INR",
-            //     BaseRate: 25.3400,
-            //     TodayRate: 71.3400,
-            //     OrgRole: "DEB",
-            //     Organisation: ""
-            // }, {
-            //     Currency: "INR",
-            //     BaseRate: 25.5500,
-            //     TodayRate: 58.3400,
-            //     OrgRole: "CRD",
-            //     Organisation: ""
-            // }, {
-            //     Currency: "USD",
-            //     BaseRate: 35.5000,
-            //     TodayRate: 71.3400,
-            //     OrgRole: "DEB",
-            //     Organisation: ""
-            // }, {
-            //     Currency: "POUND",
-            //     BaseRate: 21.5000,
-            //     TodayRate: 63.3800,
-            //     OrgRole: "CRD",
-            //     Organisation: ""
-            // },
-            // {
-            //     Currency: "INR",
-            //     BaseRate: 25.3400,
-            //     TodayRate: 71.3400,
-            //     OrgRole: "DEB",
-            //     Organisation: ""
-            // }, {
-            //     Currency: "USD",
-            //     BaseRate: 35.5000,
-            //     TodayRate: 71.3400,
-            //     OrgRole: "DEB",
-            //     Organisation: ""
-            // }, {
-            //     Currency: "POUND",
-            //     BaseRate: 21.5000,
-            //     TodayRate: 63.3800,
-            //     OrgRole: "CRD",
-            //     Organisation: ""
-            // },
-            // {
-            //     Currency: "INR",
-            //     BaseRate: 25.3400,
-            //     TodayRate: 71.3400,
-            //     OrgRole: "DEB",
-            //     Organisation: ""
-            // }
-            // ];
 
             FinanceJobGeneralCtrl.ePage.Masters.DropDownMasterList = {};
             FinanceJobGeneralCtrl.ePage.Masters.UIJobDisabled = {};
@@ -259,14 +185,14 @@
                     OnChangeValues($item.Code, 'E1307');
 
                     if (FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.CompanyLocalCurrency != FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].RX_NKCostCurrency) {
-                        GetExchageRateDetail(FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].RX_NKCostCurrency);
+                        GetExchageRateDetail(FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].RX_NKCostCurrency, "CRD", $item.PK);
                     }
                 }
                 else if (type == 'RevenueCurrency') {
                     OnChangeValues($item.Code, 'E1193');
 
                     if (FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.CompanyLocalCurrency != FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].RX_NKSellCurrency) {
-                        GetExchageRateDetail(FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].RX_NKSellCurrency);
+                        GetExchageRateDetail(FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].RX_NKSellCurrency, "DEB", $item.PK);
                     }
                 }
             }
@@ -282,55 +208,89 @@
         //#endregion
 
         //#region ExchangeRateTable
-        function GetExchageRateDetail($item) {
+        function GetExchageRateDetail($item, type, Org_PK) {
             if (FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobExchangeRates.length > 0) {
-                FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobExchangeRates.map(function (value, key) {
-                    if (value.RX_NKRateCurrency == item) {
-                        console.log(value);
-                        FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobExchangeRates.push(value);
+                var _ExchangeRate = FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobExchangeRates.some(function (value, key) {
+                    if (value.RX_NKRateCurrency == $item) {
+                        return true;
+                    } else {
+                        return false;
                     }
                 });
+
+                if (_ExchangeRate) {
+                    var obj;
+                    FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobExchangeRates.map(function (value, key) {
+                        if (value.RX_NKRateCurrency == $item) {
+                            obj = {
+                                "PK": "",
+                                "FromCurrency": value.FromCurrency,
+                                "RX_NKRateCurrency": value.RX_NKRateCurrency,
+                                "BaseRate": value.BaseRate,
+                                "TodayBuyrate": value.TodayBuyrate,
+                                "OrgType": value.OrgType,
+                                "OH_Org": value.OH_Org,
+                                "CFXMinimum": value.CFXMinimum,
+                                "CFXPercent": value.CFXPercent,
+                                "IsTransformed": value.IsTransformed,
+                                "EntitySource": value.EntitySource,
+                                "CreatedDateTime": new Date(),
+                                "IsModified": false,
+                                "IsDeleted": false,
+                            };
+                        }
+                    });
+                    FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobExchangeRates.push(obj);
+                }
             } else {
-                var _StartDate = new Date();
-                _StartDate.setHours(0);
-                _StartDate.setMinutes(0);
-                _StartDate.setSeconds(0);
-
-                _StartDate = $filter('date')(StartDate, "yyyy-MM-dd HH:mm:ss");
-
-                var _ExpiryDate = new Date();
-                _ExpiryDate.setHours(23);
-                _ExpiryDate.setMinutes(59);
-                _ExpiryDate.setSeconds(59);
-
-                _ExpiryDate = $filter('date')(_ExpiryDate, "yyyy-MM-dd HH:mm:ss");
-
-                console.log(_StartDate, _ExpiryDate);
-
-                var _filter = {
-                    "FromCurrency": FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.CompanyLocalCurrency,
-                    "RX_NKExCurrency": $item,
-                    "StartDate": _StartDate,
-                    "ExpiryDate": _ExpiryDate
-                };
-                var _input = {
-                    "searchInput": helperService.createToArrayOfObject(_filter),
-                    "FilterID": financeConfig.Entities.API.MstExchangeRate.API.FindAll.FilterID
-                };
-
-                apiService.post("eAxisAPI", financeConfig.Entities.API.MstExchangeRate.API.FindAll.Url, _input).then(function (response) {
-                    if (response.data.Response > 0) {
-                        console.log("Success");
-                        var obj = {
-                            "RX_NKExCurrency": "CNY",
-                            "FromCurrency": "INR",
-                            "IsModified": false,
-                            "IsDeleted": false,
-                        };
-                        FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobExchangeRates.push(obj);
-                    }
-                });
+                GetMstExchageRate($item, type, Org_PK);
             }
+        }
+
+        function GetMstExchageRate($item, type, Org_PK) {
+            var _StartDate = new Date();
+            _StartDate.setHours(0);
+            _StartDate.setMinutes(0);
+            _StartDate.setSeconds(0);
+
+            _StartDate = $filter('date')(_StartDate, "yyyy-MM-dd HH:mm:ss");
+
+            var _ExpiryDate = new Date();
+            _ExpiryDate.setHours(23);
+            _ExpiryDate.setMinutes(59);
+            _ExpiryDate.setSeconds(0);
+
+            _ExpiryDate = $filter('date')(_ExpiryDate, "yyyy-MM-dd HH:mm:ss");
+
+            var _filter = {
+                "FromCurrency": FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.CompanyLocalCurrency,
+                "RX_NKExCurrency": $item,
+                "StartDate": _StartDate,
+                "ExpiryDate": _ExpiryDate
+            };
+            var _input = {
+                "searchInput": helperService.createToArrayOfObject(_filter),
+                "FilterID": financeConfig.Entities.API.MstExchangeRate.API.FindAll.FilterID
+            };
+
+            apiService.post("eAxisAPI", financeConfig.Entities.API.MstExchangeRate.API.FindAll.Url, _input).then(function (response) {
+                if (response.data.Response.length > 0) {
+                    var obj = {
+                        "PK": "",
+                        "FromCurrency": response.data.Response[0].FromCurrency,
+                        "RX_NKRateCurrency": response.data.Response[0].RX_NKExCurrency,
+                        "BaseRate": response.data.Response[0].Rate,
+                        "TodayBuyrate": response.data.Response[0].Rate,
+                        "OrgType": type,
+                        "OH_Org": Org_PK,
+                        "EntitySource": "WMS",
+                        "CreatedDateTime": new Date(),
+                        "IsModified": false,
+                        "IsDeleted": false,
+                    };
+                    FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobExchangeRates.push(obj);
+                }
+            });
         }
         //#endregion
 
@@ -338,7 +298,6 @@
         function AddNewRow() {
             var obj = {
                 "PK": "",
-                "JOB_FK": FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.PK,
                 "ACCCode": "",
                 "ChargeType": "",
                 "ACC_FK": "",

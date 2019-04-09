@@ -67,17 +67,79 @@
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-5" data-ng-if="TaxGeneralCtrl.ePage.Masters.TaxHierarchyContent">
-            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
-                <div class="form-group">
-                    <label class="control-label">Tax Sub Code</label> 
-                    <input type="text" class="form-control" placeholder="Tax Sub Code"/>
-                </div>
-            </div>
-            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
-                <div class="form-group">
-                    <label class="control-label">Tax Sub Code Rate</label> 
-                    <input type="text" class="form-control" placeholder="Tax Sub Code Rate"/>
-                </div>
+            <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8">
+                    <div class="clearfix">
+                        <span>
+                            <button type="button" class="btn btn-sm pull-left btn-outline-secondary font-10" title="Add New" data-ng-click="TaxGeneralCtrl.ePage.Masters.AddNewRow()">
+                            <span class="fa fa-plus"></span>&nbsp;&nbsp;Add New</button>
+                        </span>
+                        <span>
+                            <button type="button" class="btn btn-sm pull-left btn-outline-secondary font-10 ml-5" title="Delete">
+                            <span class="fa fa-ellipsis-v"></span>&nbsp;&nbsp;Delete</button>
+                        </span>
+                    </div>
+                    <div id="TaxMaster{{TaxGeneralCtrl.currentTax.label}}" class="fixedheader mt-3 ml-0 mr-0" key-events table-object="TaxGeneralCtrl.ePage.Masters.UITaxRate" enable='TaxGeneralCtrl.ePage.Masters.Enable' 
+                        selected-row="TaxGeneralCtrl.ePage.Masters.selectedRow" unique-id='TaxMaster{{TaxGeneralCtrl.currentTax.label}}'>
+                        <table id="TaxGeneralCtrl.ePage.Masters.AddScroll" data-ng-style="{'height': TaxGeneralCtrl.ePage.Entities.Header.TableProperties.UITaxHierarchy.TableHeight.height + 'px' }">
+                            <thead>
+                                <tr id="tableHeader">
+                                    <th data-ng-if="TaxGeneralCtrl.ePage.Entities.Header.TableProperties.UITaxHierarchy.ccheckbox.isenabled"
+                                        data-ng-style="{'width': TaxGeneralCtrl.ePage.Entities.Header.TableProperties.UITaxHierarchy.ccheckbox.width + 'px' }">
+                                        <label class="customcheckbox">
+                                            <input type="checkbox" data-ng-change="TaxGeneralCtrl.ePage.Masters.SelectAllCheckBox()"/>
+                                            <span class="text"></span>
+                                        </label>
+                                    </th>
+                                    <th data-ng-style="{'width': TaxGeneralCtrl.ePage.Entities.Header.TableProperties.UITaxHierarchy.ttaxsno.width + 'px'}">S.No</th>
+                                    <th data-ng-style="{'width': TaxGeneralCtrl.ePage.Entities.Header.TableProperties.UITaxHierarchy.ttaxsubcode.width + 'px'}">Tax Sub Code</th>
+                                    <th data-ng-style="{'width': TaxGeneralCtrl.ePage.Entities.Header.TableProperties.UITaxHierarchy.ttaxsubcoderate.width + 'px'}">Tax Sub Code Rate</th>
+                                </tr> 
+                            </thead>
+                            <tr id="tableBody" data-ng-repeat="x in TaxGeneralCtrl.ePage.Entities.Header.Data.UITaxHierarchy"  data-ng-click="TaxGeneralCtrl.ePage.Masters.setSelectedRow($index);">
+                                <td data-ng-show="TaxGeneralCtrl.ePage.Entities.Header.TableProperties.UITaxHierarchy.ccheckbox.isenabled"
+                                    data-ng-style="{'width': TaxGeneralCtrl.ePage.Entities.Header.TableProperties.UITaxHierarchy.ccheckbox.width + 'px' }"
+                                    data-ng-click="TaxGeneralCtrl.ePage.Masters.Enable = true">
+                                    <label class="customcheckbox mb-0">
+                                        <input type="checkbox" data-ng-checked="x.SingleSelect" data-ng-change="TaxGeneralCtrl.ePage.Masters.SingleSelectCheckBox()" data-ng-model="x.SingleSelect"/>
+                                        <span class="text"></span>
+                                    </label>
+                                </td>
+                                <td data-ng-show="TaxGeneralCtrl.ePage.Entities.Header.TableProperties.UITaxHierarchy.ttaxsno.isenabled"
+                                data-ng-style="{'width': TaxGeneralCtrl.ePage.Entities.Header.TableProperties.UITaxHierarchy.ttaxsno.width + 'px' }"
+                                data-ng-click="TaxGeneralCtrl.ePage.Masters.Enable = true">
+                                    <div class="overflow-text">
+                                        {{$index + 1}}
+                                    </div>
+                                </td>
+                                <td data-ng-show="TaxGeneralCtrl.ePage.Entities.Header.TableProperties.UITaxHierarchy.ttaxsubcode.isenabled"
+                                    data-ng-style="{'width': TaxGeneralCtrl.ePage.Entities.Header.TableProperties.UITaxHierarchy.ttaxsubcode.width + 'px' }"
+                                    data-ng-click="TaxGeneralCtrl.ePage.Masters.Enable = true">
+                                    <div data-ng-if="$index!=TaxGeneralCtrl.ePage.Masters.selectedRow" class="overflow-text">
+                                        {{x.TaxSubCode || TaxGeneralCtrl.ePage.Masters.emptyText}}
+                                    </div>
+                                    <div data-ng-if="$index==TaxGeneralCtrl.ePage.Masters.selectedRow">
+                                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 p-0">
+                                            <input type="text" class="form-control" placeholder="Tax Sub Code"/>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td data-ng-show="TaxGeneralCtrl.ePage.Entities.Header.TableProperties.UITaxHierarchy.ttaxsubcoderate.isenabled"
+                                    data-ng-style="{'width': TaxGeneralCtrl.ePage.Entities.Header.TableProperties.UITaxHierarchy.ttaxsubcoderate.width + 'px' }"
+                                    data-ng-click="TaxGeneralCtrl.ePage.Masters.Enable = true">
+                                    <div data-ng-if="$index!=TaxGeneralCtrl.ePage.Masters.selectedRow" class="overflow-text">
+                                        {{x.TaxSubCodeRate || TaxGeneralCtrl.ePage.Masters.emptyText}}
+                                    </div>
+                                    <div data-ng-if="$index==TaxGeneralCtrl.ePage.Masters.selectedRow">
+                                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 p-0">
+                                                <select class="form-control">
+                                                    <option value="">--Select--</option>
+                                                </select>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
                 <div class="form-group">

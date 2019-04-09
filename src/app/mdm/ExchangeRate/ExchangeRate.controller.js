@@ -11,7 +11,6 @@
         var ExchangeRateCtrl = this;
 
         function Init() {
-            debugger;
             ExchangeRateCtrl.ePage = {
                 "Title": "",
                 "Prefix": "ExchangerateMaster",
@@ -48,7 +47,6 @@
 
         }
         function SelectedGridRow($item) {
-        debugger;
             if ($item.action === "link" || $item.action === "dblClick") {
                 ExchangeRateCtrl.ePage.Masters.AddTab($item.data, false);
             } else if ($item.action === "new") {
@@ -117,7 +115,6 @@
             event.stopPropagation();
             var ExchangeRateNew = ExchangeRateNew[ExchangeRateNew.code].ePage.Entities;
             ExchangeRateCtrl.ePage.Masters.TabList.splice(index, 1);
-            debugger;
             apiService.get("eAxisAPI", ExchangeRateCtrl.ePage.Entities.API.ExchangerateMaster.API.CurrencyActivityTabClose.Url + ExchangeRateNew.Header.Data.PK).then(function (response) {
                 if (response.data.Status === "Success") {
                 } else {
@@ -127,7 +124,6 @@
         }
 
         function CreateNewExchangeRate() {
-            debugger;
             var _isExist = ExchangeRateCtrl.ePage.Masters.TabList.some(function (value) {
                 if (value.label === "New")
                     return true;

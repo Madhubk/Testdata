@@ -110,7 +110,6 @@
                 deferred.resolve(exports.TabList);
             }
             else {
-                debugger;
                 helperService.getFullObjectUsingGetById(exports.Entities.API.ExchangerateMaster.API.GetById.Url, currentExchange.PK).then(function (response) {
                     if (response.data.Messages) {
                         response.data.Messages.map(function (value, key) {

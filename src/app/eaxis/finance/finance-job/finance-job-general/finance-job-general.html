@@ -345,7 +345,7 @@
                         <tr id="tableBody" data-ng-repeat="x in FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobExchangeRates">
                             <td data-ng-style="{ 'width': FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIExchangeRate.ercurrency.width + 'px' }">
                                 <div class="overflow-text">
-                                    <a style="text-decoration:none;cursor:pointer">{{x.RX_NKExCurrency}}</a>
+                                    <a style="text-decoration:none;cursor:pointer">{{x.RX_NKRateCurrency}}</a>
                                 </div>
                             </td>
                             <td data-ng-style="{ 'width': FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIExchangeRate.erbaserate.width + 'px' }">
@@ -355,12 +355,12 @@
                             </td>
                             <td data-ng-style="{ 'width': FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIExchangeRate.ertodaydate.width + 'px' }">
                                  <div class="overflow-text">
-                                    <div> {{x.TodayRate | number:4}}</div>
+                                    <div> {{x.TodayBuyrate | number:4}}</div>
                                 </div>
                             </td>
                             <td data-ng-style="{ 'width': FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIExchangeRate.erorgrole.width + 'px' }">
                                 <div class="overflow-text">
-                                    <div>{{x.OrgRole}}</div>
+                                    <div>{{x.OrgType}}</div>
                                 </div>
                             </td>
                             <td data-ng-style="{ 'width': FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIExchangeRate.erorganisation.width + 'px' }">
@@ -514,7 +514,7 @@
                                 data-ng-style="{'width': FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.cchargecode.width + 'px' }"
                                 data-ng-click="FinanceJobGeneralCtrl.ePage.Masters.Enable = true">
                                 <div data-ng-if="$index!=FinanceJobGeneralCtrl.ePage.Masters.selectedRow" class="overflow-text">
-                                    {{ x.ACCCode || FinanceJobGeneralCtrl.ePage.Masters.emptyText}}
+                                    {{x.ACCCode || FinanceJobGeneralCtrl.ePage.Masters.emptyText}}
                                 </div>
                                 <div data-ng-if="$index==FinanceJobGeneralCtrl.ePage.Masters.selectedRow">
                                     <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0 height-22">
