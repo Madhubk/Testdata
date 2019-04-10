@@ -28,8 +28,8 @@
             DynamicDashboardCtrl.ePage.Masters.LoadMore = LoadMore;
             DynamicDashboardCtrl.ePage.Masters.IsVisibleLoadMoreBtn = true;
             DynamicDashboardCtrl.ePage.Masters.ApplyBtnText = "Save";
-            DynamicDashboardCtrl.ePage.Masters.SaveSettingBtnText = "Save";
             DynamicDashboardCtrl.ePage.Masters.IsApplyBtnDisable = false;
+            DynamicDashboardCtrl.ePage.Masters.SaveSettingBtnText = "Save";
 
             DynamicDashboardCtrl.ePage.Masters.dropCallback = dropCallback;
             DynamicDashboardCtrl.ePage.Masters.WarehouseChanged = WarehouseChanged;
@@ -81,8 +81,7 @@
                             "WarehouseDetails": DynamicDashboardCtrl.ePage.Masters.WarehouseDetails,
                             "TempComponentList": DynamicDashboardCtrl.ePage.Masters.TempComponentList,
                             "ComponentList": DynamicDashboardCtrl.ePage.Masters.ComponentList,
-                            "SelectedWarehouse": DynamicDashboardCtrl.ePage.Masters.SelectedWarehouse,
-                            "SelectedClient": DynamicDashboardCtrl.ePage.Masters.SelectedClient
+                            "SelectedDashboardComponentDetails": DynamicDashboardCtrl.ePage.Masters.SelectedDashboardComponentDetails
                         };
                         return exports;
                     }
@@ -96,20 +95,8 @@
                     console.log("Cancelled");
                 }
             );
-            // OpenPreviewDashboardSetting().result.then(function (response) { }, function () { });
         }
-        // function OpenPreviewDashboardSetting() {
-        // return DynamicDashboardCtrl.ePage.Masters.previewModalInstances = $uibModal.open({
-        //     animation: true,
-        //     backdrop: "static",
-        //     keyboard: false,
-        //     windowClass: "dashboard-setting-edit right address",
-        //     scope: $scope,
-        //     size: "md",
-        //     templateUrl: "app/eaxis/warehouse/dynamic-dashboard/preview-dashboard-settings.html"
-        // });
 
-        // }
         function ClosePreviewDetailsActivity() {
             DynamicDashboardCtrl.ePage.Masters.previewModalInstances.dismiss('cancel');
         }
@@ -131,13 +118,21 @@
             apiService.post("authAPI", appConfig.Entities.SecMappings.API.FindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     DynamicDashboardCtrl.ePage.Masters.DashboardRoleDetails = response.data.Response;
-                    angular.forEach(DynamicDashboardCtrl.ePage.Masters.RoleList, function (value, key) {
-                        angular.forEach(DynamicDashboardCtrl.ePage.Masters.DashboardRoleDetails, function (value1, key1) {
-                            if (value.RoleName == value1.AccessCode) {
-                                value.IsDashboardRole = true;
-                            }
+                    if (DynamicDashboardCtrl.ePage.Masters.DashboardRoleDetails.length > 0) {
+                        angular.forEach(DynamicDashboardCtrl.ePage.Masters.RoleList, function (value, key) {
+                            angular.forEach(DynamicDashboardCtrl.ePage.Masters.DashboardRoleDetails, function (value1, key1) {
+                                if (value.RoleName == value1.AccessCode) {
+                                    value.IsDashboardRole = true;
+                                    value.SecMapping_FK = value1.PK;
+                                }
+                            });
                         });
-                    });
+                    } else {
+                        angular.forEach(DynamicDashboardCtrl.ePage.Masters.RoleList, function (value, key) {
+                            value.IsDashboardRole = false;
+                            value.SecMapping_FK = undefined;
+                        });
+                    }
                     OpenRoleAccessDashboardSetting().result.then(function (response) { }, function () { });
                 }
             });
@@ -191,12 +186,17 @@
                     "SAP_FK": authService.getUserInfo().AppPK,
                     "SAP_Code": authService.getUserInfo().AppCode,
                 };
-                apiService.post("authAPI", appConfig.Entities.SecMappings.API.Insert.Url, _obj).then(function (response) {
+                apiService.post("authAPI", appConfig.Entities.SecMappings.API.Insert.Url, [_obj]).then(function (response) {
                     if (response.data.Response) {
                     }
                 });
             } else {
-
+                if (item.SecMapping_FK) {
+                    apiService.get("authAPI", appConfig.Entities.SecMappings.API.Delete.Url + item.SecMapping_FK).then(function (response) {
+                        if (response.data.Response) {
+                        }
+                    });
+                }
             }
         }
         // #endregion
