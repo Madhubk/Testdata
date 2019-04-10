@@ -4,7 +4,7 @@
     angular.module("Application")
         .controller("TaxGeneralController", TaxGeneralController);
 
-    TaxGeneralController.$inject = ["$timeout","helperService", "taxConfig", "appConfig", "authService", "apiService"];
+    TaxGeneralController.$inject = ["$timeout", "helperService", "taxConfig", "appConfig", "authService", "apiService"];
 
     function TaxGeneralController($timeout, helperService, taxConfig, appConfig, authService, apiService) {
         var TaxGeneralCtrl = this;
@@ -29,13 +29,15 @@
             TaxGeneralCtrl.ePage.Masters.TaxHierarchyContent = false;
             TaxGeneralCtrl.ePage.Masters.Config = taxConfig;
 
-            TaxGeneralCtrl.ePage.Entities.Header.Data.UITaxHierarchy =[];
+            TaxGeneralCtrl.ePage.Entities.Header.Data.UITaxHierarchy = [];
 
             /* Function */
             TaxGeneralCtrl.ePage.Masters.OnChangeValues = OnChangeValues;
             TaxGeneralCtrl.ePage.Masters.SelectCheckBoxHierarchy = SelectCheckBoxHierarchy;
             TaxGeneralCtrl.ePage.Masters.SelectedLookupData = SelectedLookupData;
             TaxGeneralCtrl.ePage.Masters.AddNewRow = AddNewRow;
+            TaxGeneralCtrl.ePage.Masters.CopyRow = CopyRow;
+            TaxGeneralCtrl.ePage.Masters.RemoveRow = RemoveRow;
             TaxGeneralCtrl.ePage.Masters.setSelectedRow = setSelectedRow;
             TaxGeneralCtrl.ePage.Masters.SingleSelectCheckBox = SingleSelectCheckBox;
             TaxGeneralCtrl.ePage.Masters.SelectAllCheckBox = SelectAllCheckBox;
@@ -107,11 +109,11 @@
         //#endregion
 
         //#region  AddRow
-        function AddNewRow(){
+        function AddNewRow() {
             var obj = {
                 "PK": "",
-                "TaxSubCode":"",
-                "TaxSubCodeRate":"",
+                "TaxSubCode": "",
+                "TaxSubCodeRate": "",
                 "IsModified": false,
                 "IsDeleted": false,
             };
@@ -126,36 +128,20 @@
             }, 50);
         }
 
+        function CopyRow() {
+        }
+
+        function RemoveRow() {
+        }
+
         function setSelectedRow($index) {
             TaxGeneralCtrl.ePage.Masters.selectedRow = $index;
         }
 
-        function SingleSelectCheckBox(){
-            // var Checked = FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge.some(function (value, key) {
-            //     if (!value.SingleSelect)
-            //         return true;
-            // });
-            // if (Checked) {
-            //     FinanceJobGeneralCtrl.ePage.Entities.Header.GlobalVariables.SelectAll = false;
-            // } else {
-            //     FinanceJobGeneralCtrl.ePage.Entities.Header.GlobalVariables.SelectAll = true;
-            // }
+        function SingleSelectCheckBox() {
+         }
 
-            // var Checked1 = FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge.some(function (value, key) {
-            //     return value.SingleSelect == true;
-            // });
-            // if (Checked1 == true) {
-            //     FinanceJobGeneralCtrl.ePage.Masters.EnableDeleteButton = false;
-            //     FinanceJobGeneralCtrl.ePage.Masters.EnableCopyButton = false;
-            //     FinanceJobGeneralCtrl.ePage.Entities.Header.GlobalVariables.IsDisablePost = false;
-            // } else {
-            //     FinanceJobGeneralCtrl.ePage.Masters.EnableDeleteButton = true;
-            //     FinanceJobGeneralCtrl.ePage.Masters.EnableCopyButton = true;
-            //     FinanceJobGeneralCtrl.ePage.Entities.Header.GlobalVariables.IsDisablePost = true;
-            // }
-        }
-
-        function SelectAllCheckBox(){
+        function SelectAllCheckBox() {
         }
         //#endregion
 

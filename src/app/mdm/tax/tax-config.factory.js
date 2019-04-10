@@ -93,18 +93,18 @@
                                 },
                                 "ttaxsno": {
                                     "isenabled": true,
-                                    "position": '1',
-                                    "width": "55"
+                                    "position": '2',
+                                    "width": "40"
                                 },
                                 "ttaxsubcode": {
                                     "isenabled": true,
-                                    "position": '1',
-                                    "width": "510"
+                                    "position": '3',
+                                    "width": "296"
                                 },
                                 "ttaxsubcoderate": {
                                     "isenabled": true,
-                                    "position": '2',
-                                    "width": "510"
+                                    "position": '4',
+                                    "width": "295"
                                 },
                             }
                         }

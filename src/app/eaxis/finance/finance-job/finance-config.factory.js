@@ -66,17 +66,18 @@
                             }
                         }
                     },
-                    "MstExchangeRate":{
+                    "MstRecentExchangeRate":{
                         "RowIndex": -1,
                         "API":{
                             "FindAll":{
                                 "IsAPI": "true",
                                 "HttpType": "Post",
-                                "Url": "MstExchangeRate/FindAll",
-                                "FilterID": "MSTEXCHR"  
+                                "Url": "MstRecentExchangeRate/FindAll",
+                                "FilterID": "MSTRECEXC"  
                             }
                         }
-                    }
+                    },
+
                     // "CfxTypes": {
                     //     "RowIndex": -1,
                     //     "API": {

@@ -185,14 +185,14 @@
                     OnChangeValues($item.Code, 'E1307');
 
                     if (FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.CompanyLocalCurrency != FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].RX_NKCostCurrency) {
-                        GetExchageRateDetail(FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].RX_NKCostCurrency, "CRD", $item.PK);
+                        GetExchageRateDetail(FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.CompanyLocalCurrency, FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].RX_NKCostCurrency, "CRD", FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].ORG_CostAccount);
                     }
                 }
                 else if (type == 'RevenueCurrency') {
                     OnChangeValues($item.Code, 'E1193');
 
                     if (FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.CompanyLocalCurrency != FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].RX_NKSellCurrency) {
-                        GetExchageRateDetail(FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].RX_NKSellCurrency, "DEB", $item.PK);
+                        GetExchageRateDetail(FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.CompanyLocalCurrency, FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].RX_NKSellCurrency, "DEB", FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].ORG_SellAccount);
                     }
                 }
             }
@@ -208,86 +208,54 @@
         //#endregion
 
         //#region ExchangeRateTable
-        function GetExchageRateDetail($item, type, Org_PK) {
+        function GetExchageRateDetail(FromCurrency, ToCurrency, type, Org_PK) {
             if (FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobExchangeRates.length > 0) {
                 var _ExchangeRate = FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobExchangeRates.some(function (value, key) {
-                    if (value.RX_NKRateCurrency == $item) {
+                    if (value.OH_Org == Org_PK && value.RX_NKRateCurrency == ToCurrency) {
                         return true;
                     } else {
                         return false;
                     }
                 });
 
-                if (_ExchangeRate) {
-                    var obj;
-                    FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobExchangeRates.map(function (value, key) {
-                        if (value.RX_NKRateCurrency == $item) {
+                if (!_ExchangeRate) {
+                    GetMstExchageRate(FromCurrency, ToCurrency, type, Org_PK);
+                }
+            } else {
+                GetMstExchageRate(FromCurrency, ToCurrency, type, Org_PK);
+            }
+        }
+
+        function GetMstExchageRate(FromCurrency, ToCurrency, type, Org_PK) {
+            var obj;
+            var _filter = {
+                "FromCurrency": FromCurrency,
+                "NKExCurrency": ToCurrency,
+            };
+            var _input = {
+                "searchInput": helperService.createToArrayOfObject(_filter),
+                "FilterID": financeConfig.Entities.API.MstRecentExchangeRate.API.FindAll.FilterID
+            };
+
+            apiService.post("eAxisAPI", financeConfig.Entities.API.MstRecentExchangeRate.API.FindAll.Url, _input).then(function (response) {
+                if (response.data.Response.length > 0) {
+                    response.data.Response.map(function (value, key) {
+                        if (value.FromCurrency == FromCurrency && value.RX_NKExCurrency == ToCurrency) {
                             obj = {
                                 "PK": "",
                                 "FromCurrency": value.FromCurrency,
-                                "RX_NKRateCurrency": value.RX_NKRateCurrency,
-                                "BaseRate": value.BaseRate,
+                                "RX_NKRateCurrency": value.RX_NKExCurrency,
+                                "BaseRate": value.TodayBuyrate,
                                 "TodayBuyrate": value.TodayBuyrate,
-                                "OrgType": value.OrgType,
-                                "OH_Org": value.OH_Org,
-                                "CFXMinimum": value.CFXMinimum,
-                                "CFXPercent": value.CFXPercent,
-                                "IsTransformed": value.IsTransformed,
-                                "EntitySource": value.EntitySource,
+                                "OrgType": type,
+                                "OH_Org": Org_PK,
+                                "EntitySource": "WMS",
                                 "CreatedDateTime": new Date(),
                                 "IsModified": false,
                                 "IsDeleted": false,
                             };
                         }
                     });
-                    FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobExchangeRates.push(obj);
-                }
-            } else {
-                GetMstExchageRate($item, type, Org_PK);
-            }
-        }
-
-        function GetMstExchageRate($item, type, Org_PK) {
-            var _StartDate = new Date();
-            _StartDate.setHours(0);
-            _StartDate.setMinutes(0);
-            _StartDate.setSeconds(0);
-
-            _StartDate = $filter('date')(_StartDate, "yyyy-MM-dd HH:mm:ss");
-
-            var _ExpiryDate = new Date();
-            _ExpiryDate.setHours(23);
-            _ExpiryDate.setMinutes(59);
-            _ExpiryDate.setSeconds(0);
-
-            _ExpiryDate = $filter('date')(_ExpiryDate, "yyyy-MM-dd HH:mm:ss");
-
-            var _filter = {
-                "FromCurrency": FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.CompanyLocalCurrency,
-                "RX_NKExCurrency": $item,
-                "StartDate": _StartDate,
-                "ExpiryDate": _ExpiryDate
-            };
-            var _input = {
-                "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": financeConfig.Entities.API.MstExchangeRate.API.FindAll.FilterID
-            };
-
-            apiService.post("eAxisAPI", financeConfig.Entities.API.MstExchangeRate.API.FindAll.Url, _input).then(function (response) {
-                if (response.data.Response.length > 0) {
-                    var obj = {
-                        "PK": "",
-                        "FromCurrency": response.data.Response[0].FromCurrency,
-                        "RX_NKRateCurrency": response.data.Response[0].RX_NKExCurrency,
-                        "BaseRate": response.data.Response[0].Rate,
-                        "TodayBuyrate": response.data.Response[0].Rate,
-                        "OrgType": type,
-                        "OH_Org": Org_PK,
-                        "EntitySource": "WMS",
-                        "CreatedDateTime": new Date(),
-                        "IsModified": false,
-                        "IsDeleted": false,
-                    };
                     FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobExchangeRates.push(obj);
                 }
             });
