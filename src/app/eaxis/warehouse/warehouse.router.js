@@ -835,7 +835,7 @@
 
             .state('EA.WMS.dynamicDashboard', {
                 url: '/dynamic-dashboard',
-                templateUrl: 'app/eaxis/warehouse/dynamic-dashboard/dynamic-dashboard.html',
+                templateUrl: 'app/eaxis/dynamic-dashboard/dynamic-dashboard.html',
                 controller: "DynamicDashboardController as DynamicDashboardCtrl",
                 ncyBreadcrumb: {
                     label: 'Dashboard'

@@ -8,7 +8,7 @@
     function PutawayStatus() {
         var exports = {
             restrict: "EA",
-            templateUrl: "app/eaxis/warehouse/dynamic-dashboard/putaway-status/putaway-status.html",
+            templateUrl: "app/eaxis/dynamic-dashboard/putaway-status/putaway-status.html",
             link: Link,
             controller: "PutawayStatusController",
             controllerAs: "PutawayStatusCtrl",

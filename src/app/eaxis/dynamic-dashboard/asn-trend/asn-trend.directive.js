@@ -3,15 +3,15 @@
 
     angular
         .module("Application")
-        .directive("pickWithShortfall", PickWithShortfall);
+        .directive("asnTrend", AsnTrend);
 
-    function PickWithShortfall() {
+    function AsnTrend() {
         var exports = {
             restrict: "EA",
-            templateUrl: "app/eaxis/warehouse/dynamic-dashboard/pick-with-shortfall/pick-with-shortfall.html",
+            templateUrl: "app/eaxis/dynamic-dashboard/asn-trend/asn-trend.html",
             link: Link,
-            controller: "PickShortfallController",
-            controllerAs: "PickShortfallCtrl",
+            controller: "AsnTrendController",
+            controllerAs: "AsnTrendCtrl",
             scope: {
                 componentList: "=",
                 selectedComponent: "=",

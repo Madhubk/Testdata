@@ -3,15 +3,15 @@
 
     angular
         .module("Application")
-        .directive("cycleCountJobs", cycleCountJobs);
+        .directive("pickWithShortfall", PickWithShortfall);
 
-    function cycleCountJobs() {
+    function PickWithShortfall() {
         var exports = {
             restrict: "EA",
-            templateUrl: "app/eaxis/warehouse/dynamic-dashboard/cycle-count-jobs/cycle-count-jobs.html",
+            templateUrl: "app/eaxis/dynamic-dashboard/pick-with-shortfall/pick-with-shortfall.html",
             link: Link,
-            controller: "CycleCountJobsController",
-            controllerAs: "CycleCountJobsCtrl",
+            controller: "PickShortfallController",
+            controllerAs: "PickShortfallCtrl",
             scope: {
                 componentList: "=",
                 selectedComponent: "=",

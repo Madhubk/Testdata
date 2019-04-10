@@ -3,15 +3,15 @@
 
     angular
         .module("Application")
-        .directive("asnTrend", AsnTrend);
+        .directive("grnStatus", grnStatus);
 
-    function AsnTrend() {
+    function grnStatus() {
         var exports = {
             restrict: "EA",
-            templateUrl: "app/eaxis/warehouse/dynamic-dashboard/asn-trend/asn-trend.html",
+            templateUrl: "app/eaxis/dynamic-dashboard/grn-status/grn-status.html",
             link: Link,
-            controller: "AsnTrendController",
-            controllerAs: "AsnTrendCtrl",
+            controller: "GrnStatusController",
+            controllerAs: "GrnStatusCtrl",
             scope: {
                 componentList: "=",
                 selectedComponent: "=",

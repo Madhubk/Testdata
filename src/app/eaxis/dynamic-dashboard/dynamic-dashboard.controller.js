@@ -70,7 +70,7 @@
                 keyboard: true,
                 windowClass: "dashboard-setting-edit right address",
                 scope: $scope,
-                templateUrl: "app/eaxis/warehouse/dynamic-dashboard/preview-dashboard/preview-dashboard.html",
+                templateUrl: "app/eaxis/dynamic-dashboard/preview-dashboard/preview-dashboard.html",
                 controller: 'PreviewDashboardController as PreviewDashboardCtrl',
                 bindToController: true,
                 resolve: {
@@ -146,7 +146,7 @@
                 windowClass: "dashboard-setting-edit-details right address",
                 scope: $scope,
                 size: "md",
-                templateUrl: "app/eaxis/warehouse/dynamic-dashboard/role-access-dashboard-settings.html"
+                templateUrl: "app/eaxis/dynamic-dashboard/role-access-dashboard-settings.html"
             });
         }
 
@@ -220,7 +220,7 @@
                 windowClass: "dashboard-setting-edit-details right address",
                 scope: $scope,
                 size: "md",
-                templateUrl: "app/eaxis/warehouse/dynamic-dashboard/component-dashboard-settings.html"
+                templateUrl: "app/eaxis/dynamic-dashboard/component-dashboard-settings.html"
             });
         }
         function CloseComponentSettingActivity() {
@@ -263,7 +263,7 @@
                 windowClass: "dashboard-setting-edit-details right address",
                 scope: $scope,
                 size: "md",
-                templateUrl: "app/eaxis/warehouse/dynamic-dashboard/edit-dashboard-settings.html"
+                templateUrl: "app/eaxis/dynamic-dashboard/edit-dashboard-settings.html"
             });
         }
         function CloseEditDetailsActivity() {
@@ -419,7 +419,7 @@
                 windowClass: "dashboard-setting-edit right address",
                 scope: $scope,
                 size: "md",
-                templateUrl: "app/eaxis/warehouse/dynamic-dashboard/dashboard-settings.html"
+                templateUrl: "app/eaxis/dynamic-dashboard/dashboard-settings.html"
             });
         }
 

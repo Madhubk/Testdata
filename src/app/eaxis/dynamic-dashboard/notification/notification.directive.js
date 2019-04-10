@@ -20,7 +20,7 @@
     function OpenSoChart() {
         var exports = {
             restrict: "EA",
-            templateUrl: "app/eaxis/warehouse/dynamic-dashboard/notification/open-so-chart.html",
+            templateUrl: "app/eaxis/dynamic-dashboard/notification/open-so-chart.html",
             link: Link,
             controller: "NotificationController",
             controllerAs: "NotificationCtrl",
@@ -42,7 +42,7 @@
     function Notification() {
         var exports = {
             restrict: "EA",
-            templateUrl: "app/eaxis/warehouse/dynamic-dashboard/notification/notification.html",
+            templateUrl: "app/eaxis/dynamic-dashboard/notification/notification.html",
             link: Link,
             controller: "NotificationController",
             controllerAs: "NotificationCtrl",
@@ -64,7 +64,7 @@
     function KpiDirective() {
         var exports = {
             restrict: "EA",
-            templateUrl: "app/eaxis/warehouse/dynamic-dashboard/notification/kpi.html",
+            templateUrl: "app/eaxis/dynamic-dashboard/notification/kpi.html",
             link: Link,
             controller: "NotificationController",
             controllerAs: "NotificationCtrl",
@@ -86,7 +86,7 @@
     function MyTaskDirective() {
         var exports = {
             restrict: "EA",
-            templateUrl: "app/eaxis/warehouse/dynamic-dashboard/notification/my-task.html",
+            templateUrl: "app/eaxis/dynamic-dashboard/notification/my-task.html",
             link: Link,
             controller: "NotificationController",
             controllerAs: "NotificationCtrl",
@@ -108,7 +108,7 @@
     function ExceptionDirective() {
         var exports = {
             restrict: "EA",
-            templateUrl: "app/eaxis/warehouse/dynamic-dashboard/notification/exception.html",
+            templateUrl: "app/eaxis/dynamic-dashboard/notification/exception.html",
             link: Link,
             controller: "NotificationController",
             controllerAs: "NotificationCtrl",
@@ -130,7 +130,7 @@
     function RaiseCsrDirective() {
         var exports = {
             restrict: "EA",
-            templateUrl: "app/eaxis/warehouse/dynamic-dashboard/notification/raise-csr.html",
+            templateUrl: "app/eaxis/dynamic-dashboard/notification/raise-csr.html",
             link: Link,
             controller: "NotificationController",
             controllerAs: "NotificationCtrl",
@@ -152,7 +152,7 @@
     function AsnRequestDirective() {
         var exports = {
             restrict: "EA",
-            templateUrl: "app/eaxis/warehouse/dynamic-dashboard/notification/asn-request.html",
+            templateUrl: "app/eaxis/dynamic-dashboard/notification/asn-request.html",
             link: Link,
             controller: "NotificationController",
             controllerAs: "NotificationCtrl",
@@ -174,7 +174,7 @@
     function NewInwardDirective() {
         var exports = {
             restrict: "EA",
-            templateUrl: "app/eaxis/warehouse/dynamic-dashboard/notification/new-inward.html",
+            templateUrl: "app/eaxis/dynamic-dashboard/notification/new-inward.html",
             link: Link,
             controller: "NotificationController",
             controllerAs: "NotificationCtrl",
@@ -196,7 +196,7 @@
     function TrackInwardDirective() {
         var exports = {
             restrict: "EA",
-            templateUrl: "app/eaxis/warehouse/dynamic-dashboard/notification/track-inward.html",
+            templateUrl: "app/eaxis/dynamic-dashboard/notification/track-inward.html",
             link: Link,
             controller: "NotificationController",
             controllerAs: "NotificationCtrl",
@@ -218,7 +218,7 @@
     function EmailDirective() {
         var exports = {
             restrict: "EA",
-            templateUrl: "app/eaxis/warehouse/dynamic-dashboard/notification/email.html",
+            templateUrl: "app/eaxis/dynamic-dashboard/notification/email.html",
             link: Link,
             controller: "NotificationController",
             controllerAs: "NotificationCtrl",
@@ -240,7 +240,7 @@
     function UserDirective() {
         var exports = {
             restrict: "EA",
-            templateUrl: "app/eaxis/warehouse/dynamic-dashboard/notification/user.html",
+            templateUrl: "app/eaxis/dynamic-dashboard/notification/user.html",
             link: Link,
             controller: "NotificationController",
             controllerAs: "NotificationCtrl",
@@ -262,7 +262,7 @@
     function MusicDirective() {
         var exports = {
             restrict: "EA",
-            templateUrl: "app/eaxis/warehouse/dynamic-dashboard/notification/music.html",
+            templateUrl: "app/eaxis/dynamic-dashboard/notification/music.html",
             link: Link,
             controller: "NotificationController",
             controllerAs: "NotificationCtrl",
@@ -284,7 +284,7 @@
     function VideoDirective() {
         var exports = {
             restrict: "EA",
-            templateUrl: "app/eaxis/warehouse/dynamic-dashboard/notification/video.html",
+            templateUrl: "app/eaxis/dynamic-dashboard/notification/video.html",
             link: Link,
             controller: "NotificationController",
             controllerAs: "NotificationCtrl",

@@ -3,15 +3,15 @@
 
     angular
         .module("Application")
-        .directive("grnStatus", grnStatus);
+        .directive("openSo", OpenSO);
 
-    function grnStatus() {
+    function OpenSO() {
         var exports = {
             restrict: "EA",
-            templateUrl: "app/eaxis/warehouse/dynamic-dashboard/grn-status/grn-status.html",
+            templateUrl: "app/eaxis/dynamic-dashboard/open-so/open-so.html",
             link: Link,
-            controller: "GrnStatusController",
-            controllerAs: "GrnStatusCtrl",
+            controller: "OpenSOController",
+            controllerAs: "OpenSOCtrl",
             scope: {
                 componentList: "=",
                 selectedComponent: "=",

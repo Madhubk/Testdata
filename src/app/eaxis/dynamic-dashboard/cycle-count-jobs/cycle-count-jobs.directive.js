@@ -3,15 +3,15 @@
 
     angular
         .module("Application")
-        .directive("openSo", OpenSO);
+        .directive("cycleCountJobs", cycleCountJobs);
 
-    function OpenSO() {
+    function cycleCountJobs() {
         var exports = {
             restrict: "EA",
-            templateUrl: "app/eaxis/warehouse/dynamic-dashboard/open-so/open-so.html",
+            templateUrl: "app/eaxis/dynamic-dashboard/cycle-count-jobs/cycle-count-jobs.html",
             link: Link,
-            controller: "OpenSOController",
-            controllerAs: "OpenSOCtrl",
+            controller: "CycleCountJobsController",
+            controllerAs: "CycleCountJobsCtrl",
             scope: {
                 componentList: "=",
                 selectedComponent: "=",

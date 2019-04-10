@@ -8,7 +8,7 @@
     function AsnReceivedStatus() {
         var exports = {
             restrict: "EA",
-            templateUrl: "app/eaxis/warehouse/dynamic-dashboard/asn-received-status/asn-received-status.html",
+            templateUrl: "app/eaxis/dynamic-dashboard/asn-received-status/asn-received-status.html",
             link: Link,
             controller: "AsnReceivedController",
             controllerAs: "AsnReceivedCtrl",
