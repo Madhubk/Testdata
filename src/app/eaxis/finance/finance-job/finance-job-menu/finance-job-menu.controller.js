@@ -98,7 +98,7 @@
                 // FinanceJobMenuCtrl.ePage.Entities.Header.GlobalVariables.Loading = false;
 
                 if (response.Status === "success") {
-                    apiService.get("eAxisAPI", financeConfig.Entities.API.JobHeaderList.API.GetById.Url + response.Data.PK).then(function (response) {
+                    apiService.get("eAxisAPI", financeConfig.Entities.API.JobHeaderList.API.GetById.Url + response.Data.UIJobHeader.PK).then(function (response) {
                         if (response.data.Status == "Success") {
 
                             var _index = financeConfig.TabList.map(function (value, key) {
@@ -217,7 +217,7 @@
                     FinanceJobMenuCtrl.ePage.Entities.Header.GlobalVariables.IsDisablePost = true;
 
                     if (response.Status === "success") {
-                        apiService.get("eAxisAPI", financeConfig.Entities.API.JobHeaderList.API.GetById.Url + response.Data.PK).then(function (response) {
+                        apiService.get("eAxisAPI", financeConfig.Entities.API.JobHeaderList.API.GetById.Url + response.Data.UIJobHeader.PK).then(function (response) {
                             if (response.data.Status == "Success") {
 
                                 var _index = financeConfig.TabList.map(function (value, key) {
@@ -323,7 +323,7 @@
                     FinanceJobMenuCtrl.ePage.Entities.Header.GlobalVariables.IsDisablePost = true;
 
                     if (response.Status === "success") {
-                        apiService.get("eAxisAPI", financeConfig.Entities.API.JobHeaderList.API.GetById.Url + response.Data.PK).then(function (response) {
+                        apiService.get("eAxisAPI", financeConfig.Entities.API.JobHeaderList.API.GetById.Url + response.Data.UIJobHeader.PK).then(function (response) {
                             if (response.data.Status == "Success") {
 
                                 var _index = financeConfig.TabList.map(function (value, key) {
@@ -453,7 +453,7 @@
                     FinanceJobMenuCtrl.ePage.Entities.Header.GlobalVariables.IsDisablePost = true;
 
                     if (response.Status === "success") {
-                        apiService.get("eAxisAPI", financeConfig.Entities.API.JobHeaderList.API.GetById.Url + response.Data.PK).then(function (response) {
+                        apiService.get("eAxisAPI", financeConfig.Entities.API.JobHeaderList.API.GetById.Url + response.Data.UIJobHeader.PK).then(function (response) {
                             if (response.data.Status == "Success") {
 
                                 var _index = financeConfig.TabList.map(function (value, key) {

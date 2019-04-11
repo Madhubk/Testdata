@@ -221,9 +221,8 @@
                 deferred.resolve(exports.TabList);
             }
             else {
-                
-                helperService.getFullObjectUsingGetById(exports.Entities.API.ExchangerateMaster.API.GetById.Url, currentExchangeRate.PK).then(function (response) {                  
-                if (response.data.Messages) {
+                helperService.getFullObjectUsingGetById(exports.Entities.API.ExchangerateMaster.API.GetById.Url, currentExchange.PK).then(function (response) {
+                    if (response.data.Messages) {
                         response.data.Messages.map(function (value, key) {
                             if (value.Type === "Warning" && value.MessageDesc !== "") {
                                 toastr.info(value.MessageDesc);

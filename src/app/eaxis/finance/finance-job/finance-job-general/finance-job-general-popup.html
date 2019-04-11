@@ -1,6 +1,6 @@
 <div class="modal-header">
     <button type="button" class="close"
-        data-ng-click="FinanceJobGeneralPopupCtrl.ePage.Masters.Close()">&times;</button>
+        data-ng-click="FinanceJobGeneralCtrl.ePage.Masters.Close()">&times;</button>
     <h5 class="modal-title pull-left">
         <strong>Finance Job List</strong>
     </h5>
@@ -8,19 +8,19 @@
 <div class="modal-body">
     <div class="clearfix">
         <!-- Charge Detaile -->
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-20">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-20" data-ng-init="index=FinanceJobGeneralCtrl.ePage.Masters.selectedRow">
             <label class="control-label label-header">CHARGE DETAILS</label>
             <div class="" style="background-color: #f9f9f9; border: 1px solid #eee;width:100%; float: left; float:right;">
                 <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 mt-10">
                     <div class="form-group">
                         <label class="control-label">Charge Code</label>
                         <div class="input-group input-group-sm">
-                            <div dynamic-lookup placeholder="Charge Code" my-ng-model="FinanceJobGeneralPopupCtrl.ePage.Masters.UIJobChargeGetDeatil.ACCCode" obj="FinanceJobGeneralPopupCtrl.ePage.Masters.UIJobChargeGetDeatil" page-name="'AccChargeCode'" control-id="'FinanceCharge'" control-key="FinanceCharge_3334" 
-                            auto-complete-on-select="FinanceJobGeneralPopupCtrl.ePage.Masters.SelectedLookupData($item,'ChargeCode')" is-disabled="FinanceJobGeneralPopupCtrl.ePage.Masters.UIJobChargeGetDeatil.Costpost || FinanceJobGeneralPopupCtrl.ePage.Masters.UIJobChargeGetDeatil.Revenuepost">
+                            <div dynamic-lookup placeholder="Charge Code" my-ng-model="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].ACCCode" obj="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index]" page-name="'AccChargeCode'" control-id="'FinanceCharge'" control-key="FinanceCharge_3334" 
+                            auto-complete-on-select="FinanceJobGeneralCtrl.ePage.Masters.SelectedLookupData(index,$item,'ChargeCode')" is-disabled="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].Costpost || FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].Revenuepost">
                             </div>
                             <span class="input-group-btn">
-                                <button dynamic-list-modal class="btn btn-default" type="button" obj="FinanceJobGeneralPopupCtrl.ePage.Masters.UIJobChargeGetDeatil" page-name="'AccChargeCode'" control-id="'FinanceCharge'" control-key="FinanceCharge_3334"
-                                    mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="FinanceJobGeneralPopupCtrl.ePage.Masters.SelectedLookupData($item.data.entity,'ChargeCode')" is-disabled="FinanceJobGeneralPopupCtrl.ePage.Masters.UIJobChargeGetDeatil.Costpost || FinanceJobGeneralPopupCtrl.ePage.Masters.UIJobChargeGetDeatil.Revenuepost"><i class="fa fa-ellipsis-h"></i>
+                                <button dynamic-list-modal class="btn btn-default" type="button" obj="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index]" page-name="'AccChargeCode'" control-id="'FinanceCharge'" control-key="FinanceCharge_3334"
+                                    mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="FinanceJobGeneralCtrl.ePage.Masters.SelectedLookupData(index, $item.data.entity,'ChargeCode')" is-disabled="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].Costpost || FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].Revenuepost"><i class="fa fa-ellipsis-h"></i>
                                 </button>
                             </span>
                         </div>
@@ -29,13 +29,13 @@
                 <div class="col-xs-12 col-sm-12  col-md-2 col-lg-2 col-xl-2 mt-10">
                     <div class="form-group">
                         <label class="control-label">Description</label>
-                        <input type="text" class="form-control" placeholder="Description" data-ng-model="FinanceJobGeneralPopupCtrl.ePage.Masters.UIJobChargeGetDeatil.Desc" data-ng-disabled="true" />
+                        <input type="text" class="form-control" placeholder="Description" data-ng-model="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].Desc" data-ng-disabled="true" />
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12  col-md-2 col-lg-2 col-xl-2 mt-10">
                     <div class="form-group">
                         <label class="control-label">Job Number</label>
-                        <input type="text" class="form-control" placeholder="Job No" data-ng-model="FinanceJobGeneralPopupCtrl.ePage.Masters.UIJobChargeGetDeatil.JobNo" data-ng-disabled="true" />
+                        <input type="text" class="form-control" placeholder="Job No" data-ng-model="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].JobNo" data-ng-disabled="true" />
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12  col-md-2 col-lg-2 col-xl-2 mt-10">
@@ -43,13 +43,13 @@
                         <label class="control-label">Branch</label>
                         <div class="input-group input-group-sm">
                             <!-- Dynamic look up Search in textbox -->
-                            <div dynamic-lookup placeholder="Branch" my-ng-model="FinanceJobGeneralPopupCtrl.ePage.Masters.UIJobChargeGetDeatil.BranchCode" obj="FinanceJobGeneralPopupCtrl.ePage.Masters.UIJobChargeGetDeatil" page-name="'CmpBranch'" control-id="'FinanceBranch'" control-key="FinanceBranch_3332"
-                                auto-complete-on-select="FinanceJobGeneralPopupCtrl.ePage.Masters.SelectedLookupData()" is-disabled="FinanceJobGeneralPopupCtrl.ePage.Masters.UIJobChargeGetDeatil.Costpost || FinanceJobGeneralPopupCtrl.ePage.Masters.UIJobChargeGetDeatil.Revenuepost">
+                            <div dynamic-lookup placeholder="Branch" my-ng-model="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].BranchCode" obj="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index]" page-name="'CmpBranch'" control-id="'FinanceBranch'" control-key="FinanceBranch_3332"
+                                auto-complete-on-select="FinanceJobGeneralCtrl.ePage.Masters.SelectedLookupData(index, $item,'ServiceBranch')" is-disabled="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].Costpost || FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].Revenuepost">
                             </div>
                             <!-- Look Up page opens when button clicks -->
                             <span class="input-group-btn">
-                                <button dynamic-list-modal class="btn btn-default" type="button" obj="FinanceJobGeneralPopupCtrl.ePage.Masters.UIJobChargeGetDeatil" page-name="'CmpBranch'" control-id="'FinanceBranch'" control-key="FinanceBranch_3332" 
-                                    mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="FinanceJobGeneralPopupCtrl.ePage.Masters.SelectedLookupData()" is-disabled="FinanceJobGeneralPopupCtrl.ePage.Masters.UIJobChargeGetDeatil.Costpost || FinanceJobGeneralPopupCtrl.ePage.Masters.UIJobChargeGetDeatil.Revenuepost"><i class="fa fa-ellipsis-h"></i>
+                                <button dynamic-list-modal class="btn btn-default" type="button" obj="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index]" page-name="'CmpBranch'" control-id="'FinanceBranch'" control-key="FinanceBranch_3332" 
+                                    mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="FinanceJobGeneralCtrl.ePage.Masters.SelectedLookupData(index, $item.data.entity,'ServiceBranch')" is-disabled="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].Costpost || FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].Revenuepost"><i class="fa fa-ellipsis-h"></i>
                                 </button>
                             </span>
                         </div>
@@ -59,13 +59,13 @@
                     <div class="form-group">
                         <label class="">Department</label>
                         <div class="input-group input-group-sm">
-                            <div dynamic-lookup placeholder="Department" my-ng-model="FinanceJobGeneralPopupCtrl.ePage.Masters.UIJobChargeGetDeatil.DeptCode"
-                                obj="FinanceJobGeneralPopupCtrl.ePage.Masters.UIJobChargeGetDeatil" page-name="'CmpDepartment'" control-id="'FinanceDepartment'" control-key="FinanceDepartment_3331"
-                                auto-complete-on-select="FinanceJobGeneralPopupCtrl.ePage.Masters.SelectedLookupData()" is-disabled="FinanceJobGeneralPopupCtrl.ePage.Masters.UIJobChargeGetDeatil.Costpost || FinanceJobGeneralPopupCtrl.ePage.Masters.UIJobChargeGetDeatil.Revenuepost">
+                            <div dynamic-lookup placeholder="Department" my-ng-model="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].DeptCode"
+                                obj="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index]" page-name="'CmpDepartment'" control-id="'FinanceDepartment'" control-key="FinanceDepartment_3331"
+                                auto-complete-on-select="FinanceJobGeneralCtrl.ePage.Masters.SelectedLookupData(index, $item,'ServiceDept')" is-disabled="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].Costpost || FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].Revenuepost">
                             </div>
                             <span class="input-group-btn">
-                                <button dynamic-list-modal class="btn btn-default" type="button" obj="FinanceJobGeneralPopupCtrl.ePage.Masters.UIJobChargeGetDeatil" page-name="'CmpDepartment'" control-id="'FinanceDepartment'" control-key="FinanceDepartment_3331"
-                                    mode="2" grid-refresh-fun-name="" selected-data="FinanceJobGeneralPopupCtrl.ePage.Masters.SelectedLookupData()" is-disabled="FinanceJobGeneralPopupCtrl.ePage.Masters.UIJobChargeGetDeatil.Costpost || FinanceJobGeneralPopupCtrl.ePage.Masters.UIJobChargeGetDeatil.Revenuepost"><i class="fa fa-ellipsis-h"></i>
+                                <button dynamic-list-modal class="btn btn-default" type="button" obj="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index]" page-name="'CmpDepartment'" control-id="'FinanceDepartment'" control-key="FinanceDepartment_3331"
+                                    mode="2" grid-refresh-fun-name="" selected-data="FinanceJobGeneralCtrl.ePage.Masters.SelectedLookupData(index, $item,'ServiceDept')" is-disabled="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].Costpost || FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].Revenuepost"><i class="fa fa-ellipsis-h"></i>
                                 </button>
                             </span>
                         </div>
@@ -81,13 +81,13 @@
                     <div class="form-group">
                         <label class="control-label">Creditor</label>
                         <div class="input-group input-group-sm">
-                            <div dynamic-lookup placeholder="Creditor" my-ng-model="FinanceJobGeneralPopupCtrl.ePage.Masters.UIJobChargeGetDeatil.VendorCode" obj="FinanceJobGeneralPopupCtrl.ePage.Masters.UIJobChargeGetDeatil" 
-                                page-name="'OrganizationList'" control-id="'ShpBillingAgentAddress'" control-key="ShpBillingAgentAddress_2958" auto-complete-on-select="FinanceJobGeneralPopupCtrl.ePage.Masters.SelectedLookupData($index, $item,'Creditor')"
-                                is-disabled="FinanceJobGeneralPopupCtrl.ePage.Masters.UIJobChargeGetDeatil.ChargeType =='REV' || FinanceJobGeneralPopupCtrl.ePage.Masters.UIJobChargeGetDeatil.Costpost">
+                            <div dynamic-lookup placeholder="Creditor" my-ng-model="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].VendorCode" obj="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index]" 
+                                page-name="'OrganizationList'" control-id="'ShpBillingAgentAddress'" control-key="ShpBillingAgentAddress_2958" auto-complete-on-select="FinanceJobGeneralCtrl.ePage.Masters.SelectedLookupData(index, $item,'Creditor')"
+                                is-disabled="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].ChargeType =='REV' || FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].Costpost">
                             </div>
                             <span class="input-group-btn">
-                                <button dynamic-list-modal class="btn btn-default" type="button" obj="FinanceJobGeneralPopupCtrl.ePage.Masters.UIJobChargeGetDeatil" page-name="'OrganizationList'" control-id="'ShpBillingAgentAddress'" control-key="ShpBillingAgentAddress_2958" 
-                                    mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="FinanceJobGeneralPopupCtrl.ePage.Masters.SelectedLookupData($index, $item.data.entity,'Creditor')" is-disabled="FinanceJobGeneralPopupCtrl.ePage.Masters.UIJobChargeGetDeatil.ChargeType =='REV' || FinanceJobGeneralPopupCtrl.ePage.Masters.UIJobChargeGetDeatil.Costpost"><i class="fa fa-ellipsis-h"></i>
+                                <button dynamic-list-modal class="btn btn-default" type="button" obj="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index]" page-name="'OrganizationList'" control-id="'ShpBillingAgentAddress'" control-key="ShpBillingAgentAddress_2958" 
+                                    mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="FinanceJobGeneralCtrl.ePage.Masters.SelectedLookupData(index, $item.data.entity,'Creditor')" is-disabled="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].ChargeType =='REV' || FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].Costpost"><i class="fa fa-ellipsis-h"></i>
                                 </button>
                             </span>
                         </div>
@@ -96,22 +96,22 @@
                 <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 mt-10">
                     <div class="form-group">
                         <label class="control-label">Invoice No</label>
-                        <input type="text" class="form-control" placeholder="Invoice No" data-ng-model="FinanceJobGeneralPopupCtrl.ePage.Masters.UIJobChargeGetDeatil.APInvoiceNum" data-ng-disabled="FinanceJobGeneralPopupCtrl.ePage.Masters.UIJobChargeGetDeatil.ChargeType =='REV' || FinanceJobGeneralPopupCtrl.ePage.Masters.UIJobChargeGetDeatil.Costpost" />
+                        <input type="text" class="form-control" placeholder="Invoice No" data-ng-model="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].APInvoiceNum" data-ng-disabled="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].ChargeType =='REV' || FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].Costpost" />
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 mt-10">
                     <div class="form-group">
                         <label class="control-label">Invoice Date</label>
                         <div class="input-group input-group-sm">
-                            <input type="text" class="form-control" placeholder="{{FinanceJobGeneralPopupCtrl.ePage.Masters.DatePicker.Options.dateFormat}}" data-ng-model="FinanceJobGeneralPopupCtrl.ePage.Masters.UIJobChargeGetDeatil.APInvoiceDate" 
-                                datetime-picker="{{FinanceJobGeneralPopupCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
-                                datepicker-options="FinanceJobGeneralPopupCtrl.ePage.Masters.DatePicker.Options"
+                            <input type="text" class="form-control" placeholder="{{FinanceJobGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}" data-ng-model="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].APInvoiceDate" 
+                                datetime-picker="{{FinanceJobGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                datepicker-options="FinanceJobGeneralCtrl.ePage.Masters.DatePicker.Options"
                                 datepicker-append-to-body="false" close-on-selection="false" enable-time="false"
-                                enable-date="true" default-date="" default-time="" save-as="FinanceJobGeneralPopupCtrl.ePage.Masters.DatePicker.Options.saveFormat"
-                                is-open="FinanceJobGeneralPopupCtrl.ePage.Masters.DatePicker.isOpen['isCostInvoiceDate']"
-                                when-closed="" data-ng-click="" custom-date-time-format data-ng-disabled="FinanceJobGeneralPopupCtrl.ePage.Masters.UIJobChargeGetDeatil.ChargeType =='REV' || FinanceJobGeneralPopupCtrl.ePage.Masters.UIJobChargeGetDeatil.Costpost"/>
+                                enable-date="true" default-date="" default-time="" save-as="FinanceJobGeneralCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                                is-open="FinanceJobGeneralCtrl.ePage.Masters.DatePicker.isOpen['isCostInvoiceDate']"
+                                when-closed="" data-ng-click="" custom-date-time-format data-ng-disabled="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].ChargeType =='REV' || FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].Costpost"/>
                             <span class="input-group-btn">
-                                <button class="btn btn-default" data-ng-click="FinanceJobGeneralPopupCtrl.ePage.Masters.DatePicker.OpenDatePicker($event,'isCostInvoiceDate')" data-ng-disabled="FinanceJobGeneralPopupCtrl.ePage.Masters.UIJobChargeGetDeatil.ChargeType =='REV' || FinanceJobGeneralPopupCtrl.ePage.Masters.UIJobChargeGetDeatil.Costpost">
+                                <button class="btn btn-default" data-ng-click="FinanceJobGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event,'isCostInvoiceDate')" data-ng-disabled="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].ChargeType =='REV' || FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].Costpost">
                                     <i class="fa fa-calendar"></i>
                                 </button>
                             </span>
@@ -122,15 +122,15 @@
                     <div class="form-group">
                         <label class="control-label">Post Date</label>
                         <div class="input-group input-group-sm">
-                            <input type="text" class="form-control" placeholder="{{FinanceJobGeneralPopupCtrl.ePage.Masters.DatePicker.Options.dateFormat}}" data-ng-model="FinanceJobGeneralPopupCtrl.ePage.Masters.UIJobChargeGetDeatil.APPostDate"
-                                datetime-picker="{{FinanceJobGeneralPopupCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
-                                datepicker-options="FinanceJobGeneralPopupCtrl.ePage.Masters.DatePicker.Options"
+                            <input type="text" class="form-control" placeholder="{{FinanceJobGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}" data-ng-model="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].APPostDate"
+                                datetime-picker="{{FinanceJobGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                datepicker-options="FinanceJobGeneralCtrl.ePage.Masters.DatePicker.Options"
                                 datepicker-append-to-body="false" close-on-selection="false" enable-time="false"
-                                enable-date="true" default-date="" default-time="" save-as="FinanceJobGeneralPopupCtrl.ePage.Masters.DatePicker.Options.saveFormat"
-                                is-open="FinanceJobGeneralPopupCtrl.ePage.Masters.DatePicker.isOpen['isCostPostDate']"
+                                enable-date="true" default-date="" default-time="" save-as="FinanceJobGeneralCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                                is-open="FinanceJobGeneralCtrl.ePage.Masters.DatePicker.isOpen['isCostPostDate']"
                                 when-closed="" data-ng-click="" custom-date-time-format data-ng-disabled="true"/>
                             <span class="input-group-btn">
-                                <button class="btn btn-default" data-ng-click="FinanceJobGeneralPopupCtrl.ePage.Masters.DatePicker.OpenDatePicker($event,'isCostPostDate')" data-ng-disabled="true" ><i class="fa fa-calendar"></i>
+                                <button class="btn btn-default" data-ng-click="FinanceJobGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event,'isCostPostDate')" data-ng-disabled="true" ><i class="fa fa-calendar"></i>
                                 </button>
                             </span>
                         </div>
@@ -139,19 +139,19 @@
                 <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 mt-10">
                     <div class="form-group">
                         <label class="control-label">Sys Ref</label>
-                        <input type="text" class="form-control" placeholder="Sys Ref" data-ng-model="FinanceJobGeneralPopupCtrl.ePage.Masters.UIJobChargeGetDeatil.APSysRef" data-ng-disabled="true"/>
+                        <input type="text" class="form-control" placeholder="Sys Ref" data-ng-model="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].APSysRef" data-ng-disabled="true"/>
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 mt-10">
                     <div class="form-group">
                         <label class="control-label">Currency</label>
                         <div class="input-group input-group-sm">
-                            <div dynamic-lookup placeholder="Currency" my-ng-model="FinanceJobGeneralPopupCtrl.ePage.Masters.UIJobChargeGetDeatil.RX_NKCostCurrency" obj="FinanceJobGeneralPopupCtrl.ePage.Masters.UIJobChargeGetDeatil" page-name="'CurrencyMaster'" control-id="'FinanceAPCurrency'" control-key="FinanceCurrency_3330"
-                                auto-complete-on-select="FinanceJobGeneralPopupCtrl.ePage.Masters.SelectedLookupData($index, $item,'CostCurrency')" is-disabled="FinanceJobGeneralPopupCtrl.ePage.Masters.UIJobChargeGetDeatil.ChargeType =='REV' || FinanceJobGeneralPopupCtrl.ePage.Masters.UIJobChargeGetDeatil.Costpost">
+                            <div dynamic-lookup placeholder="Currency" my-ng-model="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].RX_NKCostCurrency" obj="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index]" page-name="'CurrencyMaster'" control-id="'FinanceAPCurrency'" control-key="FinanceCurrency_3330"
+                                auto-complete-on-select="FinanceJobGeneralCtrl.ePage.Masters.SelectedLookupData(index, $item,'CostCurrency')" is-disabled="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].ChargeType =='REV' || FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].Costpost">
                             </div>
                             <span class="input-group-btn">
-                                <button dynamic-list-modal class="btn btn-default" type="button" obj="FinanceJobGeneralPopupCtrl.ePage.Masters.UIJobChargeGetDeatil" page-name="'CurrencyMaster'" control-id="'FinanceAPCurrency'" control-key="FinanceCurrency_3330"
-                                    mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="FinanceJobGeneralPopupCtrl.ePage.Masters.SelectedLookupData($index, $item.data.entity, 'CostCurrency')" is-disabled="FinanceJobGeneralPopupCtrl.ePage.Masters.UIJobChargeGetDeatil.ChargeType =='REV' || FinanceJobGeneralPopupCtrl.ePage.Masters.UIJobChargeGetDeatil.Costpost"><i class="fa fa-ellipsis-h"></i>
+                                <button dynamic-list-modal class="btn btn-default" type="button" obj="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index]" page-name="'CurrencyMaster'" control-id="'FinanceAPCurrency'" control-key="FinanceCurrency_3330"
+                                    mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="FinanceJobGeneralCtrl.ePage.Masters.SelectedLookupData(index, $item.data.entity, 'CostCurrency')" is-disabled="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].ChargeType =='REV' || FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].Costpost"><i class="fa fa-ellipsis-h"></i>
                                 </button>
                             </span>
                         </div>
@@ -160,37 +160,37 @@
                 <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 mt-10">
                     <div class="form-group">
                         <label class="control-label">Estimate Cost</label>
-                        <input type="text" class="form-control" placeholder="Estimate Cost" data-ng-model="FinanceJobGeneralPopupCtrl.ePage.Masters.UIJobChargeGetDeatil.EstimatedCost" data-ng-disabled="FinanceJobGeneralPopupCtrl.ePage.Masters.UIJobChargeGetDeatil.ChargeType =='REV' || FinanceJobGeneralPopupCtrl.ePage.Masters.UIJobChargeGetDeatil.Costpost" numbers-only-dot sb-precision="4"/>
+                        <input type="text" class="form-control" placeholder="Estimate Cost" data-ng-model="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].EstimatedCost" data-ng-disabled="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].ChargeType =='REV' || FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].Costpost" numbers-only-dot sb-precision="4"/>
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 mt-10">
                     <div class="form-group">
                         <label class="control-label">Actual Cost</label>
-                        <input type="text" class="form-control" placeholder="Actual cost" data-ng-model="FinanceJobGeneralPopupCtrl.ePage.Masters.UIJobChargeGetDeatil.OSCostAmt" data-ng-blur="FinanceJobGeneralPopupCtrl.ePage.Masters.OnOSAmtChange(FinanceJobGeneralPopupCtrl.ePage.Masters.UIJobChargeGetDeatil.OSCostAmt, 'CostActualAmt')" data-ng-disabled="FinanceJobGeneralPopupCtrl.ePage.Masters.UIJobChargeGetDeatil.ChargeType =='REV' || FinanceJobGeneralPopupCtrl.ePage.Masters.UIJobChargeGetDeatil.Costpost" numbers-only-dot sb-precision="4"/>
+                        <input type="text" class="form-control" placeholder="Actual cost" data-ng-model="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].OSCostAmt" data-ng-blur="FinanceJobGeneralCtrl.ePage.Masters.OnOSAmtChange(index,FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].OSCostAmt, 'CostActualAmt')" data-ng-disabled="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].ChargeType =='REV' || FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].Costpost" numbers-only-dot sb-precision="4"/>
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 mt-10">
                     <div class="form-group">
                         <label class="control-label">Variance</label>
-                        <input type="text" class="form-control" placeholder="Variance" data-ng-model="FinanceJobGeneralPopupCtrl.ePage.Masters.UIJobChargeGetDeatil.APVariance" data-ng-disabled="true"/>
+                        <input type="text" class="form-control" placeholder="Variance" data-ng-model="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].APVariance" data-ng-disabled="true"/>
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 mt-10">
                     <div class="form-group">
                         <label class="control-label">Local Cost Amt</label>
-                        <input type="text" class="form-control" placeholder="Local Cost Amt" data-ng-model="FinanceJobGeneralPopupCtrl.ePage.Masters.UIJobChargeGetDeatil.LocalCostAmt" data-ng-blur="FinanceJobGeneralPopupCtrl.ePage.Masters.OnLocalAmtChange(FinanceJobGeneralPopupCtrl.ePage.Masters.UIJobChargeGetDeatil.LocalCostAmt, 'CostLocalAmt')" data-ng-disabled="FinanceJobGeneralPopupCtrl.ePage.Masters.UIJobChargeGetDeatil.ChargeType =='REV' || FinanceJobGeneralPopupCtrl.ePage.Masters.UIJobChargeGetDeatil.Costpost" numbers-only-dot sb-precision="4"/>
+                        <input type="text" class="form-control" placeholder="Local Cost Amt" data-ng-model="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].LocalCostAmt" data-ng-blur="FinanceJobGeneralCtrl.ePage.Masters.OnLocalAmtChange(index, FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].LocalCostAmt, 'CostLocalAmt')" data-ng-disabled="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].ChargeType =='REV' || FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].Costpost" numbers-only-dot sb-precision="4"/>
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 mt-10">
                     <div class="form-group">
                         <label class="control-label">Tax Code</label>
-                        <input type="text" class="form-control" placeholder="Tax Code" data-ng-model="FinanceJobGeneralPopupCtrl.ePage.Masters.UIJobChargeGetDeatil.CostTaxCode" data-ng-disabled="FinanceJobGeneralPopupCtrl.ePage.Masters.UIJobChargeGetDeatil.ChargeType =='REV' || FinanceJobGeneralPopupCtrl.ePage.Masters.UIJobChargeGetDeatil.Costpost"/>
+                        <input type="text" class="form-control" placeholder="Tax Code" data-ng-model="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].CostTaxCode" data-ng-disabled="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].ChargeType =='REV' || FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].Costpost"/>
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 mt-10">
                     <div class="form-group">
                         <label class="control-label">Tax amount</label>
-                        <input type="text" class="form-control" placeholder="Tax amount" data-ng-model="FinanceJobGeneralPopupCtrl.ePage.Masters.UIJobChargeGetDeatil.OSCostGSTAmt" data-ng-disabled="true" />
+                        <input type="text" class="form-control" placeholder="Tax amount" data-ng-model="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].OSCostGSTAmt" data-ng-disabled="true" />
                     </div>
                 </div>
                 
@@ -204,12 +204,12 @@
                     <div class="form-group">
                         <label class="control-label">Debitor</label>
                         <div class="input-group input-group-sm">
-                            <div dynamic-lookup placeholder="Debitor" my-ng-model="FinanceJobGeneralPopupCtrl.ePage.Masters.UIJobChargeGetDeatil.CustomerCode" obj="FinanceJobGeneralPopupCtrl.ePage.Masters.UIJobChargeGetDeatil" page-name="'OrganizationList'" control-id="'ShpBillingLocalAddress'" control-key="ShpBillingLocalAddress_2959"
-                                auto-complete-on-select="FinanceJobGeneralCtrl.ePage.Masters.SelectedLookupData($index, $item,'Debitor')" is-disabled="FinanceJobGeneralPopupCtrl.ePage.Masters.UIJobChargeGetDeatil.Revenuepost">
+                            <div dynamic-lookup placeholder="Debitor" my-ng-model="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].CustomerCode" obj="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index]" page-name="'OrganizationList'" control-id="'ShpBillingLocalAddress'" control-key="ShpBillingLocalAddress_2959"
+                                auto-complete-on-select="FinanceJobGeneralCtrl.ePage.Masters.SelectedLookupData(index, $item,'Debitor')" is-disabled="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].Revenuepost">
                             </div>
                             <span class="input-group-btn">
-                                <button dynamic-list-modal class="btn btn-default" type="button" obj="FinanceJobGeneralPopupCtrl.ePage.Masters.UIJobChargeGetDeatil" page-name="'OrganizationList'" control-id="'ShpBillingLocalAddress'" control-key="ShpBillingLocalAddress_2959" 
-                                    mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="FinanceJobGeneralCtrl.ePage.Masters.SelectedLookupData($index, $item.data.entity, 'Debitor')" is-disabled="FinanceJobGeneralPopupCtrl.ePage.Masters.UIJobChargeGetDeatil.Revenuepost"><i class="fa fa-ellipsis-h"></i>
+                                <button dynamic-list-modal class="btn btn-default" type="button" obj="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index]" page-name="'OrganizationList'" control-id="'ShpBillingLocalAddress'" control-key="ShpBillingLocalAddress_2959" 
+                                    mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="FinanceJobGeneralCtrl.ePage.Masters.SelectedLookupData(index, $item.data.entity, 'Debitor')" is-disabled="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].Revenuepost"><i class="fa fa-ellipsis-h"></i>
                                 </button>
                             </span>
                         </div>
@@ -218,28 +218,28 @@
                 <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2  mt-10">
                     <div class="form-group">
                         <label class="control-label">Invoice No</label>
-                        <input type="text" class="form-control" placeholder="Invoice No" data-ng-model="FinanceJobGeneralPopupCtrl.ePage.Masters.UIJobChargeGetDeatil.ARInvoiceNum" data-ng-disabled="true" />
+                        <input type="text" class="form-control" placeholder="Invoice No" data-ng-model="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].ARInvoiceNum" data-ng-disabled="true" />
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2  mt-10">
                     <div class="form-group">
                         <label class="control-label">Invoice Type</label>
-                        <input type="text" class="form-control" placeholder="Invoice Type" data-ng-model="FinanceJobGeneralPopupCtrl.ePage.Masters.UIJobChargeGetDeatil.ARInvoiceType" data-ng-disabled="true" />
+                        <input type="text" class="form-control" placeholder="Invoice Type" data-ng-model="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].ARInvoiceType" data-ng-disabled="true" />
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2  mt-10">
                     <div class="form-group">
                         <label class="control-label">Invoice Date</label>
                         <div class="input-group input-group-sm">
-                            <input type="text" class="form-control" placeholder="{{FinanceJobGeneralPopupCtrl.ePage.Masters.DatePicker.Options.dateFormat}}" data-ng-model="FinanceJobGeneralPopupCtrl.ePage.Masters.UIJobChargeGetDeatil.ARInvoiceDate"
-                                datetime-picker="{{FinanceJobGeneralPopupCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
-                                datepicker-options="FinanceJobGeneralPopupCtrl.ePage.Masters.DatePicker.Options"
+                            <input type="text" class="form-control" placeholder="{{FinanceJobGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}" data-ng-model="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].ARInvoiceDate"
+                                datetime-picker="{{FinanceJobGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                datepicker-options="FinanceJobGeneralCtrl.ePage.Masters.DatePicker.Options"
                                 datepicker-append-to-body="false" close-on-selection="false" enable-time="false"
-                                enable-date="true" default-date="" default-time="" save-as="FinanceJobGeneralPopupCtrl.ePage.Masters.DatePicker.Options.saveFormat"
-                                is-open="FinanceJobGeneralPopupCtrl.ePage.Masters.DatePicker.isOpen['isRevenueInvoiceDate']"
+                                enable-date="true" default-date="" default-time="" save-as="FinanceJobGeneralCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                                is-open="FinanceJobGeneralCtrl.ePage.Masters.DatePicker.isOpen['isRevenueInvoiceDate']"
                                 when-closed="" data-ng-click="" custom-date-time-format data-ng-disabled="true" />
                             <span class="input-group-btn">
-                                <button class="btn btn-default" data-ng-click="FinanceJobGeneralPopupCtrl.ePage.Masters.DatePicker.OpenDatePicker($event,'isRevenueInvoiceDate')" data-ng-disabled="true"><i class="fa fa-calendar"></i>
+                                <button class="btn btn-default" data-ng-click="FinanceJobGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event,'isRevenueInvoiceDate')" data-ng-disabled="true"><i class="fa fa-calendar"></i>
                                 </button>
                             </span>
                         </div>
@@ -249,15 +249,15 @@
                     <div class="form-group">
                         <label class="control-label">Post Date</label>
                         <div class="input-group input-group-sm">
-                            <input type="text" class="form-control" placeholder="{{FinanceJobGeneralPopupCtrl.ePage.Masters.DatePicker.Options.dateFormat}}" data-ng-model="FinanceJobGeneralPopupCtrl.ePage.Masters.UIJobChargeGetDeatil.ARPostDate"
-                                datetime-picker="{{FinanceJobGeneralPopupCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
-                                datepicker-options="FinanceJobGeneralPopupCtrl.ePage.Masters.DatePicker.Options"
+                            <input type="text" class="form-control" placeholder="{{FinanceJobGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}" data-ng-model="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].ARPostDate"
+                                datetime-picker="{{FinanceJobGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                datepicker-options="FinanceJobGeneralCtrl.ePage.Masters.DatePicker.Options"
                                 datepicker-append-to-body="false" close-on-selection="false" enable-time="false"
-                                enable-date="true" default-date="" default-time="" save-as="FinanceJobGeneralPopupCtrl.ePage.Masters.DatePicker.Options.saveFormat"
-                                is-open="FinanceJobGeneralPopupCtrl.ePage.Masters.DatePicker.isOpen['isRevenuePostDate']"
+                                enable-date="true" default-date="" default-time="" save-as="FinanceJobGeneralCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                                is-open="FinanceJobGeneralCtrl.ePage.Masters.DatePicker.isOpen['isRevenuePostDate']"
                                 when-closed="" data-ng-click="" custom-date-time-format data-ng-disabled="true" />
                             <span class="input-group-btn">
-                                <button class="btn btn-default" data-ng-click="FinanceJobGeneralPopupCtrl.ePage.Masters.DatePicker.OpenDatePicker($event,'isRevenuePostDate')" data-ng-disabled="true">
+                                <button class="btn btn-default" data-ng-click="FinanceJobGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event,'isRevenuePostDate')" data-ng-disabled="true">
                                     <i class="fa fa-calendar"></i>
                                 </button>
                             </span>
@@ -267,20 +267,20 @@
                 <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2  mt-10">
                     <div class="form-group">
                         <label class="control-label">Sys Ref</label>
-                        <input type="text" class="form-control" placeholder="Sys Ref" data-ng-model="FinanceJobGeneralPopupCtrl.ePage.Masters.UIJobChargeGetDeatil.ARSysRef" data-ng-disabled="true"/>
+                        <input type="text" class="form-control" placeholder="Sys Ref" data-ng-model="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].ARSysRef" data-ng-disabled="true"/>
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2  mt-10">
                     <div class="form-group">
                         <label class="control-label">Currency</label>
                         <div class="input-group input-group-sm">
-                            <div dynamic-lookup placeholder="Currency" my-ng-model="FinanceJobGeneralPopupCtrl.ePage.Masters.UIJobChargeGetDeatil.RX_NKSellCurrency"
-                                obj="FinanceJobGeneralPopupCtrl.ePage.Masters.UIJobChargeGetDeatil" page-name="'CurrencyMaster'" control-id="'FinanceARCurrency'" control-key="FinanceCurrency_3335"
-                                auto-complete-on-select="FinanceJobGeneralCtrl.ePage.Masters.SelectedLookupData($index, $item, 'RevenueCurrency')" is-disabled="FinanceJobGeneralPopupCtrl.ePage.Masters.UIJobChargeGetDeatil.Revenuepost">
+                            <div dynamic-lookup placeholder="Currency" my-ng-model="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].RX_NKSellCurrency"
+                                obj="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index]" page-name="'CurrencyMaster'" control-id="'FinanceARCurrency'" control-key="FinanceCurrency_3335"
+                                auto-complete-on-select="FinanceJobGeneralCtrl.ePage.Masters.SelectedLookupData(index, $item, 'RevenueCurrency')" is-disabled="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].Revenuepost">
                             </div>
                             <span class="input-group-btn">
-                                <button dynamic-list-modal class="btn btn-default" type="button" obj="FinanceJobGeneralPopupCtrl.ePage.Masters.UIJobChargeGetDeatil" page-name="'CurrencyMaster'" control-id="'FinanceARCurrency'" control-key="FinanceCurrency_3335" 
-                                    mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="FinanceJobGeneralCtrl.ePage.Masters.SelectedLookupData($index, $item.data.entity, 'RevenueCurrency')" is-disabled="FinanceJobGeneralPopupCtrl.ePage.Masters.UIJobChargeGetDeatil.Revenuepost"><i class="fa fa-ellipsis-h"></i>
+                                <button dynamic-list-modal class="btn btn-default" type="button" obj="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index]" page-name="'CurrencyMaster'" control-id="'FinanceARCurrency'" control-key="FinanceCurrency_3335" 
+                                    mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="FinanceJobGeneralCtrl.ePage.Masters.SelectedLookupData(index, $item.data.entity, 'RevenueCurrency')" is-disabled="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].Revenuepost"><i class="fa fa-ellipsis-h"></i>
                                 </button>
                             </span>
                         </div>
@@ -289,37 +289,37 @@
                 <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2  mt-10">
                     <div class="form-group">
                         <label class="control-label">Estimate Revenue</label>
-                        <input type="text" class="form-control" placeholder="Estimate Revenue" data-ng-model="FinanceJobGeneralPopupCtrl.ePage.Masters.UIJobChargeGetDeatil.EstimatedRevenue" data-ng-disabled="FinanceJobGeneralPopupCtrl.ePage.Masters.UIJobChargeGetDeatil.Revenuepost" numbers-only-dot sb-precision="4"/>
+                        <input type="text" class="form-control" placeholder="Estimate Revenue" data-ng-model="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].EstimatedRevenue" data-ng-disabled="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].Revenuepost" numbers-only-dot sb-precision="4"/>
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2  mt-10">
                     <div class="form-group">
                         <label class="control-label">Actual Revenue</label>
-                        <input type="text" class="form-control" placeholder="Actual Revenue" data-ng-model="FinanceJobGeneralPopupCtrl.ePage.Masters.UIJobChargeGetDeatil.OSSellAmt" data-ng-blur="FinanceJobGeneralPopupCtrl.ePage.Masters.OnOSAmtChange(FinanceJobGeneralPopupCtrl.ePage.Masters.UIJobChargeGetDeatil.OSSellAmt, 'RevenueActualAmt')" data-ng-disabled="FinanceJobGeneralPopupCtrl.ePage.Masters.UIJobChargeGetDeatil.Revenuepost" numbers-only-dot sb-precision="4"/>
+                        <input type="text" class="form-control" placeholder="Actual Revenue" data-ng-model="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].OSSellAmt" data-ng-blur="FinanceJobGeneralCtrl.ePage.Masters.OnOSAmtChange(index, FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].OSSellAmt, 'RevenueActualAmt')" data-ng-disabled="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].Revenuepost" numbers-only-dot sb-precision="4"/>
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 mt-10">
                         <div class="form-group">
                             <label class="control-label">Variance</label>
-                            <input type="text" class="form-control" placeholder="Variance" data-ng-model="FinanceJobGeneralPopupCtrl.ePage.Masters.UIJobChargeGetDeatil.ARVariance" data-ng-disabled="true" />
+                            <input type="text" class="form-control" placeholder="Variance" data-ng-model="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].ARVariance" data-ng-disabled="true" />
                         </div>
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 mt-10">
                         <div class="form-group">
                             <label class="control-label">Local Sell  Amt</label>
-                            <input type="text" class="form-control" placeholder="Local Sell Amt" data-ng-model="FinanceJobGeneralPopupCtrl.ePage.Masters.UIJobChargeGetDeatil.LocalSellAmt" data-ng-blur="FinanceJobGeneralPopupCtrl.ePage.Masters.OnLocalAmtChange(FinanceJobGeneralPopupCtrl.ePage.Masters.UIJobChargeGetDeatil.LocalSellAmt, 'RevenueLocalAmt')" data-ng-disabled="FinanceJobGeneralPopupCtrl.ePage.Masters.UIJobChargeGetDeatil.Revenuepost" numbers-only-dot sb-precision="4"/>
+                            <input type="text" class="form-control" placeholder="Local Sell Amt" data-ng-model="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].LocalSellAmt" data-ng-blur="FinanceJobGeneralCtrl.ePage.Masters.OnLocalAmtChange(index,FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].LocalSellAmt, 'RevenueLocalAmt')" data-ng-disabled="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].Revenuepost" numbers-only-dot sb-precision="4"/>
                         </div>
                  </div>
                 <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2  mt-10">
                     <div class="form-group">
                         <label class="control-label">Tax Code</label>
-                        <input type="text" class="form-control" placeholder="Tax Code" data-ng-model="FinanceJobGeneralPopupCtrl.ePage.Masters.UIJobChargeGetDeatil.RevenueTaxCode" data-ng-disabled="FinanceJobGeneralPopupCtrl.ePage.Masters.UIJobChargeGetDeatil.Revenuepost" />
+                        <input type="text" class="form-control" placeholder="Tax Code" data-ng-model="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].RevenueTaxCode" data-ng-disabled="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].Revenuepost" />
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 mt-10">
                     <div class="form-group">
                         <label class="control-label">Tax amount</label>
-                        <input type="text" class="form-control" placeholder="Tax amount" data-ng-model="FinanceJobGeneralPopupCtrl.ePage.Masters.UIJobChargeGetDeatil.OSSellGSTAmt" data-ng-disabled="true"/>
+                        <input type="text" class="form-control" placeholder="Tax amount" data-ng-model="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].OSSellGSTAmt" data-ng-disabled="true"/>
                     </div>
                 </div>
             </div>
@@ -327,5 +327,5 @@
     </div>
 </div>
 <div class="modal-footer" style="margin-bottom: 8px;">
-    <button type="button" class="btn btn-primary btn-sm pull-right margin-left-5" data-ng-bind="FinanceJobGeneralPopupCtrl.ePage.Masters.CloseButtonText" data-ng-click="FinanceJobGeneralPopupCtrl.ePage.Masters.Close()"></button>
+    <button type="button" class="btn btn-primary btn-sm pull-right margin-left-5" data-ng-bind="FinanceJobGeneralCtrl.ePage.Masters.CloseButtonText" data-ng-click="FinanceJobGeneralCtrl.ePage.Masters.Close()"></button>
 </div>

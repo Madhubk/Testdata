@@ -4,13 +4,15 @@
     angular.module("Application")
         .controller("TaxGeneralController", TaxGeneralController);
 
-    TaxGeneralController.$inject = ["helperService", "taxConfig", "appConfig", "authService", "apiService"];
+    TaxGeneralController.$inject = ["$timeout", "helperService", "taxConfig", "appConfig", "authService", "apiService"];
 
-    function TaxGeneralController(helperService, taxConfig, appConfig, authService, apiService) {
+    function TaxGeneralController($timeout, helperService, taxConfig, appConfig, authService, apiService) {
         var TaxGeneralCtrl = this;
 
         function Init() {
             var currentTax = TaxGeneralCtrl.currentTax[TaxGeneralCtrl.currentTax.code].ePage.Entities;
+
+            console.log(TaxGeneralCtrl.currentTax);
 
             TaxGeneralCtrl.ePage = {
                 "Title": "",
@@ -20,15 +22,31 @@
                 "Entities": currentTax
             };
 
+            console.log("Height", TaxGeneralCtrl.ePage.Entities.Header.TableProperties.UITaxHierarchy.TableHeight.height);
+
             TaxGeneralCtrl.ePage.Masters.UITaxRate = TaxGeneralCtrl.ePage.Entities.Header.Data;
             TaxGeneralCtrl.ePage.Masters.TaxCategoryContent = false;
             TaxGeneralCtrl.ePage.Masters.TaxHierarchyContent = false;
             TaxGeneralCtrl.ePage.Masters.Config = taxConfig;
 
+            TaxGeneralCtrl.ePage.Entities.Header.Data.UITaxHierarchy = [];
+
             /* Function */
             TaxGeneralCtrl.ePage.Masters.OnChangeValues = OnChangeValues;
             TaxGeneralCtrl.ePage.Masters.SelectCheckBoxHierarchy = SelectCheckBoxHierarchy;
             TaxGeneralCtrl.ePage.Masters.SelectedLookupData = SelectedLookupData;
+            TaxGeneralCtrl.ePage.Masters.AddNewRow = AddNewRow;
+            TaxGeneralCtrl.ePage.Masters.CopyRow = CopyRow;
+            TaxGeneralCtrl.ePage.Masters.RemoveRow = RemoveRow;
+            TaxGeneralCtrl.ePage.Masters.setSelectedRow = setSelectedRow;
+            TaxGeneralCtrl.ePage.Masters.SingleSelectCheckBox = SingleSelectCheckBox;
+            TaxGeneralCtrl.ePage.Masters.SelectAllCheckBox = SelectAllCheckBox;
+
+            /*  For table */
+            TaxGeneralCtrl.ePage.Masters.EnableDeleteButton = true;
+            TaxGeneralCtrl.ePage.Masters.Enable = true;
+            TaxGeneralCtrl.ePage.Masters.selectedRow = -1;
+            TaxGeneralCtrl.ePage.Masters.emptyText = '-';
 
             /* DropDown List */
             TaxGeneralCtrl.ePage.Masters.DropDownMasterList = {
@@ -87,6 +105,43 @@
 
         //#region SelectedLookup
         function SelectedLookupData($item) {
+        }
+        //#endregion
+
+        //#region  AddRow
+        function AddNewRow() {
+            var obj = {
+                "PK": "",
+                "TaxSubCode": "",
+                "TaxSubCodeRate": "",
+                "IsModified": false,
+                "IsDeleted": false,
+            };
+
+            TaxGeneralCtrl.ePage.Entities.Header.Data.UITaxHierarchy.push(obj);
+            TaxGeneralCtrl.ePage.Masters.selectedRow = TaxGeneralCtrl.ePage.Entities.Header.Data.UITaxHierarchy.length - 1;
+
+            /* Add Scroll */
+            $timeout(function () {
+                var objDiv = document.getElementById("TaxGeneralCtrl.ePage.Masters.AddScroll");
+                objDiv.scrollTop = objDiv.scrollHeight;
+            }, 50);
+        }
+
+        function CopyRow() {
+        }
+
+        function RemoveRow() {
+        }
+
+        function setSelectedRow($index) {
+            TaxGeneralCtrl.ePage.Masters.selectedRow = $index;
+        }
+
+        function SingleSelectCheckBox() {
+         }
+
+        function SelectAllCheckBox() {
         }
         //#endregion
 
