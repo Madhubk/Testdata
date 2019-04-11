@@ -370,9 +370,9 @@ button.popover-warning {
 
 .error-warning-container-common .custom-warning-count,
 .error-warning-container-common .custom-error-count {
-    position: absolute;
-    top: -7px;
-    left: 16px;
+    position: relative;
+    top: -10px;
+    left: 0;
     font-size: 10px;
     font-weight: 600;
 }
@@ -422,7 +422,7 @@ button.popover-warning {
 
 .error-warning-container .error-warning-body {
     width: 100%;
-    height: 500px;
+    height: calc(100vh - 200px);
     padding: 10px;
     overflow-y: auto;
 }
@@ -499,28 +499,19 @@ button.popover-warning {
 .eaxis-footer-left li {
     float: left;
     list-style: none;
+    height: 45px;
+    cursor: pointer;
+    border-right: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
 }
 
-.eaxis-footer-left li a {
-    width: 100%;
-    float: left;
-    padding: 4px 20px;
-    color: #3a3333;
-    margin-right: 5px;
-    border-top: 1px solid transparent;
-    margin-top: -1px;
+.eaxis-footer-left li div {
+    padding: 15px 10px 5px 10px;
+    width: 150px;
 }
 
-.eaxis-footer-left li a:hover {
+.eaxis-footer-left li:hover {
     color: #d71921;
-    border-top: 1px solid #d71921;
-}
-
-.eaxis-footer-left li a .eaxis-footer-icon,
-.eaxis-footer-left li a .eaxis-footer-text {
-    width: 100%;
-    float: left;
-    text-align: center;
 }
 
 .eaxis-footer-left li .eaxis-hints {
@@ -533,9 +524,6 @@ button.popover-warning {
 /* #endregion */
 
 .standard-menu-wrapper .sm-count {
-    position: absolute;
-    top: 0;
-    right: 0;
     width: 23px;
     height: 23px;
     border-radius: 100%;
@@ -543,6 +531,10 @@ button.popover-warning {
     text-align: center;
     font-size: 10px;
     line-height: 2.2;
+    display: inline-block;
+    position: relative;
+    top: -15px;
+    left: 0px;
 }
 
 /* #region */
@@ -628,8 +620,20 @@ button.popover-warning {
     float: left;
 }
 
-.upload-loading-section .file-name.email-attach{
+.upload-loading-section .file-name.email-attach {
     max-width: 170px;
+}
+
+.upload-loading-section .loading-file-name {
+    position: relative;
+    float: left;
+    text-align: center;
+}
+
+.upload-loading-section .loading-file-name span {
+    padding: 0 7px;
+    font-weight: 600;
+    float: right;
 }
 
 /* Document */
@@ -1032,8 +1036,8 @@ div.jsoneditor-contextmenu ul li button:hover {
 
 /* #region Scroll Design */
 ::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
+    width: 8px;
+    height: 8px;
 }
 
 ::-webkit-scrollbar-track {

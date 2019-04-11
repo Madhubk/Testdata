@@ -1,26 +1,32 @@
-<uib-tabset id="chromeTab" active="EAxisExcelTemplateCtrl.ePage.Masters.activeTabIndex" class="tab-container chrometab-box">
+<uib-tabset id="chromeTab" active="EAxisExcelTemplateCtrl.ePage.Masters.activeTabIndex"
+    class="tab-container chrometab-box">
     <uib-tab>
         <uib-tab-heading title="Excel template">
-            <span data-ng-bind="'ExcelTemplate'"></span>
-            <i class="fa fa-thumb-tack pinned-tab"></i>
+            <span data-ng-bind="'Excel Template'"></span>
         </uib-tab-heading>
         <div class="p-0 tab-list-view-wrapper">
             <!--Excel Template Grid Page -->
-            <dynamic-list dataentry-name="EAxisExcelTemplateCtrl.ePage.Masters.dataentryName" selected-grid-row="EAxisExcelTemplateCtrl.ePage.Masters.SelectedGridRow($item)"
-                mode="1" default-filter="EAxisExcelTemplateCtrl.ePage.Masters.DefaultFilter" dataentry-object="EAxisExcelTemplateCtrl.ePage.Masters.DataEntryObject"></dynamic-list>
+            <dynamic-list dataentry-name="EAxisExcelTemplateCtrl.ePage.Masters.dataentryName"
+                selected-grid-row="EAxisExcelTemplateCtrl.ePage.Masters.SelectedGridRow($item)" mode="1"
+                base-filter="EAxisExcelTemplateCtrl.ePage.Masters.BaseFilter"
+                dataentry-object="EAxisExcelTemplateCtrl.ePage.Masters.DataEntryObject"></dynamic-list>
             <div class="tab-loading" data-ng-show="EAxisExcelTemplateCtrl.ePage.Masters.IsTabClick"></div>
         </div>
     </uib-tab>
-    <uib-tab active="EAxisExcelTemplateCtrl.ePage.Masters.activeTabIndex == $index" ng-repeat="tab in EAxisExcelTemplateCtrl.ePage.Masters.TabList"
+    <uib-tab active="EAxisExcelTemplateCtrl.ePage.Masters.activeTabIndex == $index"
+        ng-repeat="tab in EAxisExcelTemplateCtrl.ePage.Masters.TabList"
         ng-click="EAxisExcelTemplateCtrl.ePage.Masters.CurrentActiveTab(tab.label)">
         <uib-tab-heading title="{{tab.label}}">
             <span data-ng-bind="tab.label"></span>
-            <i class="glyphicon glyphicon-remove" ng-click="EAxisExcelTemplateCtrl.ePage.Masters.RemoveTab($event, $index, tab)"></i>
+            <i class="glyphicon glyphicon-remove"
+                ng-click="EAxisExcelTemplateCtrl.ePage.Masters.RemoveTab($event, $index, tab)"></i>
         </uib-tab-heading>
         <div class="padding-bottom-10 clearfix">
             <!--Excel Template Menu Directive-->
-            <excel-template-menu current-excel-template="tab" active-tab="EAxisExcelTemplateCtrl.ePage.Masters.ActiveMenuTab"></excel-template-menu>
+            <excel-template-menu current-excel-template="tab"
+                active-tab="EAxisExcelTemplateCtrl.ePage.Masters.ActiveMenuTab"></excel-template-menu>
         </div>
     </uib-tab>
-    <button class="btn btn-default" ng-click="EAxisExcelTemplateCtrl.ePage.Masters.CreateNewTab()" data-ng-disabled="EAxisExcelTemplateCtrl.ePage.Masters.IsNewTabClicked">+</button>
+    <button class="btn btn-default" ng-click="EAxisExcelTemplateCtrl.ePage.Masters.CreateNewTab()"
+        data-ng-disabled="EAxisExcelTemplateCtrl.ePage.Masters.IsNewTabClicked">+</button>
 </uib-tabset>

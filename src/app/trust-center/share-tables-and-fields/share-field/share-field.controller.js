@@ -111,6 +111,10 @@
             ShareFieldCtrl.ePage.Masters.ShareField.OnShareFieldClick = OnShareFieldClick;
             ShareFieldCtrl.ePage.Masters.ShareField.DeleteConfirmation = DeleteConfirmation;
 
+            ShareFieldCtrl.ePage.Masters.ShareField.GetFieldMasterList = GetFieldMasterList;
+            ShareFieldCtrl.ePage.Masters.ShareField.OnSelectAutoCompleteList = OnSelectAutoCompleteList;
+            ShareFieldCtrl.ePage.Masters.ShareField.OnBlurAutoCompleteList = OnBlurAutoCompleteList;
+
             ShareFieldCtrl.ePage.Masters.ShareField.SaveBtnText = "OK";
             ShareFieldCtrl.ePage.Masters.ShareField.IsDisableSaveBtn = false;
 
@@ -118,6 +122,31 @@
             ShareFieldCtrl.ePage.Masters.ShareField.IsDisableDeleteBtn = false;
 
             GetShareFieldList();
+        }
+
+        function GetFieldMasterList($viewValue) {
+            let _filter = {
+                "TableName": ShareFieldCtrl.ePage.Masters.QueryString.EntityName,
+                "SAP_FK": ShareFieldCtrl.ePage.Masters.QueryString.AppPk
+            };
+            if ($viewValue !== "#") {
+                _filter.Autocompletefield = $viewValue;
+            }
+            let _input = {
+                "searchInput": helperService.createToArrayOfObject(_filter),
+                "FilterID": trustCenterConfig.Entities.API.TableColumn.API.FindAll.FilterID
+            };
+
+            return apiService.post("eAxisAPI", trustCenterConfig.Entities.API.TableColumn.API.FindAll.Url, _input).then(response => response.data.Response);
+        }
+
+        function OnSelectAutoCompleteList($item, $model, $label, $event) {
+
+        }
+
+        function OnBlurAutoCompleteList($event) {
+            ShareFieldCtrl.ePage.Masters.ShareField.IsAutocompleteLoading = false;
+            ShareFieldCtrl.ePage.Masters.ShareField.IsAutocompleteNoResults = false;
         }
 
         function GetShareFieldList() {
@@ -146,7 +175,9 @@
         }
 
         function AddNew() {
-            ShareFieldCtrl.ePage.Masters.ShareField.ActiveShareField = {};
+            ShareFieldCtrl.ePage.Masters.ShareField.ActiveShareField = {
+                EntityName: ShareFieldCtrl.ePage.Masters.QueryString.EntityName
+            };
             Edit();
         }
 
@@ -156,7 +187,7 @@
 
             if (ShareFieldCtrl.ePage.Masters.ShareField.ActiveShareField) {
                 ShareFieldCtrl.ePage.Masters.GenerateScriptInput = {
-                    ObjectName: "DYN_EntityMaster",
+                    ObjectName: "DYN_FieldMaster",
                     ObjectId: ShareFieldCtrl.ePage.Masters.ShareField.ActiveShareField.Field_PK
                 };
                 ShareFieldCtrl.ePage.Masters.GenerateScriptConfig = {

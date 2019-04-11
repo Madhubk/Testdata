@@ -91,42 +91,11 @@
             TCAppTrustAppTenantCtrl.ePage.Masters.DeleteBtnText = "Delete";
             TCAppTrustAppTenantCtrl.ePage.Masters.IsDisableDeleteBtn = false;
 
-            GetUIControlList();
             GetAppTrustAppTenant();
         }
 
-        function GetUIControlList() {
-            TCAppTrustAppTenantCtrl.ePage.Masters.AppTrustAppTenant.UIControlList = undefined;
-            var _filter = {
-                "SAP_FK": authService.getUserInfo().AppPK,
-                "TenantCode": authService.getUserInfo().TenantCode,
-                "USR_FK": authService.getUserInfo().UserPK
-            };
-            var _input = {
-                "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": trustCenterConfig.Entities.API.CompUserRoleAccess.API.FindAll.FilterID
-            };
-
-            apiService.post("authAPI", trustCenterConfig.Entities.API.CompUserRoleAccess.API.FindAll.Url, _input).then(function SuccessCallback(response) {
-                if (response.data.Response) {
-                    var _response = response.data.Response;
-                    var _controlList = [];
-                    if (_response.length > 0) {
-                        _response.map(function (value, key) {
-                            if (value.SOP_Code) {
-                                _controlList.push(value.SOP_Code);
-                            }
-                        });
-                    }
-                    TCAppTrustAppTenantCtrl.ePage.Masters.AppTrustAppTenant.UIControlList = _controlList;
-                } else {
-                    TCAppTrustAppTenantCtrl.ePage.Masters.AppTrustAppTenant.UIControlList = [];
-                }
-            });
-        }
-
         function CheckUIControl(controlId) {
-            return helperService.checkUIControl(TCAppTrustAppTenantCtrl.ePage.Masters.AppTrustAppTenant.UIControlList, controlId);
+            return helperService.checkUIControl(controlId);
         }
 
         function GetAppTrustAppTenant() {

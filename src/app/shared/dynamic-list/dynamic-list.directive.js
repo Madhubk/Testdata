@@ -6,11 +6,12 @@
         .directive("dynamicList", DynamicList);
 
     function DynamicList() {
-        var exports = {
+        let _exports = {
             restrict: "EA",
             templateUrl: "app/shared/dynamic-list/dynamic-list.html",
             controller: "DynamicListController",
             controllerAs: "DynamicListCtrl",
+            bindToController: true,
             scope: {
                 mode: "=",
                 dataentryName: "=",
@@ -22,21 +23,22 @@
                 isNewButton: "=",
                 overrideUrl: "=",
                 validateFilterInput: "&",
-                isValidateFilter: "="
-            },
-            bindToController: true
+                isValidateFilter: "=",
+                organizationCode: "="
+            }
         };
-        return exports;
+        return _exports;
     }
 
     angular
         .module("Application")
         .controller("DynamicListController", DynamicListController);
 
-    DynamicListController.$inject = ["$scope", "$timeout", "$filter", "authService", "apiService", "helperService", "toastr", "dynamicLookupConfig", "appConfig", "APP_CONSTANT", "confirmation", "$q"];
+    DynamicListController.$inject = ["$scope", "$compile", "$filter", "$q", "helperService", "apiService", "authService", "appConfig", "dynamicLookupConfig", "toastr", "confirmation", "errorWarningService", "APP_CONSTANT"];
 
-    function DynamicListController($scope, $timeout, $filter, authService, apiService, helperService, toastr, dynamicLookupConfig, appConfig, APP_CONSTANT, confirmation, $q) {
-        var DynamicListCtrl = this;
+    function DynamicListController($scope, $compile, $filter, $q, helperService, apiService, authService, appConfig, dynamicLookupConfig, toastr, confirmation, errorWarningService, APP_CONSTANT) {
+        let DynamicListCtrl = this;
+        // Mode:  1 -> Main Page, 2 -> Lookup, 3 -> Attach
 
         function Init() {
             DynamicListCtrl.ePage = {
@@ -47,1088 +49,123 @@
                 "Entities": DynamicListCtrl.config
             };
 
-            InitDynamicList();
-
-            $(document).on('click', '.save-as-filter.dropup', function (e) {
-                e.stopPropagation();
-            });
-
-            $scope.$on('validateFilterResponse', ValidateFilterResponse);
-        }
-
-        // #region
-        function InitDynamicList() {
-            DynamicListCtrl.ePage.Masters.DynamicList = {};
-            if (DynamicListCtrl.baseFilter) {
-                DynamicListCtrl.ePage.Masters.DynamicList.BaseFilterFields = {};
-            }
-
-            InitHeader();
-            InitFilter();
-            InitCustomized();
-            InitExport();
-            InitSearch();
-
-            if (DynamicListCtrl.dataentryName && DynamicListCtrl.mode) {
-                GetDataEntryDetails();
+            try {
+                DynamicListCtrl.ePage.Masters.CheckControlAccess = CheckControlAccess;
+                InitDataEntry();
+            } catch (error) {
+                console.log(error);
             }
         }
 
-        function GetDataEntryDetails() {
-            DynamicListCtrl.ePage.Masters.DynamicList.BaseFilter = angular.copy(DynamicListCtrl.baseFilter);
-
-            var _filter = {
-                DataEntryName: DynamicListCtrl.dataentryName,
-                IsRoleBassed: false,
-                IsAccessBased: false
-            };
-            var _input = {
-                "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.DataEntry.API.FindConfig.FilterID
-            };
-
-            apiService.post("eAxisAPI", appConfig.Entities.DataEntry.API.FindConfig.Url, _input).then(function (response) {
-                if (response.data.Response) {
-                    var _isEmpty = angular.equals({}, response.data.Response);
-                    if (!_isEmpty) {
-                        if (response.data.Response.LookUpList) {
-                            dynamicLookupConfig.Entities = Object.assign({}, dynamicLookupConfig.Entities, response.data.Response.LookUpList);
-                        }
-                        DynamicListCtrl.ePage.Masters.DynamicList.DataEntry = response.data.Response;
-
-                        if (DynamicListCtrl.mode == 1) {
-                            GetRelatedLookupList();
-                        }
-
-                        if (DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.FilterAPI) {
-                            if (DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.FilterAPI.indexOf("@") !== -1) {
-                                var _filterAPI = angular.copy(DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.FilterAPI).split("/");
-
-                                _filterAPI.map(function (value, key) {
-                                    if (value.indexOf("@") !== -1) {
-                                        _filterAPI[key] = authService.getUserInfo()[_filterAPI[key].slice(1)];
-                                    }
-                                });
-
-                                DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.FilterAPI = _filterAPI.join("/");
-                            }
-                        }
-
-                        var _colList = [];
-                        DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.GridConfig.Header.map(function (value, key) {
-                            if (!value.IsVisible && value.IsMandatory) {
-                                _colList.push(value);
-                            } else if (value.IsVisible) {
-                                _colList.push(value);
-                            }
-                        });
-
-                        if (DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.OtherConfig.FilterConfig) {
-                            if (DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.OtherConfig.FilterConfig.NoOfColumn) {
-                                DynamicListCtrl.ePage.Masters.DynamicList.Filter.ViewType = DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.OtherConfig.FilterConfig.NoOfColumn;
-                            }
-                        }
-
-                        DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.GridConfig.Header = _colList;
-                        DynamicListCtrl.ePage.Masters.DynamicList.CustomizeGrid.GridColumnAll = angular.copy(DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.GridConfig.Header);
-
-                        DynamicListCtrl.dataentryObject = DynamicListCtrl.ePage.Masters.DynamicList.DataEntry;
-
-                        InitGrid();
-                        if (DynamicListCtrl.mode == 1 && DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.OtherConfig.ListingPageConfig) {
-                            if (DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.OtherConfig.ListingPageConfig.EnableFavoriteShortcutFilter) {
-                                GetUserDefaultFilter();
-                            } else {
-                                SetDefaultFilter();
-                            }
-                        } else {
-                            SetDefaultFilter();
-                        }
-                    } else {
-                        DynamicListCtrl.ePage.Masters.DynamicList.IsEmptyDataEntryName = true;
-                    }
-                }
-            });
+        function CheckControlAccess(controlId) {
+            return helperService.checkUIControl(controlId);
         }
-
-        function GetRelatedLookupList() {
-            var _filter = {
-                PageFK: DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.DataEntry_PK,
-                SAP_FK: authService.getUserInfo().AppPK
-            };
-            var _input = {
-                "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.DYN_RelatedLookup.API.GroupFindAll.FilterID
-            };
-
-            apiService.post("eAxisAPI", appConfig.Entities.DYN_RelatedLookup.API.GroupFindAll.Url, _input).then(function (response) {
-                if (response.data.Response) {
-                    var _isEmpty = angular.equals({}, response.data.Response);
-
-                    if (!_isEmpty) {
-                        dynamicLookupConfig.Entities = Object.assign({}, dynamicLookupConfig.Entities, response.data.Response);
-                    }
-                }
-            });
-        }
-
-        // Default Filter
-        function GetUserDefaultFilter() {
-            var _filter = {
-                "SAP_FK": authService.getUserInfo().AppPK,
-                "TenantCode": authService.getUserInfo().TenantCode,
-                "SourceEntityRefKey": authService.getUserInfo().UserId,
-                "EntitySource": DynamicListCtrl.dataentryName.toUpperCase() + "_DEFAULTSEARCHFILTER",
-                "TypeCode": DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.DataEntry_PK,
-            };
-            var _input = {
-                "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.UserSettings.API.FindAll.FilterID
-            };
-
-            apiService.post("eAxisAPI", appConfig.Entities.UserSettings.API.FindAll.Url + authService.getUserInfo().AppPK, _input).then(function (response) {
-                var _response;
-                if (response.data.Response) {
-                    if (response.data.Response.length > 0) {
-                        _response = response.data.Response[0];
-                        if (_response.Value) {
-                            _response.Value = JSON.parse(_response.Value);
-
-                            for (var x in _response.Value) {
-                                if (typeof _response.Value[x] == "string" && _response.Value[x].indexOf("@") != -1) {
-                                    _response.Value[x] = helperService.DateFilter(_response.Value[x]);
-                                }
-                            }
-
-                            DynamicListCtrl.ePage.Masters.DynamicList.Filter.DefaultFilter = _response.Value;
-
-                            DynamicListCtrl.ePage.Masters.DynamicList.Filter.AppUserDefaultFilter = angular.copy(_response);
-                            DynamicListCtrl.ePage.Masters.DynamicList.Filter.UserDefaultFilter = angular.copy(_response);
-                        }
-                    }
-                }
-
-                if (DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.DefaultFilter && !_response) {
-                    GetAppDefaultFilter();
-                } else {
-                    SetDefaultFilter();
-                }
-            });
-        }
-
-        function GetAppDefaultFilter() {
-            var _filter = {
-                "SAP_FK": authService.getUserInfo().AppPK,
-                "TenantCode": authService.getUserInfo().TenantCode,
-                "SourceEntityRefKey": DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.DataEntryName,
-                "EntitySource": "QUERY",
-                "TypeCode": DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.DataEntry_PK,
-                "PK": DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.DefaultFilter
-            };
-            var _input = {
-                "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.AppSettings.API.FindAll.FilterID
-            };
-
-            apiService.post("eAxisAPI", appConfig.Entities.AppSettings.API.FindAll.Url + authService.getUserInfo().AppPK, _input).then(function (response) {
-                if (response.data.Response) {
-                    if (response.data.Response.length > 0) {
-                        var _response = response.data.Response[0];
-                        if (_response.Value) {
-                            _response.Value = JSON.parse(_response.Value);
-                            DynamicListCtrl.ePage.Masters.DynamicList.Filter.AppUserDefaultFilter = angular.copy(_response);
-                            DynamicListCtrl.ePage.Masters.DynamicList.Filter.AppDefaultFilter = angular.copy(_response);
-                            var _appFilter = {};
-
-                            _response.Value.ExcuteInput.map(function (value1, key1) {
-                                if (value1.Type) {
-                                    if (value1.Type == "DateCompare") {
-                                        var _val = "";
-                                        if (typeof value1.value == "string") {
-                                            _val = JSON.parse(value1.value);
-                                        }
-
-                                        if (_val.length > 0) {
-                                            _val.map(function (value2, key2) {
-                                                if (value2.FilterInput && value2.FilterInput.length > 0) {
-                                                    value2.FilterInput.map(function (value3, key3) {
-                                                        value3.Value = $filter('date')(new Date(), APP_CONSTANT.DatePicker.dateFormat);
-                                                    });
-                                                }
-                                            });
-                                        }
-
-                                        value1.value = JSON.stringify(_val);
-                                    }
-                                } else {
-                                    var _value = "";
-                                    if (typeof value1.value == "string") {
-                                        _value = value1.value;
-                                    } else {
-                                        _value = value1.value.toString();
-                                    }
-
-                                    if (_value.indexOf('@') != -1) {
-                                        var _date = helperService.DateFilter(_value);
-                                        if (value1.Add && value1.Add.length > 0) {
-                                            value1.Add.map(function (value, key) {
-                                                if (typeof value.Value == "string") {
-                                                    value.Value = Number(value.Value);
-                                                }
-                                                switch (value.FieldName) {
-                                                    case "Day":
-                                                        var d = new Date(_date);
-                                                        _date = new Date(d.setDate(d.getDate() + value.Value));
-                                                        break;
-                                                    case "Month":
-                                                        var d = new Date(_date);
-                                                        _date = new Date(d.setMonth(d.getMonth() + value.Value));
-                                                        break;
-                                                    case "Year":
-                                                        var d = new Date(_date);
-                                                        _date = new Date(d.setFullYear(d.getFullYear() + value.Value));
-                                                        break;
-                                                    case "Hour":
-                                                        var d = new Date(_date);
-                                                        _date = new Date(d.setHours(d.getHours() + value.Value));
-                                                        break;
-                                                    case "Minute":
-                                                        var d = new Date(_date);
-                                                        _date = new Date(d.setMinutes(d.getMinutes() + value.Value));
-                                                        break;
-                                                    case "Second":
-                                                        var d = new Date(_date);
-                                                        _date = new Date(d.setSeconds(d.getSeconds() + value.Value));
-                                                        break;
-                                                    default:
-                                                        _date = new Date(value.Value);
-                                                        break;
-                                                }
-                                            });
-                                            value1.value = $filter('date')(new Date(_date), APP_CONSTANT.DatePicker[value1.Format]);
-                                        } else {
-                                            value1.value = _date;
-                                        }
-                                    }
-                                }
-                                _appFilter[value1.FieldName] = value1.value;
-                            });
-
-                            DynamicListCtrl.ePage.Masters.DynamicList.Filter.DefaultFilter = _appFilter;
-                        }
-                    }
-                }
-
-                SetDefaultFilter();
-            });
-        }
-
-        function SetDefaultFilter() {
-            if (!DynamicListCtrl.ePage.Masters.DynamicList.Filter.DefaultFilter) {
-                DynamicListCtrl.ePage.Masters.DynamicList.Filter.DefaultFilter = {};
-            }
-
-            if (DynamicListCtrl.defaultFilter) {
-                var _isEmpty = angular.equals({}, DynamicListCtrl.defaultFilter);
-
-                if (!_isEmpty) {
-                    for (var x in DynamicListCtrl.defaultFilter) {
-                        DynamicListCtrl.ePage.Masters.DynamicList.Filter.DefaultFilter[x] = DynamicListCtrl.defaultFilter[x];
-                    }
-                }
-            }
-
-            if (DynamicListCtrl.ePage.Masters.DynamicList.BaseFilter) {
-                for (var x in DynamicListCtrl.ePage.Masters.DynamicList.BaseFilter) {
-                    // DynamicListCtrl.ePage.Masters.DynamicList.Filter.DefaultFilter["IsDisabled" + x] = true;
-                    DynamicListCtrl.ePage.Masters.DynamicList.BaseFilterFields["IsDisabled" + x] = true;
-
-                    DynamicListCtrl.ePage.Masters.DynamicList.Filter.DefaultFilter[x] = DynamicListCtrl.ePage.Masters.DynamicList.BaseFilter[x];
-                }
-            }
-
-            if (DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.OtherConfig.ListingPageConfig) {
-                DynamicListCtrl.ePage.Masters.DynamicList.EnableCustomizeGridColumnButton = DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.OtherConfig.ListingPageConfig.EnableCustomizeGridColumnButton;
-                DynamicListCtrl.ePage.Masters.DynamicList.EnableCustomizeFilterFieldsButton = DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.OtherConfig.ListingPageConfig.EnableCustomizeFilterFieldsButton;
-                DynamicListCtrl.ePage.Masters.DynamicList.EnableResetButton = DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.OtherConfig.ListingPageConfig.EnableResetButton;
-                DynamicListCtrl.ePage.Masters.DynamicList.EnableNewButton = DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.OtherConfig.ListingPageConfig.EnableNewButton;
-                DynamicListCtrl.ePage.Masters.DynamicList.EnableAttachButton = DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.OtherConfig.ListingPageConfig.EnableAttachButton;
-                DynamicListCtrl.ePage.Masters.DynamicList.EnableFilterButton = DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.OtherConfig.ListingPageConfig.EnableFilterButton;
-                DynamicListCtrl.ePage.Masters.DynamicList.EnableClearButton = DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.OtherConfig.ListingPageConfig.EnableClearButton;
-                DynamicListCtrl.ePage.Masters.DynamicList.EnableUserFavoriteButton = DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.OtherConfig.ListingPageConfig.EnableUserFavoriteButton;
-                DynamicListCtrl.ePage.Masters.DynamicList.EnableRefreshButton = DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.OtherConfig.ListingPageConfig.EnableRefreshBtn;
-                DynamicListCtrl.ePage.Masters.DynamicList.EnableSavedFiltersInSingleMenu = DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.OtherConfig.ListingPageConfig.EnableSavedFiltersInSingleMenu;
-                DynamicListCtrl.ePage.Masters.DynamicList.EnableSearch = DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.OtherConfig.ListingPageConfig.EnableSearch;
-
-                if (DynamicListCtrl.mode == 1) {
-                    DynamicListCtrl.ePage.Masters.DynamicList.EnableAttachButton = false;
-                    if (DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.OtherConfig.ListingPageConfig.EnableFavoriteShortcutFilter) {
-                        GetFavoriteShortcutList();
-                    }
-
-                    if (DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.OtherConfig.ListingPageConfig.EnableCustomizeButton) {
-                        GetUserBasedGridColumList();
-                    } else {
-                        $timeout(function () {
-                            DynamicControlFilter();
-                        });
-                    }
-                } else if (DynamicListCtrl.mode == 2) {
-                    DynamicListCtrl.ePage.Masters.DynamicList.EnableAttachButton = false;
-                    DynamicListCtrl.ePage.Masters.DynamicList.EnableResetButton = false;
-                    DynamicListCtrl.ePage.Masters.DynamicList.EnableUserFavoriteButton = false;
-                    DynamicListCtrl.ePage.Masters.DynamicList.EnableClearButton = false;
-                    DynamicListCtrl.ePage.Masters.DynamicList.EnableCustomizeGridColumnButton = false;
-                    DynamicListCtrl.ePage.Masters.DynamicList.EnableCustomizeFilterFieldsButton = false;
-                    DynamicListCtrl.ePage.Masters.DynamicList.EnableSavedFiltersInSingleMenu = false;
-                    DynamicListCtrl.ePage.Masters.DynamicList.EnableSearch = false;
-
-                    (DynamicListCtrl.isNewButton) ? DynamicListCtrl.ePage.Masters.DynamicList.EnableNewButton = true: DynamicListCtrl.ePage.Masters.DynamicList.EnableNewButton = false;
-                    $timeout(function () {
-                        DynamicControlFilter();
-                    });
-                } else if (DynamicListCtrl.mode == 3) {
-                    DynamicListCtrl.ePage.Masters.DynamicList.EnableAttachButton = true;
-                    DynamicListCtrl.ePage.Masters.DynamicList.EnableResetButton = false;
-                    DynamicListCtrl.ePage.Masters.DynamicList.EnableNewButton = false;
-                    DynamicListCtrl.ePage.Masters.DynamicList.EnableUserFavoriteButton = false;
-                    DynamicListCtrl.ePage.Masters.DynamicList.EnableClearButton = false;
-                    DynamicListCtrl.ePage.Masters.DynamicList.EnableCustomizeGridColumnButton = false;
-                    DynamicListCtrl.ePage.Masters.DynamicList.EnableCustomizeFilterFieldsButton = false;
-                    DynamicListCtrl.ePage.Masters.DynamicList.EnableSavedFiltersInSingleMenu = false;
-                    DynamicListCtrl.ePage.Masters.DynamicList.EnableSearch = false;
-
-                    $timeout(function () {
-                        DynamicControlFilter();
-                    });
-                }
-            } else {
-                $timeout(function () {
-                    DynamicControlFilter();
-                });
-            }
-
-            AddFilterControlVisibleDisable();
-
-            // if (DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.OtherConfig.Parties) {
-            //     if (DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.OtherConfig.Parties.IsEnableParties) {
-            //         if (DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.OtherConfig.Parties.FKField) {
-            //             InitParties();
-            //         }
-            //     }
-            // }
-        }
-        // #endregion
 
         // #region Header
         function InitHeader() {
-            DynamicListCtrl.ePage.Masters.DynamicList.Header = {};
-            DynamicListCtrl.ePage.Masters.DynamicList.Header.FavoriteShortcutFilter = {};
-            DynamicListCtrl.ePage.Masters.DynamicList.Header.SystemUserFavouriteList = {
-                ListSource: []
+            DynamicListCtrl.ePage.Masters.Header = {
+                CustomizeGrid: {
+                    ListSource: angular.copy(DynamicListCtrl.ePage.Masters.DataEntry.FindConfig.GridConfig.Header),
+                    IsAutoListing: true,
+                    Save: SaveUserBasedGridColumn,
+                    SaveBtnTxt: "Save",
+                    IsDisableSaveBtn: false,
+                    DeleteBtnTxt: "Reset",
+                    IsDisableDeleteBtn: false,
+                    Delete: DeleteUserBasedGridColumn,
+                    SelectAllColumn: SelectAllColumn,
+                    IsSelectAll: false
+                },
+                Shortcut: {
+                    ListSource: [],
+                    View: ViewShortcutFilter,
+                    GetCount: GetFavoriteCount
+                },
+                SystemFilter: {
+                    ListSource: [],
+                    View: ViewSystemFilter
+                },
+                UserFilter: {
+                    ListSource: [],
+                    Delete: DeleteUserFilter,
+                    Update: UpdateUserFilter,
+                    View: ViewUserFilter
+                },
+                Export: {
+                    ListSource: [],
+                    DownloadAsPDF: DownloadAsPDF,
+                    DownloadAsExcel: DownloadAsExcel
+                },
+                Recent: {
+                    ListSource: [],
+                    Open: OpenRecentItem
+                },
+                Schedule: {
+                    ListSource: [],
+                    Delete: DeleteSchedule,
+                    View: ViewScheduleFilter
+                },
+                OnStarClick: OnStarClick,
+                SetAsDeafultFilter: SetAsDeafultFilter,
             };
-            DynamicListCtrl.ePage.Masters.DynamicList.Header.RecentFilter = {};
-            DynamicListCtrl.ePage.Masters.DynamicList.Header.SystemFilter = {};
-            DynamicListCtrl.ePage.Masters.DynamicList.Header.UserFilter = {};
-
-            DynamicListCtrl.ePage.Masters.DynamicList.Header.GetFavoriteCount = GetFavoriteCount;
-            DynamicListCtrl.ePage.Masters.DynamicList.Header.OnFavoriteClick = OnFavoriteClick;
-            DynamicListCtrl.ePage.Masters.DynamicList.Header.DeleteUserFavorites = DeleteUserFavoritesConfirmation;
-            DynamicListCtrl.ePage.Masters.DynamicList.Header.OnRecentFavoriteClick = OnRecentFavoriteClick;
-            DynamicListCtrl.ePage.Masters.DynamicList.Header.OnFavoriteStarClick = OnFavoriteStarClick;
-            DynamicListCtrl.ePage.Masters.DynamicList.Header.SetUserDeafultFilter = SetUserDeafultFilter;
-
-            DynamicListCtrl.ePage.Masters.DynamicList.Header.UpdateUserFavorite = UpdateUserFavorite;
-            DynamicListCtrl.ePage.Masters.DynamicList.Header.UpdateUserFavoriteWithFilterAndGridColumn = UpdateUserFavoriteWithFilterAndGridColumn;
 
             // Buttons
-            DynamicListCtrl.ePage.Masters.DynamicList.Header.Refresh = OnRefreshBtnClick;
-            DynamicListCtrl.ePage.Masters.DynamicList.Header.CustomizeGridColumn = CustomizeGridColumn;
-            DynamicListCtrl.ePage.Masters.DynamicList.Header.Reset = OnResetBtnClick;
-            DynamicListCtrl.ePage.Masters.DynamicList.Header.Attach = OnAttachBtnClick;
-            DynamicListCtrl.ePage.Masters.DynamicList.Header.New = OnNewBtnClick;
-            DynamicListCtrl.ePage.Masters.DynamicList.Header.Filter = OnFilterBtnClick;
-
+            DynamicListCtrl.ePage.Masters.Header.Refresh = OnRefreshBtnClick;
+            DynamicListCtrl.ePage.Masters.Header.Reset = OnResetBtnClick;
+            DynamicListCtrl.ePage.Masters.Header.Attach = OnAttachBtnClick;
+            DynamicListCtrl.ePage.Masters.Header.New = OnNewBtnClick;
+            DynamicListCtrl.ePage.Masters.Header.Filter = OnFilterBtnClick;
             helperService.refreshGrid = OnRefreshBtnClick;
+
+            CheckVisibleItems();
+            GetStandardExport();
         }
 
-        function GetFavoriteShortcutList() {
-            DynamicListCtrl.ePage.Masters.DynamicList.Header.FavoriteShortcutFilter.ListSource = undefined;
-            var _filter = {
-                "SAP_FK": authService.getUserInfo().AppPK,
-                "TenantCode": authService.getUserInfo().TenantCode,
-                "EntitySource": DynamicListCtrl.dataentryName.toUpperCase() + "_SHORTCUT",
-                "SourceEntityRefKey": authService.getUserInfo().UserId,
-                "TypeCode": DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.DataEntry_PK,
-            };
-            var _input = {
-                "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.UserSettings.API.FindAll.FilterID
-            };
+        function CheckVisibleItems() {
+            if (DynamicListCtrl.ePage.Masters.DataEntry.FindConfig.OtherConfig && DynamicListCtrl.ePage.Masters.DataEntry.FindConfig.OtherConfig.ListingPageConfig) {
+                let _listingPageConfig = angular.copy(DynamicListCtrl.ePage.Masters.DataEntry.FindConfig.OtherConfig.ListingPageConfig);
 
-            apiService.post("eAxisAPI", appConfig.Entities.UserSettings.API.FindAll.Url + authService.getUserInfo().AppPK, _input).then(function (response) {
-                if (response.data.Response) {
-                    DynamicListCtrl.ePage.Masters.DynamicList.Header.FavoriteShortcutFilter.ListSource = response.data.Response;
-                } else {
-                    DynamicListCtrl.ePage.Masters.DynamicList.Header.FavoriteShortcutFilter.ListSource = [];
-                }
+                if (DynamicListCtrl.mode == 1) {
+                    _listingPageConfig.EnableAttachButton = false;
+                } else if (DynamicListCtrl.mode == 2 || DynamicListCtrl.mode == 3) {
+                    _listingPageConfig.EnableResetButton = false;
+                    _listingPageConfig.EnableNewButton = (DynamicListCtrl.isNewButton == true) ? true : false;
+                    _listingPageConfig.EnableClearButton = false;
+                    _listingPageConfig.EnableSearch = false;
+                    _listingPageConfig.EnableSystemFavoriteFilter = false;
+                    _listingPageConfig.EnableUserFavoriteFilter = false;
+                    _listingPageConfig.EnableExport = false;
+                    _listingPageConfig.EnableRecent = false;
+                    _listingPageConfig.EnableGridColumns = false;
+                    _listingPageConfig.EnableSaveAsFilterButton = false;
+                    _listingPageConfig.EnableFilterFields = false;
+                    _listingPageConfig.EnableSchedule = false;
 
-                if (DynamicListCtrl.mode == 1 && DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.OtherConfig.ListingPageConfig.EnableRecentFilter) {
-                    GetRecentFilterList();
-                }
-                if (DynamicListCtrl.mode == 1 && DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.OtherConfig.ListingPageConfig.EnableExport) {
-                    GetExportList();
-                    GetStandardExportList();
-                }
-
-                if (DynamicListCtrl.mode == 1 && DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.OtherConfig.ListingPageConfig.EnableSystemDefaultFilter) {
-                    GetSystemFilterList();
-                }
-                if (DynamicListCtrl.mode == 1 && DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.OtherConfig.ListingPageConfig.EnableUserDefaultFilter) {
-                    GetUserFilterList();
-                }
-            });
-        }
-
-        function GetRecentFilterList() {
-            DynamicListCtrl.ePage.Masters.DynamicList.Header.RecentFilter.ListSource = undefined;
-            var _filter = {
-                EntitySource: DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.OtherConfig.FilterConfig.EntitySource,
-                BasedOn_FK: authService.getUserInfo().UserPK,
-                BasedOnCode: authService.getUserInfo().UserId
-            };
-            var _input = {
-                "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.SecRecentItems.API.FindAll.FilterID
-            };
-            let _api = authService.getUserInfo().AppCode === "TC" ? "authAPI": "eAxisAPI";
-            
-            apiService.post(_api, appConfig.Entities.SecRecentItems.API.FindAll.Url, _input).then(function (response) {
-                if (response.data.Response) {
-                    DynamicListCtrl.ePage.Masters.DynamicList.Header.RecentFilter.ListSource = response.data.Response;
-                } else {
-                    DynamicListCtrl.ePage.Masters.DynamicList.Header.RecentFilter.ListSource = [];
-                }
-            });
-        }
-
-        function GetSystemFilterList() {
-            DynamicListCtrl.ePage.Masters.DynamicList.Header.SystemFilter.ListSource = undefined;
-            var _filter = {
-                "EntitySource": "QUERY",
-                "SourceEntityRefKey": DynamicListCtrl.dataentryName,
-                "TypeCode": DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.DataEntry_PK,
-                "SAP_FK": authService.getUserInfo().AppPK,
-                "TenantCode": authService.getUserInfo().TenantCode
-            };
-            var _input = {
-                "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.AppSettings.API.FindAll.FilterID
-            };
-
-            apiService.post("eAxisAPI", appConfig.Entities.AppSettings.API.FindAll.Url + authService.getUserInfo().AppPK, _input).then(function (response) {
-                if (response.data.Response) {
-                    DynamicListCtrl.ePage.Masters.DynamicList.Header.SystemFilter.ListSource = response.data.Response;
-
-                    if (DynamicListCtrl.ePage.Masters.DynamicList.Header.SystemFilter.ListSource.length > 0) {
-                        MergeSystemUserSettings(DynamicListCtrl.ePage.Masters.DynamicList.Header.SystemFilter.ListSource);
+                    if (DynamicListCtrl.mode == 2) {
+                        _listingPageConfig.EnableAttachButton = false;
+                    } else if (DynamicListCtrl.mode == 3) {
+                        _listingPageConfig.EnableAttachButton = true;
                     }
-                } else {
-                    DynamicListCtrl.ePage.Masters.DynamicList.Header.SystemFilter.ListSource = [];
                 }
-            });
-        }
 
-        function GetUserFilterList() {
-            DynamicListCtrl.ePage.Masters.DynamicList.Header.UserFilter.ListSource = undefined;
-            var _filter = {
-                "SAP_FK": authService.getUserInfo().AppPK,
-                "TenantCode": authService.getUserInfo().TenantCode,
-                "EntitySource": DynamicListCtrl.dataentryName.toUpperCase() + "_FAVORITES",
-                "SourceEntityRefKey": authService.getUserInfo().UserId,
-                "TypeCode": DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.DataEntry_PK,
-            };
-            var _input = {
-                "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.UserSettings.API.FindAll.FilterID
-            };
-
-            apiService.post("eAxisAPI", appConfig.Entities.UserSettings.API.FindAll.Url + authService.getUserInfo().AppPK, _input).then(function (response) {
-                if (response.data.Response) {
-                    DynamicListCtrl.ePage.Masters.DynamicList.Header.UserFilter.ListSource = response.data.Response;
-
-                    DynamicListCtrl.ePage.Masters.DynamicList.Header.UserFilter.ListSource.map(x => {
-                        x.UpdateBtnTxt = "Update";
-                        x.IsDisableUpdateBtn = false;
-                    });
-
-                    if (DynamicListCtrl.ePage.Masters.DynamicList.Header.UserFilter.ListSource.length > 0) {
-                        MergeSystemUserSettings(DynamicListCtrl.ePage.Masters.DynamicList.Header.UserFilter.ListSource);
-                    }
-                } else {
-                    DynamicListCtrl.ePage.Masters.DynamicList.Header.UserFilter.ListSource = [];
-                }
-            });
-        }
-
-        function MergeSystemUserSettings($item) {
-            if ($item) {
-                if ($item.length > 0) {
-                    $item.map(function (value, key) {
-                        DynamicListCtrl.ePage.Masters.DynamicList.Header.FavoriteShortcutFilter.ListSource.map(function (val, key) {
-                            if ((val.EntitySource === DynamicListCtrl.dataentryName.toUpperCase() + "_SHORTCUT") && (val.Value === value.PK)) {
-                                value.IsStarred = true;
-                            }
-                        });
-
-                        if (DynamicListCtrl.ePage.Masters.DynamicList.Filter.AppUserDefaultFilter) {
-                            if (value.Key == DynamicListCtrl.ePage.Masters.DynamicList.Filter.AppUserDefaultFilter.Key) {
-                                value.IsDefaultFilter = true;
-                            }
-                        }
-
-                        DynamicListCtrl.ePage.Masters.DynamicList.Header.SystemUserFavouriteList.ListSource.push(value);
-                    });
-                }
+                DynamicListCtrl.ePage.Masters.VisibleItems = _listingPageConfig;
             }
         }
 
-        function GetFavoriteCount(obj, $index) {
-            if (obj.Value) {
-                var _data;
-                if (typeof obj.Value == "string") {
-                    _data = JSON.parse(obj.Value);
-                }
-                if (_data.ShowCount) {
-                    obj.ShowCount = _data.ShowCount;
-                    obj.IsExcute = _data.IsExcute;
-                    _data.CountInput.map(function (value1, key1) {
-                        if (value1.Type) {
-                            if (value1.Type == "DateCompare") {
-                                var _val = "";
-                                if (typeof value1.value == "string") {
-                                    _val = JSON.parse(value1.value);
-                                }
-
-                                if (_val.length > 0) {
-                                    _val.map(function (value2, key2) {
-                                        if (value2.FilterInput && value2.FilterInput.length > 0) {
-                                            value2.FilterInput.map(function (value3, key3) {
-                                                value3.Value = $filter('date')(new Date(), APP_CONSTANT.DatePicker.dateFormat);
-                                            });
-                                        }
-                                    });
-                                }
-
-                                value1.value = JSON.stringify(_val);
-                            }
-                        } else {
-                            var _value = "";
-                            if (typeof value1.value == "string") {
-                                _value = value1.value;
-                            } else {
-                                _value = value1.value.toString();
-                            }
-
-                            if (_value.indexOf('@') != -1) {
-                                var _date = helperService.DateFilter(_value);
-                                if (value1.Add && value1.Add.length > 0) {
-                                    value1.Add.map(function (value, key) {
-                                        if (typeof value.Value == "string") {
-                                            value.Value = Number(value.Value);
-                                        }
-                                        switch (value.FieldName) {
-                                            case "Day":
-                                                var d = new Date(_date);
-                                                _date = new Date(d.setDate(d.getDate() + value.Value));
-                                                break;
-                                            case "Month":
-                                                var d = new Date(_date);
-                                                _date = new Date(d.setMonth(d.getMonth() + value.Value));
-                                                break;
-                                            case "Year":
-                                                var d = new Date(_date);
-                                                _date = new Date(d.setFullYear(d.getFullYear() + value.Value));
-                                                break;
-                                            case "Hour":
-                                                var d = new Date(_date);
-                                                _date = new Date(d.setHours(d.getHours() + value.Value));
-                                                break;
-                                            case "Minute":
-                                                var d = new Date(_date);
-                                                _date = new Date(d.setMinutes(d.getMinutes() + value.Value));
-                                                break;
-                                            case "Second":
-                                                var d = new Date(_date);
-                                                _date = new Date(d.setSeconds(d.getSeconds() + value.Value));
-                                                break;
-                                            default:
-                                                _date = new Date(value.Value);
-                                                break;
-                                        }
-                                    });
-                                    value1.value = $filter('date')(new Date(_date), APP_CONSTANT.DatePicker[value1.Format]);
-                                } else {
-                                    value1.value = _date;
-                                }
-                            }
-                        }
-                    });
-
-                    var urlInput = _data.CountAPI;
-                    var StringUrl = '';
-                    urlInput.split('/').map(function (ele) {
-                        var el = ele.charAt(0);
-                        if (el == '@') {
-                            var _urlFilter = helperService.DateFilter(ele);
-                            StringUrl += '/' + _urlFilter;
-                        } else {
-                            StringUrl += '/' + ele;
-                        }
-                    });
-
-                    _data.CountInput.TenantCode = authService.getUserInfo().TenantCode;
-                    var _input = {
-                        "searchInput": _data.CountInput,
-                        "FilterID": _data.CountFilterID
-                    };
-
-                    if (_data.CountRequestMethod == 'get') {
-                        apiService.get("eAxisAPI", StringUrl.substr(1)).then(function (response) {
-                            if (response.data.Response) {
-                                obj.Count = response.data.Response;
-                            }
-                        });
-                    } else {
-                        apiService.post("eAxisAPI", StringUrl.substr(1), _input).then(function (response) {
-                            if (response.data.Response) {
-                                obj.Count = response.data.Response;
-                            }
-                        });
-                    }
-                }
-            }
-        }
-
-        function OnFavoriteClick(obj, type) {
-            if (obj) {
-                DynamicListCtrl.ePage.Masters.DynamicList.Header.UserFilter.ActiveFilter = undefined;
-                DynamicListCtrl.ePage.Masters.DynamicList.Header.SystemFilter.ActiveFilter = undefined;
-                DynamicListCtrl.ePage.Masters.DynamicList.Header.SystemUserFavouriteList.ActiveFilter = obj.Key;
-
-                if (type === "user") {
-                    DynamicListCtrl.ePage.Masters.DynamicList.Header.UserFilter.ActiveFilter = obj.Key;
-                } else if (type === "system") {
-                    DynamicListCtrl.ePage.Masters.DynamicList.Header.SystemFilter.ActiveFilter = obj.Key;
-                } else if (type === "starred") {}
-
-                var _data = obj.Value;
-                if (typeof obj.Value == "string") {
-                    _data = JSON.parse(obj.Value);
-                }
-
-                _data.ExcuteInput.map(function (value1, key1) {
-                    if (value1.Type) {
-                        if (value1.Type == "DateCompare") {
-                            var _val = "";
-                            if (typeof value1.value == "string") {
-                                _val = JSON.parse(value1.value);
-                            }
-
-                            if (_val.length > 0) {
-                                _val.map(function (value2, key2) {
-                                    if (value2.FilterInput && value2.FilterInput.length > 0) {
-                                        value2.FilterInput.map(function (value3, key3) {
-                                            value3.Value = $filter('date')(new Date(), APP_CONSTANT.DatePicker.dateFormat);
-                                        });
-                                    }
-                                });
-                            }
-
-                            value1.value = JSON.stringify(_val);
-                        }
-                    } else {
-                        var _value = "";
-                        if (typeof value1.value == "string") {
-                            _value = value1.value;
-                        } else {
-                            _value = value1.value.toString();
-                        }
-
-                        if (_value.indexOf('@') != -1) {
-                            var _date = helperService.DateFilter(_value);
-                            if (value1.Add && value1.Add.length > 0) {
-                                value1.Add.map(function (value, key) {
-                                    if (typeof value.Value == "string") {
-                                        value.Value = Number(value.Value);
-                                    }
-                                    switch (value.FieldName) {
-                                        case "Day":
-                                            var d = new Date(_date);
-                                            _date = new Date(d.setDate(d.getDate() + value.Value));
-                                            break;
-                                        case "Month":
-                                            var d = new Date(_date);
-                                            _date = new Date(d.setMonth(d.getMonth() + value.Value));
-                                            break;
-                                        case "Year":
-                                            var d = new Date(_date);
-                                            _date = new Date(d.setFullYear(d.getFullYear() + value.Value));
-                                            break;
-                                        case "Hour":
-                                            var d = new Date(_date);
-                                            _date = new Date(d.setHours(d.getHours() + value.Value));
-                                            break;
-                                        case "Minute":
-                                            var d = new Date(_date);
-                                            _date = new Date(d.setMinutes(d.getMinutes() + value.Value));
-                                            break;
-                                        case "Second":
-                                            var d = new Date(_date);
-                                            _date = new Date(d.setSeconds(d.getSeconds() + value.Value));
-                                            break;
-                                        default:
-                                            _date = new Date(value.Value);
-                                            break;
-                                    }
-                                });
-                                value1.value = $filter('date')(new Date(_date), APP_CONSTANT.DatePicker[value1.Format]);
-                            } else {
-                                value1.value = _date;
-                            }
-                        }
-                    }
-                });
-
-                DynamicListCtrl.ePage.Masters.DynamicList.DataEntryForFilter.OtherConfig.CSS.IsAutoListing = true;
-
-                DynamicControlFilter(_data);
-            }
-        }
-
-        function OnFavoriteStarClick(obj, type, isStarred) {
-            if (obj) {
-                var _index = DynamicListCtrl.ePage.Masters.DynamicList.Header.SystemUserFavouriteList.ListSource.map(function (value, key) {
-                    return value.PK;
-                }).indexOf(obj.PK);
-
-                if (_index !== -1) {
-                    if (!isStarred) {
-                        var _count = 0;
-                        DynamicListCtrl.ePage.Masters.DynamicList.Header.SystemUserFavouriteList.ListSource.map(function (val, key) {
-                            _count += val.IsStarred ? 1 : 0;
-                        });
-
-                        if (_count < 3) {
-                            var _input = {
-                                "EntitySource": DynamicListCtrl.dataentryName.toUpperCase() + "_SHORTCUT",
-                                "Key": obj.Key,
-                                "Value": obj.PK,
-                                "SAP_FK": authService.getUserInfo().AppPK,
-                                "TenantCode": authService.getUserInfo().TenantCode,
-                                "SourceEntityRefKey": authService.getUserInfo().UserId,
-                                "TypeCode": DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.DataEntry_PK,
-                            };
-
-                            apiService.post("eAxisAPI", appConfig.Entities.UserSettings.API.Upsert.Url + authService.getUserInfo().AppPK, [_input]).then(function (response) {
-                                if (response.data.Response) {
-                                    if (response.data.Response.length > 0) {
-                                        DynamicListCtrl.ePage.Masters.DynamicList.Header.SystemUserFavouriteList.ListSource[_index].IsStarred = true;
-                                        var _obj = angular.copy(response.data.Response[0]);
-                                        DynamicListCtrl.ePage.Masters.DynamicList.Header.FavoriteShortcutFilter.ListSource.push(_obj);
-                                    }
-                                }
-                            });
-                        } else {
-                            toastr.warning("Cannot add more than 3 favourites", "Favourite Starred");
-                        }
-                    } else {
-                        DynamicListCtrl.ePage.Masters.DynamicList.Header.FavoriteShortcutFilter.ListSource.map(function (value, key) {
-                            if (value.Value === obj.PK && value.Key === obj.Key) {
-                                var _input = value;
-                                _input.IsDeleted = true;
-                                _input.IsModified = true;
-
-                                apiService.post("eAxisAPI", appConfig.Entities.UserSettings.API.Upsert.Url + authService.getUserInfo().AppPK, [_input]).then(function (response) {
-                                    if (response.data.Response) {
-                                        DynamicListCtrl.ePage.Masters.DynamicList.Header.SystemUserFavouriteList.ListSource[_index].IsStarred = false;
-                                    }
-                                });
-                            }
-                        });
-                    }
-                }
-            }
-        }
-
-        function DeleteUserFavoritesConfirmation($item) {
-            var modalOptions = {
-                closeButtonText: 'Cancel',
-                actionButtonText: 'Ok',
-                headerText: 'Delete?',
-                bodyText: 'Are you sure?'
-            };
-
-            confirmation.showModal({}, modalOptions)
-                .then(function (result) {
-                    DeleteUserFavorites($item);
-                }, function () {
-                    console.log("Cancelled");
-                });
-        }
-
-        function DeleteUserFavorites($item) {
-            if ($item) {
-                var _input = {
-                    "PK": $item.PK,
-                    "IsModified": true,
-                    "IsDeleted": true
-                };
-
-                apiService.post("eAxisAPI", appConfig.Entities.UserSettings.API.Upsert.Url + authService.getUserInfo().AppPK, [_input]).then(function (response) {
-                    if (response.data.Response) {
-                        var _indexUser = DynamicListCtrl.ePage.Masters.DynamicList.Header.UserFilter.ListSource.map(function (value, key) {
-                            return value.PK;
-                        }).indexOf($item.PK);
-
-                        if (_indexUser != -1) {
-                            DynamicListCtrl.ePage.Masters.DynamicList.Header.UserFilter.ListSource.splice(_indexUser, 1);
-                        }
-
-                        var _index = DynamicListCtrl.ePage.Masters.DynamicList.Header.SystemUserFavouriteList.ListSource.map(function (value, key) {
-                            return value.PK;
-                        }).indexOf($item.PK);
-
-                        if (_index != -1) {
-                            DynamicListCtrl.ePage.Masters.DynamicList.Header.SystemUserFavouriteList.ListSource.splice(_index, 1);
-                        }
-                        toastr.success("Favorite Removed Successfully...!");
-                    }
-                });
-            }
-        }
-
-        function OnRecentFavoriteClick($item) {
-            var _obj = {
-                action: "dblClick",
-                data: {
-                    entity: {
-                        PK: $item.EntityRefKey,
-                        [DynamicListCtrl.ePage.Masters.DynamicList.DataEntryCopy.GridConfig.StarredKeyField]: $item.EntityRefCode
-                    }
-                }
-            };
-
-            SelectedGridRow(_obj);
-        }
-
-        function SetUserDeafultFilter($item, type, isdefaultFilter) {
-            var _item = $item;
-            if (_item && _item.Value) {
-                if (typeof _item.Value == "string") {
-                    _item.Value = JSON.parse(_item.Value);
-                }
-
-                if (_item.Value.ExcuteInput) {
-                    if (!isdefaultFilter) {
-                        var _isExist = DynamicListCtrl.ePage.Masters.DynamicList.Header.SystemUserFavouriteList.ListSource.some(function (value, key) {
-                            return value.IsDefaultFilter;
-                        });
-
-                        if (_isExist) {
-                            DynamicListCtrl.ePage.Masters.DynamicList.Header.SystemUserFavouriteList.ListSource.map(function (value, key) {
-                                if (value.IsDefaultFilter) {
-                                    SaveUserDefaultSearchFilter(_item, "delete", "deleteAndInsert");
-                                }
-                            });
-                        } else {
-                            SaveUserDefaultSearchFilter(_item, "insert", "insert");
-                        }
-                    } else {
-                        SaveUserDefaultSearchFilter(_item, "delete", "delete");
-                    }
-                }
-            }
-        }
-
-        function SaveUserDefaultSearchFilter($item, type, mode) {
-            if ($item) {
-                var _searhInput = {},
-                    _input = {};
-
-                $item.Value.ExcuteInput.map(function (value, key) {
-                    _searhInput[value.FieldName] = value.value;
-                });
-
-                if (type == "delete") {
-                    _input = angular.copy(DynamicListCtrl.ePage.Masters.DynamicList.Filter.AppUserDefaultFilter);
-                    _input.IsModified = true;
-                    _input.IsDeleted = true;
-                    if (_input.Value) {
-                        _input.Value = JSON.stringify(_input.Value);
-                    }
-                } else if (type == "insert") {
-                    var _obj = {
-                        "SAP_FK": authService.getUserInfo().AppPK,
-                        "AppCode": authService.getUserInfo().AppCode,
-                        "TenantCode": authService.getUserInfo().TenantCode,
-                        "SourceEntityRefKey": authService.getUserInfo().UserId,
-                        "EntitySource": DynamicListCtrl.dataentryName.toUpperCase() + "_DEFAULTSEARCHFILTER",
-                        "TypeCode": DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.DataEntry_PK,
-                        "Key": $item.Key,
-                        "Value": JSON.stringify(_searhInput),
-                        "IsJSON": true,
-                        "IsModified": true
-                    };
-                    _input = _obj;
-                }
-            }
-
-            apiService.post("eAxisAPI", appConfig.Entities.UserSettings.API.Upsert.Url + authService.getUserInfo().AppPK, [_input]).then(function (response) {
-                if (response.data.Response) {
-                    if (type == "delete") {
-                        DynamicListCtrl.ePage.Masters.DynamicList.Header.SystemUserFavouriteList.ListSource.map(function (value, key) {
-                            if (value.IsDefaultFilter) {
-                                value.IsDefaultFilter = false;
-                            }
-                        });
-
-                        DynamicListCtrl.ePage.Masters.DynamicList.Filter.AppUserDefaultFilter = undefined;
-                        DynamicListCtrl.ePage.Masters.DynamicList.Filter.UserDefaultFilter = undefined;
-                        DynamicListCtrl.ePage.Masters.DynamicList.Filter.AppDefaultFilter = undefined;
-
-                        if (mode == "deleteAndInsert") {
-                            SaveUserDefaultSearchFilter($item, "insert");
-                        }
-                    } else if (type == "insert") {
-                        if (response.data.Response.length > 0) {
-                            DynamicListCtrl.ePage.Masters.DynamicList.Filter.AppUserDefaultFilter = response.data.Response[0];
-                            $item.Value = JSON.stringify($item.Value);
-                            $item.IsDefaultFilter = true;
-                        }
-                    }
-                }
-            });
-        }
-
-        function UpdateUserFavorite($item) {
-            $item.UpdateBtnTxt = "Please Wait...";
-            $item.IsDisableUpdateBtn = true;
-            let _input = $item;
-            _input.IsModified = true;
-
-            apiService.post("eAxisAPI", appConfig.Entities.UserSettings.API.Upsert.Url + authService.getUserInfo().AppPK, [_input]).then(function (response) {
-                if (response.data.Response && response.data.Response.length > 0) {
-                    let _response = response.data.Response[0];
-                    _response.UpdateBtnTxt = "Update";
-                    _response.IsDisableUpdateBtn = false;
-                    let _index = DynamicListCtrl.ePage.Masters.DynamicList.Header.UserFilter.ListSource.findIndex(x => x.PK === _response.PK);
-
-                    if (_index != -1) {
-                        DynamicListCtrl.ePage.Masters.DynamicList.Header.UserFilter.ListSource[_index] = _response;
-                    }
-                    toastr.success("Updated Successfully...!");
-                } else {
-                    toastr.error("Failed to Save...!");
-                }
-
-                $item.UpdateBtnTxt = "Update";
-                $item.IsDisableUpdateBtn = false;
-                $item.IsEditLabel = false;
-            });
-        }
-
-        function UpdateUserFavoriteWithFilterAndGridColumn($item) {
-            $item.UpdateBtnTxt = "Please Wait...";
-            $item.IsDisableUpdateBtn = true;
-            let _input = angular.copy($item);
-            let _value = _input.Value ? JSON.parse(_input.Value) : _input.Value = {};
-            let _filterData = {};
-
-            DynamicListCtrl.ePage.Masters.DynamicList.DataEntryForFilter.Entities.map(x => {
-                if (x.Data)
-                    Object.assign(_filterData, x.Data)
-            });
-
-            _value.Column = DynamicListCtrl.ePage.Masters.DynamicList.DataEntryForFilter.GridConfig.Header;
-            _value.IsAutoListing = (DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.OtherConfig.CSS.IsAutoListing) ? true : false;
-            _value.ExcuteInput = helperService.createToArrayOfObject(_filterData);
-            _value.CountInput = helperService.createToArrayOfObject(_filterData);
-
-            _input.IsModified = true;
-            _input.Value = JSON.stringify(_value);
-
-            apiService.post("eAxisAPI", appConfig.Entities.UserSettings.API.Upsert.Url + authService.getUserInfo().AppPK, [_input]).then(function (response) {
-                if (response.data.Response && response.data.Response.length > 0) {
-                    let _response = response.data.Response[0];
-                    _response.UpdateBtnTxt = "Update";
-                    _response.IsDisableUpdateBtn = false;
-                    let _index = DynamicListCtrl.ePage.Masters.DynamicList.Header.UserFilter.ListSource.findIndex(x => x.PK === _response.PK);
-
-                    if (_index != -1) {
-                        DynamicListCtrl.ePage.Masters.DynamicList.Header.UserFilter.ListSource[_index] = _response;
-                    }
-                    toastr.success("Updated Successfully...!");
-                } else {
-                    toastr.error("Failed to Save...!");
-                }
-
-                $item.UpdateBtnTxt = "Update";
-                $item.IsDisableUpdateBtn = false;
-            });
-        }
-
-        // Button Actins
+        // #region Button Actions
         function OnRefreshBtnClick() {
-            DynamicListCtrl.ePage.Masters.DynamicList.Grid.CustomToolbarInput = undefined;
-            DynamicListCtrl.ePage.Masters.DynamicList.Grid.IsCustomToolbar = false;
-            DynamicListCtrl.ePage.Masters.DynamicList.Grid.StandardMenuInput = undefined;
-            DynamicListCtrl.ePage.Masters.DynamicList.Grid.IsStandardToolbar = false;
-            ApplyFilter();
+            PrepareGridInfo();
         }
 
         function OnResetBtnClick() {
-            DynamicListCtrl.ePage.Masters.DynamicList.Grid.CustomToolbarInput = undefined;
-            DynamicListCtrl.ePage.Masters.DynamicList.Grid.IsCustomToolbar = false;
-            DynamicListCtrl.ePage.Masters.DynamicList.Grid.StandardMenuInput = undefined;
-            DynamicListCtrl.ePage.Masters.DynamicList.Grid.IsStandardToolbar = false;
-            ClearFilterInput();
+            DynamicListCtrl.ePage.Masters.Header.ActiveFilter = null;
+            DynamicListCtrl.ePage.Masters.DataEntry.DefaultFilter = {};
+            DynamicListCtrl.ePage.Masters.Search.EntityInfo = null;
+            PrepareGridInfo();
+        }
 
-            DynamicListCtrl.ePage.Masters.DynamicList.Header.UserFilter.ActiveFilter = undefined;
-            DynamicListCtrl.ePage.Masters.DynamicList.Header.SystemFilter.ActiveFilter = undefined;
-            DynamicListCtrl.ePage.Masters.DynamicList.Header.SystemUserFavouriteList.ActiveFilter = undefined;
-
-            if (DynamicListCtrl.ePage.Masters.DynamicList.CustomizeGrid.IsAutoListing) {
-                DynamicListCtrl.ePage.Masters.DynamicList.DataEntryForFilter.OtherConfig.CSS.IsAutoListing = DynamicListCtrl.ePage.Masters.DynamicList.CustomizeGrid.IsAutoListing;
-            }
-
-            $timeout(function () {
-                if (DynamicListCtrl.ePage.Masters.DynamicList.BaseFilter) {
-                    DynamicListCtrl.ePage.Masters.DynamicList.DataEntryForFilter.Entities.map(function (value, key) {
-                        if (!value.Data) {
-                            value.Data = {};
-                        }
-                        for (var x in DynamicListCtrl.ePage.Masters.DynamicList.BaseFilter) {
-                            value.Data[x] = DynamicListCtrl.ePage.Masters.DynamicList.BaseFilter[x];
-                            // DynamicListCtrl.ePage.Masters.DynamicList.Filter.DefaultFilter["IsDisabled" + x] = true;
-                            DynamicListCtrl.ePage.Masters.DynamicList.BaseFilterFields["IsDisabled" + x] = true;
-                        }
-                    });
-                }
-
-                if (DynamicListCtrl.ePage.Masters.DynamicList.Filter.AppUserDefaultFilter) {
-                    DynamicListCtrl.ePage.Masters.DynamicList.DataEntryForFilter.Entities.map(function (value, key) {
-                        if (!value.Data) {
-                            value.Data = {};
-                        }
-                        for (var x in DynamicListCtrl.ePage.Masters.DynamicList.Filter.AppUserDefaultFilter.Value) {
-                            value.Data[x] = DynamicListCtrl.ePage.Masters.DynamicList.Filter.AppUserDefaultFilter.Value[x];
-                        }
-                    });
-                }
-
-                DynamicControlFilter();
-            });
+        function OnFilterBtnClick() {
+            ToggleFilterSideBar();
         }
 
         function OnNewBtnClick() {
@@ -1141,668 +178,785 @@
         }
 
         function OnAttachBtnClick() {
-            if (DynamicListCtrl.ePage.Masters.DynamicList.Grid.SelectedItemList) {
-                if (DynamicListCtrl.ePage.Masters.DynamicList.Grid.SelectedItemList.length > 0) {
-                    DynamicListCtrl.selectedGridRow({
-                        $item: {
-                            action: "multiSelect",
-                            data: DynamicListCtrl.ePage.Masters.DynamicList.Grid.SelectedItem,
-                            items: DynamicListCtrl.ePage.Masters.DynamicList.Grid.SelectedItemList
-                        }
-                    });
-                }
+            if (DynamicListCtrl.ePage.Masters.Grid.SelectedItemList.length > 0) {
+                DynamicListCtrl.selectedGridRow({
+                    $item: {
+                        action: "multiSelect",
+                        data: DynamicListCtrl.ePage.Masters.Grid.SelectedItem,
+                        items: DynamicListCtrl.ePage.Masters.Grid.SelectedItemList
+                    }
+                });
             }
-        }
-
-        function OnFilterBtnClick() {
-            $('#filterSideBar' + DynamicListCtrl.dataentryName).addClass('open');
         }
         // #endregion
 
-        // #region Customized
-        function InitCustomized() {
-            DynamicListCtrl.ePage.Masters.DynamicList.Customized = {};
-            InitCustomizedGrid();
-            InitCustomizedFilter();
+        // #region Customize Grid Column
+        function SelectAllColumn($event) {
+            let _checkbox = $event.target,
+                _isChecked = _checkbox.checked;
+
+            if (_isChecked) {
+                DynamicListCtrl.ePage.Masters.Header.CustomizeGrid.ListSource.map(value => value.IsVisible = true);
+            } else {
+                DynamicListCtrl.ePage.Masters.Header.CustomizeGrid.ListSource.map(value => value.IsVisible = value.IsMandatory ? true : false);
+            }
         }
 
-        // Customize Grid
-        function InitCustomizedGrid() {
-            DynamicListCtrl.ePage.Masters.DynamicList.CustomizeGrid = {};
-            DynamicListCtrl.ePage.Masters.DynamicList.CustomizeGrid.UserBasedGrid = {};
+        function SaveUserBasedGridColumn() {
+            DynamicListCtrl.ePage.Masters.Header.CustomizeGrid.SaveBtnTxt = "Please Wait...";
+            DynamicListCtrl.ePage.Masters.Header.CustomizeGrid.IsDisableSaveBtn = true;
+            let _column = [];
+            DynamicListCtrl.ePage.Masters.Header.CustomizeGrid.ListSource.map(value => {
+                if (value.IsVisible) {
+                    _column.push(value);
+                }
+            });
 
-            DynamicListCtrl.ePage.Masters.DynamicList.CustomizeGrid.TogglePanel = ToggleCustomizeGrigPanel;
-            DynamicListCtrl.ePage.Masters.DynamicList.CustomizeGrid.Save = SaveCustomizeGridColumn;
-
-            DynamicListCtrl.ePage.Masters.DynamicList.CustomizeGrid.SaveBtnText = "Save";
-            DynamicListCtrl.ePage.Masters.DynamicList.CustomizeGrid.IsSaveBtnDisable = false;
+            if (!DynamicListCtrl.ePage.Masters.Header.CustomizeGrid.UserSetting || !DynamicListCtrl.ePage.Masters.Header.CustomizeGrid.UserSetting.PK) {
+                InsertUserBasedGridColumn(_column);
+            } else {
+                UpdateUserBasedGridColumn(_column);
+            }
         }
 
-        function CustomizeGridColumn() {
-            $(".cusomize-grid-column").addClass("open");
-        }
-
-        function ToggleCustomizeGrigPanel() {
-            $(".cusomize-grid-column").removeClass("open");
-        }
-
-        function GetUserBasedGridColumList() {
-            var _filter = {
-                "SAP_FK": authService.getUserInfo().AppPK,
-                "TenantCode": authService.getUserInfo().TenantCode,
-                "SourceEntityRefKey": authService.getUserInfo().UserId,
-                "EntitySource": DynamicListCtrl.dataentryName.toUpperCase() + "_GRIDCOLUMN",
-                "TypeCode": DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.DataEntry_PK,
+        function InsertUserBasedGridColumn(_column) {
+            let _input = {
+                SAP_FK: authService.getUserInfo().AppPK,
+                AppCode: authService.getUserInfo().AppCode,
+                TenantCode: authService.getUserInfo().TenantCode,
+                SourceEntityRefKey: authService.getUserInfo().UserId,
+                EntitySource: DynamicListCtrl.ePage.Masters.DataEntry.FindConfig.DataEntryName.toUpperCase() + "_GRIDCOLUMN",
+                TypeCode: DynamicListCtrl.ePage.Masters.DataEntry.FindConfig.DataEntry_PK,
+                Key: "GridColumn",
+                Value: JSON.stringify({
+                    Column: _column,
+                    IsAutoListing: DynamicListCtrl.ePage.Masters.Header.CustomizeGrid.IsAutoListing ? true : false
+                }),
+                IsJSON: true,
+                IsModified: true
             };
-            var _input = {
-                "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.UserSettings.API.FindAll.FilterID
-            };
 
-            apiService.post("eAxisAPI", appConfig.Entities.UserSettings.API.FindAll.Url + authService.getUserInfo().AppPK, _input).then(function (response) {
+            apiService.post("eAxisAPI", appConfig.Entities.UserSettings.API.Insert.Url + authService.getUserInfo().AppPK, [_input]).then(response => {
+                if (response.data.Response && response.data.Response.length > 0) {
+                    let _response = response.data.Response[0];
+                    _response.Value = JSON.parse(_response.Value);
+                    DynamicListCtrl.ePage.Masters.Header.CustomizeGrid.UserSetting = _response;
+                    DynamicListCtrl.ePage.Masters.Header.CustomizeGrid.TempListSource = _response.Value.Column;
+                    DynamicListCtrl.ePage.Masters.Grid.IsAutoListing = _response.Value.IsAutoListing;
+                    PrepareGridInfo();
+                } else {
+                    toastr.error("Failed to Save...!");
+                }
+
+                DynamicListCtrl.ePage.Masters.Header.CustomizeGrid.SaveBtnTxt = "Save";
+                DynamicListCtrl.ePage.Masters.Header.CustomizeGrid.IsDisableSaveBtn = false;
+            });
+        }
+
+        function UpdateUserBasedGridColumn(_column) {
+            let _input = DynamicListCtrl.ePage.Masters.Header.CustomizeGrid.UserSetting;
+            _input.IsModified = true;
+            _input.Value = JSON.stringify({
+                Column: _column,
+                IsAutoListing: DynamicListCtrl.ePage.Masters.Header.CustomizeGrid.IsAutoListing ? true : false
+            });
+
+            apiService.post("eAxisAPI", appConfig.Entities.UserSettings.API.Update.Url + authService.getUserInfo().AppPK, _input).then(response => {
                 if (response.data.Response) {
-                    if (response.data.Response.length > 0) {
-                        DynamicListCtrl.ePage.Masters.DynamicList.CustomizeGrid.UserBasedGrid = angular.copy(response.data.Response[0]);
-                        var _value = response.data.Response[0].Value;
-                        if (_value) {
-                            _value = JSON.parse(_value);
-                            var _response = _value;
-
-                            DynamicListCtrl.ePage.Masters.DynamicList.CustomizeGrid.IsAutoListing = _response.IsAutoListing;
-                            DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.OtherConfig.CSS.IsAutoListing = _response.IsAutoListing;
-                            DynamicListCtrl.ePage.Masters.DynamicList.CustomizeGrid.UserBasedGrid.ColumnList = _response.Column;
-
-                            if (_response.Column.length > 0) {
-                                DynamicListCtrl.ePage.Masters.DynamicList.CustomizeGrid.GridColumnAll.map(function (value1, key1) {
-                                    (!value1.IsMandatory) ? value1.IsVisible = false: value1.IsVisible = true;
-
-                                    _response.Column.map(function (value2, key2) {
-                                        if (value1.field == value2.field) {
-                                            value1.IsVisible = true;
-                                            value1.displayName = value2.displayName;
-                                            value1.width = value2.width;
-                                        }
-                                    });
-                                });
-                            }
-                        }
-                    }
-                }
-
-                DynamicListCtrl.ePage.Masters.DynamicList.CustomizeGrid.GridColumn = angular.copy(DynamicListCtrl.ePage.Masters.DynamicList.CustomizeGrid.GridColumnAll);
-
-                if (!DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.OtherConfig.CSS.IsAutoListing) {
-                    DynamicListCtrl.ePage.Masters.DynamicList.Filter.DefaultFilter = {};
-                }
-
-                DynamicControlFilter();
-            });
-        }
-
-        function DynamicControlFilter($item) {
-            var _dataEntryCopy, _defaultFilter = [];
-            DynamicListCtrl.ePage.Masters.DynamicList.DataEntryCopy = undefined;
-
-            if (DynamicListCtrl.ePage.Masters.DynamicList.DataEntryForFilter) {
-                _dataEntryCopy = angular.copy(DynamicListCtrl.ePage.Masters.DynamicList.DataEntryForFilter);
-            } else {
-                _dataEntryCopy = angular.copy(DynamicListCtrl.ePage.Masters.DynamicList.DataEntry);
-            }
-
-            $timeout(function () {
-                if ($item) {
-                    _dataEntryCopy.FilterAPI = $item.API;
-                    _dataEntryCopy.FilterID = $item.FilterID;
-                    _defaultFilter = $item.ExcuteInput;
+                    let _response = response.data.Response;
+                    _response.Value = JSON.parse(_response.Value);
+                    DynamicListCtrl.ePage.Masters.Header.CustomizeGrid.UserSetting = _response;
+                    DynamicListCtrl.ePage.Masters.Header.CustomizeGrid.TempListSource = _response.Value.Column;
+                    DynamicListCtrl.ePage.Masters.Grid.IsAutoListing = _response.Value.IsAutoListing;
+                    PrepareGridInfo();
                 } else {
-                    var _tempArray = [];
-                    var _obj = {
-                        'FilterType': DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.DataEntryName
-                    };
-                    _tempArray.push(helperService.createToArrayOfObject(_obj)[0]);
-
-                    _dataEntryCopy.Entities.map(function (value, key) {
-                        var _list = helperService.createToArrayOfObject(value.Data);
-                        _list.map(function (value, key) {
-                            _tempArray.push(value);
-                        });
-                        _defaultFilter = _tempArray;
-                    });
+                    toastr.error("Failed to Save...!");
                 }
 
-                if ($item && $item.Column) {
-                    _dataEntryCopy.GridConfig.Header = $item.Column;
-                } else if (DynamicListCtrl.ePage.Masters.DynamicList.CustomizeGrid.UserBasedGrid.ColumnList) {
-                    if (DynamicListCtrl.ePage.Masters.DynamicList.CustomizeGrid.UserBasedGrid.ColumnList.length > 0) {
-                        var _colList = [];
-                        _dataEntryCopy.GridConfig.Header.map(function (value1, key1) {
-                            DynamicListCtrl.ePage.Masters.DynamicList.CustomizeGrid.UserBasedGrid.ColumnList.map(function (value2, key2) {
-                                if (value1.field == value2.field) {
-                                    value2 = value1;
-                                    _colList.push(value1);
-                                }
-                            });
-                        });
-
-                        // _dataEntryCopy.GridConfig.Header = _colList;
-                        _dataEntryCopy.GridConfig.Header = DynamicListCtrl.ePage.Masters.DynamicList.CustomizeGrid.UserBasedGrid.ColumnList;
-                    }
-                } else {
-                    _dataEntryCopy.GridConfig.Header = DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.GridConfig.Header;
-                }
-
-                if (_dataEntryCopy.GridConfig.Header.length > 0) {
-                    DynamicListCtrl.ePage.Masters.DynamicList.CustomizeGrid.GridColumnAll.map(function (value1, key1) {
-                        (!value1.IsMandatory) ? value1.IsVisible = false: value1.IsVisible = true;
-
-                        _dataEntryCopy.GridConfig.Header.map(function (value2, key2) {
-                            if (value1.field == value2.field) {
-                                value1.IsVisible = true;
-                                value1.displayName = value2.displayName;
-                                value1.width = value2.width;
-                            }
-                        });
-                    });
-                }
-
-                DynamicListCtrl.ePage.Masters.DynamicList.CustomizeGrid.GridColumn = DynamicListCtrl.ePage.Masters.DynamicList.CustomizeGrid.GridColumnAll;
-                DynamicListCtrl.ePage.Masters.DynamicList.CustomizeGrid.IsAutoListing = $item ? $item.IsAutoListing : true;
-                DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.OtherConfig.CSS.IsAutoListing = $item ? $item.IsAutoListing : true;
-
-                if (DynamicListCtrl.ePage.Masters.DynamicList.Search.EntityInfo && DynamicListCtrl.ePage.Masters.DynamicList.Search.IsDisableSearchBtn) {
-                    let _entityInfo = {
-                        "FieldName": "EntityInfo",
-                        "value": DynamicListCtrl.ePage.Masters.DynamicList.Search.EntityInfo
-                    }
-                    let _index = _defaultFilter.findIndex(x => x.FieldName === "EntityInfo");
-                    _index === -1 ?  _defaultFilter.push(_entityInfo) : _defaultFilter[_index] = _entityInfo;
-                } else {
-                    let _index = _defaultFilter.findIndex(x => x.FieldName === "EntityInfo");
-
-                    if (_index !== -1) {
-                        _defaultFilter.splice(_index, 1);
-                    }
-                    DynamicListCtrl.ePage.Masters.DynamicList.Search.EntityInfo = undefined;
-                }
-
-                let _filterObj = {};
-                _defaultFilter.map(x => _filterObj[x.FieldName] = x.value);
-                _dataEntryCopy.Entities.map(x => Object.assign(x.Data, _filterObj));
-
-                _defaultFilter = _defaultFilter.filter((thing, index, self) => index === self.findIndex(t => t.FieldName === thing.FieldName));
-
-                DynamicListCtrl.ePage.Masters.DynamicList.DataEntryCopy = _dataEntryCopy;
-                DynamicListCtrl.ePage.Masters.DynamicList.DataEntryForFilter = angular.copy(_dataEntryCopy);
-                DynamicListCtrl.ePage.Masters.DynamicList.DefaultFilter = _defaultFilter;
-
-                DynamicListCtrl.ePage.Masters.DynamicList.Search.IsDisableSearchBtn = false;
-
-                let _filterForSchedule = [];
-                DynamicListCtrl.ePage.Masters.DynamicList.DefaultFilter.map(x => {
-                    let _obj = {
-                        "UIField": x.FieldName,
-                        "DbField": x.FieldName,
-                        "Value": x.value
-                    };
-                    _filterForSchedule.push(_obj);
-                });
-                DynamicListCtrl.ePage.Masters.DynamicList.Export.SearchInput = _filterForSchedule;
-
-                if (DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.OtherConfig.Parties) {
-                    if (DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.OtherConfig.Parties.IsEnableParties) {
-                        if (DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.OtherConfig.Parties.FKField) {
-                            var _party = [{
-                                SField: DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.OtherConfig.Parties.FKField,
-                                EField: "Party_Pk"
-                            }, {
-                                SField: DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.OtherConfig.Parties.CodeField,
-                                EField: "Party_Code"
-                            }];
-
-                            if (!DynamicListCtrl.ePage.Masters.DynamicList.DefaultFilter) {
-                                DynamicListCtrl.ePage.Masters.DynamicList.DefaultFilter = [];
-                            }
-
-                            // if (DynamicListCtrl.ePage.Masters.DynamicList.Parties.ActivePartyType) {
-                            //     _party.map(function (value, key) {
-                            //         // if (value.SField == "PartyType_FK") {
-                            //             var _filter = {
-                            //                 FieldName: value.SField,
-                            //                 Value: DynamicListCtrl.ePage.Masters.DynamicList.Parties.ActivePartyType[value.EField]
-                            //             };
-
-                            //             DynamicListCtrl.ePage.Masters.DynamicList.DefaultFilter.push(_filter);
-                            //         // }
-                            //     });
-                            // }
-                        }
-                    }
-                }
+                DynamicListCtrl.ePage.Masters.Header.CustomizeGrid.SaveBtnTxt = "Save";
+                DynamicListCtrl.ePage.Masters.Header.CustomizeGrid.IsDisableSaveBtn = false;
             });
         }
 
-        function SaveCustomizeGridColumn() {
-            if (DynamicListCtrl.ePage.Masters.DynamicList.CustomizeGrid.GridColumn && DynamicListCtrl.ePage.Masters.DynamicList.CustomizeGrid.GridColumn.length > 0) {
-                DynamicListCtrl.ePage.Masters.DynamicList.CustomizeGrid.SaveBtnText = "Please Wait...";
-                DynamicListCtrl.ePage.Masters.DynamicList.CustomizeGrid.IsSaveBtnDisable = true;
-
-                var _column = [];
-                DynamicListCtrl.ePage.Masters.DynamicList.CustomizeGrid.GridColumn.map(function (value, key) {
-                    if (value.IsVisible) {
-                        _column.push(value);
-                    }
-                });
-
-                DynamicListCtrl.ePage.Masters.DynamicList.CustomizeGrid.UserBasedGrid.ColumnList = angular.copy(_column);
-                DynamicListCtrl.ePage.Masters.DynamicList.CustomizeGrid.IsAutoListing = angular.copy(DynamicListCtrl.ePage.Masters.DynamicList.CustomizeGrid.IsAutoListing);
-                DynamicListCtrl.ePage.Masters.DynamicList.DataEntryForFilter.OtherConfig.CSS.IsAutoListing = DynamicListCtrl.ePage.Masters.DynamicList.CustomizeGrid.IsAutoListing;
-
-                // if (!DynamicListCtrl.ePage.Masters.DynamicList.DataEntryForFilter.OtherConfig.CSS.IsAutoListing) {
-                //     DynamicListCtrl.ePage.Masters.DynamicList.Filter.DefaultFilter = {};
-                // }
-                // DynamicControlFilter();
-                // DynamicListCtrl.ePage.Masters.DynamicList.CustomizeGrid.SaveBtnText = "Save";
-                // DynamicListCtrl.ePage.Masters.DynamicList.CustomizeGrid.IsSaveBtnDisable = false;
-
-                if (DynamicListCtrl.ePage.Masters.DynamicList.CustomizeGrid.UserBasedGrid.PK) {
-                    var _input = DynamicListCtrl.ePage.Masters.DynamicList.CustomizeGrid.UserBasedGrid;
-                    if (typeof _input.Value == "string") {
-                        _input.Value = JSON.parse(_input.Value);
-                    }
-                    _input.Value.Column = _column;
-                    _input.Value.IsAutoListing = DynamicListCtrl.ePage.Masters.DynamicList.CustomizeGrid.IsAutoListing;
-                    _input.Value = JSON.stringify(_input.Value);
-                    _input.IsModified = true;
-                } else {
-                    var _input = {
-                        "SAP_FK": authService.getUserInfo().AppPK,
-                        "AppCode": authService.getUserInfo().AppCode,
-                        "TenantCode": authService.getUserInfo().TenantCode,
-                        "SourceEntityRefKey": authService.getUserInfo().UserId,
-                        "EntitySource": DynamicListCtrl.dataentryName.toUpperCase() + "_GRIDCOLUMN",
-                        "TypeCode": DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.DataEntry_PK,
-                        "Key": "GridColumn",
-                        "Value": {
-                            "Column": _column,
-                            'IsAutoListing': (DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.OtherConfig.CSS.IsAutoListing) ? true : false
-                        },
-                        "IsJSON": true,
-                        "IsModified": true
-                    };
-                    _input.Value = JSON.stringify(_input.Value);
-                }
-
-                apiService.post("eAxisAPI", appConfig.Entities.UserSettings.API.Upsert.Url + authService.getUserInfo().AppPK, [_input]).then(function (response) {
-                    if (response.data.Response) {
-                        if (response.data.Response.length > 0) {
-                            DynamicListCtrl.ePage.Masters.DynamicList.CustomizeGrid.UserBasedGrid = angular.copy(response.data.Response[0]);
-                            var _value = response.data.Response[0].Value;
-                            if (_value) {
-                                _value = JSON.parse(_value);
-                                DynamicListCtrl.ePage.Masters.DynamicList.CustomizeGrid.UserBasedGrid.ColumnList = angular.copy(_value.Column);
-                                DynamicListCtrl.ePage.Masters.DynamicList.CustomizeGrid.IsAutoListing = angular.copy(_value.IsAutoListing);
-                                DynamicListCtrl.ePage.Masters.DynamicList.DataEntryForFilter.OtherConfig.CSS.IsAutoListing = _value.IsAutoListing;
-                            }
-                        }
-                    }
-
-                    DynamicListCtrl.ePage.Masters.DynamicList.CustomizeGrid.SaveBtnText = "Save";
-                    DynamicListCtrl.ePage.Masters.DynamicList.CustomizeGrid.IsSaveBtnDisable = false;
-                    ToggleCustomizeGrigPanel();
-
-                    if (!DynamicListCtrl.ePage.Masters.DynamicList.DataEntryForFilter.OtherConfig.CSS.IsAutoListing) {
-                        DynamicListCtrl.ePage.Masters.DynamicList.Filter.DefaultFilter = {};
-                    }
-                    DynamicControlFilter();
-                });
-            }
-        }
-
-        // Customize Filter
-        function InitCustomizedFilter() {
-            DynamicListCtrl.ePage.Masters.DynamicList.CustomizeList = {};
-            DynamicListCtrl.ePage.Masters.DynamicList.CustomizeList.SaveFilterDislike = SaveFilterDislike;
-        }
-
-        function SaveFilterDislike($item) {
-            var _input = {
-                "SourceEntityRefKey": authService.getUserInfo().UserId,
-                "EntitySource": DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.DataEntryName.toUpperCase() + "_FILTERDISLIKE",
-                "TypeCode": DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.DataEntry_PK,
-                "Key": $item.FieldName,
-                "IsJSON": false,
-                "IsModified": true,
-                "Value": $item.DataEntryPK,
-                "SAP_FK": authService.getUserInfo().AppPK,
-                "AppCode": authService.getUserInfo().AppCode,
-                "TenantCode": authService.getUserInfo().TenantCode
-            };
-
-            if (!$item.Include) {
-                _input.IsDeleted = false;
-
-                apiService.post("eAxisAPI", appConfig.Entities.UserSettings.API.Upsert.Url + authService.getUserInfo().AppPK, [_input]).then(function (response) {
-                    if (response.data.Response) {
-                        $item.Include_FK = response.data.Response[0].PK;
-                    }
-                });
-            } else if ($item.Include) {
-                _input.IsDeleted = true;
-                _input.PK = $item.Include_FK;
-
-                apiService.post("eAxisAPI", appConfig.Entities.UserSettings.API.Upsert.Url + authService.getUserInfo().AppPK, [_input]).then(function (response) {});
-            }
-        }
-        // #endregion
-
-        // #region Filter
-        function InitFilter() {
-            DynamicListCtrl.ePage.Masters.DynamicList.Filter = {};
-
-            DynamicListCtrl.ePage.Masters.DynamicList.Filter.ViewType = 1;
-            DynamicListCtrl.ePage.Masters.DynamicList.Filter.SaveUserSetting = {
-                Input: {}
-            };
-
-            DynamicListCtrl.ePage.Masters.DynamicList.Filter.TogglePanel = ToggleFilterPanel;
-            DynamicListCtrl.ePage.Masters.DynamicList.Filter.Apply = ApplyFilter;
-            DynamicListCtrl.ePage.Masters.DynamicList.Filter.Clear = ClearFilterInput;
-            DynamicListCtrl.ePage.Masters.DynamicList.Filter.SaveUserSetting.Save = SaveUserSetting;
-
-            DynamicListCtrl.ePage.Masters.DynamicList.Filter.ApplyBtnText = "Apply";
-            DynamicListCtrl.ePage.Masters.DynamicList.Filter.IsApplyBtnDisable = false;
-
-            DynamicListCtrl.ePage.Masters.DynamicList.Filter.SaveUserSetting.SaveSettingBtnText = "Save";
-            DynamicListCtrl.ePage.Masters.DynamicList.Filter.SaveUserSetting.IsDisableSaveSettingBtn = false;
-        }
-
-        function AddFilterControlVisibleDisable() {
-            DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.Entities.map(function (value1, key1) {
-                if (value1.ConfigData && value1.ConfigData.length > 0) {
-                    value1.ConfigData.map(function (value3, key3) {
-                        if (value3.AttributesDetails.DefaultValue) {
-                            switch (value3.AttributesDetails.UIControl) {
-                                case "Lookup":
-                                    value3.AttributesDetails.DefaultValue = JSON.parse(value3.AttributesDetails.DefaultValue);
-
-                                    for (var x in value3.AttributesDetails.DefaultValue) {
-                                        if (x != value3.PropertyName) {
-                                            value1.Data[x] = value3.AttributesDetails.DefaultValue[x];
-                                        }
-                                    }
-
-                                    value1.Data[value3.PropertyName] = value3.AttributesDetails.DefaultValue[value3.PropertyName];
-                                    break;
-                                case "checkbox":
-                                    value1.Data[value3.PropertyName] = (value3.AttributesDetails.DefaultValue == "true") ? true : null;
-                                    break;
-                                default:
-                                    value1.Data[value3.PropertyName] = value3.AttributesDetails.DefaultValue;
-                                    break;
-                            }
-                        } else {
-                            switch (value3.AttributesDetails.UIControl) {
-                                case "tenant":
-                                    value1.Data[value3.PropertyName] = authService.getUserInfo().TenantCode;
-                                    break;
-                                case "user":
-                                    value1.Data[value3.PropertyName] = authService.getUserInfo().UserId;
-                                    break;
-                                default:
-                                    break;
-                            }
-                        }
-                    });
-                }
-                if (DynamicListCtrl.ePage.Masters.DynamicList.Filter.DefaultFilter) {
-                    for (var x in DynamicListCtrl.ePage.Masters.DynamicList.Filter.DefaultFilter) {
-                        value1.Data[x] = DynamicListCtrl.ePage.Masters.DynamicList.Filter.DefaultFilter[x];
-                    }
-                }
-                if ((DynamicListCtrl.mode === 2 || DynamicListCtrl.mode === 3) && dynamicLookupConfig.Entities[DynamicListCtrl.lookupConfigControlKey]) {
-                    if (dynamicLookupConfig.Entities[DynamicListCtrl.lookupConfigControlKey].OtherConfig) {
-                        if (typeof dynamicLookupConfig.Entities[DynamicListCtrl.lookupConfigControlKey].OtherConfig == "string") {
-                            dynamicLookupConfig.Entities[DynamicListCtrl.lookupConfigControlKey].OtherConfig = JSON.parse(dynamicLookupConfig.Entities[DynamicListCtrl.lookupConfigControlKey].OtherConfig);
-                        }
-
-                        value1.CSS = {};
-                        value1.ConfigData.map(function (value2, key2) {
-                            value1.CSS["Is" + value2.PropertyName + "Visible"] = true;
-                            value1.CSS["Is" + value2.PropertyName + "Disable"] = false;
-
-                            if (dynamicLookupConfig.Entities[DynamicListCtrl.lookupConfigControlKey].OtherConfig.CSS) {
-                                var _isEmpty = angular.equals({}, dynamicLookupConfig.Entities[DynamicListCtrl.lookupConfigControlKey].OtherConfig.CSS);
-
-                                if (!_isEmpty) {
-                                    value1.CSS["Is" + value2.PropertyName + "Visible"] = dynamicLookupConfig.Entities[DynamicListCtrl.lookupConfigControlKey].OtherConfig.CSS["Is" + value2.PropertyName + "Visible"];
-                                    value1.CSS["Is" + value2.PropertyName + "Disable"] = dynamicLookupConfig.Entities[DynamicListCtrl.lookupConfigControlKey].OtherConfig.CSS["Is" + value2.PropertyName + "Disable"];
-                                }
-                            }
-                        });
-                    }
-                }
-            });
-        }
-
-        function ToggleFilterPanel() {
-            $('#filterSideBar' + DynamicListCtrl.dataentryName).removeClass('open');
-        }
-
-        function SaveUserSetting() {
-            if (DynamicListCtrl.ePage.Masters.DynamicList.Filter.SaveUserSetting.Input.Key) {
-                var x = DynamicListCtrl.ePage.Masters.DynamicList.DataEntryForFilter.FilterAPI.split("/");
-                x.splice(x.length - 1, 1);
-                var strUrl = x.join("/");
-                var allObj = {};
-                DynamicListCtrl.ePage.Masters.DynamicList.DataEntryForFilter.Entities.map(function (val, key) {
-                    for (var key in val.Data) {
-                        allObj[key] = val.Data[key];
-                    }
-                });
-                var _isEmpty = angular.equals({}, allObj);
-                if (!_isEmpty) {
-                    DynamicListCtrl.ePage.Masters.DynamicList.Filter.SaveUserSetting.SaveSettingBtnText = "Please Wait...";
-                    DynamicListCtrl.ePage.Masters.DynamicList.Filter.SaveUserSetting.IsDisableSaveSettingBtn = true;
-                    var objJson = {
-                        "ExcuteInput": (helperService.createToArrayOfObject(allObj)),
-                        "CountInput": (helperService.createToArrayOfObject(allObj)),
-                        "ShowCount": true,
-                        "ShowInDashboard": true,
-                        "CountAPI": strUrl + '/FindCount',
-                        "CountFilterID": DynamicListCtrl.ePage.Masters.DynamicList.DataEntryForFilter.FilterID,
-                        "CountRequestMethod": "post",
-                        "ExcuteRequestMethod": "post",
-                        "IsExcute": true,
-                        "API": DynamicListCtrl.ePage.Masters.DynamicList.DataEntryForFilter.FilterAPI,
-                        "FilterID": DynamicListCtrl.ePage.Masters.DynamicList.DataEntryForFilter.FilterID,
-                        "CSS": {
-                            "color": "#e7505a",
-                            "icon": "fa fa-star-o"
-                        },
-                        "Column": DynamicListCtrl.ePage.Masters.DynamicList.DataEntryForFilter.GridConfig.Header,
-                        'IsAutoListing': (DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.OtherConfig.CSS.IsAutoListing) ? true : false
-                    };
-                    var _input = [{
-                        "SourceEntityRefKey": authService.getUserInfo().UserId,
-                        "EntitySource": DynamicListCtrl.dataentryName.toUpperCase() + "_FAVORITES",
-                        "TypeCode": DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.DataEntry_PK,
-                        "Key": DynamicListCtrl.ePage.Masters.DynamicList.Filter.SaveUserSetting.Input.Key,
-                        "IsJSON": true,
-                        "IsModified": true,
-                        "Value": JSON.stringify(objJson),
-                        "SAP_FK": authService.getUserInfo().AppPK,
-                        "AppCode": authService.getUserInfo().AppCode,
-                        "TenantCode": authService.getUserInfo().TenantCode
-                    }];
-
-                    apiService.post("eAxisAPI", appConfig.Entities.UserSettings.API.Upsert.Url + authService.getUserInfo().AppPK, _input).then(function (response) {
-                        if (response.data.Response && response.data.Response.length > 0) {
-                            let _response = response.data.Response[0];
-
-                            DynamicListCtrl.ePage.Masters.DynamicList.Header.SystemUserFavouriteList.ListSource.push(response.data.Response[0]);
-                            _response.UpdateBtnTxt = "Update";
-                            _response.IsDisableUpdateBtn = false;
-                            DynamicListCtrl.ePage.Masters.DynamicList.Header.UserFilter.ListSource.push(_response);
-
-                            DynamicListCtrl.ePage.Masters.DynamicList.DataEntryForFilter.IsShowSaveSettingsTxtBox = !DynamicListCtrl.ePage.Masters.DynamicList.DataEntryForFilter.IsShowSaveSettingsTxtBox;
-
-                            DynamicListCtrl.ePage.Masters.DynamicList.Filter.SaveUserSetting.Input = {};
-
-                            DynamicListCtrl.ePage.Masters.DynamicList.Filter.SaveUserSetting.SaveSettingBtnText = "Save";
-                            DynamicListCtrl.ePage.Masters.DynamicList.Filter.SaveUserSetting.IsDisableSaveSettingBtn = false;
-
-                            // ToggleFilterPanel();
-                        }
-                    });
-                } else {
-                    toastr.warning("Please Select at least one field...!");
-                }
-            } else {
-                toastr.warning("Please Enter the Name...");
-            }
-        }
-
-        function ClearFilterInput() {
-            DynamicListCtrl.ePage.Masters.DynamicList.DataEntryCopy.Entities.map(function (value, key) {
-                value.Data = {};
-            });
-            DynamicListCtrl.ePage.Masters.DynamicList.DataEntryForFilter.Entities.map(function (value, key) {
-                value.Data = {};
-            });
-            DynamicListCtrl.ePage.Masters.DynamicList.Filter.SaveUserSetting.Input = {};
-
-            $timeout(function () {
-                if (DynamicListCtrl.ePage.Masters.DynamicList.BaseFilter) {
-                    for (var x in DynamicListCtrl.ePage.Masters.DynamicList.BaseFilter) {
-                        DynamicListCtrl.ePage.Masters.DynamicList.DataEntryForFilter.Entities.map(function (value, key) {
-                            value.Data = DynamicListCtrl.ePage.Masters.DynamicList.BaseFilter;
-                            // value.Data["IsDisabled" + x] = true;
-                            DynamicListCtrl.ePage.Masters.DynamicList.BaseFilterFields["IsDisabled" + x] = true;
-                        });
-                    }
-                }
-                DynamicListCtrl.ePage.Masters.DynamicList.BaseFilter = angular.copy(DynamicListCtrl.baseFilter);
-            });
-        }
-
-        function ApplyFilter(event) {
-            ToggleFilterPanel();
-
-            DynamicListCtrl.ePage.Masters.DynamicList.Header.UserFilter.ActiveFilter = undefined;
-            DynamicListCtrl.ePage.Masters.DynamicList.Header.SystemFilter.ActiveFilter = undefined;
-            DynamicListCtrl.ePage.Masters.DynamicList.Header.SystemUserFavouriteList.ActiveFilter = undefined;
-
-            DynamicListCtrl.ePage.Masters.DynamicList.DataEntryCopy.Filter = [];
-            DynamicListCtrl.ePage.Masters.DynamicList.DataEntryForFilter.Entities.map(function (value1, key1) {
-                value1.ConfigData.map(function (value2, key2) {
-                    if (!value2.Include) {
-                        delete value1.Data[value2.PropertyName];
-                    }
-                });
-
-                for (var x in value1.Data) {
-                    var _filter = {
-                        FieldName: x,
-                        Value: value1.Data[x]
-                    };
-                    DynamicListCtrl.ePage.Masters.DynamicList.DataEntryCopy.Filter.push(_filter);
-                }
-            });
-
-            DynamicListCtrl.ePage.Masters.DynamicList.DataEntryForFilter.OtherConfig.CSS.IsAutoListing = true;
-
-            DynamicListCtrl.ePage.Masters.DynamicList.BaseFilter = angular.copy(DynamicListCtrl.baseFilter);
-
-            if (event && DynamicListCtrl.mode == "1" && DynamicListCtrl.isValidateFilter == true) {
-                let _item = {
-                    SearchInput: DynamicListCtrl.ePage.Masters.DynamicList.DataEntryCopy.Filter,
-                    EntitySource: DynamicListCtrl.ePage.Masters.DynamicList.DataEntryForFilter.DataEntryName + "_" + DynamicListCtrl.ePage.Masters.DynamicList.DataEntryForFilter.EntitySource + "_" + DynamicListCtrl.ePage.Masters.DynamicList.DataEntryForFilter.EntityRefCode,
+        function DeleteUserBasedGridColumn() {
+            if (DynamicListCtrl.ePage.Masters.Header.CustomizeGrid.UserSetting && DynamicListCtrl.ePage.Masters.Header.CustomizeGrid.UserSetting.PK) {
+                let modalOptions = {
+                    closeButtonText: 'Cancel',
+                    actionButtonText: 'Ok',
+                    headerText: 'Delete?',
+                    bodyText: 'Are you sure?'
                 };
 
-                DynamicListCtrl.validateFilterInput({
-                    $item: _item
+                confirmation.showModal({}, modalOptions).then(result => {
+                    apiService.get("eAxisAPI", appConfig.Entities.UserSettings.API.Delete.Url + DynamicListCtrl.ePage.Masters.Header.CustomizeGrid.UserSetting.PK + "/" + authService.getUserInfo().AppPK).then(response => {
+                        if (response.data.Response == "Success") {
+                            DynamicListCtrl.ePage.Masters.Header.CustomizeGrid.UserSetting = null;
+                            DynamicListCtrl.ePage.Masters.Header.CustomizeGrid.ListSource =
+                                DynamicListCtrl.ePage.Masters.Header.CustomizeGrid.TempListSource =
+                                DynamicListCtrl.ePage.Masters.DataEntry.FindConfigTemp.GridConfig.Header;
+
+                            PrepareGridInfo();
+                        }
+                    });
+                }, () => {});
+            }
+        }
+        // #endregion
+
+        // #region Shortcut
+        function GetFavoriteCount($item) {
+            let _value = ($item.Input.Value && typeof $item.Input.Value == "string") ? JSON.parse($item.Input.Value) : $item.Input.Value;
+
+            if (_value.ShowCount) {
+                let _url = "";
+                _value.CountAPI.split('/').map(value => {
+                    if (value.charAt(0) == '@') {
+                        _url += '/' + helperService.DateFilter(value);
+                    } else {
+                        _url += '/' + value;
+                    }
                 });
-            } else {
-                DynamicControlFilter();
+
+                if (_value.CountRequestMethod == 'get') {
+                    apiService.get("eAxisAPI", _url.substr(1)).then(response => {
+                        if (response.data.Response) {
+                            $item.Count = response.data.Response;
+                        }
+                    });
+                } else {
+                    $item.ShowCount = _value.ShowCount;
+                    $item.IsExcute = _value.IsExcute;
+                    _value.CountInput = PrepareExecuteInput(_value.CountInput);
+                    _value.CountInput.TenantCode = authService.getUserInfo().TenantCode;
+                    let _input = {
+                        "searchInput": helperService.createToArrayOfObject(_value.CountInput),
+                        "FilterID": _value.CountFilterID
+                    };
+
+                    apiService.post("eAxisAPI", _url.substr(1), _input).then(response => {
+                        if (response.data.Response) {
+                            $item.Count = response.data.Response;
+                        }
+                    });
+                }
             }
         }
 
-        function ValidateFilterResponse($event, $item) {
-            if ($item.IsValidationSuccess == true) {
-                DynamicControlFilter();
-            } else {
-                if ($item.ErrorWarningList && $item.ErrorWarningList.length > 0) {
+        function ViewShortcutFilter($item) {
+            DynamicListCtrl.ePage.Masters.Grid.IsAutoListing = true;
+            ExecuteFilterInput($item.Input);
+        }
+        // #endregion
 
+        // #region System & User Filters
+        function OnStarClick($item, type) {
+            let _systemAndUserFilterList = [...DynamicListCtrl.ePage.Masters.Header.SystemFilter.ListSource, ...DynamicListCtrl.ePage.Masters.Header.UserFilter.ListSource];
+
+            let _index = _systemAndUserFilterList.findIndex(value => value.PK === $item.PK);
+            if (_index !== -1) {
+                if (!$item.IsStarred) {
+                    let _count = 0;
+                    _systemAndUserFilterList.map(val => _count += val.IsStarred ? 1 : 0);
+
+                    if (_count < 3) {
+                        let _input = {
+                            "EntitySource": DynamicListCtrl.ePage.Masters.DataEntry.FindConfig.DataEntryName.toUpperCase() + "_SHORTCUT",
+                            "Key": $item.Key,
+                            "Value": $item.PK,
+                            "SAP_FK": authService.getUserInfo().AppPK,
+                            "TenantCode": authService.getUserInfo().TenantCode,
+                            "SourceEntityRefKey": authService.getUserInfo().UserId,
+                            "TypeCode": DynamicListCtrl.ePage.Masters.DataEntry.FindConfig.DataEntry_PK,
+                        };
+
+                        apiService.post("eAxisAPI", appConfig.Entities.UserSettings.API.Insert.Url + authService.getUserInfo().AppPK, [_input]).then(response => {
+                            if (response.data.Response && response.data.Response.length > 0) {
+                                let _response = angular.copy(response.data.Response[0]);
+                                _response.Input = $item;
+                                DynamicListCtrl.ePage.Masters.Header.Shortcut.ListSource.push(_response);
+                                $item.IsStarred = true;
+                                $item.Starred_PK = _response.PK;
+                            }
+                        });
+                    } else {
+                        toastr.warning("Cannot add more than 3 favourites");
+                    }
                 } else {
-
+                    let _index = DynamicListCtrl.ePage.Masters.Header.Shortcut.ListSource.findIndex(value => value.Value === $item.PK);
+                    if (_index !== -1) {
+                        apiService.get("eAxisAPI", appConfig.Entities.UserSettings.API.Delete.Url + $item.Starred_PK + "/" + authService.getUserInfo().AppPK).then(response => {
+                            if (response.data.Response == "Success") {
+                                $item.IsStarred = false;
+                                DynamicListCtrl.ePage.Masters.Header.Shortcut.ListSource.splice(_index, 1);
+                            }
+                        });
+                    }
                 }
             }
+        }
+
+        function SetAsDeafultFilter($item, type) {
+            if (DynamicListCtrl.ePage.Masters.Header.DefaultFilter && DynamicListCtrl.ePage.Masters.Header.DefaultFilter.PK) {
+                let _indexSystem = DynamicListCtrl.ePage.Masters.Header.SystemFilter.ListSource.findIndex(x => x.IsDefaultFilter == true);
+                let _indexUser = DynamicListCtrl.ePage.Masters.Header.UserFilter.ListSource.findIndex(x => x.IsDefaultFilter == true);
+
+                if (_indexSystem !== -1) {
+                    DynamicListCtrl.ePage.Masters.Header.SystemFilter.ListSource[_indexSystem].IsDefaultFilter = false;
+                }
+                if (_indexUser !== -1) {
+                    DynamicListCtrl.ePage.Masters.Header.UserFilter.ListSource[_indexUser].IsDefaultFilter = false;
+                }
+
+                if ($item.PK == DynamicListCtrl.ePage.Masters.Header.DefaultFilter.Value) {
+                    DeleteDefaultFilter($item);
+                } else {
+                    UpdateDefaultFilter($item);
+                }
+            } else {
+                InsertDefaultFilter($item);
+            }
+        }
+
+        function InsertDefaultFilter($item) {
+            let _input = {
+                "SAP_FK": authService.getUserInfo().AppPK,
+                "AppCode": authService.getUserInfo().AppCode,
+                "TenantCode": authService.getUserInfo().TenantCode,
+                "SourceEntityRefKey": authService.getUserInfo().UserId,
+                "EntitySource": DynamicListCtrl.ePage.Masters.DataEntry.FindConfig.DataEntryName.toUpperCase() + "_DEFAULTSEARCHFILTER",
+                "TypeCode": DynamicListCtrl.ePage.Masters.DataEntry.FindConfig.DataEntry_PK,
+                "IsJSON": false,
+                "Key": $item.Key,
+                "Value": $item.PK,
+                "IsModified": true
+            };
+
+            apiService.post("eAxisAPI", appConfig.Entities.UserSettings.API.Insert.Url + authService.getUserInfo().AppPK, [_input]).then(response => {
+                if (response.data.Response && response.data.Response.length > 0) {
+                    let _response = response.data.Response[0];
+                    DynamicListCtrl.ePage.Masters.Header.DefaultFilter = _response;
+                    $item.IsDefaultFilter = true;
+                } else {
+                    toastr.error("Failed toSave...!");
+                }
+            });
+        }
+
+        function UpdateDefaultFilter($item) {
+            let _input = DynamicListCtrl.ePage.Masters.Header.DefaultFilter;
+            _input.Key = $item.Key;
+            _input.Value = $item.PK;
+            _input.IsModified = true;
+
+            apiService.post("eAxisAPI", appConfig.Entities.UserSettings.API.Update.Url + authService.getUserInfo().AppPK, _input).then(response => {
+                if (response.data.Response) {
+                    DynamicListCtrl.ePage.Masters.Header.DefaultFilter = response.data.Response;
+                    $item.IsDefaultFilter = true;
+                } else {
+                    toastr.error("Failed toSave...!");
+                }
+            });
+        }
+
+        function DeleteDefaultFilter($item) {
+            apiService.get("eAxisAPI", appConfig.Entities.UserSettings.API.Delete.Url + DynamicListCtrl.ePage.Masters.Header.DefaultFilter.PK + "/" + authService.getUserInfo().AppPK).then(response => {
+                if (response.data.Response == "Success") {
+                    DynamicListCtrl.ePage.Masters.Header.DefaultFilter = null;
+                    $item.IsDefaultFilter = false;
+                }
+            });
+        }
+
+        function ViewSystemFilter($item) {
+            DynamicListCtrl.ePage.Masters.Header.ActiveFilter = angular.copy($item);
+            DynamicListCtrl.ePage.Masters.Grid.IsAutoListing = true;
+            ExecuteFilterInput($item);
+        }
+
+        function DeleteUserFilter($item) {
+            let modalOptions = {
+                closeButtonText: 'Cancel',
+                actionButtonText: 'Ok',
+                headerText: 'Delete?',
+                bodyText: 'Are you sure?'
+            };
+
+            confirmation.showModal({}, modalOptions).then(result => {
+                apiService.get("eAxisAPI", appConfig.Entities.UserSettings.API.Delete.Url + $item.PK + "/" + authService.getUserInfo().AppPK).then(response => {
+                    if (response.data.Response == "Success") {
+                        let _index = DynamicListCtrl.ePage.Masters.Header.UserFilter.ListSource.findIndex(value => value.PK === $item.PK);
+                        if (_index !== -1) {
+                            DynamicListCtrl.ePage.Masters.Header.UserFilter.ListSource.splice(_index, 1);
+                        }
+                    } else {
+                        toastr.console.error("Failed to Delete...!");
+                    }
+                });
+            }, () => {});
+        }
+
+        function UpdateUserFilter($item) {
+            $item.IsDisableUpdateBtn = true;
+            let _input = $item;
+            _input.IsModified = true;
+
+            apiService.post("eAxisAPI", appConfig.Entities.UserSettings.API.Update.Url + authService.getUserInfo().AppPK, _input).then(response => {
+                if (response.data.Response) {
+                    let _response = response.data.Response;
+                    _response.IsDisableUpdateBtn = false;
+                    let _index = DynamicListCtrl.ePage.Masters.Header.UserFilter.ListSource.findIndex(x => x.PK === _response.PK);
+
+                    if (_index !== -1) {
+                        DynamicListCtrl.ePage.Masters.Header.UserFilter.ListSource[_index] = _response;
+                    }
+                } else {
+                    toastr.error("Failed to Save...!");
+                }
+
+                $item.IsDisableUpdateBtn = false;
+                $item.IsEditLabel = false;
+            });
+        }
+
+        function ViewUserFilter($item) {
+            DynamicListCtrl.ePage.Masters.Header.ActiveFilter = angular.copy($item);
+            DynamicListCtrl.ePage.Masters.Grid.IsAutoListing = true;
+            ExecuteFilterInput($item);
+        }
+
+        function ExecuteFilterInput($item) {
+            let _defaultFilter = {};
+            let _data = $item.Value;
+            if (typeof _data == "string") {
+                _data = JSON.parse(_data);
+            }
+            if (_data.ExcuteInput && _data.ExcuteInput.length > 0) {
+                _defaultFilter = PrepareExecuteInput(_data.ExcuteInput);
+            }
+            // DynamicListCtrl.ePage.Masters.Grid.IsAutoListing = true;
+            DynamicListCtrl.ePage.Masters.DataEntry.DefaultFilter = _defaultFilter;
+
+            PrepareGridInfo();
+        }
+
+        function PrepareExecuteInput($item) {
+            let _defaultFilter = {};
+            $item.map(value1 => {
+                if (value1.Type && value1.Type == "DateCompare") {
+                    let _val = (typeof value1.value == "string") ? JSON.parse(value1.value) : value1.value;
+                    if (_val && typeof _val == "object" && _val.length > 0) {
+                        _val.map(value2 => {
+                            if (value2.FilterInput && typeof value2.FilterInput == "object" && value2.FilterInput.length > 0) {
+                                value2.FilterInput.map(value3 => value3.Value = $filter('date')(new Date(), APP_CONSTANT.DatePicker.dateFormat));
+                            }
+                        });
+                    }
+                    value1.value = JSON.stringify(_val);
+                } else {
+                    let _value = (typeof value1.value == "string") ? value1.value : value1.value.toString();
+                    if (_value.indexOf('@') !== -1) {
+                        let _date = helperService.DateFilter(_value);
+                        if (value1.Add && value1.Add.length > 0) {
+                            value1.Add.map(value => {
+                                if (typeof value.Value == "string") {
+                                    value.Value = Number(value.Value);
+                                }
+                                let d = new Date(_date);
+                                switch (value.FieldName) {
+                                    case "Day":
+                                        _date = new Date(d.setDate(d.getDate() + value.Value));
+                                        break;
+                                    case "Month":
+                                        _date = new Date(d.setMonth(d.getMonth() + value.Value));
+                                        break;
+                                    case "Year":
+                                        _date = new Date(d.setFullYear(d.getFullYear() + value.Value));
+                                        break;
+                                    case "Hour":
+                                        _date = new Date(d.setHours(d.getHours() + value.Value));
+                                        break;
+                                    case "Minute":
+                                        _date = new Date(d.setMinutes(d.getMinutes() + value.Value));
+                                        break;
+                                    case "Second":
+                                        _date = new Date(d.setSeconds(d.getSeconds() + value.Value));
+                                        break;
+                                    default:
+                                        _date = new Date(value.Value);
+                                        break;
+                                }
+                            });
+                            value1.value = $filter('date')(new Date(_date), APP_CONSTANT.DatePicker[value1.Format]);
+                        } else {
+                            value1.value = _date;
+                        }
+                    }
+                }
+
+                _defaultFilter[value1.FieldName] = value1.value;
+            });
+
+            return _defaultFilter;
+        }
+        // #endregion
+
+        // #region Export
+        function GetStandardExport() {
+            let _standardExport = {
+                "Template": "Simple Export",
+                "Event": "STDEVENT",
+                "Source": "SimpleExport",
+                "IsStatic": true,
+                "Value": JSON.stringify(GetTemplate()),
+                "SourceReference": "StandardExport_" + DynamicListCtrl.ePage.Masters.DataEntry.FindConfig.DataEntry_PK.split("-").join("")
+            };
+            DynamicListCtrl.ePage.Masters.Header.Export.ListSource.push(_standardExport);
+
+            if (DynamicListCtrl.ePage.Masters.DataEntry.FindConfig.OtherConfig.GridOptions && DynamicListCtrl.ePage.Masters.DataEntry.FindConfig.OtherConfig.GridOptions.gridMenuCustomItems) {
+                let _exportList = JSON.parse(DynamicListCtrl.ePage.Masters.DataEntry.FindConfig.OtherConfig.GridOptions.gridMenuCustomItems);
+
+                _exportList.map(x => x.SourceReference = x.Template + "_" + DynamicListCtrl.ePage.Masters.DataEntry.FindConfig.DataEntry_PK.split("-").join(""));
+
+                DynamicListCtrl.ePage.Masters.Header.Export.ListSource = [...DynamicListCtrl.ePage.Masters.Header.Export.ListSource, ..._exportList];
+            }
+        }
+
+        function DownloadAsPDF($item) {
+            if ($item.IsStatic) {
+                if ($item.Value) {
+                    if (typeof $item.Value == "string") {
+                        $item.Value = JSON.parse($item.Value);
+                    }
+                    if ($item.Value.DataObjs && $item.Value.DataObjs.length > 0) {
+                        $item.Value.DataObjs.map(x => {
+                            if (x.GridConfig) {
+                                x.GridConfig = null;
+                            }
+                        });
+                    }
+                }
+                DownloadTemplate($item, "PDF");
+            } else {
+                GetTemplateValueFromAppSettings($item).then((response) => {
+                    DownloadTemplate(response, "PDF");
+                });
+            }
+        }
+
+        function DownloadAsExcel($item) {
+            if ($item.IsStatic) {
+                if ($item.Value) {
+                    if (typeof $item.Value == "string") {
+                        $item.Value = JSON.parse($item.Value);
+                    }
+                    if ($item.Value.DataObjs && $item.Value.DataObjs.length > 0) {
+                        $item.Value.DataObjs.map(x => {
+                            if (x.GridConfig) {
+                                x.GridConfig = null;
+                            }
+                        });
+                    }
+                }
+                DownloadTemplate($item, "EXCEL");
+            } else {
+                GetTemplateValueFromAppSettings($item).then((response) => {
+                    DownloadTemplate(response, "EXCEL");
+                });
+            }
+        }
+
+        function GetTemplateValueFromAppSettings($item) {
+            let _deferred = $q.defer();
+            let _filter = {
+                "Key": $item.Template,
+                EntitySource: "EXCELCONFIG",
+                ModuleCode: DynamicListCtrl.ePage.Masters.DataEntry.FindConfig.OtherConfig.FilterConfig.EntitySource,
+                TenantCode: authService.getUserInfo().TenantCode,
+                AppCode: authService.getUserInfo().AppCode,
+                SAP_FK: authService.getUserInfo().AppPK
+            };
+            let _input = {
+                "searchInput": helperService.createToArrayOfObject(_filter),
+                "FilterID": appConfig.Entities.AppSettings.API.FindAll.FilterID
+            };
+
+            apiService.post("eAxisAPI", appConfig.Entities.AppSettings.API.FindAll.Url + authService.getUserInfo().AppPK, _input).then(response => {
+                response.data.Response ? _deferred.resolve(response.data.Response[0]) : _deferred.resolve([]);
+            });
+
+            return _deferred.promise;
+        }
+
+        function DownloadTemplate($item, fileType) {
+            let _value = ($item.Value && (typeof $item.Value == 'string' || $item.Value instanceof String)) ? JSON.parse($item.Value) : $item.Value;
+            let _json = _value.TemplateJson ? _value.TemplateJson : _value;
+
+            if (_json) {
+                let _input = GetTemplate(_json, fileType, true);
+                apiService.post("eAxisAPI", appConfig.Entities.Export.API.GridExcel.Url, _input).then(response => {
+                    response.data.Response ? helperService.DownloadDocument(response.data.Response) : toastr.error("Failed to Download...!");
+                });
+            } else {
+                toastr.error("Invalid Input...!")
+            }
+        }
+        // #endregion
+
+        // #region Recent
+        function OpenRecentItem($item) {
+            let _obj = {
+                action: "dblClick",
+                data: {
+                    entity: {
+                        PK: $item.EntityRefKey,
+                        [DynamicListCtrl.ePage.Masters.DataEntry.FindConfig.GridConfig.StarredKeyField]: $item.EntityRefCode
+                    }
+                },
+                items: [],
+                dataEntryMaster: DynamicListCtrl.ePage.Masters.DataEntry.FindConfig
+            };
+
+            SelectedGridRow(_obj);
+        }
+        // #endregion
+
+        // #region Schedule
+        function DeleteSchedule($item) {
+            let modalOptions = {
+                closeButtonText: 'Cancel',
+                actionButtonText: 'Ok',
+                headerText: 'Delete?',
+                bodyText: 'Are you sure?'
+            };
+
+            confirmation.showModal({}, modalOptions).then(result => {
+                GetScheduledList($item);
+                apiService.get("eAxisAPI", appConfig.Entities.AppSettings.API.Delete.Url + $item.PK + "/" + authService.getUserInfo().AppPK).then(response => {
+                    let _index = DynamicListCtrl.ePage.Masters.Header.Schedule.ListSource.findIndex(x => x.PK === $item.PK);
+                    if (_index !== -1) {
+                        DynamicListCtrl.ePage.Masters.Header.Schedule.ListSource.splice(_index, 1);
+                    }
+                });
+            }, () => {});
+        }
+
+        function GetScheduledList($item) {
+            let _filter = {
+                SourceReference: $item.sourceReference,
+                ClassSource: "USER_SCHEDULE",
+                SAP_FK: authService.getUserInfo().AppPK
+            };
+            let _input = {
+                "searchInput": helperService.createToArrayOfObject(_filter),
+                "FilterID": appConfig.Entities.DataConfigScheduler.API.FindAll.FilterID
+            };
+
+            apiService.post("eAxisAPI", appConfig.Entities.DataConfigScheduler.API.FindAll.Url, _input).then(response => {
+                if (response.data.Response && response.data.Response.length > 0) {
+                    response.data.Response.map(response => DeleteScheduledList(response));
+                }
+            });
+        }
+
+        function DeleteScheduledList($item) {
+            apiService.get("eAxisAPI", appConfig.Entities.DataConfigScheduler.API.Delete.Url + $item.PK).then(response => {});
+        }
+
+        function ViewScheduleFilter($item) {
+            DynamicListCtrl.ePage.Masters.Header.ActiveFilter = angular.copy($item);
+            DynamicListCtrl.ePage.Masters.Grid.IsAutoListing = true;
+            ExecuteFilterInput($item);
+        }
+        // #endregion
+
+        // #region Search
+        function InitSearch() {
+            DynamicListCtrl.ePage.Masters.Search = {};
+            DynamicListCtrl.ePage.Masters.Search.OnSearch = OnSearch;
+
+            DynamicListCtrl.ePage.Masters.Search.SearchBtnTxt = "Go";
+            DynamicListCtrl.ePage.Masters.Search.IsDisableSearchBtn = false;
+        }
+
+        function OnSearch() {
+            DynamicListCtrl.ePage.Masters.Search.IsDisableSearchBtn = true;
+
+            PrepareGridInfo();
+        }
+        // #endregion
+
+        // #endregion
+
+        // #region DataEntry
+        function InitDataEntry() {
+            DynamicListCtrl.ePage.Masters.DataEntry = {
+                BaseFilter: DynamicListCtrl.baseFilter,
+                DefaultFilter: DynamicListCtrl.defaultFilter,
+                IsLoadGrid: false
+            };
+
+            if (DynamicListCtrl.dataentryName) {
+                GetDataEntryConfig();
+            }
+        }
+
+        function GetDataEntryConfig() {
+            // Get FindConfig from DataEntryMaster
+            DynamicListCtrl.ePage.Masters.DataEntry.FindConfig = undefined;
+            let _filter = {
+                DataEntryName: DynamicListCtrl.dataentryName,
+                IsRoleBassed: false,
+                IsAccessBased: false,
+                OrganizationCode: DynamicListCtrl.organizationCode,
+                IsOptimizedListPage: (DynamicListCtrl.mode == 1) ? true : false
+            };
+            let _input = {
+                "searchInput": helperService.createToArrayOfObject(_filter),
+                "FilterID": appConfig.Entities.DataEntry.API.FindConfig.FilterID
+            };
+
+            console.time(DynamicListCtrl.dataentryName + " - FindConfig");
+            apiService.post("eAxisAPI", appConfig.Entities.DataEntry.API.FindConfig.Url, _input).then(response => {
+                DynamicListCtrl.ePage.Masters.DataEntry.FindConfig = {};
+                if (response.data.Response) {
+                    console.timeEnd(DynamicListCtrl.dataentryName + " - FindConfig");
+
+                    let _response = response.data.Response;
+
+                    dynamicLookupConfig.Entities = {
+                        ...dynamicLookupConfig.Entities,
+                        ..._response.LookUpList
+                    };
+
+                    let _data = {
+                        ...DynamicListCtrl.ePage.Masters.DataEntry.BaseFilter,
+                        ...DynamicListCtrl.ePage.Masters.DataEntry.DefaultFilter
+                    };
+                    _response.Entities.map(value => value.Data = _data);
+
+                    DynamicListCtrl.ePage.Masters.DataEntry.FindConfig = _response;
+                    DynamicListCtrl.ePage.Masters.DataEntry.FindConfigTemp = angular.copy(_response);
+                    DynamicListCtrl.dataentryObject = _response;
+
+                    InitHeader();
+                    InitSearch();
+                    InitGrid();
+                    InitFilter();
+
+                    if (DynamicListCtrl.mode == 1) {
+                        if (response.data) {
+                            DynamicListCtrl.ePage.Masters.AllFindAllList = _response.OptimizedListPage;
+                            PrepareUserBasedGridColumList();
+                        } else {
+                            PrepareGridInfo();
+                        }
+                    } else {
+                        DynamicListCtrl.ePage.Masters.Filter.AccessControl.IsEnableDynamicControl = true;
+                        PrepareGridInfo();
+                    }
+                }
+            });
         }
         // #endregion
 
         // #region Grid
         function InitGrid() {
-            DynamicListCtrl.ePage.Masters.DynamicList.Grid = {};
-            DynamicListCtrl.ePage.Masters.DynamicList.Grid.SelectedGridRow = SelectedGridRow;
+            DynamicListCtrl.ePage.Masters.Grid = {
+                SelectedItemList: []
+            };
 
-            var _gridOptions = {};
+            DynamicListCtrl.ePage.Masters.Grid.SelectedGridRow = SelectedGridRow;
 
-            if (DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.OtherConfig) {
-                if (DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.OtherConfig.GridOptions) {
-                    _gridOptions = angular.copy(DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.OtherConfig.GridOptions);
-                    _gridOptions.paginationPageSize = JSON.parse(_gridOptions.paginationPageSize);
-                    _gridOptions.paginationPageSizes = JSON.parse(_gridOptions.paginationPageSizes);
-                    _gridOptions.headerRowHeight = JSON.parse(_gridOptions.headerRowHeight);
-                    _gridOptions.rowHeight = JSON.parse(_gridOptions.rowHeight);
-                    _gridOptions.gridMenuCustomItems = JSON.parse(_gridOptions.gridMenuCustomItems);
+            if (DynamicListCtrl.ePage.Masters.DataEntry.FindConfig.OtherConfig.FilterConfig) {
+                if (DynamicListCtrl.ePage.Masters.DataEntry.FindConfig.OtherConfig.FilterConfig.IsAutoListing == undefined) {
+                    DynamicListCtrl.ePage.Masters.Grid.IsAutoListing = DynamicListCtrl.ePage.Masters.DataEntry.FindConfig.OtherConfig.CSS.IsAutoListing;
+                } else {
+                    DynamicListCtrl.ePage.Masters.Grid.IsAutoListing = DynamicListCtrl.ePage.Masters.DataEntry.FindConfig.OtherConfig.FilterConfig.IsAutoListing;
                 }
+            } else {
+                DynamicListCtrl.ePage.Masters.Grid.IsAutoListing = true;
             }
+        }
 
-            if (DynamicListCtrl.mode == 2) {
-                _gridOptions.enableRowSelection = false;
-                _gridOptions.enableRowHeaderSelection = false;
-                _gridOptions.enableGridMenu = false;
-                _gridOptions.multiSelect = false;
-            } else if (DynamicListCtrl.mode == 3) {
-                _gridOptions.enableRowSelection = true;
-                _gridOptions.enableRowHeaderSelection = true;
-                _gridOptions.enableGridMenu = false;
-                _gridOptions.multiSelect = true;
-            }
+        function PrepareGridInfo() {
+            DynamicListCtrl.ePage.Masters.DataEntry.IsLoadGrid = false;
+            DynamicListCtrl.ePage.Masters.DataEntry.FindConfig = undefined;
+            let _findConfigTemp = angular.copy(DynamicListCtrl.ePage.Masters.DataEntry.FindConfigTemp);
 
-            DynamicListCtrl.ePage.Masters.DynamicList.Grid.GridOptions = _gridOptions;
+            let _entityKey;
+            _findConfigTemp.Entities.map(value1 => {
+                value1.ConfigData.map(value2 => {
+                    if (value2.IsKey && (value2.Type == "D" || value2.Type == "B")) {
+                        _entityKey = value2.FieldName;
+                    }
+                });
+            });
+
+            let _entityInfo = {
+                EntityInfo: DynamicListCtrl.ePage.Masters.Search.EntityInfo ? DynamicListCtrl.ePage.Masters.Search.EntityInfo : null,
+                EntityKeyValue: _entityKey
+            };
+            setTimeout(() => {
+                let _obj = {
+                    'FilterType': _findConfigTemp.DataEntryName
+                };
+                let _defaultFilter = {
+                    ...DynamicListCtrl.ePage.Masters.DataEntry.DefaultFilter,
+                    ..._entityInfo,
+                    ..._obj
+                };
+
+                if (DynamicListCtrl.baseFilter) {
+                    _defaultFilter = {
+                        ..._defaultFilter,
+                        ...DynamicListCtrl.baseFilter
+                    };
+                    DynamicListCtrl.ePage.Masters.BaseFilterFields = {};
+                    for (let x in DynamicListCtrl.baseFilter) {
+                        DynamicListCtrl.ePage.Masters.BaseFilterFields["IsDisabled" + x] = true;
+                    }
+                }
+
+                _findConfigTemp.Entities.map(value => value.Data = _defaultFilter);
+
+                if (_findConfigTemp.OtherConfig.FilterConfig) {
+                    if (DynamicListCtrl.ePage.Masters.Grid.IsAutoListing !== undefined) {
+                        _findConfigTemp.OtherConfig.FilterConfig.IsAutoListing = DynamicListCtrl.ePage.Masters.Grid.IsAutoListing;
+                    }
+                } else {
+                    _findConfigTemp.OtherConfig.FilterConfig = {
+                        IsAutoListing: DynamicListCtrl.ePage.Masters.Grid.IsAutoListing
+                    }
+                }
+
+                if (DynamicListCtrl.ePage.Masters.Header.CustomizeGrid.TempListSource && DynamicListCtrl.ePage.Masters.Header.CustomizeGrid.TempListSource.length > 0) {
+                    _findConfigTemp.GridConfig.Header = DynamicListCtrl.ePage.Masters.Header.CustomizeGrid.TempListSource;
+                }
+
+                DynamicListCtrl.ePage.Masters.DataEntry.DefaultFilter = _defaultFilter;
+                DynamicListCtrl.ePage.Masters.DataEntry.FindConfig = _findConfigTemp;
+                DynamicListCtrl.ePage.Masters.Search.IsDisableSearchBtn = false;
+                DynamicListCtrl.ePage.Masters.DataEntry.IsLoadGrid = true;
+            });
         }
 
         function SelectedGridRow($item) {
             if (DynamicListCtrl.mode == 1) {
-                if ($item.action == 'favorite') {
-                    SaveFavoriteItem($item.data);
-                } else if ($item.action == 'rowSelection') {
-                    DynamicListCtrl.ePage.Masters.DynamicList.Grid.IsStandardToolbar = false;
-                    DynamicListCtrl.ePage.Masters.DynamicList.Grid.IsCustomToolbar = false;
-
-                    // if ($item.items.length == 1) {
-                    //     if ($item.dataEntryMaster.OtherConfig.ListingPageConfig.EnableStandardToolbar) {
-                    //         ConfigureStandardToolBar($item);
-                    //     } else if ($item.dataEntryMaster.OtherConfig.ListingPageConfig.EnableCustomToolbar) {
-                    //         ConfigureCustomToolBar($item);
-                    //     }
-                    // } else if ($item.items.length > 1) {
-                    //     if ($item.dataEntryMaster.OtherConfig.ListingPageConfig.EnableCustomToolbar) {
-                    //         ConfigureCustomToolBar($item);
-                    //     }
-                    // }
-
+                if ($item.action == "favorite") {
+                    if ($item.data.entity.IsStarred && $item.data.entity.Starred_FK) {
+                        RemoveStarredItem($item.data);
+                    } else {
+                        AddStarredItem($item.data);
+                    }
+                } else {
+                    DynamicListCtrl.ePage.Masters.Grid.IsStandardToolbar = false;
+                    DynamicListCtrl.ePage.Masters.Grid.IsCustomToolbar = false;
                     if ($item.items.length > 0) {
-                        if ($item.dataEntryMaster.OtherConfig.ListingPageConfig.EnableCustomToolbar) {
+                        if ($item.dataEntryMaster.OtherConfig.ListingPageConfig && $item.dataEntryMaster.OtherConfig.ListingPageConfig.EnableCustomToolbar) {
                             ConfigureCustomToolBar($item);
                         }
                     }
 
-                    DynamicListCtrl.selectedGridRow({
-                        $item: $item
-                    });
-                } else {
                     DynamicListCtrl.selectedGridRow({
                         $item: $item
                     });
@@ -1812,8 +966,8 @@
                     $item: $item
                 });
             } else if (DynamicListCtrl.mode == 3) {
-                DynamicListCtrl.ePage.Masters.DynamicList.Grid.SelectedItem = $item.data;
-                DynamicListCtrl.ePage.Masters.DynamicList.Grid.SelectedItemList = $item.items;
+                DynamicListCtrl.ePage.Masters.Grid.SelectedItem = $item.data;
+                DynamicListCtrl.ePage.Masters.Grid.SelectedItemList = $item.items;
 
                 if ($item.action == "link" || $item.action == "dblClick") {
                     DynamicListCtrl.selectedGridRow({
@@ -1824,7 +978,7 @@
                         }
                     });
                 } else if ($item.action == "rowSelection" || $item.action == "rowSelectionBatch") {
-
+                    // 
                 } else {
                     DynamicListCtrl.selectedGridRow({
                         $item: $item
@@ -1837,274 +991,575 @@
             }
         }
 
-        function SaveFavoriteItem(item) {
-            var _input = {};
-            if (item.entity.IsStarred) {
-                _input = {
-                    "PK": item.entity.Starred_FK,
-                    "IsModified": true,
-                    "IsDeleted": true
-                };
-            } else {
-                _input = {
-                    "SourceEntityRefKey": authService.getUserInfo().UserId,
-                    "Key": item.entity[DynamicListCtrl.ePage.Masters.DynamicList.DataEntryCopy.GridConfig.StarredKeyField],
-                    "Value": item.entity[DynamicListCtrl.ePage.Masters.DynamicList.DataEntryCopy.GridConfig.StarredValueField],
-                    "IsJSON": false,
-                    "SAP_FK": authService.getUserInfo().AppPK,
-                    "AppCode": authService.getUserInfo().AppCode,
-                    "TenantCode": authService.getUserInfo().TenantCode,
-                    "EntitySource": DynamicListCtrl.dataentryName.toUpperCase() + "_STARRED",
-                    "TypeCode": DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.DataEntry_PK,
-                    "IsModified": true
-                };
-            }
+        function AddStarredItem($item) {
+            let _input = {
+                "SourceEntityRefKey": authService.getUserInfo().UserId,
+                "Key": $item.entity[DynamicListCtrl.ePage.Masters.DataEntry.FindConfig.GridConfig.StarredKeyField],
+                "Value": $item.entity[DynamicListCtrl.ePage.Masters.DataEntry.FindConfig.GridConfig.StarredValueField],
+                "IsJSON": false,
+                "SAP_FK": authService.getUserInfo().AppPK,
+                "AppCode": authService.getUserInfo().AppCode,
+                "TenantCode": authService.getUserInfo().TenantCode,
+                "EntitySource": DynamicListCtrl.ePage.Masters.DataEntry.FindConfig.DataEntryName.toUpperCase() + "_STARRED",
+                "TypeCode": DynamicListCtrl.ePage.Masters.DataEntry.FindConfig.DataEntry_PK,
+                "IsModified": true
+            };
 
-            apiService.post("eAxisAPI", appConfig.Entities.UserSettings.API.Upsert.Url + authService.getUserInfo().AppPK, [_input]).then(function (response) {
-                if (response.data.Response) {
-                    if (response.data.Response.length > 0) {
-                        if (!item.entity.IsStarred && item.entity.Starred_FK == null) {
-                            item.entity.IsStarred = true;
-                            item.entity.Starred_FK = response.data.Response[0].PK;
-                        } else if (item.entity.IsStarred && item.entity.Starred_FK != null) {
-                            item.entity.IsStarred = false;
-                            item.entity.Starred_FK = null;
-                        }
-                    } else {
-                        item.entity.IsStarred = false;
-                        item.entity.Starred_FK = null;
-                    }
+            apiService.post("eAxisAPI", appConfig.Entities.UserSettings.API.Insert.Url + authService.getUserInfo().AppPK, [_input]).then(response => {
+                if (response.data.Response && response.data.Response.length > 0) {
+                    $item.entity.IsStarred = true;
+                    $item.entity.Starred_FK = response.data.Response[0].PK;
+                } else {
+                    toastr.error("Failed to Save...!");
                 }
             });
         }
 
-        function ConfigureStandardToolBar($item) {
-            DynamicListCtrl.ePage.Masters.DynamicList.Grid.IsStandardToolbar = false;
-            $timeout(function () {
-                var _input = {
-                    [$item.items[0][DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.OtherConfig.ListingPageConfig.CodeFieldName]]: {
-                        ePage: {
-                            Entities: {
-                                Header: {
-                                    Data: $item.items[0]
-                                }
-                            }
-                        }
-                    },
-                    isNew: false,
-                    label: $item.items[0][DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.OtherConfig.ListingPageConfig.CodeFieldName]
-                };
-
-                DynamicListCtrl.ePage.Masters.DynamicList.Grid.StandardMenuInput = angular.copy(_input);
-
-                DynamicListCtrl.ePage.Masters.DynamicList.Grid.IsStandardToolbar = true;
+        function RemoveStarredItem($item) {
+            apiService.get("eAxisAPI", appConfig.Entities.UserSettings.API.Delete.Url + $item.entity.Starred_FK + "/" + authService.getUserInfo().AppPK).then(response => {
+                if (response.data.Response == "Success") {
+                    $item.entity.IsStarred = false;
+                    $item.entity.Starred_FK = null;
+                } else {
+                    toastr.error("Failed to Save...!");
+                }
             });
         }
 
         function ConfigureCustomToolBar($item) {
-            DynamicListCtrl.ePage.Masters.DynamicList.Grid.IsCustomToolbar = false;
-            $timeout(function () {
-                var _input = angular.copy($item.items);
-                DynamicListCtrl.ePage.Masters.DynamicList.Grid.CustomToolbarInput = _input;
-
-                DynamicListCtrl.ePage.Masters.DynamicList.Grid.IsCustomToolbar = true;
+            DynamicListCtrl.ePage.Masters.Grid.IsCustomToolbar = false;
+            setTimeout(() => {
+                let _input = angular.copy($item.items);
+                DynamicListCtrl.ePage.Masters.Grid.CustomToolbarInput = _input;
+                DynamicListCtrl.ePage.Masters.Grid.IsCustomToolbar = true;
             });
         }
         // #endregion
 
-        // #region Parties
-        function InitParties() {
-            DynamicListCtrl.ePage.Masters.DynamicList.Parties = {};
-            DynamicListCtrl.ePage.Masters.DynamicList.Parties.OnPartyChange = OnPartyChange;
+        // #region Filter
+        function InitFilter() {
+            DynamicListCtrl.ePage.Masters.Filter = {
+                NoOfColumn: 1,
+                IsShowCustomizeFilterField: false,
+                SaveAsFilter: {
+                    SaveBtnTxt: "Save",
+                    IsDisableSaveBtn: false,
+                    IsNew: "New",
+                    Save: SaveAsFilter,
+                    Update: UpdateAsFilter
+                },
+                SaveAsSchedule: {
+                    SaveBtnTxt: "Save",
+                    IsDisableSaveBtn: false,
+                    Save: SaveAsSchedule
+                },
+                AccessControl: {
+                    ListSource: [],
+                    IsEnableDynamicControl: false
+                }
+            };
 
-            DynamicListCtrl.ePage.Masters.DynamicList.Parties.ListSource = authService.getUserInfo().PartyList;
+            DynamicListCtrl.ePage.Masters.Filter.Apply = ApplyFilter;
+            DynamicListCtrl.ePage.Masters.Filter.Clear = ClearFilter;
+            DynamicListCtrl.ePage.Masters.Filter.CloseFilterSideBar = CloseFilterSideBar;
+            DynamicListCtrl.ePage.Masters.Filter.CustomizeFilterField = CustomizeFilterField;
 
-            if (DynamicListCtrl.ePage.Masters.DynamicList.Parties.ListSource.length > 0) {
-                DynamicListCtrl.ePage.Masters.DynamicList.Parties.ActivePartyType = DynamicListCtrl.ePage.Masters.DynamicList.Parties.ListSource[0];
+            DynamicListCtrl.ePage.Masters.Filter.ApplyBtnTxt = "Apply";
+            DynamicListCtrl.ePage.Masters.Filter.IsDisableApplyBtn = false;
+
+            if (DynamicListCtrl.ePage.Masters.DataEntry.FindConfig.OtherConfig && DynamicListCtrl.ePage.Masters.DataEntry.FindConfig.OtherConfig.FilterConfig && DynamicListCtrl.ePage.Masters.DataEntry.FindConfig.OtherConfig.FilterConfig.NoOfColumn) {
+                DynamicListCtrl.ePage.Masters.Filter.NoOfColumn = parseInt(DynamicListCtrl.ePage.Masters.DataEntry.FindConfig.OtherConfig.FilterConfig.NoOfColumn);
             }
         }
 
-        function OnPartyChange($item) {
-            if (DynamicListCtrl.ePage.Masters.DynamicList.Parties.ActivePartyType) {
-                if (DynamicListCtrl.ePage.Masters.DynamicList.Parties.ActivePartyType.Party_Pk !== $item.Party_Pk) {
-                    DynamicListCtrl.ePage.Masters.DynamicList.Parties.ActivePartyType = $item;
+        function CloseFilterSideBar() {
+            ToggleFilterSideBar();
+        }
+
+        function ToggleFilterSideBar() {
+            $('#filterSideBar_' + DynamicListCtrl.ePage.Masters.DataEntry.FindConfig.DataEntry_PK).toggleClass('open');
+        }
+
+        function ApplyFilter() {
+            DynamicListCtrl.ePage.Masters.Filter.ApplyBtnTxt = "Please Wait";
+            DynamicListCtrl.ePage.Masters.Filter.IsDisableApplyBtn = true;
+
+            DynamicListCtrl.ePage.Masters.Search.EntityInfo = null;
+            DynamicListCtrl.ePage.Masters.Header.ActiveFilter = null;
+            let _data = {};
+            DynamicListCtrl.ePage.Masters.DataEntry.FindConfig.Entities.map(value => _data = value.Data);
+            DynamicListCtrl.ePage.Masters.DataEntry.DefaultFilter = _data;
+            DynamicListCtrl.ePage.Masters.Grid.IsAutoListing = true;
+
+            DynamicListCtrl.ePage.Masters.ErrorWarningConfig = angular.copy(errorWarningService);
+
+            ValidateFilterInput().then(response => {
+                if (response.Count > 0) {
+                    toastr.warning("Please fill mandatory filters...!");
+                } else {
+                    ToggleFilterSideBar();
+                    PrepareGridInfo();
+                }
+
+                DynamicListCtrl.ePage.Masters.Filter.ApplyBtnTxt = "Apply";
+                DynamicListCtrl.ePage.Masters.Filter.IsDisableApplyBtn = false;
+            });
+        }
+
+        function ValidateFilterInput() {
+            let deferred = $q.defer();
+            let _validationInput = {};
+
+            if (DynamicListCtrl.ePage.Masters.DataEntry.FindConfig.OtherConfig.Validation && DynamicListCtrl.ePage.Masters.DataEntry.FindConfig.OtherConfig.Validation.ModeS) {
+                _validationInput = DynamicListCtrl.ePage.Masters.DataEntry.FindConfig.OtherConfig.Validation.ModeS;
+                if (_validationInput && typeof _validationInput == "string") {
+                    _validationInput = JSON.parse(_validationInput);
+                } else {
+                    _validationInput = {};
+                }
+            }
+            let _isEmpty = angular.equals({}, _validationInput);
+
+            if (!_isEmpty) {
+                let _obj = {
+                    ModuleName: [DynamicListCtrl.ePage.Masters.DataEntry.FindConfig.DataEntry_PK + DynamicListCtrl.mode],
+                    Code: ["DynListPage" + DynamicListCtrl.mode],
+                    API: _validationInput.API,
+                    FilterInput: {
+                        ModuleCode: _validationInput.ModuleCode,
+                        Code: (_validationInput.ErrorCodeList && _validationInput.ErrorCodeList.length > 0) ? _validationInput.ErrorCodeList.join(",") : null
+                    },
+                    GroupCode: _validationInput.GroupCode
+                };
+
+                errorWarningService.GetErrorCodeList(_obj).then(response => {
+                    DynamicListCtrl.ePage.Masters.ErrorWarningConfig.GlobalErrorWarningList = errorWarningService.Modules[DynamicListCtrl.ePage.Masters.DataEntry.FindConfig.DataEntry_PK + DynamicListCtrl.mode].Entity["DynListPage" + DynamicListCtrl.mode].GlobalErrorWarningList;
+                    DynamicListCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj = errorWarningService.Modules[DynamicListCtrl.ePage.Masters.DataEntry.FindConfig.DataEntry_PK + DynamicListCtrl.mode];
+
+                    Validate(_validationInput).then(response => {
+                        let _errorCount = $filter("listCount")(DynamicListCtrl.ePage.Masters.ErrorWarningConfig.GlobalErrorWarningList, 'MessageType', 'E');
+
+                        let _obj = {
+                            Count: _errorCount,
+                            List: DynamicListCtrl.ePage.Masters.ErrorWarningConfig.GlobalErrorWarningList
+                        }
+                        deferred.resolve(_obj);
+                    });
+                });
+            } else {
+                let _obj = {
+                    Count: 0,
+                    List: []
+                };
+                deferred.resolve(_obj);
+            }
+
+            return deferred.promise;
+        }
+
+        function Validate(_validationInput) {
+            let deferred = $q.defer();
+            let _data = {};
+            DynamicListCtrl.ePage.Masters.DataEntry.FindConfig.Entities.map(value => _data = value.Data);
+
+            let _obj = {
+                ModuleName: [DynamicListCtrl.ePage.Masters.DataEntry.FindConfig.DataEntry_PK + DynamicListCtrl.mode],
+                Code: ["DynListPage" + DynamicListCtrl.mode],
+                API: _validationInput.API,
+                GroupCode: _validationInput.GroupCode,
+                ErrorCodeList: _validationInput.ErrorCodeList,
+                RelatedBasicDetails: [],
+                EntityObject: _data
+            };
+            errorWarningService.ValidateValue(_obj);
+
+            deferred.resolve();
+            return deferred.promise;
+        }
+
+        function ClearFilter() {
+            DynamicListCtrl.ePage.Masters.DataEntry.FindConfig.Entities.map(value => value.Data = {});
+            let _baseFilter = {};
+            if (DynamicListCtrl.baseFilter) {
+                _baseFilter = DynamicListCtrl.baseFilter;
+            }
+            DynamicListCtrl.ePage.Masters.DataEntry.FindConfig.Entities.map(value => value.Data = _baseFilter);
+        }
+
+        function CustomizeFilterField($item) {
+            if (!$item.Include) {
+                SaveFilterDislike($item);
+            } else {
+                DeleteFilterDislike($item);
+            }
+        }
+
+        function SaveFilterDislike($item) {
+            let _input = {
+                "SourceEntityRefKey": authService.getUserInfo().UserId,
+                "EntitySource": DynamicListCtrl.ePage.Masters.DataEntry.FindConfig.DataEntryName.toUpperCase() + "_FILTERDISLIKE",
+                "TypeCode": DynamicListCtrl.ePage.Masters.DataEntry.FindConfig.DataEntry_PK,
+                "Key": $item.FieldName,
+                "IsJSON": false,
+                "IsModified": true,
+                "Value": $item.DataEntryPK,
+                "SAP_FK": authService.getUserInfo().AppPK,
+                "AppCode": authService.getUserInfo().AppCode,
+                "TenantCode": authService.getUserInfo().TenantCode
+            };
+
+            apiService.post("eAxisAPI", appConfig.Entities.UserSettings.API.Insert.Url + authService.getUserInfo().AppPK, [_input]).then(response => {
+                if (response.data.Response && response.data.Response.length > 0) {
+                    $item.Include_FK = response.data.Response[0].PK;
+                } else {
+                    toastr.error("Failed to Save...!");
+                }
+            });
+        }
+
+        function DeleteFilterDislike($item) {
+            apiService.get("eAxisAPI", appConfig.Entities.UserSettings.API.Delete.Url + $item.Include_FK + "/" + authService.getUserInfo().AppPK).then(response => {
+                if (response.data.Response == "Success") {
+
+                } else {
+                    toastr.error("Failed to Delete...!");
+                }
+            });
+        }
+
+        // Filter
+        function SaveAsFilter() {
+            if (DynamicListCtrl.ePage.Masters.Filter.SaveAsFilter.Model) {
+                let _data = {};
+                DynamicListCtrl.ePage.Masters.DataEntry.FindConfig.Entities.map(value => {
+                    _data = {
+                        ..._data,
+                        ...value.Data
+                    };
+                });
+
+                let _isEmpty = angular.equals({}, _data);
+                if (!_isEmpty) {
+                    SaveFilter();
+                } else {
+                    toastr.warning("Please Select at least one field...!");
                 }
             } else {
-                DynamicListCtrl.ePage.Masters.DynamicList.Parties.ActivePartyType = $item
+                toastr.warning("Please Enter the Name...");
+            }
+        }
+
+        function SaveFilter() {
+            DynamicListCtrl.ePage.Masters.Filter.SaveAsFilter.SaveBtnTxt = "Please Wait...";
+            DynamicListCtrl.ePage.Masters.Filter.SaveAsFilter.IsDisableSaveBtn = true;
+            let _input = {
+                "SourceEntityRefKey": authService.getUserInfo().UserId,
+                "EntitySource": DynamicListCtrl.ePage.Masters.DataEntry.FindConfig.DataEntryName.toUpperCase() + "_FAVORITES",
+                "TypeCode": DynamicListCtrl.ePage.Masters.DataEntry.FindConfig.DataEntry_PK,
+                "Key": DynamicListCtrl.ePage.Masters.Filter.SaveAsFilter.Model,
+                "IsJSON": true,
+                "IsModified": true,
+                "Value": JSON.stringify(PrepareAppUserSettingValue()),
+                "SAP_FK": authService.getUserInfo().AppPK,
+                "AppCode": authService.getUserInfo().AppCode,
+                "TenantCode": authService.getUserInfo().TenantCode
+            };
+
+            apiService.post("eAxisAPI", appConfig.Entities.UserSettings.API.Insert.Url + authService.getUserInfo().AppPK, [_input]).then(response => {
+                if (response.data.Response && response.data.Response.length > 0) {
+                    let _response = response.data.Response[0];
+                    _response.UpdateBtnTxt = "Update";
+                    _response.IsDisableUpdateBtn = false;
+                    DynamicListCtrl.ePage.Masters.Header.UserFilter.ListSource.push(_response);
+                    DynamicListCtrl.ePage.Masters.Filter.SaveAsFilter.Model = null;
+                    helperService.closeDropDownPopover();
+                } else {
+                    toastr.error("Failed To Save...!");
+                }
+
+                DynamicListCtrl.ePage.Masters.Filter.SaveAsFilter.SaveBtnTxt = "Save";
+                DynamicListCtrl.ePage.Masters.Filter.SaveAsFilter.IsDisableSaveBtn = false;
+            });
+        }
+
+        function UpdateAsFilter($item) {
+            $item.UpdateBtnTxt = "Please Wait...";
+            $item.IsDisableUpdateBtn = true;
+            let _input = angular.copy($item);
+            _input.IsModified = true;
+            _input.Value = JSON.stringify(PrepareAppUserSettingValue());
+
+            apiService.post("eAxisAPI", appConfig.Entities.UserSettings.API.Update.Url + authService.getUserInfo().AppPK, _input).then(function (response) {
+                if (response.data.Response) {
+                    let _response = response.data.Response;
+                    _response.UpdateBtnTxt = "Update";
+                    _response.IsDisableUpdateBtn = false;
+
+                    let _index = DynamicListCtrl.ePage.Masters.Header.UserFilter.ListSource.findIndex(x => x.PK === _response.PK);
+                    if (_index !== -1) {
+                        DynamicListCtrl.ePage.Masters.Header.UserFilter.ListSource[_index] = _response;
+                    }
+                } else {
+                    toastr.error("Failed to Save...!");
+                }
+
+                $item.UpdateBtnTxt = "Update";
+                $item.IsDisableUpdateBtn = false;
+            });
+        }
+
+        // Schedule
+        function SaveAsSchedule() {
+            if (DynamicListCtrl.ePage.Masters.Filter.SaveAsSchedule.Model) {
+                let _data = {};
+                DynamicListCtrl.ePage.Masters.DataEntry.FindConfig.Entities.map(value => {
+                    _data = {
+                        ..._data,
+                        ...value.Data
+                    };
+                });
+
+                let _isEmpty = angular.equals({}, _data);
+                if (!_isEmpty) {
+                    SaveSchedule();
+                } else {
+                    toastr.warning("Please Select at least one field...!");
+                }
+            } else {
+                toastr.warning("Please Enter the Name...");
+            }
+        }
+
+        function SaveSchedule() {
+            DynamicListCtrl.ePage.Masters.Filter.SaveAsSchedule.SaveBtnTxt = "Please Wait...";
+            DynamicListCtrl.ePage.Masters.Filter.SaveAsSchedule.IsDisableSaveBtn = true;
+            let _input = {
+                "EntitySource": "SCHEDULE",
+                "SourceEntityRefKey": DynamicListCtrl.ePage.Masters.DataEntry.FindConfig.DataEntryName,
+                "TypeCode": DynamicListCtrl.ePage.Masters.DataEntry.FindConfig.DataEntry_PK,
+                "Key": DynamicListCtrl.ePage.Masters.Filter.SaveAsSchedule.Model,
+                "IsJSON": true,
+                "IsModified": true,
+                "Value": JSON.stringify(PrepareAppUserSettingValue({
+                    IsRelatedDetails: true
+                })),
+                "SAP_FK": authService.getUserInfo().AppPK,
+                "AppCode": authService.getUserInfo().AppCode,
+                "TenantCode": authService.getUserInfo().TenantCode
+            };
+
+            apiService.post("eAxisAPI", appConfig.Entities.AppSettings.API.Insert.Url + authService.getUserInfo().AppPK, [_input]).then(response => {
+                if (response.data.Response && response.data.Response.length > 0) {
+                    let _response = response.data.Response[0];
+                    DynamicListCtrl.ePage.Masters.Header.Schedule.ListSource.push(_response);
+                    OpenNewSchedule(_response);
+                    DynamicListCtrl.ePage.Masters.Filter.SaveAsSchedule.Model = null;
+                    helperService.closeDropDownPopover();
+                } else {
+                    toastr.error("Failed To Save...!");
+                }
+
+                DynamicListCtrl.ePage.Masters.Filter.SaveAsSchedule.SaveBtnTxt = "Save";
+                DynamicListCtrl.ePage.Masters.Filter.SaveAsSchedule.IsDisableSaveBtn = false;
+            });
+        }
+
+        function OpenNewSchedule($item) {
+            let _scheduleInput = PrepareScheduleInput($item);
+            Object.assign($item, _scheduleInput);
+
+            DynamicListCtrl.ePage.Masters._scheduleObj = {
+                externalCode: "STDEVENT",
+                classSource: "USER_SCHEDULE",
+                configType: "Event",
+                relatedDetails: GetRelatedDetails(),
+                sourceReference: "StandardExport_" + $item.PK.split("-").join(""),
+                template: "Simple Export",
+                dataentryObj: DynamicListCtrl.ePage.Masters.DataEntry.FindConfig
+            };
+
+            let _template = `<i style = "display: none;" schedule external-code="DynamicListCtrl.ePage.Masters._scheduleObj.externalCode" source-reference="DynamicListCtrl.ePage.Masters._scheduleObj.sourceReference" class-source="DynamicListCtrl.ePage.Masters._scheduleObj.classSource" config-type="DynamicListCtrl.ePage.Masters._scheduleObj.configType" related-details="DynamicListCtrl.ePage.Masters._scheduleObj.relatedDetails" template="DynamicListCtrl.ePage.Masters._scheduleObj.template" dataentry-obj="DynamicListCtrl.ePage.Masters._scheduleObj.dataentryObj" mode="'2'"></i>`
+            let _view = $compile(angular.element(_template))($scope);
+            _view.click();
+            ToggleFilterSideBar();
+        }
+
+        function PrepareAppUserSettingValue($item) {
+            let strUrl = DynamicListCtrl.ePage.Masters.DataEntry.FindConfig.FilterAPI.split("/");
+            strUrl.splice(strUrl.length - 1, 1).join("/");
+            let _filterInput = {};
+            DynamicListCtrl.ePage.Masters.DataEntry.FindConfig.Entities.map(value => {
+                _filterInput = {
+                    ..._filterInput,
+                    ...value.Data
+                };
+            });
+            if (DynamicListCtrl.ePage.Masters.DataEntry.BaseFilter) {
+                _filterInput = {
+                    ..._filterInput,
+                    ...DynamicListCtrl.ePage.Masters.DataEntry.BaseFilter
+                };
+            }
+            let _value = {
+                "ExcuteInput": helperService.createToArrayOfObject(_filterInput),
+                "CountInput": helperService.createToArrayOfObject(_filterInput),
+                "ShowCount": true,
+                "ShowInDashboard": true,
+                "CountAPI": strUrl + '/FindCount',
+                "CountFilterID": DynamicListCtrl.ePage.Masters.DataEntry.FindConfig.FilterID,
+                "CountRequestMethod": "post",
+                "ExcuteRequestMethod": "post",
+                "IsExcute": true,
+                "API": DynamicListCtrl.ePage.Masters.DataEntry.FindConfig.FilterAPI,
+                "FilterID": DynamicListCtrl.ePage.Masters.DataEntry.FindConfig.FilterID,
+                "CSS": {
+                    "color": "#e7505a",
+                    "icon": "fa fa-star-o"
+                },
+                "Column": DynamicListCtrl.ePage.Masters.DataEntry.FindConfig.GridConfig.Header,
+                'IsAutoListing': DynamicListCtrl.ePage.Masters.Grid.IsAutoListing ? true : false
+            };
+
+            if ($item && $item.IsRelatedDetails) {
+                _value.ScheduleDetails = GetRelatedDetails();
             }
 
-            DynamicControlFilter();
-        }
-        // #endregion
-
-        // #region Export
-        function InitExport() {
-            DynamicListCtrl.ePage.Masters.DynamicList.Export = {};
-            DynamicListCtrl.ePage.Masters.DynamicList.Export.SearchInput = [];
-
-            DynamicListCtrl.ePage.Masters.DynamicList.Export.FileTypeBasedDownload = FileTypeBasedDownload;            
+            return _value;
         }
 
-        function GetStandardExportList() {
-            let _value = {
-                "FileName": "",
-                "FileType": "EXCEL",
+        function GetRelatedDetails() {
+            let _filterInput = {};
+            DynamicListCtrl.ePage.Masters.DataEntry.FindConfig.Entities.map(value => {
+                _filterInput = {
+                    ..._filterInput,
+                    ...value.Data
+                };
+            });
+
+            let _relatedDetails = {
+                "RelatedDetail": helperService.createToArrayOfObject(_filterInput),
+                "GridReport": GetTemplate()
+            };
+
+            return _relatedDetails;
+        }
+
+        function GetTemplate($item, fileType, isStandard) {
+            let _template = {
+                "FileName": null,
+                "FileType": null,
                 "TemplateName": "DynamicReport",
                 "SheetName": "Default",
+                "HeaderBGColor": "#f7f7f7",
+                "HeaderForegroundColor": "#444",
                 "DataObjs": [{
                     "SectionName": "Header",
                     "DataSource": "LOCAL",
                     "DataObject": {
-                        "Date": "",
-                        "Title": ""
+                        "Date": null,
+                        "Title": null
                     },
                     "IsFilterEnabled": false
                 }, {
                     "SectionName": "DynamicRow",
                     "DataSource": "API",
                     "IsApi": true,
-                    "ApiName": "",
+                    "ApiName": null,
                     "HttpMethod": "POST",
                     "SearchInput": {
-                        "FilterID": "",
-                        "SearchInput": ""
+                        "FilterID": null,
+                        "SearchInput": null
                     },
                     "RenderType": true,
                     "IsList": true,
                     "IsFilterEnabled": true,
-                    "GridConfig": "",
+                    "GridConfig": null,
                     "IsSelf": true,
                     "IsAutoHeader": true,
                     "AutoColumnWidth": 20
                 }],
                 "JobDocs": {
-                    "EntityRefKey": "",
-                    "EntitySource": "REPORT",
-                    "EntityRefCode": ""
+                    "EntityRefKey": null,
+                    "EntitySource": null,
+                    "EntityRefCode": null
                 },
                 "IsAsync": false,
                 "IsLocal": false,
-                "StartRow": 3
+                "StartRow": 3,
+                "IsSaveToDrive": false
             };
-            let _standardExport = {
-                "Template": "Simple Export",
-                "Event": "STDEVENT",
-                "Source": "SimpleExport",
-                "IsStatic": true,
-                "Value": JSON.stringify(_value),
-                "SourceReference": "StandardExport_" + DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.DataEntry_PK.split("-").join("")
-            };
-            DynamicListCtrl.ePage.Masters.DynamicList.Export.StandardListSource = [_standardExport];
-        }
-
-        function GetExportList() {
-            DynamicListCtrl.ePage.Masters.DynamicList.Export.ListSource = [];
-            if (DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.OtherConfig.GridOptions.gridMenuCustomItems) {
-                DynamicListCtrl.ePage.Masters.DynamicList.Export.ListSource = JSON.parse(DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.OtherConfig.GridOptions.gridMenuCustomItems);
-
-                DynamicListCtrl.ePage.Masters.DynamicList.Export.ListSource.map(x => x.SourceReference = x.Template + "_" + DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.DataEntry_PK.split("-").join(""));
-            }
-        }
-
-        function FileTypeBasedDownload($item, fileType) {
-            if($item.IsStatic){
-                let _value = ($item.Value && (typeof $item.Value == 'string' || $item.Value instanceof String)) ? JSON.parse($item.Value) : $item.Value;
-                let _input = _value.TemplateJson ? _value.TemplateJson : _value;
-                
-                _input ? DownloadExportBasedOnTemplate(_input, fileType, true) : toastr.error("Invalid Input...!");
-            } else {
-                GetTemplate($item.Template).then((response) => {
-                    let _value = (response.Value && (typeof response.Value == 'string' || response.Value instanceof String)) ? JSON.parse(response.Value) : response.Value;
-                    let _input = _value.TemplateJson ? _value.TemplateJson : _value;
-                    
-                    _input ? DownloadExportBasedOnTemplate(_input, fileType, false) : toastr.error("Invalid Input...!");
-                });
-            }
-
-                // let _value = ($item.Value && (typeof $item.Value == 'string' || $item.Value instanceof String)) ? JSON.parse($item.Value) : $item.Value;
-                // let _input = _value.TemplateJson ? _value.TemplateJson : _value;
-                // let _isStandard = (!$item.PK && $item.Key === "Standard Export") ? true : false;
-                
-                // _input ? DownloadExportBasedOnTemplate(_input, fileType, _isStandard) : toastr.error("Invalid Input...!");
-        }
-
-        function GetTemplate($item){
-            let _deferred = $q.defer();
-            var _filter = {
-                "Key": $item,
-                // "SourceEntityRefKey": "Reports",
-                // "TypeCode": DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.DataEntry_PK,
-                EntitySource: "EXCELCONFIG",
-                ModuleCode: DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.OtherConfig.FilterConfig.EntitySource,
-                TenantCode: authService.getUserInfo().TenantCode,
-                AppCode: authService.getUserInfo().AppCode,
-                SAP_FK: authService.getUserInfo().AppPK
-            };
-            var _input = {
-                "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.AppSettings.API.FindAll.FilterID
-            };
-
-            apiService.post("eAxisAPI", appConfig.Entities.AppSettings.API.FindAll.Url + authService.getUserInfo().AppPK, _input).then(function (response) {
-                if (response.data.Response) {
-                    _deferred.resolve(response.data.Response[0]);
-                } else {
-                    _deferred.resolve([]);
-                }
-            });
-
-            return _deferred.promise;
-        }
-
-        function DownloadExportBasedOnTemplate($item, fileType, isStandard) {
-            let _input = angular.copy($item);
+            let _input = $item ? $item : _template;
             let _jobDocs = {
-                EntityRefCode: DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.DataEntryName,
-                EntityRefKey: DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.DataEntry_PK,
+                EntityRefCode: DynamicListCtrl.ePage.Masters.DataEntry.FindConfig.DataEntryName,
+                EntityRefKey: DynamicListCtrl.ePage.Masters.DataEntry.FindConfig.DataEntry_PK,
                 EntitySource: "REPORT"
             };
-            let _pagination = angular.copy(DynamicListCtrl.ePage.Masters.DynamicList.DataEntryForFilter.OtherConfig.Pagination);
+            let _pagination = angular.copy(DynamicListCtrl.ePage.Masters.DataEntry.FindConfig.OtherConfig.Pagination);
             _pagination.PageSize = "100000";
             // Get local Columns
             let _gridConfig = [];
-            DynamicListCtrl.ePage.Masters.DynamicList.DataEntryForFilter.GridConfig.Header.map((value, key) => {
+            let _count = 1;
+            let _customHeaderList = [];
+            if (DynamicListCtrl.ePage.Masters.Header.CustomizeGrid.TempListSource && DynamicListCtrl.ePage.Masters.Header.CustomizeGrid.TempListSource.length > 0) {
+                _customHeaderList = DynamicListCtrl.ePage.Masters.Header.CustomizeGrid.TempListSource;
+            } else {
+                _customHeaderList = DynamicListCtrl.ePage.Masters.DataEntry.FindConfig.GridConfig.Header;
+            }
+
+            _customHeaderList.map((value, key) => {
                 if (value.displayName) {
                     let _column = {
                         DisplayName: value.displayName,
                         FieldName: value.field,
-                        DataType: value.type,
-                        OrdinalPosition: key + 1
+                        OrdinalPosition: _count++,
+                        DataType: value.DataType ? value.DataType : value.type,
+                        TypeFormat: value.Format,
+                        Flag: value.Flag
                     };
                     _gridConfig.push(_column);
                 }
             });
             // Get local Filter input
             let _searchInput = {};
-            DynamicListCtrl.ePage.Masters.DynamicList.DataEntryForFilter.Entities.map(x => Object.assign(_searchInput, x.Data));
+            DynamicListCtrl.ePage.Masters.DataEntry.FindConfig.Entities.map(x => Object.assign(_searchInput, x.Data));
 
+            if (!_input.JobDocs) {
+                _input.JobDocs = {};
+            }
             _input.JobDocs = Object.assign(_input.JobDocs, _jobDocs);
-            _input.FileType = fileType;
-            _input.FileName = _input.FileName ? _input.FileName : DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.DataEntryName;
+            _input.FileType = fileType ? fileType : "EXCEL";
+            _input.FileName = _input.FileName ? _input.FileName : DynamicListCtrl.ePage.Masters.DataEntry.FindConfig.DataEntryName;
             _input.IsSaveToDrive = false;
 
             if (_input.DataObjs && _input.DataObjs.length > 0) {
                 _input.DataObjs.map(x => {
                     if (x.DataSource === "LOCAL" && !x.IsApi) {
                         x.DataObject.Date = new Date().toUTCString();
-                        x.DataObject.Title = x.DataObject.Title ? x.DataObject.Title : DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.Title;
+                        x.DataObject.Title = x.DataObject.Title ? x.DataObject.Title : DynamicListCtrl.ePage.Masters.DataEntry.FindConfig.Title;
                     } else if (x.DataSource === "API" && x.IsApi) {
-                        x.ApiName = x.ApiName ? x.ApiName : DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.FilterAPI;
-                        x.SearchInput.FilterID = x.SearchInput.FilterID ? x.SearchInput.FilterID : DynamicListCtrl.ePage.Masters.DynamicList.DataEntry.FilterID;
+                        if (!x.SearchInput) {
+                            x.SearchInput = {};
+                        }
+                        let _api = DynamicListCtrl.ePage.Masters.DataEntry.FindConfig.FilterAPI,
+                            _filterAPIArray = DynamicListCtrl.ePage.Masters.DataEntry.FindConfig.FilterAPI.split("/"),
+                            _isFindLookup = _filterAPIArray[_filterAPIArray.length - 2] === "FindLookup" ? true : false;
+                        if (_isFindLookup) {
+                            _api = _filterAPIArray.slice(0, -1).join("/");
+                            x.SearchInput.DBObjectName = DynamicListCtrl.ePage.Masters.DataEntry.FindConfig.FilterAPI.split("/").pop();
+                        }
+
+                        x.ApiName = _api;
+                        x.SearchInput.FilterID = x.SearchInput.FilterID ? x.SearchInput.FilterID : DynamicListCtrl.ePage.Masters.DataEntry.FindConfig.FilterID;
                         x.GridConfig = x.GridConfig ? x.GridConfig : _gridConfig;
 
                         if (x.SearchInput.SearchInput && x.SearchInput.SearchInput.length > 0) {
-                            x.SearchInput.SearchInput.map(value => {
-                                for (let _key in _searchInput) {
-                                    if (value.value && value.FieldName === _key) {
-                                        value.value = _searchInput[_key];
-                                    }
-                                }
+                            let _sInput = {};
+                            x.SearchInput.SearchInput.map(x => {
+                                _sInput[x.FieldName] = x.value;
                             });
+                            _sInput = Object.assign(_sInput, _searchInput);
+
+                            x.SearchInput.SearchInput = helperService.createToArrayOfObject(_sInput);
                         } else {
                             if (isStandard) {
                                 let _filterInput = Object.assign(_pagination, _searchInput);
@@ -2119,34 +1574,155 @@
                 });
             }
 
-            apiService.post("eAxisAPI", appConfig.Entities.Export.API.GridExcel.Url, _input).then(function (response) {
-                if (response.data.Response) {
-                    helperService.DownloadDocument(response.data.Response);
-                } else {
-                    toastr.error("Failed to Download...!");
-                }
-            });
+            return _input;
+        }
+
+        function PrepareScheduleInput($item) {
+            let _obj = {
+                Event: "STDEVENT",
+                Source: "SimpleExport",
+                Template: "Simple Export",
+                SourceReference: "StandardExport_" + $item.PK.split("-").join(""),
+                SearchInput: JSON.parse($item.Value).ScheduleDetails
+            };
+            return _obj;
         }
         // #endregion
 
-        // #region Search
-        function InitSearch() {
-            DynamicListCtrl.ePage.Masters.DynamicList.Search = {};
-            DynamicListCtrl.ePage.Masters.DynamicList.Search.OnSearch = OnSearch;
+        // #region Prepare Optimized list page
+        function PrepareUserBasedGridColumList() {
+            if (DynamicListCtrl.ePage.Masters.AllFindAllList.GridColumns && DynamicListCtrl.ePage.Masters.AllFindAllList.GridColumns.length > 0) {
+                let _response = DynamicListCtrl.ePage.Masters.AllFindAllList.GridColumns[0];
+                DynamicListCtrl.ePage.Masters.Header.CustomizeGrid.UserSetting = _response;
+                let _value = JSON.parse(_response.Value);
+                let _AllColumns = angular.copy(DynamicListCtrl.ePage.Masters.DataEntry.FindConfig.GridConfig.Header);
+                let _gridColumn = [];
 
-            DynamicListCtrl.ePage.Masters.DynamicList.Search.SearchBtnTxt = "Go";
-            DynamicListCtrl.ePage.Masters.DynamicList.Search.IsDisableSearchBtn = false;
+                if (_value.Column && _value.Column.length > 0) {
+                    _gridColumn = angular.copy(_value.Column);
+                    _AllColumns.map(value1 => {
+                        let _index = _gridColumn.findIndex(x => x.field == value1.field);
+                        if (_index == -1) {
+                            value1.IsVisible = false;
+                            _gridColumn.push(value1);
+                        }
+                    });
+                }
+
+                DynamicListCtrl.ePage.Masters.Header.CustomizeGrid.ListSource = _gridColumn;
+                DynamicListCtrl.ePage.Masters.Header.CustomizeGrid.TempListSource = _value.Column;
+                DynamicListCtrl.ePage.Masters.Header.CustomizeGrid.IsAutoListing = _value.IsAutoListing;
+                DynamicListCtrl.ePage.Masters.Grid.IsAutoListing = _value.IsAutoListing;
+            }
+            PrepareSystemFilterList();
         }
 
-        function OnSearch() {
-            DynamicListCtrl.ePage.Masters.DynamicList.Search.IsDisableSearchBtn = true;
-            let _input = DynamicListCtrl.ePage.Masters.DynamicList.Search.EntityInfo;
+        function PrepareSystemFilterList() {
+            if (DynamicListCtrl.ePage.Masters.AllFindAllList.SystemQueries && DynamicListCtrl.ePage.Masters.AllFindAllList.SystemQueries.length > 0) {
+                DynamicListCtrl.ePage.Masters.Header.SystemFilter.ListSource = DynamicListCtrl.ePage.Masters.AllFindAllList.SystemQueries;
+            }
+            PrepareUserFilterList();
+        }
 
-            OnRefreshBtnClick();
-            // $timeout(() => {
-            //     DynamicListCtrl.ePage.Masters.DynamicList.Search.IsDisableSearchBtn = false;
-            //     DynamicListCtrl.ePage.Masters.DynamicList.Search.EntityInfo = undefined;
-            // }, 1000);
+        function PrepareUserFilterList() {
+            if (DynamicListCtrl.ePage.Masters.AllFindAllList.SavedFilters && DynamicListCtrl.ePage.Masters.AllFindAllList.SavedFilters.length > 0) {
+                DynamicListCtrl.ePage.Masters.Header.UserFilter.ListSource = DynamicListCtrl.ePage.Masters.AllFindAllList.SavedFilters;
+
+                DynamicListCtrl.ePage.Masters.Header.UserFilter.ListSource.map(x => {
+                    x.UpdateBtnTxt = "Update";
+                    x.IsDisableUpdateBtn = false;
+                });
+            }
+
+            PrepareUserDefaultFilter();
+            PrepareShortcutList();
+            PrepareFilterAccessControl();
+            PrepareRecentFilterList();
+            PrepareScheduleList();
+            PrepareRelatedLookupList();
+        }
+
+        function PrepareUserDefaultFilter() {
+            if (DynamicListCtrl.ePage.Masters.AllFindAllList.DefultQuery && DynamicListCtrl.ePage.Masters.AllFindAllList.DefultQuery.length > 0) {
+                let _response = DynamicListCtrl.ePage.Masters.AllFindAllList.DefultQuery[0];
+                DynamicListCtrl.ePage.Masters.Header.DefaultFilter = _response;
+                let _indexSystem = DynamicListCtrl.ePage.Masters.Header.SystemFilter.ListSource.findIndex(x => x.PK === _response.Value);
+                let _indexUser = DynamicListCtrl.ePage.Masters.Header.UserFilter.ListSource.findIndex(x => x.PK === _response.Value);
+
+                if (_indexSystem !== -1) {
+                    DynamicListCtrl.ePage.Masters.Header.SystemFilter.ListSource[_indexSystem].IsDefaultFilter = true;
+                    DynamicListCtrl.ePage.Masters.Header.ActiveFilter = angular.copy(DynamicListCtrl.ePage.Masters.Header.SystemFilter.ListSource[_indexSystem]);
+                    ExecuteFilterInput(DynamicListCtrl.ePage.Masters.Header.SystemFilter.ListSource[_indexSystem]);
+                }
+                if (_indexUser !== -1) {
+                    DynamicListCtrl.ePage.Masters.Header.UserFilter.ListSource[_indexUser].IsDefaultFilter = true;
+                    DynamicListCtrl.ePage.Masters.Header.ActiveFilter = angular.copy(DynamicListCtrl.ePage.Masters.Header.UserFilter.ListSource[_indexUser]);
+                    ExecuteFilterInput(DynamicListCtrl.ePage.Masters.Header.UserFilter.ListSource[_indexUser]);
+                }
+            } else {
+                let _index = DynamicListCtrl.ePage.Masters.Header.SystemFilter.ListSource.findIndex(x => x.PK === DynamicListCtrl.ePage.Masters.DataEntry.FindConfig.DefaultFilter);
+                if (_index != -1) {
+                    DynamicListCtrl.ePage.Masters.Header.DefaultFilter = DynamicListCtrl.ePage.Masters.Header.SystemFilter.ListSource[_index];
+                    DynamicListCtrl.ePage.Masters.Header.ActiveFilter = angular.copy(DynamicListCtrl.ePage.Masters.Header.SystemFilter.ListSource[_index]);
+                    ExecuteFilterInput(DynamicListCtrl.ePage.Masters.Header.SystemFilter.ListSource[_index]);
+                } else {
+                    PrepareGridInfo();
+                }
+            }
+        }
+
+        function PrepareShortcutList() {
+            if (DynamicListCtrl.ePage.Masters.AllFindAllList.Shortcut && DynamicListCtrl.ePage.Masters.AllFindAllList.Shortcut.length > 0) {
+                DynamicListCtrl.ePage.Masters.Header.Shortcut.ListSource = DynamicListCtrl.ePage.Masters.AllFindAllList.Shortcut;
+
+                DynamicListCtrl.ePage.Masters.Header.Shortcut.ListSource.map(value => {
+                    DynamicListCtrl.ePage.Masters.Header.SystemFilter.ListSource.map(value1 => {
+                        if (value.Value === value1.PK) {
+                            value1.IsStarred = true;
+                            value1.Starred_PK = value.PK;
+                            value.Input = value1;
+                        }
+                    });
+                    DynamicListCtrl.ePage.Masters.Header.UserFilter.ListSource.map(value2 => {
+                        if (value.Value === value2.PK) {
+                            value2.IsStarred = true;
+                            value2.Starred_PK = value.PK;
+                            value.Input = value2;
+                        }
+                    });
+                });
+            }
+        }
+
+        function PrepareRecentFilterList() {
+            if (DynamicListCtrl.ePage.Masters.AllFindAllList.SecRecentItems && DynamicListCtrl.ePage.Masters.AllFindAllList.SecRecentItems.length > 0) {
+                DynamicListCtrl.ePage.Masters.Header.Recent.ListSource = DynamicListCtrl.ePage.Masters.AllFindAllList.SecRecentItems;
+            }
+        }
+
+        function PrepareScheduleList() {
+            if (DynamicListCtrl.ePage.Masters.AllFindAllList.Schedules && DynamicListCtrl.ePage.Masters.AllFindAllList.Schedules.length > 0) {
+                let _response = DynamicListCtrl.ePage.Masters.AllFindAllList.Schedules;
+                _response.map((value) => {
+                    let _scheduleInput = PrepareScheduleInput(value);
+                    Object.assign(value, _scheduleInput);
+                });
+                DynamicListCtrl.ePage.Masters.Header.Schedule.ListSource = _response;
+            }
+        }
+
+        function PrepareRelatedLookupList() {
+            let _response = DynamicListCtrl.ePage.Masters.AllFindAllList.RelatedLookups;
+            let _isEmpty = angular.equals({}, _response);
+
+            if (!_isEmpty) {
+                Object.assign(dynamicLookupConfig.Entities, _response);
+            }
+        }
+
+        function PrepareFilterAccessControl() {
+            DynamicListCtrl.ePage.Masters.Filter.AccessControl.ListSource = DynamicListCtrl.ePage.Masters.AllFindAllList.SearchFields;
+            DynamicListCtrl.ePage.Masters.Filter.AccessControl.IsEnableDynamicControl = true;
         }
         // #endregion
 

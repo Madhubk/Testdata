@@ -275,13 +275,10 @@
         function GetSubModuleList() {
             TCEmailConfigureCtrl.ePage.Masters.Template.SubModuleList = undefined;
             var _filter = {
-
                 EntitySource: "EXCELCONFIG",
                 PropertyName: "SVS_SourceEntityRefKey",
                 SAP_FK: TCEmailConfigureCtrl.ePage.Masters.QueryString.AppPk,
-                TenantCode: authService.getUserInfo().TenantCode,
                 ModuleCode: TCEmailConfigureCtrl.ePage.Masters.Template.ActiveModule.Key
-
             };
 
             var _input = {

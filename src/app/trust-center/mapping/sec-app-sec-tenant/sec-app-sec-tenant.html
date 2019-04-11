@@ -33,7 +33,7 @@
                     data-ng-disabled="!TCSecAppSecTenantCtrl.ePage.Masters.SecAppSecTenant.ActiveSecAppSecTenant.PK">Edit</button>
                 <button class="btn btn-default tc-btn-delete btn-xs pull-right ml-10" data-ng-click="TCSecAppSecTenantCtrl.ePage.Masters.SecAppSecTenant.DeleteConfirmation()"
                     data-ng-bind="TCSecAppSecTenantCtrl.ePage.Masters.DeleteBtnText" data-ng-disabled="TCSecAppSecTenantCtrl.ePage.Masters.IsDisableDeleteBtn || !TCSecAppSecTenantCtrl.ePage.Masters.SecAppSecTenant.ActiveSecAppSecTenant.PK"
-                    data-ng-if="TCSecAppSecTenantCtrl.ePage.Masters.SecAppSecTenant.UIControlList && TCSecAppSecTenantCtrl.ePage.Masters.SecAppSecTenant.UIControlList.length > 0 && TCSecAppSecTenantCtrl.ePage.Masters.SecAppSecTenant.CheckUIControl('TC_MAP_DEL')"></button>
+                    data-ng-if="TCSecAppSecTenantCtrl.ePage.Masters.SecAppSecTenant.CheckUIControl('TC_MAP_DEL')"></button>
                     <button class="btn btn-primary btn-xs pull-right ml-10" generate-db-script input="TCSecAppSecTenantCtrl.ePage.Masters.GenerateScriptInput"
                     config="TCSecAppSecTenantCtrl.ePage.Masters.GenerateScriptConfig" data-ng-disabled="!TCSecAppSecTenantCtrl.ePage.Masters.GenerateScriptInput.ObjectName || !TCSecAppSecTenantCtrl.ePage.Masters.GenerateScriptInput.ObjectId ||!TCSecAppSecTenantCtrl.ePage.Masters.SecAppSecTenant.ActiveSecAppSecTenant.PK">Generate
                     Script</button>

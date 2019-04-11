@@ -115,7 +115,8 @@
             if ($item.action === "link" || $item.action === "dblClick") {
                 var _detailKey = $item.data.entity[$item.dataEntryMaster.GridConfig.DetailKey];
                 $location.path("TC/dynamic-details-view/" + DynamicListViewCtrl.ePage.Masters.dataentryName + '/' + helperService.encryptData(_queryString)).search({
-                    item: helperService.encryptData(_detailKey)
+                    item: helperService.encryptData($item.data.entity),
+                    key: helperService.encryptData(_detailKey),
                 });
             } else {
                 $location.path("TC/dynamic-details-view/" + DynamicListViewCtrl.ePage.Masters.dataentryName + '/' + helperService.encryptData(_queryString));

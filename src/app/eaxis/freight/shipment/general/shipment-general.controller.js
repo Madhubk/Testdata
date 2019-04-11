@@ -75,8 +75,7 @@
                     GeneralCtrl.ePage.Masters.IsETADisable = false;
                 if (GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.TransportMode == null) {
                     GeneralCtrl.ePage.Masters.isTransportMode = true;
-                }
-                else {
+                } else {
                     GeneralCtrl.ePage.Masters.isTransportMode = false;
                 }
                 // AssignDateToNewDateObject();
@@ -124,8 +123,7 @@
                         GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.Destination = $item.OAD_RelatedPortCode;
                         getMDMDefaulvalues();
 
-                    }
-                    else {
+                    } else {
                         GeneralCtrl.ePage.Masters.ConsigneeAddressType = [];
                         GeneralCtrl.ePage.Masters.ConsigneeContact = [];
                         GeneralCtrl.ePage.Masters.ConsigneeAddress = "";
@@ -200,6 +198,7 @@
                 // GeneralCtrl.ePage.Masters.ErrorWarningConfig.OnFieldValueChange("BookingBranch", GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ShipmentNo, GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.ORG_Consignee_Code, 'E0032', false);
             }
         }
+
         function OpenDatePicker($event, opened) {
             $event.preventDefault();
             $event.stopPropagation();
@@ -352,8 +351,7 @@
             if (GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.TransportMode == "AIR") {
                 GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.HouseBillType = null;
                 GeneralCtrl.ePage.Masters.isHBLKey = true;
-            }
-            else if (GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.TransportMode == "SEA") {
+            } else if (GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.TransportMode == "SEA") {
                 GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.HouseBillType = "IAU"
             } else {
                 GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.HouseBillType = null;
@@ -548,8 +546,7 @@
                     str = $item.ContactName + " " + $item.Email + " " + $item.Phone;
                     return str
                 }
-            }
-            else {
+            } else {
                 return str
             }
         }
@@ -669,7 +666,8 @@
                     // "Value": "TEST"
                 }],
                 EntityObject: GeneralCtrl.ePage.Entities.Header.Data,
-                ErrorCode: code ? [code] : []
+                ErrorCode: code ? [code] : [],
+                ActivityPK: GeneralCtrl.currentShipment.activityPK
             };
             errorWarningService.ValidateValue(_obj);
         }
@@ -876,7 +874,7 @@
                     }
                 }
             }).result.then(
-                function (response) { }
+                function (response) {}
             );
         }
 
@@ -927,8 +925,7 @@
         function IsDomestic($item1, $item2) {
             if (shipmentConfig.PortsComparison($item1, $item2)) {
                 GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.IsDomestic = true;
-            }
-            else {
+            } else {
                 GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.IsDomestic = false;
             }
         }
@@ -942,18 +939,14 @@
 
         function PortOfLoadingAlert(_value, type) {
             if (GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.TransportMode != null) {
-                if (GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.TransportMode == 'SEA' && _value.HasSeaport == true) {
-                }
-                else if (GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.TransportMode == 'AIR' && _value.HasAirport == true) {
-                }
-                else {
+                if (GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.TransportMode == 'SEA' && _value.HasSeaport == true) {} else if (GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.TransportMode == 'AIR' && _value.HasAirport == true) {} else {
                     Alert(_value, type);
                 }
-            }
-            else {
+            } else {
                 toastr.warning("Please Select Transport Mode")
             }
         }
+
         function Alert(_value, type) {
             var modalOptions = {
                 closeButtonText: 'Cancel',
@@ -971,8 +964,7 @@
                     if (type == 'portOfDischarge') {
                         GeneralCtrl.ePage.Entities.Header.Data.UIShipmentHeader.PortOfDischarge = "";
                     }
-                }
-                );
+                });
         }
 
         // ===================== Package Details End =====================

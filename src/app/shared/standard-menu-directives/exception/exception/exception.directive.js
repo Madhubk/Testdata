@@ -41,7 +41,12 @@
                 "Entities": ExceptionCtrl.input
             };
 
+            ExceptionCtrl.ePage.Masters.CheckControlAccess = CheckControlAccess;
             InitException();
+        }
+
+        function CheckControlAccess(controlId) {
+            return helperService.checkUIControl(controlId);
         }
 
         function InitException() {

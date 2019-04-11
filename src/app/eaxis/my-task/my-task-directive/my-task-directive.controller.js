@@ -32,9 +32,9 @@
         .module("Application")
         .controller("MyTaskDirectiveController", MyTaskDirectiveController);
 
-    MyTaskDirectiveController.$inject = ["$timeout", "helperService", "authService", "apiService", "appConfig"];
+    MyTaskDirectiveController.$inject = ["$timeout", "helperService", "authService", "apiService", "eaxisConfig"];
 
-    function MyTaskDirectiveController($timeout, helperService, authService, apiService, appConfig) {
+    function MyTaskDirectiveController($timeout, helperService, authService, apiService, eaxisConfig) {
         var MyTaskDirectiveCtrl = this;
 
         function Init() {
@@ -59,6 +59,10 @@
             MyTaskDirectiveCtrl.ePage.Masters.MyTaskDirective.EditActivity = EditActivity;
             MyTaskDirectiveCtrl.ePage.Masters.MyTaskDirective.OverrideKPI = OverrideKPI;
             MyTaskDirectiveCtrl.ePage.Masters.MyTaskDirective.OnOverrideKPIClick = OnOverrideKPIClick;
+            MyTaskDirectiveCtrl.ePage.Masters.MyTaskDirective.Snooze = Snooze;
+            MyTaskDirectiveCtrl.ePage.Masters.MyTaskDirective.OnSnoozeClick = OnSnoozeClick;
+            MyTaskDirectiveCtrl.ePage.Masters.MyTaskDirective.Hold = Hold;
+            MyTaskDirectiveCtrl.ePage.Masters.MyTaskDirective.OnHoldClick = OnHoldClick;
             MyTaskDirectiveCtrl.ePage.Masters.MyTaskDirective.GetErrorWarningList = GetErrorWarningList;
 
             MyTaskDirectiveCtrl.ePage.Masters.MyTaskDirective.AssignStartCompleteResponse = AssignStartCompleteResponse;
@@ -97,13 +101,31 @@
         function OnOverrideKPIClick() {
             MyTaskDirectiveCtrl.ePage.Masters.MyTaskDirective.IsShowOverrideDirective = false;
 
-            $timeout(function () {
-                MyTaskDirectiveCtrl.ePage.Masters.MyTaskDirective.IsShowOverrideDirective = true;
-            });
+            $timeout(() => MyTaskDirectiveCtrl.ePage.Masters.MyTaskDirective.IsShowOverrideDirective = true);
         }
 
         function OverrideKPI($item) {
             MyTaskDirectiveCtrl.ePage.Masters.MyTaskDirective.TaskObj.DueDate = $item.DueDate;
+        }
+
+        function OnSnoozeClick() {
+            MyTaskDirectiveCtrl.ePage.Masters.MyTaskDirective.IsShowSnoozeDirective = false;
+
+            $timeout(() => MyTaskDirectiveCtrl.ePage.Masters.MyTaskDirective.IsShowSnoozeDirective = true);
+        }
+
+        function Snooze($item) {
+            // MyTaskDirectiveCtrl.ePage.Masters.MyTaskDirective.TaskObj.DueDate = $item.DueDate;
+        }
+
+        function OnHoldClick() {
+            MyTaskDirectiveCtrl.ePage.Masters.MyTaskDirective.IsShowHoldDirective = false;
+
+            $timeout(() => MyTaskDirectiveCtrl.ePage.Masters.MyTaskDirective.IsShowHoldDirective = true);
+        }
+
+        function Hold($item) {
+            // MyTaskDirectiveCtrl.ePage.Masters.MyTaskDirective.TaskObj.DueDate = $item.DueDate;
         }
 
         function AssignStartCompleteResponse($item) {
@@ -148,10 +170,10 @@
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.UserTenantList.API.FindAll.FilterID
+                "FilterID": eaxisConfig.Entities.UserTenantList.API.FindAll.FilterID
             };
 
-            return apiService.post("authAPI", appConfig.Entities.UserTenantList.API.FindAll.Url, _input).then(function (response) {
+            return apiService.post("authAPI", eaxisConfig.Entities.UserTenantList.API.FindAll.Url, _input).then(function (response) {
                 return response.data.Response;
             });
         }
@@ -189,7 +211,7 @@
                 AdditionalEntityRefCode: $item.ParentEntityRefCode
             };
 
-            apiService.post("eAxisAPI", appConfig.Entities.EBPMEngine.API.InitiateProcess.Url, _input).then(function (response) {
+            apiService.post("eAxisAPI", eaxisConfig.Entities.EBPMEngine.API.InitiateProcess.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     if (_input.AssignTo == authService.getUserInfo().UserId) {
                         // RefreshStatusCount();

@@ -8,7 +8,7 @@
     DynamicControlDirective.$inject = [];
 
     function DynamicControlDirective() {
-        var exports = {
+        let exports = {
             restrict: 'EA',
             templateUrl: 'app/shared/dynamic-control/dynamic-control.html',
             controller: "DynamicControlController",
@@ -26,7 +26,8 @@
                 isSaveBtn: "=",
                 selectedGridRow: "&",
                 pkey: "=",
-                baseFilterFields: "="
+                baseFilterFields: "=",
+                accessControl: "="
             },
             bindToController: true
         };
@@ -40,7 +41,7 @@
     DynamicControlController.$inject = ["$location", "$timeout", "APP_CONSTANT", "apiService", "authService", "helperService", "$injector", "appConfig", "dynamicLookupConfig"];
 
     function DynamicControlController($location, $timeout, APP_CONSTANT, apiService, authService, helperService, $injector, appConfig, dynamicLookupConfig) {
-        var DynamicControlCtrl = this;
+        let DynamicControlCtrl = this;
 
         function Init() {
             DynamicControlCtrl.ePage = {
@@ -81,6 +82,9 @@
             DynamicControlCtrl.ePage.Masters.SelectedData = SelectedData;
             DynamicControlCtrl.ePage.Masters.Save = Save;
             DynamicControlCtrl.ePage.Masters.SelectedGridRow = SelectedGridRow;
+            DynamicControlCtrl.ePage.Masters.GetAppCounter = GetAppCounter;
+            DynamicControlCtrl.ePage.Masters.Refresh = Refresh;
+            DynamicControlCtrl.ePage.Masters.OnModelChange = OnModelChange;
 
             // DatePicker
             DynamicControlCtrl.ePage.Masters.DatePicker = {};
@@ -90,6 +94,8 @@
 
             DynamicControlCtrl.ePage.Masters.IsDisableSaveBtn = false;
             DynamicControlCtrl.ePage.Masters.SaveBtnText = "Save";
+
+            DynamicControlCtrl.ePage.Masters.BaseFilterFields = DynamicControlCtrl.baseFilterFields ? DynamicControlCtrl.baseFilterFields : {};
 
             DynamicControlCtrl.ePage.Masters.ViewType = DynamicControlCtrl.viewType;
             if (!DynamicControlCtrl.ePage.Masters.ViewType) {
@@ -143,34 +149,18 @@
         }
 
         function GetDynamicAccessControl() {
-            var _filter = {
-                "SAP_FK": authService.getUserInfo().AppPK,
-                "TenantCode": authService.getUserInfo().TenantCode,
-                "EntitySource": DynamicControlCtrl.input.DataEntryName.toUpperCase() + "_FILTERDISLIKE",
-                "SourceEntityRefKey": authService.getUserInfo().UserId,
-                "TypeCode": DynamicControlCtrl.input.DataEntry_PK,
-            };
-            var _input = {
-                "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.UserSettings.API.FindAll.FilterID
-            };
-
-            apiService.post("eAxisAPI", appConfig.Entities.UserSettings.API.FindAll.Url + authService.getUserInfo().AppPK, _input).then(function (response) {
-                if (response.data.Response) {
-                    if (response.data.Response.length > 0) {
-                        DynamicControlCtrl.input.Entities.map(function (value1, key1) {
-                            value1.ConfigData.map(function (value2, key2) {
-                                response.data.Response.map(function (value3, key3) {
-                                    if (value3.Value === value2.DataEntryPK) {
-                                        value2.Include = false;
-                                        value2.Include_FK = value3.PK;
-                                    }
-                                });
-                            });
+            if (DynamicControlCtrl.accessControl && DynamicControlCtrl.accessControl.length > 0) {
+                DynamicControlCtrl.input.Entities.map(function (value1, key1) {
+                    value1.ConfigData.map(function (value2, key2) {
+                        DynamicControlCtrl.accessControl.map(function (value3, key3) {
+                            if (value3.Value === value2.DataEntryPK) {
+                                value2.Include = false;
+                                value2.Include_FK = value3.PK;
+                            }
                         });
-                    }
-                }
-            });
+                    });
+                });
+            }
         }
 
         function OpenDatePicker($event, opened) {
@@ -181,24 +171,60 @@
         }
 
         function EditCall(entityObj) {
+            DynamicControlCtrl.ePage.Masters.IsGetById = false;
             var _input = {
                 "EntityName": entityObj.EntityName
             };
+            let _url = appConfig.Entities.DataEntry.API.FindGetById.Url;
+            let _method = "post";
 
             if (DynamicControlCtrl.pkey) {
                 _input.EntityRefKey = DynamicControlCtrl.pkey;
-            }
 
-            apiService.post("eAxisAPI", appConfig.Entities.DataEntry.API.FindAll.Url, _input).then(function (response) {
-                if (response.data.Response) {
-                    if (response.data.Response[0] != null) {
-                        entityObj.Data = response.data.Response[0];
-                        if ($location.path().indexOf('/single-record-view/') != -1) {
-                            UIDynamicFunData();
-                        }
+                if (DynamicControlCtrl.input.UpsertURL) {
+                    if (typeof DynamicControlCtrl.input.UpsertURL == "string") {
+                        _url = JSON.parse(DynamicControlCtrl.input.UpsertURL).R;
                     }
                 }
-            });
+
+                if (_url.indexOf("DataEntry/Dynamic/FindGetById") === -1) {
+                    _url = _url + DynamicControlCtrl.pkey;
+                    _method = "get";
+                }
+
+                if (_method == "post") {
+                    apiService.post("eAxisAPI", _url, _input).then(function (response) {
+                        if (response.data.Response) {
+                            entityObj.Data = response.data.Response;
+
+                            if ($location.path().indexOf('/single-record-view/') != -1) {
+                                UIDynamicFunData();
+                            }
+                        }
+
+                        GetAppCounter(entityObj);
+                        GetUIRestrictionList(entityObj);
+                        DynamicControlCtrl.ePage.Masters.IsGetById = true;
+                    });
+                } else {
+                    apiService.get("eAxisAPI", _url).then(function (response) {
+                        if (response.data.Response) {
+                            entityObj.Data = response.data.Response;
+
+                            if ($location.path().indexOf('/single-record-view/') != -1) {
+                                UIDynamicFunData();
+                            }
+                        }
+
+                        GetAppCounter(entityObj);
+                        GetUIRestrictionList(entityObj);
+                        DynamicControlCtrl.ePage.Masters.IsGetById = true;
+                    });
+                }
+            } else {
+                GetAppCounter(entityObj);
+                GetUIRestrictionList(entityObj);
+            }
         }
 
         function UIDynamicFunData() {
@@ -287,26 +313,157 @@
             _lookupConfig.getValues.map(function (value, key) {
                 Entity.Data[value.eField] = $item.data.entity[_lookupConfig.getValues[key].sField];
             });
+
+            OnModelChange($item);
         }
 
         function Save() {
             DynamicControlCtrl.ePage.Masters.IsDisableSaveBtn = true;
             DynamicControlCtrl.ePage.Masters.SaveBtnText = "Please Wait...";
+            if (DynamicControlCtrl.ePage.Masters.UIRestrictionList && DynamicControlCtrl.ePage.Masters.UIRestrictionList.length > 0) {
+                PrepareUIManipulation();
+            }
 
-            DynamicControlCtrl.controlsData({
-                $item: DynamicControlCtrl.input.Entities
+            $timeout(() => {
+                let _item = {
+                    Entities: DynamicControlCtrl.input.Entities,
+                    ValidationInput: DynamicControlCtrl.ePage.Masters.ValidataionInput,
+                    IsEnableSave: true
+                };
+                DynamicControlCtrl.controlsData({
+                    $item: _item
+                });
             });
-
-            $timeout(function () {
+            
+            $timeout(() => {
                 DynamicControlCtrl.ePage.Masters.IsDisableSaveBtn = false;
                 DynamicControlCtrl.ePage.Masters.SaveBtnText = "Save";
-            }, 1000);
+            }, 2000);
+        }
+
+        function Refresh() {
+            if (DynamicControlCtrl.ePage.Masters.UIRestrictionList && DynamicControlCtrl.ePage.Masters.UIRestrictionList.length > 0) {
+                PrepareUIManipulation();
+            }
+
+            $timeout(() => {
+                let _item = {
+                    Entities: DynamicControlCtrl.input.Entities,
+                    ValidationInput: DynamicControlCtrl.ePage.Masters.ValidataionInput
+                };
+                DynamicControlCtrl.controlsData({
+                    $item: _item
+                });
+            });
+        }
+
+        function OnModelChange($item) {
+            if (DynamicControlCtrl.input.OtherConfig.DetailsPage && DynamicControlCtrl.input.OtherConfig.DetailsPage.IsImmediateValidation) {
+                Refresh();
+            }
         }
 
         // TC Grid
         function SelectedGridRow($item) {
             DynamicControlCtrl.selectedGridRow({
                 $item: $item
+            });
+        }
+
+        // Generate counter number
+        function GetAppCounter(entity) {
+            if (!entity.Data) {
+                entity.Data = {};
+            }
+            let _pk, _propertyName;
+            DynamicControlCtrl.input.Entities.map(value1 => {
+                value1.ConfigData.map(value2 => {
+                    if (value2.IsKey && (value2.Type == "D" || value2.Type == "B")) {
+                        if (entity.Data[value2.PropertyName]) {
+                            _pk = entity.Data[value2.PropertyName];
+                        } else if (entity.Data[value2.FieldName]) {
+                            _pk = entity.Data[value2.FieldName];
+                        }
+                    }
+                    if (value2.AttributesDetails.UIControl == "counter") {
+                        _propertyName = value2.PropertyName;
+                    }
+                });
+            });
+            if (!_pk && _propertyName) {
+                DynamicControlCtrl.input
+                apiService.get("eAxisAPI", appConfig.Entities.AppCounter.API.GetAppcount.Url + DynamicControlCtrl.input.DataEntryName).then(response => {
+                    if (response.data.Response) {
+                        entity.Data[_propertyName] = response.data.Response;
+                    }
+                });
+            }
+        }
+
+        // UI Manipulation
+        function GetUIRestrictionList($item) {
+            DynamicControlCtrl.ePage.Masters.UIRestrictionList = undefined;
+            let _filter = {
+                DEM_DataEntry_PK: DynamicControlCtrl.input.DataEntry_PK,
+                Mode: "D"
+            };
+            let _input = {
+                "searchInput": helperService.createToArrayOfObject(_filter),
+                "FilterID": appConfig.Entities.DYNUIRestriction.API.FindAll.FilterID
+            };
+
+            apiService.post("eAxisAPI", appConfig.Entities.DYNUIRestriction.API.FindAll.Url, _input).then(response => {
+                if (response.data.Response && response.data.Response.length > 0) {
+                    DynamicControlCtrl.ePage.Masters.UIRestrictionList = response.data.Response;
+
+                    PrepareUIManipulation();
+                } else {
+                    DynamicControlCtrl.ePage.Masters.UIRestrictionList = [];
+                }
+            });
+        }
+
+        function PrepareUIManipulation() {
+            DynamicControlCtrl.ePage.Masters.ValidataionInput = undefined;
+            DynamicControlCtrl.ePage.Masters.UIRestrictionList.map(value => {
+                let _data = {};
+                DynamicControlCtrl.input.Entities.map(value => {
+                    value.ConfigData.map(x => {
+                        DynamicControlCtrl.ePage.Masters.BaseFilterFields["IsDisabled" + x.FieldName] = false;
+                        DynamicControlCtrl.ePage.Masters.BaseFilterFields["IsInVisible" + x.FieldName] = false;
+                    });
+                    _data = {
+                        ..._data,
+                        ...value.Data
+                    };
+                });
+
+                setTimeout(() => {
+                    if (value.Expression && value.Restriction) {
+                        let _exp = value.Expression;
+                        let ExpressionResult = new Function("Data", "return " + _exp);
+                        let _evalResult = ExpressionResult(_data);
+                        if (_evalResult == true) {
+                            let _restriction = (typeof value.Restriction == "string") ? JSON.parse(value.Restriction) : value.Restriction;
+
+                            if (_restriction && _restriction.length > 0) {
+                                _restriction.map(value1 => {
+                                    if (value1.Disabled == true) {
+                                        DynamicControlCtrl.ePage.Masters.BaseFilterFields["IsDisabled" + value1.FieldName] = true;
+                                    }
+                                    if (value1.InVisible == true) {
+                                        DynamicControlCtrl.ePage.Masters.BaseFilterFields["IsInVisible" + value1.FieldName] = true;
+                                    }
+                                });
+                            }
+                            if (value.OnSubmit) {
+                                let _validataionInput = (typeof value.OnSubmit == "string") ? JSON.parse(value.OnSubmit) : value.OnSubmit;
+
+                                DynamicControlCtrl.ePage.Masters.ValidataionInput = angular.copy(_validataionInput);
+                            }
+                        }
+                    }
+                });
             });
         }
 

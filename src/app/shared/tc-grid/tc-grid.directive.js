@@ -8,14 +8,8 @@
     TCGrid.$inject = ["$templateCache"];
 
     function TCGrid($templateCache) {
-        var _template = `<div class="clearfix tc-dyn-grid-container" data-ng-if="TCGridCtrl.ePage.Masters.DataEntry">
-            <div class="tc-dyn-grid-heading">
-                <span data-ng-bind="TCGridCtrl.ePage.Masters.AttributeDetails.LabelText || TCGridCtrl.ePage.Masters.DataEntry.Title || 'Title'"></span>
-                <span class="fa fa-plus font-160 pull-right cursor-pointer" data-ng-click="TCGridCtrl.ePage.Masters.AddNew()" data-ng-if="TCGridCtrl.ePage.Masters.AttributeDetails.Options.AddNew == 'true' && TCGridCtrl.ePage.Masters.DataEntry.Filter.length > 0"></span>
-            </div>
-            <div class="tc-dyn-grid">
-                <dynamic-grid mode="'1'" input="TCGridCtrl.ePage.Masters.DataEntry" grid-options="TCGridCtrl.ePage.Masters.GridOptions"  selected-grid-row="TCGridCtrl.ePage.Masters.SelectedGridRow($item)" default-filter="TCGridCtrl.ePage.Masters.DefaultFilter"  is-local-search="true" is-api="true"></dynamic-grid>
-            </div>
+        var _template = `<div class="tc-dyn-grid pb-5 clearfix" style="border: 1px solid #ddd;" data-ng-if="TCGridCtrl.ePage.Masters.DataEntry">
+            <dynamic-grid mode="'1'" input="TCGridCtrl.ePage.Masters.DataEntry" grid-options="TCGridCtrl.ePage.Masters.GridOptions"  selected-grid-row="TCGridCtrl.ePage.Masters.SelectedGridRow($item)" default-filter="TCGridCtrl.ePage.Masters.DefaultFilter"  is-local-search="true" is-api="true" is-tc-grid="true"></dynamic-grid>
         </div>`;
         $templateCache.put("TCGrid.html", _template);
 
@@ -59,7 +53,6 @@
         }
 
         function InitTCGrid() {
-            TCGridCtrl.ePage.Masters.AddNew = AddNew;
             TCGridCtrl.ePage.Masters.SelectedGridRow = SelectedGridRow;
 
             if (TCGridCtrl.attributeDetails) {
@@ -106,26 +99,29 @@
                         var _defaultFilter = [];
 
                         var _gridOptions = angular.copy(_response.OtherConfig.GridOptions);
-                        _gridOptions.paginationPageSize = JSON.parse(_gridOptions.paginationPageSize);
-                        _gridOptions.paginationPageSizes = JSON.parse(_gridOptions.paginationPageSizes);
-                        _gridOptions.headerRowHeight = JSON.parse(_gridOptions.headerRowHeight);
-                        _gridOptions.rowHeight = JSON.parse(_gridOptions.rowHeight);
-                        _gridOptions.gridMenuCustomItems = JSON.parse(_gridOptions.gridMenuCustomItems);
+                        if (!_gridOptions) {
+                            _gridOptions = {
+                                paginationPageSizes: "[25, 50, 100]",
+                                paginationPageSize: 25
+                            };
+                        }
+                        _gridOptions.paginationPageSize = Number(_gridOptions.paginationPageSize);
+                        _gridOptions.paginationPageSizes = (typeof _gridOptions.paginationPageSizes == "string") ? JSON.parse(_gridOptions.paginationPageSizes) : _gridOptions.paginationPageSizes;
 
                         TCGridCtrl.ePage.Masters.GridOptions = _gridOptions;
 
-                        if (TCGridCtrl.ePage.Masters.AttributeDetails.Options.Delete == "true") {
-                            var _delete = {
-                                field: "delete",
-                                displayName: "",
-                                cellTemplate: `<div class='ui-grid-cell-contents text-single-line text-center' title="Remove"><a href='javascript:void(0);' ng-click='grid.appScope.GridCtrl.ePage.Masters.SelectedGridRow(row, "delete")'><i class='grid-cell-icon fa fa-trash'></i></a></div>`,
-                                width: 35,
-                                IsMandatory: true,
-                                IsVisible: true
-                            };
-                            _response.GridConfig.Header.push(_delete);
-                            _response.GridConfig.Header.splice(0, 0, _response.GridConfig.Header.splice(_response.GridConfig.Header.length - 1, 1)[0]);
-                        }
+                        // if (TCGridCtrl.ePage.Masters.AttributeDetails.Options.Delete == "true") {
+                        //     var _delete = {
+                        //         field: "delete",
+                        //         displayName: "",
+                        //         cellTemplate: `<div class='ui-grid-cell-contents text-single-line text-center' title="Remove"><a href='javascript:void(0);' ng-click='grid.appScope.GridCtrl.ePage.Masters.SelectedGridRow(row, "delete")'><i class='grid-cell-icon fa fa-trash'></i></a></div>`,
+                        //         width: 35,
+                        //         IsMandatory: true,
+                        //         IsVisible: true
+                        //     };
+                        //     _response.GridConfig.Header.push(_delete);
+                        //     _response.GridConfig.Header.splice(0, 0, _response.GridConfig.Header.splice(_response.GridConfig.Header.length - 1, 1)[0]);
+                        // }
 
                         if (TCGridCtrl.ePage.Masters.AttributeDetails.Options.Edit == "true") {
                             var _edit = {
@@ -142,10 +138,8 @@
 
                         if (TCGridCtrl.ePage.Masters.AttributeDetails.Options.Pagination == "false") {
                             _response.OtherConfig.Pagination = {};
-                            TCGridCtrl.ePage.Masters.GridOptions.paginationPageSize = undefined;
-                            TCGridCtrl.ePage.Masters.GridOptions.paginationPageSizes = undefined;
-                            TCGridCtrl.ePage.Masters.GridOptions.useExternalPagination = false;
-                            TCGridCtrl.ePage.Masters.GridOptions.enablePaginationControls = false
+                            TCGridCtrl.ePage.Masters.GridOptions.enablePaginationControls = false;
+                            TCGridCtrl.ePage.Masters.GridOptions.useExternalSorting = false;
                         }
 
                         if (TCGridCtrl.ePage.Masters.SearchInput.Criteria.length > 0) {
@@ -174,23 +168,18 @@
                             });
                         }
                         _response.Filter = _defaultFilter;
+                        TCGridCtrl.ePage.Masters.DefaultFilter = {};
+                        _defaultFilter.map(value => TCGridCtrl.ePage.Masters.DefaultFilter[value.FieldName] = value.Value)
 
-                        TCGridCtrl.ePage.Masters.DefaultFilter = _defaultFilter;
-
-                        if (_defaultFilter.length > 0) {
-                            TCGridCtrl.ePage.Masters.DataEntry = _response;
+                        if (!_response.OtherConfig.FilterConfig) {
+                            _response.OtherConfig.FilterConfig = {};
                         }
+                        _response.OtherConfig.FilterConfig.IsAutoListing = true;
+
+                        TCGridCtrl.ePage.Masters.DataEntry = _response;
                     }
                 }
             });
-        }
-
-        function AddNew() {
-            var _obj = {
-                data: {},
-                action: "new"
-            };
-            SelectedGridRow(_obj);
         }
 
         function SelectedGridRow($item) {

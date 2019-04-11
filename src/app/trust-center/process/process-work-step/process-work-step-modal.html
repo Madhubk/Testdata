@@ -1,5 +1,6 @@
 <div class="modal-header">
-    <button type="button" class="close" data-ng-click="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.CloseStep()">&times;</button>
+    <button type="button" class="close"
+        data-ng-click="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.CloseStep()">&times;</button>
     <h5 class="modal-title pull-left">
         <strong>Step</strong>
     </h5>
@@ -15,23 +16,28 @@
                     <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-lg-xl-4">
                         <div class="form-group">
                             <label for="inputText0">Step No</label>
-                            <input type="text" class="form-control input-sm" placeholder="Step No" data-ng-model="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.StepNo" />
+                            <input type="text" class="form-control input-sm" placeholder="Step No"
+                                data-ng-model="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.StepNo" />
                         </div>
                         <div class="form-group">
                             <label for="inputText0">Step Code</label>
-                            <input type="text" class="form-control input-sm" placeholder="Step Code" data-ng-model="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.StepCode" />
+                            <input type="text" class="form-control input-sm" placeholder="Step Code"
+                                data-ng-model="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.StepCode" />
                         </div>
                         <div class="form-group">
                             <label for="inputText0">Step Name</label>
-                            <input type="text" class="form-control input-sm" placeholder="Step Name" data-ng-model="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.StepName" />
+                            <input type="text" class="form-control input-sm" placeholder="Step Name"
+                                data-ng-model="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.StepName" />
                         </div>
                         <div class="form-group">
                             <label for="inputText0">Display Order</label>
-                            <input type="text" class="form-control input-sm" placeholder="Display Order" data-ng-model="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.DisplayOrder" />
+                            <input type="text" class="form-control input-sm" placeholder="Display Order"
+                                data-ng-model="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.DisplayOrder" />
                         </div>
                         <div class="form-group">
                             <label for="inputText0">Type</label>
-                            <select chosen class="form-control" data-ng-model="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.StepType"
+                            <select chosen class="form-control"
+                                data-ng-model="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.StepType"
                                 ng-options="x.Code as x.Name for x in ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.TypeList"
                                 search-contains="true" disable-search="true">
                                 <option value="">--Choose TypeList--</option>
@@ -39,7 +45,8 @@
                         </div>
                         <div class="form-group">
                             <label for="inputSelect4">Description</label>
-                            <textarea class="form-control set-text-bg no-resize" rows="5" data-ng-model="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.Description"
+                            <textarea class="form-control set-text-bg no-resize" rows="5"
+                                data-ng-model="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.Description"
                                 placeholder="Description"></textarea>
                         </div>
                         <div class="form-group">
@@ -55,11 +62,13 @@
                         <div class="form-group">
                             <label class="">
                                 Related Input
-                                <span data-ng-click="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.RelatedInput.OnEditRelatedInput()"
+                                <span
+                                    data-ng-click="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.RelatedInput.OnEditRelatedInput()"
                                     class="glyphicon glyphicon-pencil cursor-pointer ml-5"></span>
                             </label>
                             <div class="">
-                                <pre class="json-display-disabled" data-ng-bind="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.RelatedInput"></pre>
+                                <pre class="json-display-disabled"
+                                    data-ng-bind="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.RelatedInput"></pre>
                             </div>
                         </div>
                     </div>
@@ -67,53 +76,63 @@
                         <div class="form-group">
                             <label for="inputSelect4">
                                 KPI Expression
-                                <span data-ng-click="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.KPIExpression.OnEditKPIExpression()"
+                                <span
+                                    data-ng-click="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.KPIExpression.OnEditKPIExpression()"
                                     class="glyphicon glyphicon-pencil cursor-pointer ml-5"></span>
                             </label>
-                            <pre class="json-display-disabled" data-ng-bind="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.KPIExpression"></pre>
+                            <pre class="json-display-disabled"
+                                data-ng-bind="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.KPIExpression"></pre>
                         </div>
                         <div class="form-group">
                             <label class="">
                                 Related Process
-                                <span data-ng-click="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.OpenJsonModal('RelatedProcess')"
+                                <span
+                                    data-ng-click="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.OpenJsonModal('RelatedProcess')"
                                     class="glyphicon glyphicon-pencil cursor-pointer ml-5"></span>
                             </label>
                             <div class="">
-                                <textarea class="form-control set-text-bg no-resize" rows="5" data-ng-model="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.RelatedProcess"
+                                <textarea class="form-control set-text-bg no-resize" rows="5"
+                                    data-ng-model="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.RelatedProcess"
                                     placeholder="Description"></textarea>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="">
                                 Shared Entity Input
-                                <span data-ng-click="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.OpenJsonModal('SharedEntityInput')"
+                                <span
+                                    data-ng-click="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.OpenJsonModal('SharedEntityInput')"
                                     class="glyphicon glyphicon-pencil cursor-pointer ml-5"></span>
                             </label>
                             <div class="">
-                                <textarea class="form-control set-text-bg no-resize" rows="5" data-ng-model="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.SharedEntityInput"
+                                <textarea class="form-control set-text-bg no-resize" rows="5"
+                                    data-ng-model="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.SharedEntityInput"
                                     placeholder="Shared Entity Input"></textarea>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="">MyTask List Page Directives</label>
                             <div class="">
-                                <textarea class="form-control set-text-bg no-resize" rows="3" data-ng-model="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.OtherConfig.Directives.ListPage"
+                                <textarea class="form-control set-text-bg no-resize" rows="3"
+                                    data-ng-model="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.OtherConfig.Directives.ListPage"
                                     placeholder="List Page"></textarea>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="">Process Activity Page Directives</label>
                             <div class="">
-                                <textarea class="form-control set-text-bg no-resize" rows="3" data-ng-model="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.OtherConfig.Directives.ActivityPage"
+                                <textarea class="form-control set-text-bg no-resize" rows="3"
+                                    data-ng-model="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.OtherConfig.Directives.ActivityPage"
                                     placeholder="Activity Page"></textarea>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="inputText0">Icon</label>
                             <div class="input-group input-group-sm">
-                                <input type="text" class="form-control" placeholder="Icon" data-ng-model="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.OtherConfig.icon">
+                                <input type="text" class="form-control" placeholder="Icon"
+                                    data-ng-model="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.OtherConfig.icon">
                                 <span class="input-group-btn">
-                                    <button icon-color-list type="icon" selected-item="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.SelectedIconColor($item, 'icon')"
+                                    <button icon-color-list type="icon"
+                                        selected-item="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.SelectedIconColor($item, 'icon')"
                                         class="btn btn-default shiny">
                                         <i class="fa fa-ellipsis-h"></i>
                                     </button>
@@ -123,9 +142,11 @@
                         <div class="form-group">
                             <label class="inputText0">Color</label>
                             <div class="input-group input-group-sm">
-                                <input type="text" class="form-control" placeholder="Color" data-ng-model="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.OtherConfig.color">
+                                <input type="text" class="form-control" placeholder="Color"
+                                    data-ng-model="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.OtherConfig.color">
                                 <span class="input-group-btn">
-                                    <button icon-color-list type="color" selected-item="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.SelectedIconColor($item, 'color')"
+                                    <button icon-color-list type="color"
+                                        selected-item="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.SelectedIconColor($item, 'color')"
                                         class="btn btn-default shiny">
                                         <i class="fa fa-ellipsis-h"></i>
                                     </button>
@@ -135,7 +156,8 @@
                         <div class="form-group">
                             <label class="inputText0">Image</label>
                             <div class="">
-                                <input type="text" class="form-control" placeholder="Image" data-ng-model="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.OtherConfig.image">
+                                <input type="text" class="form-control" placeholder="Image"
+                                    data-ng-model="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.OtherConfig.image">
                             </div>
                         </div>
                     </div>
@@ -143,7 +165,8 @@
                         <div class="form-group">
                             <div class="checkbox">
                                 <label>
-                                    <input type="checkbox" data-ng-model="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.IsWorkStartEnabled"
+                                    <input type="checkbox"
+                                        data-ng-model="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.IsWorkStartEnabled"
                                         class="colored-blue">
                                     <span class="text">Enable Work Start</span>
                                 </label>
@@ -153,7 +176,8 @@
                             <div class="form-group">
                                 <div class="checkbox">
                                     <label>
-                                        <input type="checkbox" data-ng-model="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.OtherConfig.HideForm"
+                                        <input type="checkbox"
+                                            data-ng-model="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.OtherConfig.HideForm"
                                             class="colored-blue">
                                         <span class="text">Hide MyTask Activity Form Button</span>
                                     </label>
@@ -163,8 +187,10 @@
                                 <div class="col-sm-6 p-0">
                                     <div class="checkbox">
                                         <label>
-                                            <input type="checkbox" data-ng-model="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.OtherConfig.IsFormName"
-                                                class="colored-blue" data-ng-disabled="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.OtherConfig.HideForm"
+                                            <input type="checkbox"
+                                                data-ng-model="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.OtherConfig.IsFormName"
+                                                class="colored-blue"
+                                                data-ng-disabled="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.OtherConfig.HideForm"
                                                 data-ng-change="(ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.OtherConfig.IsFormName) ? ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.OtherConfig.IsRoleBased = false : '';">
                                             <span class="text">Form Name</span>
                                         </label>
@@ -179,8 +205,10 @@
                             <div class="form-group">
                                 <div class="checkbox">
                                     <label>
-                                        <input type="checkbox" data-ng-model="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.OtherConfig.IsRoleBased"
-                                            class="colored-blue" data-ng-disabled="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.OtherConfig.HideForm"
+                                        <input type="checkbox"
+                                            data-ng-model="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.OtherConfig.IsRoleBased"
+                                            class="colored-blue"
+                                            data-ng-disabled="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.OtherConfig.HideForm"
                                             data-ng-change="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.IsRoleBased = ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.OtherConfig.IsRoleBased; (ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.OtherConfig.IsRoleBased) ? ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.OtherConfig.IsFormName = false : '';">
                                         <span class="text">Role Based Activity Form</span>
                                     </label>
@@ -196,7 +224,8 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr data-ng-repeat="x in ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.OtherConfig.RoleBasedForm">
+                                        <tr
+                                            data-ng-repeat="x in ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.OtherConfig.RoleBasedForm">
                                             <td>
                                                 <input class="form-control input-sm" type="text" placeholder="Role"
                                                     data-ng-model="x.Role">
@@ -206,13 +235,15 @@
                                                     data-ng-model="x.FormName">
                                             </td>
                                             <td class="text-center">
-                                                <i class="fa fa-trash text-danger cursor-pointer" data-ng-click="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.DeleteRoleBasedForm(x, $index)"></i>
+                                                <i class="fa fa-trash text-danger cursor-pointer"
+                                                    data-ng-click="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.DeleteRoleBasedForm(x, $index)"></i>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td colspan="3">
                                                 <div class="p-5">
-                                                    <button class="btn btn-xs btn-link" data-ng-click="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.AddRoleBasedForm()"
+                                                    <button class="btn btn-xs btn-link"
+                                                        data-ng-click="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.AddRoleBasedForm()"
                                                         data-ng-disabled="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.OtherConfig.HideForm">Add
                                                         New</button>
                                                 </div>
@@ -227,7 +258,8 @@
                                 <div class="form-group">
                                     <div class="checkbox">
                                         <label>
-                                            <input type="checkbox" data-ng-model="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.IsOrganisationBased"
+                                            <input type="checkbox"
+                                                data-ng-model="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.IsOrganisationBased"
                                                 class="colored-blue">
                                             <span class="text">Organisation Based</span>
                                         </label>
@@ -238,7 +270,8 @@
                                 <div class="form-group">
                                     <div class="checkbox">
                                         <label>
-                                            <input type="checkbox" data-ng-model="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.IsWarehouseBased"
+                                            <input type="checkbox"
+                                                data-ng-model="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.IsWarehouseBased"
                                                 class="colored-blue">
                                             <span class="text">Warehouse Based</span>
                                         </label>
@@ -249,7 +282,8 @@
                                 <div class="form-group">
                                     <div class="checkbox">
                                         <label>
-                                            <input type="checkbox" data-ng-model="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.IsCompanyBased"
+                                            <input type="checkbox"
+                                                data-ng-model="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.IsCompanyBased"
                                                 class="colored-blue">
                                             <span class="text">Company Based</span>
                                         </label>
@@ -260,7 +294,8 @@
                                 <div class="form-group">
                                     <div class="checkbox">
                                         <label>
-                                            <input type="checkbox" data-ng-model="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.IsDepartmentBased"
+                                            <input type="checkbox"
+                                                data-ng-model="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.IsDepartmentBased"
                                                 class="colored-blue">
                                             <span class="text">Department Based</span>
                                         </label>
@@ -271,7 +306,8 @@
                                 <div class="form-group">
                                     <div class="checkbox">
                                         <label>
-                                            <input type="checkbox" data-ng-model="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.IsCustomIVBased"
+                                            <input type="checkbox"
+                                                data-ng-model="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.IsCustomIVBased"
                                                 class="colored-blue">
                                             <span class="text">Role Based Organization </span>
                                         </label>
@@ -284,7 +320,8 @@
                                 <div class="form-group">
                                     <div class="checkbox">
                                         <label>
-                                            <input type="checkbox" data-ng-model="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.IsQueueLogEnabled"
+                                            <input type="checkbox"
+                                                data-ng-model="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.IsQueueLogEnabled"
                                                 class="colored-blue">
                                             <span class="text">Enable Queue Log (Activate Event)</span>
                                         </label>
@@ -299,8 +336,10 @@
                                     <div class="form-group">
                                         <div class="checkbox">
                                             <label>
-                                                <input type="checkbox" data-ng-model="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.OtherConfig.MyTaskFooter.IsDisableFooter"
-                                                    class="colored-blue" data-ng-click="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.OnDisableFooterChange($event)">
+                                                <input type="checkbox"
+                                                    data-ng-model="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.OtherConfig.MyTaskFooter.IsDisableFooter"
+                                                    class="colored-blue"
+                                                    data-ng-click="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.OnDisableFooterChange($event)">
                                                 <span class="text">Disable Footer</span>
                                             </label>
                                         </div>
@@ -311,8 +350,10 @@
                                 <div class="form-group">
                                     <div class="checkbox">
                                         <label>
-                                            <input type="checkbox" data-ng-model="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.OtherConfig.MyTaskFooter.IsDisableRelatedProcess"
-                                                class="colored-blue" data-ng-disabled="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.OtherConfig.MyTaskFooter.IsDisableFooter">
+                                            <input type="checkbox"
+                                                data-ng-model="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.OtherConfig.MyTaskFooter.IsDisableRelatedProcess"
+                                                class="colored-blue"
+                                                data-ng-disabled="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.OtherConfig.MyTaskFooter.IsDisableFooter">
                                             <span class="text">Disable Related Process</span>
                                         </label>
                                     </div>
@@ -322,8 +363,10 @@
                                 <div class="form-group">
                                     <div class="checkbox">
                                         <label>
-                                            <input type="checkbox" data-ng-model="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.OtherConfig.MyTaskFooter.IsDisableOverrideKPI"
-                                                class="colored-blue" data-ng-disabled="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.OtherConfig.MyTaskFooter.IsDisableFooter">
+                                            <input type="checkbox"
+                                                data-ng-model="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.OtherConfig.MyTaskFooter.IsDisableOverrideKPI"
+                                                class="colored-blue"
+                                                data-ng-disabled="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.OtherConfig.MyTaskFooter.IsDisableFooter">
                                             <span class="text">Disable Override KPI</span>
                                         </label>
                                     </div>
@@ -333,8 +376,36 @@
                                 <div class="form-group">
                                     <div class="checkbox">
                                         <label>
-                                            <input type="checkbox" data-ng-model="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.OtherConfig.MyTaskFooter.IsDisableDocument"
-                                                class="colored-blue" data-ng-disabled="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.OtherConfig.MyTaskFooter.IsDisableFooter">
+                                            <input type="checkbox"
+                                                data-ng-model="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.OtherConfig.MyTaskFooter.IsDisableSnooze"
+                                                class="colored-blue"
+                                                data-ng-disabled="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.OtherConfig.MyTaskFooter.IsDisableFooter">
+                                            <span class="text">Disable Snooze</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox"
+                                                data-ng-model="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.OtherConfig.MyTaskFooter.IsDisableHold"
+                                                class="colored-blue"
+                                                data-ng-disabled="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.OtherConfig.MyTaskFooter.IsDisableFooter">
+                                            <span class="text">Disable Hold</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox"
+                                                data-ng-model="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.OtherConfig.MyTaskFooter.IsDisableDocument"
+                                                class="colored-blue"
+                                                data-ng-disabled="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.OtherConfig.MyTaskFooter.IsDisableFooter">
                                             <span class="text">Disable Document</span>
                                         </label>
                                     </div>
@@ -344,8 +415,10 @@
                                 <div class="form-group">
                                     <div class="checkbox">
                                         <label>
-                                            <input type="checkbox" data-ng-model="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.OtherConfig.MyTaskFooter.IsDisableComment"
-                                                class="colored-blue" data-ng-disabled="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.OtherConfig.MyTaskFooter.IsDisableFooter">
+                                            <input type="checkbox"
+                                                data-ng-model="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.OtherConfig.MyTaskFooter.IsDisableComment"
+                                                class="colored-blue"
+                                                data-ng-disabled="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.OtherConfig.MyTaskFooter.IsDisableFooter">
                                             <span class="text">Disable Comment</span>
                                         </label>
                                     </div>
@@ -355,8 +428,10 @@
                                 <div class="form-group">
                                     <div class="checkbox">
                                         <label>
-                                            <input type="checkbox" data-ng-model="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.OtherConfig.MyTaskFooter.IsDisableEmail"
-                                                class="colored-blue" data-ng-disabled="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.OtherConfig.MyTaskFooter.IsDisableFooter">
+                                            <input type="checkbox"
+                                                data-ng-model="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.OtherConfig.MyTaskFooter.IsDisableEmail"
+                                                class="colored-blue"
+                                                data-ng-disabled="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.OtherConfig.MyTaskFooter.IsDisableFooter">
                                             <span class="text">Disable Email</span>
                                         </label>
                                     </div>
@@ -366,8 +441,10 @@
                                 <div class="form-group">
                                     <div class="checkbox">
                                         <label>
-                                            <input type="checkbox" data-ng-model="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.OtherConfig.MyTaskFooter.IsDisableChecklist"
-                                                class="colored-blue" data-ng-disabled="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.OtherConfig.MyTaskFooter.IsDisableFooter">
+                                            <input type="checkbox"
+                                                data-ng-model="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.OtherConfig.MyTaskFooter.IsDisableChecklist"
+                                                class="colored-blue"
+                                                data-ng-disabled="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.OtherConfig.MyTaskFooter.IsDisableFooter">
                                             <span class="text">Disable Checklist</span>
                                         </label>
                                     </div>
@@ -378,8 +455,10 @@
                 </div>
                 <div class="tc-section-divider-small"></div>
                 <div class="clearfix p-10">
-                    <button class="btn btn-warning btn-xs pull-right ml-10" data-ng-click="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.CloseStep()">Close</button>
-                    <button class="btn btn-success btn-xs pull-right ml-10" data-ng-click="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.Save(ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps)"
+                    <button class="btn btn-warning btn-xs pull-right ml-10"
+                        data-ng-click="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.CloseStep()">Close</button>
+                    <button class="btn btn-success btn-xs pull-right ml-10"
+                        data-ng-click="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.Save(ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps)"
                         data-ng-disabled="!ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps || ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.IsDisableSaveBtn">{{ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.SaveBtnText}}</button>
                 </div>
                 <div class="tc-section-divider-small mb-20"></div>
@@ -439,6 +518,7 @@
                                 </div>
                                 <span class="typecode" data-ng-repeat="x in ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ProcessTypelist.ListSource | filter: ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ProcessTypelist.Search">
                                     <span data-ng-bind="x.Code_1"></span>
+                                    <span data-ng-if="x.Name_1" data-ng-bind="' - ' + x.Name_1"></span>
                                     <i class="fa fa-close cursor-pointer ml-10" data-ng-click="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ProcessTypelist.Delete(x)"></i>
                                 </span>
                             </div>
@@ -453,7 +533,9 @@
             </uib-tab-heading>
             <div class="p-0">
                 <div class="clearfix">
-                    <tc-activity-form-configuration input="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps"></tc-activity-form-configuration>
+                    <tc-activity-form-configuration
+                        input="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps">
+                    </tc-activity-form-configuration>
                 </div>
             </div>
         </uib-tab>
@@ -465,8 +547,10 @@
                 <div class="clearfix border-bottom">
                     <div class="col-sm-9 pt-5 pb-5">
                         <button dynamic-list-modal obj="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ProcessTopics"
-                            page-name="'EBPMCfxTypes'" default-filter="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ProcessTopics.DefaultFilter"
-                            mode="3" is-full-obj="true" grid-refresh-fun-name="" grid-refresh-fun="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ProcessTopics.OnProcessTopicsSave($item)"
+                            page-name="'EBPMCfxTypes'"
+                            default-filter="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ProcessTopics.DefaultFilter"
+                            mode="3" is-full-obj="true" grid-refresh-fun-name=""
+                            grid-refresh-fun="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ProcessTopics.OnProcessTopicsSave($item)"
                             selected-data="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ProcessTopics.SelectedData($item)"
                             class="btn btn-sm btn-outline-secondary pull-right" type="button">
                             <i class="fa fa-paperclip"></i> Attach Topics
@@ -474,7 +558,8 @@
                     </div>
                     <div class="col-sm-3">
                         <div class="clearfix ">
-                            <input type="text" placeholder="Search..." class="form-control input-sm" data-ng-model="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ProcessTopics.Search">
+                            <input type="text" placeholder="Search..." class="form-control input-sm"
+                                data-ng-model="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ProcessTopics.Search">
                         </div>
                     </div>
                 </div>
@@ -482,15 +567,20 @@
                     <div class="process-typelist-container clearfix">
                         <div class="sm-content-wrapper clearfix">
                             <div class="clearfix p-10">
-                                <div class="clearfix p-20 text-center" data-ng-if="!ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ProcessTopics.ListSource">
+                                <div class="clearfix p-20 text-center"
+                                    data-ng-if="!ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ProcessTopics.ListSource">
                                     <i class="fa fa-spin fa-spinner font-160"></i>
                                 </div>
-                                <div class="clearfix p-20 text-center" data-ng-if="(ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ProcessTopics.ListSource | filter: ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ProcessTopics.Search).length===0">
+                                <div class="clearfix p-20 text-center"
+                                    data-ng-if="(ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ProcessTopics.ListSource | filter: ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ProcessTopics.Search).length===0">
                                     <i>No Records...!</i>
                                 </div>
-                                <span class="typecode" data-ng-repeat="x in ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ProcessTopics.ListSource | filter: ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ProcessTopics.Search">
+                                <span class="typecode"
+                                    data-ng-repeat="x in ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ProcessTopics.ListSource | filter: ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ProcessTopics.Search">
                                     <span data-ng-bind="x.Code_1"></span>
-                                    <i class="fa fa-close cursor-pointer ml-10" data-ng-click="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ProcessTopics.Delete(x)"></i>
+                                    <span data-ng-if="x.Name_1" data-ng-bind="' - ' + x.Name_1"></span>
+                                    <i class="fa fa-close cursor-pointer ml-10"
+                                        data-ng-click="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ProcessTopics.Delete(x)"></i>
                                 </span>
                             </div>
                         </div>
@@ -506,8 +596,10 @@
                 <div class="clearfix border-bottom">
                     <div class="col-sm-9 pt-5 pb-5">
                         <button dynamic-list-modal obj="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.DelayReason"
-                            page-name="'EBPMCfxTypes'" default-filter="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.DelayReason.DefaultFilter"
-                            mode="3" is-full-obj="true" grid-refresh-fun-name="" grid-refresh-fun="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.DelayReason.OnDelayReasonSave($item)"
+                            page-name="'EBPMCfxTypes'"
+                            default-filter="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.DelayReason.DefaultFilter"
+                            mode="3" is-full-obj="true" grid-refresh-fun-name=""
+                            grid-refresh-fun="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.DelayReason.OnDelayReasonSave($item)"
                             selected-data="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.DelayReason.SelectedData($item)"
                             class="btn btn-sm btn-outline-secondary pull-right" type="button">
                             <i class="fa fa-paperclip"></i> Attach Delay Reason
@@ -515,7 +607,8 @@
                     </div>
                     <div class="col-sm-3">
                         <div class="clearfix ">
-                            <input type="text" placeholder="Search..." class="form-control input-sm" data-ng-model="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.DelayReason.Search">
+                            <input type="text" placeholder="Search..." class="form-control input-sm"
+                                data-ng-model="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.DelayReason.Search">
                         </div>
                     </div>
                 </div>
@@ -523,15 +616,118 @@
                     <div class="process-typelist-container clearfix">
                         <div class="sm-content-wrapper clearfix">
                             <div class="clearfix p-10">
-                                <div class="clearfix p-20 text-center" data-ng-if="!ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.DelayReason.ListSource">
+                                <div class="clearfix p-20 text-center"
+                                    data-ng-if="!ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.DelayReason.ListSource">
                                     <i class="fa fa-spin fa-spinner font-160"></i>
                                 </div>
-                                <div class="clearfix p-20 text-center" data-ng-if="(ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.DelayReason.ListSource | filter: ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.DelayReason.Search).length===0">
+                                <div class="clearfix p-20 text-center"
+                                    data-ng-if="(ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.DelayReason.ListSource | filter: ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.DelayReason.Search).length===0">
                                     <i>No Records...!</i>
                                 </div>
-                                <span class="typecode" data-ng-repeat="x in ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.DelayReason.ListSource | filter: ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.DelayReason.Search">
+                                <span class="typecode"
+                                    data-ng-repeat="x in ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.DelayReason.ListSource | filter: ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.DelayReason.Search">
                                     <span data-ng-bind="x.Code_1"></span>
-                                    <i class="fa fa-close cursor-pointer ml-10" data-ng-click="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.DelayReason.Delete(x)"></i>
+                                    <span data-ng-if="x.Name_1" data-ng-bind="' - ' + x.Name_1"></span>
+                                    <i class="fa fa-close cursor-pointer ml-10"
+                                        data-ng-click="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.DelayReason.Delete(x)"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </uib-tab>
+        <uib-tab>
+            <uib-tab-heading title="Snooze Reason">
+                <span data-ng-bind="'Snooze Reason'"></span>
+            </uib-tab-heading>
+            <div class="p-0">
+                <div class="clearfix border-bottom">
+                    <div class="col-sm-9 pt-5 pb-5">
+                        <button dynamic-list-modal obj="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.SnoozeReason"
+                            page-name="'EBPMCfxTypes'"
+                            default-filter="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.SnoozeReason.DefaultFilter"
+                            mode="3" is-full-obj="true" grid-refresh-fun-name=""
+                            grid-refresh-fun="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.SnoozeReason.OnSnoozeReasonSave($item)"
+                            selected-data="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.SnoozeReason.SelectedData($item)"
+                            class="btn btn-sm btn-outline-secondary pull-right" type="button">
+                            <i class="fa fa-paperclip"></i> Attach Snooze Reason
+                        </button>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="clearfix ">
+                            <input type="text" placeholder="Search..." class="form-control input-sm"
+                                data-ng-model="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.SnoozeReason.Search">
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix">
+                    <div class="process-typelist-container clearfix">
+                        <div class="sm-content-wrapper clearfix">
+                            <div class="clearfix p-10">
+                                <div class="clearfix p-20 text-center"
+                                    data-ng-if="!ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.SnoozeReason.ListSource">
+                                    <i class="fa fa-spin fa-spinner font-160"></i>
+                                </div>
+                                <div class="clearfix p-20 text-center"
+                                    data-ng-if="(ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.SnoozeReason.ListSource | filter: ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.SnoozeReason.Search).length===0">
+                                    <i>No Records...!</i>
+                                </div>
+                                <span class="typecode"
+                                    data-ng-repeat="x in ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.SnoozeReason.ListSource | filter: ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.SnoozeReason.Search">
+                                    <span data-ng-bind="x.Code_1"></span>
+                                    <span data-ng-if="x.Name_1" data-ng-bind="' - ' + x.Name_1"></span>
+                                    <i class="fa fa-close cursor-pointer ml-10"
+                                        data-ng-click="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.SnoozeReason.Delete(x)"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </uib-tab>
+        <uib-tab>
+            <uib-tab-heading title="Hold Reason">
+                <span data-ng-bind="'Hold Reason'"></span>
+            </uib-tab-heading>
+            <div class="p-0">
+                <div class="clearfix border-bottom">
+                    <div class="col-sm-9 pt-5 pb-5">
+                        <button dynamic-list-modal obj="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.HoldReason"
+                            page-name="'EBPMCfxTypes'"
+                            default-filter="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.HoldReason.DefaultFilter"
+                            mode="3" is-full-obj="true" grid-refresh-fun-name=""
+                            grid-refresh-fun="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.HoldReason.OnHoldReasonSave($item)"
+                            selected-data="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.HoldReason.SelectedData($item)"
+                            class="btn btn-sm btn-outline-secondary pull-right" type="button">
+                            <i class="fa fa-paperclip"></i> Attach Hold Reason
+                        </button>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="clearfix ">
+                            <input type="text" placeholder="Search..." class="form-control input-sm"
+                                data-ng-model="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.HoldReason.Search">
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix">
+                    <div class="process-typelist-container clearfix">
+                        <div class="sm-content-wrapper clearfix">
+                            <div class="clearfix p-10">
+                                <div class="clearfix p-20 text-center"
+                                    data-ng-if="!ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.HoldReason.ListSource">
+                                    <i class="fa fa-spin fa-spinner font-160"></i>
+                                </div>
+                                <div class="clearfix p-20 text-center"
+                                    data-ng-if="(ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.HoldReason.ListSource | filter: ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.HoldReason.Search).length===0">
+                                    <i>No Records...!</i>
+                                </div>
+                                <span class="typecode"
+                                    data-ng-repeat="x in ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.HoldReason.ListSource | filter: ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.HoldReason.Search">
+                                    <span data-ng-bind="x.Code_1"></span>
+                                    <span data-ng-if="x.Name_1" data-ng-bind="' - ' + x.Name_1"></span>
+                                    <i class="fa fa-close cursor-pointer ml-10"
+                                        data-ng-click="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.HoldReason.Delete(x)"></i>
                                 </span>
                             </div>
                         </div>
@@ -547,8 +743,10 @@
                 <div class="clearfix border-bottom">
                     <div class="col-sm-9 pt-5 pb-5">
                         <button dynamic-list-modal obj="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.Checklist"
-                            page-name="'EBPMCfxTypes'" default-filter="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.Checklist.DefaultFilter"
-                            mode="3" is-full-obj="true" grid-refresh-fun-name="" grid-refresh-fun="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.Checklist.OnChecklistSave($item)"
+                            page-name="'EBPMCfxTypes'"
+                            default-filter="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.Checklist.DefaultFilter"
+                            mode="3" is-full-obj="true" grid-refresh-fun-name=""
+                            grid-refresh-fun="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.Checklist.OnChecklistSave($item)"
                             selected-data="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.Checklist.SelectedData($item)"
                             class="btn btn-sm btn-outline-secondary pull-right" type="button">
                             <i class="fa fa-paperclip"></i> Attach Checklist
@@ -556,7 +754,8 @@
                     </div>
                     <div class="col-sm-3">
                         <div class="clearfix ">
-                            <input type="text" placeholder="Search..." class="form-control input-sm" data-ng-model="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.Checklist.Search">
+                            <input type="text" placeholder="Search..." class="form-control input-sm"
+                                data-ng-model="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.Checklist.Search">
                         </div>
                     </div>
                 </div>
@@ -564,31 +763,41 @@
                     <div class="process-typelist-container clearfix">
                         <div class="sm-content-wrapper clearfix">
                             <div class="clearfix p-10">
-                                <div class="clearfix p-20 text-center" data-ng-if="!ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.Checklist.ListSource">
+                                <div class="clearfix p-20 text-center"
+                                    data-ng-if="!ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.Checklist.ListSource">
                                     <i class="fa fa-spin fa-spinner font-160"></i>
                                 </div>
-                                <div class="clearfix p-20 text-center" data-ng-if="(ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.Checklist.ListSource | filter: ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.Checklist.Search).length===0">
+                                <div class="clearfix p-20 text-center"
+                                    data-ng-if="(ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.Checklist.ListSource | filter: ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.Checklist.Search).length===0">
                                     <i>No Records...!</i>
                                 </div>
                                 <!-- <span class="typecode" data-ng-repeat="x in ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.Checklist.ListSource | filter: ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.Checklist.Search">
                                     <span data-ng-bind="x.Code_1"></span>
+                                    <span data-ng-if="x.Name_1" data-ng-bind="' - ' + x.Name_1"></span>
                                     <i class="fa fa-close cursor-pointer ml-10" data-ng-click="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.Checklist.Delete(x)"></i>
                                 </span> -->
-                                <div class="clearfix mb-10" data-ng-if="(ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.Checklist.ListSource | filter: ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.Checklist.Search).length > 0" data-ng-repeat="x in ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.Checklist.ListSource | filter: ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.Checklist.Search">
+                                <div class="clearfix mb-10"
+                                    data-ng-if="(ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.Checklist.ListSource | filter: ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.Checklist.Search).length > 0"
+                                    data-ng-repeat="x in ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.Checklist.ListSource | filter: ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.Checklist.Search">
                                     <div class="col-sm-6">
-                                        <div data-ng-bind="x.Code_1"></div>
+                                        <div class="clearfix">
+                                            <span data-ng-bind="x.Code_1"></span>
+                                            <span data-ng-if="x.Name_1" data-ng-bind="' - ' + x.Name_1"></span>
+                                        </div>
                                     </div>
                                     <div class="col-sm-5">
                                         <div class="checkbox m-0">
                                             <label>
                                                 <input type="checkbox" data-ng-model="x.IsResticted"
-                                                    class="colored-blue" data-ng-click="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.Checklist.UpdateChecklist($event, x)">
-                                                <span class="text">Is Resticted</span>
+                                                    class="colored-blue"
+                                                    data-ng-click="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.Checklist.UpdateChecklist($event, x)">
+                                                <span class="text">Is Mandatory to complete</span>
                                             </label>
                                         </div>
                                     </div>
                                     <div class="col-sm-1">
-                                        <button class="btn btn-danger btn-sm" data-ng-click="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.Checklist.Delete(x)">Delete</button>
+                                        <button class="btn btn-danger btn-sm"
+                                            data-ng-click="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.Checklist.Delete(x)">Delete</button>
                                     </div>
                                 </div>
                             </div>
@@ -597,7 +806,7 @@
                 </div>
             </div>
         </uib-tab>
-        <uib-tab>   
+        <uib-tab>
             <uib-tab-heading title="Validation">
                 <span data-ng-bind="'Validation'"></span>
             </uib-tab-heading>
@@ -605,30 +814,38 @@
                 <div class="clearfix border-bottom">
                     <div class="col-sm-9 pt-5 pb-5">
                         <button dynamic-list-modal obj="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.Validation"
-                            page-name="'Validation'" default-filter="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.Validation.DefaultFilter"
-                            mode="3" is-full-obj="true" grid-refresh-fun-name="" grid-refresh-fun="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.Validation.OnValidationSave($item)"
+                            page-name="'Validation'"
+                            default-filter="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.Validation.DefaultFilter"
+                            mode="3" is-full-obj="true" grid-refresh-fun-name=""
+                            grid-refresh-fun="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.Validation.OnValidationSave($item)"
                             selected-data="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.Validation.SelectedData($item)"
                             class="btn btn-sm btn-outline-secondary pull-right" type="button">
                             <i class="fa fa-paperclip"></i> Attach Validation
                         </button>
                     </div>
                     <div class="col-sm-3">
-                        <input type="text" placeholder="Search..." class="form-control input-sm" data-ng-model="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.Validation.Search">
+                        <input type="text" placeholder="Search..." class="form-control input-sm"
+                            data-ng-model="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.Validation.Search">
                     </div>
                 </div>
                 <div class="clearfix">
                     <div class="process-typelist-container clearfix">
                         <div class="sm-content-wrapper clearfix">
                             <div class="clearfix p-10">
-                                <div class="clearfix p-20 text-center" data-ng-if="!ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.Validation.ListSource">
+                                <div class="clearfix p-20 text-center"
+                                    data-ng-if="!ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.Validation.ListSource">
                                     <i class="fa fa-spin fa-spinner font-160"></i>
                                 </div>
-                                <div class="clearfix p-20 text-center" data-ng-if="(ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.Validation.ListSource | filter: ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.Validation.Search).length===0">
+                                <div class="clearfix p-20 text-center"
+                                    data-ng-if="(ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.Validation.ListSource | filter: ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.Validation.Search).length===0">
                                     <i>No Records...!</i>
                                 </div>
-                                <span class="typecode" data-ng-repeat="x in ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.Validation.ListSource | filter: ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.Validation.Search">
+                                <span class="typecode"
+                                    data-ng-repeat="x in ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.Validation.ListSource | filter: ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.Validation.Search">
                                     <span data-ng-bind="x.Code_1"></span>
-                                    <i class="fa fa-close cursor-pointer ml-10" data-ng-click="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.Validation.Delete(x)"></i>
+                                    <span data-ng-if="x.Name_1" data-ng-bind="' - ' + x.Name_1"></span>
+                                    <i class="fa fa-close cursor-pointer ml-10"
+                                        data-ng-click="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.Validation.Delete(x)"></i>
                                 </span>
                             </div>
                         </div>
@@ -637,8 +854,8 @@
             </div>
         </uib-tab>
         <uib-tab data-ng-if="ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.PK">
-            <uib-tab-heading title="Parties">
-                <span data-ng-bind="'Parties'"></span>
+            <uib-tab-heading title="Party Visibility">
+                <span data-ng-bind="'Party Visibility'"></span>
             </uib-tab-heading>
             <div class="p-0">
                 <party-mapping mapping-input="ProcessWorkStepCtrl.ePage.Masters.Parties.MappingInput" is-default="true"

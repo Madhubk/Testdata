@@ -34,7 +34,7 @@
                 </div>
                 <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 col-xl-4 p-0 pl-5">
                     <select chosen class="form-control" data-ng-model="LanguageCtrl.ePage.Masters.LanguageCode.ActiveLanguageCode.Key"
-                        data-ng-options="x.Key as x.Value for x  in LanguageCtrl.ePage.Masters.LanguageCode.ListSource"
+                        data-ng-options="x.Key as x.Value for x  in LanguageCtrl.ePage.Masters.LanguageCode.ListSource | orderBy: 'Sequence'"
                         data-ng-change="LanguageCtrl.ePage.Masters.LanguageCode.OnLanguageCodeChange((LanguageCtrl.ePage.Masters.LanguageCode.ListSource | filter: {'Key': LanguageCtrl.ePage.Masters.LanguageCode.ActiveLanguageCode.Key})[0])"search-contains="true">
                      </select>
                 </div>

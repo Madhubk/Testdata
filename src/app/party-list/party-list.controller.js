@@ -147,19 +147,70 @@
                 "TenantCode": authService.getUserInfo().TenantCode,
                 "Tenant_FK": authService.getUserInfo().TenantPK,
                 "Party_FK": PartyListCtrl.ePage.Masters.SelectedParty.PK,
-                "Party_Code": PartyListCtrl.ePage.Masters.SelectedParty.Code,
+                "Party_Code": PartyListCtrl.ePage.Masters.SelectedParty.Code
             };
 
             apiService.post("authAPI", appConfig.Entities.Token.API.SoftLoginToken.Url, _input, PartyListCtrl.ePage.Masters.QueryString.Token).then(function SuccessCallback(response) {
                 if (response.data.Response) {
                     PartyListCtrl.ePage.Masters.UserInfo = response.data.Response;
 
-                    PrepareLocalStroageInfo();
+                    GetUIControlList();
                 } else {
                     PartyListCtrl.ePage.Masters.IsShowPartyListOverlay = false;
                 }
             }, function ErrorCallback(response) {
                 PartyListCtrl.ePage.Masters.IsShowPartyListOverlay = false;
+            });
+        }
+
+        function GetUIControlList() {
+            let _filter = {
+                "SAP_FK": PartyListCtrl.ePage.Masters.UserInfo.AppPK,
+                "TenantCode": PartyListCtrl.ePage.Masters.UserInfo.TenantCode,
+                "USR_FK": PartyListCtrl.ePage.Masters.UserInfo.UserPK
+            };
+            let _input = {
+                "searchInput": helperService.createToArrayOfObject(_filter),
+                "FilterID": appConfig.Entities.CompUserRoleAccess.API.FindAll.FilterID
+            };
+
+            apiService.post("authAPI", appConfig.Entities.CompUserRoleAccess.API.FindAll.Url, _input, PartyListCtrl.ePage.Masters.UserInfo.AuthToken).then(response => {
+                if (response.data.Response && response.data.Response.length > 0) {
+                    let _response = response.data.Response;
+                    let _controlList = [];
+                    _response.map(value => {
+                        if (value.SOP_Code) {
+                            _controlList.push(value.SOP_Code);
+                        }
+                    });
+                    PartyListCtrl.ePage.Masters.UserInfo.UIControlList = _controlList;
+                } else {
+                    PartyListCtrl.ePage.Masters.UserInfo.UIControlList = [];
+                }
+
+                GetSideBarMenuCompact();
+            });
+        }
+
+        function GetSideBarMenuCompact() {
+            let _filter = {
+                "SourceEntityRefKey": PartyListCtrl.ePage.Masters.UserInfo.UserId,
+                "AppCode": PartyListCtrl.ePage.Masters.UserInfo.AppCode,
+                "EntitySource": "APP_DEFAULT"
+            };
+            let _input = {
+                "searchInput": helperService.createToArrayOfObject(_filter),
+                "FilterID": appConfig.Entities.UserSettings.API.FindAll.FilterID
+            };
+
+            apiService.post("eAxisAPI", appConfig.Entities.UserSettings.API.FindAll.Url + PartyListCtrl.ePage.Masters.UserInfo.AppPK, _input, PartyListCtrl.ePage.Masters.UserInfo.AuthToken).then(response => {
+                if (response.data.Response && response.data.Response.length > 0) {
+                    let _response = response.data.Response[0];
+                    _response.Value = JSON.parse(_response.Value);
+                    PartyListCtrl.ePage.Masters.UserInfo.MenuCompact = _response;
+                    PartyListCtrl.ePage.Masters.UserInfo.IsMenuCompact = _response.Value.IsMenuCompact;
+                }
+                PrepareLocalStroageInfo();
             });
         }
 
@@ -213,7 +264,7 @@
         }
 
         function GoBack() {
-            if (PartyListCtrl.ePage.Masters.QueryString.Continue) {
+            if (PartyListCtrl.ePage.Masters.QueryString && PartyListCtrl.ePage.Masters.QueryString.Continue) {
                 $location.path(PartyListCtrl.ePage.Masters.QueryString.Continue).search({});
             } else {
                 $location.path(authService.getUserInfo().InternalUrl).search({});

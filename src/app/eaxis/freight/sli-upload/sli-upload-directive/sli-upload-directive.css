@@ -42,15 +42,3 @@
     overflow: auto;
     height: 200px;
 }
-
-.loading-file-name {
-    position: relative;
-    float: left;
-    text-align: center;
-}
-
-.loading-file-name span {
-    padding: 0 7px;
-    font-weight: 600;
-    float: right;
-}

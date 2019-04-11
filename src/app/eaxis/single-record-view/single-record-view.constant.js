@@ -6,6 +6,7 @@
             name: 'singleRecordView',
             files: [
                 'app/eaxis/single-record-view/single-record-view.css',
+                'app/eaxis/single-record-view/single-record-view-config.factory.js',
                 'app/eaxis/single-record-view/single-record-view.controller.js'
             ]
         }, {

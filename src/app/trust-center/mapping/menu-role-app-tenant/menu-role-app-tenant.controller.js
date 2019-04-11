@@ -117,45 +117,12 @@
             TCMenuRoleAppTenantCtrl.ePage.Masters.DeleteBtnText = "Delete";
             TCMenuRoleAppTenantCtrl.ePage.Masters.IsDisableDeleteBtn = false;
 
-            GetUIControlList();
             GetMenuRoleAppTenant();
             GetRedirectLinkList();
-
-        }
-
-
-        function GetUIControlList() {
-            TCMenuRoleAppTenantCtrl.ePage.Masters.MenuRoleAppTenant.UIControlList = undefined;
-            var _filter = {
-                "SAP_FK": authService.getUserInfo().AppPK,
-                "TenantCode": authService.getUserInfo().TenantCode,
-                "USR_FK": authService.getUserInfo().UserPK
-            };
-            var _input = {
-                "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": trustCenterConfig.Entities.API.CompUserRoleAccess.API.FindAll.FilterID
-            };
-
-            apiService.post("authAPI", trustCenterConfig.Entities.API.CompUserRoleAccess.API.FindAll.Url, _input).then(function SuccessCallback(response) {
-                if (response.data.Response) {
-                    var _response = response.data.Response;
-                    var _controlList = [];
-                    if (_response.length > 0) {
-                        _response.map(function (value, key) {
-                            if (value.SOP_Code) {
-                                _controlList.push(value.SOP_Code);
-                            }
-                        });
-                    }
-                    TCMenuRoleAppTenantCtrl.ePage.Masters.MenuRoleAppTenant.UIControlList = _controlList;
-                } else {
-                    TCMenuRoleAppTenantCtrl.ePage.Masters.MenuRoleAppTenant.UIControlList = [];
-                }
-            });
         }
 
         function CheckUIControl(controlId) {
-            return helperService.checkUIControl(TCMenuRoleAppTenantCtrl.ePage.Masters.MenuRoleAppTenant.UIControlList, controlId);
+            return helperService.checkUIControl(controlId);
         }
 
         function GetMenuRoleAppTenant() {
@@ -211,8 +178,7 @@
 
         function GetRolesList($viewValue) {
             var _filter = {
-                "SAP_FK": TCMenuRoleAppTenantCtrl.ePage.Masters.QueryString.AppPk,
-                "TenantCode": authService.getUserInfo().TenantCode
+                "SAP_FK": TCMenuRoleAppTenantCtrl.ePage.Masters.QueryString.AppPk
             };
             if ($viewValue != "#") {
                 _filter.Autocompletefield = $viewValue;

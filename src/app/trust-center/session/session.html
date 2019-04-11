@@ -6,7 +6,8 @@
             <div class="breadcrumb-list-wrapper">
                 <ol class="breadcrumb">
                     <li data-ng-repeat="x in SessionCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="!x.IsActive">
-                        <a href="javascript:void(0);" data-ng-bind="x.Description" data-ng-click="SessionCtrl.ePage.Masters.Breadcrumb.OnBreadcrumbClick(x)"></a>
+                        <a href="javascript:void(0);" data-ng-bind="x.Description"
+                            data-ng-click="SessionCtrl.ePage.Masters.Breadcrumb.OnBreadcrumbClick(x)"></a>
                     </li>
                     <li data-ng-repeat="x in SessionCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="x.IsActive"
                         data-ng-bind="x.Description" class="active"></li>
@@ -14,7 +15,9 @@
             </div>
         </div>
         <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-xs-12 p-4">
-            <tc-application-dropdown query-string="SessionCtrl.ePage.Masters.QueryString" on-application-change="SessionCtrl.ePage.Masters.Application.OnApplicationChange($item)"></tc-application-dropdown>
+            <tc-application-dropdown query-string="SessionCtrl.ePage.Masters.QueryString"
+                on-application-change="SessionCtrl.ePage.Masters.Application.OnApplicationChange($item)">
+            </tc-application-dropdown>
         </div>
     </div>
     <!-- Header -->
@@ -23,10 +26,12 @@
             <div class="text-single-line bold font-130" data-ng-bind="'Session'"></div>
         </div>
         <div class="col-sm-2 pt-10">
-            <button class="btn btn-default btn-xs pull-right" data-ng-click="SessionCtrl.ePage.Masters.Session.Refresh()">Refresh</button>
+            <button class="btn btn-default btn-xs pull-right"
+                data-ng-click="SessionCtrl.ePage.Masters.Session.Refresh()">Refresh</button>
         </div>
         <div class="col-sm-3 pt-5 pb-5">
-            <input type="text" placeholder="Search..." class="form-control input-sm" data-ng-model="SessionCtrl.ePage.Masters.Search">
+            <input type="text" placeholder="Search..." class="form-control input-sm"
+                data-ng-model="SessionCtrl.ePage.Masters.Search">
         </div>
     </div>
     <!-- Body -->
@@ -51,7 +56,8 @@
                     </div>
                 </div>
                 <!-- Loading -->
-                <div class="clearfix p-15 text-center tc-loading" data-ng-if="!SessionCtrl.ePage.Masters.Session.SessionList">
+                <div class="clearfix p-15 text-center tc-loading"
+                    data-ng-if="!SessionCtrl.ePage.Masters.Session.SessionList">
                     <i class="fa fa-spin fa-spinner"></i>
                 </div>
                 <!-- No Records -->
@@ -73,7 +79,9 @@
                         <div class="text-single-line" data-ng-bind="x.ExpiresOn | date: 'dd-MM-yyyy h:mm:ss a'"></div>
                     </div>
                     <div class="col-sm-3">
-                        <div class="text-single-line" data-ng-bind="x.UserName"></div>
+                        <!-- <div class="text-single-line" data-ng-bind="x.UserName"></div> -->
+                        <a href="javascript: void(0);" class="text-single-line" data-ng-bind="x.UserName"
+                            data-ng-click="SessionCtrl.ePage.Masters.Session.ViewLoginHistory(x)"></a>
                     </div>
                 </div>
             </div>

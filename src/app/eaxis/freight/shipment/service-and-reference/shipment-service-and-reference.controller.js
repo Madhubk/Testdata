@@ -169,7 +169,7 @@
     }
 
     // AddToGrid For Service
-    function AddToGridService(btn) {      
+    function AddToGridService(btn) {
 
       var _isEmpty = angular.equals({}, ShipmentServiceAndReferenceCtrl.ePage.Masters.Service.FormView);
 

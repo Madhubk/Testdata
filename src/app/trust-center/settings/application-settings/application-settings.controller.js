@@ -195,7 +195,6 @@
                 "PropertyName": 'SVS_SourceEntityRefKey',
                 "SAP_FK": AppSettingsCtrl.ePage.Masters.Application.ActiveApplication.PK,
                 "EntitySource": AppSettingsCtrl.ePage.Masters.QueryString.AdditionalData.Input.Code,
-                "TenantCode": authService.getUserInfo().TenantCode,
                 "ModuleCode": AppSettingsCtrl.ePage.Masters.Module.ActiveModule.Key
             };
             var _input = {
@@ -269,7 +268,6 @@
 
             var _filter = {
                 "SourceEntityRefKey": AppSettingsCtrl.ePage.Masters.AppSettingsModule.ActiveAppSettingsModule,
-                "TenantCode": authService.getUserInfo().TenantCode,
                 "SAP_FK": AppSettingsCtrl.ePage.Masters.Application.ActiveApplication.PK,
                 "EntitySource": AppSettingsCtrl.ePage.Masters.QueryString.AdditionalData.Input.Code,
                 "ModuleCode": AppSettingsCtrl.ePage.Masters.Module.ActiveModule.Key,

@@ -34,7 +34,7 @@
                 Code: [SRVOutwardManifestCtrl.ePage.Masters.Entity.ManifestNumber],
                 API: "Validation",
                 FilterInput: {
-                    ModuleCode: "DMS",
+                    ModuleCode: "TMS",
                     SubModuleCode: "MAN"
                 },
                 EntityObject: SRVOutwardManifestCtrl.ePage.Masters.Entity.Header

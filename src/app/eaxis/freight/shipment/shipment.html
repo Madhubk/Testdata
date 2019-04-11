@@ -49,7 +49,7 @@
         <div class="p-0 tab-list-view-wrapper">
             <!--Shipment Grid Page-->
             <dynamic-list dataentry-name="ShipmentCtrl.ePage.Masters.dataentryName" selected-grid-row="ShipmentCtrl.ePage.Masters.SelectedGridRow($item)"
-                mode="1" default-filter="ShipmentCtrl.ePage.Masters.DefaultFilter" dataentry-object="ShipmentCtrl.ePage.Masters.DataEntryObject" validate-filter-input="ShipmentCtrl.ePage.Masters.ValidateFilterInput($item)" is-validate-filter="true"></dynamic-list>
+                mode="1" base-filter="ShipmentCtrl.ePage.Masters.BaseFilter"  default-filter="ShipmentCtrl.ePage.Masters.DefaultFilter" dataentry-object="ShipmentCtrl.ePage.Masters.DataEntryObject" validate-filter-input="ShipmentCtrl.ePage.Masters.ValidateFilterInput($item)" is-validate-filter="true"></dynamic-list>
             <div class="tab-loading" data-ng-show="ShipmentCtrl.ePage.Masters.IsTabClick"></div>
         </div>
     </uib-tab>

@@ -21,6 +21,7 @@
             };
 
             EAxisCtrl.ePage.Masters.MenuVisibleType = authService.getUserInfo().MenuType;
+            EAxisCtrl.ePage.Masters.IsMenuCompact = authService.getUserInfo().IsMenuCompact;
         }
 
         Init();

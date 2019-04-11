@@ -1,0 +1,43 @@
+<form class="clearfix task-assign-start-complete-wrapper" role="form" data-ng-if="HoldCtrl.ePage.Masters.Task && HoldCtrl.ePage.Masters.HoldReason.ListSource">
+    <div class="form-group pl-10 pr-10 pt-5">
+        <label class="control-label">Hold Date</label>
+        <div class="input-group input-group-sm">
+            <input type="text" class="form-control"
+                placeholder="{{HoldCtrl.ePage.Masters.DatePicker.Options.dateTimeFormat}}"
+                data-ng-model="HoldCtrl.ePage.Entities.DueDate"
+                datetime-picker="{{HoldCtrl.ePage.Masters.DatePicker.Options.dateTimeFormat}}"
+                datepicker-options="HoldCtrl.ePage.Masters.DatePicker.Options" datepicker-append-to-body="false"
+                close-on-selection="false" enable-time="true" enable-date="true" default-date="" default-time=""
+                save-as="HoldCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                is-open="HoldCtrl.ePage.Masters.DatePicker.isOpen" when-closed="" data-ng-click=""
+                data-ng-change="HoldCtrl.ePage.Masters.OnDateChange()" custom-date-time-format />
+            <span class="input-group-btn">
+                <button class="btn btn-default shiny"
+                    data-ng-click="HoldCtrl.ePage.Masters.DatePicker.OpenDatePicker($event)">
+                    <i class="fa fa-calendar"></i>
+                </button>
+            </span>
+        </div>
+    </div>
+    <div class="form-group pl-10 pr-10">
+        <label class="control-label">Hold Reason</label>
+        <select chosen class="form-control" data-ng-model="HoldCtrl.ePage.Entities.WSL_FK"
+            data-ng-options="x.PK as x.Name for x in HoldCtrl.ePage.Masters.HoldReason.ListSource"
+            data-ng-change="HoldCtrl.ePage.Masters.HoldReason.OnChange((HoldCtrl.ePage.Masters.HoldReason.ListSource | filter : {'PK': HoldCtrl.ePage.Entities.WSL_FK})[0])">
+            <option value="">--Select--</option>
+        </select>
+    </div>
+    <div class="form-group pl-10 pr-10">
+        <textarea class="form-control no-resize" rows="3" data-ng-model="HoldCtrl.ePage.Entities.Remarks"
+            placeholder="Comment"></textarea>
+    </div>
+</form>
+<div class="clearfix pb-5 pr-10 pl-10 text-right" data-ng-if="HoldCtrl.ePage.Masters.Task && HoldCtrl.ePage.Masters.HoldReason.ListSource">
+    <button class="btn btn-primary btn-xs pull-right" data-ng-click="HoldCtrl.ePage.Masters.Submit()" data-ng-bind="HoldCtrl.ePage.Masters.SubmitBtnText"
+        data-ng-disabled="HoldCtrl.ePage.Masters.IsDisableSubmitBtn"></button>
+</div>
+
+<div class="clearfix p-120 text-center"
+    data-ng-if="HoldCtrl.ePage.Masters.Task && !HoldCtrl.ePage.Masters.HoldReason.ListSource">
+    <i class="fa fa-spin fa-spinner font-120"></i>
+</div>

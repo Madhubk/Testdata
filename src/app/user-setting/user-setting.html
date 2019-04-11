@@ -2,7 +2,7 @@
 
 <div class="main-container container-fluid">
     <div class="page-container">
-        <side-bar id="sidebar" class="page-sidebar menu-compact" data-ng-if="UserSettingCtrl.ePage.Masters.MenuType == 'List'"></side-bar>
+        <side-bar id="sidebar" class="page-sidebar menu-compact" data-ng-class="{'menu-compact' : UserSettingCtrl.ePage.Masters.IsMenuCompact}" data-ng-if="UserSettingCtrl.ePage.Masters.MenuType == 'List'"></side-bar>
 
         <div class="clearfix">
             <div class="page-body no-padding-left no-padding-right">

@@ -55,6 +55,8 @@
                     InitNotification();
                 }
                 // InitLanguage();
+
+                InitSidebarCompact();
             }
         }
 
@@ -92,7 +94,6 @@
 
         function GetLanguageList() {
             var _filter = {
-                "TenantCode": authService.getUserInfo().TenantCode,
                 "SAP_FK": authService.getUserInfo().AppPK,
                 "EntitySource": "LANGUAGE"
             };
@@ -389,11 +390,11 @@
             });
         }
 
-        function GetMenuLink($item){
+        function GetMenuLink($item) {
             return ($item.Link.split("/")[0] != "") ? ("#/" + $item.Link) : ("#" + $item.Link);
         }
 
-        function OnRecentMenuClick($item){
+        function OnRecentMenuClick($item) {
             LogVisitedMenu($item);
         }
 
@@ -411,6 +412,52 @@
             };
 
             apiService.post("authAPI", appConfig.Entities.SecSessionActivity.API.Insert.Url, [_input]).then(function (response) {});
+        }
+        // #endregion
+
+        // #region Sidebar Compact
+        function InitSidebarCompact() {
+            NavBarCtrl.ePage.Masters.CheckSidebarCompact = CheckSidebarCompact;
+        }
+
+        function CheckSidebarCompact($event) {
+            let _isCompact = $("#sidebar").hasClass("menu-compact");
+            SaveUserSetting(_isCompact);
+        }
+
+        function SaveUserSetting(isCompact) {
+            let _input = authService.getUserInfo().MenuCompact ? authService.getUserInfo().MenuCompact : {};
+            _input.IsModified = true;
+
+            if (!_input.PK) {
+                _input = {
+                    "SourceEntityRefKey": authService.getUserInfo().UserId,
+                    "AppCode": authService.getUserInfo().AppCode,
+                    "SAP_FK": authService.getUserInfo().AppPK,
+                    "TenantCode": authService.getUserInfo().TenantCode,
+                    "EntitySource": "APP_DEFAULT",
+                    "Key": authService.getUserInfo().TenantCode,
+                    "IsJSON": true,
+                    "IsModified": true
+                };
+            }
+            if (!_input.Value) {
+                _input.Value = {};
+            } else {
+                if (typeof _input.Value == "string") {
+                    _input.Value = JSON.parse(_input.Value);
+                }
+            }
+            _input.Value.IsMenuCompact = isCompact;
+            _input.Value = JSON.stringify(_input.Value);
+
+            apiService.post("eAxisAPI", appConfig.Entities.UserSettings.API.Upsert.Url + authService.getUserInfo().AppPK, [_input]).then(response => {
+                if (response.data.Response && response.data.Response.length > 0) {
+                    let _localStorage = authService.getUserInfo();
+                    _localStorage.IsMenuCompact = isCompact;
+                    authService.setUserInfo(helperService.encryptData(_localStorage));
+                }
+            });
         }
         // #endregion
 

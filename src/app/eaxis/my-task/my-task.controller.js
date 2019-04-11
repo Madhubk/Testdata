@@ -5,17 +5,21 @@
         .module("Application")
         .controller("MyTaskController", MyTaskController);
 
-    MyTaskController.$inject = ["$scope", "$location", "$uibModal", "helperService", "apiService", "authService", "appConfig", "toastr", "$ocLazyLoad"];
+    MyTaskController.$inject = ["$scope", "$location", "$uibModal", "helperService", "apiService", "authService", "eaxisConfig", "toastr", "$ocLazyLoad"];
 
-    function MyTaskController($scope, $location, $uibModal, helperService, apiService, authService, appConfig, toastr, $ocLazyLoad) {
+    function MyTaskController($scope, $location, $uibModal, helperService, apiService, authService, eaxisConfig, toastr, $ocLazyLoad) {
         var MyTaskCtrl = this;
 
         var _DocumentConfig = {
             // IsDisableRefreshButton: true,
             // IsDisableDeleteHistoryButton: true,
+            // IsDisableBulkDownloadButton: true,
+            // IsDisableSearch: true,
             // IsDisableUpload: true,
             IsDisableGenerate: true,
+            // IsDisableEntityDocument: true,
             // IsDisableRelatedDocument: true,
+            // IsDisableSelect: true,
             // IsDisableCount: true,
             // IsDisableDownloadCount: true,
             // IsDisableAmendCount: true,
@@ -133,10 +137,10 @@
 
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.EBPMWorkItem.API.FindAllWithAccess.FilterID
+                "FilterID": eaxisConfig.Entities.EBPMWorkItem.API.FindAllWithAccess.FilterID
             };
 
-            apiService.post("eAxisAPI", appConfig.Entities.EBPMWorkItem.API.FindAllWithAccess.Url, _input).then(function (response) {
+            apiService.post("eAxisAPI", eaxisConfig.Entities.EBPMWorkItem.API.FindAllWithAccess.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     var _response = response.data.Response;
                     var _arr = [];
@@ -401,10 +405,10 @@
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.UserTenantList.API.FindAll.FilterID
+                "FilterID": eaxisConfig.Entities.UserTenantList.API.FindAll.FilterID
             };
 
-            return apiService.post("authAPI", appConfig.Entities.UserTenantList.API.FindAll.Url, _input).then(function (response) {
+            return apiService.post("authAPI", eaxisConfig.Entities.UserTenantList.API.FindAll.Url, _input).then(function (response) {
                 return response.data.Response;
             });
         }
@@ -415,7 +419,7 @@
                 "StepNo": $item.WSI_StepNo,
             };
 
-            apiService.post("eAxisAPI", appConfig.Entities.EBPMEngine.API.CancelKPI.Url, _input).then(function (response) {
+            apiService.post("eAxisAPI", eaxisConfig.Entities.EBPMEngine.API.CancelKPI.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     AssignStartCompleteResponse(response.data.Response, $item);
                 } else {
@@ -512,7 +516,7 @@
                 AdditionalEntityRefCode: $item.ParentEntityRefCode
             };
 
-            apiService.post("eAxisAPI", appConfig.Entities.EBPMEngine.API.InitiateProcess.Url, _input).then(function (response) {
+            apiService.post("eAxisAPI", eaxisConfig.Entities.EBPMEngine.API.InitiateProcess.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     if (_input.AssignTo == authService.getUserInfo().UserId) {
                         // RefreshStatusCount();
@@ -551,10 +555,10 @@
 
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.EBPMWorkItem.API.FindAllStatusCount.FilterID
+                "FilterID": eaxisConfig.Entities.EBPMWorkItem.API.FindAllStatusCount.FilterID
             };
 
-            apiService.post("eAxisAPI", appConfig.Entities.EBPMWorkItem.API.FindAllStatusCount.Url, _input).then(function (response) {
+            apiService.post("eAxisAPI", eaxisConfig.Entities.EBPMWorkItem.API.FindAllStatusCount.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     MyTaskCtrl.ePage.Masters.MyTask.StatusCount.ListSource = response.data.Response;
 
@@ -707,7 +711,7 @@
                 "UserName": authService.getUserInfo().UserId
             };
 
-            apiService.post("eAxisAPI", appConfig.Entities.EBPMEngine.API.ReAssignActivity.Url, _input).then(function (response) {
+            apiService.post("eAxisAPI", eaxisConfig.Entities.EBPMEngine.API.ReAssignActivity.Url, _input).then(function (response) {
                 if (response.data.Status == "Success") {
                     if (response.data.Response) {
                         MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem.Status = response.data.Response.Status;
@@ -716,7 +720,11 @@
                         MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem.IsWorkStarted = response.data.Response.IsWorkStarted;
                         MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem.IsWorkStartedStr = response.data.Response.IsWorkStartedStr;
 
-                        MyTaskCtrl.ePage.Masters.MyTask.OpenActivity.IsShowOpenActivityPageOverlay = true;
+                        if (MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem.Status == 'ASSIGNED' && MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem.IsWorkStartEnabledStr == '1' && MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem.IsWorkStartedStr == '0') {
+                            MyTaskCtrl.ePage.Masters.MyTask.OpenActivity.IsShowOpenActivityPageOverlay = true;
+                        } else {
+                            MyTaskCtrl.ePage.Masters.MyTask.OpenActivity.IsShowOpenActivityPageOverlay = false;
+                        }
                     } else {
                         toastr.error("Failed...!");
                     }
@@ -738,7 +746,7 @@
                 "StepNo": MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem.WSI_StepNo,
             };
 
-            apiService.post("eAxisAPI", appConfig.Entities.EBPMEngine.API.StartKPI.Url, _input).then(function (response) {
+            apiService.post("eAxisAPI", eaxisConfig.Entities.EBPMEngine.API.StartKPI.Url, _input).then(function (response) {
                 if (response.data.Status == "Success") {
                     if (response.data.Response) {
                         MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem.Status = response.data.Response.Status;

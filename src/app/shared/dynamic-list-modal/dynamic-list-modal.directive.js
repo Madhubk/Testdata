@@ -3,37 +3,23 @@
 
     angular
         .module("Application")
-        .factory('dynamicListModalConfig', DynamicListModalConfig);
-
-    DynamicListModalConfig.$inject = [];
-
-    function DynamicListModalConfig() {
-        var exports = {
-            Entities: {}
-        };
-
-        return exports;
-    }
-    
-    angular
-        .module("Application")
         .directive("dynamicListModal", DynamicListModal);
 
     DynamicListModal.$inject = ["$uibModal", "$templateCache", "dynamicLookupConfig"];
 
     function DynamicListModal($uibModal, $templateCache, dynamicLookupConfig) {
-        var _template = `<div class="modal-header">
-        <button type="button" class="close" ng-click="DynamicListModalCtrl.ePage.Masters.Cancel()">&times;</button>
-        <h5 class="modal-title" id="modal-title">
-            <strong>{{DynamicListModalCtrl.ePage.Masters.DataEntry.Title || DynamicListModalCtrl.controlId || 'Title'}}</strong>
-        </h5>
+        let _template = `<div class="modal-header">
+            <button type="button" class="close" data-ng-click="DynamicListModalCtrl.ePage.Masters.Cancel()">&times;</button>
+            <h5 class="modal-title" id="modal-title">
+                <strong>{{DynamicListModalCtrl.ePage.Masters.DataEntry.Title || DynamicListModalCtrl.controlId || 'Title'}}</strong>
+            </h5>
         </div>
         <div class="modal-body" id="modal-body">
             <dynamic-list mode="DynamicListModalCtrl.mode" dataentry-name="DynamicListModalCtrl.pageName" default-filter="DynamicListModalCtrl.ePage.Masters.defaultFilter" base-filter="DynamicListModalCtrl.ePage.Masters.baseFilter" selected-grid-row="DynamicListModalCtrl.ePage.Masters.SelectedGridRow($item)" lookup-config-control-key="DynamicListModalCtrl.controlKey" dataentry-object="DynamicListModalCtrl.ePage.Masters.DataEntry"></dynamic-list>
         </div>`;
         $templateCache.put("DynamicListModal.html", _template);
 
-        var exports = {
+        let exports = {
             restrict: "EA",
             scope: {
                 obj: "=",
@@ -54,33 +40,30 @@
         return exports;
 
         function Link(scope, ele, attr) {
-            ele.on("click", function () {
-                if (!scope.isDisabled) {
-                    var _index = -1;
-                    for (var x in dynamicLookupConfig.Entities) {
-                        (scope.controlKey) ? _index = x.indexOf(scope.controlKey): _index = x.indexOf(scope.controlId);
+            ele.on("click", () => PrepareLookupConfig());
 
+            function PrepareLookupConfig() {
+                if (!scope.isDisabled) {
+                    let _index = -1;
+                    for (let x in dynamicLookupConfig.Entities) {
+                        _index = scope.controlKey ? x.indexOf(scope.controlKey) : x.indexOf(scope.controlId);
                         if (_index !== -1) {
                             scope.LookupConfig = dynamicLookupConfig.Entities[x];
+                            if (scope.LookupConfig.setValues && typeof scope.LookupConfig.setValues == "string") {
+                                scope.LookupConfig.setValues = JSON.parse(scope.LookupConfig.setValues);
+                            }
+                            if (scope.LookupConfig.getValues && typeof scope.LookupConfig.getValues == "string") {
+                                scope.LookupConfig.getValues = JSON.parse(scope.LookupConfig.getValues);
+                            }
                         }
-
-                        // if (scope.controlKey) {
-                        //     if (x == scope.controlKey) {
-                        //         scope.LookupConfig = dynamicLookupConfig.Entities[x];
-                        //     }
-                        // } else if (scope.controlId) {
-                        //     if (x == scope.controlId) {
-                        //         scope.LookupConfig = dynamicLookupConfig.Entities[x];
-                        //     }
-                        // }
                     }
 
                     OpenModal();
                 }
-            });
+            }
 
             function OpenModal() {
-                var modalInstance = $uibModal.open({
+                $uibModal.open({
                     animation: true,
                     backdrop: "static",
                     keyboard: true,
@@ -93,32 +76,25 @@
                     resolve: {
                         param: function () {
                             if (scope.mode === 2) {
-                                scope.LookupConfig.setValues.map(function (value, key) {
-                                    scope.LookupConfig.defaults[value.sField] = scope.obj[value.eField];
-                                });
+                                scope.LookupConfig.setValues.map(value => scope.LookupConfig.defaults[value.sField] = scope.obj[value.eField]);
                             }
 
-                            var exports = {};
+                            let exports = {};
                             return exports;
                         }
                     }
-                }).result.then(
-                    function (response) {
-                        scope.selectedData({
-                            $item: response
-                        });
+                }).result.then(response => {
+                    scope.selectedData({
+                        $item: response
+                    });
 
-                        if (scope.mode === 2) {
-                            scope.LookupConfig.selectedRow = response;
-                            scope.LookupConfig.getValues.map(function (value, key) {
-                                scope.obj[value.eField] = response.data.entity[value.sField];
-                            });
-                        }
-                    },
-                    function () {
-                        console.log("Cancelled");
+                    if (scope.mode === 2) {
+                        scope.LookupConfig.selectedRow = response;
+                        scope.LookupConfig.getValues.map(value => scope.obj[value.eField] = response.data.entity[value.sField]);
                     }
-                );
+                }, () => {
+                    console.log("Cancelled");
+                });
             }
         }
     }
@@ -131,7 +107,7 @@
 
     function DynamicListModalController($uibModalInstance, helperService, dynamicLookupConfig) {
         /* jshint validthis: true */
-        var DynamicListModalCtrl = this;
+        let DynamicListModalCtrl = this;
 
         function Init() {
             DynamicListModalCtrl.ePage = {
@@ -152,10 +128,9 @@
             DynamicListModalCtrl.ePage.Masters.SelectedGridRow = SelectedGridRow;
 
             if (DynamicListModalCtrl.controlKey || DynamicListModalCtrl.controlId) {
-                var _index = -1;
-                for (var x in dynamicLookupConfig.Entities) {
-                    (DynamicListModalCtrl.controlKey) ? _index = x.indexOf(DynamicListModalCtrl.controlKey): _index = x.indexOf(DynamicListModalCtrl.controlId);
-
+                let _index = -1;
+                for (let x in dynamicLookupConfig.Entities) {
+                    _index = DynamicListModalCtrl.controlKey ? x.indexOf(DynamicListModalCtrl.controlKey) : x.indexOf(DynamicListModalCtrl.controlId);
                     if (_index !== -1) {
                         DynamicListModalCtrl.ePage.Masters.LookupConfig = dynamicLookupConfig.Entities[x];
                     }
@@ -167,16 +142,15 @@
             var _isEmptyDefault = angular.equals({}, DynamicListModalCtrl.defaultFilter);
 
             if (!_isEmptyDefault) {
-                for (var x in DynamicListModalCtrl.defaultFilter) {
+                for (let x in DynamicListModalCtrl.defaultFilter) {
                     DynamicListModalCtrl.ePage.Masters.defaultFilter[x] = DynamicListModalCtrl.defaultFilter[x];
                 }
             }
 
             // Add custom filter objects
-            var _isEmptyBase = angular.equals({}, DynamicListModalCtrl.baseFilter);
-
+            let _isEmptyBase = angular.equals({}, DynamicListModalCtrl.baseFilter);
             if (!_isEmptyBase) {
-                for (var x in DynamicListModalCtrl.baseFilter) {
+                for (let x in DynamicListModalCtrl.baseFilter) {
                     DynamicListModalCtrl.ePage.Masters.baseFilter[x] = DynamicListModalCtrl.baseFilter[x];
                 }
             }

@@ -57,14 +57,9 @@
             };
 
             apiService.post("eAxisAPI", trustCenterConfig.Entities.API.ValidationGroup.API.FindAll.Url, _input).then(function (response) {
-                if (response.data.Response) {
+                if (response.data.Response && response.data.Response.length > 0) {
                     TCValidationGroupMappingCtrl.ePage.Masters.ValidationGroup.ListSource = response.data.Response;
-                    if (response.data.Response.length > 0) {
-                        TCValidationGroupMappingCtrl.ePage.Masters.ValidationGroup.ListSource.map(function(value,key){
-                            SetGenerateScriptInput(value);
-                        })
-                        GetValidationGroupMappingList();
-                    }
+                    GetValidationGroupMappingList();
                 } else {
                     TCValidationGroupMappingCtrl.ePage.Masters.ValidationGroup.ListSource = [];
                 }
@@ -91,6 +86,7 @@
                                 if (value1.PK === value2.Fk_1) {
                                     value1.IsChecked = true;
                                     value1.MappingObj = value2;
+                                    SetGenerateScriptInput(value1);
                                 }
                             });
                         });
@@ -126,11 +122,10 @@
             }
 
             apiService.post("eAxisAPI", trustCenterConfig.Entities.API.EntitiesMapping.API.Upsert.Url, [_input]).then(function SuccessCallback(response) {
-                if (response.data.Response) {
-                    if (response.data.Response.length > 0) {
-                        $item.IsChecked = true;
-                        $item.MappingObj = response.data.Response[0];
-                    }
+                if (response.data.Response && response.data.Response.length > 0) {
+                    $item.IsChecked = true;
+                    $item.MappingObj = response.data.Response[0];
+                    SetGenerateScriptInput($item);
                 }
             });
         }
@@ -139,7 +134,7 @@
          if (row) {
             row.GenerateScriptInput = {
                     ObjectName: "EntitiesMapping",
-                    ObjectId:row.PK
+                    ObjectId:row.MappingObj.PK
                 };
                 row.GenerateScriptConfig = {
                     IsEnableTable: false,

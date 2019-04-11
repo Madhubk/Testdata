@@ -200,6 +200,7 @@
             PageCtrl.ePage.Masters.Page.DeleteConfirmation = DeleteConfirmation;
 
             PageCtrl.ePage.Masters.Page.Publish = Publish;
+            PageCtrl.ePage.Masters.Page.OnRedirectLinkClick = OnRedirectLinkClick;
 
             PageCtrl.ePage.Masters.Page.DeleteBtnText = "Delete";
             PageCtrl.ePage.Masters.Page.IsDisableDeleteBtn = false;
@@ -322,13 +323,23 @@
         }
 
         function GetRedirectLinkList() {
-            PageCtrl.ePage.Masters.Page.RedirectPagetList = [{
+            PageCtrl.ePage.Masters.Page.RedirectPageList = [{
                 Code: "RelatedLookup",
                 Description: "RelatedLookup",
                 Icon: "fa fa-cog",
                 Link: "TC/related-lookup",
                 Color: "#333333"
+            }, {
+                Code: "UIRestriction",
+                Description: "UI Restriction",
+                Icon: "fa fa-cog",
+                Link: "TC/page/ui-restriction",
+                Color: "#333333"
             }];
+        }
+
+        function OnRedirectLinkClick($item) {
+            OnRelatedLookupClick($item);
         }
 
         function AddOrEditPage() {
@@ -386,8 +397,18 @@
             $location.path($item.Link + "/" + helperService.encryptData(_queryString));
         }
 
-        function Publish(){
-            PageCtrl.ePage.Masters.Page.ActivePage
+        function Publish() {
+            let _filter = {
+                "DataEntryPK": PageCtrl.ePage.Masters.Page.ActivePage.DataEntry_PK
+            };
+            let _input = {
+                "searchInput": helperService.createToArrayOfObject(_filter),
+                "FilterID": trustCenterConfig.Entities.API.DataEntryJSON.API.PublishAllDataentryMasterJson.FilterID
+            };
+
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.DataEntryJSON.API.PublishAllDataentryMasterJson.Url, _input).then(response => {
+                toastr.success("Published Successfully...!");
+            });
         }
 
         // ========================Page End========================

@@ -31,7 +31,7 @@
                         return deferred.promise;
                     }],
                     LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
-                        return $ocLazyLoad.load(['navBar', 'navbarDropdownMenu', 'footerBar', 'confirmation', 'changePassword', 'TCApplicationDropdown', 'trustCenter', "GenerateDBScript"]);
+                        return $ocLazyLoad.load(['navBar', 'navbarDropdownMenu', 'footerBar', 'confirmation', 'changePassword', 'TCApplicationDropdown', 'trustCenter', "GenerateDBScript", "errorWarning"]);
                     }]
                 }
             })
@@ -388,6 +388,28 @@
                     }]
                 }
             })
+            .state('TC.schedule', {
+                url: '/schedule/:id',
+                templateUrl: 'app/trust-center/schedule/schedule.html',
+                controller: "TCScheduleController as TCScheduleCtrl",
+                ncyBreadcrumb: {
+                    label: 'Schedule'
+                },
+                resolve: {
+                    CheckAccess: ["$q", "pageAccessService", ($q, pageAccessService) => {
+                        let deferred = $q.defer();
+                        pageAccessService.CheckPageAccess("/TC/schedule").then(response => {
+                            if (response == true) {
+                                deferred.resolve();
+                            }
+                        });
+
+                        deferred.resolve();
+                        return deferred.promise;
+                    }],
+                    LoadState: ["$ocLazyLoad", "CheckAccess", ($ocLazyLoad, CheckAccess) => $ocLazyLoad.load(["Summernote", "TCSchedule"])]
+                }
+            })
             .state('TC.language', {
                 url: '/language/:id',
                 templateUrl: 'app/trust-center/language/language.html',
@@ -472,7 +494,7 @@
                         return deferred.promise;
                     }],
                     LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
-                        return $ocLazyLoad.load(["chromeTab", "dynamicControl", "dynamicGrid", "dynamicList", "dynamicLookup", "dynamicTable", "TaskAssignStartComplete", "TCProcessInstanceModal", "ProcessInstanceWorkItemDetails", "TCProcessInstance"]);
+                        return $ocLazyLoad.load(["chromeTab", "dynamicControl", "dynamicGrid", "dynamicList", "dynamicLookup", "dynamicTable", "TaskAssignStartComplete", "TCProcessInstanceModal", "ProcessInstanceWorkItemDetails", "TCProcessInstance", "TaskFlowGraph", "TaskFlowGraphModal"]);
                     }]
                 }
             })
@@ -605,6 +627,28 @@
                     }],
                     LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
                         return $ocLazyLoad.load(["JsonModal", "TCRelatedLookup"]);
+                    }]
+                }
+            })
+            .state('TC.uiRestriction', {
+                url: '/page/ui-restriction/:id',
+                templateUrl: 'app/trust-center/page/ui-restrictions/ui-restrictions.html',
+                controller: "TCUIRestrictionsController as TCUIRestrictionsCtrl",
+                ncyBreadcrumb: {
+                    label: 'UI Restriction'
+                },
+                resolve: {
+                    CheckAccess: ["$q", "pageAccessService", function ($q, pageAccessService) {
+                        var deferred = $q.defer();
+                        pageAccessService.CheckPageAccess("/TC/page/ui-restriction").then(function (response) {
+                            if (response == true) {
+                                deferred.resolve();
+                            }
+                        });
+                        return deferred.promise;
+                    }],
+                    LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
+                        return $ocLazyLoad.load(["JsonModal", "TCUIRestriction"]);
                     }]
                 }
             })

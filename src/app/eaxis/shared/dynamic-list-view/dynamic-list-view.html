@@ -1,10 +1,27 @@
 <div class="clearfix">
-    <div class="clearfix dynamic-list-view-header">
-        <span data-ng-bind="DynamicListViewCtrl.ePage.Masters.DataEntry.Title || DynamicListViewCtrl.ePage.Masters.dataentryName || 'Title'"></span>
+    <div class="clearfix dynamic-list-view-header bold pl-10 pr-10 pt-7 pb-7 bg-gray">
+        <span
+            data-ng-bind="DynamicListViewCtrl.ePage.Masters.DataEntry.Title || DynamicListViewCtrl.ePage.Masters.DataEntryName || 'Title'"></span>
     </div>
     <div class="clearfix dynamic-list-view-container">
-        <dynamic-list dataentry-name="DynamicListViewCtrl.ePage.Masters.dataentryName" grid-config-type="0" selected-grid-row="DynamicListViewCtrl.ePage.Masters.SelectedGridRow($item)"
-            mode="2" dataentry-object="DynamicListViewCtrl.ePage.Masters.DataEntry" default-filter="DynamicListViewCtrl.ePage.Masters.defaultFilter"
-            is-new-button="true"></dynamic-list>
+        <dynamic-list dataentry-name="DynamicListViewCtrl.ePage.Masters.DataEntryName" grid-config-type="0"
+            selected-grid-row="DynamicListViewCtrl.ePage.Masters.SelectedGridRow($item)" mode="1"
+            dataentry-object="DynamicListViewCtrl.ePage.Masters.DataEntry"
+            default-filter="DynamicListViewCtrl.ePage.Masters.DefaultFilter" is-new-button="true"></dynamic-list>
     </div>
 </div>
+
+<!-- Edit Template -->
+<script type="text/ng-template" id="dynDataEntryEdit">
+    <div class="modal-header">
+        <button type="button" class="close" data-ng-click="DynamicListViewCtrl.ePage.Masters.Cancel()">&times;</button>
+        <h5 class="modal-title" id="modal-title">
+            <strong>{{DynamicListViewCtrl.ePage.Masters.DataEntry.Title || DynamicListViewCtrl.ePage.Masters.DataEntryName || 'Edit'}}</strong>
+        </h5>
+    </div>
+    <div class="modal-body" id="modal-body">
+        <div class="clearfix">
+            <dynamic-details-view dataentry-name="DynamicListViewCtrl.ePage.Masters.DataEntryName" pkey="DynamicListViewCtrl.ePage.Masters.Pkey" item="DynamicListViewCtrl.ePage.Masters.Item" dataentry-object="DynamicListViewCtrl.ePage.Masters.DataEntry" mode="0" default-filter=""></dynamic-details-view>
+        </div>
+    </div>
+</script>

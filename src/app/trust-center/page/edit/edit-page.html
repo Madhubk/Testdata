@@ -5,24 +5,32 @@
     <div class="breadcrumb-list-wrapper">
       <ol class="breadcrumb">
         <li data-ng-repeat="x in EditPageCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="!x.IsActive">
-          <a href="javascript:void(0);" data-ng-bind="x.Description" data-ng-click="EditPageCtrl.ePage.Masters.Breadcrumb.OnBreadcrumbClick(x)"></a>
+          <a href="javascript:void(0);" data-ng-bind="x.Description"
+            data-ng-click="EditPageCtrl.ePage.Masters.Breadcrumb.OnBreadcrumbClick(x)"></a>
         </li>
-        <li data-ng-repeat="x in EditPageCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="x.IsActive" data-ng-bind="x.Description"
-          class="active"></li>
+        <li data-ng-repeat="x in EditPageCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="x.IsActive"
+          data-ng-bind="x.Description" class="active"></li>
       </ol>
     </div>
-    <span class="tc-breadcrumb-app-name" data-ng-if="EditPageCtrl.ePage.Masters.QueryString.AppName" data-ng-bind="EditPageCtrl.ePage.Masters.QueryString.AppName"></span>
+    <span class="tc-breadcrumb-app-name" data-ng-if="EditPageCtrl.ePage.Masters.QueryString.AppName"
+      data-ng-bind="EditPageCtrl.ePage.Masters.QueryString.AppName"></span>
   </div>
   <!-- Body -->
   <div class="clearfix">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 p-0 tc-page-height-fixed without-header">
-      <input type="button" class="btn btn-primary btn-sm tc-edit-page-save-btn" data-ng-click="EditPageCtrl.ePage.Masters.EditPage.Save()"
-        data-ng-disabled="EditPageCtrl.ePage.Masters.EditPage.IsDisableSaveBtn" value="{{EditPageCtrl.ePage.Masters.EditPage.SaveBtnText}}">
+      <input type="button" class="btn btn-primary btn-sm tc-edit-page-save-btn"
+        data-ng-click="EditPageCtrl.ePage.Masters.EditPage.Save()"
+        data-ng-disabled="EditPageCtrl.ePage.Masters.EditPage.IsDisableSaveBtn"
+        value="{{EditPageCtrl.ePage.Masters.EditPage.SaveBtnText}}">
+      <input type="button" class="btn btn-primary btn-sm tc-edit-page-save-btn" style="right: 110px;"
+        data-ng-click="EditPageCtrl.ePage.Masters.EditPage.Publish()"
+        data-ng-disabled="EditPageCtrl.ePage.Masters.EditPage.IsDisablePublishBtn"
+        value="{{EditPageCtrl.ePage.Masters.EditPage.PublishBtnText}}">
 
       <uib-tabset class="set-tabs">
         <uib-tab>
           <uib-tab-heading>
-            <span>Data</span>
+            <span>General</span>
           </uib-tab-heading>
           <div data-ng-include="'app/trust-center/page/edit/template/form-data.html'"></div>
         </uib-tab>
@@ -32,13 +40,15 @@
           </uib-tab-heading>
           <div data-ng-include="'app/trust-center/page/edit/template/form-design.html'"></div>
         </uib-tab>
-        <uib-tab data-ng-if="EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.DisplayMode=='S' || EditPageCtrl.ePage.Masters.ActiveApplication == 'TC'">
+        <uib-tab
+          data-ng-if="EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.DisplayMode=='S' || EditPageCtrl.ePage.Masters.ActiveApplication == 'TC'">
           <uib-tab-heading>
             <span>Search Page Configuration</span>
           </uib-tab-heading>
           <div data-ng-include="'app/trust-center/page/edit/template/search-config.html'"></div>
         </uib-tab>
-        <uib-tab data-ng-if="EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.DisplayMode=='S' || EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.DisplayMode=='B' || EditPageCtrl.ePage.Masters.ActiveApplication == 'TC'">
+        <uib-tab
+          data-ng-if="EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.DisplayMode=='S' || EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.DisplayMode=='B' || EditPageCtrl.ePage.Masters.ActiveApplication == 'TC'">
           <uib-tab-heading>
             <span>Lookup Page Configuration</span>
           </uib-tab-heading>
@@ -202,6 +212,30 @@
     <label for="inputSelect4" class="control-label">{{item.AttributeDetails[item.AttrIndex].AttributeValue}}</label>
     <div class="clearfix">
       <i class="fa fa-th"></i>
+    </div>
+  </div>
+</script>
+<script type="text/ng-template" id="counter.html">
+  <div class="form-group m-0">
+    <label for="inputSelect4" class="control-label">{{item.AttributeDetails[item.AttrIndex].AttributeValue}}</label>
+    <div class="clearfix">
+      <label for="inputText0">Counter</label>
+    </div>
+  </div>
+</script>
+<script type="text/ng-template" id="heading1.html">
+  <div class="form-group m-0">
+    <label for="inputSelect4" class="control-label">{{item.AttributeDetails[item.AttrIndex].AttributeValue}}</label>
+    <div class="clearfix">
+      <label for="inputText0">Heading 1</label>
+    </div>
+  </div>
+</script>
+<script type="text/ng-template" id="heading2.html">
+  <div class="form-group m-0">
+    <label for="inputSelect4" class="control-label">{{item.AttributeDetails[item.AttrIndex].AttributeValue}}</label>
+    <div class="clearfix">
+      <label for="inputText0">Heading 2</label>
     </div>
   </div>
 </script>

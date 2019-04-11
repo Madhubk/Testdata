@@ -5,9 +5,9 @@
         .module("Application")
         .controller("ControlTowerController", ControlTowerController);
 
-    ControlTowerController.$inject = ["$scope", "$timeout", "$uibModal", "helperService", "authService", "apiService", "APP_CONSTANT", "appConfig", "dynamicLookupConfig"];
+    ControlTowerController.$inject = ["$scope", "$timeout", "$uibModal", "helperService", "authService", "apiService", "APP_CONSTANT", "eaxisConfig", "dynamicLookupConfig"];
 
-    function ControlTowerController($scope, $timeout, $uibModal, helperService, authService, apiService, APP_CONSTANT, appConfig, dynamicLookupConfig) {
+    function ControlTowerController($scope, $timeout, $uibModal, helperService, authService, apiService, APP_CONSTANT, eaxisConfig, dynamicLookupConfig) {
         var ControlTowerCtrl = this;
 
         function Init() {
@@ -46,7 +46,7 @@
             ControlTowerCtrl.ePage.Masters.ControlTower.Filter.CloseFilter = CloseFilter;
             ControlTowerCtrl.ePage.Masters.ControlTower.Filter.Apply = ApplyFilter;
 
-           // ControlTowerCtrl.ePage.Masters.ControlTower.Filter.OnProcessGroupChange = OnProcessGroupChange;
+            // ControlTowerCtrl.ePage.Masters.ControlTower.Filter.OnProcessGroupChange = OnProcessGroupChange;
             ControlTowerCtrl.ePage.Masters.ControlTower.Filter.OnOrganizationChangeAutoComplete = OnOrganizationChangeAutoComplete;
             ControlTowerCtrl.ePage.Masters.ControlTower.Filter.OnOrganizationChangeLookup = OnOrganizationChangeLookup;
             ControlTowerCtrl.ePage.Masters.ControlTower.Filter.OnWarehouseChangeAutoComplete = OnWarehouseChangeAutoComplete;
@@ -64,7 +64,7 @@
             InitDatePicker();
             GetPeriodList();
             GetProcessTopicList();
-           // GetProcessGroupList();
+            // GetProcessGroupList();
             GetUserList();
             GetRoleList();
         }
@@ -107,16 +107,16 @@
 
         function GetProcessTopicList() {
             ControlTowerCtrl.ePage.Masters.ControlTower.Filter.ProcessTopicList = undefined;
-                 var _filter = {
+            var _filter = {
                 MappingCode: "PROCESS_TOPIC",
                 SAP_FK: authService.getUserInfo().AppPK,
                 TenantCode: authService.getUserInfo().TenantCode
             };
-             var _input = {
+            var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.EBPMCFXTypes.API.FindAll.FilterID
+                "FilterID": eaxisConfig.Entities.EBPMCFXTypes.API.FindAll.FilterID
             };
-             apiService.post("eAxisAPI", appConfig.Entities.EBPMCFXTypes.API.FindAll.Url, _input).then(function (response) {
+            apiService.post("eAxisAPI", eaxisConfig.Entities.EBPMCFXTypes.API.FindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     ControlTowerCtrl.ePage.Masters.ControlTower.Filter.ProcessTopicList = response.data.Response;
                 } else {
@@ -135,10 +135,10 @@
 
         //     var _input = {
         //         "searchInput": helperService.createToArrayOfObject(_filter),
-        //         "FilterID": appConfig.Entities.CfxTypes.API.FindAll.FilterID
+        //         "FilterID": eaxisConfig.Entities.CfxTypes.API.FindAll.FilterID
         //     };
 
-        //     apiService.post("eAxisAPI", appConfig.Entities.CfxTypes.API.FindAll.Url + authService.getUserInfo().AppPK, _input).then(function (response) {
+        //     apiService.post("eAxisAPI", eaxisConfig.Entities.CfxTypes.API.FindAll.Url + authService.getUserInfo().AppPK, _input).then(function (response) {
         //         if (response.data.Response) {
         //             ControlTowerCtrl.ePage.Masters.ControlTower.Filter.ProcessGroupList = response.data.Response;
         //         } else {
@@ -156,10 +156,10 @@
 
         //     var _input = {
         //         "searchInput": helperService.createToArrayOfObject(_filter),
-        //         "FilterID": appConfig.Entities.EBPMProcessMaster.API.FindAll.FilterID
+        //         "FilterID": eaxisConfig.Entities.EBPMProcessMaster.API.FindAll.FilterID
         //     };
 
-        //     apiService.post("eAxisAPI", appConfig.Entities.EBPMProcessMaster.API.FindAll.Url, _input).then(function (response) {
+        //     apiService.post("eAxisAPI", eaxisConfig.Entities.EBPMProcessMaster.API.FindAll.Url, _input).then(function (response) {
         //         if (response.data.Response) {
         //             ControlTowerCtrl.ePage.Masters.ControlTower.Filter.ProcessMasterList = response.data.Response;
         //         } else {
@@ -179,10 +179,10 @@
 
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.SecMappings.API.GetColumnValuesWithFilters.FilterID
+                "FilterID": eaxisConfig.Entities.SecMappings.API.GetColumnValuesWithFilters.FilterID
             };
 
-            apiService.post("authAPI", appConfig.Entities.SecMappings.API.GetColumnValuesWithFilters.Url, _input).then(function (response) {
+            apiService.post("authAPI", eaxisConfig.Entities.SecMappings.API.GetColumnValuesWithFilters.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     ControlTowerCtrl.ePage.Masters.ControlTower.Filter.UserList = response.data.Response;
                 } else {
@@ -194,16 +194,15 @@
         function GetRoleList() {
             ControlTowerCtrl.ePage.Masters.ControlTower.Filter.RoleList = undefined;
             var _filter = {
-                SAP_FK: authService.getUserInfo().AppPK,
-                TenantCode: authService.getUserInfo().TenantCode
+                SAP_FK: authService.getUserInfo().AppPK
             };
 
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.SecRole.API.FindAll.FilterID
+                "FilterID": eaxisConfig.Entities.SecRole.API.FindAll.FilterID
             };
 
-            apiService.post("authAPI", appConfig.Entities.SecRole.API.FindAll.Url, _input).then(function (response) {
+            apiService.post("authAPI", eaxisConfig.Entities.SecRole.API.FindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     ControlTowerCtrl.ePage.Masters.ControlTower.Filter.RoleList = response.data.Response;
                 } else {
@@ -266,7 +265,7 @@
                 delete _filterInput.Period;
                 delete _filterInput.PeriodDate;
             }
-            
+
             ControlTowerCtrl.ePage.Masters.ControlTower.Filter.FilterInput = _filterInput;
             $timeout(function () {
                 ControlTowerCtrl.ePage.Masters.ControlTower.IsEnableWorkItemCountDir = true;
@@ -359,10 +358,10 @@
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.DYN_RelatedLookup.API.GroupFindAll.FilterID
+                "FilterID": eaxisConfig.Entities.DYN_RelatedLookup.API.GroupFindAll.FilterID
             };
 
-            apiService.post("eAxisAPI", appConfig.Entities.DYN_RelatedLookup.API.GroupFindAll.Url, _input).then(function (response) {
+            apiService.post("eAxisAPI", eaxisConfig.Entities.DYN_RelatedLookup.API.GroupFindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     var _isEmpty = angular.equals({}, response.data.Response);
 

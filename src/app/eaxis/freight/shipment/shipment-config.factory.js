@@ -177,7 +177,7 @@
         };
         return exports;
 
-        function GetTabDetails(currentShipment, isNew) {
+        function GetTabDetails(currentShipment, isNew, activityPK) {
             // Set configuration object to individual shipment
             var deferred = $q.defer();
             var _exports = {
@@ -1183,6 +1183,7 @@
                     },
                     label: 'New',
                     code: currentShipment.entity.ShipmentNo,
+                    activityPK: activityPK,
                     isNew: isNew
                 };
                 exports.TabList.push(_obj);
@@ -1190,10 +1191,14 @@
             } else {
                 // Get Shipment details and set to configuration list
                 helperService.getFullObjectUsingGetById(exports.Entities.Header.API.GetByID.Url, currentShipment.PK).then(function (response) {
-                    if (response.data.Messages) {
-                        response.data.Messages.map(function (value, key) {
-                            if (value.Type === "Warning" && value.MessageDesc !== "") {
+                    let _activityPK = null;
+                    if (response.data.Messages && response.data.Messages.length > 0) {
+                        response.data.Messages.map(value => {
+                            if (value.Type == "Warning" && value.MessageDesc) {
                                 toastr.info(value.MessageDesc);
+                            }
+                            if(value.Type == "ActivityPK"){
+                                _activityPK = value.MessageDesc;
                             }
                         });
                     }
@@ -1205,6 +1210,7 @@
                         },
                         label: currentShipment.ShipmentNo,
                         code: currentShipment.ShipmentNo,
+                        activityPK: _activityPK,
                         isNew: isNew
                     };
                     exports.TabList.push(obj);

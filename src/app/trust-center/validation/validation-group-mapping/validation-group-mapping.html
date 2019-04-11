@@ -18,8 +18,7 @@
                     <input type="checkbox" class="colored-blue" data-ng-model="x.IsChecked" data-ng-click="TCValidationGroupMappingCtrl.ePage.Masters.ValidationGroup.OnValidationGroupClick($event, x)">
                     <span class="text text-single-line" data-ng-bind="x.GroupName"></span>
                 </label>
-                <i class="fa fa-file-code-o cursor-pointer ml-20" style="position: absolute; top: 5px; right: 5px" title="Generate Script"
-                    generate-db-script input="x.GenerateScriptInput" config="x.GenerateScriptConfig" data-ng-if="x.GenerateScriptInput.ObjectName && x.GenerateScriptInput.ObjectId && x.PK"></i>
+                <i class="fa fa-file-code-o cursor-pointer ml-20" style="position: absolute; top: 5px; right: 5px" title="Generate Script" generate-db-script input="x.GenerateScriptInput" config="x.GenerateScriptConfig" data-ng-if="x.GenerateScriptInput.ObjectName && x.GenerateScriptInput.ObjectId && x.MappingObj.PK && x.IsChecked"></i>
             </div>
         </div>
     </div>

@@ -43,7 +43,12 @@
                 "Entities": CommentCtrl.input
             };
 
+            CommentCtrl.ePage.Masters.CheckControlAccess = CheckControlAccess;
             InitComments();
+        }
+
+        function CheckControlAccess(controlId) {
+            return helperService.checkUIControl(controlId);
         }
 
         function InitComments() {

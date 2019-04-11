@@ -1,13 +1,19 @@
-.dyn-grid-view {
+.dyn-grid-view-wrapper {
     margin: 0 5px;
+}
+
+.dyn-grid-view {
     height: calc(100vh - 160px);
     height: -moz-calc(100vh - 160px);
     height: -webkit-calc(100vh - 160px);
 }
 
 .tc-dyn-grid .dyn-grid-view {
+    height: 400px !important;
+}
+
+.tc-dyn-grid .dyn-grid-view {
     width: 100%;
-    height: auto;
 }
 
 .grid-loading-norecord-container {
@@ -21,14 +27,14 @@
     font-weight: 600;
 }
 
-.grid-loading,
-.grid-no-record {
+.dyn-grid-no-record {
     position: absolute;
     top: 0;
     bottom: 0;
     left: 0;
     right: 0;
     margin: auto;
+    width: 160px;
     height: 30px;
     text-align: center;
     color: #D1001C;
@@ -36,12 +42,4 @@
     background-color: #FAFFBD;
     padding: 5px 10px;
     border-radius: 3px;
-}
-
-.grid-loading {
-    width: 100px;
-}
-
-.grid-no-record {
-    width: 200px;
 }

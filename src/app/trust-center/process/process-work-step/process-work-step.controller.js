@@ -131,6 +131,8 @@
             InitProcessTypelist();
             InitProcessTopics();
             InitDelayReason();
+            InitSnoozeReason();
+            InitHoldReason();
             InitChecklist();
             InitValidation();
             GetRelatedLookupList();
@@ -366,6 +368,8 @@
             GetProcessTypelist();
             GetProcessTopicslist();
             GetDelayReasonlist();
+            GetSnoozeReasonlist();
+            GetHoldReasonlist();
             GetChecklistlist();
             GetValidationlist();
         }
@@ -1027,13 +1031,13 @@
 
             confirmation.showModal({}, modalOptions)
                 .then(function (result) {
-                    DeleteProcessTopiclist($item);
+                    DeleteDelayReason($item);
                 }, function () {
                     console.log("Cancelled");
                 });
         }
 
-        function DeleteProcessTopiclist($item) {
+        function DeleteDelayReason($item) {
             var _input = angular.copy($item);
             _input.IsModified = true;
             _input.IsDeleted = true;
@@ -1045,6 +1049,206 @@
                     }).indexOf($item.PK);
                     if (_index !== -1) {
                         ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.DelayReason.ListSource.splice(_index, 1);
+                    }
+                }
+            });
+        }
+        // #endregion
+
+        // #region Snooze Reason
+        function InitSnoozeReason() {
+            ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.SnoozeReason = {};
+            ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.SnoozeReason.DefaultFilter = {
+                "MappingCode": "SNOOZE_REASON"
+            }
+            ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.SnoozeReason.OnSnoozeReasonSave = OnSnoozeReasonSave;
+            ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.SnoozeReason.SelectedData = SnoozeReasonSelectedData;
+            ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.SnoozeReason.Delete = DeleteSnoozeReasonConfirmation;
+        }
+
+        function GetSnoozeReasonlist() {
+            ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.SnoozeReason.ListSource = undefined;
+            var _filter = {
+                Fk_2: ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.PK,
+                Code_2: ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.StepCode,
+                MappingCode: "SNOOZE_REASON",
+            };
+            var _input = {
+                "searchInput": helperService.createToArrayOfObject(_filter),
+                "FilterID": trustCenterConfig.Entities.API.EBPMEntitiesMapping.API.FindAll.FilterID
+            };
+
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.EBPMEntitiesMapping.API.FindAll.Url, _input).then(function (response) {
+                if (response.data.Response) {
+                    ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.SnoozeReason.ListSource = response.data.Response;
+                } else {
+                    ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.SnoozeReason.ListSource = [];
+                }
+            });
+        }
+
+        function SnoozeReasonSelectedData($item) {
+            OnSnoozeReasonSave($item)
+        }
+
+        function OnSnoozeReasonSave($item) {
+            if ($item) {
+                if ($item.length > 0) {
+                    $item.map(function (value, key) {
+                        var _input = {
+                            Fk_1: value.PK,
+                            Code_1: value.Code,
+                            Name_1: value.Name,
+
+                            Fk_2: ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.PK,
+                            Code_2: ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.StepCode,
+
+                            MappingCode: "SNOOZE_REASON",
+                            SAP_FK: ProcessWorkStepCtrl.ePage.Masters.QueryString.AppPk,
+                            IsModified: true,
+                            IsActive: true
+                        }
+
+                        apiService.post("eAxisAPI", trustCenterConfig.Entities.API.EBPMEntitiesMapping.API.Upsert.Url, [_input]).then(function (response) {
+                            if (response.data.Response) {
+                                if (response.data.Response.length > 0) {
+                                    ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.SnoozeReason.ListSource = ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.SnoozeReason.ListSource.concat(response.data.Response);
+                                }
+                            }
+                        });
+                    });
+                }
+            }
+        }
+
+        function DeleteSnoozeReasonConfirmation($item) {
+            var modalOptions = {
+                closeButtonText: 'Cancel',
+                actionButtonText: 'Ok',
+                headerText: 'Delete?',
+                bodyText: 'Are you sure?'
+            };
+
+            confirmation.showModal({}, modalOptions)
+                .then(function (result) {
+                    DeleteSnoozeReason($item);
+                }, function () {
+                    console.log("Cancelled");
+                });
+        }
+
+        function DeleteSnoozeReason($item) {
+            var _input = angular.copy($item);
+            _input.IsModified = true;
+            _input.IsDeleted = true;
+
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.EBPMEntitiesMapping.API.Upsert.Url, [_input]).then(function (response) {
+                if (response.data.Response) {
+                    var _index = ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.SnoozeReason.ListSource.map(function (value, key) {
+                        return value.PK;
+                    }).indexOf($item.PK);
+                    if (_index !== -1) {
+                        ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.SnoozeReason.ListSource.splice(_index, 1);
+                    }
+                }
+            });
+        }
+        // #endregion
+
+        // #region Hold Reason
+        function InitHoldReason() {
+            ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.HoldReason = {};
+            ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.HoldReason.DefaultFilter = {
+                "MappingCode": "HOLD_REASON"
+            }
+            ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.HoldReason.OnHoldReasonSave = OnHoldReasonSave;
+            ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.HoldReason.SelectedData = HoldReasonSelectedData;
+            ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.HoldReason.Delete = DeleteHoldReasonConfirmation;
+        }
+
+        function GetHoldReasonlist() {
+            ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.HoldReason.ListSource = undefined;
+            var _filter = {
+                Fk_2: ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.PK,
+                Code_2: ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.StepCode,
+                MappingCode: "HOLD_REASON",
+            };
+            var _input = {
+                "searchInput": helperService.createToArrayOfObject(_filter),
+                "FilterID": trustCenterConfig.Entities.API.EBPMEntitiesMapping.API.FindAll.FilterID
+            };
+
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.EBPMEntitiesMapping.API.FindAll.Url, _input).then(function (response) {
+                if (response.data.Response) {
+                    ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.HoldReason.ListSource = response.data.Response;
+                } else {
+                    ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.HoldReason.ListSource = [];
+                }
+            });
+        }
+
+        function HoldReasonSelectedData($item) {
+            OnHoldReasonSave($item)
+        }
+
+        function OnHoldReasonSave($item) {
+            if ($item) {
+                if ($item.length > 0) {
+                    $item.map(function (value, key) {
+                        var _input = {
+                            Fk_1: value.PK,
+                            Code_1: value.Code,
+                            Name_1: value.Name,
+
+                            Fk_2: ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.PK,
+                            Code_2: ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.StepCode,
+
+                            MappingCode: "HOLD_REASON",
+                            SAP_FK: ProcessWorkStepCtrl.ePage.Masters.QueryString.AppPk,
+                            IsModified: true,
+                            IsActive: true
+                        }
+
+                        apiService.post("eAxisAPI", trustCenterConfig.Entities.API.EBPMEntitiesMapping.API.Upsert.Url, [_input]).then(function (response) {
+                            if (response.data.Response) {
+                                if (response.data.Response.length > 0) {
+                                    ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.HoldReason.ListSource = ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.HoldReason.ListSource.concat(response.data.Response);
+                                }
+                            }
+                        });
+                    });
+                }
+            }
+        }
+
+        function DeleteHoldReasonConfirmation($item) {
+            var modalOptions = {
+                closeButtonText: 'Cancel',
+                actionButtonText: 'Ok',
+                headerText: 'Delete?',
+                bodyText: 'Are you sure?'
+            };
+
+            confirmation.showModal({}, modalOptions)
+                .then(function (result) {
+                    DeleteHoldReason($item);
+                }, function () {
+                    console.log("Cancelled");
+                });
+        }
+
+        function DeleteHoldReason($item) {
+            var _input = angular.copy($item);
+            _input.IsModified = true;
+            _input.IsDeleted = true;
+
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.EBPMEntitiesMapping.API.Upsert.Url, [_input]).then(function (response) {
+                if (response.data.Response) {
+                    var _index = ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.HoldReason.ListSource.map(function (value, key) {
+                        return value.PK;
+                    }).indexOf($item.PK);
+                    if (_index !== -1) {
+                        ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.HoldReason.ListSource.splice(_index, 1);
                     }
                 }
             });
@@ -1142,13 +1346,13 @@
 
             confirmation.showModal({}, modalOptions)
                 .then(function (result) {
-                    DeleteProcessTopiclist($item);
+                    DeleteChecklist($item);
                 }, function () {
                     console.log("Cancelled");
                 });
         }
 
-        function DeleteProcessTopiclist($item) {
+        function DeleteChecklist($item) {
             var _input = angular.copy($item);
             _input.IsModified = true;
             _input.IsDeleted = true;
@@ -1229,7 +1433,7 @@
                         var _input = {
                             Fk_1: value.PK,
                             Code_1: value.Code,
-                            Name_1: value.Name,
+                            Name_1: value.Message,
 
                             Fk_2: ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.PK,
                             Code_2: ProcessWorkStepCtrl.ePage.Masters.ProcessWorkStep.ActiveProcessWorkSteps.StepCode,
@@ -1262,13 +1466,13 @@
 
             confirmation.showModal({}, modalOptions)
                 .then(function (result) {
-                    DeleteProcessTopiclist($item);
+                    DeleteValidation($item);
                 }, function () {
                     console.log("Cancelled");
                 });
         }
 
-        function DeleteProcessTopiclist($item) {
+        function DeleteValidation($item) {
             var _input = angular.copy($item);
             _input.IsModified = true;
             _input.IsDeleted = true;

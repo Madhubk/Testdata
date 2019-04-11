@@ -1,4 +1,4 @@
-<form class="clearfix task-assign-start-complete-wrapper" role="form" data-ng-if="OverrideKpiCtrl.ePage.Masters.Task">
+<form class="clearfix task-assign-start-complete-wrapper" role="form" data-ng-if="OverrideKpiCtrl.ePage.Masters.Task && OverrideKpiCtrl.ePage.Masters.DelayReason.ListSource">
     <div class="form-group pl-10 pr-10 pt-5">
         <label class="control-label">Due Date</label>
         <div class="input-group input-group-sm">
@@ -32,3 +32,8 @@
             data-ng-bind="OverrideKpiCtrl.ePage.Masters.SubmitBtnText" data-ng-disabled="OverrideKpiCtrl.ePage.Masters.IsDisableSubmitBtn"></button>
     </div>
 </form>
+
+<div class="clearfix p-120 text-center"
+    data-ng-if="OverrideKpiCtrl.ePage.Masters.Task && !OverrideKpiCtrl.ePage.Masters.DelayReason.ListSource">
+    <i class="fa fa-spin fa-spinner font-120"></i>
+</div>

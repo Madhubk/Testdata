@@ -5,9 +5,9 @@
         .module("Application")
         .controller("EAxisDynamicPageListController", EAxisDynamicPageListController);
 
-    EAxisDynamicPageListController.$inject = ["$location", "authService", "apiService", "helperService", "appConfig"];
+    EAxisDynamicPageListController.$inject = ["$location", "authService", "apiService", "helperService", "labConfig"];
 
-    function EAxisDynamicPageListController($location, authService, apiService, helperService, appConfig) {
+    function EAxisDynamicPageListController($location, authService, apiService, helperService, labConfig) {
         /* jshint validthis: true */
         var EAxisDynamicPageListCtrl = this;
 
@@ -31,10 +31,10 @@
             };
             let _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.DataEntryMaster.API.FindAllColumn.FilterID
+                "FilterID": labConfig.Entities.DataEntryMaster.API.FindAllColumn.FilterID
             };
 
-            apiService.post("eAxisAPI", appConfig.Entities.DataEntryMaster.API.FindAllColumn.Url, _input).then(response => EAxisDynamicPageListCtrl.ePage.Masters.DynamicPageList = response.data.Response ? response.data.Response : []);
+            apiService.post("eAxisAPI", labConfig.Entities.DataEntryMaster.API.FindAllColumn.Url, _input).then(response => EAxisDynamicPageListCtrl.ePage.Masters.DynamicPageList = response.data.Response ? response.data.Response : []);
         }
 
         function RedirectPage($item) {

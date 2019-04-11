@@ -56,7 +56,6 @@
             TenantListCtrl.ePage.Masters.RecentTenantList = undefined;
             var _filter = {
                 EntitySource: "TNT",
-                // BasedOn_FK: TenantListCtrl.ePage.Masters.QueryString.UserPK,
                 BasedOnCode: TenantListCtrl.ePage.Masters.QueryString.Username
             };
             var _input = {
@@ -199,7 +198,7 @@
         function SoftLogin($item) {
             var _input = {
                 "grant_type": "password",
-                "username": TenantListCtrl.ePage.Masters.QueryString.Username,
+                "Username": TenantListCtrl.ePage.Masters.QueryString.Username,
                 "AppCode": $item.SAP_Code,
                 "TenantCode": $item.TNT_TenantCode ? $item.TNT_TenantCode : $item.EntityRefCode
             };
@@ -212,7 +211,7 @@
                     } else {
                         TenantListCtrl.ePage.Masters.UserInfo = response.data.Response;
 
-                        PrepareLocalStroageInfo();
+                        GetUIControlList();
                     }
                 } else {
                     toastr.error("You don't have an access to this Tenant..!");
@@ -224,6 +223,57 @@
                 toastr.error("You don't have an access to this Tenant..");;
                 TenantListCtrl.ePage.Masters.IsShowTenantListOverlay = false;
                 TenantListCtrl.ePage.Masters.IsDisabledNextBtn = false;
+            });
+        }
+
+        function GetUIControlList() {
+            let _filter = {
+                "SAP_FK": TenantListCtrl.ePage.Masters.UserInfo.AppPK,
+                "TenantCode": TenantListCtrl.ePage.Masters.UserInfo.TenantCode,
+                "USR_FK": TenantListCtrl.ePage.Masters.UserInfo.UserPK
+            };
+            let _input = {
+                "searchInput": helperService.createToArrayOfObject(_filter),
+                "FilterID": appConfig.Entities.CompUserRoleAccess.API.FindAll.FilterID
+            };
+
+            apiService.post("authAPI", appConfig.Entities.CompUserRoleAccess.API.FindAll.Url, _input, TenantListCtrl.ePage.Masters.UserInfo.AuthToken).then(response => {
+                if (response.data.Response && response.data.Response.length > 0) {
+                    let _response = response.data.Response;
+                    let _controlList = [];
+                    _response.map(value => {
+                        if (value.SOP_Code) {
+                            _controlList.push(value.SOP_Code);
+                        }
+                    });
+                    TenantListCtrl.ePage.Masters.UserInfo.UIControlList = _controlList;
+                } else {
+                    TenantListCtrl.ePage.Masters.UserInfo.UIControlList = [];
+                }
+
+                GetSideBarMenuCompact();
+            });
+        }
+
+        function GetSideBarMenuCompact() {
+            let _filter = {
+                "SourceEntityRefKey": TenantListCtrl.ePage.Masters.UserInfo.UserId,
+                "AppCode": TenantListCtrl.ePage.Masters.UserInfo.AppCode,
+                "EntitySource": "APP_DEFAULT"
+            };
+            let _input = {
+                "searchInput": helperService.createToArrayOfObject(_filter),
+                "FilterID": appConfig.Entities.UserSettings.API.FindAll.FilterID
+            };
+
+            apiService.post("eAxisAPI", appConfig.Entities.UserSettings.API.FindAll.Url + TenantListCtrl.ePage.Masters.UserInfo.AppPK, _input, TenantListCtrl.ePage.Masters.UserInfo.AuthToken).then(response => {
+                if (response.data.Response && response.data.Response.length > 0) {
+                    let _response = response.data.Response[0];
+                    _response.Value = JSON.parse(_response.Value);
+                    TenantListCtrl.ePage.Masters.UserInfo.MenuCompact = _response;
+                    TenantListCtrl.ePage.Masters.UserInfo.IsMenuCompact = _response.Value.IsMenuCompact;
+                }
+                PrepareLocalStroageInfo();
             });
         }
 
@@ -272,7 +322,7 @@
         }
 
         function GoBack() {
-            if (TenantListCtrl.ePage.Masters.QueryString.Continue) {
+            if (TenantListCtrl.ePage.Masters.QueryString && TenantListCtrl.ePage.Masters.QueryString.Continue) {
                 $location.path(TenantListCtrl.ePage.Masters.QueryString.Continue).search({});
             } else {
                 $location.path(authService.getUserInfo().InternalUrl).search({});

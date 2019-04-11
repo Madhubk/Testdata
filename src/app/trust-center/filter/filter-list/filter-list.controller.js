@@ -158,7 +158,7 @@
             if (TCFilterListCtrl.ePage.Masters.FilterList.ActiveFilterList) {
                 TCFilterListCtrl.ePage.Masters.GenerateScriptInput = {
                     ObjectName: "FilterList",
-                    ObjectId: TCFilterListCtrl.ePage.Masters.FilterList.ActiveFilterList.Id
+                    ObjectId: TCFilterListCtrl.ePage.Masters.FilterList.ActiveFilterList.FilterID
                 };
                 TCFilterListCtrl.ePage.Masters.GenerateScriptConfig = {
                     IsEnableTable: false,

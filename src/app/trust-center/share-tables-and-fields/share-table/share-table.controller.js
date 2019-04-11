@@ -312,6 +312,7 @@
             } else {
                 var _queryString = ShareTableCtrl.ePage.Masters.QueryString;
             }
+            _queryString.EntityName = ShareTableCtrl.ePage.Masters.ShareTable.ActiveShareTable.EntityName;
             _queryString.Entity_PK = ShareTableCtrl.ePage.Masters.ShareTable.ActiveShareTable.Entity_PK;
             _queryString.BreadcrumbTitle = ShareTableCtrl.ePage.Masters.ShareTable.ActiveShareTable.EntityName;
 

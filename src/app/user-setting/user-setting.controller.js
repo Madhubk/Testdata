@@ -34,6 +34,7 @@
             }
 
             UserSettingCtrl.ePage.Masters.MenuType = authService.getUserInfo().MenuType;
+            UserSettingCtrl.ePage.Masters.IsMenuCompact = authService.getUserInfo().IsMenuCompact;
 
             // InitParty();
             // InitUserMenu();
@@ -195,10 +196,12 @@
             if (UserSettingCtrl.ePage.Masters.Party.ActiveParty.PK) {
                 var _input = {
                     "grant_type": "password",
-                    "username": UserSettingCtrl.ePage.Masters.UserId,
+                    "Username": UserSettingCtrl.ePage.Masters.UserId,
                     "AppCode": UserSettingCtrl.ePage.Masters.AppCode,
+                    "SAP_FK": UserSettingCtrl.ePage.Masters.AppPk,
                     "TenantCode": authService.getUserInfo().TenantCode,
-                    "Party_Pk": UserSettingCtrl.ePage.Masters.Party.ActiveParty.PK,
+                    "Tenant_FK": authService.getUserInfo().TenantPK,
+                    "Party_FK": UserSettingCtrl.ePage.Masters.Party.ActiveParty.PK,
                     "Party_Code": UserSettingCtrl.ePage.Masters.Party.ActiveParty.Code
                 };
 

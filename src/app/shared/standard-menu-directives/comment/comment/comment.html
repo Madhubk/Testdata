@@ -77,8 +77,7 @@
                     </div>
                     <div class="col-sm-1">
                         <!-- Access -->
-                        <div class="pull-right dropdown comment-access-dropdown-menu" data-ng-if="x.GroupMapping && (x.CreatedBy ==  CommentCtrl.ePage.Masters.Comments.UserId || (x.CreatedBy != CommentCtrl.ePage.Masters.Comments.UserId && !x.IsResticted && x.IsShared)) && CommentCtrl.mode == '1' && !CommentCtrl.ePage.Entities.IsReadOnly"
-                            one-level-mapping input="x.GroupMapping" object="x" icon="'fa fa-user-plus'"></div>
+                        <div class="pull-right dropdown comment-access-dropdown-menu" data-ng-if="x.GroupMapping && (x.CreatedBy ==  CommentCtrl.ePage.Masters.Comments.UserId || (x.CreatedBy != CommentCtrl.ePage.Masters.Comments.UserId && !x.IsResticted && x.IsShared)) && CommentCtrl.mode == '1' && !CommentCtrl.ePage.Entities.IsReadOnly && CommentCtrl.ePage.Masters.CheckControlAccess('CMT_SHARE_ACCESS')" one-level-mapping input="x.GroupMapping" object="x" icon="'fa fa-user-plus'"></div>
                     </div>
                 </div>
             </div>

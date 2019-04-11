@@ -22,12 +22,11 @@
             };
 
             InitExcelTemplate();
-
         }
 
         function InitExcelTemplate() {
             EAxisExcelTemplateCtrl.ePage.Masters.dataentryName = "AppSettings";
-            EAxisExcelTemplateCtrl.ePage.Masters.DefaultFilter = {
+            EAxisExcelTemplateCtrl.ePage.Masters.BaseFilter = {
                 "EntitySource": "EXCELCONFIG",
                 "Tenantcode": authService.getUserInfo().TenantCode,
                 "SAP_FK": authService.getUserInfo().AppPK
@@ -45,7 +44,7 @@
             EAxisExcelTemplateCtrl.ePage.Masters.RemoveTab = RemoveTab;
             EAxisExcelTemplateCtrl.ePage.Masters.CurrentActiveTab = CurrentActiveTab;
             EAxisExcelTemplateCtrl.ePage.Masters.SelectedGridRow = SelectedGridRow;
-         }
+        }
 
         function CreateNewTab() {
             var _isExist = EAxisExcelTemplateCtrl.ePage.Masters.TabList.some(function (value) {
@@ -69,7 +68,7 @@
 
             var _isExist = EAxisExcelTemplateCtrl.ePage.Masters.TabList.some(function (value) {
                 if (!isNew) {
-                    if (value.label === $item.entity.SourceEntityRefKey)
+                    if (value.label === $item.entity.Key)
                         return true;
                     else
                         return false;
@@ -92,7 +91,7 @@
 
                 if ($item) {
                     var obj = {
-                        [$item.entity.SourceEntityRefKey]: {
+                        [$item.entity.Key]: {
                             ePage: {
                                 Entities: {
                                     Header: {
@@ -101,8 +100,8 @@
                                 }
                             }
                         },
-                        label: $item.entity.SourceEntityRefKey,
-                        code: $item.entity.SourceEntityRefKey,
+                        label: $item.entity.Key,
+                        code: $item.entity.Key,
                         isNew: isNew
                     };
 
@@ -113,7 +112,7 @@
                             EAxisExcelTemplateCtrl.ePage.Masters.activeTabIndex = EAxisExcelTemplateCtrl.ePage.Masters.TabList.length;
                             EAxisExcelTemplateCtrl.ePage.Masters.IsTabClick = false;
 
-                            EAxisExcelTemplateCtrl.ePage.Masters.CurrentActiveTab($item.entity.SourceEntityRefKey);
+                            EAxisExcelTemplateCtrl.ePage.Masters.CurrentActiveTab($item.entity.Key);
                         });
                     });
                 } else {
@@ -134,7 +133,7 @@
 
                     EAxisExcelTemplateCtrl.ePage.Masters.TabList.push(obj);
 
-                    $timeout(function () {
+                    $timeout(() => {
                         EAxisExcelTemplateCtrl.ePage.Masters.activeTabIndex = EAxisExcelTemplateCtrl.ePage.Masters.TabList.length;
                         EAxisExcelTemplateCtrl.ePage.Masters.IsTabClick = false;
 

@@ -44,8 +44,7 @@
                     </select>
                 </div>
                 <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3 p-5 pt-4 text-right">
-                    <button class="btn btn-xs btn-info" data-ng-click="PageCtrl.ePage.Masters.Page.AddNew()"
-                        data-ng-disabled="!PageCtrl.ePage.Masters.ActiveModule.Key">New</button>
+                    <button class="btn btn-xs btn-info" data-ng-click="PageCtrl.ePage.Masters.Page.AddNew()" data-ng-disabled="!PageCtrl.ePage.Masters.ActiveModule.Key">New</button>
                 </div>
             </div>
         </div>
@@ -150,7 +149,7 @@
                 <div class="clearfix form-group">
                     <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Filter API</label>
                     <div class=" col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8 ">
-                        <div data-ng-bind="PageCtrl.ePage.Masters.Page.ActivePage.FilterAPI || PageCtrl.ePage.Masters.emptyText"></div>
+                        <div style="word-break: break-word;" data-ng-bind="PageCtrl.ePage.Masters.Page.ActivePage.FilterAPI || PageCtrl.ePage.Masters.emptyText"></div>
                     </div>
                 </div>
                 <div class="clearfix form-group">
@@ -163,7 +162,7 @@
             <div class="tc-section-divider" data-ng-if="PageCtrl.ePage.Masters.Page.ActivePage.DataEntry_PK"></div>
             <div class="tc-list-container tc-list-container-inner-redirect" data-ng-if="PageCtrl.ePage.Masters.Page.ActivePage.DataEntry_PK">
                 <ul class="tc-list-ul">
-                    <li data-ng-click="PageCtrl.ePage.Masters.Page.OnRelatedLookupClick(x)" data-ng-repeat="x in PageCtrl.ePage.Masters.Page.RedirectPagetList">
+                    <li data-ng-click="PageCtrl.ePage.Masters.Page.OnRedirectLinkClick(x)" data-ng-repeat="x in PageCtrl.ePage.Masters.Page.RedirectPageList">
                         <div class="clearfix tc-list">
                             <div class="tc-list-name">
                                 <i class="fa {{x.Icon}} mr-10" data-ng-style="{'color': x.Color}"></i>

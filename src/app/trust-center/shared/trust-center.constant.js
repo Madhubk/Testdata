@@ -116,6 +116,11 @@
                 'app/trust-center/data-extraction/entity-score/entity-score.css',
                 'app/trust-center/data-extraction/entity-score/entity-score.controller.js'
             ]
+        },{
+            name: 'TCSchedule',
+            files: [
+                'app/trust-center/schedule/schedule.controller.js'
+            ]
         }, {
             name: 'TCComponent',
             files: [
@@ -209,6 +214,12 @@
             files: [
                 'app/trust-center/page/related-lookup/related-lookup.css',
                 'app/trust-center/page/related-lookup/related-lookup.controller.js'
+            ]
+        }, {
+            name: 'TCUIRestriction',
+            files: [
+                'app/trust-center/page/ui-restrictions/ui-restrictions.css',
+                'app/trust-center/page/ui-restrictions/ui-restrictions.controller.js'
             ]
         }, {
             name: 'TCShareTable',

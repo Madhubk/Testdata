@@ -5,9 +5,9 @@
         .module("Application")
         .controller("LoginHistoryController", LoginHistoryController);
 
-    LoginHistoryController.$inject = ["$location", "$timeout", "authService", "apiService", "helperService", "APP_CONSTANT", "trustCenterConfig"];
+    LoginHistoryController.$inject = ["$location", "$timeout", "$filter", "authService", "apiService", "helperService", "APP_CONSTANT", "trustCenterConfig"];
 
-    function LoginHistoryController($location, $timeout, authService, apiService, helperService, APP_CONSTANT, trustCenterConfig) {
+    function LoginHistoryController($location, $timeout, $filter, authService, apiService, helperService, APP_CONSTANT, trustCenterConfig) {
         /* jshint validthis: true */
         var LoginHistoryCtrl = this;
         var _queryString = $location.path().split("/").pop();
@@ -108,13 +108,16 @@
 
             LoginHistoryCtrl.ePage.Masters.LoginHistory.DatePicker = {};
             LoginHistoryCtrl.ePage.Masters.LoginHistory.DatePicker.Options = APP_CONSTANT.DatePicker;
+            LoginHistoryCtrl.ePage.Masters.LoginHistory.DatePicker.Options.maxDate = new Date();
             LoginHistoryCtrl.ePage.Masters.LoginHistory.DatePicker.isOpen = [];
             LoginHistoryCtrl.ePage.Masters.LoginHistory.DatePicker.OpenDatePicker = OpenDatePicker;
             LoginHistoryCtrl.ePage.Masters.LoginHistory.DatePicker.OnDateChange = OnDateChange;
 
             LoginHistoryCtrl.ePage.Masters.LoginHistory.OnLoginHistoryClick = OnLoginHistoryClick;
+            LoginHistoryCtrl.ePage.Masters.LoginHistory.OnTimeZoneChange = OnTimeZoneChange;
 
-            OnDateChange();
+            OnDateChange(LoginHistoryCtrl.ePage.Masters.QueryString.SessionDate);
+            GetTimeZoneList();
         }
 
         function OpenDatePicker($event, opened) {
@@ -133,6 +136,23 @@
             GetLoginHistoryList();
         }
 
+        function GetTimeZoneList() {
+            LoginHistoryCtrl.ePage.Masters.LoginHistory.TimeZoneList = [{
+                Code: "1",
+                Description: "1"
+            }, {
+                Code: "2",
+                Description: "2"
+            }, {
+                Code: "3",
+                Description: "3"
+            }];
+        }
+
+        function OnTimeZoneChange($item) {
+            LoginHistoryCtrl.ePage.Masters.LoginHistory.ActiveTimeZone = angular.copy($item);
+        }
+
         // =========================================================================
 
         function GetLoginHistoryList() {
@@ -140,10 +160,10 @@
 
             var _filter = {
                 "PropertyName": "SLH_LastLoginDateTime",
-                // "UserId": "A411AF8E-6E86-43EE-B739-B9CC36E654E2",
-                // "DateTime": '2018-01-22 07:47:27.523',
                 "UserId": LoginHistoryCtrl.ePage.Masters.QueryString.UserPK,
+                // "DateTime": $filter("date")(LoginHistoryCtrl.ePage.Masters.ActiveDate, "dd-MMM-yyyy"),
                 "DateTime": LoginHistoryCtrl.ePage.Masters.ActiveDate,
+                "AppCode": LoginHistoryCtrl.ePage.Masters.QueryString.AppCode,
                 "TenantCode": authService.getUserInfo().TenantCode
             };
             var _input = {
@@ -154,9 +174,20 @@
             apiService.post("authAPI", trustCenterConfig.Entities.API.SecLoginHistory.API.FindAll.Url, _input).then(function SuccessCallback(response) {
                 if (response.data.Response) {
                     LoginHistoryCtrl.ePage.Masters.LoginHistory.ListSource = response.data.Response;
+                    LoginHistoryCtrl.ePage.Masters.LoginHistory.ListSource = $filter('orderBy')(LoginHistoryCtrl.ePage.Masters.LoginHistory.ListSource, 'LastLoginDateTime', true);
 
                     if (LoginHistoryCtrl.ePage.Masters.LoginHistory.ListSource.length > 0) {
-                        OnLoginHistoryClick(LoginHistoryCtrl.ePage.Masters.LoginHistory.ListSource[0]);
+                        if (LoginHistoryCtrl.ePage.Masters.QueryString.SessionPK) {
+                            let _index = LoginHistoryCtrl.ePage.Masters.LoginHistory.ListSource.findIndex(x => x.PK == LoginHistoryCtrl.ePage.Masters.QueryString.SessionPK);
+
+                            if (_index != -1) {
+                                OnLoginHistoryClick(LoginHistoryCtrl.ePage.Masters.LoginHistory.ListSource[_index]);
+                            } else {
+                                OnLoginHistoryClick(LoginHistoryCtrl.ePage.Masters.LoginHistory.ListSource[0]);
+                            }
+                        } else {
+                            OnLoginHistoryClick(LoginHistoryCtrl.ePage.Masters.LoginHistory.ListSource[0]);
+                        }
                     } else {
                         OnLoginHistoryClick();
                         LoginHistoryCtrl.ePage.Masters.SessionActivity.GridData = [];
@@ -216,10 +247,10 @@
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": trustCenterConfig.Entities.API.SecSessionActivity.API.FindAll.FilterID
+                "FilterID": trustCenterConfig.Entities.API.SecSessionActivity.API.SessionFindAll.FilterID
             };
 
-            apiService.post("authAPI", trustCenterConfig.Entities.API.SecSessionActivity.API.FindAll.Url, _input).then(function SuccessCallback(response) {
+            apiService.post("authAPI", trustCenterConfig.Entities.API.SecSessionActivity.API.SessionFindAll.Url, _input).then(function SuccessCallback(response) {
                 if (response.data.Response) {
                     LoginHistoryCtrl.ePage.Masters.SessionActivity.ListSource = response.data.Response;
                 } else {

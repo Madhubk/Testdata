@@ -7,29 +7,39 @@
                 <li data-ng-repeat="x in LoginHistoryCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="!x.IsActive">
                     <a href="javascript:void(0);" data-ng-bind="x.Description" data-ng-click="LoginHistoryCtrl.ePage.Masters.Breadcrumb.OnBreadcrumbClick(x)"></a>
                 </li>
-                <li data-ng-repeat="x in LoginHistoryCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="x.IsActive" data-ng-bind="x.Description"
-                    class="active"></li>
+                <li data-ng-repeat="x in LoginHistoryCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="x.IsActive"
+                    data-ng-bind="x.Description" class="active"></li>
             </ol>
         </div>
-        <span class="tc-breadcrumb-app-name" data-ng-if="LoginHistoryCtrl.ePage.Masters.QueryString.AppName" data-ng-bind="LoginHistoryCtrl.ePage.Masters.QueryString.AppName"></span>
+        <span class="tc-breadcrumb-app-name" data-ng-if="LoginHistoryCtrl.ePage.Masters.QueryString.AppName"
+            data-ng-bind="LoginHistoryCtrl.ePage.Masters.QueryString.AppName"></span>
     </div>
     <!-- Header -->
     <div class="clearfix tc-header-container">
         <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 p-0">
             <div class="tc-header with-drop-down">
-                <div class="input-group input-group-sm">
-                    <input type="text" class="form-control" placeholder="{{LoginHistoryCtrl.ePage.Masters.LoginHistory.DatePicker.Options.dateFormat}}"
-                        datetime-picker="{{LoginHistoryCtrl.ePage.Masters.LoginHistory.DatePicker.Options.dateFormat}}" ng-model="LoginHistoryCtrl.ePage.Masters.ActiveDate"
-                        is-open="LoginHistoryCtrl.ePage.Masters.LoginHistory.DatePicker.isOpen['isActiveDate']" datepicker-options="LoginHistoryCtrl.ePage.Masters.LoginHistory.DatePicker.Options"
-                        datepicker-append-to-body="false" close-on-selection="false" enable-time="false" enable-date="true" default-date=""
-                        default-time="" when-closed="" save-as="LoginHistoryCtrl.ePage.Masters.LoginHistory.DatePicker.Options.saveFormat" data-ng-click="LoginHistoryCtrl.ePage.Masters.LoginHistory.DatePicker.OpenDatePicker($event, 'isActiveDate')"
-                        data-ng-change="LoginHistoryCtrl.ePage.Masters.LoginHistory.DatePicker.OnDateChange(LoginHistoryCtrl.ePage.Masters.ActiveDate)"
-                    />
-                    <span class="input-group-btn">
-                        <button class="btn btn-default shiny" data-ng-click="LoginHistoryCtrl.ePage.Masters.LoginHistory.DatePicker.OpenDatePicker($event, 'isActiveDate')">
-                            <i class="fa fa-calendar"></i>
-                        </button>
-                    </span>
+                <div class="col-sm-6 pl-0 pr-5">
+                    <div class="input-group input-group-sm">
+                        <input type="text" class="form-control" placeholder="{{LoginHistoryCtrl.ePage.Masters.LoginHistory.DatePicker.Options.dateFormat}}"
+                            datetime-picker="{{LoginHistoryCtrl.ePage.Masters.LoginHistory.DatePicker.Options.dateFormat}}"
+                            data-ng-model="LoginHistoryCtrl.ePage.Masters.ActiveDate" is-open="LoginHistoryCtrl.ePage.Masters.LoginHistory.DatePicker.isOpen['isActiveDate']"
+                            datepicker-options="LoginHistoryCtrl.ePage.Masters.LoginHistory.DatePicker.Options"
+                            datepicker-append-to-body="false" close-on-selection="false" enable-time="false"
+                            enable-date="true" default-date="" default-time="" when-closed="" save-as="LoginHistoryCtrl.ePage.Masters.LoginHistory.DatePicker.Options.saveFormat"
+                            data-ng-click="LoginHistoryCtrl.ePage.Masters.LoginHistory.DatePicker.OpenDatePicker($event, 'isActiveDate')"
+                            data-ng-change="LoginHistoryCtrl.ePage.Masters.LoginHistory.DatePicker.OnDateChange(LoginHistoryCtrl.ePage.Masters.ActiveDate)"/>
+                        <span class="input-group-btn">
+                            <button class="btn btn-default shiny" data-ng-click="LoginHistoryCtrl.ePage.Masters.LoginHistory.DatePicker.OpenDatePicker($event, 'isActiveDate')">
+                                <i class="fa fa-calendar"></i>
+                            </button>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-sm-6 pr-0 pl-5">
+                    <select chosen class="form-control" data-ng-model="LoginHistoryCtrl.ePage.Masters.TimeZone"
+                        data-ng-options="x.Code as x.Description for x in LoginHistoryCtrl.ePage.Masters.LoginHistory.TimeZoneList" data-ng-change="LoginHistoryCtrl.ePage.Masters.LoginHistory.OnTimeZoneChange((LoginHistoryCtrl.ePage.Masters.LoginHistory.TimeZoneList | filter: {'Code': LoginHistoryCtrl.ePage.Masters.TimeZone})[0])">
+                        <option value="">--Select--</option>
+                    </select>
                 </div>
             </div>
         </div>
@@ -52,12 +62,12 @@
                         <i>No Records...</i>
                     </div>
                     <li data-ng-if="LoginHistoryCtrl.ePage.Masters.LoginHistory.ListSource && LoginHistoryCtrl.ePage.Masters.LoginHistory.ListSource.length > 0"
-                        data-ng-repeat="x in  LoginHistoryCtrl.ePage.Masters.LoginHistory.ListSource" data-ng-click="LoginHistoryCtrl.ePage.Masters.LoginHistory.ActiveLoginHistory.PK != x.PK && LoginHistoryCtrl.ePage.Masters.LoginHistory.OnLoginHistoryClick(x)"
+                        data-ng-repeat="x in  LoginHistoryCtrl.ePage.Masters.LoginHistory.ListSource | orderBy: 'LastLoginDateTime': true" data-ng-click="LoginHistoryCtrl.ePage.Masters.LoginHistory.ActiveLoginHistory.PK != x.PK && LoginHistoryCtrl.ePage.Masters.LoginHistory.OnLoginHistoryClick(x)"
                         data-ng-class="{'active': LoginHistoryCtrl.ePage.Masters.LoginHistory.ActiveLoginHistory.PK == x.PK}">
                         <div class="clearfix tc-list">
                             <div class="tc-list-name">
                                 <i class="fa fa-circle-o mr-10"></i>
-                                <span class="text-single-line" data-ng-bind="x.LastLoginDateTime | date: 'HH:MM:ss a'"></span>
+                                <span class="text-single-line" data-ng-bind="x.LastLoginDateTime | date: 'hh:MM:ss a'"></span>
                             </div>
                         </div>
                     </li>
@@ -82,7 +92,7 @@
                 <dynamic-table data-ng-if="LoginHistoryCtrl.ePage.Masters.NLog.GridData" grid-data="LoginHistoryCtrl.ePage.Masters.NLog.GridData"
                     grid-config="LoginHistoryCtrl.ePage.Masters.NLog.gridConfig" selected-grid-row="LoginHistoryCtrl.ePage.Masters.NLog.SelectedNLog($item)"></dynamic-table>
             </div>
-            <div class="tc-section-divider"></div>
+            <div class="tc-section-divider" data-ng-if="LoginHistoryCtrl.ePage.Masters.IsElmaError"></div>
             <!-- Elmah Error -->
             <div class="clearfix dynamic-grid-container" data-ng-if="LoginHistoryCtrl.ePage.Masters.IsElmaError">
                 <div class="text-center grid-view-loader p-20" data-ng-if="!LoginHistoryCtrl.ePage.Masters.ElmahError.GridData">

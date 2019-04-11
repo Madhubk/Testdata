@@ -5,7 +5,8 @@
         <div class="breadcrumb-list-wrapper">
             <ol class="breadcrumb">
                 <li data-ng-repeat="x in TCUserCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="!x.IsActive">
-                    <a href="javascript:void(0);" data-ng-bind="x.Description" data-ng-click="TCUserCtrl.ePage.Masters.Breadcrumb.OnBreadcrumbClick(x)"></a>
+                    <a href="javascript:void(0);" data-ng-bind="x.Description"
+                        data-ng-click="TCUserCtrl.ePage.Masters.Breadcrumb.OnBreadcrumbClick(x)"></a>
                 </li>
                 <li data-ng-repeat="x in TCUserCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="x.IsActive"
                     data-ng-bind="x.Description" class="active"></li>
@@ -14,7 +15,8 @@
     </div>
     <!-- Alphabetic Sort -->
     <div class="clearfix tc-alphabetic-sort">
-        <span data-ng-repeat="x in TCUserCtrl.ePage.Masters.Sort.Alphabets" data-ng-bind="x" data-ng-class="{'active': TCUserCtrl.ePage.Masters.Sort.ActiveAlphabet == x}"
+        <span data-ng-repeat="x in TCUserCtrl.ePage.Masters.Sort.Alphabets" data-ng-bind="x"
+            data-ng-class="{'active': TCUserCtrl.ePage.Masters.Sort.ActiveAlphabet == x}"
             data-ng-click="TCUserCtrl.ePage.Masters.Sort.ActiveAlphabet != x && TCUserCtrl.ePage.Masters.Sort.OnAlphabetClick(x);"></span>
     </div>
     <!-- Header -->
@@ -25,17 +27,21 @@
                     <div class="text-single-line" data-ng-bind="'User'"></div>
                 </div>
                 <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-5 pt-4 text-right">
-                    <button class="btn btn-xs btn-info" data-ng-click="TCUserCtrl.ePage.Masters.User.AddNew()">New</button>
+                    <button class="btn btn-xs btn-info"
+                        data-ng-click="TCUserCtrl.ePage.Masters.User.AddNew()">New</button>
                 </div>
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 p-0">
             <div class="tc-header edit-view">
                 <span data-ng-bind="'Details'"></span>
-                <button class="btn btn-default tc-btn-edit btn-xs pull-right ml-10" data-ng-click="TCUserCtrl.ePage.Masters.User.Edit()"
+                <button class="btn btn-default tc-btn-edit btn-xs pull-right ml-10"
+                    data-ng-click="TCUserCtrl.ePage.Masters.User.Edit()"
                     data-ng-disabled="!TCUserCtrl.ePage.Masters.User.ActiveUser.Id">Edit</button>
-                <button class="btn btn-primary btn-xs pull-right ml-10" generate-db-script input="TCUserCtrl.ePage.Masters.GenerateScriptInput"
-                    config="TCUserCtrl.ePage.Masters.GenerateScriptConfig" data-ng-disabled="!TCUserCtrl.ePage.Masters.GenerateScriptInput.ObjectName || !TCUserCtrl.ePage.Masters.GenerateScriptInput.ObjectId || !TCUserCtrl.ePage.Masters.User.ActiveUser.Id">Generate
+                <button class="btn btn-primary btn-xs pull-right ml-10" generate-db-script
+                    input="TCUserCtrl.ePage.Masters.GenerateScriptInput"
+                    config="TCUserCtrl.ePage.Masters.GenerateScriptConfig"
+                    data-ng-disabled="!TCUserCtrl.ePage.Masters.GenerateScriptInput.ObjectName || !TCUserCtrl.ePage.Masters.GenerateScriptInput.ObjectId || !TCUserCtrl.ePage.Masters.User.ActiveUser.Id">Generate
                     Script</button>
             </div>
         </div>
@@ -44,9 +50,11 @@
     <div class="clearfix">
         <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 p-0">
             <form class="tc-list-search input-group input-group-sm">
-                <input type="text" class="form-control input-sm" placeholder="Search..." data-ng-model="TCUserCtrl.ePage.Masters.Search">
+                <input type="text" class="form-control input-sm" placeholder="Search..."
+                    data-ng-model="TCUserCtrl.ePage.Masters.Search">
                 <div class="input-group-btn">
-                    <button type="submit" class="btn btn-default" data-ng-click="TCUserCtrl.ePage.Masters.User.SearchUser()"
+                    <button type="submit" class="btn btn-default"
+                        data-ng-click="TCUserCtrl.ePage.Masters.User.SearchUser()"
                         data-ng-disabled="!TCUserCtrl.ePage.Masters.Search">
                         <i class="glyphicon glyphicon-search"></i>
                     </button>
@@ -78,66 +86,85 @@
         <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 p-0 tc-page-height-fixed with-alphabetic-sort">
             <div class="tc-avatar-lg clearfix">
                 <div class="tc-custom-file-upload">
-                    <img data-ng-src="{{TCUserCtrl.ePage.Masters.User.ActiveUser.LogoStr}}" alt="" data-ng-if="TCUserCtrl.ePage.Masters.User.ActiveUser.LogoStr">
+                    <img data-ng-src="{{TCUserCtrl.ePage.Masters.User.ActiveUser.LogoStr}}" alt=""
+                        data-ng-if="TCUserCtrl.ePage.Masters.User.ActiveUser.LogoStr">
                     <span data-ng-bind="TCUserCtrl.ePage.Masters.User.ActiveUser.FirstName | getCharacters: 1"
                         data-ng-if="!TCUserCtrl.ePage.Masters.User.ActiveUser.LogoStr"></span>
                     <div data-ng-if="TCUserCtrl.ePage.Masters.User.ActiveUser" class='change-logo'>
                         Change
                         <label>
-                            <input type="file" accept="image/*" class="hide" onchange="angular.element(this).scope().OnLogoChange(event, this)"
+                            <input type="file" accept="image/*" class="hide"
+                                onchange="angular.element(this).scope().OnLogoChange(event, this)"
                                 data-max-size="204800" />
                         </label>
                     </div>
                 </div>
             </div>
             <div class="tc-section-divider"></div>
-            <div class="tc-user-details pt-10 pb-10 tc-details-view clearfix" data-ng-if="TCUserCtrl.ePage.Masters.User.ActiveUser">
+            <div class="tc-user-details pt-10 pb-10 tc-details-view clearfix"
+                data-ng-if="TCUserCtrl.ePage.Masters.User.ActiveUser">
                 <div class="clearfix form-group">
                     <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">User Name</label>
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
-                        <div data-ng-bind="TCUserCtrl.ePage.Masters.User.ActiveUser.UserName || TCUserCtrl.ePage.Masters.emptyText"></div>
+                        <div
+                            data-ng-bind="TCUserCtrl.ePage.Masters.User.ActiveUser.UserName || TCUserCtrl.ePage.Masters.emptyText">
+                        </div>
                     </div>
                 </div>
                 <div class="clearfix form-group">
                     <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">First Name</label>
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
-                        <div data-ng-bind="TCUserCtrl.ePage.Masters.User.ActiveUser.FirstName || TCUserCtrl.ePage.Masters.emptyText"></div>
+                        <div
+                            data-ng-bind="TCUserCtrl.ePage.Masters.User.ActiveUser.FirstName || TCUserCtrl.ePage.Masters.emptyText">
+                        </div>
                     </div>
                 </div>
                 <div class="clearfix form-group">
                     <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Last Name</label>
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
-                        <div data-ng-bind="TCUserCtrl.ePage.Masters.User.ActiveUser.LastName || TCUserCtrl.ePage.Masters.emptyText"></div>
+                        <div
+                            data-ng-bind="TCUserCtrl.ePage.Masters.User.ActiveUser.LastName || TCUserCtrl.ePage.Masters.emptyText">
+                        </div>
                     </div>
                 </div>
                 <div class="clearfix form-group">
                     <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Email</label>
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
-                        <div data-ng-bind="TCUserCtrl.ePage.Masters.User.ActiveUser.Email || TCUserCtrl.ePage.Masters.emptyText"></div>
+                        <div
+                            data-ng-bind="TCUserCtrl.ePage.Masters.User.ActiveUser.Email || TCUserCtrl.ePage.Masters.emptyText">
+                        </div>
                     </div>
                 </div>
                 <div class="clearfix form-group">
                     <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Display Name</label>
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
-                        <div data-ng-bind="TCUserCtrl.ePage.Masters.User.ActiveUser.DisplayName || TCUserCtrl.ePage.Masters.emptyText"></div>
+                        <div
+                            data-ng-bind="TCUserCtrl.ePage.Masters.User.ActiveUser.DisplayName || TCUserCtrl.ePage.Masters.emptyText">
+                        </div>
                     </div>
                 </div>
                 <div class="clearfix form-group">
                     <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Designation</label>
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
-                        <div data-ng-bind="TCUserCtrl.ePage.Masters.User.ActiveUser.Designation || TCUserCtrl.ePage.Masters.emptyText"></div>
+                        <div
+                            data-ng-bind="TCUserCtrl.ePage.Masters.User.ActiveUser.Designation || TCUserCtrl.ePage.Masters.emptyText">
+                        </div>
                     </div>
                 </div>
                 <div class="clearfix form-group">
                     <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Mobile Number</label>
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
-                        <div data-ng-bind="TCUserCtrl.ePage.Masters.User.ActiveUser.MobileNo || TCUserCtrl.ePage.Masters.emptyText"></div>
+                        <div
+                            data-ng-bind="TCUserCtrl.ePage.Masters.User.ActiveUser.MobileNo || TCUserCtrl.ePage.Masters.emptyText">
+                        </div>
                     </div>
                 </div>
                 <div class="clearfix form-group">
                     <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">User Type</label>
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
-                        <div data-ng-bind="TCUserCtrl.ePage.Masters.User.ActiveUser.UserType || TCUserCtrl.ePage.Masters.emptyText"></div>
+                        <div
+                            data-ng-bind="TCUserCtrl.ePage.Masters.User.ActiveUser.UserType || TCUserCtrl.ePage.Masters.emptyText">
+                        </div>
                     </div>
                 </div>
             </div>
@@ -215,6 +242,22 @@
                         <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">User Type</label>
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
                             <input type="text" class="form-control input-sm" placeholder="User Type" data-ng-model="TCUserCtrl.ePage.Masters.User.ActiveUser.UserType">
+                        </div>
+                    </div>
+                    <div class="form-group" data-ng-if="TCUserCtrl.ePage.Masters.ActiveApplication == 'TC'">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Application</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <select chosen class="form-control" data-ng-model="TCUserCtrl.ePage.Masters.User.ActiveUser.AppCode" data-ng-options="x.AppCode as x.AppCode for x in TCUserCtrl.ePage.Masters.User.ApplicationList" data-ng-change="TCUserCtrl.ePage.Masters.User.OnApplicationChange((TCUserCtrl.ePage.Masters.User.ApplicationList | filter: {'AppCode': TCUserCtrl.ePage.Masters.User.ActiveUser.AppCode})[0])" data-ng-disabled="TCUserCtrl.ePage.Masters.ActiveApplication == 'EA'">
+                                <option value="">--Select--</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Roles</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <select chosen multiple class="form-control" data-ng-model="TCUserCtrl.ePage.Masters.User.ActiveUser.RoleList" data-ng-options="x.PK as (x.Party_Code + ' - ' + x.RoleName) for x in TCUserCtrl.ePage.Masters.User.RoleList" data-ng-change="TCUserCtrl.ePage.Masters.User.OnRoleChange((TCUserCtrl.ePage.Masters.User.RoleList | filter: {'PK': TCUserCtrl.ePage.Masters.User.ActiveUser.RoleList})[0])">
+                                <option value="">--Select--</option>
+                            </select>
                         </div>
                     </div>
                 </form>

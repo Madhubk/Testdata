@@ -15,7 +15,7 @@
                         </div>
                     </li>
                     <li class="clearfix" data-ng-if="EditPageCtrl.ePage.Masters.EditPage.FormDesign.ToolsList && EditPageCtrl.ePage.Masters.EditPage.FormDesign.ToolsList.length > 0"
-                        ng-repeat="item in EditPageCtrl.ePage.Masters.EditPage.FormDesign.ToolsList" dnd-draggable="item" dnd-effect-allowed="copy">
+                        ng-repeat="item in EditPageCtrl.ePage.Masters.EditPage.FormDesign.ToolsList | orderBy: 'UIControl'" dnd-draggable="item" dnd-effect-allowed="copy">
                         <i class="{{item.CSS.Class}} mr-10"></i>
                         <span>{{item.Desc}}</span>
                     </li>

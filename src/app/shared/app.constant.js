@@ -467,6 +467,18 @@
                     'app/shared/override-kpi/override-kpi.css',
                     'app/shared/override-kpi/override-kpi.directive.js'
                 ]
+            }, {
+                name: 'MyTaskSnooze',
+                files: [
+                    'app/shared/snooze/snooze.css',
+                    'app/shared/snooze/snooze.directive.js'
+                ]
+            }, {
+                name: 'MyTaskHold',
+                files: [
+                    'app/shared/hold/hold.css',
+                    'app/shared/hold/hold.directive.js'
+                ]
             },
             //endregion
             // region Process
@@ -717,8 +729,9 @@
                 ['help', ['help']]
             ]
         },
-        IsInsertErrorLog: false,
-        Version: "1.0"
+        IsInsertErrorLog: true,
+        SessionExpiryTime: 20,
+        Version: "1.2.0"
     };
 
     angular

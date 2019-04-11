@@ -5,9 +5,9 @@
         .module("Application")
         .controller("LanguageController", LanguageController);
 
-    LanguageController.$inject = ["authService", "apiService", "helperService", "$location", "confirmation", "toastr", "trustCenterConfig"];
+    LanguageController.$inject = ["$filter", "authService", "apiService", "helperService", "$location", "confirmation", "toastr", "trustCenterConfig"];
 
-    function LanguageController(authService, apiService, helperService, $location, confirmation, toastr, trustCenterConfig) {
+    function LanguageController($filter, authService, apiService, helperService, $location, confirmation, toastr, trustCenterConfig) {
         /* jshint validthis: true */
         var LanguageCtrl = this;
         var _queryString = $location.path().split("/").pop();
@@ -175,7 +175,7 @@
 
             apiService.post("eAxisAPI", trustCenterConfig.Entities.API.CfxTypes.API.FindAll.Url + authService.getUserInfo().AppPK, _input).then(function (response) {
                 if (response.data.Response) {
-                    LanguageCtrl.ePage.Masters.LanguageCode.ListSource = response.data.Response;
+                    LanguageCtrl.ePage.Masters.LanguageCode.ListSource = $filter("orderBy")(response.data.Response, 'Sequence');
 
                     if (LanguageCtrl.ePage.Masters.LanguageCode.ListSource.length > 0) {
                         OnLanguageCodeChange(LanguageCtrl.ePage.Masters.LanguageCode.ListSource[0])
@@ -199,10 +199,7 @@
 
                 LanguageCtrl.ePage.Masters.LanguageCode.ActiveLanguageCode.LanguageCodeCopy = _keyCopy;
             }
-
         }
-
-
 
         // ========================Language Code End========================
 
@@ -221,7 +218,6 @@
             LanguageCtrl.ePage.Masters.Language.ListSource = undefined;
             var _filter = {
                 "SAP_FK": LanguageCtrl.ePage.Masters.Application.ActiveApplication.PK,
-                "TenantCode": authService.getUserInfo().TenantCode,
                 "ModuleCode": LanguageCtrl.ePage.Masters.Module.ActiveModule.Key
             };
             var _input = {

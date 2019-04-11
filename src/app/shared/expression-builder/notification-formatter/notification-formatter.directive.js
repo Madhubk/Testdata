@@ -58,7 +58,6 @@
                     "SourceEntityRefKey": "Email Templates",
                     "EntitySource": "EXCELCONFIG",
                     "ModuleCode": scope.moduleCode,
-                    "TenantCode": authService.getUserInfo().TenantCode,
                     "SAP_FK": scope.Notification.QueryString.AppPk
                 };
                 var _input = {

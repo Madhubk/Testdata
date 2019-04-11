@@ -6,7 +6,8 @@
             name: 'eAxisAdmin',
             files: [
                 'app/eaxis/admin/admin.css',
-                'app/eaxis/admin/admin.controller.js'
+                'app/eaxis/admin/admin-config.factory.js',
+				'app/eaxis/admin/admin.controller.js'
             ]
         }, {
             name: 'EAAdminHome',

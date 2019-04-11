@@ -243,8 +243,10 @@
             var _objectId;
             if ($item.label) {
                 _objectId = $item[$item.label].ePage.Entities.Header.Data.PK;
+                PrepareTaskFlowGraphInput($item[$item.label].ePage.Entities.Header.Data);
             } else {
                 _objectId = $item.PK;
+                PrepareTaskFlowGraphInput($item);
             }
 
             ProcessInstanceCtrl.ePage.Masters.GenerateScriptInput = {
@@ -262,6 +264,25 @@
             if ($item.action === "link" || $item.action === "dblClick") {
                 ProcessInstanceCtrl.ePage.Masters.AddTab($item.data, false);
             }
+        }
+
+        function PrepareTaskFlowGraphInput($item) {
+            ProcessInstanceCtrl.ePage.Masters.TaskFlowGraphInput = {
+                // Entity
+                "EntityRefKey": $item.PK,
+                "EntityRefCode": $item.InstanceNo,
+                "EntitySource": "TSK",
+                // Parent Entity
+                "ParentEntityRefKey": undefined,
+                "ParentEntityRefCode": undefined,
+                "ParentEntitySource": undefined,
+                // Additional Entity
+                "AdditionalEntityRefKey": undefined,
+                "AdditionalEntityRefCode": undefined,
+                "AdditionalEntitySource": undefined,
+                "RowObj": $item,
+                "Entity": "Process"
+            };
         }
 
 

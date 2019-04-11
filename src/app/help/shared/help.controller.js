@@ -5,9 +5,9 @@
         .module("Application")
         .controller("HelpController", HelpController);
 
-    HelpController.$inject = ["helperService", "authService", "apiService", "appConfig"];
+    HelpController.$inject = ["helperService", "authService", "apiService", "helpConfig"];
 
-    function HelpController(helperService, authService, apiService, appConfig) {
+    function HelpController(helperService, authService, apiService, helpConfig) {
         /* jshint validthis: true */
         var HelpCtrl = this;
 
@@ -42,10 +42,10 @@
 
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.SecLogo.API.FindAll.FilterID
+                "FilterID": helpConfig.Entities.SecLogo.API.FindAll.FilterID
             };
 
-            apiService.post("eAxisAPI", appConfig.Entities.SecLogo.API.FindAll.Url, _input).then(function (response) {
+            apiService.post("eAxisAPI", helpConfig.Entities.SecLogo.API.FindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     if (response.data.Response.length > 0) {
                         response.data.Response.map(function (value, key) {

@@ -1,0 +1,203 @@
+<div class="clearfix tc-related-lookup">
+    <!-- Breadcrumb -->
+    <div class="clearfix tc-breadcrumb" data-ng-if="TCUIRestrictionsCtrl.ePage.Masters.ActiveApplication == 'TC'">
+        <div class="col-xl-10 col-lg-10 col-md-10 col-sm-12 col-xs-12 p-0">
+            <i class="fa fa-home home-icon"></i>
+            <div class="breadcrumb-list-wrapper">
+                <ol class="breadcrumb">
+                    <li data-ng-repeat="x in TCUIRestrictionsCtrl.ePage.Masters.Breadcrumb.ListSource"
+                        data-ng-if="!x.IsActive">
+                        <a href="javascript:void(0);" data-ng-bind="x.Description"
+                            data-ng-click="TCUIRestrictionsCtrl.ePage.Masters.Breadcrumb.OnBreadcrumbClick(x)"></a>
+                    </li>
+                    <li data-ng-repeat="x in TCUIRestrictionsCtrl.ePage.Masters.Breadcrumb.ListSource"
+                        data-ng-if="x.IsActive" data-ng-bind="x.Description" class="active"></li>
+                </ol>
+            </div>
+        </div>
+        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-xs-12 p-4">
+            <div data-ng-hide="TCUIRestrictionsCtrl.ePage.Masters.QueryString.DataEntry_PK">
+                <tc-application-dropdown query-string="TCUIRestrictionsCtrl.ePage.Masters.QueryString"
+                    on-application-change="TCUIRestrictionsCtrl.ePage.Masters.Application.OnApplicationChange($item)">
+                </tc-application-dropdown>
+            </div>
+            <span class="tc-breadcrumb-app-name"
+                data-ng-hide="!TCUIRestrictionsCtrl.ePage.Masters.QueryString.DataEntry_PK"
+                data-ng-bind="TCUIRestrictionsCtrl.ePage.Masters.QueryString.AppName"></span>
+        </div>
+    </div>
+    <!-- Header -->
+    <div class="clearfix tc-header-container">
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 p-0">
+            <div class="tc-header with-drop-down">
+                <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-xl-10 p-0">
+                    <select chosen class="form-control input-sm"
+                        data-ng-model="TCUIRestrictionsCtrl.ePage.Masters.UIRestrictions.ActiveDataEntryMaster.DataEntry_PK"
+                        data-ng-options="x.DataEntry_PK as (x.DataEntryName + ' | ' + x.EntitySource + ((x.EntityRefCode) ? (' | ' + x.EntityRefCode) : '')) for x in TCUIRestrictionsCtrl.ePage.Masters.UIRestrictions.DataEntryMasterList"
+                        data-ng-change="TCUIRestrictionsCtrl.ePage.Masters.UIRestrictions.OnDataEntryMasterChange((TCUIRestrictionsCtrl.ePage.Masters.UIRestrictions.DataEntryMasterList | filter :{DataEntry_PK :TCUIRestrictionsCtrl.ePage.Masters.UIRestrictions.ActiveDataEntryMaster.DataEntry_PK})[0])"
+                        search-contains="true">
+                        <option value="">General</option>
+                    </select>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 p-0 pt-4 text-right">
+                    <button class="btn btn-xs btn-info tc-icon pull-right"
+                        data-ng-click="TCUIRestrictionsCtrl.ePage.Masters.UIRestrictions.AddNew()" data-ng-disabled="!TCUIRestrictionsCtrl.ePage.Masters.UIRestrictions.ActiveDataEntryMaster.DataEntry_PK">New</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 p-0">
+            <div class="tc-header edit-view">
+                <span data-ng-bind="'Details'"></span>
+                <button class="btn btn-default tc-btn-edit btn-xs pull-right ml-10"
+                    data-ng-click="TCUIRestrictionsCtrl.ePage.Masters.UIRestrictions.Edit()">Edit</button>
+                <button class="btn btn-default tc-btn-delete btn-xs pull-right ml-10"
+                    data-ng-click="TCUIRestrictionsCtrl.ePage.Masters.UIRestrictions.Delete()"
+                    data-ng-disabled="TCUIRestrictionsCtrl.ePage.Masters.UIRestrictions.IsDisableDeleteBtn || !TCUIRestrictionsCtrl.ePage.Masters.UIRestrictions.ActiveUIRestrictions.PK">Delete</button>
+                <button class="btn btn-primary btn-xs pull-right ml-10" generate-db-script
+                    input="TCUIRestrictionsCtrl.ePage.Masters.GenerateScriptInput"
+                    config="TCUIRestrictionsCtrl.ePage.Masters.GenerateScriptConfig"
+                    data-ng-disabled="!TCUIRestrictionsCtrl.ePage.Masters.GenerateScriptInput.ObjectName || !TCUIRestrictionsCtrl.ePage.Masters.GenerateScriptInput.ObjectId || !TCUIRestrictionsCtrl.ePage.Masters.UIRestrictions.ActiveUIRestrictions.PK">Generate
+                    Script</button>
+            </div>
+        </div>
+    </div>
+    <!-- Body -->
+    <div class="clearfix">
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 p-0">
+            <div class="tc-list-search">
+                <input type="text" placeholder="Search..." class="form-control input-sm"
+                    data-ng-model="TCUIRestrictionsCtrl.ePage.Masters.Search">
+            </div>
+            <div class="tc-list-container tc-page-height-fixed left">
+                <ul class="tc-list-ul">
+                    <div class="p-15 text-center tc-loading"
+                        data-ng-if="!TCUIRestrictionsCtrl.ePage.Masters.UIRestrictions.ListSource">
+                        <i class="fa fa-spin fa-spinner"></i>
+                    </div>
+                    <div data-ng-if="TCUIRestrictionsCtrl.ePage.Masters.UIRestrictions.ListSource && (TCUIRestrictionsCtrl.ePage.Masters.UIRestrictions.ListSource | filter: {'ControlID' : TCUIRestrictionsCtrl.ePage.Masters.Search}).length===0"
+                        class="p-15 text-center">
+                        <i>No Records...!</i>
+                    </div>
+                    <li data-ng-if="TCUIRestrictionsCtrl.ePage.Masters.UIRestrictions.ListSource && (TCUIRestrictionsCtrl.ePage.Masters.UIRestrictions.ListSource | filter: {'ControlID' : TCUIRestrictionsCtrl.ePage.Masters.Search}).length > 0"
+                        data-ng-repeat="x in TCUIRestrictionsCtrl.ePage.Masters.UIRestrictions.ListSource | filter: {'ControlID' : TCUIRestrictionsCtrl.ePage.Masters.Search}"
+                        data-ng-click="TCUIRestrictionsCtrl.ePage.Masters.UIRestrictions.ActiveUIRestrictions.PK != x.PK && TCUIRestrictionsCtrl.ePage.Masters.UIRestrictions.OnUIRestrictionsClick(x)"
+                        data-ng-class="{'active': TCUIRestrictionsCtrl.ePage.Masters.UIRestrictions.ActiveUIRestrictions.PK == x.PK}">
+                        <div class="clearfix tc-list">
+                            <div class="tc-list-name">
+                                <i class="fa fa-circle-o mr-10"></i>
+                                <span class="text-single-line" data-ng-bind="x.Sequence + ' - ' + x.Expression"></span>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 p-0 tc-page-height-fixed"
+            data-ng-if="TCUIRestrictionsCtrl.ePage.Masters.UIRestrictions.ActiveUIRestrictions">
+            <div class="pt-10 pb-10 tc-details-view clearfix">
+                <div class="clearfix form-group">
+                    <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Sequence</label>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                        <div
+                            data-ng-bind="TCUIRestrictionsCtrl.ePage.Masters.UIRestrictions.ActiveUIRestrictions.Sequence || TCUIRestrictionsCtrl.ePage.Masters.emptyText">
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix form-group">
+                    <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Mode</label>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                        <div
+                            data-ng-bind="TCUIRestrictionsCtrl.ePage.Masters.UIRestrictions.ActiveUIRestrictions.Mode || TCUIRestrictionsCtrl.ePage.Masters.emptyText">
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix form-group">
+                    <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Expression</label>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                        <div style="word-break: break-word;"
+                            data-ng-bind="TCUIRestrictionsCtrl.ePage.Masters.UIRestrictions.ActiveUIRestrictions.Expression || TCUIRestrictionsCtrl.ePage.Masters.emptyText">
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix form-group">
+                    <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Restriction</label>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                        <div style="word-break: break-word;"
+                            data-ng-bind="TCUIRestrictionsCtrl.ePage.Masters.UIRestrictions.ActiveUIRestrictions.Restriction || TCUIRestrictionsCtrl.ePage.Masters.emptyText">
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix form-group">
+                    <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">On Submit</label>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                        <div style="word-break: break-word;"
+                            data-ng-bind="TCUIRestrictionsCtrl.ePage.Masters.UIRestrictions.ActiveUIRestrictions.OnSubmit || TCUIRestrictionsCtrl.ePage.Masters.emptyText">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tc-section-divider"></div>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Template -->
+<script type="text/ng-template" id="UIRestrictionsEdit">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="TCUIRestrictionsCtrl.ePage.Masters.UIRestrictions.Cancel()">&times;</button>
+        <h5 class="modal-title" id="modal-title">
+            <strong>Edit</strong>
+        </h5>
+    </div>
+    <div class="modal-body pt-10" id="modal-body">
+        <form class="clearfix form-horizontal">
+            <div class="clearfix">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 pt-5 pb-5">
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Sequence</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <input type="text" class="form-control input-sm" placeholder="Sequence" data-ng-model="TCUIRestrictionsCtrl.ePage.Masters.UIRestrictions.ActiveUIRestrictions.Sequence">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Mode</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <select chosen class="form-control" data-ng-model="TCUIRestrictionsCtrl.ePage.Masters.UIRestrictions.ActiveUIRestrictions.Mode"
+                                data-ng-options="x for x in ['S', 'D', 'B']">
+                                <option value="">--Select--</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4"> Expression <span data-ng-click="TCUIRestrictionsCtrl.ePage.Masters.UIRestrictions.OpenJsonModal('Expression')" class="glyphicon glyphicon-pencil cursor-pointer ml-5"></span>
+                        </label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <textarea class="form-control no-resize" rows="10" data-ng-model="TCUIRestrictionsCtrl.ePage.Masters.UIRestrictions.ActiveUIRestrictions.Expression" placeholder="Expression"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Restriction <span data-ng-click="TCUIRestrictionsCtrl.ePage.Masters.UIRestrictions.OpenJsonModal('Restriction')" class="glyphicon glyphicon-pencil cursor-pointer ml-5"></span>
+                        </label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <textarea class="form-control no-resize" rows="10" data-ng-model="TCUIRestrictionsCtrl.ePage.Masters.UIRestrictions.ActiveUIRestrictions.Restriction" placeholder="Restriction"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">OnSubmit <span data-ng-click="TCUIRestrictionsCtrl.ePage.Masters.UIRestrictions.OpenJsonModal('OnSubmit')" class="glyphicon glyphicon-pencil cursor-pointer ml-5"></span>
+                        </label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <textarea class="form-control no-resize" rows="10" data-ng-model="TCUIRestrictionsCtrl.ePage.Masters.UIRestrictions.ActiveUIRestrictions.OnSubmit" placeholder="On Submit"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tc-section-divider-small"></div>
+            <div class="clearfix p-10">
+                <button class="btn btn-default tc-btn-save btn-xs pull-right ml-10" data-ng-click="TCUIRestrictionsCtrl.ePage.Masters.UIRestrictions.Save()"
+                    data-ng-bind="TCUIRestrictionsCtrl.ePage.Masters.UIRestrictions.SaveBtnText" data-ng-disabled="TCUIRestrictionsCtrl.ePage.Masters.UIRestrictions.IsDisableSaveBtn"></button>
+                <button class="btn btn-default tc-btn-cancel btn-xs pull-right ml-10" data-ng-click="TCUIRestrictionsCtrl.ePage.Masters.UIRestrictions.Cancel()">Cancel</button>
+            </div>
+            <div class="tc-section-divider-small mb-20"></div>
+        </form>
+    </div>
+</script>

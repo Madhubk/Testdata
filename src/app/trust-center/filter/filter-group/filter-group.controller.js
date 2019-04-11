@@ -200,7 +200,7 @@
             if (TCFilterGroupCtrl.ePage.Masters.FilterGroup.ActiveFilterGroup) {
                 TCFilterGroupCtrl.ePage.Masters.GenerateScriptInput = {
                     ObjectName: "FilterGroup",
-                    ObjectId: TCFilterGroupCtrl.ePage.Masters.FilterGroup.ActiveFilterGroup.Id
+                    ObjectId: TCFilterGroupCtrl.ePage.Masters.FilterGroup.ActiveFilterGroup.FilterCode
                 };
                 TCFilterGroupCtrl.ePage.Masters.GenerateScriptConfig = {
                     IsEnableTable: false,
@@ -209,7 +209,6 @@
                 };
             }
         }
-
 
         function EditModalInstance() {
             return TCFilterGroupCtrl.ePage.Masters.FilterGroup.EditModal = $uibModal.open({

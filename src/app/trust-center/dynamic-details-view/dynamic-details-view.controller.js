@@ -96,7 +96,8 @@
         function InitDynamicDetailsView() {
             var _isEmpty = angular.equals({}, $location.search());
             if (!_isEmpty) {
-                DynamicDetailsViewCtrl.ePage.Masters.Pkey = helperService.decryptData($location.search().item);
+                DynamicDetailsViewCtrl.ePage.Masters.Pkey = helperService.decryptData($location.search().key);
+                DynamicDetailsViewCtrl.ePage.Masters.Item = helperService.decryptData($location.search().item);
             }
         }
 

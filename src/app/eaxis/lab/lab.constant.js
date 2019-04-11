@@ -6,7 +6,8 @@
             name: 'EALab',
             files: [
                 'app/eaxis/lab/lab.css',
-                'app/eaxis/lab/lab.controller.js'
+                'app/eaxis/lab/lab-config.factory.js',
+				'app/eaxis/lab/lab.controller.js'
             ]
         }, {
             name: 'eAxisDynamicPageList',
@@ -35,7 +36,6 @@
         }, {
             name: 'eAxisExcelTemplate',
             files: [
-                'app/eaxis/lab/excel-template/excel-template.css',
                 'app/eaxis/lab/excel-template/excel-template.controller.js',
                 'app/eaxis/lab/excel-template/excel-template-config.factory.js'
             ]
@@ -43,7 +43,6 @@
             name: 'eAxisExcelTemplateMenu',
             files: [
                 'app/eaxis/lab/excel-template/excel-template-menu/excel-template-menu.css',
-                'app/eaxis/lab/excel-template/excel-template-menu/excel-template-menu.controller.js',
                 'app/eaxis/lab/excel-template/excel-template-menu/excel-template-menu.directive.js'
             ]
         }, {

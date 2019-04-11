@@ -30,7 +30,7 @@
             }
         }
 
-        function AuthorizeUser() {            
+        function AuthorizeUser() {
             ELinkCtrl.ePage.Masters.ErrorMessage = undefined;
             let _input = {
                 AuthTokenLink_PK: ELinkCtrl.ePage.Masters.QueryString.Id

@@ -28,9 +28,13 @@
             ShipmentCtrl.ePage.Masters.ShipmentType = null;
             ShipmentCtrl.ePage.Masters.ShipmentSelection = ShipmentSelection;
             ShipmentCtrl.ePage.Masters.dataentryName = "Shipment";
+            ShipmentCtrl.ePage.Masters.BaseFilter = {
+                "IsValid": true,
+                // "ShipmentNo": "S00305101"
+            };
             ShipmentCtrl.ePage.Masters.DefaultFilter = {
-                "IsValid": "true"
-            }
+                // "ShipmentNo": "S00305101"
+            };
 
             // var obj = location.search();
             // for (var key in obj) {
@@ -141,12 +145,21 @@
 
                 helperService.getFullObjectUsingGetById(ShipmentCtrl.ePage.Entities.Header.API.GetByID.Url, 'null').then(function (response) {
                     if (response.data.Response) {
+                        let _activityPK = null;
+                        if (response.data.Messages && response.data.Messages.length > 0) {
+                            response.data.Messages.map(value => {
+                                if(value.Type == "ActivityPK"){
+                                    _activityPK = value.MessageDesc;
+                                }
+                            });
+                        }
                         if (ShipmentCtrl.ePage.Masters.QB == true) {
                             response.data.Response.Response.UIShipmentHeader.BookingType = 'QB';
                         }
                         var _obj = {
                             entity: response.data.Response.Response.UIShipmentHeader,
-                            data: response.data.Response.Response
+                            data: response.data.Response.Response,
+                            activityPK: _activityPK
                         };
                         ShipmentCtrl.ePage.Entities.AddTab(_obj, true);
                         ShipmentCtrl.ePage.Masters.IsNewShipmentClicked = false;

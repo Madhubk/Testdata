@@ -5,10 +5,8 @@
         .module("Application")
         .factory('trustCenterConfig', TrustCenterConfig);
 
-    TrustCenterConfig.$inject = [];
-
     function TrustCenterConfig() {
-        var exports = {
+        let exports = {
             "Entities": {
                 "API": {
                     "UserPrivileges": {
@@ -715,6 +713,17 @@
                             }
                         }
                     },
+                    "DataEntryJSON": {
+                        "RowIndex": -1,
+                        "API": {
+                            "PublishAllDataentryMasterJson": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "DataEntryJSON/PublishAllDataentryMasterJson",
+                                "FIlterID": "DYNDAMA"
+                            }
+                        }
+                    },
                     "UserSettings": {
                         "RowIndex": -1,
                         "API": {
@@ -755,6 +764,12 @@
                                 "IsAPI": "true",
                                 "HttpType": "POST",
                                 "Url": "SecSessionActivity/FindAll",
+                                "FilterID": "SECSESS"
+                            },
+                            "SessionFindAll": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "SecSessionActivity/SessionFindAll",
                                 "FilterID": "SECSESS"
                             }
                         }
@@ -977,6 +992,12 @@
                                 "IsAPI": "true",
                                 "HttpType": "GET",
                                 "Url": "SecRole/Delete/"
+                            },
+                            "GetUserRoles": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "SecRole/GetUserRoles",
+                                "FilterID": "SECROLE"
                             }
                         }
                     },
@@ -1799,7 +1820,64 @@
                                 "Url": "HomeMenuRole/Delete/"
                             }
                         }
-                    }
+                    },
+                    "DataConfigScheduler": {
+                        "RowIndex": -1,
+                        "API": {
+                            "FindAll": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "DataConfigScheduler/FindAll",
+                                "FilterID": "DACSCH"
+                            },
+                            "Insert": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "DataConfigScheduler/Insert"
+                            },
+                            "Update": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "DataConfigScheduler/Update"
+                            },
+                            "Delete": {
+                                "IsAPI": "true",
+                                "HttpType": "GET",
+                                "Url": "DataConfigScheduler/Delete/"
+                            },
+                            "RunScheduleNow": {
+                                "IsAPI": "true",
+                                "HttpType": "GET",
+                                "Url": "DataConfigScheduler/RunScheduleNow"
+                            }
+                        }
+                    },
+                    "DYNUIRestriction": {
+                        "RowIndex": -1,
+                        "API": {
+                            "FindAll": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "DYNUIRestriction/FindAll",
+                                "FilterID": "DYNUIR"
+                            },
+                            "Insert": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "DYNUIRestriction/Insert"
+                            },
+                            "Update": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "DYNUIRestriction/Update"
+                            },
+                            "Delete": {
+                                "IsAPI": "true",
+                                "HttpType": "GET",
+                                "Url": "DYNUIRestriction/Delete/"
+                            }
+                        }
+                    },
                 },
                 "OrgEmployeeAssignments": {
                     "Grid": {
@@ -1846,6 +1924,12 @@
                         }, {
                             "field": "ActInfo",
                             "displayName": "Act Info"
+                        }, {
+                            "field": "EntityDescription",
+                            "displayName": "Description"
+                        }, {
+                            "field": "EntitySource",
+                            "displayName": "Entity Source"
                         }],
                         "GridConfig": {
                             "isHeader": true,
@@ -1858,11 +1942,7 @@
                             "isPagination": false,
                             "itemsPerPage": 10,
                             "isRowTemplate": false,
-                            "rowTemplate": `<div data-ng-repeat='y in DynamicTableCtrl.ePage.Masters.GridConfig.columnDef' class='p-5 clearfix'>
-                            <div class='col-sm-1'>{{x.Id}}</div>
-                            <div class='col-sm-2'>{{x.FName}}</div>
-                            <div class='col-sm-2'>{{x.LName}}</div>
-                            </div>`
+                            "rowTemplate": `<div data-ng-repeat='y in DynamicTableCtrl.ePage.Masters.GridConfig.columnDef' class='p-5 clearfix'></div>`
                         }
                     }
                 },

@@ -1,56 +1,118 @@
+<!-- button -->
+<div class="clearfix" data-ng-if="DynamicControlCtrl.mode == 'D' && DynamicControlCtrl.input.OtherConfig.DetailsPage">
+    <div class="clearfix mt-10">
+        <button class="btn btn-primary btn-sm pull-right ml-10" data-ng-click="DynamicControlCtrl.ePage.Masters.Save()"
+            data-ng-disabled="DynamicControlCtrl.ePage.Masters.IsDisableSaveBtn"
+            data-ng-bind="DynamicControlCtrl.ePage.Masters.SaveBtnText"
+            data-ng-if="DynamicControlCtrl.input.OtherConfig.DetailsPage.IsVisibleSaveButton"></button>
+        <button class="btn btn-default btn-sm pull-right ml-10"
+            data-ng-click="DynamicControlCtrl.ePage.Masters.Refresh()"
+            data-ng-if="DynamicControlCtrl.input.OtherConfig.DetailsPage.IsVisibleRefreshButton">Refresh</button>
+    </div>
+    <div class="section-divider-small mt-10"></div>
+</div>
+
 <div class="clearfix dynamic-control-container">
     <div ng-repeat="Entity in DynamicControlCtrl.input.Entities" class="p-0 pt-10 clearfix">
         <div ng-repeat="ConfigData in Entity.ConfigData | filter : DynamicControlCtrl.ePage.Masters.ModeFilter"
             data-ng-if="ConfigData.AttributesDetails.UIControl !=  'pkey'" class="dynamic-control">
             <div ng-switch on="ConfigData.AttributesDetails.UIControl">
                 <!-- Tenant -->
-                <div ng-switch-when="tenant" ng-show="false" data-ng-init="Entity.Data[ConfigData.PropertyName] = DynamicControlCtrl.ePage.Masters.TenantCode"></div>
+                <div ng-switch-when="tenant" ng-show="false"
+                    data-ng-init="Entity.Data[ConfigData.PropertyName] = DynamicControlCtrl.ePage.Masters.TenantCode">
+                </div>
                 <!-- Application -->
-                <div ng-switch-when="application" ng-show="false" data-ng-init="Entity.Data[ConfigData.PropertyName] = DynamicControlCtrl.ePage.Masters.AppCode"></div>
+                <div ng-switch-when="application" ng-show="false"
+                    data-ng-init="Entity.Data[ConfigData.PropertyName] = DynamicControlCtrl.ePage.Masters.AppCode">
+                </div>
                 <!-- User -->
-                <div ng-switch-when="user" ng-show="false" data-ng-init="Entity.Data[ConfigData.PropertyName] = DynamicControlCtrl.ePage.Masters.UserId"></div>
-                <!-- TC Grid -->
-                <div ng-switch-when="tcgrid" class="{{ConfigData.FieldOtherConfig[ConfigData.Type].CSS.WidthCSS}} col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"
-                    ng-show="ConfigData.Include" data-ng-if="ConfigData.Type=='D' &&  ConfigData.AttributesDetails.Visible">
+                <div ng-switch-when="user" ng-show="false"
+                    data-ng-init="Entity.Data[ConfigData.PropertyName] = DynamicControlCtrl.ePage.Masters.UserId"></div>
+                <!-- Heading 1 -->
+                <div class="font-130 bold mb-10 col-sm-12 p-0 mt-10" ng-switch-when="heading1"
+                    data-ng-bind="ConfigData.AttributesDetails.LabelText"
+                    data-ng-if="!DynamicControlCtrl.ePage.Masters.BaseFilterFields['IsInVisible' + ConfigData.FieldName]">
+                </div>
+                <!-- Heading 2 -->
+                <div class="font-110 bold mb-10 col-sm-12 p-0 mt-10" ng-switch-when="heading2"
+                    data-ng-bind="ConfigData.AttributesDetails.LabelText"
+                    data-ng-if="!DynamicControlCtrl.ePage.Masters.BaseFilterFields['IsInVisible' + ConfigData.FieldName]">
+                </div>
+                <!-- Counter -->
+                <div class="mb-10"
+                    data-ng-class="{'1': 'col-sm-12', '2': 'col-sm-6', '3': 'col-sm-4'}[DynamicControlCtrl.ePage.Masters.ViewType]"
+                    ng-switch-when="counter"
+                    data-ng-if="!DynamicControlCtrl.ePage.Masters.BaseFilterFields['IsInVisible' + ConfigData.FieldName]">
                     <div class="form-group">
-                        <tc-grid data-ng-if="ConfigData.AttributesDetails.DataEntryPage" selected-grid-row="DynamicControlCtrl.ePage.Masters.SelectedGridRow($item)"
-                            dataentry-name="ConfigData.AttributesDetails.DataEntryPage" search-input="ConfigData.AttributesDetails.Criteria"
-                            attribute-details="ConfigData.AttributesDetails" entity="DynamicControlCtrl.input.Entities"></tc-grid>
+                        <label class="control-label">{{ConfigData.AttributesDetails.LabelText}}</label>
+                        <div data-ng-bind="Entity.Data[ConfigData.PropertyName]"></div>
+                    </div>
+                </div>
+                <!-- TC Grid -->
+                <div ng-switch-when="tcgrid"
+                    class="{{ConfigData.FieldOtherConfig[ConfigData.Type].CSS.WidthCSS}} col-sm-12"
+                    ng-show="ConfigData.Include"
+                    data-ng-if="ConfigData.Type=='D' &&  ConfigData.AttributesDetails.Visible">
+                    <div class="form-group">
+                        <tc-grid
+                            data-ng-if="ConfigData.AttributesDetails.DataEntryPage && DynamicControlCtrl.ePage.Masters.IsGetById"
+                            selected-grid-row="DynamicControlCtrl.ePage.Masters.SelectedGridRow($item)"
+                            dataentry-name="ConfigData.AttributesDetails.DataEntryPage"
+                            search-input="ConfigData.AttributesDetails.Criteria"
+                            attribute-details="ConfigData.AttributesDetails" entity="DynamicControlCtrl.input.Entities">
+                        </tc-grid>
                     </div>
                 </div>
                 <!-- Compare date -->
                 <div class="{{ConfigData.FieldOtherConfig[ConfigData.Type].CSS.WidthCSS}}" ng-switch-when="datedrop"
-                    ng-show="ConfigData.Include" data-ng-class="(DynamicControlCtrl.ePage.Masters.ViewType == 1) ? 'col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12' : 'col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6'">
+                    ng-show="ConfigData.Include"
+                    data-ng-class="{'1': 'col-sm-12', '2': 'col-sm-6', '3': 'col-sm-4'}[DynamicControlCtrl.ePage.Masters.ViewType]"
+                    data-ng-if="!DynamicControlCtrl.ePage.Masters.BaseFilterFields['IsInVisible' + ConfigData.FieldName]">
                     <!--Mode:S-->
-                    <compare-date modal-value="Entity.Data[ConfigData.FieldName]" label="ConfigData.AttributesDetails.LabelText"
-                        field-name="ConfigData.FieldName" data-ng-if="ConfigData.Type=='S' && !ConfigData.FieldOtherConfig.External.IsAPIRef"
-                        is-disabled="Entity.CSS['Is' + ConfigData.PropertyName + 'Disable'] || DynamicControlCtrl.baseFilterFields['IsDisabled' + ConfigData.PropertyName]"
+                    <compare-date modal-value="Entity.Data[ConfigData.FieldName]"
+                        label="ConfigData.AttributesDetails.LabelText" field-name="ConfigData.FieldName"
+                        data-ng-if="ConfigData.Type=='S' && !ConfigData.FieldOtherConfig.External.IsAPIRef"
+                        is-disabled="Entity.CSS['Is' + ConfigData.PropertyName + 'Disable'] || DynamicControlCtrl.ePage.Masters.BaseFilterFields['IsDisabled' + ConfigData.FieldName]"
                         selected-operator="ConfigData.CompareDateSelectedOperator"></compare-date>
                     <!--Mode:D-->
-                    <input type="text" class="form-control" data-ng-if="ConfigData.Type=='D' && !ConfigData.FieldOtherConfig.External.IsAPIRef"
+                    <input type="text" class="form-control"
+                        data-ng-if="ConfigData.Type=='D' && !ConfigData.FieldOtherConfig.External.IsAPIRef"
                         ng-model="Entity.Data[ConfigData.FieldName]" placeholder="{{ConfigData.AttributesDetails.Mask}}"
-                        uib-datepicker-popup="{{ConfigData.AttributesDetails.Mask}}" datepicker-options="DynamicControlCtrl.ePage.Masters.DatePicker.Options"
+                        uib-datepicker-popup="{{ConfigData.AttributesDetails.Mask}}"
+                        datepicker-options="DynamicControlCtrl.ePage.Masters.DatePicker.Options"
                         is-open="DynamicControlCtrl.ePage.Masters.DatePicker.isOpen[ConfigData.FieldName]" />
                     <!--IsAPIRef:true && APIType=='1'-->
-                    <compare-date modal-value="DynamicControlCtrl.current[ConfigData.FieldOtherConfig.External.MainEntity].Data[ConfigData.FieldOtherConfig.External.SubEntity][ConfigData.FieldOtherConfig.External.FieldName]"
-                        label="ConfigData.AttributesDetails.LabelText" field-name="ConfigData.FieldName" data-ng-if="ConfigData.Type=='S' && ConfigData.FieldOtherConfig.External.IsAPIRef && ConfigData.FieldOtherConfig.External.APIType=='1'"
+                    <compare-date
+                        modal-value="DynamicControlCtrl.current[ConfigData.FieldOtherConfig.External.MainEntity].Data[ConfigData.FieldOtherConfig.External.SubEntity][ConfigData.FieldOtherConfig.External.FieldName]"
+                        label="ConfigData.AttributesDetails.LabelText" field-name="ConfigData.FieldName"
+                        data-ng-if="ConfigData.Type=='S' && ConfigData.FieldOtherConfig.External.IsAPIRef && ConfigData.FieldOtherConfig.External.APIType=='1'"
                         selected-operator="ConfigData.CompareDateSelectedOperator"></compare-date>
-                    <input type="text" class="form-control" ng-model="DynamicControlCtrl.current[ConfigData.FieldOtherConfig.External.MainEntity].Data[ConfigData.FieldOtherConfig.External.SubEntity][ConfigData.FieldOtherConfig.External.FieldName]"
+                    <input type="text" class="form-control"
+                        ng-model="DynamicControlCtrl.current[ConfigData.FieldOtherConfig.External.MainEntity].Data[ConfigData.FieldOtherConfig.External.SubEntity][ConfigData.FieldOtherConfig.External.FieldName]"
                         data-ng-if="ConfigData.Type=='D' && ConfigData.FieldOtherConfig.External.IsAPIRef && ConfigData.FieldOtherConfig.External.APIType=='1'"
-                        placeholder="{{ConfigData.AttributesDetails.Mask}}" uib-datepicker-popup="{{ConfigData.AttributesDetails.Mask}}"
-                        datepicker-options="DynamicControlCtrl.ePage.Masters.DatePicker.Options" is-open="DynamicControlCtrl.ePage.Masters.DatePicker.isOpen[ConfigData.FieldOtherConfig.External.FieldName]" />
+                        placeholder="{{ConfigData.AttributesDetails.Mask}}"
+                        uib-datepicker-popup="{{ConfigData.AttributesDetails.Mask}}"
+                        datepicker-options="DynamicControlCtrl.ePage.Masters.DatePicker.Options"
+                        is-open="DynamicControlCtrl.ePage.Masters.DatePicker.isOpen[ConfigData.FieldOtherConfig.External.FieldName]" />
                     <!--IsAPIRef:true && APIType=='2'-->
-                    <compare-date modal-value="DynamicControlCtrl.current[ConfigData.FieldOtherConfig.External.MainEntity].Meta[ConfigData.FieldOtherConfig.External.SubEntity][ConfigData.FieldOtherConfig.External.MidEntity][ConfigData.FieldOtherConfig.External.FieldName]"
-                        label="ConfigData.AttributesDetails.LabelText" field-name="ConfigData.FieldName" data-ng-if="ConfigData.Type=='S' && ConfigData.FieldOtherConfig.External.IsAPIRef && ConfigData.FieldOtherConfig.External.APIType=='2'"
+                    <compare-date
+                        modal-value="DynamicControlCtrl.current[ConfigData.FieldOtherConfig.External.MainEntity].Meta[ConfigData.FieldOtherConfig.External.SubEntity][ConfigData.FieldOtherConfig.External.MidEntity][ConfigData.FieldOtherConfig.External.FieldName]"
+                        label="ConfigData.AttributesDetails.LabelText" field-name="ConfigData.FieldName"
+                        data-ng-if="ConfigData.Type=='S' && ConfigData.FieldOtherConfig.External.IsAPIRef && ConfigData.FieldOtherConfig.External.APIType=='2'"
                         selected-operator="ConfigData.CompareDateSelectedOperator"></compare-date>
-                    <input type="text" class="form-control" ng-model="DynamicControlCtrl.current[ConfigData.FieldOtherConfig.External.MainEntity].Meta[ConfigData.FieldOtherConfig.External.SubEntity][ConfigData.FieldOtherConfig.External.MidEntity][ConfigData.FieldOtherConfig.External.FieldName]"
+                    <input type="text" class="form-control"
+                        ng-model="DynamicControlCtrl.current[ConfigData.FieldOtherConfig.External.MainEntity].Meta[ConfigData.FieldOtherConfig.External.SubEntity][ConfigData.FieldOtherConfig.External.MidEntity][ConfigData.FieldOtherConfig.External.FieldName]"
                         data-ng-if="ConfigData.Type=='D' && ConfigData.FieldOtherConfig.External.IsAPIRef && ConfigData.FieldOtherConfig.External.APIType=='2'"
-                        placeholder="{{ConfigData.AttributesDetails.Mask}}" uib-datepicker-popup="{{ConfigData.AttributesDetails.Mask}}"
-                        datepicker-options="DynamicControlCtrl.ePage.Masters.DatePicker.Options" is-open="DynamicControlCtrl.ePage.Masters.DatePicker.isOpen[ConfigData.FieldOtherConfig.External.FieldName]" />
+                        placeholder="{{ConfigData.AttributesDetails.Mask}}"
+                        uib-datepicker-popup="{{ConfigData.AttributesDetails.Mask}}"
+                        datepicker-options="DynamicControlCtrl.ePage.Masters.DatePicker.Options"
+                        is-open="DynamicControlCtrl.ePage.Masters.DatePicker.isOpen[ConfigData.FieldOtherConfig.External.FieldName]" />
                 </div>
                 <!--Date-->
                 <div class="{{ConfigData.FieldOtherConfig[ConfigData.Type].CSS.WidthCSS}}" ng-show="ConfigData.Include"
-                    ng-switch-when="date" data-ng-class="(DynamicControlCtrl.ePage.Masters.ViewType == 1) ? 'col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12' : 'col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6'">
+                    ng-switch-when="date"
+                    data-ng-class="{'1': 'col-sm-12', '2': 'col-sm-6', '3': 'col-sm-4'}[DynamicControlCtrl.ePage.Masters.ViewType]"
+                    data-ng-if="!DynamicControlCtrl.ePage.Masters.BaseFilterFields['IsInVisible' + ConfigData.FieldName]">
                     <div class="form-group">
                         <label class="control-label" title="{{ConfigData.AttributesDetails.LabelText}}">
                             <div class="text-single-line" data-ng-bind="ConfigData.AttributesDetails.LabelText"></div>
@@ -58,76 +120,106 @@
                         <div class="clearfix">
                             <div class="input-group input-group-sm">
                                 <!--Mode:S-->
-                                <input type="text" class="form-control" data-ng-if="ConfigData.Type=='S' && !ConfigData.FieldOtherConfig.External.IsAPIRef"
-                                    data-ng-disabled="Entity.CSS['Is' + ConfigData.PropertyName + 'Disable'] || DynamicControlCtrl.baseFilterFields['IsDisabled' + ConfigData.PropertyName]"
-                                    placeholder="{{ConfigData.AttributesDetails.Mask}}" data-ng-model="Entity.Data[ConfigData.PropertyName]"
-                                    datetime-picker="{{ConfigData.AttributesDetails.Mask}}" datepicker-options="DynamicControlCtrl.ePage.Masters.DatePicker.Options"
+                                <input type="text" class="form-control"
+                                    data-ng-if="ConfigData.Type=='S' && !ConfigData.FieldOtherConfig.External.IsAPIRef"
+                                    data-ng-disabled="Entity.CSS['Is' + ConfigData.PropertyName + 'Disable'] || DynamicControlCtrl.ePage.Masters.BaseFilterFields['IsDisabled' + ConfigData.FieldName]"
+                                    placeholder="{{ConfigData.AttributesDetails.Mask}}"
+                                    data-ng-model="Entity.Data[ConfigData.PropertyName]"
+                                    datetime-picker="{{ConfigData.AttributesDetails.Mask}}"
+                                    datepicker-options="DynamicControlCtrl.ePage.Masters.DatePicker.Options"
                                     datepicker-append-to-body="false" close-on-selection="false" enable-time="false"
-                                    enable-date="true" default-date="" default-time="" save-as="DynamicControlCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                                    enable-date="true" default-date="" default-time=""
+                                    save-as="DynamicControlCtrl.ePage.Masters.DatePicker.Options.saveFormat"
                                     is-open="DynamicControlCtrl.ePage.Masters.DatePicker.isOpen[ConfigData.PropertyName]"
                                     when-closed="" data-ng-click="" data-ng-change="" custom-date-time-format />
 
                                 <!--Mode:D-->
-                                <input type="text" class="form-control" data-ng-if="ConfigData.Type=='D' && !ConfigData.FieldOtherConfig.External.IsAPIRef"
-                                    data-ng-disabled="Entity.CSS['Is' + ConfigData.PropertyName + 'Disable'] || DynamicControlCtrl.baseFilterFields['IsDisabled' + ConfigData.PropertyName]"
-                                    placeholder="{{ConfigData.AttributesDetails.Mask}}" data-ng-model="Entity.Data[ConfigData.FieldName]"
-                                    datetime-picker="{{ConfigData.AttributesDetails.Mask}}" datepicker-options="DynamicControlCtrl.ePage.Masters.DatePicker.Options"
+                                <input type="text" class="form-control"
+                                    data-ng-if="ConfigData.Type=='D' && !ConfigData.FieldOtherConfig.External.IsAPIRef"
+                                    data-ng-disabled="Entity.CSS['Is' + ConfigData.PropertyName + 'Disable'] || DynamicControlCtrl.ePage.Masters.BaseFilterFields['IsDisabled' + ConfigData.FieldName]"
+                                    placeholder="{{ConfigData.AttributesDetails.Mask}}"
+                                    data-ng-model="Entity.Data[ConfigData.PropertyName]"
+                                    datetime-picker="{{ConfigData.AttributesDetails.Mask}}"
+                                    datepicker-options="DynamicControlCtrl.ePage.Masters.DatePicker.Options"
                                     datepicker-append-to-body="false" close-on-selection="false" enable-time="false"
-                                    enable-date="true" default-date="" default-time="" save-as="DynamicControlCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                                    enable-date="true" default-date="" default-time=""
+                                    save-as="DynamicControlCtrl.ePage.Masters.DatePicker.Options.saveFormat"
                                     is-open="DynamicControlCtrl.ePage.Masters.DatePicker.isOpen[ConfigData.FieldName]"
-                                    when-closed="" data-ng-click="" data-ng-change="" custom-date-time-format />
+                                    when-closed="" data-ng-click=""
+                                    data-ng-change="DynamicControlCtrl.ePage.Masters.OnModelChange(Entity.Data)"
+                                    custom-date-time-format />
 
                                 <!--IsAPIRef:true && APIType=='1'-->
-                                <input type="text" class="form-control" data-ng-if="ConfigData.Type=='D' && ConfigData.FieldOtherConfig.External.IsAPIRef && ConfigData.FieldOtherConfig.External.APIType=='1'"
-                                    data-ng-disabled="Entity.CSS['Is' + ConfigData.PropertyName + 'Disable'] || DynamicControlCtrl.baseFilterFields['IsDisabled' + ConfigData.PropertyName]"
-                                    placeholder="{{ConfigData.AttributesDetails.Mask}}" data-ng-model="DynamicControlCtrl.current[ConfigData.FieldOtherConfig.External.MainEntity].Data[ConfigData.FieldOtherConfig.External.SubEntity][ConfigData.FieldOtherConfig.External.FieldName]"
-                                    datetime-picker="{{ConfigData.AttributesDetails.Mask}}" datepicker-options="DynamicControlCtrl.ePage.Masters.DatePicker.Options"
+                                <input type="text" class="form-control"
+                                    data-ng-if="ConfigData.Type=='D' && ConfigData.FieldOtherConfig.External.IsAPIRef && ConfigData.FieldOtherConfig.External.APIType=='1'"
+                                    data-ng-disabled="Entity.CSS['Is' + ConfigData.PropertyName + 'Disable'] || DynamicControlCtrl.ePage.Masters.BaseFilterFields['IsDisabled' + ConfigData.FieldName]"
+                                    placeholder="{{ConfigData.AttributesDetails.Mask}}"
+                                    data-ng-model="DynamicControlCtrl.current[ConfigData.FieldOtherConfig.External.MainEntity].Data[ConfigData.FieldOtherConfig.External.SubEntity][ConfigData.FieldOtherConfig.External.FieldName]"
+                                    datetime-picker="{{ConfigData.AttributesDetails.Mask}}"
+                                    datepicker-options="DynamicControlCtrl.ePage.Masters.DatePicker.Options"
                                     datepicker-append-to-body="false" close-on-selection="false" enable-time="false"
-                                    enable-date="true" default-date="" default-time="" save-as="DynamicControlCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                                    enable-date="true" default-date="" default-time=""
+                                    save-as="DynamicControlCtrl.ePage.Masters.DatePicker.Options.saveFormat"
                                     is-open="DynamicControlCtrl.ePage.Masters.DatePicker.isOpen[ConfigData.FieldOtherConfig.External.FieldName]"
                                     when-closed="" data-ng-click="" data-ng-change="" custom-date-time-format />
 
-                                <input type="text" class="form-control" data-ng-if="ConfigData.Type=='S' && ConfigData.FieldOtherConfig.External.IsAPIRef && ConfigData.FieldOtherConfig.External.APIType=='1'"
-                                    data-ng-disabled="Entity.CSS['Is' + ConfigData.PropertyName + 'Disable'] || DynamicControlCtrl.baseFilterFields['IsDisabled' + ConfigData.PropertyName]"
-                                    placeholder="{{ConfigData.AttributesDetails.Mask}}" data-ng-model="DynamicControlCtrl.current[ConfigData.FieldOtherConfig.External.MainEntity].Data[ConfigData.FieldOtherConfig.External.SubEntity][ConfigData.FieldOtherConfig.External.FieldName]"
-                                    datetime-picker="{{ConfigData.AttributesDetails.Mask}}" datepicker-options="DynamicControlCtrl.ePage.Masters.DatePicker.Options"
+                                <input type="text" class="form-control"
+                                    data-ng-if="ConfigData.Type=='S' && ConfigData.FieldOtherConfig.External.IsAPIRef && ConfigData.FieldOtherConfig.External.APIType=='1'"
+                                    data-ng-disabled="Entity.CSS['Is' + ConfigData.PropertyName + 'Disable'] || DynamicControlCtrl.ePage.Masters.BaseFilterFields['IsDisabled' + ConfigData.FieldName]"
+                                    placeholder="{{ConfigData.AttributesDetails.Mask}}"
+                                    data-ng-model="DynamicControlCtrl.current[ConfigData.FieldOtherConfig.External.MainEntity].Data[ConfigData.FieldOtherConfig.External.SubEntity][ConfigData.FieldOtherConfig.External.FieldName]"
+                                    datetime-picker="{{ConfigData.AttributesDetails.Mask}}"
+                                    datepicker-options="DynamicControlCtrl.ePage.Masters.DatePicker.Options"
                                     datepicker-append-to-body="false" close-on-selection="false" enable-time="false"
-                                    enable-date="true" default-date="" default-time="" save-as="DynamicControlCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                                    enable-date="true" default-date="" default-time=""
+                                    save-as="DynamicControlCtrl.ePage.Masters.DatePicker.Options.saveFormat"
                                     is-open="DynamicControlCtrl.ePage.Masters.DatePicker.isOpen[ConfigData.FieldOtherConfig.External.FieldName]"
                                     when-closed="" data-ng-click="" data-ng-change="" custom-date-time-format />
 
                                 <!--IsAPIRef:true && APIType=='2'-->
-                                <input type="text" class="form-control" data-ng-if="ConfigData.Type=='D' && ConfigData.FieldOtherConfig.External.IsAPIRef && ConfigData.FieldOtherConfig.External.APIType=='2'"
-                                    data-ng-disabled="Entity.CSS['Is' + ConfigData.PropertyName + 'Disable'] || DynamicControlCtrl.baseFilterFields['IsDisabled' + ConfigData.PropertyName]"
-                                    placeholder="{{ConfigData.AttributesDetails.Mask}}" data-ng-model="DynamicControlCtrl.current[ConfigData.FieldOtherConfig.External.MainEntity].Meta[ConfigData.FieldOtherConfig.External.SubEntity][ConfigData.FieldOtherConfig.External.MidEntity][ConfigData.FieldOtherConfig.External.FieldName]"
-                                    datetime-picker="{{ConfigData.AttributesDetails.Mask}}" datepicker-options="DynamicControlCtrl.ePage.Masters.DatePicker.Options"
+                                <input type="text" class="form-control"
+                                    data-ng-if="ConfigData.Type=='D' && ConfigData.FieldOtherConfig.External.IsAPIRef && ConfigData.FieldOtherConfig.External.APIType=='2'"
+                                    data-ng-disabled="Entity.CSS['Is' + ConfigData.PropertyName + 'Disable'] || DynamicControlCtrl.ePage.Masters.BaseFilterFields['IsDisabled' + ConfigData.FieldName]"
+                                    placeholder="{{ConfigData.AttributesDetails.Mask}}"
+                                    data-ng-model="DynamicControlCtrl.current[ConfigData.FieldOtherConfig.External.MainEntity].Meta[ConfigData.FieldOtherConfig.External.SubEntity][ConfigData.FieldOtherConfig.External.MidEntity][ConfigData.FieldOtherConfig.External.FieldName]"
+                                    datetime-picker="{{ConfigData.AttributesDetails.Mask}}"
+                                    datepicker-options="DynamicControlCtrl.ePage.Masters.DatePicker.Options"
                                     datepicker-append-to-body="false" close-on-selection="false" enable-time="false"
-                                    enable-date="true" default-date="" default-time="" save-as="DynamicControlCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                                    enable-date="true" default-date="" default-time=""
+                                    save-as="DynamicControlCtrl.ePage.Masters.DatePicker.Options.saveFormat"
                                     is-open="DynamicControlCtrl.ePage.Masters.DatePicker.isOpen[ConfigData.FieldOtherConfig.External.FieldName]"
                                     when-closed="" data-ng-click="" data-ng-change="" custom-date-time-format />
 
-                                <input type="text" class="form-control" data-ng-if="ConfigData.Type=='S' && ConfigData.FieldOtherConfig.External.IsAPIRef && ConfigData.FieldOtherConfig.External.APIType=='2'"
-                                    data-ng-disabled="Entity.CSS['Is' + ConfigData.PropertyName + 'Disable'] || DynamicControlCtrl.baseFilterFields['IsDisabled' + ConfigData.PropertyName]"
-                                    placeholder="{{ConfigData.AttributesDetails.Mask}}" data-ng-model="DynamicControlCtrl.current[ConfigData.FieldOtherConfig.External.MainEntity].Meta[ConfigData.FieldOtherConfig.External.SubEntity][ConfigData.FieldOtherConfig.External.MidEntity][ConfigData.FieldOtherConfig.External.FieldName]"
-                                    datetime-picker="{{ConfigData.AttributesDetails.Mask}}" datepicker-options="DynamicControlCtrl.ePage.Masters.DatePicker.Options"
+                                <input type="text" class="form-control"
+                                    data-ng-if="ConfigData.Type=='S' && ConfigData.FieldOtherConfig.External.IsAPIRef && ConfigData.FieldOtherConfig.External.APIType=='2'"
+                                    data-ng-disabled="Entity.CSS['Is' + ConfigData.PropertyName + 'Disable'] || DynamicControlCtrl.ePage.Masters.BaseFilterFields['IsDisabled' + ConfigData.FieldName]"
+                                    placeholder="{{ConfigData.AttributesDetails.Mask}}"
+                                    data-ng-model="DynamicControlCtrl.current[ConfigData.FieldOtherConfig.External.MainEntity].Meta[ConfigData.FieldOtherConfig.External.SubEntity][ConfigData.FieldOtherConfig.External.MidEntity][ConfigData.FieldOtherConfig.External.FieldName]"
+                                    datetime-picker="{{ConfigData.AttributesDetails.Mask}}"
+                                    datepicker-options="DynamicControlCtrl.ePage.Masters.DatePicker.Options"
                                     datepicker-append-to-body="false" close-on-selection="false" enable-time="false"
-                                    enable-date="true" default-date="" default-time="" save-as="DynamicControlCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                                    enable-date="true" default-date="" default-time=""
+                                    save-as="DynamicControlCtrl.ePage.Masters.DatePicker.Options.saveFormat"
                                     is-open="DynamicControlCtrl.ePage.Masters.DatePicker.isOpen[ConfigData.FieldOtherConfig.External.FieldName]"
                                     when-closed="" data-ng-click="" data-ng-change="" custom-date-time-format />
                                 <span class="input-group-btn">
-                                    <button class="btn btn-default shiny" data-ng-if="ConfigData.Type=='S' && !ConfigData.FieldOtherConfig.External.IsAPIRef"
+                                    <button class="btn btn-default shiny"
+                                        data-ng-if="ConfigData.Type=='S' && !ConfigData.FieldOtherConfig.External.IsAPIRef"
                                         data-ng-click="DynamicControlCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, ConfigData.PropertyName)">
                                         <i class="fa fa-calendar"></i>
                                     </button>
-                                    <button class="btn btn-default shiny" data-ng-if="ConfigData.Type=='D' && !ConfigData.FieldOtherConfig.External.IsAPIRef"
+                                    <button class="btn btn-default shiny"
+                                        data-ng-if="ConfigData.Type=='D' && !ConfigData.FieldOtherConfig.External.IsAPIRef"
                                         data-ng-click="DynamicControlCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, ConfigData.FieldName)">
                                         <i class="fa fa-calendar"></i>
                                     </button>
-                                    <button class="btn btn-default shiny" data-ng-if="ConfigData.Type=='S' && ConfigData.FieldOtherConfig.External.IsAPIRef"
+                                    <button class="btn btn-default shiny"
+                                        data-ng-if="ConfigData.Type=='S' && ConfigData.FieldOtherConfig.External.IsAPIRef"
                                         data-ng-click="DynamicControlCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, ConfigData.FieldOtherConfig.External.FieldName)">
                                         <i class="fa fa-calendar"></i>
                                     </button>
-                                    <button class="btn btn-default shiny" data-ng-if="ConfigData.Type=='D' && ConfigData.FieldOtherConfig.External.IsAPIRef"
+                                    <button class="btn btn-default shiny"
+                                        data-ng-if="ConfigData.Type=='D' && ConfigData.FieldOtherConfig.External.IsAPIRef"
                                         data-ng-click="DynamicControlCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, ConfigData.FieldOtherConfig.External.FieldName)">
                                         <i class="fa fa-calendar"></i>
                                     </button>
@@ -138,52 +230,69 @@
                 </div>
                 <!--Label-->
                 <div class="{{ConfigData.FieldOtherConfig[ConfigData.Type].CSS.WidthCSS}}" ng-show="ConfigData.Include"
-                    ng-switch-when="label" data-ng-class="(DynamicControlCtrl.ePage.Masters.ViewType == 1) ? 'col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12' : 'col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6'">
+                    ng-switch-when="label"
+                    data-ng-class="{'1': 'col-sm-12', '2': 'col-sm-6', '3': 'col-sm-4'}[DynamicControlCtrl.ePage.Masters.ViewType]"
+                    data-ng-if="!DynamicControlCtrl.ePage.Masters.BaseFilterFields['IsInVisible' + ConfigData.FieldName]">
                     <div class="{{labelColumn}}">
                         <label class="control-label">{{ConfigData.AttributesDetails.LabelText}}</label>
                     </div>
                     <div id="{{ConfigData.FieldName}}" class="{{labelColumn}}">
                         <!--Mode:D-->
-                        <label ng-hide="!Entity.Data[ConfigData.PropertyName]" data-ng-if="ConfigData.Type=='D'" class="textEllipsis"
-                            style="color:#000000;" ng-bind="Entity.Data[ConfigData.PropertyName]"></label>
+                        <label ng-hide="!Entity.Data[ConfigData.PropertyName]" data-ng-if="ConfigData.Type=='D'"
+                            class="textEllipsis" style="color:#000000;"
+                            ng-bind="Entity.Data[ConfigData.PropertyName]"></label>
                         <!-- <label ng-show="!Entity.Data[ConfigData.FieldName]" data-ng-if="ConfigData.Type=='D'" class="textEllipsis" style="color:#000000;">-</label> -->
                         <!--Mode:S-->
-                        <label ng-hide="!Entity.Data[ConfigData.PropertyName]" data-ng-if="ConfigData.Type=='S'" class="textEllipsis"
-                            style="color:#000000;" ng-bind="Entity.Data[ConfigData.PropertyName] "></label>
+                        <label ng-hide="!Entity.Data[ConfigData.PropertyName]" data-ng-if="ConfigData.Type=='S'"
+                            class="textEllipsis" style="color:#000000;"
+                            ng-bind="Entity.Data[ConfigData.PropertyName] "></label>
                         <!-- <label ng-show="!Entity.Data[ConfigData.PropertyName]" data-ng-if="ConfigData.Type=='S'" class="textEllipsis" style="color:#000000;">-</label> -->
                         <!--IsAPIRef:true && APIType=='1'-->
-                        <label ng-hide="!DynamicControlCtrl.current[ConfigData.FieldOtherConfig.External.MainEntity].Data[ConfigData.FieldOtherConfig.External.SubEntity][ConfigData.FieldOtherConfig.External.FieldName]"
+                        <label
+                            ng-hide="!DynamicControlCtrl.current[ConfigData.FieldOtherConfig.External.MainEntity].Data[ConfigData.FieldOtherConfig.External.SubEntity][ConfigData.FieldOtherConfig.External.FieldName]"
                             data-ng-if="ConfigData.Type=='D' && ConfigData.FieldOtherConfig.External.IsAPIRef && ConfigData.FieldOtherConfig.External.APIType=='1'"
-                            class="textEllipsis" style="color:#000000;" ng-bind="DynamicControlCtrl.current[ConfigData.FieldOtherConfig.External.MainEntity].Data[ConfigData.FieldOtherConfig.External.SubEntity][ConfigData.FieldOtherConfig.External.FieldName] "></label>
+                            class="textEllipsis" style="color:#000000;"
+                            ng-bind="DynamicControlCtrl.current[ConfigData.FieldOtherConfig.External.MainEntity].Data[ConfigData.FieldOtherConfig.External.SubEntity][ConfigData.FieldOtherConfig.External.FieldName] "></label>
                         <!-- <label ng-show="!DynamicControlCtrl.current[ConfigData.FieldOtherConfig.External.MainEntity].Data[ConfigData.FieldOtherConfig.External.SubEntity][ConfigData.FieldOtherConfig.External.FieldName]" data-ng-if="ConfigData.Type=='D'  && ConfigData.FieldOtherConfig.External.IsAPIRef && ConfigData.FieldOtherConfig.External.APIType=='1'" class="textEllipsis" style="color:#000000;">-</label> -->
                         <!--IsAPIRef:true && APIType=='2'-->
-                        <label ng-hide="!DynamicControlCtrl.current[ConfigData.FieldOtherConfig.External.MainEntity].Meta[ConfigData.FieldOtherConfig.External.SubEntity][ConfigData.FieldOtherConfig.External.MidEntity][ConfigData.FieldOtherConfig.External.FieldName]"
+                        <label
+                            ng-hide="!DynamicControlCtrl.current[ConfigData.FieldOtherConfig.External.MainEntity].Meta[ConfigData.FieldOtherConfig.External.SubEntity][ConfigData.FieldOtherConfig.External.MidEntity][ConfigData.FieldOtherConfig.External.FieldName]"
                             data-ng-if="ConfigData.Type=='D' && ConfigData.FieldOtherConfig.External.IsAPIRef && ConfigData.FieldOtherConfig.External.APIType=='2'"
-                            class="textEllipsis" style="color:#000000;" ng-bind="DynamicControlCtrl.current[ConfigData.FieldOtherConfig.External.MainEntity].Meta[ConfigData.FieldOtherConfig.External.SubEntity][ConfigData.FieldOtherConfig.External.MidEntity][ConfigData.FieldOtherConfig.External.FieldName] "></label>
+                            class="textEllipsis" style="color:#000000;"
+                            ng-bind="DynamicControlCtrl.current[ConfigData.FieldOtherConfig.External.MainEntity].Meta[ConfigData.FieldOtherConfig.External.SubEntity][ConfigData.FieldOtherConfig.External.MidEntity][ConfigData.FieldOtherConfig.External.FieldName] "></label>
                         <!-- <label ng-show="!DynamicControlCtrl.current[ConfigData.FieldOtherConfig.External.MainEntity].Meta[ConfigData.FieldOtherConfig.External.SubEntity][ConfigData.FieldOtherConfig.External.MidEntity][ConfigData.FieldOtherConfig.External.FieldName]" data-ng-if="ConfigData.Type=='D'  && ConfigData.FieldOtherConfig.External.IsAPIRef && ConfigData.FieldOtherConfig.External.APIType=='2'" class="textEllipsis" style="color:#000000;">-</label> -->
                     </div>
                 </div>
                 <!--Textbox-->
                 <div class="{{ConfigData.FieldOtherConfig[ConfigData.Type].CSS.WidthCSS}}" ng-show="ConfigData.Include"
-                    ng-switch-when="textbox" data-ng-class="(DynamicControlCtrl.ePage.Masters.ViewType == 1) ? 'col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12' : 'col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6'">
+                    ng-switch-when="textbox"
+                    data-ng-class="{'1': 'col-sm-12', '2': 'col-sm-6', '3': 'col-sm-4'}[DynamicControlCtrl.ePage.Masters.ViewType]"
+                    data-ng-if="!DynamicControlCtrl.ePage.Masters.BaseFilterFields['IsInVisible' + ConfigData.FieldName]">
                     <div class="form-group">
                         <label class="control-label" title="{{ConfigData.AttributesDetails.LabelText}}">
                             <div class="text-single-line" data-ng-bind="ConfigData.AttributesDetails.LabelText"></div>
                         </label>
                         <div class="clearfix">
                             <!--Mode:S-->
-                            <input type="text" class="form-control input-sm" name="{{ConfigData.PropertyName}}_{{$index}}"
-                                ng-model="Entity.Data[ConfigData.PropertyName]" data-ng-if="ConfigData.Type=='S' && !ConfigData.FieldOtherConfig.External.IsAPIRef"
-                                placeholder="{{ConfigData.AttributesDetails.LabelText}}" data-ng-disabled="Entity.CSS['Is' + ConfigData.PropertyName + 'Disable'] || DynamicControlCtrl.baseFilterFields['IsDisabled' + ConfigData.PropertyName]" />
+                            <input type="text" class="form-control input-sm"
+                                name="{{ConfigData.PropertyName}}_{{$index}}"
+                                ng-model="Entity.Data[ConfigData.PropertyName]"
+                                data-ng-if="ConfigData.Type=='S' && !ConfigData.FieldOtherConfig.External.IsAPIRef"
+                                placeholder="{{ConfigData.AttributesDetails.LabelText}}"
+                                data-ng-disabled="Entity.CSS['Is' + ConfigData.PropertyName + 'Disable'] || DynamicControlCtrl.ePage.Masters.BaseFilterFields['IsDisabled' + ConfigData.FieldName]" />
                             <!--Mode:D-->
                             <input type="text" class="form-control input-sm" name="{{ConfigData.FieldName}}_{{$index}}"
-                                ng-model="Entity.Data[ConfigData.FieldName]" data-ng-if="(ConfigData.Type=='D' || ConfigData.Type=='B') && !ConfigData.FieldOtherConfig.External.IsAPIRef"
-                                placeholder="{{ConfigData.AttributesDetails.LabelText}}" />
+                                ng-model="Entity.Data[ConfigData.FieldName]"
+                                data-ng-if="(ConfigData.Type=='D' || ConfigData.Type=='B') && !ConfigData.FieldOtherConfig.External.IsAPIRef"
+                                placeholder="{{ConfigData.AttributesDetails.LabelText}}"
+                                data-ng-disabled="DynamicControlCtrl.ePage.Masters.BaseFilterFields['IsDisabled' + ConfigData.FieldName]"
+                                data-ng-blur="DynamicControlCtrl.ePage.Masters.OnModelChange(Entity.Data)" />
                             <!--IsAPIRef:true && APIType=='1'-->
                             <input type="text" class="form-control input-sm" name="{{ConfigData.FieldName}}_{{$index}}"
                                 ng-model="DynamicControlCtrl.current[ConfigData.FieldOtherConfig.External.MainEntity].Data[ConfigData.FieldOtherConfig.External.SubEntity][ConfigData.FieldOtherConfig.External.FieldName]"
                                 data-ng-if="ConfigData.Type=='D' && ConfigData.FieldOtherConfig.External.IsAPIRef && ConfigData.FieldOtherConfig.External.APIType=='1'"
-                                placeholder="{{ConfigData.AttributesDetails.LabelText}}" />
+                                placeholder="{{ConfigData.AttributesDetails.LabelText}}"
+                                data-ng-blur="DynamicControlCtrl.ePage.Masters.OnModelChange(Entity.Data)" />
                             <input type="text" class="form-control input-sm" name="{{ConfigData.FieldName}}_{{$index}}"
                                 ng-model="DynamicControlCtrl.current[ConfigData.FieldOtherConfig.External.MainEntity].Data[ConfigData.FieldOtherConfig.External.SubEntity][ConfigData.FieldOtherConfig.External.FieldName]"
                                 data-ng-if="ConfigData.Type=='S' && ConfigData.FieldOtherConfig.External.IsAPIRef && ConfigData.FieldOtherConfig.External.APIType=='1'"
@@ -192,7 +301,8 @@
                             <input type="text" class="form-control input-sm" name="{{ConfigData.FieldName}}_{{$index}}"
                                 ng-model="DynamicControlCtrl.current[ConfigData.FieldOtherConfig.External.MainEntity].Meta[ConfigData.FieldOtherConfig.External.SubEntity][ConfigData.FieldOtherConfig.External.MidEntity][ConfigData.FieldOtherConfig.External.FieldName]"
                                 data-ng-if="ConfigData.Type=='D' && ConfigData.FieldOtherConfig.External.IsAPIRef && ConfigData.FieldOtherConfig.External.APIType=='2'"
-                                placeholder="{{ConfigData.AttributesDetails.LabelText}}" />
+                                placeholder="{{ConfigData.AttributesDetails.LabelText}}"
+                                data-ng-blur="DynamicControlCtrl.ePage.Masters.OnModelChange(Entity.Data)" />
                             <input type="text" class="form-control input-sm" name="{{ConfigData.FieldName}}_{{$index}}"
                                 ng-model="DynamicControlCtrl.current[ConfigData.FieldOtherConfig.External.MainEntity].Meta[ConfigData.FieldOtherConfig.External.SubEntity][ConfigData.FieldOtherConfig.External.MidEntity][ConfigData.FieldOtherConfig.External.FieldName]"
                                 data-ng-if="ConfigData.Type=='S' && ConfigData.FieldOtherConfig.External.IsAPIRef && ConfigData.FieldOtherConfig.External.APIType=='2'"
@@ -202,30 +312,41 @@
                 </div>
                 <!--Template-->
                 <div class="{{ConfigData.FieldOtherConfig[ConfigData.Type].CSS.WidthCSS}}" ng-show="ConfigData.Include"
-                    ng-switch-when="template" data-ng-class="(DynamicControlCtrl.ePage.Masters.ViewType == 1) ? 'col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12' : 'col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6'">
+                    ng-switch-when="template"
+                    data-ng-class="{'1': 'col-sm-12', '2': 'col-sm-6', '3': 'col-sm-4'}[DynamicControlCtrl.ePage.Masters.ViewType]"
+                    data-ng-if="!DynamicControlCtrl.ePage.Masters.BaseFilterFields['IsInVisible' + ConfigData.FieldName]">
                     <div id="tpl-content" ng-include src="ConfigData.AttributesDetails.templateUrl"></div>
                 </div>
                 <!--Link-->
                 <div class="{{ConfigData.FieldOtherConfig[ConfigData.Type].CSS.WidthCSS}}" ng-show="ConfigData.Include"
-                    ng-switch-when="link" data-ng-class="(DynamicControlCtrl.ePage.Masters.ViewType == 1) ? 'col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12' : 'col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6'">
+                    ng-switch-when="link"
+                    data-ng-class="{'1': 'col-sm-12', '2': 'col-sm-6', '3': 'col-sm-4'}[DynamicControlCtrl.ePage.Masters.ViewType]"
+                    data-ng-if="!DynamicControlCtrl.ePage.Masters.BaseFilterFields['IsInVisible' + ConfigData.FieldName]">
                     <a target="_blank" href="">{{ConfigData.AttributesDetails.LabelText}}</a>
                 </div>
                 <!--DropDown-->
                 <div class="{{ConfigData.FieldOtherConfig[ConfigData.Type].CSS.WidthCSS}}" ng-show="ConfigData.Include"
-                    ng-switch-when="dropdown" data-ng-class="(DynamicControlCtrl.ePage.Masters.ViewType == 1) ? 'col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12' : 'col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6'">
+                    ng-switch-when="dropdown"
+                    data-ng-class="{'1': 'col-sm-12', '2': 'col-sm-6', '3': 'col-sm-4'}[DynamicControlCtrl.ePage.Masters.ViewType]"
+                    data-ng-if="!DynamicControlCtrl.ePage.Masters.BaseFilterFields['IsInVisible' + ConfigData.FieldName]">
                     <div class="form-group">
                         <label class="control-label" title="{{ConfigData.AttributesDetails.LabelText}}">
                             <div class="text-single-line" data-ng-bind="ConfigData.AttributesDetails.LabelText"></div>
                         </label>
                         <div class=" clearfix">
-                            <select chosen class="form-control" name="{{ConfigData.PropertyName}}_{{$index}}" ng-model="Entity.Data[ConfigData.PropertyName]"
-                                data-ng-if="ConfigData.Type=='S'" ng-options="x[ConfigData.AttributesDetails.UIValue] as x[ConfigData.AttributesDetails.UIDisplay] for x in ConfigData.SubItems"
-                                search-contains="true" data-ng-disabled="Entity.CSS['Is' + ConfigData.PropertyName + 'Disable'] || DynamicControlCtrl.baseFilterFields['IsDisabled' + ConfigData.PropertyName]">
+                            <select chosen class="form-control" name="{{ConfigData.PropertyName}}_{{$index}}"
+                                ng-model="Entity.Data[ConfigData.PropertyName]" data-ng-if="ConfigData.Type=='S'"
+                                ng-options="x[ConfigData.AttributesDetails.UIValue] as x[ConfigData.AttributesDetails.UIDisplay] for x in ConfigData.SubItems"
+                                search-contains="true"
+                                data-ng-disabled="Entity.CSS['Is' + ConfigData.PropertyName + 'Disable'] || DynamicControlCtrl.ePage.Masters.BaseFilterFields['IsDisabled' + ConfigData.FieldName]">
                                 <option value="">--Select--</option>
                             </select>
-                            <select chosen class="form-control" name="{{ConfigData.FieldName}}_{{$index}}" ng-model="Entity.Data[ConfigData.FieldName]"
-                                data-ng-if="ConfigData.Type=='D'" ng-options="x[ConfigData.AttributesDetails.UIValue] as x[ConfigData.AttributesDetails.UIDisplay] for x in ConfigData.SubItems"
-                                search-contains="true">
+                            <select chosen class="form-control" name="{{ConfigData.FieldName}}_{{$index}}"
+                                ng-model="Entity.Data[ConfigData.FieldName]" data-ng-if="ConfigData.Type=='D'"
+                                ng-options="x[ConfigData.AttributesDetails.UIValue] as x[ConfigData.AttributesDetails.UIDisplay] for x in ConfigData.SubItems"
+                                search-contains="true"
+                                data-ng-disabled="DynamicControlCtrl.ePage.Masters.BaseFilterFields['IsDisabled' + ConfigData.FieldName]"
+                                data-ng-change="DynamicControlCtrl.ePage.Masters.OnModelChange(Entity.Data)">
                                 <option value="">--Select--</option>
                             </select>
                         </div>
@@ -233,26 +354,34 @@
                 </div>
                 <!--Textarea-->
                 <div class="{{ConfigData.FieldOtherConfig[ConfigData.Type].CSS.WidthCSS}}" ng-show="ConfigData.Include"
-                    ng-switch-when="textarea" data-ng-class="(DynamicControlCtrl.ePage.Masters.ViewType == 1) ? 'col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12' : 'col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6'">
+                    ng-switch-when="textarea"
+                    data-ng-class="{'1': 'col-sm-12', '2': 'col-sm-6', '3': 'col-sm-4'}[DynamicControlCtrl.ePage.Masters.ViewType]"
+                    data-ng-if="!DynamicControlCtrl.ePage.Masters.BaseFilterFields['IsInVisible' + ConfigData.FieldName]">
                     <div class="form-group">
                         <label class="control-label" title="{{ConfigData.AttributesDetails.LabelText}}">
                             <div class="text-single-line" data-ng-bind="ConfigData.AttributesDetails.LabelText"></div>
                         </label>
                         <div class=" clearfix">
                             <!--Mode:S-->
-                            <textarea rows="4" class="form-control no-resize" name="{{ConfigData.PropertyName}}_{{$index}}"
-                                ng-model="Entity.Data[ConfigData.PropertyName]" data-ng-if="ConfigData.Type=='S' && !ConfigData.FieldOtherConfig.External.IsAPIRef"
-                                placeholder="{{ConfigData.AttributesDetails.LabelText}}" data-ng-disabled="Entity.CSS['Is' + ConfigData.PropertyName + 'Disable'] || DynamicControlCtrl.baseFilterFields['IsDisabled' + ConfigData.PropertyName]"></textarea>
+                            <textarea rows="4" class="form-control no-resize"
+                                name="{{ConfigData.PropertyName}}_{{$index}}"
+                                ng-model="Entity.Data[ConfigData.PropertyName]"
+                                data-ng-if="ConfigData.Type=='S' && !ConfigData.FieldOtherConfig.External.IsAPIRef"
+                                placeholder="{{ConfigData.AttributesDetails.LabelText}}"
+                                data-ng-disabled="Entity.CSS['Is' + ConfigData.PropertyName + 'Disable'] || DynamicControlCtrl.ePage.Masters.BaseFilterFields['IsDisabled' + ConfigData.FieldName]"></textarea>
                             <!--Mode:D-->
                             <textarea rows="4" class="form-control no-resize" name="{{ConfigData.FieldName}}_{{$index}}"
-                                ng-model="Entity.Data[ConfigData.FieldName]" data-ng-if="ConfigData.Type=='D' && !ConfigData.FieldOtherConfig.External.IsAPIRef"
-                                placeholder="{{ConfigData.AttributesDetails.LabelText}}"></textarea>
-
+                                ng-model="Entity.Data[ConfigData.FieldName]"
+                                data-ng-if="ConfigData.Type=='D' && !ConfigData.FieldOtherConfig.External.IsAPIRef"
+                                placeholder="{{ConfigData.AttributesDetails.LabelText}}"
+                                data-ng-disabled="DynamicControlCtrl.ePage.Masters.BaseFilterFields['IsDisabled' + ConfigData.FieldName]"
+                                data-ng-blur="DynamicControlCtrl.ePage.Masters.OnModelChange(Entity.Data)"></textarea>
                             <!--IsAPIRef:true && APIType=='1'-->
                             <textarea rows="4" class="form-control no-resize" name="{{ConfigData.FieldName}}_{{$index}}"
                                 ng-model="DynamicControlCtrl.current[ConfigData.FieldOtherConfig.External.MainEntity].Data[ConfigData.FieldOtherConfig.External.SubEntity][ConfigData.FieldOtherConfig.External.FieldName]"
                                 data-ng-if="ConfigData.Type=='D' && ConfigData.FieldOtherConfig.External.IsAPIRef && ConfigData.FieldOtherConfig.External.APIType=='1'"
-                                placeholder="{{ConfigData.AttributesDetails.LabelText}}"></textarea>
+                                placeholder="{{ConfigData.AttributesDetails.LabelText}}"
+                                data-ng-blur="DynamicControlCtrl.ePage.Masters.OnModelChange(Entity.Data)"></textarea>
 
                             <textarea rows="4" class="form-control no-resize" name="{{ConfigData.FieldName}}_{{$index}}"
                                 ng-model="DynamicControlCtrl.current[ConfigData.FieldOtherConfig.External.MainEntity].Data[ConfigData.FieldOtherConfig.External.SubEntity][ConfigData.FieldOtherConfig.External.FieldName]"
@@ -263,7 +392,8 @@
                             <textarea rows="4" class="form-control no-resize" name="{{ConfigData.FieldName}}_{{$index}}"
                                 ng-model="DynamicControlCtrl.current[ConfigData.FieldOtherConfig.External.MainEntity].Meta[ConfigData.FieldOtherConfig.External.SubEntity][ConfigData.FieldOtherConfig.External.MidEntity][ConfigData.FieldOtherConfig.External.FieldName]"
                                 data-ng-if="ConfigData.Type=='D' && ConfigData.FieldOtherConfig.External.IsAPIRef && ConfigData.FieldOtherConfig.External.APIType=='2'"
-                                placeholder="{{ConfigData.AttributesDetails.LabelText}}"></textarea>
+                                placeholder="{{ConfigData.AttributesDetails.LabelText}}"
+                                data-ng-blur="DynamicControlCtrl.ePage.Masters.OnModelChange(Entity.Data)"></textarea>
                             <textarea rows="4" class="form-control no-resize" name="{{ConfigData.FieldName}}_{{$index}}"
                                 ng-model="DynamicControlCtrl.current[ConfigData.FieldOtherConfig.External.MainEntity].Meta[ConfigData.FieldOtherConfig.External.SubEntity][ConfigData.FieldOtherConfig.External.MidEntity][ConfigData.FieldOtherConfig.External.FieldName]"
                                 data-ng-if="ConfigData.Type=='S' && ConfigData.FieldOtherConfig.External.IsAPIRef && ConfigData.FieldOtherConfig.External.APIType=='2'"
@@ -272,31 +402,44 @@
                     </div>
                 </div>
                 <!--Autocomplete-->
-                <div class="{{ConfigData.FieldOtherConfig[ConfigData.Type].CSS.WidthCSS}} auto-complete" ng-show="ConfigData.Include"
-                    ng-switch-when="autocomplete" data-ng-class="(DynamicControlCtrl.ePage.Masters.ViewType == 1) ? 'col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12' : 'col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6'">
+                <div class="{{ConfigData.FieldOtherConfig[ConfigData.Type].CSS.WidthCSS}} auto-complete"
+                    ng-show="ConfigData.Include" ng-switch-when="autocomplete"
+                    data-ng-class="{'1': 'col-sm-12', '2': 'col-sm-6', '3': 'col-sm-4'}[DynamicControlCtrl.ePage.Masters.ViewType]"
+                    data-ng-if="!DynamicControlCtrl.ePage.Masters.BaseFilterFields['IsInVisible' + ConfigData.FieldName]">
                     <div class="form-group">
                         <label class="control-label" title="{{ConfigData.AttributesDetails.LabelText}}">
                             <div class="text-single-line" data-ng-bind="ConfigData.AttributesDetails.LabelText"></div>
                         </label>
                         <div class=" clearfix">
-                            <input type="text" class="form-control input-sm" data-ng-if="ConfigData.Type=='D'" name="{{ConfigData.FieldName}}_{{$index}}"
-                                ng-model="Entity.Data[ConfigData.FieldName]" placeholder="{{ConfigData.AttributesDetails.LabelText}}"
+                            <input type="text" class="form-control input-sm" data-ng-if="ConfigData.Type=='D'"
+                                name="{{ConfigData.FieldName}}_{{$index}}" ng-model="Entity.Data[ConfigData.FieldName]"
+                                placeholder="{{ConfigData.AttributesDetails.LabelText}}"
                                 uib-typeahead="x[ConfigData.AttributesDetails.UIDisplay] as x[ConfigData.AttributesDetails.UIDisplay] for x in DynamicControlCtrl.ePage.Masters.AutoCompleteList(ConfigData.FieldName, $viewValue, ConfigData, Entity)"
-                                typeahead-min-length="3" typeahead-on-select="DynamicControlCtrl.ePage.Masters.AutoCompleteOnSelect($item, $model, $label,ConfigData,Entity)"
+                                typeahead-min-length="3"
+                                typeahead-on-select="DynamicControlCtrl.ePage.Masters.AutoCompleteOnSelect($item, $model, $label,ConfigData,Entity)"
                                 typeahead-loading="ConfigData.IsLoading" typeahead-no-results="ConfigData.NoRecords"
-                                typeahead-wait-ms="200" ng-minlength="3" autocomplete="off" data-ng-blur="ConfigData.IsLoading = false; ConfigData.NoRecords = false;" />
-                            <input type="text" class="form-control input-sm" data-ng-if="ConfigData.Type=='S'" name="{{ConfigData.PropertyName}}_{{$index}}"
-                                ng-model="Entity.Data[ConfigData.PropertyName]" placeholder="{{ConfigData.AttributesDetails.LabelText}}"
+                                typeahead-wait-ms="200" ng-minlength="3" autocomplete="off"
+                                data-ng-blur="ConfigData.IsLoading = false; ConfigData.NoRecords = false;"
+                                data-ng-disabled="DynamicControlCtrl.ePage.Masters.BaseFilterFields['IsDisabled' + ConfigData.FieldName]" />
+                            <input type="text" class="form-control input-sm" data-ng-if="ConfigData.Type=='S'"
+                                name="{{ConfigData.PropertyName}}_{{$index}}"
+                                ng-model="Entity.Data[ConfigData.PropertyName]"
+                                placeholder="{{ConfigData.AttributesDetails.LabelText}}"
                                 uib-typeahead="x[ConfigData.AttributesDetails.UIDisplay] as x[ConfigData.AttributesDetails.UIDisplay] for x in DynamicControlCtrl.ePage.Masters.AutoCompleteList(ConfigData.PropertyName,$viewValue,ConfigData,Entity)"
-                                typeahead-min-length="1" typeahead-on-select="DynamicControlCtrl.ePage.Masters.AutoCompleteOnSelect($item, $model, $label,ConfigData,Entity)"
+                                typeahead-min-length="1"
+                                typeahead-on-select="DynamicControlCtrl.ePage.Masters.AutoCompleteOnSelect($item, $model, $label,ConfigData,Entity)"
                                 typeahead-wait-ms="200" ng-minlength="3" typeahead-loading="ConfigData.IsLoading"
-                                typeahead-no-results="ConfigData.NoRecords" data-ng-disabled="Entity.CSS['Is' + ConfigData.PropertyName + 'Disable'] || DynamicControlCtrl.baseFilterFields['IsDisabled' + ConfigData.PropertyName]"
-                                autocomplete="off" data-ng-blur="ConfigData.IsLoading = false; ConfigData.NoRecords = false;" />
+                                typeahead-no-results="ConfigData.NoRecords"
+                                data-ng-disabled="Entity.CSS['Is' + ConfigData.PropertyName + 'Disable'] || DynamicControlCtrl.ePage.Masters.BaseFilterFields['IsDisabled' + ConfigData.FieldName]"
+                                autocomplete="off"
+                                data-ng-blur="ConfigData.IsLoading = false; ConfigData.NoRecords = false; DynamicControlCtrl.ePage.Masters.OnModelChange(Entity.Data)" />
 
-                            <div class="clearfix dropdown-menu typeahead" data-ng-if="ConfigData.Type=='S' && ConfigData.NoRecords">
+                            <div class="clearfix dropdown-menu typeahead"
+                                data-ng-if="ConfigData.Type=='S' && ConfigData.NoRecords">
                                 <div class="auto-complete-no-result">No Results Found!</div>
                             </div>
-                            <div class="clearfix dropdown-menu typeahead" data-ng-if="ConfigData.Type=='S' && ConfigData.IsLoading">
+                            <div class="clearfix dropdown-menu typeahead"
+                                data-ng-if="ConfigData.Type=='S' && ConfigData.IsLoading">
                                 <div class="auto-complete-no-result">
                                     <i class="fa fa-spin fa-spinner"></i>
                                 </div>
@@ -306,73 +449,110 @@
                 </div>
                 <!--Checkbox-->
                 <div class="{{ConfigData.FieldOtherConfig[ConfigData.Type].CSS.WidthCSS}}" ng-show="ConfigData.Include"
-                    ng-switch-when="checkbox" data-ng-class="(DynamicControlCtrl.ePage.Masters.ViewType == 1) ? 'col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12' : 'col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6'">
+                    ng-switch-when="checkbox"
+                    data-ng-class="{'1': 'col-sm-12', '2': 'col-sm-6', '3': 'col-sm-4'}[DynamicControlCtrl.ePage.Masters.ViewType]"
+                    data-ng-if="!DynamicControlCtrl.ePage.Masters.BaseFilterFields['IsInVisible' + ConfigData.FieldName]">
                     <div class="form-group">
                         <!-- <label class="control-label" title="{{ConfigData.AttributesDetails.LabelText}}">
                             <div class="text-single-line" data-ng-bind="ConfigData.AttributesDetails.LabelText"></div>
                         </label> -->
-                        <label class="control-label" data-ng-if="DynamicControlCtrl.ePage.Masters.ViewType != 1"></label>
+                        <label class="control-label"
+                            data-ng-if="DynamicControlCtrl.ePage.Masters.ViewType != 1"></label>
                         <div class=" clearfix">
                             <div class="checkbox">
                                 <!--Mode:S-->
-                                <label data-ng-if="ConfigData.Type=='S' && !ConfigData.FieldOtherConfig.External.IsAPIRef">
-                                    <input type="checkbox" ng-model="Entity.Data[ConfigData.PropertyName]" ng-if="ConfigData.AttributesDetails.IsExpression=='false'"
-                                        class="colored-blue" data-ng-disabled="Entity.CSS['Is' + ConfigData.PropertyName + 'Disable'] || DynamicControlCtrl.baseFilterFields['IsDisabled' + ConfigData.PropertyName]"
+                                <label
+                                    data-ng-if="ConfigData.Type=='S' && !ConfigData.FieldOtherConfig.External.IsAPIRef">
+                                    <input type="checkbox" ng-model="Entity.Data[ConfigData.PropertyName]"
+                                        ng-if="ConfigData.AttributesDetails.IsExpression=='false'" class="colored-blue"
+                                        data-ng-disabled="Entity.CSS['Is' + ConfigData.PropertyName + 'Disable'] || DynamicControlCtrl.ePage.Masters.BaseFilterFields['IsDisabled' + ConfigData.FieldName]"
                                         data-ng-init="Entity.Data[ConfigData.PropertyName] = ((Entity.Data[ConfigData.PropertyName] == 'true' || Entity.Data[ConfigData.PropertyName] == true) ? true : null)" />
-                                    <input type="checkbox" ng-model="Entity.Data[ConfigData.FieldName]" ng-if="ConfigData.AttributesDetails.IsExpression=='true'"
-                                        ng-true-value="'{{ConfigData.AttributesDetails.TrueValue}}'" ng-false-value="'{{ConfigData.AttributesDetails.FalseValue}}'"
-                                        class="colored-blue" data-ng-disabled="Entity.CSS['Is' + ConfigData.PropertyName + 'Disable'] || DynamicControlCtrl.baseFilterFields['IsDisabled' + ConfigData.PropertyName]"
+                                    <input type="checkbox" ng-model="Entity.Data[ConfigData.FieldName]"
+                                        ng-if="ConfigData.AttributesDetails.IsExpression=='true'"
+                                        ng-true-value="'{{ConfigData.AttributesDetails.TrueValue}}'"
+                                        ng-false-value="'{{ConfigData.AttributesDetails.FalseValue}}'"
+                                        class="colored-blue"
+                                        data-ng-disabled="Entity.CSS['Is' + ConfigData.PropertyName + 'Disable'] || DynamicControlCtrl.ePage.Masters.BaseFilterFields['IsDisabled' + ConfigData.FieldName]"
                                         data-ng-init="Entity.Data[ConfigData.FieldName] = ((Entity.Data[ConfigData.FieldName] == 'true' || Entity.Data[ConfigData.FieldName] == true) ? true : null)" />
                                     <span class="text" data-ng-bind="ConfigData.AttributesDetails.LabelText"></span>
                                 </label>
                                 <!--Mode:D-->
-                                <label data-ng-if="ConfigData.Type=='D' && !ConfigData.FieldOtherConfig.External.IsAPIRef">
-                                    <input type="checkbox" ng-model="Entity.Data[ConfigData.FieldName]" ng-if="ConfigData.AttributesDetails.IsExpression=='true'"
-                                        ng-true-value="'{{ConfigData.AttributesDetails.TrueValue}}'" ng-false-value="'{{ConfigData.AttributesDetails.FalseValue}}'"
-                                        class="colored-blue" data-ng-init="Entity.Data[ConfigData.FieldName] = ((Entity.Data[ConfigData.FieldName] == 'true' || Entity.Data[ConfigData.FieldName] == true) ? true : null)" />
-                                    <input type="checkbox" ng-model="Entity.Data[ConfigData.PropertyName]" ng-if="ConfigData.AttributesDetails.IsExpression=='false'"
-                                        class="colored-blue" data-ng-init="Entity.Data[ConfigData.PropertyName] = ((Entity.Data[ConfigData.PropertyName] == 'true' || Entity.Data[ConfigData.PropertyName] == true) ? true : null)" />
+                                <label
+                                    data-ng-if="ConfigData.Type=='D' && !ConfigData.FieldOtherConfig.External.IsAPIRef">
+                                    <input type="checkbox" ng-model="Entity.Data[ConfigData.FieldName]"
+                                        ng-if="ConfigData.AttributesDetails.IsExpression=='true'"
+                                        ng-true-value="'{{ConfigData.AttributesDetails.TrueValue}}'"
+                                        ng-false-value="'{{ConfigData.AttributesDetails.FalseValue}}'"
+                                        class="colored-blue"
+                                        data-ng-init="Entity.Data[ConfigData.FieldName] = ((Entity.Data[ConfigData.FieldName] == 'true' || Entity.Data[ConfigData.FieldName] == true) ? true : null)"
+                                        data-ng-disabled="DynamicControlCtrl.ePage.Masters.BaseFilterFields['IsDisabled' + ConfigData.FieldName]"
+                                        data-ng-change="DynamicControlCtrl.ePage.Masters.OnModelChange(Entity.Data)" />
+                                    <input type="checkbox" ng-model="Entity.Data[ConfigData.PropertyName]"
+                                        ng-if="ConfigData.AttributesDetails.IsExpression=='false'" class="colored-blue"
+                                        data-ng-init="Entity.Data[ConfigData.PropertyName] = ((Entity.Data[ConfigData.PropertyName] == 'true' || Entity.Data[ConfigData.PropertyName] == true) ? true : null)"
+                                        data-ng-disabled="DynamicControlCtrl.ePage.Masters.BaseFilterFields['IsDisabled' + ConfigData.FieldName]"
+                                        data-ng-change="DynamicControlCtrl.ePage.Masters.OnModelChange(Entity.Data)" />
                                     <span class="text" data-ng-bind="ConfigData.AttributesDetails.LabelText"></span>
                                 </label>
                                 <!--IsAPIRef:true && APIType=='1'-->
-                                <label data-ng-if="ConfigData.Type=='S' && ConfigData.FieldOtherConfig.External.IsAPIRef && ConfigData.FieldOtherConfig.External.APIType=='1'">
-                                    <input type="checkbox" ng-model="DynamicControlCtrl.current[ConfigData.FieldOtherConfig.External.MainEntity].Data[ConfigData.FieldOtherConfig.External.SubEntity][ConfigData.FieldOtherConfig.External.FieldName]"
+                                <label
+                                    data-ng-if="ConfigData.Type=='S' && ConfigData.FieldOtherConfig.External.IsAPIRef && ConfigData.FieldOtherConfig.External.APIType=='1'">
+                                    <input type="checkbox"
+                                        ng-model="DynamicControlCtrl.current[ConfigData.FieldOtherConfig.External.MainEntity].Data[ConfigData.FieldOtherConfig.External.SubEntity][ConfigData.FieldOtherConfig.External.FieldName]"
                                         ng-if="ConfigData.AttributesDetails.IsExpression=='false'" class="colored-blue"
                                         data-ng-init="DynamicControlCtrl.current[ConfigData.FieldOtherConfig.External.MainEntity].Data[ConfigData.FieldOtherConfig.External.SubEntity][ConfigData.FieldOtherConfig.External.FieldName] = (DynamicControlCtrl.current[ConfigData.FieldOtherConfig.External.MainEntity].Data[ConfigData.FieldOtherConfig.External.SubEntity][ConfigData.FieldOtherConfig.External.FieldName] == 'true' ? true : null)" />
-                                    <input type="checkbox" ng-model="DynamicControlCtrl.current[ConfigData.FieldOtherConfig.External.MainEntity].Data[ConfigData.FieldOtherConfig.External.SubEntity][ConfigData.FieldOtherConfig.External.FieldName]"
-                                        ng-if="ConfigData.AttributesDetails.IsExpression=='true'" ng-true-value="'{{ConfigData.AttributesDetails.TrueValue}}'"
-                                        ng-false-value="'{{ConfigData.AttributesDetails.FalseValue}}'" class="colored-blue"
+                                    <input type="checkbox"
+                                        ng-model="DynamicControlCtrl.current[ConfigData.FieldOtherConfig.External.MainEntity].Data[ConfigData.FieldOtherConfig.External.SubEntity][ConfigData.FieldOtherConfig.External.FieldName]"
+                                        ng-if="ConfigData.AttributesDetails.IsExpression=='true'"
+                                        ng-true-value="'{{ConfigData.AttributesDetails.TrueValue}}'"
+                                        ng-false-value="'{{ConfigData.AttributesDetails.FalseValue}}'"
+                                        class="colored-blue"
                                         data-ng-init="DynamicControlCtrl.current[ConfigData.FieldOtherConfig.External.MainEntity].Data[ConfigData.FieldOtherConfig.External.SubEntity][ConfigData.FieldOtherConfig.External.FieldName] = (DynamicControlCtrl.current[ConfigData.FieldOtherConfig.External.MainEntity].Data[ConfigData.FieldOtherConfig.External.SubEntity][ConfigData.FieldOtherConfig.External.FieldName] == 'true' ? true : null)" />
                                     <span class="text" data-ng-bind="ConfigData.AttributesDetails.LabelText"></span>
                                 </label>
-                                <label data-ng-if="ConfigData.Type=='D' && ConfigData.FieldOtherConfig.External.IsAPIRef && ConfigData.FieldOtherConfig.External.APIType=='1'">
-                                    <input type="checkbox" ng-model="DynamicControlCtrl.current[ConfigData.FieldOtherConfig.External.MainEntity].Data[ConfigData.FieldOtherConfig.External.SubEntity][ConfigData.FieldOtherConfig.External.FieldName]"
-                                        ng-if="ConfigData.AttributesDetails.IsExpression=='true'" ng-true-value="'{{ConfigData.AttributesDetails.TrueValue}}'"
-                                        ng-false-value="'{{ConfigData.AttributesDetails.FalseValue}}'" class="colored-blue"
+                                <label
+                                    data-ng-if="ConfigData.Type=='D' && ConfigData.FieldOtherConfig.External.IsAPIRef && ConfigData.FieldOtherConfig.External.APIType=='1'">
+                                    <input type="checkbox"
+                                        ng-model="DynamicControlCtrl.current[ConfigData.FieldOtherConfig.External.MainEntity].Data[ConfigData.FieldOtherConfig.External.SubEntity][ConfigData.FieldOtherConfig.External.FieldName]"
+                                        ng-if="ConfigData.AttributesDetails.IsExpression=='true'"
+                                        ng-true-value="'{{ConfigData.AttributesDetails.TrueValue}}'"
+                                        ng-false-value="'{{ConfigData.AttributesDetails.FalseValue}}'"
+                                        class="colored-blue"
                                         data-ng-init="DynamicControlCtrl.current[ConfigData.FieldOtherConfig.External.MainEntity].Data[ConfigData.FieldOtherConfig.External.SubEntity][ConfigData.FieldOtherConfig.External.FieldName] = (DynamicControlCtrl.current[ConfigData.FieldOtherConfig.External.MainEntity].Data[ConfigData.FieldOtherConfig.External.SubEntity][ConfigData.FieldOtherConfig.External.FieldName] == 'true' ? true : null)" />
-                                    <input type="checkbox" ng-model="DynamicControlCtrl.current[ConfigData.FieldOtherConfig.External.MainEntity].Data[ConfigData.FieldOtherConfig.External.SubEntity][ConfigData.FieldOtherConfig.External.FieldName]"
+                                    <input type="checkbox"
+                                        ng-model="DynamicControlCtrl.current[ConfigData.FieldOtherConfig.External.MainEntity].Data[ConfigData.FieldOtherConfig.External.SubEntity][ConfigData.FieldOtherConfig.External.FieldName]"
                                         ng-if="ConfigData.AttributesDetails.IsExpression=='false'" class="colored-blue"
                                         data-ng-init="DynamicControlCtrl.current[ConfigData.FieldOtherConfig.External.MainEntity].Data[ConfigData.FieldOtherConfig.External.SubEntity][ConfigData.FieldOtherConfig.External.FieldName] = (DynamicControlCtrl.current[ConfigData.FieldOtherConfig.External.MainEntity].Data[ConfigData.FieldOtherConfig.External.SubEntity][ConfigData.FieldOtherConfig.External.FieldName] == 'true' ? true : null)" />
                                     <span class="text" data-ng-bind="ConfigData.AttributesDetails.LabelText"></span>
                                 </label>
                                 <!--IsAPIRef:true && APIType=='2'-->
-                                <label data-ng-if="ConfigData.Type=='S' && ConfigData.FieldOtherConfig.External.IsAPIRef && ConfigData.FieldOtherConfig.External.APIType=='2'">
-                                    <input type="checkbox" ng-model="DynamicControlCtrl.current[ConfigData.FieldOtherConfig.External.MainEntity].Meta[ConfigData.FieldOtherConfig.External.SubEntity][ConfigData.FieldOtherConfig.External.MidEntity][ConfigData.FieldOtherConfig.External.FieldName]"
+                                <label
+                                    data-ng-if="ConfigData.Type=='S' && ConfigData.FieldOtherConfig.External.IsAPIRef && ConfigData.FieldOtherConfig.External.APIType=='2'">
+                                    <input type="checkbox"
+                                        ng-model="DynamicControlCtrl.current[ConfigData.FieldOtherConfig.External.MainEntity].Meta[ConfigData.FieldOtherConfig.External.SubEntity][ConfigData.FieldOtherConfig.External.MidEntity][ConfigData.FieldOtherConfig.External.FieldName]"
                                         ng-if="ConfigData.AttributesDetails.IsExpression=='false'" class="colored-blue"
                                         data-ng-init="DynamicControlCtrl.current[ConfigData.FieldOtherConfig.External.MainEntity].Meta[ConfigData.FieldOtherConfig.External.SubEntity][ConfigData.FieldOtherConfig.External.MidEntity][ConfigData.FieldOtherConfig.External.FieldName] = (DynamicControlCtrl.current[ConfigData.FieldOtherConfig.External.MainEntity].Meta[ConfigData.FieldOtherConfig.External.SubEntity][ConfigData.FieldOtherConfig.External.MidEntity][ConfigData.FieldOtherConfig.External.FieldName] == 'true' ? true : null)" />
-                                    <input type="checkbox" ng-model="DynamicControlCtrl.current[ConfigData.FieldOtherConfig.External.MainEntity].Meta[ConfigData.FieldOtherConfig.External.SubEntity][ConfigData.FieldOtherConfig.External.MidEntity][ConfigData.FieldOtherConfig.External.FieldName]"
-                                        ng-if="ConfigData.AttributesDetails.IsExpression=='true'" ng-true-value="'{{ConfigData.AttributesDetails.TrueValue}}'"
-                                        ng-false-value="'{{ConfigData.AttributesDetails.FalseValue}}'" class="colored-blue"
+                                    <input type="checkbox"
+                                        ng-model="DynamicControlCtrl.current[ConfigData.FieldOtherConfig.External.MainEntity].Meta[ConfigData.FieldOtherConfig.External.SubEntity][ConfigData.FieldOtherConfig.External.MidEntity][ConfigData.FieldOtherConfig.External.FieldName]"
+                                        ng-if="ConfigData.AttributesDetails.IsExpression=='true'"
+                                        ng-true-value="'{{ConfigData.AttributesDetails.TrueValue}}'"
+                                        ng-false-value="'{{ConfigData.AttributesDetails.FalseValue}}'"
+                                        class="colored-blue"
                                         data-ng-init="DynamicControlCtrl.current[ConfigData.FieldOtherConfig.External.MainEntity].Meta[ConfigData.FieldOtherConfig.External.SubEntity][ConfigData.FieldOtherConfig.External.MidEntity][ConfigData.FieldOtherConfig.External.FieldName] = (DynamicControlCtrl.current[ConfigData.FieldOtherConfig.External.MainEntity].Meta[ConfigData.FieldOtherConfig.External.SubEntity][ConfigData.FieldOtherConfig.External.MidEntity][ConfigData.FieldOtherConfig.External.FieldName] == 'true' ? true : null)" />
                                     <span class="text" data-ng-bind="ConfigData.AttributesDetails.LabelText"></span>
                                 </label>
-                                <label data-ng-if="ConfigData.Type=='D' && ConfigData.FieldOtherConfig.External.IsAPIRef && ConfigData.FieldOtherConfig.External.APIType=='2'">
-                                    <input type="checkbox" ng-model="DynamicControlCtrl.current[ConfigData.FieldOtherConfig.External.MainEntity].Meta[ConfigData.FieldOtherConfig.External.SubEntity][ConfigData.FieldOtherConfig.External.MidEntity][ConfigData.FieldOtherConfig.External.FieldName]"
+                                <label
+                                    data-ng-if="ConfigData.Type=='D' && ConfigData.FieldOtherConfig.External.IsAPIRef && ConfigData.FieldOtherConfig.External.APIType=='2'">
+                                    <input type="checkbox"
+                                        ng-model="DynamicControlCtrl.current[ConfigData.FieldOtherConfig.External.MainEntity].Meta[ConfigData.FieldOtherConfig.External.SubEntity][ConfigData.FieldOtherConfig.External.MidEntity][ConfigData.FieldOtherConfig.External.FieldName]"
                                         ng-if="ConfigData.AttributesDetails.IsExpression=='false'" class="colored-blue"
                                         data-ng-init="DynamicControlCtrl.current[ConfigData.FieldOtherConfig.External.MainEntity].Meta[ConfigData.FieldOtherConfig.External.SubEntity][ConfigData.FieldOtherConfig.External.MidEntity][ConfigData.FieldOtherConfig.External.FieldName] = (DynamicControlCtrl.current[ConfigData.FieldOtherConfig.External.MainEntity].Meta[ConfigData.FieldOtherConfig.External.SubEntity][ConfigData.FieldOtherConfig.External.MidEntity][ConfigData.FieldOtherConfig.External.FieldName] == 'true' ? true : null)" />
-                                    <input type="checkbox" ng-model="DynamicControlCtrl.current[ConfigData.FieldOtherConfig.External.MainEntity].Meta[ConfigData.FieldOtherConfig.External.SubEntity][ConfigData.FieldOtherConfig.External.MidEntity][ConfigData.FieldOtherConfig.External.FieldName]"
-                                        ng-if="ConfigData.AttributesDetails.IsExpression=='true'" ng-true-value="'{{ConfigData.AttributesDetails.TrueValue}}'"
-                                        ng-false-value="'{{ConfigData.AttributesDetails.FalseValue}}'" class="colored-blue"
+                                    <input type="checkbox"
+                                        ng-model="DynamicControlCtrl.current[ConfigData.FieldOtherConfig.External.MainEntity].Meta[ConfigData.FieldOtherConfig.External.SubEntity][ConfigData.FieldOtherConfig.External.MidEntity][ConfigData.FieldOtherConfig.External.FieldName]"
+                                        ng-if="ConfigData.AttributesDetails.IsExpression=='true'"
+                                        ng-true-value="'{{ConfigData.AttributesDetails.TrueValue}}'"
+                                        ng-false-value="'{{ConfigData.AttributesDetails.FalseValue}}'"
+                                        class="colored-blue"
                                         data-ng-init="DynamicControlCtrl.current[ConfigData.FieldOtherConfig.External.MainEntity].Meta[ConfigData.FieldOtherConfig.External.SubEntity][ConfigData.FieldOtherConfig.External.MidEntity][ConfigData.FieldOtherConfig.External.FieldName] = (DynamicControlCtrl.current[ConfigData.FieldOtherConfig.External.MainEntity].Meta[ConfigData.FieldOtherConfig.External.SubEntity][ConfigData.FieldOtherConfig.External.MidEntity][ConfigData.FieldOtherConfig.External.FieldName] == 'true' ? true : null)" />
                                     <span class="text" data-ng-bind="ConfigData.AttributesDetails.LabelText"></span>
                                 </label>
@@ -382,34 +562,50 @@
                 </div>
                 <!--LookUp-->
                 <div class="{{ConfigData.FieldOtherConfig[ConfigData.Type].CSS.WidthCSS}}" ng-show="ConfigData.Include"
-                    ng-switch-when="Lookup" data-ng-class="(DynamicControlCtrl.ePage.Masters.ViewType == 1) ? 'col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12' : 'col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6'">
+                    ng-switch-when="Lookup"
+                    data-ng-class="{'1': 'col-sm-12', '2': 'col-sm-6', '3': 'col-sm-4'}[DynamicControlCtrl.ePage.Masters.ViewType]"
+                    data-ng-if="!DynamicControlCtrl.ePage.Masters.BaseFilterFields['IsInVisible' + ConfigData.FieldName]">
                     <div class="form-group">
                         <label class="control-label" title="{{ConfigData.AttributesDetails.LabelText}}">
                             <div class="text-single-line" data-ng-bind="ConfigData.AttributesDetails.LabelText"></div>
                         </label>
                         <div class=" clearfix">
                             <div class="input-group input-group-sm">
-                                <div dynamic-lookup placeholder="{{ConfigData.AttributesDetails.LabelText}}" data-ng-if="ConfigData.Type=='S'"
-                                    my-ng-model="Entity.Data[ConfigData.PropertyName]" obj="Entity.Data" page-name="ConfigData.AttributesDetails.SourceObj"
-                                    control-id="ConfigData.AttributesDetails.ControlId" control-key="ConfigData.AttributesDetails.ControlKey"
-                                    is-disabled="Entity.CSS['Is' + ConfigData.PropertyName + 'Disable'] || DynamicControlCtrl.baseFilterFields['IsDisabled' + ConfigData.PropertyName]"></div>
-                                <div dynamic-lookup placeholder="{{ConfigData.AttributesDetails.LabelText}}" data-ng-if="ConfigData.Type=='D'"
-                                    my-ng-model="Entity.Data[ConfigData.FieldName]" obj="Entity.Data" page-name="ConfigData.AttributesDetails.SourceObj"
-                                    control-id="ConfigData.AttributesDetails.ControlId" control-key="ConfigData.AttributesDetails.ControlKey"></div>
+                                <div dynamic-lookup placeholder="{{ConfigData.AttributesDetails.LabelText}}"
+                                    data-ng-if="ConfigData.Type=='S'" my-ng-model="Entity.Data[ConfigData.PropertyName]"
+                                    obj="Entity.Data" page-name="ConfigData.AttributesDetails.SourceObj"
+                                    control-id="ConfigData.AttributesDetails.ControlId"
+                                    control-key="ConfigData.AttributesDetails.ControlKey"
+                                    is-disabled="Entity.CSS['Is' + ConfigData.PropertyName + 'Disable'] || DynamicControlCtrl.ePage.Masters.BaseFilterFields['IsDisabled' + ConfigData.FieldName]">
+                                </div>
+                                <div dynamic-lookup placeholder="{{ConfigData.AttributesDetails.LabelText}}"
+                                    data-ng-if="ConfigData.Type=='D' && DynamicControlCtrl.ePage.Masters.BaseFilterFields['IsInVisible' + ConfigData.PropertyName]"
+                                    my-ng-model="Entity.Data[ConfigData.FieldName]" obj="Entity.Data"
+                                    page-name="ConfigData.AttributesDetails.SourceObj"
+                                    control-id="ConfigData.AttributesDetails.ControlId"
+                                    control-key="ConfigData.AttributesDetails.ControlKey"
+                                    is-disabled="DynamicControlCtrl.ePage.Masters.BaseFilterFields['IsDisabled' + ConfigData.FieldName]">
+                                </div>
                                 <span class="input-group-btn">
-                                    <button dynamic-list-modal is-disabled="Entity.CSS['Is' + ConfigData.PropertyName + 'Disable'] || DynamicControlCtrl.baseFilterFields['IsDisabled' + ConfigData.PropertyName]"
-                                        obj="Entity.Data" page-name="ConfigData.AttributesDetails.SourceObj" control-id="ConfigData.AttributesDetails.ControlId"
+                                    <button dynamic-list-modal
+                                        is-disabled="Entity.CSS['Is' + ConfigData.PropertyName + 'Disable'] || DynamicControlCtrl.ePage.Masters.BaseFilterFields['IsDisabled' + ConfigData.FieldName]"
+                                        obj="Entity.Data" page-name="ConfigData.AttributesDetails.SourceObj"
+                                        control-id="ConfigData.AttributesDetails.ControlId"
                                         control-key="ConfigData.AttributesDetails.ControlKey" mode="2"
                                         grid-refresh-fun-name="" grid-refresh-fun="" data-ng-if="ConfigData.Type=='S'"
                                         selected-data="DynamicControlCtrl.ePage.Masters.SelectedData($item,Entity,ConfigData.AttributesDetails.ControlId)"
                                         class="btn btn-default shiny" type="button">
                                         <i class="fa fa-ellipsis-h"></i>
                                     </button>
-                                    <button dynamic-list-modal obj="Entity.Data" page-name="ConfigData.AttributesDetails.SourceObj"
-                                        control-id="ConfigData.AttributesDetails.ControlId" control-key="ConfigData.AttributesDetails.ControlKey"
-                                        mode="2" grid-refresh-fun-name="" grid-refresh-fun="" data-ng-if="ConfigData.Type=='D'"
+                                    <button dynamic-list-modal obj="Entity.Data"
+                                        page-name="ConfigData.AttributesDetails.SourceObj"
+                                        control-id="ConfigData.AttributesDetails.ControlId"
+                                        control-key="ConfigData.AttributesDetails.ControlKey" mode="2"
+                                        grid-refresh-fun-name="" grid-refresh-fun="" data-ng-if="ConfigData.Type=='D'"
                                         selected-data="DynamicControlCtrl.ePage.Masters.SelectedData($item,Entity,ConfigData.AttributesDetails.ControlId)"
-                                        class="btn btn-default shiny" type="button">
+                                        class="btn btn-default shiny" type="button"
+                                        is-disabled="DynamicControlCtrl.ePage.Masters.BaseFilterFields['IsDisabled' + ConfigData.FieldName]"
+                                        data-ng-disabled="DynamicControlCtrl.ePage.Masters.BaseFilterFields['IsDisabled' + ConfigData.FieldName]">
                                         <i class="fa fa-ellipsis-h"></i>
                                     </button>
                                 </span>
@@ -422,8 +618,17 @@
     </div>
 </div>
 
-<!-- Save button -->
-<div class="clearfix p-10" data-ng-if="DynamicControlCtrl.isSaveBtn && DynamicControlCtrl.mode == 'D'">
-    <button class="btn btn-primary btn-sm pull-right" data-ng-click="DynamicControlCtrl.ePage.Masters.Save()"
-        data-ng-disabled="DynamicControlCtrl.ePage.Masters.IsDisableSaveBtn" data-ng-bind="DynamicControlCtrl.ePage.Masters.SaveBtnText"></button>
+<!-- button -->
+<div class="clearfix" data-ng-if="DynamicControlCtrl.mode == 'D' && DynamicControlCtrl.input.OtherConfig.DetailsPage">
+    <div class="section-divider-small mb-10"></div>
+    <div class="clearfix">
+        <button class="btn btn-primary btn-sm pull-right ml-10" data-ng-click="DynamicControlCtrl.ePage.Masters.Save()"
+            data-ng-disabled="DynamicControlCtrl.ePage.Masters.IsDisableSaveBtn"
+            data-ng-bind="DynamicControlCtrl.ePage.Masters.SaveBtnText"
+            data-ng-if="DynamicControlCtrl.input.OtherConfig.DetailsPage.IsVisibleSaveButton"></button>
+        <button class="btn btn-default btn-sm pull-right ml-10"
+            data-ng-click="DynamicControlCtrl.ePage.Masters.Refresh()"
+            data-ng-if="DynamicControlCtrl.input.OtherConfig.DetailsPage.IsVisibleRefreshButton">Refresh</button>
+    </div>
+    <div class="section-divider-small mt-10"></div>
 </div>

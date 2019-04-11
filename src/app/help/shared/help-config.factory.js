@@ -97,6 +97,17 @@
                             "Url": "DMS/DeleteFile/"
                         }
                     }
+                },
+                "SecLogo": {
+                    "RowIndex": -1,
+                    "API": {
+                        "FindAll": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "SecLogo/FindAll",
+                            "FilterID": "SECLOGO"
+                        }
+                    }
                 }
             }
         };

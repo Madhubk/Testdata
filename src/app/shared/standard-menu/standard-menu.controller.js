@@ -9,10 +9,10 @@
 
     function StandardMenuController(helperService, authService, apiService, appConfig) {
         /* jshint validthis: true */
-        var StandardMenuCtrl = this;
+        let StandardMenuCtrl = this;
 
         function Init() {
-            var _entity = StandardMenuCtrl.input[StandardMenuCtrl.input.label].ePage.Entities;
+            let _entity = StandardMenuCtrl.input[StandardMenuCtrl.input.code].ePage.Entities;
             StandardMenuCtrl.ePage = {
                 "Title": "",
                 "Prefix": "StandardMenu",
@@ -27,95 +27,96 @@
         }
 
         function GetStandardMenuList() {
+            let _toolList = StandardMenuCtrl.dataentryObject.OtherConfig.ListingPageConfig.StandardToolbar.ToolList;
             StandardMenuCtrl.ePage.Masters.MenuList = [{
                 "Name": "comment",
+                "Code": "Comment",
                 "DisplayName": "Comment",
                 "Icon": "fa fa-comments",
-                // "Count": 0,
-                "IsShowCount": (StandardMenuCtrl.dataentryObject.OtherConfig.ListingPageConfig.StandardToolbar.ToolList.comment) ? true : false
+                "IsShowCount": _toolList.comment ? true : false
             }, {
                 "Name": "document",
+                "Code": "Document",
                 "DisplayName": "Document",
                 "Icon": "fa fa-file",
-                // "Count": 0,
-                "IsShowCount": (StandardMenuCtrl.dataentryObject.OtherConfig.ListingPageConfig.StandardToolbar.ToolList.document) ? true : false
+                "IsShowCount": _toolList.document ? true : false
             }, {
                 "Name": "email",
+                "Code": "Email",
                 "DisplayName": "Email",
                 "Icon": "fa fa-envelope",
-                // "Count": 0,
-                "IsShowCount": (StandardMenuCtrl.dataentryObject.OtherConfig.ListingPageConfig.StandardToolbar.ToolList.email) ? true : false
+                "IsShowCount": _toolList.email ? true : false
             }, {
                 "Name": "exception",
+                "Code": "Exception",
                 "DisplayName": "Exception",
                 "Icon": "fa fa-warning",
-                // "Count": 0,
-                "IsShowCount": (StandardMenuCtrl.dataentryObject.OtherConfig.ListingPageConfig.StandardToolbar.ToolList.exception) ? true : false
+                "IsShowCount": _toolList.exception ? true : false
             }, {
                 "Name": "event",
+                "Code": "Event",
                 "DisplayName": "Event",
                 "Icon": "fa fa-calendar",
-                // "Count": 0,
-                "IsShowCount": (StandardMenuCtrl.dataentryObject.OtherConfig.ListingPageConfig.StandardToolbar.ToolList.event) ? true : false
+                "IsShowCount": _toolList.event ? true : false
             }, {
                 "Name": "task",
+                "Code": "Task",
                 "DisplayName": "Task",
                 "Icon": "fa fa-user",
-                // "Count": 0,
-                "IsShowCount": (StandardMenuCtrl.dataentryObject.OtherConfig.ListingPageConfig.StandardToolbar.ToolList.task) ? true : false
+                "IsShowCount": _toolList.task ? true : false
             }, {
                 "Name": "audit-log",
+                "Code": "AuditLog",
                 "DisplayName": "Audit Log",
                 "Icon": "fa fa-user",
-                // "Count": 0,
                 "IsShowCount": false
             }, {
                 "Name": "keyword",
+                "Code": "Keywords",
                 "DisplayName": "Keywords",
                 "Icon": "fa fa-tag",
-                // "Count": 0,
                 "IsShowCount": false
             }, {
                 "Name": "parties",
+                "Code": "Parties",
                 "DisplayName": "Parties",
                 "Icon": "fa fa-gift",
-                // "Count": 0,
                 "IsShowCount": false
             }, {
                 "Name": "checklist",
+                "Code": "Checklist",
                 "DisplayName": "Checklist",
                 "Icon": "fa fa-gift",
-                // "Count": 0,
                 "IsShowCount": false
             }, {
                 "Name": "delay-reason",
+                "Code": "DelayReason",
                 "DisplayName": "Delay Reason",
                 "Icon": "fa fa-gift",
-                // "Count": 0,
                 "IsShowCount": false
             }, {
                 "Name": "email-template-creation",
+                "Code": "EmailTemplate",
                 "DisplayName": "Email Template",
                 "Icon": "fa fa-envelope",
-                // "Count": 0,
                 "IsShowCount": false
             }, {
                 "Name": "email-group",
+                "Code": "EmailGroup",
                 "DisplayName": "Email Group",
                 "Icon": "fa fa-envelope",
-                // "Count": 0,
                 "IsShowCount": false
             }, {
                 "Name": "event-data",
+                "Code": "DataEvent",
                 "DisplayName": "Data Event",
                 "Icon": "fa fa-calendar",
-                // "Count": 0,
                 "IsShowCount": false
             }, {
                 "Name": "task-flow-graph",
+                "Code": "TaskFlowGraph",
                 "DisplayName": "Task Flow Graph",
                 "Icon": "fa fa-user",
-                // "Count": 0,
                 "IsShowCount": false
             }];
 
@@ -126,9 +127,9 @@
         function ConfigureStandardMenuObject() {
             StandardMenuCtrl.ePage.Masters.StandardMenuInput = {
                 // Entity
-                "EntityRefKey": StandardMenuCtrl.ePage.Entities.Header.Data.PK,
+                "EntityRefKey": (StandardMenuCtrl.input.pk) ? StandardMenuCtrl.input.pk : StandardMenuCtrl.ePage.Entities.Header.Data.PK,
                 "EntityRefCode": StandardMenuCtrl.input.label,
-                "EntitySource": StandardMenuCtrl.dataentryObject.OtherConfig.ListingPageConfig.EntitySource,
+                "EntitySource": StandardMenuCtrl.dataentryObject.OtherConfig.FilterConfig.EntitySource,
                 // Parent Entity
                 "ParentEntityRefKey": undefined,
                 "ParentEntityRefCode": undefined,
@@ -138,7 +139,7 @@
                 "AdditionalEntityRefCode": undefined,
                 "AdditionalEntitySource": undefined,
                 "RowObj": StandardMenuCtrl.ePage.Entities.Header.Data,
-                "Entity": StandardMenuCtrl.dataentryObject.OtherConfig.ListingPageConfig.EntityName
+                "Entity": StandardMenuCtrl.dataentryObject.OtherConfig.FilterConfig.EntityName
             };
 
             if (StandardMenuCtrl.dataentryObject.OtherConfig.ListingPageConfig.EnableStandardToolbar) {
@@ -147,225 +148,226 @@
         }
 
         function OnCloseModal($item) {
-            var _fun = {
-                comment: GetCommentCount,
-                document: GetDocumentCount,
-                email: GetEmailCount,
-                exception: GetExceptionCount,
-                event: GetEventCount,
-                task: GetTaskCount
-            };
+            // let _fun = {
+            //     comment: GetCommentCount,
+            //     document: GetDocumentCount,
+            //     email: GetEmailCount,
+            //     exception: GetExceptionCount,
+            //     event: GetEventCount,
+            //     task: GetTaskCount
+            // };
 
-            _fun[$item]();
+            // _fun[$item]();
+            GetAllCount();
         }
 
         // #region Count
         function InitCount() {
-            var _fun = {
-                comment: GetCommentCount,
-                document: GetDocumentCount,
-                email: GetEmailCount,
-                exception: GetExceptionCount,
-                event: GetEventCount,
-                task: GetTaskCount
-            };
+            // let _fun = {
+            //     comment: GetCommentCount,
+            //     document: GetDocumentCount,
+            //     email: GetEmailCount,
+            //     exception: GetExceptionCount,
+            //     event: GetEventCount,
+            //     task: GetTaskCount
+            // };
 
-            StandardMenuCtrl.ePage.Masters.MenuList.map(function (value, key) {
-                if (value.IsShowCount) {
-                    _fun[value.Name]();
-                }
-            });
+            // StandardMenuCtrl.ePage.Masters.MenuList.map(value => {
+            //     if (value.IsShowCount) {
+            //         _fun[value.Name]();
+            //     }
+            // });
+
+            GetAllCount();
+        }
+
+        function GetAllCount() {
+            if (StandardMenuCtrl.ePage.Masters.MenuList && StandardMenuCtrl.ePage.Masters.MenuList.length > 0) {
+                StandardMenuCtrl.ePage.Masters.MenuList.map((value, index) => StandardMenuCtrl.ePage.Masters.MenuList[index].Count = null);
+
+                let _filter = {
+                    "EntityRefKey": (StandardMenuCtrl.input.pk) ? StandardMenuCtrl.input.pk : StandardMenuCtrl.ePage.Entities.Header.Data.PK,
+                    "EntityRefCode": StandardMenuCtrl.input.label,
+                    "EntitySource": StandardMenuCtrl.dataentryObject.OtherConfig.FilterConfig.EntitySource,
+                    "Status": "Success",
+                    "AppSettings": StandardMenuCtrl.dataentryObject.OtherConfig.FilterConfig.EntityName,
+                    "AppSettingsDocument": StandardMenuCtrl.dataentryObject.OtherConfig.FilterConfig.EntityName + "_Document"
+                };
+                let _input = {
+                    "searchInput": helperService.createToArrayOfObject(_filter),
+                    "FilterID": appConfig.Entities.JobDocument.API.FindAllWithAccessCount.FilterID
+                };
+
+                apiService.post("eAxisAPI", appConfig.Entities.StandardComponent.API.GetCount.Url + authService.getUserInfo().AppPK, _input).then(response => {
+                    if (response.data.Response) {
+                        StandardMenuCtrl.ePage.Masters.MenuList.map((value, index) => {
+                            for (let x in response.data.Response) {
+                                if (value.Code == x) {
+                                    value.Count = response.data.Response[x];
+                                }
+                            }
+                        });
+                    }
+                });
+            }
         }
 
         function GetCommentCount() {
-            var _index = StandardMenuCtrl.ePage.Masters.MenuList.map(function (value, key) {
-                return value.Name;
-            }).indexOf("comment");
+            let _index = StandardMenuCtrl.ePage.Masters.MenuList.findIndex(value => value.Name == "comment");
 
             if (_index != -1) {
                 StandardMenuCtrl.ePage.Masters.MenuList[_index].Count = undefined;
-            }
 
-            var _filter = {
-                "EntityRefKey": StandardMenuCtrl.ePage.Entities.Header.Data.PK,
-                "EntityRefCode": StandardMenuCtrl.input.label,
-                "EntitySource": StandardMenuCtrl.dataentryObject.OtherConfig.ListingPageConfig.EntitySource
-            };
-            var _input = {
-                "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.JobComments.API.FindAllWithAccessCount.FilterID
-            };
+                let _filter = {
+                    "EntityRefKey": StandardMenuCtrl.ePage.Entities.Header.Data.PK,
+                    "EntityRefCode": StandardMenuCtrl.input.label,
+                    "EntitySource": StandardMenuCtrl.dataentryObject.OtherConfig.FilterConfig.EntitySource,
+                    "AppSettings": StandardMenuCtrl.dataentryObject.OtherConfig.FilterConfig.EntityName
+                };
+                let _input = {
+                    "searchInput": helperService.createToArrayOfObject(_filter),
+                    "FilterID": appConfig.Entities.JobComments.API.FindAllWithAccessCount.FilterID
+                };
 
-            apiService.post("eAxisAPI", appConfig.Entities.JobComments.API.FindAllWithAccessCount.Url + authService.getUserInfo().AppPK, _input).then(function (response) {
-                if (response.data.Response != undefined && response.data.Response != null) {
-                    // var _index = StandardMenuCtrl.ePage.Masters.MenuList.map(function (value, key) {
-                    //     return value.Name;
-                    // }).indexOf("comment");
-
-                    if (_index != -1) {
-                        StandardMenuCtrl.ePage.Masters.MenuList[_index].Count = response.data.Response;
+                apiService.post("eAxisAPI", appConfig.Entities.JobComments.API.FindAllWithAccessCount.Url + authService.getUserInfo().AppPK, _input).then(response => {
+                    if (response.data.Response != null && response.data.Response != undefined) {
+                        if (_index != -1) {
+                            StandardMenuCtrl.ePage.Masters.MenuList[_index].Count = response.data.Response;
+                        }
                     }
-                }
-            });
+                });
+            }
         }
 
         function GetDocumentCount() {
-            var _index = StandardMenuCtrl.ePage.Masters.MenuList.map(function (value, key) {
-                return value.Name;
-            }).indexOf("document");
+            let _index = StandardMenuCtrl.ePage.Masters.MenuList.findIndex(value => value.Name == "document");
 
             if (_index != -1) {
                 StandardMenuCtrl.ePage.Masters.MenuList[_index].Count = undefined;
-            }
 
-            var _filter = {
-                "EntityRefKey": StandardMenuCtrl.ePage.Entities.Header.Data.PK,
-                "EntityRefCode": StandardMenuCtrl.input.label,
-                "EntitySource": StandardMenuCtrl.dataentryObject.OtherConfig.ListingPageConfig.EntitySource,
-                "Status": "Success"
-            };
-            var _input = {
-                "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.JobDocument.API.FindAllWithAccessCount.FilterID
-            };
+                let _filter = {
+                    "EntityRefKey": StandardMenuCtrl.ePage.Entities.Header.Data.PK,
+                    "EntityRefCode": StandardMenuCtrl.input.label,
+                    "EntitySource": StandardMenuCtrl.dataentryObject.OtherConfig.FilterConfig.EntitySource,
+                    "Status": "Success",
+                    "AppSettings": StandardMenuCtrl.dataentryObject.OtherConfig.FilterConfig.EntityName,
+                    "AppSettingsDocument": StandardMenuCtrl.dataentryObject.OtherConfig.FilterConfig.EntityName + "_Document"
+                };
+                let _input = {
+                    "searchInput": helperService.createToArrayOfObject(_filter),
+                    "FilterID": appConfig.Entities.JobDocument.API.FindAllWithAccessCount.FilterID
+                };
 
-            apiService.post("eAxisAPI", appConfig.Entities.JobDocument.API.FindAllWithAccessCount.Url + authService.getUserInfo().AppPK, _input).then(function (response) {
-                if (response.data.Response != undefined && response.data.Response != null) {
-                    // var _index = StandardMenuCtrl.ePage.Masters.MenuList.map(function (value, key) {
-                    //     return value.Name;
-                    // }).indexOf("document");
-
-                    if (_index != -1) {
-                        StandardMenuCtrl.ePage.Masters.MenuList[_index].Count = response.data.Response;
+                apiService.post("eAxisAPI", appConfig.Entities.JobDocument.API.FindAllWithAccessCount.Url + authService.getUserInfo().AppPK, _input).then(response => {
+                    if (response.data.Response != null && response.data.Response != undefined) {
+                        if (_index != -1) {
+                            StandardMenuCtrl.ePage.Masters.MenuList[_index].Count = response.data.Response;
+                        }
                     }
-                }
-            });
+                });
+            }
         }
 
         function GetEmailCount() {
-            var _index = StandardMenuCtrl.ePage.Masters.MenuList.map(function (value, key) {
-                return value.Name;
-            }).indexOf("email");
+            let _index = StandardMenuCtrl.ePage.Masters.MenuList.findIndex(value => value.Name === "email");
             if (_index != -1) {
                 StandardMenuCtrl.ePage.Masters.MenuList[_index].Count = undefined;
-            }
 
-            var _filter = {
-                "EntityRefKey": StandardMenuCtrl.ePage.Entities.Header.Data.PK,
-                "EntityRefCode": StandardMenuCtrl.input.label,
-                "EntitySource": StandardMenuCtrl.dataentryObject.OtherConfig.ListingPageConfig.EntitySource
-            };
-            var _input = {
-                "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.JobEmail.API.FindAllWithAccessCount.FilterID
-            };
+                let _filter = {
+                    "EntityRefKey": StandardMenuCtrl.ePage.Entities.Header.Data.PK,
+                    "EntityRefCode": StandardMenuCtrl.input.label,
+                    "EntitySource": StandardMenuCtrl.dataentryObject.OtherConfig.FilterConfig.EntitySource,
+                    "AppSettings": StandardMenuCtrl.dataentryObject.OtherConfig.FilterConfig.EntityName
+                };
+                let _input = {
+                    "searchInput": helperService.createToArrayOfObject(_filter),
+                    "FilterID": appConfig.Entities.JobEmail.API.FindAllWithAccessCount.FilterID
+                };
 
-            apiService.post("eAxisAPI", appConfig.Entities.JobEmail.API.FindAllWithAccessCount.Url + authService.getUserInfo().AppPK, _input).then(function (response) {
-                if (response.data.Response != undefined && response.data.Response != null) {
-                    // var _index = StandardMenuCtrl.ePage.Masters.MenuList.map(function (value, key) {
-                    //     return value.Name;
-                    // }).indexOf("email");
-
-                    if (_index != -1) {
-                        StandardMenuCtrl.ePage.Masters.MenuList[_index].Count = response.data.Response;
+                apiService.post("eAxisAPI", appConfig.Entities.JobEmail.API.FindAllWithAccessCount.Url + authService.getUserInfo().AppPK, _input).then(response => {
+                    if (response.data.Response != null && response.data.Response != undefined) {
+                        if (_index != -1) {
+                            StandardMenuCtrl.ePage.Masters.MenuList[_index].Count = response.data.Response;
+                        }
                     }
-                }
-            });
+                });
+            }
         }
 
         function GetExceptionCount() {
-            var _index = StandardMenuCtrl.ePage.Masters.MenuList.map(function (value, key) {
-                return value.Name;
-            }).indexOf("exception");
+            let _index = StandardMenuCtrl.ePage.Masters.MenuList.findIndex(value => value.Name == "exception");
 
             if (_index != -1) {
                 StandardMenuCtrl.ePage.Masters.MenuList[_index].Count = undefined;
-            }
 
-            var _filter = {
-                "EntityRefKey": StandardMenuCtrl.ePage.Entities.Header.Data.PK,
-                "EntityRefCode": StandardMenuCtrl.input.label,
-                "EntitySource": StandardMenuCtrl.dataentryObject.OtherConfig.ListingPageConfig.EntitySource
-            };
-            var _input = {
-                "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.JobException.API.FindAllWithAccessCount.FilterID
-            };
+                let _filter = {
+                    "EntityRefKey": StandardMenuCtrl.ePage.Entities.Header.Data.PK,
+                    "EntityRefCode": StandardMenuCtrl.input.label,
+                    "EntitySource": StandardMenuCtrl.dataentryObject.OtherConfig.FilterConfig.EntitySource,
+                    "AppSettings": StandardMenuCtrl.dataentryObject.OtherConfig.FilterConfig.EntityName
+                };
+                let _input = {
+                    "searchInput": helperService.createToArrayOfObject(_filter),
+                    "FilterID": appConfig.Entities.JobException.API.FindAllWithAccessCount.FilterID
+                };
 
-            apiService.post("eAxisAPI", appConfig.Entities.JobException.API.FindAllWithAccessCount.Url + authService.getUserInfo().AppPK, _input).then(function (response) {
-                if (response.data.Response != undefined && response.data.Response != null) {
-                    // var _index = StandardMenuCtrl.ePage.Masters.MenuList.map(function (value, key) {
-                    //     return value.Name;
-                    // }).indexOf("exception");
-
-                    if (_index != -1) {
-                        StandardMenuCtrl.ePage.Masters.MenuList[_index].Count = response.data.Response;
+                apiService.post("eAxisAPI", appConfig.Entities.JobException.API.FindAllWithAccessCount.Url + authService.getUserInfo().AppPK, _input).then(response => {
+                    if (response.data.Response != null && response.data.Response != undefined) {
+                        if (_index != -1) {
+                            StandardMenuCtrl.ePage.Masters.MenuList[_index].Count = response.data.Response;
+                        }
                     }
-                }
-            });
+                });
+            }
         }
 
         function GetEventCount() {
-            var _index = StandardMenuCtrl.ePage.Masters.MenuList.map(function (value, key) {
-                return value.Name;
-            }).indexOf("event");
+            let _index = StandardMenuCtrl.ePage.Masters.MenuList.findIndex(value => value.Name == "event");
 
             if (_index != -1) {
                 StandardMenuCtrl.ePage.Masters.MenuList[_index].Count = undefined;
-            }
 
-            var _filter = {
-                "EntityRefKey": StandardMenuCtrl.ePage.Entities.Header.Data.PK,
-                "EntityRefCode": StandardMenuCtrl.input.label,
-                "EntitySource": StandardMenuCtrl.dataentryObject.OtherConfig.ListingPageConfig.EntitySource
-            };
-            var _input = {
-                "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.DataEvent.API.FindAllWithAccessCount.FilterID
-            };
+                let _filter = {
+                    "EntityRefKey": StandardMenuCtrl.ePage.Entities.Header.Data.PK,
+                    "EntityRefCode": StandardMenuCtrl.input.label,
+                    "EntitySource": StandardMenuCtrl.dataentryObject.OtherConfig.FilterConfig.EntitySource,
+                    "AppSettings": StandardMenuCtrl.dataentryObject.OtherConfig.FilterConfig.EntityName
+                };
+                let _input = {
+                    "searchInput": helperService.createToArrayOfObject(_filter),
+                    "FilterID": appConfig.Entities.DataEvent.API.FindAllWithAccessCount.FilterID
+                };
 
-            apiService.post("eAxisAPI", appConfig.Entities.DataEvent.API.FindAllWithAccessCount.Url + authService.getUserInfo().AppPK, _input).then(function (response) {
-                if (response.data.Response != undefined && response.data.Response != null) {
-                    var _index = StandardMenuCtrl.ePage.Masters.MenuList.map(function (value, key) {
-                        return value.Name;
-                    }).indexOf("event");
-
-                    if (_index != -1) {
+                apiService.post("eAxisAPI", appConfig.Entities.DataEvent.API.FindAllWithAccessCount.Url + authService.getUserInfo().AppPK, _input).then(response => {
+                    if (response.data.Response != null && response.data.Response != undefined) {
                         StandardMenuCtrl.ePage.Masters.MenuList[_index].Count = response.data.Response;
                     }
-                }
-            });
+                });
+            }
         }
 
         function GetTaskCount() {
-            var _index = StandardMenuCtrl.ePage.Masters.MenuList.map(function (value, key) {
-                return value.Name;
-            }).indexOf("task");
+            let _index = StandardMenuCtrl.ePage.Masters.MenuList.findIndex(value => value.Name == "task");
             if (_index != -1) {
                 StandardMenuCtrl.ePage.Masters.MenuList[_index].Count = undefined;
-            }
 
-            var _filter = {
-                "EntityRefKey": StandardMenuCtrl.ePage.Entities.Header.Data.PK,
-                "EntityRefCode": StandardMenuCtrl.input.label,
-                "EntitySource": StandardMenuCtrl.dataentryObject.OtherConfig.ListingPageConfig.EntitySource
-            };
-            var _input = {
-                "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.EBPMWorkItem.API.FindAllWithAccessCount.FilterID
-            };
+                let _filter = {
+                    "EntityRefKey": StandardMenuCtrl.ePage.Entities.Header.Data.PK,
+                    "EntityRefCode": StandardMenuCtrl.input.label,
+                    "EntitySource": StandardMenuCtrl.dataentryObject.OtherConfig.FilterConfig.EntitySource,
+                    "AppSettings": StandardMenuCtrl.dataentryObject.OtherConfig.FilterConfig.EntityName
+                };
+                let _input = {
+                    "searchInput": helperService.createToArrayOfObject(_filter),
+                    "FilterID": appConfig.Entities.EBPMWorkItem.API.FindAllWithAccessCount.FilterID
+                };
 
-            apiService.post("eAxisAPI", appConfig.Entities.EBPMWorkItem.API.FindAllWithAccessCount.Url + authService.getUserInfo().AppPK, _input).then(function (response) {
-                if (response.data.Response != undefined && response.data.Response != null) {
-                    var _index = StandardMenuCtrl.ePage.Masters.MenuList.map(function (value, key) {
-                        return value.Name;
-                    }).indexOf("task");
-
-                    if (_index != -1) {
+                apiService.post("eAxisAPI", appConfig.Entities.EBPMWorkItem.API.FindAllWithAccessCount.Url + authService.getUserInfo().AppPK, _input).then(response => {
+                    if (response.data.Response != null && response.data.Response != undefined) {
                         StandardMenuCtrl.ePage.Masters.MenuList[_index].Count = response.data.Response;
                     }
-                }
-            });
+                });
+            }
         }
         // #endregion
 

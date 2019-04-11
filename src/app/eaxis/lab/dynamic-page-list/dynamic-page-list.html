@@ -1,21 +1,31 @@
 <div class="clearfix pb-100">
-    <div data-ng-if="!EAxisDynamicPageListCtrl.ePage.Masters.DynamicPageList" class="text-center p-20">
-        <i class="fa fa-spin fa-spinner font-160"></i>
+    <div class="clearfix pt-5 pb-5 border-bottom">
+        <div class="col-sm-9"></div>
+        <div class="col-sm-3">
+            <input type="text" class="form-control input-sm" placeholder="Search"
+                data-ng-model="EAxisDynamicPageListCtrl.ePage.Masters.Search">
+        </div>
     </div>
-    <div data-ng-if="EAxisDynamicPageListCtrl.ePage.Masters.DynamicPageList && EAxisDynamicPageListCtrl.ePage.Masters.DynamicPageList.length == 0"
-        class="text-center p-20">
-        <i class="font-160">No Records...!</i>
-    </div>
-    <!-- <button class="btn {{obj.OtherConfig.CSS['bg-color']}} m-5" data-ng-if="EAxisDynamicPageListCtrl.ePage.Masters.DynamicPageList && EAxisDynamicPageListCtrl.ePage.Masters.DynamicPageList.length > 0"
+    <div class="clearfix">
+        <div data-ng-if="!EAxisDynamicPageListCtrl.ePage.Masters.DynamicPageList" class="text-center p-20">
+            <i class="fa fa-spin fa-spinner font-160"></i>
+        </div>
+        <div data-ng-if="EAxisDynamicPageListCtrl.ePage.Masters.DynamicPageList && (EAxisDynamicPageListCtrl.ePage.Masters.DynamicPageList | filter: EAxisDynamicPageListCtrl.ePage.Masters.Search).length == 0"
+            class="text-center p-20">
+            <i class="font-160">No Records...!</i>
+        </div>
+        <!-- <button class="btn {{obj.OtherConfig.CSS['bg-color']}} m-5" data-ng-if="EAxisDynamicPageListCtrl.ePage.Masters.DynamicPageList && EAxisDynamicPageListCtrl.ePage.Masters.DynamicPageList.length > 0"
         data-ng-repeat="obj in EAxisDynamicPageListCtrl.ePage.Masters.DynamicPageList" ng-style="{color:obj.OtherConfig.CSS['fg-color']}"
         title="{{obj.Title}}" data-ng-click="EAxisDynamicPageListCtrl.ePage.Masters.RedirectPage(obj)">
         <i class="{{obj.OtherConfig.CSS.icon}} mr-5"></i>
         <span data-ng-bind="obj.Title"></span>
     </button> -->
-    <button class="btn btn-default m-5" data-ng-if="EAxisDynamicPageListCtrl.ePage.Masters.DynamicPageList && EAxisDynamicPageListCtrl.ePage.Masters.DynamicPageList.length > 0"
-        data-ng-repeat="x in EAxisDynamicPageListCtrl.ePage.Masters.DynamicPageList" title="{{x.DataEntryName}}"
-        data-ng-click="EAxisDynamicPageListCtrl.ePage.Masters.RedirectPage(x)">
-        <i class="{{x.OtherConfig.CSS.icon}} mr-5"></i>
-        <span data-ng-bind="x.DataEntryName"></span>
-    </button>
+        <button class="btn btn-default m-5"
+            data-ng-if="EAxisDynamicPageListCtrl.ePage.Masters.DynamicPageList && EAxisDynamicPageListCtrl.ePage.Masters.DynamicPageList.length > 0"
+            data-ng-repeat="x in EAxisDynamicPageListCtrl.ePage.Masters.DynamicPageList | orderBy: 'DataEntryName' | filter: EAxisDynamicPageListCtrl.ePage.Masters.Search"
+            title="{{x.DataEntryName}}" data-ng-click="EAxisDynamicPageListCtrl.ePage.Masters.RedirectPage(x)">
+            <i class="{{x.OtherConfig.CSS.icon}} mr-5"></i>
+            <span data-ng-bind="x.DataEntryName"></span>
+        </button>
+    </div>
 </div>

@@ -167,7 +167,7 @@
             // $(_listElement).toggle();
             scope.toggle();
 
-            ($item.IsToggle) ? $item.IsToggle = false: $item.IsToggle = true;
+            $item.IsToggle = !$item.IsToggle;
 
             if ($item.ItHasChild && (!$item.SubTopicList || $item.SubTopicList.length == 0)) {
                 GetSubTopicList($item);

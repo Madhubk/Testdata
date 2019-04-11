@@ -512,6 +512,12 @@
                         Icon: "fa fa-share-alt",
                         Link: "/TC/data-extraction/entity-score",
                         Color: "#05b085"
+                    }, {
+                        Code: "Schedule",
+                        Description: "Schedule",
+                        Icon: "fa fa-calendar",
+                        Link: "/TC/schedule",
+                        Color: "#bd081c"
                     }]
                 }, {
                     Title: "WORK FLOW",
@@ -555,6 +561,30 @@
                             BreadcrumbTitle: "Delay Reason",
                             Input: {
                                 MappingCode: "DELAY_REASON"
+                            }
+                        }
+                    }, {
+                        Code: "SnoozeReason",
+                        Description: "Snooze Reason",
+                        Icon: "fa fa-cog",
+                        Link: "TC/ebpm-types",
+                        Color: "#87ceeb",
+                        AdditionalData: {
+                            BreadcrumbTitle: "Snooze Reason",
+                            Input: {
+                                MappingCode: "SNOOZE_REASON"
+                            }
+                        }
+                    }, {
+                        Code: "HoldReason",
+                        Description: "Hold Reason",
+                        Icon: "fa fa-cog",
+                        Link: "TC/ebpm-types",
+                        Color: "#87ceeb",
+                        AdditionalData: {
+                            BreadcrumbTitle: "Hold Reason",
+                            Input: {
+                                MappingCode: "HOLD_REASON"
                             }
                         }
                     }, {

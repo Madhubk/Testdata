@@ -104,9 +104,10 @@
         function InitSession() {
             SessionCtrl.ePage.Masters.Session = {};
             SessionCtrl.ePage.Masters.Session.Refresh = Refresh;
+            SessionCtrl.ePage.Masters.Session.ViewLoginHistory = ViewLoginHistory;
         }
 
-        function Refresh(){
+        function Refresh() {
             GetSessionList();
         }
 
@@ -129,6 +130,21 @@
                     SessionCtrl.ePage.Masters.Session.SessionList = [];
                 }
             });
+        }
+
+        function ViewLoginHistory($item) {
+            let _obj = {
+                AppCode: SessionCtrl.ePage.Masters.Application.ActiveApplication.AppCode,
+                AppName: SessionCtrl.ePage.Masters.Application.ActiveApplication.AppName,
+                AppPk: SessionCtrl.ePage.Masters.Application.ActiveApplication.PK,
+                BreadcrumbTitle: $item.UserName,
+                UserId: $item.UserName,
+                UserPK: $item.US_FK,
+                SessionDate: $item.DateTime,
+                SessionPK: $item.PK
+            };
+
+            $location.path("/TC/login-history/" + helperService.encryptData(_obj));
         }
 
         Init();

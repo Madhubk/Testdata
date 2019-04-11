@@ -93,11 +93,15 @@
             TCUserCtrl.ePage.Masters.User.OnUserClick = OnUserClick;
             TCUserCtrl.ePage.Masters.User.AddNew = AddNew;
             TCUserCtrl.ePage.Masters.User.SearchUser = SearchUser;
+            TCUserCtrl.ePage.Masters.User.OnApplicationChange = OnApplicationChange;
+            TCUserCtrl.ePage.Masters.User.OnRoleChange = OnRoleChange;
 
             TCUserCtrl.ePage.Masters.User.SaveBtnText = "OK";
             TCUserCtrl.ePage.Masters.User.IsDisableSaveBtn = false;
 
             $scope.OnLogoChange = OnLogoChange;
+
+            GetApplicationList();
         }
 
         function GetUserList() {
@@ -131,8 +135,73 @@
             });
         }
 
+        function GetApplicationList() {
+            TCUserCtrl.ePage.Masters.User.ApplicationList = undefined;
+            var _filter = {
+                "PageSize": 100,
+                "PageNumber": 1,
+                "SortColumn": "SAP_AppCode",
+                "SortType": "ASC"
+            };
+            var _input = {
+                "searchInput": helperService.createToArrayOfObject(_filter),
+                "FilterID": trustCenterConfig.Entities.API.SecApp.API.FindAll.FilterID
+            };
+
+            apiService.post("authAPI", trustCenterConfig.Entities.API.SecApp.API.FindAll.Url, _input).then(function SuccessCallback(response) {
+                if (response.data.Response && response.data.Response.length > 0) {
+                    TCUserCtrl.ePage.Masters.User.ApplicationList = response.data.Response;
+                } else {
+                    TCUserCtrl.ePage.Masters.User.ApplicationList = [];
+                }
+            });
+        }
+
+        function OnApplicationChange($item) {
+            if ($item) {
+                TCUserCtrl.ePage.Masters.User.ActiveUser.AppCode = $item.AppCode;
+                TCUserCtrl.ePage.Masters.User.ActiveUser.SAP_FK = $item.PK;
+            } else {
+                TCUserCtrl.ePage.Masters.User.ActiveUser.AppCode = null;
+                TCUserCtrl.ePage.Masters.User.ActiveUser.SAP_FK = null;
+            }
+            GetRoleList();
+        }
+
+        function GetRoleList() {
+            TCUserCtrl.ePage.Masters.User.RoleList = undefined;
+            var _filter = {
+                "SAP_Code": TCUserCtrl.ePage.Masters.User.ActiveUser.AppCode
+            };
+            var _input = {
+                "searchInput": helperService.createToArrayOfObject(_filter),
+                "FilterID": trustCenterConfig.Entities.API.SecRole.API.GetUserRoles.FilterID
+            };
+
+            apiService.post("authAPI", trustCenterConfig.Entities.API.SecRole.API.GetUserRoles.Url, _input).then(function SuccessCallback(response) {
+                if (response.data.Response) {
+                    TCUserCtrl.ePage.Masters.User.RoleList = response.data.Response;
+                } else {
+                    TCUserCtrl.ePage.Masters.User.RoleList = [];
+                }
+            });
+        }
+
+        function OnRoleChange($item) {
+            TCUserCtrl.ePage.Masters.User.ActiveUser.RoleList;
+        }
+
         function AddNew() {
             TCUserCtrl.ePage.Masters.User.ActiveUser = {};
+
+            if (TCUserCtrl.ePage.Masters.ActiveApplication == "EA") {
+                let _index = TCUserCtrl.ePage.Masters.User.ApplicationList.findIndex(x => x.AppCode == TCUserCtrl.ePage.Masters.ActiveApplication);
+
+                if (_index !== -1) {
+                    OnApplicationChange(TCUserCtrl.ePage.Masters.User.ApplicationList[_index]);
+                }
+            }
+
             Edit();
         }
 
@@ -198,7 +267,9 @@
                 TCUserCtrl.ePage.Masters.User.IsDisableSaveBtn = true;
 
                 var _input = TCUserCtrl.ePage.Masters.User.ActiveUser;
+                _input.RoleList =  _input.RoleList.join(",");
                 _input.TenantCode = authService.getUserInfo().TenantCode;
+                _input.Tenant_FK = authService.getUserInfo().TenantPK;
                 _input.IsModified = true;
 
                 apiService.post("authAPI", trustCenterConfig.Entities.API.UserExtended.API[_apiAction].Url, _input).then(function SuccessCallback(response) {

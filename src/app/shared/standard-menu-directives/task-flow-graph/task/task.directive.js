@@ -56,7 +56,9 @@
         }
 
         function GetProcessList() {
-            apiService.get("eAxisAPI", appConfig.Entities.EBPMWorkFlow.API.GetByInstanceNo.Url + 2133).then(response => {
+            // let _instanceNo = 2133;
+            let _instanceNo = TaskCtrl.input.EntityRefCode;
+            apiService.get("eAxisAPI", appConfig.Entities.EBPMWorkFlow.API.GetByInstanceNo.Url + _instanceNo).then(response => {
                 if (response.data.Response) {
                     TaskCtrl.ePage.Masters.Task.Process.ListSource = response.data.Response.GraphData.Step;
                 } else {

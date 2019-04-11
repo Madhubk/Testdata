@@ -5,9 +5,9 @@
         .module("Application")
         .controller("QueueLogMenuController", QueueLogMenuController);
 
-    QueueLogMenuController.$inject = ["helperService", "authService", "queueLogConfig", "appConfig", "apiService", "$uibModal", "$scope", "$location"];
+    QueueLogMenuController.$inject = ["helperService", "authService", "$location"];
 
-    function QueueLogMenuController(helperService, authService, queueLogConfig, appConfig, apiService, $uibModal, $scope, $location) {
+    function QueueLogMenuController(helperService, authService, $location) {
         var QueueLogMenuCtrl = this;
 
         function Init() {
@@ -26,11 +26,11 @@
             QueueLogMenuCtrl.ePage.Masters.dataentryName = "QueueAcknowledgement";
             QueueLogMenuCtrl.ePage.Masters.DefaultFilter = {
                 "QUL_FK": QueueLogMenuCtrl.ePage.Entities.Header.Data.PK,
-                "Status":QueueLogMenuCtrl.ePage.Entities.Header.Data.Status,
+                "Status": QueueLogMenuCtrl.ePage.Entities.Header.Data.Status,
                 "Tenantcode": authService.getUserInfo().TenantCode,
                 "SAP_FK": authService.getUserInfo().AppPK
             }
-           QueueLogMenuCtrl.ePage.Masters.SelectedGridRow = SelectedGridRow;
+            QueueLogMenuCtrl.ePage.Masters.SelectedGridRow = SelectedGridRow;
         }
 
         function SelectedGridRow($item) {
@@ -46,7 +46,7 @@
             var _queryString = $item.data.entity;
             if ($item.action === "link" || $item.action === "dblClick") {
                 $location.path("EA/lab/queue-log-single-record-view/" + helperService.encryptData(_queryString));
-             }
+            }
         }
         Init();
     }

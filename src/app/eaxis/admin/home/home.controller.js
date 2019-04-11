@@ -5,9 +5,9 @@
         .module("Application")
         .controller("EAAdminHomeController", EAAdminHomeController);
 
-    EAAdminHomeController.$inject = ["$location", "authService", "apiService", "helperService", "appConfig"];
+    EAAdminHomeController.$inject = ["$location", "authService", "apiService", "helperService", "adminConfig"];
 
-    function EAAdminHomeController($location, authService, apiService, helperService, appConfig) {
+    function EAAdminHomeController($location, authService, apiService, helperService, adminConfig) {
         /* jshint validthis: true */
         var EAAdminHomeCtrl = this;
 
@@ -35,10 +35,10 @@
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.CfxMenus.API.MasterCascadeFindAll.FilterID
+                "FilterID": adminConfig.Entities.CfxMenus.API.MasterCascadeFindAll.FilterID
             };
 
-            apiService.post("eAxisAPI", appConfig.Entities.CfxMenus.API.MasterCascadeFindAll.Url, _input).then(function ApiCallback(response) {
+            apiService.post("eAxisAPI", adminConfig.Entities.CfxMenus.API.MasterCascadeFindAll.Url, _input).then(function ApiCallback(response) {
                 if (response.data.Response) {
                     EAAdminHomeCtrl.ePage.Masters.MenuList = response.data.Response;
 

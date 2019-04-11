@@ -5,13 +5,15 @@
         <div class="breadcrumb-list-wrapper">
             <ol class="breadcrumb">
                 <li data-ng-repeat="x in ShareFieldCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="!x.IsActive">
-                    <a href="javascript:void(0);" data-ng-bind="x.Description" data-ng-click="ShareFieldCtrl.ePage.Masters.Breadcrumb.OnBreadcrumbClick(x)"></a>
+                    <a href="javascript:void(0);" data-ng-bind="x.Description"
+                        data-ng-click="ShareFieldCtrl.ePage.Masters.Breadcrumb.OnBreadcrumbClick(x)"></a>
                 </li>
-                <li data-ng-repeat="x in ShareFieldCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="x.IsActive" data-ng-bind="x.Description"
-                    class="active"></li>
+                <li data-ng-repeat="x in ShareFieldCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="x.IsActive"
+                    data-ng-bind="x.Description" class="active"></li>
             </ol>
         </div>
-        <span class="tc-breadcrumb-app-name" data-ng-if="ShareFieldCtrl.ePage.Masters.QueryString.AppName" data-ng-bind="ShareFieldCtrl.ePage.Masters.QueryString.AppName"></span>
+        <span class="tc-breadcrumb-app-name" data-ng-if="ShareFieldCtrl.ePage.Masters.QueryString.AppName"
+            data-ng-bind="ShareFieldCtrl.ePage.Masters.QueryString.AppName"></span>
     </div>
     <!-- Header -->
     <div class="clearfix tc-header-container">
@@ -21,19 +23,25 @@
                     <div class="text-single-line" data-ng-bind="'Share Table'"></div>
                 </div>
                 <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-5 pt-4 text-right">
-                    <button class="btn btn-xs btn-info" data-ng-click="ShareFieldCtrl.ePage.Masters.ShareField.AddNew()">New</button>
+                    <button class="btn btn-xs btn-info"
+                        data-ng-click="ShareFieldCtrl.ePage.Masters.ShareField.AddNew()">New</button>
                 </div>
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 p-0">
             <div class="tc-header edit-view">
                 <span data-ng-bind="'Details'"></span>
-                <button class="btn btn-default tc-btn-edit btn-xs pull-right ml-10" data-ng-click="ShareFieldCtrl.ePage.Masters.ShareField.Edit()"
+                <button class="btn btn-default tc-btn-edit btn-xs pull-right ml-10"
+                    data-ng-click="ShareFieldCtrl.ePage.Masters.ShareField.Edit()"
                     data-ng-disabled="!ShareFieldCtrl.ePage.Masters.ShareField.ActiveShareField.Field_PK">Edit</button>
-                <button class="btn btn-default tc-btn-delete btn-xs pull-right ml-10" data-ng-click="ShareFieldCtrl.ePage.Masters.ShareField.DeleteConfirmation()"
-                    data-ng-bind="ShareFieldCtrl.ePage.Masters.ShareField.DeleteBtnText" data-ng-disabled="ShareFieldCtrl.ePage.Masters.ShareField.IsDisableDeleteBtn || !ShareFieldCtrl.ePage.Masters.ShareField.ActiveShareField.Field_PK"></button>
-                    <button class="btn btn-primary btn-xs pull-right ml-10" generate-db-script input="ShareFieldCtrl.ePage.Masters.GenerateScriptInput"
-                    config="ShareFieldCtrl.ePage.Masters.GenerateScriptConfig" data-ng-disabled="!ShareFieldCtrl.ePage.Masters.GenerateScriptInput.ObjectName || !ShareFieldCtrl.ePage.Masters.GenerateScriptInput.ObjectId || !ShareFieldCtrl.ePage.Masters.ShareField.ActiveShareField.Field_PK">Generate
+                <button class="btn btn-default tc-btn-delete btn-xs pull-right ml-10"
+                    data-ng-click="ShareFieldCtrl.ePage.Masters.ShareField.DeleteConfirmation()"
+                    data-ng-bind="ShareFieldCtrl.ePage.Masters.ShareField.DeleteBtnText"
+                    data-ng-disabled="ShareFieldCtrl.ePage.Masters.ShareField.IsDisableDeleteBtn || !ShareFieldCtrl.ePage.Masters.ShareField.ActiveShareField.Field_PK"></button>
+                <button class="btn btn-primary btn-xs pull-right ml-10" generate-db-script
+                    input="ShareFieldCtrl.ePage.Masters.GenerateScriptInput"
+                    config="ShareFieldCtrl.ePage.Masters.GenerateScriptConfig"
+                    data-ng-disabled="!ShareFieldCtrl.ePage.Masters.GenerateScriptInput.ObjectName || !ShareFieldCtrl.ePage.Masters.GenerateScriptInput.ObjectId || !ShareFieldCtrl.ePage.Masters.ShareField.ActiveShareField.Field_PK">Generate
                     Script</button>
             </div>
         </div>
@@ -41,12 +49,14 @@
     <!-- Body -->
     <div class="clearfix">
         <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 p-0">
-                <div class="tc-list-search">
-                        <input type="text" placeholder="Search..." class="form-control input-sm" data-ng-model="ShareFieldCtrl.ePage.Masters.Search">
-                    </div>
+            <div class="tc-list-search">
+                <input type="text" placeholder="Search..." class="form-control input-sm"
+                    data-ng-model="ShareFieldCtrl.ePage.Masters.Search">
+            </div>
             <div class="tc-list-container tc-page-height-fixed">
                 <ul class="tc-list-ul">
-                    <div class="p-15 text-center tc-loading" data-ng-if="!ShareFieldCtrl.ePage.Masters.ShareField.ListSource">
+                    <div class="p-15 text-center tc-loading"
+                        data-ng-if="!ShareFieldCtrl.ePage.Masters.ShareField.ListSource">
                         <i class="fa fa-spin fa-spinner"></i>
                     </div>
                     <div data-ng-if="ShareFieldCtrl.ePage.Masters.ShareField.ListSource && (ShareFieldCtrl.ePage.Masters.ShareField.ListSource | filter: ShareFieldCtrl.ePage.Masters.Search).length===0"
@@ -73,7 +83,9 @@
                     <div class="clearfix form-group">
                         <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Entity Name</label>
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
-                            <div data-ng-bind="ShareFieldCtrl.ePage.Masters.ShareField.ActiveShareField.EntityName || ShareFieldCtrl.ePage.Masters.emptyText"></div>
+                            <div
+                                data-ng-bind="ShareFieldCtrl.ePage.Masters.ShareField.ActiveShareField.EntityName || ShareFieldCtrl.ePage.Masters.emptyText">
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -81,7 +93,9 @@
                     <div class="clearfix form-group">
                         <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Data Type</label>
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
-                            <div data-ng-bind="ShareFieldCtrl.ePage.Masters.ShareField.ActiveShareField.DataType || ShareFieldCtrl.ePage.Masters.emptyText"></div>
+                            <div
+                                data-ng-bind="ShareFieldCtrl.ePage.Masters.ShareField.ActiveShareField.DataType || ShareFieldCtrl.ePage.Masters.emptyText">
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -89,15 +103,19 @@
                     <div class="clearfix form-group">
                         <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Field Name</label>
                         <div class=" col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8 ">
-                            <div data-ng-bind="ShareFieldCtrl.ePage.Masters.ShareField.ActiveShareField.FieldName || ShareFieldCtrl.ePage.Masters.emptyText"></div>
+                            <div
+                                data-ng-bind="ShareFieldCtrl.ePage.Masters.ShareField.ActiveShareField.FieldName || ShareFieldCtrl.ePage.Masters.emptyText">
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                     <div class="clearfix form-group">
-                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Property Name</label>
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Property
+                            Name</label>
                         <div class=" col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8 ">
-                            <div data-ng-bind="ShareFieldCtrl.ePage.Masters.ShareField.ActiveShareField.PropertyName"></div>
+                            <div data-ng-bind="ShareFieldCtrl.ePage.Masters.ShareField.ActiveShareField.PropertyName">
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -127,12 +145,6 @@
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 pt-5 pb-5">
                 <form class="form-horizontal">
                     <div class="form-group">
-                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Entity Name</label>
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
-                            <input type="text" class="form-control input-sm" placeholder="Entity Name" data-ng-model="ShareFieldCtrl.ePage.Masters.ShareField.ActiveShareField.EntityName">
-                        </div>
-                    </div>
-                    <div class="form-group">
                         <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Data Type</label>
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
                             <input type="text" class="form-control input-sm" placeholder="Data Type" data-ng-model="ShareFieldCtrl.ePage.Masters.ShareField.ActiveShareField.DataType">
@@ -141,7 +153,15 @@
                     <div class="form-group">
                         <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4"> Field Name</label>
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
-                            <input type="text" class="form-control input-sm" placeholder="Field Name" data-ng-model="ShareFieldCtrl.ePage.Masters.ShareField.ActiveShareField.FieldName">
+                            <input type="text" placeholder="Field Name" class="form-control input-sm" data-ng-model="ShareFieldCtrl.ePage.Masters.ShareField.ActiveShareField.FieldName" uib-typeahead="x.ColumnName for x in ShareFieldCtrl.ePage.Masters.ShareField.GetFieldMasterList($viewValue)" typeahead-loading="ShareFieldCtrl.ePage.Masters.ShareField.IsAutocompleteLoading" typeahead-no-results="ShareFieldCtrl.ePage.Masters.ShareField.IsAutocompleteNoResults" typeahead-editable="true" typeahead-append-to-body='true' typeahead-on-select="  ShareFieldCtrl.ePage.Masters.ShareField.OnSelectAutoCompleteList($item, $model, $label, $event)" data-ng-blur="ShareFieldCtrl.ePage.Masters.ShareField.OnBlurAutoCompleteList($event)" typeahead-min-length="">
+                                <div class="clearfix dropdown-menu" data-ng-if="ShareFieldCtrl.ePage.Masters.ShareField.IsAutocompleteLoading">
+                                    <div class="auto-complete-no-result">No Results Found!</div>
+                                </div>
+                                <div class="clearfix dropdown-menu" data-ng-if="ShareFieldCtrl.ePage.Masters.ShareField.IsAutocompleteNoResults">
+                                    <div class="auto-complete-no-result">
+                                        <i class="fa fa-spin fa-spinner"></i>
+                                    </div>
+                                </div>
                         </div>
                     </div>
                     <div class="form-group">
@@ -151,12 +171,12 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <div class="checkbox">
-                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4"></div>
-                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Is Active</label>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                            <div class="checkbox">
                                 <label>
                                     <input type="checkbox" data-ng-model="ShareFieldCtrl.ePage.Masters.ShareField.ActiveShareField.IsActive" class="colored-blue">
-                                    <span class="text">IsActive</span>
+                                    <span class="text"></span>
                                 </label>
                             </div>
                         </div>

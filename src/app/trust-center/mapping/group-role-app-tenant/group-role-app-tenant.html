@@ -37,7 +37,7 @@
                     data-ng-disabled="!TCGroupRoleAppTenantCtrl.ePage.Masters.GroupRoleAppTenant.ActiveGroupRoleAppTenant.PK">Edit</button>
                 <button class="btn btn-default tc-btn-delete btn-xs pull-right ml-10" data-ng-click="TCGroupRoleAppTenantCtrl.ePage.Masters.GroupRoleAppTenant.DeleteConfirmation()"
                     data-ng-bind="TCGroupRoleAppTenantCtrl.ePage.Masters.DeleteBtnText" data-ng-disabled="TCGroupRoleAppTenantCtrl.ePage.Masters.IsDisableDeleteBtn || !TCGroupRoleAppTenantCtrl.ePage.Masters.GroupRoleAppTenant.ActiveGroupRoleAppTenant.PK"
-                    data-ng-if="TCGroupRoleAppTenantCtrl.ePage.Masters.GroupRoleAppTenant.UIControlList && TCGroupRoleAppTenantCtrl.ePage.Masters.GroupRoleAppTenant.UIControlList.length > 0 && TCGroupRoleAppTenantCtrl.ePage.Masters.GroupRoleAppTenant.CheckUIControl('TC_MAP_DEL')"></button>
+                    data-ng-if="TCGroupRoleAppTenantCtrl.ePage.Masters.GroupRoleAppTenant.CheckUIControl('TC_MAP_DEL')"></button>
                     <button class="btn btn-primary btn-xs pull-right ml-10" generate-db-script input="TCGroupRoleAppTenantCtrl.ePage.Masters.GenerateScriptInput"
                     config="TCGroupRoleAppTenantCtrl.ePage.Masters.GenerateScriptConfig" data-ng-disabled="!TCGroupRoleAppTenantCtrl.ePage.Masters.GenerateScriptInput.ObjectName || !TCGroupRoleAppTenantCtrl.ePage.Masters.GenerateScriptInput.ObjectId">Generate
                     Script</button>

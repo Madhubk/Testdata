@@ -1,0 +1,13 @@
+.my-task-assign-to>.dropdown-menu {
+    width: 310px;
+}
+
+.my-task-assign-to>.dropdown-menu.dropdown-menu-right:before {
+    display: none;
+}
+
+.txt-assign-to-others {
+    height: 30px !important;
+    padding: 5px 10px !important;
+    font-size: 12px !important;
+}

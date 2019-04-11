@@ -33,7 +33,7 @@
                         return deferred.promise;
                     }],
                     LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
-                        return $ocLazyLoad.load(["navBar", "navbarDropdownMenu", "footerBar", "sideBar", "changePassword", "eAxis"]);
+                        return $ocLazyLoad.load(["navBar", "navbarDropdownMenu", "footerBar", "sideBar", "changePassword", "errorWarning", "eAxis"]);
                     }]
                 }
             })
@@ -74,7 +74,7 @@
                         return deferred.promise;
                     }],
                     LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
-                        return $ocLazyLoad.load(["errorWarning", "confirmation", "dynamicLookup", "dynamicControl", "oneLevelMapping", "Summernote", "CustomFileUpload", "Comment", "CommentModal", "Document", "DocumentModal", "Email", "EmailModal", "Exception", "ExceptionModal", "DelayReason", "DelayReasonModal", "Checklist", "ChecklistModal", "Event", "EventModal", "UploadDocument", "AddComment", "ViewDocument", "ViewComment", "TaskAssignStartComplete", "OverrideKPI", "MyTaskDynamicDirective", "MyTaskDirective", "MyTask", "MyTaskConfig"]);
+                        return $ocLazyLoad.load(["confirmation", "dynamicLookup", "dynamicControl", "oneLevelMapping", "Summernote", "CustomFileUpload", "Comment", "CommentModal", "Document", "DocumentModal", "Email", "EmailModal", "Exception", "ExceptionModal", "DelayReason", "DelayReasonModal", "Checklist", "ChecklistModal", "Event", "EventModal", "UploadDocument", "AddComment", "ViewDocument", "ViewComment", "TaskAssignStartComplete", "OverrideKPI", "MyTaskSnooze", "MyTaskHold", "MyTaskDynamicDirective", "MyTaskDirective", "MyTask", "MyTaskConfig"]);
                     }]
                 }
             })
@@ -116,7 +116,7 @@
                         return deferred.promise;
                     }],
                     LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
-                        return $ocLazyLoad.load(['confirmation', 'compareDate', "dynamicControl", "dynamicGrid", "dynamicListModal", "dynamicList", "dynamicLookup", 'EADynamicListView']);
+                        return $ocLazyLoad.load(["dynamicControl", "dynamicGrid", "dynamicListModal", "dynamicList", "dynamicLookup", "tcGrid", "drogAndDrop",  "confirmation", "compareDate", "oneLevelMapping", "Summernote", "CustomFileUpload", "standardMenu", "Comment", "CommentModal", "Document", "DocumentModal", "Email", "EmailModal", "Exception", "ExceptionModal", "Event", "EventModal", "AuditLog", "AuditLogModal", "DataEvent", "DataEventModal", "EmailGroup", "EmailGroupModal", "EmailTemplateCreation", "EmailTemplateCreationModal", "Task", "TaskModal", "Keyword", "KeywordModal", "Parties", "PartiesModal", "DelayReasonModal", "DelayReason", "Checklist", "ChecklistModal", "TaskFlowGraph", "TaskFlowGraphModal", "dynamicDetailsViewDirective", "EADynamicListView"]);
                     }]
                 }
             })
@@ -136,7 +136,7 @@
                         return deferred.promise;
                     }],
                     LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
-                        return $ocLazyLoad.load(["dynamicControl", "dynamicGrid", "dynamicListModal", "dynamicList", "dynamicLookup", "tcGrid", 'dynamicDetailsViewDirective', 'EADynamicDetailsView']);
+                        return $ocLazyLoad.load(["dynamicControl", "dynamicGrid", "dynamicListModal", "dynamicList", "dynamicLookup", "tcGrid", "confirmation", "compareDate", "oneLevelMapping", "Summernote", "CustomFileUpload", "standardMenu", "Comment", "CommentModal", "Document", "DocumentModal", "Email", "EmailModal", "Exception", "ExceptionModal", "Event", "EventModal", "AuditLog", "AuditLogModal", "DataEvent", "DataEventModal", "EmailGroup", "EmailGroupModal", "EmailTemplateCreation", "EmailTemplateCreationModal", "Task", "TaskModal", "Keyword", "KeywordModal", "Parties", "PartiesModal", "DelayReasonModal", "DelayReason", "Checklist", "ChecklistModal", "TaskFlowGraph", "TaskFlowGraphModal", 'dynamicDetailsViewDirective', 'EADynamicDetailsView']);
                     }]
                 }
             })

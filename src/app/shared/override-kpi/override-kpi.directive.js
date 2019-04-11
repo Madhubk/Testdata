@@ -71,10 +71,10 @@
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.EBPMStepsDelayReason.API.FindAll.FilterID
+                "FilterID": appConfig.Entities.EBPMSteps.API.DelayReasonFindAll.FilterID
             };
 
-            apiService.post("eAxisAPI", appConfig.Entities.EBPMStepsDelayReason.API.FindAll.Url, _input).then(function (response) {
+            apiService.post("eAxisAPI", appConfig.Entities.EBPMSteps.API.DelayReasonFindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     OverrideKpiCtrl.ePage.Masters.DelayReason.ListSource = response.data.Response;
                 } else {

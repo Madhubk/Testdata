@@ -12,17 +12,9 @@
     function Run($rootScope, $state, $stateParams, $window, $location) {
         $rootScope.IsInternetOnline = true;
         // Internet Check
-        $window.addEventListener("offline", function () {
-            $rootScope.$apply(function () {
-                $rootScope.IsInternetOnline = false;
-            });
-        }, false);
+        $window.addEventListener("offline", () => $rootScope.$apply(() => $rootScope.IsInternetOnline = false), false);
 
-        $window.addEventListener("online", function () {
-            $rootScope.$apply(function () {
-                $rootScope.IsInternetOnline = true;
-            });
-        }, false);
+        $window.addEventListener("online", () => $rootScope.$apply(() => $rootScope.IsInternetOnline = true), false);
 
         $rootScope.$state = $state;
         $rootScope.$stateParams = $stateParams;
@@ -78,8 +70,7 @@
             modules: APP_CONSTANT.ocLazyLoadModules
         });
 
-        $urlRouterProvider
-            .otherwise('/login');
+        $urlRouterProvider.otherwise('/login');
 
         $stateProvider
             .state('login', {
@@ -90,9 +81,9 @@
                     label: 'Login'
                 },
                 resolve: {
-                    CheckAccess: ["$q", "pageAccessService", function ($q, pageAccessService) {
-                        var deferred = $q.defer();
-                        pageAccessService.CheckPageAccess("/login").then(function (response) {
+                    CheckAccess: ["$q", "pageAccessService", ($q, pageAccessService) => {
+                        let deferred = $q.defer();
+                        pageAccessService.CheckPageAccess("/login").then(response => {
                             if (response == true) {
                                 deferred.resolve();
                             }
@@ -100,14 +91,10 @@
                         deferred.resolve();
                         return deferred.promise;
                     }],
-                    LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
-                        return $ocLazyLoad.load(['Login']);
-                    }]
+                    LoadState: ["$ocLazyLoad", "CheckAccess", ($ocLazyLoad, CheckAccess) => $ocLazyLoad.load(['Login'])]
                 },
-                onEnter: function () {},
-                onExit: function ($rootScope) {
-                    $rootScope.EnteredUrl = undefined;
-                }
+                onEnter: () => {},
+                onExit: ($rootScope) => $rootScope.EnteredUrl = undefined
             })
             .state('tenantList', {
                 url: '/tenant-list',
@@ -117,14 +104,12 @@
                     label: 'Tenant'
                 },
                 resolve: {
-                    CheckAccess: ["$q", "pageAccessService", function ($q, pageAccessService) {
-                        var deferred = $q.defer();
+                    CheckAccess: ["$q", "pageAccessService", ($q, pageAccessService) => {
+                        let deferred = $q.defer();
                         deferred.resolve();
                         return deferred.promise;
                     }],
-                    LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
-                        return $ocLazyLoad.load(['TenantList']);
-                    }]
+                    LoadState: ["$ocLazyLoad", "CheckAccess", ($ocLazyLoad, CheckAccess) => $ocLazyLoad.load(['TenantList'])]
                 }
             })
             .state('partyList', {
@@ -135,14 +120,12 @@
                     label: 'Party'
                 },
                 resolve: {
-                    CheckAccess: ["$q", "pageAccessService", function ($q, pageAccessService) {
-                        var deferred = $q.defer();
+                    CheckAccess: ["$q", "pageAccessService", ($q, pageAccessService) => {
+                        let deferred = $q.defer();
                         deferred.resolve();
                         return deferred.promise;
                     }],
-                    LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
-                        return $ocLazyLoad.load(['PartyList']);
-                    }]
+                    LoadState: ["$ocLazyLoad", "CheckAccess", ($ocLazyLoad, CheckAccess) => $ocLazyLoad.load(['PartyList'])]
                 }
             })
             .state('roleList', {
@@ -153,14 +136,12 @@
                     label: 'Role'
                 },
                 resolve: {
-                    CheckAccess: ["$q", "pageAccessService", function ($q, pageAccessService) {
-                        var deferred = $q.defer();
+                    CheckAccess: ["$q", "pageAccessService", ($q, pageAccessService) => {
+                        let deferred = $q.defer();
                         deferred.resolve();
                         return deferred.promise;
                     }],
-                    LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
-                        return $ocLazyLoad.load(['RoleList']);
-                    }]
+                    LoadState: ["$ocLazyLoad", "CheckAccess", ($ocLazyLoad, CheckAccess) => $ocLazyLoad.load(['RoleList'])]
                 }
             })
             .state('userSettings', {
@@ -171,18 +152,16 @@
                     label: 'User Setting'
                 },
                 resolve: {
-                    CheckAccess: ["$q", "pageAccessService", function ($q, pageAccessService) {
-                        var deferred = $q.defer();
-                        pageAccessService.CheckPageAccess("/user-settings").then(function (response) {
+                    CheckAccess: ["$q", "pageAccessService", ($q, pageAccessService) => {
+                        let deferred = $q.defer();
+                        pageAccessService.CheckPageAccess("/user-settings").then((response) => {
                             if (response == true) {
                                 deferred.resolve();
                             }
                         });
                         return deferred.promise;
                     }],
-                    LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
-                        return $ocLazyLoad.load(['navBar', 'navbarDropdownMenu', 'sideBar', 'changePassword', 'userSetting']);
-                    }]
+                    LoadState: ["$ocLazyLoad", "CheckAccess", ($ocLazyLoad, CheckAccess) => $ocLazyLoad.load(['navBar', 'navbarDropdownMenu', 'sideBar', 'changePassword', 'userSetting'])]
                 }
             })
             .state('elink', {
@@ -193,14 +172,12 @@
                     label: 'eLink'
                 },
                 resolve: {
-                    CheckAccess: ["$q", function ($q) {
-                        var deferred = $q.defer();
+                    CheckAccess: ["$q", ($q) => {
+                        let deferred = $q.defer();
                         deferred.resolve();
                         return deferred.promise;
                     }],
-                    LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
-                        return $ocLazyLoad.load(['ELink']);
-                    }]
+                    LoadState: ["$ocLazyLoad", "CheckAccess", ($ocLazyLoad, CheckAccess) => $ocLazyLoad.load(['ELink'])]
                 }
             });
     }

@@ -5,10 +5,10 @@
         .module("Application")
         .factory('excelTemplateConfig', ExcelTemplateConfig);
 
-    ExcelTemplateConfig.$inject = ["$q", "apiService", "helperService", "toastr", "authService"];
+    ExcelTemplateConfig.$inject = ["$q", "helperService", "toastr", "authService"];
 
-    function ExcelTemplateConfig($q, apiService, helperService, toastr, authService) {
-        var exports = {
+    function ExcelTemplateConfig($q, helperService, toastr, authService) {
+        let exports = {
             "Entities": {
                 "Header": {
                     "Data": {},
@@ -28,8 +28,8 @@
         return exports;
 
         function GetTabDetails(currentExcelTemplate, isNew) {
-            var deferred = $q.defer();
-            var _exports = {
+            let deferred = $q.defer();
+            let _exports = {
                 "Entities": {
                     "Header": {
                         "Data": {}
@@ -39,20 +39,20 @@
 
             if (isNew) {
                 _exports.Entities.Header.Data = currentExcelTemplate.data;
-                var _obj = {
+                let _obj = {
                     New: {
                         ePage: _exports
                     },
                     label: 'New',
-                    code: currentExcelTemplate.entity.SourceEntityRefKey,
+                    code: currentExcelTemplate.entity.Key,
                     isNew: isNew
                 };
                 exports.TabList.push(_obj);
                 deferred.resolve(exports.TabList);
             } else {
-                helperService.getFullObjectUsingGetById(exports.Entities.Header.API.GetByID.Url + currentExcelTemplate.PK + "/", authService.getUserInfo().AppPK).then(function (response) {
+                helperService.getFullObjectUsingGetById(exports.Entities.Header.API.GetByID.Url + currentExcelTemplate.PK + "/", authService.getUserInfo().AppPK).then(response => {
                     if (response.data.Messages) {
-                        response.data.Messages.map(function (value, key) {
+                        response.data.Messages.map(value => {
                             if (value.Type === "Warning" && value.MessageDesc !== "") {
                                 toastr.info(value.MessageDesc);
                             }
@@ -60,12 +60,12 @@
                     }
 
                     _exports.Entities.Header.Data = response.data.Response;
-                    var obj = {
-                        [currentExcelTemplate.SourceEntityRefKey]: {
+                    let obj = {
+                        [currentExcelTemplate.Key]: {
                             ePage: _exports
                         },
-                        label: currentExcelTemplate.SourceEntityRefKey,
-                        code: currentExcelTemplate.SourceEntityRefKey,
+                        label: currentExcelTemplate.Key,
+                        code: currentExcelTemplate.Key,
                         isNew: isNew
                     };
 

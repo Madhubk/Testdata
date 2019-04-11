@@ -61,7 +61,7 @@
                         </div>
                         <div class="col-sm-1 pt-10 pb-10">
                             <!-- Access -->
-                            <div class="pull-right dropdown exception-access-dropdown-menu" data-ng-if="x.GroupMapping && (x.CreatedBy ==  ExceptionCtrl.ePage.Masters.Exception.UserId || (x.CreatedBy != ExceptionCtrl.ePage.Masters.Exception.UserId && !x.IsResticted && x.IsShared)) && ExceptionCtrl.mode == '1'"
+                            <div class="pull-right dropdown exception-access-dropdown-menu" data-ng-if="x.GroupMapping && (x.CreatedBy ==  ExceptionCtrl.ePage.Masters.Exception.UserId || (x.CreatedBy != ExceptionCtrl.ePage.Masters.Exception.UserId && !x.IsResticted && x.IsShared)) && ExceptionCtrl.mode == '1' && ExceptionCtrl.ePage.Masters.CheckControlAccess('EXC_SHARE_ACCESS')"
                                 one-level-mapping input="x.GroupMapping" object="x" icon="'fa fa-user-plus'"></div>
                         </div>
                     </div>

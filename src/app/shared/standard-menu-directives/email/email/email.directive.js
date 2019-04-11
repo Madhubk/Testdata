@@ -94,7 +94,12 @@
                 "Entities": EmailCtrl.input
             };
 
+            EmailCtrl.ePage.Masters.CheckControlAccess = CheckControlAccess;
             InitEmail();
+        }
+
+        function CheckControlAccess(controlId) {
+            return helperService.checkUIControl(controlId);
         }
 
         function InitEmail() {

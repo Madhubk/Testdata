@@ -3,6 +3,29 @@
 
     angular
         .module("Application")
+        .directive("addressWrapper", AddressWrapper);
+
+    function AddressWrapper() {
+        var exports = {
+            restrict: "EA",
+            templateUrl: "app/eaxis/shared/address-wrapper/address-wrapper.html",
+            controller: "addressWrapperController",
+            controllerAs: "addressWrapperCtrl",
+            scope: {
+                obj: "=",
+                type: "@",
+                listSource: "@",
+                selected: "=",
+                onAddressChange: "&",
+                onAddressEdit: "&"
+            },
+            bindToController: true
+        };
+        return exports;
+    }
+
+    angular
+        .module("Application")
         .controller("addressWrapperController", addressWrapperController);
 
     addressWrapperController.$inject = ["$rootScope", "$scope", "$state", "$timeout", "$location", "$q", "APP_CONSTANT", "authService", "apiService", "helperService", "toastr", "$uibModal", "$window", "appConfig", "$filter"];
@@ -31,12 +54,12 @@
         }
 
         function OnAddressEdit($item) {
-           
+
             if ($item.PK === addressWrapperCtrl.selected) {
                 addressWrapperCtrl.onAddressEdit({
                     $item: $item
                 }, addressWrapperCtrl.type, addressWrapperCtrl.listSource);
-            }else{
+            } else {
                 toastr.warning('Selected Address Only Can be Edited..')
             }
         }

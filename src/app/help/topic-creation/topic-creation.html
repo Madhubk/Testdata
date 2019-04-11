@@ -19,16 +19,13 @@
         <span class="drag-icon cursor-pointer mr-5" title="Change Order" ui-tree-handle>:::</span>
         <span class="fa fa-pencil-square-o text-info cursor-pointer edit-topic-btn" data-ng-click="HelpTopicCreationCtrl.ePage.Masters.HelpTopic.EditTopic(x)"
             title="Edit"></span>
-        <span class="topic-expand-icon cursor-pointer" data-ng-if="x.ItHasChild" data-ng-click="HelpTopicCreationCtrl.ePage.Masters.HelpTopic.ToggleSubTopic($event, x, this)"
-            data-nodrag="">
+        <span class="topic-expand-icon cursor-pointer" data-ng-if="x.ItHasChild" data-ng-click="HelpTopicCreationCtrl.ePage.Masters.HelpTopic.ToggleSubTopic($event, x, this)" data-nodrag="">
             <i data-ng-class="{'fa fa-caret-right': (x.ItHasChild && !x.IsToggle), 'fa fa-caret-down': (x.ItHasChild && x.IsToggle)}"></i>
         </span>
-        <span class="topic-name cursor-pointer" data-ng-bind="x.Title" data-ng-click="HelpTopicCreationCtrl.ePage.Masters.HelpTopic.ToggleSubTopic($event, x, this)"
-            data-ng-if="x.ItHasChild && x.IsActive"></span>
+        <span class="topic-name cursor-pointer" data-ng-bind="x.Title" data-ng-click="HelpTopicCreationCtrl.ePage.Masters.HelpTopic.ToggleSubTopic($event, x, this)" data-ng-if="x.ItHasChild && x.IsActive"></span>
         <a href="javascript:void(0);" class="topic-name" data-ng-bind="x.Title" data-ng-click="HelpTopicCreationCtrl.ePage.Masters.HelpTopic.OnTopicClick(x)"
             data-ng-if="!x.ItHasChild && x.IsActive"></a>
-        <span class="topic-name-disabled cursor-pointer" data-ng-bind="x.Title" data-ng-click="HelpTopicCreationCtrl.ePage.Masters.HelpTopic.ToggleSubTopic($event, x, this)"
-            data-ng-if="x.ItHasChild && !x.IsActive"></span>
+        <span class="topic-name-disabled cursor-pointer" data-ng-bind="x.Title" data-ng-click="HelpTopicCreationCtrl.ePage.Masters.HelpTopic.ToggleSubTopic($event, x, this)" data-ng-if="x.ItHasChild && !x.IsActive"></span>
         <a href="javascript:void(0);" class="topic-name-disabled" data-ng-bind="x.Title" data-ng-click="HelpTopicCreationCtrl.ePage.Masters.HelpTopic.OnTopicClick(x)"
             data-ng-if="!x.ItHasChild && !x.IsActive"></a>
         <span class="fa fa-plus-circle text-success cursor-pointer add-topic-btn" data-ng-click="HelpTopicCreationCtrl.ePage.Masters.HelpTopic.AddNewSubTopic(x)"

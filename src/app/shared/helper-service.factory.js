@@ -29,7 +29,8 @@
             previewDocument: PreviewDocument,
             getImageBase64Str: GetImageBase64Str,
             copyToClipboard: CopyToClipboard,
-            completeTask: CompleteTask
+            completeTask: CompleteTask,
+            closeDropDownPopover: CloseDropDownPopover
         };
         return exports;
 
@@ -100,14 +101,11 @@
             return deferred.promise;
         }
 
-        function CheckUIControl(controlList, controlId) {
-            var _isExist = false;
-            if (controlList) {
-                if (controlList.length > 0) {
-                    _isExist = controlList.some(function (value, key) {
-                        return value == controlId;
-                    });
-                }
+        function CheckUIControl(controlId) {
+            let _controlList = authService.getUserInfo().UIControlList;
+            let _isExist = false;
+            if (_controlList && _controlList.length > 0 && controlId) {
+                _isExist = _controlList.some(value => value == controlId);
             }
             return _isExist;
         }
@@ -133,10 +131,10 @@
 
             // Convert Base64 to bytes
             function base64ToArrayBuffer(base64) {
-                let binaryString = atob(base64), 
-                binaryLen = binaryString.length,
-                bytes = new Uint8Array(binaryLen);
-                
+                let binaryString = atob(base64),
+                    binaryLen = binaryString.length,
+                    bytes = new Uint8Array(binaryLen);
+
                 for (let i = 0; i < binaryLen; i++) {
                     bytes[i] = binaryString.charCodeAt(i);
                 }
@@ -747,7 +745,7 @@
                         if (_response.Value) {
                             _response.Value = JSON.parse(_response.Value);
 
-                            _response.Value.DataObjs[0].DataObject = (typeof _response.Value.DataObjs[0].DataObject == "string") ? JSON.parse(_response.Value.DataObjs[0].DataObject): _response.Value.DataObjs[0].DataObject;
+                            _response.Value.DataObjs[0].DataObject = (typeof _response.Value.DataObjs[0].DataObject == "string") ? JSON.parse(_response.Value.DataObjs[0].DataObject) : _response.Value.DataObjs[0].DataObject;
 
                             if (sourceObject) {
                                 var _excelDocumentObject = PrepareExcelDocumentObject(_response.Value, sourceObject);
@@ -1006,6 +1004,13 @@
 
             deferred.resolve($item);
             return deferred.promise;
+        }
+
+        function CloseDropDownPopover() {
+            let a = document.createElement("a");
+            document.body.appendChild(a);
+            a.style = "display: none";
+            a.click();
         }
     }
 

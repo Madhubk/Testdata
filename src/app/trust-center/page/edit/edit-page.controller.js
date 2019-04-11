@@ -125,28 +125,33 @@
                     "Pagination": {},
                     "FilterConfig": {},
                     "CSS": {},
-                    "SortColumn": {},
                     "GridOptions": {},
                     "ListingPageConfig": {
                         "StandardToolbar": {
                             "ToolList": {}
                         }
-                    }
+                    },
+                    "Validation": {},
+                    "DetailsPage": {}
                 },
                 "LookupConfig": {}
             };
 
             EditPageCtrl.ePage.Masters.EditPage.Save = Save;
+            EditPageCtrl.ePage.Masters.EditPage.Publish = Publish;
             EditPageCtrl.ePage.Masters.EditPage.OnSourceListChange = OnSourceListChange;
 
             EditPageCtrl.ePage.Masters.EditPage.SaveBtnText = "Save";
             EditPageCtrl.ePage.Masters.EditPage.IsDisableSaveBtn = false;
 
+            EditPageCtrl.ePage.Masters.EditPage.PublishBtnText = "Publish";
+            EditPageCtrl.ePage.Masters.EditPage.IsDisablePublishBtn = false;
+
             InitFormDesign();
             InitSearchPage();
             InitLookupPage();
-            GetSourceList();
             GetModuleList();
+            GetSourceList();
 
             if (EditPageCtrl.ePage.Masters.QueryString.Mode == "New") {
                 EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails = _NewDataEntryObj;
@@ -218,13 +223,11 @@
         }
 
         function SetDefaultValues() {
-            EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.EntitySource = "GENERAL";
-
             EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.OtherConfig.GridOptions.paginationPageSize = "25";
             EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.OtherConfig.GridOptions.paginationPageSizes = '[25, 50, 100]';
             EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.OtherConfig.GridOptions.headerRowHeight = "30";
             EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.OtherConfig.GridOptions.rowHeight = "30";
-            EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.OtherConfig.CSS.IsAutoListing = true;
+            EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.OtherConfig.FilterConfig.IsAutoListing = true;
         }
 
         function GetSourceList() {
@@ -251,8 +254,6 @@
 
         function OnSourceListChange($item) {
             if ($item) {
-                EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.Source = angular.copy($item);
-
                 var _list = {
                     "GENERAL": GetGeneralList,
                     "ROLE": GetRoleList,
@@ -261,12 +262,11 @@
                     "EXPRESSION": GetExpressionList
                 };
 
-                _list[EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.Source.Source]();
-
-                EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.Priority =  EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.Source.Priority;
+                _list[$item.Source]();
+                EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.EntitySource = $item.Source;
+                EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.Priority = $item.Priority;
             } else {
-                EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.Source = undefined;
-                EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.Priority =  undefined;
+                EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.Priority = undefined;
             }
         }
 
@@ -319,7 +319,7 @@
                 _input.strLookupConfig = JSON.stringify(_input.LookupConfig);
 
                 apiService.post("eAxisAPI", trustCenterConfig.Entities.API.DataEntryDetails.API.Upsert.Url, [_input]).then(function (response) {
-                    if (response.data.Response) {
+                    if (response.data.Response && response.data.Response.length > 0) {
                         EditPageCtrl.ePage.Masters.QueryString.PagePk = response.data.Response[0].DataEntry_PK;
                         GetDataEntryDetails();
                         toastr.success("Saves Successfully...!");
@@ -333,6 +333,24 @@
             } else {
                 toastr.warning("At least one field is required...!");
             }
+        }
+
+        function Publish() {
+            EditPageCtrl.ePage.Masters.EditPage.PublishBtnText = "Please Wait...";
+            EditPageCtrl.ePage.Masters.EditPage.IsDisablePublishBtn = true;
+            let _filter = {
+                "DataEntryPK": EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.DataEntry_PK
+            };
+            let _input = {
+                "searchInput": helperService.createToArrayOfObject(_filter),
+                "FilterID": trustCenterConfig.Entities.API.DataEntryJSON.API.PublishAllDataentryMasterJson.FilterID
+            };
+
+            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.DataEntryJSON.API.PublishAllDataentryMasterJson.Url, _input).then(response => {
+                toastr.success("Published Successfully...!");
+                EditPageCtrl.ePage.Masters.EditPage.PublishBtnText = "Publish";
+                EditPageCtrl.ePage.Masters.EditPage.IsDisablePublishBtn = false;
+            });
         }
 
         // ================Form Design================
@@ -572,8 +590,58 @@
             EditPageCtrl.ePage.Masters.EditPage.SearchPage.RemoveGridConfig = RemoveGridConfig;
             EditPageCtrl.ePage.Masters.EditPage.SearchPage.OnStandaredToolbarChange = OnStandaredToolbarChange;
 
+            GetVisibleItems();
             GetStandardMenuList();
             GetGridOptions();
+        }
+
+        function GetVisibleItems() {
+            EditPageCtrl.ePage.Masters.EditPage.SearchPage.VisibleItems = [{
+                ModelCode: "EnableGridColumns",
+                Description: "Enable Grid Columns"
+            }, {
+                ModelCode: "EnableExport",
+                Description: "Enable Export"
+            }, {
+                ModelCode: "EnableRecent",
+                Description: "Enable Recent"
+            }, {
+                ModelCode: "EnableSearch",
+                Description: "EnableSearch"
+            }, {
+                ModelCode: "EnableNewButton",
+                Description: "Enable New Button"
+            }, {
+                ModelCode: "EnableResetButton",
+                Description: "Enable Reset Button"
+            }, {
+                ModelCode: "EnableRefreshButton",
+                Description: "Enable Refresh Button"
+            }, {
+                ModelCode: "EnableAttachButton",
+                Description: "Enable Attach Button"
+            }, {
+                ModelCode: "EnableFilterButton",
+                Description: "Enable Filter Button"
+            }, {
+                ModelCode: "EnableClearButton",
+                Description: "Enable Clear Button"
+            }, {
+                ModelCode: "EnableSaveAsFilterButton",
+                Description: "Enable Save As Filter Button"
+            }, {
+                ModelCode: "EnableFilterFields",
+                Description: "Enable Filter Fields"
+            }, {
+                ModelCode: "EnableSystemFavoriteFilter",
+                Description: "Enable System Favorite Filter"
+            }, {
+                ModelCode: "EnableUserFavoriteFilter",
+                Description: "Enable User Favorite Filter"
+            }, {
+                ModelCode: "EnableSchedule",
+                Description: "Enable Schedule"
+            }];
         }
 
         function GetStandardMenuList() {
@@ -589,7 +657,7 @@
             }, {
                 Code: "email",
                 Desc: "Email",
-            },  {
+            }, {
                 Code: "event",
                 Desc: "Event",
             }, {
@@ -616,7 +684,7 @@
             }, {
                 Code: "email-template-creation",
                 Desc: "Email Template Creation",
-            },  {
+            }, {
                 Code: "task-flow-graph",
                 Desc: "Task Flow Graph",
             }, {
@@ -627,130 +695,135 @@
 
         function GetGridOptions() {
             EditPageCtrl.ePage.Masters.EditPage.SearchPage.GridOptions = [{
-                "Field": "enableColumnResizing",
-                "Label": "Enable Column Resizing",
-                "Type": "boolean"
-            }, {
-                "Field": "enableRowSelection",
-                "Label": "Enable Row Selection",
-                "Type": "boolean"
-            }, {
-                "Field": "enableRowHeaderSelection",
-                "Label": "Enable Row Header Selection",
-                "Type": "boolean"
-            }, {
-                "Field": "multiSelect",
-                "Label": "MultiSelect",
-                "Type": "boolean"
-            }, 
-            // {
-            //     "Field": "enableGridMenu",
-            //     "Label": "Enable Grid Menu",
-            //     "Type": "boolean"
-            // }, {
-            //     "Field": "enableColumnMenus",
-            //     "Label": "Enable Column Menus",
-            //     "Type": "boolean"
-            // }, {
-            //     "Field": "cellTooltip",
-            //     "Label": "Cell Tooltip",
-            //     "Type": "boolean"
-            // }, {
-            //     "Field": "enableCellSelection",
-            //     "Label": "Enable Cell Selection",
-            //     "Type": "boolean"
-            // }, {
-            //     "Field": "enableCellEdit",
-            //     "Label": "Enable Cell Edit",
-            //     "Type": "boolean"
-            // }, {
-            //     "Field": "enableCellEditOnFocus",
-            //     "Label": "Enable Cell Edit On Focus",
-            //     "Type": "boolean"
-            // }, {
-            //     "Field": "enablePinning",
-            //     "Label": "Enable Pinning",
-            //     "Type": "boolean"
-            // }, 
-            {
-                "Field": "enableSorting",
-                "Label": "Enable Sorting",
-                "Type": "boolean"
-            }, 
-            // {
-            //     "Field": "enableFiltering",
-            //     "Label": "Enable Filtering",
-            //     "Type": "boolean"
-            // }, 
-            {
-                "Field": "useExternalSorting",
-                "Label": "Use External Sorting",
-                "Type": "boolean"
-            }, {
-                "Field": "useExternalPagination",
-                "Label": "Use External Pagination",
-                "Type": "boolean"
-            }, {
-                "Field": "enablePaginationControls",
-                "Label": "Enable Pagination Controls",
-                "Type": "boolean"
-            }, {
-                "Field": "headerRowHeight",
-                "Label": "Header Row Height",
-                "Type": "text"
-            }, {
-                "Field": "rowHeight",
-                "Label": "Row Height",
-                "Type": "text"
-            }, 
-            // {
-            //     "Field": "exporterMenuCsv",
-            //     "Label": "Exporter Menu Csv",
-            //     "Type": "boolean"
-            // }, {
-            //     "Field": "exporterCsvFilename",
-            //     "Label": "Exporter Csv Filename",
-            //     "Type": "text"
-            // }, {
-            //     "Field": "exporterMenuPdf",
-            //     "Label": "Exporter Menu Pdf",
-            //     "Type": "boolean"
-            // }, {
-            //     "Field": "exporterPdfFilename",
-            //     "Label": "Exporter Pdf Filename",
-            //     "Type": "text"
-            // }, {
-            //     "Field": "exporterMenuExcel",
-            //     "Label": "Exporter Menu Excel",
-            //     "Type": "boolean"
-            // }, {
-            //     "Field": "exporterExcelFilename",
-            //     "Label": "Exporter Excel Filename",
-            //     "Type": "text"
-            // }, 
-            {
-                "Field": "paginationPageSizes",
-                "Label": "Pagination Page Sizes",
-                "Type": "textArea"
-            }, {
-                "Field": "paginationPageSize",
-                "Label": "Pagination Page Size",
-                "Type": "text"
-            }, {
-                "Field": "rowTemplate",
-                "Label": "Row Template",
-                "Type": "textArea"
-            }, 
-            // {
-            //     "Field": "gridMenuShowHideColumns",
-            //     "Label": "Grid Menu Show Hide Columns",
-            //     "Type": "boolean"
-            // }, 
-            {
-                "Field": "gridMenuCustomItems",
-                "Label": "Grid Menu Custom Items",
-                "Type": "textArea"
-            }];
+                    "Field": "enableColumnResizing",
+                    "Label": "Enable Column Resizing",
+                    "Type": "boolean"
+                }, {
+                    "Field": "enableRowSelection",
+                    "Label": "Enable Row Selection",
+                    "Type": "boolean"
+                }, {
+                    "Field": "enableRowHeaderSelection",
+                    "Label": "Enable Row Header Selection",
+                    "Type": "boolean"
+                }, {
+                    "Field": "multiSelect",
+                    "Label": "MultiSelect",
+                    "Type": "boolean"
+                },
+                // {
+                //     "Field": "enableGridMenu",
+                //     "Label": "Enable Grid Menu",
+                //     "Type": "boolean"
+                // }, {
+                //     "Field": "enableColumnMenus",
+                //     "Label": "Enable Column Menus",
+                //     "Type": "boolean"
+                // }, {
+                //     "Field": "cellTooltip",
+                //     "Label": "Cell Tooltip",
+                //     "Type": "boolean"
+                // }, {
+                //     "Field": "enableCellSelection",
+                //     "Label": "Enable Cell Selection",
+                //     "Type": "boolean"
+                // }, {
+                //     "Field": "enableCellEdit",
+                //     "Label": "Enable Cell Edit",
+                //     "Type": "boolean"
+                // }, {
+                //     "Field": "enableCellEditOnFocus",
+                //     "Label": "Enable Cell Edit On Focus",
+                //     "Type": "boolean"
+                // }, {
+                //     "Field": "enablePinning",
+                //     "Label": "Enable Pinning",
+                //     "Type": "boolean"
+                // }, 
+                {
+                    "Field": "enableSorting",
+                    "Label": "Enable Sorting",
+                    "Type": "boolean"
+                },
+                // {
+                //     "Field": "enableFiltering",
+                //     "Label": "Enable Filtering",
+                //     "Type": "boolean"
+                // }, 
+                {
+                    "Field": "useExternalSorting",
+                    "Label": "Use External Sorting",
+                    "Type": "boolean"
+                }, {
+                    "Field": "useExternalPagination",
+                    "Label": "Use External Pagination",
+                    "Type": "boolean"
+                }, {
+                    "Field": "enablePaginationControls",
+                    "Label": "Enable Pagination Controls",
+                    "Type": "boolean"
+                }, {
+                    "Field": "headerRowHeight",
+                    "Label": "Header Row Height",
+                    "Type": "text"
+                }, {
+                    "Field": "rowHeight",
+                    "Label": "Row Height",
+                    "Type": "text"
+                },
+                // {
+                //     "Field": "exporterMenuCsv",
+                //     "Label": "Exporter Menu Csv",
+                //     "Type": "boolean"
+                // }, {
+                //     "Field": "exporterCsvFilename",
+                //     "Label": "Exporter Csv Filename",
+                //     "Type": "text"
+                // }, {
+                //     "Field": "exporterMenuPdf",
+                //     "Label": "Exporter Menu Pdf",
+                //     "Type": "boolean"
+                // }, {
+                //     "Field": "exporterPdfFilename",
+                //     "Label": "Exporter Pdf Filename",
+                //     "Type": "text"
+                // }, {
+                //     "Field": "exporterMenuExcel",
+                //     "Label": "Exporter Menu Excel",
+                //     "Type": "boolean"
+                // }, {
+                //     "Field": "exporterExcelFilename",
+                //     "Label": "Exporter Excel Filename",
+                //     "Type": "text"
+                // }, 
+                {
+                    "Field": "paginationPageSizes",
+                    "Label": "Pagination Page Sizes",
+                    "Type": "textArea"
+                }, {
+                    "Field": "paginationPageSize",
+                    "Label": "Pagination Page Size",
+                    "Type": "text"
+                }, {
+                    "Field": "rowTemplate",
+                    "Label": "Row Template",
+                    "Type": "textArea"
+                },
+                // {
+                //     "Field": "gridMenuShowHideColumns",
+                //     "Label": "Grid Menu Show Hide Columns",
+                //     "Type": "boolean"
+                // }, 
+                {
+                    "Field": "gridMenuCustomItems",
+                    "Label": "Grid Menu Custom Items",
+                    "Type": "textArea"
+                }, {
+                    "Field": "enableInfiniteScroll",
+                    "Label": "Enable Infinite  Scroll",
+                    "Type": "boolean"
+                }
+            ];
         }
 
         function OpenJsonModal(name, $item) {
@@ -803,7 +876,6 @@
             EditPageCtrl.ePage.Masters.EditPage.SearchPage.DefaultFilterList = undefined;
             var _filter = {
                 "SourceEntityRefKey": EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.DataEntryName,
-                "TenantCode": authService.getUserInfo().TenantCode,
                 "SAP_FK": EditPageCtrl.ePage.Masters.QueryString.AppPk,
                 "EntitySource": "QUERY",
                 "TypeCode": EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.DataEntry_PK

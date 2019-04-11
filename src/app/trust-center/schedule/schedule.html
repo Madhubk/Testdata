@@ -1,0 +1,384 @@
+<div class="clearfix tc-schedule">
+    <!-- Breadcrumb -->
+    <div class="clearfix tc-breadcrumb" data-ng-if="TCScheduleCtrl.ePage.Masters.ActiveApplication == 'TC'">
+        <div class="col-xl-10 col-lg-10 col-md-10 col-sm-12 col-xs-12 p-0">
+            <i class="fa fa-home home-icon"></i>
+            <div class="breadcrumb-list-wrapper">
+                <ol class="breadcrumb">
+                    <li data-ng-repeat="x in TCScheduleCtrl.ePage.Masters.Breadcrumb.ListSource"
+                        data-ng-if="!x.IsActive">
+                        <a href="javascript:void(0);" data-ng-bind="x.Description"
+                            data-ng-click="TCScheduleCtrl.ePage.Masters.Breadcrumb.OnBreadcrumbClick(x)"></a>
+                    </li>
+                    <li data-ng-repeat="x in TCScheduleCtrl.ePage.Masters.Breadcrumb.ListSource" data-ng-if="x.IsActive"
+                        data-ng-bind="x.Description" class="active">
+                </ol>
+            </div>
+        </div>
+        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-xs-12 p-4">
+            <tc-application-dropdown query-string="TCScheduleCtrl.ePage.Masters.QueryString"
+                on-application-change="TCScheduleCtrl.ePage.Masters.Application.OnApplicationChange($item)">
+            </tc-application-dropdown>
+        </div>
+    </div>
+    <!-- Header -->
+    <div class="clearfix tc-header-container">
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 p-0">
+            <div class="tc-header with-add-new">
+                <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-5">
+                    <div class="text-single-line" data-ng-bind="'Schedule'"></div>
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-5 pt-4 text-right">
+                    <button class="btn btn-xs btn-info"
+                        data-ng-click="TCScheduleCtrl.ePage.Masters.Schedule.AddNew()">New</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 p-0">
+            <div class="tc-header edit-view">
+                <span data-ng-bind="'Details'"></span>
+                <button class="btn btn-default tc-btn-edit btn-xs pull-right ml-10"
+                    data-ng-click="TCScheduleCtrl.ePage.Masters.Schedule.Edit()"
+                    data-ng-disabled="!TCScheduleCtrl.ePage.Masters.Schedule.ActiveSchedule.PK">Edit</button>
+                <button class="btn btn-default tc-btn-delete btn-xs pull-right ml-10"
+                    data-ng-click="TCScheduleCtrl.ePage.Masters.Schedule.Delete()"
+                    data-ng-bind="TCScheduleCtrl.ePage.Masters.Schedule.DeleteBtnText"
+                    data-ng-disabled="TCScheduleCtrl.ePage.Masters.Schedule.IsDisableDeleteBtn || !TCScheduleCtrl.ePage.Masters.Schedule.ActiveSchedule.PK"></button>
+                <button class="btn btn-primary btn-xs pull-right ml-10" generate-db-script
+                    input="TCScheduleCtrl.ePage.Masters.GenerateScriptInput"
+                    config="TCScheduleCtrl.ePage.Masters.GenerateScriptConfig"
+                    data-ng-disabled="!TCScheduleCtrl.ePage.Masters.GenerateScriptInput.ObjectName || !TCScheduleCtrl.ePage.Masters.GenerateScriptInput.ObjectId || !TCScheduleCtrl.ePage.Masters.Schedule.ActiveSchedule.PK">Generate
+                    Script</button>
+                <button class="btn btn-warning btn-xs pull-right ml-10"
+                    data-ng-click="TCScheduleCtrl.ePage.Masters.Schedule.SendNow()"
+                    data-ng-disabled="!TCScheduleCtrl.ePage.Masters.Schedule.ActiveSchedule.PK || TCScheduleCtrl.ePage.Masters.Schedule.IsDisableSendNowBtn"
+                    data-ng-bind="TCScheduleCtrl.ePage.Masters.Schedule.SendNowBtnText"></button>
+            </div>
+        </div>
+    </div>
+    <!-- Body -->
+    <div class="clearfix">
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 p-0">
+            <div class="tc-list-search">
+                <input type="text" placeholder="Search..." class="form-control input-sm"
+                    data-ng-model="TCScheduleCtrl.ePage.Masters.Search">
+            </div>
+            <div class="tc-list-container tc-page-height-fixed left">
+                <ul class="tc-list-ul">
+                    <div class="p-15 text-center tc-loading"
+                        data-ng-if="!TCScheduleCtrl.ePage.Masters.Schedule.ListSource">
+                        <i class="fa fa-spin fa-spinner"></i>
+                    </div>
+                    <div data-ng-if="TCScheduleCtrl.ePage.Masters.Schedule.ListSource && (TCScheduleCtrl.ePage.Masters.Schedule.ListSource | filter: TCScheduleCtrl.ePage.Masters.Search).length===0"
+                        class="p-15 text-center">
+                        <i>No Records...</i>
+                    </div>
+                    <li data-ng-if="TCScheduleCtrl.ePage.Masters.Schedule.ListSource && (TCScheduleCtrl.ePage.Masters.Schedule.ListSource | filter: TCScheduleCtrl.ePage.Masters.Search).length > 0"
+                        data-ng-repeat="x in TCScheduleCtrl.ePage.Masters.Schedule.ListSource | filter: TCScheduleCtrl.ePage.Masters.Search"
+                        data-ng-click="TCScheduleCtrl.ePage.Masters.Schedule.ActiveSchedule.PK != x.PK && TCScheduleCtrl.ePage.Masters.Schedule.OnScheduleClick(x)"
+                        data-ng-class="{'active': TCScheduleCtrl.ePage.Masters.Schedule.ActiveSchedule.PK == x.PK}">
+                        <div class="clearfix tc-list">
+                            <div class="tc-list-name">
+                                <i class="fa fa-circle-o mr-10"></i>
+                                <span class="text-single-line" data-ng-bind="x.Title"></span>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 p-0 tc-page-height-fixed">
+            <div class="pt-10 pb-10 tc-details-view clearfix"
+                data-ng-if="TCScheduleCtrl.ePage.Masters.Schedule.ActiveSchedule.PK">
+                <div class="clearfix form-group">
+                    <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Title</label>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                        <div
+                            data-ng-bind="TCScheduleCtrl.ePage.Masters.Schedule.ActiveSchedule.Title || TCScheduleCtrl.ePage.Masters.emptyText">
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix form-group">
+                    <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">ClassSource</label>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                        <div
+                            data-ng-bind="TCScheduleCtrl.ePage.Masters.Schedule.ActiveSchedule.ClassSource || TCScheduleCtrl.ePage.Masters.emptyText">
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix form-group">
+                    <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Config Type</label>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                        <div
+                            data-ng-bind="TCScheduleCtrl.ePage.Masters.Schedule.ActiveSchedule.ConfigType || TCScheduleCtrl.ePage.Masters.emptyText">
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix form-group">
+                    <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">Schedule On</label>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                        <div
+                            data-ng-bind="TCScheduleCtrl.ePage.Masters.Schedule.ActiveSchedule.NextScheduleOn | date: 'dd-MMM-yyyy hh:mm:ss a' || TCScheduleCtrl.ePage.Masters.emptyText">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Schedule -->
+<script type="text/ng-template" id="TCSccheduleEdit">
+    <div class="modal-header">
+        <h5 class="modal-title pull-left" id="modal-title">
+            <strong>Edit</strong>
+        </h5>
+        <button class="btn btn-default tc-btn-save btn-xs pull-right ml-10"
+        data-ng-click="TCScheduleCtrl.ePage.Masters.Schedule.Save()"
+        data-ng-bind="TCScheduleCtrl.ePage.Masters.Schedule.SaveBtnText"
+        data-ng-disabled="TCScheduleCtrl.ePage.Masters.Schedule.IsDisableSaveBtn"></button>
+        <button class="btn btn-default tc-btn-cancel btn-xs pull-right ml-10"
+            data-ng-click="TCScheduleCtrl.ePage.Masters.Schedule.Cancel()">Cancel</button>
+        </div>
+        <div class="modal-body" id="modal-body">
+            <div class="clearfix">
+                <uib-tabset active="TCScheduleCtrl.ePage.Masters.Schedule.activeTabIndex">
+                    <uib-tab>
+                        <uib-tab-heading title="General">
+                            <span>General</span>
+                        </uib-tab-heading>
+                        <div class="p-0" style="height: calc(100vh - 158px); overflow-y: auto;">
+                            <div class="clearfix mt-10">
+                                <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+                                    <div class="form-group">
+                                        <label class="control-label">Shedule Title</label>
+                                        <div>
+                                            <input type="text" class="form-control input-sm" placeholder="Title"
+                                                data-ng-model="TCScheduleCtrl.ePage.Masters.Schedule.ActiveSchedule.Title">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+                                    <div class="form-group">
+                                        <label class="control-label">Schedule Start On</label>
+                                        <div>
+                                            <div class="input-group input-group-sm">
+                                                <input type="text" class="form-control"
+                                                    placeholder="{{TCScheduleCtrl.ePage.Masters.Schedule.DatePicker.Options.dateTimeFormat}}"
+                                                    data-ng-model="TCScheduleCtrl.ePage.Masters.Schedule.ActiveSchedule.NextScheduleOn"
+                                                    datetime-picker="{{TCScheduleCtrl.ePage.Masters.Schedule.DatePicker.Options.dateTimeFormat}}"
+                                                    datepicker-options="TCScheduleCtrl.ePage.Masters.Schedule.DatePicker.Options"
+                                                    datepicker-append-to-body="false" close-on-selection="false"
+                                                    enable-time="true" enable-date="true" default-date="" default-time=""
+                                                    save-as="TCScheduleCtrl.ePage.Masters.Schedule.DatePicker.Options.saveFormat"
+                                                    is-open="TCScheduleCtrl.ePage.Masters.Schedule.DatePicker.isOpen['isScheduleOn']"
+                                                    when-closed="" data-ng-click="" is-api-input-as-display-format="true" />
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-default shiny"
+                                                        data-ng-click="TCScheduleCtrl.ePage.Masters.Schedule.DatePicker.OpenDatePicker($event, 'isScheduleOn')">
+                                                        <i class="fa fa-calendar"></i>
+                                                    </button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+                                    <div class="form-group">
+                                        <label class="control-label">Config Type</label>
+                                        <div>
+                                            <select chosen class="form-control"
+                                                data-ng-model="TCScheduleCtrl.ePage.Masters.Schedule.ActiveSchedule.ConfigType"
+                                                data-ng-options="x.Code as x.Description for x in TCScheduleCtrl.ePage.Masters.Schedule.ConfigTypeList"
+                                                data-ng-change="TCScheduleCtrl.ePage.Masters.Schedule.OnConfigTypeChange()">
+                                                <option value="">--Select--</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+                                    <div class="form-group">
+                                        <label class="control-label">External Code</label>
+                                        <div>
+                                            <select chosen class="form-control"
+                                                data-ng-model="TCScheduleCtrl.ePage.Masters.Schedule.ActiveSchedule.External_FK"
+                                                data-ng-options="x.PK as (x.Code + ' - ' + x.Description) for x in TCScheduleCtrl.ePage.Masters.Schedule.EventList"
+                                                data-ng-change="TCScheduleCtrl.ePage.Masters.Schedule.OnExternalCodeChange((TCScheduleCtrl.ePage.Masters.Schedule.EventList| filter: {'PK': TCScheduleCtrl.ePage.Masters.Schedule.ActiveSchedule.External_FK})[0])" data-ng-disabled="TCScheduleCtrl.ePage.Masters.Schedule.ActiveSchedule.ConfigType != 'Event'">
+                                                <option value="">--Select--</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+                                    <div class="form-group">
+                                        <label class="control-label">Class Source</label>
+                                        <div>
+                                            <input type="text" class="form-control input-sm" placeholder="Class Source" data-ng-model="TCScheduleCtrl.ePage.Masters.Schedule.ActiveSchedule.ClassSource">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="clearfix">
+                                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                                    <div class="row mb-10">
+                                        <div class="col-sm-6 pt-5 bold">
+                                            <div class="text-single-line">Schedule Info</div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <select chosen class="form-control"
+                                                data-ng-model="TCScheduleCtrl.ePage.Masters.Schedule.ScheduleInfo.Type.ActiveScheduleType.Code"
+                                                data-ng-options="x.Code as x.Description for x in TCScheduleCtrl.ePage.Masters.Schedule.ScheduleInfo.Type.ListSource"
+                                                data-ng-change="TCScheduleCtrl.ePage.Masters.Schedule.ScheduleInfo.Type.OnChange((TCScheduleCtrl.ePage.Masters.Schedule.ScheduleInfo.Type.ListSource | filter: {'Code': TCScheduleCtrl.ePage.Masters.Schedule.ScheduleInfo.Type.ActiveScheduleType.Code})[0])">
+                                                <option value="">--Select--</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <textarea class="form-control input-sm no-resize" rows="15" placeholder="Info"
+                                            data-ng-model="TCScheduleCtrl.ePage.Masters.Schedule.ActiveSchedule.ScheduleInfo"></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                                    <div class="form-group">
+                                        <label class="control-label">Related Details</label>
+                                        <div>
+                                            <textarea class="form-control input-sm no-resize" rows="16"
+                                                placeholder="Related Details"
+                                                data-ng-model="TCScheduleCtrl.ePage.Masters.Schedule.ActiveSchedule.RelatedDetails"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                                    <div class="form-group">
+                                        <label class="control-label">Query Field</label>
+                                        <div>
+                                            <textarea class="form-control input-sm no-resize" rows="16" placeholder="Query Field"
+                                                data-ng-model="TCScheduleCtrl.ePage.Masters.Schedule.ActiveSchedule.QueryField"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </uib-tab>
+                    <uib-tab>
+                        <uib-tab-heading title="Email">
+                            <span>Email</span>
+                        </uib-tab-heading>
+                        <div class="p-0" style="height: calc(100vh - 158px); overflow-y: auto;">
+                            <div class="clearfix mt-10">
+                                <div class="clearfix">
+                                    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+                                        <div class="form-group">
+                                            <label class="control-label">Subject</label>
+                                            <div>
+                                                <input type="text" class="form-control input-sm" placeholder="Subject"
+                                                    data-ng-model="TCScheduleCtrl.ePage.Masters.Schedule.ActiveSchedule.CustomContactInfo.Template.Subject">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+                                        <div class="form-group">
+                                            <label class="control-label">To</label>
+                                            <div>
+                                                <input type="text" class="form-control input-sm" placeholder="To"
+                                                    data-ng-model="TCScheduleCtrl.ePage.Masters.Schedule.ActiveSchedule.CustomContactInfo.Template.To">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+                                        <div class="form-group">
+                                            <label class="control-label">Cc</label>
+                                            <div>
+                                                <input type="text" class="form-control input-sm" placeholder="Cc"
+                                                    data-ng-model="TCScheduleCtrl.ePage.Masters.Schedule.ActiveSchedule.CustomContactInfo.Template.Cc">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+                                        <div class="form-group">
+                                            <label class="control-label">Bcc</label>
+                                            <div>
+                                                <input type="text" class="form-control input-sm" placeholder="Bcc"
+                                                    data-ng-model="TCScheduleCtrl.ePage.Masters.Schedule.ActiveSchedule.CustomContactInfo.Template.Bcc">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="clearfix">
+                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                                        <div class="form-group m-0">
+                                            <label class="control-label">Body</label>
+                                            <div>
+                                                <div class="clearfix email-edit-container">
+                                                    <summernote config="TCScheduleCtrl.ePage.Masters.Schedule.SummernoteOptions" data-ng-model="TCScheduleCtrl.ePage.Masters.Schedule.ActiveSchedule.CustomContactInfo.Template.HtmlBody">
+                                                    </summernote>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </uib-tab>
+                    <uib-tab>
+                        <uib-tab-heading title="Report Template">
+                            <span>Report Template</span>
+                        </uib-tab-heading>
+                        <div class="p-0" style="height: calc(100vh - 158px); overflow-y: auto;">
+                            <div class="clearfix pt-10">
+                                <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+                                    <div class="form-group">
+                                        <label class="control-label">Mapping Code</label>
+                                        <div>
+                                            <input type="text" class="form-control input-sm" placeholder="Mapping Code" data-ng-model="TCScheduleCtrl.ePage.Masters.Schedule.ActiveSchedule.CustomContactInfo.MappingCode">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+                                    <div class="form-group">
+                                        <label class="control-label">Entity Source</label>
+                                        <div>
+                                            <input type="text" class="form-control input-sm" placeholder="Entity Source" data-ng-model="TCScheduleCtrl.ePage.Masters.Schedule.ActiveSchedule.CustomContactInfo.EntitySource">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+                                    <div class="form-group">
+                                        <label class="control-label">Notification Type</label>
+                                        <div>
+                                            <input type="text" class="form-control input-sm" placeholder="Notification Type" data-ng-model="TCScheduleCtrl.ePage.Masters.Schedule.ActiveSchedule.CustomContactInfo.Template.NotificationType">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+                                    <div class="form-group">
+                                        <label class="control-label">&nbsp;</label>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" class="colored-blue " data-ng-model="TCScheduleCtrl.ePage.Masters.Schedule.ActiveSchedule.CustomContactInfo.Template.IsIndividual">
+                                                <span class="text text-single-line">Is Individual</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="clearfix">
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                                    <div class="clearfix mt-10">
+                                        <div class="form-group">
+                                            <label class="control-label">Template Input</label>
+                                            <div>
+                                                <textarea class="form-control input-sm no-resize" rows="20"
+                                                    placeholder="Template Input"
+                                                    data-ng-model="TCScheduleCtrl.ePage.Masters.Schedule.ActiveSchedule.CustomContactInfo.Template.ReportTemplateInput"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </uib-tab>
+                </uib-tabset>
+            </div>
+        </div>            
+</script>

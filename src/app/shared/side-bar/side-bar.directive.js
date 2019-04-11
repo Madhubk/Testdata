@@ -69,15 +69,20 @@
             });
         }
 
-        function GetMenuLink($item){
-            return ($item.Link.split("/")[0] != "") ? ("#/" + $item.Link) : ("#" + $item.Link);
+        function GetMenuLink($item) {
+            return ($item.Link.split("/")[0] != "") ? ("/" + $item.Link) : ("" + $item.Link);
         }
 
         function OnMenuClick($item, $event) {
             if ($item.Link && $item.Link != "#") {
-                LogVisitedMenu($item);
-                if ($item.Link.split("/").length > 0) {
-                    SideBarCtrl.ePage.Masters.ActiveMenu = $item;
+                if ($item.Link.indexOf("$") != -1) {
+                    window.open($item.Link.substring(1, $item.Link.length), "_blank");
+                } else {
+                    LogVisitedMenu($item);
+                    if ($item.Link.split("/").length > 0) {
+                        SideBarCtrl.ePage.Masters.ActiveMenu = $item;
+                        $location.path(GetMenuLink($item));
+                    }
                 }
             }
         }

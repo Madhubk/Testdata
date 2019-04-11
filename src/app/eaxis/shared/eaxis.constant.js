@@ -8,7 +8,8 @@
                 name: 'eAxis',
                 files: [
                     'app/eaxis/shared/eaxis.css',
-                    'app/eaxis/shared/eaxis.controller.js'
+                    'app/eaxis/shared/eaxis-config.factory.js',
+					'app/eaxis/shared/eaxis.controller.js'
                 ]
             }, {
                 name: 'eAxisHome',
@@ -25,20 +26,16 @@
             }, {
                 name: 'dynamicMultiDashboard',
                 files: [
-                    'app/eaxis/shared/dynamic-multi-dashboard/dynamic-multi-dashboard.css',
-                    'app/eaxis/shared/dynamic-multi-dashboard/dynamic-multi-dashboard.directive.js',
-                    'app/eaxis/shared/dynamic-multi-dashboard/dynamic-multi-dashboard.controller.js'
+                    'app/eaxis/shared/dynamic-multi-dashboard/dynamic-multi-dashboard.directive.js'
                 ]
             }, {
                 name: 'EADynamicListView',
                 files: [
-                    'app/eaxis/shared/dynamic-list-view/dynamic-list-view.css',
                     'app/eaxis/shared/dynamic-list-view/dynamic-list-view.controller.js'
                 ]
             }, {
                 name: 'EADynamicDetailsView',
                 files: [
-                    'app/eaxis/shared/dynamic-details-view/dynamic-details-view.css',
                     'app/eaxis/shared/dynamic-details-view/dynamic-details-view.controller.js'
                 ]
             },
@@ -186,20 +183,18 @@
                 files: [
                     'app/eaxis/shared/address-directive/address-directive.css',
                     'app/eaxis/shared/address-directive/address-directive.js',
-                    'app/eaxis/shared/address-directive/address-directive.controller.js',
                 ]
             }, {
                 name: 'addressWrapper',
                 files: [
                     'app/eaxis/shared/address-wrapper/address-wrapper.css',
-                    'app/eaxis/shared/address-wrapper/address-wrapper.js',
-                    'app/eaxis/shared/address-wrapper/address-wrapper.controller.js',
+                    'app/eaxis/shared/address-wrapper/address-wrapper.directive.js'
                 ]
             }, {
                 name: 'addressModal',
                 files: [
                     'app/eaxis/shared/address-directive/address-modal/address-modal.css',
-                    'app/eaxis/shared/address-directive/address-modal/address-modal.controller.js',
+                    'app/eaxis/shared/address-directive/address-modal/address-modal.controller.js'
                 ]
             },
             // endregion
@@ -207,8 +202,6 @@
             {
                 name: 'ActivityTab',
                 files: [
-                    'app/eaxis/shared/activity-tab/activity-tab.css',
-                    'app/eaxis/shared/activity-tab/activity-tab.controller.js',
                     'app/eaxis/shared/activity-tab/activity-tab.directive.js'
                 ]
             }

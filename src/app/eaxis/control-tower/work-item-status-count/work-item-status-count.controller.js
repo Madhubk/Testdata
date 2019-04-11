@@ -5,9 +5,9 @@
         .module("Application")
         .controller("WorkItemStatusCountController", WorkItemStatusCountController);
 
-    WorkItemStatusCountController.$inject = ["authService", "apiService", "helperService", "appConfig", "$ocLazyLoad"];
+    WorkItemStatusCountController.$inject = ["authService", "apiService", "helperService", "eaxisConfig", "$ocLazyLoad"];
 
-    function WorkItemStatusCountController(authService, apiService, helperService, appConfig, $ocLazyLoad) {
+    function WorkItemStatusCountController(authService, apiService, helperService, eaxisConfig, $ocLazyLoad) {
         /* jshint validthis: true */
         var WorkItemStatusCountCtrl = this;
 
@@ -65,10 +65,10 @@
 
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.EBPMControlTower.API.FindAll.FilterID
+                "FilterID": eaxisConfig.Entities.EBPMControlTower.API.FindAll.FilterID
             };
 
-            apiService.post("eAxisAPI", appConfig.Entities.EBPMControlTower.API.FindAll.Url, _input).then(function (response) {
+            apiService.post("eAxisAPI", eaxisConfig.Entities.EBPMControlTower.API.FindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     WorkItemStatusCountCtrl.ePage.Masters.WorkItemList = response.data.Response;
                 } else {
@@ -80,7 +80,7 @@
         }
 
         function GetWorkItemCountListCTProActive() {
-            WorkItemStatusCountCtrl.ePage.Masters.WorkItemList = [];
+            GetWorkItemCountListCTOverdue();
         }
 
         function GetWorkItemCountListCTOverdue() {
@@ -108,10 +108,10 @@
 
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.vwWorkItemControlTowerMoreInfo.API.FindAll.FilterID
+                "FilterID": eaxisConfig.Entities.vwWorkItemControlTowerMoreInfo.API.FindAll.FilterID
             };
 
-            apiService.post("eAxisAPI", appConfig.Entities.vwWorkItemControlTowerMoreInfo.API.FindAll.Url, _input).then(function (response) {
+            apiService.post("eAxisAPI", eaxisConfig.Entities.vwWorkItemControlTowerMoreInfo.API.FindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     WorkItemStatusCountCtrl.ePage.Masters.WorkItemList = response.data.Response;
                 } else {
@@ -123,7 +123,7 @@
         }
 
         function GetWorkItemCountListCTHistory() {
-            WorkItemStatusCountCtrl.ePage.Masters.WorkItemList = [];
+            GetWorkItemCountListCTGeneral();
         }
 
         function OnWorkItemClick($item, count, userStatus, tab, status) {

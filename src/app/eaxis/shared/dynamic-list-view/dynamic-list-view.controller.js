@@ -5,11 +5,11 @@
         .module("Application")
         .controller("DynamicListViewController", DynamicListViewController);
 
-    DynamicListViewController.$inject = ["$location", "helperService"];
+    DynamicListViewController.$inject = ["$scope", "$location", "$uibModal", "helperService"];
 
-    function DynamicListViewController($location, helperService) {
+    function DynamicListViewController($scope, $location, $uibModal, helperService) {
         /* jshint validthis: true */
-        var DynamicListViewCtrl = this;
+        let DynamicListViewCtrl = this;
 
         function Init() {
             DynamicListViewCtrl.ePage = {
@@ -20,34 +20,60 @@
                 "Entities": {}
             };
 
-            DynamicListViewCtrl.ePage.Masters.SelectedGridRow = SelectedGridRow;
+            try {
+                let _queryString = $location.search();
+                if (_queryString) {
+                    let _isEmpty = angular.equals({}, _queryString);
 
-            DynamicListViewCtrl.ePage.Masters.QueryString = $location.search();
-            if (DynamicListViewCtrl.ePage.Masters.QueryString) {
-                var _isEmpty = angular.equals({}, DynamicListViewCtrl.ePage.Masters.QueryString);
+                    if (!_isEmpty) {
+                        let _decrypted = helperService.decryptData(_queryString.q);
 
-                if (!_isEmpty) {
-                    var _decrypted = helperService.decryptData(DynamicListViewCtrl.ePage.Masters.QueryString.item);
-
-                    if (typeof _decrypted == "string") {
-                        _decrypted = JSON.parse(_decrypted);
+                        if (typeof _decrypted == "string") {
+                            _decrypted = JSON.parse(_decrypted);
+                        }
+                        DynamicListViewCtrl.ePage.Masters.DefaultFilter = _decrypted.DefaultFilter;
                     }
-                    DynamicListViewCtrl.ePage.Masters.defaultFilter = _decrypted;
                 }
-            }
 
-            DynamicListViewCtrl.ePage.Masters.dataentryName = $location.path().split("/").pop();
+                DynamicListViewCtrl.ePage.Masters.DataEntryName = $location.path().split("/").pop();
+
+                DynamicListViewCtrl.ePage.Masters.SelectedGridRow = SelectedGridRow;
+                DynamicListViewCtrl.ePage.Masters.Cancel = Cancel;
+            } catch (ex) {
+                console.log(ex);
+            }
         }
 
         function SelectedGridRow($item) {
-            if ($item.action === "link" || $item.action === "dblClick") {
-                var _detailKey = $item.data.entity[$item.dataEntryMaster.GridConfig.DetailKey];
-                $location.path("/EA/dynamic-details-view/" + DynamicListViewCtrl.ePage.Masters.dataentryName).search({
-                    item: helperService.encryptData(_detailKey)
-                });
-            } else {
-                $location.path("/EA/dynamic-details-view/" + DynamicListViewCtrl.ePage.Masters.dataentryName);
+            if ($item.action == "new") {
+                DynamicListViewCtrl.ePage.Masters.Pkey = null;
+                DynamicListViewCtrl.ePage.Masters.Item = null;
+                Edit();
+            } else if($item.action == "link" || $item.action == "dblClick") {
+                let _detailKey = $item.data.entity[$item.dataEntryMaster.GridConfig.DetailKey];
+                DynamicListViewCtrl.ePage.Masters.Pkey = _detailKey;
+                DynamicListViewCtrl.ePage.Masters.Item = $item.data.entity;
+                Edit();
             }
+        }
+
+        function EditModalInstance() {
+            return DynamicListViewCtrl.ePage.Masters.EditModal = $uibModal.open({
+                animation: true,
+                keyboard: true,
+                backdrop: "static",
+                windowClass: "dyn-details-edit-modal right",
+                scope: $scope,
+                template: `<div ng-include src="'dynDataEntryEdit'"></div>`
+            });
+        }
+
+        function Edit() {
+            EditModalInstance().result.then(response => {}, () => Cancel());
+        }
+
+        function Cancel() {
+            DynamicListViewCtrl.ePage.Masters.EditModal.dismiss('cancel');
         }
 
         Init();

@@ -44,8 +44,13 @@
             };
 
             SMDocumentCtrl.Config = SMDocumentCtrl.config ? SMDocumentCtrl.config : {};
+            SMDocumentCtrl.ePage.Masters.CheckControlAccess = CheckControlAccess;
 
             InitDocument();
+        }
+
+        function CheckControlAccess(controlId) {
+            return helperService.checkUIControl(controlId);
         }
 
         function InitDocument() {
@@ -130,8 +135,7 @@
                 "EntitySource": "CONFIGURATION",
                 "SourceEntityRefKey": "DocType",
                 "Key": SMDocumentCtrl.ePage.Entities.Entity,
-                SAP_FK: authService.getUserInfo().AppPK,
-                TenantCode: authService.getUserInfo().TenantCode
+                "SAP_FK": authService.getUserInfo().AppPK,
             };
             let _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
@@ -185,7 +189,9 @@
         function OnDocumentTypeChange($item) {
             SMDocumentCtrl.ePage.Masters.Document.ActiveDocumentType = angular.copy($item);
 
-            GetDocumentList();
+            if (!SMDocumentCtrl.Config.IsDisableEntityDocument) {
+                GetDocumentList();
+            }
             if (!SMDocumentCtrl.Config.IsDisableRelatedDocument) {
                 GetRelatedDocumentList();
             }
@@ -199,8 +205,7 @@
                 EntitySource: "CONFIGURATION",
                 Key: SMDocumentCtrl.ePage.Entities.Entity + "_Document",
                 ModuleCode: "GEN",
-                SAP_FK: authService.getUserInfo().AppPK,
-                TenantCode: authService.getUserInfo().TenantCode
+                SAP_FK: authService.getUserInfo().AppPK
             };
             let _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
@@ -259,7 +264,9 @@
             SMDocumentCtrl.ePage.Masters.Document.ActiveDocumentGenerate = angular.copy($item);
 
             if ($event || SMDocumentCtrl.Config.IsDisableUpload) {
-                GetDocumentList();
+                if (!SMDocumentCtrl.Config.IsDisableEntityDocument) {
+                    GetDocumentList();
+                }
                 if (!SMDocumentCtrl.Config.IsDisableRelatedDocument) {
                     GetRelatedDocumentList();
                 }
@@ -269,7 +276,9 @@
 
         // #region Header Button
         function Refresh() {
-            GetDocumentList();
+            if (!SMDocumentCtrl.Config.IsDisableEntityDocument) {
+                GetDocumentList();
+            }
             if (!SMDocumentCtrl.Config.IsDisableRelatedDocument) {
                 GetRelatedDocumentList();
             }
@@ -757,17 +766,7 @@
                 if (SMDocumentCtrl.ePage.Masters.Document.Upload.TempListSource.length > 0) {
                     SMDocumentCtrl.ePage.Masters.Document.ListSource.push(response);
 
-                    SMDocumentCtrl.ePage.Masters.Document.Upload.TempListSource.map(x => {
-                        if (response.DocumentType == x.name && x.IsNew) {
-                            x.IsNew = false;
-                        }
-                    });
-
-                    let _isExist = SMDocumentCtrl.ePage.Masters.Document.Upload.TempListSource.some(x => x.IsNew == true);
-
-                    if (!_isExist) {
-                        SMDocumentCtrl.ePage.Masters.Document.Upload.TempListSource = undefined;
-                    }
+                    SMDocumentCtrl.ePage.Masters.Document.Upload.TempListSource = undefined;
                 }
 
                 SMDocumentCtrl.ePage.Masters.Document.Generate.GenerateBtnTxt = "Generate";

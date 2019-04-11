@@ -230,7 +230,7 @@
         <div class="clearfix assign-task-btn-container">
             <button class="btn btn-primary mr-40" data-ng-click="MyTaskCtrl.ePage.Masters.MyTask.OpenActivity.AssignToMe()"
                 data-ng-if="MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem.Status == 'AVAILABLE'" data-ng-disabled="MyTaskCtrl.ePage.Masters.MyTask.OpenActivity.IsDisableAssignToMeBtn" data-ng-bind="MyTaskCtrl.ePage.Masters.MyTask.OpenActivity.AssignToMeBtnTxt"></button>
-            <button class="btn btn-primary mr-40" data-ng-if="MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem.Status == 'ASSIGNED'" data-ng-disabled="MyTaskCtrl.ePage.Masters.MyTask.OpenActivity.IsDisableStartMyWorkBtn" data-ng-bind="MyTaskCtrl.ePage.Masters.MyTask.OpenActivity.StartMyWorkBtnTxt" data-ng-click="MyTaskCtrl.ePage.Masters.MyTask.OpenActivity.StartMyWork()"></button>
+            <button class="btn btn-primary mr-40" data-ng-if="MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem.Status == 'ASSIGNED' && MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem.IsWorkStartEnabledStr == '1' && MyTaskCtrl.ePage.Masters.MyTask.EditActivityItem.IsWorkStartedStr == '0'" data-ng-disabled="MyTaskCtrl.ePage.Masters.MyTask.OpenActivity.IsDisableStartMyWorkBtn" data-ng-bind="MyTaskCtrl.ePage.Masters.MyTask.OpenActivity.StartMyWorkBtnTxt" data-ng-click="MyTaskCtrl.ePage.Masters.MyTask.OpenActivity.StartMyWork()"></button>
             <button class="btn btn-warning" data-ng-click="MyTaskCtrl.ePage.Masters.MyTask.OpenActivity.Close()">Close</button>
         </div>
     </div>

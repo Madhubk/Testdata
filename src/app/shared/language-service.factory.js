@@ -13,7 +13,6 @@
         return function (options) {
             var deferred = $q.defer();
             var _filter = {
-                "TenantCode": authService.getUserInfo().TenantCode,
                 "SAP_FK": authService.getUserInfo().AppPK,
                 "EntitySource": "LANGUAGE",
                 "Key": options.key

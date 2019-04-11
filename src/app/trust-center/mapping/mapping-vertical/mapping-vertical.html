@@ -33,7 +33,7 @@
                     data-ng-disabled="!MappingVerticalCtrl.ePage.Masters.MappingVertical.ActiveMappingVertical.PK">Edit</button>
                 <button class="btn btn-default tc-btn-delete btn-xs pull-right ml-10" data-ng-click="MappingVerticalCtrl.ePage.Masters.MappingVertical.DeleteConfirmation()"
                     data-ng-bind="MappingVerticalCtrl.ePage.Masters.MappingVertical.DeleteBtnText" data-ng-disabled="MappingVerticalCtrl.ePage.Masters.MappingVertical.IsDisableDeleteBtn || !MappingVerticalCtrl.ePage.Masters.MappingVertical.ActiveMappingVertical.PK"
-                    data-ng-if="MappingVerticalCtrl.ePage.Masters.UIControlList && MappingVerticalCtrl.ePage.Masters.UIControlList.length > 0 && MappingVerticalCtrl.ePage.Masters.CheckUIControl('TC_MAP_DEL')"></button>
+                    data-ng-if="MappingVerticalCtrl.ePage.Masters.CheckUIControl('TC_MAP_DEL')"></button>
             </div>
         </div>
     </div>

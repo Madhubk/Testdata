@@ -1,0 +1,45 @@
+<form class="clearfix task-assign-start-complete-wrapper" role="form"
+    data-ng-if="SnoozeCtrl.ePage.Masters.Task && SnoozeCtrl.ePage.Masters.SnoozeReason.ListSource">
+    <div class="form-group pl-10 pr-10 pt-5">
+        <label class="control-label">Snooze until</label>
+        <div class="input-group input-group-sm">
+            <input type="text" class="form-control"
+                placeholder="{{SnoozeCtrl.ePage.Masters.DatePicker.Options.dateTimeFormat}}"
+                data-ng-model="SnoozeCtrl.ePage.Entities.DueDate"
+                datetime-picker="{{SnoozeCtrl.ePage.Masters.DatePicker.Options.dateTimeFormat}}"
+                datepicker-options="SnoozeCtrl.ePage.Masters.DatePicker.Options" datepicker-append-to-body="false"
+                close-on-selection="false" enable-time="true" enable-date="true" default-date="" default-time=""
+                save-as="SnoozeCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                is-open="SnoozeCtrl.ePage.Masters.DatePicker.isOpen" when-closed="" data-ng-click=""
+                data-ng-change="SnoozeCtrl.ePage.Masters.OnDateChange()" custom-date-time-format />
+            <span class="input-group-btn">
+                <button class="btn btn-default shiny"
+                    data-ng-click="SnoozeCtrl.ePage.Masters.DatePicker.OpenDatePicker($event)">
+                    <i class="fa fa-calendar"></i>
+                </button>
+            </span>
+        </div>
+    </div>
+    <div class="form-group pl-10 pr-10">
+        <label class="control-label">Delay Reason</label>
+        <select chosen class="form-control" data-ng-model="SnoozeCtrl.ePage.Entities.WSL_FK"
+            data-ng-options="x.PK as x.Name for x in SnoozeCtrl.ePage.Masters.SnoozeReason.ListSource"
+            data-ng-change="SnoozeCtrl.ePage.Masters.SnoozeReason.OnChange((SnoozeCtrl.ePage.Masters.SnoozeReason.ListSource | filter : {'PK': SnoozeCtrl.ePage.Entities.WSL_FK})[0])"
+            data-ng-disabled="!SnoozeCtrl.ePage.Masters.SnoozeReason.ListSource">
+            <option value="">--Select--</option>
+        </select>
+    </div>
+    <div class="form-group pl-10 pr-10">
+        <textarea class="form-control no-resize" rows="3" data-ng-model="SnoozeCtrl.ePage.Entities.Remarks"
+            placeholder="Comment"></textarea>
+    </div>
+</form>
+<div class="clearfix pb-5 pr-10 pl-10 text-right" data-ng-if="SnoozeCtrl.ePage.Masters.Task && SnoozeCtrl.ePage.Masters.SnoozeReason.ListSource">
+    <button class="btn btn-primary btn-xs pull-right" data-ng-click="SnoozeCtrl.ePage.Masters.Submit()" data-ng-bind="SnoozeCtrl.ePage.Masters.SubmitBtnText"
+        data-ng-disabled="SnoozeCtrl.ePage.Masters.IsDisableSubmitBtn"></button>
+</div>
+
+<div class="clearfix p-120 text-center"
+    data-ng-if="SnoozeCtrl.ePage.Masters.Task && !SnoozeCtrl.ePage.Masters.SnoozeReason.ListSource">
+    <i class="fa fa-spin fa-spinner font-120"></i>
+</div>

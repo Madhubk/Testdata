@@ -1,172 +1,198 @@
 <div class="clearfix tc-edit-page-serach-config mt-10">
-    <div class="clearfix mb-10">
-        <form class="form-horizontal" role="form">
-            <div class="col-xs-12 xol-sm-12 col-md-6 col-lg-6 col-xl-6">
-                <div class="form-group">
-                    <label class="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 control-label">Filter ID</label>
-                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-8 col-xl-8">
-                        <input type="text" data-ng-model="EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.FilterID"
-                            class="form-control input-sm" placeholder="Filter ID">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 control-label">Search API URL</label>
-                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-8 col-xl-8">
-                        <input type="text" data-ng-model="EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.FilterAPI"
-                            class="form-control input-sm" placeholder="Search API URL">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 control-label">Redirect URL (Row
-                        Click)</label>
-                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-8 col-xl-8">
-                        <input type="text" data-ng-model="EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.GridConfig.DetailURL"
-                            class="form-control input-sm" placeholder="Redirect URL (Row Click)">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 control-label">Parameter Column</label>
-                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-8 col-xl-8">
-                        <input type="text" data-ng-model="EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.GridConfig.DetailKey"
-                            class="form-control input-sm" placeholder="Parameter Column">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 control-label">Starred Key Field</label>
-                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-8 col-xl-8">
-                        <input type="text" data-ng-model="EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.GridConfig.StarredKeyField"
-                            class="form-control input-sm" placeholder="Starred Key Field">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 control-label">Starred Value Field</label>
-                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-8 col-xl-8">
-                        <input type="text" data-ng-model="EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.GridConfig.StarredValueField"
-                            class="form-control input-sm" placeholder="Starred Value Field">
-                    </div>
-                </div>
-            </div>
-            <div class="col-xs-12 xol-sm-12 col-md-6 col-lg-6 col-xl-6">
-                <div class="set-title mb-10">
-                    <span>Filter Config</span>
-                </div>
-                <form class="form-horizontal " role="form">
-                    <div class="form-group">
-                        <label class="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 control-label">No Of Column</label>
-                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-8 col-xl-8">
-                            <select chosen class="form-control input-sm" data-ng-options="x for x in ['1', '2']"
-                                data-ng-model="EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.OtherConfig.FilterConfig.NoOfColumn"
-                                search-contains="true">
-                                <option value="">--Select--</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 control-label">Entity Source</label>
-                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-8 col-xl-8">
-                            <input type="text" data-ng-model="EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.OtherConfig.FilterConfig.EntitySource"
-                                class="form-control input-sm" placeholder="Entity Source">
-                        </div>
-                    </div>
-                    <!-- <div class="form-group">
-                        <label class="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 control-label">No Of Filter Item</label>
-                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-8 col-xl-8">
-                            <input type="text" data-ng-model="EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.OtherConfig.FilterConfig.NoOfFilterItem"
-                                class="form-control input-sm" placeholder="No Of Filter Item">
-                        </div>
-                    </div> -->
-                </form>
-            </div>
-        </form>
-    </div>
-    <div class="clearfix mb-10">
-        <!-- Default Query Input - Pagination-->
+    <div class="clearfix mb-10 form-horizontal">
         <div class="col-xs-12 xol-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <!-- Entity Search-->
             <div class="set-title mb-10">
-                <span>Default Query Input</span>
+                <span>Entity Search API</span>
             </div>
-            <form class="form-horizontal " role="form">
-                <div class="form-group">
-                    <label class="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 control-label">Default Sort Column</label>
-                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-8 col-xl-8">
-                        <input type="text" data-ng-model="EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.OtherConfig.Pagination.SortColumn"
-                            class="form-control input-sm" placeholder="Default Sort Column">
-                    </div>
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 control-label">Filter ID</label>
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-8 col-xl-8">
+                    <input type="text" data-ng-model="EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.FilterID"
+                        class="form-control input-sm" placeholder="Filter ID">
                 </div>
-                <div class="form-group">
-                    <label class="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 control-label">Sort Type</label>
-                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-8 col-xl-8">
-                        <input type="text" data-ng-model="EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.OtherConfig.Pagination.SortType"
-                            class="form-control input-sm" placeholder="Sort Type">
-                    </div>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 control-label">Search API URL</label>
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-8 col-xl-8">
+                    <input type="text" data-ng-model="EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.FilterAPI"
+                        class="form-control input-sm" placeholder="Search API URL">
                 </div>
-                <div class="form-group">
-                    <label class="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 control-label">Page Number</label>
-                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-8 col-xl-8">
-                        <input type="text" data-ng-model="EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.OtherConfig.Pagination.PageNumber"
-                            class="form-control input-sm" placeholder="Page Number">
-                    </div>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 control-label">Redirect URL (Row
+                    Click)</label>
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-8 col-xl-8">
+                    <input type="text"
+                        data-ng-model="EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.GridConfig.DetailURL"
+                        class="form-control input-sm" placeholder="Redirect URL (Row Click)">
                 </div>
-                <div class="form-group">
-                    <label class="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 control-label">Page Size</label>
-                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-8 col-xl-8">
-                        <input type="text" data-ng-model="EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.OtherConfig.Pagination.PageSize"
-                            class="form-control input-sm" placeholder="Page Size">
-                    </div>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 control-label">Parameter Column</label>
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-8 col-xl-8">
+                    <input type="text"
+                        data-ng-model="EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.GridConfig.DetailKey"
+                        class="form-control input-sm" placeholder="Parameter Column">
                 </div>
-            </form>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 control-label">Display Column</label>
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-8 col-xl-8">
+                    <input type="text"
+                        data-ng-model="EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.OtherConfig.DisplayColumn"
+                        class="form-control input-sm" placeholder="Display Column">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 control-label">CRUD URL</label>
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-8 col-xl-8">
+                    <textarea data-ng-model="EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.UpsertURL"
+                        class="form-control no-resize" rows="6" placeholder="CRUD URL"></textarea>
+                </div>
+            </div>
+            <!-- Pagination-->
+            <div class="set-title mb-10">
+                <span>Pagination</span>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 control-label">Default Sort Column</label>
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-8 col-xl-8">
+                    <input type="text"
+                        data-ng-model="EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.OtherConfig.Pagination.SortColumn"
+                        class="form-control input-sm" placeholder="Default Sort Column">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 control-label">Sort Type</label>
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-8 col-xl-8">
+                    <input type="text"
+                        data-ng-model="EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.OtherConfig.Pagination.SortType"
+                        class="form-control input-sm" placeholder="Sort Type">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 control-label">Page Number</label>
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-8 col-xl-8">
+                    <input type="text"
+                        data-ng-model="EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.OtherConfig.Pagination.PageNumber"
+                        class="form-control input-sm" placeholder="Page Number">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 control-label">Page Size</label>
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-8 col-xl-8">
+                    <input type="text"
+                        data-ng-model="EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.OtherConfig.Pagination.PageSize"
+                        class="form-control input-sm" placeholder="Page Size">
+                </div>
+            </div>
         </div>
-        <!-- Other Config -->
         <div class="col-xs-12 xol-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <!-- Starred Config -->
+            <div class="set-title mb-10">
+                <span>Starred Config</span>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 control-label">Key</label>
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-8 col-xl-8">
+                    <input type="text"
+                        data-ng-model="EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.GridConfig.StarredKeyField"
+                        class="form-control input-sm" placeholder="Key">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 control-label">Value</label>
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-8 col-xl-8">
+                    <input type="text"
+                        data-ng-model="EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.GridConfig.StarredValueField"
+                        class="form-control input-sm" placeholder="Value">
+                </div>
+            </div>
+            <!-- Filter Config -->
+            <div class="set-title mb-10">
+                <span>Filter Config</span>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 control-label">Is Auto Listing</label>
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-8 col-xl-8">
+                    <div class="checkbox m-0">
+                        <label>
+                            <input type="checkbox" class="colored-blue"
+                                data-ng-model="EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.OtherConfig.FilterConfig.IsAutoListing">
+                            <span class="text"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 control-label">No Of Column</label>
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-8 col-xl-8">
+                    <select chosen class="form-control input-sm" data-ng-options="x for x in ['1', '2']"
+                        data-ng-model="EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.OtherConfig.FilterConfig.NoOfColumn"
+                        search-contains="true">
+                        <option value="">--Select--</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 control-label">Entity Source</label>
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-8 col-xl-8">
+                    <input type="text"
+                        data-ng-model="EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.OtherConfig.FilterConfig.EntitySource"
+                        class="form-control input-sm" placeholder="Entity Source">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 control-label">Entity Name</label>
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-8 col-xl-8">
+                    <input type="text"
+                        data-ng-model="EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.OtherConfig.FilterConfig.EntityName"
+                        class="form-control input-sm" placeholder="Entity Name">
+                </div>
+            </div>
+            <!-- Style -->
             <div class="set-title mb-10">
                 <span>Style</span>
                 <i data-ng-click="EditPageCtrl.ePage.Masters.EditPage.SearchPage.OpenJsonModal('otherConfig',EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.OtherConfig)"
                     class="glyphicon glyphicon-pencil cursor-pointer ml-5"></i>
                 </a>
             </div>
-            <form class="form-horizontal" role="form">
-                <div class="form-group">
-                    <label class="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 control-label">Is Auto Listing</label>
-                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-8 col-xl-8">
-                        <div class="checkbox m-0">
-                            <label>
-                                <input type="checkbox" class="colored-blue" data-ng-model="EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.OtherConfig.CSS.IsAutoListing">
-                                <span class="text"></span>
-                            </label>
-                        </div>
-                    </div>
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 control-label">Background Color</label>
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-8 col-xl-8">
+                    <input type="text"
+                        data-ng-model="EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.OtherConfig.CSS['bg-color']"
+                        class="form-control input-sm" placeholder="Bg Color">
                 </div>
-                <div class="form-group">
-                    <label class="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 control-label">Background Color</label>
-                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-8 col-xl-8">
-                        <input type="text" data-ng-model="EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.OtherConfig.CSS['bg-color']"
-                            class="form-control input-sm" placeholder="Bg Color">
-                    </div>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 control-label">Text Color</label>
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-8 col-xl-8">
+                    <input type="text"
+                        data-ng-model="EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.OtherConfig.CSS['fg-color']"
+                        class="form-control input-sm" placeholder="Fg Color">
                 </div>
-                <div class="form-group">
-                    <label class="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 control-label">Text Color</label>
-                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-8 col-xl-8">
-                        <input type="text" data-ng-model="EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.OtherConfig.CSS['fg-color']"
-                            class="form-control input-sm" placeholder="Fg Color">
-                    </div>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 control-label">Icon</label>
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-8 col-xl-8">
+                    <input type="text"
+                        data-ng-model="EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.OtherConfig.CSS.icon"
+                        class="form-control input-sm" placeholder="Icon">
                 </div>
-                <div class="form-group">
-                    <label class="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 control-label">Icon</label>
-                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-8 col-xl-8">
-                        <input type="text" data-ng-model="EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.OtherConfig.CSS.icon"
-                            class="form-control input-sm" placeholder="Icon">
-                    </div>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 control-label">Align</label>
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-8 col-xl-8">
+                    <input type="text"
+                        data-ng-model="EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.OtherConfig.CSS.Align"
+                        class="form-control input-sm" placeholder="Align">
                 </div>
-                <div class="form-group">
-                    <label class="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 control-label">Align</label>
-                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-8 col-xl-8">
-                        <input type="text" data-ng-model="EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.OtherConfig.CSS.Align"
-                            class="form-control input-sm" placeholder="Align">
-                    </div>
-                </div>
-            </form>
+            </div>
         </div>
     </div>
+    <div class="tc-section-divider-small mb-10"></div>
     <!-- Sort Column -->
     <div class="clearfix mb-10">
         <div class="col-xs-12 xol-sm-12 col-md-6 col-lg-6 col-xl-6">
@@ -189,7 +215,8 @@
                             </div>
                         </td>
                     </tr>
-                    <tr data-ng-if="EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.GridConfig.SortObjects && EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.GridConfig.SortObjects.length == 0">
+                    <tr
+                        data-ng-if="EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.GridConfig.SortObjects && EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.GridConfig.SortObjects.length == 0">
                         <td colspan="20">
                             <div class="text-center p-10">
                                 <i>No Records...</i>
@@ -202,17 +229,20 @@
                             <input class="set-tabel-text" data-ng-model="item.FieldName" type="text" placeholder="Name">
                         </td>
                         <td>
-                            <input class="set-tabel-text" data-ng-model="item.value" type="text" placeholder="Db Field Name">
+                            <input class="set-tabel-text" data-ng-model="item.value" type="text"
+                                placeholder="Db Field Name">
                         </td>
                         <td class="text-center p-4 action-remove">
-                            <span data-ng-click="EditPageCtrl.ePage.Masters.EditPage.SearchPage.RemoveSortColumn($index)">
+                            <span
+                                data-ng-click="EditPageCtrl.ePage.Masters.EditPage.SearchPage.RemoveSortColumn($index)">
                                 <i class="fa fa-trash"></i>
                             </span>
                         </td>
                     </tr>
                     <tr>
                         <td colspan="20">
-                            <a class="padding-10 pull-left" href="javascript:(0);" data-ng-click="EditPageCtrl.ePage.Masters.EditPage.SearchPage.AddNewSortColumn()">Add
+                            <a class="padding-10 pull-left" href="javascript:(0);"
+                                data-ng-click="EditPageCtrl.ePage.Masters.EditPage.SearchPage.AddNewSortColumn()">Add
                                 new…</a>
                         </td>
                     </tr>
@@ -225,199 +255,56 @@
                 <i data-ng-click="EditPageCtrl.ePage.Masters.EditPage.SearchPage.OpenJsonModal('listingPageConfig',EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.OtherConfig.ListingPageConfig)"
                     class="glyphicon glyphicon-pencil cursor-pointer ml-5"></i>
             </div>
-            <form class="form-horizontal " role="form">
+            <form class="form-horizontal">
                 <div class="clearfix">
-                    <div class="col-lg-6">
+                    <div class="col-lg-6"
+                        data-ng-repeat="x in EditPageCtrl.ePage.Masters.EditPage.SearchPage.VisibleItems">
                         <div class="form-group">
                             <div class="checkbox">
                                 <label>
-                                    <input type="checkbox" class="colored-blue" data-ng-model="EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.OtherConfig.ListingPageConfig.EnableCustomizeGridColumnButton">
-                                    <span class="text text-single-line">Enable Customize Grid Column Button</span>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="form-group">
-                            <div class="checkbox">
-                                <label>
-                                    <input type="checkbox" class="colored-blue" data-ng-model="EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.OtherConfig.ListingPageConfig.EnableCustomizeFilterFieldsButton">
-                                    <span class="text text-single-line">Enable Customize Filter Field Button</span>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="form-group">
-                            <div class="checkbox">
-                                <label>
-                                    <input type="checkbox" class="colored-blue" data-ng-model="EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.OtherConfig.ListingPageConfig.EnableNewButton">
-                                    <span class="text text-single-line">Enable New Button</span>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="form-group">
-                            <div class="checkbox">
-                                <label>
-                                    <input type="checkbox" class="colored-blue" data-ng-model="EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.OtherConfig.ListingPageConfig.EnableResetButton">
-                                    <span class="text text-single-line">Enable Reset Button</span>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="form-group">
-                            <div class="checkbox">
-                                <label>
-                                    <input type="checkbox" class="colored-blue" data-ng-model="EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.OtherConfig.ListingPageConfig.EnableAttachButton">
-                                    <span class="text text-single-line">Enable Attach Button</span>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="form-group">
-                            <div class="checkbox">
-                                <label>
-                                    <input type="checkbox" class="colored-blue" data-ng-model="EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.OtherConfig.ListingPageConfig.EnableFilterButton">
-                                    <span class="text text-single-line">Enable Filter Button</span>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="form-group">
-                            <div class="checkbox">
-                                <label>
-                                    <input type="checkbox" class="colored-blue" data-ng-model="EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.OtherConfig.ListingPageConfig.EnableClearButton">
-                                    <span class="text text-single-line">Enable Clear Button</span>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="form-group">
-                            <div class="checkbox">
-                                <label>
-                                    <input type="checkbox" class="colored-blue" data-ng-model="EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.OtherConfig.ListingPageConfig.EnableUserFavoriteButton">
-                                    <span class="text text-single-line">Enable User Favorite Button</span>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="form-group">
-                            <div class="checkbox">
-                                <label>
-                                    <input type="checkbox" class="colored-blue" data-ng-model="EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.OtherConfig.ListingPageConfig.EnableSearch">
-                                    <span class="text text-single-line">Enable Search</span>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="form-group">
-                            <div class="checkbox">
-                                <label>
-                                    <input type="checkbox" class="colored-blue" data-ng-model="EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.OtherConfig.ListingPageConfig.EnableRefreshBtn">
-                                    <span class="text text-single-line">Enable Refresh</span>
+                                    <input type="checkbox" class="colored-blue"
+                                        data-ng-model="EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.OtherConfig.ListingPageConfig[x.ModelCode]">
+                                    <span class="text text-single-line" data-ng-bind="x.Description"></span>
                                 </label>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="tc-section-divider-small mb-10"></div>
                 <div class="clearfix">
                     <div class="form-group">
-                        <label class="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 control-label">Default Filter</label>
-                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-8 col-xl-8">
-                            <select chosen class="form-control input-sm " data-ng-model="EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.DefaultFilter"
-                                search-contains="true" data-ng-options="x.PK as x.Key for x in EditPageCtrl.ePage.Masters.EditPage.SearchPage.DefaultFilterList"
-                                data-ng-change="EditPageCtrl.ePage.Masters.EditPage.OnSourceListChange(EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.Source)">
+                        <label class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 control-label">Default
+                            Filter</label>
+                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 pl-0">
+                            <select chosen class="form-control input-sm "
+                                data-ng-model="EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.DefaultFilter"
+                                search-contains="true"
+                                data-ng-options="x.PK as x.Key for x in EditPageCtrl.ePage.Masters.EditPage.SearchPage.DefaultFilterList"
+                                data-ng-change="EditPageCtrl.ePage.Masters.EditPage.OnSourceListChange(EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.Source)"
+                                data-ng-disabled="!EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.OtherConfig.ListingPageConfig.EnableSystemFavoriteFilter">
                                 <option value="">--Select--</option>
                             </select>
                         </div>
                     </div>
-                    <div class="col-lg-6">
-                        <div class="form-group">
-                            <div class="checkbox">
-                                <label>
-                                    <input type="checkbox" class="colored-blue" data-ng-model="EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.OtherConfig.ListingPageConfig.EnableFavoriteShortcutFilter">
-                                    <span class="text text-single-line">Enable Favorite Shortcut Filter</span>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="form-group">
-                            <div class="checkbox">
-                                <label>
-                                    <input type="checkbox" class="colored-blue" data-ng-model="EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.OtherConfig.ListingPageConfig.EnableSystemDefaultFilter">
-                                    <span class="text text-single-line">Enable System Default Filter</span>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="form-group">
-                            <div class="checkbox">
-                                <label>
-                                    <input type="checkbox" class="colored-blue" data-ng-model="EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.OtherConfig.ListingPageConfig.EnableUserDefaultFilter">
-                                    <span class="text text-single-line">Enable User Default Filter</span>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="form-group">
-                            <div class="checkbox">
-                                <label>
-                                    <input type="checkbox" class="colored-blue" data-ng-model="EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.OtherConfig.ListingPageConfig.EnableSavedFiltersInSingleMenu">
-                                    <span class="text text-single-line">Enable Saved Filters in Single Menu</span>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="form-group">
-                            <div class="checkbox">
-                                <label>
-                                    <input type="checkbox" class="colored-blue" data-ng-model="EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.OtherConfig.ListingPageConfig.EnableExport">
-                                    <span class="text text-single-line">Enable Export</span>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="form-group">
-                            <div class="checkbox">
-                                <label>
-                                    <input type="checkbox" class="colored-blue" data-ng-model="EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.OtherConfig.ListingPageConfig.EnableRecentFilter">
-                                    <span class="text text-single-line">Enable Recent Filter</span>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
                 </div>
                 <div class="tc-section-divider-small mb-10"></div>
                 <div class="clearfix">
-                    <div class="col-lg-12">
+                    <div class="col-lg-6">
                         <div class="form-group">
                             <div class="checkbox">
                                 <label>
-                                    <input type="checkbox" class="colored-blue" data-ng-model="EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.OtherConfig.ListingPageConfig.EnableCustomToolbar">
+                                    <input type="checkbox" class="colored-blue"
+                                        data-ng-model="EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.OtherConfig.ListingPageConfig.EnableCustomToolbar">
                                     <span class="text text-single-line">Enable Custom Toolbar</span>
                                 </label>
                             </div>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label class="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 control-label">Custom Toolbar Name</label>
-                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-8 col-xl-8">
-                            <input type="text" data-ng-model="EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.OtherConfig.ListingPageConfig.CustomToolbarName"
-                                class="form-control input-sm" placeholder="Custom Toolbar Name">
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <input type="text"
+                                data-ng-model="EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.OtherConfig.ListingPageConfig.CustomToolbarName"
+                                class="form-control input-sm" placeholder="Custom Toolbar Name"
+                                data-ng-disabled="!EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.OtherConfig.ListingPageConfig.EnableCustomToolbar">
                         </div>
                     </div>
                 </div>
@@ -427,7 +314,8 @@
                         <div class="form-group">
                             <div class="checkbox">
                                 <label>
-                                    <input type="checkbox" class="colored-blue" data-ng-model="EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.OtherConfig.ListingPageConfig.EnableStandardToolbar"
+                                    <input type="checkbox" class="colored-blue"
+                                        data-ng-model="EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.OtherConfig.ListingPageConfig.EnableStandardToolbar"
                                         data-ng-click="EditPageCtrl.ePage.Masters.EditPage.SearchPage.OnStandaredToolbarChange($event)">
                                     <span class="text text-single-line">Enable Standard Toolbar</span>
                                 </label>
@@ -435,51 +323,21 @@
                         </div>
                     </div>
                     <div class="clearfix">
-                        <div class="col-lg-4" data-ng-repeat="x in EditPageCtrl.ePage.Masters.EditPage.SearchPage.StandardMenuList">
+                        <div class="col-lg-4"
+                            data-ng-repeat="x in EditPageCtrl.ePage.Masters.EditPage.SearchPage.StandardMenuList">
                             <div class="form-group mb-5">
                                 <div class="checkbox">
                                     <label>
-                                        <input type="checkbox" class="colored-blue" data-ng-model="EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.OtherConfig.ListingPageConfig.StandardToolbar.ToolList[x.Code]">
+                                        <input type="checkbox" class="colored-blue"
+                                            data-ng-model="EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.OtherConfig.ListingPageConfig.StandardToolbar.ToolList[x.Code]">
                                         <span class="text text-single-line" data-ng-bind="x.Desc"></span>
                                     </label>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="tc-section-divider-small mb-10"></div>
-                    <div class="clearfix">
-                        <div class="form-group">
-                            <label class="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 control-label">Code Field Name</label>
-                            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-8 col-xl-8">
-                                <input type="text" data-ng-model="EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.OtherConfig.ListingPageConfig.CodeFieldName"
-                                    class="form-control input-sm" placeholder="Field Name">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 control-label">Entity Config Name</label>
-                            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-8 col-xl-8">
-                                <input type="text" data-ng-model="EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.OtherConfig.ListingPageConfig.EntityConfigName"
-                                    class="form-control input-sm" placeholder="Config Name">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 control-label">Entity Name</label>
-                            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-8 col-xl-8">
-                                <input type="text" data-ng-model="EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.OtherConfig.ListingPageConfig.EntityName"
-                                    class="form-control input-sm" placeholder="Entity Name">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 control-label">Entity Source</label>
-                            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-8 col-xl-8">
-                                <input type="text" data-ng-model="EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.OtherConfig.ListingPageConfig.EntitySource"
-                                    class="form-control input-sm" placeholder="Entity Source">
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </form>
-            <div class="tc-section-divider-small mt-10 mb-10"></div>
             <!-- Parties Config -->
             <!-- <div class="clearfix">
                 <div class="set-title mb-10">
@@ -532,6 +390,9 @@
                         <th>Column Heading</th>
                         <th>Width</th>
                         <th>Template</th>
+                        <th>Excel Data Type</th>
+                        <th>Excel Format</th>
+                        <th>Flag</th>
                         <th>Is Visible</th>
                         <th>Is Manatory</th>
                         <th>Action</th>
@@ -545,7 +406,8 @@
                             </div>
                         </td>
                     </tr>
-                    <tr data-ng-if="EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.GridConfig.Header && EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.GridConfig.Header.length == 0">
+                    <tr
+                        data-ng-if="EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.GridConfig.Header && EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.GridConfig.Header.length == 0">
                         <td colspan="20">
                             <div class="text-center p-10">
                                 <i>No Records...</i>
@@ -554,7 +416,8 @@
                     </tr>
                     <tr data-ng-if="EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.GridConfig.Header && EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.GridConfig.Header.length > 0"
                         data-ng-repeat="item in EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.GridConfig.Header"
-                        dnd-draggable="item" dnd-moved="EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.GridConfig.Header.splice($index, 1)"
+                        dnd-draggable="item"
+                        dnd-moved="EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.GridConfig.Header.splice($index, 1)"
                         dnd-effect-allowed="move">
                         <td class="text-center cursor-pointer" style="width: 51px; font-size: 23px;">
                             <span class="drag-icon" title="Change Order">:::</span>
@@ -563,13 +426,24 @@
                             <input class="set-tabel-text" type="text" data-ng-model="item.field" placeholder="Name">
                         </td>
                         <td>
-                            <input class="set-tabel-text" type="text" data-ng-model="item.displayName" placeholder="Display Name">
+                            <input class="set-tabel-text" type="text" data-ng-model="item.displayName"
+                                placeholder="Display Name">
                         </td>
                         <td>
                             <input class="set-tabel-text" type="text" data-ng-model="item.width" placeholder="Width">
                         </td>
                         <td>
-                            <input class="set-tabel-text" type="text" data-ng-model="item.cellTemplate" placeholder="Cell Template">
+                            <input class="set-tabel-text" type="text" data-ng-model="item.cellTemplate"
+                                placeholder="Cell Template">
+                        </td>
+                        <td>
+                            <input class="set-tabel-text" type="text" data-ng-model="item.DataType" placeholder="Data Type">
+                        </td>
+                        <td>
+                            <input class="set-tabel-text" type="text" data-ng-model="item.Format" placeholder="Format">
+                        </td>
+                        <td>
+                            <input class="set-tabel-text" type="text" data-ng-model="item.Flag" placeholder="Flag">
                         </td>
                         <td class="text-center p-5">
                             <div class="checkbox m-0">
@@ -590,7 +464,8 @@
                             </div>
                         </td>
                         <td class="text-center p-4 action-remove">
-                            <span data-ng-click="EditPageCtrl.ePage.Masters.EditPage.SearchPage.RemoveGridConfig($index)">
+                            <span
+                                data-ng-click="EditPageCtrl.ePage.Masters.EditPage.SearchPage.RemoveGridConfig($index)">
                                 <i class="fa fa-trash"></i>
                             </span>
                         </td>
@@ -600,7 +475,8 @@
                     </tr>
                     <tr>
                         <td colspan="20">
-                            <a class="padding-10 pull-left" href="javascript:(0);" data-ng-click="EditPageCtrl.ePage.Masters.EditPage.SearchPage.AddNewGridConfig()">Add
+                            <a class="padding-10 pull-left" href="javascript:(0);"
+                                data-ng-click="EditPageCtrl.ePage.Masters.EditPage.SearchPage.AddNewGridConfig()">Add
                                 new…</a>
                         </td>
                     </tr>
@@ -616,13 +492,15 @@
                 <i data-ng-click="EditPageCtrl.ePage.Masters.EditPage.SearchPage.OpenJsonModal('gridOptions',EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.OtherConfig.GridOptions)"
                     class="glyphicon glyphicon-pencil cursor-pointer ml-5"></i>
             </div>
-            <div class="clearfix">
+            <div class="row">
                 <div class="clearfix">
-                    <div class="col-lg-3" data-ng-repeat="x in EditPageCtrl.ePage.Masters.EditPage.SearchPage.GridOptions | filter: {'Type': 'boolean'}:true">
+                    <div class="col-lg-3"
+                        data-ng-repeat="x in EditPageCtrl.ePage.Masters.EditPage.SearchPage.GridOptions | filter: {'Type': 'boolean'}:true">
                         <div class="form-group">
                             <div class="checkbox">
                                 <label>
-                                    <input type="checkbox" class="colored-blue" data-ng-model="EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.OtherConfig.GridOptions[x.Field]">
+                                    <input type="checkbox" class="colored-blue"
+                                        data-ng-model="EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.OtherConfig.GridOptions[x.Field]">
                                     <span class="text text-single-line" data-ng-bind="x.Label"></span>
                                 </label>
                             </div>
@@ -631,13 +509,15 @@
                 </div>
                 <div class="tc-section-divider-small mt-5 mb-10"></div>
                 <div class="clearfix">
-                    <div class="col-lg-3" data-ng-repeat="x in EditPageCtrl.ePage.Masters.EditPage.SearchPage.GridOptions | filter: {'Type': 'text'}:true">
+                    <div class="col-lg-3"
+                        data-ng-repeat="x in EditPageCtrl.ePage.Masters.EditPage.SearchPage.GridOptions | filter: {'Type': 'text'}:true">
                         <div class="form-group">
                             <label class="control-label">
                                 <span class="text-single-line" data-ng-bind="x.Label"></span>
                             </label>
                             <div class="clearfix">
-                                <input type="text" data-ng-model="EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.OtherConfig.GridOptions[x.Field]"
+                                <input type="text"
+                                    data-ng-model="EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.OtherConfig.GridOptions[x.Field]"
                                     class="form-control input-sm" placeholder="{{x.Label}}">
                             </div>
                         </div>
@@ -645,15 +525,94 @@
                 </div>
                 <div class="tc-section-divider-small mt-5 mb-10"></div>
                 <div class="clearfix">
-                    <div class="col-lg-4" data-ng-repeat="x in EditPageCtrl.ePage.Masters.EditPage.SearchPage.GridOptions | filter: {'Type': 'textArea'}:true">
+                    <div class="col-lg-4"
+                        data-ng-repeat="x in EditPageCtrl.ePage.Masters.EditPage.SearchPage.GridOptions | filter: {'Type': 'textArea'}:true">
                         <div class="form-group">
                             <label class="control-label">
                                 <span class="text-single-line" data-ng-bind="x.Label"></span>
                             </label>
                             <div class="clearfix">
-                                <textarea data-ng-model="EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.OtherConfig.GridOptions[x.Field]"
-                                    class="form-control input-sm no-resize" placeholder="{{x.Label}}" rows="5"></textarea>
+                                <textarea
+                                    data-ng-model="EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.OtherConfig.GridOptions[x.Field]"
+                                    class="form-control input-sm no-resize" placeholder="{{x.Label}}"
+                                    rows="5"></textarea>
                             </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Validation -->
+    <div class="clearfix mb-10">
+        <div class="col-sm-12">
+            <div class="set-title mb-20">
+                <span>Validation</span>
+                <i data-ng-click="EditPageCtrl.ePage.Masters.EditPage.SearchPage.OpenJsonModal('gridOptions',EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.OtherConfig.GridOptions)"
+                    class="glyphicon glyphicon-pencil cursor-pointer ml-5"></i>
+            </div>
+            <div class="clearfix">
+                <div class="col-sm-4 pl-0 pr-10">
+                    <div class="form-group">
+                        <label class="control-label">Search (Mode S)</label>
+                        <textarea class="form-control no-resize" rows="10" placeholder="Input"
+                            data-ng-model="EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.OtherConfig.Validation.ModeS"></textarea>
+                    </div>
+                </div>
+                <div class="col-sm-4 pr-10 pl-10">
+                    <div class="form-group">
+                        <label class="control-label">Details (Mode D)</label>
+                        <textarea class="form-control no-resize" rows="10" placeholder="Input"
+                            data-ng-model="EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.OtherConfig.Validation.ModeD"></textarea>
+                    </div>
+                </div>
+                <div class="col-sm-4 pr-0 pl-10">
+                    <div class="form-group">
+                        <label class="control-label">Both (Mode B)</label>
+                        <textarea class="form-control no-resize" rows="10" placeholder="Input"
+                            data-ng-model="EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.OtherConfig.Validation.ModeB"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Details Page -->
+    <div class="clearfix mb-10">
+        <div class="col-sm-12">
+            <div class="set-title mb-20">
+                <span>Details Page</span>
+            </div>
+            <div class="clearfix">
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <div class="checkbox m-0">
+                            <label>
+                                <input type="checkbox" class="colored-blue"
+                                    data-ng-model="EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.OtherConfig.DetailsPage.IsVisibleSaveButton">
+                                <span class="text">Enable Visible Save Button</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <div class="checkbox m-0">
+                            <label>
+                                <input type="checkbox" class="colored-blue"
+                                    data-ng-model="EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.OtherConfig.DetailsPage.IsVisibleRefreshButton">
+                                <span class="text">Enable Visible Refresh Button</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <div class="checkbox m-0">
+                            <label>
+                                <input type="checkbox" class="colored-blue"
+                                    data-ng-model="EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.OtherConfig.DetailsPage.IsImmediateValidation">
+                                <span class="text">Enable Immediate Validation</span>
+                            </label>
                         </div>
                     </div>
                 </div>

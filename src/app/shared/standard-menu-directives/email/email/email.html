@@ -51,7 +51,7 @@
                     </div>
                     <div class="col-sm-1 pt-10 pb-10">
                         <!-- Access -->
-                        <div class="pull-right dropdown email-access-dropdown-menu" data-ng-if="x.GroupMapping && (x.CreatedBy ==  EmailCtrl.ePage.Masters.Email.UserId || (x.CreatedBy != EmailCtrl.ePage.Masters.Email.UserId && !x.IsResticted && x.IsShared)) && EmailCtrl.mode == '1'"
+                        <div class="pull-right dropdown email-access-dropdown-menu" data-ng-if="x.GroupMapping && (x.CreatedBy ==  EmailCtrl.ePage.Masters.Email.UserId || (x.CreatedBy != EmailCtrl.ePage.Masters.Email.UserId && !x.IsResticted && x.IsShared)) && EmailCtrl.mode == '1' && EmailCtrl.ePage.Masters.CheckControlAccess('EML_SHARE_ACCESS')"
                             one-level-mapping input="x.GroupMapping" object="x" icon="'fa fa-user-plus'"></div>
                     </div>
                 </div>

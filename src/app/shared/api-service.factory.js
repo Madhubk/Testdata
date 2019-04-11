@@ -5,10 +5,10 @@
         .module("Application")
         .factory("apiService", ApiService);
 
-    ApiService.$inject = ["$http", "$q", "$timeout", "$location", "APP_CONSTANT", "authService", "appConfig"];
+    ApiService.$inject = ["$rootScope", "$http", "$q", "$timeout", "$location", "APP_CONSTANT", "authService", "appConfig"];
 
-    function ApiService($http, $q, $timeout, $location, APP_CONSTANT, authService, appConfig) {
-        var exports = {
+    function ApiService($rootScope, $http, $q, $timeout, $location, APP_CONSTANT, authService, appConfig) {
+        let exports = {
             get: Get,
             post: Post,
             logout: Logout
@@ -17,15 +17,13 @@
         return exports;
 
         function Get(apiUrl, apiName, token) {
-            var _queryString = $location.search();
-            if(_queryString && _queryString.lpk){
-                if(_queryString.lpk == authService.getUserInfo().LoginPK){
-
-                }
+            let _queryString = $location.search();
+            if (_queryString && _queryString.lpk) {
+                if (_queryString.lpk == authService.getUserInfo().LoginPK) {}
             }
 
-            var deferred = $q.defer();
-            var _headers = {
+            let deferred = $q.defer();
+            let _headers = {
                 "Authorization": token ? token : authService.getUserInfo().AuthToken
             }
 
@@ -33,22 +31,19 @@
                 method: "GET",
                 url: APP_CONSTANT.URL[apiUrl] + apiName,
                 headers: _headers
-            }).then(function SuccessCallback(response) {
-                if (response.data) {
-                    deferred.resolve(response);
-                } else {
-                    console.log("Invalid Response...!");
+            }).then(response => {
+                response.data ? deferred.resolve(response) : console.log("Invalid Response...!");
+                if($rootScope.SessionExpiryCheck){
+                    $rootScope.SessionExpiryCheck();
                 }
-            }, function ErrorCallback(response) {
+            }, response => {
                 if (response.data) {
-                    if (response.data.Messages) {
-                        if (response.data.Messages.length > 0) {
-                            response.data.Messages.map(function (value, key) {
-                                if (value.MessageDesc === "Authorization has been denied for this request") {
-                                    ClearLocalStorage();
-                                }
-                            });
-                        }
+                    if (response.data.Messages && response.data.Messages.length > 0) {
+                        response.data.Messages.map(value => {
+                            if (value.MessageDesc === "Authorization has been denied for this request") {
+                                ClearLocalStorage();
+                            }
+                        });
                     }
                 } else {
                     console.log("Invalid Response...!");
@@ -60,8 +55,8 @@
         }
 
         function Post(apiUrl, apiName, input, token) {
-            var deferred = $q.defer();
-            var _headers = {
+            let deferred = $q.defer();
+            let _headers = {
                 "Authorization": token ? token : authService.getUserInfo().AuthToken
             }
 
@@ -70,22 +65,19 @@
                 url: APP_CONSTANT.URL[apiUrl] + apiName,
                 data: input,
                 headers: _headers
-            }).then(function SuccessCallback(response) {
-                if (response.data) {
-                    deferred.resolve(response);
-                } else {
-                    console.log("Invalid Response...!");
+            }).then(response => {
+                response.data ? deferred.resolve(response) : console.log("Invalid Response...!");
+                if($rootScope.SessionExpiryCheck){
+                    $rootScope.SessionExpiryCheck();
                 }
-            }, function ErrorCallback(response) {
+            }, response => {
                 if (response.data) {
-                    if (response.data.Messages) {
-                        if (response.data.Messages.length > 0) {
-                            response.data.Messages.map(function (value, key) {
-                                if (value.MessageDesc === "Authorization has been denied for this request") {
-                                    ClearLocalStorage();
-                                }
-                            });
-                        }
+                    if (response.data.Messages && response.data.Messages.length > 0) {
+                        response.data.Messages.map(value => {
+                            if (value.MessageDesc === "Authorization has been denied for this request") {
+                                ClearLocalStorage();
+                            }
+                        });
                     }
                 } else {
                     console.log("Invalid Response...!");
@@ -97,25 +89,20 @@
         }
 
         function Logout() {
-            Get("authAPI", appConfig.Entities.Token.API.Logout.Url).then(function SuccessCallback(response) {
-                if (response.data) {} else {
+            Get("authAPI", appConfig.Entities.Token.API.Logout.Url).then(response => {
+                if (response.data) {
+                    // 
+                } else {
                     console.log("Logout Unsuccessful...!");
                 }
-            }, function ErrorCallback(response) {
-                console.log(response);
-            });
+            }, response => console.log(response));
 
-            $timeout(function () {
-                ClearLocalStorage();
-            });
+            $timeout(() => ClearLocalStorage());
         }
 
         function ClearLocalStorage() {
             authService.setUserInfo();
-
-            $timeout(function () {
-                $location.path("/login").search({});
-            }, 200);
+            $timeout(() => $location.path("/login").search({}), 200);
         }
     }
 })();

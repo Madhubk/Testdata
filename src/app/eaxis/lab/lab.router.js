@@ -42,7 +42,7 @@
                 templateUrl: 'app/eaxis/lab/dynamic-page-list/dynamic-page-list.html',
                 controller: "EAxisDynamicPageListController as EAxisDynamicPageListCtrl",
                 ncyBreadcrumb: {
-                    label: 'DynamicPageList'
+                    label: 'Dynamic Pages'
                 },
                 resolve: {
                     CheckAccess: ["$q", "pageAccessService", function ($q, pageAccessService) {
@@ -102,7 +102,7 @@
                 templateUrl: 'app/eaxis/lab/excel-template/excel-template.html',
                 controller: "EAxisExcelTemplateController as EAxisExcelTemplateCtrl",
                 ncyBreadcrumb: {
-                    label: 'ExcelTemplate'
+                    label: 'Excel Template'
                 },
                 resolve: {
                     CheckAccess: ["$q", "pageAccessService", function ($q, pageAccessService) {
@@ -122,7 +122,7 @@
                 templateUrl: 'app/eaxis/lab/queue-log/queue-log.html',
                 controller: "EAxisQueueLogController as EAxisQueueLogCtrl",
                 ncyBreadcrumb: {
-                    label: 'QueueLog'
+                    label: 'Queue Log'
                 },
                 resolve: {
                     CheckAccess: ["$q", "pageAccessService", function ($q, pageAccessService) {

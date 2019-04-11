@@ -2,7 +2,7 @@
     <div class="widget no-padding">
         <!--Header with search  -->
         <div class="widget-header" data-ng-if="DynamicTableCtrl.ePage.Masters.GridConfig.isHeader">
-            <div class="title col-xs-9 col-sm-9 col-md-9 col-lg-9 pt-10">
+            <div class="title bold col-xs-9 col-sm-9 col-md-9 col-lg-9 pt-8">
                 <span data-ng-bind="DynamicTableCtrl.ePage.Masters.GridConfig.title"></span>
             </div>
             <div class="search col-xs-3 col-sm-3 col-md-3 col-lg-3 pt-2">
@@ -45,7 +45,7 @@
                             data-ng-if="!DynamicTableCtrl.ePage.Masters.GridConfig.isRowTemplate">
                             <td data-ng-repeat="y in DynamicTableCtrl.ePage.Masters.GridConfig.columnDef" data-ng-style="{width: y.width}">
                                 <!--With cell template  -->
-                                <div data-ng-if="y.cellTemplate" compile-html bind-html-compile="y.cellTemplate"></div>
+                                <div class="text-single-line" data-ng-if="y.cellTemplate" compile-html bind-html-compile="y.cellTemplate"></div>
                                 <!--Without cell template  -->
                                 <div class="text-single-line" data-ng-if="!y.cellTemplate" compile-html
                                     bind-html-compile="x[y.field] || '-'"></div>
