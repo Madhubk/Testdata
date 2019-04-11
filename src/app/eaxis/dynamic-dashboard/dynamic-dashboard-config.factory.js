@@ -77,9 +77,58 @@
                         }
                     }
                 },
+                "Dashboards": {
+                    "RowIndex": -1,
+                    "API": {
+                        "FindAll": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "Dashboards/FindAll",
+                            "FilterID": "DASDSH"
+                        }
+                    }
+                },
+                "DASDashBoardList": {
+                    "RowIndex": -1,
+                    "API": {
+                        "FindAll": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "DASDashBoardList/FindAll",
+                            "FilterID": "DASDBL"
+                        }
+                    }
+                },
+                "DASComponents": {
+                    "RowIndex": -1,
+                    "API": {
+                        "FindAll": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "DASComponents/FindAll",
+                            "FilterID": "DASCOM"
+                        }
+                    }
+                },
+                "DASDashboardComponents": {
+                    "RowIndex": -1,
+                    "API": {
+                        "GetById": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "DASDashboardComponents/GetById/"
+                        },
+                        "FindAll": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "DASDashboardComponents/FindAll",
+                            "FilterID": "DASDBC"
+                        }
+                    }
+                },
             },
             "LoadMoreCount": 4,
-            "LoadedDirectiveCount":0
+            "LoadedDirectiveCount": 0
         };
 
         return exports;

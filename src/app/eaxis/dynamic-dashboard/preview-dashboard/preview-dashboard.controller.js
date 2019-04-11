@@ -77,7 +77,7 @@
         // #region - On change warehouse
         function WarehouseChanged() {
             var _ComponentList = angular.copy(PreviewDashboardCtrl.ePage.Masters.ComponentList);
-            var IsShowDetails = $filter('filter')(_ComponentList, { IsShow: true })
+            var IsShowDetails = $filter('filter')(_ComponentList, { DC_IsEnabled: true })
             dynamicDashboardConfig.LoadedDirectiveCount = 0;
             PreviewDashboardCtrl.ePage.Masters.ComponentList = undefined;
             $timeout(function () {
@@ -88,7 +88,7 @@
         // #region - On change client details
         function OnChangeClient() {
             var _ComponentList = angular.copy(PreviewDashboardCtrl.ePage.Masters.ComponentList);
-            var IsShowDetails = $filter('filter')(_ComponentList, { IsShow: true })
+            var IsShowDetails = $filter('filter')(_ComponentList, { DC_IsEnabled: true })
             dynamicDashboardConfig.LoadedDirectiveCount = 0;
             PreviewDashboardCtrl.ePage.Masters.ComponentList = undefined;
             $timeout(function () {
@@ -103,10 +103,10 @@
 
         function Apply() {
             dynamicDashboardConfig.LoadedDirectiveCount = 0;
-            PreviewDashboardCtrl.ePage.Masters.TempComponentList = $filter('orderBy')(PreviewDashboardCtrl.ePage.Masters.TempComponentList, '!IsLoadAsDefault');
+            PreviewDashboardCtrl.ePage.Masters.TempComponentList = $filter('orderBy')(PreviewDashboardCtrl.ePage.Masters.TempComponentList, '!DC_ShowByDefault');
             var _ComponentList = angular.copy(PreviewDashboardCtrl.ePage.Masters.TempComponentList);
-            PreviewDashboardCtrl.ePage.Masters.IsShowDetails = $filter('filter')(_ComponentList, { IsShow: true })
-            var LoadedAsDefaultDetails = $filter('filter')(PreviewDashboardCtrl.ePage.Masters.IsShowDetails, { IsLoadAsDefault: true })
+            PreviewDashboardCtrl.ePage.Masters.IsShowDetails = $filter('filter')(_ComponentList, { DC_IsEnabled: true })
+            var LoadedAsDefaultDetails = $filter('filter')(PreviewDashboardCtrl.ePage.Masters.IsShowDetails, { DC_ShowByDefault: true })
             if (LoadedAsDefaultDetails.length >= 0) {
                 dynamicDashboardConfig.LoadMoreCount = LoadedAsDefaultDetails.length;
             }
@@ -120,9 +120,9 @@
         // #region - Load more button activity
         function LoadMore() {
             dynamicDashboardConfig.LoadMoreCount = dynamicDashboardConfig.LoadMoreCount + 4;
-            PreviewDashboardCtrl.ePage.Masters.TempComponentList = $filter('orderBy')(PreviewDashboardCtrl.ePage.Masters.TempComponentList, '!IsLoadAsDefault');
+            PreviewDashboardCtrl.ePage.Masters.TempComponentList = $filter('orderBy')(PreviewDashboardCtrl.ePage.Masters.TempComponentList, '!DC_ShowByDefault');
             var _ComponentList = angular.copy(PreviewDashboardCtrl.ePage.Masters.TempComponentList);
-            var IsShowDetails = $filter('filter')(_ComponentList, { IsShow: true })
+            var IsShowDetails = $filter('filter')(_ComponentList, { DC_IsEnabled: true })
             dynamicDashboardConfig.LoadedDirectiveCount = 0;
             PreviewDashboardCtrl.ePage.Masters.ComponentList = undefined;
             $timeout(function () {

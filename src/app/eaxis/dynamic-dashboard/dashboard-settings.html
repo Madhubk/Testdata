@@ -11,7 +11,7 @@
         <div class="dashboard-databox  bg-white radius-bordered">
             <div class="databox-left bg-themeprimary">
                 <div class="databox-piechart mt-5">
-                    <i class="{{x.Icon}}"></i>
+                    <i class="{{x.DisplayIcon}}"></i>
                 </div>
             </div>
             <div class="databox-right">
@@ -21,7 +21,7 @@
                     <i class="fa fa-bars icon dashboard-setting-icon" title="Component List" ng-click="DynamicDashboardCtrl.ePage.Masters.GetComponentListForDashboardSettings(x)"></i>
                     <i class="fa fa-universal-access icon dashboard-setting-icon" title="Role Acces" ng-click="DynamicDashboardCtrl.ePage.Masters.RoleAccesDashboardSetting(x)"></i>
                 </div>
-                <div class="databox-text darkgray mt-30">{{x.DashboardName}}</div>
+                <div class="databox-text darkgray mt-30">{{x.Name}}</div>
             </div>
         </div>
     </div>

@@ -43,8 +43,8 @@
                                 data-ng-if="PreviewDashboardCtrl.ePage.Masters.TempComponentList && (PreviewDashboardCtrl.ePage.Masters.TempComponentList | filter: PreviewDashboardCtrl.ePage.Masters.Search).length > 0">
                                 <div class="col-sm-1 p-0 text-center">
                                     <label class="mb-0 customcheckbox">
-                                        <input type="checkbox" ng-checked="x.IsShow" ng-change="x.IsShow?x.IsShow=true:x.IsShow=false"
-                                            ng-model="x.IsShow"> </input>
+                                        <input type="checkbox" ng-checked="x.DC_IsEnabled" ng-change="x.DC_IsEnabled?x.DC_IsEnabled=true:x.DC_IsEnabled=false"
+                                            ng-model="x.DC_IsEnabled"> </input>
                                         <span class="text"></span>
                                     </label>
                                 </div>
@@ -52,14 +52,14 @@
                                     <div data-ng-bind="x.ComponentName" class="text-single-line" title="{{x.ComponentName}}"></div>
                                 </div>
                                 <div class="col-sm-6 text-right mt-2">
-                                    <button class="btn  btn-xs" data-ng-disabled="!x.IsShow" style="width: 85px;"
-                                        data-ng-class="{'btn-success': x.SetAsDefault, 'btn-default': !x.SetAsDefault}"
-                                        data-ng-click="x.SetAsDefault?x.SetAsDefault=false:x.SetAsDefault=true"
-                                        data-ng-bind="x.SetAsDefault ? 'Default' : 'Set As Default'"></button>
-                                    <button class="btn  btn-xs" data-ng-disabled="!x.IsShow" style="width: 95px;"
-                                        data-ng-class="{'btn-success': x.IsLoadAsDefault, 'btn-default': !x.IsLoadAsDefault}"
-                                        data-ng-click="x.IsLoadAsDefault?x.IsLoadAsDefault=false:x.IsLoadAsDefault=true"
-                                        data-ng-bind="x.IsLoadAsDefault ? 'Loaded' : 'Load As Default'"></button>
+                                    <button class="btn  btn-xs" data-ng-disabled="!x.DC_IsEnabled" style="width: 85px;"
+                                        data-ng-class="{'btn-success': x.DC_LoadByDefault, 'btn-default': !x.DC_LoadByDefault}"
+                                        data-ng-click="x.DC_LoadByDefault?x.DC_LoadByDefault=false:x.DC_LoadByDefault=true"
+                                        data-ng-bind="x.DC_LoadByDefault ? 'Default' : 'Set As Default'"></button>
+                                    <button class="btn  btn-xs" data-ng-disabled="!x.DC_IsEnabled" style="width: 95px;"
+                                        data-ng-class="{'btn-success': x.DC_ShowByDefault, 'btn-default': !x.DC_ShowByDefault}"
+                                        data-ng-click="x.DC_ShowByDefault?x.DC_ShowByDefault=false:x.DC_ShowByDefault=true"
+                                        data-ng-bind="x.DC_ShowByDefault ? 'Loaded' : 'Load As Default'"></button>
                                 </div>
                             </div>
                         </div>
@@ -84,7 +84,7 @@
             <div class="widget clearfix no-padding" dnd-list="PreviewDashboardCtrl.ePage.Masters.ComponentList"
                 dnd-drop="PreviewDashboardCtrl.ePage.Masters.dropCallback(item,PreviewDashboardCtrl.ePage.Masters.ComponentList,index,external)">
                 <div ng-if="PreviewDashboardCtrl.ePage.Masters.ComponentList && PreviewDashboardCtrl.ePage.Masters.SelectedWarehouse && PreviewDashboardCtrl.ePage.Masters.SelectedClient && PreviewDashboardCtrl.ePage.Masters.SelectedDashboardComponentDetails.length>0"
-                    ng-repeat="x in PreviewDashboardCtrl.ePage.Masters.ComponentList | filter: {IsShow:true}"
+                    ng-repeat="x in PreviewDashboardCtrl.ePage.Masters.ComponentList | filter: {DC_IsEnabled:true}"
                     dnd-draggable="x" dnd-effect-allowed="move" draggable="true">
                     <div dynamic-dashboard-directive component-list="PreviewDashboardCtrl.ePage.Masters.ComponentList"
                         selected-component="PreviewDashboardCtrl.ePage.Masters.ComponentList[$index]"

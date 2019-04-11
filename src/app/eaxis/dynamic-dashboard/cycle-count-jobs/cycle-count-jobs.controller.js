@@ -22,7 +22,7 @@
                 "Entities": '',
             };
 
-            if (CycleCountJobsCtrl.selectedComponent.SetAsDefault) {
+            if (CycleCountJobsCtrl.selectedComponent.DC_LoadByDefault) {
                 GetCycleCountJobsDetails();
                 CycleCountJobsCtrl.ePage.Masters.IsLoad = true;
             } else {

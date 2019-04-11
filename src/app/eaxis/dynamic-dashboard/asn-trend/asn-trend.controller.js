@@ -22,7 +22,7 @@
                 "Entities": '',
             };
 
-            if (AsnTrendCtrl.selectedComponent.SetAsDefault) {
+            if (AsnTrendCtrl.selectedComponent.DC_LoadByDefault) {
                 GetAsnTrendDetails();
                 AsnTrendCtrl.ePage.Masters.IsLoad = true;
             } else {

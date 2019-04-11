@@ -58,7 +58,7 @@
             GetRoleList();
             GetSettingsButtonAccess();
             GetDashboardListBasedOnRole();
-            GetJson();
+            GetComponentListDetails();
         }
         // #endregion
         // #region - Preview the dashboard setting
@@ -108,7 +108,7 @@
         function RoleAccesDashboardSetting(item) {
             DynamicDashboardCtrl.ePage.Masters.SelectedDashboardSettingDetails = item;
             var _filter = {
-                "ItemCode": item.DashboardName,
+                "ItemCode": item.Name,
                 "MappingCode": "DASH_ROLE_APP_TNT"
             };
             var _input = {
@@ -226,7 +226,7 @@
         function CloseComponentSettingActivity() {
             DynamicDashboardCtrl.ePage.Masters.componentModalInstances.dismiss('cancel');
         }
-        function SaveCompDashboardSetting(item) {
+        function SaveCompDashboardSetting(item) {            
             var _TempList = $filter('filter')(DynamicDashboardCtrl.ePage.Masters.TotalComponentList, { IsLoadedInThisDashboard: true })
             angular.forEach(DynamicDashboardCtrl.ePage.Masters.DashboardList, function (value, key) {
                 if (value.PK == item.PK) {
@@ -236,9 +236,9 @@
 
             DynamicDashboardCtrl.ePage.Masters.TempComponentList = angular.copy(_TempList);
             DynamicDashboardCtrl.ePage.Masters.TempComponentList = $filter('orderBy')(DynamicDashboardCtrl.ePage.Masters.TempComponentList, 'SequenceNo');
-            DynamicDashboardCtrl.ePage.Masters.TempComponentList = $filter('orderBy')(DynamicDashboardCtrl.ePage.Masters.TempComponentList, '!IsLoadAsDefault');
-            DynamicDashboardCtrl.ePage.Masters.IsShowDetails = $filter('filter')(DynamicDashboardCtrl.ePage.Masters.TempComponentList, { IsShow: true })
-            var LoadedAsDefaultDetails = $filter('filter')(DynamicDashboardCtrl.ePage.Masters.IsShowDetails, { IsLoadAsDefault: true })
+            DynamicDashboardCtrl.ePage.Masters.TempComponentList = $filter('orderBy')(DynamicDashboardCtrl.ePage.Masters.TempComponentList, '!DC_ShowByDefault');
+            DynamicDashboardCtrl.ePage.Masters.IsShowDetails = $filter('filter')(DynamicDashboardCtrl.ePage.Masters.TempComponentList, { DC_IsEnabled: true })
+            var LoadedAsDefaultDetails = $filter('filter')(DynamicDashboardCtrl.ePage.Masters.IsShowDetails, { DC_ShowByDefault: true })
             if (LoadedAsDefaultDetails.length >= 0) {
                 dynamicDashboardConfig.LoadMoreCount = LoadedAsDefaultDetails.length;
             }
@@ -305,75 +305,40 @@
         // #endregion 
         // #region - Get dashboard list based on Role
         function GetDashboardListBasedOnRole() {
-            var _DashboardListBasedOnRole = [{
-                "Role": "DMS_DESK",
-                "Dashboard_FK": "d7ea3cd1-ed85-4da6-8ab6-3497b8dfab52",
-                "DashboardName": "Inward Dashboard",
-                "Icon": "icon-inward",
-                "IsWarehouseBased": false,
-                "IsClientBased": false,
-            }, {
-                "Role": "DMS_DESK",
-                "Dashboard_FK": "db100bf9-467c-4217-85c8-2672deaf811d",
-                "DashboardName": "DMS Dashboard",
-                "Icon": "fa fa-truck ",
-                "IsWarehouseBased": false,
-                "IsClientBased": false,
-            }, {
-                "Role": "WH_USER",
-                "Dashboard_FK": "d7ea3cd1-ed85-4da6-8ab6-3497b8dfab52",
-                "DashboardName": "Inward Dashboard",
-                "Icon": "icon-inward",
-                "IsWarehouseBased": true,
-                "IsClientBased": true,
-            }, {
-                "Role": "WH_USER",
-                "Dashboard_FK": "17aca650-88c4-4cb4-997b-da5b85045e62",
-                "DashboardName": "Outward Dashboard",
-                "Icon": "icon-outward",
-                "IsWarehouseBased": true,
-                "IsClientBased": false,
-            }, {
-                "Role": "WH_USER",
-                "Dashboard_FK": "e72d892a-ce24-4712-b279-74124740dd00",
-                "DashboardName": "Location Dashboard",
-                "Icon": "fa fa-map-marker",
-                "IsWarehouseBased": true,
-                "IsClientBased": false,
-            }, {
-                "Role": "WH_ADMIN",
-                "Dashboard_FK": "d7ea3cd1-ed85-4da6-8ab6-3497b8dfab52",
-                "DashboardName": "Inward Dashboard",
-                "Icon": "icon-inward",
-                "IsWarehouseBased": true,
-                "IsClientBased": true,
-            }, {
-                "Role": "WH_ADMIN",
-                "Dashboard_FK": "17aca650-88c4-4cb4-997b-da5b85045e62",
-                "DashboardName": "Outward Dashboard",
-                "Icon": "icon-outward",
-                "IsWarehouseBased": true,
-                "IsClientBased": false,
-            }, {
-                "Role": "WH_ADMIN",
-                "Dashboard_FK": "e72d892a-ce24-4712-b279-74124740dd00",
-                "DashboardName": "Location Dashboard",
-                "Icon": "fa fa-map-marker",
-                "IsWarehouseBased": true,
-                "IsClientBased": false,
-            }, {
-                "Role": "WH_ADMIN",
-                "Dashboard_FK": "db100bf9-467c-4217-85c8-2672deaf811d",
-                "DashboardName": "DMS Dashboard",
-                "Icon": "fa fa-truck",
-                "IsWarehouseBased": false,
-                "IsClientBased": false,
-            }];
-            DynamicDashboardCtrl.ePage.Masters._TempDashboardListBasedOnRole = _DashboardListBasedOnRole;
-            DynamicDashboardCtrl.ePage.Masters.DashboardListBasedOnRole = $filter('filter')(_DashboardListBasedOnRole, { Role: authService.getUserInfo().RoleCode })
-            DynamicDashboardCtrl.ePage.Masters.SelectedDashboardDetails = DynamicDashboardCtrl.ePage.Masters.DashboardListBasedOnRole[0];
-            if (DynamicDashboardCtrl.ePage.Masters.SelectedDashboardDetails)
-                OnChangeDashboardList();
+            var _filter = {
+                "AccessCode": authService.getUserInfo().RoleCode,
+                "MappingCode": "DASH_ROLE_APP_TNT"
+            };
+            var _input = {
+                "searchInput": helperService.createToArrayOfObject(_filter),
+                "FilterID": appConfig.Entities.SecMappings.API.FindAll.FilterID
+            };
+            apiService.post("authAPI", appConfig.Entities.SecMappings.API.FindAll.Url, _input).then(function (response) {
+                if (response.data.Response) {
+                    if (response.data.Response.length > 0) {
+                        var _DashboardName = "";
+                        angular.forEach(response.data.Response, function (value, key) {
+                            _DashboardName = _DashboardName + value.ItemCode + ",";
+                        });
+                        _DashboardName = _DashboardName.slice(0, -1);
+                        var _filter = {
+                            "NameIn": _DashboardName
+                        };
+                        var _input = {
+                            "searchInput": helperService.createToArrayOfObject(_filter),
+                            "FilterID": dynamicDashboardConfig.Entities.Dashboards.API.FindAll.FilterID
+                        };
+                        apiService.post("eAxisAPI", dynamicDashboardConfig.Entities.Dashboards.API.FindAll.Url, _input).then(function (response) {
+                            if (response.data.Response) {
+                                DynamicDashboardCtrl.ePage.Masters.DashboardListBasedOnRole = response.data.Response;
+                                DynamicDashboardCtrl.ePage.Masters.SelectedDashboardDetails = DynamicDashboardCtrl.ePage.Masters.DashboardListBasedOnRole[0];
+                                if (DynamicDashboardCtrl.ePage.Masters.SelectedDashboardDetails)
+                                    OnChangeDashboardList();
+                            }
+                        });
+                    }
+                }
+            });
         }
 
         function OnChangeDashboardList() {
@@ -429,157 +394,39 @@
         // #endregion
         // #region - get Component list based on Dashboard list 
         function GetDashboardList() {
-            var _DashboardList = [{
-                "PK": "d7ea3cd1-ed85-4da6-8ab6-3497b8dfab52",
-                "DashboardName": "Inward Dashboard",
-                "Icon": "icon-inward",
-                "IsWarehouseBased": true,
-                "IsClientBased": true,
-                "ComponentList": [
-                    {
-                        "ComponentName": "ASN Received With Status",
-                        "Directive": "asn-received-status",
-                        "SequenceNo": 1,
-                        "IsShow": true,
-                        "SetAsDefault": true,
-                        "IsLoadAsDefault": true
-                    }, {
-                        "ComponentName": "New ASN Request",
-                        "Directive": "asn-request-directive",
-                        "SequenceNo": 4,
-                        "IsShow": true,
-                        "SetAsDefault": true,
-                        "IsLoadAsDefault": true
-                    }, {
-                        "ComponentName": "New Inward",
-                        "Directive": "new-inward-directive",
-                        "SequenceNo": 5,
-                        "IsShow": true,
-                        "SetAsDefault": true,
-                        "IsLoadAsDefault": true
-                    }, {
-                        "ComponentName": "Track Inward",
-                        "Directive": "track-inward-directive",
-                        "SequenceNo": 6,
-                        "IsShow": true,
-                        "SetAsDefault": true,
-                        "IsLoadAsDefault": true
-                    }, {
-                        "ComponentName": "ASN Trend",
-                        "Directive": "asn-trend",
-                        "SequenceNo": 7,
-                        "IsShow": true,
-                        "SetAsDefault": false,
-                        "IsLoadAsDefault": false
-                    }, {
-                        "ComponentName": "Putaway Status",
-                        "Directive": "putaway-status",
-                        "SequenceNo": 9,
-                        "IsShow": true,
-                        "SetAsDefault": true,
-                        "IsLoadAsDefault": false
-                    }, {
-                        "ComponentName": "GRN Status",
-                        "Directive": "grn-status",
-                        "SequenceNo": 12,
-                        "IsShow": true,
-                        "SetAsDefault": true,
-                        "IsLoadAsDefault": false
-                    }, {
-                        "ComponentName": "Cycle Count Jobs",
-                        "Directive": "cycle-count-jobs",
-                        "SequenceNo": 13,
-                        "IsShow": true,
-                        "SetAsDefault": false,
-                        "IsLoadAsDefault": false
-                    }]
-            }, {
-                "PK": "17aca650-88c4-4cb4-997b-da5b85045e62",
-                "DashboardName": "Outward Dashboard",
-                "Icon": "icon-outward",
-                "IsWarehouseBased": true,
-                "IsClientBased": false,
-                "ComponentList": [
-                    {
-                        "ComponentName": "Open SO",
-                        "Directive": "open-so",
-                        "SequenceNo": 10,
-                        "IsShow": true,
-                        "SetAsDefault": false,
-                        "IsLoadAsDefault": true
-                    }, {
-                        "ComponentName": "Pick With Shortfall",
-                        "Directive": "pick-with-shortfall",
-                        "SequenceNo": 11,
-                        "IsShow": true,
-                        "SetAsDefault": false,
-                        "IsLoadAsDefault": false
-                    }]
-            }, {
-                "PK": "e72d892a-ce24-4712-b279-74124740dd00",
-                "DashboardName": "Location Dashboard",
-                "Icon": "fa fa-map-marker",
-                "IsWarehouseBased": true,
-                "IsClientBased": false,
-                "ComponentList": [
-                    {
-                        "ComponentName": "Cycle Count Jobs",
-                        "Directive": "cycle-count-jobs",
-                        "SequenceNo": 13,
-                        "IsShow": true,
-                        "SetAsDefault": false,
-                        "IsLoadAsDefault": false
-                    }]
-            }, {
-                "PK": "db100bf9-467c-4217-85c8-2672deaf811d",
-                "DashboardName": "DMS Dashboard",
-                "Icon": "fa fa-truck",
-                "IsWarehouseBased": false,
-                "IsClientBased": false,
-                "ComponentList": [
-                    {
-                        "ComponentName": "KPI",
-                        "Directive": "kpi-directive",
-                        "SequenceNo": 8,
-                        "IsShow": true,
-                        "SetAsDefault": true,
-                        "IsLoadAsDefault": false
-                    }, {
-                        "ComponentName": "My Task",
-                        "Directive": "my-task-dashboard-directive",
-                        "SequenceNo": 2,
-                        "IsShow": true,
-                        "SetAsDefault": true,
-                        "IsLoadAsDefault": true
-                    }, {
-                        "ComponentName": "Notification",
-                        "Directive": "notification",
-                        "SequenceNo": 14,
-                        "IsShow": false,
-                        "SetAsDefault": false,
-                        "IsLoadAsDefault": false
-                    }, {
-                        "ComponentName": "Exception",
-                        "Directive": "exception-directive",
-                        "SequenceNo": 15,
-                        "IsShow": false,
-                        "SetAsDefault": false,
-                        "IsLoadAsDefault": false
-                    }]
-            }];
-            DynamicDashboardCtrl.ePage.Masters.DashboardList = _DashboardList;
+            var _filter = {};
+            var _input = {
+                "searchInput": helperService.createToArrayOfObject(_filter),
+                "FilterID": dynamicDashboardConfig.Entities.Dashboards.API.FindAll.FilterID
+            };
+            apiService.post("eAxisAPI", dynamicDashboardConfig.Entities.Dashboards.API.FindAll.Url, _input).then(function (response) {
+                if (response.data.Response) {
+                    DynamicDashboardCtrl.ePage.Masters.DashboardList = response.data.Response;
+                }
+            });
 
-            DynamicDashboardCtrl.ePage.Masters.SelectedDashboardComponentDetails = $filter('filter')(DynamicDashboardCtrl.ePage.Masters.DashboardList, { PK: DynamicDashboardCtrl.ePage.Masters.SelectedDashboardDetails.Dashboard_FK })
-            DynamicDashboardCtrl.ePage.Masters.TempComponentList = angular.copy(DynamicDashboardCtrl.ePage.Masters.SelectedDashboardComponentDetails[0].ComponentList);
-            DynamicDashboardCtrl.ePage.Masters.TempComponentList = $filter('orderBy')(DynamicDashboardCtrl.ePage.Masters.TempComponentList, 'SequenceNo');
-            DynamicDashboardCtrl.ePage.Masters.TempComponentList = $filter('orderBy')(DynamicDashboardCtrl.ePage.Masters.TempComponentList, '!IsLoadAsDefault');
-            DynamicDashboardCtrl.ePage.Masters.IsShowDetails = $filter('filter')(DynamicDashboardCtrl.ePage.Masters.TempComponentList, { IsShow: true })
-            var LoadedAsDefaultDetails = $filter('filter')(DynamicDashboardCtrl.ePage.Masters.IsShowDetails, { IsLoadAsDefault: true })
-            if (LoadedAsDefaultDetails.length >= 0) {
-                dynamicDashboardConfig.LoadMoreCount = LoadedAsDefaultDetails.length;
-            }
-            dynamicDashboardConfig.LoadedDirectiveCount = 0;
-            DynamicDashboardCtrl.ePage.Masters.ComponentList = angular.copy(LoadedAsDefaultDetails);
+            var _filter = {
+                "DSH_FK": DynamicDashboardCtrl.ePage.Masters.SelectedDashboardDetails.PK
+            };
+            var _input = {
+                "searchInput": helperService.createToArrayOfObject(_filter),
+                "FilterID": dynamicDashboardConfig.Entities.DASDashBoardList.API.FindAll.FilterID
+            };
+            apiService.post("eAxisAPI", dynamicDashboardConfig.Entities.DASDashBoardList.API.FindAll.Url, _input).then(function (response) {
+                if (response.data.Response) {
+                    DynamicDashboardCtrl.ePage.Masters.SelectedDashboardComponentDetails = angular.copy(response.data.Response);
+                    DynamicDashboardCtrl.ePage.Masters.TempComponentList = angular.copy(response.data.Response);
+                    DynamicDashboardCtrl.ePage.Masters.TempComponentList = $filter('orderBy')(DynamicDashboardCtrl.ePage.Masters.TempComponentList, 'DC_DisplayOrder');
+                    DynamicDashboardCtrl.ePage.Masters.TempComponentList = $filter('orderBy')(DynamicDashboardCtrl.ePage.Masters.TempComponentList, '!DC_ShowByDefault');
+                    DynamicDashboardCtrl.ePage.Masters.IsShowDetails = $filter('filter')(DynamicDashboardCtrl.ePage.Masters.TempComponentList, { DC_IsEnabled: true })
+                    var LoadedAsDefaultDetails = $filter('filter')(DynamicDashboardCtrl.ePage.Masters.IsShowDetails, { DC_ShowByDefault: true })
+                    if (LoadedAsDefaultDetails.length >= 0) {
+                        dynamicDashboardConfig.LoadMoreCount = LoadedAsDefaultDetails.length;
+                    }
+                    dynamicDashboardConfig.LoadedDirectiveCount = 0;
+                    DynamicDashboardCtrl.ePage.Masters.ComponentList = angular.copy(LoadedAsDefaultDetails);
+                }
+            });
         }
         // #endregion
         // #region - customize button
@@ -589,10 +436,10 @@
 
         function Apply() {
             dynamicDashboardConfig.LoadedDirectiveCount = 0;
-            DynamicDashboardCtrl.ePage.Masters.TempComponentList = $filter('orderBy')(DynamicDashboardCtrl.ePage.Masters.TempComponentList, '!IsLoadAsDefault');
+            DynamicDashboardCtrl.ePage.Masters.TempComponentList = $filter('orderBy')(DynamicDashboardCtrl.ePage.Masters.TempComponentList, '!DC_ShowByDefault');
             var _ComponentList = angular.copy(DynamicDashboardCtrl.ePage.Masters.TempComponentList);
-            DynamicDashboardCtrl.ePage.Masters.IsShowDetails = $filter('filter')(_ComponentList, { IsShow: true })
-            var LoadedAsDefaultDetails = $filter('filter')(DynamicDashboardCtrl.ePage.Masters.IsShowDetails, { IsLoadAsDefault: true })
+            DynamicDashboardCtrl.ePage.Masters.IsShowDetails = $filter('filter')(_ComponentList, { DC_IsEnabled: true })
+            var LoadedAsDefaultDetails = $filter('filter')(DynamicDashboardCtrl.ePage.Masters.IsShowDetails, { DC_ShowByDefault: true })
             if (LoadedAsDefaultDetails.length >= 0) {
                 dynamicDashboardConfig.LoadMoreCount = LoadedAsDefaultDetails.length;
             }
@@ -625,7 +472,7 @@
 
         function WarehouseChanged() {
             var _ComponentList = angular.copy(DynamicDashboardCtrl.ePage.Masters.ComponentList);
-            var IsShowDetails = $filter('filter')(_ComponentList, { IsShow: true })
+            var IsShowDetails = $filter('filter')(_ComponentList, { DC_IsEnabled: true })
             dynamicDashboardConfig.LoadedDirectiveCount = 0;
             DynamicDashboardCtrl.ePage.Masters.ComponentList = undefined;
             $timeout(function () {
@@ -657,7 +504,7 @@
         }
         function OnChangeClient() {
             var _ComponentList = angular.copy(DynamicDashboardCtrl.ePage.Masters.ComponentList);
-            var IsShowDetails = $filter('filter')(_ComponentList, { IsShow: true })
+            var IsShowDetails = $filter('filter')(_ComponentList, { DC_IsEnabled: true })
             dynamicDashboardConfig.LoadedDirectiveCount = 0;
             DynamicDashboardCtrl.ePage.Masters.ComponentList = undefined;
             $timeout(function () {
@@ -686,11 +533,11 @@
         }
         // #endregion
         // #region - Load more button activity
-        function LoadMore() {
+        function LoadMore() {            
             dynamicDashboardConfig.LoadMoreCount = dynamicDashboardConfig.LoadMoreCount + 4;
-            DynamicDashboardCtrl.ePage.Masters.TempComponentList = $filter('orderBy')(DynamicDashboardCtrl.ePage.Masters.TempComponentList, '!IsLoadAsDefault');
+            DynamicDashboardCtrl.ePage.Masters.TempComponentList = $filter('orderBy')(DynamicDashboardCtrl.ePage.Masters.TempComponentList, '!DC_ShowByDefault');
             var _ComponentList = angular.copy(DynamicDashboardCtrl.ePage.Masters.TempComponentList);
-            var IsShowDetails = $filter('filter')(_ComponentList, { IsShow: true })
+            var IsShowDetails = $filter('filter')(_ComponentList, { DC_IsEnabled: true })
             dynamicDashboardConfig.LoadedDirectiveCount = 0;
             DynamicDashboardCtrl.ePage.Masters.ComponentList = undefined;
             $timeout(function () {
@@ -699,152 +546,23 @@
         }
         // #endregion
         // #region - get component details
-        function GetJson() {
-            var _obj = [{
-                "ComponentName": "ASN Received With Status",
-                "Directive": "asn-received-status",
-                "SequenceNo": 1,
-                "IsShow": true,
-                "SetAsDefault": true,
-                "IsLoadAsDefault": true
-            }, {
-                "ComponentName": "Raise Delivery Request",
-                "Directive": "raise-csr-directive",
-                "SequenceNo": 3,
-                "IsShow": true,
-                "SetAsDefault": true,
-                "IsLoadAsDefault": true
-            }, {
-                "ComponentName": "New ASN Request",
-                "Directive": "asn-request-directive",
-                "SequenceNo": 4,
-                "IsShow": true,
-                "SetAsDefault": true,
-                "IsLoadAsDefault": true
-            }, {
-                "ComponentName": "New Inward",
-                "Directive": "new-inward-directive",
-                "SequenceNo": 5,
-                "IsShow": true,
-                "SetAsDefault": true,
-                "IsLoadAsDefault": true
-            }, {
-                "ComponentName": "Track Inward",
-                "Directive": "track-inward-directive",
-                "SequenceNo": 6,
-                "IsShow": true,
-                "SetAsDefault": true,
-                "IsLoadAsDefault": true
-            }, {
-                "ComponentName": "ASN Trend",
-                "Directive": "asn-trend",
-                "SequenceNo": 7,
-                "IsShow": true,
-                "SetAsDefault": false,
-                "IsLoadAsDefault": false
-            }, {
-                "ComponentName": "KPI",
-                "Directive": "kpi-directive",
-                "SequenceNo": 8,
-                "IsShow": true,
-                "SetAsDefault": true,
-                "IsLoadAsDefault": false
-            }, {
-                "ComponentName": "My Task",
-                "Directive": "my-task-dashboard-directive",
-                "SequenceNo": 2,
-                "IsShow": true,
-                "SetAsDefault": true,
-                "IsLoadAsDefault": true
-            }, {
-                "ComponentName": "Putaway Status",
-                "Directive": "putaway-status",
-                "SequenceNo": 9,
-                "IsShow": true,
-                "SetAsDefault": true,
-                "IsLoadAsDefault": false
-            }, {
-                "ComponentName": "Open SO",
-                "Directive": "open-so",
-                "SequenceNo": 10,
-                "IsShow": true,
-                "SetAsDefault": false,
-                "IsLoadAsDefault": true
-            }, {
-                "ComponentName": "Pick With Shortfall",
-                "Directive": "pick-with-shortfall",
-                "SequenceNo": 11,
-                "IsShow": true,
-                "SetAsDefault": false,
-                "IsLoadAsDefault": false
-            }, {
-                "ComponentName": "GRN Status",
-                "Directive": "grn-status",
-                "SequenceNo": 12,
-                "IsShow": true,
-                "SetAsDefault": true,
-                "IsLoadAsDefault": false
-            }, {
-                "ComponentName": "Cycle Count Jobs",
-                "Directive": "cycle-count-jobs",
-                "SequenceNo": 13,
-                "IsShow": true,
-                "SetAsDefault": false,
-                "IsLoadAsDefault": false
-            }, {
-                "ComponentName": "Notification",
-                "Directive": "notification",
-                "SequenceNo": 14,
-                "IsShow": false,
-                "SetAsDefault": false,
-                "IsLoadAsDefault": false
-            }, {
-                "ComponentName": "Exception",
-                "Directive": "exception-directive",
-                "SequenceNo": 15,
-                "IsShow": false,
-                "SetAsDefault": false,
-                "IsLoadAsDefault": false
-            }, {
-                "ComponentName": "User",
-                "Directive": "user-directive",
-                "SequenceNo": 16,
-                "IsShow": true,
-                "SetAsDefault": false,
-                "IsLoadAsDefault": false
-            }, {
-                "ComponentName": "Email",
-                "Directive": "email-directive",
-                "SequenceNo": 17,
-                "IsShow": true,
-                "SetAsDefault": false,
-                "IsLoadAsDefault": false
-            }, {
-                "ComponentName": "Music",
-                "Directive": "music-directive",
-                "SequenceNo": 18,
-                "IsShow": true,
-                "SetAsDefault": false,
-                "IsLoadAsDefault": false
-            }, {
-                "ComponentName": "Video",
-                "Directive": "video-directive",
-                "SequenceNo": 19,
-                "IsShow": true,
-                "SetAsDefault": false,
-                "IsLoadAsDefault": false
-            }, {
-                "ComponentName": "Open SO Chart",
-                "Directive": "open-so-chart",
-                "SequenceNo": 20,
-                "IsShow": true,
-                "SetAsDefault": true,
-                "IsLoadAsDefault": true
-            }];
+        function GetComponentListDetails() {
+            var _filter = {
 
-            _obj = $filter('orderBy')(_obj, 'SequenceNo');
-            DynamicDashboardCtrl.ePage.Masters.TotalComponentList = angular.copy(_obj);
-            DynamicDashboardCtrl.ePage.Masters.TotalComponentList = $filter('orderBy')(DynamicDashboardCtrl.ePage.Masters.TotalComponentList, '!IsLoadAsDefault');
+            };
+            var _input = {
+                "searchInput": helperService.createToArrayOfObject(_filter),
+                "FilterID": dynamicDashboardConfig.Entities.DASComponents.API.FindAll.FilterID
+            };
+            apiService.post("eAxisAPI", dynamicDashboardConfig.Entities.DASComponents.API.FindAll.Url, _input).then(function (response) {
+                if (response.data.Response) {
+                    response.data.Response = $filter('orderBy')(response.data.Response, 'DisplayOrder');
+                    DynamicDashboardCtrl.ePage.Masters.TotalComponentList = angular.copy(response.data.Response);
+                }
+            });
+            // _obj = $filter('orderBy')(_obj, 'SequenceNo');
+            // DynamicDashboardCtrl.ePage.Masters.TotalComponentList = angular.copy(_obj);
+            // DynamicDashboardCtrl.ePage.Masters.TotalComponentList = $filter('orderBy')(DynamicDashboardCtrl.ePage.Masters.TotalComponentList, '!ShowByDefault');
         }
         // #endregion
 

@@ -103,7 +103,7 @@
                 }
             });
              //Order By
-             CycleCountLineCtrl.ePage.Entities.Header.Data.UIWmsCycleCountLine = $filter('orderBy')(CycleCountLineCtrl.ePage.Entities.Header.Data.UIWmsCycleCountLine, 'CreatedDateTime');
+            //  CycleCountLineCtrl.ePage.Entities.Header.Data.UIWmsCycleCountLine = $filter('orderBy')(CycleCountLineCtrl.ePage.Entities.Header.Data.UIWmsCycleCountLine, 'CreatedDateTime');
 
         }
 

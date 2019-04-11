@@ -29,7 +29,7 @@
             if (NotificationCtrl.selectedComponent.ComponentName == "Exception")
                 GetExceptionDetails();
             if (NotificationCtrl.selectedComponent.ComponentName == "Asn Received Chart") {
-                if (NotificationCtrl.selectedComponent.SetAsDefault) {
+                if (NotificationCtrl.selectedComponent.DC_LoadByDefault) {
                     GetAsnReceivedStatusDetails();
                     NotificationCtrl.ePage.Masters.IsLoad = true;
                 } else {
