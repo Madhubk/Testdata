@@ -4,7 +4,7 @@
     angular.module("Application")
         .factory("exchangerateConfig", ExchangerateConfig);
 
-        ExchangerateConfig.$inject = ["$q", "apiService", "appConfig", "helperService", "toastr", "errorWarningService"];
+    ExchangerateConfig.$inject = ["$q", "apiService", "appConfig", "helperService", "toastr", "errorWarningService"];
 
     function ExchangerateConfig($q, apiService, appConfig, helperService, toastr) {
         var exports = {
@@ -25,8 +25,14 @@
                             "FindAll": {
                                 "IsAPI": "true",
                                 "HttpType": "Post",
-                                "Url": "MstExchangeRate/FindAll",
-                                "FilterID": "MSTEXCHR"
+                                "Url": "MstRecentExchangeRate/FindAll",
+                                "FilterID": "MSTRECEXC"
+                            },
+                            "ExRateList":{
+                                "IsAPI": "true",
+                                "HttpType": "Post",
+                                "Url": "MstExchangeRateListdata/FindAll",
+                                "FilterID": "MSTEXCHRLIS"
                             },
                             "CurrencyActivityTabClose": {
                                 "IsAPI": "true",
@@ -80,15 +86,120 @@
                                 "Symbol": helperService.metaBase(),
                                 "Country": helperService.metaBase(),
                                 "IsActive": helperService.metaBase(),
-                                "Unitname":helperService.metaBase()
-                                
+                                "Unitname": helperService.metaBase()
+
                             }
                         },
                         "GlobalVariables": {
                             "SelectAll": false,
                             "IsDisablePost": true
-                        }
-
+                        },
+                        "TableProperties": {
+                            "UIExRate": {
+                                "TableHeight": {
+                                    "isEnabled": true,
+                                    "height": 300
+                                },
+                                "HeaderProperties": [{
+                                    "columnname": "Checkbox",
+                                    "isenabled": true,
+                                    "property": "ccheckbox",
+                                    "position": '1',
+                                    "width": "40",
+                                    "display": false
+                                }, {
+                                    "columnname": "Start Date",
+                                    "isenabled": true,
+                                    "property": "cstartdate",
+                                    "position": '2',
+                                    "width": "155",
+                                    "display": false
+                                }, {
+                                    "columnname": "Expiry Date",
+                                    "isenabled": true,
+                                    "property": "cexpirydate",
+                                    "position": '3',
+                                    "width": "155",
+                                    "display": false
+                                }, {
+                                    "columnname": "Rate Type",
+                                    "isenabled": true,
+                                    "property": "cexratetype",
+                                    "position": '4',
+                                    "width": "155",
+                                    "display": false
+                                }, {
+                                    "columnname": "Rate Sub Type",
+                                    "isenabled": true,
+                                    "property": "cratesubtype",
+                                    "position": '5',
+                                    "width": "155",
+                                    "display": false
+                                }, {
+                                    "columnname": "Rate",
+                                    "isenabled": true,
+                                    "property": "crate",
+                                    "position": '6',
+                                    "width": "150",
+                                    "display": false
+                                },{                                    
+                                    "columnname": "Ex. Rate From A to B",
+                                    "isenabled": true,
+                                    "property": "cratefromatob",
+                                    "position": '7',
+                                    "width": "150",
+                                    "display": false
+                                },{                                    
+                                    "columnname": "Ex. Rate From B to A",
+                                    "isenabled": true,
+                                    "property": "cratefrombtoa",
+                                    "position": '8',
+                                    "width": "150",
+                                    "display": false
+                                }],
+                                "ccheckbox": {
+                                    "isenabled": true,
+                                    "position": '1',
+                                    "width": "40"
+                                },
+                                "cstartdate": {
+                                    "isenabled": true,
+                                    "position": '2',
+                                    "width": "155"
+                                },
+                                "cexpirydate": {
+                                    "isenabled": true,
+                                    "position": '3',
+                                    "width": "155"
+                                },
+                                "cexratetype": {
+                                    "isenabled": true,
+                                    "position": '4',
+                                    "width": "155"
+                                },
+                                "cratesubtype": {
+                                    "isenabled": true,
+                                    "position": '5',
+                                    "width": "155"
+                                },
+                                "crate": {
+                                    "isenabled": true,
+                                    "position": '6',
+                                    "width": "150"
+                                },
+                                "cratefromatob": {
+                                    "isenabled": true,
+                                    "position": '7',
+                                    "width": "150"
+                                },
+                                "cratefrombtoa": {
+                                    "isenabled": true,
+                                    "position": '8',
+                                    "width": "150"
+                                }
+                            }
+                        },
+                        "ExRateListData":[]
                     }
                 }
             };
@@ -110,9 +221,9 @@
                 deferred.resolve(exports.TabList);
             }
             else {
-                debugger;
-                helperService.getFullObjectUsingGetById(exports.Entities.API.ExchangerateMaster.API.GetById.Url, currentExchangeRate.PK).then(function (response) {
-                    if (response.data.Messages) {
+                
+                helperService.getFullObjectUsingGetById(exports.Entities.API.ExchangerateMaster.API.GetById.Url, currentExchangeRate.PK).then(function (response) {                  
+                if (response.data.Messages) {
                         response.data.Messages.map(function (value, key) {
                             if (value.Type === "Warning" && value.MessageDesc !== "") {
                                 toastr.info(value.MessageDesc);
@@ -121,8 +232,6 @@
                     }
                     _exports.Entities.Header.Data = response.data.Response;
                     _exports.Entities.Header.Validations = response.data.Validations;
-
-
                     var _code = currentExchangeRate.PK.split("-").join("");
                     var obj = {
                         [_code]: {
@@ -135,7 +244,7 @@
                     };
                     exports.TabList.push(obj);
                     deferred.resolve(exports.TabList);
-                });
+                });               
             }
             return deferred.promise;
         }
@@ -228,7 +337,7 @@
 
                     if (!_isExistGlobal) {
                         exports.TabList[_index][EntityObject].ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList.push(_obj);
-                    }                    
+                    }
                     exports.TabList[_index][EntityObject].ePage.Entities.Header.Meta.ErrorWarning[MetaObject].IsArray = IsArray;
                     exports.TabList[_index][EntityObject].ePage.Entities.Header.Meta.ErrorWarning[MetaObject].ParentRef = ParentRef;
                     exports.TabList[_index][EntityObject].ePage.Entities.Header.Meta.ErrorWarning[MetaObject].GParentRef = GParentRef;

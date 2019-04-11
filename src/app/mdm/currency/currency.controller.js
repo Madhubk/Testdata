@@ -56,7 +56,7 @@
         }
 
         function AddTab(currencyNew, isNew) {  
-            debugger;                    
+            
             CurrencyCtrl.ePage.Masters.currencyNew = undefined;
             var _isExist = CurrencyCtrl.ePage.Masters.TabList.some(function (value) {
                 if (!isNew) {

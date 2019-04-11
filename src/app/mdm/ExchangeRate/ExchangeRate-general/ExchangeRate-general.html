@@ -5,7 +5,7 @@
             <div class="inner-dashboard-box">
                 <div class="rows">
                     <div class="col-xs-3 col-sm-3 col-md-4 col-lg-3 col-xl-3 height-40  pt-10 pb-10">
-                        <label class="ml-5 control-label">From Currency</label>
+                        <label class="control-label text-single-line">From Currency</label>
                         <span class="error-warning-container">
                             <error-warning-directive
                                 data-ng-if="ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.CurrencyCode.IsWarning && !ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.CurrencyCode.IsError"
@@ -27,18 +27,18 @@
                         <div class="input-group input-group-sm">
                             <!-- Dynamic look up Search in textbox -->
                             <div dynamic-lookup placeholder="From Currency"
-                                my-ng-model="ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.FromCurrency"
+                                my-ng-model="ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.UIMstExchangeRate.FromCurrency"
                                 obj="ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList"
-                                page-name="'CurrencyMaster'" control-id="'FinanceAPCurrency'"
-                                control-key="FinanceAPCurrency_3330"
+                                page-name="'CurrencyMaster'" control-id="'ExRateFromCurrency'"
+                                control-key="ExRateFromCurrency_3339"
                                 auto-complete-on-select="ExchangeRateGeneralCtrl.ePage.Masters.SelectedLookupData($index, $item,'Local')">
                             </div>
                             <!-- Look Up page opens when button clicks -->
                             <span class="input-group-btn">
                                 <button dynamic-list-modal class="btn btn-default" type="button" is-disabled="false"
-                                    obj="ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.FromCurrency"
-                                    page-name="'CurrencyMaster'" control-id="'FinanceAPCurrency'"
-                                    control-key="FinanceAPCurrency_3330" mode="2" grid-refresh-fun-name=""
+                                    obj="ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList"
+                                    page-name="'CurrencyMaster'" control-id="'ExRateFromCurrency'"
+                                    control-key="ExRateFromCurrency_3339" mode="2" grid-refresh-fun-name=""
                                     grid-refresh-fun=""
                                     selected-data="ExchangeRateGeneralCtrl.ePage.Masters.SelectedLookupData($index, $item.data.entity,'Local')">
                                     <i class="fa fa-ellipsis-h"></i>
@@ -63,7 +63,7 @@
                         <span class="dashboard-inward-icon-box">
                             <!-- <i class="icomoon icon-supplier"></i> -->
                         </span>
-                        <label class="ml-5 control-label">To Currency</label>
+                        <label class="control-label text-single-line">To Currency</label>
                         <span class="error-warning-container">
                             <error-warning-directive
                                 data-ng-if="ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.RX_NKExCurrency.IsWarning && !ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.RX_NKExCurrency.IsError"
@@ -83,21 +83,29 @@
 
                             <!-- Dynamic look up Search in textbox -->
                             <div dynamic-lookup placeholder="To Currency"
-                                my-ng-model="ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.RX_NKExCurrency"
+                                my-ng-model="ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.UIMstExchangeRate.RX_NKExCurrency"
                                 obj="ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList"
-                                page-name="'CurrencyMaster'" control-id="'FinanceAPCurrency'"
-                                control-key="FinanceAPCurrency_3330"
+                                page-name="'CurrencyMaster'" control-id="'ExRateToCurrency'"
+                                control-key="ExRateToCurrency_3338"
                                 auto-complete-on-select="ExchangeRateGeneralCtrl.ePage.Masters.SelectedLookupData($index, $item,'Local')">
                             </div>
                             <!-- Look Up page opens when button clicks -->
                             <span class="input-group-btn">
-                                <button dynamic-list-modal class="btn btn-default" type="button" is-disabled="false"
+                                <!-- <button dynamic-list-modal class="btn btn-default" type="button" is-disabled="false"
                                     obj="ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList"
                                     page-name="'CurrencyMaster'" control-id="'FinanceAPCurrency'"
                                     control-key="FinanceAPCurrency_3330" mode="2" grid-refresh-fun-name=""
                                     grid-refresh-fun=""
                                     selected-data="ExchangeRateGeneralCtrl.ePage.Masters.SelectedLookupData($index, $item.data.entity,'Local')"><i
                                         class="fa fa-ellipsis-h"></i>
+                                </button> -->
+                                <button dynamic-list-modal class="btn btn-default" type="button"
+                                    obj="ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList"
+                                    page-name="'CurrencyMaster'" control-id="'ExRateToCurrency'"
+                                    control-key="ExRateToCurrency_3338" mode="2" grid-refresh-fun-name=""
+                                    grid-refresh-fun=""
+                                    selected-data="ExchangeRateGeneralCtrl.ePage.Masters.SelectedLookupData()">
+                                    <i class="fa fa-ellipsis-h"></i>
                                 </button>
                             </span>
                             <span
@@ -119,7 +127,7 @@
             <div class="inner-dashboard-box">
                 <div class="rows">
                     <div class="col-xs-3 col-sm-3 col-md-4 col-lg-3 col-xl-3 height-40  pt-10 pb-10">
-                        <label class="ml-5 control-label">Rate type</label>
+                        <label class="control-label text-single-line">Rate type</label>
                         <span class="error-warning-container">
                             <error-warning-directive
                                 data-ng-if="ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.ExRateType.IsWarning && !ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.ExRateType.IsError"
@@ -135,15 +143,13 @@
                         </span>
                     </div>
                     <div class="col-xs-9 col-sm-9 col-md-8 col-lg-9 col-xl-9 height-40 p-5">
-                        <div class="input-group input-group-sm">
-
+                        <div class="form-group">
                             <select chosen class="form-control"
                                 data-ng-model="ExchangeRateGeneralCtrl.ePage.Entities.Header.Data.UIExchangerateList.ExRateType"
-                                data-ng-options="x.Key as x.Description for x in ExchangeRateGeneralCtrl.ePage.Masters.DropDownMasterList.FinanceStatus.ListSource"
+                                data-ng-options="x.Key as x.Description for x in ExchangeRateGeneralCtrl.ePage.Masters.DropDownMasterList.EXRATETYPE.ListSource"
                                 data-ng-change="ExchangeRateGeneralCtrl.ePage.Masters.OnChangeValues(ExchangeRateGeneralCtrl.ePage.Entities.Header.Data.UIExchangerateList.ExRateType,'E1304',false,undefined);">
-                                <option value="">--Select--</option>
+                                <option value="">--- Select ---</option>
                             </select>
-
                         </div>
                     </div>
                 </div>
@@ -153,7 +159,7 @@
             <div class="inner-dashboard-box">
                 <div class="rows">
                     <div class="col-xs-3 col-sm-3 col-md-4 col-lg-3 col-xl-3 height-40  pt-10 pb-10">
-                        <label class="ml-5 control-label">Rate Sub Type</label>
+                        <label class="control-label text-single-line">Rate Sub Type</label>
                         <span class="error-warning-container">
                             <error-warning-directive
                                 data-ng-if="ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.RateSubType.IsWarning && !ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.RateSubType.IsError"
@@ -169,14 +175,13 @@
                         </span>
                     </div>
                     <div class="col-xs-9 col-sm-9 col-md-8 col-lg-9 col-xl-9 height-40 p-5">
-                        <div class="input-group input-group-sm">
+                        <div class="input-group-sm">
                             <select chosen class="form-control"
                                 data-ng-model="ExchangeRateGeneralCtrl.ePage.Entities.Header.Data.UIExchangerateList.RateSubType"
-                                data-ng-options="x.Key as x.Description for x in ExchangeRateGeneralCtrl.ePage.Masters.DropDownMasterList.FinanceStatus.ListSource"
+                                data-ng-options="x.Key as x.Description for x in ExchangeRateGeneralCtrl.ePage.Masters.DropDownMasterList.EXSUBRATE.ListSource"
                                 data-ng-change="ExchangeRateGeneralCtrl.ePage.Masters.OnChangeValues(ExchangeRateGeneralCtrl.ePage.Entities.Header.Data.UIExchangerateList.RateSubType,'E1304',false,undefined);">
-                                <option value="">--Select--</option>
+                                <option value="">--- Select ---</option>
                             </select>
-
                         </div>
                     </div>
                 </div>
@@ -188,7 +193,7 @@
             <div class="inner-dashboard-box">
                 <div class="rows">
                     <div class="col-xs-3 col-sm-3 col-md-4 col-lg-3 col-xl-3 height-40  pt-10 pb-10">
-                        <label class="ml-5 control-label">Rate</label>
+                        <label class="control-label text-single-line">Rate</label>
                         <span class="error-warning-container">
                             <error-warning-directive
                                 data-ng-if="ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.ExRateType.IsWarning && !ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.ExRate.IsError"
@@ -204,9 +209,9 @@
                         </span>
                     </div>
                     <div class="col-xs-9 col-sm-9 col-md-8 col-lg-9 col-xl-9 height-40 p-5">
-                        <div class="input-group input-group-sm">
+                        <div class="form-group">
                             <input type="text" class="form-control input-sm" placeholder="Ex Rate"
-                                data-ng-model="ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.Rate"
+                                data-ng-model="ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.UIMstExchangeRate.Rate"
                                 data-ng-change='ExchangeRateGeneralCtrl.ePage.Masters.OnChangeValues(ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.Rate,"E1314")' />
                         </div>
                     </div>
@@ -215,17 +220,17 @@
         </div>
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-5">
             <div class="inner-dashboard-box">
-                <!-- <div class="rows">
+                <div class="rows">
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 height-40 pt-10 pb-10">
-                        <div class="checkbox">
+                        <!-- <div class="checkbox">
                             <label>
                                 <input type="checkbox"
                                     data-ng-model="ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.IsActive">
                                 <span class="text"></span>Is Active
                             </label>
-                        </div>
+                        </div> -->
                     </div>
-                </div> -->
+                </div>
             </div>
         </div>
     </div>
@@ -234,23 +239,111 @@
             <div class="inner-dashboard-box">
                 <div class="rows">
                     <div class="col-xs-3 col-sm-3 col-md-4 col-lg-3 col-xl-3 height-40  pt-10 pb-10">
-                        <label class="ml-5 control-label">Conv. From A to B</label>
-                        <!-- <span class="error-warning-container">
-                                    <error-warning-directive
-                                        data-ng-if="ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.ConvFromAtoB.IsWarning && !ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.ConvFromAtoB.IsError"
-                                        list="ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.ConvFromAtoB.WARNING"
-                                        type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref=""
-                                        g-parent-ref="">
-                                    </error-warning-directive>
-                                    <error-warning-directive
-                                        data-ng-if="ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.ExRate.IsError"
-                                        list="ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.ExRate.ERROR"
-                                        type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
-                                    </error-warning-directive>
-                                </span> -->
+                        <label class="control-label text-single-line">Start Date</label>
+                        <span class="error-warning-container">
+                            <error-warning-directive data-ng-if="ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.
+                                StartDate.IsWarning && !ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.
+                                StartDate.IsError" list="ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.
+                                StartDate.WARNING" type="'warning'" icon="fa fa-warning" parent-type="'null'"
+                                parent-ref="" g-parent-ref="">
+                            </error-warning-directive>
+                            <error-warning-directive data-ng-if="ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.
+                                StartDate.IsError" list="ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.
+                                StartDate.ERROR" type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref=""
+                                g-parent-ref="">
+                            </error-warning-directive>
+                        </span>
                     </div>
                     <div class="col-xs-9 col-sm-9 col-md-8 col-lg-9 col-xl-9 height-40 p-5">
                         <div class="input-group input-group-sm">
+                            <input type="text" class="form-control input-sm"
+                                placeholder="{{ExchangeRateGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                data-ng-model="x.StartDate"
+                                datetime-picker="{{ExchangeRateGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                datepicker-options="ExchangeRateGeneralCtrl.ePage.Masters.DatePicker.Options"
+                                datepicker-append-to-body="false" close-on-selection="false" enable-time="false"
+                                enable-date="true" default-date="" default-time=""
+                                save-as="ExchangeRateGeneralCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                                is-open="ExchangeRateGeneralCtrl.ePage.Masters.DatePicker.isOpen['isStartDate']"
+                                when-closed="" data-ng-click="" custom-date-time-format
+                                data-ng-change='ExchangeRateGeneralCtrl.ePage.Masters.OnChangeValues(x.StartDate,"E1313",true,$index)' />
+                            <span class="input-group-btn">
+                                <button class="btn btn-default"
+                                    data-ng-click="ExchangeRateGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event,'isStartDate')">
+                                    <i class="fa fa-calendar"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-5">
+            <div class="inner-dashboard-box">
+                <div class="rows">
+                    <div class="col-xs-3 col-sm-3 col-md-4 col-lg-3 col-xl-3 height-40  pt-10 pb-10">
+                        <label class="control-label text-single-line">Expiry Date</label>
+                        <span class="error-warning-container">
+                            <error-warning-directive
+                                data-ng-if="ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.ConvFromAtoB.IsWarning && !ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.ConvFromAtoB.IsError"
+                                list="ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.ConvFromAtoB.WARNING"
+                                type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref=""
+                                g-parent-ref="">
+                            </error-warning-directive>
+                            <error-warning-directive
+                                data-ng-if="ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.ExRate.IsError"
+                                list="ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.ExRate.ERROR"
+                                type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
+                            </error-warning-directive>
+                        </span>
+                    </div>
+                    <div class="col-xs-9 col-sm-9 col-md-8 col-lg-9 col-xl-9 height-40 p-5">
+                        <div class="input-group input-group-sm">
+                            <input type="text" class="form-control input-sm"
+                                placeholder="{{ExchangeRateGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                data-ng-model="x.ExpiryDate"
+                                datetime-picker="{{ExchangeRateGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                datepicker-options="ExchangeRateGeneralCtrl.ePage.Masters.DatePicker.Options"
+                                datepicker-append-to-body="false" close-on-selection="false" enable-time="false"
+                                enable-date="true" default-date="" default-time=""
+                                save-as="ExchangeRateGeneralCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                                is-open="ExchangeRateGeneralCtrl.ePage.Masters.DatePicker.isOpen['isExpiryDate']"
+                                when-closed="" data-ng-click="" custom-date-time-format
+                                data-ng-change='ExchangeRateGeneralCtrl.ePage.Masters.OnChangeValues(x.ExpiryDate,"E1313",true,$index)' />
+                            <span class="input-group-btn">
+                                <button class="btn btn-default"
+                                    data-ng-click="ExchangeRateGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event,'isExpiryDate')">
+                                    <i class="fa fa-calendar"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix">
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-5">
+            <div class="inner-dashboard-box">
+                <div class="rows">
+                    <div class="col-xs-3 col-sm-3 col-md-4 col-lg-3 col-xl-3 height-40  pt-10 pb-10">
+                        <label class="control-label text-single-line">Conv. From A to B</label>
+                        <span class="error-warning-container">
+                            <error-warning-directive
+                                data-ng-if="ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.ConvFromAtoB.IsWarning && !ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.ConvFromAtoB.IsError"
+                                list="ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.ConvFromAtoB.WARNING"
+                                type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref=""
+                                g-parent-ref="">
+                            </error-warning-directive>
+                            <error-warning-directive
+                                data-ng-if="ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.ExRate.IsError"
+                                list="ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.ExRate.ERROR"
+                                type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
+                            </error-warning-directive>
+                        </span>
+                    </div>
+                    <div class="col-xs-9 col-sm-9 col-md-8 col-lg-9 col-xl-9 height-40 p-5">
+                        <div class="form-group">
                             <input type="text" class="form-control input-sm" placeholder="Conversion From A to B"
                                 data-ng-model="ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.ConvFromAtoB"
                                 data-ng-change='ExchangeRateGeneralCtrl.ePage.Masters.OnChangeValues(ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.ConvFromAtoB,"E1314")' />
@@ -263,7 +356,7 @@
             <div class="inner-dashboard-box">
                 <div class="rows">
                     <div class="col-xs-3 col-sm-3 col-md-4 col-lg-3 col-xl-3 height-40  pt-10 pb-10">
-                        <label class="ml-5 control-label">Conv. From B to A</label>
+                        <label class="control-label text-single-line">Conv. From B to A</label>
                         <span class="error-warning-container">
                             <error-warning-directive
                                 data-ng-if="ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.ExRateType.IsWarning && !ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.ExRate.IsError"
@@ -279,7 +372,7 @@
                         </span>
                     </div>
                     <div class="col-xs-9 col-sm-9 col-md-8 col-lg-9 col-xl-9 height-40 p-5">
-                        <div class="input-group input-group-sm">
+                        <div class="form-group">
                             <input type="text" class="form-control input-sm" placeholder="Conversion From B to A"
                                 data-ng-model="ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.ConvFromBtoA"
                                 data-ng-change='ExchangeRateGeneralCtrl.ePage.Masters.OnChangeValues(ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.ExRate,"E1314")' />
@@ -287,6 +380,409 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <div class="clearfix mt-10">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            <div class="pull-left">
+                <label class="control-label text-single-line">ExchangeRate Details</label>
+            </div>
+            <div class="clearfix mt-30">
+                <!-- <span>
+                    <button type="button" class="btn btn-sm pull-left btn-outline-secondary font-10" title="Add New"
+                        data-ng-click="ExchangeRateGeneralCtrl.ePage.Masters.AddNewRow()">
+                        <span class="fa fa-plus"></span>&nbsp;&nbsp;Add New</button>
+                </span> -->
+                <!-- <span>
+                    <button type="button" class="btn btn-sm btn-outline-primary font-10 ml-5" title="Delete" data-ng-click="ExchangeRateGeneralCtrl.ePage.Masters.RemoveRow()" data-ng-disabled="ExchangeRateGeneralCtrl.ePage.Masters.EnableCopyButton">
+                        <span class="fa fa-trash"></span>&nbsp;&nbsp;Delete</button>
+                </span> -->
+            </div>
+            <div id="ExRateTable{{ExchangeRateGeneralCtrl.currentExchangeRate.label}}"
+                class="fixedheader mt-3 ml-0 mr-0" key-events
+                table-object="ExchangeRateGeneralCtrl.ePage.Entities.Header.TableProperties.UIExRate"
+                enable='ExchangeRateGeneralCtrl.ePage.Masters.Enable'
+                selected-row="ExchangeRateGeneralCtrl.ePage.Masters.selectedRow"
+                unique-id='ExRateTable{{ExchangeRateGeneralCtrl.currentExchangeRate.label}}'>
+                <table id="ExchangeRateGeneralCtrl.ePage.Masters.AddScroll"
+                    data-ng-style="{'height': ExchangeRateGeneralCtrl.ePage.Entities.Header.TableProperties.UIExRate.TableHeight.height + 'px' }">
+                    <thead>
+                        <tr id="tableHeader">
+                            <!-- <th data-ng-if="ExchangeRateGeneralCtrl.ePage.Entities.Header.TableProperties.UIExRate.ccheckbox.isenabled"
+                                data-ng-style="{'width': ExchangeRateGeneralCtrl.ePage.Entities.Header.TableProperties.UIExRate.ccheckbox.width + 'px' }">
+                                <label class="customcheckbox">
+                                    <input type="checkbox"
+                                        data-ng-change="ExchangeRateGeneralCtrl.ePage.Masters.SelectAllCheckBox()"
+                                        data-ng-checked="ExchangeRateGeneralCtrl.ePage.Entities.Header.GlobalVariables.SelectAll"
+                                        data-ng-model="ExchangeRateGeneralCtrl.ePage.Entities.Header.GlobalVariables.SelectAll" />
+                                    <span class="text"></span>
+                                </label>
+                            </th> -->
+                            <!-- <th data-ng-if="ExchangeRateGeneralCtrl.ePage.Entities.Header.TableProperties.UIExRate.csno.isenabled"
+                                data-ng-style="{ 'width': ExchangeRateGeneralCtrl.ePage.Entities.Header.TableProperties.UIExRate.csno.width + 'px' }">S.No</th> -->
+                            <th data-ng-if="ExchangeRateGeneralCtrl.ePage.Entities.Header.TableProperties.UIExRate.cstartdate.isenabled"
+                                data-ng-style="{'width': ExchangeRateGeneralCtrl.ePage.Entities.Header.TableProperties.UIExRate.cstartdate.width + 'px' }">
+                                StartDate</th>
+                            <th data-ng-if="ExchangeRateGeneralCtrl.ePage.Entities.Header.TableProperties.UIExRate.cexpirydate.isenabled"
+                                data-ng-style="{'width': ExchangeRateGeneralCtrl.ePage.Entities.Header.TableProperties.UIExRate.cexpirydate.width + 'px' }">
+                                Expiry Date</th>
+                            <th data-ng-if="ExchangeRateGeneralCtrl.ePage.Entities.Header.TableProperties.UIExRate.cexratetype.isenabled"
+                                data-ng-style="{'width': ExchangeRateGeneralCtrl.ePage.Entities.Header.TableProperties.UIExRate.cexratetype.width + 'px' }">
+                                Rate Type</th>
+                            <th data-ng-if="ExchangeRateGeneralCtrl.ePage.Entities.Header.TableProperties.UIExRate.cratesubtype.isenabled"
+                                data-ng-style="{'width': ExchangeRateGeneralCtrl.ePage.Entities.Header.TableProperties.UIExRate.cratesubtype.width + 'px' }">
+                                Rate Sub Type</th>
+                            <th data-ng-if="ExchangeRateGeneralCtrl.ePage.Entities.Header.TableProperties.UIExRate.crate.isenabled"
+                                data-ng-style="{'width': ExchangeRateGeneralCtrl.ePage.Entities.Header.TableProperties.UIExRate.crate.width + 'px' }">
+                                Ex. Rate</th>
+                            <th data-ng-if="ExchangeRateGeneralCtrl.ePage.Entities.Header.TableProperties.UIExRate.crate.isenabled"
+                                data-ng-style="{'width': ExchangeRateGeneralCtrl.ePage.Entities.Header.TableProperties.UIExRate.cratefromatob.width + 'px' }">
+                                Ex. Rate From A to B</th>
+                            <th data-ng-if="ExchangeRateGeneralCtrl.ePage.Entities.Header.TableProperties.UIExRate.crate.isenabled"
+                                data-ng-style="{'width': ExchangeRateGeneralCtrl.ePage.Entities.Header.TableProperties.UIExRate.cratefrombtoa.width + 'px' }">
+                                Ex. Rate From B to A</th>
+                            <!-- <th data-ng-if="ExchangeRateGeneralCtrl.ePage.Entities.Header.TableProperties.UIExRate.ccreditor.isenabled"
+                                data-ng-style="{'width': ExchangeRateGeneralCtrl.ePage.Entities.Header.TableProperties.UIExRate.ccreditor.width + 'px' }">Creditor</th> -->
+
+                        </tr>
+                    </thead>
+                    <tbody id="ASNCustTable{{ExchangeRateGeneralCtrl.currentExchangeRate.label}}">
+                        <tr id="tableBody"
+                            data-ng-repeat="x in ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.lstUIMstExchangeRate"
+                            data-ng-click="ExchangeRateGeneralCtrl.ePage.Masters.setSelectedRow($index);"
+                            data-ng-class="{row_active: (ExchangeRateGeneralCtrl.ePage.Masters.selectedRow==$index),copy_row_active :(x.IsCopied==true)}"
+                            table-properties="ExchangeRateGeneralCtrl.ePage.Entities.Header.UIExRate"
+                            row-position="$index">
+                            <!-- <td data-ng-show="ExchangeRateGeneralCtrl.ePage.Entities.Header.TableProperties.UIExRate.ccheckbox.isenabled"
+                                data-ng-style="{'width': ExchangeRateGeneralCtrl.ePage.Entities.Header.TableProperties.UIExRate.ccheckbox.width + 'px' }"
+                                data-ng-click="ExchangeRateGeneralCtrl.ePage.Masters.Enable = true">
+                                <label class="customcheckbox mb-0">
+                                    <input type="checkbox" data-ng-checked="x.SingleSelect"
+                                        data-ng-change="ExchangeRateGeneralCtrl.ePage.Masters.SingleSelectCheckBox()"
+                                        data-ng-model="x.SingleSelect" />
+                                    <span class="text"></span>
+                                </label>
+                                <span class="list-error-warning"
+                                    data-ng-if="ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIExchangerateList.ERROR | listCount: 'RowIndex': $index">
+                                    <error-warning-directive
+                                        list="ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIExchangerateList.ERROR"
+                                        type="'error'" icon="fa fa-warning" parent-type="'arrayObjectRow'" parent-ref=""
+                                        g-parent-ref="" row-index="$index" col-index="">
+                                    </error-warning-directive>
+                                </span>
+                            </td> -->
+                            <!-- <td data-ng-show="ExchangeRateGeneralCtrl.ePage.Entities.Header.TableProperties.UIExchangerateList.csno.isenabled"
+                                data-ng-style="{ 'width': ExchangeRateGeneralCtrl.ePage.Entities.Header.TableProperties.UIExchangerateList.csno.width + 'px' }"
+                                data-ng-click="ExchangeRateGeneralCtrl.ePage.Masters.Enable = true">
+                                {{$index + 1}}
+                            </td> -->
+
+                            <td data-ng-show="ExchangeRateGeneralCtrl.ePage.Entities.Header.TableProperties.UIExRate.cstartdate.isenabled"
+                                data-ng-style="{'width': ExchangeRateGeneralCtrl.ePage.Entities.Header.TableProperties.UIExRate.cstartdate.width + 'px' }">
+                                <div data-ng-if="$index==ExchangeRateGeneralCtrl.ePage.Masters.selectedRow">
+                                    <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0 height-22">
+                                        <div class="input-group input-group-sm">
+                                            <input type="text" class="form-control input-sm"
+                                                placeholder="{{ExchangeRateGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                                data-ng-model="x.StartDate"
+                                                datetime-picker="{{ExchangeRateGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                                datepicker-options="ExchangeRateGeneralCtrl.ePage.Masters.DatePicker.Options"
+                                                datepicker-append-to-body="false" close-on-selection="false"
+                                                enable-time="false" enable-date="true" default-date="" default-time=""
+                                                save-as="ExchangeRateGeneralCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                                                is-open="ExchangeRateGeneralCtrl.ePage.Masters.DatePicker.isOpen['isStartDate']"
+                                                when-closed="" data-ng-click="" custom-date-time-format
+                                                data-ng-change='ExchangeRateGeneralCtrl.ePage.Masters.OnChangeValues(x.StartDate,"E1313",true,$index)' />
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default"
+                                                    data-ng-click="ExchangeRateGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event,'isStartDate')">
+                                                    <i class="fa fa-calendar"></i>
+                                                </button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5"
+                                        data-ng-if="ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIExRate.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':10">
+                                        <error-warning-directive
+                                            list="ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIExRate.ERROR"
+                                            type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'"
+                                            parent-ref="" g-parent-ref=""
+                                            row-index="ExchangeRateGeneralCtrl.ePage.Masters.selectedRow"
+                                            col-index="10">
+                                        </error-warning-directive>
+                                    </div>
+                                </div>
+                            </td>
+                            <!-- <td data-ng-show="ExchangeRateGeneralCtrl.ePage.Entities.Header.TableProperties.UIExRate.cstartdate.isenabled" data-ng-class="{'gray-background':x.ChargeType == 'REV' || x.Costpost}"
+                                data-ng-style="{'width': ExchangeRateGeneralCtrl.ePage.Entities.Header.TableProperties.UIExRate.cstartdate.width + 'px' }">
+                                <div data-ng-if="$index!=ExchangeRateGeneralCtrl.ePage.Masters.selectedRow" class="overflow-text">
+                                    {{x.APInvoiceDate || ExchangeRateGeneralCtrl.ePage.Masters.emptyText | date:"dd-MMM-yyyy"}}
+                                </div>
+                                <div data-ng-if="$index==ExchangeRateGeneralCtrl.ePage.Masters.selectedRow">
+                                    <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0 height-22">
+                                        <div class="input-group input-group-sm">
+                                            <input type="text" class="form-control input-sm" placeholder="{{ExchangeRateGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                                data-ng-model="x.APInvoiceDate" datetime-picker="{{ExchangeRateGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                                datepicker-options="ExchangeRateGeneralCtrl.ePage.Masters.DatePicker.Options"
+                                                datepicker-append-to-body="false" close-on-selection="false" enable-time="false"
+                                                enable-date="true" default-date="" default-time="" save-as="ExchangeRateGeneralCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                                                is-open="ExchangeRateGeneralCtrl.ePage.Masters.DatePicker.isOpen['isCostInvoiceDate']"
+                                                when-closed="" data-ng-click="" custom-date-time-format data-ng-change='ExchangeRateGeneralCtrl.ePage.Masters.OnChangeValues(x.APInvoiceDate,"E1313",true,$index)' data-ng-disabled="x.ChargeType =='REV' || x.Costpost" />
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default" data-ng-click="ExchangeRateGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event,'isCostInvoiceDate')" data-ng-disabled="x.ChargeType =='REV' || x.Costpost">
+                                                    <i class="fa fa-calendar"></i>
+                                                </button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIExRate.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':10">
+                                        <error-warning-directive  list="ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIExRate.ERROR"
+                                            type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref=""
+                                            row-index="ExchangeRateGeneralCtrl.ePage.Masters.selectedRow" col-index="10">
+                                        </error-warning-directive>
+                                    </div>
+                                </div>
+                            </td> -->
+
+                            <td data-ng-show="ExchangeRateGeneralCtrl.ePage.Entities.Header.TableProperties.UIExRate.cexpirydate.isenabled"
+                                data-ng-class="{'gray-background':x.ChargeType == 'REV' || x.Costpost}"
+                                data-ng-style="{'width': ExchangeRateGeneralCtrl.ePage.Entities.Header.TableProperties.UIExRate.cexpirydate.width + 'px' }">
+                                <div data-ng-if="$index!=ExchangeRateGeneralCtrl.ePage.Masters.selectedRow"
+                                    class="overflow-text">
+                                    {{x.isExpiryDate || ExchangeRateGeneralCtrl.ePage.Masters.emptyText | date:"dd-MMM-yyyy"}}
+                                </div>
+                                <div data-ng-if="$index==ExchangeRateGeneralCtrl.ePage.Masters.selectedRow">
+                                    <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0 height-22">
+                                        <div class="input-group input-group-sm">
+                                            <input type="text" class="form-control input-sm"
+                                                placeholder="{{ExchangeRateGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                                data-ng-model="x.isExpiryDate"
+                                                datetime-picker="{{ExchangeRateGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                                                datepicker-options="ExchangeRateGeneralCtrl.ePage.Masters.DatePicker.Options"
+                                                datepicker-append-to-body="false" close-on-selection="false"
+                                                enable-time="false" enable-date="true" default-date="" default-time=""
+                                                save-as="ExchangeRateGeneralCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                                                is-open="ExchangeRateGeneralCtrl.ePage.Masters.DatePicker.isOpen['isExpiryDate']"
+                                                when-closed="" data-ng-click="" custom-date-time-format
+                                                data-ng-change='ExchangeRateGeneralCtrl.ePage.Masters.OnChangeValues(x.isExpiryDate,"E1313",true,$index)'
+                                                data-ng-disabled="x.ChargeType =='REV' || x.Costpost" />
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default"
+                                                    data-ng-click="ExchangeRateGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event,'isExpiryDate')"
+                                                    data-ng-disabled="x.ChargeType =='REV' || x.Costpost">
+                                                    <i class="fa fa-calendar"></i>
+                                                </button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5"
+                                        data-ng-if="ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIExRate.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':10">
+                                        <error-warning-directive
+                                            list="ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIExRate.ERROR"
+                                            type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'"
+                                            parent-ref="" g-parent-ref=""
+                                            row-index="ExchangeRateGeneralCtrl.ePage.Masters.selectedRow"
+                                            col-index="10">
+                                        </error-warning-directive>
+                                    </div>
+                                </div>
+                            </td>
+                            <td data-ng-show="ExchangeRateGeneralCtrl.ePage.Entities.Header.TableProperties.UIExRate.cexratetype.isenabled"
+                                data-ng-style="{'width': ExchangeRateGeneralCtrl.ePage.Entities.Header.TableProperties.UIExRate.cexratetype.width + 'px' }">
+                                <div data-ng-if="$index!=ExchangeRateGeneralCtrl.ePage.Masters.selectedRow"
+                                    class="overflow-text">
+                                    <!-- {{x.EstimatedCost || ExchangeRateGeneralCtrl.ePage.Masters.emptyText}} -->
+                                </div>
+                                <div data-ng-if="$index==ExchangeRateGeneralCtrl.ePage.Masters.selectedRow">
+                                    <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0 height-22">
+                                        <select chosen class="form-control"
+                                            data-ng-model="ExchangeRateGeneralCtrl.ePage.Entities.Header.Data.UIExchangerateList"
+                                            data-ng-options="x.Key as x.Description for x in ExchangeRateGeneralCtrl.ePage.Masters.DropDownMasterList.EXRATETYPE.ListSource">
+                                            <option value="">--Select--</option>
+                                        </select>
+                                    </div>
+                                    <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5"
+                                        data-ng-if="ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIExchangerateList.ERROR ">
+                                        <error-warning-directive
+                                            list="ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIExchangerateList.ERROR"
+                                            type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'"
+                                            parent-ref="" g-parent-ref=""
+                                            row-index="ExchangeRateGeneralCtrl.ePage.Masters.selectedRow"
+                                            col-index="14">
+                                        </error-warning-directive>
+                                    </div>
+                                </div>
+                            </td>
+                            <td data-ng-show="ExchangeRateGeneralCtrl.ePage.Entities.Header.TableProperties.UIExRate.cratesubtype.isenabled"
+                                data-ng-style="{'width': ExchangeRateGeneralCtrl.ePage.Entities.Header.TableProperties.UIExRate.cratesubtype.width + 'px' }">
+                                <div data-ng-if="$index!=ExchangeRateGeneralCtrl.ePage.Masters.selectedRow"
+                                    class="overflow-text">
+                                    <!-- {{x.OSCostAmt || ExchangeRateGeneralCtrl.ePage.Masters.emptyText}} -->
+                                </div>
+                                <div data-ng-if="$index==ExchangeRateGeneralCtrl.ePage.Masters.selectedRow">
+                                    <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0 height-22">
+                                        <!-- <input type="text" class="form-control input-sm" placeholder="Rate Sub Type" /> -->
+                                        <select chosen class="form-control"
+                                            data-ng-model="ExchangeRateGeneralCtrl.ePage.Entities.Header.TableProperties.UIExRate.ExRateType"
+                                            data-ng-options="x.Key as x.Description for x in ExchangeRateGeneralCtrl.ePage.Masters.DropDownMasterList.EXSUBRATE.ListSource">
+                                            <option value="">--Select--</option>
+                                        </select>
+                                    </div>
+                                    <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5"
+                                        data-ng-if="ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIExRate.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':15">
+                                        <error-warning-directive
+                                            list="ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIExRate.ERROR"
+                                            type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'"
+                                            parent-ref="" g-parent-ref=""
+                                            row-index="ExchangeRateGeneralCtrl.ePage.Masters.selectedRow">
+                                        </error-warning-directive>
+                                    </div>
+                                </div>
+                            </td>
+                            <td data-ng-show="ExchangeRateGeneralCtrl.ePage.Entities.Header.TableProperties.UIExRate.crate.isenabled"
+                                data-ng-class="{'gray-background':x.ChargeType == 'REV' || x.Costpost}"
+                                data-ng-style="{'width': ExchangeRateGeneralCtrl.ePage.Entities.Header.TableProperties.UIExRate.crate.width + 'px' }">
+                                <div data-ng-if="$index!=ExchangeRateGeneralCtrl.ePage.Masters.selectedRow"
+                                    class="overflow-text">
+                                    <!-- {{x.LocalCostAmt || ExchangeRateGeneralCtrl.ePage.Masters.emptyText}} -->
+                                </div>
+                                <div data-ng-if="$index==ExchangeRateGeneralCtrl.ePage.Masters.selectedRow">
+                                    <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0 height-22">
+                                        <input type="text" class="form-control input-sm" placeholder="Ex. Rate"
+                                            data-ng-model="x.Rate"
+                                            data-ng-blur="ExchangeRateGeneralCtrl.ePage.Masters.onExRateChanges($index)"
+                                            data-ng-change='ExchangeRateGeneralCtrl.ePage.Masters.OnChangeValues(x.Rate,"E1308",true,$index)'
+                                            numbers-only-dot sb-precision="4" />
+                                    </div>
+                                </div>
+                                <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5"
+                                    data-ng-if="ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIExRate.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':17">
+                                    <error-warning-directive
+                                        list="ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIExRate.ERROR"
+                                        type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref=""
+                                        g-parent-ref="" row-index="ExchangeRateGeneralCtrl.ePage.Masters.selectedRow"
+                                        col-index="17">
+                                    </error-warning-directive>
+                                </div>
+                            </td>
+                            <td data-ng-show="ExchangeRateGeneralCtrl.ePage.Entities.Header.TableProperties.UIExRate.cratefromatob.isenabled"
+                                data-ng-class="{'gray-background':x.ChargeType == 'REV' || x.Costpost}"
+                                data-ng-style="{'width': ExchangeRateGeneralCtrl.ePage.Entities.Header.TableProperties.UIExRate.cratefromatob.width + 'px' }">
+                                <div data-ng-if="$index!=ExchangeRateGeneralCtrl.ePage.Masters.selectedRow"
+                                    class="overflow-text">
+                                    <!-- {{x.LocalCostAmt || ExchangeRateGeneralCtrl.ePage.Masters.emptyText}} -->
+                                </div>
+                                <div data-ng-if="$index==ExchangeRateGeneralCtrl.ePage.Masters.selectedRow">
+                                    <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0 height-22">
+                                        <input type="text" class="form-control input-sm"
+                                            placeholder="Ex. Rate From A to B" data-ng-model="x.LocalCostAmt"
+                                            data-ng-blur="ExchangeRateGeneralCtrl.ePage.Masters.OnLocalAmtChange($index, x.LocalCostAmt, 'CostLocalAmt')"
+                                            data-ng-change='ExchangeRateGeneralCtrl.ePage.Masters.OnChangeValues(x.LocalCostAmt,"E1308",true,$index)'
+                                            data-ng-disabled="x.ChargeType =='REV' || x.Costpost" numbers-only-dot
+                                            sb-precision="4" />
+                                    </div>
+                                </div>
+                                <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5"
+                                    data-ng-if="ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIExRate.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':17">
+                                    <error-warning-directive
+                                        list="ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIExRate.ERROR"
+                                        type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref=""
+                                        g-parent-ref="" row-index="ExchangeRateGeneralCtrl.ePage.Masters.selectedRow">
+                                    </error-warning-directive>
+                                </div>
+                            </td>
+                            <td data-ng-show="ExchangeRateGeneralCtrl.ePage.Entities.Header.TableProperties.UIExRate.cratefrombtoa.isenabled"
+                                data-ng-class="{'gray-background':x.ChargeType == 'REV' || x.Costpost}"
+                                data-ng-style="{'width': ExchangeRateGeneralCtrl.ePage.Entities.Header.TableProperties.UIExRate.cratefrombtoa.width + 'px' }">
+                                <div data-ng-if="$index!=ExchangeRateGeneralCtrl.ePage.Masters.selectedRow"
+                                    class="overflow-text">
+                                    <!-- {{x.LocalCostAmt || ExchangeRateGeneralCtrl.ePage.Masters.emptyText}} -->
+                                </div>
+                                <div data-ng-if="$index==ExchangeRateGeneralCtrl.ePage.Masters.selectedRow">
+                                    <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0 height-22">
+                                        <input type="text" class="form-control input-sm"
+                                            placeholder="Ex. Rate From B to A" data-ng-model="x.LocalCostAmt"
+                                            data-ng-blur="ExchangeRateGeneralCtrl.ePage.Masters.OnLocalAmtChange($index, x.LocalCostAmt, 'CostLocalAmt')"
+                                            data-ng-change='ExchangeRateGeneralCtrl.ePage.Masters.OnChangeValues(x.LocalCostAmt,"E1308",true,$index)'
+                                            data-ng-disabled="x.ChargeType =='REV' || x.Costpost" numbers-only-dot
+                                            sb-precision="4" />
+                                    </div>
+                                </div>
+                                <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5"
+                                    data-ng-if="ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIExRate.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':17">
+                                    <error-warning-directive
+                                        list="ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIExRate.ERROR"
+                                        type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref=""
+                                        g-parent-ref="" row-index="ExchangeRateGeneralCtrl.ePage.Masters.selectedRow"
+                                        col-index="17">
+                                    </error-warning-directive>
+                                </div>
+                            </td>
+                            <!-- <td data-ng-show="ExchangeRateGeneralCtrl.ePage.Entities.Header.UIExRate.cdebitor.isenabled" data-ng-class="{'gray-background':x.Revenuepost}"
+                                data-ng-style="{'width': ExchangeRateGeneralCtrl.ePage.Entities.Header.UIExRate.cdebitor.width + 'px' }">
+                                <div data-ng-if="$index!=ExchangeRateGeneralCtrl.ePage.Masters.selectedRow" class="overflow-text">
+                                    {{x.CustomerCode || ExchangeRateGeneralCtrl.ePage.Masters.emptyText}}
+                                </div>
+                                <div data-ng-if="$index==ExchangeRateGeneralCtrl.ePage.Masters.selectedRow">
+                                    <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0 height-22">
+                                        <div class="input-group input-group-sm">
+                                            <div dynamic-lookup placeholder="Debitor" my-ng-model="x.CustomerCode" obj="x" page-name="'OrganizationList'" control-id="'ShpBillingLocalAddress'" control-key="ShpBillingLocalAddress_2959"
+                                                 auto-complete-on-select="ExchangeRateGeneralCtrl.ePage.Masters.SelectedLookupData($index, $item,'Debitor')" is-disabled="x.Revenuepost"></div>
+                                            <span class="input-group-btn">
+                                                <button dynamic-list-modal class="btn btn-default" type="button" obj="x" page-name="'OrganizationList'" control-id="'ShpBillingLocalAddress'" control-key="ShpBillingLocalAddress_2959" 
+                                                    mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="ExchangeRateGeneralCtrl.ePage.Masters.SelectedLookupData($index, $item.data.entity, 'Debitor')" is-disabled="x.Revenuepost"><i class="fa fa-ellipsis-h"></i>
+                                                </button>
+                                            </span>
+                                        </div> 
+                                    </div>
+                                    <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIExchangerateList.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':21">
+                                        <error-warning-directive  list="ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIExchangerateList.ERROR"
+                                            type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref=""
+                                            row-index="ExchangeRateGeneralCtrl.ePage.Masters.selectedRow" col-index="21">
+                                        </error-warning-directive>
+                                    </div>
+                                </div>
+                            </td>
+                            <td data-ng-show="ExchangeRateGeneralCtrl.ePage.Entities.Header.UIExchangerateList.crevenuepost.isenabled" data-ng-class="{'gray-background':x.Revenuepost}"
+                                data-ng-style="{'width': ExchangeRateGeneralCtrl.ePage.Entities.Header.TableProperties.UIExchangerateList.crevenuepost.width + 'px' }">
+                                <label class="customcheckbox mb-0">
+                                    <input type="checkbox" data-ng-disabled="true" data-ng-checked="x.Revenuepost"/>
+                                    <span class="text"></span>
+                                </label>
+                            </td>
+                            <td data-ng-show="ExchangeRateGeneralCtrl.ePage.Entities.Header.TableProperties.UIExchangerateList.crevenuecurrency.isenabled" data-ng-class="{'gray-background':x.Revenuepost}"
+                                data-ng-style="{'width': ExchangeRateGeneralCtrl.ePage.Entities.Header.TableProperties.UIExchangerateList.crevenuecurrency.width + 'px' }">
+                                <div data-ng-if="$index!=ExchangeRateGeneralCtrl.ePage.Masters.selectedRow"
+                                    class="overflow-text">
+                                    {{x.RX_NKSellCurrency || ExchangeRateGeneralCtrl.ePage.Masters.emptyText}}
+                                </div>
+                                <div data-ng-if="$index==ExchangeRateGeneralCtrl.ePage.Masters.selectedRow">
+                                    <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0 height-22">
+                                        <div class="input-group input-group-sm">
+                                            <div dynamic-lookup placeholder="Currency" my-ng-model="x.RX_NKSellCurrency" obj="x" page-name="'CurrencyMaster'" control-id="'FinanceARCurrency'" control-key="FinanceCurrency_3335"
+                                                auto-complete-on-select="ExchangeRateGeneralCtrl.ePage.Masters.SelectedLookupData($index, $item, 'RevenueCurrency')" is-disabled="x.Revenuepost">
+                                            </div>
+                                            <span class="input-group-btn">
+                                                <button dynamic-list-modal class="btn btn-default" type="button" obj="x" page-name="'CurrencyMaster'" control-id="'FinanceARCurrency'" control-key="FinanceCurrency_3335" 
+                                                    mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="ExchangeRateGeneralCtrl.ePage.Masters.SelectedLookupData($index, $item.data.entity, 'RevenueCurrency')" is-disabled="x.Revenuepost"><i class="fa fa-ellipsis-h"></i>
+                                                </button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIExchangerateList.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':27">
+                                        <error-warning-directive  list="ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIExchangerateList.ERROR"
+                                            type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref=""
+                                            row-index="ExchangeRateGeneralCtrl.ePage.Masters.selectedRow" col-index="27">
+                                        </error-warning-directive>
+                                    </div>
+                                </div>
+                            </td> -->
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
         </div>
     </div>
 </div>

@@ -7,7 +7,7 @@
         exchangeRateMenu.$inject = [];
 
     function exchangeRateMenu() {  
-        debugger;      
+        
         var exports = {
             restrict: "EA",            
             templateUrl: "app/mdm/exchangeRate/exchangeRate-menu/exchangeRate-menu.html",
