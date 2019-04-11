@@ -10,7 +10,7 @@
 
         var ExchangeRateMenuCtrl = this;
         function Init() {
-            debugger;
+            
             var currentExchangeRate = ExchangeRateMenuCtrl.currentExchangeRate[ExchangeRateMenuCtrl.currentExchangeRate.code].ePage.Entities;
             ExchangeRateMenuCtrl.ePage = {
                 "Title": "",
