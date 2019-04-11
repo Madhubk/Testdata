@@ -19,7 +19,7 @@
             };
 
             FinanceJobListCtrl.ePage.Masters.FinanceList = true;
-            FinanceJobListCtrl.ePage.Masters.FinanceListEmpty = false;
+            //FinanceJobListCtrl.ePage.Masters.FinanceListEmpty = false;
             FinanceJobListCtrl.ePage.Masters.CurrentFinanceJob = [];
 
             /* Function */
@@ -32,9 +32,9 @@
             if (CurrentFinanceJob) {
                 InitBilling();
             }
-            else {
-                FinanceJobListCtrl.ePage.Masters.FinanceListEmpty = true;
-            }
+            // else {
+            //     FinanceJobListCtrl.ePage.Masters.FinanceListEmpty = true;
+            // }
         }
 
         function InitBilling() {

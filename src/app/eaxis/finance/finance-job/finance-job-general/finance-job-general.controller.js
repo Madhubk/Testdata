@@ -52,6 +52,8 @@
             FinanceJobGeneralCtrl.ePage.Masters.ProfitAndLoss = 0;
             FinanceJobGeneralCtrl.ePage.Masters.Config = financeConfig;
 
+            FinanceJobGeneralCtrl.ePage.Masters.CloseButtonText= "Close";
+
             /* Function */
             FinanceJobGeneralCtrl.ePage.Masters.SelectedLookupData = SelectedLookupData;
             FinanceJobGeneralCtrl.ePage.Masters.OnChangeValues = OnChangeValues;
@@ -67,6 +69,9 @@
             FinanceJobGeneralCtrl.ePage.Masters.OnEstimatedAmtChange = OnEstimatedAmtChange;
             FinanceJobGeneralCtrl.ePage.Masters.OnOSAmtChange = OnOSAmtChange;
             FinanceJobGeneralCtrl.ePage.Masters.OnLocalAmtChange = OnLocalAmtChange;
+
+            /* Function popup */
+            FinanceJobGeneralCtrl.ePage.Masters.Close = Close;
 
             /* DatePicker */
             FinanceJobGeneralCtrl.ePage.Masters.DatePicker = {};
@@ -163,6 +168,10 @@
                         Revenue();
                         ProfitAndLoss();
                     }
+                    FinanceJobGeneralCtrl.ePage.Masters.AttachDefaultFilter={
+                        "ChargeCMP_FK":$item.ChargeCMP_FK
+                    };
+
                     FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].ChargeType = $item.ChargeType;
                     FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].CustomerCode = FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.LocalOrg_Code;
                     FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].ORG_SellAccount = FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.LocalOrg_FK;
@@ -177,22 +186,26 @@
                 }
                 else if (type == 'Creditor') {
                     OnChangeValues($item.Code, 'E1310');
+
+                    FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].RX_NKCostCurrency = FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.CompanyLocalCurrency;
                 }
-                else if (type == 'Debeitor') {
+                else if (type == 'Debitor') {
                     OnChangeValues($item.Code, 'E1311');
+
+                    FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].RX_NKSellCurrency = FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.CompanyLocalCurrency;
                 }
                 else if (type == 'CostCurrency') {
                     OnChangeValues($item.Code, 'E1307');
 
                     if (FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.CompanyLocalCurrency != FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].RX_NKCostCurrency) {
-                        GetExchageRateDetail(FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.CompanyLocalCurrency, FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].RX_NKCostCurrency, "CRD", FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].ORG_CostAccount);
+                        GetExchageRateDetail(FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.CompanyLocalCurrency, FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].RX_NKCostCurrency, FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].VendorCode, "CRD", FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].ORG_CostAccount);
                     }
                 }
                 else if (type == 'RevenueCurrency') {
                     OnChangeValues($item.Code, 'E1193');
 
                     if (FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.CompanyLocalCurrency != FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].RX_NKSellCurrency) {
-                        GetExchageRateDetail(FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.CompanyLocalCurrency, FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].RX_NKSellCurrency, "DEB", FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].ORG_SellAccount);
+                        GetExchageRateDetail(FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.CompanyLocalCurrency, FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].RX_NKSellCurrency, FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].CustomerCode, "DEB", FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].ORG_SellAccount);
                     }
                 }
             }
@@ -208,7 +221,7 @@
         //#endregion
 
         //#region ExchangeRateTable
-        function GetExchageRateDetail(FromCurrency, ToCurrency, type, Org_PK) {
+        function GetExchageRateDetail(FromCurrency, ToCurrency, Org_Name, type, Org_PK) {
             if (FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobExchangeRates.length > 0) {
                 var _ExchangeRate = FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobExchangeRates.some(function (value, key) {
                     if (value.OH_Org == Org_PK && value.RX_NKRateCurrency == ToCurrency) {
@@ -219,14 +232,14 @@
                 });
 
                 if (!_ExchangeRate) {
-                    GetMstExchageRate(FromCurrency, ToCurrency, type, Org_PK);
+                    GetMstRecentExchageRate(FromCurrency, ToCurrency, Org_Name, type, Org_PK);
                 }
             } else {
-                GetMstExchageRate(FromCurrency, ToCurrency, type, Org_PK);
+                GetMstRecentExchageRate(FromCurrency, ToCurrency, Org_Name, type, Org_PK);
             }
         }
 
-        function GetMstExchageRate(FromCurrency, ToCurrency, type, Org_PK) {
+        function GetMstRecentExchageRate(FromCurrency, ToCurrency, Org_Name, type, Org_PK) {
             var obj;
             var _filter = {
                 "FromCurrency": FromCurrency,
@@ -247,6 +260,7 @@
                                 "RX_NKRateCurrency": value.RX_NKExCurrency,
                                 "BaseRate": value.TodayBuyrate,
                                 "TodayBuyrate": value.TodayBuyrate,
+                                "Code": Org_Name,
                                 "OrgType": type,
                                 "OH_Org": Org_PK,
                                 "EntitySource": "WMS",
@@ -275,6 +289,7 @@
                 "BRN_FK": FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.GB,
                 "DeptCode": FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.DeptCode,
                 "DEP_FK": FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.GE,
+                "ChargeCMP_FK":"",
 
                 "ORG_CostAccount": "",
                 "APInvoiceNum": "",
@@ -326,8 +341,9 @@
             FinanceJobGeneralCtrl.ePage.Entities.Header.GlobalVariables.SelectAll = false;
         }
 
-        function MoreRecords($item) {
-            var modalInstance = $uibModal.open({
+        function MoreRecords() {
+            console.log("SelectedRow", FinanceJobGeneralCtrl.ePage.Masters.selectedRow, FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge);
+            FinanceJobGeneralCtrl.ePage.Masters.modalInstance = $uibModal.open({
                 animation: true,
                 keyboard: false,
                 backdrop: "static",
@@ -335,25 +351,7 @@
                 scope: $scope,
                 size: "xl",
                 templateUrl: "app/eaxis/finance/finance-job/finance-job-general/finance-job-general-popup.html",
-                controller: "FinanceJobGeneralPopupController",
-                controllerAs: "FinanceJobGeneralPopupCtrl",
-                bindToController: true,
-                resolve: {
-                    CurrentFinanceJob: function () {
-                        return FinanceJobGeneralCtrl.currentFinanceJob;
-                    },
-                    Index: function () {
-                        return $item;
-                    }
-                }
-            }).result.then(
-                function (response) {
-                    console.log("Success");
-                },
-                function () {
-                    console.log("Cancelled");
-                }
-            );
+            });
         }
 
         function CopyRow() {
@@ -577,6 +575,13 @@
             return true;
         }
         //#endregion 
+
+
+        //#region popup close 
+        function Close() {
+            FinanceJobGeneralCtrl.ePage.Masters.modalInstance.dismiss('close');
+        }
+        //#endregion
 
         Init();
     }

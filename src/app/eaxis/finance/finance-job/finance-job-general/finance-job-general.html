@@ -365,7 +365,7 @@
                             </td>
                             <td data-ng-style="{ 'width': FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIExchangeRate.erorganisation.width + 'px' }">
                                 <div class="overflow-text">
-                                    <div>{{ x.Organisation}}</div>
+                                    <div>{{ x.Code}}</div>
                                 </div>
                             </td>
                         </tr>
@@ -387,7 +387,7 @@
                         <span class="fa fa-plus"></span>&nbsp;&nbsp;Add New</button>
                 </span>
                 <span>
-                    <button type="button" class="btn btn-sm pull-left btn-outline-secondary font-10 ml-5" title="More" data-ng-click="FinanceJobGeneralCtrl.ePage.Masters.MoreRecords(FinanceJobGeneralCtrl.ePage.Masters.selectedRow)" data-ng-disabled="FinanceJobGeneralCtrl.ePage.Masters.selectedRow==-1">
+                    <button type="button" class="btn btn-sm pull-left btn-outline-secondary font-10 ml-5" title="More" data-ng-click="FinanceJobGeneralCtrl.ePage.Masters.MoreRecords()" data-ng-disabled="FinanceJobGeneralCtrl.ePage.Masters.selectedRow==-1">
                         <span class="fa fa-ellipsis-v"></span>&nbsp;&nbsp;More</button>
                 </span>
                 <span>
@@ -520,10 +520,10 @@
                                     <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0 height-22">
                                         <div class="input-group input-group-sm">
                                             <div dynamic-lookup placeholder="Charge Code" my-ng-model="x.ACCCode" obj="x" page-name="'AccChargeCode'" control-id="'FinanceCharge'" control-key="FinanceCharge_3334" 
-                                                auto-complete-on-select="FinanceJobGeneralCtrl.ePage.Masters.SelectedLookupData($index, $item,'ChargeCode')" is-disabled="x.Costpost || x.Revenuepost"></div>
+                                                 default-filter="FinanceJobGeneralCtrl.ePage.Masters.AttachDefaultFilter" auto-complete-on-select="FinanceJobGeneralCtrl.ePage.Masters.SelectedLookupData($index, $item,'ChargeCode')" is-disabled="x.Costpost || x.Revenuepost"></div>
                                             <span class="input-group-btn">
                                                 <button dynamic-list-modal class="btn btn-default" type="button" obj="x" page-name="'AccChargeCode'" control-id="'FinanceCharge'" control-key="FinanceCharge_3334"
-                                                    mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="FinanceJobGeneralCtrl.ePage.Masters.SelectedLookupData($index, $item.data.entity,'ChargeCode')" is-disabled="x.Costpost || x.Revenuepost"><i class="fa fa-ellipsis-h"></i>
+                                                    mode="2" grid-refresh-fun-name="" grid-refresh-fun="" default-filter="FinanceJobGeneralCtrl.ePage.Masters.AttachDefaultFilter" selected-data="FinanceJobGeneralCtrl.ePage.Masters.SelectedLookupData($index, $item.data.entity,'ChargeCode')" is-disabled="x.Costpost || x.Revenuepost"><i class="fa fa-ellipsis-h"></i>
                                                 </button>
                                             </span>
                                         </div>

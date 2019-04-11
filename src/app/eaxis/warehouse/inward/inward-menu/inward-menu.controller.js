@@ -553,6 +553,11 @@
                     "LocalOrg_FK": InwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].LocalOrg_FK
                 };
             }
+            else {
+                var obj = {
+                    "EntityRefKey": InwardMenuCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.PK
+                };
+            }
 
             var modalInstance = $uibModal.open({
                 animation: true,
