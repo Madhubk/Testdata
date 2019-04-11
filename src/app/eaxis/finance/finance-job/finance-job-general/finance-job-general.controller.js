@@ -52,7 +52,7 @@
             FinanceJobGeneralCtrl.ePage.Masters.ProfitAndLoss = 0;
             FinanceJobGeneralCtrl.ePage.Masters.Config = financeConfig;
 
-            FinanceJobGeneralCtrl.ePage.Masters.CloseButtonText= "Close";
+            FinanceJobGeneralCtrl.ePage.Masters.CloseButtonText = "Close";
 
             /* Function */
             FinanceJobGeneralCtrl.ePage.Masters.SelectedLookupData = SelectedLookupData;
@@ -168,8 +168,8 @@
                         Revenue();
                         ProfitAndLoss();
                     }
-                    FinanceJobGeneralCtrl.ePage.Masters.AttachDefaultFilter={
-                        "ChargeCMP_FK":$item.ChargeCMP_FK
+                    FinanceJobGeneralCtrl.ePage.Masters.AttachDefaultFilter = {
+                        "ChargeCMP_FK": $item.ChargeCMP_FK
                     };
 
                     FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].ChargeType = $item.ChargeType;
@@ -198,14 +198,14 @@
                     OnChangeValues($item.Code, 'E1307');
 
                     if (FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.CompanyLocalCurrency != FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].RX_NKCostCurrency) {
-                        GetExchageRateDetail(FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.CompanyLocalCurrency, FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].RX_NKCostCurrency, FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].VendorCode, "CRD", FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].ORG_CostAccount);
+                        GetExchageRateDetail($index, FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.CompanyLocalCurrency, FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].RX_NKCostCurrency, FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].VendorCode, "CRD", FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].ORG_CostAccount);
                     }
                 }
                 else if (type == 'RevenueCurrency') {
                     OnChangeValues($item.Code, 'E1193');
 
                     if (FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.CompanyLocalCurrency != FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].RX_NKSellCurrency) {
-                        GetExchageRateDetail(FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.CompanyLocalCurrency, FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].RX_NKSellCurrency, FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].CustomerCode, "DEB", FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].ORG_SellAccount);
+                        GetExchageRateDetail($index, FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.CompanyLocalCurrency, FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].RX_NKSellCurrency, FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].CustomerCode, "DEB", FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].ORG_SellAccount);
                     }
                 }
             }
@@ -221,25 +221,27 @@
         //#endregion
 
         //#region ExchangeRateTable
-        function GetExchageRateDetail(FromCurrency, ToCurrency, Org_Name, type, Org_PK) {
+        function GetExchageRateDetail($index, FromCurrency, ToCurrency, Org_Name, type, OrgCurrency_PK) {
             if (FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobExchangeRates.length > 0) {
                 var _ExchangeRate = FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobExchangeRates.some(function (value, key) {
-                    if (value.OH_Org == Org_PK && value.RX_NKRateCurrency == ToCurrency) {
+                    if (value.OH_Org == OrgCurrency_PK && value.RX_NKRateCurrency == ToCurrency) {
                         return true;
                     } else {
                         return false;
                     }
                 });
-
-                if (!_ExchangeRate) {
-                    GetMstRecentExchageRate(FromCurrency, ToCurrency, Org_Name, type, Org_PK);
+                if (_ExchangeRate) {
+                    ExchangeRateCalculatation($index, ToCurrency, Org_Name, type, OrgCurrency_PK);
+                }
+                else if (!_ExchangeRate) {
+                    GetMstRecentExchageRate($index, FromCurrency, ToCurrency, Org_Name, type, OrgCurrency_PK);
                 }
             } else {
-                GetMstRecentExchageRate(FromCurrency, ToCurrency, Org_Name, type, Org_PK);
+                GetMstRecentExchageRate($index, FromCurrency, ToCurrency, Org_Name, type, OrgCurrency_PK);
             }
         }
 
-        function GetMstRecentExchageRate(FromCurrency, ToCurrency, Org_Name, type, Org_PK) {
+        function GetMstRecentExchageRate($index, FromCurrency, ToCurrency, Org_Name, type, OrgCurrency_PK) {
             var obj;
             var _filter = {
                 "FromCurrency": FromCurrency,
@@ -262,7 +264,7 @@
                                 "TodayBuyrate": value.TodayBuyrate,
                                 "Code": Org_Name,
                                 "OrgType": type,
-                                "OH_Org": Org_PK,
+                                "OH_Org": OrgCurrency_PK,
                                 "EntitySource": "WMS",
                                 "CreatedDateTime": new Date(),
                                 "IsModified": false,
@@ -271,6 +273,24 @@
                         }
                     });
                     FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobExchangeRates.push(obj);
+                    ExchangeRateCalculatation($index, ToCurrency, Org_Name, type, OrgCurrency_PK);
+                }
+            });
+        }
+        //#endregion
+
+        //#region ExchangeRateCalculation
+        function ExchangeRateCalculatation($index, ToCurrency, Org_Name, type, OrgCurrency_PK) {
+            FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobExchangeRates.map(function (value, key) {
+                if (value.OrgType == "CRD") {
+                    if (value.RX_NKRateCurrency == ToCurrency && value.Code == Org_Name && value.OH_Org == OrgCurrency_PK && value.OrgType == type) {
+                        FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].LocalCostAmt = parseFloat(FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].OSCostAmt * value.BaseRate).toFixed(4);
+                    }
+                }
+                else if (value.OrgType == "DEB") {
+                    if (value.RX_NKRateCurrency == ToCurrency && value.Code == Org_Name && value.OH_Org == OrgCurrency_PK && value.OrgType == type) {
+                        FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].LocalSellAmt = parseFloat(FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].OSSellAmt * value.BaseRate).toFixed(4);
+                    }
                 }
             });
         }
@@ -289,7 +309,7 @@
                 "BRN_FK": FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.GB,
                 "DeptCode": FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.DeptCode,
                 "DEP_FK": FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.GE,
-                "ChargeCMP_FK":"",
+                "ChargeCMP_FK": FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.GC,
 
                 "ORG_CostAccount": "",
                 "APInvoiceNum": "",
@@ -342,7 +362,6 @@
         }
 
         function MoreRecords() {
-            console.log("SelectedRow", FinanceJobGeneralCtrl.ePage.Masters.selectedRow, FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge);
             FinanceJobGeneralCtrl.ePage.Masters.modalInstance = $uibModal.open({
                 animation: true,
                 keyboard: false,
@@ -402,6 +421,10 @@
                     }
                 });
 
+                if (_Count > 0) {
+                    toastr.error('Please Check, Already Posted Record Could Not Delete.');
+                }
+
                 var ReturnValue = RemoveAllLineErrors();
                 if (ReturnValue) {
                     for (var i = FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge.length - 1; i >= 0; i--) {
@@ -410,11 +433,7 @@
                     }
                     FinanceJobGeneralCtrl.ePage.Masters.Config.GeneralValidation(FinanceJobGeneralCtrl.currentFinanceJob);
                 }
-
-                if (_Count > 0) {
-                    toastr.error('Please Check, Already Posted Record Could Not Delete.');
-                }
-
+               
                 FinanceJobGeneralCtrl.ePage.Masters.selectedRow = -1;
                 FinanceJobGeneralCtrl.ePage.Entities.Header.GlobalVariables.SelectAll = false;
                 FinanceJobGeneralCtrl.ePage.Masters.EnableCopyButton = true;
@@ -482,7 +501,11 @@
 
         function OnOSAmtChange($index, ActualAmt, type) {
             if (type == 'CostActualAmt') {
-                FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].LocalCostAmt = ActualAmt;
+                if (FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.CompanyLocalCurrency != FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].RX_NKSellCurrency) {
+
+                } else {
+                    FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].LocalCostAmt = ActualAmt;
+                }
                 OnChangeValues(FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].LocalCostAmt, 'E1308', true, $index);
                 Cost();
                 ProfitAndLoss();
