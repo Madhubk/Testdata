@@ -258,7 +258,7 @@
                                 "PK": "",
                                 "FromCurrency": value.FromCurrency,
                                 "RX_NKRateCurrency": value.RX_NKExCurrency,
-                                "BaseRate": value.TodayBuyrate,
+                                "BaseRate": value.BaseRate,
                                 "TodayBuyrate": value.TodayBuyrate,
                                 "Code": Org_Name,
                                 "OrgType": type,
