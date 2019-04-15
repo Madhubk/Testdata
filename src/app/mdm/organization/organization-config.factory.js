@@ -5,14 +5,14 @@
         .module("Application")
         .factory('organizationConfig', OrganizationConfig);
 
-    OrganizationConfig.$inject = ["$q", "helperService", "toastr"];
+    OrganizationConfig.$inject = ["$q", "$filter", "helperService", "toastr", "errorWarningService"];
 
-    function OrganizationConfig($q, helperService, toastr) {
-        var exports = {
+    function OrganizationConfig($q, $filter, helperService, toastr, errorWarningService) {
+        let exports = {
             "Entities": {
                 "Header": {
                     "Data": {},
-                    "Meta": {},
+                    "Meta": {}
                 },
                 "API": {
                     "Org": {
@@ -648,16 +648,16 @@
                         }
                     },
                 },
-                "MenuList":[]
+                "MenuList": []
             },
             "TabList": [],
             "GetTabDetails": GetTabDetails
         };
         return exports;
 
-        function GetTabDetails(currentOrganization, isNew) {
-            var deferred = $q.defer();
-            var _exports = {
+        function GetTabDetails($item, isNew, activityPK) {
+            let deferred = $q.defer();
+            let _exports = {
                 "Entities": {
                     "Header": {
                         "Data": {},
@@ -675,6 +675,34 @@
                             }
                         },
                         "Meta": {},
+                        "DataList": [{
+                            "DispName": "Consignor",
+                            "Value": "IsConsignor"
+                        }, {
+                            "DispName": "Consignee",
+                            "Value": "IsConsignee"
+                        }, {
+                            "DispName": "Forwarder",
+                            "Value": "IsForwarder"
+                        }, {
+                            "DispName": "Transport Client",
+                            "Value": "IsTransportClient"
+                        }, {
+                            "DispName": "Warehouse Client",
+                            "Value": "IsWarehouseClient"
+                        }, {
+                            "DispName": "Broker",
+                            "Value": "IsBroker"
+                        }, {
+                            "DispName": "Road Freight Depot",
+                            "Value": "IsRoadFreightDepot"
+                        }, {
+                            "DispName": "Store",
+                            "Value": "IsStore"
+                        }, {
+                            "DispName": "Carrier",
+                            "Value": "IsShippingProvider"
+                        }],
                         "ModeDetails": {
                             "Data": {},
                             "ListSource": [],
@@ -1105,49 +1133,108 @@
                             "Meta": {},
                         }
                     },
+                    "MenuList": [],
+                    "ErrorWarningConfig": errorWarningService,
+                    "GetValidationList": GetValidationList
                 }
             };
 
             if (isNew) {
-                _exports.Entities.Header.Data = currentOrganization.data;
-                var _code = currentOrganization.entity.PK.split("-").join("");
-
-                var _obj = {
+                _exports.Entities.Header.Data = $item.data;
+                let _code = $item.entity.PK.split("-").join("");
+                let _obj = {
                     [_code]: {
                         ePage: _exports
                     },
                     label: 'New',
                     code: _code,
-                    pk: currentOrganization.entity.PK,
+                    pk: $item.entity.PK,
+                    activityPK: activityPK,
                     isNew: isNew
                 };
                 exports.TabList.push(_obj);
                 deferred.resolve(exports.TabList);
             } else {
-                helperService.getFullObjectUsingGetById(exports.Entities.API.Org.API.GetById.Url, currentOrganization.PK).then(function (response) {
-                    if (response.data.Messages) {
-                        response.data.Messages.map(function (value, key) {
-                            if (value.Type === "Warning" && value.MessageDesc !== "") {
+                helperService.getFullObjectUsingGetById(exports.Entities.API.Org.API.GetById.Url, $item.PK).then(response => {
+                    let _activityPK = null;
+                    if (response.data.Messages && response.data.Messages.length > 0) {
+                        response.data.Messages.map(value => {
+                            if (value.Type == "Warning" && value.MessageDesc) {
                                 toastr.info(value.MessageDesc);
+                            }
+                            if(value.Type == "ActivityPK"){
+                                _activityPK = value.MessageDesc;
                             }
                         });
                     }
 
                     _exports.Entities.Header.Data = response.data.Response;
-                    var _code = currentOrganization.PK.split("-").join("");
-                    var obj = {
+                    let _code = $item.PK.split("-").join("");
+                    let obj = {
                         [_code]: {
                             ePage: _exports
                         },
-                        label: currentOrganization.Code,
+                        label: $item.Code,
                         code: _code,
-                        pk: currentOrganization.PK,
+                        pk: $item.PK,
+                        activityPK: _activityPK,
                         isNew: isNew
                     };
                     exports.TabList.push(obj);
                     deferred.resolve(exports.TabList);
                 });
             }
+
+            function GetValidationList($item) {
+                let deferred = $q.defer();
+                let _obj = {
+                    ModuleName: ["Organization"],
+                    Code: [$item.Code],
+                    API: $item.GetListAPI,
+                    FilterInput: $item.FilterInput,
+                    GroupCode: $item.GroupCode,
+                    ErrorCode: $item.ErrorCode ? $item.ErrorCode : []
+                };
+
+                errorWarningService.GetErrorCodeList(_obj).then(response => {
+                    _exports.Entities.ErrorWarningConfig.GlobalErrorWarningList =  errorWarningService.Modules.Organization.Entity[$item.Code].GlobalErrorWarningList;
+                    _exports.Entities.ErrorWarningConfig.ErrorWarningObj = errorWarningService.Modules.Organization.Entity[$item.Code];
+
+                    Validate($item).then(response => {
+                        let _errorCount = $filter("listCount")(_exports.Entities.ErrorWarningConfig.GlobalErrorWarningList, 'MessageType', 'E');
+
+                        deferred.resolve(_errorCount);
+                    });
+                });
+
+                return deferred.promise;
+            }
+
+            function Validate($item) {
+                let deferred = $q.defer();
+                let _obj = {
+                    ModuleName: ["Organization"],
+                    Code: [$item.Code],
+                    API: $item.ValidateAPI,
+                    GroupCode: $item.GroupCode,
+                    RelatedBasicDetails: [],
+                    EntityObject: $item.Entity,
+                    EntityCode: $item.EntityCode,
+                    EntityName: "Organization",
+                    EntityPK: $item.EntityPK,
+                    ErrorCode: $item.ErrorCode ? $item.ErrorCode : []
+                };
+                exports.TabList.map(x =>{
+                    if(x.code == $item.Code) {
+                        _obj.ActivityPK = x.activityPK;
+                    }
+                });
+                errorWarningService.ValidateValue(_obj);
+
+                deferred.resolve();
+                return deferred.promise;
+            }
+
             return deferred.promise;
         }
     }

@@ -8,6 +8,10 @@
         <button class="btn btn-default btn-sm pull-right ml-10"
             data-ng-click="DynamicControlCtrl.ePage.Masters.Refresh()"
             data-ng-if="DynamicControlCtrl.input.OtherConfig.DetailsPage.IsVisibleRefreshButton">Refresh</button>
+        <button class="btn btn-danger btn-sm pull-right ml-10" data-ng-click="DynamicControlCtrl.ePage.Masters.Delete()"
+            
+            data-ng-disabled="DynamicControlCtrl.ePage.Masters.IsDisableDeletBtn"
+            data-ng-bind="DynamicControlCtrl.ePage.Masters.DeleteBtnText"></button>
     </div>
     <div class="section-divider-small mt-10"></div>
 </div>
@@ -73,7 +77,8 @@
                         label="ConfigData.AttributesDetails.LabelText" field-name="ConfigData.FieldName"
                         data-ng-if="ConfigData.Type=='S' && !ConfigData.FieldOtherConfig.External.IsAPIRef"
                         is-disabled="Entity.CSS['Is' + ConfigData.PropertyName + 'Disable'] || DynamicControlCtrl.ePage.Masters.BaseFilterFields['IsDisabled' + ConfigData.FieldName]"
-                        selected-operator="ConfigData.CompareDateSelectedOperator"></compare-date>
+                        selected-operator="ConfigData.CompareDateSelectedOperator"
+                        default-value="ConfigData.AttributesDetails.DefaultValue"></compare-date>
                     <!--Mode:D-->
                     <input type="text" class="form-control"
                         data-ng-if="ConfigData.Type=='D' && !ConfigData.FieldOtherConfig.External.IsAPIRef"
@@ -86,7 +91,8 @@
                         modal-value="DynamicControlCtrl.current[ConfigData.FieldOtherConfig.External.MainEntity].Data[ConfigData.FieldOtherConfig.External.SubEntity][ConfigData.FieldOtherConfig.External.FieldName]"
                         label="ConfigData.AttributesDetails.LabelText" field-name="ConfigData.FieldName"
                         data-ng-if="ConfigData.Type=='S' && ConfigData.FieldOtherConfig.External.IsAPIRef && ConfigData.FieldOtherConfig.External.APIType=='1'"
-                        selected-operator="ConfigData.CompareDateSelectedOperator"></compare-date>
+                        selected-operator="ConfigData.CompareDateSelectedOperator"
+                        default-value="ConfigData.AttributesDetails.DefaultValue"></compare-date>
                     <input type="text" class="form-control"
                         ng-model="DynamicControlCtrl.current[ConfigData.FieldOtherConfig.External.MainEntity].Data[ConfigData.FieldOtherConfig.External.SubEntity][ConfigData.FieldOtherConfig.External.FieldName]"
                         data-ng-if="ConfigData.Type=='D' && ConfigData.FieldOtherConfig.External.IsAPIRef && ConfigData.FieldOtherConfig.External.APIType=='1'"
@@ -99,7 +105,8 @@
                         modal-value="DynamicControlCtrl.current[ConfigData.FieldOtherConfig.External.MainEntity].Meta[ConfigData.FieldOtherConfig.External.SubEntity][ConfigData.FieldOtherConfig.External.MidEntity][ConfigData.FieldOtherConfig.External.FieldName]"
                         label="ConfigData.AttributesDetails.LabelText" field-name="ConfigData.FieldName"
                         data-ng-if="ConfigData.Type=='S' && ConfigData.FieldOtherConfig.External.IsAPIRef && ConfigData.FieldOtherConfig.External.APIType=='2'"
-                        selected-operator="ConfigData.CompareDateSelectedOperator"></compare-date>
+                        selected-operator="ConfigData.CompareDateSelectedOperator"
+                        default-value="ConfigData.AttributesDetails.DefaultValue"></compare-date>
                     <input type="text" class="form-control"
                         ng-model="DynamicControlCtrl.current[ConfigData.FieldOtherConfig.External.MainEntity].Meta[ConfigData.FieldOtherConfig.External.SubEntity][ConfigData.FieldOtherConfig.External.MidEntity][ConfigData.FieldOtherConfig.External.FieldName]"
                         data-ng-if="ConfigData.Type=='D' && ConfigData.FieldOtherConfig.External.IsAPIRef && ConfigData.FieldOtherConfig.External.APIType=='2'"
@@ -629,6 +636,10 @@
         <button class="btn btn-default btn-sm pull-right ml-10"
             data-ng-click="DynamicControlCtrl.ePage.Masters.Refresh()"
             data-ng-if="DynamicControlCtrl.input.OtherConfig.DetailsPage.IsVisibleRefreshButton">Refresh</button>
+        <button class="btn btn-danger btn-sm pull-right ml-10" data-ng-click="DynamicControlCtrl.ePage.Masters.Delete()"
+            data-ng-if="DynamicControlCtrl.input.OtherConfig.DetailsPage.IsVisibleDeleteButton"
+            data-ng-disabled="DynamicControlCtrl.ePage.Masters.IsDisableDeletBtn"
+            data-ng-bind="DynamicControlCtrl.ePage.Masters.DeleteBtnText"></button>
     </div>
     <div class="section-divider-small mt-10"></div>
 </div>

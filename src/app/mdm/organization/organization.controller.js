@@ -8,7 +8,7 @@
     OrganizationController.$inject = ["$timeout", "apiService", "authService", "helperService", "organizationConfig", "toastr", "errorWarningService"];
 
     function OrganizationController($timeout, apiService, authService, helperService, organizationConfig, toastr, errorWarningService) {
-        var OrganizationCtrl = this;
+        let OrganizationCtrl = this;
 
         function Init() {
             OrganizationCtrl.ePage = {
@@ -21,11 +21,9 @@
 
             try {
                 OrganizationCtrl.ePage.Masters.dataEntryName = "OrganizationList";
-                OrganizationCtrl.ePage.Masters.config = organizationConfig;
+                OrganizationCtrl.ePage.Masters.Config = organizationConfig;
                 OrganizationCtrl.ePage.Masters.ErrorWarningConfig = errorWarningService;
 
-                OrganizationCtrl.ePage.Masters.TabList = [];
-                organizationConfig.TabList = [];
                 OrganizationCtrl.ePage.Masters.ActiveTabIndex = 0;
                 OrganizationCtrl.ePage.Masters.IsTabClick = false;
                 OrganizationCtrl.ePage.Masters.IsNewOrgClicked = false;
@@ -51,23 +49,23 @@
         }
 
         function CfxTypeList() {
-            var _cfxTypeCodeList = ["LANGUAGE", "ADDRTYPE", "JOBCATEGORY", "ROLE"];
-            var _dynamicFindAllInput = [];
+            let _cfxTypeCodeList = ["LANGUAGE", "ADDRTYPE", "JOBCATEGORY", "ROLE"];
+            let _dynamicFindAllInput = [];
 
-            _cfxTypeCodeList.map(function (value, key) {
+            _cfxTypeCodeList.map((value, key) => {
                 _dynamicFindAllInput[key] = {
-                    "FieldName": "TypeCode",
-                    "value": value
+                    FieldName: "TypeCode",
+                    value
                 };
             });
-            var _input = {
+            let _input = {
                 "searchInput": _dynamicFindAllInput,
                 "FilterID": organizationConfig.Entities.API.CfxTypes.API.DynamicFindAll.FilterID
             };
 
-            apiService.post("eAxisAPI", organizationConfig.Entities.API.CfxTypes.API.DynamicFindAll.Url + authService.getUserInfo().AppPK, _input).then(function (response) {
+            apiService.post("eAxisAPI", organizationConfig.Entities.API.CfxTypes.API.DynamicFindAll.Url + authService.getUserInfo().AppPK, _input).then(response => {
                 if (response.data.Response) {
-                    _cfxTypeCodeList.map(function (value, key) {
+                    _cfxTypeCodeList.map(value => {
                         OrganizationCtrl.ePage.Entities.Header.Meta[value] = helperService.metaBase();
                         OrganizationCtrl.ePage.Entities.Header.Meta[value].ListSource = response.data.Response[value];
                     });
@@ -76,12 +74,12 @@
         }
 
         function GetCountryList() {
-            var _inputCountry = {
+            let _inputCountry = {
                 "searchInput": [],
                 "FilterID": organizationConfig.Entities.API.MstCountry.API.FindAll.FilterID
             };
 
-            apiService.post("eAxisAPI", organizationConfig.Entities.API.MstCountry.API.FindAll.Url, _inputCountry).then(function (response) {
+            apiService.post("eAxisAPI", organizationConfig.Entities.API.MstCountry.API.FindAll.Url, _inputCountry).then(response => {
                 if (response.data.Response) {
                     OrganizationCtrl.ePage.Entities.Header.Meta.Country = helperService.metaBase();
                     OrganizationCtrl.ePage.Entities.Header.Meta.Country.ListSource = response.data.Response;
@@ -90,12 +88,12 @@
         }
 
         function GetCompanyList() {
-            var _inputCompany = {
+            let _inputCompany = {
                 "searchInput": [],
                 "FilterID": organizationConfig.Entities.API.CmpCompany.API.FindAll.FilterID
             };
 
-            apiService.post("eAxisAPI", organizationConfig.Entities.API.CmpCompany.API.FindAll.Url, _inputCompany).then(function (response) {
+            apiService.post("eAxisAPI", organizationConfig.Entities.API.CmpCompany.API.FindAll.Url, _inputCompany).then(response => {
                 if (response.data.Response) {
                     OrganizationCtrl.ePage.Entities.Header.Meta.Company = helperService.metaBase();
                     OrganizationCtrl.ePage.Entities.Header.Meta.Company.ListSource = response.data.Response;
@@ -104,12 +102,12 @@
         }
 
         function GetDepartmentList() {
-            var _inputDepartment = {
+            let _inputDepartment = {
                 "searchInput": [],
                 "FilterID": organizationConfig.Entities.API.CmpDepartment.API.FindAll.FilterID
             };
 
-            apiService.post("eAxisAPI", organizationConfig.Entities.API.CmpDepartment.API.FindAll.Url, _inputDepartment).then(function (response) {
+            apiService.post("eAxisAPI", organizationConfig.Entities.API.CmpDepartment.API.FindAll.Url, _inputDepartment).then(response => {
                 if (response.data.Response) {
                     OrganizationCtrl.ePage.Entities.Header.Meta.Department = helperService.metaBase();
                     OrganizationCtrl.ePage.Entities.Header.Meta.Department.ListSource = response.data.Response;
@@ -120,11 +118,20 @@
         function CreateNew() {
             OrganizationCtrl.ePage.Masters.IsNewOrgClicked = true;
 
-            helperService.getFullObjectUsingGetById(organizationConfig.Entities.API.Org.API.GetById.Url, 'null').then(function (response) {
+            helperService.getFullObjectUsingGetById(organizationConfig.Entities.API.Org.API.GetById.Url, 'null').then(response => {
                 if (response.data.Response) {
-                    var _obj = {
+                    let _activityPK = null;
+                    if (response.data.Messages && response.data.Messages.length > 0) {
+                        response.data.Messages.map(value => {
+                            if(value.Type == "ActivityPK"){
+                                _activityPK = value.MessageDesc;
+                            }
+                        });
+                    }
+                    let _obj = {
                         entity: response.data.Response.OrgHeader,
-                        data: response.data.Response
+                        data: response.data.Response,
+                        activityPK: _activityPK
                     };
                     OrganizationCtrl.ePage.Masters.AddTab(_obj, true);
                     OrganizationCtrl.ePage.Masters.IsNewOrgClicked = false;
@@ -137,70 +144,40 @@
         function RemoveTab(event, index, currentTab) {
             event.preventDefault();
             event.stopPropagation();
-            var _currentTab = currentTab[currentTab.code].ePage.Entities;
+            let _currentTab = currentTab[currentTab.code].ePage.Entities;
 
-            $timeout(function () {
-                OrganizationCtrl.ePage.Masters.TabList.splice(index, 1);
-            });
+            $timeout(() => OrganizationCtrl.ePage.Masters.Config.TabList.splice(index, 1));
 
-            apiService.get("eAxisAPI", organizationConfig.Entities.API.Org.API.OrganizationActivityClose.Url + _currentTab.Header.Data.OrgHeader.PK).then(function (response) {});
+            apiService.get("eAxisAPI", organizationConfig.Entities.API.Org.API.OrganizationActivityClose.Url + _currentTab.Header.Data.OrgHeader.PK).then(response => {});
         }
 
         function AddTab(currentTab, isNew) {
-            var _isExist = OrganizationCtrl.ePage.Masters.TabList.some(function (value) {
-                return value.pk == currentTab.entity.PK;
-            });
+            let _isExist = OrganizationCtrl.ePage.Masters.Config.TabList.some(value => value.pk == currentTab.entity.PK);
 
             if (!_isExist) {
                 OrganizationCtrl.ePage.Masters.IsTabClick = true;
-                var _currentTab = undefined;
-                if (!isNew) {
-                    _currentTab = currentTab.entity;
-                } else {
-                    _currentTab = currentTab;
-                }
+                let _currentTab = !isNew ? currentTab.entity : currentTab;
 
-                organizationConfig.GetTabDetails(_currentTab, isNew).then(function (response) {
-                    var _entity = {};
-                    OrganizationCtrl.ePage.Masters.TabList = response;
-
-                    if (OrganizationCtrl.ePage.Masters.TabList.length > 0) {
-                        OrganizationCtrl.ePage.Masters.TabList.map(function (value, key) {
+                organizationConfig.GetTabDetails(_currentTab, isNew).then(response => {
+                    let _entity = {};
+                    if (response.length > 0) {
+                        response.map(value => {
                             if (value.code == currentTab.entity.Code) {
                                 _entity = value[value.code].ePage.Entities.Header.Data;
                             }
                         });
                     }
 
-                    $timeout(function () {
-                        OrganizationCtrl.ePage.Masters.ActiveTabIndex = OrganizationCtrl.ePage.Masters.TabList.length;
+                    OrganizationCtrl.ePage.Masters.Config.TabList = response;
 
+                    $timeout(() => {
+                        OrganizationCtrl.ePage.Masters.ActiveTabIndex = OrganizationCtrl.ePage.Masters.Config.TabList.length;
                         OrganizationCtrl.ePage.Masters.IsTabClick = false;
-
-                        var _code = currentTab.entity.PK.split("-").join("");
-                        GetValidationList(_code, _entity);
                     });
                 });
             } else {
                 toastr.warning('Record already opened...!');
             }
-        }
-
-        function GetValidationList(currentTab, entity) {
-            var _obj = {
-                ModuleName: ["Organization"],
-                Code: [currentTab],
-                // API: "Group",
-                API: "Validation",
-                FilterInput: {
-                    ModuleCode: "ORG",
-                    // SubModuleCode: "ORG_General",
-                },
-                // GroupCode: "ORGANIZATION",
-                RelatedBasicDetails: [],
-                EntityObject: entity
-            };
-            errorWarningService.GetErrorCodeList(_obj);
         }
 
         function SelectedGridRow($item) {

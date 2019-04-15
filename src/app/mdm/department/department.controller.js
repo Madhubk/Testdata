@@ -27,6 +27,7 @@
             DepartmentCtrl.ePage.Masters.SaveButtonText = "Save";
             DepartmentCtrl.ePage.Masters.Save = Save;
             DepartmentCtrl.ePage.Masters.dataEntryName = "CmpDepartment";
+            DepartmentCtrl.ePage.Masters.Title = "Department";
             DepartmentCtrl.ePage.Masters.IsNewEmployeeClicked = false;
             DepartmentCtrl.ePage.Masters.OrderData = [];
             DepartmentCtrl.ePage.Masters.TabList = [];

@@ -5,13 +5,13 @@
         .module("Application")
         .controller("OrgGeneralModalController", OrgGeneralModalController);
 
-    OrgGeneralModalController.$inject = ["$timeout", "$filter", "$uibModalInstance", "apiService", "helperService", "toastr", "organizationConfig", "param", "authService", "errorWarningService"];
+    OrgGeneralModalController.$inject = ["$uibModalInstance", "apiService", "helperService", "toastr", "organizationConfig", "param", "authService"];
 
-    function OrgGeneralModalController($timeout, $filter, $uibModalInstance, apiService, helperService, toastr, organizationConfig, param, authService, errorWarningService) {
-        var OrgGeneralModalCtrl = this;
+    function OrgGeneralModalController($uibModalInstance, apiService, helperService, toastr, organizationConfig, param, authService) {
+        let OrgGeneralModalCtrl = this;
 
         function Init() {
-            var currentOrganization = param.Entity[param.Entity.code].ePage.Entities;
+            let currentOrganization = param.Entity[param.Entity.code].ePage.Entities;
 
             OrgGeneralModalCtrl.ePage = {
                 "Title": "",
@@ -22,10 +22,9 @@
             };
 
             try {
-                OrgGeneralModalCtrl.ePage.Masters.param = angular.copy(param);
+                OrgGeneralModalCtrl.ePage.Masters.param = param;
                 OrgGeneralModalCtrl.ePage.Masters.DropDownMasterList = angular.copy(organizationConfig.Entities.Header.Meta);
                 OrgGeneralModalCtrl.ePage.Masters.DropDownMasterList.State = helperService.metaBase();
-
                 OrgGeneralModalCtrl.ePage.Masters.SaveButtonText = "Save";
                 OrgGeneralModalCtrl.ePage.Masters.IsDisableSave = false;
 
@@ -40,122 +39,75 @@
 
         function InitOrgHeader() {
             OrgGeneralModalCtrl.ePage.Masters.OrgHeader = {};
-            OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView = {};
 
-            if (OrgGeneralModalCtrl.ePage.Entities.Header.Data.OrgHeader) {
-                OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView = angular.copy(OrgGeneralModalCtrl.ePage);
-            }
+            OrgGeneralModalCtrl.ePage.Masters.OrgHeader.DataList = OrgGeneralModalCtrl.ePage.Entities.Header.DataList;
 
             OrgGeneralModalCtrl.ePage.Masters.OrgHeader.OnBlurFullName = OnBlurFullName;
             OrgGeneralModalCtrl.ePage.Masters.OrgHeader.OnZoneSelect = OnZoneSelect;
             OrgGeneralModalCtrl.ePage.Masters.OrgHeader.OnUnlocoSelect = OnUnlocoSelect;
             OrgGeneralModalCtrl.ePage.Masters.OnCountryChange = OnCountryChange;
-
-            OrgGeneralModalCtrl.ePage.Masters.ErrorWarningConfig = errorWarningService;
-            OrgGeneralModalCtrl.ePage.Masters.ErrorWarningConfig.GlobalErrorWarningList = errorWarningService.Modules.Organization.Entity[param.Entity.code].GlobalErrorWarningList;
-            OrgGeneralModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj = errorWarningService.Modules.Organization.Entity[param.Entity.code];
-
-            GetDataList();
-        }
-
-        function GetDataList() {
-            OrgGeneralModalCtrl.ePage.Masters.OrgHeader.DataList = [{
-                "DispName": "Consignor",
-                "Value": "IsConsignor"
-            }, {
-                "DispName": "Consignee",
-                "Value": "IsConsignee"
-            }, {
-                "DispName": "Forwarder",
-                "Value": "IsForwarder"
-            }, {
-                "DispName": "Transport Client",
-                "Value": "IsTransportClient"
-            }, {
-                "DispName": "Warehouse Client",
-                "Value": "IsWarehouseClient"
-            }, {
-                "DispName": "Broker",
-                "Value": "IsBroker"
-            }, {
-                "DispName": "Road Freight Depot",
-                "Value": "IsRoadFreightDepot"
-            }, {
-                "DispName": "Store",
-                "Value": "IsStore"
-            }, {
-                "DispName": "Carrier",
-                "Value": "IsShippingProvider"
-            }];
         }
 
         function OnBlurFullName() {
-            if (OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgHeader.FullName) {
+            if (OrgGeneralModalCtrl.ePage.Entities.Header.Data.OrgHeader.FullName) {
                 GenerateOrganizationCode();
             }
         }
 
         function OnZoneSelect($item) {
             if ($item.data) {
-                OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgHeader.TMZ_FK = $item.data.entity.PK;
-                OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgHeader.TMZ_Name = $item.data.entity.Name;
+                OrgGeneralModalCtrl.ePage.Entities.Header.Data.OrgHeader.TMZ_FK = $item.data.entity.PK;
+                OrgGeneralModalCtrl.ePage.Entities.Header.Data.OrgHeader.TMZ_Name = $item.data.entity.Name;
             } else {
-                OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgHeader.TMZ_FK = $item.PK;
-                OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgHeader.TMZ_Name = $item.Name;
+                OrgGeneralModalCtrl.ePage.Entities.Header.Data.OrgHeader.TMZ_FK = $item.PK;
+                OrgGeneralModalCtrl.ePage.Entities.Header.Data.OrgHeader.TMZ_Name = $item.Name;
             }
         }
 
         function OnUnlocoSelect($item) {
+            let _item = {
+                Code: null
+            };
             if ($item.data) {
-                OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgAddress[0].RelatedPortCode = $item.data.entity.Code;
-
+                OrgGeneralModalCtrl.ePage.Entities.Header.Data.OrgAddress[0].RelatedPortCode = $item.data.entity.Code;
                 if ($item.data.entity.CountryCode) {
-                    var _item = {
-                        Code: $item.data.entity.CountryCode
-                    };
+                    _item.Code = $item.data.entity.CountryCode;
                 }
             } else {
-                OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgAddress[0].RelatedPortCode = $item.Code;
-
+                OrgGeneralModalCtrl.ePage.Entities.Header.Data.OrgAddress[0].RelatedPortCode = $item.Code;
                 if ($item.CountryCode) {
-                    var _item = {
-                        Code: $item.CountryCode
-                    };
+                    _item.Code = $item.CountryCode;
                 }
             }
 
-            if (_item.Code) {
-                OnCountryChange(_item);
-            } else {
-                OnCountryChange();
-            }
+            _item.Code ? OnCountryChange(_item) : OnCountryChange();
 
-            if (OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgAddress[0].RelatedPortCode) {
+            if (OrgGeneralModalCtrl.ePage.Entities.Header.Data.OrgAddress[0].RelatedPortCode) {
                 GenerateOrganizationCode();
             }
         }
 
         function OnCountryChange($item) {
+            OrgGeneralModalCtrl.ePage.Entities.Header.Data.OrgAddress[0].CountryCode = undefined;
+            OrgGeneralModalCtrl.ePage.Entities.Header.Data.OrgAddress[0].ListSource = undefined;
+
             if ($item) {
-                OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgAddress[0].CountryCode = $item.Code;
+                OrgGeneralModalCtrl.ePage.Entities.Header.Data.OrgAddress[0].CountryCode = $item.Code;
                 GetStateList($item);
-            } else {
-                OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgAddress[0].CountryCode = undefined;
-                OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgAddress[0].ListSource = undefined;
             }
         }
 
         function GetStateList($item) {
             OrgGeneralModalCtrl.ePage.Masters.DropDownMasterList.State.ListSource = undefined;
-            var _filter = {
+            let _filter = {
                 "CountryCode": $item.Code
             };
-            var _input = {
+            let _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
                 "FilterID": organizationConfig.Entities.API.CountryState.API.FindAll.FilterID,
             };
 
-            apiService.post("eAxisAPI", organizationConfig.Entities.API.CountryState.API.FindAll.Url, _input).then(function (response) {
+            apiService.post("eAxisAPI", organizationConfig.Entities.API.CountryState.API.FindAll.Url, _input).then(response => {
                 if (response.data.Response) {
                     OrgGeneralModalCtrl.ePage.Masters.DropDownMasterList.State.ListSource = response.data.Response;
                 }
@@ -163,39 +115,37 @@
         }
 
         function GenerateOrganizationCode() {
-            if (OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgHeader.FullName && OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgAddress[0].RelatedPortCode) {
-                var _prefixCode = angular.copy(OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgHeader.FullName).replace(/\s/g, '').substring(0, 3);
-                var _suffixCode = angular.copy(OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgAddress[0].RelatedPortCode).replace(/\s/g, '').substring(2, OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgAddress[0].RelatedPortCode.length);
+            let _header = OrgGeneralModalCtrl.ePage.Entities.Header.Data.OrgHeader;
+            let _address = OrgGeneralModalCtrl.ePage.Entities.Header.Data.OrgAddress[0];
+            if (_header.FullName && _address.RelatedPortCode) {
+                let _prefixCode = angular.copy(_header.FullName).replace(/\s/g, '').substring(0, 3);
+                let _suffixCode = angular.copy(_address.RelatedPortCode).replace(/\s/g, '').substring(2, _address.RelatedPortCode.length);
+                let _code = (_prefixCode + _suffixCode).toUpperCase();
 
-                OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgHeader.Code = (_prefixCode + _suffixCode).toUpperCase();
+                OrgGeneralModalCtrl.ePage.Entities.Header.Data.OrgHeader.Code = _code;
             }
         }
 
         function ValidateOrganization() {
             OrgGeneralModalCtrl.ePage.Masters.SaveButtonText = "Please Wait...";
             OrgGeneralModalCtrl.ePage.Masters.IsDisableSave = true;
-            var _errorCode = [];
-            // if (param.Entity.isNew) {
-            //     _errorCode = ["E9101", "E9102", "E9103", "E9104", "E9105", "E9106", "E9107", "E9108", "E9109", "E9110", "E9111", "E9112", "E9113"];
-            // } else {
-            //     _errorCode = ["E9101", "E9102"];
-            // }
 
-            var _code = param.Entity.code;
-            var _groupCode = param.Entity.isNew ? "ORG_GENERAL_ADDRESS" : "ORG_GENERAL";
-            var _obj = {
-                ModuleName: ["Organization"],
-                Code: [_code],
-                API: "Group",
-                GroupCode: _groupCode,
-                RelatedBasicDetails: [],
-                EntityObject: OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data,
-                ErrorCode: _errorCode
+            let _validationObj = {
+                Code: param.Entity.code,
+                GetListAPI: "Validation",
+                FilterInput: {
+                    ModuleCode: "ORG"
+                },
+                GroupCode: param.Entity.isNew ? "ORG_GENERAL_ADDRESS" : "ORG_GENERAL",
+                Entity: OrgGeneralModalCtrl.ePage.Entities.Header.Data,
+                ValidateAPI: "Group",
+                ErrorCode: [],
+                EntityCode: param.Entity.label,
+                EntityPK: param.Entity.pk
             };
-            errorWarningService.ValidateValue(_obj);
 
-            $timeout(function () {
-                var _errorCount = $filter("listCount")(OrgGeneralModalCtrl.ePage.Masters.ErrorWarningConfig.GlobalErrorWarningList, 'MessageType', 'E');
+            OrgGeneralModalCtrl.ePage.Entities.GetValidationList(_validationObj).then(response => {
+                let _errorCount = response;
 
                 if (_errorCount > 0) {
                     OrgGeneralModalCtrl.ePage.Masters.SaveButtonText = "Save";
@@ -209,49 +159,53 @@
         }
 
         function SaveOrganization() {
-            var _input = angular.copy(OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data);
-            _input.OrgHeader.IsModified = true;
-            _input.OrgHeader.Code = _input.OrgHeader.Code.replace(/\s/g, '').toUpperCase();
-            _input.OrgHeader.FullName = _input.OrgHeader.FullName.toUpperCase();
-            _input.OrgHeader.TenantCode = authService.getUserInfo().TenantCode;
+            let _input = angular.copy(OrgGeneralModalCtrl.ePage.Entities.Header.Data);
+            let _header = {
+                Code: _input.OrgHeader.Code.replace(/\s/g, '').toUpperCase(),
+                FullName: _input.OrgHeader.FullName.toUpperCase(),
+                TenantCode: authService.getUserInfo().TenantCode,
+                IsModified: true
+            };
+            _input.OrgHeader = {
+                ..._input.OrgHeader,
+                ..._header
+            };
 
             if (OrgGeneralModalCtrl.ePage.Masters.param.Entity.isNew == true) {
-                _input.OrgAddress[0].IsModified = true;
-                _input.OrgAddress[0].TenantCode = authService.getUserInfo().TenantCode;
-                _input.OrgAddress[0].ORG_FK = _input.OrgHeader.PK;
+                let _addressCapability = {
+                    IsMapped: true,
+                    IsValid: true,
+                    IsMainAddress: true,
+                    AddressType: "OFC",
+                    AddressTypeDes: "Office Address",
+                    OAD_FK: _input.OrgAddress[0].PK,
+                    ORG_FK: _input.OrgHeader.PK,
+                    TenantCode: authService.getUserInfo().TenantCode,
+                    IsModified: true
+                };
+                let _address = {
+                    TenantCode: authService.getUserInfo().TenantCode,
+                    ORG_FK: _input.OrgHeader.PK,
+                    AddressCapability: [_addressCapability],
+                    IsModified: true
+                };
 
-                if (!_input.OrgAddress[0].AddressCapability) {
-                    _input.OrgAddress[0].AddressCapability = [];
-                }
-                _input.OrgAddress[0].AddressCapability[0].IsModified = true;
-                _input.OrgAddress[0].AddressCapability[0].IsMapped = true;
-                _input.OrgAddress[0].AddressCapability[0].IsValid = true;
-                _input.OrgAddress[0].AddressCapability[0].IsMainAddress = true;
-                _input.OrgAddress[0].AddressCapability[0].AddressType = "OFC";
-                _input.OrgAddress[0].AddressCapability[0].AddressTypeDes = "Office Address";
-                _input.OrgAddress[0].AddressCapability[0].OAD_FK = _input.OrgAddress[0].PK;
-                _input.OrgAddress[0].AddressCapability[0].ORG_FK = _input.OrgHeader.PK;
-                _input.OrgAddress[0].AddressCapability[0].TenantCode = authService.getUserInfo().TenantCode;
+                _input.OrgAddress[0] = {
+                    ..._input.OrgAddress[0],
+                    ..._address
+                };
             }
 
             OrgGeneralModalCtrl.ePage.Masters.param.Entity[OrgGeneralModalCtrl.ePage.Masters.param.Entity.code].ePage.Entities.Header.Data = _input;
 
-            helperService.SaveEntity(OrgGeneralModalCtrl.ePage.Masters.param.Entity, "Organization").then(function (response) {
-                if (response.Status == "success") {
-                    if (response.Data) {
-                        var _exports = {
-                            data: response.Data
-                        };
-                        $uibModalInstance.close(_exports);
-                    }
+            helperService.SaveEntity(OrgGeneralModalCtrl.ePage.Masters.param.Entity, "Organization").then(response => {
+                if (response.Status == "success" && response.Data) {
+                    let _exports = {
+                        data: response.Data
+                    };
+                    $uibModalInstance.close(_exports);
                 } else if (response.Status == "ValidationFailed" || response.Status == "failed") {
-                    if (response.Validations && response.Validations.length > 0) {
-                        response.Validations.map(function (value, key) {
-                            toastr.error(value.Message);
-                        });
-                    } else {
-                        toastr.warning("Failed to Save...!");
-                    }
+                    (response.Validations && response.Validations.length > 0) ? response.Validations.map(value => toastr.error(value.Message)): toastr.warning("Failed to Save...!");
                 }
 
                 OrgGeneralModalCtrl.ePage.Masters.SaveButtonText = "Save";

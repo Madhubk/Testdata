@@ -10,7 +10,7 @@
                 <div class="tab-loading" data-ng-show="OrganizationCtrl.ePage.Masters.IsTabClick"></div>
             </div>
         </uib-tab>
-        <uib-tab active="OrganizationCtrl.ePage.Masters.ActiveTabIndex == $index" data-ng-repeat="tab in OrganizationCtrl.ePage.Masters.TabList">
+        <uib-tab active="OrganizationCtrl.ePage.Masters.ActiveTabIndex == $index" data-ng-repeat="tab in OrganizationCtrl.ePage.Masters.Config.TabList">
             <uib-tab-heading title="{{tab.label}}">
                 <span data-ng-bind="tab.label"></span>
                 <i class="glyphicon glyphicon-remove" data-ng-click="OrganizationCtrl.ePage.Masters.RemoveTab($event, $index, tab)"></i>

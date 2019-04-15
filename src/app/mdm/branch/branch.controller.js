@@ -1,4 +1,4 @@
-(function() {
+(function () {
     "use strict";
 
     angular
@@ -25,6 +25,7 @@
             // For list directive
             BranchCtrl.ePage.Masters.IsDisableSave = false;
             BranchCtrl.ePage.Masters.dataEntryName = "CmpBranch";
+            BranchCtrl.ePage.Masters.Title = "Branch";
             BranchCtrl.ePage.Masters.SaveButtonText = "Save";
             BranchCtrl.ePage.Masters.Save = Save;
             BranchCtrl.ePage.Masters.TabList = [];
@@ -42,7 +43,7 @@
 
         function AddTab(currentBranch, isNew) {
             BranchCtrl.ePage.Masters.currentBranch = undefined;
-            var _isExist = BranchCtrl.ePage.Masters.TabList.some(function(value) {
+            var _isExist = BranchCtrl.ePage.Masters.TabList.some(function (value) {
                 if (!isNew) {
                     return value.label === currentBranch.entity.Code;
                 } else {
@@ -57,9 +58,9 @@
                 } else {
                     _currentBranch = currentBranch;
                 }
-                branchConfig.AddBranch(currentBranch, isNew).then(function(response) {
+                branchConfig.AddBranch(currentBranch, isNew).then(function (response) {
                     BranchCtrl.ePage.Masters.TabList = response;
-                    $timeout(function() {
+                    $timeout(function () {
                         BranchCtrl.ePage.Masters.activeTabIndex = BranchCtrl.ePage.Masters.TabList.length;
                         BranchCtrl.ePage.Masters.CurrentActiveTab(currentBranch.entity.Code);
                         BranchCtrl.ePage.Masters.IsTabClick = false;
@@ -92,10 +93,10 @@
                 _api = "CmpBranch/Update";
 
             }
-            apiService.post("eAxisAPI", _api, _input).then(function(response) {
+            apiService.post("eAxisAPI", _api, _input).then(function (response) {
                 BranchCtrl.ePage.Masters.SaveButtonText = "Save";
                 BranchCtrl.ePage.Masters.IsDisableSave = false;
-            }, function(response) {
+            }, function (response) {
                 console.log("Error : " + response);
                 BranchCtrl.ePage.Masters.SaveButtonText = "Save";
                 BranchCtrl.ePage.Masters.IsDisableSave = false;

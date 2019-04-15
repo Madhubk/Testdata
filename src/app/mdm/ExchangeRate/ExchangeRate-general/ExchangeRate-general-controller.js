@@ -4,12 +4,12 @@
     angular.module("Application")
         .controller("ExchangeRateGeneralController", ExchangeRateGeneralController);
 
-    ExchangeRateGeneralController.$inject = ["$uibModal", "$scope", "$filter", "$timeout", "helperService", "APP_CONSTANT", "apiService","authService","appConfig", "exchangerateConfig"];
+    ExchangeRateGeneralController.$inject = ["$uibModal", "$scope", "$filter", "$timeout", "helperService", "APP_CONSTANT", "apiService", "authService", "appConfig", "exchangerateConfig"];
 
-    function ExchangeRateGeneralController($uibModal, $scope, $filter, $timeout, helperService, APP_CONSTANT,apiService, authService,appConfig, exchangerateConfig) {
+    function ExchangeRateGeneralController($uibModal, $scope, $filter, $timeout, helperService, APP_CONSTANT, apiService, authService, appConfig, exchangerateConfig) {
 
         var ExchangeRateGeneralCtrl = this;
-        
+
         function Init() {
 
             var currentExchangeRate = ExchangeRateGeneralCtrl.currentExchangeRate[ExchangeRateGeneralCtrl.currentExchangeRate.code].ePage.Entities;
@@ -20,14 +20,14 @@
                 "Meta": helperService.metaBase(),
                 "Entities": currentExchangeRate
             };
-            
-            ExchangeRateGeneralCtrl.ePage.Masters.DropDownMasterList={};
+
+            ExchangeRateGeneralCtrl.ePage.Masters.DropDownMasterList = {};
 
             ExchangeRateGeneralCtrl.ePage.Masters.Config = exchangerateConfig;
             ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList = ExchangeRateGeneralCtrl.ePage.Entities.Header.Data;
             ExchangeRateGeneralCtrl.ePage.Masters.SelectedLookupData = SelectedLookupData;
             ExchangeRateGeneralCtrl.ePage.Masters.AddNewRow = AddNewRow;
-            ExchangeRateGeneralCtrl.ePage.Entities.Header.UIExRate = [];
+            //ExchangeRateGeneralCtrl.ePage.Entities.Header.lstUIMstExchangeRate = [];
             console.log(ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList);
             console.log(ExchangeRateGeneralCtrl.ePage.Masters);
 
@@ -36,8 +36,8 @@
             ExchangeRateGeneralCtrl.ePage.Masters.DatePicker.Options = APP_CONSTANT.DatePicker;
             ExchangeRateGeneralCtrl.ePage.Masters.DatePicker.isOpen = [];
             ExchangeRateGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker = OpenDatePicker;
-            
-            console.log(ExchangeRateGeneralCtrl.ePage.Entities.Header.TableProperties.UIExRate.ccheckbox.isenabled);
+
+            console.log(ExchangeRateGeneralCtrl.ePage.Entities.Header.TableProperties.lstUIMstExchangeRate.ccheckbox.isenabled);
 
             /* Function  */
             ExchangeRateGeneralCtrl.ePage.Masters.OnChangeValues = OnChangeValues;
@@ -84,14 +84,26 @@
         // #endregion
 
         //#region ErrorWarning Alert Validation
-        function OnChangeValues(fieldvalue, code, IsArray, RowIndex) {
-            
-            angular.forEach(ExchangeRateGeneralCtrl.ePage.Masters.Config.ValidationValues, function (value, key) {
-                if (value.Code.trim() === code) {
-                    GetErrorMessage(fieldvalue, value, IsArray, RowIndex)
+        function OnChangeValues(fieldvalue, code, IsArray, RowIndex) {            
+            if (fieldvalue != '') {
+                if (code == "E1327") {
+                    ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.UIMstExchangeRate.Rate
+                    ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.UIMstExchangeRate.ConvFromAtoB = ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.UIMstExchangeRate.Rate;
+                    ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.UIMstExchangeRate.ConvFromBtoA = 1 / ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.UIMstExchangeRate.Rate;
                 }
-            });
+
+            }
+            else {
+                angular.forEach(ExchangeRateGeneralCtrl.ePage.Masters.Config.ValidationValues, function (value, key) {
+                    if (value.Code.trim() === code) {
+                        GetErrorMessage(fieldvalue, value, IsArray, RowIndex)
+                    }
+                });
+            }
         }
+
+
+
 
         function SelectedLookupData($item) {
 
@@ -99,7 +111,7 @@
 
         //#region DatePicker
         function OpenDatePicker($event, opened) {
-            
+
             $event.preventDefault();
             $event.stopPropagation();
             ExchangeRateGeneralCtrl.ePage.Masters.DatePicker.isOpen[opened] = true;
@@ -107,18 +119,18 @@
         //#endregion
 
         function AddNewRow() {
-            
+
             var obj = {
                 "StartDate": "",
                 "ExpiryDate": "",
                 "RateType": "",
                 "RateSubType": "",
                 "Rate": "",
-                "LineNo": ExchangeRateGeneralCtrl.ePage.Entities.Header.UIExRate.length + 1
+                "LineNo": ExchangeRateGeneralCtrl.ePage.Entities.Header.lstUIMstExchangeRate.length + 1
             };
 
-            ExchangeRateGeneralCtrl.ePage.Entities.Header.UIExRate.push(obj);
-            ExchangeRateGeneralCtrl.ePage.Masters.selectedRow = ExchangeRateGeneralCtrl.ePage.Entities.Header.UIExRate.length - 1;
+            ExchangeRateGeneralCtrl.ePage.Entities.Header.lstUIMstExchangeRate.push(obj);
+            ExchangeRateGeneralCtrl.ePage.Masters.selectedRow = ExchangeRateGeneralCtrl.ePage.Entities.Header.lstUIMstExchangeRate.length - 1;
 
             /* Add Scroll */
             $timeout(function () {
@@ -139,8 +151,8 @@
         function onExRateChanges($index, ExRate, type) {
             if (type == 'ExRateAmnt') {
                 ExchangeRateGeneralCtrl.ePage.Entities.Header.Data.UIExchangerateList[$index].ExRate = ExRate;
-                OnChangeValues(ExchangeRateGeneralCtrl.ePage.Entities.Header.Data.UIExchangerateList[$index].ExRate, 'E1196', true, $index);                
-            }            
+                OnChangeValues(ExchangeRateGeneralCtrl.ePage.Entities.Header.Data.UIExchangerateList[$index].ExRate, 'E1196', true, $index);
+            }
         }
         Init()
     }

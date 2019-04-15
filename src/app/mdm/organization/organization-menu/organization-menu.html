@@ -5,17 +5,13 @@
             <div class="tab-profile">
                 <div class="tab-profile-title text-single-line text-center" data-ng-bind="OrganizationMenuCtrl.currentTab.label"></div>
             </div>
-            <uib-tab data-ng-repeat="x in OrganizationMenuCtrl.ePage.Masters.OrganizationMenu.ListSource"
-                data-ng-click="OrganizationMenuCtrl.ePage.Masters.OnMenuClick(x, $index)" deselect="OrganizationMenuCtrl.ePage.Masters.TabSelected(x, $selectedIndex, $event);" data-ng-if="OrganizationMenuCtrl.ePage.Masters.OrganizationMenu.ListSource && OrganizationMenuCtrl.ePage.Masters.OrganizationMenu.ListSource.length > 0">
+            <uib-tab data-ng-repeat="x in OrganizationMenuCtrl.ePage.Masters.OrganizationMenu.ListSource" data-ng-click="OrganizationMenuCtrl.ePage.Masters.OnMenuClick(x, $index)"
+                deselect="OrganizationMenuCtrl.ePage.Masters.OnTabSelected(x, $selectedIndex, $event);" data-ng-if="OrganizationMenuCtrl.ePage.Masters.OrganizationMenu.ListSource && OrganizationMenuCtrl.ePage.Masters.OrganizationMenu.ListSource.length > 0">
                 <uib-tab-heading title="{{x.Description}}">
                     <i class="{{x.Icon.icon}}"></i>
                     <span data-ng-bind="x.Description"></span>
-                    <error-warning-directive data-ng-if="OrganizationMenuCtrl.ePage.Masters.ErrorWarningConfig.GetErrorWarningCountParent('Organization', OrganizationMenuCtrl.currentTab.code, x.ParentRef, 'W', 'Parent').length > 0 && OrganizationMenuCtrl.ePage.Masters.ErrorWarningConfig.GetErrorWarningCountParent('Organization', OrganizationMenuCtrl.currentTab.code, x.ParentRef, 'E', 'Parent').length == 0"
-                        list="OrganizationMenuCtrl.ePage.Masters.GlobalErrorWarningList" type="'warning'" icon="fa fa-warning"
-                        parent-type="'Parent'" parent-ref="x.ParentRef" g-parent-ref="" class="pull-right" placement="bottom"></error-warning-directive>
-                    <error-warning-directive data-ng-if="OrganizationMenuCtrl.ePage.Masters.ErrorWarningConfig.GetErrorWarningCountParent('Organization', OrganizationMenuCtrl.currentTab.code, x.ParentRef, 'E', 'Parent').length > 0"
-                        list="OrganizationMenuCtrl.ePage.Masters.GlobalErrorWarningList" type="'error'" icon="fa fa-warning"
-                        parent-type="'Parent'" parent-ref="x.ParentRef" g-parent-ref="" class="pull-right" placement="bottom"></error-warning-directive>
+                    <error-warning-directive data-ng-if="OrganizationMenuCtrl.ePage.Entities.ErrorWarningConfig.Modules.Organization.Entity[OrganizationMenuCtrl.currentTab.code].GlobalErrorWarningList && (OrganizationMenuCtrl.ePage.Entities.ErrorWarningConfig.Modules.Organization.Entity[OrganizationMenuCtrl.currentTab.code].GlobalErrorWarningList | filter: {'ParentRef': x.ParentRef, 'MessageType': 'W'}).length > 0 && OrganizationMenuCtrl.ePage.Entities.ErrorWarningConfig.Modules.Organization.Entity[OrganizationMenuCtrl.currentTab.code].GlobalErrorWarningList && (OrganizationMenuCtrl.ePage.Entities.ErrorWarningConfig.Modules.Organization.Entity[OrganizationMenuCtrl.currentTab.code].GlobalErrorWarningList | filter: {'ParentRef': x.ParentRef, 'MessageType': 'E'}).length == 0" list="OrganizationMenuCtrl.ePage.Entities.ErrorWarningConfig.Modules.Organization.Entity[OrganizationMenuCtrl.currentTab.code].GlobalErrorWarningList" type="'warning'" icon="fa fa-warning" parent-type="'Parent'" parent-ref="x.ParentRef" g-parent-ref="" class="pull-right" placement="bottom"></error-warning-directive>
+                    <error-warning-directive data-ng-if="OrganizationMenuCtrl.ePage.Entities.ErrorWarningConfig.Modules.Organization.Entity[OrganizationMenuCtrl.currentTab.code].GlobalErrorWarningList && (OrganizationMenuCtrl.ePage.Entities.ErrorWarningConfig.Modules.Organization.Entity[OrganizationMenuCtrl.currentTab.code].GlobalErrorWarningList | filter: {'ParentRef': x.ParentRef, 'MessageType': 'E'}).length > 0"  list="OrganizationMenuCtrl.ePage.Entities.ErrorWarningConfig.Modules.Organization.Entity[OrganizationMenuCtrl.currentTab.code].GlobalErrorWarningList" type="'error'" icon="fa fa-warning" parent-type="'Parent'" parent-ref="x.ParentRef" g-parent-ref="" class="pull-right" placement="bottom"></error-warning-directive>
                 </uib-tab-heading>
                 <div class="clearfix" org-tab-menu tab="x" entity="OrganizationMenuCtrl.currentTab" data-ng-if="x.IsVisited"></div>
             </uib-tab>
@@ -23,18 +19,18 @@
     </div>
     <div class="error-warning-container right" id="errorWarningContainerOrganization{{OrganizationMenuCtrl.currentTab.code}}">
         <div class="error-warning-header clearfix">
-            <span class="title pull-left">Errors <span class="danger">({{OrganizationMenuCtrl.ePage.Masters.GlobalErrorWarningList
+            <span class="title pull-left">Errors <span class="danger">({{OrganizationMenuCtrl.ePage.Entities.ErrorWarningConfig.Modules.Organization.Entity[OrganizationMenuCtrl.currentTab.code].GlobalErrorWarningList
                     | listCount: 'MessageType': 'E'}})</span> and
-                Warnings <span class="warning">({{OrganizationMenuCtrl.ePage.Masters.GlobalErrorWarningList
+                Warnings <span class="warning">({{OrganizationMenuCtrl.ePage.Entities.ErrorWarningConfig.Modules.Organization.Entity[OrganizationMenuCtrl.currentTab.code].GlobalErrorWarningList
                     | listCount: 'MessageType': 'W'}})</span></span>
             <span class="error-warning-toggle-icon pull-right" data-ng-click="OrganizationMenuCtrl.ePage.Masters.HideErrorWarningModal(OrganizationMenuCtrl.currentTab)">
                 <i class="fa fa-arrow-right"></i>
             </span>
         </div>
         <div class="error-warning-body">
-            <div class="clearfix" data-ng-if="OrganizationMenuCtrl.ePage.Masters.GlobalErrorWarningList.length>0">
+            <div class="clearfix" data-ng-if="OrganizationMenuCtrl.ePage.Entities.ErrorWarningConfig.Modules.Organization.Entity[OrganizationMenuCtrl.currentTab.code].GlobalErrorWarningList.length>0">
                 <div class="clearfix">
-                    <div class="p-5 error-warnig-list clearfix" data-ng-repeat="x in OrganizationMenuCtrl.ePage.Masters.GlobalErrorWarningList | orderBy: 'Code'">
+                    <div class="p-5 error-warnig-list clearfix" data-ng-repeat="x in OrganizationMenuCtrl.ePage.Entities.ErrorWarningConfig.Modules.Organization.Entity[OrganizationMenuCtrl.currentTab.code].GlobalErrorWarningList | orderBy: 'Code'">
                         <div class="clearfix">
                             <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 p-0 text-center">
                                 <span class=" fa fa-warning" data-ng-style="{color: {'W':'#FFAD33', 'E':'#ED4337'}[x.MessageType]}"></span>

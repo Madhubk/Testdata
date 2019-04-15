@@ -6,7 +6,7 @@
         .directive("organizationEmployee", OrganizationEmployee);
 
     function OrganizationEmployee() {
-        var exports = {
+        let exports = {
             restrict: "EA",
             templateUrl: "app/mdm/organization/employee/organization-employee.html",
             controller: "OrganizationEmployeeController",
@@ -27,10 +27,10 @@
 
     function OrganizationEmployeeController($scope, $uibModal, apiService, organizationConfig, helperService, confirmation) {
         /* jshint validthis: true */
-        var OrganizationEmployeeCtrl = this;
+        let OrganizationEmployeeCtrl = this;
 
         function Init() {
-            var currentOrganization = OrganizationEmployeeCtrl.currentOrganization[OrganizationEmployeeCtrl.currentOrganization.code].ePage.Entities;
+            let currentOrganization = OrganizationEmployeeCtrl.currentOrganization[OrganizationEmployeeCtrl.currentOrganization.code].ePage.Entities;
 
             OrganizationEmployeeCtrl.ePage = {
                 "Title": "",
@@ -73,7 +73,9 @@
         }
 
         function OpenEditForm($item) {
-            var modalInstance = $uibModal.open({
+            let _tempResponse = angular.copy(OrganizationEmployeeCtrl.currentOrganization[OrganizationEmployeeCtrl.currentOrganization.code].ePage.Entities.Header.Data);
+
+            $uibModal.open({
                 animation: true,
                 backdrop: "static",
                 keyboard: true,
@@ -84,7 +86,7 @@
                 bindToController: true,
                 resolve: {
                     param: function () {
-                        var exports = {
+                        let exports = {
                             "Entity": OrganizationEmployeeCtrl.currentOrganization,
                             "Item": $item,
                             "ActiveCompany": OrganizationEmployeeCtrl.ePage.Masters.ActiveCompany
@@ -92,43 +94,35 @@
                         return exports;
                     }
                 }
-            }).result.then(
-                function (response) {
-                    if (response.data) {
-                        OrganizationEmployeeCtrl.ePage.Entities.Header.Data = response.data;
+            }).result.then(response => {
+                if (response.data) {
+                    OrganizationEmployeeCtrl.ePage.Entities.Header.Data = response.data;
 
-                        OrganizationEmployeeCtrl.currentOrganization[OrganizationEmployeeCtrl.currentOrganization.code].ePage.Entities.Header.Data = OrganizationEmployeeCtrl.ePage.Entities.Header.Data;
+                    OrganizationEmployeeCtrl.currentOrganization[OrganizationEmployeeCtrl.currentOrganization.code].ePage.Entities.Header.Data = OrganizationEmployeeCtrl.ePage.Entities.Header.Data;
 
-                        PrepareGenerateScriptInput();
-                    }
-                },
-                function () {
-                    console.log("Cancelled");
+                    PrepareGenerateScriptInput();
                 }
-            );
+            }, () => {
+                OrganizationEmployeeCtrl.currentOrganization[OrganizationEmployeeCtrl.currentOrganization.code].ePage.Entities.Header.Data = _tempResponse;
+                console.log("Cancelled")
+            });
         }
 
         function DeleteConfirmation($item) {
-            var modalOptions = {
+            let modalOptions = {
                 closeButtonText: 'Cancel',
                 actionButtonText: 'OK',
                 headerText: 'Delete?',
                 bodyText: 'Are you sure?'
             };
 
-            confirmation.showModal({}, modalOptions).then(function (result) {
-                DeleteEmployee($item);
-            }, function () {
-                console.log("Cancelled");
-            });
+            confirmation.showModal({}, modalOptions).then(result => DeleteEmployee($item));
         }
 
         function DeleteEmployee($item) {
-            apiService.get("eAxisAPI", organizationConfig.Entities.API.OrgEmployeeAssignments.API.Delete.Url + $item.PK).then(function (response) {
+            apiService.get("eAxisAPI", organizationConfig.Entities.API.OrgEmployeeAssignments.API.Delete.Url + $item.PK).then(response => {
                 if (response.data.Response) {
-                    var _index = OrganizationEmployeeCtrl.ePage.Entities.Header.Data.OrgStaffAssignments.map(function (value, key) {
-                        return value.PK;
-                    }).indexOf($item.PK);
+                    let _index = OrganizationEmployeeCtrl.ePage.Entities.Header.Data.OrgStaffAssignments.findIndex(value => value.PK === $item.PK);
 
                     if (_index != -1) {
                         OrganizationEmployeeCtrl.ePage.Entities.Header.Data.OrgStaffAssignments.splice(_index, 1);
@@ -138,7 +132,7 @@
         }
 
         function PrepareGenerateScriptInput() {
-            OrganizationEmployeeCtrl.ePage.Entities.Header.Data.OrgStaffAssignments.map(function (value, key) {
+            OrganizationEmployeeCtrl.ePage.Entities.Header.Data.OrgStaffAssignments.map(value => {
                 value.GenerateScriptInput = {
                     ObjectName: "OrgStaffAssignments",
                     ObjectId: value.PK

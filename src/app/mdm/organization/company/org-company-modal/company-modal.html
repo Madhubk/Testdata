@@ -3,24 +3,24 @@
         <h5 class="modal-title pull-left"><strong>Company</strong></h5>
         <input type="button" class="btn btn-warning btn-xs pull-right ml-5" data-ng-click="OrgCompanyModalCtrl.ePage.Masters.Cancel()"
             value="Close" />
-        <input type="button" class="btn btn-primary btn-xs pull-right ml-5" data-ng-click="OrgCompanyModalCtrl.ePage.Masters.Save(OrgCompanyModalCtrl.ePage.Masters.Company.FormView, 'OrgCompanyData','company')"
+        <input type="button" class="btn btn-primary btn-xs pull-right ml-5" data-ng-click="OrgCompanyModalCtrl.ePage.Masters.Save(OrgCompanyModalCtrl.ePage.Masters.OrgCompanyData.FormView, 'OrgCompanyData','company')"
             value="{{OrgCompanyModalCtrl.ePage.Masters.SaveButtonText}}" data-ng-disabled="OrgCompanyModalCtrl.ePage.Masters.IsDisableSave" />
     </div>
     <div class="modal-body p-10">
         <div class="form-group">
             <label for="">Company</label>
             <span class="error-warning-container">
-                <error-warning-directive data-ng-if="OrgCompanyModalCtrl.ePage.Masters.ErrorWarningObj.CMP_FK.IsWarning && !OrgCompanyModalCtrl.ePage.Masters.ErrorWarningObj.CMP_FK.IsError"
-                    list="OrgCompanyModalCtrl.ePage.Masters.ErrorWarningObj.CMP_FK.WARNING" type="'warning'" icon="fa fa-warning"
+                <error-warning-directive data-ng-if="OrgCompanyModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.CMP_FK.IsWarning && !OrgCompanyModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.CMP_FK.IsError"
+                    list="OrgCompanyModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.CMP_FK.WARNING" type="'warning'" icon="fa fa-warning"
                     parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
-                <error-warning-directive data-ng-if="OrgCompanyModalCtrl.ePage.Masters.ErrorWarningObj.CMP_FK.IsError"
-                    list="OrgCompanyModalCtrl.ePage.Masters.ErrorWarningObj.CMP_FK.ERROR" type="'error'" icon="fa fa-warning"
+                <error-warning-directive data-ng-if="OrgCompanyModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.CMP_FK.IsError"
+                    list="OrgCompanyModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.CMP_FK.ERROR" type="'error'" icon="fa fa-warning"
                     parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
             </span>
             <div class="">
-                <select chosen class="form-control" data-ng-model="OrgCompanyModalCtrl.ePage.Masters.Company.FormView.CMP_FK"
+                <select chosen class="form-control" data-ng-model="OrgCompanyModalCtrl.ePage.Masters.OrgCompanyData.FormView.CMP_FK"
                     data-ng-options="x.PK as (x.Code + ' - ' + x.Name) for x in OrgCompanyModalCtrl.ePage.Masters.DropDownMasterList.Company.ListSource"
-                    data-ng-change="OrgCompanyModalCtrl.ePage.Masters.Company.OnCompanyChange((OrgCompanyModalCtrl.ePage.Masters.DropDownMasterList.Company.ListSource | filter: {'PK': OrgCompanyModalCtrl.ePage.Masters.Company.FormView.CMP_FK})[0])"
+                    data-ng-change="OrgCompanyModalCtrl.ePage.Masters.OrgCompanyData.OnCompanyChange((OrgCompanyModalCtrl.ePage.Masters.DropDownMasterList.Company.ListSource | filter: {'PK': OrgCompanyModalCtrl.ePage.Masters.OrgCompanyData.FormView.CMP_FK})[0])"
                     search-contains="true">
                     <option value="">--Select--</option>
                 </select>
@@ -29,17 +29,17 @@
         <div class="form-group">
             <label for="">Controlling Branch</label>
             <span class="error-warning-container">
-                <error-warning-directive data-ng-if="OrgCompanyModalCtrl.ePage.Masters.ErrorWarningObj.BRN_ControllingBranch.IsWarning && !OrgCompanyModalCtrl.ePage.Masters.ErrorWarningObj.BRN_ControllingBranch.IsError"
-                    list="OrgCompanyModalCtrl.ePage.Masters.ErrorWarningObj.BRN_ControllingBranch.WARNING" type="'warning'"
+                <error-warning-directive data-ng-if="OrgCompanyModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.BRN_ControllingBranch.IsWarning && !OrgCompanyModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.BRN_ControllingBranch.IsError"
+                    list="OrgCompanyModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.BRN_ControllingBranch.WARNING" type="'warning'"
                     icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
-                <error-warning-directive data-ng-if="OrgCompanyModalCtrl.ePage.Masters.ErrorWarningObj.BRN_ControllingBranch.IsError"
-                    list="OrgCompanyModalCtrl.ePage.Masters.ErrorWarningObj.BRN_ControllingBranch.ERROR" type="'error'"
+                <error-warning-directive data-ng-if="OrgCompanyModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.BRN_ControllingBranch.IsError"
+                    list="OrgCompanyModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.BRN_ControllingBranch.ERROR" type="'error'"
                     icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
             </span>
             <div class="">
-                <select chosen name="BRN_Code" class="form-control" data-ng-model="OrgCompanyModalCtrl.ePage.Masters.Company.FormView.BRN_ControllingBranch"
-                    data-ng-options="x.PK as (x.Code +' - '+ x.BranchName) for x in OrgCompanyModalCtrl.ePage.Masters.Company.BranchList"
-                    data-ng-change="OrgCompanyModalCtrl.ePage.Masters.Company.OnBranchChange((OrgCompanyModalCtrl.ePage.Masters.Company.BranchList | filter: {'PK': OrgCompanyModalCtrl.ePage.Masters.Company.FormView.BRN_ControllingBranch})[0])">
+                <select chosen name="BRN_Code" class="form-control" data-ng-model="OrgCompanyModalCtrl.ePage.Masters.OrgCompanyData.FormView.BRN_ControllingBranch"
+                    data-ng-options="x.PK as (x.Code +' - '+ x.BranchName) for x in OrgCompanyModalCtrl.ePage.Masters.OrgCompanyData.BranchList"
+                    data-ng-change="OrgCompanyModalCtrl.ePage.Masters.OrgCompanyData.OnBranchChange((OrgCompanyModalCtrl.ePage.Masters.OrgCompanyData.BranchList | filter: {'PK': OrgCompanyModalCtrl.ePage.Masters.OrgCompanyData.FormView.BRN_ControllingBranch})[0])">
                     <option value="">--Select--</option>
                 </select>
             </div>
@@ -47,7 +47,7 @@
         <div class="form-group">
             <div class="checkbox">
                 <label>
-                    <input type="checkbox" class="colored-blue" data-ng-model="OrgCompanyModalCtrl.ePage.Masters.Company.FormView.IsCreditor">
+                    <input type="checkbox" class="colored-blue" data-ng-model="OrgCompanyModalCtrl.ePage.Masters.OrgCompanyData.FormView.IsCreditor">
                     <span class="text">Is Payablle</span>
                 </label>
             </div>
@@ -55,7 +55,7 @@
         <div class="form-group">
             <div class="checkbox">
                 <label>
-                    <input type="checkbox" class="colored-blue" data-ng-model="OrgCompanyModalCtrl.ePage.Masters.Company.FormView.IsDebtor">
+                    <input type="checkbox" class="colored-blue" data-ng-model="OrgCompanyModalCtrl.ePage.Masters.OrgCompanyData.FormView.IsDebtor">
                     <span class="text">Is Receivable</span>
                 </label>
             </div>
@@ -64,7 +64,7 @@
     <div class="modal-footer" style="bottom: 20px;">
         <input type="button" class="btn btn-warning btn-xs pull-right ml-5" data-ng-click="OrgCompanyModalCtrl.ePage.Masters.Cancel()"
             value="Close" />
-        <input type="button" class="btn btn-primary btn-xs pull-right ml-5" data-ng-click="OrgCompanyModalCtrl.ePage.Masters.Save(OrgCompanyModalCtrl.ePage.Masters.Company.FormView, 'OrgCompanyData')"
+        <input type="button" class="btn btn-primary btn-xs pull-right ml-5" data-ng-click="OrgCompanyModalCtrl.ePage.Masters.Save(OrgCompanyModalCtrl.ePage.Masters.OrgCompanyData.FormView, 'OrgCompanyData')"
             value="{{OrgCompanyModalCtrl.ePage.Masters.SaveButtonText}}" data-ng-disabled="OrgCompanyModalCtrl.ePage.Masters.IsDisableSave" />
     </div>
 </ng-form>

@@ -5,10 +5,8 @@
         .module("Application")
         .directive("organizationVisibility", OrganizationVisibility);
 
-    OrganizationVisibility.$inject = [];
-
     function OrganizationVisibility() {
-        var exports = {
+        let exports = {
             restrict: "EA",
             templateUrl: "app/mdm/organization/visibility/organization-visibility.html",
             controller: "OrganizationVisibilityController",
@@ -25,15 +23,15 @@
         .module("Application")
         .controller("OrganizationVisibilityController", OrganizationVisibilityController);
 
-    OrganizationVisibilityController.$inject = ["$rootScope", "$timeout", "$filter", "authService", "apiService", "helperService", "organizationConfig", "errorWarningService"];
+    OrganizationVisibilityController.$inject = ["$rootScope", "authService", "apiService", "helperService", "organizationConfig", "toastr"];
 
-    function OrganizationVisibilityController($rootScope, $timeout, $filter, authService, apiService, helperService, organizationConfig, errorWarningService) {
-        var OrganizationVisibilityCtrl = this;
+    function OrganizationVisibilityController($rootScope, authService, apiService, helperService, organizationConfig, toastr) {
+        let OrganizationVisibilityCtrl = this;
 
         $rootScope.UpdateVisibilityPage = PrepareTenantDetails;
 
         function Init() {
-            var currentOrganization = OrganizationVisibilityCtrl.currentOrganization[OrganizationVisibilityCtrl.currentOrganization.code].ePage.Entities;
+            let currentOrganization = OrganizationVisibilityCtrl.currentOrganization[OrganizationVisibilityCtrl.currentOrganization.code].ePage.Entities;
 
             OrganizationVisibilityCtrl.ePage = {
                 "Title": "",
@@ -53,18 +51,15 @@
 
         // =============== Tenant ==================
         function InitTenant() {
-            OrganizationVisibilityCtrl.ePage.Masters.Tenant = {};
-            OrganizationVisibilityCtrl.ePage.Masters.Tenant.ActiveTenant = {};
-            OrganizationVisibilityCtrl.ePage.Masters.Tenant.Modal = {};
+            OrganizationVisibilityCtrl.ePage.Masters.Tenant = {
+                ActiveTenant: {},
+                Modal: {}
+            };
 
             OrganizationVisibilityCtrl.ePage.Masters.Tenant.IsDisableSaveBtn = false;
             OrganizationVisibilityCtrl.ePage.Masters.Tenant.SaveBtnText = "Create";
 
-            OrganizationVisibilityCtrl.ePage.Masters.Tenant.Save = ValidateTenant;
-
-            OrganizationVisibilityCtrl.ePage.Masters.ErrorWarningConfig = errorWarningService;
-            OrganizationVisibilityCtrl.ePage.Masters.GlobalErrorWarningList = errorWarningService.Modules.Organization.Entity[OrganizationVisibilityCtrl.currentOrganization.code].GlobalErrorWarningList;
-            OrganizationVisibilityCtrl.ePage.Masters.ErrorWarningObj = errorWarningService.Modules.Organization.Entity[OrganizationVisibilityCtrl.currentOrganization.code];
+            OrganizationVisibilityCtrl.ePage.Masters.Tenant.Save = Validate;
 
             PrepareTenantDetails();
         }
@@ -88,29 +83,28 @@
             PrepareUserList();
         }
 
-        function ValidateTenant() {
-            OrganizationVisibilityCtrl.ePage.Masters.Tenant.IsDisableSaveBtn = true;
-            OrganizationVisibilityCtrl.ePage.Masters.Tenant.SaveBtnText = "Please Wait...";
-            var _errorCode = [];
+        function Validate() {
+            OrganizationVisibilityCtrl.ePage.Masters.SaveButtonText = "Please Wait...";
+            OrganizationVisibilityCtrl.ePage.Masters.IsDisableSave = true;
 
-            var _code = OrganizationVisibilityCtrl.currentOrganization.code;
-            var _obj = {
-                ModuleName: ["Organization"],
-                Code: [_code],
-                API: "Group",
+            let _validationObj = {
+                Code: OrganizationVisibilityCtrl.currentOrganization.code,
+                GetListAPI: "Validation",
+                FilterInput: {
+                    ModuleCode: "ORG"
+                },
                 GroupCode: "ORG_VISIBILITY",
-                RelatedBasicDetails: [],
-                EntityObject: OrganizationVisibilityCtrl.ePage.Masters.Tenant.Modal,
-                ErrorCode: _errorCode
+                Entity: OrganizationVisibilityCtrl.ePage.Masters.Tenant.Modal,
+                ValidateAPI: "Group",
+                ErrorCode: []
             };
-            errorWarningService.ValidateValue(_obj);
 
-            $timeout(function () {
-                var _errorCount = $filter("listCount")(OrganizationVisibilityCtrl.ePage.Masters.GlobalErrorWarningList, 'MessageType', 'E');
+            OrganizationVisibilityCtrl.ePage.Entities.GetValidationList(_validationObj).then(response => {
+                let _errorCount = response;
 
                 if (_errorCount > 0) {
-                    OrganizationVisibilityCtrl.ePage.Masters.Tenant.IsDisableSaveBtn = false;
-                    OrganizationVisibilityCtrl.ePage.Masters.Tenant.SaveBtnText = "Save";
+                    OrganizationVisibilityCtrl.ePage.Masters.SaveButtonText = "Save";
+                    OrganizationVisibilityCtrl.ePage.Masters.IsDisableSave = false;
 
                     toastr.warning("Fill all mandatory fields...!");
                 } else {
@@ -123,19 +117,17 @@
             OrganizationVisibilityCtrl.ePage.Masters.Tenant.IsDisableSaveBtn = true;
             OrganizationVisibilityCtrl.ePage.Masters.Tenant.SaveBtnText = "Please Wait...";
 
-            var _input = OrganizationVisibilityCtrl.ePage.Masters.Tenant.Modal;
+            let _input = OrganizationVisibilityCtrl.ePage.Masters.Tenant.Modal;
             _input.TenantCode = _input.TenantCode.replace(/\s/g, '').substring(0, 5);
             _input.BaseTenantCode = "TBASE";
             _input.IsModified = true;
 
-            apiService.post("authAPI", organizationConfig.Entities.API.SecTenant.API.Insert.Url, [_input]).then(function (response) {
-                if (response.data.Response) {
-                    if (response.data.Response.length > 0) {
-                        OrganizationVisibilityCtrl.ePage.Masters.Tenant.ActiveTenant = response.data.Response[0];
+            apiService.post("authAPI", organizationConfig.Entities.API.SecTenant.API.Insert.Url, [_input]).then(response => {
+                if (response.data.Response && response.data.Response.length > 0) {
+                    OrganizationVisibilityCtrl.ePage.Masters.Tenant.ActiveTenant = response.data.Response[0];
 
-                        UpdateOrgHeader();
-                        AppTenantMapping();
-                    }
+                    UpdateOrgHeader();
+                    AppTenantMapping();
                 } else {
                     toastr.error("Could not create...!");
                     OrganizationVisibilityCtrl.ePage.Masters.Tenant.IsDisableSaveBtn = false;
@@ -145,7 +137,7 @@
         }
 
         function AppTenantMapping() {
-            var _input = {
+            let _input = {
                 ItemCode: authService.getUserInfo().AppCode,
                 Item_FK: authService.getUserInfo().AppPK,
                 ItemName: "APP",
@@ -156,7 +148,7 @@
                 IsModified: true
             };
 
-            apiService.post("authAPI", organizationConfig.Entities.API.SecAppSecTenant.API.Insert.Url, [_input]).then(function (response) {
+            apiService.post("authAPI", organizationConfig.Entities.API.SecAppSecTenant.API.Insert.Url, [_input]).then(response => {
                 if (response.data.Response && response.data.Response.length > 0) {
                     CopyBaseTenantAccessToTenant();
                 } else {
@@ -168,14 +160,14 @@
         }
 
         function CopyBaseTenantAccessToTenant() {
-            var _input = {
+            let _input = {
                 AppCode: authService.getUserInfo().AppCode,
                 FromTenant: "TBASE",
                 ToTenant: OrganizationVisibilityCtrl.ePage.Masters.Tenant.ActiveTenant.TenantCode
             };
 
-            apiService.post("authAPI", organizationConfig.Entities.API.SecTenant.API.CopyBaseTenantBehavior.Url, _input).then(function (response) {
-                if (response.data.Response) {} else {
+            apiService.post("authAPI", organizationConfig.Entities.API.SecTenant.API.CopyBaseTenantBehavior.Url, _input).then(response => {
+                if (!response.data.Response) {
                     console.log("Could not Copy Base Tenant Behaviour...!")
                 }
 
@@ -185,12 +177,12 @@
         }
 
         function UpdateOrgHeader() {
-            var _input = OrganizationVisibilityCtrl.ePage.Entities.Header.Data;
+            let _input = OrganizationVisibilityCtrl.ePage.Entities.Header.Data;
             _input.OrgHeader.ProxyTenant_FK = OrganizationVisibilityCtrl.ePage.Masters.Tenant.ActiveTenant.PK;
             _input.OrgHeader.ProxyTenant_Code = OrganizationVisibilityCtrl.ePage.Masters.Tenant.ActiveTenant.TenantCode;
             _input.OrgHeader.IsModified = true;
 
-            apiService.post("eAxisAPI", OrganizationVisibilityCtrl.ePage.Entities.Header.API.UpdateOrganization.Url, _input).then(function (response) {
+            apiService.post("eAxisAPI", OrganizationVisibilityCtrl.ePage.Entities.Header.API.UpdateOrganization.Url, _input).then(response => {
                 if (response.data.Response) {
                     OrganizationVisibilityCtrl.ePage.Entities.Header.Data.OrgHeader = response.data.Response.OrgHeader;
 
@@ -215,7 +207,7 @@
         function PrepareUserList() {
             OrganizationVisibilityCtrl.ePage.Masters.User.UserList = angular.copy(OrganizationVisibilityCtrl.ePage.Entities.Header.Data.OrgContact);
 
-            OrganizationVisibilityCtrl.ePage.Masters.User.UserList.map(function (value, key) {
+            OrganizationVisibilityCtrl.ePage.Masters.User.UserList.map(value => {
                 if (value.USER_FK) {
                     value.IsUserViewMode = true;
                 } else {
@@ -229,15 +221,15 @@
 
         function GetRoleList() {
             OrganizationVisibilityCtrl.ePage.Masters.User.RoleList = undefined;
-            var _filter = {
+            let _filter = {
                 "SAP_FK": authService.getUserInfo().AppPK
             };
-            var _input = {
+            let _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
                 "FilterID": organizationConfig.Entities.API.SecRole.API.FindAll.FilterID
             };
 
-            apiService.post("authAPI", organizationConfig.Entities.API.SecRole.API.FindAll.Url, _input).then(function (response) {
+            apiService.post("authAPI", organizationConfig.Entities.API.SecRole.API.FindAll.Url, _input).then(response => {
                 if (response.data.Response) {
                     OrganizationVisibilityCtrl.ePage.Masters.User.RoleList = response.data.Response;
                 } else {
@@ -249,7 +241,7 @@
         function SaveUser($item) {
             if ($item.UserName) {
                 $item.IsSaveBtnClick = true;
-                var _input = {
+                let _input = {
                     "FirstName": $item.ContactName,
                     "DisplayName": $item.ContactName,
                     "UserName": $item.UserName,
@@ -260,7 +252,7 @@
                     "IsModified": true
                 };
 
-                apiService.post("authAPI", organizationConfig.Entities.API.UserExtended.API.Insert.Url, _input).then(function (response) {
+                apiService.post("authAPI", organizationConfig.Entities.API.UserExtended.API.Insert.Url, _input).then(response => {
                     if (response.data.Response) {
                         $item.USER_FK = response.data.Response.Id;
                         UserRoleMapping($item);
@@ -272,7 +264,7 @@
         }
 
         function UserRoleMapping(user) {
-            var _input = {
+            let _input = {
                 "AccessCode": user.AccessCode,
                 "AccessTo": "ROLE",
                 "Access_FK": user.Access_FK,
@@ -286,7 +278,7 @@
                 "IsModified": true
             };
 
-            apiService.post("authAPI", organizationConfig.Entities.API.UserRole.API.Insert.Url, [_input]).then(function (response) {
+            apiService.post("authAPI", organizationConfig.Entities.API.UserRole.API.Insert.Url, [_input]).then(response => {
                 if (response.data.Response) {
                     UpdateOrgContact(user);
                 } else {
@@ -299,9 +291,7 @@
         function UpdateOrgContact(user) {
             user.IsModified = true;
             if (user.PK) {
-                var _index = OrganizationVisibilityCtrl.ePage.Entities.Header.Data.OrgContact.map(function (value, key) {
-                    return value.PK;
-                }).indexOf(user.PK);
+                let _index = OrganizationVisibilityCtrl.ePage.Entities.Header.Data.OrgContact.findIndex(value => value.PK === user.PK);
 
                 if (_index !== -1) {
                     OrganizationVisibilityCtrl.ePage.Entities.Header.Data.OrgContact[_index] = user;
@@ -310,9 +300,9 @@
                 OrganizationVisibilityCtrl.ePage.Entities.Header.Data.OrgContact.push(user);
             }
 
-            var _input = OrganizationVisibilityCtrl.ePage.Entities.Header.Data;
+            let _input = OrganizationVisibilityCtrl.ePage.Entities.Header.Data;
 
-            apiService.post("eAxisAPI", OrganizationVisibilityCtrl.ePage.Entities.Header.API.UpdateOrganization.Url, _input).then(function (response) {
+            apiService.post("eAxisAPI", OrganizationVisibilityCtrl.ePage.Entities.Header.API.UpdateOrganization.Url, _input).then(response => {
                 if (response.data.Response) {
                     PrepareUserList();
                 }

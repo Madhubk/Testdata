@@ -110,18 +110,18 @@
 
                         TCGridCtrl.ePage.Masters.GridOptions = _gridOptions;
 
-                        // if (TCGridCtrl.ePage.Masters.AttributeDetails.Options.Delete == "true") {
-                        //     var _delete = {
-                        //         field: "delete",
-                        //         displayName: "",
-                        //         cellTemplate: `<div class='ui-grid-cell-contents text-single-line text-center' title="Remove"><a href='javascript:void(0);' ng-click='grid.appScope.GridCtrl.ePage.Masters.SelectedGridRow(row, "delete")'><i class='grid-cell-icon fa fa-trash'></i></a></div>`,
-                        //         width: 35,
-                        //         IsMandatory: true,
-                        //         IsVisible: true
-                        //     };
-                        //     _response.GridConfig.Header.push(_delete);
-                        //     _response.GridConfig.Header.splice(0, 0, _response.GridConfig.Header.splice(_response.GridConfig.Header.length - 1, 1)[0]);
-                        // }
+                        if (TCGridCtrl.ePage.Masters.AttributeDetails.Options.Delete == "true") {
+                            var _delete = {
+                                field: "delete",
+                                displayName: "",
+                                cellTemplate: `<div class='ui-grid-cell-contents text-single-line text-center' title="Remove"><a href='javascript:void(0);' ng-click='grid.appScope.GridCtrl.ePage.Masters.SelectedGridRow(row, "delete")'><i class='grid-cell-icon fa fa-trash'></i></a></div>`,
+                                width: 35,
+                                IsMandatory: true,
+                                IsVisible: true
+                            };
+                            _response.GridConfig.Header.push(_delete);
+                            _response.GridConfig.Header.splice(0, 0, _response.GridConfig.Header.splice(_response.GridConfig.Header.length - 1, 1)[0]);
+                        }
 
                         if (TCGridCtrl.ePage.Masters.AttributeDetails.Options.Edit == "true") {
                             var _edit = {

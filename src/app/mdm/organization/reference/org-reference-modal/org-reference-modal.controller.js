@@ -5,13 +5,13 @@
         .module("Application")
         .controller("OrgReferenceModalController", OrgReferenceModalController);
 
-    OrgReferenceModalController.$inject = ["$timeout", "$filter", "$uibModalInstance", "APP_CONSTANT", "helperService", "toastr", "param", "errorWarningService"];
+    OrgReferenceModalController.$inject = ["$uibModalInstance", "APP_CONSTANT", "helperService", "toastr", "param"];
 
-    function OrgReferenceModalController($timeout, $filter, $uibModalInstance, APP_CONSTANT, helperService, toastr, param, errorWarningService) {
-        var OrgReferenceModalCtrl = this;
+    function OrgReferenceModalController($uibModalInstance, APP_CONSTANT, helperService, toastr, param) {
+        let OrgReferenceModalCtrl = this;
 
         function Init() {
-            var currentOrganization = param.Entity[param.Entity.code].ePage.Entities;
+            let currentOrganization = param.Entity[param.Entity.code].ePage.Entities;
 
             OrgReferenceModalCtrl.ePage = {
                 "Title": "",
@@ -22,8 +22,8 @@
             };
 
             try {
-                OrgReferenceModalCtrl.ePage.Masters.param = angular.copy(param);
-                OrgReferenceModalCtrl.ePage.Masters.Save = ValidateOrgReference;
+                OrgReferenceModalCtrl.ePage.Masters.param = param;
+                OrgReferenceModalCtrl.ePage.Masters.Save = Validate;
                 OrgReferenceModalCtrl.ePage.Masters.Cancel = Cancel;
 
                 OrgReferenceModalCtrl.ePage.Masters.SaveButtonText = "Save";
@@ -41,16 +41,12 @@
         }
 
         function InitOrgReference() {
-            OrgReferenceModalCtrl.ePage.Masters.OrgReference = {};
-            OrgReferenceModalCtrl.ePage.Masters.OrgReference.FormView = {};
+            OrgReferenceModalCtrl.ePage.Masters.OrgRefDate = {};
+            OrgReferenceModalCtrl.ePage.Masters.OrgRefDate.FormView = {};
 
             if (OrgReferenceModalCtrl.ePage.Masters.param.Item) {
-                OrgReferenceModalCtrl.ePage.Masters.OrgReference.FormView = OrgReferenceModalCtrl.ePage.Masters.param.Item;
+                OrgReferenceModalCtrl.ePage.Masters.OrgRefDate.FormView = OrgReferenceModalCtrl.ePage.Masters.param.Item;
             }
-
-            OrgReferenceModalCtrl.ePage.Masters.ErrorWarningConfig = errorWarningService;
-            OrgReferenceModalCtrl.ePage.Masters.GlobalErrorWarningList = errorWarningService.Modules.Organization.Entity[param.Entity.code].GlobalErrorWarningList;
-            OrgReferenceModalCtrl.ePage.Masters.ErrorWarningObj = errorWarningService.Modules.Organization.Entity[param.Entity.code];
         }
 
         function OpenDatePicker($event, opened) {
@@ -64,24 +60,26 @@
             $uibModalInstance.dismiss('close');
         }
 
-        function ValidateOrgReference() {
+        function Validate() {
             OrgReferenceModalCtrl.ePage.Masters.SaveButtonText = "Please Wait...";
             OrgReferenceModalCtrl.ePage.Masters.IsDisableSave = true;
 
-            var _code = param.Entity.code;
-            var _obj = {
-                ModuleName: ["Organization"],
-                Code: [_code],
-                API: "Group",
+            let _validationObj = {
+                Code: param.Entity.code,
+                GetListAPI: "Validation",
+                FilterInput: {
+                    ModuleCode: "ORG"
+                },
                 GroupCode: "ORG_REFERENCE",
-                RelatedBasicDetails: [],
-                EntityObject: OrgReferenceModalCtrl.ePage.Masters.OrgReference.FormView,
-                ErrorCode: []
+                Entity: OrgReferenceModalCtrl.ePage.Masters.OrgRefDate.FormView,
+                ValidateAPI: "Group",
+                ErrorCode: [],
+                EntityCode: param.Entity.label,
+                EntityPK: param.Entity.pk
             };
-            errorWarningService.ValidateValue(_obj);
 
-            $timeout(function () {
-                var _errorCount = $filter("listCount")(OrgReferenceModalCtrl.ePage.Masters.GlobalErrorWarningList, 'MessageType', 'E');
+            OrgReferenceModalCtrl.ePage.Entities.GetValidationList(_validationObj).then(response => {
+                let _errorCount = response;
 
                 if (_errorCount > 0) {
                     OrgReferenceModalCtrl.ePage.Masters.SaveButtonText = "Save";
@@ -98,43 +96,34 @@
             OrgReferenceModalCtrl.ePage.Masters.SaveButtonText = "Please Wait...";
             OrgReferenceModalCtrl.ePage.Masters.IsDisableSave = true;
 
-            var _OrgRefDate = angular.copy(OrgReferenceModalCtrl.ePage.Entities.Header.Data.OrgRefDate);
-            var _formView = angular.copy(OrgReferenceModalCtrl.ePage.Masters.OrgReference.FormView);
+            let _OrgRefDate = angular.copy(OrgReferenceModalCtrl.ePage.Entities.Header.Data.OrgRefDate);
+            let _formView = angular.copy(OrgReferenceModalCtrl.ePage.Masters.OrgRefDate.FormView);
             _formView.IsModified = true;
+
             if (_formView.PK) {
-                var _index = _OrgRefDate.map(function (value, key) {
-                    return value.PK;
-                }).indexOf(_formView.PK);
+                let _index = _OrgRefDate.findIndex(value => value.PK === _formView.PK);
 
                 if (_index != -1) {
                     _OrgRefDate[_index] = _formView;
                 }
             } else {
-                _OrgRefDate = _OrgRefDate.concat(_formView);
+                _OrgRefDate = [..._OrgRefDate, ...[_formView]];
             }
 
-            var _input = angular.copy(OrgReferenceModalCtrl.ePage.Entities.Header.Data);
+            let _input = angular.copy(OrgReferenceModalCtrl.ePage.Entities.Header.Data);
             _input.OrgRefDate = _OrgRefDate;
             _input.IsModified = true;
 
             OrgReferenceModalCtrl.ePage.Masters.param.Entity[OrgReferenceModalCtrl.ePage.Masters.param.Entity.code].ePage.Entities.Header.Data = _input;
 
-            helperService.SaveEntity(OrgReferenceModalCtrl.ePage.Masters.param.Entity, 'Organization').then(function (response) {
-                if (response.Status === "success") {
-                    if (response.Data) {
-                        var _exports = {
-                            data: response.Data
-                        };
-                        $uibModalInstance.close(_exports);
-                    }
+            helperService.SaveEntity(OrgReferenceModalCtrl.ePage.Masters.param.Entity, 'Organization').then(response => {
+                if (response.Status === "success" && response.Data) {
+                    let _exports = {
+                        data: response.Data
+                    };
+                    $uibModalInstance.close(_exports);
                 } else if (response.Status == "ValidationFailed" || response.Status == "failed") {
-                    if (response.Validations && response.Validations.length > 0) {
-                        response.Validations.map(function (value, key) {
-                            toastr.error(value.Message);
-                        });
-                    } else {
-                        toastr.warning("Failed to Save...!");
-                    }
+                    (response.Validations && response.Validations.length > 0) ? response.Validations.map(value => toastr.error(value.Message)): toastr.warning("Failed to Save...!");
                 }
 
                 OrgReferenceModalCtrl.ePage.Masters.SaveButtonText = "Save";

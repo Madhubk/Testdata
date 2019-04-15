@@ -6,7 +6,7 @@
         .directive("organizationMenu", OrganizationMenu);
 
     function OrganizationMenu() {
-        var exports = {
+        let exports = {
             restrict: "E",
             templateUrl: "app/mdm/organization/organization-menu/organization-menu.html",
             controller: "OrganizationMenuController",
@@ -23,7 +23,7 @@
         .module("Application")
         .directive("orgTabMenu", OrgTabMenu);
 
-    function OrgTabMenu($compile) {        
+    function OrgTabMenu($compile) {
         let exports = {
             restrict: "EA",
             scope: {
@@ -49,7 +49,7 @@
     OrganizationMenuController.$inject = ["$rootScope", "$filter", "$timeout", "apiService", "authService", "organizationConfig", "helperService", "toastr", "errorWarningService"];
 
     function OrganizationMenuController($rootScope, $filter, $timeout, apiService, authService, organizationConfig, helperService, toastr, errorWarningService) {
-        var OrganizationMenuCtrl = this;
+        let OrganizationMenuCtrl = this;
 
         function Init() {
             let currentTab = OrganizationMenuCtrl.currentTab[OrganizationMenuCtrl.currentTab.code].ePage.Entities;
@@ -66,16 +66,14 @@
                 OrganizationMenuCtrl.ePage.Masters.Config = organizationConfig;
 
                 OrganizationMenuCtrl.ePage.Masters.OnMenuClick = OnMenuClick;
-                OrganizationMenuCtrl.ePage.Masters.TabSelected = TabSelected;
+                OrganizationMenuCtrl.ePage.Masters.OnTabSelected = OnTabSelected;
                 OrganizationMenuCtrl.ePage.Masters.HideErrorWarningModal = HideErrorWarningModal;
 
                 $timeout(() => {
                     OrganizationMenuCtrl.ePage.Masters.ErrorWarningConfig = errorWarningService;
-                    OrganizationMenuCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj = errorWarningService.Modules.Organization.Entity[OrganizationMenuCtrl.currentTab.code];
-                    OrganizationMenuCtrl.ePage.Masters.GlobalErrorWarningList = errorWarningService.Modules.Organization.Entity[OrganizationMenuCtrl.currentTab.code].GlobalErrorWarningList;
                 });
 
-                if(OrganizationMenuCtrl.ePage.Masters.Config.Entities.MenuList.length === 0){
+                if (OrganizationMenuCtrl.ePage.Masters.Config.Entities.MenuList.length === 0) {
                     GetMenuList();
                 } else {
                     OrganizationMenuCtrl.ePage.Masters.OrganizationMenu.ListSource = angular.copy(OrganizationMenuCtrl.ePage.Masters.Config.Entities.MenuList);
@@ -127,12 +125,7 @@
             });
         }
 
-        function TabSelected(tab, $index, $event) {
-            // if (OrganizationMenuCtrl.ePage.Masters.ActiveTabIndex != $index && OrganizationMenuCtrl.currentTab.isNew) {
-            //     $event.preventDefault();
-            //     toastr.warning("Please Save General Details First...!");
-            // }
-        }
+        function OnTabSelected(tab, $index, $event) {}
 
         function OnMenuClick($item, $index) {
             OrganizationMenuCtrl.ePage.Masters.ActiveTabIndex = $index;
@@ -147,10 +140,8 @@
             } else {
                 $item.IsVisited = true;
 
-                $timeout(() =>{
-                    if ($item.MenuName == "General") {
-                        $rootScope.UpdateGeneralPage();
-                    } else if ($item.MenuName == "Visibility") {
+                $timeout(() => {
+                    if ($item.MenuName == "Visibility") {
                         $rootScope.UpdateVisibilityPage();
                     }
                 });

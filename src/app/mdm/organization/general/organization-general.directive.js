@@ -6,7 +6,7 @@
         .directive("organizationGeneral", OrganizationGeneral);
 
     function OrganizationGeneral() {
-        var exports = {
+        let exports = {
             restrict: "EA",
             templateUrl: "app/mdm/organization/general/organization-general.html",
             controller: "OrganizationGeneralController",
@@ -23,15 +23,13 @@
         .module("Application")
         .controller("OrganizationGeneralController", OrganizationGeneralController);
 
-    OrganizationGeneralController.$inject = ["$rootScope", "$scope", "$uibModal", "helperService"];
+    OrganizationGeneralController.$inject = ["$scope", "$uibModal", "helperService"];
 
-    function OrganizationGeneralController($rootScope, $scope, $uibModal, helperService) {
-        var OrganizationGeneralCtrl = this;
-
-        $rootScope.UpdateGeneralPage = UpdateMainAddress;
+    function OrganizationGeneralController($scope, $uibModal, helperService) {
+        let OrganizationGeneralCtrl = this;
 
         function Init() {
-            var currentOrganization = OrganizationGeneralCtrl.currentOrganization[OrganizationGeneralCtrl.currentOrganization.code].ePage.Entities;
+            let currentOrganization = OrganizationGeneralCtrl.currentOrganization[OrganizationGeneralCtrl.currentOrganization.code].ePage.Entities;
 
             OrganizationGeneralCtrl.ePage = {
                 "Title": "",
@@ -64,57 +62,17 @@
 
             OrganizationGeneralCtrl.ePage.Masters.OrgHeader.EditOrganization = EditOrganization;
 
-            GetDataList();
-            GetMainAddress();
+            OrganizationGeneralCtrl.ePage.Masters.OrgHeader.DataList = OrganizationGeneralCtrl.ePage.Entities.Header.DataList;
 
             if (OrganizationGeneralCtrl.currentOrganization.isNew == true) {
                 EditOrganization()
             }
         }
 
-        function GetDataList() {
-            OrganizationGeneralCtrl.ePage.Masters.OrgHeader.DataList = [{
-                "DispName": "Consignor",
-                "Value": "IsConsignor"
-            }, {
-                "DispName": "Consignee",
-                "Value": "IsConsignee"
-            }, {
-                "DispName": "Forwarder",
-                "Value": "IsForwarder"
-            }, {
-                "DispName": "Transport Client",
-                "Value": "IsTransportClient"
-            }, {
-                "DispName": "Warehouse Client",
-                "Value": "IsWarehouseClient"
-            }, {
-                "DispName": "Broker",
-                "Value": "IsBroker"
-            }, {
-                "DispName": "Road Freight Depot",
-                "Value": "IsRoadFreightDepot"
-            }, {
-                "DispName": "Store",
-                "Value": "IsStore"
-            }, {
-                "DispName": "Carrier",
-                "Value": "IsShippingProvider"
-            }];
-        }
-
-        function GetMainAddress() {
-            if (OrganizationGeneralCtrl.ePage.Entities.Header.Data.OrgAddress && OrganizationGeneralCtrl.ePage.Entities.Header.Data.OrgAddress.length > 0) {
-                OrganizationGeneralCtrl.ePage.Entities.Header.Data.OrgAddress.map(function (value, key) {
-                    if (value.IsMainAddress == true) {
-                        OrganizationGeneralCtrl.ePage.Masters.OrgHeader.MainAddress = value;
-                    }
-                });
-            }
-        }
-
         function EditOrganization() {
-            var modalInstance = $uibModal.open({
+            let _tempResponse = angular.copy(OrganizationGeneralCtrl.currentOrganization[OrganizationGeneralCtrl.currentOrganization.code].ePage.Entities.Header.Data);
+
+            $uibModal.open({
                 animation: true,
                 backdrop: "static",
                 keyboard: true,
@@ -125,37 +83,29 @@
                 bindToController: true,
                 resolve: {
                     param: function () {
-                        var exports = {
+                        let exports = {
                             "Entity": OrganizationGeneralCtrl.currentOrganization,
                             "Item": OrganizationGeneralCtrl.ePage.Entities.Header.Data
                         };
                         return exports;
                     }
                 }
-            }).result.then(
-                function (response) {
-                    if (response.data) {
-                        var _header = angular.copy(OrganizationGeneralCtrl.currentOrganization[OrganizationGeneralCtrl.currentOrganization.code].ePage.Entities.Header);
-                        _header.Data = response.data;
+            }).result.then(response => {
+                if (response.data) {
+                    let _header = OrganizationGeneralCtrl.currentOrganization[OrganizationGeneralCtrl.currentOrganization.code].ePage.Entities.Header;
+                    _header.Data = response.data;
 
-                        OrganizationGeneralCtrl.currentOrganization[OrganizationGeneralCtrl.currentOrganization.code].ePage.Entities.Header.Data = response.data;
+                    OrganizationGeneralCtrl.currentOrganization[OrganizationGeneralCtrl.currentOrganization.code].ePage.Entities.Header.Data = response.data;
 
-                        OrganizationGeneralCtrl.currentOrganization.isNew = false;
-                        OrganizationGeneralCtrl.currentOrganization.label = response.data.OrgHeader.Code;
+                    OrganizationGeneralCtrl.currentOrganization.isNew = false;
+                    OrganizationGeneralCtrl.currentOrganization.label = response.data.OrgHeader.Code;
 
-                        OrganizationGeneralCtrl.ePage.Entities.Header.Data = _header.Data;
-
-                        GetMainAddress();
-                    }
-                },
-                function () {
-                    console.log("Cancelled");
+                    OrganizationGeneralCtrl.ePage.Entities.Header.Data = _header.Data;
                 }
-            );
-        }
-
-        function UpdateMainAddress() {
-            GetMainAddress();
+            }, () => {
+                OrganizationGeneralCtrl.currentOrganization[OrganizationGeneralCtrl.currentOrganization.code].ePage.Entities.Header.Data = _tempResponse;
+                console.log("Cancelled");
+            });
         }
 
         Init();

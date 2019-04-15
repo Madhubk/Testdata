@@ -22,8 +22,12 @@
                 "Meta": helperService.metaBase(),
                 "Entities": currentManifest,
             }
+
             var MY_MAPTYPE_ID = 'custom_style';
             getGeoJson();
+            TrackingCtrl.ePage.Masters.OnClickTrackingButton = OnClickTrackingButton;
+            TrackingCtrl.ePage.Masters.initialize = initialize;
+
             TrackingCtrl.ePage.Masters.PickupDelivery = [];
 
             angular.forEach(TrackingCtrl.ePage.Entities.Header.Data.JobAddress, function (value, key) {
@@ -35,6 +39,88 @@
                     TrackingCtrl.ePage.Masters.PickupDelivery.push(obj);
                 }
             });
+        }
+
+        function OnClickTrackingButton() {            
+            TrackingCtrl.ePage.Masters.IsLoadActualTracking = true;
+            if (jQuery('#dvMapone' + TrackingCtrl.currentManifest.label).length > 0) {
+                if (TrackingCtrl.ePage.Masters.MapPoints == "") {
+                    TrackingCtrl.ePage.Masters.MapPoints = "[{\"Latitude\":\"" + TrackingCtrl.ePage.Entities.Header.Data.JobAddress[2].Latitude + "\",\"Longitude\":\"" + TrackingCtrl.ePage.Entities.Header.Data.JobAddress[2].Longtitude + "\" }]";
+                }
+                var locations = JSON.parse(TrackingCtrl.ePage.Masters.MapPoints);
+                window.map = new google.maps.Map(document.getElementById('dvMapone' + TrackingCtrl.currentManifest.label), {
+                    mapTypeId: google.maps.MapTypeId.ROADMAP,
+                    scrollwheel: false,
+                    zoom: 20
+                });
+
+                var infowindow = new google.maps.InfoWindow();
+                var flightPlanCoordinates = [];
+                var flightPlan = [];
+                var bounds = new google.maps.LatLngBounds();
+
+                for (var i = 0; i < locations.length; i++) {
+
+                    var icon = {
+                        url: "/assets/img/truck.png",
+                        scaledSize: new google.maps.Size(50, 30)
+                    }
+                    var marker = new google.maps.Marker({
+                        position: new google.maps.LatLng(locations[i].Latitude, locations[i].Longitude),
+                        map: map,
+                        icon: icon
+                    });
+                    flightPlanCoordinates.push(marker.getPosition());
+                    bounds.extend(marker.position);
+
+                    if (i == locations.length - 1) {
+
+                    } else {
+                        marker.setMap(null);
+                    }
+                }            
+                map.fitBounds(bounds);
+
+                var flightPath = new google.maps.Polyline({
+                    map: map,
+                    path: flightPlanCoordinates,
+                    strokeColor: "#FF0000",
+                    strokeOpacity: 1.0,
+                    strokeWeight: 2
+                });
+              
+                TrackingCtrl.ePage.Masters.directionsDisplay = new google.maps.DirectionsRenderer;
+                TrackingCtrl.ePage.Masters.directionsService = new google.maps.DirectionsService;
+                var waypts = [];
+                angular.forEach(TrackingCtrl.ePage.Masters.PickupDelivery, function (value, key) {
+                    if (value.Latitude && value.Longitude) {
+                        waypts.push({
+                            location: value.Latitude + ',' + value.Longitude,
+                            stopover: true
+                        });
+                    }
+                });
+                if (waypts.length > 0) {
+                    waypts.splice(0, 1);
+                }
+                if (waypts.length > 0) {
+                    waypts.splice(-1, 1);
+                }
+
+                TrackingCtrl.ePage.Masters.directionsService.route({
+                    origin: TrackingCtrl.ePage.Masters.PickupDelivery[0].Latitude + ',' + TrackingCtrl.ePage.Masters.PickupDelivery[0].Longitude,
+                    destination: TrackingCtrl.ePage.Masters.PickupDelivery[TrackingCtrl.ePage.Masters.PickupDelivery.length - 1].Latitude + ',' + TrackingCtrl.ePage.Masters.PickupDelivery[TrackingCtrl.ePage.Masters.PickupDelivery.length - 1].Longitude,
+                    waypoints: waypts,
+                    provideRouteAlternatives: true,
+                    //optimizeWaypoints: true,
+                    travelMode: 'DRIVING'
+                }, function (response, status) {
+                    if (status === 'OK') {
+                        TrackingCtrl.ePage.Masters.directionsDisplay.setDirections(response);
+                        TrackingCtrl.ePage.Masters.directionsDisplay.setMap(map);
+                    }
+                });
+            }
         }
 
         function getGeoJson() {
@@ -63,122 +149,18 @@
         }
 
         function initialize() {
-            if (jQuery('#map'+ TrackingCtrl.currentManifest.label).length > 0) {
-             if (TrackingCtrl.ePage.Masters.MapPoints == "") {
+            if (jQuery('#map' + TrackingCtrl.currentManifest.label).length > 0) {
+                if (TrackingCtrl.ePage.Masters.MapPoints == "") {
                     TrackingCtrl.ePage.Masters.MapPoints = "[{\"Latitude\":\"" + TrackingCtrl.ePage.Entities.Header.Data.JobAddress[2].Latitude + "\",\"Longitude\":\"" + TrackingCtrl.ePage.Entities.Header.Data.JobAddress[2].Longtitude + "\" }]";
                 }
                 var locations = JSON.parse(TrackingCtrl.ePage.Masters.MapPoints);
-                // window.map = new google.maps.Map(document.getElementById('map'), {
-            //     mapTypeId: google.maps.MapTypeId.ROADMAP,
-                //     scrollwheel: false,
-                //     zoom: 20
-                // });
 
                 var mapOptions = {
                     center: new google.maps.LatLng(locations[0].Latitude, locations[0].Longitude),
                     zoom: 10,
                     mapTypeId: google.maps.MapTypeId.ROADMAP
                 };
-                var map = new google.maps.Map(document.getElementById("map"+ TrackingCtrl.currentManifest.label), mapOptions);
-                // var infoWindow = new google.maps.InfoWindow();
-                // var lat_lng = new Array();
-                // var latlngbounds = new google.maps.LatLngBounds();
-
-                // for (i = 0; i < locations.length; i++) {
-                //     var data = locations[i]
-                //     var myLatlng = new google.maps.LatLng(data.Latitude, data.Longitude);
-                //     lat_lng.push(myLatlng);
-                //     var marker = new google.maps.Marker({
-                //         position: myLatlng,
-                //         map: map,
-                //         map: null,
-                //         /* title: data.title*/
-
-                //     });
-                //     latlngbounds.extend(marker.position);
-
-                //     (function (marker, data) {
-                //         google.maps.event.addListener(marker, "click", function (e) {
-                //             infoWindow.setContent(data.description);
-                //             infoWindow.open(map, marker);
-                //         });
-                //     })(marker, data);
-                // }
-                // map.setCenter(latlngbounds.getCenter());
-                // map.fitBounds(latlngbounds);
-
-
-
-                // //***********ROUTING****************//
-
-                // //Initialize the Path Array
-                // var path = new google.maps.MVCArray();
-
-                // //Initialize the Direction Service
-                // var service = new google.maps.DirectionsService();
-
-                // //Set the Path Stroke Color
-                // var poly = new google.maps.Polyline({ map: map, strokeColor: '#e70931' });
-
-                // //Loop and Draw Path Route between the Points on MAP
-                // for (var i = 0; i < lat_lng.length; i++) {
-                //     if ((i + 1) < lat_lng.length) {
-                //         var src = lat_lng[i];
-                //         var des = lat_lng[i + 1];
-                //         // path.push(src);
-                //         poly.setPath(path);
-                //         service.route({
-                //             origin: src,
-                //             destination: des,
-                //             travelMode: google.maps.DirectionsTravelMode.DRIVING
-                //         }, function (result, status) {
-                //             if (status == google.maps.DirectionsStatus.OK) {
-                //                 for (var i = 0, len = result.routes[0].overview_path.length; i < len; i++) {
-                //                     path.push(result.routes[0].overview_path[i]);
-                //                 }
-
-                //             }
-
-                //         });
-
-                //     }
-                // }
-
-                // var infowindow = new google.maps.InfoWindow();
-                // var flightPlanCoordinates = [];
-                // var flightPlan = [];
-                // var bounds = new google.maps.LatLngBounds();
-
-                // for (var i = 0; i < locations.length; i++) {
-
-                //     var icon = {
-                //         url: "/assets/img/truck.png",
-                //         scaledSize: new google.maps.Size(50, 30)
-                //     }
-                //     var marker = new google.maps.Marker({
-                //         position: new google.maps.LatLng(locations[i].Latitude, locations[i].Longitude),
-                //         map: map,
-                //         icon: icon
-                //     });
-                //     flightPlanCoordinates.push(marker.getPosition());
-                //     bounds.extend(marker.position);
-
-                //     if (i == locations.length - 1) {
-
-                //     } else {
-                //         marker.setMap(null);
-                //     }
-                // }
-
-                // map.fitBounds(bounds);
-
-                // var flightPath = new google.maps.Polyline({
-                //     map: map,
-                //     path: flightPlanCoordinates,
-                //     strokeColor: "#FF0000",
-                //     strokeOpacity: 1.0,
-                //     strokeWeight: 2
-                // });
+                var map = new google.maps.Map(document.getElementById("map" + TrackingCtrl.currentManifest.label), mapOptions);
 
                 TrackingCtrl.ePage.Masters.directionsDisplay = new google.maps.DirectionsRenderer();
                 TrackingCtrl.ePage.Masters.directionsService = new google.maps.DirectionsService();
@@ -197,8 +179,8 @@
                 if (waypts.length > 0) {
                     waypts.splice(-1, 1);
                 }
-                              
-                   TrackingCtrl.ePage.Masters.directionsService.route({
+
+                TrackingCtrl.ePage.Masters.directionsService.route({
                     origin: TrackingCtrl.ePage.Masters.PickupDelivery[0].Latitude + ',' + TrackingCtrl.ePage.Masters.PickupDelivery[0].Longitude,
                     destination: TrackingCtrl.ePage.Masters.PickupDelivery[TrackingCtrl.ePage.Masters.PickupDelivery.length - 1].Latitude + ',' + TrackingCtrl.ePage.Masters.PickupDelivery[TrackingCtrl.ePage.Masters.PickupDelivery.length - 1].Longitude,
                     waypoints: waypts,
@@ -232,12 +214,6 @@
                     scaledSize: new google.maps.Size(50, 30)
                 }
                 angular.forEach(locations, function (value, key) {
-                    // if (value.Latitude && value.Longitude) {
-                    //     waypts.push({
-                    //         location: value.Latitude + ',' + value.Longitude,
-                    //         stopover: true
-                    //     });
-                    // }
                     if (key == 0) {
                         var marker = new google.maps.Marker({
                             position: new google.maps.LatLng(locations[key].Latitude, locations[key].Longitude),
@@ -253,29 +229,7 @@
                         })
                     }
                 });
-                // if (waypts.length > 0) {
-                //     waypts.splice(0, 1);
-                // }
-                // if (waypts.length > 0) {
-                //     waypts.splice(-1, 1);
-                // }
-
-                // TrackingCtrl.ePage.Masters.directionsService1.route({
-                //     origin: locations[0].Latitude + ',' + locations[0].Longitude,
-                //     destination: locations[locations.length - 1].Latitude + ',' + locations[locations.length - 1].Longitude,
-                //     waypoints: waypts,
-                //     provideRouteAlternatives: true,
-                //     //optimizeWaypoints: true,
-                //     travelMode: 'Walking'
-                //   }, function (response, status) {
-                //     if (status === 'OK') {
-                //         TrackingCtrl.ePage.Masters.directionsDisplay1.setDirections(response);
-                //         TrackingCtrl.ePage.Masters.directionsDisplay1.setMap(dvMapone);
-                //     }
-                // });
                 var _locations = angular.copy(locations);
-                // Tour_startUp(_locations);
-                // window.tour.loadMap(dvMapone, TrackingCtrl.ePage.Masters.directionsDisplay1);
                 if (_locations.length > 1) {
                     LoadMap(dvMapone, directionsDisplay1, _locations);
                     fitBounds(dvMapone, _locations);
@@ -331,8 +285,6 @@
                 itemsCounter += subitemsCounter;
                 batches.push(subBatch);
                 wayptsExist = itemsCounter < stops.length;
-                // If it runs again there are still points. Minus 1 before continuing to 
-                // start up with end of previous tour leg
                 itemsCounter--;
             }
 

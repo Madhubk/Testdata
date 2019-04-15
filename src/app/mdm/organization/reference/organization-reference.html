@@ -8,25 +8,25 @@
 		<!-- Header -->
 		<div class="clearfix header bold pt-10 pb-10 border-bottom bg-gray">
 			<div class="col-sm-3">
-				<span class="text-single-line">Value</span>
+				<div class="text-single-line">Value</div>
 			</div>
 			<div class="col-sm-2">
-				<span class="text-single-line">Key</span>
+				<div class="text-single-line">Key</div>
 			</div>
 			<div class="col-sm-2">
-				<span class="text-single-line">Date Type</span>
+				<div class="text-single-line">Date Type</div>
 			</div>
 			<div class="col-sm-1">
-				<span class="text-single-line">Avl From</span>
+				<div class="text-single-line">Avl From</div>
 			</div>
 			<div class="col-sm-1">
-				<span class="text-single-line">Avl To</span>
+				<div class="text-single-line">Avl To</div>
 			</div>
 			<div class="col-sm-1">
-				<span class="text-single-line">Start Date</span>
+				<div class="text-single-line">Start Date</div>
 			</div>
 			<div class="col-sm-1">
-				<span class="text-single-line">End Date</span>
+				<div class="text-single-line">End Date</div>
 			</div>
 			<div class="col-sm-1"></div>
 		</div>
@@ -39,29 +39,29 @@
 		<div class="clearfix pt-8 pb-8 position-relative" data-ng-if="OrganizationReferenceCtrl.ePage.Entities.Header.Data.OrgRefDate && OrganizationReferenceCtrl.ePage.Entities.Header.Data.OrgRefDate.length > 0"
 		 data-ng-repeat="x in OrganizationReferenceCtrl.ePage.Entities.Header.Data.OrgRefDate">
 			<div class="col-sm-3">
-				<span class="text-single-line">{{x.ReferenceValue}}</span>
+				<div class="text-single-line">{{x.ReferenceValue}}</div>
 			</div>
 			<div class="col-sm-2">
-				<span class="text-single-line">{{x.ReferenceKey}}</span>
+				<div class="text-single-line">{{x.ReferenceKey}}</div>
 			</div>
 			<div class="col-sm-2">
-				<span class="text-single-line">{{x.ReferanceDateType}}</span>
+				<div class="text-single-line">{{x.ReferanceDateType}}</div>
 			</div>
 			<div class="col-sm-1">
-				<span class="text-single-line">{{x.AvailableFrom | date:
-					OrganizationReferenceCtrl.ePage.Masters.OrgReference.DateFormat}}</span>
+				<div class="text-single-line">{{x.AvailableFrom | date:
+					OrganizationReferenceCtrl.ePage.Masters.OrgReference.DateFormat}}</div>
 			</div>
 			<div class="col-sm-1">
-				<span class="text-single-line">{{x.AvailableTo | date:
-					OrganizationReferenceCtrl.ePage.Masters.OrgReference.DateFormat}}</span>
+				<div class="text-single-line">{{x.AvailableTo | date:
+					OrganizationReferenceCtrl.ePage.Masters.OrgReference.DateFormat}}</div>
 			</div>
 			<div class="col-sm-1">
-				<span class="text-single-line">{{x.StartDate | date:
-					OrganizationReferenceCtrl.ePage.Masters.OrgReference.DateFormat}}</span>
+				<div class="text-single-line">{{x.StartDate | date:
+					OrganizationReferenceCtrl.ePage.Masters.OrgReference.DateFormat}}</div>
 			</div>
 			<div class="col-sm-1">
-				<span class="text-single-line">{{x.EndDate | date:
-					OrganizationReferenceCtrl.ePage.Masters.OrgReference.DateFormat}}</span>
+				<div class="text-single-line">{{x.EndDate | date:
+					OrganizationReferenceCtrl.ePage.Masters.OrgReference.DateFormat}}</div>
 			</div>
 			<div class="col-sm-1">
 				<span class="vertical-menu" uib-dropdown style="top: 0;">

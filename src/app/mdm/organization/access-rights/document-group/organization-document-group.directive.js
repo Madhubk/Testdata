@@ -6,7 +6,7 @@
         .directive("organizationDocumentGroup", OrganizationDocumentGroup);
 
     function OrganizationDocumentGroup() {
-        var exports = {
+        let exports = {
             restrict: "EA",
             templateUrl: "app/mdm/organization/access-rights/document-group/organization-document-group.html",
             controller: "OrganizationDocumentGroupController",
@@ -26,10 +26,10 @@
     OrganizationDocumentGroupController.$inject = ["helperService", "apiService", "authService", "organizationConfig"];
 
     function OrganizationDocumentGroupController(helperService, apiService, authService, organizationConfig) {
-        var OrganizationDocumentGroupCtrl = this;
+        let OrganizationDocumentGroupCtrl = this;
 
         function Init() {
-            var currentOrganization = OrganizationDocumentGroupCtrl.currentOrganization[OrganizationDocumentGroupCtrl.currentOrganization.code].ePage.Entities;
+            let currentOrganization = OrganizationDocumentGroupCtrl.currentOrganization[OrganizationDocumentGroupCtrl.currentOrganization.code].ePage.Entities;
 
             OrganizationDocumentGroupCtrl.ePage = {
                 "Title": "",
@@ -53,19 +53,16 @@
 
         function GetDocumentGroupList() {
             OrganizationDocumentGroupCtrl.ePage.Masters.DocumentGroup.DocumentGroupList = undefined;
-            var _filter = {};
-            var _input = {
+            let _filter = {};
+            let _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
                 "FilterID": organizationConfig.Entities.API.DocTypeMaster.API.FindAll.FilterID
             };
 
-            apiService.post("eAxisAPI", organizationConfig.Entities.API.DocTypeMaster.API.FindAll.Url, _input).then(function (response) {
-                if (response.data.Response) {
+            apiService.post("eAxisAPI", organizationConfig.Entities.API.DocTypeMaster.API.FindAll.Url, _input).then(response => {
+                if (response.data.Response && response.data.Response.length > 0) {
                     OrganizationDocumentGroupCtrl.ePage.Masters.DocumentGroup.DocumentGroupList = response.data.Response;
-
-                    if (response.data.Response.length > 0) {
-                        GetOrgDocumentGroup();
-                    }
+                    GetOrgDocumentGroup();
                 } else {
                     OrganizationDocumentGroupCtrl.ePage.Masters.DocumentGroup.DocumentGroupList = [];
                 }
@@ -73,49 +70,41 @@
         }
 
         function GetOrgDocumentGroup() {
-            var _filter = {
+            let _filter = {
                 Fk_1: OrganizationDocumentGroupCtrl.ePage.Entities.Header.Data.OrgHeader.PK,
                 Code_1: OrganizationDocumentGroupCtrl.ePage.Entities.Header.Data.OrgHeader.Code,
                 MappingCode: "ORG_DOCUMENT"
             };
-            var _input = {
+            let _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
                 "FilterID": organizationConfig.Entities.API.EntitiesMapping.API.FindAll.FilterID
             };
 
-            apiService.post("eAxisAPI", organizationConfig.Entities.API.EntitiesMapping.API.FindAll.Url, _input).then(function (response) {
-                if (response.data.Response) {
-                    if (response.data.Response.length > 0) {
-                        OrganizationDocumentGroupCtrl.ePage.Masters.DocumentGroup.DocumentGroupList.map(function (value1, key1) {
-                            response.data.Response.map(function (value2, key2) {
-                                if (value1.PK === value2.Fk_2) {
-                                    value1.IsChecked = true;
-                                    value1.OrgDocumentGroup = value2;
-                                }
-                            });
+            apiService.post("eAxisAPI", organizationConfig.Entities.API.EntitiesMapping.API.FindAll.Url, _input).then(response => {
+                if (response.data.Response && response.data.Response.length > 0) {
+                    OrganizationDocumentGroupCtrl.ePage.Masters.DocumentGroup.DocumentGroupList.map(value1 => {
+                        response.data.Response.map(value2 => {
+                            if (value1.PK === value2.Fk_2) {
+                                value1.IsChecked = true;
+                                value1.OrgDocumentGroup = value2;
+                            }
                         });
-                    } else {
-                        OrganizationDocumentGroupCtrl.ePage.Masters.DocumentGroup.DocumentGroupList.map(function (value, key) {
-                            value.IsChecked = false;
-                        });
-                    }
+                    });
+                } else {
+                    OrganizationDocumentGroupCtrl.ePage.Masters.DocumentGroup.DocumentGroupList.map(value => value.IsChecked = false);
                 }
             });
         }
 
         function OnDocumentGroupClick($event, $item) {
-            var _checkbox = $event.target,
+            let _checkbox = $event.target,
                 _isChecked = _checkbox.checked;
 
-            if (_isChecked) {
-                SaveDocumentGroup($item);
-            } else {
-                DeleteDocumentGroup($item);
-            }
+            _isChecked ? SaveDocumentGroup($item) : DeleteDocumentGroup($item);
         }
 
         function SaveDocumentGroup($item) {
-            var _input = {
+            let _input = {
                 Fk_1: OrganizationDocumentGroupCtrl.ePage.Entities.Header.Data.OrgHeader.PK,
                 Code_1: OrganizationDocumentGroupCtrl.ePage.Entities.Header.Data.OrgHeader.Code,
                 Fk_2: $item.PK,
@@ -127,22 +116,18 @@
                 IsActive: true
             };
 
-            apiService.post("eAxisAPI", organizationConfig.Entities.API.EntitiesMapping.API.Insert.Url, [_input]).then(function (response) {
-                if (response.data.Response) {
-                    if (response.data.Response.length > 0) {
-                        $item.OrgDocumentGroup = response.data.Response[0];
-                        $item.IsChecked = true;
-                    }
+            apiService.post("eAxisAPI", organizationConfig.Entities.API.EntitiesMapping.API.Insert.Url, [_input]).then(response => {
+                if (response.data.Response && response.data.Response.length > 0) {
+                    $item.OrgDocumentGroup = response.data.Response[0];
+                    $item.IsChecked = true;
                 }
             });
         }
 
         function DeleteDocumentGroup($item) {
-            apiService.get("eAxisAPI", organizationConfig.Entities.API.EntitiesMapping.API.Delete.Url + $item.OrgDocumentGroup.PK).then(function (response) {
-                if (response.data.Response) {
-                    if (response.data.Response.length > 0) {
-                        $item.IsChecked = false;
-                    }
+            apiService.get("eAxisAPI", organizationConfig.Entities.API.EntitiesMapping.API.Delete.Url + $item.OrgDocumentGroup.PK).then(response => {
+                if (response.data.Response && response.data.Response.length > 0) {
+                    $item.IsChecked = false;
                 }
             });
         }

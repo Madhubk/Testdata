@@ -38,9 +38,9 @@
         .module("Application")
         .controller("DynamicControlController", DynamicControlController);
 
-    DynamicControlController.$inject = ["$location", "$timeout", "APP_CONSTANT", "apiService", "authService", "helperService", "$injector", "appConfig", "dynamicLookupConfig"];
+    DynamicControlController.$inject = ["$location", "$timeout", "APP_CONSTANT", "apiService", "authService", "helperService", "$injector", "appConfig", "dynamicLookupConfig", "confirmation"];
 
-    function DynamicControlController($location, $timeout, APP_CONSTANT, apiService, authService, helperService, $injector, appConfig, dynamicLookupConfig) {
+    function DynamicControlController($location, $timeout, APP_CONSTANT, apiService, authService, helperService, $injector, appConfig, dynamicLookupConfig, confirmation) {
         let DynamicControlCtrl = this;
 
         function Init() {
@@ -84,6 +84,7 @@
             DynamicControlCtrl.ePage.Masters.SelectedGridRow = SelectedGridRow;
             DynamicControlCtrl.ePage.Masters.GetAppCounter = GetAppCounter;
             DynamicControlCtrl.ePage.Masters.Refresh = Refresh;
+            DynamicControlCtrl.ePage.Masters.Delete = Delete;
             DynamicControlCtrl.ePage.Masters.OnModelChange = OnModelChange;
 
             // DatePicker
@@ -94,6 +95,8 @@
 
             DynamicControlCtrl.ePage.Masters.IsDisableSaveBtn = false;
             DynamicControlCtrl.ePage.Masters.SaveBtnText = "Save";
+            DynamicControlCtrl.ePage.Masters.IsDisableDeletBtn = false;
+            DynamicControlCtrl.ePage.Masters.DeleteBtnText = "Delete";
 
             DynamicControlCtrl.ePage.Masters.BaseFilterFields = DynamicControlCtrl.baseFilterFields ? DynamicControlCtrl.baseFilterFields : {};
 
@@ -334,7 +337,7 @@
                     $item: _item
                 });
             });
-            
+
             $timeout(() => {
                 DynamicControlCtrl.ePage.Masters.IsDisableSaveBtn = false;
                 DynamicControlCtrl.ePage.Masters.SaveBtnText = "Save";
@@ -355,6 +358,30 @@
                     $item: _item
                 });
             });
+        }
+
+        function Delete() {
+            let _modalOptions = {
+                closeButtonText: 'Cancel',
+                actionButtonText: 'OK',
+                headerText: 'Delete?',
+                bodyText: 'Are you sure?'
+            };
+            confirmation.showModal({}, _modalOptions).then(result => {
+                DynamicControlCtrl.ePage.Masters.IsDisableDeletBtn = true;
+                DynamicControlCtrl.ePage.Masters.DeleteBtnText = "Please Wait...";
+                let _item = {
+                    Entities: DynamicControlCtrl.input.Entities,
+                    IsDelete: true
+                };
+                DynamicControlCtrl.controlsData({
+                    $item: _item
+                });
+                $timeout(() => {
+                    DynamicControlCtrl.ePage.Masters.IsDisableDeletBtn = false;
+                    DynamicControlCtrl.ePage.Masters.DeleteBtnText = "Delete";
+                }, 2000);
+            }, () => {});
         }
 
         function OnModelChange($item) {

@@ -160,13 +160,13 @@
                 <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 mt-10">
                     <div class="form-group">
                         <label class="control-label">Estimate Cost</label>
-                        <input type="text" class="form-control" placeholder="Estimate Cost" data-ng-model="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].EstimatedCost" data-ng-disabled="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].ChargeType =='REV' || FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].Costpost" numbers-only-dot sb-precision="4"/>
+                        <input type="text" class="form-control" placeholder="Estimate Cost" data-ng-model="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].EstimatedCost" data-ng-blur="FinanceJobGeneralCtrl.ePage.Masters.OnAmtChange(index,FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].EstimatedCost,'EST','CRD')" data-ng-disabled="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].ChargeType =='REV' || FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].Costpost" numbers-only-dot sb-precision="4"/>
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 mt-10">
                     <div class="form-group">
                         <label class="control-label">Actual Cost</label>
-                        <input type="text" class="form-control" placeholder="Actual cost" data-ng-model="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].OSCostAmt" data-ng-blur="FinanceJobGeneralCtrl.ePage.Masters.OnOSAmtChange(index,FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].OSCostAmt, 'CostActualAmt')" data-ng-disabled="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].ChargeType =='REV' || FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].Costpost" numbers-only-dot sb-precision="4"/>
+                        <input type="text" class="form-control" placeholder="Actual cost" data-ng-model="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].OSCostAmt" data-ng-blur="FinanceJobGeneralCtrl.ePage.Masters.OnAmtChange(index,FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].OSCostAmt,'OS','CRD')" data-ng-disabled="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].ChargeType =='REV' || FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].Costpost" numbers-only-dot sb-precision="4"/>
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 mt-10">
@@ -178,7 +178,7 @@
                 <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 mt-10">
                     <div class="form-group">
                         <label class="control-label">Local Cost Amt</label>
-                        <input type="text" class="form-control" placeholder="Local Cost Amt" data-ng-model="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].LocalCostAmt" data-ng-blur="FinanceJobGeneralCtrl.ePage.Masters.OnLocalAmtChange(index, FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].LocalCostAmt, 'CostLocalAmt')" data-ng-disabled="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].ChargeType =='REV' || FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].Costpost" numbers-only-dot sb-precision="4"/>
+                        <input type="text" class="form-control" placeholder="Local Cost Amt" data-ng-model="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].LocalCostAmt" data-ng-blur="FinanceJobGeneralCtrl.ePage.Masters.OnAmtChange(index, FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].LocalCostAmt,'LOC','CRD')" data-ng-disabled="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].ChargeType =='REV' || FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].Costpost" numbers-only-dot sb-precision="4"/>
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 mt-10">
@@ -289,13 +289,13 @@
                 <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2  mt-10">
                     <div class="form-group">
                         <label class="control-label">Estimate Revenue</label>
-                        <input type="text" class="form-control" placeholder="Estimate Revenue" data-ng-model="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].EstimatedRevenue" data-ng-disabled="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].Revenuepost" numbers-only-dot sb-precision="4"/>
+                        <input type="text" class="form-control" placeholder="Estimate Revenue" data-ng-model="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].EstimatedRevenue" data-ng-blur="FinanceJobGeneralCtrl.ePage.Masters.OnAmtChange(index,FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].OSSellAmt, 'OS', 'DEB')" data-ng-disabled="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].EstimatedRevenue,'EST','DEB')" data-ng-disabled="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].Revenuepost" numbers-only-dot sb-precision="4"/>
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2  mt-10">
                     <div class="form-group">
                         <label class="control-label">Actual Revenue</label>
-                        <input type="text" class="form-control" placeholder="Actual Revenue" data-ng-model="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].OSSellAmt" data-ng-blur="FinanceJobGeneralCtrl.ePage.Masters.OnOSAmtChange(index, FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].OSSellAmt, 'RevenueActualAmt')" data-ng-disabled="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].Revenuepost" numbers-only-dot sb-precision="4"/>
+                        <input type="text" class="form-control" placeholder="Actual Revenue" data-ng-model="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].OSSellAmt" data-ng-blur="FinanceJobGeneralCtrl.ePage.Masters.OnAmtChange(index, FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].OSSellAmt, 'OS', 'DEB')" data-ng-disabled="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].Revenuepost" numbers-only-dot sb-precision="4"/>
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 mt-10">
@@ -307,7 +307,7 @@
                     <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 mt-10">
                         <div class="form-group">
                             <label class="control-label">Local Sell  Amt</label>
-                            <input type="text" class="form-control" placeholder="Local Sell Amt" data-ng-model="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].LocalSellAmt" data-ng-blur="FinanceJobGeneralCtrl.ePage.Masters.OnLocalAmtChange(index,FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].LocalSellAmt, 'RevenueLocalAmt')" data-ng-disabled="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].Revenuepost" numbers-only-dot sb-precision="4"/>
+                            <input type="text" class="form-control" placeholder="Local Sell Amt" data-ng-model="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].LocalSellAmt" data-ng-blur="FinanceJobGeneralCtrl.ePage.Masters.OnAmtChange(index,FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].LocalSellAmt,'LOC','DEB')" data-ng-disabled="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].Revenuepost" numbers-only-dot sb-precision="4"/>
                         </div>
                  </div>
                 <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2  mt-10">

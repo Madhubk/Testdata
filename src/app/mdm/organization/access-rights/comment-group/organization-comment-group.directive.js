@@ -6,7 +6,7 @@
         .directive("organizationCommentGroup", OrganizationCommentGroup);
 
     function OrganizationCommentGroup() {
-        var exports = {
+        let exports = {
             restrict: "EA",
             templateUrl: "app/mdm/organization/access-rights/comment-group/organization-comment-group.html",
             controller: "OrganizationCommentGroupController",
@@ -26,10 +26,10 @@
     OrganizationCommentGroupController.$inject = ["helperService", "apiService", "authService", "organizationConfig"];
 
     function OrganizationCommentGroupController(helperService, apiService, authService, organizationConfig) {
-        var OrganizationCommentGroupCtrl = this;
+        let OrganizationCommentGroupCtrl = this;
 
         function Init() {
-            var currentOrganization = OrganizationCommentGroupCtrl.currentOrganization[OrganizationCommentGroupCtrl.currentOrganization.code].ePage.Entities;
+            let currentOrganization = OrganizationCommentGroupCtrl.currentOrganization[OrganizationCommentGroupCtrl.currentOrganization.code].ePage.Entities;
 
             OrganizationCommentGroupCtrl.ePage = {
                 "Title": "",
@@ -53,19 +53,16 @@
 
         function GetCommentsGroupList() {
             OrganizationCommentGroupCtrl.ePage.Masters.CommentsGroup.CommentsGroupList = undefined;
-            var _filter = {};
-            var _input = {
+            let _filter = {};
+            let _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
                 "FilterID": organizationConfig.Entities.API.MstCommentType.API.FindAll.FilterID
             };
 
-            apiService.post("eAxisAPI", organizationConfig.Entities.API.MstCommentType.API.FindAll.Url, _input).then(function (response) {
-                if (response.data.Response) {
+            apiService.post("eAxisAPI", organizationConfig.Entities.API.MstCommentType.API.FindAll.Url, _input).then(response => {
+                if (response.data.Response && response.data.Response.length > 0) {
                     OrganizationCommentGroupCtrl.ePage.Masters.CommentsGroup.CommentsGroupList = response.data.Response;
-
-                    if (response.data.Response.length > 0) {
-                        GetOrgCommentsGroupMapping();
-                    }
+                    GetOrgCommentsGroupMapping();
                 } else {
                     OrganizationCommentGroupCtrl.ePage.Masters.CommentsGroup.CommentsGroupList = [];
                 }
@@ -73,50 +70,44 @@
         }
 
         function GetOrgCommentsGroupMapping() {
-            var _filter = {
+            let _filter = {
                 Fk_1: OrganizationCommentGroupCtrl.ePage.Entities.Header.Data.OrgHeader.PK,
                 Code_1: OrganizationCommentGroupCtrl.ePage.Entities.Header.Data.OrgHeader.Code,
                 MappingCode: "ORG_COMMENTS"
             };
-            var _input = {
+            let _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
                 "FilterID": organizationConfig.Entities.API.EntitiesMapping.API.FindAll.FilterID
             };
 
-            apiService.post("eAxisAPI", organizationConfig.Entities.API.EntitiesMapping.API.FindAll.Url, _input).then(function (response) {
-                if (response.data.Response) {
-                    if (response.data.Response.length > 0) {
-                        OrganizationCommentGroupCtrl.ePage.Masters.CommentsGroup.CommentsGroupList.map(function (value1, key1) {
-                            response.data.Response.map(function (value2, key2) {
-                                if (value1.PK === value2.Fk_2) {
-                                    value1.IsChecked = true;
-                                    value1.OrgCommentsGroup = value2;
-                                }
-                            });
+            apiService.post("eAxisAPI", organizationConfig.Entities.API.EntitiesMapping.API.FindAll.Url, _input).then(response => {
+                if (response.data.Response && response.data.Response.length > 0) {
+                    OrganizationCommentGroupCtrl.ePage.Masters.CommentsGroup.CommentsGroupList.map(value1 => {
+                        response.data.Response.map(value2 => {
+                            if (value1.PK === value2.Fk_2) {
+                                value1.IsChecked = true;
+                                value1.OrgCommentsGroup = value2;
+                            }
                         });
-                    } else {
-                        OrganizationCommentGroupCtrl.ePage.Masters.CommentsGroup.CommentsGroupList.map(function (value, key) {
-                            value.IsChecked = false;
-                            value.CommentsGroupMappingList = [];
-                        });
-                    }
+                    });
+                } else {
+                    OrganizationCommentGroupCtrl.ePage.Masters.CommentsGroup.CommentsGroupList.map(value => {
+                        value.IsChecked = false;
+                        value.CommentsGroupMappingList = [];
+                    });
                 }
             });
         }
 
         function OnCommentsGroupClick($event, $item) {
-            var _checkbox = $event.target,
+            let _checkbox = $event.target,
                 _isChecked = _checkbox.checked;
 
-            if (_isChecked) {
-                SaveCommentsGroup($item);
-            } else {
-                DeleteCommentsGroup($item);
-            }
+            _isChecked ? SaveCommentsGroup($item) : DeleteCommentsGroup($item);
         }
 
         function SaveCommentsGroup($item) {
-            var _input = {
+            let _input = {
                 Fk_1: OrganizationCommentGroupCtrl.ePage.Entities.Header.Data.OrgHeader.PK,
                 Code_1: OrganizationCommentGroupCtrl.ePage.Entities.Header.Data.OrgHeader.Code,
                 Fk_2: $item.PK,
@@ -128,23 +119,19 @@
                 IsActive: true
             };
 
-            apiService.post("eAxisAPI", organizationConfig.Entities.API.EntitiesMapping.API.Insert.Url, [_input]).then(function (response) {
-                if (response.data.Response) {
-                    if (response.data.Response.length > 0) {
-                        $item.OrgCommentsGroup = response.data.Response[0];
-                        $item.IsChecked = true;
-                    }
+            apiService.post("eAxisAPI", organizationConfig.Entities.API.EntitiesMapping.API.Insert.Url, [_input]).then(response => {
+                if (response.data.Response && response.data.Response.length > 0) {
+                    $item.OrgCommentsGroup = response.data.Response[0];
+                    $item.IsChecked = true;
                 }
             });
         }
 
         function DeleteCommentsGroup($item) {
-            apiService.get("eAxisAPI", organizationConfig.Entities.API.EntitiesMapping.API.Delete.Url + $item.OrgCommentsGroup.PK).then(function (response) {
-                if (response.data.Response) {
-                    if (response.data.Response.length > 0) {
-                        $item.CommentsGroupMappingList = [];
-                        $item.IsChecked = false;
-                    }
+            apiService.get("eAxisAPI", organizationConfig.Entities.API.EntitiesMapping.API.Delete.Url + $item.OrgCommentsGroup.PK).then(response => {
+                if (response.data.Response && response.data.Response.length > 0) {
+                    $item.CommentsGroupMappingList = [];
+                    $item.IsChecked = false;
                 }
             });
         }

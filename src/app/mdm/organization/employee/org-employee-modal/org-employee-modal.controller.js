@@ -5,13 +5,13 @@
         .module("Application")
         .controller("OrgEmployeeModalController", OrgEmployeeModalController);
 
-    OrgEmployeeModalController.$inject = ["$timeout", "$filter", "$uibModalInstance", "authService", "apiService", "organizationConfig", "helperService", "toastr", "param", "errorWarningService"];
+    OrgEmployeeModalController.$inject = ["$uibModalInstance", "authService", "apiService", "organizationConfig", "helperService", "toastr", "param"];
 
-    function OrgEmployeeModalController($timeout, $filter, $uibModalInstance, authService, apiService, organizationConfig, helperService, toastr, param, errorWarningService) {
-        var OrgEmployeeModalCtrl = this;
+    function OrgEmployeeModalController($uibModalInstance, authService, apiService, organizationConfig, helperService, toastr, param) {
+        let OrgEmployeeModalCtrl = this;
 
         function Init() {
-            var currentOrganization = param.Entity[param.Entity.code].ePage.Entities;
+            let currentOrganization = param.Entity[param.Entity.code].ePage.Entities;
 
             OrgEmployeeModalCtrl.ePage = {
                 "Title": "",
@@ -22,7 +22,7 @@
             };
 
             try {
-                OrgEmployeeModalCtrl.ePage.Masters.param = angular.copy(param);
+                OrgEmployeeModalCtrl.ePage.Masters.param = param;
                 OrgEmployeeModalCtrl.ePage.Masters.DropDownMasterList = angular.copy(organizationConfig.Entities.Header.Meta);
 
                 OrgEmployeeModalCtrl.ePage.Masters.SaveButtonText = "Save";
@@ -31,7 +31,7 @@
                 OrgEmployeeModalCtrl.ePage.Masters.OnRoleChange = OnRoleChange;
                 OrgEmployeeModalCtrl.ePage.Masters.OnBranchChange = OnBranchChange;
                 OrgEmployeeModalCtrl.ePage.Masters.OnDepartmentChange = OnDepartmentChange;
-                OrgEmployeeModalCtrl.ePage.Masters.Save = ValidateEmployee;
+                OrgEmployeeModalCtrl.ePage.Masters.Save = Validate;
                 OrgEmployeeModalCtrl.ePage.Masters.Cancel = Cancel;
 
                 InitEmployee();
@@ -41,33 +41,30 @@
         }
 
         function InitEmployee() {
-            OrgEmployeeModalCtrl.ePage.Masters.Employee = {};
-            OrgEmployeeModalCtrl.ePage.Masters.Employee.FormView = {};
+            OrgEmployeeModalCtrl.ePage.Masters.OrgStaffAssignments = {
+                FormView: {}
+            };
 
             if (OrgEmployeeModalCtrl.ePage.Masters.param.Item) {
-                OrgEmployeeModalCtrl.ePage.Masters.Employee.FormView = angular.copy(OrgEmployeeModalCtrl.ePage.Masters.param.Item);
+                OrgEmployeeModalCtrl.ePage.Masters.OrgStaffAssignments.FormView = OrgEmployeeModalCtrl.ePage.Masters.param.Item;
             }
 
             if (OrgEmployeeModalCtrl.ePage.Masters.param.ActiveCompany) {
                 GetBranchList();
             }
-
-            OrgEmployeeModalCtrl.ePage.Masters.ErrorWarningConfig = errorWarningService;
-            OrgEmployeeModalCtrl.ePage.Masters.GlobalErrorWarningList = errorWarningService.Modules.Organization.Entity[param.Entity.code].GlobalErrorWarningList;
-            OrgEmployeeModalCtrl.ePage.Masters.ErrorWarningObj = errorWarningService.Modules.Organization.Entity[param.Entity.code];
         }
 
         function GetBranchList() {
             OrgEmployeeModalCtrl.ePage.Masters.BranchList = undefined;
-            var _filter = {
+            let _filter = {
                 "CMP_FK": OrgEmployeeModalCtrl.ePage.Masters.param.ActiveCompany.CMP_FK
             };
-            var _input = {
+            let _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
                 "FilterID": organizationConfig.Entities.API.CmpBranch.API.FindAll.FilterID
             };
 
-            apiService.post("eAxisAPI", organizationConfig.Entities.API.CmpBranch.API.FindAll.Url, _input).then(function (response) {
+            apiService.post("eAxisAPI", organizationConfig.Entities.API.CmpBranch.API.FindAll.Url, _input).then(response => {
                 if (response.data.Response) {
                     OrgEmployeeModalCtrl.ePage.Masters.BranchList = response.data.Response;
                 } else {
@@ -77,58 +74,59 @@
         }
 
         function OnRoleChange($item) {
+            OrgEmployeeModalCtrl.ePage.Masters.OrgStaffAssignments.FormView.RoleCode = undefined;
+            OrgEmployeeModalCtrl.ePage.Masters.OrgStaffAssignments.FormView.RoleName = undefined;
+
             if ($item) {
-                OrgEmployeeModalCtrl.ePage.Masters.Employee.FormView.RoleCode = $item.Key;
-                OrgEmployeeModalCtrl.ePage.Masters.Employee.FormView.RoleName = $item.Value;
-            } else {
-                OrgEmployeeModalCtrl.ePage.Masters.Employee.FormView.RoleCode = undefined;
-                OrgEmployeeModalCtrl.ePage.Masters.Employee.FormView.RoleName = undefined;
+                OrgEmployeeModalCtrl.ePage.Masters.OrgStaffAssignments.FormView.RoleCode = $item.Key;
+                OrgEmployeeModalCtrl.ePage.Masters.OrgStaffAssignments.FormView.RoleName = $item.Value;
             }
         }
 
         function OnBranchChange($item) {
+            OrgEmployeeModalCtrl.ePage.Masters.OrgStaffAssignments.FormView.BranchPK = undefined;
+            OrgEmployeeModalCtrl.ePage.Masters.OrgStaffAssignments.FormView.BranchCode = undefined;
+            OrgEmployeeModalCtrl.ePage.Masters.OrgStaffAssignments.FormView.BranchName = undefined;
+
             if ($item) {
-                OrgEmployeeModalCtrl.ePage.Masters.Employee.FormView.BranchPK = $item.PK;
-                OrgEmployeeModalCtrl.ePage.Masters.Employee.FormView.BranchCode = $item.Code;
-                OrgEmployeeModalCtrl.ePage.Masters.Employee.FormView.BranchName = $item.BranchName;
-            } else {
-                OrgEmployeeModalCtrl.ePage.Masters.Employee.FormView.BranchPK = undefined;
-                OrgEmployeeModalCtrl.ePage.Masters.Employee.FormView.BranchCode = undefined;
-                OrgEmployeeModalCtrl.ePage.Masters.Employee.FormView.BranchName = undefined;
+                OrgEmployeeModalCtrl.ePage.Masters.OrgStaffAssignments.FormView.BranchPK = $item.PK;
+                OrgEmployeeModalCtrl.ePage.Masters.OrgStaffAssignments.FormView.BranchCode = $item.Code;
+                OrgEmployeeModalCtrl.ePage.Masters.OrgStaffAssignments.FormView.BranchName = $item.BranchName;
             }
         }
 
         function OnDepartmentChange($item) {
+            OrgEmployeeModalCtrl.ePage.Masters.OrgStaffAssignments.FormView.DepartmentPK = undefined;
+            OrgEmployeeModalCtrl.ePage.Masters.OrgStaffAssignments.FormView.DepartmentCode = undefined;
+            OrgEmployeeModalCtrl.ePage.Masters.OrgStaffAssignments.FormView.DepartmentName = undefined;
+
             if ($item) {
-                OrgEmployeeModalCtrl.ePage.Masters.Employee.FormView.DepartmentPK = $item.PK;
-                OrgEmployeeModalCtrl.ePage.Masters.Employee.FormView.DepartmentCode = $item.Code;
-                OrgEmployeeModalCtrl.ePage.Masters.Employee.FormView.DepartmentName = $item.Desc;
-            } else {
-                OrgEmployeeModalCtrl.ePage.Masters.Employee.FormView.DepartmentPK = undefined;
-                OrgEmployeeModalCtrl.ePage.Masters.Employee.FormView.DepartmentCode = undefined;
-                OrgEmployeeModalCtrl.ePage.Masters.Employee.FormView.DepartmentName = undefined;
+                OrgEmployeeModalCtrl.ePage.Masters.OrgStaffAssignments.FormView.DepartmentPK = $item.PK;
+                OrgEmployeeModalCtrl.ePage.Masters.OrgStaffAssignments.FormView.DepartmentCode = $item.Code;
+                OrgEmployeeModalCtrl.ePage.Masters.OrgStaffAssignments.FormView.DepartmentName = $item.Desc;
             }
         }
 
-        function ValidateEmployee() {
+        function Validate() {
             OrgEmployeeModalCtrl.ePage.Masters.SaveButtonText = "Please Wait...";
             OrgEmployeeModalCtrl.ePage.Masters.IsDisableSave = true;
-            var _errorCode = [];
 
-            var _code = param.Entity.code;
-            var _obj = {
-                ModuleName: ["Organization"],
-                Code: [_code],
-                API: "Group",
+            let _validationObj = {
+                Code: param.Entity.code,
+                GetListAPI: "Validation",
+                FilterInput: {
+                    ModuleCode: "ORG"
+                },
                 GroupCode: "ORG_EMPLOYEE",
-                RelatedBasicDetails: [],
-                EntityObject: OrgEmployeeModalCtrl.ePage.Masters.Employee.FormView,
-                ErrorCode: _errorCode
+                Entity: OrgEmployeeModalCtrl.ePage.Masters.OrgStaffAssignments.FormView,
+                ValidateAPI: "Group",
+                ErrorCode: [],
+                EntityCode: param.Entity.label,
+                EntityPK: param.Entity.pk
             };
-            errorWarningService.ValidateValue(_obj);
 
-            $timeout(function () {
-                var _errorCount = $filter("listCount")(OrgEmployeeModalCtrl.ePage.Masters.GlobalErrorWarningList, 'MessageType', 'E');
+            OrgEmployeeModalCtrl.ePage.Entities.GetValidationList(_validationObj).then(response => {
+                let _errorCount = response;
 
                 if (_errorCount > 0) {
                     OrgEmployeeModalCtrl.ePage.Masters.SaveButtonText = "Save";
@@ -142,7 +140,7 @@
         }
 
         function Save() {
-            var _input = angular.copy(OrgEmployeeModalCtrl.ePage.Masters.Employee.FormView);
+            let _input = angular.copy(OrgEmployeeModalCtrl.ePage.Masters.OrgStaffAssignments.FormView);
             _input.CompanyPK = OrgEmployeeModalCtrl.ePage.Masters.param.ActiveCompany.CMP_FK;
             _input.CompanyCode = OrgEmployeeModalCtrl.ePage.Masters.param.ActiveCompany.CMP_Name;
             _input.CompanyName = OrgEmployeeModalCtrl.ePage.Masters.param.ActiveCompany.CMP_Code;
@@ -151,54 +149,37 @@
             _input.OrgName = OrgEmployeeModalCtrl.ePage.Entities.Header.Data.OrgHeader.FullName;
             _input.IsModified = true;
             _input.TenantCode = authService.getUserInfo().TenantCode;
-            var _isEmpty = angular.equals(_input, {});
 
-            if (_isEmpty) {
-                toastr.warning("Please fill fields...!");
+            let _isExist = OrgEmployeeModalCtrl.ePage.Entities.Header.Data.OrgStaffAssignments.some(value => value.EmployeeCode === _input.EmployeeCode);
+
+            if (!_isExist) {
+                OrgEmployeeModalCtrl.ePage.Entities.Header.Data.OrgStaffAssignments.push(_input);
             } else {
-                var _isExist = OrgEmployeeModalCtrl.ePage.Entities.Header.Data.OrgStaffAssignments.some(function (value, key) {
-                    return value.EmployeeCode === _input.EmployeeCode;
-                });
+                let _index = OrgEmployeeModalCtrl.ePage.Entities.Header.Data.OrgStaffAssignments.findIndex(value => value.EmployeeCode === _input.EmployeeCode);
 
-                if (!_isExist) {
-                    OrgEmployeeModalCtrl.ePage.Entities.Header.Data.OrgStaffAssignments.push(_input);
-                } else {
-                    var _index = OrgEmployeeModalCtrl.ePage.Entities.Header.Data.OrgStaffAssignments.map(function (value, key) {
-                        return value.EmployeeCode;
-                    }).indexOf(_input.EmployeeCode);
+                if (_index != -1) {
+                    OrgEmployeeModalCtrl.ePage.Entities.Header.Data.OrgStaffAssignments[_index] = _input;
+                }
+            }
 
-                    if (_index != -1) {
-                        OrgEmployeeModalCtrl.ePage.Entities.Header.Data.OrgStaffAssignments[_index] = _input;
-                    }
+            OrgEmployeeModalCtrl.ePage.Masters.param.Entity[OrgEmployeeModalCtrl.ePage.Masters.param.Entity.code].ePage.Entities.Header.Data = OrgEmployeeModalCtrl.ePage.Entities.Header.Data;
+
+            OrgEmployeeModalCtrl.ePage.Masters.SaveButtonText = "Please Wait...";
+            OrgEmployeeModalCtrl.ePage.Masters.IsDisableSave = true;
+
+            helperService.SaveEntity(OrgEmployeeModalCtrl.ePage.Masters.param.Entity, "Organization").then(response => {
+                if (response.Status === "success" && response.Data) {
+                    let _exports = {
+                        data: response.Data
+                    };
+                    $uibModalInstance.close(_exports);
+                } else if (response.Status == "ValidationFailed" || response.Status == "failed") {
+                    (response.Validations && response.Validations.length > 0) ? response.Validations.map(value => toastr.error(value.Message)): toastr.warning("Failed to Save...!");
                 }
 
-                OrgEmployeeModalCtrl.ePage.Masters.param.Entity[OrgEmployeeModalCtrl.ePage.Masters.param.Entity.code].ePage.Entities.Header.Data = OrgEmployeeModalCtrl.ePage.Entities.Header.Data;
-
-                OrgEmployeeModalCtrl.ePage.Masters.SaveButtonText = "Please Wait...";
-                OrgEmployeeModalCtrl.ePage.Masters.IsDisableSave = true;
-
-                helperService.SaveEntity(OrgEmployeeModalCtrl.ePage.Masters.param.Entity, "Organization").then(function (response) {
-                    if (response.Status === "success") {
-                        if (response.Data) {
-                            var _exports = {
-                                data: response.Data
-                            };
-                            $uibModalInstance.close(_exports);
-                        }
-                    } else if (response.Status == "ValidationFailed" || response.Status == "failed") {
-                        if (response.Validations && response.Validations.length > 0) {
-                            response.Validations.map(function (value, key) {
-                                toastr.error(value.Message);
-                            });
-                        } else {
-                            toastr.warning("Failed to Save...!");
-                        }
-                    }
-
-                    OrgEmployeeModalCtrl.ePage.Masters.SaveButtonText = "Save";
-                    OrgEmployeeModalCtrl.ePage.Masters.IsDisableSave = false;
-                });
-            }
+                OrgEmployeeModalCtrl.ePage.Masters.SaveButtonText = "Save";
+                OrgEmployeeModalCtrl.ePage.Masters.IsDisableSave = false;
+            });
         }
 
         function Cancel() {

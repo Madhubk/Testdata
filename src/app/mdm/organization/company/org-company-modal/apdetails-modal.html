@@ -3,7 +3,7 @@
         <h5 class="modal-title pull-left"><strong>AP Details</strong></h5>
         <input type="button" class="btn btn-warning btn-xs pull-right ml-5" data-ng-click="OrgCompanyModalCtrl.ePage.Masters.Cancel()"
             value="Close" />
-        <input type="button" class="btn btn-primary btn-xs pull-right ml-5" data-ng-click="OrgCompanyModalCtrl.ePage.Masters.Save(OrgCompanyModalCtrl.ePage.Masters.Company.FormView, 'OrgCompanyData', 'OrgAPDetails')"
+        <input type="button" class="btn btn-primary btn-xs pull-right ml-5" data-ng-click="OrgCompanyModalCtrl.ePage.Masters.Save(OrgCompanyModalCtrl.ePage.Masters.OrgCompanyData.FormView, 'OrgCompanyData', 'OrgAPDetails')"
             value="{{OrgCompanyModalCtrl.ePage.Masters.SaveButtonText}}" data-ng-disabled="OrgCompanyModalCtrl.ePage.Masters.IsDisableSave" />
     </div>
     <div class="modal-body p-10">
@@ -15,17 +15,17 @@
                     <div class="form-group">
                         <label for="AccountGroup">Account Group</label>
                         <span class="error-warning-container">
-                            <error-warning-directive data-ng-if="OrgCompanyModalCtrl.ePage.Masters.ErrorWarningObj.OCG_APCreditorGroup.IsWarning && !OrgCompanyModalCtrl.ePage.Masters.ErrorWarningObj.OCG_APCreditorGroup.IsError"
-                                list="OrgCompanyModalCtrl.ePage.Masters.ErrorWarningObj.OCG_APCreditorGroup.WARNING"
+                            <error-warning-directive data-ng-if="OrgCompanyModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.OCG_APCreditorGroup.IsWarning && !OrgCompanyModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.OCG_APCreditorGroup.IsError"
+                                list="OrgCompanyModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.OCG_APCreditorGroup.WARNING"
                                 type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
-                            <error-warning-directive data-ng-if="OrgCompanyModalCtrl.ePage.Masters.ErrorWarningObj.OCG_APCreditorGroup.IsError"
-                                list="OrgCompanyModalCtrl.ePage.Masters.ErrorWarningObj.OCG_APCreditorGroup.ERROR" type="'error'"
+                            <error-warning-directive data-ng-if="OrgCompanyModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.OCG_APCreditorGroup.IsError"
+                                list="OrgCompanyModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.OCG_APCreditorGroup.ERROR" type="'error'"
                                 icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
                         </span>
-                        <select chosen name="category-group" data-ng-model="OrgCompanyModalCtrl.ePage.Masters.Company.FormView.OCG_APCreditorGroup"
+                        <select chosen name="category-group" data-ng-model="OrgCompanyModalCtrl.ePage.Masters.OrgCompanyData.FormView.OCG_APCreditorGroup"
                             data-ng-options="x.PK  as x.Desc for x in OrgCompanyModalCtrl.ePage.Masters.CreditorGroupList"
                             class="form-control"
-                            search-contains="true" data-ng-change="OrgCompanyModalCtrl.ePage.Masters.Company.OnAccountGroupChange((OrgCompanyModalCtrl.ePage.Masters.CreditorGroupList | filter: {'PK': OrgCompanyModalCtrl.ePage.Masters.Company.FormView.OCG_APCreditorGroup})[0])">
+                            search-contains="true" data-ng-change="OrgCompanyModalCtrl.ePage.Masters.OrgCompanyData.OnAccountGroupChange((OrgCompanyModalCtrl.ePage.Masters.CreditorGroupList | filter: {'PK': OrgCompanyModalCtrl.ePage.Masters.OrgCompanyData.FormView.OCG_APCreditorGroup})[0])">
                             <option value="">--Select--</option>
                         </select>
                     </div>
@@ -34,17 +34,17 @@
                     <div class="form-group">
                         <label for="DefaultCurrency">Default Invoice Currency</label>
                         <span class="error-warning-container">
-                            <error-warning-directive data-ng-if="OrgCompanyModalCtrl.ePage.Masters.ErrorWarningObj.MYC_NKAPDefltCurrency.IsWarning && !OrgCompanyModalCtrl.ePage.Masters.ErrorWarningObj.MYC_NKAPDefltCurrency.IsError"
-                                list="OrgCompanyModalCtrl.ePage.Masters.ErrorWarningObj.MYC_NKAPDefltCurrency.WARNING"
+                            <error-warning-directive data-ng-if="OrgCompanyModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.MYC_NKAPDefltCurrency.IsWarning && !OrgCompanyModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.MYC_NKAPDefltCurrency.IsError"
+                                list="OrgCompanyModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.MYC_NKAPDefltCurrency.WARNING"
                                 type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
-                            <error-warning-directive data-ng-if="OrgCompanyModalCtrl.ePage.Masters.ErrorWarningObj.MYC_NKAPDefltCurrency.IsError"
-                                list="OrgCompanyModalCtrl.ePage.Masters.ErrorWarningObj.MYC_NKAPDefltCurrency.ERROR"
+                            <error-warning-directive data-ng-if="OrgCompanyModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.MYC_NKAPDefltCurrency.IsError"
+                                list="OrgCompanyModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.MYC_NKAPDefltCurrency.ERROR"
                                 type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
                         </span>
-                        <select chosen name="category-group" data-ng-model="OrgCompanyModalCtrl.ePage.Masters.Company.FormView.MYC_NKAPDefltCurrency"
+                        <select chosen name="category-group" data-ng-model="OrgCompanyModalCtrl.ePage.Masters.OrgCompanyData.FormView.MYC_NKAPDefltCurrency"
                             data-ng-options="x.Code  as (x.Code + ' - ' + x.Desc) for x in OrgCompanyModalCtrl.ePage.Masters.CurrencyList"
                             class="form-control"
-                            search-contains="true" data-ng-change="OrgCompanyModalCtrl.ePage.Masters.Company.OnCurrencyChange((OrgCompanyModalCtrl.ePage.Masters.CurrencyList | filter: {'Code': OrgCompanyModalCtrl.ePage.Masters.Company.FormView.MYC_NKAPDefltCurrency})[0])">
+                            search-contains="true" data-ng-change="OrgCompanyModalCtrl.ePage.Masters.OrgCompanyData.OnCurrencyChange((OrgCompanyModalCtrl.ePage.Masters.CurrencyList | filter: {'Code': OrgCompanyModalCtrl.ePage.Masters.OrgCompanyData.FormView.MYC_NKAPDefltCurrency})[0])">
                             <option value="">--Select--</option>
                         </select>
                     </div>
@@ -53,14 +53,14 @@
                     <div class="form-group">
                         <label for="AccountGroup">Tax-SERRecognition and reportingBasis Override</label>
                         <span class="error-warning-container">
-                            <error-warning-directive data-ng-if="OrgCompanyModalCtrl.ePage.Masters.ErrorWarningObj.APVATConfig.IsWarning && !OrgCompanyModalCtrl.ePage.Masters.ErrorWarningObj.APVATConfig.IsError"
-                                list="OrgCompanyModalCtrl.ePage.Masters.ErrorWarningObj.APVATConfig.WARNING" type="'warning'"
+                            <error-warning-directive data-ng-if="OrgCompanyModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.APVATConfig.IsWarning && !OrgCompanyModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.APVATConfig.IsError"
+                                list="OrgCompanyModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.APVATConfig.WARNING" type="'warning'"
                                 icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
-                            <error-warning-directive data-ng-if="OrgCompanyModalCtrl.ePage.Masters.ErrorWarningObj.APVATConfig.IsError"
-                                list="OrgCompanyModalCtrl.ePage.Masters.ErrorWarningObj.APVATConfig.ERROR" type="'error'"
+                            <error-warning-directive data-ng-if="OrgCompanyModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.APVATConfig.IsError"
+                                list="OrgCompanyModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.APVATConfig.ERROR" type="'error'"
                                 icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
                         </span>
-                        <input type="text" class="form-control input-sm" placeholder="APVAT Config" data-ng-model="OrgCompanyModalCtrl.ePage.Masters.Company.FormView.APVATConfig" />
+                        <input type="text" class="form-control input-sm" placeholder="APVAT Config" data-ng-model="OrgCompanyModalCtrl.ePage.Masters.OrgCompanyData.FormView.APVATConfig" />
                     </div>
                 </div>
             </div>
@@ -69,7 +69,7 @@
                     <div class="form-group">
                         <div class="checkbox">
                             <label>
-                                <input type="checkbox" class="colored-blue" data-ng-model="OrgCompanyModalCtrl.ePage.Masters.Company.FormView.APWHTApplicable">
+                                <input type="checkbox" class="colored-blue" data-ng-model="OrgCompanyModalCtrl.ePage.Masters.OrgCompanyData.FormView.APWHTApplicable">
                                 <span class="text">WithholdingTax Is Applicable</span>
                             </label>
                         </div>
@@ -85,57 +85,57 @@
                     <div class="form-group">
                         <label for="APCreditLimit">Credit Limit</label>
                         <span class="error-warning-container">
-                            <error-warning-directive data-ng-if="OrgCompanyModalCtrl.ePage.Masters.ErrorWarningObj.APCreditLimit.IsWarning && !OrgCompanyModalCtrl.ePage.Masters.ErrorWarningObj.APCreditLimit.IsError"
-                                list="OrgCompanyModalCtrl.ePage.Masters.ErrorWarningObj.APCreditLimit.WARNING" type="'warning'"
+                            <error-warning-directive data-ng-if="OrgCompanyModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.APCreditLimit.IsWarning && !OrgCompanyModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.APCreditLimit.IsError"
+                                list="OrgCompanyModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.APCreditLimit.WARNING" type="'warning'"
                                 icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
-                            <error-warning-directive data-ng-if="OrgCompanyModalCtrl.ePage.Masters.ErrorWarningObj.APCreditLimit.IsError"
-                                list="OrgCompanyModalCtrl.ePage.Masters.ErrorWarningObj.APCreditLimit.ERROR" type="'error'"
+                            <error-warning-directive data-ng-if="OrgCompanyModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.APCreditLimit.IsError"
+                                list="OrgCompanyModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.APCreditLimit.ERROR" type="'error'"
                                 icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
                         </span>
-                        <input type="text" class="form-control input-sm" placeholder="Credit Limit" data-ng-model="OrgCompanyModalCtrl.ePage.Masters.Company.FormView.APCreditLimit" />
+                        <input type="text" class="form-control input-sm" placeholder="Credit Limit" data-ng-model="OrgCompanyModalCtrl.ePage.Masters.OrgCompanyData.FormView.APCreditLimit" />
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
                     <div class="form-group">
                         <label for="APCreditAgreedPaymentMethod">Advance Payment Method</label>
                         <span class="error-warning-container">
-                            <error-warning-directive data-ng-if="OrgCompanyModalCtrl.ePage.Masters.ErrorWarningObj.APCreditAgreedPaymentMethod.IsWarning && !OrgCompanyModalCtrl.ePage.Masters.ErrorWarningObj.APCreditAgreedPaymentMethod.IsError"
-                                list="OrgCompanyModalCtrl.ePage.Masters.ErrorWarningObj.APCreditAgreedPaymentMethod.WARNING"
+                            <error-warning-directive data-ng-if="OrgCompanyModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.APCreditAgreedPaymentMethod.IsWarning && !OrgCompanyModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.APCreditAgreedPaymentMethod.IsError"
+                                list="OrgCompanyModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.APCreditAgreedPaymentMethod.WARNING"
                                 type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
-                            <error-warning-directive data-ng-if="OrgCompanyModalCtrl.ePage.Masters.ErrorWarningObj.APCreditAgreedPaymentMethod.IsError"
-                                list="OrgCompanyModalCtrl.ePage.Masters.ErrorWarningObj.APCreditAgreedPaymentMethod.ERROR"
+                            <error-warning-directive data-ng-if="OrgCompanyModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.APCreditAgreedPaymentMethod.IsError"
+                                list="OrgCompanyModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.APCreditAgreedPaymentMethod.ERROR"
                                 type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
                         </span>
                         <input type="text" class="form-control input-sm" placeholder="Advance Payment Method"
-                            data-ng-model="OrgCompanyModalCtrl.ePage.Masters.Company.FormView.APCreditAgreedPaymentMethod" />
+                            data-ng-model="OrgCompanyModalCtrl.ePage.Masters.OrgCompanyData.FormView.APCreditAgreedPaymentMethod" />
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
                     <div class="form-group">
                         <label for="APPaymentTerms">Payment Terms</label>
                         <span class="error-warning-container">
-                            <error-warning-directive data-ng-if="OrgCompanyModalCtrl.ePage.Masters.ErrorWarningObj.APPaymentTerms.IsWarning && !OrgCompanyModalCtrl.ePage.Masters.ErrorWarningObj.APPaymentTerms.IsError"
-                                list="OrgCompanyModalCtrl.ePage.Masters.ErrorWarningObj.APPaymentTerms.WARNING" type="'warning'"
+                            <error-warning-directive data-ng-if="OrgCompanyModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.APPaymentTerms.IsWarning && !OrgCompanyModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.APPaymentTerms.IsError"
+                                list="OrgCompanyModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.APPaymentTerms.WARNING" type="'warning'"
                                 icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
-                            <error-warning-directive data-ng-if="OrgCompanyModalCtrl.ePage.Masters.ErrorWarningObj.APPaymentTerms.IsError"
-                                list="OrgCompanyModalCtrl.ePage.Masters.ErrorWarningObj.APPaymentTerms.ERROR" type="'error'"
+                            <error-warning-directive data-ng-if="OrgCompanyModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.APPaymentTerms.IsError"
+                                list="OrgCompanyModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.APPaymentTerms.ERROR" type="'error'"
                                 icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
                         </span>
-                        <input type="text" class="form-control input-sm" placeholder="Payment Terms" data-ng-model="OrgCompanyModalCtrl.ePage.Masters.Company.FormView.APPaymentTerms" />
+                        <input type="text" class="form-control input-sm" placeholder="Payment Terms" data-ng-model="OrgCompanyModalCtrl.ePage.Masters.OrgCompanyData.FormView.APPaymentTerms" />
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
                     <div class="form-group">
                         <label for="APPaymentDays">Payment Days</label>
                         <span class="error-warning-container">
-                            <error-warning-directive data-ng-if="OrgCompanyModalCtrl.ePage.Masters.ErrorWarningObj.APPaymentTermDays.IsWarning && !OrgCompanyModalCtrl.ePage.Masters.ErrorWarningObj.APPaymentTermDays.IsError"
-                                list="OrgCompanyModalCtrl.ePage.Masters.ErrorWarningObj.APPaymentTermDays.WARNING" type="'warning'"
+                            <error-warning-directive data-ng-if="OrgCompanyModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.APPaymentTermDays.IsWarning && !OrgCompanyModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.APPaymentTermDays.IsError"
+                                list="OrgCompanyModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.APPaymentTermDays.WARNING" type="'warning'"
                                 icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
-                            <error-warning-directive data-ng-if="OrgCompanyModalCtrl.ePage.Masters.ErrorWarningObj.APPaymentTermDays.IsError"
-                                list="OrgCompanyModalCtrl.ePage.Masters.ErrorWarningObj.APPaymentTermDays.ERROR" type="'error'"
+                            <error-warning-directive data-ng-if="OrgCompanyModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.APPaymentTermDays.IsError"
+                                list="OrgCompanyModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.APPaymentTermDays.ERROR" type="'error'"
                                 icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
                         </span>
-                        <input type="text" class="form-control input-sm" placeholder="Payment Days" data-ng-model="OrgCompanyModalCtrl.ePage.Masters.Company.FormView.APPaymentTermDays" />
+                        <input type="text" class="form-control input-sm" placeholder="Payment Days" data-ng-model="OrgCompanyModalCtrl.ePage.Masters.OrgCompanyData.FormView.APPaymentTermDays" />
                     </div>
                 </div>
             </div>
@@ -144,7 +144,7 @@
     <div class="modal-footer" style="bottom: 20px;">
         <input type="button" class="btn btn-warning btn-xs pull-right ml-5" data-ng-click="OrgCompanyModalCtrl.ePage.Masters.Cancel()"
             value="Close" />
-        <input type="button" class="btn btn-primary btn-xs pull-right ml-5" data-ng-click="OrgCompanyModalCtrl.ePage.Masters.Save(OrgCompanyModalCtrl.ePage.Masters.Company.FormView, 'OrgCompanyData', 'OrgAPDetails')"
+        <input type="button" class="btn btn-primary btn-xs pull-right ml-5" data-ng-click="OrgCompanyModalCtrl.ePage.Masters.Save(OrgCompanyModalCtrl.ePage.Masters.OrgCompanyData.FormView, 'OrgCompanyData', 'OrgAPDetails')"
             value="{{OrgCompanyModalCtrl.ePage.Masters.SaveButtonText}}" data-ng-disabled="OrgCompanyModalCtrl.ePage.Masters.IsDisableSave" />
     </div>
 </ng-form>

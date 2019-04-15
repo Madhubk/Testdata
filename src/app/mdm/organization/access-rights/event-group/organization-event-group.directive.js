@@ -6,7 +6,7 @@
         .directive("organizationEventGroup", OrganizationEventGroup);
 
     function OrganizationEventGroup() {
-        var exports = {
+        let exports = {
             restrict: "EA",
             templateUrl: "app/mdm/organization/access-rights/event-group/organization-event-group.html",
             controller: "OrganizationEventGroupController",
@@ -26,10 +26,10 @@
     OrganizationEventGroupController.$inject = ["$scope", "$timeout", "$uibModal", "authService", "apiService", "helperService", "toastr", "organizationConfig"];
 
     function OrganizationEventGroupController($scope, $timeout, $uibModal, authService, apiService, helperService, toastr, organizationConfig) {
-        var OrganizationEventGroupCtrl = this;
+        let OrganizationEventGroupCtrl = this;
 
         function Init() {
-            var currentOrganization = OrganizationEventGroupCtrl.currentOrganization[OrganizationEventGroupCtrl.currentOrganization.code].ePage.Entities;
+            let currentOrganization = OrganizationEventGroupCtrl.currentOrganization[OrganizationEventGroupCtrl.currentOrganization.code].ePage.Entities;
 
             OrganizationEventGroupCtrl.ePage = {
                 "Title": "",
@@ -47,7 +47,7 @@
             }
         }
 
-        // region Event Group
+        // #region Event Group
         function InitEventGroup() {
             OrganizationEventGroupCtrl.ePage.Masters.EventGroup = {};
 
@@ -60,19 +60,16 @@
 
         function GetEventGroupList() {
             OrganizationEventGroupCtrl.ePage.Masters.EventGroup.EventGroupList = undefined;
-            var _filter = {};
-            var _input = {
+            let _filter = {};
+            let _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
                 "FilterID": organizationConfig.Entities.API.EventGroup.API.FindAll.FilterID
             };
 
-            apiService.post("eAxisAPI", organizationConfig.Entities.API.EventGroup.API.FindAll.Url, _input).then(function (response) {
-                if (response.data.Response) {
+            apiService.post("eAxisAPI", organizationConfig.Entities.API.EventGroup.API.FindAll.Url, _input).then(response => {
+                if (response.data.Response && response.data.Response.length > 0) {
                     OrganizationEventGroupCtrl.ePage.Masters.EventGroup.EventGroupList = response.data.Response;
-
-                    if (response.data.Response.length > 0) {
-                        GetOrgEventGroup();
-                    }
+                    GetOrgEventGroup();
                 } else {
                     OrganizationEventGroupCtrl.ePage.Masters.EventGroup.EventGroupList = [];
                 }
@@ -80,92 +77,78 @@
         }
 
         function GetOrgEventGroup() {
-            var _filter = {
+            let _filter = {
                 ORG_FK: OrganizationEventGroupCtrl.ePage.Entities.Header.Data.OrgHeader.PK,
             };
-            var _input = {
+            let _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
                 "FilterID": organizationConfig.Entities.API.OrgEventGroup.API.FindAll.FilterID
             };
 
-            apiService.post("eAxisAPI", organizationConfig.Entities.API.OrgEventGroup.API.FindAll.Url, _input).then(function (response) {
-                if (response.data.Response) {
-                    if (response.data.Response.length > 0) {
-                        OrganizationEventGroupCtrl.ePage.Masters.EventGroup.EventGroupList.map(function (value1, key1) {
-                            response.data.Response.map(function (value2, key2) {
-                                if (value1.PK === value2.EVG_FK) {
-                                    value1.IsChecked = true;
-                                    value1.OrgEventGroup = value2;
-                                    GetEventGroupMappingList(value1);
-                                }
-                            });
+            apiService.post("eAxisAPI", organizationConfig.Entities.API.OrgEventGroup.API.FindAll.Url, _input).then(response => {
+                if (response.data.Response && response.data.Response.length > 0) {
+                    OrganizationEventGroupCtrl.ePage.Masters.EventGroup.EventGroupList.map(value1 => {
+                        response.data.Response.map(value2 => {
+                            if (value1.PK === value2.EVG_FK) {
+                                value1.IsChecked = true;
+                                value1.OrgEventGroup = value2;
+                                GetEventGroupMappingList(value1);
+                            }
                         });
-                    } else {
-                        OrganizationEventGroupCtrl.ePage.Masters.EventGroup.EventGroupList.map(function (value, key) {
-                            value.IsChecked = false;
-                            value.EventGroupMappingList = [];
-                        });
-                    }
+                    });
+                } else {
+                    OrganizationEventGroupCtrl.ePage.Masters.EventGroup.EventGroupList.map(value => {
+                        value.IsChecked = false;
+                        value.EventGroupMappingList = [];
+                    });
                 }
             });
         }
 
         function OnEventGroupClick($event, $item) {
-            var _checkbox = $event.target,
+            let _checkbox = $event.target,
                 _isChecked = _checkbox.checked;
 
-            if (_isChecked) {
-                InsertEventGroup($item);
-            } else {
-                DeleteEventGroup($item);
-            }
+            _isChecked ? InsertEventGroup($item) : DeleteEventGroup($item);
         }
 
         function InsertEventGroup($item) {
-            var _input = {
+            let _input = {
                 ORG_FK: OrganizationEventGroupCtrl.ePage.Entities.Header.Data.OrgHeader.PK,
                 EVG_FK: $item.PK,
                 IsModified: true
             };
 
-            apiService.post("eAxisAPI", organizationConfig.Entities.API.OrgEventGroup.API.Insert.Url, [_input]).then(function (response) {
-                if (response.data.Response) {
-                    if (response.data.Response.length > 0) {
-                        $item.OrgEventGroup = response.data.Response[0];
-                        $item.IsChecked = true;
-                        GetEventGroupMappingList($item);
-                    }
+            apiService.post("eAxisAPI", organizationConfig.Entities.API.OrgEventGroup.API.Insert.Url, [_input]).then(response => {
+                if (response.data.Response && response.data.Response.length > 0) {
+                    $item.OrgEventGroup = response.data.Response[0];
+                    $item.IsChecked = true;
+                    GetEventGroupMappingList($item);
                 }
             });
         }
 
         function DeleteEventGroup($item) {
-            apiService.get("eAxisAPI", organizationConfig.Entities.API.OrgEventGroup.API.Delete.Url + $item.OrgEventGroup.PK).then(function (response) {
-                if (response.data.Response) {
-                    if (response.data.Response.length > 0) {
-                        $item.EventGroupMappingList = [];
-                        $item.IsChecked = false;
-                    }
+            apiService.get("eAxisAPI", organizationConfig.Entities.API.OrgEventGroup.API.Delete.Url + $item.OrgEventGroup.PK).then(response => {
+                if (response.data.Response && response.data.Response.length > 0) {
+                    $item.EventGroupMappingList = [];
+                    $item.IsChecked = false;
                 }
             });
         }
 
         function GetEventGroupMappingList($item) {
             $item.EventGroupMappingList = undefined;
-            var _filter = {
+            let _filter = {
                 EVG_FK: $item.PK
             };
-            var _input = {
+            let _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
                 "FilterID": organizationConfig.Entities.API.EventGroupMapping.API.FindAll.FilterID
             };
 
-            apiService.post("eAxisAPI", organizationConfig.Entities.API.EventGroupMapping.API.FindAll.Url, _input).then(function (response) {
-                if (response.data.Response) {
-                    $item.EventGroupMappingList = response.data.Response;
-                } else {
-                    $item.EventGroupMappingList = [];
-                }
+            apiService.post("eAxisAPI", organizationConfig.Entities.API.EventGroupMapping.API.FindAll.Url, _input).then(response => {
+                $item.EventGroupMappingList = response.data.Response ? response.data.Response : [];
             });
         }
 
@@ -188,9 +171,9 @@
             GetPartiesList();
         }
 
-        // endregion
+        // #endregion
 
-        // region Event Action
+        // #region Event Action
         function InitEventAction() {
             OrganizationEventGroupCtrl.ePage.Masters.EventAction = {};
 
@@ -218,20 +201,18 @@
 
         function GetPartiesList() {
             OrganizationEventGroupCtrl.ePage.Masters.EventAction.PartyTypeList = undefined;
-            var _filter = {
+            let _filter = {
                 "SAP_FK": authService.getUserInfo().AppPK
             };
-            var _input = {
+            let _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
                 "FilterID": organizationConfig.Entities.API.SecParties.API.FindAll.FilterID
             };
 
-            apiService.post("authAPI", organizationConfig.Entities.API.SecParties.API.FindAll.Url, _input).then(function (response) {
-                if (response.data.Response) {
+            apiService.post("authAPI", organizationConfig.Entities.API.SecParties.API.FindAll.Url, _input).then(response => {
+                if (response.data.Response && response.data.Response.length > 0) {
                     OrganizationEventGroupCtrl.ePage.Masters.EventAction.PartyTypeList = response.data.Response;
-                    if (OrganizationEventGroupCtrl.ePage.Masters.EventAction.PartyTypeList.length > 0) {
-                        GetMappedPartyWithOrganizationEvent();
-                    }
+                    GetMappedPartyWithOrganizationEvent();
                 } else {
                     OrganizationEventGroupCtrl.ePage.Masters.EventAction.PartyTypeList = [];
                 }
@@ -239,7 +220,7 @@
         }
 
         function GetMappedPartyWithOrganizationEvent() {
-            var _filter = {
+            let _filter = {
                 AccessTo: "EVENT",
                 Access_FK: OrganizationEventGroupCtrl.ePage.Masters.EventGroup.ActiveEventGroup.Event_FK,
                 AccessCode: OrganizationEventGroupCtrl.ePage.Masters.EventGroup.ActiveEventGroup.EventCode,
@@ -251,16 +232,16 @@
                 OtherEntityCode: OrganizationEventGroupCtrl.ePage.Masters.EventGroup.ActiveEventGroup.GroupName,
                 SAP_FK: authService.getUserInfo().AppPK
             };
-            var _input = {
+            let _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
                 "FilterID": organizationConfig.Entities.API.GroupEventTypeOrganisation.API.FindAll.FilterID
             };
 
-            apiService.post("authAPI", organizationConfig.Entities.API.GroupEventTypeOrganisation.API.FindAll.Url, _input).then(function (response) {
-                var _isChecked = false;
+            apiService.post("authAPI", organizationConfig.Entities.API.GroupEventTypeOrganisation.API.FindAll.Url, _input).then(response => {
+                let _isChecked = false;
                 if (response.data.Response && response.data.Response.length > 0) {
-                    OrganizationEventGroupCtrl.ePage.Masters.EventAction.PartyTypeList.map(function (value1, key1) {
-                        response.data.Response.map(function (value2, key2) {
+                    OrganizationEventGroupCtrl.ePage.Masters.EventAction.PartyTypeList.map(value1 => {
+                        response.data.Response.map(value2 => {
                             if (value1.PK === value2.Item_FK) {
                                 value1.IsChecked = true;
                                 value1.MappingObj = value2;
@@ -278,59 +259,55 @@
         }
 
         function GetOrgEventEmailContactsList() {
-            var _filter = {
+            let _filter = {
                 OEG_FK: OrganizationEventGroupCtrl.ePage.Masters.EventGroup.ActiveEventGroup.OrgEventGroup.PK,
                 EVT_FK: OrganizationEventGroupCtrl.ePage.Masters.EventGroup.ActiveEventGroup.Event_FK,
                 TenantCode: authService.getUserInfo().TenantCode
             };
-            var _input = {
+            let _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
                 "FilterID": organizationConfig.Entities.API.OrgEventEmailContacts.API.FindAll.FilterID
             };
 
-            apiService.post("eAxisAPI", organizationConfig.Entities.API.OrgEventEmailContacts.API.FindAll.Url, _input).then(function (response) {
-                if (response.data.Response) {
-                    if (response.data.Response.length > 0) {
-                        OrganizationEventGroupCtrl.ePage.Masters.EventAction.PartyTypeList.map(function (value1, key1) {
-                            response.data.Response.map(function (value2, key2) {
-                                if (value1.IsChecked == true && value1.PK === value2.PartyType_FK) {
-                                    value1.EmailTemplate = value2;
-                                }
-                            });
+            apiService.post("eAxisAPI", organizationConfig.Entities.API.OrgEventEmailContacts.API.FindAll.Url, _input).then(response => {
+                if (response.data.Response && response.data.Response.length > 0) {
+                    OrganizationEventGroupCtrl.ePage.Masters.EventAction.PartyTypeList.map(value1 => {
+                        response.data.Response.map(value2 => {
+                            if (value1.IsChecked == true && value1.PK === value2.PartyType_FK) {
+                                value1.EmailTemplate = value2;
+                            }
                         });
-                    }
+                    });
                 }
             });
         }
 
         function GetOrgEventTaskList() {
-            var _filter = {
+            let _filter = {
                 OEG_FK: OrganizationEventGroupCtrl.ePage.Masters.EventGroup.ActiveEventGroup.OrgEventGroup.PK,
                 EVT_FK: OrganizationEventGroupCtrl.ePage.Masters.EventGroup.ActiveEventGroup.Event_FK,
                 TenantCode: authService.getUserInfo().TenantCode
             };
-            var _input = {
+            let _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
                 "FilterID": organizationConfig.Entities.API.OrgEventTask.API.FindAll.FilterID
             };
 
-            apiService.post("eAxisAPI", organizationConfig.Entities.API.OrgEventTask.API.FindAll.Url, _input).then(function (response) {
-                if (response.data.Response) {
-                    if (response.data.Response.length > 0) {
-                        OrganizationEventGroupCtrl.ePage.Masters.EventAction.PartyTypeList.map(function (value1, key1) {
-                            response.data.Response.map(function (value2, key2) {
-                                if (value1.IsChecked == true && value1.PK === value2.PartyType_FK) {
-                                    value1.TaskConfig = value2;
-                                }
-                            });
+            apiService.post("eAxisAPI", organizationConfig.Entities.API.OrgEventTask.API.FindAll.Url, _input).then(response => {
+                if (response.data.Response && response.data.Response.length > 0) {
+                    OrganizationEventGroupCtrl.ePage.Masters.EventAction.PartyTypeList.map(value1 => {
+                        response.data.Response.map(value2 => {
+                            if (value1.IsChecked == true && value1.PK === value2.PartyType_FK) {
+                                value1.TaskConfig = value2;
+                            }
                         });
-                    }
+                    });
                 }
             });
         }
 
         function OnPartyClick($event, $item) {
-            var checkbox = $event.target,
+            let checkbox = $event.target,
                 check = checkbox.checked;
 
             if (check == true) {
@@ -345,7 +322,7 @@
                     DeleteEventActionTaskConfig();
                 }
 
-                $timeout(function () {
+                $timeout(() => {
                     if ($item.MappingObj) {
                         DeletePartyEventOrganizationMapping($item);
                     }
@@ -354,7 +331,7 @@
         }
 
         function InsertPartyEventOrganizationMapping($item) {
-            var _input = {
+            let _input = {
                 ItemName: "GRUP",
                 ItemCode: $item.Code,
                 Item_FK: $item.PK,
@@ -374,12 +351,10 @@
                 IsModified: true
             };
 
-            apiService.post("authAPI", organizationConfig.Entities.API.GroupEventTypeOrganisation.API.Insert.Url, [_input]).then(function (response) {
+            apiService.post("authAPI", organizationConfig.Entities.API.GroupEventTypeOrganisation.API.Insert.Url, [_input]).then(response => {
                 if (response.data.Response && response.data.Response.length > 0) {
-                    var _response = response.data.Response[0];
-                    var _index = OrganizationEventGroupCtrl.ePage.Masters.EventAction.PartyTypeList.map(function (value, key) {
-                        return value.PK;
-                    }).indexOf(_response.Item_FK);
+                    let _response = response.data.Response[0];
+                    let _index = OrganizationEventGroupCtrl.ePage.Masters.EventAction.PartyTypeList.findIndex(value => value.PK === _response.Item_FK);
 
                     if (_index != -1) {
                         OrganizationEventGroupCtrl.ePage.Masters.EventAction.PartyTypeList[_index].IsChecked = true;
@@ -390,18 +365,14 @@
         }
 
         function UpdatePartyEventOrganizationMapping($event, $item, key) {
-            var _input = $item.MappingObj;
+            let _input = $item.MappingObj;
             _input.IsModified = true;
 
-            apiService.post("authAPI", organizationConfig.Entities.API.GroupEventTypeOrganisation.API.Update.Url, _input).then(function SuccessCallback(response) {
-                if (response.data.Response) {}
-            });
+            apiService.post("authAPI", organizationConfig.Entities.API.GroupEventTypeOrganisation.API.Update.Url, _input).then(response => {});
         }
 
         function DeletePartyEventOrganizationMapping($item) {
-            apiService.get("authAPI", organizationConfig.Entities.API.GroupEventTypeOrganisation.API.Delete.Url + $item.MappingObj.PK).then(function SuccessCallback(response) {
-                if (response.data.Response) {}
-            });
+            apiService.get("authAPI", organizationConfig.Entities.API.GroupEventTypeOrganisation.API.Delete.Url + $item.MappingObj.PK).then(response => {});
         }
 
         function GoToEventGroup() {
@@ -421,7 +392,7 @@
         }
 
         function OpenEventActionModal($item, template) {
-            var _item = angular.copy($item);
+            let _item = angular.copy($item);
             OrganizationEventGroupCtrl.ePage.Masters.EventAction.ContactList = OrganizationEventGroupCtrl.ePage.Entities.Header.Data.OrgContact;
 
             if ($item) {
@@ -433,14 +404,8 @@
                     _item.EmailTemplate = {};
                 } else {
                     if (_item.EmailTemplate.EmailContact) {
-                        var _email = angular.copy(_item.EmailTemplate.EmailContact);
-                        var _output = [];
-                        if (_email.indexOf(",") != -1) {
-                            _output = _email.split(",");
-                        } else {
-                            _output.push(_email);
-                        }
-
+                        let _email = angular.copy(_item.EmailTemplate.EmailContact);
+                        let _output = (_email.indexOf(",") != -1) ? _email.split(",") : [_email];
                         _item.EmailTemplate.EmailContact = _output;
                     }
                 }
@@ -448,9 +413,7 @@
 
             OrganizationEventGroupCtrl.ePage.Masters.EventAction.ActiveEventAction = _item;
 
-            EventActionModalInstance(template).result.then(function (response) {}, function () {
-                CloseActionModal();
-            });
+            EventActionModalInstance(template).result.then(response => {}, () => CloseActionModal());
         }
 
         function CloseActionModal() {
@@ -459,9 +422,9 @@
         }
 
         function SaveEventActionEmailTemplate() {
-            var _apiMethod;
+            let _apiMethod, _input;
             if (!OrganizationEventGroupCtrl.ePage.Masters.EventAction.ActiveEventAction.EmailTemplate.PK) {
-                var _input = {
+                _input = {
                     OEG_FK: OrganizationEventGroupCtrl.ePage.Masters.EventGroup.ActiveEventGroup.OrgEventGroup.PK,
                     EVT_FK: OrganizationEventGroupCtrl.ePage.Masters.EventGroup.ActiveEventGroup.Event_FK,
                     PartyType_FK: OrganizationEventGroupCtrl.ePage.Masters.EventAction.ActiveEventAction.PK,
@@ -471,7 +434,7 @@
                 };
                 _apiMethod = "Insert";
             } else {
-                var _input = OrganizationEventGroupCtrl.ePage.Masters.EventAction.ActiveEventAction.EmailTemplate;
+                _input = OrganizationEventGroupCtrl.ePage.Masters.EventAction.ActiveEventAction.EmailTemplate;
                 _input.IsModified = true;
                 _apiMethod = "Update";
             }
@@ -486,17 +449,13 @@
                 _input = [_input];
             }
 
-            apiService.post("eAxisAPI", organizationConfig.Entities.API.OrgEventEmailContacts.API[_apiMethod].Url, _input).then(function (response) {
-                if (response.data.Response) {
-                    if (response.data.Response.length > 0) {
-                        var _index = OrganizationEventGroupCtrl.ePage.Masters.EventAction.PartyTypeList.map(function (value, key) {
-                            return value.PK;
-                        }).indexOf(OrganizationEventGroupCtrl.ePage.Masters.EventAction.ActiveEventAction.PK);
+            apiService.post("eAxisAPI", organizationConfig.Entities.API.OrgEventEmailContacts.API[_apiMethod].Url, _input).then(response => {
+                if (response.data.Response && response.data.Response.length > 0) {
+                    let _index = OrganizationEventGroupCtrl.ePage.Masters.EventAction.PartyTypeList.findIndex(value => value.PK === OrganizationEventGroupCtrl.ePage.Masters.EventAction.ActiveEventAction.PK);
 
-                        if (_index != -1) {
-                            OrganizationEventGroupCtrl.ePage.Masters.EventAction.PartyTypeList[_index].EmailTemplate = response.data.Response[0];
-                            OrganizationEventGroupCtrl.ePage.Masters.EventAction.PartyTypeList[_index].IsChecked = true;
-                        }
+                    if (_index != -1) {
+                        OrganizationEventGroupCtrl.ePage.Masters.EventAction.PartyTypeList[_index].EmailTemplate = response.data.Response[0];
+                        OrganizationEventGroupCtrl.ePage.Masters.EventAction.PartyTypeList[_index].IsChecked = true;
                     }
                 }
                 OrganizationEventGroupCtrl.ePage.Masters.EventAction.EventActionModal.dismiss('cancel');
@@ -504,11 +463,9 @@
         }
 
         function DeleteEventActionEmailTemplate() {
-            apiService.get("eAxisAPI", organizationConfig.Entities.API.OrgEventEmailContacts.API.Delete.Url + OrganizationEventGroupCtrl.ePage.Masters.EventAction.ActiveEventAction.EmailTemplate.PK).then(function (response) {
+            apiService.get("eAxisAPI", organizationConfig.Entities.API.OrgEventEmailContacts.API.Delete.Url + OrganizationEventGroupCtrl.ePage.Masters.EventAction.ActiveEventAction.EmailTemplate.PK).then(response => {
                 if (response.data.Response) {
-                    var _index = OrganizationEventGroupCtrl.ePage.Masters.EventAction.PartyTypeList.map(function (value, key) {
-                        return value.PK;
-                    }).indexOf(OrganizationEventGroupCtrl.ePage.Masters.EventAction.ActiveEventAction.PK);
+                    let _index = OrganizationEventGroupCtrl.ePage.Masters.EventAction.PartyTypeList.findIndex(value => value.PK === OrganizationEventGroupCtrl.ePage.Masters.EventAction.ActiveEventAction.PK);
 
                     if (_index != -1) {
                         OrganizationEventGroupCtrl.ePage.Masters.EventAction.PartyTypeList[_index].EmailTemplate = undefined;
@@ -519,9 +476,9 @@
         }
 
         function SaveEventActionTaskConfig() {
-            var _apiMethod;
+            let _apiMethod, _input;
             if (!OrganizationEventGroupCtrl.ePage.Masters.EventAction.ActiveEventAction.TaskConfig.PK) {
-                var _input = {
+                _input = {
                     OEG_FK: OrganizationEventGroupCtrl.ePage.Masters.EventGroup.ActiveEventGroup.OrgEventGroup.PK,
                     EVT_FK: OrganizationEventGroupCtrl.ePage.Masters.EventGroup.ActiveEventGroup.Event_FK,
                     PartyType_FK: OrganizationEventGroupCtrl.ePage.Masters.EventAction.ActiveEventAction.PK,
@@ -531,7 +488,7 @@
                 };
                 _apiMethod = "Insert";
             } else {
-                var _input = OrganizationEventGroupCtrl.ePage.Masters.EventAction.ActiveEventAction.TaskConfig;
+                _input = OrganizationEventGroupCtrl.ePage.Masters.EventAction.ActiveEventAction.TaskConfig;
                 _input.IsModified = true;
                 _apiMethod = "Update";
             }
@@ -540,17 +497,13 @@
                 _input = [_input];
             }
 
-            apiService.post("eAxisAPI", organizationConfig.Entities.API.OrgEventTask.API[_apiMethod].Url, _input).then(function (response) {
-                if (response.data.Response) {
-                    if (response.data.Response.length > 0) {
-                        var _index = OrganizationEventGroupCtrl.ePage.Masters.EventAction.PartyTypeList.map(function (value, key) {
-                            return value.PK;
-                        }).indexOf(OrganizationEventGroupCtrl.ePage.Masters.EventAction.ActiveEventAction.PK);
+            apiService.post("eAxisAPI", organizationConfig.Entities.API.OrgEventTask.API[_apiMethod].Url, _input).then(response => {
+                if (response.data.Response && response.data.Response.length > 0) {
+                    let _index = OrganizationEventGroupCtrl.ePage.Masters.EventAction.PartyTypeList.findIndex(value => value.PK === OrganizationEventGroupCtrl.ePage.Masters.EventAction.ActiveEventAction.PK);
 
-                        if (_index != -1) {
-                            OrganizationEventGroupCtrl.ePage.Masters.EventAction.PartyTypeList[_index].TaskConfig = response.data.Response[0];
-                            OrganizationEventGroupCtrl.ePage.Masters.EventAction.PartyTypeList[_index].IsChecked = true;
-                        }
+                    if (_index != -1) {
+                        OrganizationEventGroupCtrl.ePage.Masters.EventAction.PartyTypeList[_index].TaskConfig = response.data.Response[0];
+                        OrganizationEventGroupCtrl.ePage.Masters.EventAction.PartyTypeList[_index].IsChecked = true;
                     }
                 }
                 OrganizationEventGroupCtrl.ePage.Masters.EventAction.EventActionModal.dismiss('cancel');
@@ -558,11 +511,9 @@
         }
 
         function DeleteEventActionTaskConfig() {
-            apiService.get("eAxisAPI", organizationConfig.Entities.API.OrgEventTask.API.Delete.Url + OrganizationEventGroupCtrl.ePage.Masters.EventAction.ActiveEventAction.TaskConfig.PK).then(function (response) {
+            apiService.get("eAxisAPI", organizationConfig.Entities.API.OrgEventTask.API.Delete.Url + OrganizationEventGroupCtrl.ePage.Masters.EventAction.ActiveEventAction.TaskConfig.PK).then(response => {
                 if (response.data.Response) {
-                    var _index = OrganizationEventGroupCtrl.ePage.Masters.EventAction.PartyTypeList.map(function (value, key) {
-                        return value.PK;
-                    }).indexOf(OrganizationEventGroupCtrl.ePage.Masters.EventAction.ActiveEventAction.PK);
+                    let _index = OrganizationEventGroupCtrl.ePage.Masters.EventAction.PartyTypeList.findIndex(value => value.PK === OrganizationEventGroupCtrl.ePage.Masters.EventAction.ActiveEventAction.PK);
 
                     if (_index != -1) {
                         OrganizationEventGroupCtrl.ePage.Masters.EventAction.PartyTypeList[_index].TaskConfig = undefined;
@@ -572,9 +523,9 @@
             });
         }
 
-        // endregion
+        // #endregion
 
-        // Notification
+        // #region Notification
         function InitNotification() {
             OrganizationEventGroupCtrl.ePage.Masters.EventAction.Notification = {};
 
@@ -620,12 +571,12 @@
         function PrepareNotification() {
             if (OrganizationEventGroupCtrl.ePage.Masters.EventAction.ActiveEventAction.EmailTemplate.NotificationGroup) {
                 if (OrganizationEventGroupCtrl.ePage.Masters.EventAction.ActiveEventAction.EmailTemplate.NotificationGroup.length > 0) {
-                    var _Group = angular.copy(OrganizationEventGroupCtrl.ePage.Masters.EventAction.ActiveEventAction.EmailTemplate.NotificationGroup);
+                    let _Group = angular.copy(OrganizationEventGroupCtrl.ePage.Masters.EventAction.ActiveEventAction.EmailTemplate.NotificationGroup);
 
                     if (_Group.length > 0) {
-                        _Group.map(function (value1, key1) {
+                        _Group.map(value1 => {
                             if (value1.Attachment.length > 0) {
-                                value1.Attachment.map(function (value2, key2) {
+                                value1.Attachment.map(value2 => {
                                     delete value2.FieldNo;
                                     delete value2.FieldName;
                                 });
@@ -646,8 +597,9 @@
 
             CloseNotificationModal();
         }
+        // #endregion 
 
-        // Task Config
+        // #region Task Config
         function InitTaskConfig() {
             OrganizationEventGroupCtrl.ePage.Masters.EventAction.TaskConfig = {};
 
@@ -684,18 +636,16 @@
                 }
             }
 
-            EditTaskConfigModalInstance().result.then(function (response) {}, function () {
-                CloseTaskConfigModal();
-            });
+            EditTaskConfigModalInstance().result.then(response => {}, () => CloseTaskConfigModal());
         }
 
         function PrepareTaskConfig() {
             if (OrganizationEventGroupCtrl.ePage.Masters.EventAction.ActiveEventAction.TaskConfig.TaskConfigGroup) {
                 if (OrganizationEventGroupCtrl.ePage.Masters.EventAction.ActiveEventAction.TaskConfig.TaskConfigGroup.length > 0) {
-                    var _Group = angular.copy(OrganizationEventGroupCtrl.ePage.Masters.EventAction.ActiveEventAction.TaskConfig.TaskConfigGroup);
+                    let _Group = angular.copy(OrganizationEventGroupCtrl.ePage.Masters.EventAction.ActiveEventAction.TaskConfig.TaskConfigGroup);
 
                     if (_Group.length > 0) {
-                        _Group.map(function (value1, key1) {
+                        _Group.map(value1 => {
                             if (value1.DataSlotKey || value1.DataSlotKey == "" || value1.DataSlotKey == " ") {
                                 delete value1.DataSlotKey;
                             }
@@ -703,7 +653,7 @@
                                 delete value1.DataSlotValue;
                             }
                             if (value1.QueryResults.length > 0) {
-                                value1.QueryResults.map(function (value2, key2) {
+                                value1.QueryResults.map(value2 => {
                                     delete value2.FieldNo;
                                     delete value2.FieldName;
                                 });
@@ -724,8 +674,9 @@
 
             CloseTaskConfigModal();
         }
+        //#endregion
 
-        // Party Role Mapping
+        // #region Party Role Mapping
         function OnRoleBtnClick($item) {
             OrganizationEventGroupCtrl.ePage.Masters.EventAction.ActiveParty = angular.copy($item);
 
@@ -734,24 +685,19 @@
 
         function GetRoleList() {
             OrganizationEventGroupCtrl.ePage.Masters.EventAction.RoleList = undefined;
-            var _filter = {
+            let _filter = {
                 "SAP_Code": authService.getUserInfo().AppCode,
                 "PartyCode": OrganizationEventGroupCtrl.ePage.Masters.EventAction.ActiveParty.Code,
             };
-            var _input = {
+            let _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
                 "FilterID": organizationConfig.Entities.API.SecMappings.API.GetRoleByUserApp.FilterID
             };
 
-            apiService.post("authAPI", organizationConfig.Entities.API.SecMappings.API.GetRoleByUserApp.Url, _input).then(function SuccessCallback(response) {
-                if (response.data.Response) {
+            apiService.post("authAPI", organizationConfig.Entities.API.SecMappings.API.GetRoleByUserApp.Url, _input).then(response => {
+                if (response.data.Response && response.data.Response.length > 0) {
                     OrganizationEventGroupCtrl.ePage.Masters.EventAction.RoleList = response.data.Response;
-
-                    if (OrganizationEventGroupCtrl.ePage.Masters.EventAction.RoleList.length > 0) {
-                        GetPartyRoleMappingList();
-                    } else {
-                        toastr.warning("No Role mapped with this Party...!");
-                    }
+                    GetPartyRoleMappingList();
                 } else {
                     OrganizationEventGroupCtrl.ePage.Masters.EventAction.RoleList = [];
                     toastr.warning("No Role mapped with this Party...!");
@@ -760,7 +706,7 @@
         }
 
         function GetPartyRoleMappingList() {
-            var _filter = {
+            let _filter = {
                 "ItemName": "GRUP",
                 "ItemCode": OrganizationEventGroupCtrl.ePage.Masters.EventAction.ActiveParty.Code,
                 "Item_FK": OrganizationEventGroupCtrl.ePage.Masters.EventAction.ActiveParty.PK,
@@ -776,27 +722,23 @@
                 "TenantCode": authService.getUserInfo().TenantCode,
                 "SAP_Code": authService.getUserInfo().AppCode,
             };
-            var _input = {
+            let _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
                 "FilterID": organizationConfig.Entities.API.GroupRoleEventTypeOrganisation.API.FindAll.FilterID
             };
 
-            apiService.post("authAPI", organizationConfig.Entities.API.GroupRoleEventTypeOrganisation.API.FindAll.Url, _input).then(function SuccessCallback(response) {
-                if (response.data.Response) {
-                    if (response.data.Response.length > 0) {
-                        OrganizationEventGroupCtrl.ePage.Masters.EventAction.RoleList.map(function (value1, key1) {
-                            response.data.Response.map(function (value2, key2) {
-                                if (value1.PK === value2.Access_FK) {
-                                    value1.IsChecked = true;
-                                    value1.MappingObj = value2;
-                                }
-                            });
+            apiService.post("authAPI", organizationConfig.Entities.API.GroupRoleEventTypeOrganisation.API.FindAll.Url, _input).then(response => {
+                if (response.data.Response && response.data.Response.length > 0) {
+                    OrganizationEventGroupCtrl.ePage.Masters.EventAction.RoleList.map(value1 => {
+                        response.data.Response.map(value2 => {
+                            if (value1.PK === value2.Access_FK) {
+                                value1.IsChecked = true;
+                                value1.MappingObj = value2;
+                            }
                         });
-                    }
-
-                    EditPartyRoleModalInstance().result.then(function (response) {}, function () {
-                        console.log("Cancelled");
                     });
+
+                    EditPartyRoleModalInstance().result.then(response => {}, () => {});
                 }
             });
         }
@@ -816,15 +758,13 @@
         }
 
         function OnRoleClick($event, $item) {
-            var checkbox = $event.target,
+            let checkbox = $event.target,
                 check = checkbox.checked;
 
             if (check == true) {
                 InsertOrgGroupRoleMapping($item);
             } else if (check == false) {
-                var _isExist = OrganizationEventGroupCtrl.ePage.Masters.EventAction.RoleList.some(function (value, key) {
-                    return value.IsChecked;
-                });
+                let _isExist = OrganizationEventGroupCtrl.ePage.Masters.EventAction.RoleList.some(value => value.IsChecked);
                 if (_isExist) {
                     DeleteOrgGroupRoleMapping($item);
                 } else {
@@ -835,7 +775,7 @@
         }
 
         function InsertOrgGroupRoleMapping($item) {
-            var _input = {
+            let _input = {
                 ItemName: "GRUP",
                 ItemCode: OrganizationEventGroupCtrl.ePage.Masters.EventAction.ActiveParty.Code,
                 Item_FK: OrganizationEventGroupCtrl.ePage.Masters.EventAction.ActiveParty.PK,
@@ -858,12 +798,10 @@
                 IsModified: true
             };
 
-            apiService.post("authAPI", organizationConfig.Entities.API.GroupRoleEventTypeOrganisation.API.Insert.Url, [_input]).then(function (response) {
+            apiService.post("authAPI", organizationConfig.Entities.API.GroupRoleEventTypeOrganisation.API.Insert.Url, [_input]).then(response => {
                 if (response.data.Response && response.data.Response.length > 0) {
-                    var _response = response.data.Response[0];
-                    var _index = OrganizationEventGroupCtrl.ePage.Masters.EventAction.RoleList.map(function (value, key) {
-                        return value.PK;
-                    }).indexOf(_response.Access_FK);
+                    let _response = response.data.Response[0];
+                    let _index = OrganizationEventGroupCtrl.ePage.Masters.EventAction.RoleList.findIndex(value => value.PK === _response.Access_FK);
 
                     if (_index != -1) {
                         OrganizationEventGroupCtrl.ePage.Masters.EventAction.RoleList[_index].IsChecked = true;
@@ -874,21 +812,16 @@
         }
 
         function UpdateOrgGroupRoleMapping($event, $item) {
-            var _input = $item.MappingObj;
+            let _input = $item.MappingObj;
             _input.IsModified = true;
 
-            apiService.post("authAPI", organizationConfig.Entities.API.GroupRoleEventTypeOrganisation.API.Update.Url, _input).then(function SuccessCallback(response) {
-                if (response.data.Response) {
-                    if (response.data.Response.length > 0) {}
-                }
-            });
+            apiService.post("authAPI", organizationConfig.Entities.API.GroupRoleEventTypeOrganisation.API.Update.Url, _input).then(response => {});
         }
 
         function DeleteOrgGroupRoleMapping($item) {
-            apiService.get("authAPI", organizationConfig.Entities.API.GroupRoleEventTypeOrganisation.API.Delete.Url + $item.MappingObj.PK).then(function SuccessCallback(response) {
-                if (response.data.Response) {}
-            });
+            apiService.get("authAPI", organizationConfig.Entities.API.GroupRoleEventTypeOrganisation.API.Delete.Url + $item.MappingObj.PK).then(response => {});
         }
+        // #endregion
 
         Init();
     }

@@ -1,0 +1,49 @@
+<div class="grid-loading-norecord-container ng-scope" style='z-index: 15;' data-ng-if="DeliveryLineMenuCtrl.ePage.Masters.Loading">
+    <div class="grid-no-record">
+        <i class="fa fa-spinner fa-pulse"></i> Saving your Data...</div>
+</div>
+
+<div class="clearfix wms-menu-wraper">
+    <div id="wmsMenuWrapper{{DeliveryLineMenuCtrl.currentDelivery.label}}" class="col-sm-12 no-padding-left no-padding-right">
+        <delivery-line-general current-delivery="DeliveryLineMenuCtrl.currentDelivery"></delivery-line-general>      
+    </div>
+    <div class="error-warning-container right" id="errorWarningContainer{{DeliveryLineMenuCtrl.currentDelivery.label}}">
+        <div class="error-warning-header clearfix">
+            <span class="title pull-left">
+                <!-- <i class="fa fa-warning"></i>  -->
+                Errors & Warnings
+            </span>
+            <span class="error-warning-toggle-icon pull-right" data-ng-click="DeliveryLineMenuCtrl.ePage.Masters.Config.ShowErrorWarningModal(DeliveryLineMenuCtrl.currentDelivery)">
+                <i class="fa fa-arrow-right"></i>
+            </span>
+        </div>
+        <div class="error-warning-body">
+            <div class="clearfix" data-ng-if="DeliveryLineMenuCtrl.ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList.length>0">
+                <div class="clearfix">
+                    <div class="p-5 error-warnig-list clearfix" data-ng-repeat="x in DeliveryLineMenuCtrl.ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList">
+                        <div class="clearfix">
+                            <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 p-0 text-center">
+                                <span class=" fa fa-warning" data-ng-style="{color: {'W':'#FFAD33', 'E':'#ED4337'}[x.MessageType]}"></span>
+                            </div>
+                            <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11 pr-0">
+                                <div class="message" data-ng-bind="x.Code + ' - ' + x.Message"></div>
+                                <div class="meta-object" data-ng-bind="x.MetaObject"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="eaxis-footer-strip" data-ng-show="DeliveryLineMenuCtrl.ePage.Masters.ActiveMenuTab.Value != 'MyTask'">
+        <div class="col-xs-6 col-sm-8 col-md-8 col-lg-9 col-xl-9">
+            <standard-menu dataentry-object="DeliveryLineMenuCtrl.dataentryObject" input="DeliveryLineMenuCtrl.currentDelivery"></standard-menu>
+        </div>
+        <div class="col-xs-6 col-sm-4 col-md-4 col-lg-3 col-xl-3">
+            <span class="">
+                <button class="btn btn-primary btn-sm pull-right  margin-right-10 mt-6" data-ng-click="DeliveryLineMenuCtrl.ePage.Masters.Validation(DeliveryLineMenuCtrl.currentDelivery)"
+                    ng-disabled="DeliveryLineMenuCtrl.ePage.Masters.DisableSave" data-ng-bind="DeliveryLineMenuCtrl.ePage.Masters.SaveButtonText">Save</button>
+            </span>
+        </div>
+    </div>
+</div>

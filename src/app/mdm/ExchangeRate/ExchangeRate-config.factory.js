@@ -71,7 +71,7 @@
                                 "HttpType": "POST",
                                 "Url": "MstExchangeRate/Insert"
                             },
-                            "UpdateCurrency": {
+                            "UpdateExchangeRate": {
                                 "IsAPI": "true",
                                 "HttpType": "POST",
                                 "Url": "MstExchangeRate/Update"
@@ -81,12 +81,12 @@
                             "Language": helperService.metaBase(),
                             "ErrorWarning": {
                                 "GlobalErrorWarningList": [],
-                                "ToCurrency": helperService.metaBase(),
-                                "StartDate": helperService.metaBase(),
-                                "Symbol": helperService.metaBase(),
-                                "Country": helperService.metaBase(),
-                                "IsActive": helperService.metaBase(),
-                                "Unitname": helperService.metaBase()
+                                "FromCurrency": helperService.metaBase(),
+                                "RX_NKExCurrency": helperService.metaBase(),
+                                "ExRateType": helperService.metaBase(),
+                                "RateSubType": helperService.metaBase(),
+                                "Rate": helperService.metaBase(),
+                                "ExpiryDate": helperService.metaBase()
 
                             }
                         },
@@ -95,7 +95,7 @@
                             "IsDisablePost": true
                         },
                         "TableProperties": {
-                            "UIExRate": {
+                            "lstUIMstExchangeRate": {
                                 "TableHeight": {
                                     "isEnabled": true,
                                     "height": 300
@@ -198,8 +198,7 @@
                                     "width": "150"
                                 }
                             }
-                        },
-                        "ExRateListData":[]
+                        }
                     }
                 }
             };
@@ -221,7 +220,7 @@
                 deferred.resolve(exports.TabList);
             }
             else {
-                helperService.getFullObjectUsingGetById(exports.Entities.API.ExchangerateMaster.API.GetById.Url, currentExchange.PK).then(function (response) {
+                helperService.getFullObjectUsingGetById(exports.Entities.API.ExchangerateMaster.API.GetById.Url, currentExchangeRate.PK).then(function (response) {
                     if (response.data.Messages) {
                         response.data.Messages.map(function (value, key) {
                             if (value.Type === "Warning" && value.MessageDesc !== "") {
@@ -266,12 +265,14 @@
 
         function GeneralValidation($item) {
             var _Data = $item[$item.code].ePage.Entities,
-                _input = _Data.Header.Data;
-            //UICurrencyMaster Validations 
-            OnChangeValues(_input.Code, 'E1318', false, undefined, $item.code);
-            OnChangeValues(_input.Desc, 'E1319', false, undefined, $item.code);
-            // OnChangeValues(_input.Desc, 'E1316', false, undefined, $item.code);
-            // OnChangeValues(_input.Desc, 'E1317', false, undefined, $item.code);
+                _input = _Data.Header.Data.UIMstExchangeRate;
+            // //UICurrencyMaster Validations 
+            OnChangeValues(_input.FromCurrency, 'E1324', false, undefined, $item.code);
+            OnChangeValues(_input.RX_NKExCurrency, 'E1329', false, undefined, $item.code);
+            OnChangeValues(_input.ExRateType, 'E1325', false, undefined, $item.code);
+            OnChangeValues(_input.RateSubType, 'E1326', false, undefined, $item.code);
+            OnChangeValues(_input.Rate,'E1327',false,undefined,$item.code);
+            OnChangeValues(_input.ExpiryDate,'E1328',false,undefined,$item.code);
         }
 
         function OnChangeValues(fieldvalue, code, IsArray, RowIndex, label) {

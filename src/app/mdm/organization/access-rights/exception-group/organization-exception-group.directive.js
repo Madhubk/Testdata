@@ -6,7 +6,7 @@
         .directive("organizationExceptionGroup", OrganizationExceptionGroup);
 
     function OrganizationExceptionGroup() {
-        var exports = {
+        let exports = {
             restrict: "EA",
             templateUrl: "app/mdm/organization/access-rights/exception-group/organization-exception-group.html",
             controller: "OrganizationExceptionGroupController",
@@ -23,13 +23,13 @@
         .module("Application")
         .controller("OrganizationExceptionGroupController", OrganizationExceptionGroupController);
 
-    OrganizationExceptionGroupController.$inject = ["helperService", "appConfig", "apiService", "authService", "organizationConfig"];
+    OrganizationExceptionGroupController.$inject = ["helperService", "apiService", "authService", "organizationConfig"];
 
-    function OrganizationExceptionGroupController(helperService, appConfig, apiService, authService, organizationConfig) {
-        var OrganizationExceptionGroupCtrl = this;
+    function OrganizationExceptionGroupController(helperService, apiService, authService, organizationConfig) {
+        let OrganizationExceptionGroupCtrl = this;
 
         function Init() {
-            var currentOrganization = OrganizationExceptionGroupCtrl.currentOrganization[OrganizationExceptionGroupCtrl.currentOrganization.code].ePage.Entities;
+            let currentOrganization = OrganizationExceptionGroupCtrl.currentOrganization[OrganizationExceptionGroupCtrl.currentOrganization.code].ePage.Entities;
 
             OrganizationExceptionGroupCtrl.ePage = {
                 "Title": "",
@@ -53,19 +53,16 @@
 
         function GetExceptionGroupList() {
             OrganizationExceptionGroupCtrl.ePage.Masters.ExceptionGroup.ExceptionGroupList = undefined;
-            var _filter = {};
-            var _input = {
+            let _filter = {};
+            let _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
                 "FilterID": organizationConfig.Entities.API.MstExceptionType.API.FindAll.FilterID
             };
 
-            apiService.post("eAxisAPI", organizationConfig.Entities.API.MstExceptionType.API.FindAll.Url, _input).then(function (response) {
-                if (response.data.Response) {
+            apiService.post("eAxisAPI", organizationConfig.Entities.API.MstExceptionType.API.FindAll.Url, _input).then(response => {
+                if (response.data.Response && response.data.Response.length > 0) {
                     OrganizationExceptionGroupCtrl.ePage.Masters.ExceptionGroup.ExceptionGroupList = response.data.Response;
-
-                    if (response.data.Response.length > 0) {
-                        GetOrgExceptionGroup();
-                    }
+                    GetOrgExceptionGroup();
                 } else {
                     OrganizationExceptionGroupCtrl.ePage.Masters.ExceptionGroup.ExceptionGroupList = [];
                 }
@@ -73,49 +70,41 @@
         }
 
         function GetOrgExceptionGroup() {
-            var _filter = {
+            let _filter = {
                 Fk_1: OrganizationExceptionGroupCtrl.ePage.Entities.Header.Data.OrgHeader.PK,
                 Code_1: OrganizationExceptionGroupCtrl.ePage.Entities.Header.Data.OrgHeader.Code,
                 MappingCode: "ORG_EXCEPTION"
             };
-            var _input = {
+            let _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
                 "FilterID": organizationConfig.Entities.API.EntitiesMapping.API.FindAll.FilterID
             };
 
-            apiService.post("eAxisAPI", organizationConfig.Entities.API.EntitiesMapping.API.FindAll.Url, _input).then(function (response) {
-                if (response.data.Response) {
-                    if (response.data.Response.length > 0) {
-                        OrganizationExceptionGroupCtrl.ePage.Masters.ExceptionGroup.ExceptionGroupList.map(function (value1, key1) {
-                            response.data.Response.map(function (value2, key2) {
-                                if (value1.PK === value2.Fk_2) {
-                                    value1.IsChecked = true;
-                                    value1.OrgExceptionGroup = value2;
-                                }
-                            });
+            apiService.post("eAxisAPI", organizationConfig.Entities.API.EntitiesMapping.API.FindAll.Url, _input).then(response => {
+                if (response.data.Response && response.data.Response.length > 0) {
+                    OrganizationExceptionGroupCtrl.ePage.Masters.ExceptionGroup.ExceptionGroupList.map(value1 => {
+                        response.data.Response.map(value2 => {
+                            if (value1.PK === value2.Fk_2) {
+                                value1.IsChecked = true;
+                                value1.OrgExceptionGroup = value2;
+                            }
                         });
-                    } else {
-                        OrganizationExceptionGroupCtrl.ePage.Masters.ExceptionGroup.ExceptionGroupList.map(function (value, key) {
-                            value.IsChecked = false;
-                        });
-                    }
+                    });
+                } else {
+                    OrganizationExceptionGroupCtrl.ePage.Masters.ExceptionGroup.ExceptionGroupList.map(value => value.IsChecked = false);
                 }
             });
         }
 
         function OnExceptionGroupClick($event, $item) {
-            var _checkbox = $event.target,
+            let _checkbox = $event.target,
                 _isChecked = _checkbox.checked;
 
-            if (_isChecked) {
-                SaveExceptionGroup($item);
-            } else {
-                DeleteExceptionGroup($item);
-            }
+            _isChecked ? SaveExceptionGroup($item) : DeleteExceptionGroup($item);
         }
 
         function SaveExceptionGroup($item) {
-            var _input = {
+            let _input = {
                 Fk_1: OrganizationExceptionGroupCtrl.ePage.Entities.Header.Data.OrgHeader.PK,
                 Code_1: OrganizationExceptionGroupCtrl.ePage.Entities.Header.Data.OrgHeader.Code,
                 Fk_2: $item.PK,
@@ -127,22 +116,18 @@
                 IsActive: true
             };
 
-            apiService.post("eAxisAPI", organizationConfig.Entities.API.EntitiesMapping.API.Insert.Url, [_input]).then(function (response) {
-                if (response.data.Response) {
-                    if (response.data.Response.length > 0) {
-                        $item.OrgExceptionGroup = response.data.Response[0];
-                        $item.IsChecked = true;
-                    }
+            apiService.post("eAxisAPI", organizationConfig.Entities.API.EntitiesMapping.API.Insert.Url, [_input]).then(response => {
+                if (response.data.Response && response.data.Response.length > 0) {
+                    $item.OrgExceptionGroup = response.data.Response[0];
+                    $item.IsChecked = true;
                 }
             });
         }
 
         function DeleteExceptionGroup($item) {
-            apiService.get("eAxisAPI", organizationConfig.Entities.API.EntitiesMapping.API.Delete.Url + $item.OrgExceptionGroup.PK).then(function (response) {
-                if (response.data.Response) {
-                    if (response.data.Response.length > 0) {
-                        $item.IsChecked = false;
-                    }
+            apiService.get("eAxisAPI", organizationConfig.Entities.API.EntitiesMapping.API.Delete.Url + $item.OrgExceptionGroup.PK).then(response => {
+                if (response.data.Response && response.data.Response.length > 0) {
+                    $item.IsChecked = false;
                 }
             });
         }

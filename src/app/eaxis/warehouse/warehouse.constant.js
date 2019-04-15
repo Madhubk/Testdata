@@ -941,15 +941,47 @@
                 'app/eaxis/warehouse/pending-pickup-toolbar/pending-pickup-toolbar.controller.js',
                 'app/eaxis/warehouse/pending-pickup-toolbar/pending-pickup-toolbar.directive.js',
             ]
-        }, {
+        },
+        // #region - delivery line
+        {
             name: 'deliveryLine',
             files: [
                 'app/eaxis/warehouse/delivery-line/delivery-line.controller.js',
+                'app/eaxis/warehouse/delivery-line/delivery-line-config.factory.js'
             ]
         }, {
+            name: 'deliveryLineMenu',
+            files: [
+                'app/eaxis/warehouse/delivery-line/delivery-line-menu/delivery-line-menu.css',
+                'app/eaxis/warehouse/delivery-line/delivery-line-menu/delivery-line-menu.controller.js',
+                'app/eaxis/warehouse/delivery-line/delivery-line-menu/delivery-line-menu.directive.js'
+            ]
+        }, {
+            name: 'deliveryLineGeneral',
+            files: [
+                'app/eaxis/warehouse/delivery-line/delivery-line-general/delivery-line-general.controller.js',
+                'app/eaxis/warehouse/delivery-line/delivery-line-general/delivery-line-general.directive.js'
+            ]
+        },
+        {
             name: 'damagedSKU',
             files: [
                 'app/eaxis/warehouse/track-damaged-sku/track-damaged-sku.controller.js',
+                'app/eaxis/warehouse/track-damaged-sku/track-damaged-sku-config.factory.js'
+            ]
+        },
+        {
+            name: 'damageMenu',
+            files: [
+                'app/eaxis/warehouse/track-damaged-sku/track-damaged-sku-menu/track-damaged-sku-menu.css',
+                'app/eaxis/warehouse/track-damaged-sku/track-damaged-sku-menu/track-damaged-sku-menu.controller.js',
+                'app/eaxis/warehouse/track-damaged-sku/track-damaged-sku-menu/track-damaged-sku-menu.directive.js'
+            ]
+        }, {
+            name: 'damageGeneral',
+            files: [
+                'app/eaxis/warehouse/track-damaged-sku/track-damaged-sku-general/track-damaged-sku-general.controller.js',
+                'app/eaxis/warehouse/track-damaged-sku/track-damaged-sku-general/track-damaged-sku-general.directive.js'
             ]
         }, {
             name: 'damagedSkuToolbar',

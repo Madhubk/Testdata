@@ -4,13 +4,13 @@
         .module("Application")
         .controller("ExchangeRateMenuController", ExchangeRateMenuController);
 
-        ExchangeRateMenuController.$inject = ["$scope", "$timeout", "$filter", "APP_CONSTANT", "authService", "apiService", "toastr", "exchangerateConfig", "helperService", "errorWarningService"];
+    ExchangeRateMenuController.$inject = ["$scope", "$timeout", "$filter", "APP_CONSTANT", "authService", "apiService", "toastr", "exchangerateConfig", "helperService", "errorWarningService"];
 
-    function ExchangeRateMenuController($scope, $timeout, $filter, APP_CONSTANT, authService, apiService, toastr, exchangerateConfig, helperService, errorWarningService) {        
+    function ExchangeRateMenuController($scope, $timeout, $filter, APP_CONSTANT, authService, apiService, toastr, exchangerateConfig, helperService, errorWarningService) {
 
         var ExchangeRateMenuCtrl = this;
         function Init() {
-            
+
             var currentExchangeRate = ExchangeRateMenuCtrl.currentExchangeRate[ExchangeRateMenuCtrl.currentExchangeRate.code].ePage.Entities;
             ExchangeRateMenuCtrl.ePage = {
                 "Title": "",
@@ -21,9 +21,9 @@
             };
 
             ExchangeRateMenuCtrl.ePage.Masters.SaveButtonText = "Save";
-            ExchangeRateMenuCtrl.ePage.Masters.PostCostButtonText = "Post Cost";
-            ExchangeRateMenuCtrl.ePage.Masters.PostRevenueButtonText = "Post Revenue";
-            ExchangeRateMenuCtrl.ePage.Masters.PostButtonText = "Post";
+            // ExchangeRateMenuCtrl.ePage.Masters.PostCostButtonText = "Post Cost";
+            // ExchangeRateMenuCtrl.ePage.Masters.PostRevenueButtonText = "Post Revenue";
+            // ExchangeRateMenuCtrl.ePage.Masters.PostButtonText = "Post";
             ExchangeRateMenuCtrl.ePage.Masters.DisableSave = false;
             ExchangeRateMenuCtrl.ePage.Masters.Config = exchangerateConfig;
 
@@ -37,41 +37,43 @@
             // Menu list from configuration
         }
 
-        function Validation($item) {            
+        function Validation($item) {
+            debugger;
             var _Data = $item[$item.code].ePage.Entities,
-                _input = _Data.Header.Data,
+                _input = _Data.Header.Data.UIMstExchangeRate,
                 _errorcount = _Data.Header.Meta.ErrorWarning.GlobalErrorWarningList;
             ExchangeRateMenuCtrl.ePage.Masters.Config.GeneralValidation($item);
             if (ExchangeRateMenuCtrl.ePage.Entities.Header.Validations) {
                 ExchangeRateMenuCtrl.ePage.Masters.Config.RemoveApiErrors(ExchangeRateMenuCtrl.ePage.Entities.Header.Validations, $item.label);
             }
 
+            debugger;
             if (_errorcount.length == 0) {
                 var _filter = {};
                 var _inputField = {
                     "searchInput": helperService.createToArrayOfObject(_filter),
                     "FilterID": exchangerateConfig.Entities.API.ExchangerateMaster.API.FindAll.FilterID
                 };
+                Save($item);
+                // apiService.post("eAxisAPI", exchangerateConfig.Entities.API.ExchangerateMaster.API.FindAll.Url, _inputField).then(function (response) {
+                //     if (response.data.Response) {
+                //         ExchangeRateMenuCtrl.ePage.Masters.UIExchangerateList = response.data.Response;
+                //     }
+                //     var _count = ExchangeRateMenuCtrl.ePage.Masters.UIExchangerateList.some(function (value, key) {
+                //         if (value.Code == _input.Code) {
+                //             return true;
+                //         }
+                //         else {
+                //             return false;
+                //         }
+                //     });
 
-                apiService.post("eAxisAPI", exchangerateConfig.Entities.API.ExchangerateMaster.API.FindAll.Url, _inputField).then(function (response) {
-                    if (response.data.Response) {
-                        ExchangeRateMenuCtrl.ePage.Masters.UIExchangerateList = response.data.Response;
-                    }
-                    var _count = ExchangeRateMenuCtrl.ePage.Masters.UIExchangerateList.some(function (value, key) {
-                        if (value.Code == _input.Code) {
-                            return true;
-                        }
-                        else {
-                            return false;
-                        }
-                    });
+                //     if (_count) {
+                //         toastr.error("Code is Unique, Rename the Code!.");
+                //     } else {
 
-                    if (_count) {
-                        toastr.error("Code is Unique, Rename the Code!.");
-                    } else {
-                        Save($item);
-                    }
-                });
+                //     }
+                // });
             } else {
                 ExchangeRateMenuCtrl.ePage.Masters.Config.ShowErrorWarningModal(ExchangeRateMenuCtrl.currentExchangeRate);
             }
@@ -81,7 +83,7 @@
         function ValidateExchangerate($item) {
             ExchangeRateMenuCtrl.ePage.Masters.SaveButtonText = "Please Wait...";
             ExchangeRateMenuCtrl.ePage.Masters.IsDisableSave = true;
-            var _errorCode = ["E1314", "E1317"];
+            var _errorCode = $item[$item.code];
             // if (param.Entity.isNew) {
             //     _errorCode = ["E9101", "E9102", "E9103", "E9104", "E9105", "E9106", "E9107", "E9108", "E9109", "E9110", "E9111", "E9112", "E9113"];
             // } else {
@@ -96,7 +98,7 @@
                 API: "Group",
                 GroupCode: _groupCode,
                 RelatedBasicDetails: [],
-                EntityObject: ExchangeRateMenuCtrl.ePage.Entities.Header.Data,
+                EntityObject: ExchangeRateMenuCtrl.ePage.Entities.Header.Data.UIMstExchangeRate,
                 ErrorCode: _errorCode
             };
             errorWarningService.ValidateValue(_obj);
@@ -117,14 +119,20 @@
             });
         }
 
-        function Save($item) {            
+        function Save($item) {
             ExchangeRateMenuCtrl.ePage.Masters.SaveButtonText = "Please Wait...";
-            ExchangeRateMenuCtrl.ePage.Masters.DisableSave = true;
+            //ExchangeRateMenuCtrl.ePage.Masters.DisableSave = true;
 
             var _Data = $item[$item.code].ePage.Entities,
-                _input = _Data.Header.Data;
+                _input = _Data.Header.Data.UIMstExchangeRate;
+            //var _ExpiryDate = _Data.Header.Data.UIMstExchangeRate.ExpiryDate;
+            var _ExpiryDate = _Data.Header.Data.UIMstExchangeRate.ExpiryDate;
+            // var _ExpiryDate = new Date(_ExpDate);
+            // _ExpiryDate.setHours(23);
+            // _ExpiryDate.setMinutes(59);
+            // _ExpiryDate.setSeconds(00);
 
-            if ($item.isNew) {                
+            if ($item.isNew) {
                 _input.PK = _input.PK;
                 _input.CreatedDateTime = new Date();
                 _input.IsValid = true;
@@ -132,12 +140,12 @@
                 _input.CreatedBy = authService.getUserInfo().UserId;
                 _input.Source = "ERP";
                 _input.TenantCode = "20CUB";
-                
+                _input.ExpiryDate = _ExpiryDate + "23:59:00";
             } else {
                 $item = filterObjectUpdate($item, "IsModified");
             }
-
-            helperService.SaveEntity($item, 'Exchangerate').then(function (response) {
+            debugger;
+            helperService.SaveEntity($item, 'ExchangeRate').then(function (response) {
                 ExchangeRateMenuCtrl.ePage.Masters.SaveButtonText = "Save";
                 ExchangeRateMenuCtrl.ePage.Masters.DisableSave = false;
 

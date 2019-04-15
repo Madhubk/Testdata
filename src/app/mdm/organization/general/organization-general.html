@@ -2,48 +2,51 @@
     <div class="org-header">
         <span data-ng-bind="((OrganizationGeneralCtrl.ePage.Entities.Header.Data.OrgHeader.Code) ?  OrganizationGeneralCtrl.ePage.Entities.Header.Data.OrgHeader.Code : 'Organization Code') + ' - ' + ((OrganizationGeneralCtrl.ePage.Entities.Header.Data.OrgHeader.FullName) ?  OrganizationGeneralCtrl.ePage.Entities.Header.Data.OrgHeader.FullName : 'Name')"></span>
         <button class="btn btn-xs btn-primary pull-right" data-ng-click="OrganizationGeneralCtrl.ePage.Masters.OrgHeader.EditOrganization()">Edit</button>
-        <button class="btn btn-xs btn-primary pull-right mr-10 ng-isolate-scope" generate-db-script="" input="OrganizationGeneralCtrl.ePage.Masters.GenerateScriptInput" config="OrganizationGeneralCtrl.ePage.Masters.GenerateScriptConfig" data-ng-disabled="!OrganizationGeneralCtrl.ePage.Masters.GenerateScriptInput.ObjectName || !OrganizationGeneralCtrl.ePage.Masters.GenerateScriptInput.ObjectId || !OrganizationGeneralCtrl.ePage.Entities.Header.Data.OrgHeader.PK">Generate Script</button>
+        <button class="btn btn-xs btn-primary pull-right mr-10 ng-isolate-scope" generate-db-script="" input="OrganizationGeneralCtrl.ePage.Masters.GenerateScriptInput"
+            config="OrganizationGeneralCtrl.ePage.Masters.GenerateScriptConfig" data-ng-disabled="!OrganizationGeneralCtrl.ePage.Masters.GenerateScriptInput.ObjectName || !OrganizationGeneralCtrl.ePage.Masters.GenerateScriptInput.ObjectId || !OrganizationGeneralCtrl.ePage.Entities.Header.Data.OrgHeader.PK">Generate
+            Script</button>
     </div>
     <div class="org-general-label-container">
-        <span class="label" style="margin: 10px 5px; background-color: #aaa; color: #fff;" data-ng-repeat="x in OrganizationGeneralCtrl.ePage.Masters.OrgHeader.DataList" data-ng-if="OrganizationGeneralCtrl.ePage.Entities.Header.Data.OrgHeader[x.Value]"
-            data-ng-bind="x.DispName"></span>
+        <span class="label" style="margin: 10px 5px; background-color: #aaa; color: #fff;" data-ng-repeat="x in OrganizationGeneralCtrl.ePage.Masters.OrgHeader.DataList"
+            data-ng-if="OrganizationGeneralCtrl.ePage.Entities.Header.Data.OrgHeader[x.Value]" data-ng-bind="x.DispName"></span>
     </div>
-    <div class="clearfix" data-ng-if="OrganizationGeneralCtrl.ePage.Masters.OrgHeader.MainAddress">
+    <div class="clearfix" data-ng-if="OrganizationGeneralCtrl.ePage.Entities.Header.Data.OrgHeader.OAD_PK">
         <div class="col-sm-4 p-0">
             <div class="p-10 m-10 org-address-contact-box position-relative">
                 <div class="clearfix pr-35">
-                    <div class="text-single-line">{{OrganizationGeneralCtrl.ePage.Masters.OrgHeader.MainAddress.Address1
+                    <div class="text-single-line">{{OrganizationGeneralCtrl.ePage.Entities.Header.Data.OrgHeader.OAD_Address1
                         || OrganizationGeneralCtrl.ePage.Masters.EmptyText}}</div>
-                    <div class="text-single-line">{{OrganizationGeneralCtrl.ePage.Masters.OrgHeader.MainAddress.Address2
+                    <div class="text-single-line">{{OrganizationGeneralCtrl.ePage.Entities.Header.Data.OrgHeader.OAD_Address2
                         || OrganizationGeneralCtrl.ePage.Masters.EmptyText}}</div>
-                    <div class="text-single-line">{{OrganizationGeneralCtrl.ePage.Masters.OrgHeader.MainAddress.RelatedPortCode
+                    <div class="text-single-line">{{OrganizationGeneralCtrl.ePage.Entities.Header.Data.OrgHeader.OAD_RelatedPortCode
                         ||
                         OrganizationGeneralCtrl.ePage.Masters.EmptyText}}</div>
-                    <div class="text-single-line">{{OrganizationGeneralCtrl.ePage.Masters.OrgHeader.MainAddress.City ||
+                    <div class="text-single-line">{{OrganizationGeneralCtrl.ePage.Entities.Header.Data.OrgHeader.OAD_City
+                        ||
                         OrganizationGeneralCtrl.ePage.Masters.EmptyText}} -
-                        {{OrganizationGeneralCtrl.ePage.Masters.OrgHeader.MainAddress.PostCode ||
+                        {{OrganizationGeneralCtrl.ePage.Entities.Header.Data.OrgHeader.OAD_PostCode ||
                         OrganizationGeneralCtrl.ePage.Masters.EmptyText}}</div>
-                    <div class="text-single-line">{{OrganizationGeneralCtrl.ePage.Masters.OrgHeader.MainAddress.State
+                    <div class="text-single-line">{{OrganizationGeneralCtrl.ePage.Entities.Header.Data.OrgHeader.OAD_State
                         || OrganizationGeneralCtrl.ePage.Masters.EmptyText}}</div>
                 </div>
                 <div class="clearfix text-right rtl">
                     <div class="text-single-line">
-                        <span>{{OrganizationGeneralCtrl.ePage.Masters.OrgHeader.MainAddress.Phone ||
+                        <span>{{OrganizationGeneralCtrl.ePage.Entities.Header.Data.OrgHeader.OAD_Phone ||
                             OrganizationGeneralCtrl.ePage.Masters.EmptyText}}</span>
                         <i class="fa fa-phone org-address-icon"></i>
                     </div>
                     <div class="text-single-line">
-                        <span>{{OrganizationGeneralCtrl.ePage.Masters.OrgHeader.MainAddress.Mobile ||
+                        <span>{{OrganizationGeneralCtrl.ePage.Entities.Header.Data.OrgHeader.OAD_Mobile ||
                             OrganizationGeneralCtrl.ePage.Masters.EmptyText}}</span>
                         <i class="fa fa-mobile org-address-icon"></i>
                     </div>
                     <div class="text-single-line">
-                        <span>{{OrganizationGeneralCtrl.ePage.Masters.OrgHeader.MainAddress.Email ||
+                        <span>{{OrganizationGeneralCtrl.ePage.Entities.Header.Data.OrgHeader.OAD_Email ||
                             OrganizationGeneralCtrl.ePage.Masters.EmptyText}}</span>
                         <i class="fa fa-envelope org-address-icon"></i>
                     </div>
                     <div class="text-single-line">
-                        <span>{{OrganizationGeneralCtrl.ePage.Masters.OrgHeader.MainAddress.Fax ||
+                        <span>{{OrganizationGeneralCtrl.ePage.Entities.Header.Data.OrgHeader.OAD_Fax ||
                             OrganizationGeneralCtrl.ePage.Masters.EmptyText}} </span>
                         <i class="fa fa-fax org-address-icon"></i>
                     </div>

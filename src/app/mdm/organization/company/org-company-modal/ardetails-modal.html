@@ -3,7 +3,7 @@
         <h5 class="modal-title pull-left"><strong>AR Details</strong></h5>
         <input type="button" class="btn btn-warning btn-xs pull-right ml-5" data-ng-click="OrgCompanyModalCtrl.ePage.Masters.Cancel()"
             value="Close" />
-        <input type="button" class="btn btn-primary btn-xs pull-right ml-5" data-ng-click="OrgCompanyModalCtrl.ePage.Masters.Save(OrgCompanyModalCtrl.ePage.Masters.Company.FormView, 'OrgCompanyData', 'OrgARDetails')"
+        <input type="button" class="btn btn-primary btn-xs pull-right ml-5" data-ng-click="OrgCompanyModalCtrl.ePage.Masters.Save(OrgCompanyModalCtrl.ePage.Masters.OrgCompanyData.FormView, 'OrgCompanyData', 'OrgARDetails')"
             value="{{OrgCompanyModalCtrl.ePage.Masters.SaveButtonText}}" data-ng-disabled="OrgCompanyModalCtrl.ePage.Masters.IsDisableSave" />
     </div>
     <div class="modal-body p-10">
@@ -16,18 +16,18 @@
                         <div class="form-group">
                             <label>Account Group</label>
                             <span class="error-warning-container">
-                                <error-warning-directive data-ng-if="OrgCompanyModalCtrl.ePage.Masters.ErrorWarningObj.ODG_ARDebtorGroup.IsWarning && !OrgCompanyModalCtrl.ePage.Masters.ErrorWarningObj.ODG_ARDebtorGroup.IsError"
-                                    list="OrgCompanyModalCtrl.ePage.Masters.ErrorWarningObj.ODG_ARDebtorGroup.WARNING"
+                                <error-warning-directive data-ng-if="OrgCompanyModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.ODG_ARDebtorGroup.IsWarning && !OrgCompanyModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.ODG_ARDebtorGroup.IsError"
+                                    list="OrgCompanyModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.ODG_ARDebtorGroup.WARNING"
                                     type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref=""
                                     g-parent-ref=""></error-warning-directive>
-                                <error-warning-directive data-ng-if="OrgCompanyModalCtrl.ePage.Masters.ErrorWarningObj.ODG_ARDebtorGroup.IsError"
-                                    list="OrgCompanyModalCtrl.ePage.Masters.ErrorWarningObj.ODG_ARDebtorGroup.ERROR"
+                                <error-warning-directive data-ng-if="OrgCompanyModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.ODG_ARDebtorGroup.IsError"
+                                    list="OrgCompanyModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.ODG_ARDebtorGroup.ERROR"
                                     type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
                             </span>
-                            <select chosen name="category-group" data-ng-model="OrgCompanyModalCtrl.ePage.Masters.Company.FormView.ODG_ARDebtorGroup"
+                            <select chosen name="category-group" data-ng-model="OrgCompanyModalCtrl.ePage.Masters.OrgCompanyData.FormView.ODG_ARDebtorGroup"
                                 data-ng-options="x.PK  as x.Desc for x in OrgCompanyModalCtrl.ePage.Masters.DebtorGroupList"
                                 class="form-control"
-                                search-contains="true" data-ng-change="OrgCompanyModalCtrl.ePage.Masters.Company.OnAccountGroupChange((OrgCompanyModalCtrl.ePage.Masters.DebtorGroupList | filter: {'PK': OrgCompanyModalCtrl.ePage.Masters.Company.FormView.ODG_ARDebtorGroup})[0])">
+                                search-contains="true" data-ng-change="OrgCompanyModalCtrl.ePage.Masters.OrgCompanyData.OnAccountGroupChange((OrgCompanyModalCtrl.ePage.Masters.DebtorGroupList | filter: {'PK': OrgCompanyModalCtrl.ePage.Masters.OrgCompanyData.FormView.ODG_ARDebtorGroup})[0])">
                                 <option value="">--Select--</option>
                             </select>
                         </div>
@@ -36,18 +36,18 @@
                         <div class="form-group">
                             <label>Default Invoice Currency</label>
                             <span class="error-warning-container">
-                                <error-warning-directive data-ng-if="OrgCompanyModalCtrl.ePage.Masters.ErrorWarningObj.MYC_NKARDDefltCurrency.IsWarning && !OrgCompanyModalCtrl.ePage.Masters.ErrorWarningObj.MYC_NKARDDefltCurrency.IsError"
-                                    list="OrgCompanyModalCtrl.ePage.Masters.ErrorWarningObj.MYC_NKARDDefltCurrency.WARNING"
+                                <error-warning-directive data-ng-if="OrgCompanyModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.MYC_NKARDDefltCurrency.IsWarning && !OrgCompanyModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.MYC_NKARDDefltCurrency.IsError"
+                                    list="OrgCompanyModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.MYC_NKARDDefltCurrency.WARNING"
                                     type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref=""
                                     g-parent-ref=""></error-warning-directive>
-                                <error-warning-directive data-ng-if="OrgCompanyModalCtrl.ePage.Masters.ErrorWarningObj.MYC_NKARDDefltCurrency.IsError"
-                                    list="OrgCompanyModalCtrl.ePage.Masters.ErrorWarningObj.MYC_NKARDDefltCurrency.ERROR"
+                                <error-warning-directive data-ng-if="OrgCompanyModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.MYC_NKARDDefltCurrency.IsError"
+                                    list="OrgCompanyModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.MYC_NKARDDefltCurrency.ERROR"
                                     type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
                             </span>
-                            <select chosen name="category-group" data-ng-model="OrgCompanyModalCtrl.ePage.Masters.Company.FormView.MYC_NKARDDefltCurrency"
+                            <select chosen name="category-group" data-ng-model="OrgCompanyModalCtrl.ePage.Masters.OrgCompanyData.FormView.MYC_NKARDDefltCurrency"
                                 data-ng-options="x.Code  as (x.Code + ' - ' + x.Desc) for x in OrgCompanyModalCtrl.ePage.Masters.CurrencyList"
                                 class="form-control"
-                                search-contains="true" data-ng-change="OrgCompanyModalCtrl.ePage.Masters.Company.OnCurrencyChange((OrgCompanyModalCtrl.ePage.Masters.CurrencyList | filter: {'Code': OrgCompanyModalCtrl.ePage.Masters.Company.FormView.MYC_NKARDDefltCurrency})[0])">
+                                search-contains="true" data-ng-change="OrgCompanyModalCtrl.ePage.Masters.OrgCompanyData.OnCurrencyChange((OrgCompanyModalCtrl.ePage.Masters.CurrencyList | filter: {'Code': OrgCompanyModalCtrl.ePage.Masters.OrgCompanyData.FormView.MYC_NKARDDefltCurrency})[0])">
                                 <option value="">--Select--</option>
                             </select>
                         </div>
@@ -56,15 +56,15 @@
                         <div class="form-group">
                             <label>Tax-SER Recognition and reporting Basis Override</label>
                             <span class="error-warning-container">
-                                <error-warning-directive data-ng-if="OrgCompanyModalCtrl.ePage.Masters.ErrorWarningObj.ARVATConfig.IsWarning && !OrgCompanyModalCtrl.ePage.Masters.ErrorWarningObj.ARVATConfig.IsError"
-                                    list="OrgCompanyModalCtrl.ePage.Masters.ErrorWarningObj.ARVATConfig.WARNING" type="'warning'"
+                                <error-warning-directive data-ng-if="OrgCompanyModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.ARVATConfig.IsWarning && !OrgCompanyModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.ARVATConfig.IsError"
+                                    list="OrgCompanyModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.ARVATConfig.WARNING" type="'warning'"
                                     icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
-                                <error-warning-directive data-ng-if="OrgCompanyModalCtrl.ePage.Masters.ErrorWarningObj.ARVATConfig.IsError"
-                                    list="OrgCompanyModalCtrl.ePage.Masters.ErrorWarningObj.ARVATConfig.ERROR" type="'error'"
+                                <error-warning-directive data-ng-if="OrgCompanyModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.ARVATConfig.IsError"
+                                    list="OrgCompanyModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.ARVATConfig.ERROR" type="'error'"
                                     icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
                             </span>
                             <input type="text" class="form-control input-sm" placeholder="ARVAT Config" maxlength="3"
-                                data-ng-model="OrgCompanyModalCtrl.ePage.Masters.Company.FormView.ARVATConfig" />
+                                data-ng-model="OrgCompanyModalCtrl.ePage.Masters.OrgCompanyData.FormView.ARVATConfig" />
                         </div>
                     </div>
                 </div>
@@ -73,7 +73,7 @@
                         <div class="form-group">
                             <div class="checkbox">
                                 <label>
-                                    <input type="checkbox" class="colored-blue" data-ng-model="OrgCompanyModalCtrl.ePage.Masters.Company.FormView.ARWHTApplicable">
+                                    <input type="checkbox" class="colored-blue" data-ng-model="OrgCompanyModalCtrl.ePage.Masters.OrgCompanyData.FormView.ARWHTApplicable">
                                     <span class="text">Withholding Tax Is Applicable</span>
                                 </label>
                             </div>
@@ -83,7 +83,7 @@
                         <div class="form-group">
                             <div class="checkbox">
                                 <label>
-                                    <input type="checkbox" class="colored-blue" data-ng-model="OrgCompanyModalCtrl.ePage.Masters.Company.FormView.ARDontShowTaxOnDocs">
+                                    <input type="checkbox" class="colored-blue" data-ng-model="OrgCompanyModalCtrl.ePage.Masters.OrgCompanyData.FormView.ARDontShowTaxOnDocs">
                                     <span class="text">Dont Show Tax On Documents</span>
                                 </label>
                             </div>
@@ -100,30 +100,30 @@
                     <div class="form-group">
                         <label for="ARCreditRating">Credit Rating</label>
                         <span class="error-warning-container">
-                            <error-warning-directive data-ng-if="OrgCompanyModalCtrl.ePage.Masters.ErrorWarningObj.ARCreditRating.IsWarning && !OrgCompanyModalCtrl.ePage.Masters.ErrorWarningObj.ARCreditRating.IsError"
-                                list="OrgCompanyModalCtrl.ePage.Masters.ErrorWarningObj.ARCreditRating.WARNING" type="'warning'"
+                            <error-warning-directive data-ng-if="OrgCompanyModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.ARCreditRating.IsWarning && !OrgCompanyModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.ARCreditRating.IsError"
+                                list="OrgCompanyModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.ARCreditRating.WARNING" type="'warning'"
                                 icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
-                            <error-warning-directive data-ng-if="OrgCompanyModalCtrl.ePage.Masters.ErrorWarningObj.ARCreditRating.IsError"
-                                list="OrgCompanyModalCtrl.ePage.Masters.ErrorWarningObj.ARCreditRating.ERROR" type="'error'"
+                            <error-warning-directive data-ng-if="OrgCompanyModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.ARCreditRating.IsError"
+                                list="OrgCompanyModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.ARCreditRating.ERROR" type="'error'"
                                 icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
                         </span>
                         <input type="text" class="form-control input-sm" placeholder="Credit Rating" maxlength="6"
-                            data-ng-model="OrgCompanyModalCtrl.ePage.Masters.Company.FormView.ARCreditRating" />
+                            data-ng-model="OrgCompanyModalCtrl.ePage.Masters.OrgCompanyData.FormView.ARCreditRating" />
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
                     <div class="form-group">
                         <label for="ARCreditLimit">Credit Limit</label>
                         <span class="error-warning-container">
-                            <error-warning-directive data-ng-if="OrgCompanyModalCtrl.ePage.Masters.ErrorWarningObj.ARCreditLimit.IsWarning && !OrgCompanyModalCtrl.ePage.Masters.ErrorWarningObj.ARCreditLimit.IsError"
-                                list="OrgCompanyModalCtrl.ePage.Masters.ErrorWarningObj.ARCreditLimit.WARNING" type="'warning'"
+                            <error-warning-directive data-ng-if="OrgCompanyModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.ARCreditLimit.IsWarning && !OrgCompanyModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.ARCreditLimit.IsError"
+                                list="OrgCompanyModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.ARCreditLimit.WARNING" type="'warning'"
                                 icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
-                            <error-warning-directive data-ng-if="OrgCompanyModalCtrl.ePage.Masters.ErrorWarningObj.ARCreditLimit.IsError"
-                                list="OrgCompanyModalCtrl.ePage.Masters.ErrorWarningObj.ARCreditLimit.ERROR" type="'error'"
+                            <error-warning-directive data-ng-if="OrgCompanyModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.ARCreditLimit.IsError"
+                                list="OrgCompanyModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.ARCreditLimit.ERROR" type="'error'"
                                 icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
                         </span>
                         <input type="text" class="form-control input-sm" placeholder="Credit Limit" maxlength="8"
-                            data-ng-model="OrgCompanyModalCtrl.ePage.Masters.Company.FormView.ARCreditLimit" />
+                            data-ng-model="OrgCompanyModalCtrl.ePage.Masters.OrgCompanyData.FormView.ARCreditLimit" />
                     </div>
                 </div>
             </div>
@@ -136,7 +136,7 @@
                     <div class="form-group">
                         <div class="checkbox">
                             <label>
-                                <input type="checkbox" class="colored-blue" data-ng-model="OrgCompanyModalCtrl.ePage.Masters.Company.FormView.ARUseSystemDefaultUplifts">
+                                <input type="checkbox" class="colored-blue" data-ng-model="OrgCompanyModalCtrl.ePage.Masters.OrgCompanyData.FormView.ARUseSystemDefaultUplifts">
                                 <span class="text">Use System Default Percentage</span>
                             </label>
                         </div>
@@ -146,7 +146,7 @@
                     <div class="form-group">
                         <div class="checkbox">
                             <label>
-                                <input type="checkbox" class="colored-blue" data-ng-model="OrgCompanyModalCtrl.ePage.Masters.Company.FormView.ARUseSystemDefaultUpliftsMinimums">
+                                <input type="checkbox" class="colored-blue" data-ng-model="OrgCompanyModalCtrl.ePage.Masters.OrgCompanyData.FormView.ARUseSystemDefaultUpliftsMinimums">
                                 <span class="text">Use System Default Minimums</span>
                             </label>
                         </div>
@@ -156,15 +156,15 @@
                     <div class="form-group">
                         <label class="control-label text-single-line">Air Import</label>
                         <span class="error-warning-container">
-                            <error-warning-directive data-ng-if="OrgCompanyModalCtrl.ePage.Masters.ErrorWarningObj.ARImportAirCollectUplift.IsWarning && !OrgCompanyModalCtrl.ePage.Masters.ErrorWarningObj.ARImportAirCollectUplift.IsError"
-                                list="OrgCompanyModalCtrl.ePage.Masters.ErrorWarningObj.ARImportAirCollectUplift.WARNING"
+                            <error-warning-directive data-ng-if="OrgCompanyModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.ARImportAirCollectUplift.IsWarning && !OrgCompanyModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.ARImportAirCollectUplift.IsError"
+                                list="OrgCompanyModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.ARImportAirCollectUplift.WARNING"
                                 type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
-                            <error-warning-directive data-ng-if="OrgCompanyModalCtrl.ePage.Masters.ErrorWarningObj.ARImportAirCollectUplift.IsError"
-                                list="OrgCompanyModalCtrl.ePage.Masters.ErrorWarningObj.ARImportAirCollectUplift.ERROR"
+                            <error-warning-directive data-ng-if="OrgCompanyModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.ARImportAirCollectUplift.IsError"
+                                list="OrgCompanyModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.ARImportAirCollectUplift.ERROR"
                                 type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
                         </span>
                         <div class="input-group input-group-sm">
-                            <input type="text" data-ng-model="OrgCompanyModalCtrl.ePage.Masters.Company.FormView.ARImportAirCollectUplift"
+                            <input type="text" data-ng-model="OrgCompanyModalCtrl.ePage.Masters.OrgCompanyData.FormView.ARImportAirCollectUplift"
                                 class="form-control input-sm" placeholder="Air Import">
                             <span class="input-group-addon">%</span>
                         </div>
@@ -174,15 +174,15 @@
                     <div class="form-group">
                         <label class="control-label text-single-line">&nbsp;</label>
                         <span class="error-warning-container">
-                            <error-warning-directive data-ng-if="OrgCompanyModalCtrl.ePage.Masters.ErrorWarningObj.ARImportAirCollectUplift.IsWarning && !OrgCompanyModalCtrl.ePage.Masters.ErrorWarningObj.ARImportAirCollectUplift.IsError"
-                                list="OrgCompanyModalCtrl.ePage.Masters.ErrorWarningObj.ARImportAirCollectUplift.WARNING"
+                            <error-warning-directive data-ng-if="OrgCompanyModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.ARImportAirCollectUplift.IsWarning && !OrgCompanyModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.ARImportAirCollectUplift.IsError"
+                                list="OrgCompanyModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.ARImportAirCollectUplift.WARNING"
                                 type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
-                            <error-warning-directive data-ng-if="OrgCompanyModalCtrl.ePage.Masters.ErrorWarningObj.ARImportAirCollectUplift.IsError"
-                                list="OrgCompanyModalCtrl.ePage.Masters.ErrorWarningObj.ARImportAirCollectUplift.ERROR"
+                            <error-warning-directive data-ng-if="OrgCompanyModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.ARImportAirCollectUplift.IsError"
+                                list="OrgCompanyModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.ARImportAirCollectUplift.ERROR"
                                 type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
                         </span>
                         <div class="input-group input-group-sm">
-                            <input type="text" data-ng-model="OrgCompanyModalCtrl.ePage.Masters.Company.FormView.ARImportAirCollectUplift"
+                            <input type="text" data-ng-model="OrgCompanyModalCtrl.ePage.Masters.OrgCompanyData.FormView.ARImportAirCollectUplift"
                                 class="form-control input-sm" placeholder="Air Import">
                             <span class="input-group-addon">%</span>
                         </div>
@@ -192,15 +192,15 @@
                     <div class="form-group">
                         <label class="control-label text-single-line">Air Export</label>
                         <span class="error-warning-container">
-                            <error-warning-directive data-ng-if="OrgCompanyModalCtrl.ePage.Masters.ErrorWarningObj.ARExportAirCollectUplift.IsWarning && !OrgCompanyModalCtrl.ePage.Masters.ErrorWarningObj.ARExportAirCollectUplift.IsError"
-                                list="OrgCompanyModalCtrl.ePage.Masters.ErrorWarningObj.ARExportAirCollectUplift.WARNING"
+                            <error-warning-directive data-ng-if="OrgCompanyModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.ARExportAirCollectUplift.IsWarning && !OrgCompanyModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.ARExportAirCollectUplift.IsError"
+                                list="OrgCompanyModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.ARExportAirCollectUplift.WARNING"
                                 type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
-                            <error-warning-directive data-ng-if="OrgCompanyModalCtrl.ePage.Masters.ErrorWarningObj.ARExportAirCollectUplift.IsError"
-                                list="OrgCompanyModalCtrl.ePage.Masters.ErrorWarningObj.ARExportAirCollectUplift.ERROR"
+                            <error-warning-directive data-ng-if="OrgCompanyModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.ARExportAirCollectUplift.IsError"
+                                list="OrgCompanyModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.ARExportAirCollectUplift.ERROR"
                                 type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
                         </span>
                         <div class="input-group input-group-sm">
-                            <input type="text" data-ng-model="OrgCompanyModalCtrl.ePage.Masters.Company.FormView.ARExportAirCollectUplift"
+                            <input type="text" data-ng-model="OrgCompanyModalCtrl.ePage.Masters.OrgCompanyData.FormView.ARExportAirCollectUplift"
                                 class="form-control input-sm" placeholder="Air Export">
                             <span class="input-group-addon">%</span>
                         </div>
@@ -210,15 +210,15 @@
                     <div class="form-group">
                         <label class="control-label text-single-line">&nbsp;</label>
                         <span class="error-warning-container">
-                            <error-warning-directive data-ng-if="OrgCompanyModalCtrl.ePage.Masters.ErrorWarningObj.ARExportAirCollectUplift.IsWarning && !OrgCompanyModalCtrl.ePage.Masters.ErrorWarningObj.ARExportAirCollectUplift.IsError"
-                                list="OrgCompanyModalCtrl.ePage.Masters.ErrorWarningObj.ARExportAirCollectUplift.WARNING"
+                            <error-warning-directive data-ng-if="OrgCompanyModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.ARExportAirCollectUplift.IsWarning && !OrgCompanyModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.ARExportAirCollectUplift.IsError"
+                                list="OrgCompanyModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.ARExportAirCollectUplift.WARNING"
                                 type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
-                            <error-warning-directive data-ng-if="OrgCompanyModalCtrl.ePage.Masters.ErrorWarningObj.ARExportAirCollectUplift.IsError"
-                                list="OrgCompanyModalCtrl.ePage.Masters.ErrorWarningObj.ARExportAirCollectUplift.ERROR"
+                            <error-warning-directive data-ng-if="OrgCompanyModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.ARExportAirCollectUplift.IsError"
+                                list="OrgCompanyModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.ARExportAirCollectUplift.ERROR"
                                 type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
                         </span>
                         <div class="input-group input-group-sm">
-                            <input type="text" data-ng-model="OrgCompanyModalCtrl.ePage.Masters.Company.FormView.ARExportAirCollectUplift"
+                            <input type="text" data-ng-model="OrgCompanyModalCtrl.ePage.Masters.OrgCompanyData.FormView.ARExportAirCollectUplift"
                                 class="form-control input-sm" placeholder="Air Export">
                             <span class="input-group-addon">%</span>
                         </div>
@@ -228,15 +228,15 @@
                     <div class="form-group">
                         <label class="control-label text-single-line">Ocean Import</label>
                         <span class="error-warning-container">
-                            <error-warning-directive data-ng-if="OrgCompanyModalCtrl.ePage.Masters.ErrorWarningObj.ARImportSeaCollectUplift.IsWarning && !OrgCompanyModalCtrl.ePage.Masters.ErrorWarningObj.ARImportSeaCollectUplift.IsError"
-                                list="OrgCompanyModalCtrl.ePage.Masters.ErrorWarningObj.ARImportSeaCollectUplift.WARNING"
+                            <error-warning-directive data-ng-if="OrgCompanyModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.ARImportSeaCollectUplift.IsWarning && !OrgCompanyModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.ARImportSeaCollectUplift.IsError"
+                                list="OrgCompanyModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.ARImportSeaCollectUplift.WARNING"
                                 type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
-                            <error-warning-directive data-ng-if="OrgCompanyModalCtrl.ePage.Masters.ErrorWarningObj.ARImportSeaCollectUplift.IsError"
-                                list="OrgCompanyModalCtrl.ePage.Masters.ErrorWarningObj.ARImportSeaCollectUplift.ERROR"
+                            <error-warning-directive data-ng-if="OrgCompanyModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.ARImportSeaCollectUplift.IsError"
+                                list="OrgCompanyModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.ARImportSeaCollectUplift.ERROR"
                                 type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
                         </span>
                         <div class="input-group input-group-sm">
-                            <input type="text" data-ng-model="OrgCompanyModalCtrl.ePage.Masters.Company.FormView.ARImportSeaCollectUplift"
+                            <input type="text" data-ng-model="OrgCompanyModalCtrl.ePage.Masters.OrgCompanyData.FormView.ARImportSeaCollectUplift"
                                 class="form-control input-sm" placeholder="Ocean Import">
                             <span class="input-group-addon">%</span>
                         </div>
@@ -246,15 +246,15 @@
                     <div class="form-group">
                         <label class="control-label text-single-line">&nbsp;</label>
                         <span class="error-warning-container">
-                            <error-warning-directive data-ng-if="OrgCompanyModalCtrl.ePage.Masters.ErrorWarningObj.ARImportSeaCollectUplift.IsWarning && !OrgCompanyModalCtrl.ePage.Masters.ErrorWarningObj.ARImportSeaCollectUplift.IsError"
-                                list="OrgCompanyModalCtrl.ePage.Masters.ErrorWarningObj.ARImportSeaCollectUplift.WARNING"
+                            <error-warning-directive data-ng-if="OrgCompanyModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.ARImportSeaCollectUplift.IsWarning && !OrgCompanyModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.ARImportSeaCollectUplift.IsError"
+                                list="OrgCompanyModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.ARImportSeaCollectUplift.WARNING"
                                 type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
-                            <error-warning-directive data-ng-if="OrgCompanyModalCtrl.ePage.Masters.ErrorWarningObj.ARImportSeaCollectUplift.IsError"
-                                list="OrgCompanyModalCtrl.ePage.Masters.ErrorWarningObj.ARImportSeaCollectUplift.ERROR"
+                            <error-warning-directive data-ng-if="OrgCompanyModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.ARImportSeaCollectUplift.IsError"
+                                list="OrgCompanyModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.ARImportSeaCollectUplift.ERROR"
                                 type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
                         </span>
                         <div class="input-group input-group-sm">
-                            <input type="text" data-ng-model="OrgCompanyModalCtrl.ePage.Masters.Company.FormView.ARImportSeaCollectUplift"
+                            <input type="text" data-ng-model="OrgCompanyModalCtrl.ePage.Masters.OrgCompanyData.FormView.ARImportSeaCollectUplift"
                                 class="form-control input-sm" placeholder="Ocean Import">
                             <span class="input-group-addon">%</span>
                         </div>
@@ -264,15 +264,15 @@
                     <div class="form-group">
                         <label class="control-label text-single-line">Ocean Export</label>
                         <span class="error-warning-container">
-                            <error-warning-directive data-ng-if="OrgCompanyModalCtrl.ePage.Masters.ErrorWarningObj.ARExportSeaCollectUplift.IsWarning && !OrgCompanyModalCtrl.ePage.Masters.ErrorWarningObj.ARExportSeaCollectUplift.IsError"
-                                list="OrgCompanyModalCtrl.ePage.Masters.ErrorWarningObj.ARExportSeaCollectUplift.WARNING"
+                            <error-warning-directive data-ng-if="OrgCompanyModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.ARExportSeaCollectUplift.IsWarning && !OrgCompanyModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.ARExportSeaCollectUplift.IsError"
+                                list="OrgCompanyModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.ARExportSeaCollectUplift.WARNING"
                                 type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
-                            <error-warning-directive data-ng-if="OrgCompanyModalCtrl.ePage.Masters.ErrorWarningObj.ARExportSeaCollectUplift.IsError"
-                                list="OrgCompanyModalCtrl.ePage.Masters.ErrorWarningObj.ARExportSeaCollectUplift.ERROR"
+                            <error-warning-directive data-ng-if="OrgCompanyModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.ARExportSeaCollectUplift.IsError"
+                                list="OrgCompanyModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.ARExportSeaCollectUplift.ERROR"
                                 type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
                         </span>
                         <div class="input-group input-group-sm">
-                            <input type="text" data-ng-model="OrgCompanyModalCtrl.ePage.Masters.Company.FormView.ARExportSeaCollectUplift"
+                            <input type="text" data-ng-model="OrgCompanyModalCtrl.ePage.Masters.OrgCompanyData.FormView.ARExportSeaCollectUplift"
                                 class="form-control input-sm" placeholder="Ocean Export">
                             <span class="input-group-addon">%</span>
                         </div>
@@ -282,15 +282,15 @@
                     <div class="form-group">
                         <label class="control-label text-single-line">&nbsp;</label>
                         <span class="error-warning-container">
-                            <error-warning-directive data-ng-if="OrgCompanyModalCtrl.ePage.Masters.ErrorWarningObj.ARExportSeaCollectUplift.IsWarning && !OrgCompanyModalCtrl.ePage.Masters.ErrorWarningObj.ARExportSeaCollectUplift.IsError"
-                                list="OrgCompanyModalCtrl.ePage.Masters.ErrorWarningObj.ARExportSeaCollectUplift.WARNING"
+                            <error-warning-directive data-ng-if="OrgCompanyModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.ARExportSeaCollectUplift.IsWarning && !OrgCompanyModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.ARExportSeaCollectUplift.IsError"
+                                list="OrgCompanyModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.ARExportSeaCollectUplift.WARNING"
                                 type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
-                            <error-warning-directive data-ng-if="OrgCompanyModalCtrl.ePage.Masters.ErrorWarningObj.ARExportSeaCollectUplift.IsError"
-                                list="OrgCompanyModalCtrl.ePage.Masters.ErrorWarningObj.ARExportSeaCollectUplift.ERROR"
+                            <error-warning-directive data-ng-if="OrgCompanyModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.ARExportSeaCollectUplift.IsError"
+                                list="OrgCompanyModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.ARExportSeaCollectUplift.ERROR"
                                 type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
                         </span>
                         <div class="input-group input-group-sm">
-                            <input type="text" data-ng-model="OrgCompanyModalCtrl.ePage.Masters.Company.FormView.ARExportSeaCollectUplift"
+                            <input type="text" data-ng-model="OrgCompanyModalCtrl.ePage.Masters.OrgCompanyData.FormView.ARExportSeaCollectUplift"
                                 class="form-control input-sm" placeholder="Ocean Export">
                             <span class="input-group-addon">%</span>
                         </div>
@@ -302,7 +302,7 @@
     <div class="modal-footer" style="bottom: 20px;">
         <input type="button" class="btn btn-warning btn-xs pull-right ml-5" data-ng-click="OrgCompanyModalCtrl.ePage.Masters.Cancel()"
             value="Close" />
-        <input type="button" class="btn btn-primary btn-xs pull-right ml-5" data-ng-click="OrgCompanyModalCtrl.ePage.Masters.Save(OrgCompanyModalCtrl.ePage.Masters.Company.FormView, 'OrgCompanyData', 'OrgARDetails')"
+        <input type="button" class="btn btn-primary btn-xs pull-right ml-5" data-ng-click="OrgCompanyModalCtrl.ePage.Masters.Save(OrgCompanyModalCtrl.ePage.Masters.OrgCompanyData.FormView, 'OrgCompanyData', 'OrgARDetails')"
             value="{{OrgCompanyModalCtrl.ePage.Masters.SaveButtonText}}" data-ng-disabled="OrgCompanyModalCtrl.ePage.Masters.IsDisableSave" />
     </div>
 </ng-form>

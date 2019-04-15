@@ -2613,6 +2613,11 @@
                             "HttpType": "POST",
                             "Url": "DataEntry/SaveAndComplete"
                         },
+                        "Delete": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "DataEntry/Delete"
+                        },
                         "OptimizedListPage": {
                             "IsAPI": "true",
                             "HttpType": "POST",
@@ -3419,28 +3424,6 @@
                             "IsAPI": "true",
                             "HttpType": "GET",
                             "Url": "OrgContact/Delete/"
-                        }
-                    }
-                },
-                "ComponentRole": {
-                    "RowIndex": -1,
-                    "API": {
-                        "FindAll": {
-                            "IsAPI": "true",
-                            "HttpType": "POST",
-                            "Url": "ComponentRole/FindAll",
-                            "FilterID": "SECMAPP"
-                        }
-                    }
-                },
-                "UserOrganisation": {
-                    "RowIndex": -1,
-                    "API": {
-                        "FindAll": {
-                            "IsAPI": "true",
-                            "HttpType": "POST",
-                            "Url": "UserOrganisation/FindAll",
-                            "FilterID": "SECMAPP"
                         }
                     }
                 },
@@ -4387,6 +4370,37 @@
                         }
                     }
                 },
+                "WmsTestID": {
+                    "RowIndex": -1,
+                    "API": {
+                        "FindAll": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "TestID/FindAll",
+                            "FilterID": "APPCOUNT"
+                        }
+                    }
+                },
+                "Notification": {
+                    "RowIndex": -1,
+                    "API": {
+                        "SendSms": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "Notification/SendSms"
+                        },
+                    }
+                },
+                "WmsInventoryAdjustment": {
+                    "RowIndex": -1,
+                    "API": {
+                        "Insert": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "WmsInventoryAdjustment/Insert",
+                        },
+                    }
+                },
                 "InwardList": {
                     "RowIndex": -1,
                     "API": {
@@ -4512,67 +4526,26 @@
                         },
                     }
                 },
-                "WmsPickupReport": {
+                "ComponentRole": {
                     "RowIndex": -1,
                     "API": {
-                        "GetById": {
-                            "IsAPI": "true",
-                            "HttpType": "GET",
-                            "Url": "WmsPickupReport/GetById/",
-                        },
-                        "Update": {
-                            "IsAPI": "true",
-                            "HttpType": "POST",
-                            "Url": "WmsPickupReport/Update"
-                        },
-                        "Insert": {
-                            "IsAPI": "true",
-                            "HttpType": "POST",
-                            "Url": "WmsPickupReport/Insert"
-                        },
                         "FindAll": {
                             "IsAPI": "true",
                             "HttpType": "POST",
-                            "Url": "WmsPickupReport/FindAll",
-                            "FilterID": "WMSWPR"
+                            "Url": "ComponentRole/FindAll",
+                            "FilterID": "SECMAPP"
                         }
                     }
                 },
-                "WmsDeliveryReport": {
+                "UserOrganisation": {
                     "RowIndex": -1,
                     "API": {
-                        "GetById": {
-                            "IsAPI": "true",
-                            "HttpType": "GET",
-                            "Url": "WmsDeliveryReport/GetById/",
-                        },
-                        "Update": {
-                            "IsAPI": "true",
-                            "HttpType": "POST",
-                            "Url": "WmsDeliveryReport/Update"
-                        },
-                        "Insert": {
-                            "IsAPI": "true",
-                            "HttpType": "POST",
-                            "Url": "WmsDeliveryReport/Insert"
-                        },
                         "FindAll": {
                             "IsAPI": "true",
                             "HttpType": "POST",
-                            "Url": "WmsDeliveryReport/FindAll",
-                            "FilterID": "WMSWDR"
+                            "Url": "UserOrganisation/FindAll",
+                            "FilterID": "SECMAPP"
                         }
-                    }
-                },
-                "OrgHeaderWarehouse": {
-                    "RowIndex": -1,
-                    "API": {
-                        "FindAll": {
-                            "IsAPI": "true",
-                            "HttpType": "POST",
-                            "Url": "OrgHeaderWarehouse/FindAll",
-                            "FilterID": "TMSORGWAREH",
-                        },
                     }
                 },
                 "WmsPickupList": {
@@ -4695,37 +4668,6 @@
                         },
                     }
                 },
-                "WmsInventoryAdjustment": {
-                    "RowIndex": -1,
-                    "API": {
-                        "Insert": {
-                            "IsAPI": "true",
-                            "HttpType": "POST",
-                            "Url": "WmsInventoryAdjustment/Insert",
-                        },
-                    }
-                },
-                "WmsTestID": {
-                    "RowIndex": -1,
-                    "API": {
-                        "FindAll": {
-                            "IsAPI": "true",
-                            "HttpType": "POST",
-                            "Url": "TestID/FindAll",
-                            "FilterID": "APPCOUNT"
-                        }
-                    }
-                },
-                "Notification": {
-                    "RowIndex": -1,
-                    "API": {
-                        "SendSms": {
-                            "IsAPI": "true",
-                            "HttpType": "POST",
-                            "Url": "Notification/SendSms"
-                        },
-                    }
-                },
                 "WmsWorkOrderLine": {
                     "RowIndex": -1,
                     "API": {
@@ -4744,6 +4686,70 @@
                             "IsAPI": "true",
                             "HttpType": "POST",
                             "Url": "WmsWorkOrderLine/Update"
+                        }
+                    }
+                },
+                "OrgHeaderWarehouse": {
+                    "RowIndex": -1,
+                    "API": {
+                        "FindAll": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "OrgHeaderWarehouse/FindAll",
+                            "FilterID": "TMSORGWAREH",
+                        },
+                    }
+                },
+
+                "WmsDeliveryReport": {
+                    "RowIndex": -1,
+                    "API": {
+                        "GetById": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "WmsDeliveryReport/GetById/",
+                        },
+                        "Update": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "WmsDeliveryReport/Update"
+                        },
+                        "Insert": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "WmsDeliveryReport/Insert"
+                        },
+                        "FindAll": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "WmsDeliveryReport/FindAll",
+                            "FilterID": "WMSWDR"
+                        }
+                    }
+                },
+                "WmsPickupReport": {
+                    "RowIndex": -1,
+                    "API": {
+                        "GetById": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "WmsPickupReport/GetById/",
+                        },
+                        "Update": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "WmsPickupReport/Update"
+                        },
+                        "Insert": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "WmsPickupReport/Insert"
+                        },
+                        "FindAll": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "WmsPickupReport/FindAll",
+                            "FilterID": "WMSWPR"
                         }
                     }
                 },

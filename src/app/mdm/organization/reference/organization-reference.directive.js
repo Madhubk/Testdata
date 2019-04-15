@@ -7,7 +7,7 @@
         .directive("organizationReference", OrganizationReference);
 
     function OrganizationReference() {
-        var exports = {
+        let exports = {
             restrict: "EA",
             templateUrl: "app/mdm/organization/reference/organization-reference.html",
             controller: "OrganizationReferenceController",
@@ -28,7 +28,7 @@
 
     function OrganizationReferenceController($scope, $uibModal, helperService, APP_CONSTANT, organizationConfig, confirmation, apiService, toastr) {
         /* jshint validthis: true */
-        var OrganizationReferenceCtrl = this;
+        let OrganizationReferenceCtrl = this;
 
         function Init() {
             var currentOrganization = OrganizationReferenceCtrl.currentOrganization[OrganizationReferenceCtrl.currentOrganization.code].ePage.Entities;
@@ -62,7 +62,9 @@
         }
 
         function EditReference($item) {
-            var modalInstance = $uibModal.open({
+            let _tempResponse = angular.copy(OrganizationReferenceCtrl.currentOrganization[OrganizationReferenceCtrl.currentOrganization.code].ePage.Entities.Header.Data);
+
+            $uibModal.open({
                 animation: true,
                 backdrop: "static",
                 keyboard: true,
@@ -73,46 +75,39 @@
                 bindToController: true,
                 resolve: {
                     param: function () {
-                        var exports = {
+                        let exports = {
                             "Entity": OrganizationReferenceCtrl.currentOrganization,
                             "Item": $item,
                         };
                         return exports;
                     }
                 }
-            }).result.then(
-                function (response) {
-                    if (response.data) {
-                        OrganizationReferenceCtrl.currentOrganization[OrganizationReferenceCtrl.currentOrganization.code].ePage.Entities.Header.Data = response.data;
+            }).result.then(response => {
+                if (response.data) {
+                    OrganizationReferenceCtrl.currentOrganization[OrganizationReferenceCtrl.currentOrganization.code].ePage.Entities.Header.Data = response.data;
 
-                        OrganizationReferenceCtrl.ePage.Entities.Header.Data = response.data;
-                    }
-                },
-                function () {
-                    console.log("Cancelled");
+                    OrganizationReferenceCtrl.ePage.Entities.Header.Data = response.data;
                 }
-            );
+            }, () => {
+                OrganizationReferenceCtrl.currentOrganization[OrganizationReferenceCtrl.currentOrganization.code].ePage.Entities.Header.Data = _tempResponse;
+            });
         }
 
         function DeleteConfirmation($item) {
-            var modalOptions = {
+            let modalOptions = {
                 closeButtonText: 'Cancel',
                 actionButtonText: 'Ok',
                 headerText: 'Delete?',
                 bodyText: 'Are you sure?'
             };
 
-            confirmation.showModal({}, modalOptions).then(function (result) {
-                DeleteReference($item);
-            }, function () {
-                console.log("Cancelled");
-            });
+            confirmation.showModal({}, modalOptions).then(result => DeleteReference($item), () => console.log("Cancelled"));
         }
 
         function DeleteReference($item) {
-            apiService.get("eAxisAPI", organizationConfig.Entities.API.OrgRefDate.API.Delete.Url + $item.PK).then(function (response) {
+            apiService.get("eAxisAPI", organizationConfig.Entities.API.OrgRefDate.API.Delete.Url + $item.PK).then(response => {
                 if (response.data.Response === "Success") {
-                    OrganizationReferenceCtrl.ePage.Entities.Header.Data.OrgRefDate.map(function (value, key) {
+                    OrganizationReferenceCtrl.ePage.Entities.Header.Data.OrgRefDate.map((value, key) => {
                         if (value.PK === $item.PK) {
                             OrganizationReferenceCtrl.ePage.Entities.Header.Data.OrgRefDate.splice(key, 1);
                         }

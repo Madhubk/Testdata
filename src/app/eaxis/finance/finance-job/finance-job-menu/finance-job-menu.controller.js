@@ -105,6 +105,16 @@
                                 return value[value.code].ePage.Entities.Header.Data.PK;
                             }).indexOf(FinanceJobMenuCtrl.currentFinanceJob[FinanceJobMenuCtrl.currentFinanceJob.code].ePage.Entities.Header.Data.PK);
 
+                            financeConfig.TabList.map(function (value, key) {
+                                if (_index == key) {
+                                    if (value.isNew) {
+                                        value.label = FinanceJobMenuCtrl.ePage.Entities.Header.Data.UIJobHeader.JobNo;
+                                        value[FinanceJobMenuCtrl.ePage.Entities.Header.Data.UIJobHeader.JobNo] = value.New;
+                                        delete value.New;
+                                    }
+                                }
+                            });
+
                             if (_index !== -1) {
                                 if (response.data.Response) {
                                     financeConfig.TabList[_index][financeConfig.TabList[_index].code].ePage.Entities.Header.Data = response.data.Response;

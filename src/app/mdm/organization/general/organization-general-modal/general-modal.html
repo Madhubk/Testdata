@@ -12,31 +12,31 @@
                     <div class="form-group">
                         <label for="Code">Organization Code</label>
                         <span class="error-warning-container">
-                            <error-warning-directive data-ng-if="OrgGeneralModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Code.IsWarning && !OrgGeneralModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Code.IsError"
-                                list="OrgGeneralModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Code.WARNING"
+                            <error-warning-directive data-ng-if="OrgGeneralModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.Code.IsWarning && !OrgGeneralModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.Code.IsError"
+                                list="OrgGeneralModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.Code.WARNING"
                                 type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
-                            <error-warning-directive data-ng-if="OrgGeneralModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Code.IsError"
-                                list="OrgGeneralModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Code.ERROR"
+                            <error-warning-directive data-ng-if="OrgGeneralModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.Code.IsError"
+                                list="OrgGeneralModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.Code.ERROR"
                                 type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
                         </span>
                         <input type="text" class="form-control input-sm" placeholder="Code" style="text-transform: uppercase"
-                            data-ng-model="OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgHeader.Code"
-                            data-ng-disabled="!OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.IsEnableOrgCode" />
+                            data-ng-model="OrgGeneralModalCtrl.ePage.Entities.Header.Data.OrgHeader.Code"
+                            data-ng-disabled="!OrgGeneralModalCtrl.ePage.IsEnableOrgCode" />
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
                     <div class="form-group">
                         <label for="FullName">Organization Full Name</label>
                         <span class="error-warning-container">
-                            <error-warning-directive data-ng-if="OrgGeneralModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.FullName.IsWarning && !OrgGeneralModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.FullName.IsError"
-                                list="OrgGeneralModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.FullName.WARNING"
+                            <error-warning-directive data-ng-if="OrgGeneralModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.FullName.IsWarning && !OrgGeneralModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.FullName.IsError"
+                                list="OrgGeneralModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.FullName.WARNING"
                                 type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref=""
                                 g-parent-ref=""></error-warning-directive>
-                            <error-warning-directive data-ng-if="OrgGeneralModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.FullName.IsError"
-                                list="OrgGeneralModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.FullName.ERROR"
+                            <error-warning-directive data-ng-if="OrgGeneralModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.FullName.IsError"
+                                list="OrgGeneralModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.FullName.ERROR"
                                 type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
                         </span>
-                        <input type="text" class="form-control input-sm" placeholder="Full Name" style="text-transform: uppercase" data-ng-model="OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgHeader.FullName" data-ng-blur="OrgGeneralModalCtrl.ePage.Masters.OrgHeader.OnBlurFullName()" />
+                        <input type="text" class="form-control input-sm" placeholder="Full Name" style="text-transform: uppercase" data-ng-model="OrgGeneralModalCtrl.ePage.Entities.Header.Data.OrgHeader.FullName" data-ng-blur="OrgGeneralModalCtrl.ePage.Masters.OrgHeader.OnBlurFullName()" />
                     </div>
                 </div>
             </div>
@@ -46,7 +46,7 @@
                         <!-- <label for="IsActive"></label> -->
                         <div class="checkbox">
                             <label>
-                                <input type="checkbox" class="colored-blue" data-ng-model="OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgHeader.IsActive">
+                                <input type="checkbox" class="colored-blue" data-ng-model="OrgGeneralModalCtrl.ePage.Entities.Header.Data.OrgHeader.IsActive">
                                 <span class="text">Is Active</span>
                             </label>
                         </div>
@@ -57,7 +57,7 @@
                         <!-- <label for="IsEnableOrgCode"></label> -->
                         <div class="checkbox">
                             <label>
-                                <input type="checkbox" class="colored-blue" data-ng-model="OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.IsEnableOrgCode">
+                                <input type="checkbox" class="colored-blue" data-ng-model="OrgGeneralModalCtrl.ePage.IsEnableOrgCode">
                                 <span class="text">Enable Organization Code</span>
                             </label>
                         </div>
@@ -71,7 +71,7 @@
                 <div class="form-group">
                     <div class="checkbox">
                         <label>
-                            <input type="checkbox" class="colored-blue" data-ng-model="OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgHeader[x.Value]">
+                            <input type="checkbox" class="colored-blue" data-ng-model="OrgGeneralModalCtrl.ePage.Entities.Header.Data.OrgHeader[x.Value]">
                             <span class="text" data-ng-bind="x.DispName"></span>
                         </label>
                     </div>
@@ -87,62 +87,62 @@
                 <div class="form-group">
                     <label for="Address1">Address1</label>
                     <span class="error-warning-container">
-                        <error-warning-directive data-ng-if="OrgGeneralModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.GeneralAddress1.IsWarning && !OrgGeneralModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.GeneralAddress1.IsError"
-                            list="OrgGeneralModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.GeneralAddress1.WARNING"
+                        <error-warning-directive data-ng-if="OrgGeneralModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.GeneralAddress1.IsWarning && !OrgGeneralModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.GeneralAddress1.IsError"
+                            list="OrgGeneralModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.GeneralAddress1.WARNING"
                             type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
-                        <error-warning-directive data-ng-if="OrgGeneralModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.GeneralAddress1.IsError"
-                            list="OrgGeneralModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.GeneralAddress1.ERROR"
+                        <error-warning-directive data-ng-if="OrgGeneralModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.GeneralAddress1.IsError"
+                            list="OrgGeneralModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.GeneralAddress1.ERROR"
                             type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
                     </span>
-                    <input type="text" class="form-control input-sm" placeholder="Address1" data-ng-model="OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgAddress[0].Address1" />
+                    <input type="text" class="form-control input-sm" placeholder="Address1" data-ng-model="OrgGeneralModalCtrl.ePage.Entities.Header.Data.OrgAddress[0].Address1" />
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
                 <div class="form-group">
                     <label for="Address2">Address2</label>
                     <span class="error-warning-container">
-                        <error-warning-directive data-ng-if="OrgGeneralModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.GeneralAddress2.IsWarning && !OrgGeneralModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.GeneralAddress2.IsError"
-                            list="OrgGeneralModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.GeneralAddress2.WARNING"
+                        <error-warning-directive data-ng-if="OrgGeneralModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.GeneralAddress2.IsWarning && !OrgGeneralModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.GeneralAddress2.IsError"
+                            list="OrgGeneralModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.GeneralAddress2.WARNING"
                             type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
-                        <error-warning-directive data-ng-if="OrgGeneralModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.GeneralAddress2.IsError"
-                            list="OrgGeneralModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.GeneralAddress2.ERROR"
+                        <error-warning-directive data-ng-if="OrgGeneralModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.GeneralAddress2.IsError"
+                            list="OrgGeneralModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.GeneralAddress2.ERROR"
                             type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
                     </span>
-                    <input type="text" class="form-control input-sm" placeholder="Address2" data-ng-model="OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgAddress[0].Address2" />
+                    <input type="text" class="form-control input-sm" placeholder="Address2" data-ng-model="OrgGeneralModalCtrl.ePage.Entities.Header.Data.OrgAddress[0].Address2" />
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
                 <div class="form-group">
                     <label for="City">City</label>
                     <span class="error-warning-container">
-                        <error-warning-directive data-ng-if="OrgGeneralModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.GeneralCity.IsWarning && !OrgGeneralModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.GeneralCity.IsError"
-                            list="OrgGeneralModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.GeneralCity.WARNING"
+                        <error-warning-directive data-ng-if="OrgGeneralModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.GeneralCity.IsWarning && !OrgGeneralModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.GeneralCity.IsError"
+                            list="OrgGeneralModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.GeneralCity.WARNING"
                             type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
-                        <error-warning-directive data-ng-if="OrgGeneralModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.GeneralCity.IsError"
-                            list="OrgGeneralModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.GeneralCity.ERROR"
+                        <error-warning-directive data-ng-if="OrgGeneralModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.GeneralCity.IsError"
+                            list="OrgGeneralModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.GeneralCity.ERROR"
                             type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
                     </span>
-                    <input type="text" class="form-control input-sm" placeholder="City" data-ng-model="OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgAddress[0].City" />
+                    <input type="text" class="form-control input-sm" placeholder="City" data-ng-model="OrgGeneralModalCtrl.ePage.Entities.Header.Data.OrgAddress[0].City" />
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
                 <div class="form-group">
                     <label>Region</label>
                     <span class="error-warning-container">
-                        <error-warning-directive data-ng-if="OrgGeneralModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.GeneralRGN_Code.IsWarning && !OrgGeneralModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.GeneralRGN_Code.IsError"
-                            list="OrgGeneralModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.GeneralRGN_Code.WARNING"
+                        <error-warning-directive data-ng-if="OrgGeneralModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.GeneralRGN_Code.IsWarning && !OrgGeneralModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.GeneralRGN_Code.IsError"
+                            list="OrgGeneralModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.GeneralRGN_Code.WARNING"
                             type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
-                        <error-warning-directive data-ng-if="OrgGeneralModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.GeneralRGN_Code.IsError"
-                            list="OrgGeneralModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.GeneralRGN_Code.ERROR"
+                        <error-warning-directive data-ng-if="OrgGeneralModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.GeneralRGN_Code.IsError"
+                            list="OrgGeneralModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.GeneralRGN_Code.ERROR"
                             type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
                     </span>
                     <div class="input-group input-group-sm">
-                        <div dynamic-lookup placeholder="Region" my-ng-model="OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgAddress[0].RGN_Code"
-                            obj="OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgAddress[0]"
+                        <div dynamic-lookup placeholder="Region" my-ng-model="OrgGeneralModalCtrl.ePage.Entities.Header.Data.OrgAddress[0].RGN_Code"
+                            obj="OrgGeneralModalCtrl.ePage.Entities.Header.Data.OrgAddress[0]"
                             page-name="'Region'" control-id="'Region'" control-key="'Region_3235'"
                             auto-complete-on-select="OrgGeneralModalCtrl.ePage.Masters.OrgHeader.OnRegionSelect($item)"></div>
                         <span class="input-group-btn">
-                            <button dynamic-list-modal obj="OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgAddress[0]"
+                            <button dynamic-list-modal obj="OrgGeneralModalCtrl.ePage.Entities.Header.Data.OrgAddress[0]"
                                 control-id="'Region'" control-key="'Region_3235'" page-name="'Region'" mode="2"
                                 grid-refresh-fun-name="" grid-refresh-fun="" selected-data="OrgGeneralModalCtrl.ePage.Masters.OrgHeader.OnRegionSelect($item)"
                                 class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
@@ -154,19 +154,19 @@
                 <div class="form-group">
                     <label>Zone</label>
                     <span class="error-warning-container">
-                        <error-warning-directive data-ng-if="OrgGeneralModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.GeneralTMZ_Code.IsWarning && !OrgGeneralModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.GeneralTMZ_Code.IsError"
-                            list="OrgGeneralModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.GeneralTMZ_Code.WARNING"
+                        <error-warning-directive data-ng-if="OrgGeneralModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.GeneralTMZ_Code.IsWarning && !OrgGeneralModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.GeneralTMZ_Code.IsError"
+                            list="OrgGeneralModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.GeneralTMZ_Code.WARNING"
                             type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
-                        <error-warning-directive data-ng-if="OrgGeneralModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.GeneralTMZ_Code.IsError"
-                            list="OrgGeneralModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.GeneralTMZ_Code.ERROR"
+                        <error-warning-directive data-ng-if="OrgGeneralModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.GeneralTMZ_Code.IsError"
+                            list="OrgGeneralModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.GeneralTMZ_Code.ERROR"
                             type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
                     </span>
                     <div class="input-group input-group-sm">
-                        <div dynamic-lookup placeholder="Zone" my-ng-model="OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgAddress[0].TMZ_Code"
-                            obj="OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgAddress[0]"
+                        <div dynamic-lookup placeholder="Zone" my-ng-model="OrgGeneralModalCtrl.ePage.Entities.Header.Data.OrgAddress[0].TMZ_Code"
+                            obj="OrgGeneralModalCtrl.ePage.Entities.Header.Data.OrgAddress[0]"
                             page-name="'OrgZone'" control-id="'Zone'" control-key="'Zone_3286'" auto-complete-on-select="OrgGeneralModalCtrl.ePage.Masters.OrgHeader.OnZoneSelect($item)"></div>
                         <span class="input-group-btn">
-                            <button dynamic-list-modal obj="OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgAddress[0]"
+                            <button dynamic-list-modal obj="OrgGeneralModalCtrl.ePage.Entities.Header.Data.OrgAddress[0]"
                                 control-id="'Zone'" control-key="'Zone_3286'" page-name="'OrgZone'" mode="2"
                                 grid-refresh-fun-name="" grid-refresh-fun="" selected-data="OrgGeneralModalCtrl.ePage.Masters.OrgHeader.OnZoneSelect($item)"
                                 class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
@@ -178,20 +178,20 @@
                 <div class="form-group">
                     <label for="RelatedPort">Related Port</label>
                     <span class="error-warning-container">
-                        <error-warning-directive data-ng-if="OrgGeneralModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.GeneralRelatedPortCode.IsWarning && !OrgGeneralModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.GeneralRelatedPortCode.IsError"
-                            list="OrgGeneralModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.GeneralRelatedPortCode.WARNING"
+                        <error-warning-directive data-ng-if="OrgGeneralModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.GeneralRelatedPortCode.IsWarning && !OrgGeneralModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.GeneralRelatedPortCode.IsError"
+                            list="OrgGeneralModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.GeneralRelatedPortCode.WARNING"
                             type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
-                        <error-warning-directive data-ng-if="OrgGeneralModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.GeneralRelatedPortCode.IsError"
-                            list="OrgGeneralModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.GeneralRelatedPortCode.ERROR"
+                        <error-warning-directive data-ng-if="OrgGeneralModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.GeneralRelatedPortCode.IsError"
+                            list="OrgGeneralModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.GeneralRelatedPortCode.ERROR"
                             type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
                     </span>
                     <div class="input-group input-group-sm">
-                        <div dynamic-lookup placeholder="Port" my-ng-model="OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgAddress[0].RelatedPortCode"
-                            obj="OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgAddress[0]"
+                        <div dynamic-lookup placeholder="Port" my-ng-model="OrgGeneralModalCtrl.ePage.Entities.Header.Data.OrgAddress[0].RelatedPortCode"
+                            obj="OrgGeneralModalCtrl.ePage.Entities.Header.Data.OrgAddress[0]"
                             page-name="'MstUNLOCO'" control-id="'UNLOCO'" control-key="'UNLOCO_3083'"
                             auto-complete-on-select="OrgGeneralModalCtrl.ePage.Masters.OrgHeader.OnUnlocoSelect($item)"></div>
                         <span class="input-group-btn">
-                            <button dynamic-list-modal obj="OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgAddress[0]"
+                            <button dynamic-list-modal obj="OrgGeneralModalCtrl.ePage.Entities.Header.Data.OrgAddress[0]"
                                 control-id="'UNLOCO'" control-key="'UNLOCO_3083'" page-name="'MstUNLOCO'" mode="2"
                                 grid-refresh-fun-name="" grid-refresh-fun="" selected-data="OrgGeneralModalCtrl.ePage.Masters.OrgHeader.OnUnlocoSelect($item)"
                                 class="btn btn-default shiny" type="button"><i class="fa fa-ellipsis-h"></i></button>
@@ -203,17 +203,17 @@
                 <div class="form-group">
                     <label for="Country">Country</label>
                     <span class="error-warning-container">
-                        <error-warning-directive data-ng-if="OrgGeneralModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.GeneralCountryCode.IsWarning && !OrgGeneralModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.GeneralCountryCode.IsError"
-                            list="OrgGeneralModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.GeneralCountryCode.WARNING"
+                        <error-warning-directive data-ng-if="OrgGeneralModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.GeneralCountryCode.IsWarning && !OrgGeneralModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.GeneralCountryCode.IsError"
+                            list="OrgGeneralModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.GeneralCountryCode.WARNING"
                             type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
-                        <error-warning-directive data-ng-if="OrgGeneralModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.GeneralCountryCode.IsError"
-                            list="OrgGeneralModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.GeneralCountryCode.ERROR"
+                        <error-warning-directive data-ng-if="OrgGeneralModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.GeneralCountryCode.IsError"
+                            list="OrgGeneralModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.GeneralCountryCode.ERROR"
                             type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
                     </span>
                     <div class="">
-                        <select chosen name="Country" class="form-control" data-ng-model="OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgAddress[0].CountryCode"
+                        <select chosen name="Country" class="form-control" data-ng-model="OrgGeneralModalCtrl.ePage.Entities.Header.Data.OrgAddress[0].CountryCode"
                             data-ng-options="x.Code as x.Code + ' - ' + x.Desc for x in OrgGeneralModalCtrl.ePage.Masters.DropDownMasterList.Country.ListSource"
-                            data-ng-change="OrgGeneralModalCtrl.ePage.Masters.OnCountryChange((OrgGeneralModalCtrl.ePage.Masters.DropDownMasterList.Country.ListSource | filter: {'Code': OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgAddress[0].CountryCode})[0])"
+                            data-ng-change="OrgGeneralModalCtrl.ePage.Masters.OnCountryChange((OrgGeneralModalCtrl.ePage.Masters.DropDownMasterList.Country.ListSource | filter: {'Code': OrgGeneralModalCtrl.ePage.Entities.Header.Data.OrgAddress[0].CountryCode})[0])"
                             search-contains="true">
                             <option value="">--Select--</option>
                         </select>
@@ -224,17 +224,17 @@
                 <div class="form-group">
                     <label for="State">State</label>
                     <span class="error-warning-container">
-                        <error-warning-directive data-ng-if="OrgGeneralModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.GeneralState.IsWarning && !OrgGeneralModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.GeneralState.IsError"
-                            list="OrgGeneralModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.GeneralState.WARNING"
+                        <error-warning-directive data-ng-if="OrgGeneralModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.GeneralState.IsWarning && !OrgGeneralModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.GeneralState.IsError"
+                            list="OrgGeneralModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.GeneralState.WARNING"
                             type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
-                        <error-warning-directive data-ng-if="OrgGeneralModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.GeneralState.IsError"
-                            list="OrgGeneralModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.GeneralState.ERROR"
+                        <error-warning-directive data-ng-if="OrgGeneralModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.GeneralState.IsError"
+                            list="OrgGeneralModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.GeneralState.ERROR"
                             type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
                     </span>
                     <div class="">
-                        <select chosen name="State" class="form-control" data-ng-model="OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgAddress[0].State"
+                        <select chosen name="State" class="form-control" data-ng-model="OrgGeneralModalCtrl.ePage.Entities.Header.Data.OrgAddress[0].State"
                             data-ng-options="x.Code as x.Code + ' - ' + x.Description for x in OrgGeneralModalCtrl.ePage.Masters.DropDownMasterList.State.ListSource"
-                            data-ng-disabled="!OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgAddress[0].CountryCode"
+                            data-ng-disabled="!OrgGeneralModalCtrl.ePage.Entities.Header.Data.OrgAddress[0].CountryCode"
                             search-contains="true">
                             <option value="">--Select--</option>
                         </select>
@@ -245,29 +245,29 @@
                 <div class="form-group">
                     <label for="PostCode">PostCode</label>
                     <span class="error-warning-container">
-                        <error-warning-directive data-ng-if="OrgGeneralModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.GeneralPostCode.IsWarning && !OrgGeneralModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.GeneralPostCode.IsError"
-                            list="OrgGeneralModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.GeneralPostCode.WARNING"
+                        <error-warning-directive data-ng-if="OrgGeneralModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.GeneralPostCode.IsWarning && !OrgGeneralModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.GeneralPostCode.IsError"
+                            list="OrgGeneralModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.GeneralPostCode.WARNING"
                             type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
-                        <error-warning-directive data-ng-if="OrgGeneralModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.GeneralPostCode.IsError"
-                            list="OrgGeneralModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.GeneralPostCode.ERROR"
+                        <error-warning-directive data-ng-if="OrgGeneralModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.GeneralPostCode.IsError"
+                            list="OrgGeneralModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.GeneralPostCode.ERROR"
                             type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
                     </span>
-                    <input type="text" numbers-only class="form-control input-sm" placeholder="PostCode" data-ng-model="OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgAddress[0].PostCode" />
+                    <input type="text" numbers-only class="form-control input-sm" placeholder="PostCode" data-ng-model="OrgGeneralModalCtrl.ePage.Entities.Header.Data.OrgAddress[0].PostCode" />
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
                 <div class="form-group">
                     <label for="Language">Language</label>
                     <span class="error-warning-container">
-                        <error-warning-directive data-ng-if="OrgGeneralModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.GeneralLanguage.IsWarning && !OrgGeneralModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.GeneralLanguage.IsError"
-                            list="OrgGeneralModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.GeneralLanguage.WARNING"
+                        <error-warning-directive data-ng-if="OrgGeneralModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.GeneralLanguage.IsWarning && !OrgGeneralModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.GeneralLanguage.IsError"
+                            list="OrgGeneralModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.GeneralLanguage.WARNING"
                             type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
-                        <error-warning-directive data-ng-if="OrgGeneralModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.GeneralLanguage.IsError"
-                            list="OrgGeneralModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.GeneralLanguage.ERROR"
+                        <error-warning-directive data-ng-if="OrgGeneralModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.GeneralLanguage.IsError"
+                            list="OrgGeneralModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.GeneralLanguage.ERROR"
                             type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
                     </span>
                     <div class="">
-                        <select chosen name="Language" class="form-control" data-ng-model="OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgAddress[0].Language"
+                        <select chosen name="Language" class="form-control" data-ng-model="OrgGeneralModalCtrl.ePage.Entities.Header.Data.OrgAddress[0].Language"
                             data-ng-options="x.Key as x.Key + ' - ' + x.Value for x in OrgGeneralModalCtrl.ePage.Masters.DropDownMasterList.LANGUAGE.ListSource"
                             search-contains="true">
                             <option value="">--Select--</option>
@@ -279,56 +279,56 @@
                 <div class="form-group">
                     <label for="Phone">Phone</label>
                     <span class="error-warning-container">
-                        <error-warning-directive data-ng-if="OrgGeneralModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.GeneralPhone.IsWarning && !OrgGeneralModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.GeneralPhone.IsError"
-                            list="OrgGeneralModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.GeneralPhone.WARNING"
+                        <error-warning-directive data-ng-if="OrgGeneralModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.GeneralPhone.IsWarning && !OrgGeneralModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.GeneralPhone.IsError"
+                            list="OrgGeneralModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.GeneralPhone.WARNING"
                             type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
-                        <error-warning-directive data-ng-if="OrgGeneralModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.GeneralPhone.IsError"
-                            list="OrgGeneralModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.GeneralPhone.ERROR"
+                        <error-warning-directive data-ng-if="OrgGeneralModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.GeneralPhone.IsError"
+                            list="OrgGeneralModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.GeneralPhone.ERROR"
                             type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
                     </span>
-                    <input type="text" numbers-only class="form-control input-sm" placeholder="Phone" data-ng-model="OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgAddress[0].Phone" />
+                    <input type="text" numbers-only class="form-control input-sm" placeholder="Phone" data-ng-model="OrgGeneralModalCtrl.ePage.Entities.Header.Data.OrgAddress[0].Phone" />
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
                 <div class="form-group">
                     <label for="Mobile">Mobile</label>
                     <span class="error-warning-container">
-                        <error-warning-directive data-ng-if="OrgGeneralModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.GeneralMobile.IsWarning && !OrgGeneralModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.GeneralMobile.IsError"
-                            list="OrgGeneralModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.GeneralMobile.WARNING"
+                        <error-warning-directive data-ng-if="OrgGeneralModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.GeneralMobile.IsWarning && !OrgGeneralModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.GeneralMobile.IsError"
+                            list="OrgGeneralModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.GeneralMobile.WARNING"
                             type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
-                        <error-warning-directive data-ng-if="OrgGeneralModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.GeneralMobile.IsError"
-                            list="OrgGeneralModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.GeneralMobile.ERROR"
+                        <error-warning-directive data-ng-if="OrgGeneralModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.GeneralMobile.IsError"
+                            list="OrgGeneralModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.GeneralMobile.ERROR"
                             type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
                     </span>
-                    <input type="text" class="form-control input-sm" placeholder="Mobile" data-ng-model="OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgAddress[0].Mobile" />
+                    <input type="text" class="form-control input-sm" placeholder="Mobile" data-ng-model="OrgGeneralModalCtrl.ePage.Entities.Header.Data.OrgAddress[0].Mobile" />
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
                 <div class="form-group">
                     <label for="Email">Email</label>
                     <span class="error-warning-container">
-                        <error-warning-directive data-ng-if="OrgGeneralModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.GeneralEmail.IsWarning && !OrgGeneralModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.GeneralEmail.IsError"
-                            list="OrgGeneralModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.GeneralEmail.WARNING"
+                        <error-warning-directive data-ng-if="OrgGeneralModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.GeneralEmail.IsWarning && !OrgGeneralModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.GeneralEmail.IsError"
+                            list="OrgGeneralModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.GeneralEmail.WARNING"
                             type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
-                        <error-warning-directive data-ng-if="OrgGeneralModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.GeneralEmail.IsError"
-                            list="OrgGeneralModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.GeneralEmail.ERROR"
+                        <error-warning-directive data-ng-if="OrgGeneralModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.GeneralEmail.IsError"
+                            list="OrgGeneralModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.GeneralEmail.ERROR"
                             type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
                     </span>
-                    <input type="text" class="form-control input-sm" placeholder="Email" data-ng-model="OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgAddress[0].Email" />
+                    <input type="text" class="form-control input-sm" placeholder="Email" data-ng-model="OrgGeneralModalCtrl.ePage.Entities.Header.Data.OrgAddress[0].Email" />
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
                 <div class="form-group">
                     <label for="Fax">Fax</label>
                     <span class="error-warning-container">
-                        <error-warning-directive data-ng-if="OrgGeneralModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.GeneralFax.IsWarning && !OrgGeneralModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.GeneralFax.IsError"
-                            list="OrgGeneralModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.GeneralFax.WARNING"
+                        <error-warning-directive data-ng-if="OrgGeneralModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.GeneralFax.IsWarning && !OrgGeneralModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.GeneralFax.IsError"
+                            list="OrgGeneralModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.GeneralFax.WARNING"
                             type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
-                        <error-warning-directive data-ng-if="OrgGeneralModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.GeneralFax.IsError"
-                            list="OrgGeneralModalCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.GeneralFax.ERROR"
+                        <error-warning-directive data-ng-if="OrgGeneralModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.GeneralFax.IsError"
+                            list="OrgGeneralModalCtrl.ePage.Entities.ErrorWarningConfig.ErrorWarningObj.GeneralFax.ERROR"
                             type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
                     </span>
-                    <input type="text" class="form-control input-sm" placeholder="Fax" data-ng-model="OrgGeneralModalCtrl.ePage.Masters.OrgHeader.FormView.Entities.Header.Data.OrgAddress[0].Fax" />
+                    <input type="text" class="form-control input-sm" placeholder="Fax" data-ng-model="OrgGeneralModalCtrl.ePage.Entities.Header.Data.OrgAddress[0].Fax" />
                 </div>
             </div>
         </div>

@@ -16,7 +16,7 @@
     </uib-tab>
     <uib-tab active="ExchangeRateCtrl.ePage.Masters.ActiveTabIndex == $index"
         ng-repeat="tab in ExchangeRateCtrl.ePage.Masters.TabList"
-        ng-click="ExchangeRateCtrl.ePage.Masters.CurrentActiveTab(tab.label)">
+        ng-click="ExchangeRateCtrl.ePage.Masters.CurrentActiveTab(tab.label)" class="tab-container chrometab-box">
         <uib-tab-heading title="{{tab.label}}">
             <span data-ng-bind="tab.label" class="mr-5"></span>
             <i class="glyphicon glyphicon-remove"

@@ -16,7 +16,8 @@
                 label: "=",
                 fieldName: "=",
                 isDisabled: "=",
-                selectedOperator: "="
+                selectedOperator: "=",
+                defaultValue: "="
             },
             bindToController: true
         };
@@ -50,8 +51,6 @@
         function InitCompareDropDown() {
             CompareDateCtrl.ePage.Masters.Compare = {};
             CompareDateCtrl.ePage.Masters.Compare.OnCompareChange = OnCompareChange;
-
-            // CompareDateCtrl.modalValue = undefined;
 
             if (CompareDateCtrl.selectedOperator) {
                 CompareDateCtrl.ePage.Masters.Compare.Value = CompareDateCtrl.selectedOperator.Code;
@@ -153,6 +152,15 @@
                 Type: 3,
                 IsActive: true
             }];
+
+            if (CompareDateCtrl.defaultValue) {
+                let _index = CompareDateCtrl.ePage.Masters.Compare.ListSource.findIndex(x => x.Code == CompareDateCtrl.defaultValue);
+
+                if (_index != -1) {
+                    OnCompareChange(CompareDateCtrl.ePage.Masters.Compare.ListSource[_index]);
+                    CompareDateCtrl.ePage.Masters.Compare.Value = CompareDateCtrl.defaultValue;
+                }
+            }
         }
 
         function OnCompareChange($item) {

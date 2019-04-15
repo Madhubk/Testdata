@@ -299,20 +299,64 @@
 
         function ControlsData($item) {
             let _item = $item;
+            let input = _item.Entities[0];
+            if (_item.IsDelete) {
+                let _input = {
+                    DataEntry_PK: DynamicDetailsViewDirectiveCtrl.ePage.Masters.DataEntry.DataEntry_PK,
+                    DataEntryName: DynamicDetailsViewDirectiveCtrl.ePage.Masters.DataEntry.DataEntryName,
+                    ProcessName: DynamicDetailsViewDirectiveCtrl.ePage.Masters.DataEntry.DataEntryName,
+                    Entities: _item.Entities,
+                    Key: DynamicDetailsViewDirectiveCtrl.pkey,
+                    WorkitemID: null,
+                    IsComplete: false
+                };
 
-            DynamicDetailsViewDirectiveCtrl.ePage.Masters.ErrorWarningConfig = angular.copy(errorWarningService);
+                let _pk, _upsertUrl, _url = appConfig.Entities.DataEntry.API.Delete.Url;
+                DynamicDetailsViewDirectiveCtrl.ePage.Masters.DataEntry.Entities.map(value1 => {
+                    value1.ConfigData.map(value2 => {
+                        if (value2.IsKey && (value2.Type == "D" || value2.Type == "B")) {
+                            if (input.Data[value2.PropertyName]) {
+                                _pk = input.Data[value2.PropertyName];
+                            } else if (input.Data[value2.FieldName]) {
+                                _pk = input.Data[value2.FieldName];
+                            }
+                        }
+                    });
+                });
 
-            ValidateFilterInput(_item.ValidationInput).then(response => {
-                if (response.Count > 0) {
-                    toastr.warning("Please fill mandatory filters...!");
-                    // ShowErrorWarningModal();
-                } else {
-                    // HideErrorWarningModal();
-                    if(_item.IsEnableSave){
-                        Save(_item.Entities[0]);
+                if (DynamicDetailsViewDirectiveCtrl.ePage.Masters.DataEntry.UpsertURL) {
+                    if (typeof DynamicDetailsViewDirectiveCtrl.ePage.Masters.DataEntry.UpsertURL == "string") {
+                        _upsertUrl = JSON.parse(DynamicDetailsViewDirectiveCtrl.ePage.Masters.DataEntry.UpsertURL);
                     }
                 }
-            });
+
+                if (_pk) {
+                    _url = _upsertUrl.D;
+                }
+
+                apiService.post("eAxisAPI", _url, _input).then(response => {
+                    if (response.data.Status == "Success") {
+                        toastr.success("Deleted Successfully...! Please regresh the grid...!");
+                        $scope.$parent.$parent.$close();
+                    } else {
+                        toastr.error("Failed to Delete...!");
+                    }
+                });
+            } else {
+                DynamicDetailsViewDirectiveCtrl.ePage.Masters.ErrorWarningConfig = angular.copy(errorWarningService);
+
+                ValidateFilterInput(_item.ValidationInput).then(response => {
+                    if (response.Count > 0) {
+                        toastr.warning("Please fill mandatory filters...!");
+                        // ShowErrorWarningModal();
+                    } else {
+                        // HideErrorWarningModal();
+                        if (_item.IsEnableSave) {
+                            Save(_item.Entities[0]);
+                        }
+                    }
+                });
+            }
         }
 
         function ShowErrorWarningModal() {
@@ -571,7 +615,46 @@
             };
 
             confirmation.showModal({}, _modalOptions).then(result => {
-                // Delete();
+                let _input = {
+                    DataEntry_PK: $item.dataEntryMaster.DataEntry_PK,
+                    DataEntryName: $item.dataEntryMaster.DataEntryName,
+                    ProcessName: $item.dataEntryMaster.DataEntryName,
+                    Entities: $item.dataEntryMaster.Entities,
+                    WorkitemID: null,
+                    IsComplete: false
+                };
+
+                let _pk, _upsertUrl, _url = appConfig.Entities.DataEntry.API.Delete.Url;
+                $item.dataEntryMaster.Entities.map(value1 => {
+                    value1.ConfigData.map(value2 => {
+                        if (value2.IsKey && (value2.Type == "D" || value2.Type == "B")) {
+                            if ($item.data.entity[value2.PropertyName]) {
+                                _pk = $item.data.entity[value2.PropertyName];
+                            } else if ($item.data.entity[value2.FieldName]) {
+                                _pk = $item.data.entity[value2.FieldName];
+                            }
+                        }
+                    });
+                });
+
+                if ($item.dataEntryMaster.UpsertURL) {
+                    if (typeof $item.dataEntryMaster.UpsertURL == "string") {
+                        _upsertUrl = JSON.parse($item.dataEntryMaster.UpsertURL);
+                    }
+                }
+
+                if (_pk) {
+                    _input.Key = _pk;
+                    _url = _upsertUrl.D;
+                }
+
+                apiService.post("eAxisAPI", _url, _input).then(response => {
+                    if (response.data.Status == "Success") {
+                        toastr.success("Deleted Successfully...! Please regresh the grid...!");
+                    } else {
+                        toastr.error("Failed to Delete...!");
+                    }
+                });
             }, () => {});
         }
         // #endregion

@@ -25,8 +25,14 @@
             PreviewDashboardCtrl.ePage.Masters.SelectedDashboardDetails = angular.copy(param.Entity);
             PreviewDashboardCtrl.ePage.Masters.ClientDetails = angular.copy(param.ClientDetails);
             PreviewDashboardCtrl.ePage.Masters.WarehouseDetails = angular.copy(param.WarehouseDetails);
-            PreviewDashboardCtrl.ePage.Masters.SelectedWarehouse = PreviewDashboardCtrl.ePage.Masters.WarehouseDetails[0];
-            PreviewDashboardCtrl.ePage.Masters.SelectedClient = PreviewDashboardCtrl.ePage.Masters.ClientDetails[0];
+            if (PreviewDashboardCtrl.ePage.Masters.WarehouseDetails)
+                PreviewDashboardCtrl.ePage.Masters.SelectedWarehouse = PreviewDashboardCtrl.ePage.Masters.WarehouseDetails[0];
+            else
+                PreviewDashboardCtrl.ePage.Masters.SelectedWarehouse = {};
+            if (PreviewDashboardCtrl.ePage.Masters.ClientDetails)
+                PreviewDashboardCtrl.ePage.Masters.SelectedClient = PreviewDashboardCtrl.ePage.Masters.ClientDetails[0];
+            else
+                PreviewDashboardCtrl.ePage.Masters.SelectedClient = {};
             PreviewDashboardCtrl.ePage.Masters.TempComponentList = angular.copy(param.TempComponentList);
             PreviewDashboardCtrl.ePage.Masters.ComponentList = angular.copy(param.ComponentList);
             PreviewDashboardCtrl.ePage.Masters.SelectedDashboardComponentDetails = angular.copy(param.SelectedDashboardComponentDetails);

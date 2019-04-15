@@ -100,32 +100,7 @@
         }
 
         function SaveOutwardFromTask(callback) {
-            if (OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PK == "00000000-0000-0000-0000-000000000000") {
-                Validation(OutwardMenuCtrl.currentOutward, callback)
-            } else {
-                if (OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PickNo) {
-                    apiService.get("eAxisAPI", appConfig.Entities.WmsOutwardList.API.GetById.Url + OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PK).then(function (response) {
-                        if (response.data.Response) {
-                            response.data.Response.UIWmsOutwardHeader.Client = response.data.Response.UIWmsOutwardHeader.ClientCode + "-" + response.data.Response.UIWmsOutwardHeader.ClientName;
-                            response.data.Response.UIWmsOutwardHeader.Warehouse = response.data.Response.UIWmsOutwardHeader.WarehouseCode + "-" + response.data.Response.UIWmsOutwardHeader.WarehouseName;
-                            response.data.Response.UIWmsOutwardHeader.Consignee = response.data.Response.UIWmsOutwardHeader.ConsigneeCode + "-" + response.data.Response.UIWmsOutwardHeader.ConsigneeName;
-                            if (response.data.Response.UIWmsOutwardHeader.TransferTo_WAR_Code == null) {
-                                response.data.Response.UIWmsOutwardHeader.TransferTo_WAR_Code = "";
-                            }
-                            if (response.data.Response.UIWmsOutwardHeader.TransferTo_WAR_Name == null) {
-                                response.data.Response.UIWmsOutwardHeader.TransferTo_WAR_Name = "";
-                            }
-                            response.data.Response.UIWmsOutwardHeader.TransferWarehouse = response.data.Response.UIWmsOutwardHeader.TransferTo_WAR_Code + "-" + response.data.Response.UIWmsOutwardHeader.TransferTo_WAR_Name;
-                            if (response.data.Response.UIWmsOutwardHeader.TransferWarehouse == " - ")
-                                response.data.Response.UIWmsOutwardHeader.TransferWarehouse = "";
-                            OutwardMenuCtrl.currentOutward[OutwardMenuCtrl.currentOutward.label].ePage.Entities.Header.Data = response.data.Response;
-                            Validation(OutwardMenuCtrl.currentOutward, callback)
-                        }
-                    });
-                } else {
-                    Validation(OutwardMenuCtrl.currentOutward, callback)
-                }
-            }
+            Validation(OutwardMenuCtrl.currentOutward, callback)
         }
 
         function GetMyTaskList(menuList, index) {
@@ -829,29 +804,29 @@
             }
         }
 
-         //#region JobAccounting
-         function JobAccounting() {
-            if(OutwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader.length > 0){
+        //#region JobAccounting
+        function JobAccounting() {
+            if (OutwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader.length > 0) {
                 var obj = {
-                    "AgentOrg_Code":OutwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].AgentOrg_Code,
-                    "Agent_Org_FK":OutwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].Agent_Org_FK,
-                    "GB":OutwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].GB,
-                    "BranchCode":OutwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].BranchCode,
-                    "BranchName":OutwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].BranchName,
-                    "GC":OutwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].GC,
-                    "CompanyCode":OutwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].CompanyCode,
-                    "CompanyName":OutwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].CompanyName,
-                    "GE":OutwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].GE,
-                    "DeptCode":OutwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].DeptCode,
-                    "EntitySource":OutwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].EntitySource,
-                    "JobNo":OutwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].JobNo,
+                    "AgentOrg_Code": OutwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].AgentOrg_Code,
+                    "Agent_Org_FK": OutwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].Agent_Org_FK,
+                    "GB": OutwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].GB,
+                    "BranchCode": OutwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].BranchCode,
+                    "BranchName": OutwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].BranchName,
+                    "GC": OutwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].GC,
+                    "CompanyCode": OutwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].CompanyCode,
+                    "CompanyName": OutwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].CompanyName,
+                    "GE": OutwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].GE,
+                    "DeptCode": OutwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].DeptCode,
+                    "EntitySource": OutwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].EntitySource,
+                    "JobNo": OutwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].JobNo,
                     "EntityRefKey": OutwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].EntityRefKey,
-                    "HeaderType":OutwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].HeaderType,
-                    "LocalOrg_Code":OutwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].LocalOrg_Code,
-                    "LocalOrg_FK":OutwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].LocalOrg_FK,
+                    "HeaderType": OutwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].HeaderType,
+                    "LocalOrg_Code": OutwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].LocalOrg_Code,
+                    "LocalOrg_FK": OutwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].LocalOrg_FK,
                 };
             }
-            
+
             var modalInstance = $uibModal.open({
                 animation: true,
                 keyboard: false,

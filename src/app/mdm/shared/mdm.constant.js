@@ -756,7 +756,8 @@
                 name: 'creaditor',
                 files: [
                     'app/mdm/creditor/creditor-config.factory.js',
-                    'app/mdm/creditor/creditor.controller.js'
+                    'app/mdm/creditor/creditor.controller.js',
+                    'app/mdm/creditor/creditor.css'
                 ]
             }, {
                 name: "creaditorMenu",
@@ -777,7 +778,8 @@
                 name: 'debtor',
                 files: [
                     'app/mdm/debtor/debtor-config.factory.js',
-                    'app/mdm/debtor/debtor.controller.js'
+                    'app/mdm/debtor/debtor.controller.js',
+                    'app/mdm/debtor/debtor.css'
                 ]
             }, {
                 name: 'debtorMenu',
@@ -820,6 +822,7 @@
                 files: [
                     'app/mdm/tax/tax-config.factory.js',
                     'app/mdm/tax/tax.controller.js',
+                    'app/mdm/tax/tax.css',
                     'app/mdm/warehouse/customize-table/customize-table.css',
                     'app/mdm/warehouse/customize-table/customize-table.directive.js',
                     'app/mdm/warehouse/custom/customfilter.js'
@@ -842,6 +845,7 @@
             {
                 name: 'exchangeRate',
                 files: [
+                    'app/mdm/exchangeRate/exchangeRate.css',
                     'app/mdm/exchangeRate/exchangeRate-config.factory.js',
                     'app/mdm/exchangeRate/exchangeRate.controller.js'
                 ]
@@ -854,6 +858,8 @@
             }, {
                 name: 'exchangeRateGeneral',
                 files: [
+                    'app/eaxis/shared/eaxis.css',
+                    'app/mdm/exchangeRate/exchangeRate-general/exchangeRate-general.css',
                     'app/mdm/exchangeRate/exchangeRate-general/exchangeRate-general-directive.js',
                     'app/mdm/exchangeRate/exchangeRate-general/exchangeRate-general-controller.js'
                 ]
@@ -872,7 +878,8 @@
                 name: 'chargeCode',
                 files: [
                     'app/mdm/chargecode/chargecode-config.factory.js',
-                    'app/mdm/chargecode/chargecode.controller.js'
+                    'app/mdm/chargecode/chargecode.controller.js',
+                    'app/mdm/chargecode/chargecode.css'
                 ]
             }
             //#endregion

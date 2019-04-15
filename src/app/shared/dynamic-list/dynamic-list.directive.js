@@ -846,7 +846,9 @@
                     if (DynamicListCtrl.mode == 1) {
                         if (response.data) {
                             DynamicListCtrl.ePage.Masters.AllFindAllList = _response.OptimizedListPage;
-                            PrepareUserBasedGridColumList();
+                            if (DynamicListCtrl.ePage.Masters.AllFindAllList) {
+                                PrepareUserBasedGridColumList();
+                            }
                         } else {
                             PrepareGridInfo();
                         }
