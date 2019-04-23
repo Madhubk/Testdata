@@ -25,11 +25,13 @@
             ActivityTemplatePickup2Ctrl.ePage.Masters.emptyText = "-";
             ActivityTemplatePickup2Ctrl.ePage.Masters.Config = myTaskActivityConfig;
             ActivityTemplatePickup2Ctrl.ePage.Masters.TaskObj = ActivityTemplatePickup2Ctrl.taskObj;
+            myTaskActivityConfig.Entities = {};
             myTaskActivityConfig.Entities.TaskObj = ActivityTemplatePickup2Ctrl.taskObj;
             ActivityTemplatePickup2Ctrl.ePage.Masters.Complete = Complete;
             ActivityTemplatePickup2Ctrl.ePage.Masters.ShowErrorWarningModal = ShowErrorWarningModal;
 
             ActivityTemplatePickup2Ctrl.ePage.Masters.ErrorWarningConfig = errorWarningService;
+            errorWarningService.Modules = {};
 
             // DatePicker
             ActivityTemplatePickup2Ctrl.ePage.Masters.DatePicker = {};
@@ -110,6 +112,7 @@
                             myTaskActivityConfig.Entities.Pickup = ActivityTemplatePickup2Ctrl.currentPickup;
                             getTaskConfigData();
                         } else {
+                            pickupConfig.TabList = [];
                             pickupConfig.GetTabDetails(ActivityTemplatePickup2Ctrl.ePage.Entities.Header.Data.UIWmsPickup, false).then(function (response) {
                                 angular.forEach(response, function (value, key) {
                                     if (value.label == ActivityTemplatePickup2Ctrl.ePage.Entities.Header.Data.UIWmsPickup.WorkOrderID) {
@@ -126,18 +129,37 @@
         }
 
         function SaveEntity(callback) {
+            ActivityTemplatePickup2Ctrl.ePage.Masters.IsDisableSaveBtn = true;
+            ActivityTemplatePickup2Ctrl.ePage.Masters.SaveBtnText = "Please Wait..";
             if (ActivityTemplatePickup2Ctrl.taskObj.WSI_StepName == "Create Pickup Challan") {
-                $rootScope.SaveInwardFromTask(function () {
+                if (myTaskActivityConfig.CallEntity == true) {
+                    $rootScope.SaveInwardFromTask(function (response) {
+                        if (response == "error") {
+                            ActivityTemplatePickup2Ctrl.ePage.Masters.IsDisableSaveBtn = false;
+                            ActivityTemplatePickup2Ctrl.ePage.Masters.SaveBtnText = "Save";
+                            ActivityTemplatePickup2Ctrl.ePage.Masters.CompleteBtnText = "Complete";
+                            ActivityTemplatePickup2Ctrl.ePage.Masters.IsDisableCompleteBtn = false;
+                        } else {
+                            saves(callback);
+                        }
+                    });
+                } else {
                     saves(callback);
-                });
+                }
             } else if (ActivityTemplatePickup2Ctrl.taskObj.WSI_StepName == "Acknowledge Pickup Request") {
                 var _Data = myTaskActivityConfig.Entities.Pickup[myTaskActivityConfig.Entities.Pickup.label].ePage.Entities,
                     _input = _Data.Header.Data,
                     _errorcount = _Data.Header.Meta.ErrorWarning.GlobalErrorWarningList;
                 pickupConfig.GeneralValidation(myTaskActivityConfig.Entities.Pickup);
+
                 if (ActivityTemplatePickup2Ctrl.ePage.Masters.ErrorWarningConfig.Modules.MyTask) {
                     if (ActivityTemplatePickup2Ctrl.ePage.Masters.ErrorWarningConfig.Modules.MyTask.Entity) {
-                        ActivityTemplatePickup2Ctrl.ePage.Masters.ErrorWarningConfig.Modules.MyTask.Entity[ActivityTemplatePickup2Ctrl.ePage.Masters.EntityObj.UIWmsPickup.WorkOrderID].GlobalErrorWarningList = _errorcount;
+                        // ActivityTemplatePickup2Ctrl.ePage.Masters.ErrorWarningConfig.Modules.MyTask.Entity = {};
+                        ActivityTemplatePickup2Ctrl.ePage.Masters.ErrorWarningConfig.Modules.MyTask.Entity = {
+                            [ActivityTemplatePickup2Ctrl.ePage.Masters.EntityObj.UIWmsPickup.WorkOrderID]: {
+                                GlobalErrorWarningList: _errorcount
+                            }
+                        };
                     } else {
                         ActivityTemplatePickup2Ctrl.ePage.Masters.ErrorWarningConfig.Modules.MyTask.Entity = {
                             [ActivityTemplatePickup2Ctrl.ePage.Masters.EntityObj.UIWmsPickup.WorkOrderID]: {
@@ -146,7 +168,6 @@
                         };
                         ActivityTemplatePickup2Ctrl.ePage.Masters.ErrorWarningConfig.Modules.MyTask.Entity[ActivityTemplatePickup2Ctrl.ePage.Masters.EntityObj.UIWmsPickup.WorkOrderID].GlobalErrorWarningList = _errorcount;
                     }
-
                 } else {
                     ActivityTemplatePickup2Ctrl.ePage.Masters.ErrorWarningConfig.Modules.MyTask = {};
                     ActivityTemplatePickup2Ctrl.ePage.Masters.ErrorWarningConfig.Modules.MyTask.Entity = {
@@ -157,8 +178,55 @@
                     ActivityTemplatePickup2Ctrl.ePage.Masters.ErrorWarningConfig.Modules.MyTask.Entity[ActivityTemplatePickup2Ctrl.ePage.Masters.EntityObj.UIWmsPickup.WorkOrderID].GlobalErrorWarningList = _errorcount;
                 }
                 if (_errorcount.length == 0) {
+                    if (callback) {
+                        if (!myTaskActivityConfig.Entities.Pickup[myTaskActivityConfig.Entities.Pickup.label].ePage.Entities.Header.Data.UIWmsWorkorderReport.AcknowledgementDateTime)
+                            myTaskActivityConfig.Entities.Pickup[myTaskActivityConfig.Entities.Pickup.label].ePage.Entities.Header.Data.UIWmsWorkorderReport.AcknowledgementDateTime = new Date();
+                        if (!myTaskActivityConfig.Entities.Pickup[myTaskActivityConfig.Entities.Pickup.label].ePage.Entities.Header.Data.UIWmsWorkorderReport.AcknowledgedPerson)
+                            myTaskActivityConfig.Entities.Pickup[myTaskActivityConfig.Entities.Pickup.label].ePage.Entities.Header.Data.UIWmsWorkorderReport.AcknowledgedPerson = authService.getUserInfo().UserId;
+                        if (!myTaskActivityConfig.Entities.Pickup[myTaskActivityConfig.Entities.Pickup.label].ePage.Entities.Header.Data.UIWmsWorkorderReport.AdditionalRef2Code)
+                            myTaskActivityConfig.Entities.Pickup[myTaskActivityConfig.Entities.Pickup.label].ePage.Entities.Header.Data.UIWmsWorkorderReport.AdditionalRef2Code = authService.getUserInfo().UserId;
+                        if (!myTaskActivityConfig.Entities.Pickup[myTaskActivityConfig.Entities.Pickup.label].ePage.Entities.Header.Data.UIWmsWorkorderReport.DeliveryRequestedDateTime)
+                            myTaskActivityConfig.Entities.Pickup[myTaskActivityConfig.Entities.Pickup.label].ePage.Entities.Header.Data.UIWmsWorkorderReport.DeliveryRequestedDateTime = new Date();
+
+                        angular.forEach(myTaskActivityConfig.Entities.Pickup[myTaskActivityConfig.Entities.Pickup.label].ePage.Entities.Header.Data.UIWmsPickupLine, function (value, key) {
+                            value.UISPMSPickupReport.AcknowledgedPerson = myTaskActivityConfig.Entities.Pickup[myTaskActivityConfig.Entities.Pickup.label].ePage.Entities.Header.Data.UIWmsWorkorderReport.AcknowledgedPerson;
+                            value.UISPMSPickupReport.CSRReceiver = myTaskActivityConfig.Entities.Pickup[myTaskActivityConfig.Entities.Pickup.label].ePage.Entities.Header.Data.UIWmsWorkorderReport.AdditionalRef2Code;
+                            value.UISPMSPickupReport.AcknowledgedDateTime = myTaskActivityConfig.Entities.Pickup[myTaskActivityConfig.Entities.Pickup.label].ePage.Entities.Header.Data.UIWmsWorkorderReport.AcknowledgementDateTime;
+                            value.UISPMSPickupReport.RequestedDateTime = myTaskActivityConfig.Entities.Pickup[myTaskActivityConfig.Entities.Pickup.label].ePage.Entities.Header.Data.UIWmsWorkorderReport.DeliveryRequestedDateTime;
+
+                            var _filter = {
+                                "PickupLine_FK": value.PK
+                            };
+                            var _input = {
+                                "searchInput": helperService.createToArrayOfObject(_filter),
+                                "FilterID": appConfig.Entities.WmsPickupReport.API.FindAll.FilterID
+                            };
+
+                            apiService.post("eAxisAPI", appConfig.Entities.WmsPickupReport.API.FindAll.Url, _input).then(function (response) {
+                                if (response.data.Response) {                                
+                                    if (response.data.Response.length > 0) {
+                                        response.data.Response[0].IsModified = true;
+                                        response.data.Response[0].AcknowledgedPerson = myTaskActivityConfig.Entities.Pickup[myTaskActivityConfig.Entities.Pickup.label].ePage.Entities.Header.Data.UIWmsWorkorderReport.AcknowledgedPerson;
+                                        response.data.Response[0].CSRReceiver = myTaskActivityConfig.Entities.Pickup[myTaskActivityConfig.Entities.Pickup.label].ePage.Entities.Header.Data.UIWmsWorkorderReport.AdditionalRef2Code;
+                                        response.data.Response[0].AcknowledgedDateTime = myTaskActivityConfig.Entities.Pickup[myTaskActivityConfig.Entities.Pickup.label].ePage.Entities.Header.Data.UIWmsWorkorderReport.AcknowledgementDateTime;
+                                        response.data.Response[0].RequestedDateTime = myTaskActivityConfig.Entities.Pickup[myTaskActivityConfig.Entities.Pickup.label].ePage.Entities.Header.Data.UIWmsWorkorderReport.DeliveryRequestedDateTime;
+                                        response.data.Response[0].PickupProductStatus = value.ProductCondition == "GDC" ? "Good" : "Faulty";
+                                        response.data.Response[0].ProductCondition = value.ProductCondition == "GDC" ? "Good" : "Faulty";
+                                        response.data.Response[0].RequestMode = myTaskActivityConfig.Entities.Pickup[myTaskActivityConfig.Entities.Pickup.label].ePage.Entities.Header.Data.UIWmsWorkorderReport.RequestMode;
+                                        apiService.post("eAxisAPI", appConfig.Entities.WmsPickupReport.API.Update.Url, response.data.Response[0]).then(function (response) {
+                                            if (response.data.Response) {
+                                                console.log("Pickup Report Updated for " + response.data.Response.PickupLineRefNo);
+                                            }
+                                        });
+                                    }
+                                }
+                            });
+                        });
+                    }
                     saves(callback);
                 } else {
+                    ActivityTemplatePickup2Ctrl.ePage.Masters.IsDisableSaveBtn = false;
+                    ActivityTemplatePickup2Ctrl.ePage.Masters.SaveBtnText = "Save";
                     ActivityTemplatePickup2Ctrl.ePage.Masters.CompleteBtnText = "Complete";
                     ActivityTemplatePickup2Ctrl.ePage.Masters.IsDisableCompleteBtn = false;
                     ActivityTemplatePickup2Ctrl.ePage.Masters.ShowErrorWarningModal(ActivityTemplatePickup2Ctrl.taskObj.PSI_InstanceNo);
@@ -171,11 +239,12 @@
         function saves(callback) {
             ActivityTemplatePickup2Ctrl.ePage.Masters.IsDisableSaveBtn = true;
             ActivityTemplatePickup2Ctrl.ePage.Masters.SaveBtnText = "Please Wait..";
-            if (ActivityTemplatePickup2Ctrl.taskObj.WSI_StepName == "Create Pickup Challan") {
-                angular.forEach(myTaskActivityConfig.Entities.Pickup[myTaskActivityConfig.Entities.Pickup.label].ePage.Entities.Header.Data.UIWmsPickupLine, function (value, key) {
-                    value.WorkOrderLineStatus = "PIP";
-                });
-            }            
+            if (callback) {
+                if (ActivityTemplatePickup2Ctrl.taskObj.WSI_StepName == "Create Pickup Challan") {
+                    myTaskActivityConfig.Entities.Pickup[myTaskActivityConfig.Entities.Pickup.label].ePage.Entities.Header.Data.UIWmsPickup.WorkOrderStatus = "PIP";
+                    myTaskActivityConfig.CallEntity = false;
+                }
+            }
             var _input = angular.copy(myTaskActivityConfig.Entities.Pickup[myTaskActivityConfig.Entities.Pickup.label].ePage.Entities.Header.Data);
             _input = filterObjectUpdate(_input, "IsModified");
             apiService.post("eAxisAPI", appConfig.Entities.WmsPickupList.API.Update.Url, _input).then(function (response) {
@@ -183,6 +252,44 @@
                     apiService.get("eAxisAPI", appConfig.Entities.WmsPickupList.API.GetById.Url + response.data.Response.UIWmsPickup.PK).then(function (response) {
                         if (response.data.Response) {
                             ActivityTemplatePickup2Ctrl.ePage.Masters.EntityObj = response.data.Response;
+
+                            if (ActivityTemplatePickup2Ctrl.taskObj.WSI_StepName == "Create Pickup Challan") {
+                                if (callback) {
+                                    angular.forEach(ActivityTemplatePickup2Ctrl.ePage.Masters.EntityObj.UIvwWmsPickupLine, function (value, key) {
+                                        var _filter = {
+                                            "PickupLine_FK": value.PL_PK
+                                        };
+                                        var _input = {
+                                            "searchInput": helperService.createToArrayOfObject(_filter),
+                                            "FilterID": appConfig.Entities.WmsPickupReport.API.FindAll.FilterID
+                                        };
+
+                                        apiService.post("eAxisAPI", appConfig.Entities.WmsPickupReport.API.FindAll.Url, _input).then(function (response) {
+                                            if (response.data.Response) {
+
+                                                if (response.data.Response.length > 0) {
+                                                    response.data.Response[0].IsModified = true;
+                                                    response.data.Response[0].PIW_RefNo = value.INW_WorkOrderId;
+                                                    response.data.Response[0].PIW_Fk = value.INW_WorkOrderPk;
+                                                    response.data.Response[0].PIW_ExternalRefNo = value.INW_ExternalReference;
+                                                    response.data.Response[0].PIW_CustomerReference = value.INW_CustomerReference;
+                                                    response.data.Response[0].PIW_CreatedDateTime = value.INW_CreatedDateTime;
+                                                    response.data.Response[0].PIW_AsnLine_Fk = value.ASN_Pk;
+                                                    response.data.Response[0].StatusCode = ActivityTemplatePickup2Ctrl.ePage.Masters.EntityObj.UIWmsPickup.WorkOrderStatus;
+                                                    response.data.Response[0].StatusDesc = ActivityTemplatePickup2Ctrl.ePage.Masters.EntityObj.UIWmsPickup.WorkOrderStatusDesc;
+                                                    response.data.Response[0].PickupLineStatus = "Pickup In Progress";
+
+                                                    apiService.post("eAxisAPI", appConfig.Entities.WmsPickupReport.API.Update.Url, response.data.Response[0]).then(function (response) {
+                                                        if (response.data.Response) {
+                                                            console.log("Pickup Report Updated for " + response.data.Response.PickupLineRefNo);
+                                                        }
+                                                    });
+                                                }
+                                            }
+                                        });
+                                    });
+                                }
+                            }
                             ActivityTemplatePickup2Ctrl.ePage.Entities.Header.Data = ActivityTemplatePickup2Ctrl.ePage.Masters.EntityObj;
                             ActivityTemplatePickup2Ctrl.ePage.Entities.Header.Data.UIWmsPickup.Client = ActivityTemplatePickup2Ctrl.ePage.Entities.Header.Data.UIWmsPickup.ClientCode + ' - ' + ActivityTemplatePickup2Ctrl.ePage.Entities.Header.Data.UIWmsPickup.ClientName;
                             ActivityTemplatePickup2Ctrl.ePage.Entities.Header.Data.UIWmsPickup.Consignee = ActivityTemplatePickup2Ctrl.ePage.Entities.Header.Data.UIWmsPickup.ConsigneeCode + ' - ' + ActivityTemplatePickup2Ctrl.ePage.Entities.Header.Data.UIWmsPickup.ConsigneeName;
@@ -190,8 +297,51 @@
                             myTaskActivityConfig.Entities.Pickup[myTaskActivityConfig.Entities.Pickup.label].ePage.Entities.Header.Data = ActivityTemplatePickup2Ctrl.ePage.Entities.Header.Data;
                             ActivityTemplatePickup2Ctrl.ePage.Masters.Config.IsReload = true;
                             toastr.success("Pickup Saved Successfully...!");
-                            if (callback)
+                            if (callback) {
+                                if (ActivityTemplatePickup2Ctrl.taskObj.WSI_StepName == "Acknowledge Pickup Request") {
+                                    var PickupTime;
+                                    if (ActivityTemplatePickup2Ctrl.ePage.Entities.Header.Data.UIWmsWorkorderReport.ResponseType == "NR") {
+                                        PickupTime = 8;
+                                    } else if (ActivityTemplatePickup2Ctrl.ePage.Entities.Header.Data.UIWmsWorkorderReport.ResponseType == "QR") {
+                                        PickupTime = 4;
+                                    } else if (ActivityTemplatePickup2Ctrl.ePage.Entities.Header.Data.UIWmsWorkorderReport.ResponseType == "CR") {
+                                        PickupTime = 2;
+                                    }
+
+                                    var temp = "";
+                                    angular.forEach(ActivityTemplatePickup2Ctrl.ePage.Entities.Header.Data.UIWmsPickupLine, function (value, key) {
+                                        temp = temp + "\n " + value.ProductCode + "\xa0\xa0\xa0" + value.Units + "\xa0\xa0\xa0" + value.StockKeepingUnit + "\n";
+                                    });
+
+                                    var _smsInput = {
+                                        "MobileNo": myTaskActivityConfig.Entities.Pickup[myTaskActivityConfig.Entities.Pickup.label].ePage.Entities.Header.Data.UIWmsWorkorderReport.RequesterContactNo,
+                                        "Message": "Dear " + ActivityTemplatePickup2Ctrl.ePage.Entities.Header.Data.UIWmsWorkorderReport.Requester + "," + "\nWe received your request to pickup below products to Dhaka. Your pickup reference no: " + ActivityTemplatePickup2Ctrl.ePage.Entities.Header.Data.UIWmsPickup.WorkOrderID + ".\n" + temp + "\nThis will be Picked with in next " + PickupTime + " hours.Thank you."
+                                    }
+                                    apiService.post("authAPI", appConfig.Entities.Notification.API.SendSms.Url, _smsInput).then(function (response) {
+
+                                    });
+
+                                    if (pickupConfig.Entities.ClientContact.length > 0) {
+                                        var _smsInput = {
+                                            "MobileNo": pickupConfig.Entities.ClientContact[0].Mobile,
+                                            "Message": "Dear " + ActivityTemplatePickup2Ctrl.ePage.Entities.Header.Data.UIWmsWorkorderReport.Requester + "," + "\nWe received your request to pickup below products to Dhaka. Your pickup reference no: " + ActivityTemplatePickup2Ctrl.ePage.Entities.Header.Data.UIWmsPickup.WorkOrderID + ".\n" + temp + "\nThis will be Picked with in next " + PickupTime + " hours.Thank you."
+                                        }
+                                        apiService.post("authAPI", appConfig.Entities.Notification.API.SendSms.Url, _smsInput).then(function (response) {
+
+                                        });
+                                    }
+                                    if (pickupConfig.Entities.WarehouseContact.length > 0) {
+                                        var _smsInput = {
+                                            "MobileNo": pickupConfig.Entities.WarehouseContact[0].Mobile,
+                                            "Message": "Dear " + ActivityTemplatePickup2Ctrl.ePage.Entities.Header.Data.UIWmsWorkorderReport.Requester + "," + "\nWe received your request to pickup below products to Dhaka. Your pickup reference no: " + ActivityTemplatePickup2Ctrl.ePage.Entities.Header.Data.UIWmsPickup.WorkOrderID + ".\n" + temp + "\nThis will be Picked with in next " + PickupTime + " hours.Thank you."
+                                        }
+                                        apiService.post("authAPI", appConfig.Entities.Notification.API.SendSms.Url, _smsInput).then(function (response) {
+
+                                        });
+                                    }
+                                }
                                 callback();
+                            }
                         }
                     });
                 } else {
@@ -244,7 +394,7 @@
         function StandardMenuConfig() {
             ActivityTemplatePickup2Ctrl.ePage.Masters.StandardMenuInput = {
                 // Entity
-                "Entity": ActivityTemplatePickup2Ctrl.ePage.Masters.TaskObj.Entity,
+                "Entity": ActivityTemplatePickup2Ctrl.ePage.Masters.TaskObj.WSI_StepCode,
                 "EntityRefKey": ActivityTemplatePickup2Ctrl.ePage.Masters.TaskObj.EntityRefKey,
                 "EntityRefCode": ActivityTemplatePickup2Ctrl.ePage.Masters.TaskObj.KeyReference,
                 "EntitySource": ActivityTemplatePickup2Ctrl.ePage.Masters.TaskObj.EntitySource,
@@ -264,23 +414,7 @@
             ActivityTemplatePickup2Ctrl.ePage.Masters.StandardConfigInput = {
                 IsDisableRefreshButton: true,
                 IsDisableDeleteHistoryButton: true,
-                // IsDisableUpload: true,
-                // IsDisableGenerate: true,
                 IsDisableRelatedDocument: true,
-                // IsDisableCount: true,
-                // IsDisableDownloadCount: true,
-                // IsDisableAmendCount: true,
-                // IsDisableFileName: true,
-                // IsDisableEditFileName: true,
-                // IsDisableDocumentType: true,
-                // IsDisableOwner: true,
-                // IsDisableCreatedOn: true,
-                // IsDisableShare: true,
-                // IsDisableVerticalMenu: true,
-                // IsDisableVerticalMenuDownload: true,
-                // IsDisableVerticalMenuAmend: true,
-                // IsDisableVerticalMenuEmailAttachment: true,
-                // IsDisableVerticalMenuRemove: true
             };
 
             ActivityTemplatePickup2Ctrl.ePage.Masters.CommentConfig = {
@@ -317,6 +451,7 @@
 
         function DocumentValidation() {
             if (ActivityTemplatePickup2Ctrl.ePage.Masters.TaskObj) {
+                errorWarningService.Modules = {};
                 // validation findall call
                 var _obj = {
                     ModuleName: ["MyTask"],
@@ -467,10 +602,6 @@
         function CompleteWithSave() {
             ActivityTemplatePickup2Ctrl.ePage.Masters.CompleteBtnText = "Please Wait...";
             ActivityTemplatePickup2Ctrl.ePage.Masters.IsDisableCompleteBtn = true;
-            if (ActivityTemplatePickup2Ctrl.taskObj.WSI_StepName == "Acknowledge Pickup Request") {
-                ActivityTemplatePickup2Ctrl.ePage.Masters.EntityObj.UIWmsWorkorderReport.AcknowledgementDateTime = new Date();
-                ActivityTemplatePickup2Ctrl.ePage.Masters.EntityObj.AcknowledgedPerson = authService.getUserInfo().UserId;
-            }
             SaveEntity(function () {
                 SaveOnly().then(function (response) {
                     if (response.data.Status == "Success") {

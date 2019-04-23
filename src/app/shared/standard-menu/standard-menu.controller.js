@@ -12,7 +12,7 @@
         let StandardMenuCtrl = this;
 
         function Init() {
-            let _entity = StandardMenuCtrl.input[StandardMenuCtrl.input.code].ePage.Entities;
+            let _entity = StandardMenuCtrl.input[StandardMenuCtrl.input.label].ePage.Entities;
             StandardMenuCtrl.ePage = {
                 "Title": "",
                 "Prefix": "StandardMenu",
