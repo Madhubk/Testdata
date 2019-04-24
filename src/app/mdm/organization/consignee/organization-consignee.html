@@ -31,7 +31,7 @@
 
                                         <!-- List Empty Response -->
                                         <div data-ng-if="OrganizationConsigneeCtrl.ePage.Masters.SupplierGridDetails.GridData.length==0">
-                                            <div class="grid-no-record grid-width" style="bottom:38px">No Record Found</div>
+                                            <div class="dyn-grid-no-record grid-width" style="bottom:38px">No Record Found</div>
                                         </div>
 
                                         <div class='table_row' ng-repeat="x in OrganizationConsigneeCtrl.ePage.Masters.SupplierGridDetails.GridData  track by $index"
@@ -307,7 +307,7 @@
 
                                                 <!-- List Empty Response -->
                                                 <!-- <div data-ng-if="OrganizationConsigneeCtrl.ePage.Masters.SupplierDetails.UIOrgBuySupMappingTrnMode.length==0">
-                                                    <div class="grid-no-record grid-width" style="bottom:38px">No Record Found</div>
+                                                    <div class="dyn-grid-no-record grid-width" style="bottom:38px">No Record Found</div>
                                                 </div> -->
 
                                                 <div class='table_row' ng-repeat="x in OrganizationConsigneeCtrl.ePage.Masters.SupplierDetails.UIOrgBuySupMappingTrnMode | filter:{IsDeleted:false} track by $index"
