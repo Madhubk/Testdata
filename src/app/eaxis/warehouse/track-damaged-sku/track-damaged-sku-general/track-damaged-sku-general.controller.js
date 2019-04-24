@@ -162,6 +162,12 @@
             TrackDamageGeneralCtrl.ePage.Entities.Header.Data.Consignee = TrackDamageGeneralCtrl.ePage.Entities.Header.Data.ConsigneeCode + ' - ' + TrackDamageGeneralCtrl.ePage.Entities.Header.Data.ConsigneeName;
             TrackDamageGeneralCtrl.ePage.Entities.Header.Data.RequestedProduct = TrackDamageGeneralCtrl.ePage.Entities.Header.Data.ProductCode + ' - ' + TrackDamageGeneralCtrl.ePage.Entities.Header.Data.ProductDescription;
             TrackDamageGeneralCtrl.ePage.Entities.Header.Data.DeliveredProduct = TrackDamageGeneralCtrl.ePage.Entities.Header.Data.PIL_ProductCode + ' - ' + TrackDamageGeneralCtrl.ePage.Entities.Header.Data.PIL_ProductDesc;
+            TrackDamageGeneralCtrl.ePage.Entities.Header.Data.RepairFromWarehouse = TrackDamageGeneralCtrl.ePage.Entities.Header.Data.RTC_FromWH_Code + ' - ' + TrackDamageGeneralCtrl.ePage.Entities.Header.Data.RTC_FromWH_Name;
+            TrackDamageGeneralCtrl.ePage.Entities.Header.Data.RepairToWarehouse = TrackDamageGeneralCtrl.ePage.Entities.Header.Data.RTC_ToWH_Code + ' - ' + TrackDamageGeneralCtrl.ePage.Entities.Header.Data.RTC_ToWH_Name;
+            TrackDamageGeneralCtrl.ePage.Entities.Header.Data.SiteFromWarehouse = TrackDamageGeneralCtrl.ePage.Entities.Header.Data.STC_FromWH_Code + ' - ' + TrackDamageGeneralCtrl.ePage.Entities.Header.Data.STC_FromWH_Name;
+            TrackDamageGeneralCtrl.ePage.Entities.Header.Data.SiteToWarehouse = TrackDamageGeneralCtrl.ePage.Entities.Header.Data.STC_ToWH_Code + ' - ' + TrackDamageGeneralCtrl.ePage.Entities.Header.Data.STC_ToWH_Name;
+            TrackDamageGeneralCtrl.ePage.Entities.Header.Data.TestingFromWarehouse = TrackDamageGeneralCtrl.ePage.Entities.Header.Data.TTC_FromWH_Code + ' - ' + TrackDamageGeneralCtrl.ePage.Entities.Header.Data.TTC_FromWH_Name;
+            TrackDamageGeneralCtrl.ePage.Entities.Header.Data.TestingToWarehouse = TrackDamageGeneralCtrl.ePage.Entities.Header.Data.TTC_ToWH_Code + ' - ' + TrackDamageGeneralCtrl.ePage.Entities.Header.Data.TTC_ToWH_Name;
             Removehyphen();
         }
 
@@ -176,6 +182,18 @@
                 TrackDamageGeneralCtrl.ePage.Entities.Header.Data.RequestedProduct = "";
             if (TrackDamageGeneralCtrl.ePage.Entities.Header.Data.DeliveredProduct == ' - ')
                 TrackDamageGeneralCtrl.ePage.Entities.Header.Data.DeliveredProduct = "";
+            if (TrackDamageGeneralCtrl.ePage.Entities.Header.Data.RepairFromWarehouse == ' - ')
+                TrackDamageGeneralCtrl.ePage.Entities.Header.Data.RepairFromWarehouse = "";
+            if (TrackDamageGeneralCtrl.ePage.Entities.Header.Data.RepairToWarehouse == ' - ')
+                TrackDamageGeneralCtrl.ePage.Entities.Header.Data.RepairToWarehouse = "";
+            if (TrackDamageGeneralCtrl.ePage.Entities.Header.Data.SiteFromWarehouse == ' - ')
+                TrackDamageGeneralCtrl.ePage.Entities.Header.Data.SiteFromWarehouse = "";
+            if (TrackDamageGeneralCtrl.ePage.Entities.Header.Data.SiteToWarehouse == ' - ')
+                TrackDamageGeneralCtrl.ePage.Entities.Header.Data.SiteToWarehouse = "";
+                if (TrackDamageGeneralCtrl.ePage.Entities.Header.Data.TestingFromWarehouse == ' - ')
+                TrackDamageGeneralCtrl.ePage.Entities.Header.Data.TestingFromWarehouse = "";
+                if (TrackDamageGeneralCtrl.ePage.Entities.Header.Data.TestingToWarehouse == ' - ')
+                TrackDamageGeneralCtrl.ePage.Entities.Header.Data.TestingToWarehouse = "";
         }
         // #endregion       
         Init();
