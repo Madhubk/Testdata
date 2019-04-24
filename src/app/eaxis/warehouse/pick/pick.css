@@ -9,4 +9,6 @@
     z-index: 999;
 }
 
-
+.loading-width{
+    width: 200px;
+}

@@ -1,6 +1,6 @@
         <!-- Saving Your Data -->
     <div class="grid-loading-norecord-container ng-scope" style='z-index: 4;'data-ng-if="PickupanddeliverydetailCtrl.ePage.Masters.IsLoadingToSave">
-        <div class="grid-no-record">Saving your Data...</div>
+        <div class="dyn-grid-no-record">Saving your Data...</div>
     </div>
     <div class="p-10" ng-show='PickupanddeliverydetailCtrl.ePage.Masters.Lineslist' >
         <div>
@@ -33,7 +33,7 @@
                 <!-- List Empty Response -->
                 <div data-ng-if="PickupanddeliverydetailCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryOrders
                 .length==0">
-                    <div class="grid-no-record" style="bottom:250px">No records found...</div>
+                    <div class="dyn-grid-no-record" style="bottom:250px">No records found...</div>
                 </div>
 
                 <div class='table_row' ng-repeat="x in PickupanddeliverydetailCtrl.ePage.Entities.Header.Data.UIWmsPickupAndDeliveryOrders

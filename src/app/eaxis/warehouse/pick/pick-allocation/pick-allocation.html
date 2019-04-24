@@ -1,5 +1,5 @@
 <div class="grid-loading-norecord-container ng-scope" style='z-index: 15;'data-ng-if="PickAllocationCtrl.ePage.Masters.Loading">
-    <div class="grid-no-record">{{PickAllocationCtrl.ePage.Masters.LoadingValue}}</div>
+    <div class="dyn-grid-no-record loading-width">{{PickAllocationCtrl.ePage.Masters.LoadingValue}}</div>
 </div>
 <!-- Fetching Inventory Records If common save has been clicked -->
 <span data-ng-if="PickAllocationCtrl.ePage.Entities.Header.GlobalVariables.FetchingInventoryDetails" ng-init="PickAllocationCtrl.ePage.Masters.GetInventoryDetails(PickAllocationCtrl.ePage.Masters.SelectedOutwardLineDetails)"></span>
