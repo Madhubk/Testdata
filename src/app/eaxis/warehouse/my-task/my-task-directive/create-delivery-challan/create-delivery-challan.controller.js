@@ -72,7 +72,7 @@
         }
 
         // #region - Add to Existing Outward
-        function AddToOutward() {            
+        function AddToOutward() {
             var count = 0;
             angular.forEach(CreateDelChallanCtrl.ePage.Entities.Header.Data.UIvwWmsDeliveryList, function (value, key) {
                 if (value.SingleSelect) {
@@ -132,7 +132,7 @@
         function AddDeliveryLineToOutward() {
             CreateDelChallanCtrl.ePage.Masters.modalInstance1.dismiss('cancel');
             if (CreateDelChallanCtrl.ePage.Masters.selectedOutwardRow >= 0) {
-                CreateDelChallanCtrl.ePage.Masters.Loading = true;                
+                CreateDelChallanCtrl.ePage.Masters.Loading = true;
                 apiService.get("eAxisAPI", appConfig.Entities.WmsOutwardList.API.GetById.Url + CreateDelChallanCtrl.ePage.Masters.UnFinalizedOrders[CreateDelChallanCtrl.ePage.Masters.selectedOutwardRow].PK).then(function (response) {
                     if (response.data.Response) {
                         angular.forEach(CreateDelChallanCtrl.ePage.Masters.SelectedDelLine, function (value, key) {
@@ -195,7 +195,7 @@
                             if (response.data.Status == 'Success') {
                                 CreateDelChallanCtrl.ePage.Masters.OutwardDetails = response.data.Response;
                                 toastr.success("Delivery Line added to the Order " + CreateDelChallanCtrl.ePage.Masters.OutwardDetails.UIWmsOutwardHeader.WorkOrderID);
-                                CreateDelChallanCtrl.ePage.Masters.Loading = false;                                
+                                CreateDelChallanCtrl.ePage.Masters.Loading = false;
                                 outwardConfig.TabList = [];
                                 angular.forEach(CreateDelChallanCtrl.ePage.Masters.OutwardList, function (value, key) {
                                     myTaskActivityConfig.CallEntity = true;
@@ -538,7 +538,7 @@
                             response.data.Response.Response.UIWmsOutwardHeader.WarehouseCode = CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WarehouseCode;
                             response.data.Response.Response.UIWmsOutwardHeader.WarehouseName = CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WarehouseName;
                             response.data.Response.Response.UIWmsOutwardHeader.Provider_ORG_FK = CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.Provider_ORG_FK;
-                        } else if (type == "MTR") {                            
+                        } else if (type == "MTR") {
                             response.data.Response.Response.UIWmsOutwardHeader.Warehouse = CreateDelChallanCtrl.ePage.Masters.Warehouse;
                             response.data.Response.Response.UIWmsOutwardHeader.WarehouseCode = CreateDelChallanCtrl.ePage.Masters.WarehouseCode;
                             response.data.Response.Response.UIWmsOutwardHeader.WarehouseName = CreateDelChallanCtrl.ePage.Masters.WarehouseName;
@@ -850,7 +850,7 @@
                     "PartAttrib3": CreateDelChallanCtrl.ePage.Masters.DynamicControl.Entities[0].Data.PartAttrib3,
                     "PackingDate": CreateDelChallanCtrl.ePage.Masters.DynamicControl.Entities[0].Data.PackingDate,
                     "ExpiryDate": CreateDelChallanCtrl.ePage.Masters.DynamicControl.Entities[0].Data.ExpiryDate,
-                    "NotInWarehouseCode": CreateDelChallanCtrl.ePage.Masters.DynamicControl.Entities[0].Data.ProductCode ? undefined : CreateDelChallanCtrl.ePage.Masters.DynamicControl.Entities[0].Data.NotInWarehouseCode,
+                    "NotInWarehouseCode": CreateDelChallanCtrl.ePage.Masters.DynamicControl.Entities[0].Data.WAR_WarehouseCode ? undefined : CreateDelChallanCtrl.ePage.Masters.DynamicControl.Entities[0].Data.NotInWarehouseCode,
                     "SortColumn": "WOL_WAR_WarehouseCode",
                     "SortType": "ASC",
                     "PageNumber": 1,

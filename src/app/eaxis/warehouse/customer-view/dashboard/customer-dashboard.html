@@ -10,14 +10,14 @@
         <div class="col-xs-3 col-sm-3 col-md-5 col-lg-6 col-xl-6  fs-24 text-center set-color-blue">{{DashboardCtrl.ePage.Masters.CurrentOrganization.Code}}</div>
         <div class="col-xs-6 col-sm-6 col-md-5 col-lg-4 col-xl-4">
             <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 text-right">
-                <select class="btn btn-default select-rounded-customer fs-12" ng-model="DashboardCtrl.ePage.Masters.CurrentWarehouse" ng-options="x.WarehouseCode for x in DashboardCtrl.ePage.Masters.WarehouseDetails"
-                    ng-change="DashboardCtrl.ePage.Masters.GetAllDetails()"
+                <select class="btn btn-default select-rounded-customer fs-12" ng-model="DashboardCtrl.ePage.Masters.CurrentWarehouse"
+                    ng-options="x.WarehouseCode for x in DashboardCtrl.ePage.Masters.WarehouseDetails" ng-change="DashboardCtrl.ePage.Masters.GetAllDetails()"
                     search-contains="true">
                 </select>
             </div>
             <div class="text-right col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                <select class="btn btn-default select-rounded-customer fs-12" ng-model="DashboardCtrl.ePage.Masters.CurrentOrganization" ng-options="x.Code for x in DashboardCtrl.ePage.Masters.OrganizationDetails"
-                    ng-change="DashboardCtrl.ePage.Masters.GetAllDetails()"
+                <select class="btn btn-default select-rounded-customer fs-12" ng-model="DashboardCtrl.ePage.Masters.CurrentOrganization"
+                    ng-options="x.Code for x in DashboardCtrl.ePage.Masters.OrganizationDetails" ng-change="DashboardCtrl.ePage.Masters.GetAllDetails()"
                     search-contains="true">
                 </select>
             </div>
@@ -33,7 +33,7 @@
         <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
             <div class="CustomerBox mt-10">
                 <div class="card card-chart p-15" data-ng-show="!DashboardCtrl.ePage.Masters.InwardChartLoading && DashboardCtrl.ePage.Masters.GetInwardChartDetails.length!=0">
-                    <div class="card-header"  data-header-animation="true">
+                    <div class="card-header" data-header-animation="true">
                         <div class="ct-chart">
                             <canvas id="lineChartinward"></canvas>
                         </div>
@@ -44,7 +44,8 @@
                 </div>
                 <div data-ng-if="DashboardCtrl.ePage.Masters.InwardChartLoading || DashboardCtrl.ePage.Masters.GetInwardChartDetails.length==0">
                     <div class="text-center pt-100" ng-if="DashboardCtrl.ePage.Masters.InwardChartLoading"><i class="fa fa-spin fa-spinner font-160"></i></div>
-                    <div class="text-center pt-100" ng-if="DashboardCtrl.ePage.Masters.GetInwardChartDetails.length==0 && !DashboardCtrl.ePage.Masters.InwardChartLoading"><i>No Records Found!...</i></div>
+                    <div class="text-center pt-100" ng-if="DashboardCtrl.ePage.Masters.GetInwardChartDetails.length==0 && !DashboardCtrl.ePage.Masters.InwardChartLoading"><i>No
+                            Records Found!...</i></div>
                 </div>
             </div>
         </div>
@@ -54,7 +55,7 @@
         <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
             <div class="CustomerBox mt-10">
                 <div class="card card-chart p-15" data-ng-show="!DashboardCtrl.ePage.Masters.OutwardChartLoading && DashboardCtrl.ePage.Masters.GetOutwardChartDetails.length!=0">
-                    <div class="card-header"  data-header-animation="true">
+                    <div class="card-header" data-header-animation="true">
                         <div class="ct-chart">
                             <canvas id="lineChartoutward"></canvas>
                         </div>
@@ -63,9 +64,10 @@
                         <p class="category text-center">Last 7 days Outward Details</p>
                     </div>
                 </div>
-                <div  data-ng-if="DashboardCtrl.ePage.Masters.OutwardChartLoading || DashboardCtrl.ePage.Masters.GetOutwardChartDetails.length==0">
+                <div data-ng-if="DashboardCtrl.ePage.Masters.OutwardChartLoading || DashboardCtrl.ePage.Masters.GetOutwardChartDetails.length==0">
                     <div class="text-center pt-100" ng-if="DashboardCtrl.ePage.Masters.OutwardChartLoading"><i class="fa fa-spin fa-spinner font-160"></i></div>
-                    <div class="text-center pt-100" ng-if="DashboardCtrl.ePage.Masters.GetOutwardChartDetails.length==0 && !DashboardCtrl.ePage.Masters.OutwardChartLoading"><i>No Records Found!...</i></div>
+                    <div class="text-center pt-100" ng-if="DashboardCtrl.ePage.Masters.GetOutwardChartDetails.length==0 && !DashboardCtrl.ePage.Masters.OutwardChartLoading"><i>No
+                            Records Found!...</i></div>
                 </div>
             </div>
         </div>
@@ -75,23 +77,24 @@
         <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
             <div class="CustomerBox mt-10">
                 <div class="card card-chart p-15" data-ng-show="!DashboardCtrl.ePage.Masters.ProductChartLoading && DashboardCtrl.ePage.Masters.ProductDetails.length!=0">
-                    <div class="card-header"  data-header-animation="true">
+                    <div class="card-header" data-header-animation="true">
                         <div class="ct-chart">
                             <canvas id="myChart"></canvas>
                         </div>
                     </div>
                     <div class="card-content">
-                        <p class="category text-center">Product  Wise Inventory Details</p>
+                        <p class="category text-center">Product Wise Inventory Details</p>
                     </div>
                 </div>
-                <div  data-ng-if="DashboardCtrl.ePage.Masters.ProductChartLoading || DashboardCtrl.ePage.Masters.ProductDetails.length==0">
+                <div data-ng-if="DashboardCtrl.ePage.Masters.ProductChartLoading || DashboardCtrl.ePage.Masters.ProductDetails.length==0">
                     <div class="text-center pt-100" ng-if="DashboardCtrl.ePage.Masters.ProductChartLoading"><i class="fa fa-spin fa-spinner font-160"></i></div>
-                    <div class="text-center pt-100" ng-if="DashboardCtrl.ePage.Masters.ProductDetails.length==0 && !DashboardCtrl.ePage.Masters.ProductChartLoading"><i>No Records Found!...</i></div>
+                    <div class="text-center pt-100" ng-if="DashboardCtrl.ePage.Masters.ProductDetails.length==0 && !DashboardCtrl.ePage.Masters.ProductChartLoading"><i>No
+                            Records Found!...</i></div>
                 </div>
             </div>
         </div>
 
-         <!-- Product Wise details -->
+        <!-- Product Wise details -->
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
             <div class="mt-10 custom-widget">
                 <div class="widget">
@@ -101,27 +104,35 @@
                     <div class="widget-body  no-padding">
                         <div class="tickets-container set-bg-white " style="height: 300px">
                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 custompadding pt-0">
-                                <button class="btn btn-primary btn-xs filter-sidebar-setting ml-5 dl-filter-btn pull-right" ng-click="DashboardCtrl.ePage.Masters.GetFilterList()">
-                                    <i class="fa fa-filter txt-color-blueDark" ></i> Filter</button>
+                                <button class="btn btn-primary btn-xs filter-sidebar-setting ml-5 dl-filter-btn pull-right"
+                                    ng-click="DashboardCtrl.ePage.Masters.GetFilterList()">
+                                    <i class="fa fa-filter txt-color-blueDark"></i> Filter</button>
                             </div>
-                            <div id="InwardLineTable{{DashboardCtrl.currentInward.label}}" class="fixedheader mb-0" key-events table-object='DashboardCtrl.ePage.Masters.ProductDetails' enable='DashboardCtrl.ePage.Masters.Enable' selected-row='DashboardCtrl.ePage.Masters.selectedRow' unique-id='InwardLineTable{{DashboardCtrl.currentInward.label}}'>
-                                <table  style="height: 200px">
+                            <div id="InwardLineTable{{DashboardCtrl.currentInward.label}}" class="fixedheader mb-0"
+                                key-events table-object='DashboardCtrl.ePage.Masters.ProductDetails' enable='DashboardCtrl.ePage.Masters.Enable'
+                                selected-row='DashboardCtrl.ePage.Masters.selectedRow' unique-id='InwardLineTable{{DashboardCtrl.currentInward.label}}'>
+                                <table style="height: 200px">
                                     <thead>
                                         <tr id="tableHeader">
-                                            <th  ng-style="{ 'width': '40px' }" title="S.No">S.No</th>
-                                            <th  ng-style="{ 'width':  '275px' }" title="Product Code">Product Code</th>
-                                            <th  ng-style="{ 'width':  '300px' }" title="Product Description">Product Description</th>
-                                            <th  ng-style="{ 'width':  '100px' }" title="Opening Stock">Opening Stock</th>
-                                            <th  ng-style="{ 'width':  '100px' }" title="Today's Inward">Today's Inward</th>
-                                            <th  ng-style="{ 'width':  '120px' }" title="Today's Outward">Today's Outward</th>
-                                            <th  ng-style="{ 'width':  '125px' }" title="Today's Correction">Today's Correction</th>
-                                            <th  ng-style="{ 'width':  '100px' }" title="Closing Stock">Closing Stock</th>
+                                            <th ng-style="{ 'width': '40px' }" title="S.No">S.No</th>
+                                            <th ng-style="{ 'width':  '275px' }" title="Product Code">Product Code</th>
+                                            <th ng-style="{ 'width':  '300px' }" title="Product Description">Product
+                                                Description</th>
+                                            <th ng-style="{ 'width':  '100px' }" title="Opening Stock">Opening Stock</th>
+                                            <th ng-style="{ 'width':  '100px' }" title="Today's Inward">Today's Inward</th>
+                                            <th ng-style="{ 'width':  '120px' }" title="Today's Outward">Today's
+                                                Outward</th>
+                                            <th ng-style="{ 'width':  '125px' }" title="Today's Correction">Today's
+                                                Correction</th>
+                                            <th ng-style="{ 'width':  '100px' }" title="Closing Stock">Closing Stock</th>
                                         </tr>
                                     </thead>
                                     <tbody id="InwardLineCustTable{{DashboardCtrl.currentInward.label}}">
-                                        <tr id="tableBody" ng-repeat="x in DashboardCtrl.ePage.Masters.ProductDetails"  ng-click="DashboardCtrl.ePage.Masters.setSelectedRow($index);" ng-class="{row_active: (DashboardCtrl.ePage.Masters.selectedRow==$index),copy_row_active :(x.IsCopied==true)}" >
-                                            
-                                            <td ng-style="{ 'width':  '40px' }"  class="overflow-text">{{(($index +1) + ((DashboardCtrl.ePage.Masters.Pagination.ItemsPerPage)*(DashboardCtrl.ePage.Masters.Pagination.CurrentPage-1)))}}</td>
+                                        <tr id="tableBody" ng-repeat="x in DashboardCtrl.ePage.Masters.ProductDetails"
+                                            ng-click="DashboardCtrl.ePage.Masters.setSelectedRow($index);" ng-class="{row_active: (DashboardCtrl.ePage.Masters.selectedRow==$index),copy_row_active :(x.IsCopied==true)}">
+
+                                            <td ng-style="{ 'width':  '40px' }" class="overflow-text">{{(($index +1) +
+                                                ((DashboardCtrl.ePage.Masters.Pagination.ItemsPerPage)*(DashboardCtrl.ePage.Masters.Pagination.CurrentPage-1)))}}</td>
                                             <td ng-style="{ 'width':  '275px' }" class="overflow-text">{{x.ProductCode}}</td>
                                             <td ng-style="{ 'width':  '300px' }" class="overflow-text">{{x.ProductDescription}}</td>
                                             <td ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.OpeningStock}}</td>
@@ -129,24 +140,33 @@
                                             <td ng-style="{ 'width':  '120px' }" class="overflow-text">{{x.TodayOutward}}</td>
                                             <td ng-style="{ 'width':  '125px' }" class="overflow-text">{{x.TodayAdjustment}}</td>
                                             <td ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.ClosingStock}}</td>
-                                                    
+
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
-                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 norecordfound"  ng-if="DashboardCtrl.ePage.Masters.ProductDetails.length==0 && !DashboardCtrl.ePage.Masters.ProductChartLoading">No Record Found...</div>
-                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 norecordfound"  ng-if="!DashboardCtrl.ePage.Masters.ProductDetails && DashboardCtrl.ePage.Masters.ProductChartLoading"><i class="fa fa-spin fa-spinner font-160"></i></div>
-                            
-                                <!-- Pagination -->
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 norecordfound" ng-if="DashboardCtrl.ePage.Masters.ProductDetails.length==0 && !DashboardCtrl.ePage.Masters.ProductChartLoading">No
+                                Record Found...</div>
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 norecordfound" ng-if="!DashboardCtrl.ePage.Masters.ProductDetails && DashboardCtrl.ePage.Masters.ProductChartLoading"><i
+                                    class="fa fa-spin fa-spinner font-160"></i></div>
+
+                            <!-- Pagination -->
                             <div class="mr-10 ml-10">
                                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 pagination-border mb-0">
                                     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-3 col-xl-3 pt-10 p-0">
-                                        <ul uib-pagination boundary-links="true" total-items="DashboardCtrl.ePage.Masters.ProductDetailsLength" ng-model="DashboardCtrl.ePage.Masters.Pagination.CurrentPage" class="pagination-sm" max-size="DashboardCtrl.ePage.Masters.Pagination.MaxSize" items-per-page="DashboardCtrl.ePage.Masters.Pagination.ItemsPerPage" num-pages="DashboardCtrl.ePage.Masters.Pagination.TotalPage" data-ng-change="DashboardCtrl.ePage.Masters.GetProductWiseDetailsGrouping()" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></ul>
+                                        <ul uib-pagination boundary-links="true" total-items="DashboardCtrl.ePage.Masters.ProductDetailsLength"
+                                            ng-model="DashboardCtrl.ePage.Masters.Pagination.CurrentPage" class="pagination-sm"
+                                            max-size="DashboardCtrl.ePage.Masters.Pagination.MaxSize" items-per-page="DashboardCtrl.ePage.Masters.Pagination.ItemsPerPage"
+                                            num-pages="DashboardCtrl.ePage.Masters.Pagination.TotalPage" data-ng-change="DashboardCtrl.ePage.Masters.GetProductWiseDetailsGrouping()"
+                                            previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;"
+                                            last-text="&raquo;"></ul>
                                     </div>
-                                    
+
                                     <div class="col-xs-4 col-sm-4 col-md-3 col-lg-2 col-xl-2 pt-10 pull-right">
-                                        <div class="">Page : {{DashboardCtrl.ePage.Masters.Pagination.CurrentPage}} / {{DashboardCtrl.ePage.Masters.Pagination.TotalPage}}</div>
-                                        <div class="">Total Records : {{DashboardCtrl.ePage.Masters.ProductDetailsLength}}</div>
+                                        <div class="">Page : {{DashboardCtrl.ePage.Masters.Pagination.CurrentPage}} /
+                                            {{DashboardCtrl.ePage.Masters.Pagination.TotalPage}}</div>
+                                        <div class="">Total Records :
+                                            {{DashboardCtrl.ePage.Masters.ProductDetailsLength}}</div>
                                     </div>
                                 </div>
                             </div>
@@ -157,11 +177,11 @@
         </div>
 
         <!--FIlter Bar  -->
-        <div id="filterSideBar{{DashboardCtrl.ePage.Masters.DynamicControl.DataEntryName}}"
-        data-ng-if="DashboardCtrl.ePage.Masters.DynamicControl" class="dynamic-filter-sidebar-wrapper  clearfix filter-text"
-        style="top:330px;height:250px;overflow-y: overlay;z-index: 13" data-ng-class="DashboardCtrl.ePage.Masters.ViewType == 1 ? 'single-column-view' : 'multi-column-view'">
+        <div id="filterSideBar{{DashboardCtrl.ePage.Masters.DynamicControl.DataEntryName}}" data-ng-if="DashboardCtrl.ePage.Masters.DynamicControl"
+            class="dynamic-filter-sidebar-wrapper  clearfix filter-text" style="top:330px;height:250px;overflow-y: overlay;z-index: 13"
+            data-ng-class="DashboardCtrl.ePage.Masters.ViewType == 1 ? 'single-column-view' : 'multi-column-view'">
             <form name="filterSidebar" novalidate>
-                <div class="header clearfix">
+                <!-- <div class="header clearfix">
                     <div class="title pull-left">
                         <i class="fa fa-filter"></i>
                         <span>Filter</span>
@@ -172,22 +192,37 @@
                                 <button class="filter-title-btn" ng-click="DashboardCtrl.ePage.Masters.CloseFilterList()">Close</button>
                             </li>
                             <li>
-                                <input type="submit" class="filter-title-btn" ng-click="DashboardCtrl.ePage.Masters.Filter();DashboardCtrl.ePage.Masters.CloseFilterList()" value="Apply">
+                                <input type="submit" class="filter-title-btn" ng-click="DashboardCtrl.ePage.Masters.Filter();DashboardCtrl.ePage.Masters.CloseFilterList()"
+                                    value="Apply">
                             </li>
                         </ul>
                     </div>
+                </div> -->
+                <div class="header clearfix">
+                    <div class="pull-left p-6 bold">
+                        <i class="fa fa-filter mr-5 font-120"></i>
+                        <span class="mr-10">Filter</span>
+                    </div>
+                    <div class="pull-right fltr-button" ng-click="DashboardCtrl.ePage.Masters.CloseFilterList()">
+                        <span title="Close">
+                            <i class="fa fa-close"></i>
+                        </span>
+                    </div>
+                    <input type="submit" class="btn btn-xs btn-primary pull-right mt-4 mb-4 ml-5 mr-10" ng-click="DashboardCtrl.ePage.Masters.Filter();DashboardCtrl.ePage.Masters.CloseFilterList()"
+                        value="Apply">
                 </div>
                 <div class="filter-list clearfix">
                     <div class="clearfix" data-ng-if="DashboardCtrl.ePage.Masters.DynamicControl">
-                        <dynamic-control input="DashboardCtrl.ePage.Masters.DynamicControl" mode="S" control-style="" default-filter="DashboardCtrl.ePage.Masters.defaultFilter"
-                            toggle="DashboardCtrl.ePage.Masters.IsDynamicControlAccess" view-type="DashboardCtrl.ePage.Masters.ViewType"></dynamic-control>
+                        <dynamic-control input="DashboardCtrl.ePage.Masters.DynamicControl" mode="S" control-style=""
+                            default-filter="DashboardCtrl.ePage.Masters.defaultFilter" toggle="DashboardCtrl.ePage.Masters.IsDynamicControlAccess"
+                            view-type="DashboardCtrl.ePage.Masters.ViewType"></dynamic-control>
                     </div>
                 </div>
             </form>
         </div>
 
-         <!-- Inward Status Details -->
-         <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 pb-40">
+        <!-- Inward Status Details -->
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 pb-40">
             <div class="mt-10 custom-widget">
                 <div class="widget">
                     <div class="widget-header bordered-bottom">
@@ -202,7 +237,8 @@
                                             <div class="user-mine">Goods will Arrive Today</div>
                                         </div>
                                         <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
-                                            <span class="mycircle">{{DashboardCtrl.ePage.Masters.InwardStatusWiseSummaryDetails.GoodsWillArriveToday  ||'0'}}</span>
+                                            <span class="mycircle">{{DashboardCtrl.ePage.Masters.InwardStatusWiseSummaryDetails.GoodsWillArriveToday
+                                                ||'0'}}</span>
                                         </div>
                                     </div>
                                 </li>
@@ -212,7 +248,8 @@
                                             <div class="user-mine">Goods Arrived Today</div>
                                         </div>
                                         <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
-                                            <span class="mycircle">{{DashboardCtrl.ePage.Masters.InwardStatusWiseSummaryDetails.GoodsArrivedToday ||'0'}}</span>
+                                            <span class="mycircle">{{DashboardCtrl.ePage.Masters.InwardStatusWiseSummaryDetails.GoodsArrivedToday
+                                                ||'0'}}</span>
                                         </div>
                                     </div>
                                 </li>
@@ -222,7 +259,8 @@
                                             <div class="user-mine">Goods Arrived & Waiting For Unload</div>
                                         </div>
                                         <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
-                                            <span class="mycircle">{{DashboardCtrl.ePage.Masters.InwardStatusWiseSummaryDetails.WaitingForUnload ||'0'}}</span>
+                                            <span class="mycircle">{{DashboardCtrl.ePage.Masters.InwardStatusWiseSummaryDetails.WaitingForUnload
+                                                ||'0'}}</span>
                                         </div>
                                     </div>
                                 </li>
@@ -232,7 +270,8 @@
                                             <div class="user-mine">Unloaded Completed & waiting for Putaway Completion</div>
                                         </div>
                                         <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
-                                            <span class="mycircle">{{DashboardCtrl.ePage.Masters.InwardStatusWiseSummaryDetails.WaitingForPutaway ||'0'}}</span>
+                                            <span class="mycircle">{{DashboardCtrl.ePage.Masters.InwardStatusWiseSummaryDetails.WaitingForPutaway
+                                                ||'0'}}</span>
                                         </div>
                                     </div>
                                 </li>
@@ -242,7 +281,8 @@
                                             <div class="user-mine">Putaway Completed & not Finalized</div>
                                         </div>
                                         <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
-                                            <span class="mycircle">{{DashboardCtrl.ePage.Masters.InwardStatusWiseSummaryDetails.WaitingForInwardFinalization ||'0'}}</span>
+                                            <span class="mycircle">{{DashboardCtrl.ePage.Masters.InwardStatusWiseSummaryDetails.WaitingForInwardFinalization
+                                                ||'0'}}</span>
                                         </div>
                                     </div>
                                 </li>
@@ -252,7 +292,7 @@
                 </div>
             </div>
         </div>
-    
+
         <!--  Outward Status Details -->
         <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 pb-40">
             <div class="mt-10 custom-widget">
@@ -269,7 +309,8 @@
                                             <div class="user-mine">Goods will Dispatch Today</div>
                                         </div>
                                         <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
-                                            <span class="mycircle">{{DashboardCtrl.ePage.Masters.OutwardStatusWiseSummaryDetails.WillDispatchToday ||'0'}}</span>
+                                            <span class="mycircle">{{DashboardCtrl.ePage.Masters.OutwardStatusWiseSummaryDetails.WillDispatchToday
+                                                ||'0'}}</span>
                                         </div>
                                     </div>
                                 </li>
@@ -279,7 +320,8 @@
                                             <div class="user-mine">Pick Planned</div>
                                         </div>
                                         <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
-                                            <span class="mycircle">{{DashboardCtrl.ePage.Masters.OutwardStatusWiseSummaryDetails.PickPlanned ||'0'}}</span>
+                                            <span class="mycircle">{{DashboardCtrl.ePage.Masters.OutwardStatusWiseSummaryDetails.PickPlanned
+                                                ||'0'}}</span>
                                         </div>
                                     </div>
                                 </li>
@@ -289,7 +331,8 @@
                                             <div class="user-mine">Waiting For Picking</div>
                                         </div>
                                         <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
-                                            <span class="mycircle">{{DashboardCtrl.ePage.Masters.OutwardStatusWiseSummaryDetails.WaitingForPick ||'0'}}</span>
+                                            <span class="mycircle">{{DashboardCtrl.ePage.Masters.OutwardStatusWiseSummaryDetails.WaitingForPick
+                                                ||'0'}}</span>
                                         </div>
                                     </div>
                                 </li>
@@ -299,7 +342,8 @@
                                             <div class="user-mine">Waiting For Dispatch</div>
                                         </div>
                                         <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
-                                            <span class="mycircle">{{DashboardCtrl.ePage.Masters.OutwardStatusWiseSummaryDetails.WaitingToDispatch ||'0'}}</span>
+                                            <span class="mycircle">{{DashboardCtrl.ePage.Masters.OutwardStatusWiseSummaryDetails.WaitingToDispatch
+                                                ||'0'}}</span>
                                         </div>
                                     </div>
                                 </li>
@@ -309,7 +353,8 @@
                                             <div class="user-mine">Goods Dispatched Today</div>
                                         </div>
                                         <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
-                                            <span class="mycircle">{{DashboardCtrl.ePage.Masters.OutwardStatusWiseSummaryDetails.DispatchedToday ||'0'}}</span>
+                                            <span class="mycircle">{{DashboardCtrl.ePage.Masters.OutwardStatusWiseSummaryDetails.DispatchedToday
+                                                ||'0'}}</span>
                                         </div>
                                     </div>
                                 </li>

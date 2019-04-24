@@ -250,36 +250,18 @@
     style="top: 314px; height: 200px; overflow-y: overlay;" data-ng-class="ManifestItemCtrl.ePage.Masters.ViewType == 1 ? 'single-column-view' : 'multi-column-view'">
     <form name="filterSidebar" novalidate>
         <div class="header clearfix">
-            <div class="title pull-left">
-                <i class="fa fa-filter"></i>
-                <span>Filter</span>
+            <div class="pull-left p-6 bold">
+                <i class="fa fa-filter mr-5 font-120"></i>
+                <span class="mr-10">Filter</span>
             </div>
-            <div class="btn-wrapper">
-                <ul class="clearfix">
-                    <li style="margin-left: 50px;">
-                        <div class="filter-save-icon filter-save-icon-toggle" ng-if="ManifestItemCtrl.ePage.Masters.DataEntryMaster.OtherConfig.IsFavorite"
-                            data-ng-disabled="!ManifestItemCtrl.ePage.Masters.DataEntryMaster" data-ng-click="ManifestItemCtrl.ePage.Masters.DataEntryMaster.IsShowSaveSettingsTxtBox = !ManifestItemCtrl.ePage.Masters.DataEntryMaster.IsShowSaveSettingsTxtBox ">
-                            <i class="" data-ng-class="ManifestItemCtrl.ePage.Masters.DataEntryMaster.IsShowSaveSettingsTxtBox ? 'fa fa-star' : 'fa fa-star-o'"></i>
-                        </div>
-                    </li>
-                    <li>
-                        <span style="font-size: 24px;" class="cursor-pointer" data-ng-class="ManifestItemCtrl.ePage.Masters.IsDynamicControlAccess ? 'fa fa-toggle-on' : 'fa fa-toggle-off'"
-                            data-ng-click="ManifestItemCtrl.ePage.Masters.IsDynamicControlAccess = !ManifestItemCtrl.ePage.Masters.IsDynamicControlAccess"></span>
-                    </li>
-                    <li>
-                        <button class="filter-title-btn" ng-click="ManifestItemCtrl.ePage.Masters.Clear()">Clear</button>
-                    </li>
-                    <li>
-                        <input type="submit" class="filter-title-btn" ng-click="ManifestItemCtrl.ePage.Masters.Filter();"
-                            value="Apply">
-                    </li>
-                    <li>
-                        <span class="filter-toggle-icon" ng-click="ManifestItemCtrl.ePage.Masters.CloseFilterList()">
-                            <i class="fa fa-arrow-right"></i>
-                        </span>
-                    </li>
-                </ul>
+            <div class="pull-right fltr-button" data-ng-click="ManifestItemCtrl.ePage.Masters.CloseFilterList()">
+                <span title="Close">
+                    <i class="fa fa-close"></i>
+                </span>
             </div>
+            <input type="submit" class="btn btn-xs btn-primary pull-right mt-4 mb-4 ml-5 mr-10" value="Apply"
+                data-ng-click="ManifestItemCtrl.ePage.Masters.Filter()">
+            <button class="btn btn-xs btn-default pull-right mt-4 mb-4 ml-10 mr-5" data-ng-click="ManifestItemCtrl.ePage.Masters.Clear()">Clear</button>
         </div>
         <div class="filter-list clearfix">
             <div class="clearfix" data-ng-if="ManifestItemCtrl.ePage.Masters.DynamicControl">

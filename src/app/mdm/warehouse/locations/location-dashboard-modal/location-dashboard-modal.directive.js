@@ -32,7 +32,7 @@
                 if (!scope.isDisabled) {
                     var _index = -1;
                     for (var x in dynamicLookupConfig.Entities) {
-                        (scope.controlKey) ? _index = x.indexOf(scope.controlKey): _index = x.indexOf(scope.controlId);
+                        (scope.controlKey) ? _index = x.indexOf(scope.controlKey) : _index = x.indexOf(scope.controlId);
 
                         if (_index !== -1) {
                             scope.LookupConfig = dynamicLookupConfig.Entities[x];
@@ -57,6 +57,9 @@
                     resolve: {
                         param: function () {
                             if (scope.mode === 2) {
+                                if (typeof scope.LookupConfig.setValues == "string") {
+                                    scope.LookupConfig.setValues = JSON.parse(scope.LookupConfig.setValues);
+                                }
                                 scope.LookupConfig.setValues.map(function (value, key) {
                                     scope.LookupConfig.defaults[value.sField] = scope.obj[value.eField];
                                 });

@@ -435,21 +435,18 @@
         style="top:620px;height:200px;overflow-y: overlay;z-index: 13" data-ng-class="CreateDelChallanCtrl.ePage.Masters.ViewType == 1 ? 'single-column-view' : 'multi-column-view'">
         <form name="filterSidebar" novalidate>
             <div class="header clearfix">
-                <div class="title pull-left">
-                    <i class="fa fa-filter"></i>
-                    <span>Filter</span>
+                <div class="pull-left p-6 bold">
+                    <i class="fa fa-filter mr-5 font-120"></i>
+                    <span class="mr-10">Filter</span>
                 </div>
-                <div class="btn-wrapper pull-right">
-                    <ul class="clearfix">
-                        <li>
-                            <button class="filter-title-btn" ng-click="CreateDelChallanCtrl.ePage.Masters.CloseFilterList()">Close</button>
-                        </li>
-                        <li>
-                            <input type="submit" class="filter-title-btn" ng-click="CreateDelChallanCtrl.ePage.Masters.Filter();CreateDelChallanCtrl.ePage.Masters.CloseFilterList();CreateDelChallanCtrl.ePage.Masters.IsFilter=true;"
-                                value="Apply">
-                        </li>
-                    </ul>
+                <div class="pull-right fltr-button" data-ng-click="CreateDelChallanCtrl.ePage.Masters.CloseFilterList()">
+                    <span title="Close">
+                        <i class="fa fa-close"></i>
+                    </span>
                 </div>
+                <input type="submit" class="btn btn-xs btn-primary pull-right mt-4 mb-4 ml-5 mr-10" value="Apply"
+                    data-ng-click="CreateDelChallanCtrl.ePage.Masters.Filter();CreateDelChallanCtrl.ePage.Masters.CloseFilterList();CreateDelChallanCtrl.ePage.Masters.IsFilter=true;">
+                <!-- <button class="btn btn-xs btn-default pull-right mt-4 mb-4 ml-10 mr-5" data-ng-click="CreateDelChallanCtrl.ePage.Masters.Filter.Clear()">Clear</button> -->
             </div>
             <div class="filter-list clearfix">
                 <div class="clearfix" data-ng-if="CreateDelChallanCtrl.ePage.Masters.DynamicControl">

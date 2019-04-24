@@ -56,20 +56,18 @@
     style="height:150%;overflow-y: overlay">
     <form name="filterSidebar" novalidate>
         <div class="header clearfix">
-            <div class="title pull-left">
-                <i class="fa fa-filter"></i>
-                <span>Filter</span>
+            <div class="pull-left p-6 bold">
+                <i class="fa fa-filter mr-5 font-120"></i>
+                <span class="mr-10">Filter</span>
             </div>
-            <div class="btn-wrapper pull-right">
-                <ul class="clearfix">
-                    <li>
-                        <input type="submit" class="filter-title-btn" ng-click="ReportCtrl.ePage.Masters.CloseFilter()" data-ng-disabled="!ReportCtrl.ePage.Masters.DynamicControl" value="Close">
-                    </li>
-                    <li>
-                        <input type="submit" class="filter-title-btn" ng-click="ReportCtrl.ePage.Masters.GenerateReports()" data-ng-disabled="!ReportCtrl.ePage.Masters.DynamicControl" value="Generate Report">
-                    </li>
-                </ul>
+            <div class="pull-right fltr-button" ng-click="ReportCtrl.ePage.Masters.CloseFilter()" data-ng-disabled="!ReportCtrl.ePage.Masters.DynamicControl">
+                <span title="Close">
+                    <i class="fa fa-close"></i>
+                </span>
             </div>
+            <input type="submit" class="btn btn-xs btn-primary pull-right mt-4 mb-4 ml-5 mr-10" ng-click="ReportCtrl.ePage.Masters.GenerateReports()"
+                data-ng-disabled="!ReportCtrl.ePage.Masters.DynamicControl" value="Generate Report">
+            <!-- <button class="btn btn-xs btn-default pull-right mt-4 mb-4 ml-10 mr-5" data-ng-click="ManifestOrdersCtrl.ePage.Masters.Clear()">Clear</button> -->
         </div>
         <div class="filter-list clearfix">
             <div class="clearfix" data-ng-if="ReportCtrl.ePage.Masters.DynamicControl">

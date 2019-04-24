@@ -258,8 +258,9 @@
         <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 p-0">
             <div class="input-group">
                 <div class="input-group-addon font-10"><i class="fa fa-search font-10"></i></div>
-                <input type="text" class="form-control height-25 font-10" placeholder="Search" ng-model="OwnershipTransferGeneralCtrl.ePage.Masters.SearchTable" data-ng-change="OwnershipTransferGeneralCtrl.ePage.Masters.LocalSearchLengthCalculation()">
-            </div>      
+                <input type="text" class="form-control height-25 font-10" placeholder="Search" ng-model="OwnershipTransferGeneralCtrl.ePage.Masters.SearchTable"
+                    data-ng-change="OwnershipTransferGeneralCtrl.ePage.Masters.LocalSearchLengthCalculation()">
+            </div>
         </div>
     </div>
     <div id="TFRTable{{OwnershipTransferGeneralCtrl.currentOwnerTransfer.label}}" class="fixedheader mb-0" key-events
@@ -364,7 +365,8 @@
                         <span class="list-error-warning" data-ng-if="OwnershipTransferGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsStockTransferLine.ERROR | listCount: 'RowIndex': (($index) + OwnershipTransferGeneralCtrl.ePage.Masters.CurrentPageStartingIndex)">
                             <error-warning-directive list="OwnershipTransferGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIWmsStockTransferLine.ERROR"
                                 type="'error'" icon="fa fa-warning" parent-type="'arrayObjectRow'" parent-ref=""
-                                g-parent-ref="" row-index="(($index) + OwnershipTransferGeneralCtrl.ePage.Masters.CurrentPageStartingIndex)" col-index="">
+                                g-parent-ref="" row-index="(($index) + OwnershipTransferGeneralCtrl.ePage.Masters.CurrentPageStartingIndex)"
+                                col-index="">
                             </error-warning-directive>
                         </span>
                     </td>
@@ -588,15 +590,14 @@
                                     <!-- Dynamic look up Search in textbox -->
                                     <div dynamic-lookup placeholder="Location" my-ng-model="x.WLO_Location"
                                         auto-complete-on-select="OwnershipTransferGeneralCtrl.ePage.Masters.SelectedLookupLocation($item,(($index) + OwnershipTransferGeneralCtrl.ePage.Masters.CurrentPageStartingIndex))"
-                                        obj="x" page-name="'WarehouseLocation'" control-id="'Location'"
-                                        control-key="'Location_2948'">
+                                        obj="x" page-name="'WarehouseLocation'" control-id="'Location'" control-key="'Location_2948'">
                                     </div>
 
                                     <!-- Look Up page opens when button clicks -->
                                     <span class="input-group-btn">
                                         <button location-dashboard-modal filter="x.WAR_WarehouseCode" page-name="'WarehouseLocation'"
-                                            mode="2" obj="x" control-id="'Location'"
-                                            control-key="'Location_2948'" selected-data="OwnershipTransferGeneralCtrl.ePage.Masters.SelectedLookupLocation($item,(($index) + OwnershipTransferGeneralCtrl.ePage.Masters.CurrentPageStartingIndex))"
+                                            mode="2" obj="x" control-id="'Location'" control-key="'Location_2948'"
+                                            selected-data="OwnershipTransferGeneralCtrl.ePage.Masters.SelectedLookupLocation($item,(($index) + OwnershipTransferGeneralCtrl.ePage.Masters.CurrentPageStartingIndex))"
                                             grid-refresh-fun-name="" grid-refresh-fun="" class="btn btn-default shiny"
                                             type="button">
                                             <i class="fa fa-ellipsis-h"></i>
@@ -776,8 +777,9 @@
             </tbody>
         </table>
     </div>
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 norecordfound" style="top:330px" ng-if="OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferLine.length==0">NoRecord Found...</div>
-    
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 norecordfound" style="top:330px" ng-if="OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferLine.length==0">NoRecord
+        Found...</div>
+
     <!-- To show Customize Modal -->
     <div ng-if='OwnershipTransferGeneralCtrl.ePage.Masters.EditTableColumns'>
         <customize-table table-properties="OwnershipTransferGeneralCtrl.ePage.Entities.Header.TableProperties.UIWmsStockTransferLine"
@@ -794,13 +796,16 @@
     <div class="mr-10 ml-10">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 pagination-border">
             <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3 pt-10 p-0">
-                <ul uib-pagination boundary-links="true" total-items="OwnershipTransferGeneralCtrl.ePage.Masters.PaginationForTfrLine.LocalSearchLength" ng-model="OwnershipTransferGeneralCtrl.ePage.Masters.PaginationForTfrLine.CurrentPage"
-                    class="pagination-sm" max-size="OwnershipTransferGeneralCtrl.ePage.Masters.PaginationForTfrLine.MaxSize" items-per-page="OwnershipTransferGeneralCtrl.ePage.Masters.PaginationForTfrLine.ItemsPerPage"
-                    num-pages="OwnershipTransferGeneralCtrl.ePage.Masters.PaginationForTfrLine.TotalPage" data-ng-change="OwnershipTransferGeneralCtrl.ePage.Masters.PaginationChangeForTfrLine()"
+                <ul uib-pagination boundary-links="true" total-items="OwnershipTransferGeneralCtrl.ePage.Masters.PaginationForTfrLine.LocalSearchLength"
+                    ng-model="OwnershipTransferGeneralCtrl.ePage.Masters.PaginationForTfrLine.CurrentPage" class="pagination-sm"
+                    max-size="OwnershipTransferGeneralCtrl.ePage.Masters.PaginationForTfrLine.MaxSize" items-per-page="OwnershipTransferGeneralCtrl.ePage.Masters.PaginationForTfrLine.ItemsPerPage"
+                    num-pages="OwnershipTransferGeneralCtrl.ePage.Masters.PaginationForTfrLine.TotalPage"
+                    data-ng-change="OwnershipTransferGeneralCtrl.ePage.Masters.PaginationChangeForTfrLine()"
                     previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></ul>
             </div>
             <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3 pt-10">
-                <select ng-model="OwnershipTransferGeneralCtrl.ePage.Masters.PaginationForTfrLine.ItemsPerPage" ng-change="OwnershipTransferGeneralCtrl.ePage.Masters.PaginationChangeForTfrLine()">
+                <select ng-model="OwnershipTransferGeneralCtrl.ePage.Masters.PaginationForTfrLine.ItemsPerPage"
+                    ng-change="OwnershipTransferGeneralCtrl.ePage.Masters.PaginationChangeForTfrLine()">
                     <option ng-selected="true">25</option>
                     <option>50</option>
                     <option>100</option>
@@ -808,11 +813,14 @@
                 </select> Records Per Page.
             </div>
             <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3 pt-15" data-ng-if="OwnershipTransferGeneralCtrl.ePage.Masters.SearchTable">
-                <div class="">Search Records : {{OwnershipTransferGeneralCtrl.ePage.Masters.PaginationForTfrLine.LocalSearchLength}}</div>
+                <div class="">Search Records :
+                    {{OwnershipTransferGeneralCtrl.ePage.Masters.PaginationForTfrLine.LocalSearchLength}}</div>
             </div>
             <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3 pt-10 pull-right">
-                <div class="">Page : {{OwnershipTransferGeneralCtrl.ePage.Masters.PaginationForTfrLine.CurrentPage}} / {{OwnershipTransferGeneralCtrl.ePage.Masters.PaginationForTfrLine.TotalPage}}</div>
-                <div class="">Total Records : {{OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferLine.length}}</div>
+                <div class="">Page : {{OwnershipTransferGeneralCtrl.ePage.Masters.PaginationForTfrLine.CurrentPage}} /
+                    {{OwnershipTransferGeneralCtrl.ePage.Masters.PaginationForTfrLine.TotalPage}}</div>
+                <div class="">Total Records :
+                    {{OwnershipTransferGeneralCtrl.ePage.Entities.Header.Data.UIWmsStockTransferLine.length}}</div>
             </div>
         </div>
     </div>
@@ -1021,8 +1029,11 @@
             </tbody>
         </table>
     </div>
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 norecordfound" ng-style="{ 'top': OwnershipTransferGeneralCtrl.ePage.Entities.Header.TableProperties.UIWmsStockTransferLine.TableHeight.height + 450 + 'px' }" ng-if="OwnershipTransferGeneralCtrl.ePage.Masters.InventoryLoading"><i class="fa fa-spin fa-spinner font-160"></i></div>
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 norecordfound" ng-style="{ 'top': OwnershipTransferGeneralCtrl.ePage.Entities.Header.TableProperties.UIWmsStockTransferLine.TableHeight.height + 450 + 'px' }" ng-if="OwnershipTransferGeneralCtrl.ePage.Masters.Inventory.length==0 && !OwnershipTransferGeneralCtrl.ePage.Masters.InventoryLoading">No Record Found...</div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 norecordfound" ng-style="{ 'top': OwnershipTransferGeneralCtrl.ePage.Entities.Header.TableProperties.UIWmsStockTransferLine.TableHeight.height + 450 + 'px' }"
+        ng-if="OwnershipTransferGeneralCtrl.ePage.Masters.InventoryLoading"><i class="fa fa-spin fa-spinner font-160"></i></div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 norecordfound" ng-style="{ 'top': OwnershipTransferGeneralCtrl.ePage.Entities.Header.TableProperties.UIWmsStockTransferLine.TableHeight.height + 450 + 'px' }"
+        ng-if="OwnershipTransferGeneralCtrl.ePage.Masters.Inventory.length==0 && !OwnershipTransferGeneralCtrl.ePage.Masters.InventoryLoading">No
+        Record Found...</div>
 
     <!-- To show Customize Modal -->
     <div ng-if='OwnershipTransferGeneralCtrl.ePage.Masters.EditTableColumnsInventory'>
@@ -1043,18 +1054,21 @@
                 <ul uib-pagination boundary-links="true" total-items="OwnershipTransferGeneralCtrl.ePage.Masters.InventoryCount"
                     ng-model="OwnershipTransferGeneralCtrl.ePage.Masters.PaginationForInventory.CurrentPage" class="pagination-sm"
                     max-size="OwnershipTransferGeneralCtrl.ePage.Masters.PaginationForInventory.MaxSize" items-per-page="OwnershipTransferGeneralCtrl.ePage.Masters.PaginationForInventory.ItemsPerPage"
-                    num-pages="OwnershipTransferGeneralCtrl.ePage.Masters.PaginationForInventory.TotalPage" data-ng-change="OwnershipTransferGeneralCtrl.ePage.Masters.Filter()"
-                    previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></ul>
+                    num-pages="OwnershipTransferGeneralCtrl.ePage.Masters.PaginationForInventory.TotalPage"
+                    data-ng-change="OwnershipTransferGeneralCtrl.ePage.Masters.Filter()" previous-text="&lsaquo;"
+                    next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></ul>
             </div>
             <div class="col-xs-4 col-sm-4 col-md-3 col-lg-2 col-xl-2 pt-10">
-                <select ng-model="OwnershipTransferGeneralCtrl.ePage.Masters.PaginationForInventory.ItemsPerPage" ng-change="OwnershipTransferGeneralCtrl.ePage.Masters.Filter()">
+                <select ng-model="OwnershipTransferGeneralCtrl.ePage.Masters.PaginationForInventory.ItemsPerPage"
+                    ng-change="OwnershipTransferGeneralCtrl.ePage.Masters.Filter()">
                     <option ng-selected="true">25</option>
                     <option>50</option>
                     <option>100</option>
                 </select> Records Per Page.
             </div>
             <div class="col-xs-4 col-sm-4 col-md-3 col-lg-2 col-xl-2 pt-10 pull-right">
-                <div class="">Page : {{OwnershipTransferGeneralCtrl.ePage.Masters.PaginationForInventory.CurrentPage}} /
+                <div class="">Page : {{OwnershipTransferGeneralCtrl.ePage.Masters.PaginationForInventory.CurrentPage}}
+                    /
                     {{OwnershipTransferGeneralCtrl.ePage.Masters.PaginationForInventory.TotalPage}}</div>
                 <div class="">Total Records : {{OwnershipTransferGeneralCtrl.ePage.Masters.InventoryCount}}</div>
             </div>
@@ -1065,36 +1079,27 @@
 
 <!--FIlter Bar  -->
 
-<div id="filterSideBar{{OwnershipTransferGeneralCtrl.ePage.Masters.DynamicControl.DataEntryName}}{{OwnershipTransferGeneralCtrl.currentOwnerTransfer.label}}" 
-class="dynamic-filter-sidebar-wrapper" data-ng-class="OwnershipTransferGeneralCtrl.ePage.Masters.ViewType == 1 ? 'single-column-view' : 'multi-column-view'"
-style="overflow-y: overlay" ng-style="{ 'top': OwnershipTransferGeneralCtrl.ePage.Entities.Header.TableProperties.UIWmsStockTransferLine.TableHeight.height + 386 + 'px','z-index': 13 }" >
+<div id="filterSideBar{{OwnershipTransferGeneralCtrl.ePage.Masters.DynamicControl.DataEntryName}}{{OwnershipTransferGeneralCtrl.currentOwnerTransfer.label}}"
+    class="dynamic-filter-sidebar-wrapper" data-ng-class="OwnershipTransferGeneralCtrl.ePage.Masters.ViewType == 1 ? 'single-column-view' : 'multi-column-view'"
+    style="overflow-y: overlay" ng-style="{ 'top': OwnershipTransferGeneralCtrl.ePage.Entities.Header.TableProperties.UIWmsStockTransferLine.TableHeight.height + 386 + 'px','z-index': 13 }">
     <form class="clearfix" novalidate>
         <div class="header clearfix">
-            <div class="title pull-left">
-                <i class="fa fa-filter"></i>
-                <span>Filter</span>
+            <div class="pull-left p-6 bold">
+                <i class="fa fa-filter mr-5 font-120"></i>
+                <span class="mr-10">Filter</span>
             </div>
-            
-            <div class="btn-wrapper pull-right">
-                <ul class="clearfix">
-                    <li>
-                        <span class="toggle-icon" title="Close" data-ng-click="OwnershipTransferGeneralCtrl.ePage.Masters.CloseFilterList()">
-                            <i class="fa fa-arrow-right"></i>
-                        </span>
-                    </li>
-                </ul>
+            <div class="pull-right fltr-button" data-ng-click="OwnershipTransferGeneralCtrl.ePage.Masters.CloseFilterList()">
+                <span title="Close">
+                    <i class="fa fa-close"></i>
+                </span>
             </div>
-
-            <div class="mt-2">
-                <input type="submit" class="btn btn-sm btn-primary pull-right mr-15" data-ng-click="OwnershipTransferGeneralCtrl.ePage.Masters.Filter();OwnershipTransferGeneralCtrl.ePage.Masters.CloseFilterList()"
+            <input type="submit" class="btn btn-xs btn-primary pull-right mt-4 mb-4 ml-5 mr-10" data-ng-click="OwnershipTransferGeneralCtrl.ePage.Masters.Filter();OwnershipTransferGeneralCtrl.ePage.Masters.CloseFilterList()"
                 value="Apply">
-            </div>
-
         </div>
         <div class="control-list clearfix p-0">
             <div class="clearfix filter-set-height" ng-style="{ 'height':OwnershipTransferGeneralCtrl.ePage.Entities.Header.TableProperties.Inventory.TableHeight.height - 23 +'px' }">
-                <dynamic-control  input="OwnershipTransferGeneralCtrl.ePage.Masters.DynamicControl"
-                    mode="S" control-style="" default-filter="OwnershipTransferGeneralCtrl.ePage.Masters.defaultFilter"
+                <dynamic-control input="OwnershipTransferGeneralCtrl.ePage.Masters.DynamicControl" mode="S"
+                    control-style="" default-filter="OwnershipTransferGeneralCtrl.ePage.Masters.defaultFilter"
                     view-type="OwnershipTransferGeneralCtrl.ePage.Masters.ViewType" base-filter-fields="OwnershipTransferGeneralCtrl.ePage.Masters.BaseFilterFields"
                     data-ng-if="OwnershipTransferGeneralCtrl.ePage.Masters.DynamicControl"></dynamic-control>
             </div>
