@@ -114,10 +114,10 @@
                 </li>
             </ul>
         </div>
-        <div class="col-xs-5 col-sm-5 col-md-7 col-lg-8 col-xl-8 pl-0" ng-if="!DMSManifestMenuCtrl.currentManifest.isNew">
+        <div class="col-xs-5 col-sm-5 col-md-7 col-lg-6 col-xl-6 pl-0" ng-if="!DMSManifestMenuCtrl.currentManifest.isNew">
             <standard-menu dataentry-object="DMSManifestMenuCtrl.dataentryObject" input="DMSManifestMenuCtrl.currentManifest"></standard-menu>
         </div>
-        <div class="col-xs-4 col-sm-4 col-md-3 col-lg-2 col-xl-2 pull-right">
+        <div class="col-xs-4 col-sm-4 col-md-3 col-lg-4 col-xl-4 pull-right">
             <button class="btn-text btn-blue" ng-disabled="DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.IsDisableBtn"
                 data-ng-if="(DMSManifestMenuCtrl.ePage.Masters.ManifestMenu.ListSource[DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.ActiveMenu].Value == 'AttachOrders' || DMSManifestMenuCtrl.ePage.Masters.ManifestMenu.ListSource[DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.ActiveMenu].Value == 'AttachLines') && !DMSManifestMenuCtrl.ePage.Entities.Header.Data.TmsManifestHeader.SubmittedDateTime"
                 data-ng-click="DMSManifestMenuCtrl.ePage.Masters.getMenu()">
