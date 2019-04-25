@@ -529,36 +529,95 @@
             });
         }
 
+         //#region JobAccounting
+         function JobAccounting() {
+            InwardMenuCtrl.ePage.Entities.Header.GlobalVariables.Loading = true;
+            var obj = {};
 
-        //#region JobAccounting
-        function JobAccounting() {
-            if (InwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader.length > 0) {
-                var obj = {
-                    "AgentOrg_Code": InwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].AgentOrg_Code,
-                    "Agent_Org_FK": InwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].Agent_Org_FK,
-                    "GB": InwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].GB,
-                    "BranchCode": InwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].BranchCode,
-                    "BranchName": InwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].BranchName,
-                    "GC": InwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].GC,
-                    "CompanyCode": InwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].CompanyCode,
-                    "CompanyName": InwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].CompanyName,
-                    "GE": InwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].GE,
-                    "DeptCode": InwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].DeptCode,
-                    "DeptName": InwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].DeptName,
-                    "EntitySource": InwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].EntitySource,
-                    "JobNo": InwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].JobNo,
-                    "EntityRefKey": InwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].EntityRefKey,
-                    "HeaderType": InwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].HeaderType,
-                    "LocalOrg_Code": InwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].LocalOrg_Code,
-                    "LocalOrg_FK": InwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].LocalOrg_FK
-                };
-            }
-            else {
-                var obj = {
-                    "EntityRefKey": InwardMenuCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.PK
-                };
-            }
+            var myData = InwardMenuCtrl.ePage.Entities.Header.Data.UIJobHeader.some(function (value, key) {
+                if (value.EntityRefKey == InwardMenuCtrl.ePage.Entities.Header.Data.PK) {
+                    obj.AgentOrg_Code = value.AgentOrg_Code
+                    obj.Agent_Org_FK = value.Agent_Org_FK
+                    obj.LocalOrg_Code = value.LocalOrg_Code
+                    obj.LocalOrg_FK = value.LocalOrg_FK
+                    obj.GB = value.GB
+                    obj.BranchCode = value.BranchCode
+                    obj.BranchName = value.BranchName
+                    obj.GC = value.GC
+                    obj.CompanyCode = value.CompanyCode
+                    obj.CompanyName = value.CompanyName
+                    obj.GE = value.GE
+                    obj.DeptCode = value.DeptCode
+                    obj.JobNo = value.JobNo
+                    obj.EntityRefKey = value.EntityRefKey
+                    obj.EntitySource = value.EntitySource
+                    obj.HeaderType = value.HeaderType
 
+                    return true;
+                } else {
+                    return false;
+                }
+            });
+
+            if (!myData) {
+
+                obj.AgentOrg_Code = InwardMenuCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.SupplierCode
+                obj.Agent_Org_FK = InwardMenuCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.ORG_Supplier_FK
+                obj.LocalOrg_Code = InwardMenuCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.ClientCode
+                obj.LocalOrg_FK = InwardMenuCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.ORG_Client_FK
+                obj.JobNo = InwardMenuCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.WorkOrderID
+                obj.EntityRefKey = InwardMenuCtrl.ePage.Entities.Header.Data.PK
+                obj.EntitySource = "WMS"
+                obj.HeaderType = "JOB"
+
+                /* Getting Department Value */
+
+                var _filter = {
+                    "Code": "LOG"
+                };
+
+                var _input = {
+                    "searchInput": helperService.createToArrayOfObject(_filter),
+                    "FilterID": InwardMenuCtrl.ePage.Entities.Header.API.CmpDepartment.FilterID
+                };
+
+                apiService.post("eAxisAPI", InwardMenuCtrl.ePage.Entities.Header.API.CmpDepartment.Url, _input).then(function (response) {
+                    if (response.data.Response) {
+                        obj.DeptCode = response.data.Response[0].Code;
+                        obj.GE = response.data.Response[0].PK;
+
+                        /* Warehouse Call to Get Branch and Company */
+
+                        var _Warehousefilter = {
+                            "PK":InwardMenuCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.WAR_FK
+                        };
+
+                        var _Warehouseinput = {
+                            "searchInput": helperService.createToArrayOfObject(_Warehousefilter),
+                            "FilterID": InwardMenuCtrl.ePage.Entities.Header.API.Warehouse.FilterID
+                        };
+
+                        apiService.post("eAxisAPI", InwardMenuCtrl.ePage.Entities.Header.API.Warehouse.Url, _Warehouseinput).then(function (response) {
+                            if (response.data.Response) {
+                                obj.BranchCode = response.data.Response[0].BRN_Code
+                                obj.BranchName = response.data.Response[0].BRN_BranchName
+                                obj.GB = response.data.Response[0].BRN_FK
+                                obj.CompanyCode = response.data.Response[0].CMP_Code
+                                obj.CompanyName = response.data.Response[0].CMP_Name
+                                obj.GC = response.data.Response[0].CMP_FK
+
+                                OpenJobAccountingModal(obj)
+                            }
+                        });
+                    }
+                });
+            } else {
+                OpenJobAccountingModal(obj);
+            }
+        }
+
+        function OpenJobAccountingModal(obj) {
+            InwardMenuCtrl.ePage.Entities.Header.GlobalVariables.Loading = false;
             var modalInstance = $uibModal.open({
                 animation: true,
                 keyboard: false,
@@ -584,6 +643,7 @@
                 }
             );
         }
+
         //#endregion
 
         Init();

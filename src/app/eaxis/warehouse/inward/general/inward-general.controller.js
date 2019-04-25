@@ -221,6 +221,9 @@
                     value.BranchCode = item.BRN_Code;
                     value.BranchName = item.BRN_BranchName;
                     value.GB = item.BRN_FK;
+                    value.CompanyCode = item.CMP_Code;
+                    value.CompanyName = item.CMP_Name;
+                    value.GC = item.CMP_FK;
                 }
             })
 

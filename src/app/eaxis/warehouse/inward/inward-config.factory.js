@@ -190,7 +190,12 @@
                                 "Url": "CmpDepartment/FindAll",
                                 "FilterID": "CMPDEPT"
                             },
-
+                            "Warehouse": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "WmsWarehouse/FindAll",
+                                "FilterID": "WMSWARH"
+                            },
                         },
 
                         "Meta": {

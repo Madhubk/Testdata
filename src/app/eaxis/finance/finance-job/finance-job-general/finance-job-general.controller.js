@@ -158,6 +158,7 @@
                         FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].LocalCostAmt = "";
                         FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].CostTaxCode = "";
                         FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].OSCostGSTAmt = "";
+                        FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].OSCostExRate = "";
 
                         FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].OSSellAmt = "";
                         FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].LocalSellAmt = "";
@@ -166,16 +167,18 @@
                         CostCalculation();
                         RevenueCalculation();
                         ProfitAndLossCalculation();
-                    }
-                    // FinanceJobGeneralCtrl.ePage.Masters.AttachDefaultFilter = {
-                    //     "ChargeCMP_FK": $item.ChargeCMP_FK
-                    // };
+                    }else {
+                        FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].ChargeType = $item.ChargeType;
+                        FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].CustomerCode = FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.LocalOrg_Code;
+                        FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].ORG_SellAccount = FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.LocalOrg_FK;
+                        FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].RX_NKCostCurrency = FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.CompanyLocalCurrency;
+                        FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].RX_NKSellCurrency = FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.CompanyLocalCurrency;
 
-                    FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].ChargeType = $item.ChargeType;
-                    FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].CustomerCode = FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.LocalOrg_Code;
-                    FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].ORG_SellAccount = FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.LocalOrg_FK;
-                    FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].RX_NKCostCurrency = FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.CompanyLocalCurrency;
-                    FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].RX_NKSellCurrency = FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.CompanyLocalCurrency;
+                        //#region JobCharge OSExchangeRate Assign
+                        FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].OSCostExRate = 1;
+                        FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].OSSellExRate = 1;
+                        //#endregion
+                    }
                 }
                 else if (type == 'ServiceBranch') {
                     OnChangeValues($item.Code, 'E1305');
@@ -204,6 +207,11 @@
                         }
                     }
                     else if (FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.CompanyLocalCurrency == FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].RX_NKCostCurrency) {
+
+                        //#region JobCharge OSExchangeRate Assign
+                        FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].OSCostExRate = 1;
+                        //#endregion
+
                         if (FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].LocalCostAmt > 0) {
                             FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].EstimatedCost = FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].LocalCostAmt;
                             FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].OSCostAmt = FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].LocalCostAmt;
@@ -221,6 +229,11 @@
                         }
                     }
                     else if (FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.CompanyLocalCurrency == FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].RX_NKSellCurrency) {
+                         
+                        //#region  JobCharge OSExchangeRate Assign
+                         FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].OSSellExRate = 1;
+                         //#endregion
+
                         if (FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].LocalSellAmt > 0) {
                             FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].EstimatedRevenue = FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].LocalSellAmt;
                             FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].OSSellAmt = FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].LocalSellAmt;
@@ -251,6 +264,10 @@
                             FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].EstimatedCost = parseFloat(FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].LocalCostAmt / value.BaseRate).toFixed(2);
                             FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].OSCostAmt = parseFloat(FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].LocalCostAmt / value.BaseRate).toFixed(2);
                         }
+
+                         //#region JobCharge OSExchangeRate Assign
+                         FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].OSCostExRate = value.BaseRate;
+                         //#endregion
                     }
                 });
             } else {
@@ -269,6 +286,10 @@
                             FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].EstimatedRevenue = parseFloat(FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].LocalSellAmt / value.BaseRate).toFixed(2);
                             FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].OSSellAmt = parseFloat(FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].LocalSellAmt / value.BaseRate).toFixed(2);
                         }
+
+                        //#region JobCharge OSExchangeRate Assign
+                        FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].OSSellExRate = value.BaseRate;
+                        //#endregion
                     }
                 });
             } else {
@@ -342,6 +363,14 @@
                     }
                 } else {
                     toastr.warning("Not Avaliable ExchangeRate Currency");
+
+                    //#region JobCharge OSExchangeRate Assign
+                    if (type == "CRD") {
+                        FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].OSCostExRate = 0;
+                    } else if (type == "DEB") {
+                        FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].OSSellExRate = 0;
+                    }
+                    //#endregion
                 }
             });
         }
