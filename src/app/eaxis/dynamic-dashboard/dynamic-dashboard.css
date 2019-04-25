@@ -322,11 +322,14 @@ div[class^="icon"] {
 }
 
 .dashboard-setting-edit.address>.modal-dialog {
-    width: 90% !important;
+    width: 95% !important;
 }
 
 .dashboard-setting-edit-details.address>.modal-dialog {
     width: 30% !important;
+}
+.dashboard-setting-component-details.address>.modal-dialog {
+    width: 50% !important;
 }
 
 .modalheader {

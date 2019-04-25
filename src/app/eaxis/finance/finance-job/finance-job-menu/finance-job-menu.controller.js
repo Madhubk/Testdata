@@ -37,6 +37,8 @@
 
         //#region Validation
         function Validation($item, type) {
+            financeConfig.DataentryName;
+
             var _Data = $item[$item.code].ePage.Entities,
                 _input = _Data.Header.Data,
                 _errorcount = _Data.Header.Meta.ErrorWarning.GlobalErrorWarningList;
@@ -70,7 +72,6 @@
         function Save($item) {
             FinanceJobMenuCtrl.ePage.Masters.SaveButtonText = "Please Wait...";
             FinanceJobMenuCtrl.ePage.Masters.DisableSave = true;
-            // FinanceJobMenuCtrl.ePage.Entities.Header.GlobalVariables.Loading = true;
 
             var _Data = $item[$item.code].ePage.Entities,
                 _input = _Data.Header.Data;
@@ -80,7 +81,19 @@
             if ($item.isNew) {
                 _input.UIJobHeader.PK = _input.PK;
                 _input.UIJobHeader.CreatedDateTime = new Date();
-                _input.UIJobHeader.EntitySource = "WMS";
+
+                if(!_input.UIJobHeader.EntityRefKey && !_input.UIJobHeader.EntitySource){
+                    if (financeConfig.DataentryName == "FreightJobList") {
+                        _input.UIJobHeader.EntityRefKey = _input.UIJobHeader.LocalOrg_FK;
+                        _input.UIJobHeader.EntitySource = "SHP";
+                    } else if (financeConfig.DataentryName == "WarehouseJobList") {
+                        _input.UIJobHeader.EntityRefKey = _input.UIJobHeader.LocalOrg_FK;
+                        _input.UIJobHeader.EntitySource = "WMS";
+                    } else if (financeConfig.DataentryName == "TransportJobList") {
+                        _input.UIJobHeader.EntityRefKey = _input.UIJobHeader.LocalOrg_FK;
+                        _input.UIJobHeader.EntitySource = "DMS";
+                    }
+                }
             } else {
                 $item = filterObjectUpdate($item, "IsModified");
                 if ($item[$item.code].ePage.Entities.Header.Data.UIJobCharge.length > 0) {
@@ -95,11 +108,11 @@
                 FinanceJobMenuCtrl.ePage.Entities.Header.GlobalVariables.IsDisablePost = true;
                 FinanceJobMenuCtrl.ePage.Masters.SaveButtonText = "Save";
                 FinanceJobMenuCtrl.ePage.Masters.DisableSave = false;
-                // FinanceJobMenuCtrl.ePage.Entities.Header.GlobalVariables.Loading = false;
 
                 if (response.Status === "success") {
                     apiService.get("eAxisAPI", financeConfig.Entities.API.JobHeaderList.API.GetById.Url + response.Data.UIJobHeader.PK).then(function (response) {
                         if (response.data.Status == "Success") {
+                            FinanceJobMenuCtrl.ePage.Entities.Header.Data = response.data.Response;
 
                             var _index = financeConfig.TabList.map(function (value, key) {
                                 return value[value.code].ePage.Entities.Header.Data.PK;
@@ -109,8 +122,8 @@
                                 if (_index == key) {
                                     if (value.isNew) {
                                         value.label = FinanceJobMenuCtrl.ePage.Entities.Header.Data.UIJobHeader.JobNo;
-                                        value[FinanceJobMenuCtrl.ePage.Entities.Header.Data.UIJobHeader.JobNo] = value.New;
-                                        delete value.New;
+                                        value[FinanceJobMenuCtrl.ePage.Entities.Header.Data.UIJobHeader.JobNo] = value.isNew;
+                                        delete value.isNew;
                                     }
                                 }
                             });
@@ -123,7 +136,7 @@
                                     financeConfig.TabList[_index][financeConfig.TabList[_index].code].ePage.Entities.Header.Data = response.data;
                                 }
                                 financeConfig.TabList[_index].isNew = false;
-                                // helperService.refreshGrid();
+                                helperService.refreshGrid();
                             }
                             toastr.success("Saved Successfully...!");
                         }
@@ -208,18 +221,6 @@
             }
             else if (_PostCost1 && _PostedCost == 0) {
                 FinanceJobMenuCtrl.ePage.Masters.PostCostButtonText = "Please Wait...";
-                if ($item.isNew) {
-                    _input.UIJobHeader.PK = _input.PK;
-                    _input.UIJobHeader.CreatedDateTime = new Date();
-                    _input.UIJobHeader.EntitySource = "WMS";
-                } else {
-                    $item = filterObjectUpdate($item, "IsModified");
-                    if ($item[$item.code].ePage.Entities.Header.Data.UIJobCharge.length > 0) {
-                        $item[$item.code].ePage.Entities.Header.Data.UIJobCharge.map(function (value, key) {
-                            (value.PK) ? value.IsModified = true : value.IsModified = false;
-                        });
-                    }
-                }
 
                 helperService.SaveEntity($item, 'JobHeader').then(function (response) {
                     FinanceJobMenuCtrl.ePage.Entities.Header.GlobalVariables.SelectAll = false;;
@@ -242,7 +243,7 @@
                                         financeConfig.TabList[_index][financeConfig.TabList[_index].code].ePage.Entities.Header.Data = response.data;
                                     }
                                     financeConfig.TabList[_index].isNew = false;
-                                    /* helperService.refreshGrid(); */
+                                    helperService.refreshGrid();
                                 }
                                 toastr.success("Post Cost Successfully...!");
                             }
@@ -314,18 +315,6 @@
             }
             else if (_PostRevenue1 && _PostedRevenue == 0) {
                 FinanceJobMenuCtrl.ePage.Masters.PostRevenueButtonText = "Please Wait...";
-                if ($item.isNew) {
-                    _input.UIJobHeader.PK = _input.PK;
-                    _input.UIJobHeader.CreatedDateTime = new Date();
-                    _input.UIJobHeader.EntitySource = "WMS";
-                } else {
-                    $item = filterObjectUpdate($item, "IsModified");
-                    if ($item[$item.code].ePage.Entities.Header.Data.UIJobCharge.length > 0) {
-                        $item[$item.code].ePage.Entities.Header.Data.UIJobCharge.map(function (value, key) {
-                            (value.PK) ? value.IsModified = true : value.IsModified = false;
-                        });
-                    }
-                }
 
                 helperService.SaveEntity($item, 'JobHeader').then(function (response) {
                     FinanceJobMenuCtrl.ePage.Entities.Header.GlobalVariables.SelectAll = false;
@@ -348,7 +337,7 @@
                                         financeConfig.TabList[_index][financeConfig.TabList[_index].code].ePage.Entities.Header.Data = response.data;
                                     }
                                     financeConfig.TabList[_index].isNew = false;
-                                    /* helperService.refreshGrid(); */
+                                    helperService.refreshGrid();
                                 }
                                 toastr.success("Post Revenue Successfully...!");
                             }
@@ -444,18 +433,6 @@
             }
             else if (_PostCost1 && _PostedCost == 0 && _PostRevenue1 && _PostedRevenue == 0) {
                 FinanceJobMenuCtrl.ePage.Masters.PostButtonText = "Please Wait...";
-                if ($item.isNew) {
-                    _input.UIJobHeader.PK = _input.PK;
-                    _input.UIJobHeader.CreatedDateTime = new Date();
-                    _input.UIJobHeader.EntitySource = "WMS";
-                } else {
-                    $item = filterObjectUpdate($item, "IsModified");
-                    if ($item[$item.code].ePage.Entities.Header.Data.UIJobCharge.length > 0) {
-                        $item[$item.code].ePage.Entities.Header.Data.UIJobCharge.map(function (value, key) {
-                            (value.PK) ? value.IsModified = true : value.IsModified = false;
-                        });
-                    }
-                }
 
                 helperService.SaveEntity($item, 'JobHeader').then(function (response) {
                     FinanceJobMenuCtrl.ePage.Entities.Header.GlobalVariables.SelectAll = false;
@@ -478,7 +455,7 @@
                                         financeConfig.TabList[_index][financeConfig.TabList[_index].code].ePage.Entities.Header.Data = response.data;
                                     }
                                     financeConfig.TabList[_index].isNew = false;
-                                    /* helperService.refreshGrid(); */
+                                    helperService.refreshGrid();
                                 }
                                 toastr.success("Post Cost Successfully...!");
                             }

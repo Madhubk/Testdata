@@ -89,7 +89,7 @@
                     });
                 });
             } else {
-                toastr.warning('Record already opened...!');
+                toastr.info('Record already opened');
             }
         }
 

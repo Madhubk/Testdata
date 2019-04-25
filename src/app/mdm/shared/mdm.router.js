@@ -502,11 +502,11 @@
                         return deferred.promise;
                     }],
                     LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
-                        return $ocLazyLoad.load(["exchangeRate", "exchangeRateMenu", "exchangeRateGeneral","Finance", "dynamicLookup", "dynamicListModal", "dynamicList", "dynamicGrid", "dynamicControl", "compareDate", "customToolbar", "confirmation", "chromeTab", "errorWarning"]);
+                        return $ocLazyLoad.load(["exchangeRate", "exchangeRateMenu", "exchangeRateGeneral", "Finance", "dynamicLookup", "dynamicListModal", "dynamicList", "dynamicGrid", "dynamicControl", "compareDate", "customToolbar", "confirmation", "chromeTab", "errorWarning"]);
                     }]
                 }
             })
-            
+
             // end
             .state('MD.creditor', {
                 url: '/creditor',
@@ -571,7 +571,7 @@
             .state('MD.chargecode', {
                 url: '/chargecode',
                 templateUrl: 'app/mdm/chargecode/chargecode.html',
-                controller: "ChargeCodeController as ChargeCodeCtrl",
+                controller: "ChargecodeController as ChargecodeCtrl",
                 ncyBreadcrumb: {
                     label: 'ChargeCode'
                 },
@@ -584,10 +584,9 @@
                         return deferred.promise;
                     }],
                     LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
-                        return $ocLazyLoad.load(["chargeCode", "dynamicLookup", "dynamicListModal", "dynamicList", "dynamicGrid", "dynamicControl", "compareDate", "customToolbar", "confirmation", "chromeTab", "errorWarning"]);
+                        return $ocLazyLoad.load(["chargeCode", "dynamicLookup", "dynamicListModal", "dynamicList", "dynamicGrid", "dynamicControl", "compareDate", "customToolbar", "confirmation", "chromeTab", "errorWarning", "Finance", "chargeCodeGeneral", "chargeCodeMenu", "chargeCodeDetails", "chargeCodeTaxcode", "chargeCodeGLposting", "chargeCodeInvoice"]);
                     }]
                 }
-            })
-            ;
+            });
     }
 })();

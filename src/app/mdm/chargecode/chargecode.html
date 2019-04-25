@@ -1,15 +1,43 @@
- <!--Grid View -->
-<uib-tabset id="chromeTab" class="tab-container chrometab-box" active="ChargeCodeCtrl.ePage.Masters.ActiveTabIndex" class="tab-container chrometab-box">
-    <uib-tab >
-        <uib-tab-heading title="ChargeCodeCtrl.ePage.Masters.Title">
-            <span data-ng-bind="ChargeCodeCtrl.ePage.Masters.Title"></span>
-            <i class="fa fa-thumb-tack pinned-tab ml-10"></i>
-        </uib-tab-heading>
-        <div class="no-padding tab-list-view-wrapper">
-            <!-- Dynamic Grid Page-->
-            <dynamic-list mode="1" dataentry-name="ChargeCodeCtrl.ePage.Masters.DataentryName" dataentry-object="ChargeCodeCtrl.ePage.Masters.DataEntryObject"
-                selected-grid-row="ChargeCodeCtrl.ePage.Masters.SelectedGridRow($item)" default-filter="ChargeCodeCtrl.ePage.Masters.DefaultFilter"></dynamic-list>
-            <div class="tab-loading" data-ng-show="ChargeCodeCtrl.ePage.Masters.IsTabClick"></div> 
-        </div>
-    </uib-tab>
-</uib-tabset>
+<!--Grid View -->
+<uib-tabset id="chromeTab" class="tab-container chrometab-box" active="ChargecodeCtrl.ePage.Masters.ActiveTabIndex" class="tab-container chrometab-box">
+        <uib-tab >
+            <uib-tab-heading title="ChargecodeCtrl.ePage.Masters.Title">
+                <span data-ng-bind="ChargecodeCtrl.ePage.Masters.Title"></span>
+                <i class="fa fa-thumb-tack pinned-tab ml-10"></i>
+            </uib-tab-heading>
+            <div class="no-padding tab-list-view-wrapper">
+                <!-- Dynamic Grid Page-->
+                <dynamic-list mode="1" dataentry-name="ChargecodeCtrl.ePage.Masters.DataentryName" dataentry-object="ChargecodeCtrl.ePage.Masters.DataEntryObject"
+                    selected-grid-row="ChargecodeCtrl.ePage.Masters.SelectedGridRow($item)" default-filter="ChargecodeCtrl.ePage.Masters.DefaultFilter"></dynamic-list>
+                <div class="tab-loading" data-ng-show="ChargecodeCtrl.ePage.Masters.IsTabClick"></div>
+            </div>
+        </uib-tab>
+        <uib-tab id='top' active="ChargecodeCtrl.ePage.Masters.ActiveTabIndex == $index" data-ng-repeat="tab in ChargecodeCtrl.ePage.Masters.TabList">
+                <uib-tab-heading title="{{tab.label}}">
+                    <span data-ng-bind="tab.label"></span>
+                    <i class="glyphicon glyphicon-remove" data-ng-click="ChargecodeCtrl.ePage.Masters.RemoveTab($event, $index, tab)"></i>
+                    <span class="error-warning-container-common" data-ng-if="tab[tab.code].ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList.length > 0">
+                        <span class="custom-warning-container" data-ng-if="(tab[tab.code].ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList | listCount: 'MessageType': 'W') > 0 && (tab[tab.label].ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList | listCount: 'MessageType': 'E') == 0">
+                            <button class="btn-warning" data-ng-click="ChargecodeCtrl.ePage.Masters.Config.ShowErrorWarningModal(tab)">
+                                <i class="fa fa-warning"></i>
+                            </button>
+                            <span class="custom-warning-count">{{tab[tab.code].ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList | listCount:
+                                'MessageType': 'W'}}</span>
+                        </span>
+                        <span class="custom-error-container" data-ng-if="(tab[tab.code].ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList | listCount: 'MessageType': 'E') > 0">
+                            <button class="btn-error" data-ng-click="ChargecodeCtrl.ePage.Masters.Config.ShowErrorWarningModal(tab)">
+                                <i class="fa fa-warning"></i>
+                            </button>
+                            <span class="custom-error-count">{{tab[tab.code].ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList | listCount:
+                                'MessageType': 'E'}}</span>
+                        </span>
+                    </span>
+                </uib-tab-heading>
+                <div class="padding-bottom-10 clearfix">
+                    <!--Chargecode Menu Directive-->
+                    <chargecode-menu current-Chargecode="tab"></chargecode-menu> 
+                    <div class="horizontal-space"></div> 
+                </div>
+        </uib-tab>
+        <button class="btn btn-default" ng-click="ChargecodeCtrl.ePage.Masters.CreateNewChargecode()" data-ng-disabled="ChargecodeCtrl.ePage.Masters.isNewClicked">+</button>
+ </uib-tabset>

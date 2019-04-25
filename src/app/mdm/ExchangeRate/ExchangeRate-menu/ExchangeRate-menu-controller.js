@@ -38,7 +38,7 @@
         }
 
         function Validation($item) {
-            debugger;
+            
             var _Data = $item[$item.code].ePage.Entities,
                 _input = _Data.Header.Data.UIMstExchangeRate,
                 _errorcount = _Data.Header.Meta.ErrorWarning.GlobalErrorWarningList;
@@ -47,7 +47,7 @@
                 ExchangeRateMenuCtrl.ePage.Masters.Config.RemoveApiErrors(ExchangeRateMenuCtrl.ePage.Entities.Header.Validations, $item.label);
             }
 
-            debugger;
+            
             if (_errorcount.length == 0) {
                 var _filter = {};
                 var _inputField = {
@@ -140,11 +140,11 @@
                 _input.CreatedBy = authService.getUserInfo().UserId;
                 _input.Source = "ERP";
                 _input.TenantCode = "20CUB";
-                _input.ExpiryDate = _ExpiryDate + "23:59:00";
+                _input.ExpiryDate = _ExpiryDate +" "+ "23:59:00";
             } else {
                 $item = filterObjectUpdate($item, "IsModified");
             }
-            debugger;
+            
             helperService.SaveEntity($item, 'ExchangeRate').then(function (response) {
                 ExchangeRateMenuCtrl.ePage.Masters.SaveButtonText = "Save";
                 ExchangeRateMenuCtrl.ePage.Masters.DisableSave = false;

@@ -1,189 +1,143 @@
 <div class="clearfix padding-top-10">
-    <div class="clearfix">
+    <div class="clearfix mt-5">
         <!-- From Currency-->
-        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-5">
-            <div class="inner-dashboard-box">
-                <div class="rows">
-                    <div class="col-xs-4 col-sm-4 col-md-7 col-lg-4 col-xl-4 height-40  pt-10 pb-10">
-                        <label class="control-label text-single-line">From Currency</label>
-                        <span class="error-warning-container">
-                            <error-warning-directive
-                                data-ng-if="ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.FromCurrency.IsWarning && !ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.FromCurrency.IsError"
-                                list="ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.FromCurrency.WARNING"
-                                type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref=""
-                                g-parent-ref="">
-                            </error-warning-directive>
-                            <error-warning-directive
-                                data-ng-if="ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.FromCurrency.IsError"
-                                list="ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.FromCurrency.ERROR"
-                                type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
-                            </error-warning-directive>
-                        </span>
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="control-label text-single-line">From Currency</label>
+                <span class="error-warning-container">
+                    <error-warning-directive
+                        data-ng-if="ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.FromCurrency.IsWarning && !ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.FromCurrency.IsError"
+                        list="ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.FromCurrency.WARNING"
+                        type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
+                    </error-warning-directive>
+                    <error-warning-directive
+                        data-ng-if="ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.FromCurrency.IsError"
+                        list="ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.FromCurrency.ERROR"
+                        type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
+                    </error-warning-directive>
+                </span>
+                <div class="input-group input-group-sm">
+                    <!-- Dynamic look up Search in textbox -->
+                    <div dynamic-lookup placeholder="From Currency"
+                        my-ng-model="ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.UIMstExchangeRate.FromCurrency"
+                        obj="ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.UIMstExchangeRate"
+                        page-name="'CurrencyMaster'" control-id="'ExRateFromCurrency'"
+                        control-key="ExRateFromCurrency_3339"
+                        auto-complete-on-select="ExchangeRateGeneralCtrl.ePage.Masters.SelectedLookupData($index, $item,'Local')">
                     </div>
-                    <div class="col-xs-8 col-sm-8 col-md-5 col-lg-8 col-xl-8 height-40 p-5">
-                        <!-- <input type="text" class="form-control input-sm" placeholder="Currency Code"
-                                data-ng-model="ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.Code"
-                                data-ng-change='ExchangeRateGeneralCtrl.ePage.Masters.OnChangeValues(ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.Code,"E1314")' /> -->
-                        <div class="input-group input-group-sm">
-                            <!-- Dynamic look up Search in textbox -->
-                            <div dynamic-lookup placeholder="From Currency"
-                                my-ng-model="ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.UIMstExchangeRate.FromCurrency"
-                                obj="ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.UIMstExchangeRate"
-                                page-name="'CurrencyMaster'" control-id="'ExRateFromCurrency'"
-                                control-key="ExRateFromCurrency_3339"
-                                auto-complete-on-select="ExchangeRateGeneralCtrl.ePage.Masters.SelectedLookupData($index, $item,'Local')">
-                            </div>
-                            <!-- Look Up page opens when button clicks -->
-                            <span class="input-group-btn">
-                                <button dynamic-list-modal class="btn btn-default" type="button" is-disabled="false"
-                                    obj="ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.UIMstExchangeRate"
-                                    page-name="'CurrencyMaster'" control-id="'ExRateFromCurrency'"
-                                    control-key="ExRateFromCurrency_3339" mode="2" grid-refresh-fun-name=""
-                                    grid-refresh-fun=""
-                                    selected-data="ExchangeRateGeneralCtrl.ePage.Masters.SelectedLookupData($index, $item.data.entity,'Local')">
-                                    <i class="fa fa-ellipsis-h"></i>
-                                </button>
-                            </span>
-                            <span
-                                data-ng-if='!ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList && !ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList'>
-                                <div
-                                    data-ng-init="ExchangeRateGeneralCtrl.ePage.Masters.OnChangeValues(ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.UIMstExchangeRate.FromCurrency,'E1324',false,undefined)">
-                                </div>
-                            </span>
+                    <!-- Look Up page opens when button clicks -->
+                    <span class="input-group-btn">
+                        <button dynamic-list-modal class="btn btn-default" type="button" is-disabled="false"
+                            obj="ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.UIMstExchangeRate"
+                            page-name="'CurrencyMaster'" control-id="'ExRateFromCurrency'"
+                            control-key="ExRateFromCurrency_3339" mode="2" grid-refresh-fun-name="" grid-refresh-fun=""
+                            selected-data="ExchangeRateGeneralCtrl.ePage.Masters.SelectedLookupData($index, $item.data.entity,'Local')">
+                            <i class="fa fa-ellipsis-h"></i>
+                        </button>
+                    </span>
+                    <span
+                        data-ng-if='!ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList && !ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList'>
+                        <div
+                            data-ng-init="ExchangeRateGeneralCtrl.ePage.Masters.OnChangeValues(ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.UIMstExchangeRate.FromCurrency,'E1324',false,undefined)">
                         </div>
-                    </div>
+                    </span>
                 </div>
             </div>
         </div>
         <!--To Currency-->
-        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-5">
-            <div class="inner-dashboard-box">
-                <div class="rows">
-                    <div class="col-xs-4 col-sm-4 col-md-7 col-lg-4 col-xl-4 height-40  pt-10 pb-10">
-                        <span class="dashboard-inward-icon-box">
-                            <!-- <i class="icomoon icon-supplier"></i> -->
-                        </span>
-                        <label class="control-label text-single-line">To Currency</label>
-                        <span class="error-warning-container">
-                            <error-warning-directive
-                                data-ng-if="ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.RX_NKExCurrency.IsWarning && !ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.RX_NKExCurrency.IsError"
-                                list="ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.RX_NKExCurrency.WARNING"
-                                type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref=""
-                                g-parent-ref="">
-                            </error-warning-directive>
-                            <error-warning-directive
-                                data-ng-if="ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.RX_NKExCurrency.IsError"
-                                list="ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.RX_NKExCurrency.ERROR"
-                                type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
-                            </error-warning-directive>
-                        </span>
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <span class="dashboard-inward-icon-box">
+                    <!-- <i class="icomoon icon-supplier"></i> -->
+                </span>
+                <label class="control-label text-single-line">To Currency</label>
+                <span class="error-warning-container">
+                    <error-warning-directive
+                        data-ng-if="ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.RX_NKExCurrency.IsWarning && !ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.RX_NKExCurrency.IsError"
+                        list="ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.RX_NKExCurrency.WARNING"
+                        type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
+                    </error-warning-directive>
+                    <error-warning-directive
+                        data-ng-if="ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.RX_NKExCurrency.IsError"
+                        list="ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.RX_NKExCurrency.ERROR"
+                        type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
+                    </error-warning-directive>
+                </span>
+                <div class="input-group input-group-sm">
+                    <!-- Dynamic look up Search in textbox -->
+                    <div dynamic-lookup placeholder="To Currency"
+                        my-ng-model="ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.UIMstExchangeRate.RX_NKExCurrency"
+                        obj="ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.UIMstExchangeRate"
+                        page-name="'CurrencyMaster'" control-id="'ExRateToCurrency'" control-key="ExRateToCurrency_3338"
+                        auto-complete-on-select="ExchangeRateGeneralCtrl.ePage.Masters.SelectedLookupData($index, $item,'ToCurrency')">
                     </div>
-                    <div class="col-xs-8 col-sm-8 col-md-5 col-lg-8 col-xl-8 height-40 p-5">
-                        <div class="input-group input-group-sm">
-
-                            <!-- Dynamic look up Search in textbox -->
-                            <div dynamic-lookup placeholder="To Currency"
-                                my-ng-model="ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.UIMstExchangeRate.RX_NKExCurrency"
-                                obj="ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.UIMstExchangeRate"
-                                page-name="'CurrencyMaster'" control-id="'ExRateToCurrency'"
-                                control-key="ExRateToCurrency_3338"
-                                auto-complete-on-select="ExchangeRateGeneralCtrl.ePage.Masters.SelectedLookupData($index, $item,'Local')">
-                            </div>
-                            <!-- Look Up page opens when button clicks -->
-                            <span class="input-group-btn">
-                                <!-- <button dynamic-list-modal class="btn btn-default" type="button" is-disabled="false"
-                                    obj="ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList"
-                                    page-name="'CurrencyMaster'" control-id="'FinanceAPCurrency'"
-                                    control-key="FinanceAPCurrency_3330" mode="2" grid-refresh-fun-name=""
-                                    grid-refresh-fun=""
-                                    selected-data="ExchangeRateGeneralCtrl.ePage.Masters.SelectedLookupData($index, $item.data.entity,'Local')"><i
-                                        class="fa fa-ellipsis-h"></i>
-                                </button> -->
-                                <button dynamic-list-modal class="btn btn-default" type="button"
-                                    obj="ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.UIMstExchangeRate"
-                                    page-name="'CurrencyMaster'" control-id="'ExRateToCurrency'"
-                                    control-key="ExRateToCurrency_3338" mode="2" grid-refresh-fun-name=""
-                                    grid-refresh-fun=""
-                                    selected-data="ExchangeRateGeneralCtrl.ePage.Masters.SelectedLookupData()">
-                                    <i class="fa fa-ellipsis-h"></i>
-                                </button>
-                            </span>
-                            <span
-                                data-ng-if='!ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.UIMstExchangeRate && !ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.UIMstExchangeRate'>
-                                <div
-                                    data-ng-init="ExchangeRateGeneralCtrl.ePage.Masters.OnChangeValues(ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.UIMstExchangeRate.RX_NKExCurrency,'E1329',false,undefined)">
-                                </div>
-                            </span>
+                    <!-- Look Up page opens when button clicks -->
+                    <span class="input-group-btn">
+                        <button dynamic-list-modal class="btn btn-default" type="button"
+                            obj="ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.UIMstExchangeRate"
+                            page-name="'CurrencyMaster'" control-id="'ExRateToCurrency'"
+                            control-key="ExRateToCurrency_3338" mode="2" grid-refresh-fun-name="" grid-refresh-fun=""
+                            selected-data="ExchangeRateGeneralCtrl.ePage.Masters.SelectedLookupData($index,$item.data.entity,'ToCurrency')">
+                            <i class="fa fa-ellipsis-h"></i>
+                        </button>
+                    </span>
+                    <span
+                        data-ng-if='!ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.UIMstExchangeRate && !ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.UIMstExchangeRate'>
+                        <div
+                            data-ng-init="ExchangeRateGeneralCtrl.ePage.Masters.OnChangeValues(ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.UIMstExchangeRate.RX_NKExCurrency,'E1329',false,undefined)">
                         </div>
-
-                    </div>
+                    </span>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="clearfix">
         <!-- Rate Type -->
-        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-5">
-            <div class="inner-dashboard-box">
-                <div class="rows">
-                    <div class="col-xs-4 col-sm-4 col-md-7 col-lg-4 col-xl-4 height-40  pt-10 pb-10">
-                        <label class="control-label text-single-line">Rate type</label>
-                        <span class="error-warning-container">
-                            <error-warning-directive
-                                data-ng-if="ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.ExRateType.IsWarning && !ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.ExRateType.IsError"
-                                list="ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.ExRateType.WARNING"
-                                type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref=""
-                                g-parent-ref="">
-                            </error-warning-directive>
-                            <error-warning-directive
-                                data-ng-if="ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.ExRateType.IsError"
-                                list="ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.ExRateType.ERROR"
-                                type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
-                            </error-warning-directive>
-                        </span>
-                    </div>
-                    <div class="col-xs-8 col-sm-8 col-md-5 col-lg-8 col-xl-8 height-40 p-5">
-                        <div class="form-group">
-                            <select chosen class="form-control"
-                                data-ng-model="ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.UIMstExchangeRate.ExRateType"
-                                data-ng-options="x.Key as x.Description for x in ExchangeRateGeneralCtrl.ePage.Masters.DropDownMasterList.EXRATETYPE.ListSource"
-                                data-ng-change="ExchangeRateGeneralCtrl.ePage.Masters.OnChangeValues(ExchangeRateGeneralCtrl.ePage.Entities.Header.Data.UIExchangerateList.UIMstExchangeRate.ExRateType,'E1325',false,undefined);">
-                                <option value="">--- Select ---</option>
-                            </select>
-                        </div>
-                    </div>
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="control-label text-single-line">Rate type</label>
+                <span class="error-warning-container">
+                    <error-warning-directive
+                        data-ng-if="ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.ExRateType.IsWarning && !ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.ExRateType.IsError"
+                        list="ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.ExRateType.WARNING"
+                        type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
+                    </error-warning-directive>
+                    <error-warning-directive
+                        data-ng-if="ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.ExRateType.IsError"
+                        list="ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.ExRateType.ERROR"
+                        type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
+                    </error-warning-directive>
+                </span>
+                <div class="">
+                    <select chosen class="form-control"
+                        data-ng-model="ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.UIMstExchangeRate.ExRateType"
+                        data-ng-options="x.Key as x.Description for x in ExchangeRateGeneralCtrl.ePage.Masters.DropDownMasterList.EXRATETYPE.ListSource"
+                        data-ng-change="ExchangeRateGeneralCtrl.ePage.Masters.OnChangeValues(ExchangeRateGeneralCtrl.ePage.Entities.Header.Data.UIExchangerateList.UIMstExchangeRate.ExRateType,'E1325',false,undefined);">
+                        <option value="">--- Select ---</option>
+                    </select>
                 </div>
             </div>
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-5">
-            <div class="inner-dashboard-box">
-                <div class="rows">
-                    <div class="col-xs-4 col-sm-4 col-md-7 col-lg-4 col-xl-4 height-40  pt-10 pb-10">
-                        <label class="control-label text-single-line">Rate Sub Type</label>
-                        <span class="error-warning-container">
-                            <error-warning-directive
-                                data-ng-if="ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.RateSubType.IsWarning && !ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.RateSubType.IsError"
-                                list="ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.RateSubType.WARNING"
-                                type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref=""
-                                g-parent-ref="">
-                            </error-warning-directive>
-                            <error-warning-directive
-                                data-ng-if="ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.RateSubType.IsError"
-                                list="ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.RateSubType.ERROR"
-                                type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
-                            </error-warning-directive>
-                        </span>
-                    </div>
-                    <div class="col-xs-8 col-sm-8 col-md-5 col-lg-8 col-xl-8 height-40 p-5">
-                        <div class="input-group-sm">
-                            <select chosen class="form-control"
-                                data-ng-model="ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.UIMstExchangeRate.RateSubType"
-                                data-ng-options="x.Key as x.Description for x in ExchangeRateGeneralCtrl.ePage.Masters.DropDownMasterList.EXSUBRATE.ListSource"
-                                data-ng-change="ExchangeRateGeneralCtrl.ePage.Masters.OnChangeValues(ExchangeRateGeneralCtrl.ePage.Entities.Header.Data.UIExchangerateList.UIMstExchangeRate.RateSubType,'E1326',false,undefined);">
-                                <option value="">--- Select ---</option>
-                            </select>
-                        </div>
-                    </div>
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="control-label text-single-line">Rate Sub Type</label>
+                <span class="error-warning-container">
+                    <error-warning-directive
+                        data-ng-if="ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.RateSubType.IsWarning && !ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.RateSubType.IsError"
+                        list="ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.RateSubType.WARNING"
+                        type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
+                    </error-warning-directive>
+                    <error-warning-directive
+                        data-ng-if="ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.RateSubType.IsError"
+                        list="ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.RateSubType.ERROR"
+                        type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
+                    </error-warning-directive>
+                </span>
+                <div class="">
+                    <select chosen class="form-control"
+                        data-ng-model="ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.UIMstExchangeRate.RateSubType"
+                        data-ng-options="x.Key as x.Description for x in ExchangeRateGeneralCtrl.ePage.Masters.DropDownMasterList.EXSUBRATE.ListSource"
+                        data-ng-change="ExchangeRateGeneralCtrl.ePage.Masters.OnChangeValues(ExchangeRateGeneralCtrl.ePage.Entities.Header.Data.UIExchangerateList.UIMstExchangeRate.RateSubType,'E1326',false,undefined);">
+                        <option value="">--- Select ---</option>
+                    </select>
                 </div>
             </div>
         </div>
@@ -212,7 +166,7 @@
                         <div class="form-group">
                             <input type="text" class="form-control input-sm" placeholder="Ex Rate"
                                 data-ng-model="ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.UIMstExchangeRate.Rate"
-                                data-ng-change='ExchangeRateGeneralCtrl.ePage.Masters.OnChangeValues(ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.UIMstExchangeRate.Rate,"E1327")' />
+                                data-ng-change="ExchangeRateGeneralCtrl.ePage.Masters.OnChangeValues(ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.UIMstExchangeRate.Rate,'E1327')" />
                         </div>
                     </div>
                 </div>
@@ -234,102 +188,90 @@
             </div>
         </div>
     </div>
-    <div class="clearfix">
-        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-5">
-            <div class="inner-dashboard-box">
-                <div class="rows">
-                    <div class="col-xs-4 col-sm-4 col-md-7 col-lg-4 col-xl-4 height-40  pt-10 pb-10">
-                        <label class="control-label text-single-line">Start Date</label>
-                        <span class="error-warning-container">
-                            <error-warning-directive data-ng-if="ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.
-                                StartDate.IsWarning && !ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.
-                                StartDate.IsError" list="ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.
-                                StartDate.WARNING" type="'warning'" icon="fa fa-warning" parent-type="'null'"
-                                parent-ref="" g-parent-ref="">
-                            </error-warning-directive>
-                            <error-warning-directive data-ng-if="ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.
-                                StartDate.IsError" list="ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.
-                                StartDate.ERROR" type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref=""
-                                g-parent-ref="">
-                            </error-warning-directive>
-                        </span>
-                    </div>
-                    <div class="col-xs-8 col-sm-8 col-md-5 col-lg-8 col-xl-8 height-40 p-5">
-                        <div class="input-group input-group-sm">
-                            <input type="text" class="form-control input-sm"
-                                placeholder="{{ExchangeRateGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
-                                data-ng-model="ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.UIMstExchangeRate.StartDate"
-                                datetime-picker="{{ExchangeRateGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
-                                datepicker-options="ExchangeRateGeneralCtrl.ePage.Masters.DatePicker.Options"
-                                datepicker-append-to-body="false" close-on-selection="false" enable-time="false"
-                                enable-date="true" default-date="" default-time=""
-                                save-as="ExchangeRateGeneralCtrl.ePage.Masters.DatePicker.Options.saveFormat"
-                                is-open="ExchangeRateGeneralCtrl.ePage.Masters.DatePicker.isOpen['isStartDate']"
-                                when-closed="" data-ng-click="" custom-date-time-format
-                                data-ng-change='ExchangeRateGeneralCtrl.ePage.Masters.OnChangeValues(ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.UIMstExchangeRate.StartDate,"E1319",true,$index)' />
-                            <span class="input-group-btn">
-                                <button class="btn btn-default"
-                                    data-ng-click="ExchangeRateGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event,'isStartDate')">
-                                    <i class="fa fa-calendar"></i>
-                                </button>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-5">
-            <div class="inner-dashboard-box">
-                <div class="rows">
-                    <div class="col-xs-4 col-sm-4 col-md-7 col-lg-4 col-xl-4 height-40  pt-10 pb-10">
-                        <label class="control-label text-single-line">Expiry Date</label>
-                        <span class="error-warning-container">
-                            <error-warning-directive
-                                data-ng-if="ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.ExpiryDate.IsWarning && !ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.ExpiryDate.IsError"
-                                list="ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.ExpiryDate.WARNING"
-                                type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref=""
-                                g-parent-ref="">
-                            </error-warning-directive>
-                            <error-warning-directive
-                                data-ng-if="ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.ExpiryDate.IsError"
-                                list="ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.ExpiryDate.ERROR"
-                                type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
-                            </error-warning-directive>
-                        </span>
-                    </div>
-                    <div class="col-xs-8 col-sm-8 col-md-5 col-lg-8 col-xl-8 height-40 p-5">
-                        <div class="input-group input-group-sm">
-                            <input type="text" class="form-control input-sm"
-                                placeholder="{{ExchangeRateGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
-                                data-ng-model="ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.UIMstExchangeRate.ExpiryDate"
-                                datetime-picker="{{ExchangeRateGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
-                                datepicker-options="ExchangeRateGeneralCtrl.ePage.Masters.DatePicker.Options"
-                                datepicker-append-to-body="false" close-on-selection="false" enable-time="false"
-                                enable-date="true" default-date="" default-time=""
-                                save-as="ExchangeRateGeneralCtrl.ePage.Masters.DatePicker.Options.saveFormat"
-                                is-open="ExchangeRateGeneralCtrl.ePage.Masters.DatePicker.isOpen['isExpiryDate']"
-                                when-closed="" data-ng-click="" custom-date-time-format
-                                data-ng-change='ExchangeRateGeneralCtrl.ePage.Masters.OnChangeValues(ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.UIMstExchangeRate.ExpiryDate,"E1328",true,$index)' />
-                            <span class="input-group-btn">
-                                <button class="btn btn-default"
-                                    data-ng-click="ExchangeRateGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event,'isExpiryDate')">
-                                    <i class="fa fa-calendar"></i>
-                                </button>
-                            </span>
-                        </div>
-                    </div>
-                </div>
+    <!-- Start Date-->
+    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+        <div class="form-group">
+            <label class="control-label text-single-line">Start Date</label>
+            <span class="error-warning-container">
+                <error-warning-directive data-ng-if="ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.
+                        StartDate.IsWarning && !ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.
+                        StartDate.IsError" list="ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.
+                        StartDate.WARNING" type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref=""
+                    g-parent-ref="">
+                </error-warning-directive>
+                <error-warning-directive data-ng-if="ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.
+                        StartDate.IsError" list="ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.
+                        StartDate.ERROR" type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref=""
+                    g-parent-ref="">
+                </error-warning-directive>
+            </span>
+            <div class="input-group input-group-sm">
+                <input type="text" class="form-control input-sm"
+                    placeholder="{{ExchangeRateGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                    data-ng-model="ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.UIMstExchangeRate.StartDate"
+                    datetime-picker="{{ExchangeRateGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                    datepicker-options="ExchangeRateGeneralCtrl.ePage.Masters.DatePicker.Options"
+                    datepicker-append-to-body="false" close-on-selection="false" enable-time="false" enable-date="true"
+                    default-date="" default-time=""
+                    save-as="ExchangeRateGeneralCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                    is-open="ExchangeRateGeneralCtrl.ePage.Masters.DatePicker.isOpen['isStartDate']" when-closed=""
+                    data-ng-click="" custom-date-time-format
+                    data-ng-change="ExchangeRateGeneralCtrl.ePage.Masters.OnChangeDate(ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.UIMstExchangeRate.StartDate,'StartDate')" />
+                <span class="input-group-btn">
+                    <button class="btn btn-default"
+                        data-ng-click="ExchangeRateGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event,'isStartDate')">
+                        <i class="fa fa-calendar"></i>
+                    </button>
+                </span>
             </div>
         </div>
     </div>
-    <div class="clearfix">
-        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-5">
-            <div class="inner-dashboard-box">
-                <div class="rows">
-                    <div class="col-xs-4 col-sm-4 col-md-7 col-lg-4 col-xl-4 height-40  pt-10 pb-10">
-                        <label class="control-label text-single-line">Conv. From A to B</label>
-                        <span class="error-warning-container">
-                            <!-- <error-warning-directive
+    <!-- Exiry Date-->
+    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+        <div class="form-group">
+            <label class="control-label text-single-line">Expiry Date</label>
+            <span class="error-warning-container">
+                <error-warning-directive
+                    data-ng-if="ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.ExpiryDate.IsWarning && !ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.ExpiryDate.IsError"
+                    list="ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.ExpiryDate.WARNING"
+                    type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
+                </error-warning-directive>
+                <error-warning-directive
+                    data-ng-if="ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.ExpiryDate.IsError"
+                    list="ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.ExpiryDate.ERROR"
+                    type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
+                </error-warning-directive>
+            </span>
+            <div class="input-group input-group-sm">
+                <input type="text" class="form-control input-sm"
+                    placeholder="{{ExchangeRateGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                    data-ng-model="ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.UIMstExchangeRate.ExpiryDate"
+                    datetime-picker="{{ExchangeRateGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                    datepicker-options="ExchangeRateGeneralCtrl.ePage.Masters.DatePicker.Options"
+                    datepicker-append-to-body="false" close-on-selection="false" enable-time="false" enable-date="true"
+                    default-date="" default-time=""
+                    save-as="ExchangeRateGeneralCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                    is-open="ExchangeRateGeneralCtrl.ePage.Masters.DatePicker.isOpen['isExpiryDate']" when-closed=""
+                    data-ng-click="" custom-date-time-format=""
+                    data-ng-disabled="ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.UIMstExchangeRate.ExpiryDate"
+                    data-ng-change='ExchangeRateGeneralCtrl.ePage.Masters.OnChangeValues(ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.UIMstExchangeRate.ExpiryDate,"E1328",true,$index)' />
+                <span class="input-group-btn">
+                    <button class="btn btn-default"
+                        data-ng-disabled="ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.UIMstExchangeRate.ExpiryDate"
+                        data-ng-click="ExchangeRateGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event,'isExpiryDate')">
+                        <i class="fa fa-calendar"></i>
+                    </button>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="clearfix">
+    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+        <div class="form-group">
+            <label class="control-label text-single-line">Conv. From A to B</label>
+            <span class="error-warning-container">
+                <!-- <error-warning-directive
                                 data-ng-if="ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.ConvFromAtoB.IsWarning && !ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.ConvFromAtoB.IsError"
                                 list="ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.ConvFromAtoB.WARNING"
                                 type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref=""
@@ -340,25 +282,19 @@
                                 list="ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.ExRate.ERROR"
                                 type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
                             </error-warning-directive> -->
-                        </span>
-                    </div>
-                    <div class="col-xs-8 col-sm-8 col-md-5 col-lg-8 col-xl-8 height-40 p-5">
-                        <div class="form-group">
-                            <input type="text" class="form-control input-sm" placeholder="Conversion From A to B"
-                                data-ng-model="ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.UIMstExchangeRate.ConvFromAtoB"
-                                data-ng-change='ExchangeRateGeneralCtrl.ePage.Masters.OnChangeValues(ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.ConvFromAtoB)' />
-                        </div>
-                    </div>
-                </div>
+            </span>
+            <div class=" ">
+                <input type="text" class="form-control input-sm" placeholder="Conversion From A to B"
+                    data-ng-model="ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.UIMstExchangeRate.ConvFromAtoB"
+                    data-ng-change='ExchangeRateGeneralCtrl.ePage.Masters.OnChangeValues(ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.ConvFromAtoB)' />
             </div>
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-5">
-            <div class="inner-dashboard-box">
-                <div class="rows">
-                    <div class="col-xs-4 col-sm-4 col-md-7 col-lg-4 col-xl-4 height-40  pt-10 pb-10">
-                        <label class="control-label text-single-line">Conv. From B to A</label>
-                        <span class="error-warning-container">
-                            <!-- <error-warning-directive
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+        <div class="form-group">
+            <label class="control-label text-single-line">Conv. From B to A</label>
+            <span class="error-warning-container">
+                <!-- <error-warning-directive
                                 data-ng-if="ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.ExRateType.IsWarning && !ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.ExRate.IsError"
                                 list="ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.ExRate.WARNING"
                                 type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref=""
@@ -369,73 +305,74 @@
                                 list="ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.ExRate.ERROR"
                                 type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
                             </error-warning-directive> -->
-                        </span>
-                    </div>
-                    <div class="col-xs-8 col-sm-8 col-md-5 col-lg-8 col-xl-8 height-40 p-5">
-                        <div class="form-group">
-                            <input type="text" class="form-control input-sm" placeholder="Conversion From B to A"
-                                data-ng-model="ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.UIMstExchangeRate.ConvFromBtoA"
-                                data-ng-change='ExchangeRateGeneralCtrl.ePage.Masters.OnChangeValues(ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.ExRate)' />
-                        </div>
-                    </div>
-                </div>
+            </span>
+            <div class=" ">
+                <input type="text" class="form-control input-sm" placeholder="Conversion From B to A"
+                    data-ng-model="ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.UIMstExchangeRate.ConvFromBtoA"
+                    data-ng-change='ExchangeRateGeneralCtrl.ePage.Masters.OnChangeValues(ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.ExRate)' />
             </div>
+
         </div>
     </div>
 
-    <div class="clearfix mt-10">
-        <div class="exratelist exrate-hgt">
-            <div class="table tab-position">
-                <div class='theader'>
-                    <div class='table_header'>Start Date</div>
-                    <div class='table_header'>Expiry Date</div>
-                    <div class='table_header'>Rate Type</div>
-                    <div class='table_header'>Rate Sub Type</div>
-                    <div class='table_header'>Ex. Rate</div>
-                    <div class='table_header'>Ex. Rate From A to B</div>
-                    <div class='table_header'>Ex. Rate From B to A</div>
+</div>
 
+<div class="clearfix mt-10">
+    <div class="exratelist exrate-hgt">
+        <div class="table tab-position">
+            <div class='theader'>
+                <div class='table_header'>Start Date</div>
+                <div class='table_header'>Expiry Date</div>
+                <div class='table_header'>Rate Type</div>
+                <div class='table_header'>Rate Sub Type</div>
+                <div class='table_header'>Ex. Rate</div>
+                <div class='table_header'>Ex. Rate From A to B</div>
+                <div class='table_header'>Ex. Rate From B to A</div>
+
+            </div>
+            <!-- List Empty Response -->
+            <div class='table_row' style="font-size: 11px;"
+                data-ng-repeat="x in ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.lstUIMstExchangeRate"
+                data-ng-if="ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.lstUIMstExchangeRate && ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.lstUIMstExchangeRate.length > 0">
+                <div class='table_small'>
+                    <div class='table_cell'>Start Date</div>
+                    <div class='table_cell text' style="cursor:pointer;"><b>{{x.StartDate|date:"dd-MMM-yyyy" }}</b>
+                    </div>
                 </div>
-                <!-- List Empty Response -->
-                <div class='table_row' style="font-size: 11px;"
-                    data-ng-repeat="x in ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.lstUIMstExchangeRate"
-                    data-ng-if="ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.lstUIMstExchangeRate && ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.lstUIMstExchangeRate.length > 0">
-                    <div class='table_small'>
-                        <div class='table_cell'>Start Date</div>
-                        <div class='table_cell text' style="cursor:pointer;"><b>{{x.StartDate|date:"dd-MMM-yyyy" }}</b></div>
-                    </div>
-                    <div class='table_small'>
-                        <div class='table_cell'>Expiry Date</div>
-                        <div class='table_cell' style="cursor:pointer;">{{x.ExpiryDate | date:"dd-MMM-yyyy"}}</div>
-                    </div>
-                    <div class='table_small'>
-                        <div class='table_cell'>Rate Type</div>
-                        <div class='table_cell' style="cursor:pointer;">{{x.ExRateType}}</div>
-                    </div>
-                    <div class='table_small'>
-                        <div class='table_cell'>Rate Sub Type</div>
-                        <div class='table_cell' style="cursor:pointer;">{{x.RateSubType}}</div>
-                    </div>
-                    <div class='table_small'>
-                        <div class='table_cell'>Ex. Rate</div>
-                        <div class='table_cell' style="cursor:pointer;">{{x.Rate}}</div>
-                    </div>
-                    <div class='table_small'>
-                        <div class='table_cell'>Ex. Rate From A to B</div>
-                        <div class='table_cell' style="cursor:pointer;">{{x.ConvFromAtoB}}</div>
-                    </div>
-                    <div class='table_small'>
-                        <div class='table_cell'>Ex. Rate From B to A</div>
-                        <div class='table_cell' style="cursor:pointer;">{{x.ConvFromBtoA}}</div>
-                    </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Expiry Date</div>
+                    <div class='table_cell' style="cursor:pointer;">{{x.ExpiryDate | date:"dd-MMM-yyyy"}}</div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Rate Type</div>
+                    <div class='table_cell' style="cursor:pointer;">{{x.ExRateType}}</div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Rate Sub Type</div>
+                    <div class='table_cell' style="cursor:pointer;">{{x.RateSubType}}</div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Ex. Rate</div>
+                    <div class='table_cell' style="cursor:pointer;">{{x.Rate}}</div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Ex. Rate From A to B</div>
+                    <div class='table_cell' style="cursor:pointer;">{{x.ConvFromAtoB}}</div>
+                </div>
+                <div class='table_small'>
+                    <div class='table_cell'>Ex. Rate From B to A</div>
+                    <div class='table_cell' style="cursor:pointer;">{{x.ConvFromBtoA}}</div>
                 </div>
             </div>
-            <div class="grid-no-record-border-box text-center p-30">
-                    <span class="grid-no-record-shipment job-empty-top" data-ng-if="ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.lstUIMstExchangeRate.length==0">No records found...</span>
-                </div>
         </div>
-
+        <div class="grid-no-record-border-box text-center p-30">
+            <span class="grid-no-record-shipment job-empty-top"
+                data-ng-if="ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.lstUIMstExchangeRate.length==0">No
+                records found...</span>
+        </div>
     </div>
+
+</div>
 </div>
 
 <div class="error-warning-container right" style="margin-top:0px !important"

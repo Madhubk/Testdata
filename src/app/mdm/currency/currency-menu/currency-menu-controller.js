@@ -6,7 +6,7 @@
 
     CurrencyMenuController.$inject = ["$scope", "$timeout", "$filter", "APP_CONSTANT", "authService", "apiService", "toastr", "currencyConfig", "helperService", "errorWarningService"];
 
-    function CurrencyMenuController($scope, $timeout, $filter, APP_CONSTANT, authService, apiService, toastr, currencyConfig, helperService, errorWarningService) {        
+    function CurrencyMenuController($scope, $timeout, $filter, APP_CONSTANT, authService, apiService, toastr, currencyConfig, helperService, errorWarningService) {
         var CurrencyMenuCtrl = this;
         function Init() {
             var currentCurrency = CurrencyMenuCtrl.currentCurrency[CurrencyMenuCtrl.currentCurrency.code].ePage.Entities;
@@ -35,7 +35,7 @@
             // Menu list from configuration
         }
 
-        function Validation($item) {            
+        function Validation($item) {
             var _Data = $item[$item.code].ePage.Entities,
                 _input = _Data.Header.Data,
                 _errorcount = _Data.Header.Meta.ErrorWarning.GlobalErrorWarningList;
@@ -115,14 +115,14 @@
             });
         }
 
-        function Save($item) {            
+        function Save($item) {
             CurrencyMenuCtrl.ePage.Masters.SaveButtonText = "Please Wait...";
             CurrencyMenuCtrl.ePage.Masters.DisableSave = true;
 
             var _Data = $item[$item.code].ePage.Entities,
                 _input = _Data.Header.Data;
 
-            if ($item.isNew) {                
+            if ($item.isNew) {            
                 _input.PK = _input.PK;
                 _input.CreatedDateTime = new Date();
                 _input.IsValid = true;
@@ -130,8 +130,7 @@
                 _input.CreatedBy = authService.getUserInfo().UserId;
                 _input.Source = "ERP";
                 _input.TenantCode = "20CUB";
-                _input.UnitName="Test";
-                _input.SubUnitName="Test1";
+                _input.IsActive = true;
             } else {
                 $item = filterObjectUpdate($item, "IsModified");
             }

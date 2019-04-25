@@ -24,13 +24,13 @@
             NotificationCtrl.ePage.Masters.WarehouseChanged = WarehouseChanged;
 
             GetWarehouseValues();
-            if (NotificationCtrl.selectedComponent.ComponentName == "My Task")
+            if (NotificationCtrl.selectedComponent.DC_DSC_Name == "My Task")
                 GetTaskDetails();
-            if (NotificationCtrl.selectedComponent.ComponentName == "Exception")
+            if (NotificationCtrl.selectedComponent.DC_DSC_Name == "Exception")
                 GetExceptionDetails();
-            if (NotificationCtrl.selectedComponent.ComponentName == "Asn Received Chart") {
+            if (NotificationCtrl.selectedComponent.DC_DSC_Name == "Open SO Chart") {
                 if (NotificationCtrl.selectedComponent.DC_LoadByDefault) {
-                    GetAsnReceivedStatusDetails();
+                    GetOpenSODetails();
                     NotificationCtrl.ePage.Masters.IsLoad = true;
                 } else {
                     NotificationCtrl.ePage.Masters.IsLoad = false;
@@ -40,7 +40,7 @@
 
         }
 
-        function GetAsnReceivedStatusDetails() {
+        function GetOpenSODetails() {
             NotificationCtrl.ePage.Masters.IsLoad = true;
             NotificationCtrl.ePage.Masters.IsLoading = true;
             var _filter = {
@@ -117,9 +117,9 @@
         }
 
         function WarehouseChanged() {
-            if (NotificationCtrl.selectedComponent.ComponentName == "Notification")
+            if (NotificationCtrl.selectedComponent.DC_DSC_Name == "Notification")
                 GetNotificationValues();
-            if (NotificationCtrl.selectedComponent.ComponentName == "KPI")
+            if (NotificationCtrl.selectedComponent.DC_DSC_Name == "KPI")
                 GetKPIValues();
         }
 

@@ -12,7 +12,25 @@
             <label class="control-label text-single-line">Dashboard Name</label>
             <div class="">
                 <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
-                    placeholder="Dashboard Name" data-ng-model="DynamicDashboardCtrl.ePage.Masters.SelectedDashboardSettingDetails.DashboardName">
+                    placeholder="Dashboard Name" data-ng-model="DynamicDashboardCtrl.ePage.Masters.SelectedDashboardSettingDetails.UIDASDashboardsHeader.Name">
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+        <div class="form-group">
+            <label class="control-label text-single-line">Dashboard Description</label>
+            <div class="">
+                <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
+                    placeholder="Dashboard Description" data-ng-model="DynamicDashboardCtrl.ePage.Masters.SelectedDashboardSettingDetails.UIDASDashboardsHeader.Description">
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+        <div class="form-group">
+            <label class="control-label text-single-line">Display Order</label>
+            <div class="">
+                <input type="text" numbers-only class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
+                    placeholder="Display Order" data-ng-model="DynamicDashboardCtrl.ePage.Masters.SelectedDashboardSettingDetails.UIDASDashboardsHeader.DisplayOrder">
             </div>
         </div>
     </div>
@@ -20,7 +38,7 @@
         <div class="form-group">
             <label class="control-label text-single-line">Dashboard Icon</label>
             <div class="input-group input-group-sm">
-                <input type="text" class="form-control" placeholder="Icon" data-ng-model="DynamicDashboardCtrl.ePage.Masters.SelectedDashboardSettingDetails.Icon">
+                <input type="text" class="form-control" placeholder="Icon" data-ng-model="DynamicDashboardCtrl.ePage.Masters.SelectedDashboardSettingDetails.UIDASDashboardsHeader.DisplayIcon">
                 <span class="input-group-btn">
                     <button icon-color-list type="icon" selected-item="DynamicDashboardCtrl.ePage.Masters.SelectedIconColor($item)"
                         class="btn btn-default shiny">
@@ -35,8 +53,8 @@
             <label class="control-label col-lg-8 pl-0">Is Warehouse Based</label>
             <div class="input-group input-group-sm col-lg-4">
                 <label class="mb-0 customcheckbox">
-                    <input type="checkbox" ng-checked="DynamicDashboardCtrl.ePage.Masters.SelectedDashboardSettingDetails.IsWarehouseBased"
-                        ng-model="DynamicDashboardCtrl.ePage.Masters.SelectedDashboardSettingDetails.IsWarehouseBased">
+                    <input type="checkbox" ng-checked="DynamicDashboardCtrl.ePage.Masters.SelectedDashboardSettingDetails.UIDASDashboardsHeader.IsWarehouseBased"
+                        ng-model="DynamicDashboardCtrl.ePage.Masters.SelectedDashboardSettingDetails.UIDASDashboardsHeader.IsWarehouseBased">
                     </input>
                     <span class="text"></span>
                 </label>
@@ -45,11 +63,11 @@
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
         <div class="form-group">
-            <label class="control-label col-lg-8 pl-0">Is Client Based</label>
+            <label class="control-label col-lg-8 pl-0">Is Organization Based</label>
             <div class="input-group input-group-sm col-lg-4">
                 <label class="mb-0 customcheckbox">
-                    <input type="checkbox" ng-checked="DynamicDashboardCtrl.ePage.Masters.SelectedDashboardSettingDetails.IsClientBased"
-                        ng-model="DynamicDashboardCtrl.ePage.Masters.SelectedDashboardSettingDetails.IsClientBased">
+                    <input type="checkbox" ng-checked="DynamicDashboardCtrl.ePage.Masters.SelectedDashboardSettingDetails.UIDASDashboardsHeader.IsOrganisationBased"
+                        ng-model="DynamicDashboardCtrl.ePage.Masters.SelectedDashboardSettingDetails.UIDASDashboardsHeader.IsOrganisationBased">
                     </input>
                     <span class="text"></span>
                 </label>
@@ -58,5 +76,6 @@
     </div>
 </div>
 <div class="modal-footer">
-    <button class="btn btn-sm mb-15" ng-click="DynamicDashboardCtrl.ePage.Masters.SaveEditDashboardSetting(DynamicDashboardCtrl.ePage.Masters.SelectedDashboardSettingDetails)">Save</button>
+    <button class="btn btn-blue btn-sm mb-15" ng-click="DynamicDashboardCtrl.ePage.Masters.SaveEditDashboardSetting(DynamicDashboardCtrl.ePage.Masters.SelectedDashboardSettingDetails)">Save
+        and Preview</button>
 </div>

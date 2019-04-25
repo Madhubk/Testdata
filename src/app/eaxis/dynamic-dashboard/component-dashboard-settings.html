@@ -8,13 +8,13 @@
 </div>
 <div class="modal-body pb-50">
     <div class="clearfix">
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" data-ng-repeat="x in  DynamicDashboardCtrl.ePage.Masters.TotalComponentList | filter: DynamicDashboardCtrl.ePage.Masters.Search"
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6" data-ng-repeat="x in  DynamicDashboardCtrl.ePage.Masters.TotalComponentList | filter: DynamicDashboardCtrl.ePage.Masters.Search"
             data-ng-if="DynamicDashboardCtrl.ePage.Masters.TotalComponentList && (DynamicDashboardCtrl.ePage.Masters.TotalComponentList | filter: DynamicDashboardCtrl.ePage.Masters.Search).length > 0">
             <div class="form-group">
                 <div class="checkbox">
                     <label>
-                        <input type="checkbox" class="colored-blue" data-ng-model="x.IsLoadedInThisDashboard">
-                        <span class="text" data-ng-bind="x.ComponentName"></span>
+                        <input type="checkbox" class="colored-blue" data-ng-model="x.IsLoadedInThisDashboard" ng-change="DynamicDashboardCtrl.ePage.Masters.OnChangeComponentSetting(x)">
+                        <span class="text" data-ng-bind="x.Name"></span>
                     </label>
                 </div>
             </div>
@@ -22,5 +22,6 @@
     </div>
 </div>
 <div class="modal-footer">
-    <button class="btn btn-sm mb-15" ng-click="DynamicDashboardCtrl.ePage.Masters.SaveCompDashboardSetting(DynamicDashboardCtrl.ePage.Masters.SelectedDashboardSettingDetails)">Save</button>
+    <button class="btn btn-blue btn-sm mb-15" ng-click="DynamicDashboardCtrl.ePage.Masters.SaveCompDashboardSetting(DynamicDashboardCtrl.ePage.Masters.SelectedDashboardSettingDetails)">Save
+        and Preview</button>
 </div>

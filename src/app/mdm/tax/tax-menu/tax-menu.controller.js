@@ -73,7 +73,6 @@
         }
         //#endregion
 
-
         //#region Save
         function Save($item) {
             TaxMenuCtrl.ePage.Masters.SaveButtonText = "Please Wait...";
@@ -83,12 +82,10 @@
                 _input = _Data.Header.Data;
 
             if ($item.isNew) {
-                _input.PK = _input.PK;
-                _input.CreatedDateTime = new Date();
-                _input.Type = "";
-                _input.ExtraTaxRateType = "";
-                _input.ReferenceExtraRateType = "";
-                _input.ReferenceRateType = "";
+                _input.UIAccTaxRate.PK = _input.PK;
+                _input.UIAccTaxRate.ExtraTaxRateType = "";
+                _input.UIAccTaxRate.ReferenceExtraRateType = "";
+                _input.UIAccTaxRate.ReferenceRateType = "";
             } else {
                 $item = filterObjectUpdate($item, "IsModified");
             }
@@ -98,6 +95,19 @@
                 TaxMenuCtrl.ePage.Masters.DisableSave = false;
 
                 if (response.Status === "success") {
+                    taxConfig.TabList.map(function (value, key) {
+                        var _index = taxConfig.TabList.map(function (value, key) {
+                            return value[value.code].ePage.Entities.Header.Data.PK;
+                        }).indexOf(TaxMenuCtrl.currentTax[TaxMenuCtrl.currentTax.code].ePage.Entities.Header.Data.PK);
+
+                        if (_index == key) {
+                            if (value.isNew) {
+                                value.label = TaxMenuCtrl.ePage.Entities.Header.Data.Code;
+                                value[TaxMenuCtrl.ePage.Entities.Header.Data.Code] = value.New;
+                                delete value.New;
+                            }
+                        }
+                    });
                     toastr.success("Saved Successfully...!");
                 } else if (response.Status === "failed") {
                     toastr.error("Could not Save...!");
@@ -117,7 +127,6 @@
             return obj;
         }
         //#endregion
-
 
         Init();
     }

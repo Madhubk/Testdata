@@ -48,67 +48,143 @@
             DynamicDashboardCtrl.ePage.Masters.RoleAccesDashboardSetting = RoleAccesDashboardSetting;
             DynamicDashboardCtrl.ePage.Masters.CloseRoleSettingActivity = CloseRoleSettingActivity;
             DynamicDashboardCtrl.ePage.Masters.PreviewDashboardSetting = PreviewDashboardSetting;
-            DynamicDashboardCtrl.ePage.Masters.ClosePreviewDetailsActivity = ClosePreviewDetailsActivity;
-            DynamicDashboardCtrl.ePage.Masters.SavePreviewActivity = SavePreviewActivity;
-
+            DynamicDashboardCtrl.ePage.Masters.OnChangeComponentSetting = OnChangeComponentSetting;
+            DynamicDashboardCtrl.ePage.Masters.CreateNewDashboard = CreateNewDashboard;
+            DynamicDashboardCtrl.ePage.Masters.CloseNewDashboardDetailsActivity = CloseNewDashboardDetailsActivity;
+            DynamicDashboardCtrl.ePage.Masters.SaveNewDashboard = SaveNewDashboard;
             DynamicDashboardCtrl.ePage.Masters.Settings = Settings;
             DynamicDashboardCtrl.ePage.Masters.CloseEditActivity = CloseEditActivity;
-
             DynamicDashboardCtrl.ePage.Masters.Config = dynamicDashboardConfig;
             GetRoleList();
             GetSettingsButtonAccess();
             GetDashboardListBasedOnRole();
             GetComponentListDetails();
+            GetTotalDashboardList();
         }
         // #endregion
-        // #region - Preview the dashboard setting
-        function PreviewDashboardSetting(item) {
-            DynamicDashboardCtrl.ePage.Masters.SelectedDashboardSettingDetails = item;
-            var previewModalInstances = $uibModal.open({
+        // #region - Create new dashboard
+        function CreateNewDashboard() {
+            DynamicDashboardCtrl.ePage.Masters.IsNew = true;
+            apiService.get("eAxisAPI", dynamicDashboardConfig.Entities.DASDashBoardList.API.GetById.Url + "null").then(function (response) {
+                if (response.data.Response) {
+                    DynamicDashboardCtrl.ePage.Masters.SelectedDashboardSettingDetails = response.data.Response;
+                    OpenNewDashboard().result.then(function (response) { }, function () { });
+                }
+            });
+        }
+        function OpenNewDashboard() {
+            return DynamicDashboardCtrl.ePage.Masters.newDashboardModalInstances = $uibModal.open({
                 animation: true,
                 backdrop: "static",
-                keyboard: true,
-                windowClass: "dashboard-setting-edit right address",
+                keyboard: false,
+                windowClass: "dashboard-setting-component-details right address",
                 scope: $scope,
-                templateUrl: "app/eaxis/dynamic-dashboard/preview-dashboard/preview-dashboard.html",
-                controller: 'PreviewDashboardController as PreviewDashboardCtrl',
-                bindToController: true,
-                resolve: {
-                    param: function () {
-                        var exports = {
-                            "Entity": DynamicDashboardCtrl.ePage.Masters.SelectedDashboardSettingDetails,
-                            "ClientDetails": DynamicDashboardCtrl.ePage.Masters.ClientDetails,
-                            "WarehouseDetails": DynamicDashboardCtrl.ePage.Masters.WarehouseDetails,
-                            "TempComponentList": DynamicDashboardCtrl.ePage.Masters.TempComponentList,
-                            "ComponentList": DynamicDashboardCtrl.ePage.Masters.ComponentList,
-                            "SelectedDashboardComponentDetails": DynamicDashboardCtrl.ePage.Masters.SelectedDashboardComponentDetails
-                        };
-                        return exports;
-                    }
-                }
-            }).result.then(
-                function (response) {
-                    if (response.data) {
-                    }
-                },
-                function () {
-                    console.log("Cancelled");
-                }
-            );
+                size: "md",
+                templateUrl: "app/eaxis/dynamic-dashboard/create-dashboard.html"
+            });
         }
-
-        function ClosePreviewDetailsActivity() {
-            DynamicDashboardCtrl.ePage.Masters.previewModalInstances.dismiss('cancel');
+        function CloseNewDashboardDetailsActivity() {
+            DynamicDashboardCtrl.ePage.Masters.newDashboardModalInstances.dismiss('cancel');
         }
-        function SavePreviewActivity() {
-
+        function SaveNewDashboard() {
+            if (DynamicDashboardCtrl.ePage.Masters.IsNew) {
+                angular.forEach(DynamicDashboardCtrl.ePage.Masters.TotalComponentList, function (value, key) {
+                    if (value.IsLoadedInThisDashboard) {
+                        var _obj = {
+                            DC_DSC_FK: value.PK,
+                            DC_DSH_FK: DynamicDashboardCtrl.ePage.Masters.SelectedDashboardSettingDetails.PK,
+                            DC_DisplayOrder: DynamicDashboardCtrl.ePage.Masters.SelectedDashboardSettingDetails.UIDASDashboardComponents.length + 1,
+                            DC_IsActive: true,
+                            DC_IsEnabled: false,
+                            DC_LoadByDefault: false,
+                            DC_OtherConfig: null,
+                            DC_PK: "",
+                            DC_ShowByDefault: false,
+                            IsDeleted: false,
+                            IsModified: false
+                        }
+                        DynamicDashboardCtrl.ePage.Masters.SelectedDashboardSettingDetails.UIDASDashboardComponents.push(_obj);
+                    }
+                });
+                DynamicDashboardCtrl.ePage.Masters.SelectedDashboardSettingDetails.UIDASDashboardsHeader.PK = DynamicDashboardCtrl.ePage.Masters.SelectedDashboardSettingDetails.PK;
+                apiService.post("eAxisAPI", dynamicDashboardConfig.Entities.DASDashBoardList.API.Insert.Url, DynamicDashboardCtrl.ePage.Masters.SelectedDashboardSettingDetails).then(function (response) {
+                    if (response.data.Response) {
+                        DynamicDashboardCtrl.ePage.Masters.SelectedDashboardSettingDetails = response.data.Response;
+                        DynamicDashboardCtrl.ePage.Masters.newDashboardModalInstances.dismiss('cancel');
+                        PreviewDashboardSetting(DynamicDashboardCtrl.ePage.Masters.SelectedDashboardSettingDetails.UIDASDashboardsHeader);
+                        GetTotalDashboardList();
+                        angular.forEach(DynamicDashboardCtrl.ePage.Masters.RoleList, function (value1, key1) {
+                            if (value1.IsDashboardRole) {
+                                var _obj = {
+                                    "MappingCode": "DASH_ROLE_APP_TNT",
+                                    "ItemName": "DASHBOARD",
+                                    "Item_FK": DynamicDashboardCtrl.ePage.Masters.SelectedDashboardSettingDetails.PK,
+                                    "ItemCode": DynamicDashboardCtrl.ePage.Masters.SelectedDashboardSettingDetails.UIDASDashboardsHeader.Name,
+                                    "AccessTo": "ROLE",
+                                    "Access_FK": value1.PK,
+                                    "AccessCode": value1.RoleName,
+                                    "SAP_FK": authService.getUserInfo().AppPK,
+                                    "SAP_Code": authService.getUserInfo().AppCode,
+                                };
+                                apiService.post("authAPI", appConfig.Entities.SecMappings.API.Insert.Url, [_obj]).then(function (response) {
+                                    if (response.data.Response) {
+                                        DynamicDashboardCtrl.ePage.Masters.IsNew = false;
+                                    }
+                                });
+                            }
+                        });
+                    }
+                });
+            }
+        }
+        // #endregion 
+        // #region - Preview the dashboard setting
+        function PreviewDashboardSetting(item) {
+            apiService.get("eAxisAPI", dynamicDashboardConfig.Entities.DASDashBoardList.API.GetById.Url + item.PK).then(function (response) {
+                if (response.data.Response) {
+                    DynamicDashboardCtrl.ePage.Masters.SelectedDashboardSettingDetails = response.data.Response;
+                    var previewModalInstances = $uibModal.open({
+                        animation: true,
+                        backdrop: "static",
+                        keyboard: true,
+                        windowClass: "dashboard-setting-edit right address",
+                        scope: $scope,
+                        templateUrl: "app/eaxis/dynamic-dashboard/preview-dashboard/preview-dashboard.html",
+                        controller: 'PreviewDashboardController as PreviewDashboardCtrl',
+                        bindToController: true,
+                        resolve: {
+                            param: function () {
+                                var exports = {
+                                    "Entity": DynamicDashboardCtrl.ePage.Masters.SelectedDashboardSettingDetails,
+                                    "TempComponentList": DynamicDashboardCtrl.ePage.Masters.TempComponentList,
+                                    "ComponentList": DynamicDashboardCtrl.ePage.Masters.ComponentList,
+                                    "SelectedDashboardComponentDetails": DynamicDashboardCtrl.ePage.Masters.SelectedDashboardComponentDetails
+                                };
+                                return exports;
+                            }
+                        }
+                    }).result.then(
+                        function (response) {
+                            if (response.data) {
+                            }
+                        },
+                        function () {
+                            console.log("Cancelled");
+                        }
+                    );
+                }
+            });
         }
         // #endregion 
         // #region - get role list based on party 
         function RoleAccesDashboardSetting(item) {
             DynamicDashboardCtrl.ePage.Masters.SelectedDashboardSettingDetails = item;
+            angular.forEach(DynamicDashboardCtrl.ePage.Masters.RoleList, function (value, key) {
+                value.IsDashboardRole = false;
+                value.SecMapping_FK = undefined;
+            });
             var _filter = {
-                "ItemCode": item.Name,
+                "Item_FK": item.PK,
                 "MappingCode": "DASH_ROLE_APP_TNT"
             };
             var _input = {
@@ -126,11 +202,6 @@
                                     value.SecMapping_FK = value1.PK;
                                 }
                             });
-                        });
-                    } else {
-                        angular.forEach(DynamicDashboardCtrl.ePage.Masters.RoleList, function (value, key) {
-                            value.IsDashboardRole = false;
-                            value.SecMapping_FK = undefined;
                         });
                     }
                     OpenRoleAccessDashboardSetting().result.then(function (response) { }, function () { });
@@ -179,7 +250,7 @@
                     "MappingCode": "DASH_ROLE_APP_TNT",
                     "ItemName": "DASHBOARD",
                     "Item_FK": DynamicDashboardCtrl.ePage.Masters.SelectedDashboardSettingDetails.PK,
-                    "ItemCode": DynamicDashboardCtrl.ePage.Masters.SelectedDashboardSettingDetails.DashboardName,
+                    "ItemCode": DynamicDashboardCtrl.ePage.Masters.SelectedDashboardSettingDetails.Name,
                     "AccessTo": "ROLE",
                     "Access_FK": item.PK,
                     "AccessCode": item.RoleName,
@@ -203,21 +274,29 @@
         // #region - Get component List for Selected Dashboard Setting
         function GetComponentListForDashboardSettings(item) {
             angular.forEach(DynamicDashboardCtrl.ePage.Masters.TotalComponentList, function (value, key) {
-                angular.forEach(item.ComponentList, function (value1, key1) {
-                    if (value.ComponentName == value1.ComponentName) {
-                        value.IsLoadedInThisDashboard = true;
-                    }
-                });
+                value.IsLoadedInThisDashboard = false;
             });
-            DynamicDashboardCtrl.ePage.Masters.SelectedDashboardSettingDetails = item;
-            OpenComponentListDashboardSetting().result.then(function (response) { }, function () { });
+            apiService.get("eAxisAPI", dynamicDashboardConfig.Entities.DASDashBoardList.API.GetById.Url + item.PK).then(function (response) {
+                if (response.data.Response) {
+                    DynamicDashboardCtrl.ePage.Masters.SelectedDashboardSettingDetails = response.data.Response;
+                    angular.forEach(DynamicDashboardCtrl.ePage.Masters.TotalComponentList, function (value, key) {
+                        angular.forEach(DynamicDashboardCtrl.ePage.Masters.SelectedDashboardSettingDetails.UIDASDashboardComponents, function (value1, key1) {
+                            if (value.Name == value1.DC_DSC_Name) {
+                                value.IsLoadedInThisDashboard = true;
+                            }
+                        });
+                    });
+                    DynamicDashboardCtrl.ePage.Masters.TotalComponentList = $filter('orderBy')(DynamicDashboardCtrl.ePage.Masters.TotalComponentList, '!IsLoadedInThisDashboard');
+                    OpenComponentListDashboardSetting().result.then(function (response) { }, function () { });
+                }
+            });
         }
         function OpenComponentListDashboardSetting() {
             return DynamicDashboardCtrl.ePage.Masters.componentModalInstances = $uibModal.open({
                 animation: true,
                 backdrop: "static",
                 keyboard: false,
-                windowClass: "dashboard-setting-edit-details right address",
+                windowClass: "dashboard-setting-component-details right address",
                 scope: $scope,
                 size: "md",
                 templateUrl: "app/eaxis/dynamic-dashboard/component-dashboard-settings.html"
@@ -226,34 +305,62 @@
         function CloseComponentSettingActivity() {
             DynamicDashboardCtrl.ePage.Masters.componentModalInstances.dismiss('cancel');
         }
-        function SaveCompDashboardSetting(item) {            
-            var _TempList = $filter('filter')(DynamicDashboardCtrl.ePage.Masters.TotalComponentList, { IsLoadedInThisDashboard: true })
-            angular.forEach(DynamicDashboardCtrl.ePage.Masters.DashboardList, function (value, key) {
-                if (value.PK == item.PK) {
-                    value.ComponentList = _TempList;
+        function OnChangeComponentSetting(item) {
+            var Count = 0;
+            if (item.IsLoadedInThisDashboard) {
+                angular.forEach(DynamicDashboardCtrl.ePage.Masters.SelectedDashboardSettingDetails.UIDASDashboardComponents, function (value1, key1) {
+                    if (value1.DC_DSC_FK == item.PK) {
+                        value1.IsModified = true;
+                        value1.IsDeleted = false;
+                    } else {
+                        Count = Count + 1;
+                    }
+                });
+            } else {
+                angular.forEach(DynamicDashboardCtrl.ePage.Masters.SelectedDashboardSettingDetails.UIDASDashboardComponents, function (value1, key1) {
+                    if (value1.DC_DSC_FK == item.PK) {
+                        value1.IsDeleted = true;
+                    }
+                });
+            }
+            if (Count == DynamicDashboardCtrl.ePage.Masters.SelectedDashboardSettingDetails.UIDASDashboardComponents.length) {
+                var _obj = {
+                    DC_DSC_FK: item.PK,
+                    DC_DSH_FK: DynamicDashboardCtrl.ePage.Masters.SelectedDashboardSettingDetails.UIDASDashboardsHeader.PK,
+                    DC_DisplayOrder: DynamicDashboardCtrl.ePage.Masters.SelectedDashboardSettingDetails.UIDASDashboardComponents.length + 1,
+                    DC_IsActive: true,
+                    DC_IsEnabled: false,
+                    DC_LoadByDefault: false,
+                    DC_OtherConfig: null,
+                    DC_PK: "",
+                    DC_ShowByDefault: false,
+                    IsDeleted: false,
+                    IsModified: false
+                }
+                DynamicDashboardCtrl.ePage.Masters.SelectedDashboardSettingDetails.UIDASDashboardComponents.push(_obj);
+            }
+        }
+        function SaveCompDashboardSetting(item) {
+            DynamicDashboardCtrl.ePage.Masters.SelectedDashboardSettingDetails.UIDASDashboardsHeader.IsModified = true;
+            apiService.post("eAxisAPI", dynamicDashboardConfig.Entities.DASDashBoardList.API.Update.Url, DynamicDashboardCtrl.ePage.Masters.SelectedDashboardSettingDetails).then(function (response) {
+                if (response.data.Response) {
+                    DynamicDashboardCtrl.ePage.Masters.SelectedDashboardSettingDetails = response.data.Response;
+                    DynamicDashboardCtrl.ePage.Masters.componentModalInstances.dismiss('cancel');
+                    PreviewDashboardSetting(DynamicDashboardCtrl.ePage.Masters.SelectedDashboardSettingDetails.UIDASDashboardsHeader);
+                    // DynamicDashboardCtrl.ePage.Masters.modalInstances.dismiss('cancel');
+                    // Init();
                 }
             });
-
-            DynamicDashboardCtrl.ePage.Masters.TempComponentList = angular.copy(_TempList);
-            DynamicDashboardCtrl.ePage.Masters.TempComponentList = $filter('orderBy')(DynamicDashboardCtrl.ePage.Masters.TempComponentList, 'SequenceNo');
-            DynamicDashboardCtrl.ePage.Masters.TempComponentList = $filter('orderBy')(DynamicDashboardCtrl.ePage.Masters.TempComponentList, '!DC_ShowByDefault');
-            DynamicDashboardCtrl.ePage.Masters.IsShowDetails = $filter('filter')(DynamicDashboardCtrl.ePage.Masters.TempComponentList, { DC_IsEnabled: true })
-            var LoadedAsDefaultDetails = $filter('filter')(DynamicDashboardCtrl.ePage.Masters.IsShowDetails, { DC_ShowByDefault: true })
-            if (LoadedAsDefaultDetails.length >= 0) {
-                dynamicDashboardConfig.LoadMoreCount = LoadedAsDefaultDetails.length;
-            }
-            dynamicDashboardConfig.LoadedDirectiveCount = 0;
-            DynamicDashboardCtrl.ePage.Masters.ComponentList = undefined;
-            $timeout(function () {
-                DynamicDashboardCtrl.ePage.Masters.ComponentList = angular.copy(LoadedAsDefaultDetails);
-            }, 100);
-            DynamicDashboardCtrl.ePage.Masters.componentModalInstances.dismiss('cancel');
         }
         // #endregion
         // #region - Edit Dashboard setting
         function Edit(item) {
-            DynamicDashboardCtrl.ePage.Masters.SelectedDashboardSettingDetails = item;
-            EditDashboardSetting().result.then(function (response) { }, function () { });
+            apiService.get("eAxisAPI", dynamicDashboardConfig.Entities.DASDashBoardList.API.GetById.Url + item.PK).then(function (response) {
+                if (response.data.Response) {
+                    DynamicDashboardCtrl.ePage.Masters.SelectedDashboardSettingDetails = response.data.Response;
+                    EditDashboardSetting().result.then(function (response) { }, function () { });
+                }
+            });
         }
         function EditDashboardSetting() {
             return DynamicDashboardCtrl.ePage.Masters.editModalInstances = $uibModal.open({
@@ -270,37 +377,20 @@
             DynamicDashboardCtrl.ePage.Masters.editModalInstances.dismiss('cancel');
         }
         function SaveEditDashboardSetting(item) {
-            angular.forEach(DynamicDashboardCtrl.ePage.Masters.DashboardList, function (value, key) {
-                if (value.PK == item.PK) {
-                    value = item;
+            DynamicDashboardCtrl.ePage.Masters.SelectedDashboardSettingDetails.UIDASDashboardsHeader.IsModified = true;
+            apiService.post("eAxisAPI", dynamicDashboardConfig.Entities.DASDashBoardList.API.Update.Url, DynamicDashboardCtrl.ePage.Masters.SelectedDashboardSettingDetails).then(function (response) {
+                if (response.data.Response) {
+                    DynamicDashboardCtrl.ePage.Masters.SelectedDashboardSettingDetails = response.data.Response;
+                    DynamicDashboardCtrl.ePage.Masters.editModalInstances.dismiss('cancel');
+                    PreviewDashboardSetting(DynamicDashboardCtrl.ePage.Masters.SelectedDashboardSettingDetails.UIDASDashboardsHeader);
+                    GetTotalDashboardList();
+                    // DynamicDashboardCtrl.ePage.Masters.modalInstances.dismiss('cancel');
+                    // Init();
                 }
             });
-            angular.forEach(DynamicDashboardCtrl.ePage.Masters._TempDashboardListBasedOnRole, function (value, key) {
-                if (value.Dashboard_FK == item.PK) {
-                    value.DashboardName = item.DashboardName;
-                    value.Icon = item.Icon;
-                    value.IsWarehouseBased = item.IsWarehouseBased;
-                    value.IsClientBased = item.IsClientBased;
-                }
-            });
-            DynamicDashboardCtrl.ePage.Masters.editModalInstances.dismiss('cancel');
-            if (item.IsWarehouseBased)
-                GetWarehouseValues();
-            else
-                DynamicDashboardCtrl.ePage.Masters.SelectedWarehouse = {};
-            if (item.IsClientBased)
-                GetClientDetails();
-            else
-                DynamicDashboardCtrl.ePage.Masters.SelectedClient = {};
-            var IsShowDetails = angular.copy(DynamicDashboardCtrl.ePage.Masters.ComponentList);
-            dynamicDashboardConfig.LoadedDirectiveCount = 0;
-            DynamicDashboardCtrl.ePage.Masters.ComponentList = undefined;
-            $timeout(function () {
-                DynamicDashboardCtrl.ePage.Masters.ComponentList = IsShowDetails;
-            }, 100);
         }
         function SelectedIconColor(item) {
-            DynamicDashboardCtrl.ePage.Masters.SelectedDashboardSettingDetails.Icon = item;
+            DynamicDashboardCtrl.ePage.Masters.SelectedDashboardSettingDetails.UIDASDashboardsHeader.DisplayIcon = item;
         }
         // #endregion 
         // #region - Get dashboard list based on Role
@@ -316,13 +406,13 @@
             apiService.post("authAPI", appConfig.Entities.SecMappings.API.FindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     if (response.data.Response.length > 0) {
-                        var _DashboardName = "";
+                        var _DashboardFK = "";
                         angular.forEach(response.data.Response, function (value, key) {
-                            _DashboardName = _DashboardName + value.ItemCode + ",";
+                            _DashboardFK = _DashboardFK + value.Item_FK + ",";
                         });
-                        _DashboardName = _DashboardName.slice(0, -1);
+                        _DashboardFK = _DashboardFK.slice(0, -1);
                         var _filter = {
-                            "NameIn": _DashboardName
+                            "PK_In": _DashboardFK
                         };
                         var _input = {
                             "searchInput": helperService.createToArrayOfObject(_filter),
@@ -331,6 +421,7 @@
                         apiService.post("eAxisAPI", dynamicDashboardConfig.Entities.Dashboards.API.FindAll.Url, _input).then(function (response) {
                             if (response.data.Response) {
                                 DynamicDashboardCtrl.ePage.Masters.DashboardListBasedOnRole = response.data.Response;
+                                DynamicDashboardCtrl.ePage.Masters.DashboardListBasedOnRole = $filter('orderBy')(DynamicDashboardCtrl.ePage.Masters.DashboardListBasedOnRole, 'DisplayOrder');
                                 DynamicDashboardCtrl.ePage.Masters.SelectedDashboardDetails = DynamicDashboardCtrl.ePage.Masters.DashboardListBasedOnRole[0];
                                 if (DynamicDashboardCtrl.ePage.Masters.SelectedDashboardDetails)
                                     OnChangeDashboardList();
@@ -346,7 +437,7 @@
                 GetWarehouseValues();
             else
                 DynamicDashboardCtrl.ePage.Masters.SelectedWarehouse = {};
-            if (DynamicDashboardCtrl.ePage.Masters.SelectedDashboardDetails.IsClientBased)
+            if (DynamicDashboardCtrl.ePage.Masters.SelectedDashboardDetails.IsOrganisationBased)
                 GetClientDetails();
             else
                 DynamicDashboardCtrl.ePage.Masters.SelectedClient = {};
@@ -371,11 +462,9 @@
                 }
             });
         }
-
         function Settings() {
             openDashboardSetting().result.then(function (response) { }, function () { });
         }
-
         function openDashboardSetting() {
             return DynamicDashboardCtrl.ePage.Masters.modalInstances = $uibModal.open({
                 animation: true,
@@ -387,14 +476,35 @@
                 templateUrl: "app/eaxis/dynamic-dashboard/dashboard-settings.html"
             });
         }
-
         function CloseEditActivity() {
             DynamicDashboardCtrl.ePage.Masters.modalInstances.dismiss('cancel');
+            Init();
         }
         // #endregion
         // #region - get Component list based on Dashboard list 
         function GetDashboardList() {
-            var _filter = {};
+            var _filter = {
+                "DSH_FK": DynamicDashboardCtrl.ePage.Masters.SelectedDashboardDetails.PK
+            };
+            var _input = {
+                "searchInput": helperService.createToArrayOfObject(_filter),
+                "FilterID": dynamicDashboardConfig.Entities.DASDashboardComponents.API.FindAll.FilterID
+            };
+            apiService.post("eAxisAPI", dynamicDashboardConfig.Entities.DASDashboardComponents.API.FindAll.Url, _input).then(function (response) {
+                if (response.data.Response) {
+                    DynamicDashboardCtrl.ePage.Masters.SelectedDashboardComponentDetails = angular.copy(response.data.Response);
+                    DynamicDashboardCtrl.ePage.Masters.TempComponentList = angular.copy(response.data.Response);
+                    GetUserBasedComponentList();
+                }
+            });
+        }
+        function GetTotalDashboardList() {
+            var _filter = {
+                "SortType": "ASC",
+                "SortColumn": "DSH_DisplayOrder",
+                "PageNumber": 1,
+                "PageSize": 100,
+            };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
                 "FilterID": dynamicDashboardConfig.Entities.Dashboards.API.FindAll.FilterID
@@ -404,50 +514,37 @@
                     DynamicDashboardCtrl.ePage.Masters.DashboardList = response.data.Response;
                 }
             });
-
-            var _filter = {
-                "DSH_FK": DynamicDashboardCtrl.ePage.Masters.SelectedDashboardDetails.PK
-            };
-            var _input = {
-                "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": dynamicDashboardConfig.Entities.DASDashBoardList.API.FindAll.FilterID
-            };
-            apiService.post("eAxisAPI", dynamicDashboardConfig.Entities.DASDashBoardList.API.FindAll.Url, _input).then(function (response) {
-                if (response.data.Response) {
-                    DynamicDashboardCtrl.ePage.Masters.SelectedDashboardComponentDetails = angular.copy(response.data.Response);
-                    DynamicDashboardCtrl.ePage.Masters.TempComponentList = angular.copy(response.data.Response);
-                    DynamicDashboardCtrl.ePage.Masters.TempComponentList = $filter('orderBy')(DynamicDashboardCtrl.ePage.Masters.TempComponentList, 'DC_DisplayOrder');
-                    DynamicDashboardCtrl.ePage.Masters.TempComponentList = $filter('orderBy')(DynamicDashboardCtrl.ePage.Masters.TempComponentList, '!DC_ShowByDefault');
-                    DynamicDashboardCtrl.ePage.Masters.IsShowDetails = $filter('filter')(DynamicDashboardCtrl.ePage.Masters.TempComponentList, { DC_IsEnabled: true })
-                    var LoadedAsDefaultDetails = $filter('filter')(DynamicDashboardCtrl.ePage.Masters.IsShowDetails, { DC_ShowByDefault: true })
-                    if (LoadedAsDefaultDetails.length >= 0) {
-                        dynamicDashboardConfig.LoadMoreCount = LoadedAsDefaultDetails.length;
-                    }
-                    dynamicDashboardConfig.LoadedDirectiveCount = 0;
-                    DynamicDashboardCtrl.ePage.Masters.ComponentList = angular.copy(LoadedAsDefaultDetails);
-                }
-            });
         }
         // #endregion
         // #region - customize button
         function OnClickCustomizeButton() {
             $('#filterSideBar').toggleClass('open');
         }
-
         function Apply() {
-            dynamicDashboardConfig.LoadedDirectiveCount = 0;
-            DynamicDashboardCtrl.ePage.Masters.TempComponentList = $filter('orderBy')(DynamicDashboardCtrl.ePage.Masters.TempComponentList, '!DC_ShowByDefault');
-            var _ComponentList = angular.copy(DynamicDashboardCtrl.ePage.Masters.TempComponentList);
-            DynamicDashboardCtrl.ePage.Masters.IsShowDetails = $filter('filter')(_ComponentList, { DC_IsEnabled: true })
-            var LoadedAsDefaultDetails = $filter('filter')(DynamicDashboardCtrl.ePage.Masters.IsShowDetails, { DC_ShowByDefault: true })
-            if (LoadedAsDefaultDetails.length >= 0) {
-                dynamicDashboardConfig.LoadMoreCount = LoadedAsDefaultDetails.length;
+            if (DynamicDashboardCtrl.ePage.Masters.UserHasValue) {
+                var _input = DynamicDashboardCtrl.ePage.Masters.UserValue;
+                _input.Value = JSON.stringify(DynamicDashboardCtrl.ePage.Masters.TempComponentList);
+                _input.IsModified = true;
+            } else {
+                var _input = {
+                    "SAP_FK": authService.getUserInfo().AppPK,
+                    "AppCode": authService.getUserInfo().AppCode,
+                    "TenantCode": authService.getUserInfo().TenantCode,
+                    "SourceEntityRefKey": authService.getUserInfo().UserId,
+                    "EntitySource": "DASHBOARD_COMPONENTS",
+                    "Key": "Dashboard_Components",
+                    "IsJSON": true,
+                    "IsModified": true
+                };
+                _input.Value = JSON.stringify(DynamicDashboardCtrl.ePage.Masters.TempComponentList);
             }
-            DynamicDashboardCtrl.ePage.Masters.ComponentList = undefined;
-            $timeout(function () {
-                DynamicDashboardCtrl.ePage.Masters.ComponentList = LoadedAsDefaultDetails;
-            }, 100);
-            $('#filterSideBar').toggleClass('open');
+            apiService.post("eAxisAPI", appConfig.Entities.UserSettings.API.Upsert.Url + authService.getUserInfo().AppPK, [_input]).then(function (response) {
+                if (response.data.Response) {
+                    DynamicDashboardCtrl.ePage.Masters.TempComponentList = response.data.Response[0];
+                    Init();
+                    $('#filterSideBar').toggleClass('open');
+                }
+            });
         }
         // #endregion
         // #region - Get warehouse details
@@ -514,26 +611,33 @@
         // #endregion
         // #region - drag component
         function dropCallback(selectedComponent, ComponentList, index, external) {
-            var _ComponentList = angular.copy(ComponentList)
-            angular.forEach(_ComponentList, function (value, key) {
-                if (value.Directive == selectedComponent.Directive && value.ComponentName == selectedComponent.ComponentName) {
+            angular.forEach(DynamicDashboardCtrl.ePage.Masters.TempComponentList, function (value, key) {
+                if (value.DC_DSC_DirectiveName == selectedComponent.DC_DSC_DirectiveName && value.DC_DSC_Name == selectedComponent.DC_DSC_Name) {
+                    selectedComponent.DC_ShowByDefault = true;
                     var _obj = selectedComponent;
-                    _ComponentList.splice(key, 1);
-                    _ComponentList.splice(index - 1, 0, _obj);
-                    dynamicDashboardConfig.LoadedDirectiveCount = 0;
-                    DynamicDashboardCtrl.ePage.Masters.ComponentList = undefined;
-                    $timeout(function () {
-                        DynamicDashboardCtrl.ePage.Masters.ComponentList = _ComponentList;
-                    }, 100);
+                    DynamicDashboardCtrl.ePage.Masters.TempComponentList.splice(key, 1);
+                    DynamicDashboardCtrl.ePage.Masters.TempComponentList.splice(index - 1, 0, _obj);
                 }
             });
-            angular.forEach(_ComponentList, function (v, k) {
-                v.SequenceNo = k + 1;
+            angular.forEach(DynamicDashboardCtrl.ePage.Masters.TempComponentList, function (v, k) {
+                v.DC_DisplayOrder = k + 1;
+            });
+
+            if (DynamicDashboardCtrl.ePage.Masters.UserHasValue) {
+                var _input = DynamicDashboardCtrl.ePage.Masters.UserValue;
+                _input.Value = JSON.stringify(DynamicDashboardCtrl.ePage.Masters.TempComponentList);
+                _input.IsModified = true;
+            }
+            apiService.post("eAxisAPI", appConfig.Entities.UserSettings.API.Upsert.Url + authService.getUserInfo().AppPK, [_input]).then(function (response) {
+                if (response.data.Response) {
+                    DynamicDashboardCtrl.ePage.Masters.TempComponentList = response.data.Response[0];
+                    Init();
+                }
             });
         }
         // #endregion
         // #region - Load more button activity
-        function LoadMore() {            
+        function LoadMore() {
             dynamicDashboardConfig.LoadMoreCount = dynamicDashboardConfig.LoadMoreCount + 4;
             DynamicDashboardCtrl.ePage.Masters.TempComponentList = $filter('orderBy')(DynamicDashboardCtrl.ePage.Masters.TempComponentList, '!DC_ShowByDefault');
             var _ComponentList = angular.copy(DynamicDashboardCtrl.ePage.Masters.TempComponentList);
@@ -547,9 +651,7 @@
         // #endregion
         // #region - get component details
         function GetComponentListDetails() {
-            var _filter = {
-
-            };
+            var _filter = {};
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
                 "FilterID": dynamicDashboardConfig.Entities.DASComponents.API.FindAll.FilterID
@@ -560,12 +662,64 @@
                     DynamicDashboardCtrl.ePage.Masters.TotalComponentList = angular.copy(response.data.Response);
                 }
             });
-            // _obj = $filter('orderBy')(_obj, 'SequenceNo');
-            // DynamicDashboardCtrl.ePage.Masters.TotalComponentList = angular.copy(_obj);
-            // DynamicDashboardCtrl.ePage.Masters.TotalComponentList = $filter('orderBy')(DynamicDashboardCtrl.ePage.Masters.TotalComponentList, '!ShowByDefault');
         }
         // #endregion
+        //#region User Based Table Column
+        function GetUserBasedComponentList() {
+            var _filter = {
+                "SAP_FK": authService.getUserInfo().AppPK,
+                "TenantCode": authService.getUserInfo().TenantCode,
+                "SourceEntityRefKey": authService.getUserInfo().UserId,
+                "EntitySource": "DASHBOARD_COMPONENTS",
+            };
+            var _input = {
+                "searchInput": helperService.createToArrayOfObject(_filter),
+                "FilterID": appConfig.Entities.UserSettings.API.FindAll.FilterID
+            };
 
+            apiService.post("eAxisAPI", appConfig.Entities.UserSettings.API.FindAll.Url + authService.getUserInfo().AppPK, _input).then(function (response) {
+                if (response.data.Response[0]) {
+                    DynamicDashboardCtrl.ePage.Masters.UserValue = response.data.Response[0];
+                    if (response.data.Response[0].Value != '') {
+                        var obj = JSON.parse(response.data.Response[0].Value)
+                        DynamicDashboardCtrl.ePage.Masters.UserBasedComponentList = obj;
+                        DynamicDashboardCtrl.ePage.Masters.TempComponentList = $filter('filter')(DynamicDashboardCtrl.ePage.Masters.TempComponentList, { DC_IsEnabled: true })
+                        angular.forEach(DynamicDashboardCtrl.ePage.Masters.UserBasedComponentList, function (value, key) {
+                            angular.forEach(DynamicDashboardCtrl.ePage.Masters.TempComponentList, function (value1, key1) {
+                                if (value.DC_PK == value1.DC_PK) {
+                                    value1.DC_DisplayOrder = value.DC_DisplayOrder;
+                                    value1.DC_IsEnabled = value.DC_IsEnabled;
+                                    value1.DC_LoadByDefault = value.DC_LoadByDefault;
+                                    value1.DC_ShowByDefault = value.DC_ShowByDefault
+                                }
+                            });
+                        });
+                        DynamicDashboardCtrl.ePage.Masters.UserHasValue = true;
+                        DynamicDashboardCtrl.ePage.Masters.TempComponentList = $filter('orderBy')(DynamicDashboardCtrl.ePage.Masters.TempComponentList, 'DC_DisplayOrder');
+                        DynamicDashboardCtrl.ePage.Masters.TempComponentList = $filter('orderBy')(DynamicDashboardCtrl.ePage.Masters.TempComponentList, '!DC_ShowByDefault');
+                        DynamicDashboardCtrl.ePage.Masters.IsShowDetails = $filter('filter')(DynamicDashboardCtrl.ePage.Masters.TempComponentList, { DC_IsEnabled: true })
+                        var LoadedAsDefaultDetails = $filter('filter')(DynamicDashboardCtrl.ePage.Masters.IsShowDetails, { DC_ShowByDefault: true })
+                        if (LoadedAsDefaultDetails.length >= 0) {
+                            dynamicDashboardConfig.LoadMoreCount = LoadedAsDefaultDetails.length;
+                        }
+                        dynamicDashboardConfig.LoadedDirectiveCount = 0;
+                        DynamicDashboardCtrl.ePage.Masters.ComponentList = angular.copy(LoadedAsDefaultDetails);
+                    }
+                } else {
+                    DynamicDashboardCtrl.ePage.Masters.UserValue = undefined;
+                    DynamicDashboardCtrl.ePage.Masters.TempComponentList = $filter('orderBy')(DynamicDashboardCtrl.ePage.Masters.TempComponentList, 'DC_DisplayOrder');
+                    DynamicDashboardCtrl.ePage.Masters.TempComponentList = $filter('orderBy')(DynamicDashboardCtrl.ePage.Masters.TempComponentList, '!DC_ShowByDefault');
+                    DynamicDashboardCtrl.ePage.Masters.IsShowDetails = $filter('filter')(DynamicDashboardCtrl.ePage.Masters.TempComponentList, { DC_IsEnabled: true })
+                    var LoadedAsDefaultDetails = $filter('filter')(DynamicDashboardCtrl.ePage.Masters.IsShowDetails, { DC_ShowByDefault: true })
+                    if (LoadedAsDefaultDetails.length >= 0) {
+                        dynamicDashboardConfig.LoadMoreCount = LoadedAsDefaultDetails.length;
+                    }
+                    dynamicDashboardConfig.LoadedDirectiveCount = 0;
+                    DynamicDashboardCtrl.ePage.Masters.ComponentList = angular.copy(LoadedAsDefaultDetails);
+                }
+            })
+        }
+        //#endregion
         Init();
 
     }

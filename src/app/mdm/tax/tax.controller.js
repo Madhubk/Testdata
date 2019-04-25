@@ -18,7 +18,7 @@
                 "Meta": helperService.metaBase(),
                 "Entities": taxConfig.Entities
             };
-            
+
             TaxCtrl.ePage.Masters.DataentryName = taxConfig.DataentryName;
             TaxCtrl.ePage.Masters.Title = taxConfig.DataentryTitle;
 
@@ -37,7 +37,7 @@
             TaxCtrl.ePage.Masters.AddTab = AddTab;
             TaxCtrl.ePage.Masters.RemoveTab = RemoveTab;
             TaxCtrl.ePage.Masters.CreateNewTax = CreateNewTax;
-            
+
             /* ErrorWarningConfig */
             TaxCtrl.ePage.Masters.Config = taxConfig;
             TaxCtrl.ePage.Masters.ErrorWarningConfig = errorWarningService;

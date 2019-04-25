@@ -26,12 +26,12 @@
                             "GetById": {
                                 "IsAPI": "true",
                                 "HttpType": "GET",
-                                "Url": "AccTaxRate/GetById/"
+                                "Url": "AccTaxRateDetailsList/GetById/"
                             },
                             "AccTaxRateActivityClose": {
                                 "IsAPI": "true",
                                 "HttpType": "GET",
-                                "Url": "AccTaxRate/AccTaxRateGroupActivityClose/"
+                                "Url": "AccTaxRateDetailsList/AccTaxRateDetailsListActivityClose/"
                             }
                         }
                     }
@@ -64,12 +64,12 @@
                             "InsertTaxRate": {
                                 "IsAPI": "true",
                                 "HttpType": "POST",
-                                "Url": "AccTaxRate/Insert"
+                                "Url": "AccTaxRateDetailsList/Insert"
                             },
                             "UpdateTaxRate": {
                                 "IsAPI": "true",
                                 "HttpType": "POST",
-                                "Url": "AccTaxRate/Update"
+                                "Url": "AccTaxRateDetailsList/Update"
                             }
                         },
                         "Meta": {
@@ -77,11 +77,19 @@
                             "ErrorWarning": {
                                 "GlobalErrorWarningList": [],
                                 "Code": helperService.metaBase(),
+                                "Description": helperService.metaBase(),
+                                "Type": helperService.metaBase(),
+                                "Tax": helperService.metaBase(),
                                 "Country": helperService.metaBase(),
+                                "UIAccTaxRateDetails": helperService.metaBase()
                             }
                         },
+                        "GlobalVariables": {
+                            "SelectAll": false,
+                            "IsDisablePost": true
+                        },
                         "TableProperties": {
-                            "UITaxHierarchy": {
+                            "UIAccTaxRateDetails": {
                                 "TableHeight": {
                                     "isEnabled": true,
                                     "height": 180
@@ -89,7 +97,7 @@
                                 "ccheckbox": {
                                     "isenabled": true,
                                     "position": '1',
-                                    "width": "55"
+                                    "width": "30"
                                 },
                                 "ttaxsno": {
                                     "isenabled": true,
@@ -99,12 +107,12 @@
                                 "ttaxsubcode": {
                                     "isenabled": true,
                                     "position": '3',
-                                    "width": "296"
+                                    "width": "160"
                                 },
                                 "ttaxsubcoderate": {
                                     "isenabled": true,
                                     "position": '4',
-                                    "width": "295"
+                                    "width": "160"
                                 },
                             }
                         }
@@ -178,9 +186,20 @@
             var _Data = $item[$item.code].ePage.Entities,
                 _input = _Data.Header.Data;
 
-            //UITax Validations 
-            OnChangeValues(_input.Code, 'E1207', false, undefined, $item.code);
-            OnChangeValues(_input.Country, 'E1208', false, undefined, $item.code);
+            //UIAccTaxRate Validations 
+            OnChangeValues(_input.UIAccTaxRate.Code, 'E1207', false, undefined, $item.code);
+            OnChangeValues(_input.UIAccTaxRate.Description, 'E1209', false, undefined, $item.code);
+            OnChangeValues(_input.UIAccTaxRate.Type, 'E1210', false, undefined, $item.code);
+            OnChangeValues(_input.UIAccTaxRate.RateObsolete, 'E1211', false, undefined, $item.code);
+            OnChangeValues(_input.UIAccTaxRate.RN_NKCountry, 'E1208', false, undefined, $item.code);
+
+            //UIAccTaxRateDetails Validations
+            if (_input.UIAccTaxRateDetails.length > 0) {
+                angular.forEach(_input.UIAccTaxRateDetails, function (value, key) {
+                   // OnChangeValues(value.Code, 'E1212', true, key, $item.code);
+                      OnChangeValues(value.Rate, 'E1213', true, key, $item.code);
+                });
+            }
         }
 
         function OnChangeValues(fieldvalue, code, IsArray, RowIndex, label) {

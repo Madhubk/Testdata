@@ -34,16 +34,6 @@
                             }
                         }
                     },
-                    // "UIJobCharge": {
-                    //     "RowIndex": -1,
-                    //     "API": {
-                    //         "JobChargeDelete": {
-                    //             "IsAPI": "true",
-                    //             "HttpType": "Get",
-                    //             "Url": "JobCharge/Delete/"
-                    //         }
-                    //     }
-                    // },
                     "JobHeader": {
                         "RowIndex": -1,
                         "API": {
@@ -77,18 +67,17 @@
                             }
                         }
                     },
-
-                    // "CfxTypes": {
-                    //     "RowIndex": -1,
-                    //     "API": {
-                    //         "DynamicFindAll": {
-                    //             "IsAPI": "true",
-                    //             "HttpType": "POST",
-                    //             "Url": "cfxtypes/DynamicFindAll/",
-                    //             "FilterID": "CFXTYPE"
-                    //         }
-                    //     }
-                    // }
+                    "CmpCompany":{
+                        "RowIndex": -1,
+                        "API":{
+                            "FindAll":{
+                                "IsAPI": "true",
+                                "HttpType": "Post",
+                                "Url": "CmpCompany/FindAll",
+                                "FilterID": "CMPCOMP"  
+                            }
+                        }
+                    }
                 }
             },
             "TabList": [],

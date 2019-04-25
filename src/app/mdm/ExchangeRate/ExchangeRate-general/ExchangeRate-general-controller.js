@@ -31,11 +31,15 @@
             console.log(ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList);
             console.log(ExchangeRateGeneralCtrl.ePage.Masters);
 
+
             // Date Picker
             ExchangeRateGeneralCtrl.ePage.Masters.DatePicker = {};
             ExchangeRateGeneralCtrl.ePage.Masters.DatePicker.Options = APP_CONSTANT.DatePicker;
             ExchangeRateGeneralCtrl.ePage.Masters.DatePicker.isOpen = [];
             ExchangeRateGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker = OpenDatePicker;
+
+            //Date Picker Validation
+            ExchangeRateGeneralCtrl.ePage.Masters.OnChangeDate=OnChangeDate;
 
             console.log(ExchangeRateGeneralCtrl.ePage.Entities.Header.TableProperties.lstUIMstExchangeRate.ccheckbox.isenabled);
 
@@ -84,29 +88,59 @@
         // #endregion
 
         //#region ErrorWarning Alert Validation
-        function OnChangeValues(fieldvalue, code, IsArray, RowIndex) {            
+        function OnChangeValues(fieldvalue, code, IsArray, RowIndex) {
+            debugger;
             if (fieldvalue != '') {
                 if (code == "E1327") {
+                    if(ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.UIMstExchangeRate.Rate != null && ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.UIMstExchangeRate.Rate !=""){
                     ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.UIMstExchangeRate.Rate
                     ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.UIMstExchangeRate.ConvFromAtoB = ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.UIMstExchangeRate.Rate;
                     ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.UIMstExchangeRate.ConvFromBtoA = 1 / ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.UIMstExchangeRate.Rate;
+                    }
+                }
+                else {
+                    angular.forEach(ExchangeRateGeneralCtrl.ePage.Masters.Config.ValidationValues, function (value, key) {
+                        if (value.Code.trim() === code) {
+                            GetErrorMessage(fieldvalue, value, IsArray, RowIndex)
+                        }
+                    });
                 }
 
             }
-            else {
-                angular.forEach(ExchangeRateGeneralCtrl.ePage.Masters.Config.ValidationValues, function (value, key) {
-                    if (value.Code.trim() === code) {
-                        GetErrorMessage(fieldvalue, value, IsArray, RowIndex)
-                    }
-                });
-            }
+            
         }
 
 
+        function OnChangeDate($item,$type){
+            
+            if($type='StartDate'){
+                //ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.lstUIMstExchangeRate.contains($item);
+            }
+            else if($type=='ExpiryDate'){}
+            console.log($item);
+            
+        }
+
+        function SelectedLookupData($index, $item, type) {
+            if (type == 'ToCurrency') {
+                if (ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.UIMstExchangeRate.FromCurrency != null && $item.Code != ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.UIMstExchangeRate.FromCurrency) {
+                    var _filter = {
+                        "FromCurrency": ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.UIMstExchangeRate.FromCurrency,
+                        "NKExCurrency": $item.Code
+                    };
+                    var _input = {
+                        "searchInput": helperService.createToArrayOfObject(_filter),
+                        "FilterID": exchangerateConfig.Entities.API.ExchangerateMaster.API.ExRateList.FilterID
+                    };
 
 
-        function SelectedLookupData($item) {
-
+                    apiService.post("eAxisAPI", exchangerateConfig.Entities.API.ExchangerateMaster.API.ExRateList.Url, _input).then(function (response) {
+                        if (response.data.Response) {
+                            ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.lstUIMstExchangeRate = response.data.Response;
+                        }
+                    });
+                }
+            }
         }
 
         //#region DatePicker
@@ -148,12 +182,7 @@
             }
         }
         //#endregion 
-        function onExRateChanges($index, ExRate, type) {
-            if (type == 'ExRateAmnt') {
-                ExchangeRateGeneralCtrl.ePage.Entities.Header.Data.UIExchangerateList[$index].ExRate = ExRate;
-                OnChangeValues(ExchangeRateGeneralCtrl.ePage.Entities.Header.Data.UIExchangerateList[$index].ExRate, 'E1196', true, $index);
-            }
-        }
+        
         Init()
     }
 })();

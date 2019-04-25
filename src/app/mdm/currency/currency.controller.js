@@ -47,7 +47,6 @@
         }
 
         function SelectedGridRow($item) {
-debugger;
             if ($item.action === "link" || $item.action === "dblClick") {
                 CurrencyCtrl.ePage.Masters.AddTab($item.data, false);
             } else if ($item.action === "new") {

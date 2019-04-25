@@ -751,6 +751,16 @@
                     'app/mdm/transports/types/consol-event/consol-event.directive.js'
                 ]
             },
+            // #region Financesss
+            {
+                name: "Finance",
+                files: [
+                    'app/mdm/warehouse/customize-table/customize-table.css',
+                    'app/mdm/warehouse/customize-table/customize-table.directive.js',
+                    'app/mdm/warehouse/custom/customfilter.js'
+                ]
+            },
+            // #endregion
             //#region Creditor
             {
                 name: 'creaditor',
@@ -864,14 +874,6 @@
                     'app/mdm/exchangeRate/exchangeRate-general/exchangeRate-general-controller.js'
                 ]
             },
-            {
-                name:"Finance",
-                files:[
-                    'app/mdm/warehouse/customize-table/customize-table.css',
-                    'app/mdm/warehouse/customize-table/customize-table.directive.js',
-                    'app/mdm/warehouse/custom/customfilter.js'
-                ]
-            },
             //#endregion
             //#region ChargeCode
             {
@@ -880,6 +882,48 @@
                     'app/mdm/chargecode/chargecode-config.factory.js',
                     'app/mdm/chargecode/chargecode.controller.js',
                     'app/mdm/chargecode/chargecode.css'
+                ]
+            },
+            {
+                name: 'chargeCodeGeneral',
+                files: [
+                    'app/mdm/chargecode/chargecode-general/chargecode-general.controller.js',
+                    'app/mdm/chargecode/chargecode-general/chargecode-general.directive.js'
+                ]
+            },
+            {
+                name: 'chargeCodeDetails',
+                files: [
+                    'app/mdm/chargecode/chargecode-details/chargecode-details.controller.js',
+                    'app/mdm/chargecode/chargecode-details/chargecode-details.directive.js'
+                ]
+            },
+            {
+                name: 'chargeCodeTaxcode',
+                files: [
+                    'app/mdm/chargecode/chargecode-taxcode/chargecode-taxcode.controller.js',
+                    'app/mdm/chargecode/chargecode-taxcode/chargecode-taxcode.directive.js'
+                ]
+            },
+            {
+                name: 'chargeCodeGLposting',
+                files: [
+                    'app/mdm/chargecode/chargecode-glpost/chargecode-glpost.controller.js',
+                    'app/mdm/chargecode/chargecode-glpost/chargecode-glpost.directive.js'
+                ]
+            },
+            {
+                name: 'chargeCodeInvoice',
+                files: [
+                    'app/mdm/chargecode/chargecode-invoice/chargecode-invoice.controller.js',
+                    'app/mdm/chargecode/chargecode-invoice/chargecode-invoice.directive.js'
+                ]
+            },
+            {
+                name: 'chargeCodeMenu',
+                files: [
+                    'app/mdm/chargecode/chargecode-menu/chargecode-menu.controller.js',
+                    'app/mdm/chargecode/chargecode-menu/chargecode-menu.directive.js'
                 ]
             }
             //#endregion

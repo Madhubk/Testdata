@@ -91,12 +91,21 @@
                 "DASDashBoardList": {
                     "RowIndex": -1,
                     "API": {
-                        "FindAll": {
+                        "GetById": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "DASDashBoardList/GetById/"
+                        },
+                        "Insert": {
                             "IsAPI": "true",
                             "HttpType": "POST",
-                            "Url": "DASDashBoardList/FindAll",
-                            "FilterID": "DASDBL"
-                        }
+                            "Url": "DASDashBoardList/Insert"
+                        },
+                        "Update": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "DASDashBoardList/Update"
+                        },
                     }
                 },
                 "DASComponents": {

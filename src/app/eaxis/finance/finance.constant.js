@@ -34,7 +34,6 @@
         }, {
             name: "FinanceJob",
             files: [
-                "app/eaxis/finance/finance-job/finance-job.css",
                 "app/eaxis/finance/finance-job/finance-job.controller.js"
             ]
         }, {

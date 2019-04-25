@@ -1,0 +1,44 @@
+<div class="wms-menu-wraper">
+	
+	<chargecode-general current-chargecode="ChargecodeMenuCtrl.currentChargecode"></chargecode-general>
+
+    <uib-tabset id="wmsMenuWrapper{{ChargecodeMenuCtrl.currentChargecode.label}}" class="p-10">
+        <uib-tab ng-repeat="x in ChargecodeMenuCtrl.ePage.Masters.ChargecodeMenu.ListSource">
+            <uib-tab-heading title="{{x.DisplayName}}">
+                <i class="{{x.Icon}} mr-5"></i>
+                <span class="text-single-line" data-ng-bind="x.DisplayName"></span>
+            </uib-tab-heading>
+            <div>
+                <div ng-switch="x.Value">
+                    <div ng-switch-when="Details">
+                        <chargecode-detail current-Chargecode="ChargecodeMenuCtrl.currentChargecode">
+                        </chargecode-detail>
+                    </div>
+                    <div ng-switch-when="Tax">
+                        <chargecode-taxcode current-chargecode="ChargecodeMenuCtrl.currentChargecode">
+                        </chargecode-taxcode>
+                    </div>
+                    <div ng-switch-when="GL">
+                        <chargecode-glpost current-chargecode="ChargecodeMenuCtrl.currentChargecode">
+                        </chargecode-glpost>
+                    </div>
+                    <div ng-switch-when="Invoice">
+                        <chargecode-invoice current-chargecode="ChargecodeMenuCtrl.currentChargecode">
+                        </chargecode-invoice>
+                    </div>
+                </div>
+            </div>
+        </uib-tab>
+    </uib-tabset>
+</div>
+<div class="eaxis-footer-strip">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+        <span class="dropup pull-right">
+            <span class="pull-right">
+                <button type="button" class="btn btn-primary btn-sm margin-top-5" data-ng-bind="ChargecodeMenuCtrl.ePage.Masters.SaveButtonText"
+                    data-ng-click="ChargecodeMenuCtrl.ePage.Masters.Validation(ChargecodeMenuCtrl.currentChargecode)" data-ng-disabled="ChargecodeMenuCtrl.ePage.Masters.DisableSave">
+                </button>
+            </span>
+        </span>
+    </div>
+</div>

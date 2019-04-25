@@ -23,18 +23,14 @@
             FinanceJobListCtrl.ePage.Masters.CurrentFinanceJob = [];
 
             /* Function */
+            FinanceJobListCtrl.ePage.Masters.JobListClose = JobListClose;
             FinanceJobListCtrl.ePage.Masters.Close = Close;
             FinanceJobListCtrl.ePage.Masters.AddNewJob = AddNewJob;
             FinanceJobListCtrl.ePage.Masters.SelectedGridRow = SelectedGridRow;
 
             financeConfig.ValidationFindall();
-
-            if (CurrentFinanceJob) {
-                InitBilling();
-            }
-            // else {
-            //     FinanceJobListCtrl.ePage.Masters.FinanceListEmpty = true;
-            // }
+            
+            InitBilling();
         }
 
         function InitBilling() {
@@ -68,17 +64,13 @@
             }
         }
 
-        function Close() {
-            FinanceJobListCtrl.ePage.Masters.CurrentFinanceJob.splice(0, 1);
-            $uibModalInstance.dismiss('close');
-        }
-
         function AddNewJob() {
             FinanceJobListCtrl.ePage.Masters.FinanceList = false;
 
             helperService.getFullObjectUsingGetById(financeConfig.Entities.API.JobHeaderList.API.GetById.Url, 'null').then(function (response) {
                 if (response.data.Response) {
                     if (CurrentFinanceJob) {
+                        FinanceJobListCtrl.ePage.Masters.JobHeader = response.data.Response;
                         response.data.Response.UIJobHeader.AgentOrg_Code = CurrentFinanceJob.AgentOrg_Code;
                         response.data.Response.UIJobHeader.Agent_Org_FK = CurrentFinanceJob.Agent_Org_FK;
                         response.data.Response.UIJobHeader.LocalOrg_Code = CurrentFinanceJob.LocalOrg_Code;
@@ -96,21 +88,47 @@
                         response.data.Response.UIJobHeader.EntityRefKey = CurrentFinanceJob.EntityRefKey;
                         response.data.Response.UIJobHeader.HeaderType = CurrentFinanceJob.HeaderType;
                     }
-                }
 
-                var _obj = {
-                    entity: response.data.Response.UIJobHeader,
-                    data: response.data.Response,
-                    Validations: response.data.Response.Validations
-                };
+                    /* AddNew Get Company Local Currency */
+                    if (CurrentFinanceJob.GC) {
+                        var _filter = {
+                            PK: CurrentFinanceJob.GC,
+                        };
 
-                financeConfig.GetTabDetails(_obj, true).then(function (response) {
-                    if (response) {
-                        FinanceJobListCtrl.ePage.Masters.FinanceList = false;
-                        FinanceJobListCtrl.ePage.Masters.CurrentFinanceJob = response;
+                        var _input = {
+                            "searchInput": helperService.createToArrayOfObject(_filter),
+                            "FilterID": financeConfig.Entities.API.CmpCompany.API.FindAll.FilterID
+                        };
+
+                        apiService.post("eAxisAPI", financeConfig.Entities.API.CmpCompany.API.FindAll.Url, _input).then(function (response) {
+                            if (response.data.Status == "Success") {
+                                FinanceJobListCtrl.ePage.Masters.JobHeader.UIJobHeader.CompanyLocalCurrency = response.data.Response[0].LocalCurrency;
+
+                                var _obj = {
+                                    entity: FinanceJobListCtrl.ePage.Masters.JobHeader.UIJobHeader,
+                                    data: FinanceJobListCtrl.ePage.Masters.JobHeader,
+                                    Validations: FinanceJobListCtrl.ePage.Masters.JobHeader.Validations
+                                };
+            
+                                financeConfig.GetTabDetails(_obj, true).then(function (response) {
+                                    if (response) {
+                                        FinanceJobListCtrl.ePage.Masters.CurrentFinanceJob = response;
+                                    }
+                                });
+                            }
+                        });
                     }
-                });
+                }
             });
+        }
+
+        function JobListClose() {
+            $uibModalInstance.dismiss('close');
+        }
+
+        function Close() {
+            FinanceJobListCtrl.ePage.Masters.CurrentFinanceJob.splice(0, 1);
+            FinanceJobListCtrl.ePage.Masters.FinanceList = true;
         }
 
         Init();

@@ -1,10 +1,11 @@
+<div data-ng-if="FinanceJobListCtrl.ePage.Masters.FinanceList">
 <div class="modal-header">
-    <button type="button" class="close" data-ng-click="FinanceJobListCtrl.ePage.Masters.Close()">&times;</button>
+    <button type="button" class="close" data-ng-click="FinanceJobListCtrl.ePage.Masters.JobListClose()">&times;</button>
     <h5 class="modal-title pull-left">
         <strong>Finance Job List</strong>
     </h5>
 </div>
-<div class="modal-body" data-ng-if="FinanceJobListCtrl.ePage.Masters.FinanceList">
+<div class="modal-body">
     <div class="clearfix">
         <button class="btn btn-sm btn-outline-secondary pull-right mr-5 mt-5" data-ng-click="FinanceJobListCtrl.ePage.Masters.AddNewJob()">
             <i class="fa fa-plus-circle"></i> Add Job
@@ -84,11 +85,24 @@
             </div>
         </div>
         <div class="grid-no-record-border-box text-center p-30">
-            <span class="grid-no-record-shipment job-empty-top" data-ng-if="FinanceJobListCtrl.ePage.Masters.CurrentFinanceJobList.length==0">No records found...</span>
+            <span class="grid-no-record-shipment job-empty-top" data-ng-if="FinanceJobListCtrl.ePage.Masters.CurrentFinanceJobList.length==0">No records found...</span> 
+            <!-- <span class="grid-no-record-shipment job-empty-top" data-ng-if="FinanceJobListCtrl.ePage.Masters.FinanceListEmpty">No records found...</span> -->
         </div>
     </div>
 </div>
-<div class="modal-body" style="overflow-x: hidden;" data-ng-repeat="tab in FinanceJobListCtrl.ePage.Masters.CurrentFinanceJob" data-ng-if="!FinanceJobListCtrl.ePage.Masters.FinanceList">
-        <finance-job-menu current-finance-job="tab"></finance-job-menu>
+<div class="modal-footer">
 </div>
-<div class="modal-footer"></div>
+</div>
+<div data-ng-if="!FinanceJobListCtrl.ePage.Masters.FinanceList">
+    <div class="modal-header">
+        <button type="button" class="close" data-ng-click="FinanceJobListCtrl.ePage.Masters.Close()">&times;</button>
+            <h5 class="modal-title pull-left">
+                <strong>Finance Job</strong>
+            </h5>
+    </div>
+    <div class="modal-body" style="overflow-x: hidden;" data-ng-repeat="tab in FinanceJobListCtrl.ePage.Masters.CurrentFinanceJob">
+        <finance-job-menu current-finance-job="tab"></finance-job-menu>
+    </div>
+    <div class="modal-footer">
+    </div>
+</div>
