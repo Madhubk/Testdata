@@ -833,28 +833,6 @@
                 }
             })
 
-            .state('EA.WMS.dynamicDashboard', {
-                url: '/dynamic-dashboard',
-                templateUrl: 'app/eaxis/dynamic-dashboard/dynamic-dashboard.html',
-                controller: "DynamicDashboardController as DynamicDashboardCtrl",
-                ncyBreadcrumb: {
-                    label: 'Dashboard'
-                },
-                resolve: {
-                    CheckAccess: ["$q", "pageAccessService", function ($q, pageAccessService) {
-                        var deferred = $q.defer();
-                        if (pageAccessService.CheckAuthToken()) {
-                            deferred.resolve();
-                        }
-                        return deferred.promise;
-                    }],
-                    LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
-                        return $ocLazyLoad.load(["chromeTab", "confirmation", "compareDate", "dynamicListModal", "dynamicList", "dynamicLookup", "dynamicControl", "dynamicGrid", "drogAndDrop", "oneLevelMapping", "Summernote", "IconColorList", "dynamicDashboard", "PreviewDashboard", "AsnReceivedWithStatus", "AsnTrend", "OpenSO", "PickWithShortfall", "PutawayStatus", "GrnStatus", "CycleCountJobs", "Notification"]);
-                    }]
-                }
-            })
-
-
             .state('EA.WMS.ConsolidatedDocument', {
                 url: '/consolidated-document',
                 templateUrl: 'app/eaxis/warehouse/consolidated-document/consolidated-document.html',
