@@ -36,14 +36,14 @@
                 </div>
             </div>
         </div>
-        <!-- Warehouse -->
+        <!--Pickup Warehouse -->
         <div class="col-xs-12 col-sm-12 col-md-2 col-lg-3 col-xl-3">
             <div class="form-group">
-                <label class="control-label text-single-line">Warehouse</label>
+                <label class="control-label text-single-line">Pickup Warehouse</label>
                 <div class="">
                     <input type="text" disabled
                         class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
-                        placeholder="Warehouse"
+                        placeholder="Pickup Warehouse"
                         data-ng-model="TrackDamageGeneralCtrl.ePage.Entities.Header.Data.Warehouse">
                 </div>
             </div>
@@ -120,10 +120,10 @@
                 </div>
             </div>
         </div>
-        <!-- Requested Date Time -->
+        <!-- Pickup Requested Date Time -->
         <div class="col-xs-12 col-sm-12 col-md-2 col-lg-3 col-xl-3">
             <div class="form-group">
-                <label class="control-label text-single-line">Requested Date Time</label>
+                <label class="control-label text-single-line">Pickup Requested Date Time</label>
                 <div class="input-group input-group-sm">
                     <input type="text" disabled class="form-control"
                         placeholder="{{TrackDamageGeneralCtrl.ePage.Masters.DatePicker.Options.dateTimeFormat}}"
@@ -144,10 +144,10 @@
                 </div>
             </div>
         </div>
-        <!-- Request Mode -->
+        <!-- Pickup Request Mode -->
         <div class="col-xs-12 col-sm-12 col-md-2 col-lg-3 col-xl-3">
             <div class="form-group">
-                <label class="control-label text-single-line">Request Mode</label>
+                <label class="control-label text-single-line">Pickup Request Mode</label>
                 <div class="">
                     <input type="text" disabled
                         class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
@@ -389,7 +389,7 @@
             <div class="form-group">
                 <label class="control-label text-single-line">Inward Customer Reference</label>
                 <div class="">
-                    <input type="text" disabled
+                    <input type="text"
                         class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
                         placeholder="Inward Customer Reference"
                         data-ng-model="TrackDamageGeneralCtrl.ePage.Entities.Header.Data.PIW_CustomerReference">
@@ -413,7 +413,7 @@
             <div class="form-group">
                 <label class="control-label text-single-line">CTR Customer Reference</label>
                 <div class="">
-                    <input type="text" disabled
+                    <input type="text"
                         class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
                         placeholder="Customer Reference"
                         data-ng-model="TrackDamageGeneralCtrl.ePage.Entities.Header.Data.CTR_CustomerReference">
@@ -437,7 +437,7 @@
             <div class="form-group">
                 <label class="control-label text-single-line">CTR Inward Customer Reference</label>
                 <div class="">
-                    <input type="text" disabled
+                    <input type="text"
                         class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
                         placeholder="Customer Reference"
                         data-ng-model="TrackDamageGeneralCtrl.ePage.Entities.Header.Data.CTR_INW_CustomerReference">
@@ -449,7 +449,7 @@
             <div class="form-group">
                 <label class="control-label text-single-line">CTR Inward External Reference</label>
                 <div class="">
-                    <input type="text" disabled
+                    <input type="text"
                         class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
                         placeholder="External Reference"
                         data-ng-model="TrackDamageGeneralCtrl.ePage.Entities.Header.Data.CTR_INW_ExternalRefNumber">
@@ -473,7 +473,7 @@
             <div class="form-group">
                 <label class="control-label text-single-line">CTR Outward External Reference</label>
                 <div class="">
-                    <input type="text" disabled
+                    <input type="text"
                         class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
                         placeholder="External Reference"
                         data-ng-model="TrackDamageGeneralCtrl.ePage.Entities.Header.Data.CTR_OUT_ExternalRefNumber">
@@ -497,7 +497,7 @@
             <div class="form-group">
                 <label class="control-label text-single-line">CTT Inward Customer Reference</label>
                 <div class="">
-                    <input type="text" disabled
+                    <input type="text"
                         class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
                         placeholder="Customer Reference"
                         data-ng-model="TrackDamageGeneralCtrl.ePage.Entities.Header.Data.CTT_INW_CustomerReference">
@@ -509,7 +509,7 @@
             <div class="form-group">
                 <label class="control-label text-single-line">CTT Inward External Reference</label>
                 <div class="">
-                    <input type="text" disabled
+                    <input type="text"
                         class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
                         placeholder="External Reference"
                         data-ng-model="TrackDamageGeneralCtrl.ePage.Entities.Header.Data.CTT_INW_ExternalRefNumber">
@@ -533,7 +533,7 @@
             <div class="form-group">
                 <label class="control-label text-single-line">CTT Outward Customer Reference</label>
                 <div class="">
-                    <input type="text" disabled
+                    <input type="text"
                         class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
                         placeholder="Customer Reference"
                         data-ng-model="TrackDamageGeneralCtrl.ePage.Entities.Header.Data.CTT_OUT_CustomerReference">
@@ -545,7 +545,7 @@
             <div class="form-group">
                 <label class="control-label text-single-line">CTT Outward External Reference</label>
                 <div class="">
-                    <input type="text" disabled
+                    <input type="text"
                         class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
                         placeholder="External Reference"
                         data-ng-model="TrackDamageGeneralCtrl.ePage.Entities.Header.Data.CTT_OUT_ExternalRefNumber">
@@ -593,7 +593,7 @@
             <div class="form-group">
                 <label class="control-label text-single-line">STC Inward Customer Reference</label>
                 <div class="">
-                    <input type="text" disabled
+                    <input type="text"
                         class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
                         placeholder="STC Inward Customer Reference"
                         data-ng-model="TrackDamageGeneralCtrl.ePage.Entities.Header.Data.STC_INW_CustomerReference">
@@ -605,7 +605,7 @@
             <div class="form-group">
                 <label class="control-label text-single-line">STC Inward External Reference</label>
                 <div class="">
-                    <input type="text" disabled
+                    <input type="text"
                         class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
                         placeholder="STC Inward External Reference"
                         data-ng-model="TrackDamageGeneralCtrl.ePage.Entities.Header.Data.STC_INW_ExternalRefNumber">
@@ -629,7 +629,7 @@
             <div class="form-group">
                 <label class="control-label text-single-line">STC Outward Customer Reference</label>
                 <div class="">
-                    <input type="text" disabled
+                    <input type="text"
                         class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
                         placeholder="STC Outward Customer Reference"
                         data-ng-model="TrackDamageGeneralCtrl.ePage.Entities.Header.Data.STC_OUT_CustomerReference">
@@ -641,7 +641,7 @@
             <div class="form-group">
                 <label class="control-label text-single-line">STC Outward External Reference</label>
                 <div class="">
-                    <input type="text" disabled
+                    <input type="text"
                         class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
                         placeholder="STC Outward External Reference"
                         data-ng-model="TrackDamageGeneralCtrl.ePage.Entities.Header.Data.STC_OUT_ExternalRefNumber">
@@ -701,7 +701,7 @@
             <div class="form-group">
                 <label class="control-label text-single-line">TTC Inward Customer Reference</label>
                 <div class="">
-                    <input type="text" disabled
+                    <input type="text"
                         class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
                         placeholder="TTC Inward Customer Reference"
                         data-ng-model="TrackDamageGeneralCtrl.ePage.Entities.Header.Data.TTC_INW_CustomerReference">
@@ -713,7 +713,7 @@
             <div class="form-group">
                 <label class="control-label text-single-line">TTC Inward External Reference</label>
                 <div class="">
-                    <input type="text" disabled
+                    <input type="text"
                         class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
                         placeholder="TTC Inward External Reference"
                         data-ng-model="TrackDamageGeneralCtrl.ePage.Entities.Header.Data.TTC_INW_ExternalRefNumber">
@@ -737,7 +737,7 @@
             <div class="form-group">
                 <label class="control-label text-single-line">TTC Outward Customer Reference</label>
                 <div class="">
-                    <input type="text" disabled
+                    <input type="text"
                         class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
                         placeholder="TTC Outward Customer Reference"
                         data-ng-model="TrackDamageGeneralCtrl.ePage.Entities.Header.Data.TTC_OUT_CustomerReference">
@@ -749,7 +749,7 @@
             <div class="form-group">
                 <label class="control-label text-single-line">TTC Outward External Reference</label>
                 <div class="">
-                    <input type="text" disabled
+                    <input type="text"
                         class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
                         placeholder="TTC Outward External Reference"
                         data-ng-model="TrackDamageGeneralCtrl.ePage.Entities.Header.Data.TTC_OUT_ExternalRefNumber">
@@ -809,7 +809,7 @@
             <div class="form-group">
                 <label class="control-label text-single-line">Repair To Central Customer Reference</label>
                 <div class="">
-                    <input type="text" disabled
+                    <input type="text"
                         class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
                         placeholder="Repair To Central Customer Reference"
                         data-ng-model="TrackDamageGeneralCtrl.ePage.Entities.Header.Data.RTC_CustomerReference">
@@ -833,7 +833,7 @@
             <div class="form-group">
                 <label class="control-label text-single-line">RTC Inward Customer Reference</label>
                 <div class="">
-                    <input type="text" disabled
+                    <input type="text"
                         class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
                         placeholder="RTC Inward Customer Reference"
                         data-ng-model="TrackDamageGeneralCtrl.ePage.Entities.Header.Data.RTC_INW_CustomerReference">
@@ -845,7 +845,7 @@
             <div class="form-group">
                 <label class="control-label text-single-line">RTC Inward External Reference</label>
                 <div class="">
-                    <input type="text" disabled
+                    <input type="text"
                         class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
                         placeholder="RTC Inward External Reference"
                         data-ng-model="TrackDamageGeneralCtrl.ePage.Entities.Header.Data.RTC_INW_ExternalRefNumber">
@@ -869,7 +869,7 @@
             <div class="form-group">
                 <label class="control-label text-single-line">RTC Outward External Reference</label>
                 <div class="">
-                    <input type="text" disabled
+                    <input type="text"
                         class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
                         placeholder="RTC Outward External Reference"
                         data-ng-model="TrackDamageGeneralCtrl.ePage.Entities.Header.Data.RTC_OUT_ExternalRefNumber">
