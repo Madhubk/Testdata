@@ -273,7 +273,7 @@
                             obj = {
                                 "PK": "",
                                 "FromCurrency": value.FromCurrency,
-                                "RX_NKRateCurrency": value.RX_NKExCurrency,
+                                "RX_NKRateCurrency": value.RX_NKRateCurrency,
                                 "BaseRate": value.BaseRate,
                                 "TodayBuyrate": value.TodayBuyrate,
                                 "Code": FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].CustomerCode,
@@ -281,8 +281,9 @@
                                 "OH_Org": FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].ORG_SellAccount,
                                 "EntitySource": "ERP",
                                 "CreatedDateTime": new Date(),
+                                "StateId": 0,
                                 "IsModified": false,
-                                "StateId": 0
+                                "IsDeleted": false
                             };
                             FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobExchangeRates.push(obj);
                             FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].RX_NKSellCurrency = FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].RX_NKCostCurrency;
@@ -379,9 +380,10 @@
                                 "OH_Org": Org_PK,
                                 "EntitySource": "ERP",
                                 "CreatedDateTime": new Date(),
+                                "StateId": 0,
                                 "IsModified": false,
-                                "StateId": 0
-                            };
+                                "IsDeleted": false
+                             };
                         }
                     });
                     FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobExchangeRates.push(obj);
