@@ -706,13 +706,17 @@
                             <td data-ng-show="FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.cestcost.isenabled" data-ng-class="{'gray-background':x.ChargeType == 'REV' || x.Costpost}"
                                 data-ng-style="{'width': FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.cestcost.width + 'px' }">
                                 <div data-ng-if="$index!=FinanceJobGeneralCtrl.ePage.Masters.selectedRow" class="overflow-text">
-                                    {{x.EstimatedCost | number:2 || FinanceJobGeneralCtrl.ePage.Masters.emptyText}}
+                                    {{x.DuplicateEstimatedCost || FinanceJobGeneralCtrl.ePage.Masters.emptyText}}
                                 </div>
                                 <div data-ng-if="$index==FinanceJobGeneralCtrl.ePage.Masters.selectedRow">
                                     <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0 height-22">
-                                        <input type="text" class="form-control input-sm" placeholder="0.00"  data-ng-model="x.EstimatedCost"
+                                        <!-- <input type="text" class="form-control input-sm" placeholder="0.00"  data-ng-model="x.EstimatedCost"
                                             data-ng-blur="FinanceJobGeneralCtrl.ePage.Masters.OnAmtChange($index, x.EstimatedCost,'EST','CRD')" data-ng-change='FinanceJobGeneralCtrl.ePage.Masters.OnChangeValues(x.EstimatedCost,"E1194",true,$index)'
-                                            data-ng-disabled="x.ChargeType =='REV' || x.Costpost" numbers-only-dot sb-precision="2"/>
+                                            data-ng-disabled="x.ChargeType =='REV' || x.Costpost" numbers-only-dot ng-currency fraction="2"/> -->
+                                            
+                                        <input type="text" class="form-control input-sm" placeholder="0.00"  data-ng-model="x.DuplicateEstimatedCost"
+                                            data-ng-blur="FinanceJobGeneralCtrl.ePage.Masters.OnAmtChange($index, x.DuplicateEstimatedCost,'EST', 'CRD', 'DuplicateEstimatedCost', 'EstimatedCost')" data-ng-change='FinanceJobGeneralCtrl.ePage.Masters.OnChangeValues(x.EstimatedCost,"E1194",true,$index)'
+                                            data-ng-disabled="x.ChargeType =='REV' || x.Costpost" numbers-only-dot />
                                     </div>
                                     <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="FinanceJobGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIJobCharge.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':14">
                                         <error-warning-directive  list="FinanceJobGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIJobCharge.ERROR"

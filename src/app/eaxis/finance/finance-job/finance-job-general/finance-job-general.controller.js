@@ -431,9 +431,12 @@
                 "CostReference": "",
                 "RX_NKCostCurrency": "",
                 "EstimatedCost": "",
+                "DuplicateEstimatedCost":"",
                 "OSCostAmt": "",
+                "DuplicateOSCostAmt":"",
                 "APVarience": "",
                 "LocalCostAmt": "",
+                "DuplicateLocalCostAmt":"",
                 "CostTaxCode": "",
                 "OSCostGSTAmt": "",
                 "OSCostExRate": "",
@@ -650,8 +653,24 @@
         }
         //#endregion
 
+        function dotArea(Amt, $index, duplicatetype, originaltype){
+            FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index][originaltype] = Amt;
+            if (Amt.includes('.')){
+                var Amt = Amt.split('.');
+                if (Amt[1] && Amt[1].length > 2) {
+                    Amt[1] = Amt[1].substring(0, 2);
+                    FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index][duplicatetype] = Amt[0] + '.' + Amt[1];
+                }
+            }else{
+                FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index][duplicatetype] = Amt + '.00'
+            }
+        }
+
         //#region AmountChange
-        function OnAmtChange($index, Amt, Cost, type) {
+        function OnAmtChange($index, Amt, Cost, type, duplicatetype, originaltype) {
+            
+            dotArea(Amt, $index, duplicatetype, originaltype);
+
             if (type == 'CRD') {
                 if (Cost == 'EST') {
                     //#region ChargeCode Margin Based Revenue Entry
