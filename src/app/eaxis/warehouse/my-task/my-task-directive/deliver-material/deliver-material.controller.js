@@ -205,28 +205,28 @@
                                                     DeliverMaterialCtrl.ePage.Entities.Header.ManifestDetails = response.data.Response;
                                                     myTaskActivityConfig.Entities.ManifestData = DeliverMaterialCtrl.ePage.Entities.Header.ManifestDetails;
 
-                                                    apiService.get("eAxisAPI", appConfig.Entities.WmsOutwardList.API.GetById.Url + DeliverMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PK).then(function (response) {
-                                                        if (response.data.Response) {
-                                                            DeliverMaterialCtrl.ePage.Entities.Header.Data = response.data.Response;
-                                                            DeliverMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.AdditionalRef1Code = DeliverMaterialCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.ManifestNumber;
-                                                            DeliverMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.AdditionalRef1Fk = DeliverMaterialCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.PK;
-                                                            DeliverMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.IsModified = true;
-                                                            apiService.post("eAxisAPI", appConfig.Entities.WmsOutwardList.API.Update.Url, DeliverMaterialCtrl.ePage.Entities.Header.Data).then(function (response) {
-                                                                if (response.data.Status == 'Success') {
-                                                                    apiService.get("eAxisAPI", appConfig.Entities.WmsOutwardList.API.GetById.Url + DeliverMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PK).then(function (response) {
-                                                                        if (response.data.Response) {
-                                                                            response.data.Response.UIWmsOutwardHeader.Client = response.data.Response.UIWmsOutwardHeader.ClientCode + "-" + response.data.Response.UIWmsOutwardHeader.ClientName;
-                                                                            response.data.Response.UIWmsOutwardHeader.Warehouse = response.data.Response.UIWmsOutwardHeader.WarehouseCode + "-" + response.data.Response.UIWmsOutwardHeader.WarehouseName;
-                                                                            response.data.Response.UIWmsOutwardHeader.Consignee = response.data.Response.UIWmsOutwardHeader.ConsigneeCode + "-" + response.data.Response.UIWmsOutwardHeader.ConsigneeName;
-                                                                            myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data = response.data.Response;
-                                                                            myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.GlobalVariables.NonEditable = true;
-                                                                            DeliverMaterialCtrl.ePage.Entities.Header.Data = myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data;
-                                                                        }
-                                                                    });
+                                                    // apiService.get("eAxisAPI", appConfig.Entities.WmsOutwardList.API.GetById.Url + DeliverMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PK).then(function (response) {
+                                                    //     if (response.data.Response) {
+                                                    //         DeliverMaterialCtrl.ePage.Entities.Header.Data = response.data.Response;
+                                                    DeliverMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.AdditionalRef1Code = DeliverMaterialCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.ManifestNumber;
+                                                    DeliverMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.AdditionalRef1Fk = DeliverMaterialCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.PK;
+                                                    DeliverMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.IsModified = true;
+                                                    apiService.post("eAxisAPI", appConfig.Entities.WmsOutwardList.API.Update.Url, DeliverMaterialCtrl.ePage.Entities.Header.Data).then(function (response) {
+                                                        if (response.data.Status == 'Success') {
+                                                            apiService.get("eAxisAPI", appConfig.Entities.WmsOutwardList.API.GetById.Url + DeliverMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PK).then(function (response) {
+                                                                if (response.data.Response) {
+                                                                    response.data.Response.UIWmsOutwardHeader.Client = response.data.Response.UIWmsOutwardHeader.ClientCode + "-" + response.data.Response.UIWmsOutwardHeader.ClientName;
+                                                                    response.data.Response.UIWmsOutwardHeader.Warehouse = response.data.Response.UIWmsOutwardHeader.WarehouseCode + "-" + response.data.Response.UIWmsOutwardHeader.WarehouseName;
+                                                                    response.data.Response.UIWmsOutwardHeader.Consignee = response.data.Response.UIWmsOutwardHeader.ConsigneeCode + "-" + response.data.Response.UIWmsOutwardHeader.ConsigneeName;
+                                                                    myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data = response.data.Response;
+                                                                    myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.GlobalVariables.NonEditable = true;
+                                                                    DeliverMaterialCtrl.ePage.Entities.Header.Data = myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data;
                                                                 }
                                                             });
                                                         }
                                                     });
+                                                    //     }
+                                                    // });
                                                 }
                                             });
                                         }
