@@ -324,8 +324,8 @@
 
             .state('EA.WMS.warehouseReport', {
                 url: '/warehouse-report',
-                templateUrl: 'app/eaxis/warehouse/general-module/reports/reports.html',
-                controller: "WarehouseReportController as ReportCtrl",
+                templateUrl: 'app/eaxis/warehouse/general-module/warehouse-report/warehouse-report.html',
+                controller: "WarehouseReportController as WarehouseReportCtrl",
                 ncyBreadcrumb: {
                     label: 'Report'
                 },
@@ -338,7 +338,7 @@
                         return deferred.promise;
                     }],
                     LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
-                        return $ocLazyLoad.load(["chromeTab", "confirmation", "compareDate", "dynamicListModal", "dynamicList", "dynamicLookup", "dynamicControl", "dynamicGrid", "drogAndDrop", "oneLevelMapping", "Summernote", "warehouseReports", "QRCode", "AngularPrint", "generateBarcode",]);
+                        return $ocLazyLoad.load(["chromeTab", "confirmation", "compareDate", "dynamicListModal", "dynamicList", "dynamicLookup", "dynamicControl", "dynamicGrid", "drogAndDrop", "oneLevelMapping", "Summernote", "warehouseReports", "QRCode", "AngularPrint", "generateBarcode","ReportGrid"]);
                     }]
                 }
             })
@@ -691,7 +691,7 @@
             .state('EA.WMS.sparePartsReport', {
                 url: '/spare-parts-report',
                 templateUrl: 'app/eaxis/warehouse/general-module/reports/reports.html',
-                controller: "WarehouseReportController as ReportCtrl",
+                controller: "ReportController as ReportCtrl",
                 ncyBreadcrumb: {
                     label: 'Report'
                 },
@@ -704,7 +704,7 @@
                         return deferred.promise;
                     }],
                     LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
-                        return $ocLazyLoad.load(["chromeTab", "confirmation", "compareDate", "dynamicListModal", "dynamicList", "dynamicLookup", "dynamicControl", "dynamicGrid", "drogAndDrop", "oneLevelMapping", "Summernote", "warehouseReports", "QRCode", "AngularPrint", "generateBarcode",]);
+                        return $ocLazyLoad.load(["chromeTab", "confirmation", "compareDate", "dynamicListModal", "dynamicList", "dynamicLookup", "dynamicControl", "dynamicGrid", "drogAndDrop", "oneLevelMapping", "Summernote", "spmsReports", "QRCode", "AngularPrint", "generateBarcode",]);
                     }]
                 }
             })
