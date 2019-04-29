@@ -100,12 +100,14 @@
                                     "Value": "DeliveryDetails",
                                     "Icon": "glyphicon glyphicon-list-alt",
                                     "IsDisabled": false
-                                }, {
-                                    "DisplayName": "Document",
-                                    "Value": "Documents",
-                                    "Icon": "glyphicon glyphicon-list-alt",
-                                    "IsDisabled": false
-                                }],
+                                }, 
+                                // {
+                                //     "DisplayName": "Document",
+                                //     "Value": "Documents",
+                                //     "Icon": "glyphicon glyphicon-list-alt",
+                                //     "IsDisabled": false
+                                // }
+                            ],
                             "Language": helperService.metaBase(),
                             "ErrorWarning": {
                                 "GlobalErrorWarningList": [],
