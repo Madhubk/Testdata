@@ -577,6 +577,7 @@
                         "DEL_OUT_RefNo": item.UISPMSDeliveryReport.DEL_OUT_RefNo,
                         "DEL_OOU_Fk": item.UISPMSDeliveryReport.DEL_OOU_Fk,
                         "DEL_OUT_ExternalRefNumber": item.UISPMSDeliveryReport.DEL_OUT_ExternalRefNumber,
+                        "ChallanDate": item.UISPMSDeliveryReport.ChallanDate,
                         "DEL_OUT_CustomerReference": item.UISPMSDeliveryReport.DEL_OUT_CustomerReference,
                         "DEL_OUT_CreatedDateTime": item.UISPMSDeliveryReport.DEL_OUT_CreatedDateTime,
                         "DEL_OL_Fk": item.UISPMSDeliveryReport.DEL_OL_Fk,
