@@ -40,6 +40,7 @@
 
             //Date Picker Validation
             ExchangeRateGeneralCtrl.ePage.Masters.OnChangeDate=OnChangeDate;
+            
 
             console.log(ExchangeRateGeneralCtrl.ePage.Entities.Header.TableProperties.lstUIMstExchangeRate.ccheckbox.isenabled);
 
@@ -57,10 +58,15 @@
                 }
             };
             GetMastersDropDownList();
+            validateStartDate();
             //#endregion 
 
         }
-
+        function validateStartDate() {
+            if (ExchangeRateGeneralCtrl.currentExchangeRate.isNew) {
+                ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.UIMstExchangeRate.StartDate = "";
+            }
+        }
         // #region DropDownList
         function GetMastersDropDownList() {
             var typeCodeList = ["EXRATETYPE", "EXSUBRATE"];
@@ -114,7 +120,18 @@
         function OnChangeDate($item,$type){
             
             if($type='StartDate'){
-                //ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.lstUIMstExchangeRate.contains($item);
+                var stDate=new Date(ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.UIMstExchangeRate.StartDate).toISOString();
+                var iDate =ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.UIMstExchangeRate.StartDate;
+                var arr=iDate.split("-");
+                console.log(arr[0]);
+                console.log(arr[1]);
+                console.log(arr[2]);                
+                var sDate=arr[2]+"-"+arr[0] + "-" + arr[1]+"T00:00:00";               
+                var found= ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.lstUIMstExchangeRate.some(el => el.StartDate===sDate && el.RateType===ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.UIMstExchangeRate.RateType && el.ExRateSubType===ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.UIMstExchangeRate.ExRateSubType);
+                if(found){
+                    ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.UIMstExchangeRate.StartDate="";
+                }
+            
             }
             else if($type=='ExpiryDate'){}
             console.log($item);

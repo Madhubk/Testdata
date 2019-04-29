@@ -296,7 +296,8 @@
                         <th id="delcheckbox" ng-style="{ 'width': '40px' }">
                             <label class="customcheckbox">
                                 <input type="checkbox" ng-change="CreateDelChallanCtrl.ePage.Masters.SelectAllCheckBox()"
-                                    ng-checked="CreateDelChallanCtrl.ePage.Masters.SelectAll" ng-model="CreateDelChallanCtrl.ePage.Masters.SelectAll">
+                                    data-ng-disabled="CreateDelChallanCtrl.ePage.Masters.InventoryLoading" ng-checked="CreateDelChallanCtrl.ePage.Masters.SelectAll"
+                                    ng-model="CreateDelChallanCtrl.ePage.Masters.SelectAll">
                                 <span class="text"></span>
                             </label>
                         </th>
@@ -323,7 +324,7 @@
                         ng-class="{row_active: (CreateDelChallanCtrl.ePage.Masters.selectedRow==$index),copy_row_active :(x.IsCopied==true)}">
                         <td id="delcheckbox" ng-style="{ 'width':  '40px' ,'padding-top':'0px' }" ng-click="CreateDelChallanCtrl.ePage.Masters.Enable = true">
                             <label class="mb-0 customcheckbox">
-                                <input type="checkbox" ng-checked="x.SingleSelect" ng-change="CreateDelChallanCtrl.ePage.Masters.SingleSelectCheckBox()"
+                                <input type="checkbox" ng-checked="x.SingleSelect" data-ng-disabled="CreateDelChallanCtrl.ePage.Masters.InventoryLoading" ng-change="CreateDelChallanCtrl.ePage.Masters.SingleSelectCheckBox()"
                                     ng-model="x.SingleSelect"> </input>
                                 <span class="text"></span>
                             </label>
