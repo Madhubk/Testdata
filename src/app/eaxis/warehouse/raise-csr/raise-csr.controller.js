@@ -205,6 +205,7 @@
                     value.UISPMSDeliveryReport.IsModified = value.IsModified;
                     value.UISPMSDeliveryReport.IsDeleted = value.IsDeleted;
                     value.UISPMSDeliveryReport.DeliveryLine_FK = value.PK;
+                    value.UISPMSDeliveryReport.DeliveryRequest_FK = _input.UIWmsDelivery.PK;
                 }
             });
 

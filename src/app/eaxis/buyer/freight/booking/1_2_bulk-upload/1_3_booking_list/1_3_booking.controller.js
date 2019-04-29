@@ -53,8 +53,7 @@
 
         }
 
-        function ShipmentSelection(mode) {
-            debugger
+        function ShipmentSelection(mode) {            
             one_three_BookingCtrl.ePage.Masters.dataentryName = one_three_BookingCtrl.ePage.Masters.dataentryName;
             switch (mode) {
                 case 'bookinglist':

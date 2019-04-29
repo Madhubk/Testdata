@@ -185,14 +185,14 @@
                                         myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data.UIWmsOutwardHeader.Client = myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data.UIWmsOutwardHeader.ClientCode + " - " + myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data.UIWmsOutwardHeader.ClientName;
                                         myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data.UIWmsOutwardHeader.Consignee = myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data.UIWmsOutwardHeader.ConsigneeCode + " - " + myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data.UIWmsOutwardHeader.ConsigneeName;
                                         myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data.UIWmsOutwardHeader.TransferWarehouse = myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data.UIWmsOutwardHeader.TransferTo_WAR_Code + " - " + myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data.UIWmsOutwardHeader.TransferTo_WAR_Name;
-                                        myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data.UIWmsOutwardHeader.ExternalReference = _OutwardData.ExternalReference;
-                                        myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data.UIWmsOutwardHeader.CustomerReference = _OutwardData.CustomerReference;
-                                        myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data.UIWmsOutwardHeader.RequiredDate = _OutwardData.RequiredDate;
-                                        myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data.UIWmsOutwardHeader.AdditionalRef1Code = _OutwardData.AdditionalRef1Code;
-                                        myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data.UIWmsOutwardHeader.AdditionalRef1Fk = _OutwardData.AdditionalRef1Fk;
 
-                                        // myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data.UIWmsOutwardHeader.WorkOrderStatus = myTaskActivityConfig.Entities.PickData[myTaskActivityConfig.Entities.PickData.label].ePage.Entities.Header.Data.UIWmsOutward[0].WorkOrderStatus;
-                                        // myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data.UIWmsOutwardHeader.WorkOrderStatusDesc = myTaskActivityConfig.Entities.PickData[myTaskActivityConfig.Entities.PickData.label].ePage.Entities.Header.Data.UIWmsOutward[0].WorkOrderStatusDesc;
+                                        if (myTaskActivityConfig.Entities.PickData[myTaskActivityConfig.Entities.PickData.label].ePage.Entities.Header.Data.UIWmsOutward[0].WorkOrderStatus != "FIN") {
+                                            myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data.UIWmsOutwardHeader.ExternalReference = _OutwardData.ExternalReference;
+                                            myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data.UIWmsOutwardHeader.CustomerReference = _OutwardData.CustomerReference;
+                                            myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data.UIWmsOutwardHeader.RequiredDate = _OutwardData.RequiredDate;
+                                            myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data.UIWmsOutwardHeader.AdditionalRef1Code = _OutwardData.AdditionalRef1Code;
+                                            myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data.UIWmsOutwardHeader.AdditionalRef1Fk = _OutwardData.AdditionalRef1Fk;
+                                        }
 
                                         $rootScope.SaveOutwardFromTask(function (response) {
                                             if (response == "error") {
@@ -207,6 +207,7 @@
                                                         response.data.Response.UIWmsOutwardHeader.Client = response.data.Response.UIWmsOutwardHeader.ClientCode + " - " + response.data.Response.UIWmsOutwardHeader.ClientName;
                                                         response.data.Response.UIWmsOutwardHeader.Consignee = response.data.Response.UIWmsOutwardHeader.ConsigneeCode + " - " + response.data.Response.UIWmsOutwardHeader.ConsigneeName;
                                                         response.data.Response.UIWmsOutwardHeader.TransferWarehouse = response.data.Response.UIWmsOutwardHeader.TransferTo_WAR_Code + " - " + response.data.Response.UIWmsOutwardHeader.TransferTo_WAR_Name;
+
                                                         myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data = response.data.Response;
 
                                                         myTaskActivityConfig.Entities.PickData[myTaskActivityConfig.Entities.PickData.label].ePage.Entities.Header.Data.UIWmsOutward[0].Version = myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data.UIWmsOutwardHeader.Version;
@@ -434,6 +435,8 @@
                                                                         if (response.data.Response[0].PickupLineStatus == "MTR Raised from Site to Central Warehouse") {
                                                                             response.data.Response[0].PickupLineStatus = "In Transit from Site To Central Warehouse";
                                                                             response.data.Response[0].STC_OL_Fk = value.PK;
+                                                                            response.data.Response[0].STC_OUT_CustomerReference = myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data.UIWmsOutwardHeader.CustomerReference;
+                                                                            response.data.Response[0].STC_OUT_ExternalRefNumber = myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data.UIWmsOutwardHeader.ExternalReference;
                                                                             response.data.Response[0].STC_INW_CustomerReference = ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails.CustomerReference;
                                                                             response.data.Response[0].STC_INW_ExternalRefNumber = ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails.ExternalReference;
                                                                             response.data.Response[0].STC_INW_Fk = ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails.PK;
@@ -441,6 +444,8 @@
                                                                         } else if (response.data.Response[0].PickupLineStatus == "MTR Raised from Testing to Central Warehouse") {
                                                                             response.data.Response[0].PickupLineStatus = "In Transit from Testing To Central Warehouse";
                                                                             response.data.Response[0].TTC_OL_Fk = value.PK;
+                                                                            response.data.Response[0].TTC_OUT_CustomerReference = myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data.UIWmsOutwardHeader.CustomerReference;
+                                                                            response.data.Response[0].TTC_OUT_ExternalRefNumber = myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data.UIWmsOutwardHeader.ExternalReference;
                                                                             response.data.Response[0].TTC_INW_CustomerReference = ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails.CustomerReference;
                                                                             response.data.Response[0].TTC_INW_ExternalRefNumber = ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails.ExternalReference;
                                                                             response.data.Response[0].TTC_INW_Fk = ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails.PK;
@@ -448,6 +453,8 @@
                                                                         } else if (response.data.Response[0].PickupLineStatus == "MTR Raised from Repair to Central Warehouse") {
                                                                             response.data.Response[0].PickupLineStatus = "In Transit from Repair To Central Warehouse";
                                                                             response.data.Response[0].RTC_OL_Fk = value.PK;
+                                                                            response.data.Response[0].RTC_CustomerReference = myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data.UIWmsOutwardHeader.CustomerReference;
+                                                                            response.data.Response[0].RTC_OUT_ExternalRefNumber = myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data.UIWmsOutwardHeader.ExternalReference;
                                                                             response.data.Response[0].RTC_INW_CustomerReference = ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails.CustomerReference;
                                                                             response.data.Response[0].RTC_INW_ExternalRefNumber = ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails.ExternalReference;
                                                                             response.data.Response[0].RTC_INW_Fk = ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails.PK;
@@ -455,6 +462,8 @@
                                                                         } else if (response.data.Response[0].PickupLineStatus == "MTR Raised to Testing Warehouse") {
                                                                             response.data.Response[0].PickupLineStatus = "In Transit To Testing Warehouse";
                                                                             response.data.Response[0].CTT_OL_Fk = value.PK;
+                                                                            response.data.Response[0].CTT_OUT_CustomerReference = myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data.UIWmsOutwardHeader.CustomerReference;
+                                                                            response.data.Response[0].CTT_OUT_ExternalRefNumber = myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data.UIWmsOutwardHeader.ExternalReference;
                                                                             response.data.Response[0].CTT_INW_CustomerReference = ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails.CustomerReference;
                                                                             response.data.Response[0].CTT_INW_ExternalRefNumber = ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails.ExternalReference;
                                                                             response.data.Response[0].CTT_INW_Fk = ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails.PK;
@@ -462,6 +471,8 @@
                                                                         } else if (response.data.Response[0].PickupLineStatus == "MTR Raised to Repair Warehouse") {
                                                                             response.data.Response[0].PickupLineStatus = "In Transit To Repair Warehouse";
                                                                             response.data.Response[0].CTR_OL_Fk = value.PK;
+                                                                            response.data.Response[0].CTR_CustomerReference = myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data.UIWmsOutwardHeader.CustomerReference;
+                                                                            response.data.Response[0].CTR_OUT_ExternalRefNumber = myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data.UIWmsOutwardHeader.ExternalReference;
                                                                             response.data.Response[0].CTR_INW_CustomerReference = ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails.CustomerReference;
                                                                             response.data.Response[0].CTR_INW_ExternalRefNumber = ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails.ExternalReference;
                                                                             response.data.Response[0].CTR_INW_Fk = ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails.PK;
@@ -469,6 +480,8 @@
                                                                         } else if (response.data.Response[0].PickupLineStatus == "MTR Raised to Scrap Warehouse") {
                                                                             response.data.Response[0].PickupLineStatus = "In Transit To Scrap Warehouse";
                                                                             response.data.Response[0].CTR_OL_Fk = value.PK;
+                                                                            response.data.Response[0].CTR_CustomerReference = myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data.UIWmsOutwardHeader.CustomerReference;
+                                                                            response.data.Response[0].CTR_OUT_ExternalRefNumber = myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data.UIWmsOutwardHeader.ExternalReference;
                                                                             response.data.Response[0].CTR_INW_CustomerReference = ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails.CustomerReference;
                                                                             response.data.Response[0].CTR_INW_ExternalRefNumber = ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails.ExternalReference;
                                                                             response.data.Response[0].CTR_INW_Fk = ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails.PK;
@@ -579,13 +592,24 @@
                     }
                     $timeout(function () {
                         if (myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data.UIWmsOutwardHeader.PickNo) {
-                            if (myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data.UIWmsOutwardHeader.AdditionalRef1Code) {
-                                myTaskActivityConfig.Entities.PickData[myTaskActivityConfig.Entities.PickData.label].ePage.Entities.Header.Data.UIWmsOutward[0] = myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data.UIWmsOutwardHeader;
-                            }
                             myTaskActivityConfig.Entities.PickData[myTaskActivityConfig.Entities.PickData.label].ePage.Entities.Header.Data = filterObjectUpdate(myTaskActivityConfig.Entities.PickData[myTaskActivityConfig.Entities.PickData.label].ePage.Entities.Header.Data, "IsModified");
                             apiService.post("eAxisAPI", appConfig.Entities.WmsPickList.API.Update.Url, myTaskActivityConfig.Entities.PickData[myTaskActivityConfig.Entities.PickData.label].ePage.Entities.Header.Data).then(function (response) {
                                 if (response.data.Response) {
                                     myTaskActivityConfig.Entities.PickData[myTaskActivityConfig.Entities.PickData.label].ePage.Entities.Header.Data = response.data.Response;
+                                    var _OutwardData = angular.copy(myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data.UIWmsOutwardHeader);
+                                    myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data.UIWmsOutwardHeader = myTaskActivityConfig.Entities.PickData[myTaskActivityConfig.Entities.PickData.label].ePage.Entities.Header.Data.UIWmsOutward[0];
+                                    myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data.UIWmsOutwardHeader.Warehouse = myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data.UIWmsOutwardHeader.WarehouseCode + " - " + myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data.UIWmsOutwardHeader.WarehouseName;
+                                    myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data.UIWmsOutwardHeader.Client = myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data.UIWmsOutwardHeader.ClientCode + " - " + myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data.UIWmsOutwardHeader.ClientName;
+                                    myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data.UIWmsOutwardHeader.Consignee = myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data.UIWmsOutwardHeader.ConsigneeCode + " - " + myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data.UIWmsOutwardHeader.ConsigneeName;
+                                    myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data.UIWmsOutwardHeader.TransferWarehouse = myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data.UIWmsOutwardHeader.TransferTo_WAR_Code + " - " + myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data.UIWmsOutwardHeader.TransferTo_WAR_Name;
+
+                                    if (myTaskActivityConfig.Entities.PickData[myTaskActivityConfig.Entities.PickData.label].ePage.Entities.Header.Data.UIWmsOutward[0].WorkOrderStatus != "FIN") {
+                                        myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data.UIWmsOutwardHeader.ExternalReference = _OutwardData.ExternalReference;
+                                        myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data.UIWmsOutwardHeader.CustomerReference = _OutwardData.CustomerReference;
+                                        myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data.UIWmsOutwardHeader.RequiredDate = _OutwardData.RequiredDate;
+                                        myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data.UIWmsOutwardHeader.AdditionalRef1Code = _OutwardData.AdditionalRef1Code;
+                                        myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data.UIWmsOutwardHeader.AdditionalRef1Fk = _OutwardData.AdditionalRef1Fk;
+                                    }
                                     $rootScope.SaveOutwardFromTask(function (response) {
                                         if (response == "error") {
                                             ActivityTemplateOutward2Ctrl.ePage.Masters.IsDisableSaveBtn = false;
