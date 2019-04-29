@@ -154,6 +154,7 @@
             } else {
                 toastr.info("New Record Already Opened...!");
             }
+            
         }
 
         function SaveandClose(index, ExchangeRateNew) {

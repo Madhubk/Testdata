@@ -33,6 +33,7 @@
             BranchCtrl.ePage.Masters.CurrentActiveTab = CurrentActiveTab;
             BranchCtrl.ePage.Masters.RemoveTab = RemoveTab;
             BranchCtrl.ePage.Masters.SelectedGridRow = SelectedGridRow;
+            BranchCtrl.ePage.Masters.CreateNewBranch=CreateNewBranch;
         }
 
         function SelectedGridRow($item) {
@@ -48,6 +49,7 @@
                     return value.label === currentBranch.entity.Code;
                 } else {
                     return false;
+                    
                 }
             });
             if (!_isExist) {
@@ -62,7 +64,7 @@
                     BranchCtrl.ePage.Masters.TabList = response;
                     $timeout(function () {
                         BranchCtrl.ePage.Masters.activeTabIndex = BranchCtrl.ePage.Masters.TabList.length;
-                        BranchCtrl.ePage.Masters.CurrentActiveTab(currentBranch.entity.Code);
+                        BranchCtrl.ePage.Masters.CurrentActiveTab(currentBranch.entity.PK);
                         BranchCtrl.ePage.Masters.IsTabClick = false;
                     });
                 });
@@ -76,6 +78,35 @@
             event.stopPropagation();
             var currentBranch = currentBranch[currentBranch.label].ePage.Entities;
             BranchCtrl.ePage.Masters.TabList.splice(index, 1);
+        }
+
+        function CreateNewBranch() {
+            var _isExist = BranchCtrl.ePage.Masters.TabList.some(function (value) {
+                if (value.label === "New")
+                    return true;
+                else
+                    return false;
+            });
+
+            if (!_isExist) {
+                BranchCtrl.ePage.Entities.BranchHeader.Message = false;
+                BranchCtrl.ePage.Masters.isNewClicked = true;
+                helperService.getFullObjectUsingGetById(BranchCtrl.ePage.Entities.BranchHeader.API.GetByID.Url, 'null').then(function (response) {
+                    if (response.data.Response) {
+                        var _obj = {
+                            entity: response.data.Response,
+                            data: response.data.Response,
+                            // Validations: response.data.Response.Validations
+                        };
+                        BranchCtrl.ePage.Masters.AddTab(_obj, true);
+                        BranchCtrl.ePage.Masters.isNewClicked = false;
+                    } else {
+                        console.log("Empty New Branch response");
+                    }
+                });
+            } else {
+                toastr.info("New Record Already Opened...!");
+            }
         }
 
         function Save(currentBranch) {
@@ -111,7 +142,7 @@
             }
             BranchCtrl.ePage.Masters.currentBranch = currentTab;
         }
-
+        
         Init();
     }
 })();
