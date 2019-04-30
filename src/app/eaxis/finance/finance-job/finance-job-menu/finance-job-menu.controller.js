@@ -82,7 +82,7 @@
                 _input.UIJobHeader.PK = _input.PK;
                 _input.UIJobHeader.CreatedDateTime = new Date();
 
-                if(!_input.UIJobHeader.EntityRefKey && !_input.UIJobHeader.EntitySource){
+                if (!_input.UIJobHeader.EntityRefKey && !_input.UIJobHeader.EntitySource) {
                     if (financeConfig.DataentryName == "FreightJobList") {
                         _input.UIJobHeader.EntityRefKey = _input.UIJobHeader.LocalOrg_FK;
                         _input.UIJobHeader.EntitySource = "SHP";
@@ -113,6 +113,8 @@
                     apiService.get("eAxisAPI", financeConfig.Entities.API.JobHeaderList.API.GetById.Url + response.Data.UIJobHeader.PK).then(function (response) {
                         if (response.data.Status == "Success") {
                             FinanceJobMenuCtrl.ePage.Entities.Header.Data = response.data.Response;
+
+                            financeConfig.InitBinding(FinanceJobMenuCtrl.currentFinanceJob);
 
                             var _index = financeConfig.TabList.map(function (value, key) {
                                 return value[value.code].ePage.Entities.Header.Data.PK;

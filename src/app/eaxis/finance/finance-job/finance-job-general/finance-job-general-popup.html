@@ -160,15 +160,17 @@
                 <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 mt-10">
                     <div class="form-group">
                         <label class="control-label">Estimate Cost</label>
-                        <input type="text" class="form-control" placeholder="0.00" data-ng-model="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].EstimatedCost" data-ng-blur="FinanceJobGeneralCtrl.ePage.Masters.OnAmtChange(index,FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].EstimatedCost,'EST','CRD')"
-                            data-ng-disabled="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].ChargeType =='REV' || FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].Costpost" numbers-only-dot sb-precision="2"/>
+                        <!-- <input type="text" class="form-control" placeholder="0.00" data-ng-model="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].EstimatedCost" data-ng-blur="FinanceJobGeneralCtrl.ePage.Masters.OnAmtChange(index,FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].EstimatedCost,'EST','CRD')"
+                            data-ng-disabled="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].ChargeType =='REV' || FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].Costpost" numbers-only-dot sb-precision="2"/> -->
+                            <input type="text" class="form-control" placeholder="0.00" data-ng-model="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].DuplicateEstimatedCost" data-ng-blur="FinanceJobGeneralCtrl.ePage.Masters.OnAmtChange(index, FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].DuplicateEstimatedCost, 'EST', 'CRD', 'DuplicateEstimatedCost', 'EstimatedCost')"
+                            data-ng-disabled="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].ChargeType =='REV' || FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].Costpost" numbers-only-dot/>
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 mt-10">
                     <div class="form-group">
                         <label class="control-label">Actual Cost</label>
-                        <input type="text" class="form-control" placeholder="0.00" data-ng-model="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].OSCostAmt" data-ng-blur="FinanceJobGeneralCtrl.ePage.Masters.OnAmtChange(index,FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].OSCostAmt,'OS','CRD')" 
-                            data-ng-disabled="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].ChargeType =='REV' || FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].Costpost" numbers-only-dot sb-precision="2"/>
+                        <input type="text" class="form-control" placeholder="0.00" data-ng-model="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].DuplicateOSCostAmt" data-ng-blur="FinanceJobGeneralCtrl.ePage.Masters.OnAmtChange(index, FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].DuplicateOSCostAmt, 'OS', 'CRD', 'DuplicateOSCostAmt', 'OSCostAmt')" 
+                            data-ng-disabled="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].ChargeType =='REV' || FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].Costpost" numbers-only-dot />
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 mt-10">
@@ -180,8 +182,8 @@
                 <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 mt-10">
                     <div class="form-group">
                         <label class="control-label">Local Cost Amt</label>
-                        <input type="text" class="form-control" placeholder="0.00" data-ng-model="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].LocalCostAmt" data-ng-blur="FinanceJobGeneralCtrl.ePage.Masters.OnAmtChange(index, FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].LocalCostAmt,'LOC','CRD')" 
-                            data-ng-disabled="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].ChargeType =='REV' || FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].Costpost" numbers-only-dot sb-precision="2"/>
+                        <input type="text" class="form-control" placeholder="0.00" data-ng-model="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].DuplicateLocalCostAmt" data-ng-blur="FinanceJobGeneralCtrl.ePage.Masters.OnAmtChange(index, FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].DuplicateLocalCostAmt, 'LOC', 'CRD', 'DuplicateLocalCostAmt', 'LocalCostAmt')" 
+                            data-ng-disabled="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].ChargeType =='REV' || FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].Costpost" numbers-only-dot />
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 mt-10">
@@ -292,15 +294,19 @@
                 <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2  mt-10">
                     <div class="form-group">
                         <label class="control-label">Estimate Revenue</label>
-                        <input type="text" class="form-control" placeholder="0.00" data-ng-model="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].EstimatedRevenue" data-ng-blur="FinanceJobGeneralCtrl.ePage.Masters.OnAmtChange(index,FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].OSSellAmt, 'OS', 'DEB')" 
-                            data-ng-disabled="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].Revenuepost" numbers-only-dot sb-precision="2"/>
+                        <!-- <input type="text" class="form-control" placeholder="0.00" data-ng-model="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].EstimatedRevenue" data-ng-blur="FinanceJobGeneralCtrl.ePage.Masters.OnAmtChange(index,FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].OSSellAmt, 'OS', 'DEB')" 
+                            data-ng-disabled="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].Revenuepost" numbers-only-dot sb-precision="2"/> -->
+                            <input type="text" class="form-control" placeholder="0.00" data-ng-model="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].DuplicateEstimatedRevenue" data-ng-blur="FinanceJobGeneralCtrl.ePage.Masters.OnAmtChange(index,FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].DuplicateEstimatedRevenue, 'OS', 'DEB', 'DuplicateEstimatedRevenue', 'EstimatedRevenue')" 
+                            data-ng-disabled="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].Revenuepost" numbers-only-dot />                            
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2  mt-10">
                     <div class="form-group">
                         <label class="control-label">Actual Revenue</label>
-                        <input type="text" class="form-control" placeholder="0.00" data-ng-model="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].OSSellAmt" data-ng-blur="FinanceJobGeneralCtrl.ePage.Masters.OnAmtChange(index, FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].OSSellAmt, 'OS', 'DEB')"
-                            data-ng-disabled="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].Revenuepost" numbers-only-dot sb-precision="2"/>
+                        <!-- <input type="text" class="form-control" placeholder="0.00" data-ng-model="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].OSSellAmt" data-ng-blur="FinanceJobGeneralCtrl.ePage.Masters.OnAmtChange(index, FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].OSSellAmt, 'OS', 'DEB')"
+                            data-ng-disabled="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].Revenuepost" numbers-only-dot sb-precision="2"/> -->
+                        <input type="text" class="form-control" placeholder="0.00" data-ng-model="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].DuplicateOSSellAmt" data-ng-blur="FinanceJobGeneralCtrl.ePage.Masters.OnAmtChange(index, FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].DuplicateOSSellAmt, 'OS', 'DEB', 'DuplicateOSSellAmt', 'OSSellAmt')"
+                            data-ng-disabled="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].Revenuepost" numbers-only-dot />
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 mt-10">
@@ -312,8 +318,10 @@
                     <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 mt-10">
                         <div class="form-group">
                             <label class="control-label">Local Sell  Amt</label>
-                            <input type="text" class="form-control" placeholder="0.00" data-ng-model="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].LocalSellAmt" data-ng-blur="FinanceJobGeneralCtrl.ePage.Masters.OnAmtChange(index,FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].LocalSellAmt,'LOC','DEB')" 
-                                data-ng-disabled="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].Revenuepost" numbers-only-dot sb-precision="2"/>
+                            <!-- <input type="text" class="form-control" placeholder="0.00" data-ng-model="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].LocalSellAmt" data-ng-blur="FinanceJobGeneralCtrl.ePage.Masters.OnAmtChange(index,FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].LocalSellAmt,'LOC','DEB')" 
+                                data-ng-disabled="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].Revenuepost" numbers-only-dot sb-precision="2"/> -->
+                            <input type="text" class="form-control" placeholder="0.00" data-ng-model="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].DuplicateLocalSellAmt" data-ng-blur="FinanceJobGeneralCtrl.ePage.Masters.OnAmtChange(index,FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].DuplicateLocalSellAmt, 'LOC', 'DEB', 'DuplicateLocalSellAmt', 'LocalSellAmt')" 
+                                data-ng-disabled="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[index].Revenuepost" numbers-only-dot />
                         </div>
                  </div>
                 <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2  mt-10">
