@@ -56,25 +56,25 @@
                             }
                         }
                     },
-                    "MstRecentExchangeRate":{
+                    "MstRecentExchangeRate": {
                         "RowIndex": -1,
-                        "API":{
-                            "FindAll":{
+                        "API": {
+                            "FindAll": {
                                 "IsAPI": "true",
                                 "HttpType": "Post",
                                 "Url": "MstRecentExchangeRate/FindAll",
-                                "FilterID": "MSTRECEXC"  
+                                "FilterID": "MSTRECEXC"
                             }
                         }
                     },
-                    "CmpCompany":{
+                    "CmpCompany": {
                         "RowIndex": -1,
-                        "API":{
-                            "FindAll":{
+                        "API": {
+                            "FindAll": {
                                 "IsAPI": "true",
                                 "HttpType": "Post",
                                 "Url": "CmpCompany/FindAll",
-                                "FilterID": "CMPCOMP"  
+                                "FilterID": "CMPCOMP"
                             }
                         }
                     }
@@ -89,6 +89,8 @@
             "ShowErrorWarningModal": ShowErrorWarningModal,
             "RemoveErrorWarning": RemoveErrorWarning,
             "RemoveApiErrors": RemoveApiErrors,
+            "InitBinding": InitBinding,
+            "DotArea": DotArea,
             "DataentryName": "FreightJobList",
             "DataentryTitle": "Freight Finance"
         };
@@ -729,5 +731,50 @@
             });
         }
         //#endregion Validation
+
+        //#region  DotArea
+
+        function InitBinding($item) {
+            var _Data = $item[$item.code].ePage.Entities,
+                _input = _Data.Header.Data;
+
+            angular.forEach(_input.UIJobCharge, function (value, key) {
+                value.DuplicateEstimatedCost = value.EstimatedCost;
+                DotArea(key, value.EstimatedCost.toString(), 'DuplicateEstimatedCost', 'EstimatedCost', $item);
+
+                value.DuplicateOSCostAmt = value.OSCostAmt;
+                DotArea(key, value.OSCostAmt.toString(), 'DuplicateOSCostAmt', 'OSCostAmt', $item);
+
+                value.DuplicateLocalCostAmt = value.LocalCostAmt;
+                DotArea(key, value.LocalCostAmt.toString(), 'DuplicateLocalCostAmt', 'LocalCostAmt', $item);
+
+                value.DuplicateEstimatedRevenue = value.EstimatedRevenue;
+                DotArea(key, value.EstimatedRevenue.toString(), 'DuplicateEstimatedRevenue', 'EstimatedRevenue', $item);
+
+                value.DuplicateOSSellAmt = value.OSSellAmt;
+                DotArea(key, value.OSSellAmt.toString(), 'DuplicateOSSellAmt', 'OSSellAmt', $item);
+
+                value.DuplicateLocalSellAmt = value.LocalSellAmt;
+                DotArea(key, value.LocalSellAmt.toString(), 'DuplicateLocalSellAmt', 'LocalSellAmt', $item);
+            });
+        }
+        function DotArea($index, Amt, duplicatetype, originaltype, $item) {
+            if (Amt) {
+                var _Data = $item[$item.code].ePage.Entities,
+                    _input = _Data.Header.Data;
+
+                _input.UIJobCharge[$index][originaltype] = Amt;
+                if (Amt.includes('.')) {
+                    var Amt = Amt.split('.');
+                    if (Amt[1] && Amt[1].length > 2) {
+                        Amt[1] = Amt[1].substring(0, 2);
+                        _input.UIJobCharge[$index][duplicatetype] = Amt[0] + '.' + Amt[1];
+                    }
+                } else {
+                    _input.UIJobCharge[$index][duplicatetype] = Amt + '.00'
+                }
+            }
+        }
+        //#endregion
     }
 })();

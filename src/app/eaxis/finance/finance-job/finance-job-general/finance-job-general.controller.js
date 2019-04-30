@@ -94,6 +94,7 @@
                 }
             };
 
+            financeConfig.InitBinding(FinanceJobGeneralCtrl.currentFinanceJob);
             GetMastersDropDownList();
             CostCalculation();
             RevenueCalculation();
@@ -136,6 +137,7 @@
                     OnChangeValues($item.Code, 'E1301');
                 }
                 else if (type == 'Company') {
+                    FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.GC = $item.PK;
                     OnChangeValues($item.Code, 'E1323');
                 }
                 else if (type == 'Branch') {
@@ -149,25 +151,33 @@
                     OnChangeValues($item.Code, 'E1191');
 
                     if ($item.ChargeType == "REV") {
+                        FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].ChargeType = $item.ChargeType;
                         FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].VendorCode = "";
                         FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].APInvoiceNum = "";
                         FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].APInvoiceDate = "";
                         FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].RX_NKCostCurrency = "";
                         FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].EstimatedCost = "";
+                        FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].DuplicateEstimatedCost = "";
                         FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].OSCostAmt = "";
+                        FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].DuplicateOSCostAmt = "";
                         FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].LocalCostAmt = "";
+                        FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].DuplicateLocalCostAmt = "";
                         FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].CostTaxCode = "";
                         FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].OSCostGSTAmt = "";
                         FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].OSCostExRate = "";
 
+                        FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].EstimatedRevenue = "";
+                        FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].DuplicateEstimatedRevenue = "";
                         FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].OSSellAmt = "";
+                        FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].DuplicateOSSellAmt = "";
                         FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].LocalSellAmt = "";
+                        FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].DuplicateLocalSellAmt = "";
                         FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].RevenueTaxCode = "";
                         FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].OSSellGSTAmt = "";
                         CostCalculation();
                         RevenueCalculation();
                         ProfitAndLossCalculation();
-                    }else {
+                    } else {
                         FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].ChargeType = $item.ChargeType;
                         FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].CustomerCode = FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.LocalOrg_Code;
                         FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].ORG_SellAccount = FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.LocalOrg_FK;
@@ -177,6 +187,12 @@
                         //#region JobCharge OSExchangeRate Assign
                         FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].OSCostExRate = 1;
                         FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].OSSellExRate = 1;
+                        //#endregion
+
+                        //#region ChargeCode Margin Based Revenue Entry
+                        if ($item.MarginPercentage == 100 && $item.ChargeType == 'MRG') {
+                            FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].MarginPercentage = 100;
+                        }
                         //#endregion
                     }
                 }
@@ -212,7 +228,10 @@
                         FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].OSCostExRate = 1;
                         //#endregion
 
-                        if (FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].LocalCostAmt > 0) {
+                        if (FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].DuplicateLocalCostAmt > 0) {
+                            FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].DuplicateEstimatedCost = FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].DuplicateLocalCostAmt;
+                            FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].DuplicateOSCostAmt = FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].DuplicateLocalCostAmt;
+
                             FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].EstimatedCost = FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].LocalCostAmt;
                             FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].OSCostAmt = FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].LocalCostAmt;
                         }
@@ -229,12 +248,15 @@
                         }
                     }
                     else if (FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.CompanyLocalCurrency == FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].RX_NKSellCurrency) {
-                         
-                        //#region  JobCharge OSExchangeRate Assign
-                         FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].OSSellExRate = 1;
-                         //#endregion
 
-                        if (FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].LocalSellAmt > 0) {
+                        //#region JobCharge OSExchangeRate Assign
+                        FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].OSSellExRate = 1;
+                        //#endregion
+
+                        if (FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].DuplicateLocalSellAmt > 0) {
+                            FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].DuplicateEstimatedRevenue = FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].DuplicateLocalSellAmt;
+                            FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].DuplicateOSSellAmt = FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].DuplicateLocalSellAmt;
+
                             FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].EstimatedRevenue = FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].LocalSellAmt;
                             FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].OSSellAmt = FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].LocalSellAmt;
                         }
@@ -254,20 +276,52 @@
 
         //#region  CalculateCost, CalculateRevenue
         function CalculateCost($index) {
+            var obj;
             var _Available = FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobExchangeRates.some(function (value, key) {
                 return value.OH_Org == FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].ORG_CostAccount && value.FromCurrency == FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].RX_NKCostCurrency && value.Code == FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].VendorCode;
             });
             if (_Available) {
                 angular.forEach(FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobExchangeRates, function (value, key) {
                     if (value.OH_Org == FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].ORG_CostAccount && value.FromCurrency == FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].RX_NKCostCurrency && value.Code == FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].VendorCode) {
-                        if (FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].LocalCostAmt) {
-                            FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].EstimatedCost = parseFloat(FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].LocalCostAmt / value.BaseRate).toFixed(2);
-                            FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].OSCostAmt = parseFloat(FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].LocalCostAmt / value.BaseRate).toFixed(2);
+
+                        //#region ChargeCode Margin Based Revenue Entry
+                        if (FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].MarginPercentage == 100) {
+                            obj = {
+                                "PK": "",
+                                "FromCurrency": value.FromCurrency,
+                                "RX_NKRateCurrency": value.RX_NKRateCurrency,
+                                "BaseRate": value.BaseRate,
+                                "TodayBuyrate": value.TodayBuyrate,
+                                "Code": FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].CustomerCode,
+                                "OrgType": value.OrgType,
+                                "OH_Org": FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].ORG_SellAccount,
+                                "EntitySource": "ERP",
+                                "CreatedDateTime": new Date(),
+                                "StateId": 0,
+                                "IsModified": false,
+                                "IsDeleted": false
+                            };
+                            FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobExchangeRates.push(obj);
+                            FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].RX_NKSellCurrency = FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].RX_NKCostCurrency;
+                        }
+                        //#endregion
+                        if (FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].DuplicateLocalCostAmt) {
+                            FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].EstimatedCost = FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].LocalCostAmt / value.BaseRate;
+                            FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].OSCostAmt = FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].LocalCostAmt / value.BaseRate;
+
+                            FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].EstimatedCost = FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].EstimatedCost.toString();
+                            FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].OSCostAmt = FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].OSCostAmt.toString();
+
+                            financeConfig.DotArea($index, FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].EstimatedCost, 'DuplicateEstimatedCost', 'EstimatedCost', FinanceJobGeneralCtrl.currentFinanceJob);
+                            financeConfig.DotArea($index, FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].OSCostAmt, 'DuplicateOSCostAmt', 'OSCostAmt', FinanceJobGeneralCtrl.currentFinanceJob);
+
+                            OnChangeValues(FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].DuplicateEstimatedCost, 'E1194', true, $index);
+                            OnChangeValues(FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].DuplicateOSCostAmt, 'E1196', true, $index);
                         }
 
-                         //#region JobCharge OSExchangeRate Assign
-                         FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].OSCostExRate = value.BaseRate;
-                         //#endregion
+                        //#region JobCharge OSExchangeRate Assign
+                        FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].OSCostExRate = value.BaseRate;
+                        //#endregion
                     }
                 });
             } else {
@@ -299,10 +353,10 @@
         //#endregion
 
         //#region GetExchangeRateTable
-        function GetExchageRate($index, ToCurrency, FromCurrency, Org_Name, type, OrgCurrency_PK) {
+        function GetExchageRate($index, ToCurrency, FromCurrency, Org_Name, type, Org_PK) {
             if (FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobExchangeRates.length > 0) {
                 var _ExchangeRate = FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobExchangeRates.some(function (value, key) {
-                    if (value.OH_Org == OrgCurrency_PK && value.FromCurrency == FromCurrency) {
+                    if (value.OH_Org == Org_PK && value.FromCurrency == FromCurrency) {
                         return true;
                     } else {
                         return false;
@@ -317,14 +371,14 @@
                     }
                 }
                 else if (!_ExchangeRate) {
-                    GetMstRecentExchageRate($index, ToCurrency, FromCurrency, Org_Name, type, OrgCurrency_PK);
+                    GetMstRecentExchageRate($index, ToCurrency, FromCurrency, Org_Name, type, Org_PK);
                 }
             } else {
-                GetMstRecentExchageRate($index, ToCurrency, FromCurrency, Org_Name, type, OrgCurrency_PK);
+                GetMstRecentExchageRate($index, ToCurrency, FromCurrency, Org_Name, type, Org_PK);
             }
         }
 
-        function GetMstRecentExchageRate($index, ToCurrency, FromCurrency, Org_Name, type, OrgCurrency_PK) {
+        function GetMstRecentExchageRate($index, ToCurrency, FromCurrency, Org_Name, type, Org_PK) {
             var obj;
             var _filter = {
                 "FromCurrency": FromCurrency,
@@ -347,15 +401,17 @@
                                 "TodayBuyrate": value.TodayBuyrate,
                                 "Code": Org_Name,
                                 "OrgType": type,
-                                "OH_Org": OrgCurrency_PK,
-                                "EntitySource": "WMS",
+                                "OH_Org": Org_PK,
+                                "EntitySource": "ERP",
                                 "CreatedDateTime": new Date(),
+                                "StateId": 0,
                                 "IsModified": false,
-                                "IsDeleted": false,
+                                "IsDeleted": false
                             };
                         }
                     });
                     FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobExchangeRates.push(obj);
+
                     if (type == "CRD") {
                         CalculateCost($index);
                     } else if (type == "DEB") {
@@ -382,6 +438,7 @@
                 "PK": "",
                 "ACCCode": "",
                 "ChargeType": "",
+                "MarginPercentage": "",
                 "ACC_FK": "",
                 "Desc": "",
                 "JobNo": FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.JobNo,
@@ -390,7 +447,6 @@
                 "DeptCode": FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.DeptCode,
                 "DEP_FK": FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.GE,
                 "CMP_FK": FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.GC,
-
                 "ORG_CostAccount": "",
                 "APInvoiceNum": "",
                 "APInvoiceDate": "",
@@ -398,12 +454,15 @@
                 "CostReference": "",
                 "RX_NKCostCurrency": "",
                 "EstimatedCost": "",
+                "DuplicateEstimatedCost": "",
                 "OSCostAmt": "",
+                "DuplicateOSCostAmt": "",
                 "APVarience": "",
                 "LocalCostAmt": "",
+                "DuplicateLocalCostAmt": "",
                 "CostTaxCode": "",
                 "OSCostGSTAmt": "",
-
+                "OSCostExRate": "",
                 "ORG_SellAccount": "",
                 "RevenueInvoiceNo": "",
                 "InvoiceType": "",
@@ -412,12 +471,15 @@
                 "SellReference": "",
                 "RX_NKSellCurrency": "",
                 "EstimatedRevenue": "",
+                "DuplicateEstimatedRevenue": "",
                 "OSSellAmt": "",
+                "DuplicateOSSellAmt": "",
                 "ARVarience": "",
                 "LocalSellAmt": "",
+                "DuplicateLocalSellAmt": "",
                 "RevenueTaxCode": "",
                 "OSSellGSTAmt": "",
-
+                "OSSellExRate": "",
                 "ATL_APLine": "",
                 "ATL_ARLine": "",
                 "Source": "WMS",
@@ -616,7 +678,9 @@
         //#endregion
 
         //#region AmountChange
-        function OnAmtChange($index, Amt, Cost, type) {
+        function OnAmtChange($index, Amt, Cost, type, duplicatetype, originaltype) {
+            financeConfig.DotArea($index, Amt, duplicatetype, originaltype, FinanceJobGeneralCtrl.currentFinanceJob);
+
             if (type == 'CRD') {
                 if (Cost == 'EST') {
                 }
@@ -624,16 +688,42 @@
                     if (FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.CompanyLocalCurrency != FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].RX_NKCostCurrency) {
                         ExchangeRateCalculatation($index, Cost, type);
                     } else {
-                        FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].LocalCostAmt = Amt;
-                        OnChangeValues(FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].LocalCostAmt, 'E1308', true, $index);
+                        FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].DuplicateLocalCostAmt = FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].DuplicateOSCostAmt;
+                        FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].LocalCostAmt = FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].OSCostAmt;
+
+                        OnChangeValues(FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].DuplicateLocalCostAmt, 'E1308', true, $index);
                     }
+
+                    //#region ChargeCode Margin Based Revenue Entry
+                    if (FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].MarginPercentage == 100) {
+                        FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].DuplicateEstimatedRevenue = FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].DuplicateOSCostAmt;
+                        FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].DuplicateOSSellAmt = FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].DuplicateOSCostAmt;
+                        FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].DuplicateLocalSellAmt = FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].DuplicateOSCostAmt;
+
+                        FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].EstimatedRevenue = FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].OSCostAmt;
+                        FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].OSSellAmt = FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].OSCostAmt;
+                        FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].LocalSellAmt = FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].OSCostAmt;
+                    }
+                    //#endregion
                 } else if (Cost == 'LOC') {
                     if (FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.CompanyLocalCurrency != FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].RX_NKCostCurrency) {
                         ExchangeRateCalculatation($index, Cost, type);
                     } else {
-                        FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].OSCostAmt = Amt;
-                        OnChangeValues(FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].OSCostAmt, 'E1196', true, $index);
+                        FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].DuplicateOSCostAmt = FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].DuplicateLocalCostAmt;
+                        FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].OSCostAmt = FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].LocalCostAmt;
+
+                        OnChangeValues(FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].DuplicateOSCostAmt, 'E1196', true, $index);
                     }
+
+                    //#region ChargeCode Margin Based Revenue Entry
+                    // if (FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].MarginPercentage == 100) {
+                    //     FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].LocalSellAmt = Amt;
+
+                    //     if (FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].OSCostAmt) {
+                    //         FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].OSSellAmt = FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].OSCostAmt;
+                    //     }
+                    // }
+                    //#endregion
                 }
             } else if (type == 'DEB') {
                 if (Cost == 'EST') {
@@ -642,15 +732,19 @@
                     if (FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.CompanyLocalCurrency != FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].RX_NKSellCurrency) {
                         ExchangeRateCalculatation($index, Cost, type);
                     } else {
-                        FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].LocalSellAmt = Amt;
-                        OnChangeValues(FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].LocalSellAmt, 'E1309', true, $index);
+                        FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].DuplicateLocalSellAmt = FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].DuplicateOSSellAmt;
+                        FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].LocalSellAmt = FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].OSSellAmt;
+
+                        OnChangeValues(FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].DuplicateLocalSellAmt, 'E1309', true, $index);
                     }
                 } else if (Cost == 'LOC') {
                     if (FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.CompanyLocalCurrency != FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].RX_NKSellCurrency) {
                         ExchangeRateCalculatation($index, Cost, type);
                     } else {
-                        FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].OSSellAmt = Amt;
-                        OnChangeValues(FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].OSSellAmt, 'E1197', true, $index);
+                        FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].DuplicateOSSellAmt = FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].DuplicateLocalSellAmt;
+                        FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].OSSellAmt = FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].LocalSellAmt;
+
+                        OnChangeValues(FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].DuplicateOSSellAmt, 'E1197', true, $index);
                     }
                 }
             }
@@ -662,8 +756,8 @@
         function CostCalculation() {
             var _LocalcostAmt = 0;
             FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge.map(function (value, key) {
-                if (value.LocalCostAmt) {
-                    _LocalcostAmt = _LocalcostAmt + parseFloat(value.LocalCostAmt);
+                if (value.DuplicateLocalCostAmt) {
+                    _LocalcostAmt = _LocalcostAmt + parseFloat(value.DuplicateLocalCostAmt);
                 }
             });
             FinanceJobGeneralCtrl.ePage.Masters.Cost = _LocalcostAmt;
@@ -672,8 +766,8 @@
         function RevenueCalculation() {
             var _LocalSellAmt = 0;
             FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge.map(function (value, key) {
-                if (value.LocalSellAmt) {
-                    _LocalSellAmt = _LocalSellAmt + parseFloat(value.LocalSellAmt);
+                if (value.DuplicateLocalSellAmt) {
+                    _LocalSellAmt = _LocalSellAmt + parseFloat(value.DuplicateLocalSellAmt);
                 }
             });
             FinanceJobGeneralCtrl.ePage.Masters.Revenue = _LocalSellAmt;
@@ -688,37 +782,58 @@
 
         //#region ExchangeRateCalculation
         function ExchangeRateCalculatation($index, Cost, type) {
-            var _NoRecord = 0;
             if (FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobExchangeRates.length > 0) {
                 angular.forEach(FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobExchangeRates, function (value, key) {
                     if (type == 'CRD') {
                         if (value.OH_Org == FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].ORG_CostAccount && value.FromCurrency == FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].RX_NKCostCurrency && value.Code == FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].VendorCode) {
                             if (Cost == 'OS') {
                                 //FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].EstimatedCost = FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].OSCostAmt / value.BaseRate;
-                                FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].LocalCostAmt = parseFloat(FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].OSCostAmt * value.BaseRate).toFixed(2);
-                                OnChangeValues(FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].LocalCostAmt, 'E1308', true, $index);
+                                FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].LocalCostAmt = FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].OSCostAmt * value.BaseRate;
+                                FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].LocalCostAmt = FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].LocalCostAmt.toString();
+
+                                financeConfig.DotArea($index, FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].LocalCostAmt, 'DuplicateLocalCostAmt', 'LocalCostAmt', FinanceJobGeneralCtrl.currentFinanceJob);
+                                OnChangeValues(FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].DuplicateLocalCostAmt, 'E1308', true, $index);
                             } else if (Cost == 'LOC') {
                                 // if(FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].IsPosted){
                                 //     FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].EstimatedCost = FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].LocalCostAmt / value.BaseRate;
                                 // }
-                                FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].EstimatedCost = parseFloat(FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].LocalCostAmt / value.BaseRate).toFixed(2);
-                                FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].OSCostAmt = parseFloat(FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].LocalCostAmt / value.BaseRate).toFixed(2);
-                                OnChangeValues(FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].OSCostAmt, 'E1196', true, $index);
+                                FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].EstimatedCost = FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].LocalCostAmt / value.BaseRate;
+                                FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].OSCostAmt = FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].LocalCostAmt / value.BaseRate;
+
+                                FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].EstimatedCost = FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].EstimatedCost.toString();
+                                FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].OSCostAmt = FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].OSCostAmt.toString();
+
+                                financeConfig.DotArea($index, FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].EstimatedCost, 'DuplicateEstimatedCost', 'EstimatedCost');
+                                financeConfig.DotArea($index, FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].OSCostAmt, 'DuplicateOSCostAmt', 'OSCostAmt');
+
+                                OnChangeValues(FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].DuplicateEstimatedCost, 'E1194', true, $index);
+                                OnChangeValues(FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].DuplicateOSCostAmt, 'E1196', true, $index);
                             }
                         }
                     } else if (type == 'DEB') {
                         if (value.OH_Org == FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].ORG_SellAccount && value.FromCurrency == FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].RX_NKSellCurrency && value.Code == FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].CustomerCode) {
                             if (Cost == 'OS') {
                                 // FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].EstimatedRevenue = FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].OSSellAmt / value.BaseRate;
-                                FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].LocalSellAmt = parseFloat(FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].OSSellAmt * value.BaseRate).toFixed(2);
-                                OnChangeValues(FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].LocalSellAmt, 'E1309', true, $index);
+                                FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].LocalSellAmt = FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].OSSellAmt * value.BaseRate;
+                                FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].LocalSellAmt = FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].LocalSellAmt.toString();
+
+                                financeConfig.DotArea($index, FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].LocalSellAmt, 'DuplicateLocalSellAmt', 'LocalSellAmt', FinanceJobGeneralCtrl.currentFinanceJob);
+                                OnChangeValues(FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].DuplicateLocalSellAmt, 'E1309', true, $index);
                             } else if (Cost == 'LOC') {
                                 //if(FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].IsPosted){
                                 // FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].EstimatedRevenue = FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].OSSellAmt / value.BaseRate;
                                 //}
-                                FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].EstimatedRevenue = parseFloat(FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].LocalSellAmt / value.BaseRate).toFixed(2);
-                                FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].OSSellAmt = parseFloat(FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].LocalSellAmt / value.BaseRate).toFixed(2);
-                                OnChangeValues(FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].OSSellAmt, 'E1197', true, $index);
+                                FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].EstimatedRevenue = FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].LocalSellAmt / value.BaseRate;
+                                FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].OSSellAmt = FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].LocalSellAmt / value.BaseRate;
+
+                                FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].EstimatedRevenue = FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].EstimatedRevenue.toString();
+                                FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].OSSellAmt = FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].OSSellAmt.toString();
+
+                                financeConfig.DotArea($index, FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].EstimatedRevenue, 'DuplicateEstimatedRevenue', 'EstimatedRevenue', FinanceJobGeneralCtrl.currentFinanceJob);
+                                financeConfig.DotArea($index, FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].OSSellAmt, 'DuplicateOSSellAmt', 'OSSellAmt', FinanceJobGeneralCtrl.currentFinanceJob);
+
+                                OnChangeValues(FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].DuplicateEstimatedRevenue, 'E1195', true, $index);
+                                OnChangeValues(FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].DuplicateOSSellAmt, 'E1197', true, $index);
                             }
                         }
                     }
