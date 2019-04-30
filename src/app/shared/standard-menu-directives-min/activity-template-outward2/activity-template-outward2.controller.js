@@ -262,19 +262,7 @@
                                                                                                 response.data.Response[0].DEL_PickUDF3 = v.PartAttrib3;
                                                                                             }
                                                                                         });
-                                                                                    } else if (ActivityTemplateOutward2Ctrl.taskObj.WSI_StepName == "Deliver Material") {
-                                                                                        response.data.Response[0].ManifestNo = myTaskActivityConfig.Entities.ManifestData.TmsManifestHeader.ManifestNumber;
-                                                                                        response.data.Response[0].Manifest_Fk = myTaskActivityConfig.Entities.ManifestData.TmsManifestHeader.PK;
-                                                                                        response.data.Response[0].Consignment_Fk = myTaskActivityConfig.Entities.ManifestData.TmsManifestConsignment[0].TMC_FK;
-                                                                                        response.data.Response[0].ConsignmentNumber = myTaskActivityConfig.Entities.ManifestData.TmsManifestConsignment[0].TMC_ConsignmentNumber;
-                                                                                        response.data.Response[0].ManifestType = myTaskActivityConfig.Entities.ManifestData.TmsManifestHeader.ManifestTypeDesc;
-                                                                                        response.data.Response[0].VehicleType = myTaskActivityConfig.Entities.ManifestData.TmsManifestHeader.VehicleTypeDescription;
-                                                                                        response.data.Response[0].VehicleNo = myTaskActivityConfig.Entities.ManifestData.TmsManifestHeader.VehicleNo;
-                                                                                        response.data.Response[0].DriverName = myTaskActivityConfig.Entities.ManifestData.TmsManifestHeader.DriveName;
-                                                                                        response.data.Response[0].DriverContactNo = myTaskActivityConfig.Entities.ManifestData.TmsManifestHeader.DriverContactNo;
-                                                                                        response.data.Response[0].EstimatedDispatchDate = myTaskActivityConfig.Entities.ManifestData.TmsManifestHeader.EstimatedDispatchDate;
-                                                                                        response.data.Response[0].EstimatedDeliveryDate = myTaskActivityConfig.Entities.ManifestData.TmsManifestHeader.EstimatedDeliveryDate;
-                                                                                    } else if (ActivityTemplateOutward2Ctrl.taskObj.WSI_StepName == "Get POD and Return to Order Desk") {
+                                                                                    } else if (ActivityTemplateOutward2Ctrl.taskObj.WSI_StepName == "Deliver Material" || ActivityTemplateOutward2Ctrl.taskObj.WSI_StepName == "Get POD and Return to Order Desk") {
                                                                                         response.data.Response[0].ManifestNo = myTaskActivityConfig.Entities.ManifestData.TmsManifestHeader.ManifestNumber;
                                                                                         response.data.Response[0].Manifest_Fk = myTaskActivityConfig.Entities.ManifestData.TmsManifestHeader.PK;
                                                                                         response.data.Response[0].Consignment_Fk = myTaskActivityConfig.Entities.ManifestData.TmsManifestConsignment[0].TMC_FK;

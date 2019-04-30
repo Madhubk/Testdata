@@ -237,7 +237,7 @@
             ActivityTemplateDelivery2Ctrl.ePage.Masters.IsDisableSaveBtn = true;
             ActivityTemplateDelivery2Ctrl.ePage.Masters.SaveBtnText = "Please Wait..";
             if (ActivityTemplateDelivery2Ctrl.taskObj.WSI_StepName == "Create Delivery Challan") {
-                if (callback) {                    
+                if (callback) {
                     myTaskActivityConfig.Entities.Delivery[myTaskActivityConfig.Entities.Delivery.label].ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderStatus = "DIP";
                     angular.forEach(myTaskActivityConfig.Entities.Delivery[myTaskActivityConfig.Entities.Delivery.label].ePage.Entities.Header.Data.UIWmsDeliveryLine, function (value, key) {
                         value.WorkOrderLineStatus = "DIP";
@@ -285,7 +285,8 @@
                                                     response.data.Response[0].DEL_OOU_Fk = value.OUT_WorkOrderPk;
                                                     response.data.Response[0].DEL_OUT_ExternalRefNumber = value.OUT_ExternalReference;
                                                     response.data.Response[0].DEL_OUT_CustomerReference = value.OUT_CustomerReference;
-                                                    response.data.Response[0].DEL_OUT_CreatedDateTime = value.OUT_CreatedDateTime;
+                                                    response.data.Response[0].DEL_OUT_CreatedDateTime = value.OUT_CreatedDateTime;                                                    
+                                                    response.data.Response[0].ChallanDate = value.DEL_OUT_RequiredDate;
                                                     response.data.Response[0].DEL_OL_Fk = value.OL_Pk;
                                                     response.data.Response[0].DEL_OL_Product_Fk = value.OL_PrdPk;
                                                     response.data.Response[0].DEL_OL_ProductCode = value.OL_PrdCode;
