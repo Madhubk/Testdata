@@ -5,9 +5,9 @@
         .module("Application")
         .controller("DeliveryMenuController", DeliveryMenuController);
 
-    DeliveryMenuController.$inject = ["$scope", "$timeout", "APP_CONSTANT", "apiService", "deliveryConfig", "helperService", "appConfig", "authService", "$location", "$state", "toastr", "confirmation", "$uibModal", "$ocLazyLoad"];
+    DeliveryMenuController.$inject = ["$scope", "$timeout", "APP_CONSTANT", "apiService", "deliveryConfig", "helperService", "appConfig", "authService", "$state", "toastr", "$uibModal", "$ocLazyLoad"];
 
-    function DeliveryMenuController($scope, $timeout, APP_CONSTANT, apiService, deliveryConfig, helperService, appConfig, authService, $location, $state, toastr, confirmation, $uibModal, $ocLazyLoad) {
+    function DeliveryMenuController($scope, $timeout, APP_CONSTANT, apiService, deliveryConfig, helperService, appConfig, authService, $state, toastr, $uibModal, $ocLazyLoad) {
 
         var DeliveryMenuCtrl = this
 
@@ -99,11 +99,12 @@
                                     apiService.post("eAxisAPI", appConfig.Entities.JobComments.API.Insert.Url, InsertCommentObject).then(function (response) {
                                         DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDelivery.CancelledDate = new Date();
                                         DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderStatus = "CAN";
-                                        DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderStatusDesc = "Cancelled";
+                                        DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderStatusDesc = "Cancelled";                                        
                                         angular.forEach(DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDeliveryLine, function (value, key) {
                                             value.WorkOrderLineStatus = "CAN";
                                             value.WorkOrderLineStatusDesc = "Cancelled";
-                                            value.UISPMSDeliveryReport.DeliveryLineStatus = "Cancelled";
+                                            if (value.UISPMSDeliveryReport)
+                                                value.UISPMSDeliveryReport.DeliveryLineStatus = "Cancelled";
                                         });
                                         // check whether the task available for this entity or not
                                         var _filter = {
@@ -205,7 +206,7 @@
                     value.WorkOrderLineStatus = "ENT";
                     value.WorkOrderLineStatusDesc = "Entered";
                 }
-                if (value.UISPMSDeliveryReport) {
+                if (value.UISPMSDeliveryReport) {                    
                     value.UISPMSDeliveryReport.PK = value.UISPMSDeliveryReport.PK;
                     value.UISPMSDeliveryReport.Client_Fk = _input.UIWmsDelivery.ORG_Client_FK;
                     value.UISPMSDeliveryReport.ClientCode = _input.UIWmsDelivery.ClientCode;
@@ -228,7 +229,7 @@
                     value.UISPMSDeliveryReport.RequestedDateTime = _input.UIWmsWorkorderReport.DeliveryRequestedDateTime;
                     value.UISPMSDeliveryReport.RequesterContactNumber = _input.UIWmsWorkorderReport.RequesterContactNo;
                     value.UISPMSDeliveryReport.DeliveryRequestNo = _input.UIWmsDelivery.WorkOrderID;
-                    value.UISPMSDeliveryReport.DeliveryRequest_FK = _input.UIWmsDelivery.PK;
+                    value.UISPMSDeliveryReport.DeliveryRequest_FK = _input.PK;
                     value.UISPMSDeliveryReport.CancelledDateTime = _input.UIWmsDelivery.CancelledDate;
                     value.UISPMSDeliveryReport.DeliveryLineRefNo = value.AdditionalRef1Code;
                     value.UISPMSDeliveryReport.PRO_FK = value.PRO_FK;

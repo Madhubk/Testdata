@@ -361,7 +361,7 @@
             obj.UISPMSDeliveryReport = {
                 "PK": "",
                 "DeliveryLine_FK": "",
-                "DeliveryLineStatus": "",
+                "DeliveryLineStatus": "Entered",
                 "Client_Fk": null,
                 "ClientCode": null,
                 "ClientName": null,
@@ -518,7 +518,7 @@
                     obj.UISPMSDeliveryReport = {
                         "PK": "",
                         "DeliveryLine_FK": "",
-                        "DeliveryLineStatus": "",
+                        "DeliveryLineStatus": "Entered",
                         "Client_Fk": item.UISPMSDeliveryReport.Client_FK,
                         "ClientCode": item.UISPMSDeliveryReport.ClientCode,
                         "ClientName": item.UISPMSDeliveryReport.ClientName,
