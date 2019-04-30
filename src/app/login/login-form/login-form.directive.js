@@ -93,7 +93,15 @@
                             };
                             $location.path("/tenant-list").search("q", helperService.encryptData(_queryString));
                         } else {
-                            toastr.error("You donot have access to this application...!");
+                            let _queryString = {
+                                Username: _response.username,
+                                Token: _hardLoginToken,
+                                TenantList: _tenantList,
+                                IsLogin: true,
+                                Continue: $location.path(),
+                            };
+                            $location.path("/tenant-list").search("q", helperService.encryptData(_queryString));
+                            // toastr.error("You donot have access to this application...!");
                         }
                     } else {
                         LoginFormCtrl.ePage.Masters.UserInfo = _response;
@@ -235,7 +243,7 @@
             };
 
             apiService.post("authAPI", appConfig.Entities.User.API.ResetPassword.Url, _input).then(response => {
-                (response.data.Status == "success") ? toastr.info(response.data.Response): toastr.error(response.data.Response);
+                (response.data.Status == "success") ? toastr.info(response.data.Response) : toastr.error(response.data.Response);
 
                 LoginFormCtrl.ePage.Masters.ForgotPassword.SendBtnText = "Send";
                 LoginFormCtrl.ePage.Masters.ForgotPassword.IsDisabledSendBtn = false;
