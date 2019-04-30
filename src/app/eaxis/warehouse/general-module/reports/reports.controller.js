@@ -3,11 +3,11 @@
 
     angular
         .module("Application")
-        .controller("WarehouseReportController", WarehouseReportController);
+        .controller("ReportController", ReportController);
 
-    WarehouseReportController.$inject = ["$location", "APP_CONSTANT", "authService", "apiService", "helperService", "$timeout", "toastr", "appConfig", "$window", "dynamicLookupConfig", "$filter", "$state"];
+    ReportController.$inject = ["$location", "APP_CONSTANT", "authService", "apiService", "helperService", "$timeout", "toastr", "appConfig", "$window", "dynamicLookupConfig", "$filter", "$state"];
 
-    function WarehouseReportController($location, APP_CONSTANT, authService, apiService, helperService, $timeout, toastr, appConfig, $window, dynamicLookupConfig, $filter, $state) {
+    function ReportController($location, APP_CONSTANT, authService, apiService, helperService, $timeout, toastr, appConfig, $window, dynamicLookupConfig, $filter, $state) {
 
         var ReportCtrl = this;
 

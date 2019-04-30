@@ -1,0 +1,33 @@
+<!-- Report page -->
+<div class="clearfix">
+    <div class="chrometab-box1">
+        <div class="ik-box1">
+            <span class="ik-title">{{WarehouseReportCtrl.ePage.Masters.Title}}</span>
+        </div>
+        <div class="clearfix p-20 text-center"
+            data-ng-if="WarehouseReportCtrl.ePage.Masters.ParentMenuList && WarehouseReportCtrl.ePage.Masters.ParentMenuList.length===0">
+            <i>No Records...!</i>
+        </div>
+        <!-- panel -->
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 col-xl-3 mt-15 ng-scope"
+            ng-repeat="x in WarehouseReportCtrl.ePage.Masters.ChildMenuList">
+            <div class="dashboard-databox bg-white radius-bordered" ng-click="WarehouseReportCtrl.ePage.Masters.GetConfigDetails(x,$index)">
+                <div class="databox-left bg-themeprimary">
+                    <div class="databox-piechart mt-5">
+                        <div class="notification-icon">
+                            <i class="{{x.Icon | getIconColorForMenu: 'icon'}} white"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="databox-right">
+                    <!-- <div class="databox-stat themesecondary radius-bordered">
+                        <i class="fa fa-navicon icon dashboard-setting-icon" title="Report Grid"
+                            ng-click="WarehouseReportCtrl.ePage.Masters.GetConfigDetails(x,$index)"></i>
+                    </div> -->
+                    <span class="databox-title">{{x.Description}}</span>
+                    <div class="databox-text darkgray">{{x.OtherConfig.reportDesc}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

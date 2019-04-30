@@ -490,10 +490,23 @@
         // ------------ General Modules ------------------
         // region
         {
-            name: 'warehouseReports',
+            name: 'spmsReports',
             files: [
                 'app/eaxis/warehouse/general-module/reports/reports.controller.js',
                 'app/eaxis/warehouse/general-module/reports/reports.css'
+            ]
+        },
+        {
+            name: 'warehouseReports',
+            files: [
+                'app/eaxis/warehouse/general-module/warehouse-report/warehouse-report.controller.js',
+                'app/eaxis/warehouse/general-module/warehouse-report/warehouse-report.css'
+            ]
+        },
+        {
+            name: 'ReportGrid',
+            files: [
+                'app/eaxis/warehouse/general-module/warehouse-report/report-grid-page/report-grid-page.controller.js'
             ]
         },
         {
