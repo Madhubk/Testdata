@@ -153,6 +153,30 @@
             if (TrackDamageGeneralCtrl.ePage.Entities.Header.Data.DEL_OL_ProductDesc == null) {
                 TrackDamageGeneralCtrl.ePage.Entities.Header.Data.DEL_OL_ProductDesc = "";
             }
+            if (TrackDamageGeneralCtrl.ePage.Entities.Header.Data.RTC_FromWH_Code == null)
+                TrackDamageGeneralCtrl.ePage.Entities.Header.Data.RTC_FromWH_Code = "";
+            if (TrackDamageGeneralCtrl.ePage.Entities.Header.Data.RTC_FromWH_Name == null)
+                TrackDamageGeneralCtrl.ePage.Entities.Header.Data.RTC_FromWH_Name = "";
+            if (TrackDamageGeneralCtrl.ePage.Entities.Header.Data.RTC_ToWH_Code == null)
+                TrackDamageGeneralCtrl.ePage.Entities.Header.Data.RTC_ToWH_Code = "";
+            if (TrackDamageGeneralCtrl.ePage.Entities.Header.Data.RTC_ToWH_Name == null)
+                TrackDamageGeneralCtrl.ePage.Entities.Header.Data.RTC_ToWH_Name = "";
+            if (TrackDamageGeneralCtrl.ePage.Entities.Header.Data.STC_FromWH_Code == null)
+                TrackDamageGeneralCtrl.ePage.Entities.Header.Data.STC_FromWH_Code = "";
+            if (TrackDamageGeneralCtrl.ePage.Entities.Header.Data.STC_FromWH_Name == null)
+                TrackDamageGeneralCtrl.ePage.Entities.Header.Data.STC_FromWH_Name = "";
+            if (TrackDamageGeneralCtrl.ePage.Entities.Header.Data.STC_ToWH_Code == null)
+                TrackDamageGeneralCtrl.ePage.Entities.Header.Data.STC_ToWH_Code = "";
+            if (TrackDamageGeneralCtrl.ePage.Entities.Header.Data.STC_ToWH_Name == null)
+                TrackDamageGeneralCtrl.ePage.Entities.Header.Data.STC_ToWH_Name = "";
+            if (TrackDamageGeneralCtrl.ePage.Entities.Header.Data.TTC_FromWH_Code == null)
+                TrackDamageGeneralCtrl.ePage.Entities.Header.Data.TTC_FromWH_Code = "";
+            if (TrackDamageGeneralCtrl.ePage.Entities.Header.Data.TTC_FromWH_Name == null)
+                TrackDamageGeneralCtrl.ePage.Entities.Header.Data.TTC_FromWH_Name = "";
+            if (TrackDamageGeneralCtrl.ePage.Entities.Header.Data.TTC_ToWH_Code == null)
+                TrackDamageGeneralCtrl.ePage.Entities.Header.Data.TTC_ToWH_Code = "";
+            if (TrackDamageGeneralCtrl.ePage.Entities.Header.Data.TTC_ToWH_Name == null)
+                TrackDamageGeneralCtrl.ePage.Entities.Header.Data.TTC_ToWH_Name = "";
         }
 
         function GetBindValues() {
@@ -190,9 +214,9 @@
                 TrackDamageGeneralCtrl.ePage.Entities.Header.Data.SiteFromWarehouse = "";
             if (TrackDamageGeneralCtrl.ePage.Entities.Header.Data.SiteToWarehouse == ' - ')
                 TrackDamageGeneralCtrl.ePage.Entities.Header.Data.SiteToWarehouse = "";
-                if (TrackDamageGeneralCtrl.ePage.Entities.Header.Data.TestingFromWarehouse == ' - ')
+            if (TrackDamageGeneralCtrl.ePage.Entities.Header.Data.TestingFromWarehouse == ' - ')
                 TrackDamageGeneralCtrl.ePage.Entities.Header.Data.TestingFromWarehouse = "";
-                if (TrackDamageGeneralCtrl.ePage.Entities.Header.Data.TestingToWarehouse == ' - ')
+            if (TrackDamageGeneralCtrl.ePage.Entities.Header.Data.TestingToWarehouse == ' - ')
                 TrackDamageGeneralCtrl.ePage.Entities.Header.Data.TestingToWarehouse = "";
         }
         // #endregion       

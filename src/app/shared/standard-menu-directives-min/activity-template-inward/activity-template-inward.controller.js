@@ -259,14 +259,32 @@
                                     response.data.Response.UIWmsInwardHeader.Supplier = response.data.Response.UIWmsInwardHeader.SupplierCode + " - " + response.data.Response.UIWmsInwardHeader.SupplierName;
                                     response.data.Response.UIWmsInwardHeader.TransferWarehouse = response.data.Response.UIWmsInwardHeader.TransferTo_WAR_Code + " - " + response.data.Response.UIWmsInwardHeader.TransferTo_WAR_Name;
                                     myTaskActivityConfig.Entities.Inward[myTaskActivityConfig.Entities.Inward.label].ePage.Entities.Header.Data = response.data.Response;
-                                    var count = 0;                                    
+                                    var count = 0;
                                     angular.forEach(myTaskActivityConfig.Entities.PickupData.UIWmsPickupLine, function (value1, key1) {
+                                        if (value1.WAR_WarehouseCode == "BDL001") {
+                                            value1.WorkOrderLineStatus = "SCWS";
+                                        } else {
+                                            value1.WorkOrderLineStatus = "STO";
+                                        }
                                         angular.forEach(myTaskActivityConfig.Entities.Inward[myTaskActivityConfig.Entities.Inward.label].ePage.Entities.Header.Data.UIWmsWorkOrderLine, function (value, key) {
                                             if (value.AdditionalRef1Code == value1.AdditionalRef1Code) {
-                                                if (value1.WAR_WarehouseCode == "BDL001") {
-                                                    value1.WorkOrderLineStatus = "SCWS";
-                                                } else {
-                                                    value1.WorkOrderLineStatus = "STO";
+                                                // for pickuplist update
+                                                if (value1.UISPMSPickupReport) {
+                                                    value1.UISPMSPickupReport.PIL_FinalisedDate = myTaskActivityConfig.Entities.Inward[myTaskActivityConfig.Entities.Inward.label].ePage.Entities.Header.Data.UIWmsInwardHeader.FinalisedDate;
+                                                    value1.UISPMSPickupReport.PIL_Fk = value.PK;
+                                                    value1.UISPMSPickupReport.PIL_ProductCode = value.ProductCode;
+                                                    value1.UISPMSPickupReport.PIL_ProductDesc = value.ProductDescription;
+                                                    value1.UISPMSPickupReport.PIL_Product_Fk = value.PRO_FK;
+                                                    value1.UISPMSPickupReport.PIL_UDF1 = value.PartAttrib1;
+                                                    value1.UISPMSPickupReport.PIL_UDF2 = value.PartAttrib2;
+                                                    value1.UISPMSPickupReport.PIL_UDF3 = value.PartAttrib3;
+                                                    value1.UISPMSPickupReport.PIW_ArrivalDate = myTaskActivityConfig.Entities.Inward[myTaskActivityConfig.Entities.Inward.label].ePage.Entities.Header.Data.UIWmsInwardHeader.ArrivalDate;
+                                                    value1.UISPMSPickupReport.ReceivedDateTime = myTaskActivityConfig.Entities.PickupData.UIWmsWorkorderReport.ReceivedDateTime;
+                                                    if (value1.WAR_WarehouseCode == "BDL001") {
+                                                        value1.UISPMSPickupReport.PickupLineStatus = "Stock at Central Warehouse";
+                                                    } else {
+                                                        value1.UISPMSPickupReport.PickupLineStatus = "Stock at Central Warehouse";
+                                                    }
                                                 }
 
                                                 var _filter = {
@@ -291,6 +309,7 @@
                                                             response.data.Response[0].PIL_UDF3 = value.PartAttrib3;
                                                             response.data.Response[0].PIW_ArrivalDate = myTaskActivityConfig.Entities.Inward[myTaskActivityConfig.Entities.Inward.label].ePage.Entities.Header.Data.UIWmsInwardHeader.ArrivalDate;
                                                             response.data.Response[0].ReceivedDateTime = myTaskActivityConfig.Entities.PickupData.UIWmsWorkorderReport.ReceivedDateTime;
+
                                                             if (value1.WAR_WarehouseCode == "BDL001") {
                                                                 response.data.Response[0].PickupLineStatus = "Stock at Central Warehouse";
                                                             } else {
@@ -305,7 +324,6 @@
                                                         }
                                                     }
                                                 });
-
                                             }
                                         });
                                         if (value1.WorkOrderLineStatus == "STO" || value1.WorkOrderLineStatus == "SCWS") {
@@ -456,27 +474,39 @@
                                                                     if (response.data.Response[0].PickupLineStatus == "In Transit from Site To Central Warehouse") {
                                                                         response.data.Response[0].PickupLineStatus = "Stock at Central Warehouse";
                                                                         response.data.Response[0].STC_IL_Fk = value.PK;
+                                                                        response.data.Response[0].STC_INW_CustomerReference = myTaskActivityConfig.Entities.Inward[myTaskActivityConfig.Entities.Inward.label].ePage.Entities.Header.Data.UIWmsInwardHeader.CustomerReference;
+                                                                        response.data.Response[0].STC_INW_ExternalRefNumber = myTaskActivityConfig.Entities.Inward[myTaskActivityConfig.Entities.Inward.label].ePage.Entities.Header.Data.UIWmsInwardHeader.ExternalReference;
                                                                         response.data.Response[0].STC_ArrivalDate = myTaskActivityConfig.Entities.Inward[myTaskActivityConfig.Entities.Inward.label].ePage.Entities.Header.Data.UIWmsInwardHeader.ArrivalDate;
                                                                     } else if (response.data.Response[0].PickupLineStatus == "In Transit from Testing To Central Warehouse") {
                                                                         response.data.Response[0].PickupLineStatus = "Tested, Stock at Central Warehouse";
                                                                         response.data.Response[0].TTC_IL_Fk = value.PK;
+                                                                        response.data.Response[0].TTC_INW_ExternalRefNumber = myTaskActivityConfig.Entities.Inward[myTaskActivityConfig.Entities.Inward.label].ePage.Entities.Header.Data.UIWmsInwardHeader.CustomerReference;
+                                                                        response.data.Response[0].TTC_INW_ExternalRefNumber = myTaskActivityConfig.Entities.Inward[myTaskActivityConfig.Entities.Inward.label].ePage.Entities.Header.Data.UIWmsInwardHeader.ExternalReference;
                                                                         response.data.Response[0].TTC_ArrivalDate = myTaskActivityConfig.Entities.Inward[myTaskActivityConfig.Entities.Inward.label].ePage.Entities.Header.Data.UIWmsInwardHeader.ArrivalDate;
                                                                     } else if (response.data.Response[0].PickupLineStatus == "In Transit from Repair To Central Warehouse") {
                                                                         response.data.Response[0].PickupLineStatus = "Repaired, Stock at Central Warehouse";
                                                                         response.data.Response[0].RTC_IL_Fk = value.PK;
+                                                                        response.data.Response[0].RTC_INW_CustomerReference = myTaskActivityConfig.Entities.Inward[myTaskActivityConfig.Entities.Inward.label].ePage.Entities.Header.Data.UIWmsInwardHeader.CustomerReference;
+                                                                        response.data.Response[0].RTC_INW_ExternalRefNumber = myTaskActivityConfig.Entities.Inward[myTaskActivityConfig.Entities.Inward.label].ePage.Entities.Header.Data.UIWmsInwardHeader.ExternalReference;
                                                                         response.data.Response[0].RTC_ArrivalDate = myTaskActivityConfig.Entities.Inward[myTaskActivityConfig.Entities.Inward.label].ePage.Entities.Header.Data.UIWmsInwardHeader.ArrivalDate;
                                                                     } else if (response.data.Response[0].PickupLineStatus == "In Transit To Testing Warehouse") {
                                                                         response.data.Response[0].PickupLineStatus = "Stock at Testing Warehouse";
                                                                         response.data.Response[0].CTT_IL_Fk = value.PK;
+                                                                        response.data.Response[0].CTT_INW_CustomerReference = myTaskActivityConfig.Entities.Inward[myTaskActivityConfig.Entities.Inward.label].ePage.Entities.Header.Data.UIWmsInwardHeader.CustomerReference;
+                                                                        response.data.Response[0].CTT_INW_ExternalRefNumber = myTaskActivityConfig.Entities.Inward[myTaskActivityConfig.Entities.Inward.label].ePage.Entities.Header.Data.UIWmsInwardHeader.ExternalReference;
                                                                         response.data.Response[0].CTT_ArrivalDate = myTaskActivityConfig.Entities.Inward[myTaskActivityConfig.Entities.Inward.label].ePage.Entities.Header.Data.UIWmsInwardHeader.ArrivalDate;
                                                                         response.data.Response[0].TestingRefNo = ActivityTemplateInwardCtrl.ePage.Masters.WorkOrderLineDetails.AdditionalRef2Code;
                                                                     } else if (response.data.Response[0].PickupLineStatus == "In Transit To Repair Warehouse") {
                                                                         response.data.Response[0].PickupLineStatus = "Stock at Repair Warehouse";
                                                                         response.data.Response[0].CTR_IL_Fk = value.PK;
+                                                                        response.data.Response[0].CTR_INW_CustomerReference = myTaskActivityConfig.Entities.Inward[myTaskActivityConfig.Entities.Inward.label].ePage.Entities.Header.Data.UIWmsInwardHeader.CustomerReference;
+                                                                        response.data.Response[0].CTR_INW_ExternalRefNumber = myTaskActivityConfig.Entities.Inward[myTaskActivityConfig.Entities.Inward.label].ePage.Entities.Header.Data.UIWmsInwardHeader.ExternalReference;
                                                                         response.data.Response[0].CTR_ArrivalDate = myTaskActivityConfig.Entities.Inward[myTaskActivityConfig.Entities.Inward.label].ePage.Entities.Header.Data.UIWmsInwardHeader.ArrivalDate;
                                                                     } else if (response.data.Response[0].PickupLineStatus == "In Transit To Scrap Warehouse") {
                                                                         response.data.Response[0].PickupLineStatus = "Stock at Scrap Warehouse";
                                                                         response.data.Response[0].CTR_IL_Fk = value.PK;
+                                                                        response.data.Response[0].CTR_INW_CustomerReference = myTaskActivityConfig.Entities.Inward[myTaskActivityConfig.Entities.Inward.label].ePage.Entities.Header.Data.UIWmsInwardHeader.CustomerReference;
+                                                                        response.data.Response[0].CTR_INW_ExternalRefNumber = myTaskActivityConfig.Entities.Inward[myTaskActivityConfig.Entities.Inward.label].ePage.Entities.Header.Data.UIWmsInwardHeader.ExternalReference;
                                                                         response.data.Response[0].CTR_ArrivalDate = myTaskActivityConfig.Entities.Inward[myTaskActivityConfig.Entities.Inward.label].ePage.Entities.Header.Data.UIWmsInwardHeader.ArrivalDate;
                                                                     }
                                                                     apiService.post("eAxisAPI", appConfig.Entities.WmsPickupReport.API.Update.Url, response.data.Response[0]).then(function (response) {

@@ -2,20 +2,20 @@
 <div class="clearfix">
     <div class="chrometab-box1">
         <div class="ik-box1">
-            <span class="ik-title">{{ReportCtrl.ePage.Masters.Title}}</span>
+            <span class="ik-title">Spare Parts Reports</span>
         </div>
-        <div class="clearfix p-20 text-center" data-ng-if="ReportCtrl.ePage.Masters.ParentMenuList && ReportCtrl.ePage.Masters.ParentMenuList.length===0">
+        <div class="clearfix p-20 text-center" data-ng-if="SPMSReportCtrl.ePage.Masters.ParentMenuList && SPMSReportCtrl.ePage.Masters.ParentMenuList.length===0">
             <i>No Records...!</i>
         </div>
         <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12 p-0">
-            <div class="orders-container border" data-ng-if="ReportCtrl.ePage.Masters.ParentMenuList && ReportCtrl.ePage.Masters.ParentMenuList.length>0">
-                <div class="" data-ng-repeat="Menu in ReportCtrl.ePage.Masters.ParentMenuList">
+            <div class="orders-container border" data-ng-if="SPMSReportCtrl.ePage.Masters.ParentMenuList && SPMSReportCtrl.ePage.Masters.ParentMenuList.length>0">
+                <div class="" data-ng-repeat="Menu in SPMSReportCtrl.ePage.Masters.ParentMenuList">
                     <div class="orders-header">
                         <span class="menu-desc">{{Menu.Description}}</span>
-                        <span><a class="item-more-icon margin-right-30" data-ng-if="ReportCtrl.ePage.Masters.ChildMenuList.length>0" href="" data-toggle="collapse" data-target="#Order{{$index}}"><i></i></a></span>
+                        <span><a class="item-more-icon margin-right-30" data-ng-if="SPMSReportCtrl.ePage.Masters.ChildMenuList.length>0" href="" data-toggle="collapse" data-target="#Order{{$index}}"><i></i></a></span>
                     </div>
                     <ul id="Order{{$index}}" class="orders-list collapse in">
-                        <li class="order-item filter-sidebar-setting" data-ng-repeat="x in ReportCtrl.ePage.Masters.ChildMenuList" ng-class="{active_list: ReportCtrl.ePage.Masters.selectedRow==$index}">
+                        <li class="order-item filter-sidebar-setting" data-ng-repeat="x in SPMSReportCtrl.ePage.Masters.ChildMenuList" ng-class="{active_list: SPMSReportCtrl.ePage.Masters.selectedRow==$index}">
                             <div class="row">
                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
@@ -34,12 +34,12 @@
                                             <span></span>
                                         </div>
                                         <div class="text-single-line" data-ng-if="x.DocumentName">
-                                            <a href="" title="{{x.DocumentName}}" data-ng-click="ReportCtrl.ePage.Masters.DownloadReport(x)">{{x.DocumentName}}</a>
+                                            <a href="" title="{{x.DocumentName}}" data-ng-click="SPMSReportCtrl.ePage.Masters.DownloadReport(x)">{{x.DocumentName}}</a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <a class="item-more-icon" href="" data-ng-click="ReportCtrl.ePage.Masters.GetConfigDetails(x,$index)">
+                            <a class="item-more-icon" href="" data-ng-click="SPMSReportCtrl.ePage.Masters.GetConfigDetails(x,$index)">
                                 <i></i>
                             </a>
                         </li>
@@ -47,12 +47,12 @@
                 </div>
             </div>
         </div>
-        <div class="grid-loading-norecord-container ng-scope" data-ng-show="ReportCtrl.ePage.Masters.IsLoading"></div>
+        <div class="grid-loading-norecord-container ng-scope" data-ng-show="SPMSReportCtrl.ePage.Masters.IsLoading"></div>
     </div>
 </div>
 <!--FIlter Bar  -->
-<div id="filterSideBar{{ReportCtrl.ePage.Masters.DynamicControl.DataEntryName}}" data-ng-if="ReportCtrl.ePage.Masters.DynamicControl"
-    class="dynamic-filter-sidebar-wrapper clearfix filter-text" data-ng-class="ReportCtrl.ePage.Masters.ViewType == 1 ? 'single-column-view' : 'multi-column-view'"
+<div id="filterSideBar{{SPMSReportCtrl.ePage.Masters.DynamicControl.DataEntryName}}" data-ng-if="SPMSReportCtrl.ePage.Masters.DynamicControl"
+    class="dynamic-filter-sidebar-wrapper clearfix filter-text" data-ng-class="SPMSReportCtrl.ePage.Masters.ViewType == 1 ? 'single-column-view' : 'multi-column-view'"
     style="height:150%;overflow-y: overlay">
     <form name="filterSidebar" novalidate>
         <div class="header clearfix">
@@ -60,19 +60,19 @@
                 <i class="fa fa-filter mr-5 font-120"></i>
                 <span class="mr-10">Filter</span>
             </div>
-            <div class="pull-right fltr-button" ng-click="ReportCtrl.ePage.Masters.CloseFilter()" data-ng-disabled="!ReportCtrl.ePage.Masters.DynamicControl">
+            <div class="pull-right fltr-button" ng-click="SPMSReportCtrl.ePage.Masters.CloseFilter()" data-ng-disabled="!SPMSReportCtrl.ePage.Masters.DynamicControl">
                 <span title="Close">
                     <i class="fa fa-close"></i>
                 </span>
             </div>
-            <input type="submit" class="btn btn-xs btn-primary pull-right mt-4 mb-4 ml-5 mr-10" ng-click="ReportCtrl.ePage.Masters.GenerateReports()"
-                data-ng-disabled="!ReportCtrl.ePage.Masters.DynamicControl" value="Generate Report">
+            <input type="submit" class="btn btn-xs btn-primary pull-right mt-4 mb-4 ml-5 mr-10" ng-click="SPMSReportCtrl.ePage.Masters.GenerateReports()"
+                data-ng-disabled="!SPMSReportCtrl.ePage.Masters.DynamicControl" value="Generate Report">
             <!-- <button class="btn btn-xs btn-default pull-right mt-4 mb-4 ml-10 mr-5" data-ng-click="ManifestOrdersCtrl.ePage.Masters.Clear()">Clear</button> -->
         </div>
         <div class="filter-list clearfix">
-            <div class="clearfix" data-ng-if="ReportCtrl.ePage.Masters.DynamicControl">
-                <dynamic-control input="ReportCtrl.ePage.Masters.DynamicControl" mode="S" control-style="" default-filter="ReportCtrl.ePage.Masters.defaultFilter"
-                    toggle="ReportCtrl.ePage.Masters.IsDynamicControlAccess" view-type="ReportCtrl.ePage.Masters.ViewType"></dynamic-control>
+            <div class="clearfix" data-ng-if="SPMSReportCtrl.ePage.Masters.DynamicControl">
+                <dynamic-control input="SPMSReportCtrl.ePage.Masters.DynamicControl" mode="S" control-style="" default-filter="SPMSReportCtrl.ePage.Masters.defaultFilter"
+                    toggle="SPMSReportCtrl.ePage.Masters.IsDynamicControlAccess" view-type="SPMSReportCtrl.ePage.Masters.ViewType"></dynamic-control>
             </div>
         </div>
     </form>

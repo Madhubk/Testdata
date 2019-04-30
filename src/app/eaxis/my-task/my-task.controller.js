@@ -384,7 +384,7 @@
         }
 
         function OnRefreshTask($item) {
-            MyTaskCtrl.ePage.Masters.MyTask.WorkItemDetails = undefined;
+            // MyTaskCtrl.ePage.Masters.MyTask.WorkItemDetails = undefined;
             MyTaskCtrl.ePage.Masters.MyTask.IsVisibleLoadMoreBtn = false;
             GetWorkItemList();
         }

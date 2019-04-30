@@ -1142,30 +1142,75 @@
             }
         }
 
-        //#region  JobAccounting
+        //#region JobAccounting
         function JobAccounting() {
-            if (DMSManifestMenuCtrl.ePage.Entities.Header.Data.UIJobHeader.length > 0) {
-                var obj = {
-                    "AgentOrg_Code": DMSManifestMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].AgentOrg_Code,
-                    "Agent_Org_FK": DMSManifestMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].Agent_Org_FK,
-                    "GB": DMSManifestMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].GB,
-                    "BranchCode": DMSManifestMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].BranchCode,
-                    "BranchName": DMSManifestMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].BranchName,
-                    "GC": DMSManifestMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].GC,
-                    "CompanyCode": DMSManifestMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].CompanyCode,
-                    "CompanyName": DMSManifestMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].CompanyName,
-                    "GE": DMSManifestMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].GE,
-                    "DeptCode": DMSManifestMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].DeptCode,
-                    "DeptName": DMSManifestMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].DeptName,
-                    "EntitySource": DMSManifestMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].EntitySource,
-                    "JobNo": DMSManifestMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].JobNo,
-                    "EntityRefKey": DMSManifestMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].EntityRefKey,
-                    "HeaderType": DMSManifestMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].HeaderType,
-                    "LocalOrg_Code": DMSManifestMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].LocalOrg_Code,
-                    "LocalOrg_FK": DMSManifestMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].LocalOrg_FK
-                };
-            }
+            DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.Loading = true;
+            var obj = {};
 
+            var myData = DMSManifestMenuCtrl.ePage.Entities.Header.Data.UIJobHeader.some(function (value, key) {
+                if (value.EntityRefKey == DMSManifestMenuCtrl.ePage.Entities.Header.Data.PK) {
+                    obj.AgentOrg_Code = value.AgentOrg_Code
+                    obj.Agent_Org_FK = value.Agent_Org_FK
+                    obj.LocalOrg_Code = value.LocalOrg_Code
+                    obj.LocalOrg_FK = value.LocalOrg_FK
+                    obj.GB = value.GB
+                    obj.BranchCode = value.BranchCode
+                    obj.BranchName = value.BranchName
+                    obj.GC = value.GC
+                    obj.CompanyCode = value.CompanyCode
+                    obj.CompanyName = value.CompanyName
+                    obj.GE = value.GE
+                    obj.DeptCode = value.DeptCode
+                    obj.JobNo = value.JobNo
+                    obj.EntityRefKey = value.EntityRefKey
+                    obj.EntitySource = value.EntitySource
+                    obj.HeaderType = value.HeaderType
+
+                    return true;
+                } else {
+                    return false;
+                }
+            });
+
+            if (!myData) {
+                obj.LocalOrg_Code = DMSManifestMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].LocalOrg_Code
+                obj.LocalOrg_FK = DMSManifestMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].LocalOrg_FK
+                obj.JobNo = DMSManifestMenuCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ManifestNumber
+                obj.EntityRefKey = DMSManifestMenuCtrl.ePage.Entities.Header.Data.PK
+                obj.EntitySource = "DMS"
+                obj.HeaderType = "JOB"
+                obj.BranchCode = DMSManifestMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].BranchCode
+                obj.BranchName = DMSManifestMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].BranchName
+                obj.GB = DMSManifestMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].BRN_FK
+                obj.CompanyCode = DMSManifestMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].Company_Code
+                obj.CompanyName = DMSManifestMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].Company_Name
+                obj.GC = DMSManifestMenuCtrl.ePage.Entities.Header.Data.UIJobHeader[0].Company_FK
+
+                /* Getting Department Value */
+
+                var _filter = {
+                    "Code": "LOG"
+                };
+
+                var _input = {
+                    "searchInput": helperService.createToArrayOfObject(_filter),
+                    "FilterID": DMSManifestMenuCtrl.ePage.Entities.Header.API.CmpDepartment.FilterID
+                };
+
+                apiService.post("eAxisAPI", DMSManifestMenuCtrl.ePage.Entities.Header.API.CmpDepartment.Url, _input).then(function (response) {
+                    if (response.data.Response) {
+                        obj.DeptCode = response.data.Response[0].Code;
+                        obj.GE = response.data.Response[0].PK;
+                        OpenJobAccountingModal(obj)
+                    }
+                });
+            } else {
+                OpenJobAccountingModal(obj);
+            }
+        }
+
+        function OpenJobAccountingModal(obj) {
+            DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.Loading = false;
             var modalInstance = $uibModal.open({
                 animation: true,
                 keyboard: false,
@@ -1191,6 +1236,8 @@
                 }
             );
         }
+
+        //#endregion
         //#endregion 
 
         Init();

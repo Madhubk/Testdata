@@ -288,22 +288,6 @@
             }
             OnFieldValueChange(code)
 
-            //#region JobAccounting
-
-            ManifestGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.map(function (value, key) {
-                if (value.EntityRefKey == ManifestGeneralCtrl.ePage.Entities.Header.Data.PK) {
-                    if (item.data) {
-                        value.LocalOrg_Code = item.data.entity.Code;
-                        value.LocalOrg_FK = item.data.entity.PK
-                    } else {
-                        value.LocalOrg_Code = item.Code;
-                        value.LocalOrg_FK = item.PK
-                    }
-                }
-            })
-
-            //#endregion
-
             var WarehouseCode = "";
             if (item.data) {
                 WarehouseCode = item.data.entity.WarehouseCode;
@@ -379,18 +363,25 @@
             ManifestGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.map(function (value, key) {
                 if (value.EntityRefKey == ManifestGeneralCtrl.ePage.Entities.Header.Data.PK) {
                     if (item.data) {
-                        value.BranchCode = item.data.entity.BRN_Code;
-                        value.BranchName = item.data.entity.BRN_BranchName;
-                        value.GB = item.data.entity.FBRN_FK;
+                        value.BranchCode = item.data.entity.BranchCode;
+                        value.BranchName = item.data.entity.BranchName;
+                        value.GB = item.data.entity.BRN_FK;
+                        value.CompanyCode = item.data.entity.Company_Code;
+                        value.CompanyName = item.data.entity.Company_Name;
+                        value.GC = item.data.entity.Company_FK;
                     } else {
-                        value.BranchCode = item.BRN_Code;
-                        value.BranchName = item.BRN_BranchName;
+                        value.BranchCode = item.BranchCode;
+                        value.BranchName = item.BranchName;
                         value.GB = item.BRN_FK;
+                        value.CompanyCode = item.Company_Code;
+                        value.CompanyName = item.Company_Name;
+                        value.GC = item.Company_FK;
                     }
                 }
             })
 
             //#endregion
+
             var WarehouseCode = "";
             if (item.data) {
                 WarehouseCode = item.data.entity.WarehouseCode;
@@ -456,16 +447,17 @@
                 ManifestGeneralCtrl.ePage.Masters.Transporter = item.Code + '-' + item.FullName;
             }
             OnFieldValueChange(code)
+
             //#region JobAccounting
 
             ManifestGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.map(function (value, key) {
                 if (value.EntityRefKey == ManifestGeneralCtrl.ePage.Entities.Header.Data.PK) {
                     if (item.data) {
-                        value.AgentOrg_Code = item.data.entity.Code;
-                        value.Agent_Org_FK = item.data.entity.PK
+                        value.LocalOrg_Code = item.data.entity.Code;
+                        value.LocalOrg_FK = item.data.entity.PK
                     } else {
-                        value.AgentOrg_Code = item.Code;
-                        value.Agent_Org_FK = item.PK
+                        value.LocalOrg_Code = item.Code;
+                        value.LocalOrg_FK = item.PK
                     }
                 }
             })
@@ -623,6 +615,7 @@
             ManifestGeneralCtrl.ePage.Masters.selectedRow = index;
         }
 
+        //#region 
         function JobAccountingFunction() {
             if (ManifestGeneralCtrl.currentManifest.isNew) {
 
@@ -665,6 +658,7 @@
                 });
             }
         }
+        //#endregion
         Init();
     }
 

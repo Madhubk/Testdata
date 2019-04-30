@@ -160,13 +160,6 @@
                                 "Url": "OrgAddress/Insert",
                                 "FilterID": "ORGADDR"
                             },
-                            "CmpDepartment": {
-                                "IsAPI": "true",
-                                "HttpType": "POST",
-                                "Url": "CmpDepartment/FindAll",
-                                "FilterID": "CMPDEPT"
-                            },
-
                         },
                         "Meta": {
                             "MenuList": [],

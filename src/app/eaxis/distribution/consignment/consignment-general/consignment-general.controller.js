@@ -64,7 +64,6 @@
             GetUserBasedGridColumList();
             GetDropDownList();
             GeneralOperation();
-            JobAccountingFunction();
             GetNewItemAddress();
             if (!DMSConsignmentGeneralCtrl.currentConsignment.isNew) {
                 OtherSenderAddress();
@@ -515,49 +514,7 @@
             if (DMSConsignmentGeneralCtrl.ePage.Masters.Receiver == ' - ')
                 DMSConsignmentGeneralCtrl.ePage.Masters.Receiver = "";
         }
-        function JobAccountingFunction() {
-            // job accounting object
-            if (DMSConsignmentGeneralCtrl.currentConsignment.isNew) {
 
-                var NewJobHeaderObject =
-                {
-                    "AgentOrg_Code": "",
-                    "Agent_Org_FK": "",
-                    "GB": "",
-                    "BranchCode": "",
-                    "BranchName": "",
-                    "GC": "",
-                    "CompanyCode": "",
-                    "CompanyName": "",
-                    "GE": "",
-                    "DeptCode": "",
-                    "EntitySource": "DMS",
-                    "JobNo": DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.ConsignmentNumber,
-                    "EntityRefKey": DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.PK,
-                    "HeaderType": "JOB",
-                    "LocalOrg_Code": "",
-                    "LocalOrg_FK": "",
-                }
-                DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.push(NewJobHeaderObject);
-                //Getting Department Value
-
-                var _filter = {
-                    "Code": "LOG"
-                };
-
-                var _input = {
-                    "searchInput": helperService.createToArrayOfObject(_filter),
-                    "FilterID": DMSConsignmentGeneralCtrl.ePage.Entities.Header.API.CmpDepartment.FilterID
-                };
-
-                apiService.post("eAxisAPI", DMSConsignmentGeneralCtrl.ePage.Entities.Header.API.CmpDepartment.Url, _input).then(function (response) {
-                    if (response.data.Response) {
-                        DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader[0].DeptCode = response.data.Response[0].Code;
-                        DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader[0].GE = response.data.Response[0].PK;
-                    }
-                });
-            }
-        }
         function OpenDatePicker($event, opened) {
             $event.preventDefault();
             $event.stopPropagation();
@@ -621,21 +578,6 @@
             }
             DMSConsignmentGeneralCtrl.ePage.Masters.OnChangeValues(DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.TmsConsignmentHeader.ReceiverCode, "E5517", false, undefined);
 
-            //#region JobAccounting
-
-            DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.map(function (value, key) {
-                if (value.EntityRefKey == DMSConsignmentGeneralCtrl.ePage.Entities.Header.Data.PK) {
-                    if (item.data) {
-                        value.LocalOrg_Code = item.data.entity.Code;
-                        value.LocalOrg_FK = item.data.entity.PK
-                    } else {
-                        value.LocalOrg_Code = item.Code;
-                        value.LocalOrg_FK = item.PK
-                    }
-                }
-            })
-
-            //#endregion
             GetOrgReceiverAddress();
         }
 
