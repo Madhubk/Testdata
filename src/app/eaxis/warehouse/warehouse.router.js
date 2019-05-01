@@ -690,8 +690,8 @@
             })
             .state('EA.WMS.sparePartsReport', {
                 url: '/spare-parts-report',
-                templateUrl: 'app/eaxis/warehouse/general-module/reports/reports.html',
-                controller: "ReportController as ReportCtrl",
+                templateUrl: 'app/eaxis/warehouse/general-module/reports/spms-reports.html',
+                controller: "ReportController as SPMSReportCtrl",
                 ncyBreadcrumb: {
                     label: 'Report'
                 },

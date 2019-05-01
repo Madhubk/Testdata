@@ -51,9 +51,8 @@
                 "PageType": "Report",
                 "ModuleCode": "WMS",
                 "USR_UserName": authService.getUserInfo().UserId,
+                "SubModuleCode":"GEN"
             };
-
-            _filter.SubModuleCode = "GEN"
 
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
@@ -67,9 +66,7 @@
                     WarehouseReportCtrl.ePage.Masters.ParentMenuList = response.data.Response;
 
                     WarehouseReportCtrl.ePage.Masters.ChildMenuList = $filter('orderBy')(response.data.Response[0].MenuList, 'DisplayOrder');
-
-                    console.log(WarehouseReportCtrl.ePage.Masters.ChildMenuList);
-
+                    // console.log(WarehouseReportCtrl.ePage.Masters.ChildMenuList);
                     if (WarehouseReportCtrl.ePage.Masters.ChildMenuList.length > 0) {
                         angular.forEach(WarehouseReportCtrl.ePage.Masters.ChildMenuList, function (value, key) {
                             value.OtherConfig = JSON.parse(value.OtherConfig);

@@ -9,11 +9,11 @@
 
     function ReportController($location, APP_CONSTANT, authService, apiService, helperService, $timeout, toastr, appConfig, $window, dynamicLookupConfig, $filter, $state) {
 
-        var ReportCtrl = this;
+        var SPMSReportCtrl = this;
 
         function Init() {
 
-            ReportCtrl.ePage = {
+            SPMSReportCtrl.ePage = {
                 "Title": "",
                 "Prefix": "Report",
                 "Masters": {},
@@ -21,21 +21,17 @@
                 "Entities": ""
             };
             // variable declaration
-            ReportCtrl.ePage.Masters.taskName = "WarehouseReports";
-            ReportCtrl.ePage.Masters.dataentryName = "WarehouseReports";
-            ReportCtrl.ePage.Masters.defaultFilter = ReportCtrl.defaultFilter;
-            ReportCtrl.ePage.Masters.selectedRow = -1;
-            if ($state.current.url == "/spare-parts-report") {
-                ReportCtrl.ePage.Masters.Title = "Spare Parts Reports";
-            } else {
-                ReportCtrl.ePage.Masters.Title = "Warehouse Reports";
-            }
+            SPMSReportCtrl.ePage.Masters.taskName = "WarehouseReports";
+            SPMSReportCtrl.ePage.Masters.dataentryName = "WarehouseReports";
+            SPMSReportCtrl.ePage.Masters.defaultFilter = SPMSReportCtrl.defaultFilter;
+            SPMSReportCtrl.ePage.Masters.selectedRow = -1;
+
 
             // function call from UI
-            ReportCtrl.ePage.Masters.GetConfigDetails = GetConfigDetails;
-            ReportCtrl.ePage.Masters.GenerateReports = GenerateReports;
-            ReportCtrl.ePage.Masters.CloseFilter = CloseFilter;
-            ReportCtrl.ePage.Masters.DownloadReport = DownloadReport;
+            SPMSReportCtrl.ePage.Masters.GetConfigDetails = GetConfigDetails;
+            SPMSReportCtrl.ePage.Masters.GenerateReports = GenerateReports;
+            SPMSReportCtrl.ePage.Masters.CloseFilter = CloseFilter;
+            SPMSReportCtrl.ePage.Masters.DownloadReport = DownloadReport;
 
             // function call
             checkCfxMenus();
@@ -44,15 +40,15 @@
 
         // get config details
         function GetConfigDetails(item, index) {
-            ReportCtrl.ePage.Masters.selectedRow = index;
+            SPMSReportCtrl.ePage.Masters.selectedRow = index;
             if (item.OtherConfig.dataEntryName) {
                 if (item.OtherConfig.IsActiveConfig == true) {
                     $window.open(item.Link, "_blank");
                 } else {
-                    if (ReportCtrl.ePage.Masters.DynamicControl) {
-                        $('#filterSideBar' + ReportCtrl.ePage.Masters.DynamicControl.DataEntryName).removeClass('open');
+                    if (SPMSReportCtrl.ePage.Masters.DynamicControl) {
+                        $('#filterSideBar' + SPMSReportCtrl.ePage.Masters.DynamicControl.DataEntryName).removeClass('open');
                     }
-                    ReportCtrl.ePage.Masters.IsLoading = true;
+                    SPMSReportCtrl.ePage.Masters.IsLoading = true;
                     // Get Dynamic filter controls
                     var _filter = {
                         DataEntryName: item.OtherConfig.dataEntryName
@@ -67,24 +63,24 @@
                         if (response.data.Response == null || !response.data.Response || _isEmpty) {
                             console.log("Dynamic control config Empty Response");
                         } else {
-                            ReportCtrl.ePage.Masters.DynamicControl = response.data.Response;
+                            SPMSReportCtrl.ePage.Masters.DynamicControl = response.data.Response;
 
                             dynamicLookupConfig.Entities = Object.assign({}, dynamicLookupConfig.Entities, response.data.Response.LookUpList);
 
                             $timeout(function () {
-                                $('#filterSideBar' + ReportCtrl.ePage.Masters.DynamicControl.DataEntryName).toggleClass('open');
+                                $('#filterSideBar' + SPMSReportCtrl.ePage.Masters.DynamicControl.DataEntryName).toggleClass('open');
                             });
 
-                            if (ReportCtrl.ePage.Masters.defaultFilter !== undefined) {
-                                ReportCtrl.ePage.Masters.DynamicControl.Entities.map(function (value, key) {
-                                    value.Data = ReportCtrl.ePage.Masters.defaultFilter;
+                            if (SPMSReportCtrl.ePage.Masters.defaultFilter !== undefined) {
+                                SPMSReportCtrl.ePage.Masters.DynamicControl.Entities.map(function (value, key) {
+                                    value.Data = SPMSReportCtrl.ePage.Masters.defaultFilter;
                                 });
                             }
-                            ReportCtrl.ePage.Masters.IsLoading = false;
+                            SPMSReportCtrl.ePage.Masters.IsLoading = false;
                             if ($state.current.url == "/spare-parts-report") {
-                                ReportCtrl.ePage.Masters.ViewType = 1;
+                                SPMSReportCtrl.ePage.Masters.ViewType = 1;
                             } else {
-                                ReportCtrl.ePage.Masters.ViewType = 2;
+                                SPMSReportCtrl.ePage.Masters.ViewType = 2;
                             }
                         }
                     });
@@ -99,20 +95,15 @@
         // CfxMenus
         function checkCfxMenus() {
             
-            ReportCtrl.ePage.Masters.ChildMenuList = [];
+            SPMSReportCtrl.ePage.Masters.ChildMenuList = [];
             var _filter = {
                 "USR_TenantCode": authService.getUserInfo().TenantCode,
                 "USR_SAP_FK": authService.getUserInfo().AppPK,
                 "PageType": "Report",
                 "ModuleCode": "WMS",
                 "USR_UserName": authService.getUserInfo().UserId,
+                "SubModuleCode":"SPMS"
             };
-
-            if ($state.current.url == "/spare-parts-report") {
-                _filter.SubModuleCode = "SPMS"
-            } else {
-                _filter.SubModuleCode = "GEN"
-            }
 
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
@@ -120,16 +111,16 @@
             };
             apiService.post("eAxisAPI", appConfig.Entities.CfxMenus.API.MasterCascadeFindAll.Url, _input).then(function ApiCallback(response) {
                 if (response.data.Response) {
-                    ReportCtrl.ePage.Masters.OtherConfigList = [];
+                    SPMSReportCtrl.ePage.Masters.OtherConfigList = [];
 
-                    ReportCtrl.ePage.Masters.ParentMenuList = response.data.Response;
+                    SPMSReportCtrl.ePage.Masters.ParentMenuList = response.data.Response;
 
-                    ReportCtrl.ePage.Masters.ChildMenuList = $filter('orderBy')(response.data.Response[0].MenuList, 'DisplayOrder');
+                    SPMSReportCtrl.ePage.Masters.ChildMenuList = $filter('orderBy')(response.data.Response[0].MenuList, 'DisplayOrder');
 
-                    if (ReportCtrl.ePage.Masters.ChildMenuList.length > 0) {
-                        angular.forEach(ReportCtrl.ePage.Masters.ChildMenuList, function (value, key) {
+                    if (SPMSReportCtrl.ePage.Masters.ChildMenuList.length > 0) {
+                        angular.forEach(SPMSReportCtrl.ePage.Masters.ChildMenuList, function (value, key) {
                             value.OtherConfig = JSON.parse(value.OtherConfig);
-                            ReportCtrl.ePage.Masters.OtherConfigList.push(value.OtherConfig);
+                            SPMSReportCtrl.ePage.Masters.OtherConfigList.push(value.OtherConfig);
                         });
                     }
                 }
@@ -137,19 +128,19 @@
         }
 
         function GenerateReports() {
-            ReportCtrl.ePage.Masters.DynamicControl.Entities[0].ConfigData.map(function (value, key) {
+            SPMSReportCtrl.ePage.Masters.DynamicControl.Entities[0].ConfigData.map(function (value, key) {
                 if (!value.Include) {
-                    delete (ReportCtrl.ePage.Masters.DynamicControl.Entities[0].Data[value.PropertyName])
+                    delete (SPMSReportCtrl.ePage.Masters.DynamicControl.Entities[0].Data[value.PropertyName])
                 }
             });
             $timeout(function () {
                 var tempArray = [];
-                ReportCtrl.ePage.Masters.DynamicControl.Entities.map(function (value, key) {
+                SPMSReportCtrl.ePage.Masters.DynamicControl.Entities.map(function (value, key) {
                     var x = helperService.createToArrayOfObject(value.Data);
                     x.map(function (v, k) {
                         tempArray.push(v);
                     });
-                    ReportCtrl.ePage.Masters.DynamicControl.Filter = tempArray;
+                    SPMSReportCtrl.ePage.Masters.DynamicControl.Filter = tempArray;
                 });
                 getSearchReports();
                 CloseFilter();
@@ -158,24 +149,24 @@
 
         function CloseFilter() {
 
-            $('#filterSideBar' + ReportCtrl.ePage.Masters.DynamicControl.DataEntryName).removeClass('open');
+            $('#filterSideBar' + SPMSReportCtrl.ePage.Masters.DynamicControl.DataEntryName).removeClass('open');
         }
 
         function getSearchReports() {
-            var obj = angular.copy(ReportCtrl.ePage.Masters.OtherConfigList[ReportCtrl.ePage.Masters.selectedRow].ReportTemplate);
-            ReportCtrl.ePage.Masters.ChildMenuList[ReportCtrl.ePage.Masters.selectedRow].IsDownloading = true;
-            ReportCtrl.ePage.Masters.ChildMenuList[ReportCtrl.ePage.Masters.selectedRow].DocumentName = undefined;
+            var obj = angular.copy(SPMSReportCtrl.ePage.Masters.OtherConfigList[SPMSReportCtrl.ePage.Masters.selectedRow].ReportTemplate);
+            SPMSReportCtrl.ePage.Masters.ChildMenuList[SPMSReportCtrl.ePage.Masters.selectedRow].IsDownloading = true;
+            SPMSReportCtrl.ePage.Masters.ChildMenuList[SPMSReportCtrl.ePage.Masters.selectedRow].DocumentName = undefined;
 
             //Setting Filter to Static Binding and Assigning Filter to SearchInput
-            if (ReportCtrl.ePage.Masters.DynamicControl.Filter) {
+            if (SPMSReportCtrl.ePage.Masters.DynamicControl.Filter) {
 
-                obj.DataObjs[1].SearchInput.SearchInput = ReportCtrl.ePage.Masters.DynamicControl.Filter;
+                obj.DataObjs[1].SearchInput.SearchInput = SPMSReportCtrl.ePage.Masters.DynamicControl.Filter;
 
                 if (obj.DataObjs[2]) {
-                    obj.DataObjs[2].SearchInput.SearchInput = ReportCtrl.ePage.Masters.DynamicControl.Filter;
+                    obj.DataObjs[2].SearchInput.SearchInput = SPMSReportCtrl.ePage.Masters.DynamicControl.Filter;
                 }
 
-                ReportCtrl.ePage.Masters.DynamicControl.Filter.map(function (val, key) {
+                SPMSReportCtrl.ePage.Masters.DynamicControl.Filter.map(function (val, key) {
                     if (val.FieldName == "WAR_WarehouseCode" || val.FieldName == "WarehouseCode"|| val.FieldName=="WLO_WAR_WarehouseCode") {
                         obj.DataObjs[0].DataObject.Warehouse_Code = val.value;
                     }
@@ -203,13 +194,13 @@
             var filtereddate = $filter('date')(mydate, 'dd-MMM-yyyy');
             obj.DataObjs[0].DataObject.Date = filtereddate;
 
-            obj.JobDocs.EntityRefKey = ReportCtrl.ePage.Masters.ChildMenuList[ReportCtrl.ePage.Masters.selectedRow].Id;
+            obj.JobDocs.EntityRefKey = SPMSReportCtrl.ePage.Masters.ChildMenuList[SPMSReportCtrl.ePage.Masters.selectedRow].Id;
             obj.JobDocs.EntitySource = 'WMS';
-            obj.JobDocs.EntityRefCode = ReportCtrl.ePage.Masters.ChildMenuList[ReportCtrl.ePage.Masters.selectedRow].Description;
+            obj.JobDocs.EntityRefCode = SPMSReportCtrl.ePage.Masters.ChildMenuList[SPMSReportCtrl.ePage.Masters.selectedRow].Description;
 
             apiService.post("eAxisAPI", appConfig.Entities.Export.API.Excel.Url, obj).then(function SuccessCallback(response) {
                 if (response.data.Response.Status == 'Success' && !response.data.Response.Remarks) {
-                    angular.forEach(ReportCtrl.ePage.Masters.ChildMenuList, function (value, key) {
+                    angular.forEach(SPMSReportCtrl.ePage.Masters.ChildMenuList, function (value, key) {
                         if (value.Id == obj.JobDocs.EntityRefKey) {
                             value.IsDownloading = false;
                             value.DocPK = response.data.Response.PK;
@@ -217,7 +208,7 @@
                         }
                     });
                 } else {
-                    angular.forEach(ReportCtrl.ePage.Masters.ChildMenuList, function (value, key) {
+                    angular.forEach(SPMSReportCtrl.ePage.Masters.ChildMenuList, function (value, key) {
                         if (value.Id == obj.JobDocs.EntityRefKey) {
                             value.IsDownloading = false;
                         }
