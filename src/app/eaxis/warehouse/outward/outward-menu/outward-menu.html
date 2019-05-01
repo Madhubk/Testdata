@@ -85,15 +85,22 @@
     <div class="eaxis-footer-strip" data-ng-show="OutwardMenuCtrl.ePage.Masters.ActiveMenuTab.Value != 'MyTask'">
         
         <!-- JobAccounting -->
-        <div class="col-xs-3 col-sm-3 col-md-2 col-lg-2 col-xl-2" style="width:120px" data-ng-if="!OutwardMenuCtrl.currentInward.isNew">
-            <ul class="custombilling_outward" data-ng-if="!OutwardMenuCtrl.currentInward.isNew">
-                <li class="position-relative">
-                    <a href="javascript:void(0);" data-ng-click="OutwardMenuCtrl.ePage.Masters.JobAccounting()">
-                        <i class="eaxis-footer-icon fa fa-money"></i>
-                        <span class="eaxis-footer-text">Job Accounting</span>
-                    </a>
-                </li>
-            </ul>
+        <div class="col-xs-3 col-sm-3 col-md-2 col-lg-2 col-xl-2" style="width:160px" data-ng-if="!OutwardMenuCtrl.currentOutward.isNew">
+            <div class="clearfix standard-menu-wrapper">
+                <div class="eaxis-footer-left">
+                    <ul data-ng-if="!OutwardMenuCtrl.currentOutward.isNew">
+                        <li class="position-relative">
+                            <div class="pull-left position-relative" style="top: 6px;" data-ng-click="OutwardMenuCtrl.ePage.Masters.JobAccounting()">
+                                 <span class="mr-0">
+                                    <i class="eaxis-footer-icon fa fa-money"></i>
+                                    <span class="sm-count">0</span>
+                                </span>
+                                <span class="eaxis-footer-text" data-ng-bind="'JobAccounting'"></span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
 
         <div class="col-xs-5 col-sm-5 col-md-7 col-lg-8 col-xl-8 pl-0">
