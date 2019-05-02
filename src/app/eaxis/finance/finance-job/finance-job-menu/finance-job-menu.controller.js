@@ -316,7 +316,7 @@
                 });
             }
             else if (_PostedRevenue > 0) {
-                toastr.error("Job charges already posted...!");
+                toastr.error("Selected Job charges already posted Any One...!");
             }
             else if (_PostRevenue1 && _PostedRevenue == 0) {
                 FinanceJobMenuCtrl.ePage.Masters.PostRevenueButtonText = "Please Wait...";
