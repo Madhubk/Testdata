@@ -232,6 +232,9 @@
                     if (response.Status === "success") {
                         apiService.get("eAxisAPI", financeConfig.Entities.API.JobHeaderList.API.GetById.Url + response.Data.UIJobHeader.PK).then(function (response) {
                             if (response.data.Status == "Success") {
+                                FinanceJobMenuCtrl.ePage.Entities.Header.Data = response.data.Response;
+
+                                financeConfig.InitBinding(FinanceJobMenuCtrl.currentFinanceJob);
 
                                 var _index = financeConfig.TabList.map(function (value, key) {
                                     return value[value.code].ePage.Entities.Header.Data.PK;
@@ -326,6 +329,9 @@
                     if (response.Status === "success") {
                         apiService.get("eAxisAPI", financeConfig.Entities.API.JobHeaderList.API.GetById.Url + response.Data.UIJobHeader.PK).then(function (response) {
                             if (response.data.Status == "Success") {
+                                FinanceJobMenuCtrl.ePage.Entities.Header.Data = response.data.Response;
+
+                                financeConfig.InitBinding(FinanceJobMenuCtrl.currentFinanceJob);
 
                                 var _index = financeConfig.TabList.map(function (value, key) {
                                     return value[value.code].ePage.Entities.Header.Data.PK;
@@ -444,6 +450,9 @@
                     if (response.Status === "success") {
                         apiService.get("eAxisAPI", financeConfig.Entities.API.JobHeaderList.API.GetById.Url + response.Data.UIJobHeader.PK).then(function (response) {
                             if (response.data.Status == "Success") {
+                                FinanceJobMenuCtrl.ePage.Entities.Header.Data = response.data.Response;
+
+                                financeConfig.InitBinding(FinanceJobMenuCtrl.currentFinanceJob);
 
                                 var _index = financeConfig.TabList.map(function (value, key) {
                                     return value[value.code].ePage.Entities.Header.Data.PK;
@@ -459,7 +468,7 @@
                                     financeConfig.TabList[_index].isNew = false;
                                     helperService.refreshGrid();
                                 }
-                                toastr.success("Post Cost Successfully...!");
+                                toastr.success("Post Cost and Revenue Successfully...!");
                             }
                             else if (response.data.Status === "failed") {
                                 console.log("GetById Failed");

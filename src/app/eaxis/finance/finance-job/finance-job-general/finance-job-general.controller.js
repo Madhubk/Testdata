@@ -280,12 +280,17 @@
             var _Available = FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobExchangeRates.some(function (value, key) {
                 return value.OH_Org == FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].ORG_CostAccount && value.FromCurrency == FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].RX_NKCostCurrency && value.Code == FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].VendorCode;
             });
+
+            var _AvailableExchangeRate = FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobExchangeRates.some(function (value, key) {
+                return value.OH_Org == FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].ORG_SellAccount && value.FromCurrency == FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].RX_NKSellCurrency && value.Code == FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].CustomerCode;
+            });
+            
             if (_Available) {
                 angular.forEach(FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobExchangeRates, function (value, key) {
                     if (value.OH_Org == FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].ORG_CostAccount && value.FromCurrency == FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].RX_NKCostCurrency && value.Code == FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].VendorCode) {
 
                         //#region ChargeCode Margin Based Revenue Entry
-                        if (FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].MarginPercentage == 100) {
+                        if (FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].MarginPercentage == 100 && !_AvailableExchangeRate) {
                             obj = {
                                 "PK": "",
                                 "FromCurrency": value.FromCurrency,
@@ -293,7 +298,7 @@
                                 "BaseRate": value.BaseRate,
                                 "TodayBuyrate": value.TodayBuyrate,
                                 "Code": FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].CustomerCode,
-                                "OrgType": value.OrgType,
+                                "OrgType": "DEB",
                                 "OH_Org": FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].ORG_SellAccount,
                                 "EntitySource": "ERP",
                                 "CreatedDateTime": new Date(),
@@ -336,9 +341,18 @@
             if (_Available) {
                 angular.forEach(FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobExchangeRates, function (value, key) {
                     if (value.OH_Org == FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].ORG_SellAccount && value.FromCurrency == FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].RX_NKSellCurrency && value.Code == FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].CustomerCode) {
-                        if (FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].LocalSellAmt) {
-                            FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].EstimatedRevenue = parseFloat(FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].LocalSellAmt / value.BaseRate).toFixed(2);
-                            FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].OSSellAmt = parseFloat(FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].LocalSellAmt / value.BaseRate).toFixed(2);
+                        if (FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].DuplicateLocalSellAmt) {
+                            FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].EstimatedRevenue = FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].LocalSellAmt / value.BaseRate;
+                            FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].OSSellAmt = FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].LocalSellAmt / value.BaseRate;
+
+                            FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].EstimatedRevenue = FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].EstimatedRevenue.toString();
+                            FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].OSSellAmt = FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].OSSellAmt.toString();
+
+                            financeConfig.DotArea($index, FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].EstimatedRevenue, 'DuplicateEstimatedRevenue', 'EstimatedRevenue', FinanceJobGeneralCtrl.currentFinanceJob);
+                            financeConfig.DotArea($index, FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].OSSellAmt, 'DuplicateOSSellAmt', 'OSSellAmt', FinanceJobGeneralCtrl.currentFinanceJob);
+
+                            OnChangeValues(FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].DuplicateEstimatedRevenue, 'E1195', true, $index);
+                            OnChangeValues(FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].DuplicateOSSellAmt, 'E1197', true, $index);
                         }
 
                         //#region JobCharge OSExchangeRate Assign
