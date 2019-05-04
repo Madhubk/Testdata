@@ -1,4 +1,4 @@
-(function() {
+(function () {
     "use strict";
 
     angular
@@ -21,7 +21,14 @@
                 "Entities": currentBranch
             };
             BranchDetailsCtrl.ePage.Masters.OpenBranchModel = OpenBranchModel;
+            BranchDetailsCtrl.ePage.Masters.SelectedLookupData = SelectedLookupData;
         };
+
+        function SelectedLookupData($index, $item) {
+            debugger;
+            console.log(BranchDetailsCtrl.ePage.Entities.BranchHeader.Data);
+        }
+
         function OpenBranchModel() {
             var modalInstance = $uibModal.open({
                 animation: true,
@@ -33,7 +40,7 @@
                 controller: 'BranchModalController as BranchModalCtrl',
                 bindToController: true,
                 resolve: {
-                    param: function() {
+                    param: function () {
                         var exports = {
                             "currentBranch": BranchDetailsCtrl.ePage.Entities
                         };
@@ -41,24 +48,22 @@
                     }
                 }
             }).result.then(
-                function(response){
-                    if(response.Data!= undefined)
-                    {
-                    var _isEmpty = angular.equals(response.Data, {});
-                    if (!_isEmpty) {
-                        BranchDetailsCtrl.ePage.Entities.BranchHeader.Data = response.Data;
-                        toastr.success("Record Added Successfully...!")
+                function (response) {
+                    if (response.Data != undefined) {
+                        var _isEmpty = angular.equals(response.Data, {});
+                        if (!_isEmpty) {
+                            BranchDetailsCtrl.ePage.Entities.BranchHeader.Data = response.Data;
+                            toastr.success("Record Added Successfully...!")
 
-                    } else {
-                        toastr.warnig("Value Should not be Empty...!");
+                        } else {
+                            toastr.warnig("Value Should not be Empty...!");
+                        }
                     }
-                }
-                else
-                {
-                    BranchDetailsCtrl.ePage.Entities.BranchHeader.Data = response;
-                }
-            },
-                function() {
+                    else {
+                        BranchDetailsCtrl.ePage.Entities.BranchHeader.Data = response;
+                    }
+                },
+                function () {
                     console.log("Cancelled");
                 }
             );

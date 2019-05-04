@@ -104,15 +104,22 @@
             </span>
         </div> -->
         <!-- JobAccounting -->
-        <div class="col-xs-3 col-sm-3 col-md-2 col-lg-2 col-xl-2" style="width:120px" data-ng-if="!DMSManifestMenuCtrl.currentManifest.isNew">
-            <ul class="custombilling_inward" data-ng-if="!DMSManifestMenuCtrl.currentInward.isNew">
-                <li class="position-relative">
-                    <a href="javascript:void(0);" data-ng-click="DMSManifestMenuCtrl.ePage.Masters.JobAccounting()">
-                        <i class="eaxis-footer-icon fa fa-money"></i>
-                        <span class="eaxis-footer-text">Job Accounting</span>
-                    </a>
-                </li>
-            </ul>
+        <div class="col-xs-3 col-sm-3 col-md-2 col-lg-2 col-xl-2" style="width:160px" data-ng-if="!DMSManifestMenuCtrl.currentManifest.isNew">
+            <div class="clearfix standard-menu-wrapper">
+                <div class="eaxis-footer-left">
+                    <ul data-ng-if="!DMSManifestMenuCtrl.currentInward.isNew">
+                        <li class="position-relative">
+                            <div class="pull-left position-relative" style="top: 6px;" data-ng-click="DMSManifestMenuCtrl.ePage.Masters.JobAccounting()">
+                                <span class="mr-0">
+                                    <i class="eaxis-footer-icon fa fa-money"></i>
+                                    <span class="sm-count">0</span>
+                                </span>
+                                <span class="eaxis-footer-text" data-ng-bind="'JobAccounting'"></span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
         <div class="col-xs-5 col-sm-5 col-md-7 col-lg-6 col-xl-6 pl-0" ng-if="!DMSManifestMenuCtrl.currentManifest.isNew">
             <standard-menu dataentry-object="DMSManifestMenuCtrl.dataentryObject" input="DMSManifestMenuCtrl.currentManifest"></standard-menu>
