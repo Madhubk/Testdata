@@ -82,26 +82,20 @@
                     let _hardLoginToken = _response.token_type + ' ' + _response.access_token;
 
                     if (_response.tenantinfo) {
-                        let _tenantList = (typeof _response.tenantinfo == "string") ? JSON.parse(_response.tenantinfo) : _response.tenantinfo;
-                        if (_tenantList.length > 0) {
+                        let _tenantinfo = (typeof _response.tenantinfo == "string") ? JSON.parse(_response.tenantinfo) : _response.tenantinfo;
+                        if (_tenantinfo.TenantDetails && _tenantinfo.TenantDetails.length > 0) {
+                            let _tenantList = (typeof _response.recentTenant == "string") ? JSON.parse(_response.recentTenant) : _response.recentTenant;
                             let _queryString = {
                                 Username: _response.username,
                                 Token: _hardLoginToken,
                                 TenantList: _tenantList,
                                 IsLogin: true,
-                                Continue: $location.path(),
+                                Continue: $location.path()
                             };
+                            // redirect tenant list page
                             $location.path("/tenant-list").search("q", helperService.encryptData(_queryString));
                         } else {
-                            let _queryString = {
-                                Username: _response.username,
-                                Token: _hardLoginToken,
-                                TenantList: _tenantList,
-                                IsLogin: true,
-                                Continue: $location.path(),
-                            };
-                            $location.path("/tenant-list").search("q", helperService.encryptData(_queryString));
-                            // toastr.error("You donot have access to this application...!");
+                            toastr.error("You donot have access to this application...!");
                         }
                     } else {
                         LoginFormCtrl.ePage.Masters.UserInfo = _response;

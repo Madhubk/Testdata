@@ -710,6 +710,11 @@
                             "Upsert": {
                                 "IsAPI": "true",
                                 "Url": "DataEntryDetails/Upsert"
+                            },
+                            "GetPublishDataEntryMasterJson": {
+                                "IsAPI": "true",
+                                "HttpType": "GET",
+                                "Url": "DataEntryDetails/GetPublishDataEntryMasterJson/",
                             }
                         }
                     },

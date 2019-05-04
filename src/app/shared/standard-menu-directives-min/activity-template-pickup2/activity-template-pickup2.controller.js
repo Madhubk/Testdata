@@ -418,7 +418,9 @@
             ActivityTemplatePickup2Ctrl.ePage.Masters.StandardConfigInput = {
                 IsDisableRefreshButton: true,
                 IsDisableDeleteHistoryButton: true,
+                IsDisableGenerate: true,
                 IsDisableRelatedDocument: true,
+                IsDisableCount: true,
             };
 
             ActivityTemplatePickup2Ctrl.ePage.Masters.CommentConfig = {

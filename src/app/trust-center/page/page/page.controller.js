@@ -398,15 +398,7 @@
         }
 
         function Publish() {
-            let _filter = {
-                "DataEntryPK": PageCtrl.ePage.Masters.Page.ActivePage.DataEntry_PK
-            };
-            let _input = {
-                "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": trustCenterConfig.Entities.API.DataEntryJSON.API.PublishAllDataentryMasterJson.FilterID
-            };
-
-            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.DataEntryJSON.API.PublishAllDataentryMasterJson.Url, _input).then(response => {
+            apiService.get("eAxisAPI", trustCenterConfig.Entities.API.DataEntryDetails.API.GetPublishDataEntryMasterJson.Url + PageCtrl.ePage.Masters.Page.ActivePage.DataEntry_PK).then(response => {
                 toastr.success("Published Successfully...!");
             });
         }

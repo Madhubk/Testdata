@@ -60,7 +60,7 @@
 
             MyTaskCtrl.ePage.Masters.OnToggleFilterClick = OnToggleFilterClick;
 
-            (MyTaskCtrl.ePage.Masters.IsMobile) ? MyTaskCtrl.ePage.Masters.IsToggleFilter = false: MyTaskCtrl.ePage.Masters.IsToggleFilter = true;
+            (MyTaskCtrl.ePage.Masters.IsMobile) ? MyTaskCtrl.ePage.Masters.IsToggleFilter = false : MyTaskCtrl.ePage.Masters.IsToggleFilter = true;
 
             MyTaskCtrl.ePage.Masters.SelectedWorkItem = SelectedWorkItem;
 
@@ -311,38 +311,40 @@
             OnRefreshTask();
         }
 
-        function OnTaskComplete($item, type) {
+        function OnTaskComplete($item, type) {            
             if (type == "edit") {
                 CloseEditActivityModal();
             }
 
-            if ($item.IsRefreshTask) {
-                OnRefreshTask();
-            }
-
-            if ($item.IsRefreshStatusCount) {
-                RefreshStatusCount();
-            } else {
-                // Remove completed task from Task List
-                var _item = angular.copy($item.Item);
-                var _index = MyTaskCtrl.ePage.Masters.MyTask.WorkItemDetails.map(function (value, key) {
-                    return value.PK;
-                }).indexOf(_item.PK);
-
-                if (_index !== -1) {
-                    MyTaskCtrl.ePage.Masters.MyTask.WorkItemDetails.splice(_index, 1);
+            if (!type) {
+                if ($item.IsRefreshTask) {
+                    OnRefreshTask();
                 }
 
-                // Remove count from selected List
-                var _clickedStatus;
-                for (var x in MyTaskCtrl.ePage.Masters.MyTask.ActiveWorkItemCount) {
-                    if (x.toLowerCase() == _item.UserStatus.toLowerCase()) {
-                        _clickedStatus = x;
+                if ($item.IsRefreshStatusCount) {
+                    RefreshStatusCount();
+                } else {
+                    // Remove completed task from Task List
+                    var _item = angular.copy($item.Item);
+                    var _index = MyTaskCtrl.ePage.Masters.MyTask.WorkItemDetails.map(function (value, key) {
+                        return value.PK;
+                    }).indexOf(_item.PK);
+
+                    if (_index !== -1) {
+                        MyTaskCtrl.ePage.Masters.MyTask.WorkItemDetails.splice(_index, 1);
                     }
-                }
 
-                if (_clickedStatus) {
-                    MyTaskCtrl.ePage.Masters.MyTask.ActiveWorkItemCount[_clickedStatus] = MyTaskCtrl.ePage.Masters.MyTask.ActiveWorkItemCount[_clickedStatus] - 1;
+                    // Remove count from selected List
+                    var _clickedStatus;
+                    for (var x in MyTaskCtrl.ePage.Masters.MyTask.ActiveWorkItemCount) {
+                        if (x.toLowerCase() == _item.UserStatus.toLowerCase()) {
+                            _clickedStatus = x;
+                        }
+                    }
+
+                    if (_clickedStatus) {
+                        MyTaskCtrl.ePage.Masters.MyTask.ActiveWorkItemCount[_clickedStatus] = MyTaskCtrl.ePage.Masters.MyTask.ActiveWorkItemCount[_clickedStatus] - 1;
+                    }
                 }
             }
         }
@@ -384,7 +386,7 @@
         }
 
         function OnRefreshTask($item) {
-            // MyTaskCtrl.ePage.Masters.MyTask.WorkItemDetails = undefined;
+            MyTaskCtrl.ePage.Masters.MyTask.WorkItemDetails = undefined;
             MyTaskCtrl.ePage.Masters.MyTask.IsVisibleLoadMoreBtn = false;
             GetWorkItemList();
         }
@@ -654,7 +656,7 @@
             MyTaskCtrl.ePage.Masters.MyTask.StatusCount.SentItem = {};
 
             $ocLazyLoad.load(["chromeTab", "compareDate", "dynamicListModal", "dynamicList", "dynamicGrid", "WorkItemListView", "ProcessInstanceWorkItemDetails"]).then(function () {
-                OpenSentItemModal().result.then(function (response) {}, function () {
+                OpenSentItemModal().result.then(function (response) { }, function () {
                     console.log("Cancelled");
                 });
             });

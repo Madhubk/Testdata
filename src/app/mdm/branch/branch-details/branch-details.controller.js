@@ -24,8 +24,7 @@
             BranchDetailsCtrl.ePage.Masters.SelectedLookupData = SelectedLookupData;
         };
 
-        function SelectedLookupData($index, $item) {
-            debugger;
+        function SelectedLookupData($index, $item) {            
             console.log(BranchDetailsCtrl.ePage.Entities.BranchHeader.Data);
         }
 

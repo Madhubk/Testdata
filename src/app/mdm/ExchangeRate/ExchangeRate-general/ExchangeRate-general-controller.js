@@ -94,8 +94,7 @@
         // #endregion
 
         //#region ErrorWarning Alert Validation
-        function OnChangeValues(fieldvalue, code, IsArray, RowIndex) {
-            debugger;
+        function OnChangeValues(fieldvalue, code, IsArray, RowIndex) {            
             if (fieldvalue != '') {
                 if (code == "E1327") {
                     if(ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.UIMstExchangeRate.Rate != null && ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.UIMstExchangeRate.Rate !=""){
