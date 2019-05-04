@@ -631,7 +631,7 @@
             //endregion
         ],
         URL: {
-            eAxisAPI: "http://dev.myhubplusapi.20cube.com/wms/",
+            eAxisAPI: "http://dev.myhubplusapi.20cube.com/wms1/",
             authAPI: "http://dev.myhubplusapi.20cube.com/wmsauth/",
             alertAPI: "http://uat.api.20cube.com/alert/"
         },
@@ -730,7 +730,7 @@
             ]
         },
         IsInsertErrorLog: true,
-        SessionExpiryTime: 20,
+        SessionExpiryTime: 50,
         Version: "1.0"
     };
 
