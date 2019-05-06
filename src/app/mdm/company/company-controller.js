@@ -33,6 +33,7 @@
             CompanyCtrl.ePage.Masters.CurrentActiveTab = CurrentActiveTab;
             CompanyCtrl.ePage.Masters.RemoveTab = RemoveTab;
             CompanyCtrl.ePage.Masters.SelectedGridRow = SelectedGridRow;
+            CompanyCtrl.ePage.Masters.CreateNewCompany=CreateNewCompany;
         }
         function SelectedGridRow($item) {
             if ($item.action === "link" || $item.action === "dblClick") {
@@ -75,6 +76,37 @@
             var currentCompany = currentCompany[currentCompany.label].ePage.Entities;
             CompanyCtrl.ePage.Masters.TabList.splice(index, 1);
         }
+
+        function CreateNewCompany() {
+            var _isExist = CompanyCtrl.ePage.Masters.TabList.some(function (value) {
+                if (value.label === "New")
+                    return true;
+                else
+                    return false;
+            });
+
+            if (!_isExist) {
+                CompanyCtrl.ePage.Entities.CompanyHeader.Message = false;
+                CompanyCtrl.ePage.Masters.isNewClicked = true;
+                helperService.getFullObjectUsingGetById(CompanyCtrl.ePage.Entities.CompanyHeader.API.GetByID.Url, 'null').then(function (response) {
+                    if (response.data.Response) {
+                        var _obj = {
+                            entity: response.data.Response,
+                            data: response.data.Response,
+                            // Validations: response.data.Response.Validations
+                        };
+                        CompanyCtrl.ePage.Masters.AddTab(_obj, true);
+                        CompanyCtrl.ePage.Masters.isNewClicked = false;
+                    } else {
+                        console.log("Empty New Branch response");
+                    }
+                });
+            } else {
+                toastr.info("New Record Already Opened...!");
+            }
+        }
+
+
         function Save(currentCompany) {
             CompanyCtrl.ePage.Masters.SaveButtonText = "Please Wait...";
             CompanyCtrl.ePage.Masters.IsDisableSave = true;
