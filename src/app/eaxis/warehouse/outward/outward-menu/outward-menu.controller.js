@@ -836,8 +836,8 @@
 
             if (!myData) {
 
-                obj.AgentOrg_Code = OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.SupplierCode
-                obj.Agent_Org_FK = OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.ORG_Supplier_FK
+                obj.AgentOrg_Code = OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.ConsigneeCode
+                obj.Agent_Org_FK = OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.ORG_Consignee_FK
                 obj.LocalOrg_Code = OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.ClientCode
                 obj.LocalOrg_FK = OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.ORG_Client_FK
                 obj.JobNo = OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WorkOrderID
