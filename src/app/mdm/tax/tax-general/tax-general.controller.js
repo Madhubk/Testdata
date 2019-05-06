@@ -4,9 +4,9 @@
     angular.module("Application")
         .controller("TaxGeneralController", TaxGeneralController);
 
-    TaxGeneralController.$inject = ["$timeout", "helperService", "taxConfig", "appConfig", "authService", "apiService", "confirmation"];
+    TaxGeneralController.$inject = ["$timeout", "helperService", "taxConfig", "appConfig", "authService", "apiService", "confirmation", "toastr"];
 
-    function TaxGeneralController($timeout, helperService, taxConfig, appConfig, authService, apiService, confirmation) {
+    function TaxGeneralController($timeout, helperService, taxConfig, appConfig, authService, apiService, confirmation, toastr) {
         var TaxGeneralCtrl = this;
 
         function Init() {
@@ -19,13 +19,13 @@
                 "Meta": helperService.metaBase(),
                 "Entities": currentTax
             };
-            
-            TaxGeneralCtrl.ePage.Masters.TaxCategoryContent = false;
+
+            // TaxGeneralCtrl.ePage.Masters.TaxCategoryContent = false;
             TaxGeneralCtrl.ePage.Masters.TaxHierarchyContent = true;
             TaxGeneralCtrl.ePage.Masters.Config = taxConfig;
 
             /* Function */
-            TaxGeneralCtrl.ePage.Masters.OnChangeValues = OnChangeValues;
+            //TaxGeneralCtrl.ePage.Masters.OnChangeValues = OnChangeValues;
             TaxGeneralCtrl.ePage.Masters.SelectCheckBoxTaxHierarchy = SelectCheckBoxTaxHierarchy;
             TaxGeneralCtrl.ePage.Masters.SelectedLookupData = SelectedLookupData;
             TaxGeneralCtrl.ePage.Masters.AddNewRow = AddNewRow;
@@ -50,6 +50,10 @@
                     "ListSource": []
                 },
             };
+
+            if (TaxGeneralCtrl.ePage.Entities.Header.Data.UIAccTaxRate.TaxHierarchy) {
+                TaxGeneralCtrl.ePage.Masters.TaxHierarchyContent = false;
+            }
 
             GetMastersDropDownList();
         }
@@ -81,14 +85,14 @@
         //#endregion
 
         //#region  OnChange, Selected Hierarchy
-        function OnChangeValues($item) {
-            if ($item == "TDS") {
-                TaxGeneralCtrl.ePage.Masters.TaxCategoryContent = true;
-            }
-            else {
-                TaxGeneralCtrl.ePage.Masters.TaxCategoryContent = false;
-            }
-        }
+        // function OnChangeValues($item) {
+        //     if ($item == "TDS") {
+        //         TaxGeneralCtrl.ePage.Masters.TaxCategoryContent = true;
+        //     }
+        //     else {
+        //         TaxGeneralCtrl.ePage.Masters.TaxCategoryContent = false;
+        //     }
+        // }
 
         function SelectCheckBoxTaxHierarchy($item) {
             if ($item) {
@@ -159,9 +163,23 @@
                         value.IsDeleted = true;
                     }
                 });
-                for (var i = TaxGeneralCtrl.ePage.Entities.Header.Data.UIAccTaxRateDetails.length - 1; i >= 0; i--) {
-                    if (TaxGeneralCtrl.ePage.Entities.Header.Data.UIAccTaxRateDetails[i].SingleSelect == true && TaxGeneralCtrl.ePage.Entities.Header.Data.UIAccTaxRateDetails[i].IsDeleted)
-                        TaxGeneralCtrl.ePage.Entities.Header.Data.UIAccTaxRateDetails.splice(i, 1);
+
+                TaxGeneralCtrl.ePage.Entities.Header.Data.UIAccTaxRateDetails.map(function (value, key) {
+                    if (value.SingleSelect && value.PK && value.IsDeleted) {
+                        /* apiService.get("eAxisAPI", taxConfig.Entities.API.AccTaxRate.API.Delete.Url + value.PK).then(function (response) {
+                            console.log("Success");
+                        }); */
+                        toastr.error("Don't have permission delete Existing record.");
+                    }
+                });
+
+                var ReturnValue = RemoveAllLineErrors();
+                if (ReturnValue) {
+                    for (var i = TaxGeneralCtrl.ePage.Entities.Header.Data.UIAccTaxRateDetails.length - 1; i >= 0; i--) {
+                        if (TaxGeneralCtrl.ePage.Entities.Header.Data.UIAccTaxRateDetails[i].SingleSelect == true && TaxGeneralCtrl.ePage.Entities.Header.Data.UIAccTaxRateDetails[i].IsDeleted && !TaxGeneralCtrl.ePage.Entities.Header.Data.UIAccTaxRateDetails[i].PK)
+                            TaxGeneralCtrl.ePage.Entities.Header.Data.UIAccTaxRateDetails.splice(i, 1);
+                    }
+                    TaxGeneralCtrl.ePage.Masters.Config.GeneralValidation(TaxGeneralCtrl.currentTax);
                 }
 
                 TaxGeneralCtrl.ePage.Masters.selectedRow = -1;
@@ -231,6 +249,14 @@
             } else {
                 TaxGeneralCtrl.ePage.Masters.Config.RemoveErrorWarning(value.Code, "E", value.CtrlKey, TaxGeneralCtrl.currentTax.code, IsArray, RowIndex, value.ColIndex);
             }
+        }
+
+        function RemoveAllLineErrors() {
+            for (var i = 0; i < TaxGeneralCtrl.ePage.Entities.Header.Data.UIAccTaxRateDetails.length; i++) {
+                OnChangeValidations('value', 'E1212', true, i);
+                OnChangeValidations('value', 'E1213', true, i);
+            }
+            return true;
         }
         //#endregion 
 

@@ -56,7 +56,7 @@
                             <input type="text" class="form-control" placeholder="Tax" data-ng-model="TaxGeneralCtrl.ePage.Entities.Header.Data.UIAccTaxRate.RateObsolete" data-ng-change='TaxGeneralCtrl.ePage.Masters.OnChangeValidations(TaxGeneralCtrl.ePage.Entities.Header.Data.UIAccTaxRate.RateObsolete,"E1211",false,undefined)' numbers-only-dot sb-precision="2"/>
                     </div>
                 </div>
-                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 mt-10" data-ng-if="TaxGeneralCtrl.ePage.Masters.TaxCategoryContent">
+                <!-- <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 mt-10" data-ng-if="TaxGeneralCtrl.ePage.Masters.TaxCategoryContent">
                         <div class="error-warning-container">
                             <error-warning-directive data-ng-if="TaxGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.RateObsolete.IsWarning && !TaxGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.RateObsolete.IsError"
                                 list="TaxGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.RateObsolete.WARNING" type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
@@ -77,7 +77,7 @@
                             <option value="">--Select--</option>
                         </select>
                     </div>
-                </div>
+                </div> -->
                 <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 mt-10">
                     <div class="form-group">
                         <div class="error-warning-container">
@@ -134,7 +134,7 @@
                     <table id="TaxGeneralCtrl.ePage.Masters.AddScroll" data-ng-style="{'height': TaxGeneralCtrl.ePage.Entities.Header.TableProperties.UIAccTaxRateDetails.TableHeight.height + 'px' }">
                         <thead>
                             <tr id="tableHeader">
-                                <th data-ng-if="TaxGeneralCtrl.ePage.Entities.Header.TableProperties.UIAccTaxRateDetails.ccheckbox.isenabled">
+                                <th data-ng-if="TaxGeneralCtrl.ePage.Entities.Header.TableProperties.UIAccTaxRateDetails.ccheckbox.isenabled" data-ng-style="{'width': TaxGeneralCtrl.ePage.Entities.Header.TableProperties.UIAccTaxRateDetails.ccheckbox.width + 'px'}">
                                     <label class="customcheckbox">
                                         <input type="checkbox" data-ng-model="TaxGeneralCtrl.ePage.Entities.Header.GlobalVariables.SelectAll" data-ng-change="TaxGeneralCtrl.ePage.Masters.SelectAllCheckBox()" data-ng-disabled="TaxGeneralCtrl.ePage.Masters.TaxHierarchyContent" />
                                             <span class="text"></span>
@@ -154,6 +154,11 @@
                                         <input type="checkbox" data-ng-checked="x.SingleSelect" data-ng-model="x.SingleSelect" data-ng-change="TaxGeneralCtrl.ePage.Masters.SingleSelectCheckBox()" data-ng-model="x.SingleSelect" data-ng-disabled="TaxGeneralCtrl.ePage.Masters.TaxHierarchyContent"/>
                                         <span class="text"></span>
                                     </label>
+                                    <span class="list-error-warning" data-ng-if="TaxGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIAccTaxRateDetails.ERROR | listCount: 'RowIndex': $index">
+                                        <error-warning-directive list="TaxGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIAccTaxRateDetails.ERROR"
+                                            type="'error'" icon="fa fa-warning" parent-type="'arrayObjectRow'" parent-ref="" g-parent-ref="" row-index="$index" col-index="">
+                                        </error-warning-directive>
+                                    </span>
                                 </td>
                                 <td data-ng-show="TaxGeneralCtrl.ePage.Entities.Header.TableProperties.UIAccTaxRateDetails.ttaxsno.isenabled"
                                     data-ng-style="{'width': TaxGeneralCtrl.ePage.Entities.Header.TableProperties.UIAccTaxRateDetails.ttaxsno.width + 'px' }"
@@ -188,7 +193,13 @@
                                     </div>
                                     <div data-ng-if="$index==TaxGeneralCtrl.ePage.Masters.selectedRow">
                                         <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0 height-22">
-                                            <input type="text" class="form-control input-sm" placeholder="TaxSubCodeRate" data-ng-model="x.Rate" data-ng-disabled="TaxGeneralCtrl.ePage.Masters.TaxHierarchyContent" numbers-only-dot sb-precision="2"/>
+                                            <input type="text" class="form-control input-sm" placeholder="Tax Sub Code Rate" data-ng-model="x.Rate" data-ng-disabled="TaxGeneralCtrl.ePage.Masters.TaxHierarchyContent" numbers-only-dot />
+                                        </div>
+                                        <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="TaxGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIAccTaxRateDetails.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':2">
+                                            <error-warning-directive  list="TaxGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIAccTaxRateDetails.ERROR"
+                                                type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref=""
+                                                row-index="TaxGeneralCtrl.ePage.Masters.selectedRow" col-index="2">
+                                            </error-warning-directive>
                                         </div>
                                     </div>
                                 </td>
