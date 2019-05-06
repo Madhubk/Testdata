@@ -139,9 +139,13 @@
                         DynamicLookupCtrl.ePage.Masters.LookupConfig = dynamicLookupConfig.Entities[x];
                     }
                 }
-
-                if (DynamicLookupCtrl.ePage.Masters.LookupConfig.getValues && DynamicLookupCtrl.ePage.Masters.LookupConfig.getValues.length > 0) {
-                    DynamicLookupCtrl.ePage.Masters.LookupConfig.getValues.map(value => DynamicLookupCtrl.obj[value.eField] = undefined);
+                if (DynamicLookupCtrl.ePage.Masters.LookupConfig.getValues) {
+                    if (typeof DynamicLookupCtrl.ePage.Masters.LookupConfig.getValues == "string") {
+                        DynamicLookupCtrl.ePage.Masters.LookupConfig.getValues = JSON.parse(DynamicLookupCtrl.ePage.Masters.LookupConfig.getValues);
+                    }
+                    if (DynamicLookupCtrl.ePage.Masters.LookupConfig.getValues.length > 0) {
+                        DynamicLookupCtrl.ePage.Masters.LookupConfig.getValues.map(value => DynamicLookupCtrl.obj[value.eField] = undefined);
+                    }
                 }
             }
         }

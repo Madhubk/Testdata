@@ -225,6 +225,7 @@
             let _item = angular.copy(ScheduleCtrl.ePage.Masters.ActiveSchedule);
             if (_item.CustomContactInfo) {
                 _item.CustomContactInfo.ContactInfo = _item.CustomContactInfo.Template.To;
+				_item.CustomContactInfo.IsModified = true;
                 if (_item.CustomContactInfo.Template.ReportTemplateInput && typeof _item.CustomContactInfo.Template.ReportTemplateInput == "string") {
                     // _item.CustomContactInfo.Template.ReportTemplateInput = JSON.parse(_item.CustomContactInfo.Template.ReportTemplateInput);
                     _item.CustomContactInfo.Template = JSON.stringify(_item.CustomContactInfo.Template);
@@ -312,7 +313,9 @@
             let _input = _item;
 
             apiService.post("eAxisAPI", appConfig.Entities.DataConfigScheduler.API.RunScheduleNow.Url, _input).then(response => {
-                if (response.data.Response && response.data.Status === "Success") {} else {
+                if (response.data.Response && response.data.Status === "Success") {
+					toastr.success("Mail sent successfully...!");
+				} else {
                     toastr.error("Failed to Send...!");
                 }
 

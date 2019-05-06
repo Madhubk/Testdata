@@ -335,18 +335,11 @@
             }
         }
 
-        function Publish() {
+        function Publish() {            
             EditPageCtrl.ePage.Masters.EditPage.PublishBtnText = "Please Wait...";
             EditPageCtrl.ePage.Masters.EditPage.IsDisablePublishBtn = true;
-            let _filter = {
-                "DataEntryPK": EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.DataEntry_PK
-            };
-            let _input = {
-                "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": trustCenterConfig.Entities.API.DataEntryJSON.API.PublishAllDataentryMasterJson.FilterID
-            };
 
-            apiService.post("eAxisAPI", trustCenterConfig.Entities.API.DataEntryJSON.API.PublishAllDataentryMasterJson.Url, _input).then(response => {
+            apiService.get("eAxisAPI", trustCenterConfig.Entities.API.DataEntryDetails.API.GetPublishDataEntryMasterJson.Url+EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.DataEntry_PK).then(response => {
                 toastr.success("Published Successfully...!");
                 EditPageCtrl.ePage.Masters.EditPage.PublishBtnText = "Publish";
                 EditPageCtrl.ePage.Masters.EditPage.IsDisablePublishBtn = false;

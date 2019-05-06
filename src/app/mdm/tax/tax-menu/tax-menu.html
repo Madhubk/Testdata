@@ -4,7 +4,7 @@
         <span class="dropup pull-right">
             <span class="pull-right">
                 <button type="button" class="btn btn-primary btn-sm margin-top-5" data-ng-bind="TaxMenuCtrl.ePage.Masters.SaveButtonText"
-                    data-ng-click="TaxMenuCtrl.ePage.Masters.Validation(TaxMenuCtrl.currentTax)" data-ng-disabled="TaxMenuCtrl.ePage.Masters.DisableSave">
+                    data-ng-click="TaxMenuCtrl.ePage.Masters.Validation(TaxMenuCtrl.currentTax)" data-ng-disabled="TaxMenuCtrl.ePage.Masters.DisableSave || !TaxMenuCtrl.currentTax.isNew" >
                 </button>
             </span>
         </span>

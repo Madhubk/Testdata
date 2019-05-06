@@ -635,7 +635,7 @@
                                                     apiService.post("eAxisAPI", appConfig.Entities.WmsDeliveryReport.API.FindAll.Url, _input).then(function (response) {
                                                         if (response.data.Response) {
                                                             if (response.data.Response.length > 0) {
-                                                                response.data.Response[0].IsModified = true;                                                                
+                                                                response.data.Response[0].IsModified = true;
                                                                 response.data.Response[0].DEL_OUT_RefNo = ActivityTemplateInwardCtrl.ePage.Masters.OutwardDetails.UIWmsOutwardHeader.WorkOrderID;
                                                                 response.data.Response[0].DEL_OOU_Fk = ActivityTemplateInwardCtrl.ePage.Masters.OutwardDetails.UIWmsOutwardHeader.PK;
                                                                 response.data.Response[0].DEL_OUT_ExternalRefNumber = ActivityTemplateInwardCtrl.ePage.Masters.OutwardDetails.UIWmsOutwardHeader.ExternalReference;
@@ -835,7 +835,9 @@
             ActivityTemplateInwardCtrl.ePage.Masters.StandardConfigInput = {
                 IsDisableRefreshButton: true,
                 IsDisableDeleteHistoryButton: true,
-                IsDisableRelatedDocument: true
+                IsDisableGenerate: true,
+                IsDisableRelatedDocument: true,
+                IsDisableCount: true,
             };
 
             ActivityTemplateInwardCtrl.ePage.Masters.CommentConfig = {

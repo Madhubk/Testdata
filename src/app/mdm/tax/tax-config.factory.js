@@ -28,6 +28,11 @@
                                 "HttpType": "GET",
                                 "Url": "AccTaxRateDetailsList/GetById/"
                             },
+                            "Delete": {
+                                "IsAPI": "true",
+                                "HttpType": "Get",
+                                "Url": "AccTaxRateDetails/Delete/"
+                            },
                             "AccTaxRateActivityClose": {
                                 "IsAPI": "true",
                                 "HttpType": "GET",
@@ -97,7 +102,7 @@
                                 "ccheckbox": {
                                     "isenabled": true,
                                     "position": '1',
-                                    "width": "30"
+                                    "width": "40"
                                 },
                                 "ttaxsno": {
                                     "isenabled": true,
@@ -196,8 +201,8 @@
             //UIAccTaxRateDetails Validations
             if (_input.UIAccTaxRateDetails.length > 0) {
                 angular.forEach(_input.UIAccTaxRateDetails, function (value, key) {
-                   // OnChangeValues(value.Code, 'E1212', true, key, $item.code);
-                      OnChangeValues(value.Rate, 'E1213', true, key, $item.code);
+                    OnChangeValues(value.Code, 'E1212', true, key, $item.code);
+                    OnChangeValues(value.Rate, 'E1213', true, key, $item.code);
                 });
             }
         }

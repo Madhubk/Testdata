@@ -145,7 +145,9 @@
             ActivityTemplateOutward2Ctrl.ePage.Masters.StandardConfigInput = {
                 IsDisableRefreshButton: true,
                 IsDisableDeleteHistoryButton: true,
-                IsDisableRelatedDocument: true
+                IsDisableGenerate: true,
+                IsDisableRelatedDocument: true,
+                IsDisableCount: true,
             };
 
             ActivityTemplateOutward2Ctrl.ePage.Masters.CommentConfig = {
