@@ -55,7 +55,7 @@
         }
         //#endregion
 
-        //#region  AddTab, RemoveTab, NewTaxMaster
+        //#region AddTab, RemoveTab, NewTaxMaster
         function AddTab(currentTab, isNew) {
             var _isExist = TaxCtrl.ePage.Masters.TabList.some(function (value) {
                 return value.pk == currentTab.entity.PK;

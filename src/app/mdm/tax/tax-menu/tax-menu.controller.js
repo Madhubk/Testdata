@@ -30,6 +30,7 @@
 
         //#region  Validation
         function Validation($item) {
+            var _Calculation = 0;
             var _Data = $item[$item.code].ePage.Entities,
                 _input = _Data.Header.Data,
                 _errorcount = _Data.Header.Meta.ErrorWarning.GlobalErrorWarningList;
@@ -53,7 +54,7 @@
                     }
 
                     var _count = TaxMenuCtrl.ePage.Masters.UITaxRate.some(function (value, key) {
-                        if (value.Code == _input.Code) {
+                        if (value.Code == _input.UIAccTaxRate.Code) {
                             return true;
                         }
                         else {
@@ -61,10 +62,23 @@
                         }
                     });
 
+                    TaxMenuCtrl.ePage.Entities.Header.Data.UIAccTaxRateDetails.map(function (value, key) {
+                        _Calculation = _Calculation + parseFloat(value.Rate);
+                    });
+
                     if (_count) {
                         toastr.error("Code is Unique, Rename the Code!.");
                     } else {
-                        Save($item);
+                        if (parseFloat(TaxMenuCtrl.ePage.Entities.Header.Data.UIAccTaxRate.RateObsolete) != _Calculation) {
+                            toastr.error("Tax total sub code % is missmatch with tax amount.");
+                        } else if (TaxMenuCtrl.ePage.Entities.Header.Data.UIAccTaxRate.TaxHierarchy && TaxMenuCtrl.ePage.Entities.Header.Data.UIAccTaxRateDetails.length == 0) {
+                            toastr.error("Add atleast one record in TaxRate Details ,Otherwise uncheck Tax Hierarchy");
+                        } else if (!TaxMenuCtrl.ePage.Entities.Header.Data.UIAccTaxRate.TaxHierarchy && TaxMenuCtrl.ePage.Entities.Header.Data.UIAccTaxRateDetails.length > 0) {
+                            TaxMenuCtrl.ePage.Entities.Header.Data.UIAccTaxRateDetails = [];
+                            Save($item);
+                        } else {
+                            Save($item);
+                        }
                     }
                 });
             } else {
@@ -86,6 +100,7 @@
                 _input.UIAccTaxRate.ExtraTaxRateType = "";
                 _input.UIAccTaxRate.ReferenceExtraRateType = "";
                 _input.UIAccTaxRate.ReferenceRateType = "";
+                _input.UIAccTaxRate.CreatedDateTime = new Date();
             } else {
                 $item = filterObjectUpdate($item, "IsModified");
             }
@@ -95,19 +110,21 @@
                 TaxMenuCtrl.ePage.Masters.DisableSave = false;
 
                 if (response.Status === "success") {
-                    taxConfig.TabList.map(function (value, key) {
-                        var _index = taxConfig.TabList.map(function (value, key) {
-                            return value[value.code].ePage.Entities.Header.Data.PK;
-                        }).indexOf(TaxMenuCtrl.currentTax[TaxMenuCtrl.currentTax.code].ePage.Entities.Header.Data.PK);
+                    var _index = taxConfig.TabList.map(function (value, key) {
+                        return value[value.code].ePage.Entities.Header.Data.PK;
+                    }).indexOf(TaxMenuCtrl.currentTax[TaxMenuCtrl.currentTax.code].ePage.Entities.Header.Data.PK);
 
+                    taxConfig.TabList.map(function (value, key) {
                         if (_index == key) {
                             if (value.isNew) {
-                                value.label = TaxMenuCtrl.ePage.Entities.Header.Data.Code;
-                                value[TaxMenuCtrl.ePage.Entities.Header.Data.Code] = value.New;
-                                delete value.New;
+                                value.label = TaxMenuCtrl.ePage.Entities.Header.Data.UIAccTaxRate.Code;
+                                value[TaxMenuCtrl.ePage.Entities.Header.Data.UIAccTaxRate.Code] = value.isNew;
+                                delete value.isNew;
                             }
                         }
                     });
+
+                    helperService.refreshGrid();
                     toastr.success("Saved Successfully...!");
                 } else if (response.Status === "failed") {
                     toastr.error("Could not Save...!");
