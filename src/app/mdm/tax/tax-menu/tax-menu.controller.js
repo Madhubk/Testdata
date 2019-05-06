@@ -71,16 +71,14 @@
                     } else {
                         if (!TaxMenuCtrl.ePage.Entities.Header.Data.UIAccTaxRate.TaxHierarchy && TaxMenuCtrl.ePage.Entities.Header.Data.UIAccTaxRateDetails.length > 0) {
                             TaxMenuCtrl.ePage.Entities.Header.Data.UIAccTaxRateDetails = [];
-                            console.log("Save");
-                            // Save($item);
+                            Save($item);
                         } else if (TaxMenuCtrl.ePage.Entities.Header.Data.UIAccTaxRate.TaxHierarchy && TaxMenuCtrl.ePage.Entities.Header.Data.UIAccTaxRateDetails.length == 0) {
                             toastr.error("Add atleast one record in TaxRate grid Details, Otherwise uncheck Tax Hierarchy");
                         }
                         else if (TaxMenuCtrl.ePage.Entities.Header.Data.UIAccTaxRate.TaxHierarchy && parseFloat(TaxMenuCtrl.ePage.Entities.Header.Data.UIAccTaxRate.RateObsolete) != _Calculation) {
                             toastr.error("Tax total sub code Rate % is missmatch with tax amount.");
                         } else {
-                            // Save($item);
-                            console.log("Save");
+                            Save($item);
                         }
                     }
                 });

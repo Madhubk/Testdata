@@ -23,11 +23,19 @@
             };
 
             CreditorGeneralCtrl.ePage.Masters.Config = creditorConfig;
-            CreditorGeneralCtrl.ePage.Masters.UICreditor = CreditorGeneralCtrl.ePage.Entities.Header.Data;
-
             /* Function  */
             CreditorGeneralCtrl.ePage.Masters.OnChangeValues = OnChangeValues;
+
+            InitCreditorGroup();
         }
+
+        //#region CreditroGroup
+        function InitCreditorGroup() {
+            if (CreditorGeneralCtrl.currentCreditor.isNew) {
+                CreditorGeneralCtrl.ePage.Entities.Header.Data.IsValid = true;
+            }
+        }
+        //#endregion
 
         //#region ErrorWarning Alert Validation
         function OnChangeValues(fieldvalue, code, IsArray, RowIndex) {

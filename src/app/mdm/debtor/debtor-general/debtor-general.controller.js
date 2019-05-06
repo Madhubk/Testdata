@@ -23,11 +23,21 @@
             };
 
             DebtorGeneralCtrl.ePage.Masters.Config = debtorConfig;
-            DebtorGeneralCtrl.ePage.Masters.UIDebtor = DebtorGeneralCtrl.ePage.Entities.Header.Data;
+            //DebtorGeneralCtrl.ePage.Masters.UIDebtor = DebtorGeneralCtrl.ePage.Entities.Header.Data;
 
             /* Function */
             DebtorGeneralCtrl.ePage.Masters.OnChangeValues = OnChangeValues;
+
+            InitDebtorGroup();
         }
+
+        //#region DebtorGroup
+        function InitDebtorGroup(){
+            if (DebtorGeneralCtrl.currentDebtor.isNew) {
+                DebtorGeneralCtrl.ePage.Entities.Header.Data.IsValid = true;
+            }
+        }
+        //#endregion
 
         //#region ErrorWarning Alert Validation
         function OnChangeValues(fieldvalue, code, IsArray, RowIndex) {

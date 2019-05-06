@@ -22,12 +22,18 @@
                 "Entities": currentCreditor
             };
 
+            CreditorMenuCtrl.ePage.Masters.ActivateButtonText = "Activate";
+            CreditorMenuCtrl.ePage.Masters.DisableActivate = true;
+            CreditorMenuCtrl.ePage.Masters.DeactivateButtonText = "Deactivate";
+            CreditorMenuCtrl.ePage.Masters.DisableDeactivate = false;
             CreditorMenuCtrl.ePage.Masters.SaveButtonText = "Save";
             CreditorMenuCtrl.ePage.Masters.DisableSave = false;
             CreditorMenuCtrl.ePage.Masters.Config = creditorConfig;
 
             /* Function */
             CreditorMenuCtrl.ePage.Masters.Validation = Validation;
+            CreditorMenuCtrl.ePage.Masters.Activate = Activate;
+            CreditorMenuCtrl.ePage.Masters.Deactivate = Deactivate;
             CreditorMenuCtrl.ePage.Masters.Save = Save;
         }
 
@@ -64,10 +70,17 @@
                         }
                     });
 
-                    if (_count) {
+                    if ($item.isNew && _count) {
                         toastr.error("Code is Unique, Rename the Code!.");
                     } else {
-                        Save($item);
+                        if (_input.Code.length > 3) {
+                            toastr.error("Code is accept max 3 character only!.");
+                        }
+                        else if ($item.isNew && !_input.IsValid) {
+                            toastr.error("New creditor group can not be deactivate!.");
+                        } else {
+                            Save($item);
+                        }
                     }
                 });
             } else {
@@ -87,7 +100,6 @@
             if ($item.isNew) {
                 _input.PK = _input.PK;
                 _input.CreatedDateTime = new Date();
-                _input.IsValid = true;
                 _input.ModifiedBy = authService.getUserInfo().UserId;
                 _input.CreatedBy = authService.getUserInfo().UserId;
                 _input.Source = "ERP";
@@ -101,6 +113,21 @@
                 CreditorMenuCtrl.ePage.Masters.DisableSave = false;
 
                 if (response.Status === "success") {
+                    var _index = creditorConfig.TabList.map(function (value, key) {
+                        return value[value.code].ePage.Entities.Header.Data.PK;
+                    }).indexOf(CreditorMenuCtrl.currentCreditor[CreditorMenuCtrl.currentCreditor.code].ePage.Entities.Header.Data.PK);
+
+                    creditorConfig.TabList.map(function (value, key) {
+                        if (_index == key) {
+                            if (value.isNew) {
+                                value.label = CreditorMenuCtrl.ePage.Entities.Header.Data.Code;
+                                value[CreditorMenuCtrl.ePage.Entities.Header.Data.Code] = value.isNew;
+                                delete value.isNew;
+                            }
+                        }
+                    });
+
+                    helperService.refreshGrid();
                     toastr.success("Saved Successfully...!");
                 } else if (response.Status === "failed") {
                     toastr.error("Could not Save...!");
@@ -118,6 +145,20 @@
                 }
             }
             return obj;
+        }
+        //#endregion
+
+        //#region  Activate, Deactivate
+        function Activate() {
+            CreditorMenuCtrl.ePage.Masters.DisableActivate = true;
+            CreditorMenuCtrl.ePage.Masters.DisableDeactivate = false;
+            CreditorMenuCtrl.ePage.Entities.Header.Data.IsValid = true;
+        }
+
+        function Deactivate() {
+            CreditorMenuCtrl.ePage.Masters.DisableDeactivate = true;
+            CreditorMenuCtrl.ePage.Masters.DisableActivate = false;
+            CreditorMenuCtrl.ePage.Entities.Header.Data.IsValid = false;
         }
         //#endregion
 
