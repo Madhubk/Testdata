@@ -8,7 +8,8 @@
         <!-- <delivery-general current-delivery="DeliveryMenuCtrl.currentDelivery"></delivery-general> -->
         <uib-tabset class="wms-menu tabs-left tabbable" active="DeliveryMenuCtrl.ePage.Masters.active">
             <div class="tab-profile">
-                <div class="tab-profile-title text-single-line text-center" style="color: rgb(66, 50, 50);font-weight: 600;" data-ng-bind="DeliveryMenuCtrl.currentDelivery.label"></div>
+                <div class="tab-profile-title text-single-line text-center" style="color: rgb(66, 50, 50);font-weight: 600;"
+                    data-ng-bind="DeliveryMenuCtrl.currentDelivery.label"></div>
                 <div class="wocstatusmenu text-single-line text-center" title="{{DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderStatus + ' - '+ DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderStatusDesc}}"
                     data-ng-bind="DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderStatusDesc"></div>
             </div>
@@ -25,16 +26,18 @@
                         icon="fa fa-warning" parent-type="'GParent'" parent-ref="" g-parent-ref="x.GParentRef"></error-warning-directive>
                 </uib-tab-heading>
                 <div class="finalisedstate" ng-show="DeliveryMenuCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
-                    <span class="finaliseddatedescription" data-ng-if="DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderStatus != 'RDL'">Delivery {{DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderStatusDesc}} and it cannot
+                    <span class="finaliseddatedescription" data-ng-if="DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderStatus != 'RDL'">Delivery
+                        {{DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderStatusDesc}} and it cannot
                         be edited</span>
-                    <span class="finaliseddatedescription" data-ng-if="DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderStatus == 'RDL'"> {{DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderStatusDesc}} and it cannot
+                    <span class="finaliseddatedescription" data-ng-if="DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderStatus == 'RDL'">
+                        {{DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderStatusDesc}} and it cannot
                         be edited</span>
                 </div>
                 <div>
                     <div ng-switch="x.Value">
                         <!--Menu directives-->
-                        <div ng-switch-when="MyTask" delivery-my-task data-ng-if="DeliveryMenuCtrl.ePage.Masters.MyTask.ListSource" list-source="DeliveryMenuCtrl.ePage.Masters.MyTask.ListSource"
-                            current-delivery="DeliveryMenuCtrl.currentDelivery"></div>
+                        <div ng-switch-when="MyTask" delivery-my-task data-ng-if="DeliveryMenuCtrl.ePage.Masters.MyTask.ListSource"
+                            list-source="DeliveryMenuCtrl.ePage.Masters.MyTask.ListSource" current-delivery="DeliveryMenuCtrl.currentDelivery"></div>
                         <div ng-switch-when="General" delivery-general current-delivery="DeliveryMenuCtrl.currentDelivery"></div>
                         <div ng-switch-when="DeliveryLine" delivery-line current-delivery="DeliveryMenuCtrl.currentDelivery"></div>
                         <div ng-switch-when="DeliveryOrders" delivery-orders current-delivery="DeliveryMenuCtrl.currentDelivery"></div>
@@ -76,7 +79,7 @@
     </div>
     <div class="eaxis-footer-strip" data-ng-show="DeliveryMenuCtrl.ePage.Masters.ActiveMenuTab.Value != 'MyTask'">
         <div class="col-xs-6 col-sm-8 col-md-8 col-lg-9 col-xl-9">
-            <standard-menu dataentry-object="DeliveryMenuCtrl.dataentryObject" input="DeliveryMenuCtrl.currentDelivery"></standard-menu>
+            <standard-menu mode="1" data-ng-if="!DeliveryMenuCtrl.currentDelivery.isNew" dataentry-object="DeliveryMenuCtrl.dataentryObject" input="DeliveryMenuCtrl.currentDelivery"></standard-menu>
         </div>
         <div class="col-xs-6 col-sm-4 col-md-4 col-lg-3 col-xl-3">
             <span class="">

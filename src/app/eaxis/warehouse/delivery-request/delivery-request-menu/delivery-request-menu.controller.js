@@ -99,7 +99,7 @@
                                     apiService.post("eAxisAPI", appConfig.Entities.JobComments.API.Insert.Url, InsertCommentObject).then(function (response) {
                                         DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDelivery.CancelledDate = new Date();
                                         DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderStatus = "CAN";
-                                        DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderStatusDesc = "Cancelled";                                        
+                                        DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderStatusDesc = "Cancelled";
                                         angular.forEach(DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDeliveryLine, function (value, key) {
                                             value.WorkOrderLineStatus = "CAN";
                                             value.WorkOrderLineStatusDesc = "Cancelled";
@@ -206,7 +206,7 @@
                     value.WorkOrderLineStatus = "ENT";
                     value.WorkOrderLineStatusDesc = "Entered";
                 }
-                if (value.UISPMSDeliveryReport) {                    
+                if (value.UISPMSDeliveryReport) {
                     value.UISPMSDeliveryReport.PK = value.UISPMSDeliveryReport.PK;
                     value.UISPMSDeliveryReport.Client_Fk = _input.UIWmsDelivery.ORG_Client_FK;
                     value.UISPMSDeliveryReport.ClientCode = _input.UIWmsDelivery.ClientCode;
@@ -335,9 +335,9 @@
                                     }
                                 }
                                 deliveryConfig.TabList[_index].isNew = false;
-                                if ($state.current.url == "/delivery-request") {
-                                    helperService.refreshGrid();
-                                }
+                                DeliveryMenuCtrl.currentDelivery.isNew = false;
+                                helperService.refreshGrid();
+
                                 if (DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderStatus == "CAN") {
                                     DeliveryMenuCtrl.ePage.Entities.Header.GlobalVariables.NonEditable = true;
                                     DeliveryMenuCtrl.ePage.Masters.DisableSave = true;

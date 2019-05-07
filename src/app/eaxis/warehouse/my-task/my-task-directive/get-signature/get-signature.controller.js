@@ -111,7 +111,7 @@
                 API: "Validation", // Validation/Group
                 FilterInput: {
                     ModuleCode: "WMS",
-                    SubModuleCode: "PIC",
+                    SubModuleCode: "PIR",
                     // Code: "E0013"
                 },
                 EntityObject: GetSignatureCtrl.ePage.Entities.Header.PickupData,
