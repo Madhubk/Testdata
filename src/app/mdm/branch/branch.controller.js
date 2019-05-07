@@ -76,7 +76,7 @@
         function RemoveTab(event, index, currentBranch) {
             event.preventDefault();
             event.stopPropagation();
-            var currentBranch = currentBranch[currentBranch.label].ePage.Entities;
+            var currentBranch = currentBranch[currentBranch.code].ePage.Entities;
             BranchCtrl.ePage.Masters.TabList.splice(index, 1);
         }
 
@@ -135,8 +135,8 @@
             });
         }
         function CurrentActiveTab(currentTab) {
-            if (currentTab.label != undefined) {
-                currentTab = currentTab.label.entity
+            if (currentTab != undefined) {
+                currentTab = currentTab
             } else {
                 currentTab = currentTab;
             }

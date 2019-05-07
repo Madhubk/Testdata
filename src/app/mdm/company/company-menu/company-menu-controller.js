@@ -10,7 +10,7 @@
         var CompanyMenuCtrl = this;
 
         function Init() {
-            var currentCompany = CompanyMenuCtrl.currentCompany[CompanyMenuCtrl.currentCompany.label].ePage.Entities;
+            var currentCompany = CompanyMenuCtrl.currentCompany[CompanyMenuCtrl.currentCompany.code].ePage.Entities;
             CompanyMenuCtrl.ePage = {
                 "Title": "",
                 "Prefix": "DepartmentMenu",

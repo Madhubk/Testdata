@@ -11,7 +11,7 @@
         var CompanyDetailsCtrl = this;
 
         function Init() {
-            var currentCompany = CompanyDetailsCtrl.currentCompany[CompanyDetailsCtrl.currentCompany.label].ePage.Entities;
+            var currentCompany = CompanyDetailsCtrl.currentCompany[CompanyDetailsCtrl.currentCompany.code].ePage.Entities;
             CompanyDetailsCtrl.ePage = {
                 "Title": "",
                 "Prefix": "Department_Details",

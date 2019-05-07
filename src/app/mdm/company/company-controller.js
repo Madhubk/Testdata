@@ -73,7 +73,7 @@
         function RemoveTab(event, index, currentCompany) {
             event.preventDefault();
             event.stopPropagation();
-            var currentCompany = currentCompany[currentCompany.label].ePage.Entities;
+            var currentCompany = currentCompany[currentCompany.code].ePage.Entities;
             CompanyCtrl.ePage.Masters.TabList.splice(index, 1);
         }
 
@@ -133,11 +133,12 @@
         }
 
         function CurrentActiveTab(currentTab) {
-            if (currentTab.label != undefined) {
-                currentTab = currentTab.label.entity
+            if (currentTab != undefined) {
+                currentTab = currentTab
             } else {
                 currentTab = currentTab;
             }
+
             CompanyCtrl.ePage.Masters.currentCompany = currentTab;
         }
 

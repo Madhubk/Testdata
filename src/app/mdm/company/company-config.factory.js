@@ -86,7 +86,8 @@
                     [currentCompany.entity.Code]: {
                         ePage: _exports
                     },
-                    label: currentCompany.entity.Code,
+                    label: "New",
+                    code:currentCompany.entity.Code,
                     isNew: isNew
                 };
                 exports.CompanyList.push(obj);
@@ -102,6 +103,7 @@
                             ePage: _exports
                         },
                         label: currentCompany.entity.Code,
+                        code:currentCompany.entity.Code,
                         isNew: isNew
                     };
                     exports.CompanyList.push(obj);

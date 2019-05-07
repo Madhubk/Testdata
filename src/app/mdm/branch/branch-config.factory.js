@@ -74,7 +74,8 @@
                             [currentBranch.entity.Code]: {
                                 ePage: _exports
                             },
-                            label: currentBranch.entity.Code,
+                            label: "New",
+                            code:currentBranch.entity.Code,
                             isNew: isNew
                         };
                         exports.BranchList.push(obj);
@@ -88,6 +89,7 @@
                                     ePage: _exports
                                 },
                                 label: currentBranch.entity.Code,
+                                code:currentBranch.entity.Code,
                                 isNew: isNew
                             };
 

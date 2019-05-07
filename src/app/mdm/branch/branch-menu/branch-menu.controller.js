@@ -9,7 +9,7 @@
     function BranchMenuController($scope, $timeout, APP_CONSTANT, apiService, branchConfig, helperService) {
         var BranchMenuCtrl = this;
         function Init() {
-            var currentBranch = BranchMenuCtrl.currentBranch[BranchMenuCtrl.currentBranch.label].ePage.Entities;
+            var currentBranch = BranchMenuCtrl.currentBranch[BranchMenuCtrl.currentBranch.code].ePage.Entities;
             BranchMenuCtrl.ePage = {
                 "Title": "",
                 "Prefix": "Branch_Menu",
