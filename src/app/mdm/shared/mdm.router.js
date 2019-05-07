@@ -94,7 +94,7 @@
                         return deferred.promise;
                     }],
                     LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
-                        return $ocLazyLoad.load(['MDDepartment', 'MDDepartmentMenu', 'MDDepartmentDetails', 'MDDepartmentDetailsModal', 'dynamicLookup', 'dynamicListModal', 'dynamicList', 'dynamicGrid', 'dynamicControl', 'compareDate', 'customToolbar', 'confirmation', 'chromeTab', 'errorWarning']);
+                        return $ocLazyLoad.load(['MDDepartment', 'MDDepartmentMenu', 'MDDepartmentDetails', 'dynamicLookup', 'dynamicListModal', 'dynamicList', 'dynamicGrid', 'dynamicControl', 'compareDate', 'customToolbar', 'confirmation', 'chromeTab', 'errorWarning']);
                     }]
                 }
             })

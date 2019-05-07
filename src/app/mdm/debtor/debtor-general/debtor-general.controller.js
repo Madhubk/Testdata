@@ -23,8 +23,7 @@
             };
 
             DebtorGeneralCtrl.ePage.Masters.Config = debtorConfig;
-            //DebtorGeneralCtrl.ePage.Masters.UIDebtor = DebtorGeneralCtrl.ePage.Entities.Header.Data;
-
+           
             /* Function */
             DebtorGeneralCtrl.ePage.Masters.OnChangeValues = OnChangeValues;
 

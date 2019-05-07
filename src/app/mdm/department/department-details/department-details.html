@@ -1,77 +1,108 @@
-<div class="tabContent responsive">
-  <div class="eaxis-company-header bt-0">
-    <div class="eaxis-company-title" data-ng-bind="DepartmentDetailsCtrl.ePage.Entities.DepartmentHeader.Data.Code">{{DepartmentDetailsCtrl.ePage.Entities.DepartmentHeader.Data.Code}}
-    </div>
-    <div class="eaxis-company-title-2">{{DepartmentDetailsCtrl.ePage.Entities.DepartmentHeader.Data.Desc}}
+<div class="clearfix padding-top-10">
+  <div class="clearfix">
+      <!--Code-->
+      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 mt-5">
+          <div class="inner-dashboard-box">
+              <div class="rows" style="border: 2px solid #f5f5ff;">
+                  <div class="col-xs-3 col-sm-3 col-md-4 col-lg-4 col-xl-4 height-40 border-right pt-10 pb-10">
+                      <span class="dashboard-inward-icon-box">
+                          <i class="icomoon icon-organization-client"></i>
+                      </span>
+                      <label class="ml-5 control-label">Code</label>
+                      <span class="error-warning-container">
+                        <error-warning-directive data-ng-if="DepartmentDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.Code.IsWarning && !DepartmentDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.Code.IsError"
+                            list="DepartmentDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.Code.WARNING"
+                            type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref=""
+                            g-parent-ref="">
+                        </error-warning-directive>
+                        <error-warning-directive data-ng-if="DepartmentDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.Code.IsError"
+                            list="DepartmentDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.Code.ERROR"
+                            type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
+                        </error-warning-directive>
+                    </span>
+                  </div>
+                  <div class="col-xs-9 col-sm-9 col-md-8 col-lg-8 col-xl-8 height-40 p-5">
+                      <div class="input-group input-group-sm">
+                          <input type="text" class="form-control input-sm" placeholder="Code" data-ng-model="DepartmentDetailsCtrl.ePage.Entities.Header.Data.Code"
+                            data-ng-change='DepartmentDetailsCtrl.ePage.Masters.OnChangeValues(DepartmentDetailsCtrl.ePage.Entities.Header.Data.Code,"E1347")' alphabets-only/>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <!--Department Name-->
+      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 mt-5">
+          <div class="inner-dashboard-box">
+              <div class="rows" style="border: 2px solid #f5f5ff;">
+                  <div class="col-xs-3 col-sm-3 col-md-4 col-lg-4 col-xl-4 height-40  border-right pt-10 pb-10">
+                      <span class="dashboard-inward-icon-box">
+                          <i class="icomoon icon-supplier"></i>
+                      </span>
+                      <label class="ml-5 control-label">Department Name</label>
+                      <span class="error-warning-container">
+                        <error-warning-directive data-ng-if="DepartmentDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.Name.IsWarning && !DepartmentDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.Name.IsError"
+                            list="DepartmentDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.Name.WARNING"
+                            type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref=""
+                            g-parent-ref="">
+                        </error-warning-directive>
+                        <error-warning-directive data-ng-if="DepartmentDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.Name.IsError"
+                            list="DepartmentDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.Name.ERROR"
+                            type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
+                        </error-warning-directive>
+                    </span>
+                  </div>
+                  <div class="col-xs-9 col-sm-9 col-md-8 col-lg-8 col-xl-8 height-40 p-5">
+                      <div class="input-group input-group-sm">
+                          <input type="text" class="form-control" placeholder="Department Name" data-ng-model="DepartmentDetailsCtrl.ePage.Entities.Header.Data.Desc" 
+                            data-ng-change='DepartmentDetailsCtrl.ePage.Masters.OnChangeValues(DepartmentDetailsCtrl.ePage.Entities.Header.Data.Desc,"E1348")' no-special-except-comma/>  
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <!--Financial System Dept.Code-->
+      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 mt-5">
+        <div class="inner-dashboard-box">
+            <div class="rows" style="border: 2px solid #f5f5ff;">
+                <div class="col-xs-3 col-sm-3 col-md-4 col-lg-5 col-xl-5 height-40  border-right pt-10 pb-10">
+                    <label class="ml-5 control-label">Financial System Dept.Code</label>
+                </div>
+                <div class="col-xs-9 col-sm-9 col-md-8 col-lg-7 col-xl-7 height-40 p-5">
+                    <div class="input-group input-group-sm">
+                        <input type="text" class="form-control" placeholder="Financial System Dept.Code"/>  
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
   </div>
-  <div class="eaxis-record mt-20 padding-30 padding-top-10 padding-bottom-10">
-    <div class="row">
-      <div class="col-lg-2 col-md-3 col-sm-6 col-xs-6 mb-20">
-        <div class="eaxis-label">Code
-        </div>
-        <div class="eaxis-value" data-ng-bind="DepartmentDetailsCtrl.ePage.Entities.DepartmentHeader.Data.Code">
-        </div>
-      </div>
-      <div class="col-lg-2 col-md-3 col-sm-6 col-xs-6 mb-20">
-        <div class="eaxis-label">Export
-        </div>
-        <div class="eaxis-value" data-ng-bind="DepartmentDetailsCtrl.ePage.Entities.DepartmentHeader.Data.Export">
-        </div>
-      </div>
-      <div class="col-lg-2 col-md-3 col-sm-6 col-xs-6 mb-20">
-        <div class="eaxis-label">Import
-        </div>
-        <div class="eaxis-value" data-ng-bind="DepartmentDetailsCtrl.ePage.Entities.DepartmentHeader.Data.Import">
-        </div>
-      </div>
-      <div class="col-lg-2 col-md-3 col-sm-6 col-xs-6 mb-20">
-        <div class="eaxis-label">IsValid
-        </div>
-        <div class="eaxis-value" data-ng-bind="DepartmentDetailsCtrl.ePage.Entities.DepartmentHeader.Data.IsValid">
-        </div>
-      </div>
-      <div class="col-lg-2 col-md-3 col-sm-6 col-xs-6 mb-20">
-        <div class="eaxis-label">Warehouse
-        </div>
-        <div class="eaxis-value" data-ng-bind="DepartmentDetailsCtrl.ePage.Entities.DepartmentHeader.Data.Warehouse">
-        </div>
-      </div>
-      <div class="col-lg-2 col-md-3 col-sm-6 col-xs-6 mb-20">
-        <div class="eaxis-label">Rail
-        </div>
-        <div class="eaxis-value" data-ng-bind="DepartmentDetailsCtrl.ePage.Entities.DepartmentHeader.Data.Rail">
-        </div>
-      </div>
-      <div class="col-lg-2 col-md-3 col-sm-6 col-xs-6 mb-20">
-        <div class="eaxis-label">Road
-        </div>
-        <div class="eaxis-value" data-ng-bind="DepartmentDetailsCtrl.ePage.Entities.DepartmentHeader.Data.Road">
-        </div>
-      </div>
-      <div class="col-lg-2 col-md-3 col-sm-6 col-xs-6 mb-20">
-        <div class="eaxis-label">Sea
-        </div>
-        <div class="eaxis-value" data-ng-bind="DepartmentDetailsCtrl.ePage.Entities.DepartmentHeader.Data.Sea">
-        </div>
-      </div>
-      <div class="col-lg-2 col-md-3 col-sm-6  col-xs-6 mb-20">
-        <div class="eaxis-label">Source
-        </div>
-        <div class="eaxis-value" data-ng-bind="DepartmentDetailsCtrl.ePage.Entities.DepartmentHeader.Data.Source">
-        </div>
-        </select>
-      </div>
-      <div class="col-lg-2 col-md-3 col-sm-6 col-xs-6 mb-20">
-        <div class="eaxis-label">StateId
-        </div>
-        <div class="eaxis-value" data-ng-bind="DepartmentDetailsCtrl.ePage.Entities.DepartmentHeader.Data.StateId">
-        </div>
-      </div>
-    </div>
-    <div class="row edit">
-      <a ng-click="DepartmentDetailsCtrl.ePage.Masters.OpenBasicsModel()"> View and Edit All Fields 
-    </a>
-    </div>
+</div>
+<!-- Error Warning -->
+<div class="error-warning-container right" style="margin-top:0px !important" id="errorWarningContainer{{DepartmentDetailsCtrl.currentDepartment.code}}">
+  <div class="error-warning-header clearfix">
+      <span class="title pull-left">
+          <!-- <i class="fa fa-warning"></i>  -->
+             Errors & Warnings
+      </span>
+      <span class="error-warning-toggle-icon pull-right" data-ng-click="DepartmentDetailsCtrl.ePage.Masters.Config.ShowErrorWarningModal(DepartmentDetailsCtrl.currentDepartment)">
+          <i class="fa fa-arrow-right"></i>
+      </span>
   </div>
+  <div class="error-warning-body">
+      <div class="clearfix" data-ng-if="DepartmentDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList.length>0">
+          <div class="clearfix">
+              <div class="p-5 error-warnig-list clearfix" data-ng-repeat="x in DepartmentDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList">
+                  <div class="clearfix">
+                      <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 p-0 text-center">
+                          <span class=" fa fa-warning" data-ng-style="{color: {'W':'#FFAD33', 'E':'#ED4337'}[x.MessageType]}"></span>
+                      </div>
+                  <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11 pr-0">
+                      <div class="message" data-ng-bind="x.Code + ' - ' + x.Message"></div>
+                      <div class="meta-object" data-ng-bind="x.MetaObject"></div>
+                    </div>    
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div> 
 </div>

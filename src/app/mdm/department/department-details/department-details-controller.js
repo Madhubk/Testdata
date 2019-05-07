@@ -1,18 +1,18 @@
 (function () {
     "use strict";
 
-    angular
-        .module("Application")
+    angular.module("Application")
         .controller("DepartmentDetailsController", DepartmentDetailsController);
 
     DepartmentDetailsController.$inject = ["$rootScope", "$scope", "$state", "$q", "$location", "$timeout", "APP_CONSTANT", "authService", "apiService", "departmentConfig", "helperService", "$filter", "$uibModal", "toastr"];
 
     function DepartmentDetailsController($rootScope, $scope, $state, $q, $location, $timeout, APP_CONSTANT, authService, apiService, departmentConfig, helperService, $filter, $uibModal, toastr) {
-        /* jshint validthis: true */
+        
         var DepartmentDetailsCtrl = this;
 
         function Init() {
-            var currentDepartment = DepartmentDetailsCtrl.currentDepartment[DepartmentDetailsCtrl.currentDepartment.label].ePage.Entities;
+            var currentDepartment = DepartmentDetailsCtrl.currentDepartment[DepartmentDetailsCtrl.currentDepartment.code].ePage.Entities;
+            
             DepartmentDetailsCtrl.ePage = {
                 "Title": "",
                 "Prefix": "Department_Details",
@@ -20,49 +20,41 @@
                 "Meta": helperService.metaBase(),
                 "Entities": currentDepartment
             };
-            DepartmentDetailsCtrl.ePage.Masters.OpenBasicsModel = OpenBasicsModel;
+           
+            DepartmentDetailsCtrl.ePage.Masters.Config = departmentConfig;
+
+             /* Function */
+             DepartmentDetailsCtrl.ePage.Masters.OnChangeValues = OnChangeValues;
+
+             InitDepartment();
         }
 
-        function OpenBasicsModel() {
-            var modalInstance = $uibModal.open({
-                animation: true,
-                backdrop: "static",
-                keyboard: false,
-                windowClass: "basics-edit right",
-                scope: $scope,
-                templateUrl: "app/mdm/department/department-details/department-edit-basics/department-basics-modal.html",
-                controller: 'DeptEditModalController as DeptEditModalCtrl',
-                bindToController: true,
-                resolve: {
-                    param: function () {
-                        var exports = {
-                            "CurrentDepartment": DepartmentDetailsCtrl.ePage.Entities
-                        };
-                        return exports;
-                    }
-                }
-            }).result.then(
-                function (response) {
-                    if(response.Data != undefined){
-                    var _isEmpty = angular.equals(response.Data, {});
-                    if (!_isEmpty) {
-                        DepartmentDetailsCtrl.ePage.Entities.DepartmentHeader.Data = response.Data;
-                        toastr.success("Record Added Successfully...!")
-                    } else {
-                        toastr.warnig("Value Should not be Empty...!");
-                    }
-                }
-                else
-                {
-                   DepartmentDetailsCtrl.ePage.Entities.DepartmentHeader.Data = response; 
-                }
-                },
+        //#region Department
+        function InitDepartment(){
+            if (DepartmentDetailsCtrl.currentDepartment.isNew) {
+                DepartmentDetailsCtrl.ePage.Entities.Header.Data.IsActive = true;
+            }
+        }
+        //#endregion
 
-                function () {
-                    console.log("Cancelled");
+
+        //#region ErrorWarning Alert Validation
+        function OnChangeValues(fieldvalue, code, IsArray, RowIndex) {
+            angular.forEach(DepartmentDetailsCtrl.ePage.Masters.Config.ValidationValues, function (value, key) {
+                if (value.Code.trim() === code) {
+                    GetErrorMessage(fieldvalue, value, IsArray, RowIndex)
                 }
-            );
-        };
+            });
+        }
+
+        function GetErrorMessage(fieldvalue, value, IsArray, RowIndex) {
+            if (!fieldvalue) {
+                DepartmentDetailsCtrl.ePage.Masters.Config.PushErrorWarning(value.Code, value.Message, "E", false, value.CtrlKey, DepartmentDetailsCtrl.currentDepartment.code, IsArray, RowIndex, value.ColIndex, value.DisplayName, undefined, undefined);
+            } else {
+                DepartmentDetailsCtrl.ePage.Masters.Config.RemoveErrorWarning(value.Code, "E", value.CtrlKey, DepartmentDetailsCtrl.currentDepartment.code, IsArray, RowIndex, value.ColIndex);
+            }
+        }
+        //#endregion 
         Init();
     }
 })();
