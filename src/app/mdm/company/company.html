@@ -1,52 +1,43 @@
-<div class="main-container container-fluid" id="wrapper">
-  <div class="page-container">
-    <div class="page-content" style="margin-left:0">
-      <div class="page-body no-padding">
-        <div class="mail-container">
-          <div class="mail-body no-margin">
-            <scrollable-tabset>
-              <uib-tabset class="eaxis-tab-box" active="CompanyCtrl.ePage.Masters.activeTabIndex">
-                <div class="eaxis-logo">
-                </div>
-                <uib-tab>
-                  <uib-tab-heading title="CompanyCtrl.ePage.Masters.Title" class="tabContent">
-                    <span data-ng-bind="CompanyCtrl.ePage.Masters.Title">
-                    </span>
-                    <!-- <i class="fa fa-thumb-tack pinned-tab ml-10"></i>-->
-                  </uib-tab-heading>
-                  <div class="no-padding tab-list-view-wrapper">
-                    <!--Company Grid Page-->
-                    <!-- <dynamic-list task-name="CompanyCtrl.ePage.Masters.taskName"  grid-config-type="0" row-selection-changed="CompanyCtrl.ePage.Masters.RowSelectionChanged($item)" selected-grid-row="CompanyCtrl.ePage.Masters.SelectedGridRow($item)">
+<uib-tabset class="tab-container chrometab-box" active="CompanyCtrl.ePage.Masters.activeTabIndex">
+  <uib-tab>
+    <uib-tab-heading title="CompanyCtrl.ePage.Masters.Title" class="tabContent">
+      <span data-ng-bind="CompanyCtrl.ePage.Masters.Title">
+      </span>
+      <!-- <i class="fa fa-thumb-tack pinned-tab ml-10"></i>-->
+    </uib-tab-heading>
+    <div class="no-padding tab-list-view-wrapper">
+      <!--Company Grid Page-->
+      <!-- <dynamic-list task-name="CompanyCtrl.ePage.Masters.taskName"  grid-config-type="0" row-selection-changed="CompanyCtrl.ePage.Masters.RowSelectionChanged($item)" selected-grid-row="CompanyCtrl.ePage.Masters.SelectedGridRow($item)">
                     </dynamic-list> -->
-                    <dynamic-list mode="1" dataentry-name="CompanyCtrl.ePage.Masters.dataEntryName" dataentry-object="CompanyCtrl.ePage.Masters.DataEntryObject" selected-grid-row="CompanyCtrl.ePage.Masters.SelectedGridRow($item)">
-                    </dynamic-list>
-                    <div class="tab-loading" data-ng-show="CompanyCtrl.ePage.Masters.IsTabClick">
-                    </div>
-                  </div>
-                </uib-tab>
-                <uib-tab active="CompanyCtrl.ePage.Masters.activeTabIndex == $index" ng-repeat="tab in CompanyCtrl.ePage.Masters.TabList" ng-click="CompanyCtrl.ePage.Masters.CurrentActiveTab(tab.label)">
-                  <uib-tab-heading title="{{tab.label}}">
-                    <span data-ng-bind="tab.label">
-                    </span>
-                    <i class="glyphicon glyphicon-remove" ng-click="CompanyCtrl.ePage.Masters.RemoveTab($event, $index, tab)">
-                    </i>
-                  </uib-tab-heading>
-                  <div class="padding-5 padding-bottom-10 clearfix">
-                    <!--Company Menu Directive-->
-                    <company-menu current-company="tab">
-                    </company-menu>
-                    <div class="horizontal-space">
-                    </div>
-                    <button class="btn btn-primary btn-sm pull-right" data-ng-click="CompanyCtrl.ePage.Masters.Save(tab)" data-ng-bind="CompanyCtrl.ePage.Masters.SaveButtonText"
-                            data-ng-disabled="CompanyCtrl.ePage.Masters.IsDisableSave">
-                    </button>
-                  </div>
-                </uib-tab>
-              </uib-tabset>
-            </scrollable-tabset>
-          </div>
-        </div>
+      <dynamic-list mode="1" dataentry-name="CompanyCtrl.ePage.Masters.dataEntryName"
+        dataentry-object="CompanyCtrl.ePage.Masters.DataEntryObject"
+        selected-grid-row="CompanyCtrl.ePage.Masters.SelectedGridRow($item)">
+      </dynamic-list>
+      <div class="tab-loading" data-ng-show="CompanyCtrl.ePage.Masters.IsTabClick">
       </div>
     </div>
-  </div>
-</div>
+  </uib-tab>
+  <uib-tab active="CompanyCtrl.ePage.Masters.activeTabIndex == $index"
+    ng-repeat="tab in CompanyCtrl.ePage.Masters.TabList"
+    ng-click="CompanyCtrl.ePage.Masters.CurrentActiveTab(tab.label)">
+    <uib-tab-heading title="{{tab.label}}">
+      <span data-ng-bind="tab.label">
+      </span>
+      <i class="glyphicon glyphicon-remove" ng-click="CompanyCtrl.ePage.Masters.RemoveTab($event, $index, tab)">
+      </i>
+    </uib-tab-heading>
+    <div class="padding-5 padding-bottom-10 clearfix">
+      <!--Company Menu Directive-->
+      <company-menu current-company="tab">
+      </company-menu>
+      <div class="horizontal-space">
+      </div>
+      <button class="btn btn-primary btn-sm pull-right" data-ng-click="CompanyCtrl.ePage.Masters.Save(tab)"
+        data-ng-bind="CompanyCtrl.ePage.Masters.SaveButtonText"
+        data-ng-disabled="CompanyCtrl.ePage.Masters.IsDisableSave">
+      </button>
+    </div>
+  </uib-tab>
+  <button class="btn btn-default" ng-click="CompanyCtrl.ePage.Masters.CreateNewCompany()"
+        data-ng-disabled="CompanyCtrl.ePage.Masters.isNewClicked">+</button>
+</uib-tabset>
