@@ -9,7 +9,7 @@
 
     function DepartmentDetails() {
         var exports = {
-            restrict: "EA",
+            restrict: "E",
             templateUrl: "app/mdm/department/department-details/department-details.html",
             link: Link,
             controller: "DepartmentDetailsController",

@@ -223,24 +223,16 @@
             }, {
                 name: 'MDDepartmentMenu',
                 files: [
-                    'app/mdm/department/department-menu/department-menu.css',
                     'app/mdm/department/department-menu/department-menu-controller.js',
                     'app/mdm/department/department-menu/department-menu-directive.js'
                 ]
             }, {
                 name: 'MDDepartmentDetails',
                 files: [
-                    'app/mdm/department/department-details/department.details.css',
                     'app/mdm/department/department-details/department-details-directive.js',
                     'app/mdm/department/department-details/department-details-controller.js'
                 ]
-            }, {
-                name: 'MDDepartmentDetailsModal',
-                files: [
-                    'app/mdm/department/department-details/department-edit-basics/department-basics-modal.css',
-                    'app/mdm/department/department-details/department-edit-basics/department-basics-modal.controller.js'
-                ]
-            },
+            }, 
             // endregion
             // region Company
             {

@@ -33,7 +33,6 @@
             DebtorMenuCtrl.ePage.Masters.Validation = Validation;
             DebtorMenuCtrl.ePage.Masters.Activate = Activate;
             DebtorMenuCtrl.ePage.Masters.Deactivate = Deactivate;
-            DebtorMenuCtrl.ePage.Masters.Save = Save;
         }
 
         //#region Validation
