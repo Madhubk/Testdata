@@ -114,7 +114,7 @@
                         return deferred.promise;
                     }],
                     LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
-                        return $ocLazyLoad.load(['MDBranch', 'MDBranchMenu', 'MDBranchDetails', 'MDBranchDetailsModal', 'dynamicLookup', 'dynamicListModal', 'dynamicList', 'dynamicGrid', 'dynamicControl', 'compareDate', 'customToolbar', 'confirmation', 'chromeTab', 'errorWarning']);
+                        return $ocLazyLoad.load(['MDBranch', 'MDBranchMenu', 'MDBranchDetails',  'dynamicLookup', 'dynamicListModal', 'dynamicList', 'dynamicGrid', 'dynamicControl', 'compareDate', 'customToolbar', 'confirmation', 'chromeTab', 'errorWarning']);
                     }]
                 }
             })
@@ -134,7 +134,7 @@
                         return deferred.promise;
                     }],
                     LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
-                        return $ocLazyLoad.load(['MDCompany', 'MDCompanyMenu', 'MDCompanyDetails', 'MDCompanyDetailsModal', 'dynamicLookup', 'dynamicListModal', 'dynamicList', 'dynamicGrid', 'dynamicControl', 'compareDate', 'customToolbar', 'confirmation', 'chromeTab', 'errorWarning']);
+                        return $ocLazyLoad.load(['MDCompany', 'MDCompanyMenu', 'MDCompanyDetails', 'dynamicLookup', 'dynamicListModal', 'dynamicList', 'dynamicGrid', 'dynamicControl', 'compareDate', 'customToolbar', 'confirmation', 'chromeTab', 'errorWarning']);
                     }]
                 }
             })

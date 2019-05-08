@@ -204,13 +204,14 @@
                     'app/mdm/branch/branch-details/branch-details.directive.js',
                     'app/mdm/branch/branch-details/branch-details.controller.js'
                 ]
-            }, {
-                name: 'MDBranchDetailsModal',
-                files: [
-                    'app/mdm/branch/branch-details/branch-edit-details/branch-details-modal.css',
-                    'app/mdm/branch/branch-details/branch-edit-details/branch-details-modal.controller.js'
-                ]
-            },
+            }, 
+            // {
+            //     name: 'MDBranchDetailsModal',
+            //     files: [
+            //         'app/mdm/branch/branch-details/branch-edit-details/branch-details-modal.css',
+            //         'app/mdm/branch/branch-details/branch-edit-details/branch-details-modal.controller.js'
+            //     ]
+            // },
             // endregion
             // region Department
             {
@@ -256,13 +257,14 @@
                     'app/mdm/company/company-details/company-details-directive.js',
                     'app/mdm/company/company-details/company-details-controller.js'
                 ]
-            }, {
-                name: 'MDCompanyDetailsModal',
-                files: [
-                    'app/mdm/company/company-details/company-edit-details/company-details-modal.css',
-                    'app/mdm/company/company-details/company-edit-details/company-details-modal.controller.js'
-                ]
-            },
+            }, 
+            // {
+            //     name: 'MDCompanyDetailsModal',
+            //     files: [
+            //         'app/mdm/company/company-details/company-edit-details/company-details-modal.css',
+            //         'app/mdm/company/company-details/company-edit-details/company-details-modal.controller.js'
+            //     ]
+            // },
             // endregion
             // region Products
             {

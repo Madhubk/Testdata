@@ -71,7 +71,7 @@
                     if (isNew) {
                         _exports.Entities.BranchHeader.Data = currentBranch.data;
                         var obj = {
-                            [currentBranch.entity.Code]: {
+                            New: {
                                 ePage: _exports
                             },
                             label: "New",

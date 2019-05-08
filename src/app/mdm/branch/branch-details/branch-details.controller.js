@@ -12,7 +12,7 @@
         var BranchDetailsCtrl = this;
 
         function Init() {
-            var currentBranch = BranchDetailsCtrl.currentBranch[BranchDetailsCtrl.currentBranch.code].ePage.Entities;
+            var currentBranch = BranchDetailsCtrl.currentBranch[BranchDetailsCtrl.currentBranch.label].ePage.Entities;
             BranchDetailsCtrl.ePage = {
                 "Title": "",
                 "Prefix": "Branch_Details",

@@ -1,6 +1,18 @@
-<div class="clearfix">
+<!-- <div class="clearfix">
   <div  class="organization-menu-wraper col-sm-12 no-padding-left no-padding-right">          
     <div company-details current-company="CompanyMenuCtrl.currentCompany">
     </div>                  
   </div>
+</div> -->
+<company-details current-company="CompanyMenuCtrl.currentCompany"></company-details>
+<div class="eaxis-footer-strip">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+        <span class="dropup pull-right">
+            <span class="pull-right">
+                <button type="button" class="btn btn-primary btn-sm margin-top-5" data-ng-bind="CompanyMenuCtrl.ePage.Masters.SaveButtonText"
+                    data-ng-click="CompanyMenuCtrl.ePage.Masters.Validation(CompanyMenuCtrl.currentCompany)" data-ng-disabled="CompanyMenuCtrl.ePage.Masters.DisableSave">
+                </button>
+            </span>
+        </span>
+    </div>
 </div>

@@ -47,14 +47,17 @@
                 if (!isNew) {
                     return value.label === currentCompany.entity.Code;
                 } else {
-                    return false;
+                    if (value.label === "New")
+                        return true;
+                    else
+                        return false;
                 }
             });
             if (!_isExist) {
                 CompanyCtrl.ePage.Masters.IsTabClick = true;
                 var _currentCompany = undefined;
                 if (!isNew) {
-                    _currentCompany = isNew.entity;
+                    _currentCompany = _currentCompany.entity;
                 } else {
                     _currentCompany = currentCompany;
                 }
@@ -62,18 +65,21 @@
                     CompanyCtrl.ePage.Masters.TabList = response;
                     $timeout(function() {
                         CompanyCtrl.ePage.Masters.activeTabIndex = CompanyCtrl.ePage.Masters.TabList.length;
+                        if(currentCompany.entity.Code == null){
+                            currentCompany.entity.Code="";
+                        }
                         CompanyCtrl.ePage.Masters.CurrentActiveTab(currentCompany.entity.Code);
                         CompanyCtrl.ePage.Masters.IsTabClick = false;
                     });
                 });
             } else {
-                toastr.info('Branch already opened ');
+                toastr.info('Company already opened ');
             }
         }
         function RemoveTab(event, index, currentCompany) {
             event.preventDefault();
             event.stopPropagation();
-            var currentCompany = currentCompany[currentCompany.code].ePage.Entities;
+            var currentCompany = currentCompany[currentCompany.label].ePage.Entities;
             CompanyCtrl.ePage.Masters.TabList.splice(index, 1);
         }
 
@@ -98,7 +104,7 @@
                         CompanyCtrl.ePage.Masters.AddTab(_obj, true);
                         CompanyCtrl.ePage.Masters.isNewClicked = false;
                     } else {
-                        console.log("Empty New Branch response");
+                        console.log("Empty New Company response");
                     }
                 });
             } else {
@@ -133,8 +139,8 @@
         }
 
         function CurrentActiveTab(currentTab) {
-            if (currentTab != undefined) {
-                currentTab = currentTab
+            if (currentTab.label != undefined) {
+                currentTab = currentTab.label.entity
             } else {
                 currentTab = currentTab;
             }

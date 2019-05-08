@@ -1,4 +1,4 @@
-(function() {
+(function () {
     "use strict";
     angular
         .module("Application")
@@ -9,7 +9,7 @@
     function BranchMenuController($scope, $timeout, APP_CONSTANT, apiService, branchConfig, helperService) {
         var BranchMenuCtrl = this;
         function Init() {
-            var currentBranch = BranchMenuCtrl.currentBranch[BranchMenuCtrl.currentBranch.code].ePage.Entities;
+            var currentBranch = BranchMenuCtrl.currentBranch[BranchMenuCtrl.currentBranch.label].ePage.Entities;
             BranchMenuCtrl.ePage = {
                 "Title": "",
                 "Prefix": "Branch_Menu",
@@ -18,6 +18,8 @@
                 "Entities": currentBranch
             };
             BranchMenuCtrl.ePage.Masters.DepartmentMenu = {};
+            BranchMenuCtrl.ePage.Masters.SaveButtonText = "Save";
+            BranchMenuCtrl.ePage.Masters.Config = branchConfig;
             // Menu list from configuration
         }
         Init();

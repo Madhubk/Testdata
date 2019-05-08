@@ -64,7 +64,7 @@
                     BranchCtrl.ePage.Masters.TabList = response;
                     $timeout(function () {
                         BranchCtrl.ePage.Masters.activeTabIndex = BranchCtrl.ePage.Masters.TabList.length;
-                        BranchCtrl.ePage.Masters.CurrentActiveTab(currentBranch.entity.PK);
+                        BranchCtrl.ePage.Masters.CurrentActiveTab(currentBranch.entity.Code);
                         BranchCtrl.ePage.Masters.IsTabClick = false;
                     });
                 });
@@ -76,7 +76,7 @@
         function RemoveTab(event, index, currentBranch) {
             event.preventDefault();
             event.stopPropagation();
-            var currentBranch = currentBranch[currentBranch.code].ePage.Entities;
+            var currentBranch = currentBranch[currentBranch.label].ePage.Entities;
             BranchCtrl.ePage.Masters.TabList.splice(index, 1);
         }
 
@@ -135,8 +135,8 @@
             });
         }
         function CurrentActiveTab(currentTab) {
-            if (currentTab != undefined) {
-                currentTab = currentTab
+            if (currentTab.label != undefined) {
+                currentTab = currentTab.label.entity
             } else {
                 currentTab = currentTab;
             }

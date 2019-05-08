@@ -83,10 +83,10 @@
                 _exports.Entities.CompanyHeader.Data = currentCompany.data;
 
                 var obj = {
-                    [currentCompany.entity.Code]: {
+                    New: {
                         ePage: _exports
                     },
-                    label: "New",
+                    label: 'New',
                     code:currentCompany.entity.Code,
                     isNew: isNew
                 };
@@ -105,6 +105,7 @@
                         label: currentCompany.entity.Code,
                         code:currentCompany.entity.Code,
                         isNew: isNew
+
                     };
                     exports.CompanyList.push(obj);
                     deferred.resolve(exports.CompanyList);
