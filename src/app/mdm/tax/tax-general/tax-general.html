@@ -189,11 +189,11 @@
                                     data-ng-style="{'width': TaxGeneralCtrl.ePage.Entities.Header.TableProperties.UIAccTaxRateDetails.ttaxsubcoderate.width + 'px' }"
                                     data-ng-click="TaxGeneralCtrl.ePage.Masters.Enable = true">
                                     <div data-ng-if="$index!=TaxGeneralCtrl.ePage.Masters.selectedRow" class="overflow-text">
-                                        {{x.Rate || TaxGeneralCtrl.ePage.Masters.emptyText}}
+                                        {{x.Rate | number:2 || TaxGeneralCtrl.ePage.Masters.emptyText}}
                                     </div>
                                     <div data-ng-if="$index==TaxGeneralCtrl.ePage.Masters.selectedRow">
                                         <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0 height-22">
-                                            <input type="text" class="form-control input-sm" placeholder="Tax Sub Code Rate" data-ng-model="x.Rate" data-ng-disabled="TaxGeneralCtrl.ePage.Masters.TaxHierarchyContent" numbers-only-dot />
+                                            <input type="text" class="form-control input-sm" placeholder="Tax Sub Code Rate" data-ng-model="x.Rate" data-ng-disabled="TaxGeneralCtrl.ePage.Masters.TaxHierarchyContent" numbers-only-dot sb-precision="2" />
                                         </div>
                                         <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="TaxGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIAccTaxRateDetails.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':2">
                                             <error-warning-directive  list="TaxGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIAccTaxRateDetails.ERROR"

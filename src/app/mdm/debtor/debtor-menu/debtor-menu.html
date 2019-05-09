@@ -8,5 +8,13 @@
                 </button>
             </span>
         </span>
+        <span class="pull-right">
+            <button type="button" class="btn btn-primary btn-sm margin-top-5 margin-right-10" data-ng-bind="DebtorMenuCtrl.ePage.Masters.DeactivateButtonText"
+                data-ng-click="DebtorMenuCtrl.ePage.Masters.Deactivate()" data-ng-disabled="DebtorMenuCtrl.ePage.Masters.DisableDeactivate"></button>
+        </span>
+        <span class="pull-right">
+            <button type="button" class="btn btn-primary btn-sm margin-top-5 margin-right-10" data-ng-bind="DebtorMenuCtrl.ePage.Masters.ActivateButtonText"
+               data-ng-click="DebtorMenuCtrl.ePage.Masters.Activate()" data-ng-disabled="DebtorMenuCtrl.ePage.Masters.DisableActivate"></button>
+        </span>
     </div>
 </div>

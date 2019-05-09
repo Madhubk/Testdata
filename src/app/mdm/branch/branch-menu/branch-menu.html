@@ -1,6 +1,19 @@
-<div class="clearfix">
+<!-- <div class="clearfix">
   <div  class="branch-menu-wraper col-sm-12 no-padding-left no-padding-right">                  
     <div  branch-details current-branch="BranchMenuCtrl.currentBranch">
     </div>               
   </div>
+</div> -->
+
+<branch-details current-branch="BranchMenuCtrl.currentBranch"></branch-details>
+<div class="eaxis-footer-strip">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+        <span class="dropup pull-right">
+            <span class="pull-right">
+                <button type="button" class="btn btn-primary btn-sm margin-top-5" data-ng-bind="BranchMenuCtrl.ePage.Masters.SaveButtonText"
+                    data-ng-click="BranchMenuCtrl.ePage.Masters.Validation(BranchMenuCtrl.currentBranch)" data-ng-disabled="BranchMenuCtrl.ePage.Masters.DisableSave">
+                </button>
+            </span>
+        </span>
+    </div>
 </div>

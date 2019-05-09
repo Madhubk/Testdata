@@ -1,141 +1,160 @@
 (function () {
     "use strict";
 
-    angular
-        .module("Application")
+    angular.module("Application")
         .controller("DepartmentController", DepartmentController);
 
-    DepartmentController.$inject = ["$location", "APP_CONSTANT", "authService", "apiService", "helperService", "$timeout", "departmentConfig", "toastr"];
+    DepartmentController.$inject = ["$timeout", "helperService", "departmentConfig", "toastr", "apiService", "errorWarningService"];
 
-    function DepartmentController($location, APP_CONSTANT, authService, apiService, helperService, $timeout, departmentConfig, toastr) {
+    function DepartmentController($timeout, helperService, departmentConfig, toastr, apiService, errorWarningService) {
+
         var DepartmentCtrl = this;
 
         function Init() {
             DepartmentCtrl.ePage = {
                 "Title": "",
-                "Prefix": "Warehouse_Department",
+                "Prefix": "Eaxis_Department",
                 "Masters": {},
                 "Meta": helperService.metaBase(),
                 "Entities": departmentConfig.Entities
             };
-            DepartmentCtrl.ePage.Masters.UserProfile = {
-                "userName": authService.getUserInfo().UserName,
-                "userId": authService.getUserInfo().UserId
+
+            DepartmentCtrl.ePage.Masters.DataentryName = departmentConfig.DataentryName;
+            DepartmentCtrl.ePage.Masters.Title = departmentConfig.DataentryTitle;
+
+            DepartmentCtrl.ePage.Masters.DefaultFilter = {
+                "IsValid": "true"
             };
-            // For list directive
-            DepartmentCtrl.ePage.Masters.IsDisableSave = false;
-            DepartmentCtrl.ePage.Masters.SaveButtonText = "Save";
-            DepartmentCtrl.ePage.Masters.Save = Save;
-            DepartmentCtrl.ePage.Masters.dataEntryName = "CmpDepartment";
-            DepartmentCtrl.ePage.Masters.Title = "Department";
-            DepartmentCtrl.ePage.Masters.IsNewEmployeeClicked = false;
-            DepartmentCtrl.ePage.Masters.OrderData = [];
+
+            /* Tab */
             DepartmentCtrl.ePage.Masters.TabList = [];
-            DepartmentCtrl.ePage.Masters.activeTabIndex = 0;
-            DepartmentCtrl.ePage.Masters.AddTab = AddTab;
-            DepartmentCtrl.ePage.Masters.CurrentActiveTab = CurrentActiveTab;
-            DepartmentCtrl.ePage.Masters.RemoveTab = RemoveTab;
+            DepartmentCtrl.ePage.Masters.ActiveTabIndex = 0;
+            DepartmentCtrl.ePage.Masters.IsTabClick = false;
+            DepartmentCtrl.ePage.Masters.isNewClicked = false;
+
+            /* Function */
             DepartmentCtrl.ePage.Masters.SelectedGridRow = SelectedGridRow;
-            // DepartmentCtrl.ePage.Masters.Yesterday = helperService.DateFilter('@@@Yesterday');
-            // DepartmentCtrl.ePage.Masters.Today = helperService.DateFilter('@@@Today');
-            // DepartmentCtrl.ePage.Masters.Tomorrow = helperService.DateFilter('@@@Tomorrow');
-            // DepartmentCtrl.ePage.Masters.Last7day = helperService.DateFilter('@@@Last7Days');
-            // DepartmentCtrl.ePage.Masters.Next7Days = helperService.DateFilter('@@@Next7Days');
-            // DepartmentCtrl.ePage.Masters.Last30Days = helperService.DateFilter('@@@Last30Days');
-            // DepartmentCtrl.ePage.Masters.Next30Days = helperService.DateFilter('@@@Next30Days');
-            // DepartmentCtrl.ePage.Masters.Last60Days = helperService.DateFilter('@@@Last60Days');
-            // DepartmentCtrl.ePage.Masters.Next60Days = helperService.DateFilter('@@@Next60Days');
-            // DepartmentCtrl.ePage.Masters.LastWeek = helperService.DateFilter('@@@LastWeek');
-            // DepartmentCtrl.ePage.Masters.ThisWeek = helperService.DateFilter('@@@ThisWeek');
-            // DepartmentCtrl.ePage.Masters.NextWeek = helperService.DateFilter('@@@NextWeek');
-            // DepartmentCtrl.ePage.Masters.LastMonth = helperService.DateFilter('@@@LastMonth');
-            // DepartmentCtrl.ePage.Masters.ThisMonth = helperService.DateFilter('@@@ThisMonth');
-            // DepartmentCtrl.ePage.Masters.NextMonth = helperService.DateFilter('@@@NextMonth');
-            // DepartmentCtrl.ePage.Masters.ThisQuarter = helperService.DateFilter('@@@ThisQuarter_From');
-            // DepartmentCtrl.ePage.Masters.LastQuarter = helperService.DateFilter('@@@LastQuarter');
-            // DepartmentCtrl.ePage.Masters.ThisYearFrom = helperService.DateFilter('@@@ThisYear_From');
-            // DepartmentCtrl.ePage.Masters.ThisYearto = helperService.DateFilter('@@@ThisYear_To');
-            // DepartmentCtrl.ePage.Masters.Next60DaysFrom = helperService.DateFilter('@@@Next60Days_From');
-            // DepartmentCtrl.ePage.Masters.ThisQuarterTo = helperService.DateFilter('@@@Next60Days_To');
+            DepartmentCtrl.ePage.Masters.AddTab = AddTab;
+            DepartmentCtrl.ePage.Masters.RemoveTab = RemoveTab;
+            DepartmentCtrl.ePage.Masters.CreateNewDepartment = CreateNewDepartment;
+
+             /* ErrorWarningConfig */
+             DepartmentCtrl.ePage.Masters.Config = departmentConfig;
+             DepartmentCtrl.ePage.Masters.ErrorWarningConfig = errorWarningService;
+ 
+             departmentConfig.ValidationFindall();
         }
 
+        //#region SelectedGrid
         function SelectedGridRow($item) {
             if ($item.action === "link" || $item.action === "dblClick") {
                 DepartmentCtrl.ePage.Masters.AddTab($item.data, false);
+            } else if ($item.action === "new") {
+                CreateNewDepartment();
             }
         }
-        function AddTab(currentDepartment, isNew) {
-            DepartmentCtrl.ePage.Masters.currentDepartment = undefined;
+        //#endregion
+
+        //#region AddTab, RemoveTab, NewDepartment
+        function AddTab(currentTab, isNew) {
             var _isExist = DepartmentCtrl.ePage.Masters.TabList.some(function (value) {
-                if (!isNew) {
-                    return value.label === currentDepartment.entity.Code;
-                } else {
-                    return false;
-                }
+                return value.pk == currentTab.entity.PK;
             });
+
             if (!_isExist) {
                 DepartmentCtrl.ePage.Masters.IsTabClick = true;
-                var _currentDepartment = undefined;
+                var _currentTab = undefined;
                 if (!isNew) {
-                    _currentDepartment = isNew.entity;
+                    _currentTab = currentTab.entity;
                 } else {
-                    _currentDepartment = currentDepartment;
+                    _currentTab = currentTab;
                 }
-                departmentConfig.AddDepartment(currentDepartment, isNew).then(function (response) {
+
+                departmentConfig.GetTabDetails(_currentTab, isNew).then(function (response) {
+                    var _entity = {};
                     DepartmentCtrl.ePage.Masters.TabList = response;
+                    if (DepartmentCtrl.ePage.Masters.TabList.length > 0) {
+                        DepartmentCtrl.ePage.Masters.TabList.map(function (value, key) {
+                            if (value.code == currentTab.entity.PK) {
+                                _entity = value[value.code].ePage.Entities.Header.Data;
+                            }
+                        });
+                    }
+
                     $timeout(function () {
-                        DepartmentCtrl.ePage.Masters.activeTabIndex = DepartmentCtrl.ePage.Masters.TabList.length;
-                        DepartmentCtrl.ePage.Masters.CurrentActiveTab(currentDepartment.entity.Code);
+                        DepartmentCtrl.ePage.Masters.ActiveTabIndex = DepartmentCtrl.ePage.Masters.TabList.length;
                         DepartmentCtrl.ePage.Masters.IsTabClick = false;
+                        var _code = currentTab.entity.PK.split("-").join("");
+                        GetValidationList(_code, _entity); 
                     });
                 });
             } else {
-                toastr.info('Employee already opened ');
+                toastr.warning('Record already opened...!');
             }
         }
-        function RemoveTab(event, index, currentDepartment) {
+
+        function RemoveTab(event, index, currentTab) {
             event.preventDefault();
             event.stopPropagation();
-            var currentDepartment = currentDepartment[currentDepartment.label].ePage.Entities;
+            var _currentTab = currentTab[currentTab.code].ePage.Entities;
             DepartmentCtrl.ePage.Masters.TabList.splice(index, 1);
-        }
 
-        function Save(currentDepartment) {
-            DepartmentCtrl.ePage.Masters.SaveButtonText = "Please Wait...";
-            DepartmentCtrl.ePage.Masters.IsDisableSave = true;
-
-            var _DepData = currentDepartment[currentDepartment.label].ePage.Entities,
-                _input = _DepData.DepartmentHeader.Data,
-                _api;
-            if (currentDepartment.isNew) {
-                _input = filterObject(_input, "PK");
-                _input.PK = _input.PK;
-                _api = "CmpDepartment/Insert";
-            } else {
-                _input.IsModified = true;
-                _api = "CmpDepartment/Update";
-
-            }
-
-            apiService.post("eAxisAPI", _api, _input, appName).then(function (response) {
-                DepartmentCtrl.ePage.Masters.SaveButtonText = "Save";
-                DepartmentCtrl.ePage.Masters.IsDisableSave = false;
-            }, function (response) {
-                console.log("Error : " + response);
-                DepartmentCtrl.ePage.Masters.SaveButtonText = "Save";
-                DepartmentCtrl.ePage.Masters.IsDisableSave = false;
-
+            apiService.get("eAxisAPI", departmentConfig.Entities.API.Department.API.DepartmentActivityClose.Url + _currentTab.Header.Data.PK).then(function (response) {
+                if (response.data.Response === "Success") {
+                } else {
+                    console.log("Tab close Error : " + response);
+                }
             });
         }
+        //#endregion
 
-        function CurrentActiveTab(currentTab) {
-            if (currentTab.label != undefined) {
-                currentTab = currentTab.label.entity
+        function CreateNewDepartment() {
+            DepartmentCtrl.ePage.Masters.currentDepartment = undefined;
+
+            var _isExist = DepartmentCtrl.ePage.Masters.TabList.some(function (value) {
+                if (value.label === "New")
+                    return true;
+                else
+                    return false;
+            });
+
+            if (!_isExist) {
+                DepartmentCtrl.ePage.Masters.isNewClicked = true;
+                helperService.getFullObjectUsingGetById(DepartmentCtrl.ePage.Entities.API.Department.API.GetById.Url, 'null').then(function (response) {
+                    if (response.data.Response) {
+                        var _obj = {
+                            entity: response.data.Response,
+                            data: response.data.Response
+                        };
+                        DepartmentCtrl.ePage.Masters.AddTab(_obj, true);
+                        DepartmentCtrl.ePage.Masters.isNewClicked = false;
+                    } else {
+                        console.log("Empty New Department response");
+                    }
+                });
             } else {
-                currentTab = currentTab;
+                toastr.info("New Record Already Opened...!");
             }
-            DepartmentCtrl.ePage.Masters.currentDepartment = currentTab;
         }
+
+        //#region Validation
+        function GetValidationList(currentTab, entity){
+            var _obj = {
+                ModuleName: ["Finance"],
+                Code: [currentTab],
+                API: "Group",
+                //API: "Validation",
+                FilterInput: {
+                    ModuleCode: "Finance",
+                    SubModuleCode: "JBA",
+                },
+                GroupCode: "FINANCE_DEPARTMENT",
+                RelatedBasicDetails: [{}],
+                EntityObject: entity
+            };
+            errorWarningService.GetErrorCodeList(_obj);
+        }
+        //#endregion
 
         Init();
     }

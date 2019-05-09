@@ -1,4 +1,4 @@
-(function() {
+(function () {
     "use strict";
     angular
         .module("Application")
@@ -18,6 +18,8 @@
                 "Entities": currentBranch
             };
             BranchMenuCtrl.ePage.Masters.DepartmentMenu = {};
+            BranchMenuCtrl.ePage.Masters.SaveButtonText = "Save";
+            BranchMenuCtrl.ePage.Masters.Config = branchConfig;
             // Menu list from configuration
         }
         Init();

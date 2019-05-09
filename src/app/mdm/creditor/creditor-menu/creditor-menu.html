@@ -7,6 +7,14 @@
                     data-ng-click="CreditorMenuCtrl.ePage.Masters.Validation(CreditorMenuCtrl.currentCreditor)" data-ng-disabled="CreditorMenuCtrl.ePage.Masters.DisableSave">
                 </button>
             </span>
+            <span class="pull-right">
+                <button type="button" class="btn btn-primary btn-sm margin-top-5 margin-right-10" data-ng-bind="CreditorMenuCtrl.ePage.Masters.DeactivateButtonText"
+                    data-ng-click="CreditorMenuCtrl.ePage.Masters.Deactivate()" data-ng-disabled="CreditorMenuCtrl.ePage.Masters.DisableDeactivate"></button>
+            </span>
+            <span class="pull-right">
+                <button type="button" class="btn btn-primary btn-sm margin-top-5 margin-right-10" data-ng-bind="CreditorMenuCtrl.ePage.Masters.ActivateButtonText"
+                   data-ng-click="CreditorMenuCtrl.ePage.Masters.Activate()" data-ng-disabled="CreditorMenuCtrl.ePage.Masters.DisableActivate"></button>
+            </span>
         </span>
     </div>
 </div>
