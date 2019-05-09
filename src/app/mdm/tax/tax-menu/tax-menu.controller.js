@@ -54,7 +54,7 @@
                     }
 
                     var _count = TaxMenuCtrl.ePage.Masters.UITaxRate.some(function (value, key) {
-                        if (value.Code == _input.UIAccTaxRate.Code) {
+                        if (value.Code == _input.UIAccTaxRate.Code && value.RN_NKCountry == _input.UIAccTaxRate.RN_NKCountry) {
                             return true;
                         }
                         else {
@@ -67,7 +67,7 @@
                     });
 
                     if (_count) {
-                        toastr.error("Code is Unique, Rename the Code!.");
+                        toastr.error("Code / Country already avaliable in tax master!.");
                     } else {
                         if (!TaxMenuCtrl.ePage.Entities.Header.Data.UIAccTaxRate.TaxHierarchy && TaxMenuCtrl.ePage.Entities.Header.Data.UIAccTaxRateDetails.length > 0) {
                             TaxMenuCtrl.ePage.Entities.Header.Data.UIAccTaxRateDetails = [];
