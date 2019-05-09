@@ -20,12 +20,10 @@
                 "Entities": currentTax
             };
 
-            // TaxGeneralCtrl.ePage.Masters.TaxCategoryContent = false;
             TaxGeneralCtrl.ePage.Masters.TaxHierarchyContent = true;
             TaxGeneralCtrl.ePage.Masters.Config = taxConfig;
 
             /* Function */
-            //TaxGeneralCtrl.ePage.Masters.OnChangeValues = OnChangeValues;
             TaxGeneralCtrl.ePage.Masters.SelectCheckBoxTaxHierarchy = SelectCheckBoxTaxHierarchy;
             TaxGeneralCtrl.ePage.Masters.SelectedLookupData = SelectedLookupData;
             TaxGeneralCtrl.ePage.Masters.AddNewRow = AddNewRow;
@@ -84,16 +82,7 @@
         }
         //#endregion
 
-        //#region  OnChange, Selected Hierarchy
-        // function OnChangeValues($item) {
-        //     if ($item == "TDS") {
-        //         TaxGeneralCtrl.ePage.Masters.TaxCategoryContent = true;
-        //     }
-        //     else {
-        //         TaxGeneralCtrl.ePage.Masters.TaxCategoryContent = false;
-        //     }
-        // }
-
+        //#region  Selected Hierarchy
         function SelectCheckBoxTaxHierarchy($item) {
             if ($item) {
                 TaxGeneralCtrl.ePage.Masters.TaxHierarchyContent = false;

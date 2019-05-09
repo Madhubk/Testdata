@@ -94,7 +94,7 @@
                         return deferred.promise;
                     }],
                     LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
-                        return $ocLazyLoad.load(['MDDepartment', 'MDDepartmentMenu', 'MDDepartmentDetails', 'dynamicLookup', 'dynamicListModal', 'dynamicList', 'dynamicGrid', 'dynamicControl', 'compareDate', 'customToolbar', 'confirmation', 'chromeTab', 'errorWarning']);
+                        return $ocLazyLoad.load(['Finance', 'MDDepartment', 'MDDepartmentMenu', 'MDDepartmentDetails', 'dynamicLookup', 'dynamicListModal', 'dynamicList', 'dynamicGrid', 'dynamicControl', 'compareDate', 'customToolbar', 'confirmation', 'chromeTab', 'errorWarning']);
                     }]
                 }
             })
@@ -524,7 +524,7 @@
                         return deferred.promise;
                     }],
                     LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
-                        return $ocLazyLoad.load(["creaditor", "creaditorMenu", "creaditorGeneral", "dynamicLookup", "dynamicListModal", "dynamicList", "dynamicGrid", "dynamicControl", "compareDate", "customToolbar", "confirmation", "chromeTab", "errorWarning"]);
+                        return $ocLazyLoad.load(["Finance", "creaditor", "creaditorMenu", "creaditorGeneral", "dynamicLookup", "dynamicListModal", "dynamicList", "dynamicGrid", "dynamicControl", "compareDate", "customToolbar", "confirmation", "chromeTab", "errorWarning"]);
                     }]
                 }
             })
@@ -544,7 +544,7 @@
                         return deferred.promise;
                     }],
                     LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
-                        return $ocLazyLoad.load(["debtor", "debtorMenu", "debtorGeneral", "dynamicLookup", "dynamicListModal", "dynamicList", "dynamicGrid", "dynamicControl", "compareDate", "customToolbar", "confirmation", "chromeTab", "errorWarning"]);
+                        return $ocLazyLoad.load(["Finance", "debtor", "debtorMenu", "debtorGeneral", "dynamicLookup", "dynamicListModal", "dynamicList", "dynamicGrid", "dynamicControl", "compareDate", "customToolbar", "confirmation", "chromeTab", "errorWarning"]);
                     }]
                 }
             })
