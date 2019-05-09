@@ -128,7 +128,7 @@
                 "Entity": ActivityTemplateOutward2Ctrl.ePage.Masters.TaskObj.WSI_StepCode,
                 "EntityRefKey": ActivityTemplateOutward2Ctrl.ePage.Masters.TaskObj.EntityRefKey,
                 "EntityRefCode": ActivityTemplateOutward2Ctrl.ePage.Masters.TaskObj.KeyReference,
-                "EntitySource": "ORD",
+                "EntitySource": "OUT",
                 "Communication": null,
                 "Config": undefined,
                 // Parent Entity
@@ -945,7 +945,7 @@
                 "DocumentType": doctype,
                 "EntityRefKey": ActivityTemplateOutward2Ctrl.ePage.Masters.TaskObj.EntityRefKey,
                 "EntityRefCode": ActivityTemplateOutward2Ctrl.ePage.Masters.TaskObj.KeyReference,
-                "EntitySource": "ORD"
+                "EntitySource": "OUT"
             }
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),

@@ -187,7 +187,7 @@
                         if (!myTaskActivityConfig.Entities.Delivery[myTaskActivityConfig.Entities.Delivery.label].ePage.Entities.Header.Data.UIWmsWorkorderReport.DeliveryRequestedDateTime)
                             myTaskActivityConfig.Entities.Delivery[myTaskActivityConfig.Entities.Delivery.label].ePage.Entities.Header.Data.UIWmsWorkorderReport.DeliveryRequestedDateTime = new Date();
 
-                        angular.forEach(ActivityTemplateDelivery2Ctrl.ePage.Masters.EntityObj.UIWmsDeliveryLine, function (value, key) {
+                        angular.forEach(myTaskActivityConfig.Entities.Delivery[myTaskActivityConfig.Entities.Delivery.label].ePage.Entities.Header.Data.UIWmsDeliveryLine, function (value, key) {
                             if (value.UISPMSDeliveryReport) {
                                 value.UISPMSDeliveryReport.AcknowledgedPerson = myTaskActivityConfig.Entities.Delivery[myTaskActivityConfig.Entities.Delivery.label].ePage.Entities.Header.Data.UIWmsWorkorderReport.AcknowledgedPerson;
                                 value.UISPMSDeliveryReport.CSRReceiver = myTaskActivityConfig.Entities.Delivery[myTaskActivityConfig.Entities.Delivery.label].ePage.Entities.Header.Data.UIWmsWorkorderReport.AdditionalRef2Code;

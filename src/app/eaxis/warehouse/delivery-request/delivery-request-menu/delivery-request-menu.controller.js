@@ -93,6 +93,7 @@
                                         "Comments": $scope.comment,
                                         "EntityRefKey": DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDelivery.PK,
                                         "EntityRefCode": DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderID,
+                                        "EntitySource": "DEL",
                                         "CommentsType": "GEN"
                                     }
                                     InsertCommentObject.push(obj);
