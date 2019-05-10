@@ -12,7 +12,10 @@
             controller: "BranchMenuController",
             controllerAs: "BranchMenuCtrl",
             scope: {
-                currentBranch: "="
+                currentBranch: "=",
+                dataentryObject: '=',
+                isHideMenu: "=",
+                hideAsnLine: "="
             },
             bindToController: true
         };
