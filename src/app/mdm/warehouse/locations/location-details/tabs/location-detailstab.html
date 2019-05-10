@@ -20,6 +20,7 @@
                 <select chosen class="form-control" ng-model="LocationDetailsCtrl.ePage.Masters.LocalVariables.LocationStatus" ng-options="x.Key as x.Key + ' - '  + x.Value for x in LocationDetailsCtrl.ePage.Masters.DropDownMasterList.LocStatus.ListSource"search-contains="true">
                     <option value="">--Select--</option>
                 </select>
+                <descbind key="LocationDetailsCtrl.ePage.Masters.LocalVariables.LocationStatus" get="LocationDetailsCtrl.ePage.Masters.LocalVariables.LocationStatusDescription" set = "LocationDetailsCtrl.ePage.Masters.DropDownMasterList.LocStatus.ListSource"></descbind>                      
             </div>
         </div>
     </div>
@@ -39,6 +40,7 @@
                 <select chosen class="form-control" ng-model="LocationDetailsCtrl.ePage.Masters.LocalVariables.PickMethod" ng-options="x.Key as x.Key + ' - '  + x.Value for x in LocationDetailsCtrl.ePage.Masters.DropDownMasterList.PickMethod.ListSource"search-contains="true">
                     <option value="">--Select--</option>
                 </select>
+                <descbind key="LocationDetailsCtrl.ePage.Masters.LocalVariables.PickMethod" get="LocationDetailsCtrl.ePage.Masters.LocalVariables.PickMethodsDescription" set = "LocationDetailsCtrl.ePage.Masters.DropDownMasterList.PickMethod.ListSource"></descbind>                      
             </div>
         </div>
     </div>

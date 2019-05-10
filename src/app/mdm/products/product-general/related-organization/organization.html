@@ -101,7 +101,8 @@
                                 <select chosen class="form-control" ng-model="x.Relationship" ng-options="x.Key as x.Key + ' - '  + x.Value for x in OrganizationCtrl.ePage.Masters.DropDownMasterList.WMSRelationShip.ListSource"
                                     search-contains="true" ng-change="OrganizationCtrl.ePage.Masters.OnChangeValues(x.Relationship,'E7015',true,$index)" data-ng-disabled="x.isDisabled">
                                     <option value="">--Select--</option>
-                                </select>              
+                                </select>   
+                                <descbind key="x.Relationship" get="x.RelationshipDesc" set = "OrganizationCtrl.ePage.Masters.DropDownMasterList.WMSRelationShip.ListSource"></descbind>                                 
                             </div>
                             <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="OrganizationCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIOrgPartRelation.ERROR | filter:{RowIndex: $index}:true | listCount: 'ColIndex':2">
                                 <error-warning-directive  list="OrganizationCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIOrgPartRelation.ERROR"
