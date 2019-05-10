@@ -44,6 +44,7 @@
         WarehouseDetailsCtrl.ePage.Masters.SelectedLookupData = SelectedLookupData;
         WarehouseDetailsCtrl.ePage.Masters.SelectedLookupOrganisation = SelectedLookupOrganisation;
         WarehouseDetailsCtrl.ePage.Masters.OnChangeValues = OnChangeValues;
+        WarehouseDetailsCtrl.ePage.Masters.DropdownChange = DropdownChange;
         WarehouseDetailsCtrl.ePage.Masters.OtherOrganizationAddresses = OtherOrganizationAddresses;
 
 
@@ -258,6 +259,14 @@
                 }
             });
         }
+
+        function DropdownChange(value,FieldName){
+            debugger
+            if(FieldName=="WarehouseType"){
+                WarehouseDetailsCtrl.ePage.Entities.Header.Data.WmsWarehouse.WarehouseTypeDesc;
+            }
+        }
+
         //#endregion General
 
         //#region Add,copy,delete row

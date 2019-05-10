@@ -3,9 +3,8 @@
 
     angular
         .module("Application")
-        .directive("warehouseDetails", WarehouseDetails);
+        .directive("warehouseDetails", WarehouseDetails)
 
-    WarehouseDetails.$inject = [];
     function WarehouseDetails() {
         var exports = {
             restrict: "EA",
@@ -21,4 +20,5 @@
         return exports;
         function Link(scope, elem, attr) {}
     }
+
 })();
