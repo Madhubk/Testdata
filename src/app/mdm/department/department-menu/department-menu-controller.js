@@ -151,10 +151,15 @@
             DepartmentMenuCtrl.ePage.Entities.Header.Data.IsActive = true;
         }
 
-        function Deactivate() {
-            DepartmentMenuCtrl.ePage.Masters.DisableDeactivate = true;
-            DepartmentMenuCtrl.ePage.Masters.DisableActivate = false;
-            /* DepartmentMenuCtrl.ePage.Entities.Header.Data.IsActive = false; */
+        function Deactivate($item) {
+            if ($item.isNew) {
+                toastr.error("New department should not deactivate.");
+            }
+            else {
+                DepartmentMenuCtrl.ePage.Masters.DisableDeactivate = true;
+                DepartmentMenuCtrl.ePage.Masters.DisableActivate = false;
+                /* DepartmentMenuCtrl.ePage.Entities.Header.Data.IsActive = false; */
+            }
         }
         //#endregion
 

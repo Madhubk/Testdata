@@ -1,61 +1,35 @@
-<div class="clearfix padding-top-10">
+<div class="clearfix padding-top-10 wms-menu-wraper">
     <div class="clearfix">
         <!--Code-->
-        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-5">
-            <div class="inner-dashboard-box">
-                <div class="rows" style="border: 2px solid #f5f5ff;">
-                    <div class="col-xs-3 col-sm-3 col-md-4 col-lg-3 col-xl-3 height-40 border-right pt-10 pb-10">
-                        <span class="dashboard-inward-icon-box">
-                            <i class="icomoon icon-organization-client"></i>
-                        </span>
-                        <label class="ml-5 control-label">Code</label>
-                        <span class="error-warning-container">
-                            <error-warning-directive data-ng-if="DebtorGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Code.IsWarning && !DebtorGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Code.IsError"
-                                list="DebtorGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Code.WARNING"
-                                type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref=""
-                                g-parent-ref="">
-                            </error-warning-directive>
-                            <error-warning-directive data-ng-if="DebtorGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Code.IsError"
-                                list="DebtorGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Code.ERROR"
-                                type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
-                            </error-warning-directive>
-                        </span>
-                    </div>
-                    <div class="col-xs-9 col-sm-9 col-md-8 col-lg-9 col-xl-9 height-40 p-5">
-                        <div class="input-group input-group-sm">
-                            <input type="text" class="form-control input-sm" placeholder="Code" data-ng-model="DebtorGeneralCtrl.ePage.Entities.Header.Data.Code" data-ng-change='DebtorGeneralCtrl.ePage.Masters.OnChangeValues(DebtorGeneralCtrl.ePage.Entities.Header.Data.Code,"E1205")' data-ng-disabled="!DebtorGeneralCtrl.ePage.Entities.Header.Data.IsValid"/>
-                        </div>
-                    </div>
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 mt-5">
+            <div class="form-group">
+                <div class="error-warning-container">
+                    <error-warning-directive data-ng-if="DebtorGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Code.IsWarning && !DebtorGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Code.IsError"
+                        list="DebtorGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Code.WARNING" type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
+                    </error-warning-directive>
+                    <error-warning-directive data-ng-if="DebtorGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Code.IsError"
+                        list="DebtorGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Code.ERROR" type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
+                    </error-warning-directive>
                 </div>
+                <label class="control-label text-single-line ">Debtor Code</label>
+                <input type="text" class="form-control input-sm" placeholder="Debtor Code" data-ng-model="DebtorGeneralCtrl.ePage.Entities.Header.Data.Code" 
+                    data-ng-change='DebtorGeneralCtrl.ePage.Masters.OnChangeValues(DebtorGeneralCtrl.ePage.Entities.Header.Data.Code,"E1205")' data-ng-disabled="!DebtorGeneralCtrl.ePage.Entities.Header.Data.IsValid"/>
             </div>
         </div>
         <!--Desc-->
-        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-5">
-            <div class="inner-dashboard-box">
-                <div class="rows" style="border: 2px solid #f5f5ff;">
-                    <div class="col-xs-3 col-sm-3 col-md-4 col-lg-3 col-xl-3 height-40  border-right pt-10 pb-10">
-                        <span class="dashboard-inward-icon-box">
-                            <i class="icomoon icon-supplier"></i>
-                        </span>
-                        <label class="ml-5 control-label">Desc</label>
-                        <span class="error-warning-container">
-                            <error-warning-directive data-ng-if="DebtorGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Desc.IsWarning && !DebtorGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Desc.IsError"
-                                list="DebtorGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Desc.WARNING"
-                                type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref=""
-                                g-parent-ref="">
-                            </error-warning-directive>
-                            <error-warning-directive data-ng-if="DebtorGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Desc.IsError"
-                                list="DebtorGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Desc.ERROR"
-                                type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
-                            </error-warning-directive>
-                        </span>
-                    </div>
-                    <div class="col-xs-9 col-sm-9 col-md-8 col-lg-9 col-xl-9 height-40  p-5">
-                        <div class="input-group input-group-sm">
-                            <input type="text" class="form-control" placeholder="Desc" data-ng-model="DebtorGeneralCtrl.ePage.Entities.Header.Data.Desc" data-ng-change='DebtorGeneralCtrl.ePage.Masters.OnChangeValues(DebtorGeneralCtrl.ePage.Entities.Header.Data.Desc,"E1206")' data-ng-disabled="!DebtorGeneralCtrl.ePage.Entities.Header.Data.IsValid"/>  
-                        </div>
-                    </div>
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 mt-5">
+            <div class="form-group">
+                <div class="error-warning-container">
+                    <error-warning-directive data-ng-if="DebtorGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Desc.IsWarning && !DebtorGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Desc.IsError"
+                        list="DebtorGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Desc.WARNING" type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
+                    </error-warning-directive>
+                    <error-warning-directive data-ng-if="DebtorGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Desc.IsError"
+                        list="DebtorGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Desc.ERROR" type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
+                    </error-warning-directive>
                 </div>
+                <label class="control-label text-single-line ">Debtor Desc</label>
+                <input type="text" class="form-control" placeholder="Debtor Desc" data-ng-model="DebtorGeneralCtrl.ePage.Entities.Header.Data.Desc" 
+                    data-ng-change='DebtorGeneralCtrl.ePage.Masters.OnChangeValues(DebtorGeneralCtrl.ePage.Entities.Header.Data.Desc,"E1206")' data-ng-disabled="!DebtorGeneralCtrl.ePage.Entities.Header.Data.IsValid"/>  
             </div>
         </div>
     </div>
