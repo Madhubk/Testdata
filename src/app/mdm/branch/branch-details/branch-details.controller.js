@@ -25,7 +25,7 @@
         };
 
         function SelectedLookupData($index, $item) {            
-            console.log(BranchDetailsCtrl.ePage.Entities.BranchHeader.Data);
+            console.log(BranchDetailsCtrl.ePage.Entities.Header.Data);
         }
 
         function OpenBranchModel() {
@@ -51,7 +51,7 @@
                     if (response.Data != undefined) {
                         var _isEmpty = angular.equals(response.Data, {});
                         if (!_isEmpty) {
-                            BranchDetailsCtrl.ePage.Entities.BranchHeader.Data = response.Data;
+                            BranchDetailsCtrl.ePage.Entities.Header.Data = response.Data;
                             toastr.success("Record Added Successfully...!")
 
                         } else {
@@ -59,7 +59,7 @@
                         }
                     }
                     else {
-                        BranchDetailsCtrl.ePage.Entities.BranchHeader.Data = response;
+                        BranchDetailsCtrl.ePage.Entities.Header.Data = response;
                     }
                 },
                 function () {

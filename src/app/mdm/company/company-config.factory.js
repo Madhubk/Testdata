@@ -1,4 +1,4 @@
-(function() {
+(function () {
     "use strict";
 
     angular
@@ -10,7 +10,7 @@
 
         var exports = {
             "Entities": {
-                "CompanyHeader": {
+                "Header": {
                     "RowIndex": -1,
                     "API": {
                         "FindConfig": {
@@ -28,8 +28,8 @@
                         "GetByID": {
                             "IsAPI": "true",
                             "HttpType": "GET",
-                            "Url": "CmpCompany/GetById/",
-                            "FilterID": "CMPCOMP"
+                            "Url": "CurrencyUpliftList/GetById/",
+                            "FilterID": "CURCFXCOMLI"
                         },
                         "Insert": {
                             "IsAPI": "true",
@@ -55,15 +55,15 @@
             var deferred = $q.defer();
             var _exports = {
                 "Entities": {
-                    "CompanyHeader": {
+                    "Header": {
                         "Data": {},
                         "RowIndex": -1,
                         "API": {
                             "GetByID": {
                                 "IsAPI": "true",
                                 "HttpType": "GET",
-                                "Url": "CmpCompany/GetById/",
-                                "FilterID": "CMPCOMP"
+                                "Url": "CurrencyUpliftList/GetById/",
+                                "FilterID": "CURCFXCOMLI"
                             }
                         },
                         "Meta": {
@@ -74,20 +74,127 @@
                                 "DisplayName": "Address",
                                 "Value": "Address"
                             }],
-                            "Language": helperService.metaBase()
+                            "Language": helperService.metaBase(),
+                            "ErrorWarning": {
+
+                            }
+
+                        },
+                        "GlobalVariables": {
+                            "SelectAll": false,
+                            "IsDisablePost": true
+                        },
+                        "TableProperties": {
+                            "UICurrencyUplift": {
+                                "TableHeight": {
+                                    "isEnabled": true,
+                                    "height": 300
+                                },
+                                "HeaderProperties": [{
+                                    "columnname": "Checkbox",
+                                    "isenabled": true,
+                                    "property": "ccheckbox",
+                                    "position": '1',
+                                    "width": "40",
+                                    "display": false
+                                }, {
+                                    "columnname": "Job Type",
+                                    "isenabled": true,
+                                    "property": "cjobtype",
+                                    "position": '2',
+                                    "width": "155",
+                                    "display": false
+                                }, {
+                                    "columnname": "Business Type",
+                                    "isenabled": true,
+                                    "property": "cbusinesstype",
+                                    "position": '3',
+                                    "width": "155",
+                                    "display": false
+                                }, {
+                                    "columnname": "Mode of Transport",
+                                    "isenabled": true,
+                                    "property": "cmodeoftransport",
+                                    "position": '4',
+                                    "width": "155",
+                                    "display": false
+                                }, {
+                                    "columnname": "Currency",
+                                    "isenabled": true,
+                                    "property": "ccurrency",
+                                    "position": '5',
+                                    "width": "155",
+                                    "display": false
+                                }, {
+                                    "columnname": "CFX %",
+                                    "isenabled": true,
+                                    "property": "ccfx",
+                                    "position": '6',
+                                    "width": "150",
+                                    "display": false
+                                }, {
+                                    "columnname": "CFX Min.",
+                                    "isenabled": true,
+                                    "property": "ccfxmin",
+                                    "position": '7',
+                                    "width": "150",
+                                    "display": false
+                                }],
+                                "ccheckbox": {
+                                    "isenabled": true,
+                                    "position": '1',
+                                    "width": "40"
+                                },
+                                "csno": {
+                                    "isenabled": true,
+                                    "position": '2',
+                                    "width": "50"
+                                },
+                                "cjobtype": {
+                                    "isenabled": true,
+                                    "position": '3',
+                                    "width": "155"
+                                },
+                                "cbusinesstype": {
+                                    "isenabled": true,
+                                    "position": '4',
+                                    "width": "155"
+                                },
+                                "cmodeoftransport": {
+                                    "isenabled": true,
+                                    "position": '5',
+                                    "width": "155"
+                                },
+                                "ccurrency": {
+                                    "isenabled": true,
+                                    "position": '6',
+                                    "width": "155"
+                                },
+                                "ccfx": {
+                                    "isenabled": true,
+                                    "position": '7',
+                                    "width": "150"
+                                },
+                                "ccfxmin": {
+                                    "isenabled": true,
+                                    "position": '8',
+                                    "width": "150"
+                                }
+
+                            }
                         }
                     }
                 }
             };
             if (isNew) {
-                _exports.Entities.CompanyHeader.Data = currentCompany.data;
+                _exports.Entities.Header.Data = currentCompany.data;
 
                 var obj = {
                     New: {
                         ePage: _exports
                     },
                     label: 'New',
-                    code:currentCompany.entity.Code,
+                    code: currentCompany.entity.Code,
                     isNew: isNew
                 };
                 exports.CompanyList.push(obj);
@@ -95,15 +202,15 @@
             } else {
 
                 // Get Consolidation details and set to configuration list
-                apiService.get("eAxisAPI", exports.Entities.CompanyHeader.API.GetByID.Url + currentCompany.entity.PK).then(function(response) {
-                    _exports.Entities.CompanyHeader.Data = response.data.Response;
+                apiService.get("eAxisAPI", exports.Entities.Header.API.GetByID.Url + currentCompany.entity.PK).then(function (response) {
+                    _exports.Entities.Header.Data = response.data.Response;
 
                     var obj = {
                         [currentCompany.entity.Code]: {
                             ePage: _exports
                         },
                         label: currentCompany.entity.Code,
-                        code:currentCompany.entity.Code,
+                        code: currentCompany.entity.Code,
                         isNew: isNew
 
                     };

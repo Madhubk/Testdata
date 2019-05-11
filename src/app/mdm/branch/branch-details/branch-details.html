@@ -1,13 +1,13 @@
 <div class="grid-loading-norecord-container ng-scope" style='z-index: 15;'
-  data-ng-if="BranchDetailsCtrl.ePage.Entities.BranchHeader.GlobalVariables.Loading"></div>
+  data-ng-if="BranchDetailsCtrl.ePage.Entities.Header.GlobalVariables.Loading"></div>
 <div class="clearfix">
   <div class="widget-main">
     <uib-tabset id="wmsBasic">
       <uib-tab>
-        <uib-tab-heading title="{{BranchDetailsCtrl.ePage.Entities.BranchHeader.Data.Code}}">
+        <uib-tab-heading title="{{BranchDetailsCtrl.ePage.Entities.Header.Data.Code}}">
           <span class="text-single-line" ng-if="BranchDetailsCtrl.currentBranch.isNew">New</span>
           <span class="text-single-line" ng-if="!BranchDetailsCtrl.currentBranch.isNew"
-            data-ng-bind="BranchDetailsCtrl.ePage.Entities.BranchHeader.Data.Code"></span>
+            data-ng-bind="BranchDetailsCtrl.ePage.Entities.Header.Data.Code"></span>
         </uib-tab-heading>
         <div>
           <div class="container-fluid jba-brndtl-wraper">
@@ -19,20 +19,20 @@
                       <label class="control-label text-single-line">Code</label>
                       <span class="error-warning-container">
                         <error-warning-directive
-                          data-ng-if="BranchDetailsCtrl.ePage.Entities.BranchHeader.Data.Code.IsWarning && !BranchDetailsCtrl.ePage.Entities.BranchHeader.Data.Code.IsError"
-                          list="BranchDetailsCtrl.ePage.Entities.BranchHeader.Data.Code.WARNING" type="'warning'"
+                          data-ng-if="BranchDetailsCtrl.ePage.Entities.Header.Data.Code.IsWarning && !BranchDetailsCtrl.ePage.Entities.Header.Data.Code.IsError"
+                          list="BranchDetailsCtrl.ePage.Entities.Header.Data.Code.WARNING" type="'warning'"
                           icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
                         </error-warning-directive>
                         <error-warning-directive
-                          data-ng-if="BranchDetailsCtrl.ePage.Entities.BranchHeader.Data.Code.IsError"
-                          list="BranchDetailsCtrl.ePage.Entities.BranchHeader.Data.Code.ERROR" type="'error'"
+                          data-ng-if="BranchDetailsCtrl.ePage.Entities.Header.Data.Code.IsError"
+                          list="BranchDetailsCtrl.ePage.Entities.Header.Data.Code.ERROR" type="'error'"
                           icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
                         </error-warning-directive>
                       </span>
                       <div class="">
                         <input type="text" class="form-control input-sm" placeholder="Branch Code"
-                          data-ng-model="BranchDetailsCtrl.ePage.Entities.BranchHeader.Data.Code"
-                          data-ng-change="BranchDetailsCtrl.ePage.Masters.OnChangeValues(BranchDetailsCtrl.ePage.Entities.BranchHeader.Data.Code,'E1327')" />
+                          data-ng-model="BranchDetailsCtrl.ePage.Entities.Header.Data.Code"
+                          data-ng-change="BranchDetailsCtrl.ePage.Masters.OnChangeValues(BranchDetailsCtrl.ePage.Entities.Header.Data.Code,'E1327')" />
                       </div>
                     </div>
                   </div>
@@ -41,20 +41,20 @@
                       <label class="control-label text-single-line">Branch Name</label>
                       <span class="error-warning-container">
                         <error-warning-directive
-                          data-ng-if="BranchDetailsCtrl.ePage.Entities.BranchHeader.Data.BranchName.IsWarning && !BranchDetailsCtrl.ePage.Entities.BranchHeader.Data.BranchName.IsError"
-                          list="BranchDetailsCtrl.ePage.Entities.BranchHeader.Data.BranchName.WARNING" type="'warning'"
+                          data-ng-if="BranchDetailsCtrl.ePage.Entities.Header.Data.BranchName.IsWarning && !BranchDetailsCtrl.ePage.Entities.Header.Data.BranchName.IsError"
+                          list="BranchDetailsCtrl.ePage.Entities.Header.Data.BranchName.WARNING" type="'warning'"
                           icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
                         </error-warning-directive>
                         <error-warning-directive
-                          data-ng-if="BranchDetailsCtrl.ePage.Entities.BranchHeader.Data.BranchName.IsError"
-                          list="BranchDetailsCtrl.ePage.Entities.BranchHeader.Data.BranchName.ERROR" type="'error'"
+                          data-ng-if="BranchDetailsCtrl.ePage.Entities.Header.Data.BranchName.IsError"
+                          list="BranchDetailsCtrl.ePage.Entities.Header.Data.BranchName.ERROR" type="'error'"
                           icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
                         </error-warning-directive>
                       </span>
                       <div class="">
                         <input type="text" class="form-control input-sm" placeholder="Branch Name"
-                          data-ng-model="BranchDetailsCtrl.ePage.Entities.BranchHeader.Data.BranchName"
-                          data-ng-change="BranchDetailsCtrl.ePage.Masters.OnChangeValues(BranchDetailsCtrl.ePage.Entities.BranchHeader.Data.BranchName,'E1327')" />
+                          data-ng-model="BranchDetailsCtrl.ePage.Entities.Header.Data.BranchName"
+                          data-ng-change="BranchDetailsCtrl.ePage.Masters.OnChangeValues(BranchDetailsCtrl.ePage.Entities.Header.Data.BranchName,'E1327')" />
                       </div>
                     </div>
                   </div>
@@ -63,20 +63,20 @@
                       <label class="control-label text-single-line">Address 1</label>
                       <span class="error-warning-container">
                         <error-warning-directive
-                          data-ng-if="BranchDetailsCtrl.ePage.Entities.BranchHeader.Data.Address1.IsWarning && !BranchDetailsCtrl.ePage.Entities.BranchHeader.Data.Address1.IsError"
-                          list="BranchDetailsCtrl.ePage.Entities.BranchHeader.Data.Address1.WARNING" type="'warning'"
+                          data-ng-if="BranchDetailsCtrl.ePage.Entities.Header.Data.Address1.IsWarning && !BranchDetailsCtrl.ePage.Entities.Header.Data.Address1.IsError"
+                          list="BranchDetailsCtrl.ePage.Entities.Header.Data.Address1.WARNING" type="'warning'"
                           icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
                         </error-warning-directive>
                         <error-warning-directive
-                          data-ng-if="BranchDetailsCtrl.ePage.Entities.BranchHeader.Data.Address1.IsError"
-                          list="BranchDetailsCtrl.ePage.Entities.BranchHeader.Data.Address1.ERROR" type="'error'"
+                          data-ng-if="BranchDetailsCtrl.ePage.Entities.Header.Data.Address1.IsError"
+                          list="BranchDetailsCtrl.ePage.Entities.Header.Data.Address1.ERROR" type="'error'"
                           icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
                         </error-warning-directive>
                       </span>
                       <div class="">
                         <input type="text" class="form-control input-sm" placeholder="Address 1"
-                          data-ng-model="BranchDetailsCtrl.ePage.Entities.BranchHeader.Data.Address1"
-                          data-ng-change="BranchDetailsCtrl.ePage.Masters.OnChangeValues(BranchDetailsCtrl.ePage.Entities.BranchHeader.Data.Address1,'E1327')" />
+                          data-ng-model="BranchDetailsCtrl.ePage.Entities.Header.Data.Address1"
+                          data-ng-change="BranchDetailsCtrl.ePage.Masters.OnChangeValues(BranchDetailsCtrl.ePage.Entities.Header.Data.Address1,'E1327')" />
                       </div>
                     </div>
                   </div>
@@ -85,20 +85,20 @@
                       <label class="control-label text-single-line">Address 2</label>
                       <span class="error-warning-container">
                         <error-warning-directive
-                          data-ng-if="BranchDetailsCtrl.ePage.Entities.BranchHeader.Data.Address2.IsWarning && !BranchDetailsCtrl.ePage.Entities.BranchHeader.Data.Address2.IsError"
-                          list="BranchDetailsCtrl.ePage.Entities.BranchHeader.Data.Address1.WARNING" type="'warning'"
+                          data-ng-if="BranchDetailsCtrl.ePage.Entities.Header.Data.Address2.IsWarning && !BranchDetailsCtrl.ePage.Entities.Header.Data.Address2.IsError"
+                          list="BranchDetailsCtrl.ePage.Entities.Header.Data.Address1.WARNING" type="'warning'"
                           icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
                         </error-warning-directive>
                         <error-warning-directive
-                          data-ng-if="BranchDetailsCtrl.ePage.Entities.BranchHeader.Data.Address1.IsError"
-                          list="BranchDetailsCtrl.ePage.Entities.BranchHeader.Data.Address2.ERROR" type="'error'"
+                          data-ng-if="BranchDetailsCtrl.ePage.Entities.Header.Data.Address1.IsError"
+                          list="BranchDetailsCtrl.ePage.Entities.Header.Data.Address2.ERROR" type="'error'"
                           icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
                         </error-warning-directive>
                       </span>
                       <div class="">
                         <input type="text" class="form-control input-sm" placeholder="Address 2"
-                          data-ng-model="BranchDetailsCtrl.ePage.Entities.BranchHeader.Data.Address2"
-                          data-ng-change="BranchDetailsCtrl.ePage.Masters.OnChangeValues(BranchDetailsCtrl.ePage.Entities.BranchHeader.Data.Address2,'E1327')" />
+                          data-ng-model="BranchDetailsCtrl.ePage.Entities.Header.Data.Address2"
+                          data-ng-change="BranchDetailsCtrl.ePage.Masters.OnChangeValues(BranchDetailsCtrl.ePage.Entities.Header.Data.Address2,'E1327')" />
                       </div>
                     </div>
                   </div>
@@ -109,28 +109,28 @@
                       <label class="control-label text-single-line">Country</label>
                       <span class="error-warning-container">
                         <error-warning-directive
-                          data-ng-if="BranchDetailsCtrl.ePage.Entities.BranchHeader.Data.Country.IsWarning && !ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.FromCurrency.IsError"
-                          list="BranchDetailsCtrl.ePage.Entities.BranchHeader.Data.Country.WARNING" type="'warning'"
+                          data-ng-if="BranchDetailsCtrl.ePage.Entities.Header.Data.Country.IsWarning && !ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.FromCurrency.IsError"
+                          list="BranchDetailsCtrl.ePage.Entities.Header.Data.Country.WARNING" type="'warning'"
                           icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
                         </error-warning-directive>
                         <error-warning-directive
-                          data-ng-if="BranchDetailsCtrl.ePage.Entities.BranchHeader.Data.Country.IsError"
-                          list="BranchDetailsCtrl.ePage.Entities.BranchHeader.Data.Country.ERROR" type="'error'"
+                          data-ng-if="BranchDetailsCtrl.ePage.Entities.Header.Data.Country.IsError"
+                          list="BranchDetailsCtrl.ePage.Entities.Header.Data.Country.ERROR" type="'error'"
                           icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
                         </error-warning-directive>
                       </span>
                       <div class="input-group input-group-sm">
                         <!-- Dynamic look up Search in textbox -->
                         <div dynamic-lookup placeholder="Country"
-                          my-ng-model="BranchDetailsCtrl.ePage.Entities.BranchHeader.Data.Country"
-                          obj="BranchDetailsCtrl.ePage.Entities.BranchHeader.Data" page-name="'MstCountry'"
+                          my-ng-model="BranchDetailsCtrl.ePage.Entities.Header.Data.Country"
+                          obj="BranchDetailsCtrl.ePage.Entities.Header.Data" page-name="'MstCountry'"
                           control-id="'CurrencyCountry'" control-key="CurrencyCountry_3337"
                           auto-complete-on-select="BranchDetailsCtrl.ePage.Masters.SelectedLookupData($index, $item,'Local')">
                         </div>
                         <!-- Look Up page opens when button clicks -->
                         <span class="input-group-btn">
                           <button dynamic-list-modal class="btn btn-default" type="button" is-disabled="false"
-                            obj="BranchDetailsCtrl.ePage.Entities.BranchHeader.Data" page-name="'MstCountry'"
+                            obj="BranchDetailsCtrl.ePage.Entities.Header.Data" page-name="'MstCountry'"
                             control-id="'CurrencyCountry'" control-key="CurrencyCountry_3337" mode="2"
                             grid-refresh-fun-name="" grid-refresh-fun=""
                             selected-data="BranchDetailsCtrl.ePage.Masters.SelectedLookupData($index, $item.data.entity,'Local')">
@@ -138,9 +138,9 @@
                           </button>
                         </span>
                         <span
-                          data-ng-if='!BranchDetailsCtrl.ePage.Entities.BranchHeader.Data && !BranchDetailsCtrl.ePage.Entities.BranchHeader.Data'>
+                          data-ng-if='!BranchDetailsCtrl.ePage.Entities.Header.Data && !BranchDetailsCtrl.ePage.Entities.Header.Data'>
                           <div
-                            data-ng-init="BranchDetailsCtrl.ePage.Masters.OnChangeValues(BranchDetailsCtrl.ePage.Entities.BranchHeader.Data.Country,'E1324',false,undefined)">
+                            data-ng-init="BranchDetailsCtrl.ePage.Masters.OnChangeValues(BranchDetailsCtrl.ePage.Entities.Header.Data.Country,'E1324',false,undefined)">
                           </div>
                         </span>
                       </div>
@@ -151,28 +151,28 @@
                       <label class="control-label text-single-line">State</label>
                       <span class="error-warning-container">
                         <!-- <error-warning-directive
-                                  data-ng-if="BranchDetailsCtrl.ePage.Entities.BranchHeader.Data.Country.IsWarning && !ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.FromCurrency.IsError"
-                                  list="BranchDetailsCtrl.ePage.Entities.BranchHeader.Data.Country.WARNING"
+                                  data-ng-if="BranchDetailsCtrl.ePage.Entities.Header.Data.Country.IsWarning && !ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.FromCurrency.IsError"
+                                  list="BranchDetailsCtrl.ePage.Entities.Header.Data.Country.WARNING"
                                   type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
                               </error-warning-directive>
                               <error-warning-directive
-                                  data-ng-if="BranchDetailsCtrl.ePage.Entities.BranchHeader.Data.Country.IsError"
-                                  list="BranchDetailsCtrl.ePage.Entities.BranchHeader.Data.Country.ERROR"
+                                  data-ng-if="BranchDetailsCtrl.ePage.Entities.Header.Data.Country.IsError"
+                                  list="BranchDetailsCtrl.ePage.Entities.Header.Data.Country.ERROR"
                                   type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
                               </error-warning-directive> -->
                       </span>
                       <div class="input-group input-group-sm">
                         <!-- Dynamic look up Search in textbox -->
                         <div dynamic-lookup placeholder="State"
-                          my-ng-model="BranchDetailsCtrl.ePage.Entities.BranchHeader.Data.State"
-                          obj="BranchDetailsCtrl.ePage.Entities.BranchHeader.Data" page-name="'MstCountryStates'"
+                          my-ng-model="BranchDetailsCtrl.ePage.Entities.Header.Data.State"
+                          obj="BranchDetailsCtrl.ePage.Entities.Header.Data" page-name="'MstCountryStates'"
                           control-id="'CountryState'" control-key="CountryState_3344"
                           auto-complete-on-select="BranchDetailsCtrl.ePage.Masters.SelectedLookupData($index, $item,'Local')">
                         </div>
                         <!-- Look Up page opens when button clicks -->
                         <span class="input-group-btn">
                           <button dynamic-list-modal class="btn btn-default" type="button" is-disabled="false"
-                            obj="BranchDetailsCtrl.ePage.Entities.BranchHeader.Data" page-name="'MstCountryStates'"
+                            obj="BranchDetailsCtrl.ePage.Entities.Header.Data" page-name="'MstCountryStates'"
                             control-id="'CountryState'" control-key="CountryState_3344" mode="2"
                             grid-refresh-fun-name="" grid-refresh-fun=""
                             selected-data="BranchDetailsCtrl.ePage.Masters.SelectedLookupData($index, $item.data.entity,'Local')">
@@ -193,20 +193,20 @@
                       <label class="control-label text-single-line">District</label>
                       <span class="error-warning-container">
                         <error-warning-directive
-                          data-ng-if="BranchDetailsCtrl.ePage.Entities.BranchHeader.Data.District.IsWarning && !BranchDetailsCtrl.ePage.Entities.BranchHeader.Data.District.IsError"
-                          list="BranchDetailsCtrl.ePage.Entities.BranchHeader.Data.District.WARNING" type="'warning'"
+                          data-ng-if="BranchDetailsCtrl.ePage.Entities.Header.Data.District.IsWarning && !BranchDetailsCtrl.ePage.Entities.Header.Data.District.IsError"
+                          list="BranchDetailsCtrl.ePage.Entities.Header.Data.District.WARNING" type="'warning'"
                           icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
                         </error-warning-directive>
                         <error-warning-directive
-                          data-ng-if="BranchDetailsCtrl.ePage.Entities.BranchHeader.Data.Address1.IsError"
-                          list="BranchDetailsCtrl.ePage.Entities.BranchHeader.Data.District.ERROR" type="'error'"
+                          data-ng-if="BranchDetailsCtrl.ePage.Entities.Header.Data.Address1.IsError"
+                          list="BranchDetailsCtrl.ePage.Entities.Header.Data.District.ERROR" type="'error'"
                           icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
                         </error-warning-directive>
                       </span>
                       <div class="">
                         <input type="text" class="form-control input-sm" placeholder="District"
-                          data-ng-model="BranchDetailsCtrl.ePage.Entities.BranchHeader.Data.District"
-                          data-ng-change="BranchDetailsCtrl.ePage.Masters.OnChangeValues(BranchDetailsCtrl.ePage.Entities.BranchHeader.Data.District,'E1327')" />
+                          data-ng-model="BranchDetailsCtrl.ePage.Entities.Header.Data.District"
+                          data-ng-change="BranchDetailsCtrl.ePage.Masters.OnChangeValues(BranchDetailsCtrl.ePage.Entities.Header.Data.District,'E1327')" />
                       </div>
                     </div>
                   </div>
@@ -215,20 +215,20 @@
                       <label class="control-label text-single-line">City</label>
                       <span class="error-warning-container">
                         <error-warning-directive
-                          data-ng-if="BranchDetailsCtrl.ePage.Entities.BranchHeader.Data.City.IsWarning && !BranchDetailsCtrl.ePage.Entities.BranchHeader.Data.City.IsError"
-                          list="BranchDetailsCtrl.ePage.Entities.BranchHeader.Data.City.WARNING" type="'warning'"
+                          data-ng-if="BranchDetailsCtrl.ePage.Entities.Header.Data.City.IsWarning && !BranchDetailsCtrl.ePage.Entities.Header.Data.City.IsError"
+                          list="BranchDetailsCtrl.ePage.Entities.Header.Data.City.WARNING" type="'warning'"
                           icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
                         </error-warning-directive>
                         <error-warning-directive
-                          data-ng-if="BranchDetailsCtrl.ePage.Entities.BranchHeader.Data.City.IsError"
-                          list="BranchDetailsCtrl.ePage.Entities.BranchHeader.Data.City.ERROR" type="'error'"
+                          data-ng-if="BranchDetailsCtrl.ePage.Entities.Header.Data.City.IsError"
+                          list="BranchDetailsCtrl.ePage.Entities.Header.Data.City.ERROR" type="'error'"
                           icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
                         </error-warning-directive>
                       </span>
                       <div class="">
                         <input type="text" class="form-control input-sm" placeholder="City"
-                          data-ng-model="BranchDetailsCtrl.ePage.Entities.BranchHeader.Data.City"
-                          data-ng-change="BranchDetailsCtrl.ePage.Masters.OnChangeValues(BranchDetailsCtrl.ePage.Entities.BranchHeader.Data.City,'E1327')" />
+                          data-ng-model="BranchDetailsCtrl.ePage.Entities.Header.Data.City"
+                          data-ng-change="BranchDetailsCtrl.ePage.Masters.OnChangeValues(BranchDetailsCtrl.ePage.Entities.Header.Data.City,'E1327')" />
                       </div>
                     </div>
                   </div>
@@ -239,20 +239,20 @@
                       <label class="control-label text-single-line">Postal Code</label>
                       <span class="error-warning-container">
                         <error-warning-directive
-                          data-ng-if="BranchDetailsCtrl.ePage.Entities.BranchHeader.Data.PostCode.IsWarning && !BranchDetailsCtrl.ePage.Entities.BranchHeader.Data.PostCode.IsError"
-                          list="BranchDetailsCtrl.ePage.Entities.BranchHeader.Data.PostCode.WARNING" type="'warning'"
+                          data-ng-if="BranchDetailsCtrl.ePage.Entities.Header.Data.PostCode.IsWarning && !BranchDetailsCtrl.ePage.Entities.Header.Data.PostCode.IsError"
+                          list="BranchDetailsCtrl.ePage.Entities.Header.Data.PostCode.WARNING" type="'warning'"
                           icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
                         </error-warning-directive>
                         <error-warning-directive
-                          data-ng-if="BranchDetailsCtrl.ePage.Entities.BranchHeader.Data.PostCode.IsError"
-                          list="BranchDetailsCtrl.ePage.Entities.BranchHeader.Data.PostCode.ERROR" type="'error'"
+                          data-ng-if="BranchDetailsCtrl.ePage.Entities.Header.Data.PostCode.IsError"
+                          list="BranchDetailsCtrl.ePage.Entities.Header.Data.PostCode.ERROR" type="'error'"
                           icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
                         </error-warning-directive>
                       </span>
                       <div class="">
                         <input type="text" class="form-control input-sm" placeholder="Postal Code"
-                          data-ng-model="BranchDetailsCtrl.ePage.Entities.BranchHeader.Data.PostCode"
-                          data-ng-change="BranchDetailsCtrl.ePage.Masters.OnChangeValues(BranchDetailsCtrl.ePage.Entities.BranchHeader.Data.PostCode,'E1327')" />
+                          data-ng-model="BranchDetailsCtrl.ePage.Entities.Header.Data.PostCode"
+                          data-ng-change="BranchDetailsCtrl.ePage.Masters.OnChangeValues(BranchDetailsCtrl.ePage.Entities.Header.Data.PostCode,'E1327')" />
                       </div>
                     </div>
                   </div>
@@ -261,20 +261,20 @@
                       <label class="control-label text-single-line">Contact No</label>
                       <span class="error-warning-container">
                         <error-warning-directive
-                          data-ng-if="BranchDetailsCtrl.ePage.Entities.BranchHeader.Data.Phone.IsWarning && !BranchDetailsCtrl.ePage.Entities.BranchHeader.Data.Phone.IsError"
-                          list="BranchDetailsCtrl.ePage.Entities.BranchHeader.Data.Phone.WARNING" type="'warning'"
+                          data-ng-if="BranchDetailsCtrl.ePage.Entities.Header.Data.Phone.IsWarning && !BranchDetailsCtrl.ePage.Entities.Header.Data.Phone.IsError"
+                          list="BranchDetailsCtrl.ePage.Entities.Header.Data.Phone.WARNING" type="'warning'"
                           icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
                         </error-warning-directive>
                         <error-warning-directive
-                          data-ng-if="BranchDetailsCtrl.ePage.Entities.BranchHeader.Data.Phone.IsError"
-                          list="BranchDetailsCtrl.ePage.Entities.BranchHeader.Data.Phone.ERROR" type="'error'"
+                          data-ng-if="BranchDetailsCtrl.ePage.Entities.Header.Data.Phone.IsError"
+                          list="BranchDetailsCtrl.ePage.Entities.Header.Data.Phone.ERROR" type="'error'"
                           icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
                         </error-warning-directive>
                       </span>
                       <div class="">
                         <input type="text" class="form-control input-sm" placeholder="Contact No"
-                          data-ng-model="BranchDetailsCtrl.ePage.Entities.BranchHeader.Data.Phone"
-                          data-ng-change="BranchDetailsCtrl.ePage.Masters.OnChangeValues(BranchDetailsCtrl.ePage.Entities.BranchHeader.Data.Phone,'E1327')" />
+                          data-ng-model="BranchDetailsCtrl.ePage.Entities.Header.Data.Phone"
+                          data-ng-change="BranchDetailsCtrl.ePage.Masters.OnChangeValues(BranchDetailsCtrl.ePage.Entities.Header.Data.Phone,'E1327')" />
                       </div>
                     </div>
                   </div>
@@ -283,20 +283,20 @@
                       <label class="control-label text-single-line">Email ID</label>
                       <span class="error-warning-container">
                         <error-warning-directive
-                          data-ng-if="BranchDetailsCtrl.ePage.Entities.BranchHeader.Data.Email.IsWarning && !BranchDetailsCtrl.ePage.Entities.BranchHeader.Data.Email.IsError"
-                          list="BranchDetailsCtrl.ePage.Entities.BranchHeader.Data.Email.WARNING" type="'warning'"
+                          data-ng-if="BranchDetailsCtrl.ePage.Entities.Header.Data.Email.IsWarning && !BranchDetailsCtrl.ePage.Entities.Header.Data.Email.IsError"
+                          list="BranchDetailsCtrl.ePage.Entities.Header.Data.Email.WARNING" type="'warning'"
                           icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
                         </error-warning-directive>
                         <error-warning-directive
-                          data-ng-if="BranchDetailsCtrl.ePage.Entities.BranchHeader.Data.Email.IsError"
-                          list="BranchDetailsCtrl.ePage.Entities.BranchHeader.Data.Email.ERROR" type="'error'"
+                          data-ng-if="BranchDetailsCtrl.ePage.Entities.Header.Data.Email.IsError"
+                          list="BranchDetailsCtrl.ePage.Entities.Header.Data.Email.ERROR" type="'error'"
                           icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
                         </error-warning-directive>
                       </span>
                       <div class="">
                         <input type="text" class="form-control input-sm" placeholder="Email Id"
-                          data-ng-model="BranchDetailsCtrl.ePage.Entities.BranchHeader.Data.Email"
-                          data-ng-change="BranchDetailsCtrl.ePage.Masters.OnChangeValues(BranchDetailsCtrl.ePage.Entities.BranchHeader.Data.Email,'E1327')" />
+                          data-ng-model="BranchDetailsCtrl.ePage.Entities.Header.Data.Email"
+                          data-ng-change="BranchDetailsCtrl.ePage.Masters.OnChangeValues(BranchDetailsCtrl.ePage.Entities.Header.Data.Email,'E1327')" />
                       </div>
                     </div>
                   </div>
@@ -305,20 +305,20 @@
                       <label class="control-label text-single-line">GST No</label>
                       <span class="error-warning-container">
                         <error-warning-directive
-                          data-ng-if="BranchDetailsCtrl.ePage.Entities.BranchHeader.Data.GSTNo.IsWarning && !BranchDetailsCtrl.ePage.Entities.BranchHeader.Data.GSTNo.IsError"
-                          list="BranchDetailsCtrl.ePage.Entities.BranchHeader.Data.GSTNo.WARNING" type="'warning'"
+                          data-ng-if="BranchDetailsCtrl.ePage.Entities.Header.Data.GSTNo.IsWarning && !BranchDetailsCtrl.ePage.Entities.Header.Data.GSTNo.IsError"
+                          list="BranchDetailsCtrl.ePage.Entities.Header.Data.GSTNo.WARNING" type="'warning'"
                           icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
                         </error-warning-directive>
                         <error-warning-directive
-                          data-ng-if="BranchDetailsCtrl.ePage.Entities.BranchHeader.Data.GSTNo.IsError"
-                          list="BranchDetailsCtrl.ePage.Entities.BranchHeader.Data.GSTNo.ERROR" type="'error'"
+                          data-ng-if="BranchDetailsCtrl.ePage.Entities.Header.Data.GSTNo.IsError"
+                          list="BranchDetailsCtrl.ePage.Entities.Header.Data.GSTNo.ERROR" type="'error'"
                           icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
                         </error-warning-directive>
                       </span>
                       <div class="">
                         <input type="text" class="form-control input-sm" placeholder="GST No"
-                          data-ng-model="BranchDetailsCtrl.ePage.Entities.BranchHeader.Data.GSTNo"
-                          data-ng-change="BranchDetailsCtrl.ePage.Masters.OnChangeValues(BranchDetailsCtrl.ePage.Entities.BranchHeader.Data.GSTNo,'E1327')" />
+                          data-ng-model="BranchDetailsCtrl.ePage.Entities.Header.Data.GSTNo"
+                          data-ng-change="BranchDetailsCtrl.ePage.Masters.OnChangeValues(BranchDetailsCtrl.ePage.Entities.Header.Data.GSTNo,'E1327')" />
                       </div>
                     </div>
                   </div>
@@ -329,28 +329,28 @@
                       <label class="control-label text-single-line">Company Related to</label>
                       <span class="error-warning-container">
                         <error-warning-directive
-                          data-ng-if="BranchDetailsCtrl.ePage.Entities.BranchHeader.Data.CMP_Code.IsWarning && !ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.CMP_Code.IsError"
-                          list="BranchDetailsCtrl.ePage.Entities.BranchHeader.Data.CMP_Code.WARNING" type="'warning'"
+                          data-ng-if="BranchDetailsCtrl.ePage.Entities.Header.Data.CMP_Code.IsWarning && !ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.CMP_Code.IsError"
+                          list="BranchDetailsCtrl.ePage.Entities.Header.Data.CMP_Code.WARNING" type="'warning'"
                           icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
                         </error-warning-directive>
                         <error-warning-directive
-                          data-ng-if="BranchDetailsCtrl.ePage.Entities.BranchHeader.Data.CMP_Code.IsError"
-                          list="BranchDetailsCtrl.ePage.Entities.BranchHeader.Data.CMP_Code.ERROR" type="'error'"
+                          data-ng-if="BranchDetailsCtrl.ePage.Entities.Header.Data.CMP_Code.IsError"
+                          list="BranchDetailsCtrl.ePage.Entities.Header.Data.CMP_Code.ERROR" type="'error'"
                           icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
                         </error-warning-directive>
                       </span>
                       <div class="input-group input-group-sm">
                         <!-- Dynamic look up Search in textbox -->
                         <div dynamic-lookup placeholder="Company Related to"
-                          my-ng-model="BranchDetailsCtrl.ePage.Entities.BranchHeader.Data.CMP_Code"
-                          obj="BranchDetailsCtrl.ePage.Entities.BranchHeader.Data" page-name="'MstCountry'"
+                          my-ng-model="BranchDetailsCtrl.ePage.Entities.Header.Data.CMP_Code"
+                          obj="BranchDetailsCtrl.ePage.Entities.Header.Data" page-name="'MstCountry'"
                           control-id="'CurrencyCountry'" control-key="CurrencyCountry_3337"
                           auto-complete-on-select="BranchDetailsCtrl.ePage.Masters.SelectedLookupData($index, $item,'Local')">
                         </div>
                         <!-- Look Up page opens when button clicks -->
                         <span class="input-group-btn">
                           <button dynamic-list-modal class="btn btn-default" type="button" is-disabled="false"
-                            obj="BranchDetailsCtrl.ePage.Entities.BranchHeader.Data" page-name="'MstCountry'"
+                            obj="BranchDetailsCtrl.ePage.Entities.Header.Data" page-name="'MstCountry'"
                             control-id="'CurrencyCountry'" control-key="CurrencyCountry_3337" mode="2"
                             grid-refresh-fun-name="" grid-refresh-fun=""
                             selected-data="BranchDetailsCtrl.ePage.Masters.SelectedLookupData($index, $item.data.entity,'Local')">
@@ -358,9 +358,9 @@
                           </button>
                         </span>
                         <span
-                          data-ng-if='!BranchDetailsCtrl.ePage.Entities.BranchHeader.Data && !BranchDetailsCtrl.ePage.Entities.BranchHeader.Data'>
+                          data-ng-if='!BranchDetailsCtrl.ePage.Entities.Header.Data && !BranchDetailsCtrl.ePage.Entities.Header.Data'>
                           <div
-                            data-ng-init="BranchDetailsCtrl.ePage.Masters.OnChangeValues(BranchDetailsCtrl.ePage.Entities.BranchHeader.Data.CMP_Code,'E1324',false,undefined)">
+                            data-ng-init="BranchDetailsCtrl.ePage.Masters.OnChangeValues(BranchDetailsCtrl.ePage.Entities.Header.Data.CMP_Code,'E1324',false,undefined)">
                           </div>
                         </span>
                       </div>
@@ -372,34 +372,34 @@
                       <label class="control-label text-single-line">Home Port</label>
                       <span class="error-warning-container">
                         <error-warning-directive
-                          data-ng-if="BranchDetailsCtrl.ePage.Entities.BranchHeader.Data.HomePort.IsWarning && !ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.HomePort.IsError"
-                          list="BranchDetailsCtrl.ePage.Entities.BranchHeader.Data.HomePort.WARNING" type="'warning'"
+                          data-ng-if="BranchDetailsCtrl.ePage.Entities.Header.Data.HomePort.IsWarning && !ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.HomePort.IsError"
+                          list="BranchDetailsCtrl.ePage.Entities.Header.Data.HomePort.WARNING" type="'warning'"
                           icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
                         </error-warning-directive>
                         <error-warning-directive
-                          data-ng-if="BranchDetailsCtrl.ePage.Entities.BranchHeader.Data.HomePort.IsError"
-                          list="BranchDetailsCtrl.ePage.Entities.BranchHeader.Data.HomePort.ERROR" type="'error'"
+                          data-ng-if="BranchDetailsCtrl.ePage.Entities.Header.Data.HomePort.IsError"
+                          list="BranchDetailsCtrl.ePage.Entities.Header.Data.HomePort.ERROR" type="'error'"
                           icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
                         </error-warning-directive>
                       </span>
                       <div class="input-group input-group-sm">
                         <!-- Dynamic look up Search in textbox -->
                         <div dynamic-lookup placeholder="Home Port"
-                          my-ng-model="BranchDetailsCtrl.ePage.Entities.BranchHeader.Data.HomePort"
-                          obj="BranchDetailsCtrl.ePage.Entities.BranchHeader.Data">
+                          my-ng-model="BranchDetailsCtrl.ePage.Entities.Header.Data.HomePort"
+                          obj="BranchDetailsCtrl.ePage.Entities.Header.Data">
                         </div>
                         <!-- Look Up page opens when button clicks -->
                         <span class="input-group-btn">
                           <button dynamic-list-modal class="btn btn-default" type="button" is-disabled="false"
-                            obj="BranchDetailsCtrl.ePage.Entities.BranchHeader.Data"
+                            obj="BranchDetailsCtrl.ePage.Entities.Header.Data"
                             selected-data="BranchDetailsCtrl.ePage.Masters.SelectedLookupData($index, $item.data.entity,'Local')">
                             <i class="fa fa-ellipsis-h"></i>
                           </button>
                         </span>
                         <span
-                          data-ng-if='!BranchDetailsCtrl.ePage.Entities.BranchHeader.Data && !BranchDetailsCtrl.ePage.Entities.BranchHeader.Data'>
+                          data-ng-if='!BranchDetailsCtrl.ePage.Entities.Header.Data && !BranchDetailsCtrl.ePage.Entities.Header.Data'>
                           <div
-                            data-ng-init="BranchDetailsCtrl.ePage.Masters.OnChangeValues(BranchDetailsCtrl.ePage.Entities.BranchHeader.Data.HomePort,'E1324',false,undefined)">
+                            data-ng-init="BranchDetailsCtrl.ePage.Masters.OnChangeValues(BranchDetailsCtrl.ePage.Entities.Header.Data.HomePort,'E1324',false,undefined)">
                           </div>
                         </span>
                       </div>
@@ -411,28 +411,28 @@
                       <label class="control-label text-single-line">Organization Code</label>
                       <span class="error-warning-container">
                         <error-warning-directive
-                          data-ng-if="BranchDetailsCtrl.ePage.Entities.BranchHeader.Data.Country.IsWarning && !ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.FromCurrency.IsError"
-                          list="BranchDetailsCtrl.ePage.Entities.BranchHeader.Data.Country.WARNING" type="'warning'"
+                          data-ng-if="BranchDetailsCtrl.ePage.Entities.Header.Data.ORG_Organization_FK.IsWarning && !ExchangeRateGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.ORG_Organization_FK.IsError"
+                          list="BranchDetailsCtrl.ePage.Entities.Header.Data.ORG_Organization_FK.WARNING" type="'warning'"
                           icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
                         </error-warning-directive>
                         <error-warning-directive
-                          data-ng-if="BranchDetailsCtrl.ePage.Entities.BranchHeader.Data.Country.IsError"
-                          list="BranchDetailsCtrl.ePage.Entities.BranchHeader.Data.Country.ERROR" type="'error'"
+                          data-ng-if="BranchDetailsCtrl.ePage.Entities.Header.Data.ORG_Organization_FK.IsError"
+                          list="BranchDetailsCtrl.ePage.Entities.Header.Data.ORG_Organization_FK.ERROR" type="'error'"
                           icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
                         </error-warning-directive>
                       </span>
                       <div class="input-group input-group-sm">
                         <!-- Dynamic look up Search in textbox -->
                         <div dynamic-lookup placeholder="Organization Code"
-                          my-ng-model="BranchDetailsCtrl.ePage.Entities.BranchHeader.Data.Country"
-                          obj="BranchDetailsCtrl.ePage.Entities.BranchHeader.Data" page-name="'OrganizationList'"
+                          my-ng-model="BranchDetailsCtrl.ePage.Entities.Header.Data.ORG_Organization_FK"
+                          obj="BranchDetailsCtrl.ePage.Entities.Header.Data" page-name="'OrganizationList'"
                           control-id="'Organizations'" control-key="Organizations_3033"
                           auto-complete-on-select="BranchDetailsCtrl.ePage.Masters.SelectedLookupData($index, $item,'Local')">
                         </div>
                         <!-- Look Up page opens when button clicks -->
                         <span class="input-group-btn">
                           <button dynamic-list-modal class="btn btn-default" type="button" is-disabled="false"
-                            obj="BranchDetailsCtrl.ePage.Entities.BranchHeader.Data" page-name="'OrganizationList'"
+                            obj="BranchDetailsCtrl.ePage.Entities.Header.Data" page-name="'OrganizationList'"
                             control-id="'Organizations'" control-key="Organizations_3033" mode="2"
                             grid-refresh-fun-name="" grid-refresh-fun=""
                             selected-data="BranchDetailsCtrl.ePage.Masters.SelectedLookupData($index, $item.data.entity,'Local')">
@@ -440,9 +440,9 @@
                           </button>
                         </span>
                         <span
-                          data-ng-if='!BranchDetailsCtrl.ePage.Entities.BranchHeader.Data && !BranchDetailsCtrl.ePage.Entities.BranchHeader.Data'>
+                          data-ng-if='!BranchDetailsCtrl.ePage.Entities.Header.Data && !BranchDetailsCtrl.ePage.Entities.Header.Data'>
                           <div
-                            data-ng-init="BranchDetailsCtrl.ePage.Masters.OnChangeValues(BranchDetailsCtrl.ePage.Entities.BranchHeader.Data.Country,'E1324',false,undefined)">
+                            data-ng-init="BranchDetailsCtrl.ePage.Masters.OnChangeValues(BranchDetailsCtrl.ePage.Entities.Header.Data.Country,'E1324',false,undefined)">
                           </div>
                         </span>
                       </div>
@@ -453,20 +453,20 @@
                       <label class="control-label text-single-line">Branch Logo</label>
                       <span class="error-warning-container">
                         <error-warning-directive
-                          data-ng-if="BranchDetailsCtrl.ePage.Entities.BranchHeader.Data.Branchlogo.IsWarning && !BranchDetailsCtrl.ePage.Entities.BranchHeader.Data.Branchlogo.IsError"
-                          list="BranchDetailsCtrl.ePage.Entities.BranchHeader.Data.Branchlogo.WARNING" type="'warning'"
+                          data-ng-if="BranchDetailsCtrl.ePage.Entities.Header.Data.Branchlogo.IsWarning && !BranchDetailsCtrl.ePage.Entities.Header.Data.Branchlogo.IsError"
+                          list="BranchDetailsCtrl.ePage.Entities.Header.Data.Branchlogo.WARNING" type="'warning'"
                           icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
                         </error-warning-directive>
                         <error-warning-directive
-                          data-ng-if="BranchDetailsCtrl.ePage.Entities.BranchHeader.Data.Branchlogo.IsError"
-                          list="BranchDetailsCtrl.ePage.Entities.BranchHeader.Data.Branchlogo.ERROR" type="'error'"
+                          data-ng-if="BranchDetailsCtrl.ePage.Entities.Header.Data.Branchlogo.IsError"
+                          list="BranchDetailsCtrl.ePage.Entities.Header.Data.Branchlogo.ERROR" type="'error'"
                           icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
                         </error-warning-directive>
                       </span>
                       <div class="">
                         <input type="text" class="form-control input-sm" placeholder="GST No"
-                          data-ng-model="BranchDetailsCtrl.ePage.Entities.BranchHeader.Data.Branchlogo"
-                          data-ng-change="BranchDetailsCtrl.ePage.Masters.OnChangeValues(BranchDetailsCtrl.ePage.Entities.BranchHeader.Data.Branchlogo,'E1327')" />
+                          data-ng-model="BranchDetailsCtrl.ePage.Entities.Header.Data.Branchlogo"
+                          data-ng-change="BranchDetailsCtrl.ePage.Masters.OnChangeValues(BranchDetailsCtrl.ePage.Entities.Header.Data.Branchlogo,'E1327')" />
                       </div>
                     </div> -->
                   </div>
