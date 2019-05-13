@@ -1,7 +1,7 @@
 <div class="clearfix mt-10" ng-if="GatepassListCtrl.ePage.Entities.Header.Data.jobfk.length>0">
     <div class="" ng-repeat="x in  GatepassListCtrl.ePage.Entities.Header.Data.TmsGatepassList | filter:{JDAFK:GatepassListCtrl.jobfk}">
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-            <div class="card">
+            <div class="gatepass-card">
                 <div class="content">
                     <div class="row">
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
@@ -67,7 +67,7 @@
     </div>
     <div class="" ng-repeat="x in  GatepassListCtrl.ePage.Masters.GatepassDetails track by $index">
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-            <div class="card">
+            <div class="gatepass-card">
                 <div class="content">
                     <div class="row">
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
