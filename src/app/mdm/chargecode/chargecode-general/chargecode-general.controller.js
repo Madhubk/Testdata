@@ -4,9 +4,9 @@
     angular.module("Application")
         .controller("ChargecodeGeneralController", ChargecodeGeneralController);
 
-    ChargecodeGeneralController.$inject = ["helperService", "chargecodeConfig"];
+    ChargecodeGeneralController.$inject = ["helperService", "apiService", "chargecodeConfig"];
 
-    function ChargecodeGeneralController(helperService, chargecodeConfig) {
+    function ChargecodeGeneralController(helperService, apiService, chargecodeConfig) {
 
         var ChargecodeGeneralCtrl = this;
 
@@ -22,12 +22,39 @@
                 "Entities": currentChargecode
             };
 
+            console.log("UI", ChargecodeGeneralCtrl.ePage.Entities.Header.Data);
             ChargecodeGeneralCtrl.ePage.Masters.Config = chargecodeConfig;
-            ChargecodeGeneralCtrl.ePage.Masters.UIChargecode = ChargecodeGeneralCtrl.ePage.Entities.Header.Data;
 
             /* Function  */
             ChargecodeGeneralCtrl.ePage.Masters.OnChangeValues = OnChangeValues;
+            ChargecodeGeneralCtrl.ePage.Masters.SelectedLookupData = SelectedLookupData;
+
+            InitDepartment();
         }
+
+        //#region Department
+        function InitDepartment() {
+            var _filter = {};
+            var _input = {
+                "searchInput": helperService.createToArrayOfObject(_filter),
+                "FilterID": chargecodeConfig.Entities.API.CmpDepartment.API.FindAll.FilterID
+            };
+
+            apiService.post("eAxisAPI", chargecodeConfig.Entities.API.CmpDepartment.API.FindAll.Url, _input).then(function (response) {
+                if (response.data.Response) {
+                    ChargecodeGeneralCtrl.ePage.Masters.DDDepartmentMasterList = response.data.Response;
+                }
+            });
+        }
+        //#endregion
+
+        //#region SelectedLookup
+        function SelectedLookupData($item, type) {
+            if (type == "Company" && $item.CountryCode == "IN") {
+                ChargecodeGeneralCtrl.ePage.Entities.Header.Data.UIAccChargeCode.CMP_CountryCode = "IN";
+            }
+        }
+        //#endregion
 
         //#region ErrorWarning Alert Validation
         function OnChangeValues(fieldvalue, code, IsArray, RowIndex) {

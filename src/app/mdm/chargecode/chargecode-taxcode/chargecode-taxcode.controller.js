@@ -4,9 +4,9 @@
     angular.module("Application")
         .controller("ChargecodeTaxcodeController", ChargecodeTaxcodeController);
 
-    ChargecodeTaxcodeController.$inject = ["helperService", "chargecodeConfig"];
+    ChargecodeTaxcodeController.$inject = ["$timeout", "helperService", "chargecodeConfig", "confirmation"];
 
-    function ChargecodeTaxcodeController(helperService, chargecodeConfig) {
+    function ChargecodeTaxcodeController($timeout, helperService, chargecodeConfig, confirmation) {
 
         var ChargecodeTaxcodeCtrl = this;
 
@@ -23,11 +23,142 @@
             };
 
             ChargecodeTaxcodeCtrl.ePage.Masters.Config = chargecodeConfig;
-            ChargecodeTaxcodeCtrl.ePage.Masters.UIChargecode = ChargecodeTaxcodeCtrl.ePage.Entities.Header.Data;
 
             /* Function  */
             ChargecodeTaxcodeCtrl.ePage.Masters.OnChangeValues = OnChangeValues;
+            ChargecodeTaxcodeCtrl.ePage.Masters.AddNewRow = AddNewRow;
+            ChargecodeTaxcodeCtrl.ePage.Masters.CopyRow = CopyRow;
+            ChargecodeTaxcodeCtrl.ePage.Masters.RemoveRow = RemoveRow;
+            ChargecodeTaxcodeCtrl.ePage.Masters.SetSelectedRow = SetSelectedRow;
+            ChargecodeTaxcodeCtrl.ePage.Masters.SelectAllCheckBox = SelectAllCheckBox;
+            ChargecodeTaxcodeCtrl.ePage.Masters.SingleSelectCheckBox = SingleSelectCheckBox;
+
+            /*  For table */
+            ChargecodeTaxcodeCtrl.ePage.Masters.EnableDeleteButton = true;
+            ChargecodeTaxcodeCtrl.ePage.Masters.EnableCopyButton = true;
+            ChargecodeTaxcodeCtrl.ePage.Masters.Enable = true;
+            ChargecodeTaxcodeCtrl.ePage.Masters.selectedRow = -1;
+            ChargecodeTaxcodeCtrl.ePage.Masters.emptyText = '-';
+
         }
+
+        //#region AddNewRow, CopyRow, RemoveRow 
+        function AddNewRow() {
+            var obj = {
+                "PK": "",
+                "CostSellAll": "",
+                "JobType": "",
+                "TransportMode": "",
+                "AT_Code": "",
+                "IsModified": false,
+                "IsDeleted": false,
+                "LineNo": ChargecodeTaxcodeCtrl.ePage.Entities.Header.Data.UIAccChargeTaxOverride.length + 1
+            };
+
+            ChargecodeTaxcodeCtrl.ePage.Entities.Header.Data.UIAccChargeTaxOverride.push(obj);
+            ChargecodeTaxcodeCtrl.ePage.Masters.selectedRow = ChargecodeTaxcodeCtrl.ePage.Entities.Header.Data.UIAccChargeTaxOverride.length - 1;
+
+            /* Add Scroll */
+            $timeout(function () {
+                var objDiv = document.getElementById("ChargecodeTaxcodeCtrl.ePage.Masters.AddScroll");
+                objDiv.scrollTop = objDiv.scrollHeight;
+            }, 50);
+            ChargecodeTaxcodeCtrl.ePage.Entities.Header.GlobalVariables.SelectAll = false;
+        }
+
+        function CopyRow() {
+            for (var i = ChargecodeTaxcodeCtrl.ePage.Entities.Header.Data.UIAccChargeTaxOverride.length - 1; i >= 0; i--) {
+                if (ChargecodeTaxcodeCtrl.ePage.Entities.Header.Data.UIAccChargeTaxOverride[i].SingleSelect) {
+                    var obj = angular.copy(ChargecodeTaxcodeCtrl.ePage.Entities.Header.Data.UIAccChargeTaxOverride[i]);
+                    obj.PK = "";
+                    obj.CreatedDateTime = "";
+                    obj.ModifiedDateTime = "";
+                    obj.SingleSelect = false
+                    obj.IsCopied = true;
+                    obj.LineNo = ChargecodeTaxcodeCtrl.ePage.Entities.Header.Data.UIAccChargeTaxOverride.length + 1
+                    ChargecodeTaxcodeCtrl.ePage.Entities.Header.Data.UIAccChargeTaxOverride.splice(i + 1, 0, obj);
+                }
+            }
+
+            ChargecodeTaxcodeCtrl.ePage.Masters.selectedRow = -1;
+            ChargecodeTaxcodeCtrl.ePage.Entities.Header.GlobalVariables.SelectAll = false;
+        }
+
+        function RemoveRow() {
+            var modalOptions = {
+                closeButtonText: 'Cancel',
+                actionButtonText: 'Ok',
+                headerText: 'Delete?',
+                bodyText: 'Are you sure?'
+            };
+            confirmation.showModal({}, modalOptions).then(function (result) {
+                ChargecodeTaxcodeCtrl.ePage.Entities.Header.Data.UIAccChargeTaxOverride.map(function (value, key) {
+                    if (value.SingleSelect == true) {
+                        value.IsDeleted = true;
+                    }
+                });
+
+                for (var i = ChargecodeTaxcodeCtrl.ePage.Entities.Header.Data.UIAccChargeTaxOverride.length - 1; i >= 0; i--) {
+                    if (ChargecodeTaxcodeCtrl.ePage.Entities.Header.Data.UIAccChargeTaxOverride[i].SingleSelect && ChargecodeTaxcodeCtrl.ePage.Entities.Header.Data.UIAccChargeTaxOverride[i].IsDeleted) {
+                        ChargecodeTaxcodeCtrl.ePage.Entities.Header.Data.UIAccChargeTaxOverride.splice(i, 1);
+                    }
+                }
+
+                ChargecodeTaxcodeCtrl.ePage.Masters.selectedRow = -1;
+                ChargecodeTaxcodeCtrl.ePage.Entities.Header.GlobalVariables.SelectAll = false;
+                ChargecodeTaxcodeCtrl.ePage.Masters.EnableCopyButton = true;
+                ChargecodeTaxcodeCtrl.ePage.Masters.EnableDeleteButton = true;
+            }, function () {
+                console.log("Cancelled");
+            });
+        }
+        //#endregion
+
+        //#region SetSelectedRow
+        function SetSelectedRow($index) {
+            ChargecodeTaxcodeCtrl.ePage.Masters.selectedRow = $index;
+        }
+        //#endregion
+
+        //#region SingleSelectCheckBox, SelectAllCheckBox
+        function SingleSelectCheckBox() {
+            var Checked = ChargecodeTaxcodeCtrl.ePage.Entities.Header.Data.UIAccChargeTaxOverride.some(function (value, key) {
+                if (!value.SingleSelect)
+                    return true;
+            });
+            if (Checked) {
+                ChargecodeTaxcodeCtrl.ePage.Entities.Header.GlobalVariables.SelectAll = false;
+            } else {
+                ChargecodeTaxcodeCtrl.ePage.Entities.Header.GlobalVariables.SelectAll = true;
+            }
+
+            var Checked1 = ChargecodeTaxcodeCtrl.ePage.Entities.Header.Data.UIAccChargeTaxOverride.some(function (value, key) {
+                return value.SingleSelect == true;
+            });
+            if (Checked1 == true) {
+                ChargecodeTaxcodeCtrl.ePage.Masters.EnableDeleteButton = false;
+                ChargecodeTaxcodeCtrl.ePage.Masters.EnableCopyButton = false;
+            } else {
+                ChargecodeTaxcodeCtrl.ePage.Masters.EnableDeleteButton = true;
+                ChargecodeTaxcodeCtrl.ePage.Masters.EnableCopyButton = true;
+            }
+        }
+
+        function SelectAllCheckBox() {
+            angular.forEach(ChargecodeTaxcodeCtrl.ePage.Entities.Header.Data.UIAccChargeTaxOverride, function (value, key) {
+                if (ChargecodeTaxcodeCtrl.ePage.Entities.Header.GlobalVariables.SelectAll) {
+                    value.SingleSelect = true;
+                    ChargecodeTaxcodeCtrl.ePage.Masters.EnableDeleteButton = false;
+                    ChargecodeTaxcodeCtrl.ePage.Masters.EnableCopyButton = false;
+                }
+                else {
+                    value.SingleSelect = false;
+                    ChargecodeTaxcodeCtrl.ePage.Masters.EnableDeleteButton = true;
+                    ChargecodeTaxcodeCtrl.ePage.Masters.EnableCopyButton = true;
+                }
+            });
+        }
+        //#endregion
 
         //#region ErrorWarning Alert Validation
         function OnChangeValues(fieldvalue, code, IsArray, RowIndex) {

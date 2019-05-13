@@ -28,6 +28,28 @@
                                 "Url": "MstChargecodeGroup/MstChargecodeGroupActivityClose/"
                             }
                         }
+                    },
+                    "CmpCompany":{
+                        "RowIndex": -1,
+                        "API":{
+                            "FindAll":{
+                                "IsAPI": "true",
+                                "HttpType": "Post",
+                                "Url": "CmpCompany/FindAll",
+                                "FilterID": "CMPCOMP"
+                            }
+                        }
+                    },
+                    "CmpDepartment":{
+                        "RowIndex": -1,
+                        "API":{
+                            "FindAll":{
+                                "IsAPI": "true",
+                                "HttpType": "Post",
+                                "Url": "CmpDepartment/FindAll",
+                                "FilterID": "CMPDEPT"
+                            }
+                        }
                     }
                 }
             },
@@ -97,7 +119,133 @@
                                 "Desc": helperService.metaBase(),
                             }
                         },
+                        "GlobalVariables": {
+                            "SelectAll": false,
+                        },
                         "TableProperties": {
+                            "UITaxCodeOverride":{
+                                "TableHeight": {
+                                    "isEnabled": true,
+                                    "height": 180
+                                },
+                                "ccheckbox": {
+                                    "isenabled": true,
+                                    "position": '1',
+                                    "width": "30"
+                                },
+                                "accountsno": {
+                                    "isenabled": true,
+                                    "position": '2',
+                                    "width": "40"
+                                },
+                                "accounttype": {
+                                    "isenabled": true,
+                                    "position": '2',
+                                    "width": "200"
+                                },
+                                "jobtype": {
+                                    "isenabled": true,
+                                    "position": '3',
+                                    "width": "200"
+                                },
+                                "transportmode": {
+                                    "isenabled": true,
+                                    "position": '4',
+                                    "width": "200"
+                                },
+                                "taxcode": {
+                                    "isenabled": true,
+                                    "position": '5',
+                                    "width": "200"
+                                }
+                            },
+                            "UIGLPostingOverride":{
+                                "TableHeight": {
+                                    "isEnabled": true,
+                                    "height": 180
+                                },
+                                "ccheckbox": {
+                                    "isenabled": true,
+                                    "position": '1',
+                                    "width": "30"
+                                },
+                                "accountsno": {
+                                    "isenabled": true,
+                                    "position": '2',
+                                    "width": "40"
+                                },
+                                "jobtype": {
+                                    "isenabled": true,
+                                    "position": '2',
+                                    "width": "200"
+                                },
+                                "transportmode": {
+                                    "isenabled": true,
+                                    "position": '3',
+                                    "width": "200"
+                                },
+                                "department": {
+                                    "isenabled": true,
+                                    "position": '4',
+                                    "width": "200"
+                                },
+                                "costaccural": {
+                                    "isenabled": true,
+                                    "position": '5',
+                                    "width": "200"
+                                },
+                                "costactual": {
+                                    "isenabled": true,
+                                    "position": '6',
+                                    "width": "200"
+                                },
+                                "revenueaccural": {
+                                    "isenabled": true,
+                                    "position": '7',
+                                    "width": "200"
+                                },
+                                "revenueactual": {
+                                    "isenabled": true,
+                                    "position": '8',
+                                    "width": "200"
+                                },
+                            },
+                            "UIInvoiceOverride":{
+                                "TableHeight": {
+                                    "isEnabled": true,
+                                    "height": 180
+                                },
+                                "ccheckbox": {
+                                    "isenabled": true,
+                                    "position": '1',
+                                    "width": "30"
+                                },
+                                "accountsno": {
+                                    "isenabled": true,
+                                    "position": '2',
+                                    "width": "40"
+                                },
+                                "jobtype": {
+                                    "isenabled": true,
+                                    "position": '3',
+                                    "width": "200"
+                                },
+                                "transportmode": {
+                                    "isenabled": true,
+                                    "position": '4',
+                                    "width": "200"
+                                },
+                                "chargetype": {
+                                    "isenabled": true,
+                                    "position": '5',
+                                    "width": "200"
+                                },
+                                "invoicetype":{
+                                    "isenabled": true,
+                                    "position": '5',
+                                    "width": "200"
+                                }
+                            },
                             "UIAccTaxRateDetails": {
                                 "TableHeight": {
                                     "isEnabled": true,
@@ -132,7 +280,7 @@
                                     "isenabled": true,
                                     "position": '5',
                                     "width": "200"
-                                },
+                                }
                             }
                         }
                     }
