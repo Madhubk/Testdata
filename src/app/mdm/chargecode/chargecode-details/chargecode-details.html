@@ -3,9 +3,16 @@
         <!--Charge Type-->  
         <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
             <div class="form-group">
+                <div class="error-warning-container">
+                    <error-warning-directive data-ng-if="ChargecodeDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.ChargeType.IsWarning && !ChargecodeDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.ChargeType.IsError"
+                        list="ChargecodeDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.ChargeType.WARNING" type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                    <error-warning-directive data-ng-if="ChargecodeDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.ChargeType.IsError" list="ChargecodeDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.ChargeType.ERROR"
+                        type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                </div>
                 <label class="control-label text-single-line ">Charge Type</label>
                 <select chosen class="form-control" data-ng-model="ChargecodeDetailsCtrl.ePage.Entities.Header.Data.UIAccChargeCode.ChargeType" 
-                    data-ng-options="x.Key as x.Description for x in ChargecodeDetailsCtrl.ePage.Masters.DropDownMasterList.ChargeType.ListSource">
+                    data-ng-options="x.Key as x.Description for x in ChargecodeDetailsCtrl.ePage.Masters.DropDownMasterList.ChargeType.ListSource"
+                    data-ng-change='ChargecodeDetailsCtrl.ePage.Masters.OnChangeValues(ChargecodeDetailsCtrl.ePage.Entities.Header.Data.UIAccChargeCode.ChargeType, "E1351", false, undefined)'>
                     <option value="">--Select--</option>
                 </select>
             </div>
@@ -31,10 +38,17 @@
         <!--Margin %-->
         <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
             <div class="form-group">
+                <div class="error-warning-container">
+                    <error-warning-directive data-ng-if="ChargecodeDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.Margin.IsWarning && !ChargecodeDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.Margin.IsError"
+                        list="ChargecodeDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.Margin.WARNING" type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                    <error-warning-directive data-ng-if="ChargecodeDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.Margin.IsError" list="ChargecodeDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.Margin.ERROR"
+                        type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                </div>
                 <label class="control-label text-single-line ">Margin %</label>
                 <div class="">
-                    <input type="text" id="focusTextBox" class="form-control input-sm" placeholder="Margin %" data-ng-model="ChargecodeDetailsCtrl.ePage.Entities.Header.Data.UIAccChargeCode.MarginPercentage" 
-                        data-ng-blur="ChargecodeDetailsCtrl.ePage.Masters.OnChangeMarginValues(ChargecodeDetailsCtrl.ePage.Entities.Header.Data.UIAccChargeCode.MarginPercentage)"  numbers-only>
+                    <input type="text" id="focusMargin" class="form-control input-sm" placeholder="Margin %" data-ng-model="ChargecodeDetailsCtrl.ePage.Entities.Header.Data.UIAccChargeCode.MarginPercentage" 
+                        data-ng-blur="ChargecodeDetailsCtrl.ePage.Masters.OnChangeMarginValues(ChargecodeDetailsCtrl.ePage.Entities.Header.Data.UIAccChargeCode.MarginPercentage)"  
+                        data-ng-change='ChargecodeDetailsCtrl.ePage.Masters.OnChangeValues(ChargecodeDetailsCtrl.ePage.Entities.Header.Data.UIAccChargeCode.MarginPercentage, "E1352", false, undefined)' numbers-only>
                 </div>
             </div>
         </div>
@@ -43,13 +57,13 @@
             <div class="form-group">
                 <label class="control-label text-single-line ">Revenue MIS group</label>
                 <div class="input-group input-group-sm">
-                    <div dynamic-lookup placeholder="Revenue MIS group" my-ng-model="ChargecodeDetailsCtrl.ePage.Entities.Header.Data.UIAccChargeCode.AGP_SalesGroup" 
+                    <div dynamic-lookup placeholder="Revenue MIS group" my-ng-model="ChargecodeDetailsCtrl.ePage.Entities.Header.Data.UIAccChargeCode.AGP_SalesGroupCode" 
                         obj="ChargecodeDetailsCtrl.ePage.Entities.Header.Data.UIAccChargeCode" page-name="'MstDebtorGroup'" control-id="'MstDebtorGroup'" control-key="MstDebtorGroup_3348"
-                         auto-complete-on-select="ChargecodeDetailsCtrl.ePage.Masters.SelectedLookupData($item)"></div>
+                         auto-complete-on-select="ChargecodeDetailsCtrl.ePage.Masters.SelectedLookupData($item, 'RevenueMISgroup')"></div>
                     <span class="input-group-btn">
                         <button dynamic-list-modal class="btn btn-default" type="button" obj="ChargecodeDetailsCtrl.ePage.Entities.Header.Data.UIAccChargeCode" 
                             page-name="'MstDebtorGroup'" control-id="'MstDebtorGroup'" control-key="MstDebtorGroup_3348" mode="2" grid-refresh-fun-name="" grid-refresh-fun="" 
-                            selected-data="ChargecodeDetailsCtrl.ePage.Masters.SelectedLookupData($item.data.entity)"><i class="fa fa-ellipsis-h"></i>
+                            selected-data="ChargecodeDetailsCtrl.ePage.Masters.SelectedLookupData($item.data.entity, 'RevenueMISgroup')"><i class="fa fa-ellipsis-h"></i>
                         </button>
                     </span>
                 </div> 
@@ -60,11 +74,11 @@
             <div class="form-group">
                 <label class="control-label text-single-line ">Cost MIS group</label>
                 <div class="input-group input-group-sm">
-                    <div dynamic-lookup placeholder="Cost MIS group" my-ng-model="ChargecodeDetailsCtrl.ePage.Entities.Header.Data.UIAccChargeCode.AGP_ExpenseGroup" obj="ChargecodeDetailsCtrl.ePage.Entities.Header.Data.UIAccChargeCode" page-name="'MstCreditorGroup'" control-id="'MstCreditorGroup'" control-key="MstCreditorGroup_3349"
-                        auto-complete-on-select="ChargecodeDetailsCtrl.ePage.Masters.SelectedLookupData($item)"></div>
+                    <div dynamic-lookup placeholder="Cost MIS group" my-ng-model="ChargecodeDetailsCtrl.ePage.Entities.Header.Data.UIAccChargeCode.AGP_ExpenseGroupCode" obj="ChargecodeDetailsCtrl.ePage.Entities.Header.Data.UIAccChargeCode" page-name="'MstCreditorGroup'" control-id="'MstCreditorGroup'" control-key="MstCreditorGroup_3349"
+                        auto-complete-on-select="ChargecodeDetailsCtrl.ePage.Masters.SelectedLookupData($item, 'CostMISgroup')"></div>
                     <span class="input-group-btn">
                         <button dynamic-list-modal class="btn btn-default" type="button" obj="ChargecodeDetailsCtrl.ePage.Entities.Header.Data.UIAccChargeCode" page-name="'MstCreditorGroup'" control-id="'MstCreditorGroup'" control-key="MstCreditorGroup_3349" 
-                            mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="ChargecodeDetailsCtrl.ePage.Masters.SelectedLookupData($item.data.entity)"><i class="fa fa-ellipsis-h"></i>
+                            mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="ChargecodeDetailsCtrl.ePage.Masters.SelectedLookupData($item.data.entity, 'CostMISgroup')"><i class="fa fa-ellipsis-h"></i>
                         </button>
                     </span>
                 </div>
@@ -73,6 +87,12 @@
         <!--Cost Accural GL Account -->
         <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
             <div class="form-group">
+                <div class="error-warning-container">
+                    <error-warning-directive data-ng-if="ChargecodeDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.CostAccural.IsWarning && !ChargecodeDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.CostAccural.IsError"
+                        list="ChargecodeDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.CostAccural.WARNING" type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                    <error-warning-directive data-ng-if="ChargecodeDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.CostAccural.IsError" list="ChargecodeDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.CostAccural.ERROR"
+                        type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                </div>
                 <label class="control-label">Cost Accural GL Account</label> 
                 <div class="input-group input-group-sm">
                     <div dynamic-lookup placeholder="Cost Accural GL Account" my-ng-model="ChargecodeDetailsCtrl.ePage.Entities.Header.Data.UIAccChargeCode.AGH_AccrualAccountNum"
@@ -91,6 +111,12 @@
         <!--Revenue Accural GL Account  -->
         <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
             <div class="form-group">
+                <div class="error-warning-container">
+                    <error-warning-directive data-ng-if="ChargecodeDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.RevenueAccural.IsWarning && !ChargecodeDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.RevenueAccural.IsError"
+                        list="ChargecodeDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.RevenueAccural.WARNING" type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                    <error-warning-directive data-ng-if="ChargecodeDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.RevenueAccural.IsError" list="ChargecodeDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.RevenueAccural.ERROR"
+                        type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                </div>
                 <label class="control-label">Revenue Accural GL Account</label> 
                 <div class="input-group input-group-sm">
                     <div dynamic-lookup placeholder="Revenue Accural GL Account" my-ng-model="ChargecodeDetailsCtrl.ePage.Entities.Header.Data.UIAccChargeCode.AGH_WIPAccountNum"
@@ -109,6 +135,12 @@
         <!--Cost Actual GL Account -->
         <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
             <div class="form-group">
+                <div class="error-warning-container">
+                    <error-warning-directive data-ng-if="ChargecodeDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.CostActual.IsWarning && !ChargecodeDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.CostActual.IsError"
+                        list="ChargecodeDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.CostActual.WARNING" type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                    <error-warning-directive data-ng-if="ChargecodeDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.CostActual.IsError" list="ChargecodeDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.CostActual.ERROR"
+                        type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                </div>
                 <label class="control-label">Cost Actual GL Account</label> 
                 <div class="input-group input-group-sm">
                     <div dynamic-lookup placeholder="Cost Actual GL Account" my-ng-model="ChargecodeDetailsCtrl.ePage.Entities.Header.Data.UIAccChargeCode.AGH_CostAccountNum" 
@@ -127,6 +159,12 @@
         <!--Revenue Actual GL Account-->
         <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
             <div class="form-group">
+                <div class="error-warning-container">
+                     <error-warning-directive data-ng-if="ChargecodeDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.RevenueActual.IsWarning && !ChargecodeDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.RevenueActual.IsError"
+                        list="ChargecodeDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.RevenueActual.WARNING" type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                    <error-warning-directive data-ng-if="ChargecodeDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.RevenueActual.IsError" list="ChargecodeDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.RevenueActual.ERROR"
+                        type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                </div>
                 <label class="control-label">Revenue Actual GL Account</label> 
                 <div class="input-group input-group-sm">
                     <div dynamic-lookup placeholder="Revenue Actual GL Account" my-ng-model="ChargecodeDetailsCtrl.ePage.Entities.Header.Data.UIAccChargeCode.AGH_RevenueAccountNum"
@@ -145,9 +183,16 @@
         <!--Charge group -->
         <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
             <div class="form-group">
+                <div class="error-warning-container">
+                    <error-warning-directive data-ng-if="ChargecodeDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.ChargeGroup.IsWarning && !ChargecodeDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.ChargeGroup.IsError"
+                        list="ChargecodeDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.ChargeGroup.WARNING" type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                    <error-warning-directive data-ng-if="ChargecodeDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.ChargeGroup.IsError" list="ChargecodeDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.ChargeGroup.ERROR"
+                        type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                </div>
                 <label class="control-label text-single-line ">Charge Group</label>
                 <select chosen class="form-control" data-ng-model="ChargecodeDetailsCtrl.ePage.Entities.Header.Data.UIAccChargeCode.ChargeGroup" 
-                    data-ng-options="x.Key as x.Key for x in ChargecodeDetailsCtrl.ePage.Masters.DropDownMasterList.ChargeGroup.ListSource">
+                    data-ng-options="x.Key as x.Key for x in ChargecodeDetailsCtrl.ePage.Masters.DropDownMasterList.ChargeGroup.ListSource"
+                    data-ng-change='ChargecodeDetailsCtrl.ePage.Masters.OnChangeValues(ChargecodeDetailsCtrl.ePage.Entities.Header.Data.UIAccChargeCode.ChargeGroup, "E1357", false, undefined)'>
                     <option value="">--Select--</option>
                 </select>
             </div>

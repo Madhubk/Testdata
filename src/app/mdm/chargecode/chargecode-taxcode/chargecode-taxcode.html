@@ -70,7 +70,10 @@
                                 </div>
                                 <div data-ng-if="$index==ChargecodeTaxcodeCtrl.ePage.Masters.selectedRow">
                                     <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0 height-22">
-                                        <input type="text" class="form-control input-sm" placeholder="Account Type" data-ng-model="x.CostSellAll"/>
+                                        <select chosen class="form-control" data-ng-model="x.CostSellAll" 
+                                            data-ng-options="x.Key as x.Key for x in ChargecodeTaxcodeCtrl.ePage.Masters.DropDownMasterList.ChargeAccountType.ListSource">
+                                            <option value="">--Select--</option>
+                                        </select>
                                     </div>
                                 </div>
                             </td>
@@ -82,7 +85,10 @@
                                 </div>
                                 <div data-ng-if="$index==ChargecodeTaxcodeCtrl.ePage.Masters.selectedRow">
                                     <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0 height-22">
-                                        <input type="text" class="form-control input-sm" placeholder="Job Type" data-ng-model="x.JobType"/>
+                                        <select chosen class="form-control" data-ng-model="x.JobType" 
+                                            data-ng-options="x.Key as x.Key for x in ChargecodeTaxcodeCtrl.ePage.Masters.DropDownMasterList.ChargeJobType.ListSource">
+                                            <option value="">--Select--</option>
+                                        </select>
                                     </div>
                                 </div>
                             </td>
@@ -94,7 +100,10 @@
                                 </div>
                                 <div data-ng-if="$index==ChargecodeTaxcodeCtrl.ePage.Masters.selectedRow">
                                     <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0 height-22">
-                                        <input type="text" class="form-control input-sm" placeholder="Transport Mode" data-ng-model="x.TransportMode"/>
+                                        <select chosen class="form-control" data-ng-model="x.TransportMode" 
+                                            data-ng-options="x.Key as x.Key for x in ChargecodeTaxcodeCtrl.ePage.Masters.DropDownMasterList.ChargeTransportMode.ListSource">
+                                            <option value="">--Select--</option>
+                                        </select>
                                     </div>
                                 </div>
                             </td>
@@ -106,7 +115,16 @@
                                 </div>
                                 <div data-ng-if="$index==ChargecodeTaxcodeCtrl.ePage.Masters.selectedRow">
                                     <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0 height-22">
-                                        <input type="text" class="form-control input-sm" placeholder="Tax Code" data-ng-model="x.AT_Code"/>
+                                        <div class="input-group input-group-sm">
+                                            <div dynamic-lookup placeholder="Tax Code" my-ng-model="x.AT_Code" obj="x" page-name="'AccTaxRate'" control-id="'MstTax'" control-key="MstTax_3352" 
+                                                auto-complete-on-select="ChargecodeTaxcodeCtrl.ePage.Masters.SelectedLookupData($index, $item, 'TaxCode')">
+                                            </div>
+                                            <span class="input-group-btn">
+                                                <button dynamic-list-modal class="btn btn-default" type="button" obj="x" page-name="'AccTaxRate'" control-id="'MstTax'" control-key="MstTax_3352" 
+                                                    mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="ChargecodeTaxcodeCtrl.ePage.Masters.SelectedLookupData($index, $item.data.entity, 'TaxCode')"><i class="fa fa-ellipsis-h"></i>
+                                                </button>
+                                            </span>
+                                        </div>
                                     </div>
                                 </div>
                             </td>

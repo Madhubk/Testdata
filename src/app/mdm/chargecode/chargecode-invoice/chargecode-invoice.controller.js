@@ -4,9 +4,9 @@
     angular.module("Application")
         .controller("ChargecodeInvoiceController", ChargecodeInvoiceController);
 
-    ChargecodeInvoiceController.$inject = ["$timeout", "helperService", "chargecodeConfig", "confirmation"];
+    ChargecodeInvoiceController.$inject = ["$timeout", "apiService", "appConfig", "authService", "helperService", "chargecodeConfig", "confirmation"];
 
-    function ChargecodeInvoiceController($timeout, helperService, chargecodeConfig, confirmation) {
+    function ChargecodeInvoiceController($timeout, apiService, appConfig, authService, helperService, chargecodeConfig, confirmation) {
 
         var ChargecodeInvoiceCtrl = this;
 
@@ -25,7 +25,7 @@
             ChargecodeInvoiceCtrl.ePage.Masters.Config = chargecodeConfig;
 
             /* Function  */
-            ChargecodeInvoiceCtrl.ePage.Masters.OnChangeValues = OnChangeValues;
+            ChargecodeInvoiceCtrl.ePage.Masters.OnChangeValidations = OnChangeValidations;
             ChargecodeInvoiceCtrl.ePage.Masters.AddNewRow = AddNewRow;
             ChargecodeInvoiceCtrl.ePage.Masters.CopyRow = CopyRow;
             ChargecodeInvoiceCtrl.ePage.Masters.RemoveRow = RemoveRow;
@@ -33,13 +33,58 @@
             ChargecodeInvoiceCtrl.ePage.Masters.SingleSelectCheckBox = SingleSelectCheckBox;
             ChargecodeInvoiceCtrl.ePage.Masters.SelectAllCheckBox = SelectAllCheckBox;
 
+
             /*  For table */
             ChargecodeInvoiceCtrl.ePage.Masters.EnableDeleteButton = true;
             ChargecodeInvoiceCtrl.ePage.Masters.EnableCopyButton = true;
             ChargecodeInvoiceCtrl.ePage.Masters.Enable = true;
             ChargecodeInvoiceCtrl.ePage.Masters.selectedRow = -1;
             ChargecodeInvoiceCtrl.ePage.Masters.emptyText = '-';
+
+            /* DropDown List */
+            ChargecodeInvoiceCtrl.ePage.Masters.DropDownMasterList = {
+                "ChargeGLInvoiceJobType": {
+                    "ListSource": []
+                },
+                "ChargeGLInvoiceTransportMode": {
+                    "ListSource": []
+                },
+                "ChargeInvoiceChargeType": {
+                    "ListSource": []
+                },
+                "ChargeInvoiceType": {
+                    "ListSource": []
+                }
+            };
+
+            GetDropDownList();
         }
+
+        //#region DropDown
+        function GetDropDownList() {
+            var typeCodeList = ["ChargeGLInvoiceJobType", "ChargeGLInvoiceTransportMode", "ChargeInvoiceChargeType", "ChargeInvoiceType"];
+            var dynamicFindAllInput = [];
+
+            typeCodeList.map(function (value, key) {
+                dynamicFindAllInput[key] = {
+                    "FieldName": "TypeCode",
+                    "value": value
+                }
+            });
+            var _input = {
+                "searchInput": dynamicFindAllInput,
+                "FilterID": appConfig.Entities.CfxTypes.API.DynamicFindAll.FilterID
+            };
+            apiService.post("eAxisAPI", appConfig.Entities.CfxTypes.API.DynamicFindAll.Url + authService.getUserInfo().AppPK, _input).then(function (response) {
+                if (response.data.Response) {
+                    typeCodeList.map(function (value, key) {
+                        ChargecodeInvoiceCtrl.ePage.Masters.DropDownMasterList[value] = helperService.metaBase();
+                        ChargecodeInvoiceCtrl.ePage.Masters.DropDownMasterList[value].ListSource = response.data.Response[value];
+                    });
+                }
+            });
+        }
+        //#endregion
 
         //#region AddNewRow, CopyRow, RemoveRow 
         function AddNewRow() {
@@ -49,6 +94,9 @@
                 "TransportMode": "",
                 "ChargeType": "",
                 "InvoiceType": "",
+                "JobDirection": "",
+                "MarginPercentage": "",
+                "AC_ChargeCode": "",
                 "IsModified": false,
                 "IsDeleted": false,
                 "LineNo": ChargecodeInvoiceCtrl.ePage.Entities.Header.Data.UIAccChargeTypeOverride.length + 1
@@ -97,10 +145,22 @@
                     }
                 });
 
-                for (var i = ChargecodeInvoiceCtrl.ePage.Entities.Header.Data.UIAccChargeTypeOverride.length - 1; i >= 0; i--) {
-                    if (ChargecodeInvoiceCtrl.ePage.Entities.Header.Data.UIAccChargeTypeOverride[i].SingleSelect && ChargecodeInvoiceCtrl.ePage.Entities.Header.Data.UIAccChargeTypeOverride[i].IsDeleted) {
-                        ChargecodeInvoiceCtrl.ePage.Entities.Header.Data.UIAccChargeTypeOverride.splice(i, 1);
+                ChargecodeInvoiceCtrl.ePage.Entities.Header.Data.UIAccChargeTypeOverride.map(function (value, key) {
+                    if (value.SingleSelect && value.PK && value.IsDeleted) {
+                        apiService.get("eAxisAPI", chargecodeConfig.Entities.API.AccTypeOverride.API.Delete.Url + value.PK).then(function (response) {
+                            console.log("Success");
+                        });
                     }
+                });
+
+                var ReturnValue = RemoveAllLineErrors();
+                if(ReturnValue){
+                    for (var i = ChargecodeInvoiceCtrl.ePage.Entities.Header.Data.UIAccChargeTypeOverride.length - 1; i >= 0; i--) {
+                        if (ChargecodeInvoiceCtrl.ePage.Entities.Header.Data.UIAccChargeTypeOverride[i].SingleSelect && ChargecodeInvoiceCtrl.ePage.Entities.Header.Data.UIAccChargeTypeOverride[i].IsDeleted) {
+                            ChargecodeInvoiceCtrl.ePage.Entities.Header.Data.UIAccChargeTypeOverride.splice(i, 1);
+                        }
+                    }
+                    ChargecodeInvoiceCtrl.ePage.Masters.Config.GeneralValidation(ChargecodeInvoiceCtrl.currentChargecode);
                 }
 
                 ChargecodeInvoiceCtrl.ePage.Masters.selectedRow = -1;
@@ -160,8 +220,8 @@
         //#endregion
 
         //#region ErrorWarning Alert Validation
-        function OnChangeValues(fieldvalue, code, IsArray, RowIndex) {
-            angular.forEach(ChargecodeTaxcodeCtrl.ePage.Masters.Config.ValidationValues, function (value, key) {
+        function OnChangeValidations(fieldvalue, code, IsArray, RowIndex) {
+            angular.forEach(ChargecodeInvoiceCtrl.ePage.Masters.Config.ValidationValues, function (value, key) {
                 if (value.Code.trim() === code) {
                     GetErrorMessage(fieldvalue, value, IsArray, RowIndex)
                 }
@@ -170,10 +230,20 @@
 
         function GetErrorMessage(fieldvalue, value, IsArray, RowIndex) {
             if (!fieldvalue) {
-                ChargecodeTaxcodeCtrl.ePage.Masters.Config.PushErrorWarning(value.Code, value.Message, "E", false, value.CtrlKey, ChargecodeTaxcodeCtrl.currentChargecode.code, IsArray, RowIndex, value.ColIndex, value.DisplayName, undefined, undefined);
+                ChargecodeInvoiceCtrl.ePage.Masters.Config.PushErrorWarning(value.Code, value.Message, "E", false, value.CtrlKey, ChargecodeInvoiceCtrl.currentChargecode.code, IsArray, RowIndex, value.ColIndex, value.DisplayName, undefined, undefined);
             } else {
-                ChargecodeTaxcodeCtrl.ePage.Masters.Config.RemoveErrorWarning(value.Code, "E", value.CtrlKey, ChargecodeTaxcodeCtrl.currentChargecode.code, IsArray, RowIndex, value.ColIndex);
+                ChargecodeInvoiceCtrl.ePage.Masters.Config.RemoveErrorWarning(value.Code, "E", value.CtrlKey, ChargecodeInvoiceCtrl.currentChargecode.code, IsArray, RowIndex, value.ColIndex);
             }
+        }
+
+        function RemoveAllLineErrors(){
+            for (var i = 0; i < ChargecodeInvoiceCtrl.ePage.Entities.Header.Data.UIAccChargeTypeOverride.length; i++) {
+                OnChangeValidations('value', 'E1358', true, i);
+                OnChangeValidations('value', 'E1359', true, i);
+                OnChangeValidations('value', 'E1360', true, i);
+                OnChangeValidations('value', 'E1361', true, i);
+            }
+            return true;   
         }
         //#endregion 
 

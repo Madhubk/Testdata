@@ -4,9 +4,9 @@
     angular.module("Application")
         .controller("ChargecodeMenuController", ChargecodeMenuController);
 
-    ChargecodeMenuController.$inject = ["helperService", "toastr", "authService", "chargecodeConfig", "apiService"];
+    ChargecodeMenuController.$inject = ["helperService", "toastr", "chargecodeConfig", "apiService"];
 
-    function ChargecodeMenuController(helperService, toastr, authService, chargecodeConfig, apiService) {
+    function ChargecodeMenuController(helperService, toastr, chargecodeConfig, apiService) {
 
         var ChargecodeMenuCtrl = this;
 
@@ -40,63 +40,77 @@
         //#region  Validation
         function Validation($item) {
             var _Data = $item[$item.code].ePage.Entities,
-                _input = _Data.Header.Data;
-            // _errorcount = _Data.Header.Meta.ErrorWarning.GlobalErrorWarningList;
+                _input = _Data.Header.Data,
+                _errorcount = _Data.Header.Meta.ErrorWarning.GlobalErrorWarningList;
 
             /* Validation Call */
-            // ChargecodeMenuCtrl.ePage.Masters.Config.GeneralValidation($item);
-            // if (ChargecodeMenuCtrl.ePage.Entities.Header.Validations) {
-            //     ChargecodeMenuCtrl.ePage.Masters.Config.RemoveApiErrors(ChargecodeMenuCtrl.ePage.Entities.Header.Validations, $item.label);
-            // }
+            ChargecodeMenuCtrl.ePage.Masters.Config.GeneralValidation($item);
+            if (ChargecodeMenuCtrl.ePage.Entities.Header.Validations) {
+                ChargecodeMenuCtrl.ePage.Masters.Config.RemoveApiErrors(ChargecodeMenuCtrl.ePage.Entities.Header.Validations, $item.label);
+            }
 
-            // if (_errorcount.length == 0) {
-            //     var _filter = {};
-            //     var _inputField = {
-            //         "searchInput": helperService.createToArrayOfObject(_filter),
-            //         "FilterID": chargecodeConfig.Entities.API.ChargecodeGroup.API.FindAll.FilterID
-            //     };
+            if (_errorcount.length == 0) {
+                /*  var _filter = {};
+                 var _inputField = {
+                     "searchInput": helperService.createToArrayOfObject(_filter),
+                     "FilterID": chargecodeConfig.Entities.API.ChargecodeGroup.API.FindAll.FilterID
+                 };
+ 
+                 apiService.post("eAxisAPI", chargecodeConfig.Entities.API.ChargecodeGroup.API.FindAll.Url, _inputField).then(function (response) {
+                     if (response.data.Response) {
+                         ChargecodeMenuCtrl.ePage.Masters.UIChargecodeList = response.data.Response;
+                     }
+ 
+                     var _count = ChargecodeMenuCtrl.ePage.Masters.UIChargecodeList.some(function (value, key) {
+                         if (value.Code == _input.UIAccChargeCode.Code && value.CMP_Code == _input.UIAccChargeCode.CMP_Code) {
+                             return true;
+                         }
+                         else {
+                             return false;
+                         }
+                     });
+ 
+                     if (_count) {
+                         toastr.error("Charge Code and Company is already exist!.");
+                     } else {
+                         if (_input.UIAccChargeCode.CMP_CountryCode == "IN") {
+                             if (!_input.UIAccChargeCode.GovtChargeCode) {
+                                 toastr.error("Could you please enter SAC / HSN Codes.");
+                             }
+                             else if (_input.UIAccChargeCode.GovtChargeCode.length > 6) {
+                                 toastr.error("SAC / HSN codes allowed must be max 6 degits.");
+                             } else {
+                                 MstDepartmentFilterList(_input, $item);
+                             }
+                         }
+                         else {
+                             MstDepartmentFilterList(_input, $item);
+                         }
+                     }
+                 }); */
 
-            //     apiService.post("eAxisAPI", chargecodeConfig.Entities.API.ChargecodeGroup.API.FindAll.Url, _inputField).then(function (response) {
-            //         if (response.data.Response) {
-            //             ChargecodeMenuCtrl.ePage.Masters.UIChargecodeList = response.data.Response;
-            //         }
-
-            //         var _count = ChargecodeMenuCtrl.ePage.Masters.UIChargecodeList.some(function (value, key) {
-            //             if (value.Code == _input.Code) {
-            //                 return true;
-            //             }
-            //             else {
-            //                 return false;
-            //             }
-            //         });
-
-            //         if (_count) {
-            //             toastr.error("Code is Unique, Rename the Code!.");
-            //         } else {
-            //             Save($item);
-            //         }
-            //     });
-            // } else {
-            //     ChargecodeMenuCtrl.ePage.Masters.Config.ShowErrorWarningModal(ChargecodeMenuCtrl.currentChargecode);
-            // }
-            if (_input.UIAccChargeCode.CMP_CountryCode == "IN") {
-                if (!_input.UIAccChargeCode.GovtChargeCode) {
-                    toastr.error("Could you please enter SAC / HSN Codes.");
+                if (_input.UIAccChargeCode.CMP_CountryCode == "IN") {
+                    if (!_input.UIAccChargeCode.GovtChargeCode) {
+                        toastr.error("Could you please enter SAC / HSN Codes.");
+                    }
+                    else if (_input.UIAccChargeCode.GovtChargeCode.length > 6) {
+                        toastr.error("SAC / HSN codes allowed must be max 6 degits.");
+                    } else {
+                        MstDepartmentFilterList(_input, $item);
+                    }
                 }
-                else if (_input.UIAccChargeCode.GovtChargeCode.length > 6) {
-                    toastr.error("SAC / HSN codes allowed must be max 6 degits.");
-                } else {
+                else {
                     MstDepartmentFilterList(_input, $item);
                 }
-            }
-            else {
-                MstDepartmentFilterList(_input, $item);
+            } else {
+                ChargecodeMenuCtrl.ePage.Masters.Config.ShowErrorWarningModal(ChargecodeMenuCtrl.currentChargecode);
             }
         }
 
         function MstDepartmentFilterList(_input, $item) {
             var _Department = angular.copy(_input.UIAccChargeCode.DepartmentFilterList);
             _input.UIAccChargeCode.DepartmentFilterList = "";
+
             _Department.map(function (value, key) {
                 if (!_input.UIAccChargeCode.DepartmentFilterList) {
                     _input.UIAccChargeCode.DepartmentFilterList = value;

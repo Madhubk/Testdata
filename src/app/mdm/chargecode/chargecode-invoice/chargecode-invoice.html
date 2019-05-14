@@ -3,26 +3,20 @@
         <!--Default Tax Id-->
         <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
             <div class="form-group">
-                <div class="error-warning-container">
-                    <error-warning-directive data-ng-if="ChargecodeInvoiceCtrl.ePage.Entities.Header.Meta.ErrorWarning.Code.IsWarning && !ChargecodeInvoiceCtrl.ePage.Entities.Header.Meta.ErrorWarning.Code.IsError"
-                        list="ChargecodeInvoiceCtrl.ePage.Entities.Header.Meta.ErrorWarning.Code.WARNING" type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
-                    <error-warning-directive data-ng-if="ChargecodeInvoiceCtrl.ePage.Entities.Header.Meta.ErrorWarning.Code.IsError" list="ChargecodeInvoiceCtrl.ePage.Entities.Header.Meta.ErrorWarning.Code.ERROR"
-                        type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
-                </div>
                 <label class="control-label text-single-line ">Default Charge Type</label>
                 <div class="">
                     <input type="text" class="form-control input-sm" placeholder="Default Charge Type" data-ng-model="ChargecodeInvoiceCtrl.ePage.Entities.Header.Data.UIAccChargeCode.ChargeType" data-ng-disabled="true">
                 </div>
             </div>
         </div> 
-        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+        <!-- <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
             <div class="form-group">
                 <label class="control-label text-single-line ">Desc</label>
                 <div class="">
                     <input type="text" class="form-control input-sm" placeholder="Desc" data-ng-model="ChargecodeInvoiceCtrl.ePage.Entities.Header.Data.UIAccChargeCode.Code" data-ng-disabled="true">
                 </div>
             </div>
-        </div>
+        </div> -->
         <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
             <div class="form-group">
                 <label class="control-label text-single-line ">Margin %</label>
@@ -50,7 +44,7 @@
                 <table id="ChargecodeInvoiceCtrl.ePage.Masters.AddScroll" data-ng-style="{'height': ChargecodeInvoiceCtrl.ePage.Entities.Header.TableProperties.UIInvoiceOverride.TableHeight.height + 'px' }">
                     <thead>
                         <tr id="tableHeader">
-                            <th data-ng-if="ChargecodeInvoiceCtrl.ePage.Entities.Header.TableProperties.UIInvoiceOverride.ccheckbox.isenabled">
+                            <th data-ng-if="ChargecodeInvoiceCtrl.ePage.Entities.Header.TableProperties.UIInvoiceOverride.ccheckbox.isenabled" data-ng-style="{'width': ChargecodeInvoiceCtrl.ePage.Entities.Header.TableProperties.UIInvoiceOverride.ccheckbox.width + 'px'}">
                                 <label class="customcheckbox">
                                     <input type="checkbox" data-ng-change="ChargecodeInvoiceCtrl.ePage.Masters.SelectAllCheckBox()" data-ng-checked="ChargecodeInvoiceCtrl.ePage.Entities.Header.GlobalVariables.SelectAll" data-ng-model="ChargecodeInvoiceCtrl.ePage.Entities.Header.GlobalVariables.SelectAll"/>
                                         <span class="text"></span>
@@ -72,6 +66,11 @@
                                     <input type="checkbox" data-ng-checked="x.SingleSelect" data-ng-model="x.SingleSelect" data-ng-change="ChargecodeInvoiceCtrl.ePage.Masters.SingleSelectCheckBox()"/>
                                     <span class="text"></span>
                                 </label>
+                                <span class="list-error-warning" data-ng-if="ChargecodeInvoiceCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIAccChargeCode.ERROR | listCount: 'RowIndex': $index">
+                                    <error-warning-directive list="ChargecodeInvoiceCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIAccChargeCode.ERROR"
+                                        type="'error'" icon="fa fa-warning" parent-type="'arrayObjectRow'" parent-ref="" g-parent-ref="" row-index="$index" col-index="">
+                                    </error-warning-directive>
+                                </span>
                             </td>
                             <td data-ng-show="ChargecodeInvoiceCtrl.ePage.Entities.Header.TableProperties.UIInvoiceOverride.accountsno.isenabled"
                                 data-ng-style="{'width': ChargecodeInvoiceCtrl.ePage.Entities.Header.TableProperties.UIInvoiceOverride.accountsno.width + 'px' }"
@@ -88,7 +87,16 @@
                                 </div>
                                 <div data-ng-if="$index==ChargecodeInvoiceCtrl.ePage.Masters.selectedRow">
                                     <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0 height-22">
-                                        <input type="text" class="form-control input-sm" placeholder="Job Type" data-ng-model="x.JobType"/>
+                                        <select chosen class="form-control" data-ng-model="x.JobType" data-ng-options="x.Key as x.Key for x in ChargecodeInvoiceCtrl.ePage.Masters.DropDownMasterList.ChargeGLInvoiceJobType.ListSource"
+                                            data-ng-change="ChargecodeInvoiceCtrl.ePage.Masters.OnChangeValidations(x.JobType, 'E1358', true, $index)">
+                                        <option value="">--Select--</option>
+                                    </select>
+                                    </div>
+                                    <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="ChargecodeInvoiceCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIAccChargeCode.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':1">
+                                        <error-warning-directive  list="ChargecodeInvoiceCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIAccChargeCode.ERROR"
+                                            type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref=""
+                                            row-index="ChargecodeInvoiceCtrl.ePage.Masters.selectedRow" col-index="1">
+                                        </error-warning-directive>
                                     </div>
                                 </div>
                             </td>
@@ -100,7 +108,16 @@
                                 </div>
                                 <div data-ng-if="$index==ChargecodeInvoiceCtrl.ePage.Masters.selectedRow">
                                     <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0 height-22">
-                                        <input type="text" class="form-control input-sm" placeholder="Transport Mode" data-ng-model="x.TransportMode"/>
+                                        <select chosen class="form-control" data-ng-model="x.TransportMode" data-ng-options="x.Key as x.Key for x in ChargecodeInvoiceCtrl.ePage.Masters.DropDownMasterList.ChargeGLInvoiceTransportMode.ListSource"
+                                            data-ng-change="ChargecodeInvoiceCtrl.ePage.Masters.OnChangeValidations(x.TransportMode, 'E1359', true, $index)">
+                                            <option value="">--Select--</option>
+                                        </select>
+                                    </div>
+                                    <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="ChargecodeInvoiceCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIAccChargeCode.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':2">
+                                        <error-warning-directive  list="ChargecodeInvoiceCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIAccChargeCode.ERROR"
+                                            type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref=""
+                                            row-index="ChargecodeInvoiceCtrl.ePage.Masters.selectedRow" col-index="2">
+                                        </error-warning-directive>
                                     </div>
                                 </div>
                             </td>
@@ -112,7 +129,16 @@
                                 </div>
                                 <div data-ng-if="$index==ChargecodeInvoiceCtrl.ePage.Masters.selectedRow">
                                     <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0 height-22">
-                                        <input type="text" class="form-control input-sm" placeholder="Charge Type" data-ng-model="x.ChargeType"/>
+                                        <select chosen class="form-control" data-ng-model="x.ChargeType" data-ng-options="x.Key as x.Key for x in ChargecodeInvoiceCtrl.ePage.Masters.DropDownMasterList.ChargeInvoiceChargeType.ListSource"
+                                            data-ng-change="ChargecodeInvoiceCtrl.ePage.Masters.OnChangeValidations(x.ChargeType, 'E1360', true, $index)">
+                                            <option value="">--Select--</option>
+                                        </select>
+                                    </div>
+                                    <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="ChargecodeInvoiceCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIAccChargeCode.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':3">
+                                        <error-warning-directive  list="ChargecodeInvoiceCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIAccChargeCode.ERROR"
+                                            type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref=""
+                                            row-index="ChargecodeInvoiceCtrl.ePage.Masters.selectedRow" col-index="3">
+                                        </error-warning-directive>
                                     </div>
                                 </div>
                             </td>
@@ -124,7 +150,16 @@
                                 </div>
                                 <div data-ng-if="$index==ChargecodeInvoiceCtrl.ePage.Masters.selectedRow">
                                     <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0 height-22">
-                                        <input type="text" class="form-control input-sm" placeholder="Invoice Type" data-ng-model="x.InvoiceType"/>
+                                        <select chosen class="form-control" data-ng-model="x.InvoiceType" data-ng-options="x.Key as x.Key for x in ChargecodeInvoiceCtrl.ePage.Masters.DropDownMasterList.ChargeInvoiceType.ListSource"
+                                            data-ng-change="ChargecodeInvoiceCtrl.ePage.Masters.OnChangeValidations(x.InvoiceType, 'E1361', true, $index)">
+                                            <option value="">--Select--</option>
+                                        </select>
+                                    </div>
+                                    <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="ChargecodeInvoiceCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIAccChargeCode.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':4">
+                                        <error-warning-directive  list="ChargecodeInvoiceCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIAccChargeCode.ERROR"
+                                            type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref=""
+                                            row-index="ChargecodeInvoiceCtrl.ePage.Masters.selectedRow" col-index="4">
+                                        </error-warning-directive>
                                     </div>
                                 </div>
                             </td>

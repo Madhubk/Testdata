@@ -59,7 +59,6 @@
             };
             apiService.post("eAxisAPI", appConfig.Entities.CfxTypes.API.DynamicFindAll.Url + authService.getUserInfo().AppPK, _input).then(function (response) {
                 if (response.data.Response) {
-                    console.log("Drop Down", response.data.Response);
                     typeCodeList.map(function (value, key) {
                         ChargecodeDetailsCtrl.ePage.Masters.DropDownMasterList[value] = helperService.metaBase();
                         ChargecodeDetailsCtrl.ePage.Masters.DropDownMasterList[value].ListSource = response.data.Response[value];
@@ -71,14 +70,22 @@
 
         //#region SelectedLookup
         function SelectedLookupData($item, type) {
-            if (type == "CostAccural") {
+            if (type == "RevenueMISgroup") {
+                ChargecodeDetailsCtrl.ePage.Entities.Header.Data.UIAccChargeCode.AGP_SalesGroup = $item.PK;
+            } else if (type == "CostMISgroup") {
+                ChargecodeDetailsCtrl.ePage.Entities.Header.Data.UIAccChargeCode.AGP_ExpenseGroup = $item.PK;
+            } else if (type == "CostAccural") {
                 ChargecodeDetailsCtrl.ePage.Entities.Header.Data.UIAccChargeCode.AGH_AccrualAccount = $item.PK;
+                OnChangeValues($item.AccountNum, 'E1353');
             } else if (type == "RevenueAccural") {
                 ChargecodeDetailsCtrl.ePage.Entities.Header.Data.UIAccChargeCode.AGH_WIPAccount = $item.PK;
+                OnChangeValues($item.AccountNum, 'E1354');
             } else if (type == "CostActual") {
                 ChargecodeDetailsCtrl.ePage.Entities.Header.Data.UIAccChargeCode.AGH_CostAccount = $item.PK;
+                OnChangeValues($item.AccountNum, 'E1355');
             } else if (type == "RevenueActual") {
                 ChargecodeDetailsCtrl.ePage.Entities.Header.Data.UIAccChargeCode.AGH_RevenueAccount = $item.PK;
+                OnChangeValues($item.AccountNum, 'E1356');
             }
         }
         //#endregion
@@ -86,8 +93,8 @@
         //#region OnChangeMarginValues
         function OnChangeMarginValues($item) {
             if (parseFloat($item) > 100) {
-                toastr.error("Margin % must be allowed o to 100 only.");
-                var margin = document.getElementById("focusTextBox");
+                toastr.error("Margin % must be allowed 0 to 100 only.");
+                var margin = document.getElementById("focusMargin");
                 margin.focus();
             }
         }

@@ -16,7 +16,13 @@
                 "API": {
                     "ChargecodeGroup": {
                         "RowIndex": -1,
-                        "API": { 
+                        "API": {
+                            "FindAll": {
+                                "IsAPI": "true",
+                                "HttpType": "GET",
+                                "Url": "AccChargeCode/FindAll",
+                                "FilterID": "ACCCHAR"
+                            },
                             "GetById": {
                                 "IsAPI": "true",
                                 "HttpType": "GET",
@@ -25,25 +31,44 @@
                             "ChargecodeGroupActivityClose": {
                                 "IsAPI": "true",
                                 "HttpType": "GET",
-                                "Url": "MstChargecodeGroup/MstChargecodeGroupActivityClose/"
+                                "Url": "AccChargeCode/AccChargeCodeActivityClose/"
                             }
                         }
                     },
-                    "CmpCompany":{
+                    "AccTaxOverride": {
                         "RowIndex": -1,
-                        "API":{
-                            "FindAll":{
+                        "API": {
+                            "Delete": {
                                 "IsAPI": "true",
-                                "HttpType": "Post",
-                                "Url": "CmpCompany/FindAll",
-                                "FilterID": "CMPCOMP"
+                                "HttpType": "Get",
+                                "Url": "AccChargeTaxOverride/Delete/"
                             }
                         }
                     },
-                    "CmpDepartment":{
+                    "AccGLPostingOverride": {
                         "RowIndex": -1,
-                        "API":{
-                            "FindAll":{
+                        "API": {
+                            "Delete": {
+                                "IsAPI": "true",
+                                "HttpType": "Get",
+                                "Url": "AccChargeGLPostingOverride/Delete/"
+                            }
+                        }
+                    },
+                    "AccTypeOverride":{
+                        "RowIndex": -1,
+                        "API": {
+                            "Delete": {
+                                "IsAPI": "true",
+                                "HttpType": "Get",
+                                "Url": "AccChargeTypeOverride/Delete/"
+                            }
+                        }
+                    },
+                    "CmpDepartment": {
+                        "RowIndex": -1,
+                        "API": {
+                            "FindAll": {
                                 "IsAPI": "true",
                                 "HttpType": "Post",
                                 "Url": "CmpDepartment/FindAll",
@@ -91,9 +116,9 @@
                         "Meta": {
                             "MenuList": [{
                                 "DisplayName": "Charge Code Details",
-                                "Value": "Details", 
+                                "Value": "Details",
                                 "Icon": "fa fa-money",
-                                "GParentRef": "Details" 
+                                "GParentRef": "Details"
                             }, {
                                 "DisplayName": "Tax Code Override",
                                 "Value": "Tax",
@@ -117,13 +142,22 @@
                                 "GlobalErrorWarningList": [],
                                 "Code": helperService.metaBase(),
                                 "Desc": helperService.metaBase(),
+                                "Company": helperService.metaBase(),
+                                "ChargeType": helperService.metaBase(),
+                                "Margin": helperService.metaBase(),
+                                "CostAccural": helperService.metaBase(),
+                                "RevenueAccural": helperService.metaBase(),
+                                "CostActual": helperService.metaBase(),
+                                "RevenueActual": helperService.metaBase(),
+                                "ChargeGroup": helperService.metaBase(),
+                                "UIAccChargeCode": helperService.metaBase()
                             }
                         },
                         "GlobalVariables": {
                             "SelectAll": false,
                         },
                         "TableProperties": {
-                            "UITaxCodeOverride":{
+                            "UITaxCodeOverride": {
                                 "TableHeight": {
                                     "isEnabled": true,
                                     "height": 180
@@ -141,25 +175,25 @@
                                 "accounttype": {
                                     "isenabled": true,
                                     "position": '2',
-                                    "width": "200"
+                                    "width": "150"
                                 },
                                 "jobtype": {
                                     "isenabled": true,
                                     "position": '3',
-                                    "width": "200"
+                                    "width": "150"
                                 },
                                 "transportmode": {
                                     "isenabled": true,
                                     "position": '4',
-                                    "width": "200"
+                                    "width": "150"
                                 },
                                 "taxcode": {
                                     "isenabled": true,
                                     "position": '5',
-                                    "width": "200"
+                                    "width": "150"
                                 }
                             },
-                            "UIGLPostingOverride":{
+                            "UIGLPostingOverride": {
                                 "TableHeight": {
                                     "isEnabled": true,
                                     "height": 180
@@ -177,40 +211,40 @@
                                 "jobtype": {
                                     "isenabled": true,
                                     "position": '2',
-                                    "width": "200"
+                                    "width": "150"
                                 },
                                 "transportmode": {
                                     "isenabled": true,
                                     "position": '3',
-                                    "width": "200"
+                                    "width": "150"
                                 },
                                 "department": {
                                     "isenabled": true,
                                     "position": '4',
-                                    "width": "200"
+                                    "width": "150"
                                 },
                                 "costaccural": {
                                     "isenabled": true,
                                     "position": '5',
-                                    "width": "200"
+                                    "width": "168"
                                 },
                                 "costactual": {
                                     "isenabled": true,
                                     "position": '6',
-                                    "width": "200"
+                                    "width": "168"
                                 },
                                 "revenueaccural": {
                                     "isenabled": true,
                                     "position": '7',
-                                    "width": "200"
+                                    "width": "173"
                                 },
                                 "revenueactual": {
                                     "isenabled": true,
                                     "position": '8',
-                                    "width": "200"
+                                    "width": "168"
                                 },
                             },
-                            "UIInvoiceOverride":{
+                            "UIInvoiceOverride": {
                                 "TableHeight": {
                                     "isEnabled": true,
                                     "height": 180
@@ -218,7 +252,7 @@
                                 "ccheckbox": {
                                     "isenabled": true,
                                     "position": '1',
-                                    "width": "30"
+                                    "width": "40"
                                 },
                                 "accountsno": {
                                     "isenabled": true,
@@ -240,43 +274,7 @@
                                     "position": '5',
                                     "width": "200"
                                 },
-                                "invoicetype":{
-                                    "isenabled": true,
-                                    "position": '5',
-                                    "width": "200"
-                                }
-                            },
-                            "UIAccTaxRateDetails": {
-                                "TableHeight": {
-                                    "isEnabled": true,
-                                    "height": 180
-                                },
-                                "ccheckbox": {
-                                    "isenabled": true,
-                                    "position": '1',
-                                    "width": "30"
-                                },
-                                "accountsno": {
-                                    "isenabled": true,
-                                    "position": '2',
-                                    "width": "40"
-                                },
-                                "accounttype": {
-                                    "isenabled": true,
-                                    "position": '2',
-                                    "width": "200"
-                                },
-                                "jobtype": {
-                                    "isenabled": true,
-                                    "position": '3',
-                                    "width": "200"
-                                },
-                                "transportmode": {
-                                    "isenabled": true,
-                                    "position": '4',
-                                    "width": "200"
-                                },
-                                "taxcode": {
+                                "invoicetype": {
                                     "isenabled": true,
                                     "position": '5',
                                     "width": "200"
@@ -354,8 +352,26 @@
                 _input = _Data.Header.Data;
 
             //UIChargecode Validations 
-            OnChangeValues(_input.Code, 'E1203', false, undefined, $item.code);
-            OnChangeValues(_input.Desc, 'E1204', false, undefined, $item.code);
+            OnChangeValues(_input.UIAccChargeCode.Code, 'E1349', false, undefined, $item.code);
+            OnChangeValues(_input.UIAccChargeCode.Desc, 'E1350', false, undefined, $item.code);
+            OnChangeValues(_input.UIAccChargeCode.CMP_Code, 'E1362', false, undefined, $item.code);
+            OnChangeValues(_input.UIAccChargeCode.ChargeType, 'E1351', false, undefined, $item.code);
+            OnChangeValues(_input.UIAccChargeCode.MarginPercentage, 'E1352', false, undefined, $item.code);
+            OnChangeValues(_input.UIAccChargeCode.AGH_AccrualAccountNum, 'E1353', false, undefined, $item.code);
+            OnChangeValues(_input.UIAccChargeCode.AGH_WIPAccountNum, 'E1354', false, undefined, $item.code);
+            OnChangeValues(_input.UIAccChargeCode.AGH_CostAccountNum, 'E1355', false, undefined, $item.code);
+            OnChangeValues(_input.UIAccChargeCode.AGH_RevenueAccountNum, 'E1356', false, undefined, $item.code);
+            OnChangeValues(_input.UIAccChargeCode.ChargeGroup, 'E1357', false, undefined, $item.code);
+
+            //UIAccChargeCode Validations
+            if (_input.UIAccChargeTypeOverride.length > 0) {
+                angular.forEach(_input.UIAccChargeTypeOverride, function (value, key) {
+                    OnChangeValues(value.JobType, 'E1358', true, key, $item.code);
+                    OnChangeValues(value.TransportMode, 'E1359', true, key, $item.code);
+                    OnChangeValues(value.ChargeType, 'E1360', true, key, $item.code);
+                    OnChangeValues(value.InvoiceType, 'E1361', true, key, $item.code);
+                });
+            }
         }
 
         function OnChangeValues(fieldvalue, code, IsArray, RowIndex, label) {

@@ -4,9 +4,9 @@
     angular.module("Application")
         .controller("ChargecodeTaxcodeController", ChargecodeTaxcodeController);
 
-    ChargecodeTaxcodeController.$inject = ["$timeout", "helperService", "chargecodeConfig", "confirmation"];
+    ChargecodeTaxcodeController.$inject = ["$timeout", "apiService", "appConfig", "authService", "helperService", "chargecodeConfig", "confirmation"];
 
-    function ChargecodeTaxcodeController($timeout, helperService, chargecodeConfig, confirmation) {
+    function ChargecodeTaxcodeController($timeout, apiService, appConfig, authService, helperService, chargecodeConfig, confirmation) {
 
         var ChargecodeTaxcodeCtrl = this;
 
@@ -25,13 +25,14 @@
             ChargecodeTaxcodeCtrl.ePage.Masters.Config = chargecodeConfig;
 
             /* Function  */
-            ChargecodeTaxcodeCtrl.ePage.Masters.OnChangeValues = OnChangeValues;
+            ChargecodeTaxcodeCtrl.ePage.Masters.OnChangeValidations = OnChangeValidations;
             ChargecodeTaxcodeCtrl.ePage.Masters.AddNewRow = AddNewRow;
             ChargecodeTaxcodeCtrl.ePage.Masters.CopyRow = CopyRow;
             ChargecodeTaxcodeCtrl.ePage.Masters.RemoveRow = RemoveRow;
             ChargecodeTaxcodeCtrl.ePage.Masters.SetSelectedRow = SetSelectedRow;
             ChargecodeTaxcodeCtrl.ePage.Masters.SelectAllCheckBox = SelectAllCheckBox;
             ChargecodeTaxcodeCtrl.ePage.Masters.SingleSelectCheckBox = SingleSelectCheckBox;
+            ChargecodeTaxcodeCtrl.ePage.Masters.SelectedLookupData = SelectedLookupData;
 
             /*  For table */
             ChargecodeTaxcodeCtrl.ePage.Masters.EnableDeleteButton = true;
@@ -40,7 +41,47 @@
             ChargecodeTaxcodeCtrl.ePage.Masters.selectedRow = -1;
             ChargecodeTaxcodeCtrl.ePage.Masters.emptyText = '-';
 
+            /* DropDown List */
+            ChargecodeTaxcodeCtrl.ePage.Masters.DropDownMasterList = {
+                "ChargeAccountType": {
+                    "ListSource": []
+                },
+                "ChargeJobType": {
+                    "ListSource": []
+                },
+                "ChargeTransportMode": {
+                    "ListSource": []
+                }
+            };
+
+            GetDropDownList();
         }
+
+        //#region DropDownList
+        function GetDropDownList() {
+            var typeCodeList = ["ChargeAccountType", "ChargeJobType", "ChargeTransportMode"];
+            var dynamicFindAllInput = [];
+
+            typeCodeList.map(function (value, key) {
+                dynamicFindAllInput[key] = {
+                    "FieldName": "TypeCode",
+                    "value": value
+                }
+            });
+            var _input = {
+                "searchInput": dynamicFindAllInput,
+                "FilterID": appConfig.Entities.CfxTypes.API.DynamicFindAll.FilterID
+            };
+            apiService.post("eAxisAPI", appConfig.Entities.CfxTypes.API.DynamicFindAll.Url + authService.getUserInfo().AppPK, _input).then(function (response) {
+                if (response.data.Response) {
+                    typeCodeList.map(function (value, key) {
+                        ChargecodeTaxcodeCtrl.ePage.Masters.DropDownMasterList[value] = helperService.metaBase();
+                        ChargecodeTaxcodeCtrl.ePage.Masters.DropDownMasterList[value].ListSource = response.data.Response[value];
+                    });
+                }
+            });
+        }
+        //#endregion
 
         //#region AddNewRow, CopyRow, RemoveRow 
         function AddNewRow() {
@@ -50,6 +91,20 @@
                 "JobType": "",
                 "TransportMode": "",
                 "AT_Code": "",
+                "Direction": "",
+                "IncoTerm": "",
+                "Origin": "",
+                "Destination": "",
+                "AT": "",
+                "TaxRegCntryOrGroup": "",
+                "CustomsStatus": "",
+                "HomeCountryOrZone": "",
+                "TaxRegCntryOrZone": "",
+                "VATExemptOnExportCharges": "",
+                "IsAnIndividual": "",
+                "ParentTableCode": "",
+                "OrganisationCategory": "",
+                "SplitPaymentVATOrganisation": "",
                 "IsModified": false,
                 "IsDeleted": false,
                 "LineNo": ChargecodeTaxcodeCtrl.ePage.Entities.Header.Data.UIAccChargeTaxOverride.length + 1
@@ -95,6 +150,14 @@
                 ChargecodeTaxcodeCtrl.ePage.Entities.Header.Data.UIAccChargeTaxOverride.map(function (value, key) {
                     if (value.SingleSelect == true) {
                         value.IsDeleted = true;
+                    }
+                });
+
+                ChargecodeTaxcodeCtrl.ePage.Entities.Header.Data.UIAccChargeTaxOverride.map(function (value, key) {
+                    if (value.SingleSelect && value.PK && value.IsDeleted) {
+                        apiService.get("eAxisAPI", chargecodeConfig.Entities.API.AccTaxOverride.API.Delete.Url + value.PK).then(function (response) {
+                            console.log("Success");
+                        });
                     }
                 });
 
@@ -160,8 +223,16 @@
         }
         //#endregion
 
+        //#region SelectedLookupDate
+        function SelectedLookupData($index, $item, type) {
+            if (type == 'TaxCode') {
+                ChargecodeTaxcodeCtrl.ePage.Entities.Header.Data.UIAccChargeTaxOverride[$index].AT = $item.PK;
+            }
+        }
+        //#endregion
+
         //#region ErrorWarning Alert Validation
-        function OnChangeValues(fieldvalue, code, IsArray, RowIndex) {
+        function OnChangeValidations(fieldvalue, code, IsArray, RowIndex) {
             angular.forEach(ChargecodeTaxcodeCtrl.ePage.Masters.Config.ValidationValues, function (value, key) {
                 if (value.Code.trim() === code) {
                     GetErrorMessage(fieldvalue, value, IsArray, RowIndex)

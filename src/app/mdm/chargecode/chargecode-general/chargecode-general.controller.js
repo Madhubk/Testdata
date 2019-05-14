@@ -4,9 +4,9 @@
     angular.module("Application")
         .controller("ChargecodeGeneralController", ChargecodeGeneralController);
 
-    ChargecodeGeneralController.$inject = ["helperService", "apiService", "chargecodeConfig"];
+    ChargecodeGeneralController.$inject = ["helperService", "toastr", "apiService", "chargecodeConfig"];
 
-    function ChargecodeGeneralController(helperService, apiService, chargecodeConfig) {
+    function ChargecodeGeneralController(helperService, toastr, apiService, chargecodeConfig) {
 
         var ChargecodeGeneralCtrl = this;
 
@@ -22,11 +22,12 @@
                 "Entities": currentChargecode
             };
 
-            console.log("UI", ChargecodeGeneralCtrl.ePage.Entities.Header.Data);
             ChargecodeGeneralCtrl.ePage.Masters.Config = chargecodeConfig;
 
             /* Function  */
             ChargecodeGeneralCtrl.ePage.Masters.OnChangeValues = OnChangeValues;
+            ChargecodeGeneralCtrl.ePage.Masters.OnChangeChargeCode = OnChangeChargeCode;
+            ChargecodeGeneralCtrl.ePage.Masters.OnChangeChargeDesc = OnChangeChargeDesc;
             ChargecodeGeneralCtrl.ePage.Masters.SelectedLookupData = SelectedLookupData;
 
             InitDepartment();
@@ -50,8 +51,33 @@
 
         //#region SelectedLookup
         function SelectedLookupData($item, type) {
-            if (type == "Company" && $item.CountryCode == "IN") {
-                ChargecodeGeneralCtrl.ePage.Entities.Header.Data.UIAccChargeCode.CMP_CountryCode = "IN";
+            if (type == "Company") {
+                if ($item.CountryCode == "IN") {
+                    ChargecodeGeneralCtrl.ePage.Entities.Header.Data.UIAccChargeCode.CMP_CountryCode = "IN";
+                }
+                OnChangeValues($item.Code, 'E1362');
+            }
+        }
+        //#endregion
+
+        //#region OnChangeChargeCode, OnChangeChargeDesc
+        function OnChangeChargeCode($item) {
+            if ($item) {
+                if ($item.length > 5) {
+                    toastr.error("Charge code maximum 5 char");
+                    var ChargeCode = document.getElementById("focusChargeCode");
+                    ChargeCode.focus();
+                }
+            }
+        }
+
+        function OnChangeChargeDesc($item) {
+            if ($item) {
+                if ($item.length > 50) {
+                    toastr.error("Charge Desc maximum 50 char");
+                    var ChargeDesc = document.getElementById("focusChargeDesc");
+                    ChargeDesc.focus();
+                }
             }
         }
         //#endregion
