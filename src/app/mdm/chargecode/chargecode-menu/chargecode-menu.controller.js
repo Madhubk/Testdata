@@ -50,58 +50,44 @@
             }
 
             if (_errorcount.length == 0) {
-                /*  var _filter = {};
-                 var _inputField = {
-                     "searchInput": helperService.createToArrayOfObject(_filter),
-                     "FilterID": chargecodeConfig.Entities.API.ChargecodeGroup.API.FindAll.FilterID
-                 };
- 
-                 apiService.post("eAxisAPI", chargecodeConfig.Entities.API.ChargecodeGroup.API.FindAll.Url, _inputField).then(function (response) {
-                     if (response.data.Response) {
-                         ChargecodeMenuCtrl.ePage.Masters.UIChargecodeList = response.data.Response;
-                     }
- 
-                     var _count = ChargecodeMenuCtrl.ePage.Masters.UIChargecodeList.some(function (value, key) {
-                         if (value.Code == _input.UIAccChargeCode.Code && value.CMP_Code == _input.UIAccChargeCode.CMP_Code) {
-                             return true;
-                         }
-                         else {
-                             return false;
-                         }
-                     });
- 
-                     if (_count) {
-                         toastr.error("Charge Code and Company is already exist!.");
-                     } else {
-                         if (_input.UIAccChargeCode.CMP_CountryCode == "IN") {
-                             if (!_input.UIAccChargeCode.GovtChargeCode) {
-                                 toastr.error("Could you please enter SAC / HSN Codes.");
-                             }
-                             else if (_input.UIAccChargeCode.GovtChargeCode.length > 6) {
-                                 toastr.error("SAC / HSN codes allowed must be max 6 degits.");
-                             } else {
-                                 MstDepartmentFilterList(_input, $item);
-                             }
-                         }
-                         else {
-                             MstDepartmentFilterList(_input, $item);
-                         }
-                     }
-                 }); */
+                var _filter = {};
+                var _inputField = {
+                    "searchInput": helperService.createToArrayOfObject(_filter),
+                    "FilterID": chargecodeConfig.Entities.API.ChargecodeGroup.API.FindAll.FilterID
+                };
 
-                if (_input.UIAccChargeCode.CMP_CountryCode == "IN") {
-                    if (!_input.UIAccChargeCode.GovtChargeCode) {
-                        toastr.error("Could you please enter SAC / HSN Codes.");
+                apiService.post("eAxisAPI", chargecodeConfig.Entities.API.ChargecodeGroup.API.FindAll.Url, _inputField).then(function (response) {
+                    if (response.data.Response) {
+                        ChargecodeMenuCtrl.ePage.Masters.UIChargecodeList = response.data.Response;
                     }
-                    else if (_input.UIAccChargeCode.GovtChargeCode.length > 6) {
-                        toastr.error("SAC / HSN codes allowed must be max 6 degits.");
+
+                    var _count = ChargecodeMenuCtrl.ePage.Masters.UIChargecodeList.some(function (value, key) {
+                        if (value.Code == _input.UIAccChargeCode.Code && value.CMP_Code == _input.UIAccChargeCode.CMP_Code) {
+                            return true;
+                        }
+                        else {
+                            return false;
+                        }
+                    });
+
+                    if ($item.isNew && _count) {
+                        toastr.error("Charge Code and Company is already exist!.");
                     } else {
-                        MstDepartmentFilterList(_input, $item);
+                        if (_input.UIAccChargeCode.CMP_CountryCode == "IN") {
+                            if (!_input.UIAccChargeCode.GovtChargeCode) {
+                                toastr.error("Could you please enter SAC / HSN Codes.");
+                            }
+                            else if (_input.UIAccChargeCode.GovtChargeCode.length > 6) {
+                                toastr.error("SAC / HSN codes allowed must be max 6 degits.");
+                            } else {
+                                MstDepartmentFilterList(_input, $item);
+                            }
+                        }
+                        else {
+                            MstDepartmentFilterList(_input, $item);
+                        }
                     }
-                }
-                else {
-                    MstDepartmentFilterList(_input, $item);
-                }
+                });
             } else {
                 ChargecodeMenuCtrl.ePage.Masters.Config.ShowErrorWarningModal(ChargecodeMenuCtrl.currentChargecode);
             }
