@@ -20,12 +20,15 @@
                 "Entities": currentCompany
             };
 
+            console.log("Check",CompanyDetailsCtrl.ePage.Entities.Header.Data);
+
             CompanyDetailsCtrl.ePage.Masters.OpenBasicsModel = OpenBasicsModel;
             CompanyDetailsCtrl.ePage.Masters.AddNewRow=AddNewRow;
             CompanyDetailsCtrl.ePage.Masters.SelectAllCheckBox = SelectAllCheckBox;
             CompanyDetailsCtrl.ePage.Masters.RemoveRow = RemoveRow;        
             CompanyDetailsCtrl.ePage.Masters.SingleSelectCheckBox = SingleSelectCheckBox;
             CompanyDetailsCtrl.ePage.Masters.setSelectedRow = setSelectedRow;
+            CompanyDetailsCtrl.ePage.Masters.SelectedLookupData = SelectedLookupData;
 
             CompanyDetailsCtrl.ePage.Masters.DropDownMasterList = {
                 "ExRateType": {
@@ -95,7 +98,6 @@
         }
 
         function RemoveRow() {
-            var _Count = 0;
             var modalOptions = {
                 closeButtonText: 'Cancel',
                 actionButtonText: 'Ok',
@@ -104,68 +106,24 @@
             };
             confirmation.showModal({}, modalOptions).then(function (result) {
                 CompanyDetailsCtrl.ePage.Entities.Header.Data.UICurrencyUplift.map(function (value, key) {
-                    if (value.SingleSelect == true && value.Costpost || value.Revenuepost) {
-                        value.IsDeleted = false;
-                    }
-                    else if (value.SingleSelect == true) {
+                    if (value.SingleSelect == true) {
                         value.IsDeleted = true;
                     }
                 });
 
-                CompanyDetailsCtrl.ePage.Masters.SelectedDeltion = $filter('filter')(CompanyDetailsCtrl.ePage.Entities.Header.Data.UICurrencyUplift, { IsDeleted: true })
+                
                 CompanyDetailsCtrl.ePage.Entities.Header.Data.UICurrencyUplift.map(function (value, key) {
                     if (value.SingleSelect && value.PK && value.IsDeleted) {
                         apiService.get("eAxisAPI", companyConfig.Entities.API.JobHeaderList.API.Delete.Url + value.PK).then(function (response) {
                             console.log("Success");
                         });
                     }
-                    else if (value.SingleSelect && value.PK && !value.IsDeleted) {
-                        _Count = _Count + 1;
-                    }
                 });
 
-                if (_Count > 0) {
-                    toastr.error('Please Check, Already Posted Record Could Not Delete.');
-                }
-
-                var ReturnValue = RemoveAllLineErrors();
-                if (ReturnValue) {
-                    angular.forEach(CompanyDetailsCtrl.ePage.Masters.SelectedDeltion, function (val1, key1) {
-                        angular.forEach(CompanyDetailsCtrl.ePage.Entities.Header.Data.UICurrencyUplift, function (val2, key2) {
-                            // Creditor Deletion 
-                            if (val2.VendorCode == val1.VendorCode && val2.RX_NKCostCurrency == val1.RX_NKCostCurrency && !val1.SingleSelect) {
-                                // if same creditor Available, No deletion against Exchange Rate(CRD only)
-                            } else {
-                                // if same creditor not Available, deletion against Exchange Rate(CRD only) 
-                                angular.forEach(CompanyDetailsCtrl.ePage.Entities.Header.Data.UIJobExchangeRates, function (val3, key3) {
-                                    if (val1.VendorCode == val3.Code && val1.RX_NKCostCurrency == val3.FromCurrency && val3.OrgType == "CRD") {
-                                        CompanyDetailsCtrl.ePage.Entities.Header.Data.UIJobExchangeRates.splice(key3, 1)
-                                    }
-                                });
-                            }
-                            if (val2.CustomerCode == val1.CustomerCode && val2.RX_NKSellCurrency == val1.RX_NKSellCurrency && !val1.SingleSelect) {
-                                // if same debtor Available, No deletion against Exchange Rate(deb)
-                            } else {
-                                // if same debtor not Available, deletion against Exchange Rate(CRD only) 
-                                angular.forEach(CompanyDetailsCtrl.ePage.Entities.Header.Data.UIJobExchangeRates, function (val3, key3) {
-                                    if (val1.CustomerCode == val3.Code && val1.RX_NKSellCurrency == val3.FromCurrency && val3.OrgType == "DEB") {
-                                        CompanyDetailsCtrl.ePage.Entities.Header.Data.UIJobExchangeRates.splice(key3, 1)
-                                    }
-                                });
-                            }
-                        });
-                        if (key1 == CompanyDetailsCtrl.ePage.Masters.SelectedDeltion.length - 1) {
-                            for (var i = CompanyDetailsCtrl.ePage.Entities.Header.Data.UICurrencyUplift.length - 1; i >= 0; i--) {
-                                if (CompanyDetailsCtrl.ePage.Entities.Header.Data.UICurrencyUplift[i].SingleSelect && CompanyDetailsCtrl.ePage.Entities.Header.Data.UICurrencyUplift[i].IsDeleted) {
-                                    CompanyDetailsCtrl.ePage.Entities.Header.Data.UICurrencyUplift.splice(i, 1);
-                                    CostCalculation();
-                                    RevenueCalculation();
-                                    ProfitAndLossCalculation();
-                                }
-                            }
-                        }
-                    });
-                    CompanyDetailsCtrl.ePage.Masters.Config.GeneralValidation(CompanyDetailsCtrl.currentCompany);
+                for (var i = CompanyDetailsCtrl.ePage.Entities.Header.Data.UICurrencyUplift.length - 1; i >= 0; i--) {
+                    if (CompanyDetailsCtrl.ePage.Entities.Header.Data.UICurrencyUplift[i].SingleSelect && CompanyDetailsCtrl.ePage.Entities.Header.Data.UICurrencyUplift[i].IsDeleted) {
+                        CompanyDetailsCtrl.ePage.Entities.Header.Data.UICurrencyUplift.splice(i, 1);
+                    }
                 }
 
                 CompanyDetailsCtrl.ePage.Masters.selectedRow = -1;
@@ -266,6 +224,11 @@
                     console.log("Cancelled");
                 }
             );
+        }
+
+        function SelectedLookupData($index, $item){
+            debugger;
+
         }
 
         Init();

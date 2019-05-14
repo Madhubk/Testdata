@@ -33,7 +33,8 @@
             BranchCtrl.ePage.Masters.CurrentActiveTab = CurrentActiveTab;
             BranchCtrl.ePage.Masters.RemoveTab = RemoveTab;
             BranchCtrl.ePage.Masters.SelectedGridRow = SelectedGridRow;
-            BranchCtrl.ePage.Masters.CreateNewBranch=CreateNewBranch;
+            BranchCtrl.ePage.Masters.CreateNewBranch = CreateNewBranch;
+            branchConfig.ValidationFindall();
         }
 
         function SelectedGridRow($item) {
@@ -49,7 +50,7 @@
                     return value.label === currentBranch.entity.Code;
                 } else {
                     return false;
-                    
+
                 }
             });
             if (!_isExist) {
@@ -61,11 +62,14 @@
                     _currentBranch = currentBranch;
                 }
                 branchConfig.AddBranch(currentBranch, isNew).then(function (response) {
-                    BranchCtrl.ePage.Masters.TabList = response;
+                    debugger;
+                    var _entity = {};
+                    BranchCtrl.ePage.Masters.TabList = response;                    
                     $timeout(function () {
                         BranchCtrl.ePage.Masters.activeTabIndex = BranchCtrl.ePage.Masters.TabList.length;
                         BranchCtrl.ePage.Masters.CurrentActiveTab(currentBranch.entity.Code);
                         BranchCtrl.ePage.Masters.IsTabClick = false;
+
                     });
                 });
             } else {
@@ -142,7 +146,23 @@
             }
             BranchCtrl.ePage.Masters.currentBranch = currentTab;
         }
-        
+        function GetValidationList(currentTab, entity) {
+            var _obj = {
+                ModuleName: ["Finance"],
+                Code: [currentTab],
+                API: "Group",
+                //API: "Validation",
+                FilterInput: {
+                    ModuleCode: "Finance",
+                    SubModuleCode: "JBA",
+                },
+                GroupCode: "",
+                RelatedBasicDetails: [{}],
+                EntityObject: entity
+            };
+            errorWarningService.GetErrorCodeList(_obj);
+        }
+
         Init();
     }
 })();

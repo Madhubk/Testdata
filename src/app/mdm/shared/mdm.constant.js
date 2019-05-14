@@ -195,7 +195,7 @@
                 files: [
                     'app/mdm/branch/branch-menu/branch-menu.css',
                     'app/mdm/branch/branch-menu/branch-menu.controller.js',
-                    'app/mdm/branch/branch-menu/branch-menu-directive.js'
+                    'app/mdm/branch/branch-menu/branch-menu.directive.js'
                 ]
             }, {
                 name: 'MDBranchDetails',
