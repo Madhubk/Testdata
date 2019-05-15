@@ -34,6 +34,7 @@
             CompanyCtrl.ePage.Masters.RemoveTab = RemoveTab;
             CompanyCtrl.ePage.Masters.SelectedGridRow = SelectedGridRow;
             CompanyCtrl.ePage.Masters.CreateNewCompany=CreateNewCompany;
+            companyConfig.ValidationFindall();
         }
         function SelectedGridRow($item) {
             if ($item.action === "link" || $item.action === "dblClick") {
@@ -65,9 +66,9 @@
                     CompanyCtrl.ePage.Masters.TabList = response;
                     $timeout(function() {
                         CompanyCtrl.ePage.Masters.activeTabIndex = CompanyCtrl.ePage.Masters.TabList.length;
-                        if(currentCompany.entity.Code == null){
-                            currentCompany.entity.Code="";
-                        }
+                        // if(currentCompany.entity.Code == null){
+                        //     //currentCompany.entity.Code="";
+                        // }
                         CompanyCtrl.ePage.Masters.CurrentActiveTab(currentCompany.entity.Code);
                         CompanyCtrl.ePage.Masters.IsTabClick = false;
                     });

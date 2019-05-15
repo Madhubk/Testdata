@@ -7,16 +7,58 @@
 
 <branch-details current-branch="BranchMenuCtrl.currentBranch"></branch-details>
 <div class="eaxis-footer-strip">
-    <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10">
+    <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
             <standard-menu dataentry-object="BranchMenuCtrl.dataentryObject" mode="1" input="BranchMenuCtrl.currentBranch" ng-if="!BranchMenuCtrl.currentBranch.isNew"></standard-menu>
     </div>
-    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
+    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
         <span class="dropup pull-right">
             <span class="pull-right">
                 <button type="button" class="btn btn-primary btn-sm margin-top-5" data-ng-bind="BranchMenuCtrl.ePage.Masters.SaveButtonText"
                     data-ng-click="BranchMenuCtrl.ePage.Masters.Validation(BranchMenuCtrl.currentBranch)" data-ng-disabled="BranchMenuCtrl.ePage.Masters.DisableSave">
                 </button>
             </span>
+            <span class="pull-right">
+                <button type="button" class="btn btn-primary btn-sm margin-top-5 margin-right-10" data-ng-bind="BranchMenuCtrl.ePage.Masters.DeactivateButtonText"
+                data-ng-click="BranchMenuCtrl.ePage.Masters.Deactivate(BranchMenuCtrl.currentBranch)" data-ng-disabled="BranchMenuCtrl.ePage.Masters.isDeactivate"></button>
+            </span>
+            <span class="pull-right">
+                <button type="button" class="btn btn-primary btn-sm margin-top-5 margin-right-10" data-ng-bind="BranchMenuCtrl.ePage.Masters.ActivateButtonText"
+                data-ng-click="BranchMenuCtrl.ePage.Masters.Activate()" data-ng-disabled="BranchMenuCtrl.ePage.Masters.isActivate"></button>
+            </span>
         </span>
     </div>
+</div>
+
+<div class="error-warning-container right" style="margin-top:0px !important"
+  id="errorWarningContainer{{BranchMenuCtrl.currentBranch.label}}">
+  <div class="error-warning-header clearfix">
+    <span class="title pull-left">
+      <!-- <i class="fa fa-warning"></i>  -->
+      Errors & Warnings
+    </span>
+    <span class="error-warning-toggle-icon pull-right"
+      data-ng-click="BranchMenuCtrl.ePage.Masters.Config.ShowErrorWarningModal(BranchMenuCtrl.currentBranch)">
+      <i class="fa fa-arrow-right"></i>
+    </span>
+  </div>
+  <div class="error-warning-body">
+    <div class="clearfix"
+      data-ng-if="BranchMenuCtrl.ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList.length>0">
+      <div class="clearfix">
+        <div class="p-5 error-warnig-list clearfix"
+          data-ng-repeat="x in BranchMenuCtrl.ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList">
+          <div class="clearfix">
+            <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 p-0 text-center">
+              <span class=" fa fa-warning"
+                data-ng-style="{color: {'W':'#FFAD33', 'E':'#ED4337'}[x.MessageType]}"></span>
+            </div>
+            <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11 pr-0">
+              <div class="message" data-ng-bind="x.Code + ' - ' + x.Message"></div>
+              <div class="meta-object" data-ng-bind="x.MetaObject"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

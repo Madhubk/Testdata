@@ -23,13 +23,21 @@
             };
 
             CurrencyGeneralCtrl.ePage.Masters.Config = currencyConfig;
-            CurrencyGeneralCtrl.ePage.Masters.UICurrency = CurrencyGeneralCtrl.ePage.Entities.Header.Data;
             CurrencyGeneralCtrl.ePage.Masters.SelectedLookupData = SelectedLookupData;
             
 
             /* Function  */
             CurrencyGeneralCtrl.ePage.Masters.OnChangeValues = OnChangeValues;
 
+            
+            InitCurrency();
+        }
+
+         function InitCurrency(){
+            if(CurrencyGeneralCtrl.currentCurrency.isNew){
+                debugger;
+                CurrencyGeneralCtrl.ePage.Entities.Header.Data.IsActive = true;
+            }
         }
 
         //#region ErrorWarning Alert Validation

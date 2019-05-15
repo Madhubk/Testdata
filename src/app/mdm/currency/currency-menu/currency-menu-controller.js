@@ -24,15 +24,31 @@
             CurrencyMenuCtrl.ePage.Masters.PostButtonText = "Post";
             CurrencyMenuCtrl.ePage.Masters.DisableSave = false;
             CurrencyMenuCtrl.ePage.Masters.Config = currencyConfig;
+            CurrencyMenuCtrl.ePage.Masters.DeactivateButtonText = "Deactivate";
+            CurrencyMenuCtrl.ePage.Masters.ActivateButtonText = "Activate";
+            CurrencyMenuCtrl.ePage.Masters.isActivate = true;
+            CurrencyMenuCtrl.ePage.Masters.isDeactivate = false;
 
             /* Function */
             CurrencyMenuCtrl.ePage.Masters.Validation = Validation;
-
+            CurrencyMenuCtrl.ePage.Masters.Activate = Activate;
+            CurrencyMenuCtrl.ePage.Masters.Deactivate = Deactivate;
+            console.log("Check:", CurrencyMenuCtrl.ePage.Entities.Header.Data);
             CurrencyMenuCtrl.ePage.Masters.ErrorWarningConfig = errorWarningService;
             // CurrencyMenuCtrl.ePage.Masters.ErrorWarningConfig.GlobalErrorWarningList = errorWarningService.Modules.Finance.Entity[CurrencyMenuCtrl.currentCurrency.code].GlobalErrorWarningList;
             // CurrencyMenuCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj = errorWarningService.Modules.Finance.Entity[CurrencyMenuCtrl.currentCurrency.code];
 
             // Menu list from configuration
+
+            InitActDeact();
+        }
+
+        function InitActDeact(){
+            if(!CurrencyMenuCtrl.currentCurrency.isNew && !CurrencyMenuCtrl.ePage.Entities.Header.Data.IsActive){
+                debugger;
+                CurrencyMenuCtrl.ePage.Masters.isActivate = false;
+                CurrencyMenuCtrl.ePage.Masters.isDeactivate = true;
+            }
         }
 
         function Validation($item) {
@@ -65,7 +81,18 @@
                     });
 
                     if (_count) {
-                        toastr.error("Code is Unique, Rename the Code!.");
+                        if(CurrencyMenuCtrl.ePage.Entities.Header.Data.IsActive == false && CurrencyMenuCtrl.ePage.Masters.isDeactivate == true){
+                            Save($item);
+                            toastr.success("Currency Deactivated Successfully");
+                        }
+                        else if(CurrencyMenuCtrl.ePage.Entities.Header.Data.IsActive == true && CurrencyMenuCtrl.ePage.Masters.isActivate == true )
+                        {
+                            
+                        }
+                        else{
+                            toastr.error("Code is Unique, Rename the Code!.");
+                        }
+                        
                     } else {
                         Save($item);
                     }
@@ -74,8 +101,6 @@
                 CurrencyMenuCtrl.ePage.Masters.Config.ShowErrorWarningModal(CurrencyMenuCtrl.currentCurrency);
             }
         }
-
-
         function ValidateCurrency($item) {
             CurrencyMenuCtrl.ePage.Masters.SaveButtonText = "Please Wait...";
             CurrencyMenuCtrl.ePage.Masters.IsDisableSave = true;
@@ -122,7 +147,7 @@
             var _Data = $item[$item.code].ePage.Entities,
                 _input = _Data.Header.Data;
 
-            if ($item.isNew) {            
+            if ($item.isNew) {
                 _input.PK = _input.PK;
                 _input.CreatedDateTime = new Date();
                 _input.IsValid = true;
@@ -130,7 +155,7 @@
                 _input.CreatedBy = authService.getUserInfo().UserId;
                 _input.Source = "ERP";
                 _input.TenantCode = "20CUB";
-                _input.IsActive = true;
+                //_input.IsActive = true;
             } else {
                 $item = filterObjectUpdate($item, "IsModified");
             }
@@ -158,7 +183,57 @@
             }
             return obj;
         }
+        function Activate() {
+            CurrencyMenuCtrl.ePage.Masters.isDeactivate = false;
+            CurrencyMenuCtrl.ePage.Masters.isActivate = true;
+            CurrencyMenuCtrl.ePage.Entities.Header.Data.IsActive = true;
 
+        }
+        function Deactivate($item) {
+            var _Data = $item[$item.code].ePage.Entities,
+                _input = _Data.Header.Data;
+
+            if ($item.isNew) {
+                toastr.error("New Currency should not be deactivate.");
+            }
+            else {
+                var _filter = {
+                    "Mstcurrencycode": _input.Code,
+                };
+                var _input = {
+                    "searchInput": helperService.createToArrayOfObject(_filter),
+                    "FilterID": currencyConfig.Entities.API.CurrencyMaster.API.ValidateCurrency.FilterID
+                };
+                apiService.post("eAxisAPI", currencyConfig.Entities.API.CurrencyMaster.API.ValidateCurrency.Url, _input).then(function (response) {
+                    if (response.data.Response.length > 0) {
+                        CurrencyMenuCtrl.ePage.Masters.Data = response.data.Response;
+
+                        var _isDeactivate = CurrencyMenuCtrl.ePage.Masters.Data.some(function (value, key) {
+                            if (value.IsActive != "true") {
+                                return true;
+                            }
+                            else {
+                                return false;
+                            }
+                        });
+
+                        if (_isDeactivate) {
+                            toastr.error("Can't Deactivate the Branch untill all the open transaction get closed");
+                        }
+                        else {
+                            CurrencyMenuCtrl.ePage.Masters.isDeactivate = true;
+                            CurrencyMenuCtrl.ePage.Masters.isActivate = false;
+                            CurrencyMenuCtrl.ePage.Entities.Header.Data.IsActive = false;
+                        }
+                    }
+                    else if (response.data.Response.length == 0) {
+                        CurrencyMenuCtrl.ePage.Masters.isDeactivate = true;
+                        CurrencyMenuCtrl.ePage.Masters.isActivate = false;
+                        CurrencyMenuCtrl.ePage.Entities.Header.Data.IsActive = false;
+                    }
+                });
+            }
+        }
         Init();
     }
 })();

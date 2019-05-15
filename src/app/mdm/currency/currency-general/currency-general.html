@@ -18,8 +18,8 @@
                 </span>
                 <div class=" ">
                     <input type="text" class="form-control input-sm" placeholder="Currency Code"
-                        data-ng-model="CurrencyGeneralCtrl.ePage.Masters.UICurrency.Code"
-                        data-ng-change='CurrencyGeneralCtrl.ePage.Masters.OnChangeValues(CurrencyGeneralCtrl.ePage.Masters.UICurrency.Code,"E1314")' />
+                        data-ng-model=" CurrencyGeneralCtrl.ePage.Entities.Header.Data.Code"
+                        data-ng-change='CurrencyGeneralCtrl.ePage.Masters.OnChangeValues(CurrencyGeneralCtrl.ePage.Entities.Header.Data.Code,"E1314")' data-ng-disabled="!CurrencyGeneralCtrl.ePage.Entities.Header.Data.UICurrency.IsActive"/>
                 </div>
             </div>
         </div>
@@ -44,8 +44,8 @@
                 </span>
                 <div class=" ">
                     <input type="text" class="form-control" placeholder="Currency Name"
-                        data-ng-model="CurrencyGeneralCtrl.ePage.Masters.UICurrency.Desc"
-                        data-ng-change='CurrencyGeneralCtrl.ePage.Masters.OnChangeValues(CurrencyGeneralCtrl.ePage.Masters.UICurrency.Desc,"E1317")' />
+                        data-ng-model="CurrencyGeneralCtrl.ePage.Entities.Header.Data.Desc"
+                        data-ng-change='CurrencyGeneralCtrl.ePage.Masters.OnChangeValues( CurrencyGeneralCtrl.ePage.Entities.Header.Data.Desc,"E1317")' data-ng-disabled="!CurrencyGeneralCtrl.ePage.Entities.Header.Data.UICurrency.IsActive"/>
                 </div>
 
             </div>
@@ -68,8 +68,8 @@
                 </span>
                 <div class=" ">
                     <input type="text" class="form-control" placeholder="Currency Symbol"
-                        data-ng-model="CurrencyGeneralCtrl.ePage.Masters.UICurrency.Symbol"
-                        data-ng-change='CurrencyGeneralCtrl.ePage.Masters.OnChangeValues(CurrencyGeneralCtrl.ePage.Masters.UICurrency.Symbol,"E1315")' />
+                        data-ng-model="CurrencyGeneralCtrl.ePage.Entities.Header.Data.Symbol"
+                        data-ng-change='CurrencyGeneralCtrl.ePage.Masters.OnChangeValues( CurrencyGeneralCtrl.ePage.Entities.Header.Data.Symbol,"E1315")' data-ng-disabled="!CurrencyGeneralCtrl.ePage.Entities.Header.Data.UICurrency.IsActive"/>
                 </div>
             </div>
         </div>
@@ -93,8 +93,8 @@
                 </span>
                 <div class=" ">
                     <input type="text" class="form-control input-sm" placeholder="Unitname"
-                        data-ng-model="CurrencyGeneralCtrl.ePage.Masters.UICurrency.UnitName"
-                        data-ng-change='CurrencyGeneralCtrl.ePage.Masters.OnChangeValues(CurrencyGeneralCtrl.ePage.Masters.UICurrency.Unitname,"E1314")' />
+                        data-ng-model=" CurrencyGeneralCtrl.ePage.Entities.Header.Data.UnitName"
+                        data-ng-change='CurrencyGeneralCtrl.ePage.Masters.OnChangeValues( CurrencyGeneralCtrl.ePage.Entities.Header.Data.Unitname,"E1314")' data-ng-disabled="!CurrencyGeneralCtrl.ePage.Entities.Header.Data.UICurrency.IsActive"/>
                 </div>
             </div>
         </div>
@@ -115,8 +115,8 @@
                 </span>
                 <div class=" ">
                     <input type="text" class="form-control" placeholder="Sub Unitname"
-                        data-ng-model="CurrencyGeneralCtrl.ePage.Masters.UICurrency.SubUnitName"
-                        data-ng-change='CurrencyGeneralCtrl.ePage.Masters.OnChangeValues(CurrencyGeneralCtrl.ePage.Masters.UICurrency.SubUnitname,"E1315")' />
+                        data-ng-model=" CurrencyGeneralCtrl.ePage.Entities.Header.Data.SubUnitName"
+                        data-ng-change='CurrencyGeneralCtrl.ePage.Masters.OnChangeValues( CurrencyGeneralCtrl.ePage.Entities.Header.Data.SubUnitname,"E1315")' data-ng-disabled="!CurrencyGeneralCtrl.ePage.Entities.Header.Data.UICurrency.IsActive"/>
                 </div>
             </div>
         </div>
@@ -126,28 +126,28 @@
                 <label class="ml-5 control-label">Country</label>
                 <span class="error-warning-container">
                     <error-warning-directive
-                        data-ng-if="CurrencyGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Code.IsWarning && !CurrencyGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Code.IsError"
-                        list="CurrencyGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Code.WARNING" type="'warning'"
+                        data-ng-if="CurrencyGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Country.IsWarning && !CurrencyGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Country.IsError"
+                        list="CurrencyGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Country.WARNING" type="'warning'"
                         icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
                     </error-warning-directive>
                     <error-warning-directive
-                        data-ng-if="CurrencyGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Code.IsError"
-                        list="CurrencyGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Code.ERROR" type="'error'"
+                        data-ng-if="CurrencyGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Country.IsError"
+                        list="CurrencyGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Country.ERROR" type="'error'"
                         icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
                     </error-warning-directive>
                 </span>
                 <div class="input-group input-group-sm">
                     <!-- Dynamic look up Search in textbox -->
                     <div dynamic-lookup placeholder="Country"
-                        my-ng-model="CurrencyGeneralCtrl.ePage.Masters.UICurrency.Country"
-                        obj="CurrencyGeneralCtrl.ePage.Masters.UICurrency" page-name="'MstCountry'"
+                        my-ng-model="CurrencyGeneralCtrl.ePage.Entities.Header.Data.Country"
+                        obj="CurrencyGeneralCtrl.ePage.Entities.Header.Data" page-name="'MstCountry'"
                         control-id="'CurrencyCountry'" control-key="CurrencyCountry_3337"
                         auto-complete-on-select="CurrencyGeneralCtrl.ePage.Masters.SelectedLookupData($index, $item,'Local')">
                     </div>
                     <!-- Look Up page opens when button clicks -->
                     <span class="input-group-btn">
                         <button dynamic-list-modal class="btn btn-default" type="button" is-disabled="false"
-                            obj="CurrencyGeneralCtrl.ePage.Masters.UICurrency" page-name="'MstCountry'"
+                            obj="CurrencyGeneralCtrl.ePage.Entities.Header.Data" page-name="'MstCountry'"
                             control-id="'CurrencyCountry'" control-key="CurrencyCountry_3337" mode="2"
                             grid-refresh-fun-name="" grid-refresh-fun=""
                             selected-data="CurrencyGeneralCtrl.ePage.Masters.SelectedLookupData($index, $item.data.entity,'Local')"><i
@@ -155,9 +155,9 @@
                         </button>
                     </span>
                     <span
-                        data-ng-if='!CurrencyGeneralCtrl.ePage.Masters.UICurrency && !CurrencyGeneralCtrl.ePage.Masters.UICurrency'>
+                        data-ng-if='!CurrencyGeneralCtrl.ePage.Entities.Header.Data.Country && !CurrencyGeneralCtrl.currentCurrency.isNew'>
                         <div
-                            data-ng-init="CurrencyGeneralCtrl.ePage.Masters.OnChangeValues(CurrencyGeneralCtrl.ePage.Masters.UICurrency,'E1300',false,undefined)">
+                            data-ng-init="CurrencyGeneralCtrl.ePage.Masters.OnChangeValues(CurrencyGeneralCtrl.ePage.Entities.Header.Data.Country,'E1208',false,undefined)">
                         </div>
                     </span>
                 </div>
