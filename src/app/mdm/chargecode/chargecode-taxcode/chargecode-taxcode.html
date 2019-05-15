@@ -1,120 +1,130 @@
 <div class="clearfix p-10">
     <div class="inner-dashboard-box">
         <!--Default Tax Id-->
-        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 pb-10">
             <div class="form-group">
-                <div class="error-warning-container">
-                    <error-warning-directive data-ng-if="ChargecodeTaxcodeCtrl.ePage.Entities.Header.Meta.ErrorWarning.Code.IsWarning && !ChargecodeTaxcodeCtrl.ePage.Entities.Header.Meta.ErrorWarning.Code.IsError"
-                        list="ChargecodeTaxcodeCtrl.ePage.Entities.Header.Meta.ErrorWarning.Code.WARNING" type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
-                    <error-warning-directive data-ng-if="ChargecodeTaxcodeCtrl.ePage.Entities.Header.Meta.ErrorWarning.Code.IsError" list="ChargecodeTaxcodeCtrl.ePage.Entities.Header.Meta.ErrorWarning.Code.ERROR"
-                        type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
-                </div>
                 <label class="control-label text-single-line ">Default Tax Id</label>
-                <div class="">
-                    <input type="text" class="form-control input-sm" placeholder="Charge Code" data-ng-model="ChargecodeTaxcodeCtrl.ePage.Entities.Header.Data.UIAccChargeCode.Code" data-ng-change='ChargecodeTaxcodeCtrl.ePage.Masters.OnChangeValidations(ChargecodeTaxcodeCtrl.ePage.Entities.Header.Data.UIAccChargeCode.Code,"E1207",false,undefined)'>
+                <div class="col-lg-3" style="padding-left:initial;">
+                    <input type="text" class="form-control input-sm" placeholder="Default Tax Id" data-ng-model="ChargecodeTaxcodeCtrl.ePage.Entities.Header.Data.UIAccChargeCode.Code" data-ng-disabled="true">
+                </div>
+                <div class="col-lg-3" style="padding-left:initial;">
+                    <input type="text" class="form-control input-sm" placeholder="Desc" data-ng-model="ChargecodeTaxcodeCtrl.ePage.Entities.Header.Data.UIAccChargeCode.Desc" data-ng-disabled="true">
                 </div>
             </div>
         </div> 
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-5">
             <div class="clearfix">
                 <span>
-                    <button type="button" class="btn btn-sm pull-left btn-outline-secondary font-10" title="Add New" data-ng-click="ChargecodeTaxcodeCtrl.ePage.Masters.AddNewRow()" data-ng-disabled="ChargecodeTaxcodeCtrl.ePage.Masters.TaxHierarchyContent">
+                    <button type="button" class="btn btn-sm pull-left btn-outline-secondary font-10" title="Add New" data-ng-click="ChargecodeTaxcodeCtrl.ePage.Masters.AddNewRow()">
                     <span class="fa fa-plus"></span>&nbsp;&nbsp;Add New</button>
                 </span>
                 <span>
-                    <button type="button" class="btn btn-sm pull-left btn-outline-secondary font-10 ml-5" title="Copy" data-ng-click="ChargecodeTaxcodeCtrl.ePage.Masters.CopyRow()" data-ng-disabled="ChargecodeTaxcodeCtrl.ePage.Masters.EnableCopyButton || ChargecodeTaxcodeCtrl.ePage.Masters.TaxHierarchyContent">
+                    <button type="button" class="btn btn-sm pull-left btn-outline-secondary font-10 ml-5" title="Copy" data-ng-click="ChargecodeTaxcodeCtrl.ePage.Masters.CopyRow()" data-ng-disabled="ChargecodeTaxcodeCtrl.ePage.Masters.EnableCopyButton">
                     <span class="fa fa-copy"></span>&nbsp;&nbsp;Copy</button></span>
                 <span>
-                    <button type="button" class="btn btn-sm pull-left btn-outline-secondary font-10 ml-5" title="Delete" data-ng-click="ChargecodeTaxcodeCtrl.ePage.Masters.RemoveRow()" data-ng-disabled="ChargecodeTaxcodeCtrl.ePage.Masters.EnableCopyButton || ChargecodeTaxcodeCtrl.ePage.Masters.TaxHierarchyContent">
+                    <button type="button" class="btn btn-sm pull-left btn-outline-secondary font-10 ml-5" title="Delete" data-ng-click="ChargecodeTaxcodeCtrl.ePage.Masters.RemoveRow()" data-ng-disabled="ChargecodeTaxcodeCtrl.ePage.Masters.EnableDeleteButton">
                     <span class="fa fa-ellipsis-v"></span>&nbsp;&nbsp;Delete</button>
                 </span>
             </div>
-            <div id="ChargeCode{{ChargecodeTaxcodeCtrl.currentTax.label}}" class="fixedheader mt-3 ml-0 mr-0" key-events table-object="ChargecodeTaxcodeCtrl.ePage.Entities.Header.Data.UIAccTaxRateDetails" enable='ChargecodeTaxcodeCtrl.ePage.Masters.Enable' 
-                selected-row="ChargecodeTaxcodeCtrl.ePage.Masters.selectedRow" unique-id='TaxMaster{{ChargecodeTaxcodeCtrl.currentTax.label}}'>
-                <table id="ChargecodeTaxcodeCtrl.ePage.Masters.AddScroll" data-ng-style="{'height': ChargecodeTaxcodeCtrl.ePage.Entities.Header.TableProperties.UIAccTaxRateDetails.TableHeight.height + 'px' }">
+            <div id="ChargeCode{{ChargecodeTaxcodeCtrl.currentChargecode.label}}" class="fixedheader mt-3 ml-0 mr-0" key-events table-object="ChargecodeTaxcodeCtrl.ePage.Entities.Header.Data.UIAccChargeTaxOverride" enable='ChargecodeTaxcodeCtrl.ePage.Masters.Enable' 
+                selected-row="ChargecodeTaxcodeCtrl.ePage.Masters.selectedRow" unique-id='TaxMaster{{ChargecodeTaxcodeCtrl.currentChargecode.label}}'>
+                <table id="ChargecodeTaxcodeCtrl.ePage.Masters.AddScroll" data-ng-style="{'height': ChargecodeTaxcodeCtrl.ePage.Entities.Header.TableProperties.UITaxCodeOverride.TableHeight.height + 'px' }">
                     <thead>
                         <tr id="tableHeader">
-                            <th data-ng-if="ChargecodeTaxcodeCtrl.ePage.Entities.Header.TableProperties.UIAccTaxRateDetails.ccheckbox.isenabled">
+                            <th data-ng-if="ChargecodeTaxcodeCtrl.ePage.Entities.Header.TableProperties.UITaxCodeOverride.ccheckbox.isenabled">
                                 <label class="customcheckbox">
-                                    <input type="checkbox" data-ng-model="ChargecodeTaxcodeCtrl.ePage.Entities.Header.GlobalVariables.SelectAll" data-ng-change="ChargecodeTaxcodeCtrl.ePage.Masters.SelectAllCheckBox()" data-ng-disabled="ChargecodeTaxcodeCtrl.ePage.Masters.TaxHierarchyContent" />
+                                    <input type="checkbox" data-ng-change="ChargecodeTaxcodeCtrl.ePage.Masters.SelectAllCheckBox()" data-ng-checked="ChargecodeTaxcodeCtrl.ePage.Entities.Header.GlobalVariables.SelectAll" 
+                                        data-ng-model="ChargecodeTaxcodeCtrl.ePage.Entities.Header.GlobalVariables.SelectAll"/>
                                         <span class="text"></span>
                                 </label>
                             </th>
-                            <th data-ng-if="ChargecodeTaxcodeCtrl.ePage.Entities.Header.TableProperties.UIAccTaxRateDetails.accountsno.isenabled" data-ng-style="{'width': ChargecodeTaxcodeCtrl.ePage.Entities.Header.TableProperties.UIAccTaxRateDetails.accountsno.width + 'px'}">S.No</th>
-                            <th data-ng-if="ChargecodeTaxcodeCtrl.ePage.Entities.Header.TableProperties.UIAccTaxRateDetails.accounttype.isenabled" data-ng-style="{'width': ChargecodeTaxcodeCtrl.ePage.Entities.Header.TableProperties.UIAccTaxRateDetails.accounttype.width + 'px'}">Account type</th>
-                            <th data-ng-if="ChargecodeTaxcodeCtrl.ePage.Entities.Header.TableProperties.UIAccTaxRateDetails.jobtype.isenabled" data-ng-style="{'width': ChargecodeTaxcodeCtrl.ePage.Entities.Header.TableProperties.UIAccTaxRateDetails.jobtype.width + 'px'}">Job Type</th>
-                            <th data-ng-if="ChargecodeTaxcodeCtrl.ePage.Entities.Header.TableProperties.UIAccTaxRateDetails.transportmode.isenabled" data-ng-style="{'width': ChargecodeTaxcodeCtrl.ePage.Entities.Header.TableProperties.UIAccTaxRateDetails.transportmode.width + 'px'}">Transport Mode</th>
-                            <th data-ng-if="ChargecodeTaxcodeCtrl.ePage.Entities.Header.TableProperties.UIAccTaxRateDetails.taxcode.isenabled" data-ng-style="{'width': ChargecodeTaxcodeCtrl.ePage.Entities.Header.TableProperties.UIAccTaxRateDetails.taxcode.width + 'px'}">Tax Code</th>
+                            <th data-ng-if="ChargecodeTaxcodeCtrl.ePage.Entities.Header.TableProperties.UITaxCodeOverride.accountsno.isenabled" data-ng-style="{'width': ChargecodeTaxcodeCtrl.ePage.Entities.Header.TableProperties.UITaxCodeOverride.accountsno.width + 'px'}">S.No</th>
+                            <th data-ng-if="ChargecodeTaxcodeCtrl.ePage.Entities.Header.TableProperties.UITaxCodeOverride.accounttype.isenabled" data-ng-style="{'width': ChargecodeTaxcodeCtrl.ePage.Entities.Header.TableProperties.UITaxCodeOverride.accounttype.width + 'px'}">Account type</th>
+                            <th data-ng-if="ChargecodeTaxcodeCtrl.ePage.Entities.Header.TableProperties.UITaxCodeOverride.jobtype.isenabled" data-ng-style="{'width': ChargecodeTaxcodeCtrl.ePage.Entities.Header.TableProperties.UITaxCodeOverride.jobtype.width + 'px'}">Job Type</th>
+                            <th data-ng-if="ChargecodeTaxcodeCtrl.ePage.Entities.Header.TableProperties.UITaxCodeOverride.transportmode.isenabled" data-ng-style="{'width': ChargecodeTaxcodeCtrl.ePage.Entities.Header.TableProperties.UITaxCodeOverride.transportmode.width + 'px'}">Transport Mode</th>
+                            <th data-ng-if="ChargecodeTaxcodeCtrl.ePage.Entities.Header.TableProperties.UITaxCodeOverride.taxcode.isenabled" data-ng-style="{'width': ChargecodeTaxcodeCtrl.ePage.Entities.Header.TableProperties.UITaxCodeOverride.taxcode.width + 'px'}">Tax Code</th>
                         </tr> 
                     </thead>
                     <tbody id="TaxTable{{ChargecodeTaxcodeCtrl.currentTax.label}}">
-                        <tr id="tableBody" data-ng-repeat="x in ChargecodeTaxcodeCtrl.ePage.Entities.Header.Data.UIAccTaxRateDetails" data-ng-click="ChargecodeTaxcodeCtrl.ePage.Masters.setSelectedRow($index);" data-ng-class="{row_active: (ChargecodeTaxcodeCtrl.ePage.Masters.selectedRow==$index),copy_row_active :(x.IsCopied==true)}" table-properties="ChargecodeTaxcodeCtrl.ePage.Entities.Header.TableProperties.UIAccTaxRateDetails" row-position="$index">
-                            <td data-ng-show="ChargecodeTaxcodeCtrl.ePage.Entities.Header.TableProperties.UIAccTaxRateDetails.ccheckbox.isenabled"
-                                data-ng-style="{'width': ChargecodeTaxcodeCtrl.ePage.Entities.Header.TableProperties.UIAccTaxRateDetails.ccheckbox.width + 'px' }"
+                        <tr id="tableBody" data-ng-repeat="x in ChargecodeTaxcodeCtrl.ePage.Entities.Header.Data.UIAccChargeTaxOverride" data-ng-click="ChargecodeTaxcodeCtrl.ePage.Masters.SetSelectedRow($index);" data-ng-class="{row_active: (ChargecodeTaxcodeCtrl.ePage.Masters.selectedRow==$index),copy_row_active :(x.IsCopied==true)}" table-properties="ChargecodeTaxcodeCtrl.ePage.Entities.Header.TableProperties.UITaxCodeOverride" row-position="$index">
+                            <td data-ng-show="ChargecodeTaxcodeCtrl.ePage.Entities.Header.TableProperties.UITaxCodeOverride.ccheckbox.isenabled"
+                                data-ng-style="{'width': ChargecodeTaxcodeCtrl.ePage.Entities.Header.TableProperties.UITaxCodeOverride.ccheckbox.width + 'px' }"
                                 data-ng-click="ChargecodeTaxcodeCtrl.ePage.Masters.Enable = true">
                                 <label class="customcheckbox mb-0">
-                                    <input type="checkbox" data-ng-checked="x.SingleSelect" data-ng-model="x.SingleSelect" data-ng-change="ChargecodeTaxcodeCtrl.ePage.Masters.SingleSelectCheckBox()" data-ng-model="x.SingleSelect" data-ng-disabled="ChargecodeTaxcodeCtrl.ePage.Masters.TaxHierarchyContent"/>
+                                    <input type="checkbox" data-ng-checked="x.SingleSelect" data-ng-model="x.SingleSelect" data-ng-change="ChargecodeTaxcodeCtrl.ePage.Masters.SingleSelectCheckBox()"/>
                                     <span class="text"></span>
                                 </label>
                             </td>
-                            <td data-ng-show="ChargecodeTaxcodeCtrl.ePage.Entities.Header.TableProperties.UIAccTaxRateDetails.accountsno.isenabled"
-                                data-ng-style="{'width': ChargecodeTaxcodeCtrl.ePage.Entities.Header.TableProperties.UIAccTaxRateDetails.accountsno.width + 'px' }"
+                            <td data-ng-show="ChargecodeTaxcodeCtrl.ePage.Entities.Header.TableProperties.UITaxCodeOverride.accountsno.isenabled"
+                                data-ng-style="{'width': ChargecodeTaxcodeCtrl.ePage.Entities.Header.TableProperties.UITaxCodeOverride.accountsno.width + 'px' }"
                                 data-ng-click="ChargecodeTaxcodeCtrl.ePage.Masters.Enable = true">
                                 <div class="overflow-text">
                                     {{$index + 1}}
                                 </div>
                             </td>
-                            <td data-ng-show="ChargecodeTaxcodeCtrl.ePage.Entities.Header.TableProperties.UIAccTaxRateDetails.accounttype.isenabled"
-                                data-ng-style="{'width': ChargecodeTaxcodeCtrl.ePage.Entities.Header.TableProperties.UIAccTaxRateDetails.accounttype.width + 'px' }"
+                            <td data-ng-show="ChargecodeTaxcodeCtrl.ePage.Entities.Header.TableProperties.UITaxCodeOverride.accounttype.isenabled"
+                                data-ng-style="{'width': ChargecodeTaxcodeCtrl.ePage.Entities.Header.TableProperties.UITaxCodeOverride.accounttype.width + 'px' }"
                                 data-ng-click="ChargecodeTaxcodeCtrl.ePage.Masters.Enable = true">
                                 <div data-ng-if="$index!=ChargecodeTaxcodeCtrl.ePage.Masters.selectedRow" class="overflow-text">
-                                    {{x.Code || ChargecodeTaxcodeCtrl.ePage.Masters.emptyText}}
+                                    {{x.CostSellAll || ChargecodeTaxcodeCtrl.ePage.Masters.emptyText}}
                                 </div>
                                 <div data-ng-if="$index==ChargecodeTaxcodeCtrl.ePage.Masters.selectedRow">
                                     <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0 height-22">
-                                        <input type="text" class="form-control input-sm" placeholder="Tax Sub Code" data-ng-model="x.Code" data-ng-disabled="ChargecodeTaxcodeCtrl.ePage.Masters.TaxHierarchyContent" />
-                                    </div>
-                                    <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="ChargecodeTaxcodeCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIAccTaxRateDetails.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':1">
-                                        <error-warning-directive  list="ChargecodeTaxcodeCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIAccTaxRateDetails.ERROR"
-                                            type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref=""
-                                            row-index="ChargecodeTaxcodeCtrl.ePage.Masters.selectedRow" col-index="1">
-                                        </error-warning-directive>
+                                        <select chosen class="form-control" data-ng-model="x.CostSellAll" 
+                                            data-ng-options="x.Key as x.Key for x in ChargecodeTaxcodeCtrl.ePage.Masters.DropDownMasterList.ChargeAccountType.ListSource">
+                                            <option value="">--Select--</option>
+                                        </select>
                                     </div>
                                 </div>
                             </td>
-                            <td data-ng-show="ChargecodeTaxcodeCtrl.ePage.Entities.Header.TableProperties.UIAccTaxRateDetails.jobtype.isenabled"
-                                data-ng-style="{'width': ChargecodeTaxcodeCtrl.ePage.Entities.Header.TableProperties.UIAccTaxRateDetails.jobtype.width + 'px' }"
+                            <td data-ng-show="ChargecodeTaxcodeCtrl.ePage.Entities.Header.TableProperties.UITaxCodeOverride.jobtype.isenabled"
+                                data-ng-style="{'width': ChargecodeTaxcodeCtrl.ePage.Entities.Header.TableProperties.UITaxCodeOverride.jobtype.width + 'px' }"
                                 data-ng-click="ChargecodeTaxcodeCtrl.ePage.Masters.Enable = true">
                                 <div data-ng-if="$index!=ChargecodeTaxcodeCtrl.ePage.Masters.selectedRow" class="overflow-text">
-                                    {{x.Rate || ChargecodeTaxcodeCtrl.ePage.Masters.emptyText}}
+                                    {{x.JobType || ChargecodeTaxcodeCtrl.ePage.Masters.emptyText}}
                                 </div>
                                 <div data-ng-if="$index==ChargecodeTaxcodeCtrl.ePage.Masters.selectedRow">
                                     <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0 height-22">
-                                        <input type="text" class="form-control input-sm" placeholder="TaxSubCodeRate" data-ng-model="x.Rate" data-ng-disabled="ChargecodeTaxcodeCtrl.ePage.Masters.TaxHierarchyContent" numbers-only-dot sb-precision="2"/>
+                                        <select chosen class="form-control" data-ng-model="x.JobType" 
+                                            data-ng-options="x.Key as x.Key for x in ChargecodeTaxcodeCtrl.ePage.Masters.DropDownMasterList.ChargeJobType.ListSource">
+                                            <option value="">--Select--</option>
+                                        </select>
                                     </div>
                                 </div>
                             </td>
-                            <td data-ng-show="ChargecodeTaxcodeCtrl.ePage.Entities.Header.TableProperties.UIAccTaxRateDetails.transportmode.isenabled"
-                                data-ng-style="{'width': ChargecodeTaxcodeCtrl.ePage.Entities.Header.TableProperties.UIAccTaxRateDetails.transportmode.width + 'px' }"
+                            <td data-ng-show="ChargecodeTaxcodeCtrl.ePage.Entities.Header.TableProperties.UITaxCodeOverride.transportmode.isenabled"
+                                data-ng-style="{'width': ChargecodeTaxcodeCtrl.ePage.Entities.Header.TableProperties.UITaxCodeOverride.transportmode.width + 'px' }"
                                 data-ng-click="ChargecodeTaxcodeCtrl.ePage.Masters.Enable = true">
                                 <div data-ng-if="$index!=ChargecodeTaxcodeCtrl.ePage.Masters.selectedRow" class="overflow-text">
-                                    {{x.Rate || ChargecodeTaxcodeCtrl.ePage.Masters.emptyText}}
+                                    {{x.TransportMode || ChargecodeTaxcodeCtrl.ePage.Masters.emptyText}}
                                 </div>
                                 <div data-ng-if="$index==ChargecodeTaxcodeCtrl.ePage.Masters.selectedRow">
                                     <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0 height-22">
-                                        <input type="text" class="form-control input-sm" placeholder="TaxSubCodeRate" data-ng-model="x.Rate" data-ng-disabled="ChargecodeTaxcodeCtrl.ePage.Masters.TaxHierarchyContent" numbers-only-dot sb-precision="2"/>
+                                        <select chosen class="form-control" data-ng-model="x.TransportMode" 
+                                            data-ng-options="x.Key as x.Key for x in ChargecodeTaxcodeCtrl.ePage.Masters.DropDownMasterList.ChargeTransportMode.ListSource">
+                                            <option value="">--Select--</option>
+                                        </select>
                                     </div>
                                 </div>
                             </td>
-                            <td data-ng-show="ChargecodeTaxcodeCtrl.ePage.Entities.Header.TableProperties.UIAccTaxRateDetails.taxcode.isenabled"
-                                data-ng-style="{'width': ChargecodeTaxcodeCtrl.ePage.Entities.Header.TableProperties.UIAccTaxRateDetails.taxcode.width + 'px' }"
+                            <td data-ng-show="ChargecodeTaxcodeCtrl.ePage.Entities.Header.TableProperties.UITaxCodeOverride.taxcode.isenabled"
+                                data-ng-style="{'width': ChargecodeTaxcodeCtrl.ePage.Entities.Header.TableProperties.UITaxCodeOverride.taxcode.width + 'px' }"
                                 data-ng-click="ChargecodeTaxcodeCtrl.ePage.Masters.Enable = true">
                                 <div data-ng-if="$index!=ChargecodeTaxcodeCtrl.ePage.Masters.selectedRow" class="overflow-text">
-                                    {{x.Rate || ChargecodeTaxcodeCtrl.ePage.Masters.emptyText}}
+                                    {{x.AT_Code || ChargecodeTaxcodeCtrl.ePage.Masters.emptyText}}
                                 </div>
                                 <div data-ng-if="$index==ChargecodeTaxcodeCtrl.ePage.Masters.selectedRow">
                                     <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0 height-22">
-                                        <input type="text" class="form-control input-sm" placeholder="TaxSubCodeRate" data-ng-model="x.Rate" data-ng-disabled="ChargecodeTaxcodeCtrl.ePage.Masters.TaxHierarchyContent" numbers-only-dot sb-precision="2"/>
+                                        <div class="input-group input-group-sm">
+                                            <div dynamic-lookup placeholder="Tax Code" my-ng-model="x.AT_Code" obj="x" page-name="'AccTaxRate'" control-id="'MstTax'" control-key="MstTax_3352" 
+                                                auto-complete-on-select="ChargecodeTaxcodeCtrl.ePage.Masters.SelectedLookupData($index, $item, 'TaxCode')">
+                                            </div>
+                                            <span class="input-group-btn">
+                                                <button dynamic-list-modal class="btn btn-default" type="button" obj="x" page-name="'AccTaxRate'" control-id="'MstTax'" control-key="MstTax_3352" 
+                                                    mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="ChargecodeTaxcodeCtrl.ePage.Masters.SelectedLookupData($index, $item.data.entity, 'TaxCode')"><i class="fa fa-ellipsis-h"></i>
+                                                </button>
+                                            </span>
+                                        </div>
                                     </div>
                                 </div>
                             </td>

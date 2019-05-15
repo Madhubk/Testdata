@@ -3,118 +3,163 @@
         <!--Default Tax Id-->
         <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
             <div class="form-group">
-                <div class="error-warning-container">
-                    <error-warning-directive data-ng-if="ChargecodeInvoiceCtrl.ePage.Entities.Header.Meta.ErrorWarning.Code.IsWarning && !ChargecodeInvoiceCtrl.ePage.Entities.Header.Meta.ErrorWarning.Code.IsError"
-                        list="ChargecodeInvoiceCtrl.ePage.Entities.Header.Meta.ErrorWarning.Code.WARNING" type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
-                    <error-warning-directive data-ng-if="ChargecodeInvoiceCtrl.ePage.Entities.Header.Meta.ErrorWarning.Code.IsError" list="ChargecodeInvoiceCtrl.ePage.Entities.Header.Meta.ErrorWarning.Code.ERROR"
-                        type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
-                </div>
-                <label class="control-label text-single-line ">Default Tax Id</label>
+                <label class="control-label text-single-line ">Default Charge Type</label>
                 <div class="">
-                    <input type="text" class="form-control input-sm" placeholder="Charge Code" data-ng-model="ChargecodeInvoiceCtrl.ePage.Entities.Header.Data.UIAccChargeCode.Code" data-ng-change='ChargecodeInvoiceCtrl.ePage.Masters.OnChangeValidations(ChargecodeInvoiceCtrl.ePage.Entities.Header.Data.UIAccChargeCode.Code,"E1207",false,undefined)'>
+                    <input type="text" class="form-control input-sm" placeholder="Default Charge Type" data-ng-model="ChargecodeInvoiceCtrl.ePage.Entities.Header.Data.UIAccChargeCode.ChargeType" data-ng-disabled="true">
                 </div>
             </div>
         </div> 
+        <!-- <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="control-label text-single-line ">Desc</label>
+                <div class="">
+                    <input type="text" class="form-control input-sm" placeholder="Desc" data-ng-model="ChargecodeInvoiceCtrl.ePage.Entities.Header.Data.UIAccChargeCode.Code" data-ng-disabled="true">
+                </div>
+            </div>
+        </div> -->
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="control-label text-single-line ">Margin %</label>
+                <div class="">
+                    <input type="text" class="form-control input-sm" placeholder="Margin %" data-ng-model="ChargecodeInvoiceCtrl.ePage.Entities.Header.Data.UIAccChargeCode.MarginPercentage" data-ng-disabled="true">
+                </div>
+            </div>
+        </div>
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-5">
             <div class="clearfix">
                 <span>
-                    <button type="button" class="btn btn-sm pull-left btn-outline-secondary font-10" title="Add New" data-ng-click="ChargecodeInvoiceCtrl.ePage.Masters.AddNewRow()" data-ng-disabled="ChargecodeInvoiceCtrl.ePage.Masters.TaxHierarchyContent">
+                    <button type="button" class="btn btn-sm pull-left btn-outline-secondary font-10" title="Add New" data-ng-click="ChargecodeInvoiceCtrl.ePage.Masters.AddNewRow()">
                     <span class="fa fa-plus"></span>&nbsp;&nbsp;Add New</button>
                 </span>
                 <span>
-                    <button type="button" class="btn btn-sm pull-left btn-outline-secondary font-10 ml-5" title="Copy" data-ng-click="ChargecodeInvoiceCtrl.ePage.Masters.CopyRow()" data-ng-disabled="ChargecodeInvoiceCtrl.ePage.Masters.EnableCopyButton || ChargecodeInvoiceCtrl.ePage.Masters.TaxHierarchyContent">
+                    <button type="button" class="btn btn-sm pull-left btn-outline-secondary font-10 ml-5" title="Copy" data-ng-click="ChargecodeInvoiceCtrl.ePage.Masters.CopyRow()" data-ng-disabled="ChargecodeInvoiceCtrl.ePage.Masters.EnableCopyButton">
                     <span class="fa fa-copy"></span>&nbsp;&nbsp;Copy</button></span>
                 <span>
-                    <button type="button" class="btn btn-sm pull-left btn-outline-secondary font-10 ml-5" title="Delete" data-ng-click="ChargecodeInvoiceCtrl.ePage.Masters.RemoveRow()" data-ng-disabled="ChargecodeInvoiceCtrl.ePage.Masters.EnableCopyButton || ChargecodeInvoiceCtrl.ePage.Masters.TaxHierarchyContent">
+                    <button type="button" class="btn btn-sm pull-left btn-outline-secondary font-10 ml-5" title="Delete" data-ng-click="ChargecodeInvoiceCtrl.ePage.Masters.RemoveRow()" data-ng-disabled="ChargecodeInvoiceCtrl.ePage.Masters.EnableDeleteButton">
                     <span class="fa fa-ellipsis-v"></span>&nbsp;&nbsp;Delete</button>
                 </span>
             </div>
-            <div id="ChargeCode{{ChargecodeInvoiceCtrl.currentTax.label}}" class="fixedheader mt-3 ml-0 mr-0" key-events table-object="ChargecodeInvoiceCtrl.ePage.Entities.Header.Data.UIAccTaxRateDetails" enable='ChargecodeInvoiceCtrl.ePage.Masters.Enable' 
-                selected-row="ChargecodeInvoiceCtrl.ePage.Masters.selectedRow" unique-id='TaxMaster{{ChargecodeInvoiceCtrl.currentTax.label}}'>
-                <table id="ChargecodeInvoiceCtrl.ePage.Masters.AddScroll" data-ng-style="{'height': ChargecodeInvoiceCtrl.ePage.Entities.Header.TableProperties.UIAccTaxRateDetails.TableHeight.height + 'px' }">
+            <div id="ChargeCode{{ChargecodeTaxcodeCtrl.currentChargecode.label}}" class="fixedheader mt-3 ml-0 mr-0" key-events table-object="ChargecodeInvoiceCtrl.ePage.Entities.Header.Data.UIInvoiceOverride" enable='ChargecodeInvoiceCtrl.ePage.Masters.Enable' 
+                selected-row="ChargecodeInvoiceCtrl.ePage.Masters.selectedRow" unique-id='TaxMaster{{ChargecodeTaxcodeCtrl.currentChargecode.label}}'>
+                <table id="ChargecodeInvoiceCtrl.ePage.Masters.AddScroll" data-ng-style="{'height': ChargecodeInvoiceCtrl.ePage.Entities.Header.TableProperties.UIInvoiceOverride.TableHeight.height + 'px' }">
                     <thead>
                         <tr id="tableHeader">
-                            <th data-ng-if="ChargecodeInvoiceCtrl.ePage.Entities.Header.TableProperties.UIAccTaxRateDetails.ccheckbox.isenabled">
+                            <th data-ng-if="ChargecodeInvoiceCtrl.ePage.Entities.Header.TableProperties.UIInvoiceOverride.ccheckbox.isenabled" data-ng-style="{'width': ChargecodeInvoiceCtrl.ePage.Entities.Header.TableProperties.UIInvoiceOverride.ccheckbox.width + 'px'}">
                                 <label class="customcheckbox">
-                                    <input type="checkbox" data-ng-model="ChargecodeInvoiceCtrl.ePage.Entities.Header.GlobalVariables.SelectAll" data-ng-change="ChargecodeInvoiceCtrl.ePage.Masters.SelectAllCheckBox()" data-ng-disabled="ChargecodeInvoiceCtrl.ePage.Masters.TaxHierarchyContent" />
+                                    <input type="checkbox" data-ng-change="ChargecodeInvoiceCtrl.ePage.Masters.SelectAllCheckBox()" data-ng-checked="ChargecodeInvoiceCtrl.ePage.Entities.Header.GlobalVariables.SelectAll" data-ng-model="ChargecodeInvoiceCtrl.ePage.Entities.Header.GlobalVariables.SelectAll"/>
                                         <span class="text"></span>
                                 </label>
                             </th>
-                            <th data-ng-if="ChargecodeInvoiceCtrl.ePage.Entities.Header.TableProperties.UIAccTaxRateDetails.accountsno.isenabled" data-ng-style="{'width': ChargecodeInvoiceCtrl.ePage.Entities.Header.TableProperties.UIAccTaxRateDetails.accountsno.width + 'px'}">S.No</th>
-                            <th data-ng-if="ChargecodeInvoiceCtrl.ePage.Entities.Header.TableProperties.UIAccTaxRateDetails.accounttype.isenabled" data-ng-style="{'width': ChargecodeInvoiceCtrl.ePage.Entities.Header.TableProperties.UIAccTaxRateDetails.accounttype.width + 'px'}">Account type</th>
-                            <th data-ng-if="ChargecodeInvoiceCtrl.ePage.Entities.Header.TableProperties.UIAccTaxRateDetails.jobtype.isenabled" data-ng-style="{'width': ChargecodeInvoiceCtrl.ePage.Entities.Header.TableProperties.UIAccTaxRateDetails.jobtype.width + 'px'}">Job Type</th>
-                            <th data-ng-if="ChargecodeInvoiceCtrl.ePage.Entities.Header.TableProperties.UIAccTaxRateDetails.transportmode.isenabled" data-ng-style="{'width': ChargecodeInvoiceCtrl.ePage.Entities.Header.TableProperties.UIAccTaxRateDetails.transportmode.width + 'px'}">Transport Mode</th>
-                            <th data-ng-if="ChargecodeInvoiceCtrl.ePage.Entities.Header.TableProperties.UIAccTaxRateDetails.taxcode.isenabled" data-ng-style="{'width': ChargecodeInvoiceCtrl.ePage.Entities.Header.TableProperties.UIAccTaxRateDetails.taxcode.width + 'px'}">Tax Code</th>
+                            <th data-ng-if="ChargecodeInvoiceCtrl.ePage.Entities.Header.TableProperties.UIInvoiceOverride.accountsno.isenabled" data-ng-style="{'width': ChargecodeInvoiceCtrl.ePage.Entities.Header.TableProperties.UIInvoiceOverride.accountsno.width + 'px'}">S.No</th>
+                            <th data-ng-if="ChargecodeInvoiceCtrl.ePage.Entities.Header.TableProperties.UIInvoiceOverride.jobtype.isenabled" data-ng-style="{'width': ChargecodeInvoiceCtrl.ePage.Entities.Header.TableProperties.UIInvoiceOverride.jobtype.width + 'px'}">Job type</th>
+                            <th data-ng-if="ChargecodeInvoiceCtrl.ePage.Entities.Header.TableProperties.UIInvoiceOverride.transportmode.isenabled" data-ng-style="{'width': ChargecodeInvoiceCtrl.ePage.Entities.Header.TableProperties.UIInvoiceOverride.transportmode.width + 'px'}">Transport Mode</th>
+                            <th data-ng-if="ChargecodeInvoiceCtrl.ePage.Entities.Header.TableProperties.UIInvoiceOverride.chargetype.isenabled" data-ng-style="{'width': ChargecodeInvoiceCtrl.ePage.Entities.Header.TableProperties.UIInvoiceOverride.chargetype.width + 'px'}">Charge Type</th>
+                            <th data-ng-if="ChargecodeInvoiceCtrl.ePage.Entities.Header.TableProperties.UIInvoiceOverride.invoicetype.isenabled" data-ng-style="{'width': ChargecodeInvoiceCtrl.ePage.Entities.Header.TableProperties.UIInvoiceOverride.invoicetype.width + 'px'}">Invoice Type</th>
                         </tr> 
                     </thead>
-                    <tbody id="TaxTable{{ChargecodeInvoiceCtrl.currentTax.label}}">
-                        <tr id="tableBody" data-ng-repeat="x in ChargecodeInvoiceCtrl.ePage.Entities.Header.Data.UIAccTaxRateDetails" data-ng-click="ChargecodeInvoiceCtrl.ePage.Masters.setSelectedRow($index);" data-ng-class="{row_active: (ChargecodeInvoiceCtrl.ePage.Masters.selectedRow==$index),copy_row_active :(x.IsCopied==true)}" table-properties="ChargecodeInvoiceCtrl.ePage.Entities.Header.TableProperties.UIAccTaxRateDetails" row-position="$index">
-                            <td data-ng-show="ChargecodeInvoiceCtrl.ePage.Entities.Header.TableProperties.UIAccTaxRateDetails.ccheckbox.isenabled"
-                                data-ng-style="{'width': ChargecodeInvoiceCtrl.ePage.Entities.Header.TableProperties.UIAccTaxRateDetails.ccheckbox.width + 'px' }"
+                    <tbody id="TaxTable{{ChargecodeTaxcodeCtrl.currentChargecode.label}}">
+                        <tr id="tableBody" data-ng-repeat="x in ChargecodeInvoiceCtrl.ePage.Entities.Header.Data.UIAccChargeTypeOverride" data-ng-click="ChargecodeInvoiceCtrl.ePage.Masters.SetSelectedRow($index);" data-ng-class="{row_active: (ChargecodeInvoiceCtrl.ePage.Masters.selectedRow==$index),copy_row_active :(x.IsCopied==true)}" table-properties="ChargecodeInvoiceCtrl.ePage.Entities.Header.TableProperties.UIInvoiceOverride" row-position="$index">
+                            <td data-ng-show="ChargecodeInvoiceCtrl.ePage.Entities.Header.TableProperties.UIInvoiceOverride.ccheckbox.isenabled"
+                                data-ng-style="{'width': ChargecodeInvoiceCtrl.ePage.Entities.Header.TableProperties.UIInvoiceOverride.ccheckbox.width + 'px' }"
                                 data-ng-click="ChargecodeInvoiceCtrl.ePage.Masters.Enable = true">
                                 <label class="customcheckbox mb-0">
-                                    <input type="checkbox" data-ng-checked="x.SingleSelect" data-ng-model="x.SingleSelect" data-ng-change="ChargecodeInvoiceCtrl.ePage.Masters.SingleSelectCheckBox()" data-ng-model="x.SingleSelect" data-ng-disabled="ChargecodeInvoiceCtrl.ePage.Masters.TaxHierarchyContent"/>
+                                    <input type="checkbox" data-ng-checked="x.SingleSelect" data-ng-model="x.SingleSelect" data-ng-change="ChargecodeInvoiceCtrl.ePage.Masters.SingleSelectCheckBox()"/>
                                     <span class="text"></span>
                                 </label>
+                                <span class="list-error-warning" data-ng-if="ChargecodeInvoiceCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIAccChargeCode.ERROR | listCount: 'RowIndex': $index">
+                                    <error-warning-directive list="ChargecodeInvoiceCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIAccChargeCode.ERROR"
+                                        type="'error'" icon="fa fa-warning" parent-type="'arrayObjectRow'" parent-ref="" g-parent-ref="" row-index="$index" col-index="">
+                                    </error-warning-directive>
+                                </span>
                             </td>
-                            <td data-ng-show="ChargecodeInvoiceCtrl.ePage.Entities.Header.TableProperties.UIAccTaxRateDetails.accountsno.isenabled"
-                                data-ng-style="{'width': ChargecodeInvoiceCtrl.ePage.Entities.Header.TableProperties.UIAccTaxRateDetails.accountsno.width + 'px' }"
+                            <td data-ng-show="ChargecodeInvoiceCtrl.ePage.Entities.Header.TableProperties.UIInvoiceOverride.accountsno.isenabled"
+                                data-ng-style="{'width': ChargecodeInvoiceCtrl.ePage.Entities.Header.TableProperties.UIInvoiceOverride.accountsno.width + 'px' }"
                                 data-ng-click="ChargecodeInvoiceCtrl.ePage.Masters.Enable = true">
                                 <div class="overflow-text">
                                     {{$index + 1}}
                                 </div>
                             </td>
-                            <td data-ng-show="ChargecodeInvoiceCtrl.ePage.Entities.Header.TableProperties.UIAccTaxRateDetails.accounttype.isenabled"
-                                data-ng-style="{'width': ChargecodeInvoiceCtrl.ePage.Entities.Header.TableProperties.UIAccTaxRateDetails.accounttype.width + 'px' }"
+                            <td data-ng-show="ChargecodeInvoiceCtrl.ePage.Entities.Header.TableProperties.UIInvoiceOverride.jobtype.isenabled"
+                                data-ng-style="{'width': ChargecodeInvoiceCtrl.ePage.Entities.Header.TableProperties.UIInvoiceOverride.jobtype.width + 'px' }"
                                 data-ng-click="ChargecodeInvoiceCtrl.ePage.Masters.Enable = true">
                                 <div data-ng-if="$index!=ChargecodeInvoiceCtrl.ePage.Masters.selectedRow" class="overflow-text">
-                                    {{x.Code || ChargecodeInvoiceCtrl.ePage.Masters.emptyText}}
+                                    {{x.JobType || ChargecodeInvoiceCtrl.ePage.Masters.emptyText}}
                                 </div>
                                 <div data-ng-if="$index==ChargecodeInvoiceCtrl.ePage.Masters.selectedRow">
                                     <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0 height-22">
-                                        <input type="text" class="form-control input-sm" placeholder="Tax Sub Code" data-ng-model="x.Code" data-ng-disabled="ChargecodeInvoiceCtrl.ePage.Masters.TaxHierarchyContent" />
+                                        <select chosen class="form-control" data-ng-model="x.JobType" data-ng-options="x.Key as x.Key for x in ChargecodeInvoiceCtrl.ePage.Masters.DropDownMasterList.ChargeGLInvoiceJobType.ListSource"
+                                            data-ng-change="ChargecodeInvoiceCtrl.ePage.Masters.OnChangeValidations(x.JobType, 'E1358', true, $index)">
+                                        <option value="">--Select--</option>
+                                    </select>
                                     </div>
-                                    <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="ChargecodeInvoiceCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIAccTaxRateDetails.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':1">
-                                        <error-warning-directive  list="ChargecodeInvoiceCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIAccTaxRateDetails.ERROR"
+                                    <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="ChargecodeInvoiceCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIAccChargeCode.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':1">
+                                        <error-warning-directive  list="ChargecodeInvoiceCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIAccChargeCode.ERROR"
                                             type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref=""
                                             row-index="ChargecodeInvoiceCtrl.ePage.Masters.selectedRow" col-index="1">
                                         </error-warning-directive>
                                     </div>
                                 </div>
                             </td>
-                            <td data-ng-show="ChargecodeInvoiceCtrl.ePage.Entities.Header.TableProperties.UIAccTaxRateDetails.jobtype.isenabled"
-                                data-ng-style="{'width': ChargecodeInvoiceCtrl.ePage.Entities.Header.TableProperties.UIAccTaxRateDetails.jobtype.width + 'px' }"
+                            <td data-ng-show="ChargecodeInvoiceCtrl.ePage.Entities.Header.TableProperties.UIInvoiceOverride.transportmode.isenabled"
+                                data-ng-style="{'width': ChargecodeInvoiceCtrl.ePage.Entities.Header.TableProperties.UIInvoiceOverride.transportmode.width + 'px' }"
                                 data-ng-click="ChargecodeInvoiceCtrl.ePage.Masters.Enable = true">
                                 <div data-ng-if="$index!=ChargecodeInvoiceCtrl.ePage.Masters.selectedRow" class="overflow-text">
-                                    {{x.Rate || ChargecodeInvoiceCtrl.ePage.Masters.emptyText}}
+                                    {{x.TransportMode || ChargecodeInvoiceCtrl.ePage.Masters.emptyText}}
                                 </div>
                                 <div data-ng-if="$index==ChargecodeInvoiceCtrl.ePage.Masters.selectedRow">
                                     <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0 height-22">
-                                        <input type="text" class="form-control input-sm" placeholder="TaxSubCodeRate" data-ng-model="x.Rate" data-ng-disabled="ChargecodeInvoiceCtrl.ePage.Masters.TaxHierarchyContent" numbers-only-dot sb-precision="2"/>
+                                        <select chosen class="form-control" data-ng-model="x.TransportMode" data-ng-options="x.Key as x.Key for x in ChargecodeInvoiceCtrl.ePage.Masters.DropDownMasterList.ChargeGLInvoiceTransportMode.ListSource"
+                                            data-ng-change="ChargecodeInvoiceCtrl.ePage.Masters.OnChangeValidations(x.TransportMode, 'E1359', true, $index)">
+                                            <option value="">--Select--</option>
+                                        </select>
+                                    </div>
+                                    <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="ChargecodeInvoiceCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIAccChargeCode.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':2">
+                                        <error-warning-directive  list="ChargecodeInvoiceCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIAccChargeCode.ERROR"
+                                            type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref=""
+                                            row-index="ChargecodeInvoiceCtrl.ePage.Masters.selectedRow" col-index="2">
+                                        </error-warning-directive>
                                     </div>
                                 </div>
                             </td>
-                            <td data-ng-show="ChargecodeInvoiceCtrl.ePage.Entities.Header.TableProperties.UIAccTaxRateDetails.transportmode.isenabled"
-                                data-ng-style="{'width': ChargecodeInvoiceCtrl.ePage.Entities.Header.TableProperties.UIAccTaxRateDetails.transportmode.width + 'px' }"
+                            <td data-ng-show="ChargecodeInvoiceCtrl.ePage.Entities.Header.TableProperties.UIInvoiceOverride.chargetype.isenabled"
+                                data-ng-style="{'width': ChargecodeInvoiceCtrl.ePage.Entities.Header.TableProperties.UIInvoiceOverride.chargetype.width + 'px' }"
                                 data-ng-click="ChargecodeInvoiceCtrl.ePage.Masters.Enable = true">
                                 <div data-ng-if="$index!=ChargecodeInvoiceCtrl.ePage.Masters.selectedRow" class="overflow-text">
-                                    {{x.Rate || ChargecodeInvoiceCtrl.ePage.Masters.emptyText}}
+                                    {{x.ChargeType || ChargecodeInvoiceCtrl.ePage.Masters.emptyText}}
                                 </div>
                                 <div data-ng-if="$index==ChargecodeInvoiceCtrl.ePage.Masters.selectedRow">
                                     <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0 height-22">
-                                        <input type="text" class="form-control input-sm" placeholder="TaxSubCodeRate" data-ng-model="x.Rate" data-ng-disabled="ChargecodeInvoiceCtrl.ePage.Masters.TaxHierarchyContent" numbers-only-dot sb-precision="2"/>
+                                        <select chosen class="form-control" data-ng-model="x.ChargeType" data-ng-options="x.Key as x.Key for x in ChargecodeInvoiceCtrl.ePage.Masters.DropDownMasterList.ChargeInvoiceChargeType.ListSource"
+                                            data-ng-change="ChargecodeInvoiceCtrl.ePage.Masters.OnChangeValidations(x.ChargeType, 'E1360', true, $index)">
+                                            <option value="">--Select--</option>
+                                        </select>
+                                    </div>
+                                    <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="ChargecodeInvoiceCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIAccChargeCode.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':3">
+                                        <error-warning-directive  list="ChargecodeInvoiceCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIAccChargeCode.ERROR"
+                                            type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref=""
+                                            row-index="ChargecodeInvoiceCtrl.ePage.Masters.selectedRow" col-index="3">
+                                        </error-warning-directive>
                                     </div>
                                 </div>
                             </td>
-                            <td data-ng-show="ChargecodeInvoiceCtrl.ePage.Entities.Header.TableProperties.UIAccTaxRateDetails.taxcode.isenabled"
-                                data-ng-style="{'width': ChargecodeInvoiceCtrl.ePage.Entities.Header.TableProperties.UIAccTaxRateDetails.taxcode.width + 'px' }"
+                            <td data-ng-show="ChargecodeInvoiceCtrl.ePage.Entities.Header.TableProperties.UIInvoiceOverride.invoicetype.isenabled"
+                                data-ng-style="{'width': ChargecodeInvoiceCtrl.ePage.Entities.Header.TableProperties.UIInvoiceOverride.invoicetype.width + 'px' }"
                                 data-ng-click="ChargecodeInvoiceCtrl.ePage.Masters.Enable = true">
                                 <div data-ng-if="$index!=ChargecodeInvoiceCtrl.ePage.Masters.selectedRow" class="overflow-text">
-                                    {{x.Rate || ChargecodeInvoiceCtrl.ePage.Masters.emptyText}}
+                                    {{x.InvoiceType || ChargecodeInvoiceCtrl.ePage.Masters.emptyText}}
                                 </div>
                                 <div data-ng-if="$index==ChargecodeInvoiceCtrl.ePage.Masters.selectedRow">
                                     <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0 height-22">
-                                        <input type="text" class="form-control input-sm" placeholder="TaxSubCodeRate" data-ng-model="x.Rate" data-ng-disabled="ChargecodeInvoiceCtrl.ePage.Masters.TaxHierarchyContent" numbers-only-dot sb-precision="2"/>
+                                        <select chosen class="form-control" data-ng-model="x.InvoiceType" data-ng-options="x.Key as x.Key for x in ChargecodeInvoiceCtrl.ePage.Masters.DropDownMasterList.ChargeInvoiceType.ListSource"
+                                            data-ng-change="ChargecodeInvoiceCtrl.ePage.Masters.OnChangeValidations(x.InvoiceType, 'E1361', true, $index)">
+                                            <option value="">--Select--</option>
+                                        </select>
+                                    </div>
+                                    <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="ChargecodeInvoiceCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIAccChargeCode.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':4">
+                                        <error-warning-directive  list="ChargecodeInvoiceCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIAccChargeCode.ERROR"
+                                            type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref="" g-parent-ref=""
+                                            row-index="ChargecodeInvoiceCtrl.ePage.Masters.selectedRow" col-index="4">
+                                        </error-warning-directive>
                                     </div>
                                 </div>
                             </td>

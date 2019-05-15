@@ -11,7 +11,8 @@
                 </div>
                 <label class="control-label text-single-line ">Charge Code</label>
                 <div class="">
-                    <input type="text" class="form-control input-sm" placeholder="Charge Code" data-ng-model="ChargecodeGeneralCtrl.ePage.Entities.Header.Data.UIAccChargeCode.Code" data-ng-change='ChargecodeGeneralCtrl.ePage.Masters.OnChangeValidations(ChargecodeGeneralCtrl.ePage.Entities.Header.Data.UIAccChargeCode.Code,"E1207",false,undefined)'>
+                    <input type="text" id="focusChargeCode" class="form-control input-sm" placeholder="Charge Code" data-ng-model="ChargecodeGeneralCtrl.ePage.Entities.Header.Data.UIAccChargeCode.Code" 
+                        data-ng-change='ChargecodeGeneralCtrl.ePage.Masters.OnChangeValues(ChargecodeGeneralCtrl.ePage.Entities.Header.Data.UIAccChargeCode.Code, "E1349", false, undefined)' data-ng-blur="ChargecodeGeneralCtrl.ePage.Masters.OnChangeChargeCode(ChargecodeGeneralCtrl.ePage.Entities.Header.Data.UIAccChargeCode.Code)" alphabets-only>
                 </div>
             </div>
         </div>    
@@ -26,22 +27,17 @@
                 </div>
                 <label class="control-label text-single-line ">Description</label>
                 <div class="">
-                    <input type="text" class="form-control input-sm" placeholder="Charge Desc" data-ng-model="ChargecodeGeneralCtrl.ePage.Entities.Header.Data.UIAccChargeCode.Desc" data-ng-change='ChargecodeGeneralCtrl.ePage.Masters.OnChangeValidations(ChargecodeGeneralCtrl.ePage.Entities.Header.Data.UIAccChargeCode.Desc,"E1207",false,undefined)'>
+                    <input type="text" id="focusChargeDesc" class="form-control input-sm" placeholder="Description" data-ng-model="ChargecodeGeneralCtrl.ePage.Entities.Header.Data.UIAccChargeCode.Desc" 
+                        data-ng-change='ChargecodeGeneralCtrl.ePage.Masters.OnChangeValues(ChargecodeGeneralCtrl.ePage.Entities.Header.Data.UIAccChargeCode.Desc, "E1350", false, undefined)' data-ng-blur="ChargecodeGeneralCtrl.ePage.Masters.OnChangeChargeCode(ChargecodeGeneralCtrl.ePage.Entities.Header.Data.UIAccChargeCode.Code)" data-ng-blur="ChargecodeGeneralCtrl.ePage.Masters.OnChangeChargeDesc(ChargecodeGeneralCtrl.ePage.Entities.Header.Data.UIAccChargeCode.Desc)" no-special-char>
                 </div>
             </div>
         </div>
         <!-- IATA -->
         <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
             <div class="form-group">
-                <div class="error-warning-container">
-                    <error-warning-directive data-ng-if="ChargecodeGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Desc.IsWarning && !ChargecodeGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Desc.IsError"
-                        list="ChargecodeGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Desc.WARNING" type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
-                    <error-warning-directive data-ng-if="ChargecodeGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Desc.IsError" list="ChargecodeGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Desc.ERROR"
-                        type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
-                </div>
                 <label class="control-label text-single-line ">IATA</label>
-                <select chosen class="form-control" data-ng-model="ChargecodeGeneralCtrl.ePage.Entities.Header.Data.UIAccChargeCode.IATA_ChargeCodeMap" data-ng-options="x.Key as x.Key for x in TaxGeneralCtrl.ePage.Masters.DropDownMasterList.TaxClasification.ListSource"
-                data-ng-change="TaxGeneralCtrl.ePage.Masters.OnChangeValidations(ChargecodeGeneralCtrl.ePage.Entities.Header.Data.UIAccChargeCode.Type,'E1210',false,undefined);">
+                <select chosen class="form-control" data-ng-model="ChargecodeGeneralCtrl.ePage.Entities.Header.Data.UIAccChargeCode.IATA_ChargeCodeMap" 
+                    data-ng-options="x.Key as x.Key for x in ChargecodeGeneralCtrl.ePage.Masters.DropDownMasterList.IATA_ChargeCodeMap.ListSource">
                     <option value="">--Select--</option>
                 </select>
             </div>
@@ -49,35 +45,42 @@
         <!--company-->
         <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
             <div class="form-group">
+                <div class="error-warning-container">
+                    <error-warning-directive data-ng-if="ChargecodeGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Company.IsWarning && !ChargecodeGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Company.IsError"
+                        list="ChargecodeGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Company.WARNING" type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                    <error-warning-directive data-ng-if="ChargecodeGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Company.IsError" list="ChargecodeGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Company.ERROR"
+                        type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                </div>
                 <label class="control-label text-single-line">Company</label>
-                <select chosen multiple class="form-control scan-item-multi" ng-model="ChargecodeGeneralCtrl.ePage.Masters.ScanItem.CMP_Code" ng-change="ChargecodeGeneralCtrl.ePage.Masters.OnChangeTag(ChargecodeGeneralCtrl.ePage.Masters.ScanItem.Tagarray)"
-                    ng-options="x.Key as x.Key+ ' - ' + x.Value for x in ChargecodeGeneralCtrl.ePage.Masters.DropDownMasterList.Company.ListSource"
-                    search-contains="true">
-                </select>
+                <div class="input-group input-group-sm">
+                    <div dynamic-lookup placeholder="Company" my-ng-model="ChargecodeGeneralCtrl.ePage.Entities.Header.Data.UIAccChargeCode.CMP_Code"
+                        obj="ChargecodeGeneralCtrl.ePage.Entities.Header.Data.UIAccChargeCode" page-name="'CmpCompany'" control-id="'MstCompany'"
+                        control-key="MstCompany_3347" auto-complete-on-select="ChargecodeGeneralCtrl.ePage.Masters.SelectedLookupData($item, 'Company')">
+                    </div>
+                    <span class="input-group-btn">
+                        <button dynamic-list-modal class="btn btn-default" type="button" obj="ChargecodeGeneralCtrl.ePage.Entities.Header.Data.UIAccChargeCode"
+                            page-name="'CmpCompany'" control-id="'MstCompany'" control-key="MstCompany_3347" mode="2" grid-refresh-fun-name=""
+                            grid-refresh-fun="" selected-data="ChargecodeGeneralCtrl.ePage.Masters.SelectedLookupData($item.data.entity, 'Company')"><i class="fa fa-ellipsis-h"></i>
+                        </button>
+                    </span>
+                </div>
             </div>
         </div>
         <!--Department Restriction-->
         <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
             <div class="form-group">
                 <label class="control-label text-single-line">Department Restriction</label>
-                <select chosen multiple class="form-control scan-item-multi" ng-model="ChargecodeGeneralCtrl.ePage.Masters.ScanItem.CMP_Code" ng-change="ChargecodeGeneralCtrl.ePage.Masters.OnChangeTag(ChargecodeGeneralCtrl.ePage.Masters.ScanItem.Tagarray)"
-                    ng-options="x.Key as x.Key+ ' - ' + x.Value for x in ChargecodeGeneralCtrl.ePage.Masters.DropDownMasterList.Company.ListSource"
-                    search-contains="true">
+                <select chosen multiple class="form-control scan-item-multi" data-ng-model="ChargecodeGeneralCtrl.ePage.Entities.Header.Data.UIAccChargeCode.DepartmentFilterList" 
+                    data-ng-options="x.Code as x.Code+ ' - ' + x.Desc for x in ChargecodeGeneralCtrl.ePage.Masters.DDDepartmentMasterList" search-contains="true">
                 </select>
             </div>
         </div>
         <!-- SAC / HSN Code -->
         <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
             <div class="form-group">
-                <div class="error-warning-container">
-                    <error-warning-directive data-ng-if="ChargecodeGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Desc.IsWarning && !ChargecodeGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Desc.IsError"
-                        list="ChargecodeGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Desc.WARNING" type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
-                    <error-warning-directive data-ng-if="ChargecodeGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Desc.IsError" list="ChargecodeGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Desc.ERROR"
-                        type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
-                </div>
                 <label class="control-label text-single-line ">SAC / HSN Codes</label>
                 <div class="">
-                    <input type="text" class="form-control input-sm" placeholder="Charge Desc" data-ng-model="ChargecodeGeneralCtrl.ePage.Entities.Header.Data.UIAccChargeCode.Desc" data-ng-change='ChargecodeGeneralCtrl.ePage.Masters.OnChangeValidations(ChargecodeGeneralCtrl.ePage.Entities.Header.Data.UIAccChargeCode.Desc,"E1207",false,undefined)'>
+                    <input type="text" class="form-control input-sm" placeholder="SAC / HSN Codes" data-ng-model="ChargecodeGeneralCtrl.ePage.Entities.Header.Data.UIAccChargeCode.GovtChargeCode" numbers-only>
                 </div>
             </div>
         </div>
@@ -85,30 +88,30 @@
 </div>
 <!-- Error Warning -->
 <div class="error-warning-container right" style="margin-top:0px !important" id="errorWarningContainer{{ChargecodeGeneralCtrl.currentChargecode.code}}">
-    <div class="error-warning-header clearfix">
-        <span class="title pull-left">
-            <!-- <i class="fa fa-warning"></i>  -->
-               Errors & Warnings
-        </span>
-        <span class="error-warning-toggle-icon pull-right" data-ng-click="ChargecodeGeneralCtrl.ePage.Masters.Config.ShowErrorWarningModal(ChargecodeGeneralCtrl.currentChargecode)">
-            <i class="fa fa-arrow-right"></i>
-        </span>
-    </div>
-    <div class="error-warning-body">
-        <div class="clearfix" data-ng-if="ChargecodeGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList.length>0">
-            <div class="clearfix">
-                <div class="p-5 error-warnig-list clearfix" data-ng-repeat="x in ChargecodeGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList">
-                    <div class="clearfix">
-                        <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 p-0 text-center">
-                            <span class=" fa fa-warning" data-ng-style="{color: {'W':'#FFAD33', 'E':'#ED4337'}[x.MessageType]}"></span>
+        <div class="error-warning-header clearfix">
+            <span class="title pull-left">
+                <!-- <i class="fa fa-warning"></i>  -->
+                   Errors & Warnings
+            </span>
+            <span class="error-warning-toggle-icon pull-right" data-ng-click="ChargecodeGeneralCtrl.ePage.Masters.Config.ShowErrorWarningModal(ChargecodeGeneralCtrl.currentChargecode)">
+                <i class="fa fa-arrow-right"></i>
+            </span>
+        </div>
+        <div class="error-warning-body">
+            <div class="clearfix" data-ng-if="ChargecodeGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList.length>0">
+                <div class="clearfix">
+                    <div class="p-5 error-warnig-list clearfix" data-ng-repeat="x in ChargecodeGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList">
+                        <div class="clearfix">
+                            <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 p-0 text-center">
+                                <span class=" fa fa-warning" data-ng-style="{color: {'W':'#FFAD33', 'E':'#ED4337'}[x.MessageType]}"></span>
+                            </div>
+                        <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11 pr-0">
+                            <div class="message" data-ng-bind="x.Code + ' - ' + x.Message"></div>
+                            <div class="meta-object" data-ng-bind="x.MetaObject"></div>
+                          </div>    
                         </div>
-                    <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11 pr-0">
-                        <div class="message" data-ng-bind="x.Code + ' - ' + x.Message"></div>
-                        <div class="meta-object" data-ng-bind="x.MetaObject"></div>
-                      </div>    
                     </div>
                 </div>
             </div>
-        </div>
-    </div> 
-</div>
+        </div> 
+    </div>

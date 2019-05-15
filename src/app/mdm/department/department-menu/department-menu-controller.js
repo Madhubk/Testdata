@@ -4,9 +4,9 @@
         .module("Application")
         .controller("DepartmentMenuController", DepartmentMenuController);
 
-    DepartmentMenuController.$inject = ["$scope", "$timeout", "APP_CONSTANT", "apiService", "departmentConfig", "authService", "helperService", "toastr"];
+    DepartmentMenuController.$inject = ["apiService", "departmentConfig", "authService", "helperService", "toastr"];
 
-    function DepartmentMenuController($scope, $timeout, APP_CONSTANT, apiService, departmentConfig, authService, helperService, toastr) {
+    function DepartmentMenuController(apiService, departmentConfig, authService, helperService, toastr) {
         var DepartmentMenuCtrl = this;
 
         function Init() {
@@ -75,7 +75,6 @@
                         } else if (_input.Desc.length > 75) {
                             toastr.error("Department name is accept max 75 character only!.");
                         } else {
-                            console.log("Save");
                             Save($item);
                         }
                     }
@@ -152,13 +151,48 @@
         }
 
         function Deactivate($item) {
+            var _Data = $item[$item.code].ePage.Entities,
+                _input = _Data.Header.Data;
+
             if ($item.isNew) {
-                toastr.error("New department should not deactivate.");
+                toastr.error("New department record should not deactivate.");
             }
             else {
-                DepartmentMenuCtrl.ePage.Masters.DisableDeactivate = true;
-                DepartmentMenuCtrl.ePage.Masters.DisableActivate = false;
-                /* DepartmentMenuCtrl.ePage.Entities.Header.Data.IsActive = false; */
+                var _filter = {
+                    "Deppk": _input.PK,
+                };
+                var _input = {
+                    "searchInput": helperService.createToArrayOfObject(_filter),
+                    "FilterID": departmentConfig.Entities.API.AccMastersValidate.API.FindAll.FilterID
+                };
+                apiService.post("eAxisAPI", departmentConfig.Entities.API.AccMastersValidate.API.FindAll.Url, _input).then(function (response) {
+                    if (response.data.Response.length > 0) {
+                        DepartmentMenuCtrl.ePage.Masters.UIDeactDepartmentList = response.data.Response;
+
+                        var _isDeactivate = DepartmentMenuCtrl.ePage.Masters.UIDeactDepartmentList.some(function (value, key) {
+                            if (value.JOBStatus != "CLS") {
+                                return true;
+                            }
+                            else {
+                                return false;
+                            }
+                        });
+
+                        if (_isDeactivate) {
+                            toastr.error("Some open transactions are there in system so can't Deactivate the Department");
+                        }
+                        else {
+                            DepartmentMenuCtrl.ePage.Masters.DisableDeactivate = true;
+                            DepartmentMenuCtrl.ePage.Masters.DisableActivate = false;
+                            DepartmentMenuCtrl.ePage.Entities.Header.Data.IsActive = false;
+                        }
+                    }
+                    else if (response.data.Response.length == 0) {
+                        DepartmentMenuCtrl.ePage.Masters.DisableDeactivate = true;
+                        DepartmentMenuCtrl.ePage.Masters.DisableActivate = false;
+                        DepartmentMenuCtrl.ePage.Entities.Header.Data.IsActive = false;
+                    }
+                });
             }
         }
         //#endregion
