@@ -37,7 +37,7 @@
             ChargecodeCtrl.ePage.Masters.AddTab = AddTab;
             ChargecodeCtrl.ePage.Masters.RemoveTab = RemoveTab;
             ChargecodeCtrl.ePage.Masters.CreateNewChargecode = CreateNewChargecode;
-
+        
             /* ErrorWarningConfig */
             ChargecodeCtrl.ePage.Masters.Config = chargecodeConfig;
             ChargecodeCtrl.ePage.Masters.ErrorWarningConfig = errorWarningService;

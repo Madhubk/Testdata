@@ -34,6 +34,17 @@
                                 "Url": "CmpDepartment/CmpDepartmentActivityClose/"
                             }
                         }
+                    },
+                    "AccMastersValidate":{
+                        "RowIndex": -1,
+                        "API": {
+                            "FindAll": {
+                                "IsAPI": "true",
+                                "HttpType": "GET",
+                                "Url": "AccMastersValidate/FindAll",
+                                "FilterID":"ACCMSTVALID"
+                            },  
+                        }
                     }
                 }
             },

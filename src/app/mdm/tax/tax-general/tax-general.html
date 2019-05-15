@@ -151,7 +151,8 @@
                                     </div>
                                     <div data-ng-if="$index==TaxGeneralCtrl.ePage.Masters.selectedRow">
                                         <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0 height-22">
-                                            <input type="text" class="form-control input-sm" placeholder="Tax Sub Code" data-ng-model="x.Code" data-ng-disabled="TaxGeneralCtrl.ePage.Masters.TaxHierarchyContent" />
+                                            <input type="text" class="form-control input-sm" placeholder="Tax Sub Code" data-ng-model="x.Code" 
+                                                data-ng-change="TaxGeneralCtrl.ePage.Masters.OnChangeValidations(x.Code, 'E1212', true, $index)" data-ng-disabled="TaxGeneralCtrl.ePage.Masters.TaxHierarchyContent" />
                                         </div>
                                         <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="TaxGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIAccTaxRateDetails.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':1">
                                             <error-warning-directive  list="TaxGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIAccTaxRateDetails.ERROR"
@@ -169,7 +170,8 @@
                                     </div>
                                     <div data-ng-if="$index==TaxGeneralCtrl.ePage.Masters.selectedRow">
                                         <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0 height-22">
-                                            <input type="text" class="form-control input-sm" placeholder="Tax Sub Code Rate" data-ng-model="x.Rate" data-ng-disabled="TaxGeneralCtrl.ePage.Masters.TaxHierarchyContent" numbers-only-dot sb-precision="2" />
+                                            <input type="text" class="form-control input-sm" placeholder="Tax Sub Code Rate" data-ng-model="x.Rate" data-ng-disabled="TaxGeneralCtrl.ePage.Masters.TaxHierarchyContent" 
+                                                data-ng-change="TaxGeneralCtrl.ePage.Masters.OnChangeValidations(x.Rate, 'E1213', true, $index)" numbers-only-dot sb-precision="2" />
                                         </div>
                                         <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="TaxGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIAccTaxRateDetails.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':2">
                                             <error-warning-directive  list="TaxGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIAccTaxRateDetails.ERROR"
