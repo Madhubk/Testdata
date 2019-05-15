@@ -65,11 +65,8 @@
                 companyConfig.AddCompany(currentCompany, isNew).then(function(response) {
                     CompanyCtrl.ePage.Masters.TabList = response;
                     $timeout(function() {
-                        CompanyCtrl.ePage.Masters.activeTabIndex = CompanyCtrl.ePage.Masters.TabList.length;
-                        // if(currentCompany.entity.Code == null){
-                        //     //currentCompany.entity.Code="";
-                        // }
-                        CompanyCtrl.ePage.Masters.CurrentActiveTab(currentCompany.entity.Code);
+                        CompanyCtrl.ePage.Masters.activeTabIndex = CompanyCtrl.ePage.Masters.TabList.length;                        
+                        //CompanyCtrl.ePage.Masters.CurrentActiveTab(currentCompany.entity.UICmpCompany.Code);
                         CompanyCtrl.ePage.Masters.IsTabClick = false;
                     });
                 });
