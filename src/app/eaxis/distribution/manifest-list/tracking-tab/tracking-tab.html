@@ -1,0 +1,16 @@
+<uib-tabset id="trackingTab" active="TrackingTabCtrl.ePage.Masters.ActiveTabIndex">
+    <!--General Tab-->
+    <uib-tab data-ng-repeat="x in TrackingTabCtrl.ePage.Masters.ListSource | orderBy: 'DisplayOrder'">
+        <uib-tab-heading title="{{x.Description}}">
+            <i class="{{x.Icon.icon}}"></i>
+            <span class="text-single-line" data-ng-bind="x.Description"></span>
+        </uib-tab-heading>
+        <div>
+            <div data-ng-switch="x.MenuName">
+                <!--Menu directives-->
+                <div ng-switch-when="Status" tracking-status current-manifest="TrackingTabCtrl.currentManifest"></div>
+                <div ng-switch-when="Map" tracking current-manifest="TrackingTabCtrl.currentManifest"></div>
+            </div>
+        </div>
+    </uib-tab>
+</uib-tabset>

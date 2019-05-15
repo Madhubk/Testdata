@@ -10,7 +10,7 @@
             function BranchConfig($location, $q, apiService, helperService, $rootScope) {
                 var exports = {
                     "Entities": {
-                        "BranchHeader": {
+                        "Header": {
                             "RowIndex": -1,
                             "API": {
                                 "FindConfig": {
@@ -49,7 +49,7 @@
                     var deferred = $q.defer();
                     var _exports = {
                         "Entities": {
-                            "BranchHeader": {
+                            "Header": {
                                 "Data": {},
                                 "RowIndex": -1,
                                 "API": {
@@ -69,7 +69,7 @@
                     };
 
                     if (isNew) {
-                        _exports.Entities.BranchHeader.Data = currentBranch.data;
+                        _exports.Entities.Header.Data = currentBranch.data;
                         var obj = {
                             New: {
                                 ePage: _exports
@@ -82,8 +82,8 @@
                         deferred.resolve(exports.BranchList);
                     } else {
                         // Get Consolidation details and set to configuration list
-                        apiService.get("eAxisAPI", exports.Entities.BranchHeader.API.GetByID.Url + currentBranch.entity.PK).then(function(response) {
-                            _exports.Entities.BranchHeader.Data = response.data.Response;
+                        apiService.get("eAxisAPI", exports.Entities.Header.API.GetByID.Url + currentBranch.entity.PK).then(function(response) {
+                            _exports.Entities.Header.Data = response.data.Response;
                             var obj = {
                                 [currentBranch.entity.Code]: {
                                     ePage: _exports

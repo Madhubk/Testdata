@@ -298,7 +298,7 @@
                             PrepareGridInfo();
                         }
                     });
-                }, () => {});
+                }, () => { });
             }
         }
         // #endregion
@@ -492,7 +492,7 @@
                         toastr.console.error("Failed to Delete...!");
                     }
                 });
-            }, () => {});
+            }, () => { });
         }
 
         function UpdateUserFilter($item) {
@@ -737,7 +737,7 @@
                         DynamicListCtrl.ePage.Masters.Header.Schedule.ListSource.splice(_index, 1);
                     }
                 });
-            }, () => {});
+            }, () => { });
         }
 
         function GetScheduledList($item) {
@@ -759,7 +759,7 @@
         }
 
         function DeleteScheduledList($item) {
-            apiService.get("eAxisAPI", appConfig.Entities.DataConfigScheduler.API.Delete.Url + $item.PK).then(response => {});
+            apiService.get("eAxisAPI", appConfig.Entities.DataConfigScheduler.API.Delete.Url + $item.PK).then(response => { });
         }
 
         function ViewScheduleFilter($item) {
@@ -1183,7 +1183,7 @@
             DynamicListCtrl.ePage.Masters.DataEntry.FindConfig.Entities.map(value => value.Data = {});
             let _baseFilter = {};
             if (DynamicListCtrl.baseFilter) {
-                _baseFilter = DynamicListCtrl.baseFilter;
+                _baseFilter = angular.copy(DynamicListCtrl.baseFilter);
             }
             DynamicListCtrl.ePage.Masters.DataEntry.FindConfig.Entities.map(value => value.Data = _baseFilter);
         }

@@ -1,4 +1,4 @@
-<div class="clearfix padding-top-10">
+<div class="clearfix padding-top-10 wms-menu-wraper">
     <div class="clearfix">
         <!-- General -->
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-5">
@@ -12,9 +12,7 @@
                                 type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
                         </div>
                         <label class="control-label text-single-line ">Tax Code</label>
-                        <div class="">
-                            <input type="text" class="form-control input-sm" placeholder="Tax Code" data-ng-model="TaxGeneralCtrl.ePage.Entities.Header.Data.UIAccTaxRate.Code" data-ng-change='TaxGeneralCtrl.ePage.Masters.OnChangeValidations(TaxGeneralCtrl.ePage.Entities.Header.Data.UIAccTaxRate.Code,"E1207",false,undefined)'>
-                        </div>
+                        <input type="text" class="form-control input-sm" placeholder="Tax Code" data-ng-model="TaxGeneralCtrl.ePage.Entities.Header.Data.UIAccTaxRate.Code" data-ng-change='TaxGeneralCtrl.ePage.Masters.OnChangeValidations(TaxGeneralCtrl.ePage.Entities.Header.Data.UIAccTaxRate.Code,"E1207",false,undefined)'>
                     </div>
                  </div>
                  <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 mt-10">
@@ -56,28 +54,6 @@
                             <input type="text" class="form-control" placeholder="Tax" data-ng-model="TaxGeneralCtrl.ePage.Entities.Header.Data.UIAccTaxRate.RateObsolete" data-ng-change='TaxGeneralCtrl.ePage.Masters.OnChangeValidations(TaxGeneralCtrl.ePage.Entities.Header.Data.UIAccTaxRate.RateObsolete,"E1211",false,undefined)' numbers-only-dot sb-precision="2"/>
                     </div>
                 </div>
-                <!-- <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 mt-10" data-ng-if="TaxGeneralCtrl.ePage.Masters.TaxCategoryContent">
-                        <div class="error-warning-container">
-                            <error-warning-directive data-ng-if="TaxGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.RateObsolete.IsWarning && !TaxGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.RateObsolete.IsError"
-                                list="TaxGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.RateObsolete.WARNING" type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
-                            <error-warning-directive data-ng-if="TaxGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.RateObsolete.IsError" list="TaxGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.RateObsolete.ERROR"
-                                type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
-                        </div>
-                    <div class="form-group">
-                        <label class="control-label">Tax Category</label>
-                        <select class="form-control">
-                            <option value="">--Select--</option>
-                        </select>
-                    </div>   
-                </div>
-                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 mt-10" data-ng-if="TaxGeneralCtrl.ePage.Masters.TaxCategoryContent">
-                    <div class="form-group">
-                        <label class="control-label">Tax Type</label>
-                        <select class="form-control">
-                            <option value="">--Select--</option>
-                        </select>
-                    </div>
-                </div> -->
                 <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 mt-10">
                     <div class="form-group">
                         <div class="error-warning-container">

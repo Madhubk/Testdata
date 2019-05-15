@@ -80,7 +80,20 @@
                     'app/eaxis/distribution/manifest-list/tracking/tracking.controller.js',
                     'app/eaxis/distribution/manifest-list/tracking/tracking.directive.js'
                 ]
-            }, {
+            },{
+                name: 'trackingTab',
+                files: [
+                    'app/eaxis/distribution/manifest-list/tracking-tab/tracking-tab.controller.js',
+                    'app/eaxis/distribution/manifest-list/tracking-tab/tracking-tab.directive.js'
+                ]
+            },{
+                name: 'trackingStatus',
+                files: [
+                    'app/eaxis/distribution/manifest-list/tracking-status/tracking-status.controller.js',
+                    'app/eaxis/distribution/manifest-list/tracking-status/tracking-status.directive.js'
+                ]
+            }, 
+             {
                 name: 'dmsManifestGeneral',
                 files: [
                     'app/eaxis/distribution/manifest-list/manifest-general/manifest-general.css',

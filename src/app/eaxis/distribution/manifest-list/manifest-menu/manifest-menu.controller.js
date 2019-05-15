@@ -180,8 +180,8 @@
                     DMSManifestMenuCtrl.ePage.Masters.ConfirmDeliveryText = "Please Wait..";
                 }
                 var item = filterObjectUpdate(DMSManifestMenuCtrl.ePage.Entities.Header.Data, "IsModified");
-                apiService.post("eAxisAPI", DMSManifestMenuCtrl.ePage.Entities.Header.API.UpdateManifest.Url, DMSManifestMenuCtrl.ePage.Entities.Header.Data).then(function (response) {
-                    if (response.data.Response) {
+                apiService.post("eAxisAPI", DMSManifestMenuCtrl.ePage.Entities.Header.API.UpdateManifest.Url, DMSManifestMenuCtrl.ePage.Entities.Header.Data).then(function (response) {                    
+                    if (response.data.Response.Status == "Success") {
                         apiService.get("eAxisAPI", dmsManifestConfig.Entities.Header.API.GetByID.Url + response.data.Response.Response.PK).then(function (response) {
                             DMSManifestMenuCtrl.ePage.Entities.Header.Data = response.data.Response;
                             DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.IsDisableBtn = false;
@@ -244,6 +244,10 @@
                             DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.IsLoadingToSave = false;
                         });
                     } else {
+                        console.log("-----Input-----");
+                        console.log(DMSManifestMenuCtrl.ePage.Entities.Header.Data);
+                        console.log("-----Response-----");
+                        console.log(response.data);
                         DMSManifestMenuCtrl.ePage.Masters.Confirm = false;
                         DMSManifestMenuCtrl.ePage.Masters.Reject = false;
                         DMSManifestMenuCtrl.ePage.Masters.Approve = false;
@@ -358,8 +362,8 @@
                 }
                 DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.IsLoadingToSave = true;
                 var item = filterObjectUpdate(DMSManifestMenuCtrl.ePage.Entities.Header.Data, "IsModified");
-                apiService.post("eAxisAPI", DMSManifestMenuCtrl.ePage.Entities.Header.API.UpdateManifest.Url, DMSManifestMenuCtrl.ePage.Entities.Header.Data).then(function (response) {
-                    if (response.data.Response) {
+                apiService.post("eAxisAPI", DMSManifestMenuCtrl.ePage.Entities.Header.API.UpdateManifest.Url, DMSManifestMenuCtrl.ePage.Entities.Header.Data).then(function (response) {                    
+                    if (response.data.Response.Status == "Success") {
                         apiService.get("eAxisAPI", dmsManifestConfig.Entities.Header.API.GetByID.Url + response.data.Response.Response.PK).then(function (response) {
                             DMSManifestMenuCtrl.ePage.Entities.Header.Data = response.data.Response;
                             DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.IsDisableBtn = false;
@@ -409,6 +413,11 @@
 
                         });
                     } else {
+                        console.log("-----Input-----");
+                        console.log(DMSManifestMenuCtrl.ePage.Entities.Header.Data);
+                        console.log("-----Response-----");
+                        console.log(response.data);
+
                         DMSManifestMenuCtrl.ePage.Masters.ConfirmDockText = "Confirm Dock";
                         DMSManifestMenuCtrl.ePage.Masters.StartLoadText = "Start Load";
                         DMSManifestMenuCtrl.ePage.Masters.CompleteLoadText = "Complete Load";

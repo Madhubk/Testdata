@@ -7,7 +7,10 @@
 
 <branch-details current-branch="BranchMenuCtrl.currentBranch"></branch-details>
 <div class="eaxis-footer-strip">
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+    <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10">
+            <standard-menu dataentry-object="BranchMenuCtrl.dataentryObject" mode="1" input="BranchMenuCtrl.currentBranch" ng-if="!BranchMenuCtrl.currentBranch.isNew"></standard-menu>
+    </div>
+    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
         <span class="dropup pull-right">
             <span class="pull-right">
                 <button type="button" class="btn btn-primary btn-sm margin-top-5" data-ng-bind="BranchMenuCtrl.ePage.Masters.SaveButtonText"

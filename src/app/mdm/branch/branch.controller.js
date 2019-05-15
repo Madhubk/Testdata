@@ -89,9 +89,9 @@
             });
 
             if (!_isExist) {
-                BranchCtrl.ePage.Entities.BranchHeader.Message = false;
+                BranchCtrl.ePage.Entities.Header.Message = false;
                 BranchCtrl.ePage.Masters.isNewClicked = true;
-                helperService.getFullObjectUsingGetById(BranchCtrl.ePage.Entities.BranchHeader.API.GetByID.Url, 'null').then(function (response) {
+                helperService.getFullObjectUsingGetById(BranchCtrl.ePage.Entities.Header.API.GetByID.Url, 'null').then(function (response) {
                     if (response.data.Response) {
                         var _obj = {
                             entity: response.data.Response,
@@ -113,7 +113,7 @@
             BranchCtrl.ePage.Masters.SaveButtonText = "Please Wait...";
             BranchCtrl.ePage.Masters.IsDisableSave = true;
             var _BranchData = currentBranch[currentBranch.label].ePage.Entities;
-            var _input = _BranchData.BranchHeader.Data,
+            var _input = _BranchData.Header.Data,
                 _api;
             if (currentBranch.isNew) {
                 _input = filterObject(_input, "PK");

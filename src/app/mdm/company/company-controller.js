@@ -57,7 +57,7 @@
                 CompanyCtrl.ePage.Masters.IsTabClick = true;
                 var _currentCompany = undefined;
                 if (!isNew) {
-                    _currentCompany = _currentCompany.entity;
+                    _currentCompany = isNew.entity;
                 } else {
                     _currentCompany = currentCompany;
                 }
@@ -92,9 +92,9 @@
             });
 
             if (!_isExist) {
-                CompanyCtrl.ePage.Entities.CompanyHeader.Message = false;
+                CompanyCtrl.ePage.Entities.Header.Message = false;
                 CompanyCtrl.ePage.Masters.isNewClicked = true;
-                helperService.getFullObjectUsingGetById(CompanyCtrl.ePage.Entities.CompanyHeader.API.GetByID.Url, 'null').then(function (response) {
+                helperService.getFullObjectUsingGetById(CompanyCtrl.ePage.Entities.Header.API.GetByID.Url, 'null').then(function (response) {
                     if (response.data.Response) {
                         var _obj = {
                             entity: response.data.Response,
@@ -117,7 +117,7 @@
             CompanyCtrl.ePage.Masters.SaveButtonText = "Please Wait...";
             CompanyCtrl.ePage.Masters.IsDisableSave = true;
             var _CompData = currentCompany[currentCompany.label].ePage.Entities;
-            var _input = _CompData.CompanyHeader.Data,
+            var _input = _CompData.Header.Data,
                 _api;
             if (currentCompany.isNew) {
                 _input = filterObject(_input, "PK");

@@ -367,7 +367,7 @@
                         "FilterID": RoutePlanningCtrl.ePage.Entities.Header.API.OrgAddress.FilterID
                     };
                     apiService.post("eAxisAPI", RoutePlanningCtrl.ePage.Entities.Header.API.OrgAddress.Url, _input).then(function (response) {
-                        if (response.data.Response) {                            
+                        if (response.data.Response) {
                             RoutePlanningCtrl.ePage.Masters.OrgAddress = response.data.Response;
                             angular.forEach(response.data.Response, function (value, key) {
                                 angular.forEach(value.AddressCapability, function (value1, key1) {
@@ -385,7 +385,7 @@
                             RoutePlanningCtrl.ePage.Masters.MainAddress.Latitude = value.Latitude;
                             RoutePlanningCtrl.ePage.Masters.MainAddress.Longitude = value.Longtitude;
                             RoutePlanningCtrl.ePage.Masters.MainAddress.IsModified = true;
-                           
+
                             apiService.post("eAxisAPI", dmsManifestConfig.Entities.Header.API.UpdateOrgAddress.Url, RoutePlanningCtrl.ePage.Masters.MainAddress).then(function (response) {
                                 if (response.data.Response) {
                                     RoutePlanningCtrl.ePage.Masters.AddressData = response.data.Response;
@@ -396,12 +396,17 @@
                 }
             });
             var item = filterObjectUpdate(RoutePlanningCtrl.ePage.Entities.Header.Data, "IsModified");
-            apiService.post("eAxisAPI", RoutePlanningCtrl.ePage.Entities.Header.API.UpdateManifest.Url, RoutePlanningCtrl.ePage.Entities.Header.Data).then(function (response) {
-                if (response.data.Response) {
+            apiService.post("eAxisAPI", RoutePlanningCtrl.ePage.Entities.Header.API.UpdateManifest.Url, RoutePlanningCtrl.ePage.Entities.Header.Data).then(function (response) {                
+                if (response.data.Response.Status == "Success") {
                     apiService.get("eAxisAPI", dmsManifestConfig.Entities.Header.API.GetByID.Url + response.data.Response.Response.PK).then(function (response) {
                         RoutePlanningCtrl.ePage.Entities.Header.Data = response.data.Response;
                         toastr.success("Saved Successfully");
                     });
+                } else {
+                    console.log("-----Input-----");
+                    console.log(RoutePlanningCtrl.ePage.Entities.Header.Data);
+                    console.log("-----Response-----");
+                    console.log(response.data);
                 }
             });
 
