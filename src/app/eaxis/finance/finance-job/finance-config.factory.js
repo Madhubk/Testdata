@@ -132,13 +132,16 @@
                         },
                         "GlobalVariables": {
                             "SelectAll": false,
-                            "IsDisablePost": true
+                            "IsDisablePost": true,
+                            "IsDisableBookCost": true,
+                            "NonEditable": false,
+
                         },
                         "TableProperties": {
                             "UIExchangeRate": {
                                 "TableHeight": {
                                     "isEnabled": true,
-                                    "height": 240
+                                    "height": 228
                                 },
                                 "ercurrency": {
                                     "width": "100"
@@ -739,15 +742,16 @@
                 _input = _Data.Header.Data;
 
             angular.forEach(_input.UIJobCharge, function (value, key) {
-                value.DuplicateEstimatedCost = value.EstimatedCost;
-                DotArea(key, value.EstimatedCost.toString(), 'DuplicateEstimatedCost', 'EstimatedCost', $item);
+                if (_input.UIJobCharge[key].ChargeType != "REV") {
+                    value.DuplicateEstimatedCost = value.EstimatedCost;
+                    DotArea(key, value.EstimatedCost.toString(), 'DuplicateEstimatedCost', 'EstimatedCost', $item);
 
-                value.DuplicateOSCostAmt = value.OSCostAmt;
-                DotArea(key, value.OSCostAmt.toString(), 'DuplicateOSCostAmt', 'OSCostAmt', $item);
+                    value.DuplicateOSCostAmt = value.OSCostAmt;
+                    DotArea(key, value.OSCostAmt.toString(), 'DuplicateOSCostAmt', 'OSCostAmt', $item);
 
-                value.DuplicateLocalCostAmt = value.LocalCostAmt;
-                DotArea(key, value.LocalCostAmt.toString(), 'DuplicateLocalCostAmt', 'LocalCostAmt', $item);
-
+                    value.DuplicateLocalCostAmt = value.LocalCostAmt;
+                    DotArea(key, value.LocalCostAmt.toString(), 'DuplicateLocalCostAmt', 'LocalCostAmt', $item);
+                }
                 value.DuplicateEstimatedRevenue = value.EstimatedRevenue;
                 DotArea(key, value.EstimatedRevenue.toString(), 'DuplicateEstimatedRevenue', 'EstimatedRevenue', $item);
 
