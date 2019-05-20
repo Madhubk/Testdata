@@ -53,6 +53,11 @@
                                 "HttpType": "Post",
                                 "Url": "JobExchangeRates/FindAll",
                                 "FilterID": "JOBEXCH"
+                            },
+                            "Delete": {
+                                "IsAPI": "true",
+                                "HttpType": "Get",
+                                "Url": "JobExchangeRates/Delete/"
                             }
                         }
                     },
