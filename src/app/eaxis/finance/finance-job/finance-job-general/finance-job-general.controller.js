@@ -20,6 +20,8 @@
                 "Entities": currentFinanceJob
             };
 
+            console.log("UI", FinanceJobGeneralCtrl.ePage);
+
             FinanceJobGeneralCtrl.ePage.Masters.DropDownMasterList = {};
             FinanceJobGeneralCtrl.ePage.Masters.UIJobDisabled = {};
 
@@ -85,15 +87,10 @@
 
         //#region InitFinaceJob
         function InitBindFinanceJob() {
+            debugger;
             if (FinanceJobGeneralCtrl.currentFinanceJob.isNew) {
                 FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.JobOpenDate = new Date();
-            } else {
-                FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.LocalClient = FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.LocalOrg_Code + '-' + FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.LocalOrg_Name;
-                FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.OverseasAgent = FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.AgentOrg_Code + '-' + FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.AgentOrg_Name;
-                FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.Company = FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.CompanyCode + ' - ' + FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.CompanyName;
-                FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.Branch = FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.BranchCode + ' - ' + FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.BranchName;
-                FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.Department = FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.DeptCode + ' - ' + FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.DeptName;
-            }
+            } 
         }
         //#endregion
 
@@ -129,7 +126,7 @@
 
         //#region GetNewLocalClientAddress, GetNewOverseasAgentAddress
 
-        function GetNewLocalClientAddress(){
+        function GetNewLocalClientAddress() {
             var myvalue = FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobAddress.some(function (value, key) {
                 return value.AddressType == "LOC";
             });
@@ -154,7 +151,7 @@
             }
         }
 
-        function GetNewOverseasAgentAddress(){
+        function GetNewOverseasAgentAddress() {
             var myvalue = FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobAddress.some(function (value, key) {
                 return value.AddressType == "OSA";
             });
@@ -182,6 +179,7 @@
 
         //#region SelectedLookupData
         function SelectedLookupData($index, $item, type) {
+            debugger;
             if ($item) {
                 if (type == 'Local') {
                     OnChangeValidation($item.Code, 'E1300');

@@ -766,7 +766,17 @@
                 value.DuplicateLocalSellAmt = value.LocalSellAmt;
                 DotArea(key, value.LocalSellAmt.toString(), 'DuplicateLocalSellAmt', 'LocalSellAmt', $item);
             });
+
+            debugger;
+            if(!$item.isNew){
+                _input.UIJobHeader.LocalClient = _input.UIJobHeader.LocalOrg_Code + '-' + _input.UIJobHeader.LocalOrg_Name;
+                _input.UIJobHeader.OverseasAgent = _input.UIJobHeader.AgentOrg_Code + '-' + _input.UIJobHeader.AgentOrg_Name;
+                _input.UIJobHeader.Company = _input.UIJobHeader.CompanyCode + ' - ' + _input.UIJobHeader.CompanyName;
+                _input.UIJobHeader.Branch = _input.UIJobHeader.BranchCode + ' - ' + _input.UIJobHeader.BranchName;
+                _input.UIJobHeader.Department = _input.UIJobHeader.DeptCode + ' - ' + _input.UIJobHeader.DeptName;
+            }
         }
+
         function DotArea($index, Amt, duplicatetype, originaltype, $item) {
             if (Amt) {
                 var _Data = $item[$item.code].ePage.Entities,
