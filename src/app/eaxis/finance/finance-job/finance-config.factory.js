@@ -126,11 +126,11 @@
                             "Language": helperService.metaBase(),
                             "ErrorWarning": {
                                 "GlobalErrorWarningList": [],
-                                "LocalOrg_Code": helperService.metaBase(),
-                                "AgentOrg_Code": helperService.metaBase(),
-                                "CompanyCode": helperService.metaBase(),
-                                "BranchCode": helperService.metaBase(),
-                                "DeptCode": helperService.metaBase(),
+                                "LocalClient": helperService.metaBase(),
+                                "OverseasAgent": helperService.metaBase(),
+                                "Company": helperService.metaBase(),
+                                "Branch": helperService.metaBase(),
+                                "Department": helperService.metaBase(),
                                 "Status": helperService.metaBase(),
                                 "UIJobCharge": helperService.metaBase()
                             }
@@ -483,11 +483,11 @@
                 _input = _Data.Header.Data;
 
             //UIJobHeader Validations 
-            OnChangeValues(_input.UIJobHeader.LocalOrg_Code, 'E1300', false, undefined, $item.code);
-            OnChangeValues(_input.UIJobHeader.AgentOrg_Code, 'E1301', false, undefined, $item.code);
-            OnChangeValues(_input.UIJobHeader.CompanyCode, 'E1323', false, undefined, $item.code);
-            OnChangeValues(_input.UIJobHeader.BranchCode, 'E1302', false, undefined, $item.code);
-            OnChangeValues(_input.UIJobHeader.DeptCode, 'E1303', false, undefined, $item.code);
+            OnChangeValues(_input.UIJobHeader.LocalClient, 'E1300', false, undefined, $item.code);
+            OnChangeValues(_input.UIJobHeader.OverseasAgent, 'E1301', false, undefined, $item.code);
+            OnChangeValues(_input.UIJobHeader.Company, 'E1323', false, undefined, $item.code);
+            OnChangeValues(_input.UIJobHeader.Branch, 'E1302', false, undefined, $item.code);
+            OnChangeValues(_input.UIJobHeader.Department, 'E1303', false, undefined, $item.code);
             OnChangeValues(_input.UIJobHeader.Status, 'E1304', false, undefined, $item.code);
 
             //UIJobcharge Validations
