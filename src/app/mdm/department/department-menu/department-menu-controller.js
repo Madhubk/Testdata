@@ -32,6 +32,15 @@
             DepartmentMenuCtrl.ePage.Masters.Validation = Validation;
             DepartmentMenuCtrl.ePage.Masters.Activate = Activate;
             DepartmentMenuCtrl.ePage.Masters.Deactivate = Deactivate;
+
+            InitActDeact();
+        }
+
+        function InitActDeact(){
+            if(!CurrencyMenuCtrl.currentCurrency.isNew && !CurrencyMenuCtrl.ePage.Entities.Header.Data.IsActive){
+                CurrencyMenuCtrl.ePage.Masters.DisableActivate = false;
+                CurrencyMenuCtrl.ePage.Masters.DisableDeactivate = true;
+            }
         }
 
         //#region  Validation

@@ -216,19 +216,19 @@
             };
             if (isNew) {
                 _exports.Entities.Header.Data = currentCompany.data;
-                if(currentCompany.entity.Code==null){
-                    currentCompany.entity.Code="";
+                if (currentCompany.entity.UICmpCompany.Code == null) {
+                    var obj = {
+                        New: {
+                            ePage: _exports
+                        },
+                        label: 'New',
+                        code: "",
+                        isNew: isNew
+                    };
+                    exports.TabList.push(obj);
+                    deferred.resolve(exports.TabList);
                 }
-                var obj = {
-                    New: {
-                        ePage: _exports
-                    },
-                    label: 'New',
-                    code: currentCompany.entity.Code,
-                    isNew: isNew
-                };
-                exports.TabList.push(obj);
-                deferred.resolve(exports.TabList);
+                
             } else {
 
                 // Get Consolidation details and set to configuration list

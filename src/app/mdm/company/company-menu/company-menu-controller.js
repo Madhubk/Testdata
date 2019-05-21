@@ -90,12 +90,20 @@
                 _input.UICmpCompany.Source = "ERP";
                 _input.UICmpCompany.TenantCode = "20CUB";
                 _input.UICmpCompany.IsActive = true;
-                //_input.UICurrencyUplift.CreatedBy
-                //_input.UICurrencyUplift.CreatedDate
-                //_input.UICurrencyUplift.ModifiedBy
-                //_input.UICurrencyUplift.IsModified
+                _input.UICmpCompany.PK=_Data.Header.Data.PK;
+                _input.UICmpCompany.CompanyFK =""
+                // _input.UICurrencyUplift.CreatedBy=authService.getUserInfo().UserId;
+                // _input.UICurrencyUplift.CreatedDate=new Date();
+                // _input.UICurrencyUplift.ModifiedBy="";
+                // _input.UICurrencyUplift.ModifiedDate="";
+                // _input.UICurrencyUplift.IsModified=false;
             } else {
                 $item = filterObjectUpdate($item, "IsModified");
+                if ($item[$item.label].ePage.Entities.Header.Data.UICurrencyUplift.length > 0) {
+                    $item[$item.label].ePage.Entities.Header.Data.UICurrencyUplift.map(function (value, key) {
+                        (value.PK) ? value.IsModified = true : value.IsModified = false;
+                    });
+                }
             }
 
             helperService.SaveEntity($item, 'Company').then(function (response) {

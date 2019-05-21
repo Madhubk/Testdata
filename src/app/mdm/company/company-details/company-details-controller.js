@@ -82,7 +82,12 @@
                 "ModeOfTransport": "",
                 "Currency": "",
                 "CfxPercentage": "",
-                "CfxMin": "",                         
+                "CfxMin": "",  
+                "CompanyFK":CompanyDetailsCtrl.ePage.Entities.Header.Data.UICmpCompany.PK,
+                "CreatedBy": authService.getUserInfo().UserId,
+                "ModifiedBy": "",                
+                "IsModified": false,
+                "IsDeleted": false,
                 "LineNo": CompanyDetailsCtrl.ePage.Entities.Header.Data.UICurrencyUplift.length + 1
             };
 
@@ -226,9 +231,10 @@
             );
         }
 
-        function SelectedLookupData($index, $item){
-            debugger;
+        function SelectedLookupData($index, $item,type){
+            if($item){
 
+            }
         }
 
         Init();
