@@ -38,7 +38,7 @@
             DeliveryRequestToolbarCtrl.ePage.Masters.IsCreateDeliveryBtn = false;
 
             DeliveryRequestToolbarCtrl.ePage.Masters.CreateDelivery = CreateDelivery;
-            InitAction();
+            // InitAction();
         }
 
         function InitAction() {
@@ -60,120 +60,136 @@
         }
         // #region - Creating Re-Delivery
         function CreateDelivery() {
-            if (DeliveryRequestToolbarCtrl.ePage.Masters.CancelledDeliveryCount > 0) {
-                var TempWarehouse = DeliveryRequestToolbarCtrl.ePage.Masters.CancelledDeliveryList[0].WarehouseCode;
-                var TempConsignee = DeliveryRequestToolbarCtrl.ePage.Masters.CancelledDeliveryList[0].ConsigneeCode;
-                var TempClient = DeliveryRequestToolbarCtrl.ePage.Masters.CancelledDeliveryList[0].ClientCode;
-                var count = 0;
-                // check whether the selected warehouse, client and consignee same or not
-                angular.forEach(DeliveryRequestToolbarCtrl.ePage.Masters.CancelledDeliveryList, function (value, key) {
-                    if ((TempWarehouse == value.WarehouseCode) && (TempConsignee == value.ConsigneeCode) && (TempClient == value.ClientCode)) {
-                        count = count + 1;
-                    }
-                });
-                if (count == DeliveryRequestToolbarCtrl.ePage.Masters.CancelledDeliveryList.length) {
-                    DeliveryRequestToolbarCtrl.ePage.Masters.IsCreateDeliveryBtn = true;
-                    DeliveryRequestToolbarCtrl.ePage.Masters.CreateDeliveryBtnText = "Please Wait...";
-                    if (DeliveryRequestToolbarCtrl.ePage.Masters.CancelledDeliveryList[0].DeliveryRequest_FK) {
-                        apiService.get("eAxisAPI", appConfig.Entities.WmsDeliveryList.API.GetById.Url + DeliveryRequestToolbarCtrl.ePage.Masters.CancelledDeliveryList[0].DeliveryRequest_FK).then(function (response) {
-                            if (response.data.Response) {
-                                DeliveryRequestToolbarCtrl.ePage.Masters.DeliveryData = response.data.Response;
-                                ReadyToCreateReDelivery();
-                            }
-                        });
-                    } else {
-                        // if the delivery header not available, get the address of warehouse and consignee from address findall
-                        // get Consignee Job address
-                        DeliveryRequestToolbarCtrl.ePage.Masters.DeliveryData = {};
-                        DeliveryRequestToolbarCtrl.ePage.Masters.DeliveryData.UIJobAddress = [];
-                        var _filter = {
-                            "ORG_FK": DeliveryRequestToolbarCtrl.ePage.Masters.CancelledDeliveryList[0].Consignee_FK
-                        };
-                        var _input = {
-                            "searchInput": helperService.createToArrayOfObject(_filter),
-                            "FilterID": appConfig.Entities.OrgAddress.API.FindAll.FilterID
-                        };
-                        apiService.post("eAxisAPI", appConfig.Entities.OrgAddress.API.FindAll.Url, _input).then(function (response) {
-                            if (response.data.Response) {
-                                angular.forEach(response.data.Response, function (value, key) {
-                                    angular.forEach(value.AddressCapability, function (value1, key1) {
-                                        if (value1.IsMainAddress) {
-                                            var SenderMainAddress = value;
-                                            var obj = {
-                                                AddressType: "SUD",
-                                                ORG_FK: SenderMainAddress.ORG_FK,
-                                                OAD_Address_FK: SenderMainAddress.PK,
-                                                Address1: SenderMainAddress.Address1,
-                                                Address2: SenderMainAddress.Address2,
-                                                State: SenderMainAddress.State,
-                                                Postcode: SenderMainAddress.PostCode,
-                                                City: SenderMainAddress.City,
-                                                Email: SenderMainAddress.Email,
-                                                Mobile: SenderMainAddress.Mobile,
-                                                Phone: SenderMainAddress.Phone,
-                                                RN_NKCountryCode: SenderMainAddress.CountryCode,
-                                                Fax: SenderMainAddress.Fax
+            DeliveryRequestToolbarCtrl.ePage.Masters.CancelledDeliveryList = [];
+            DeliveryRequestToolbarCtrl.ePage.Masters.CancelledDeliveryCount = 0;
+            DeliveryRequestToolbarCtrl.ePage.Masters.OtherCount = 0
+            angular.forEach(DeliveryRequestToolbarCtrl.ePage.Masters.Input, function (value, key) {
+                if (value.DeliveryLineStatus == "Cancelled") {
+                    DeliveryRequestToolbarCtrl.ePage.Masters.CancelledDeliveryCount = DeliveryRequestToolbarCtrl.ePage.Masters.CancelledDeliveryCount + 1;
+                    DeliveryRequestToolbarCtrl.ePage.Masters.CancelledDeliveryList.push(value);
+                } else {
+                    DeliveryRequestToolbarCtrl.ePage.Masters.OtherCount = DeliveryRequestToolbarCtrl.ePage.Masters.OtherCount + 1;
+                }
+            });
+            if (DeliveryRequestToolbarCtrl.ePage.Masters.OtherCount > 0) {
+                DeliveryRequestToolbarCtrl.ePage.Masters.IsCreateDeliveryBtn = true;
+                toastr.warning("Re-Delivery Request can be created when the Delivery Status is in Cancelled.");
+            } else {
+                if (DeliveryRequestToolbarCtrl.ePage.Masters.CancelledDeliveryCount > 0) {
+                    var TempWarehouse = DeliveryRequestToolbarCtrl.ePage.Masters.CancelledDeliveryList[0].WarehouseCode;
+                    var TempConsignee = DeliveryRequestToolbarCtrl.ePage.Masters.CancelledDeliveryList[0].ConsigneeCode;
+                    var TempClient = DeliveryRequestToolbarCtrl.ePage.Masters.CancelledDeliveryList[0].ClientCode;
+                    var count = 0;
+                    // check whether the selected warehouse, client and consignee same or not
+                    angular.forEach(DeliveryRequestToolbarCtrl.ePage.Masters.CancelledDeliveryList, function (value, key) {
+                        if ((TempWarehouse == value.WarehouseCode) && (TempConsignee == value.ConsigneeCode) && (TempClient == value.ClientCode)) {
+                            count = count + 1;
+                        }
+                    });
+                    if (count == DeliveryRequestToolbarCtrl.ePage.Masters.CancelledDeliveryList.length) {
+                        DeliveryRequestToolbarCtrl.ePage.Masters.IsCreateDeliveryBtn = true;
+                        DeliveryRequestToolbarCtrl.ePage.Masters.CreateDeliveryBtnText = "Please Wait...";
+                        if (DeliveryRequestToolbarCtrl.ePage.Masters.CancelledDeliveryList[0].DeliveryRequest_FK) {
+                            apiService.get("eAxisAPI", appConfig.Entities.WmsDeliveryList.API.GetById.Url + DeliveryRequestToolbarCtrl.ePage.Masters.CancelledDeliveryList[0].DeliveryRequest_FK).then(function (response) {
+                                if (response.data.Response) {
+                                    DeliveryRequestToolbarCtrl.ePage.Masters.DeliveryData = response.data.Response;
+                                    ReadyToCreateReDelivery();
+                                }
+                            });
+                        } else {
+                            // if the delivery header not available, get the address of warehouse and consignee from address findall
+                            // get Consignee Job address
+                            DeliveryRequestToolbarCtrl.ePage.Masters.DeliveryData = {};
+                            DeliveryRequestToolbarCtrl.ePage.Masters.DeliveryData.UIJobAddress = [];
+                            var _filter = {
+                                "ORG_FK": DeliveryRequestToolbarCtrl.ePage.Masters.CancelledDeliveryList[0].Consignee_FK
+                            };
+                            var _input = {
+                                "searchInput": helperService.createToArrayOfObject(_filter),
+                                "FilterID": appConfig.Entities.OrgAddress.API.FindAll.FilterID
+                            };
+                            apiService.post("eAxisAPI", appConfig.Entities.OrgAddress.API.FindAll.Url, _input).then(function (response) {
+                                if (response.data.Response) {
+                                    angular.forEach(response.data.Response, function (value, key) {
+                                        angular.forEach(value.AddressCapability, function (value1, key1) {
+                                            if (value1.IsMainAddress) {
+                                                var SenderMainAddress = value;
+                                                var obj = {
+                                                    AddressType: "SUD",
+                                                    ORG_FK: SenderMainAddress.ORG_FK,
+                                                    OAD_Address_FK: SenderMainAddress.PK,
+                                                    Address1: SenderMainAddress.Address1,
+                                                    Address2: SenderMainAddress.Address2,
+                                                    State: SenderMainAddress.State,
+                                                    Postcode: SenderMainAddress.PostCode,
+                                                    City: SenderMainAddress.City,
+                                                    Email: SenderMainAddress.Email,
+                                                    Mobile: SenderMainAddress.Mobile,
+                                                    Phone: SenderMainAddress.Phone,
+                                                    RN_NKCountryCode: SenderMainAddress.CountryCode,
+                                                    Fax: SenderMainAddress.Fax
+                                                }
+                                                DeliveryRequestToolbarCtrl.ePage.Masters.DeliveryData.UIJobAddress.push(obj);
                                             }
-                                            DeliveryRequestToolbarCtrl.ePage.Masters.DeliveryData.UIJobAddress.push(obj);
+                                        });
+                                    });
+                                    var _filter = {
+                                        "WAR_PK": DeliveryRequestToolbarCtrl.ePage.Masters.CancelledDeliveryList[0].Warehouse_Fk
+                                    };
+                                    var _input = {
+                                        "searchInput": helperService.createToArrayOfObject(_filter),
+                                        "FilterID": appConfig.Entities.OrgHeaderWarehouse.API.FindAll.FilterID
+                                    };
+                                    apiService.post("eAxisAPI", appConfig.Entities.OrgHeaderWarehouse.API.FindAll.Url, _input).then(function (response) {
+                                        if (response.data.Response) {
+                                            if (response.data.Response.length > 0) {
+                                                // get Warehouse Job address
+                                                var _filter = {
+                                                    "ORG_FK": response.data.Response[0].PK
+                                                };
+                                                var _input = {
+                                                    "searchInput": helperService.createToArrayOfObject(_filter),
+                                                    "FilterID": appConfig.Entities.OrgAddress.API.FindAll.FilterID
+                                                };
+                                                apiService.post("eAxisAPI", appConfig.Entities.OrgAddress.API.FindAll.Url, _input).then(function (response) {
+                                                    if (response.data.Response) {
+                                                        angular.forEach(response.data.Response, function (value, key) {
+                                                            angular.forEach(value.AddressCapability, function (value1, key1) {
+                                                                if (value1.IsMainAddress) {
+                                                                    var WarehouseMainAddress = value;
+                                                                    var obj = {
+                                                                        AddressType: "SND",
+                                                                        ORG_FK: WarehouseMainAddress.ORG_FK,
+                                                                        OAD_Address_FK: WarehouseMainAddress.PK,
+                                                                        Address1: WarehouseMainAddress.Address1,
+                                                                        Address2: WarehouseMainAddress.Address2,
+                                                                        State: WarehouseMainAddress.State,
+                                                                        Postcode: WarehouseMainAddress.PostCode,
+                                                                        City: WarehouseMainAddress.City,
+                                                                        Email: WarehouseMainAddress.Email,
+                                                                        Mobile: WarehouseMainAddress.Mobile,
+                                                                        Phone: WarehouseMainAddress.Phone,
+                                                                        RN_NKCountryCode: WarehouseMainAddress.CountryCode,
+                                                                        Fax: WarehouseMainAddress.Fax
+                                                                    }
+                                                                    DeliveryRequestToolbarCtrl.ePage.Masters.DeliveryData.UIJobAddress.push(obj);
+                                                                    ReadyToCreateReDelivery();
+                                                                }
+                                                            });
+                                                        });
+                                                    }
+                                                });
+                                            } else {
+                                                ReadyToCreateReDelivery();
+                                            }
                                         }
                                     });
-                                });
-                                var _filter = {
-                                    "WAR_PK": DeliveryRequestToolbarCtrl.ePage.Masters.CancelledDeliveryList[0].Warehouse_Fk
-                                };
-                                var _input = {
-                                    "searchInput": helperService.createToArrayOfObject(_filter),
-                                    "FilterID": appConfig.Entities.OrgHeaderWarehouse.API.FindAll.FilterID
-                                };
-                                apiService.post("eAxisAPI", appConfig.Entities.OrgHeaderWarehouse.API.FindAll.Url, _input).then(function (response) {
-                                    if (response.data.Response) {
-                                        if (response.data.Response.length > 0) {
-                                            // get Warehouse Job address
-                                            var _filter = {
-                                                "ORG_FK": response.data.Response[0].PK
-                                            };
-                                            var _input = {
-                                                "searchInput": helperService.createToArrayOfObject(_filter),
-                                                "FilterID": appConfig.Entities.OrgAddress.API.FindAll.FilterID
-                                            };
-                                            apiService.post("eAxisAPI", appConfig.Entities.OrgAddress.API.FindAll.Url, _input).then(function (response) {
-                                                if (response.data.Response) {
-                                                    angular.forEach(response.data.Response, function (value, key) {
-                                                        angular.forEach(value.AddressCapability, function (value1, key1) {
-                                                            if (value1.IsMainAddress) {
-                                                                var WarehouseMainAddress = value;
-                                                                var obj = {
-                                                                    AddressType: "SND",
-                                                                    ORG_FK: WarehouseMainAddress.ORG_FK,
-                                                                    OAD_Address_FK: WarehouseMainAddress.PK,
-                                                                    Address1: WarehouseMainAddress.Address1,
-                                                                    Address2: WarehouseMainAddress.Address2,
-                                                                    State: WarehouseMainAddress.State,
-                                                                    Postcode: WarehouseMainAddress.PostCode,
-                                                                    City: WarehouseMainAddress.City,
-                                                                    Email: WarehouseMainAddress.Email,
-                                                                    Mobile: WarehouseMainAddress.Mobile,
-                                                                    Phone: WarehouseMainAddress.Phone,
-                                                                    RN_NKCountryCode: WarehouseMainAddress.CountryCode,
-                                                                    Fax: WarehouseMainAddress.Fax
-                                                                }
-                                                                DeliveryRequestToolbarCtrl.ePage.Masters.DeliveryData.UIJobAddress.push(obj);
-                                                                ReadyToCreateReDelivery();
-                                                            }
-                                                        });
-                                                    });
-                                                }
-                                            });
-                                        } else {
-                                            ReadyToCreateReDelivery();
-                                        }
-                                    }
-                                });
-                            }
-                        });
+                                }
+                            });
+                        }
+                    } else {
+                        toastr.warning("Selected Warehouse, Client and Consignee should be same");
                     }
-                } else {
-                    toastr.warning("Selected Warehouse, Client and Consignee should be same");
                 }
             }
         }
@@ -194,7 +210,7 @@
                     response.data.Response.Response.UIJobAddress = angular.copy(DeliveryRequestToolbarCtrl.ePage.Masters.DeliveryData.UIJobAddress);
                     angular.forEach(response.data.Response.Response.UIJobAddress, function (value, key) {
                         value.PK = "";
-                    });                    
+                    });
                     angular.forEach(DeliveryRequestToolbarCtrl.ePage.Masters.CancelledDeliveryList, function (value, key) {
                         var obj = {
                             "PK": "",
@@ -301,7 +317,7 @@
                             DeliveryRequestToolbarCtrl.ePage.Masters.IsCreateDeliveryBtn = true;
                             DeliveryRequestToolbarCtrl.ePage.Masters.CreateDeliveryBtnText = "Create Re-Delivery";
                             var DeliveryRequestFkCount = 0;
-                            angular.forEach(DeliveryRequestToolbarCtrl.ePage.Masters.CancelledDeliveryList, function (value, key) {                                
+                            angular.forEach(DeliveryRequestToolbarCtrl.ePage.Masters.CancelledDeliveryList, function (value, key) {
                                 if (value.DeliveryRequest_FK) {
                                     DeliveryRequestFkCount = DeliveryRequestFkCount + 1;
                                     if (DeliveryRequestFkCount == DeliveryRequestToolbarCtrl.ePage.Masters.CancelledDeliveryList.length) {
@@ -350,13 +366,13 @@
             });
         }
 
-        function ChangeDeliveryLineStatus() {            
+        function ChangeDeliveryLineStatus() {
             var TempDeliveryList = _.groupBy(DeliveryRequestToolbarCtrl.ePage.Masters.CancelledDeliveryList, 'DeliveryRequest_FK');
             var TempDeliveryListCount = _.keys(TempDeliveryList).length;
             angular.forEach(TempDeliveryList, function (value2, key2) {
                 apiService.get("eAxisAPI", appConfig.Entities.WmsDeliveryList.API.GetById.Url + key2).then(function (response) {
                     if (response.data.Response) {
-                        var count = 0;                        
+                        var count = 0;
                         angular.forEach(response.data.Response.UIWmsDeliveryLine, function (value1, key1) {
                             angular.forEach(value2, function (value, key) {
                                 if (value1.PK == value.DeliveryLine_FK) {

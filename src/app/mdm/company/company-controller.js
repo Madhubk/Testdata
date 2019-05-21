@@ -34,6 +34,7 @@
             CompanyCtrl.ePage.Masters.RemoveTab = RemoveTab;
             CompanyCtrl.ePage.Masters.SelectedGridRow = SelectedGridRow;
             CompanyCtrl.ePage.Masters.CreateNewCompany=CreateNewCompany;
+            companyConfig.ValidationFindall();
         }
         function SelectedGridRow($item) {
             if ($item.action === "link" || $item.action === "dblClick") {
@@ -47,7 +48,10 @@
                 if (!isNew) {
                     return value.label === currentCompany.entity.Code;
                 } else {
-                    return false;
+                    if (value.label === "New")
+                        return true;
+                    else
+                        return false;
                 }
             });
             if (!_isExist) {
@@ -61,13 +65,13 @@
                 companyConfig.AddCompany(currentCompany, isNew).then(function(response) {
                     CompanyCtrl.ePage.Masters.TabList = response;
                     $timeout(function() {
-                        CompanyCtrl.ePage.Masters.activeTabIndex = CompanyCtrl.ePage.Masters.TabList.length;
-                        CompanyCtrl.ePage.Masters.CurrentActiveTab(currentCompany.entity.Code);
+                        CompanyCtrl.ePage.Masters.activeTabIndex = CompanyCtrl.ePage.Masters.TabList.length;                        
+                        //CompanyCtrl.ePage.Masters.CurrentActiveTab(currentCompany.entity.UICmpCompany.Code);
                         CompanyCtrl.ePage.Masters.IsTabClick = false;
                     });
                 });
             } else {
-                toastr.info('Branch already opened ');
+                toastr.info('Company already opened ');
             }
         }
         function RemoveTab(event, index, currentCompany) {
@@ -86,9 +90,9 @@
             });
 
             if (!_isExist) {
-                CompanyCtrl.ePage.Entities.CompanyHeader.Message = false;
+                CompanyCtrl.ePage.Entities.Header.Message = false;
                 CompanyCtrl.ePage.Masters.isNewClicked = true;
-                helperService.getFullObjectUsingGetById(CompanyCtrl.ePage.Entities.CompanyHeader.API.GetByID.Url, 'null').then(function (response) {
+                helperService.getFullObjectUsingGetById(CompanyCtrl.ePage.Entities.Header.API.GetByID.Url, 'null').then(function (response) {
                     if (response.data.Response) {
                         var _obj = {
                             entity: response.data.Response,
@@ -98,7 +102,7 @@
                         CompanyCtrl.ePage.Masters.AddTab(_obj, true);
                         CompanyCtrl.ePage.Masters.isNewClicked = false;
                     } else {
-                        console.log("Empty New Branch response");
+                        console.log("Empty New Company response");
                     }
                 });
             } else {
@@ -111,7 +115,7 @@
             CompanyCtrl.ePage.Masters.SaveButtonText = "Please Wait...";
             CompanyCtrl.ePage.Masters.IsDisableSave = true;
             var _CompData = currentCompany[currentCompany.label].ePage.Entities;
-            var _input = _CompData.CompanyHeader.Data,
+            var _input = _CompData.Header.Data,
                 _api;
             if (currentCompany.isNew) {
                 _input = filterObject(_input, "PK");
@@ -138,6 +142,7 @@
             } else {
                 currentTab = currentTab;
             }
+
             CompanyCtrl.ePage.Masters.currentCompany = currentTab;
         }
 

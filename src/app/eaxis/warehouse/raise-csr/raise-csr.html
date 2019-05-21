@@ -43,14 +43,17 @@
             </div>
             <!--Footer-->
             <div class="eaxis-footer-strip">
-                <div class="col-xs-6 col-sm-9 col-md-9 col-lg-9 col-xl-9">
-                    <!-- <standard-menu entity-name="'DeliveryRequest'" input="RaiseCSRCtrl.ePage.Masters.Tab"></standard-menu> -->                    
+                <div class="col-xs-6 col-sm-9 col-md-9 col-lg-9 col-xl-9" data-ng-if="RaiseCSRCtrl.ePage.Masters.Tab">
+                    <!-- <standard-menu mode="1" data-ng-if="!RaiseCSRCtrl.ePage.Masters.Tab.isNew" dataentry-object="RaiseCSRCtrl.dataentryObject"
+                        input="RaiseCSRCtrl.ePage.Masters.Tab"></standard-menu> -->
                 </div>
                 <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 col-xl-3">
                     <button data-ng-show="RaiseCSRCtrl.ePage.Masters.IsShowButton" class="btn btn-primary btn-sm pull-right  margin-right-10 mt-6"
-                        data-ng-click="RaiseCSRCtrl.ePage.Masters.Validation(RaiseCSRCtrl.ePage.Masters.Tab)" data-ng-disabled="RaiseCSRCtrl.ePage.Masters.IsDisableSave">Save</button>
+                        data-ng-click="RaiseCSRCtrl.ePage.Masters.Validation(RaiseCSRCtrl.ePage.Masters.Tab)"
+                        data-ng-disabled="RaiseCSRCtrl.ePage.Masters.IsDisableSave">Save</button>
                     <button data-ng-hide="RaiseCSRCtrl.ePage.Masters.IsShowButton" class="btn btn-primary btn-sm pull-right  margin-right-10 mt-6"
-                        data-ng-click="RaiseCSRCtrl.ePage.Masters.Validation(RaiseCSRCtrl.ePage.Masters.Tab)" data-ng-disabled="RaiseCSRCtrl.ePage.Masters.IsDisableSave">Please Wait..</button>
+                        data-ng-click="RaiseCSRCtrl.ePage.Masters.Validation(RaiseCSRCtrl.ePage.Masters.Tab)"
+                        data-ng-disabled="RaiseCSRCtrl.ePage.Masters.IsDisableSave">Please Wait..</button>
                     <button class="btn btn-primary btn-sm pull-right  margin-right-10 mt-6 " type="button " ng-click="RaiseCSRCtrl.ePage.Masters.CreateNewDeliveryRequest()"
                         data-ng-disabled="RaiseCSRCtrl.ePage.Masters.IsDisableSave">New Delivery Request</button>
                 </div>

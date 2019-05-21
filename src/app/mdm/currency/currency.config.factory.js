@@ -28,6 +28,13 @@
                                 "Url": "MstCurrency/FindAll",
                                 "FilterID": "MSTCURR"
                             },
+                            "ValidateCurrency":{
+                                "IsAPI": "true",
+                                "HttpType": "Post",
+                                "Url": "AccCurrencyCompanyValidate/FindAll",
+                                "FilterID": "ACCCURCOMV"
+
+                            },
                             "CurrencyActivityTabClose": {
                                 "IsAPI": "true",
                                 "HttpType": "GET",
@@ -80,7 +87,8 @@
                                 "Symbol": helperService.metaBase(),
                                 "Country": helperService.metaBase(),
                                 "IsActive": helperService.metaBase(),
-                                "Unitname": helperService.metaBase()
+                                "Unitname": helperService.metaBase(),
+                                "Country": helperService.metaBase()
                             }
                         },
                         "GlobalVariables": {
@@ -163,6 +171,7 @@
             OnChangeValues(_input.Desc, 'E1315', false, undefined, $item.code);
             OnChangeValues(_input.Desc, 'E1316', false, undefined, $item.code);
             OnChangeValues(_input.Desc, 'E1317', false, undefined, $item.code);
+            OnChangeValues(_input.Country, 'E1208', false, undefined, $item.code);
         }
 
         function OnChangeValues(fieldvalue, code, IsArray, RowIndex, label) {

@@ -16,7 +16,7 @@
         let exports = {
             restrict: "EA",
             templateUrl: "SMEventDefault.html",
-            link: Link,
+            // link: Link,
             scope: {
                 eventObj: "="
             }

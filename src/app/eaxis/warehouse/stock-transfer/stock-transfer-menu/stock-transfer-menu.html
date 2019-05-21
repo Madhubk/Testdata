@@ -40,7 +40,7 @@
 
     <div class="eaxis-footer-strip">
         <div class="col-xs-6 col-sm-8 col-md-8 col-lg-9 col-xl-9">
-            <standard-menu dataentry-object="StockTransferMenuCtrl.dataentryObject" input="StockTransferMenuCtrl.currentStockTransfer"></standard-menu>
+            <standard-menu dataentry-object="StockTransferMenuCtrl.dataentryObject" mode="1" input="StockTransferMenuCtrl.currentStockTransfer" ng-if="!StockTransferMenuCtrl.currentStockTransfer.isNew"></standard-menu>
         </div>
         
         <div class="col-xs-6 col-sm-4 col-md-4 col-lg-3 col-xl-3">

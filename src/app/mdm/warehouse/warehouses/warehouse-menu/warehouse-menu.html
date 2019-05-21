@@ -35,7 +35,7 @@
     <!--Footer-->
     <div class="eaxis-footer-strip">
         <div class="col-xs-6 col-sm-9 col-md-9 col-lg-9 col-xl-9">
-            <standard-menu dataentry-object="WarehouseMenuCtrl.dataentryObject" input="WarehouseMenuCtrl.currentWarehouse"></standard-menu>
+            <standard-menu dataentry-object="WarehouseMenuCtrl.dataentryObject" mode="1" input="WarehouseMenuCtrl.currentWarehouse" ng-if="!WarehouseMenuCtrl.currentWarehouse.isNew"></standard-menu>
         </div>
         <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 col-xl-3">
             <button class="btn btn-primary btn-sm pull-right margin-right-10 mt-6" data-ng-click="WarehouseMenuCtrl.ePage.Masters.Validation(WarehouseMenuCtrl.currentWarehouse)"
