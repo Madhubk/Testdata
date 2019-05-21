@@ -119,24 +119,24 @@
             InwardLinesCtrl.ePage.Masters.LineVolume = 0;
 
             angular.forEach(InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine, function (value, key) {
-                InwardLinesCtrl.ePage.Masters.TotalLineUnits = InwardLinesCtrl.ePage.Masters.TotalLineUnits + parseInt(value.Units, 10);
-                InwardLinesCtrl.ePage.Masters.TotalLinePackagesSent = InwardLinesCtrl.ePage.Masters.TotalLinePackagesSent + parseInt(value.Packs, 10);
-                InwardLinesCtrl.ePage.Masters.LineWeight = parseInt(value.Weight, 10) * parseInt(value.Units, 10);
-                InwardLinesCtrl.ePage.Masters.LineVolume = parseInt(value.Volume, 10) * parseInt(value.Units, 10);
+                InwardLinesCtrl.ePage.Masters.TotalLineUnits = InwardLinesCtrl.ePage.Masters.TotalLineUnits + parseFloat(value.Units);
+                InwardLinesCtrl.ePage.Masters.TotalLinePackagesSent = InwardLinesCtrl.ePage.Masters.TotalLinePackagesSent + parseFloat(value.Packs);
+                InwardLinesCtrl.ePage.Masters.LineWeight = parseFloat(value.Weight) * parseFloat(value.Units);
+                InwardLinesCtrl.ePage.Masters.LineVolume = parseFloat(value.Volume) * parseFloat(value.Units);
                 InwardLinesCtrl.ePage.Masters.TotalLineWeight = InwardLinesCtrl.ePage.Masters.TotalLineWeight + InwardLinesCtrl.ePage.Masters.LineWeight;
                 InwardLinesCtrl.ePage.Masters.TotalLineVolume = InwardLinesCtrl.ePage.Masters.TotalLineVolume + InwardLinesCtrl.ePage.Masters.LineVolume;
             });
 
             //To find Percentage for Units
-            if (parseInt(InwardLinesCtrl.ePage.Masters.TotalLineUnits, 10) > parseInt(InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.TotalUnits, 10)) {
+            if (parseFloat(InwardLinesCtrl.ePage.Masters.TotalLineUnits) > parseFloat(InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.TotalUnits)) {
                 InwardLinesCtrl.ePage.Masters.TotalLineUnitsPercentage = 100;
-                InwardLinesCtrl.ePage.Masters.TotalUnitsPercentage = ((parseInt(InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.TotalUnits, 10) / parseInt(InwardLinesCtrl.ePage.Masters.TotalLineUnits, 10)) * 100)
+                InwardLinesCtrl.ePage.Masters.TotalUnitsPercentage = ((parseFloat(InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.TotalUnits) / parseFloat(InwardLinesCtrl.ePage.Masters.TotalLineUnits)) * 100)
             }
-            else if (parseInt(InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.TotalUnits, 10) > parseInt(InwardLinesCtrl.ePage.Masters.TotalLineUnits, 10)) {
+            else if (parseFloat(InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.TotalUnits) > parseFloat(InwardLinesCtrl.ePage.Masters.TotalLineUnits)) {
                 InwardLinesCtrl.ePage.Masters.TotalUnitsPercentage = 100;
-                InwardLinesCtrl.ePage.Masters.TotalLineUnitsPercentage = ((parseInt(InwardLinesCtrl.ePage.Masters.TotalLineUnits, 10) / parseInt(InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.TotalUnits, 10)) * 100)
+                InwardLinesCtrl.ePage.Masters.TotalLineUnitsPercentage = ((parseFloat(InwardLinesCtrl.ePage.Masters.TotalLineUnits) / parseFloat(InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.TotalUnits)) * 100)
             }
-            else if ((parseInt(InwardLinesCtrl.ePage.Masters.TotalLineUnits, 10) == parseInt(InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.TotalUnits, 10)) && parseInt(InwardLinesCtrl.ePage.Masters.TotalLineUnits, 10) != 0) {
+            else if ((parseFloat(InwardLinesCtrl.ePage.Masters.TotalLineUnits) == parseFloat(InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.TotalUnits)) && parseFloat(InwardLinesCtrl.ePage.Masters.TotalLineUnits) != 0) {
                 InwardLinesCtrl.ePage.Masters.TotalUnitsPercentage = 100;
                 InwardLinesCtrl.ePage.Masters.TotalLineUnitsPercentage = 100;
             }
@@ -146,15 +146,15 @@
             }
 
             //To find Percentage for Packages
-            if (parseInt(InwardLinesCtrl.ePage.Masters.TotalLinePackagesSent, 10) > parseInt(InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.PackagesSent, 10)) {
+            if (parseFloat(InwardLinesCtrl.ePage.Masters.TotalLinePackagesSent) > parseFloat(InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.PackagesSent)) {
                 InwardLinesCtrl.ePage.Masters.TotalLinePackagesSentPercentage = 100;
-                InwardLinesCtrl.ePage.Masters.TotalPackagesSentPercentage = ((parseInt(InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.PackagesSent, 10) / parseInt(InwardLinesCtrl.ePage.Masters.TotalLinePackagesSent, 10)) * 100)
+                InwardLinesCtrl.ePage.Masters.TotalPackagesSentPercentage = ((parseFloat(InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.PackagesSent) / parseFloat(InwardLinesCtrl.ePage.Masters.TotalLinePackagesSent)) * 100)
             }
-            else if (parseInt(InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.PackagesSent, 10) > parseInt(InwardLinesCtrl.ePage.Masters.TotalLinePackagesSent, 10)) {
+            else if (parseFloat(InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.PackagesSent) > parseFloat(InwardLinesCtrl.ePage.Masters.TotalLinePackagesSent)) {
                 InwardLinesCtrl.ePage.Masters.TotalPackagesSentPercentage = 100;
-                InwardLinesCtrl.ePage.Masters.TotalLinePackagesSentPercentage = ((parseInt(InwardLinesCtrl.ePage.Masters.TotalLinePackagesSent, 10) / parseInt(InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.PackagesSent, 10)) * 100)
+                InwardLinesCtrl.ePage.Masters.TotalLinePackagesSentPercentage = ((parseFloat(InwardLinesCtrl.ePage.Masters.TotalLinePackagesSent) / parseFloat(InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.PackagesSent)) * 100)
             }
-            else if ((parseInt(InwardLinesCtrl.ePage.Masters.TotalLinePackagesSent, 10) == parseInt(InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.PackagesSent, 10)) && parseInt(InwardLinesCtrl.ePage.Masters.TotalLinePackagesSent, 10) != 0) {
+            else if ((parseFloat(InwardLinesCtrl.ePage.Masters.TotalLinePackagesSent) == parseFloat(InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.PackagesSent)) && parseFloat(InwardLinesCtrl.ePage.Masters.TotalLinePackagesSent) != 0) {
                 InwardLinesCtrl.ePage.Masters.TotalPackagesSentPercentage = 100;
                 InwardLinesCtrl.ePage.Masters.TotalLinePackagesSentPercentage = 100;
             }
@@ -174,15 +174,15 @@
                 }
             }
 
-            if (parseInt(InwardLinesCtrl.ePage.Masters.TotalLinePallets, 10) > parseInt(InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.TotalPallets, 10)) {
+            if (parseFloat(InwardLinesCtrl.ePage.Masters.TotalLinePallets) > parseFloat(InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.TotalPallets)) {
                 InwardLinesCtrl.ePage.Masters.TotalLinePalletsPercentage = 100;
-                InwardLinesCtrl.ePage.Masters.TotalPalletsPercentage = ((parseInt(InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.TotalPallets, 10) / parseInt(InwardLinesCtrl.ePage.Masters.TotalLinePallets, 10)) * 100)
+                InwardLinesCtrl.ePage.Masters.TotalPalletsPercentage = ((parseFloat(InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.TotalPallets) / parseFloat(InwardLinesCtrl.ePage.Masters.TotalLinePallets)) * 100)
             }
-            else if (parseInt(InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.TotalPallets, 10) > parseInt(InwardLinesCtrl.ePage.Masters.TotalLinePallets, 10)) {
+            else if (parseFloat(InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.TotalPallets) > parseFloat(InwardLinesCtrl.ePage.Masters.TotalLinePallets)) {
                 InwardLinesCtrl.ePage.Masters.TotalPalletsPercentage = 100;
-                InwardLinesCtrl.ePage.Masters.TotalLinePalletsPercentage = ((parseInt(InwardLinesCtrl.ePage.Masters.TotalLinePallets, 10) / parseInt(InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.TotalPallets, 10)) * 100)
+                InwardLinesCtrl.ePage.Masters.TotalLinePalletsPercentage = ((parseFloat(InwardLinesCtrl.ePage.Masters.TotalLinePallets) / parseFloat(InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.TotalPallets)) * 100)
             }
-            else if ((parseInt(InwardLinesCtrl.ePage.Masters.TotalLinePallets, 10) == parseInt(InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.TotalPallets, 10)) && parseInt(InwardLinesCtrl.ePage.Masters.TotalLinePallets, 10) != 0) {
+            else if ((parseFloat(InwardLinesCtrl.ePage.Masters.TotalLinePallets) == parseFloat(InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.TotalPallets)) && parseFloat(InwardLinesCtrl.ePage.Masters.TotalLinePallets) != 0) {
                 InwardLinesCtrl.ePage.Masters.TotalPalletsPercentage = 100;
                 InwardLinesCtrl.ePage.Masters.TotalLinePalletsPercentage = 100;
             }
