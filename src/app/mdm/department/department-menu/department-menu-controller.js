@@ -37,9 +37,9 @@
         }
 
         function InitActDeact(){
-            if(!CurrencyMenuCtrl.currentCurrency.isNew && !CurrencyMenuCtrl.ePage.Entities.Header.Data.IsActive){
-                CurrencyMenuCtrl.ePage.Masters.DisableActivate = false;
-                CurrencyMenuCtrl.ePage.Masters.DisableDeactivate = true;
+            if(!DepartmentMenuCtrl.currentDepartment.isNew && !DepartmentMenuCtrl.ePage.Entities.Header.Data.IsActive){
+                DepartmentMenuCtrl.ePage.Masters.DisableActivate = false;
+                DepartmentMenuCtrl.ePage.Masters.DisableDeactivate = true;
             }
         }
 
