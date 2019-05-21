@@ -269,6 +269,12 @@
                                 "Url": "CmpDepartment/FindAll",
                                 "FilterID": "CMPDEPT"
                             },
+                            "TrackingStatusFindAll": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "TmsStatusHistory/FindAll",
+                                "FilterID": "TMSSH"
+                            },
                         },
 
                         "Meta": {
