@@ -99,7 +99,6 @@
             if ($item.isNew) {
                 _input.PK = _input.PK;
                 _input.CreatedDateTime = new Date();
-                _input.ModifiedBy = authService.getUserInfo().UserId;
                 _input.CreatedBy = authService.getUserInfo().UserId;
                 _input.Source = "ERP";
                 _input.TenantCode = "20CUB";

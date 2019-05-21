@@ -1,0 +1,45 @@
+<div class="modal-header">
+    <h5 class="model-title pull-left"><Strong>Invoice Update</Strong></h5>
+    <button type="button" class="close" data-ng-click="FinanceJobMenuCtrl.ePage.Masters.BookCostClose()">&times;</button>
+</div>
+<div class="modal-body pt-10">
+    <form class="clearfix form-horizontal">
+        <div class="clearfix">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                <div class="form-group">
+                    <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5 col-xl-5">
+                        <label class="control-label">Invoice No</label>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-7 col-lg-7 col-xl-7">
+                        <input type="text" class="form-control" placeholder="Invoice No" data-ng-model="FinanceJobMenuCtrl.ePage.Masters.InvoiceNo"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5 col-xl-5">
+                        <label class="control-label">Invoice Date</label>
+                    </div>
+                    <div class="col-xs-8 col-sm-8 col-md-7 col-lg-7 col-xl-7">
+                        <div class="input-group input-group-sm">
+                            <input type="text" class="form-control input-sm" placeholder="{{FinanceJobMenuCtrl.ePage.Masters.DatePicker.Options.dateFormat}}" data-ng-model="FinanceJobMenuCtrl.ePage.Masters.InvoiceDate" 
+                                datetime-picker="{{FinanceJobMenuCtrl.ePage.Masters.DatePicker.Options.dateFormat}}" datepicker-options="FinanceJobMenuCtrl.ePage.Masters.DatePicker.Options"
+                                datepicker-append-to-body="false" close-on-selection="false" enable-time="false" enable-date="true" default-date="" default-time="" 
+                                save-as="FinanceJobMenuCtrl.ePage.Masters.DatePicker.Options.saveFormat" is-open="FinanceJobMenuCtrl.ePage.Masters.DatePicker.isOpen['InvoiceDate']"
+                                when-closed="" data-ng-click="" custom-date-time-format/>
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" data-ng-click="FinanceJobMenuCtrl.ePage.Masters.DatePicker.OpenDatePicker($event,'InvoiceDate')">
+                                    <i class="fa fa-calendar"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="fa-selection-divider-small"></div>
+    <div class="clearfix p-10">
+        <button type="button" class="btn btn-primary btn-sm pull-right mr-5" data-ng-click="FinanceJobMenuCtrl.ePage.Masters.BookCostClose()">Cancel</button>
+        <button type="button" class="btn btn-primary btn-sm pull-right mr-10" data-ng-click="FinanceJobMenuCtrl.ePage.Masters.BookCostApply(FinanceJobMenuCtrl.currentFinanceJob)">Apply</button>
+    </div>
+    <div class="fa-selection-divider-small"></div>
+</div>

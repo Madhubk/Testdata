@@ -4,9 +4,9 @@
     angular.module("Application")
         .controller("FinanceJobMenuController", FinanceJobMenuController);
 
-    FinanceJobMenuController.$inject = ["helperService", "financeConfig", "apiService", "toastr"];
+    FinanceJobMenuController.$inject = ["$uibModal", "$filter", "$scope", "helperService", "APP_CONSTANT", "financeConfig", "apiService", "toastr", "confirmation"];
 
-    function FinanceJobMenuController(helperService, financeConfig, apiService, toastr) {
+    function FinanceJobMenuController($uibModal, $filter, $scope, helperService, APP_CONSTANT, financeConfig, apiService, toastr, confirmation) {
         var FinanceJobMenuCtrl = this;
 
         function Init() {
@@ -22,6 +22,8 @@
             };
 
             FinanceJobMenuCtrl.ePage.Masters.SaveButtonText = "Save";
+            FinanceJobMenuCtrl.ePage.Masters.BookCostButtonText = "Book Cost";
+            FinanceJobMenuCtrl.ePage.Masters.BookCostDisabled = "Book Cost";
             FinanceJobMenuCtrl.ePage.Masters.PostCostButtonText = "Post Cost";
             FinanceJobMenuCtrl.ePage.Masters.PostRevenueButtonText = "Post Revenue";
             FinanceJobMenuCtrl.ePage.Masters.PostButtonText = "Post";
@@ -30,15 +32,32 @@
 
             /* Function */
             FinanceJobMenuCtrl.ePage.Masters.Validation = Validation;
-            FinanceJobMenuCtrl.ePage.Masters.Save = Save;
-            FinanceJobMenuCtrl.ePage.Masters.PostCost = PostCost;
-            FinanceJobMenuCtrl.ePage.Masters.PostRevenue = PostRevenue;
+            FinanceJobMenuCtrl.ePage.Masters.BookCost = BookCost;
+            FinanceJobMenuCtrl.ePage.Masters.BookCostClose = BookCostClose;
+            FinanceJobMenuCtrl.ePage.Masters.BookCostApply = BookCostApply;
+
+            /* DatePicker */
+            FinanceJobMenuCtrl.ePage.Masters.DatePicker = {};
+            FinanceJobMenuCtrl.ePage.Masters.DatePicker.Options = APP_CONSTANT.DatePicker;
+            FinanceJobMenuCtrl.ePage.Masters.DatePicker.isOpen = [];
+            FinanceJobMenuCtrl.ePage.Masters.DatePicker.OpenDatePicker = OpenDatePicker;
+
+            if (FinanceJobMenuCtrl.ePage.Entities.Header.Data.UIJobHeader.JobClosedDate) {
+                FinanceJobMenuCtrl.ePage.Entities.Header.GlobalVariables.NonEditable = true;
+                FinanceJobMenuCtrl.ePage.Masters.DisableSave = true;
+            }
         }
+
+        //#region DatePicker
+        function OpenDatePicker($event, opened) {
+            $event.preventDefault();
+            $event.stopPropagation();
+            FinanceJobMenuCtrl.ePage.Masters.DatePicker.isOpen[opened] = true;
+        }
+        //#endregion
 
         //#region Validation
         function Validation($item, type) {
-            financeConfig.DataentryName;
-
             var _Data = $item[$item.code].ePage.Entities,
                 _input = _Data.Header.Data,
                 _errorcount = _Data.Header.Meta.ErrorWarning.GlobalErrorWarningList;
@@ -64,6 +83,76 @@
                 }
             } else {
                 FinanceJobMenuCtrl.ePage.Masters.Config.ShowErrorWarningModal(FinanceJobMenuCtrl.currentFinanceJob);
+            }
+        }
+        //#endregion
+
+        //#region BookCost
+        function BookCost($item) {
+            var _Data = $item[$item.code].ePage.Entities,
+                _input = _Data.Header.Data,
+                _Creditor, _Currency;
+
+            FinanceJobMenuCtrl.ePage.Masters.SelectedBookCost = $filter('filter')(_input.UIJobCharge, { SingleSelect: true });
+            FinanceJobMenuCtrl.ePage.Masters.SelectedBookCostPost = $filter('filter')(FinanceJobMenuCtrl.ePage.Masters.SelectedBookCost, { Costpost: true });
+            FinanceJobMenuCtrl.ePage.Masters.SelectedBookCostREV = $filter('filter')(FinanceJobMenuCtrl.ePage.Masters.SelectedBookCost, { ChargeType: "REV" });
+
+            if (FinanceJobMenuCtrl.ePage.Masters.SelectedBookCost.length == 1) {
+                toastr.error("Please select minimum 2 records.");
+            }
+            else if (FinanceJobMenuCtrl.ePage.Masters.SelectedBookCostPost.length > 0) {
+                toastr.error("You can not select the posted record.");
+            }
+            else if (FinanceJobMenuCtrl.ePage.Masters.SelectedBookCostREV.length > 0) {
+                toastr.error("You can not select the REV type record.");
+            }
+            else {
+                _Creditor = FinanceJobMenuCtrl.ePage.Masters.SelectedBookCost[0].VendorCode;
+                _Currency = FinanceJobMenuCtrl.ePage.Masters.SelectedBookCost[0].RX_NKCostCurrency;
+
+                var _isExist = FinanceJobMenuCtrl.ePage.Masters.SelectedBookCost.some(function (value, key) {
+                    if (value.VendorCode != _Creditor || value.RX_NKCostCurrency != _Currency) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                });
+
+                if (_isExist) {
+                    toastr.error("Please check the currency either creditor.");
+                } else {
+                    FinanceJobMenuCtrl.ePage.Masters.modalInstance = $uibModal.open({
+                        animation: true,
+                        keyboard: false,
+                        backdrop: "static",
+                        windowClass: "success-popup",
+                        scope: $scope,
+                        size: "sm",
+                        templateUrl: "app/eaxis/finance/finance-job/finance-job-menu/finance-job-BookCost.html",
+                    });
+                }
+            }
+        }
+
+        function BookCostClose() {
+            FinanceJobMenuCtrl.ePage.Masters.modalInstance.dismiss('close');
+        }
+
+        function BookCostApply($item) {
+            var _Data = $item[$item.code].ePage.Entities,
+                _input = _Data.Header.Data;
+
+            if (!FinanceJobMenuCtrl.ePage.Masters.InvoiceNo || !FinanceJobMenuCtrl.ePage.Masters.InvoiceDate) {
+                toastr.error("Please fill the InvoiceNo, InvoiceDate.");
+            } else {
+                _input.UIJobCharge.map(function (value, key) {
+                    if (value.SingleSelect) {
+                        value.APInvoiceNum = FinanceJobMenuCtrl.ePage.Masters.InvoiceNo;
+                        value.APInvoiceDate = FinanceJobMenuCtrl.ePage.Masters.InvoiceDate;
+                    }
+                });
+                FinanceJobMenuCtrl.ePage.Masters.modalInstance.dismiss('close');
+                toastr.success("Successfully update records.");
             }
         }
         //#endregion
@@ -114,7 +203,7 @@
                         if (response.data.Status == "Success") {
                             FinanceJobMenuCtrl.ePage.Entities.Header.Data = response.data.Response;
 
-                            financeConfig.InitBinding(FinanceJobMenuCtrl.currentFinanceJob);
+                            /* financeConfig.InitBinding(FinanceJobMenuCtrl.currentFinanceJob); */
 
                             var _index = financeConfig.TabList.map(function (value, key) {
                                 return value[value.code].ePage.Entities.Header.Data.PK;
@@ -130,6 +219,8 @@
                                 }
                             });
 
+                            financeConfig.InitBinding(FinanceJobMenuCtrl.currentFinanceJob);
+
                             if (_index !== -1) {
                                 if (response.data.Response) {
                                     financeConfig.TabList[_index][financeConfig.TabList[_index].code].ePage.Entities.Header.Data = response.data.Response;
@@ -140,6 +231,11 @@
                                 financeConfig.TabList[_index].isNew = false;
                                 helperService.refreshGrid();
                             }
+
+                            if (FinanceJobMenuCtrl.ePage.Entities.Header.Data.UIJobHeader.JobClosedDate) {
+                                FinanceJobMenuCtrl.ePage.Entities.Header.GlobalVariables.NonEditable = true;
+                            }
+
                             toastr.success("Saved Successfully...!");
                         }
                         else if (response.data.Status === "failed") {

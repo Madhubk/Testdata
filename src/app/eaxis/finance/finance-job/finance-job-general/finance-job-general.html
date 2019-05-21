@@ -26,17 +26,17 @@
                             <!-- Dynamic look up Search in textbox -->
                             <div dynamic-lookup placeholder="Local Client" my-ng-model="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.LocalOrg_Code"
                                 obj="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader" page-name="'OrganizationList'" control-id="'ShpBillingLocalAddress'"
-                                control-key="ShpBillingLocalAddress_2959" auto-complete-on-select="FinanceJobGeneralCtrl.ePage.Masters.SelectedLookupData($index, $item,'Local')">
+                                control-key="ShpBillingLocalAddress_2959" auto-complete-on-select="FinanceJobGeneralCtrl.ePage.Masters.SelectedLookupData($index, $item,'Local')" is-disabled="FinanceJobGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
                             </div>
                             <!-- Look Up page opens when button clicks -->
                             <span class="input-group-btn">
                                 <button dynamic-list-modal class="btn btn-default" type="button" obj="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader"
                                     page-name="'OrganizationList'" control-id="'ShpBillingLocalAddress'" control-key="ShpBillingLocalAddress_2959" mode="2" grid-refresh-fun-name=""
-                                    grid-refresh-fun="" selected-data="FinanceJobGeneralCtrl.ePage.Masters.SelectedLookupData($index, $item.data.entity,'Local')"><i class="fa fa-ellipsis-h"></i>
+                                    grid-refresh-fun="" selected-data="FinanceJobGeneralCtrl.ePage.Masters.SelectedLookupData($index, $item.data.entity,'Local')" is-disabled="FinanceJobGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable"><i class="fa fa-ellipsis-h"></i>
                                 </button>
                             </span>
                             <span data-ng-if='!FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.LocalOrg_Code && !FinanceJobGeneralCtrl.currentFinanceJob.isNew'>
-                                <div data-ng-init="FinanceJobGeneralCtrl.ePage.Masters.OnChangeValues(FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.LocalOrg_Code,'E1300',false,undefined)">
+                                <div data-ng-init="FinanceJobGeneralCtrl.ePage.Masters.OnChangeValidation(FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.LocalOrg_Code,'E1300',false,undefined)">
                                 </div>
                             </span>
                         </div>
@@ -91,18 +91,18 @@
                             <!-- Dynamic look up Search in textbox -->
                             <div dynamic-lookup placeholder="Overseas Agent" my-ng-model="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.AgentOrg_Code"
                                 obj="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader" page-name="'OrganizationList'" control-id="'ShpBillingAgentAddress'"
-                                control-key="ShpBillingAgentAddress_2958" auto-complete-on-select="FinanceJobGeneralCtrl.ePage.Masters.SelectedLookupData($index, $item,'Agent')">
+                                control-key="ShpBillingAgentAddress_2958" auto-complete-on-select="FinanceJobGeneralCtrl.ePage.Masters.SelectedLookupData($index, $item,'Agent')" is-disabled="FinanceJobGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
                             </div>
 
                             <!-- Look Up page opens when button clicks -->
                             <span class="input-group-btn">
                                 <button dynamic-list-modal class="btn btn-default" type="button" obj="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader"
                                     page-name="'OrganizationList'" control-id="'ShpBillingAgentAddress'" control-key="ShpBillingAgentAddress_2958" mode="2" grid-refresh-fun-name=""
-                                    grid-refresh-fun="" selected-data="FinanceJobGeneralCtrl.ePage.Masters.SelectedLookupData($index, $item.data.entity,'Agent')"><i class="fa fa-ellipsis-h"></i>
+                                    grid-refresh-fun="" selected-data="FinanceJobGeneralCtrl.ePage.Masters.SelectedLookupData($index, $item.data.entity,'Agent')" is-disabled="FinanceJobGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable"><i class="fa fa-ellipsis-h"></i>
                                 </button>
                             </span>
                             <span data-ng-if='!FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.AgentOrg_Code && !FinanceJobGeneralCtrl.currentFinanceJob.isNew'>
-                                <div data-ng-init="FinanceJobGeneralCtrl.ePage.Masters.OnChangeValues(FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.AgentOrg_Code,'E1301',false,undefined)">
+                                <div data-ng-init="FinanceJobGeneralCtrl.ePage.Masters.OnChangeValidation(FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.AgentOrg_Code,'E1301',false,undefined)">
                                 </div>
                             </span>
                         </div>
@@ -151,17 +151,17 @@
                     <!-- Dynamic look up Search in textbox -->
                     <div dynamic-lookup placeholder="Company" my-ng-model="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.CompanyCode"
                          obj="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader" page-name="'CmpCompany'" control-id="'FinanceCompany'" control-key="FinanceCompany_5555" 
-                         auto-complete-on-select="FinanceJobGeneralCtrl.ePage.Masters.SelectedLookupData($index, $item,'Company')" is-disabled="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge.length>0">
+                         auto-complete-on-select="FinanceJobGeneralCtrl.ePage.Masters.SelectedLookupData($index, $item,'Company')" is-disabled="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge.length > 0 || FinanceJobGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
                     </div>
                     <!-- Look Up page opens when button clicks -->
                     <span class="input-group-btn">
                         <button dynamic-list-modal class="btn btn-default" type="button" obj="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader" 
                             page-name="'CmpCompany'" control-id="'FinanceCompany'" control-key="FinanceCompany_5555" mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="FinanceJobGeneralCtrl.ePage.Masters.SelectedLookupData($index, $item.data.entity,'Company')"
-                            is-disabled="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge.length>0"><i class="fa fa-ellipsis-h"></i>
+                            is-disabled="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge.length > 0 || FinanceJobGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable"><i class="fa fa-ellipsis-h"></i>
                     </button>
                     </span>
                     <span data-ng-if='!FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.CompanyCode && !FinanceJobGeneralCtrl.currentFinanceJob.isNew'>
-                        <div data-ng-init="FinanceJobGeneralCtrl.ePage.Masters.OnChangeValues(FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.CompanyCode,'E1323',false,undefined)"></div>
+                        <div data-ng-init="FinanceJobGeneralCtrl.ePage.Masters.OnChangeValidation(FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.CompanyCode,'E1323',false,undefined)"></div>
                     </span>
                     </div>
                 </div>
@@ -187,16 +187,16 @@
                        <!-- Dynamic look up Search in textbox -->
                        <div dynamic-lookup placeholder="Branch" my-ng-model="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.BranchCode"
                            obj="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader" page-name="'CmpBranch'" control-id="'FinanceBranch'" control-key="FinanceBranch_3332" 
-                           auto-complete-on-select="FinanceJobGeneralCtrl.ePage.Masters.SelectedLookupData($index, $item,'Branch')" is-disabled="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge.length>0">
+                           auto-complete-on-select="FinanceJobGeneralCtrl.ePage.Masters.SelectedLookupData($index, $item,'Branch')" is-disabled="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge.length > 0 || !FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.CompanyCode || FinanceJobGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
                        </div>
                        <!-- Look Up page opens when button clicks -->
                        <span class="input-group-btn">
                            <button dynamic-list-modal class="btn btn-default" type="button" obj="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader" page-name="'CmpBranch'" control-id="'FinanceBranch'" control-key="FinanceBranch_3332"
-                               mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="FinanceJobGeneralCtrl.ePage.Masters.SelectedLookupData($index, $item.data.entity,'Branch')" is-disabled="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge.length>0"><i class="fa fa-ellipsis-h"></i>
+                               mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="FinanceJobGeneralCtrl.ePage.Masters.SelectedLookupData($index, $item.data.entity,'Branch')" is-disabled="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge.length > 0 || !FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.CompanyCode || FinanceJobGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable"><i class="fa fa-ellipsis-h"></i>
                            </button>
                        </span>
                        <span data-ng-if='!FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.BranchCode && !FinanceJobGeneralCtrl.currentFinanceJob.isNew'>
-                           <div data-ng-init="FinanceJobGeneralCtrl.ePage.Masters.OnChangeValues(FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.BranchCode,'E1302',false,undefined)"></div>
+                           <div data-ng-init="FinanceJobGeneralCtrl.ePage.Masters.OnChangeValidation(FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.BranchCode,'E1302',false,undefined)"></div>
                        </span>
                    </div>
                </div>
@@ -214,13 +214,13 @@
                    <div class="input-group input-group-sm">
                        <div dynamic-lookup placeholder="Department" my-ng-model="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.DeptCode"
                            obj="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader" page-name="'CmpDepartment'" control-id="'FinanceDepartment'" control-key="FinanceDepartment_3331"
-                           auto-complete-on-select="FinanceJobGeneralCtrl.ePage.Masters.SelectedLookupData($index, $item,'Department')" is-disabled="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge.length>0"></div>
+                           auto-complete-on-select="FinanceJobGeneralCtrl.ePage.Masters.SelectedLookupData($index, $item,'Department')" is-disabled="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge.length > 0 || FinanceJobGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable"></div>
                        <span class="input-group-btn">
                            <button dynamic-list-modal class="btn btn-default" type="button" obj="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader" page-name="'CmpDepartment'" control-id="'FinanceDepartment'" control-key="FinanceDepartment_3331"
-                               mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="FinanceJobGeneralCtrl.ePage.Masters.SelectedLookupData($index, $item.data.entity,'Department')" is-disabled="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge.length>0"><i class="fa fa-ellipsis-h"></i></button>
+                               mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="FinanceJobGeneralCtrl.ePage.Masters.SelectedLookupData($index, $item.data.entity,'Department')" is-disabled="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge.length > 0 || FinanceJobGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable"><i class="fa fa-ellipsis-h"></i></button>
                        </span>
                        <span data-ng-if='!FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.DeptCode && !FinanceJobGeneralCtrl.currentFinanceJob.isNew'>
-                           <div data-ng-init="FinanceJobGeneralCtrl.ePage.Masters.OnChangeValues(FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.DeptCode,'E1303',false,undefined)"></div>
+                           <div data-ng-init="FinanceJobGeneralCtrl.ePage.Masters.OnChangeValidation(FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.DeptCode,'E1303',false,undefined)"></div>
                        </span>
                    </div>
                </div>
@@ -236,7 +236,8 @@
                     </div>
                    <label class="control-label">Status</label>
                    <select chosen class="form-control" data-ng-model="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.Status"
-                       data-ng-options="x.Key as x.Description for x in FinanceJobGeneralCtrl.ePage.Masters.DropDownMasterList.FinanceStatus.ListSource" data-ng-change="FinanceJobGeneralCtrl.ePage.Masters.OnChangeValues(FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.Status,'E1304',false,undefined);">
+                       data-ng-options="x.Key as x.Description for x in FinanceJobGeneralCtrl.ePage.Masters.DropDownMasterList.FinanceStatus.ListSource" data-ng-change="FinanceJobGeneralCtrl.ePage.Masters.OnChangeStatus(FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.Status,'E1304',false,undefined);"
+                       data-ng-disabled="FinanceJobGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
                        <option value="">--Select--</option>
                    </select>
                </div>
@@ -253,7 +254,7 @@
                <div class="form-group">
                    <label class="control-label">Reason For Loss</label>
                    <select chosen class="form-control" data-ng-model="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.ProfitLossReasonCode"
-                       data-ng-options="x.Key as x.Description for x in FinanceJobGeneralCtrl.ePage.Masters.DropDownMasterList.FinanceProfitLossReason.ListSource">
+                       data-ng-options="x.Key as x.Description for x in FinanceJobGeneralCtrl.ePage.Masters.DropDownMasterList.FinanceProfitLossReason.ListSource" data-ng-disabled="FinanceJobGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
                        <option value="">--Select--</option>
                    </select>
                </div>
@@ -266,12 +267,12 @@
                        <!-- Dynamic look up Search in textbox -->
                        <div dynamic-lookup placeholder="Sales Rep" my-ng-model="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.GS_NKRepSales" 
                            obj="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader" page-name="'CmpEmployee'" control-id="'ShpBillingSalesRep'" control-key="ShpBillingSalesRep_3215"
-                           auto-complete-on-select="FinanceJobGeneralCtrl.ePage.Masters.SelectedLookupData($index, $item,'SalesRep')">
+                           auto-complete-on-select="FinanceJobGeneralCtrl.ePage.Masters.SelectedLookupData($index, $item,'SalesRep')" is-disabled="FinanceJobGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
                        </div>
                        <!-- Look Up page opens when button clicks -->
                        <span class="input-group-btn">
                            <button dynamic-list-modal class="btn btn-default" type="button" obj="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader" page-name="'CmpEmployee'" control-id="'ShpBillingSalesRep'" control-key="ShpBillingSalesRep_3215"
-                               mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="FinanceJobGeneralCtrl.ePage.Masters.SelectedLookupData($index, $item.data.entity,'SalesRep')"><i class="fa fa-ellipsis-h"></i>
+                               mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="FinanceJobGeneralCtrl.ePage.Masters.SelectedLookupData($index, $item.data.entity,'SalesRep')" is-disabled="FinanceJobGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable"><i class="fa fa-ellipsis-h"></i>
                            </button>
                        </span>
                    </div>
@@ -281,53 +282,23 @@
            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
                <div class="form-group">
                    <label class="control-label">Open Date</label>
-                   <div class="input-group input-group-sm">
-                       <input type="text" class="form-control" placeholder="{{FinanceJobGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
-                           data-ng-model="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.JobOpenDate"
-                           datetime-picker="{{FinanceJobGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
-                           datepicker-options="FinanceJobGeneralCtrl.ePage.Masters.DatePicker.Options"
-                           datepicker-append-to-body="false" close-on-selection="false" enable-time="false" enable-date="true"
-                           default-date="" default-time="" save-as="FinanceJobGeneralCtrl.ePage.Masters.DatePicker.Options.saveFormat"
-                           is-open="FinanceJobGeneralCtrl.ePage.Masters.DatePicker.isOpen['isOpenDate']" when-closed=""
-                           data-ng-click="" data-ng-change="" custom-date-time-format data-ng-disabled="true" />
-                       <span class="input-group-btn">
-                           <button class="btn btn-default" data-ng-click="FinanceJobGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event,'isOpenDate')"
-                               data-ng-disabled="true">
-                               <i class="fa fa-calendar"></i>
-                           </button>
-                       </span>
-                   </div>
+                   <input type="text" class="form-control" placeholder="Open Date" value="{{FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.JobOpenDate | date:'dd-MMM-y'}}" data-ng-disabled="true">
                </div>
            </div>
            <!--Close Date-->
            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
                <div class="form-group">
                    <label class="control-label">Closed Date</label>
-                   <div class="input-group input-group-sm">
-                       <input type="text" class="form-control" placeholder="{{FinanceJobGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
-                           data-ng-model="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.JobClosedDate"
-                           datetime-picker="{{FinanceJobGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
-                           datepicker-options="FinanceJobGeneralCtrl.ePage.Masters.DatePicker.Options"
-                           datepicker-append-to-body="false" close-on-selection="false" enable-time="false" enable-date="true"
-                           default-date="" default-time="" save-as="FinanceJobGeneralCtrl.ePage.Masters.DatePicker.Options.saveFormat"
-                           is-open="FinanceJobGeneralCtrl.ePage.Masters.DatePicker.isOpen['isClosedDate']" when-closed=""
-                           data-ng-click="" data-ng-change="" custom-date-time-format data-ng-disabled="true" />
-                       <span class="input-group-btn">
-                           <button class="btn btn-default" data-ng-click="FinanceJobGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event,'isClosedDate')"
-                               data-ng-disabled="true">
-                               <i class="fa fa-calendar"></i>
-                           </button>
-                       </span>
-                   </div>
+                   <input type="text" class="form-control" placeholder="Closed Date" value="{{FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.JobClosedDate | date:'dd-MMM-y'}}" data-ng-disabled="true">
                </div>
            </div>
            <!-- CFX% -->
-           <div class="col-xl-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+           <!-- <div class="col-xl-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
                <div class="form-group">
                    <label class="control-label">CFX%</label>
                    <input type="text" class="form-control" placeholder="CFX%" data-ng-model="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.CFX" data-ng-disabled="true" />
                </div>
-           </div>
+           </div> -->
        </div>
        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
            <label class="control-label">Exchange Rate</label>
@@ -377,39 +348,46 @@
     </div>
 </div>
 <!--Charge Details Tabel-->
-<div class="clearfix mt-10">
+<div class="clearfix">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
             <div class="pull-left">
                     <label class="control-label">Charge Details</label>
             </div>
             <div class="clearfix mt-30">
                 <span>
-                    <button type="button" class="btn btn-sm pull-left btn-outline-secondary font-10" title="Add New" data-ng-click="FinanceJobGeneralCtrl.ePage.Masters.AddNewRow()">
+                    <button type="button" class="btn btn-sm pull-left btn-outline-secondary font-10" title="Add New" data-ng-click="FinanceJobGeneralCtrl.ePage.Masters.AddNewRow()" 
+                        data-ng-disabled="!FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.CompanyCode || !FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.BranchCode || !FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.DeptCode || FinanceJobGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
                         <span class="fa fa-plus"></span>&nbsp;&nbsp;Add New</button>
                 </span>
                 <span>
-                    <button type="button" class="btn btn-sm pull-left btn-outline-secondary font-10 ml-5" title="More" data-ng-click="FinanceJobGeneralCtrl.ePage.Masters.MoreRecords()" data-ng-disabled="FinanceJobGeneralCtrl.ePage.Masters.selectedRow==-1">
+                    <button type="button" class="btn btn-sm pull-left btn-outline-secondary font-10 ml-5" title="More" data-ng-click="FinanceJobGeneralCtrl.ePage.Masters.MoreRecords()" 
+                        data-ng-disabled="FinanceJobGeneralCtrl.ePage.Masters.selectedRow==-1 || FinanceJobGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
                         <span class="fa fa-ellipsis-v"></span>&nbsp;&nbsp;More</button>
                 </span>
                 <span>
-                    <button type="button" class="btn btn-sm pull-left btn-outline-primary font-10 ml-5" title="Copy" data-ng-click="FinanceJobGeneralCtrl.ePage.Masters.CopyRow()" data-ng-disabled="FinanceJobGeneralCtrl.ePage.Masters.EnableDeleteButton">
+                    <button type="button" class="btn btn-sm pull-left btn-outline-primary font-10 ml-5" title="Copy" data-ng-click="FinanceJobGeneralCtrl.ePage.Masters.CopyRow()" 
+                        data-ng-disabled="FinanceJobGeneralCtrl.ePage.Masters.EnableDeleteButton || FinanceJobGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
                         <span class="fa fa-copy"></span>&nbsp;&nbsp;Copy</button>
                 </span>
                 <span>
-                    <button type="button" class="btn btn-sm btn-outline-primary font-10 ml-5" title="Delete" data-ng-click="FinanceJobGeneralCtrl.ePage.Masters.RemoveRow()" data-ng-disabled="FinanceJobGeneralCtrl.ePage.Masters.EnableCopyButton">
+                    <button type="button" class="btn btn-sm btn-outline-primary font-10 ml-5" title="Delete" data-ng-click="FinanceJobGeneralCtrl.ePage.Masters.RemoveRow()" 
+                        data-ng-disabled="FinanceJobGeneralCtrl.ePage.Masters.EnableCopyButton || FinanceJobGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
                         <span class="fa fa-trash"></span>&nbsp;&nbsp;Delete</button>
                 </span>
                 <span class="pull-right">
-                    <label><b>Profit:</b></label>
+                    <label><b data-ng-bind="FinanceJobGeneralCtrl.ePage.Masters.ProfitAndLossText" data-ng-class="{profit: FinanceJobGeneralCtrl.ePage.Masters.ProfitAndLossText == 'Profit:', loss: FinanceJobGeneralCtrl.ePage.Masters.ProfitAndLossText == 'Loss:'}"></b></label>
                     {{FinanceJobGeneralCtrl.ePage.Masters.ProfitAndLoss | number:2 }}
+                    <span data-ng-bind="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.CompanyLocalCurrency" style="font-size: 12px; font-weight: bold"></span>
                 </span>
                 <span class="pull-right mr-30">
                     <label><b>Revenue:</b></label>
                     {{FinanceJobGeneralCtrl.ePage.Masters.Revenue | number:2 }}
+                    <span data-ng-bind="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.CompanyLocalCurrency" style="font-size: 12px; font-weight: bold"></span>
                 </span>
                 <span class="pull-right mr-30">
                     <label><b>Cost:</b></label>
                     {{FinanceJobGeneralCtrl.ePage.Masters.Cost | number:2 }}
+                    <span data-ng-bind="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.CompanyLocalCurrency" style="font-size: 12px; font-weight: bold"></span>
                 </span>
             </div>
             <div id="JobChargeTable{{FinanceJobGeneralCtrl.currentFinanceJob.label}}" class="fixedheader mt-3 ml-0 mr-0" key-events table-object="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge" enable='FinanceJobGeneralCtrl.ePage.Masters.Enable'
@@ -420,8 +398,8 @@
                             <th data-ng-if="FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.ccheckbox.isenabled"
                                 data-ng-style="{'width': FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.ccheckbox.width + 'px' }">
                                 <label class="customcheckbox">
-                                    <input type="checkbox" data-ng-change="FinanceJobGeneralCtrl.ePage.Masters.SelectAllCheckBox()"
-                                        data-ng-checked="FinanceJobGeneralCtrl.ePage.Entities.Header.GlobalVariables.SelectAll" data-ng-model="FinanceJobGeneralCtrl.ePage.Entities.Header.GlobalVariables.SelectAll" />
+                                    <input type="checkbox" data-ng-change="FinanceJobGeneralCtrl.ePage.Masters.SelectAllCheckBox()" data-ng-checked="FinanceJobGeneralCtrl.ePage.Entities.Header.GlobalVariables.SelectAll" 
+                                        data-ng-model="FinanceJobGeneralCtrl.ePage.Entities.Header.GlobalVariables.SelectAll" data-ng-disabled="FinanceJobGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable" />
                                     <span class="text"></span>
                                 </label>
                             </th>
@@ -490,14 +468,15 @@
                         </tr>
                     </thead>
                     <tbody id="ASNCustTable{{FinanceJobGeneralCtrl.currentFinanceJob.label}}">
-                        <tr id="tableBody" data-ng-repeat="x in FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge"
-                            data-ng-click="FinanceJobGeneralCtrl.ePage.Masters.setSelectedRow($index);" data-ng-class="{row_active: (FinanceJobGeneralCtrl.ePage.Masters.selectedRow==$index),copy_row_active :(x.IsCopied==true)}"	table-properties="FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIJobCharge"
+                        <tr id="tableBody" data-ng-repeat="x in FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge" data-ng-click="FinanceJobGeneralCtrl.ePage.Masters.setSelectedRow($index);" 
+                            data-ng-class="{row_active: (FinanceJobGeneralCtrl.ePage.Masters.selectedRow==$index),copy_row_active :(x.IsCopied==true)}" table-properties="FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIJobCharge"
                             row-position="$index">
                             <td data-ng-show="FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.ccheckbox.isenabled"
                                 data-ng-style="{'width': FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.ccheckbox.width + 'px' }"
                                 data-ng-click="FinanceJobGeneralCtrl.ePage.Masters.Enable = true">
                                 <label class="customcheckbox mb-0">
-                                    <input type="checkbox" data-ng-checked="x.SingleSelect" data-ng-model="x.SingleSelect" data-ng-change="FinanceJobGeneralCtrl.ePage.Masters.SingleSelectCheckBox()"/>
+                                    <input type="checkbox" data-ng-checked="x.SingleSelect" data-ng-model="x.SingleSelect" data-ng-change="FinanceJobGeneralCtrl.ePage.Masters.SingleSelectCheckBox()"
+                                        data-ng-disabled="FinanceJobGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable"/>
                                     <span class="text"></span>
                                 </label>
                                 <span class="list-error-warning" data-ng-if="FinanceJobGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIJobCharge.ERROR | listCount: 'RowIndex': $index">
@@ -630,7 +609,7 @@
                                 </div>
                                 <div data-ng-if="$index==FinanceJobGeneralCtrl.ePage.Masters.selectedRow">
                                     <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0 height-22">
-                                        <input type="text" class="form-control input-sm" placeholder="Invoice No" data-ng-model="x.APInvoiceNum" data-ng-change='FinanceJobGeneralCtrl.ePage.Masters.OnChangeValues(x.APInvoiceNum,"E1312",true,$index)' data-ng-disabled="x.ChargeType =='REV' || x.Costpost">
+                                        <input type="text" class="form-control input-sm" placeholder="Invoice No" data-ng-model="x.APInvoiceNum" data-ng-change='FinanceJobGeneralCtrl.ePage.Masters.OnChangeValidation(x.APInvoiceNum,"E1312",true,$index)' data-ng-disabled="x.ChargeType =='REV' || x.Costpost">
                                     </div>
                                     <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="FinanceJobGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIJobCharge.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':9">
                                         <error-warning-directive  list="FinanceJobGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIJobCharge.ERROR"
@@ -654,7 +633,7 @@
                                                 datepicker-append-to-body="false" close-on-selection="false" enable-time="false"
                                                 enable-date="true" default-date="" default-time="" save-as="FinanceJobGeneralCtrl.ePage.Masters.DatePicker.Options.saveFormat"
                                                 is-open="FinanceJobGeneralCtrl.ePage.Masters.DatePicker.isOpen['isCostInvoiceDate']"
-                                                when-closed="" data-ng-click="" custom-date-time-format data-ng-change='FinanceJobGeneralCtrl.ePage.Masters.OnChangeValues(x.APInvoiceDate,"E1313",true,$index)' data-ng-disabled="x.ChargeType =='REV' || x.Costpost" />
+                                                when-closed="" data-ng-click="" custom-date-time-format data-ng-change='FinanceJobGeneralCtrl.ePage.Masters.OnChangeValidation(x.APInvoiceDate,"E1313",true,$index)' data-ng-disabled="x.ChargeType =='REV' || x.Costpost" />
                                             <span class="input-group-btn">
                                                 <button class="btn btn-default" data-ng-click="FinanceJobGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event,'isCostInvoiceDate')" data-ng-disabled="x.ChargeType =='REV' || x.Costpost">
                                                     <i class="fa fa-calendar"></i>
@@ -711,10 +690,10 @@
                                 <div data-ng-if="$index==FinanceJobGeneralCtrl.ePage.Masters.selectedRow">
                                     <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0 height-22">
                                         <!-- <input type="text" class="form-control input-sm" placeholder="0.00"  data-ng-model="x.EstimatedCost" data-ng-blur="FinanceJobGeneralCtrl.ePage.Masters.OnAmtChange($index, x.EstimatedCost,'EST','CRD')" 
-                                            data-ng-change='FinanceJobGeneralCtrl.ePage.Masters.OnChangeValues(x.EstimatedCost,"E1194",true,$index)' data-ng-disabled="x.ChargeType =='REV' || x.Costpost" numbers-only-dot sb-precision="2"/> -->
+                                            data-ng-change='FinanceJobGeneralCtrl.ePage.Masters.OnChangeValidation(x.EstimatedCost,"E1194",true,$index)' data-ng-disabled="x.ChargeType =='REV' || x.Costpost" numbers-only-dot sb-precision="2"/> -->
                                             
                                         <input type="text" class="form-control input-sm" placeholder="0.00" data-ng-model="x.DuplicateEstimatedCost" data-ng-blur="FinanceJobGeneralCtrl.ePage.Masters.OnAmtChange($index, x.DuplicateEstimatedCost, 'EST', 'CRD', 'DuplicateEstimatedCost', 'EstimatedCost')" 
-                                            data-ng-change='FinanceJobGeneralCtrl.ePage.Masters.OnChangeValues(x.DuplicateEstimatedCost, "E1194", true, $index)' data-ng-disabled="x.ChargeType =='REV' || x.Costpost" numbers-only-dot />
+                                            data-ng-change='FinanceJobGeneralCtrl.ePage.Masters.OnChangeValidation(x.DuplicateEstimatedCost, "E1194", true, $index)' data-ng-disabled="x.ChargeType =='REV' || x.Costpost" numbers-only-dot />
                                     </div>
                                     <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="FinanceJobGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIJobCharge.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':14">
                                         <error-warning-directive  list="FinanceJobGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIJobCharge.ERROR"
@@ -732,9 +711,9 @@
                                 <div data-ng-if="$index==FinanceJobGeneralCtrl.ePage.Masters.selectedRow">
                                     <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0 height-22">
                                         <!-- <input type="text" class="form-control input-sm" placeholder="0.00" data-ng-model="x.OSCostAmt" data-ng-blur="FinanceJobGeneralCtrl.ePage.Masters.OnAmtChange($index,x.OSCostAmt,'OS','CRD')"
-                                            data-ng-change="FinanceJobGeneralCtrl.ePage.Masters.OnChangeValues(x.OSCostAmt,'E1196',true,$index)" data-ng-disabled="x.ChargeType =='REV' || x.Costpost" numbers-only-dot sb-precision="2" /> -->
+                                            data-ng-change="FinanceJobGeneralCtrl.ePage.Masters.OnChangeValidation(x.OSCostAmt,'E1196',true,$index)" data-ng-disabled="x.ChargeType =='REV' || x.Costpost" numbers-only-dot sb-precision="2" /> -->
                                         <input type="text" class="form-control input-sm" placeholder="0.00" data-ng-model="x.DuplicateOSCostAmt" data-ng-blur="FinanceJobGeneralCtrl.ePage.Masters.OnAmtChange($index, x.DuplicateOSCostAmt, 'OS', 'CRD', 'DuplicateOSCostAmt', 'OSCostAmt')"
-                                            data-ng-change="FinanceJobGeneralCtrl.ePage.Masters.OnChangeValues(x.DuplicateOSCostAmt, 'E1196', true, $index)" data-ng-disabled="x.ChargeType =='REV' || x.Costpost" numbers-only-dot /> 
+                                            data-ng-change="FinanceJobGeneralCtrl.ePage.Masters.OnChangeValidation(x.DuplicateOSCostAmt, 'E1196', true, $index)" data-ng-disabled="x.ChargeType =='REV' || x.Costpost" numbers-only-dot /> 
                                     </div>
                                     <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="FinanceJobGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIJobCharge.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':15">
                                         <error-warning-directive  list="FinanceJobGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIJobCharge.ERROR"
@@ -752,9 +731,9 @@
                                 <div data-ng-if="$index==FinanceJobGeneralCtrl.ePage.Masters.selectedRow">
                                     <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0 height-22">
                                         <!-- <input type="text" class="form-control input-sm" placeholder="0.00" data-ng-model="x.LocalCostAmt" data-ng-blur="FinanceJobGeneralCtrl.ePage.Masters.OnAmtChange($index,x.LocalCostAmt,'LOC','CRD')"
-                                         data-ng-change='FinanceJobGeneralCtrl.ePage.Masters.OnChangeValues(x.LocalCostAmt,"E1308",true,$index)' data-ng-disabled="x.ChargeType =='REV' || x.Costpost" numbers-only-dot sb-precision="2" /> -->
+                                         data-ng-change='FinanceJobGeneralCtrl.ePage.Masters.OnChangeValidation(x.LocalCostAmt,"E1308",true,$index)' data-ng-disabled="x.ChargeType =='REV' || x.Costpost" numbers-only-dot sb-precision="2" /> -->
                                     <input type="text" class="form-control input-sm" placeholder="0.00" data-ng-model="x.DuplicateLocalCostAmt" data-ng-blur="FinanceJobGeneralCtrl.ePage.Masters.OnAmtChange($index, x.DuplicateLocalCostAmt, 'LOC', 'CRD', 'DuplicateLocalCostAmt', 'LocalCostAmt')"
-                                        data-ng-change='FinanceJobGeneralCtrl.ePage.Masters.OnChangeValues(x.DuplicateLocalCostAmt, "E1308", true, $index)' data-ng-disabled="x.ChargeType =='REV' || x.Costpost" numbers-only-dot /> 
+                                        data-ng-change='FinanceJobGeneralCtrl.ePage.Masters.OnChangeValidation(x.DuplicateLocalCostAmt, "E1308", true, $index)' data-ng-disabled="x.ChargeType =='REV' || x.Costpost" numbers-only-dot /> 
                                     </div>
                                 </div>
                                 <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="FinanceJobGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIJobCharge.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':17">
@@ -832,9 +811,9 @@
                                 <div data-ng-if="$index==FinanceJobGeneralCtrl.ePage.Masters.selectedRow">
                                     <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0 height-22">
                                         <!-- <input type="text" class="form-control input-sm" placeholder="0.00" data-ng-model="x.EstimatedRevenue" data-ng-blur="FinanceJobGeneralCtrl.ePage.Masters.OnAmtChange($index, x.EstimatedRevenue,'EST', 'DEB')"
-                                            data-ng-change='FinanceJobGeneralCtrl.ePage.Masters.OnChangeValues(x.EstimatedRevenue,"E1195",true,$index)' data-ng-disabled="x.Revenuepost" numbers-only-dot sb-precision="2" /> -->
+                                            data-ng-change='FinanceJobGeneralCtrl.ePage.Masters.OnChangeValidation(x.EstimatedRevenue,"E1195",true,$index)' data-ng-disabled="x.Revenuepost" numbers-only-dot sb-precision="2" /> -->
                                         <input type="text" class="form-control input-sm" placeholder="0.00" data-ng-model="x.DuplicateEstimatedRevenue" data-ng-blur="FinanceJobGeneralCtrl.ePage.Masters.OnAmtChange($index, x.DuplicateEstimatedRevenue, 'EST', 'DEB', 'DuplicateEstimatedRevenue', 'EstimatedRevenue')"
-                                            data-ng-change='FinanceJobGeneralCtrl.ePage.Masters.OnChangeValues(x.DuplicateEstimatedRevenue, "E1195", true, $index)' data-ng-disabled="x.Revenuepost" numbers-only-dot /> 
+                                            data-ng-change='FinanceJobGeneralCtrl.ePage.Masters.OnChangeValidation(x.DuplicateEstimatedRevenue, "E1195", true, $index)' data-ng-disabled="x.Revenuepost" numbers-only-dot /> 
                                     </div>
                                     <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="FinanceJobGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIJobCharge.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':28">
                                         <error-warning-directive  list="FinanceJobGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIJobCharge.ERROR"
@@ -853,9 +832,9 @@
                                 <div data-ng-if="$index==FinanceJobGeneralCtrl.ePage.Masters.selectedRow">
                                     <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0 height-22">
                                         <!-- <input type="text" class="form-control input-sm" placeholder="0.00" data-ng-model="x.OSSellAmt" data-ng-blur="FinanceJobGeneralCtrl.ePage.Masters.OnAmtChange($index,x.OSSellAmt,'OS','DEB')"
-                                            data-ng-change='FinanceJobGeneralCtrl.ePage.Masters.OnChangeValues(x.OSSellAmt,"E1197",true,$index)' data-ng-disabled="x.Revenuepost" numbers-only-dot sb-precision="2"/> -->
+                                            data-ng-change='FinanceJobGeneralCtrl.ePage.Masters.OnChangeValidation(x.OSSellAmt,"E1197",true,$index)' data-ng-disabled="x.Revenuepost" numbers-only-dot sb-precision="2"/> -->
                                         <input type="text" class="form-control input-sm" placeholder="0.00" data-ng-model="x.DuplicateOSSellAmt" data-ng-blur="FinanceJobGeneralCtrl.ePage.Masters.OnAmtChange($index, x.DuplicateOSSellAmt, 'OS', 'DEB', 'DuplicateOSSellAmt', 'OSSellAmt')"
-                                            data-ng-change='FinanceJobGeneralCtrl.ePage.Masters.OnChangeValues(x.DuplicateOSSellAmt, "E1197", true, $index)' data-ng-disabled="x.Revenuepost" numbers-only-dot /> 
+                                            data-ng-change='FinanceJobGeneralCtrl.ePage.Masters.OnChangeValidation(x.DuplicateOSSellAmt, "E1197", true, $index)' data-ng-disabled="x.Revenuepost" numbers-only-dot /> 
                                     </div>
                                     <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="FinanceJobGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIJobCharge.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':29">
                                         <error-warning-directive  list="FinanceJobGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIJobCharge.ERROR"
@@ -874,9 +853,9 @@
                                 <div data-ng-if="$index==FinanceJobGeneralCtrl.ePage.Masters.selectedRow">
                                     <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0 height-22">
                                         <!-- <input type="text" class="form-control input-sm" placeholder="0.00" data-ng-model="x.LocalSellAmt" data-ng-blur="FinanceJobGeneralCtrl.ePage.Masters.OnAmtChange($index,x.LocalSellAmt,'LOC','DEB')"
-                                            data-ng-change='FinanceJobGeneralCtrl.ePage.Masters.OnChangeValues(x.LocalSellAmt,"E1309",true,$index)' data-ng-disabled="x.Revenuepost" numbers-only-dot sb-precision="2"/> -->
+                                            data-ng-change='FinanceJobGeneralCtrl.ePage.Masters.OnChangeValidation(x.LocalSellAmt,"E1309",true,$index)' data-ng-disabled="x.Revenuepost" numbers-only-dot sb-precision="2"/> -->
                                         <input type="text" class="form-control input-sm" placeholder="0.00" data-ng-model="x.DuplicateLocalSellAmt" data-ng-blur="FinanceJobGeneralCtrl.ePage.Masters.OnAmtChange($index, x.DuplicateLocalSellAmt, 'LOC', 'DEB', 'DuplicateLocalSellAmt', 'LocalSellAmt')"
-                                            data-ng-change='FinanceJobGeneralCtrl.ePage.Masters.OnChangeValues(x.DuplicateLocalSellAmt, "E1309", true, $index)' data-ng-disabled="x.Revenuepost" numbers-only-dot />
+                                            data-ng-change='FinanceJobGeneralCtrl.ePage.Masters.OnChangeValidation(x.DuplicateLocalSellAmt, "E1309", true, $index)' data-ng-disabled="x.Revenuepost" numbers-only-dot />
                                     </div>
                                     <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5" data-ng-if="FinanceJobGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIJobCharge.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':31">
                                         <error-warning-directive  list="FinanceJobGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.UIJobCharge.ERROR"

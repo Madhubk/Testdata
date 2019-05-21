@@ -6,9 +6,14 @@
 .customcheckbox input[type=checkbox]~.text:before{
     color:black;
 }
-  
 
+.profit {
+    color: green;
+}
 
+.loss {
+    color: red;
+}
 
 
 
