@@ -767,7 +767,6 @@
                 DotArea(key, value.LocalSellAmt.toString(), 'DuplicateLocalSellAmt', 'LocalSellAmt', $item);
             });
 
-            debugger;
             if(!$item.isNew){
                 _input.UIJobHeader.LocalClient = _input.UIJobHeader.LocalOrg_Code + '-' + _input.UIJobHeader.LocalOrg_Name;
                 _input.UIJobHeader.OverseasAgent = _input.UIJobHeader.AgentOrg_Code + '-' + _input.UIJobHeader.AgentOrg_Name;

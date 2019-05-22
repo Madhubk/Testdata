@@ -20,8 +20,6 @@
                 "Entities": currentFinanceJob
             };
 
-            console.log("UI", FinanceJobGeneralCtrl.ePage);
-
             FinanceJobGeneralCtrl.ePage.Masters.DropDownMasterList = {};
             FinanceJobGeneralCtrl.ePage.Masters.UIJobDisabled = {};
 
@@ -87,7 +85,6 @@
 
         //#region InitFinaceJob
         function InitBindFinanceJob() {
-            debugger;
             if (FinanceJobGeneralCtrl.currentFinanceJob.isNew) {
                 FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.JobOpenDate = new Date();
             } 
@@ -179,7 +176,6 @@
 
         //#region SelectedLookupData
         function SelectedLookupData($index, $item, type) {
-            debugger;
             if ($item) {
                 if (type == 'Local') {
                     OnChangeValidation($item.Code, 'E1300');
