@@ -10,13 +10,13 @@
                         </span>
                         <label class="ml-5 control-label">Local Client</label>
                         <span class="error-warning-container">
-                            <error-warning-directive data-ng-if="FinanceJobGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.LocalOrg_Code.IsWarning && !FinanceJobGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.LocalOrg_Code.IsError"
-                                list="FinanceJobGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.LocalOrg_Code.WARNING"
+                            <error-warning-directive data-ng-if="FinanceJobGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.LocalClient.IsWarning && !FinanceJobGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.LocalClient.IsError"
+                                list="FinanceJobGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.LocalClient.WARNING"
                                 type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref=""
                                 g-parent-ref="">
                             </error-warning-directive>
-                            <error-warning-directive data-ng-if="FinanceJobGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.LocalOrg_Code.IsError"
-                                list="FinanceJobGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.LocalOrg_Code.ERROR"
+                            <error-warning-directive data-ng-if="FinanceJobGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.LocalClient.IsError"
+                                list="FinanceJobGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.LocalClient.ERROR"
                                 type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
                             </error-warning-directive>
                         </span>
@@ -24,7 +24,7 @@
                     <div class="col-xs-9 col-sm-9 col-md-8 col-lg-9 col-xl-9 height-40 p-5">
                         <div class="input-group input-group-sm">
                             <!-- Dynamic look up Search in textbox -->
-                            <div dynamic-lookup placeholder="Local Client" my-ng-model="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.LocalOrg_Code"
+                            <div dynamic-lookup placeholder="Local Client" my-ng-model="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.LocalClient"
                                 obj="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader" page-name="'OrganizationList'" control-id="'ShpBillingLocalAddress'"
                                 control-key="ShpBillingLocalAddress_2959" auto-complete-on-select="FinanceJobGeneralCtrl.ePage.Masters.SelectedLookupData($index, $item,'Local')" is-disabled="FinanceJobGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
                             </div>
@@ -35,32 +35,31 @@
                                     grid-refresh-fun="" selected-data="FinanceJobGeneralCtrl.ePage.Masters.SelectedLookupData($index, $item.data.entity,'Local')" is-disabled="FinanceJobGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable"><i class="fa fa-ellipsis-h"></i>
                                 </button>
                             </span>
-                            <span data-ng-if='!FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.LocalOrg_Code && !FinanceJobGeneralCtrl.currentFinanceJob.isNew'>
-                                <div data-ng-init="FinanceJobGeneralCtrl.ePage.Masters.OnChangeValidation(FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.LocalOrg_Code,'E1300',false,undefined)">
+                            <span data-ng-if='!FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.LocalClient && !FinanceJobGeneralCtrl.currentFinanceJob.isNew'>
+                                <div data-ng-init="FinanceJobGeneralCtrl.ePage.Masters.OnChangeValidation(FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.LocalClient,'E1300',false,undefined)">
                                 </div>
                             </span>
                         </div>
                     </div>
                 </div>
                 <div class="rows p-5 height-90">
-                    <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5 col-xl-5 pt-10">
-                        <div class="text-single-line font-12" title='{{}}'>
-                            {{FinanceJobGeneralCtrl.ePage.Masters.JobAddress.Address1}}</div>
-                        <div class="text-single-line" title='{{}}'>
-                            {{FinanceJobGeneralCtrl.ePage.Masters.JobAddress.Address2}}</div>
-                        <div class="text-single-line" title='{{}}'>
-                            {{FinanceJobGeneralCtrl.ePage.Masters.JobAddress.State}}</div>
-                        <div class="text-single-line">
-                            <span title="{{}}">{{FinanceJobGeneralCtrl.ePage.Masters.JobAddress.City}} -</span>
-                            <span title="{{}}">{{FinanceJobGeneralCtrl.ePage.Masters.JobAddress.PostCode}}</span>
+                    <div data-ng-show="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.LocalClient" data-ng-repeat="x in FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobAddress | filter: {AddressType:'LOC'}">
+                        <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5 col-xl-5 pt-10">
+                            <div class="text-single-line font-12" title='{{x.Address1}}'>{{x.Address1}}</div>
+                            <div class="text-single-line" title='{{x.Address2}}'>{{x.Address2}}</div>
+                            <div class="text-single-line" title='{{x.State}}'>{{x.State}}</div>
+                            <div class="text-single-line">
+                                <span data-ng-show="x.City" title="{{x.City}}">{{x.City}} -</span>
+                                <span data-ng-show="x.PostCode" title="{{x.PostCode}}">{{x.PostCode}}</span>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-xs-12 col-sm-12 col-md-7 col-lg-7 col-xl-7 pt-10">
-                        <div class="pull-right text-single-line font-12" title="{{}}">
-                            <i class="fa fa-phone ml-5 mr-5"></i>{{FinanceJobGeneralCtrl.ePage.Masters.JobAddress.Mobile}}
-                        </div>
-                        <div class="pull-right text-single-line font-12" title="{{}}">
-                            <i class="fa fa-envelope-o ml-5 mr-5"></i>{{FinanceJobGeneralCtrl.ePage.Masters.JobAddress.Email}}
+                        <div class="col-xs-12 col-sm-12 col-md-7 col-lg-7 col-xl-7 pt-10">
+                            <div class="pull-right text-single-line font-12" data-ng-show="x.Mobile" title="{{x.Mobile}}">
+                                <i class="fa fa-phone ml-5 mr-5"></i>{{x.Mobile}}
+                            </div>
+                            <div class="pull-right text-single-line font-12" data-ng-show="x.Email" title="{{x.Email}}">
+                                <i class="fa fa-envelope-o ml-5 mr-5"></i>{{x.Email}}
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -76,12 +75,12 @@
                         </span>
                         <label class="ml-5 control-label">Overseas Agent</label>
                         <span class="error-warning-container">
-                            <error-warning-directive data-ng-if="FinanceJobGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.AgentOrg_Code.IsWarning && !FinanceJobGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.AgentOrg_Code.IsError"
-                                list="FinanceJobGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.AgentOrg_Code.WARNING"
+                            <error-warning-directive data-ng-if="FinanceJobGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.OverseasAgent.IsWarning && !FinanceJobGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.OverseasAgent.IsError"
+                                list="FinanceJobGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.OverseasAgent.WARNING"
                                 type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
                             </error-warning-directive>
-                            <error-warning-directive data-ng-if="FinanceJobGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.AgentOrg_Code.IsError"
-                                list="FinanceJobGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.AgentOrg_Code.ERROR"
+                            <error-warning-directive data-ng-if="FinanceJobGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.OverseasAgent.IsError"
+                                list="FinanceJobGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.OverseasAgent.ERROR"
                                 type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
                             </error-warning-directive>
                         </span>
@@ -89,7 +88,7 @@
                     <div class="col-xs-9 col-sm-9 col-md-8 col-lg-9 col-xl-9 height-40  p-5">
                         <div class="input-group input-group-sm">
                             <!-- Dynamic look up Search in textbox -->
-                            <div dynamic-lookup placeholder="Overseas Agent" my-ng-model="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.AgentOrg_Code"
+                            <div dynamic-lookup placeholder="Overseas Agent" my-ng-model="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.OverseasAgent"
                                 obj="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader" page-name="'OrganizationList'" control-id="'ShpBillingAgentAddress'"
                                 control-key="ShpBillingAgentAddress_2958" auto-complete-on-select="FinanceJobGeneralCtrl.ePage.Masters.SelectedLookupData($index, $item,'Agent')" is-disabled="FinanceJobGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
                             </div>
@@ -101,35 +100,34 @@
                                     grid-refresh-fun="" selected-data="FinanceJobGeneralCtrl.ePage.Masters.SelectedLookupData($index, $item.data.entity,'Agent')" is-disabled="FinanceJobGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable"><i class="fa fa-ellipsis-h"></i>
                                 </button>
                             </span>
-                            <span data-ng-if='!FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.AgentOrg_Code && !FinanceJobGeneralCtrl.currentFinanceJob.isNew'>
-                                <div data-ng-init="FinanceJobGeneralCtrl.ePage.Masters.OnChangeValidation(FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.AgentOrg_Code,'E1301',false,undefined)">
+                            <span data-ng-if='!FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.OverseasAgent && !FinanceJobGeneralCtrl.currentFinanceJob.isNew'>
+                                <div data-ng-init="FinanceJobGeneralCtrl.ePage.Masters.OnChangeValidation(FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.OverseasAgent,'E1301',false,undefined)">
                                 </div>
                             </span>
                         </div>
                     </div>
                 </div>
                 <div class="rows p-5 height-90">
-                    <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5 col-xl-5 pt-10">
-                        <div class="text-single-line font-12" title='{{}}'>
-                            {{FinanceJobGeneralCtrl.ePage.Masters.JobAddress1.Address1}}</div>
-                        <div class="text-single-line" title='{{}}'>
-                            {{FinanceJobGeneralCtrl.ePage.Masters.JobAddress1.Address2}}</div>
-                        <div class="text-single-line" title='{{}}'>
-                            {{FinanceJobGeneralCtrl.ePage.Masters.JobAddress1.State}}</div>
-                        <div class="text-single-line">
-                            <span title="{{}}">{{FinanceJobGeneralCtrl.ePage.Masters.JobAddress1.City}}</span>
-                            <span title="{{}}">{{FinanceJobGeneralCtrl.ePage.Masters.JobAddress1.PostCode}}</span>
+                    <div data-ng-show="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.OverseasAgent" data-ng-repeat="x in FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobAddress | filter: {AddressType:'OSA'}">
+                        <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5 col-xl-5 pt-10">
+                            <div class="text-single-line font-12" title='{{x.Address1}}'>{{x.Address1}}</div>
+                            <div class="text-single-line" title='{{x.Address2}}'>{{x.Address2}}</div>
+                            <div class="text-single-line" title='{{x.State}}'>{{x.State}}</div>
+                            <div class="text-single-line">
+                                <span data-ng-show="x.City" title="{{x.City}}">{{x.City}}</span>
+                                <span data-ng-show="x.PostCode" title="{{x.PostCode}}">{{x.PostCode}}</span>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-7 col-lg-7 col-xl-7 pt-10">
+                            <div class="pull-right text-single-line font-12" data-ng-show="x.Mobile" title="{{x.Mobile}}">
+                                 <i class="fa fa-phone ml-5 mr-5"></i>{{x.Mobile}}
+                            </div>
+                            <div class="pull-right text-single-line font-12" data-ng-show="x.Email" title="{{x.Email}}">
+                                <i class="fa fa-envelope-o ml-5 mr-5"></i>{{x.Email}}
+                            </div>
                         </div>
                     </div>
-                    <div class="col-xs-12 col-sm-12 col-md-7 col-lg-7 col-xl-7 pt-10">
-                        <div class="pull-right text-single-line font-12" title="{{}}">
-                            <i class="fa fa-phone ml-5 mr-5"></i>{{FinanceJobGeneralCtrl.ePage.Masters.JobAddress1.Mobile}}
-                        </div>
-                        <div class="pull-right text-single-line font-12" title="{{}}">
-                            <i class="fa fa-envelope-o ml-5 mr-5"></i>{{FinanceJobGeneralCtrl.ePage.Masters.JobAddress1.Email}}
-                        </div>
-                    </div>    
-                 </div>
+                </div>
             </div>
         </div>
     </div>
@@ -141,15 +139,15 @@
             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
                 <div class="form-group">
                     <div class="error-warning-container">
-                        <error-warning-directive data-ng-if="FinanceJobGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.CompanyCode.IsWarning && !FinanceJobGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.CompanyCode.IsError"
-                            list="FinanceJobGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.CompanyCode.WARNING" type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
-                        <error-warning-directive data-ng-if="FinanceJobGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.CompanyCode.IsError" list="FinanceJobGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.CompanyCode.ERROR"
+                        <error-warning-directive data-ng-if="FinanceJobGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Company.IsWarning && !FinanceJobGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Company.IsError"
+                            list="FinanceJobGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Company.WARNING" type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                        <error-warning-directive data-ng-if="FinanceJobGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Company.IsError" list="FinanceJobGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Company.ERROR"
                             type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
                     </div>
                     <label class="control-label">Company</label>
                     <div class="input-group input-group-sm">
                     <!-- Dynamic look up Search in textbox -->
-                    <div dynamic-lookup placeholder="Company" my-ng-model="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.CompanyCode"
+                    <div dynamic-lookup placeholder="Company" my-ng-model="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.Company"
                          obj="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader" page-name="'CmpCompany'" control-id="'FinanceCompany'" control-key="FinanceCompany_5555" 
                          auto-complete-on-select="FinanceJobGeneralCtrl.ePage.Masters.SelectedLookupData($index, $item,'Company')" is-disabled="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge.length > 0 || FinanceJobGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
                     </div>
@@ -160,8 +158,8 @@
                             is-disabled="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge.length > 0 || FinanceJobGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable"><i class="fa fa-ellipsis-h"></i>
                     </button>
                     </span>
-                    <span data-ng-if='!FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.CompanyCode && !FinanceJobGeneralCtrl.currentFinanceJob.isNew'>
-                        <div data-ng-init="FinanceJobGeneralCtrl.ePage.Masters.OnChangeValidation(FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.CompanyCode,'E1323',false,undefined)"></div>
+                    <span data-ng-if='!FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.Company && !FinanceJobGeneralCtrl.currentFinanceJob.isNew'>
+                        <div data-ng-init="FinanceJobGeneralCtrl.ePage.Masters.OnChangeValidation(FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.Company,'E1323',false,undefined)"></div>
                     </span>
                     </div>
                 </div>
@@ -177,26 +175,26 @@
            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
                <div class="form-group">
                    <div class="error-warning-container">
-                       <error-warning-directive data-ng-if="FinanceJobGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.BranchCode.IsWarning && !FinanceJobGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.BranchCode.IsError"
-                              list="FinanceJobGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.BranchCode.WARNING" type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
-                       <error-warning-directive data-ng-if="FinanceJobGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.BranchCode.IsError" list="FinanceJobGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.BranchCode.ERROR"
+                       <error-warning-directive data-ng-if="FinanceJobGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Branch.IsWarning && !FinanceJobGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Branch.IsError"
+                              list="FinanceJobGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Branch.WARNING" type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                       <error-warning-directive data-ng-if="FinanceJobGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Branch.IsError" list="FinanceJobGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Branch.ERROR"
                                type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
                    </div>
                    <label class="control-label">Branch</label>
                    <div class="input-group input-group-sm">
                        <!-- Dynamic look up Search in textbox -->
-                       <div dynamic-lookup placeholder="Branch" my-ng-model="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.BranchCode"
+                       <div dynamic-lookup placeholder="Branch" my-ng-model="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.Branch"
                            obj="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader" page-name="'CmpBranch'" control-id="'FinanceBranch'" control-key="FinanceBranch_3332" 
-                           auto-complete-on-select="FinanceJobGeneralCtrl.ePage.Masters.SelectedLookupData($index, $item,'Branch')" is-disabled="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge.length > 0 || !FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.CompanyCode || FinanceJobGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
+                           auto-complete-on-select="FinanceJobGeneralCtrl.ePage.Masters.SelectedLookupData($index, $item,'Branch')" is-disabled="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge.length > 0 || !FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.Company || FinanceJobGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
                        </div>
                        <!-- Look Up page opens when button clicks -->
                        <span class="input-group-btn">
                            <button dynamic-list-modal class="btn btn-default" type="button" obj="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader" page-name="'CmpBranch'" control-id="'FinanceBranch'" control-key="FinanceBranch_3332"
-                               mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="FinanceJobGeneralCtrl.ePage.Masters.SelectedLookupData($index, $item.data.entity,'Branch')" is-disabled="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge.length > 0 || !FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.CompanyCode || FinanceJobGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable"><i class="fa fa-ellipsis-h"></i>
+                               mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="FinanceJobGeneralCtrl.ePage.Masters.SelectedLookupData($index, $item.data.entity,'Branch')" is-disabled="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge.length > 0 || !FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.Company || FinanceJobGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable"><i class="fa fa-ellipsis-h"></i>
                            </button>
                        </span>
-                       <span data-ng-if='!FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.BranchCode && !FinanceJobGeneralCtrl.currentFinanceJob.isNew'>
-                           <div data-ng-init="FinanceJobGeneralCtrl.ePage.Masters.OnChangeValidation(FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.BranchCode,'E1302',false,undefined)"></div>
+                       <span data-ng-if='!FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.Branch && !FinanceJobGeneralCtrl.currentFinanceJob.isNew'>
+                           <div data-ng-init="FinanceJobGeneralCtrl.ePage.Masters.OnChangeValidation(FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.Branch,'E1302',false,undefined)"></div>
                        </span>
                    </div>
                </div>
@@ -205,22 +203,22 @@
            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
                <div class="form-group">
                    <div class="error-warning-container">
-                       <error-warning-directive data-ng-if="FinanceJobGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.DeptCode.IsWarning && !FinanceJobGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.DeptCode.IsError"
-                           list="FinanceJobGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.DeptCode.WARNING" type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
-                       <error-warning-directive data-ng-if="FinanceJobGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.DeptCode.IsError" list="FinanceJobGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.DeptCode.ERROR"
+                       <error-warning-directive data-ng-if="FinanceJobGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Department.IsWarning && !FinanceJobGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Department.IsError"
+                           list="FinanceJobGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Department.WARNING" type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                       <error-warning-directive data-ng-if="FinanceJobGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Department.IsError" list="FinanceJobGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Department.ERROR"
                            type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
                    </div>
                    <label class="control-label">Department</label>
                    <div class="input-group input-group-sm">
-                       <div dynamic-lookup placeholder="Department" my-ng-model="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.DeptCode"
+                       <div dynamic-lookup placeholder="Department" my-ng-model="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.Department"
                            obj="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader" page-name="'CmpDepartment'" control-id="'FinanceDepartment'" control-key="FinanceDepartment_3331"
                            auto-complete-on-select="FinanceJobGeneralCtrl.ePage.Masters.SelectedLookupData($index, $item,'Department')" is-disabled="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge.length > 0 || FinanceJobGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable"></div>
                        <span class="input-group-btn">
                            <button dynamic-list-modal class="btn btn-default" type="button" obj="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader" page-name="'CmpDepartment'" control-id="'FinanceDepartment'" control-key="FinanceDepartment_3331"
                                mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="FinanceJobGeneralCtrl.ePage.Masters.SelectedLookupData($index, $item.data.entity,'Department')" is-disabled="FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge.length > 0 || FinanceJobGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable"><i class="fa fa-ellipsis-h"></i></button>
                        </span>
-                       <span data-ng-if='!FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.DeptCode && !FinanceJobGeneralCtrl.currentFinanceJob.isNew'>
-                           <div data-ng-init="FinanceJobGeneralCtrl.ePage.Masters.OnChangeValidation(FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.DeptCode,'E1303',false,undefined)"></div>
+                       <span data-ng-if='!FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.Department && !FinanceJobGeneralCtrl.currentFinanceJob.isNew'>
+                           <div data-ng-init="FinanceJobGeneralCtrl.ePage.Masters.OnChangeValidation(FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.Department,'E1303',false,undefined)"></div>
                        </span>
                    </div>
                </div>
@@ -356,7 +354,7 @@
             <div class="clearfix mt-30">
                 <span>
                     <button type="button" class="btn btn-sm pull-left btn-outline-secondary font-10" title="Add New" data-ng-click="FinanceJobGeneralCtrl.ePage.Masters.AddNewRow()" 
-                        data-ng-disabled="!FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.CompanyCode || !FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.BranchCode || !FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.DeptCode || FinanceJobGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
+                        data-ng-disabled="!FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.Company || !FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.Branch || !FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.Department || FinanceJobGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
                         <span class="fa fa-plus"></span>&nbsp;&nbsp;Add New</button>
                 </span>
                 <span>

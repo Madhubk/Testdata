@@ -20,29 +20,6 @@
                 "Entities": currentFinanceJob
             };
 
-            /* Static Field Values */
-            FinanceJobGeneralCtrl.ePage.Masters.JobAddress = {
-                Address1: "1 Richi Street",
-                Address2: "Mount Road",
-                State: "TN",
-                PostCode: "600001",
-                City: "Chennai",
-                Email: "demma@demmaa.com",
-                Mobile: "9790320488",
-                Phone: "0452-35458"
-            };
-
-            FinanceJobGeneralCtrl.ePage.Masters.JobAddress1 = {
-                Address1: "Office# 402, Wasl Building,",
-                Address2: "Near Karama, P O BOX 34809",
-                State: "Dubai ",
-                PostCode: "600001",
-                City: "UAE",
-                Email: "20clogjea@clogjea.com",
-                Mobile: "9714536480",
-                Phone: "0478-178945"
-            };
-
             FinanceJobGeneralCtrl.ePage.Masters.DropDownMasterList = {};
             FinanceJobGeneralCtrl.ePage.Masters.UIJobDisabled = {};
 
@@ -97,18 +74,20 @@
             };
 
             financeConfig.InitBinding(FinanceJobGeneralCtrl.currentFinanceJob);
-            InitFinanceJob();
+            InitBindFinanceJob();
             GetMastersDropDownList();
+            GetNewLocalClientAddress();
+            GetNewOverseasAgentAddress();
             CostCalculation();
             RevenueCalculation();
             ProfitAndLossCalculation();
         }
 
         //#region InitFinaceJob
-        function InitFinanceJob() {
+        function InitBindFinanceJob() {
             if (FinanceJobGeneralCtrl.currentFinanceJob.isNew) {
                 FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.JobOpenDate = new Date();
-            }
+            } 
         }
         //#endregion
 
@@ -142,25 +121,123 @@
         }
         //#endregion
 
+        //#region GetNewLocalClientAddress, GetNewOverseasAgentAddress
+
+        function GetNewLocalClientAddress() {
+            var myvalue = FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobAddress.some(function (value, key) {
+                return value.AddressType == "LOC";
+            });
+
+            if (!myvalue) {
+                var obj = {
+                    "AddressType": "LOC",
+                    "ORG_FK": "",
+                    "OAD_Address_FK": "",
+                    "Address1": "",
+                    "Address2": "",
+                    "City": "",
+                    "State": "",
+                    "JDA_RN_NKCountryCode": "",
+                    "PostCode": "",
+                    "Email": "",
+                    "Mobile": "",
+                    "Phone": "",
+                    "Fax": "",
+                };
+                FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobAddress.splice(FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobAddress.length + 1, 0, obj);
+            }
+        }
+
+        function GetNewOverseasAgentAddress() {
+            var myvalue = FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobAddress.some(function (value, key) {
+                return value.AddressType == "OSA";
+            });
+
+            if (!myvalue) {
+                var obj = {
+                    "AddressType": "OSA",
+                    "ORG_FK": "",
+                    "OAD_Address_FK": "",
+                    "Address1": "",
+                    "Address2": "",
+                    "City": "",
+                    "State": "",
+                    "JDA_RN_NKCountryCode": "",
+                    "PostCode": "",
+                    "Email": "",
+                    "Mobile": "",
+                    "Phone": "",
+                    "Fax": "",
+                };
+                FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobAddress.splice(FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobAddress.length + 1, 0, obj);
+            }
+        }
+        //#endregion
+
         //#region SelectedLookupData
         function SelectedLookupData($index, $item, type) {
             if ($item) {
                 if (type == 'Local') {
                     OnChangeValidation($item.Code, 'E1300');
+
+                    FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.LocalClient = $item.Code + ' - ' + $item.FullName;
+
+                    angular.forEach(FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobAddress, function (value, key) {
+                        if (value.AddressType == "LOC") {
+                            value.ORG_FK = $item.PK;
+                            value.OAD_Address_FK = $item.OAD_PK;
+                            value.Address1 = $item.OAD_Address1;
+                            value.Address2 = $item.OAD_Address2;
+                            value.State = $item.OAD_State;
+                            value.PostCode = $item.OAD_PostCode;
+                            value.City = $item.OAD_City;
+                            value.Email = $item.OAD_Email;
+                            value.Mobile = $item.OAD_Mobile;
+                            value.Phone = $item.OAD_Phone;
+                            value.RN_NKCountryCode = $item.OAD_CountryCode;
+                            value.Fax = $item.OAD_Fax;
+                            value.TenantCode = "20CUB"
+                        }
+                    });
                 }
                 else if (type == 'Agent') {
                     OnChangeValidation($item.Code, 'E1301');
+
+                    FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.OverseasAgent = $item.Code + ' - ' + $item.FullName;
+
+                    angular.forEach(FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobAddress, function (value, key) {
+                        if (value.AddressType == "OSA") {
+                            value.ORG_FK = $item.PK;
+                            value.OAD_Address_FK = $item.OAD_PK;
+                            value.Address1 = $item.OAD_Address1;
+                            value.Address2 = $item.OAD_Address2;
+                            value.State = $item.OAD_State;
+                            value.PostCode = $item.OAD_PostCode;
+                            value.City = $item.OAD_City;
+                            value.Email = $item.OAD_Email;
+                            value.Mobile = $item.OAD_Mobile;
+                            value.Phone = $item.OAD_Phone;
+                            value.RN_NKCountryCode = $item.OAD_CountryCode;
+                            value.Fax = $item.OAD_Fax;
+                            value.TenantCode = "20CUB"
+                        }
+                    });
                 }
                 else if (type == 'Company') {
                     OnChangeValidation($item.Code, 'E1323');
 
+                    FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.Company = $item.Code + ' - ' + $item.Name;
                     FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.GC = $item.PK;
                 }
                 else if (type == 'Branch') {
                     OnChangeValidation($item.Code, 'E1302');
+
+                    FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.Branch = $item.Code + ' - ' + $item.BranchName;
                 }
                 else if (type == 'Department') {
                     OnChangeValidation($item.Code, 'E1303');
+
+                    FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.Department = $item.Code + ' - ' + $item.Desc;
                 }
                 else if (type == 'ChargeCode') {
                     OnChangeValidation($item.Code, 'E1191');
