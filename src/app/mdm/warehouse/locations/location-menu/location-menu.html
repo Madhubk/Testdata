@@ -36,7 +36,7 @@
     <!-- Footer -->
     <div class="eaxis-footer-strip">
         <div class="col-xs-6 col-sm-9 col-md-9 col-lg-9 col-xl-9">
-            <standard-menu dataentry-object="LocationMenuCtrl.dataentryObject" input="LocationMenuCtrl.currentLocation"></standard-menu>
+            <standard-menu dataentry-object="LocationMenuCtrl.dataentryObject" mode="1" input="LocationMenuCtrl.currentLocation" ng-if="!LocationMenuCtrl.currentLocation.isNew"></standard-menu>
         </div>
         <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 col-xl-3">
             <button class="btn btn-primary btn-sm pull-right margin-right-10 mt-6" data-ng-click="LocationMenuCtrl.ePage.Masters.Validation(LocationMenuCtrl.currentLocation)"

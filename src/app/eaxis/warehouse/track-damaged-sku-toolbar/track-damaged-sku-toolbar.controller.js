@@ -738,7 +738,7 @@
                         ProcessName: "WMS_MaterialTransfer",
                         InitBy: "PICKUP",
 
-                        EntitySource: "PIC",
+                        EntitySource: "PIR",
                         EntityRefCode: DamagedSkuToolbarCtrl.ePage.Masters.OutwardData.UIWmsOutwardHeader.WorkOrderID,
                         EntityRefKey: DamagedSkuToolbarCtrl.ePage.Masters.OutwardData.UIWmsOutwardHeader.PK,
 

@@ -7,6 +7,14 @@
                     data-ng-click="CurrencyMenuCtrl.ePage.Masters.Validation(CurrencyMenuCtrl.currentCurrency)" data-ng-disabled="CurrencyMenuCtrl.ePage.Masters.DisableSave">
                 </button>
             </span>
+            <span class="pull-right">
+                <button type="button" class="btn btn-primary btn-sm margin-top-5 margin-right-10" data-ng-bind="CurrencyMenuCtrl.ePage.Masters.DeactivateButtonText"
+                data-ng-click="CurrencyMenuCtrl.ePage.Masters.Deactivate(CurrencyMenuCtrl.currentCurrency)" data-ng-disabled="CurrencyMenuCtrl.ePage.Masters.isDeactivate"></button>
+            </span>
+            <span class="pull-right">
+                <button type="button" class="btn btn-primary btn-sm margin-top-5 margin-right-10" data-ng-bind="CurrencyMenuCtrl.ePage.Masters.ActivateButtonText"
+                data-ng-click="CurrencyMenuCtrl.ePage.Masters.Activate()" data-ng-disabled="CurrencyMenuCtrl.ePage.Masters.isActivate"></button>
+            </span>
         </span>
     </div>
 </div>

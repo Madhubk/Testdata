@@ -480,7 +480,7 @@
                 API: "Validation", // Validation/Group
                 FilterInput: {
                     ModuleCode: "WMS",
-                    SubModuleCode: "PIC",
+                    SubModuleCode: "PIR",
                     // Code: "E0013"
                 },
                 EntityObject: CreatePickupChallanCtrl.ePage.Entities.Header.Data,

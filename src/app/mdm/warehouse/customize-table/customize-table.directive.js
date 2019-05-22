@@ -7,6 +7,7 @@
         .directive("keyEvents", KeyEvents)
         .directive("watchTable", WatchTable)
         .directive("doNotChange", DoNotChange)
+        .directive("descbind",DescBind)
         .filter("tableslice", TableSlice);
 
 
@@ -287,6 +288,40 @@
     function TableSlice() {
         return function (tableobject, startindex, endindex) {
             return tableobject.slice(startindex, endindex);
+        }
+    }
+
+    //To bind description also
+    function DescBind(){
+        var exports = {
+            restrict :"EA",
+            link : Link,
+            scope:{
+                get:"=",
+                set:"=",
+                key:"="
+            }
+        };
+        return exports;
+        function Link(scope, elem, attr){
+
+            scope.$watch('key',function(){
+                if(scope.set){
+                    scope.set.map(function(value){
+                        if(value.Key==scope.key){
+                            scope.get = value.Value;
+                        }
+                    })
+                }
+            });
+
+            // scope.UpdateDescription = function(get,set,key){
+            //     set.map(function(value){
+            //         if(value.Key==key){
+            //             get = value.Value;
+            //         }
+            //     })
+            // }
         }
     }
 

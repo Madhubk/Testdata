@@ -269,6 +269,12 @@
                                 "Url": "CmpDepartment/FindAll",
                                 "FilterID": "CMPDEPT"
                             },
+                            "TrackingStatusFindAll": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "TmsStatusHistory/FindAll",
+                                "FilterID": "TMSSH"
+                            },
                         },
 
                         "Meta": {
@@ -472,9 +478,9 @@
         }
 
         function ShowErrorWarningModal(EntityObject) {
-            $("#errorWarningContainer" + EntityObject.label).toggleClass("open");
+            $("#errorWarningContainer" + EntityObject.code).toggleClass("open");
             if (errorWarningService.Modules.Manifest.Entity[EntityObject.code].GlobalErrorWarningList.length == 0) {
-                $("#errorWarningContainer" + EntityObject.label).removeClass("open");
+                $("#errorWarningContainer" + EntityObject.code).removeClass("open");
             }
         }
     }

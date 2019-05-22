@@ -328,5 +328,24 @@
                 </div>
             </div>
         </div>
+        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="control-label text-single-line">Cancelled Date Time</label>
+                <div class="input-group input-group-sm">
+                    <input type="text" disabled class="form-control" placeholder="{{DeliveryLineGeneralCtrl.ePage.Masters.DatePicker.Options.dateTimeFormat}}"
+                        datetime-picker="{{DeliveryLineGeneralCtrl.ePage.Masters.DatePicker.Options.dateTimeFormat}}"
+                        ng-model="DeliveryLineGeneralCtrl.ePage.Entities.Header.Data.CancelledDateTime" is-open="DeliveryLineGeneralCtrl.ePage.Masters.DatePicker.isOpen['isCancelledDateTime']"
+                        datepicker-options="DeliveryLineGeneralCtrl.ePage.Masters.DatePicker.Options"
+                        datepicker-append-to-body="false" close-on-selection="false" enable-time="true" enable-date="true"
+                        default-date="" default-time="" when-closed="" save-as="DeliveryLineGeneralCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                        custom-date-time-format />
+                    <span class="input-group-btn">
+                        <button disabled type="button" class="btn btn-default" data-ng-click="DeliveryLineGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isCancelledDateTime')">
+                            <i class="fa fa-calendar"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

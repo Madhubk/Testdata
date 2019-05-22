@@ -402,7 +402,11 @@
                     toastr.error("Could not Save...!");
                     InwardMenuCtrl.ePage.Entities.Header.Validations = response.Validations;
                     angular.forEach(response.Validations, function (value, key) {
-                        InwardMenuCtrl.ePage.Masters.Config.PushErrorWarning(value.Code, value.Message, "E", false, value.CtrlKey, InwardMenuCtrl.currentInward.label, false, undefined, undefined, undefined, undefined, value.GParentRef);
+                        if (value.RowIndex > 0) {
+                            InwardMenuCtrl.ePage.Masters.Config.PushErrorWarning(value.Code, value.Message, "E", false, value.CtrlKey, InwardMenuCtrl.currentInward.label, true, value.RowIndex - 1, value.ColIndex, undefined, undefined, value.GParentRef);
+                        } else {
+                            InwardMenuCtrl.ePage.Masters.Config.PushErrorWarning(value.Code, value.Message, "E", false, value.CtrlKey, InwardMenuCtrl.currentInward.label, false, undefined, undefined, undefined, undefined, value.GParentRef);
+                        }
                     });
                     if (InwardMenuCtrl.ePage.Entities.Header.Validations != null) {
                         InwardMenuCtrl.ePage.Masters.Finalisesave = false;

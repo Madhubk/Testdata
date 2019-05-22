@@ -33,7 +33,8 @@
             BranchCtrl.ePage.Masters.CurrentActiveTab = CurrentActiveTab;
             BranchCtrl.ePage.Masters.RemoveTab = RemoveTab;
             BranchCtrl.ePage.Masters.SelectedGridRow = SelectedGridRow;
-            BranchCtrl.ePage.Masters.CreateNewBranch=CreateNewBranch;
+            BranchCtrl.ePage.Masters.CreateNewBranch = CreateNewBranch;
+            branchConfig.ValidationFindall();
         }
 
         function SelectedGridRow($item) {
@@ -49,7 +50,7 @@
                     return value.label === currentBranch.entity.Code;
                 } else {
                     return false;
-                    
+
                 }
             });
             if (!_isExist) {
@@ -61,11 +62,14 @@
                     _currentBranch = currentBranch;
                 }
                 branchConfig.AddBranch(currentBranch, isNew).then(function (response) {
-                    BranchCtrl.ePage.Masters.TabList = response;
+                    debugger;
+                    var _entity = {};
+                    BranchCtrl.ePage.Masters.TabList = response;                    
                     $timeout(function () {
                         BranchCtrl.ePage.Masters.activeTabIndex = BranchCtrl.ePage.Masters.TabList.length;
-                        BranchCtrl.ePage.Masters.CurrentActiveTab(currentBranch.entity.PK);
+                        BranchCtrl.ePage.Masters.CurrentActiveTab(currentBranch.entity.Code);
                         BranchCtrl.ePage.Masters.IsTabClick = false;
+
                     });
                 });
             } else {
@@ -89,9 +93,9 @@
             });
 
             if (!_isExist) {
-                BranchCtrl.ePage.Entities.BranchHeader.Message = false;
+                BranchCtrl.ePage.Entities.Header.Message = false;
                 BranchCtrl.ePage.Masters.isNewClicked = true;
-                helperService.getFullObjectUsingGetById(BranchCtrl.ePage.Entities.BranchHeader.API.GetByID.Url, 'null').then(function (response) {
+                helperService.getFullObjectUsingGetById(BranchCtrl.ePage.Entities.Header.API.GetByID.Url, 'null').then(function (response) {
                     if (response.data.Response) {
                         var _obj = {
                             entity: response.data.Response,
@@ -113,7 +117,7 @@
             BranchCtrl.ePage.Masters.SaveButtonText = "Please Wait...";
             BranchCtrl.ePage.Masters.IsDisableSave = true;
             var _BranchData = currentBranch[currentBranch.label].ePage.Entities;
-            var _input = _BranchData.BranchHeader.Data,
+            var _input = _BranchData.Header.Data,
                 _api;
             if (currentBranch.isNew) {
                 _input = filterObject(_input, "PK");
@@ -142,7 +146,23 @@
             }
             BranchCtrl.ePage.Masters.currentBranch = currentTab;
         }
-        
+        function GetValidationList(currentTab, entity) {
+            var _obj = {
+                ModuleName: ["Finance"],
+                Code: [currentTab],
+                API: "Group",
+                //API: "Validation",
+                FilterInput: {
+                    ModuleCode: "Finance",
+                    SubModuleCode: "JBA",
+                },
+                GroupCode: "",
+                RelatedBasicDetails: [{}],
+                EntityObject: entity
+            };
+            errorWarningService.GetErrorCodeList(_obj);
+        }
+
         Init();
     }
 })();

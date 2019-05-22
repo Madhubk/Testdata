@@ -1,5 +1,5 @@
 <!-- Non Editable -->
-<div class="noneditable ng-scope" data-ng-if="PickupLineCtrl.ePage.Entities.Header.GlobalVariables.NonEditable"></div>
+<!-- <div class="noneditable ng-scope" data-ng-if="PickupLineCtrl.ePage.Entities.Header.GlobalVariables.NonEditable"></div> -->
 <div class="grid-loading-norecord-container ng-scope" style='z-index: 15;' data-ng-if="PickupLineCtrl.ePage.Masters.Loading">
     <div class="dyn-grid-no-record">
         <i class="fa fa-spinner fa-pulse"></i> Adding To Order </div>
@@ -13,7 +13,8 @@
                     <span class="fa fa-plus"></span>&nbsp;&nbsp;Add New</button>
             </span> -->
             <span>
-                <button dynamic-list-modal obj="PickupLineCtrl.ePage.Entities.Header.Data.UIWmsPickup" default-filter="PickupLineCtrl.ePage.Masters.AttachDefaultFilter"
+                <button ng-disabled="PickupLineCtrl.ePage.Entities.Header.GlobalVariables.NonEditable"
+                    dynamic-list-modal obj="PickupLineCtrl.ePage.Entities.Header.Data.UIWmsPickup" default-filter="PickupLineCtrl.ePage.Masters.AttachDefaultFilter"
                     base-filter="PickupLineCtrl.ePage.Masters.AttachDefaultFilter" selected-data="PickupLineCtrl.ePage.Masters.Attach($item)"
                     page-name="'PickupLine'" mode="3" grid-refresh-fun-name="" grid-refresh-fun="" class="btn btn-sm btn-outline-primary"
                     type="button">

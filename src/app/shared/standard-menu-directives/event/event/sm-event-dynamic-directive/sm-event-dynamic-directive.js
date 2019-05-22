@@ -49,9 +49,9 @@
                                 _arr.push(value.charAt(0).toUpperCase() + value.slice(1));
                             }
                         });
-                        templateName = _arr.join("");
+                        var templateName = _arr.join("");
                     } else {
-                        templateName = _templateName;
+                        var templateName = _templateName;
                     }
                 }
 

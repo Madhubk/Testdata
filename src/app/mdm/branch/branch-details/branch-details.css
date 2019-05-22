@@ -6,3 +6,8 @@
 	float: right;
 	margin-bottom: 5px;
 }
+.jba-brndtl-wraper label {
+    color: gray;
+    font-weight: 600;
+    font-size: 12px;
+  }

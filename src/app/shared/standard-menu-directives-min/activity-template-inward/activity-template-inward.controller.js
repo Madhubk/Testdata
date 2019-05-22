@@ -818,7 +818,7 @@
                 "Entity": ActivityTemplateInwardCtrl.ePage.Masters.TaskObj.WSI_StepCode,
                 "EntityRefKey": ActivityTemplateInwardCtrl.ePage.Masters.TaskObj.EntityRefKey,
                 "EntityRefCode": ActivityTemplateInwardCtrl.ePage.Masters.TaskObj.KeyReference,
-                "EntitySource": ActivityTemplateInwardCtrl.ePage.Masters.TaskObj.EntitySource,
+                "EntitySource": "INW",
                 "Communication": null,
                 "Config": undefined,
                 // Parent Entity
@@ -975,11 +975,9 @@
             var _filter = {
                 "Status": "Success",
                 "DocumentType": doctype,
-                // "ParentEntityRefCode": ActivityTemplateInwardCtrl.ePage.Masters.TaskObj.WSI_StepCode,
-                // "ParentEntitySource": ActivityTemplateInwardCtrl.ePage.Masters.TaskObj.EntitySource,
                 "EntityRefKey": ActivityTemplateInwardCtrl.ePage.Masters.TaskObj.EntityRefKey,
                 "EntityRefCode": ActivityTemplateInwardCtrl.ePage.Masters.TaskObj.KeyReference,
-                "EntitySource": ActivityTemplateInwardCtrl.ePage.Masters.TaskObj.EntitySource
+                "EntitySource": "INW"
             }
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
