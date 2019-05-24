@@ -80,20 +80,20 @@
                     'app/eaxis/distribution/manifest-list/tracking/tracking.controller.js',
                     'app/eaxis/distribution/manifest-list/tracking/tracking.directive.js'
                 ]
-            },{
+            }, {
                 name: 'trackingTab',
                 files: [
                     'app/eaxis/distribution/manifest-list/tracking-tab/tracking-tab.controller.js',
                     'app/eaxis/distribution/manifest-list/tracking-tab/tracking-tab.directive.js'
                 ]
-            },{
+            }, {
                 name: 'trackingStatus',
                 files: [
                     'app/eaxis/distribution/manifest-list/tracking-status/tracking-status.controller.js',
                     'app/eaxis/distribution/manifest-list/tracking-status/tracking-status.directive.js'
                 ]
-            }, 
-             {
+            },
+            {
                 name: 'dmsManifestGeneral',
                 files: [
                     'app/eaxis/distribution/manifest-list/manifest-general/manifest-general.css',
@@ -301,8 +301,7 @@
                 name: 'AttachManifestDirective',
                 files: [
                     'app/eaxis/distribution/my-task/my-task-directive/attach-manifest/attach-manifest.directive.js',
-                    'app/eaxis/distribution/my-task/my-task-directive/attach-manifest/attach-manifest.controller.js',
-                    'app/eaxis/distribution/my-task/my-task-directive/attach-manifest/attach-manifest.css'
+                    'app/eaxis/distribution/my-task/my-task-directive/attach-manifest/attach-manifest.controller.js'
                 ]
             }, {
                 name: 'AttachManifestEditDirective',
@@ -315,8 +314,7 @@
                 name: 'DockInDirective',
                 files: [
                     'app/eaxis/distribution/my-task/my-task-directive/dock-in/dock-in.directive.js',
-                    'app/eaxis/distribution/my-task/my-task-directive/dock-in/dock-in.controller.js',
-                    'app/eaxis/distribution/my-task/my-task-directive/dock-in/dock-in.css'
+                    'app/eaxis/distribution/my-task/my-task-directive/dock-in/dock-in.controller.js'
                 ]
             }, {
                 name: 'DockInEditDirective',
@@ -329,8 +327,7 @@
                 name: 'DockOutDirective',
                 files: [
                     'app/eaxis/distribution/my-task/my-task-directive/dock-out/dock-out.directive.js',
-                    'app/eaxis/distribution/my-task/my-task-directive/dock-out/dock-out.controller.js',
-                    'app/eaxis/distribution/my-task/my-task-directive/dock-out/dock-out.css'
+                    'app/eaxis/distribution/my-task/my-task-directive/dock-out/dock-out.controller.js'
                 ]
             }, {
                 name: 'DockOutEditDirective',
@@ -343,8 +340,7 @@
                 name: 'GateOutDirective',
                 files: [
                     'app/eaxis/distribution/my-task/my-task-directive/gate-out/gate-out.directive.js',
-                    'app/eaxis/distribution/my-task/my-task-directive/gate-out/gate-out.controller.js',
-                    'app/eaxis/distribution/my-task/my-task-directive/gate-out/gate-out.css'
+                    'app/eaxis/distribution/my-task/my-task-directive/gate-out/gate-out.controller.js'
                 ]
             }, {
                 name: 'GateOutEditDirective',
@@ -357,8 +353,7 @@
                 name: 'StartLoadDirective',
                 files: [
                     'app/eaxis/distribution/my-task/my-task-directive/start-load/start-load.directive.js',
-                    'app/eaxis/distribution/my-task/my-task-directive/start-load/start-load.controller.js',
-                    'app/eaxis/distribution/my-task/my-task-directive/start-load/start-load.css'
+                    'app/eaxis/distribution/my-task/my-task-directive/start-load/start-load.controller.js'
                 ]
             }, {
                 name: 'StartLoadEditDirective',
@@ -371,8 +366,7 @@
                 name: 'CompleteLoadDirective',
                 files: [
                     'app/eaxis/distribution/my-task/my-task-directive/complete-load/complete-load.directive.js',
-                    'app/eaxis/distribution/my-task/my-task-directive/complete-load/complete-load.controller.js',
-                    'app/eaxis/distribution/my-task/my-task-directive/complete-load/complete-load.css'
+                    'app/eaxis/distribution/my-task/my-task-directive/complete-load/complete-load.controller.js'
                 ]
             }, {
                 name: 'CompleteLoadEditDirective',
@@ -385,8 +379,7 @@
                 name: 'StartUnloadDirective',
                 files: [
                     'app/eaxis/distribution/my-task/my-task-directive/start-unload/start-unload.directive.js',
-                    'app/eaxis/distribution/my-task/my-task-directive/start-unload/start-unload.controller.js',
-                    'app/eaxis/distribution/my-task/my-task-directive/start-unload/start-unload.css'
+                    'app/eaxis/distribution/my-task/my-task-directive/start-unload/start-unload.controller.js'
                 ]
             }, {
                 name: 'StartUnloadEditDirective',
@@ -399,8 +392,7 @@
                 name: 'CompleteUnloadDirective',
                 files: [
                     'app/eaxis/distribution/my-task/my-task-directive/complete-unload/complete-unload.directive.js',
-                    'app/eaxis/distribution/my-task/my-task-directive/complete-unload/complete-unload.controller.js',
-                    'app/eaxis/distribution/my-task/my-task-directive/complete-unload/complete-unload.css'
+                    'app/eaxis/distribution/my-task/my-task-directive/complete-unload/complete-unload.controller.js'
                 ]
             }, {
                 name: 'CompleteUnloadEditDirective',
@@ -413,8 +405,7 @@
                 name: 'ConfirmManifestDirective',
                 files: [
                     'app/eaxis/distribution/my-task/my-task-directive/confirm-manifest/confirm-manifest.directive.js',
-                    'app/eaxis/distribution/my-task/my-task-directive/confirm-manifest/confirm-manifest.controller.js',
-                    'app/eaxis/distribution/my-task/my-task-directive/confirm-manifest/confirm-manifest.css'
+                    'app/eaxis/distribution/my-task/my-task-directive/confirm-manifest/confirm-manifest.controller.js'
                 ]
             }, {
                 name: 'ConfirmManifestEditDirective',
@@ -427,8 +418,7 @@
                 name: 'ApproveManifestDirective',
                 files: [
                     'app/eaxis/distribution/my-task/my-task-directive/approve-manifest/approve-manifest.directive.js',
-                    'app/eaxis/distribution/my-task/my-task-directive/approve-manifest/approve-manifest.controller.js',
-                    'app/eaxis/distribution/my-task/my-task-directive/approve-manifest/approve-manifest.css'
+                    'app/eaxis/distribution/my-task/my-task-directive/approve-manifest/approve-manifest.controller.js'
                 ]
             }, {
                 name: 'ApproveManifestEditDirective',
@@ -441,8 +431,7 @@
                 name: 'TransportBookingDirective',
                 files: [
                     'app/eaxis/distribution/my-task/my-task-directive/transport-booking/transport-booking.directive.js',
-                    'app/eaxis/distribution/my-task/my-task-directive/transport-booking/transport-booking.controller.js',
-                    'app/eaxis/distribution/my-task/my-task-directive/transport-booking/transport-booking.css'
+                    'app/eaxis/distribution/my-task/my-task-directive/transport-booking/transport-booking.controller.js'
                 ]
             }, {
                 name: 'TransportBookingEditDirective',
@@ -455,8 +444,7 @@
                 name: 'CompleteManifestDirective',
                 files: [
                     'app/eaxis/distribution/my-task/my-task-directive/complete-manifest/complete-manifest.directive.js',
-                    'app/eaxis/distribution/my-task/my-task-directive/complete-manifest/complete-manifest.controller.js',
-                    'app/eaxis/distribution/my-task/my-task-directive/complete-manifest/complete-manifest.css'
+                    'app/eaxis/distribution/my-task/my-task-directive/complete-manifest/complete-manifest.controller.js'
                 ]
             }, {
                 name: 'CompleteManifestEditDirective',
@@ -583,8 +571,8 @@
                 ]
             },
             //#endregion
-             //#region ALL Consolidated Document
-             {
+            //#region ALL Consolidated Document
+            {
                 name: 'allConsolidatedDocument',
                 files: [
                     'app/eaxis/distribution/all-document/all-document.controller.js',

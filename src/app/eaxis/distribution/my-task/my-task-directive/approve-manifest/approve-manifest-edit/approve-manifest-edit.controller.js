@@ -86,6 +86,7 @@
             apiService.get("eAxisAPI", appConfig.Entities.TmsManifest.API.GetById.Url + ApproveManifestEditCtrl.ePage.Masters.TaskObj.EntityRefKey).then(function (response) {
                 if (response.data.Response) {
                     var ManifestDetails = response.data.Response;
+                    dmsManifestConfig.TabList = [];
                     dmsManifestConfig.GetTabDetails(ManifestDetails, false).then(function (response) {
                         angular.forEach(response, function (value, key) {
                             if (value.label == ManifestDetails.ManifestNumber) {

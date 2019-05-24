@@ -84,6 +84,7 @@
             apiService.get("eAxisAPI", appConfig.Entities.TMSGatepass.API.GetById.Url + AllocateDockEditCtrl.ePage.Masters.TaskObj.EntityRefKey).then(function (response) {
                 if (response.data.Response) {
                     var GatepassDetails = response.data.Response;
+                    gatepassConfig.TabList = [];
                     gatepassConfig.GetTabDetails(GatepassDetails, false).then(function (response) {
                         angular.forEach(response, function (value, key) {
                             if (value.label == GatepassDetails.GatepassNo) {

@@ -94,17 +94,20 @@
         <button class="btn btn-sm btn-primary" data-ng-click="DynamicDashboardCtrl.ePage.Masters.LoadMore()"
             data-ng-hide="DynamicDashboardCtrl.ePage.Masters.IsShowDetails.length <= DynamicDashboardCtrl.ePage.Masters.Config.LoadMoreCount"
             data-ng-disabled="DynamicDashboardCtrl.ePage.Masters.IsDisabledLoadMoreBtn" data-ng-bind="DynamicDashboardCtrl.ePage.Masters.LoadMoreBtnTxt"></button>
+    </div>    
+    <div class="col-lg-12 custom-widget no-padding" data-ng-if="DynamicDashboardCtrl.ePage.Masters.LoadingValue">
+        <div class="text-center pt-20"><i><b>{{DynamicDashboardCtrl.ePage.Masters.LoadingValue}}</b></i></div>
     </div>
-    <div class="col-lg-12 custom-widget no-padding" data-ng-if="DynamicDashboardCtrl.ePage.Masters.ComponentList.length==0 && DynamicDashboardCtrl.ePage.Masters.IsShowDetails.length==0 && DynamicDashboardCtrl.ePage.Masters.SelectedDashboardComponentDetails.length>0">
-        <div class="text-center pt-20"><i>Please enable the components to show by default. </i></div>
+    <div class="col-lg-12 custom-widget no-padding" data-ng-if="DynamicDashboardCtrl.ePage.Masters.ComponentList.length==0 && DynamicDashboardCtrl.ePage.Masters.IsShowDetails.length==0 && DynamicDashboardCtrl.ePage.Masters.SelectedDashboardComponentDetails.length > 0"
+        ng-init="DynamicDashboardCtrl.ePage.Masters.LoadingValue='Please enable the components to show by default.'">
     </div>
-    <div class="col-lg-12 custom-widget no-padding" data-ng-if="!DynamicDashboardCtrl.ePage.Masters.SelectedDashboardDetails">
-        <div class="text-center pt-20"><i>No Dashboard Mapped for this User</i></div>
-    </div>
-    <div class="col-lg-12 custom-widget no-padding" data-ng-if="!DynamicDashboardCtrl.ePage.Masters.SelectedClient && DynamicDashboardCtrl.ePage.Masters.SelectedDashboardDetails">
-        <div class="text-center pt-20"><i>No Organization Mapped for this User</i></div>
-    </div>
-    <div class="col-lg-12 custom-widget no-padding" data-ng-if="DynamicDashboardCtrl.ePage.Masters.SelectedDashboardComponentDetails.length==0">
-        <div class="text-center pt-20"><i>No Component Mapped for this Dashboard</i></div>
+    <!-- <div class="col-lg-12 custom-widget no-padding" data-ng-if="!DynamicDashboardCtrl.ePage.Masters.SelectedDashboardDetails"
+        ng-init="DynamicDashboardCtrl.ePage.Masters.LoadingValue='No Dashboard Mapped for this User'">
+    </div> -->
+    <div class="col-lg-12 custom-widget no-padding" data-ng-if="!DynamicDashboardCtrl.ePage.Masters.SelectedClient && DynamicDashboardCtrl.ePage.Masters.SelectedDashboardDetails"
+        ng-init="DynamicDashboardCtrl.ePage.Masters.LoadingValue='No Organization Mapped for this User'">
+    </div>      
+    <div class="col-lg-12 custom-widget no-padding" data-ng-if="DynamicDashboardCtrl.ePage.Masters.SelectedDashboardComponentDetails.length==0"
+        ng-init="DynamicDashboardCtrl.ePage.Masters.LoadingValue='No Component Mapped for this Dashboard'">
     </div>
 </div>

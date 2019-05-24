@@ -5,9 +5,9 @@
         .module("Application")
         .controller("DockinVehicleController", DockinVehicleController);
 
-    DockinVehicleController.$inject = ["$rootScope", "$scope", "$state", "APP_CONSTANT", "authService", "apiService", "appConfig", "dmsManifestConfig", "helperService", "$window", "$uibModal", "toastr", "$http", "$filter"];
+    DockinVehicleController.$inject = ["$rootScope", "$scope", "$state", "APP_CONSTANT", "authService", "apiService", "appConfig", "dmsManifestConfig", "helperService", "$filter"];
 
-    function DockinVehicleController($rootScope, $scope, $state, APP_CONSTANT, authService, apiService, appConfig, dmsManifestConfig, helperService, $window, $uibModal, toastr, $http, $filter) {
+    function DockinVehicleController($rootScope, $scope, $state, APP_CONSTANT, authService, apiService, appConfig, dmsManifestConfig, helperService, $filter) {
 
         var DockinVehicleCtrl = this;
 

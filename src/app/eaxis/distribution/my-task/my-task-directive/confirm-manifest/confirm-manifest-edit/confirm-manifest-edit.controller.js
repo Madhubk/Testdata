@@ -84,6 +84,7 @@
             apiService.get("eAxisAPI", appConfig.Entities.TmsManifest.API.GetById.Url + ConfirmManifestEditCtrl.ePage.Masters.TaskObj.EntityRefKey).then(function (response) {
                 if (response.data.Response) {
                     var ManifestDetails = response.data.Response;
+                    dmsManifestConfig.TabList = [];
                     dmsManifestConfig.GetTabDetails(ManifestDetails, false).then(function (response) {
                         angular.forEach(response, function (value, key) {
                             if (value.label == ManifestDetails.ManifestNumber) {
@@ -116,6 +117,8 @@
                 ConfirmManifestEditCtrl.ePage.Masters.IsDisableCompleteBtn = true;
                 ConfirmManifestEditCtrl.ePage.Masters.CompleteBtnText = "Please Wait...";
                 ConfirmManifestEditCtrl.ePage.Masters.TabList[ConfirmManifestEditCtrl.ePage.Masters.TabList.label].ePage.Entities.Header.Data.TmsManifestHeader.SubmittedDateTime = new Date();
+                ConfirmManifestEditCtrl.ePage.Masters.TabList[ConfirmManifestEditCtrl.ePage.Masters.TabList.label].ePage.Entities.Header.Data.TmsManifestHeader.ApprovalStatus = "Approved";
+                ConfirmManifestEditCtrl.ePage.Masters.TabList[ConfirmManifestEditCtrl.ePage.Masters.TabList.label].ePage.Entities.Header.Data.TmsManifestHeader.ApproveOrRejectDateTime = new Date();
 
                 SaveOnly('Complete').then(function (response) {
                     if (response.data.Status == "Success") {

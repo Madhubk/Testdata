@@ -84,6 +84,7 @@
             apiService.get("eAxisAPI", appConfig.Entities.TMSGatepass.API.GetById.Url + StartUnloadEditCtrl.ePage.Masters.TaskObj.EntityRefKey).then(function (response) {
                 if (response.data.Response) {
                     var GatepassDetails = response.data.Response;
+                    gatepassConfig.TabList = [];
                     gatepassConfig.GetTabDetails(GatepassDetails, false).then(function (response) {
                         angular.forEach(response, function (value, key) {
                             if (value.label == GatepassDetails.GatepassNo) {
@@ -91,6 +92,7 @@
                                 StartUnloadEditCtrl.ePage.Entities.Header.Data = StartUnloadEditCtrl.ePage.Masters.TabList[StartUnloadEditCtrl.ePage.Masters.TabList.label].ePage.Entities.Header.Data;
                                 apiService.get("eAxisAPI", appConfig.Entities.TmsManifest.API.GetById.Url + StartUnloadEditCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.ManifestFK).then(function (response) {
                                     if (response.data.Response) {
+                                        dmsManifestConfig.TabList = [];
                                         dmsManifestConfig.GetTabDetails(response.data.Response, false).then(function (response) {
                                             StartUnloadEditCtrl.ePage.Masters.Manifest = response[0];
                                             StartUnloadEditCtrl.ePage.Meta.IsLoading = false;
