@@ -505,6 +505,12 @@
                     'app/eaxis/distribution/transports-reports/reports.controller.js',
                 ]
             },
+            {
+                name: 'ReportGrid',
+                files: [
+                    'app/eaxis/distribution/transports-reports/grid-page/grid-page.controller.js'
+                ]
+            },
             //endregion
             // region
             // consignment screen in DMS
