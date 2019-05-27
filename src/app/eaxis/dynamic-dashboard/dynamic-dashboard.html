@@ -81,8 +81,7 @@
     </div>
     <div class="col-lg-12 custom-widget no-padding" data-ng-if="DynamicDashboardCtrl.ePage.Masters.SelectedDashboardDetails">
         <div class="widget clearfix no-padding" dnd-list="DynamicDashboardCtrl.ePage.Masters.ComponentList" dnd-drop="DynamicDashboardCtrl.ePage.Masters.dropCallback(item,DynamicDashboardCtrl.ePage.Masters.ComponentList,index,external)">
-            <div ng-if="DynamicDashboardCtrl.ePage.Masters.ComponentList && DynamicDashboardCtrl.ePage.Masters.SelectedWarehouse && DynamicDashboardCtrl.ePage.Masters.SelectedClient && DynamicDashboardCtrl.ePage.Masters.SelectedDashboardComponentDetails.length>0"
-                ng-repeat="x in DynamicDashboardCtrl.ePage.Masters.ComponentList | filter: {DC_IsEnabled:true}"
+            <div ng-if="!DynamicDashboardCtrl.ePage.Masters.LoadingValue" ng-repeat="x in DynamicDashboardCtrl.ePage.Masters.ComponentList | filter: {DC_IsEnabled:true}"
                 dnd-draggable="x" dnd-effect-allowed="move" draggable="true">
                 <div dynamic-dashboard-directive component-list="DynamicDashboardCtrl.ePage.Masters.ComponentList"
                     selected-component="DynamicDashboardCtrl.ePage.Masters.ComponentList[$index]" selected-warehouse="DynamicDashboardCtrl.ePage.Masters.SelectedWarehouse"
@@ -94,19 +93,16 @@
         <button class="btn btn-sm btn-primary" data-ng-click="DynamicDashboardCtrl.ePage.Masters.LoadMore()"
             data-ng-hide="DynamicDashboardCtrl.ePage.Masters.IsShowDetails.length <= DynamicDashboardCtrl.ePage.Masters.Config.LoadMoreCount"
             data-ng-disabled="DynamicDashboardCtrl.ePage.Masters.IsDisabledLoadMoreBtn" data-ng-bind="DynamicDashboardCtrl.ePage.Masters.LoadMoreBtnTxt"></button>
-    </div>    
+    </div>
     <div class="col-lg-12 custom-widget no-padding" data-ng-if="DynamicDashboardCtrl.ePage.Masters.LoadingValue">
         <div class="text-center pt-20"><i><b>{{DynamicDashboardCtrl.ePage.Masters.LoadingValue}}</b></i></div>
     </div>
     <div class="col-lg-12 custom-widget no-padding" data-ng-if="DynamicDashboardCtrl.ePage.Masters.ComponentList.length==0 && DynamicDashboardCtrl.ePage.Masters.IsShowDetails.length==0 && DynamicDashboardCtrl.ePage.Masters.SelectedDashboardComponentDetails.length > 0"
         ng-init="DynamicDashboardCtrl.ePage.Masters.LoadingValue='Please enable the components to show by default.'">
     </div>
-    <!-- <div class="col-lg-12 custom-widget no-padding" data-ng-if="!DynamicDashboardCtrl.ePage.Masters.SelectedDashboardDetails"
-        ng-init="DynamicDashboardCtrl.ePage.Masters.LoadingValue='No Dashboard Mapped for this User'">
-    </div> -->
     <div class="col-lg-12 custom-widget no-padding" data-ng-if="!DynamicDashboardCtrl.ePage.Masters.SelectedClient && DynamicDashboardCtrl.ePage.Masters.SelectedDashboardDetails"
         ng-init="DynamicDashboardCtrl.ePage.Masters.LoadingValue='No Organization Mapped for this User'">
-    </div>      
+    </div>
     <div class="col-lg-12 custom-widget no-padding" data-ng-if="DynamicDashboardCtrl.ePage.Masters.SelectedDashboardComponentDetails.length==0"
         ng-init="DynamicDashboardCtrl.ePage.Masters.LoadingValue='No Component Mapped for this Dashboard'">
     </div>

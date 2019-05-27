@@ -187,8 +187,10 @@
                     value.UISPMSDeliveryReport.RequestedDateTime = _input.UIWmsWorkorderReport.DeliveryRequestedDateTime;
                     value.UISPMSDeliveryReport.RequesterContactNumber = _input.UIWmsWorkorderReport.RequesterContactNo;
                     value.UISPMSDeliveryReport.DeliveryRequestNo = _input.UIWmsDelivery.WorkOrderID;
+                    value.UISPMSDeliveryReport.DeliveryRequest_FK = _input.PK;
                     value.UISPMSDeliveryReport.CancelledDateTime = _input.UIWmsDelivery.CancelledDate;
                     value.UISPMSDeliveryReport.DeliveryLineRefNo = value.AdditionalRef1Code;
+                    value.UISPMSDeliveryReport.PRO_FK = value.PRO_FK;
                     value.UISPMSDeliveryReport.ProductCode = value.ProductCode;
                     value.UISPMSDeliveryReport.ProductDescription = value.ProductDescription;
                     value.UISPMSDeliveryReport.Packs = value.Packs;
@@ -205,7 +207,15 @@
                     value.UISPMSDeliveryReport.IsModified = value.IsModified;
                     value.UISPMSDeliveryReport.IsDeleted = value.IsDeleted;
                     value.UISPMSDeliveryReport.DeliveryLine_FK = value.PK;
-                    value.UISPMSDeliveryReport.DeliveryRequest_FK = _input.PK;
+                    value.UISPMSDeliveryReport.DeliveryLineStatus = value.WorkOrderLineStatusDesc;
+                    value.UISPMSDeliveryReport.UsePartAttrib1 = value.UsePartAttrib1;
+                    value.UISPMSDeliveryReport.UsePartAttrib2 = value.UsePartAttrib2;
+                    value.UISPMSDeliveryReport.UsePartAttrib3 = value.UsePartAttrib3;
+                    value.UISPMSDeliveryReport.IsPartAttrib1ReleaseCaptured = value.IsPartAttrib1ReleaseCaptured;
+                    value.UISPMSDeliveryReport.IsPartAttrib2ReleaseCaptured = value.IsPartAttrib2ReleaseCaptured;
+                    value.UISPMSDeliveryReport.IsPartAttrib3ReleaseCaptured = value.IsPartAttrib3ReleaseCaptured;
+                    value.UISPMSDeliveryReport.UseExpiryDate = value.UseExpiryDate;
+                    value.UISPMSDeliveryReport.UsePackingDate = value.UsePackingDate;
                 }
             });
 

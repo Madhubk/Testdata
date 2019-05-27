@@ -37,6 +37,14 @@
             </div>
         </div>
     </div>
+    <div class="grid-loading-norecord-container ng-scope" style='z-index: 15;' data-ng-if="DynamicDashboardCtrl.ePage.Masters.Loading">
+        <div class="dyn-grid-no-record" style="width: 220px;">
+            <i class="fa fa-spinner fa-pulse"></i> Getting Dashboard Details.. </div>
+    </div>
+    <div class="grid-loading-norecord-container ng-scope" style='z-index: 15;' data-ng-if="DynamicDashboardCtrl.ePage.Masters.CreateDashboard">
+        <div class="dyn-grid-no-record" style="width: 220px;">
+            <i class="fa fa-spinner fa-pulse"></i> Creating Dashboard.. </div>
+    </div>
 </div>
 <div class="modal-footer">
     <button class="btn btn-sm mb-15" ng-click="DynamicDashboardCtrl.ePage.Masters.CloseEditActivity()">Cancel</button>

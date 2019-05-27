@@ -22,6 +22,7 @@
                 "Entities": '',
             };
             NotificationCtrl.ePage.Masters.WarehouseChanged = WarehouseChanged;
+            NotificationCtrl.ePage.Masters.GetOpenSODetails = GetOpenSODetails;
 
             GetWarehouseValues();
             if (NotificationCtrl.selectedComponent.DC_DSC_Name == "My Task")
@@ -37,7 +38,6 @@
                 }
                 // GetChart();
             }
-
         }
 
         function GetOpenSODetails() {
