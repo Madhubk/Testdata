@@ -501,19 +501,58 @@
                         OnChangeValues(value.APInvoiceNum, 'E1312', true, key, $item.code);
                         OnChangeValues(value.APInvoiceDate, 'E1313', true, key, $item.code);
                         OnChangeValues(value.RX_NKCostCurrency, 'E1307', true, key, $item.code);
-                        OnChangeValues(value.EstimatedCost, 'E1194', true, key, $item.code);
-                        OnChangeValues(value.OSCostAmt, 'E1196', true, key, $item.code);
-                        OnChangeValues(value.LocalCostAmt, 'E1308', true, key, $item.code);
-                        OnChangeValues(value.OSSellAmt, 'E1197', true, key, $item.code);
-                        OnChangeValues(value.LocalSellAmt, 'E1309', true, key, $item.code);
+                        OnChangeValues(value.CustomerCode, 'E1311', true, key, $item.code);
+                        OnChangeValues(value.RX_NKSellCurrency, 'E1193', true, key, $item.code);
+
+                        if (!value.EstimatedCost || parseInt(value.EstimatedCost) == 0)
+                            OnChangeValues(null, 'E1194', true, key, $item.code);
+                        else
+                            OnChangeValues(value.EstimatedCost, 'E1194', true, key, $item.code);
+
+                        if (!value.OSCostAmt || parseInt(value.OSCostAmt) == 0)
+                            OnChangeValues(null, 'E1196', true, key, $item.code);
+                        else
+                            OnChangeValues(value.OSCostAmt, 'E1196', true, key, $item.code);
+
+                        if (!value.LocalCostAmt || parseInt(value.LocalCostAmt) == 0)
+                            OnChangeValues(null, 'E1308', true, key, $item.code);
+                        else
+                            OnChangeValues(value.LocalCostAmt, 'E1308', true, key, $item.code);
+
+                        if (!value.EstimatedRevenue || parseInt(value.EstimatedRevenue) == 0)
+                            OnChangeValues(null, 'E1195', true, key, $item.code);
+                        else
+                            OnChangeValues(value.EstimatedRevenue, 'E1195', true, key, $item.code);
+
+                        if (!value.OSSellAmt || parseInt(value.OSSellAmt) == 0)
+                            OnChangeValues(null, 'E1197', true, key, $item.code);
+                        else
+                            OnChangeValues(value.OSSellAmt, 'E1197', true, key, $item.code);
+
+                        if (!value.LocalSellAmt || parseInt(value.LocalSellAmt) == 0)
+                            OnChangeValues(null, 'E1309', true, key, $item.code);
+                        else
+                            OnChangeValues(value.LocalSellAmt, 'E1309', true, key, $item.code);
                     }
-                    else if (type == 'PostRevenue' || type == 'Post') {
-                        OnChangeValues(value.OSSellAmt, 'E1197', true, key, $item.code);
-                        OnChangeValues(value.LocalSellAmt, 'E1309', true, key, $item.code);
+                    else {
+                        OnChangeValues(value.CustomerCode, 'E1311', true, key, $item.code);
+                        OnChangeValues(value.RX_NKSellCurrency, 'E1193', true, key, $item.code);
+
+                        if (!value.EstimatedRevenue || parseInt(value.EstimatedRevenue) == 0)
+                            OnChangeValues(null, 'E1195', true, key, $item.code);
+                        else
+                            OnChangeValues(value.EstimatedRevenue, 'E1195', true, key, $item.code);
+
+                        if (!value.OSSellAmt || parseInt(value.OSSellAmt) == 0)
+                            OnChangeValues(null, 'E1197', true, key, $item.code);
+                        else
+                            OnChangeValues(value.OSSellAmt, 'E1197', true, key, $item.code);
+
+                        if (!value.LocalSellAmt || parseInt(value.LocalSellAmt) == 0)
+                            OnChangeValues(null, 'E1309', true, key, $item.code);
+                        else
+                            OnChangeValues(value.LocalSellAmt, 'E1309', true, key, $item.code);
                     }
-                    OnChangeValues(value.CustomerCode, 'E1311', true, key, $item.code);
-                    OnChangeValues(value.RX_NKSellCurrency, 'E1193', true, key, $item.code);
-                    OnChangeValues(value.EstimatedRevenue, 'E1195', true, key, $item.code);
                 });
             }
         }
@@ -767,7 +806,7 @@
                 DotArea(key, value.LocalSellAmt.toString(), 'DuplicateLocalSellAmt', 'LocalSellAmt', $item);
             });
 
-            if(!$item.isNew){
+            if (!$item.isNew) {
                 _input.UIJobHeader.LocalClient = _input.UIJobHeader.LocalOrg_Code + '-' + _input.UIJobHeader.LocalOrg_Name;
                 _input.UIJobHeader.OverseasAgent = _input.UIJobHeader.AgentOrg_Code + '-' + _input.UIJobHeader.AgentOrg_Name;
                 _input.UIJobHeader.Company = _input.UIJobHeader.CompanyCode + ' - ' + _input.UIJobHeader.CompanyName;
