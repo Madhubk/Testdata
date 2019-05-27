@@ -919,8 +919,30 @@
                     'app/mdm/chargecode/chargecode-menu/chargecode-menu.controller.js',
                     'app/mdm/chargecode/chargecode-menu/chargecode-menu.directive.js'
                 ]
-            }
+            },
             //#endregion
+            //region GLaccount
+            {
+                name: 'glaccount',
+                files: [
+                    'app/mdm/glaccount/glaccount.css',
+                    'app/mdm/glaccount/glaccount.controller.js',
+                    'app/mdm/glaccount/glaccount-config.factory.js'
+                ]
+            }, {
+                name: 'glaccountMenu',
+                files: [                    
+                    'app/mdm/glaccount/glaccount-menu/glaccount-menu.controller.js',
+                    'app/mdm/glaccount/glaccount-menu/glaccount-menu.directive.js'
+                ]
+            }, {
+                name: 'glaccountGeneral',
+                files: [                    
+                    'app/mdm/glaccount/glaccount-general/glaccount-general.controller.js',
+                    'app/mdm/glaccount/glaccount-general/glaccount-general.directive.js'
+                ]
+            }
+            // end region
         ]
     };
 
