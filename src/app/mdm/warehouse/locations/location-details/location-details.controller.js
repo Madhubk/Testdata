@@ -89,7 +89,7 @@
                 var _filter = {
                     "WRO_FK": LocationDetailsCtrl.ePage.Entities.Header.Data.WmsRow.PK,
                     "PageNumber":"1",
-                    "PageSize": "10",
+                    "PageSize": "5",
                     "SortType": "ASC",
                     "SortColumn":"WOL_CreatedDateTime",
                 };

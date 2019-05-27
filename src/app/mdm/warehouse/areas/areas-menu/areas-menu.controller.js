@@ -37,7 +37,7 @@
                 var _filter = {
                     "WAA_FK": AreasMenuCtrl.ePage.Entities.Header.Data.PK,
                     "PageNumber":"1",
-                    "PageSize": "10",
+                    "PageSize": "5",
                     "SortType": "ASC",
                     "SortColumn":"WOL_CreatedDateTime",
                 };

@@ -51,7 +51,7 @@
                         "PRO_FK": ProductMenuCtrl.ePage.Entities.Header.Data.PK,
                         "ORG_FK":value.ORG_FK,
                         "PageNumber":"1",
-                        "PageSize": "10",
+                        "PageSize": "5",
                         "SortType": "ASC",
                         "SortColumn":"WOL_CreatedDateTime",
                     };
