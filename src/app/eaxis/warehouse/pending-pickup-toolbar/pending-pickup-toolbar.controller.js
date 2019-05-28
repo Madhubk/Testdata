@@ -5,9 +5,9 @@
         .module("Application")
         .controller("PendingPickupToolbarController", PendingPickupToolbarController);
 
-    PendingPickupToolbarController.$inject = ["$scope", "$rootScope", "$timeout", "APP_CONSTANT", "apiService", "helperService", "appConfig", "authService", "$state", "confirmation", "$uibModal", "$window", "$http", "toastr", "$location"];
+    PendingPickupToolbarController.$inject = ["$scope", "$rootScope", "$timeout", "APP_CONSTANT", "apiService", "helperService", "appConfig", "authService", "$state", "confirmation", "$uibModal", "$window", "$http", "toastr", "$location", "warehouseConfig"];
 
-    function PendingPickupToolbarController($scope, $rootScope, $timeout, APP_CONSTANT, apiService, helperService, appConfig, authService, $state, confirmation, $uibModal, $window, $http, toastr, $location) {
+    function PendingPickupToolbarController($scope, $rootScope, $timeout, APP_CONSTANT, apiService, helperService, appConfig, authService, $state, confirmation, $uibModal, $window, $http, toastr, $location, warehouseConfig) {
 
         var PendingPickupToolbarCtrl = this;
 
@@ -96,7 +96,7 @@
                         PendingPickupToolbarCtrl.ePage.Masters.IsCreatePickupBtn = true;
                         PendingPickupToolbarCtrl.ePage.Masters.CreatePickupBtnText = "Please Wait...";
                         if (PendingPickupToolbarCtrl.ePage.Masters.PendingPickupList[0].WDR_DeliveryRequest_FK) {
-                            apiService.get("eAxisAPI", appConfig.Entities.WmsDeliveryList.API.GetById.Url + PendingPickupToolbarCtrl.ePage.Masters.PendingPickupList[0].WDR_DeliveryRequest_FK).then(function (response) {
+                            apiService.get("eAxisAPI", warehouseConfig.Entities.WmsDeliveryList.API.GetById.Url + PendingPickupToolbarCtrl.ePage.Masters.PendingPickupList[0].WDR_DeliveryRequest_FK).then(function (response) {
                                 if (response.data.Response) {
                                     PendingPickupToolbarCtrl.ePage.Masters.DeliveryData = response.data.Response;
                                     ReadyToCreatePickup();
@@ -143,9 +143,9 @@
                                     };
                                     var _input = {
                                         "searchInput": helperService.createToArrayOfObject(_filter),
-                                        "FilterID": appConfig.Entities.OrgHeaderWarehouse.API.FindAll.FilterID
+                                        "FilterID": warehouseConfig.Entities.OrgHeaderWarehouse.API.FindAll.FilterID
                                     };
-                                    apiService.post("eAxisAPI", appConfig.Entities.OrgHeaderWarehouse.API.FindAll.Url, _input).then(function (response) {
+                                    apiService.post("eAxisAPI", warehouseConfig.Entities.OrgHeaderWarehouse.API.FindAll.Url, _input).then(function (response) {
                                         if (response.data.Response) {
                                             if (response.data.Response.length > 0) {
                                                 // get Warehouse Job address
@@ -200,7 +200,7 @@
         }
 
         function ReadyToCreatePickup() {
-            helperService.getFullObjectUsingGetById(appConfig.Entities.WmsPickupList.API.GetById.Url, 'null').then(function (response) {
+            helperService.getFullObjectUsingGetById(warehouseConfig.Entities.WmsPickupList.API.GetById.Url, 'null').then(function (response) {
                 if (response.data.Response.Response) {
                     response.data.Response.Response.UIWmsPickup.PK = response.data.Response.Response.PK;
                     response.data.Response.Response.UIWmsPickup.ExternalReference = response.data.Response.Response.UIWmsPickup.WorkOrderID;
@@ -319,7 +319,7 @@
                         }
                         response.data.Response.Response.UIWmsPickupLine.push(obj);
                     });
-                    apiService.post("eAxisAPI", appConfig.Entities.WmsPickupList.API.Insert.Url, response.data.Response.Response).then(function (response) {
+                    apiService.post("eAxisAPI", warehouseConfig.Entities.WmsPickupList.API.Insert.Url, response.data.Response.Response).then(function (response) {
                         if (response.data.Response) {
                             PendingPickupToolbarCtrl.ePage.Masters.IsCreatePickupBtn = true;
                             PendingPickupToolbarCtrl.ePage.Masters.CreatePickupBtnText = "Create Pickup";

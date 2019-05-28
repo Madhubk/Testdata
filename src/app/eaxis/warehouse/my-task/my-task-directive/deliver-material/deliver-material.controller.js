@@ -5,9 +5,9 @@
         .module("Application")
         .controller("DeliverMaterialController", DeliverMaterialController);
 
-    DeliverMaterialController.$inject = ["$scope", "apiService", "helperService", "appConfig", "myTaskActivityConfig", "APP_CONSTANT", "errorWarningService", "dynamicLookupConfig", "outwardConfig", "$injector", "toastr", "$filter"];
+    DeliverMaterialController.$inject = ["$scope", "apiService", "helperService", "appConfig", "myTaskActivityConfig", "APP_CONSTANT", "errorWarningService", "dynamicLookupConfig", "outwardConfig", "$injector", "toastr", "$filter", "warehouseConfig"];
 
-    function DeliverMaterialController($scope, apiService, helperService, appConfig, myTaskActivityConfig, APP_CONSTANT, errorWarningService, dynamicLookupConfig, outwardConfig, $injector, toastr, $filter) {
+    function DeliverMaterialController($scope, apiService, helperService, appConfig, myTaskActivityConfig, APP_CONSTANT, errorWarningService, dynamicLookupConfig, outwardConfig, $injector, toastr, $filter, warehouseConfig) {
         var DeliverMaterialCtrl = this;
         var Config = $injector.get("pickConfig");
 
@@ -58,7 +58,7 @@
         }
 
         function GetManifestDetails() {
-            apiService.get("eAxisAPI", appConfig.Entities.TmsManifestList.API.GetById.Url + DeliverMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.AdditionalRef1Fk).then(function (response) {
+            apiService.get("eAxisAPI", warehouseConfig.Entities.TmsManifestList.API.GetById.Url + DeliverMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.AdditionalRef1Fk).then(function (response) {
                 if (response.data.Response) {
                     DeliverMaterialCtrl.ePage.Entities.Header.ManifestDetails = response.data.Response;
                     myTaskActivityConfig.Entities.ManifestData = DeliverMaterialCtrl.ePage.Entities.Header.ManifestDetails;
@@ -90,14 +90,14 @@
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.WmsPickLineSummary.API.FindAll.FilterID
+                "FilterID": warehouseConfig.Entities.WmsPickLineSummary.API.FindAll.FilterID
             };
-            apiService.post("eAxisAPI", appConfig.Entities.WmsPickLineSummary.API.FindAll.Url, _input).then(function (response) {
+            apiService.post("eAxisAPI", warehouseConfig.Entities.WmsPickLineSummary.API.FindAll.Url, _input).then(function (response) {
                 if (response.data.Response.length > 0) {
                     DeliverMaterialCtrl.ePage.Masters.PickLineList = response.data.Response;
                     DeliverMaterialCtrl.ePage.Masters.LoadingValue = "Creating Dispatch..";
 
-                    helperService.getFullObjectUsingGetById(appConfig.Entities.TmsManifestList.API.GetById.Url, 'null').then(function (response) {
+                    helperService.getFullObjectUsingGetById(warehouseConfig.Entities.TmsManifestList.API.GetById.Url, 'null').then(function (response) {
                         if (response.data.Response) {
                             response.data.Response.TmsManifestHeader.PK = response.data.Response.PK;
                             response.data.Response.TmsManifestHeader.SenderCode = DeliverMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WAR_ORG_Code;
@@ -132,7 +132,7 @@
                                     value.AddressType = "REC";
                             });
 
-                            apiService.post("eAxisAPI", appConfig.Entities.TmsManifestList.API.Insert.Url, response.data.Response).then(function (response) {
+                            apiService.post("eAxisAPI", warehouseConfig.Entities.TmsManifestList.API.Insert.Url, response.data.Response).then(function (response) {
                                 if (response.data.Status == 'Success') {
                                     var _obj = {
                                         "PK": "",
@@ -196,9 +196,9 @@
                                     response.data.Response.TmsManifestHeader.ApproveOrRejectDateTime = new Date();
                                     response.data.Response.TmsManifestHeader.ApprovalStatus = "Approved";
                                     response.data.Response.TmsManifestHeader.IsModified = true;
-                                    apiService.post("eAxisAPI", appConfig.Entities.TmsManifestList.API.Update.Url, response.data.Response).then(function (response) {
+                                    apiService.post("eAxisAPI", warehouseConfig.Entities.TmsManifestList.API.Update.Url, response.data.Response).then(function (response) {
                                         if (response.data.Status == 'Success') {
-                                            apiService.get("eAxisAPI", appConfig.Entities.TmsManifestList.API.GetById.Url + response.data.Response.Response.PK).then(function (response) {
+                                            apiService.get("eAxisAPI", warehouseConfig.Entities.TmsManifestList.API.GetById.Url + response.data.Response.Response.PK).then(function (response) {
                                                 if (response.data.Status == 'Success') {
                                                     DeliverMaterialCtrl.ePage.Masters.LoadingValue = "";
                                                     toastr.success("Manifest Created Successfully");
@@ -208,9 +208,9 @@
                                                     DeliverMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.AdditionalRef1Code = DeliverMaterialCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.ManifestNumber;
                                                     DeliverMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.AdditionalRef1Fk = DeliverMaterialCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.PK;
                                                     DeliverMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.IsModified = true;
-                                                    apiService.post("eAxisAPI", appConfig.Entities.WmsOutwardList.API.Update.Url, DeliverMaterialCtrl.ePage.Entities.Header.Data).then(function (response) {
+                                                    apiService.post("eAxisAPI", warehouseConfig.Entities.WmsOutwardList.API.Update.Url, DeliverMaterialCtrl.ePage.Entities.Header.Data).then(function (response) {
                                                         if (response.data.Status == 'Success') {
-                                                            apiService.get("eAxisAPI", appConfig.Entities.WmsOutwardList.API.GetById.Url + DeliverMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PK).then(function (response) {
+                                                            apiService.get("eAxisAPI", warehouseConfig.Entities.WmsOutwardList.API.GetById.Url + DeliverMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PK).then(function (response) {
                                                                 if (response.data.Response) {
                                                                     response.data.Response.UIWmsOutwardHeader.Client = response.data.Response.UIWmsOutwardHeader.ClientCode + "-" + response.data.Response.UIWmsOutwardHeader.ClientName;
                                                                     response.data.Response.UIWmsOutwardHeader.Warehouse = response.data.Response.UIWmsOutwardHeader.WarehouseCode + "-" + response.data.Response.UIWmsOutwardHeader.WarehouseName;
@@ -245,7 +245,7 @@
         }
 
         function getDeliveryList() {
-            apiService.get("eAxisAPI", appConfig.Entities.WmsDeliveryList.API.GetById.Url + DeliverMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.AdditionalRef2Fk).then(function (response) {
+            apiService.get("eAxisAPI", warehouseConfig.Entities.WmsDeliveryList.API.GetById.Url + DeliverMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.AdditionalRef2Fk).then(function (response) {
                 if (response.data.Response) {
                     DeliverMaterialCtrl.ePage.Entities.Header.DeliveryData = response.data.Response;
                     myTaskActivityConfig.Entities.DeliveryData = DeliverMaterialCtrl.ePage.Entities.Header.DeliveryData;
@@ -327,7 +327,7 @@
 
         function GetEntityObj() {
             if (DeliverMaterialCtrl.ePage.Masters.TaskObj.EntityRefKey) {
-                apiService.get("eAxisAPI", appConfig.Entities.WmsOutwardList.API.GetById.Url + DeliverMaterialCtrl.ePage.Masters.TaskObj.EntityRefKey).then(function (response) {
+                apiService.get("eAxisAPI", warehouseConfig.Entities.WmsOutwardList.API.GetById.Url + DeliverMaterialCtrl.ePage.Masters.TaskObj.EntityRefKey).then(function (response) {
                     if (response.data.Response) {
                         DeliverMaterialCtrl.ePage.Masters.EntityObj = response.data.Response;
                     }

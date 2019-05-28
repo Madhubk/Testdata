@@ -5,9 +5,9 @@
         .module("Application")
         .controller("RaiseCSRController", RaiseCSRController);
 
-    RaiseCSRController.$inject = ["$location", "$scope", "APP_CONSTANT", "authService", "apiService", "helperService", "deliveryConfig", "$timeout", "toastr", "appConfig", "$state", "$uibModal", "$window", "dynamicLookupConfig", "confirmation"];
+    RaiseCSRController.$inject = ["$location", "$scope", "APP_CONSTANT", "authService", "apiService", "helperService", "deliveryConfig", "$timeout", "toastr", "appConfig", "$state", "$uibModal", "$window", "dynamicLookupConfig", "confirmation", "warehouseConfig"];
 
-    function RaiseCSRController($location, $scope, APP_CONSTANT, authService, apiService, helperService, deliveryConfig, $timeout, toastr, appConfig, $state, $uibModal, $window, dynamicLookupConfig, confirmation) {
+    function RaiseCSRController($location, $scope, APP_CONSTANT, authService, apiService, helperService, deliveryConfig, $timeout, toastr, appConfig, $state, $uibModal, $window, dynamicLookupConfig, confirmation, warehouseConfig) {
 
         var RaiseCSRCtrl = this;
         function Init() {
@@ -66,7 +66,7 @@
             deliveryConfig.TabList = [];
             RaiseCSRCtrl.ePage.Masters.isNewClicked = true;
             RaiseCSRCtrl.ePage.Masters.Tab = undefined;
-            helperService.getFullObjectUsingGetById(appConfig.Entities.WmsDeliveryList.API.GetById.Url, 'null').then(function (response) {
+            helperService.getFullObjectUsingGetById(warehouseConfig.Entities.WmsDeliveryList.API.GetById.Url, 'null').then(function (response) {
                 if (response.data.Response) {
                     var _obj = {
                         entity: response.data.Response.Response.UIWmsDelivery,
@@ -233,7 +233,7 @@
                     _input.UIWmsWorkorderReport.DeliveryRequestedDateTime = new Date();
                 _input.UIWmsWorkorderReport.WOD_FK = _input.PK;
 
-                apiService.post("eAxisAPI", appConfig.Entities.WmsDeliveryList.API.Insert.Url, _input).then(function (response) {
+                apiService.post("eAxisAPI", warehouseConfig.Entities.WmsDeliveryList.API.Insert.Url, _input).then(function (response) {
                     if (response.data.Response) {
                         $item.isNew = false;
                         RaiseCSRCtrl.ePage.Entities.Header.Data = response.data.Response;
@@ -292,7 +292,7 @@
                 });
             } else {
                 $item = filterObjectUpdate($item, "IsModified");
-                apiService.post("eAxisAPI", appConfig.Entities.WmsDeliveryList.API.Update.Url, _input).then(function (response) {
+                apiService.post("eAxisAPI", warehouseConfig.Entities.WmsDeliveryList.API.Update.Url, _input).then(function (response) {
                     if (response.data.Response) {
                         $item[$item.label].ePage.Entities.Header.Data = response.data.Response;
                         RaiseCSRCtrl.ePage.Entities.Header.Data = response.data.Response;

@@ -103,11 +103,11 @@
         function GetWarehouseValues() {
             //Get Warehouse Details
             var _input = {
-                "FilterID": appConfig.Entities.WmsWarehouse.API.FindAll.FilterID,
+                "FilterID": warehouseConfig.Entities.WmsWarehouse.API.FindAll.FilterID,
                 "SearchInput": []
             };
 
-            apiService.post("eAxisAPI", appConfig.Entities.WmsWarehouse.API.FindAll.Url, _input).then(function (response) {
+            apiService.post("eAxisAPI", warehouseConfig.Entities.WmsWarehouse.API.FindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     NotificationCtrl.ePage.Masters.WarehouseDetails = response.data.Response;
                     NotificationCtrl.ePage.Masters.userselected = NotificationCtrl.ePage.Masters.WarehouseDetails[0];

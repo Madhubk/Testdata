@@ -5,9 +5,9 @@
         .module("Application")
         .controller("PickupGeneralController", PickupGeneralController);
 
-    PickupGeneralController.$inject = ["$rootScope", "$scope", "$state", "$q", "$location", "$timeout", "APP_CONSTANT", "authService", "apiService", "appConfig", "pickupConfig", "helperService", "toastr", "$filter", "$injector", "$uibModal", "confirmation"];
+    PickupGeneralController.$inject = ["$rootScope", "$scope", "$state", "$q", "$location", "$timeout", "APP_CONSTANT", "authService", "apiService", "appConfig", "pickupConfig", "helperService", "toastr", "$filter", "$injector", "$uibModal", "confirmation", "warehouseConfig"];
 
-    function PickupGeneralController($rootScope, $scope, $state, $q, $location, $timeout, APP_CONSTANT, authService, apiService, appConfig, pickupConfig, helperService, toastr, $filter, $injector, $uibModal, confirmation) {
+    function PickupGeneralController($rootScope, $scope, $state, $q, $location, $timeout, APP_CONSTANT, authService, apiService, appConfig, pickupConfig, helperService, toastr, $filter, $injector, $uibModal, confirmation, warehouseConfig) {
 
         var PickupGeneralCtrl = this
 
@@ -135,9 +135,9 @@
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.WmsClientParameterByWarehouse.API.FindAll.FilterID
+                "FilterID": warehouseConfig.Entities.WmsClientParameterByWarehouse.API.FindAll.FilterID
             };
-            apiService.post("eAxisAPI", appConfig.Entities.WmsClientParameterByWarehouse.API.FindAll.Url, _input).then(function (response) {
+            apiService.post("eAxisAPI", warehouseConfig.Entities.WmsClientParameterByWarehouse.API.FindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     PickupGeneralCtrl.ePage.Masters.OrgList = response.data.Response;
                     PickupGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickup.ORG_FK_In = "";
@@ -211,7 +211,7 @@
             }
         }
 
-        
+
         function OpenDatePicker($event, opened) {
             $event.preventDefault();
             $event.stopPropagation();

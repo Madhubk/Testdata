@@ -5,9 +5,9 @@
         .module("Application")
         .controller("AcknowledgeCsrController", AcknowledgeCsrController);
 
-    AcknowledgeCsrController.$inject = ["$scope", "apiService", "helperService", "appConfig", "myTaskActivityConfig", "APP_CONSTANT", "errorWarningService", "deliveryConfig", "dynamicLookupConfig"];
+    AcknowledgeCsrController.$inject = ["$scope", "apiService", "helperService", "appConfig", "myTaskActivityConfig", "APP_CONSTANT", "errorWarningService", "deliveryConfig", "dynamicLookupConfig", "warehouseConfig"];
 
-    function AcknowledgeCsrController($scope, apiService, helperService, appConfig, myTaskActivityConfig, APP_CONSTANT, errorWarningService, deliveryConfig, dynamicLookupConfig) {
+    function AcknowledgeCsrController($scope, apiService, helperService, appConfig, myTaskActivityConfig, APP_CONSTANT, errorWarningService, deliveryConfig, dynamicLookupConfig, warehouseConfig) {
         var AcknowledgeCsrCtrl = this;
 
         function Init() {
@@ -74,7 +74,7 @@
             GetContact();
         }
 
-        function GetContact() {            
+        function GetContact() {
             var _filter = {
                 "ORG_FK": AcknowledgeCsrCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WAR_FK
             };
@@ -147,7 +147,7 @@
 
         function GetEntityObj() {
             if (AcknowledgeCsrCtrl.ePage.Masters.TaskObj.EntityRefKey) {
-                apiService.get("eAxisAPI", appConfig.Entities.WmsDeliveryList.API.GetById.Url + AcknowledgeCsrCtrl.ePage.Masters.TaskObj.EntityRefKey).then(function (response) {
+                apiService.get("eAxisAPI", warehouseConfig.Entities.WmsDelivery.API.GetById.Url + AcknowledgeCsrCtrl.ePage.Masters.TaskObj.EntityRefKey).then(function (response) {
                     if (response.data.Response) {
                         AcknowledgeCsrCtrl.ePage.Masters.EntityObj = response.data.Response;
                     }

@@ -5,9 +5,9 @@
         .module("Application")
         .controller("PreviewDashboardController", PreviewDashboardController);
 
-    PreviewDashboardController.$inject = ["$scope", "helperService", "$filter", "dynamicDashboardConfig", "appConfig", "apiService", "authService", "$timeout", "param", "$uibModalInstance"];
+    PreviewDashboardController.$inject = ["$scope", "helperService", "$filter", "dynamicDashboardConfig", "appConfig", "apiService", "authService", "$timeout", "param", "$uibModalInstance", "warehouseConfig"];
 
-    function PreviewDashboardController($scope, helperService, $filter, dynamicDashboardConfig, appConfig, apiService, authService, $timeout, param, $uibModalInstance) {
+    function PreviewDashboardController($scope, helperService, $filter, dynamicDashboardConfig, appConfig, apiService, authService, $timeout, param, $uibModalInstance, warehouseConfig) {
 
         var PreviewDashboardCtrl = this;
 
@@ -150,11 +150,11 @@
             //Get Warehouse Details
             PreviewDashboardCtrl.ePage.Masters.LoadingValue = "Getting mapped Warehouse...";
             var _input = {
-                "FilterID": appConfig.Entities.WmsWarehouse.API.FindAll.FilterID,
+                "FilterID": warehouseConfig.Entities.WmsWarehouse.API.FindAll.FilterID,
                 "SearchInput": []
             };
 
-            apiService.post("eAxisAPI", appConfig.Entities.WmsWarehouse.API.FindAll.Url, _input).then(function (response) {
+            apiService.post("eAxisAPI", warehouseConfig.Entities.WmsWarehouse.API.FindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     if (response.data.Response.length > 0) {
                         PreviewDashboardCtrl.ePage.Masters.WarehouseDetails = response.data.Response;
@@ -191,10 +191,10 @@
                 "TenantCode": authService.getUserInfo().TenantCode
             };
             var _input = {
-                "FilterID": appConfig.Entities.UserOrganisation.API.FindAll.FilterID,
+                "FilterID": warehouseConfig.Entities.UserOrganisation.API.FindAll.FilterID,
                 "SearchInput": helperService.createToArrayOfObject(_filter)
             }
-            apiService.post("authAPI", appConfig.Entities.UserOrganisation.API.FindAll.Url, _input).then(function (response) {
+            apiService.post("authAPI", warehouseConfig.Entities.UserOrganisation.API.FindAll.Url, _input).then(function (response) {
                 if (response.data.Status == "Success") {
                     if (response.data.Response.length > 0) {
                         PreviewDashboardCtrl.ePage.Masters.ClientDetails = response.data.Response;

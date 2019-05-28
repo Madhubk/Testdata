@@ -91,7 +91,7 @@
 
         function getManifestDetails() {
             if (OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.AdditionalRef1Fk) {
-                apiService.get("eAxisAPI", appConfig.Entities.TmsManifestList.API.GetById.Url + OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.AdditionalRef1Fk).then(function (response) {
+                apiService.get("eAxisAPI", warehouseConfig.Entities.TmsManifestList.API.GetById.Url + OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.AdditionalRef1Fk).then(function (response) {
                     if (response.data.Response) {
                         OutwardMenuCtrl.ePage.Entities.Header.ManifestDetails = response.data.Response;
                     }
@@ -406,9 +406,9 @@
                                                 };
                                                 var _input = {
                                                     "searchInput": helperService.createToArrayOfObject(_filter),
-                                                    "FilterID": appConfig.Entities.WmsPickLineSummary.API.FindAll.FilterID
+                                                    "FilterID": warehouseConfig.Entities.WmsPickLineSummary.API.FindAll.FilterID
                                                 };
-                                                apiService.post("eAxisAPI", appConfig.Entities.WmsPickLineSummary.API.FindAll.Url, _input).then(function (response) {
+                                                apiService.post("eAxisAPI", warehouseConfig.Entities.WmsPickLineSummary.API.FindAll.Url, _input).then(function (response) {
                                                     if (response.data.Response.length > 0) {
                                                         OutwardMenuCtrl.ePage.Masters.PickLineList = response.data.Response;
                                                         OutwardMenuCtrl.ePage.Entities.Header.GlobalVariables.Loading = true;
@@ -421,7 +421,7 @@
                                                         };
                                                         confirmation.showModal({}, modalOptions)
                                                             .then(function (result) {
-                                                                helperService.getFullObjectUsingGetById(appConfig.Entities.TmsManifestList.API.GetById.Url, 'null').then(function (response) {
+                                                                helperService.getFullObjectUsingGetById(warehouseConfig.Entities.TmsManifestList.API.GetById.Url, 'null').then(function (response) {
                                                                     if (response.data.Response) {
                                                                         response.data.Response.TmsManifestHeader.PK = response.data.Response.PK;
                                                                         response.data.Response.TmsManifestHeader.SenderCode = OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WAR_ORG_Code;
@@ -439,7 +439,7 @@
                                                                         OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.AdditionalRef1Fk = response.data.Response.TmsManifestHeader.PK;
                                                                         OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.IsModified = true;
 
-                                                                        apiService.post("eAxisAPI", appConfig.Entities.TmsManifestList.API.Insert.Url, response.data.Response).then(function (response) {
+                                                                        apiService.post("eAxisAPI", warehouseConfig.Entities.TmsManifestList.API.Insert.Url, response.data.Response).then(function (response) {
                                                                             if (response.data.Status == 'Success') {
                                                                                 var _obj = {
                                                                                     "PK": "",
@@ -499,24 +499,20 @@
                                                                                 //     response.data.Response.TmsManifestItem.push(obj);
                                                                                 // });
 
-                                                                                apiService.post("eAxisAPI", appConfig.Entities.TmsManifestList.API.Update.Url, response.data.Response).then(function (response) {
+                                                                                apiService.post("eAxisAPI", warehouseConfig.Entities.TmsManifestList.API.Update.Url, response.data.Response).then(function (response) {
                                                                                     if (response.data.Status == 'Success') {
-                                                                                        apiService.get("eAxisAPI", appConfig.Entities.TmsManifestList.API.GetById.Url + response.data.Response.Response.PK).then(function (response) {
+                                                                                        apiService.get("eAxisAPI", warehouseConfig.Entities.TmsManifestList.API.GetById.Url + response.data.Response.Response.PK).then(function (response) {
                                                                                             if (response.data.Status == 'Success') {
                                                                                                 OutwardMenuCtrl.ePage.Entities.Header.ManifestDetails = response.data.Response;
                                                                                                 OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.AdditionalRef1Code = response.data.Response.TmsManifestHeader.ManifestNumber;
                                                                                                 OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.AdditionalRef1Fk = response.data.Response.TmsManifestHeader.PK;
                                                                                                 OutwardMenuCtrl.ePage.Masters.active = 4;
                                                                                                 OutwardMenuCtrl.ePage.Entities.Header.GlobalVariables.Loading = false;
-                                                                                                // apiService.get("eAxisAPI", appConfig.Entities.WmsOutwardList.API.GetById.Url + OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PK).then(function (response) {
-                                                                                                //     if (response.data.Response) {
-                                                                                                //         OutwardMenuCtrl.ePage.Entities.Header.Data = response.data.Response;
-                                                                                                //         OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.AdditionalRef1Code = OutwardMenuCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.ManifestNumber;
-                                                                                                //         OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.AdditionalRef1Fk = OutwardMenuCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.PK;
+                                                                                                
                                                                                                 OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.IsModified = true;
-                                                                                                apiService.post("eAxisAPI", appConfig.Entities.WmsOutwardList.API.Update.Url, OutwardMenuCtrl.ePage.Entities.Header.Data).then(function (response) {
+                                                                                                apiService.post("eAxisAPI", warehouseConfig.Entities.WmsOutwardList.API.Update.Url, OutwardMenuCtrl.ePage.Entities.Header.Data).then(function (response) {
                                                                                                     if (response.data.Status == 'Success') {
-                                                                                                        apiService.get("eAxisAPI", appConfig.Entities.WmsOutwardList.API.GetById.Url + OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PK).then(function (response) {
+                                                                                                        apiService.get("eAxisAPI", warehouseConfig.Entities.WmsOutwardList.API.GetById.Url + OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PK).then(function (response) {
                                                                                                             if (response.data.Response) {
                                                                                                                 response.data.Response.UIWmsOutwardHeader.Client = response.data.Response.UIWmsOutwardHeader.ClientCode + "-" + response.data.Response.UIWmsOutwardHeader.ClientName;
                                                                                                                 response.data.Response.UIWmsOutwardHeader.Warehouse = response.data.Response.UIWmsOutwardHeader.WarehouseCode + "-" + response.data.Response.UIWmsOutwardHeader.WarehouseName;
@@ -712,9 +708,9 @@
                                 value.TMC_ExpectedPickupDateTime = OutwardMenuCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.EstimatedDispatchDate;
                             });
                             OutwardMenuCtrl.ePage.Entities.Header.ManifestDetails = filterObjectUpdate(OutwardMenuCtrl.ePage.Entities.Header.ManifestDetails, "IsModified");
-                            apiService.post("eAxisAPI", appConfig.Entities.TmsManifestList.API.Update.Url, OutwardMenuCtrl.ePage.Entities.Header.ManifestDetails).then(function (response) {
+                            apiService.post("eAxisAPI", warehouseConfig.Entities.TmsManifestList.API.Update.Url, OutwardMenuCtrl.ePage.Entities.Header.ManifestDetails).then(function (response) {
                                 if (response.data.Status == 'Success') {
-                                    apiService.get("eAxisAPI", appConfig.Entities.TmsManifestList.API.GetById.Url + response.data.Response.Response.PK).then(function (response) {
+                                    apiService.get("eAxisAPI", warehouseConfig.Entities.TmsManifestList.API.GetById.Url + response.data.Response.Response.PK).then(function (response) {
                                         if (response.data.Status == 'Success') {
                                             OutwardMenuCtrl.ePage.Entities.Header.ManifestDetails = response.data.Response;
                                             toastr.success("Manifest Saved Successfully.");

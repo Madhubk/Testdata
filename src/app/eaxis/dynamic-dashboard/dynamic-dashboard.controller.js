@@ -5,9 +5,9 @@
         .module("Application")
         .controller("DynamicDashboardController", DynamicDashboardController);
 
-    DynamicDashboardController.$inject = ["$scope", "helperService", "$filter", "dynamicDashboardConfig", "appConfig", "apiService", "authService", "$timeout", "$uibModal"];
+    DynamicDashboardController.$inject = ["$scope", "helperService", "$filter", "dynamicDashboardConfig", "appConfig", "apiService", "authService", "$timeout", "$uibModal", "warehouseConfig"];
 
-    function DynamicDashboardController($scope, helperService, $filter, dynamicDashboardConfig, appConfig, apiService, authService, $timeout, $uibModal) {
+    function DynamicDashboardController($scope, helperService, $filter, dynamicDashboardConfig, appConfig, apiService, authService, $timeout, $uibModal, warehouseConfig) {
 
         var DynamicDashboardCtrl = this;
 
@@ -453,7 +453,7 @@
             });
         }
 
-        function OnChangeDashboardList() {            
+        function OnChangeDashboardList() {
             DynamicDashboardCtrl.ePage.Masters.LoadingValue = "Getting Dashboard Details...";
             if (DynamicDashboardCtrl.ePage.Masters.SelectedDashboardDetails.IsWarehouseBased)
                 GetWarehouseValues();
@@ -480,10 +480,10 @@
 
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.ComponentRole.API.FindAll.FilterID
+                "FilterID": warehouseConfig.Entities.ComponentRole.API.FindAll.FilterID
             };
 
-            apiService.post("authAPI", appConfig.Entities.ComponentRole.API.FindAll.Url, _input).then(function (response) {
+            apiService.post("authAPI", warehouseConfig.Entities.ComponentRole.API.FindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     DynamicDashboardCtrl.ePage.Masters.ComponentRoleDetails = response.data.Response;
                 }
@@ -585,11 +585,11 @@
             //Get Warehouse Details
             DynamicDashboardCtrl.ePage.Masters.LoadingValue = "Getting mapped Warehouse...";
             var _input = {
-                "FilterID": appConfig.Entities.WmsWarehouse.API.FindAll.FilterID,
+                "FilterID": warehouseConfig.Entities.WmsWarehouse.API.FindAll.FilterID,
                 "SearchInput": []
             };
 
-            apiService.post("eAxisAPI", appConfig.Entities.WmsWarehouse.API.FindAll.Url, _input).then(function (response) {
+            apiService.post("eAxisAPI", warehouseConfig.Entities.WmsWarehouse.API.FindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     if (response.data.Response.length > 0) {
                         DynamicDashboardCtrl.ePage.Masters.WarehouseDetails = response.data.Response;
@@ -630,10 +630,10 @@
                 "TenantCode": authService.getUserInfo().TenantCode
             };
             var _input = {
-                "FilterID": appConfig.Entities.UserOrganisation.API.FindAll.FilterID,
+                "FilterID": warehouseConfig.Entities.UserOrganisation.API.FindAll.FilterID,
                 "SearchInput": helperService.createToArrayOfObject(_filter)
             }
-            apiService.post("authAPI", appConfig.Entities.UserOrganisation.API.FindAll.Url, _input).then(function (response) {
+            apiService.post("authAPI", warehouseConfig.Entities.UserOrganisation.API.FindAll.Url, _input).then(function (response) {
                 if (response.data.Status == "Success") {
                     if (response.data.Response.length > 0) {
                         DynamicDashboardCtrl.ePage.Masters.ClientDetails = response.data.Response;
