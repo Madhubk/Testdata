@@ -1,0 +1,194 @@
+<div class="modal-header">
+    <span class="modal-title modalheader">{{CreditControlCtrl.ePage.Entities.Header.Data.OrgHeader.Code}}</span>
+    <button class="btn btn-xs btn-warning pull-right ml-5" data-ng-bind="CreditControlCtrl.ePage.Masters.CloseButtonText" data-ng-click="CreditControlCtrl.ePage.Masters.Close()"></button>
+    <button class="btn btn-xs btn-primary pull-right" data-ng-bind="CreditControlCtrl.ePage.Masters.SaveButtonText" data-ng-click="CreditControlCtrl.ePage.Masters.Validation('OrgCompanyData')"></button>
+</div>
+<div class="modal-body pb-50">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-10">
+            <div class="form-group">
+                <label>Credit Rating</label>
+                <select chosen class="form-control" data-ng-model="CreditControlCtrl.ePage.Entities.Header.Data.OrgCompanyData[0].ARCreditRating" 
+                    data-ng-options="x.Key as x.Description for x in CreditControlCtrl.ePage.Masters.DropDownMasterList.CreditRating.ListSource" search-contains="true">
+                    <option value="">--select--</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-10">
+            <div class="form-group">
+                <label>Credit Limit</label>
+                <input type="text" class="form-control input-sm" placeholder="Credit Limit" data-ng-model="CreditControlCtrl.ePage.Entities.Header.Data.OrgCompanyData[0].ARCreditLimit" 
+                    data-ng-blur="CreditControlCtrl.ePage.Masters.CreditLimitCalculation(CreditControlCtrl.ePage.Entities.Header.Data.OrgCompanyData[0].ARCreditLimit, CreditControlCtrl.ePage.Entities.Header.Data.OrgCompanyData[0].ARTemporaryCreditLimitIncrease)"numbers-only-dot sb-precision="2"/>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-10">
+            <div class="form-group">
+                <label>Temp Credit Limit Increase</label>
+                <input type="text" class="form-control input-sm" placeholder="Temp Credit Limit Increase" data-ng-model="CreditControlCtrl.ePage.Entities.Header.Data.OrgCompanyData[0].ARTemporaryCreditLimitIncrease"
+                     data-ng-blur="CreditControlCtrl.ePage.Masters.CreditLimitCalculation(CreditControlCtrl.ePage.Entities.Header.Data.OrgCompanyData[0].ARCreditLimit, CreditControlCtrl.ePage.Entities.Header.Data.OrgCompanyData[0].ARTemporaryCreditLimitIncrease)" data-ng-disabled="!CreditControlCtrl.ePage.Entities.Header.Data.OrgCompanyData[0].ARCreditLimit" numbers-only-dot sb-precision="2"/>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-10">
+            <div class="form-group">
+                <label>Temp Credit Limit</label>
+                <input type="text" class="form-control input-sm" placeholder="Temp Credit Limit" data-ng-model="CreditControlCtrl.ePage.Entities.Header.Data.OrgCompanyData[0].TempCreditLimit" data-ng-disabled="true" numbers-only-dot sb-precision="2"/>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-10">
+            <div class="form-group">
+                 <label>Expires At</label>
+                 <div class="input-group input-group-sm">
+                    <input type="text" class="form-control input-sm" placeholder="{{CreditControlCtrl.ePage.Masters.DatePicker.Options.dateFormat}}" data-ng-model="CreditControlCtrl.ePage.Entities.Header.Data.OrgCompanyData[0].ARTemporaryCreditLimitIncreaseExpiry"
+                        datetime-picker="{{CreditControlCtrl.ePage.Masters.DatePicker.Options.dateFormat}}" datepicker-options="CreditControlCtrl.ePage.Masters.DatePicker.Options" datepicker-append-to-body="false" close-on-selection="false" enable-time="false"
+                        enable-date="true" default-date="" default-time="" save-as="CreditControlCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                        is-open="CreditControlCtrl.ePage.Masters.DatePicker.isOpen['isCostInvoiceDate']" when-closed="" data-ng-click="" custom-date-time-format/>
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" data-ng-click="CreditControlCtrl.ePage.Masters.DatePicker.OpenDatePicker($event,'isCostInvoiceDate')">
+                            <i class="fa fa-calendar"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6" style="margin-top:35px; height: 57px;">
+            <label>
+                <input type="checkbox" data-ng-model="CreditControlCtrl.ePage.Entities.Header.Data.OrgCompanyData[0].ARUseSettlementGroupCreditLimit">
+                <span class="text">Use Settlement Group Credit Limit</span>
+            </label>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6" style="height: 44px;">
+            <label>
+                <input type="checkbox" data-ng-model="CreditControlCtrl.ePage.Entities.Header.Data.OrgCompanyData[0].ARCreditApproved">
+                <span class="text">Credit Approved</span>
+            </label>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6" style="height: 44px;">
+            <label>
+                <input type="checkbox" data-ng-checked="CreditControlCtrl.ePage.Entities.Header.Data.OrgCompanyData[0].AROnCreditHold">
+                <span class="text">AR on Credit Hold</span>
+            </label>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <div class="form-group">
+                <label>Settlment Group</label>
+                <div class="input-group input-group-sm">
+                    <div dynamic-lookup placeholder="Settlment Group" my-ng-model="CreditControlCtrl.ePage.Entities.Header.Data.OrgCompanyData[0].SettlementGroup" obj="CreditControlCtrl.ePage.Entities.Header.Data.OrgCompanyData[0]" page-name="'OrgHeader'" control-id="'SettlmentGroup'" control-key="SettlmentGroup_3355" 
+                        auto-complete-on-select="">
+                    </div>
+                    <span class="input-group-btn">
+                        <button dynamic-list-modal class="btn btn-default" type="button" obj="CreditControlCtrl.ePage.Entities.Header.Data.OrgCompanyData[0]" page-name="'OrgHeader'" control-id="'SettlmentGroup'" control-key="SettlmentGroup_3355"
+                             mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data=""><i class="fa fa-ellipsis-h"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Terms and Terms Days-->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+        <div class="margin-top-20 mb-10">
+            <span class="text-single-line custom_label">Terms and Terms Days</span>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 custompadding">
+        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8 p-0">
+            <span><button type="button" class="btn btn-sm btn-outline-secondary font-10" title="Add New" data-ng-click="CreditControlCtrl.ePage.Masters.AddNewRow()"><span class="fa fa-plus"></span>&nbsp;&nbsp;Add New</button></span>
+            <span><button type="button" class="btn btn-sm btn-outline-primary font-10" title="Copy" data-ng-click="CreditControlCtrl.ePage.Masters.CopyRow()" data-ng-disabled="CreditControlCtrl.ePage.Masters.EnableCopyButton"><span class="fa fa-copy"></span>&nbsp;&nbsp;Copy</button></span>
+            <span><button type="button" class="btn btn-sm btn-outline-primary font-10" title="Delete" data-ng-click="CreditControlCtrl.ePage.Masters.RemoveRow()" data-ng-disabled="CreditControlCtrl.ePage.Masters.EnableCopyButton"><span class="fa fa-trash"></span>&nbsp;&nbsp;Delete</button></span>
+        </div>
+    </div>
+    <div class="fixedheader" id="CreditTable{{CreditControlCtrl.ePage.Entities.Header.Data.OrgCompanyData[0].PK}}" key-events table-object='CreditControlCtrl.ePage.Entities.Header.Data.OrgCompanyData[0].OrgARTerms' enable='CreditControlCtrl.ePage.Masters.Enable' unique-id="ARTable{{CreditControlCtrl.ePage.Entities.Header.Data.OrgCompanyData[0].PK}}">
+        <table id="CreditControlCtrl.ePage.Masters.AddScroll" style="height: 200px">
+            <thead>
+                <tr id="tableHeader">
+                    <th  data-ng-style="{'width':'40px'}">
+                        <label class="customcheckbox">
+                            <input type="checkbox" data-ng-checked="CreditControlCtrl.ePage.Masters.SelectAll" data-ng-model="CreditControlCtrl.ePage.Masters.SelectAll" 
+                                data-ng-change="CreditControlCtrl.ePage.Masters.SelectAllCheckBox()">
+                            <span class="text"></span>
+                        </label>
+                    </th>
+                    <th data-ng-style="{'width':'40px'}" title="S.No">S.No</th>
+                    <th data-ng-style="{'width':'125px'}" title="Job Type">Job Type</th>
+                    <th data-ng-style="{'width':'125px'}" title="Business Type">Business Type</th>
+                    <th data-ng-style="{'width':'125px'}" title="Mode of Transport">Mode of Transport</th>
+                    <th data-ng-style="{'width':'125px'}" title="Invoice Type">Invoice Type</th>
+                    <th data-ng-style="{'width':'125px'}" title="Invoice Term">Invoice Term</th>
+                    <th data-ng-style="{'width':'125px'}" title="Invoice Days">Invoice Days</th>
+                    <!-- <th data-ng-style="{'width':'125px'}" title="Agreed Payment">Agreed Payment</th> -->
+                </tr> 
+                <tbody id="">
+                    <tr id="tableBody" data-ng-repeat="x in CreditControlCtrl.ePage.Entities.Header.Data.OrgCompanyData[0].OrgARTerms" data-ng-click="CreditControlCtrl.ePage.Masters.setSelectedRow($index);">
+                        <td id="checkbox"  ng-style="{'width':'40px','padding-top':'0px'}">
+                            <label class="mb-0 customcheckbox">
+                                <input type="checkbox" data-ng-checked="x.SingleSelect" data-ng-model="x.SingleSelect" data-ng-change="CreditControlCtrl.ePage.Masters.SingleSelectCheckBox()"> </input>
+                                <span class="text"></span>
+                            </label>
+                        </td>
+                        <td ng-style="{'width':'40px'}">
+                            {{$index+1}}
+                        </td>
+                        <td data-ng-style="{'width':'125px'}">
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 p-0 height-22">
+                                <select chosen class="form-control" data-ng-model="x.JobType" data-ng-options="x.Key as x.Description for x in CreditControlCtrl.ePage.Masters.DropDownMasterList.JobType.ListSource">
+                                    <option value="">--select--</option>
+                                </select>                                          
+                            </div>
+                        </td>
+                        <td data-ng-style="{'width':'125px'}">
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 p-0 height-22">
+                                <select chosen class="form-control" data-ng-model="x.Direction" data-ng-options="x.Key as x.Description for x in CreditControlCtrl.ePage.Masters.DropDownMasterList.BussType.ListSource">
+                                    <option value="">--select--</option>
+                                </select>                                          
+                            </div>
+                        </td>
+                        <td data-ng-style="{'width':'125px'}">
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 p-0 height-22">
+                                <select chosen class="form-control" data-ng-model="x.ModeofTransport" data-ng-options="x.Key as x.Description for x in CreditControlCtrl.ePage.Masters.DropDownMasterList.ModeofTransport.ListSource">
+                                    <option value="">--Select--</option>
+                                </select>
+                            </div>
+                        </td>
+                        <td data-ng-style="{'width':'125px'}">
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 p-0 height-22">
+                                <select chosen class="form-control" data-ng-model="x.InvoiceType" data-ng-options="x.Key as x.Description for x in CreditControlCtrl.ePage.Masters.DropDownMasterList.InvoiceType.ListSource">
+                                    <option value="">--Select--</option>
+                                </select>
+                            </div>
+                            </div>
+                        </td>
+                        <td data-ng-style="{'width':'125px'}">
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 p-0 height-22">
+                                <input type="text" class="form-control input-sm" placeholder="Invoice Term" data-ng-model="x.InvoiceTerm"/> 
+                            </div>
+                        </td>
+                        <td data-ng-style="{'width':'125px'}">
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 p-0 height-22">
+                                <input type="text" class="form-control input-sm" placeholder="Invoice Days" data-ng-model="x.InvoiceDays" numbers-only-dot/> 
+                            </div>
+                        </td>
+                        <!-- <td data-ng-style="{'width':'125px'}">
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 p-0 height-22">
+                                <div class="input-group input-group-sm">
+                                    <div dynamic-lookup placeholder="Agreed Payment" my-ng-model="x.AgreedPayment" obj="x" page-name="''" control-id="''" control-key=""
+                                        auto-complete-on-select="">
+                                    </div>
+                                    <span class="input-group-btn">
+                                        <button dynamic-list-modal class="btn btn-default" type="button" obj="x" page-name="''" control-id="''" control-key="" 
+                                             mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data=""><i class="fa fa-ellipsis-h"></i>
+                                        </button>
+                                    </span>
+                                 </div>
+                            </div>
+                        </td> -->
+                    </tr>
+                </tbody>
+            </thead>  
+        </table>
+       
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-xs btn-primary mb-20" data-ng-bind="CreditControlCtrl.ePage.Masters.SaveButtonText" data-ng-click="CreditControlCtrl.ePage.Masters.Validation('OrgCompanyData')" data-ng-disabled="CreditControlCtrl.ePage.Masters.IsDisableSave"></button>
+    <button class="btn btn-xs btn-warning mb-20" data-ng-bind="CreditControlCtrl.ePage.Masters.CloseButtonText" data-ng-click="CreditControlCtrl.ePage.Masters.Close()"></button>
+</div>

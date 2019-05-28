@@ -1,0 +1,90 @@
+<div class="org-header">
+    <span data-ng-bind="'Credit Control & Settlement'"></span>
+    <button class="btn btn-xs btn-primary pull-right" data-ng-click="AccountReceivableCtrl.ePage.Masters.EditableMode('credit-control')">Edit</button>
+</div>
+<!-- Credit Control & Settlement -->
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+    <div class="margin-top-20">
+        <span class="text-single-line custom_label">Credit Control & Settlement</span>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 margin-top-10">
+        <table class="table table-borderless">
+            <tbody class="borderless-table">
+                <tr>
+                    <th>Credit Rating</th>
+                    <td>{{CreditControlCtrl.ePage.Entities.Header.Data.OrgCompanyData[0].ARCreditRating}}</td>
+                 </tr>
+                <tr>
+                    <th>Credit Limit</th>
+                    <td>{{CreditControlCtrl.ePage.Entities.Header.Data.OrgCompanyData[0].ARCreditLimit}}</td>
+                </tr>
+                <tr>
+                    <th>Temp Credit Limit Increase</th>
+                    <td>{{CreditControlCtrl.ePage.Entities.Header.Data.OrgCompanyData[0].ARTemporaryCreditLimitIncrease}}</td>
+                </tr>
+                <tr>
+                    <th>Temp Credit Limit</th>
+                    <td>{{CreditControlCtrl.ePage.Entities.Header.Data.OrgCompanyData[0].TempCreditLimit}}</td>
+                </tr>
+                <tr>
+                    <th>Expires At</th>
+                    <td>{{CreditControlCtrl.ePage.Entities.Header.Data.OrgCompanyData[0].ARTemporaryCreditLimitIncreaseExpiry}}</td>
+                </tr>
+                <tr>
+                    <th>Settlment Group</th>
+                    <td>{{CreditControlCtrl.ePage.Entities.Header.Data.OrgCompanyData[0].SettlementGroup}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 margin-top-10">
+            <table class="table table-borderless">
+                <tbody class="borderless-table">
+                    <tr>
+                        <th>Use Settlement Group Credit Limit</th>
+                        <td>{{CreditControlCtrl.ePage.Entities.Header.Data.OrgCompanyData[0].ARUseSettlementGroupCreditLimit}}</td>
+                    </tr>
+                    <tr>
+                        <th>Credit Approved</th>
+                        <td>{{CreditControlCtrl.ePage.Entities.Header.Data.OrgCompanyData[0].ARCreditApproved}}</td>
+                    </tr>
+                    <tr>
+                        <th>AR on Credit Hold</th>
+                        <td>{{CreditControlCtrl.ePage.Entities.Header.Data.OrgCompanyData[0].AROnCreditHold}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+</div>
+<!-- Credit Terms and Terms Days -->
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+    <div class="margin-top-20">
+        <span class="text-single-line custom_label">Credit Terms and Terms Days</span>
+    </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 margin-top-10">
+            <table class="table table-bordered">
+                <thead style="border-bottom : 1px solid #ddd">
+                    <tr>
+                        <th scope="col"><b>S.No<i></i></b></th>
+                        <th scope="col"><b>Job Type<i></i></b></th>
+                        <th scope="col"><b>Business Type<i></i></b></th>
+                        <th scope="col"><b>Mode of Transport<i></i></b></th>
+                        <th scope="col"><b>Invoice Type<i></i></b></th>
+                        <th scope="col"><b>Invoice Term<i></i></b></th>
+                        <th scope="col"><b>Invoice Days<i></i></b></th>
+                    </tr>
+                </thead>
+                <tbody> 
+                    <tr data-ng-repeat="x in CreditControlCtrl.ePage.Entities.Header.Data.OrgCompanyData[0].OrgARTerms">
+                        <td>{{$index+1}}</td>
+                        <td>{{x.JobType}}</td>
+                        <td>{{x.Direction}}</td>
+                        <td>{{x.ModeofTransport}}</td>
+                        <td>{{x.InvoiceType}}</td>
+                        <td>{{x.InvoiceTerm}}</td>
+                        <td>{{x.InvoiceDays}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>

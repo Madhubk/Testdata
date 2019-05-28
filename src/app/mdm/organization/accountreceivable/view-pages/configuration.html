@@ -1,0 +1,82 @@
+<div class="org-header">
+    <span data-ng-bind="'Configuration'"></span>
+    <button class="btn btn-xs btn-primary pull-right" data-ng-click="AccountReceivableCtrl.ePage.Masters.EditableMode('configuration')">Edit</button>
+</div>
+<!-- Configuration -->
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+    <div class="margin-top-20">
+        <span class="text-single-line custom_label">Configuration</span>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 margin-top-10">
+        <table class="table table-borderless">
+            <tbody class="borderless-table">
+                <tr>
+                    <th>Account Group</th>
+                    <td>{{ConfigurationCtrl.ePage.Entities.Header.Data.OrgCompanyData[0].ODG_ARDebtorGroupCode}}</td>
+                </tr>
+                <tr>
+                    <th>Default Invoice Currency</th>
+                    <td>{{ConfigurationCtrl.ePage.Entities.Header.Data.OrgCompanyData[0].MYC_NKARDDefltCurrency}}</td>
+                </tr>
+                <tr>
+                    <th>Acc Details</th>
+                    <td>{{ConfigurationCtrl.ePage.Entities.Header.Data.OrgCompanyData[0].FBN_ARPayToAccountCode}}</td>
+                </tr>
+                <tr>
+                    <th>GST Recognition & Reporting Basic Override</th>
+                    <td>{{ConfigurationCtrl.ePage.Entities.Header.Data.OrgCompanyData[0].ARVATConfig}}</td>
+                </tr>
+                <tr>
+                    <th>External Sys.Debtor Code</th>
+                    <td>{{ConfigurationCtrl.ePage.Entities.Header.Data.OrgCompanyData[0].ARExternalDebtorCode}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 margin-top-10">
+        <table class="table table-borderless">
+            <tbody class="borderless-table">
+                <tr>
+                    <th>Override AccGroup or Bank Acc Details</th>
+                    <td>{{ConfigurationCtrl.ePage.Entities.Header.Data.OrgCompanyData[0].OverrideAccDetails}}</td>
+                </tr>
+                <tr>
+                    <th>Don't Show Text on Document</th>
+                    <td>{{ConfigurationCtrl.ePage.Entities.Header.Data.OrgCompanyData[0].ARDontShowTaxOnDocs}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<!-- Currency Uplift Details -->
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+    <div class="margin-top-20">
+        <span class="text-single-line custom_label">Configuration Currency Uplift Details</span>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 margin-top-10">
+        <table class="table table-bordered">
+            <thead style="border-bottom : 1px solid #ddd">
+                <tr>
+                    <th scope="col"><b>S.No<i></i></b></th>
+                    <th scope="col"><b>Job Type<i></i></b></th>
+                    <th scope="col"><b>Business Type<i></i></b></th>
+                    <th scope="col"><b>Mode of Transport<i></i></b></th>
+                    <th scope="col"><b>Currency<i></i></b></th>
+                    <th scope="col"><b>CFX %<i></i></b></th>
+                    <th scope="col"><b>CFX Min<i></i></b></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr data-ng-repeat="x in ConfigurationCtrl.ePage.Entities.Header.Data.objUICurrencyUplift">
+                    <td>{{$index+1}}</td>
+                    <td>{{x.JobType}}</td>
+                    <td>{{x.BusinessType}}</td>
+                    <td>{{x.ModeOfTransport}}</td>
+                    <td>{{x.Currency}}</td>
+                    <td>{{x.CfxPercentage}}</td>
+                    <td>{{x.CfxMin}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
