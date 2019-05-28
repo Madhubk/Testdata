@@ -508,6 +508,27 @@
             })
 
             // end
+            .state('MD.glaccount', {
+                url: '/glaccount',
+                templateUrl: 'app/mdm/glaccount/glaccount.html',
+                controller: "GLaccountController as GLaccountCtrl",
+                ncyBreadcrumb: {
+                    label: 'GLaccount'
+                },
+                resolve: {
+                    CheckAccess: ["$q", "pageAccessService", function ($q, pageAccessService) {
+                        var deferred = $q.defer();
+                        // if (pageAccessService.CheckAuthToken()) {
+                        deferred.resolve();
+                        // }
+                        return deferred.promise;
+                    }],
+                    LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
+                        return $ocLazyLoad.load(["Finance", "glaccount", "glaccountMenu", "glaccountGeneral", "dynamicLookup", "dynamicListModal", "dynamicList", "dynamicGrid", "dynamicControl", "compareDate", "customToolbar", "confirmation", "chromeTab", "errorWarning"]);
+                    }]
+                }
+            })
+            
             .state('MD.creditor', {
                 url: '/creditor',
                 templateUrl: 'app/mdm/creditor/creditor.html',

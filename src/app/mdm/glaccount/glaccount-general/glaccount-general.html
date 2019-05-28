@@ -1,0 +1,428 @@
+<div class="clearfix padding-top-10 wms-menu-wraper">
+    <div class="clearfix mt-5 ">
+        <!--Code-->
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="ml-5 control-label">Account Number</label>
+                <span class="error-warning-container">
+                    <error-warning-directive
+                        data-ng-if="GLaccountGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.CurrencyCode.IsWarning && !GLaccountGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.CurrencyCode.IsError"
+                        list="GLaccountGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.CurrencyCode.WARNING"
+                        type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
+                    </error-warning-directive>
+                    <error-warning-directive
+                        data-ng-if="GLaccountGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.CurrencyCode.IsError"
+                        list="GLaccountGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.CurrencyCode.ERROR"
+                        type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
+                    </error-warning-directive>
+                </span>
+                <div class=" ">
+                    <input type="text" class="form-control input-sm" placeholder="Account Number"
+                        data-ng-model=" GLaccountGeneralCtrl.ePage.Entities.Header.Data.AccountNum"
+                        data-ng-change='GLaccountGeneralCtrl.ePage.Masters.OnChangeValues(GLaccountGeneralCtrl.ePage.Entities.Header.Data.Code,"E1314")' data-ng-disabled="!GLaccountGeneralCtrl.ePage.Entities.Header.Data.UICurrency.IsActive"/>
+                </div>
+            </div>
+        </div>
+        <!-- Desc-->
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <span class="dashboard-inward-icon-box">
+                    <!-- <i class="icomoon icon-supplier"></i> -->
+                </span>
+                <label class="ml-5 control-label">Account Name</label>
+                <span class="error-warning-container">
+                    <error-warning-directive
+                        data-ng-if="GLaccountGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Description.IsWarning && !GLaccountGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Description.IsError"
+                        list="GLaccountGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Description.WARNING"
+                        type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
+                    </error-warning-directive>
+                    <error-warning-directive
+                        data-ng-if="GLaccountGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Description.IsError"
+                        list="GLaccountGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Description.ERROR"
+                        type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
+                    </error-warning-directive>
+                </span>
+                <div class=" ">
+                    <input type="text" class="form-control" placeholder="Account Name"
+                        data-ng-model="GLaccountGeneralCtrl.ePage.Entities.Header.Data.Description"
+                        data-ng-change='GLaccountGeneralCtrl.ePage.Masters.OnChangeValues( GLaccountGeneralCtrl.ePage.Entities.Header.Data.Description,"E1317")' data-ng-disabled="!GLaccountGeneralCtrl.ePage.Entities.Header.Data.IsActive"/>
+                </div>
+
+            </div>
+        </div>
+        <!--Symbol-->
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="ml-5 control-label">Account Type</label>
+                <span class="error-warning-container">
+                    <error-warning-directive
+                        data-ng-if="GLaccountGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Accounttype.IsWarning && !GLaccountGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Accounttype.IsError"
+                        list="GLaccountGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Accounttype.WARNING"
+                        type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
+                    </error-warning-directive>
+                    <error-warning-directive
+                        data-ng-if="GLaccountGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Accounttype.IsError"
+                        list="GLaccountGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Accounttype.ERROR" type="'error'"
+                        icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
+                    </error-warning-directive>
+                </span>
+                <div class=" ">
+                    <select chosen class="form-control"
+                        data-ng-model="GLaccountGeneralCtrl.ePage.Entities.Header.Data"
+                        data-ng-options="x.Key as x.Description for x in GLaccountGeneralCtrl.ePage.Masters.DropDownMasterList.EXSUBRATE.ListSource"
+                        data-ng-change="GLaccountGeneralCtrl.ePage.Masters.OnChangeValues(GLaccountGeneralCtrl.ePage.Entities.Header.Data,'E1326',false,undefined);">
+                        <option value="">--- Select ---</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="ml-5 control-label">Typical Balance</label>
+                <span class="error-warning-container">
+                    <error-warning-directive
+                        data-ng-if="GLaccountGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.DebitCredit.IsWarning && !GLaccountGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.DebitCredit.IsError"
+                        list="GLaccountGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.DebitCredit.WARNING"
+                        type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
+                    </error-warning-directive>
+                    <error-warning-directive
+                        data-ng-if="GLaccountGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.DebitCredit.IsError"
+                        list="GLaccountGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.DebitCredit.ERROR" type="'error'"
+                        icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
+                    </error-warning-directive>
+                </span>
+                <div class=" ">
+                    <select chosen class="form-control"
+                        data-ng-model="GLaccountGeneralCtrl.ePage.Entities.Header.Data"
+                        data-ng-options="x.Key as x.Description for x in GLaccountGeneralCtrl.ePage.Masters.DropDownMasterList.EXSUBRATE.ListSource"
+                        data-ng-change="GLaccountGeneralCtrl.ePage.Masters.OnChangeValues(GLaccountGeneralCtrl.ePage.Entities.Header.Data,'E1326',false,undefined);">
+                        <option value="">--- Select ---</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix mt-5 ">
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <!-- Unitname -->
+                <label class="ml-5 control-label">Cash Flow Category</label>
+                <span class="error-warning-container">
+                    <error-warning-directive
+                        data-ng-if="GLaccountGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Unitname.IsWarning && !GLaccountGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Unitname.IsError"
+                        list="GLaccountGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Unitname.WARNING"
+                        type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
+                    </error-warning-directive>
+                    <error-warning-directive
+                        data-ng-if="GLaccountGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Unitname.IsError"
+                        list="GLaccountGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Unitname.ERROR" type="'error'"
+                        icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
+                    </error-warning-directive>
+                </span>
+                <div class=" ">
+                    <select chosen class="form-control"
+                        data-ng-model="GLaccountGeneralCtrl.ePage.Entities.Header.Data"
+                        data-ng-options="x.Key as x.Description for x in GLaccountGeneralCtrl.ePage.Masters.DropDownMasterList.EXSUBRATE.ListSource"
+                        data-ng-change="GLaccountGeneralCtrl.ePage.Masters.OnChangeValues(GLaccountGeneralCtrl.ePage.Entities.Header.Data,'E1326',false,undefined);">
+                        <option value="">--- Select ---</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="ml-5 control-label">Report Section</label>
+                <span class="error-warning-container">
+                    <error-warning-directive
+                        data-ng-if="GLaccountGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.SubUnitname.IsWarning && !GLaccountGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.SubUnitname.IsError"
+                        list="GLaccountGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.SubUnitname.WARNING"
+                        type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
+                    </error-warning-directive>
+                    <error-warning-directive
+                        data-ng-if="GLaccountGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.SubUnitname.IsError"
+                        list="GLaccountGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.SubUnitname.ERROR"
+                        type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
+                    </error-warning-directive>
+                </span>
+                <div class=" ">
+                    <select chosen class="form-control"
+                        data-ng-model="GLaccountGeneralCtrl.ePage.Entities.Header.Data"
+                        data-ng-options="x.Key as x.Description for x in GLaccountGeneralCtrl.ePage.Masters.DropDownMasterList.EXSUBRATE.ListSource"
+                        data-ng-change="GLaccountGeneralCtrl.ePage.Masters.OnChangeValues(GLaccountGeneralCtrl.ePage.Entities.Header.Data,'E1326',false,undefined);">
+                        <option value="">--- Select ---</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <!--Country-->
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="ml-5 control-label">Prefixed Account #</label>
+                <span class="error-warning-container">
+                    <error-warning-directive
+                        data-ng-if="GLaccountGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Country.IsWarning && !GLaccountGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Country.IsError"
+                        list="GLaccountGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Country.WARNING" type="'warning'"
+                        icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
+                    </error-warning-directive>
+                    <error-warning-directive
+                        data-ng-if="GLaccountGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Country.IsError"
+                        list="GLaccountGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Country.ERROR" type="'error'"
+                        icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
+                    </error-warning-directive>
+                </span>
+                <div class=" ">
+                    <input type="text" class="form-control input-sm" placeholder="Account Number"
+                        data-ng-model=" GLaccountGeneralCtrl.ePage.Entities.Header.Data.AccountNum"
+                        data-ng-change='GLaccountGeneralCtrl.ePage.Masters.OnChangeValues(GLaccountGeneralCtrl.ePage.Entities.Header.Data.Code,"E1314")' data-ng-disabled="!GLaccountGeneralCtrl.ePage.Entities.Header.Data.UICurrency.IsActive"/>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="ml-5 control-label">Sub Account Type</label>
+                <span class="error-warning-container">
+                    <error-warning-directive
+                        data-ng-if="GLaccountGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Symbol.IsWarning && !GLaccountGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Symbol.IsError"
+                        list="GLaccountGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Symbol.WARNING"
+                        type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
+                    </error-warning-directive>
+                    <error-warning-directive
+                        data-ng-if="GLaccountGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Symbol.IsError"
+                        list="GLaccountGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Symbol.ERROR" type="'error'"
+                        icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
+                    </error-warning-directive>
+                </span>
+                <div class=" ">
+                    <select chosen class="form-control"
+                        data-ng-model="GLaccountGeneralCtrl.ePage.Entities.Header.Data"
+                        data-ng-options="x.Key as x.Description for x in GLaccountGeneralCtrl.ePage.Masters.DropDownMasterList.EXSUBRATE.ListSource"
+                        data-ng-change="GLaccountGeneralCtrl.ePage.Masters.OnChangeValues(GLaccountGeneralCtrl.ePage.Entities.Header.Data,'E1326',false,undefined);">
+                        <option value="">--- Select ---</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix mt-5 ">
+        <!--Code-->
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="ml-5 control-label">Percent Number</label>
+                <span class="error-warning-container">
+                    <error-warning-directive
+                        data-ng-if="GLaccountGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Symbol.IsWarning && !GLaccountGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Symbol.IsError"
+                        list="GLaccountGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Symbol.WARNING"
+                        type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
+                    </error-warning-directive>
+                    <error-warning-directive
+                        data-ng-if="GLaccountGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Symbol.IsError"
+                        list="GLaccountGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Symbol.ERROR" type="'error'"
+                        icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
+                    </error-warning-directive>
+                </span>
+                <div class="input-group input-group-sm">
+                    <div dynamic-lookup placeholder="Cost Accural GL Account" my-ng-model="GLaccountGeneralCtrl.ePage.Entities.Header.Data"
+                        obj="GLaccountGeneralCtrl.ePage.Entities.Header.Data" page-name="'AccGLHeader'" control-id="'AccGLHeader'"
+                         control-key="AccGLHeader_3350" auto-complete-on-select="GLaccountGeneralCtrl.ePage.Masters.SelectedLookupData($item, 'PercentNum')">
+                    </div>
+                    <span class="input-group-btn">
+                        <button dynamic-list-modal class="btn btn-default" type="button" obj="GLaccountGeneralCtrl.ePage.Entities.Header.Data"
+                            page-name="'AccGLHeader'" control-id="'AccGLHeader'" control-key="AccGLHeader_3350" mode="2" grid-refresh-fun-name=""
+                            grid-refresh-fun="" selected-data="GLaccountGeneralCtrl.ePage.Masters.SelectedLookupData($item.data.entity, 'PercentNum')"><i class="fa fa-ellipsis-h"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <!-- Desc-->
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="ml-5 control-label">Consolidate</label>
+                <span class="error-warning-container">
+                    <error-warning-directive
+                        data-ng-if="GLaccountGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Symbol.IsWarning && !GLaccountGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Symbol.IsError"
+                        list="GLaccountGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Symbol.WARNING"
+                        type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
+                    </error-warning-directive>
+                    <error-warning-directive
+                        data-ng-if="GLaccountGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Symbol.IsError"
+                        list="GLaccountGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Symbol.ERROR" type="'error'"
+                        icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
+                    </error-warning-directive>
+                </span>
+                <div class="input-group input-group-sm">
+                    <div dynamic-lookup placeholder="Cost Accural GL Account" my-ng-model="GLaccountGeneralCtrl.ePage.Entities.Header.Data"
+                        obj="GLaccountGeneralCtrl.ePage.Entities.Header.Data" page-name="'AccGLHeader'" control-id="'AccGLHeader'"
+                         control-key="AccGLHeader_3350" auto-complete-on-select="GLaccountGeneralCtrl.ePage.Masters.SelectedLookupData($item, 'PercentNum')">
+                    </div>
+                    <span class="input-group-btn">
+                        <button dynamic-list-modal class="btn btn-default" type="button" obj="GLaccountGeneralCtrl.ePage.Entities.Header.Data"
+                            page-name="'AccGLHeader'" control-id="'AccGLHeader'" control-key="AccGLHeader_3350" mode="2" grid-refresh-fun-name=""
+                            grid-refresh-fun="" selected-data="GLaccountGeneralCtrl.ePage.Masters.SelectedLookupData($item.data.entity, 'PercentNum')"><i class="fa fa-ellipsis-h"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <!--Symbol-->
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="ml-5 control-label">Alternate Number</label>
+                <span class="error-warning-container">
+                    <error-warning-directive
+                        data-ng-if="GLaccountGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Symbol.IsWarning && !GLaccountGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Symbol.IsError"
+                        list="GLaccountGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Symbol.WARNING"
+                        type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
+                    </error-warning-directive>
+                    <error-warning-directive
+                        data-ng-if="GLaccountGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Symbol.IsError"
+                        list="GLaccountGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Symbol.ERROR" type="'error'"
+                        icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
+                    </error-warning-directive>
+                </span>
+                <div class="input-group input-group-sm">
+                    <div dynamic-lookup placeholder="Cost Accural GL Account" my-ng-model="GLaccountGeneralCtrl.ePage.Entities.Header.Data"
+                        obj="GLaccountGeneralCtrl.ePage.Entities.Header.Data" page-name="'AccGLHeader'" control-id="'AccGLHeader'"
+                         control-key="AccGLHeader_3350" auto-complete-on-select="GLaccountGeneralCtrl.ePage.Masters.SelectedLookupData($item, 'PercentNum')">
+                    </div>
+                    <span class="input-group-btn">
+                        <button dynamic-list-modal class="btn btn-default" type="button" obj="GLaccountGeneralCtrl.ePage.Entities.Header.Data"
+                            page-name="'AccGLHeader'" control-id="'AccGLHeader'" control-key="AccGLHeader_3350" mode="2" grid-refresh-fun-name=""
+                            grid-refresh-fun="" selected-data="GLaccountGeneralCtrl.ePage.Masters.SelectedLookupData($item.data.entity, 'PercentNum')"><i class="fa fa-ellipsis-h"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="ml-5 control-label">Total Reference</label>
+                <span class="error-warning-container">
+                    <error-warning-directive
+                        data-ng-if="GLaccountGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Symbol.IsWarning && !GLaccountGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Symbol.IsError"
+                        list="GLaccountGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Symbol.WARNING"
+                        type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
+                    </error-warning-directive>
+                    <error-warning-directive
+                        data-ng-if="GLaccountGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Symbol.IsError"
+                        list="GLaccountGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Symbol.ERROR" type="'error'"
+                        icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
+                    </error-warning-directive>
+                </span>
+                <div class="input-group input-group-sm">
+                    <div dynamic-lookup placeholder="Cost Accural GL Account" my-ng-model="GLaccountGeneralCtrl.ePage.Entities.Header.Data"
+                        obj="GLaccountGeneralCtrl.ePage.Entities.Header.Data" page-name="'AccGLHeader'" control-id="'AccGLHeader'"
+                         control-key="AccGLHeader_3350" auto-complete-on-select="GLaccountGeneralCtrl.ePage.Masters.SelectedLookupData($item, 'PercentNum')">
+                    </div>
+                    <span class="input-group-btn">
+                        <button dynamic-list-modal class="btn btn-default" type="button" obj="GLaccountGeneralCtrl.ePage.Entities.Header.Data"
+                            page-name="'AccGLHeader'" control-id="'AccGLHeader'" control-key="AccGLHeader_3350" mode="2" grid-refresh-fun-name=""
+                            grid-refresh-fun="" selected-data="GLaccountGeneralCtrl.ePage.Masters.SelectedLookupData($item.data.entity, 'PercentNum')"><i class="fa fa-ellipsis-h"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix mt-5">
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="ml-5 control-label">Total Level</label>
+                <span class="error-warning-container">
+                    <error-warning-directive
+                        data-ng-if="GLaccountGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.CurrencyCode.IsWarning && !GLaccountGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.CurrencyCode.IsError"
+                        list="GLaccountGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.CurrencyCode.WARNING"
+                        type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
+                    </error-warning-directive>
+                    <error-warning-directive
+                        data-ng-if="GLaccountGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.CurrencyCode.IsError"
+                        list="GLaccountGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.CurrencyCode.ERROR"
+                        type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
+                    </error-warning-directive>
+                </span>
+                <div class=" ">
+                    <input type="text" class="form-control input-sm" placeholder="Account Number"
+                        data-ng-model=" GLaccountGeneralCtrl.ePage.Entities.Header.Data.AccountNum"
+                        data-ng-change='GLaccountGeneralCtrl.ePage.Masters.OnChangeValues(GLaccountGeneralCtrl.ePage.Entities.Header.Data.Code,"E1314")' data-ng-disabled="!GLaccountGeneralCtrl.ePage.Entities.Header.Data.UICurrency.IsActive"/>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="ml-5 control-label">Print Sequence</label>
+                <span class="error-warning-container">
+                    <error-warning-directive
+                        data-ng-if="GLaccountGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.CurrencyCode.IsWarning && !GLaccountGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.CurrencyCode.IsError"
+                        list="GLaccountGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.CurrencyCode.WARNING"
+                        type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
+                    </error-warning-directive>
+                    <error-warning-directive
+                        data-ng-if="GLaccountGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.CurrencyCode.IsError"
+                        list="GLaccountGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.CurrencyCode.ERROR"
+                        type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
+                    </error-warning-directive>
+                </span>
+                <div class=" ">
+                    <input type="text" class="form-control input-sm" placeholder="Print Sequence"
+                        data-ng-model=" GLaccountGeneralCtrl.ePage.Entities.Header.Data.PrintSequence"
+                        data-ng-change='GLaccountGeneralCtrl.ePage.Masters.OnChangeValues(GLaccountGeneralCtrl.ePage.Entities.Header.Data.Code,"E1314")'/>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+            <div class="form-group">
+              <div class="checkbox" style="padding-top: 15px">
+                <label>
+                  <input type="checkbox"
+                    data-ng-model="GLaccountGeneralCtrl.ePage.Entities.Header.Data.IsGlobal">
+                  <span class="text"></span>Is Global
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+              <div class="form-group">
+                <div class="checkbox" style="padding-top: 15px">
+                  <label>
+                    <input type="checkbox"
+                      data-ng-model="GLaccountGeneralCtrl.ePage.Entities.Header.Data.DisallowDirectPosting">
+                    <span class="text"></span>Disallow Direct Posting
+                  </label>
+                </div>
+              </div>
+            </div>          
+    </div>
+    <!-- Error Warning -->
+    <div class="error-warning-container right" style="margin-top:0px !important"
+        id="errorWarningContainer{{GLaccountGeneralCtrl.currentGLaccount.code}}">
+        <div class="error-warning-header clearfix">
+            <span class="title pull-left">
+                <!-- <i class="fa fa-warning"></i>  -->
+                Errors & Warnings
+            </span>
+            <span class="error-warning-toggle-icon pull-right"
+                data-ng-click="GLaccountGeneralCtrl.ePage.Masters.Config.ShowErrorWarningModal(GLaccountGeneralCtrl.currentGLaccount)">
+                <i class="fa fa-arrow-right"></i>
+            </span>
+        </div>
+        <div class="error-warning-body">
+            <div class="clearfix"
+                data-ng-if="GLaccountGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList.length>0">
+                <div class="clearfix">
+                    <div class="p-5 error-warnig-list clearfix"
+                        data-ng-repeat="x in GLaccountGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList">
+                        <div class="clearfix">
+                            <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 p-0 text-center">
+                                <span class=" fa fa-warning"
+                                    data-ng-style="{color: {'W':'#FFAD33', 'E':'#ED4337'}[x.MessageType]}"></span>
+                            </div>
+                            <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11 pr-0">
+                                <div class="message" data-ng-bind="x.Code + ' - ' + x.Message"></div>
+                                <div class="meta-object" data-ng-bind="x.MetaObject"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
