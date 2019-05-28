@@ -92,7 +92,7 @@
                 _input.UIProductGeneral.PartNum = _input.UIProductGeneral.PartNum.toUpperCase();
                 _input.UIProductGeneral.Desc = _input.UIProductGeneral.Desc.toUpperCase();
             } else {
-                $item = filterObjectUpdate($item, "IsModified");
+                ProductGeneralCtrl.ePage.Entities.Header.Data = PostSaveObjectUpdate(ProductGeneralCtrl.ePage.Entities.Header.Data, ProductGeneralCtrl.ePage.Entities.Header.GlobalVariables.CopyofCurrentObject, ["Client","Warehouse","Component","Commodity"]);
             }
 
             helperService.SaveEntity($item, 'Product').then(function (response) {
@@ -123,29 +123,58 @@
                             helperService.refreshGrid();
                         }
                     }
-                    console.log("Success");
                     toastr.success("Saved Successfully...!");
+
+                    //Taking Copy of Current Object
+                    ProductGeneralCtrl.ePage.Entities.Header.Data = AfterSaveObjectUpdate(ProductGeneralCtrl.ePage.Entities.Header.Data,"IsModified");
+                    ProductGeneralCtrl.ePage.Entities.Header.GlobalVariables.CopyofCurrentObject = angular.copy(ProductGeneralCtrl.ePage.Entities.Header.Data);
+
+
                 } else if (response.Status === "failed") {
-                    console.log("Failed");
-                    toastr.error("Could not Save...!");
+                    
                     ProductGeneralCtrl.ePage.Entities.Header.Validations = response.Validations;
                     angular.forEach(response.Validations, function (value, key) {
                         ProductGeneralCtrl.ePage.Masters.Config.PushErrorWarning(value.Code, value.Message, "E", false, value.CtrlKey, ProductGeneralCtrl.currentProduct.label, false, undefined, undefined, undefined, undefined, value.GParentRef);
                     });
                     if (ProductGeneralCtrl.ePage.Entities.Header.Validations != null) {
+                        toastr.error("Validation Failed...!");
                         ProductGeneralCtrl.ePage.Masters.Config.ShowErrorWarningModal(ProductGeneralCtrl.currentProduct);
+                    }else{
+                        toastr.error("Could not Save...!");
                     }
                 }
             });
         }
 
-        function filterObjectUpdate(obj, key) {
+        function PostSaveObjectUpdate(newValue,oldValue, exceptObjects) {
+            for (var i in newValue) {
+                if(typeof newValue[i]=='object'){
+                    PostSaveObjectUpdate(newValue[i],oldValue[i],exceptObjects);
+                }else{
+                    var Satisfied = exceptObjects.some(function(v){return v===i});
+                    if(!Satisfied && i!= "$$hashKey"){
+                        if(!oldValue){
+                            newValue["IsModified"] = true;
+                            break;
+                        }else{
+                            if(newValue[i]!=oldValue[i]){
+                                newValue["IsModified"] = true;
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+            return newValue;
+        }
+
+        function AfterSaveObjectUpdate(obj,key){
             for (var i in obj) {
                 if (!obj.hasOwnProperty(i)) continue;
                 if (typeof obj[i] == 'object') {
-                    filterObjectUpdate(obj[i], key);
+                    AfterSaveObjectUpdate(obj[i], key);
                 } else if (i == key) {
-                    obj[key] = true;
+                    obj[key] = false;
                 }
             }
             return obj;

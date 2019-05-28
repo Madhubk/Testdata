@@ -32,9 +32,10 @@
             LocationMenuCtrl.ePage.Masters.LocationMenu.ListSource = LocationMenuCtrl.ePage.Entities.Header.Meta.MenuList;
             LocationMenuCtrl.ePage.Masters.Config = locationConfig;
 
-        }
+            //Taking Copy of current object
+            LocationMenuCtrl.ePage.Entities.Header.GlobalVariables.CopyofCurrentObject = angular.copy(LocationMenuCtrl.ePage.Entities.Header.Data);
 
-        
+        }
 
         function Validation($item) {
             var _Data = $item[$item.label].ePage.Entities,
@@ -53,6 +54,7 @@
                 LocationMenuCtrl.ePage.Masters.Config.ShowErrorWarningModal(LocationMenuCtrl.currentLocation);
             }
         }
+        
         function Save($item) {
             if(LocationMenuCtrl.ePage.Masters.SaveAndClose){
                 LocationMenuCtrl.ePage.Masters.SaveandcloseButtonText = "Please Wait...";    
@@ -74,7 +76,7 @@
                 //Converting into Upper Case
                 _input.WmsRow.Name = _input.WmsRow.Name.toUpperCase();
             } else {
-                $item = filterObjectUpdate($item, "IsModified");
+                LocationMenuCtrl.ePage.Entities.Header.Data = PostSaveObjectUpdate(LocationMenuCtrl.ePage.Entities.Header.Data, LocationMenuCtrl.ePage.Entities.Header.GlobalVariables.CopyofCurrentObject,[]);
             }
 
             helperService.SaveEntity($item, 'Location').then(function (response) {
@@ -118,21 +120,27 @@
                             helperService.refreshGrid();
                         }
                     }
-                    console.log("Success");
                     toastr.success("Saved Successfully...!");
                     if(LocationMenuCtrl.ePage.Masters.SaveAndClose){
                         LocationMenuCtrl.ePage.Masters.Config.SaveAndClose = true;
                         LocationMenuCtrl.ePage.Masters.SaveAndClose = false;
                     }
-                } else if (response.Status === "failed") {
-                    console.log("Failed");
-                    toastr.error("Could not Save...!");
+
+                     //Taking Copy of Current Object
+                     LocationMenuCtrl.ePage.Entities.Header.Data = AfterSaveObjectUpdate(LocationMenuCtrl.ePage.Entities.Header.Data,"IsModified");
+                     LocationMenuCtrl.ePage.Entities.Header.GlobalVariables.CopyofCurrentObject = angular.copy(LocationMenuCtrl.ePage.Entities.Header.Data);
+
+                     
+                } else if (response.Status === "failed") {                    
                     LocationMenuCtrl.ePage.Entities.Header.Validations = response.Validations;
                     angular.forEach(response.Validations, function (value, key) {
                         LocationMenuCtrl.ePage.Masters.Config.PushErrorWarning(value.Code, value.Message, "E", false, value.CtrlKey, LocationMenuCtrl.currentLocation.label, false, undefined, undefined, undefined, undefined, undefined);
                     });
                     if (LocationMenuCtrl.ePage.Entities.Header.Validations != null) {
+                        toastr.error("Validation Failed...!");
                         LocationMenuCtrl.ePage.Masters.Config.ShowErrorWarningModal(LocationMenuCtrl.currentLocation);
+                    }else{
+                        toastr.error("Could not Save...!");
                     }
                 }
                 LocationMenuCtrl.ePage.Masters.SaveButtonText = "Save";
@@ -141,13 +149,36 @@
             });
             
         }
-        function filterObjectUpdate(obj, key) {
+        
+        function PostSaveObjectUpdate(newValue,oldValue, exceptObjects) {
+            for (var i in newValue) {
+                if(typeof newValue[i]=='object'){
+                    PostSaveObjectUpdate(newValue[i],oldValue[i],exceptObjects);
+                }else{
+                    var Satisfied = exceptObjects.some(function(v){return v===i});
+                    if(!Satisfied && i!= "$$hashKey"){
+                        if(!oldValue){
+                            newValue["IsModified"] = true;
+                            break;
+                        }else{
+                            if(newValue[i]!=oldValue[i]){
+                                newValue["IsModified"] = true;
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+            return newValue;
+        }
+
+        function AfterSaveObjectUpdate(obj,key){
             for (var i in obj) {
                 if (!obj.hasOwnProperty(i)) continue;
                 if (typeof obj[i] == 'object') {
-                    filterObjectUpdate(obj[i], key);
+                    AfterSaveObjectUpdate(obj[i], key);
                 } else if (i == key) {
-                    obj[key] = true;
+                    obj[key] = false;
                 }
             }
             return obj;

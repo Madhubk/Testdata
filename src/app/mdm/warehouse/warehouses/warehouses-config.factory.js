@@ -87,7 +87,8 @@
                         },
                         "GlobalVariables":{
                             "Loading":false,
-                            "CannotEditWarehouse":false
+                            "CannotEditWarehouse":false,
+                            "CopyofCurrentObject":"",
                         },
                         "TableProperties":{
                             "WmsArea":{

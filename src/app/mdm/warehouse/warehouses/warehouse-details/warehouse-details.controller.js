@@ -181,6 +181,7 @@
 
         function AreaList(){
             WarehouseDetailsCtrl.ePage.Entities.Header.Data.WmsArea = $filter('orderBy')(WarehouseDetailsCtrl.ePage.Entities.Header.Data.WmsArea, 'CreatedDateTime');
+            WarehouseDetailsCtrl.ePage.Entities.Header.GlobalVariables.CopyofCurrentObject.WmsArea = angular.copy(WarehouseDetailsCtrl.ePage.Entities.Header.Data.WmsArea);
         }
 
         function GetAddressList() {
