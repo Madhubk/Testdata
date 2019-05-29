@@ -35,7 +35,6 @@
 
          function InitCurrency(){
             if(CurrencyGeneralCtrl.currentCurrency.isNew){
-                debugger;
                 CurrencyGeneralCtrl.ePage.Entities.Header.Data.IsActive = true;
             }
         }

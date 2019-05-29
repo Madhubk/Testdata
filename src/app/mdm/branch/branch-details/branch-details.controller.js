@@ -22,17 +22,12 @@
             };
             BranchDetailsCtrl.ePage.Masters.OpenBranchModel = OpenBranchModel;
             BranchDetailsCtrl.ePage.Masters.SelectedLookupData = SelectedLookupData;
-            console.log(BranchDetailsCtrl.ePage.Masters.Config);
-
-            console.log("check", BranchDetailsCtrl.ePage.Entities.Header.Data);
         };
 
         function SelectedLookupData($index, $item, type) {
-            debugger;
             if (type == "Organization") {
                 BranchDetailsCtrl.ePage.Entities.Header.Data.Code = "";
             }
-            console.log(BranchDetailsCtrl.ePage.Entities.Header.Data);
         }
 
         function OpenBranchModel() {

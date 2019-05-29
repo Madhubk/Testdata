@@ -23,7 +23,7 @@
             DepartmentMenuCtrl.ePage.Masters.ActivateButtonText = "Activate";
             DepartmentMenuCtrl.ePage.Masters.DisableActivate = true;
             DepartmentMenuCtrl.ePage.Masters.DeactivateButtonText = "Deactivate";
-            DepartmentMenuCtrl.ePage.Masters.DisableDeactivate = false;
+            DepartmentMenuCtrl.ePage.Masters.DisableDeactivate = true;
             DepartmentMenuCtrl.ePage.Masters.SaveButtonText = "Save";
             DepartmentMenuCtrl.ePage.Masters.DisableSave = false;
             DepartmentMenuCtrl.ePage.Masters.Config = departmentConfig;
@@ -33,15 +33,21 @@
             DepartmentMenuCtrl.ePage.Masters.Activate = Activate;
             DepartmentMenuCtrl.ePage.Masters.Deactivate = Deactivate;
 
-            InitActDeact();
+            InitActivateDeactivate();
         }
 
-        function InitActDeact(){
-            if(!DepartmentMenuCtrl.currentDepartment.isNew && !DepartmentMenuCtrl.ePage.Entities.Header.Data.IsActive){
+        //#region InitActivateDeactivate
+        function InitActivateDeactivate() {
+            if (!DepartmentMenuCtrl.currentDepartment.isNew && DepartmentMenuCtrl.ePage.Entities.Header.Data.IsActive) {
+                DepartmentMenuCtrl.ePage.Masters.DisableActivate = true;
+                DepartmentMenuCtrl.ePage.Masters.DisableDeactivate = false;
+            }
+            else if (!DepartmentMenuCtrl.currentDepartment.isNew && !DepartmentMenuCtrl.ePage.Entities.Header.Data.IsActive) {
                 DepartmentMenuCtrl.ePage.Masters.DisableActivate = false;
                 DepartmentMenuCtrl.ePage.Masters.DisableDeactivate = true;
             }
         }
+        //#endregion
 
         //#region  Validation
         function Validation($item) {

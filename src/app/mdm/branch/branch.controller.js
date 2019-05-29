@@ -62,7 +62,6 @@
                     _currentBranch = currentBranch;
                 }
                 branchConfig.AddBranch(currentBranch, isNew).then(function (response) {
-                    debugger;
                     var _entity = {};
                     BranchCtrl.ePage.Masters.TabList = response;                    
                     $timeout(function () {
