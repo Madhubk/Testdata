@@ -27,7 +27,12 @@
                                 "IsAPI": "true",
                                 "HttpType": "GET",
                                 "Url": "AccGLHeader/GetById/"
-                            }
+                            },
+                            "GLaccountActivityClose": {
+                                "IsAPI": "true",
+                                "HttpType": "GET",
+                                "Url": "AccGLHeader/AccGLHeaderActivityClose/"
+                            }                           
                             
                         }
                     }
