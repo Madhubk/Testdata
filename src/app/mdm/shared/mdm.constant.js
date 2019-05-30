@@ -941,6 +941,27 @@
                     'app/mdm/glaccount/glaccount-general/glaccount-general.controller.js',
                     'app/mdm/glaccount/glaccount-general/glaccount-general.directive.js'
                 ]
+            },
+            // end region
+            //region GLaccount
+            {
+                name: 'financeperiod',
+                files: [                    
+                    'app/mdm/financialperiod/financialperiod.controller.js',
+                    'app/mdm/financialperiod/financialperiod-config.factory.js'
+                ]
+            }, {
+                name: 'financeperiodMenu',
+                files: [                    
+                    'app/mdm/financialperiod/finanicalperiod-menu/financialperiod-menu.controller.js',
+                    'app/mdm/financialperiod/finanicalperiod-menu/financialperiod-menu.directive.js'
+                ]
+            }, {
+                name: 'financeperiodGeneral',
+                files: [                    
+                    'app/mdm/financialperiod/financialperiod-general/financialperiod-general.controller.js',
+                    'app/mdm/financialperiod/financialperiod-general/financialperiod-general.directive.js'
+                ]
             }
             // end region
         ]
