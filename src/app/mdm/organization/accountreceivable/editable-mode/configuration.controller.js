@@ -19,7 +19,7 @@
                 "Meta": helperService.metaBase(),
                 "Entities": angular.copy(currentOrganization)
             };
-            
+
             ConfigurationCtrl.ePage.Masters.param = angular.copy(param);
             ConfigurationCtrl.ePage.Masters.CompanyDataIndex = angular.copy(CompanyDataIndex);
 
@@ -145,7 +145,7 @@
 
                     angular.forEach(ConfigurationCtrl.ePage.Entities.Header.Data.objUICurrencyUplift, function (value, key) {
                         if (value.SingleSelect == true && value.PK) {
-                            apiService.get("eAxisAPI", organizationConfig.Entities.API.CurrencyUplift.API.Delete.Url + value.PK).then(function (response) {});
+                            apiService.get("eAxisAPI", organizationConfig.Entities.API.CurrencyUplift.API.Delete.Url + value.PK).then(function (response) { });
                         }
                     });
 
@@ -210,9 +210,6 @@
 
         //#region SelectedLookupData
         function SelectedLookupData($index, $item, type) {
-            if (type == "AccDetails") {
-                ConfigurationCtrl.ePage.Entities.Header.Data.OrgCompanyData[0].FBN_ARPayToAccount = $item.PK;
-            }
         }
         //#endregion
 
@@ -237,8 +234,14 @@
 
             ConfigurationCtrl.ePage.Entities.Header.Data[CurrentEntity] = filterObjectUpdate(ConfigurationCtrl.ePage.Entities.Header.Data[CurrentEntity], "IsModified");
 
-            ConfigurationCtrl.ePage.Entities.Header.Data[CurrentEntityGridTable]  = filterObjectUpdate(ConfigurationCtrl.ePage.Entities.Header.Data[CurrentEntityGridTable], "IsModified");
-            
+            ConfigurationCtrl.ePage.Entities.Header.Data[CurrentEntityGridTable] = filterObjectUpdate(ConfigurationCtrl.ePage.Entities.Header.Data[CurrentEntityGridTable], "IsModified");
+
+            if (ConfigurationCtrl.ePage.Entities.Header.Data[CurrentEntityGridTable].length > 0) {
+                ConfigurationCtrl.ePage.Entities.Header.Data[CurrentEntityGridTable].map(function (value, key) {
+                    (value.PK) ? value.IsModified = true : value.IsModified = false;
+                });
+            }
+
             ConfigurationCtrl.ePage.Masters.param.Entity[ConfigurationCtrl.ePage.Masters.param.Entity.code].ePage.Entities.Header.Data = ConfigurationCtrl.ePage.Entities.Header.Data;
 
             helperService.SaveEntity(ConfigurationCtrl.ePage.Masters.param.Entity, 'Organization').then(function (response) {

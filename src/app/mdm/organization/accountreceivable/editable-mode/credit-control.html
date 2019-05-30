@@ -145,7 +145,7 @@
                         </td>
                         <td data-ng-style="{'width':'125px'}">
                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 p-0 height-22">
-                                <select chosen class="form-control" data-ng-model="x.ModeofTransport" data-ng-options="x.Key as x.Description for x in CreditControlCtrl.ePage.Masters.DropDownMasterList.ModeofTransport.ListSource">
+                                <select chosen class="form-control" data-ng-model="x.TransportMode" data-ng-options="x.Key as x.Description for x in CreditControlCtrl.ePage.Masters.DropDownMasterList.ModeofTransport.ListSource">
                                     <option value="">--Select--</option>
                                 </select>
                             </div>
@@ -160,7 +160,9 @@
                         </td>
                         <td data-ng-style="{'width':'125px'}">
                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 p-0 height-22">
-                                <input type="text" class="form-control input-sm" placeholder="Invoice Term" data-ng-model="x.InvoiceTerm"/> 
+                                <select chosen class="form-control" data-ng-model="x.InvoiceTerm" data-ng-options="x.Key as x.Description for x in CreditControlCtrl.ePage.Masters.DropDownMasterList.InvoiceTerms.ListSource">
+                                    <option value="">--Select--</option>
+                                </select>
                             </div>
                         </td>
                         <td data-ng-style="{'width':'125px'}">

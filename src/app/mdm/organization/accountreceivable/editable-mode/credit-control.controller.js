@@ -67,6 +67,9 @@
                 },
                 "InvoiceType": {
                     "ListSource": []
+                },
+                "InvoiceTerms":{
+                    "ListSource": []
                 }
             };
 
@@ -76,7 +79,7 @@
 
         //#region GetDropDownList
         function GetDropDownList() {
-            var typeCodeList = ["CreditRating", "JobType", "BussType", "ModeofTransport", "InvoiceType"];
+            var typeCodeList = ["CreditRating", "JobType", "BussType", "ModeofTransport", "InvoiceType", "InvoiceTerms"];
             var dynamicFindAllInput = [];
 
             typeCodeList.map(function (value, key) {
@@ -114,8 +117,9 @@
             if (Val1 && !Val2) {
                 CreditControlCtrl.ePage.Entities.Header.Data.OrgCompanyData[CreditControlCtrl.ePage.Masters.CompanyDataIndex].TempCreditLimit = parseFloat(Val1).toFixed(2);
             }
-            else if (!Val1 && Val2) {
-                CreditControlCtrl.ePage.Entities.Header.Data.OrgCompanyData[CreditControlCtrl.ePage.Masters.CompanyDataIndex].TempCreditLimit = parseFloat(Val2).toFixed(2);
+            else if (!Val1) {
+                CreditControlCtrl.ePage.Entities.Header.Data.OrgCompanyData[CreditControlCtrl.ePage.Masters.CompanyDataIndex].ARTemporaryCreditLimitIncrease = "";
+                CreditControlCtrl.ePage.Entities.Header.Data.OrgCompanyData[CreditControlCtrl.ePage.Masters.CompanyDataIndex].TempCreditLimit = "";
             }
             else if (Val1 && Val2) {
                 _SumValue = parseFloat(Val1) + parseFloat(Val2);
@@ -130,20 +134,19 @@
                 "PK": "",
                 "JobType": "",
                 "Direction": "",
-                "ModeofTransport": "",
+                "TransportMode": "",
                 "InvoiceType": "",
                 "InvoiceTerm": "",
                 "InvoiceDays": "",
                 "InvoiceClass": "",
                 "OCD_FK ": "",
+                "AgreedPaymentMethod": "",
                 "IsValid": false,
                 "StateId": 0,
-                "AgreedPaymentMethod": "",
                 "Source": "",
                 "TenantCode": "20CUB",
                 "IsModified": false,
                 "IsDeleted": false,
-
             };
             CreditControlCtrl.ePage.Entities.Header.Data.OrgCompanyData[CreditControlCtrl.ePage.Masters.CompanyDataIndex].OrgARTerms.push(obj);
             CreditControlCtrl.ePage.Masters.selectedRow = CreditControlCtrl.ePage.Entities.Header.Data.OrgCompanyData[CreditControlCtrl.ePage.Masters.CompanyDataIndex].OrgARTerms.length - 1;
