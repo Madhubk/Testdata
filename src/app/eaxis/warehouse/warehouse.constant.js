@@ -510,7 +510,7 @@
             ]
         },
         {
-            name: 'ReportGrid',
+            name: 'reportGrid',
             files: [
                 'app/eaxis/warehouse/general-module/warehouse-report/report-grid-page/report-grid-page.controller.js'
             ]
