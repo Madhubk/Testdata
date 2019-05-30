@@ -4,9 +4,9 @@
     angular.module("Application")
         .controller("ConfigurationController", ConfigurationController);
 
-    ConfigurationController.$inject = ["$timeout", "$uibModalInstance", "apiService", "appConfig", "authService", "helperService", "param", "toastr", "confirmation"];
+    ConfigurationController.$inject = ["$timeout", "$uibModalInstance", "apiService", "appConfig", "organizationConfig", "authService", "helperService", "param", "CompanyDataIndex", "toastr", "confirmation"];
 
-    function ConfigurationController($timeout, $uibModalInstance, apiService, appConfig, authService, helperService, param, toastr, confirmation) {
+    function ConfigurationController($timeout, $uibModalInstance, apiService, appConfig, organizationConfig, authService, helperService, param, CompanyDataIndex, toastr, confirmation) {
         var ConfigurationCtrl = this;
 
         function Init() {
@@ -19,10 +19,9 @@
                 "Meta": helperService.metaBase(),
                 "Entities": angular.copy(currentOrganization)
             };
-
-            console.log("UI Config Detail", ConfigurationCtrl.ePage.Entities.Header.Data);
-
+            
             ConfigurationCtrl.ePage.Masters.param = angular.copy(param);
+            ConfigurationCtrl.ePage.Masters.CompanyDataIndex = angular.copy(CompanyDataIndex);
 
             ConfigurationCtrl.ePage.Masters.CloseButtonText = "Close";
             ConfigurationCtrl.ePage.Masters.SaveButtonText = "Save";
@@ -47,9 +46,6 @@
             ConfigurationCtrl.ePage.Masters.Enable = true;
             ConfigurationCtrl.ePage.Masters.selectedRow = -1;
             ConfigurationCtrl.ePage.Masters.emptyText = '-';
-
-            ConfigurationCtrl.ePage.Entities.Header.Data.OrgCompanyData = [{
-            }];
 
             /* DropDown List */
             ConfigurationCtrl.ePage.Masters.DropDownMasterList = {
@@ -149,13 +145,13 @@
 
                     angular.forEach(ConfigurationCtrl.ePage.Entities.Header.Data.objUICurrencyUplift, function (value, key) {
                         if (value.SingleSelect == true && value.PK) {
-                            //apiService.get("eAxisAPI", organizationConfig.Entities.API.WmsClientParameterByWarehouse.API.Delete.Url + value.PK).then(function (response) {});
+                            apiService.get("eAxisAPI", organizationConfig.Entities.API.CurrencyUplift.API.Delete.Url + value.PK).then(function (response) {});
                         }
                     });
 
                     for (var i = ConfigurationCtrl.ePage.Entities.Header.Data.objUICurrencyUplift.length - 1; i >= 0; i--) {
                         if (ConfigurationCtrl.ePage.Entities.Header.Data.objUICurrencyUplift[i].SingleSelect == true)
-                        ConfigurationCtrl.ePage.Entities.Header.Data.objUICurrencyUplift.splice(i, 1);
+                            ConfigurationCtrl.ePage.Entities.Header.Data.objUICurrencyUplift.splice(i, 1);
                     }
                     toastr.success('Record Removed Successfully');
                     ConfigurationCtrl.ePage.Masters.selectedRow = -1;
@@ -235,12 +231,14 @@
             $uibModalInstance.close();
         }
 
-        function Validation(CurrentEntity) {
+        function Validation(CurrentEntity, CurrentEntityGridTable) {
             ConfigurationCtrl.ePage.Masters.SaveButtonText = "Please Wait...";
             ConfigurationCtrl.ePage.Masters.IsDisableSave = true;
 
             ConfigurationCtrl.ePage.Entities.Header.Data[CurrentEntity] = filterObjectUpdate(ConfigurationCtrl.ePage.Entities.Header.Data[CurrentEntity], "IsModified");
 
+            ConfigurationCtrl.ePage.Entities.Header.Data[CurrentEntityGridTable]  = filterObjectUpdate(ConfigurationCtrl.ePage.Entities.Header.Data[CurrentEntityGridTable], "IsModified");
+            
             ConfigurationCtrl.ePage.Masters.param.Entity[ConfigurationCtrl.ePage.Masters.param.Entity.code].ePage.Entities.Header.Data = ConfigurationCtrl.ePage.Entities.Header.Data;
 
             helperService.SaveEntity(ConfigurationCtrl.ePage.Masters.param.Entity, 'Organization').then(function (response) {
@@ -249,6 +247,7 @@
                         var _exports = {
                             data: response.Data
                         };
+                        toastr.success("Saved Successfully...!");
                         $uibModalInstance.close(_exports);
                     }
                 } else if (response.Status == "ValidationFailed" || response.Status == "failed") {
@@ -272,7 +271,6 @@
             return obj;
         }
         //#endregion
-
 
         Init();
     }

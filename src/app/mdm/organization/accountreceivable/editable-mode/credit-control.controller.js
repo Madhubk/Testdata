@@ -4,9 +4,9 @@
     angular.module("Application")
         .controller("CreditControlController", CreditControlController);
 
-    CreditControlController.$inject = ["$uibModalInstance", "$timeout", "apiService", "appConfig", "authService", "helperService", "param", "APP_CONSTANT", "confirmation", "toastr"];
+    CreditControlController.$inject = ["$uibModalInstance", "$timeout", "apiService", "appConfig", "organizationConfig", "authService", "helperService", "param", "CompanyDataIndex", "APP_CONSTANT", "confirmation", "toastr"];
 
-    function CreditControlController($uibModalInstance, $timeout, apiService, appConfig, authService, helperService, param, APP_CONSTANT, confirmation, toastr) {
+    function CreditControlController($uibModalInstance, $timeout, apiService, appConfig, organizationConfig, authService, helperService, param, CompanyDataIndex, APP_CONSTANT, confirmation, toastr) {
         var CreditControlCtrl = this;
 
         function Init() {
@@ -19,17 +19,12 @@
                 "Meta": helperService.metaBase(),
                 "Entities": angular.copy(currentOrganization)
             };
-
-            console.log("UI Credit Detail", CreditControlCtrl.ePage.Entities.Header.Data);
-
+            
             CreditControlCtrl.ePage.Masters.param = angular.copy(param);
+            CreditControlCtrl.ePage.Masters.CompanyDataIndex = angular.copy(CompanyDataIndex);
 
             CreditControlCtrl.ePage.Masters.CloseButtonText = "Close";
             CreditControlCtrl.ePage.Masters.SaveButtonText = "Save";
-            CreditControlCtrl.ePage.Entities.Header.Data.OrgCompanyData[0] = {
-                "OrgARTerms": []
-            };
-            //CreditControlCtrl.ePage.Masters.TempCreditLimit = true;
 
             /* Function */
             CreditControlCtrl.ePage.Masters.Close = Close;
@@ -76,6 +71,7 @@
             };
 
             GetDropDownList();
+            CreditLimitCalculation(CreditControlCtrl.ePage.Entities.Header.Data.OrgCompanyData[CreditControlCtrl.ePage.Masters.CompanyDataIndex].ARCreditLimit, CreditControlCtrl.ePage.Entities.Header.Data.OrgCompanyData[CreditControlCtrl.ePage.Masters.CompanyDataIndex].ARTemporaryCreditLimitIncrease);
         }
 
         //#region GetDropDownList
@@ -98,7 +94,6 @@
                     typeCodeList.map(function (value, key) {
                         CreditControlCtrl.ePage.Masters.DropDownMasterList[value] = helperService.metaBase();
                         CreditControlCtrl.ePage.Masters.DropDownMasterList[value].ListSource = response.data.Response[value];
-                        console.log("DropDown", CreditControlCtrl.ePage.Masters.DropDownMasterList[value].ListSource);
                     });
                 }
             });
@@ -117,11 +112,14 @@
         function CreditLimitCalculation(Val1, Val2) {
             var _SumValue = 0;
             if (Val1 && !Val2) {
-                CreditControlCtrl.ePage.Entities.Header.Data.OrgCompanyData[0].TempCreditLimit = parseFloat(Val1).toFixed(2);
+                CreditControlCtrl.ePage.Entities.Header.Data.OrgCompanyData[CreditControlCtrl.ePage.Masters.CompanyDataIndex].TempCreditLimit = parseFloat(Val1).toFixed(2);
+            }
+            else if (!Val1 && Val2) {
+                CreditControlCtrl.ePage.Entities.Header.Data.OrgCompanyData[CreditControlCtrl.ePage.Masters.CompanyDataIndex].TempCreditLimit = parseFloat(Val2).toFixed(2);
             }
             else if (Val1 && Val2) {
                 _SumValue = parseFloat(Val1) + parseFloat(Val2);
-                CreditControlCtrl.ePage.Entities.Header.Data.OrgCompanyData[0].TempCreditLimit = parseFloat(_SumValue).toFixed(2);
+                CreditControlCtrl.ePage.Entities.Header.Data.OrgCompanyData[CreditControlCtrl.ePage.Masters.CompanyDataIndex].TempCreditLimit = parseFloat(_SumValue).toFixed(2);
             }
         }
         //#endregion
@@ -136,11 +134,19 @@
                 "InvoiceType": "",
                 "InvoiceTerm": "",
                 "InvoiceDays": "",
+                "InvoiceClass": "",
+                "OCD_FK ": "",
+                "IsValid": false,
+                "StateId": 0,
+                "AgreedPaymentMethod": "",
+                "Source": "",
+                "TenantCode": "20CUB",
                 "IsModified": false,
                 "IsDeleted": false,
+
             };
-            CreditControlCtrl.ePage.Entities.Header.Data.OrgCompanyData[0].OrgARTerms.push(obj);
-            CreditControlCtrl.ePage.Masters.selectedRow = CreditControlCtrl.ePage.Entities.Header.Data.OrgCompanyData[0].OrgARTerms.length - 1;
+            CreditControlCtrl.ePage.Entities.Header.Data.OrgCompanyData[CreditControlCtrl.ePage.Masters.CompanyDataIndex].OrgARTerms.push(obj);
+            CreditControlCtrl.ePage.Masters.selectedRow = CreditControlCtrl.ePage.Entities.Header.Data.OrgCompanyData[CreditControlCtrl.ePage.Masters.CompanyDataIndex].OrgARTerms.length - 1;
 
             $timeout(function () {
                 var objDiv = document.getElementById("CreditControlCtrl.ePage.Masters.AddScroll");
@@ -149,15 +155,15 @@
         }
 
         function CopyRow() {
-            for (var i = CreditControlCtrl.ePage.Entities.Header.Data.OrgCompanyData[0].OrgARTerms.length - 1; i >= 0; i--) {
-                if (CreditControlCtrl.ePage.Entities.Header.Data.OrgCompanyData[0].OrgARTerms[i].SingleSelect) {
-                    var obj = angular.copy(CreditControlCtrl.ePage.Entities.Header.Data.OrgCompanyData[0].OrgARTerms[i]);
+            for (var i = CreditControlCtrl.ePage.Entities.Header.Data.OrgCompanyData[CreditControlCtrl.ePage.Masters.CompanyDataIndex].OrgARTerms.length - 1; i >= 0; i--) {
+                if (CreditControlCtrl.ePage.Entities.Header.Data.OrgCompanyData[CreditControlCtrl.ePage.Masters.CompanyDataIndex].OrgARTerms[i].SingleSelect) {
+                    var obj = angular.copy(CreditControlCtrl.ePage.Entities.Header.Data.OrgCompanyData[CreditControlCtrl.ePage.Masters.CompanyDataIndex].OrgARTerms[i]);
                     obj.PK = '';
                     obj.CreatedDateTime = '';
                     obj.ModifiedDateTime = '';
                     obj.SingleSelect = false;
                     obj.IsCopied = true;
-                    CreditControlCtrl.ePage.Entities.Header.Data.OrgCompanyData[0].OrgARTerms.splice(i + 1, 0, obj);
+                    CreditControlCtrl.ePage.Entities.Header.Data.OrgCompanyData[CreditControlCtrl.ePage.Masters.CompanyDataIndex].OrgARTerms.splice(i + 1, 0, obj);
                 }
             }
             CreditControlCtrl.ePage.Masters.selectedRow = -1;
@@ -173,16 +179,15 @@
             };
             confirmation.showModal({}, modalOptions)
                 .then(function (result) {
-
-                    angular.forEach(CreditControlCtrl.ePage.Entities.Header.Data.OrgCompanyData[0].OrgARTerms, function (value, key) {
+                    angular.forEach(CreditControlCtrl.ePage.Entities.Header.Data.OrgCompanyData[CreditControlCtrl.ePage.Masters.CompanyDataIndex].OrgARTerms, function (value, key) {
                         if (value.SingleSelect == true && value.PK) {
-                            //apiService.get("eAxisAPI", organizationConfig.Entities.API.WmsClientParameterByWarehouse.API.Delete.Url + value.PK).then(function (response) {});
+                            apiService.get("eAxisAPI", organizationConfig.Entities.API.OrgARTerms.API.Delete.Url + value.PK).then(function (response) { });
                         }
                     });
 
-                    for (var i = CreditControlCtrl.ePage.Entities.Header.Data.OrgCompanyData[0].OrgARTerms.length - 1; i >= 0; i--) {
-                        if (CreditControlCtrl.ePage.Entities.Header.Data.OrgCompanyData[0].OrgARTerms[i].SingleSelect == true)
-                            CreditControlCtrl.ePage.Entities.Header.Data.OrgCompanyData[0].OrgARTerms.splice(i, 1);
+                    for (var i = CreditControlCtrl.ePage.Entities.Header.Data.OrgCompanyData[CreditControlCtrl.ePage.Masters.CompanyDataIndex].OrgARTerms.length - 1; i >= 0; i--) {
+                        if (CreditControlCtrl.ePage.Entities.Header.Data.OrgCompanyData[CreditControlCtrl.ePage.Masters.CompanyDataIndex].OrgARTerms[i].SingleSelect == true)
+                            CreditControlCtrl.ePage.Entities.Header.Data.OrgCompanyData[CreditControlCtrl.ePage.Masters.CompanyDataIndex].OrgARTerms.splice(i, 1);
                     }
                     toastr.success('Record Removed Successfully');
                     CreditControlCtrl.ePage.Masters.selectedRow = -1;
@@ -200,7 +205,7 @@
 
         //#region Checkbox SingleSelectCheckBox, SelectAllCheckBox
         function SingleSelectCheckBox() {
-            var Checked = CreditControlCtrl.ePage.Entities.Header.Data.OrgCompanyData[0].OrgARTerms.some(function (value, key) {
+            var Checked = CreditControlCtrl.ePage.Entities.Header.Data.OrgCompanyData[CreditControlCtrl.ePage.Masters.CompanyDataIndex].OrgARTerms.some(function (value, key) {
                 if (!value.SingleSelect)
                     return true;
             });
@@ -210,7 +215,7 @@
                 CreditControlCtrl.ePage.Masters.SelectAll = true;
             }
 
-            var Checked1 = CreditControlCtrl.ePage.Entities.Header.Data.OrgCompanyData[0].OrgARTerms.some(function (value, key) {
+            var Checked1 = CreditControlCtrl.ePage.Entities.Header.Data.OrgCompanyData[CreditControlCtrl.ePage.Masters.CompanyDataIndex].OrgARTerms.some(function (value, key) {
                 return value.SingleSelect == true;
             });
             if (Checked1 == true) {
@@ -223,7 +228,7 @@
         }
 
         function SelectAllCheckBox() {
-            angular.forEach(CreditControlCtrl.ePage.Entities.Header.Data.OrgCompanyData[0].OrgARTerms, function (value, key) {
+            angular.forEach(CreditControlCtrl.ePage.Entities.Header.Data.OrgCompanyData[CreditControlCtrl.ePage.Masters.CompanyDataIndex].OrgARTerms, function (value, key) {
                 if (CreditControlCtrl.ePage.Masters.SelectAll) {
                     value.SingleSelect = true;
                     CreditControlCtrl.ePage.Masters.EnableCopyButton = false;
@@ -256,6 +261,7 @@
                         var _exports = {
                             data: response.Data
                         };
+                        toastr.success("Saved Successfully...!");
                         $uibModalInstance.close(_exports);
                     }
                 }

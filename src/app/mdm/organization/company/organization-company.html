@@ -1,11 +1,11 @@
 <div class="clearfix p-10 mb-50">
 	<div class="org-header clearfix">
-		<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 pl-0">
+		<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 pl-0">
 			<span>Company</span>
 			<button class="btn btn-xs btn-primary pull-right" data-ng-click="OrganizationCompanyCtrl.ePage.Masters.AddNewCompany()">Add
 				New</button>
 		</div>
-		<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 border-left border-right" data-ng-if="OrganizationCompanyCtrl.ePage.Masters.ActiveCompany">
+		<!-- <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 border-left border-right" data-ng-if="OrganizationCompanyCtrl.ePage.Masters.ActiveCompany">
 			<span>AR Details</span>
 			<button class="btn btn-xs btn-primary pull-right" data-ng-click="OrganizationCompanyCtrl.ePage.Masters.EditARDetails()"
 			 data-ng-if="OrganizationCompanyCtrl.ePage.Masters.ActiveCompany">Edit</button>
@@ -14,11 +14,11 @@
 			<span>AP Details</span>
 			<button class="btn btn-xs btn-primary pull-right" data-ng-click="OrganizationCompanyCtrl.ePage.Masters.EditAPDetails()"
 			 data-ng-if="OrganizationCompanyCtrl.ePage.Masters.ActiveCompany">Edit</button>
-		</div>
+		</div> -->
 	</div>
 	<div class="org-cmp-container clearfix mt-10">
 		<!-- Company List -->
-		<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 pl-0">
+		<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 pl-0">
 			<div class="text-center p-20 font-160" data-ng-if="!OrganizationCompanyCtrl.ePage.Entities.Header.Data.OrgCompanyData">
 				<i class="fa fa-spin fa-spinner"></i>
 			</div>
@@ -61,7 +61,7 @@
 			</div>
 		</div>
 		<!-- AR Details -->
-		<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 border-left border-right" data-ng-if="OrganizationCompanyCtrl.ePage.Masters.ActiveCompany">
+		<!-- <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 border-left border-right" data-ng-if="OrganizationCompanyCtrl.ePage.Masters.ActiveCompany">
 			<div class="form-horizontal">
 				<div class="form-group">
 					<label class="col-lg-6 col-md-6 col-sm-12 col-xs-12 ">Account Group</label>
@@ -143,9 +143,9 @@
 					</div>
 				</div>
 			</div>
-		</div>
+		</div> -->
 		<!-- AP Details -->
-		<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4" data-ng-if="OrganizationCompanyCtrl.ePage.Masters.ActiveCompany">
+		<!-- <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4" data-ng-if="OrganizationCompanyCtrl.ePage.Masters.ActiveCompany">
 			<div class="form-horizontal">
 				<div class="form-group">
 					<label class="col-lg-6 col-md-6 col-sm-12 col-xs-12 ">Account Group</label>
@@ -196,6 +196,6 @@
 					</div>
 				</div>
 			</div>
-		</div>
+		</div> -->
 	</div>
 </div>
