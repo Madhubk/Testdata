@@ -320,12 +320,13 @@
                     </tr>
                 </thead>
                 <tbody id="InwardLineCustTable{{CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderID}}">
-                    <tr id="tableBody" ng-repeat="x in CreateDelChallanCtrl.ePage.Entities.Header.Data.UIvwWmsDeliveryList"
+                    <tr id="tableBody" ng-repeat="x in CreateDelChallanCtrl.ePage.Entities.Header.Data.UIvwWmsDeliveryList | orderBy: 'DL_AdditionalRef1Code'"
                         ng-class="{row_active: (CreateDelChallanCtrl.ePage.Masters.selectedRow==$index),copy_row_active :(x.IsCopied==true)}">
                         <td id="delcheckbox" ng-style="{ 'width':  '40px' ,'padding-top':'0px' }" ng-click="CreateDelChallanCtrl.ePage.Masters.Enable = true">
                             <label class="mb-0 customcheckbox">
-                                <input type="checkbox" ng-checked="x.SingleSelect" data-ng-disabled="CreateDelChallanCtrl.ePage.Masters.InventoryLoading" ng-change="CreateDelChallanCtrl.ePage.Masters.SingleSelectCheckBox()"
-                                    ng-model="x.SingleSelect"> </input>
+                                <input type="checkbox" ng-checked="x.SingleSelect" data-ng-disabled="CreateDelChallanCtrl.ePage.Masters.InventoryLoading"
+                                    ng-change="CreateDelChallanCtrl.ePage.Masters.SingleSelectCheckBox()" ng-model="x.SingleSelect">
+                                </input>
                                 <span class="text"></span>
                             </label>
                         </td>

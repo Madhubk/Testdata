@@ -5,9 +5,9 @@
         .module("Application")
         .controller("OutwardMenuController", OutwardMenuController);
 
-    OutwardMenuController.$inject = ["$scope", "$rootScope", "$timeout", "APP_CONSTANT", "apiService", "outwardConfig", "helperService", "appConfig", "authService", "$location", "$state", "toastr", "confirmation", "$injector", "$window", "$uibModal", "$ocLazyLoad", "$filter"];
+    OutwardMenuController.$inject = ["$scope", "$rootScope", "$timeout", "APP_CONSTANT", "apiService", "outwardConfig", "helperService", "appConfig", "authService", "$location", "$state", "toastr", "confirmation", "$injector", "$window", "$uibModal", "$ocLazyLoad", "$filter", "warehouseConfig"];
 
-    function OutwardMenuController($scope, $rootScope, $timeout, APP_CONSTANT, apiService, outwardConfig, helperService, appConfig, authService, $location, $state, toastr, confirmation, $injector, $window, $uibModal, $ocLazyLoad, $filter) {
+    function OutwardMenuController($scope, $rootScope, $timeout, APP_CONSTANT, apiService, outwardConfig, helperService, appConfig, authService, $location, $state, toastr, confirmation, $injector, $window, $uibModal, $ocLazyLoad, $filter, warehouseConfig) {
 
         var OutwardMenuCtrl = this;
         var Config = $injector.get("pickConfig");
@@ -508,7 +508,7 @@
                                                                                                 OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.AdditionalRef1Fk = response.data.Response.TmsManifestHeader.PK;
                                                                                                 OutwardMenuCtrl.ePage.Masters.active = 4;
                                                                                                 OutwardMenuCtrl.ePage.Entities.Header.GlobalVariables.Loading = false;
-                                                                                                
+
                                                                                                 OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.IsModified = true;
                                                                                                 apiService.post("eAxisAPI", warehouseConfig.Entities.WmsOutwardList.API.Update.Url, OutwardMenuCtrl.ePage.Entities.Header.Data).then(function (response) {
                                                                                                     if (response.data.Status == 'Success') {

@@ -328,9 +328,7 @@
                                 }
 
                                 pickupConfig.TabList[_index].isNew = false;
-                                if ($state.current.url == "/pickup-request") {
-                                    helperService.refreshGrid();
-                                }
+                                helperService.refreshGrid();
                             }
                         });
                     }

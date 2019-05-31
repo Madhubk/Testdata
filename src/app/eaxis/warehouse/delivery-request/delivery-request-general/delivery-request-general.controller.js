@@ -5,9 +5,9 @@
         .module("Application")
         .controller("DeliveryGeneralController", DeliveryGeneralController);
 
-    DeliveryGeneralController.$inject = ["$rootScope", "$scope", "$state", "$q", "$location", "$timeout", "APP_CONSTANT", "authService", "apiService", "appConfig", "deliveryConfig", "helperService", "toastr", "$filter", "$injector", "$uibModal", "confirmation"];
+    DeliveryGeneralController.$inject = ["$rootScope", "$scope", "APP_CONSTANT", "authService", "apiService", "appConfig", "deliveryConfig", "helperService", "toastr", "$filter", "$injector", "$uibModal", "warehouseConfig"];
 
-    function DeliveryGeneralController($rootScope, $scope, $state, $q, $location, $timeout, APP_CONSTANT, authService, apiService, appConfig, deliveryConfig, helperService, toastr, $filter, $injector, $uibModal, confirmation) {
+    function DeliveryGeneralController($rootScope, $scope, APP_CONSTANT, authService, apiService, appConfig, deliveryConfig, helperService, toastr, $filter, $injector, $uibModal, warehouseConfig) {
 
         var DeliveryGeneralCtrl = this
 
