@@ -38,7 +38,9 @@
                         <div ng-switch-when="General" inward-general current-inward="InwardMenuCtrl.currentInward"></div>
                         <div ng-switch-when="AsnLines" inward-asn-lines current-inward="InwardMenuCtrl.currentInward"
                             active-menu="x"></div>
-                        <div ng-switch-when="ReceiveLines" inward-lines current-inward="InwardMenuCtrl.currentInward"></div>
+                        <div ng-switch-when="ReceiveLines" inward-lines current-inward="InwardMenuCtrl.currentInward"
+                        enable-add="true" enable-copy="true" enable-delete="true" enable-customize="true" enable-bulk-upload="true"
+                        enable-allocate-location="true" enable-unit-calculation="true"></div>
                         <div ng-switch-when="ProductSummary" inward-productsummary current-inward="InwardMenuCtrl.currentInward"></div>
                         <div ng-switch-when="Containers" container current-inward="InwardMenuCtrl.currentInward"></div>
                         <div ng-switch-when="References & Services">

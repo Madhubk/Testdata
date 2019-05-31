@@ -6,27 +6,27 @@
 <div class="clearfix">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 custompadding">
         <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 col-xl-5 p-0">
-            <span>
+            <span data-ng-if="OutwardLineCtrl.enableAdd">
                 <button type="button" class="btn btn-sm btn-outline-secondary font-10" title="Add New" data-ng-click="OutwardLineCtrl.ePage.Masters.AddNewRow()"
                     ng-disabled="OutwardLineCtrl.ePage.Entities.Header.GlobalVariables.NonEditable ">
                     <span class="fa fa-plus"></span>&nbsp;&nbsp;Add New</button>
             </span>
-            <span>
+            <span data-ng-if="OutwardLineCtrl.enableCopy">
                 <button type="button" class="btn btn-sm btn-outline-primary font-10" title="Copy" data-ng-click="OutwardLineCtrl.ePage.Masters.CopyRow()"
                     ng-disabled="!OutwardLineCtrl.ePage.Masters.EnableDeleteButton || OutwardLineCtrl.ePage.Entities.Header.GlobalVariables.NonEditable ">
                     <span class="fa fa-copy"></span>&nbsp;&nbsp;Copy</button>
             </span>
-            <span>
+            <span data-ng-if="OutwardLineCtrl.enableDelete">
                 <button type="button" class="btn btn-sm btn-outline-primary font-10" title="Delete" data-ng-click="OutwardLineCtrl.ePage.Masters.RemoveRow()"
                     ng-disabled="!OutwardLineCtrl.ePage.Masters.EnableDeleteButton || OutwardLineCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">
                     <span class="fa fa-trash"></span>&nbsp;&nbsp;Delete</button>
             </span>
-            <span>
+            <span data-ng-if="OutwardLineCtrl.enableCustomize">
                 <button type="button" class="btn btn-sm btn-outline-primary font-10" title="Customize" data-ng-click="OutwardLineCtrl.ePage.Masters.EditTableColumns = true">
                     <span class="fa fa-filter"></span>&nbsp;&nbsp;Customize</button>
             </span>
         </div>
-        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3 p-0">
+        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3 p-0" data-ng-if="OutwardLineCtrl.enableBulkUpload">
             <span>
                 <file-upload-custom class="file-upload-directive" ng-model="OutwardLineCtrl.ePage.Masters.Documents.fileDetails" size="{{OutwardLineCtrl.ePage.Masters.Documents.fileSize}}"
                     auth="{{OutwardLineCtrl.ePage.Masters.Documents.Autherization}}" additional-value="{{OutwardLineCtrl.ePage.Masters.Documents.AdditionalValue}}"
@@ -481,7 +481,7 @@
     </div>
 </div>
 
-<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-20 mb-40">
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-20 mb-40" data-ng-if="OutwardLineCtrl.enableUnitCalculation">
 
     <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
         <div>

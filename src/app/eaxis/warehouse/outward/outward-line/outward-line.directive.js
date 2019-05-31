@@ -16,7 +16,13 @@
             controller: "OutwardLineController",
             controllerAs: "OutwardLineCtrl",
             scope: {
-                currentOutward: "="
+                currentOutward: "=",
+                enableAdd:"=",
+                enableCopy:"=",
+                enableDelete:"=",
+                enableCustomize:"=",
+                enableBulkUpload:"=",
+                enableUnitCalculation:"="
             },
             bindToController: true
 
