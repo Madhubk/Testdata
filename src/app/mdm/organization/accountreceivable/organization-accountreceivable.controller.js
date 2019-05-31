@@ -4,9 +4,9 @@
     angular.module("Application")
         .controller("AccountReceivableController", AccountReceivableController);
 
-    AccountReceivableController.$inject = ["helperService", "$uibModal", "$scope"];
+    AccountReceivableController.$inject = ["$uibModal", "$scope", "helperService"];
 
-    function AccountReceivableController(helperService, $uibModal, $scope) {
+    function AccountReceivableController($uibModal, $scope, helperService) {
         var AccountReceivableCtrl = this;
 
         function Init() {
@@ -41,6 +41,7 @@
                 return value.PK == AccountReceivableCtrl.ePage.Masters.ActiveCompany.PK ? index = key : false;
             });
             AccountReceivableCtrl.ePage.Masters.CompanyDataIndex = index;
+
         }
         //#endregion
 
