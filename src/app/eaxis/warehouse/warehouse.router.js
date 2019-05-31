@@ -338,7 +338,7 @@
                         return deferred.promise;
                     }],
                     LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
-                        return $ocLazyLoad.load(["chromeTab", "confirmation", "compareDate", "dynamicListModal", "dynamicList", "dynamicLookup", "dynamicControl", "dynamicGrid", "drogAndDrop", "oneLevelMapping", "Summernote", "warehouseReports", "ReportGrid"]);
+                        return $ocLazyLoad.load(["chromeTab", "confirmation", "compareDate", "dynamicListModal", "dynamicList", "dynamicLookup", "dynamicControl", "dynamicGrid", "drogAndDrop", "oneLevelMapping", "Summernote", "warehouseReports", "reportGrid"]);
                     }]
                 }
             })
@@ -690,8 +690,8 @@
             })
             .state('EA.WMS.sparePartsReport', {
                 url: '/spare-parts-report',
-                templateUrl: 'app/eaxis/warehouse/general-module/reports/spms-reports.html',
-                controller: "ReportController as SPMSReportCtrl",
+                templateUrl: 'app/eaxis/warehouse/general-module/spms-report/spms-report.html',
+                controller: "SPMSReportController as SPMSReportCtrl",
                 ncyBreadcrumb: {
                     label: 'Report'
                 },
@@ -704,7 +704,7 @@
                         return deferred.promise;
                     }],
                     LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
-                        return $ocLazyLoad.load(["chromeTab", "confirmation", "compareDate", "dynamicListModal", "dynamicList", "dynamicLookup", "dynamicControl", "dynamicGrid", "drogAndDrop", "oneLevelMapping", "Summernote", "spmsReports"]);
+                        return $ocLazyLoad.load(["chromeTab", "confirmation", "compareDate", "dynamicListModal", "dynamicList", "dynamicLookup", "dynamicControl", "dynamicGrid", "drogAndDrop", "oneLevelMapping", "Summernote", "spmsReports","spmsReportGrid"]);
                     }]
                 }
             })
