@@ -1,0 +1,61 @@
+<div class="clearfix p-10 mb-50">
+	<div class="org-header clearfix">
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-5 col-xl-5 pl-0 border-right">
+            <span>Company</span>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-7 col-xl-7 pr-0">
+            <span>AR</span>
+        </div>
+    </div>
+    <div class="org-cmp-emp-container clearfix mt-10">
+        <!-- Company List -->
+		<div class="col-xs-12 col-sm-12 col-md-5 col-lg-5 col-xl-5 pl-0 border-right">
+            <div class="text-center p-20 font-160" data-ng-if="!AccountReceivableCtrl.ePage.Entities.Header.Data.OrgCompanyData">
+                <i class="fa fa-spin fa-spinner"></i>
+            </div>
+            <div class="text-center p-20" data-ng-if="AccountReceivableCtrl.ePage.Entities.Header.Data.OrgCompanyData && AccountReceivableCtrl.ePage.Entities.Header.Data.OrgCompanyData.length === 0">
+                 <i>No Records...!</i>
+            </div>
+            <div data-ng-if="AccountReceivableCtrl.ePage.Entities.Header.Data.OrgCompanyData && AccountReceivableCtrl.ePage.Entities.Header.Data.OrgCompanyData.length > 0"
+                 class="company-list cursor-pointer clearfix p-5 border-bottom" data-ng-class="{ 'active' : x.PK === AccountReceivableCtrl.ePage.Masters.ActiveCompany.PK}"
+                 data-ng-repeat="x in AccountReceivableCtrl.ePage.Entities.Header.Data.OrgCompanyData" data-ng-click="AccountReceivableCtrl.ePage.Masters.OnCompanySelect(x, $index)">
+                <div class="cmp-code col-sm-2 pt-8 text-center bold">
+                    <span class="text-single-line">{{x.CMP_Code || AccountReceivableCtrl.ePage.Masters.EmptyText}}</span>
+                </div>
+                <div class="cmp-title col-sm-10">
+                    <div class="cmp-name text-single-line">
+                        {{x.CMP_Name || AccountReceivableCtrl.ePage.Masters.EmptyText}}
+                    </div>
+                    <div class="branch-name text-single-line">
+                        {{x.BRN_Code || AccountReceivableCtrl.ePage.Masters.EmptyText}} | {{x.BRN_BranchName || AccountReceivableCtrl.ePage.Masters.EmptyText}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-7 col-lg-7 col-xl-7">
+            <div class="widget-main">
+                <uib-tabset id="wmsBasic">
+                    <uib-tab>
+                        <uib-tab-heading title="Configuration">
+                            <i class="margin-right-5"></i> <span class="text-single-line" data-ng-bind="'Configuration'"></span>
+                        </uib-tab-heading>
+                            <div data-ng-include="'app/mdm/organization/accountreceivable/view-pages/configuration.html'"></div>
+                    </uib-tab>
+                    <uib-tab>
+                        <uib-tab-heading title="Credit Control & Settlement">
+                            <i class="margin-right-5"></i> <span class="text-single-line" data-ng-bind="'Credit Control & Settlement'"></span>
+                        </uib-tab-heading>
+                            <div data-ng-include="'app/mdm/organization/accountreceivable/view-pages/credit-control.html'"></div>
+                    </uib-tab>
+                    <!-- <uib-tab>
+                        <uib-tab-heading title="Invoice">
+                            <i class="margin-right-5"></i> <span class="text-single-line" data-ng-bind="'Invoice'"></span>
+                        </uib-tab-heading>
+                            <div data-ng-include="'app/mdm/organization/accountreceivable/view-pages/invoice.html'"></div>
+                    </uib-tab> -->
+                </uib-tabset>
+            </div>
+        </div>
+    </div>
+</div>        
+

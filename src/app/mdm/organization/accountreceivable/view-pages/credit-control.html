@@ -1,0 +1,58 @@
+<div class="org-header">
+    <span data-ng-bind="'Credit Control & Settlement'"></span>
+    <button class="btn btn-xs btn-primary pull-right" data-ng-click="AccountReceivableCtrl.ePage.Masters.EditableMode('credit-control')" data-ng-disabled="!AccountReceivableCtrl.ePage.Masters.ActiveCompany">Edit</button>
+</div>
+<!-- Credit Control & Settlement -->
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+    <div class="margin-top-20">
+        <span class="text-single-line custom_label">Credit Control & Settlement</span>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 margin-top-10">
+        <table class="table table-borderless">
+            <tbody class="borderless-table">
+                <tr>
+                    <th>Credit Rating</th>
+                    <td>{{AccountReceivableCtrl.ePage.Entities.Header.Data.OrgCompanyData[AccountReceivableCtrl.ePage.Masters.CompanyDataIndex].ARCreditRating}}</td>
+                 </tr>
+                <tr>
+                    <th>Credit Limit</th>
+                    <td>{{AccountReceivableCtrl.ePage.Entities.Header.Data.OrgCompanyData[AccountReceivableCtrl.ePage.Masters.CompanyDataIndex].ARCreditLimit}}</td>
+                </tr>
+                <tr>
+                    <th>Temp Credit Limit Increase</th>
+                    <td>{{AccountReceivableCtrl.ePage.Entities.Header.Data.OrgCompanyData[AccountReceivableCtrl.ePage.Masters.CompanyDataIndex].ARTemporaryCreditLimitIncrease}}</td>
+                </tr>
+                <tr>
+                    <th>Temp Credit Limit</th>
+                    <td>{{AccountReceivableCtrl.ePage.Entities.Header.Data.OrgCompanyData[AccountReceivableCtrl.ePage.Masters.CompanyDataIndex].ARCreditLimit + AccountReceivableCtrl.ePage.Entities.Header.Data.OrgCompanyData[AccountReceivableCtrl.ePage.Masters.CompanyDataIndex].ARTemporaryCreditLimitIncrease}}</td>
+                </tr>
+                <tr>
+                    <th>Expires At</th>
+                    <td>{{AccountReceivableCtrl.ePage.Entities.Header.Data.OrgCompanyData[AccountReceivableCtrl.ePage.Masters.CompanyDataIndex].ARTemporaryCreditLimitIncreaseExpiry | date:'dd-MM-yyyy'}}</td>
+                </tr>
+                <tr>
+                    <th>Settlment Group</th>
+                    <td>{{AccountReceivableCtrl.ePage.Entities.Header.Data.OrgCompanyData[AccountReceivableCtrl.ePage.Masters.CompanyDataIndex].SettlementGroup}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 margin-top-10">
+            <table class="table table-borderless">
+                <tbody class="borderless-table">
+                    <tr>
+                        <th>Use Settlement Group Credit Limit</th>
+                        <td>{{AccountReceivableCtrl.ePage.Entities.Header.Data.OrgCompanyData[AccountReceivableCtrl.ePage.Masters.CompanyDataIndex].ARUseSettlementGroupCreditLimit ? 'YES' : 'NO'}}</td>
+                    </tr>
+                    <tr>
+                        <th>Credit Approved</th>
+                        <td>{{AccountReceivableCtrl.ePage.Entities.Header.Data.OrgCompanyData[AccountReceivableCtrl.ePage.Masters.CompanyDataIndex].ARCreditApproved ? 'YES' : 'NO'}}</td>
+                    </tr>
+                    <tr>
+                        <th>AR on Credit Hold</th>
+                        <td>{{AccountReceivableCtrl.ePage.Entities.Header.Data.OrgCompanyData[AccountReceivableCtrl.ePage.Masters.CompanyDataIndex].AROnCreditHold ? 'YES' : 'NO'}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+</div>

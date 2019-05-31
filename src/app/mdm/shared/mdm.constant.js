@@ -49,6 +49,15 @@
                     'app/mdm/organization/company/organization-company.directive.js',
                     'app/mdm/organization/company/org-company-modal/org-company-modal.controller.js'
                 ]
+            },{
+                name: 'organizationAccountReceivable',
+                files:[
+                    'app/mdm/organization/accountreceivable/organization-accountreceivable.directive.js',
+                    'app/mdm/organization/accountreceivable/organization-accountreceivable.controller.js',
+                    'app/mdm/organization/accountreceivable/editable-mode/configuration.controller.js',
+                    'app/mdm/organization/accountreceivable/editable-mode/credit-control.controller.js',
+                    'app/mdm/organization/accountreceivable/editable-mode/invoice.controller.js'
+                ]
             }, {
                 name: 'organizationEmployee',
                 files: [

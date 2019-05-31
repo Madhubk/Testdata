@@ -20,8 +20,6 @@
                 "Entities": currentCompany
             };
 
-            console.log("Check",CompanyDetailsCtrl.ePage.Entities.Header.Data);
-
             CompanyDetailsCtrl.ePage.Masters.OpenBasicsModel = OpenBasicsModel;
             CompanyDetailsCtrl.ePage.Masters.AddNewRow=AddNewRow;
             CompanyDetailsCtrl.ePage.Masters.SelectAllCheckBox = SelectAllCheckBox;
@@ -48,8 +46,6 @@
                 }
             };
             GetMastersDropDownList();
-            debugger;
-            console.log(CompanyDetailsCtrl.ePage.Entities.Header.Data.UICurrencyUplift);
         }
 
         function GetMastersDropDownList() {

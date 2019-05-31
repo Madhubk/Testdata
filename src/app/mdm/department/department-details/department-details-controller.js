@@ -37,7 +37,6 @@
         }
         //#endregion
 
-
         //#region ErrorWarning Alert Validation
         function OnChangeValues(fieldvalue, code, IsArray, RowIndex) {
             angular.forEach(DepartmentDetailsCtrl.ePage.Masters.Config.ValidationValues, function (value, key) {

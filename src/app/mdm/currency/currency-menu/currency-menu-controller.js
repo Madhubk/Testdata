@@ -27,25 +27,27 @@
             CurrencyMenuCtrl.ePage.Masters.DeactivateButtonText = "Deactivate";
             CurrencyMenuCtrl.ePage.Masters.ActivateButtonText = "Activate";
             CurrencyMenuCtrl.ePage.Masters.isActivate = true;
-            CurrencyMenuCtrl.ePage.Masters.isDeactivate = false;
+            CurrencyMenuCtrl.ePage.Masters.isDeactivate = true;
 
             /* Function */
             CurrencyMenuCtrl.ePage.Masters.Validation = Validation;
             CurrencyMenuCtrl.ePage.Masters.Activate = Activate;
             CurrencyMenuCtrl.ePage.Masters.Deactivate = Deactivate;
-            console.log("Check:", CurrencyMenuCtrl.ePage.Entities.Header.Data);
             CurrencyMenuCtrl.ePage.Masters.ErrorWarningConfig = errorWarningService;
             // CurrencyMenuCtrl.ePage.Masters.ErrorWarningConfig.GlobalErrorWarningList = errorWarningService.Modules.Finance.Entity[CurrencyMenuCtrl.currentCurrency.code].GlobalErrorWarningList;
             // CurrencyMenuCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj = errorWarningService.Modules.Finance.Entity[CurrencyMenuCtrl.currentCurrency.code];
 
             // Menu list from configuration
 
-            InitActDeact();
+            InitActivateDeactivate();
         }
 
-        function InitActDeact(){
-            if(!CurrencyMenuCtrl.currentCurrency.isNew && !CurrencyMenuCtrl.ePage.Entities.Header.Data.IsActive){
-                debugger;
+        function InitActivateDeactivate() {
+            if (!CurrencyMenuCtrl.currentCurrency.isNew && CurrencyMenuCtrl.ePage.Entities.Header.Data.IsActive) {
+                CurrencyMenuCtrl.ePage.Masters.isActivate = true;
+                CurrencyMenuCtrl.ePage.Masters.isDeactivate = false;
+            }
+            else if (!CurrencyMenuCtrl.currentCurrency.isNew && !CurrencyMenuCtrl.ePage.Entities.Header.Data.IsActive) {
                 CurrencyMenuCtrl.ePage.Masters.isActivate = false;
                 CurrencyMenuCtrl.ePage.Masters.isDeactivate = true;
             }
@@ -81,18 +83,17 @@
                     });
 
                     if (_count) {
-                        if(CurrencyMenuCtrl.ePage.Entities.Header.Data.IsActive == false && CurrencyMenuCtrl.ePage.Masters.isDeactivate == true){
+                        if (CurrencyMenuCtrl.ePage.Entities.Header.Data.IsActive == false && CurrencyMenuCtrl.ePage.Masters.isDeactivate == true) {
                             Save($item);
                             toastr.success("Currency Deactivated Successfully");
                         }
-                        else if(CurrencyMenuCtrl.ePage.Entities.Header.Data.IsActive == true && CurrencyMenuCtrl.ePage.Masters.isActivate == true )
-                        {
-                            
+                        else if (CurrencyMenuCtrl.ePage.Entities.Header.Data.IsActive == true && CurrencyMenuCtrl.ePage.Masters.isActivate == true) {
+
                         }
-                        else{
+                        else {
                             toastr.error("Code is Unique, Rename the Code!.");
                         }
-                        
+
                     } else {
                         Save($item);
                     }

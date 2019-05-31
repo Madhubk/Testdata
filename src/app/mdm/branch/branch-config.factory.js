@@ -139,7 +139,6 @@
         }
 
         function ValidationFindall() {
-            debugger;
             var _filter = {
                 "ModuleCode": "Finance",
                 "SubModuleCode": "JBA"
