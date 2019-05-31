@@ -2,11 +2,11 @@
     "use strict";
 
     angular.module("Application")
-        .factory('glaccountConfig', GLaccountConfig);
+        .factory('financeperiodConfig', FinancePeriodConfig);
 
-        GLaccountConfig.$inject = ["$q", "helperService", "apiService", "appConfig"];
+    FinancePeriodConfig.$inject = ["$q", "helperService", "apiService", "appConfig"];
 
-    function GLaccountConfig($q, helperService, apiService, appConfig) {
+    function FinancePeriodConfig($q, helperService, apiService, appConfig) {
         var exports = {
             "Entities": {
                 "Header": {
@@ -14,26 +14,26 @@
                     "Meta": {}
                 },
                 "API": {
-                    "GLaccount": {
+                    "FinancialPeriod": {
                         "RowIndex": -1,
                         "API": {
                             "FindAll": {
                                 "IsAPI": "true",
                                 "HttpType": "Post",
-                                "Url": "AccGLHeader/FindAll",
-                                "FilterID": "ACCGLHE"
+                                "Url": "FinancePeriodManagement/FindAll",
+                                "FilterID": "FINPMAN"
                             },
                             "GetById": {
                                 "IsAPI": "true",
                                 "HttpType": "GET",
-                                "Url": "AccGLHeader/GetById/"
+                                "Url": "FinancePeriodManagement/GetById/"
                             },
-                            "GLaccountActivityClose": {
+                            "FinancePeriodActivityClose": {
                                 "IsAPI": "true",
                                 "HttpType": "GET",
-                                "Url": "AccGLHeader/AccGLHeaderActivityClose/"
-                            }                           
-                            
+                                "Url": "FinancePeriodManagement/FinancePeriodManagementActivityClose/"
+                            }
+
                         }
                     }
                 }
@@ -47,12 +47,12 @@
             "ShowErrorWarningModal": ShowErrorWarningModal,
             "RemoveErrorWarning": RemoveErrorWarning,
             "RemoveApiErrors": RemoveApiErrors,
-            "DataentryName": "AccGLHeader",
-            "DataentryTitle": "GL Account"
+            "DataentryName": "FinancialCalendarList",
+            "DataentryTitle": "Financial Period Management"
         };
         return exports;
 
-        function GetTabDetails(currentGlaccount, isNew) {
+        function GetTabDetails(currentFinancialperiod, isNew) {
             // Set configuration object to individual Consolidation
             var deferred = $q.defer();
             var _exports = {
@@ -84,8 +84,8 @@
             };
 
             if (isNew) {
-                _exports.Entities.Header.Data = currentGlaccount.data;
-                var _code = currentGlaccount.entity.PK.split("-").join("");
+                _exports.Entities.Header.Data = currentFinancialperiod.data;
+                var _code = currentFinancialperiod.entity.PK.split("-").join("");
 
                 var _obj = {
                     [_code]: {
@@ -93,7 +93,7 @@
                     },
                     label: 'New',
                     code: _code,
-                    pk: currentGlaccount.entity.PK,
+                    pk: currentFinancialperiod.entity.PK,
                     isNew: isNew
                 };
                 exports.TabList.push(_obj);
@@ -101,7 +101,7 @@
             }
             else {
                 debugger;
-                helperService.getFullObjectUsingGetById(exports.Entities.API.GLaccount.API.GetById.Url, currentGlaccount.PK).then(function (response) {
+                helperService.getFullObjectUsingGetById(exports.Entities.API.FinancialPeriod.API.GetById.Url, currentFinancialperiod.PK).then(function (response) {
                     if (response.data.Messages) {
                         response.data.Messages.map(function (value, key) {
                             if (value.Type === "Warning" && value.MessageDesc !== "") {
@@ -112,14 +112,14 @@
                     _exports.Entities.Header.Data = response.data.Response;
                     _exports.Entities.Header.Validations = response.data.Validations;
 
-                    var _code = currentGlaccount.PK.split("-").join("");
+                    var _code = currentFinancialperiod.PK.split("-").join("");
                     var obj = {
                         [_code]: {
                             ePage: _exports
                         },
-                        label: currentGlaccount.AccountNum,
+                        label: currentFinancialperiod.AccountNum,
                         code: _code,
-                        pk: currentGlaccount.PK,
+                        pk: currentFinancialperiod.PK,
                         isNew: isNew
                     };
                     exports.TabList.push(obj);
@@ -128,7 +128,7 @@
             }
             return deferred.promise;
         }
-        
+
         //#region Validation
         function ValidationFindall() {
             var _filter = {

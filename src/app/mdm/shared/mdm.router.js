@@ -513,7 +513,7 @@
                 templateUrl: 'app/mdm/glaccount/glaccount.html',
                 controller: "GLaccountController as GLaccountCtrl",
                 ncyBreadcrumb: {
-                    label: 'GLaccount'
+                    label: 'GL Account'
                 },
                 resolve: {
                     CheckAccess: ["$q", "pageAccessService", function ($q, pageAccessService) {
@@ -525,6 +525,26 @@
                     }],
                     LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
                         return $ocLazyLoad.load(["Finance", "glaccount", "glaccountMenu", "glaccountGeneral", "dynamicLookup", "dynamicListModal", "dynamicList", "dynamicGrid", "dynamicControl", "compareDate", "customToolbar", "confirmation", "chromeTab", "errorWarning"]);
+                    }]
+                }
+            })
+            .state('MD.financialperiod', {
+                url: '/financialperiod',
+                templateUrl: 'app/mdm/financialperiod/financialperiod.html',
+                controller: "FinancePeriodController as FinancePeriodCtrl",
+                ncyBreadcrumb: {
+                    label: 'Financial Period'
+                },
+                resolve: {
+                    CheckAccess: ["$q", "pageAccessService", function ($q, pageAccessService) {
+                        var deferred = $q.defer();
+                        // if (pageAccessService.CheckAuthToken()) {
+                        deferred.resolve();
+                        // }
+                        return deferred.promise;
+                    }],
+                    LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
+                        return $ocLazyLoad.load(["Finance", "financeperiod", "financeperiodMenu", "financeperiodGeneral", "dynamicLookup", "dynamicListModal", "dynamicList", "dynamicGrid", "dynamicControl", "compareDate", "customToolbar", "confirmation", "chromeTab", "errorWarning"]);
                     }]
                 }
             })
