@@ -120,6 +120,8 @@
                         }
                         ProductWarehouseCtrl.ePage.Entities.Header.Data.UIWarehouse[key].Warehouse = value.WAR_WarehouseCode + " - " + value.WAR_WarehouseName;
                     });
+
+                    ProductWarehouseCtrl.ePage.Entities.Header.GlobalVariables.CopyofCurrentObject.UIWarehouse = angular.copy(ProductWarehouseCtrl.ePage.Entities.Header.Data.UIWarehouse);
                 }
             });
         }

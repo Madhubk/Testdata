@@ -4,9 +4,9 @@
         .module("Application")
         .controller("WarehouseMenuController", WarehouseMenuController);
 
-    WarehouseMenuController.$inject = ["$scope", "$timeout", "APP_CONSTANT", "apiService", "warehousesConfig", "helperService", "appConfig", "$state", "toastr"];
+    WarehouseMenuController.$inject = ["$scope", "$timeout", "APP_CONSTANT", "apiService", "warehousesConfig", "helperService", "appConfig", "$state", "toastr","$filter"];
 
-    function WarehouseMenuController($scope, $timeout, APP_CONSTANT, apiService, warehousesConfig, helperService, appConfig, $state, toastr) {
+    function WarehouseMenuController($scope, $timeout, APP_CONSTANT, apiService, warehousesConfig, helperService, appConfig, $state, toastr,$filter) {
         var WarehouseMenuCtrl = this;
 
         function Init() {
@@ -31,6 +31,9 @@
             WarehouseMenuCtrl.ePage.Masters.Validation = Validation;
             WarehouseMenuCtrl.ePage.Masters.Config = warehousesConfig;
 
+            //Copying Current Object
+            WarehouseMenuCtrl.ePage.Entities.Header.GlobalVariables.CopyofCurrentObject = angular.copy(WarehouseMenuCtrl.ePage.Entities.Header.Data);
+
             GetInventoryDetails();
         }
 
@@ -40,7 +43,7 @@
                 var _filter = {
                     "WAR_FK": WarehouseMenuCtrl.ePage.Entities.Header.Data.WmsWarehouse.PK,
                     "PageNumber": "1",
-                    "PageSize": "10",
+                    "PageSize": "1",
                     "SortType": "ASC",
                     "SortColumn": "WOL_CreatedDateTime",
                 };
@@ -78,67 +81,8 @@
             }
 
             if (_errorcount.length == 0) {
-                // Check Warehouse Type 
-                // Whether CEN, REP, SCP warehouse available or not                
-                if (_input.WmsWarehouse.WarehouseType == "CEN" || _input.WmsWarehouse.WarehouseType == "SCR" || _input.WmsWarehouse.WarehouseType == "REP" || _input.WmsWarehouse.WarehouseType == "TES") {
-                    var _filter = {
-                        "WarehouseType": _input.WmsWarehouse.WarehouseType
-                    };
-                    var _input1 = {
-                        "searchInput": helperService.createToArrayOfObject(_filter),
-                        "FilterID": appConfig.Entities.WmsWarehouse.API.FindAll.FilterID
-                    };
-                    apiService.post("eAxisAPI", appConfig.Entities.WmsWarehouse.API.FindAll.Url, _input1).then(function (response) {
-                        if (response.data.Response) {
-                            if (response.data.Response.length > 1) {
-                                WarehouseMenuCtrl.ePage.Masters.Config.PushErrorWarning("E4013", "Warehouse already exist in this Warehouse Type", "E", false, 'WarehouseType', WarehouseMenuCtrl.currentWarehouse.label, false, undefined, undefined, 'WarehouseType', undefined, 'general');
-                                WarehouseMenuCtrl.ePage.Masters.Config.ShowErrorWarningModal(WarehouseMenuCtrl.currentWarehouse);
-                            } else if (response.data.Response.length == 1) {
-                                if (response.data.Response[0].WarehouseCode == _input.WmsWarehouse.WarehouseCode) {
-                                    WarehouseMenuCtrl.ePage.Masters.Config.RemoveErrorWarning("E4013", "E", "WarehouseType", $item.label);
-                                    Save($item);
-                                } else {
-                                    WarehouseMenuCtrl.ePage.Masters.Config.PushErrorWarning("E4013", "Warehouse already exist in this Warehouse Type", "E", false, 'WarehouseType', WarehouseMenuCtrl.currentWarehouse.label, false, undefined, undefined, 'WarehouseType', undefined, 'general');
-                                    WarehouseMenuCtrl.ePage.Masters.Config.ShowErrorWarningModal(WarehouseMenuCtrl.currentWarehouse);
-                                }
-                            } else if (response.data.Response.length == 0) {
-                                WarehouseMenuCtrl.ePage.Masters.Config.RemoveErrorWarning("E4013", "E", "WarehouseType", $item.label);
-                                Save($item);
-                            }
-                        }
-                    });
-                } else {
                     Save($item);
-                }
             } else {
-                if (_input.WmsWarehouse.WarehouseType == "CEN" || _input.WmsWarehouse.WarehouseType == "SCR" || _input.WmsWarehouse.WarehouseType == "REP" || _input.WmsWarehouse.WarehouseType == "TES") {
-                    var _filter = {
-                        "WarehouseType": _input.WmsWarehouse.WarehouseType
-                    };
-                    var _input1 = {
-                        "searchInput": helperService.createToArrayOfObject(_filter),
-                        "FilterID": appConfig.Entities.WmsWarehouse.API.FindAll.FilterID
-                    };
-                    apiService.post("eAxisAPI", appConfig.Entities.WmsWarehouse.API.FindAll.Url, _input1).then(function (response) {
-                        if (response.data.Response) {
-                            if (response.data.Response.length > 1) {
-                                WarehouseMenuCtrl.ePage.Masters.Config.PushErrorWarning("E4013", "Warehouse already exist in this Warehouse Type", "E", false, 'WarehouseType', WarehouseMenuCtrl.currentWarehouse.label, false, undefined, undefined, 'WarehouseType', undefined, 'general');
-                                WarehouseMenuCtrl.ePage.Masters.Config.ShowErrorWarningModal(WarehouseMenuCtrl.currentWarehouse);
-                            } else if (response.data.Response.length == 1) {
-                                if (response.data.Response[0].WarehouseCode == _input.WmsWarehouse.WarehouseCode) {
-                                    WarehouseMenuCtrl.ePage.Masters.Config.RemoveErrorWarning("E4013", "E", "WarehouseType", $item.label);
-                                    Save($item);
-                                } else {
-                                    WarehouseMenuCtrl.ePage.Masters.Config.PushErrorWarning("E4013", "Warehouse already exist in this Warehouse Type", "E", false, 'WarehouseType', WarehouseMenuCtrl.currentWarehouse.label, false, undefined, undefined, 'WarehouseType', undefined, 'general');
-                                    WarehouseMenuCtrl.ePage.Masters.Config.ShowErrorWarningModal(WarehouseMenuCtrl.currentWarehouse);
-                                }
-                            } else if (response.data.Response.length == 0) {
-                                WarehouseMenuCtrl.ePage.Masters.Config.RemoveErrorWarning("E4013", "E", "WarehouseType", $item.label);
-                                Save($item);
-                            }
-                        }
-                    });
-                }
                 WarehouseMenuCtrl.ePage.Masters.Config.ShowErrorWarningModal(WarehouseMenuCtrl.currentWarehouse);
             }
         }
@@ -166,7 +110,7 @@
                 });
 
             } else {
-                $item = filterObjectUpdate($item, "IsModified");
+                WarehouseMenuCtrl.ePage.Entities.Header.Data = PostSaveObjectUpdate(WarehouseMenuCtrl.ePage.Entities.Header.Data, WarehouseMenuCtrl.ePage.Entities.Header.GlobalVariables.CopyofCurrentObject,["Organization"]);
             }
             helperService.SaveEntity($item, 'Warehouse').then(function (response) {
                 WarehouseMenuCtrl.ePage.Masters.SaveButtonText = "Save";
@@ -214,27 +158,56 @@
                         WarehouseMenuCtrl.ePage.Masters.Config.SaveAndClose = true;
                         WarehouseMenuCtrl.ePage.Masters.SaveAndClose = false;
                     }
+
+                    //Taking Copy of Current Object
+                    WarehouseMenuCtrl.ePage.Entities.Header.Data = AfterSaveObjectUpdate(WarehouseMenuCtrl.ePage.Entities.Header.Data,"IsModified");
+                    WarehouseMenuCtrl.ePage.Entities.Header.GlobalVariables.CopyofCurrentObject = angular.copy(WarehouseMenuCtrl.ePage.Entities.Header.Data);
+
                 } else if (response.Status === "failed") {
-                    toastr.error("Could not Save...!");
                     WarehouseMenuCtrl.ePage.Entities.Header.Validations = response.Validations;
                     angular.forEach(response.Validations, function (value, key) {
                         WarehouseMenuCtrl.ePage.Masters.Config.PushErrorWarning(value.Code, value.Message, "E", false, value.CtrlKey, WarehouseMenuCtrl.currentWarehouse.label, false, undefined, undefined, undefined, undefined, undefined);
                     });
                     if (WarehouseMenuCtrl.ePage.Entities.Header.Validations != null) {
+                        toastr.error("Validation Failed...!");
                         WarehouseMenuCtrl.ePage.Masters.Config.ShowErrorWarningModal(WarehouseMenuCtrl.currentWarehouse);
+                    }else{
+                        toastr.error("Could not Save...!");
                     }
                 }
             });
 
         }
 
-        function filterObjectUpdate(obj, key) {
+        function PostSaveObjectUpdate(newValue,oldValue, exceptObjects) {
+            for (var i in newValue) {
+                if(typeof newValue[i]=='object'){
+                    PostSaveObjectUpdate(newValue[i],oldValue[i],exceptObjects);
+                }else{
+                    var Satisfied = exceptObjects.some(function(v){return v===i});
+                    if(!Satisfied && i!= "$$hashKey"){
+                        if(!oldValue){
+                            newValue["IsModified"] = true;
+                            break;
+                        }else{
+                            if(newValue[i]!=oldValue[i]){
+                                newValue["IsModified"] = true;
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+            return newValue;
+        }
+
+        function AfterSaveObjectUpdate(obj,key){
             for (var i in obj) {
                 if (!obj.hasOwnProperty(i)) continue;
                 if (typeof obj[i] == 'object') {
-                    filterObjectUpdate(obj[i], key);
+                    AfterSaveObjectUpdate(obj[i], key);
                 } else if (i == key) {
-                    obj[key] = true;
+                    obj[key] = false;
                 }
             }
             return obj;

@@ -122,6 +122,8 @@
                             PickfaceCtrl.ePage.Entities.Header.Data.UIWMSPickFace[key].Warehouse ='';
                         }
                     });
+
+                    PickfaceCtrl.ePage.Entities.Header.GlobalVariables.CopyofCurrentObject.UIWMSPickFace = angular.copy(PickfaceCtrl.ePage.Entities.Header.Data.UIWMSPickFace);
                 }
             });
         }

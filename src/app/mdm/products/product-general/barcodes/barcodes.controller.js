@@ -125,6 +125,7 @@
                     BarcodesCtrl.ePage.Entities.Header.Data.UIOrgSupplierPartBarcode = response.data.Response;
                     //Order By
                     BarcodesCtrl.ePage.Entities.Header.Data.UIOrgSupplierPartBarcode = $filter('orderBy')(BarcodesCtrl.ePage.Entities.Header.Data.UIOrgSupplierPartBarcode, 'CreatedDateTime');
+                    BarcodesCtrl.ePage.Entities.Header.GlobalVariables.CopyofCurrentObject.UIOrgSupplierPartBarcode = angular.copy(BarcodesCtrl.ePage.Entities.Header.Data.UIOrgSupplierPartBarcode);
                 }
             });
         }

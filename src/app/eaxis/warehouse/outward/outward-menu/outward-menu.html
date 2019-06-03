@@ -32,7 +32,9 @@
                         <div ng-switch-when="MyTask" data-ng-if="OutwardMenuCtrl.ePage.Masters.MyTask.ListSource" outward-my-task list-source="OutwardMenuCtrl.ePage.Masters.MyTask.ListSource"
                             current-outward="OutwardMenuCtrl.currentOutward"></div>
                         <div ng-switch-when="General" outward-general current-outward="OutwardMenuCtrl.currentOutward"></div>
-                        <div ng-switch-when="Line" outward-line current-outward="OutwardMenuCtrl.currentOutward"></div>
+                        <div ng-switch-when="Line" outward-line current-outward="OutwardMenuCtrl.currentOutward"
+                        enable-add="true" enable-copy="true" enable-delete="true" enable-customize="true" enable-bulk-upload="true"
+                        enable-unit-calculation="true"></div>
                         <div ng-switch-when="Pick" ng-if="OutwardMenuCtrl.ePage.Masters.PickDetails" outward-pick pick-details="OutwardMenuCtrl.ePage.Masters.PickDetails"
                             current-outward="OutwardMenuCtrl.currentOutward"></div>
                         <div ng-switch-when="Dispatch" data-ng-if="OutwardMenuCtrl.ePage.Entities.Header.ManifestDetails" manifest-details="OutwardMenuCtrl.ePage.Entities.Header.ManifestDetails"

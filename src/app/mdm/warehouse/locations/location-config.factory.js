@@ -128,7 +128,8 @@
                         },
                         "GlobalVariables":{
                             "Loading":false,
-                            "CannotEditLocation":false
+                            "CannotEditLocation":false,
+                            "CopyofCurrentObject":""
                         },
                         "TableProperties":{
                             "WmsLocation":{
@@ -230,6 +231,13 @@
                                     "position":"12",
                                     "width":"130",
                                     "display":true
+                                },{
+                                    "columnname":"Location",
+                                    "isenabled":true,
+                                    "property":"location",
+                                    "position":"13",
+                                    "width":"150",
+                                    "display":true
                                 }],
                                 "checkbox":{
                                     "isenabled":true,
@@ -290,6 +298,11 @@
                                     "isenabled":true,
                                     "width":"130",
                                     "position":'12',
+                                },
+                                "location":{
+                                    "isenabled":true,
+                                    "width":"150",
+                                    "position":'13',
                                 },
                             }
                         }

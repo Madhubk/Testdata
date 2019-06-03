@@ -44,7 +44,6 @@
         WarehouseDetailsCtrl.ePage.Masters.SelectedLookupData = SelectedLookupData;
         WarehouseDetailsCtrl.ePage.Masters.SelectedLookupOrganisation = SelectedLookupOrganisation;
         WarehouseDetailsCtrl.ePage.Masters.OnChangeValues = OnChangeValues;
-        WarehouseDetailsCtrl.ePage.Masters.DropdownChange = DropdownChange;
         WarehouseDetailsCtrl.ePage.Masters.OtherOrganizationAddresses = OtherOrganizationAddresses;
 
 
@@ -58,31 +57,31 @@
 
         //#region User Based Table Column
         function GetUserBasedGridColumList(){
-        var _filter = {
-            "SAP_FK": authService.getUserInfo().AppPK,
-            "TenantCode": authService.getUserInfo().TenantCode,
-            "SourceEntityRefKey": authService.getUserInfo().UserId,
-            "EntitySource": "WMS_WAREHOUSEMASTER",
-        };
-        var _input = {
-            "searchInput": helperService.createToArrayOfObject(_filter),
-            "FilterID": appConfig.Entities.UserSettings.API.FindAll.FilterID
-        };
+            var _filter = {
+                "SAP_FK": authService.getUserInfo().AppPK,
+                "TenantCode": authService.getUserInfo().TenantCode,
+                "SourceEntityRefKey": authService.getUserInfo().UserId,
+                "EntitySource": "WMS_WAREHOUSEMASTER",
+            };
+            var _input = {
+                "searchInput": helperService.createToArrayOfObject(_filter),
+                "FilterID": appConfig.Entities.UserSettings.API.FindAll.FilterID
+            };
 
-        apiService.post("eAxisAPI", appConfig.Entities.UserSettings.API.FindAll.Url + authService.getUserInfo().AppPK, _input).then(function(response){
-            if(response.data.Response[0]){
-                WarehouseDetailsCtrl.ePage.Masters.UserValue= response.data.Response[0];
-                if(response.data.Response[0].Value!=''){
-                    var obj = JSON.parse(response.data.Response[0].Value)
-                    WarehouseDetailsCtrl.ePage.Entities.Header.TableProperties.WmsArea = obj;
-                    WarehouseDetailsCtrl.ePage.Masters.UserHasValue =true;
+            apiService.post("eAxisAPI", appConfig.Entities.UserSettings.API.FindAll.Url + authService.getUserInfo().AppPK, _input).then(function(response){
+                if(response.data.Response[0]){
+                    WarehouseDetailsCtrl.ePage.Masters.UserValue= response.data.Response[0];
+                    if(response.data.Response[0].Value!=''){
+                        var obj = JSON.parse(response.data.Response[0].Value)
+                        WarehouseDetailsCtrl.ePage.Entities.Header.TableProperties.WmsArea = obj;
+                        WarehouseDetailsCtrl.ePage.Masters.UserHasValue =true;
+                    }
+                }else{
+                    WarehouseDetailsCtrl.ePage.Masters.UserValue = undefined;
                 }
-            }else{
-                WarehouseDetailsCtrl.ePage.Masters.UserValue = undefined;
-            }
-        })
-    }
-    //#endregion
+            })
+        }
+        //#endregion
         
         //#region Get dropdown values
         function GetDropDownList() {
@@ -181,8 +180,8 @@
         }
 
         function AreaList(){
-            
             WarehouseDetailsCtrl.ePage.Entities.Header.Data.WmsArea = $filter('orderBy')(WarehouseDetailsCtrl.ePage.Entities.Header.Data.WmsArea, 'CreatedDateTime');
+            WarehouseDetailsCtrl.ePage.Entities.Header.GlobalVariables.CopyofCurrentObject.WmsArea = angular.copy(WarehouseDetailsCtrl.ePage.Entities.Header.Data.WmsArea);
         }
 
         function GetAddressList() {
@@ -260,12 +259,7 @@
             });
         }
 
-        function DropdownChange(value,FieldName){
-            debugger
-            if(FieldName=="WarehouseType"){
-                WarehouseDetailsCtrl.ePage.Entities.Header.Data.WmsWarehouse.WarehouseTypeDesc;
-            }
-        }
+        
 
         //#endregion General
 

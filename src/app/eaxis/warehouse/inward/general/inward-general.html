@@ -178,6 +178,7 @@
                         search-contains="true" ng-change="InwardGeneralCtrl.ePage.Masters.OnChangeValues(InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.WorkOrderSubType,'E3004')">
                         <option value="">--Select--</option>
                     </select>
+                    <descbind key="InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.WorkOrderSubType" get="InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.WorkOrderSubTypeDesc" set = "InwardGeneralCtrl.ePage.Masters.DropDownMasterList.WorkOrderSubType.ListSource"></descbind>                      
                 </div>
             </div>
         </div>
@@ -391,7 +392,7 @@
                             <div ng-show="InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.CreatedDateTime" style="cursor:default; font-size:11px"
                                 class="ng-binding ng-hide">
                                 <span>
-                                    <b>Entered</b>
+                                    <b>ENTERED</b>
                                 </span>
                                 <br> {{InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.CreatedDateTime | 
                                     date:'MMM d, y h:mm:ss a'}}
@@ -409,7 +410,7 @@
                             <div ng-show="InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.ArrivalDate" style="cursor:default; font-size:11px"
                                 class="ng-binding ng-hide">
                                 <span>
-                                    <b>Goods Arrived</b>
+                                    <b>GOODS ARRIVED</b>
                                 </span>
                                 <br>
                                 <span>{{InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.ArrivalDate | 
@@ -428,7 +429,7 @@
                             <div ng-show="InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.PutOrPickSlipDateTime" style="cursor:default; font-size:11px"
                                 class="ng-binding ng-hide">
                                 <span>
-                                    <b>Location Allocated</b>
+                                    <b>LOCATION ALLOCATED</b>
                                 </span>
                                 <br>
                                 <span>{{InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.PutOrPickSlipDateTime |
@@ -447,7 +448,7 @@
                             <div ng-show="InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.PutOrPickStartDateTime" style="cursor:default; font-size:11px"
                                 class="ng-binding ng-hide">
                                 <span>
-                                    <b>Putaway Started</b>
+                                    <b>PUTAWAY STARTED</b>
                                 </span>
                                 <br>
                                 <span>{{InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.PutOrPickStartDateTime |
@@ -466,7 +467,7 @@
                             <div ng-show="InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.PutOrPickCompDateTime" style="cursor:default; font-size:11px"
                                 class="ng-binding ng-hide">
                                 <span>
-                                    <b>Putaway Completed</b>
+                                    <b>PUTAWAY COMPLETED</b>
                                 </span>
                                 <br>
                                 <span>{{InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.PutOrPickCompDateTime |
@@ -486,7 +487,7 @@
                             <div ng-show="InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.FinalisedDate" style="cursor:default; font-size:11px"
                                 class="ng-binding ng-hide">
                                 <span>
-                                    <b>Finalized</b>
+                                    <b>FINALIZED</b>
                                 </span>
                                 <br>
                                 <span>{{InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.FinalisedDate | 
