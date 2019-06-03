@@ -34,6 +34,9 @@
             if (CreditorGeneralCtrl.currentCreditor.isNew) {
                 CreditorGeneralCtrl.ePage.Entities.Header.Data.IsValid = true;
             }
+            else if (!CreditorGeneralCtrl.currentCreditor.isNew && !CreditorGeneralCtrl.ePage.Entities.Header.Data.IsValid) {
+                CreditorGeneralCtrl.ePage.Entities.Header.GlobalVariables.IsDisabledAll = true;
+            }
         }
         //#endregion
 

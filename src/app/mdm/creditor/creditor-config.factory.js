@@ -80,6 +80,9 @@
                                 "Desc": helperService.metaBase(),
                             }
                         },
+                        "GlobalVariables": {
+                            "IsDisabledAll": false
+                        }
                     }
                 }
             };

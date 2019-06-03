@@ -44,15 +44,20 @@
 
             BindAPConfiguration();
             GetDropDownList();
-
         }
 
         //#region BindAPConfiguration
         function BindAPConfiguration() {
-            if (APConfigurationCtrl.ePage.Entities.Header.Data.OrgCompanyData[0].PK) {
-                APConfigurationCtrl.ePage.Entities.Header.Data.OrgCompanyData[APConfigurationCtrl.ePage.Masters.CompanyDataIndex].OCG_APCreditorGroupCodeDesc = APConfigurationCtrl.ePage.Entities.Header.Data.OrgCompanyData[APConfigurationCtrl.ePage.Masters.CompanyDataIndex].CreditorCode + ' - ' + APConfigurationCtrl.ePage.Entities.Header.Data.OrgCompanyData[APConfigurationCtrl.ePage.Masters.CompanyDataIndex].CreditorDesc;
-                APConfigurationCtrl.ePage.Entities.Header.Data.OrgCompanyData[APConfigurationCtrl.ePage.Masters.CompanyDataIndex].FBN_APDefaultBankAccountCodeDesc = APConfigurationCtrl.ePage.Entities.Header.Data.OrgCompanyData[APConfigurationCtrl.ePage.Masters.CompanyDataIndex].APDefaultBankAccountCode + ' - ' + APConfigurationCtrl.ePage.Entities.Header.Data.OrgCompanyData[APConfigurationCtrl.ePage.Masters.CompanyDataIndex].APDefaultBankAccountDesc;
-                APConfigurationCtrl.ePage.Entities.Header.Data.OrgCompanyData[APConfigurationCtrl.ePage.Masters.CompanyDataIndex].FCC_APDefaultChargeCodeDesc = APConfigurationCtrl.ePage.Entities.Header.Data.OrgCompanyData[APConfigurationCtrl.ePage.Masters.CompanyDataIndex].APDefaultChargeCode + ' - ' + APConfigurationCtrl.ePage.Entities.Header.Data.OrgCompanyData[APConfigurationCtrl.ePage.Masters.CompanyDataIndex].APDefaultChargeDesc;
+            if (APConfigurationCtrl.ePage.Entities.Header.Data.OrgCompanyData[APConfigurationCtrl.ePage.Masters.CompanyDataIndex].PK) {
+                if (APConfigurationCtrl.ePage.Entities.Header.Data.OrgCompanyData[APConfigurationCtrl.ePage.Masters.CompanyDataIndex].CreditorCode && APConfigurationCtrl.ePage.Entities.Header.Data.OrgCompanyData[APConfigurationCtrl.ePage.Masters.CompanyDataIndex].CreditorDesc) {
+                    APConfigurationCtrl.ePage.Entities.Header.Data.OrgCompanyData[APConfigurationCtrl.ePage.Masters.CompanyDataIndex].OCG_APCreditorGroupCodeDesc = APConfigurationCtrl.ePage.Entities.Header.Data.OrgCompanyData[APConfigurationCtrl.ePage.Masters.CompanyDataIndex].CreditorCode + ' - ' + APConfigurationCtrl.ePage.Entities.Header.Data.OrgCompanyData[APConfigurationCtrl.ePage.Masters.CompanyDataIndex].CreditorDesc;
+                }
+                if (APConfigurationCtrl.ePage.Entities.Header.Data.OrgCompanyData[APConfigurationCtrl.ePage.Masters.CompanyDataIndex].APDefaultBankAccountCode && APConfigurationCtrl.ePage.Entities.Header.Data.OrgCompanyData[APConfigurationCtrl.ePage.Masters.CompanyDataIndex].APDefaultBankAccountDesc) {
+                    APConfigurationCtrl.ePage.Entities.Header.Data.OrgCompanyData[APConfigurationCtrl.ePage.Masters.CompanyDataIndex].FBN_APDefaultBankAccountCodeDesc = APConfigurationCtrl.ePage.Entities.Header.Data.OrgCompanyData[APConfigurationCtrl.ePage.Masters.CompanyDataIndex].APDefaultBankAccountCode + ' - ' + APConfigurationCtrl.ePage.Entities.Header.Data.OrgCompanyData[APConfigurationCtrl.ePage.Masters.CompanyDataIndex].APDefaultBankAccountDesc;
+                }
+                if (APConfigurationCtrl.ePage.Entities.Header.Data.OrgCompanyData[APConfigurationCtrl.ePage.Masters.CompanyDataIndex].APDefaultChargeCode && APConfigurationCtrl.ePage.Entities.Header.Data.OrgCompanyData[APConfigurationCtrl.ePage.Masters.CompanyDataIndex].APDefaultChargeDesc) {
+                    APConfigurationCtrl.ePage.Entities.Header.Data.OrgCompanyData[APConfigurationCtrl.ePage.Masters.CompanyDataIndex].FCC_APDefaultChargeCodeDesc = APConfigurationCtrl.ePage.Entities.Header.Data.OrgCompanyData[APConfigurationCtrl.ePage.Masters.CompanyDataIndex].APDefaultChargeCode + ' - ' + APConfigurationCtrl.ePage.Entities.Header.Data.OrgCompanyData[APConfigurationCtrl.ePage.Masters.CompanyDataIndex].APDefaultChargeDesc;
+                }
             }
         }
         //#region 
@@ -83,8 +88,6 @@
             });
         }
         //#endregion
-
-
 
         //#region SelectedLookupData
         function SelectedLookupData($index, $item, type) {
@@ -146,5 +149,4 @@
 
         Init();
     }
-
 })();

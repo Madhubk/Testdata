@@ -79,6 +79,9 @@
                                 "Code": helperService.metaBase(),
                                 "Desc": helperService.metaBase(),
                             }
+                        },
+                        "GlobalVariables": {
+                            "IsDisabledAll": false
                         }
                     }
                 }

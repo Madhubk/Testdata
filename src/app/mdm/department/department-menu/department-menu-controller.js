@@ -162,6 +162,7 @@
         function Activate() {
             DepartmentMenuCtrl.ePage.Masters.DisableActivate = true;
             DepartmentMenuCtrl.ePage.Masters.DisableDeactivate = false;
+            DepartmentMenuCtrl.ePage.Entities.Header.GlobalVariables.IsDisabledAll = false;
             DepartmentMenuCtrl.ePage.Entities.Header.Data.IsActive = true;
         }
 
@@ -199,12 +200,14 @@
                         else {
                             DepartmentMenuCtrl.ePage.Masters.DisableDeactivate = true;
                             DepartmentMenuCtrl.ePage.Masters.DisableActivate = false;
+                            DepartmentMenuCtrl.ePage.Entities.Header.GlobalVariables.IsDisabledAll = true;
                             DepartmentMenuCtrl.ePage.Entities.Header.Data.IsActive = false;
                         }
                     }
                     else if (response.data.Response.length == 0) {
                         DepartmentMenuCtrl.ePage.Masters.DisableDeactivate = true;
                         DepartmentMenuCtrl.ePage.Masters.DisableActivate = false;
+                        DepartmentMenuCtrl.ePage.Entities.Header.GlobalVariables.IsDisabledAll = true;
                         DepartmentMenuCtrl.ePage.Entities.Header.Data.IsActive = false;
                     }
                 });
