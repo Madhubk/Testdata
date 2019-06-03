@@ -22,29 +22,26 @@
             };
 
             // validation
-            if (!GatepassGeneralCtrl.currentGatepass.code)
-                GatepassGeneralCtrl.currentGatepass.code = "New";
+            // if (!GatepassGeneralCtrl.currentGatepass.code)
+            //     GatepassGeneralCtrl.currentGatepass.code = "New";
             GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig = errorWarningService;
 
-            GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj = errorWarningService.Modules.Gatepass.Entity[GatepassGeneralCtrl.currentGatepass.code];
-
-            GatepassGeneralCtrl.ePage.Masters.GenerateGatePassNo = GenerateGatePassNo;
-            GatepassGeneralCtrl.ePage.Masters.Validation = Validation;
+            if (errorWarningService.Modules.Gatepass) {
+                GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj = errorWarningService.Modules.Gatepass.Entity[GatepassGeneralCtrl.currentGatepass.code];
+            }
+            // GatepassGeneralCtrl.ePage.Masters.GenerateGatePassNo = GenerateGatePassNo;
             GatepassGeneralCtrl.ePage.Masters.SelectedLookupOrg = SelectedLookupOrg;
             GatepassGeneralCtrl.ePage.Masters.SelectedLookupTransporter = SelectedLookupTransporter;
 
             GatepassGeneralCtrl.ePage.Masters.DropDownMasterList = {};
-            GatepassGeneralCtrl.ePage.Masters.SaveButtonText = "Save";
 
             GatepassGeneralCtrl.ePage.Masters.OnFieldValueChange = OnFieldValueChange;
 
-            if ($state.current.url == "/create-gatepass") {
-                GatepassGeneralCtrl.ePage.Masters.Config = creategatepassConfig;
-            } else {
-                GatepassGeneralCtrl.ePage.Masters.Config = gatepassConfig;
-            }
-            if (GatepassGeneralCtrl.currentGatepass.code)
-                GatepassGeneralCtrl.ePage.Masters.str = GatepassGeneralCtrl.currentGatepass.code.replace(/\//g, '');
+            // if ($state.current.url == "/create-gatepass") {
+            //     GatepassGeneralCtrl.ePage.Masters.Config = creategatepassConfig;
+            // } else {
+            GatepassGeneralCtrl.ePage.Masters.Config = gatepassConfig;
+            // }
 
             GetNewAddress();
             GetAllVehicleType();
@@ -66,6 +63,7 @@
                 ErrorCode: code ? [code] : []
             };
             errorWarningService.ValidateValue(_obj);
+            errorWarningService.Modules.Gatepass.Entity[GatepassGeneralCtrl.currentGatepass.code]
         }
 
         function generalOperation() {
@@ -185,120 +183,16 @@
             }
         }
 
-
-        function Validation($item) {
-            // save manipulation
-            var _Data = $item[$item.label].ePage.Entities,
-                _input = _Data.Header.Data;
-
-            GatepassGeneralCtrl.ePage.Masters.str = GatepassGeneralCtrl.currentGatepass.code.replace(/\//g, '');
-
-            //Validation Call
-            var _obj = {
-                ModuleName: ["Gatepass"],
-                Code: [$item.code],
-                API: "Validation",
-                FilterInput: {
-                    ModuleCode: "DMS",
-                    SubModuleCode: "GAT"
-                },
-                EntityObject: $item[$item.label].ePage.Entities.Header.Data,
-                ErrorCode: ["E3531", "E3532", "E3533", "E3534", "E3535", "E3536", "E3537"]
-            };
-            errorWarningService.ValidateValue(_obj);
-            $timeout(function () {
-                var _errorcount = errorWarningService.Modules.Gatepass.Entity[$item.code].GlobalErrorWarningList;
-                if (_errorcount.length == 0) {
-                    Save($item);
-                } else {
-                    GatepassGeneralCtrl.ePage.Masters.Config.ShowErrorWarningModal(GatepassGeneralCtrl.currentGatepass);
-                }
-            });
-        }
-
-        function Save($item) {
-            GatepassGeneralCtrl.ePage.Masters.SaveButtonText = "Please Wait...";
-
-            GatepassGeneralCtrl.ePage.Entities.Header.CheckPoints.DisableSave = true;
-
-            var _Data = $item[$item.label].ePage.Entities,
-                _input = _Data.Header.Data;
-
-            if ($item.isNew) {
-                _input.TMSGatepassHeader.PK = _input.PK;
-                GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.GateinTime = new Date();
-            } else {
-                $item = filterObjectUpdate($item, "IsModified");
-            }
-
-            helperService.SaveEntity($item, 'Gatepass').then(function (response) {
-                GatepassGeneralCtrl.ePage.Entities.Header.CheckPoints.DisableSave = false;
-
-                GatepassGeneralCtrl.ePage.Masters.SaveButtonText = "Save";
-
-                if (response.Status === "success") {
-                    var _index = gatepassConfig.TabList.map(function (value, key) {
-                        return value[value.label].ePage.Entities.Header.Data.PK;
-                    }).indexOf(GatepassGeneralCtrl.currentGatepass[GatepassGeneralCtrl.currentGatepass.label].ePage.Entities.Header.Data.PK);
-
-                    if (_index !== -1) {
-                        apiService.get("eAxisAPI",gatepassConfig.Entities.Header.API.GetByID.Url + GatepassGeneralCtrl.currentGatepass[GatepassGeneralCtrl.currentGatepass.label].ePage.Entities.Header.Data.PK).then(function (response) {
-                            if (response.data.Response) {
-                                gatepassConfig.TabList[_index][gatepassConfig.TabList[_index].label].ePage.Entities.Header.Data = response.data.Response;
-
-                                gatepassConfig.TabList.map(function (value, key) {
-                                    if (_index == key) {
-                                        if (value.New) {
-                                            value.label = GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.GatepassNo;
-                                            value[GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.GatepassNo] = value.New;
-                                            delete value.New;
-                                        }
-                                    }
-                                });
-                                GatepassGeneralCtrl.ePage.Masters.SaveButtonText = "Save";
-                            }
-                        });
-                        toastr.success("Saved Successfully");
-
-                        gatepassConfig.TabList[_index].isNew = false;
-                        helperService.refreshGrid();
-                    }
-                    console.log("Success");
-                } else if (response.Status === "failed") {
-                    toastr.error("save failed");
-                    GatepassGeneralCtrl.ePage.Entities.Header.Validations = response.Validations;
-                    // angular.forEach(response.Validations, function (value, key) {
-                    //     GatepassGeneralCtrl.ePage.Masters.Config.PushErrorWarning(value.Code, value.Message, "E", false, value.CtrlKey.trim(), GatepassGeneralCtrl.currentGatepass.label, false, undefined, undefined, undefined, undefined, undefined);
-                    // });
-                    if (GatepassGeneralCtrl.ePage.Entities.Header.Validations != null) {
-                        GatepassGeneralCtrl.ePage.Masters.Config.ShowErrorWarningModal(GatepassGeneralCtrl.currentGatepass);
-                    }
-                }
-            });
-        }
-
-        function filterObjectUpdate(obj, key) {
-            for (var i in obj) {
-                if (!obj.hasOwnProperty(i)) continue;
-                if (typeof obj[i] == 'object') {
-                    filterObjectUpdate(obj[i], key);
-                } else if (i == key) {
-                    obj[key] = true;
-                }
-            }
-            return obj;
-        }
-
-        function GenerateGatePassNo(purpose) {
-            if (GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.ORG_Code) {
-                GatepassGeneralCtrl.ePage.Masters.submitButtonText = "Print Gate Pass";
-                GatepassGeneralCtrl.ePage.Masters.isSubmitButton = false;
-                var purposeCode = purpose;
-                var dateCounter = $filter('date')(new Date(), 'ddMMyyyy', '');
-                var sequenceNo = $filter('date')(new Date(), 'Hmmss', '');
-                GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.GatepassNo = GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.ORG_Code + "/" + purposeCode + "/" + dateCounter + "/" + sequenceNo;
-            }
-        }
+        // function GenerateGatePassNo(purpose) {
+        //     if (GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.ORG_Code) {
+        //         GatepassGeneralCtrl.ePage.Masters.submitButtonText = "Print Gate Pass";
+        //         GatepassGeneralCtrl.ePage.Masters.isSubmitButton = false;
+        //         var purposeCode = purpose;
+        //         var dateCounter = $filter('date')(new Date(), 'ddMMyyyy', '');
+        //         var sequenceNo = $filter('date')(new Date(), 'Hmmss', '');
+        //         GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.GatepassNo = GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.ORG_Code + "/" + purposeCode + "/" + dateCounter + "/" + sequenceNo;
+        //     }
+        // }
 
         function GetDropDownList() {
             // Get CFXType Dropdown list

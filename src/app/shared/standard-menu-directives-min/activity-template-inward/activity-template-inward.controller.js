@@ -285,7 +285,7 @@
                                                     if (value1.WAR_WarehouseCode == "BDL001") {
                                                         value1.UISPMSPickupReport.PickupLineStatus = "Stock at Central Warehouse";
                                                     } else {
-                                                        value1.UISPMSPickupReport.PickupLineStatus = "Stock at Central Warehouse";
+                                                        value1.UISPMSPickupReport.PickupLineStatus = "Stock at Site Warehouse";
                                                     }
                                                 }
 

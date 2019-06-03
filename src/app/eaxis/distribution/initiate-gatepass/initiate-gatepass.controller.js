@@ -5,9 +5,9 @@
         .module("Application")
         .controller("InitiateGatepassController", InitiateGatepassController);
 
-    InitiateGatepassController.$inject = ["$location", "APP_CONSTANT", "authService", "apiService", "helperService", "gatepassConfig", "$timeout", "toastr", "appConfig", "errorWarningService"];
+    InitiateGatepassController.$inject = ["apiService", "helperService", "gatepassConfig", "$timeout", "toastr", "appConfig", "errorWarningService"];
 
-    function InitiateGatepassController($location, APP_CONSTANT, authService, apiService, helperService, gatepassConfig, $timeout, toastr, appConfig, errorWarningService) {
+    function InitiateGatepassController(apiService, helperService, gatepassConfig, $timeout, toastr, appConfig, errorWarningService) {
 
         var InitGateCtrl = this;
 
@@ -22,6 +22,7 @@
             };
 
             InitGateCtrl.ePage.Masters.ErrorWarningConfig = errorWarningService;
+            errorWarningService.Modules = {};
 
             InitGateCtrl.ePage.Masters.dataentryName = "Gatepass";
             InitGateCtrl.ePage.Masters.TabList = [];
@@ -122,7 +123,7 @@
                 currentTab = "New";
             }
             InitGateCtrl.ePage.Masters.currentGatepass = currentTab;
-            // validation findall call
+            // validation findall call            
             var _obj = {
                 ModuleName: ["Gatepass"],
                 Code: [currentTab],

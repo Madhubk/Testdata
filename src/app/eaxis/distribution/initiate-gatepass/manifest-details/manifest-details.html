@@ -2,26 +2,26 @@
     <div class="col-lg-12 mt-15">
         <div class="rows border-box border-radius-2 bg-fbfbfb">
             <div class="col-lg-4 pt-10 pb-10">
-                <div class="tab-profile-title text-single-line fs-16" data-ng-bind=" ManifestDetailsCtrl.ePage.Entities.Header.Data.ManifestDetails.TmsManifestHeader.ManifestNumber"></div>
+                <div class="tab-profile-title text-single-line fs-16" data-ng-bind=" ManifestDetailsCtrl.ePage.Masters.ManifestDetails.TmsManifestHeader.ManifestNumber"></div>
             </div>
 
             <!--Sender-->
             <div class="col-lg-6 border-left border-right pt-10 pb-10 ">
                 <div class="fs-14">
                     <span>
-                        {{ ManifestDetailsCtrl.ePage.Entities.Header.Data.ManifestDetails.OrgSender.FullName}}
+                        {{ ManifestDetailsCtrl.ePage.Masters.ManifestDetails.OrgSender.FullName}}
                     </span>
                     <span class="ml-15 mr-15">
                         <i class="fa fa-arrow-circle-right"></i>
                     </span>
                     <span>
-                        {{ ManifestDetailsCtrl.ePage.Entities.Header.Data.ManifestDetails.OrgReceiver.FullName}}
+                        {{ ManifestDetailsCtrl.ePage.Masters.ManifestDetails.OrgReceiver.FullName}}
                     </span>
                 </div>
             </div>
             <div class="col-lg-2 mt-10">
-                <div class="tab-profile-sub-title text-single-line fs-14" title="{{ ManifestDetailsCtrl.ePage.Entities.Header.Data.ManifestDetails.TmsManifestHeader.ManifestStatus}} - {{ ManifestDetailsCtrl.ePage.Entities.Header.Data.ManifestDetails.TmsManifestHeader.ManifestStatusDesc}}"
-                    data-ng-bind=" ManifestDetailsCtrl.ePage.Entities.Header.Data.ManifestDetails.TmsManifestHeader.ManifestStatusDesc"></div>
+                <div class="tab-profile-sub-title text-single-line fs-14" title="{{ ManifestDetailsCtrl.ePage.Masters.ManifestDetails.TmsManifestHeader.ManifestStatus}} - {{ ManifestDetailsCtrl.ePage.Masters.ManifestDetails.TmsManifestHeader.ManifestStatusDesc}}"
+                    data-ng-bind=" ManifestDetailsCtrl.ePage.Masters.ManifestDetails.TmsManifestHeader.ManifestStatusDesc"></div>
             </div>
         </div>
     </div>
@@ -31,38 +31,38 @@
                 <div class="form-group">
                     <div class="color-999 fs-11">Transporter</div>
                     <div class="text-single-line">
-                        <span>{{ ManifestDetailsCtrl.ePage.Entities.Header.Data.ManifestDetails.TmsManifestHeader.TransporterName||ManifestDetailsCtrl.ePage.Masters.Empty}}</span>
+                        <span>{{ ManifestDetailsCtrl.ePage.Masters.ManifestDetails.TmsManifestHeader.TransporterName||ManifestDetailsCtrl.ePage.Masters.Empty}}</span>
                     </div>
                 </div>
             </div>
             <div class="col-lg-2">
                 <div class="form-group">
                     <div class="color-999 fs-11">Manifest Type</div>
-                    <span>{{ ManifestDetailsCtrl.ePage.Entities.Header.Data.ManifestDetails.TmsManifestHeader.ManifestType||ManifestDetailsCtrl.ePage.Masters.Empty}}</span>
+                    <span>{{ ManifestDetailsCtrl.ePage.Masters.ManifestDetails.TmsManifestHeader.ManifestType||ManifestDetailsCtrl.ePage.Masters.Empty}}</span>
                 </div>
             </div>
             <div class="col-lg-2">
                 <div class="form-group">
                     <div class="color-999 fs-11">Vehicle Type</div>
-                    <span>{{ ManifestDetailsCtrl.ePage.Entities.Header.Data.ManifestDetails.TmsManifestHeader.VehicleTypeDescription||ManifestDetailsCtrl.ePage.Masters.Empty}}</span>
+                    <span>{{ ManifestDetailsCtrl.ePage.Masters.ManifestDetails.TmsManifestHeader.VehicleTypeDescription||ManifestDetailsCtrl.ePage.Masters.Empty}}</span>
                 </div>
             </div>
             <div class="col-lg-2">
                 <div class="form-group">
                     <div class="color-999 fs-11">Load Type</div>
-                    <span>{{ ManifestDetailsCtrl.ePage.Entities.Header.Data.ManifestDetails.TmsManifestHeader.LoadType | dateFormat}}</span>
+                    <span>{{ ManifestDetailsCtrl.ePage.Masters.ManifestDetails.TmsManifestHeader.LoadType | dateFormat}}</span>
                 </div>
             </div>
             <div class="col-lg-2">
                 <div class="form-group">
                     <div class="color-999 fs-11">Estimated Delivery Date</div>
-                    <span>{{ ManifestDetailsCtrl.ePage.Entities.Header.Data.ManifestDetails.TmsManifestHeader.EstimatedDeliveryDate|dateFormat}}</span>
+                    <span>{{ ManifestDetailsCtrl.ePage.Masters.ManifestDetails.TmsManifestHeader.EstimatedDeliveryDate|dateFormat}}</span>
                 </div>
             </div>
             <div class="col-lg-2">
                 <div class="form-group">
                     <div class="color-999 fs-11">Estimated Dispatch Date</div>
-                    <span>{{ ManifestDetailsCtrl.ePage.Entities.Header.Data.ManifestDetails.TmsManifestHeader.EstimatedDispatchDate|dateFormat}}</span>
+                    <span>{{ ManifestDetailsCtrl.ePage.Masters.ManifestDetails.TmsManifestHeader.EstimatedDispatchDate|dateFormat}}</span>
                 </div>
             </div>
         </div>
@@ -84,11 +84,11 @@
                 </div>
 
                 <!-- List Empty Response -->
-                <div data-ng-if=" ManifestDetailsCtrl.ePage.Entities.Header.Data.ManifestDetails.TmsManifestConsignment.length==0">
+                <div data-ng-if=" ManifestDetailsCtrl.ePage.Masters.ManifestDetails.TmsManifestConsignment.length==0">
                     <div class="text-no-record grid-width" style="bottom:38px">No Record Found</div>
                 </div>
 
-                <div class='table_row' ng-repeat="x in  ManifestDetailsCtrl.ePage.Entities.Header.Data.ManifestDetails.TmsManifestConsignment | filter:{IsDeleted:'false'}  track by $index"
+                <div class='table_row' ng-repeat="x in  ManifestDetailsCtrl.ePage.Masters.ManifestDetails.TmsManifestConsignment | filter:{IsDeleted:'false'}  track by $index"
                     ng-click="ManifestDetailsCtrl.ePage.Masters.setSelectedRow($index)" ng-class="{row_active: ManifestDetailsCtrl.ePage.Masters.selectedRow==$index}"
                     style="font-size: 11px;">
                     <div class='table_small'>
@@ -147,11 +147,11 @@
                 </div>
 
                 <!-- List Empty Response -->
-                <div data-ng-if=" ManifestDetailsCtrl.ePage.Entities.Header.Data.ManifestDetails.TmsManifestItem.length==0">
+                <div data-ng-if=" ManifestDetailsCtrl.ePage.Masters.ManifestDetails.TmsManifestItem.length==0">
                     <div class="text-no-record grid-width" style="bottom:38px">No Record Found</div>
                 </div>
 
-                <div class='table_row' ng-repeat="x in  ManifestDetailsCtrl.ePage.Entities.Header.Data.ManifestDetails.TmsManifestItem | filter:{IsDeleted:'false'}  track by $index"
+                <div class='table_row' ng-repeat="x in  ManifestDetailsCtrl.ePage.Masters.ManifestDetails.TmsManifestItem | filter:{IsDeleted:'false'}  track by $index"
                     ng-click="ManifestDetailsCtrl.ePage.Masters.setSelectedRow($index)" ng-class="{row_active: ManifestDetailsCtrl.ePage.Masters.selectedRow==$index}"
                     style="font-size: 11px;">
                     <div class='table_small'>

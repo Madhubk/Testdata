@@ -7,14 +7,14 @@
                 <div class="col-xs-3 col-sm-3 col-md-4 col-lg-3 col-xl-3 height-40 border-right pt-10 pb-10">
                     <span class="dashboard-stock-icon-box">
                         <i class="icomoon icon-organization-client"></i>
-                    </span>
+                    </span>                    
                     <label class="ml-5 control-label">Facility</label>
                     <span class="error-warning-container">
-                        <error-warning-directive data-ng-if="GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ORG_Code.IsWarning && !GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ORG_Code.IsError"
-                            list="GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ORG_Code.WARNING" type="'warning'"
+                        <error-warning-directive data-ng-if="GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.Modules.Gatepass.Entity[GatepassGeneralCtrl.currentGatepass.code].ORG_Code.IsWarning && !GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.Modules.Gatepass.Entity[GatepassGeneralCtrl.currentGatepass.code].ORG_Code.IsError"
+                            list="GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.Modules.Gatepass.Entity[GatepassGeneralCtrl.currentGatepass.code].ORG_Code.WARNING" type="'warning'"
                             icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
-                        <error-warning-directive data-ng-if="GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ORG_Code.IsError"
-                            list="GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ORG_Code.ERROR" type="'error'"
+                        <error-warning-directive data-ng-if="GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.Modules.Gatepass.Entity[GatepassGeneralCtrl.currentGatepass.code].ORG_Code.IsError"
+                            list="GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.Modules.Gatepass.Entity[GatepassGeneralCtrl.currentGatepass.code].ORG_Code.ERROR" type="'error'"
                             icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
                     </span>
                 </div>
@@ -71,11 +71,11 @@
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-10">
                         <div class="form-group">
                             <span class="error-warning-container">
-                                <error-warning-directive data-ng-if="GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.TransporterCode.IsWarning && !GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.TransporterCode.IsError"
-                                    list="GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.TransporterCode.WARNING"
+                                <error-warning-directive data-ng-if="GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.Modules.Gatepass.Entity[GatepassGeneralCtrl.currentGatepass.code].TransporterCode.IsWarning && !GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.Modules.Gatepass.Entity[GatepassGeneralCtrl.currentGatepass.code].TransporterCode.IsError"
+                                    list="GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.Modules.Gatepass.Entity[GatepassGeneralCtrl.currentGatepass.code].TransporterCode.WARNING"
                                     type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
-                                <error-warning-directive data-ng-if="GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.TransporterCode.IsError"
-                                    list="GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.TransporterCode.ERROR"
+                                <error-warning-directive data-ng-if="GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.Modules.Gatepass.Entity[GatepassGeneralCtrl.currentGatepass.code].TransporterCode.IsError"
+                                    list="GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.Modules.Gatepass.Entity[GatepassGeneralCtrl.currentGatepass.code].TransporterCode.ERROR"
                                     type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
                             </span>
                             <label class="control-label text-single-line">Transporter</label>
@@ -119,11 +119,11 @@
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-10">
                         <div class="clearfix form-group">
                             <span class="error-warning-container">
-                                <error-warning-directive data-ng-if="GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Purpose.IsWarning && !GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Purpose.IsError"
-                                    list="GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Purpose.WARNING"
+                                <error-warning-directive data-ng-if="GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.Modules.Gatepass.Entity[GatepassGeneralCtrl.currentGatepass.code].Purpose.IsWarning && !GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.Modules.Gatepass.Entity[GatepassGeneralCtrl.currentGatepass.code].Purpose.IsError"
+                                    list="GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.Modules.Gatepass.Entity[GatepassGeneralCtrl.currentGatepass.code].Purpose.WARNING"
                                     type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
-                                <error-warning-directive data-ng-if="GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Purpose.IsError"
-                                    list="GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Purpose.ERROR"
+                                <error-warning-directive data-ng-if="GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.Modules.Gatepass.Entity[GatepassGeneralCtrl.currentGatepass.code].Purpose.IsError"
+                                    list="GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.Modules.Gatepass.Entity[GatepassGeneralCtrl.currentGatepass.code].Purpose.ERROR"
                                     type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
                             </span>
                             <label class="control-label">Purpose</label>
@@ -154,11 +154,11 @@
             <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
                 <div class="clearfix form-group">
                     <span class="error-warning-container">
-                        <error-warning-directive data-ng-if="GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.VehicleType.IsWarning && !GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.VehicleType.IsError"
-                            list="GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.VehicleType.WARNING" type="'warning'"
+                        <error-warning-directive data-ng-if="GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.Modules.Gatepass.Entity[GatepassGeneralCtrl.currentGatepass.code].VehicleType.IsWarning && !GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.Modules.Gatepass.Entity[GatepassGeneralCtrl.currentGatepass.code].VehicleType.IsError"
+                            list="GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.Modules.Gatepass.Entity[GatepassGeneralCtrl.currentGatepass.code].VehicleType.WARNING" type="'warning'"
                             icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
-                        <error-warning-directive data-ng-if="GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.VehicleType.IsError"
-                            list="GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.VehicleType.ERROR" type="'error'"
+                        <error-warning-directive data-ng-if="GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.Modules.Gatepass.Entity[GatepassGeneralCtrl.currentGatepass.code].VehicleType.IsError"
+                            list="GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.Modules.Gatepass.Entity[GatepassGeneralCtrl.currentGatepass.code].VehicleType.ERROR" type="'error'"
                             icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
                     </span>
                     <label class="control-label">Vehicle Type</label>
@@ -174,11 +174,11 @@
             <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
                 <div class="clearfix form-group">
                     <span class="error-warning-container">
-                        <error-warning-directive data-ng-if="GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.VehicleNo.IsWarning && !GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.VehicleNo.IsError"
-                            list="GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.VehicleNo.WARNING" type="'warning'"
+                        <error-warning-directive data-ng-if="GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.Modules.Gatepass.Entity[GatepassGeneralCtrl.currentGatepass.code].VehicleNo.IsWarning && !GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.Modules.Gatepass.Entity[GatepassGeneralCtrl.currentGatepass.code].VehicleNo.IsError"
+                            list="GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.Modules.Gatepass.Entity[GatepassGeneralCtrl.currentGatepass.code].VehicleNo.WARNING" type="'warning'"
                             icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
-                        <error-warning-directive data-ng-if="GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.VehicleNo.IsError"
-                            list="GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.VehicleNo.ERROR" type="'error'"
+                        <error-warning-directive data-ng-if="GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.Modules.Gatepass.Entity[GatepassGeneralCtrl.currentGatepass.code].VehicleNo.IsError"
+                            list="GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.Modules.Gatepass.Entity[GatepassGeneralCtrl.currentGatepass.code].VehicleNo.ERROR" type="'error'"
                             icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
                     </span>
                     <label class="control-label">Vehicle No</label>
@@ -191,11 +191,11 @@
             <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
                 <div class="clearfix form-group">
                     <span class="error-warning-container">
-                        <error-warning-directive data-ng-if="GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.DriverName.IsWarning && !GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.DriverName.IsError"
-                            list="GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.DriverName.WARNING" type="'warning'"
+                        <error-warning-directive data-ng-if="GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.Modules.Gatepass.Entity[GatepassGeneralCtrl.currentGatepass.code].DriverName.IsWarning && !GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.Modules.Gatepass.Entity[GatepassGeneralCtrl.currentGatepass.code].DriverName.IsError"
+                            list="GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.Modules.Gatepass.Entity[GatepassGeneralCtrl.currentGatepass.code].DriverName.WARNING" type="'warning'"
                             icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
-                        <error-warning-directive data-ng-if="GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.DriverName.IsError"
-                            list="GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.DriverName.ERROR" type="'error'"
+                        <error-warning-directive data-ng-if="GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.Modules.Gatepass.Entity[GatepassGeneralCtrl.currentGatepass.code].DriverName.IsError"
+                            list="GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.Modules.Gatepass.Entity[GatepassGeneralCtrl.currentGatepass.code].DriverName.ERROR" type="'error'"
                             icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
                     </span>
                     <label class="control-label">Driver Name</label>
@@ -208,11 +208,11 @@
             <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
                 <div class="clearfix form-group">
                     <span class="error-warning-container">
-                        <error-warning-directive data-ng-if="GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.DriverContactNo.IsWarning && !GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.DriverContactNo.IsError"
-                            list="GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.DriverContactNo.WARNING"
+                        <error-warning-directive data-ng-if="GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.Modules.Gatepass.Entity[GatepassGeneralCtrl.currentGatepass.code].DriverContactNo.IsWarning && !GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.Modules.Gatepass.Entity[GatepassGeneralCtrl.currentGatepass.code].DriverContactNo.IsError"
+                            list="GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.Modules.Gatepass.Entity[GatepassGeneralCtrl.currentGatepass.code].DriverContactNo.WARNING"
                             type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
-                        <error-warning-directive data-ng-if="GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.DriverContactNo.IsError"
-                            list="GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.DriverContactNo.ERROR"
+                        <error-warning-directive data-ng-if="GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.Modules.Gatepass.Entity[GatepassGeneralCtrl.currentGatepass.code].DriverContactNo.IsError"
+                            list="GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.Modules.Gatepass.Entity[GatepassGeneralCtrl.currentGatepass.code].DriverContactNo.ERROR"
                             type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
                     </span>
                     <label class="control-label">Driver Contact No</label>
@@ -407,44 +407,6 @@
                         <span class="chevron"></span>
                     </li>
                 </ul>
-            </div>
-        </div>
-    </div>
-</div>
-<!--Footer-->
-<div class="eaxis-footer-strip">
-    <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 col-xl-9"></div>
-    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
-        <div class="pull-right">
-            <button class="btn btn-primary manifest-btn-width-100 btn-sm mt-6" data-ng-click="GatepassGeneralCtrl.ePage.Masters.Validation(GatepassGeneralCtrl.currentGatepass)"
-                data-ng-bind="GatepassGeneralCtrl.ePage.Masters.SaveButtonText"></button>
-        </div>
-    </div>
-</div>
-<div class="error-warning-container right" id="errorWarningContainer{{GatepassGeneralCtrl.currentGatepass.code}}">
-    <div class="error-warning-header clearfix">
-        <span class="title pull-left">
-            <!-- <i class="fa fa-warning"></i>  -->
-            Errors & Warnings
-        </span>
-        <span class="error-warning-toggle-icon pull-right" data-ng-click="GatepassGeneralCtrl.ePage.Masters.Config.ShowErrorWarningModal(GatepassGeneralCtrl.currentGatepass)">
-            <i class="fa fa-arrow-right"></i>
-        </span>
-    </div>
-    <div class="error-warning-body">
-        <div class="clearfix" data-ng-if="GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.Modules.Gatepass.Entity[GatepassGeneralCtrl.currentGatepass.code].GlobalErrorWarningList.length>0">
-            <div class="clearfix">
-                <div class="p-5 error-warnig-list clearfix" data-ng-repeat="x in GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.Modules.Gatepass.Entity[GatepassGeneralCtrl.currentGatepass.code].GlobalErrorWarningList">
-                    <div class="clearfix">
-                        <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 p-0 text-center">
-                            <span class=" fa fa-warning" data-ng-style="{color: {'W':'#FFAD33', 'E':'#ED4337'}[x.MessageType]}"></span>
-                        </div>
-                        <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11 pr-0">
-                            <div class="message" data-ng-bind="x.Code + ' - ' + x.Message"></div>
-                            <div class="meta-object" data-ng-bind="x.MetaObject"></div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
