@@ -25,6 +25,7 @@
 
             ConfigurationCtrl.ePage.Masters.CloseButtonText = "Close";
             ConfigurationCtrl.ePage.Masters.SaveButtonText = "Save";
+            ConfigurationCtrl.ePage.Masters.IsDisableSave = false;
             ConfigurationCtrl.ePage.Masters.DisabledAccDetails = true;
 
             /* Function */
@@ -209,7 +210,7 @@
         //#endregion
 
         //#region SelectedLookupData
-        function SelectedLookupData($index, $item, type) {
+        function SelectedLookupData($index, $item) {
         }
         //#endregion
 

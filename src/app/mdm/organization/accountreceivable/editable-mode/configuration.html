@@ -10,11 +10,11 @@
                 <label>Account Group</label>
                 <div class="input-group input-group-sm">
                     <div dynamic-lookup placeholder="Account Group" my-ng-model="ConfigurationCtrl.ePage.Entities.Header.Data.OrgCompanyData[ConfigurationCtrl.ePage.Masters.CompanyDataIndex].ODG_ARDebtorGroupcode" obj="ConfigurationCtrl.ePage.Entities.Header.Data.OrgCompanyData[ConfigurationCtrl.ePage.Masters.CompanyDataIndex]" page-name="'MstDebtorGroup'" control-id="'organizationDebtorGroup'" control-key="organizationDebtorGroup_3356"
-                         auto-complete-on-select="ConfigurationCtrl.ePage.Masters.SelectedLookupData($index, $item, 'AccountGroup')">
+                         auto-complete-on-select="ConfigurationCtrl.ePage.Masters.SelectedLookupData($index, $item)">
                     </div>
                     <span class="input-group-btn">
                         <button dynamic-list-modal class="btn btn-default" type="button" obj="ConfigurationCtrl.ePage.Entities.Header.Data.OrgCompanyData[ConfigurationCtrl.ePage.Masters.CompanyDataIndex]" page-name="'MstDebtorGroup'" control-id="'organizationDebtorGroup'" control-key="organizationDebtorGroup_3356"
-                            mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="ConfigurationCtrl.ePage.Masters.SelectedLookupData($index, $item.data.entity, 'AccountGroup')"><i class="fa fa-ellipsis-h"></i>
+                            mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="ConfigurationCtrl.ePage.Masters.SelectedLookupData($index, $item.data.entity)"><i class="fa fa-ellipsis-h"></i>
                         </button>
                     </span>
                 </div>
@@ -48,11 +48,11 @@
              </span>
              <div class="input-group input-group-sm">
                 <div dynamic-lookup placeholder="Acc Details" my-ng-model="ConfigurationCtrl.ePage.Entities.Header.Data.OrgCompanyData[ConfigurationCtrl.ePage.Masters.CompanyDataIndex].FBN_ARPayToAccountcode" obj="ConfigurationCtrl.ePage.Entities.Header.Data.OrgCompanyData[ConfigurationCtrl.ePage.Masters.CompanyDataIndex]" page-name="'AccBankAccont'" control-id="'AccBackAccount'" control-key="AccBackAccount_3357" 
-                    auto-complete-on-select="ConfigurationCtrl.ePage.Masters.SelectedLookupData($index, $item, 'AccDetails')" is-disabled="ConfigurationCtrl.ePage.Masters.DisabledAccDetails">
+                    auto-complete-on-select="ConfigurationCtrl.ePage.Masters.SelectedLookupData($index, $item)" is-disabled="ConfigurationCtrl.ePage.Masters.DisabledAccDetails">
                 </div>
                 <span class="input-group-btn">
                     <button dynamic-list-modal class="btn btn-default" type="button" obj="ConfigurationCtrl.ePage.Entities.Header.Data.OrgCompanyData[ConfigurationCtrl.ePage.Masters.CompanyDataIndex]" page-name="'AccBankAccont'" control-id="'AccBackAccount'" control-key="AccBackAccount_3357" mode="2" grid-refresh-fun-name=""
-                        grid-refresh-fun="" selected-data="ConfigurationCtrl.ePage.Masters.SelectedLookupData($index, $item.data.entity, 'AccDetails')" is-disabled="ConfigurationCtrl.ePage.Masters.DisabledAccDetails"><i class="fa fa-ellipsis-h"></i>
+                        grid-refresh-fun="" selected-data="ConfigurationCtrl.ePage.Masters.SelectedLookupData($index, $item.data.entity)" is-disabled="ConfigurationCtrl.ePage.Masters.DisabledAccDetails"><i class="fa fa-ellipsis-h"></i>
                     </button>
                 </span>
             </div>

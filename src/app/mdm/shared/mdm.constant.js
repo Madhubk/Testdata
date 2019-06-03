@@ -49,14 +49,21 @@
                     'app/mdm/organization/company/organization-company.directive.js',
                     'app/mdm/organization/company/org-company-modal/org-company-modal.controller.js'
                 ]
-            },{
+            }, {
                 name: 'organizationAccountReceivable',
-                files:[
+                files: [
                     'app/mdm/organization/accountreceivable/organization-accountreceivable.directive.js',
                     'app/mdm/organization/accountreceivable/organization-accountreceivable.controller.js',
                     'app/mdm/organization/accountreceivable/editable-mode/configuration.controller.js',
                     'app/mdm/organization/accountreceivable/editable-mode/credit-control.controller.js',
                     'app/mdm/organization/accountreceivable/editable-mode/invoice.controller.js'
+                ]
+            }, {
+                name: 'organizationAccountPayable',
+                files: [
+                    'app/mdm/organization/accountpayable/organization-accountpayable.directive.js',
+                    'app/mdm/organization/accountpayable/organization-accountpayable.controller.js',
+                    'app/mdm/organization/accountpayable/editable-tab-pages/ap-configuration.controller.js'
                 ]
             }, {
                 name: 'organizationEmployee',
@@ -213,7 +220,7 @@
                     'app/mdm/branch/branch-details/branch-details.directive.js',
                     'app/mdm/branch/branch-details/branch-details.controller.js'
                 ]
-            }, 
+            },
             // {
             //     name: 'MDBranchDetailsModal',
             //     files: [
@@ -242,7 +249,7 @@
                     'app/mdm/department/department-details/department-details-directive.js',
                     'app/mdm/department/department-details/department-details-controller.js'
                 ]
-            }, 
+            },
             // endregion
             // region Company
             {
@@ -266,7 +273,7 @@
                     'app/mdm/company/company-details/company-details-directive.js',
                     'app/mdm/company/company-details/company-details-controller.js'
                 ]
-            }, 
+            },
             // {
             //     name: 'MDCompanyDetailsModal',
             //     files: [
