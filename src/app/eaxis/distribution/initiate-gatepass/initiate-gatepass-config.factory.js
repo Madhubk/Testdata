@@ -151,7 +151,8 @@
                             "VehicleType": helperService.metaBase(),
                             "VehicleNo": helperService.metaBase(),
                             "DriverName": helperService.metaBase(),
-                            "DriverContactNo": helperService.metaBase()
+                            "DriverContactNo": helperService.metaBase(),
+                            "ClientCode": helperService.metaBase()
                         },
                         "CheckPoints": {
                             "DisableSave": false,

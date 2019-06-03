@@ -5,9 +5,9 @@
         .module("Application")
         .controller("GatepassGeneralController", GatepassGeneralController);
 
-    GatepassGeneralController.$inject = ["$rootScope", "$scope", "$state", "APP_CONSTANT", "authService", "apiService", "appConfig", "helperService", "$window", "$uibModal", "$filter", "toastr", "$http", "gatepassConfig", "creategatepassConfig", "errorWarningService", "$timeout"];
+    GatepassGeneralController.$inject = ["authService", "apiService", "appConfig", "helperService", "$window", "$uibModal", "$filter", "toastr", "$http", "gatepassConfig", "creategatepassConfig", "errorWarningService", "$timeout"];
 
-    function GatepassGeneralController($rootScope, $scope, $state, APP_CONSTANT, authService, apiService, appConfig, helperService, $window, $uibModal, $filter, toastr, $http, gatepassConfig, creategatepassConfig, errorWarningService, $timeout) {
+    function GatepassGeneralController(authService, apiService, appConfig, helperService, $window, $uibModal, $filter, toastr, $http, gatepassConfig, creategatepassConfig, errorWarningService, $timeout) {
 
         var GatepassGeneralCtrl = this;
 
@@ -21,27 +21,21 @@
                 "Entities": currentGatepass
             };
 
-            // validation
-            // if (!GatepassGeneralCtrl.currentGatepass.code)
-            //     GatepassGeneralCtrl.currentGatepass.code = "New";
             GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig = errorWarningService;
 
             if (errorWarningService.Modules.Gatepass) {
                 GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj = errorWarningService.Modules.Gatepass.Entity[GatepassGeneralCtrl.currentGatepass.code];
             }
-            // GatepassGeneralCtrl.ePage.Masters.GenerateGatePassNo = GenerateGatePassNo;
+
             GatepassGeneralCtrl.ePage.Masters.SelectedLookupOrg = SelectedLookupOrg;
+            GatepassGeneralCtrl.ePage.Masters.SelectedLookupClient = SelectedLookupClient;
             GatepassGeneralCtrl.ePage.Masters.SelectedLookupTransporter = SelectedLookupTransporter;
 
             GatepassGeneralCtrl.ePage.Masters.DropDownMasterList = {};
 
             GatepassGeneralCtrl.ePage.Masters.OnFieldValueChange = OnFieldValueChange;
 
-            // if ($state.current.url == "/create-gatepass") {
-            //     GatepassGeneralCtrl.ePage.Masters.Config = creategatepassConfig;
-            // } else {
             GatepassGeneralCtrl.ePage.Masters.Config = gatepassConfig;
-            // }
 
             GetNewAddress();
             GetAllVehicleType();
@@ -84,6 +78,15 @@
             GatepassGeneralCtrl.ePage.Masters.Transporter = GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.TransporterCode + ' - ' + GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.TransporterName;
             if (GatepassGeneralCtrl.ePage.Masters.Transporter == " - ")
                 GatepassGeneralCtrl.ePage.Masters.Transporter = "";
+
+            // Client
+            if (GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.ClientCode == null)
+                GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.ClientCode = "";
+            if (GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.ClientName == null)
+                GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.ClientName = "";
+            GatepassGeneralCtrl.ePage.Masters.Client = GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.ClientCode + ' - ' + GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.ClientName;
+            if (GatepassGeneralCtrl.ePage.Masters.Client == " - ")
+                GatepassGeneralCtrl.ePage.Masters.Client = "";
         }
 
         function SelectedLookupTransporter(item) {
@@ -156,6 +159,52 @@
             });
         }
 
+        function SelectedLookupClient(item) {            
+            GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.Client_FK = item.PK;
+            GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.ClientCode = item.Code;
+            GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.ClientName = item.FullName;
+            GatepassGeneralCtrl.ePage.Masters.Client = item.Code + '-' + item.FullName;
+            OnFieldValueChange('E3545');
+            var _filter = {
+                "ORG_FK": GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.Client_FK
+            };
+            var _input = {
+                "searchInput": helperService.createToArrayOfObject(_filter),
+                "FilterID": GatepassGeneralCtrl.ePage.Entities.Header.API.OrgAddress.FilterID
+            };
+            apiService.post("eAxisAPI", GatepassGeneralCtrl.ePage.Entities.Header.API.OrgAddress.Url, _input).then(function (response) {
+                if (response.data.Response) {
+                    if (response.data.Response.length > 0) {
+                        angular.forEach(response.data.Response, function (value, key) {
+                            angular.forEach(value.AddressCapability, function (value1, key1) {
+                                if (value1.IsMainAddress) {
+                                    GatepassGeneralCtrl.ePage.Masters.ClientMainAddress = value;
+                                }
+                            });
+                        });
+                        angular.forEach(GatepassGeneralCtrl.ePage.Entities.Header.Data.JobAddress, function (value, key) {
+                            if (value.AddressType == "REC") {
+                                value.ORG_FK = GatepassGeneralCtrl.ePage.Masters.ClientMainAddress.ORG_FK;
+                                value.ORG_Code = GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.ClientCode;
+                                value.ORG_FullName = GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.ClientName;
+                                value.OAD_Address_FK = GatepassGeneralCtrl.ePage.Masters.ClientMainAddress.PK;
+                                value.Address1 = GatepassGeneralCtrl.ePage.Masters.ClientMainAddress.Address1;
+                                value.Address2 = GatepassGeneralCtrl.ePage.Masters.ClientMainAddress.Address2;
+                                value.State = GatepassGeneralCtrl.ePage.Masters.ClientMainAddress.State;
+                                value.Postcode = GatepassGeneralCtrl.ePage.Masters.ClientMainAddress.PostCode;
+                                value.City = GatepassGeneralCtrl.ePage.Masters.ClientMainAddress.City;
+                                value.Email = GatepassGeneralCtrl.ePage.Masters.ClientMainAddress.Email;
+                                value.Mobile = GatepassGeneralCtrl.ePage.Masters.ClientMainAddress.Mobile;
+                                value.Phone = GatepassGeneralCtrl.ePage.Masters.ClientMainAddress.Phone;
+                                value.RN_NKCountryCode = GatepassGeneralCtrl.ePage.Masters.ClientMainAddress.CountryCode;
+                                value.Fax = GatepassGeneralCtrl.ePage.Masters.ClientMainAddress.Fax;
+                            }
+                        });
+                    }
+                }
+            });
+        }
+
         function GetNewAddress() {
             var myvalue = GatepassGeneralCtrl.ePage.Entities.Header.Data.JobAddress.some(function (value, key) {
                 return value.AddressType == 'SND';
@@ -181,18 +230,31 @@
                 };
                 GatepassGeneralCtrl.ePage.Entities.Header.Data.JobAddress.push(obj);
             }
-        }
+            var myvalue1 = GatepassGeneralCtrl.ePage.Entities.Header.Data.JobAddress.some(function (value, key) {
+                return value.AddressType == 'REC';
+            });
 
-        // function GenerateGatePassNo(purpose) {
-        //     if (GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.ORG_Code) {
-        //         GatepassGeneralCtrl.ePage.Masters.submitButtonText = "Print Gate Pass";
-        //         GatepassGeneralCtrl.ePage.Masters.isSubmitButton = false;
-        //         var purposeCode = purpose;
-        //         var dateCounter = $filter('date')(new Date(), 'ddMMyyyy', '');
-        //         var sequenceNo = $filter('date')(new Date(), 'Hmmss', '');
-        //         GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.GatepassNo = GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.ORG_Code + "/" + purposeCode + "/" + dateCounter + "/" + sequenceNo;
-        //     }
-        // }
+            if (!myvalue1) {
+                var obj1 = {
+                    "EntityRefKey": GatepassGeneralCtrl.ePage.Entities.Header.Data.PK,
+                    "EntitySource": "TGP",
+                    "AddressType": "REC",
+                    "ORG_FK": "",
+                    "OAD_Address_FK": "",
+                    "Address1": "",
+                    "Address2": "",
+                    "City": "",
+                    "State": "",
+                    "JDA_RN_NKCountryCode": "",
+                    "Postcode": "",
+                    "Email": "",
+                    "Mobile": "",
+                    "Phone": "",
+                    "Fax": "",
+                };
+                GatepassGeneralCtrl.ePage.Entities.Header.Data.JobAddress.push(obj1);
+            }
+        }
 
         function GetDropDownList() {
             // Get CFXType Dropdown list
@@ -219,7 +281,6 @@
                 }
             });
         }
-
 
         function GetAllVehicleType() {
             var _filter = {

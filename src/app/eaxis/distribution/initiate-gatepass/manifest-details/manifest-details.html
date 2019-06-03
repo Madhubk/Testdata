@@ -31,38 +31,44 @@
                 <div class="form-group">
                     <div class="color-999 fs-11">Transporter</div>
                     <div class="text-single-line">
-                        <span>{{ ManifestDetailsCtrl.ePage.Masters.ManifestDetails.TmsManifestHeader.TransporterName||ManifestDetailsCtrl.ePage.Masters.Empty}}</span>
+                        <span>{{
+                            ManifestDetailsCtrl.ePage.Masters.ManifestDetails.TmsManifestHeader.TransporterName||ManifestDetailsCtrl.ePage.Masters.Empty}}</span>
                     </div>
                 </div>
             </div>
             <div class="col-lg-2">
                 <div class="form-group">
                     <div class="color-999 fs-11">Manifest Type</div>
-                    <span>{{ ManifestDetailsCtrl.ePage.Masters.ManifestDetails.TmsManifestHeader.ManifestType||ManifestDetailsCtrl.ePage.Masters.Empty}}</span>
+                    <span>{{
+                        ManifestDetailsCtrl.ePage.Masters.ManifestDetails.TmsManifestHeader.ManifestType||ManifestDetailsCtrl.ePage.Masters.Empty}}</span>
                 </div>
             </div>
             <div class="col-lg-2">
                 <div class="form-group">
                     <div class="color-999 fs-11">Vehicle Type</div>
-                    <span>{{ ManifestDetailsCtrl.ePage.Masters.ManifestDetails.TmsManifestHeader.VehicleTypeDescription||ManifestDetailsCtrl.ePage.Masters.Empty}}</span>
+                    <span>{{
+                        ManifestDetailsCtrl.ePage.Masters.ManifestDetails.TmsManifestHeader.VehicleTypeDescription||ManifestDetailsCtrl.ePage.Masters.Empty}}</span>
                 </div>
             </div>
             <div class="col-lg-2">
                 <div class="form-group">
                     <div class="color-999 fs-11">Load Type</div>
-                    <span>{{ ManifestDetailsCtrl.ePage.Masters.ManifestDetails.TmsManifestHeader.LoadType | dateFormat}}</span>
+                    <span>{{ ManifestDetailsCtrl.ePage.Masters.ManifestDetails.TmsManifestHeader.LoadType |
+                        dateFormat}}</span>
                 </div>
             </div>
             <div class="col-lg-2">
                 <div class="form-group">
                     <div class="color-999 fs-11">Estimated Delivery Date</div>
-                    <span>{{ ManifestDetailsCtrl.ePage.Masters.ManifestDetails.TmsManifestHeader.EstimatedDeliveryDate|dateFormat}}</span>
+                    <span>{{
+                        ManifestDetailsCtrl.ePage.Masters.ManifestDetails.TmsManifestHeader.EstimatedDeliveryDate|dateFormat}}</span>
                 </div>
             </div>
             <div class="col-lg-2">
                 <div class="form-group">
                     <div class="color-999 fs-11">Estimated Dispatch Date</div>
-                    <span>{{ ManifestDetailsCtrl.ePage.Masters.ManifestDetails.TmsManifestHeader.EstimatedDispatchDate|dateFormat}}</span>
+                    <span>{{
+                        ManifestDetailsCtrl.ePage.Masters.ManifestDetails.TmsManifestHeader.EstimatedDispatchDate|dateFormat}}</span>
                 </div>
             </div>
         </div>
@@ -93,15 +99,18 @@
                     style="font-size: 11px;">
                     <div class='table_small'>
                         <div class='table_cell'>Consignment Number</div>
-                        <div class='table_cell'>{{x.TMC_ConsignmentNumber || ManifestDetailsCtrl.ePage.Masters.emptyText}}</div>
+                        <div class='table_cell'>{{x.TMC_ConsignmentNumber ||
+                            ManifestDetailsCtrl.ePage.Masters.emptyText}}</div>
                     </div>
                     <div class='table_small'>
                         <div class='table_cell'>Sender</div>
-                        <div class='table_cell'>{{x.TMC_SenderCode || ManifestDetailsCtrl.ePage.Masters.emptyText}} - {{x.TMC_SenderName || ManifestDetailsCtrl.ePage.Masters.emptyText}}</div>
+                        <div class='table_cell'>{{x.TMC_SenderCode || ManifestDetailsCtrl.ePage.Masters.emptyText}} -
+                            {{x.TMC_SenderName || ManifestDetailsCtrl.ePage.Masters.emptyText}}</div>
                     </div>
                     <div class='table_small'>
                         <div class='table_cell'>Receiver</div>
-                        <div class='table_cell'>{{x.TMC_ReceiverCode || ManifestDetailsCtrl.ePage.Masters.emptyText}} - {{x.TMC_ReceiverName || ManifestDetailsCtrl.ePage.Masters.emptyText}}</div>
+                        <div class='table_cell'>{{x.TMC_ReceiverCode || ManifestDetailsCtrl.ePage.Masters.emptyText}} -
+                            {{x.TMC_ReceiverName || ManifestDetailsCtrl.ePage.Masters.emptyText}}</div>
                     </div>
                     <div class='table_small'>
                         <div class='table_cell'>Service Type</div>
@@ -128,9 +137,10 @@
                         <div class='table_cell'>{{x.TMC_ExpectedDeliveryDateTime | date:'dd-MM-yyyy hh:mm a'}}</div>
                     </div>
                     <div class='table_small'>
-                            <div class='table_cell'>Volumetric weight</div>
-                            <div class='table_cell'>{{x.TMC_VolumentricWeight || ManifestDetailsCtrl.ePage.Masters.emptyText}}</div>
-                        </div>
+                        <div class='table_cell'>Volumetric weight</div>
+                        <div class='table_cell'>{{x.TMC_VolumentricWeight ||
+                            ManifestDetailsCtrl.ePage.Masters.emptyText}}</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -156,11 +166,13 @@
                     style="font-size: 11px;">
                     <div class='table_small'>
                         <div class='table_cell'>Consignment Number</div>
-                        <div class='table_cell'>{{x.TMC_ConsignmentNumber || ManifestDetailsCtrl.ePage.Masters.emptyText}}</div>
+                        <div class='table_cell'>{{x.TMC_ConsignmentNumber ||
+                            ManifestDetailsCtrl.ePage.Masters.emptyText}}</div>
                     </div>
                     <div class='table_small'>
                         <div class='table_cell'>Receiver</div>
-                        <div class='table_cell'>{{x.TIT_ReceiverCode || ManifestDetailsCtrl.ePage.Masters.emptyText}} - {{x.TIT_ReceiverName || ManifestDetailsCtrl.ePage.Masters.emptyText}}</div>
+                        <div class='table_cell'>{{x.TIT_ReceiverCode || ManifestDetailsCtrl.ePage.Masters.emptyText}} -
+                            {{x.TIT_ReceiverName || ManifestDetailsCtrl.ePage.Masters.emptyText}}</div>
                     </div>
                     <div class='table_small'>
                         <div class='table_cell'>Status</div>

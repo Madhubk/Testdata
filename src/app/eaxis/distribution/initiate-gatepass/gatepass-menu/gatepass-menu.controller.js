@@ -78,7 +78,7 @@
                 } else {
                     if (((GatepassMenuCtrl.ePage.Masters.GatepassMenu.ListSource[0].IsDisabled) && ($index == 1 || $index == 2)) || ((!GatepassMenuCtrl.ePage.Masters.GatepassMenu.ListSource[0].IsDisabled) && ($index == 2 || $index == 3))) {
                         var mydata = GatepassMenuCtrl.currentGatepass[GatepassMenuCtrl.currentGatepass.label].ePage.Entities.Header.Data;
-                        if (mydata.UIWmsInwardHeader.Client && mydata.UIWmsInwardHeader.Warehouse) {
+                        if (mydata.TMSGatepassHeader.ORG_Code && mydata.TMSGatepassHeader.WAR_WarehouseCode) {
                             //It opens line page         
                         } else {
                             if (GatepassMenuCtrl.ePage.Masters.active == 1) {
@@ -109,7 +109,7 @@
                     SubModuleCode: "GAT"
                 },
                 EntityObject: $item[$item.label].ePage.Entities.Header.Data,
-                ErrorCode: ["E3531", "E3532", "E3533", "E3534", "E3535", "E3536", "E3537"]
+                ErrorCode: ["E3531", "E3532", "E3533", "E3534", "E3535", "E3536", "E3537","E3545"]
             };
             errorWarningService.ValidateValue(_obj);
             $timeout(function () {

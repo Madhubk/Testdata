@@ -43,6 +43,18 @@
                     'app/eaxis/distribution/initiate-gatepass/manifest-details/manifest-details.controller.js',
                     'app/eaxis/distribution/initiate-gatepass/manifest-details/manifest-details.directive.js'
                 ]
+            }, {
+                name: 'inwardDetails',
+                files: [
+                    'app/eaxis/distribution/initiate-gatepass/inward-details/inward-details.controller.js',
+                    'app/eaxis/distribution/initiate-gatepass/inward-details/inward-details.directive.js'
+                ]
+            }, {
+                name: 'outwardDetails',
+                files: [
+                    'app/eaxis/distribution/initiate-gatepass/outward-details/outward-details.controller.js',
+                    'app/eaxis/distribution/initiate-gatepass/outward-details/outward-details.directive.js'
+                ]
             },
             // endregion
             // region
