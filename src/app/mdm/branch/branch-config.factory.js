@@ -34,8 +34,8 @@
                         "GetByID": {
                             "IsAPI": "true",
                             "HttpType": "GET",
-                            "Url": "CmpBranch/GetById/",
-                            "FilterID": "CMPBRAN"
+                            "Url": "BranchCurrencyUpliftList/GetById/",
+                            "FilterID": "BRNCURUPLI"
                         },
                         "ValidateBrannch":{                            
                             "IsAPI": "true",
@@ -77,14 +77,14 @@
                             "InsertBranch": {
                                 "IsAPI": "true",
                                 "HttpType": "POST",
-                                "Url": "CmpBranch/Insert",
-                                "FilterID": "CMPBRAN"
+                                "Url": "BranchCurrencyUpliftList/Insert",
+                                "FilterID": "BRNCURUPLI"
                             },
                             "UpdateBranch":{
                                 "IsAPI": "true",
                                 "HttpType": "POST",
-                                "Url": "CmpBranch/Update",
-                                "FilterID": "CMPBRAN"
+                                "Url": "BranchCurrencyUpliftList/Update",
+                                "FilterID": "BRNCURUPLI"
                             }
                         },
                         "Meta": {
@@ -99,6 +99,109 @@
                                 "Country":helperService.metaBase(),
                                 "GSTNo":helperService.metaBase(),
                                 "CMP_Code":helperService.metaBase()                           
+
+                            }
+                        },
+                        "GlobalVariables": {
+                            "SelectAll": false,
+                            "IsDisablePost": true
+                        },
+                        "TableProperties": {
+                            "UICurrencyUplift": {
+                                "TableHeight": {
+                                    "isEnabled": true,
+                                    "height": 300
+                                },
+                                "HeaderProperties": [{
+                                    "columnname": "Checkbox",
+                                    "isenabled": true,
+                                    "property": "ccheckbox",
+                                    "position": '1',
+                                    "width": "40",
+                                    "display": false
+                                }, {
+                                    "columnname": "Job Type",
+                                    "isenabled": true,
+                                    "property": "cjobtype",
+                                    "position": '2',
+                                    "width": "155",
+                                    "display": false
+                                }, {
+                                    "columnname": "Business Type",
+                                    "isenabled": true,
+                                    "property": "cbusinesstype",
+                                    "position": '3',
+                                    "width": "155",
+                                    "display": false
+                                }, {
+                                    "columnname": "Mode of Transport",
+                                    "isenabled": true,
+                                    "property": "cmodeoftransport",
+                                    "position": '4',
+                                    "width": "155",
+                                    "display": false
+                                }, {
+                                    "columnname": "Currency",
+                                    "isenabled": true,
+                                    "property": "ccurrency",
+                                    "position": '5',
+                                    "width": "155",
+                                    "display": false
+                                }, {
+                                    "columnname": "CFX %",
+                                    "isenabled": true,
+                                    "property": "ccfx",
+                                    "position": '6',
+                                    "width": "150",
+                                    "display": false
+                                }, {
+                                    "columnname": "CFX Min.",
+                                    "isenabled": true,
+                                    "property": "ccfxmin",
+                                    "position": '7',
+                                    "width": "150",
+                                    "display": false
+                                }],
+                                "ccheckbox": {
+                                    "isenabled": true,
+                                    "position": '1',
+                                    "width": "40"
+                                },
+                                "csno": {
+                                    "isenabled": true,
+                                    "position": '2',
+                                    "width": "50"
+                                },
+                                "cjobtype": {
+                                    "isenabled": true,
+                                    "position": '3',
+                                    "width": "155"
+                                },
+                                "cbusinesstype": {
+                                    "isenabled": true,
+                                    "position": '4',
+                                    "width": "155"
+                                },
+                                "cmodeoftransport": {
+                                    "isenabled": true,
+                                    "position": '5',
+                                    "width": "155"
+                                },
+                                "ccurrency": {
+                                    "isenabled": true,
+                                    "position": '6',
+                                    "width": "155"
+                                },
+                                "ccfx": {
+                                    "isenabled": true,
+                                    "position": '7',
+                                    "width": "150"
+                                },
+                                "ccfxmin": {
+                                    "isenabled": true,
+                                    "position": '8',
+                                    "width": "150"
+                                }
 
                             }
                         }

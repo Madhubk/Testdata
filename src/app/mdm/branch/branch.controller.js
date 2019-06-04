@@ -66,7 +66,7 @@
                     BranchCtrl.ePage.Masters.TabList = response;                    
                     $timeout(function () {
                         BranchCtrl.ePage.Masters.activeTabIndex = BranchCtrl.ePage.Masters.TabList.length;
-                        BranchCtrl.ePage.Masters.CurrentActiveTab(currentBranch.entity.Code);
+                        BranchCtrl.ePage.Masters.CurrentActiveTab(currentBranch.entity.PK);
                         BranchCtrl.ePage.Masters.IsTabClick = false;
 
                     });

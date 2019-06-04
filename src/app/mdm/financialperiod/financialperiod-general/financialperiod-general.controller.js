@@ -4,9 +4,9 @@
     angular.module("Application")
         .controller("FinancePeriodGeneralController", FinancePeriodGeneralController);
 
-    FinancePeriodGeneralController.$inject = ["helperService", "financeperiodConfig"];
+    FinancePeriodGeneralController.$inject = ["helperService", "financeperiodConfig","appConfig","APP_CONSTANT", "authService", "apiService"];
 
-    function FinancePeriodGeneralController(helperService, financeperiodConfig) {
+    function FinancePeriodGeneralController(helperService, financeperiodConfig,appConfig,APP_CONSTANT, authService, apiService) {
 
         var FinancePeriodGeneralCtrl = this;
 
@@ -27,8 +27,56 @@
             /* Function */
             FinancePeriodGeneralCtrl.ePage.Masters.OnChangeValues = OnChangeValues;
 
+            FinancePeriodGeneralCtrl.ePage.Masters.DatePicker = {};
+            FinancePeriodGeneralCtrl.ePage.Masters.DatePicker.Options = APP_CONSTANT.DatePicker;
+            FinancePeriodGeneralCtrl.ePage.Masters.DatePicker.isOpen = [];
+            FinancePeriodGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker = OpenDatePicker;
+
             // InitGLccount();
             console.log("Check:", FinancePeriodGeneralCtrl.ePage.Entities.Header.Data);
+            FinancePeriodGeneralCtrl.ePage.Masters.DropDownMasterList = {
+                "CalendarType": {
+                    "ListSource": []
+                },
+                "FinPeriodType": {
+                    "ListSource": []
+                },
+                "Status":{
+                    "ListSource": []
+                }
+            };
+            GetMastersDropDownList();
+        }
+
+        function GetMastersDropDownList() {
+            var typeCodeList = ["CALENDARTYPE", "FINPERIODTYPE","FINPERIODSTS"];
+            var dynamicFindAllInput = [];
+
+            typeCodeList.map(function (value, key) {
+                dynamicFindAllInput[key] = {
+                    "FieldName": "TypeCode",
+                    "value": value
+                }
+            });
+            var _input = {
+                "searchInput": dynamicFindAllInput,
+                "FilterID": appConfig.Entities.CfxTypes.API.DynamicFindAll.FilterID
+            };
+            apiService.post("eAxisAPI", appConfig.Entities.CfxTypes.API.DynamicFindAll.Url + authService.getUserInfo().AppPK, _input).then(function (response) {
+                if (response.data.Response) {
+                    typeCodeList.map(function (value, key) {
+                        FinancePeriodGeneralCtrl.ePage.Masters.DropDownMasterList[value] = helperService.metaBase();
+                        FinancePeriodGeneralCtrl.ePage.Masters.DropDownMasterList[value].ListSource = response.data.Response[value];
+                    });
+                }
+            });
+        }
+        
+        function OpenDatePicker($event, opened) {
+
+            $event.preventDefault();
+            $event.stopPropagation();
+            FinancePeriodGeneralCtrl.ePage.Masters.DatePicker.isOpen[opened] = true;
         }
 
         //#region GLccount
