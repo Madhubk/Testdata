@@ -1,5 +1,4 @@
-<uib-tabset id="chromeTab" class="tab-container chrometab-box" active="CurrencyCtrl.ePage.Masters.ActiveTabIndex"
-    class="tab-container chrometab-box">
+<uib-tabset id="chromeTab" class="tab-container chrometab-box" active="CurrencyCtrl.ePage.Masters.ActiveTabIndex">
     <uib-tab>
         <uib-tab-heading title="CurrencyCtrl.ePage.Masters.Title">
             <span data-ng-bind="CurrencyCtrl.ePage.Masters.Title"></span>
@@ -7,15 +6,13 @@
         </uib-tab-heading>
         <div class="no-padding tab-list-view-wrapper">
             <!-- Dynamic Grid Page-->
-            <dynamic-list mode="1" dataentry-name="CurrencyCtrl.ePage.Masters.DataentryName"
-                dataentry-object="CurrencyCtrl.ePage.Masters.DataEntryObject"
-                selected-grid-row="CurrencyCtrl.ePage.Masters.SelectedGridRow($item)"></dynamic-list>
+            <dynamic-list mode="1" dataentry-name="CurrencyCtrl.ePage.Masters.DataentryName" dataentry-object="CurrencyCtrl.ePage.Masters.DataEntryObject"
+                selected-grid-row="CurrencyCtrl.ePage.Masters.SelectedGridRow($item)" default-filter="CurrencyCtrl.ePage.Masters.DefaultFilter">
+            </dynamic-list>
             <div class="tab-loading" data-ng-show="CurrencyCtrl.ePage.Masters.IsTabClick"></div>
         </div>
     </uib-tab>
-    <uib-tab active="CurrencyCtrl.ePage.Masters.ActiveTabIndex == $index"
-        ng-repeat="tab in CurrencyCtrl.ePage.Masters.TabList"
-        ng-click="CurrencyCtrl.ePage.Masters.CurrentActiveTab(tab.label)" class="tab-container chrometab-box">
+    <uib-tab active="CurrencyCtrl.ePage.Masters.ActiveTabIndex == $index" data-ng-repeat="tab in CurrencyCtrl.ePage.Masters.TabList">
         <uib-tab-heading title="{{tab.label}}">
             <span data-ng-bind="tab.label" class="mr-5"></span>
             <i class="glyphicon glyphicon-remove"
@@ -42,8 +39,6 @@
             <currency-menu current-currency="tab"></currency-menu>
                 <div class="horizontal-space"></div>
         </div>
-        <!-- <span ng-if="CurrencyCtrl.ePage.Masters.Config.SaveAndClose"
-            ng-init="CurrencyCtrl.ePage.Masters.SaveandClose(CurrencyCtrl.ePage.Masters.activeTabIndex, tab)"></span> -->
     </uib-tab>
     <button class="btn btn-default" ng-click="CurrencyCtrl.ePage.Masters.CreateNewCurrency()"
         data-ng-disabled="CurrencyCtrl.ePage.Masters.isNewClicked">+</button>
