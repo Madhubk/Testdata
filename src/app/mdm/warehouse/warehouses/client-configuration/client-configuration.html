@@ -1,0 +1,134 @@
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 custompadding">
+        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8 p-0">
+            <span><button type="button" class="btn btn-sm btn-outline-secondary font-10" title="Add New" data-ng-click="ClientConfigCtrl.ePage.Masters.AddNewRow()"
+                    data-ng-disabled="ClientConfigCtrl.ePage.Entities.Header.GlobalVariables.CannotEditWarehouse"><span
+                        class="fa fa-plus"></span>&nbsp;&nbsp;Add New</button></span>
+            <span><button type="button" class="btn btn-sm btn-outline-primary font-10" title="Copy" data-ng-click="ClientConfigCtrl.ePage.Masters.CopyRow()"
+                    ng-disabled="!ClientConfigCtrl.ePage.Masters.EnableDeleteButton || ClientConfigCtrl.ePage.Entities.Header.GlobalVariables.CannotEditWarehouse"><span
+                        class="fa fa-copy"></span>&nbsp;&nbsp;Copy</button></span>
+            <span><button type="button" class="btn btn-sm btn-outline-primary font-10" title="Delete" data-ng-click="ClientConfigCtrl.ePage.Masters.RemoveRow()"
+                    ng-disabled="!ClientConfigCtrl.ePage.Masters.EnableDeleteButton || ClientConfigCtrl.ePage.Entities.Header.GlobalVariables.CannotEditWarehouse"><span
+                        class="fa fa-trash"></span>&nbsp;&nbsp;Delete</button></span>
+            <span><button type="button" class="btn btn-sm btn-outline-primary font-10" title="Customize" data-ng-click="ClientConfigCtrl.ePage.Masters.EditTableColumns = true"><span
+                        class="fa fa-filter"></span>&nbsp;&nbsp;Customize</button></span>
+        </div>
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 p-0">
+            <div class="input-group">
+                <div class="input-group-addon font-10"><i class="fa fa-search font-10"></i></div>
+                <input type="text" class="form-control height-25 font-10" placeholder="Search" ng-model="ClientConfigCtrl.ePage.Masters.SearchTable">
+            </div>
+        </div>
+    </div>
+    <div class="fixedheader" id="ClientConfigTable{{ClientConfigCtrl.ePage.Entities.Header.Data.PK}}" key-events
+        table-object='ClientConfigCtrl.ePage.Entities.Header.Data.WmsClientParameterByWarehouse' enable='ClientConfigCtrl.ePage.Masters.Enable'
+        selected-row='ClientConfigCtrl.ePage.Masters.selectedRow' unique-id="ClientConfigTable{{ClientConfigCtrl.ePage.Entities.Header.Data.PK}}">
+        <table id="ClientConfigCtrl.ePage.Masters.AddScroll" ng-style="{ 'height': ClientConfigCtrl.ePage.Entities.Header.TableProperties.WmsClientParameterByWarehouse.TableHeight.height + 'px' }">
+            <thead>
+                <tr id="tableHeader">
+                    <th id="cpwcheckbox" data-ng-if="ClientConfigCtrl.ePage.Entities.Header.TableProperties.WmsClientParameterByWarehouse.cpwcheckbox.isenabled"
+                        ng-style="{ 'width': ClientConfigCtrl.ePage.Entities.Header.TableProperties.WmsClientParameterByWarehouse.cpwsno.width + 'px' }">
+                        <label class="customcheckbox">
+                            <input type="checkbox" ng-change="ClientConfigCtrl.ePage.Masters.SelectAllCheckBox()"
+                                ng-checked="ClientConfigCtrl.ePage.Masters.SelectAll" ng-model="ClientConfigCtrl.ePage.Masters.SelectAll"
+                                data-ng-disabled="ClientConfigCtrl.ePage.Entities.Header.GlobalVariables.CannotEditWarehouse">
+                            <span class="text"></span>
+                        </label>
+                    </th>
+                    <th id="cpwsno" data-ng-if="ClientConfigCtrl.ePage.Entities.Header.TableProperties.WmsClientParameterByWarehouse.cpwsno.isenabled"
+                        ng-style="{ 'width': ClientConfigCtrl.ePage.Entities.Header.TableProperties.WmsClientParameterByWarehouse.cpwsno.width + 'px' }"
+                        title="S.No">S.No</th>
+                    <th id="cpworgcode" data-ng-if="ClientConfigCtrl.ePage.Entities.Header.TableProperties.WmsClientParameterByWarehouse.cpworgcode.isenabled"
+                        ng-style="{ 'width': ClientConfigCtrl.ePage.Entities.Header.TableProperties.WmsClientParameterByWarehouse.cpworgcode.width + 'px' }"
+                        title="Organization Code">Organization Code</th>
+                    <th id="cpworgname" data-ng-if="ClientConfigCtrl.ePage.Entities.Header.TableProperties.WmsClientParameterByWarehouse.cpworgname.isenabled"
+                        ng-style="{ 'width': ClientConfigCtrl.ePage.Entities.Header.TableProperties.WmsClientParameterByWarehouse.cpworgname.width + 'px' }"
+                        title="Organization Name">Organization Name</th>
+                </tr>
+            </thead>
+            <tbody id="ClientConfigCustomTable{{ClientConfigCtrl.ePage.Entities.Header.Data.PK}}">
+                <tr id="tableBody" ng-repeat="x in ClientConfigCtrl.ePage.Entities.Header.Data.WmsClientParameterByWarehouse | filter:ClientConfigCtrl.ePage.Masters.SearchTable"
+                    ng-click="ClientConfigCtrl.ePage.Masters.setSelectedRow($index);" ng-class="{row_active: (ClientConfigCtrl.ePage.Masters.selectedRow==$index),copy_row_active :(x.IsCopied==true)}"
+                    watch-table table-properties="ClientConfigCtrl.ePage.Entities.Header.TableProperties.WmsClientParameterByWarehouse"
+                    unique-id="ClientConfigCustomTable{{ClientConfigCtrl.ePage.Entities.Header.Data.PK}}" row-position="$index">
+                    <td id="cpwcheckbox" data-ng-show='ClientConfigCtrl.ePage.Entities.Header.TableProperties.WmsClientParameterByWarehouse.cpwcheckbox.isenabled'
+                        ng-style="{ 'width': ClientConfigCtrl.ePage.Entities.Header.TableProperties.WmsClientParameterByWarehouse.cpwsno.width + 'px','padding-top':'0px' }"
+                        ng-click="ClientConfigCtrl.ePage.Masters.Enable = true">
+                        <label class="mb-0 customcheckbox">
+                            <input type="checkbox" ng-checked="x.SingleSelect" ng-change="ClientConfigCtrl.ePage.Masters.SingleSelectCheckBox()"
+                                ng-model="x.SingleSelect" data-ng-disabled="x.isDisabled"> </input>
+                            <span class="text"></span>
+                        </label>
+                        <span class="list-error-warning" data-ng-if="ClientConfigCtrl.ePage.Entities.Header.Meta.ErrorWarning.WmsClientParameterByWarehouse.ERROR | listCount: 'RowIndex': $index">
+                            <error-warning-directive list="ClientConfigCtrl.ePage.Entities.Header.Meta.ErrorWarning.WmsClientParameterByWarehouse.ERROR"
+                                type="'error'" icon="fa fa-warning" parent-type="'arrayObjectRow'" parent-ref=""
+                                g-parent-ref="" row-index="$index" col-index="">
+                            </error-warning-directive>
+                        </span>
+                    </td>
+                    <td id="cpwsno" data-ng-show='ClientConfigCtrl.ePage.Entities.Header.TableProperties.WmsClientParameterByWarehouse.cpwsno.isenabled'
+                        ng-style="{ 'width': ClientConfigCtrl.ePage.Entities.Header.TableProperties.WmsClientParameterByWarehouse.cpwsno.width + 'px' }"
+                        ng-click="ClientConfigCtrl.ePage.Masters.Enable = true">
+                        {{$index+1}}
+                    </td>
+                    <td id="cpworgcode" data-ng-show='ClientConfigCtrl.ePage.Entities.Header.TableProperties.WmsClientParameterByWarehouse.cpworgcode.isenabled'
+                        ng-style="{ 'width': ClientConfigCtrl.ePage.Entities.Header.TableProperties.WmsClientParameterByWarehouse.cpworgcode.width + 'px' }"
+                        ng-click="ClientConfigCtrl.ePage.Masters.Enable = true">
+                        <div data-ng-if="$index!=ClientConfigCtrl.ePage.Masters.selectedRow" class="overflow-text">
+                            {{ x.ORG_Code || ClientConfigCtrl.ePage.Masters.emptyText}}
+                        </div>
+                        <div data-ng-if="$index==ClientConfigCtrl.ePage.Masters.selectedRow">
+                            <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0">
+                                <div class="input-group input-group-sm height-22">
+                                    <!-- Dynamic look up Search in textbox -->
+                                    <div dynamic-lookup placeholder="Organization Code" my-ng-model="x.ORG_Code" obj="x"
+                                        control-key="'Product_2845'" page-name="'ProductRelatedParty'" control-id="'Product'"
+                                        auto-complete-on-select="ClientConfigCtrl.ePage.Masters.SelectedLookupOrg($item,(($index) + (ClientConfigCtrl.ePage.Masters.CurrentPageStartingIndex)))">
+                                    </div>
+
+                                    <!-- Look Up page opens when button clicks -->
+                                    <span class="input-group-btn">
+                                        <button dynamic-list-modal obj="x" control-id="'Product'" control-key="'Product_2845'"
+                                            selected-data="ClientConfigCtrl.ePage.Masters.SelectedLookupOrg($item.data,(($index) + (ClientConfigCtrl.ePage.Masters.CurrentPageStartingIndex)))"
+                                            page-name="'ProductRelatedParty'" mode="2" grid-refresh-fun-name=""
+                                            grid-refresh-fun="" class="btn btn-default shiny" type="button">
+                                            <i class="fa fa-ellipsis-h"></i>
+                                        </button>
+                                    </span>
+                                    <!-- <span ng-if='!x.ORG_Code && x.PK  && (ClientConfigCtrl.ePage.Entities.Header.Meta.ErrorWarning.WmsClientParameterByWarehouse.ERROR | filter: {RowIndex: (($index) + (ClientConfigCtrl.ePage.Masters.CurrentPageStartingIndex))}:true | filter: {ColIndex: 1}).length==0'>
+                                        <span ng-init="ClientConfigCtrl.ePage.Masters.OnChangeValues(x.ORG_Code,'E3008',true,(($index) + (ClientConfigCtrl.ePage.Masters.CurrentPageStartingIndex)))"></span>
+                                    </span> -->
+                                </div>
+                            </div>
+                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5"
+                                data-ng-if="ClientConfigCtrl.ePage.Entities.Header.Meta.ErrorWarning.WmsClientParameterByWarehouse.ERROR | filter:{RowIndex: $index}:true | listCount: 'ColIndex':1">
+                                <error-warning-directive list="ClientConfigCtrl.ePage.Entities.Header.Meta.ErrorWarning.WmsClientParameterByWarehouse.ERROR"
+                                    type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref=""
+                                    g-parent-ref="" row-index="ClientConfigCtrl.ePage.Masters.selectedRow" col-index="1">
+                                </error-warning-directive>
+                            </div>
+                        </div>
+                    </td>
+                    <td id="cpworgname" data-ng-show='ClientConfigCtrl.ePage.Entities.Header.TableProperties.WmsClientParameterByWarehouse.cpworgname.isenabled'
+                        ng-style="{ 'width': ClientConfigCtrl.ePage.Entities.Header.TableProperties.WmsClientParameterByWarehouse.cpworgname.width + 'px' }"
+                        class="overflow-text" ng-click="ClientConfigCtrl.ePage.Masters.Enable = true">
+                        {{ x.ORG_Name || ClientConfigCtrl.ePage.Masters.emptyText}}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 norecordfound" ng-if="ClientConfigCtrl.ePage.Entities.Header.Data.WmsClientParameterByWarehouse.length==0">No
+        Record Found...</div>
+</div>
+<!-- To show Customize Modal -->
+<div ng-if='ClientConfigCtrl.ePage.Masters.EditTableColumns'>
+    <customize-table table-properties="ClientConfigCtrl.ePage.Entities.Header.TableProperties.WmsClientParameterByWarehouse"
+        enable="ClientConfigCtrl.ePage.Masters.EditTableColumns" unique-id="ClientConfigCustomTable{{ClientConfigCtrl.ePage.Entities.Header.Data.PK}}"
+        user-value='ClientConfigCtrl.ePage.Masters.UserValue' entity-source='WMS_CLIENTCONFIG'></customize-table>
+</div>
+<!-- Call Directive If user has value -->
+<div ng-if='ClientConfigCtrl.ePage.Masters.UserHasValue' ng-init="ClientConfigCtrl.ePage.Masters.UserHasValue=false">
+    <watch-table table-properties="ClientConfigCtrl.ePage.Entities.Header.TableProperties.WmsClientParameterByWarehouse"
+        unique-id="ClientConfigCustomTable{{ClientConfigCtrl.ePage.Entities.Header.Data.PK}}"></watch-table>
+</div>

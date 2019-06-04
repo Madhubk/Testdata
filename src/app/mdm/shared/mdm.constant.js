@@ -419,6 +419,18 @@
                     'app/mdm/warehouse/warehouses/warehouse-details/organizationaddress/address.controller.js',
                     'app/mdm/warehouse/warehouses/warehouse-details/organizationaddress/address.css'
                 ]
+            }, {
+                name: 'WarehouseAreaDetails',
+                files: [
+                    'app/mdm/warehouse/warehouses/area-details/area-details.controller.js',
+                    'app/mdm/warehouse/warehouses/area-details/area-details.directive.js'
+                ]
+            }, {
+                name: 'ClientConfigDetails',
+                files: [
+                    'app/mdm/warehouse/warehouses/client-configuration/client-configuration.controller.js',
+                    'app/mdm/warehouse/warehouses/client-configuration/client-configuration.directive.js'
+                ]
             },
             // area
             {
@@ -947,13 +959,13 @@
                 ]
             }, {
                 name: 'glaccountMenu',
-                files: [                    
+                files: [
                     'app/mdm/glaccount/glaccount-menu/glaccount-menu.controller.js',
                     'app/mdm/glaccount/glaccount-menu/glaccount-menu.directive.js'
                 ]
             }, {
                 name: 'glaccountGeneral',
-                files: [                    
+                files: [
                     'app/mdm/glaccount/glaccount-general/glaccount-general.controller.js',
                     'app/mdm/glaccount/glaccount-general/glaccount-general.directive.js'
                 ]
@@ -962,19 +974,19 @@
             //region GLaccount
             {
                 name: 'financeperiod',
-                files: [                    
+                files: [
                     'app/mdm/financialperiod/financialperiod.controller.js',
                     'app/mdm/financialperiod/financialperiod-config.factory.js'
                 ]
             }, {
                 name: 'financeperiodMenu',
-                files: [                    
+                files: [
                     'app/mdm/financialperiod/finanicalperiod-menu/financialperiod-menu.controller.js',
                     'app/mdm/financialperiod/finanicalperiod-menu/financialperiod-menu.directive.js'
                 ]
             }, {
                 name: 'financeperiodGeneral',
-                files: [                    
+                files: [
                     'app/mdm/financialperiod/financialperiod-general/financialperiod-general.controller.js',
                     'app/mdm/financialperiod/financialperiod-general/financialperiod-general.directive.js'
                 ]

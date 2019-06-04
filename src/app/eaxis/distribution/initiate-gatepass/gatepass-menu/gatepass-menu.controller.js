@@ -5,9 +5,9 @@
         .module("Application")
         .controller("GatepassMenuController", GatepassMenuController);
 
-    GatepassMenuController.$inject = ["$rootScope", "$scope", "$state", "APP_CONSTANT", "authService", "apiService", "appConfig", "helperService", "$window", "$uibModal", "$filter", "toastr", "creategatepassConfig", "$timeout", "gatepassConfig", "errorWarningService"];
+    GatepassMenuController.$inject = ["$rootScope", "$scope", "$state", "APP_CONSTANT", "confirmation", "apiService", "appConfig", "helperService", "toastr", "$timeout", "gatepassConfig", "errorWarningService"];
 
-    function GatepassMenuController($rootScope, $scope, $state, APP_CONSTANT, authService, apiService, appConfig, helperService, $window, $uibModal, $filter, toastr, creategatepassConfig, $timeout, gatepassConfig, errorWarningService) {
+    function GatepassMenuController($rootScope, $scope, $state, APP_CONSTANT, confirmation, apiService, appConfig, helperService, toastr, $timeout, gatepassConfig, errorWarningService) {
 
         var GatepassMenuCtrl = this;
 
@@ -109,7 +109,7 @@
                     SubModuleCode: "GAT"
                 },
                 EntityObject: $item[$item.label].ePage.Entities.Header.Data,
-                ErrorCode: ["E3531", "E3532", "E3533", "E3534", "E3535", "E3536", "E3537","E3545"]
+                ErrorCode: ["E3531", "E3532", "E3533", "E3534", "E3535", "E3536", "E3537", "E3545"]
             };
             errorWarningService.ValidateValue(_obj);
             $timeout(function () {
