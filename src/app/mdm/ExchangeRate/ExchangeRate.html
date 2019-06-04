@@ -14,9 +14,7 @@
             <div class="tab-loading" data-ng-show="ExchangeRateCtrl.ePage.Masters.IsTabClick"></div>
         </div>
     </uib-tab>
-    <uib-tab active="ExchangeRateCtrl.ePage.Masters.ActiveTabIndex == $index"
-        ng-repeat="tab in ExchangeRateCtrl.ePage.Masters.TabList"
-        ng-click="ExchangeRateCtrl.ePage.Masters.CurrentActiveTab(tab.label)" class="tab-container chrometab-box">
+    <uib-tab active="ExchangeRateCtrl.ePage.Masters.ActiveTabIndex == $index" data-ng-repeat="tab in ExchangeRateCtrl.ePage.Masters.TabList">
         <uib-tab-heading title="{{tab.label}}">
             <span data-ng-bind="tab.label" class="mr-5"></span>
             <i class="glyphicon glyphicon-remove"
@@ -36,15 +34,13 @@
                             <span class="custom-error-count">{{tab[tab.code].ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList | listCount:
                                 'MessageType': 'E'}}</span>
                         </span>
-                    </span>
+                </span>
         </uib-tab-heading>
         <div class="padding-bottom-10 clearfix">
             <!--Exchangerate Menu Directive-->
             <exchange-rate-menu current-exchange-rate="tab"></exchange-rate-menu>
                 <div class="horizontal-space"></div>
         </div>
-        <!-- <span ng-if="ExchangeRateCtrl.ePage.Masters.Config.SaveAndClose"
-            ng-init="ExchangeRateCtrl.ePage.Masters.SaveandClose(ExchangeRateCtrl.ePage.Masters.activeTabIndex, tab)"></span> -->
     </uib-tab>
     <button class="btn btn-default" ng-click="ExchangeRateCtrl.ePage.Masters.CreateNewExchangeRate()"
         data-ng-disabled="ExchangeRateCtrl.ePage.Masters.isNewClicked">+</button>
