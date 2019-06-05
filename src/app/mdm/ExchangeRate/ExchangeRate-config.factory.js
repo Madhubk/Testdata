@@ -6,7 +6,7 @@
 
     ExchangerateConfig.$inject = ["$q", "apiService", "appConfig", "helperService", "toastr", "errorWarningService"];
 
-    function ExchangerateConfig($q, apiService, appConfig, helperService, toastr) {
+    function ExchangerateConfig($q, apiService, appConfig, helperService, toastr,errorWarningService) {
         var exports = {
             "Entities": {
                 "Header": {

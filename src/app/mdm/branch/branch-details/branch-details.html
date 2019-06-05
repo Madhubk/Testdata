@@ -4,10 +4,10 @@
   <div class="widget-main">
     <uib-tabset id="wmsBasic">
       <uib-tab>
-        <uib-tab-heading title="{{BranchDetailsCtrl.ePage.Entities.Header.Data.Code}}">
+        <uib-tab-heading title="{{BranchDetailsCtrl.ePage.Entities.Header.Data.UICmpBranch.Code}}">
           <span class="text-single-line" ng-if="BranchDetailsCtrl.currentBranch.isNew">New</span>
           <span class="text-single-line" ng-if="!BranchDetailsCtrl.currentBranch.isNew"
-            data-ng-bind="BranchDetailsCtrl.ePage.Entities.Header.Data.Code"></span>
+            data-ng-bind="BranchDetailsCtrl.ePage.Entities.Header.Data.UICmpBranch.Code"></span>
         </uib-tab-heading>
         <div>
           <div class="container-fluid jba-brndtl-wraper">
@@ -30,7 +30,7 @@
                       </span>
                       <div class="">
                         <input type="text" class="form-control input-sm" placeholder="Branch Code"
-                          data-ng-model="BranchDetailsCtrl.ePage.Entities.Header.Data.Code"
+                          data-ng-model="BranchDetailsCtrl.ePage.Entities.Header.Data.UICmpBranch.Code"
                           data-ng-change="BranchDetailsCtrl.ePage.Masters.OnChangeValues(BranchDetailsCtrl.ePage.Entities.Header.Data.Code,'E1339')" />
                       </div>
                     </div>
@@ -52,7 +52,7 @@
                       </span>
                       <div class="">
                         <input type="text" class="form-control input-sm" placeholder="Branch Name"
-                          data-ng-model="BranchDetailsCtrl.ePage.Entities.Header.Data.BranchName"
+                          data-ng-model="BranchDetailsCtrl.ePage.Entities.Header.Data.UICmpBranch.BranchName"
                           data-ng-change="BranchDetailsCtrl.ePage.Masters.OnChangeValues(BranchDetailsCtrl.ePage.Entities.Header.Data.BranchName,'E1327')" />
                       </div>
                     </div>
@@ -74,7 +74,7 @@
                       </span>
                       <div class="">
                         <input type="text" class="form-control input-sm" placeholder="Address 1"
-                          data-ng-model="BranchDetailsCtrl.ePage.Entities.Header.Data.Address1"
+                          data-ng-model="BranchDetailsCtrl.ePage.Entities.Header.Data.UICmpBranch.Address1"
                           data-ng-change="BranchDetailsCtrl.ePage.Masters.OnChangeValues(BranchDetailsCtrl.ePage.Entities.Header.Data.Address1,'E1327')" />
                       </div>
                     </div>
@@ -96,7 +96,7 @@
                       </span>
                       <div class="">
                         <input type="text" class="form-control input-sm" placeholder="Address 2"
-                          data-ng-model="BranchDetailsCtrl.ePage.Entities.Header.Data.Address2"
+                          data-ng-model="BranchDetailsCtrl.ePage.Entities.Header.Data.UICmpBranch.Address2"
                           data-ng-change="BranchDetailsCtrl.ePage.Masters.OnChangeValues(BranchDetailsCtrl.ePage.Entities.Header.Data.Address2,'E1327')" />
                       </div>
                     </div>
@@ -121,7 +121,7 @@
                       <div class="input-group input-group-sm">
                         <!-- Dynamic look up Search in textbox -->
                         <div dynamic-lookup placeholder="Country"
-                          my-ng-model="BranchDetailsCtrl.ePage.Entities.Header.Data.Country"
+                          my-ng-model="BranchDetailsCtrl.ePage.Entities.Header.Data.UICmpBranch.Country"
                           obj="BranchDetailsCtrl.ePage.Entities.Header.Data" page-name="'MstCountry'"
                           control-id="'CurrencyCountry'" control-key="CurrencyCountry_3337"
                           auto-complete-on-select="BranchDetailsCtrl.ePage.Masters.SelectedLookupData($index, $item,'Local')">
@@ -129,7 +129,7 @@
                         <!-- Look Up page opens when button clicks -->
                         <span class="input-group-btn">
                           <button dynamic-list-modal class="btn btn-default" type="button" is-disabled="false"
-                            obj="BranchDetailsCtrl.ePage.Entities.Header.Data" page-name="'MstCountry'"
+                            obj="BranchDetailsCtrl.ePage.Entities.Header.Data.UICmpBranch" page-name="'MstCountry'"
                             control-id="'CurrencyCountry'" control-key="CurrencyCountry_3337" mode="2"
                             grid-refresh-fun-name="" grid-refresh-fun=""
                             selected-data="BranchDetailsCtrl.ePage.Masters.SelectedLookupData($index, $item.data.entity,'Local')">
@@ -137,9 +137,9 @@
                           </button>
                         </span>
                         <span
-                          data-ng-if='!BranchDetailsCtrl.ePage.Entities.Header.Data && !BranchDetailsCtrl.ePage.Entities.Header.Data'>
+                          data-ng-if='!BranchDetailsCtrl.ePage.Entities.Header.Data.UICmpBranch && !BranchDetailsCtrl.ePage.Entities.Header.Data.UICmpBranch'>
                           <div
-                            data-ng-init="BranchDetailsCtrl.ePage.Masters.OnChangeValues(BranchDetailsCtrl.ePage.Entities.Header.Data.Country,'E1343',false,undefined)">
+                            data-ng-init="BranchDetailsCtrl.ePage.Masters.OnChangeValues(BranchDetailsCtrl.ePage.Entities.Header.Data.UICmpBranch.Country,'E1343',false,undefined)">
                           </div>
                         </span>
                       </div>
@@ -179,9 +179,9 @@
                           </button>
                         </span>
                         <span
-                          data-ng-if='!BranchDetailsCtrl.ePage.Masters.Data && !ExchangeRateGeneralCtrl.ePage.Masters.Data'>
+                          data-ng-if='!BranchDetailsCtrl.ePage.Masters.Data && !ExchangeRateGeneralCtrl.ePage.Masters.Data.UICmpBranch'>
                           <div
-                            data-ng-init="BranchDetailsCtrl.ePage.Masters.OnChangeValues(ExchangeRateGeneralCtrl.ePage.Masters.Data.State,'E1341',false,undefined)">
+                            data-ng-init="BranchDetailsCtrl.ePage.Masters.OnChangeValues(ExchangeRateGeneralCtrl.ePage.Masters.Data.UICmpBranch.State,'E1341',false,undefined)">
                           </div>
                         </span>
                       </div>
@@ -204,7 +204,7 @@
                       </span>
                       <div class="">
                         <input type="text" class="form-control input-sm" placeholder="District"
-                          data-ng-model="BranchDetailsCtrl.ePage.Entities.Header.Data.District"
+                          data-ng-model="BranchDetailsCtrl.ePage.Entities.Header.Data.UICmpBranch.District"
                           data-ng-change="BranchDetailsCtrl.ePage.Masters.OnChangeValues(BranchDetailsCtrl.ePage.Entities.Header.Data.District,'E1327')" />
                       </div>
                     </div>
@@ -225,8 +225,8 @@
                       </span>
                       <div class="">
                         <input type="text" class="form-control input-sm" placeholder="City"
-                          data-ng-model="BranchDetailsCtrl.ePage.Entities.Header.Data.City"
-                          data-ng-change="BranchDetailsCtrl.ePage.Masters.OnChangeValues(BranchDetailsCtrl.ePage.Entities.Header.Data.City,'E1340')" />
+                          data-ng-model="BranchDetailsCtrl.ePage.Entities.Header.Data.UICmpBranch.City"
+                          data-ng-change="BranchDetailsCtrl.ePage.Masters.OnChangeValues(BranchDetailsCtrl.ePage.Entities.Header.Data.UICmpBranch.City,'E1340')" />
                       </div>
                     </div>
                   </div>
@@ -249,8 +249,8 @@
                       </span>
                       <div class="">
                         <input type="text" class="form-control input-sm" placeholder="Postal Code"
-                          data-ng-model="BranchDetailsCtrl.ePage.Entities.Header.Data.PostCode"
-                          data-ng-change="BranchDetailsCtrl.ePage.Masters.OnChangeValues(BranchDetailsCtrl.ePage.Entities.Header.Data.PostCode,'E1342')" />
+                          data-ng-model="BranchDetailsCtrl.ePage.Entities.Header.Data.UICmpBranch.PostCode"
+                          data-ng-change="BranchDetailsCtrl.ePage.Masters.OnChangeValues(BranchDetailsCtrl.ePage.Entities.Header.Data.UICmpBranch.PostCode,'E1342')" />
                       </div>
                     </div>
                   </div>
@@ -270,8 +270,8 @@
                       </span>
                       <div class="">
                         <input type="text" class="form-control input-sm" placeholder="Contact No"
-                          data-ng-model="BranchDetailsCtrl.ePage.Entities.Header.Data.Phone"
-                          data-ng-change="BranchDetailsCtrl.ePage.Masters.OnChangeValues(BranchDetailsCtrl.ePage.Entities.Header.Data.Phone,'E1327')" />
+                          data-ng-model="BranchDetailsCtrl.ePage.Entities.Header.Data.UICmpBranch.Phone"
+                          data-ng-change="BranchDetailsCtrl.ePage.Masters.OnChangeValues(BranchDetailsCtrl.ePage.Entities.Header.Data.UICmpBranch.Phone,'E1327')" />
                       </div>
                     </div>
                   </div>
@@ -291,8 +291,8 @@
                       </span>
                       <div class="">
                         <input type="text" class="form-control input-sm" placeholder="Email Id"
-                          data-ng-model="BranchDetailsCtrl.ePage.Entities.Header.Data.Email"
-                          data-ng-change="BranchDetailsCtrl.ePage.Masters.OnChangeValues(BranchDetailsCtrl.ePage.Entities.Header.Data.Email,'E1327')" />
+                          data-ng-model="BranchDetailsCtrl.ePage.Entities.Header.Data.UICmpBranch.Email"
+                          data-ng-change="BranchDetailsCtrl.ePage.Masters.OnChangeValues(BranchDetailsCtrl.ePage.Entities.Header.Data.UICmpBranch.Email,'E1327')" />
                       </div>
                     </div>
                   </div>
@@ -312,8 +312,8 @@
                       </span>
                       <div class="">
                         <input type="text" class="form-control input-sm" placeholder="GST No"
-                          data-ng-model="BranchDetailsCtrl.ePage.Entities.Header.Data.GSTNo"
-                          data-ng-change="BranchDetailsCtrl.ePage.Masters.OnChangeValues(BranchDetailsCtrl.ePage.Entities.Header.Data.GSTNo,'E1344')" />
+                          data-ng-model="BranchDetailsCtrl.ePage.Entities.Header.Data.UICmpBranch.GSTNo"
+                          data-ng-change="BranchDetailsCtrl.ePage.Masters.OnChangeValues(BranchDetailsCtrl.ePage.Entities.Header.Data.UICmpBranch.GSTNo,'E1344')" />
                       </div>
                     </div>
                   </div>
@@ -337,8 +337,8 @@
                       <div class="input-group input-group-sm">
                         <!-- Dynamic look up Search in textbox -->
                         <div dynamic-lookup placeholder="Company Related to"
-                          my-ng-model="BranchDetailsCtrl.ePage.Entities.Header.Data.CMP_Code"
-                          obj="BranchDetailsCtrl.ePage.Entities.Header.Data" page-name="'CmpCompany'"
+                          my-ng-model="BranchDetailsCtrl.ePage.Entities.Header.Data.UICmpBranch.CMP_Code"
+                          obj="BranchDetailsCtrl.ePage.Entities.Header.Data.UICmpBranch" page-name="'CmpCompany'"
                           control-id="'MstCompany'" control-key="MstCompany_3347"
                           auto-complete-on-select="BranchDetailsCtrl.ePage.Masters.SelectedLookupData($index, $item,'Local')">
                         </div>
@@ -355,7 +355,7 @@
                         <span
                           data-ng-if='!BranchDetailsCtrl.ePage.Entities.Header.Data && !BranchDetailsCtrl.ePage.Entities.Header.Data'>
                           <div
-                            data-ng-init="BranchDetailsCtrl.ePage.Masters.OnChangeValues(BranchDetailsCtrl.ePage.Entities.Header.Data.CMP_Code,'E1345',false,undefined)">
+                            data-ng-init="BranchDetailsCtrl.ePage.Masters.OnChangeValues(BranchDetailsCtrl.ePage.Entities.Header.Data.UICmpBranch.CMP_Code,'E1345',false,undefined)">
                           </div>
                         </span>
                       </div>
@@ -379,7 +379,7 @@
                       <div class="input-group input-group-sm">
                         <!-- Dynamic look up Search in textbox -->
                         <div dynamic-lookup placeholder="Home Port"
-                          my-ng-model="BranchDetailsCtrl.ePage.Entities.Header.Data.HomePort"
+                          my-ng-model="BranchDetailsCtrl.ePage.Entities.Header.Data.UICmpBranch.HomePort"
                           page-name="'MstUNLOCO'" control-id="'MDMDischargePort'" control-key="MDMDischargePort_3300"
                           obj="BranchDetailsCtrl.ePage.Entities.Header.Data">
                           
@@ -396,7 +396,7 @@
                         <span
                           data-ng-if='!BranchDetailsCtrl.ePage.Entities.Header.Data && !BranchDetailsCtrl.ePage.Entities.Header.Data'>
                           <div
-                            data-ng-init="BranchDetailsCtrl.ePage.Masters.OnChangeValues(BranchDetailsCtrl.ePage.Entities.Header.Data.HomePort,'E1346',false,undefined)">
+                            data-ng-init="BranchDetailsCtrl.ePage.Masters.OnChangeValues(BranchDetailsCtrl.ePage.Entities.Header.Data.UICmpBranch.HomePort,'E1346',false,undefined)">
                           </div>
                         </span>
                       </div>
@@ -421,7 +421,7 @@
                       <div class="input-group input-group-sm">
                         <!-- Dynamic look up Search in textbox -->
                         <div dynamic-lookup placeholder="Organization Code"
-                          my-ng-model="BranchDetailsCtrl.ePage.Entities.Header.Data.ORG_Organization_Code"
+                          my-ng-model="BranchDetailsCtrl.ePage.Entities.Header.Data.UICmpBranch.ORG_Organization_Code"
                           obj="BranchDetailsCtrl.ePage.Entities.Header.Data" page-name="'OrganizationList'"
                           control-id="'cmpOrganizations'" control-key="cmpOrganizations_3353"
                           auto-complete-on-select="BranchDetailsCtrl.ePage.Masters.SelectedLookupData($index, $item,'Organization')">
@@ -439,7 +439,7 @@
                         <span
                           data-ng-if='!BranchDetailsCtrl.ePage.Entities.Header.Data && !BranchDetailsCtrl.ePage.Entities.Header.Data'>
                           <div
-                            data-ng-init="BranchDetailsCtrl.ePage.Masters.OnChangeValues(BranchDetailsCtrl.ePage.Entities.Header.Data.ORG_Organization_Code,'E1324',false,undefined)">
+                            data-ng-init="BranchDetailsCtrl.ePage.Masters.OnChangeValues(BranchDetailsCtrl.ePage.Entities.Header.Data.UICmpBranch.ORG_Organization_Code,'E1324',false,undefined)">
                           </div>
                         </span>
                       </div>
@@ -450,27 +450,245 @@
                       <label class="control-label">Branch Logo</label>
                       <span class="error-warning-container">
                         <error-warning-directive
-                          data-ng-if="BranchDetailsCtrl.ePage.Entities.Header.Data.Branchlogo.IsWarning && !BranchDetailsCtrl.ePage.Entities.Header.Data.Branchlogo.IsError"
-                          list="BranchDetailsCtrl.ePage.Entities.Header.Data.Branchlogo.WARNING" type="'warning'"
+                          data-ng-if="BranchDetailsCtrl.ePage.Entities.Header.Data.UICmpBranch.Branchlogo.IsWarning && !BranchDetailsCtrl.ePage.Entities.Header.Data.UICmpBranch.Branchlogo.IsError"
+                          list="BranchDetailsCtrl.ePage.Entities.Header.Data.UICmpBranch.Branchlogo.WARNING" type="'warning'"
                           icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
                         </error-warning-directive>
                         <error-warning-directive
-                          data-ng-if="BranchDetailsCtrl.ePage.Entities.Header.Data.Branchlogo.IsError"
-                          list="BranchDetailsCtrl.ePage.Entities.Header.Data.Branchlogo.ERROR" type="'error'"
+                          data-ng-if="BranchDetailsCtrl.ePage.Entities.Header.Data.UICmpBranch.Branchlogo.IsError"
+                          list="BranchDetailsCtrl.ePage.Entities.Header.Data.UICmpBranch.Branchlogo.ERROR" type="'error'"
                           icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
                         </error-warning-directive>
                       </span>
                       <div class="">
                         <input type="text" class="form-control input-sm" placeholder="GST No"
-                          data-ng-model="BranchDetailsCtrl.ePage.Entities.Header.Data.Branchlogo"
-                          data-ng-change="BranchDetailsCtrl.ePage.Masters.OnChangeValues(BranchDetailsCtrl.ePage.Entities.Header.Data.Branchlogo,'E1327')" />
+                          data-ng-model="BranchDetailsCtrl.ePage.Entities.Header.Data.UICmpBranch.Branchlogo"
+                          data-ng-change="BranchDetailsCtrl.ePage.Masters.OnChangeValues(BranchDetailsCtrl.ePage.Entities.Header.Data.UICmpBranch.Branchlogo,'E1327')" />
                       </div>
                     </div> -->
                   </div>
                 </div>
               </div>
             </div>
+            <div class="mt-10">
+              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                <div class="pull-left">
+                  <label class="control-label">Currency Uplift Details</label>
+                </div>
+                <div class="clearfix mt-30">
+                  <span>
+                    <button type="button" class="btn btn-sm pull-left btn-outline-secondary font-10" title="Add New"
+                      data-ng-click="BranchDetailsCtrl.ePage.Masters.AddNewRow()">
+                      <span class="fa fa-plus"></span>&nbsp;&nbsp;Add New</button>
+                  </span>
+                  <span>
+                    <button type="button" class="btn btn-sm btn-outline-primary font-10 ml-5" title="Delete"
+                      data-ng-click="BranchDetailsCtrl.ePage.Masters.RemoveRow()"
+                      data-ng-disabled="BranchDetailsCtrl.ePage.Masters.EnableCopyButton">
+                      <span class="fa fa-trash"></span>&nbsp;&nbsp;Delete</button>
+                  </span>
+                </div>
+                <div id="CurrencyUpliftTable{{BranchDetailsCtrl.currentBranch.label}}"
+                  class="fixedheader mt-3 ml-0 mr-0" key-events
+                  table-object="BranchDetailsCtrl.ePage.Entities.Header.Data.UICmpBranch"
+                  enable='BranchDetailsCtrl.ePage.Masters.Enable'
+                  selected-row="BranchDetailsCtrl.ePage.Masters.selectedRow"
+                  unique-id='CurrencyUpliftTable{{BranchDetailsCtrl.currentBranch.label}}'>
+                  <table id="BranchDetailsCtrl.ePage.Masters.AddScroll"
+                    data-ng-style="{'height': BranchDetailsCtrl.ePage.Entities.Header.TableProperties.UICurrencyUplift.TableHeight.height + 'px' }">
+                    <thead>
+                      <tr id="tableHeader">
+                        <th
+                          data-ng-if="BranchDetailsCtrl.ePage.Entities.Header.TableProperties.UICurrencyUplift.ccheckbox.isenabled"
+                          data-ng-style="{'width': BranchDetailsCtrl.ePage.Entities.Header.TableProperties.UICurrencyUplift.ccheckbox.width + 'px' }">
+                          <label class="customcheckbox">
+                            <input type="checkbox" data-ng-change="BranchDetailsCtrl.ePage.Masters.SelectAllCheckBox()"
+                              data-ng-checked="BranchDetailsCtrl.ePage.Entities.Header.GlobalVariables.SelectAll"
+                              data-ng-model="BranchDetailsCtrl.ePage.Entities.Header.GlobalVariables.SelectAll" />
+                            <span class="text"></span>
+                          </label>
+                        </th>
+                        <th
+                          data-ng-if="BranchDetailsCtrl.ePage.Entities.Header.TableProperties.UICurrencyUplift.csno.isenabled"
+                          data-ng-style="{ 'width': BranchDetailsCtrl.ePage.Entities.Header.TableProperties.UICurrencyUplift.csno.width + 'px' }">
+                          S.No</th>
+                        <th
+                          data-ng-if="BranchDetailsCtrl.ePage.Entities.Header.TableProperties.UICurrencyUplift.cjobtype.isenabled"
+                          data-ng-style="{'width': BranchDetailsCtrl.ePage.Entities.Header.TableProperties.UICurrencyUplift.cjobtype.width + 'px' }">
+                          Job Type</th>
+                        <th
+                          data-ng-if="BranchDetailsCtrl.ePage.Entities.Header.TableProperties.UICurrencyUplift.cbusinesstype.isenabled"
+                          data-ng-style="{'width': BranchDetailsCtrl.ePage.Entities.Header.TableProperties.UICurrencyUplift.cbusinesstype.width + 'px' }">
+                          Business Type</th>
+                        <th
+                          data-ng-if="BranchDetailsCtrl.ePage.Entities.Header.TableProperties.UICurrencyUplift.cmodeoftransport.isenabled"
+                          data-ng-style="{'width': BranchDetailsCtrl.ePage.Entities.Header.TableProperties.UICurrencyUplift.cmodeoftransport.width + 'px' }">
+                          Mode of Transport</th>
+                        <th
+                          data-ng-if="BranchDetailsCtrl.ePage.Entities.Header.TableProperties.UICurrencyUplift.ccurrency.isenabled"
+                          data-ng-style="{'width': BranchDetailsCtrl.ePage.Entities.Header.TableProperties.UICurrencyUplift.ccurrency.width + 'px' }">
+                          Currency</th>
+                        <th
+                          data-ng-if="BranchDetailsCtrl.ePage.Entities.Header.TableProperties.UICurrencyUplift.ccfx.isenabled"
+                          data-ng-style="{'width': BranchDetailsCtrl.ePage.Entities.Header.TableProperties.UICurrencyUplift.ccfx.width + 'px' }">
+                          CFX %</th>
+                        <th
+                          data-ng-if="BranchDetailsCtrl.ePage.Entities.Header.TableProperties.UICurrencyUplift.ccfxmin.isenabled"
+                          data-ng-style="{'width': BranchDetailsCtrl.ePage.Entities.Header.TableProperties.UICurrencyUplift.ccfxmin.width + 'px' }">
+                          CFX Min.</th>
+                      </tr>
+                    </thead>
+                    <tbody id="ASNCustTable{{BranchDetailsCtrl.currentBranch.label}}"> 
+                      <tr id="tableBody"
+                        data-ng-repeat="x in BranchDetailsCtrl.ePage.Entities.Header.Data.UICurrencyUplift"
+                        data-ng-click="BranchDetailsCtrl.ePage.Masters.setSelectedRow($index);"
+                        data-ng-class="{row_active: (BranchDetailsCtrl.ePage.Masters.selectedRow==$index)}"
+                        table-properties="BranchDetailsCtrl.ePage.Masters.Header.TableProperties.UICurrencyUplift"
+                        row-position="$index">
+                        <td
+                          data-ng-show="BranchDetailsCtrl.ePage.Entities.Header.TableProperties.UICurrencyUplift.ccheckbox.isenabled"
+                          data-ng-style="{'width': BranchDetailsCtrl.ePage.Entities.Header.TableProperties.UICurrencyUplift.ccheckbox.width + 'px' }"
+                          data-ng-click="BranchDetailsCtrl.ePage.Masters.Enable = true">
+                          <label class="customcheckbox mb-0">
+                            <input type="checkbox" data-ng-checked="x.SingleSelect" data-ng-model="x.SingleSelect"
+                              data-ng-change="BranchDetailsCtrl.ePage.Masters.SingleSelectCheckBox()" />
+                            <span class="text"></span>
+                          </label>
+                          <span class="list-error-warning"
+                            data-ng-if="BranchDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.UICurrencyUplift.ERROR | listCount: 'RowIndex': $index">
+                            <error-warning-directive
+                              list="BranchDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.UICurrencyUplift.ERROR"
+                              type="'error'" icon="fa fa-warning" parent-type="'arrayObjectRow'" parent-ref=""
+                              g-parent-ref="" row-index="$index" col-index="">
+                            </error-warning-directive>
+                          </span>
+                        </td>
+                        <td
+                          data-ng-show="BranchDetailsCtrl.ePage.Entities.Header.TableProperties.UICurrencyUplift.csno.isenabled"
+                          data-ng-style="{ 'width': BranchDetailsCtrl.ePage.Entities.Header.TableProperties.UICurrencyUplift.csno.width + 'px' }"
+                          data-ng-click="BranchDetailsCtrl.ePage.Masters.Enable = true">
+                          {{$index + 1}}
+                        </td>
+                        <td
+                          data-ng-show="BranchDetailsCtrl.ePage.Entities.Header.TableProperties.UICurrencyUplift.cjobtype.isenabled"
+                          data-ng-style="{'width': BranchDetailsCtrl.ePage.Entities.Header.TableProperties.UICurrencyUplift.cjobtype.width + 'px' }"
+                          data-ng-click="BranchDetailsCtrl.ePage.Masters.Enable = true">
+                          <div data-ng-if="$index!=BranchDetailsCtrl.ePage.Masters.selectedRow" class="overflow-text">
+                            {{x.JobType || BranchDetailsCtrl.ePage.Masters.emptyText}}
+                          </div>
+                          <div data-ng-if="$index==BranchDetailsCtrl.ePage.Masters.selectedRow">
+                              <div class="height-22">
+                                  <select chosen class="form-control" 
+                                    data-ng-model="x.JobType"
+                                    data-ng-options="x.Key as x.Description for x in BranchDetailsCtrl.ePage.Masters.DropDownMasterList.JOBTYPE.ListSource"
+                                    data-ng-change="BranchDetailsCtrl.ePage.Masters.OnChangeValues(BranchDetailsCtrl.ePage.Entities.Header.Data.UIExchangerateList.UIMstExchangeRate.ExRateType,'E1325',false,undefined);">
+                                    <option value="">--- Select ---</option>
+                                  </select>
+                                </div>
+                          </div>
+                        </td>
+                        <td
+                          data-ng-show="BranchDetailsCtrl.ePage.Entities.Header.TableProperties.UICurrencyUplift.cbusinesstype.isenabled"
+                          data-ng-style="{'width': BranchDetailsCtrl.ePage.Entities.Header.TableProperties.UICurrencyUplift.cbusinesstype.width + 'px' }">
+                          <div data-ng-if="$index!=BranchDetailsCtrl.ePage.Masters.selectedRow" class="overflow-text">
+                            {{x.BusinessType || BranchDetailsCtrl.ePage.Masters.emptyText}}
+                          </div>
+                          <div data-ng-if="$index==BranchDetailsCtrl.ePage.Masters.selectedRow">
+                              <div class="height-22">
+                                  <select chosen class="form-control"
+                                    data-ng-model="x.BusinessType"
+                                    data-ng-options="x.Key as x.Description for x in BranchDetailsCtrl.ePage.Masters.DropDownMasterList.BUSSTYPE.ListSource"
+                                    data-ng-change="BranchDetailsCtrl.ePage.Masters.OnChangeValues(BranchDetailsCtrl.ePage.Entities.Header.Data.UIExchangerateList.UIMstExchangeRate.ExRateType,'E1325',false,undefined);">
+                                    <option value="">--- Select ---</option>
+                                  </select>
+                                </div>
+                          </div>
+                        </td>
+                        <td
+                          data-ng-show="BranchDetailsCtrl.ePage.Entities.Header.TableProperties.UICurrencyUplift.cmodeoftransport.isenabled"
+                          data-ng-style="{'width': BranchDetailsCtrl.ePage.Entities.Header.TableProperties.UICurrencyUplift.cmodeoftransport.width + 'px' }">
+                          <div data-ng-if="$index!=BranchDetailsCtrl.ePage.Masters.selectedRow" class="overflow-text">
+                              {{ x.ModeOfTransport || BranchDetailsCtrl.ePage.Masters.emptyText}}
+                            </div>
+                            <div data-ng-if="$index==BranchDetailsCtrl.ePage.Masters.selectedRow">
+                                <div class="height-22">
+                                    <select chosen class="form-control"
+                                      data-ng-model="x.ModeOfTransport"
+                                      data-ng-options="x.Key as x.Description for x in BranchDetailsCtrl.ePage.Masters.DropDownMasterList.MODEOFTRANSPORT.ListSource"
+                                      data-ng-change="BranchDetailsCtrl.ePage.Masters.OnChangeValues(BranchDetailsCtrl.ePage.Entities.Header.Data.UIExchangerateList.UIMstExchangeRate.ExRateType,'E1325',false,undefined);">
+                                      <option value="">--- Select ---</option>
+                                    </select>
+                                  </div>
+                            </div>                          
+                        </td>
+                        <td
+                          data-ng-show="BranchDetailsCtrl.ePage.Entities.Header.TableProperties.UICurrencyUplift.ccurrency.isenabled"
+                          data-ng-style="{'width': BranchDetailsCtrl.ePage.Entities.Header.TableProperties.UICurrencyUplift.ccurrency.width + 'px' }">
+                          <div data-ng-if="$index!=BranchDetailsCtrl.ePage.Masters.selectedRow" class="overflow-text">
+                            {{ x.Currency || BranchDetailsCtrl.ePage.Masters.emptyText}}
+                          </div>
+                          <div data-ng-if="$index==BranchDetailsCtrl.ePage.Masters.selectedRow">
+                            <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0 height-22">
+                              <div class="input-group input-group-sm">
+                                <div dynamic-lookup placeholder="Currency" my-ng-model="x.Currency" obj="x"
+                                  page-name="'CurrencyMaster'" control-id="'ExRateFromCurrency'"
+                                  control-key="ExRateFromCurrency_3339"
+                                  auto-complete-on-select="BranchDetailsCtrl.ePage.Masters.SelectedLookupData($index, $item,'ServiceDept')">
+                                </div>
+                                <span class="input-group-btn">
+                                  <button dynamic-list-modal class="btn btn-default" type="button" obj="x"
+                                    page-name="'CurrencyMaster'" control-id="'ExRateFromCurrency'"
+                                    control-key="ExRateFromCurrency_3339" mode="2" grid-refresh-fun-name=""
+                                    selected-data="BranchDetailsCtrl.ePage.Masters.SelectedLookupData($index, $item.data.entity,'ServiceDept')">
+                                    <i class="fa fa-ellipsis-h"></i></button>
+                                </span>
+                              </div>
+                            </div>
+                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5"
+                              data-ng-if="BranchDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.UICurrencyUplift.ERROR | filter:{RowIndex: $index} | listCount: 'ColIndex':6">
+                              <error-warning-directive
+                                list="BranchDetailsCtrl.ePage.Entities.Header.Meta.ErrorWarning.UICurrencyUplift.ERROR"
+                                type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref=""
+                                g-parent-ref="" row-index="BranchDetailsCtrl.ePage.Masters.selectedRow" col-index="6">
+                              </error-warning-directive>
+                            </div>
+                          </div>
+                        </td>
+                        <td
+                        data-ng-show="BranchDetailsCtrl.ePage.Entities.Header.TableProperties.UICurrencyUplift.ccfx.isenabled"
+                        data-ng-style="{'width': BranchDetailsCtrl.ePage.Entities.Header.TableProperties.UICurrencyUplift.ccfx.width + 'px' }">
+                        <div data-ng-if="$index!=BranchDetailsCtrl.ePage.Masters.selectedRow" class="overflow-text">
+                          {{x.CfxPercentage || BranchDetailsCtrl.ePage.Masters.emptyText}}
+                        </div>
+                        <div data-ng-if="$index==BranchDetailsCtrl.ePage.Masters.selectedRow">
+                          <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0 height-22">
+                            <input type="text" class="form-control input-sm" placeholder="CFX %."
+                              data-ng-model="x.CfxPercentage" />
+                          </div>
+                        </div>
+                        </td>
+                        <td
+                          data-ng-show="BranchDetailsCtrl.ePage.Entities.Header.TableProperties.UICurrencyUplift.ccfxmin.isenabled"
+                          data-ng-style="{'width': BranchDetailsCtrl.ePage.Entities.Header.TableProperties.UICurrencyUplift.ccfxmin.width + 'px' }">
+                          <div data-ng-if="$index!=BranchDetailsCtrl.ePage.Masters.selectedRow" class="overflow-text">
+                            {{x.CfxMin || BranchDetailsCtrl.ePage.Masters.emptyText}}
+                          </div>
+                          <div data-ng-if="$index==BranchDetailsCtrl.ePage.Masters.selectedRow">
+                            <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0 height-22">
+                              <input type="text" class="form-control input-sm" placeholder="CFX Min."
+                                data-ng-model="x.CfxMin" />
+                            </div>
+                          </div>
+                        </td>                      
+                      </tr>
+                    </tbody> 
+                  </table>
+                </div>
+              </div>
+            </div>
           </div>
+          
+
       </uib-tab>
     </uib-tabset>
   </div>

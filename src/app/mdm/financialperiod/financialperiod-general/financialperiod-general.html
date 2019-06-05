@@ -18,8 +18,9 @@
                 </span>
                 <div class="">
                     <select chosen class="form-control"
-                        data-ng-model="FinancePeriodGeneralCtrl.ePage.Entities.Header.data"
+                        data-ng-model="FinancePeriodGeneralCtrl.ePage.Entities.Header.data.UIAccPeriodManagement.CalendarType"
                         data-ng-options="x.Key as x.Description for x in FinancePeriodGeneralCtrl.ePage.Masters.DropDownMasterList.CALENDARTYPE.ListSource">
+                        <option value="">--- Select ---</option>
                     </select>
                 </div>
             </div>
@@ -43,7 +44,7 @@
                 <div class="input-group input-group-sm">
                     <input type="text" class="form-control input-sm"
                         placeholder="{{FinancePeriodGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
-                        data-ng-model="FinancePeriodGeneralCtrl.ePage.Masters.UIExchangerateList.UIMstExchangeRate.StartDate"
+                        data-ng-model="FinancePeriodGeneralCtrl.ePage.Entities.Header.data.UIAccPeriodManagement.StartDate"
                         datetime-picker="{{FinancePeriodGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
                         datepicker-options="FinancePeriodGeneralCtrl.ePage.Masters.DatePicker.Options"
                         datepicker-append-to-body="false" close-on-selection="false" enable-time="false"
@@ -80,7 +81,7 @@
                 <div class="input-group input-group-sm">
                     <input type="text" class="form-control input-sm"
                         placeholder="{{FinancePeriodGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
-                        data-ng-model="FinancePeriodGeneralCtrl.ePage.Masters.Data.EndDate"
+                        data-ng-model="FinancePeriodGeneralCtrl.ePage.Masters.Data.UIAccPeriodManagement.EndDate"
                         datetime-picker="{{FinancePeriodGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
                         datepicker-options="FinancePeriodGeneralCtrl.ePage.Masters.DatePicker.Options"
                         datepicker-append-to-body="false" close-on-selection="false" enable-time="false"
@@ -139,8 +140,9 @@
                 </span>
                 <div class="">
                     <select chosen class="form-control"
-                        data-ng-model="FinancePeriodGeneralCtrl.ePage.Entities.Header.data"
-                        data-ng-options="x.Key as x.Description for x in FinancePeriodGeneralCtrl.ePage.Masters.DropDownMasterList.PERIODTYPE.ListSource">
+                        data-ng-model="FinancePeriodGeneralCtrl.ePage.Entities.Header.data.UIAccPeriodManagement.PeriodType"
+                        data-ng-options="x.Key as x.Description for x in FinancePeriodGeneralCtrl.ePage.Masters.DropDownMasterList.FINPERIODTYPE.ListSource">
+                        <option value="">--- Select ---</option>
                     </select>
                 </div>
             </div>
@@ -162,8 +164,9 @@
                 </span>
                 <div class="">
                     <select chosen class="form-control"
-                        data-ng-model="FinancePeriodGeneralCtrl.ePage.Entities.Header.data"
-                        data-ng-options="x.Key as x.Description for x in FinancePeriodGeneralCtrl.ePage.Masters.DropDownMasterList.STATUS.ListSource">
+                        data-ng-model="FinancePeriodGeneralCtrl.ePage.Entities.Header.data.UIAccPeriodManagement.Status"
+                        data-ng-options="x.Key as x.Description for x in FinancePeriodGeneralCtrl.ePage.Masters.DropDownMasterList.FINPERIODSTS.ListSource">
+                        <option value="">--- Select ---</option>
                     </select>
                 </div>
             </div>

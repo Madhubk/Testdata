@@ -4,9 +4,9 @@
     angular.module("Application")
         .factory('glaccountConfig', GLaccountConfig);
 
-        GLaccountConfig.$inject = ["$q", "helperService", "apiService", "appConfig"];
+        GLaccountConfig.$inject = ["$q", "helperService", "apiService", "appConfig","toastr"];
 
-    function GLaccountConfig($q, helperService, apiService, appConfig) {
+    function GLaccountConfig($q, helperService, apiService, appConfig,toastr) {
         var exports = {
             "Entities": {
                 "Header": {
@@ -26,7 +26,7 @@
                             "GetById": {
                                 "IsAPI": "true",
                                 "HttpType": "GET",
-                                "Url": "AccGLHeader/GetById/"
+                                "Url": "AccGLHeaderCompanyList/GetById/"
                             },
                             "GLaccountActivityClose": {
                                 "IsAPI": "true",
@@ -65,12 +65,12 @@
                             "InsertGLaccount": {
                                 "IsAPI": "true",
                                 "HttpType": "POST",
-                                "Url": "AccGLHeader/Insert"
+                                "Url": "AccGLHeaderCompanyList/Insert"
                             },
                             "UpdateGLaccount": {
                                 "IsAPI": "true",
                                 "HttpType": "POST",
-                                "Url": "AccGLHeader/Update"
+                                "Url": "AccGLHeaderCompanyList/Update"
                             }
                         },
                         "Meta": {
@@ -78,7 +78,69 @@
                             "ErrorWarning": {
                                 "GlobalErrorWarningList": []
                             }
+                        },
+                        "GlobalVariables": {
+                            "SelectAll": false,
+                            "IsDisablePost": true
+                        },
+                        "TableProperties": {
+                            "UIAccGLHeaderCompanyFilter": {
+                                "TableHeight": {
+                                    "isEnabled": true,
+                                    "height": 300
+                                },
+                                "HeaderProperties": [{
+                                    "columnname": "Checkbox",
+                                    "isenabled": true,
+                                    "property": "ccheckbox",
+                                    "position": '1',
+                                    "width": "40",
+                                    "display": false
+                                }, {
+                                    "columnname": "S. No",
+                                    "isenabled": true,
+                                    "property": "csno",
+                                    "position": '3',
+                                    "width": "155",
+                                    "display": false
+                                }, {
+                                    "columnname": "Company",
+                                    "isenabled": true,
+                                    "property": "ccompany",
+                                    "position": '3',
+                                    "width": "155",
+                                    "display": false
+                                }, {
+                                    "columnname": "Company Name",
+                                    "isenabled": true,
+                                    "property": "ccompanyname",
+                                    "position": '4',
+                                    "width": "155",
+                                    "display": false
+                                }],
+                                "ccheckbox": {
+                                    "isenabled": true,
+                                    "position": '1',
+                                    "width": "40"
+                                },
+                                "csno": {
+                                    "isenabled": true,
+                                    "position": '2',
+                                    "width": "50"
+                                },
+                                "ccompany": {
+                                    "isenabled": true,
+                                    "position": '3',
+                                    "width": "155"
+                                },
+                                "ccompanyname": {
+                                    "isenabled": true,
+                                    "position": '4',
+                                    "width": "155"
+                                }
+                            }
                         }
+                        
                     }
                 }
             };

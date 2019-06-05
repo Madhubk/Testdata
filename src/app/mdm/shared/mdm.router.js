@@ -114,7 +114,7 @@
                         return deferred.promise;
                     }],
                     LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
-                        return $ocLazyLoad.load(['MDBranch', 'MDBranchMenu', 'MDBranchDetails', 'dynamicLookup', 'dynamicListModal', 'dynamicList', 'dynamicGrid', 'dynamicControl', 'compareDate', 'customToolbar', 'confirmation', 'chromeTab', 'errorWarning', "standardMenu", "Document", "DocumentModal"]);
+                        return $ocLazyLoad.load(['Finance','MDBranch', 'MDBranchMenu', 'MDBranchDetails',  'dynamicLookup', 'dynamicListModal', 'dynamicList', 'dynamicGrid', 'dynamicControl', 'compareDate', 'customToolbar', 'confirmation', 'chromeTab', 'errorWarning',"standardMenu", "Document", "DocumentModal"]);
                     }]
                 }
             })
