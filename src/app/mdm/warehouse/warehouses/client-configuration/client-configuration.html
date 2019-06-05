@@ -82,15 +82,15 @@
                                 <div class="input-group input-group-sm height-22">
                                     <!-- Dynamic look up Search in textbox -->
                                     <div dynamic-lookup placeholder="Organization Code" my-ng-model="x.ORG_Code" obj="x"
-                                        control-key="'Product_2845'" page-name="'ProductRelatedParty'" control-id="'Product'"
+                                        control-key="'ClientConfig_3362'" page-name="'OrganizationList'" control-id="'ClientConfig'"
                                         auto-complete-on-select="ClientConfigCtrl.ePage.Masters.SelectedLookupOrg($item,(($index) + (ClientConfigCtrl.ePage.Masters.CurrentPageStartingIndex)))">
                                     </div>
 
                                     <!-- Look Up page opens when button clicks -->
                                     <span class="input-group-btn">
-                                        <button dynamic-list-modal obj="x" control-id="'Product'" control-key="'Product_2845'"
+                                        <button dynamic-list-modal obj="x" control-id="'ClientConfig'" control-key="'ClientConfig_3362'"
                                             selected-data="ClientConfigCtrl.ePage.Masters.SelectedLookupOrg($item.data,(($index) + (ClientConfigCtrl.ePage.Masters.CurrentPageStartingIndex)))"
-                                            page-name="'ProductRelatedParty'" mode="2" grid-refresh-fun-name=""
+                                            page-name="'OrganizationList'" mode="2" grid-refresh-fun-name=""
                                             grid-refresh-fun="" class="btn btn-default shiny" type="button">
                                             <i class="fa fa-ellipsis-h"></i>
                                         </button>
