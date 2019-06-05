@@ -447,6 +447,22 @@
                         },
                     }
                 },
+                "WmsSettings": {
+                    "RowIndex": -1,
+                    "API": {
+                        "FindAll": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "WmsSettings/FindAll",
+                            "FilterID": "WMSSET"
+                        },
+                        "Delete": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "WmsSettings/Delete/"
+                        }
+                    }
+                },
                 "Message": false
             },
         }

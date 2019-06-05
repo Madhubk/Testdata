@@ -64,6 +64,11 @@
                                 "HttpType": "Get",
                                 "Url": "WmsArea/Delete/"
                             },
+                            "WmsClientParameterByWarehouseDelete": {
+                                "IsAPI": "true",
+                                "HttpType": "Get",
+                                "Url": "WmsClientParameterByWarehouse/Delete/"
+                            },
                             "Inventory": {
                                 "IsAPI": "true",
                                 "HttpType": "POST",

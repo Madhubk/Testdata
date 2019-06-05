@@ -372,6 +372,12 @@
                     'app/shared/standard-menu-directives-min/activity-template-outward2/activity-template-outward2.directive.js',
                     'app/shared/standard-menu-directives-min/activity-template-outward2/activity-template-outward2.controller.js'
                 ]
+            }, {
+                name: 'ActivityTemplatePickup2',
+                files: [
+                    'app/shared/standard-menu-directives-min/activity-template-pickup2/activity-template-pickup2.directive.js',
+                    'app/shared/standard-menu-directives-min/activity-template-pickup2/activity-template-pickup2.controller.js'
+                ]
             },
             // endregion
             // region Standard Menu Min
@@ -619,13 +625,6 @@
                 name: 'CustomFileUpload',
                 files: [
                     'lib/angular/ng-custom-file-upload/ng-custom-file-upload.js'
-                ]
-            },
-            {
-                name: 'ActivityTemplatePickup2',
-                files: [
-                    'app/shared/standard-menu-directives-min/activity-template-pickup2/activity-template-pickup2.directive.js',
-                    'app/shared/standard-menu-directives-min/activity-template-pickup2/activity-template-pickup2.controller.js'
                 ]
             }
             //endregion

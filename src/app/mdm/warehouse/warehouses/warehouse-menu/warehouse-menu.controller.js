@@ -91,7 +91,7 @@
             }
         }
 
-        function Save($item) {
+        function Save($item) {            
             WarehouseMenuCtrl.ePage.Masters.SaveButtonText = "Please Wait...";
             WarehouseMenuCtrl.ePage.Masters.DisableSave = true;
             WarehouseMenuCtrl.ePage.Entities.Header.GlobalVariables.Loading = true;

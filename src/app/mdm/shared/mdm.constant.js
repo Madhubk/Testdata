@@ -426,6 +426,12 @@
                     'app/mdm/warehouse/warehouses/area-details/area-details.directive.js'
                 ]
             }, {
+                name: 'WarehouseConfigDetails',
+                files: [
+                    'app/mdm/warehouse/warehouses/warehouse-configuration/warehouse-configuration.controller.js',
+                    'app/mdm/warehouse/warehouses/warehouse-configuration/warehouse-configuration.directive.js'
+                ]
+            }, {
                 name: 'ClientConfigDetails',
                 files: [
                     'app/mdm/warehouse/warehouses/client-configuration/client-configuration.controller.js',
