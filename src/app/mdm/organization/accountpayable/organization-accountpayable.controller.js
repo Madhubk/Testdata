@@ -4,9 +4,9 @@
     angular.module("Application")
         .controller("AccountPayableController", AccountPayableController);
 
-    AccountPayableController.$inject = ["$uibModal", "$scope", "helperService"];
+    AccountPayableController.$inject = ["$uibModal", "$scope", "helperService", "apiService", "organizationConfig"];
 
-    function AccountPayableController($uibModal, $scope, helperService) {
+    function AccountPayableController($uibModal, $scope, helperService, apiService, organizationConfig) {
         var AccountPayableCtrl = this;
 
         function Init() {
@@ -19,8 +19,6 @@
                 "Meta": helperService.metaBase(),
                 "Entities": currentOrganization
             };
-
-            AccountPayableCtrl.ePage.Masters.EmptyText = "-";
 
             /* Function */
             AccountPayableCtrl.ePage.Masters.OnCompanySelect = OnCompanySelect;
@@ -45,11 +43,16 @@
         }
 
         function BindAPConfiguration() {
-            if (AccountPayableCtrl.ePage.Entities.Header.Data.OrgCompanyData[0].PK) {
-                AccountPayableCtrl.ePage.Entities.Header.Data.OrgCompanyData[AccountPayableCtrl.ePage.Masters.CompanyDataIndex].OCG_APCreditorGroupCodeDesc = AccountPayableCtrl.ePage.Entities.Header.Data.OrgCompanyData[AccountPayableCtrl.ePage.Masters.CompanyDataIndex].CreditorCode + ' - ' + AccountPayableCtrl.ePage.Entities.Header.Data.OrgCompanyData[AccountPayableCtrl.ePage.Masters.CompanyDataIndex].CreditorDesc;
-                AccountPayableCtrl.ePage.Entities.Header.Data.OrgCompanyData[AccountPayableCtrl.ePage.Masters.CompanyDataIndex].FBN_APDefaultBankAccountCodeDesc = AccountPayableCtrl.ePage.Entities.Header.Data.OrgCompanyData[AccountPayableCtrl.ePage.Masters.CompanyDataIndex].APDefaultBankAccountCode + ' - ' + AccountPayableCtrl.ePage.Entities.Header.Data.OrgCompanyData[AccountPayableCtrl.ePage.Masters.CompanyDataIndex].APDefaultBankAccountDesc;
-                AccountPayableCtrl.ePage.Entities.Header.Data.OrgCompanyData[AccountPayableCtrl.ePage.Masters.CompanyDataIndex].FCC_APDefaultChargeCodeDesc = AccountPayableCtrl.ePage.Entities.Header.Data.OrgCompanyData[AccountPayableCtrl.ePage.Masters.CompanyDataIndex].APDefaultChargeCode + ' - ' + AccountPayableCtrl.ePage.Entities.Header.Data.OrgCompanyData[AccountPayableCtrl.ePage.Masters.CompanyDataIndex].APDefaultChargeDesc;
-
+            if (AccountPayableCtrl.ePage.Entities.Header.Data.OrgCompanyData[AccountPayableCtrl.ePage.Masters.CompanyDataIndex].PK) {
+                if (AccountPayableCtrl.ePage.Entities.Header.Data.OrgCompanyData[AccountPayableCtrl.ePage.Masters.CompanyDataIndex].CreditorCode && AccountPayableCtrl.ePage.Entities.Header.Data.OrgCompanyData[AccountPayableCtrl.ePage.Masters.CompanyDataIndex].CreditorDesc) {
+                    AccountPayableCtrl.ePage.Entities.Header.Data.OrgCompanyData[AccountPayableCtrl.ePage.Masters.CompanyDataIndex].OCG_APCreditorGroupCodeDesc = AccountPayableCtrl.ePage.Entities.Header.Data.OrgCompanyData[AccountPayableCtrl.ePage.Masters.CompanyDataIndex].CreditorCode + ' - ' + AccountPayableCtrl.ePage.Entities.Header.Data.OrgCompanyData[AccountPayableCtrl.ePage.Masters.CompanyDataIndex].CreditorDesc;
+                }
+                if (AccountPayableCtrl.ePage.Entities.Header.Data.OrgCompanyData[AccountPayableCtrl.ePage.Masters.CompanyDataIndex].APDefaultBankAccountCode && AccountPayableCtrl.ePage.Entities.Header.Data.OrgCompanyData[AccountPayableCtrl.ePage.Masters.CompanyDataIndex].APDefaultBankAccountDesc) {
+                    AccountPayableCtrl.ePage.Entities.Header.Data.OrgCompanyData[AccountPayableCtrl.ePage.Masters.CompanyDataIndex].FBN_APDefaultBankAccountCodeDesc = AccountPayableCtrl.ePage.Entities.Header.Data.OrgCompanyData[AccountPayableCtrl.ePage.Masters.CompanyDataIndex].APDefaultBankAccountCode + ' - ' + AccountPayableCtrl.ePage.Entities.Header.Data.OrgCompanyData[AccountPayableCtrl.ePage.Masters.CompanyDataIndex].APDefaultBankAccountDesc;
+                }
+                if (AccountPayableCtrl.ePage.Entities.Header.Data.OrgCompanyData[AccountPayableCtrl.ePage.Masters.CompanyDataIndex].APDefaultChargeCode && AccountPayableCtrl.ePage.Entities.Header.Data.OrgCompanyData[AccountPayableCtrl.ePage.Masters.CompanyDataIndex].APDefaultChargeDesc) {
+                    AccountPayableCtrl.ePage.Entities.Header.Data.OrgCompanyData[AccountPayableCtrl.ePage.Masters.CompanyDataIndex].FCC_APDefaultChargeCodeDesc = AccountPayableCtrl.ePage.Entities.Header.Data.OrgCompanyData[AccountPayableCtrl.ePage.Masters.CompanyDataIndex].APDefaultChargeCode + ' - ' + AccountPayableCtrl.ePage.Entities.Header.Data.OrgCompanyData[AccountPayableCtrl.ePage.Masters.CompanyDataIndex].APDefaultChargeDesc;
+                }
             }
         }
         //#endregion
@@ -79,15 +82,28 @@
             }).result.then(
                 function (response) {
                     if (response) {
-                        AccountPayableCtrl.currentOrganization[AccountPayableCtrl.currentOrganization.code].ePage.Entities.Header.Data = response.data;
-                        AccountPayableCtrl.ePage.Entities.Header.Data = response.data;
+                        apiService.get("eAxisAPI", organizationConfig.Entities.API.Org.API.GetById.Url + response.data.OrgHeader.PK).then(function (response) {
+                            if (response.data.Status == 'Success') {
+                                AccountPayableCtrl.currentOrganization[AccountPayableCtrl.currentOrganization.code].ePage.Entities.Header.Data = response.data.Response;
+                                AccountPayableCtrl.ePage.Entities.Header.Data = response.data.Response;
+
+                                if (AccountPayableCtrl.ePage.Entities.Header.Data.OrgCompanyData[AccountPayableCtrl.ePage.Masters.CompanyDataIndex].CreditorCode && AccountPayableCtrl.ePage.Entities.Header.Data.OrgCompanyData[AccountPayableCtrl.ePage.Masters.CompanyDataIndex].CreditorDesc) {
+                                    AccountPayableCtrl.ePage.Entities.Header.Data.OrgCompanyData[AccountPayableCtrl.ePage.Masters.CompanyDataIndex].OCG_APCreditorGroupCodeDesc = AccountPayableCtrl.ePage.Entities.Header.Data.OrgCompanyData[AccountPayableCtrl.ePage.Masters.CompanyDataIndex].CreditorCode + ' - ' + AccountPayableCtrl.ePage.Entities.Header.Data.OrgCompanyData[AccountPayableCtrl.ePage.Masters.CompanyDataIndex].CreditorDesc;
+                                }
+                                if (AccountPayableCtrl.ePage.Entities.Header.Data.OrgCompanyData[AccountPayableCtrl.ePage.Masters.CompanyDataIndex].APDefaultBankAccountCode && AccountPayableCtrl.ePage.Entities.Header.Data.OrgCompanyData[AccountPayableCtrl.ePage.Masters.CompanyDataIndex].APDefaultBankAccountDesc) {
+                                    AccountPayableCtrl.ePage.Entities.Header.Data.OrgCompanyData[AccountPayableCtrl.ePage.Masters.CompanyDataIndex].FBN_APDefaultBankAccountCodeDesc = AccountPayableCtrl.ePage.Entities.Header.Data.OrgCompanyData[AccountPayableCtrl.ePage.Masters.CompanyDataIndex].APDefaultBankAccountCode + ' - ' + AccountPayableCtrl.ePage.Entities.Header.Data.OrgCompanyData[AccountPayableCtrl.ePage.Masters.CompanyDataIndex].APDefaultBankAccountDesc;
+                                }
+                                if (AccountPayableCtrl.ePage.Entities.Header.Data.OrgCompanyData[AccountPayableCtrl.ePage.Masters.CompanyDataIndex].APDefaultChargeCode && AccountPayableCtrl.ePage.Entities.Header.Data.OrgCompanyData[AccountPayableCtrl.ePage.Masters.CompanyDataIndex].APDefaultChargeDesc) {
+                                    AccountPayableCtrl.ePage.Entities.Header.Data.OrgCompanyData[AccountPayableCtrl.ePage.Masters.CompanyDataIndex].FCC_APDefaultChargeCodeDesc = AccountPayableCtrl.ePage.Entities.Header.Data.OrgCompanyData[AccountPayableCtrl.ePage.Masters.CompanyDataIndex].APDefaultChargeCode + ' - ' + AccountPayableCtrl.ePage.Entities.Header.Data.OrgCompanyData[AccountPayableCtrl.ePage.Masters.CompanyDataIndex].APDefaultChargeDesc;
+                                }
+                            }
+                        });
                     }
                 }, function () {
                     console.log("Cancelled");
                 });
         }
         //#endregion
-
 
         Init();
     }
