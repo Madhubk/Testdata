@@ -16,6 +16,18 @@
                 "app/eaxis/finance/accounts-payable/accounts-payable.controller.js"
             ]
         }, {
+            name: "FinanceAccountPayableMenu",
+            files: [
+                "app/eaxis/finance/accounts-payable/account-payable-menu/account-payable-menu.directive.js",
+                "app/eaxis/finance/accounts-payable/account-payable-menu/account-payable-menu.controller.js"
+            ]
+        },{
+            name:"FinanceAccountPayableGeneral",
+            files:[
+                "app/eaxis/finance/accounts-payable/account-payable-general/account-payable-general.directive.js",
+                "app/eaxis/finance/accounts-payable/account-payable-general/account-payable-general.controller.js"
+            ]
+        }, {
             name: "FinanceAdminCosts",
             files: [
                 "app/eaxis/finance/admin-costs/admin-costs.controller.js"

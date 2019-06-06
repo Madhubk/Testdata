@@ -82,7 +82,22 @@
                                 "FilterID": "CMPCOMP"
                             }
                         }
-                    }
+                    },
+                    "AccTransactionHeader": {
+                        "RowIndex": -1,
+                        "API": {
+                            "GetById": {
+                                "IsAPI": "true",
+                                "HttpType": "GET",
+                                "Url": "AccTransactionHeader/GetById/"
+                            },
+                            "AccTransactionHeaderActivityClose": {
+                                "IsAPI": "true",
+                                "HttpType": "GET",
+                                "Url": "JobHeaderList/JobHeaderListActivityClose/"
+                            }
+                        }
+                    },
                 }
             },
             "TabList": [],
