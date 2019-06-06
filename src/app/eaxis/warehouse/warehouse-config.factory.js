@@ -463,6 +463,22 @@
                         }
                     }
                 },
+                "WmsDockConfig": {
+                    "RowIndex": -1,
+                    "API": {
+                        "FindAll": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "WmsDockConfig/FindAll",
+                            "FilterID": "WMSDCK"
+                        },
+                        "Delete": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "WmsDockConfig/Delete/"
+                        }
+                    }
+                },
                 "Message": false
             },
         }

@@ -69,6 +69,11 @@
                                 "HttpType": "Get",
                                 "Url": "WmsClientParameterByWarehouse/Delete/"
                             },
+                            "WmsDockConfigDelete": {
+                                "IsAPI": "true",
+                                "HttpType": "Get",
+                                "Url": "WmsDockConfig/Delete/"
+                            },
                             "Inventory": {
                                 "IsAPI": "true",
                                 "HttpType": "POST",
@@ -238,6 +243,76 @@
                                     "position": "3"
                                 },
                                 "cpworgname": {
+                                    "isenabled": true,
+                                    "width": "200",
+                                    "position": "4"
+                                },
+                            },
+                            "WmsDockConfig": {
+                                "TableHeight": {
+                                    "isEnabled": true,
+                                    "height": 340
+                                },
+                                "HeaderProperties": [{
+                                    "columnname": "Checkbox",
+                                    "isenabled": true,
+                                    "property": "dccheckbox",
+                                    "position": '1',
+                                    "width": "45",
+                                    "display": false
+                                }, {
+                                    "columnname": "S.No",
+                                    "isenabled": true,
+                                    "property": "dcsno",
+                                    "position": '2',
+                                    "width": "40",
+                                    "display": false
+                                },
+                                {
+                                    "columnname": "Dock Name",
+                                    "isenabled": true,
+                                    "property": "dcdockname",
+                                    "position": "3",
+                                    "width": "200",
+                                    "display": true
+                                },
+                                {
+                                    "columnname": "Dock Order",
+                                    "isenabled": true,
+                                    "property": "dcdockorder",
+                                    "position": "4",
+                                    "width": "200",
+                                    "display": true
+                                },
+                                {
+                                    "columnname": "Purpose",
+                                    "isenabled": true,
+                                    "property": "dcpurpose",
+                                    "position": "4",
+                                    "width": "200",
+                                    "display": true
+                                }],
+                                "dccheckbox": {
+                                    "isenabled": true,
+                                    "width": "45",
+                                    "position": "1"
+                                },
+                                "dcsno": {
+                                    "isenabled": true,
+                                    "width": "40",
+                                    "position": "2"
+                                },
+                                "dcdockname": {
+                                    "isenabled": true,
+                                    "width": "200",
+                                    "position": "3"
+                                },
+                                "dcdockorder": {
+                                    "isenabled": true,
+                                    "width": "200",
+                                    "position": "4"
+                                },
+                                "dcpurpose": {
                                     "isenabled": true,
                                     "width": "200",
                                     "position": "4"

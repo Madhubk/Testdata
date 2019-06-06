@@ -63,7 +63,10 @@
                     if (v.Key == "IsClientConfig") {
                         if (v.PK) {
                             apiService.get("eAxisAPI", warehouseConfig.Entities.WmsSettings.API.Delete.Url + v.PK).then(function (response) {
+                                WarehouseConfigCtrl.ePage.Entities.Header.Data.WmsSettings.splice(k, 1);
                             });
+                        } else {
+                            WarehouseConfigCtrl.ePage.Entities.Header.Data.WmsSettings.splice(k, 1);
                         }
                     }
                 });
@@ -103,7 +106,10 @@
                     if (v.Key == "IsMandatory") {
                         if (v.PK) {
                             apiService.get("eAxisAPI", warehouseConfig.Entities.WmsSettings.API.Delete.Url + v.PK).then(function (response) {
+                                WarehouseConfigCtrl.ePage.Entities.Header.Data.WmsSettings.splice(k, 1);
                             });
+                        } else {
+                            WarehouseConfigCtrl.ePage.Entities.Header.Data.WmsSettings.splice(k, 1);
                         }
                     }
                 });

@@ -196,7 +196,7 @@
                         return deferred.promise;
                     }],
                     LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
-                        return $ocLazyLoad.load(["chromeTab", "errorWarning", "confirmation", "compareDate", "dynamicListModal", "dynamicList", "dynamicLookup", "dynamicControl", "dynamicGrid", "drogAndDrop", "oneLevelMapping", "Summernote", "CustomFileUpload", "standardMenu", "Comment", "CommentModal", "Document", "DocumentModal", "Email", "EmailModal", "Exception", "ExceptionModal", "MasterWarehouse", "MasterWarehouses", "EAwarehouse", "MasterWarehousesMenu", "MasterWarehousesDetails", "MasterWarehouseAddress", "WarehouseAreaDetails", "ClientConfigDetails", "WarehouseConfigDetails"]);
+                        return $ocLazyLoad.load(["chromeTab", "errorWarning", "confirmation", "compareDate", "dynamicListModal", "dynamicList", "dynamicLookup", "dynamicControl", "dynamicGrid", "drogAndDrop", "oneLevelMapping", "Summernote", "CustomFileUpload", "standardMenu", "Comment", "CommentModal", "Document", "DocumentModal", "Email", "EmailModal", "Exception", "ExceptionModal", "MasterWarehouse", "MasterWarehouses", "EAwarehouse", "MasterWarehousesMenu", "MasterWarehousesDetails", "MasterWarehouseAddress", "warehouseAreaDetails", "clientConfigDetails", "warehouseConfigDetails", "dockConfigDetails"]);
                     }]
                 }
             })
