@@ -37,6 +37,7 @@
 
             InwardMenuCtrl.ePage.Masters.OnMenuClick = OnMenuClick;
             InwardMenuCtrl.ePage.Masters.tabSelected = tabSelected;
+            InwardMenuCtrl.ePage.Masters.Save = Save;
             InwardMenuCtrl.ePage.Masters.Validation = Validation;
             InwardMenuCtrl.ePage.Masters.Config = inwardConfig;
             InwardMenuCtrl.ePage.Masters.JobAccounting = JobAccounting;
@@ -45,6 +46,9 @@
             $rootScope.FinalizeInwardFromTask = FinalizeInwardFromTask;
 
             //To show hide mytask
+
+            //#region ForTASK
+
             var _menuList = angular.copy(InwardMenuCtrl.ePage.Entities.Header.Meta.MenuList);
             var _index = _menuList.map(function (value, key) {
                 return value.Value;
@@ -81,10 +85,14 @@
                 }
             }
 
+            //#endregion
+
             if (InwardMenuCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.WorkOrderStatus == 'FIN' || InwardMenuCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.WorkOrderStatus == 'CAN') {
                 InwardMenuCtrl.ePage.Entities.Header.GlobalVariables.NonEditable = true;
                 InwardMenuCtrl.ePage.Masters.DisableSave = true;
             }
+
+            InwardMenuCtrl.ePage.Entities.Header.GlobalVariables.CopyofCurrentObject = angular.copy(InwardMenuCtrl.ePage.Entities.Header.Data);
         }
 
         function SaveInwardFromTask(callback) {
@@ -275,6 +283,12 @@
             }
         };
 
+        function Save($item){
+            InwardMenuCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.FinalisedDate = null;
+            InwardMenuCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.CancelledDate = null;
+            Validation($item)
+        }
+
         function Validation($item, callback) {
             var _Data = $item[$item.label].ePage.Entities,
                 _input = _Data.Header.Data,
@@ -290,7 +304,6 @@
                 InwardMenuCtrl.ePage.Masters.Config.ShowErrorWarningModal(InwardMenuCtrl.currentInward);
                 Saveonly($item, callback);
             } else {
-                InwardMenuCtrl.ePage.Masters.Finalisesave = false;
                 InwardMenuCtrl.ePage.Masters.Config.ShowErrorWarningModal(InwardMenuCtrl.currentInward);
                 if (callback)
                     callback('error');
@@ -305,6 +318,32 @@
             var _Data = $item[$item.label].ePage.Entities,
                 _input = _Data.Header.Data;
 
+                // Location Allocation Status Change
+            if ((_input.UIWmsInwardHeader.WorkOrderStatus == 'ENT' || _input.UIWmsInwardHeader.WorkOrderStatus == 'IGA') && (_input.UIWmsWorkOrderLine.length > 0)) {
+                var myData = _input.UIWmsWorkOrderLine.some(function (value, key) {
+                    return value.WLO_FK;
+                });
+
+                if (myData) {
+                    _input.UIWmsInwardHeader.PutOrPickSlipDateTime = new Date();
+                    _input.UIWmsInwardHeader.WorkOrderStatus = "IAL"
+                    _input.UIWmsInwardHeader.WorkOrderStatusDesc = 'LOCATION ALLOCATED';
+                }
+            }
+
+            //Putaway Completed or Started Status and location allocation status changes
+            if (_input.UIWmsInwardHeader.WorkOrderStatus != 'FIN' && _input.UIWmsInwardHeader.WorkOrderStatus != 'CAN') {
+                if (_input.UIWmsInwardHeader.PutOrPickCompDateTime) {
+                    _input.UIWmsInwardHeader.WorkOrderStatus = 'ICP'
+                    _input.UIWmsInwardHeader.WorkOrderStatusDesc = 'PUTAWAY COMPLETED'
+                } else if (!_input.UIWmsInwardHeader.PutOrPickCompDateTime && _input.UIWmsInwardHeader.PutOrPickStartDateTime) {
+                    _input.UIWmsInwardHeader.WorkOrderStatus = 'ISP'
+                    _input.UIWmsInwardHeader.WorkOrderStatusDesc = 'PUTAWAY STARTED'
+                } else if (!_input.UIWmsInwardHeader.PutOrPickCompDateTime && !_input.UIWmsInwardHeader.PutOrPickStartDateTime && _input.UIWmsInwardHeader.PutOrPickSlipDateTime) {
+                    _input.UIWmsInwardHeader.WorkOrderStatus = 'IAL'
+                    _input.UIWmsInwardHeader.WorkOrderStatusDesc = 'LOCATION ALLOCATED'
+                }
+            }
 
             if ($item.isNew) {
                 _input.UIWmsInwardHeader.PK = _input.PK;
@@ -314,37 +353,7 @@
                     _input.UIWmsInwardHeader.ExternalReference = _input.UIWmsInwardHeader.WorkOrderID;
                 }
             } else {
-                if (InwardMenuCtrl.ePage.Masters.Finalisesave) {
-                    _input.UIWmsInwardHeader.FinalisedDate = new Date();
-                }
-                $item = filterObjectUpdate($item, "IsModified");
-            }
-
-            // Location Allocation Status Change
-            if ((_input.UIWmsInwardHeader.WorkOrderStatus == 'ENT' || _input.UIWmsInwardHeader.WorkOrderStatus == 'IGA') && (_input.UIWmsWorkOrderLine.length > 0)) {
-                var myData = _input.UIWmsWorkOrderLine.some(function (value, key) {
-                    return value.WLO_FK;
-                });
-
-                if (myData) {
-                    _input.UIWmsInwardHeader.PutOrPickSlipDateTime = new Date();
-                    _input.UIWmsInwardHeader.WorkOrderStatus = "IAL"
-                    _input.UIWmsInwardHeader.WorkOrderStatusDesc = 'Location Allocated';
-                }
-            }
-
-            //Putaway Completed or Started Status and location allocation status changes
-            if (_input.UIWmsInwardHeader.WorkOrderStatus != 'FIN' && _input.UIWmsInwardHeader.WorkOrderStatus != 'CAN') {
-                if (_input.UIWmsInwardHeader.PutOrPickCompDateTime) {
-                    _input.UIWmsInwardHeader.WorkOrderStatus = 'ICP'
-                    _input.UIWmsInwardHeader.WorkOrderStatusDesc = 'Putaway Completed'
-                } else if (!_input.UIWmsInwardHeader.PutOrPickCompDateTime && _input.UIWmsInwardHeader.PutOrPickStartDateTime) {
-                    _input.UIWmsInwardHeader.WorkOrderStatus = 'ISP'
-                    _input.UIWmsInwardHeader.WorkOrderStatusDesc = 'Putaway Started'
-                } else if (!_input.UIWmsInwardHeader.PutOrPickCompDateTime && !_input.UIWmsInwardHeader.PutOrPickStartDateTime && _input.UIWmsInwardHeader.PutOrPickSlipDateTime) {
-                    _input.UIWmsInwardHeader.WorkOrderStatus = 'IAL'
-                    _input.UIWmsInwardHeader.WorkOrderStatusDesc = 'Location Allocated'
-                }
+                InwardMenuCtrl.ePage.Entities.Header.Data = PostSaveObjectUpdate(InwardMenuCtrl.ePage.Entities.Header.Data, InwardMenuCtrl.ePage.Entities.Header.GlobalVariables.CopyofCurrentObject,["Client","Warehouse","Supplier","ServiceLevel","Product","Commodity"]);
             }
 
             helperService.SaveEntity($item, 'Inward').then(function (response) {
@@ -382,11 +391,15 @@
                         InwardMenuCtrl.ePage.Masters.SaveAndClose = false;
                         InwardMenuCtrl.ePage.Masters.DisableSave = true;
                     }
-                    if (InwardMenuCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.WorkOrderStatus == "CAN" || InwardMenuCtrl.ePage.Masters.Finalisesave) {
+                    if (InwardMenuCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.WorkOrderStatus == "CAN" || InwardMenuCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.WorkOrderStatus == "FIN") {
                         InwardMenuCtrl.ePage.Entities.Header.GlobalVariables.NonEditable = true;
                         InwardMenuCtrl.ePage.Masters.DisableSave = true;
                         InwardMenuCtrl.ePage.Masters.active = 1;
                     }
+
+                     //Taking Copy of Current Object
+                     InwardMenuCtrl.ePage.Entities.Header.Data = AfterSaveObjectUpdate(InwardMenuCtrl.ePage.Entities.Header.Data,"IsModified");
+                     InwardMenuCtrl.ePage.Entities.Header.GlobalVariables.CopyofCurrentObject = angular.copy(InwardMenuCtrl.ePage.Entities.Header.Data);
 
                     if (InwardMenuCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.WorkOrderStatus == "CAN") {
                         toastr.success("Cancelled Successfully");
@@ -398,8 +411,6 @@
                     }
 
                 } else if (response.Status === "failed") {
-                    console.log("Failed");
-                    toastr.error("Could not Save...!");
                     InwardMenuCtrl.ePage.Entities.Header.Validations = response.Validations;
                     angular.forEach(response.Validations, function (value, key) {
                         if (value.RowIndex > 0) {
@@ -409,8 +420,10 @@
                         }
                     });
                     if (InwardMenuCtrl.ePage.Entities.Header.Validations != null) {
-                        InwardMenuCtrl.ePage.Masters.Finalisesave = false;
+                        toastr.error("Validation Failed...!");
                         InwardMenuCtrl.ePage.Masters.Config.ShowErrorWarningModal(InwardMenuCtrl.currentInward);
+                    }else{
+                        toastr.error("Could not Save...!");
                     }
                     if (callback) {
                         callback()
@@ -419,6 +432,40 @@
                 InwardMenuCtrl.ePage.Masters.Config.ProductSummary(InwardMenuCtrl.ePage.Entities.Header);
             });
 
+        }
+
+        function PostSaveObjectUpdate(newValue,oldValue, exceptObjects) {
+            for (var i in newValue) {
+                if(typeof newValue[i]=='object'){
+                    PostSaveObjectUpdate(newValue[i],oldValue[i],exceptObjects);
+                }else{
+                    var Satisfied = exceptObjects.some(function(v){return v===i});
+                    if(!Satisfied && i!= "$$hashKey"){
+                        if(!oldValue){
+                            newValue["IsModified"] = true;
+                            break;
+                        }else{
+                            if(newValue[i]!=oldValue[i]){
+                                newValue["IsModified"] = true;
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+            return newValue;
+        }
+
+        function AfterSaveObjectUpdate(obj,key){
+            for (var i in obj) {
+                if (!obj.hasOwnProperty(i)) continue;
+                if (typeof obj[i] == 'object') {
+                    AfterSaveObjectUpdate(obj[i], key);
+                } else if (i == key) {
+                    obj[key] = false;
+                }
+            }
+            return obj;
         }
 
         function filterObjectUpdate(obj, key) {
@@ -459,7 +506,10 @@
                     };
                     confirmation.showModal({}, modalOptions)
                         .then(function (result) {
-                            InwardMenuCtrl.ePage.Masters.Finalisesave = true;
+                            InwardMenuCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.FinalisedDate = new Date();
+                            
+                            $item = filterObjectUpdate($item,"IsModified");
+
                             Validation($item, callback);
                         }, function () {
                             console.log("Cancelled");
@@ -534,6 +584,7 @@
         }
 
          //#region JobAccounting
+
          function JobAccounting() {
             InwardMenuCtrl.ePage.Entities.Header.GlobalVariables.Loading = true;
             var obj = {};

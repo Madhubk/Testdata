@@ -271,6 +271,7 @@
                             "NonEditable": false,
                             "Receiveline": false,
                             "PercentageValues": false,
+                            "CopyofCurrentObject":"",
                         },
                         "TableProperties": {
                             "UIWmsWorkOrderContainer": {

@@ -98,20 +98,9 @@
         }
 
         function GetContainerlist() {
-            var _filter = {
-                "WOD_FK": ContainerCtrl.ePage.Entities.Header.Data.PK
-            };
-            var _input = {
-                "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": ContainerCtrl.ePage.Entities.Header.API.Containers.FilterID
-            };
-            apiService.post("eAxisAPI", ContainerCtrl.ePage.Entities.Header.API.Containers.Url, _input).then(function (response) {
-                if (response.data.Response) {
-                    ContainerCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderContainer = response.data.Response;
+            ContainerCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderContainer = $filter('orderBy')(ContainerCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderContainer, 'CreatedDateTime');
 
-                    ContainerCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderContainer = $filter('orderBy')(ContainerCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderContainer, 'CreatedDateTime');
-                }
-            });
+            ContainerCtrl.ePage.Entities.Header.GlobalVariables.CopyofCurrentObject.UIWmsWorkOrderContainer = angular.copy(ContainerCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderContainer)
         }
 
         function SelectedLookupType(item, index) {
