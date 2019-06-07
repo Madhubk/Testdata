@@ -123,6 +123,12 @@
                         "Meta": {
                             "MenuList": [
                                 {
+                                    "DisplayName": "My Task",
+                                    "Value": "MyTask",
+                                    "Icon": "menu-icon icomoon icon-my-task",
+                                    "IsDisabled": false
+                                },
+                                {
                                     "DisplayName": "General",
                                     "Value": "General",
                                     "Icon": "fa fa-file",
