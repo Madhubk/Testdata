@@ -145,6 +145,7 @@
                     <th id="maxcubic"data-ng-if="LocationDetailsCtrl.ePage.Entities.Header.TableProperties.WmsLocation.maxcubic.isenabled" ng-style="{ 'width': LocationDetailsCtrl.ePage.Entities.Header.TableProperties.WmsLocation.maxcubic.width + 'px' }" title="Maximum Cubic">Max. Cubic</th>
                     <th id="maxqty" data-ng-if="LocationDetailsCtrl.ePage.Entities.Header.TableProperties.WmsLocation.maxqty.isenabled" ng-style="{ 'width': LocationDetailsCtrl.ePage.Entities.Header.TableProperties.WmsLocation.maxqty.width + 'px' }" title="Maximum Quantity">Max. Qty</th>
                     <th id="pickpathseq" data-ng-if="LocationDetailsCtrl.ePage.Entities.Header.TableProperties.WmsLocation.pickpathseq.isenabled" ng-style="{ 'width': LocationDetailsCtrl.ePage.Entities.Header.TableProperties.WmsLocation.pickpathseq.width + 'px' }" title="Pick Path Sequence">Pick Path Seq</th>
+                    <th id="location" data-ng-if="LocationDetailsCtrl.ePage.Entities.Header.TableProperties.WmsLocation.location.isenabled" ng-style="{ 'width': LocationDetailsCtrl.ePage.Entities.Header.TableProperties.WmsLocation.location.width + 'px' }" title="Location Format">Location</th>
                 </tr>
             </thead>
             <tbody id="WarehouseCustomTable{{LocationDetailsCtrl.ePage.Entities.Header.Data.PK}}" >
@@ -168,6 +169,7 @@
                     <td id="maxcubic"  data-ng-show='LocationDetailsCtrl.ePage.Entities.Header.TableProperties.WmsLocation.maxcubic.isenabled'  ng-style="{ 'width': LocationDetailsCtrl.ePage.Entities.Header.TableProperties.WmsLocation.maxcubic.width + 'px' }" class="overflow-text">{{ x.MaxCubic}}  {{x.MaxCubicUnit || LocationDetailsCtrl.ePage.Masters.emptyText}}</td> 
                     <td id="maxqty"   data-ng-show='LocationDetailsCtrl.ePage.Entities.Header.TableProperties.WmsLocation.maxqty.isenabled' ng-style="{ 'width': LocationDetailsCtrl.ePage.Entities.Header.TableProperties.WmsLocation.maxqty.width + 'px' }" class="overflow-text"> {{x.MaxQuantity || LocationDetailsCtrl.ePage.Masters.emptyText}}</td>
                     <td id="pickpathseq"   data-ng-show='LocationDetailsCtrl.ePage.Entities.Header.TableProperties.WmsLocation.pickpathseq.isenabled' ng-style="{ 'width': LocationDetailsCtrl.ePage.Entities.Header.TableProperties.WmsLocation.pickpathseq.width + 'px' }" class="overflow-text">{{ x.PickPathSequence || LocationDetailsCtrl.ePage.Masters.emptyText}}</td>        
+                    <td id="location"   data-ng-show='LocationDetailsCtrl.ePage.Entities.Header.TableProperties.WmsLocation.location.isenabled' ng-style="{ 'width': LocationDetailsCtrl.ePage.Entities.Header.TableProperties.WmsLocation.location.width + 'px' }" class="overflow-text">{{ x.Location || LocationDetailsCtrl.ePage.Masters.emptyText}}</td>        
                 </tr>
             </tbody>
         </table>

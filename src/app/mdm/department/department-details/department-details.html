@@ -13,7 +13,8 @@
             </div>
             <label class="control-label text-single-line ">Department Code</label>
             <input type="text" class="form-control input-sm" placeholder="Department Code" data-ng-model="DepartmentDetailsCtrl.ePage.Entities.Header.Data.Code"
-                data-ng-change='DepartmentDetailsCtrl.ePage.Masters.OnChangeValues(DepartmentDetailsCtrl.ePage.Entities.Header.Data.Code,"E1347")' alphabets-only/>
+                data-ng-change='DepartmentDetailsCtrl.ePage.Masters.OnChangeValues(DepartmentDetailsCtrl.ePage.Entities.Header.Data.Code,"E1347")' 
+                data-ng-disabled="DepartmentDetailsCtrl.ePage.Entities.Header.GlobalVariables.IsDisabledAll" alphabets-only/>
           </div>
       </div>
       <!--Department Name-->
@@ -29,14 +30,15 @@
             </div>
             <label class="control-label text-single-line ">Department Name</label>
             <input type="text" class="form-control" placeholder="Department Name" data-ng-model="DepartmentDetailsCtrl.ePage.Entities.Header.Data.Desc" 
-                data-ng-change='DepartmentDetailsCtrl.ePage.Masters.OnChangeValues(DepartmentDetailsCtrl.ePage.Entities.Header.Data.Desc,"E1348")' no-special-except-comma/>  
+                data-ng-change='DepartmentDetailsCtrl.ePage.Masters.OnChangeValues(DepartmentDetailsCtrl.ePage.Entities.Header.Data.Desc,"E1348")' 
+                data-ng-disabled="DepartmentDetailsCtrl.ePage.Entities.Header.GlobalVariables.IsDisabledAll" no-special-except-comma/>  
         </div>
       </div>
       <!--Financial System Dept.Code-->
       <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 mt-5">
         <div class="form-group">
             <label class="control-label text-single-line ">Financial System Dept.Code</label>
-            <input type="text" class="form-control" placeholder="Financial System Dept.Code"/>  
+            <input type="text" class="form-control" placeholder="Financial System Dept.Code" data-ng-disabled="DepartmentDetailsCtrl.ePage.Entities.Header.GlobalVariables.IsDisabledAll"/>  
         </div>
     </div>
   </div>

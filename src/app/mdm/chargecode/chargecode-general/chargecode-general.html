@@ -33,7 +33,7 @@
             </div>
         </div>
         <!-- IATA -->
-        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+        <!-- <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
             <div class="form-group">
                 <label class="control-label text-single-line ">IATA</label>
                 <select chosen class="form-control" data-ng-model="ChargecodeGeneralCtrl.ePage.Entities.Header.Data.UIAccChargeCode.IATA_ChargeCodeMap" 
@@ -41,7 +41,7 @@
                     <option value="">--Select--</option>
                 </select>
             </div>
-        </div>
+        </div> -->
         <!--company-->
         <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
             <div class="form-group">
@@ -66,6 +66,15 @@
                 </div>
             </div>
         </div>
+         <!-- SAC / HSN Code -->
+         <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="control-label text-single-line ">SAC / HSN Codes</label>
+                <div class="">
+                    <input type="text" class="form-control input-sm" placeholder="SAC / HSN Codes" data-ng-model="ChargecodeGeneralCtrl.ePage.Entities.Header.Data.UIAccChargeCode.GovtChargeCode" numbers-only>
+                </div>
+            </div>
+        </div>
         <!--Department Restriction-->
         <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
             <div class="form-group">
@@ -73,15 +82,6 @@
                 <select chosen multiple class="form-control" data-ng-model="ChargecodeGeneralCtrl.ePage.Entities.Header.Data.UIAccChargeCode.DepartmentFilterList" 
                     data-ng-options="x.Code as x.Code+ ' - ' + x.Desc for x in ChargecodeGeneralCtrl.ePage.Masters.DDDepartmentMasterList" search-contains="true">
                 </select>
-            </div>
-        </div>
-        <!-- SAC / HSN Code -->
-        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
-            <div class="form-group">
-                <label class="control-label text-single-line ">SAC / HSN Codes</label>
-                <div class="">
-                    <input type="text" class="form-control input-sm" placeholder="SAC / HSN Codes" data-ng-model="ChargecodeGeneralCtrl.ePage.Entities.Header.Data.UIAccChargeCode.GovtChargeCode" numbers-only>
-                </div>
             </div>
         </div>
     </div>

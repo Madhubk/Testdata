@@ -5,9 +5,9 @@
         .module("Application")
         .controller("DeliveryOrdersController", DeliveryOrdersController);
 
-    DeliveryOrdersController.$inject = ["$rootScope", "$scope", "$state", "$q", "$location", "$timeout", "APP_CONSTANT", "authService", "apiService", "appConfig", "deliveryConfig", "helperService", "toastr", "$filter", "$injector", "$uibModal", "confirmation"];
+    DeliveryOrdersController.$inject = ["apiService", "appConfig", "deliveryConfig", "helperService", "$injector", "warehouseConfig"];
 
-    function DeliveryOrdersController($rootScope, $scope, $state, $q, $location, $timeout, APP_CONSTANT, authService, apiService, appConfig, deliveryConfig, helperService, toastr, $filter, $injector, $uibModal, confirmation) {
+    function DeliveryOrdersController(apiService, appConfig, deliveryConfig, helperService, $injector, warehouseConfig) {
 
         var DeliveryOrdersCtrl = this
 
@@ -36,9 +36,9 @@
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.WmsOutwardList.API.FindAll.FilterID
+                "FilterID": warehouseConfig.Entities.WmsOutward.API.FindAll.FilterID
             };
-            apiService.post("eAxisAPI", appConfig.Entities.WmsOutwardList.API.FindAll.Url, _input).then(function (response) {
+            apiService.post("eAxisAPI", warehouseConfig.Entities.WmsOutward.API.FindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     DeliveryOrdersCtrl.ePage.Masters.DeliveryOrders = response.data.Response;
                     DeliveryOrdersCtrl.ePage.Masters.TempOutwardPK = "";

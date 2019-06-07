@@ -114,6 +114,7 @@
                 }
             });
             
+            BomCtrl.ePage.Entities.Header.GlobalVariables.CopyofCurrentObject.UIOrgPartBOM = angular.copy(BomCtrl.ePage.Entities.Header.Data.UIOrgPartBOM);
         }
 
         function GetDropdownList() {

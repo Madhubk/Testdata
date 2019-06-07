@@ -5,9 +5,9 @@
         .module("Application")
         .controller("AcknowledgePickupReqController", AcknowledgePickupReqController);
 
-    AcknowledgePickupReqController.$inject = ["$scope", "apiService", "helperService", "appConfig", "myTaskActivityConfig", "APP_CONSTANT", "errorWarningService", "dynamicLookupConfig", "pickupConfig"];
+    AcknowledgePickupReqController.$inject = ["$scope", "apiService", "helperService", "appConfig", "myTaskActivityConfig", "APP_CONSTANT", "errorWarningService", "dynamicLookupConfig", "pickupConfig", "warehouseConfig"];
 
-    function AcknowledgePickupReqController($scope, apiService, helperService, appConfig, myTaskActivityConfig, APP_CONSTANT, errorWarningService, dynamicLookupConfig, pickupConfig) {
+    function AcknowledgePickupReqController($scope, apiService, helperService, appConfig, myTaskActivityConfig, APP_CONSTANT, errorWarningService, dynamicLookupConfig, pickupConfig, warehouseConfig) {
         var AckPickupReqCtrl = this;
 
         function Init() {
@@ -73,7 +73,7 @@
             GetContact();
         }
 
-        function GetContact() {            
+        function GetContact() {
             var _filter = {
                 "ORG_FK": AckPickupReqCtrl.ePage.Entities.Header.Data.UIWmsPickup.WAR_FK
             };
@@ -147,7 +147,7 @@
 
         function GetEntityObj() {
             if (AckPickupReqCtrl.ePage.Masters.TaskObj.EntityRefKey) {
-                apiService.get("eAxisAPI", appConfig.Entities.WmsPickupList.API.GetById.Url + AckPickupReqCtrl.ePage.Masters.TaskObj.EntityRefKey).then(function (response) {
+                apiService.get("eAxisAPI", warehouseConfig.Entities.WmsPickup.API.GetById.Url + AckPickupReqCtrl.ePage.Masters.TaskObj.EntityRefKey).then(function (response) {
                     if (response.data.Response) {
                         AckPickupReqCtrl.ePage.Masters.EntityObj = response.data.Response;
                     }

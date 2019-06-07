@@ -93,9 +93,14 @@
                 data-ng-hide="PreviewDashboardCtrl.ePage.Masters.IsShowDetails.length <= PreviewDashboardCtrl.ePage.Masters.Config.LoadMoreCount"
                 data-ng-disabled="PreviewDashboardCtrl.ePage.Masters.IsDisabledLoadMoreBtn" data-ng-bind="PreviewDashboardCtrl.ePage.Masters.LoadMoreBtnTxt"></button>
         </div>
-        <div class="col-lg-12 custom-widget no-padding" data-ng-if="PreviewDashboardCtrl.ePage.Masters.LoadingValue">
+        <div class="grid-loading-norecord-container ng-scope" style='z-index: 15;top:80px;' data-ng-if="PreviewDashboardCtrl.ePage.Masters.LoadingValue">
+            <div class="dyn-grid-no-record" style="width: 300px;">
+                 {{PreviewDashboardCtrl.ePage.Masters.LoadingValue}} </div>
+        </div>
+        <!-- <div class="col-lg-12 custom-widget no-padding" data-ng-if="PreviewDashboardCtrl.ePage.Masters.LoadingValue">
             <div class="text-center pt-20"><i><b>{{PreviewDashboardCtrl.ePage.Masters.LoadingValue}}</b></i></div>
-            <!-- <div class="col-lg-12 custom-widget no-padding" data-ng-if="PreviewDashboardCtrl.ePage.Masters.ComponentList.length==0 && PreviewDashboardCtrl.ePage.Masters.IsShowDetails.length==0 && PreviewDashboardCtrl.ePage.Masters.SelectedDashboardDetails.UIDASDashboardComponents.length>0">
+        </div> -->
+        <!-- <div class="col-lg-12 custom-widget no-padding" data-ng-if="PreviewDashboardCtrl.ePage.Masters.ComponentList.length==0 && PreviewDashboardCtrl.ePage.Masters.IsShowDetails.length==0 && PreviewDashboardCtrl.ePage.Masters.SelectedDashboardDetails.UIDASDashboardComponents.length>0">
                 <div class="text-center pt-20"><i>Please enable the components to show by default. </i></div>
             </div>
             <div class="col-lg-12 custom-widget no-padding" data-ng-if="!PreviewDashboardCtrl.ePage.Masters.SelectedDashboardDetails">
@@ -106,7 +111,6 @@
             </div>
             <div class="col-lg-12 custom-widget no-padding" data-ng-if="PreviewDashboardCtrl.ePage.Masters.SelectedDashboardDetails.UIDASDashboardComponents.length==0">
                 <div class="text-center pt-20"><i>No Component Mapped for this Dashboard</i></div> -->
-        </div>
         <div class="col-lg-12 custom-widget no-padding" data-ng-if="PreviewDashboardCtrl.ePage.Masters.ComponentList.length==0 && PreviewDashboardCtrl.ePage.Masters.IsShowDetails.length==0 && PreviewDashboardCtrl.ePage.Masters.SelectedDashboardDetails.UIDASDashboardComponents.length > 0"
             ng-init="PreviewDashboardCtrl.ePage.Masters.LoadingValue='Please enable the components to show by default.'">
         </div>

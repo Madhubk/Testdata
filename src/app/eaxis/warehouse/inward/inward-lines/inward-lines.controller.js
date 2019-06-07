@@ -234,6 +234,8 @@
             if(myData==false){
                 InwardLinesCtrl.ePage.Masters.Config.GeneralValidation(InwardLinesCtrl.currentInward);
             }
+
+            InwardLinesCtrl.ePage.Entities.Header.GlobalVariables.CopyofCurrentObject.UIWmsWorkOrderLine = angular.copy(InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine)
         }
 
 
@@ -599,6 +601,8 @@
                     "Units": "",
                     "StockKeepingUnit": "",
                     "ProductCondition":"GDC",
+                    "Brand":"",
+                    "Model":"",
                     "PartAttrib1": "",
                     "PartAttrib2": "",
                     "PartAttrib3": "",
@@ -677,6 +681,8 @@
                             "Units": item.Units,
                             "StockKeepingUnit": item.StockKeepingUnit,
                             "ProductCondition": item.ProductCondition,
+                            "Brand":item.Brand,
+                            "Model":item.Model,
                             "PartAttrib1": item.PartAttrib1,
                             "PartAttrib2": item.PartAttrib2,
                             "PartAttrib3": item.PartAttrib3,
@@ -853,7 +859,7 @@
 
                             InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.WorkOrderStatus = "IAL"
                             InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.PutOrPickSlipDateTime = new Date();
-                            InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.WorkOrderStatusDesc = 'Location Allocated';
+                            InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.WorkOrderStatusDesc = 'LOCATION ALLOCATED';
                             OnChangeValues('value','E3041',false);
 
                             GetByIDCall();

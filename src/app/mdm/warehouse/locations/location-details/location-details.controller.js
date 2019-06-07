@@ -89,7 +89,7 @@
                 var _filter = {
                     "WRO_FK": LocationDetailsCtrl.ePage.Entities.Header.Data.WmsRow.PK,
                     "PageNumber":"1",
-                    "PageSize": "10",
+                    "PageSize": "1",
                     "SortType": "ASC",
                     "SortColumn":"WOL_CreatedDateTime",
                 };
@@ -155,7 +155,8 @@
 
             })
 
-            
+            LocationDetailsCtrl.ePage.Entities.Header.GlobalVariables.CopyofCurrentObject = angular.copy(LocationDetailsCtrl.ePage.Entities.Header.Data);
+
             GetLocationLocalVariables();
         }
 
@@ -385,7 +386,7 @@
                         }
                     }
                 });
-                LocationDetailsCtrl.ePage.Entities.Header.Data.WmsLocation = filterObjectUpdate(LocationDetailsCtrl.ePage.Entities.Header.Data.WmsLocation, "IsModified");
+                LocationDetailsCtrl.ePage.Entities.Header.Data.WmsLocation = PostSaveObjectUpdate(LocationDetailsCtrl.ePage.Entities.Header.Data.WmsLocation,LocationDetailsCtrl.ePage.Entities.Header.GlobalVariables.CopyofCurrentObject.WmsLocation ,[]);
                 apiService.post("eAxisAPI", LocationDetailsCtrl.ePage.Entities.Header.API.updateOnlyLocation.Url, LocationDetailsCtrl.ePage.Entities.Header.Data.WmsLocation).then(function (response) {
                     LocationDetailsCtrl.ePage.Entities.Header.GlobalVariables.Loading = false;
                     LocationDetailsCtrl.ePage.Masters.EnableUpdateButton = false;
@@ -393,6 +394,11 @@
                     if (response.data.Response) {
                         GetLocationLocalVariables();
                         LocationDetailsCtrl.ePage.Entities.Header.Data.WmsLocation = response.data.Response;
+
+                        //Taking Copy of Current Object
+                        LocationDetailsCtrl.ePage.Entities.Header.Data.WmsLocation = AfterSaveObjectUpdate(LocationDetailsCtrl.ePage.Entities.Header.Data.WmsLocation,"IsModified");
+                        LocationDetailsCtrl.ePage.Entities.Header.GlobalVariables.CopyofCurrentObject.WmsLocation = angular.copy(LocationDetailsCtrl.ePage.Entities.Header.Data.WmsLocation);
+
                         toastr.success("Location Updated Successfully.. ")
                     }
                 });
@@ -414,7 +420,7 @@
                 //Converting into Upper Case
                 _input.WmsRow.Name = _input.WmsRow.Name.toUpperCase();
             } else {
-                $item = filterObjectUpdate($item, "IsModified");
+                LocationDetailsCtrl.ePage.Entities.Header.Data = PostSaveObjectUpdate(LocationDetailsCtrl.ePage.Entities.Header.Data, LocationDetailsCtrl.ePage.Entities.Header.GlobalVariables.CopyofCurrentObject,[]);
             }
 
             helperService.SaveEntity($item, 'Location').then(function (response) {
@@ -457,32 +463,59 @@
                             helperService.refreshGrid();
                         }
                     }
-                    console.log("Success");
                     toastr.success("Saved Successfully...!");
                     LocationDetailsCtrl.ePage.Masters.active = 1;
 
+                    //Taking Copy of Current Object
+                    LocationDetailsCtrl.ePage.Entities.Header.Data = AfterSaveObjectUpdate(LocationDetailsCtrl.ePage.Entities.Header.Data,"IsModified");
+                    LocationDetailsCtrl.ePage.Entities.Header.GlobalVariables.CopyofCurrentObject = angular.copy(LocationDetailsCtrl.ePage.Entities.Header.Data);
+
+
                 } else if (response.Status === "failed") {
-                    console.log("Failed");
-                    toastr.error("Could not Save...!");
                     LocationDetailsCtrl.ePage.Entities.Header.Validations = response.Validations;
                     angular.forEach(response.Validations, function (value, key) {
                         LocationDetailsCtrl.ePage.Masters.Config.PushErrorWarning(value.Code, value.Message, "E", false, value.CtrlKey, LocationDetailsCtrl.currentLocation.label, false, undefined, undefined, undefined, undefined, undefined);
                     });
                     if (LocationDetailsCtrl.ePage.Entities.Header.Validations != null) {
+                        toastr.error("Validation Failed...!");
                         LocationDetailsCtrl.ePage.Masters.Config.ShowErrorWarningModal(LocationDetailsCtrl.currentLocation);
+                    }else{
+                        toastr.error("Could not Save...!");
                     }
                 }
             });
         
         }
         
-        function filterObjectUpdate(obj, key) {
+        function PostSaveObjectUpdate(newValue,oldValue, exceptObjects) {
+            for (var i in newValue) {
+                if(typeof newValue[i]=='object'){
+                    PostSaveObjectUpdate(newValue[i],oldValue[i],exceptObjects);
+                }else{
+                    var Satisfied = exceptObjects.some(function(v){return v===i});
+                    if(!Satisfied && i!= "$$hashKey"){
+                        if(!oldValue){
+                            newValue["IsModified"] = true;
+                            break;
+                        }else{
+                            if(newValue[i]!=oldValue[i]){
+                                newValue["IsModified"] = true;
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+            return newValue;
+        }
+
+        function AfterSaveObjectUpdate(obj,key){
             for (var i in obj) {
                 if (!obj.hasOwnProperty(i)) continue;
                 if (typeof obj[i] == 'object') {
-                    filterObjectUpdate(obj[i], key);
+                    AfterSaveObjectUpdate(obj[i], key);
                 } else if (i == key) {
-                    obj[key] = true;
+                    obj[key] = false;
                 }
             }
             return obj;

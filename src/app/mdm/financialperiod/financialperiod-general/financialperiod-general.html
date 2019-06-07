@@ -1,0 +1,175 @@
+<div class="clearfix padding-top-10 wms-menu-wraper">
+    <div class="clearfix mt-5 ">
+        <!--Calendar Type-->
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="control-label">Calendar Type</label>
+                <span class="error-warning-container">
+                    <error-warning-directive
+                        data-ng-if="FinancePeriodGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.CalendarType.IsWarning && !FinancePeriodGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.CalendarType.IsError"
+                        list="FinancePeriodGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.CalendarType.WARNING"
+                        type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
+                    </error-warning-directive>
+                    <error-warning-directive
+                        data-ng-if="FinancePeriodGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.CalendarType.IsError"
+                        list="FinancePeriodGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.CalendarType.WARNING"
+                        type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
+                    </error-warning-directive>
+                </span>
+                <div class="">
+                    <select chosen class="form-control"
+                        data-ng-model="FinancePeriodGeneralCtrl.ePage.Entities.Header.data.UIAccPeriodManagement.CalendarType"
+                        data-ng-options="x.Key as x.Description for x in FinancePeriodGeneralCtrl.ePage.Masters.DropDownMasterList.CALENDARTYPE.ListSource">
+                        <option value="">--- Select ---</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <!-- Start Date-->
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="control-label">Start Date</label>
+                <span class="error-warning-container">
+                    <error-warning-directive
+                        data-ng-if="FinancePeriodGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.CalendarType.IsWarning && !FinancePeriodGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.CalendarType.IsError"
+                        list="FinancePeriodGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.CalendarType.WARNING"
+                        type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
+                    </error-warning-directive>
+                    <error-warning-directive
+                        data-ng-if="FinancePeriodGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.CalendarType.IsError"
+                        list="FinancePeriodGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.CalendarType.WARNING"
+                        type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
+                    </error-warning-directive>
+                </span>
+                <div class="input-group input-group-sm">
+                    <input type="text" class="form-control input-sm"
+                        placeholder="{{FinancePeriodGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                        data-ng-model="FinancePeriodGeneralCtrl.ePage.Entities.Header.data.UIAccPeriodManagement.StartDate"
+                        datetime-picker="{{FinancePeriodGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                        datepicker-options="FinancePeriodGeneralCtrl.ePage.Masters.DatePicker.Options"
+                        datepicker-append-to-body="false" close-on-selection="false" enable-time="false"
+                        enable-date="true" default-date="" default-time=""
+                        save-as="FinancePeriodGeneralCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                        is-open="FinancePeriodGeneralCtrl.ePage.Masters.DatePicker.isOpen['isStartDate']" when-closed=""
+                        data-ng-click="" custom-date-time-format
+                        data-ng-change="FinancePeriodGeneralCtrl.ePage.Masters.OnChangeDate(FinancePeriodGeneralCtrl.ePage.Masters.Data.StartDate,'StartDate')" />
+                    <span class="input-group-btn">
+                        <button class="btn btn-default"
+                            data-ng-click="FinancePeriodGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event,'isStartDate')">
+                            <i class="fa fa-calendar"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <!--End Date-->
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="control-label">End Date</label>
+                <span class="error-warning-container">
+                    <error-warning-directive
+                        data-ng-if="FinancePeriodGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.EndDate.IsWarning && !FinancePeriodGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.EndDate.IsError"
+                        list="FinancePeriodGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.EndDate.WARNING"
+                        type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
+                    </error-warning-directive>
+                    <error-warning-directive
+                        data-ng-if="FinancePeriodGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.EndDate.IsError"
+                        list="FinancePeriodGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.EndDate.WARNING"
+                        type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
+                    </error-warning-directive>
+                </span>
+                <div class="input-group input-group-sm">
+                    <input type="text" class="form-control input-sm"
+                        placeholder="{{FinancePeriodGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                        data-ng-model="FinancePeriodGeneralCtrl.ePage.Masters.Data.UIAccPeriodManagement.EndDate"
+                        datetime-picker="{{FinancePeriodGeneralCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                        datepicker-options="FinancePeriodGeneralCtrl.ePage.Masters.DatePicker.Options"
+                        datepicker-append-to-body="false" close-on-selection="false" enable-time="false"
+                        enable-date="true" default-date="" default-time=""
+                        save-as="FinancePeriodGeneralCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                        is-open="FinancePeriodGeneralCtrl.ePage.Masters.DatePicker.isOpen['isEndDate']" when-closed=""
+                        data-ng-click="" custom-date-time-format
+                        data-ng-change="FinancePeriodGeneralCtrl.ePage.Masters.OnChangeDate(FinancePeriodGeneralCtrl.ePage.Masters.Data.EndDate,'EndDate')" />
+                    <span class="input-group-btn">
+                        <button class="btn btn-default"
+                            data-ng-click="FinancePeriodGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event,'isEndDate')">
+                            <i class="fa fa-calendar"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="control-label">Period Name</label>
+                <span class="error-warning-container">
+                    <error-warning-directive
+                        data-ng-if="FinancePeriodGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.EndDate.IsWarning && !FinancePeriodGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.EndDate.IsError"
+                        list="FinancePeriodGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.EndDate.WARNING"
+                        type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
+                    </error-warning-directive>
+                    <error-warning-directive
+                        data-ng-if="FinancePeriodGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.EndDate.IsError"
+                        list="FinancePeriodGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.EndDate.WARNING"
+                        type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
+                    </error-warning-directive>
+                </span>
+                <div class="">
+                    <input type="text" class="form-control input-sm" placeholder="Period Name"
+                        data-ng-model="FinancePeriodGeneralCtrl.ePage.Masters.Data.PeriodName"
+                        data-ng-change='ExchangeRateGeneralCtrl.ePage.Masters.OnChangeValues(ExchangeRateGeneralCtrl.ePage.Masters.Data.PeriodName)' />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix mt-5">
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="control-label">Period Type</label>
+                <span class="error-warning-container">
+                    <error-warning-directive
+                        data-ng-if="FinancePeriodGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.PeriodType.IsWarning && !FinancePeriodGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.PeriodType.IsError"
+                        list="FinancePeriodGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.PeriodType.WARNING"
+                        type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
+                    </error-warning-directive>
+                    <error-warning-directive
+                        data-ng-if="FinancePeriodGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.PeriodType.IsError"
+                        list="FinancePeriodGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.PeriodType.WARNING"
+                        type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
+                    </error-warning-directive>
+                </span>
+                <div class="">
+                    <select chosen class="form-control"
+                        data-ng-model="FinancePeriodGeneralCtrl.ePage.Entities.Header.data.UIAccPeriodManagement.PeriodType"
+                        data-ng-options="x.Key as x.Description for x in FinancePeriodGeneralCtrl.ePage.Masters.DropDownMasterList.FINPERIODTYPE.ListSource">
+                        <option value="">--- Select ---</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="control-label">Status</label>
+                <span class="error-warning-container">
+                    <error-warning-directive
+                        data-ng-if="FinancePeriodGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Status.IsWarning && !FinancePeriodGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Status.IsError"
+                        list="FinancePeriodGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Status.WARNING"
+                        type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
+                    </error-warning-directive>
+                    <error-warning-directive
+                        data-ng-if="FinancePeriodGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Status.IsError"
+                        list="FinancePeriodGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.Status.WARNING"
+                        type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
+                    </error-warning-directive>
+                </span>
+                <div class="">
+                    <select chosen class="form-control"
+                        data-ng-model="FinancePeriodGeneralCtrl.ePage.Entities.Header.data.UIAccPeriodManagement.Status"
+                        data-ng-options="x.Key as x.Description for x in FinancePeriodGeneralCtrl.ePage.Masters.DropDownMasterList.FINPERIODSTS.ListSource">
+                        <option value="">--- Select ---</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

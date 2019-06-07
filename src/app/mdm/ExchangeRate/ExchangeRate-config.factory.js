@@ -6,7 +6,7 @@
 
     ExchangerateConfig.$inject = ["$q", "apiService", "appConfig", "helperService", "toastr", "errorWarningService"];
 
-    function ExchangerateConfig($q, apiService, appConfig, helperService, toastr) {
+    function ExchangerateConfig($q, apiService, appConfig, helperService, toastr,errorWarningService) {
         var exports = {
             "Entities": {
                 "Header": {
@@ -28,7 +28,7 @@
                                 "Url": "MstRecentExchangeRate/FindAll",
                                 "FilterID": "MSTRECEXC"
                             },
-                            "ExRateList":{
+                            "ExRateList": {
                                 "IsAPI": "true",
                                 "HttpType": "Post",
                                 "Url": "MstExchangeRateListdata/FindAll",
@@ -56,6 +56,7 @@
             "DataentryTitle": "ExchangeRate Master"
         };
         return exports;
+
         function GetTabDetails(currentExchangeRate, isNew) {
             /*  Set configuration object to individual Finance invoice */
             var deferred = $q.defer();
@@ -86,8 +87,8 @@
                                 "ExRateType": helperService.metaBase(),
                                 "RateSubType": helperService.metaBase(),
                                 "Rate": helperService.metaBase(),
-                                "ExpiryDate": helperService.metaBase()
-
+                                "ExpiryDate": helperService.metaBase(),
+                                "StartDate": helperService.metaBase()
                             }
                         },
                         "GlobalVariables": {
@@ -142,14 +143,14 @@
                                     "position": '6',
                                     "width": "150",
                                     "display": false
-                                },{                                    
+                                }, {
                                     "columnname": "Ex. Rate From A to B",
                                     "isenabled": true,
                                     "property": "cratefromatob",
                                     "position": '7',
                                     "width": "150",
                                     "display": false
-                                },{                                    
+                                }, {
                                     "columnname": "Ex. Rate From B to A",
                                     "isenabled": true,
                                     "property": "cratefrombtoa",
@@ -242,10 +243,11 @@
                     };
                     exports.TabList.push(obj);
                     deferred.resolve(exports.TabList);
-                });               
+                });
             }
             return deferred.promise;
         }
+
         function ValidationFindall() {
             var _filter = {
                 "ModuleCode": "Finance",
@@ -262,17 +264,17 @@
             });
         }
 
-
         function GeneralValidation($item) {
             var _Data = $item[$item.code].ePage.Entities,
                 _input = _Data.Header.Data.UIMstExchangeRate;
-            // //UICurrencyMaster Validations 
+            /* UICurrencyMaster Validations  */
             OnChangeValues(_input.FromCurrency, 'E1324', false, undefined, $item.code);
             OnChangeValues(_input.RX_NKExCurrency, 'E1329', false, undefined, $item.code);
             OnChangeValues(_input.ExRateType, 'E1325', false, undefined, $item.code);
             OnChangeValues(_input.RateSubType, 'E1326', false, undefined, $item.code);
-            OnChangeValues(_input.Rate,'E1327',false,undefined,$item.code);
-            OnChangeValues(_input.ExpiryDate,'E1328',false,undefined,$item.code);
+            OnChangeValues(_input.Rate, 'E1327', false, undefined, $item.code);
+            OnChangeValues(_input.ExpiryDate, 'E1328', false, undefined, $item.code);
+            OnChangeValues(_input.StartDate, 'E1319', false, undefined, $item.code);
         }
 
         function OnChangeValues(fieldvalue, code, IsArray, RowIndex, label) {
@@ -494,7 +496,5 @@
                 RemoveErrorWarning(value.Code, "E", value.CtrlKey, label);
             });
         }
-
-
     }
 })();

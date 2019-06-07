@@ -136,23 +136,10 @@
         }
 
         function GetServiceList() {
+            //Order By
+            ServiceCtrl.ePage.Entities.Header.Data.UIJobServices = $filter('orderBy')(ServiceCtrl.ePage.Entities.Header.Data.UIJobServices, 'CreatedDateTime');
 
-            var _filter = {
-                "ParentID": ServiceCtrl.ePage.Entities.Header.Data.PK,
-            };
-            var _input = {
-                "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.JobService.API.FindAll.FilterID
-            };
-
-            apiService.post("eAxisAPI", appConfig.Entities.JobService.API.FindAll.Url, _input).then(function (response) {
-                if (response.data.Response) {
-                    ServiceCtrl.ePage.Entities.Header.Data.UIJobServices = response.data.Response;
-                    //Order By
-                    ServiceCtrl.ePage.Entities.Header.Data.UIJobServices = $filter('orderBy')(ServiceCtrl.ePage.Entities.Header.Data.UIJobServices, 'CreatedDateTime');
-
-                }
-            });
+            ServiceCtrl.ePage.Entities.Header.GlobalVariables.CopyofCurrentObject.UIJobServices = angular.copy(ServiceCtrl.ePage.Entities.Header.Data.UIJobServices);
         }
         //#endregion
         

@@ -5,9 +5,9 @@
         .module("Application")
         .controller("DeliveryGeneralController", DeliveryGeneralController);
 
-    DeliveryGeneralController.$inject = ["$rootScope", "$scope", "$state", "$q", "$location", "$timeout", "APP_CONSTANT", "authService", "apiService", "appConfig", "deliveryConfig", "helperService", "toastr", "$filter", "$injector", "$uibModal", "confirmation"];
+    DeliveryGeneralController.$inject = ["$rootScope", "$scope", "APP_CONSTANT", "authService", "apiService", "appConfig", "deliveryConfig", "helperService", "toastr", "$filter", "$injector", "$uibModal", "warehouseConfig"];
 
-    function DeliveryGeneralController($rootScope, $scope, $state, $q, $location, $timeout, APP_CONSTANT, authService, apiService, appConfig, deliveryConfig, helperService, toastr, $filter, $injector, $uibModal, confirmation) {
+    function DeliveryGeneralController($rootScope, $scope, APP_CONSTANT, authService, apiService, appConfig, deliveryConfig, helperService, toastr, $filter, $injector, $uibModal, warehouseConfig) {
 
         var DeliveryGeneralCtrl = this
 
@@ -143,9 +143,9 @@
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.WmsClientParameterByWarehouse.API.FindAll.FilterID
+                "FilterID": warehouseConfig.Entities.WmsClientParameterByWarehouse.API.FindAll.FilterID
             };
-            apiService.post("eAxisAPI", appConfig.Entities.WmsClientParameterByWarehouse.API.FindAll.Url, _input).then(function (response) {
+            apiService.post("eAxisAPI", warehouseConfig.Entities.WmsClientParameterByWarehouse.API.FindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     DeliveryGeneralCtrl.ePage.Masters.OrgList = response.data.Response;
                     DeliveryGeneralCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ORG_FK_In = "";

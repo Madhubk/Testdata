@@ -40,22 +40,6 @@
         <div class="padding-bottom-10 clearfix">
             <!--Gatepass Menu Directive-->
             <gatepass-menu current-gatepass="tab" dataentry-object="InitGateCtrl.ePage.Masters.DataEntryObject"></gatepass-menu>
-            <!-- <uib-tabset id="Gatepass" data-ng-if="InitGateCtrl.ePage.Masters.currentGatepass">
-                <uib-tab>
-                    <uib-tab-heading title="Gatepass Details">
-                        <i class="fa fa-truck margin-right-5"></i>
-                        <span class="text-single-line" data-ng-bind="'Gatepass Details'"></span>
-                    </uib-tab-heading>
-                    <gatepass-general current-gatepass="tab" dataentry-object="InitGateCtrl.ePage.Masters.DataEntryObject"></gatepass-general>
-                </uib-tab>
-               <uib-tab>
-                    <uib-tab-heading title="Gatepass Details">
-                        <i class="fa fa-suitcase margin-right-5"></i>
-                        <span class="text-single-line" data-ng-bind="'Manifest Details'"></span>
-                    </uib-tab-heading>
-                    <manifest-details current-gatepass="tab" dataentry-object="InitGateCtrl.ePage.Masters.DataEntryObject"></manifest-details>
-                </uib-tab>
-            </uib-tabset> -->
             <div class="horizontal-space"></div>
         </div>
         <span ng-if="InitGateCtrl.ePage.Masters.Config.SaveAndClose" ng-init="InitGateCtrl.ePage.Masters.SaveandClose(InitGateCtrl.ePage.Masters.activeTabIndex, tab)"></span>

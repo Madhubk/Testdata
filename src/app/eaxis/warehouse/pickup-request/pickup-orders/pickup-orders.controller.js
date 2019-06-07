@@ -5,9 +5,9 @@
         .module("Application")
         .controller("PickupOrdersController", PickupOrdersController);
 
-    PickupOrdersController.$inject = ["$rootScope", "$scope", "$state", "$q", "$location", "$timeout", "APP_CONSTANT", "authService", "apiService", "appConfig", "pickupConfig", "helperService", "toastr", "$filter", "$injector", "$uibModal", "confirmation"];
+    PickupOrdersController.$inject = ["apiService", "appConfig", "pickupConfig", "helperService", "toastr", "$filter", "$injector", "$uibModal", "confirmation", "warehouseConfig"];
 
-    function PickupOrdersController($rootScope, $scope, $state, $q, $location, $timeout, APP_CONSTANT, authService, apiService, appConfig, pickupConfig, helperService, toastr, $filter, $injector, $uibModal, confirmation) {
+    function PickupOrdersController(apiService, appConfig, pickupConfig, helperService, toastr, $filter, $injector, $uibModal, confirmation, warehouseConfig) {
 
         var PickupOrdersCtrl = this
 
@@ -36,9 +36,9 @@
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.InwardList.API.FindAll.FilterID
+                "FilterID": warehouseConfig.Entities.WmsInward.API.FindAll.FilterID
             };
-            apiService.post("eAxisAPI", appConfig.Entities.InwardList.API.FindAll.Url, _input).then(function (response) {
+            apiService.post("eAxisAPI", warehouseConfig.Entities.WmsInward.API.FindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     PickupOrdersCtrl.ePage.Masters.PickupOrders = response.data.Response;
                     PickupOrdersCtrl.ePage.Masters.TempInwardPK = "";

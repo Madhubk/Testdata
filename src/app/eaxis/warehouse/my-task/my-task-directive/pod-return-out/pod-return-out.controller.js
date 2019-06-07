@@ -5,9 +5,9 @@
         .module("Application")
         .controller("PodReturnController", PodReturnController);
 
-    PodReturnController.$inject = ["$scope", "apiService", "helperService", "appConfig", "myTaskActivityConfig", "APP_CONSTANT", "errorWarningService", "dynamicLookupConfig", "outwardConfig", "$injector"];
+    PodReturnController.$inject = ["$scope", "apiService", "helperService", "appConfig", "myTaskActivityConfig", "APP_CONSTANT", "errorWarningService", "dynamicLookupConfig", "outwardConfig", "$injector", "warehouseConfig"];
 
-    function PodReturnController($scope, apiService, helperService, appConfig, myTaskActivityConfig, APP_CONSTANT, errorWarningService, dynamicLookupConfig, outwardConfig, $injector) {
+    function PodReturnController($scope, apiService, helperService, appConfig, myTaskActivityConfig, APP_CONSTANT, errorWarningService, dynamicLookupConfig, outwardConfig, $injector, warehouseConfig) {
         var PodReturnCtrl = this;
         var Config = $injector.get("pickConfig");
 
@@ -52,7 +52,7 @@
         }
 
         function GetManifestDetails() {
-            apiService.get("eAxisAPI", appConfig.Entities.TmsManifestList.API.GetById.Url + PodReturnCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.AdditionalRef1Fk).then(function (response) {
+            apiService.get("eAxisAPI", warehouseConfig.Entities.TmsManifestList.API.GetById.Url + PodReturnCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.AdditionalRef1Fk).then(function (response) {
                 if (response.data.Response) {
                     PodReturnCtrl.ePage.Entities.Header.ManifestDetails = response.data.Response;
                     myTaskActivityConfig.Entities.ManifestData = PodReturnCtrl.ePage.Entities.Header.ManifestDetails;
@@ -77,7 +77,7 @@
         }
 
         function getDeliveryList() {
-            apiService.get("eAxisAPI", appConfig.Entities.WmsDeliveryList.API.GetById.Url + PodReturnCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.AdditionalRef2Fk).then(function (response) {
+            apiService.get("eAxisAPI", warehouseConfig.Entities.WmsDeliveryList.API.GetById.Url + PodReturnCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.AdditionalRef2Fk).then(function (response) {
                 if (response.data.Response) {
                     PodReturnCtrl.ePage.Entities.Header.DeliveryData = response.data.Response;
                     myTaskActivityConfig.Entities.DeliveryData = PodReturnCtrl.ePage.Entities.Header.DeliveryData;
@@ -159,7 +159,7 @@
 
         function GetEntityObj() {
             if (PodReturnCtrl.ePage.Masters.TaskObj.EntityRefKey) {
-                apiService.get("eAxisAPI", appConfig.Entities.WmsOutwardList.API.GetById.Url + PodReturnCtrl.ePage.Masters.TaskObj.EntityRefKey).then(function (response) {
+                apiService.get("eAxisAPI", warehouseConfig.Entities.WmsOutwardList.API.GetById.Url + PodReturnCtrl.ePage.Masters.TaskObj.EntityRefKey).then(function (response) {
                     if (response.data.Response) {
                         PodReturnCtrl.ePage.Masters.EntityObj = response.data.Response;
                     }

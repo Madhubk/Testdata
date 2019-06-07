@@ -288,6 +288,8 @@
             if (myData == false) {
                 InwardAsnLinesCtrl.ePage.Masters.Config.GeneralValidation(InwardAsnLinesCtrl.currentInward);
             }
+
+            InwardAsnLinesCtrl.ePage.Entities.Header.GlobalVariables.CopyofCurrentObject.UIWmsAsnLine = angular.copy(InwardAsnLinesCtrl.ePage.Entities.Header.Data.UIWmsAsnLine)
         }
 
         function OpenDatePicker($event, opened) {

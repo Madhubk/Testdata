@@ -7,7 +7,7 @@
     CurrencyGeneralController.$inject = ["helperService", "currencyConfig"];
 
     function CurrencyGeneralController(helperService, currencyConfig) {
-    
+
         var CurrencyGeneralCtrl = this;
 
         function Init() {
@@ -24,33 +24,37 @@
 
             CurrencyGeneralCtrl.ePage.Masters.Config = currencyConfig;
             CurrencyGeneralCtrl.ePage.Masters.SelectedLookupData = SelectedLookupData;
-            
 
             /* Function  */
-            CurrencyGeneralCtrl.ePage.Masters.OnChangeValues = OnChangeValues;
+            CurrencyGeneralCtrl.ePage.Masters.OnChangeValidation = OnChangeValidation;
 
-            
             InitCurrency();
         }
 
-         function InitCurrency(){
-            if(CurrencyGeneralCtrl.currentCurrency.isNew){
-                debugger;
+        function InitCurrency() {
+            if (CurrencyGeneralCtrl.currentCurrency.isNew) {
                 CurrencyGeneralCtrl.ePage.Entities.Header.Data.IsActive = true;
+            }
+            else if (!CurrencyGeneralCtrl.currentCurrency.isNew && !CurrencyGeneralCtrl.ePage.Entities.Header.Data.IsActive) {
+                CurrencyGeneralCtrl.ePage.Entities.Header.GlobalVariables.IsDisabledAll = true;
             }
         }
 
+        //#region SelectedLookupData
+        function SelectedLookupData($index, $item, type) {
+            if (type == 'Country') {
+                OnChangeValidation($item.Code, 'E1208');
+            }
+        }
+        //#endregion
+
         //#region ErrorWarning Alert Validation
-        function OnChangeValues(fieldvalue, code, IsArray, RowIndex) {
+        function OnChangeValidation(fieldvalue, code, IsArray, RowIndex) {
             angular.forEach(CurrencyGeneralCtrl.ePage.Masters.Config.ValidationValues, function (value, key) {
                 if (value.Code.trim() === code) {
                     GetErrorMessage(fieldvalue, value, IsArray, RowIndex)
                 }
             });
-        }
-
-        function SelectedLookupData($item) {
-
         }
 
         function GetErrorMessage(fieldvalue, value, IsArray, RowIndex) {

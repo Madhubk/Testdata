@@ -5,9 +5,9 @@
         .module("Application")
         .controller("TrackDamagedMenuController", TrackDamagedMenuController);
 
-    TrackDamagedMenuController.$inject = ["$scope", "$timeout", "APP_CONSTANT", "apiService", "trackDamageSkuConfig", "helperService", "appConfig", "authService", "$location", "$state", "toastr", "confirmation", "$uibModal", "$ocLazyLoad"];
+    TrackDamagedMenuController.$inject = ["$scope", "apiService", "trackDamageSkuConfig", "helperService", "toastr"];
 
-    function TrackDamagedMenuController($scope, $timeout, APP_CONSTANT, apiService, trackDamageSkuConfig, helperService, appConfig, authService, $location, $state, toastr, confirmation, $uibModal, $ocLazyLoad) {
+    function TrackDamagedMenuController($scope, apiService, trackDamageSkuConfig, helperService, toastr) {
 
         var TrackDamagedMenuCtrl = this
 
@@ -70,9 +70,7 @@
                         else if (response.Data)
                             trackDamageSkuConfig.TabList[_index][trackDamageSkuConfig.TabList[_index].label].ePage.Entities.Header.Data = response.Data;
 
-                        if ($state.current.url == "/track-damaged-sku") {
-                            helperService.refreshGrid();
-                        }
+                        helperService.refreshGrid();
                     }
                     if (TrackDamagedMenuCtrl.ePage.Masters.SaveAndClose) {
                         TrackDamagedMenuCtrl.ePage.Masters.Config.SaveAndClose = true;

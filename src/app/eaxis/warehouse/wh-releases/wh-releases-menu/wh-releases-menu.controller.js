@@ -6,9 +6,9 @@
         .controller("ReleaseMenuController", ReleaseMenuController);
 
 
-    ReleaseMenuController.$inject = ["$scope", "$timeout", "APP_CONSTANT", "apiService", "releaseConfig", "helperService", "appConfig", "authService", "$state", "$filter", "toastr", "$window", "confirmation"];
+    ReleaseMenuController.$inject = ["$scope", "$timeout", "APP_CONSTANT", "apiService", "releaseConfig", "helperService", "appConfig", "authService", "$state", "$filter", "toastr", "$window", "confirmation", "warehouseConfig"];
 
-    function ReleaseMenuController($scope, $timeout, APP_CONSTANT, apiService, releaseConfig, helperService, appConfig, authService, $state, $filter, toastr, $window, confirmation) {
+    function ReleaseMenuController($scope, $timeout, APP_CONSTANT, apiService, releaseConfig, helperService, appConfig, authService, $state, $filter, toastr, $window, confirmation, warehouseConfig) {
 
         var ReleaseMenuCtrl = this;
 
@@ -77,10 +77,10 @@
                                 };
                                 var _input = {
                                     "searchInput": helperService.createToArrayOfObject(_filter),
-                                    "FilterID": appConfig.Entities.InwardList.API.FindAll.FilterID
+                                    "FilterID": warehouseConfig.Entities.WmsInward.API.FindAll.FilterID
                                 };
 
-                                apiService.post("eAxisAPI", appConfig.Entities.InwardList.API.FindAll.Url, _input).then(function (response) {
+                                apiService.post("eAxisAPI", warehouseConfig.Entities.WmsInward.API.FindAll.Url, _input).then(function (response) {
                                     if (response.data.Response) {
                                         if (response.data.Response.length > 0) {
                                             ReleaseMenuCtrl.ePage.Masters.InwardDetails = response.data.Response;

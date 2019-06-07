@@ -27,25 +27,27 @@
             CurrencyMenuCtrl.ePage.Masters.DeactivateButtonText = "Deactivate";
             CurrencyMenuCtrl.ePage.Masters.ActivateButtonText = "Activate";
             CurrencyMenuCtrl.ePage.Masters.isActivate = true;
-            CurrencyMenuCtrl.ePage.Masters.isDeactivate = false;
+            CurrencyMenuCtrl.ePage.Masters.isDeactivate = true;
 
             /* Function */
             CurrencyMenuCtrl.ePage.Masters.Validation = Validation;
             CurrencyMenuCtrl.ePage.Masters.Activate = Activate;
             CurrencyMenuCtrl.ePage.Masters.Deactivate = Deactivate;
-            console.log("Check:", CurrencyMenuCtrl.ePage.Entities.Header.Data);
             CurrencyMenuCtrl.ePage.Masters.ErrorWarningConfig = errorWarningService;
             // CurrencyMenuCtrl.ePage.Masters.ErrorWarningConfig.GlobalErrorWarningList = errorWarningService.Modules.Finance.Entity[CurrencyMenuCtrl.currentCurrency.code].GlobalErrorWarningList;
             // CurrencyMenuCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj = errorWarningService.Modules.Finance.Entity[CurrencyMenuCtrl.currentCurrency.code];
 
             // Menu list from configuration
 
-            InitActDeact();
+            InitActivateDeactivate();
         }
 
-        function InitActDeact(){
-            if(!CurrencyMenuCtrl.currentCurrency.isNew && !CurrencyMenuCtrl.ePage.Entities.Header.Data.IsActive){
-                debugger;
+        function InitActivateDeactivate() {
+            if (!CurrencyMenuCtrl.currentCurrency.isNew && CurrencyMenuCtrl.ePage.Entities.Header.Data.IsActive) {
+                CurrencyMenuCtrl.ePage.Masters.isActivate = true;
+                CurrencyMenuCtrl.ePage.Masters.isDeactivate = false;
+            }
+            else if (!CurrencyMenuCtrl.currentCurrency.isNew && !CurrencyMenuCtrl.ePage.Entities.Header.Data.IsActive) {
                 CurrencyMenuCtrl.ePage.Masters.isActivate = false;
                 CurrencyMenuCtrl.ePage.Masters.isDeactivate = true;
             }
@@ -81,18 +83,17 @@
                     });
 
                     if (_count) {
-                        if(CurrencyMenuCtrl.ePage.Entities.Header.Data.IsActive == false && CurrencyMenuCtrl.ePage.Masters.isDeactivate == true){
+                        if (CurrencyMenuCtrl.ePage.Entities.Header.Data.IsActive == false && CurrencyMenuCtrl.ePage.Masters.isDeactivate == true) {
                             Save($item);
                             toastr.success("Currency Deactivated Successfully");
                         }
-                        else if(CurrencyMenuCtrl.ePage.Entities.Header.Data.IsActive == true && CurrencyMenuCtrl.ePage.Masters.isActivate == true )
-                        {
-                            
+                        else if (CurrencyMenuCtrl.ePage.Entities.Header.Data.IsActive == true && CurrencyMenuCtrl.ePage.Masters.isActivate == true) {
+                            Save($item);
                         }
-                        else{
+                        else {
                             toastr.error("Code is Unique, Rename the Code!.");
                         }
-                        
+
                     } else {
                         Save($item);
                     }
@@ -155,7 +156,6 @@
                 _input.CreatedBy = authService.getUserInfo().UserId;
                 _input.Source = "ERP";
                 _input.TenantCode = "20CUB";
-                //_input.IsActive = true;
             } else {
                 $item = filterObjectUpdate($item, "IsModified");
             }
@@ -183,12 +183,14 @@
             }
             return obj;
         }
+
         function Activate() {
             CurrencyMenuCtrl.ePage.Masters.isDeactivate = false;
             CurrencyMenuCtrl.ePage.Masters.isActivate = true;
+            CurrencyMenuCtrl.ePage.Entities.Header.GlobalVariables.IsDisabledAll = false;
             CurrencyMenuCtrl.ePage.Entities.Header.Data.IsActive = true;
-
         }
+
         function Deactivate($item) {
             var _Data = $item[$item.code].ePage.Entities,
                 _input = _Data.Header.Data;
@@ -223,12 +225,14 @@
                         else {
                             CurrencyMenuCtrl.ePage.Masters.isDeactivate = true;
                             CurrencyMenuCtrl.ePage.Masters.isActivate = false;
+                            CurrencyMenuCtrl.ePage.Entities.Header.GlobalVariables.IsDisabledAll = true;
                             CurrencyMenuCtrl.ePage.Entities.Header.Data.IsActive = false;
                         }
                     }
                     else if (response.data.Response.length == 0) {
                         CurrencyMenuCtrl.ePage.Masters.isDeactivate = true;
                         CurrencyMenuCtrl.ePage.Masters.isActivate = false;
+                        CurrencyMenuCtrl.ePage.Entities.Header.GlobalVariables.IsDisabledAll = true;
                         CurrencyMenuCtrl.ePage.Entities.Header.Data.IsActive = false;
                     }
                 });

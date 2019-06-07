@@ -70,9 +70,8 @@
                         else if (response.Data)
                             deliveryLineConfig.TabList[_index][deliveryLineConfig.TabList[_index].label].ePage.Entities.Header.Data = response.Data;
 
-                        if ($state.current.url == "/delivery-line") {
-                            helperService.refreshGrid();
-                        }
+                        helperService.refreshGrid();
+
                     }
                     if (DeliveryLineMenuCtrl.ePage.Masters.SaveAndClose) {
                         DeliveryLineMenuCtrl.ePage.Masters.Config.SaveAndClose = true;

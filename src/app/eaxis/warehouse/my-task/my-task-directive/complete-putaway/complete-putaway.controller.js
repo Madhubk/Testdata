@@ -8,9 +8,9 @@
         .module("Application")
         .controller("CompletePutawayController", CompletePutawayController);
 
-    CompletePutawayController.$inject = ["$scope", "apiService", "helperService", "appConfig", "myTaskActivityConfig", "APP_CONSTANT", "errorWarningService"];
+    CompletePutawayController.$inject = ["$scope", "apiService", "helperService", "appConfig", "myTaskActivityConfig", "APP_CONSTANT", "errorWarningService", "warehouseConfig"];
 
-    function CompletePutawayController($scope, apiService, helperService, appConfig, myTaskActivityConfig, APP_CONSTANT, errorWarningService) {
+    function CompletePutawayController($scope, apiService, helperService, appConfig, myTaskActivityConfig, APP_CONSTANT, errorWarningService, warehouseConfig) {
         var CompletePutawayCtrl = this;
 
         function Init() {
@@ -69,7 +69,7 @@
 
         function GetEntityObj() {
             if (CompletePutawayCtrl.ePage.Masters.TaskObj.EntityRefKey) {
-                apiService.get("eAxisAPI", appConfig.Entities.InwardList.API.GetById.Url + CompletePutawayCtrl.ePage.Masters.TaskObj.EntityRefKey).then(function (response) {
+                apiService.get("eAxisAPI", warehouseConfig.Entities.WmsInwardList.API.GetById.Url + CompletePutawayCtrl.ePage.Masters.TaskObj.EntityRefKey).then(function (response) {
                     if (response.data.Response) {
                         CompletePutawayCtrl.ePage.Masters.EntityObj = response.data.Response;
                     }

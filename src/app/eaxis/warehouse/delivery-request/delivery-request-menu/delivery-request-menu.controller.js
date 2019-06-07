@@ -5,9 +5,9 @@
         .module("Application")
         .controller("DeliveryMenuController", DeliveryMenuController);
 
-    DeliveryMenuController.$inject = ["$scope", "$timeout", "APP_CONSTANT", "apiService", "deliveryConfig", "helperService", "appConfig", "authService", "$state", "toastr", "$uibModal", "$ocLazyLoad"];
+    DeliveryMenuController.$inject = ["$scope", "$timeout", "APP_CONSTANT", "apiService", "deliveryConfig", "helperService", "appConfig", "authService", "$state", "toastr", "$uibModal", "$ocLazyLoad", "warehouseConfig"];
 
-    function DeliveryMenuController($scope, $timeout, APP_CONSTANT, apiService, deliveryConfig, helperService, appConfig, authService, $state, toastr, $uibModal, $ocLazyLoad) {
+    function DeliveryMenuController($scope, $timeout, APP_CONSTANT, apiService, deliveryConfig, helperService, appConfig, authService, $state, toastr, $uibModal, $ocLazyLoad, warehouseConfig) {
 
         var DeliveryMenuCtrl = this
 
@@ -62,9 +62,9 @@
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.WmsOutwardList.API.FindAll.FilterID
+                "FilterID": warehouseConfig.Entities.WmsOutward.API.FindAll.FilterID
             };
-            apiService.post("eAxisAPI", appConfig.Entities.WmsOutwardList.API.FindAll.Url, _input).then(function (response) {
+            apiService.post("eAxisAPI", warehouseConfig.Entities.WmsOutward.API.FindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     DeliveryMenuCtrl.ePage.Masters.DeliveryOrders = response.data.Response;
                     var count = 0;
@@ -287,7 +287,8 @@
                             deliveryConfig.TabList[_index][deliveryConfig.TabList[_index].label].ePage.Entities.Header.Data = response.Data.Response;
                         else if (response.Data)
                             deliveryConfig.TabList[_index][deliveryConfig.TabList[_index].label].ePage.Entities.Header.Data = response.Data;
-                        apiService.get("eAxisAPI", appConfig.Entities.WmsDeliveryList.API.GetById.Url + deliveryConfig.TabList[_index][deliveryConfig.TabList[_index].label].ePage.Entities.Header.Data.UIWmsDelivery.PK).then(function (response) {
+
+                        apiService.get("eAxisAPI", warehouseConfig.Entities.WmsDeliveryList.API.GetById.Url + deliveryConfig.TabList[_index][deliveryConfig.TabList[_index].label].ePage.Entities.Header.Data.UIWmsDelivery.PK).then(function (response) {
                             if (response.data.Response) {
                                 DeliveryMenuCtrl.ePage.Entities.Header.Data = response.data.Response;
 

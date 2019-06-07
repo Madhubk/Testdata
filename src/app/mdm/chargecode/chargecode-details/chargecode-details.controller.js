@@ -62,6 +62,7 @@
                     typeCodeList.map(function (value, key) {
                         ChargecodeDetailsCtrl.ePage.Masters.DropDownMasterList[value] = helperService.metaBase();
                         ChargecodeDetailsCtrl.ePage.Masters.DropDownMasterList[value].ListSource = response.data.Response[value];
+                        console.log(ChargecodeDetailsCtrl.ePage.Masters.DropDownMasterList[value].ListSource);
                     });
                 }
             });

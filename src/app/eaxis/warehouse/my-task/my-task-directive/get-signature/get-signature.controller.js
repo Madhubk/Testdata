@@ -5,9 +5,9 @@
         .module("Application")
         .controller("GetSignatureController", GetSignatureController);
 
-    GetSignatureController.$inject = ["$scope", "apiService", "helperService", "appConfig", "myTaskActivityConfig", "APP_CONSTANT", "errorWarningService", "dynamicLookupConfig", "inwardConfig"];
+    GetSignatureController.$inject = ["$scope", "apiService", "helperService", "appConfig", "myTaskActivityConfig", "APP_CONSTANT", "errorWarningService", "dynamicLookupConfig", "inwardConfig", "warehouseConfig"];
 
-    function GetSignatureController($scope, apiService, helperService, appConfig, myTaskActivityConfig, APP_CONSTANT, errorWarningService, dynamicLookupConfig, inwardConfig) {
+    function GetSignatureController($scope, apiService, helperService, appConfig, myTaskActivityConfig, APP_CONSTANT, errorWarningService, dynamicLookupConfig, inwardConfig, warehouseConfig) {
         var GetSignatureCtrl = this;
 
         function Init() {
@@ -47,7 +47,7 @@
         }
 
         function getPickupList() {
-            apiService.get("eAxisAPI", appConfig.Entities.WmsPickupList.API.GetById.Url + GetSignatureCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.AdditionalRef2Fk).then(function (response) {
+            apiService.get("eAxisAPI", warehouseConfig.Entities.WmsPickupList.API.GetById.Url + GetSignatureCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.AdditionalRef2Fk).then(function (response) {
                 if (response.data.Response) {
                     GetSignatureCtrl.ePage.Entities.Header.PickupData = response.data.Response;
                     myTaskActivityConfig.Entities.PickupData = GetSignatureCtrl.ePage.Entities.Header.PickupData;
@@ -129,7 +129,7 @@
 
         function GetEntityObj() {
             if (GetSignatureCtrl.ePage.Masters.TaskObj.EntityRefKey) {
-                apiService.get("eAxisAPI", appConfig.Entities.InwardList.API.GetById.Url + GetSignatureCtrl.ePage.Masters.TaskObj.EntityRefKey).then(function (response) {
+                apiService.get("eAxisAPI", warehouseConfig.Entities.WmsInwardList.API.GetById.Url + GetSignatureCtrl.ePage.Masters.TaskObj.EntityRefKey).then(function (response) {
                     if (response.data.Response) {
                         GetSignatureCtrl.ePage.Masters.EntityObj = response.data.Response;
                     }

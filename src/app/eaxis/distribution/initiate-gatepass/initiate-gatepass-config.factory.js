@@ -5,9 +5,9 @@
         .module("Application")
         .factory('gatepassConfig', GatepassConfig);
 
-    GatepassConfig.$inject = ["$location", "$q", "helperService", "apiService", "toastr", "errorWarningService"];
+    GatepassConfig.$inject = ["$location", "$q", "helperService", "apiService"];
 
-    function GatepassConfig($location, $q, helperService, apiService, toastr, errorWarningService) {
+    function GatepassConfig($location, $q, helperService, apiService) {
 
         var exports = {
             "Entities": {
@@ -121,14 +121,38 @@
                         },
 
                         "Meta": {
-                            "MenuList": [],
+                            "MenuList": [
+                                {
+                                    "DisplayName": "General",
+                                    "Value": "General",
+                                    "Icon": "fa fa-file",
+                                    "GParentRef": "general",
+                                    "IsDisabled": false
+                                }, {
+                                    "DisplayName": "Manifest Details",
+                                    "Value": "Manifest",
+                                    "Icon": "glyphicon glyphicon-indent-left",
+                                    "IsDisabled": false
+                                }, {
+                                    "DisplayName": "Inward Details",
+                                    "Value": "Inward",
+                                    "Icon": "glyphicon glyphicon-saved",
+                                    "IsDisabled": false
+                                }, {
+                                    "DisplayName": "Outward Details",
+                                    "Value": "Outward",
+                                    "Icon": "glyphicon glyphicon-list-alt",
+                                    "IsDisabled": false
+                                }
+                            ],
                             "ORG_Code": helperService.metaBase(),
                             "TransporterCode": helperService.metaBase(),
                             "Purpose": helperService.metaBase(),
                             "VehicleType": helperService.metaBase(),
                             "VehicleNo": helperService.metaBase(),
                             "DriverName": helperService.metaBase(),
-                            "DriverContactNo": helperService.metaBase()
+                            "DriverContactNo": helperService.metaBase(),
+                            "ClientCode": helperService.metaBase()
                         },
                         "CheckPoints": {
                             "DisableSave": false,

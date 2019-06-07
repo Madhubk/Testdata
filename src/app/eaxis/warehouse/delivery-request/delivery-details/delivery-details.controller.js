@@ -5,9 +5,9 @@
         .module("Application")
         .controller("DeliveryDetailsController", DeliveryDetailsController);
 
-    DeliveryDetailsController.$inject = ["$rootScope", "$scope", "$state", "$q", "$location", "$timeout", "APP_CONSTANT", "authService", "apiService", "appConfig", "deliveryConfig", "helperService", "toastr", "$filter", "$injector", "$uibModal", "confirmation"];
+    DeliveryDetailsController.$inject = ["apiService", "appConfig", "deliveryConfig", "helperService", "toastr", "$filter", "$injector", "warehouseConfig"];
 
-    function DeliveryDetailsController($rootScope, $scope, $state, $q, $location, $timeout, APP_CONSTANT, authService, apiService, appConfig, deliveryConfig, helperService, toastr, $filter, $injector, $uibModal, confirmation) {
+    function DeliveryDetailsController(apiService, appConfig, deliveryConfig, helperService, toastr, $filter, $injector, warehouseConfig) {
 
         var DeliveryDetailsCtrl = this
 
@@ -33,9 +33,9 @@
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.WmsWorkOrderLine.API.FindAll.FilterID
+                "FilterID": warehouseConfig.Entities.WmsWorkOrderLine.API.FindAll.FilterID
             };
-            apiService.post("eAxisAPI", appConfig.Entities.WmsWorkOrderLine.API.FindAll.Url, _input).then(function (response) {
+            apiService.post("eAxisAPI", warehouseConfig.Entities.WmsWorkOrderLine.API.FindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     DeliveryDetailsCtrl.ePage.Masters.DeliveryOrdersLine = response.data.Response;
                 }

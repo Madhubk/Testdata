@@ -6,9 +6,9 @@
         .module("Application")
         .controller("AllocateStockController", AllocateStockController);
 
-    AllocateStockController.$inject = ["$scope", "apiService", "helperService", "appConfig", "myTaskActivityConfig", "APP_CONSTANT", "errorWarningService", "pickConfig", "dynamicLookupConfig"];
+    AllocateStockController.$inject = ["$scope", "apiService", "helperService", "appConfig", "myTaskActivityConfig", "APP_CONSTANT", "errorWarningService", "pickConfig", "dynamicLookupConfig", "warehouseConfig"];
 
-    function AllocateStockController($scope, apiService, helperService, appConfig, myTaskActivityConfig, APP_CONSTANT, errorWarningService, pickConfig, dynamicLookupConfig) {
+    function AllocateStockController($scope, apiService, helperService, appConfig, myTaskActivityConfig, APP_CONSTANT, errorWarningService, pickConfig, dynamicLookupConfig, warehouseConfig) {
         var AllocateStockCtrl = this;
 
         function Init() {
@@ -75,7 +75,7 @@
 
         function GetEntityObj() {
             if (AllocateStockCtrl.ePage.Masters.TaskObj.EntityRefKey) {
-                apiService.get("eAxisAPI", appConfig.Entities.WmsPickList.API.GetById.Url + AllocateStockCtrl.ePage.Masters.TaskObj.EntityRefKey).then(function (response) {
+                apiService.get("eAxisAPI", warehouseConfig.Entities.WmsPickList.API.GetById.Url + AllocateStockCtrl.ePage.Masters.TaskObj.EntityRefKey).then(function (response) {
                     if (response.data.Response) {
                         AllocateStockCtrl.ePage.Masters.EntityObj = response.data.Response;
                     }

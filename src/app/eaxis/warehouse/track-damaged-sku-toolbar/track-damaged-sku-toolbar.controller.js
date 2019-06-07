@@ -5,9 +5,9 @@
         .module("Application")
         .controller("DamagedSkuToolbarController", DamagedSkuToolbarController);
 
-    DamagedSkuToolbarController.$inject = ["$scope", "$rootScope", "$timeout", "APP_CONSTANT", "apiService", "helperService", "appConfig", "authService", "$state", "confirmation", "$uibModal", "$window", "$http", "toastr", "$location"];
+    DamagedSkuToolbarController.$inject = ["$scope", "$rootScope", "$timeout", "APP_CONSTANT", "apiService", "helperService", "appConfig", "authService", "$state", "confirmation", "$uibModal", "$window", "$http", "toastr", "$location", "warehouseConfig"];
 
-    function DamagedSkuToolbarController($scope, $rootScope, $timeout, APP_CONSTANT, apiService, helperService, appConfig, authService, $state, confirmation, $uibModal, $window, $http, toastr, $location) {
+    function DamagedSkuToolbarController($scope, $rootScope, $timeout, APP_CONSTANT, apiService, helperService, appConfig, authService, $state, confirmation, $uibModal, $window, $http, toastr, $location, warehouseConfig) {
 
         var DamagedSkuToolbarCtrl = this;
 
@@ -101,9 +101,9 @@
 
                 var _input = {
                     "searchInput": helperService.createToArrayOfObject(FilterObj),
-                    "FilterID": appConfig.Entities.WmsInventory.API.FindAll.FilterID
+                    "FilterID": warehouseConfig.Entities.WmsInventory.API.FindAll.FilterID
                 };
-                apiService.post("eAxisAPI", appConfig.Entities.WmsInventory.API.FindAll.Url, _input).then(function (response) {
+                apiService.post("eAxisAPI", warehouseConfig.Entities.WmsInventory.API.FindAll.Url, _input).then(function (response) {
                     DamagedSkuToolbarCtrl.ePage.Masters.Inventory = response.data.Response;
                     if (DamagedSkuToolbarCtrl.ePage.Masters.Inventory.length > 0) {
                         OpenModal();
@@ -166,7 +166,7 @@
 
         function UpdateData() {
             CloseEditActivityModal();
-            var Status = "";            
+            var Status = "";
             if (DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList[0].ProductCondition == 'DMG' || DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList[0].ProductCondition == 'Faulty') {
                 Status = "Damaged";
             } else {
@@ -180,21 +180,21 @@
             }
             DamagedSkuToolbarCtrl.ePage.Masters.UpdateInventoryBtnText = "Please Wait..."
             DamagedSkuToolbarCtrl.ePage.Masters.IsUpdateInventoryBtn = true;
-            apiService.post("eAxisAPI", appConfig.Entities.WmsInventoryAdjustment.API.Insert.Url, _input).then(function (response) {
+            apiService.post("eAxisAPI", warehouseConfig.Entities.WmsInventoryAdjustment.API.Insert.Url, _input).then(function (response) {
                 if (response.data.Status == 'Success') {
                     toastr.success('Inventory Updated Successfully ');
                     if (DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList[0].PickupRequest_FK) {
-                        apiService.get("eAxisAPI", appConfig.Entities.WmsPickupList.API.GetById.Url + DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList[0].PickupRequest_FK).then(function (response) {
+                        apiService.get("eAxisAPI", warehouseConfig.Entities.WmsPickupList.API.GetById.Url + DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList[0].PickupRequest_FK).then(function (response) {
                             if (response.data.Response) {
                                 DamagedSkuToolbarCtrl.ePage.Masters.PickupData = response.data.Response;
-                                angular.forEach(DamagedSkuToolbarCtrl.ePage.Masters.PickupData.UIWmsPickupLine, function (value, key) {                                    
+                                angular.forEach(DamagedSkuToolbarCtrl.ePage.Masters.PickupData.UIWmsPickupLine, function (value, key) {
                                     if (value.AdditionalRef1Code == DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList[0].PickupLineRefNo) {
                                         value.ProductCondition = DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList[0].ProductCondition;
                                         value.UISPMSPickupReport.ProductCondition = DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList[0].ProductCondition == "GDC" ? "Good" : "Faulty";
                                     }
                                 });
                                 DamagedSkuToolbarCtrl.ePage.Masters.PickupData = filterObjectUpdate(DamagedSkuToolbarCtrl.ePage.Masters.PickupData, "IsModified");
-                                apiService.post("eAxisAPI", appConfig.Entities.WmsPickupList.API.Update.Url, DamagedSkuToolbarCtrl.ePage.Masters.PickupData).then(function (response) {
+                                apiService.post("eAxisAPI", warehouseConfig.Entities.WmsPickupList.API.Update.Url, DamagedSkuToolbarCtrl.ePage.Masters.PickupData).then(function (response) {
                                     if (response.data.Response) {
                                         DamagedSkuToolbarCtrl.ePage.Masters.PickupData = response.data.Response;
                                         toastr.success("Pickup Saved Successfully");
@@ -215,15 +215,15 @@
                         };
                         var _input = {
                             "searchInput": helperService.createToArrayOfObject(_filter),
-                            "FilterID": appConfig.Entities.WmsPickupReport.API.FindAll.FilterID
+                            "FilterID": warehouseConfig.Entities.WmsPickupReport.API.FindAll.FilterID
                         };
 
-                        apiService.post("eAxisAPI", appConfig.Entities.WmsPickupReport.API.FindAll.Url, _input).then(function (response) {
+                        apiService.post("eAxisAPI", warehouseConfig.Entities.WmsPickupReport.API.FindAll.Url, _input).then(function (response) {
                             if (response.data.Response) {
                                 if (response.data.Response.length > 0) {
-                                    response.data.Response[0].IsModified = true;                                    
+                                    response.data.Response[0].IsModified = true;
                                     response.data.Response[0].ProductCondition = DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList[0].ProductCondition == "GDC" ? "Good" : "Faulty";
-                                    apiService.post("eAxisAPI", appConfig.Entities.WmsPickupReport.API.Update.Url, response.data.Response[0]).then(function (response) {
+                                    apiService.post("eAxisAPI", warehouseConfig.Entities.WmsPickupReport.API.Update.Url, response.data.Response[0]).then(function (response) {
                                         if (response.data.Response) {
                                             console.log("Pickup Report Updated for " + response.data.Response.PickupLineRefNo);
                                             helperService.refreshGrid();
@@ -293,9 +293,9 @@
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.WmsWarehouse.API.FindAll.FilterID
+                "FilterID": warehouseConfig.Entities.WmsWarehouse.API.FindAll.FilterID
             };
-            apiService.post("eAxisAPI", appConfig.Entities.WmsWarehouse.API.FindAll.Url, _input).then(function (response) {
+            apiService.post("eAxisAPI", warehouseConfig.Entities.WmsWarehouse.API.FindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     DamagedSkuToolbarCtrl.ePage.Masters.WarehouseList = response.data.Response;
                     CreateMaterialTransferOutward('CEN');
@@ -320,9 +320,9 @@
                     };
                     var _input = {
                         "searchInput": helperService.createToArrayOfObject(_filter),
-                        "FilterID": appConfig.Entities.WmsWarehouse.API.FindAll.FilterID
+                        "FilterID": warehouseConfig.Entities.WmsWarehouse.API.FindAll.FilterID
                     };
-                    apiService.post("eAxisAPI", appConfig.Entities.WmsWarehouse.API.FindAll.Url, _input).then(function (response) {
+                    apiService.post("eAxisAPI", warehouseConfig.Entities.WmsWarehouse.API.FindAll.Url, _input).then(function (response) {
                         if (response.data.Response) {
                             DamagedSkuToolbarCtrl.ePage.Masters.WarehouseList = response.data.Response;
                             CreateMaterialTransferOutward('TES');
@@ -364,9 +364,9 @@
                                 };
                                 var _input = {
                                     "searchInput": helperService.createToArrayOfObject(_filter),
-                                    "FilterID": appConfig.Entities.WmsWarehouse.API.FindAll.FilterID
+                                    "FilterID": warehouseConfig.Entities.WmsWarehouse.API.FindAll.FilterID
                                 };
-                                apiService.post("eAxisAPI", appConfig.Entities.WmsWarehouse.API.FindAll.Url, _input).then(function (response) {
+                                apiService.post("eAxisAPI", warehouseConfig.Entities.WmsWarehouse.API.FindAll.Url, _input).then(function (response) {
                                     if (response.data.Response) {
                                         DamagedSkuToolbarCtrl.ePage.Masters.WarehouseList = response.data.Response;
                                         CreateMaterialTransferOutward('SCR');
@@ -387,9 +387,9 @@
                         };
                         var _input = {
                             "searchInput": helperService.createToArrayOfObject(_filter),
-                            "FilterID": appConfig.Entities.WmsWarehouse.API.FindAll.FilterID
+                            "FilterID": warehouseConfig.Entities.WmsWarehouse.API.FindAll.FilterID
                         };
-                        apiService.post("eAxisAPI", appConfig.Entities.WmsWarehouse.API.FindAll.Url, _input).then(function (response) {
+                        apiService.post("eAxisAPI", warehouseConfig.Entities.WmsWarehouse.API.FindAll.Url, _input).then(function (response) {
                             if (response.data.Response) {
                                 DamagedSkuToolbarCtrl.ePage.Masters.WarehouseList = response.data.Response;
                                 CreateMaterialTransferOutward('SCR');
@@ -432,9 +432,9 @@
                                 };
                                 var _input = {
                                     "searchInput": helperService.createToArrayOfObject(_filter),
-                                    "FilterID": appConfig.Entities.WmsWarehouse.API.FindAll.FilterID
+                                    "FilterID": warehouseConfig.Entities.WmsWarehouse.API.FindAll.FilterID
                                 };
-                                apiService.post("eAxisAPI", appConfig.Entities.WmsWarehouse.API.FindAll.Url, _input).then(function (response) {
+                                apiService.post("eAxisAPI", warehouseConfig.Entities.WmsWarehouse.API.FindAll.Url, _input).then(function (response) {
                                     if (response.data.Response) {
                                         DamagedSkuToolbarCtrl.ePage.Masters.WarehouseList = response.data.Response;
                                         CreateMaterialTransferOutward('REP');
@@ -455,9 +455,9 @@
                         };
                         var _input = {
                             "searchInput": helperService.createToArrayOfObject(_filter),
-                            "FilterID": appConfig.Entities.WmsWarehouse.API.FindAll.FilterID
+                            "FilterID": warehouseConfig.Entities.WmsWarehouse.API.FindAll.FilterID
                         };
-                        apiService.post("eAxisAPI", appConfig.Entities.WmsWarehouse.API.FindAll.Url, _input).then(function (response) {
+                        apiService.post("eAxisAPI", warehouseConfig.Entities.WmsWarehouse.API.FindAll.Url, _input).then(function (response) {
                             if (response.data.Response) {
                                 DamagedSkuToolbarCtrl.ePage.Masters.WarehouseList = response.data.Response;
                                 CreateMaterialTransferOutward('REP');
@@ -492,7 +492,7 @@
         // #region - Create MTR outward
         function CreateMaterialTransferOutward(type) {
             if (DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList[0].PickupRequest_FK) {
-                apiService.get("eAxisAPI", appConfig.Entities.WmsPickupList.API.GetById.Url + DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList[0].PickupRequest_FK).then(function (response) {
+                apiService.get("eAxisAPI", warehouseConfig.Entities.WmsPickupList.API.GetById.Url + DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList[0].PickupRequest_FK).then(function (response) {
                     if (response.data.Response) {
                         DamagedSkuToolbarCtrl.ePage.Masters.PickupData = response.data.Response;
                         ReadyToCreateMTROutward(type);
@@ -554,9 +554,9 @@
                         };
                         var _input = {
                             "searchInput": helperService.createToArrayOfObject(_filter),
-                            "FilterID": appConfig.Entities.OrgHeaderWarehouse.API.FindAll.FilterID
+                            "FilterID": warehouseConfig.Entities.OrgHeaderWarehouse.API.FindAll.FilterID
                         };
-                        apiService.post("eAxisAPI", appConfig.Entities.OrgHeaderWarehouse.API.FindAll.Url, _input).then(function (response) {
+                        apiService.post("eAxisAPI", warehouseConfig.Entities.OrgHeaderWarehouse.API.FindAll.Url, _input).then(function (response) {
                             if (response.data.Response) {
                                 if (response.data.Response.length > 0) {
                                     // get Warehouse Job address
@@ -606,7 +606,7 @@
         }
 
         function ReadyToCreateMTROutward(type) {
-            helperService.getFullObjectUsingGetById(appConfig.Entities.WmsOutwardList.API.GetById.Url, 'null').then(function (response) {
+            helperService.getFullObjectUsingGetById(warehouseConfig.Entities.WmsOutwardList.API.GetById.Url, 'null').then(function (response) {
                 if (response.data.Response.Response) {
                     response.data.Response.Response.UIWmsOutwardHeader.PK = response.data.Response.Response.PK;
                     response.data.Response.Response.UIWmsOutwardHeader.ClientCode = DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList[0].ClientCode;
@@ -667,7 +667,7 @@
                         }
                     });
 
-                    angular.forEach(DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList, function (value, key) {                        
+                    angular.forEach(DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList, function (value, key) {
                         var obj = {
                             "Parent_FK": value.PickupLine_FK,
                             "PK": "",
@@ -725,7 +725,7 @@
         }
 
         function MTRCreation(_outwardInput, type) {
-            apiService.post("eAxisAPI", appConfig.Entities.WmsOutwardList.API.Insert.Url, _outwardInput).then(function (response) {
+            apiService.post("eAxisAPI", warehouseConfig.Entities.WmsOutwardList.API.Insert.Url, _outwardInput).then(function (response) {
                 if (response.data.Response) {
                     DamagedSkuToolbarCtrl.ePage.Masters.OutwardData = response.data.Response;
                     ChangePickupStatus(type);
@@ -797,7 +797,7 @@
                 var TempPickupList = _.groupBy(DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList, 'PickupRequest_FK');
                 var TempPickupListCount = _.keys(TempPickupList).length;
                 angular.forEach(TempPickupList, function (value2, key2) {
-                    apiService.get("eAxisAPI", appConfig.Entities.WmsPickupList.API.GetById.Url + key2).then(function (response) {
+                    apiService.get("eAxisAPI", warehouseConfig.Entities.WmsPickupList.API.GetById.Url + key2).then(function (response) {
                         if (response.data.Response) {
                             angular.forEach(value2, function (value, key) {
                                 angular.forEach(response.data.Response.UIWmsPickupLine, function (value1, key1) {
@@ -825,7 +825,7 @@
                             });
                             $timeout(function () {
                                 response.data.Response = filterObjectUpdate(response.data.Response, "IsModified");
-                                apiService.post("eAxisAPI", appConfig.Entities.WmsPickupList.API.Update.Url, response.data.Response).then(function (response) {
+                                apiService.post("eAxisAPI", warehouseConfig.Entities.WmsPickupList.API.Update.Url, response.data.Response).then(function (response) {
                                     if (response.data.Response) {
                                         toastr.success("Pickup Saved Successfully");
                                         count = count + 1;
@@ -851,7 +851,7 @@
                     };
                     var _input = {
                         "searchInput": helperService.createToArrayOfObject(_filter),
-                        "FilterID": appConfig.Entities.WmsPickupReport.API.FindAll.FilterID
+                        "FilterID": warehouseConfig.Entities.WmsPickupReport.API.FindAll.FilterID
                     };
                 } else {
                     var _filter = {
@@ -859,10 +859,10 @@
                     };
                     var _input = {
                         "searchInput": helperService.createToArrayOfObject(_filter),
-                        "FilterID": appConfig.Entities.WmsPickupReport.API.FindAll.FilterID
+                        "FilterID": warehouseConfig.Entities.WmsPickupReport.API.FindAll.FilterID
                     };
                 }
-                apiService.post("eAxisAPI", appConfig.Entities.WmsPickupReport.API.FindAll.Url, _input).then(function (response) {
+                apiService.post("eAxisAPI", warehouseConfig.Entities.WmsPickupReport.API.FindAll.Url, _input).then(function (response) {
                     if (response.data.Response) {
                         if (response.data.Response.length > 0) {
                             response.data.Response[0].IsModified = true;
@@ -936,7 +936,7 @@
                                 else if (type == "REP")
                                     response.data.Response[0].PickupLineStatus = "MTR Raised to Repair Warehouse";
                             }
-                            apiService.post("eAxisAPI", appConfig.Entities.WmsPickupReport.API.Update.Url, response.data.Response[0]).then(function (response) {
+                            apiService.post("eAxisAPI", warehouseConfig.Entities.WmsPickupReport.API.Update.Url, response.data.Response[0]).then(function (response) {
                                 if (response.data.Response) {
                                     console.log("Pickup Report Updated for " + response.data.Response.PickupLineRefNo);
                                 }

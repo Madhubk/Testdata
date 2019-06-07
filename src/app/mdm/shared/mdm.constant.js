@@ -50,6 +50,22 @@
                     'app/mdm/organization/company/org-company-modal/org-company-modal.controller.js'
                 ]
             }, {
+                name: 'organizationAccountReceivable',
+                files: [
+                    'app/mdm/organization/accountreceivable/organization-accountreceivable.directive.js',
+                    'app/mdm/organization/accountreceivable/organization-accountreceivable.controller.js',
+                    'app/mdm/organization/accountreceivable/editable-mode/configuration.controller.js',
+                    'app/mdm/organization/accountreceivable/editable-mode/credit-control.controller.js',
+                    'app/mdm/organization/accountreceivable/editable-mode/invoice.controller.js'
+                ]
+            }, {
+                name: 'organizationAccountPayable',
+                files: [
+                    'app/mdm/organization/accountpayable/organization-accountpayable.directive.js',
+                    'app/mdm/organization/accountpayable/organization-accountpayable.controller.js',
+                    'app/mdm/organization/accountpayable/editable-tab-pages/ap-configuration.controller.js'
+                ]
+            }, {
                 name: 'organizationEmployee',
                 files: [
                     'app/mdm/organization/employee/organization-employee.directive.js',
@@ -204,7 +220,7 @@
                     'app/mdm/branch/branch-details/branch-details.directive.js',
                     'app/mdm/branch/branch-details/branch-details.controller.js'
                 ]
-            }, 
+            },
             // {
             //     name: 'MDBranchDetailsModal',
             //     files: [
@@ -233,7 +249,7 @@
                     'app/mdm/department/department-details/department-details-directive.js',
                     'app/mdm/department/department-details/department-details-controller.js'
                 ]
-            }, 
+            },
             // endregion
             // region Company
             {
@@ -257,7 +273,7 @@
                     'app/mdm/company/company-details/company-details-directive.js',
                     'app/mdm/company/company-details/company-details-controller.js'
                 ]
-            }, 
+            },
             // {
             //     name: 'MDCompanyDetailsModal',
             //     files: [
@@ -402,6 +418,30 @@
                 files: [
                     'app/mdm/warehouse/warehouses/warehouse-details/organizationaddress/address.controller.js',
                     'app/mdm/warehouse/warehouses/warehouse-details/organizationaddress/address.css'
+                ]
+            }, {
+                name: 'warehouseAreaDetails',
+                files: [
+                    'app/mdm/warehouse/warehouses/area-details/area-details.controller.js',
+                    'app/mdm/warehouse/warehouses/area-details/area-details.directive.js'
+                ]
+            }, {
+                name: 'warehouseConfigDetails',
+                files: [
+                    'app/mdm/warehouse/warehouses/warehouse-configuration/warehouse-configuration.controller.js',
+                    'app/mdm/warehouse/warehouses/warehouse-configuration/warehouse-configuration.directive.js'
+                ]
+            }, {
+                name: 'clientConfigDetails',
+                files: [
+                    'app/mdm/warehouse/warehouses/client-configuration/client-configuration.controller.js',
+                    'app/mdm/warehouse/warehouses/client-configuration/client-configuration.directive.js'
+                ]
+            }, {
+                name: 'dockConfigDetails',
+                files: [
+                    'app/mdm/warehouse/warehouses/dock-configuration/dock-configuration.controller.js',
+                    'app/mdm/warehouse/warehouses/dock-configuration/dock-configuration.directive.js'
                 ]
             },
             // area
@@ -919,8 +959,51 @@
                     'app/mdm/chargecode/chargecode-menu/chargecode-menu.controller.js',
                     'app/mdm/chargecode/chargecode-menu/chargecode-menu.directive.js'
                 ]
-            }
+            },
             //#endregion
+            //region GLaccount
+            {
+                name: 'glaccount',
+                files: [
+                    'app/mdm/glaccount/glaccount.css',
+                    'app/mdm/glaccount/glaccount.controller.js',
+                    'app/mdm/glaccount/glaccount-config.factory.js'
+                ]
+            }, {
+                name: 'glaccountMenu',
+                files: [
+                    'app/mdm/glaccount/glaccount-menu/glaccount-menu.controller.js',
+                    'app/mdm/glaccount/glaccount-menu/glaccount-menu.directive.js'
+                ]
+            }, {
+                name: 'glaccountGeneral',
+                files: [
+                    'app/mdm/glaccount/glaccount-general/glaccount-general.controller.js',
+                    'app/mdm/glaccount/glaccount-general/glaccount-general.directive.js'
+                ]
+            },
+            // end region
+            //region GLaccount
+            {
+                name: 'financeperiod',
+                files: [
+                    'app/mdm/financialperiod/financialperiod.controller.js',
+                    'app/mdm/financialperiod/financialperiod-config.factory.js'
+                ]
+            }, {
+                name: 'financeperiodMenu',
+                files: [
+                    'app/mdm/financialperiod/finanicalperiod-menu/financialperiod-menu.controller.js',
+                    'app/mdm/financialperiod/finanicalperiod-menu/financialperiod-menu.directive.js'
+                ]
+            }, {
+                name: 'financeperiodGeneral',
+                files: [
+                    'app/mdm/financialperiod/financialperiod-general/financialperiod-general.controller.js',
+                    'app/mdm/financialperiod/financialperiod-general/financialperiod-general.directive.js'
+                ]
+            }
+            // end region
         ]
     };
 

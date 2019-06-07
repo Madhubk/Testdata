@@ -5,9 +5,9 @@
         .module("Application")
         .controller("SRVConsignmentOutwardController", SRVConsignmentOutwardController);
 
-    SRVConsignmentOutwardController.$inject = ["$rootScope", "$scope", "$location", "$timeout", "$injector", "APP_CONSTANT", "authService", "apiService", "helperService", "toastr", "appConfig"];
+    SRVConsignmentOutwardController.$inject = ["$rootScope", "$scope", "$location", "$timeout", "$injector", "APP_CONSTANT", "authService", "apiService", "helperService", "toastr", "appConfig", "warehouseConfig"];
 
-    function SRVConsignmentOutwardController($rootScope, $scope, $location, $timeout, $injector, APP_CONSTANT, authService, apiService, helperService, toastr, appConfig) {
+    function SRVConsignmentOutwardController($rootScope, $scope, $location, $timeout, $injector, APP_CONSTANT, authService, apiService, helperService, toastr, appConfig, warehouseConfig) {
         /* jshint validthis: true */
         var SRVConsignOutwardCtrl = this,
             Entity = $location.path().split("/").pop(),
@@ -35,9 +35,9 @@
 
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.WmsWorkOrder.API.FindAll.FilterID,
+                "FilterID": warehouseConfig.Entities.WmsWorkOrder.API.FindAll.FilterID,
             };
-            apiService.post("eAxisAPI", appConfig.Entities.WmsWorkOrder.API.FindAll.Url, _input).then(function (response) {
+            apiService.post("eAxisAPI", warehouseConfig.Entities.WmsWorkOrder.API.FindAll.Url, _input).then(function (response) {
                 SRVConsignOutwardCtrl.ePage.Masters.OrderDetails = response.data.Response;
                 SRVConsignOutwardCtrl.ePage.Masters.Entity.PK = response.data.Response[0].PK;
                 InitOrder(SRVConsignOutwardCtrl.ePage.Masters.Entity, false);

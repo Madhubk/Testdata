@@ -89,15 +89,16 @@
                         angular.forEach(response, function (value, key) {
                             if (value.label == GatepassDetails.GatepassNo) {
                                 AllocateDockEditCtrl.ePage.Masters.TabList = value;
+                                AllocateDockEditCtrl.ePage.Meta.IsLoading = false;
                                 AllocateDockEditCtrl.ePage.Entities.Header.Data = AllocateDockEditCtrl.ePage.Masters.TabList[AllocateDockEditCtrl.ePage.Masters.TabList.label].ePage.Entities.Header.Data;
-                                apiService.get("eAxisAPI", appConfig.Entities.TmsManifest.API.GetById.Url + AllocateDockEditCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.ManifestFK).then(function (response) {
-                                    if (response.data.Response) {
-                                        dmsManifestConfig.GetTabDetails(response.data.Response, false).then(function (response) {
-                                            AllocateDockEditCtrl.ePage.Masters.Manifest = response[0];
-                                            AllocateDockEditCtrl.ePage.Meta.IsLoading = false;
-                                        });
-                                    }
-                                });
+                                // apiService.get("eAxisAPI", appConfig.Entities.TmsManifest.API.GetById.Url + AllocateDockEditCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.ManifestFK).then(function (response) {
+                                //     if (response.data.Response) {
+                                //         dmsManifestConfig.GetTabDetails(response.data.Response, false).then(function (response) {
+                                //             AllocateDockEditCtrl.ePage.Masters.Manifest = response[0];
+                                //             AllocateDockEditCtrl.ePage.Meta.IsLoading = false;
+                                //         });
+                                //     }
+                                // });
                             }
                         });
                     });

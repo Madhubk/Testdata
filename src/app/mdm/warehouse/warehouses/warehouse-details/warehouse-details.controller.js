@@ -1,13 +1,13 @@
-(function(){
+(function () {
     "use strict";
 
     angular
-    .module("Application")
-    .controller("WarehouseDetailsController", WarehouseDetailsController);
+        .module("Application")
+        .controller("WarehouseDetailsController", WarehouseDetailsController);
 
     WarehouseDetailsController.$inject = ["$rootScope", "$scope", "$state", "$q", "$location", "$timeout", "APP_CONSTANT", "authService", "apiService", "warehousesConfig", "helperService", "$filter", "$uibModal", "toastr", "appConfig", "$injector", "$document", "confirmation",];
 
-    function WarehouseDetailsController($rootScope, $scope, $state, $q, $location, $timeout, APP_CONSTANT, authService, apiService, warehousesConfig, helperService, $filter, $uibModal, toastr, appConfig, $injector, $document, confirmation){
+    function WarehouseDetailsController($rootScope, $scope, $state, $q, $location, $timeout, APP_CONSTANT, authService, apiService, warehousesConfig, helperService, $filter, $uibModal, toastr, appConfig, $injector, $document, confirmation) {
         var WarehouseDetailsCtrl = this;
 
         function Init() {
@@ -21,69 +21,20 @@
                 "Entities": currentWarehouse
             };
 
-        WarehouseDetailsCtrl.ePage.Masters.Config = $injector.get("warehousesConfig");
+            WarehouseDetailsCtrl.ePage.Masters.Config = $injector.get("warehousesConfig");
+            WarehouseDetailsCtrl.ePage.Masters.DropDownMasterList = {};
 
-        //For table
-        WarehouseDetailsCtrl.ePage.Masters.SelectAll = false;
-        WarehouseDetailsCtrl.ePage.Masters.EnableDeleteButton = false;
-        WarehouseDetailsCtrl.ePage.Masters.EnableCopyButton = false;
-        WarehouseDetailsCtrl.ePage.Masters.Enable = true;
-        WarehouseDetailsCtrl.ePage.Masters.selectedRow = -1;
-        WarehouseDetailsCtrl.ePage.Masters.emptyText = '-';
-        WarehouseDetailsCtrl.ePage.Masters.SearchTable = '';
+            WarehouseDetailsCtrl.ePage.Masters.SelectedLookupData = SelectedLookupData;
+            WarehouseDetailsCtrl.ePage.Masters.SelectedLookupOrganisation = SelectedLookupOrganisation;
+            WarehouseDetailsCtrl.ePage.Masters.OnChangeValues = OnChangeValues;
+            WarehouseDetailsCtrl.ePage.Masters.OtherOrganizationAddresses = OtherOrganizationAddresses;
 
-        WarehouseDetailsCtrl.ePage.Masters.SelectAllCheckBox = SelectAllCheckBox;
-        WarehouseDetailsCtrl.ePage.Masters.SingleSelectCheckBox = SingleSelectCheckBox;
-        WarehouseDetailsCtrl.ePage.Masters.setSelectedRow = setSelectedRow;
-        WarehouseDetailsCtrl.ePage.Masters.AddNewRow = AddNewRow;
-        WarehouseDetailsCtrl.ePage.Masters.CopyRow = CopyRow;
-        WarehouseDetailsCtrl.ePage.Masters.RemoveRow = RemoveRow;
-
-        WarehouseDetailsCtrl.ePage.Masters.DropDownMasterList = {};
-
-        WarehouseDetailsCtrl.ePage.Masters.SelectedLookupData = SelectedLookupData;
-        WarehouseDetailsCtrl.ePage.Masters.SelectedLookupOrganisation = SelectedLookupOrganisation;
-        WarehouseDetailsCtrl.ePage.Masters.OnChangeValues = OnChangeValues;
-        WarehouseDetailsCtrl.ePage.Masters.DropdownChange = DropdownChange;
-        WarehouseDetailsCtrl.ePage.Masters.OtherOrganizationAddresses = OtherOrganizationAddresses;
-
-
-        GetUserBasedGridColumList();
-        AreaList();
-        GetDropDownList();
-        RemoveHyphen();
-        GetAddressList();
-        GetOtherOrganizationAddress();
+            GetDropDownList();
+            RemoveHyphen();
+            GetAddressList();
+            GetOtherOrganizationAddress();
         }
 
-        //#region User Based Table Column
-        function GetUserBasedGridColumList(){
-        var _filter = {
-            "SAP_FK": authService.getUserInfo().AppPK,
-            "TenantCode": authService.getUserInfo().TenantCode,
-            "SourceEntityRefKey": authService.getUserInfo().UserId,
-            "EntitySource": "WMS_WAREHOUSEMASTER",
-        };
-        var _input = {
-            "searchInput": helperService.createToArrayOfObject(_filter),
-            "FilterID": appConfig.Entities.UserSettings.API.FindAll.FilterID
-        };
-
-        apiService.post("eAxisAPI", appConfig.Entities.UserSettings.API.FindAll.Url + authService.getUserInfo().AppPK, _input).then(function(response){
-            if(response.data.Response[0]){
-                WarehouseDetailsCtrl.ePage.Masters.UserValue= response.data.Response[0];
-                if(response.data.Response[0].Value!=''){
-                    var obj = JSON.parse(response.data.Response[0].Value)
-                    WarehouseDetailsCtrl.ePage.Entities.Header.TableProperties.WmsArea = obj;
-                    WarehouseDetailsCtrl.ePage.Masters.UserHasValue =true;
-                }
-            }else{
-                WarehouseDetailsCtrl.ePage.Masters.UserValue = undefined;
-            }
-        })
-    }
-    //#endregion
-        
         //#region Get dropdown values
         function GetDropDownList() {
             var typeCodeList = ["WarehouseType", "AreaType"];
@@ -113,8 +64,8 @@
 
         //#region SelectedLookupData
         function SelectedLookupData(item) {
-            OnChangeValues(item.Code,'E4004');
-            OnChangeValues(item.BranchName,'E4005');
+            OnChangeValues(item.Code, 'E4004');
+            OnChangeValues(item.BranchName, 'E4005');
         }
 
         function SelectedLookupOrganisation(item) {
@@ -127,46 +78,6 @@
         }
         //#endregion SelectedLookupData
 
-        //#region checkbox selection
-        function SelectAllCheckBox(){
-            angular.forEach(WarehouseDetailsCtrl.ePage.Entities.Header.Data.WmsArea, function (value, key) {
-            if (WarehouseDetailsCtrl.ePage.Masters.SelectAll){
-                value.SingleSelect = true;
-                WarehouseDetailsCtrl.ePage.Masters.EnableDeleteButton = true;
-                WarehouseDetailsCtrl.ePage.Masters.EnableCopyButton = true;
-            }
-            else{
-                value.SingleSelect = false;
-                WarehouseDetailsCtrl.ePage.Masters.EnableDeleteButton = false;
-                WarehouseDetailsCtrl.ePage.Masters.EnableCopyButton = false;
-            }
-            });
-        }
-
-        function SingleSelectCheckBox() {
-            var Checked = WarehouseDetailsCtrl.ePage.Entities.Header.Data.WmsArea.some(function (value, key) {
-                if(!value.SingleSelect)
-                return true;
-            });
-            if (Checked) {
-                WarehouseDetailsCtrl.ePage.Masters.SelectAll = false;
-            } else {
-                WarehouseDetailsCtrl.ePage.Masters.SelectAll = true;
-            }
-
-            var Checked1 = WarehouseDetailsCtrl.ePage.Entities.Header.Data.WmsArea.some(function (value, key) {
-                return value.SingleSelect == true;
-            });
-            if (Checked1) {
-                WarehouseDetailsCtrl.ePage.Masters.EnableDeleteButton = true;
-                WarehouseDetailsCtrl.ePage.Masters.EnableCopyButton = true;
-            } else {
-                WarehouseDetailsCtrl.ePage.Masters.EnableDeleteButton = false;
-                WarehouseDetailsCtrl.ePage.Masters.EnableCopyButton = false;
-            }
-        }
-        //#endregion checkbox selection
-
         //#region General 
         function RemoveHyphen() {
             if (WarehouseDetailsCtrl.ePage.Entities.Header.Data.WmsWarehouse.OrganizationCode == null) {
@@ -178,11 +89,6 @@
             WarehouseDetailsCtrl.ePage.Entities.Header.Data.WmsWarehouse.Organization = WarehouseDetailsCtrl.ePage.Entities.Header.Data.WmsWarehouse.OrganizationCode + ' - ' + WarehouseDetailsCtrl.ePage.Entities.Header.Data.WmsWarehouse.OrganizationName;
             if (WarehouseDetailsCtrl.ePage.Entities.Header.Data.WmsWarehouse.Organization == ' - ')
                 WarehouseDetailsCtrl.ePage.Entities.Header.Data.WmsWarehouse.Organization = '';
-        }
-
-        function AreaList(){
-            
-            WarehouseDetailsCtrl.ePage.Entities.Header.Data.WmsArea = $filter('orderBy')(WarehouseDetailsCtrl.ePage.Entities.Header.Data.WmsArea, 'CreatedDateTime');
         }
 
         function GetAddressList() {
@@ -259,94 +165,7 @@
                 }
             });
         }
-
-        function DropdownChange(value,FieldName){
-            debugger
-            if(FieldName=="WarehouseType"){
-                WarehouseDetailsCtrl.ePage.Entities.Header.Data.WmsWarehouse.WarehouseTypeDesc;
-            }
-        }
-
         //#endregion General
-
-        //#region Add,copy,delete row
-
-        function setSelectedRow(index){
-            WarehouseDetailsCtrl.ePage.Masters.selectedRow = index;
-        }
-
-        function AddNewRow() {
-            WarehouseDetailsCtrl.ePage.Entities.Header.GlobalVariables.Loading = true;
-            var obj = {
-                "PK": "",
-                "Name": "",
-                "AreaType": "",
-                "IsDeleted": false,
-            };
-            WarehouseDetailsCtrl.ePage.Entities.Header.Data.WmsArea.push(obj);
-            WarehouseDetailsCtrl.ePage.Masters.selectedRow = WarehouseDetailsCtrl.ePage.Entities.Header.Data.WmsArea.length-1;
-        
-            $timeout(function () {
-                var objDiv = document.getElementById("WarehouseDetailsCtrl.ePage.Masters.AddScroll");
-                objDiv.scrollTop = objDiv.scrollHeight;
-            }, 50);
-            WarehouseDetailsCtrl.ePage.Entities.Header.GlobalVariables.Loading = false;
-        };
-
-        function CopyRow() {
-            WarehouseDetailsCtrl.ePage.Entities.Header.GlobalVariables.Loading = true;
-            for(var i = WarehouseDetailsCtrl.ePage.Entities.Header.Data.WmsArea.length -1; i >= 0; i--){
-                if(WarehouseDetailsCtrl.ePage.Entities.Header.Data.WmsArea[i].SingleSelect){
-                    var obj = angular.copy(WarehouseDetailsCtrl.ePage.Entities.Header.Data.WmsArea[i]);
-                    obj.PK = '';
-                    obj.CreatedDateTime = '';
-                    obj.ModifiedDateTime = '';
-                    obj.SingleSelect=false;
-                    obj.IsCopied = true;
-                    WarehouseDetailsCtrl.ePage.Entities.Header.Data.WmsArea.splice(i + 1, 0, obj);
-                }
-            }
-            WarehouseDetailsCtrl.ePage.Masters.selectedRow = -1;
-            WarehouseDetailsCtrl.ePage.Masters.SelectAll = false;
-            WarehouseDetailsCtrl.ePage.Entities.Header.GlobalVariables.Loading = false;
-        }
-
-        function RemoveRow() {
-            var modalOptions = {
-                closeButtonText: 'Cancel',
-                actionButtonText: 'Ok',
-                headerText: 'Delete?',
-                bodyText: 'Are you sure?'
-            };
-            confirmation.showModal({}, modalOptions)
-                .then(function (result) {
-                    WarehouseDetailsCtrl.ePage.Entities.Header.GlobalVariables.Loading = true;
-
-                    angular.forEach(WarehouseDetailsCtrl.ePage.Entities.Header.Data.WmsArea,function(value,key){
-                        if(value.SingleSelect==true && value.PK){
-                            apiService.get("eAxisAPI", WarehouseDetailsCtrl.ePage.Entities.Header.API.AreaDelete.Url + value.PK).then(function (response) {
-                            });
-                        }
-                    });
-            
-                    var ReturnValue = RemoveAllLineErrors();
-                    if(ReturnValue){
-                        for (var i = WarehouseDetailsCtrl.ePage.Entities.Header.Data.WmsArea.length -1; i >= 0; i--){
-                            if(WarehouseDetailsCtrl.ePage.Entities.Header.Data.WmsArea[i].SingleSelect==true)
-                            WarehouseDetailsCtrl.ePage.Entities.Header.Data.WmsArea.splice(i,1);
-                        }
-                        WarehouseDetailsCtrl.ePage.Masters.Config.GeneralValidation(WarehouseDetailsCtrl.currentWarehouse);
-                    }
-                    toastr.success('Record Removed Successfully');
-                    WarehouseDetailsCtrl.ePage.Masters.selectedRow = -1;
-                    WarehouseDetailsCtrl.ePage.Masters.SelectAll = false;
-                    WarehouseDetailsCtrl.ePage.Entities.Header.GlobalVariables.Loading = false;
-                    WarehouseDetailsCtrl.ePage.Masters.EnableDeleteButton = false;
-                }, function () {
-                    console.log("Cancelled");
-            });
-        }
-        //#endregion Add,copy,delete row
 
         //#region Validation
         function OnChangeValues(fieldvalue, code, IsArray, RowIndex) {
@@ -359,14 +178,14 @@
 
         function GetErrorMessage(fieldvalue, value, IsArray, RowIndex) {
             if (!fieldvalue) {
-                WarehouseDetailsCtrl.ePage.Masters.Config.PushErrorWarning(value.Code, value.Message, "E", false, value.CtrlKey, WarehouseDetailsCtrl.currentWarehouse.label, IsArray, RowIndex, value.ColIndex, value.DisplayName, undefined, undefined);
+                WarehouseDetailsCtrl.ePage.Masters.Config.PushErrorWarning(value.Code, value.Message, "E", false, value.CtrlKey, WarehouseDetailsCtrl.currentWarehouse.label, IsArray, RowIndex, value.ColIndex, value.DisplayName, undefined, value.GParentRef);
             } else {
                 WarehouseDetailsCtrl.ePage.Masters.Config.RemoveErrorWarning(value.Code, "E", value.CtrlKey, WarehouseDetailsCtrl.currentWarehouse.label, IsArray, RowIndex, value.ColIndex);
             }
         }
 
-        function RemoveAllLineErrors(){
-            for(var i=0;i<WarehouseDetailsCtrl.ePage.Entities.Header.Data.WmsArea.length;i++){
+        function RemoveAllLineErrors() {
+            for (var i = 0; i < WarehouseDetailsCtrl.ePage.Entities.Header.Data.WmsArea.length; i++) {
                 OnChangeValues('value', "E4009", true, i);
                 OnChangeValues('value', "E4010", true, i);
                 OnChangeValues('value', "E4011", true, i);
