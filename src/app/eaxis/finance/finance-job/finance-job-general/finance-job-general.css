@@ -6,9 +6,25 @@
 .customcheckbox input[type=checkbox]~.text:before{
     color:black;
 }
-  
 
+.profit {
+    color: green;
+}
 
+.loss {
+    color: red;
+}
+
+.height-90 {
+    height: 90px;
+}
+
+.inner-dashboard-box {
+ width:100%;
+ float: left;
+ border:1px solid #f5f5f5;
+ position:relative;
+}
 
 
 

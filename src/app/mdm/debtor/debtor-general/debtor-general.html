@@ -13,7 +13,7 @@
                 </div>
                 <label class="control-label text-single-line ">Debtor Code</label>
                 <input type="text" class="form-control input-sm" placeholder="Debtor Code" data-ng-model="DebtorGeneralCtrl.ePage.Entities.Header.Data.Code" 
-                    data-ng-change='DebtorGeneralCtrl.ePage.Masters.OnChangeValues(DebtorGeneralCtrl.ePage.Entities.Header.Data.Code,"E1205")' data-ng-disabled="!DebtorGeneralCtrl.ePage.Entities.Header.Data.IsValid"/>
+                    data-ng-change='DebtorGeneralCtrl.ePage.Masters.OnChangeValues(DebtorGeneralCtrl.ePage.Entities.Header.Data.Code,"E1205")' data-ng-disabled="DebtorGeneralCtrl.ePage.Entities.Header.GlobalVariables.IsDisabledAll"/>
             </div>
         </div>
         <!--Desc-->
@@ -29,7 +29,7 @@
                 </div>
                 <label class="control-label text-single-line ">Debtor Desc</label>
                 <input type="text" class="form-control" placeholder="Debtor Desc" data-ng-model="DebtorGeneralCtrl.ePage.Entities.Header.Data.Desc" 
-                    data-ng-change='DebtorGeneralCtrl.ePage.Masters.OnChangeValues(DebtorGeneralCtrl.ePage.Entities.Header.Data.Desc,"E1206")' data-ng-disabled="!DebtorGeneralCtrl.ePage.Entities.Header.Data.IsValid"/>  
+                    data-ng-change='DebtorGeneralCtrl.ePage.Masters.OnChangeValues(DebtorGeneralCtrl.ePage.Entities.Header.Data.Desc,"E1206")' data-ng-disabled="DebtorGeneralCtrl.ePage.Entities.Header.GlobalVariables.IsDisabledAll"/>  
             </div>
         </div>
     </div>

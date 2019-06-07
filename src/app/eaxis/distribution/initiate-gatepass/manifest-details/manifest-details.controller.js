@@ -28,8 +28,8 @@
 
         function getManifestDetails() {
             if (ManifestDetailsCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.ManifestFK) {
-                apiService.get("eAxisAPI",gatepassConfig.Entities.Header.API.TmsManifestList.Url + ManifestDetailsCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.ManifestFK).then(function (response) {
-                    ManifestDetailsCtrl.ePage.Entities.Header.Data.ManifestDetails = response.data.Response;
+                apiService.get("eAxisAPI", gatepassConfig.Entities.Header.API.TmsManifestList.Url + ManifestDetailsCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.ManifestFK).then(function (response) {
+                    ManifestDetailsCtrl.ePage.Masters.ManifestDetails = response.data.Response;
                     ManifestDetailsCtrl.ePage.Masters.IsShowManifest = true;
 
                 });

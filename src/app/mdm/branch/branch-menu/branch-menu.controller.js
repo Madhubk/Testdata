@@ -27,16 +27,27 @@
             BranchMenuCtrl.ePage.Masters.Activate = Activate;
             BranchMenuCtrl.ePage.Masters.Deactivate = Deactivate;
             BranchMenuCtrl.ePage.Masters.Validation = Validation;
-            
-            BranchMenuCtrl.ePage.Masters.isActivate = true;
-            BranchMenuCtrl.ePage.Masters.isDeactivate = false;
 
-            // Menu list from configuration
+            BranchMenuCtrl.ePage.Masters.isActivate = true;
+            BranchMenuCtrl.ePage.Masters.isDeactivate = true;
+
+            InitActivateDeactivate();
         }
 
+        //#region InitActivateDeactivate
+        function InitActivateDeactivate() {
+            if (!BranchMenuCtrl.currentBranch.isNew && BranchMenuCtrl.ePage.Entities.Header.Data.IsActive) {
+                BranchMenuCtrl.ePage.Masters.isActivate = true;
+                BranchMenuCtrl.ePage.Masters.isDeactivate = false;
+            }
+            else if (!BranchMenuCtrl.currentBranch.isNew && !BranchMenuCtrl.ePage.Entities.Header.Data.IsActive) {
+                BranchMenuCtrl.ePage.Masters.isActivate = false;
+                BranchMenuCtrl.ePage.Masters.isDeactivate = true;
+            }
+        }
+        //#endregion
 
         function Validation($item) {
-            debugger;
             var _Data = $item[$item.label].ePage.Entities,
                 _input = _Data.Header.Data,
                 _errorcount = _Data.Header.Meta.ErrorWarning.GlobalErrorWarningList;
@@ -95,7 +106,7 @@
             } else {
                 $item = filterObjectUpdate($item, "IsModified");
                 _input.ModifiedDateTime = new Date();
-                _input.IsModified=true;                
+                _input.IsModified = true;
             }
 
             helperService.SaveEntity($item, 'Branch').then(function (response) {
@@ -123,7 +134,7 @@
         function Activate() {
             BranchMenuCtrl.ePage.Masters.isActivate = true;
             BranchMenuCtrl.ePage.Masters.isDeactivate = false;
-            BranchMenuCtrl.ePage.Entities.Header.Data.IsValid = true;
+            BranchMenuCtrl.ePage.Entities.Header.Data.IsActive = true;
         }
 
         // function Deactivate() {
@@ -131,6 +142,7 @@
         //     BranchMenuCtrl.ePage.Masters.DisableActivate = false;
         //     BranchMenuCtrl.ePage.Entities.Header.Data.IsValid = false;
         // }
+
         function Deactivate($item) {
             var _Data = $item[$item.label].ePage.Entities,
                 _input = _Data.Header.Data;

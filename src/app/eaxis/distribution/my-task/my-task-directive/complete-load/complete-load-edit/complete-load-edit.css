@@ -10,6 +10,33 @@
 .btn-save{
     display: block;
 }
+.grid-loading-norecord-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 10;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.5);
+    font-weight: 600;
+}
+
+.dyn-grid-no-record {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: 160px;
+    height: 30px;
+    text-align: center;
+    color: #D1001C;
+    border: 1px solid #CCCC66;
+    background-color: #FAFFBD;
+    padding: 5px 10px;
+    border-radius: 3px;
+}
 
 
 

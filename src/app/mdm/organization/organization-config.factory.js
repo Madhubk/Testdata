@@ -647,6 +647,24 @@
                             }
                         }
                     },
+                    "CurrencyUplift": {
+                        "RowIndex": -1,
+                        "API": {
+                            "Delete": {
+                                "IsAPI": "true",
+                                "Url": "CMPCurrencyUplift/Delete/",
+                            }
+                        }
+                    },
+                    "OrgARTerms": {
+                        "RowIndex": -1,
+                        "API": {
+                            "Delete": {
+                                "IsAPI": "true",
+                                "Url": "OrgARTerms/Delete/",
+                            }
+                        }
+                    }
                 },
                 "MenuList": []
             },
@@ -1162,7 +1180,7 @@
                             if (value.Type == "Warning" && value.MessageDesc) {
                                 toastr.info(value.MessageDesc);
                             }
-                            if(value.Type == "ActivityPK"){
+                            if (value.Type == "ActivityPK") {
                                 _activityPK = value.MessageDesc;
                             }
                         });
@@ -1197,7 +1215,7 @@
                 };
 
                 errorWarningService.GetErrorCodeList(_obj).then(response => {
-                    _exports.Entities.ErrorWarningConfig.GlobalErrorWarningList =  errorWarningService.Modules.Organization.Entity[$item.Code].GlobalErrorWarningList;
+                    _exports.Entities.ErrorWarningConfig.GlobalErrorWarningList = errorWarningService.Modules.Organization.Entity[$item.Code].GlobalErrorWarningList;
                     _exports.Entities.ErrorWarningConfig.ErrorWarningObj = errorWarningService.Modules.Organization.Entity[$item.Code];
 
                     Validate($item).then(response => {
@@ -1224,8 +1242,8 @@
                     EntityPK: $item.EntityPK,
                     ErrorCode: $item.ErrorCode ? $item.ErrorCode : []
                 };
-                exports.TabList.map(x =>{
-                    if(x.code == $item.Code) {
+                exports.TabList.map(x => {
+                    if (x.code == $item.Code) {
                         _obj.ActivityPK = x.activityPK;
                     }
                 });

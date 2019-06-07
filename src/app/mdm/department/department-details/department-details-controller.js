@@ -7,12 +7,12 @@
     DepartmentDetailsController.$inject = ["$rootScope", "$scope", "$state", "$q", "$location", "$timeout", "APP_CONSTANT", "authService", "apiService", "departmentConfig", "helperService", "$filter", "$uibModal", "toastr"];
 
     function DepartmentDetailsController($rootScope, $scope, $state, $q, $location, $timeout, APP_CONSTANT, authService, apiService, departmentConfig, helperService, $filter, $uibModal, toastr) {
-        
+
         var DepartmentDetailsCtrl = this;
 
         function Init() {
             var currentDepartment = DepartmentDetailsCtrl.currentDepartment[DepartmentDetailsCtrl.currentDepartment.code].ePage.Entities;
-            
+
             DepartmentDetailsCtrl.ePage = {
                 "Title": "",
                 "Prefix": "Department_Details",
@@ -20,23 +20,25 @@
                 "Meta": helperService.metaBase(),
                 "Entities": currentDepartment
             };
-           
+
             DepartmentDetailsCtrl.ePage.Masters.Config = departmentConfig;
 
-             /* Function */
-             DepartmentDetailsCtrl.ePage.Masters.OnChangeValues = OnChangeValues;
+            /* Function */
+            DepartmentDetailsCtrl.ePage.Masters.OnChangeValues = OnChangeValues;
 
-             InitDepartment();
+            InitDepartment();
         }
 
         //#region Department
-        function InitDepartment(){
+        function InitDepartment() {
             if (DepartmentDetailsCtrl.currentDepartment.isNew) {
                 DepartmentDetailsCtrl.ePage.Entities.Header.Data.IsActive = true;
             }
+            else if (!DepartmentDetailsCtrl.currentDepartment.isNew && !DepartmentDetailsCtrl.ePage.Entities.Header.Data.IsActive) {
+                DepartmentDetailsCtrl.ePage.Entities.Header.GlobalVariables.IsDisabledAll = true;
+            }
         }
         //#endregion
-
 
         //#region ErrorWarning Alert Validation
         function OnChangeValues(fieldvalue, code, IsArray, RowIndex) {

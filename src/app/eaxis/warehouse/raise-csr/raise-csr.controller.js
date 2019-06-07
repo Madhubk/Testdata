@@ -5,9 +5,9 @@
         .module("Application")
         .controller("RaiseCSRController", RaiseCSRController);
 
-    RaiseCSRController.$inject = ["$location", "$scope", "APP_CONSTANT", "authService", "apiService", "helperService", "deliveryConfig", "$timeout", "toastr", "appConfig", "$state", "$uibModal", "$window", "dynamicLookupConfig", "confirmation"];
+    RaiseCSRController.$inject = ["$location", "$scope", "APP_CONSTANT", "authService", "apiService", "helperService", "deliveryConfig", "$timeout", "toastr", "appConfig", "$state", "$uibModal", "$window", "dynamicLookupConfig", "confirmation", "warehouseConfig"];
 
-    function RaiseCSRController($location, $scope, APP_CONSTANT, authService, apiService, helperService, deliveryConfig, $timeout, toastr, appConfig, $state, $uibModal, $window, dynamicLookupConfig, confirmation) {
+    function RaiseCSRController($location, $scope, APP_CONSTANT, authService, apiService, helperService, deliveryConfig, $timeout, toastr, appConfig, $state, $uibModal, $window, dynamicLookupConfig, confirmation, warehouseConfig) {
 
         var RaiseCSRCtrl = this;
         function Init() {
@@ -66,7 +66,7 @@
             deliveryConfig.TabList = [];
             RaiseCSRCtrl.ePage.Masters.isNewClicked = true;
             RaiseCSRCtrl.ePage.Masters.Tab = undefined;
-            helperService.getFullObjectUsingGetById(appConfig.Entities.WmsDeliveryList.API.GetById.Url, 'null').then(function (response) {
+            helperService.getFullObjectUsingGetById(warehouseConfig.Entities.WmsDeliveryList.API.GetById.Url, 'null').then(function (response) {
                 if (response.data.Response) {
                     var _obj = {
                         entity: response.data.Response.Response.UIWmsDelivery,
@@ -187,8 +187,10 @@
                     value.UISPMSDeliveryReport.RequestedDateTime = _input.UIWmsWorkorderReport.DeliveryRequestedDateTime;
                     value.UISPMSDeliveryReport.RequesterContactNumber = _input.UIWmsWorkorderReport.RequesterContactNo;
                     value.UISPMSDeliveryReport.DeliveryRequestNo = _input.UIWmsDelivery.WorkOrderID;
+                    value.UISPMSDeliveryReport.DeliveryRequest_FK = _input.PK;
                     value.UISPMSDeliveryReport.CancelledDateTime = _input.UIWmsDelivery.CancelledDate;
                     value.UISPMSDeliveryReport.DeliveryLineRefNo = value.AdditionalRef1Code;
+                    value.UISPMSDeliveryReport.PRO_FK = value.PRO_FK;
                     value.UISPMSDeliveryReport.ProductCode = value.ProductCode;
                     value.UISPMSDeliveryReport.ProductDescription = value.ProductDescription;
                     value.UISPMSDeliveryReport.Packs = value.Packs;
@@ -205,7 +207,15 @@
                     value.UISPMSDeliveryReport.IsModified = value.IsModified;
                     value.UISPMSDeliveryReport.IsDeleted = value.IsDeleted;
                     value.UISPMSDeliveryReport.DeliveryLine_FK = value.PK;
-                    value.UISPMSDeliveryReport.DeliveryRequest_FK = _input.PK;
+                    value.UISPMSDeliveryReport.DeliveryLineStatus = value.WorkOrderLineStatusDesc;
+                    value.UISPMSDeliveryReport.UsePartAttrib1 = value.UsePartAttrib1;
+                    value.UISPMSDeliveryReport.UsePartAttrib2 = value.UsePartAttrib2;
+                    value.UISPMSDeliveryReport.UsePartAttrib3 = value.UsePartAttrib3;
+                    value.UISPMSDeliveryReport.IsPartAttrib1ReleaseCaptured = value.IsPartAttrib1ReleaseCaptured;
+                    value.UISPMSDeliveryReport.IsPartAttrib2ReleaseCaptured = value.IsPartAttrib2ReleaseCaptured;
+                    value.UISPMSDeliveryReport.IsPartAttrib3ReleaseCaptured = value.IsPartAttrib3ReleaseCaptured;
+                    value.UISPMSDeliveryReport.UseExpiryDate = value.UseExpiryDate;
+                    value.UISPMSDeliveryReport.UsePackingDate = value.UsePackingDate;
                 }
             });
 
@@ -223,7 +233,7 @@
                     _input.UIWmsWorkorderReport.DeliveryRequestedDateTime = new Date();
                 _input.UIWmsWorkorderReport.WOD_FK = _input.PK;
 
-                apiService.post("eAxisAPI", appConfig.Entities.WmsDeliveryList.API.Insert.Url, _input).then(function (response) {
+                apiService.post("eAxisAPI", warehouseConfig.Entities.WmsDeliveryList.API.Insert.Url, _input).then(function (response) {
                     if (response.data.Response) {
                         $item.isNew = false;
                         RaiseCSRCtrl.ePage.Entities.Header.Data = response.data.Response;
@@ -282,7 +292,7 @@
                 });
             } else {
                 $item = filterObjectUpdate($item, "IsModified");
-                apiService.post("eAxisAPI", appConfig.Entities.WmsDeliveryList.API.Update.Url, _input).then(function (response) {
+                apiService.post("eAxisAPI", warehouseConfig.Entities.WmsDeliveryList.API.Update.Url, _input).then(function (response) {
                     if (response.data.Response) {
                         $item[$item.label].ePage.Entities.Header.Data = response.data.Response;
                         RaiseCSRCtrl.ePage.Entities.Header.Data = response.data.Response;

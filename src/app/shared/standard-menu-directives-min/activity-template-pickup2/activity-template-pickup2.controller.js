@@ -5,9 +5,9 @@
         .module("Application")
         .controller("ActivityTemplatePickup2Controller", ActivityTemplatePickup2Controller);
 
-    ActivityTemplatePickup2Controller.$inject = ["$rootScope", "helperService", "APP_CONSTANT", "$q", "apiService", "authService", "appConfig", "toastr", "errorWarningService", "myTaskActivityConfig", "$filter", "$timeout", "pickupConfig"];
+    ActivityTemplatePickup2Controller.$inject = ["$rootScope", "helperService", "APP_CONSTANT", "$q", "apiService", "authService", "appConfig", "toastr", "errorWarningService", "myTaskActivityConfig", "$filter", "$timeout", "pickupConfig", "warehouseConfig"];
 
-    function ActivityTemplatePickup2Controller($rootScope, helperService, APP_CONSTANT, $q, apiService, authService, appConfig, toastr, errorWarningService, myTaskActivityConfig, $filter, $timeout, pickupConfig) {
+    function ActivityTemplatePickup2Controller($rootScope, helperService, APP_CONSTANT, $q, apiService, authService, appConfig, toastr, errorWarningService, myTaskActivityConfig, $filter, $timeout, pickupConfig, warehouseConfig) {
         var ActivityTemplatePickup2Ctrl = this;
 
         function Init() {
@@ -101,21 +101,22 @@
         }
 
         function GetEntityObj() {
-            if (ActivityTemplatePickup2Ctrl.ePage.Masters.TaskObj.EntityRefKey) {
-                apiService.get("eAxisAPI", appConfig.Entities.WmsPickupList.API.GetById.Url + ActivityTemplatePickup2Ctrl.ePage.Masters.TaskObj.EntityRefKey).then(function (response) {
-                    if (response.data.Response) {
-                        ActivityTemplatePickup2Ctrl.ePage.Masters.EntityObj = response.data.Response;
-                        ActivityTemplatePickup2Ctrl.ePage.Entities.Header.Data = ActivityTemplatePickup2Ctrl.ePage.Masters.EntityObj;
-
-                        if (ActivityTemplatePickup2Ctrl.tabObj) {
-                            ActivityTemplatePickup2Ctrl.currentPickup = ActivityTemplatePickup2Ctrl.tabObj;
-                            myTaskActivityConfig.Entities.Pickup = ActivityTemplatePickup2Ctrl.currentPickup;
-                            getTaskConfigData();
-                        } else {
+            if (ActivityTemplatePickup2Ctrl.tabObj) {
+                ActivityTemplatePickup2Ctrl.currentPickup = ActivityTemplatePickup2Ctrl.tabObj;
+                ActivityTemplatePickup2Ctrl.ePage.Masters.EntityObj = ActivityTemplatePickup2Ctrl.tabObj[ActivityTemplatePickup2Ctrl.tabObj.label].ePage.Entities.Header.Data;
+                myTaskActivityConfig.Entities.Pickup = ActivityTemplatePickup2Ctrl.currentPickup;
+                getTaskConfigData();
+            } else {
+                if (ActivityTemplatePickup2Ctrl.ePage.Masters.TaskObj.EntityRefKey) {
+                    apiService.get("eAxisAPI", warehouseConfig.Entities.WmsPickup.API.GetById.Url + ActivityTemplatePickup2Ctrl.ePage.Masters.TaskObj.EntityRefKey).then(function (response) {
+                        if (response.data.Response) {
+                            var _PickupData = response.data.Response;
                             pickupConfig.TabList = [];
-                            pickupConfig.GetTabDetails(ActivityTemplatePickup2Ctrl.ePage.Entities.Header.Data.UIWmsPickup, false).then(function (response) {
+                            pickupConfig.GetTabDetails(_PickupData, false).then(function (response) {
                                 angular.forEach(response, function (value, key) {
-                                    if (value.label == ActivityTemplatePickup2Ctrl.ePage.Entities.Header.Data.UIWmsPickup.WorkOrderID) {
+                                    if (value.label == _PickupData.WorkOrderID) {
+                                        ActivityTemplatePickup2Ctrl.ePage.Masters.EntityObj = value[value.label].ePage.Entities.Header.Data;
+                                        ActivityTemplatePickup2Ctrl.ePage.Entities.Header.Data = ActivityTemplatePickup2Ctrl.ePage.Masters.EntityObj;
                                         ActivityTemplatePickup2Ctrl.currentPickup = value;
                                         myTaskActivityConfig.Entities.Pickup = ActivityTemplatePickup2Ctrl.currentPickup;
                                         getTaskConfigData();
@@ -123,8 +124,8 @@
                                 });
                             });
                         }
-                    }
-                });
+                    });
+                }
             }
         }
 
@@ -203,10 +204,10 @@
                             };
                             var _input = {
                                 "searchInput": helperService.createToArrayOfObject(_filter),
-                                "FilterID": appConfig.Entities.WmsPickupReport.API.FindAll.FilterID
+                                "FilterID": warehouseConfig.Entities.WmsPickupReport.API.FindAll.FilterID
                             };
 
-                            apiService.post("eAxisAPI", appConfig.Entities.WmsPickupReport.API.FindAll.Url, _input).then(function (response) {
+                            apiService.post("eAxisAPI", warehouseConfig.Entities.WmsPickupReport.API.FindAll.Url, _input).then(function (response) {
                                 if (response.data.Response) {
                                     if (response.data.Response.length > 0) {
                                         response.data.Response[0].IsModified = true;
@@ -217,7 +218,7 @@
                                         response.data.Response[0].PickupProductStatus = value.ProductCondition == "GDC" ? "Good" : "Faulty";
                                         response.data.Response[0].ProductCondition = value.ProductCondition == "GDC" ? "Good" : "Faulty";
                                         response.data.Response[0].RequestMode = myTaskActivityConfig.Entities.Pickup[myTaskActivityConfig.Entities.Pickup.label].ePage.Entities.Header.Data.UIWmsWorkorderReport.RequestMode;
-                                        apiService.post("eAxisAPI", appConfig.Entities.WmsPickupReport.API.Update.Url, response.data.Response[0]).then(function (response) {
+                                        apiService.post("eAxisAPI", warehouseConfig.Entities.WmsPickupReport.API.Update.Url, response.data.Response[0]).then(function (response) {
                                             if (response.data.Response) {
                                                 console.log("Pickup Report Updated for " + response.data.Response.PickupLineRefNo);
                                             }
@@ -251,9 +252,9 @@
             }
             var _input = angular.copy(myTaskActivityConfig.Entities.Pickup[myTaskActivityConfig.Entities.Pickup.label].ePage.Entities.Header.Data);
             _input = filterObjectUpdate(_input, "IsModified");
-            apiService.post("eAxisAPI", appConfig.Entities.WmsPickupList.API.Update.Url, _input).then(function (response) {
+            apiService.post("eAxisAPI", warehouseConfig.Entities.WmsPickupList.API.Update.Url, _input).then(function (response) {
                 if (response.data.Response) {
-                    apiService.get("eAxisAPI", appConfig.Entities.WmsPickupList.API.GetById.Url + response.data.Response.UIWmsPickup.PK).then(function (response) {
+                    apiService.get("eAxisAPI", warehouseConfig.Entities.WmsPickupList.API.GetById.Url + response.data.Response.UIWmsPickup.PK).then(function (response) {
                         if (response.data.Response) {
                             ActivityTemplatePickup2Ctrl.ePage.Masters.EntityObj = response.data.Response;
 
@@ -265,10 +266,10 @@
                                         };
                                         var _input = {
                                             "searchInput": helperService.createToArrayOfObject(_filter),
-                                            "FilterID": appConfig.Entities.WmsPickupReport.API.FindAll.FilterID
+                                            "FilterID": warehouseConfig.Entities.WmsPickupReport.API.FindAll.FilterID
                                         };
 
-                                        apiService.post("eAxisAPI", appConfig.Entities.WmsPickupReport.API.FindAll.Url, _input).then(function (response) {
+                                        apiService.post("eAxisAPI", warehouseConfig.Entities.WmsPickupReport.API.FindAll.Url, _input).then(function (response) {
                                             if (response.data.Response) {
 
                                                 if (response.data.Response.length > 0) {
@@ -283,7 +284,7 @@
                                                     response.data.Response[0].StatusDesc = ActivityTemplatePickup2Ctrl.ePage.Masters.EntityObj.UIWmsPickup.WorkOrderStatusDesc;
                                                     response.data.Response[0].PickupLineStatus = "Pickup In Progress";
 
-                                                    apiService.post("eAxisAPI", appConfig.Entities.WmsPickupReport.API.Update.Url, response.data.Response[0]).then(function (response) {
+                                                    apiService.post("eAxisAPI", warehouseConfig.Entities.WmsPickupReport.API.Update.Url, response.data.Response[0]).then(function (response) {
                                                         if (response.data.Response) {
                                                             console.log("Pickup Report Updated for " + response.data.Response.PickupLineRefNo);
                                                         }

@@ -5,9 +5,9 @@
         .module("Application")
         .controller("ActivityTemplateDelivery2Controller", ActivityTemplateDelivery2Controller);
 
-    ActivityTemplateDelivery2Controller.$inject = ["$rootScope", "helperService", "APP_CONSTANT", "$q", "apiService", "authService", "appConfig", "toastr", "errorWarningService", "myTaskActivityConfig", "$filter", "$timeout", "deliveryConfig"];
+    ActivityTemplateDelivery2Controller.$inject = ["$rootScope", "helperService", "APP_CONSTANT", "$q", "apiService", "authService", "appConfig", "toastr", "errorWarningService", "myTaskActivityConfig", "$filter", "$timeout", "deliveryConfig", "warehouseConfig"];
 
-    function ActivityTemplateDelivery2Controller($rootScope, helperService, APP_CONSTANT, $q, apiService, authService, appConfig, toastr, errorWarningService, myTaskActivityConfig, $filter, $timeout, deliveryConfig) {
+    function ActivityTemplateDelivery2Controller($rootScope, helperService, APP_CONSTANT, $q, apiService, authService, appConfig, toastr, errorWarningService, myTaskActivityConfig, $filter, $timeout, deliveryConfig, warehouseConfig) {
         var ActivityTemplateDelivery2Ctrl = this;
 
         function Init() {
@@ -101,21 +101,22 @@
         }
 
         function GetEntityObj() {
-            if (ActivityTemplateDelivery2Ctrl.ePage.Masters.TaskObj.EntityRefKey) {
-                apiService.get("eAxisAPI", appConfig.Entities.WmsDeliveryList.API.GetById.Url + ActivityTemplateDelivery2Ctrl.ePage.Masters.TaskObj.EntityRefKey).then(function (response) {
-                    if (response.data.Response) {
-                        ActivityTemplateDelivery2Ctrl.ePage.Masters.EntityObj = response.data.Response;
-                        ActivityTemplateDelivery2Ctrl.ePage.Entities.Header.Data = ActivityTemplateDelivery2Ctrl.ePage.Masters.EntityObj;
-
-                        if (ActivityTemplateDelivery2Ctrl.tabObj) {
-                            ActivityTemplateDelivery2Ctrl.currentDelivery = ActivityTemplateDelivery2Ctrl.tabObj;
-                            myTaskActivityConfig.Entities.Delivery = ActivityTemplateDelivery2Ctrl.currentDelivery;
-                            getTaskConfigData();
-                        } else {
+            if (ActivityTemplateDelivery2Ctrl.tabObj) {
+                ActivityTemplateDelivery2Ctrl.currentDelivery = ActivityTemplateDelivery2Ctrl.tabObj;
+                ActivityTemplateDelivery2Ctrl.ePage.Masters.EntityObj = ActivityTemplateDelivery2Ctrl.tabObj[ActivityTemplateDelivery2Ctrl.tabObj.label].ePage.Entities.Header.Data;
+                myTaskActivityConfig.Entities.Delivery = ActivityTemplateDelivery2Ctrl.currentDelivery;
+                getTaskConfigData();
+            } else {
+                if (ActivityTemplateDelivery2Ctrl.ePage.Masters.TaskObj.EntityRefKey) {
+                    apiService.get("eAxisAPI", warehouseConfig.Entities.WmsDelivery.API.GetById.Url + ActivityTemplateDelivery2Ctrl.ePage.Masters.TaskObj.EntityRefKey).then(function (response) {
+                        if (response.data.Response) {
+                            var _DeliveryData = response.data.Response;
                             deliveryConfig.TabList = [];
-                            deliveryConfig.GetTabDetails(ActivityTemplateDelivery2Ctrl.ePage.Entities.Header.Data.UIWmsDelivery, false).then(function (response) {
+                            deliveryConfig.GetTabDetails(_DeliveryData, false).then(function (response) {
                                 angular.forEach(response, function (value, key) {
-                                    if (value.label == ActivityTemplateDelivery2Ctrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderID) {
+                                    if (value.label == _DeliveryData.WorkOrderID) {
+                                        ActivityTemplateDelivery2Ctrl.ePage.Masters.EntityObj = value[value.label].ePage.Entities.Header.Data;
+                                        ActivityTemplateDelivery2Ctrl.ePage.Entities.Header.Data = ActivityTemplateDelivery2Ctrl.ePage.Masters.EntityObj;
                                         ActivityTemplateDelivery2Ctrl.currentDelivery = value;
                                         myTaskActivityConfig.Entities.Delivery = ActivityTemplateDelivery2Ctrl.currentDelivery;
                                         getTaskConfigData();
@@ -123,8 +124,8 @@
                                 });
                             });
                         }
-                    }
-                });
+                    });
+                }
             }
         }
 
@@ -199,10 +200,10 @@
                             };
                             var _input = {
                                 "searchInput": helperService.createToArrayOfObject(_filter),
-                                "FilterID": appConfig.Entities.WmsDeliveryReport.API.FindAll.FilterID
+                                "FilterID": warehouseConfig.Entities.WmsDeliveryReport.API.FindAll.FilterID
                             };
 
-                            apiService.post("eAxisAPI", appConfig.Entities.WmsDeliveryReport.API.FindAll.Url, _input).then(function (response) {
+                            apiService.post("eAxisAPI", warehouseConfig.Entities.WmsDeliveryReport.API.FindAll.Url, _input).then(function (response) {
                                 if (response.data.Response) {
                                     if (response.data.Response.length > 0) {
                                         response.data.Response[0].IsModified = true;
@@ -210,7 +211,7 @@
                                         response.data.Response[0].CSRReceiver = myTaskActivityConfig.Entities.Delivery[myTaskActivityConfig.Entities.Delivery.label].ePage.Entities.Header.Data.UIWmsWorkorderReport.AdditionalRef2Code;
                                         response.data.Response[0].AcknowledgedDateTime = myTaskActivityConfig.Entities.Delivery[myTaskActivityConfig.Entities.Delivery.label].ePage.Entities.Header.Data.UIWmsWorkorderReport.AcknowledgementDateTime;
                                         response.data.Response[0].RequestedDateTime = myTaskActivityConfig.Entities.Delivery[myTaskActivityConfig.Entities.Delivery.label].ePage.Entities.Header.Data.UIWmsWorkorderReport.DeliveryRequestedDateTime;
-                                        apiService.post("eAxisAPI", appConfig.Entities.WmsDeliveryReport.API.Update.Url, response.data.Response[0]).then(function (response) {
+                                        apiService.post("eAxisAPI", warehouseConfig.Entities.WmsDeliveryReport.API.Update.Url, response.data.Response[0]).then(function (response) {
                                             if (response.data.Response) {
                                                 console.log("Delivery Report Updated for " + response.data.Response.DeliveryLineRefNo);
                                             }
@@ -249,9 +250,9 @@
             }
             var _input = angular.copy(myTaskActivityConfig.Entities.Delivery[myTaskActivityConfig.Entities.Delivery.label].ePage.Entities.Header.Data);
             _input = filterObjectUpdate(_input, "IsModified");
-            apiService.post("eAxisAPI", appConfig.Entities.WmsDeliveryList.API.Update.Url, _input).then(function (response) {
+            apiService.post("eAxisAPI", warehouseConfig.Entities.WmsDeliveryList.API.Update.Url, _input).then(function (response) {
                 if (response.data.Response) {
-                    apiService.get("eAxisAPI", appConfig.Entities.WmsDeliveryList.API.GetById.Url + response.data.Response.UIWmsDelivery.PK).then(function (response) {
+                    apiService.get("eAxisAPI", warehouseConfig.Entities.WmsDeliveryList.API.GetById.Url + response.data.Response.UIWmsDelivery.PK).then(function (response) {
                         if (response.data.Response) {
                             myTaskActivityConfig.Entities.Delivery[myTaskActivityConfig.Entities.Delivery.label].ePage.Entities.Header.Data = response.data.Response;
                             if (ActivityTemplateDelivery2Ctrl.taskObj.WSI_StepName == "Create Delivery Challan") {
@@ -262,10 +263,10 @@
                                         };
                                         var _input = {
                                             "searchInput": helperService.createToArrayOfObject(_filter),
-                                            "FilterID": appConfig.Entities.WmsDeliveryReport.API.FindAll.FilterID
+                                            "FilterID": warehouseConfig.Entities.WmsDeliveryReport.API.FindAll.FilterID
                                         };
 
-                                        apiService.post("eAxisAPI", appConfig.Entities.WmsDeliveryReport.API.FindAll.Url, _input).then(function (response) {
+                                        apiService.post("eAxisAPI", warehouseConfig.Entities.WmsDeliveryReport.API.FindAll.Url, _input).then(function (response) {
                                             if (response.data.Response) {
                                                 if (response.data.Response.length > 0) {
                                                     response.data.Response[0].IsModified = true;
@@ -285,7 +286,7 @@
                                                     response.data.Response[0].DEL_OOU_Fk = value.OUT_WorkOrderPk;
                                                     response.data.Response[0].DEL_OUT_ExternalRefNumber = value.OUT_ExternalReference;
                                                     response.data.Response[0].DEL_OUT_CustomerReference = value.OUT_CustomerReference;
-                                                    response.data.Response[0].DEL_OUT_CreatedDateTime = value.OUT_CreatedDateTime;                                                    
+                                                    response.data.Response[0].DEL_OUT_CreatedDateTime = value.OUT_CreatedDateTime;
                                                     response.data.Response[0].ChallanDate = value.DEL_OUT_RequiredDate;
                                                     response.data.Response[0].DEL_OL_Fk = value.OL_Pk;
                                                     response.data.Response[0].DEL_OL_Product_Fk = value.OL_PrdPk;
@@ -294,7 +295,7 @@
                                                     response.data.Response[0].StatusCode = myTaskActivityConfig.Entities.Delivery[myTaskActivityConfig.Entities.Delivery.label].ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderStatus;
                                                     response.data.Response[0].StatusDesc = myTaskActivityConfig.Entities.Delivery[myTaskActivityConfig.Entities.Delivery.label].ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderStatusDesc;
 
-                                                    apiService.post("eAxisAPI", appConfig.Entities.WmsDeliveryReport.API.Update.Url, response.data.Response[0]).then(function (response) {
+                                                    apiService.post("eAxisAPI", warehouseConfig.Entities.WmsDeliveryReport.API.Update.Url, response.data.Response[0]).then(function (response) {
                                                         if (response.data.Response) {
                                                             console.log("Delivery Report Updated for " + response.data.Response.DeliveryLineRefNo);
                                                         }

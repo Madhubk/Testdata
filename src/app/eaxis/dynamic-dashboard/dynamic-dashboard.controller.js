@@ -5,9 +5,9 @@
         .module("Application")
         .controller("DynamicDashboardController", DynamicDashboardController);
 
-    DynamicDashboardController.$inject = ["$scope", "helperService", "$filter", "dynamicDashboardConfig", "appConfig", "apiService", "authService", "$timeout", "$uibModal"];
+    DynamicDashboardController.$inject = ["$scope", "helperService", "$filter", "dynamicDashboardConfig", "appConfig", "apiService", "authService", "$timeout", "$uibModal", "warehouseConfig"];
 
-    function DynamicDashboardController($scope, helperService, $filter, dynamicDashboardConfig, appConfig, apiService, authService, $timeout, $uibModal) {
+    function DynamicDashboardController($scope, helperService, $filter, dynamicDashboardConfig, appConfig, apiService, authService, $timeout, $uibModal, warehouseConfig) {
 
         var DynamicDashboardCtrl = this;
 
@@ -55,6 +55,7 @@
             DynamicDashboardCtrl.ePage.Masters.Settings = Settings;
             DynamicDashboardCtrl.ePage.Masters.CloseEditActivity = CloseEditActivity;
             DynamicDashboardCtrl.ePage.Masters.Config = dynamicDashboardConfig;
+
             GetRoleList();
             GetSettingsButtonAccess();
             GetDashboardListBasedOnRole();
@@ -64,10 +65,19 @@
         // #endregion
         // #region - Create new dashboard
         function CreateNewDashboard() {
+            DynamicDashboardCtrl.ePage.Masters.CreateDashboard = true;
             DynamicDashboardCtrl.ePage.Masters.IsNew = true;
+            angular.forEach(DynamicDashboardCtrl.ePage.Masters.TotalComponentList, function (value, key) {
+                value.IsLoadedInThisDashboard = false;
+            });
+            angular.forEach(DynamicDashboardCtrl.ePage.Masters.RoleList, function (value, key) {
+                value.IsDashboardRole = false;
+                value.SecMapping_FK = undefined;
+            });
             apiService.get("eAxisAPI", dynamicDashboardConfig.Entities.DASDashBoardList.API.GetById.Url + "null").then(function (response) {
                 if (response.data.Response) {
                     DynamicDashboardCtrl.ePage.Masters.SelectedDashboardSettingDetails = response.data.Response;
+                    DynamicDashboardCtrl.ePage.Masters.CreateDashboard = false;
                     OpenNewDashboard().result.then(function (response) { }, function () { });
                 }
             });
@@ -140,9 +150,11 @@
         // #endregion 
         // #region - Preview the dashboard setting
         function PreviewDashboardSetting(item) {
+            DynamicDashboardCtrl.ePage.Masters.Loading = true;
             apiService.get("eAxisAPI", dynamicDashboardConfig.Entities.DASDashBoardList.API.GetById.Url + item.PK).then(function (response) {
                 if (response.data.Response) {
                     DynamicDashboardCtrl.ePage.Masters.SelectedDashboardSettingDetails = response.data.Response;
+                    DynamicDashboardCtrl.ePage.Masters.Loading = false;
                     var previewModalInstances = $uibModal.open({
                         animation: true,
                         backdrop: "static",
@@ -273,6 +285,7 @@
         // #endregion
         // #region - Get component List for Selected Dashboard Setting
         function GetComponentListForDashboardSettings(item) {
+            DynamicDashboardCtrl.ePage.Masters.Loading = true;
             angular.forEach(DynamicDashboardCtrl.ePage.Masters.TotalComponentList, function (value, key) {
                 value.IsLoadedInThisDashboard = false;
             });
@@ -287,6 +300,7 @@
                         });
                     });
                     DynamicDashboardCtrl.ePage.Masters.TotalComponentList = $filter('orderBy')(DynamicDashboardCtrl.ePage.Masters.TotalComponentList, '!IsLoadedInThisDashboard');
+                    DynamicDashboardCtrl.ePage.Masters.Loading = false;
                     OpenComponentListDashboardSetting().result.then(function (response) { }, function () { });
                 }
             });
@@ -355,8 +369,10 @@
         // #endregion
         // #region - Edit Dashboard setting
         function Edit(item) {
+            DynamicDashboardCtrl.ePage.Masters.Loading = true;
             apiService.get("eAxisAPI", dynamicDashboardConfig.Entities.DASDashBoardList.API.GetById.Url + item.PK).then(function (response) {
                 if (response.data.Response) {
+                    DynamicDashboardCtrl.ePage.Masters.Loading = false;
                     DynamicDashboardCtrl.ePage.Masters.SelectedDashboardSettingDetails = response.data.Response;
                     EditDashboardSetting().result.then(function (response) { }, function () { });
                 }
@@ -395,6 +411,7 @@
         // #endregion 
         // #region - Get dashboard list based on Role
         function GetDashboardListBasedOnRole() {
+            DynamicDashboardCtrl.ePage.Masters.LoadingValue = "Getting Dashboard List...";
             var _filter = {
                 "AccessCode": authService.getUserInfo().RoleCode,
                 "MappingCode": "DASH_ROLE_APP_TNT"
@@ -406,6 +423,7 @@
             apiService.post("authAPI", appConfig.Entities.SecMappings.API.FindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     if (response.data.Response.length > 0) {
+                        DynamicDashboardCtrl.ePage.Masters.LoadingValue = "";
                         var _DashboardFK = "";
                         angular.forEach(response.data.Response, function (value, key) {
                             _DashboardFK = _DashboardFK + value.Item_FK + ",";
@@ -423,25 +441,34 @@
                                 DynamicDashboardCtrl.ePage.Masters.DashboardListBasedOnRole = response.data.Response;
                                 DynamicDashboardCtrl.ePage.Masters.DashboardListBasedOnRole = $filter('orderBy')(DynamicDashboardCtrl.ePage.Masters.DashboardListBasedOnRole, 'DisplayOrder');
                                 DynamicDashboardCtrl.ePage.Masters.SelectedDashboardDetails = DynamicDashboardCtrl.ePage.Masters.DashboardListBasedOnRole[0];
-                                if (DynamicDashboardCtrl.ePage.Masters.SelectedDashboardDetails)
+                                if (DynamicDashboardCtrl.ePage.Masters.SelectedDashboardDetails) {
                                     OnChangeDashboardList();
+                                }
                             }
                         });
+                    } else {
+                        DynamicDashboardCtrl.ePage.Masters.LoadingValue = "No Dashboard Mapped for this User";
                     }
                 }
             });
         }
 
         function OnChangeDashboardList() {
+            DynamicDashboardCtrl.ePage.Masters.LoadingValue = "Getting Dashboard Details...";
             if (DynamicDashboardCtrl.ePage.Masters.SelectedDashboardDetails.IsWarehouseBased)
                 GetWarehouseValues();
-            else
+            else {
                 DynamicDashboardCtrl.ePage.Masters.SelectedWarehouse = {};
-            if (DynamicDashboardCtrl.ePage.Masters.SelectedDashboardDetails.IsOrganisationBased)
-                GetClientDetails();
-            else
-                DynamicDashboardCtrl.ePage.Masters.SelectedClient = {};
-            GetDashboardList();
+
+                if (DynamicDashboardCtrl.ePage.Masters.SelectedDashboardDetails.IsOrganisationBased)
+                    GetClientDetails();
+                else {
+                    DynamicDashboardCtrl.ePage.Masters.SelectedClient = {};
+                    if (DynamicDashboardCtrl.ePage.Masters.SelectedClient && DynamicDashboardCtrl.ePage.Masters.SelectedWarehouse) {
+                        GetDashboardList();
+                    }
+                }
+            }
         }
         // #endregion
         // #region - Dashboard settings
@@ -453,10 +480,10 @@
 
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.ComponentRole.API.FindAll.FilterID
+                "FilterID": warehouseConfig.Entities.ComponentRole.API.FindAll.FilterID
             };
 
-            apiService.post("authAPI", appConfig.Entities.ComponentRole.API.FindAll.Url, _input).then(function (response) {
+            apiService.post("authAPI", warehouseConfig.Entities.ComponentRole.API.FindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     DynamicDashboardCtrl.ePage.Masters.ComponentRoleDetails = response.data.Response;
                 }
@@ -483,6 +510,7 @@
         // #endregion
         // #region - get Component list based on Dashboard list 
         function GetDashboardList() {
+            DynamicDashboardCtrl.ePage.Masters.LoadingValue = "Getting Dashboard Component details...";
             var _filter = {
                 "DSH_FK": DynamicDashboardCtrl.ePage.Masters.SelectedDashboardDetails.PK
             };
@@ -493,6 +521,11 @@
             apiService.post("eAxisAPI", dynamicDashboardConfig.Entities.DASDashboardComponents.API.FindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     DynamicDashboardCtrl.ePage.Masters.SelectedDashboardComponentDetails = angular.copy(response.data.Response);
+                    if (DynamicDashboardCtrl.ePage.Masters.SelectedDashboardComponentDetails.length == 0) {
+                        DynamicDashboardCtrl.ePage.Masters.LoadingValue = "No Component Mapped for this Dashboard";
+                    } else {
+                        DynamicDashboardCtrl.ePage.Masters.LoadingValue = "";
+                    }
                     DynamicDashboardCtrl.ePage.Masters.TempComponentList = angular.copy(response.data.Response);
                     GetUserBasedComponentList();
                 }
@@ -550,18 +583,29 @@
         // #region - Get warehouse details
         function GetWarehouseValues() {
             //Get Warehouse Details
+            DynamicDashboardCtrl.ePage.Masters.LoadingValue = "Getting mapped Warehouse...";
             var _input = {
-                "FilterID": appConfig.Entities.WmsWarehouse.API.FindAll.FilterID,
+                "FilterID": warehouseConfig.Entities.WmsWarehouse.API.FindAll.FilterID,
                 "SearchInput": []
             };
 
-            apiService.post("eAxisAPI", appConfig.Entities.WmsWarehouse.API.FindAll.Url, _input).then(function (response) {
+            apiService.post("eAxisAPI", warehouseConfig.Entities.WmsWarehouse.API.FindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     if (response.data.Response.length > 0) {
                         DynamicDashboardCtrl.ePage.Masters.WarehouseDetails = response.data.Response;
                         DynamicDashboardCtrl.ePage.Masters.SelectedWarehouse = DynamicDashboardCtrl.ePage.Masters.WarehouseDetails[0];
+                        DynamicDashboardCtrl.ePage.Masters.LoadingValue = "";
                     } else {
                         DynamicDashboardCtrl.ePage.Masters.SelectedWarehouse = {};
+                        DynamicDashboardCtrl.ePage.Masters.LoadingValue = "No Warehouse Mapped for this User";
+                    }
+                    if (DynamicDashboardCtrl.ePage.Masters.SelectedDashboardDetails.IsOrganisationBased)
+                        GetClientDetails();
+                    else {
+                        DynamicDashboardCtrl.ePage.Masters.SelectedClient = {};
+                    }
+                    if (DynamicDashboardCtrl.ePage.Masters.SelectedClient && DynamicDashboardCtrl.ePage.Masters.SelectedWarehouse) {
+                        GetDashboardList();
                     }
                 }
             });
@@ -579,22 +623,28 @@
         // #endregion
         // #region - Get Client Details
         function GetClientDetails() {
+            DynamicDashboardCtrl.ePage.Masters.LoadingValue = "Getting mapped Organization...";
             var _filter = {
                 "SAP_FK": authService.getUserInfo().AppPK,
                 "Item_FK": authService.getUserInfo().UserPK,
                 "TenantCode": authService.getUserInfo().TenantCode
             };
             var _input = {
-                "FilterID": appConfig.Entities.UserOrganisation.API.FindAll.FilterID,
+                "FilterID": warehouseConfig.Entities.UserOrganisation.API.FindAll.FilterID,
                 "SearchInput": helperService.createToArrayOfObject(_filter)
             }
-            apiService.post("authAPI", appConfig.Entities.UserOrganisation.API.FindAll.Url, _input).then(function (response) {
+            apiService.post("authAPI", warehouseConfig.Entities.UserOrganisation.API.FindAll.Url, _input).then(function (response) {
                 if (response.data.Status == "Success") {
                     if (response.data.Response.length > 0) {
                         DynamicDashboardCtrl.ePage.Masters.ClientDetails = response.data.Response;
                         DynamicDashboardCtrl.ePage.Masters.SelectedClient = DynamicDashboardCtrl.ePage.Masters.ClientDetails[0];
+                        DynamicDashboardCtrl.ePage.Masters.LoadingValue = "";
                     } else {
+                        DynamicDashboardCtrl.ePage.Masters.LoadingValue = "No Organization Mapped for this User";
                         DynamicDashboardCtrl.ePage.Masters.SelectedClient = undefined;
+                    }
+                    if (DynamicDashboardCtrl.ePage.Masters.SelectedClient && DynamicDashboardCtrl.ePage.Masters.SelectedWarehouse) {
+                        GetDashboardList();
                     }
                 }
             });
@@ -664,8 +714,9 @@
             });
         }
         // #endregion
-        //#region User Based Table Column
+        // #region User Based Table Column
         function GetUserBasedComponentList() {
+            DynamicDashboardCtrl.ePage.Masters.LoadingValue = "Getting User based Component List...";
             var _filter = {
                 "SAP_FK": authService.getUserInfo().AppPK,
                 "TenantCode": authService.getUserInfo().TenantCode,
@@ -678,23 +729,37 @@
             };
 
             apiService.post("eAxisAPI", appConfig.Entities.UserSettings.API.FindAll.Url + authService.getUserInfo().AppPK, _input).then(function (response) {
-                if (response.data.Response[0]) {
-                    DynamicDashboardCtrl.ePage.Masters.UserValue = response.data.Response[0];
-                    if (response.data.Response[0].Value != '') {
-                        var obj = JSON.parse(response.data.Response[0].Value)
-                        DynamicDashboardCtrl.ePage.Masters.UserBasedComponentList = obj;
-                        DynamicDashboardCtrl.ePage.Masters.TempComponentList = $filter('filter')(DynamicDashboardCtrl.ePage.Masters.TempComponentList, { DC_IsEnabled: true })
-                        angular.forEach(DynamicDashboardCtrl.ePage.Masters.UserBasedComponentList, function (value, key) {
-                            angular.forEach(DynamicDashboardCtrl.ePage.Masters.TempComponentList, function (value1, key1) {
-                                if (value.DC_PK == value1.DC_PK) {
-                                    value1.DC_DisplayOrder = value.DC_DisplayOrder;
-                                    value1.DC_IsEnabled = value.DC_IsEnabled;
-                                    value1.DC_LoadByDefault = value.DC_LoadByDefault;
-                                    value1.DC_ShowByDefault = value.DC_ShowByDefault
-                                }
+                if (response.data.Response) {
+                    DynamicDashboardCtrl.ePage.Masters.LoadingValue = "";
+                    if (response.data.Response[0]) {
+                        DynamicDashboardCtrl.ePage.Masters.UserValue = response.data.Response[0];
+                        if (response.data.Response[0].Value != '') {
+                            var obj = JSON.parse(response.data.Response[0].Value)
+                            DynamicDashboardCtrl.ePage.Masters.UserBasedComponentList = obj;
+                            DynamicDashboardCtrl.ePage.Masters.TempComponentList = $filter('filter')(DynamicDashboardCtrl.ePage.Masters.TempComponentList, { DC_IsEnabled: true })
+                            angular.forEach(DynamicDashboardCtrl.ePage.Masters.UserBasedComponentList, function (value, key) {
+                                angular.forEach(DynamicDashboardCtrl.ePage.Masters.TempComponentList, function (value1, key1) {
+                                    if (value.DC_PK == value1.DC_PK) {
+                                        value1.DC_DisplayOrder = value.DC_DisplayOrder;
+                                        value1.DC_IsEnabled = value.DC_IsEnabled;
+                                        value1.DC_LoadByDefault = value.DC_LoadByDefault;
+                                        value1.DC_ShowByDefault = value.DC_ShowByDefault
+                                    }
+                                });
                             });
-                        });
-                        DynamicDashboardCtrl.ePage.Masters.UserHasValue = true;
+                            DynamicDashboardCtrl.ePage.Masters.UserHasValue = true;
+                            DynamicDashboardCtrl.ePage.Masters.TempComponentList = $filter('orderBy')(DynamicDashboardCtrl.ePage.Masters.TempComponentList, 'DC_DisplayOrder');
+                            DynamicDashboardCtrl.ePage.Masters.TempComponentList = $filter('orderBy')(DynamicDashboardCtrl.ePage.Masters.TempComponentList, '!DC_ShowByDefault');
+                            DynamicDashboardCtrl.ePage.Masters.IsShowDetails = $filter('filter')(DynamicDashboardCtrl.ePage.Masters.TempComponentList, { DC_IsEnabled: true })
+                            var LoadedAsDefaultDetails = $filter('filter')(DynamicDashboardCtrl.ePage.Masters.IsShowDetails, { DC_ShowByDefault: true })
+                            if (LoadedAsDefaultDetails.length >= 0) {
+                                dynamicDashboardConfig.LoadMoreCount = LoadedAsDefaultDetails.length;
+                            }
+                            dynamicDashboardConfig.LoadedDirectiveCount = 0;
+                            DynamicDashboardCtrl.ePage.Masters.ComponentList = angular.copy(LoadedAsDefaultDetails);
+                        }
+                    } else {
+                        DynamicDashboardCtrl.ePage.Masters.UserValue = undefined;
                         DynamicDashboardCtrl.ePage.Masters.TempComponentList = $filter('orderBy')(DynamicDashboardCtrl.ePage.Masters.TempComponentList, 'DC_DisplayOrder');
                         DynamicDashboardCtrl.ePage.Masters.TempComponentList = $filter('orderBy')(DynamicDashboardCtrl.ePage.Masters.TempComponentList, '!DC_ShowByDefault');
                         DynamicDashboardCtrl.ePage.Masters.IsShowDetails = $filter('filter')(DynamicDashboardCtrl.ePage.Masters.TempComponentList, { DC_IsEnabled: true })
@@ -705,17 +770,6 @@
                         dynamicDashboardConfig.LoadedDirectiveCount = 0;
                         DynamicDashboardCtrl.ePage.Masters.ComponentList = angular.copy(LoadedAsDefaultDetails);
                     }
-                } else {
-                    DynamicDashboardCtrl.ePage.Masters.UserValue = undefined;
-                    DynamicDashboardCtrl.ePage.Masters.TempComponentList = $filter('orderBy')(DynamicDashboardCtrl.ePage.Masters.TempComponentList, 'DC_DisplayOrder');
-                    DynamicDashboardCtrl.ePage.Masters.TempComponentList = $filter('orderBy')(DynamicDashboardCtrl.ePage.Masters.TempComponentList, '!DC_ShowByDefault');
-                    DynamicDashboardCtrl.ePage.Masters.IsShowDetails = $filter('filter')(DynamicDashboardCtrl.ePage.Masters.TempComponentList, { DC_IsEnabled: true })
-                    var LoadedAsDefaultDetails = $filter('filter')(DynamicDashboardCtrl.ePage.Masters.IsShowDetails, { DC_ShowByDefault: true })
-                    if (LoadedAsDefaultDetails.length >= 0) {
-                        dynamicDashboardConfig.LoadMoreCount = LoadedAsDefaultDetails.length;
-                    }
-                    dynamicDashboardConfig.LoadedDirectiveCount = 0;
-                    DynamicDashboardCtrl.ePage.Masters.ComponentList = angular.copy(LoadedAsDefaultDetails);
                 }
             })
         }

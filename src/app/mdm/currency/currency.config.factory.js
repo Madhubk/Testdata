@@ -28,7 +28,7 @@
                                 "Url": "MstCurrency/FindAll",
                                 "FilterID": "MSTCURR"
                             },
-                            "ValidateCurrency":{
+                            "ValidateCurrency": {
                                 "IsAPI": "true",
                                 "HttpType": "Post",
                                 "Url": "AccCurrencyCompanyValidate/FindAll",
@@ -85,17 +85,13 @@
                                 "CurrencyCode": helperService.metaBase(),
                                 "CurrencyName": helperService.metaBase(),
                                 "Symbol": helperService.metaBase(),
-                                "Country": helperService.metaBase(),
-                                "IsActive": helperService.metaBase(),
                                 "Unitname": helperService.metaBase(),
                                 "Country": helperService.metaBase()
                             }
                         },
                         "GlobalVariables": {
-                            "SelectAll": false,
-                            "IsDisablePost": true
+                            "IsDisabledAll": false
                         }
-
                     }
                 }
             };
@@ -168,9 +164,9 @@
                 _input = _Data.Header.Data;
             //UICurrencyMaster Validations 
             OnChangeValues(_input.Code, 'E1314', false, undefined, $item.code);
-            OnChangeValues(_input.Desc, 'E1315', false, undefined, $item.code);
-            OnChangeValues(_input.Desc, 'E1316', false, undefined, $item.code);
             OnChangeValues(_input.Desc, 'E1317', false, undefined, $item.code);
+            OnChangeValues(_input.Symbol, 'E1315', false, undefined, $item.code);
+            OnChangeValues(_input.UnitName, 'E1316', false, undefined, $item.code);
             OnChangeValues(_input.Country, 'E1208', false, undefined, $item.code);
         }
 

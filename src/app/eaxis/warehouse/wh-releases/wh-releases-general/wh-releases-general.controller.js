@@ -6,9 +6,9 @@
         .controller("ReleasesGeneralController", ReleasesGeneralController);
 
 
-    ReleasesGeneralController.$inject = ["$scope", "$timeout", "APP_CONSTANT", "apiService", "releaseConfig", "helperService", "appConfig", "authService", "$state", "$filter", "toastr", "$window", "confirmation"];
+    ReleasesGeneralController.$inject = ["$scope", "$timeout", "APP_CONSTANT", "apiService", "releaseConfig", "helperService", "appConfig", "authService", "$state", "$filter", "toastr", "$window", "confirmation", "warehouseConfig"];
 
-    function ReleasesGeneralController($scope, $timeout, APP_CONSTANT, apiService, releaseConfig, helperService, appConfig, authService, $state, $filter, toastr, $window, confirmation) {
+    function ReleasesGeneralController($scope, $timeout, APP_CONSTANT, apiService, releaseConfig, helperService, appConfig, authService, $state, $filter, toastr, $window, confirmation, warehouseConfig) {
 
         var ReleasesGeneralCtrl = this;
 
@@ -58,10 +58,10 @@
                 };
                 var _input = {
                     "searchInput": helperService.createToArrayOfObject(_filter),
-                    "FilterID": appConfig.Entities.InwardList.API.FindAll.FilterID
+                    "FilterID": warehouseConfig.Entities.WmsInward.API.FindAll.FilterID
                 };
 
-                apiService.post("eAxisAPI", appConfig.Entities.InwardList.API.FindAll.Url, _input).then(function (response) {
+                apiService.post("eAxisAPI", warehouseConfig.Entities.WmsInward.API.FindAll.Url, _input).then(function (response) {
                     if (response.data.Response) {
                         if (response.data.Response.length > 0) {
                             toastr.warning("Material Transfer Inward already created for this Order");
@@ -350,7 +350,7 @@
                         if (response.data.Response.Response) {
                             var InwardObject = response.data.Response.Response
                             InwardObject.UIWmsInwardHeader.PK = response.data.Response.Response.PK;
-                            apiService.get("eAxisAPI", appConfig.Entities.WmsOutwardList.API.GetById.Url + currentOutward.PK).then(function (response) {
+                            apiService.get("eAxisAPI", warehouseConfig.Entities.WmsOutwardList.API.GetById.Url + currentOutward.PK).then(function (response) {
                                 if (response.data.Response) {
                                     InwardObject.UIOrgHeader = response.data.Response.UIOrgHeader;
                                     InwardObject.UIJobAddress = angular.copy(response.data.Response.UIJobAddress);

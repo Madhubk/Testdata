@@ -5,9 +5,9 @@
         .module("Application")
         .controller("CreateDelChallanController", CreateDelChallanController);
 
-    CreateDelChallanController.$inject = ["$scope", "apiService", "helperService", "appConfig", "myTaskActivityConfig", "APP_CONSTANT", "errorWarningService", "dynamicLookupConfig", "outwardConfig", "toastr", "$timeout", "$uibModal", "$filter"];
+    CreateDelChallanController.$inject = ["$scope", "apiService", "helperService", "appConfig", "myTaskActivityConfig", "APP_CONSTANT", "errorWarningService", "dynamicLookupConfig", "outwardConfig", "toastr", "$timeout", "$uibModal", "$filter", "warehouseConfig"];
 
-    function CreateDelChallanController($scope, apiService, helperService, appConfig, myTaskActivityConfig, APP_CONSTANT, errorWarningService, dynamicLookupConfig, outwardConfig, toastr, $timeout, $uibModal, $filter) {
+    function CreateDelChallanController($scope, apiService, helperService, appConfig, myTaskActivityConfig, APP_CONSTANT, errorWarningService, dynamicLookupConfig, outwardConfig, toastr, $timeout, $uibModal, $filter, warehouseConfig) {
         var CreateDelChallanCtrl = this;
 
         function Init() {
@@ -87,9 +87,9 @@
                 };
                 var _input = {
                     "searchInput": helperService.createToArrayOfObject(_filter),
-                    "FilterID": appConfig.Entities.WmsOutwardList.API.FindAll.FilterID
+                    "FilterID": warehouseConfig.Entities.WmsOutward.API.FindAll.FilterID
                 };
-                apiService.post("eAxisAPI", appConfig.Entities.WmsOutwardList.API.FindAll.Url, _input).then(function (response) {
+                apiService.post("eAxisAPI", warehouseConfig.Entities.WmsOutward.API.FindAll.Url, _input).then(function (response) {
                     if (response.data.Response) {
                         if (response.data.Response.length > 0) {
                             CreateDelChallanCtrl.ePage.Masters.UnFinalizedOrders = [];
@@ -133,7 +133,7 @@
             CreateDelChallanCtrl.ePage.Masters.modalInstance1.dismiss('cancel');
             if (CreateDelChallanCtrl.ePage.Masters.selectedOutwardRow >= 0) {
                 CreateDelChallanCtrl.ePage.Masters.Loading = true;
-                apiService.get("eAxisAPI", appConfig.Entities.WmsOutwardList.API.GetById.Url + CreateDelChallanCtrl.ePage.Masters.UnFinalizedOrders[CreateDelChallanCtrl.ePage.Masters.selectedOutwardRow].PK).then(function (response) {
+                apiService.get("eAxisAPI", warehouseConfig.Entities.WmsOutwardList.API.GetById.Url + CreateDelChallanCtrl.ePage.Masters.UnFinalizedOrders[CreateDelChallanCtrl.ePage.Masters.selectedOutwardRow].PK).then(function (response) {
                     if (response.data.Response) {
                         angular.forEach(CreateDelChallanCtrl.ePage.Masters.SelectedDelLine, function (value, key) {
                             if (CreateDelChallanCtrl.ePage.Masters.UnFinalizedOrders[CreateDelChallanCtrl.ePage.Masters.selectedOutwardRow].WorkOrderSubType == "MTR") {
@@ -191,7 +191,7 @@
                             response.data.Response.UIWmsWorkOrderLine.push(obj);
                         });
                         response.data.Response = filterObjectUpdate(response.data.Response, "IsModified");
-                        apiService.post("eAxisAPI", appConfig.Entities.WmsOutwardList.API.Update.Url, response.data.Response).then(function (response) {
+                        apiService.post("eAxisAPI", warehouseConfig.Entities.WmsOutwardList.API.Update.Url, response.data.Response).then(function (response) {
                             if (response.data.Status == 'Success') {
                                 CreateDelChallanCtrl.ePage.Masters.OutwardDetails = response.data.Response;
                                 toastr.success("Delivery Line added to the Order " + CreateDelChallanCtrl.ePage.Masters.OutwardDetails.UIWmsOutwardHeader.WorkOrderID);
@@ -522,7 +522,7 @@
                 else if (type == "MTR")
                     CreateDelChallanCtrl.ePage.Masters.CreateMaterialTransferText = "Please Wait..";
                 CreateDelChallanCtrl.ePage.Masters.IsDisabled = true;
-                helperService.getFullObjectUsingGetById(appConfig.Entities.WmsOutwardList.API.GetById.Url, 'null').then(function (response) {
+                helperService.getFullObjectUsingGetById(warehouseConfig.Entities.WmsOutwardList.API.GetById.Url, 'null').then(function (response) {
                     if (response.data.Response) {
                         response.data.Response.Response.UIWmsOutwardHeader.ClientCode = CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ClientCode;
                         response.data.Response.Response.UIWmsOutwardHeader.ClientName = CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ClientName;
@@ -665,9 +665,9 @@
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.WmsOutwardList.API.FindAll.FilterID
+                "FilterID": warehouseConfig.Entities.WmsOutward.API.FindAll.FilterID
             };
-            apiService.post("eAxisAPI", appConfig.Entities.WmsOutwardList.API.FindAll.Url, _input).then(function (response) {
+            apiService.post("eAxisAPI", warehouseConfig.Entities.WmsOutward.API.FindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     CreateDelChallanCtrl.ePage.Masters.OutwardList = response.data.Response;
                     outwardConfig.ValidationFindall();
@@ -774,9 +774,9 @@
 
                 var _input = {
                     "searchInput": helperService.createToArrayOfObject(FilterObj),
-                    "FilterID": appConfig.Entities.WmsInventory.API.FindAll.FilterID
+                    "FilterID": warehouseConfig.Entities.WmsInventory.API.FindAll.FilterID
                 };
-                apiService.post("eAxisAPI", appConfig.Entities.WmsInventory.API.FindAll.Url, _input).then(function (response) {
+                apiService.post("eAxisAPI", warehouseConfig.Entities.WmsInventory.API.FindAll.Url, _input).then(function (response) {
                     if (response.data.Response) {
                         CreateDelChallanCtrl.ePage.Masters.RequestedWarehouseInventory = response.data.Response;
                         CreateDelChallanCtrl.ePage.Masters.DynamicControl = undefined;
@@ -859,9 +859,9 @@
 
                 var _input = {
                     "searchInput": helperService.createToArrayOfObject(FilterObj),
-                    "FilterID": appConfig.Entities.WmsInventory.API.FindAll.FilterID
+                    "FilterID": warehouseConfig.Entities.WmsInventory.API.FindAll.FilterID
                 };
-                apiService.post("eAxisAPI", appConfig.Entities.WmsInventory.API.FindAll.Url, _input).then(function (response) {
+                apiService.post("eAxisAPI", warehouseConfig.Entities.WmsInventory.API.FindAll.Url, _input).then(function (response) {
                     if (response.data.Response) {
                         CreateDelChallanCtrl.ePage.Masters.MainInventory = angular.copy(response.data.Response);
                         if (!CreateDelChallanCtrl.ePage.Masters.IsFilter) {
@@ -913,7 +913,7 @@
 
         function GetEntityObj() {
             if (CreateDelChallanCtrl.ePage.Masters.TaskObj.EntityRefKey) {
-                apiService.get("eAxisAPI", appConfig.Entities.WmsDeliveryList.API.GetById.Url + CreateDelChallanCtrl.ePage.Masters.TaskObj.EntityRefKey).then(function (response) {
+                apiService.get("eAxisAPI", warehouseConfig.Entities.WmsDelivery.API.GetById.Url + CreateDelChallanCtrl.ePage.Masters.TaskObj.EntityRefKey).then(function (response) {
                     if (response.data.Response) {
                         CreateDelChallanCtrl.ePage.Masters.EntityObj = response.data.Response;
                     }

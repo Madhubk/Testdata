@@ -1,0 +1,55 @@
+<div class="org-header">
+    <span data-ng-bind="'Configuration'"></span>
+    <button class="btn btn-xs btn-primary pull-right" data-ng-click="AccountPayableCtrl.ePage.Masters.EditableMode('ap-configuration')" data-ng-disabled="!AccountPayableCtrl.ePage.Masters.ActiveCompany">Edit</button>
+</div>
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+    <div class="margin-top-20">
+        <span class="text-single-line custom_label">Configuration</span>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 margin-top-10">
+        <table class="table table-borderless">
+            <tbody class="borderless-table">
+                <tr>
+                    <th>Account Group</th>
+                    <td>{{AccountPayableCtrl.ePage.Entities.Header.Data.OrgCompanyData[AccountPayableCtrl.ePage.Masters.CompanyDataIndex].OCG_APCreditorGroupCodeDesc}}</td>
+                </tr>
+                <tr>
+                    <th>Default Invoice Currency</th>
+                    <td>{{AccountPayableCtrl.ePage.Entities.Header.Data.OrgCompanyData[AccountPayableCtrl.ePage.Masters.CompanyDataIndex].MYC_NKAPDefltCurrency}}</td>
+                </tr>
+                <tr>
+                    <th>Bank Account</th>
+                    <td>{{AccountPayableCtrl.ePage.Entities.Header.Data.OrgCompanyData[AccountPayableCtrl.ePage.Masters.CompanyDataIndex].FBN_APDefaultBankAccountCodeDesc}}</td>
+                </tr>
+                <tr>
+                    <th>Charge Account</th>
+                    <td>{{AccountPayableCtrl.ePage.Entities.Header.Data.OrgCompanyData[AccountPayableCtrl.ePage.Masters.CompanyDataIndex].FCC_APDefaultChargeCodeDesc}}</td>
+                </tr>
+                <tr>
+                    <th>Settlement Group</th>
+                    <td>{{AccountPayableCtrl.ePage.Entities.Header.Data.OrgCompanyData[AccountPayableCtrl.ePage.Masters.CompanyDataIndex].SettlementGroup}}</td>
+                </tr>
+                <tr>
+                    <th>Credit limit</th>
+                    <td>{{AccountPayableCtrl.ePage.Entities.Header.Data.OrgCompanyData[AccountPayableCtrl.ePage.Masters.CompanyDataIndex].APCreditLimit}}</td>
+                </tr>
+                <tr>
+                    <th>Payment Terms</th>
+                    <td>{{AccountPayableCtrl.ePage.Entities.Header.Data.OrgCompanyData[AccountPayableCtrl.ePage.Masters.CompanyDataIndex].APPaymentTerms}}</td>
+                </tr>
+                <tr>
+                    <th>Days</th>
+                    <td>{{AccountPayableCtrl.ePage.Entities.Header.Data.OrgCompanyData[AccountPayableCtrl.ePage.Masters.CompanyDataIndex].APPaymentTermDays}}</td>
+                </tr>
+                <tr>
+                    <th>GST Recognition & Reporting Basic Override</th>
+                    <td>{{AccountPayableCtrl.ePage.Entities.Header.Data.OrgCompanyData[AccountPayableCtrl.ePage.Masters.CompanyDataIndex].APVATConfig}}</td>
+                </tr>
+                <tr>
+                    <th>External Sys.Creditor Code</th>
+                    <td>{{AccountPayableCtrl.ePage.Entities.Header.Data.OrgCompanyData[AccountPayableCtrl.ePage.Masters.CompanyDataIndex].APExternalCreditorCode}}</td>
+                </tr>
+            </tbody>
+         </table>
+    </div>
+</div>

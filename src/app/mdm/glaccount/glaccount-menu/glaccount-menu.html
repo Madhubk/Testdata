@@ -1,0 +1,20 @@
+<glaccount-general current-glaccount="GLaccountMenuCtrl.currentGlaccount"></glaccount-general>
+<div class="eaxis-footer-strip">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+        <span class="dropup pull-right">
+            <span class="pull-right">
+                <button type="button" class="btn btn-primary btn-sm margin-top-5" data-ng-bind="GLaccountMenuCtrl.ePage.Masters.SaveButtonText"
+                    data-ng-click="GLaccountMenuCtrl.ePage.Masters.Validation(GLaccountMenuCtrl.currentGlaccount)" data-ng-disabled="GLaccountMenuCtrl.ePage.Masters.DisableSave">
+                </button>
+            </span>
+        </span>
+        <span class="pull-right">
+            <button type="button" class="btn btn-primary btn-sm margin-top-5 margin-right-10" data-ng-bind="GLaccountMenuCtrl.ePage.Masters.DeactivateButtonText"
+                data-ng-click="GLaccountMenuCtrl.ePage.Masters.Deactivate()" data-ng-disabled="GLaccountMenuCtrl.ePage.Masters.DisableDeactivate"></button>
+        </span>
+        <span class="pull-right">
+            <button type="button" class="btn btn-primary btn-sm margin-top-5 margin-right-10" data-ng-bind="GLaccountMenuCtrl.ePage.Masters.ActivateButtonText"
+               data-ng-click="GLaccountMenuCtrl.ePage.Masters.Activate()" data-ng-disabled="GLaccountMenuCtrl.ePage.Masters.DisableActivate"></button>
+        </span>
+    </div>
+</div>

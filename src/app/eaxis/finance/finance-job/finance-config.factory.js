@@ -53,6 +53,11 @@
                                 "HttpType": "Post",
                                 "Url": "JobExchangeRates/FindAll",
                                 "FilterID": "JOBEXCH"
+                            },
+                            "Delete": {
+                                "IsAPI": "true",
+                                "HttpType": "Get",
+                                "Url": "JobExchangeRates/Delete/"
                             }
                         }
                     },
@@ -77,7 +82,22 @@
                                 "FilterID": "CMPCOMP"
                             }
                         }
-                    }
+                    },
+                    "AccTransactionHeader": {
+                        "RowIndex": -1,
+                        "API": {
+                            "GetById": {
+                                "IsAPI": "true",
+                                "HttpType": "GET",
+                                "Url": "AccTransactionHeader/GetById/"
+                            },
+                            "AccTransactionHeaderActivityClose": {
+                                "IsAPI": "true",
+                                "HttpType": "GET",
+                                "Url": "JobHeaderList/JobHeaderListActivityClose/"
+                            }
+                        }
+                    },
                 }
             },
             "TabList": [],
@@ -121,24 +141,27 @@
                             "Language": helperService.metaBase(),
                             "ErrorWarning": {
                                 "GlobalErrorWarningList": [],
-                                "LocalOrg_Code": helperService.metaBase(),
-                                "AgentOrg_Code": helperService.metaBase(),
-                                "CompanyCode": helperService.metaBase(),
-                                "BranchCode": helperService.metaBase(),
-                                "DeptCode": helperService.metaBase(),
+                                "LocalClient": helperService.metaBase(),
+                                "OverseasAgent": helperService.metaBase(),
+                                "Company": helperService.metaBase(),
+                                "Branch": helperService.metaBase(),
+                                "Department": helperService.metaBase(),
                                 "Status": helperService.metaBase(),
                                 "UIJobCharge": helperService.metaBase()
                             }
                         },
                         "GlobalVariables": {
                             "SelectAll": false,
-                            "IsDisablePost": true
+                            "IsDisablePost": true,
+                            "IsDisableBookCost": true,
+                            "NonEditable": false,
+
                         },
                         "TableProperties": {
                             "UIExchangeRate": {
                                 "TableHeight": {
                                     "isEnabled": true,
-                                    "height": 240
+                                    "height": 228
                                 },
                                 "ercurrency": {
                                     "width": "100"
@@ -475,11 +498,11 @@
                 _input = _Data.Header.Data;
 
             //UIJobHeader Validations 
-            OnChangeValues(_input.UIJobHeader.LocalOrg_Code, 'E1300', false, undefined, $item.code);
-            OnChangeValues(_input.UIJobHeader.AgentOrg_Code, 'E1301', false, undefined, $item.code);
-            OnChangeValues(_input.UIJobHeader.CompanyCode, 'E1323', false, undefined, $item.code);
-            OnChangeValues(_input.UIJobHeader.BranchCode, 'E1302', false, undefined, $item.code);
-            OnChangeValues(_input.UIJobHeader.DeptCode, 'E1303', false, undefined, $item.code);
+            OnChangeValues(_input.UIJobHeader.LocalClient, 'E1300', false, undefined, $item.code);
+            OnChangeValues(_input.UIJobHeader.OverseasAgent, 'E1301', false, undefined, $item.code);
+            OnChangeValues(_input.UIJobHeader.Company, 'E1323', false, undefined, $item.code);
+            OnChangeValues(_input.UIJobHeader.Branch, 'E1302', false, undefined, $item.code);
+            OnChangeValues(_input.UIJobHeader.Department, 'E1303', false, undefined, $item.code);
             OnChangeValues(_input.UIJobHeader.Status, 'E1304', false, undefined, $item.code);
 
             //UIJobcharge Validations
@@ -493,19 +516,58 @@
                         OnChangeValues(value.APInvoiceNum, 'E1312', true, key, $item.code);
                         OnChangeValues(value.APInvoiceDate, 'E1313', true, key, $item.code);
                         OnChangeValues(value.RX_NKCostCurrency, 'E1307', true, key, $item.code);
-                        OnChangeValues(value.EstimatedCost, 'E1194', true, key, $item.code);
-                        OnChangeValues(value.OSCostAmt, 'E1196', true, key, $item.code);
-                        OnChangeValues(value.LocalCostAmt, 'E1308', true, key, $item.code);
-                        OnChangeValues(value.OSSellAmt, 'E1197', true, key, $item.code);
-                        OnChangeValues(value.LocalSellAmt, 'E1309', true, key, $item.code);
+                        OnChangeValues(value.CustomerCode, 'E1311', true, key, $item.code);
+                        OnChangeValues(value.RX_NKSellCurrency, 'E1193', true, key, $item.code);
+
+                        if (!value.EstimatedCost || parseInt(value.EstimatedCost) == 0)
+                            OnChangeValues(null, 'E1194', true, key, $item.code);
+                        else
+                            OnChangeValues(value.EstimatedCost, 'E1194', true, key, $item.code);
+
+                        if (!value.OSCostAmt || parseInt(value.OSCostAmt) == 0)
+                            OnChangeValues(null, 'E1196', true, key, $item.code);
+                        else
+                            OnChangeValues(value.OSCostAmt, 'E1196', true, key, $item.code);
+
+                        if (!value.LocalCostAmt || parseInt(value.LocalCostAmt) == 0)
+                            OnChangeValues(null, 'E1308', true, key, $item.code);
+                        else
+                            OnChangeValues(value.LocalCostAmt, 'E1308', true, key, $item.code);
+
+                        if (!value.EstimatedRevenue || parseInt(value.EstimatedRevenue) == 0)
+                            OnChangeValues(null, 'E1195', true, key, $item.code);
+                        else
+                            OnChangeValues(value.EstimatedRevenue, 'E1195', true, key, $item.code);
+
+                        if (!value.OSSellAmt || parseInt(value.OSSellAmt) == 0)
+                            OnChangeValues(null, 'E1197', true, key, $item.code);
+                        else
+                            OnChangeValues(value.OSSellAmt, 'E1197', true, key, $item.code);
+
+                        if (!value.LocalSellAmt || parseInt(value.LocalSellAmt) == 0)
+                            OnChangeValues(null, 'E1309', true, key, $item.code);
+                        else
+                            OnChangeValues(value.LocalSellAmt, 'E1309', true, key, $item.code);
                     }
-                    else if (type == 'PostRevenue' || type == 'Post') {
-                        OnChangeValues(value.OSSellAmt, 'E1197', true, key, $item.code);
-                        OnChangeValues(value.LocalSellAmt, 'E1309', true, key, $item.code);
+                    else {
+                        OnChangeValues(value.CustomerCode, 'E1311', true, key, $item.code);
+                        OnChangeValues(value.RX_NKSellCurrency, 'E1193', true, key, $item.code);
+
+                        if (!value.EstimatedRevenue || parseInt(value.EstimatedRevenue) == 0)
+                            OnChangeValues(null, 'E1195', true, key, $item.code);
+                        else
+                            OnChangeValues(value.EstimatedRevenue, 'E1195', true, key, $item.code);
+
+                        if (!value.OSSellAmt || parseInt(value.OSSellAmt) == 0)
+                            OnChangeValues(null, 'E1197', true, key, $item.code);
+                        else
+                            OnChangeValues(value.OSSellAmt, 'E1197', true, key, $item.code);
+
+                        if (!value.LocalSellAmt || parseInt(value.LocalSellAmt) == 0)
+                            OnChangeValues(null, 'E1309', true, key, $item.code);
+                        else
+                            OnChangeValues(value.LocalSellAmt, 'E1309', true, key, $item.code);
                     }
-                    OnChangeValues(value.CustomerCode, 'E1311', true, key, $item.code);
-                    OnChangeValues(value.RX_NKSellCurrency, 'E1193', true, key, $item.code);
-                    OnChangeValues(value.EstimatedRevenue, 'E1195', true, key, $item.code);
                 });
             }
         }
@@ -739,15 +801,16 @@
                 _input = _Data.Header.Data;
 
             angular.forEach(_input.UIJobCharge, function (value, key) {
-                value.DuplicateEstimatedCost = value.EstimatedCost;
-                DotArea(key, value.EstimatedCost.toString(), 'DuplicateEstimatedCost', 'EstimatedCost', $item);
+                if (_input.UIJobCharge[key].ChargeType != "REV") {
+                    value.DuplicateEstimatedCost = value.EstimatedCost;
+                    DotArea(key, value.EstimatedCost.toString(), 'DuplicateEstimatedCost', 'EstimatedCost', $item);
 
-                value.DuplicateOSCostAmt = value.OSCostAmt;
-                DotArea(key, value.OSCostAmt.toString(), 'DuplicateOSCostAmt', 'OSCostAmt', $item);
+                    value.DuplicateOSCostAmt = value.OSCostAmt;
+                    DotArea(key, value.OSCostAmt.toString(), 'DuplicateOSCostAmt', 'OSCostAmt', $item);
 
-                value.DuplicateLocalCostAmt = value.LocalCostAmt;
-                DotArea(key, value.LocalCostAmt.toString(), 'DuplicateLocalCostAmt', 'LocalCostAmt', $item);
-
+                    value.DuplicateLocalCostAmt = value.LocalCostAmt;
+                    DotArea(key, value.LocalCostAmt.toString(), 'DuplicateLocalCostAmt', 'LocalCostAmt', $item);
+                }
                 value.DuplicateEstimatedRevenue = value.EstimatedRevenue;
                 DotArea(key, value.EstimatedRevenue.toString(), 'DuplicateEstimatedRevenue', 'EstimatedRevenue', $item);
 
@@ -757,7 +820,16 @@
                 value.DuplicateLocalSellAmt = value.LocalSellAmt;
                 DotArea(key, value.LocalSellAmt.toString(), 'DuplicateLocalSellAmt', 'LocalSellAmt', $item);
             });
+
+            if (!$item.isNew) {
+                _input.UIJobHeader.LocalClient = _input.UIJobHeader.LocalOrg_Code + '-' + _input.UIJobHeader.LocalOrg_Name;
+                _input.UIJobHeader.OverseasAgent = _input.UIJobHeader.AgentOrg_Code + '-' + _input.UIJobHeader.AgentOrg_Name;
+                _input.UIJobHeader.Company = _input.UIJobHeader.CompanyCode + ' - ' + _input.UIJobHeader.CompanyName;
+                _input.UIJobHeader.Branch = _input.UIJobHeader.BranchCode + ' - ' + _input.UIJobHeader.BranchName;
+                _input.UIJobHeader.Department = _input.UIJobHeader.DeptCode + ' - ' + _input.UIJobHeader.DeptName;
+            }
         }
+
         function DotArea($index, Amt, duplicatetype, originaltype, $item) {
             if (Amt) {
                 var _Data = $item[$item.code].ePage.Entities,

@@ -5,9 +5,9 @@
         .module("Application")
         .controller("ActivityTemplatePickController", ActivityTemplatePickController);
 
-    ActivityTemplatePickController.$inject = ["helperService", "APP_CONSTANT", "$q", "apiService", "authService", "appConfig", "toastr", "errorWarningService", "myTaskActivityConfig", "$filter", "$timeout"];
+    ActivityTemplatePickController.$inject = ["helperService", "APP_CONSTANT", "$q", "apiService", "authService", "appConfig", "toastr", "errorWarningService", "myTaskActivityConfig", "$filter", "$timeout", "warehouseConfig"];
 
-    function ActivityTemplatePickController(helperService, APP_CONSTANT, $q, apiService, authService, appConfig, toastr, errorWarningService, myTaskActivityConfig, $filter, $timeout) {
+    function ActivityTemplatePickController(helperService, APP_CONSTANT, $q, apiService, authService, appConfig, toastr, errorWarningService, myTaskActivityConfig, $filter, $timeout, warehouseConfig) {
         var ActivityTemplatePickCtrl = this;
 
         function Init() {
@@ -99,7 +99,7 @@
 
         function GetEntityObj() {
             if (ActivityTemplatePickCtrl.ePage.Masters.TaskObj.EntityRefKey) {
-                apiService.get("eAxisAPI", appConfig.Entities.WmsPickList.API.GetById.Url + ActivityTemplatePickCtrl.ePage.Masters.TaskObj.EntityRefKey).then(function (response) {
+                apiService.get("eAxisAPI", warehouseConfig.Entities.WmsPickList.API.GetById.Url + ActivityTemplatePickCtrl.ePage.Masters.TaskObj.EntityRefKey).then(function (response) {
                     if (response.data.Response) {
                         ActivityTemplatePickCtrl.ePage.Masters.EntityObj = response.data.Response;
                         ActivityTemplatePickCtrl.ePage.Entities.Header.Data = ActivityTemplatePickCtrl.ePage.Masters.EntityObj;
@@ -129,7 +129,7 @@
             ActivityTemplatePickCtrl.ePage.Masters.IsDisableSaveBtn = true;
             var _input = angular.copy(ActivityTemplatePickCtrl.ePage.Masters.EntityObj);
             _input.UIWmsPickHeader.IsModified = true;
-            apiService.post("eAxisAPI", appConfig.Entities.WmsPickList.API.Update.Url, _input).then(function (response) {
+            apiService.post("eAxisAPI", warehouseConfig.Entities.WmsPickList.API.Update.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     toastr.success("Saved Successfully...!");
                 } else {

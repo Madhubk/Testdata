@@ -300,7 +300,7 @@
                     </tr>
                 </thead>
                 <tbody id="InwardLineCustTable{{DeliverMaterialCtrl.ePage.Entities.Header.DeliveryData.UIWmsDelivery.WorkOrderID}}">
-                    <tr id="tableBody" ng-repeat="x in DeliverMaterialCtrl.ePage.Entities.Header.DeliveryData.UIWmsDeliveryLine"
+                    <tr id="tableBody" ng-repeat="x in DeliverMaterialCtrl.ePage.Entities.Header.DeliveryData.UIWmsDeliveryLine | orderBy: 'AdditionalRef1Code'"
                         ng-click="DeliverMaterialCtrl.ePage.Masters.setSelectedRow($index);" ng-class="{row_active: (DeliverMaterialCtrl.ePage.Masters.selectedRow==$index),copy_row_active :(x.IsCopied==true)}">
 
                         <td ng-style="{ 'width':  '40px' }" class="overflow-text">{{$index +1}}</td>

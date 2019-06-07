@@ -1,7 +1,6 @@
 <!-- General -->
-<div class="clearfix">
-    <!-- Warehouse -->
-    <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5 col-xl-5 mt-5">
+<div class="clearfix mt-10">
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-5">
         <div class="inner-dashboard-box">
             <div class="rows border-bottom">
                 <div class="col-xs-3 col-sm-3 col-md-4 col-lg-3 col-xl-3 height-40 border-right pt-10 pb-10">
@@ -10,26 +9,27 @@
                     </span>
                     <label class="ml-5 control-label">Facility</label>
                     <span class="error-warning-container">
-                        <error-warning-directive data-ng-if="GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ORG_Code.IsWarning && !GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ORG_Code.IsError"
-                            list="GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ORG_Code.WARNING" type="'warning'"
-                            icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
-                        <error-warning-directive data-ng-if="GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ORG_Code.IsError"
-                            list="GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.ORG_Code.ERROR" type="'error'"
-                            icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                        <error-warning-directive data-ng-if="GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.Modules.Gatepass.Entity[GatepassGeneralCtrl.currentGatepass.code].ORG_Code.IsWarning && !GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.Modules.Gatepass.Entity[GatepassGeneralCtrl.currentGatepass.code].ORG_Code.IsError"
+                            list="GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.Modules.Gatepass.Entity[GatepassGeneralCtrl.currentGatepass.code].ORG_Code.WARNING"
+                            type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                        <error-warning-directive data-ng-if="GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.Modules.Gatepass.Entity[GatepassGeneralCtrl.currentGatepass.code].ORG_Code.IsError"
+                            list="GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.Modules.Gatepass.Entity[GatepassGeneralCtrl.currentGatepass.code].ORG_Code.ERROR"
+                            type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
                     </span>
                 </div>
                 <div class="col-xs-9 col-sm-9 col-md-8 col-lg-9 col-xl-9 height-40 p-5">
                     <div class="input-group input-group-sm">
                         <!-- Dynamic look up Search in textbox -->
-                        <div dynamic-lookup placeholder="Facility" my-ng-model="GatepassGeneralCtrl.ePage.Masters.Organization" auto-complete-on-select="GatepassGeneralCtrl.ePage.Masters.SelectedLookupOrg($item)"
-                            obj="GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader" control-key="'OrgHeaderWarehouse_3195'"
-                            page-name="'OrgHeaderWithWarehouse'" control-id="'OrgHeaderWarehouse'">
+                        <div dynamic-lookup placeholder="Facility" my-ng-model="GatepassGeneralCtrl.ePage.Masters.Organization"
+                            auto-complete-on-select="GatepassGeneralCtrl.ePage.Masters.SelectedLookupOrg($item)" obj="GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader"
+                            control-key="'OrgHeaderWarehouse_3195'" page-name="'OrgHeaderWithWarehouse'" control-id="'OrgHeaderWarehouse'">
                         </div>
                         <!-- Look Up page opens when button clicks -->
                         <span class="input-group-btn">
-                            <button dynamic-list-modal obj="GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader" page-name="'OrgHeaderWithWarehouse'"
-                                control-key="'OrgHeaderWarehouse_3195'" control-id="'OrgHeaderWarehouse'" selected-data="GatepassGeneralCtrl.ePage.Masters.SelectedLookupOrg($item)"
-                                mode="2" grid-refresh-fun-name="" grid-refresh-fun="" class="btn btn-default shiny" type="button">
+                            <button dynamic-list-modal obj="GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader"
+                                page-name="'OrgHeaderWithWarehouse'" control-key="'OrgHeaderWarehouse_3195'" control-id="'OrgHeaderWarehouse'"
+                                selected-data="GatepassGeneralCtrl.ePage.Masters.SelectedLookupOrg($item)" mode="2"
+                                grid-refresh-fun-name="" grid-refresh-fun="" class="btn btn-default shiny" type="button">
                                 <i class="fa fa-ellipsis-h"></i>
                             </button>
                         </span>
@@ -64,84 +64,66 @@
             </div>
         </div>
     </div>
-    <div class="col-xs-12 col-sm-12 col-md-7 col-lg-7 col-xl-7 pl-0 pr-0">
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 pl-0 pr-0">
-            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-5">
-                <div class="inner-dashboard-box">
-                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-10">
-                        <div class="form-group">
-                            <span class="error-warning-container">
-                                <error-warning-directive data-ng-if="GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.TransporterCode.IsWarning && !GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.TransporterCode.IsError"
-                                    list="GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.TransporterCode.WARNING"
-                                    type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
-                                <error-warning-directive data-ng-if="GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.TransporterCode.IsError"
-                                    list="GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.TransporterCode.ERROR"
-                                    type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
-                            </span>
-                            <label class="control-label text-single-line">Transporter</label>
-                            <div class="input-group input-group-sm">
-                                <!-- Dynamic look up Search in textbox -->
-                                <div dynamic-lookup placeholder="Transporter" my-ng-model="GatepassGeneralCtrl.ePage.Masters.Transporter" auto-complete-on-select="GatepassGeneralCtrl.ePage.Masters.SelectedLookupTransporter($item)"
-                                    obj="GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader" page-name="'OrganizationList'"
-                                    control-id="'Transporter'" control-key="'Transporter_3022'">
-                                </div>
-                                <!-- Look Up page opens when button clicks -->
-                                <span class="input-group-btn">
-                                    <button dynamic-list-modal obj="GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader" page-name="'OrganizationList'"
-                                        control-id="'Transporter'" control-key="'Transporter_3022'" selected-data="GatepassGeneralCtrl.ePage.Masters.SelectedLookupTransporter($item)"
-                                        mode="2" grid-refresh-fun-name="" grid-refresh-fun="" class="btn btn-default shiny" type="button">
-                                        <i class="fa fa-ellipsis-h"></i>
-                                    </button>
-                                </span>
-                                <span ng-if="!GatepassGeneralCtrl.ePage.Masters.Transporter">
-                                    <span data-ng-init="GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.TransporterCode=''"></span>
-                                    <span data-ng-init="GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.TransporterName=''"></span>
-                                </span>
-                                <span ng-if='!GatepassGeneralCtrl.ePage.Masters.Transporter && !GatepassGeneralCtrl.currentGatepass.isNew'>
-                                    <div ng-init="GatepassGeneralCtrl.ePage.Masters.OnFieldValueChange('E3532')"></div>
-                                </span>
-                            </div>
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-5">
+        <div class="inner-dashboard-box">
+            <div class="rows border-bottom">
+                <div class="col-xs-3 col-sm-3 col-md-4 col-lg-3 col-xl-3 height-40 border-right pt-10 pb-10">
+                    <span class="dashboard-stock-icon-box">
+                        <i class="icomoon icon-organization-client"></i>
+                    </span>
+                    <label class="ml-5 control-label">Client</label>
+                    <span class="error-warning-container">
+                        <error-warning-directive data-ng-if="GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.Modules.Gatepass.Entity[GatepassGeneralCtrl.currentGatepass.code].ClientCode.IsWarning && !GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.Modules.Gatepass.Entity[GatepassGeneralCtrl.currentGatepass.code].ClientCode.IsError"
+                            list="GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.Modules.Gatepass.Entity[GatepassGeneralCtrl.currentGatepass.code].ClientCode.WARNING"
+                            type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                        <error-warning-directive data-ng-if="GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.Modules.Gatepass.Entity[GatepassGeneralCtrl.currentGatepass.code].ClientCode.IsError"
+                            list="GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.Modules.Gatepass.Entity[GatepassGeneralCtrl.currentGatepass.code].ClientCode.ERROR"
+                            type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                    </span>
+                </div>
+                <div class="col-xs-9 col-sm-9 col-md-8 col-lg-9 col-xl-9 height-40 p-5">
+                    <div class="input-group input-group-sm">
+                        <!-- Dynamic look up Search in textbox -->
+                        <div dynamic-lookup placeholder="Client" my-ng-model="GatepassGeneralCtrl.ePage.Masters.Client"
+                            auto-complete-on-select="GatepassGeneralCtrl.ePage.Masters.SelectedLookupClient($item)" obj="GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader"
+                            control-key="'Client_3015'" page-name="'OrganizationList'" control-id="'Client'">
                         </div>
-                    </div>
-                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                        <div class=" clearfix form-group">
-                            <label class="control-label">Gate Pass Number</label>
-                            <div class="">
-                                <input type="text" class="form-control input-sm" placeholder="Gate pass Number" data-ng-model="GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.GatepassNo"
-                                    readonly=''>
-                            </div>
-                        </div>
+                        <!-- Look Up page opens when button clicks -->
+                        <span class="input-group-btn">
+                            <button dynamic-list-modal obj="GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader"
+                                page-name="'OrganizationList'" control-key="'Client_3015'" control-id="'Client'"
+                                selected-data="GatepassGeneralCtrl.ePage.Masters.SelectedLookupClient($item.data.entity)" mode="2"
+                                grid-refresh-fun-name="" grid-refresh-fun="" class="btn btn-default shiny" type="button">
+                                <i class="fa fa-ellipsis-h"></i>
+                            </button>
+                        </span>
+                        <span ng-if="!GatepassGeneralCtrl.ePage.Masters.Client">
+                            <span data-ng-init="GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.ClientCode=''"></span>
+                            <span data-ng-init="GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.ClientName=''"></span>
+                            <span data-ng-init="GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.Client_FK=''"></span>
+                        </span>
+                        <span ng-if='!GatepassGeneralCtrl.ePage.Masters.Client && !GatepassGeneralCtrl.currentGatepass.isNew'>
+                            <div ng-init="GatepassGeneralCtrl.ePage.Masters.OnFieldValueChange('E3545')"></div>
+                        </span>
                     </div>
                 </div>
             </div>
-            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-5">
-                <div class="inner-dashboard-box">
-                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-10">
-                        <div class="clearfix form-group">
-                            <span class="error-warning-container">
-                                <error-warning-directive data-ng-if="GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Purpose.IsWarning && !GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Purpose.IsError"
-                                    list="GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Purpose.WARNING"
-                                    type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
-                                <error-warning-directive data-ng-if="GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Purpose.IsError"
-                                    list="GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.Purpose.ERROR"
-                                    type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
-                            </span>
-                            <label class="control-label">Purpose</label>
-                            <div class="">
-                                <select chosen class="form-control" ng-model="GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.Purpose" ng-options="x.Key as x.Key + ' - '  + x.Value for x in GatepassGeneralCtrl.ePage.Masters.DropDownMasterList.GatepassPurpose.ListSource"
-                                    search-contains="true" ng-change="GatepassGeneralCtrl.ePage.Masters.OnFieldValueChange('E3533')">
-                                    <option value="">--Select--</option>
-                                </select>
-                            </div>
+            <div class="rows p-5 height-103">
+                <div ng-show="GatepassGeneralCtrl.ePage.Masters.Client" ng-repeat="x in GatepassGeneralCtrl.ePage.Entities.Header.Data.JobAddress | filter: {AddressType:'REC'}">
+                    <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8 addressstyle mt-10">
+                        <div class="text-single-line font-12" title='{{x.Address1}}'>{{x.Address1}}</div>
+                        <div class="text-single-line" title='{{x.Address2}}'>{{x.Address2}}</div>
+                        <div class="text-single-line" title='{{x.State}}'>{{x.State}}</div>
+                        <div class="text-single-line">
+                            <span ng-show="x.City" title="{{x.City}}">{{x.City}} -</span>
+                            <span ng-show="x.PostCode" title="{{x.PostCode}}">{{x.PostCode}}</span>
                         </div>
                     </div>
-                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                        <div class="clearfix form-group">
-                            <label class="control-label">Status</label>
-                            <div class="">
-                                <input type="text" class="form-control input-sm" disabled placeholder="Status" data-ng-model="GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.Status">
-                            </div>
-                        </div>
+                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 p-0 mt-30">
+                        <div class="pull-right text-single-line font-12" ng-show="x.Mobile" title="{{x.Mobile}}">
+                            <i class="fa fa-phone ml-5 mr-5"></i>{{x.Mobile}}</div>
+                        <div class="pull-right text-single-line font-12" ng-show="x.Email" title="{{x.Email}}">
+                            <i class="fa fa-envelope-o ml-5 mr-5"></i>{{x.Email}}</div>
                     </div>
                 </div>
             </div>
@@ -150,76 +132,148 @@
 </div>
 <div class="clearfix mt-10 col-lg-12">
     <div class="inner-dashboard-box">
-        <div class="col-lg-12 mt-10">
-            <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
-                <div class="clearfix form-group">
-                    <span class="error-warning-container">
-                        <error-warning-directive data-ng-if="GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.VehicleType.IsWarning && !GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.VehicleType.IsError"
-                            list="GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.VehicleType.WARNING" type="'warning'"
-                            icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
-                        <error-warning-directive data-ng-if="GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.VehicleType.IsError"
-                            list="GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.VehicleType.ERROR" type="'error'"
-                            icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
-                    </span>
-                    <label class="control-label">Vehicle Type</label>
-                    <div class="">
-                        <select chosen class="form-control" ng-model="GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.VehicleType"
-                            ng-options="x.Code as x.Code +' - '+ x.Description for x in GatepassGeneralCtrl.ePage.Masters.VehicleType | filter: {IsVehicle:true}"
-                            search-contains="true" ng-change="GatepassGeneralCtrl.ePage.Masters.OnFieldValueChange('E3534')">
-                            <option value="">--Select--</option>
-                        </select>
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 mt-10">
+            <div class="form-group">
+                <span class="error-warning-container">
+                    <error-warning-directive data-ng-if="GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.Modules.Gatepass.Entity[GatepassGeneralCtrl.currentGatepass.code].TransporterCode.IsWarning && !GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.Modules.Gatepass.Entity[GatepassGeneralCtrl.currentGatepass.code].TransporterCode.IsError"
+                        list="GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.Modules.Gatepass.Entity[GatepassGeneralCtrl.currentGatepass.code].TransporterCode.WARNING"
+                        type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                    <error-warning-directive data-ng-if="GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.Modules.Gatepass.Entity[GatepassGeneralCtrl.currentGatepass.code].TransporterCode.IsError"
+                        list="GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.Modules.Gatepass.Entity[GatepassGeneralCtrl.currentGatepass.code].TransporterCode.ERROR"
+                        type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                </span>
+                <label class="control-label text-single-line">Transporter</label>
+                <div class="input-group input-group-sm">
+                    <!-- Dynamic look up Search in textbox -->
+                    <div dynamic-lookup placeholder="Transporter" my-ng-model="GatepassGeneralCtrl.ePage.Masters.Transporter"
+                        auto-complete-on-select="GatepassGeneralCtrl.ePage.Masters.SelectedLookupTransporter($item)"
+                        obj="GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader" page-name="'OrganizationList'"
+                        control-id="'Transporter'" control-key="'Transporter_3022'">
                     </div>
+                    <!-- Look Up page opens when button clicks -->
+                    <span class="input-group-btn">
+                        <button dynamic-list-modal obj="GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader"
+                            page-name="'OrganizationList'" control-id="'Transporter'" control-key="'Transporter_3022'"
+                            selected-data="GatepassGeneralCtrl.ePage.Masters.SelectedLookupTransporter($item)" mode="2"
+                            grid-refresh-fun-name="" grid-refresh-fun="" class="btn btn-default shiny" type="button">
+                            <i class="fa fa-ellipsis-h"></i>
+                        </button>
+                    </span>
+                    <span ng-if="!GatepassGeneralCtrl.ePage.Masters.Transporter">
+                        <span data-ng-init="GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.TransporterCode=''"></span>
+                        <span data-ng-init="GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.TransporterName=''"></span>
+                    </span>
+                    <span ng-if='!GatepassGeneralCtrl.ePage.Masters.Transporter && !GatepassGeneralCtrl.currentGatepass.isNew'>
+                        <div ng-init="GatepassGeneralCtrl.ePage.Masters.OnFieldValueChange('E3532')"></div>
+                    </span>
                 </div>
             </div>
-            <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
-                <div class="clearfix form-group">
-                    <span class="error-warning-container">
-                        <error-warning-directive data-ng-if="GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.VehicleNo.IsWarning && !GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.VehicleNo.IsError"
-                            list="GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.VehicleNo.WARNING" type="'warning'"
-                            icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
-                        <error-warning-directive data-ng-if="GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.VehicleNo.IsError"
-                            list="GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.VehicleNo.ERROR" type="'error'"
-                            icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
-                    </span>
-                    <label class="control-label">Vehicle No</label>
-                    <div class="">
-                        <input type="text" class="form-control input-sm" placeholder="Vehicle No" data-ng-model="GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.VehicleNo"
-                            ng-change="GatepassGeneralCtrl.ePage.Masters.OnFieldValueChange('E3535')">
-                    </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 mt-10">
+            <div class=" clearfix form-group">
+                <label class="control-label">Gate Pass Number</label>
+                <div class="">
+                    <input type="text" class="form-control input-sm" placeholder="Gate pass Number" data-ng-model="GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.GatepassNo"
+                        readonly=''>
                 </div>
             </div>
-            <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
-                <div class="clearfix form-group">
-                    <span class="error-warning-container">
-                        <error-warning-directive data-ng-if="GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.DriverName.IsWarning && !GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.DriverName.IsError"
-                            list="GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.DriverName.WARNING" type="'warning'"
-                            icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
-                        <error-warning-directive data-ng-if="GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.DriverName.IsError"
-                            list="GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.DriverName.ERROR" type="'error'"
-                            icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
-                    </span>
-                    <label class="control-label">Driver Name</label>
-                    <div class="">
-                        <input type="text" class="form-control input-sm" placeholder="Driver Name" data-ng-model="GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.DriverName"
-                            ng-change="GatepassGeneralCtrl.ePage.Masters.OnFieldValueChange('E3536')">
-                    </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 mt-10">
+            <div class="clearfix form-group">
+                <span class="error-warning-container">
+                    <error-warning-directive data-ng-if="GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.Modules.Gatepass.Entity[GatepassGeneralCtrl.currentGatepass.code].Purpose.IsWarning && !GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.Modules.Gatepass.Entity[GatepassGeneralCtrl.currentGatepass.code].Purpose.IsError"
+                        list="GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.Modules.Gatepass.Entity[GatepassGeneralCtrl.currentGatepass.code].Purpose.WARNING"
+                        type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                    <error-warning-directive data-ng-if="GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.Modules.Gatepass.Entity[GatepassGeneralCtrl.currentGatepass.code].Purpose.IsError"
+                        list="GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.Modules.Gatepass.Entity[GatepassGeneralCtrl.currentGatepass.code].Purpose.ERROR"
+                        type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                </span>
+                <label class="control-label">Purpose</label>
+                <div class="">
+                    <select chosen class="form-control" ng-model="GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.Purpose"
+                        ng-options="x.Key as x.Key + ' - '  + x.Value for x in GatepassGeneralCtrl.ePage.Masters.DropDownMasterList.GatepassPurpose.ListSource"
+                        search-contains="true" ng-change="GatepassGeneralCtrl.ePage.Masters.OnFieldValueChange('E3533')">
+                        <option value="">--Select--</option>
+                    </select>
                 </div>
             </div>
-            <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
-                <div class="clearfix form-group">
-                    <span class="error-warning-container">
-                        <error-warning-directive data-ng-if="GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.DriverContactNo.IsWarning && !GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.DriverContactNo.IsError"
-                            list="GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.DriverContactNo.WARNING"
-                            type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
-                        <error-warning-directive data-ng-if="GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.DriverContactNo.IsError"
-                            list="GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj.DriverContactNo.ERROR"
-                            type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
-                    </span>
-                    <label class="control-label">Driver Contact No</label>
-                    <div class="">
-                        <input type="text" class="form-control input-sm" placeholder="Driver Contact No" data-ng-model="GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.DriverContactNo"
-                            ng-change="GatepassGeneralCtrl.ePage.Masters.OnFieldValueChange('E3537')">
-                    </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 mt-10">
+            <div class="clearfix form-group">
+                <label class="control-label">Status</label>
+                <div class="">
+                    <input type="text" class="form-control input-sm" disabled placeholder="Status" data-ng-model="GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.Status">
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+            <div class="clearfix form-group">
+                <span class="error-warning-container">
+                    <error-warning-directive data-ng-if="GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.Modules.Gatepass.Entity[GatepassGeneralCtrl.currentGatepass.code].VehicleType.IsWarning && !GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.Modules.Gatepass.Entity[GatepassGeneralCtrl.currentGatepass.code].VehicleType.IsError"
+                        list="GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.Modules.Gatepass.Entity[GatepassGeneralCtrl.currentGatepass.code].VehicleType.WARNING"
+                        type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                    <error-warning-directive data-ng-if="GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.Modules.Gatepass.Entity[GatepassGeneralCtrl.currentGatepass.code].VehicleType.IsError"
+                        list="GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.Modules.Gatepass.Entity[GatepassGeneralCtrl.currentGatepass.code].VehicleType.ERROR"
+                        type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                </span>
+                <label class="control-label">Vehicle Type</label>
+                <div class="">
+                    <select chosen class="form-control" ng-model="GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.VehicleType"
+                        ng-options="x.Code as x.Code +' - '+ x.Description for x in GatepassGeneralCtrl.ePage.Masters.VehicleType | filter: {IsVehicle:true}"
+                        search-contains="true" ng-change="GatepassGeneralCtrl.ePage.Masters.OnFieldValueChange('E3534')">
+                        <option value="">--Select--</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+            <div class="clearfix form-group">
+                <span class="error-warning-container">
+                    <error-warning-directive data-ng-if="GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.Modules.Gatepass.Entity[GatepassGeneralCtrl.currentGatepass.code].VehicleNo.IsWarning && !GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.Modules.Gatepass.Entity[GatepassGeneralCtrl.currentGatepass.code].VehicleNo.IsError"
+                        list="GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.Modules.Gatepass.Entity[GatepassGeneralCtrl.currentGatepass.code].VehicleNo.WARNING"
+                        type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                    <error-warning-directive data-ng-if="GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.Modules.Gatepass.Entity[GatepassGeneralCtrl.currentGatepass.code].VehicleNo.IsError"
+                        list="GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.Modules.Gatepass.Entity[GatepassGeneralCtrl.currentGatepass.code].VehicleNo.ERROR"
+                        type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                </span>
+                <label class="control-label">Vehicle No</label>
+                <div class="">
+                    <input type="text" class="form-control input-sm" placeholder="Vehicle No" data-ng-model="GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.VehicleNo"
+                        ng-change="GatepassGeneralCtrl.ePage.Masters.OnFieldValueChange('E3535')">
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+            <div class="clearfix form-group">
+                <span class="error-warning-container">
+                    <error-warning-directive data-ng-if="GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.Modules.Gatepass.Entity[GatepassGeneralCtrl.currentGatepass.code].DriverName.IsWarning && !GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.Modules.Gatepass.Entity[GatepassGeneralCtrl.currentGatepass.code].DriverName.IsError"
+                        list="GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.Modules.Gatepass.Entity[GatepassGeneralCtrl.currentGatepass.code].DriverName.WARNING"
+                        type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                    <error-warning-directive data-ng-if="GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.Modules.Gatepass.Entity[GatepassGeneralCtrl.currentGatepass.code].DriverName.IsError"
+                        list="GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.Modules.Gatepass.Entity[GatepassGeneralCtrl.currentGatepass.code].DriverName.ERROR"
+                        type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                </span>
+                <label class="control-label">Driver Name</label>
+                <div class="">
+                    <input type="text" class="form-control input-sm" placeholder="Driver Name" data-ng-model="GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.DriverName"
+                        ng-change="GatepassGeneralCtrl.ePage.Masters.OnFieldValueChange('E3536')">
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+            <div class="clearfix form-group">
+                <span class="error-warning-container">
+                    <error-warning-directive data-ng-if="GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.Modules.Gatepass.Entity[GatepassGeneralCtrl.currentGatepass.code].DriverContactNo.IsWarning && !GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.Modules.Gatepass.Entity[GatepassGeneralCtrl.currentGatepass.code].DriverContactNo.IsError"
+                        list="GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.Modules.Gatepass.Entity[GatepassGeneralCtrl.currentGatepass.code].DriverContactNo.WARNING"
+                        type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                    <error-warning-directive data-ng-if="GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.Modules.Gatepass.Entity[GatepassGeneralCtrl.currentGatepass.code].DriverContactNo.IsError"
+                        list="GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.Modules.Gatepass.Entity[GatepassGeneralCtrl.currentGatepass.code].DriverContactNo.ERROR"
+                        type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref=""></error-warning-directive>
+                </span>
+                <label class="control-label">Driver Contact No</label>
+                <div class="">
+                    <input type="text" class="form-control input-sm" placeholder="Driver Contact No" data-ng-model="GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.DriverContactNo"
+                        ng-change="GatepassGeneralCtrl.ePage.Masters.OnFieldValueChange('E3537')">
                 </div>
             </div>
         </div>
@@ -236,17 +290,20 @@
                         <span>
                             <img src="assets/img/icon-1.png" style="width: 35px; height: 35px; margin-left: 20px;">
                         </span>
-                        <span class="step" ng-show="GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.GateinTime" style="width: 20px; height: 20px; line-height: 20px; left: -13px; top: -4px;">
+                        <span class="step" ng-show="GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.GateinTime"
+                            style="width: 20px; height: 20px; line-height: 20px; left: -13px; top: -4px;">
                         </span>
                         <span class="title">
-                            <div ng-show="GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.GateinTime" style="cursor:default; font-size:11px"
-                                class="ng-binding ng-hide">
+                            <div ng-show="GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.GateinTime"
+                                style="cursor:default; font-size:11px" class="ng-binding ng-hide">
                                 <span>
                                     <b>Gate in Time</b>
                                 </span>
-                                <br> {{GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.GateinTime | dateFormat}}
+                                <br> {{GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.GateinTime |
+                                dateFormat}}
                             </div>
-                            <div ng-show="!GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.GateinTime" class="">
+                            <div ng-show="!GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.GateinTime"
+                                class="">
                                 <span style="font-size: 12px;">Gate in Time</span>
                             </div>
                         </span>
@@ -257,18 +314,21 @@
                         <span>
                             <img src="assets/img/icon-2.png" style="width: 35px; height: 35px; margin-left: 20px;">
                         </span>
-                        <span class="step" ng-show="GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.DockinTime" style="width: 20px; height: 20px; line-height: 20px; left: -13px; top: -4px;">
+                        <span class="step" ng-show="GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.DockinTime"
+                            style="width: 20px; height: 20px; line-height: 20px; left: -13px; top: -4px;">
                         </span>
                         <span class="title">
-                            <div ng-show="GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.DockinTime" style="cursor:default; font-size:11px"
-                                class="ng-binding ng-hide">
+                            <div ng-show="GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.DockinTime"
+                                style="cursor:default; font-size:11px" class="ng-binding ng-hide">
                                 <span>
                                     <b>Dock in Time</b>
                                 </span>
                                 <br>
-                                <span>{{GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.DockinTime | dateFormat}}</span>
+                                <span>{{GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.DockinTime |
+                                    dateFormat}}</span>
                             </div>
-                            <div ng-show="!GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.DockinTime" class="">
+                            <div ng-show="!GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.DockinTime"
+                                class="">
                                 <span style="font-size: 12px;">Dock in Time</span>
                             </div>
                         </span>
@@ -279,40 +339,47 @@
                         <span>
                             <i class="icomoon icon-inward" style="font-size: 28px; font-weight: 600; line-height: 1.5;"></i>
                         </span>
-                        <span class="step" ng-show="GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.LoadOrUnloadStartTime" style="width: 20px; height: 20px; line-height: 20px; left: -13px; top: -4px;">
+                        <span class="step" ng-show="GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.LoadOrUnloadStartTime"
+                            style="width: 20px; height: 20px; line-height: 20px; left: -13px; top: -4px;">
                         </span>
                         <span class="title" style="margin-top: 0px;">
-                            <div ng-show="GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.LoadOrUnloadStartTime" style="cursor:default; font-size:11px"
-                                class="ng-binding ng-hide">
+                            <div ng-show="GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.LoadOrUnloadStartTime"
+                                style="cursor:default; font-size:11px" class="ng-binding ng-hide">
                                 <span>
                                     <b>Unload Start Time</b>
                                 </span>
-                                <br> {{GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.LoadOrUnloadStartTime
+                                <br>
+                                {{GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.LoadOrUnloadStartTime
                                 | dateFormat}}
                             </div>
-                            <div ng-show="!GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.LoadOrUnloadStartTime" class="">
+                            <div ng-show="!GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.LoadOrUnloadStartTime"
+                                class="">
                                 <span style="font-size: 12px;">Unload Start Time</span>
                             </div>
                         </span>
                         <span class="chevron"></span>
                     </li>
-                    <li data-target="#wiredstep1" ng-if="GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.Purpose=='ORD'" style="width: 16%"
-                        ng-class="{active: !GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.LoadOrUnloadEndTime , complete: GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.LoadOrUnloadEndTime}">
+                    <li data-target="#wiredstep1" ng-if="GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.Purpose=='ORD'"
+                        style="width: 16%" ng-class="{active: !GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.LoadOrUnloadEndTime , complete: GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.LoadOrUnloadEndTime}">
                         <span>
                             <i class="icomoon icon-outward" style="font-size: 28px; font-weight: 600; line-height: 1.5;"></i>
                         </span>
-                        <span class="step" ng-show="GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.LoadOrUnloadEndTime" style="width: 20px; height: 20px; line-height: 20px; left: -13px; top: -4px;">
+                        <span class="step" ng-show="GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.LoadOrUnloadEndTime"
+                            style="width: 20px; height: 20px; line-height: 20px; left: -13px; top: -4px;">
                         </span>
                         <span class="title" style="margin-top: 0px;">
-                            <div ng-show="GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.LoadOrUnloadEndTime" style="cursor:default; font-size:11px"
-                                class="ng-binding ng-hide">
+                            <div ng-show="GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.LoadOrUnloadEndTime"
+                                style="cursor:default; font-size:11px" class="ng-binding ng-hide">
                                 <span>
                                     <b>Unload End Time</b>
                                 </span>
-                                <br> {{GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.LoadOrUnloadEndTime |
+                                <br>
+                                {{GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.LoadOrUnloadEndTime
+                                |
                                 dateFormat}}
                             </div>
-                            <div ng-show="!GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.LoadOrUnloadEndTime" class="">
+                            <div ng-show="!GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.LoadOrUnloadEndTime"
+                                class="">
                                 <span style="font-size: 12px;">Unload End Time</span>
                             </div>
                         </span>
@@ -323,40 +390,47 @@
                         <span>
                             <i class="icomoon icon-inward" style="font-size: 28px; font-weight: 600; line-height: 1.5;"></i>
                         </span>
-                        <span class="step" ng-show="GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.LoadOrUnloadStartTime" style="width: 20px; height: 20px; line-height: 20px; left: -13px; top: -4px;">
+                        <span class="step" ng-show="GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.LoadOrUnloadStartTime"
+                            style="width: 20px; height: 20px; line-height: 20px; left: -13px; top: -4px;">
                         </span>
                         <span class="title" style="margin-top: 0px;">
-                            <div ng-show="GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.LoadOrUnloadStartTime" style="cursor:default; font-size:11px"
-                                class="ng-binding ng-hide">
+                            <div ng-show="GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.LoadOrUnloadStartTime"
+                                style="cursor:default; font-size:11px" class="ng-binding ng-hide">
                                 <span>
                                     <b>Load Start Time</b>
                                 </span>
-                                <br> {{GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.LoadOrUnloadStartTime
+                                <br>
+                                {{GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.LoadOrUnloadStartTime
                                 | dateFormat}}
                             </div>
-                            <div ng-show="!GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.LoadOrUnloadStartTime" class="">
+                            <div ng-show="!GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.LoadOrUnloadStartTime"
+                                class="">
                                 <span style="font-size: 12px;">Load Start Time</span>
                             </div>
                         </span>
                         <span class="chevron"></span>
                     </li>
-                    <li data-target="#wiredstep1" ng-if="GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.Purpose=='INW'" style="width: 16%"
-                        ng-class="{active: !GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.LoadOrUnloadEndTime , complete: GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.LoadOrUnloadEndTime}">
+                    <li data-target="#wiredstep1" ng-if="GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.Purpose=='INW'"
+                        style="width: 16%" ng-class="{active: !GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.LoadOrUnloadEndTime , complete: GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.LoadOrUnloadEndTime}">
                         <span>
                             <i class="icomoon icon-outward" style="font-size: 28px; font-weight: 600; line-height: 1.5;"></i>
                         </span>
-                        <span class="step" ng-show="GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.LoadOrUnloadEndTime" style="width: 20px; height: 20px; line-height: 20px; left: -13px; top: -4px;">
+                        <span class="step" ng-show="GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.LoadOrUnloadEndTime"
+                            style="width: 20px; height: 20px; line-height: 20px; left: -13px; top: -4px;">
                         </span>
                         <span class="title" style="margin-top: 0px;">
-                            <div ng-show="GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.LoadOrUnloadEndTime" style="cursor:default; font-size:11px"
-                                class="ng-binding ng-hide">
+                            <div ng-show="GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.LoadOrUnloadEndTime"
+                                style="cursor:default; font-size:11px" class="ng-binding ng-hide">
                                 <span>
                                     <b>Load End Time</b>
                                 </span>
-                                <br> {{GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.LoadOrUnloadEndTime |
+                                <br>
+                                {{GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.LoadOrUnloadEndTime
+                                |
                                 dateFormat}}
                             </div>
-                            <div ng-show="!GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.LoadOrUnloadEndTime" class="">
+                            <div ng-show="!GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.LoadOrUnloadEndTime"
+                                class="">
                                 <span style="font-size: 12px;">Load End Time</span>
                             </div>
                         </span>
@@ -367,18 +441,21 @@
                         <span>
                             <img src="assets/img/icon-3.png" style="width: 35px; height: 35px; margin-left: 20px;">
                         </span>
-                        <span ng-show="GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.DockoutTime" class="step" style="width: 20px; height: 20px; line-height: 20px; left: -13px; top: -4px;">
+                        <span ng-show="GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.DockoutTime"
+                            class="step" style="width: 20px; height: 20px; line-height: 20px; left: -13px; top: -4px;">
                         </span>
                         <span class="title">
-                            <div ng-show="GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.DockoutTime" style="cursor:default; font-size:11px"
-                                class="ng-binding ng-hide">
+                            <div ng-show="GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.DockoutTime"
+                                style="cursor:default; font-size:11px" class="ng-binding ng-hide">
                                 <span>
                                     <b>Dockout Time</b>
                                 </span>
                                 <br>
-                                <span>{{GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.DockoutTime | dateFormat}}</span>
+                                <span>{{GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.DockoutTime |
+                                    dateFormat}}</span>
                             </div>
-                            <div ng-show="!GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.DockoutTime" class="">
+                            <div ng-show="!GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.DockoutTime"
+                                class="">
                                 <span style="font-size: 12px;">Dockout Time</span>
                             </div>
                         </span>
@@ -389,62 +466,27 @@
                         <span>
                             <img src="assets/img/icon-4.png" style="width: 35px; height: 35px; margin-left: 20px;">
                         </span>
-                        <span class="step" ng-show="GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.GateoutTime" style="width: 20px; height: 20px; line-height: 20px; left: -13px; top: -4px;">
+                        <span class="step" ng-show="GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.GateoutTime"
+                            style="width: 20px; height: 20px; line-height: 20px; left: -13px; top: -4px;">
                         </span>
                         <span class="title">
-                            <div ng-show="GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.GateoutTime" style="cursor:default; font-size:11px"
-                                class="ng-binding ng-hide">
+                            <div ng-show="GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.GateoutTime"
+                                style="cursor:default; font-size:11px" class="ng-binding ng-hide">
                                 <span>
                                     <b>Gateout Time</b>
                                 </span>
                                 <br>
-                                <span>{{GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.GateoutTime | dateFormat}}</span>
+                                <span>{{GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.GateoutTime |
+                                    dateFormat}}</span>
                             </div>
-                            <div ng-show="!GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.GateoutTime" class="">
+                            <div ng-show="!GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.GateoutTime"
+                                class="">
                                 <span style="font-size: 12px;">Gateout Time</span>
                             </div>
                         </span>
                         <span class="chevron"></span>
                     </li>
                 </ul>
-            </div>
-        </div>
-    </div>
-</div>
-<!--Footer-->
-<div class="eaxis-footer-strip">
-    <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 col-xl-9"></div>
-    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
-        <div class="pull-right">
-            <button class="btn btn-primary manifest-btn-width-100 btn-sm mt-6" data-ng-click="GatepassGeneralCtrl.ePage.Masters.Validation(GatepassGeneralCtrl.currentGatepass)"
-                data-ng-bind="GatepassGeneralCtrl.ePage.Masters.SaveButtonText"></button>
-        </div>
-    </div>
-</div>
-<div class="error-warning-container right" id="errorWarningContainer{{GatepassGeneralCtrl.currentGatepass.code}}">
-    <div class="error-warning-header clearfix">
-        <span class="title pull-left">
-            <!-- <i class="fa fa-warning"></i>  -->
-            Errors & Warnings
-        </span>
-        <span class="error-warning-toggle-icon pull-right" data-ng-click="GatepassGeneralCtrl.ePage.Masters.Config.ShowErrorWarningModal(GatepassGeneralCtrl.currentGatepass)">
-            <i class="fa fa-arrow-right"></i>
-        </span>
-    </div>
-    <div class="error-warning-body">
-        <div class="clearfix" data-ng-if="GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.Modules.Gatepass.Entity[GatepassGeneralCtrl.currentGatepass.code].GlobalErrorWarningList.length>0">
-            <div class="clearfix">
-                <div class="p-5 error-warnig-list clearfix" data-ng-repeat="x in GatepassGeneralCtrl.ePage.Masters.ErrorWarningConfig.Modules.Gatepass.Entity[GatepassGeneralCtrl.currentGatepass.code].GlobalErrorWarningList">
-                    <div class="clearfix">
-                        <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 p-0 text-center">
-                            <span class=" fa fa-warning" data-ng-style="{color: {'W':'#FFAD33', 'E':'#ED4337'}[x.MessageType]}"></span>
-                        </div>
-                        <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11 pr-0">
-                            <div class="message" data-ng-bind="x.Code + ' - ' + x.Message"></div>
-                            <div class="meta-object" data-ng-bind="x.MetaObject"></div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </div>

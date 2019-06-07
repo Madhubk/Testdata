@@ -25,7 +25,7 @@
             CreditorMenuCtrl.ePage.Masters.ActivateButtonText = "Activate";
             CreditorMenuCtrl.ePage.Masters.DisableActivate = true;
             CreditorMenuCtrl.ePage.Masters.DeactivateButtonText = "Deactivate";
-            CreditorMenuCtrl.ePage.Masters.DisableDeactivate = false;
+            CreditorMenuCtrl.ePage.Masters.DisableDeactivate = true;
             CreditorMenuCtrl.ePage.Masters.SaveButtonText = "Save";
             CreditorMenuCtrl.ePage.Masters.DisableSave = false;
             CreditorMenuCtrl.ePage.Masters.Config = creditorConfig;
@@ -34,7 +34,22 @@
             CreditorMenuCtrl.ePage.Masters.Validation = Validation;
             CreditorMenuCtrl.ePage.Masters.Activate = Activate;
             CreditorMenuCtrl.ePage.Masters.Deactivate = Deactivate;
+
+            InitActivateDeactivate();
         }
+
+        //#region InitActivateDeactivate
+        function InitActivateDeactivate() {
+            if (!CreditorMenuCtrl.currentCreditor.isNew && CreditorMenuCtrl.ePage.Entities.Header.Data.IsValid) {
+                CreditorMenuCtrl.ePage.Masters.DisableActivate = true;
+                CreditorMenuCtrl.ePage.Masters.DisableDeactivate = false;
+            }
+            else if (!CreditorMenuCtrl.currentCreditor.isNew && !CreditorMenuCtrl.ePage.Entities.Header.Data.IsValid) {
+                CreditorMenuCtrl.ePage.Masters.DisableActivate = false;
+                CreditorMenuCtrl.ePage.Masters.DisableDeactivate = true;
+            }
+        }
+        //#endregion
 
         //#region  Validation
         function Validation($item) {
@@ -99,7 +114,6 @@
             if ($item.isNew) {
                 _input.PK = _input.PK;
                 _input.CreatedDateTime = new Date();
-                _input.ModifiedBy = authService.getUserInfo().UserId;
                 _input.CreatedBy = authService.getUserInfo().UserId;
                 _input.Source = "ERP";
                 _input.TenantCode = "20CUB";
@@ -151,12 +165,14 @@
         function Activate() {
             CreditorMenuCtrl.ePage.Masters.DisableActivate = true;
             CreditorMenuCtrl.ePage.Masters.DisableDeactivate = false;
+            CreditorMenuCtrl.ePage.Entities.Header.GlobalVariables.IsDisabledAll = false;
             CreditorMenuCtrl.ePage.Entities.Header.Data.IsValid = true;
         }
 
         function Deactivate() {
             CreditorMenuCtrl.ePage.Masters.DisableDeactivate = true;
             CreditorMenuCtrl.ePage.Masters.DisableActivate = false;
+            CreditorMenuCtrl.ePage.Entities.Header.GlobalVariables.IsDisabledAll = true;
             CreditorMenuCtrl.ePage.Entities.Header.Data.IsValid = false;
         }
         //#endregion

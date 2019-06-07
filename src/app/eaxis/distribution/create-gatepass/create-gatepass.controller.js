@@ -5,19 +5,23 @@
         .module("Application")
         .controller("CreateGatepassController", CreateGatepassController);
 
-    CreateGatepassController.$inject = ["$location", "$scope", "APP_CONSTANT", "authService", "apiService", "helperService", "creategatepassConfig", "$timeout", "toastr", "appConfig", "$state", "$uibModal", "$window", "dynamicLookupConfig"];
+    CreateGatepassController.$inject = ["$location", "$scope", "APP_CONSTANT", "authService", "apiService", "helperService", "gatepassConfig", "$timeout", "toastr", "appConfig", "$state", "$uibModal", "$window", "dynamicLookupConfig", "errorWarningService"];
 
-    function CreateGatepassController($location, $scope, APP_CONSTANT, authService, apiService, helperService, creategatepassConfig, $timeout, toastr, appConfig, $state, $uibModal, $window, dynamicLookupConfig) {
+    function CreateGatepassController($location, $scope, APP_CONSTANT, authService, apiService, helperService, gatepassConfig, $timeout, toastr, appConfig, $state, $uibModal, $window, dynamicLookupConfig, errorWarningService) {
 
         var CreateGatepassCtrl = this;
+
         function Init() {
             CreateGatepassCtrl.ePage = {
                 "Title": "",
                 "Prefix": "Gatepass",
                 "Masters": {},
                 "Meta": helperService.metaBase(),
-                "Entities": creategatepassConfig.Entities
+                "Entities": gatepassConfig.Entities
             };
+            CreateGatepassCtrl.ePage.Masters.ErrorWarningConfig = errorWarningService;
+            errorWarningService.Modules = {};
+
             CreateGatepassCtrl.ePage.Masters.dynamicLookupConfig = dynamicLookupConfig.Entities;
             CreateGatepassCtrl.ePage.Masters.SaveButtonText = "Save";
             CreateGatepassCtrl.ePage.Masters.IsDisableSave = false;
@@ -28,18 +32,18 @@
             CreateGatepassCtrl.ePage.Masters.GoToDashboard = GoToDashboard;
 
             CreateGatepassCtrl.ePage.Masters.Validation = Validation;
-            CreateGatepassCtrl.ePage.Masters.Config = creategatepassConfig;
+            CreateGatepassCtrl.ePage.Masters.Config = gatepassConfig;
 
-            creategatepassConfig.ValidationFindall();
+            // gatepassConfig.ValidationFindall();
             //Left Menu
             CreateNewGatepass();
-            GetDynamicLookupConfig();
+            GetRelatedLookupList();
         }
 
-        function GetDynamicLookupConfig() {
-            // Get DataEntryNameList 
+        function GetRelatedLookupList() {
             var _filter = {
-                pageName: 'OrganizationList,OrgHeaderWithWarehouse'
+                Key: "OrgHeaderWarehouse_3195,Transporter_3022",
+                SAP_FK: authService.getUserInfo().AppPK
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
@@ -105,29 +109,65 @@
                     _currentGatepass = currentGatepass;
                 }
 
-                creategatepassConfig.GetTabDetails(_currentGatepass, isNew).then(function (response) {
+                gatepassConfig.GetTabDetails(_currentGatepass, isNew).then(function (response) {
                     CreateGatepassCtrl.ePage.Masters.TabList = response;
                     CreateGatepassCtrl.ePage.Masters.Tab = response[response.length - 1];
+
+                    // validation findall call            
+                    var _obj = {
+                        ModuleName: ["Gatepass"],
+                        Code: ["New"],
+                        API: "Validation",
+                        FilterInput: {
+                            ModuleCode: "DMS",
+                            SubModuleCode: "GAT"
+                        },
+                        EntityObject: CreateGatepassCtrl.ePage.Masters.Tab
+                    };
+
+                    errorWarningService.GetErrorCodeList(_obj);
                 });
             }
         }
 
         function Validation($item) {
             var _Data = $item[$item.label].ePage.Entities,
-                _input = _Data.Header.Data,
-                _errorcount = _Data.Header.Meta.ErrorWarning.GlobalErrorWarningList;
+                _input = _Data.Header.Data;
 
             //Validation Call
-            CreateGatepassCtrl.ePage.Masters.Config.GeneralValidation($item);
-            if (CreateGatepassCtrl.ePage.Entities.Header.Validations) {
-                CreateGatepassCtrl.ePage.Masters.Config.RemoveApiErrors(CreateGatepassCtrl.ePage.Entities.Header.Validations, $item.label);
-            }
+            // CreateGatepassCtrl.ePage.Masters.Config.GeneralValidation($item);
+            // if (CreateGatepassCtrl.ePage.Entities.Header.Validations) {
+            //     CreateGatepassCtrl.ePage.Masters.Config.RemoveApiErrors(CreateGatepassCtrl.ePage.Entities.Header.Validations, $item.label);
+            // }
 
-            if (_errorcount.length == 0) {
-                Saveonly($item);
-            } else {
-                CreateGatepassCtrl.ePage.Masters.Config.ShowErrorWarningModal($item);
-            }
+            // if (_errorcount.length == 0) {
+            //     Saveonly($item);
+            // } else {
+            //     CreateGatepassCtrl.ePage.Masters.Config.ShowErrorWarningModal($item);
+            // }
+            CreateGatepassCtrl.ePage.Masters.str = $item.code.replace(/\//g, '');
+            //Validation Call            
+            var _obj = {
+                ModuleName: ["Gatepass"],
+                Code: [$item.code],
+                API: "Validation",
+                FilterInput: {
+                    ModuleCode: "DMS",
+                    SubModuleCode: "GAT"
+                },
+                EntityObject: $item[$item.label].ePage.Entities.Header.Data,
+                ErrorCode: ["E3531", "E3532", "E3533", "E3534", "E3535", "E3536", "E3537"]
+            };
+            errorWarningService.ValidateValue(_obj);
+            $timeout(function () {
+                var _errorcount = errorWarningService.Modules.Gatepass.Entity[$item.code].GlobalErrorWarningList;
+
+                if (_errorcount.length == 0) {
+                    Saveonly($item);
+                } else {
+                    CreateGatepassCtrl.ePage.Masters.Config.ShowErrorWarningModal($item);
+                }
+            });
         }
 
         function Saveonly($item) {

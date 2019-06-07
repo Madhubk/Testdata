@@ -25,6 +25,13 @@
             </span>
             <span class="pull-right">
                 <button type="button" class="btn btn-primary btn-sm margin-top-5 margin-right-10"
+                    data-ng-bind="FinanceJobMenuCtrl.ePage.Masters.BookCostButtonText" data-ng-click="FinanceJobMenuCtrl.ePage.Masters.BookCost(FinanceJobMenuCtrl.currentFinanceJob)"
+                    data-ng-disabled="FinanceJobMenuCtrl.ePage.Entities.Header.GlobalVariables.IsDisableBookCost">
+
+                </button>
+            </span>
+            <span class="pull-right">
+                <button type="button" class="btn btn-primary btn-sm margin-top-5 margin-right-10"
                     data-ng-bind="FinanceJobMenuCtrl.ePage.Masters.SaveButtonText"
                     data-ng-click="FinanceJobMenuCtrl.ePage.Masters.Validation(FinanceJobMenuCtrl.currentFinanceJob, 'Save')"
                     data-ng-disabled="FinanceJobMenuCtrl.ePage.Masters.DisableSave">

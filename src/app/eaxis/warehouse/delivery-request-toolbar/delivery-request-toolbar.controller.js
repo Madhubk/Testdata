@@ -5,9 +5,9 @@
         .module("Application")
         .controller("DeliveryRequestToolbarController", DeliveryRequestToolbarController);
 
-    DeliveryRequestToolbarController.$inject = ["$scope", "$rootScope", "$timeout", "APP_CONSTANT", "apiService", "helperService", "appConfig", "authService", "$state", "confirmation", "$uibModal", "$window", "$http", "toastr", "$location"];
+    DeliveryRequestToolbarController.$inject = ["$scope", "$rootScope", "$timeout", "APP_CONSTANT", "apiService", "helperService", "appConfig", "authService", "$state", "confirmation", "$uibModal", "$window", "$http", "toastr", "$location", "warehouseConfig"];
 
-    function DeliveryRequestToolbarController($scope, $rootScope, $timeout, APP_CONSTANT, apiService, helperService, appConfig, authService, $state, confirmation, $uibModal, $window, $http, toastr, $location) {
+    function DeliveryRequestToolbarController($scope, $rootScope, $timeout, APP_CONSTANT, apiService, helperService, appConfig, authService, $state, confirmation, $uibModal, $window, $http, toastr, $location, warehouseConfig) {
 
         var DeliveryRequestToolbarCtrl = this;
 
@@ -90,7 +90,7 @@
                         DeliveryRequestToolbarCtrl.ePage.Masters.IsCreateDeliveryBtn = true;
                         DeliveryRequestToolbarCtrl.ePage.Masters.CreateDeliveryBtnText = "Please Wait...";
                         if (DeliveryRequestToolbarCtrl.ePage.Masters.CancelledDeliveryList[0].DeliveryRequest_FK) {
-                            apiService.get("eAxisAPI", appConfig.Entities.WmsDeliveryList.API.GetById.Url + DeliveryRequestToolbarCtrl.ePage.Masters.CancelledDeliveryList[0].DeliveryRequest_FK).then(function (response) {
+                            apiService.get("eAxisAPI", warehouseConfig.Entities.WmsDeliveryList.API.GetById.Url + DeliveryRequestToolbarCtrl.ePage.Masters.CancelledDeliveryList[0].DeliveryRequest_FK).then(function (response) {
                                 if (response.data.Response) {
                                     DeliveryRequestToolbarCtrl.ePage.Masters.DeliveryData = response.data.Response;
                                     ReadyToCreateReDelivery();
@@ -138,9 +138,9 @@
                                     };
                                     var _input = {
                                         "searchInput": helperService.createToArrayOfObject(_filter),
-                                        "FilterID": appConfig.Entities.OrgHeaderWarehouse.API.FindAll.FilterID
+                                        "FilterID": warehouseConfig.Entities.OrgHeaderWarehouse.API.FindAll.FilterID
                                     };
-                                    apiService.post("eAxisAPI", appConfig.Entities.OrgHeaderWarehouse.API.FindAll.Url, _input).then(function (response) {
+                                    apiService.post("eAxisAPI", warehouseConfig.Entities.OrgHeaderWarehouse.API.FindAll.Url, _input).then(function (response) {
                                         if (response.data.Response) {
                                             if (response.data.Response.length > 0) {
                                                 // get Warehouse Job address
@@ -195,7 +195,7 @@
         }
 
         function ReadyToCreateReDelivery() {
-            helperService.getFullObjectUsingGetById(appConfig.Entities.WmsDeliveryList.API.GetById.Url, 'null').then(function (response) {
+            helperService.getFullObjectUsingGetById(warehouseConfig.Entities.WmsDeliveryList.API.GetById.Url, 'null').then(function (response) {
                 if (response.data.Response.Response) {
                     response.data.Response.Response.UIWmsDelivery.PK = response.data.Response.Response.PK;
                     response.data.Response.Response.UIWmsDelivery.ExternalReference = response.data.Response.Response.UIWmsDelivery.WorkOrderID;
@@ -312,7 +312,7 @@
                         }
                         response.data.Response.Response.UIWmsDeliveryLine.push(obj);
                     });
-                    apiService.post("eAxisAPI", appConfig.Entities.WmsDeliveryList.API.Insert.Url, response.data.Response.Response).then(function (response) {
+                    apiService.post("eAxisAPI", warehouseConfig.Entities.WmsDeliveryList.API.Insert.Url, response.data.Response.Response).then(function (response) {
                         if (response.data.Response) {
                             DeliveryRequestToolbarCtrl.ePage.Masters.IsCreateDeliveryBtn = true;
                             DeliveryRequestToolbarCtrl.ePage.Masters.CreateDeliveryBtnText = "Create Re-Delivery";
@@ -325,12 +325,12 @@
                                     }
                                 } else {
                                     DeliveryRequestFkCount = DeliveryRequestFkCount + 1;
-                                    apiService.get("eAxisAPI", appConfig.Entities.WmsDeliveryReport.API.GetById.Url + value.PK).then(function (response) {
+                                    apiService.get("eAxisAPI", warehouseConfig.Entities.WmsDeliveryReport.API.GetById.Url + value.PK).then(function (response) {
                                         if (response.data.Response) {
                                             // if (response.data.Response.length > 0) {
                                             response.data.Response.IsModified = true;
                                             response.data.Response.DeliveryLineStatus = "Re-Delivery Created";
-                                            apiService.post("eAxisAPI", appConfig.Entities.WmsDeliveryReport.API.Update.Url, response.data.Response).then(function (response) {
+                                            apiService.post("eAxisAPI", warehouseConfig.Entities.WmsDeliveryReport.API.Update.Url, response.data.Response).then(function (response) {
                                                 if (response.data.Response) {
                                                     console.log("Delivery Report Updated for " + response.data.Response.DeliveryLineRefNo);
                                                 }
@@ -370,7 +370,7 @@
             var TempDeliveryList = _.groupBy(DeliveryRequestToolbarCtrl.ePage.Masters.CancelledDeliveryList, 'DeliveryRequest_FK');
             var TempDeliveryListCount = _.keys(TempDeliveryList).length;
             angular.forEach(TempDeliveryList, function (value2, key2) {
-                apiService.get("eAxisAPI", appConfig.Entities.WmsDeliveryList.API.GetById.Url + key2).then(function (response) {
+                apiService.get("eAxisAPI", warehouseConfig.Entities.WmsDeliveryList.API.GetById.Url + key2).then(function (response) {
                     if (response.data.Response) {
                         var count = 0;
                         angular.forEach(response.data.Response.UIWmsDeliveryLine, function (value1, key1) {
@@ -389,7 +389,7 @@
                             response.data.Response.UIWmsDelivery.WorkOrderStatus = "RDL";
                         }
                         response.data.Response = filterObjectUpdate(response.data.Response, "IsModified");
-                        apiService.post("eAxisAPI", appConfig.Entities.WmsDeliveryList.API.Update.Url, response.data.Response).then(function (response) {
+                        apiService.post("eAxisAPI", warehouseConfig.Entities.WmsDeliveryList.API.Update.Url, response.data.Response).then(function (response) {
                             if (response.data.Response) {
                             }
                         });

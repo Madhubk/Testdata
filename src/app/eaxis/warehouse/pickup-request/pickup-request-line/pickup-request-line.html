@@ -120,7 +120,7 @@
                 </tr>
             </thead>
             <tbody id="OutLineCust{{PickupLineCtrl.currentPickup.label}}">
-                <tr id="tableBody" ng-repeat="x in PickupLineCtrl.ePage.Entities.Header.Data.UIWmsPickupLine | filter:PickupLineCtrl.ePage.Masters.SearchTable | tableslice : (PickupLineCtrl.ePage.Masters.CurrentPageStartingIndex) : (PickupLineCtrl.ePage.Masters.Pagination.CurrentPage * PickupLineCtrl.ePage.Masters.Pagination.ItemsPerPage)"
+                <tr id="tableBody" ng-repeat="x in PickupLineCtrl.ePage.Entities.Header.Data.UIWmsPickupLine  | orderBy: 'AdditionalRef1Code' | filter:PickupLineCtrl.ePage.Masters.SearchTable | tableslice : (PickupLineCtrl.ePage.Masters.CurrentPageStartingIndex) : (PickupLineCtrl.ePage.Masters.Pagination.CurrentPage * PickupLineCtrl.ePage.Masters.Pagination.ItemsPerPage)"
                     ng-click="PickupLineCtrl.ePage.Masters.setSelectedRow($index);" ng-class="{row_active: (PickupLineCtrl.ePage.Masters.selectedRow==$index),copy_row_active :(x.IsCopied==true)}"
                     watch-table table-properties="PickupLineCtrl.ePage.Entities.Header.TableProperties.UIWmsPickupLine"
                     unique-id="OutLineCust{{PickupLineCtrl.currentPickup.label}}" row-position="$index">

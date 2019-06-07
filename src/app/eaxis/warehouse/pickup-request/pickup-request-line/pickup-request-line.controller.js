@@ -5,9 +5,9 @@
         .module("Application")
         .controller("PickupLineController", PickupLineController);
 
-    PickupLineController.$inject = ["$rootScope", "$scope", "$state", "$q", "$location", "$timeout", "APP_CONSTANT", "authService", "apiService", "appConfig", "pickupConfig", "helperService", "toastr", "$filter", "$injector", "$uibModal", "confirmation"];
+    PickupLineController.$inject = ["$rootScope", "$scope", "$state", "$q", "$location", "$timeout", "APP_CONSTANT", "authService", "apiService", "appConfig", "pickupConfig", "helperService", "toastr", "$filter", "$injector", "$uibModal", "confirmation", "warehouseConfig"];
 
-    function PickupLineController($rootScope, $scope, $state, $q, $location, $timeout, APP_CONSTANT, authService, apiService, appConfig, pickupConfig, helperService, toastr, $filter, $injector, $uibModal, confirmation) {
+    function PickupLineController($rootScope, $scope, $state, $q, $location, $timeout, APP_CONSTANT, authService, apiService, appConfig, pickupConfig, helperService, toastr, $filter, $injector, $uibModal, confirmation, warehouseConfig) {
         var PickupLineCtrl = this
 
         function Init() {
@@ -76,8 +76,8 @@
         function AddPickupLineToInward() {
             if (PickupLineCtrl.ePage.Masters.selectedInwardRow >= 0) {
                 PickupLineCtrl.ePage.Masters.Loading = true;
-                apiService.get("eAxisAPI", appConfig.Entities.InwardList.API.GetById.Url + PickupLineCtrl.ePage.Masters.UnFinalizedOrders[PickupLineCtrl.ePage.Masters.selectedInwardRow].PK).then(function (response) {
-                    if (response.data.Response) {                        
+                apiService.get("eAxisAPI", warehouseConfig.Entities.WmsInwardList.API.GetById.Url + PickupLineCtrl.ePage.Masters.UnFinalizedOrders[PickupLineCtrl.ePage.Masters.selectedInwardRow].PK).then(function (response) {
+                    if (response.data.Response) {
                         angular.forEach(PickupLineCtrl.ePage.Masters.SelectedPickupLine, function (value, key) {
                             value.IL_PrdCode = value.PL_Req_PrdCode;
                             var obj = {
@@ -112,16 +112,16 @@
                             response.data.Response.UIWmsAsnLine.push(obj);
                         });
                         response.data.Response = filterObjectUpdate(response.data.Response, "IsModified");
-                        apiService.post("eAxisAPI", appConfig.Entities.InwardList.API.Update.Url, response.data.Response).then(function (response) {
+                        apiService.post("eAxisAPI", warehouseConfig.Entities.WmsInwardList.API.Update.Url, response.data.Response).then(function (response) {
                             if (response.data.Status == 'Success') {
                                 PickupLineCtrl.ePage.Masters.InwardDetails = response.data.Response;
                                 toastr.success("Pickup Line added to the Inward " + PickupLineCtrl.ePage.Masters.InwardDetails.UIWmsInwardHeader.WorkOrderID);
                                 PickupLineCtrl.ePage.Masters.Loading = false;
                                 pickupConfig.CallInwardFunction = true;
                                 PickupLineCtrl.ePage.Entities.Header.Data = filterObjectUpdate(PickupLineCtrl.ePage.Entities.Header.Data, "IsModified");
-                                apiService.post("eAxisAPI", appConfig.Entities.WmsPickupList.API.Update.Url, PickupLineCtrl.ePage.Entities.Header.Data).then(function (response) {
+                                apiService.post("eAxisAPI", warehouseConfig.Entities.WmsPickupList.API.Update.Url, PickupLineCtrl.ePage.Entities.Header.Data).then(function (response) {
                                     if (response.data.Response) {
-                                        apiService.get("eAxisAPI", appConfig.Entities.WmsPickupList.API.GetById.Url + response.data.Response.UIWmsPickup.PK).then(function (response) {
+                                        apiService.get("eAxisAPI", warehouseConfig.Entities.WmsPickupList.API.GetById.Url + response.data.Response.UIWmsPickup.PK).then(function (response) {
                                             if (response.data.Response) {
                                                 PickupLineCtrl.ePage.Entities.Header.Data = response.data.Response;
                                                 PickupLineCtrl.ePage.Entities.Header.Data.UIWmsPickup.Warehouse = PickupLineCtrl.ePage.Entities.Header.Data.UIWmsPickup.WarehouseCode + ' - ' + PickupLineCtrl.ePage.Entities.Header.Data.UIWmsPickup.WarehouseName;
@@ -171,9 +171,9 @@
                 };
                 var _input = {
                     "searchInput": helperService.createToArrayOfObject(_filter),
-                    "FilterID": appConfig.Entities.InwardList.API.FindAll.FilterID
+                    "FilterID": warehouseConfig.Entities.WmsInward.API.FindAll.FilterID
                 };
-                apiService.post("eAxisAPI", appConfig.Entities.InwardList.API.FindAll.Url, _input).then(function (response) {
+                apiService.post("eAxisAPI", warehouseConfig.Entities.WmsInward.API.FindAll.Url, _input).then(function (response) {
                     if (response.data.Response) {
                         if (response.data.Response.length > 0) {
                             PickupLineCtrl.ePage.Masters.UnFinalizedOrders = [];

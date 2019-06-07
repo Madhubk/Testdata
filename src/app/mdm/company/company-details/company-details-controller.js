@@ -4,9 +4,9 @@
         .module("Application")
         .controller("CompanyDetailsController", CompanyDetailsController);
 
-    CompanyDetailsController.$inject = ["$rootScope", "$scope", "$state", "$q", "$location", "$timeout","appConfig", "APP_CONSTANT", "authService", "apiService", "companyConfig", "helperService", "$filter", "$uibModal", "toastr"];
+    CompanyDetailsController.$inject = ["$rootScope", "$scope", "$state", "$q", "$location", "$timeout","$filter", "$uibModal","appConfig", "APP_CONSTANT", "authService", "apiService", "companyConfig", "helperService",  "toastr"];
 
-    function CompanyDetailsController($rootScope, $scope, $state, $q, $location, $timeout,appConfig, APP_CONSTANT, authService, apiService, companyConfig, helperService, $filter, $uibModal, toastr) {
+    function CompanyDetailsController($rootScope, $scope, $state, $q, $location, $timeout,$filter, $uibModal,appConfig, APP_CONSTANT, authService, apiService, companyConfig, helperService,  toastr) {
         /* jshint validthis: true */
         var CompanyDetailsCtrl = this;
 
@@ -20,8 +20,6 @@
                 "Entities": currentCompany
             };
 
-            console.log("Check",CompanyDetailsCtrl.ePage.Entities.Header.Data);
-
             CompanyDetailsCtrl.ePage.Masters.OpenBasicsModel = OpenBasicsModel;
             CompanyDetailsCtrl.ePage.Masters.AddNewRow=AddNewRow;
             CompanyDetailsCtrl.ePage.Masters.SelectAllCheckBox = SelectAllCheckBox;
@@ -29,6 +27,9 @@
             CompanyDetailsCtrl.ePage.Masters.SingleSelectCheckBox = SingleSelectCheckBox;
             CompanyDetailsCtrl.ePage.Masters.setSelectedRow = setSelectedRow;
             CompanyDetailsCtrl.ePage.Masters.SelectedLookupData = SelectedLookupData;
+            CompanyDetailsCtrl.ePage.Masters.GSTOnChange=GSTOnChange;
+
+            CompanyDetailsCtrl.ePage.Masters.TaxRegNoIsDisabled= true;
 
             CompanyDetailsCtrl.ePage.Masters.DropDownMasterList = {
                 "ExRateType": {
@@ -48,8 +49,6 @@
                 }
             };
             GetMastersDropDownList();
-            debugger;
-            console.log(CompanyDetailsCtrl.ePage.Entities.Header.Data.UICurrencyUplift);
         }
 
         function GetMastersDropDownList() {
@@ -75,6 +74,7 @@
                 }
             });
         }
+        
         function AddNewRow() {
             var obj = {
                 "JobType": "",
@@ -82,7 +82,12 @@
                 "ModeOfTransport": "",
                 "Currency": "",
                 "CfxPercentage": "",
-                "CfxMin": "",                         
+                "CfxMin": "",  
+                "CompanyFK":CompanyDetailsCtrl.ePage.Entities.Header.Data.UICmpCompany.PK,
+                "CreatedBy": authService.getUserInfo().UserId,
+                "ModifiedBy": "",                
+                "IsModified": false,
+                "IsDeleted": false,
                 "LineNo": CompanyDetailsCtrl.ePage.Entities.Header.Data.UICurrencyUplift.length + 1
             };
 
@@ -226,9 +231,19 @@
             );
         }
 
-        function SelectedLookupData($index, $item){
-            debugger;
+        function SelectedLookupData($index, $item,type){
+            if($item){
 
+            }
+        }
+        
+        function GSTOnChange($item){
+            if($item){
+                CompanyDetailsCtrl.ePage.Masters.TaxRegNoIsDisabled = false;
+            }
+            else{
+                CompanyDetailsCtrl.ePage.Masters.TaxRegNoIsDisabled = true;
+            }
         }
 
         Init();

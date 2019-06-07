@@ -13,7 +13,7 @@
                 </div>
                 <label class="control-label text-single-line ">Creditor Code</label>
                 <input type="text" class="form-control input-sm" placeholder="Code" data-ng-model="CreditorGeneralCtrl.ePage.Entities.Header.Data.Code" 
-                    data-ng-change='CreditorGeneralCtrl.ePage.Masters.OnChangeValues(CreditorGeneralCtrl.ePage.Entities.Header.Data.Code,"E1203")' data-ng-disabled="!CreditorGeneralCtrl.ePage.Entities.Header.Data.IsValid"/>
+                    data-ng-change='CreditorGeneralCtrl.ePage.Masters.OnChangeValues(CreditorGeneralCtrl.ePage.Entities.Header.Data.Code,"E1203")' data-ng-disabled="CreditorGeneralCtrl.ePage.Entities.Header.GlobalVariables.IsDisabledAll"/>
             </div>
         </div>
         <!--Desc-->
@@ -29,7 +29,7 @@
                 </div>
                 <label class="control-label text-single-line ">Creditor Desc</label>
                 <input type="text" class="form-control" placeholder="Desc" data-ng-model="CreditorGeneralCtrl.ePage.Entities.Header.Data.Desc" 
-                    data-ng-change='CreditorGeneralCtrl.ePage.Masters.OnChangeValues(CreditorGeneralCtrl.ePage.Entities.Header.Data.Desc,"E1204")' data-ng-disabled="!CreditorGeneralCtrl.ePage.Entities.Header.Data.IsValid"/>  
+                    data-ng-change='CreditorGeneralCtrl.ePage.Masters.OnChangeValues(CreditorGeneralCtrl.ePage.Entities.Header.Data.Desc,"E1204")' data-ng-disabled="CreditorGeneralCtrl.ePage.Entities.Header.GlobalVariables.IsDisabledAll"/>  
             </div>
         </div>
     </div>

@@ -5,9 +5,9 @@
         .module("Application")
         .controller("PreviewDashboardController", PreviewDashboardController);
 
-    PreviewDashboardController.$inject = ["$scope", "helperService", "$filter", "dynamicDashboardConfig", "appConfig", "apiService", "authService", "$timeout", "param", "$uibModalInstance"];
+    PreviewDashboardController.$inject = ["$scope", "helperService", "$filter", "dynamicDashboardConfig", "appConfig", "apiService", "authService", "$timeout", "param", "$uibModalInstance", "warehouseConfig"];
 
-    function PreviewDashboardController($scope, helperService, $filter, dynamicDashboardConfig, appConfig, apiService, authService, $timeout, param, $uibModalInstance) {
+    function PreviewDashboardController($scope, helperService, $filter, dynamicDashboardConfig, appConfig, apiService, authService, $timeout, param, $uibModalInstance, warehouseConfig) {
 
         var PreviewDashboardCtrl = this;
 
@@ -25,12 +25,13 @@
 
             if (PreviewDashboardCtrl.ePage.Masters.SelectedDashboardDetails.UIDASDashboardsHeader.IsWarehouseBased)
                 GetWarehouseValues();
-            else
+            else {
                 PreviewDashboardCtrl.ePage.Masters.SelectedWarehouse = {};
-            if (PreviewDashboardCtrl.ePage.Masters.SelectedDashboardDetails.UIDASDashboardsHeader.IsOrganisationBased)
-                GetClientDetails();
-            else
-                PreviewDashboardCtrl.ePage.Masters.SelectedClient = {};
+                if (PreviewDashboardCtrl.ePage.Masters.SelectedDashboardDetails.UIDASDashboardsHeader.IsOrganisationBased)
+                    GetClientDetails();
+                else
+                    PreviewDashboardCtrl.ePage.Masters.SelectedClient = {};
+            }
 
             PreviewDashboardCtrl.ePage.Masters.TempComponentList = PreviewDashboardCtrl.ePage.Masters.SelectedDashboardDetails.UIDASDashboardComponents;
             PreviewDashboardCtrl.ePage.Masters.TempComponentList = $filter('orderBy')(PreviewDashboardCtrl.ePage.Masters.TempComponentList, 'DC_DisplayOrder');
@@ -56,7 +57,7 @@
             PreviewDashboardCtrl.ePage.Masters.dropCallback = dropCallback;
         }
         // #region - drag component
-        function dropCallback(selectedComponent, index) {            
+        function dropCallback(selectedComponent, index) {
             angular.forEach(PreviewDashboardCtrl.ePage.Masters.SelectedDashboardDetails.UIDASDashboardComponents, function (value, key) {
                 if (value.DC_DSC_DirectiveName == selectedComponent.DC_DSC_DirectiveName && value.DC_DSC_Name == selectedComponent.DC_DSC_Name) {
                     selectedComponent.DC_ShowByDefault = true;
@@ -147,19 +148,26 @@
         // #region - Get warehouse details
         function GetWarehouseValues() {
             //Get Warehouse Details
+            PreviewDashboardCtrl.ePage.Masters.LoadingValue = "Getting mapped Warehouse...";
             var _input = {
-                "FilterID": appConfig.Entities.WmsWarehouse.API.FindAll.FilterID,
+                "FilterID": warehouseConfig.Entities.WmsWarehouse.API.FindAll.FilterID,
                 "SearchInput": []
             };
 
-            apiService.post("eAxisAPI", appConfig.Entities.WmsWarehouse.API.FindAll.Url, _input).then(function (response) {
+            apiService.post("eAxisAPI", warehouseConfig.Entities.WmsWarehouse.API.FindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     if (response.data.Response.length > 0) {
                         PreviewDashboardCtrl.ePage.Masters.WarehouseDetails = response.data.Response;
                         PreviewDashboardCtrl.ePage.Masters.SelectedWarehouse = PreviewDashboardCtrl.ePage.Masters.WarehouseDetails[0];
+                        PreviewDashboardCtrl.ePage.Masters.LoadingValue = "";
                     } else {
                         PreviewDashboardCtrl.ePage.Masters.SelectedWarehouse = {};
+                        PreviewDashboardCtrl.ePage.Masters.LoadingValue = "No Warehouse Mapped for this User";
                     }
+                    if (PreviewDashboardCtrl.ePage.Masters.SelectedDashboardDetails.UIDASDashboardsHeader.IsOrganisationBased)
+                        GetClientDetails();
+                    else
+                        PreviewDashboardCtrl.ePage.Masters.SelectedClient = {};
                 }
             });
         }
@@ -176,22 +184,25 @@
         // #endregion
         // #region - Get Client Details
         function GetClientDetails() {
+            PreviewDashboardCtrl.ePage.Masters.LoadingValue = "Getting mapped Organization...";
             var _filter = {
                 "SAP_FK": authService.getUserInfo().AppPK,
                 "Item_FK": authService.getUserInfo().UserPK,
                 "TenantCode": authService.getUserInfo().TenantCode
             };
             var _input = {
-                "FilterID": appConfig.Entities.UserOrganisation.API.FindAll.FilterID,
+                "FilterID": warehouseConfig.Entities.UserOrganisation.API.FindAll.FilterID,
                 "SearchInput": helperService.createToArrayOfObject(_filter)
             }
-            apiService.post("authAPI", appConfig.Entities.UserOrganisation.API.FindAll.Url, _input).then(function (response) {
+            apiService.post("authAPI", warehouseConfig.Entities.UserOrganisation.API.FindAll.Url, _input).then(function (response) {
                 if (response.data.Status == "Success") {
                     if (response.data.Response.length > 0) {
                         PreviewDashboardCtrl.ePage.Masters.ClientDetails = response.data.Response;
                         PreviewDashboardCtrl.ePage.Masters.SelectedClient = PreviewDashboardCtrl.ePage.Masters.ClientDetails[0];
+                        PreviewDashboardCtrl.ePage.Masters.LoadingValue = "";
                     } else {
                         PreviewDashboardCtrl.ePage.Masters.SelectedClient = undefined;
+                        PreviewDashboardCtrl.ePage.Masters.LoadingValue = "No Organization Mapped for this User";
                     }
                 }
             });

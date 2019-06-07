@@ -492,8 +492,14 @@
         {
             name: 'spmsReports',
             files: [
-                'app/eaxis/warehouse/general-module/reports/reports.controller.js',
-                'app/eaxis/warehouse/general-module/reports/reports.css'
+                'app/eaxis/warehouse/general-module/spms-report/spms-report.controller.js',
+                'app/eaxis/warehouse/general-module/spms-report/spms-report.css'
+            ]
+        },
+        {
+            name: 'spmsReportGrid',
+            files: [
+                ' app/eaxis/warehouse/general-module/spms-report/report-grid/report-grid.controller.js'
             ]
         },
         {
@@ -504,7 +510,7 @@
             ]
         },
         {
-            name: 'ReportGrid',
+            name: 'reportGrid',
             files: [
                 'app/eaxis/warehouse/general-module/warehouse-report/report-grid-page/report-grid-page.controller.js'
             ]

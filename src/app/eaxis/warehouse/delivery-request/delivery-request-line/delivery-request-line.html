@@ -105,7 +105,7 @@
                 </tr>
             </thead>
             <tbody id="OutLineCust{{DeliveryLineCtrl.currentDelivery.label}}">
-                <tr id="tableBody" ng-repeat="x in DeliveryLineCtrl.ePage.Entities.Header.Data.UIWmsDeliveryLine"
+                <tr id="tableBody" ng-repeat="x in DeliveryLineCtrl.ePage.Entities.Header.Data.UIWmsDeliveryLine  | orderBy: 'AdditionalRef1Code'"
                     ng-click="DeliveryLineCtrl.ePage.Masters.setSelectedRow($index);" ng-class="{row_active: (DeliveryLineCtrl.ePage.Masters.selectedRow==$index),copy_row_active :(x.IsCopied==true)}"
                     watch-table table-properties="DeliveryLineCtrl.ePage.Entities.Header.TableProperties.UIWmsDeliveryLine"
                     unique-id="OutLineCust{{DeliveryLineCtrl.currentDelivery.label}}" row-position="$index">

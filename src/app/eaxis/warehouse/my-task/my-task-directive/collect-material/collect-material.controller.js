@@ -5,9 +5,9 @@
         .module("Application")
         .controller("CollectMaterialController", CollectMaterialController);
 
-    CollectMaterialController.$inject = ["$scope", "apiService", "helperService", "appConfig", "myTaskActivityConfig", "APP_CONSTANT", "errorWarningService", "dynamicLookupConfig", "inwardConfig"];
+    CollectMaterialController.$inject = ["$scope", "apiService", "helperService", "appConfig", "myTaskActivityConfig", "APP_CONSTANT", "errorWarningService", "dynamicLookupConfig", "inwardConfig", "warehouseConfig"];
 
-    function CollectMaterialController($scope, apiService, helperService, appConfig, myTaskActivityConfig, APP_CONSTANT, errorWarningService, dynamicLookupConfig, inwardConfig) {
+    function CollectMaterialController($scope, apiService, helperService, appConfig, myTaskActivityConfig, APP_CONSTANT, errorWarningService, dynamicLookupConfig, inwardConfig, warehouseConfig) {
         var CollectMaterialCtrl = this;
 
         function Init() {
@@ -28,7 +28,7 @@
             if (CollectMaterialCtrl.taskObj) {
                 CollectMaterialCtrl.ePage.Masters.TaskObj = CollectMaterialCtrl.taskObj;
                 GetEntityObj();
-            } else {               
+            } else {
                 CollectMaterialCtrl.ePage.Masters.Config = myTaskActivityConfig;
                 CollectMaterialCtrl.ePage.Entities.Header.Data = myTaskActivityConfig.Entities.Inward[myTaskActivityConfig.Entities.Inward.label].ePage.Entities.Header.Data;
                 GetDynamicLookupConfig();
@@ -47,7 +47,7 @@
         }
 
         function getPickupList() {
-            apiService.get("eAxisAPI", appConfig.Entities.WmsPickupList.API.GetById.Url + CollectMaterialCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.AdditionalRef2Fk).then(function (response) {
+            apiService.get("eAxisAPI", warehouseConfig.Entities.WmsPickupList.API.GetById.Url + CollectMaterialCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.AdditionalRef2Fk).then(function (response) {
                 if (response.data.Response) {
                     CollectMaterialCtrl.ePage.Entities.Header.PickupData = response.data.Response;
                     myTaskActivityConfig.Entities.PickupData = CollectMaterialCtrl.ePage.Entities.Header.PickupData;
@@ -129,7 +129,7 @@
 
         function GetEntityObj() {
             if (CollectMaterialCtrl.ePage.Masters.TaskObj.EntityRefKey) {
-                apiService.get("eAxisAPI", appConfig.Entities.InwardList.API.GetById.Url + CollectMaterialCtrl.ePage.Masters.TaskObj.EntityRefKey).then(function (response) {
+                apiService.get("eAxisAPI", warehouseConfig.Entities.WmsInwardList.API.GetById.Url + CollectMaterialCtrl.ePage.Masters.TaskObj.EntityRefKey).then(function (response) {
                     if (response.data.Response) {
                         CollectMaterialCtrl.ePage.Masters.EntityObj = response.data.Response;
                     }

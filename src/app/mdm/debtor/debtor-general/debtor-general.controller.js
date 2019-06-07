@@ -23,7 +23,7 @@
             };
 
             DebtorGeneralCtrl.ePage.Masters.Config = debtorConfig;
-           
+
             /* Function */
             DebtorGeneralCtrl.ePage.Masters.OnChangeValues = OnChangeValues;
 
@@ -31,9 +31,12 @@
         }
 
         //#region DebtorGroup
-        function InitDebtorGroup(){
+        function InitDebtorGroup() {
             if (DebtorGeneralCtrl.currentDebtor.isNew) {
                 DebtorGeneralCtrl.ePage.Entities.Header.Data.IsValid = true;
+            }
+            else if (!DebtorGeneralCtrl.currentDebtor.isNew && !DebtorGeneralCtrl.ePage.Entities.Header.Data.IsValid) {
+                DebtorGeneralCtrl.ePage.Entities.Header.GlobalVariables.IsDisabledAll = true;
             }
         }
         //#endregion

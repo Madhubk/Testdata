@@ -5,9 +5,9 @@
         .module("Application")
         .controller("AttachManifestEditDirectiveController", AttachManifestEditDirectiveController);
 
-    AttachManifestEditDirectiveController.$inject = ["$scope", "$injector", "$timeout", "APP_CONSTANT", "apiService", "authService", "helperService", "appConfig", "toastr", "gatepassConfig", "$window", "$state", "$q", "$http"];
+    AttachManifestEditDirectiveController.$inject = ["$scope", "$injector", "$timeout", "APP_CONSTANT", "apiService", "authService", "helperService", "appConfig", "toastr", "gatepassConfig", "$q"];
 
-    function AttachManifestEditDirectiveController($scope, $injector, $timeout, APP_CONSTANT, apiService, authService, helperService, appConfig, toastr, gatepassConfig, $window, $state, $q, $http) {
+    function AttachManifestEditDirectiveController($scope, $injector, $timeout, APP_CONSTANT, apiService, authService, helperService, appConfig, toastr, gatepassConfig, $q) {
         var AttachEditDirectiveCtrl = this,
             dynamicLookupConfig = $injector.get("dynamicLookupConfig");;
 
@@ -125,6 +125,7 @@
             apiService.get("eAxisAPI", appConfig.Entities.TMSGatepass.API.GetById.Url + AttachEditDirectiveCtrl.ePage.Masters.TaskObj.EntityRefKey).then(function (response) {
                 if (response.data.Response) {
                     var GatepassDetails = response.data.Response;
+                    gatepassConfig.TabList = [];
                     gatepassConfig.GetTabDetails(GatepassDetails, false).then(function (response) {
                         angular.forEach(response, function (value, key) {
                             if (value.label == GatepassDetails.GatepassNo) {

@@ -5,9 +5,9 @@
         .module("Application")
         .controller("ConfirmDeliveryController", ConfirmDeliveryController);
 
-    ConfirmDeliveryController.$inject = ["$scope", "apiService", "helperService", "appConfig", "myTaskActivityConfig", "APP_CONSTANT", "errorWarningService", "dynamicLookupConfig", "outwardConfig", "$injector", "$timeout"];
+    ConfirmDeliveryController.$inject = ["$scope", "apiService", "helperService", "appConfig", "myTaskActivityConfig", "APP_CONSTANT", "errorWarningService", "dynamicLookupConfig", "outwardConfig", "$injector", "$timeout", "warehouseConfig"];
 
-    function ConfirmDeliveryController($scope, apiService, helperService, appConfig, myTaskActivityConfig, APP_CONSTANT, errorWarningService, dynamicLookupConfig, outwardConfig, $injector, $timeout) {
+    function ConfirmDeliveryController($scope, apiService, helperService, appConfig, myTaskActivityConfig, APP_CONSTANT, errorWarningService, dynamicLookupConfig, outwardConfig, $injector, $timeout, warehouseConfig) {
         var ConfirmDeliveryCtrl = this;
         var Config = $injector.get("releaseConfig");
 
@@ -56,7 +56,7 @@
         function ReloadOutwardDetails() {
             if (!ConfirmDeliveryCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.FinalisedDate) {
                 $timeout(function () {
-                    apiService.get("eAxisAPI", appConfig.Entities.WmsOutwardList.API.GetById.Url + ConfirmDeliveryCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PK).then(function (response) {
+                    apiService.get("eAxisAPI", warehouseConfig.Entities.WmsOutwardList.API.GetById.Url + ConfirmDeliveryCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PK).then(function (response) {
                         if (response.data.Response) {
                             response.data.Response.UIWmsOutwardHeader.Client = response.data.Response.UIWmsOutwardHeader.ClientCode + "-" + response.data.Response.UIWmsOutwardHeader.ClientName;
                             response.data.Response.UIWmsOutwardHeader.Warehouse = response.data.Response.UIWmsOutwardHeader.WarehouseCode + "-" + response.data.Response.UIWmsOutwardHeader.WarehouseName;
@@ -71,7 +71,7 @@
         }
 
         function GetManifestDetails() {
-            apiService.get("eAxisAPI", appConfig.Entities.TmsManifestList.API.GetById.Url + ConfirmDeliveryCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.AdditionalRef1Fk).then(function (response) {
+            apiService.get("eAxisAPI", warehouseConfig.Entities.TmsManifestList.API.GetById.Url + ConfirmDeliveryCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.AdditionalRef1Fk).then(function (response) {
                 if (response.data.Response) {
                     ConfirmDeliveryCtrl.ePage.Entities.Header.ManifestDetails = response.data.Response;
                     myTaskActivityConfig.Entities.ManifestData = ConfirmDeliveryCtrl.ePage.Entities.Header.ManifestDetails;
@@ -96,7 +96,7 @@
         }
 
         function getDeliveryList() {
-            apiService.get("eAxisAPI", appConfig.Entities.WmsDeliveryList.API.GetById.Url + ConfirmDeliveryCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.AdditionalRef2Fk).then(function (response) {
+            apiService.get("eAxisAPI", warehouseConfig.Entities.WmsDeliveryList.API.GetById.Url + ConfirmDeliveryCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.AdditionalRef2Fk).then(function (response) {
                 if (response.data.Response) {
                     ConfirmDeliveryCtrl.ePage.Entities.Header.DeliveryData = response.data.Response;
                     myTaskActivityConfig.Entities.DeliveryData = ConfirmDeliveryCtrl.ePage.Entities.Header.DeliveryData;
@@ -178,7 +178,7 @@
 
         function GetEntityObj() {
             if (ConfirmDeliveryCtrl.ePage.Masters.TaskObj.EntityRefKey) {
-                apiService.get("eAxisAPI", appConfig.Entities.WmsOutwardList.API.GetById.Url + ConfirmDeliveryCtrl.ePage.Masters.TaskObj.EntityRefKey).then(function (response) {
+                apiService.get("eAxisAPI", warehouseConfig.Entities.WmsOutwardList.API.GetById.Url + ConfirmDeliveryCtrl.ePage.Masters.TaskObj.EntityRefKey).then(function (response) {
                     if (response.data.Response) {
                         ConfirmDeliveryCtrl.ePage.Masters.EntityObj = response.data.Response;
                     }
