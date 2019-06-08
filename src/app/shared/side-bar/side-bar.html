@@ -6,14 +6,15 @@
 </div>
 
 <!-- Sidebar Menu -->
-<ul class="nav sidebar-menu" data-ng-if="SideBarCtrl.ePage.Masters.MenuList && SideBarCtrl.ePage.Masters.MenuList.length > 0">
+<ul class="nav sidebar-menu"
+    data-ng-if="SideBarCtrl.ePage.Masters.MenuList && SideBarCtrl.ePage.Masters.MenuList.length > 0">
     <li data-ng-repeat="menu in SideBarCtrl.ePage.Masters.MenuList | orderBy: 'DisplayOrder' | filter: SideBarCtrl.ePage.Masters.Search"
         data-ng-include="'sidebarMenu'" data-ng-class="{'active': menu.Id == SideBarCtrl.ePage.Masters.ActiveMenu.Id}">
     </li>
 </ul>
 
 <script type="text/ng-template" id="sidebarMenu">
-    <a data-ng-class="{'menu-dropdown' : menu.MenuList.length > 0}" href="javascript: void(0);" data-ng-click="(menu.Link && menu.Link != '#') && SideBarCtrl.ePage.Masters.OnMenuClick(menu, $event)" data-ng-if="menu.Link">
+    <a data-ng-class="{'menu-dropdown' : menu.MenuList.length > 0}" data-ng-href="{{menu.OtherConfig.IsExternalMenu? 'javascript:void(0)': SideBarCtrl.ePage.Masters.GetMenuLink(menu)}}" data-ng-click="(menu.Link && menu.Link != '#') && SideBarCtrl.ePage.Masters.OnMenuClick(menu, $event)" data-ng-if="menu.Link">
         <span class="menu-icon {{menu.Icon | getIconColorForMenu: 'icon'}}"></span>
         <span class="menu-text" data-ng-bind="menu.Description" title="{{menu.Description}}"></span>
         <span class="menu-expand" data-ng-if="menu.MenuList.length > 0"></span>

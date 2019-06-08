@@ -604,7 +604,7 @@
                         return deferred.promise;
                     }],
                     LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
-                        return $ocLazyLoad.load(["drogAndDrop", "JsonModal", "TCEditPage"]);
+                        return $ocLazyLoad.load(["drogAndDrop", "JsonModal", "PartyMapping", "TCEditPage"]);
                     }]
                 }
             })

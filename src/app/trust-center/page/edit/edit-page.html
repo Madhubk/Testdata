@@ -54,6 +54,15 @@
           </uib-tab-heading>
           <div data-ng-include="'app/trust-center/page/edit/template/lookup-config.html'"></div>
         </uib-tab>
+        <uib-tab
+          data-ng-if="EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.DisplayMode=='S' || EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.DisplayMode=='B' || EditPageCtrl.ePage.Masters.ActiveApplication == 'TC'">
+          <uib-tab-heading>
+            <span>Party Visibility</span>
+          </uib-tab-heading>
+          <div class="clearfix tc-event-configure-parties-container p-10">
+              <party-mapping mapping-input="EditPageCtrl.ePage.Masters.EditPage.Parties.MappingInput" is-default="true" data-ng-if="EditPageCtrl.ePage.Masters.EditPage.Parties.MappingInput"></party-mapping>
+          </div>
+        </uib-tab>
       </uib-tabset>
     </div>
   </div>

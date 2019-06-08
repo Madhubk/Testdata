@@ -71,9 +71,13 @@
                                         </label>
                                     </div>
                                 </div>
-                                <div class="col-sm-8">
+                                <div class="col-sm-4">
                                     <input type="text" class="form-control input-xs" data-ng-model="x.displayName"
-                                        placeholder="Column Name" title="Column Name" data-ng-disabled="true">
+                                        placeholder="Column Name" title="Column Name" data-ng-disabled="x.IsMandatory">
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="text-single-line" data-ng-model="x.displayName" title="x.displayName">
+                                    </div>
                                 </div>
                                 <div class="col-sm-2">
                                     <input type="text" class="form-control input-xs" data-ng-model="x.width"
@@ -215,13 +219,13 @@
                         data-ng-repeat="x in DynamicListCtrl.ePage.Masters.Header.Export.ListSource | filter: {'Source': 'SimpleExport'}: false | filter: DynamicListCtrl.ePage.Masters.Header.Export.Search"
                         data-ng-if="DynamicListCtrl.ePage.Masters.Header.Export.ListSource || (DynamicListCtrl.ePage.Masters.Header.Export.ListSource | filter: DynamicListCtrl.ePage.Masters.Header.Export.Search).length > 0">
                         <div class="col-sm-8">
-                            <div data-ng-bind="x.Template" class="text-single-line bold" title="{{x.Template}}"></div>
+                            <div data-ng-bind="x.Template" class="text-single-line bold pt-3" title="{{x.Template}}">
+                            </div>
                         </div>
                         <div class="col-sm-4 text-right font-120">
-                            <i class="fa fa-file-pdf-o mr-30 cursor-pointer danger icons" title="Download as PDF"
-                                data-ng-click="DynamicListCtrl.ePage.Masters.Header.Export.DownloadAsPDF(x)"></i>
-                            <i class="fa fa-file-excel-o mr-30 cursor-pointer success icons" title="Download as Excel"
-                                data-ng-click="DynamicListCtrl.ePage.Masters.Header.Export.DownloadAsExcel(x)"></i>
+                            <img data-ng-repeat="x in DynamicListCtrl.ePage.Masters.Header.Export.ExportAsList"
+                                src="{{x.Icon}}" class="mr-20 cursor-pointer" title="{{x.Description}}"
+                                alt="{{x.Description}}" data-ng-click="x.CallBack(x)"></img>
                         </div>
                     </div>
                     <div class="section-divider mt-5 mb-10"
@@ -231,13 +235,12 @@
                         data-ng-repeat="x in DynamicListCtrl.ePage.Masters.Header.Export.ListSource | filter: {'Source': '!SimpleExport'}: false | filter: DynamicListCtrl.ePage.Masters.Header.Export.Search"
                         data-ng-if="DynamicListCtrl.ePage.Masters.Header.Export.ListSource && (DynamicListCtrl.ePage.Masters.Header.Export.ListSource | filter: {'Source': '!SimpleExport'}: false | filter: DynamicListCtrl.ePage.Masters.Header.Export.Search).length > 0">
                         <div class="col-sm-8">
-                            <div data-ng-bind="x.Template" class="text-single-line" title="{{x.Template}}"></div>
+                            <div data-ng-bind="x.Template" class="text-single-line pt-3" title="{{x.Template}}"></div>
                         </div>
                         <div class="col-sm-4 text-right font-120">
-                            <i class="fa fa-file-pdf-o mr-30 cursor-pointer danger icons" title="Download as PDF"
-                                data-ng-click="DynamicListCtrl.ePage.Masters.Header.Export.DownloadAsPDF(x)"></i>
-                            <i class="fa fa-file-excel-o mr-30 cursor-pointer success icons" title="Download as Excel"
-                                data-ng-click="DynamicListCtrl.ePage.Masters.Header.Export.DownloadAsExcel(x)"></i>
+                            <img data-ng-repeat="x in DynamicListCtrl.ePage.Masters.Header.Export.ExportAsList"
+                                src="{{x.Icon}}" class="mr-20 cursor-pointer" title="{{x.Description}}"
+                                alt="{{x.Description}}" data-ng-click="x.CallBack(x)"></img>
                         </div>
                     </div>
                 </div>
@@ -308,7 +311,7 @@
                                 data-ng-click="DynamicListCtrl.ePage.Masters.Header.Schedule.View(x)">View</button>
                             <button class="btn btn-warning btn-xs" schedule external-code="x.Event"
                                 source-reference="x.SourceReference" class-source="'USER_SCHEDULE'"
-                                config-type="'Event'" related-details="x.SearchInput" template="x.Template"
+                                config-type="'Email'" related-details="x.SearchInput" template="x.Template"
                                 dataentry-obj="DynamicListCtrl.ePage.Masters.DataEntry.FindConfig"
                                 mode="'1'">Schedule</button>
                             <!-- <i class="fa fa-calendar-check-o cursor-pointer warning icons" title="Schedule" schedule

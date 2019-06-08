@@ -1,0 +1,10 @@
+{
+    "default": {
+        "templateUrl": "app/login/template/default/default.html",
+        "stylesUrl": ["app/login/template/default/default.css"]
+    },
+    "local.myhubplus.20cube.com": {
+        "templateUrl": "app/login/template/local-myhubplus-20cube-com/local-myhubplus-20cube-com.html",
+        "stylesUrl": ["app/login/template/local-myhubplus-20cube-com/local-myhubplus-20cube-com.css"]
+    }
+}

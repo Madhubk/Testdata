@@ -95,6 +95,9 @@
                     if (DynamicLookupCtrl.ePage.Masters.LookupConfig.PossibleFilters && typeof DynamicLookupCtrl.ePage.Masters.LookupConfig.PossibleFilters == "string") {
                         DynamicLookupCtrl.ePage.Masters.LookupConfig.PossibleFilters = JSON.parse(DynamicLookupCtrl.ePage.Masters.LookupConfig.PossibleFilters);
                     }
+                    if (DynamicLookupCtrl.ePage.Masters.LookupConfig.defaults && typeof DynamicLookupCtrl.ePage.Masters.LookupConfig.defaults == "string") {
+                        DynamicLookupCtrl.ePage.Masters.LookupConfig.defaults = JSON.parse(DynamicLookupCtrl.ePage.Masters.LookupConfig.defaults);
+                    }
                 }
             }
 
@@ -139,14 +142,15 @@
                         DynamicLookupCtrl.ePage.Masters.LookupConfig = dynamicLookupConfig.Entities[x];
                     }
                 }
+
                 if (DynamicLookupCtrl.ePage.Masters.LookupConfig.getValues) {
-                    if (typeof DynamicLookupCtrl.ePage.Masters.LookupConfig.getValues == "string") {
-                        DynamicLookupCtrl.ePage.Masters.LookupConfig.getValues = JSON.parse(DynamicLookupCtrl.ePage.Masters.LookupConfig.getValues);
-                    }
-                    if (DynamicLookupCtrl.ePage.Masters.LookupConfig.getValues.length > 0) {
-                        DynamicLookupCtrl.ePage.Masters.LookupConfig.getValues.map(value => DynamicLookupCtrl.obj[value.eField] = undefined);
-                    }
-                }
+					if (typeof DynamicLookupCtrl.ePage.Masters.LookupConfig.getValues == "string") {
+					DynamicLookupCtrl.ePage.Masters.LookupConfig.getValues = JSON.parse(DynamicLookupCtrl.ePage.Masters.LookupConfig.getValues);
+					}
+					if (DynamicLookupCtrl.ePage.Masters.LookupConfig.getValues.length > 0) {
+					DynamicLookupCtrl.ePage.Masters.LookupConfig.getValues.map(value => DynamicLookupCtrl.obj[value.eField] = undefined);
+					}
+				}
             }
         }
 

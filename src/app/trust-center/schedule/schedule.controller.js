@@ -140,6 +140,7 @@
             TCScheduleCtrl.ePage.Masters.Schedule.DatePicker.isOpen = [];
             TCScheduleCtrl.ePage.Masters.Schedule.DatePicker.OpenDatePicker = OpenDatePicker;
 
+            GetTimeZoneList();
             GetConfigType();
             GetEventList();
             InitScheduleInfo();
@@ -149,6 +150,23 @@
             $event.preventDefault();
             $event.stopPropagation();
             TCScheduleCtrl.ePage.Masters.Schedule.DatePicker.isOpen[opened] = true;
+        }
+
+        function GetTimeZoneList() {
+            TCScheduleCtrl.ePage.Masters.Schedule.TimeZoneList = undefined;
+
+            // apiService.post("eAxisAPI", trustCenterConfig.Entities.API.TimeZone.API.FindAll.Url, _input).then(response => {
+            //     if (response.data.Response && response.data.Response.length > 0) {
+            //         TCScheduleCtrl.ePage.Masters.Schedule.TimeZoneList = _response;
+            //     } else {
+            //         TCScheduleCtrl.ePage.Masters.Schedule.TimeZoneList = [];
+            //     }
+            // });
+
+            TCScheduleCtrl.ePage.Masters.Schedule.TimeZoneList = [{
+                Key: "IST",
+                Value: "Indian Standard Time"
+            }];
         }
 
         function GetConfigType() {
@@ -228,7 +246,7 @@
                 if (response.data.Response && response.data.Response.length > 0) {
                     let _response = response.data.Response;
                     _response.map(value => {
-                        value.NextScheduleOn = new Date(value.NextScheduleOn + "Z");
+                        // value.NextScheduleOn = new Date(value.NextScheduleOn + "Z");
                         if (value.CustomContactInfo && value.CustomContactInfo.Template) {
                             if (typeof value.CustomContactInfo.Template == "string") {
                                 value.CustomContactInfo.Template = JSON.parse(value.CustomContactInfo.Template);
@@ -379,7 +397,7 @@
                 _item.CustomContactInfo.EntityRefCode = _item.Title;
             }
 
-            _item.NextScheduleOn = new Date(_item.NextScheduleOn).toUTCString();
+            // _item.NextScheduleOn = new Date(_item.NextScheduleOn).toUTCString();
             _item.IsModified = true;
             let _input = _item.PK ? _item : [_item];
             let _api = TCScheduleCtrl.ePage.Masters.Schedule.ActiveSchedule.PK ? "Update" : "Insert";
@@ -387,7 +405,7 @@
             apiService.post("eAxisAPI", trustCenterConfig.Entities.API.DataConfigScheduler.API[_api].Url, _input).then(response => {
                 if (response.data.Response) {
                     let _response = (_api === "Insert") ? response.data.Response[0] : response.data.Response;
-                    _response.NextScheduleOn = new Date(_response.NextScheduleOn);
+                    // _response.NextScheduleOn = new Date(_response.NextScheduleOn);
                     if (TCScheduleCtrl.ePage.Masters.Schedule.ActiveSchedule.PK) {
                         let _index = TCScheduleCtrl.ePage.Masters.Schedule.ListSource.findIndex(x => x.PK === _response.PK);
 
@@ -468,7 +486,7 @@
             TCScheduleCtrl.ePage.Masters.Schedule.IsDisableSendNowBtn = true;
 
             let _input = angular.copy(TCScheduleCtrl.ePage.Masters.Schedule.ActiveSchedule);
-            _input.NextScheduleOn = new Date(_input.NextScheduleOn).toUTCString();
+            // _input.NextScheduleOn = new Date(_input.NextScheduleOn).toUTCString();
             if (_input.CustomContactInfo) {
                 _input.CustomContactInfo.ContactInfo = _input.CustomContactInfo.Template.To;
                 if (_input.CustomContactInfo.Template.ReportTemplateInput && typeof _input.CustomContactInfo.Template.ReportTemplateInput == "string") {
