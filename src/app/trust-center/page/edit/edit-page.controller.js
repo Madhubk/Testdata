@@ -152,6 +152,7 @@
             InitLookupPage();
             GetModuleList();
             GetSourceList();
+            InitParties();
 
             if (EditPageCtrl.ePage.Masters.QueryString.Mode == "New") {
                 EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails = _NewDataEntryObj;
@@ -335,14 +336,14 @@
             }
         }
 
-        function Publish() {            
+        function Publish() {
             EditPageCtrl.ePage.Masters.EditPage.PublishBtnText = "Please Wait...";
             EditPageCtrl.ePage.Masters.EditPage.IsDisablePublishBtn = true;
 
-            apiService.get("eAxisAPI", trustCenterConfig.Entities.API.DataEntryDetails.API.GetPublishDataEntryMasterJson.Url+EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.DataEntry_PK).then(response => {
-                toastr.success("Published Successfully...!");
+            apiService.get("eAxisAPI", trustCenterConfig.Entities.API.DataEntryDetails.API.GetPublishDataEntryMasterJson.Url + EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.DataEntry_PK).then(response => {
                 EditPageCtrl.ePage.Masters.EditPage.PublishBtnText = "Publish";
                 EditPageCtrl.ePage.Masters.EditPage.IsDisablePublishBtn = false;
+                toastr.success("Published Successfully...!");
             });
         }
 
@@ -857,7 +858,10 @@
         }
 
         function AddNewGridConfig() {
-            var _obj = {};
+            var _obj = {
+                displayName: "",
+                IsVisible: true
+            };
             EditPageCtrl.ePage.Masters.EditPage.DataEntryDetails.GridConfig.Header.push(_obj);
         }
 
@@ -915,6 +919,30 @@
         function ChangeJsonView() {
             EditPageCtrl.ePage.Masters.EditPage.LookupPage.JsonEditiorOptions.mode = EditPageCtrl.ePage.Masters.EditPage.LookupPage.JsonEditiorOptions.mode == 'tree' ? 'code' : 'tree';
         }
+
+        // region Parties
+        function InitParties() {
+            EditPageCtrl.ePage.Masters.EditPage.Parties = {};
+            PreparePartyMappingInput();
+        }
+
+        function PreparePartyMappingInput() {
+            EditPageCtrl.ePage.Masters.EditPage.Parties.MappingInput = {
+                MappingCode: "GRUP_PGTYP_APP_TNT",
+                ChildMappingCode: "GRUP_ROLE_PGTYP_APP_TNT",
+
+                AccessTo: "PAGE",
+                Access_FK: EditPageCtrl.ePage.Masters.QueryString.PagePk,
+                AccessCode: EditPageCtrl.ePage.Masters.QueryString.PageName,
+
+                SAP_FK: EditPageCtrl.ePage.Masters.QueryString.AppPk,
+                SAP_Code: EditPageCtrl.ePage.Masters.QueryString.AppCode,
+
+                PartyMappingAPI: "GroupPageView",
+                PartyRoleMappingAPI: "GroupRolePageView"
+            };
+        }
+        // endregion
 
         Init();
     }

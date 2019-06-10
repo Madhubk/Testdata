@@ -55,6 +55,9 @@
                             if (scope.LookupConfig.getValues && typeof scope.LookupConfig.getValues == "string") {
                                 scope.LookupConfig.getValues = JSON.parse(scope.LookupConfig.getValues);
                             }
+                            if (scope.LookupConfig.defaults && typeof scope.LookupConfig.defaults == "string") {
+                                scope.LookupConfig.defaults = JSON.parse(scope.LookupConfig.defaults);
+                            }
                         }
                     }
 

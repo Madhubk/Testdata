@@ -234,6 +234,8 @@
             if(myData==false){
                 InwardLinesCtrl.ePage.Masters.Config.GeneralValidation(InwardLinesCtrl.currentInward);
             }
+
+            InwardLinesCtrl.ePage.Entities.Header.GlobalVariables.CopyofCurrentObject.UIWmsWorkOrderLine = angular.copy(InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine)
         }
 
 
@@ -857,7 +859,7 @@
 
                             InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.WorkOrderStatus = "IAL"
                             InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.PutOrPickSlipDateTime = new Date();
-                            InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.WorkOrderStatusDesc = 'Location Allocated';
+                            InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.WorkOrderStatusDesc = 'LOCATION ALLOCATED';
                             OnChangeValues('value','E3041',false);
 
                             GetByIDCall();

@@ -226,12 +226,18 @@
                             // ngModel.$render();
                         });
                     } else {
-                        if(attr.isApiInputAsDisplayFormat == "true"){
+                        if (attr.isApiInputAsDisplayFormat == "true") {
                             _output = $filter('date')(modelValue, attr.datetimePicker);
                         } else {
                             _output = $filter('date')(modelValue, APP_CONSTANT.DatePicker.dateTimeFullFormat);
                         }
                     }
+                }
+
+                if (attr.isDayStartTime) {
+                    _output = _output + " 00:00";
+                } else if (attr.isDayEndTime) {
+                    _output = _output + " 23:59";
                 }
 
                 return _output;
@@ -411,7 +417,7 @@
             }
         };
     }
-    
+
     // no special Chars
     function NoSpecialChar() {
         return {

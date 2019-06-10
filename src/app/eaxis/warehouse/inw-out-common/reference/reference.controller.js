@@ -126,20 +126,9 @@
         }
 
         function GetReferencelist() {
-            var _filter = {
-                "WOD_FK": ReferenceCtrl.ePage.Entities.Header.Data.PK,
-            };
-            var _input = {
-                "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": ReferenceCtrl.ePage.Entities.Header.API.References.FilterID
-            };
+            ReferenceCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderReference = $filter('orderBy')(ReferenceCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderReference, 'CreatedDateTime');
 
-            apiService.post("eAxisAPI", ReferenceCtrl.ePage.Entities.Header.API.References.Url, _input).then(function (response) {
-                if (response.data.Response) {
-                    ReferenceCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderReference = response.data.Response;
-                    ReferenceCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderReference = $filter('orderBy')(ReferenceCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderReference, 'CreatedDateTime');
-                }
-            });
+            ReferenceCtrl.ePage.Entities.Header.GlobalVariables.CopyofCurrentObject.UIWmsWorkOrderReference = angular.copy(ReferenceCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderReference)
         }
 
         //#endregion
