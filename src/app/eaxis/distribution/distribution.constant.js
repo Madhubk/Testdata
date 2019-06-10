@@ -340,14 +340,8 @@
                 name: 'DockOutDirective',
                 files: [
                     'app/eaxis/distribution/my-task/my-task-directive/dock-out/dock-out.directive.js',
-                    'app/eaxis/distribution/my-task/my-task-directive/dock-out/dock-out.controller.js'
-                ]
-            }, {
-                name: 'DockOutEditDirective',
-                files: [
-                    'app/eaxis/distribution/my-task/my-task-directive/dock-out/dock-out-edit/dock-out-edit.directive.js',
-                    'app/eaxis/distribution/my-task/my-task-directive/dock-out/dock-out-edit/dock-out-edit.controller.js',
-                    'app/eaxis/distribution/my-task/my-task-directive/dock-out/dock-out-edit/dock-out-edit.css'
+                    'app/eaxis/distribution/my-task/my-task-directive/dock-out/dock-out.controller.js',
+                    'app/eaxis/distribution/my-task/my-task-directive/dock-out/dock-out-edit.css'
                 ]
             }, {
                 name: 'GateOutDirective',
