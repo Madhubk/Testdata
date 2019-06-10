@@ -28,7 +28,7 @@
 
         function getInwardDetails() {
             var _filter = {
-                "TGP_FK": InwardDetailsCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.PK
+                "GatepassNo": InwardDetailsCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.GatepassNo
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),

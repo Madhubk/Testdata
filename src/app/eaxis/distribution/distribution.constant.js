@@ -347,14 +347,8 @@
                 name: 'GateOutDirective',
                 files: [
                     'app/eaxis/distribution/my-task/my-task-directive/gate-out/gate-out.directive.js',
-                    'app/eaxis/distribution/my-task/my-task-directive/gate-out/gate-out.controller.js'
-                ]
-            }, {
-                name: 'GateOutEditDirective',
-                files: [
-                    'app/eaxis/distribution/my-task/my-task-directive/gate-out/gate-out-edit/gate-out-edit.directive.js',
-                    'app/eaxis/distribution/my-task/my-task-directive/gate-out/gate-out-edit/gate-out-edit.controller.js',
-                    'app/eaxis/distribution/my-task/my-task-directive/gate-out/gate-out-edit/gate-out-edit.css'
+                    'app/eaxis/distribution/my-task/my-task-directive/gate-out/gate-out.controller.js',
+                    'app/eaxis/distribution/my-task/my-task-directive/gate-out/gate-out-edit.css'
                 ]
             }, {
                 name: 'StartLoadDirective',
@@ -386,27 +380,15 @@
                 name: 'StartUnloadDirective',
                 files: [
                     'app/eaxis/distribution/my-task/my-task-directive/start-unload/start-unload.directive.js',
-                    'app/eaxis/distribution/my-task/my-task-directive/start-unload/start-unload.controller.js'
-                ]
-            }, {
-                name: 'StartUnloadEditDirective',
-                files: [
-                    'app/eaxis/distribution/my-task/my-task-directive/start-unload/start-unload-edit/start-unload-edit.directive.js',
-                    'app/eaxis/distribution/my-task/my-task-directive/start-unload/start-unload-edit/start-unload-edit.controller.js',
-                    'app/eaxis/distribution/my-task/my-task-directive/start-unload/start-unload-edit/start-unload-edit.css'
+                    'app/eaxis/distribution/my-task/my-task-directive/start-unload/start-unload.controller.js',
+                    'app/eaxis/distribution/my-task/my-task-directive/start-unload/start-unload-edit.css'
                 ]
             }, {
                 name: 'CompleteUnloadDirective',
                 files: [
                     'app/eaxis/distribution/my-task/my-task-directive/complete-unload/complete-unload.directive.js',
-                    'app/eaxis/distribution/my-task/my-task-directive/complete-unload/complete-unload.controller.js'
-                ]
-            }, {
-                name: 'CompleteUnloadEditDirective',
-                files: [
-                    'app/eaxis/distribution/my-task/my-task-directive/complete-unload/complete-unload-edit/complete-unload-edit.directive.js',
-                    'app/eaxis/distribution/my-task/my-task-directive/complete-unload/complete-unload-edit/complete-unload-edit.controller.js',
-                    'app/eaxis/distribution/my-task/my-task-directive/complete-unload/complete-unload-edit/complete-unload-edit.css'
+                    'app/eaxis/distribution/my-task/my-task-directive/complete-unload/complete-unload.controller.js',
+                    'app/eaxis/distribution/my-task/my-task-directive/complete-unload/complete-unload-edit.css'
                 ]
             }, {
                 name: 'ConfirmManifestDirective',

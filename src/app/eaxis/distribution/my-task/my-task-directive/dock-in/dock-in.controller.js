@@ -53,7 +53,7 @@
             StandardMenuConfig();
         }
 
-        function getDockNoList() {            
+        function getDockNoList() {
             var _purpose;
             if (AllocateDockCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.Purpose == "INW")
                 _purpose = "ULD";
@@ -218,18 +218,10 @@
             apiService.get("eAxisAPI", distributionConfig.Entities.TMSGatepassList.API.GetById.Url + AllocateDockCtrl.ePage.Masters.TaskObj.EntityRefKey).then(function (response) {
                 if (response.data.Response) {
                     AllocateDockCtrl.ePage.Masters.GatepassDetails = response.data.Response;
-                    // gatepassConfig.TabList = [];
-                    // gatepassConfig.GetTabDetails(AllocateDockCtrl.ePage.Masters.GatepassDetails, false).then(function (response) {
-                    //     angular.forEach(response, function (value, key) {
-                    //         if (value.label == AllocateDockCtrl.ePage.Masters.GatepassDetails.GatepassNo) {
-                    //             AllocateDockCtrl.ePage.Masters.TabList = value;
                     AllocateDockCtrl.ePage.Meta.IsLoading = false;
                     AllocateDockCtrl.ePage.Entities.Header.Data = AllocateDockCtrl.ePage.Masters.GatepassDetails;
                     getTaskConfigData();
                     getDockNoList();
-                    //         }
-                    //     });
-                    // });
                 }
             });
         }
@@ -307,9 +299,11 @@
                             });
                         }
                         AllocateDockCtrl.ePage.Masters.ShowErrorWarningModal(AllocateDockCtrl.taskObj.PSI_InstanceNo);
-                        AllocateDockCtrl.getErrorWarningList({
-                            $item: _errorcount
-                        });
+                        if (AllocateDockCtrl.ePage.Masters.IsTaskList) {
+                            AllocateDockCtrl.getErrorWarningList({
+                                $item: _errorcount
+                            });
+                        }
                     } else {
                         CompleteWithSave();
                     }

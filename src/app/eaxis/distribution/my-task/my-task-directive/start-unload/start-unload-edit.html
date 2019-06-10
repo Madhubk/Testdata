@@ -119,7 +119,7 @@
         <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8 p-0">
             <span><button type="button" class="btn btn-sm btn-outline-primary" style="font-size:11px" title="Create Inward"
                     data-ng-click="StartUnloadCtrl.ePage.Masters.CreateNewInward()" ng-disabled="StartUnloadCtrl.ePage.Masters.IsDisableButton"><span
-                        class="fa fa-external-link-square"></span>&nbsp;&nbsp;Create Inward</button></span>
+                        class="fa fa-plus-circle"></span>&nbsp;&nbsp;Create Inward</button></span>
             <span>
                 <button ng-disabled="StartUnloadCtrl.ePage.Masters.IsDisableButton" dynamic-list-modal obj="StartUnloadCtrl.ePage.Entities.Header.Data.TMSGatepassHeader"
                     default-filter="StartUnloadCtrl.ePage.Masters.DefaultFilter" base-filter="StartUnloadCtrl.ePage.Masters.DefaultFilter"
@@ -127,14 +127,21 @@
                     mode="3" grid-refresh-fun-name="" grid-refresh-fun="" class="btn btn-sm btn-outline-primary" type="button">
                     <i class="fa fa-plus-circle"></i> Attach</button>
             </span>
+            <span><button type="button" class="btn btn-sm btn-outline-primary" style="font-size:11px" title="Delete"
+                    data-ng-click="StartUnloadCtrl.ePage.Masters.Delete()" ng-disabled="StartUnloadCtrl.ePage.Masters.selectedRow==-1 || StartUnloadCtrl.ePage.Masters.IsDisableButton"><span
+                        class="fa fa-trash"></span>&nbsp;&nbsp;Delete</button></span>
+
+            <span><button type="button" class="btn btn-sm btn-outline-primary" style="font-size:11px" title="Add Receive Lines"
+                    data-ng-click="StartUnloadCtrl.ePage.Masters.AddReceiveLines()" ng-disabled="StartUnloadCtrl.ePage.Masters.selectedRow==-1 || StartUnloadCtrl.ePage.Masters.IsDisableButton"><span
+                        class="fa fa-external-link-square"></span>&nbsp;&nbsp;Add Receive Lines</button></span>
         </div>
     </div>
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 norecordfound" ng-if="StartUnloadCtrl.ePage.Masters.InwardDetails.length==0">No
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 norecordfound" style="top:400px;" ng-if="StartUnloadCtrl.ePage.Masters.InwardDetails.length==0">No
         Record Found...</div>
     <div class="mb-10 col-lg-12">
-        <div id="InwardLineTable{{StartUnloadCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.GatepassNo}}" class="fixedheader mb-0"
-            key-events table-object='StartUnloadCtrl.ePage.Masters.InwardDetails' enable='StartUnloadCtrl.ePage.Masters.Enable'
-            selected-row='StartUnloadCtrl.ePage.Masters.selectedRow' unique-id='InwardLineTable{{StartUnloadCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.GatepassNo}}'>
+        <div id="InwardLineDetailsTable{{StartUnloadCtrl.ePage.Masters.str}}" class="fixedheader mb-0" key-events
+            table-object='StartUnloadCtrl.ePage.Masters.InwardDetails' enable='StartUnloadCtrl.ePage.Masters.Enable'
+            selected-row='StartUnloadCtrl.ePage.Masters.selectedRow' unique-id='InwardLineDetailsTable{{StartUnloadCtrl.ePage.Masters.str}}'>
             <table style="height: 200px">
                 <thead>
                     <tr id="tableHeader">
@@ -150,8 +157,8 @@
                         <th ng-style="{ 'width':  '150px' }" title="Customer Reference">Customer Reference</th>
                     </tr>
                 </thead>
-                <tbody id="InwardLineCustTable{{StartUnloadCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.GatepassNo}}">
-                    <tr id="tableBody" ng-repeat="x in StartUnloadCtrl.ePage.Masters.InwardDetails | orderBy: 'WorkOrderID'"
+                <tbody id="InwardLineDetailsCustTable{{StartUnloadCtrl.ePage.Masters.str}}">
+                    <tr id="tableBody" ng-repeat="x in StartUnloadCtrl.ePage.Masters.InwardDetails track by $index"
                         ng-click="StartUnloadCtrl.ePage.Masters.setSelectedRow($index);" ng-class="{row_active: (StartUnloadCtrl.ePage.Masters.selectedRow==$index),copy_row_active :(x.IsCopied==true)}">
                         <td ng-style="{ 'width':  '40px' }" class="overflow-text">{{$index +1}}</td>
                         <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.WorkOrderID}}</td>

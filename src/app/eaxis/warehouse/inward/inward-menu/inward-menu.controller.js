@@ -426,7 +426,7 @@
                         toastr.error("Could not Save...!");
                     }
                     if (callback) {
-                        callback()
+                        callback('error');
                     }
                 }
                 InwardMenuCtrl.ePage.Masters.Config.ProductSummary(InwardMenuCtrl.ePage.Entities.Header);

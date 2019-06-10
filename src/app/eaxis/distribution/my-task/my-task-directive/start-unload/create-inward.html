@@ -7,8 +7,8 @@
     </span>
 </div>
 <div class="modal-body pb-50">
-    <inward-general current-inward="StartUnloadCtrl.ePage.Masters.TabList"></inward-general>
+    <inward-menu-general current-inward="StartUnloadCtrl.ePage.Masters.TabList"></inward-menu-general>
 </div>
 <div class="modal-footer">
-    <button class="btn btn-sm mb-15" ng-click="StartUnloadCtrl.ePage.Masters.SaveInward()">Save</button>
+    <button class="btn btn-blue btn-sm mb-15" ng-disabled="StartUnloadCtrl.ePage.Masters.IsDisableSaveBtn" ng-click="StartUnloadCtrl.ePage.Masters.SaveInward('InwardCreation')">{{StartUnloadCtrl.ePage.Masters.SaveButtonText}}</button>
 </div>

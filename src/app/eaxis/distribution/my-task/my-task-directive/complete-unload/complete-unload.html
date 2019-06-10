@@ -1,49 +1,37 @@
 <div class="clearfix col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" style="padding: 0px;">
-    <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8" style="border: 1px solid #ddd;height: 100px;">
-        <div class="my-task-dispatch-manifest-container mt-10">
-            <div class="my-task-content-shipper col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                {{CompleteUnloadCtrl.ePage.Masters.GatepassDetails.TMSGatepassHeader.ORG_Code}} - {{CompleteUnloadCtrl.ePage.Masters.GatepassDetails.TMSGatepassHeader.ORG_FullName}}
-            </div>
-            <div class="my-task-content-shipper col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                {{CompleteUnloadCtrl.ePage.Masters.GatepassDetails.TMSGatepassHeader.TransporterCode}} - {{CompleteUnloadCtrl.ePage.Masters.GatepassDetails.TMSGatepassHeader.TransporterName}}
-            </div>
-            <div class="my-task-expected-date col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                Purpose : {{CompleteUnloadCtrl.ePage.Masters.GatepassDetails.TMSGatepassHeader.Purpose}}
-            </div>
-            <div class="my-task-expected-date col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                Vehicle Type : {{CompleteUnloadCtrl.ePage.Masters.GatepassDetails.TMSGatepassHeader.VehicleType}}
-            </div>
-            <div class="my-task-expected-date col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
-                <i class="fa fa-truck"></i> {{CompleteUnloadCtrl.ePage.Masters.GatepassDetails.TMSGatepassHeader.VehicleNo}}
-            </div>
-            <div class="my-task-expected-date col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
-                <i class="fa fa-user"></i> {{CompleteUnloadCtrl.ePage.Masters.GatepassDetails.TMSGatepassHeader.DriverName}}
-            </div>
-            <div class="my-task-expected-date col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
-                <i class="fa fa-phone-square"></i> {{CompleteUnloadCtrl.ePage.Masters.GatepassDetails.TMSGatepassHeader.DriverContactNo}}
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" style="border: 1px solid #ddd;height: 107px;padding: 0;">
+            <div class="my-task-dispatch-manifest-container mt-10">
+                <div class="my-task-content-shipper col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    {{CompleteUnloadCtrl.ePage.Masters.GatepassDetails.TMSGatepassHeader.ORG_Code}} -
+                    {{CompleteUnloadCtrl.ePage.Masters.GatepassDetails.TMSGatepassHeader.ORG_FullName}}
+                </div>
+                <div class="my-task-content-shipper col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    {{CompleteUnloadCtrl.ePage.Masters.GatepassDetails.TMSGatepassHeader.ClientCode}} -
+                    {{CompleteUnloadCtrl.ePage.Masters.GatepassDetails.TMSGatepassHeader.ClientName}}
+                </div>
+                <div class="my-task-content-shipper col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    {{CompleteUnloadCtrl.ePage.Masters.GatepassDetails.TMSGatepassHeader.TransporterCode}} -
+                    {{CompleteUnloadCtrl.ePage.Masters.GatepassDetails.TMSGatepassHeader.TransporterName}}
+                </div>
+                <div class="my-task-expected-date col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                    Purpose : {{CompleteUnloadCtrl.ePage.Masters.GatepassDetails.TMSGatepassHeader.Purpose}}
+                </div>
+                <div class="my-task-expected-date col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                    Vehicle Type : {{CompleteUnloadCtrl.ePage.Masters.GatepassDetails.TMSGatepassHeader.VehicleType}}
+                </div>
+                <div class="my-task-expected-date col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
+                    <i class="fa fa-truck"></i>
+                    {{CompleteUnloadCtrl.ePage.Masters.GatepassDetails.TMSGatepassHeader.VehicleNo}}
+                </div>
+                <div class="my-task-expected-date col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
+                    <i class="fa fa-user"></i>
+                    {{CompleteUnloadCtrl.ePage.Masters.GatepassDetails.TMSGatepassHeader.DriverName}}
+                </div>
+                <div class="my-task-expected-date col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
+                    <i class="fa fa-phone-square"></i>
+                    {{CompleteUnloadCtrl.ePage.Masters.GatepassDetails.TMSGatepassHeader.DriverContactNo}}
+                </div>
             </div>
         </div>
     </div>
-    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4" style="padding: 0px;">
-        <!-- <div class="clearfix form-group col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" style="margin-left: 13px;">
-            <div class="input-group input-group-sm">
-                <input type="text" style="height: 43px;" class="form-control" placeholder="{{CompleteUnloadCtrl.ePage.Masters.DatePicker.OptionsDel.dateFormat}}"
-                    datetime-picker="{{CompleteUnloadCtrl.ePage.Masters.DatePicker.OptionsDel.dateFormat}}" ng-model="CompleteUnloadCtrl.ePage.Masters.GatepassDetails.TMSGatepassHeader.LoadOrUnloadEndTime"
-                    is-open="CompleteUnloadCtrl.ePage.Masters.DatePicker.isOpen['isLoadOrUnloadEndTime']" datepicker-options="CompleteUnloadCtrl.ePage.Masters.DatePicker.OptionsDel"
-                    datepicker-append-to-body="true" close-on-selection="false" enable-date="true" enable-time="false" default-date=""
-                    default-time="" when-closed="CompleteUnloadCtrl.ePage.Masters.GetDeliverydate()" save-as="CompleteUnloadCtrl.ePage.Masters.DatePicker.OptionsDel.saveFormat"
-                    popup-placement="bottom-right" data-ng-click="CompleteUnloadCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isLoadOrUnloadEndTime')"
-                    custom-date-time-format/>
-                <span class="input-group-btn">
-                    <button type="button" style="height: 43px;" class="btn btn-default" data-ng-click="CompleteUnloadCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isLoadOrUnloadEndTime')">
-                        <i class="fa fa-calendar"></i>
-                    </button>
-                </span>
-            </div>
-        </div> -->
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" style="margin-bottom: 3px;margin-left: 13px;">
-            <button class="btn btn-primary" style="width: 100%; height: 40px;" ng-bind="CompleteUnloadCtrl.ePage.Masters.CompleteLoadText"
-                ng-click="CompleteUnloadCtrl.ePage.Masters.CompleteLoad()"></button>
-        </div>
-    </div>
-</div>
+    <div ng-init="CompleteUnloadCtrl.ePage.Masters.IsTaskList=true"></div>

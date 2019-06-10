@@ -22,7 +22,10 @@
                     }
                 }
             };
-
+            InitFunction();
+        }
+        // #region - Init function
+        function InitFunction() {
             StartUnloadCtrl.ePage.Masters.TaskObj = StartUnloadCtrl.taskObj;
             StartUnloadCtrl.ePage.Masters.EntityObj = StartUnloadCtrl.entityObj;
             StartUnloadCtrl.ePage.Masters.TabObj = StartUnloadCtrl.tabObj;
@@ -41,7 +44,7 @@
                     if (!StartUnloadCtrl.ePage.Masters.IsTaskList) {
                         getTaskConfigData();
                         getInwardDetails();
-
+                        inwardConfig.ValidationFindall();
                         StartUnloadCtrl.ePage.Masters.DefaultFilter = {
                             "WorkOrderStatus": "ENT",
                             "ClientCode": StartUnloadCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.ClientCode,
@@ -61,27 +64,121 @@
             StartUnloadCtrl.ePage.Masters.AttachInward = AttachInward;
             StartUnloadCtrl.ePage.Masters.CloseEditActivity = CloseEditActivity;
             StartUnloadCtrl.ePage.Masters.SaveInward = SaveInward;
+            StartUnloadCtrl.ePage.Masters.AddReceiveLines = AddReceiveLines;
+            StartUnloadCtrl.ePage.Masters.setSelectedRow = setSelectedRow;
+            StartUnloadCtrl.ePage.Masters.CloseReceiveLineModel = CloseReceiveLineModel;
+            StartUnloadCtrl.ePage.Masters.Delete = Delete;
 
             StartUnloadCtrl.ePage.Masters.IsDisableSaveBtn = false;
             StartUnloadCtrl.ePage.Masters.SaveBtnText = "Save";
             // StartUnloadCtrl.ePage.Masters.IsDisableCompleteBtn = false;
             StartUnloadCtrl.ePage.Masters.CompleteBtnText = "Complete";
+            StartUnloadCtrl.ePage.Masters.SaveButtonText = "Save";
+
+            StartUnloadCtrl.ePage.Masters.selectedRow = -1;
             StandardMenuConfig();
         }
-
-        function SaveInward() {
-            $rootScope.SaveInwardFromTask(function (response) {
-                if (response == "error") {
-                    toastr.error("Could not save. Please try again.");
-                } else {
-                    toastr.success("Inward Saved Succuessfully");
+        // #endregion
+        // #region - add, delete receive lines
+        function Delete() {
+            var value = StartUnloadCtrl.ePage.Masters.InwardDetails[StartUnloadCtrl.ePage.Masters.selectedRow];
+            value.TGP_FK = null;
+            value.GatepassNo = null;
+            value.IsModified = true;
+            apiService.post("eAxisAPI", distributionConfig.Entities.WmsInward.API.Update.Url, value).then(function (response) {
+                if (response.data.Response) {
+                    StartUnloadCtrl.ePage.Masters.InwardDetails.splice(StartUnloadCtrl.ePage.Masters.selectedRow, 1);
+                    StartUnloadCtrl.ePage.Masters.selectedRow = -1;
+                    toastr.success("Inward Deleted Successfully");
                 }
             });
         }
 
-        function CreateNewInward() {            
+        function AddReceiveLines() {
             inwardConfig.TabList = [];
-            inwardConfig.ValidationFindall();
+            StartUnloadCtrl.ePage.Masters.TabList = [];
+            StartUnloadCtrl.ePage.Meta.IsLoading = true;
+            inwardConfig.GetTabDetails(StartUnloadCtrl.ePage.Masters.InwardDetails[StartUnloadCtrl.ePage.Masters.selectedRow], false).then(function (response) {
+                var _currentInward = response[0];
+                _currentInward[_currentInward.label].ePage.Entities.Header.Data.UIWmsInwardHeader.Client = _currentInward[_currentInward.label].ePage.Entities.Header.Data.UIWmsInwardHeader.ClientCode + "-" + _currentInward[_currentInward.label].ePage.Entities.Header.Data.UIWmsInwardHeader.ClientName;
+                _currentInward[_currentInward.label].ePage.Entities.Header.Data.UIWmsInwardHeader.Supplier = _currentInward[_currentInward.label].ePage.Entities.Header.Data.UIWmsInwardHeader.SupplierCode + "-" + _currentInward[_currentInward.label].ePage.Entities.Header.Data.UIWmsInwardHeader.SupplierName;
+                _currentInward[_currentInward.label].ePage.Entities.Header.Data.UIWmsInwardHeader.Warehouse = _currentInward[_currentInward.label].ePage.Entities.Header.Data.UIWmsInwardHeader.WarehouseCode + "-" + _currentInward[_currentInward.label].ePage.Entities.Header.Data.UIWmsInwardHeader.WarehouseName;
+
+                if (StartUnloadCtrl.ePage.Masters.InwardDetails[StartUnloadCtrl.ePage.Masters.selectedRow].ORG_Client_FK) {
+                    var _filter = {
+                        "ORG_FK": StartUnloadCtrl.ePage.Masters.InwardDetails[StartUnloadCtrl.ePage.Masters.selectedRow].ORG_Client_FK
+                    };
+
+                    var _input = {
+                        "searchInput": helperService.createToArrayOfObject(_filter),
+                        "FilterID": appConfig.Entities.OrgMiscServ.API.FindAll.FilterID
+                    };
+
+                    apiService.post("eAxisAPI", appConfig.Entities.OrgMiscServ.API.FindAll.Url, _input).then(function (response) {
+                        if (response.data.Response) {
+                            _currentInward[_currentInward.label].ePage.Entities.Header.Data.UIWmsInwardHeader.IMPartAttrib1Name = response.data.Response[0].IMPartAttrib1Name;
+                            _currentInward[_currentInward.label].ePage.Entities.Header.Data.UIWmsInwardHeader.IMPartAttrib2Name = response.data.Response[0].IMPartAttrib2Name;
+                            _currentInward[_currentInward.label].ePage.Entities.Header.Data.UIWmsInwardHeader.IMPartAttrib3Name = response.data.Response[0].IMPartAttrib3Name;
+                            _currentInward[_currentInward.label].ePage.Entities.Header.Data.UIWmsInwardHeader.IMPartAttrib1Type = response.data.Response[0].IMPartAttrib1Type;
+                            _currentInward[_currentInward.label].ePage.Entities.Header.Data.UIWmsInwardHeader.IMPartAttrib2Type = response.data.Response[0].IMPartAttrib2Type;
+                            _currentInward[_currentInward.label].ePage.Entities.Header.Data.UIWmsInwardHeader.IMPartAttrib3Type = response.data.Response[0].IMPartAttrib3Type;
+
+                            StartUnloadCtrl.ePage.Masters.TabList = _currentInward;
+
+                            StartUnloadCtrl.ePage.Meta.IsLoading = false;
+                            OpenReceiveLineModal().result.then(function (response) { }, function () { });
+                            StartUnloadCtrl.ePage.Masters.selectedRow = -1;
+                        }
+                    });
+                }
+            });
+        }
+
+        function setSelectedRow(index) {
+            StartUnloadCtrl.ePage.Masters.selectedRow = index;
+        }
+
+        function OpenReceiveLineModal() {
+            return StartUnloadCtrl.ePage.Masters.modalInstance = $uibModal.open({
+                animation: true,
+                backdrop: "static",
+                keyboard: false,
+                windowClass: "create-inward-modal right address",
+                scope: $scope,
+                size: "md",
+                templateUrl: "app/eaxis/distribution/my-task/my-task-directive/start-unload/add-receive-lines.html"
+            });
+        }
+
+        function CloseReceiveLineModel() {
+            StartUnloadCtrl.ePage.Masters.modalInstance.dismiss('cancel');
+        }
+        // #endregion
+        // #region - save inward
+        function SaveInward(type) {
+            StartUnloadCtrl.ePage.Masters.SaveButtonText = "Please Wait...";
+            StartUnloadCtrl.ePage.Masters.IsDisableSaveBtn = true;
+            $rootScope.SaveInwardFromTask(function (response) {
+                if (response == "error") {
+                    StartUnloadCtrl.ePage.Masters.SaveButtonText = "Save";
+                    StartUnloadCtrl.ePage.Masters.IsDisableSaveBtn = false;
+                } else {
+                    StartUnloadCtrl.ePage.Masters.SaveButtonText = "Save";
+                    StartUnloadCtrl.ePage.Masters.IsDisableSaveBtn = false;
+                    if (type == "AddingReceiveLine") {
+                        CloseReceiveLineModel();
+                    } else if (type == "InwardCreation") {
+                        toastr.success("Inward Saved Succuessfully");
+                        StartUnloadCtrl.ePage.Masters.InwardDetails.push(StartUnloadCtrl.ePage.Masters.TabList[StartUnloadCtrl.ePage.Masters.TabList.label].ePage.Entities.Header.Data.UIWmsInwardHeader);
+                        CloseEditActivity();
+                    }
+                }
+            });
+        }
+        // #endregion
+        // #region - Creating Inward
+        function CreateNewInward() {
+            inwardConfig.TabList = [];
             StartUnloadCtrl.ePage.Meta.IsLoading = true;
             helperService.getFullObjectUsingGetById(distributionConfig.Entities.WmsInwardList.API.GetById.Url, 'null').then(function (response) {
                 if (response.data.Response) {
@@ -97,9 +194,16 @@
                     response.data.Response.Response.UIWmsInwardHeader.WorkOrderSubType = "REC";
                     response.data.Response.Response.UIWmsInwardHeader.TGP_FK = StartUnloadCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.PK;
                     response.data.Response.Response.UIWmsInwardHeader.GatepassNo = StartUnloadCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.GatepassNo;
+                    response.data.Response.Response.UIWmsInwardHeader.ArrivalDate = new Date();
                     angular.forEach(StartUnloadCtrl.ePage.Entities.Header.Data.JobAddress, function (value, key) {
                         if (value.AddressType == "SND") {
-                            response.data.Response.Response.UIOrgHeader = value;
+                            response.data.Response.Response.UIOrgHeader.OAD_Address1 = value.Address1;
+                            response.data.Response.Response.UIOrgHeader.OAD_Address2 = value.Address2;
+                            response.data.Response.Response.UIOrgHeader.OAD_State = value.State;
+                            response.data.Response.Response.UIOrgHeader.OAD_City = value.City;
+                            response.data.Response.Response.UIOrgHeader.OAD_PostCode = value.Postcode;
+                            response.data.Response.Response.UIOrgHeader.OAD_Mobile = value.Mobile;
+                            response.data.Response.Response.UIOrgHeader.OAD_Email = value.Email;
                         }
                     });
 
@@ -147,7 +251,7 @@
                     OpenModal().result.then(function (response) { }, function () { });
                 });
             } else {
-                toastr.info('Pickup already opened ');
+                toastr.info('Inward already opened ');
             }
         }
 
@@ -165,11 +269,31 @@
         function CloseEditActivity() {
             StartUnloadCtrl.ePage.Masters.modalInstance1.dismiss('cancel');
         }
-
-        function AttachInward(Item) {
-            
+        // #endregion
+        // #region - attach inward
+        function AttachInward(item) {
+            angular.forEach(item, function (value, key) {
+                var _isExist = StartUnloadCtrl.ePage.Masters.InwardDetails.some(function (value1, index1) {
+                    return value1.PK === value.PK;
+                });
+                if (!_isExist) {
+                    value.TGP_FK = StartUnloadCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.PK;
+                    value.GatepassNo = StartUnloadCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.GatepassNo;
+                    value.ArrivalDate = new Date();
+                    value.IsModified = true;
+                    apiService.post("eAxisAPI", distributionConfig.Entities.WmsInward.API.Update.Url, value).then(function (response) {
+                        if (response.data.Response) {
+                            StartUnloadCtrl.ePage.Masters.InwardDetails.push(response.data.Response);
+                            toastr.success("Inward Attached Successfully");
+                        }
+                    });
+                } else {
+                    toastr.warning(value.WorkOrderID + " Already Available...!");
+                }
+            });
         }
-
+        // #endregion
+        // #region - get inward details based on gatepass
         function getInwardDetails() {
             var _filter = {
                 "GatepassNo": StartUnloadCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.GatepassNo
@@ -185,6 +309,8 @@
                 }
             });
         }
+        // #endregion
+        // #region - get task level configuration  - common
         function getTaskConfigData() {
             var EEM_Code_3;
             if (StartUnloadCtrl.ePage.Masters.TaskObj.Custom_CodeXI)
@@ -319,7 +445,8 @@
             });
             return deferred.promise;
         }
-
+        // #endregion
+        // #region - get entity obj details
         function getGatepassDetails() {
             StartUnloadCtrl.ePage.Masters.IsDisableCompleteBtn = true;
             apiService.get("eAxisAPI", distributionConfig.Entities.TMSGatepassList.API.GetById.Url + StartUnloadCtrl.ePage.Masters.TaskObj.EntityRefKey).then(function (response) {
@@ -331,17 +458,24 @@
                     if (!StartUnloadCtrl.ePage.Masters.IsTaskList) {
                         getTaskConfigData();
                         getInwardDetails();
+                        GetDynamicLookupConfig();
+                        inwardConfig.ValidationFindall();
                         StartUnloadCtrl.ePage.Masters.DefaultFilter = {
                             "WorkOrderStatus": "ENT",
                             "ClientCode": StartUnloadCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.ClientCode,
                             "WarehouseCode": StartUnloadCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.WAR_WarehouseCode,
                             "GatepassNo": "NULL"
                         };
+                        if (StartUnloadCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.GatepassNo)
+                            StartUnloadCtrl.ePage.Masters.str = StartUnloadCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.GatepassNo.replace(/\//g, '');
+                        else
+                            StartUnloadCtrl.ePage.Masters.str = "New";
                     }
                 }
             });
         }
-
+        // #endregion
+        // #region - general
         function StandardMenuConfig() {
             StartUnloadCtrl.ePage.Masters.StandardMenuInput = {
                 // Entity
@@ -362,9 +496,33 @@
             };
         }
 
+        function GetDynamicLookupConfig() {
+            var _filter = {
+                pageName: 'WarehouseInward'
+            };
+            var _input = {
+                "searchInput": helperService.createToArrayOfObject(_filter),
+                "FilterID": appConfig.Entities.DYN_RelatedLookup.API.GroupFindAll.FilterID
+            };
+
+            apiService.post("eAxisAPI", appConfig.Entities.DYN_RelatedLookup.API.GroupFindAll.Url, _input).then(function (response) {
+                if (response.data.Response) {
+                    var _isEmpty = angular.equals({}, response.data.Response);
+
+                    if (!_isEmpty) {
+                        dynamicLookupConfig.Entities = Object.assign({}, dynamicLookupConfig.Entities, response.data.Response);
+                    }
+                }
+            });
+        }
+        // #endregion
+        // #region - Save and Complete 
         function Complete() {
             if (StartUnloadCtrl.ePage.Masters.ValidationSource.length > 0 || StartUnloadCtrl.ePage.Masters.DocumentValidation.length > 0) {
                 if (StartUnloadCtrl.ePage.Masters.ValidationSource.length > 0) {
+                    if (StartUnloadCtrl.ePage.Masters.InwardDetails.length > 0) {
+                        StartUnloadCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.InwardNo = true;
+                    }
                     var _obj = {
                         ModuleName: ["MyTask"],
                         Code: [StartUnloadCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.GatepassNo],
@@ -415,9 +573,11 @@
                             });
                         }
                         StartUnloadCtrl.ePage.Masters.ShowErrorWarningModal(StartUnloadCtrl.taskObj.PSI_InstanceNo);
-                        StartUnloadCtrl.getErrorWarningList({
-                            $item: _errorcount
-                        });
+                        if (StartUnloadCtrl.ePage.Masters.IsTaskList) {
+                            StartUnloadCtrl.getErrorWarningList({
+                                $item: _errorcount
+                            });
+                        }
                     } else {
                         CompleteWithSave();
                     }
@@ -425,10 +585,6 @@
             } else {
                 CompleteWithSave();
             }
-        }
-
-        function ShowErrorWarningModal(EntityObject) {
-            $("#errorWarningContainer" + EntityObject).toggleClass("open");
         }
 
         function CompleteWithSave() {
@@ -456,6 +612,21 @@
             });
         }
 
+        function SaveOnly(Action) {
+            var deferred = $q.defer();
+
+            StartUnloadCtrl.ePage.Entities.Header.Data = filterObjectUpdate(StartUnloadCtrl.ePage.Entities.Header.Data, "IsModified");
+
+            apiService.post("eAxisAPI", distributionConfig.Entities.TMSGatepassList.API.Update.Url, StartUnloadCtrl.ePage.Entities.Header.Data).then(function (response) {
+                deferred.resolve(response);
+            });
+            return deferred.promise;
+        }
+
+        function ShowErrorWarningModal(EntityObject) {
+            $("#errorWarningContainer" + EntityObject).toggleClass("open");
+        }
+
         function Save() {
             StartUnloadCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.IsModified = true;
 
@@ -473,17 +644,6 @@
             });
         }
 
-        function SaveOnly(Action) {
-            var deferred = $q.defer();
-
-            StartUnloadCtrl.ePage.Entities.Header.Data = filterObjectUpdate(StartUnloadCtrl.ePage.Entities.Header.Data, "IsModified");
-
-            apiService.post("eAxisAPI", distributionConfig.Entities.TMSGatepassList.API.Update.Url, StartUnloadCtrl.ePage.Entities.Header.Data).then(function (response) {
-                deferred.resolve(response);
-            });
-            return deferred.promise;
-        }
-
         function filterObjectUpdate(obj, key) {
             for (var i in obj) {
                 if (!obj.hasOwnProperty(i)) continue;
@@ -495,6 +655,7 @@
             }
             return obj;
         }
+        // #endregion
 
         Init();
     }

@@ -1,36 +1,43 @@
 <div class="clearfix col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" style="padding: 0px;">
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" style="border: 1px solid #ddd;height: 100px;">
-        <div class="my-task-dispatch-manifest-container mt-10">
-            <div class="my-task-content-shipper col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                {{DockOutDirectiveCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.ORG_Code}} -
-                {{DockOutDirectiveCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.ORG_FullName}}
+        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8" style="border: 1px solid #ddd;height: 107px;padding: 0;">
+            <div class="my-task-dispatch-manifest-container mt-10">
+                <div class="my-task-content-shipper col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    {{DockOutDirectiveCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.ORG_Code}} -
+                    {{DockOutDirectiveCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.ORG_FullName}}
+                </div>
+                <div class="my-task-content-shipper col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    {{DockOutDirectiveCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.ClientCode}} -
+                    {{DockOutDirectiveCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.ClientName}}
+                </div>
+                <div class="my-task-content-shipper col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    {{DockOutDirectiveCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.TransporterCode}} -
+                    {{DockOutDirectiveCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.TransporterName}}
+                </div>
+                <div class="my-task-expected-date col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                    Purpose : {{DockOutDirectiveCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.Purpose}}
+                </div>
+                <div class="my-task-expected-date col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                    Vehicle Type : {{DockOutDirectiveCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.VehicleType}}
+                </div>
+                <div class="my-task-expected-date col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
+                    <i class="fa fa-truck"></i>
+                    {{DockOutDirectiveCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.VehicleNo}}
+                </div>
+                <div class="my-task-expected-date col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
+                    <i class="fa fa-user"></i>
+                    {{DockOutDirectiveCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.DriverName}}
+                </div>
+                <div class="my-task-expected-date col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
+                    <i class="fa fa-phone-square"></i>
+                    {{DockOutDirectiveCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.DriverContactNo}}
+                </div>
             </div>
-            <div class="my-task-content-shipper col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                {{DockOutDirectiveCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.ClientCode}} -
-                {{DockOutDirectiveCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.ClientName}}
-            </div>
-            <div class="my-task-content-shipper col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                {{DockOutDirectiveCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.TransporterCode}} -
-                {{DockOutDirectiveCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.TransporterName}}
-            </div>
-            <div class="my-task-expected-date col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                Purpose : {{DockOutDirectiveCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.Purpose}}
-            </div>
-            <div class="my-task-expected-date col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                Vehicle Type : {{DockOutDirectiveCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.VehicleType}}
-            </div>
-            <div class="my-task-expected-date col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
-                <i class="fa fa-truck"></i>
-                {{DockOutDirectiveCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.VehicleNo}}
-            </div>
-            <div class="my-task-expected-date col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
-                <i class="fa fa-user"></i>
-                {{DockOutDirectiveCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.DriverName}}
-            </div>
-            <div class="my-task-expected-date col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
-                <i class="fa fa-phone-square"></i>
-                {{DockOutDirectiveCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.DriverContactNo}}
+        </div>
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4" style="padding: 0px;">            
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                <button class="btn btn-primary" style="width: 100%; height: 40px;" ng-bind="DockOutDirectiveCtrl.ePage.Masters.DockOutText"
+                    ng-click="DockOutDirectiveCtrl.ePage.Masters.Complete()" ng-disabled="DockOutDirectiveCtrl.ePage.Masters.IsDisableCompleteBtn"></button>
             </div>
         </div>
     </div>
-</div>
+    <div ng-init="DockOutDirectiveCtrl.ePage.Masters.IsTaskList=true"></div>

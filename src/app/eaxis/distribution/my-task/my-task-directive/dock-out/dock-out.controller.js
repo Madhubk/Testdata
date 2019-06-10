@@ -5,9 +5,9 @@
         .module("Application")
         .controller("DockOutDirectiveController", DockOutDirectiveController);
 
-    DockOutDirectiveController.$inject = ["apiService", "helperService", "distributionConfig", "$q", "toastr", "appConfig", "errorWarningService", "$filter", "$timeout"];
+    DockOutDirectiveController.$inject = ["apiService", "helperService", "distributionConfig", "gatepassConfig", "$q", "toastr", "appConfig", "errorWarningService", "$filter", "$timeout"];
 
-    function DockOutDirectiveController(apiService, helperService, distributionConfig, $q, toastr, appConfig, errorWarningService, $filter, $timeout) {
+    function DockOutDirectiveController(apiService, helperService, distributionConfig, gatepassConfig, $q, toastr, appConfig, errorWarningService, $filter, $timeout) {
         var DockOutDirectiveCtrl = this;
 
         function Init() {
@@ -39,7 +39,8 @@
                 getTaskConfigData();
             } else if (DockOutDirectiveCtrl.ePage.Masters.TaskObj) {
                 getGatepassDetails();
-            }            
+            }
+            DockOutDirectiveCtrl.ePage.Masters.DockOutText = "Dock Out";
             DockOutDirectiveCtrl.ePage.Masters.Save = Save;
             DockOutDirectiveCtrl.ePage.Masters.Complete = Complete;
             DockOutDirectiveCtrl.ePage.Masters.ShowErrorWarningModal = ShowErrorWarningModal;
@@ -273,9 +274,11 @@
                             });
                         }
                         DockOutDirectiveCtrl.ePage.Masters.ShowErrorWarningModal(DockOutDirectiveCtrl.taskObj.PSI_InstanceNo);
-                        DockOutDirectiveCtrl.getErrorWarningList({
-                            $item: _errorcount
-                        });
+                        if (DockOutDirectiveCtrl.ePage.Masters.IsTaskList) {
+                            DockOutDirectiveCtrl.getErrorWarningList({
+                                $item: _errorcount
+                            });
+                        }
                     } else {
                         CompleteWithSave();
                     }
@@ -291,7 +294,8 @@
 
         function CompleteWithSave() {
             DockOutDirectiveCtrl.ePage.Masters.IsDisableCompleteBtn = true;
-            DockOutDirectiveCtrl.ePage.Masters.CompleteBtnText = "Please Wait...";            
+            DockOutDirectiveCtrl.ePage.Masters.CompleteBtnText = "Please Wait...";
+            DockOutDirectiveCtrl.ePage.Masters.DockOutText = "Please Wait...";
             DockOutDirectiveCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.DockoutTime = new Date();
 
             SaveOnly('Complete').then(function (response) {
