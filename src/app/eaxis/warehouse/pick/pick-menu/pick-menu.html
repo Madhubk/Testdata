@@ -25,10 +25,16 @@
                             <pick-general current-pick="PickMenuCtrl.currentPick"></pick-general>                                    
                         </div>
                         <div ng-switch-when="PickAllocation">
-                            <pick-allocation current-pick="PickMenuCtrl.currentPick"></pick-allocation>                                    
+                            <pick-allocation current-pick="PickMenuCtrl.currentPick"></pick-allocation>   
+                                                                    
                         </div>
+                        
                         <div ng-switch-when="PickSlip">
                             <pick-slip current-pick="PickMenuCtrl.currentPick"></pick-slip>                                    
+                        </div>
+                        <div ng-switch-when="Packing">
+                            <!-- <Pick-packing current-pick="PickMenuCtrl.currentPick"></Pick-packing>   -->
+                            <packing-general current-pick="PickMenuCtrl.currentPick"></packing-general>                                                             
                         </div>
                         <div ng-switch-when="Documents">
                             <pick-documents current-pick="PickMenuCtrl.currentPick"></pick-documents>                                    

@@ -1,0 +1,39 @@
+<div>
+    <button class="btn btn-primary btn-sm pull-right margin-right-10 mt-5"
+        data-ng-click="PickPackingCtrl.ePage.Masters.AddPackage()"
+        data-ng-disabled="PickPackingCtrl.ePage.Masters.DisableAddpackBtn">Add Package</button>
+</div>
+<div ng-if="PickPackingCtrl.ePage.Masters.SaveBtnEnable">
+    <button class="btn btn-primary btn-sm pull-right margin-right-10 mt-5"
+        data-ng-click="PickPackingCtrl.ePage.Masters.SavePackage()">Save
+        Package</button>
+</div>
+<!--Root and Child package -->
+<div ng-show="PickPackingCtrl.ePage.Masters.EnablePackTree">
+    <script type="text/ng-template" id="tree_item_renderer.html">
+        <div class="col-lg-12 col-sm-12 col-xs-12 pr-0">
+                <!--Widget-->
+                <div class="widget">
+                    <!--Widget Header-->
+                    <div class="widget-header">
+                        <!-- <span class="widget-caption">{{data.name}}</span> -->
+                        <i ng-click="PickPackingCtrl.ePage.Masters.EditPackType(data)" class="fa fa-pencil-square-o"></i>
+                        <span class="widget-caption">Package{{data.Sequence}}</span>
+                        <div class="widget-buttons">
+                            <i ng-click="PickPackingCtrl.ePage.Masters.Add(data)" class="fa fa-plus blue"></i>
+                            <i ng-click="PickPackingCtrl.ePage.Masters.Delete(data)" class="fa fa-times darkorange"></i>
+                        </div>
+                    </div>                      
+                    <!--Widget Body-->
+                    <!-- <div class="widget-body"> -->
+                            <!-- <p>Packing List</p> -->
+                        <div ng-repeat="data in data.nodes track by $index" ng-include="'tree_item_renderer.html'"></div>
+                    <!-- </div> -->
+                </div>
+            </div>
+    </script>
+
+    <div class="col-lg-12 col-sm-12 col-xs-12 tree-style pr-0">
+        <div ng-repeat="data in PickPackingCtrl.ePage.Masters.tree track by $index" ng-include="'tree_item_renderer.html'"></div>
+    </div>
+</div>

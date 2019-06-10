@@ -266,6 +266,33 @@
                 'app/eaxis/warehouse/pick/pick-documents/pick-documents.css'
             ]
         },
+
+        //-----------------------Packing Module ------------------
+
+        {
+            name: 'packingGeneral',
+            files: [
+                'app/eaxis/warehouse/pick/packing-module/pick-packing-general/pick-packing-general.controller.js',
+                'app/eaxis/warehouse/pick/packing-module/pick-packing-general/pick-packing-general.directive.js',
+                'app/eaxis/warehouse/pick/packing-module/pick-packing-general/pick-packing-general.css'
+            ]
+        },
+        {
+            name: 'pickPacking',
+            files: [
+                'app/eaxis/warehouse/pick/packing-module/pick-packing-tree/pick-packing.controller.js',
+                'app/eaxis/warehouse/pick/packing-module/pick-packing-tree/pick-packing.directive.js',
+                'app/eaxis/warehouse/pick/packing-module/pick-packing-tree/pick-packing.css'
+            ]
+        },
+        {
+            name: 'packingHeader',
+            files: [
+                'app/eaxis/warehouse/pick/packing-module/pick-packing-header/pick-packing-header.controller.js',
+                'app/eaxis/warehouse/pick/packing-module/pick-packing-header/pick-packing-header.directive.js',
+                'app/eaxis/warehouse/pick/packing-module/pick-packing-header/pick-packing-header.css'
+            ]
+        },
         // endregion
         //-----------------------Release ------------------
         // region

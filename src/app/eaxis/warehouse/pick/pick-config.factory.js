@@ -98,6 +98,33 @@
                                 "HttpType": "POST",
                                 "Url": "WmsPickList/WmsAllocateStock",
                             },
+                            "PickReleaseLine": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "WmsPickReleaseLine/FindAll",
+                                "FilterID": "WMSPICREL"
+                            },
+                            "PackageGetByID": {
+                                "IsAPI": "true",
+                                "HttpType": "GET",
+                                "Url": "WmsPackageHeaderList/GetById/"
+                            },
+                            "InsertPackage": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "WmsPackageHeaderList/Insert"
+                            },
+                            "UpdatePackage": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "WmsPackageHeaderList/Update"
+                            },
+                            "PackageHeaderFindAll": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "WmsPackageHeader/FindAll",
+                                "FilterID": "WMSWPH"
+                            },
                         },
 
                         "Meta": {
@@ -116,6 +143,12 @@
                                 "Value": "PickSlip",
                                 "Icon": "fa fa-list-alt",
                                 "GParentRef": "pickslip"
+                            },
+                            {
+                                "DisplayName": "Packing",
+                                "Value": "Packing",
+                                "Icon": "fa fa-archive",
+                                "GParentRef": "Packing"
                             }, {
                                 "DisplayName": "Documents",
                                 "Value": "Documents",
@@ -138,9 +171,9 @@
                         },
                         "TableProperties": {
                             "UIWmsOutward": {
-                                "TableHeight":{
-                                    "isEnabled":true,
-                                    "height":275
+                                "TableHeight": {
+                                    "isEnabled": true,
+                                    "height": 275
                                 },
                                 "HeaderProperties": [{
                                     "columnname": "S.No",
@@ -274,9 +307,9 @@
                                 }
                             },
                             "UIWmsPickLineSummary": {
-                                "TableHeight":{
-                                    "isEnabled":true,
-                                    "height":300
+                                "TableHeight": {
+                                    "isEnabled": true,
+                                    "height": 300
                                 },
                                 "HeaderProperties": [{
                                     "columnname": "S.No",
@@ -502,9 +535,9 @@
 
                             },
                             "UIWmsOutwardLines": {
-                                "TableHeight":{
-                                    "isEnabled":true,
-                                    "height":200
+                                "TableHeight": {
+                                    "isEnabled": true,
+                                    "height": 200
                                 },
                                 "HeaderProperties": [{
                                     "columnname": "S.No",
@@ -742,9 +775,9 @@
                                 }
                             },
                             "PickInventoryList": {
-                                "TableHeight":{
-                                    "isEnabled":true,
-                                    "height":200
+                                "TableHeight": {
+                                    "isEnabled": true,
+                                    "height": 200
                                 },
                                 "HeaderProperties": [{
                                     "columnname": "Checkbox",
@@ -1006,6 +1039,222 @@
                                     "width": "100"
                                 }
                             },
+                            "PackingOutwardLines": {
+                                "TableHeight": {
+                                    "isEnabled": true,
+                                    "height": 250
+                                },
+                                "HeaderProperties": [
+                                    {
+                                        "columnname": "S.No",
+                                        "isenabled": true,
+                                        "property": "lsno",
+                                        "position": "1",
+                                        "width": "40",
+                                        "display": false
+                                    },
+                                    {
+                                        "columnname": "Outward No",
+                                        "isenabled": true,
+                                        "property": "loutwardno",
+                                        "position": "2",
+                                        "width": "80",
+                                        "display": true
+                                    },
+                                    {
+                                        "columnname": "Outward Status",
+                                        "isenabled": true,
+                                        "property": "loutwardstatus",
+                                        "position": "3",
+                                        "width": "100",
+                                        "display": true
+                                    },
+                                    {
+                                        "columnname": "Pick No",
+                                        "isenabled": true,
+                                        "property": "lpickno",
+                                        "position": "4",
+                                        "width": "100",
+                                        "display": true
+                                    },
+                                    {
+                                        "columnname": "Product Code",
+                                        "isenabled": true,
+                                        "property": "lproductcode",
+                                        "position": "5",
+                                        "width": "100",
+                                        "display": true
+                                    },
+                                    {
+                                        "columnname": "Product Description",
+                                        "isenabled": true,
+                                        "property": "lproductdescription",
+                                        "position": "6",
+                                        "width": "100",
+                                        "display": true
+                                    },
+                                    {
+                                        "columnname": "Product Condition",
+                                        "isenabled": true,
+                                        "property": "lproductcondition",
+                                        "position": "7",
+                                        "width": "100",
+                                        "display": true
+                                    },
+                                    {
+                                        "columnname": "Packing Date",
+                                        "isenabled": true,
+                                        "property": "lpackingdate",
+                                        "position": "8",
+                                        "width": "100",
+                                        "display": true
+                                    },
+                                    {
+                                        "columnname": "Expiry Date",
+                                        "isenabled": true,
+                                        "property": "lexpirydate",
+                                        "position": "9",
+                                        "width": "100",
+                                        "display": true
+                                    },
+                                    {
+                                        "columnname": "Client Code",
+                                        "isenabled": true,
+                                        "property": "lclientcode",
+                                        "position": "10",
+                                        "width": "100",
+                                        "display": true
+                                    },
+                                    {
+                                        "columnname": "Client Name",
+                                        "isenabled": true,
+                                        "property": "lclientname",
+                                        "position": "11",
+                                        "width": "100",
+                                        "display": true
+                                    },
+                                    {
+                                        "columnname": "Weight",
+                                        "isenabled": true,
+                                        "property": "lweight",
+                                        "position": "12",
+                                        "width": "80",
+                                        "display": true
+                                    },
+                                    {
+                                        "columnname": "Units",
+                                        "isenabled": true,
+                                        "property": "lunits",
+                                        "position": "13",
+                                        "width": "80",
+                                        "display": true
+                                    },
+                                    {
+                                        "columnname": "PartAttrib1",
+                                        "isenabled": true,
+                                        "property": "lpartattrib1",
+                                        "position": "14",
+                                        "width": "80",
+                                        "display": true
+                                    },
+                                    {
+                                        "columnname": "PartAttrib2",
+                                        "isenabled": true,
+                                        "property": "lpartattrib2",
+                                        "position": "15",
+                                        "width": "80",
+                                        "display": true
+                                    },
+                                    {
+                                        "columnname": "PartAttrib3",
+                                        "isenabled": true,
+                                        "property": "lpartattrib3",
+                                        "position": "16",
+                                        "width": "80",
+                                        "display": true
+                                    }
+                                ],
+                                "lsno": {
+                                    "isenabled": true,
+                                    "position": "1",
+                                    "width": "40"
+                                },
+                                "loutwardno": {
+                                    "isenabled": true,
+                                    "position": "2",
+                                    "width": "80"
+                                },
+                                "loutwardstatus": {
+                                    "isenabled": true,
+                                    "position": "3",
+                                    "width": "100"
+                                },
+                                "lpickno": {
+                                    "isenabled": true,
+                                    "position": "4",
+                                    "width": "100"
+                                },
+                                "lproductcode": {
+                                    "isenabled": true,
+                                    "position": "5",
+                                    "width": "100"
+                                },
+                                "lproductdescription": {
+                                    "isenabled": true,
+                                    "position": "6",
+                                    "width": "100"
+                                },
+                                "lproductcondition": {
+                                    "isenabled": true,
+                                    "position": "7",
+                                    "width": "100"
+                                },
+                                "lpackingdate": {
+                                    "isenabled": true,
+                                    "position": "8",
+                                    "width": "100"
+                                },
+                                "lexpirydate": {
+                                    "isenabled": true,
+                                    "position": "9",
+                                    "width": "100"
+                                },
+                                "lclientcode": {
+                                    "isenabled": true,
+                                    "position": "10",
+                                    "width": "100"
+                                },
+                                "lclientname": {
+                                    "isenabled": true,
+                                    "position": "11",
+                                    "width": "100"
+                                },
+                                "lweight": {
+                                    "isenabled": true,
+                                    "position": "12",
+                                    "width": "80"
+                                },
+                                "lunits": {
+                                    "isenabled": true,
+                                    "position": "13",
+                                    "width": "80"
+                                },
+                                "lpartattrib1": {
+                                    "isenabled": true,
+                                    "position": "14",
+                                    "width": "80"
+                                },
+                                "lpartattrib2": {
+                                    "isenabled": true,
+                                    "position": "15",
+                                    "width": "80"
+                                },
+                                "lpartattrib3": {
+                                    "isenabled": true,
+                                    "position": "16",
+                                    "width": "80"
+                                }
+                            }
                         }
                     },
                 }
