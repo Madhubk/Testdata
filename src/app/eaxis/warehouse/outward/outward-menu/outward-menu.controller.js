@@ -33,6 +33,7 @@
             OutwardMenuCtrl.ePage.Masters.DisableSave = false;
 
             OutwardMenuCtrl.ePage.Masters.tabSelected = tabSelected;
+            OutwardMenuCtrl.ePage.Masters.Save = Save;
             OutwardMenuCtrl.ePage.Masters.Validation = Validation;
             OutwardMenuCtrl.ePage.Masters.Config = outwardConfig;
             OutwardMenuCtrl.ePage.Masters.CancelOutward = CancelOutward;
@@ -87,6 +88,8 @@
 
             $rootScope.SaveOutwardFromTask = SaveOutwardFromTask;
             getManifestDetails();
+
+            OutwardMenuCtrl.ePage.Entities.Header.GlobalVariables.CopyofCurrentObject = angular.copy(OutwardMenuCtrl.ePage.Entities.Header.Data);
         }
 
         function getManifestDetails() {
@@ -330,7 +333,7 @@
                                                             OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PickNo = response.data.Response.Response.UIWmsPickHeader.PickNo
                                                             OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PutOrPickStartDateTime = new Date();
                                                             OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WorkOrderStatus = "OSP";
-                                                            OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WorkOrderStatusDesc = "Pick Started";
+                                                            OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WorkOrderStatusDesc = "PICK STARTED";
                                                             OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.IsModified = true;
                                                             response.data.Response.Response.UIWmsOutward.push(OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader);
 
@@ -577,6 +580,11 @@
             }
         };
 
+        function Save($item){
+            OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.CancelledDate = null;
+            Validation($item)
+        }
+
         function Validation($item, callback) {
             var _Data = $item[$item.label].ePage.Entities,
                 _input = _Data.Header.Data,
@@ -616,7 +624,7 @@
                     _input.UIWmsOutwardHeader.ExternalReference = _input.UIWmsOutwardHeader.WorkOrderID;
                 }
             } else {
-                $item = filterObjectUpdate($item, "IsModified");
+                OutwardMenuCtrl.ePage.Entities.Header.Data = PostSaveObjectUpdate(OutwardMenuCtrl.ePage.Entities.Header.Data, OutwardMenuCtrl.ePage.Entities.Header.GlobalVariables.CopyofCurrentObject,["Client","Warehouse","Consignee","ServiceLevel","Product","Commodity"]);
             }
 
 
@@ -668,6 +676,10 @@
 
                     OutwardMenuCtrl.ePage.Entities.Header.GlobalVariables.PercentageValues = true;
 
+                     //Taking Copy of Current Object
+                     OutwardMenuCtrl.ePage.Entities.Header.Data = AfterSaveObjectUpdate(OutwardMenuCtrl.ePage.Entities.Header.Data,"IsModified");
+                     OutwardMenuCtrl.ePage.Entities.Header.GlobalVariables.CopyofCurrentObject = angular.copy(OutwardMenuCtrl.ePage.Entities.Header.Data);
+
                     if (OutwardMenuCtrl.ePage.Masters.SaveAndClose) {
                         if ($state.current.url == "/outward") {
                             OutwardMenuCtrl.ePage.Masters.Config.SaveAndClose = true;
@@ -680,15 +692,16 @@
                         callback()
                     }
                 } else if (response.Status === "failed") {
-                    console.log("Failed");
-                    toastr.error("Could not Save...!");
 
                     OutwardMenuCtrl.ePage.Entities.Header.Validations = response.Validations;
                     angular.forEach(response.Validations, function (value, key) {
                         OutwardMenuCtrl.ePage.Masters.Config.PushErrorWarning(value.Code, value.Message, "E", false, value.CtrlKey, OutwardMenuCtrl.currentOutward.label, false, undefined, undefined, undefined, undefined, value.GParentRef);
                     });
                     if (OutwardMenuCtrl.ePage.Entities.Header.Validations != null) {
+                        toastr.error("Validation Failed...!");
                         OutwardMenuCtrl.ePage.Masters.Config.ShowErrorWarningModal(OutwardMenuCtrl.currentOutward);
+                    }else{
+                        toastr.error("Could not Save...!");
                     }
                     if (callback) {
                         callback()
@@ -722,6 +735,40 @@
                     }
                 }
             });
+        }
+
+        function PostSaveObjectUpdate(newValue,oldValue, exceptObjects) {
+            for (var i in newValue) {
+                if(typeof newValue[i]=='object'){
+                    PostSaveObjectUpdate(newValue[i],oldValue[i],exceptObjects);
+                }else{
+                    var Satisfied = exceptObjects.some(function(v){return v===i});
+                    if(!Satisfied && i!= "$$hashKey"){
+                        if(!oldValue){
+                            newValue["IsModified"] = true;
+                            break;
+                        }else{
+                            if(newValue[i]!=oldValue[i]){
+                                newValue["IsModified"] = true;
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+            return newValue;
+        }
+
+        function AfterSaveObjectUpdate(obj,key){
+            for (var i in obj) {
+                if (!obj.hasOwnProperty(i)) continue;
+                if (typeof obj[i] == 'object') {
+                    AfterSaveObjectUpdate(obj[i], key);
+                } else if (i == key) {
+                    obj[key] = false;
+                }
+            }
+            return obj;
         }
 
         function filterObjectUpdate(obj, key) {
@@ -786,8 +833,10 @@
                                                     }
                                                 });
                                             });
+                                            $item = filterObjectUpdate($item, "IsModified");
                                             Validation($item);
                                         } else {
+                                            $item = filterObjectUpdate($item, "IsModified");
                                             Validation($item);
                                         }
                                     }

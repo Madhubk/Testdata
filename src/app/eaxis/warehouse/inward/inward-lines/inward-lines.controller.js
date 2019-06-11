@@ -416,6 +416,7 @@
             InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine[index].WLO_LocationStatus = item.LocationStatus;
             InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine[index].WLO_LocationStatusDescription = item.LocationStatusDescription;
             OnChangeValues('value', "E3047", true, index);
+            OnChangeValues('value', "E3118", true, index);
         }
         //#endregion
 
@@ -495,6 +496,7 @@
                 OnChangeValues('value', "E3038", true, i);
                 OnChangeValues('value', "E3046", true, i);
                 OnChangeValues('value', "E3047", true, i);
+                OnChangeValues('value', "E3118", true, i);
                 OnChangeValues('value', 'E3049', true, i);
                 OnChangeValues('value', 'E3063', true, i);
             }
