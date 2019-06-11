@@ -5,9 +5,9 @@
         .module("Application")
         .controller("CompleteUnloadDirectiveController", CompleteUnloadDirectiveController);
 
-    CompleteUnloadDirectiveController.$inject = ["$scope", "$rootScope", "apiService", "helperService", "distributionConfig", "$q", "toastr", "appConfig", "errorWarningService", "$filter", "$timeout", "dynamicLookupConfig", "inwardConfig", "$uibModal"];
+    CompleteUnloadDirectiveController.$inject = ["$scope", "$rootScope", "apiService", "helperService", "distributionConfig", "$q", "toastr", "appConfig", "errorWarningService", "$filter", "$timeout", "dynamicLookupConfig", "inwardConfig", "$uibModal", "$window"];
 
-    function CompleteUnloadDirectiveController($scope, $rootScope, apiService, helperService, distributionConfig, $q, toastr, appConfig, errorWarningService, $filter, $timeout, dynamicLookupConfig, inwardConfig, $uibModal) {
+    function CompleteUnloadDirectiveController($scope, $rootScope, apiService, helperService, distributionConfig, $q, toastr, appConfig, errorWarningService, $filter, $timeout, dynamicLookupConfig, inwardConfig, $uibModal, $window) {
         var CompleteUnloadCtrl = this;
 
         function Init() {
@@ -68,6 +68,7 @@
             CompleteUnloadCtrl.ePage.Masters.setSelectedRow = setSelectedRow;
             CompleteUnloadCtrl.ePage.Masters.CloseReceiveLineModel = CloseReceiveLineModel;
             CompleteUnloadCtrl.ePage.Masters.Delete = Delete;
+            CompleteUnloadCtrl.ePage.Masters.SingleRecordView = SingleRecordView;
 
             CompleteUnloadCtrl.ePage.Masters.IsDisableSaveBtn = false;
             CompleteUnloadCtrl.ePage.Masters.SaveBtnText = "Save";
@@ -77,6 +78,16 @@
 
             CompleteUnloadCtrl.ePage.Masters.selectedRow = -1;
             StandardMenuConfig();
+        }
+        // #endregion
+        // #region - single record view
+        function SingleRecordView(item) {
+            var _queryString = {
+                PK: item.PK,
+                WorkOrderID: item.WorkOrderID
+            };
+            _queryString = helperService.encryptData(_queryString);
+            $window.open("#/EA/single-record-view/gatepassinward/" + _queryString, "_blank");
         }
         // #endregion
         // #region - add, delete receive lines

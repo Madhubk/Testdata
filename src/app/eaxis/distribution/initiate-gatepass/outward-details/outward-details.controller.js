@@ -5,9 +5,9 @@
         .module("Application")
         .controller("OutwardDetailsController", OutwardDetailsController);
 
-    OutwardDetailsController.$inject = ["apiService", "appConfig", "helperService", "gatepassConfig", "warehouseConfig"];
+    OutwardDetailsController.$inject = ["apiService", "$window", "helperService", "gatepassConfig", "warehouseConfig"];
 
-    function OutwardDetailsController(apiService, appConfig, helperService, gatepassConfig, warehouseConfig) {
+    function OutwardDetailsController(apiService, $window, helperService, gatepassConfig, warehouseConfig) {
 
         var OutwardDetailsCtrl = this;
 
@@ -22,6 +22,7 @@
             };
 
             OutwardDetailsCtrl.ePage.Masters.Config = gatepassConfig;
+            OutwardDetailsCtrl.ePage.Masters.SingleRecordView = SingleRecordView;
 
             getOutwardDetails();
         }
@@ -44,6 +45,15 @@
                     }
                 }
             });
+        }
+
+        function SingleRecordView(item) {
+            var _queryString = {
+                PK: item.PK,
+                WorkOrderID: item.WorkOrderID
+            };
+            _queryString = helperService.encryptData(_queryString);
+            $window.open("#/EA/single-record-view/gatepassoutward/" + _queryString, "_blank");
         }
 
         Init();

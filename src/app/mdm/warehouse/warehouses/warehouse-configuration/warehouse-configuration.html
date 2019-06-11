@@ -2,17 +2,17 @@
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
         <div class="col-lg-6">
             <label class="mb-0 customcheckbox" style="font-size: 13px;">
-                <input type="checkbox" ng-checked="WarehouseConfigCtrl.ePage.Masters.IsClientConfig" ng-change="WarehouseConfigCtrl.ePage.Masters.OnChangeClientConfig()"
-                    ng-model="WarehouseConfigCtrl.ePage.Masters.IsClientConfig"> </input>
-                <span class="text">Is Client Config</span>
+                <input type="checkbox" ng-checked="WarehouseConfigCtrl.ePage.Masters.IsEnableGatepass" ng-change="WarehouseConfigCtrl.ePage.Masters.OnChangeClientConfig()"
+                    ng-model="WarehouseConfigCtrl.ePage.Masters.IsEnableGatepass"> </input>
+                <span class="text">Enable Gatepass</span>
             </label>
         </div>
         <div class="col-lg-6">
             <label class="mb-0 customcheckbox" style="font-size: 13px;">
-                <input type="checkbox" ng-checked="WarehouseConfigCtrl.ePage.Masters.IsMandatory" ng-change="WarehouseConfigCtrl.ePage.Masters.OnChangeMandatory()"
-                    ng-model="WarehouseConfigCtrl.ePage.Masters.IsMandatory" ng-disabled="!WarehouseConfigCtrl.ePage.Masters.IsClientConfig">
+                <input type="checkbox" ng-checked="WarehouseConfigCtrl.ePage.Masters.IsGatepassMandatory" ng-change="WarehouseConfigCtrl.ePage.Masters.OnChangeMandatory()"
+                    ng-model="WarehouseConfigCtrl.ePage.Masters.IsGatepassMandatory" ng-disabled="!WarehouseConfigCtrl.ePage.Masters.IsEnableGatepass">
                 </input>
-                <span class="text">Is Mandatory</span>
+                <span class="text">Is Gatepass Mandatory</span>
             </label>
         </div>
     </div>

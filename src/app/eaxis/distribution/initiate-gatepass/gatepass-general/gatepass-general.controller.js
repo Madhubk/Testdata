@@ -160,10 +160,10 @@
         }
 
         function SelectedLookupClient(item) {            
-            GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.Client_FK = item.PK;
-            GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.ClientCode = item.Code;
-            GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.ClientName = item.FullName;
-            GatepassGeneralCtrl.ePage.Masters.Client = item.Code + '-' + item.FullName;
+            GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.Client_FK = item.ORG_FK;
+            GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.ClientCode = item.ORG_Code;
+            GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.ClientName = item.ORG_Name;
+            GatepassGeneralCtrl.ePage.Masters.Client = item.ORG_Code + ' - ' + item.ORG_Name;
             OnFieldValueChange('E3545');
             var _filter = {
                 "ORG_FK": GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.Client_FK

@@ -161,7 +161,7 @@
                     <tr id="tableBody" ng-repeat="x in StartUnloadCtrl.ePage.Masters.InwardDetails track by $index"
                         ng-click="StartUnloadCtrl.ePage.Masters.setSelectedRow($index);" ng-class="{row_active: (StartUnloadCtrl.ePage.Masters.selectedRow==$index),copy_row_active :(x.IsCopied==true)}">
                         <td ng-style="{ 'width':  '40px' }" class="overflow-text">{{$index +1}}</td>
-                        <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.WorkOrderID}}</td>
+                        <td ng-style="{ 'width':  '150px' }" class="overflow-text"><a data-ng-click="StartUnloadCtrl.ePage.Masters.SingleRecordView(x)"> {{x.WorkOrderID}}</a></td>
                         <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.WorkOrderStatusDesc}}</td>
                         <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.WarehouseCode}}</td>
                         <td ng-style="{ 'width':  '200px' }" class="overflow-text">{{x.WarehouseName}}</td>

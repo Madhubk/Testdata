@@ -2,7 +2,9 @@
     <div class="col-lg-12 mt-15" ng-repeat="x in OutwardDetailsCtrl.ePage.Masters.OutwardDetails">
         <div class="rows border-box border-radius-2 bg-fbfbfb">
             <div class="col-lg-3 pt-10 pb-10">
-                <div class="tab-profile-title text-single-line fs-16" data-ng-bind="x.WorkOrderID"></div>
+                <div class="tab-profile-title text-single-line fs-16">
+                    <a href="" ng-click="OutwardDetailsCtrl.ePage.Masters.SingleRecordView(x)">{{x.WorkOrderID}}</a>
+                </div>
             </div>
 
             <!--Sender-->
