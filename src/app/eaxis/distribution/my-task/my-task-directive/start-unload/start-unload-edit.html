@@ -127,13 +127,13 @@
                     mode="3" grid-refresh-fun-name="" grid-refresh-fun="" class="btn btn-sm btn-outline-primary" type="button">
                     <i class="fa fa-plus-circle"></i> Attach</button>
             </span>
-            <span><button type="button" class="btn btn-sm btn-outline-primary" style="font-size:11px" title="Delete"
+            <span><button type="button" class="btn btn-sm btn-outline-primary" style="font-size:11px" title="Detach"
                     data-ng-click="StartUnloadCtrl.ePage.Masters.Delete()" ng-disabled="StartUnloadCtrl.ePage.Masters.selectedRow==-1 || StartUnloadCtrl.ePage.Masters.IsDisableButton"><span
-                        class="fa fa-trash"></span>&nbsp;&nbsp;Delete</button></span>
+                        class="fa fa-trash"></span>&nbsp;&nbsp;Detach</button></span>
 
-            <span><button type="button" class="btn btn-sm btn-outline-primary" style="font-size:11px" title="Add Receive Lines"
+            <span><button type="button" class="btn btn-sm btn-outline-primary" style="font-size:11px" title="Receive Items"
                     data-ng-click="StartUnloadCtrl.ePage.Masters.AddReceiveLines()" ng-disabled="StartUnloadCtrl.ePage.Masters.selectedRow==-1 || StartUnloadCtrl.ePage.Masters.IsDisableButton"><span
-                        class="fa fa-external-link-square"></span>&nbsp;&nbsp;Add Receive Lines</button></span>
+                        class="fa fa-external-link-square"></span>&nbsp;&nbsp;Receive Items</button></span>
         </div>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 norecordfound" style="top:400px;" ng-if="StartUnloadCtrl.ePage.Masters.InwardDetails.length==0">No
