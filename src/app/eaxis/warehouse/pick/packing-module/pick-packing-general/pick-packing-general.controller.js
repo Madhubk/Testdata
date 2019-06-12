@@ -41,7 +41,7 @@
             PackingGeneralCtrl.ePage.Masters.SaveReleaseQuantity = SaveReleaseQuantity;
             PackingGeneralCtrl.ePage.Masters.CloseEditActivityModal = CloseEditActivityModal;
 
-            PackingGeneralCtrl.ePage.Masters.ReleaseLineList = {};
+            // PackingGeneralCtrl.ePage.Masters.ReleaseLineList = {};
             PackingGeneralCtrl.ePage.Masters.PackageItemList = [];
 
             GetUserBasedGridColumListForOutward();
@@ -138,7 +138,6 @@
                 PackingGeneralCtrl.ePage.Masters.Loading = false;
                 if (response.data.Response) {
                     PackingGeneralCtrl.ePage.Masters.PickReleaseLine = response.data.Response;
-                    PackingGeneralCtrl.ePage.Masters.ReleaseLineObject = angular.copy(PackingGeneralCtrl.ePage.Masters.PickReleaseLine);
                 }
             });
         }
@@ -168,11 +167,12 @@
             PackingGeneralCtrl.ePage.Masters.SelectedReleaseLineDetails = item;
             PackingGeneralCtrl.ePage.Masters.selectedReleaseLineRow = true;
             PackingGeneralCtrl.ePage.Masters.selectedRowForReleaseLine = index;
+            PackingGeneralCtrl.ePage.Masters.ReleaseLineList = item;
         }
 
         function ReleaseQuantityModel(Data) {
             PackingGeneralCtrl.ePage.Masters.ReleaseLineList = Data;
-            if (PackingGeneralCtrl.ePage.Masters.ReleaseLineList[0].RemainingQty > 0) {
+            if (PackingGeneralCtrl.ePage.Masters.ReleaseLineList.RemainingQty > 0) {
                 QuantityModel();
             }
             else {
@@ -199,35 +199,38 @@
         function SaveReleaseQuantity($item) {
 
             PackingGeneralCtrl.ePage.Masters.Releasepackitem = $item;
-
-            if (PackingGeneralCtrl.ePage.Masters.Releasepackitem[0].RemainingQty < PackingGeneralCtrl.ePage.Masters.Releasepackitem[0].Units) {
-                toastr.warning("Packing Quantity is Greater than Release Quantity")
-                PackingGeneralCtrl.ePage.Masters.Releasepackitem[0].Units = '';
-            }
-            else {
-                // $item.map(function (value, key) {
-                var obj = {
-                    "PK": "",
-                    "PackageFK": PackingGeneralCtrl.ePage.Masters.Config.SelectedPackage.PK,
-                    "PickLine_FK": PackingGeneralCtrl.ePage.Masters.Releasepackitem[0].WPL_FK,
-                    "PackedQty": PackingGeneralCtrl.ePage.Masters.Releasepackitem[0].Units,
-                    "ProductPk": PackingGeneralCtrl.ePage.Masters.Releasepackitem[0].WPR_PRO_FK,
-                    "ProductCode": PackingGeneralCtrl.ePage.Masters.Releasepackitem[0].ProductCode,
-                    "ProductDesc": PackingGeneralCtrl.ePage.Masters.Releasepackitem[0].ProductDescription,
-                    "UDF1": PackingGeneralCtrl.ePage.Masters.Releasepackitem[0].PartAttrib1,
-                    "UDF2": PackingGeneralCtrl.ePage.Masters.Releasepackitem[0].PartAttrib2,
-                    "UDF3": PackingGeneralCtrl.ePage.Masters.Releasepackitem[0].PartAttrib3,
-                    "PackingDate": PackingGeneralCtrl.ePage.Masters.Releasepackitem[0].PackingDate,
-                    "ExpiryDate": PackingGeneralCtrl.ePage.Masters.Releasepackitem[0].ExpiryDate,
-                    "ReleaseLine_FK": PackingGeneralCtrl.ePage.Masters.Releasepackitem[0].WRL_FK,
-                    "IsModified": false,
-                    "IsDeleted": false,
-                    "IsNewInsert": true
+            if (PackingGeneralCtrl.ePage.Masters.Config.SelectedPackage.PK) {
+                if (PackingGeneralCtrl.ePage.Masters.Releasepackitem.RemainingQty < PackingGeneralCtrl.ePage.Masters.Releasepackitem.Units) {
+                    toastr.warning("Packing Quantity is Greater than Release Quantity");
+                    // PackingGeneralCtrl.ePage.Masters.ReleaseLineList.Units = '';
                 }
-                PackingGeneralCtrl.ePage.Masters.PackageItemList.push(obj);
-                // });
+                else {
+                    // $item.map(function (value, key) {
+                    var obj = {
+                        "PK": "",
+                        "PackageFK": PackingGeneralCtrl.ePage.Masters.Config.SelectedPackage.PK,
+                        "PickLine_FK": PackingGeneralCtrl.ePage.Masters.Releasepackitem.WPL_FK,
+                        "PackedQty": PackingGeneralCtrl.ePage.Masters.Releasepackitem.Units,
+                        "ProductPk": PackingGeneralCtrl.ePage.Masters.Releasepackitem.WPR_PRO_FK,
+                        "ProductCode": PackingGeneralCtrl.ePage.Masters.Releasepackitem.ProductCode,
+                        "ProductDesc": PackingGeneralCtrl.ePage.Masters.Releasepackitem.ProductDescription,
+                        "UDF1": PackingGeneralCtrl.ePage.Masters.Releasepackitem.PartAttrib1,
+                        "UDF2": PackingGeneralCtrl.ePage.Masters.Releasepackitem.PartAttrib2,
+                        "UDF3": PackingGeneralCtrl.ePage.Masters.Releasepackitem.PartAttrib3,
+                        "PackingDate": PackingGeneralCtrl.ePage.Masters.Releasepackitem.PackingDate,
+                        "ExpiryDate": PackingGeneralCtrl.ePage.Masters.Releasepackitem.ExpiryDate,
+                        "ReleaseLine_FK": PackingGeneralCtrl.ePage.Masters.Releasepackitem.WRL_FK,
+                        "IsModified": false,
+                        "IsDeleted": false,
+                        "IsNewInsert": true
+                    }
+                    PackingGeneralCtrl.ePage.Masters.PackageItemList.push(obj);
+                    // });
 
-                Save(PackingGeneralCtrl.ePage.Masters.PackageItemList);
+                    Save(PackingGeneralCtrl.ePage.Masters.PackageItemList);
+                }
+            } else {
+                toastr.warning("Package is not Available");
             }
             CloseEditActivityModal();
         }

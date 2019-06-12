@@ -101,6 +101,9 @@
 
       // Assigning the parent child json to the Tree Object (ng-repeat Obj)
       PickPackingCtrl.ePage.Masters.tree = PickPackingCtrl.ePage.Masters.FramedObject;
+
+      // for first obj response select true 
+      PickPackingCtrl.ePage.Masters.tree[0].IsSelectedValue = true;
     }
 
     // function to convert normal json to parent child json format
@@ -398,45 +401,17 @@
 
     // json formation changes parent child json to normal json / loop for update
     function JsonLoop(myData) {
-      myData.map(function (value, key) {
-        var obj = {
-          "Sequence": value.Sequence,
-          "PK": value.PK,
-          "NKPackType": value.NKPackType,
-          "PackageQty": value.PackageQty,
-          "Length": value.Length,
-          "Width": value.Width,
-          "Height": value.Height,
-          "DimensionUQ": value.DimensionUQ,
-          "Weight": value.Weight,
-          "WeightUQ": value.WeightUQ,
-          "Volume": value.Volume,
-          "VolumeUQ": value.VolumeUQ,
-          "MarksAndNumbers": value.MarksAndNumbers,
-          "TransportRef": value.TransportRef,
-          "GoodsDescription": value.GoodsDescription,
-          "HSCode": value.HSCode,
-          "ParentPackage": value.ParentPackage,
-          "IsClosed": value.IsClosed,
-          "IsReleased": value.IsReleased,
-          "RequiredTemperatureMinimum": value.RequiredTemperatureMinimum,
-          "RequiredTemperatureUnit": value.RequiredTemperatureUnit,
-          "RequiredTemperatureMaximum": value.RequiredTemperatureMaximum,
-          "RH_NKCommodityCode": value.RH_NKCommodityCode,
-          "CommodityDesc": value.CommodityDesc,
-          "RequiresTemperatureControl": value.RequiresTemperatureControl,
-          "PackageId": value.PackageId,
-          "IsCheckedWeighedCubed": value.IsCheckedWeighedCubed,
-          "IsDamaged": value.IsDamaged,
-          "IsHeld": value.IsHeld,
-          "PackageHeaderFK": value.PackageHeaderFK,
-          "IsModified": value.IsModified,
-          "IsDeleted": value.IsDeleted,
-          "IsNewInsert": value.IsNewInsert
+      $.each(myData, function (i, e) {
+        if (e.nodes.length > 0) {
+          var ccd = e.nodes;
+          delete e.nodes;
+          PickPackingCtrl.ePage.Masters.List.push(e);
+          JsonLoop(ccd);
+        } else {
+          delete e.nodes;
+          PickPackingCtrl.ePage.Masters.List.push(e);
         }
-        PickPackingCtrl.ePage.Masters.List.push(obj);
-        if (value.nodes.length > 0)
-          JsonLoop(value.nodes);
+        
       });
       // console.log(PickPackingCtrl.ePage.Masters.List);
     }

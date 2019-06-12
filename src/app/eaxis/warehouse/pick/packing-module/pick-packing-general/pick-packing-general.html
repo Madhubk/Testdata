@@ -128,7 +128,7 @@
             <span class="text-single-line custom_label" style="padding:10px;">Pick Release Lines</span>
             <span ng-if="PackingGeneralCtrl.ePage.Masters.selectedReleaseLineRow">
                 <button class="btn btn-primary btn-sm pull-right margin-right-10 mt-5"
-                    data-ng-click="PackingGeneralCtrl.ePage.Masters.ReleaseQuantityModel(PackingGeneralCtrl.ePage.Masters.ReleaseLineObject)">Add
+                    data-ng-click="PackingGeneralCtrl.ePage.Masters.ReleaseQuantityModel(PackingGeneralCtrl.ePage.Masters.ReleaseLineList)">Add
                     to Package</button>
             </span>
         </div>
@@ -209,7 +209,7 @@
                         </tr>
                     </thead>
                     <tbody id="GeneralCustTable{{PackingGeneralCtrl.currentPick.label}}">
-                        <tr id="tableBody" ng-repeat="x in PackingGeneralCtrl.ePage.Masters.ReleaseLineObject"
+                        <tr id="tableBody" ng-repeat="x in PackingGeneralCtrl.ePage.Masters.PickReleaseLine"
                             ng-click="PackingGeneralCtrl.ePage.Masters.setSelectedRowForReleaseLine(x,$index);"
                             ng-class="{row_active: (PackingGeneralCtrl.ePage.Masters.selectedRowForReleaseLine==$index),copy_row_active :(x.IsCopied==true)}"
                             table-properties="PackingGeneralCtrl.ePage.Entities.Header.TableProperties.PackingOutwardLines"
@@ -301,7 +301,7 @@
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 norecordfound"
                 style="top:84px; padding:260px;"
-                ng-if="PackingGeneralCtrl.ePage.Masters.ReleaseLineObject.length==0 ||PackingGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutward.length==0">
+                ng-if="PackingGeneralCtrl.ePage.Masters.PickReleaseLine.length==0 ||PackingGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutward.length==0">
                 No Record Found...
             </div>
         </div>
