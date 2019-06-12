@@ -251,6 +251,8 @@
                             "Language": helperService.metaBase(),
                             "ErrorWarning": {
                                 "GlobalErrorWarningList": [],
+                                "WorkOrderID":helperService.metaBase(),
+                                "FinalisedDate":helperService.metaBase(),
                                 "Client": helperService.metaBase(),
                                 "ExternalReference": helperService.metaBase(),
                                 "CustomerReference": helperService.metaBase(),
@@ -1547,6 +1549,8 @@
                     OnChangeValues(value.StockKeepingUnit, 'E3033', true, key, $item.label);
 
                     OnChangeValues(value.ProductCondition, 'E3049', true, key, $item.label);
+
+                    OnChangeValues(value.WLO_Location, 'E3118', true, key, $item.label);
 
                     if (!value.PRO_FK && value.ProductCode || value.PRO_FK && value.ProductCode)
                         OnChangeValues(value.PRO_FK, 'E3046', true, key, $item.label);

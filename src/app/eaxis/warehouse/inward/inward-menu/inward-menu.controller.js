@@ -569,8 +569,10 @@
                                                 }
                                             });
                                         });
+                                        $item = filterObjectUpdate($item, "IsModified");
                                         Validation($item);
                                     } else {
+                                        $item = filterObjectUpdate($item, "IsModified");
                                         Validation($item);
                                     }
                                 }

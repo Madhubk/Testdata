@@ -48,7 +48,7 @@
             <span class="dropup pull-right">
                 <button class="btn btn-primary btn-sm margin-right-10 mt-6 dropdown-toggle" type="button" data-toggle="dropdown" ng-disabled="AdjustmentMenuCtrl.ePage.Masters.DisableSave">More<span class="ml-5 caret"></span></button>
                 <ul class="dropdown-menu dropdown-menu-right">
-                    <li><a href="javascript:void(0);" data-ng-click="AdjustmentMenuCtrl.ePage.Masters.Validation(AdjustmentMenuCtrl.currentAdjustment);AdjustmentMenuCtrl.ePage.Masters.SaveAndClose = true" >Save & Close</a></li>
+                    <li><a href="javascript:void(0);" data-ng-click="AdjustmentMenuCtrl.ePage.Masters.Save(AdjustmentMenuCtrl.currentAdjustment);AdjustmentMenuCtrl.ePage.Masters.SaveAndClose = true" >Save & Close</a></li>
                     <li data-ng-if="!AdjustmentMenuCtrl.currentAdjustment.isNew"><a href="javascript:void(0);" data-ng-click="AdjustmentMenuCtrl.ePage.Masters.Finalize(AdjustmentMenuCtrl.currentAdjustment)" >Finalize</a></li>
                     <li data-ng-if="!AdjustmentMenuCtrl.currentAdjustment.isNew"><a href="javascript:void(0);" data-ng-click="AdjustmentMenuCtrl.ePage.Masters.CancelAdjustment(AdjustmentMenuCtrl.currentAdjustment)" >Cancel Adjustment</a></li>
                 </ul>
