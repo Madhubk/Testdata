@@ -21,11 +21,12 @@
                 "app/eaxis/finance/accounts-payable/account-payable-menu/account-payable-menu.directive.js",
                 "app/eaxis/finance/accounts-payable/account-payable-menu/account-payable-menu.controller.js"
             ]
-        },{
-            name:"FinanceAccountPayableGeneral",
-            files:[
+        }, {
+            name: "FinanceAccountPayableGeneral",
+            files: [
                 "app/eaxis/finance/accounts-payable/account-payable-general/account-payable-general.directive.js",
-                "app/eaxis/finance/accounts-payable/account-payable-general/account-payable-general.controller.js"
+                "app/eaxis/finance/accounts-payable/account-payable-general/account-payable-general.controller.js",
+                "app/eaxis/finance/accounts-payable/account-payable-general/account-payable-general.css"
             ]
         }, {
             name: "FinanceAdminCosts",

@@ -1,0 +1,11 @@
+.inner-dashboard-box {
+    width:100%;
+    float: left;
+    border:1px solid #f5f5f5;
+    position:relative;
+}
+
+.height-90 {
+    height: 90px;
+}
+   
