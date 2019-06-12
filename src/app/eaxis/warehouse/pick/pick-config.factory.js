@@ -57,8 +57,10 @@
             "RemoveErrorWarning": RemoveErrorWarning,
             "GetErrorWarningCountParent": GetErrorWarningCountParent,
             "ShowErrorWarningModal": ShowErrorWarningModal,
-            "ValidationFindall": ValidationFindall
-
+            "ValidationFindall": ValidationFindall,
+            "SelectedReleaseLine": "",
+            "SelectedPackage": "",
+            "PackageListDetails":"",
         };
 
         return exports;
@@ -101,8 +103,8 @@
                             "PickReleaseLine": {
                                 "IsAPI": "true",
                                 "HttpType": "POST",
-                                "Url": "WmsPickReleaseLine/FindAll",
-                                "FilterID": "WMSPICREL"
+                                "Url": "PickLinewithPackage/FindAll",
+                                "FilterID": "WMSPLP"
                             },
                             "PackageGetByID": {
                                 "IsAPI": "true",
@@ -1054,22 +1056,6 @@
                                         "display": false
                                     },
                                     {
-                                        "columnname": "Outward No",
-                                        "isenabled": true,
-                                        "property": "loutwardno",
-                                        "position": "2",
-                                        "width": "80",
-                                        "display": true
-                                    },
-                                    {
-                                        "columnname": "Outward Status",
-                                        "isenabled": true,
-                                        "property": "loutwardstatus",
-                                        "position": "3",
-                                        "width": "100",
-                                        "display": true
-                                    },
-                                    {
                                         "columnname": "Pick No",
                                         "isenabled": true,
                                         "property": "lpickno",
@@ -1086,6 +1072,38 @@
                                         "display": true
                                     },
                                     {
+                                        "columnname": "Units",
+                                        "isenabled": true,
+                                        "property": "lunits",
+                                        "position": "13",
+                                        "width": "80",
+                                        "display": true
+                                    },
+                                    {
+                                        "columnname": "PartAttrib1",
+                                        "isenabled": true,
+                                        "property": "lpartattrib1",
+                                        "position": "14",
+                                        "width": "80",
+                                        "display": true
+                                    },
+                                    {
+                                        "columnname": "PartAttrib2",
+                                        "isenabled": true,
+                                        "property": "lpartattrib2",
+                                        "position": "15",
+                                        "width": "80",
+                                        "display": true
+                                    },
+                                    {
+                                        "columnname": "PartAttrib3",
+                                        "isenabled": true,
+                                        "property": "lpartattrib3",
+                                        "position": "16",
+                                        "width": "80",
+                                        "display": true
+                                    },
+                                    {
                                         "columnname": "Product Description",
                                         "isenabled": true,
                                         "property": "lproductdescription",
@@ -1098,6 +1116,22 @@
                                         "isenabled": true,
                                         "property": "lproductcondition",
                                         "position": "7",
+                                        "width": "100",
+                                        "display": true
+                                    },
+                                    {
+                                        "columnname": "Outward No",
+                                        "isenabled": true,
+                                        "property": "loutwardno",
+                                        "position": "2",
+                                        "width": "100",
+                                        "display": true
+                                    },
+                                    {
+                                        "columnname": "Outward Status",
+                                        "isenabled": true,
+                                        "property": "loutwardstatus",
+                                        "position": "3",
                                         "width": "100",
                                         "display": true
                                     },
@@ -1140,54 +1174,12 @@
                                         "position": "12",
                                         "width": "80",
                                         "display": true
-                                    },
-                                    {
-                                        "columnname": "Units",
-                                        "isenabled": true,
-                                        "property": "lunits",
-                                        "position": "13",
-                                        "width": "80",
-                                        "display": true
-                                    },
-                                    {
-                                        "columnname": "PartAttrib1",
-                                        "isenabled": true,
-                                        "property": "lpartattrib1",
-                                        "position": "14",
-                                        "width": "80",
-                                        "display": true
-                                    },
-                                    {
-                                        "columnname": "PartAttrib2",
-                                        "isenabled": true,
-                                        "property": "lpartattrib2",
-                                        "position": "15",
-                                        "width": "80",
-                                        "display": true
-                                    },
-                                    {
-                                        "columnname": "PartAttrib3",
-                                        "isenabled": true,
-                                        "property": "lpartattrib3",
-                                        "position": "16",
-                                        "width": "80",
-                                        "display": true
                                     }
                                 ],
                                 "lsno": {
                                     "isenabled": true,
                                     "position": "1",
                                     "width": "40"
-                                },
-                                "loutwardno": {
-                                    "isenabled": true,
-                                    "position": "2",
-                                    "width": "80"
-                                },
-                                "loutwardstatus": {
-                                    "isenabled": true,
-                                    "position": "3",
-                                    "width": "100"
                                 },
                                 "lpickno": {
                                     "isenabled": true,
@@ -1204,9 +1196,39 @@
                                     "position": "6",
                                     "width": "100"
                                 },
+                                "lunits": {
+                                    "isenabled": true,
+                                    "position": "13",
+                                    "width": "80"
+                                },
+                                "lpartattrib1": {
+                                    "isenabled": true,
+                                    "position": "14",
+                                    "width": "80"
+                                },
+                                "lpartattrib2": {
+                                    "isenabled": true,
+                                    "position": "15",
+                                    "width": "80"
+                                },
+                                "lpartattrib3": {
+                                    "isenabled": true,
+                                    "position": "16",
+                                    "width": "80"
+                                },
                                 "lproductcondition": {
                                     "isenabled": true,
                                     "position": "7",
+                                    "width": "100"
+                                },
+                                "loutwardno": {
+                                    "isenabled": true,
+                                    "position": "2",
+                                    "width": "100"
+                                },
+                                "loutwardstatus": {
+                                    "isenabled": true,
+                                    "position": "3",
                                     "width": "100"
                                 },
                                 "lpackingdate": {
@@ -1232,26 +1254,6 @@
                                 "lweight": {
                                     "isenabled": true,
                                     "position": "12",
-                                    "width": "80"
-                                },
-                                "lunits": {
-                                    "isenabled": true,
-                                    "position": "13",
-                                    "width": "80"
-                                },
-                                "lpartattrib1": {
-                                    "isenabled": true,
-                                    "position": "14",
-                                    "width": "80"
-                                },
-                                "lpartattrib2": {
-                                    "isenabled": true,
-                                    "position": "15",
-                                    "width": "80"
-                                },
-                                "lpartattrib3": {
-                                    "isenabled": true,
-                                    "position": "16",
                                     "width": "80"
                                 }
                             }

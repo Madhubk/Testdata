@@ -65,24 +65,21 @@
                             <div class="height-22 col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0">
                                 <input type="text" maxlength="25"
                                     class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
-                                    placeholder="Length"
-                                    data-ng-model="PickPackingCtrl.ePage.Masters.PackList.Length">
+                                    placeholder="Length" data-ng-model="PickPackingCtrl.ePage.Masters.PackList.Length">
                             </div>
                         </td>
                         <td ng-style="{ 'width':  '100px' }" class="overflow-text">
                             <div class="height-22 col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0">
                                 <input type="text" maxlength="25"
                                     class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
-                                    placeholder="Width"
-                                    data-ng-model="PickPackingCtrl.ePage.Masters.PackList.Width">
+                                    placeholder="Width" data-ng-model="PickPackingCtrl.ePage.Masters.PackList.Width">
                             </div>
                         </td>
                         <td ng-style="{ 'width':  '100px' }" class="overflow-text">
                             <div class="height-22 col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0">
                                 <input type="text" maxlength="25"
                                     class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
-                                    placeholder="Height"
-                                    data-ng-model="PickPackingCtrl.ePage.Masters.PackList.Height">
+                                    placeholder="Height" data-ng-model="PickPackingCtrl.ePage.Masters.PackList.Height">
                             </div>
                         </td>
                         <td ng-style="{ 'width':  '150px' }" class="overflow-text">
@@ -99,8 +96,7 @@
                             <div class="height-22 col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0">
                                 <input type="text" maxlength="25"
                                     class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
-                                    placeholder="Weight"
-                                    data-ng-model="PickPackingCtrl.ePage.Masters.PackList.Weight">
+                                    placeholder="Weight" data-ng-model="PickPackingCtrl.ePage.Masters.PackList.Weight">
                             </div>
                         </td>
                         <td ng-style="{ 'width':  '150px' }" class="overflow-text">
@@ -117,8 +113,7 @@
                             <div class="height-22 col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0">
                                 <input type="text" maxlength="25"
                                     class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
-                                    placeholder="Volume"
-                                    data-ng-model="PickPackingCtrl.ePage.Masters.PackList.Volume">
+                                    placeholder="Volume" data-ng-model="PickPackingCtrl.ePage.Masters.PackList.Volume">
                             </div>
                         </td>
                         <td ng-style="{ 'width':  '150px' }" class="overflow-text">
@@ -159,8 +154,7 @@
                             <div class="height-22 col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0">
                                 <input type="text" maxlength="25"
                                     class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
-                                    placeholder="HSCode"
-                                    data-ng-model="PickPackingCtrl.ePage.Masters.PackList.HSCode">
+                                    placeholder="HSCode" data-ng-model="PickPackingCtrl.ePage.Masters.PackList.HSCode">
                             </div>
                         </td>
                         <td ng-style="{ 'width':  '110px' }" class="overflow-text">
@@ -184,9 +178,11 @@
                 </tbody>
             </table>
         </div>
-        <div class="col-lg-12 mt-10">
-            <button data-ng-click="PickPackingCtrl.ePage.Masters.SavePackType(PickPackingCtrl.ePage.Masters.PackList)"
-                class="btn btn-primary btn-sm pull-right">Ok</button>
-        </div>
+    </div>
+    <div class="modal-footer">
+        <button data-ng-click="PickPackingCtrl.ePage.Masters.CloseEditActivityModal()" type="button"
+            class="btn btn-default">Cancel</button>
+        <button data-ng-click="PickPackingCtrl.ePage.Masters.SavePackType(PickPackingCtrl.ePage.Masters.PackList)"
+            type="button" class="btn btn-primary">OK</button>
     </div>
 </div>

@@ -28,6 +28,7 @@
       PickPackingCtrl.ePage.Masters.currentPick = PickPackingCtrl.currentPick;
       PickPackingCtrl.ePage.Masters.HeaderDetails = PickPackingCtrl.currentHeader;
 
+      PickPackingCtrl.ePage.Masters.Config.PackageListDetails = PickPackingCtrl.ePage.Masters.HeaderDetails;
       // Add parent Package
       PickPackingCtrl.ePage.Masters.AddPackage = AddPackage;
       // Add Child Package
@@ -39,9 +40,16 @@
 
       // to change the Normal json to Tree Json for package function call for GetByID Obj
       if (PickPackingCtrl.ePage.Masters.HeaderDetails.lstUIPackage.length > 0) {
+        PickPackingCtrl.ePage.Masters.Loading = false;
         PickPackingCtrl.ePage.Masters.EnablePackTree = true;
         PickPackingCtrl.ePage.Masters.SaveBtnEnable = true;
         ReverseJson(PickPackingCtrl.ePage.Masters.HeaderDetails.lstUIPackage);
+
+        // Default seleted package
+        PickPackingCtrl.ePage.Masters.tree[0].IsSelectedValue = true;
+        PickPackingCtrl.ePage.Masters.Config.SelectedPackage = PickPackingCtrl.ePage.Masters.tree[0];
+        PickPackingCtrl.ePage.Masters.SelectthePack = SelectthePack;
+
       } else {
         PickPackingCtrl.ePage.Masters.EnablePackTree = false;
         PickPackingCtrl.ePage.Masters.tree = [];
@@ -57,6 +65,28 @@
       GetDropDownList();
 
     }
+
+    //#region 
+    function SelectthePack(item, index) {
+      angular.forEach(PickPackingCtrl.ePage.Masters.tree, function (val, key) {
+        val.IsSelectedValue = false;
+        if (val.nodes.length > 0)
+          InnerLoop(val.nodes)
+        if (PickPackingCtrl.ePage.Masters.tree.length - 1 == key) {
+          PickPackingCtrl.ePage.Masters.Config.SelectedPackage = item;
+          item.IsSelectedValue = true;
+        }
+      });
+    }
+    function InnerLoop(obj) {
+      angular.forEach(obj, function (val, key) {
+        val.IsSelectedValue = false;
+        if (val.nodes.length > 0)
+          InnerLoop(val.nodes)
+      });
+    }
+
+    //#endregion
 
     //#region convert normal json to parent child json format
 
@@ -408,21 +438,23 @@
         if (value.nodes.length > 0)
           JsonLoop(value.nodes);
       });
-      console.log(PickPackingCtrl.ePage.Masters.List);
+      // console.log(PickPackingCtrl.ePage.Masters.List);
     }
 
     // update call for package update list
     function Save($item) {
-
+      PickPackingCtrl.ePage.Masters.Loading = true;
       PickPackingCtrl.ePage.Masters.HeaderDetails.lstUIPackage = $item;
 
       var item = filterObjectUpdate(PickPackingCtrl.ePage.Masters.HeaderDetails.lstUIPackage, "IsModified");
 
       apiService.post("eAxisAPI", PickPackingCtrl.ePage.Entities.Header.API.UpdatePackage.Url, PickPackingCtrl.ePage.Masters.HeaderDetails).then(function (response) {
         if (response.data.Response) {
+          PickPackingCtrl.ePage.Masters.Loading = false;
           // Get By Id Call
           apiService.get("eAxisAPI", PickPackingCtrl.ePage.Entities.Header.API.PackageGetByID.Url + response.data.Response.Response.PK).then(function (response) {
             PickPackingCtrl.ePage.Masters.UpdatedList = response.data.Response.lstUIPackage;
+            PickPackingCtrl.ePage.Masters.Config.PackageListDetails = response.data.Response;
             // Reverse json Function Call
             ReverseJson(PickPackingCtrl.ePage.Masters.UpdatedList);
           });

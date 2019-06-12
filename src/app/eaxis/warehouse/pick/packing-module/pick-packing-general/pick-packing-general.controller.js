@@ -5,9 +5,9 @@
         .module("Application")
         .controller("PackingGeneralController", PackingGeneralController);
 
-    PackingGeneralController.$inject = ["$scope", "$rootScope", "$timeout", "APP_CONSTANT", "apiService", "pickConfig", "helperService", "appConfig", "authService", "$state", "confirmation", "toastr", "$window"];
+    PackingGeneralController.$inject = ["$scope", "$rootScope", "$timeout", "APP_CONSTANT", "apiService", "pickConfig", "helperService", "appConfig", "authService", "$state", "confirmation", "toastr", "$window", "$q", "$uibModal"];
 
-    function PackingGeneralController($scope, $rootScope, $timeout, APP_CONSTANT, apiService, pickConfig, helperService, appConfig, authService, $state, confirmation, toastr, $window) {
+    function PackingGeneralController($scope, $rootScope, $timeout, APP_CONSTANT, apiService, pickConfig, helperService, appConfig, authService, $state, confirmation, toastr, $window, $q, $uibModal) {
 
         var PackingGeneralCtrl = this;
 
@@ -27,13 +27,22 @@
             PackingGeneralCtrl.ePage.Masters.Config = pickConfig;
             PackingGeneralCtrl.ePage.Masters.NewPackageHeader = false;
             PackingGeneralCtrl.ePage.Masters.selectedRow = false;
+            PackingGeneralCtrl.ePage.Masters.selectedReleaseLineRow = false;
             PackingGeneralCtrl.ePage.Masters.emptyText = '-';
             // For Table
             PackingGeneralCtrl.ePage.Masters.EnableForOutward = true;
+            PackingGeneralCtrl.ePage.Masters.EnableForReleaseLine = true;
             PackingGeneralCtrl.ePage.Masters.selectedRowForOutward = -1;
+            PackingGeneralCtrl.ePage.Masters.selectedRowForReleaseLine = -1;
             PackingGeneralCtrl.ePage.Masters.setSelectedRowForOutward = setSelectedRowForOutward;
+            PackingGeneralCtrl.ePage.Masters.setSelectedRowForReleaseLine = setSelectedRowForReleaseLine;
             PackingGeneralCtrl.ePage.Masters.CreatePackage = CreatePackage;
+            PackingGeneralCtrl.ePage.Masters.ReleaseQuantityModel = ReleaseQuantityModel;
+            PackingGeneralCtrl.ePage.Masters.SaveReleaseQuantity = SaveReleaseQuantity;
+            PackingGeneralCtrl.ePage.Masters.CloseEditActivityModal = CloseEditActivityModal;
 
+            PackingGeneralCtrl.ePage.Masters.ReleaseLineList = {};
+            PackingGeneralCtrl.ePage.Masters.PackageItemList = [];
 
             GetUserBasedGridColumListForOutward();
             GetMiscServDetails();
@@ -128,7 +137,8 @@
             apiService.post("eAxisAPI", PackingGeneralCtrl.ePage.Entities.Header.API.PickReleaseLine.Url, _input).then(function SuccessCallback(response) {
                 PackingGeneralCtrl.ePage.Masters.Loading = false;
                 if (response.data.Response) {
-                    PackingGeneralCtrl.ePage.Masters.PickReleaseLine = response.data.Response.Response;
+                    PackingGeneralCtrl.ePage.Masters.PickReleaseLine = response.data.Response;
+                    PackingGeneralCtrl.ePage.Masters.ReleaseLineObject = angular.copy(PackingGeneralCtrl.ePage.Masters.PickReleaseLine);
                 }
             });
         }
@@ -142,14 +152,117 @@
                 "FilterID": PackingGeneralCtrl.ePage.Entities.Header.API.PackageHeaderFindAll.FilterID
             };
             apiService.post("eAxisAPI", PackingGeneralCtrl.ePage.Entities.Header.API.PackageHeaderFindAll.Url, _input).then(function SuccessCallback(response) {
-                if (response.data.Response.length>0) {
+                if (response.data.Response.length > 0) {
                     PackingGeneralCtrl.ePage.Masters.OutwardHeaderList = response.data.Response;
                     PackingGeneralCtrl.ePage.Masters.EnablePackageHeader = true;
                     PackingGeneralCtrl.ePage.Masters.NewPackageHeader = false;
-                }else{
+                } else {
                     PackingGeneralCtrl.ePage.Masters.EnablePackageHeader = false;
                 }
             });
+        }
+
+        // Quantity model and Release line adding to package
+
+        function setSelectedRowForReleaseLine(item, index) {
+            PackingGeneralCtrl.ePage.Masters.SelectedReleaseLineDetails = item;
+            PackingGeneralCtrl.ePage.Masters.selectedReleaseLineRow = true;
+            PackingGeneralCtrl.ePage.Masters.selectedRowForReleaseLine = index;
+        }
+
+        function ReleaseQuantityModel(Data) {
+            PackingGeneralCtrl.ePage.Masters.ReleaseLineList = Data;
+            if (PackingGeneralCtrl.ePage.Masters.ReleaseLineList[0].RemainingQty > 0) {
+                QuantityModel();
+            }
+            else {
+                toastr.warning("No Quantity for this Release Line")
+            }
+        }
+
+        function QuantityModel() {
+            return PackingGeneralCtrl.ePage.Masters.modalInstance = $uibModal.open({
+                animation: true,
+                backdrop: "static",
+                keyboard: false,
+                windowClass: "small-popup",
+                scope: $scope,
+                size: "md",
+                templateUrl: "app/eaxis/warehouse/pick/packing-module/pick-packing-general/pack-quantity.html"
+            });
+        }
+
+        function CloseEditActivityModal() {
+            PackingGeneralCtrl.ePage.Masters.modalInstance.dismiss('cancel');
+        }
+
+        function SaveReleaseQuantity($item) {
+
+            PackingGeneralCtrl.ePage.Masters.Releasepackitem = $item;
+
+            if (PackingGeneralCtrl.ePage.Masters.Releasepackitem[0].RemainingQty < PackingGeneralCtrl.ePage.Masters.Releasepackitem[0].Units) {
+                toastr.warning("Packing Quantity is Greater than Release Quantity")
+                PackingGeneralCtrl.ePage.Masters.Releasepackitem[0].Units = '';
+            }
+            else {
+                // $item.map(function (value, key) {
+                var obj = {
+                    "PK": "",
+                    "PackageFK": PackingGeneralCtrl.ePage.Masters.Config.SelectedPackage.PK,
+                    "PickLine_FK": PackingGeneralCtrl.ePage.Masters.Releasepackitem[0].WPL_FK,
+                    "PackedQty": PackingGeneralCtrl.ePage.Masters.Releasepackitem[0].Units,
+                    "ProductPk": PackingGeneralCtrl.ePage.Masters.Releasepackitem[0].WPR_PRO_FK,
+                    "ProductCode": PackingGeneralCtrl.ePage.Masters.Releasepackitem[0].ProductCode,
+                    "ProductDesc": PackingGeneralCtrl.ePage.Masters.Releasepackitem[0].ProductDescription,
+                    "UDF1": PackingGeneralCtrl.ePage.Masters.Releasepackitem[0].PartAttrib1,
+                    "UDF2": PackingGeneralCtrl.ePage.Masters.Releasepackitem[0].PartAttrib2,
+                    "UDF3": PackingGeneralCtrl.ePage.Masters.Releasepackitem[0].PartAttrib3,
+                    "PackingDate": PackingGeneralCtrl.ePage.Masters.Releasepackitem[0].PackingDate,
+                    "ExpiryDate": PackingGeneralCtrl.ePage.Masters.Releasepackitem[0].ExpiryDate,
+                    "ReleaseLine_FK": PackingGeneralCtrl.ePage.Masters.Releasepackitem[0].WRL_FK,
+                    "IsModified": false,
+                    "IsDeleted": false,
+                    "IsNewInsert": true
+                }
+                PackingGeneralCtrl.ePage.Masters.PackageItemList.push(obj);
+                // });
+
+                Save(PackingGeneralCtrl.ePage.Masters.PackageItemList);
+            }
+            CloseEditActivityModal();
+        }
+
+        function Save($item) {
+
+            PackingGeneralCtrl.ePage.Masters.Config.PackageListDetails.lstUIPackageItems = $item;
+
+            var item = filterObjectUpdate(PackingGeneralCtrl.ePage.Masters.Config.PackageListDetails.lstUIPackageItems, "IsModified");
+
+            apiService.post("eAxisAPI", PackingGeneralCtrl.ePage.Entities.Header.API.UpdatePackage.Url, PackingGeneralCtrl.ePage.Masters.Config.PackageListDetails).then(function (response) {
+                if (response.data.Response) {
+                    // Get By Id Call
+                    apiService.get("eAxisAPI", PackingGeneralCtrl.ePage.Entities.Header.API.PackageGetByID.Url + response.data.Response.Response.PK).then(function (response) {
+                        PackingGeneralCtrl.ePage.Masters.UpdateditemList = response.data.Response.lstUIPackageItems;
+                        PackingGeneralCtrl.ePage.Masters.Config.PackageListDetails = response.data.Response;
+                        GetPickReleaseLine();
+                    });
+                    toastr.success("Saved Successfully");
+                } else {
+                    toastr.error("Save Failed");
+                }
+            });
+        }
+
+        function filterObjectUpdate(obj, key) {
+            for (var i in obj) {
+                if (!obj.hasOwnProperty(i)) continue;
+                if (typeof obj[i] == 'object') {
+                    filterObjectUpdate(obj[i], key);
+                } else if (i == key) {
+                    obj[key] = true;
+                }
+            }
+            return obj;
         }
 
         Init();

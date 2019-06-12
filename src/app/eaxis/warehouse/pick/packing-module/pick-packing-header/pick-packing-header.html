@@ -1,3 +1,8 @@
+<!-- loading -->
+<div class="grid-loading-norecord-container" data-ng-if="PackingHeaderCtrl.ePage.Masters.Loading == true">
+    <div class="dyn-grid-no-record">Loading...</div>
+</div>
+
 <!-- General -->
 <div class="clearfix">
     <!-- Package Reference No -->
@@ -7,7 +12,8 @@
             <div ng-if="!PackingHeaderCtrl.ePage.Masters.NewHeader">
                 <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
                     placeholder="Package Reference No"
-                    data-ng-model="PackingHeaderCtrl.ePage.Masters.PackageHeaderList.UIPackageHeader.PackageRefNo" disabled>
+                    data-ng-model="PackingHeaderCtrl.ePage.Masters.PackageHeaderList.UIPackageHeader.PackageRefNo"
+                    disabled>
             </div>
             <div ng-if="PackingHeaderCtrl.ePage.Masters.NewHeader">
                 <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
@@ -23,7 +29,8 @@
             <div>
                 <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
                     placeholder="Outward No"
-                    data-ng-model="PackingHeaderCtrl.ePage.Masters.PackageHeaderList.UIPackageHeader.WorkorderId" disabled>
+                    data-ng-model="PackingHeaderCtrl.ePage.Masters.PackageHeaderList.UIPackageHeader.WorkorderId"
+                    disabled>
             </div>
         </div>
     </div>
@@ -92,5 +99,6 @@
 
 <!-- tree directive call after saving the header -->
 <div data-ng-if="PackingHeaderCtrl.ePage.Masters.Headersaved">
-    <pick-packing current-pick="PackingHeaderCtrl.currentPick" current-header="PackingHeaderCtrl.ePage.Masters.PackageHeaderList"></pick-packing>
+    <pick-packing current-pick="PackingHeaderCtrl.currentPick"
+        current-header="PackingHeaderCtrl.ePage.Masters.PackageHeaderList"></pick-packing>
 </div>

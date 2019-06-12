@@ -81,3 +81,8 @@
     margin-bottom: 50px;
     overflow: auto;
 }
+.small-popup .modal-dialog{
+    width: 250px;
+    height: 195px;
+    margin: 120px auto;
+}

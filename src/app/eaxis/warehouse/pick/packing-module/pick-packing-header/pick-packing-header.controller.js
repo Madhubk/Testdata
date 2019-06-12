@@ -44,6 +44,7 @@
             if (PackingHeaderCtrl.ePage.Masters.NewHeader == true) {
                 InitialPackageHeaderList()
             } else if (PackingHeaderCtrl.ePage.Masters.NewHeader == false) {
+                PackingHeaderCtrl.ePage.Masters.Loading = true;
                 GetPackageHeaderList()
             }
 
@@ -101,6 +102,7 @@
 
         // updating the header and Get by id value
         function SaveButton() {
+            PackingHeaderCtrl.ePage.Masters.Loading = true;
             PackingHeaderCtrl.ePage.Masters.SaveButtontxt = "Please Wait...";
 
             var item = filterObjectUpdate(PackingHeaderCtrl.ePage.Masters.PackageHeaderList, "IsModified");
@@ -109,6 +111,7 @@
                 if (response.data.Response) {
                     apiService.get("eAxisAPI", PackingHeaderCtrl.ePage.Entities.Header.API.PackageGetByID.Url + response.data.Response.Response.PK).then(function (response) {
                         PackingHeaderCtrl.ePage.Masters.PackageHeaderList = response.data.Response;
+                        PackingHeaderCtrl.ePage.Masters.Loading = false;
                         toastr.success("Saved Successfully");
                         PackingHeaderCtrl.ePage.Masters.SaveButtontxt = "Save";
                         PackingHeaderCtrl.ePage.Masters.Headersaved = true;
@@ -126,6 +129,7 @@
             PackingHeaderCtrl.ePage.Masters.OutwardHeaderDetails = PackingHeaderCtrl.outwardHeader;
             apiService.get("eAxisAPI", PackingHeaderCtrl.ePage.Entities.Header.API.PackageGetByID.Url + PackingHeaderCtrl.ePage.Masters.OutwardHeaderDetails[0].PK).then(function (response) {
                 PackingHeaderCtrl.ePage.Masters.PackageHeaderList = response.data.Response;
+                PackingHeaderCtrl.ePage.Masters.Loading = false;
                 PackingHeaderCtrl.ePage.Masters.Headersaved = true;
             });
 
