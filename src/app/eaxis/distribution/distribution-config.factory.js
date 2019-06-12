@@ -75,6 +75,12 @@
                             "HttpType": "GET",
                             "Url": "TMSGatepass/GetById/"
                         },
+                        "FindAll": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "TMSGatepass/FindAll",
+                            "FilterID": "TMSGATP"
+                        },
                     }
                 },
                 "WmsDockConfig": {

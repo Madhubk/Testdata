@@ -2,7 +2,6 @@
 <div class="grid-loading-norecord-container" data-ng-show="StartUnloadCtrl.ePage.Meta.IsLoading" style="top:50px;">
     <div class="dyn-grid-no-record">Loading...</div>
 </div>
-<!-- Asn Line Directive -->
 <div class="clearfix mb-10" data-ng-if="StartUnloadCtrl.ePage.Entities.Header.Data.TMSGatepassHeader">
     <div class="clearfix col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-10">
         <div class="rows border-box border-radius-2 pt-15 height-60">
@@ -11,76 +10,84 @@
                     <div class="color-999 fs-11 task-label-text">Gatepass No</div>
                     <div class="text-single-line">
                         <span>{{StartUnloadCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.GatepassNo
-                            ||StartUnloadCtrl.ePage.Masters.Empty}}</span>
+                            }}</span>
                     </div>
                 </div>
             </div>
             <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
                 <div class="form-group">
                     <div class="color-999 fs-11 task-label-text">Facility</div>
-                    <span>{{StartUnloadCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.ORG_Code||StartUnloadCtrl.ePage.Masters.Empty}}
+                    <span>{{StartUnloadCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.ORG_Code}}
                         -
-                        {{StartUnloadCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.ORG_FullName||StartUnloadCtrl.ePage.Masters.Empty}}</span>
+                        {{StartUnloadCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.ORG_FullName}}</span>
                 </div>
             </div>
             <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
                 <div class="form-group">
                     <div class="color-999 fs-11 task-label-text">Client</div>
                     <span>{{StartUnloadCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.ClientCode
-                        ||StartUnloadCtrl.ePage.Masters.Empty}}
+                        }}
                         -
                         {{StartUnloadCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.ClientName
-                        ||StartUnloadCtrl.ePage.Masters.Empty}}</span>
+                        }}</span>
                 </div>
             </div>
             <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
                 <div class="form-group">
                     <div class="color-999 fs-11 task-label-text">Carrier</div>
-                    <span>{{StartUnloadCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.TransporterCode||StartUnloadCtrl.ePage.Masters.Empty}}
+                    <span>{{StartUnloadCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.TransporterCode}}
                         -
-                        {{StartUnloadCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.TransporterName||StartUnloadCtrl.ePage.Masters.Empty}}</span>
+                        {{StartUnloadCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.TransporterName}}</span>
                 </div>
             </div>
             <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
                 <div class="form-group">
                     <div class="color-999 fs-11 task-label-text">Purpose</div>
                     <span>{{StartUnloadCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.Purpose
-                        ||StartUnloadCtrl.ePage.Masters.Empty}}</span>
+                        }}</span>
                 </div>
             </div>
             <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
                 <div class="form-group">
                     <div class="color-999 fs-11 task-label-text">Vehicle No</div>
                     <span>{{StartUnloadCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.VehicleNo
-                        ||StartUnloadCtrl.ePage.Masters.Empty}}</span>
+                        }}</span>
                 </div>
             </div>
             <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
                 <div class="form-group">
                     <div class="color-999 fs-11 task-label-text">Vehicle Type</div>
                     <span>{{StartUnloadCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.VehicleType
-                        ||StartUnloadCtrl.ePage.Masters.Empty}}</span>
-                </div>
-            </div>
-            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
-                <div class="form-group">
-                    <div class="color-999 fs-11 task-label-text">Dock No</div>
-                    <span>{{StartUnloadCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.DockNo
-                        ||StartUnloadCtrl.ePage.Masters.Empty}}</span>
+                        }}</span>
                 </div>
             </div>
             <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
                 <div class="form-group">
                     <div class="color-999 fs-11 task-label-text">Driver Name</div>
                     <span>{{StartUnloadCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.DriverName
-                        ||StartUnloadCtrl.ePage.Masters.Empty}}</span>
+                        }}</span>
                 </div>
             </div>
             <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
                 <div class="form-group">
                     <div class="color-999 fs-11 task-label-text">Driver Contact No</div>
                     <span>{{StartUnloadCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.DriverContactNo
-                        ||StartUnloadCtrl.ePage.Masters.Empty}}</span>
+                        }}</span>
+                </div>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <div class="color-999 fs-11 task-label-text">Gatein Time</div>
+                    <span>{{StartUnloadCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.GateinTime |
+                        date:"dd-MMM-yyyy
+                        hh:mm a"}}</span>
+                </div>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <div class="color-999 fs-11 task-label-text">Dock No</div>
+                    <span>{{StartUnloadCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.DockNo
+                        }}</span>
                 </div>
             </div>
             <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
@@ -93,17 +100,29 @@
             </div>
             <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
                 <div class="form-group">
-                    <div class="color-999 fs-11 task-label-text">Dockout Time</div>
-                    <span>{{StartUnloadCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.DockoutTime |
+                    <div class="color-999 fs-11 task-label-text" data-ng-if="StartUnloadCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.Purpose=='INW'">Start
+                        Unload Time</div>
+                    <div class="color-999 fs-11 task-label-text" data-ng-if="StartUnloadCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.Purpose=='ORD'">Start
+                        Load Time</div>
+                    <span>{{StartUnloadCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.LoadOrUnloadStartTime |
                         date:"dd-MMM-yyyy hh:mm a"}}</span>
                 </div>
             </div>
             <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
                 <div class="form-group">
-                    <div class="color-999 fs-11 task-label-text">Gatein Time</div>
-                    <span>{{StartUnloadCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.GateinTime |
-                        date:"dd-MMM-yyyy
-                        hh:mm a"}}</span>
+                    <div class="color-999 fs-11 task-label-text" data-ng-if="StartUnloadCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.Purpose=='INW'">Complete
+                        Unload Time</div>
+                    <div class="color-999 fs-11 task-label-text" data-ng-if="StartUnloadCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.Purpose=='ORD'">Complete
+                        Load Time</div>
+                    <span>{{StartUnloadCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.LoadOrUnloadEndTime |
+                        date:"dd-MMM-yyyy hh:mm a"}}</span>
+                </div>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <div class="color-999 fs-11 task-label-text">Dockout Time</div>
+                    <span>{{StartUnloadCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.DockoutTime |
+                        date:"dd-MMM-yyyy hh:mm a"}}</span>
                 </div>
             </div>
             <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
@@ -161,7 +180,8 @@
                     <tr id="tableBody" ng-repeat="x in StartUnloadCtrl.ePage.Masters.InwardDetails track by $index"
                         ng-click="StartUnloadCtrl.ePage.Masters.setSelectedRow($index);" ng-class="{row_active: (StartUnloadCtrl.ePage.Masters.selectedRow==$index),copy_row_active :(x.IsCopied==true)}">
                         <td ng-style="{ 'width':  '40px' }" class="overflow-text">{{$index +1}}</td>
-                        <td ng-style="{ 'width':  '150px' }" class="overflow-text"><a data-ng-click="StartUnloadCtrl.ePage.Masters.SingleRecordView(x)"> {{x.WorkOrderID}}</a></td>
+                        <td ng-style="{ 'width':  '150px' }" class="overflow-text"><a data-ng-click="StartUnloadCtrl.ePage.Masters.SingleRecordView(x)">
+                                {{x.WorkOrderID}}</a></td>
                         <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.WorkOrderStatusDesc}}</td>
                         <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.WarehouseCode}}</td>
                         <td ng-style="{ 'width':  '200px' }" class="overflow-text">{{x.WarehouseName}}</td>

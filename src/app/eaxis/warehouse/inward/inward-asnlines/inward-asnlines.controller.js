@@ -232,7 +232,7 @@
 
         function GetDropdownList() {
             // Get CFXType Dropdown list
-            var typeCodeList = ["INW_LINE_UQ","ProductCondition"];
+            var typeCodeList = ["INW_LINE_UQ", "ProductCondition"];
             var dynamicFindAllInput = [];
 
             typeCodeList.map(function (value, key) {
@@ -418,7 +418,7 @@
                 "POR_FK": "",
                 "MCC_NKCommodityCode": "",
                 "MCC_NKCommodityDesc": "",
-                "ProductCondition":"GDC",
+                "ProductCondition": "GDC",
                 "Commodity": "",
                 "Packs": "",
                 "PAC_PackType": "",
@@ -473,7 +473,7 @@
                         "MCC_NKCommodityCode": item.MCC_NKCommodityCode,
                         "MCC_NKCommodityDesc": item.MCC_NKCommodityDesc,
                         "Commodity": item.Commodity,
-                        "ProductCondition":item.ProductCondition,
+                        "ProductCondition": item.ProductCondition,
                         "Packs": item.Packs,
                         "PAC_PackType": item.PAC_PackType,
                         "Quantity": item.Quantity,
@@ -579,6 +579,10 @@
             } else {
                 if (!InwardAsnLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.ArrivalDate) {
                     OnChangeValues(null, "E3034", false, undefined);
+                    InwardAsnLinesCtrl.ePage.Masters.Config.ShowErrorWarningModal(InwardAsnLinesCtrl.currentInward);
+                } else if (InwardAsnLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.IsGatepassMandatory && !InwardAsnLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.TGP_FK) {
+                    // when the gatepass is mandatory                     
+                    OnChangeValues(null, "E3548", false, undefined);
                     InwardAsnLinesCtrl.ePage.Masters.Config.ShowErrorWarningModal(InwardAsnLinesCtrl.currentInward);
                 } else {
                     angular.forEach(InwardAsnLinesCtrl.ePage.Entities.Header.Data.UIWmsAsnLine, function (value, key) {

@@ -30,7 +30,8 @@
             <div class="form-group">
                 <div class="color-999 fs-11">Gatepass No</div>
                 <div class="text-single-line">
-                    <span>{{DockinVehicleCtrl.ePage.Entities.Header.Data.GatepassList[0].GatepassNo ||DockinVehicleCtrl.ePage.Masters.Empty}}</span>
+                    <span>{{DockinVehicleCtrl.ePage.Entities.Header.Data.GatepassList[0].GatepassNo
+                        ||DockinVehicleCtrl.ePage.Masters.Empty}}</span>
                 </div>
             </div>
         </div>
@@ -38,74 +39,106 @@
             <div class="form-group">
                 <div class="color-999 fs-11">Facility</div>
                 <span>{{DockinVehicleCtrl.ePage.Entities.Header.Data.GatepassList[0].ORG_Code||DockinVehicleCtrl.ePage.Masters.Empty}}
-                    - {{DockinVehicleCtrl.ePage.Entities.Header.Data.GatepassList[0].ORG_FullName||DockinVehicleCtrl.ePage.Masters.Empty}}</span>
+                    -
+                    {{DockinVehicleCtrl.ePage.Entities.Header.Data.GatepassList[0].ORG_FullName||DockinVehicleCtrl.ePage.Masters.Empty}}</span>
             </div>
         </div>
         <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
             <div class="form-group">
                 <div class="color-999 fs-11">Carrier</div>
                 <span>{{DockinVehicleCtrl.ePage.Entities.Header.Data.GatepassList[0].TransporterCode||DockinVehicleCtrl.ePage.Masters.Empty}}
-                    - {{DockinVehicleCtrl.ePage.Entities.Header.Data.GatepassList[0].TransporterName||DockinVehicleCtrl.ePage.Masters.Empty}}</span>
+                    -
+                    {{DockinVehicleCtrl.ePage.Entities.Header.Data.GatepassList[0].TransporterName||DockinVehicleCtrl.ePage.Masters.Empty}}</span>
             </div>
         </div>
         <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
             <div class="form-group">
                 <div class="color-999 fs-11">Purpose</div>
-                <span>{{DockinVehicleCtrl.ePage.Entities.Header.Data.GatepassList[0].Purpose ||DockinVehicleCtrl.ePage.Masters.Empty}}</span>
+                <span>{{DockinVehicleCtrl.ePage.Entities.Header.Data.GatepassList[0].Purpose
+                    ||DockinVehicleCtrl.ePage.Masters.Empty}}</span>
             </div>
         </div>
         <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
             <div class="form-group">
                 <div class="color-999 fs-11">Vehicle No</div>
-                <span>{{DockinVehicleCtrl.ePage.Entities.Header.Data.GatepassList[0].VehicleNo ||DockinVehicleCtrl.ePage.Masters.Empty}}</span>
+                <span>{{DockinVehicleCtrl.ePage.Entities.Header.Data.GatepassList[0].VehicleNo
+                    ||DockinVehicleCtrl.ePage.Masters.Empty}}</span>
             </div>
         </div>
         <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
             <div class="form-group">
                 <div class="color-999 fs-11">Vehicle Type</div>
-                <span>{{DockinVehicleCtrl.ePage.Entities.Header.Data.GatepassList[0].VehicleType ||DockinVehicleCtrl.ePage.Masters.Empty}}</span>
-            </div>
-        </div>
-        <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
-            <div class="form-group">
-                <div class="color-999 fs-11">Dock No</div>
-                <span>{{DockinVehicleCtrl.ePage.Entities.Header.Data.GatepassList[0].DockNo ||DockinVehicleCtrl.ePage.Masters.Empty}}</span>
+                <span>{{DockinVehicleCtrl.ePage.Entities.Header.Data.GatepassList[0].VehicleType
+                    ||DockinVehicleCtrl.ePage.Masters.Empty}}</span>
             </div>
         </div>
         <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
             <div class="form-group">
                 <div class="color-999 fs-11">Driver Name</div>
-                <span>{{DockinVehicleCtrl.ePage.Entities.Header.Data.GatepassList[0].DriverName ||DockinVehicleCtrl.ePage.Masters.Empty}}</span>
+                <span>{{DockinVehicleCtrl.ePage.Entities.Header.Data.GatepassList[0].DriverName
+                    ||DockinVehicleCtrl.ePage.Masters.Empty}}</span>
             </div>
         </div>
         <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
             <div class="form-group">
                 <div class="color-999 fs-11">Driver Contact No</div>
-                <span>{{DockinVehicleCtrl.ePage.Entities.Header.Data.GatepassList[0].DriverContactNo ||DockinVehicleCtrl.ePage.Masters.Empty}}</span>
-            </div>
-        </div>
-        <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
-            <div class="form-group">
-                <div class="color-999 fs-11">Dockin Time</div>
-                <span>{{DockinVehicleCtrl.ePage.Entities.Header.Data.GatepassList[0].DockinTime | date:"dd-MMM-yyyy hh:mm a"}}</span>
-            </div>
-        </div>
-        <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
-            <div class="form-group">
-                <div class="color-999 fs-11">Dockout Time</div>
-                <span>{{DockinVehicleCtrl.ePage.Entities.Header.Data.GatepassList[0].DockoutTime | date:"dd-MMM-yyyy hh:mm a"}}</span>
+                <span>{{DockinVehicleCtrl.ePage.Entities.Header.Data.GatepassList[0].DriverContactNo
+                    ||DockinVehicleCtrl.ePage.Masters.Empty}}</span>
             </div>
         </div>
         <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
             <div class="form-group">
                 <div class="color-999 fs-11">Gatein Time</div>
-                <span>{{DockinVehicleCtrl.ePage.Entities.Header.Data.GatepassList[0].GateinTime | date:"dd-MMM-yyyy hh:mm a"}}</span>
+                <span>{{DockinVehicleCtrl.ePage.Entities.Header.Data.GatepassList[0].GateinTime | date:"dd-MMM-yyyy
+                    hh:mm a"}}</span>
+            </div>
+        </div>
+        <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <div class="color-999 fs-11">Dock No</div>
+                <span>{{DockinVehicleCtrl.ePage.Entities.Header.Data.GatepassList[0].DockNo
+                    ||DockinVehicleCtrl.ePage.Masters.Empty}}</span>
+            </div>
+        </div>
+        <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <div class="color-999 fs-11">Dockin Time</div>
+                <span>{{DockinVehicleCtrl.ePage.Entities.Header.Data.GatepassList[0].DockinTime | date:"dd-MMM-yyyy
+                    hh:mm a"}}</span>
+            </div>
+        </div>
+        <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <div class="color-999 fs-11 task-label-text" data-ng-if="DockinVehicleCtrl.ePage.Entities.Header.Data.GatepassList[0].Purpose=='INW'">Start
+                    Unload Time</div>
+                <div class="color-999 fs-11 task-label-text" data-ng-if="DockinVehicleCtrl.ePage.Entities.Header.Data.GatepassList[0].Purpose=='ORD'">Start
+                    Load Time</div>
+                <span>{{DockinVehicleCtrl.ePage.Entities.Header.Data.GatepassList[0].LoadOrUnloadStartTime |
+                    date:"dd-MMM-yyyy hh:mm a"}}</span>
+            </div>
+        </div>
+        <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <div class="color-999 fs-11 task-label-text" data-ng-if="DockinVehicleCtrl.ePage.Entities.Header.Data.GatepassList[0].Purpose=='INW'">Complete
+                    Unload Time</div>
+                <div class="color-999 fs-11 task-label-text" data-ng-if="DockinVehicleCtrl.ePage.Entities.Header.Data.GatepassList[0].Purpose=='ORD'">Complete
+                    Load Time</div>
+                <span>{{DockinVehicleCtrl.ePage.Entities.Header.Data.GatepassList[0].LoadOrUnloadEndTime |
+                    date:"dd-MMM-yyyy hh:mm a"}}</span>
+            </div>
+        </div>
+        <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <div class="color-999 fs-11">Dockout Time</div>
+                <span>{{DockinVehicleCtrl.ePage.Entities.Header.Data.GatepassList[0].DockoutTime | date:"dd-MMM-yyyy
+                    hh:mm a"}}</span>
             </div>
         </div>
         <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
             <div class="form-group">
                 <div class="color-999 fs-11">Gateout Time</div>
-                <span>{{DockinVehicleCtrl.ePage.Entities.Header.Data.GatepassList[0].GateoutTime | date:"dd-MMM-yyyy hh:mm a"}}</span>
+                <span>{{DockinVehicleCtrl.ePage.Entities.Header.Data.GatepassList[0].GateoutTime | date:"dd-MMM-yyyy
+                    hh:mm a"}}</span>
             </div>
         </div>
     </div>
@@ -115,7 +148,8 @@
         <div class="clearfix form-group col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 mt-10">
             <span>Please enter Dock Number</span>
             <div class="">
-                <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Dock Number" data-ng-model="DockinVehicleCtrl.ePage.Entities.Header.Data.GatepassList[0].DockNo">
+                <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
+                    placeholder="Dock Number" data-ng-model="DockinVehicleCtrl.ePage.Entities.Header.Data.GatepassList[0].DockNo">
             </div>
         </div>
     </div>

@@ -1,0 +1,208 @@
+<!-- Non Editable -->
+<div class="noneditable ng-scope" data-ng-if="InwardGatepassCtrl.ePage.Entities.Header.GlobalVariables.NonEditable"></div>
+<div class="grid-loading-norecord-container ng-scope" style='z-index: 15;' data-ng-if="InwardGatepassCtrl.ePage.Masters.Loading"></div>
+
+<div class="clearfix mb-10 mt-10" data-ng-if="InwardGatepassCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.TGP_FK">
+    <div class="clearfix col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-10">
+        <div class="rows border-box border-radius-2 pt-15 height-60">
+            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <div class="color-999 fs-11 task-label-text">Gatepass No</div>
+                    <div class="text-single-line">
+                        <span>{{InwardGatepassCtrl.ePage.Masters.GatepassDetails.TMSGatepassHeader.GatepassNo
+                            }}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <div class="color-999 fs-11 task-label-text">Facility</div>
+                    <span>{{InwardGatepassCtrl.ePage.Masters.GatepassDetails.TMSGatepassHeader.ORG_Code}}
+                        -
+                        {{InwardGatepassCtrl.ePage.Masters.GatepassDetails.TMSGatepassHeader.ORG_FullName}}</span>
+                </div>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <div class="color-999 fs-11 task-label-text">Client</div>
+                    <span>{{InwardGatepassCtrl.ePage.Masters.GatepassDetails.TMSGatepassHeader.ClientCode
+                        }}
+                        -
+                        {{InwardGatepassCtrl.ePage.Masters.GatepassDetails.TMSGatepassHeader.ClientName
+                        }}</span>
+                </div>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <div class="color-999 fs-11 task-label-text">Carrier</div>
+                    <span>{{InwardGatepassCtrl.ePage.Masters.GatepassDetails.TMSGatepassHeader.TransporterCode}}
+                        -
+                        {{InwardGatepassCtrl.ePage.Masters.GatepassDetails.TMSGatepassHeader.TransporterName}}</span>
+                </div>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <div class="color-999 fs-11 task-label-text">Purpose</div>
+                    <span>{{InwardGatepassCtrl.ePage.Masters.GatepassDetails.TMSGatepassHeader.Purpose
+                        }}</span>
+                </div>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <div class="color-999 fs-11 task-label-text">Vehicle No</div>
+                    <span>{{InwardGatepassCtrl.ePage.Masters.GatepassDetails.TMSGatepassHeader.VehicleNo
+                        }}</span>
+                </div>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <div class="color-999 fs-11 task-label-text">Vehicle Type</div>
+                    <span>{{InwardGatepassCtrl.ePage.Masters.GatepassDetails.TMSGatepassHeader.VehicleType
+                        }}</span>
+                </div>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <div class="color-999 fs-11 task-label-text">Driver Name</div>
+                    <span>{{InwardGatepassCtrl.ePage.Masters.GatepassDetails.TMSGatepassHeader.DriverName
+                        }}</span>
+                </div>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <div class="color-999 fs-11 task-label-text">Driver Contact No</div>
+                    <span>{{InwardGatepassCtrl.ePage.Masters.GatepassDetails.TMSGatepassHeader.DriverContactNo
+                        }}</span>
+                </div>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <div class="color-999 fs-11 task-label-text">Gatein Time</div>
+                    <span>{{InwardGatepassCtrl.ePage.Masters.GatepassDetails.TMSGatepassHeader.GateinTime |
+                        date:"dd-MMM-yyyy
+                        hh:mm a"}}</span>
+                </div>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <div class="color-999 fs-11 task-label-text">Dock No</div>
+                    <span>{{InwardGatepassCtrl.ePage.Masters.GatepassDetails.TMSGatepassHeader.DockNo
+                        }}</span>
+                </div>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <div class="color-999 fs-11 task-label-text">Dockin Time</div>
+                    <span>{{InwardGatepassCtrl.ePage.Masters.GatepassDetails.TMSGatepassHeader.DockinTime |
+                        date:"dd-MMM-yyyy
+                        hh:mm a"}}</span>
+                </div>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <div class="color-999 fs-11 task-label-text" data-ng-if="InwardGatepassCtrl.ePage.Masters.GatepassDetails.TMSGatepassHeader.Purpose=='INW'">Start
+                        Unload Time</div>
+                    <div class="color-999 fs-11 task-label-text" data-ng-if="InwardGatepassCtrl.ePage.Masters.GatepassDetails.TMSGatepassHeader.Purpose=='ORD'">Start
+                        Load Time</div>
+                    <span>{{InwardGatepassCtrl.ePage.Masters.GatepassDetails.TMSGatepassHeader.LoadOrUnloadStartTime |
+                        date:"dd-MMM-yyyy hh:mm a"}}</span>
+                </div>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <div class="color-999 fs-11 task-label-text" data-ng-if="InwardGatepassCtrl.ePage.Masters.GatepassDetails.TMSGatepassHeader.Purpose=='INW'">Complete
+                        Unload Time</div>
+                    <div class="color-999 fs-11 task-label-text" data-ng-if="InwardGatepassCtrl.ePage.Masters.GatepassDetails.TMSGatepassHeader.Purpose=='ORD'">Complete
+                        Load Time</div>
+                    <span>{{InwardGatepassCtrl.ePage.Masters.GatepassDetails.TMSGatepassHeader.LoadOrUnloadEndTime |
+                        date:"dd-MMM-yyyy hh:mm a"}}</span>
+                </div>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <div class="color-999 fs-11 task-label-text">Dockout Time</div>
+                    <span>{{InwardGatepassCtrl.ePage.Masters.GatepassDetails.TMSGatepassHeader.DockoutTime |
+                        date:"dd-MMM-yyyy hh:mm a"}}</span>
+                </div>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <div class="color-999 fs-11 task-label-text">Gateout Time</div>
+                    <span>{{InwardGatepassCtrl.ePage.Masters.GatepassDetails.TMSGatepassHeader.GateoutTime |
+                        date:"dd-MMM-yyyy hh:mm a"}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="clearfix mb-10 mt-10" data-ng-if="!InwardGatepassCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.TGP_FK">
+    <div class="" ng-repeat="x in  InwardGatepassCtrl.ePage.Masters.GatepassList">
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <div class="gatepass-card">
+                <div class="content">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                            <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 col-xl-9">
+                                <p class="fs-13 height-25">
+                                    <b>{{x.GatepassNo}}</b>
+                                </p>
+                            </div>
+                            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3 no-padding">
+                                <a href="" class="col-white" ng-click="InwardGatepassCtrl.ePage.Masters.AttachGatepass(this.x)">
+                                    <div class="attachlink">
+                                        attach
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
+                                <span class="col-dgray pull-left"> {{x.ORG_Code}}
+                                </span>
+                            </div>
+                            <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
+                                <span title="{{x.ORG_FullName}}" class="contd ol-dgray pull-right">{{x.ORG_FullName}}</span>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" style="padding-left: 30px;">
+                            <span class="col-dgray pull-left"> {{x.TransporterCode}} - {{x.TransporterName}}
+                            </span>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                                <span>Vehicle Type - </span>
+                                <span class="col-dgray"> {{x.VehicleType}}
+                                </span>
+                            </div>
+                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                                <span>
+                                    <i class="fa fa-truck"></i>
+                                </span>
+                                <span class="col-dgray"> {{x.VehicleNo}}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                                <span>
+                                    <i class="fa fa-user"></i>
+                                </span>
+                                <span class="col-dgray"> {{x.DriverName}}
+                                </span>
+                            </div>
+                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                                <span>
+                                    <i class="fa fa-phone-square"></i>
+                                </span>
+                                <span class="col-dgray"> {{x.DriverContactNo}}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 norecordfound" ng-if="InwardGatepassCtrl.ePage.Masters.GatepassList.length==0">No
+        Record Found...</div>
+</div>

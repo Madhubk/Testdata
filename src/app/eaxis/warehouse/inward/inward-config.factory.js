@@ -205,8 +205,7 @@
                                     "Value": "MyTask",
                                     "Icon": "menu-icon icomoon icon-my-task",
                                     "IsDisabled": false
-                                },
-                                {
+                                }, {
                                     "DisplayName": "General",
                                     "Value": "General",
                                     "Icon": "fa fa-file",
@@ -223,6 +222,12 @@
                                     "Value": "ReceiveLines",
                                     "Icon": "glyphicon glyphicon-saved",
                                     "GParentRef": "receivelines",
+                                    "IsDisabled": false
+                                }, {
+                                    "DisplayName": "Gatepass Details",
+                                    "Value": "Gatepass",
+                                    "Icon": "glyphicon glyphicon-saved",
+                                    "GParentRef": "gatepass",
                                     "IsDisabled": false
                                 }, {
                                     "DisplayName": "Product Summary",
@@ -251,8 +256,8 @@
                             "Language": helperService.metaBase(),
                             "ErrorWarning": {
                                 "GlobalErrorWarningList": [],
-                                "WorkOrderID":helperService.metaBase(),
-                                "FinalisedDate":helperService.metaBase(),
+                                "WorkOrderID": helperService.metaBase(),
+                                "FinalisedDate": helperService.metaBase(),
                                 "Client": helperService.metaBase(),
                                 "ExternalReference": helperService.metaBase(),
                                 "CustomerReference": helperService.metaBase(),
@@ -266,6 +271,7 @@
                                 "UIJobServices": helperService.metaBase(),
                                 "PutOrPickCompDateTime": helperService.metaBase(),
                                 "PutOrPickStartDateTime": helperService.metaBase(),
+                                "IsGatepassMandatory": helperService.metaBase()
                             },
                         },
                         "GlobalVariables": {
@@ -273,13 +279,14 @@
                             "NonEditable": false,
                             "Receiveline": false,
                             "PercentageValues": false,
-                            "CopyofCurrentObject":"",
+                            "CopyofCurrentObject": "",
+                            "CallGatepassMenuConfiguration": false
                         },
                         "TableProperties": {
                             "UIWmsWorkOrderContainer": {
-                                "TableHeight":{
-                                    "isEnabled":true,
-                                    "height":350
+                                "TableHeight": {
+                                    "isEnabled": true,
+                                    "height": 350
                                 },
                                 "HeaderProperties": [{
                                     "columnname": "Checkbox",
@@ -399,9 +406,9 @@
                                 },
                             },
                             "UIWmsWorkOrderReference": {
-                                "TableHeight":{
-                                    "isEnabled":true,
-                                    "height":170
+                                "TableHeight": {
+                                    "isEnabled": true,
+                                    "height": 170
                                 },
                                 "HeaderProperties": [{
                                     "columnname": "Checkbox",
@@ -456,9 +463,9 @@
                                 }
                             },
                             "UIJobServices": {
-                                "TableHeight":{
-                                    "isEnabled":true,
-                                    "height":170
+                                "TableHeight": {
+                                    "isEnabled": true,
+                                    "height": 170
                                 },
                                 "HeaderProperties": [{
                                     "columnname": "Checkbox",
@@ -565,9 +572,9 @@
                                 }
                             },
                             "ProductSummaryList": {
-                                "TableHeight":{
-                                    "isEnabled":true,
-                                    "height":350
+                                "TableHeight": {
+                                    "isEnabled": true,
+                                    "height": 350
                                 },
                                 "HeaderProperties": [{
                                     "columnname": "S.No",
@@ -675,9 +682,9 @@
                                 }
                             },
                             "UIWmsAsnLine": {
-                                "TableHeight":{
-                                    "isEnabled":true,
-                                    "height":350
+                                "TableHeight": {
+                                    "isEnabled": true,
+                                    "height": 350
                                 },
                                 "HeaderProperties": [{
                                     "columnname": "Checkbox",
@@ -901,9 +908,9 @@
                                 }
                             },
                             "UIWmsWorkOrderLine": {
-                                "TableHeight":{
-                                    "isEnabled":true,
-                                    "height":250
+                                "TableHeight": {
+                                    "isEnabled": true,
+                                    "height": 250
                                 },
                                 "HeaderProperties": [{
                                     "columnname": "Checkbox",
@@ -1494,7 +1501,7 @@
         }
 
         function GeneralValidation($item) {
-            //General Page Validation
+            //General Page Validation            
             var _Data = $item[$item.label].ePage.Entities,
                 _input = _Data.Header.Data;
 
@@ -1550,7 +1557,7 @@
 
                     OnChangeValues(value.ProductCondition, 'E3049', true, key, $item.label);
 
-                    OnChangeValues(value.WLO_Location, 'E3118', true, key, $item.label);
+                    // OnChangeValues(value.WLO_Location, 'E3118', true, key, $item.label);
 
                     if (!value.PRO_FK && value.ProductCode || value.PRO_FK && value.ProductCode)
                         OnChangeValues(value.PRO_FK, 'E3046', true, key, $item.label);
