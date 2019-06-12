@@ -49,7 +49,6 @@
                                     <table style="height: 200px;">
                                         <thead>
                                             <tr id="tableHeader">
-                                                <th ng-style="{ 'width':  '40px' }" title="S.No">S.No</th>
                                                 <th ng-style="{ 'width':  '100px' }" title="Product Code">Product Code</th>
                                                 <th ng-style="{ 'width':  '100px' }" title="Product Description">Product Description</th>
                                                 <th ng-style="{ 'width':  '100px' }" title="Packed Quantity">Packed Quantity</th>  
@@ -64,7 +63,6 @@
                                             <tr id="tableBody"
                                                 ng-repeat="x in PickPackingCtrl.ePage.Masters.Config.PackageListDetails.lstUIPackageItems track by $index"
                                                 ng-click="" ng-if='data.PK == x.PackageFK'>
-                                                <td ng-style="{ 'width':  '40px' }" class="overflow-text">{{$index +1}}</td>
                                                 <td ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.ProductCode}}</td>
                                                 <td ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.ProductDesc}}
                                                 </td>

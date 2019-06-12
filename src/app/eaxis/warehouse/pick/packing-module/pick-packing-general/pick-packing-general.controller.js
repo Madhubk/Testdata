@@ -42,7 +42,7 @@
             PackingGeneralCtrl.ePage.Masters.CloseEditActivityModal = CloseEditActivityModal;
 
             // PackingGeneralCtrl.ePage.Masters.ReleaseLineList = {};
-            PackingGeneralCtrl.ePage.Masters.PackageItemList = [];
+            // PackingGeneralCtrl.ePage.Masters.PackageItemList = [];
 
             GetUserBasedGridColumListForOutward();
             GetMiscServDetails();
@@ -171,6 +171,7 @@
         }
 
         function ReleaseQuantityModel(Data) {
+            // PackingGeneralCtrl.ePage.Masters.PackageItemList = [];
             PackingGeneralCtrl.ePage.Masters.ReleaseLineList = Data;
             if (PackingGeneralCtrl.ePage.Masters.ReleaseLineList.RemainingQty > 0) {
                 QuantityModel();
@@ -224,10 +225,8 @@
                         "IsDeleted": false,
                         "IsNewInsert": true
                     }
-                    PackingGeneralCtrl.ePage.Masters.PackageItemList.push(obj);
-                    // });
-
-                    Save(PackingGeneralCtrl.ePage.Masters.PackageItemList);
+                    
+                    Save(obj);
                 }
             } else {
                 toastr.warning("Package is not Available");
@@ -237,7 +236,7 @@
 
         function Save($item) {
 
-            PackingGeneralCtrl.ePage.Masters.Config.PackageListDetails.lstUIPackageItems = $item;
+            PackingGeneralCtrl.ePage.Masters.Config.PackageListDetails.lstUIPackageItems.push($item);
 
             var item = filterObjectUpdate(PackingGeneralCtrl.ePage.Masters.Config.PackageListDetails.lstUIPackageItems, "IsModified");
 

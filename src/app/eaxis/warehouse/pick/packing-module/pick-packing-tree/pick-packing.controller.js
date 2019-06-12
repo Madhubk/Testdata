@@ -250,8 +250,7 @@
       var _obj = {
         // "name": "Package",
         "nodes": [],
-        "parentname": null,
-        "parent": null,
+
         "Sequence": post,
         "PK": guid,
         "NKPackType": _packtype.NKPackType,
@@ -323,8 +322,6 @@
       var _obj = {
         // "name": newName,
         "nodes": [],
-        "parentname": PickPackingCtrl.ePage.Masters.Childdata.name,
-        "parent": PickPackingCtrl.ePage.Masters.Childdata,
         "Sequence": Order,
         "PK": guid,
         "NKPackType": _packtype.NKPackType,
@@ -369,13 +366,27 @@
     }
 
     // Delete the Child Package
-    function Deleted(data) {
-      for (var i = 0, count = data.nodes.length; i < count; i++) {
-        Delete(data.nodes[i]);
-      }
+
+    function Delete(DeleteData) {
+      Deleteloop(DeleteData);
+      console.log(PickPackingCtrl.ePage.Masters.DeleteList);
     }
 
-    function Delete(data) {
+    function Deleteloop(data) {
+      $.each(data, function (i, e) {
+        if (e.nodes.length > 0) {
+          var del = e.nodes;
+          delete e.nodes;
+          PickPackingCtrl.ePage.Masters.DeleteList.push(e);
+          Deleteloop(del);
+        } else {
+          delete e.nodes;
+          PickPackingCtrl.ePage.Masters.DeleteList.push(e);
+        }
+      });
+    }
+
+    function Deleted(data) {
       if (data.parent) {
         var index = data.nodes.indexOf(data);
         if (index > -1) {
@@ -393,6 +404,7 @@
 
     function SavePackage() {
       // json changes call
+      console.log(PickPackingCtrl.ePage.Masters.tree);
       JsonLoop(PickPackingCtrl.ePage.Masters.tree);
 
       //json list for updating and saving 
@@ -401,19 +413,90 @@
 
     // json formation changes parent child json to normal json / loop for update
     function JsonLoop(myData) {
-      $.each(myData, function (i, e) {
-        if (e.nodes.length > 0) {
-          var ccd = e.nodes;
-          delete e.nodes;
-          PickPackingCtrl.ePage.Masters.List.push(e);
-          JsonLoop(ccd);
-        } else {
-          delete e.nodes;
-          PickPackingCtrl.ePage.Masters.List.push(e);
+      angular.forEach(myData, function (value, key) {
+        var obj = {
+          "Sequence": value.Sequence,
+          "PK": value.PK,
+          "NKPackType": value.NKPackType,
+          "PackageQty": value.PackageQty,
+          "Length": value.Length,
+          "Width": value.Width,
+          "Height": value.Height,
+          "DimensionUQ": value.DimensionUQ,
+          "Weight": value.Weight,
+          "WeightUQ": value.WeightUQ,
+          "Volume": value.Volume,
+          "VolumeUQ": value.VolumeUQ,
+          "MarksAndNumbers": value.MarksAndNumbers,
+          "TransportRef": value.TransportRef,
+          "GoodsDescription": value.GoodsDescription,
+          "HSCode": value.HSCode,
+          "ParentPackage": value.ParentPackage,
+          "IsClosed": value.IsClosed,
+          "IsReleased": value.IsReleased,
+          "RequiredTemperatureMinimum": value.RequiredTemperatureMinimum,
+          "RequiredTemperatureUnit": value.RequiredTemperatureUnit,
+          "RequiredTemperatureMaximum": value.RequiredTemperatureMaximum,
+          "RH_NKCommodityCode": value.RH_NKCommodityCode,
+          "CommodityDesc": value.CommodityDesc,
+          "RequiresTemperatureControl": value.RequiresTemperatureControl,
+          "PackageId": value.PackageId,
+          "IsCheckedWeighedCubed": value.IsCheckedWeighedCubed,
+          "IsDamaged": value.IsDamaged,
+          "IsHeld": value.IsHeld,
+          "PackageHeaderFK": value.PackageHeaderFK,
+          "IsModified": value.IsModified,
+          "IsDeleted": value.IsDeleted,
+          "IsNewInsert": value.IsNewInsert
         }
-        
+        PickPackingCtrl.ePage.Masters.List.push(obj);
+        console.log(PickPackingCtrl.ePage.Masters.List);
+        if (value.nodes.length > 0)
+          jsoninnerLoop(value.nodes);
       });
       // console.log(PickPackingCtrl.ePage.Masters.List);
+    }
+    function jsoninnerLoop(obj) {
+      angular.forEach(obj, function (value, key) {
+        var obj = {
+          "Sequence": value.Sequence,
+          "PK": value.PK,
+          "NKPackType": value.NKPackType,
+          "PackageQty": value.PackageQty,
+          "Length": value.Length,
+          "Width": value.Width,
+          "Height": value.Height,
+          "DimensionUQ": value.DimensionUQ,
+          "Weight": value.Weight,
+          "WeightUQ": value.WeightUQ,
+          "Volume": value.Volume,
+          "VolumeUQ": value.VolumeUQ,
+          "MarksAndNumbers": value.MarksAndNumbers,
+          "TransportRef": value.TransportRef,
+          "GoodsDescription": value.GoodsDescription,
+          "HSCode": value.HSCode,
+          "ParentPackage": value.ParentPackage,
+          "IsClosed": value.IsClosed,
+          "IsReleased": value.IsReleased,
+          "RequiredTemperatureMinimum": value.RequiredTemperatureMinimum,
+          "RequiredTemperatureUnit": value.RequiredTemperatureUnit,
+          "RequiredTemperatureMaximum": value.RequiredTemperatureMaximum,
+          "RH_NKCommodityCode": value.RH_NKCommodityCode,
+          "CommodityDesc": value.CommodityDesc,
+          "RequiresTemperatureControl": value.RequiresTemperatureControl,
+          "PackageId": value.PackageId,
+          "IsCheckedWeighedCubed": value.IsCheckedWeighedCubed,
+          "IsDamaged": value.IsDamaged,
+          "IsHeld": value.IsHeld,
+          "PackageHeaderFK": value.PackageHeaderFK,
+          "IsModified": value.IsModified,
+          "IsDeleted": value.IsDeleted,
+          "IsNewInsert": value.IsNewInsert
+        }
+        PickPackingCtrl.ePage.Masters.List.push(obj);
+        if (value.nodes.length > 0)
+          jsoninnerLoop(value.nodes)
+      });
     }
 
     // update call for package update list
