@@ -63,7 +63,7 @@
       PickPackingCtrl.ePage.Masters.CloseEditActivityModal = CloseEditActivityModal;
       PickPackingCtrl.ePage.Masters.EditPackType = EditPackType;
       GetDropDownList();
-
+      PickPackingCtrl.ePage.Masters.DeleteList = [];
     }
 
     //#region 
@@ -366,23 +366,34 @@
     }
 
     // Delete the Child Package
-
-    function Delete(DeleteData) {
-      Deleteloop(DeleteData);
+    function Delete(Data) {
+      Del(Data);
       console.log(PickPackingCtrl.ePage.Masters.DeleteList);
+
+      angular.forEach(PickPackingCtrl.ePage.Masters.HeaderDetails.lstUIPackage, function (value, key) {
+        angular.forEach(PickPackingCtrl.ePage.Masters.DeleteList, function (value1, key1) {
+          if (value.PK == value1.PK) {
+            value.IsDeleted = true;
+          }
+        });
+        if (PickPackingCtrl.ePage.Masters.HeaderDetails.lstUIPackage.length - 1 == key) {
+          Save(PickPackingCtrl.ePage.Masters.HeaderDetails.lstUIPackage);
+        }
+      });
+
+    }
+
+    function Del(DeleteData) {
+      PickPackingCtrl.ePage.Masters.DeleteList.push(DeleteData);
+      if (DeleteData.nodes.length > 0)
+        Deleteloop(DeleteData.nodes);
     }
 
     function Deleteloop(data) {
-      $.each(data, function (i, e) {
-        if (e.nodes.length > 0) {
-          var del = e.nodes;
-          delete e.nodes;
-          PickPackingCtrl.ePage.Masters.DeleteList.push(e);
-          Deleteloop(del);
-        } else {
-          delete e.nodes;
-          PickPackingCtrl.ePage.Masters.DeleteList.push(e);
-        }
+      angular.forEach(data, function (value, key) {
+        PickPackingCtrl.ePage.Masters.DeleteList.push(value);
+        if (value.nodes.length > 0)
+          Deleteloop(value.nodes);
       });
     }
 
