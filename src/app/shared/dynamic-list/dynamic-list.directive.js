@@ -1637,7 +1637,7 @@
 
                         x.ApiName = _api;
                         x.SearchInput.FilterID = x.SearchInput.FilterID ? x.SearchInput.FilterID : DynamicListCtrl.ePage.Masters.DataEntry.FindConfig.FilterID;
-                        x.GridConfig = x.GridConfig ? x.GridConfig : _gridConfig;
+                        x.GridConfig = (x.GridConfig && x.GridConfig.length > 0) ? x.GridConfig : _gridConfig;
 
                         if (x.SearchInput.SearchInput && x.SearchInput.SearchInput.length > 0) {
                             let _sInput = {};

@@ -56,6 +56,11 @@
                     'app/shared/change-password/change-password.directive.js'
                 ]
             }, {
+                name: 'impersonateUser',
+                files: [
+                    'app/shared/impersonate-user/impersonate-user.directive.js'
+                ]
+            }, {
                 name: 'confirmation',
                 files: [
                     'app/shared/confirmation/confirmation.factory.js'
@@ -631,10 +636,7 @@
             //endregion
         ],
         URL: {
-			
-
-			
-            eAxisAPI: "http://dev.myhubplusapi.20cube.com/wms/",
+            eAxisAPI: "http://localhost:4396/",
             authAPI: "http://dev.myhubplusapi.20cube.com/wmsauth/",
             alertAPI: "http://uat.api.20cube.com/alert/"
         },
@@ -732,8 +734,9 @@
                 ['help', ['help']]
             ]
         },
+        ImagePath: "assets/img/",
         IsInsertErrorLog: true,
-        SessionExpiryTime: 20,
+        SessionExpiryTime: 60,
         Version: "1.0"
     };
 
