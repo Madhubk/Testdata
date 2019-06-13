@@ -5,33 +5,56 @@
         .module("Application")
         .controller("DowntimeRequestGeneralController", DowntimeRequestGeneralController);
 
-    DowntimeRequestGeneralController.$inject = ["apiService", "appConfig", "APP_CONSTANT", "downtimeRequestConfig", "helperService", "toastr", "authService", "$injector", "confirmation", "$timeout"];
+    DowntimeRequestGeneralController.$inject = ["apiService", "appConfig", "APP_CONSTANT", "downtimeRequestConfig", "myRequestConfig", "helperService", "toastr", "authService", "$injector", "confirmation", "$timeout"];
 
-    function DowntimeRequestGeneralController(apiService, appConfig, APP_CONSTANT, downtimeRequestConfig, helperService, toastr, authService, $injector, confirmation, $timeout) {
+    function DowntimeRequestGeneralController(apiService, appConfig, APP_CONSTANT, downtimeRequestConfig, myRequestConfig, helperService, toastr, authService, $injector, confirmation, $timeout) {
 
         var DowntimeRequestGeneralCtrl = this;
 
         function Init() {
-
             // if (DowntimeRequestGeneralCtrl.currentDowntimeRequest) {
             //     var currentDowntimeRequest = DowntimeRequestGeneralCtrl.currentDowntimeRequest[DowntimeRequestGeneralCtrl.currentDowntimeRequest.label].ePage.Entities;
             // }
 
-            DowntimeRequestGeneralCtrl.ePage = {
-                "Title": "",
-                "Prefix": "DowntimeRequest_General",
-                "Masters": {},
-                "Meta": helperService.metaBase(),
-                "Entities": {
-                    "Header": {
-                        "Data": {}
-                    }
-                },
-            };
+            if (DowntimeRequestGeneralCtrl.currentDowntimeRequest) {
+                var currentDowntimeRequest = DowntimeRequestGeneralCtrl.currentDowntimeRequest[DowntimeRequestGeneralCtrl.currentDowntimeRequest.label].ePage.Entities;
+                DowntimeRequestGeneralCtrl.ePage = {
+                    "Title": "",
+                    "Prefix": "DowntimeRequest_General",
+                    "Masters": {},
+                    "Meta": helperService.metaBase(),
+                    "Entities": currentDowntimeRequest
+                };
+                
+                DowntimeRequestGeneralCtrl.ePage.Entities.Header.Data.AppObj = {};
+                DowntimeRequestGeneralCtrl.ePage.Entities.Header.Data.SrqArea = {};
+
+                GetData();
+            }
+            else {
+                DowntimeRequestGeneralCtrl.ePage = {
+                    "Title": "",
+                    "Prefix": "DowntimeRequest_General",
+                    "Masters": {},
+                    "Meta": helperService.metaBase(),
+                    "Entities": {
+                        "Header": {
+                            "Data": {}
+                        }
+                    },
+                };
+                
+                // grid empty array
+                DowntimeRequestGeneralCtrl.ePage.Entities.Header.Data.SrqArea = [];
+            }
+
+            //(currentDowntimeRequest) ? DowntimeRequestGeneralCtrl.ePage.Entities = currentDowntimeRequest : false;
 
             // save
-            DowntimeRequestGeneralCtrl.ePage.Masters.Arrive = Arrive;
             DowntimeRequestGeneralCtrl.ePage.Masters.InsertData = InsertData;
+            DowntimeRequestGeneralCtrl.ePage.Masters.UpdateData = UpdateData;
+            DowntimeRequestGeneralCtrl.ePage.Masters.ClearData = ClearData;
+            DowntimeRequestGeneralCtrl.ePage.Masters.GetData = GetData;
 
             //Time Zone
             DowntimeRequestGeneralCtrl.ePage.Masters.TimeZone = TimeZone;
@@ -66,14 +89,27 @@
             DowntimeRequestGeneralCtrl.ePage.Masters.AppChange = ChangeMethod;
 
             // grid empty array
-            DowntimeRequestGeneralCtrl.ePage.Entities.Header.Data.SrqArea = [];
+            //DowntimeRequestGeneralCtrl.ePage.Entities.Header.Data.SrqArea = [];
+
+            // Priority Dropdown
+            DowntimeRequestGeneralCtrl.ePage.Entities.Header.Data.PriorityDetails = [
+                {
+                    "value": 1,
+                    "Name": "LOW"
+                },
+                {
+                    "value": 2,
+                    "Name": "MEDIUM"
+                },
+                {
+                    "value": 3,
+                    "Name": "HIGH"
+                }
+            ];
 
             // function
             DowntimeRequestGeneralCtrl.ePage.Masters.SaveButtonText = "Save";
             DowntimeRequestGeneralCtrl.ePage.Masters.DisableSave = false;
-
-            //DowntimeRequestGeneralCtrl.ePage.Masters.DowntimeRequestGeneral = {};
-            //DowntimeRequestGeneralCtrl.ePage.Entities.Header.Data = {};
 
             // Menu list from configuration
             //DowntimeRequestGeneralCtrl.ePage.Masters.DowntimeRequestMenu.ListSource = DowntimeRequestGeneralCtrl.ePage.Entities.Header.Meta.MenuList;
@@ -93,18 +129,8 @@
             DepotName();
         }
 
-        // Save
-        function Arrive() {
-            apiService.get("eAxisAPI", "TmsManifest/ArrivalTask/" + DowntimeRequestGeneralCtrl.ePage.Masters.ArrManifestNo).then(function (response) {
-                if (confirm("sure to save")) {
-                    // todo code for save
-
-                }
-            });
-        }
-
         //Get Time Zone
-        function TimeZone(){
+        function TimeZone() {
             apiService.get("eAxisAPI", downtimeRequestConfig.Entities.Header.API.TimeZone.Url).then(function (response) {
                 if (response.data.Response) {
                     console.log(response.data.Response)
@@ -122,15 +148,19 @@
                     console.log(response.data.Response)
 
                     var GetPK = response.data.Response;
+                    var AddtionalInfoDetails = {
+                        "UsersImpacted": _data.AppObj.UserImpacted,
+                        "Purpose": _data.SrqArea
+                    };
                     var _input = {
                         "PK": GetPK.PK,
                         "UIServiceRequest": {
                             "PK": GetPK.PK,
                             "RequestNo": GetPK.UIServiceRequest.RequestNo,
-                            "RequestType": null,
+                            "RequestType": "Downtime Request",
                             "RequestedDateTime": null,
                             "ApprovedBy": null,
-                            "RequestStatus": null,
+                            "RequestStatus": "Planned",
                             "Priority": _data.Priority,
                             "Application": _data.Application,
                             "Module": _data.Module,
@@ -148,7 +178,7 @@
                             "SRR_FK": GetPK.PK,
                             "Environment": _data.Environment,
                             "IsCheckListVerfied": null,
-                            "IsPlanned": null,
+                            "IsPlanned": true,
                             "ApplicationContactName": _data.AppObj.ApplicationContactName,
                             "ApplicationContactMail": _data.AppObj.ApplicationContactEmail,
                             "BusinessContactName": _data.AppObj.BusinessContactName,
@@ -157,7 +187,8 @@
                             "PlannedEndDateTime": _data.PlannedEndDateTimeDate,
                             "AppCurrentVersion": _data.ApplicationCurrentVersion,
                             "AppReleasedVersion": _data.ApplicationReleaseVersion,
-                            "AddtionalInfo": JSON.stringify(_data.SrqArea),
+                            // "AddtionalInfo": JSON.stringify(_data.SrqArea),
+                            "AddtionalInfo": JSON.stringify(AddtionalInfoDetails),
                             "CreatedDateTime": null,
                             "CreatedBy": null,
                             "ModifiedDateTime": null,
@@ -175,6 +206,38 @@
                         if (response.data.Response) {
                             console.log(response.data.Response)
                             toastr.error("Save Successful...")
+                            ClearData();
+
+                            // Get saved data
+                            apiService.get("eAxisAPI", downtimeRequestConfig.Entities.Header.API.GetByID.Url + "/" + GetPK.PK).then(function (response) {
+                                if (response.data.Response) {
+                                    console.log(response.data.Response)
+
+                                    var GetSavedData = response.data.Response;
+
+                                    var strAddtionalInfo = JSON.parse(GetSavedData.UIDowntimeRequest.AddtionalInfo);
+
+                                    DowntimeRequestGeneralCtrl.ePage.Entities.Header.Data.Application = GetSavedData.UIServiceRequest.Application;
+                                    DowntimeRequestGeneralCtrl.ePage.Entities.Header.Data.Environment = GetSavedData.UIDowntimeRequest.Environment;
+                                    DowntimeRequestGeneralCtrl.ePage.Entities.Header.Data.AppObj.ApplicationContactName = GetSavedData.UIDowntimeRequest.ApplicationContactName;
+                                    DowntimeRequestGeneralCtrl.ePage.Entities.Header.Data.AppObj.ApplicationContactEmail = GetSavedData.UIDowntimeRequest.ApplicationContactMail;
+                                    DowntimeRequestGeneralCtrl.ePage.Entities.Header.Data.Timezone = GetSavedData.UIDowntimeRequest.TimeZone;
+                                    DowntimeRequestGeneralCtrl.ePage.Entities.Header.Data.Priority = GetSavedData.UIServiceRequest.Priority;
+                                    DowntimeRequestGeneralCtrl.ePage.Entities.Header.Data.Module = GetSavedData.UIServiceRequest.Module;
+                                    DowntimeRequestGeneralCtrl.ePage.Entities.Header.Data.AppObj.BusinessContactName = GetSavedData.UIDowntimeRequest.BusinessContactName;
+                                    DowntimeRequestGeneralCtrl.ePage.Entities.Header.Data.AppObj.BusinessContactEmail = GetSavedData.UIDowntimeRequest.BusinessContactMail;
+                                    DowntimeRequestGeneralCtrl.ePage.Entities.Header.Data.AppObj.UserImpacted = strAddtionalInfo.UsersImpacted;
+                                    DowntimeRequestGeneralCtrl.ePage.Entities.Header.Data.PlannedStartDateTime = GetSavedData.UIDowntimeRequest.PlannedStartDateTime;
+                                    DowntimeRequestGeneralCtrl.ePage.Entities.Header.Data.PlannedEndDateTimeDate = GetSavedData.UIDowntimeRequest.PlannedEndDateTime;
+                                    DowntimeRequestGeneralCtrl.ePage.Entities.Header.Data.ApplicationCurrentVersion = GetSavedData.UIDowntimeRequest.AppCurrentVersion;
+                                    DowntimeRequestGeneralCtrl.ePage.Entities.Header.Data.ApplicationReleaseVersion = GetSavedData.UIDowntimeRequest.AppReleasedVersion;
+                                    DowntimeRequestGeneralCtrl.ePage.Entities.Header.Data.SrqArea = strAddtionalInfo.Purpose;
+                                }
+                            });
+
+                            if (DowntimeRequestGeneralCtrl.ePage.Masters.Update) {
+                                DowntimeRequestGeneralCtrl.ePage.Masters.Update = true;
+                            }
                         } else {
                             toastr.error("Save failed...")
                         }
@@ -183,6 +246,51 @@
                     toastr.error("Read failed..")
                 }
             });
+        }
+
+        function GetData() {
+            var GetSavedDetails = DowntimeRequestGeneralCtrl.ePage.Entities.Header.Data;
+
+            var strAddtionalInfo = JSON.parse(GetSavedDetails.UIDowntimeRequest.AddtionalInfo);
+
+            DowntimeRequestGeneralCtrl.ePage.Entities.Header.Data.Application = GetSavedDetails.UIServiceRequest.Application;
+            DowntimeRequestGeneralCtrl.ePage.Entities.Header.Data.Environment = GetSavedDetails.UIDowntimeRequest.Environment;
+            DowntimeRequestGeneralCtrl.ePage.Entities.Header.Data.AppObj.ApplicationContactName = GetSavedDetails.UIDowntimeRequest.ApplicationContactName;
+            DowntimeRequestGeneralCtrl.ePage.Entities.Header.Data.AppObj.ApplicationContactEmail = GetSavedDetails.UIDowntimeRequest.ApplicationContactMail;
+            DowntimeRequestGeneralCtrl.ePage.Entities.Header.Data.Timezone = GetSavedDetails.UIDowntimeRequest.TimeZone;
+            DowntimeRequestGeneralCtrl.ePage.Entities.Header.Data.Priority = GetSavedDetails.UIServiceRequest.Priority;
+            DowntimeRequestGeneralCtrl.ePage.Entities.Header.Data.Module = GetSavedDetails.UIServiceRequest.Module;
+            DowntimeRequestGeneralCtrl.ePage.Entities.Header.Data.AppObj.BusinessContactName = GetSavedDetails.UIDowntimeRequest.BusinessContactName;
+            DowntimeRequestGeneralCtrl.ePage.Entities.Header.Data.AppObj.BusinessContactEmail = GetSavedDetails.UIDowntimeRequest.BusinessContactMail;
+            DowntimeRequestGeneralCtrl.ePage.Entities.Header.Data.AppObj.UserImpacted = strAddtionalInfo.UsersImpacted;
+            DowntimeRequestGeneralCtrl.ePage.Entities.Header.Data.PlannedStartDateTime = GetSavedDetails.UIDowntimeRequest.PlannedStartDateTime;
+            DowntimeRequestGeneralCtrl.ePage.Entities.Header.Data.PlannedEndDateTimeDate = GetSavedDetails.UIDowntimeRequest.PlannedEndDateTime;
+            DowntimeRequestGeneralCtrl.ePage.Entities.Header.Data.ApplicationCurrentVersion = GetSavedDetails.UIDowntimeRequest.AppCurrentVersion;
+            DowntimeRequestGeneralCtrl.ePage.Entities.Header.Data.ApplicationReleaseVersion = GetSavedDetails.UIDowntimeRequest.AppReleasedVersion;
+            DowntimeRequestGeneralCtrl.ePage.Entities.Header.Data.SrqArea = strAddtionalInfo.Purpose;
+            DowntimeRequestGeneralCtrl.ePage.Entities.Header.Data.AppObj.strName = "Users Impacted";
+
+        }
+
+        function ClearData() {
+            DowntimeRequestGeneralCtrl.ePage.Entities.Header.Data.Application = "";
+            DowntimeRequestGeneralCtrl.ePage.Entities.Header.Data.Environment = "";
+            DowntimeRequestGeneralCtrl.ePage.Entities.Header.Data.AppObj.ApplicationContactName = "";
+            DowntimeRequestGeneralCtrl.ePage.Entities.Header.Data.AppObj.ApplicationContactEmail = "";
+            DowntimeRequestGeneralCtrl.ePage.Entities.Header.Data.Timezone = "";
+            DowntimeRequestGeneralCtrl.ePage.Entities.Header.Data.Priority = "";
+            DowntimeRequestGeneralCtrl.ePage.Entities.Header.Data.Module = "";
+            DowntimeRequestGeneralCtrl.ePage.Entities.Header.Data.AppObj.BusinessContactName = "";
+            DowntimeRequestGeneralCtrl.ePage.Entities.Header.Data.AppObj.BusinessContactEmail = "";
+            DowntimeRequestGeneralCtrl.ePage.Entities.Header.Data.AppObj.UserImpacted = null;
+            DowntimeRequestGeneralCtrl.ePage.Entities.Header.Data.PlannedStartDateTime = "";
+            DowntimeRequestGeneralCtrl.ePage.Entities.Header.Data.PlannedEndDateTimeDate = "";
+            DowntimeRequestGeneralCtrl.ePage.Entities.Header.Data.ApplicationCurrentVersion = "";
+            DowntimeRequestGeneralCtrl.ePage.Entities.Header.Data.ApplicationReleaseVersion = "";
+            DowntimeRequestGeneralCtrl.ePage.Entities.Header.Data.SrqArea = null;
+        }
+
+        function UpdateData() {
 
         }
 
@@ -252,6 +360,7 @@
                     if (obj !== null) {
                         if (response.data.Response[0].Value != '') {
                             DowntimeRequestGeneralCtrl.ePage.Entities.Header.Data.AppObj = JSON.parse(response.data.Response[0].Value);
+                            DowntimeRequestGeneralCtrl.ePage.Entities.Header.Data.AppObj.strName = "Users Impacted";
                         }
                     }
                     else {
@@ -260,9 +369,10 @@
                             "ApplicationContactName": "",
                             "ApplicationContactEmail": "",
                             "BusinessContactName": "",
-                            "BusinessContactEmail": ""
+                            "BusinessContactEmail": "",
+                            "strName": ""
                         }
-                        DowntimeRequestGeneralCtrl.ePage.Masters.AppObj = JSONEmptyObj;
+                        DowntimeRequestGeneralCtrl.ePage.Entities.Header.Data.AppObj = JSONEmptyObj;
                     }
                 }
             });

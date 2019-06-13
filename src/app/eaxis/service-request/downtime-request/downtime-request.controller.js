@@ -20,10 +20,8 @@
                 "Entities": downtimeRequestConfig.Entities
             };
 
-            DowntimeRequestCtrl.ePage.Masters.dataentryName = "DowntimeRequest";
-            DowntimeRequestCtrl.ePage.Masters.taskName = "DowntimeRequest";
-            // DowntimeRequestCtrl.ePage.Masters.dataentryName = "ServiceRequest";
-            // DowntimeRequestCtrl.ePage.Masters.taskName = "ServiceRequest";
+            DowntimeRequestCtrl.ePage.Masters.dataentryName = "ServiceDowntimeRequest";
+            DowntimeRequestCtrl.ePage.Masters.taskName = "ServiceDowntimeRequest";
             DowntimeRequestCtrl.ePage.Masters.TabList = [];
             downtimeRequestConfig.TabList = [];
             DowntimeRequestCtrl.ePage.Masters.activeTabIndex = 0;

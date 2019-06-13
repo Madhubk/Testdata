@@ -1,60 +1,64 @@
-(function(){
+(function () {
     "use strict";
 
     angular
-         .module("Application")
-         .controller("DowntimeRequestController",DowntimeRequestController);
+        .module("Application")
+        .controller("MyRequestController", MyRequestController);
 
-    DowntimeRequestController.$inject = [ "helperService", "downtimeRequestConfig", "$timeout", "toastr"];
+    MyRequestController.$inject = ["helperService", "myRequestConfig", "$timeout", "toastr", "authService"];
 
-    function DowntimeRequestController( helperService, downtimeRequestConfig, $timeout, toastr){
+    function MyRequestController(helperService, myRequestConfig, $timeout, toastr, authService) {
 
-        var DowntimeRequestCtrl = this;
+        var MyRequestCtrl = this;
+
         function Init() {
             
-            DowntimeRequestCtrl.ePage = {
+            //var currentMyRequest = MyRequestCtrl.currentMyRequest[MyRequestCtrl.currentMyRequest.label].ePage.Entities;
+            
+            MyRequestCtrl.ePage = {
                 "Title": "",
-                "Prefix": "DowntimeRequest",
+                "Prefix": "MyRequest",
                 "Masters": {},
                 "Meta": helperService.metaBase(),
-                "Entities": downtimeRequestConfig.Entities
+                "Entities": myRequestConfig.Entities
             };
 
-            DowntimeRequestCtrl.ePage.Masters.dataentryName = "DowntimeRequest";
-            DowntimeRequestCtrl.ePage.Masters.taskName = "DowntimeRequest";
-            // DowntimeRequestCtrl.ePage.Masters.dataentryName = "ServiceRequest";
-            // DowntimeRequestCtrl.ePage.Masters.taskName = "ServiceRequest";
-            DowntimeRequestCtrl.ePage.Masters.TabList = [];
-            downtimeRequestConfig.TabList = [];
-            DowntimeRequestCtrl.ePage.Masters.activeTabIndex = 0;
-            DowntimeRequestCtrl.ePage.Masters.isNewClicked = false;
-            DowntimeRequestCtrl.ePage.Masters.IsTabClick = false;
+            MyRequestCtrl.ePage.Masters.dataentryName = "ServiceRequest";
+            MyRequestCtrl.ePage.Masters.taskName = "ServiceRequest";
+            MyRequestCtrl.ePage.Masters.TabList = [];
+            myRequestConfig.TabList = [];
+            MyRequestCtrl.ePage.Masters.activeTabIndex = 0;
+            MyRequestCtrl.ePage.Masters.isNewClicked = false;
+            MyRequestCtrl.ePage.Masters.IsTabClick = false;
+            MyRequestCtrl.ePage.Masters.DefaultFilter = {
+                "CreatedBy" : authService.getUserInfo().UserId
+            }
 
             //functions
-            DowntimeRequestCtrl.ePage.Masters.SelectedGridRow = SelectedGridRow;
-            DowntimeRequestCtrl.ePage.Masters.AddTab = AddTab;
-            DowntimeRequestCtrl.ePage.Masters.CurrentActiveTab = CurrentActiveTab;
-            DowntimeRequestCtrl.ePage.Masters.RemoveTab = RemoveTab;
-            DowntimeRequestCtrl.ePage.Masters.CreateNewDowntimeRequest = CreateNewDowntimeRequest;
-            DowntimeRequestCtrl.ePage.Masters.Config = downtimeRequestConfig;
-            
+            MyRequestCtrl.ePage.Masters.SelectedGridRow = SelectedGridRow;
+            MyRequestCtrl.ePage.Masters.AddTab = AddTab;
+            MyRequestCtrl.ePage.Masters.CurrentActiveTab = CurrentActiveTab;
+            MyRequestCtrl.ePage.Masters.RemoveTab = RemoveTab;
+            MyRequestCtrl.ePage.Masters.CreateNewMyRequest = CreateNewMyRequest;
+            MyRequestCtrl.ePage.Masters.Config = myRequestConfig;
+
 
         }
 
-        function SelectedGridRow($item) {   
+        function SelectedGridRow($item) {
             if ($item.action === "link" || $item.action === "dblClick") {
-                DowntimeRequestCtrl.ePage.Masters.AddTab($item.data, false);
-            }else if ($item.action === "new") {
-                CreateNewDowntimeRequest();
+                MyRequestCtrl.ePage.Masters.AddTab($item.data, false);
+            } else if ($item.action === "new") {
+                CreateNewMyRequest();
             }
         }
-            
-        function AddTab(currentDowntimeRequest, isNew) {
-            DowntimeRequestCtrl.ePage.Masters.currentDowntimeRequest = undefined;
 
-            var _isExist = DowntimeRequestCtrl.ePage.Masters.TabList.some(function (value) {
+        function AddTab(currentMyRequest, isNew) {
+            MyRequestCtrl.ePage.Masters.currentMyRequest = undefined;
+
+            var _isExist = MyRequestCtrl.ePage.Masters.TabList.some(function (value) {
                 if (!isNew) {
-                    if (value.label === currentDowntimeRequest.entity.WorkOrderID)
+                    if (value.label === currentMyRequest.entity.RequestNo)
                         return true;
                     else
                         return false;
@@ -65,29 +69,29 @@
                         return false;
                 }
             });
-            
+
             if (!_isExist) {
-                DowntimeRequestCtrl.ePage.Masters.IsTabClick = true;
-                var _currentDowntimeRequest = undefined;
+                MyRequestCtrl.ePage.Masters.IsTabClick = true;
+                var _currentMyRequest = undefined;
                 if (!isNew) {
-                    _currentDowntimeRequest = currentDowntimeRequest.entity;
+                    _currentMyRequest = currentMyRequest.entity;
                 } else {
-                    _currentDowntimeRequest = currentDowntimeRequest;
+                    _currentMyRequest = currentMyRequest;
                 }
 
-                downtimeRequestConfig.GetTabDetails(_currentDowntimeRequest, isNew).then(function (response) {
-                    DowntimeRequestCtrl.ePage.Masters.TabList = response;
+                myRequestConfig.GetTabDetails(_currentMyRequest, isNew).then(function (response) {
+                    MyRequestCtrl.ePage.Masters.TabList = response;
                     $timeout(function () {
-                        DowntimeRequestCtrl.ePage.Masters.activeTabIndex = DowntimeRequestCtrl.ePage.Masters.TabList.length;
-                        DowntimeRequestCtrl.ePage.Masters.CurrentActiveTab(currentDowntimeRequest.entity.WorkOrderID);
-                        DowntimeRequestCtrl.ePage.Masters.IsTabClick = false;
+                        MyRequestCtrl.ePage.Masters.activeTabIndex = MyRequestCtrl.ePage.Masters.TabList.length;
+                        MyRequestCtrl.ePage.Masters.CurrentActiveTab(currentMyRequest.entity.RequestNo);
+                        MyRequestCtrl.ePage.Masters.IsTabClick = false;
                     });
                 });
             } else {
-                toastr.info('Downtime Request already opened ');
+                toastr.info('My Request already opened ');
             }
         }
-            
+
         function CurrentActiveTab(currentTab) {
 
             if (currentTab.label != undefined) {
@@ -95,46 +99,46 @@
             } else {
                 currentTab = currentTab;
             }
-            DowntimeRequestCtrl.ePage.Masters.currentDowntimeRequest = currentTab;
+            MyRequestCtrl.ePage.Masters.currentMyRequest = currentTab;
         }
 
-            
-        function RemoveTab(event, index, currentDowntimeRequest) {
+
+        function RemoveTab(event, index, currentMyRequest) {
             event.preventDefault();
             event.stopPropagation();
-            var currentDowntimeRequest = currentDowntimeRequest[currentDowntimeRequest.label].ePage.Entities;
-            DowntimeRequestCtrl.ePage.Masters.TabList.splice(index, 1);
+            var currentMyRequest = currentMyRequest[currentMyRequest.label].ePage.Entities;
+            MyRequestCtrl.ePage.Masters.TabList.splice(index, 1);
         }
-            
-            
-        function CreateNewDowntimeRequest() {
-            var _isExist = DowntimeRequestCtrl.ePage.Masters.TabList.some(function (value) {
+
+
+        function CreateNewMyRequest() {
+            var _isExist = MyRequestCtrl.ePage.Masters.TabList.some(function (value) {
                 if (value.label === "New")
                     return true;
                 else
                     return false;
             });
-            if(!_isExist){
-                DowntimeRequestCtrl.ePage.Masters.isNewClicked = true;
-                helperService.getFullObjectUsingGetById(DowntimeRequestCtrl.ePage.Entities.Header.API.GetByID.Url, 'null').then(function (response) {
+            if (!_isExist) {
+                MyRequestCtrl.ePage.Masters.isNewClicked = true;
+                helperService.getFullObjectUsingGetById(MyRequestCtrl.ePage.Entities.Header.API.GetByID.Url, 'null').then(function (response) {
                     if (response.data.Response) {
                         var _obj = {
-                            entity: response.data.Response.Response.UIDowntimeRequestHeader,
+                            entity: response.data.Response.Response.UIMyRequestHeader,
                             data: response.data.Response.Response,
-                            Validations:response.data.Response.Validations
+                            Validations: response.data.Response.Validations
                         };
-                        DowntimeRequestCtrl.ePage.Masters.AddTab(_obj, true);
-                        DowntimeRequestCtrl.ePage.Masters.isNewClicked = false;
+                        MyRequestCtrl.ePage.Masters.AddTab(_obj, true);
+                        MyRequestCtrl.ePage.Masters.isNewClicked = false;
                     } else {
-                        console.log("Empty New Downtime Request response");
+                        console.log("Empty New My Request response");
                     }
                 });
-            }else{
+            } else {
                 toastr.info("New Record Already Opened...!");
             }
         }
-            
-      
+
+
 
         Init();
 

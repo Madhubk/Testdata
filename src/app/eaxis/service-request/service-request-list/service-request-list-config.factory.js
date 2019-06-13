@@ -3,11 +3,11 @@
 
     angular
         .module("Application")
-        .factory("myRequestConfig", MyRequestConfig);
+        .factory("serviceRequestListConfig", ServiceRequestListConfig);
 
-    MyRequestConfig.$inject = ["$location", "$q", "helperService", "apiService", "appConfig"];
+    ServiceRequestListConfig.$inject = ["$location", "$q", "helperService", "apiService", "appConfig"];
 
-    function MyRequestConfig($location, $q, helperService, apiService, appConfig) {
+    function ServiceRequestListConfig($location, $q, helperService, apiService, appConfig) {
         var exports = {
             "Entities": {
                 "Header": {
@@ -21,22 +21,22 @@
                         "EmptyGetByID": {
                             "IsAPI": "true",
                             "HttpType": "GET",
-                            "Url": "SerMyRequestList/GetById/null"
+                            "Url": "SerServiceRequestList/GetById/null"
                         },
                         "TimeZone": {
                             "IsAPI": "true",
                             "HttpType": "GET",
                             "Url": "SerCommon/GetTimeZone"
                         },
-                        "InsertMyRequest": {
+                        "InsertServiceRequestList": {
                             "IsAPI": "true",
                             "HttpType": "POST",
-                            "Url": "SerMyRequestList/Insert"
+                            "Url": "SerServiceRequestList/Insert"
                         },
-                        "UpdateMyRequest": {
+                        "UpdateServiceRequestList": {
                             "IsAPI": "true",
                             "HttpType": "POST",
-                            "Url": "SerMyRequestList/Update"
+                            "Url": "SerServiceRequestList/Update"
                         }
                     },
                     "Meta": {
@@ -96,7 +96,7 @@
         };
         return exports;
 
-        function GetTabDetails(currentMyRequest, isNew) {
+        function GetTabDetails(currentServiceRequestList, isNew) {
             var deferred = $q.defer();
             var _exports = {
                 "Entities": {
@@ -104,15 +104,15 @@
                         "Data": {},
                         "RowIndex": -1,
                         "API": {
-                            "InsertMyRequest": {
+                            "InsertServiceRequestList": {
                                 "IsAPI": "true",
                                 "HttpType": "POST",
-                                "Url": "SerMyRequestList/Insert"
+                                "Url": "SerServiceRequestList/Insert"
                             },
-                            "UpdateMyRequest": {
+                            "UpdateServiceRequestList": {
                                 "IsAPI": "true",
                                 "HttpType": "POST",
-                                "Url": "SerMyRequestList/Update"
+                                "Url": "SerServiceRequestList/Update"
                             }
                         },
                         "Meta": {
@@ -126,14 +126,14 @@
                 }
             }
             if (isNew) {
-                _exports.Entities.Header.Data = currentMyRequest.data;
+                _exports.Entities.Header.Data = currentServiceRequestList.data;
 
                 var _obj = {
                     New: {
                         ePage: _exports
                     },
                     label: 'New',
-                    code: currentMyRequest.entity.RequestNo,
+                    code: currentServiceRequestList.entity.RequestNo,
                     isNew: isNew
                 };
                 exports.TabList.push(_obj);
@@ -141,17 +141,17 @@
             }
             else {
                 // Get  details and set to configuration list
-                apiService.get("eAxisAPI", exports.Entities.Header.API.GetByID.Url + currentMyRequest.PK).then(function (response) {
+                apiService.get("eAxisAPI", exports.Entities.Header.API.GetByID.Url + currentServiceRequestList.PK).then(function (response) {
 
                     _exports.Entities.Header.Data = response.data.Response;
                     _exports.Entities.Header.Validations = response.data.Validations;
 
                     var obj = {
-                        [currentMyRequest.RequestNo]: {
+                        [currentServiceRequestList.RequestNo]: {
                             ePage: _exports
                         },
-                        label: currentMyRequest.RequestNo,
-                        code: currentMyRequest.RequestNo,
+                        label: currentServiceRequestList.RequestNo,
+                        code: currentServiceRequestList.RequestNo,
                         isNew: isNew
                     };
                     exports.TabList.push(obj);
@@ -166,13 +166,13 @@
             _input = _Data.Header.Data;
 
             //General Validations
-            OnChangeValues(_input.SrqMyRequest.MyRequestCode,'E4001',false,undefined,$item.label);
-            OnChangeValues(_input.SrqMyRequest.MyRequestName,'E4002',false,undefined,$item.label);
-            OnChangeValues(_input.SrqMyRequest.MyRequestType,'E4003',false,undefined,$item.label);
-            OnChangeValues(_input.SrqMyRequest.BRN_Code,'E4004',false,undefined,$item.label);
-            OnChangeValues(_input.SrqMyRequest.BRN_BranchName,'E4005',false,undefined,$item.label);
-            OnChangeValues(_input.SrqMyRequest.CountryCode,'E4006',false,undefined,$item.label);
-            OnChangeValues(_input.SrqMyRequest.Organization,'E4007',false,undefined,$item.label);
+            OnChangeValues(_input.SrqServiceRequestList.ServiceRequestListCode,'E4001',false,undefined,$item.label);
+            OnChangeValues(_input.SrqServiceRequestList.ServiceRequestListName,'E4002',false,undefined,$item.label);
+            OnChangeValues(_input.SrqServiceRequestList.ServiceRequestListType,'E4003',false,undefined,$item.label);
+            OnChangeValues(_input.SrqServiceRequestList.BRN_Code,'E4004',false,undefined,$item.label);
+            OnChangeValues(_input.SrqServiceRequestList.BRN_BranchName,'E4005',false,undefined,$item.label);
+            OnChangeValues(_input.SrqServiceRequestList.CountryCode,'E4006',false,undefined,$item.label);
+            OnChangeValues(_input.SrqServiceRequestList.Organization,'E4007',false,undefined,$item.label);
 
             //Areas Validation
             if(_input.SrqArea.length>0){

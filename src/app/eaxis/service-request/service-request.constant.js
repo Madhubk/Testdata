@@ -41,7 +41,75 @@
                 'app/eaxis/service-request/downtime-request/downtime-request-general/downtime-request-general.directive.js'
             ]
         },
-        // endregion        
+        // endregion 
+
+        // --------------------- My Request -----------------------
+        // region
+        {
+            name: 'myRequest',
+            files: [
+                'app/eaxis/service-request/my-request/my-request.css',
+                'app/eaxis/service-request/my-request/my-request.controller.js',
+                'app/eaxis/service-request/my-request/my-request-config.factory.js'
+            ]
+        },{
+            name: 'myRequestReadOnly',
+            files: [
+                'app/eaxis/service-request/my-request/my-request-read-only/my-request-read-only.css',
+                'app/eaxis/service-request/my-request/my-request-read-only/my-request-read-only.controller.js',
+                'app/eaxis/service-request/my-request/my-request-read-only/my-request-read-only.directive.js'
+            ]
+        }, 
+        // endregion    
+        
+        // --------------------- Service Request -----------------------
+        // region
+        {
+            name: 'serviceRequestList',
+            files: [
+                'app/eaxis/service-request/service-request-list/service-request-list.css',
+                'app/eaxis/service-request/service-request-list/service-request-list.controller.js',
+                'app/eaxis/service-request/service-request-list/service-request-list-config.factory.js'
+            ]
+        },{
+            name: 'serviceRequestListReadOnly',
+            files: [
+                'app/eaxis/service-request/service-request-list/service-request-list-read-only/service-request-list-read-only.css',
+                'app/eaxis/service-request/service-request-list/service-request-list-read-only/service-request-list-read-only.controller.js',
+                'app/eaxis/service-request/service-request-list/service-request-list-read-only/service-request-list-read-only.directive.js'
+            ]
+        },  
+        // endregion 
+
+        // --------------------- My Task -----------------------
+        // region
+        {
+            name: 'downtimeApproval',
+            files: [
+                'app/eaxis/service-request/shared/my-task/my-task-directive/downtime-approval/downtime-approval.css',
+                'app/eaxis/service-request/shared/my-task/my-task-directive/downtime-approval/downtime-approval.controller.js',
+                'app/eaxis/service-request/shared/my-task/my-task-directive/downtime-approval/downtime-approval.directive.js'
+            ]
+        },{
+            name: 'downtimeApprovalEdit',
+            files: [
+                'app/eaxis/service-request/shared/my-task/my-task-directive/downtime-approval/downtime-approval-edit/downtime-approval-edit.css',
+                'app/eaxis/service-request/shared/my-task/my-task-directive/downtime-approval/downtime-approval-edit/downtime-approval-edit.controller.js',
+                'app/eaxis/service-request/shared/my-task/my-task-directive/downtime-approval/downtime-approval-edit/downtime-approval-edit.directive.js'
+            ]
+        },
+        // endregion 
+        
+        // --------------------- General Module -----------------------
+        // region
+        {
+            name: 'serviceRequestReports',
+            files: [
+                'app/eaxis/service-request/general-module/service-request-report/service-request-report.controller.js',
+                'app/eaxis/service-request/general-module/service-request-report/service-request-report.css'
+            ]
+        }
+        // endregion
         ]
     };
 
