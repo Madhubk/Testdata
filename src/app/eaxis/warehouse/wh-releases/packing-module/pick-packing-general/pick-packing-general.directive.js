@@ -10,7 +10,7 @@
     function PackingGeneral(){
         var exports = {
             restrict: "EA",
-            templateUrl: "app/eaxis/warehouse/pick/packing-module/pick-packing-general/pick-packing-general.html",
+            templateUrl: "app/eaxis/warehouse/wh-releases/packing-module/pick-packing-general/pick-packing-general.html",
             link: Link,
             controller: "PackingGeneralController",
             controllerAs: "PackingGeneralCtrl",

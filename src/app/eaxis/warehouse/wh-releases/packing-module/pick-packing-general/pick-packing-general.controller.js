@@ -40,6 +40,8 @@
             PackingGeneralCtrl.ePage.Masters.ReleaseQuantityModel = ReleaseQuantityModel;
             PackingGeneralCtrl.ePage.Masters.SaveReleaseQuantity = SaveReleaseQuantity;
             PackingGeneralCtrl.ePage.Masters.CloseEditActivityModal = CloseEditActivityModal;
+            PackingGeneralCtrl.ePage.Masters.GetPickReleaseLine = GetPickReleaseLine;
+
 
             // PackingGeneralCtrl.ePage.Masters.ReleaseLineList = {};
             // PackingGeneralCtrl.ePage.Masters.PackageItemList = [];
@@ -138,6 +140,7 @@
                 PackingGeneralCtrl.ePage.Masters.Loading = false;
                 if (response.data.Response) {
                     PackingGeneralCtrl.ePage.Masters.PickReleaseLine = response.data.Response;
+                    PackingGeneralCtrl.ePage.Masters.Config.ItemDeleted = false;
                 }
             });
         }
@@ -189,7 +192,7 @@
                 windowClass: "small-popup",
                 scope: $scope,
                 size: "md",
-                templateUrl: "app/eaxis/warehouse/pick/packing-module/pick-packing-general/pack-quantity.html"
+                templateUrl: "app/eaxis/warehouse/wh-releases/packing-module/pick-packing-general/pack-quantity.html"
             });
         }
 
@@ -225,7 +228,7 @@
                         "IsDeleted": false,
                         "IsNewInsert": true
                     }
-                    
+
                     Save(obj);
                 }
             } else {

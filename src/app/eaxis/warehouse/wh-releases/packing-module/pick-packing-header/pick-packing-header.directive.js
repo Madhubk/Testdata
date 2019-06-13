@@ -10,7 +10,7 @@
     function PackingHeader(){
         var exports = {
             restrict: "EA",
-            templateUrl: "app/eaxis/warehouse/pick/packing-module/pick-packing-header/pick-packing-header.html",
+            templateUrl: "app/eaxis/warehouse/wh-releases/packing-module/pick-packing-header/pick-packing-header.html",
             link: Link,
             controller: "PackingHeaderController",
             controllerAs: "PackingHeaderCtrl",

@@ -272,25 +272,25 @@
         {
             name: 'packingGeneral',
             files: [
-                'app/eaxis/warehouse/pick/packing-module/pick-packing-general/pick-packing-general.controller.js',
-                'app/eaxis/warehouse/pick/packing-module/pick-packing-general/pick-packing-general.directive.js',
-                'app/eaxis/warehouse/pick/packing-module/pick-packing-general/pick-packing-general.css'
+                'app/eaxis/warehouse/wh-releases/packing-module/pick-packing-general/pick-packing-general.controller.js',
+                'app/eaxis/warehouse/wh-releases/packing-module/pick-packing-general/pick-packing-general.directive.js',
+                'app/eaxis/warehouse/wh-releases/packing-module/pick-packing-general/pick-packing-general.css'
             ]
         },
         {
             name: 'pickPacking',
             files: [
-                'app/eaxis/warehouse/pick/packing-module/pick-packing-tree/pick-packing.controller.js',
-                'app/eaxis/warehouse/pick/packing-module/pick-packing-tree/pick-packing.directive.js',
-                'app/eaxis/warehouse/pick/packing-module/pick-packing-tree/pick-packing.css'
+                'app/eaxis/warehouse/wh-releases/packing-module/pick-packing-tree/pick-packing.controller.js',
+                'app/eaxis/warehouse/wh-releases/packing-module/pick-packing-tree/pick-packing.directive.js',
+                'app/eaxis/warehouse/wh-releases/packing-module/pick-packing-tree/pick-packing.css'
             ]
         },
         {
             name: 'packingHeader',
             files: [
-                'app/eaxis/warehouse/pick/packing-module/pick-packing-header/pick-packing-header.controller.js',
-                'app/eaxis/warehouse/pick/packing-module/pick-packing-header/pick-packing-header.directive.js',
-                'app/eaxis/warehouse/pick/packing-module/pick-packing-header/pick-packing-header.css'
+                'app/eaxis/warehouse/wh-releases/packing-module/pick-packing-header/pick-packing-header.controller.js',
+                'app/eaxis/warehouse/wh-releases/packing-module/pick-packing-header/pick-packing-header.directive.js',
+                'app/eaxis/warehouse/wh-releases/packing-module/pick-packing-header/pick-packing-header.css'
             ]
         },
         // endregion

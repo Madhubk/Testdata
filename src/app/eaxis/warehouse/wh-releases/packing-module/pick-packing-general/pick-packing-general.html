@@ -1,4 +1,6 @@
 <div class="col-lg-12 col-sm-12 col-xs-12 p-0">
+    <div ng-if="PackingGeneralCtrl.ePage.Masters.Config.ItemDeleted == true" ng-init='PackingGeneralCtrl.ePage.Masters.GetPickReleaseLine()'>
+    </div>
     <div class="col-lg-6 col-sm-6 col-xs-6 p-0 border-class">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 custompadding">
             <span ng-if="PackingGeneralCtrl.ePage.Masters.EnablePackageHeader == false">
@@ -157,34 +159,26 @@
                                 data-ng-if="PackingGeneralCtrl.ePage.Entities.Header.TableProperties.PackingOutwardLines.lproductdescription.isenabled"
                                 ng-style="{ 'width': PackingGeneralCtrl.ePage.Entities.Header.TableProperties.PackingOutwardLines.lproductdescription.width + 'px' }"
                                 title="Product Description">Product Description</th>
+                                <th id="lpackunits"
+                                data-ng-if="PackingGeneralCtrl.ePage.Entities.Header.TableProperties.PackingOutwardLines.lpackunits.isenabled"
+                                ng-style="{ 'width': PackingGeneralCtrl.ePage.Entities.Header.TableProperties.PackingOutwardLines.lpackunits.width + 'px' }"
+                                title="Packed Quantity">Packed Quantity</th>
                             <th id="lunits"
                                 data-ng-if="PackingGeneralCtrl.ePage.Entities.Header.TableProperties.PackingOutwardLines.lunits.isenabled"
                                 ng-style="{ 'width': PackingGeneralCtrl.ePage.Entities.Header.TableProperties.PackingOutwardLines.lunits.width + 'px' }"
-                                title="Units">Units</th>
+                                title="UnPacked Quantity">UnPacked Quantity</th>
                             <th id="lpartattrib1"
                                 data-ng-if="PackingGeneralCtrl.ePage.Entities.Header.TableProperties.PackingOutwardLines.lpartattrib1.isenabled"
                                 ng-style="{ 'width': PackingGeneralCtrl.ePage.Entities.Header.TableProperties.PackingOutwardLines.lpartattrib1.width + 'px' }"
-                                title="PartAttrib1">PartAttrib1</th>
+                                title="UDF1">UDF1</th>
                             <th id="lpartattrib2"
                                 data-ng-if="PackingGeneralCtrl.ePage.Entities.Header.TableProperties.PackingOutwardLines.lpartattrib2.isenabled"
                                 ng-style="{ 'width': PackingGeneralCtrl.ePage.Entities.Header.TableProperties.PackingOutwardLines.lpartattrib2.width + 'px' }"
-                                title="PartAttrib2">PartAttrib2</th>
+                                title="UDF2">UDF2</th>
                             <th id="lpartattrib3"
                                 data-ng-if="PackingGeneralCtrl.ePage.Entities.Header.TableProperties.PackingOutwardLines.lpartattrib3.isenabled"
                                 ng-style="{ 'width': PackingGeneralCtrl.ePage.Entities.Header.TableProperties.PackingOutwardLines.lpartattrib3.width + 'px' }"
-                                title="PartAttrib3">PartAttrib3</th>
-                            <th id="lproductcondition"
-                                data-ng-if="PackingGeneralCtrl.ePage.Entities.Header.TableProperties.PackingOutwardLines.lproductcondition.isenabled"
-                                ng-style="{ 'width': PackingGeneralCtrl.ePage.Entities.Header.TableProperties.PackingOutwardLines.lproductcondition.width + 'px' }"
-                                title="Product Condition">Product Condition</th>
-                            <th id="loutwardno"
-                                data-ng-if="PackingGeneralCtrl.ePage.Entities.Header.TableProperties.PackingOutwardLines.loutwardno.isenabled"
-                                ng-style="{ 'width': PackingGeneralCtrl.ePage.Entities.Header.TableProperties.PackingOutwardLines.loutwardno.width + 'px' }"
-                                title="Outward Number">Outward No</th>
-                            <th id="loutwardstatus"
-                                data-ng-if="PackingGeneralCtrl.ePage.Entities.Header.TableProperties.PackingOutwardLines.loutwardstatus.isenabled"
-                                ng-style="{ 'width': PackingGeneralCtrl.ePage.Entities.Header.TableProperties.PackingOutwardLines.loutwardstatus.width + 'px' }"
-                                title="Outward Status">Outward Status</th>
+                                title="UDF3">UDF3</th>
                             <th id="lpackingdate"
                                 data-ng-if="PackingGeneralCtrl.ePage.Entities.Header.TableProperties.PackingOutwardLines.lpackingdate.isenabled"
                                 ng-style="{ 'width': PackingGeneralCtrl.ePage.Entities.Header.TableProperties.PackingOutwardLines.lpackingdate.width + 'px' }"
@@ -193,19 +187,6 @@
                                 data-ng-if="PackingGeneralCtrl.ePage.Entities.Header.TableProperties.PackingOutwardLines.lexpirydate.isenabled"
                                 ng-style="{ 'width': PackingGeneralCtrl.ePage.Entities.Header.TableProperties.PackingOutwardLines.lexpirydate.width + 'px' }"
                                 title="Expiry Date">Expiry Date</th>
-                            <th id="lclientcode"
-                                data-ng-if="PackingGeneralCtrl.ePage.Entities.Header.TableProperties.PackingOutwardLines.lclientcode.isenabled"
-                                ng-style="{ 'width': PackingGeneralCtrl.ePage.Entities.Header.TableProperties.PackingOutwardLines.lclientcode.width + 'px' }"
-                                title="Client Code">Client Code</th>
-                            <th id="lclientname"
-                                data-ng-if="PackingGeneralCtrl.ePage.Entities.Header.TableProperties.PackingOutwardLines.lclientname.isenabled"
-                                ng-style="{ 'width': PackingGeneralCtrl.ePage.Entities.Header.TableProperties.PackingOutwardLines.lclientname.width + 'px' }"
-                                title="Client Name">Client Name</th>
-                            <th id="lweight"
-                                data-ng-if="PackingGeneralCtrl.ePage.Entities.Header.TableProperties.PackingOutwardLines.lweight.isenabled"
-                                ng-style="{ 'width': PackingGeneralCtrl.ePage.Entities.Header.TableProperties.PackingOutwardLines.lweight.width + 'px' }"
-                                title="Weight">Weight</th>
-
                         </tr>
                     </thead>
                     <tbody id="GeneralCustTable{{PackingGeneralCtrl.currentPick.label}}">
@@ -233,6 +214,11 @@
                                 class="overflow-text">
                                 {{ x.ProductDescription|| PackingGeneralCtrl.ePage.Masters.emptyText}}
                             </td>
+                            <td id="lpackunits"
+                                data-ng-show='PackingGeneralCtrl.ePage.Entities.Header.TableProperties.PackingOutwardLines.lpackunits.isenabled'
+                                ng-style="{ 'width': PackingGeneralCtrl.ePage.Entities.Header.TableProperties.PackingOutwardLines.lpackunits.width + 'px' }"
+                                class="overflow-text">
+                                {{x.TotalQty|| PackingGeneralCtrl.ePage.Masters.emptyText}}</td>
                             <td id="lunits"
                                 data-ng-show='PackingGeneralCtrl.ePage.Entities.Header.TableProperties.PackingOutwardLines.lunits.isenabled'
                                 ng-style="{ 'width': PackingGeneralCtrl.ePage.Entities.Header.TableProperties.PackingOutwardLines.lunits.width + 'px' }"
@@ -253,22 +239,6 @@
                                 ng-style="{ 'width': PackingGeneralCtrl.ePage.Entities.Header.TableProperties.PackingOutwardLines.lpartattrib3.width + 'px' }"
                                 class="overflow-text">
                                 {{x.PartAttrib3|| PackingGeneralCtrl.ePage.Masters.emptyText}}</td>
-                            <td id="lproductcondition"
-                                data-ng-show='PackingGeneralCtrl.ePage.Entities.Header.TableProperties.PackingOutwardLines.lproductcondition.isenabled'
-                                ng-style="{ 'width': PackingGeneralCtrl.ePage.Entities.Header.TableProperties.PackingOutwardLines.lproductcondition.width + 'px' }"
-                                class="overflow-text">
-                                {{ x.ProductCondition|| PackingGeneralCtrl.ePage.Masters.emptyText}}
-                            </td>
-                            <td id="loutwardno"
-                                data-ng-show='PackingGeneralCtrl.ePage.Entities.Header.TableProperties.PackingOutwardLines.loutwardno.isenabled'
-                                ng-style="{ 'width': PackingGeneralCtrl.ePage.Entities.Header.TableProperties.PackingOutwardLines.loutwardno.width + 'px' }"
-                                class="overflow-text">{{x.WorkOrderID || PackingGeneralCtrl.ePage.Masters.emptyText}}
-                            </td>
-                            <td id="loutwardstatus"
-                                data-ng-show='PackingGeneralCtrl.ePage.Entities.Header.TableProperties.PackingOutwardLines.loutwardstatus.isenabled'
-                                ng-style="{ 'width': PackingGeneralCtrl.ePage.Entities.Header.TableProperties.PackingOutwardLines.loutwardstatus.width + 'px' }"
-                                class="overflow-text">
-                                {{x.WorkOrderLineStatus|| PackingGeneralCtrl.ePage.Masters.emptyText}}</td>
                             <td id="lpackingdate"
                                 data-ng-show='PackingGeneralCtrl.ePage.Entities.Header.TableProperties.PackingOutwardLines.lpackingdate.isenabled'
                                 ng-style="{ 'width': PackingGeneralCtrl.ePage.Entities.Header.TableProperties.PackingOutwardLines.lpackingdate.width + 'px' }"
@@ -280,21 +250,6 @@
                                 ng-style="{ 'width': PackingGeneralCtrl.ePage.Entities.Header.TableProperties.PackingOutwardLines.lexpirydate.width + 'px' }"
                                 class="overflow-text">
                                 {{x.ExpiryDate || PackingGeneralCtrl.ePage.Masters.emptyText | dateFormat}}</td>
-                            <td id="lclientcode"
-                                data-ng-show='PackingGeneralCtrl.ePage.Entities.Header.TableProperties.PackingOutwardLines.lclientcode.isenabled'
-                                ng-style="{ 'width': PackingGeneralCtrl.ePage.Entities.Header.TableProperties.PackingOutwardLines.lclientcode.width + 'px' }"
-                                class="overflow-text">
-                                {{x.ClientCode|| PackingGeneralCtrl.ePage.Masters.emptyText}}</td>
-                            <td id="lclientname"
-                                data-ng-show='PackingGeneralCtrl.ePage.Entities.Header.TableProperties.PackingOutwardLines.lclientname.isenabled'
-                                ng-style="{ 'width': PackingGeneralCtrl.ePage.Entities.Header.TableProperties.PackingOutwardLines.lclientname.width + 'px' }"
-                                class="overflow-text">
-                                {{x.ClientName|| PackingGeneralCtrl.ePage.Masters.emptyText}}</td>
-                            <td id="lweight"
-                                data-ng-show='PackingGeneralCtrl.ePage.Entities.Header.TableProperties.PackingOutwardLines.lweight.isenabled'
-                                ng-style="{ 'width': PackingGeneralCtrl.ePage.Entities.Header.TableProperties.PackingOutwardLines.lweight.width + 'px' }"
-                                class="overflow-text">
-                                {{x.Weight|| PackingGeneralCtrl.ePage.Masters.emptyText}}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -312,6 +267,7 @@
             <pick-packing current-pick="PackingGeneralCtrl.currentPick" current-outward="PackingGeneralCtrl.ePage.Masters.SelectedOutward"></pick-packing>
         </div>
     </div> -->
+
     <div class="col-lg-6 col-sm-6 col-xs-6 p-0 border-class">
         <div data-ng-if="PackingGeneralCtrl.ePage.Masters.EnablePackageHeader">
             <packing-header current-pick="PackingGeneralCtrl.currentPick"

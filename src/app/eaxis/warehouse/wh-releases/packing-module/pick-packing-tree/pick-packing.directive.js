@@ -10,7 +10,7 @@
     function PickPacking(){
         var exports = {
             restrict: "EA",
-            templateUrl: "app/eaxis/warehouse/pick/packing-module/pick-packing-tree/pick-packing.html",
+            templateUrl: "app/eaxis/warehouse/wh-releases/packing-module/pick-packing-tree/pick-packing.html",
             link: Link,
             controller: "PickPackingController",
             controllerAs: "PickPackingCtrl",

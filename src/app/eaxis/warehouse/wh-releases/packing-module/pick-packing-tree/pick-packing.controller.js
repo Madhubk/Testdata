@@ -39,17 +39,17 @@
       PickPackingCtrl.ePage.Masters.List = [];
 
       // to change the Normal json to Tree Json for package function call for GetByID Obj
-      if (PickPackingCtrl.ePage.Masters.HeaderDetails.lstUIPackage.length > 0) {
+      if (PickPackingCtrl.ePage.Masters.Config.PackageListDetails.lstUIPackage.length > 0) {
         PickPackingCtrl.ePage.Masters.Loading = false;
         PickPackingCtrl.ePage.Masters.EnablePackTree = true;
         PickPackingCtrl.ePage.Masters.SaveBtnEnable = true;
-        ReverseJson(PickPackingCtrl.ePage.Masters.HeaderDetails.lstUIPackage);
+        ReverseJson(PickPackingCtrl.ePage.Masters.Config.PackageListDetails.lstUIPackage);
 
         // Default seleted package
         PickPackingCtrl.ePage.Masters.tree[0].IsSelectedValue = true;
         PickPackingCtrl.ePage.Masters.Config.SelectedPackage = PickPackingCtrl.ePage.Masters.tree[0];
         PickPackingCtrl.ePage.Masters.SelectthePack = SelectthePack;
-
+        PickPackingCtrl.ePage.Masters.Config.ItemDeleted = false;
       } else {
         PickPackingCtrl.ePage.Masters.EnablePackTree = false;
         PickPackingCtrl.ePage.Masters.tree = [];
@@ -64,9 +64,11 @@
       PickPackingCtrl.ePage.Masters.EditPackType = EditPackType;
       GetDropDownList();
       PickPackingCtrl.ePage.Masters.DeleteList = [];
+      PickPackingCtrl.ePage.Masters.ItemDelete = ItemDelete;
+      PickPackingCtrl.ePage.Masters.DeleteObj = [];
     }
 
-    //#region 
+    //#region selected package value 
     function SelectthePack(item, index) {
       angular.forEach(PickPackingCtrl.ePage.Masters.tree, function (val, key) {
         val.IsSelectedValue = false;
@@ -181,7 +183,7 @@
         windowClass: "success-popup",
         scope: $scope,
         size: "md",
-        templateUrl: "app/eaxis/warehouse/pick/packing-module/pick-packing-tree/pack-type.html"
+        templateUrl: "app/eaxis/warehouse/wh-releases/packing-module/pick-packing-tree/pack-type.html"
       });
     }
 
@@ -280,7 +282,7 @@
         "IsCheckedWeighedCubed": "",
         "IsDamaged": "",
         "IsHeld": "",
-        "PackageHeaderFK": PickPackingCtrl.ePage.Masters.HeaderDetails.UIPackageHeader.PK,
+        "PackageHeaderFK": PickPackingCtrl.ePage.Masters.Config.PackageListDetails.UIPackageHeader.PK,
         "IsModified": false,
         "IsDeleted": false,
         "IsNewInsert": true
@@ -351,7 +353,7 @@
         "IsCheckedWeighedCubed": "",
         "IsDamaged": "",
         "IsHeld": "",
-        "PackageHeaderFK": PickPackingCtrl.ePage.Masters.HeaderDetails.UIPackageHeader.PK,
+        "PackageHeaderFK": PickPackingCtrl.ePage.Masters.Config.PackageListDetails.UIPackageHeader.PK,
         "IsModified": false,
         "IsDeleted": false,
         "IsNewInsert": true
@@ -364,20 +366,26 @@
 
       console.log(PickPackingCtrl.ePage.Masters.tree);
     }
+    //#endregion
 
-    // Delete the Child Package
+    //#region  Delete Function
+
+    // Delete the Package and item
     function Delete(Data) {
       Del(Data);
-      console.log(PickPackingCtrl.ePage.Masters.DeleteList);
+      // console.log(PickPackingCtrl.ePage.Masters.DeleteList);
 
-      angular.forEach(PickPackingCtrl.ePage.Masters.HeaderDetails.lstUIPackage, function (value, key) {
+      angular.forEach(PickPackingCtrl.ePage.Masters.Config.PackageListDetails.lstUIPackage, function (value, key) {
         angular.forEach(PickPackingCtrl.ePage.Masters.DeleteList, function (value1, key1) {
           if (value.PK == value1.PK) {
             value.IsDeleted = true;
           }
         });
-        if (PickPackingCtrl.ePage.Masters.HeaderDetails.lstUIPackage.length - 1 == key) {
-          Save(PickPackingCtrl.ePage.Masters.HeaderDetails.lstUIPackage);
+        if (PickPackingCtrl.ePage.Masters.Config.PackageListDetails.lstUIPackage.length - 1 == key) {
+          // Save(PickPackingCtrl.ePage.Masters.Config.PackageListDetails.lstUIPackage);
+          console.log(PickPackingCtrl.ePage.Masters.DeleteList);
+          console.log(PickPackingCtrl.ePage.Masters.Config.PackageListDetails.lstUIPackage)
+          PackageItemDelete(PickPackingCtrl.ePage.Masters.DeleteList);
         }
       });
 
@@ -397,18 +405,72 @@
       });
     }
 
-    function Deleted(data) {
-      if (data.parent) {
-        var index = data.nodes.indexOf(data);
-        if (index > -1) {
-          data.nodes.splice(index, 1);
-        }
-      } else {
-        PickPackingCtrl.ePage.Masters.tree = [];
-        PickPackingCtrl.ePage.Masters.List = [];
-        // PickPackingCtrl.ePage.Masters.DisableAddpackBtn = false;
-      }
+    function ItemDelete(data) {
+
+      PickPackingCtrl.ePage.Masters.DeleteObj.push(data);
+
+      DeleteItem(PickPackingCtrl.ePage.Masters.DeleteObj);
     }
+
+    function DeleteItem(DeleteData) {
+      angular.forEach(PickPackingCtrl.ePage.Masters.Config.PackageListDetails.lstUIPackageItems, function (value, key) {
+        angular.forEach(DeleteData, function (value1, key1) {
+          if (value.PK == value1.PK) {
+            value.IsDeleted = true;
+          }
+        });
+        if (PickPackingCtrl.ePage.Masters.Config.PackageListDetails.lstUIPackageItems.length - 1 == key) {
+          console.log(PickPackingCtrl.ePage.Masters.Config.PackageListDetails.lstUIPackageItems);
+          ItemDeleteUpdate(PickPackingCtrl.ePage.Masters.Config.PackageListDetails);
+        }
+      });
+    }
+
+    function PackageItemDelete(PackageDetails) {
+      console.log(PackageDetails);
+      if (PickPackingCtrl.ePage.Masters.Config.PackageListDetails.lstUIPackageItems.length > 0) {
+        angular.forEach(PickPackingCtrl.ePage.Masters.Config.PackageListDetails.lstUIPackageItems, function (value, key) {
+          angular.forEach(PackageDetails, function (value1, key1) {
+            if (value.PackageFK == value1.PK) {
+              value.IsDeleted = true;
+            }
+          });
+          if (PickPackingCtrl.ePage.Masters.Config.PackageListDetails.lstUIPackageItems.length - 1 == key) {
+            console.log(PickPackingCtrl.ePage.Masters.Config.PackageListDetails.lstUIPackageItems);
+            ItemDeleteUpdate(PickPackingCtrl.ePage.Masters.Config.PackageListDetails);
+          }
+        });
+      } else {
+        ItemDeleteUpdate(PickPackingCtrl.ePage.Masters.Config.PackageListDetails);
+      }
+
+    }
+
+    function ItemDeleteUpdate($item) {
+      PickPackingCtrl.ePage.Masters.Loading = true;
+      PickPackingCtrl.ePage.Masters.Config.PackageListDetails = $item;
+
+      var item = filterObjectUpdate(PickPackingCtrl.ePage.Masters.Config.PackageListDetails, "IsModified");
+
+      apiService.post("eAxisAPI", PickPackingCtrl.ePage.Entities.Header.API.UpdatePackage.Url, PickPackingCtrl.ePage.Masters.Config.PackageListDetails).then(function (response) {
+        if (response.data.Response) {
+          PickPackingCtrl.ePage.Masters.Loading = false;
+          // Get By Id Call
+          apiService.get("eAxisAPI", PickPackingCtrl.ePage.Entities.Header.API.PackageGetByID.Url + response.data.Response.Response.PK).then(function (response) {
+            PickPackingCtrl.ePage.Masters.Update = response.data.Response.lstUIPackage;
+            PickPackingCtrl.ePage.Masters.Config.PackageListDetails = response.data.Response;
+            PickPackingCtrl.ePage.Masters.Config.ItemDeleted = true;
+            PickPackingCtrl.ePage.Masters.DeleteObj = [];
+            // Reverse json Function Call
+            ReverseJson(PickPackingCtrl.ePage.Masters.Update);
+          });
+          // toastr.success("Deleted Successfully");
+        } else {
+          toastr.error("Delete Failed");
+        }
+      });
+    }
+
     //#endregion
 
     //#region Save Package
@@ -422,9 +484,8 @@
       Save(PickPackingCtrl.ePage.Masters.List);
     }
 
-    // json formation changes parent child json to normal json / loop for update
     function JsonLoop(myData) {
-      angular.forEach(myData, function (value, key) {
+      myData.map(function (value, key) {
         var obj = {
           "Sequence": value.Sequence,
           "PK": value.PK,
@@ -461,69 +522,28 @@
           "IsNewInsert": value.IsNewInsert
         }
         PickPackingCtrl.ePage.Masters.List.push(obj);
-        console.log(PickPackingCtrl.ePage.Masters.List);
         if (value.nodes.length > 0)
-          jsoninnerLoop(value.nodes);
+          JsonLoop(value.nodes);
       });
       // console.log(PickPackingCtrl.ePage.Masters.List);
     }
-    function jsoninnerLoop(obj) {
-      angular.forEach(obj, function (value, key) {
-        var obj = {
-          "Sequence": value.Sequence,
-          "PK": value.PK,
-          "NKPackType": value.NKPackType,
-          "PackageQty": value.PackageQty,
-          "Length": value.Length,
-          "Width": value.Width,
-          "Height": value.Height,
-          "DimensionUQ": value.DimensionUQ,
-          "Weight": value.Weight,
-          "WeightUQ": value.WeightUQ,
-          "Volume": value.Volume,
-          "VolumeUQ": value.VolumeUQ,
-          "MarksAndNumbers": value.MarksAndNumbers,
-          "TransportRef": value.TransportRef,
-          "GoodsDescription": value.GoodsDescription,
-          "HSCode": value.HSCode,
-          "ParentPackage": value.ParentPackage,
-          "IsClosed": value.IsClosed,
-          "IsReleased": value.IsReleased,
-          "RequiredTemperatureMinimum": value.RequiredTemperatureMinimum,
-          "RequiredTemperatureUnit": value.RequiredTemperatureUnit,
-          "RequiredTemperatureMaximum": value.RequiredTemperatureMaximum,
-          "RH_NKCommodityCode": value.RH_NKCommodityCode,
-          "CommodityDesc": value.CommodityDesc,
-          "RequiresTemperatureControl": value.RequiresTemperatureControl,
-          "PackageId": value.PackageId,
-          "IsCheckedWeighedCubed": value.IsCheckedWeighedCubed,
-          "IsDamaged": value.IsDamaged,
-          "IsHeld": value.IsHeld,
-          "PackageHeaderFK": value.PackageHeaderFK,
-          "IsModified": value.IsModified,
-          "IsDeleted": value.IsDeleted,
-          "IsNewInsert": value.IsNewInsert
-        }
-        PickPackingCtrl.ePage.Masters.List.push(obj);
-        if (value.nodes.length > 0)
-          jsoninnerLoop(value.nodes)
-      });
-    }
+
 
     // update call for package update list
     function Save($item) {
       PickPackingCtrl.ePage.Masters.Loading = true;
-      PickPackingCtrl.ePage.Masters.HeaderDetails.lstUIPackage = $item;
+      PickPackingCtrl.ePage.Masters.Config.PackageListDetails.lstUIPackage = $item;
 
-      var item = filterObjectUpdate(PickPackingCtrl.ePage.Masters.HeaderDetails.lstUIPackage, "IsModified");
+      var item = filterObjectUpdate(PickPackingCtrl.ePage.Masters.Config.PackageListDetails.lstUIPackage, "IsModified");
 
-      apiService.post("eAxisAPI", PickPackingCtrl.ePage.Entities.Header.API.UpdatePackage.Url, PickPackingCtrl.ePage.Masters.HeaderDetails).then(function (response) {
+      apiService.post("eAxisAPI", PickPackingCtrl.ePage.Entities.Header.API.UpdatePackage.Url, PickPackingCtrl.ePage.Masters.Config.PackageListDetails).then(function (response) {
         if (response.data.Response) {
           PickPackingCtrl.ePage.Masters.Loading = false;
           // Get By Id Call
           apiService.get("eAxisAPI", PickPackingCtrl.ePage.Entities.Header.API.PackageGetByID.Url + response.data.Response.Response.PK).then(function (response) {
             PickPackingCtrl.ePage.Masters.UpdatedList = response.data.Response.lstUIPackage;
             PickPackingCtrl.ePage.Masters.Config.PackageListDetails = response.data.Response;
+            PickPackingCtrl.ePage.Masters.List = [];
             // Reverse json Function Call
             ReverseJson(PickPackingCtrl.ePage.Masters.UpdatedList);
           });

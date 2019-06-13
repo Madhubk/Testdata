@@ -14,7 +14,7 @@
     <div class="text-no-record" style="top:120px;padding: 130px;margin-left: 165px;">No Package found...</div>
 </div>
 <div class="grid-loading-norecord-container" data-ng-if="PickPackingCtrl.ePage.Masters.Loading == true">
-    <div class="dyn-grid-no-record">Loading...</div>
+    <div class="dyn-grid-no-record" style="top:120px;">Loading...</div>
 </div>
 
 <!--Root and Child package -->
@@ -49,6 +49,7 @@
                                     <table style="height: 200px;">
                                         <thead>
                                             <tr id="tableHeader">
+                                                <th ng-style="{ 'width':  '30px' }" title=""></th>
                                                 <th ng-style="{ 'width':  '100px' }" title="Product Code">Product Code</th>
                                                 <th ng-style="{ 'width':  '100px' }" title="Product Description">Product Description</th>
                                                 <th ng-style="{ 'width':  '100px' }" title="Packed Quantity">Packed Quantity</th>  
@@ -63,6 +64,7 @@
                                             <tr id="tableBody"
                                                 ng-repeat="x in PickPackingCtrl.ePage.Masters.Config.PackageListDetails.lstUIPackageItems track by $index"
                                                 ng-click="" ng-if='data.PK == x.PackageFK'>
+                                                <td ng-style="{ 'width':  '30px' }" class="overflow-text"><i ng-click="PickPackingCtrl.ePage.Masters.ItemDelete(x)"  class="fa fa-trash-o black" style="margin-left:5px;font-size: 13px;"></i></td>
                                                 <td ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.ProductCode}}</td>
                                                 <td ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.ProductDesc}}
                                                 </td>
