@@ -1,0 +1,28 @@
+<!--Grid View -->
+<uib-tabset id="chromeTab" class="tab-container chrometab-box" active="AccountReceivableCtrl.ePage.Masters.ActiveTabIndex">
+    <uib-tab >
+        <uib-tab-heading title="AccountReceivableCtrl.ePage.Masters.Title">
+            <span data-ng-bind="AccountReceivableCtrl.ePage.Masters.Title"></span>
+            <i class="fa fa-thumb-tack pinned-tab ml-10"></i>
+        </uib-tab-heading>
+        <div class="no-padding tab-list-view-wrapper">
+            <!-- Dynamic Grid Page-->
+            <dynamic-list mode="1" dataentry-name="AccountReceivableCtrl.ePage.Masters.DataentryName" dataentry-object="AccountReceivableCtrl.ePage.Masters.DataEntryObject"
+                selected-grid-row="AccountReceivableCtrl.ePage.Masters.SelectedGridRow($item)" default-filter="AccountReceivableCtrl.ePage.Masters.DefaultFilter"></dynamic-list>
+            <div class="tab-loading" data-ng-show="AccountReceivableCtrl.ePage.Masters.IsTabClick"></div>
+        </div>
+    </uib-tab>
+
+    <uib-tab id='top' active="AccountReceivableCtrl.ePage.Masters.ActiveTabIndex == $index" data-ng-repeat="tab in AccountReceivableCtrl.ePage.Masters.TabList">
+        <uib-tab-heading title="{{tab.label}}">
+            <span data-ng-bind="tab.label"></span>
+            <i class="glyphicon glyphicon-remove" data-ng-click="AccountReceivableCtrl.ePage.Masters.RemoveTab($event, $index, tab)"></i>
+        </uib-tab-heading>
+        <div class="padding-bottom-10 clearfix">
+            <!--Account Payable Menu Directive-->
+            <account-payable-menu current-account-payable="tab"></finance-payable-menu>
+            <div class="horizontal-space"></div>
+        </div>
+    </uib-tab>
+    <button class="btn btn-default" ng-click="AccountReceivableCtrl.ePage.Masters.CreateNewAP()" data-ng-disabled="AccountReceivableCtrl.ePage.Masters.isNewClicked">+</button>
+</uib-tabset>

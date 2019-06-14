@@ -11,24 +11,42 @@
                 'app/mdm/warehouse/custom/customfilter.js'
             ]
         }, {
-            name: "FinanceAccountPayable",
+            name: "financeAccountPayable",
             files: [
                 "app/eaxis/finance/accounts-payable/accounts-payable.controller.js"
             ]
         }, {
-            name: "FinanceAccountPayableMenu",
+            name: "financeAccountPayableMenu",
             files: [
                 "app/eaxis/finance/accounts-payable/account-payable-menu/account-payable-menu.directive.js",
                 "app/eaxis/finance/accounts-payable/account-payable-menu/account-payable-menu.controller.js"
             ]
         }, {
-            name: "FinanceAccountPayableGeneral",
+            name: "financeAccountPayableGeneral",
             files: [
                 "app/eaxis/finance/accounts-payable/account-payable-general/account-payable-general.directive.js",
                 "app/eaxis/finance/accounts-payable/account-payable-general/account-payable-general.controller.js",
                 "app/eaxis/finance/accounts-payable/account-payable-general/account-payable-general.css"
             ]
         }, {
+            name: "FinanceAccountReceivable",
+            files: [
+                "app/eaxis/finance/accounts-receivable/accounts-receivable.controller.js"
+            ]
+        }, {
+            name: "FinanceAccountReceivableMenu",
+            files: [
+                "app/eaxis/finance/accounts-receivable/accounts-receivable-menu/accounts-receivable-menu.directive.js",
+                "app/eaxis/finance/accounts-receivable/accounts-receivable-menu/accounts-receivable-menu.controller.js"
+            ]
+        }, {
+            name: "FinanceAccountReceivableGeneral",
+            files: [
+                "app/eaxis/finance/accounts-receivable/accounts-receivable-general/accounts-receivable-general.directive.js",
+                "app/eaxis/finance/accounts-receivable/accounts-receivable-general/accounts-receivable-general.controller.js",
+                "app/eaxis/finance/accounts-receivable/accounts-receivable-general/accounts-receivable-general.css"
+            ]
+        },{
             name: "FinanceAdminCosts",
             files: [
                 "app/eaxis/finance/admin-costs/admin-costs.controller.js"

@@ -78,7 +78,115 @@
                             "ErrorWarning": {
                                 "GlobalErrorWarningList": []
                             }
+                        },
+                        "TableProperties": {
+                            "LstUIAccPeriodManagement": {
+                                "TableHeight": {
+                                    "isEnabled": true,
+                                    "height": 345
+                                },
+                                "HeaderProperties": [{
+                                    "columnname": "S.No",
+                                    "isenabled": true,
+                                    "property": "csno",
+                                    "position": '1',
+                                    "width": "40",
+                                    "display": false
+                                }, {
+                                    "columnname": "Year",
+                                    "isenabled": true,
+                                    "property": "cyear",
+                                    "position": '2',
+                                    "width": "100",
+                                    "display": false
+                                }, {
+                                    "columnname": "Period",
+                                    "isenabled": true,
+                                    "property": "cperiod",
+                                    "position": '3',
+                                    "width": "150",
+                                    "display": false
+                                }, {
+                                    "columnname": "Start Date",
+                                    "isenabled": true,
+                                    "property": "cstartdate",
+                                    "position": '4',
+                                    "width": "140",
+                                    "display": false
+                                }, {
+                                    "columnname": "End Date",
+                                    "isenabled": true,
+                                    "property": "cenddate",
+                                    "position": '5',
+                                    "width": "140",
+                                    "display": false
+                                }, {
+                                    "columnname": "Is Sub Ledger Closed",
+                                    "isenabled": true,
+                                    "property": "cissubledgerclosed",
+                                    "position": '6',
+                                    "width": "150",
+                                    "display": false
+                                }, {
+                                    "columnname": "Is GeneralLedger Closed",
+                                    "isenabled": true,
+                                    "property": "cisceneralledgerclosed",
+                                    "position": '7',
+                                    "width": "150",
+                                    "display": false
+                                },
+                                {
+                                    "columnname": "Is Subledger Closed For Adjustments",
+                                    "isenabled": true,
+                                    "property": "cissubledgerclosedforadjustments",
+                                    "position": '8',
+                                    "width": "235",
+                                    "display": false
+                                }],
+                                "csno": {
+                                    "isenabled": true,
+                                    "position": '1',
+                                    "width": "40"
+                                },
+                                "cyear": {
+                                    "isenabled": true,
+                                    "position": '2',
+                                    "width": "100"
+                                },
+                                "cperiod": {
+                                    "isenabled": true,
+                                    "position": '3',
+                                    "width": "150"
+                                },
+                                "cstartdate": {
+                                    "isenabled": true,
+                                    "position": '4',
+                                    "width": "140"
+                                },
+                                "cenddate": {
+                                    "isenabled": true,
+                                    "position": '5',
+                                    "width": "140"
+                                },
+                                "cissubledgerclosed": {
+                                    "isenabled": true,
+                                    "position": '6',
+                                    "width": "150"
+                                },
+                                "cisceneralledgerclosed": {
+                                    "isenabled": true,
+                                    "position": '7',
+                                    "width": "150"
+                                },
+                                "cissubledgerclosedforadjustments": {
+                                    "isenabled": true,
+                                    "position": '8',
+                                    "width": "235"
+                                }
+
+                            }
                         }
+
                     }
                 }
             };

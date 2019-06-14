@@ -98,6 +98,21 @@
                             }
                         }
                     },
+                    "AccountreceivableList": {
+                        "RowIndex": -1,
+                        "API": {
+                            "GetById": {
+                                "IsAPI": "true",
+                                "HttpType": "GET",
+                                "Url": "AccountreceivableList/GetById/"
+                            },
+                            "AccountreceivableListActivityClose": {
+                                "IsAPI": "true",
+                                "HttpType": "GET",
+                                "Url": "AccountReceivableList/AccountReceivableListActivityClose/"
+                            }
+                        }
+                    },
                 }
             },
             "TabList": [],
