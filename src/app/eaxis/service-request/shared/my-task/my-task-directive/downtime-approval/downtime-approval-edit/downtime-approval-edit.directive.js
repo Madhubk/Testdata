@@ -3,16 +3,16 @@
 
     angular
         .module("Application")
-        .directive("dockinedit", AllocateDockEditDirective);
+        .directive("downtimeapprovaledit", DowntimeApprovalEditDirective);
 
-    AllocateDockEditDirective.$inject = [];
+    DowntimeApprovalEditDirective.$inject = [];
 
-    function AllocateDockEditDirective() {
+    function DowntimeApprovalEditDirective() {
         var exports = {
             restrict: "EA",
-            templateUrl: "app/eaxis/distribution/my-task/my-task-directive/dock-in/dock-in-edit/dock-in-edit.html",
-            controller: "AllocateDockEditDirectiveController",
-            controllerAs: "AllocateDockEditCtrl",
+            templateUrl: "app/eaxis/service-request/shared/my-task/my-task-directive/downtime-approval/downtime-approval-edit/downtime-approval-edit.html",
+            controller: "DowntimeApprovalEditDirectiveController",
+            controllerAs: "DowntimeApprovalEditDirectiveCtrl",
             bindToController: true,
             link: Link,
             scope: {

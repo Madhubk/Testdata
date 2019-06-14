@@ -1,0 +1,175 @@
+<div class="col-lg-24 container-fluid mt-40">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+        <div class="panel panel-default">
+            <div class="panel-heading" style="color: #073fc3; font-weight: bold;">
+                {{MyRequestReadOnlyCtrl.ePage.Entities.Header.Data.UIServiceRequest.RequestType}}</div>
+            <div class="panel-body">
+                <div class="clearfix padding-top-10">
+                    <form>
+                        <div class="form-row">
+                            <div class="form-group col-md-2">
+                                <label class="control-label text-single-line">Application : <label
+                                        class="control-label text-single-line"
+                                        style="color: #7c7e81">{{MyRequestReadOnlyCtrl.ePage.Entities.Header.Data.UIServiceRequest.Application}}</label>
+                                </label>
+                            </div>
+                            <div class="form-group col-md-2">
+                                <label class="control-label text-single-line">Environment : <label
+                                        class="control-label text-single-line"
+                                        style="color: #7c7e81">{{MyRequestReadOnlyCtrl.ePage.Entities.Header.Data.UIDowntimeRequest.Environment}}</label>
+                                </label>
+                            </div>
+                            <div class="form-group col-md-2">
+                                <label class="control-label text-single-line">Application Contact Name : <label
+                                        class="control-label text-single-line"
+                                        style="color: #7c7e81">{{MyRequestReadOnlyCtrl.ePage.Entities.Header.Data.UIDowntimeRequest.ApplicationContactName}}</label>
+                                </label>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label class="control-label text-single-line">Application Contact Email : <label
+                                        class="control-label text-single-line"
+                                        style="color: #7c7e81">{{MyRequestReadOnlyCtrl.ePage.Entities.Header.Data.UIDowntimeRequest.ApplicationContactMail}}</label>
+                                </label>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label class="control-label text-single-line">Time Zone : <label
+                                        class="control-label text-single-line"
+                                        style="color: #7c7e81">{{MyRequestReadOnlyCtrl.ePage.Entities.Header.Data.UIDowntimeRequest.TimeZone}}</label>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-2">
+                                <label class="control-label text-single-line">Priority : <label
+                                        class="control-label text-single-line"
+                                        style="color: #7c7e81">{{MyRequestReadOnlyCtrl.ePage.Entities.Header.Data.UIServiceRequest.Priority}}</label>
+                                </label>
+                            </div>
+                            <div class="form-group col-md-2">
+                                <label class="control-label text-single-line">Module : <label
+                                        class="control-label text-single-line"
+                                        style="color: #7c7e81">{{MyRequestReadOnlyCtrl.ePage.Entities.Header.Data.UIServiceRequest.Module}}</label>
+                                </label>
+                            </div>
+                            <div class="form-group col-md-2">
+                                <label class="control-label text-single-line">Business Contact Name : <label
+                                        class="control-label text-single-line"
+                                        style="color: #7c7e81">{{MyRequestReadOnlyCtrl.ePage.Entities.Header.Data.UIDowntimeRequest.BusinessContactName}}</label>
+                                </label>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label class="control-label text-single-line">Business Contact Email : <label
+                                        class="control-label text-single-line"
+                                        style="color: #7c7e81">{{MyRequestReadOnlyCtrl.ePage.Entities.Header.Data.UIDowntimeRequest.BusinessContactMail}}</label>
+                                </label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="clearfix padding-top-10">
+                    <form>
+                        <fieldset disabled="true">
+                            <div class="form-row">
+                                <div class="form-group col-md-1">
+                                    <label class="control-label text-single-line">Users Impacted</label>
+                                </div>
+                                <div
+                                    ng-repeat="item in MyRequestReadOnlyCtrl.ePage.Entities.Header.Data.AppObj.UserImpacted">
+                                    <div class="form-group col-md-1">
+                                        <label class="container">{{item.name}}
+                                            <input type="checkbox" ng-model="item.isenabled">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="clearfix padding-top-10">
+                    <form>
+                        <div class="form-row">
+                            <div class="form-group col-md-2">
+                                <label class="control-label text-single-line">Application Current Version : <label
+                                        class="control-label text-single-line"
+                                        style="color: #7c7e81">{{MyRequestReadOnlyCtrl.ePage.Entities.Header.Data.UIDowntimeRequest.AppCurrentVersion}}</label>
+                                </label>
+                            </div>
+                            <div class="form-group col-md-2">
+                                <label class="control-label text-single-line">Application Released Version : <label
+                                        class="control-label text-single-line"
+                                        style="color: #7c7e81">{{MyRequestReadOnlyCtrl.ePage.Entities.Header.Data.UIDowntimeRequest.AppReleasedVersion}}</label>
+                                </label>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label class="control-label text-single-line">Planned Start Date Time : <label
+                                        class="control-label text-single-line"
+                                        style="color: #7c7e81">{{MyRequestReadOnlyCtrl.ePage.Entities.Header.Data.UIDowntimeRequest.PlannedStartDateTime | date:'dd-MM-yyyy hh:mm a'}}</label>
+                                </label>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label class="control-label text-single-line">Planned End Date Time : <label
+                                        class="control-label text-single-line"
+                                        style="color: #7c7e81">{{MyRequestReadOnlyCtrl.ePage.Entities.Header.Data.UIDowntimeRequest.PlannedEndDateTime | date:'dd-MM-yyyy hh:mm a'}}</label>
+                                </label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="clearfix padding-top-10">
+                    <form>
+                        <!-- <div class="form-group col-md-3">
+                            <label class="control-label text-single-line">SNO Purpose</label>
+                        </div>
+                        <div
+                            ng-repeat="item.name as item.name for item in MyRequestReadOnlyCtrl.ePage.Entities.Header.Data.SrqArea">
+                            <div class="form-group col-md-3">
+                                <div class="form-row">
+                                    <label
+                                        class="control-label text-single-line">{{item.name}}</label>
+                                </div>
+                            </div>
+                        </div> 
+                        <table>
+                            <th>Sno</th>
+                            <th>Purpose</th>
+                            <tr ng-repeat="x in MyRequestReadOnlyCtrl.ePage.Entities.Header.Data.SrqArea">
+                                <td>{{ $index + 1 }}</td>
+                                <td>{{ x.Name }}</td>
+                            </tr>
+                        </table> -->
+                        <table id="customers">
+                                <tr>
+                                    <th>Sno</th>
+                                    <th>Purpose</th>
+                                </tr>
+                                <tr ng-repeat="x in MyRequestReadOnlyCtrl.ePage.Entities.Header.Data.SrqArea">
+                                    <td>{{ $index + 1 }}</td>
+                                    <td>{{ x.Name }}</td>
+                                </tr>
+                            </table>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>

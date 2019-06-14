@@ -1,0 +1,37 @@
+
+<uib-tabset id="chromeTab" active="DowntimeRequestCtrl.ePage.Masters.activeTabIndex" class="tab-container chrometab-box">
+
+    <uib-tab>
+        <uib-tab-heading title="Downtime Request">
+            <span data-ng-bind="'Downtime Request'" class="ng-binding">Downtime Request</span>
+            <i class="fa fa-thumb-tack pinned-tab"></i>
+        </uib-tab-heading>
+
+        <div class="no-padding tab-list-view-wrapper">
+            <!--DowntimeRequest Grid Page-->
+            <dynamic-list dataentry-name="DowntimeRequestCtrl.ePage.Masters.dataentryName" task-name="DowntimeRequestCtrl.ePage.Masters.taskName" grid-config-type="0"
+                selected-grid-row="DowntimeRequestCtrl.ePage.Masters.SelectedGridRow($item)" mode="1" dataentry-object="DowntimeRequestCtrl.ePage.Masters.DataEntryObject"></dynamic-list>
+            <div class="tab-loading" data-ng-show="DowntimeRequestCtrl.ePage.Masters.IsTabClick"></div>
+        </div>
+    </uib-tab>
+
+    <uib-tab active="DowntimeRequestCtrl.ePage.Masters.activeTabIndex == $index" ng-repeat="tab in DowntimeRequestCtrl.ePage.Masters.TabList" ng-click="DowntimeRequestCtrl.ePage.Masters.CurrentActiveTab(tab.label)">
+        <uib-tab-heading title="{{tab.label}}">
+            <span data-ng-bind="tab.label"></span>
+            <i class="glyphicon glyphicon-remove" ng-click="DowntimeRequestCtrl.ePage.Masters.RemoveTab($event, $index, tab)"></i>
+           
+        </uib-tab-heading>
+
+        <div class="padding-bottom-10 clearfix">
+            <!--DowntimeRequest Menu Directive-->
+            <downtimerequest-menu current-downtimerequest="tab" dataentry-object="DowntimeRequestCtrl.ePage.Masters.DataEntryObject"></downtimerequest-menu>
+            <div class="horizontal-space"></div>
+        </div>
+    </uib-tab>
+
+    <button class="btn btn-default" ng-click="DowntimeRequestCtrl.ePage.Masters.CreateNewDowntimeRequest()" data-ng-disabled="DowntimeRequestCtrl.ePage.Masters.isNewClicked">+</button>
+
+
+</uib-tabset>
+
+       

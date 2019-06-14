@@ -9,6 +9,7 @@
                 files: [
                     'app/eaxis/distribution/distribution.css',
                     'app/eaxis/distribution/distribution.controller.js',
+                    'app/eaxis/distribution/distribution-config.factory.js',
                     'app/mdm/warehouse/customize-table/customize-table.css',
                     'app/mdm/warehouse/customize-table/customize-table.directive.js',
                     'app/mdm/warehouse/custom/customfilter.js'
@@ -54,6 +55,12 @@
                 files: [
                     'app/eaxis/distribution/initiate-gatepass/outward-details/outward-details.controller.js',
                     'app/eaxis/distribution/initiate-gatepass/outward-details/outward-details.directive.js'
+                ]
+            }, {
+                name: 'gatepassMyTask',
+                files: [
+                    'app/eaxis/distribution/initiate-gatepass/gatepass-my-task/gatepass-my-task.controller.js',
+                    'app/eaxis/distribution/initiate-gatepass/gatepass-my-task/gatepass-my-task.directive.js'
                 ]
             },
             // endregion
@@ -326,14 +333,8 @@
                 name: 'DockInDirective',
                 files: [
                     'app/eaxis/distribution/my-task/my-task-directive/dock-in/dock-in.directive.js',
-                    'app/eaxis/distribution/my-task/my-task-directive/dock-in/dock-in.controller.js'
-                ]
-            }, {
-                name: 'DockInEditDirective',
-                files: [
-                    'app/eaxis/distribution/my-task/my-task-directive/dock-in/dock-in-edit/dock-in-edit.directive.js',
-                    'app/eaxis/distribution/my-task/my-task-directive/dock-in/dock-in-edit/dock-in-edit.controller.js',
-                    'app/eaxis/distribution/my-task/my-task-directive/dock-in/dock-in-edit/dock-in-edit.css'
+                    'app/eaxis/distribution/my-task/my-task-directive/dock-in/dock-in.controller.js',
+                    'app/eaxis/distribution/my-task/my-task-directive/dock-in/dock-in-edit.css'
                 ]
             }, {
                 name: 'DockOutDirective',

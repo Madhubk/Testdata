@@ -1,0 +1,44 @@
+<div class="clearfix">
+    <div class="col-lg-8">
+        <div class="border-box pt-10 pb-10">
+            <div class="clearfix">
+                <div class="col-lg-4">
+                    <div class="fs-12 color-aaa">Buyer:</div>
+                    <div class="text-ellipsis">{{DowntimeApprovalDirectiveCtrl.ePage.Masters.ExceptionObj.Buyer}}</div>
+                </div>
+                <div class="col-lg-5">
+                    <div class="fs-12 color-aaa">Supplier:</div>
+                    <div class="text-ellipsis">{{DowntimeApprovalDirectiveCtrl.ePage.Masters.ExceptionObj.Supplier}}</div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="text-ellipsis">{{DowntimeApprovalDirectiveCtrl.ePage.Masters.ExceptionData.Type}}</div>
+                    <span class="urgent" data-ng-if="DowntimeApprovalDirectiveCtrl.ePage.Masters.ExceptionData.IsUrgent">Urgent</span>
+                </div>
+            </div>
+            <!-- <div class="clearfix mt-10 position-relative">
+                <i class="except-comment-icon fa fa-comment-o"></i>
+                <div class="except-comments-empty color-aaa pr-15 fs-12" data-ng-if="!DowntimeApprovalDirectiveCtrl.ePage.Masters.Text"></div>
+                <div class="except-comments color-aaa pr-15 fs-12" data-ng-if="DowntimeApprovalDirectiveCtrl.ePage.Masters.Text">{{DowntimeApprovalDirectiveCtrl.ePage.Masters.Text | limitTo : 2000 : 0}}</div>
+            </div> -->
+            <div class="clearfix mt-10 position-relative">
+                <i class="except-comment-icon fa fa-comment-o"></i>
+                <div class="except-comments color-aaa pr-15 fs-12" data-ng-text-truncate="DowntimeApprovalDirectiveCtrl.ePage.Masters.ExceptionData.Description"
+                    data-ng-tt-chars-threshold="150" data-ng-tt-more-label="more" data-ng-tt-less-label="less"></div>
+            </div>
+        </div>
+    </div>
+    <!-- <div class="col-lg-4 pr-0 pl-28">
+        <textarea class="form-control no-resize" placeholder="Enter your comments" data-ng-model="DowntimeApprovalDirectiveCtrl.ePage.Masters.ExceptionComments">
+        </textarea>
+        <div class="row mt-10">
+            <div class="col-lg-6">
+                <button class="my-task-btn my-task-directive-btn" data-ng-disabled="DowntimeApprovalDirectiveCtrl.ePage.Masters.IsApprove"
+                    data-ng-click="DowntimeApprovalDirectiveCtrl.ePage.Masters.Approval('Approve')">{{DowntimeApprovalDirectiveCtrl.ePage.Masters.IsApproveBtn}}</button>
+            </div>
+            <div class="col-lg-6">
+                <button class="my-task-btn my-task-directive-btn" data-ng-disabled="DowntimeApprovalDirectiveCtrl.ePage.Masters.IsReject"
+                    data-ng-click="DowntimeApprovalDirectiveCtrl.ePage.Masters.Approval('Reject')">{{DowntimeApprovalDirectiveCtrl.ePage.Masters.IsRejectBtn}}</button>
+            </div>
+        </div>
+    </div> -->
+</div>

@@ -2,43 +2,46 @@
     <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8" style="border: 1px solid #ddd;height: 100px;">
         <div class="my-task-dispatch-manifest-container mt-10">
             <div class="my-task-content-shipper col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                {{AllocateDockCtrl.ePage.Masters.GatepassDetails.TMSGatepassHeader.ORG_Code}} -
-                {{AllocateDockCtrl.ePage.Masters.GatepassDetails.TMSGatepassHeader.ORG_FullName}}
+                {{AllocateDockCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.ORG_Code}} -
+                {{AllocateDockCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.ORG_FullName}}
             </div>
             <div class="my-task-content-shipper col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                {{AllocateDockCtrl.ePage.Masters.GatepassDetails.TMSGatepassHeader.TransporterCode}} -
-                {{AllocateDockCtrl.ePage.Masters.GatepassDetails.TMSGatepassHeader.TransporterName}}
+                {{AllocateDockCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.TransporterCode}} -
+                {{AllocateDockCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.TransporterName}}
             </div>
             <div class="my-task-expected-date col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                Purpose : {{AllocateDockCtrl.ePage.Masters.GatepassDetails.TMSGatepassHeader.Purpose}}
+                Purpose : {{AllocateDockCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.Purpose}}
             </div>
             <div class="my-task-expected-date col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                Vehicle Type : {{AllocateDockCtrl.ePage.Masters.GatepassDetails.TMSGatepassHeader.VehicleType}}
+                Vehicle Type : {{AllocateDockCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.VehicleType}}
             </div>
             <div class="my-task-expected-date col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
                 <i class="fa fa-truck"></i>
-                {{AllocateDockCtrl.ePage.Masters.GatepassDetails.TMSGatepassHeader.VehicleNo}}
+                {{AllocateDockCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.VehicleNo}}
             </div>
             <div class="my-task-expected-date col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
                 <i class="fa fa-user"></i>
-                {{AllocateDockCtrl.ePage.Masters.GatepassDetails.TMSGatepassHeader.DriverName}}
+                {{AllocateDockCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.DriverName}}
             </div>
             <div class="my-task-expected-date col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
                 <i class="fa fa-phone-square"></i>
-                {{AllocateDockCtrl.ePage.Masters.GatepassDetails.TMSGatepassHeader.DriverContactNo}}
+                {{AllocateDockCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.DriverContactNo}}
             </div>
         </div>
     </div>
     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4" style="padding: 0px;">
-        <div class="clearfix form-group col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" style="margin-left: 13px;">
-            <div class="">
-                <input type="text" style="height: 44px;" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
-                    placeholder="Enter Dock No Here" data-ng-model="AllocateDockCtrl.ePage.Masters.GatepassDetails.TMSGatepassHeader.DockNo">
+        <div class="clearfix form-group col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            <span style="color: gray;font-weight: 600;font-size: 12px;">Please enter Dock Number</span>
+            <div class="mt-5">
+                <select chosen class="form-control" ng-model="AllocateDockCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.DockNo"
+                    ng-options="x.DockName as x.DockName for x in AllocateDockCtrl.ePage.Masters.DockNoList" search-contains="true">
+                    <option value="">--Select--</option>
+                </select>
             </div>
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" style="margin-bottom: 3px;margin-left: 13px;">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
             <button class="btn btn-primary" style="width: 100%; height: 40px;" ng-bind="AllocateDockCtrl.ePage.Masters.DockInText"
-                ng-click="AllocateDockCtrl.ePage.Masters.DockIn()"></button>
+                ng-click="AllocateDockCtrl.ePage.Masters.Complete()" ng-disabled="AllocateDockCtrl.ePage.Masters.IsDisableCompleteBtn"></button>
         </div>
     </div>
 </div>
