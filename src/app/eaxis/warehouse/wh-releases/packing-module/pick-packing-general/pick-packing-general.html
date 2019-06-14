@@ -135,17 +135,17 @@
             </span>
         </div>
         <div>
-            <div id="GeneralTable{{PackingGeneralCtrl.currentPick.label}}" class="fixedheader" key-events
+            <div id="GeneralItemTable{{PackingGeneralCtrl.currentPick.label}}" class="fixedheader" key-events
                 table-object='PackingGeneralCtrl.ePage.Entities.Header.Data.PackingOutwardLines'
                 enable='PackingGeneralCtrl.ePage.Masters.EnableForReleaseLine'
                 selected-row='PackingGeneralCtrl.ePage.Masters.selectedRowForReleaseLine'
-                unique-id='GeneralTable{{PackingGeneralCtrl.currentPick.label}}'>
+                unique-id='GeneralItemTable{{PackingGeneralCtrl.currentPick.label}}'>
                 <table style="height: 250px;">
                     <thead>
                         <tr id="tableHeader">
-                            <th id="lsno"
-                                data-ng-if="PackingGeneralCtrl.ePage.Entities.Header.TableProperties.PackingOutwardLines.lsno.isenabled"
-                                ng-style="{ 'width': PackingGeneralCtrl.ePage.Entities.Header.TableProperties.PackingOutwardLines.lsno.width + 'px' }"
+                            <th id="lpsno"
+                                data-ng-if="PackingGeneralCtrl.ePage.Entities.Header.TableProperties.PackingOutwardLines.lpsno.isenabled"
+                                ng-style="{ 'width': PackingGeneralCtrl.ePage.Entities.Header.TableProperties.PackingOutwardLines.lpsno.width + 'px' }"
                                 title="S.No">S.No</th>
                             <th id="lpickno"
                                 data-ng-if="PackingGeneralCtrl.ePage.Entities.Header.TableProperties.PackingOutwardLines.lpickno.isenabled"
@@ -189,15 +189,15 @@
                                 title="Expiry Date">Expiry Date</th>
                         </tr>
                     </thead>
-                    <tbody id="GeneralCustTable{{PackingGeneralCtrl.currentPick.label}}">
+                    <tbody id="GeneralItemCustTable{{PackingGeneralCtrl.currentPick.label}}">
                         <tr id="tableBody" ng-repeat="x in PackingGeneralCtrl.ePage.Masters.PickReleaseLine"
                             ng-click="PackingGeneralCtrl.ePage.Masters.setSelectedRowForReleaseLine(x,$index);"
                             ng-class="{row_active: (PackingGeneralCtrl.ePage.Masters.selectedRowForReleaseLine==$index),copy_row_active :(x.IsCopied==true)}"
                             table-properties="PackingGeneralCtrl.ePage.Entities.Header.TableProperties.PackingOutwardLines"
-                            unique-id="GeneralCustTable{{PackingGeneralCtrl.currentPick.label}}" row-position="$index">
-                            <td id="lsno"
-                                data-ng-show='PackingGeneralCtrl.ePage.Entities.Header.TableProperties.PackingOutwardLines.lsno.isenabled'
-                                ng-style="{ 'width': PackingGeneralCtrl.ePage.Entities.Header.TableProperties.PackingOutwardLines.lsno.width + 'px' }">
+                            unique-id="GeneralItemCustTable{{PackingGeneralCtrl.currentPick.label}}" row-position="$index">
+                            <td id="lpsno"
+                                data-ng-show='PackingGeneralCtrl.ePage.Entities.Header.TableProperties.PackingOutwardLines.lpsno.isenabled'
+                                ng-style="{ 'width': PackingGeneralCtrl.ePage.Entities.Header.TableProperties.PackingOutwardLines.lpsno.width + 'px' }">
                                 {{$index+1}}</td>
                             <td id="lpickno"
                                 data-ng-show='PackingGeneralCtrl.ePage.Entities.Header.TableProperties.PackingOutwardLines.lpickno.isenabled'

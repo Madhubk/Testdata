@@ -191,7 +191,12 @@
                                 "HttpType": "POST",
                                 "Url": "WmsPackageHeader/FindAll",
                                 "FilterID": "WMSWPH"
-                            }
+                            },
+                            "PrintPackageLabel": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "WmsPackageHeaderList/PackageBarcode"
+                            },
                         },
                         "Meta": {
                             "MenuList": [{
@@ -1205,7 +1210,7 @@
                                     {
                                         "columnname": "S.No",
                                         "isenabled": true,
-                                        "property": "lsno",
+                                        "property": "lpsno",
                                         "position": "1",
                                         "width": "40",
                                         "display": false
@@ -1291,7 +1296,7 @@
                                         "display": true
                                     }
                                 ],
-                                "lsno": {
+                                "lpsno": {
                                     "isenabled": true,
                                     "position": "1",
                                     "width": "40"

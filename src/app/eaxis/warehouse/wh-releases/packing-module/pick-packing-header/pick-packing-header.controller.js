@@ -58,7 +58,7 @@
         }
 
         function ReleasedDate() {
-            PackingHeaderCtrl.ePage.Masters.PackageHeaderList.UIPackageHeader.ReleasedDate = $filter('date')(PackingHeaderCtrl.ePage.Masters.PackageHeaderList.UIPackageHeader.ReleasedDate, "dd-MMM-yyyy");
+            PackingHeaderCtrl.ePage.Masters.Config.PackageListDetails.UIPackageHeader.ReleasedDate = $filter('date')(PackingHeaderCtrl.ePage.Masters.Config.PackageListDetails.UIPackageHeader.ReleasedDate, "dd-MMM-yyyy");
         }
         //#endregion
 
@@ -72,6 +72,9 @@
                     response.data.Response.UIPackageHeader.PK = response.data.Response.PK;
                     response.data.Response.UIPackageHeader.WorkorderFK = PackingHeaderCtrl.ePage.Masters.OutwardDetails.PK;
                     response.data.Response.UIPackageHeader.WorkorderId = PackingHeaderCtrl.ePage.Masters.OutwardDetails.WorkOrderID;
+                    response.data.Response.UIPackageHeader.ClientCode = PackingHeaderCtrl.ePage.Masters.OutwardDetails.ClientCode; response.data.Response.UIPackageHeader.ClientName = PackingHeaderCtrl.ePage.Masters.OutwardDetails.ClientName;
+                    response.data.Response.UIPackageHeader.WarehouseCode = PackingHeaderCtrl.ePage.Masters.OutwardDetails.WarehouseCode; response.data.Response.UIPackageHeader.WarehouseName = PackingHeaderCtrl.ePage.Masters.OutwardDetails.WarehouseName;
+                    response.data.Response.UIPackageHeader.ExternalReference = PackingHeaderCtrl.ePage.Masters.OutwardDetails.ExternalReference;
 
                     PackingHeaderCtrl.ePage.Masters.HeaderListDetails = response.data.Response;
 
@@ -89,9 +92,9 @@
         function InsertPackageHeaderList() {
             apiService.post("eAxisAPI", PackingHeaderCtrl.ePage.Entities.Header.API.InsertPackage.Url, PackingHeaderCtrl.ePage.Masters.HeaderListDetails).then(function (response) {
                 if (response.data.Status == 'Success') {
-                    PackingHeaderCtrl.ePage.Masters.PackageHeaderList = response.data.Response.Response;
+                    PackingHeaderCtrl.ePage.Masters.Config.PackageListDetails = response.data.Response.Response;
                     PackingHeaderCtrl.ePage.Masters.NewHeader = false;
-                    // console.log(PackingHeaderCtrl.ePage.Masters.PackageHeaderList);
+                    // console.log(PackingHeaderCtrl.ePage.Masters.Config.PackageListDetails);
                     toastr.success("Package Created Successfully");
                     // toastr.warning("Please Save to Add Package");
                 } else {
@@ -105,12 +108,12 @@
             PackingHeaderCtrl.ePage.Masters.Loading = true;
             PackingHeaderCtrl.ePage.Masters.SaveButtontxt = "Please Wait...";
 
-            var item = filterObjectUpdate(PackingHeaderCtrl.ePage.Masters.PackageHeaderList, "IsModified");
+            var item = filterObjectUpdate(PackingHeaderCtrl.ePage.Masters.Config.PackageListDetails, "IsModified");
 
-            apiService.post("eAxisAPI", PackingHeaderCtrl.ePage.Entities.Header.API.UpdatePackage.Url, PackingHeaderCtrl.ePage.Masters.PackageHeaderList).then(function (response) {
+            apiService.post("eAxisAPI", PackingHeaderCtrl.ePage.Entities.Header.API.UpdatePackage.Url, PackingHeaderCtrl.ePage.Masters.Config.PackageListDetails).then(function (response) {
                 if (response.data.Response) {
                     apiService.get("eAxisAPI", PackingHeaderCtrl.ePage.Entities.Header.API.PackageGetByID.Url + response.data.Response.Response.PK).then(function (response) {
-                        PackingHeaderCtrl.ePage.Masters.PackageHeaderList = response.data.Response;
+                        PackingHeaderCtrl.ePage.Masters.Config.PackageListDetails = response.data.Response;
                         PackingHeaderCtrl.ePage.Masters.Loading = false;
                         toastr.success("Saved Successfully");
                         PackingHeaderCtrl.ePage.Masters.SaveButtontxt = "Save";
@@ -128,7 +131,7 @@
             PackingHeaderCtrl.ePage.Masters.NewHeader = false;
             PackingHeaderCtrl.ePage.Masters.OutwardHeaderDetails = PackingHeaderCtrl.outwardHeader;
             apiService.get("eAxisAPI", PackingHeaderCtrl.ePage.Entities.Header.API.PackageGetByID.Url + PackingHeaderCtrl.ePage.Masters.OutwardHeaderDetails[0].PK).then(function (response) {
-                PackingHeaderCtrl.ePage.Masters.PackageHeaderList = response.data.Response;
+                PackingHeaderCtrl.ePage.Masters.Config.PackageListDetails = response.data.Response;
                 PackingHeaderCtrl.ePage.Masters.Loading = false;
                 PackingHeaderCtrl.ePage.Masters.Headersaved = true;
             });

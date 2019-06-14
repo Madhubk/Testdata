@@ -12,7 +12,7 @@
             <div ng-if="!PackingHeaderCtrl.ePage.Masters.NewHeader">
                 <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
                     placeholder="Package Reference No"
-                    data-ng-model="PackingHeaderCtrl.ePage.Masters.PackageHeaderList.UIPackageHeader.PackageRefNo"
+                    data-ng-model="PackingHeaderCtrl.ePage.Masters.Config.PackageListDetails.UIPackageHeader.PackageRefNo"
                     disabled>
             </div>
             <div ng-if="PackingHeaderCtrl.ePage.Masters.NewHeader">
@@ -29,7 +29,7 @@
             <div>
                 <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
                     placeholder="Outward No"
-                    data-ng-model="PackingHeaderCtrl.ePage.Masters.PackageHeaderList.UIPackageHeader.WorkorderId"
+                    data-ng-model="PackingHeaderCtrl.ePage.Masters.Config.PackageListDetails.UIPackageHeader.WorkorderId"
                     disabled>
             </div>
         </div>
@@ -43,7 +43,7 @@
                 <input type="text" class="form-control"
                     placeholder="{{PackingHeaderCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
                     datetime-picker="{{PackingHeaderCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
-                    ng-model="PackingHeaderCtrl.ePage.Masters.PackageHeaderList.UIPackageHeader.ReleasedDate"
+                    ng-model="PackingHeaderCtrl.ePage.Masters.Config.PackageListDetails.UIPackageHeader.ReleasedDate"
                     is-open="PackingHeaderCtrl.ePage.Masters.DatePicker.isOpen['isReleasedDate']"
                     datepicker-options="PackingHeaderCtrl.ePage.Masters.DatePicker.Options"
                     datepicker-append-to-body="false" close-on-selection="false" enable-date="true" enable-time="false"
@@ -69,7 +69,7 @@
                 <input type="text" class="form-control"
                     placeholder="{{PackingHeaderCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
                     datetime-picker="{{PackingHeaderCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
-                    ng-model="PackingHeaderCtrl.ePage.Masters.PackageHeaderList.UIPackageHeader.FinalizedDate"
+                    ng-model="PackingHeaderCtrl.ePage.Masters.Config.PackageListDetails.UIPackageHeader.FinalizedDate"
                     disabled="disabled" is-open="PackingHeaderCtrl.ePage.Masters.DatePicker.isOpen['isFinalizedDate']"
                     datepicker-options="PackingHeaderCtrl.ePage.Masters.DatePicker.Options"
                     datepicker-append-to-body="false" close-on-selection="false" enable-date="true" enable-time="false"
@@ -100,5 +100,5 @@
 <!-- tree directive call after saving the header -->
 <div data-ng-if="PackingHeaderCtrl.ePage.Masters.Headersaved">
     <pick-packing current-pick="PackingHeaderCtrl.currentPick"
-        current-header="PackingHeaderCtrl.ePage.Masters.PackageHeaderList"></pick-packing>
+        current-header="PackingHeaderCtrl.ePage.Masters.Config.PackageListDetails"></pick-packing>
 </div>

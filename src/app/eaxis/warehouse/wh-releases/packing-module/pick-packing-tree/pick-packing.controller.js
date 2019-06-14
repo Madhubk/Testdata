@@ -5,9 +5,9 @@
     .module("Application")
     .controller("PickPackingController", PickPackingController);
 
-  PickPackingController.$inject = ["$scope", "$rootScope", "$timeout", "APP_CONSTANT", "apiService", "pickConfig", "helperService", "appConfig", "authService", "confirmation", "toastr", "$filter", "$state", "$q", "$uibModal"];
+  PickPackingController.$inject = ["$scope", "$rootScope", "$timeout", "APP_CONSTANT", "apiService", "pickConfig", "helperService", "appConfig", "authService", "confirmation", "toastr", "$filter", "$state", "$q", "$uibModal", "$sce"];
 
-  function PickPackingController($scope, $rootScope, $timeout, APP_CONSTANT, apiService, pickConfig, helperService, appConfig, authService, confirmation, toastr, $filter, $state, $q, $uibModal) {
+  function PickPackingController($scope, $rootScope, $timeout, APP_CONSTANT, apiService, pickConfig, helperService, appConfig, authService, confirmation, toastr, $filter, $state, $q, $uibModal, $sce) {
 
     var PickPackingCtrl = this;
 
@@ -38,8 +38,11 @@
 
       PickPackingCtrl.ePage.Masters.List = [];
 
+      PickPackingCtrl.ePage.Masters.EnablePrintLabel = false;
+
       // to change the Normal json to Tree Json for package function call for GetByID Obj
       if (PickPackingCtrl.ePage.Masters.Config.PackageListDetails.lstUIPackage.length > 0) {
+        PickPackingCtrl.ePage.Masters.EnablePrintLabel = true;
         PickPackingCtrl.ePage.Masters.Loading = false;
         PickPackingCtrl.ePage.Masters.EnablePackTree = true;
         PickPackingCtrl.ePage.Masters.SaveBtnEnable = true;
@@ -66,6 +69,7 @@
       PickPackingCtrl.ePage.Masters.DeleteList = [];
       PickPackingCtrl.ePage.Masters.ItemDelete = ItemDelete;
       PickPackingCtrl.ePage.Masters.DeleteObj = [];
+      PickPackingCtrl.ePage.Masters.PrintLabel = PrintLabel;
     }
 
     //#region selected package value 
@@ -193,8 +197,10 @@
       // to check the obj is parent or child while adding the package
       if (PickPackingCtrl.ePage.Masters.isParentChild == "isParent") {
         ParentObject(_packtype);
+        PickPackingCtrl.ePage.Masters.PackList = {};
       } else if (PickPackingCtrl.ePage.Masters.isParentChild == "isChild") {
         ChildObject(_packtype);
+        PickPackingCtrl.ePage.Masters.PackList = {};
       } else if (PickPackingCtrl.ePage.Masters.isParentChild == "isEdited") {
         SavePackage();
       }
@@ -229,7 +235,10 @@
       PickPackingCtrl.ePage.Masters.isParentChild = "isParent";
 
       // empty master for model value
-      PickPackingCtrl.ePage.Masters.PackList = {};
+      // PickPackingCtrl.ePage.Masters.PackList = {};
+
+      // outward value to the package id
+      PickPackingCtrl.ePage.Masters.PackList.PackageId = PickPackingCtrl.ePage.Masters.Config.PackageListDetails.UIPackageHeader.ExternalReference;
 
       // pack type model function call
       PackTypeModel(PickPackingCtrl.ePage.Masters.isParentChild);
@@ -304,7 +313,10 @@
       PickPackingCtrl.ePage.Masters.Childdata = data;
 
       // empty master for model value
-      PickPackingCtrl.ePage.Masters.PackList = {};
+      // PickPackingCtrl.ePage.Masters.PackList = {};
+
+      // outward value to the package id
+      PickPackingCtrl.ePage.Masters.PackList.PackageId = PickPackingCtrl.ePage.Masters.Config.PackageListDetails.UIPackageHeader.ExternalReference;
 
       // pack type model function call
       PackTypeModel(PickPackingCtrl.ePage.Masters.isParentChild);
@@ -371,6 +383,7 @@
     //#region  Delete Function
 
     // Delete the Package and item
+
     function Delete(Data) {
       Del(Data);
       // console.log(PickPackingCtrl.ePage.Masters.DeleteList);
@@ -405,6 +418,7 @@
       });
     }
 
+    // delete list for package of parent with child
     function ItemDelete(data) {
 
       PickPackingCtrl.ePage.Masters.DeleteObj.push(data);
@@ -412,6 +426,7 @@
       DeleteItem(PickPackingCtrl.ePage.Masters.DeleteObj);
     }
 
+    // individual item delete
     function DeleteItem(DeleteData) {
       angular.forEach(PickPackingCtrl.ePage.Masters.Config.PackageListDetails.lstUIPackageItems, function (value, key) {
         angular.forEach(DeleteData, function (value1, key1) {
@@ -426,6 +441,7 @@
       });
     }
 
+    // package with item delete
     function PackageItemDelete(PackageDetails) {
       console.log(PackageDetails);
       if (PickPackingCtrl.ePage.Masters.Config.PackageListDetails.lstUIPackageItems.length > 0) {
@@ -446,6 +462,7 @@
 
     }
 
+    // common save for packageitem and item delete
     function ItemDeleteUpdate($item) {
       PickPackingCtrl.ePage.Masters.Loading = true;
       PickPackingCtrl.ePage.Masters.Config.PackageListDetails = $item;
@@ -538,9 +555,11 @@
 
       apiService.post("eAxisAPI", PickPackingCtrl.ePage.Entities.Header.API.UpdatePackage.Url, PickPackingCtrl.ePage.Masters.Config.PackageListDetails).then(function (response) {
         if (response.data.Response) {
-          PickPackingCtrl.ePage.Masters.Loading = false;
+
           // Get By Id Call
           apiService.get("eAxisAPI", PickPackingCtrl.ePage.Entities.Header.API.PackageGetByID.Url + response.data.Response.Response.PK).then(function (response) {
+            PickPackingCtrl.ePage.Masters.Loading = false;
+            PickPackingCtrl.ePage.Masters.EnablePrintLabel = true;
             PickPackingCtrl.ePage.Masters.UpdatedList = response.data.Response.lstUIPackage;
             PickPackingCtrl.ePage.Masters.Config.PackageListDetails = response.data.Response;
             PickPackingCtrl.ePage.Masters.List = [];
@@ -564,6 +583,56 @@
         }
       }
       return obj;
+    }
+    //#endregion
+
+    //#region Label Print for Package
+    function PrintLabel() {
+      PickPackingCtrl.ePage.Entities.Header.GlobalVariables.Loading = true;
+
+      var LabelObjectList = [];
+
+      LabelObjectList.push(PickPackingCtrl.ePage.Masters.Config.PackageListDetails);
+
+      apiService.post("eAxisAPI", PickPackingCtrl.ePage.Entities.Header.API.PrintPackageLabel.Url,LabelObjectList).then(function (response) {
+        if (response.data.Response) {
+          PickPackingCtrl.ePage.Entities.Header.GlobalVariables.Loading = false;
+          $uibModal.open({
+            windowClass: "general-edit  PackageLabel",
+            templateUrl: 'app/eaxis/warehouse/wh-releases/packing-module/pick-packing-tree/package-label-modal.html',
+            controller: function ($scope, $uibModalInstance) {
+
+              function base64ToArrayBuffer(base64) {
+                var binaryString = window.atob(base64);
+                var binaryLen = binaryString.length;
+                var bytes = new Uint8Array(binaryLen);
+                for (var i = 0; i < binaryLen; i++) {
+                  var ascii = binaryString.charCodeAt(i);
+                  bytes[i] = ascii;
+                }
+                var blob = new Blob([(bytes)], {
+                  type: "application/pdf"
+                });
+                var fileURL = URL.createObjectURL(blob);
+                $scope.Barcodecontent = $sce.trustAsResourceUrl(fileURL);
+                var a = document.createElement("a");
+                document.body.appendChild(a);
+                a.style = "display: none";
+                a.href = fileURL;
+                a.download = 'PackageLabel.pdf';
+              }
+
+              base64ToArrayBuffer(response.data.Response);
+
+              $scope.cancel = function () {
+                $uibModalInstance.dismiss('cancel');
+              };
+            }
+          });
+        } else {
+          toastr.error("Could Not Generate Label");
+        }
+      });
     }
     //#endregion
 

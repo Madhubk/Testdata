@@ -8,10 +8,15 @@
         data-ng-click="PickPackingCtrl.ePage.Masters.SavePackage()">Save
         Package</button>
 </div>
+<div ng-if="PickPackingCtrl.ePage.Masters.EnablePrintLabel == true">
+    <button class="btn btn-primary btn-sm pull-right margin-right-10 mt-5"
+        data-ng-click="PickPackingCtrl.ePage.Masters.PrintLabel()">
+        Print Label</button>
+</div>
 
 <!-- loading -->
 <div data-ng-if="PickPackingCtrl.ePage.Masters.tree.length==0">
-    <div class="text-no-record" style="top:120px;padding: 130px;margin-left: 165px;">No Package found...</div>
+    <div class="text-no-record" style="top:120px;padding: 130px;margin-left: 165px;">No Packages found...</div>
 </div>
 <div class="grid-loading-norecord-container" data-ng-if="PickPackingCtrl.ePage.Masters.Loading == true">
     <div class="dyn-grid-no-record" style="top:120px;">Loading...</div>
@@ -33,7 +38,7 @@
                         <span class="widget-caption" data-toggle="collapse" data-target="#demo{{data.IsSelectedValue}}" style="padding-right: 5px;">
                             <i class="fa fa-angle-down" aria-hidden="true"></i></span>
 
-                        <span class="widget-caption">Package{{data.Sequence}}</span>
+                        <span class="widget-caption">{{data.PackageId}}_{{data.Sequence}}</span>
 
                         <!-- for add and delete -->
                         <div class="widget-buttons">
