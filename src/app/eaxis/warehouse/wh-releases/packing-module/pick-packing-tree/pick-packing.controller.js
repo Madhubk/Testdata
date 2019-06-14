@@ -197,10 +197,12 @@
       // to check the obj is parent or child while adding the package
       if (PickPackingCtrl.ePage.Masters.isParentChild == "isParent") {
         ParentObject(_packtype);
-        PickPackingCtrl.ePage.Masters.PackList = {};
+        SavePackage();
+        // PickPackingCtrl.ePage.Masters.PackList = {};
       } else if (PickPackingCtrl.ePage.Masters.isParentChild == "isChild") {
         ChildObject(_packtype);
-        PickPackingCtrl.ePage.Masters.PackList = {};
+        SavePackage();
+        // PickPackingCtrl.ePage.Masters.PackList = {};
       } else if (PickPackingCtrl.ePage.Masters.isParentChild == "isEdited") {
         SavePackage();
       }
@@ -235,10 +237,11 @@
       PickPackingCtrl.ePage.Masters.isParentChild = "isParent";
 
       // empty master for model value
-      // PickPackingCtrl.ePage.Masters.PackList = {};
+      PickPackingCtrl.ePage.Masters.PackList = {};
 
       // outward value to the package id
       PickPackingCtrl.ePage.Masters.PackList.PackageId = PickPackingCtrl.ePage.Masters.Config.PackageListDetails.UIPackageHeader.ExternalReference;
+      PickPackingCtrl.ePage.Masters.PackList.PackageQty = "1";
 
       // pack type model function call
       PackTypeModel(PickPackingCtrl.ePage.Masters.isParentChild);
@@ -313,10 +316,12 @@
       PickPackingCtrl.ePage.Masters.Childdata = data;
 
       // empty master for model value
-      // PickPackingCtrl.ePage.Masters.PackList = {};
+      PickPackingCtrl.ePage.Masters.PackList = {};
 
       // outward value to the package id
       PickPackingCtrl.ePage.Masters.PackList.PackageId = PickPackingCtrl.ePage.Masters.Config.PackageListDetails.UIPackageHeader.ExternalReference;
+
+      PickPackingCtrl.ePage.Masters.PackList.PackageQty = "1";
 
       // pack type model function call
       PackTypeModel(PickPackingCtrl.ePage.Masters.isParentChild);
@@ -563,6 +568,7 @@
             PickPackingCtrl.ePage.Masters.UpdatedList = response.data.Response.lstUIPackage;
             PickPackingCtrl.ePage.Masters.Config.PackageListDetails = response.data.Response;
             PickPackingCtrl.ePage.Masters.List = [];
+            PickPackingCtrl.ePage.Masters.PackList = {};
             // Reverse json Function Call
             ReverseJson(PickPackingCtrl.ePage.Masters.UpdatedList);
           });
@@ -594,7 +600,7 @@
 
       LabelObjectList.push(PickPackingCtrl.ePage.Masters.Config.PackageListDetails);
 
-      apiService.post("eAxisAPI", PickPackingCtrl.ePage.Entities.Header.API.PrintPackageLabel.Url,LabelObjectList).then(function (response) {
+      apiService.post("eAxisAPI", PickPackingCtrl.ePage.Entities.Header.API.PrintPackageLabel.Url, LabelObjectList).then(function (response) {
         if (response.data.Response) {
           PickPackingCtrl.ePage.Entities.Header.GlobalVariables.Loading = false;
           $uibModal.open({
