@@ -212,6 +212,7 @@
 
             if(StocktransferEntryCtrl.currentStockTransfer.isNew)
             StocktransferEntryCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.WorkOrderSubType = 'TFR';
+            StocktransferEntryCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.WorkOrderSubTypeDesc = 'INTERNAL';
         }
 
         function SelectedLookupClient(item) { 
@@ -305,6 +306,8 @@
             if (myData == false) {
                 StocktransferEntryCtrl.ePage.Masters.Config.GeneralValidation(StocktransferEntryCtrl.currentStockTransfer);
             }
+
+            StocktransferEntryCtrl.ePage.Entities.Header.GlobalVariables.CopyofCurrentObject.UIWmsStockTransferLine = angular.copy(StocktransferEntryCtrl.ePage.Entities.Header.Data.UIWmsStockTransferLine);
         }
 
         //#endregion
@@ -595,15 +598,17 @@
                         "Units": item.Units,
                         "StockKeepingUnit": item.StockKeepingUnit,
 
+                        "WAA_FK":item.WAA_FK,
+                        "WAA_AreaType": item.WAA_AreaType,
+                        "WAA_Name": item.WAA_Name,
                         "PalletID": item.PalletID,
                         "TransferFromPalletId": item.TransferFromPalletId,
                         "WLO_Location": item.WLO_Location,
                         "WLO_FK": item.WLO_FK,
                         "WLO_TransferFrom": item.WLO_TransferFrom,
                         "WLO_TransferFrom_FK": item.WLO_TransferFrom_FK,
-                        "WLO_LocationStatus":item.WLO_LocationStatus,
-                        "WLO_LocationStatusDescription":item.WLO_LocationStatusDescription,
-
+                        "LocationStatus" :item.LocationStatus,
+                        "LocationStatusDescription" : item.LocationStatusDescription,
                         "AdjustmentArrivalDate": item.AdjustmentArrivalDate,
                         "LineComment": item.LineComment,
                         "IsDeleted": false,
@@ -635,6 +640,7 @@
                         "WorkOrderLineStatusDesc": "",
                         "OriginalInventoryStatus": "",
                         "OriginalInventoryStatusDesc": "",
+                        "WOL_MatchingLine_FK":item.WOL_MatchingLine_FK,
                     };
                     if (StocktransferEntryCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.Client) {
                         obj.Client = StocktransferEntryCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.ClientCode
@@ -964,6 +970,7 @@
                         "WAR_WarehouseCode": value.WAR_WarehouseCode,
                         "WAR_WarehouseName": value.WAR_WarehouseName,
                         "WAR_FK": value.WAR_FK,
+                        "WOL_MatchingLine_FK":value.PK
                     }
                     if (obj.MCC_NKCommodityCode == null) {
                         obj.MCC_NKCommodityCode = '';

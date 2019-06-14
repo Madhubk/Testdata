@@ -159,7 +159,7 @@
                                     "isenabled": true,
                                     "property": "areaname",
                                     "position": "3",
-                                    "width": "200",
+                                    "width": "300",
                                     "display": true
                                 },
                                 {
@@ -167,7 +167,7 @@
                                     "isenabled": true,
                                     "property": "areatype",
                                     "position": "4",
-                                    "width": "200",
+                                    "width": "300",
                                     "display": true
                                 }],
                                 "checkbox": {
@@ -182,12 +182,12 @@
                                 },
                                 "areaname": {
                                     "isenabled": true,
-                                    "width": "200",
+                                    "width": "300",
                                     "position": "3"
                                 },
                                 "areatype": {
                                     "isenabled": true,
-                                    "width": "200",
+                                    "width": "300",
                                     "position": "4"
                                 },
                             },
@@ -216,7 +216,7 @@
                                     "isenabled": true,
                                     "property": "cpworgcode",
                                     "position": "3",
-                                    "width": "200",
+                                    "width": "300",
                                     "display": true
                                 },
                                 {
@@ -224,7 +224,7 @@
                                     "isenabled": true,
                                     "property": "cpworgname",
                                     "position": "4",
-                                    "width": "200",
+                                    "width": "300",
                                     "display": true
                                 }],
                                 "cpwcheckbox": {
@@ -239,12 +239,12 @@
                                 },
                                 "cpworgcode": {
                                     "isenabled": true,
-                                    "width": "200",
+                                    "width": "300",
                                     "position": "3"
                                 },
                                 "cpworgname": {
                                     "isenabled": true,
-                                    "width": "200",
+                                    "width": "300",
                                     "position": "4"
                                 },
                             },

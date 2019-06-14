@@ -57,8 +57,7 @@
             "RemoveErrorWarning": RemoveErrorWarning,
             "GetErrorWarningCountParent": GetErrorWarningCountParent,
             "ShowErrorWarningModal": ShowErrorWarningModal,
-            "ValidationFindall": ValidationFindall
-
+            "ValidationFindall": ValidationFindall,
         };
 
         return exports;
@@ -116,7 +115,8 @@
                                 "Value": "PickSlip",
                                 "Icon": "fa fa-list-alt",
                                 "GParentRef": "pickslip"
-                            }, {
+                            },
+                            {
                                 "DisplayName": "Documents",
                                 "Value": "Documents",
                                 "Icon": "fa fa-file-pdf-o",
@@ -138,9 +138,9 @@
                         },
                         "TableProperties": {
                             "UIWmsOutward": {
-                                "TableHeight":{
-                                    "isEnabled":true,
-                                    "height":275
+                                "TableHeight": {
+                                    "isEnabled": true,
+                                    "height": 275
                                 },
                                 "HeaderProperties": [{
                                     "columnname": "S.No",
@@ -274,9 +274,9 @@
                                 }
                             },
                             "UIWmsPickLineSummary": {
-                                "TableHeight":{
-                                    "isEnabled":true,
-                                    "height":300
+                                "TableHeight": {
+                                    "isEnabled": true,
+                                    "height": 300
                                 },
                                 "HeaderProperties": [{
                                     "columnname": "S.No",
@@ -502,9 +502,9 @@
 
                             },
                             "UIWmsOutwardLines": {
-                                "TableHeight":{
-                                    "isEnabled":true,
-                                    "height":200
+                                "TableHeight": {
+                                    "isEnabled": true,
+                                    "height": 200
                                 },
                                 "HeaderProperties": [{
                                     "columnname": "S.No",
@@ -742,9 +742,9 @@
                                 }
                             },
                             "PickInventoryList": {
-                                "TableHeight":{
-                                    "isEnabled":true,
-                                    "height":200
+                                "TableHeight": {
+                                    "isEnabled": true,
+                                    "height": 200
                                 },
                                 "HeaderProperties": [{
                                     "columnname": "Checkbox",
@@ -1005,7 +1005,7 @@
                                     "position": "20",
                                     "width": "100"
                                 }
-                            },
+                            }
                         }
                     },
                 }

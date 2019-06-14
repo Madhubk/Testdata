@@ -1,0 +1,188 @@
+<div style="height: 250px;">
+    <div class="modal-header">
+        <button type="button" class="close"
+            ng-click="PickPackingCtrl.ePage.Masters.CloseEditActivityModal()">&times;</button>
+        <h5 class="modal-title" id="modal-title">
+            <strong>Select the PackType</strong>
+        </h5>
+    </div>
+    <div class="modal-body">
+        <div class="fixedheader mb-0" key-events table-object='PickPackingCtrl.ePage.Masters.PackList'
+            enable='PickPackingCtrl.ePage.Masters.EnablePackType' selected-row=''>
+            <table style="height: 100px">
+                <thead>
+                    <tr id="tableHeader">
+                        <th ng-style="{ 'width':  '40px' }" title="S.No">S.No</th>
+                        <th ng-style="{ 'width':  '150px' }" title="Pack Type">Pack Type</th>
+                        <th ng-style="{ 'width':  '110px' }" title="Package Quantity">Package Quantity</th>
+                        <th ng-style="{ 'width':  '130px' }" title="Package ID">Package ID</th>
+                        <th ng-style="{ 'width':  '100px' }" title="Length">Length</th>
+                        <th ng-style="{ 'width':  '100px' }" title="Width">Width</th>
+                        <th ng-style="{ 'width':  '100px' }" title="Height">Height</th>
+                        <th ng-style="{ 'width':  '150px' }" title="Dimension UQ">Dimension UQ</th>
+                        <th ng-style="{ 'width':  '100px' }" title="Weight">Weight</th>
+                        <th ng-style="{ 'width':  '150px' }" title="Weight UQ">Weight UQ</th>
+                        <th ng-style="{ 'width':  '100px' }" title="Volume">Volume</th>
+                        <th ng-style="{ 'width':  '150px' }" title="Volume UQ">Volume UQ</th>
+                        <th ng-style="{ 'width':  '130px' }" title="Marks & Numbers">Marks & Numbers</th>
+                        <th ng-style="{ 'width':  '130px' }" title="Transport Reference">Transport Reference</th>
+                        <th ng-style="{ 'width':  '130px' }" title="Goods Description">Goods Description</th>
+                        <th ng-style="{ 'width':  '110px' }" title="HS Code">HS Code</th>
+                        <th ng-style="{ 'width':  '110px' }" title="Commodity Code">Commodity Code</th>
+                        <th ng-style="{ 'width':  '110px' }" title="Commodity Description">Commodity Description</th>
+                    </tr>
+                </thead>
+                <tbody id="">
+                    <tr id="tableBody">
+                        <td ng-style="{ 'width':  '40px' }" class="overflow-text">{{$index +1}}</td>
+                        <td ng-style="{ 'width':  '150px' }" class="overflow-text">
+                            <div class="height-22 col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0">
+                                <select chosen class="form-control"
+                                    ng-model="PickPackingCtrl.ePage.Masters.PackList.NKPackType"
+                                    ng-options="x.Key as x.Key + ' - '  + x.Value for x in PickPackingCtrl.ePage.Masters.DropDownMasterList.INW_LINE_UQ.ListSource"
+                                    search-contains="true">
+                                    <option value="">--Select--</option>
+                                </select>
+                            </div>
+                        </td>
+                        <td ng-style="{ 'width':  '110px' }" class="overflow-text">
+                            <div class="height-22 col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0">
+                                <input type="text" maxlength="25"
+                                    class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
+                                    placeholder="Package Quantity"
+                                    data-ng-model="PickPackingCtrl.ePage.Masters.PackList.PackageQty">
+                            </div>
+                        </td>
+                        <td ng-style="{ 'width':  '130px' }" class="overflow-text">
+                            <div class="height-22 col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0">
+                                <input type="text" maxlength="25"
+                                    class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
+                                    placeholder="Package ID"
+                                    data-ng-model="PickPackingCtrl.ePage.Masters.PackList.PackageId">
+                            </div>
+                        </td>
+                        <td ng-style="{ 'width':  '100px' }" class="overflow-text">
+                            <div class="height-22 col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0">
+                                <input type="text" maxlength="25"
+                                    class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
+                                    placeholder="Length" data-ng-model="PickPackingCtrl.ePage.Masters.PackList.Length">
+                            </div>
+                        </td>
+                        <td ng-style="{ 'width':  '100px' }" class="overflow-text">
+                            <div class="height-22 col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0">
+                                <input type="text" maxlength="25"
+                                    class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
+                                    placeholder="Width" data-ng-model="PickPackingCtrl.ePage.Masters.PackList.Width">
+                            </div>
+                        </td>
+                        <td ng-style="{ 'width':  '100px' }" class="overflow-text">
+                            <div class="height-22 col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0">
+                                <input type="text" maxlength="25"
+                                    class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
+                                    placeholder="Height" data-ng-model="PickPackingCtrl.ePage.Masters.PackList.Height">
+                            </div>
+                        </td>
+                        <td ng-style="{ 'width':  '150px' }" class="overflow-text">
+                            <div class="height-22 col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0">
+                                <select chosen class="form-control"
+                                    ng-model="PickPackingCtrl.ePage.Masters.PackList.DimensionUQ"
+                                    ng-options="x.Key as x.Key + ' - '  + x.Value for x in PickPackingCtrl.ePage.Masters.DropDownMasterList.DimentionsUnit.ListSource"
+                                    search-contains="true">
+                                    <option value="">--Select--</option>
+                                </select>
+                            </div>
+                        </td>
+                        <td ng-style="{ 'width':  '100px' }" class="overflow-text">
+                            <div class="height-22 col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0">
+                                <input type="text" maxlength="25"
+                                    class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
+                                    placeholder="Weight" data-ng-model="PickPackingCtrl.ePage.Masters.PackList.Weight">
+                            </div>
+                        </td>
+                        <td ng-style="{ 'width':  '150px' }" class="overflow-text">
+                            <div class="height-22 col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0">
+                                <select chosen class="form-control"
+                                    ng-model="PickPackingCtrl.ePage.Masters.PackList.WeightUQ"
+                                    ng-options="x.Key as x.Key + ' - '  + x.Value for x in PickPackingCtrl.ePage.Masters.DropDownMasterList.GrossWeightUnit.ListSource"
+                                    search-contains="true">
+                                    <option value="">--Select--</option>
+                                </select>
+                            </div>
+                        </td>
+                        <td ng-style="{ 'width':  '100px' }" class="overflow-text">
+                            <div class="height-22 col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0">
+                                <input type="text" maxlength="25"
+                                    class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
+                                    placeholder="Volume" data-ng-model="PickPackingCtrl.ePage.Masters.PackList.Volume">
+                            </div>
+                        </td>
+                        <td ng-style="{ 'width':  '150px' }" class="overflow-text">
+                            <div class="height-22 col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0">
+                                <select chosen class="form-control"
+                                    ng-model="PickPackingCtrl.ePage.Masters.PackList.VolumeUQ"
+                                    ng-options="x.Key as x.Key + ' - '  + x.Value for x in PickPackingCtrl.ePage.Masters.DropDownMasterList.VOLUMEUNIT.ListSource"
+                                    search-contains="true">
+                                    <option value="">--Select--</option>
+                                </select>
+                            </div>
+                        </td>
+                        <td ng-style="{ 'width':  '130px' }" class="overflow-text">
+                            <div class="height-22 col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0">
+                                <input type="text" maxlength="25"
+                                    class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
+                                    placeholder="MarksAndNumbers"
+                                    data-ng-model="PickPackingCtrl.ePage.Masters.PackList.MarksAndNumbers">
+                            </div>
+                        </td>
+                        <td ng-style="{ 'width':  '130px' }" class="overflow-text">
+                            <div class="height-22 col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0">
+                                <input type="text" maxlength="25"
+                                    class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
+                                    placeholder="Transport Reference"
+                                    data-ng-model="PickPackingCtrl.ePage.Masters.PackList.TransportRef">
+                            </div>
+                        </td>
+                        <td ng-style="{ 'width':  '130px' }" class="overflow-text">
+                            <div class="height-22 col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0">
+                                <input type="text" maxlength="25"
+                                    class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
+                                    placeholder="Goods Description"
+                                    data-ng-model="PickPackingCtrl.ePage.Masters.PackList.GoodsDescription">
+                            </div>
+                        </td>
+                        <td ng-style="{ 'width':  '110px' }" class="overflow-text">
+                            <div class="height-22 col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0">
+                                <input type="text" maxlength="25"
+                                    class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
+                                    placeholder="HSCode" data-ng-model="PickPackingCtrl.ePage.Masters.PackList.HSCode">
+                            </div>
+                        </td>
+                        <td ng-style="{ 'width':  '110px' }" class="overflow-text">
+                            <div class="height-22 col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0">
+                                <input type="text" maxlength="25"
+                                    class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
+                                    placeholder="Commodity Code"
+                                    data-ng-model="PickPackingCtrl.ePage.Masters.PackList.RH_NKCommodityCode">
+                            </div>
+                        </td>
+                        <td ng-style="{ 'width':  '110px' }" class="overflow-text">
+                            <div class="height-22 col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0">
+                                <input type="text" maxlength="25"
+                                    class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
+                                    placeholder="Commodity Description"
+                                    data-ng-model="PickPackingCtrl.ePage.Masters.PackList.CommodityDesc">
+                            </div>
+                        </td>
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button data-ng-click="PickPackingCtrl.ePage.Masters.CloseEditActivityModal()" type="button"
+            class="btn btn-default">Cancel</button>
+        <button data-ng-click="PickPackingCtrl.ePage.Masters.SavePackType(PickPackingCtrl.ePage.Masters.PackList)"
+            type="button" class="btn btn-primary">OK</button>
+    </div>
+</div>

@@ -465,7 +465,7 @@
                                 data-ng-style="{'width': FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.crevenuetaxamtcost.width + 'px' }">Tax Amt(Revenue)</th>
                         </tr>
                     </thead>
-                    <tbody id="ASNCustTable{{FinanceJobGeneralCtrl.currentFinanceJob.label}}">
+                    <tbody id="JobChargeTable{{FinanceJobGeneralCtrl.currentFinanceJob.label}}">
                         <tr id="tableBody" data-ng-repeat="x in FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge" data-ng-click="FinanceJobGeneralCtrl.ePage.Masters.setSelectedRow($index);" 
                             data-ng-class="{row_active: (FinanceJobGeneralCtrl.ePage.Masters.selectedRow==$index),copy_row_active :(x.IsCopied==true)}" table-properties="FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIJobCharge"
                             row-position="$index">

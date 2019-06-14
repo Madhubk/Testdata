@@ -102,7 +102,7 @@
                         return deferred.promise;
                     }],
                     loadMyCtrl: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
-                        return $ocLazyLoad.load(["FinanceAccountPayable", "dynamicLookup", "dynamicListModal", "dynamicList", "dynamicGrid", "dynamicControl", "compareDate", "customToolbar", "confirmation", "chromeTab", "errorWarning", "FinanceAccountPayableMenu", "FinanceAccountPayableGeneral"]);
+                        return $ocLazyLoad.load(["FinanceJob", "FinanceAccountPayable", "dynamicLookup", "dynamicListModal", "dynamicList", "dynamicGrid", "dynamicControl", "compareDate", "customToolbar", "confirmation", "chromeTab", "errorWarning", "FinanceAccountPayableMenu", "FinanceAccountPayableGeneral"]);
                     }]
                 }
             })

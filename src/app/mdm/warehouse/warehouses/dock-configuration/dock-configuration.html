@@ -82,7 +82,7 @@
                         </div>
                         <div data-ng-if="$index==DockConfigCtrl.ePage.Masters.selectedRow">
                             <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0">
-                                <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
+                                <input type="text" class="height-22 form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
                                     placeholder="Dock Name" data-ng-model="x.DockName" ng-change="DockConfigCtrl.ePage.Masters.OnChangeValues(x.DockName,'E3009',true,(($index) + (DockConfigCtrl.ePage.Masters.CurrentPageStartingIndex)))">
                             </div>
                             <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5"
@@ -102,7 +102,7 @@
                         </div>
                         <div data-ng-if="$index==DockConfigCtrl.ePage.Masters.selectedRow">
                             <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0">
-                                <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
+                                <input type="text" class="height-22 form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
                                     placeholder="Dock Order" data-ng-model="x.DockOrder" ng-change="DockConfigCtrl.ePage.Masters.OnChangeValues(x.DockOrder,'E3009',true,(($index) + (DockConfigCtrl.ePage.Masters.CurrentPageStartingIndex)))">
                             </div>
                             <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5"
@@ -121,7 +121,7 @@
                             {{x.Purpose || DockConfigCtrl.ePage.Masters.emptyText}}
                         </div>
                         <div data-ng-if="$index==DockConfigCtrl.ePage.Masters.selectedRow">
-                            <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0">
+                            <div class="height-22 col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0">
                                 <select chosen class="form-control" ng-model="x.Purpose" ng-options="x.Key as x.Key + ' - '  + x.Value for x in DockConfigCtrl.ePage.Masters.DropDownMasterList.DockPurpose.ListSource"
                                     ng-change="DockConfigCtrl.ePage.Masters.OnChangeValues(x.Purpose,'E3010',true,(($index) + (DockConfigCtrl.ePage.Masters.CurrentPageStartingIndex)))"
                                     search-contains="true">

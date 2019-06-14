@@ -243,7 +243,7 @@
                         return deferred.promise;
                     }],
                     LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
-                        return $ocLazyLoad.load(["confirmation", "errorWarning", "compareDate", "dynamicListModal", "dynamicList", "dynamicLookup", "dynamicControl", "dynamicGrid", "EAwarehouse", "SRVOutwardRelease", "whReleases", "whReleasesMenu", "whReleasesGeneral", "pick", "pickAllocation", "whReleasesDocuments", "whReleasesPickSlip"]);
+                        return $ocLazyLoad.load(["confirmation", "errorWarning", "compareDate", "dynamicListModal", "dynamicList", "dynamicLookup", "dynamicControl", "dynamicGrid", "EAwarehouse", "SRVOutwardRelease", "whReleases", "whReleasesMenu", "whReleasesGeneral", "pick", "pickAllocation", "whReleasesDocuments", "whReleasesPickSlip","packingGeneral","packingHeader","pickPacking"]);
                     }]
                 }
             })

@@ -306,7 +306,7 @@
                                     });
                                     if (!Check) {
                                         OutwardMenuCtrl.ePage.Entities.Header.GlobalVariables.Loading = true;
-                                        if (!OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PickNo) {
+                                        if (!OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WPK_FK) {
                                             $event.preventDefault();
                                             var modalOptions = {
                                                 closeButtonText: 'No',
