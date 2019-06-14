@@ -75,6 +75,12 @@
                             "HttpType": "GET",
                             "Url": "TMSGatepass/GetById/"
                         },
+                        "FindAll": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "TMSGatepass/FindAll",
+                            "FilterID": "TMSGATP"
+                        },
                     }
                 },
                 "WmsDockConfig": {
@@ -90,6 +96,52 @@
                             "IsAPI": "true",
                             "HttpType": "GET",
                             "Url": "WmsDockConfig/Delete/"
+                        }
+                    }
+                },
+                "WmsInward": {
+                    "RowIndex": -1,
+                    "API": {
+                        "Update": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "WmsInward/Update"
+                        },
+                        "Insert": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "WmsInward/Insert"
+                        },
+                        "FindAll": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "WmsInward/FindAll",
+                            "FilterID": "WMSINW"
+                        }
+                    }
+                },
+                "WmsInwardList": {
+                    "RowIndex": -1,
+                    "API": {
+                        "GetById": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "WmsInwardList/GetById/",
+                        },
+                        "UpdateInwardProcess": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "WmsInwardList/ProcessUpdate"
+                        },
+                        "Update": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "WmsInwardList/Update"
+                        },
+                        "Insert": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "WmsInwardList/Insert"
                         }
                     }
                 },

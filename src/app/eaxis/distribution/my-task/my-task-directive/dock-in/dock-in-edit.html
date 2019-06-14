@@ -8,89 +8,77 @@
         <div class="rows border-box border-radius-2 pt-15 height-60">
             <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
                 <div class="form-group">
-                    <div class="color-999 fs-11">Gatepass No</div>
+                    <div class="color-999 fs-11 task-label-text">Gatepass No</div>
                     <div class="text-single-line">
                         <span>{{AllocateDockCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.GatepassNo
-                            ||AllocateDockCtrl.ePage.Masters.Empty}}</span>
+                            }}</span>
                     </div>
                 </div>
             </div>
             <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
                 <div class="form-group">
-                    <div class="color-999 fs-11">Facility</div>
-                    <span>{{AllocateDockCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.ORG_Code||AllocateDockCtrl.ePage.Masters.Empty}}
+                    <div class="color-999 fs-11 task-label-text">Facility</div>
+                    <span>{{AllocateDockCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.ORG_Code}}
                         -
-                        {{AllocateDockCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.ORG_FullName||AllocateDockCtrl.ePage.Masters.Empty}}</span>
+                        {{AllocateDockCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.ORG_FullName}}</span>
                 </div>
             </div>
             <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
                 <div class="form-group">
-                    <div class="color-999 fs-11">Carrier</div>
-                    <span>{{AllocateDockCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.TransporterCode||AllocateDockCtrl.ePage.Masters.Empty}}
+                    <div class="color-999 fs-11 task-label-text">Client</div>
+                    <span>{{AllocateDockCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.ClientCode
+                        }}
                         -
-                        {{AllocateDockCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.TransporterName||AllocateDockCtrl.ePage.Masters.Empty}}</span>
+                        {{AllocateDockCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.ClientName
+                        }}</span>
                 </div>
             </div>
             <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
                 <div class="form-group">
-                    <div class="color-999 fs-11">Purpose</div>
+                    <div class="color-999 fs-11 task-label-text">Carrier</div>
+                    <span>{{AllocateDockCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.TransporterCode}}
+                        -
+                        {{AllocateDockCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.TransporterName}}</span>
+                </div>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <div class="color-999 fs-11 task-label-text">Purpose</div>
                     <span>{{AllocateDockCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.Purpose
-                        ||AllocateDockCtrl.ePage.Masters.Empty}}</span>
+                        }}</span>
                 </div>
             </div>
             <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
                 <div class="form-group">
-                    <div class="color-999 fs-11">Vehicle No</div>
+                    <div class="color-999 fs-11 task-label-text">Vehicle No</div>
                     <span>{{AllocateDockCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.VehicleNo
-                        ||AllocateDockCtrl.ePage.Masters.Empty}}</span>
+                        }}</span>
                 </div>
             </div>
             <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
                 <div class="form-group">
-                    <div class="color-999 fs-11">Vehicle Type</div>
+                    <div class="color-999 fs-11 task-label-text">Vehicle Type</div>
                     <span>{{AllocateDockCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.VehicleType
-                        ||AllocateDockCtrl.ePage.Masters.Empty}}</span>
+                        }}</span>
                 </div>
             </div>
             <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
                 <div class="form-group">
-                    <div class="color-999 fs-11">Dock No</div>
-                    <span>{{AllocateDockCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.DockNo
-                        ||AllocateDockCtrl.ePage.Masters.Empty}}</span>
-                </div>
-            </div>
-            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
-                <div class="form-group">
-                    <div class="color-999 fs-11">Driver Name</div>
+                    <div class="color-999 fs-11 task-label-text">Driver Name</div>
                     <span>{{AllocateDockCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.DriverName
-                        ||AllocateDockCtrl.ePage.Masters.Empty}}</span>
+                        }}</span>
                 </div>
             </div>
             <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
                 <div class="form-group">
-                    <div class="color-999 fs-11">Driver Contact No</div>
+                    <div class="color-999 fs-11 task-label-text">Driver Contact No</div>
                     <span>{{AllocateDockCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.DriverContactNo
-                        ||AllocateDockCtrl.ePage.Masters.Empty}}</span>
+                        }}</span>
                 </div>
             </div>
             <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
                 <div class="form-group">
-                    <div class="color-999 fs-11">Dockin Time</div>
-                    <span>{{AllocateDockCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.DockinTime |
-                        date:"dd-MMM-yyyy
-                        hh:mm a"}}</span>
-                </div>
-            </div>
-            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
-                <div class="form-group">
-                    <div class="color-999 fs-11">Dockout Time</div>
-                    <span>{{AllocateDockCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.DockoutTime |
-                        date:"dd-MMM-yyyy hh:mm a"}}</span>
-                </div>
-            </div>
-            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
-                <div class="form-group">
-                    <div class="color-999 fs-11">Gatein Time</div>
+                    <div class="color-999 fs-11 task-label-text">Gatein Time</div>
                     <span>{{AllocateDockCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.GateinTime |
                         date:"dd-MMM-yyyy
                         hh:mm a"}}</span>
@@ -98,7 +86,49 @@
             </div>
             <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
                 <div class="form-group">
-                    <div class="color-999 fs-11">Gateout Time</div>
+                    <div class="color-999 fs-11 task-label-text">Dock No</div>
+                    <span>{{AllocateDockCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.DockNo
+                        }}</span>
+                </div>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <div class="color-999 fs-11 task-label-text">Dockin Time</div>
+                    <span>{{AllocateDockCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.DockinTime |
+                        date:"dd-MMM-yyyy
+                        hh:mm a"}}</span>
+                </div>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <div class="color-999 fs-11 task-label-text" data-ng-if="AllocateDockCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.Purpose=='INW'">Start
+                        Unload Time</div>
+                    <div class="color-999 fs-11 task-label-text" data-ng-if="AllocateDockCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.Purpose=='ORD'">Start
+                        Load Time</div>
+                    <span>{{AllocateDockCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.LoadOrUnloadStartTime |
+                        date:"dd-MMM-yyyy hh:mm a"}}</span>
+                </div>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <div class="color-999 fs-11 task-label-text" data-ng-if="AllocateDockCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.Purpose=='INW'">Complete
+                        Unload Time</div>
+                    <div class="color-999 fs-11 task-label-text" data-ng-if="AllocateDockCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.Purpose=='ORD'">Complete
+                        Load Time</div>
+                    <span>{{AllocateDockCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.LoadOrUnloadEndTime |
+                        date:"dd-MMM-yyyy hh:mm a"}}</span>
+                </div>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <div class="color-999 fs-11 task-label-text">Dockout Time</div>
+                    <span>{{AllocateDockCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.DockoutTime |
+                        date:"dd-MMM-yyyy hh:mm a"}}</span>
+                </div>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <div class="color-999 fs-11 task-label-text">Gateout Time</div>
                     <span>{{AllocateDockCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.GateoutTime |
                         date:"dd-MMM-yyyy hh:mm a"}}</span>
                 </div>
@@ -168,3 +198,4 @@
         </div>
     </div>
 </div>
+<div ng-init="AllocateDockCtrl.ePage.Masters.IsTaskList=false"></div>

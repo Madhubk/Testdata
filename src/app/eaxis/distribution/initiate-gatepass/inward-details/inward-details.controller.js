@@ -5,9 +5,9 @@
         .module("Application")
         .controller("InwardDetailsController", InwardDetailsController);
 
-    InwardDetailsController.$inject = ["apiService", "appConfig", "helperService", "gatepassConfig", "warehouseConfig"];
+    InwardDetailsController.$inject = ["apiService", "$window", "helperService", "gatepassConfig", "warehouseConfig"];
 
-    function InwardDetailsController(apiService, appConfig, helperService, gatepassConfig, warehouseConfig) {
+    function InwardDetailsController(apiService, $window, helperService, gatepassConfig, warehouseConfig) {
 
         var InwardDetailsCtrl = this;
 
@@ -22,13 +22,14 @@
             };
 
             InwardDetailsCtrl.ePage.Masters.Config = gatepassConfig;
+            InwardDetailsCtrl.ePage.Masters.SingleRecordView = SingleRecordView;
 
             getInwardDetails();
         }
 
         function getInwardDetails() {
             var _filter = {
-                "TGP_FK": InwardDetailsCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.PK
+                "GatepassNo": InwardDetailsCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.GatepassNo
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
@@ -44,6 +45,15 @@
                     }
                 }
             });
+        }
+
+        function SingleRecordView(item) {
+            var _queryString = {
+                PK: item.PK,
+                WorkOrderID: item.WorkOrderID
+            };
+            _queryString = helperService.encryptData(_queryString);
+            $window.open("#/EA/single-record-view/gatepassinward/" + _queryString, "_blank");
         }
 
         Init();

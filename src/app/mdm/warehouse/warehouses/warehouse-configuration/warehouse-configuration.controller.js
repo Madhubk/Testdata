@@ -5,9 +5,9 @@
         .module("Application")
         .controller("WarehouseConfigController", WarehouseConfigController);
 
-    WarehouseConfigController.$inject = ["$timeout", "authService", "apiService", "warehousesConfig", "helperService", "$filter", "toastr", "appConfig", "confirmation", "warehouseConfig"];
+    WarehouseConfigController.$inject = ["apiService", "warehousesConfig", "helperService", "warehouseConfig"];
 
-    function WarehouseConfigController($timeout, authService, apiService, warehousesConfig, helperService, $filter, toastr, appConfig, confirmation, warehouseConfig) {
+    function WarehouseConfigController(apiService, warehousesConfig, helperService, warehouseConfig) {
         var WarehouseConfigCtrl = this;
 
         function Init() {
@@ -15,7 +15,7 @@
 
             WarehouseConfigCtrl.ePage = {
                 "Title": "",
-                "Prefix": "Area_Details",
+                "Prefix": "Warehouse_Configuration",
                 "Masters": {},
                 "Meta": helperService.metaBase(),
                 "Entities": currentWarehouse
@@ -31,11 +31,11 @@
 
         // #region - Onchange values
         function OnChangeClientConfig() {
-            if (WarehouseConfigCtrl.ePage.Masters.IsClientConfig) {
+            if (WarehouseConfigCtrl.ePage.Masters.IsEnableGatepass) {
                 var obj = {
                     "IsJson": false,
                     "IsModified": false,
-                    "Key": "IsClientConfig",
+                    "Key": "IsEnableGatepass",
                     "SourceEntityRefKey": WarehouseConfigCtrl.ePage.Entities.Header.Data.WmsWarehouse.PK,
                     "EntitySource": "Warehouse",
                     "PK": "",
@@ -44,23 +44,23 @@
                     "AppCode": "WMS",
                     "ModuleCode": "WMS"
                 };
-                var IsClientConfig = WarehouseConfigCtrl.ePage.Entities.Header.Data.WmsSettings.some(function (value, key) {
-                    if (value.Key == "IsClientConfig") {
-                        value.Value = WarehouseConfigCtrl.ePage.Masters.IsClientConfig;
+                var IsEnableGatepass = WarehouseConfigCtrl.ePage.Entities.Header.Data.WmsSettings.some(function (value, key) {
+                    if (value.Key == "IsEnableGatepass") {
+                        value.Value = WarehouseConfigCtrl.ePage.Masters.IsEnableGatepass;
                         return true;
                     } else {
                         return false;
                     }
                 });
 
-                if (!IsClientConfig) {
+                if (!IsEnableGatepass) {
                     var data = angular.copy(obj);
-                    data.Value = WarehouseConfigCtrl.ePage.Masters.IsClientConfig;
+                    data.Value = WarehouseConfigCtrl.ePage.Masters.IsEnableGatepass;
                     WarehouseConfigCtrl.ePage.Entities.Header.Data.WmsSettings.push(data);
                 }
             } else {
                 WarehouseConfigCtrl.ePage.Entities.Header.Data.WmsSettings.map(function (v, k) {
-                    if (v.Key == "IsClientConfig") {
+                    if (v.Key == "IsEnableGatepass") {
                         if (v.PK) {
                             apiService.get("eAxisAPI", warehouseConfig.Entities.WmsSettings.API.Delete.Url + v.PK).then(function (response) {
                                 WarehouseConfigCtrl.ePage.Entities.Header.Data.WmsSettings.splice(k, 1);
@@ -74,11 +74,11 @@
         }
 
         function OnChangeMandatory() {
-            if (WarehouseConfigCtrl.ePage.Masters.IsMandatory) {
+            if (WarehouseConfigCtrl.ePage.Masters.IsGatepassMandatory) {
                 var obj = {
                     "IsJson": false,
                     "IsModified": false,
-                    "Key": "IsMandatory",
+                    "Key": "IsGatepassMandatory",
                     "SourceEntityRefKey": WarehouseConfigCtrl.ePage.Entities.Header.Data.WmsWarehouse.PK,
                     "EntitySource": "Warehouse",
                     "PK": "",
@@ -87,23 +87,23 @@
                     "AppCode": "WMS",
                     "ModuleCode": "WMS"
                 };
-                var IsMandatory = WarehouseConfigCtrl.ePage.Entities.Header.Data.WmsSettings.some(function (value, key) {
-                    if (value.Key == "IsMandatory") {
-                        value.Value = WarehouseConfigCtrl.ePage.Masters.IsMandatory;
+                var IsGatepassMandatory = WarehouseConfigCtrl.ePage.Entities.Header.Data.WmsSettings.some(function (value, key) {
+                    if (value.Key == "IsGatepassMandatory") {
+                        value.Value = WarehouseConfigCtrl.ePage.Masters.IsGatepassMandatory;
                         return true;
                     } else {
                         return false;
                     }
                 });
 
-                if (!IsMandatory) {
+                if (!IsGatepassMandatory) {
                     var data = angular.copy(obj);
-                    data.Value = WarehouseConfigCtrl.ePage.Masters.IsMandatory;
+                    data.Value = WarehouseConfigCtrl.ePage.Masters.IsGatepassMandatory;
                     WarehouseConfigCtrl.ePage.Entities.Header.Data.WmsSettings.push(data);
                 }
             } else {
                 WarehouseConfigCtrl.ePage.Entities.Header.Data.WmsSettings.map(function (v, k) {
-                    if (v.Key == "IsMandatory") {
+                    if (v.Key == "IsGatepassMandatory") {
                         if (v.PK) {
                             apiService.get("eAxisAPI", warehouseConfig.Entities.WmsSettings.API.Delete.Url + v.PK).then(function (response) {
                                 WarehouseConfigCtrl.ePage.Entities.Header.Data.WmsSettings.splice(k, 1);
@@ -131,11 +131,11 @@
                     angular.forEach(WarehouseConfigCtrl.ePage.Entities.Header.Data.WmsSettings, function (value, key) {
                         if (typeof value.Value == "string")
                             value.Value = JSON.parse(value.Value);
-                        if (value.Key == "IsClientConfig")
-                            WarehouseConfigCtrl.ePage.Masters.IsClientConfig = value.Value;
+                        if (value.Key == "IsEnableGatepass")
+                            WarehouseConfigCtrl.ePage.Masters.IsEnableGatepass = value.Value;
 
-                        if (value.Key == "IsMandatory")
-                            WarehouseConfigCtrl.ePage.Masters.IsMandatory = value.Value;
+                        if (value.Key == "IsGatepassMandatory")
+                            WarehouseConfigCtrl.ePage.Masters.IsGatepassMandatory = value.Value;
                     });
                 }
             });

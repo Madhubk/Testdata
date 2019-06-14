@@ -1,9 +1,13 @@
 <div class="clearfix col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" style="padding: 0px;">
-    <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8" style="border: 1px solid #ddd;height: 100px;">
+    <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8" style="border: 1px solid #ddd;height: 107px;padding: 0;">
         <div class="my-task-dispatch-manifest-container mt-10">
             <div class="my-task-content-shipper col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                 {{AllocateDockCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.ORG_Code}} -
                 {{AllocateDockCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.ORG_FullName}}
+            </div>
+            <div class="my-task-content-shipper col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                {{AllocateDockCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.ClientCode}} -
+                {{AllocateDockCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.ClientName}}
             </div>
             <div class="my-task-content-shipper col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                 {{AllocateDockCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.TransporterCode}} -
@@ -34,7 +38,8 @@
             <span style="color: gray;font-weight: 600;font-size: 12px;">Please enter Dock Number</span>
             <div class="mt-5">
                 <select chosen class="form-control" ng-model="AllocateDockCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.DockNo"
-                    ng-options="x.DockName as x.DockName for x in AllocateDockCtrl.ePage.Masters.DockNoList" search-contains="true">
+                    ng-options="x.DockName as x.DockName for x in AllocateDockCtrl.ePage.Masters.DockNoList"
+                    search-contains="true">
                     <option value="">--Select--</option>
                 </select>
             </div>
@@ -45,3 +50,4 @@
         </div>
     </div>
 </div>
+<div ng-init="AllocateDockCtrl.ePage.Masters.IsTaskList=true"></div>

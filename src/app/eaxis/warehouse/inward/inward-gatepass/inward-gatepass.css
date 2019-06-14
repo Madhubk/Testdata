@@ -1,0 +1,65 @@
+.border-radius-2 {
+    border-radius: 2px;
+}
+
+.border-box {
+    border: 1px solid #eee;
+}
+
+.rows {
+    width: 100%;
+    float: left;
+    position: relative;
+}
+
+.pt-15 {
+    padding-top: 15px !important;
+}
+
+.gatepass-card {
+    border-radius: 6px;
+    box-shadow: 0 2px 2px rgba(204, 197, 185, 0.5);
+    background-color: #ffffff;
+    color: #252422;
+    margin-bottom: 20px;
+    position: relative;
+    border: 1px solid #f0f0f0;
+    height: 140px;
+}
+
+.gatepass-card .content {
+    padding: 10px 0px 0px 0px;
+    height: 100px;
+}
+
+.a .hover {
+    text-decoration: none;
+}
+
+.fs-10 {
+    font-size: 10px;
+}
+
+.attachlink {
+    background-color: #5db2ff;
+    color: white;
+    margin-top: -10px;
+    padding: 5px 5px 5px 15px;
+    border-radius: 0px 6px;
+    font-size: 10.5px;
+}
+
+.col-white {
+    color: white;
+}
+
+.col-dgray {
+    color: darkgray;
+}
+
+.contd {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+}

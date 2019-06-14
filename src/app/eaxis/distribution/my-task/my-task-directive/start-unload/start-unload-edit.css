@@ -1,5 +1,5 @@
-.asnirupdateline-edit-modal .modal-dialog {
-    width: 1300px !important;
+.create-inward-modal .modal-dialog {
+    width: 90% !important;
 }
 
 .my-task-standard-bar {
@@ -10,10 +10,11 @@
 .btn-save{
     display: block;
 }
+
 .grid-loading-norecord-container {
     position: absolute;
     top: 0;
-    left: 0;
+    /* left: 0; */
     width: 100%;
     z-index: 10;
     height: 100%;
@@ -38,5 +39,8 @@
     border-radius: 3px;
 }
 
-
-
+.task-label-text {
+    color: gray;
+    font-weight: 600;
+    font-size: 12px;
+}

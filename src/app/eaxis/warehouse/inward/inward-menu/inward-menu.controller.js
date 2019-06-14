@@ -5,9 +5,9 @@
         .module("Application")
         .controller("InwardMenuController", InwardMenuController);
 
-    InwardMenuController.$inject = ["$rootScope", "$scope", "$timeout", "APP_CONSTANT", "apiService", "inwardConfig", "helperService", "appConfig", "authService", "$location", "$state", "toastr", "confirmation", "$uibModal", "$ocLazyLoad"];
+    InwardMenuController.$inject = ["$rootScope", "$scope", "$timeout", "APP_CONSTANT", "apiService", "inwardConfig", "helperService", "appConfig", "authService", "warehouseConfig", "$state", "toastr", "confirmation", "$uibModal", "$ocLazyLoad"];
 
-    function InwardMenuController($rootScope, $scope, $timeout, APP_CONSTANT, apiService, inwardConfig, helperService, appConfig, authService, $location, $state, toastr, confirmation, $uibModal, $ocLazyLoad) {
+    function InwardMenuController($rootScope, $scope, $timeout, APP_CONSTANT, apiService, inwardConfig, helperService, appConfig, authService, warehouseConfig, $state, toastr, confirmation, $uibModal, $ocLazyLoad) {
 
         var InwardMenuCtrl = this
 
@@ -41,6 +41,7 @@
             InwardMenuCtrl.ePage.Masters.Validation = Validation;
             InwardMenuCtrl.ePage.Masters.Config = inwardConfig;
             InwardMenuCtrl.ePage.Masters.JobAccounting = JobAccounting;
+            InwardMenuCtrl.ePage.Masters.GetGatepassMenuConfiguration = GetGatepassMenuConfiguration;
 
             $rootScope.SaveInwardFromTask = SaveInwardFromTask;
             $rootScope.FinalizeInwardFromTask = FinalizeInwardFromTask;
@@ -61,6 +62,17 @@
             var _ReceiveLineIndex = _menuList.map(function (value, key) {
                 return value.Value;
             }).indexOf("ReceiveLines");
+            // For Gatepass menu
+            var _GatepassIndex = _menuList.map(function (value, key) {
+                return value.Value;
+            }).indexOf("Gatepass");
+            InwardMenuCtrl.ePage.Masters.GatepassIndex = _GatepassIndex;
+
+            if (InwardMenuCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.WAR_FK) {
+                GetGatepassMenuConfiguration(_menuList, _GatepassIndex);
+            } else {
+                _menuList[_GatepassIndex].IsDisabled = true;
+            }
 
             if (InwardMenuCtrl.currentInward.isNew) {
                 _menuList[_index].IsDisabled = true;
@@ -84,7 +96,6 @@
                     GetMyTaskList(_menuList, _index);
                 }
             }
-
             //#endregion
 
             if (InwardMenuCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.WorkOrderStatus == 'FIN' || InwardMenuCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.WorkOrderStatus == 'CAN') {
@@ -94,6 +105,48 @@
 
             InwardMenuCtrl.ePage.Entities.Header.GlobalVariables.CopyofCurrentObject = angular.copy(InwardMenuCtrl.ePage.Entities.Header.Data);
         }
+
+        // #region - Gatepass menu show or hide
+        function GetGatepassMenuConfiguration(menuList, GatepassIndex) {
+            InwardMenuCtrl.ePage.Entities.Header.GlobalVariables.CallGatepassMenuConfiguration = false;
+            var _menuList = menuList;
+            var _GatepassIndex = GatepassIndex;
+                        
+            var _filter = {
+                SourceEntityRefKey: InwardMenuCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.WAR_FK
+            };
+            var _input = {
+                "searchInput": helperService.createToArrayOfObject(_filter),
+                "FilterID": warehouseConfig.Entities.WmsSettings.API.FindAll.FilterID
+            };
+
+            apiService.post("eAxisAPI", warehouseConfig.Entities.WmsSettings.API.FindAll.Url, _input).then(function (response) {
+                if (response.data.Response) {
+                    InwardMenuCtrl.ePage.Masters.GatepassMenuConfiguration = response.data.Response;
+                    if (InwardMenuCtrl.ePage.Masters.GatepassMenuConfiguration.length > 0) {
+                        var _Count = 0;
+                        angular.forEach(InwardMenuCtrl.ePage.Masters.GatepassMenuConfiguration, function (value, key) {
+                            if (value.Key == "IsEnableGatepass") {
+                                _Count = _Count + 1;
+                                InwardMenuCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.IsEnableGatepass = true;
+                            }
+                            if (value.Key == "IsGatepassMandatory") {
+                                InwardMenuCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.IsGatepassMandatory = true;
+                            }
+                        });
+                        if (_Count > 0) {
+                            _menuList[_GatepassIndex].IsDisabled = false;
+                        } else {
+                            _menuList[_GatepassIndex].IsDisabled = true;
+                        }
+                    } else {
+                        _menuList[_GatepassIndex].IsDisabled = true;
+                    }
+                    InwardMenuCtrl.ePage.Masters.InwardMenu.ListSource = _menuList;
+                }
+            });
+        }
+        // #endregion
 
         function SaveInwardFromTask(callback) {
             Validation(InwardMenuCtrl.currentInward, callback)
@@ -283,7 +336,7 @@
             }
         };
 
-        function Save($item){
+        function Save($item) {
             InwardMenuCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.FinalisedDate = null;
             InwardMenuCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.CancelledDate = null;
             Validation($item)
@@ -318,7 +371,7 @@
             var _Data = $item[$item.label].ePage.Entities,
                 _input = _Data.Header.Data;
 
-                // Location Allocation Status Change
+            // Location Allocation Status Change
             if ((_input.UIWmsInwardHeader.WorkOrderStatus == 'ENT' || _input.UIWmsInwardHeader.WorkOrderStatus == 'IGA') && (_input.UIWmsWorkOrderLine.length > 0)) {
                 var myData = _input.UIWmsWorkOrderLine.some(function (value, key) {
                     return value.WLO_FK;
@@ -353,7 +406,7 @@
                     _input.UIWmsInwardHeader.ExternalReference = _input.UIWmsInwardHeader.WorkOrderID;
                 }
             } else {
-                InwardMenuCtrl.ePage.Entities.Header.Data = PostSaveObjectUpdate(InwardMenuCtrl.ePage.Entities.Header.Data, InwardMenuCtrl.ePage.Entities.Header.GlobalVariables.CopyofCurrentObject,["Client","Warehouse","Supplier","ServiceLevel","Product","Commodity"]);
+                InwardMenuCtrl.ePage.Entities.Header.Data = PostSaveObjectUpdate(InwardMenuCtrl.ePage.Entities.Header.Data, InwardMenuCtrl.ePage.Entities.Header.GlobalVariables.CopyofCurrentObject, ["Client", "Warehouse", "Supplier", "ServiceLevel", "Product", "Commodity"]);
             }
 
             helperService.SaveEntity($item, 'Inward').then(function (response) {
@@ -397,9 +450,9 @@
                         InwardMenuCtrl.ePage.Masters.active = 1;
                     }
 
-                     //Taking Copy of Current Object
-                     InwardMenuCtrl.ePage.Entities.Header.Data = AfterSaveObjectUpdate(InwardMenuCtrl.ePage.Entities.Header.Data,"IsModified");
-                     InwardMenuCtrl.ePage.Entities.Header.GlobalVariables.CopyofCurrentObject = angular.copy(InwardMenuCtrl.ePage.Entities.Header.Data);
+                    //Taking Copy of Current Object
+                    InwardMenuCtrl.ePage.Entities.Header.Data = AfterSaveObjectUpdate(InwardMenuCtrl.ePage.Entities.Header.Data, "IsModified");
+                    InwardMenuCtrl.ePage.Entities.Header.GlobalVariables.CopyofCurrentObject = angular.copy(InwardMenuCtrl.ePage.Entities.Header.Data);
 
                     if (InwardMenuCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.WorkOrderStatus == "CAN") {
                         toastr.success("Cancelled Successfully");
@@ -422,11 +475,11 @@
                     if (InwardMenuCtrl.ePage.Entities.Header.Validations != null) {
                         toastr.error("Validation Failed...!");
                         InwardMenuCtrl.ePage.Masters.Config.ShowErrorWarningModal(InwardMenuCtrl.currentInward);
-                    }else{
+                    } else {
                         toastr.error("Could not Save...!");
                     }
                     if (callback) {
-                        callback()
+                        callback('error');
                     }
                 }
                 InwardMenuCtrl.ePage.Masters.Config.ProductSummary(InwardMenuCtrl.ePage.Entities.Header);
@@ -434,18 +487,18 @@
 
         }
 
-        function PostSaveObjectUpdate(newValue,oldValue, exceptObjects) {
+        function PostSaveObjectUpdate(newValue, oldValue, exceptObjects) {
             for (var i in newValue) {
-                if(typeof newValue[i]=='object'){
-                    PostSaveObjectUpdate(newValue[i],oldValue[i],exceptObjects);
-                }else{
-                    var Satisfied = exceptObjects.some(function(v){return v===i});
-                    if(!Satisfied && i!= "$$hashKey"){
-                        if(!oldValue){
+                if (typeof newValue[i] == 'object') {
+                    PostSaveObjectUpdate(newValue[i], oldValue[i], exceptObjects);
+                } else {
+                    var Satisfied = exceptObjects.some(function (v) { return v === i });
+                    if (!Satisfied && i != "$$hashKey") {
+                        if (!oldValue) {
                             newValue["IsModified"] = true;
                             break;
-                        }else{
-                            if(newValue[i]!=oldValue[i]){
+                        } else {
+                            if (newValue[i] != oldValue[i]) {
                                 newValue["IsModified"] = true;
                                 break;
                             }
@@ -456,7 +509,7 @@
             return newValue;
         }
 
-        function AfterSaveObjectUpdate(obj,key){
+        function AfterSaveObjectUpdate(obj, key) {
             for (var i in obj) {
                 if (!obj.hasOwnProperty(i)) continue;
                 if (typeof obj[i] == 'object') {
@@ -489,6 +542,12 @@
                 InwardMenuCtrl.ePage.Masters.Config.ShowErrorWarningModal(InwardMenuCtrl.currentInward);
                 if (callback)
                     callback('error');
+            } else if (!InwardMenuCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.TGP_FK && InwardMenuCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.IsGatepassMandatory) {
+                // when the gatepass is mandatory                 
+                InwardMenuCtrl.ePage.Masters.Config.PushErrorWarning("E3548", "Gatepass Is Mandatory", "E", false, 'IsGatepassMandatory', InwardMenuCtrl.currentInward.label, false, undefined, undefined, 'IsGatepassMandatory', undefined, 'gatepass');
+                InwardMenuCtrl.ePage.Masters.Config.ShowErrorWarningModal(InwardMenuCtrl.currentInward);
+                if (callback)
+                    callback('error');
             } else if (_input.UIWmsWorkOrderLine.length > 0) {
                 var myDate = _input.UIWmsWorkOrderLine.some(function (value, key) {
                     return !value.WLO_FK;
@@ -507,8 +566,8 @@
                     confirmation.showModal({}, modalOptions)
                         .then(function (result) {
                             InwardMenuCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.FinalisedDate = new Date();
-                            
-                            $item = filterObjectUpdate($item,"IsModified");
+
+                            $item = filterObjectUpdate($item, "IsModified");
 
                             Validation($item, callback);
                         }, function () {
@@ -585,9 +644,9 @@
             });
         }
 
-         //#region JobAccounting
+        //#region JobAccounting
 
-         function JobAccounting() {
+        function JobAccounting() {
             InwardMenuCtrl.ePage.Entities.Header.GlobalVariables.Loading = true;
             var obj = {};
 
@@ -646,7 +705,7 @@
                         /* Warehouse Call to Get Branch and Company */
 
                         var _Warehousefilter = {
-                            "PK":InwardMenuCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.WAR_FK
+                            "PK": InwardMenuCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.WAR_FK
                         };
 
                         var _Warehouseinput = {

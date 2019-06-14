@@ -7,7 +7,7 @@
     padding: 5px 0;
 }
 
-.btn-save{
+.btn-save {
     display: block;
 }
 
@@ -39,5 +39,8 @@
     border-radius: 3px;
 }
 
-
-
+.task-label-text {
+    color: gray;
+    font-weight: 600;
+    font-size: 12px;
+}

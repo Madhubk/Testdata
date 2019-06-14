@@ -15,7 +15,7 @@
 
             ClientConfigCtrl.ePage = {
                 "Title": "",
-                "Prefix": "Area_Details",
+                "Prefix": "Client_configuration",
                 "Masters": {},
                 "Meta": helperService.metaBase(),
                 "Entities": currentWarehouse

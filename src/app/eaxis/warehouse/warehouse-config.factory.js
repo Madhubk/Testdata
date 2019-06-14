@@ -4,9 +4,9 @@
         .module("Application")
         .factory("warehouseConfig", WarehouseConfig);
 
-    WarehouseConfig.$inject = ["$location", "$q", "apiService", "helperService", "toastr", "appConfig"];
+    WarehouseConfig.$inject = [];
 
-    function WarehouseConfig($location, $q, apiService, helperService, toastr, appConfig) {
+    function WarehouseConfig() {
         var exports = {
             "Entities": {
                 "Header": {
@@ -476,6 +476,37 @@
                             "IsAPI": "true",
                             "HttpType": "GET",
                             "Url": "WmsDockConfig/Delete/"
+                        }
+                    }
+                },
+                "TMSGatepass": {
+                    "RowIndex": -1,
+                    "API": {
+                        "GetById": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "TMSGatepass/GetById/"
+                        },
+                        "FindAll": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "TMSGatepass/FindAll",
+                            "FilterID": "TMSGATP"
+                        },
+                    }
+                },
+                "TMSGatepassList": {
+                    "RowIndex": -1,
+                    "API": {
+                        "GetById": {
+                            "IsAPI": "true",
+                            "HttpType": "GET",
+                            "Url": "TMSGatepassList/GetById/"
+                        },
+                        "Update": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "TMSGatepassList/Update"
                         }
                     }
                 },
