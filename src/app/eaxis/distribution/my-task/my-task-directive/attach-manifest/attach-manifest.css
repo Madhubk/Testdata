@@ -1,5 +1,5 @@
-.asnirupdateline-edit-modal .modal-dialog {
-    width: 1300px !important;
+.create-inward-modal .modal-dialog {
+    width: 90% !important;
 }
 
 .my-task-standard-bar {
@@ -39,4 +39,9 @@
     border-radius: 3px;
 }
 
+.task-label-text {
+    color: gray;
+    font-weight: 600;
+    font-size: 12px;
+}
 

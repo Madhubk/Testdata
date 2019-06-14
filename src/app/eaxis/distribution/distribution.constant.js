@@ -320,14 +320,8 @@
                 name: 'AttachManifestDirective',
                 files: [
                     'app/eaxis/distribution/my-task/my-task-directive/attach-manifest/attach-manifest.directive.js',
-                    'app/eaxis/distribution/my-task/my-task-directive/attach-manifest/attach-manifest.controller.js'
-                ]
-            }, {
-                name: 'AttachManifestEditDirective',
-                files: [
-                    'app/eaxis/distribution/my-task/my-task-directive/attach-manifest/attach-manifest-edit/attach-manifest-edit.directive.js',
-                    'app/eaxis/distribution/my-task/my-task-directive/attach-manifest/attach-manifest-edit/attach-manifest-edit.controller.js',
-                    'app/eaxis/distribution/my-task/my-task-directive/attach-manifest/attach-manifest-edit/attach-manifest-edit.css'
+                    'app/eaxis/distribution/my-task/my-task-directive/attach-manifest/attach-manifest.controller.js',
+                    'app/eaxis/distribution/my-task/my-task-directive/attach-manifest/attach-manifest.css'
                 ]
             }, {
                 name: 'DockInDirective',
@@ -354,27 +348,15 @@
                 name: 'StartLoadDirective',
                 files: [
                     'app/eaxis/distribution/my-task/my-task-directive/start-load/start-load.directive.js',
-                    'app/eaxis/distribution/my-task/my-task-directive/start-load/start-load.controller.js'
-                ]
-            }, {
-                name: 'StartLoadEditDirective',
-                files: [
-                    'app/eaxis/distribution/my-task/my-task-directive/start-load/start-load-edit/start-load-edit.directive.js',
-                    'app/eaxis/distribution/my-task/my-task-directive/start-load/start-load-edit/start-load-edit.controller.js',
-                    'app/eaxis/distribution/my-task/my-task-directive/start-load/start-load-edit/start-load-edit.css'
+                    'app/eaxis/distribution/my-task/my-task-directive/start-load/start-load.controller.js',
+                    'app/eaxis/distribution/my-task/my-task-directive/start-load/start-load-edit.css'
                 ]
             }, {
                 name: 'CompleteLoadDirective',
                 files: [
                     'app/eaxis/distribution/my-task/my-task-directive/complete-load/complete-load.directive.js',
-                    'app/eaxis/distribution/my-task/my-task-directive/complete-load/complete-load.controller.js'
-                ]
-            }, {
-                name: 'CompleteLoadEditDirective',
-                files: [
-                    'app/eaxis/distribution/my-task/my-task-directive/complete-load/complete-load-edit/complete-load-edit.directive.js',
-                    'app/eaxis/distribution/my-task/my-task-directive/complete-load/complete-load-edit/complete-load-edit.controller.js',
-                    'app/eaxis/distribution/my-task/my-task-directive/complete-load/complete-load-edit/complete-load-edit.css'
+                    'app/eaxis/distribution/my-task/my-task-directive/complete-load/complete-load.controller.js',
+                    'app/eaxis/distribution/my-task/my-task-directive/complete-load/complete-load-edit.css'
                 ]
             }, {
                 name: 'StartUnloadDirective',

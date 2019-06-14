@@ -145,6 +145,59 @@
                         }
                     }
                 },
+                "WmsOutward": {
+                    "RowIndex": -1,
+                    "API": {
+                        "FindAll": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "WmsOutward/FindAll",
+                            "FilterID": "WMSOUT",
+                        },
+                        "Update": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "WmsOutward/Update"
+                        },
+                        "Insert": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "WmsOutward/Insert"
+                        },
+                    }
+                },
+                "WmsPickReleaseLine": {
+                    "RowIndex": -1,
+                    "API": {
+                        "FindAll": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "WmsPickReleaseLine/FindAll",
+                            "FilterID": "WMSPICREL",
+                        },
+                        "UpdateSelectedColumns": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "WmsPickReleaseLine/UpdateSelectedColumns"
+                        }
+                    }
+                },
+                "TmsManifestItem": {
+                    "RowIndex": -1,
+                    "API": {
+                        "FindAll": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "TmsManifestItem/FindAll",
+                            "FilterID": "TMSMAIT",
+                        },
+                        "Update": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "TmsManifestItem/Update"
+                        }
+                    }
+                },
                 "Message": false
             },
         }
