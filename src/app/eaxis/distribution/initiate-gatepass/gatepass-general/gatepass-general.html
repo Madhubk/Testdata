@@ -224,7 +224,7 @@
                 <label class="control-label">Vehicle Type</label>
                 <div class="">
                     <select chosen class="form-control" ng-model="GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.VehicleType"
-                        ng-options="x.Code as x.Code +' - '+ x.Description for x in GatepassGeneralCtrl.ePage.Masters.VehicleType | filter: {IsVehicle:true}"
+                        ng-options="x.Description as x.Code +' - '+ x.Description for x in GatepassGeneralCtrl.ePage.Masters.VehicleType | filter: {IsVehicle:true}"
                         search-contains="true" ng-change="GatepassGeneralCtrl.ePage.Masters.OnFieldValueChange('E3534')">
                         <option value="">--Select--</option>
                     </select>
