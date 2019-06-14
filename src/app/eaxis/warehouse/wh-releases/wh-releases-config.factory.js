@@ -96,7 +96,11 @@
             "RemoveErrorWarning": RemoveErrorWarning,
             "GetErrorWarningCountParent": GetErrorWarningCountParent,
             "ShowErrorWarningModal": ShowErrorWarningModal,
-            "ValidationFindall": ValidationFindall
+            "ValidationFindall": ValidationFindall,
+            "SelectedReleaseLine": "",
+            "SelectedPackage": "",
+            "PackageListDetails":"",
+            "ItemDeleted":""
         };
         return exports;
 
@@ -160,7 +164,39 @@
                                 "IsAPI": "true",
                                 "HttpType": "POST",
                                 "Url": "WmsInwardList/Insert",
-                            }
+                            },
+                            "PickReleaseLine": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "PickLinewithPackage/FindAll",
+                                "FilterID": "WMSPLP"
+                            },
+                            "PackageGetByID": {
+                                "IsAPI": "true",
+                                "HttpType": "GET",
+                                "Url": "WmsPackageHeaderList/GetById/"
+                            },
+                            "InsertPackage": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "WmsPackageHeaderList/Insert"
+                            },
+                            "UpdatePackage": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "WmsPackageHeaderList/Update"
+                            },
+                            "PackageHeaderFindAll": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "WmsPackageHeader/FindAll",
+                                "FilterID": "WMSWPH"
+                            },
+                            "PrintPackageLabel": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "WmsPackageHeaderList/PackageBarcode"
+                            },
                         },
                         "Meta": {
                             "MenuList": [{
@@ -178,6 +214,12 @@
                                 "Value": "PickSlip",
                                 "Icon": "fa fa-list-alt",
                                 "GParentRef": "pickslip"
+                            },
+                            {
+                                "DisplayName": "Packing",
+                                "Value": "Packing",
+                                "Icon": "fa fa-archive",
+                                "GParentRef": "Packing"
                             }, {
                                 "DisplayName": "Documents",
                                 "Value": "Documents",
@@ -1159,6 +1201,157 @@
                                     "width": "200"
                                 }
                             },
+                            "PackingOutwardLines": {
+                                "TableHeight": {
+                                    "isEnabled": true,
+                                    "height": 250
+                                },
+                                "HeaderProperties": [
+                                    {
+                                        "columnname": "S.No",
+                                        "isenabled": true,
+                                        "property": "lpsno",
+                                        "position": "1",
+                                        "width": "40",
+                                        "display": false
+                                    },
+                                    {
+                                        "columnname": "Pick No",
+                                        "isenabled": true,
+                                        "property": "lpickno",
+                                        "position": "2",
+                                        "width": "100",
+                                        "display": true
+                                    },
+                                    {
+                                        "columnname": "Product Code",
+                                        "isenabled": true,
+                                        "property": "lproductcode",
+                                        "position": "3",
+                                        "width": "100",
+                                        "display": true
+                                    },
+                                    {
+                                        "columnname": "Product Description",
+                                        "isenabled": true,
+                                        "property": "lproductdescription",
+                                        "position": "4",
+                                        "width": "100",
+                                        "display": true
+                                    },
+                                    {
+                                        "columnname": "Packed Quantity",
+                                        "isenabled": true,
+                                        "property": "lpackunits",
+                                        "position": "5",
+                                        "width": "130",
+                                        "display": true
+                                    },
+                                    {
+                                        "columnname": "UnPacked Quantity",
+                                        "isenabled": true,
+                                        "property": "lunits",
+                                        "position": "6",
+                                        "width": "130",
+                                        "display": true
+                                    },
+                                    {
+                                        "columnname": "UDF1",
+                                        "isenabled": true,
+                                        "property": "lpartattrib1",
+                                        "position": "7",
+                                        "width": "80",
+                                        "display": true
+                                    },
+                                    {
+                                        "columnname": "UDF2",
+                                        "isenabled": true,
+                                        "property": "lpartattrib2",
+                                        "position": "8",
+                                        "width": "80",
+                                        "display": true
+                                    },
+                                    {
+                                        "columnname": "UDF3",
+                                        "isenabled": true,
+                                        "property": "lpartattrib3",
+                                        "position": "9",
+                                        "width": "80",
+                                        "display": true
+                                    },
+                                    {
+                                        "columnname": "Packing Date",
+                                        "isenabled": true,
+                                        "property": "lpackingdate",
+                                        "position": "10",
+                                        "width": "100",
+                                        "display": true
+                                    },
+                                    {
+                                        "columnname": "Expiry Date",
+                                        "isenabled": true,
+                                        "property": "lexpirydate",
+                                        "position": "11",
+                                        "width": "100",
+                                        "display": true
+                                    }
+                                ],
+                                "lpsno": {
+                                    "isenabled": true,
+                                    "position": "1",
+                                    "width": "40"
+                                },
+                                "lpickno": {
+                                    "isenabled": true,
+                                    "position": "2",
+                                    "width": "100"
+                                },
+                                "lproductcode": {
+                                    "isenabled": true,
+                                    "position": "3",
+                                    "width": "100"
+                                },
+                                "lproductdescription": {
+                                    "isenabled": true,
+                                    "position": "4",
+                                    "width": "100"
+                                },
+                                "lpackunits": {
+                                    "isenabled": true,
+                                    "position": "5",
+                                    "width": "130"
+                                },
+                                "lunits": {
+                                    "isenabled": true,
+                                    "position": "6",
+                                    "width": "130"
+                                },
+                                "lpartattrib1": {
+                                    "isenabled": true,
+                                    "position": "7",
+                                    "width": "80"
+                                },
+                                "lpartattrib2": {
+                                    "isenabled": true,
+                                    "position": "8",
+                                    "width": "80"
+                                },
+                                "lpartattrib3": {
+                                    "isenabled": true,
+                                    "position": "9",
+                                    "width": "80"
+                                },
+                                "lpackingdate": {
+                                    "isenabled": true,
+                                    "position": "10",
+                                    "width": "100"
+                                },
+                                "lexpirydate": {
+                                    "isenabled": true,
+                                    "position": "11",
+                                    "width": "100"
+                                }
+                            }
                         }
                     },
                 }

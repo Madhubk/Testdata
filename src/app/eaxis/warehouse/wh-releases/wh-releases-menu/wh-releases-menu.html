@@ -30,6 +30,9 @@
                         <div ng-switch-when="PickSlip">
                             <releases-pick-slip current-release="ReleaseMenuCtrl.currentRelease"></releases-pick-slip>                                    
                         </div>
+                        <div ng-switch-when="Packing">
+                            <packing-general current-pick="ReleaseMenuCtrl.currentRelease"></packing-general>                                                             
+                        </div>
                         <div ng-switch-when="Documents">
                             <releases-documents current-release="ReleaseMenuCtrl.currentRelease"></releases-documents>                                    
                         </div>

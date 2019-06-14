@@ -1,0 +1,22 @@
+<div style="height: 195px;">
+    <div class="modal-header">
+        <button type="button" class="close"
+            ng-click="PackingGeneralCtrl.ePage.Masters.CloseEditActivityModal()">&times;</button>
+        <h4 class="modal-title" id="modal-title">
+            <strong>Enter the Quantity</strong>
+        </h4>
+    </div>
+    <div class="modal-body">
+        <div class="form-group">
+            <label class="control-label text-single-line">Quantity</label>
+            <div>
+                <input type="text" class="input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Quantity"
+                    data-ng-model="PackingGeneralCtrl.ePage.Masters.ReleaseLineList.Units">
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" data-ng-click="PackingGeneralCtrl.ePage.Masters.SaveReleaseQuantity(PackingGeneralCtrl.ePage.Masters.ReleaseLineList)" type="button"
+            class="btn btn-primary">Add to Pack</button>
+    </div>
+</div>
