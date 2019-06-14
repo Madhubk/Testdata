@@ -99,7 +99,7 @@
 
             if (!_isExist) {
                 FinanceAccountPayableCtrl.ePage.Masters.isNewClicked = true;
-                helperService.getFullObjectUsingGetById(FinanceAccountPayableCtrl.ePage.Entities.API.AccTransactionHeader.API.GetById.Url, 'null').then(function (response) {
+                helperService.getFullObjectUsingGetById(FinanceAccountPayableCtrl.ePage.Entities.API.AccountpayableList.API.GetById.Url, 'null').then(function (response) {
                     if (response.data.Response) {
                         var _obj = {
                             entity: response.data.Response,
@@ -122,7 +122,7 @@
             var _currentTab = currentTab[currentTab.code].ePage.Entities;
             FinanceAccountPayableCtrl.ePage.Masters.TabList.splice(index, 1);
 
-            apiService.get("eAxisAPI", financeConfig.Entities.API.AccTransactionHeader.API.AccTransactionHeaderActivityClose.Url + _currentTab.Header.Data.PK).then(function (response) {
+            apiService.get("eAxisAPI", financeConfig.Entities.API.AccountpayableList.API.AccountpayableListActivityClose.Url + _currentTab.Header.Data.PK).then(function (response) {
                 if (response.data.Response === "Success") {
                 } else {
                     console.log("Tab close Error : " + response);
