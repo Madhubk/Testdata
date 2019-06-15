@@ -3,14 +3,14 @@
         <button type="button" class="close"
             ng-click="PackingGeneralCtrl.ePage.Masters.CloseEditActivityModal()">&times;</button>
         <h4 class="modal-title" id="modal-title">
-            <strong>Enter the Quantity</strong>
+            <strong>{{PackingGeneralCtrl.ePage.Masters.Config.SelectedPackage.PackageId}}_{{PackingGeneralCtrl.ePage.Masters.Config.SelectedPackage.Sequence}}</strong>
         </h4>
     </div>
     <div class="modal-body">
         <div class="form-group">
-            <label class="control-label text-single-line">Quantity</label>
+            <label class="control-label text-single-line">Enter the Quantity</label>
             <div>
-                <input type="text" class="input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Quantity"
+                <input type="text" class="input-sm ng-pristine ng-valid ng-not-empty ng-touched" placeholder="Enter the Quantity"
                     data-ng-model="PackingGeneralCtrl.ePage.Masters.ReleaseLineList.Units">
             </div>
         </div>

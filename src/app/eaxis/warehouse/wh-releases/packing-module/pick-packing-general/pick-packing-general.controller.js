@@ -203,36 +203,40 @@
         function SaveReleaseQuantity($item) {
 
             PackingGeneralCtrl.ePage.Masters.Releasepackitem = $item;
-            if (PackingGeneralCtrl.ePage.Masters.Config.SelectedPackage.PK) {
-                if (PackingGeneralCtrl.ePage.Masters.Releasepackitem.RemainingQty < PackingGeneralCtrl.ePage.Masters.Releasepackitem.Units) {
-                    toastr.warning("Packing Quantity is Greater than Release Quantity");
-                    // PackingGeneralCtrl.ePage.Masters.ReleaseLineList.Units = '';
-                }
-                else {
-                    // $item.map(function (value, key) {
-                    var obj = {
-                        "PK": "",
-                        "PackageFK": PackingGeneralCtrl.ePage.Masters.Config.SelectedPackage.PK,
-                        "PickLine_FK": PackingGeneralCtrl.ePage.Masters.Releasepackitem.WPL_FK,
-                        "PackedQty": PackingGeneralCtrl.ePage.Masters.Releasepackitem.Units,
-                        "ProductPk": PackingGeneralCtrl.ePage.Masters.Releasepackitem.WPR_PRO_FK,
-                        "ProductCode": PackingGeneralCtrl.ePage.Masters.Releasepackitem.ProductCode,
-                        "ProductDesc": PackingGeneralCtrl.ePage.Masters.Releasepackitem.ProductDescription,
-                        "UDF1": PackingGeneralCtrl.ePage.Masters.Releasepackitem.PartAttrib1,
-                        "UDF2": PackingGeneralCtrl.ePage.Masters.Releasepackitem.PartAttrib2,
-                        "UDF3": PackingGeneralCtrl.ePage.Masters.Releasepackitem.PartAttrib3,
-                        "PackingDate": PackingGeneralCtrl.ePage.Masters.Releasepackitem.PackingDate,
-                        "ExpiryDate": PackingGeneralCtrl.ePage.Masters.Releasepackitem.ExpiryDate,
-                        "ReleaseLine_FK": PackingGeneralCtrl.ePage.Masters.Releasepackitem.WRL_FK,
-                        "IsModified": false,
-                        "IsDeleted": false,
-                        "IsNewInsert": true
+            if (PackingGeneralCtrl.ePage.Masters.Config.SelectedPackage.IsClosed == true) {
+                toastr.warning("Package is Closed");
+            } else if (PackingGeneralCtrl.ePage.Masters.Config.SelectedPackage.IsClosed == false || PackingGeneralCtrl.ePage.Masters.Config.SelectedPackage.IsClosed == undefined || PackingGeneralCtrl.ePage.Masters.Config.SelectedPackage.IsClosed == null) {
+                if (PackingGeneralCtrl.ePage.Masters.Config.SelectedPackage.PK) {
+                    if (PackingGeneralCtrl.ePage.Masters.Releasepackitem.RemainingQty < PackingGeneralCtrl.ePage.Masters.Releasepackitem.Units) {
+                        toastr.warning("Packing Quantity is Greater than Release Quantity");
+                        // PackingGeneralCtrl.ePage.Masters.ReleaseLineList.Units = '';
                     }
+                    else {
+                        // $item.map(function (value, key) {
+                        var obj = {
+                            "PK": "",
+                            "PackageFK": PackingGeneralCtrl.ePage.Masters.Config.SelectedPackage.PK,
+                            "PickLine_FK": PackingGeneralCtrl.ePage.Masters.Releasepackitem.WPL_FK,
+                            "PackedQty": PackingGeneralCtrl.ePage.Masters.Releasepackitem.Units,
+                            "ProductPk": PackingGeneralCtrl.ePage.Masters.Releasepackitem.WPR_PRO_FK,
+                            "ProductCode": PackingGeneralCtrl.ePage.Masters.Releasepackitem.ProductCode,
+                            "ProductDesc": PackingGeneralCtrl.ePage.Masters.Releasepackitem.ProductDescription,
+                            "UDF1": PackingGeneralCtrl.ePage.Masters.Releasepackitem.PartAttrib1,
+                            "UDF2": PackingGeneralCtrl.ePage.Masters.Releasepackitem.PartAttrib2,
+                            "UDF3": PackingGeneralCtrl.ePage.Masters.Releasepackitem.PartAttrib3,
+                            "PackingDate": PackingGeneralCtrl.ePage.Masters.Releasepackitem.PackingDate,
+                            "ExpiryDate": PackingGeneralCtrl.ePage.Masters.Releasepackitem.ExpiryDate,
+                            "ReleaseLine_FK": PackingGeneralCtrl.ePage.Masters.Releasepackitem.WRL_FK,
+                            "IsModified": false,
+                            "IsDeleted": false,
+                            "IsNewInsert": true
+                        }
 
-                    Save(obj);
+                        Save(obj);
+                    }
+                } else {
+                    toastr.warning("Package is not Available");
                 }
-            } else {
-                toastr.warning("Package is not Available");
             }
             CloseEditActivityModal();
         }

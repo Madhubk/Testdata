@@ -66,3 +66,7 @@ p {
   height: 100% !important;
   margin : 0px !important;
 }
+
+.general-edits.address>.modal-dialog {
+  width: 40% !important;
+}

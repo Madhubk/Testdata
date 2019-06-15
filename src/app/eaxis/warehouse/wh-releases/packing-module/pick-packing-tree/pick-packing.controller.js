@@ -28,6 +28,9 @@
       PickPackingCtrl.ePage.Masters.currentPick = PickPackingCtrl.currentPick;
       PickPackingCtrl.ePage.Masters.HeaderDetails = PickPackingCtrl.currentHeader;
 
+      // closepackage
+      PickPackingCtrl.ePage.Masters.ClosePackage = ClosePackage;
+
       PickPackingCtrl.ePage.Masters.Config.PackageListDetails = PickPackingCtrl.ePage.Masters.HeaderDetails;
       // Add parent Package
       PickPackingCtrl.ePage.Masters.AddPackage = AddPackage;
@@ -100,7 +103,7 @@
       // Response / input of Json Object Response By Sequence
       PickPackingCtrl.ePage.Masters.JsonObjectResponse = $filter('orderBy')(JsonResponse, 'Sequence');
 
-      // console.log(PickPackingCtrl.ePage.Masters.JsonObjectResponse);
+      console.log("Result" + PickPackingCtrl.ePage.Masters.JsonObjectResponse);
 
       // Function call to convert the json
       ConvertJson(PickPackingCtrl.ePage.Masters.JsonObjectResponse);
@@ -179,12 +182,37 @@
       PackTypeModel();
     }
 
+    // function ClosePackage(IsCloseData) {
+    //   IsCloseData.IsClosed = true;
+    //   toastr.warning("Package is Closed");
+    //   SavePackage();
+    // }
+
+    function ClosePackage(IsCloseData) {
+      {
+        var modalOptions = {
+          closeButtonText: 'No',
+          actionButtonText: 'YES',
+          headerText: 'Once Closed Data Can Not Be Edited..',
+          bodyText: 'Do You Want To Close the Package?'
+        };
+        confirmation.showModal({}, modalOptions)
+          .then(function (result) {
+            IsCloseData.IsClosed = true;
+            SavePackage();
+            toastr.success("Package is Closed Successfully");
+          }, function () {
+            console.log("Cancelled");
+          });
+      }
+    }
+
     function PackTypeModel() {
       return PickPackingCtrl.ePage.Masters.modalInstance = $uibModal.open({
         animation: true,
         backdrop: "static",
         keyboard: false,
-        windowClass: "success-popup",
+        windowClass: "general-edits right address",
         scope: $scope,
         size: "md",
         templateUrl: "app/eaxis/warehouse/wh-releases/packing-module/pick-packing-tree/pack-type.html"
@@ -335,7 +363,11 @@
       // console.log(guid);
 
       // Sequence Calculation for Child Package
-      var post = PickPackingCtrl.ePage.Masters.Childdata.nodes.length + 1;
+      PickPackingCtrl.ePage.Masters.Childdata.nodes.sort(function (a, b) {
+        return a - b;
+      });
+
+      var post = PickPackingCtrl.ePage.Masters.Childdata.nodes[PickPackingCtrl.ePage.Masters.Childdata.nodes.length - 1].Sequence + 0.1;
       var Order = PickPackingCtrl.ePage.Masters.Childdata.Sequence + '.' + post;
 
       var _obj = {
@@ -541,7 +573,7 @@
           "PackageHeaderFK": value.PackageHeaderFK,
           "IsModified": value.IsModified,
           "IsDeleted": value.IsDeleted,
-          "IsNewInsert": value.IsNewInsert
+          "IsNewInsert": value.IsNewInsert,
         }
         PickPackingCtrl.ePage.Masters.List.push(obj);
         if (value.nodes.length > 0)
