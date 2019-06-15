@@ -362,12 +362,7 @@
       var guid = createGuid();
       // console.log(guid);
 
-      // Sequence Calculation for Child Package
-      PickPackingCtrl.ePage.Masters.Childdata.nodes.sort(function (a, b) {
-        return a - b;
-      });
-
-      var post = PickPackingCtrl.ePage.Masters.Childdata.nodes[PickPackingCtrl.ePage.Masters.Childdata.nodes.length - 1].Sequence + 0.1;
+      var post = PickPackingCtrl.ePage.Masters.Childdata.nodes.length + 1;
       var Order = PickPackingCtrl.ePage.Masters.Childdata.Sequence + '.' + post;
 
       var _obj = {
