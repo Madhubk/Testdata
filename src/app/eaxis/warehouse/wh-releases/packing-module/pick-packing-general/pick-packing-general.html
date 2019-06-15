@@ -186,7 +186,7 @@
                         </tr>
                     </thead>
                     <tbody id="GeneralItemCustTable{{PackingGeneralCtrl.currentPick.label}}">
-                        <tr id="tableBody" ng-repeat="x in PackingGeneralCtrl.ePage.Masters.PickReleaseLine"
+                        <tr id="tableBody" ng-repeat="x in PackingGeneralCtrl.ePage.Masters.PickReleaseLine | orderBy:'Units'"
                             ng-click="PackingGeneralCtrl.ePage.Masters.setSelectedRowForReleaseLine(x,$index);"
                             ng-class="{row_active: (PackingGeneralCtrl.ePage.Masters.selectedRowForReleaseLine==$index),copy_row_active :(x.IsCopied==true)}"
                             table-properties="PackingGeneralCtrl.ePage.Entities.Header.TableProperties.PackingOutwardLines"
