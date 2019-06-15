@@ -92,6 +92,13 @@
                 'app/eaxis/warehouse/inward/inward-document/inward-document.controller.js',
                 'app/eaxis/warehouse/inward/inward-document/inward-document.directive.js'
             ]
+        }, {
+            name: 'inwardGatepass',
+            files: [
+                'app/eaxis/warehouse/inward/inward-gatepass/inward-gatepass.css',
+                'app/eaxis/warehouse/inward/inward-gatepass/inward-gatepass.controller.js',
+                'app/eaxis/warehouse/inward/inward-gatepass/inward-gatepass.directive.js'
+            ]
         },
         // endregion
         //--------------------- Asn Request--------------------

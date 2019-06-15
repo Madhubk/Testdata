@@ -88,8 +88,8 @@
                     }]
                 }
             })
-            .state('EA.finance.accountPayable', {
-                url: '/account-payable',
+            .state('EA.finance.accountPayables', {
+                url: '/account-payables',
                 templateUrl: "app/eaxis/finance/accounts-payable/accounts-payable.html",
                 controller: "FinanceAccountPayableController as FinanceAccountPayableCtrl",
                 ncyBreadcrumb: {
@@ -102,7 +102,25 @@
                         return deferred.promise;
                     }],
                     loadMyCtrl: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
-                        return $ocLazyLoad.load(["FinanceAccountPayable"]);
+                        return $ocLazyLoad.load(["FinanceJob", "financeAccountPayable", "dynamicLookup", "dynamicListModal", "dynamicList", "dynamicGrid", "dynamicControl", "compareDate", "customToolbar", "confirmation", "chromeTab", "errorWarning", "financeAccountPayableMenu", "financeAccountPayableGeneral"]);
+                    }]
+                }
+            })
+            .state('EA.finance.receivables', {
+                url: '/receivables',
+                templateUrl: "app/eaxis/finance/accounts-receivable/accounts-receivable.html",
+                controller: "AccountReceivableController as AccountReceivableCtrl",
+                ncyBreadcrumb: {
+                    label: 'Accounts Receivable'
+                },
+                resolve: {
+                    CheckAccess: ["$q", "pageAccessService", function ($q, pageAccessService) {
+                        var deferred = $q.defer();
+                        deferred.resolve();
+                        return deferred.promise;
+                    }],
+                    loadMyCtrl: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
+                        return $ocLazyLoad.load(["FinanceJob", "FinanceAccountReceivable","FinanceAccountReceivableGeneral","FinanceAccountReceivableMenu", "dynamicLookup", "dynamicListModal", "dynamicList", "dynamicGrid", "dynamicControl", "compareDate", "customToolbar", "confirmation", "chromeTab", "errorWarning"]);
                     }]
                 }
             })

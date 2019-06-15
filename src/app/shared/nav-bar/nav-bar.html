@@ -126,7 +126,7 @@
                                     </form>
                                 </div>
                             </div>
-                        </li> -->
+                        </li> -->                        
                         <!-- Recent Menu -->
                         <li class="menu-icon" data-ng-if="NavBarCtrl.ePage.Masters.Menu.RecentMenus && NavBarCtrl.ePage.Masters.Menu.RecentMenus.length > 0" >
                             <div class="dropdown">
@@ -161,6 +161,28 @@
                                 </div>
                             </div>
                         </li>
+                        <!-- Service Request -->
+                        <li class="menu-icon" title="Service Request" data-ng-if="NavBarCtrl.ePage.Masters.Menu.RecentMenus && NavBarCtrl.ePage.Masters.Menu.RecentMenus.length > 0" >
+                            <div class="dropdown">
+                                <i class="glyphicon glyphicon-retweet" data-toggle="dropdown" aria-haspopup="true"
+                                    role="button" aria-expanded="false"></i>
+                                <div class="dropdown-menu dropdown-menu-right" role="menu">
+                                    <div class="clearfix recent-menu-dropdown p-10">                                        
+                                        <div class="clearfix p-10 recent-menu" title="Downtime Request">
+                                            <a class="recent-menu-link text-center">
+                                                <div class="clearfix mb-5" style="height: 40px;">                                                   
+                                                    <a title="Downtime Request" href="#/EA/SRQ/downtime-request-general">
+                                                        <!-- <i class="icon fa fa-cloud-download" style="font-size:48px;color:red;margin-left: 20px"></i> -->
+                                                        <i class="glyphicons glyphicons-cloud-download" style="font-size:48px;color:red;margin-left: 20px"></i>
+                                                    </a>
+                                                </div>
+                                                <div class="text-single-line">Downtime Request</div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>     
                         <!-- Help -->
                         <li class="sign-out">
                             <a title="Help" href="javascript:void(0);" data-ng-click="NavBarCtrl.ePage.Masters.GoToHelp()">

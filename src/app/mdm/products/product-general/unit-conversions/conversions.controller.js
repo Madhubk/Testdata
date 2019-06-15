@@ -98,6 +98,7 @@
                     //Order By
                     ConversionsCtrl.ePage.Entities.Header.Data.UIOrgPartUnit = $filter('orderBy')(ConversionsCtrl.ePage.Entities.Header.Data.UIOrgPartUnit, 'CreatedDateTime');
 
+                    ConversionsCtrl.ePage.Entities.Header.GlobalVariables.CopyofCurrentObject.UIOrgPartUnit = angular.copy(ConversionsCtrl.ePage.Entities.Header.Data.UIOrgPartUnit);
                 }
             });
         }

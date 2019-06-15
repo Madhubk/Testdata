@@ -130,6 +130,23 @@ ul {
     height: -moz-calc(100vh - 110px);
 }
 
+.modal.left .modal-body.without-footer,
+.modal.right .modal-body.without-footer {
+    padding: 0;
+    overflow-y: auto;
+    height: calc(100vh - 65px);
+    height: -webkit-calc(100vh - 65px);
+    height: -ms-calc(100vh - 65px);
+    height: -moz-calc(100vh - 65px);
+}
+
+.modal.left .modal-body.without-header-footer,
+.modal.right .modal-body.without-header-footer {
+    padding: 0;
+    overflow-y: auto;
+    height: 100%;
+}
+
 .modal-footer {
     position: absolute;
     bottom: 0;

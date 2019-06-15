@@ -172,18 +172,20 @@
         }
 
         function GetOrgAddress() {
-            var _filter = {
-                "ORG_FK": OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.ORG_Consignee_FK
-            };
-            var _input = {
-                "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.OrgAddress.API.FindAll.FilterID
-            };
-            apiService.post("eAxisAPI", appConfig.Entities.OrgAddress.API.FindAll.Url, _input).then(function (response) {
-                if (response.data.Response) {
-                    OutwardGeneralCtrl.ePage.Masters.OrgConsigneeAddress = response.data.Response;
-                }
-            });
+            if(OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.ORG_Consignee_FK){
+                var _filter = {
+                    "ORG_FK": OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.ORG_Consignee_FK
+                };
+                var _input = {
+                    "searchInput": helperService.createToArrayOfObject(_filter),
+                    "FilterID": appConfig.Entities.OrgAddress.API.FindAll.FilterID
+                };
+                apiService.post("eAxisAPI", appConfig.Entities.OrgAddress.API.FindAll.Url, _input).then(function (response) {
+                    if (response.data.Response) {
+                        OutwardGeneralCtrl.ePage.Masters.OrgConsigneeAddress = response.data.Response;
+                    }
+                });
+            }
         }
 
 

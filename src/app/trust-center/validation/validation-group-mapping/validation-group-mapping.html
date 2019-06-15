@@ -11,14 +11,16 @@
     <div class="clearfix p-20 text-center" data-ng-if="TCValidationGroupMappingCtrl.ePage.Masters.ValidationGroup.ListSource && TCValidationGroupMappingCtrl.ePage.Masters.ValidationGroup.ListSource.length == 0">
         <i>No Records...!</i>
     </div>
-    <div class="clearfix" data-ng-if="TCValidationGroupMappingCtrl.ePage.Masters.ValidationGroup.ListSource && TCValidationGroupMappingCtrl.ePage.Masters.ValidationGroup.ListSource.length > 0">
+    <div class="clearfix modal-body" data-ng-if="TCValidationGroupMappingCtrl.ePage.Masters.ValidationGroup.ListSource && TCValidationGroupMappingCtrl.ePage.Masters.ValidationGroup.ListSource.length > 0">
         <div class="col-sm-6" data-ng-repeat="x in TCValidationGroupMappingCtrl.ePage.Masters.ValidationGroup.ListSource">
             <div class="checkbox">
                 <label>
                     <input type="checkbox" class="colored-blue" data-ng-model="x.IsChecked" data-ng-click="TCValidationGroupMappingCtrl.ePage.Masters.ValidationGroup.OnValidationGroupClick($event, x)">
                     <span class="text text-single-line" data-ng-bind="x.GroupName"></span>
                 </label>
-                <i class="fa fa-file-code-o cursor-pointer ml-20" style="position: absolute; top: 5px; right: 5px" title="Generate Script" generate-db-script input="x.GenerateScriptInput" config="x.GenerateScriptConfig" data-ng-if="x.GenerateScriptInput.ObjectName && x.GenerateScriptInput.ObjectId && x.MappingObj.PK && x.IsChecked"></i>
+                <i class="fa fa-file-code-o cursor-pointer ml-20" style="position: absolute; top: 5px; right: 5px"
+                    title="Generate Script" generate-db-script input="x.GenerateScriptInput" config="x.GenerateScriptConfig"
+                    data-ng-if="x.GenerateScriptInput.ObjectName && x.GenerateScriptInput.ObjectId && x.MappingObj.PK && x.IsChecked"></i>
             </div>
         </div>
     </div>

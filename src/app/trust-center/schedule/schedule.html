@@ -172,7 +172,7 @@
                                                     enable-time="true" enable-date="true" default-date="" default-time=""
                                                     save-as="TCScheduleCtrl.ePage.Masters.Schedule.DatePicker.Options.saveFormat"
                                                     is-open="TCScheduleCtrl.ePage.Masters.Schedule.DatePicker.isOpen['isScheduleOn']"
-                                                    when-closed="" data-ng-click="" is-api-input-as-display-format="true" />
+                                                    when-closed="" data-ng-click="" is-api-input-as-display-format="true" custom-date-time-format/>
                                                 <span class="input-group-btn">
                                                     <button class="btn btn-default shiny"
                                                         data-ng-click="TCScheduleCtrl.ePage.Masters.Schedule.DatePicker.OpenDatePicker($event, 'isScheduleOn')">
@@ -180,6 +180,18 @@
                                                     </button>
                                                 </span>
                                             </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+                                    <div class="form-group">
+                                        <label class="control-label">Time Zone</label>
+                                        <div>
+                                            <select chosen class="form-control"
+                                                data-ng-model="TCScheduleCtrl.ePage.Masters.Schedule.ActiveSchedule.UserTimeZone"
+                                                data-ng-options="x.Value as x.Value for x in TCScheduleCtrl.ePage.Masters.Schedule.TimeZoneList">
+                                                <option value="">--Select--</option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
@@ -301,6 +313,16 @@
                                                 <input type="text" class="form-control input-sm" placeholder="Bcc"
                                                     data-ng-model="TCScheduleCtrl.ePage.Masters.Schedule.ActiveSchedule.CustomContactInfo.Template.Bcc">
                                             </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+                                        <div class="form-group">
+                                            <div class="checkbox">
+                                                <label>
+                                                  <input type="checkbox" class="colored-blue" data-ng-model="TCScheduleCtrl.ePage.Masters.Schedule.ActiveSchedule.CustomContactInfo.Template.IsIndividual">
+                                                  <span class="text text-single-line">Is Individual</span>
+                                                </label>
+                                              </div>
                                         </div>
                                     </div>
                                 </div>

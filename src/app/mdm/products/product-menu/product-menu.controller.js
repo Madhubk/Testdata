@@ -36,8 +36,11 @@
             ProductMenuCtrl.ePage.Masters.Validation = Validation;
             ProductMenuCtrl.ePage.Masters.Config = productConfig;
 
+            ProductMenuCtrl.ePage.Entities.Header.GlobalVariables.CopyofCurrentObject = angular.copy(ProductMenuCtrl.ePage.Entities.Header.Data);
+
             GetInventoryDetails();
         }
+
 
         function GetInventoryDetails(){
             if(!ProductMenuCtrl.currentProduct.isNew){
@@ -51,7 +54,7 @@
                         "PRO_FK": ProductMenuCtrl.ePage.Entities.Header.Data.PK,
                         "ORG_FK":value.ORG_FK,
                         "PageNumber":"1",
-                        "PageSize": "10",
+                        "PageSize": "1",
                         "SortType": "ASC",
                         "SortColumn":"WOL_CreatedDateTime",
                     };
@@ -130,7 +133,7 @@
                 _input.UIProductGeneral.PartNum = _input.UIProductGeneral.PartNum.toUpperCase();
                 _input.UIProductGeneral.Desc = _input.UIProductGeneral.Desc.toUpperCase();
             } else {
-                $item = filterObjectUpdate($item, "IsModified");
+                ProductMenuCtrl.ePage.Entities.Header.Data = PostSaveObjectUpdate(ProductMenuCtrl.ePage.Entities.Header.Data, ProductMenuCtrl.ePage.Entities.Header.GlobalVariables.CopyofCurrentObject, ["Client","Warehouse","Component","Commodity"]);
             }
 
             helperService.SaveEntity($item, 'Product').then(function (response) {
@@ -175,27 +178,57 @@
                         ProductMenuCtrl.ePage.Masters.Config.SaveAndClose = true;
                         ProductMenuCtrl.ePage.Masters.SaveAndClose = false;
                     }
+
+                     //Taking Copy of Current Object
+                     ProductMenuCtrl.ePage.Entities.Header.Data = AfterSaveObjectUpdate(ProductMenuCtrl.ePage.Entities.Header.Data,"IsModified");
+                     ProductMenuCtrl.ePage.Entities.Header.GlobalVariables.CopyofCurrentObject = angular.copy(ProductMenuCtrl.ePage.Entities.Header.Data);
+
+                     
                 } else if (response.Status === "failed") {
-                    console.log("Failed");
-                    toastr.error("Could not Save...!");
+                    
                     ProductMenuCtrl.ePage.Entities.Header.Validations = response.Validations;
                     angular.forEach(response.Validations, function (value, key) {
                         ProductMenuCtrl.ePage.Masters.Config.PushErrorWarning(value.Code, value.Message, "E", false, value.CtrlKey, ProductMenuCtrl.currentProduct.label, false, undefined, undefined, undefined, undefined, value.GParentRef);
                     });
                     if (ProductMenuCtrl.ePage.Entities.Header.Validations != null) {
+                        toastr.error("Validation Failed...!");
                         ProductMenuCtrl.ePage.Masters.Config.ShowErrorWarningModal(ProductMenuCtrl.currentProduct);
+                    }else{
+                        toastr.error("Could not Save...!");
                     }
                 }
             });
         }
 
-        function filterObjectUpdate(obj, key) {
+        function PostSaveObjectUpdate(newValue,oldValue, exceptObjects) {
+            for (var i in newValue) {
+                if(typeof newValue[i]=='object'){
+                    PostSaveObjectUpdate(newValue[i],oldValue[i],exceptObjects);
+                }else{
+                    var Satisfied = exceptObjects.some(function(v){return v===i});
+                    if(!Satisfied && i!= "$$hashKey"){
+                        if(!oldValue){
+                            newValue["IsModified"] = true;
+                            break;
+                        }else{
+                            if(newValue[i]!=oldValue[i]){
+                                newValue["IsModified"] = true;
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+            return newValue;
+        }
+
+        function AfterSaveObjectUpdate(obj,key){
             for (var i in obj) {
                 if (!obj.hasOwnProperty(i)) continue;
                 if (typeof obj[i] == 'object') {
-                    filterObjectUpdate(obj[i], key);
+                    AfterSaveObjectUpdate(obj[i], key);
                 } else if (i == key) {
-                    obj[key] = true;
+                    obj[key] = false;
                 }
             }
             return obj;

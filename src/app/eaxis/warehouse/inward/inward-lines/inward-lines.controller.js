@@ -5,7 +5,7 @@
         .module("Application")
         .controller("InwardLinesController", InwardLinesController);
 
-    InwardLinesController.$inject = ["$scope", "$timeout", "APP_CONSTANT", "apiService", "inwardConfig", "helperService", "$uibModal", "$http", "$document", "appConfig", "authService", "$location", "toastr", "confirmation", "$state", "$q","$filter"];
+    InwardLinesController.$inject = ["$scope", "$timeout", "APP_CONSTANT", "apiService", "inwardConfig", "helperService", "$uibModal", "$http", "$document", "appConfig", "authService", "$location", "toastr", "confirmation", "$state", "$q", "$filter"];
 
     function InwardLinesController($scope, $timeout, APP_CONSTANT, apiService, inwardConfig, helperService, $uibModal, $http, $document, appConfig, authService, $location, toastr, confirmation, $state, $q, $filter) {
 
@@ -21,7 +21,7 @@
             };
 
             InwardLinesCtrl.ePage.Masters.Config = inwardConfig;
-              //For table
+            //For table
             InwardLinesCtrl.ePage.Masters.SelectAll = false;
             InwardLinesCtrl.ePage.Masters.EnableDeleteButton = false;
             InwardLinesCtrl.ePage.Masters.EnableCopyButton = false;
@@ -65,7 +65,7 @@
             InwardLinesCtrl.ePage.Masters.PaginationChange = PaginationChange;
             InwardLinesCtrl.ePage.Masters.Pagination.LocalSearchLength = InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine.length;
 
-            InwardLinesCtrl.ePage.Masters.CurrentPageStartingIndex = (InwardLinesCtrl.ePage.Masters.Pagination.ItemsPerPage)*(InwardLinesCtrl.ePage.Masters.Pagination.CurrentPage-1)
+            InwardLinesCtrl.ePage.Masters.CurrentPageStartingIndex = (InwardLinesCtrl.ePage.Masters.Pagination.ItemsPerPage) * (InwardLinesCtrl.ePage.Masters.Pagination.CurrentPage - 1)
 
             GetUserBasedGridColumList();
             GetDropdownList();
@@ -74,14 +74,13 @@
             InitDocuments();
 
             // Watch when Line length changes
-            $scope.$watch('InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine.length', function(val)
-            { 
+            $scope.$watch('InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine.length', function (val) {
                 LocalSearchLengthCalculation();
             });
         }
 
         //#region User Based Table Column
-        function GetUserBasedGridColumList(){
+        function GetUserBasedGridColumList() {
             var _filter = {
                 "SAP_FK": authService.getUserInfo().AppPK,
                 "TenantCode": authService.getUserInfo().TenantCode,
@@ -93,21 +92,21 @@
                 "FilterID": appConfig.Entities.UserSettings.API.FindAll.FilterID
             };
 
-            apiService.post("eAxisAPI", appConfig.Entities.UserSettings.API.FindAll.Url + authService.getUserInfo().AppPK, _input).then(function(response){
-                if(response.data.Response[0]){
-                    InwardLinesCtrl.ePage.Masters.UserValue= response.data.Response[0];
-                    if(response.data.Response[0].Value!=''){
+            apiService.post("eAxisAPI", appConfig.Entities.UserSettings.API.FindAll.Url + authService.getUserInfo().AppPK, _input).then(function (response) {
+                if (response.data.Response[0]) {
+                    InwardLinesCtrl.ePage.Masters.UserValue = response.data.Response[0];
+                    if (response.data.Response[0].Value != '') {
                         var obj = JSON.parse(response.data.Response[0].Value)
                         InwardLinesCtrl.ePage.Entities.Header.TableProperties.UIWmsWorkOrderLine = obj;
-                        InwardLinesCtrl.ePage.Masters.UserHasValue =true;
+                        InwardLinesCtrl.ePage.Masters.UserHasValue = true;
                     }
-                }else{
+                } else {
                     InwardLinesCtrl.ePage.Masters.UserValue = undefined;
                 }
             })
         }
         //#endregion
-        
+
         //#region GetPercentage Values
         function GetPercentageValues() {
             InwardLinesCtrl.ePage.Masters.TotalLineUnits = 0;
@@ -224,16 +223,18 @@
                     value.ClientRelationship = "OWN";
                 }
 
-                if(!value.PRO_FK && value.ProductCode){
+                if (!value.PRO_FK && value.ProductCode) {
                     myData = false;
                 }
-            }); 
+            });
             //Order By
             InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine = $filter('orderBy')(InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine, 'CreatedDateTime');
-            
-            if(myData==false){
+
+            if (myData == false) {
                 InwardLinesCtrl.ePage.Masters.Config.GeneralValidation(InwardLinesCtrl.currentInward);
             }
+
+            InwardLinesCtrl.ePage.Entities.Header.GlobalVariables.CopyofCurrentObject.UIWmsWorkOrderLine = angular.copy(InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine)
         }
 
 
@@ -260,24 +261,24 @@
         }
 
         function GetUploadedFiles(Files, docType, mode) {
-            if(Files){
+            if (Files) {
                 BulkUpload(Files);
             }
         }
-        
-        function GetSelectedFiles(Files, docType, mode, row){
+
+        function GetSelectedFiles(Files, docType, mode, row) {
             InwardLinesCtrl.ePage.Masters.Loading = true;
         }
 
-        function DownloadReport(){
+        function DownloadReport() {
             InwardLinesCtrl.ePage.Masters.Loading = true;
             apiService.get("eAxisAPI", appConfig.Entities.DMS.API.DownloadTemplate.Url + "/ReceiveLineBulkUpload").then(function (response) {
                 InwardLinesCtrl.ePage.Masters.Loading = false;
                 if (response.data.Response) {
                     if (response.data.Response !== "No Records Found!") {
-                        var obj={
-                           "Base64str" :response.data.Response,
-                           "Name":'ReceiveLineBulkUpload.xlsx'
+                        var obj = {
+                            "Base64str": response.data.Response,
+                            "Name": 'ReceiveLineBulkUpload.xlsx'
                         }
                         helperService.DownloadDocument(obj);
                     }
@@ -287,57 +288,57 @@
             });
         }
 
-        function BulkUpload(item){
-            if(item.length==0){
-                InwardLinesCtrl.ePage.Masters.Loading =false;
+        function BulkUpload(item) {
+            if (item.length == 0) {
+                InwardLinesCtrl.ePage.Masters.Loading = false;
                 toastr.warning('Upload Excel With Product Details');
-            }else{
-                var obj={
-                    "LineType":"UIWmsWorkOrderLine",
-                    "WmsWorkOrder":{
-                        "WorkOrderID":InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.WorkOrderID,
-                        "WarehouseCode":InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.WarehouseCode,
-                        "ClientCode":InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.ClientCode
+            } else {
+                var obj = {
+                    "LineType": "UIWmsWorkOrderLine",
+                    "WmsWorkOrder": {
+                        "WorkOrderID": InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.WorkOrderID,
+                        "WarehouseCode": InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.WarehouseCode,
+                        "ClientCode": InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.ClientCode
                     },
-                    "WmsInsertLineRecordsList":''
+                    "WmsInsertLineRecordsList": ''
                 }
                 obj.WmsInsertLineRecordsList = item;
-    
-                apiService.post("eAxisAPI", InwardLinesCtrl.ePage.Entities.Header.API.InsertReceiveLine.Url, obj).then(function (response){
+
+                apiService.post("eAxisAPI", InwardLinesCtrl.ePage.Entities.Header.API.InsertReceiveLine.Url, obj).then(function (response) {
                     InwardLinesCtrl.ePage.Masters.Loading = false;
-                    if(response.data.Response){
-                        angular.forEach(response.data.Response,function(value,key){
-                            value.PK='';
-                            if(!value.Packs){
+                    if (response.data.Response) {
+                        angular.forEach(response.data.Response, function (value, key) {
+                            value.PK = '';
+                            if (!value.Packs) {
                                 value.Packs = 1;
                                 value.Units = 1;
                             }
-                            if(!value.PAC_PackType){
+                            if (!value.PAC_PackType) {
                                 value.PAC_PackType = value.StockKeepingUnit;
                             }
-                            if(!value.ProductCondition){
+                            if (!value.ProductCondition) {
                                 value.ProductCondition = "GDC"
                             }
-                            if(value.IsPartAttrib1ReleaseCaptured || !value.UsePartAttrib1){
+                            if (value.IsPartAttrib1ReleaseCaptured || !value.UsePartAttrib1) {
                                 value.PartAttrib1 = '';
                             }
-                            if(value.IsPartAttrib2ReleaseCaptured || !value.UsePartAttrib2){
+                            if (value.IsPartAttrib2ReleaseCaptured || !value.UsePartAttrib2) {
                                 value.PartAttrib2 = '';
                             }
-                            if(value.IsPartAttrib3ReleaseCaptured || !value.UsePartAttrib3){
+                            if (value.IsPartAttrib3ReleaseCaptured || !value.UsePartAttrib3) {
                                 value.PartAttrib3 = '';
                             }
-                            if(!value.UsePackingDate){
+                            if (!value.UsePackingDate) {
                                 value.PackingDate = '';
                             }
-                            if(!value.UseExpiryDate){
+                            if (!value.UseExpiryDate) {
                                 value.ExpiryDate = '';
                             }
                             InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine.push(value);
                         });
-                        
+
                         GetAllDetails();
-                    }else{
+                    } else {
                         toastr.error("Upload Failed");
                     }
                 });
@@ -391,13 +392,13 @@
             InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine[index].Commodity = item.MCC_NKCommodityCode + ' - ' + item.MCC_NKCommodityDesc;
 
             //To remove Attributes when copy row
-            InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine[index].PartAttrib1='';
-            InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine[index].PartAttrib2='';
-            InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine[index].PartAttrib3='';
-            InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine[index].PackingDate='';
-            InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine[index].ExpiryDate='';
+            InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine[index].PartAttrib1 = '';
+            InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine[index].PartAttrib2 = '';
+            InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine[index].PartAttrib3 = '';
+            InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine[index].PackingDate = '';
+            InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine[index].ExpiryDate = '';
             InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine[index].Units = InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine[index].Packs;
-            
+
             OnChangeValues(item.ProductCode, 'E3008', true, index);
             OnChangeValues(item.StockKeepingUnit, "E3033", true, index);
             OnChangeValues('value', "E3046", true, index);
@@ -414,6 +415,7 @@
             InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine[index].WLO_LocationStatus = item.LocationStatus;
             InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine[index].WLO_LocationStatusDescription = item.LocationStatusDescription;
             OnChangeValues('value', "E3047", true, index);
+            // OnChangeValues('value', "E3118", true, index);
         }
         //#endregion
 
@@ -493,6 +495,7 @@
                 OnChangeValues('value', "E3038", true, i);
                 OnChangeValues('value', "E3046", true, i);
                 OnChangeValues('value', "E3047", true, i);
+                // OnChangeValues('value', "E3118", true, i);
                 OnChangeValues('value', 'E3049', true, i);
                 OnChangeValues('value', 'E3063', true, i);
             }
@@ -501,20 +504,20 @@
         //#endregion
 
         //#region checkbox selection
-        function SelectAllCheckBox(){
+        function SelectAllCheckBox() {
             angular.forEach(InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine, function (value, key) {
                 var startData = InwardLinesCtrl.ePage.Masters.CurrentPageStartingIndex
                 var LastData = InwardLinesCtrl.ePage.Masters.CurrentPageStartingIndex + (InwardLinesCtrl.ePage.Masters.Pagination.ItemsPerPage);
-                   
-                if (InwardLinesCtrl.ePage.Masters.SelectAll){
+
+                if (InwardLinesCtrl.ePage.Masters.SelectAll) {
 
                     // Enable and disable based on page wise
-                    if((key>=startData) && (key<LastData)){
+                    if ((key >= startData) && (key < LastData)) {
                         value.SingleSelect = true;
                     }
                 }
-                else{
-                    if((key>=startData) && (key<LastData)){
+                else {
+                    if ((key >= startData) && (key < LastData)) {
                         value.SingleSelect = false;
                     }
                 }
@@ -535,12 +538,12 @@
         function SingleSelectCheckBox() {
             var startData = InwardLinesCtrl.ePage.Masters.CurrentPageStartingIndex
             var LastData = InwardLinesCtrl.ePage.Masters.CurrentPageStartingIndex + (InwardLinesCtrl.ePage.Masters.Pagination.ItemsPerPage);
-                   
+
             var Checked = InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine.some(function (value, key) {
-              // Enable and disable based on page wise
-                if((key>=startData) && (key<LastData)){
-                    if(!value.SingleSelect)
-                    return true;
+                // Enable and disable based on page wise
+                if ((key >= startData) && (key < LastData)) {
+                    if (!value.SingleSelect)
+                        return true;
                 }
             });
             if (Checked) {
@@ -561,30 +564,34 @@
             }
         }
 
-        function PaginationChange(){
-            InwardLinesCtrl.ePage.Masters.CurrentPageStartingIndex = (InwardLinesCtrl.ePage.Masters.Pagination.ItemsPerPage)*(InwardLinesCtrl.ePage.Masters.Pagination.CurrentPage-1)
+        function PaginationChange() {
+            InwardLinesCtrl.ePage.Masters.CurrentPageStartingIndex = (InwardLinesCtrl.ePage.Masters.Pagination.ItemsPerPage) * (InwardLinesCtrl.ePage.Masters.Pagination.CurrentPage - 1)
             SingleSelectCheckBox();
         }
 
         //Required this function when pagination and local search both are used
-        function LocalSearchLengthCalculation(){
+        function LocalSearchLengthCalculation() {
             var myData = $filter('filter')(InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine, InwardLinesCtrl.ePage.Masters.SearchTable);
             InwardLinesCtrl.ePage.Masters.Pagination.LocalSearchLength = myData.length;
         }
-        
+
         //#endregion checkbox selection
 
         //#region Add,copy,delete row
 
-        function setSelectedRow(index){
+        function setSelectedRow(index) {
             InwardLinesCtrl.ePage.Masters.selectedRow = index;
         }
 
-        function AddNewRow() {
-            if (!InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.ArrivalDate){
+        function AddNewRow() {            
+            if (!InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.ArrivalDate) {
                 OnChangeValues(null, "E3034", false, undefined);
                 InwardLinesCtrl.ePage.Masters.Config.ShowErrorWarningModal(InwardLinesCtrl.currentInward);
-            }else{
+            } else if (InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.IsGatepassMandatory && !InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.TGP_FK) {
+                // when the gatepass is mandatory                 
+                OnChangeValues(null, "E3548", false, undefined);
+                InwardLinesCtrl.ePage.Masters.Config.ShowErrorWarningModal(InwardLinesCtrl.currentInward);
+            } else {
                 InwardLinesCtrl.ePage.Entities.Header.GlobalVariables.Loading = true;
                 var obj = {
                     "PK": "",
@@ -598,7 +605,9 @@
                     "PAC_PackType": "",
                     "Units": "",
                     "StockKeepingUnit": "",
-                    "ProductCondition":"GDC",
+                    "ProductCondition": "GDC",
+                    "Brand": "",
+                    "Model": "",
                     "PartAttrib1": "",
                     "PartAttrib2": "",
                     "PartAttrib3": "",
@@ -608,17 +617,17 @@
                     "OriginalInventoryStatusDesc": "",
                     "PackingDate": "",
                     "ExpiryDate": "",
-                    "AdditionalRef1Code":"",
+                    "AdditionalRef1Code": "",
                     "WRO_Name": "",
                     "WLO_Location": "",
                     "WLO_Column": "",
                     "WLO_Level": "",
                     "WAA_AreaType": "",
                     "WAA_Name": "",
-                    "WLO_LocationStatus":"",
-                    "WLO_LocationStatusDescription":"",
+                    "WLO_LocationStatus": "",
+                    "WLO_LocationStatusDescription": "",
                     "TransferFromDockDoor": "",
-                    "LineComment":"",
+                    "LineComment": "",
                     "UseExpiryDate": false,
                     "UsePackingDate": false,
                     "UsePartAttrib1": false,
@@ -644,8 +653,9 @@
                     obj.ClientRelationship = "OWN";
                 }
                 InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine.push(obj);
-                InwardLinesCtrl.ePage.Masters.selectedRow = InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine.length-1;
+                InwardLinesCtrl.ePage.Masters.selectedRow = InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine.length - 1;
                 OnChangeValues('value', "E3034", false, undefined);
+                OnChangeValues('value', "E3548", false, undefined);
 
                 $timeout(function () {
                     var objDiv = document.getElementById("InwardLinesCtrl.ePage.Masters.AddScroll");
@@ -656,17 +666,21 @@
         };
 
         function CopyRow() {
-            if (!InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.ArrivalDate){
+            if (!InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.ArrivalDate) {
                 OnChangeValues(null, "E3034", false, undefined);
                 InwardLinesCtrl.ePage.Masters.Config.ShowErrorWarningModal(InwardLinesCtrl.currentInward);
-            }else{
+            } else if (InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.IsGatepassMandatory && !InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.TGP_FK) {
+                // when the gatepass is mandatory                 
+                OnChangeValues(null, "E3548", false, undefined);
+                InwardLinesCtrl.ePage.Masters.Config.ShowErrorWarningModal(InwardLinesCtrl.currentInward);
+            } else {
                 InwardLinesCtrl.ePage.Entities.Header.GlobalVariables.Loading = true;
-                for(var i = InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine.length -1; i >= 0; i--){
-                    if(InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine[i].SingleSelect){
+                for (var i = InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine.length - 1; i >= 0; i--) {
+                    if (InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine[i].SingleSelect) {
                         var item = angular.copy(InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine[i]);
                         var obj = {
                             "PK": "",
-                            "ProductCode":item.ProductCode,
+                            "ProductCode": item.ProductCode,
                             "ProductDescription": item.ProductDescription,
                             "PRO_FK": item.PRO_FK,
                             "Commodity": item.Commodity,
@@ -677,25 +691,27 @@
                             "Units": item.Units,
                             "StockKeepingUnit": item.StockKeepingUnit,
                             "ProductCondition": item.ProductCondition,
+                            "Brand": item.Brand,
+                            "Model": item.Model,
                             "PartAttrib1": item.PartAttrib1,
                             "PartAttrib2": item.PartAttrib2,
                             "PartAttrib3": item.PartAttrib3,
                             "LocationType": item.LocationType,
                             "PalletID": item.PalletID,
-                            "LineComment":item.LineComment,
-                        
+                            "LineComment": item.LineComment,
+
                             "PackingDate": item.PackingDate,
                             "ExpiryDate": item.ExpiryDate,
-                            "AdditionalRef1Code":item.AdditionalRef1Code,
+                            "AdditionalRef1Code": item.AdditionalRef1Code,
                             "WRO_Name": item.WRO_Name,
                             "WLO_Location": item.WLO_Location,
-                            "WLO_FK":item.WLO_FK,
+                            "WLO_FK": item.WLO_FK,
                             "WLO_Column": item.WLO_Column,
                             "WLO_Level": item.WLO_Level,
                             "WAA_AreaType": item.WAA_AreaType,
                             "WAA_Name": item.WAA_Name,
-                            "WLO_LocationStatus":item.WLO_LocationStatus,
-                            "WLO_LocationStatusDescription":item.WLO_LocationStatusDescription,
+                            "WLO_LocationStatus": item.WLO_LocationStatus,
+                            "WLO_LocationStatusDescription": item.WLO_LocationStatusDescription,
                             "UseExpiryDate": item.UseExpiryDate,
                             "UsePackingDate": item.UsePackingDate,
                             "UsePartAttrib1": item.UsePartAttrib1,
@@ -704,18 +720,18 @@
                             "IsPartAttrib1ReleaseCaptured": item.IsPartAttrib1ReleaseCaptured,
                             "IsPartAttrib2ReleaseCaptured": item.IsPartAttrib2ReleaseCaptured,
                             "IsPartAttrib3ReleaseCaptured": item.IsPartAttrib3ReleaseCaptured,
-        
+
                             "IsDeleted": false,
                             "IsCopied": true,
                             "ORG_ClientCode": InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.ClientCode,
                             "ORG_ClientName": InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.ClientName,
                             "Client_FK": InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.ORG_Client_FK,
-        
+
                             "WAR_WarehouseCode": InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.WarehouseCode,
                             "WAR_WarehouseName": InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.WarehouseName,
                             "WAR_FK": InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.WAR_FK,
                         };
-        
+
                         if (InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.Client) {
                             obj.Client = InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.ClientCode;
                             obj.ClientRelationship = "OWN";
@@ -724,6 +740,7 @@
                     }
                 }
                 OnChangeValues("value", "E3034", false, undefined);
+                OnChangeValues("value", "E3548", false, undefined);
                 InwardLinesCtrl.ePage.Masters.selectedRow = -1;
                 InwardLinesCtrl.ePage.Masters.SelectAll = false;
                 InwardLinesCtrl.ePage.Entities.Header.GlobalVariables.Loading = false;
@@ -741,18 +758,18 @@
                 .then(function (result) {
                     InwardLinesCtrl.ePage.Entities.Header.GlobalVariables.Loading = true;
 
-                    angular.forEach(InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine,function(value,key){
-                        if(value.SingleSelect==true && value.PK){
+                    angular.forEach(InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine, function (value, key) {
+                        if (value.SingleSelect == true && value.PK) {
                             apiService.get("eAxisAPI", InwardLinesCtrl.ePage.Entities.Header.API.LineDelete.Url + value.PK).then(function (response) {
                             });
                         }
                     });
-            
+
                     var ReturnValue = RemoveAllLineErrors();
-                    if(ReturnValue){
-                        for (var i = InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine.length -1; i >= 0; i--){
-                            if(InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine[i].SingleSelect==true)
-                            InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine.splice(i,1);
+                    if (ReturnValue) {
+                        for (var i = InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine.length - 1; i >= 0; i--) {
+                            if (InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine[i].SingleSelect == true)
+                                InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine.splice(i, 1);
                         }
                         InwardLinesCtrl.ePage.Masters.Config.GeneralValidation(InwardLinesCtrl.currentInward);
                     }
@@ -764,7 +781,7 @@
                     InwardLinesCtrl.ePage.Masters.EnableDeleteButton = false;
                 }, function () {
                     console.log("Cancelled");
-            });
+                });
         }
         //#endregion Add,copy,delete row
 
@@ -799,16 +816,16 @@
                 }
             }
 
-            if ((InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.IMPartAttrib1Type == "SER" &&(item.UsePartAttrib1 || item.IsPartAttrib1ReleaseCaptured)) || (InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.IMPartAttrib2Type == "SER" &&(item.UsePartAttrib2 || item.IsPartAttrib2ReleaseCaptured)) || (InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.IMPartAttrib3Type == "SER" &&(item.UsePartAttrib3 || item.IsPartAttrib3ReleaseCaptured))) {
-                if ((parseFloat(item.Units)%1) != 0) {
+            if ((InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.IMPartAttrib1Type == "SER" && (item.UsePartAttrib1 || item.IsPartAttrib1ReleaseCaptured)) || (InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.IMPartAttrib2Type == "SER" && (item.UsePartAttrib2 || item.IsPartAttrib2ReleaseCaptured)) || (InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.IMPartAttrib3Type == "SER" && (item.UsePartAttrib3 || item.IsPartAttrib3ReleaseCaptured))) {
+                if ((parseFloat(item.Units) % 1) != 0) {
                     OnChangeValues(null, "E3063", true, InwardLinesCtrl.ePage.Masters.selectedRow);
-                } else  {
+                } else {
                     OnChangeValues('value', "E3063", true, InwardLinesCtrl.ePage.Masters.selectedRow);
                 }
             }
         }
 
-        function GetDocumentInputValues(value){
+        function GetDocumentInputValues(value) {
             InwardLinesCtrl.ePage.Masters.DocumentInput = '';
             InwardLinesCtrl.ePage.Masters.DocumentInput = {
                 // Entity
@@ -853,8 +870,8 @@
 
                             InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.WorkOrderStatus = "IAL"
                             InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.PutOrPickSlipDateTime = new Date();
-                            InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.WorkOrderStatusDesc = 'Location Allocated';
-                            OnChangeValues('value','E3041',false);
+                            InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.WorkOrderStatusDesc = 'LOCATION ALLOCATED';
+                            OnChangeValues('value', 'E3041', false);
 
                             GetByIDCall();
                         } else {
@@ -871,7 +888,7 @@
             }
         }
 
-        function GetByIDCall(){
+        function GetByIDCall() {
             apiService.get("eAxisAPI", InwardLinesCtrl.ePage.Entities.Header.API.GetByID.Url + InwardLinesCtrl.ePage.Entities.Header.Data.PK).then(function (response) {
                 if (response.data.Status == 'Success') {
                     InwardLinesCtrl.ePage.Masters.Loading = false;
@@ -919,16 +936,16 @@
                 InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.ClientName = "";
             }
 
-            if(!InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.PackagesSent)
-            InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.PackagesSent = 0;
+            if (!InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.PackagesSent)
+                InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.PackagesSent = 0;
 
-            if(!InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.TotalUnits)
-            InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.TotalUnits = 0;
+            if (!InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.TotalUnits)
+                InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.TotalUnits = 0;
 
-            if(!InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.PackagesSent)
-            InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.TotalPallets = 0;
+            if (!InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.PackagesSent)
+                InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.TotalPallets = 0;
 
-            if(InwardLinesCtrl.currentInward.isNew){
+            if (InwardLinesCtrl.currentInward.isNew) {
                 InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.ExternalReference = '';
             }
         }
@@ -959,16 +976,16 @@
         }
 
         function AllocateUDF() {
-            if(InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.ORG_Client_FK){
+            if (InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.ORG_Client_FK) {
                 var _filter = {
                     "ORG_FK": InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.ORG_Client_FK
                 };
-    
+
                 var _input = {
                     "searchInput": helperService.createToArrayOfObject(_filter),
                     "FilterID": appConfig.Entities.OrgMiscServ.API.FindAll.FilterID
                 };
-    
+
                 apiService.post("eAxisAPI", appConfig.Entities.OrgMiscServ.API.FindAll.Url, _input).then(function (response) {
                     if (response.data.Response) {
                         InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.IMPartAttrib1Name = response.data.Response[0].IMPartAttrib1Name;
@@ -985,7 +1002,7 @@
         function GetProductDetails() {
             //Get Product Details
             var myData = true;
-            angular.forEach(InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsAsnLine, function(value, key) {
+            angular.forEach(InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsAsnLine, function (value, key) {
                 if (value.MCC_NKCommodityCode == null)
                     value.MCC_NKCommodityCode = '';
 
@@ -1001,18 +1018,18 @@
                 value.ORG_ClientName = InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.ClientName;
                 value.Client_FK = InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.ORG_Client_FK;
 
-                if(InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.Client){
+                if (InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.Client) {
                     value.Client = InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.ClientCode;
                     value.ClientRelationship = "OWN";
                 }
 
-                if(!value.POR_FK && value.ProductCode){
+                if (!value.POR_FK && value.ProductCode) {
                     myData = false;
                 }
             });
             //Order By
             InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsAsnLine = $filter('orderBy')(InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsAsnLine, 'CreatedDateTime');
-            if(myData==false){
+            if (myData == false) {
                 InwardLinesCtrl.ePage.Masters.Config.GeneralValidation(InwardLinesCtrl.currentInward);
             }
         }
@@ -1073,7 +1090,7 @@
 
         //#endregion
         //#endregion
-       
+
         Init();
     }
 

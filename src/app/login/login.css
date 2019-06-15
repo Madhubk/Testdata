@@ -1,87 +1,9 @@
-/* Login Page Styles */
-.login-wrapper {
-    background: url('../../assets/img/bg.jpg') center top no-repeat #fff;
-}
-
-.login-wrapper .header {
-    width: 100%;
-    height: 100px;
-    margin: 10px 0 10px 0;
-    padding: 0 10px;
-    border-top: 2px solid #d71921;
-    background: linear-gradient(to bottom, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 100%);
-}
-
-.form-banner-content {
-    font-size: 21px;
-    line-height: 1.4em;
-    letter-spacing: .01em;
-}
-
-.form-box {
-    width: 83%;
-    float: right;
-    margin-top: 10px;
-}
-
-.form-login {
-    background-color: #fff;
-    padding: 20px 30px 15px 30px;
-    box-shadow: 1px 1px 10px #d71921;
-}
-
-.services-div {
-    float: left;
-    background: #fff;
-    margin: 42px 0 60px 0;
-    box-shadow: 0px -2px 5px rgba(215, 25, 33, 0.5);
-    border-radius: 10px;
-    position: relative;
-    border-top: 2px solid #d71921;
-}
-
-.form-services-title {
+.login-loading-overlay {
     position: absolute;
-    top: -40px;
+    top: 0;
     left: 0;
-    font-size: 24px;
-    color: #fff;
-}
-
-.services-div .service-hover {
-    transition: all 0.3s;
-}
-
-.services-div .br {
-    border-right: 1px solid #f1f1f1;
-}
-
-.services-div .service-icon {
-    font-size: 30px;
-}
-
-.services-div .service-icon i {
-    background: linear-gradient(to right, #d71921, #e62e36);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-.service-desc {
-    font-size: 14px;
-}
-
-.form-des {
     width: 100%;
-    float: left;
-}
-
-.form-des span {
-    color: #d71921;
-}
-
-.form-des p {
-    text-align: justify;
-    line-height: 24px;
-    font-size: 14px;
-    color: #888;
+    height: 100%;
+    background-color: rgba(#fff, #fff, #fff, 0.3);
+    z-index: 100;
 }

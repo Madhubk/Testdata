@@ -8,9 +8,9 @@
         .module("Application")
         .controller("AllocateLocationController", AllocateLocationController);
 
-    AllocateLocationController.$inject = ["$scope", "apiService", "helperService", "appConfig", "myTaskActivityConfig", "APP_CONSTANT", "errorWarningService", "inwardConfig", "dynamicLookupConfig"];
+    AllocateLocationController.$inject = ["$scope", "apiService", "helperService", "appConfig", "myTaskActivityConfig", "APP_CONSTANT", "errorWarningService", "inwardConfig", "dynamicLookupConfig", "warehouseConfig"];
 
-    function AllocateLocationController($scope, apiService, helperService, appConfig, myTaskActivityConfig, APP_CONSTANT, errorWarningService, inwardConfig, dynamicLookupConfig) {
+    function AllocateLocationController($scope, apiService, helperService, appConfig, myTaskActivityConfig, APP_CONSTANT, errorWarningService, inwardConfig, dynamicLookupConfig, warehouseConfig) {
         var AllocateLocationCtrl = this;
 
         function Init() {
@@ -77,7 +77,7 @@
 
         function GetEntityObj() {
             if (AllocateLocationCtrl.ePage.Masters.TaskObj.EntityRefKey) {
-                apiService.get("eAxisAPI", appConfig.Entities.InwardList.API.GetById.Url + AllocateLocationCtrl.ePage.Masters.TaskObj.EntityRefKey).then(function (response) {
+                apiService.get("eAxisAPI", warehouseConfig.Entities.WmsInwardList.API.GetById.Url + AllocateLocationCtrl.ePage.Masters.TaskObj.EntityRefKey).then(function (response) {
                     if (response.data.Response) {
                         AllocateLocationCtrl.ePage.Masters.EntityObj = response.data.Response;
                     }

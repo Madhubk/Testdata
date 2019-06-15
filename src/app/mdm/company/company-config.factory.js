@@ -64,7 +64,6 @@
         return exports;
 
         function AddCompany(currentCompany, isNew) {
-            console.log(currentCompany);
             // Set configuration object to individual Consolidation
             var deferred = $q.defer();
             var _exports = {
@@ -251,7 +250,6 @@
             return deferred.promise;
         }
         function ValidationFindall() {
-            debugger;
             var _filter = {
                 "ModuleCode": "Finance",
                 "SubModuleCode": "JBA"

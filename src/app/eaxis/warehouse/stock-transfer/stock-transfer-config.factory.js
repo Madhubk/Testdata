@@ -59,12 +59,12 @@
                             "InsertStockTransfer": {
                                 "IsAPI": "true",
                                 "HttpType": "POST",
-                                "Url": "WmsStockTransferList/Insert"
+                                "Url": "WmsStockTransferList/InsertV1"
                             },
                             "UpdateStockTransfer": {
                                 "IsAPI": "true",
                                 "HttpType": "POST",
-                                "Url": "WmsStockTransferList/Update"
+                                "Url": "WmsStockTransferList/UpdateV1"
                             },
                             "GetInventoryList": {
                                 "IsAPI": "true",
@@ -91,11 +91,13 @@
                                 "UIWmsStockTransferLine": helperService.metaBase(),
                                 "Warehouse": helperService.metaBase(),
                                 "Client": helperService.metaBase(),
+                                "WorkOrderID": helperService.metaBase(),
                             },
                         },
                         "GlobalVariables":{
                             "Loading":false,
                             "NonEditable":false,
+                            "CopyofCurrentObject":"",
                         },
                         "TableProperties":{
                             "UIWmsStockTransferLine":{

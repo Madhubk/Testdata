@@ -5,9 +5,9 @@
         .module("Application")
         .controller("OutwardMenuController", OutwardMenuController);
 
-    OutwardMenuController.$inject = ["$scope", "$rootScope", "$timeout", "APP_CONSTANT", "apiService", "outwardConfig", "helperService", "appConfig", "authService", "$location", "$state", "toastr", "confirmation", "$injector", "$window", "$uibModal", "$ocLazyLoad", "$filter"];
+    OutwardMenuController.$inject = ["$scope", "$rootScope", "$timeout", "APP_CONSTANT", "apiService", "outwardConfig", "helperService", "appConfig", "authService", "$location", "$state", "toastr", "confirmation", "$injector", "$window", "$uibModal", "$ocLazyLoad", "$filter", "warehouseConfig"];
 
-    function OutwardMenuController($scope, $rootScope, $timeout, APP_CONSTANT, apiService, outwardConfig, helperService, appConfig, authService, $location, $state, toastr, confirmation, $injector, $window, $uibModal, $ocLazyLoad, $filter) {
+    function OutwardMenuController($scope, $rootScope, $timeout, APP_CONSTANT, apiService, outwardConfig, helperService, appConfig, authService, $location, $state, toastr, confirmation, $injector, $window, $uibModal, $ocLazyLoad, $filter, warehouseConfig) {
 
         var OutwardMenuCtrl = this;
         var Config = $injector.get("pickConfig");
@@ -33,6 +33,7 @@
             OutwardMenuCtrl.ePage.Masters.DisableSave = false;
 
             OutwardMenuCtrl.ePage.Masters.tabSelected = tabSelected;
+            OutwardMenuCtrl.ePage.Masters.Save = Save;
             OutwardMenuCtrl.ePage.Masters.Validation = Validation;
             OutwardMenuCtrl.ePage.Masters.Config = outwardConfig;
             OutwardMenuCtrl.ePage.Masters.CancelOutward = CancelOutward;
@@ -87,11 +88,13 @@
 
             $rootScope.SaveOutwardFromTask = SaveOutwardFromTask;
             getManifestDetails();
+
+            OutwardMenuCtrl.ePage.Entities.Header.GlobalVariables.CopyofCurrentObject = angular.copy(OutwardMenuCtrl.ePage.Entities.Header.Data);
         }
 
         function getManifestDetails() {
             if (OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.AdditionalRef1Fk) {
-                apiService.get("eAxisAPI", appConfig.Entities.TmsManifestList.API.GetById.Url + OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.AdditionalRef1Fk).then(function (response) {
+                apiService.get("eAxisAPI", warehouseConfig.Entities.TmsManifestList.API.GetById.Url + OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.AdditionalRef1Fk).then(function (response) {
                     if (response.data.Response) {
                         OutwardMenuCtrl.ePage.Entities.Header.ManifestDetails = response.data.Response;
                     }
@@ -303,7 +306,7 @@
                                     });
                                     if (!Check) {
                                         OutwardMenuCtrl.ePage.Entities.Header.GlobalVariables.Loading = true;
-                                        if (!OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PickNo) {
+                                        if (!OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WPK_FK) {
                                             $event.preventDefault();
                                             var modalOptions = {
                                                 closeButtonText: 'No',
@@ -330,7 +333,7 @@
                                                             OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PickNo = response.data.Response.Response.UIWmsPickHeader.PickNo
                                                             OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PutOrPickStartDateTime = new Date();
                                                             OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WorkOrderStatus = "OSP";
-                                                            OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WorkOrderStatusDesc = "Pick Started";
+                                                            OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WorkOrderStatusDesc = "PICK STARTED";
                                                             OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.IsModified = true;
                                                             response.data.Response.Response.UIWmsOutward.push(OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader);
 
@@ -406,9 +409,9 @@
                                                 };
                                                 var _input = {
                                                     "searchInput": helperService.createToArrayOfObject(_filter),
-                                                    "FilterID": appConfig.Entities.WmsPickLineSummary.API.FindAll.FilterID
+                                                    "FilterID": warehouseConfig.Entities.WmsPickLineSummary.API.FindAll.FilterID
                                                 };
-                                                apiService.post("eAxisAPI", appConfig.Entities.WmsPickLineSummary.API.FindAll.Url, _input).then(function (response) {
+                                                apiService.post("eAxisAPI", warehouseConfig.Entities.WmsPickLineSummary.API.FindAll.Url, _input).then(function (response) {
                                                     if (response.data.Response.length > 0) {
                                                         OutwardMenuCtrl.ePage.Masters.PickLineList = response.data.Response;
                                                         OutwardMenuCtrl.ePage.Entities.Header.GlobalVariables.Loading = true;
@@ -421,7 +424,7 @@
                                                         };
                                                         confirmation.showModal({}, modalOptions)
                                                             .then(function (result) {
-                                                                helperService.getFullObjectUsingGetById(appConfig.Entities.TmsManifestList.API.GetById.Url, 'null').then(function (response) {
+                                                                helperService.getFullObjectUsingGetById(warehouseConfig.Entities.TmsManifestList.API.GetById.Url, 'null').then(function (response) {
                                                                     if (response.data.Response) {
                                                                         response.data.Response.TmsManifestHeader.PK = response.data.Response.PK;
                                                                         response.data.Response.TmsManifestHeader.SenderCode = OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WAR_ORG_Code;
@@ -439,7 +442,7 @@
                                                                         OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.AdditionalRef1Fk = response.data.Response.TmsManifestHeader.PK;
                                                                         OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.IsModified = true;
 
-                                                                        apiService.post("eAxisAPI", appConfig.Entities.TmsManifestList.API.Insert.Url, response.data.Response).then(function (response) {
+                                                                        apiService.post("eAxisAPI", warehouseConfig.Entities.TmsManifestList.API.Insert.Url, response.data.Response).then(function (response) {
                                                                             if (response.data.Status == 'Success') {
                                                                                 var _obj = {
                                                                                     "PK": "",
@@ -499,24 +502,20 @@
                                                                                 //     response.data.Response.TmsManifestItem.push(obj);
                                                                                 // });
 
-                                                                                apiService.post("eAxisAPI", appConfig.Entities.TmsManifestList.API.Update.Url, response.data.Response).then(function (response) {
+                                                                                apiService.post("eAxisAPI", warehouseConfig.Entities.TmsManifestList.API.Update.Url, response.data.Response).then(function (response) {
                                                                                     if (response.data.Status == 'Success') {
-                                                                                        apiService.get("eAxisAPI", appConfig.Entities.TmsManifestList.API.GetById.Url + response.data.Response.Response.PK).then(function (response) {
+                                                                                        apiService.get("eAxisAPI", warehouseConfig.Entities.TmsManifestList.API.GetById.Url + response.data.Response.Response.PK).then(function (response) {
                                                                                             if (response.data.Status == 'Success') {
                                                                                                 OutwardMenuCtrl.ePage.Entities.Header.ManifestDetails = response.data.Response;
                                                                                                 OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.AdditionalRef1Code = response.data.Response.TmsManifestHeader.ManifestNumber;
                                                                                                 OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.AdditionalRef1Fk = response.data.Response.TmsManifestHeader.PK;
                                                                                                 OutwardMenuCtrl.ePage.Masters.active = 4;
                                                                                                 OutwardMenuCtrl.ePage.Entities.Header.GlobalVariables.Loading = false;
-                                                                                                // apiService.get("eAxisAPI", appConfig.Entities.WmsOutwardList.API.GetById.Url + OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PK).then(function (response) {
-                                                                                                //     if (response.data.Response) {
-                                                                                                //         OutwardMenuCtrl.ePage.Entities.Header.Data = response.data.Response;
-                                                                                                //         OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.AdditionalRef1Code = OutwardMenuCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.ManifestNumber;
-                                                                                                //         OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.AdditionalRef1Fk = OutwardMenuCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.PK;
+
                                                                                                 OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.IsModified = true;
-                                                                                                apiService.post("eAxisAPI", appConfig.Entities.WmsOutwardList.API.Update.Url, OutwardMenuCtrl.ePage.Entities.Header.Data).then(function (response) {
+                                                                                                apiService.post("eAxisAPI", warehouseConfig.Entities.WmsOutwardList.API.Update.Url, OutwardMenuCtrl.ePage.Entities.Header.Data).then(function (response) {
                                                                                                     if (response.data.Status == 'Success') {
-                                                                                                        apiService.get("eAxisAPI", appConfig.Entities.WmsOutwardList.API.GetById.Url + OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PK).then(function (response) {
+                                                                                                        apiService.get("eAxisAPI", warehouseConfig.Entities.WmsOutwardList.API.GetById.Url + OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PK).then(function (response) {
                                                                                                             if (response.data.Response) {
                                                                                                                 response.data.Response.UIWmsOutwardHeader.Client = response.data.Response.UIWmsOutwardHeader.ClientCode + "-" + response.data.Response.UIWmsOutwardHeader.ClientName;
                                                                                                                 response.data.Response.UIWmsOutwardHeader.Warehouse = response.data.Response.UIWmsOutwardHeader.WarehouseCode + "-" + response.data.Response.UIWmsOutwardHeader.WarehouseName;
@@ -581,6 +580,11 @@
             }
         };
 
+        function Save($item){
+            OutwardMenuCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.CancelledDate = null;
+            Validation($item)
+        }
+
         function Validation($item, callback) {
             var _Data = $item[$item.label].ePage.Entities,
                 _input = _Data.Header.Data,
@@ -620,7 +624,7 @@
                     _input.UIWmsOutwardHeader.ExternalReference = _input.UIWmsOutwardHeader.WorkOrderID;
                 }
             } else {
-                $item = filterObjectUpdate($item, "IsModified");
+                OutwardMenuCtrl.ePage.Entities.Header.Data = PostSaveObjectUpdate(OutwardMenuCtrl.ePage.Entities.Header.Data, OutwardMenuCtrl.ePage.Entities.Header.GlobalVariables.CopyofCurrentObject,["Client","Warehouse","Consignee","ServiceLevel","Product","Commodity"]);
             }
 
 
@@ -672,6 +676,10 @@
 
                     OutwardMenuCtrl.ePage.Entities.Header.GlobalVariables.PercentageValues = true;
 
+                     //Taking Copy of Current Object
+                     OutwardMenuCtrl.ePage.Entities.Header.Data = AfterSaveObjectUpdate(OutwardMenuCtrl.ePage.Entities.Header.Data,"IsModified");
+                     OutwardMenuCtrl.ePage.Entities.Header.GlobalVariables.CopyofCurrentObject = angular.copy(OutwardMenuCtrl.ePage.Entities.Header.Data);
+
                     if (OutwardMenuCtrl.ePage.Masters.SaveAndClose) {
                         if ($state.current.url == "/outward") {
                             OutwardMenuCtrl.ePage.Masters.Config.SaveAndClose = true;
@@ -684,15 +692,16 @@
                         callback()
                     }
                 } else if (response.Status === "failed") {
-                    console.log("Failed");
-                    toastr.error("Could not Save...!");
 
                     OutwardMenuCtrl.ePage.Entities.Header.Validations = response.Validations;
                     angular.forEach(response.Validations, function (value, key) {
                         OutwardMenuCtrl.ePage.Masters.Config.PushErrorWarning(value.Code, value.Message, "E", false, value.CtrlKey, OutwardMenuCtrl.currentOutward.label, false, undefined, undefined, undefined, undefined, value.GParentRef);
                     });
                     if (OutwardMenuCtrl.ePage.Entities.Header.Validations != null) {
+                        toastr.error("Validation Failed...!");
                         OutwardMenuCtrl.ePage.Masters.Config.ShowErrorWarningModal(OutwardMenuCtrl.currentOutward);
+                    }else{
+                        toastr.error("Could not Save...!");
                     }
                     if (callback) {
                         callback()
@@ -712,9 +721,9 @@
                                 value.TMC_ExpectedPickupDateTime = OutwardMenuCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.EstimatedDispatchDate;
                             });
                             OutwardMenuCtrl.ePage.Entities.Header.ManifestDetails = filterObjectUpdate(OutwardMenuCtrl.ePage.Entities.Header.ManifestDetails, "IsModified");
-                            apiService.post("eAxisAPI", appConfig.Entities.TmsManifestList.API.Update.Url, OutwardMenuCtrl.ePage.Entities.Header.ManifestDetails).then(function (response) {
+                            apiService.post("eAxisAPI", warehouseConfig.Entities.TmsManifestList.API.Update.Url, OutwardMenuCtrl.ePage.Entities.Header.ManifestDetails).then(function (response) {
                                 if (response.data.Status == 'Success') {
-                                    apiService.get("eAxisAPI", appConfig.Entities.TmsManifestList.API.GetById.Url + response.data.Response.Response.PK).then(function (response) {
+                                    apiService.get("eAxisAPI", warehouseConfig.Entities.TmsManifestList.API.GetById.Url + response.data.Response.Response.PK).then(function (response) {
                                         if (response.data.Status == 'Success') {
                                             OutwardMenuCtrl.ePage.Entities.Header.ManifestDetails = response.data.Response;
                                             toastr.success("Manifest Saved Successfully.");
@@ -726,6 +735,40 @@
                     }
                 }
             });
+        }
+
+        function PostSaveObjectUpdate(newValue,oldValue, exceptObjects) {
+            for (var i in newValue) {
+                if(typeof newValue[i]=='object'){
+                    PostSaveObjectUpdate(newValue[i],oldValue[i],exceptObjects);
+                }else{
+                    var Satisfied = exceptObjects.some(function(v){return v===i});
+                    if(!Satisfied && i!= "$$hashKey"){
+                        if(!oldValue){
+                            newValue["IsModified"] = true;
+                            break;
+                        }else{
+                            if(newValue[i]!=oldValue[i]){
+                                newValue["IsModified"] = true;
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+            return newValue;
+        }
+
+        function AfterSaveObjectUpdate(obj,key){
+            for (var i in obj) {
+                if (!obj.hasOwnProperty(i)) continue;
+                if (typeof obj[i] == 'object') {
+                    AfterSaveObjectUpdate(obj[i], key);
+                } else if (i == key) {
+                    obj[key] = false;
+                }
+            }
+            return obj;
         }
 
         function filterObjectUpdate(obj, key) {
@@ -790,8 +833,10 @@
                                                     }
                                                 });
                                             });
+                                            $item = filterObjectUpdate($item, "IsModified");
                                             Validation($item);
                                         } else {
+                                            $item = filterObjectUpdate($item, "IsModified");
                                             Validation($item);
                                         }
                                     }

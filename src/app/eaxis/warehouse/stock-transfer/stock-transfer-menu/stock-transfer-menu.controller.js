@@ -39,11 +39,12 @@
             }
 
             DonwloadDocument()
+
+            StockTransferMenuCtrl.ePage.Entities.Header.GlobalVariables.CopyofCurrentObject = angular.copy(StockTransferMenuCtrl.ePage.Entities.Header.Data);
         }
 
         //Normal save function without Finalise validation, so remove all errors and save
         function Save($item) {
-            StockTransferMenuCtrl.ePage.Masters.Finalizesave = false;
             StockTransferMenuCtrl.ePage.Masters.Config.EnableFinaliseValidation = false;
 
             StockTransferMenuCtrl.ePage.Entities.Header.Data.UIWmsStockTransferLine.map(function (value, key) {
@@ -54,7 +55,7 @@
                 stocktransferConfig.RemoveErrorWarning('E11021', "E", 'UIWmsStockTransferLine', $item.label, true, key, '12');
                 stocktransferConfig.RemoveErrorWarning('E11022', "E", 'UIWmsStockTransferLine', $item.label, true, key, '13');
 
-            })
+            });
 
             Validation($item);
         }
@@ -74,7 +75,6 @@
                 StockTransferMenuCtrl.ePage.Masters.Config.ShowErrorWarningModal(StockTransferMenuCtrl.currentStockTransfer);
                 Saveonly($item);
             } else {
-                StockTransferMenuCtrl.ePage.Masters.Finalizesave = false;
                 StockTransferMenuCtrl.ePage.Masters.Config.ShowErrorWarningModal(StockTransferMenuCtrl.currentStockTransfer);
             }
         }
@@ -92,19 +92,11 @@
                 _input.UIWmsStockTransferHeader.CreatedDateTime = new Date();
                 _input.UIWmsStockTransferHeader.WorkOrderType = 'TFR';
                 _input.UIWmsStockTransferHeader.WorkOrderStatus = 'ENT';
-                _input.UIWmsStockTransferHeader.WorkOrderStatusDesc = 'Entered';
+                _input.UIWmsStockTransferHeader.WorkOrderStatusDesc = 'ENTERED';
                 _input.UIWmsStockTransferHeader.ExternalReference = _input.UIWmsStockTransferHeader.WorkOrderID;
             } else {
-                if (StockTransferMenuCtrl.ePage.Masters.Finalizesave) {
-                    _input.UIWmsStockTransferHeader.FinalisedDate = new Date();
-                    _input.UIWmsStockTransferHeader.WorkOrderStatus = 'FIN';
-                    _input.UIWmsStockTransferHeader.WorkOrderStatusDesc = 'Finalized';
-                    angular.forEach(_input.UIWmsStockTransferLine, function (value, key) {
-                        value.WorkOrderLineStatus = 'FIN';
-                        value.WorkOrderLineStatusDesc = 'Finalized';
-                    });
-                }
-                $item = filterObjectUpdate($item, "IsModified");
+                
+                StockTransferMenuCtrl.ePage.Entities.Header.Data = PostSaveObjectUpdate(StockTransferMenuCtrl.ePage.Entities.Header.Data, StockTransferMenuCtrl.ePage.Entities.Header.GlobalVariables.CopyofCurrentObject,["Client","Warehouse","Product","Commodity"]);
             }
 
 
@@ -149,14 +141,17 @@
                         StockTransferMenuCtrl.ePage.Masters.Config.SaveAndClose = true;
                         StockTransferMenuCtrl.ePage.Masters.SaveAndClose = false;
                     }
-                    if (StockTransferMenuCtrl.ePage.Masters.Finalizesave || StockTransferMenuCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.WorkOrderStatus == 'CAN') {
+                    if (StockTransferMenuCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.WorkOrderStatus =="FIN" || StockTransferMenuCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.WorkOrderStatus == 'CAN') {
                         StockTransferMenuCtrl.ePage.Entities.Header.GlobalVariables.NonEditable = true;
                         StockTransferMenuCtrl.ePage.Masters.DisableSave = true;
                     }
 
+                    //Taking Copy of Current Object
+                    StockTransferMenuCtrl.ePage.Entities.Header.Data = AfterSaveObjectUpdate(StockTransferMenuCtrl.ePage.Entities.Header.Data,"IsModified");
+                    StockTransferMenuCtrl.ePage.Entities.Header.GlobalVariables.CopyofCurrentObject = angular.copy(StockTransferMenuCtrl.ePage.Entities.Header.Data);
+
+
                 } else if (response.Status === "failed") {
-                    console.log("Failed");
-                    toastr.error("Could not Save...!");
                     StockTransferMenuCtrl.ePage.Entities.Header.Validations = response.Validations;
                     angular.forEach(response.Validations, function (value, key) {
                         if (value.RowIndex > 0) {
@@ -166,12 +161,48 @@
                         }
                     });
                     if (StockTransferMenuCtrl.ePage.Entities.Header.Validations != null) {
-                        StockTransferMenuCtrl.ePage.Masters.Finalizesave = false;
+                        toastr.error("Could not Save...!");
                         StockTransferMenuCtrl.ePage.Masters.Config.ShowErrorWarningModal(StockTransferMenuCtrl.currentStockTransfer);
+                    }else{
+                        toastr.error("Validation Failed...!")
                     }
                 }
             });
 
+        }
+
+        function PostSaveObjectUpdate(newValue,oldValue, exceptObjects) {
+            for (var i in newValue) {
+                if(typeof newValue[i]=='object'){
+                    PostSaveObjectUpdate(newValue[i],oldValue[i],exceptObjects);
+                }else{
+                    var Satisfied = exceptObjects.some(function(v){return v===i});
+                    if(!Satisfied && i!= "$$hashKey"){
+                        if(!oldValue){
+                            newValue["IsModified"] = true;
+                            break;
+                        }else{
+                            if(newValue[i]!=oldValue[i]){
+                                newValue["IsModified"] = true;
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+            return newValue;
+        }
+
+        function AfterSaveObjectUpdate(obj,key){
+            for (var i in obj) {
+                if (!obj.hasOwnProperty(i)) continue;
+                if (typeof obj[i] == 'object') {
+                    AfterSaveObjectUpdate(obj[i], key);
+                } else if (i == key) {
+                    obj[key] = false;
+                }
+            }
+            return obj;
         }
 
         function filterObjectUpdate(obj, key) {
@@ -206,8 +237,9 @@
                             if (mydata) {
                                 toastr.info("Please Save Before Finalizing Stock Transfer");
                             } else {
-                                StockTransferMenuCtrl.ePage.Masters.Finalizesave = true;
+                                StockTransferMenuCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.FinalisedDate = new Date();
                                 StockTransferMenuCtrl.ePage.Masters.Config.EnableFinaliseValidation = true;
+                                $item = filterObjectUpdate($item, "IsModified");
                                 Validation($item);
                             }
 
@@ -245,8 +277,7 @@
                                 value.TotalUnits = 0;
                             });
                             StockTransferMenuCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.CancelledDate = new Date();
-                            StockTransferMenuCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.WorkOrderStatus = 'CAN';
-                            StockTransferMenuCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.WorkOrderStatusDesc = 'Cancelled';
+                            $item = filterObjectUpdate($item, "IsModified");
                             Validation($item);
 
                             $uibModalInstance.dismiss('cancel');

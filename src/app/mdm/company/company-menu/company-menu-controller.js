@@ -1,12 +1,12 @@
-(function() {
+(function () {
     "use strict";
     angular
         .module("Application")
         .controller("CompanyMenuController", CompanyMenuController);
 
-    CompanyMenuController.$inject = ["$scope", "$timeout", "APP_CONSTANT","authService", "apiService", "toastr", "companyConfig", "helperService","errorWarningService"];
+    CompanyMenuController.$inject = ["$scope", "$timeout", "APP_CONSTANT", "authService", "apiService", "toastr", "companyConfig", "helperService", "errorWarningService"];
 
-    function CompanyMenuController($scope, $timeout, APP_CONSTANT, authService,apiService, toastr,companyConfig, helperService,errorWarningService) {
+    function CompanyMenuController($scope, $timeout, APP_CONSTANT, authService, apiService, toastr, companyConfig, helperService, errorWarningService) {
         var CompanyMenuCtrl = this;
 
         function Init() {
@@ -19,23 +19,37 @@
                 "Entities": currentCompany
             };
             CompanyMenuCtrl.ePage.Masters.CompanyMenu = {};
-            CompanyMenuCtrl.ePage.Masters.Config=companyConfig;
-            CompanyMenuCtrl.ePage.Masters.SaveButtonText="Save";
+            CompanyMenuCtrl.ePage.Masters.Config = companyConfig;
+            CompanyMenuCtrl.ePage.Masters.SaveButtonText = "Save";
             CompanyMenuCtrl.ePage.Masters.ActivateButtonText = "Activate";
-            CompanyMenuCtrl.ePage.Masters.DeactivateButtonText="Deactivate";
+            CompanyMenuCtrl.ePage.Masters.DeactivateButtonText = "Deactivate";
 
-            CompanyMenuCtrl.ePage.Masters.isDeactivate = false;
+            CompanyMenuCtrl.ePage.Masters.isDeactivate = true;
             CompanyMenuCtrl.ePage.Masters.isActivate = true;
-            CompanyMenuCtrl.ePage.Masters.Activate=Activate;
-            CompanyMenuCtrl.ePage.Masters.Deactivate=Deactivate;
-            CompanyMenuCtrl.ePage.Masters.Validation=Validation;
+            CompanyMenuCtrl.ePage.Masters.Activate = Activate;
+            CompanyMenuCtrl.ePage.Masters.Deactivate = Deactivate;
+            CompanyMenuCtrl.ePage.Masters.Validation = Validation;
 
             // Menu list from configuration
             // OrganizationMenuCtrl.ePage.Masters.OrganizationMenu.ListSource = OrganizationMenuCtrl.ePage.Entities.Header.Meta.MenuList;
+
+            InitActivateDeactivate();
         }
-        
+
+        //#region InitActivateDeactivate
+        function InitActivateDeactivate() {
+            if (!CompanyMenuCtrl.currentCompany.isNew && CompanyMenuCtrl.ePage.Entities.Header.Data.UICmpCompany.IsActive) {
+                CompanyMenuCtrl.ePage.Masters.isActivate = true;
+                CompanyMenuCtrl.ePage.Masters.isDeactivate = false;
+            }
+            else if (!CompanyMenuCtrl.currentCompany.isNew && !CompanyMenuCtrl.ePage.Entities.Header.Data.UICmpCompany.IsActive) {
+                CompanyMenuCtrl.ePage.Masters.isActivate = false;
+                CompanyMenuCtrl.ePage.Masters.isDeactivate = true;
+            }
+        }
+        //#endregion
+
         function Validation($item) {
-            debugger;
             var _Data = $item[$item.label].ePage.Entities,
                 _input = _Data.Header.Data,
                 _errorcount = _Data.Header.Meta.ErrorWarning.GlobalErrorWarningList;
@@ -82,7 +96,7 @@
             var _Data = $item[$item.label].ePage.Entities,
                 _input = _Data.Header.Data;
 
-            if ($item.isNew) {                            
+            if ($item.isNew) {
                 _input.UICmpCompany.CreatedDateTime = new Date();
                 _input.UICmpCompany.IsValid = true;
                 _input.UICmpCompany.ModifiedBy = authService.getUserInfo().UserId;
@@ -90,8 +104,8 @@
                 _input.UICmpCompany.Source = "ERP";
                 _input.UICmpCompany.TenantCode = "20CUB";
                 _input.UICmpCompany.IsActive = true;
-                _input.UICmpCompany.PK=_Data.Header.Data.PK;
-                _input.UICmpCompany.CompanyFK =""
+                _input.UICmpCompany.PK = _Data.Header.Data.PK;
+                _input.UICmpCompany.CompanyFK = ""
                 // _input.UICurrencyUplift.CreatedBy=authService.getUserInfo().UserId;
                 // _input.UICurrencyUplift.CreatedDate=new Date();
                 // _input.UICurrencyUplift.ModifiedBy="";
@@ -128,19 +142,19 @@
             }
             return obj;
         }
-        function Activate(){
-            CompanyMenuCtrl.ePage.Masters.isActivate=true;
-            CompanyMenuCtrl.ePage.Masters.isDeactivate=false;
-            CompanyDetailsCtrl.ePage.Entities.Header.Data.UICmpCompany.IsActive=true;
-            CompanyDetailsCtrl.ePage.Entities.Header.Data.UICmpCompany.IsValid=true;
-
+        function Activate() {
+            CompanyMenuCtrl.ePage.Masters.isActivate = true;
+            CompanyMenuCtrl.ePage.Masters.isDeactivate = false;
+            CompanyMenuCtrl.ePage.Entities.Header.Data.UICmpCompany.IsActive = true;
         }
+
         // function Deactivate(){
         //     CompanyMenuCtrl.ePage.Masters.DisableDeactivate=true;
         //     CompanyMenuCtrl.ePage.Masters.DisableActivate=false;
         //     CompanyDetailsCtrl.ePage.Entities.Header.Data.UICmpCompany.IsActive=false;
         //     CompanyDetailsCtrl.ePage.Entities.Header.Data.UICmpCompany.IsValid=false;
         // }
+
         function Deactivate($item) {
             var _Data = $item[$item.label].ePage.Entities,
                 _input = _Data.Header.Data;

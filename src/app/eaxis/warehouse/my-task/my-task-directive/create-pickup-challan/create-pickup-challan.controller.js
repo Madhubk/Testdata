@@ -5,9 +5,9 @@
         .module("Application")
         .controller("CreatePickupChallanController", CreatePickupChallanController);
 
-    CreatePickupChallanController.$inject = ["$scope", "apiService", "helperService", "appConfig", "myTaskActivityConfig", "APP_CONSTANT", "errorWarningService", "dynamicLookupConfig", "inwardConfig", "toastr", "$timeout", "$uibModal"];
+    CreatePickupChallanController.$inject = ["$scope", "apiService", "helperService", "appConfig", "myTaskActivityConfig", "APP_CONSTANT", "errorWarningService", "dynamicLookupConfig", "inwardConfig", "toastr", "$timeout", "$uibModal", "warehouseConfig"];
 
-    function CreatePickupChallanController($scope, apiService, helperService, appConfig, myTaskActivityConfig, APP_CONSTANT, errorWarningService, dynamicLookupConfig, inwardConfig, toastr, $timeout, $uibModal) {
+    function CreatePickupChallanController($scope, apiService, helperService, appConfig, myTaskActivityConfig, APP_CONSTANT, errorWarningService, dynamicLookupConfig, inwardConfig, toastr, $timeout, $uibModal, warehouseConfig) {
         var CreatePickupChallanCtrl = this;
 
         function Init() {
@@ -77,9 +77,9 @@
                 };
                 var _input = {
                     "searchInput": helperService.createToArrayOfObject(_filter),
-                    "FilterID": appConfig.Entities.InwardList.API.FindAll.FilterID
+                    "FilterID": warehouseConfig.Entities.WmsInward.API.FindAll.FilterID
                 };
-                apiService.post("eAxisAPI", appConfig.Entities.InwardList.API.FindAll.Url, _input).then(function (response) {
+                apiService.post("eAxisAPI", warehouseConfig.Entities.WmsInward.API.FindAll.Url, _input).then(function (response) {
                     if (response.data.Response) {
                         if (response.data.Response.length > 0) {
                             CreatePickupChallanCtrl.ePage.Masters.UnFinalizedOrders = [];
@@ -122,7 +122,7 @@
             CreatePickupChallanCtrl.ePage.Masters.modalInstance1.dismiss('cancel');
             if (CreatePickupChallanCtrl.ePage.Masters.selectedInwardRow >= 0) {
                 CreatePickupChallanCtrl.ePage.Masters.Loading = true;
-                apiService.get("eAxisAPI", appConfig.Entities.InwardList.API.GetById.Url + CreatePickupChallanCtrl.ePage.Masters.UnFinalizedOrders[CreatePickupChallanCtrl.ePage.Masters.selectedInwardRow].PK).then(function (response) {
+                apiService.get("eAxisAPI", warehouseConfig.Entities.WmsInwardList.API.GetById.Url + CreatePickupChallanCtrl.ePage.Masters.UnFinalizedOrders[CreatePickupChallanCtrl.ePage.Masters.selectedInwardRow].PK).then(function (response) {
                     if (response.data.Response) {
                         angular.forEach(CreatePickupChallanCtrl.ePage.Masters.TempSelectedPickupLine, function (value, key) {
                             value.IL_PrdCode = value.PL_Req_PrdCode;
@@ -159,7 +159,7 @@
                             response.data.Response.UIWmsAsnLine.push(obj);
                         });
                         response.data.Response = filterObjectUpdate(response.data.Response, "IsModified");
-                        apiService.post("eAxisAPI", appConfig.Entities.InwardList.API.Update.Url, response.data.Response).then(function (response) {
+                        apiService.post("eAxisAPI", warehouseConfig.Entities.WmsInwardList.API.Update.Url, response.data.Response).then(function (response) {
                             if (response.data.Status == 'Success') {
                                 CreatePickupChallanCtrl.ePage.Masters.InwardDetails = response.data.Response;
                                 toastr.success("Pickup Line added to the Order " + CreatePickupChallanCtrl.ePage.Masters.InwardDetails.UIWmsInwardHeader.WorkOrderID);
@@ -243,9 +243,9 @@
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.InwardList.API.FindAll.FilterID
+                "FilterID": warehouseConfig.Entities.WmsInward.API.FindAll.FilterID
             };
-            apiService.post("eAxisAPI", appConfig.Entities.InwardList.API.FindAll.Url, _input).then(function (response) {
+            apiService.post("eAxisAPI", warehouseConfig.Entities.WmsInward.API.FindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     CreatePickupChallanCtrl.ePage.Masters.InwardList = response.data.Response;
                     inwardConfig.ValidationFindall();
@@ -290,7 +290,7 @@
                         if (!_isExist) {
                             CreatePickupChallanCtrl.ePage.Masters.CreateInwardText = "Please Wait..";
                             CreatePickupChallanCtrl.ePage.Masters.IsDisabled = true;
-                            helperService.getFullObjectUsingGetById(appConfig.Entities.InwardList.API.GetById.Url, 'null').then(function (response) {
+                            helperService.getFullObjectUsingGetById(warehouseConfig.Entities.WmsInwardList.API.GetById.Url, 'null').then(function (response) {
                                 if (response.data.Response) {
                                     response.data.Response.Response.UIWmsInwardHeader.ClientCode = CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup.ClientCode;
                                     response.data.Response.Response.UIWmsInwardHeader.ClientName = CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup.ClientName;
@@ -498,7 +498,7 @@
 
         function GetEntityObj() {
             if (CreatePickupChallanCtrl.ePage.Masters.TaskObj.EntityRefKey) {
-                apiService.get("eAxisAPI", appConfig.Entities.WmsPickupList.API.GetById.Url + CreatePickupChallanCtrl.ePage.Masters.TaskObj.EntityRefKey).then(function (response) {
+                apiService.get("eAxisAPI", warehouseConfig.Entities.WmsPickup.API.GetById.Url + CreatePickupChallanCtrl.ePage.Masters.TaskObj.EntityRefKey).then(function (response) {
                     if (response.data.Response) {
                         CreatePickupChallanCtrl.ePage.Masters.EntityObj = response.data.Response;
                     }

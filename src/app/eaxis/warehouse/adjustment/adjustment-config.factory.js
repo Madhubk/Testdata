@@ -57,12 +57,12 @@
                             "InsertAdjustment": {
                                 "IsAPI": "true",
                                 "HttpType": "POST",
-                                "Url": "WmsAdjustmentList/Insert"
+                                "Url": "WmsAdjustmentList/InsertV1"
                             },
                             "UpdateAdjustment": {
                                 "IsAPI": "true",
                                 "HttpType": "POST",
-                                "Url": "WmsAdjustmentList/Update"
+                                "Url": "WmsAdjustmentList/UpdateV1"
                             },
                             "LineDelete": {
                                 "IsAPI": "true",
@@ -88,12 +88,14 @@
                                 "GlobalErrorWarningList": [],
                                 "Client": helperService.metaBase(),
                                 "Warehouse": helperService.metaBase(),
+                                "WorkOrderID": helperService.metaBase(),
                                 "UIWmsWorkOrderLine": helperService.metaBase(),
                             },
                         },
                         "GlobalVariables": {
                             "Loading": false,
                             "NonEditable": false,
+                            "CopyofCurrentObject":"",
                         },
                         "TableProperties": {
                             "UIWmsWorkOrderLine": {

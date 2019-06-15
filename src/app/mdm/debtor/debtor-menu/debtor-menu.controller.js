@@ -24,7 +24,7 @@
             DebtorMenuCtrl.ePage.Masters.ActivateButtonText = "Activate";
             DebtorMenuCtrl.ePage.Masters.DisableActivate = true;
             DebtorMenuCtrl.ePage.Masters.DeactivateButtonText = "Deactivate";
-            DebtorMenuCtrl.ePage.Masters.DisableDeactivate = false;
+            DebtorMenuCtrl.ePage.Masters.DisableDeactivate = true;
             DebtorMenuCtrl.ePage.Masters.SaveButtonText = "Save";
             DebtorMenuCtrl.ePage.Masters.DisableSave = false;
             DebtorMenuCtrl.ePage.Masters.Config = debtorConfig;
@@ -33,7 +33,22 @@
             DebtorMenuCtrl.ePage.Masters.Validation = Validation;
             DebtorMenuCtrl.ePage.Masters.Activate = Activate;
             DebtorMenuCtrl.ePage.Masters.Deactivate = Deactivate;
+
+            InitActivateDeactivate();
         }
+
+        //#region InitActivateDeactivate
+        function InitActivateDeactivate() {
+            if (!DebtorMenuCtrl.currentDebtor.isNew && DebtorMenuCtrl.ePage.Entities.Header.Data.IsValid) {
+                DebtorMenuCtrl.ePage.Masters.DisableActivate = true;
+                DebtorMenuCtrl.ePage.Masters.DisableDeactivate = false;
+            }
+            else if (!DebtorMenuCtrl.currentDebtor.isNew && !DebtorMenuCtrl.ePage.Entities.Header.Data.IsValid) {
+                DebtorMenuCtrl.ePage.Masters.DisableActivate = false;
+                DebtorMenuCtrl.ePage.Masters.DisableDeactivate = true;
+            }
+        }
+        //#endregion
 
         //#region Validation
         function Validation($item) {
@@ -149,12 +164,14 @@
         function Activate() {
             DebtorMenuCtrl.ePage.Masters.DisableActivate = true;
             DebtorMenuCtrl.ePage.Masters.DisableDeactivate = false;
+            DebtorMenuCtrl.ePage.Entities.Header.GlobalVariables.IsDisabledAll = false;
             DebtorMenuCtrl.ePage.Entities.Header.Data.IsValid = true;
         }
 
         function Deactivate() {
             DebtorMenuCtrl.ePage.Masters.DisableDeactivate = true;
             DebtorMenuCtrl.ePage.Masters.DisableActivate = false;
+            DebtorMenuCtrl.ePage.Entities.Header.GlobalVariables.IsDisabledAll = true;
             DebtorMenuCtrl.ePage.Entities.Header.Data.IsValid = false;
         }
         //#endregion

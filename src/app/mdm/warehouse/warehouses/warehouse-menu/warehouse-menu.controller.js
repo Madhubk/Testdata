@@ -4,9 +4,9 @@
         .module("Application")
         .controller("WarehouseMenuController", WarehouseMenuController);
 
-    WarehouseMenuController.$inject = ["$scope", "$timeout", "APP_CONSTANT", "apiService", "warehousesConfig", "helperService", "appConfig", "$state", "toastr"];
+    WarehouseMenuController.$inject = ["$scope", "$timeout", "APP_CONSTANT", "apiService", "warehousesConfig", "helperService", "$state", "toastr", "confirmation"];
 
-    function WarehouseMenuController($scope, $timeout, APP_CONSTANT, apiService, warehousesConfig, helperService, appConfig, $state, toastr) {
+    function WarehouseMenuController($scope, $timeout, APP_CONSTANT, apiService, warehousesConfig, helperService, $state, toastr, confirmation) {
         var WarehouseMenuCtrl = this;
 
         function Init() {
@@ -26,10 +26,17 @@
 
 
             WarehouseMenuCtrl.ePage.Masters.WarehouseMenu = {};
+
+
+            WarehouseMenuCtrl.ePage.Masters.OnMenuClick = OnMenuClick;
+            WarehouseMenuCtrl.ePage.Masters.tabSelected = tabSelected;
             // Menu list from configuration
             WarehouseMenuCtrl.ePage.Masters.WarehouseMenu.ListSource = WarehouseMenuCtrl.ePage.Entities.Header.Meta.MenuList;
             WarehouseMenuCtrl.ePage.Masters.Validation = Validation;
             WarehouseMenuCtrl.ePage.Masters.Config = warehousesConfig;
+
+            //Copying Current Object
+            WarehouseMenuCtrl.ePage.Entities.Header.GlobalVariables.CopyofCurrentObject = angular.copy(WarehouseMenuCtrl.ePage.Entities.Header.Data);
 
             GetInventoryDetails();
         }
@@ -40,7 +47,7 @@
                 var _filter = {
                     "WAR_FK": WarehouseMenuCtrl.ePage.Entities.Header.Data.WmsWarehouse.PK,
                     "PageNumber": "1",
-                    "PageSize": "10",
+                    "PageSize": "1",
                     "SortType": "ASC",
                     "SortColumn": "WOL_CreatedDateTime",
                 };
@@ -51,8 +58,8 @@
                 };
                 apiService.post("eAxisAPI", WarehouseMenuCtrl.ePage.Entities.Header.API.Inventory.Url, _input).then(function SuccessCallback(response) {
                     WarehouseMenuCtrl.ePage.Entities.Header.GlobalVariables.Loading = false;
-                    if(response.data.Response.length>0){
-                        WarehouseMenuCtrl.ePage.Entities.Header.Data.WmsArea.map(function(value,key){
+                    if (response.data.Response.length > 0) {
+                        WarehouseMenuCtrl.ePage.Entities.Header.Data.WmsArea.map(function (value, key) {
                             value.isDisabled = true;
                         })
                         WarehouseMenuCtrl.ePage.Entities.Header.GlobalVariables.CannotEditWarehouse = true;
@@ -78,72 +85,13 @@
             }
 
             if (_errorcount.length == 0) {
-                // Check Warehouse Type 
-                // Whether CEN, REP, SCP warehouse available or not                
-                if (_input.WmsWarehouse.WarehouseType == "CEN" || _input.WmsWarehouse.WarehouseType == "SCR" || _input.WmsWarehouse.WarehouseType == "REP" || _input.WmsWarehouse.WarehouseType == "TES") {
-                    var _filter = {
-                        "WarehouseType": _input.WmsWarehouse.WarehouseType
-                    };
-                    var _input1 = {
-                        "searchInput": helperService.createToArrayOfObject(_filter),
-                        "FilterID": appConfig.Entities.WmsWarehouse.API.FindAll.FilterID
-                    };
-                    apiService.post("eAxisAPI", appConfig.Entities.WmsWarehouse.API.FindAll.Url, _input1).then(function (response) {
-                        if (response.data.Response) {
-                            if (response.data.Response.length > 1) {
-                                WarehouseMenuCtrl.ePage.Masters.Config.PushErrorWarning("E4013", "Warehouse already exist in this Warehouse Type", "E", false, 'WarehouseType', WarehouseMenuCtrl.currentWarehouse.label, false, undefined, undefined, 'WarehouseType', undefined, 'general');
-                                WarehouseMenuCtrl.ePage.Masters.Config.ShowErrorWarningModal(WarehouseMenuCtrl.currentWarehouse);
-                            } else if (response.data.Response.length == 1) {
-                                if (response.data.Response[0].WarehouseCode == _input.WmsWarehouse.WarehouseCode) {
-                                    WarehouseMenuCtrl.ePage.Masters.Config.RemoveErrorWarning("E4013", "E", "WarehouseType", $item.label);
-                                    Save($item);
-                                } else {
-                                    WarehouseMenuCtrl.ePage.Masters.Config.PushErrorWarning("E4013", "Warehouse already exist in this Warehouse Type", "E", false, 'WarehouseType', WarehouseMenuCtrl.currentWarehouse.label, false, undefined, undefined, 'WarehouseType', undefined, 'general');
-                                    WarehouseMenuCtrl.ePage.Masters.Config.ShowErrorWarningModal(WarehouseMenuCtrl.currentWarehouse);
-                                }
-                            } else if (response.data.Response.length == 0) {
-                                WarehouseMenuCtrl.ePage.Masters.Config.RemoveErrorWarning("E4013", "E", "WarehouseType", $item.label);
-                                Save($item);
-                            }
-                        }
-                    });
-                } else {
-                    Save($item);
-                }
+                Save($item);
             } else {
-                if (_input.WmsWarehouse.WarehouseType == "CEN" || _input.WmsWarehouse.WarehouseType == "SCR" || _input.WmsWarehouse.WarehouseType == "REP" || _input.WmsWarehouse.WarehouseType == "TES") {
-                    var _filter = {
-                        "WarehouseType": _input.WmsWarehouse.WarehouseType
-                    };
-                    var _input1 = {
-                        "searchInput": helperService.createToArrayOfObject(_filter),
-                        "FilterID": appConfig.Entities.WmsWarehouse.API.FindAll.FilterID
-                    };
-                    apiService.post("eAxisAPI", appConfig.Entities.WmsWarehouse.API.FindAll.Url, _input1).then(function (response) {
-                        if (response.data.Response) {
-                            if (response.data.Response.length > 1) {
-                                WarehouseMenuCtrl.ePage.Masters.Config.PushErrorWarning("E4013", "Warehouse already exist in this Warehouse Type", "E", false, 'WarehouseType', WarehouseMenuCtrl.currentWarehouse.label, false, undefined, undefined, 'WarehouseType', undefined, 'general');
-                                WarehouseMenuCtrl.ePage.Masters.Config.ShowErrorWarningModal(WarehouseMenuCtrl.currentWarehouse);
-                            } else if (response.data.Response.length == 1) {
-                                if (response.data.Response[0].WarehouseCode == _input.WmsWarehouse.WarehouseCode) {
-                                    WarehouseMenuCtrl.ePage.Masters.Config.RemoveErrorWarning("E4013", "E", "WarehouseType", $item.label);
-                                    Save($item);
-                                } else {
-                                    WarehouseMenuCtrl.ePage.Masters.Config.PushErrorWarning("E4013", "Warehouse already exist in this Warehouse Type", "E", false, 'WarehouseType', WarehouseMenuCtrl.currentWarehouse.label, false, undefined, undefined, 'WarehouseType', undefined, 'general');
-                                    WarehouseMenuCtrl.ePage.Masters.Config.ShowErrorWarningModal(WarehouseMenuCtrl.currentWarehouse);
-                                }
-                            } else if (response.data.Response.length == 0) {
-                                WarehouseMenuCtrl.ePage.Masters.Config.RemoveErrorWarning("E4013", "E", "WarehouseType", $item.label);
-                                Save($item);
-                            }
-                        }
-                    });
-                }
                 WarehouseMenuCtrl.ePage.Masters.Config.ShowErrorWarningModal(WarehouseMenuCtrl.currentWarehouse);
             }
         }
 
-        function Save($item) {
+        function Save($item) {            
             WarehouseMenuCtrl.ePage.Masters.SaveButtonText = "Please Wait...";
             WarehouseMenuCtrl.ePage.Masters.DisableSave = true;
             WarehouseMenuCtrl.ePage.Entities.Header.GlobalVariables.Loading = true;
@@ -161,12 +109,12 @@
                 _input.WmsWarehouse.WarehouseCode = _input.WmsWarehouse.WarehouseCode.toUpperCase();
                 _input.WmsWarehouse.WarehouseName = _input.WmsWarehouse.WarehouseName.toUpperCase();
 
-                _input.WmsArea.map(function(value,key){
+                _input.WmsArea.map(function (value, key) {
                     value.Name = value.Name.toUpperCase();
                 });
 
             } else {
-                $item = filterObjectUpdate($item, "IsModified");
+                WarehouseMenuCtrl.ePage.Entities.Header.Data = PostSaveObjectUpdate(WarehouseMenuCtrl.ePage.Entities.Header.Data, WarehouseMenuCtrl.ePage.Entities.Header.GlobalVariables.CopyofCurrentObject, ["Organization"]);
             }
             helperService.SaveEntity($item, 'Warehouse').then(function (response) {
                 WarehouseMenuCtrl.ePage.Masters.SaveButtonText = "Save";
@@ -198,7 +146,7 @@
                             warehousesConfig.TabList[_index][warehousesConfig.TabList[_index].label].ePage.Entities.Header.Data = response.Data;
                         }
                         //Changing Label name when warehouse code changes
-                        if(WarehouseMenuCtrl.ePage.Entities.Header.Data.WmsWarehouse.WarehouseCode != warehousesConfig.TabList[_index].label){
+                        if (WarehouseMenuCtrl.ePage.Entities.Header.Data.WmsWarehouse.WarehouseCode != warehousesConfig.TabList[_index].label) {
                             warehousesConfig.TabList[_index].label = WarehouseMenuCtrl.ePage.Entities.Header.Data.WmsWarehouse.WarehouseCode;
                             warehousesConfig.TabList[_index][warehousesConfig.TabList[_index].label] = warehousesConfig.TabList[_index][warehousesConfig.TabList[_index].code];
                             delete warehousesConfig.TabList[_index][warehousesConfig.TabList[_index].code];
@@ -210,35 +158,107 @@
                         }
                     }
                     toastr.success("Saved Successfully...!");
-                    if(WarehouseMenuCtrl.ePage.Masters.SaveAndClose){
+                    if (WarehouseMenuCtrl.ePage.Masters.SaveAndClose) {
                         WarehouseMenuCtrl.ePage.Masters.Config.SaveAndClose = true;
                         WarehouseMenuCtrl.ePage.Masters.SaveAndClose = false;
                     }
+
+                    //Taking Copy of Current Object
+                    WarehouseMenuCtrl.ePage.Entities.Header.Data = AfterSaveObjectUpdate(WarehouseMenuCtrl.ePage.Entities.Header.Data, "IsModified");
+                    WarehouseMenuCtrl.ePage.Entities.Header.GlobalVariables.CopyofCurrentObject = angular.copy(WarehouseMenuCtrl.ePage.Entities.Header.Data);
+
                 } else if (response.Status === "failed") {
-                    toastr.error("Could not Save...!");
                     WarehouseMenuCtrl.ePage.Entities.Header.Validations = response.Validations;
                     angular.forEach(response.Validations, function (value, key) {
-                        WarehouseMenuCtrl.ePage.Masters.Config.PushErrorWarning(value.Code, value.Message, "E", false, value.CtrlKey, WarehouseMenuCtrl.currentWarehouse.label, false, undefined, undefined, undefined, undefined, undefined);
+                        WarehouseMenuCtrl.ePage.Masters.Config.PushErrorWarning(value.Code, value.Message, "E", false, value.CtrlKey, WarehouseMenuCtrl.currentWarehouse.label, false, undefined, undefined, undefined, undefined, value.GParentRef);
                     });
                     if (WarehouseMenuCtrl.ePage.Entities.Header.Validations != null) {
+                        toastr.error("Validation Failed...!");
                         WarehouseMenuCtrl.ePage.Masters.Config.ShowErrorWarningModal(WarehouseMenuCtrl.currentWarehouse);
+                    } else {
+                        toastr.error("Could not Save...!");
                     }
                 }
             });
 
         }
 
-        function filterObjectUpdate(obj, key) {
+        function PostSaveObjectUpdate(newValue, oldValue, exceptObjects) {
+            for (var i in newValue) {
+                if (typeof newValue[i] == 'object') {
+                    PostSaveObjectUpdate(newValue[i], oldValue[i], exceptObjects);
+                } else {
+                    var Satisfied = exceptObjects.some(function (v) { return v === i });
+                    if (!Satisfied && i != "$$hashKey") {
+                        if (!oldValue) {
+                            newValue["IsModified"] = true;
+                            break;
+                        } else {
+                            if (newValue[i] != oldValue[i]) {
+                                newValue["IsModified"] = true;
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+            return newValue;
+        }
+
+        function AfterSaveObjectUpdate(obj, key) {
             for (var i in obj) {
                 if (!obj.hasOwnProperty(i)) continue;
                 if (typeof obj[i] == 'object') {
-                    filterObjectUpdate(obj[i], key);
+                    AfterSaveObjectUpdate(obj[i], key);
                 } else if (i == key) {
-                    obj[key] = true;
+                    obj[key] = false;
                 }
             }
             return obj;
         }
+
+        function OnMenuClick($item) {
+            WarehouseMenuCtrl.ePage.Masters.ActiveMenuTab = $item;
+        }
+
+        function tabSelected(tab, $index, $event) {
+            var _index = warehousesConfig.TabList.map(function (value, key) {
+                return value[value.label].ePage.Entities.Header.Data.PK
+            }).indexOf(WarehouseMenuCtrl.currentWarehouse[WarehouseMenuCtrl.currentWarehouse.label].ePage.Entities.Header.Data.PK);
+
+            if (_index !== -1) {
+                if (warehousesConfig.TabList[_index].isNew) {
+                    if ($index > 0) {
+                        $event.preventDefault();
+                        var modalOptions = {
+                            closeButtonText: 'No',
+                            actionButtonText: 'YES',
+                            headerText: 'Save Before Tab Change..',
+                            bodyText: 'Do You Want To Save?'
+                        };
+                        confirmation.showModal({}, modalOptions)
+                            .then(function (result) {
+                                WarehouseMenuCtrl.ePage.Masters.Validation(WarehouseMenuCtrl.currentWarehouse);
+                            }, function () {
+                                console.log("Cancelled");
+                            });
+                    }
+                } else {
+                    if (((WarehouseMenuCtrl.ePage.Masters.WarehouseMenu.ListSource[0].IsDisabled) && ($index == 1 || $index == 2)) || ((!WarehouseMenuCtrl.ePage.Masters.WarehouseMenu.ListSource[0].IsDisabled) && ($index == 2 || $index == 3))) {
+                        var mydata = WarehouseMenuCtrl.currentWarehouse[WarehouseMenuCtrl.currentWarehouse.label].ePage.Entities.Header.Data;
+                        if (mydata.WmsWarehouse.WarehouseCode && mydata.WmsWarehouse.WarehouseType) {
+                            //It opens line page         
+                        } else {
+                            if (WarehouseMenuCtrl.ePage.Masters.active == 1) {
+                                $event.preventDefault();
+                            }
+                            WarehouseMenuCtrl.ePage.Masters.active = 1;
+                            Validation(WarehouseMenuCtrl.currentWarehouse);
+                        }
+                    }
+                }
+            }
+        };
 
         Init();
     }

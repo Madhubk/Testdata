@@ -8,9 +8,9 @@
         .module("Application")
         .controller("ReceiveItemController", ReceiveItemController);
 
-    ReceiveItemController.$inject = ["$scope", "apiService", "helperService", "appConfig", "myTaskActivityConfig", "APP_CONSTANT", "errorWarningService", "inwardConfig", "dynamicLookupConfig"];
+    ReceiveItemController.$inject = ["$scope", "apiService", "helperService", "appConfig", "myTaskActivityConfig", "APP_CONSTANT", "errorWarningService", "inwardConfig", "dynamicLookupConfig", "warehouseConfig"];
 
-    function ReceiveItemController($scope, apiService, helperService, appConfig, myTaskActivityConfig, APP_CONSTANT, errorWarningService, inwardConfig, dynamicLookupConfig) {
+    function ReceiveItemController($scope, apiService, helperService, appConfig, myTaskActivityConfig, APP_CONSTANT, errorWarningService, inwardConfig, dynamicLookupConfig, warehouseConfig) {
         var ReceiveItemCtrl = this;
 
         function Init() {
@@ -77,7 +77,7 @@
 
         function GetEntityObj() {
             if (ReceiveItemCtrl.ePage.Masters.TaskObj.EntityRefKey) {
-                apiService.get("eAxisAPI", appConfig.Entities.InwardList.API.GetById.Url + ReceiveItemCtrl.ePage.Masters.TaskObj.EntityRefKey).then(function (response) {
+                apiService.get("eAxisAPI", warehouseConfig.Entities.WmsInwardList.API.GetById.Url + ReceiveItemCtrl.ePage.Masters.TaskObj.EntityRefKey).then(function (response) {
                     if (response.data.Response) {
                         ReceiveItemCtrl.ePage.Masters.EntityObj = response.data.Response;
                     }

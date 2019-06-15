@@ -307,7 +307,8 @@
 
             scope.$watch('key',function(){
                 if(scope.set){
-                    scope.set.map(function(value){
+                    scope.get = null;
+                    scope.set.some(function(value){
                         if(value.Key==scope.key){
                             scope.get = value.Value;
                         }

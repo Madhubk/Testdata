@@ -8,9 +8,9 @@
         .module("Application")
         .controller("ConfirmArrivalController", ConfirmArrivalController);
 
-    ConfirmArrivalController.$inject = ["$scope", "apiService", "helperService", "appConfig", "myTaskActivityConfig", "APP_CONSTANT", "errorWarningService"];
+    ConfirmArrivalController.$inject = ["$scope", "apiService", "helperService", "appConfig", "myTaskActivityConfig", "APP_CONSTANT", "errorWarningService", "warehouseConfig"];
 
-    function ConfirmArrivalController($scope, apiService, helperService, appConfig, myTaskActivityConfig, APP_CONSTANT, errorWarningService) {
+    function ConfirmArrivalController($scope, apiService, helperService, appConfig, myTaskActivityConfig, APP_CONSTANT, errorWarningService, warehouseConfig) {
         var ConfirmArrivalCtrl = this;
 
         function Init() {
@@ -69,7 +69,7 @@
 
         function GetEntityObj() {
             if (ConfirmArrivalCtrl.ePage.Masters.TaskObj.EntityRefKey) {
-                apiService.get("eAxisAPI", appConfig.Entities.InwardList.API.GetById.Url + ConfirmArrivalCtrl.ePage.Masters.TaskObj.EntityRefKey).then(function (response) {
+                apiService.get("eAxisAPI", warehouseConfig.Entities.WmsInwardList.API.GetById.Url + ConfirmArrivalCtrl.ePage.Masters.TaskObj.EntityRefKey).then(function (response) {
                     if (response.data.Response) {
                         ConfirmArrivalCtrl.ePage.Masters.EntityObj = response.data.Response;
                     }

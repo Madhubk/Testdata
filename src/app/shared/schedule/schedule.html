@@ -17,14 +17,16 @@
                 <div class="text-single-line">Schedule On</div>
             </div>
             <div class="col-sm-2">
-                <button class="btn btn-primary btn-xs pull-right" data-ng-click="ScheduleCtrl.ePage.Masters.AddNew()">Add
+                <button class="btn btn-primary btn-xs pull-right"
+                    data-ng-click="ScheduleCtrl.ePage.Masters.AddNew()">Add
                     New</button>
             </div>
         </div>
         <div class="clearfix p-20 text-center font-120" data-ng-if="!ScheduleCtrl.ePage.Masters.ScheduleList">
             <i class="fa fa-spin fa-spinner"></i>
         </div>
-        <div class="clearfix p-20 text-center" data-ng-if="ScheduleCtrl.ePage.Masters.ScheduleList && ScheduleCtrl.ePage.Masters.ScheduleList.length == 0">
+        <div class="clearfix p-20 text-center"
+            data-ng-if="ScheduleCtrl.ePage.Masters.ScheduleList && ScheduleCtrl.ePage.Masters.ScheduleList.length == 0">
             <i>No Records...!</i>
         </div>
         <div class="clearfix schedule-list pt-5 pb-5 mb-5" data-ng-repeat="x in ScheduleCtrl.ePage.Masters.ScheduleList"
@@ -40,16 +42,21 @@
             </div>
             <div class="col-sm-2">
                 <div class="text-single-line">
-                    <button class="btn btn-warning btn-xs pull-right ml-15" data-ng-click="ScheduleCtrl.ePage.Masters.EditSchedule(x)">Edit</button>
-                    <button class="btn btn-danger btn-xs pull-right ml-15" data-ng-click="ScheduleCtrl.ePage.Masters.DeleteSchedule(x)">Delete</button>
-                    <button class="btn btn-default tc-btn-cancel btn-xs pull-right" data-ng-click="ScheduleCtrl.ePage.Masters.SendNow(x)"
-                        data-ng-bind="x.SendNowBtnTxt" data-ng-disabled="x.IsDisableSendNowBtn"></button>
+                    <button class="btn btn-warning btn-xs pull-right ml-15"
+                        data-ng-click="ScheduleCtrl.ePage.Masters.EditSchedule(x)">Edit</button>
+                    <button class="btn btn-danger btn-xs pull-right ml-15"
+                        data-ng-click="ScheduleCtrl.ePage.Masters.DeleteSchedule(x)">Delete</button>
+                    <button class="btn btn-default tc-btn-cancel btn-xs pull-right"
+                        data-ng-click="ScheduleCtrl.ePage.Masters.SendNow(x)" data-ng-bind="x.SendNowBtnTxt"
+                        data-ng-disabled="x.IsDisableSendNowBtn"></button>
                 </div>
             </div>
         </div>
     </div>
-    <div class="clearfix pl-150" data-ng-if="ScheduleCtrl.ePage.Masters.IsEditView" style="position: absolute; top:0; left:0; width:100%; height: 100%; background-color: rgba(0, 0, 0, 0.05);">
-        <uib-tabset active="ScheduleCtrl.ePage.Masters.activeTabIndex" style="background-color: #fff; box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); height: 100%;">
+    <div class="clearfix pl-150" data-ng-if="ScheduleCtrl.ePage.Masters.IsEditView"
+        style="position: absolute; top:0; left:0; width:100%; height: 100%; background-color: rgba(0, 0, 0, 0.05);">
+        <uib-tabset active="ScheduleCtrl.ePage.Masters.activeTabIndex"
+            style="background-color: #fff; box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); height: 100%;">
             <uib-tab>
                 <uib-tab-heading title="General">
                     <span>General</span>
@@ -60,7 +67,8 @@
                             <div class="form-group">
                                 <label class="control-label">Shedule Title</label>
                                 <div>
-                                    <input type="text" class="form-control input-sm" placeholder="Title" data-ng-model="ScheduleCtrl.ePage.Masters.ActiveSchedule.Title">
+                                    <input type="text" class="form-control input-sm" placeholder="Title"
+                                        data-ng-model="ScheduleCtrl.ePage.Masters.ActiveSchedule.Title">
                                 </div>
                             </div>
                         </div>
@@ -69,16 +77,20 @@
                                 <label class="control-label">Schedule Start On</label>
                                 <div>
                                     <div class="input-group input-group-sm">
-                                        <input type="text" class="form-control" placeholder="{{ScheduleCtrl.ePage.Masters.DatePicker.Options.dateTimeFormat}}"
+                                        <input type="text" class="form-control"
+                                            placeholder="{{ScheduleCtrl.ePage.Masters.DatePicker.Options.dateTimeFormat}}"
                                             data-ng-model="ScheduleCtrl.ePage.Masters.ActiveSchedule.NextScheduleOn"
                                             datetime-picker="{{ScheduleCtrl.ePage.Masters.DatePicker.Options.dateTimeFormat}}"
                                             datepicker-options="ScheduleCtrl.ePage.Masters.DatePicker.Options"
-                                            datepicker-append-to-body="false" close-on-selection="false" enable-time="true"
-                                            enable-date="true" default-date="" default-time="" save-as="ScheduleCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                                            datepicker-append-to-body="false" close-on-selection="false"
+                                            enable-time="true" enable-date="true" default-date="" default-time=""
+                                            save-as="ScheduleCtrl.ePage.Masters.DatePicker.Options.saveFormat"
                                             is-open="ScheduleCtrl.ePage.Masters.DatePicker.isOpen['isScheduleOn']"
-                                            when-closed="" data-ng-click="" is-api-input-as-display-format="true" />
+                                            when-closed="" data-ng-click="" is-api-input-as-display-format="true"
+                                            custom-date-time-format />
                                         <span class="input-group-btn">
-                                            <button class="btn btn-default shiny" data-ng-click="ScheduleCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isScheduleOn')">
+                                            <button class="btn btn-default shiny"
+                                                data-ng-click="ScheduleCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isScheduleOn')">
                                                 <i class="fa fa-calendar"></i>
                                             </button>
                                         </span>
@@ -88,15 +100,30 @@
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
                             <div class="form-group">
-                                <label class="control-label">Config Type</label>
+                                <label class="control-label">Time Zone</label>
                                 <div>
-                                    <select chosen class="form-control" data-ng-model="ScheduleCtrl.ePage.Masters.ActiveSchedule.ConfigType" data-ng-options="x.Code as x.Description for x in ScheduleCtrl.ePage.Masters.ConfigTypeList" data-ng-change="ScheduleCtrl.ePage.Masters.ActiveSchedule.ConfigType != 'Event' ? ScheduleCtrl.ePage.Masters.ActiveSchedule.External_Code = null: ScheduleCtrl.ePage.Masters.ActiveSchedule.External_Code = 'STDEVENT'">
+                                    <select chosen class="form-control"
+                                        data-ng-model="ScheduleCtrl.ePage.Masters.ActiveSchedule.UserTimeZone"
+                                        data-ng-options="x.Value as x.Value for x in ScheduleCtrl.ePage.Masters.TimeZoneList">
                                         <option value="">--Select--</option>
                                     </select>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+                        <!-- <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+                            <div class="form-group">
+                                <label class="control-label">Config Type</label>
+                                <div>
+                                    <select chosen class="form-control" data-ng-model="ScheduleCtrl.ePage.Masters.ActiveSchedule.ConfigType" data-ng-options="x.Code as x.Description for x in ScheduleCtrl.ePage.Masters.ConfigTypeList" data-ng-change="ScheduleCtrl.ePage.Masters.ActiveSchedule.ConfigType != 'Event' ? ScheduleCtrl.ePage.Masters.ActiveSchedule.External_Code = null: ScheduleCtrl.ePage.Masters.ActiveSchedule.External_Code = 'STDEVENT'">
+                                        <option value="">--Select--</option>
+                                    </select>
+                                    <select chosen class="form-control" data-ng-model="ScheduleCtrl.ePage.Masters.ActiveSchedule.ConfigType" data-ng-options="x.Code as x.Description for x in ScheduleCtrl.ePage.Masters.ConfigTypeList" data-ng-disabled="true">
+                                        <option value="">--Select--</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div> -->
+                        <!-- <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3" >
                             <div class="form-group">
                                 <label class="control-label">External Code</label>
                                 <div>
@@ -105,7 +132,7 @@
                                         data-ng-disabled="ScheduleCtrl.ePage.Masters.ActiveSchedule.ConfigType != 'Event'">
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                     <div class="clearfix">
                         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
@@ -114,7 +141,10 @@
                                     <div class="text-single-line">Schedule Info</div>
                                 </div>
                                 <div class="col-sm-6">
-                                    <select chosen class="form-control" data-ng-model="ScheduleCtrl.ePage.Masters.ScheduleInfo.Type.ActiveScheduleType.Code" data-ng-options="x.Code as x.Description for x in ScheduleCtrl.ePage.Masters.ScheduleInfo.Type.ListSource" data-ng-change="ScheduleCtrl.ePage.Masters.ScheduleInfo.Type.OnChange((ScheduleCtrl.ePage.Masters.ScheduleInfo.Type.ListSource | filter: {'Code': ScheduleCtrl.ePage.Masters.ScheduleInfo.Type.ActiveScheduleType.Code})[0])">
+                                    <select chosen class="form-control"
+                                        data-ng-model="ScheduleCtrl.ePage.Masters.ScheduleInfo.Type.ActiveScheduleType.Code"
+                                        data-ng-options="x.Code as x.Description for x in ScheduleCtrl.ePage.Masters.ScheduleInfo.Type.ListSource"
+                                        data-ng-change="ScheduleCtrl.ePage.Masters.ScheduleInfo.Type.OnChange((ScheduleCtrl.ePage.Masters.ScheduleInfo.Type.ListSource | filter: {'Code': ScheduleCtrl.ePage.Masters.ScheduleInfo.Type.ActiveScheduleType.Code})[0])">
                                         <option value="">--Select--</option>
                                     </select>
                                 </div>
@@ -128,7 +158,8 @@
                             <div class="form-group">
                                 <label class="control-label">Related Details</label>
                                 <div>
-                                    <textarea class="form-control input-sm no-resize" rows="16" placeholder="Related Details"
+                                    <textarea class="form-control input-sm no-resize" rows="16"
+                                        placeholder="Related Details"
                                         data-ng-model="ScheduleCtrl.ePage.Masters.ActiveSchedule.RelatedDetails"></textarea>
                                 </div>
                             </div>
@@ -156,7 +187,8 @@
                                 <div class="form-group">
                                     <label class="control-label">To</label>
                                     <div>
-                                        <input type="text" class="form-control input-sm" placeholder="To" data-ng-model="ScheduleCtrl.ePage.Masters.ActiveSchedule.CustomContactInfo.Template.To">
+                                        <input type="text" class="form-control input-sm" placeholder="To"
+                                            data-ng-model="ScheduleCtrl.ePage.Masters.ActiveSchedule.CustomContactInfo.Template.To">
                                     </div>
                                 </div>
                             </div>
@@ -164,7 +196,8 @@
                                 <div class="form-group">
                                     <label class="control-label">Cc</label>
                                     <div>
-                                        <input type="text" class="form-control input-sm" placeholder="Cc" data-ng-model="ScheduleCtrl.ePage.Masters.ActiveSchedule.CustomContactInfo.Template.Cc">
+                                        <input type="text" class="form-control input-sm" placeholder="Cc"
+                                            data-ng-model="ScheduleCtrl.ePage.Masters.ActiveSchedule.CustomContactInfo.Template.Cc">
                                     </div>
                                 </div>
                             </div>
@@ -177,6 +210,17 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+                                <div class="form-group">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" class="colored-blue"
+                                                data-ng-model="ScheduleCtrl.ePage.Masters.ActiveSchedule.CustomContactInfo.Template.IsIndividual">
+                                            <span class="text text-single-line">Is Individual</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div class="clearfix">
                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
@@ -185,7 +229,8 @@
                                     <div>
                                         <div class="clearfix email-edit-container">
                                             <summernote config="ScheduleCtrl.ePage.Masters.SummernoteOptions"
-                                                data-ng-model="ScheduleCtrl.ePage.Masters.ActiveSchedule.CustomContactInfo.Template.HtmlBody"></summernote>
+                                                data-ng-model="ScheduleCtrl.ePage.Masters.ActiveSchedule.CustomContactInfo.Template.HtmlBody">
+                                            </summernote>
                                             <!-- <prepare-email-template data-ng-if="EmailCtrl.ePage.Masters.Email.ActiveEmail.TypeCode"
                                                                     temp-html="ScheduleCtrl.ePage.Masters.ActiveSchedule.CustomContactInfo.Template.HtmlBody"
                                                                     template-name="EmailCtrl.ePage.Masters.Email.ActiveEmail.TypeCode" obj="EmailCtrl.ePage.Entities"></prepare-email-template> -->
@@ -208,7 +253,8 @@
                                 <div class="form-group">
                                     <label class="control-label">Template Input</label>
                                     <div>
-                                        <textarea class="form-control input-sm no-resize" rows="20" placeholder="Template Input"
+                                        <textarea class="form-control input-sm no-resize" rows="20"
+                                            placeholder="Template Input"
                                             data-ng-model="ScheduleCtrl.ePage.Masters.ActiveSchedule.CustomContactInfo.Template.ReportTemplateInput"></textarea>
                                     </div>
                                 </div>
@@ -218,9 +264,12 @@
                 </div>
             </uib-tab>
             <div class="pull-right p-7 pr-15">
-                <input type="submit" class="btn btn-primary btn-xs pull-right ml-10" data-ng-click="ScheduleCtrl.ePage.Masters.SaveSchedule()"
-                    value="{{ScheduleCtrl.ePage.Masters.SaveScheduleBtnTxt}}" data-ng-disabled="ScheduleCtrl.ePage.Masters.IsDisableSaveScheduleBtn">
-                <button class="btn btn-default btn-xs pull-right ml-10" data-ng-click="ScheduleCtrl.ePage.Masters.Cancel()">Cancel</button>
+                <input type="submit" class="btn btn-primary btn-xs pull-right ml-10"
+                    data-ng-click="ScheduleCtrl.ePage.Masters.SaveSchedule()"
+                    value="{{ScheduleCtrl.ePage.Masters.SaveScheduleBtnTxt}}"
+                    data-ng-disabled="ScheduleCtrl.ePage.Masters.IsDisableSaveScheduleBtn">
+                <button class="btn btn-default btn-xs pull-right ml-10"
+                    data-ng-click="ScheduleCtrl.ePage.Masters.Cancel()">Cancel</button>
             </div>
         </uib-tabset>
     </div>

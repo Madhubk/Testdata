@@ -90,6 +90,9 @@
                                 "Code": helperService.metaBase(),
                                 "Name": helperService.metaBase(),
                             }
+                        },
+                        "GlobalVariables": {
+                            "IsDisabledAll": false
                         }
                     }
                 }

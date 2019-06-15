@@ -5,9 +5,9 @@
         .module("Application")
         .controller("PickupMenuController", PickupMenuController);
 
-    PickupMenuController.$inject = ["$scope", "$timeout", "APP_CONSTANT", "apiService", "pickupConfig", "helperService", "appConfig", "authService", "$location", "$state", "toastr", "confirmation", "$uibModal", "$ocLazyLoad"];
+    PickupMenuController.$inject = ["$scope", "$timeout", "APP_CONSTANT", "apiService", "pickupConfig", "helperService", "appConfig", "authService", "$location", "$state", "toastr", "confirmation", "$uibModal", "$ocLazyLoad", "warehouseConfig"];
 
-    function PickupMenuController($scope, $timeout, APP_CONSTANT, apiService, pickupConfig, helperService, appConfig, authService, $location, $state, toastr, confirmation, $uibModal, $ocLazyLoad) {
+    function PickupMenuController($scope, $timeout, APP_CONSTANT, apiService, pickupConfig, helperService, appConfig, authService, $location, $state, toastr, confirmation, $uibModal, $ocLazyLoad, warehouseConfig) {
 
         var PickupMenuCtrl = this
 
@@ -69,9 +69,9 @@
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.InwardList.API.FindAll.FilterID
+                "FilterID": warehouseConfig.Entities.WmsInward.API.FindAll.FilterID
             };
-            apiService.post("eAxisAPI", appConfig.Entities.InwardList.API.FindAll.Url, _input).then(function (response) {
+            apiService.post("eAxisAPI", warehouseConfig.Entities.WmsInward.API.FindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     PickupMenuCtrl.ePage.Masters.PickupOrders = response.data.Response;
                     var count = 0;
@@ -268,7 +268,7 @@
                         else if (response.Data)
                             pickupConfig.TabList[_index][pickupConfig.TabList[_index].label].ePage.Entities.Header.Data = response.Data;
 
-                        apiService.get("eAxisAPI", appConfig.Entities.WmsPickupList.API.GetById.Url + pickupConfig.TabList[_index][pickupConfig.TabList[_index].label].ePage.Entities.Header.Data.UIWmsPickup.PK).then(function (response) {
+                        apiService.get("eAxisAPI", warehouseConfig.Entities.WmsPickupList.API.GetById.Url + pickupConfig.TabList[_index][pickupConfig.TabList[_index].label].ePage.Entities.Header.Data.UIWmsPickup.PK).then(function (response) {
                             if (response.data.Response) {
                                 PickupMenuCtrl.ePage.Entities.Header.Data = response.data.Response;
 
@@ -328,9 +328,7 @@
                                 }
 
                                 pickupConfig.TabList[_index].isNew = false;
-                                if ($state.current.url == "/pickup-request") {
-                                    helperService.refreshGrid();
-                                }
+                                helperService.refreshGrid();
                             }
                         });
                     }

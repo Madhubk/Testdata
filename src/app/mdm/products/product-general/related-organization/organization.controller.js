@@ -91,6 +91,8 @@
                 AllocatePartAttribute(key);
             });
             OrganizationCtrl.ePage.Entities.Header.Data.UIOrgPartRelation = $filter('orderBy')(OrganizationCtrl.ePage.Entities.Header.Data.UIOrgPartRelation, 'CreatedDateTime');
+
+            OrganizationCtrl.ePage.Entities.Header.GlobalVariables.CopyofCurrentObject.UIOrgPartRelation = angular.copy(OrganizationCtrl.ePage.Entities.Header.Data.UIOrgPartRelation);
         }
 
         function GetDropDownList() {

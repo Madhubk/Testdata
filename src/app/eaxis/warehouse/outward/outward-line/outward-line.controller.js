@@ -206,6 +206,8 @@
             if(myData==false){
                 OutwardLineCtrl.ePage.Masters.Config.GeneralValidation(OutwardLineCtrl.currentOutward);
             }
+
+            OutwardLineCtrl.ePage.Entities.Header.GlobalVariables.CopyofCurrentObject.UIWmsWorkOrderLine = angular.copy(OutwardLineCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine)
         }
 
         function GetDropdownList() {

@@ -56,6 +56,11 @@
                     'app/shared/change-password/change-password.directive.js'
                 ]
             }, {
+                name: 'impersonateUser',
+                files: [
+                    'app/shared/impersonate-user/impersonate-user.directive.js'
+                ]
+            }, {
                 name: 'confirmation',
                 files: [
                     'app/shared/confirmation/confirmation.factory.js'
@@ -729,8 +734,9 @@
                 ['help', ['help']]
             ]
         },
+        ImagePath: "assets/img/",
         IsInsertErrorLog: true,
-        SessionExpiryTime: 50,
+        SessionExpiryTime: 60,
         Version: "1.0"
     };
 

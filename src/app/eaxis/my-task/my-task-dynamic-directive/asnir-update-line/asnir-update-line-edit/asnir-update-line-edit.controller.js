@@ -5,9 +5,9 @@
         .module("Application")
         .controller("AsnirUpdateLineEditDirectiveController", AsnirUpdateLineEditDirectiveController);
 
-    AsnirUpdateLineEditDirectiveController.$inject = ["$scope", "$injector", "$timeout", "APP_CONSTANT", "apiService", "authService", "helperService", "appConfig", "toastr", "inwardConfig", "$window", "$state", "$q"];
+    AsnirUpdateLineEditDirectiveController.$inject = ["$scope", "$injector", "$timeout", "APP_CONSTANT", "apiService", "authService", "helperService", "appConfig", "toastr", "inwardConfig", "$window", "$state", "$q", "warehouseConfig"];
 
-    function AsnirUpdateLineEditDirectiveController($scope, $injector, $timeout, APP_CONSTANT, apiService, authService, helperService, appConfig, toastr, inwardConfig, $window, $state, $q) {
+    function AsnirUpdateLineEditDirectiveController($scope, $injector, $timeout, APP_CONSTANT, apiService, authService, helperService, appConfig, toastr, inwardConfig, $window, $state, $q, warehouseConfig) {
         var AsnirUpdateLineEditDirectiveCtrl = this,
             dynamicLookupConfig = $injector.get("dynamicLookupConfig");;
 
@@ -244,7 +244,7 @@
                 "InstanceStepNo": "1",
                 "Action": Action
             }
-            apiService.post("eAxisAPI", appConfig.Entities.InwardList.API.UpdateInwardProcess.Url, _inputObj).then(function (response) {
+            apiService.post("eAxisAPI", warehouseConfig.Entities.WmsInwardList.API.UpdateInwardProcess.Url, _inputObj).then(function (response) {
                 deferred.resolve(response);
             });
             return deferred.promise;

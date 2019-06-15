@@ -211,6 +211,9 @@
                             "Language": helperService.metaBase(),
                             "ErrorWarning": {
                                 "GlobalErrorWarningList": [],
+                                "WorkOrderID":helperService.metaBase(),
+                                "FinalisedDate":helperService.metaBase(),
+                                "CancelledDated":helperService.metaBase(),
                                 "Client": helperService.metaBase(),
                                 "CustomerReference": helperService.metaBase(),
                                 "ExternalReference": helperService.metaBase(),
@@ -238,6 +241,7 @@
                             "Loading": false,
                             "NonEditable": false,
                             "PercentageValues": false,
+                            "CopyofCurrentObject":"",
                         },
                         "TableProperties": {
                             "UIWmsWorkOrderContainer": {

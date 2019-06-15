@@ -1,0 +1,39 @@
+
+<uib-tabset id="chromeTab" active="MyRequestCtrl.ePage.Masters.activeTabIndex" class="tab-container chrometab-box">
+
+    <uib-tab>
+        <uib-tab-heading title="My Request">
+            <span data-ng-bind="'My Request'" class="ng-binding">My Request</span>
+            <i class="fa fa-thumb-tack pinned-tab"></i>
+        </uib-tab-heading>
+
+        <div class="no-padding tab-list-view-wrapper">
+            <!--MyRequest Grid Page-->
+            <dynamic-list dataentry-name="MyRequestCtrl.ePage.Masters.dataentryName" task-name="MyRequestCtrl.ePage.Masters.taskName" grid-config-type="0"
+                selected-grid-row="MyRequestCtrl.ePage.Masters.SelectedGridRow($item)" mode="1" dataentry-object="MyRequestCtrl.ePage.Masters.DataEntryObject" default-filter="MyRequestCtrl.ePage.Masters.DefaultFilter"></dynamic-list>
+            <div class="tab-loading" data-ng-show="MyRequestCtrl.ePage.Masters.IsTabClick"></div>
+        </div>
+    </uib-tab>
+
+    <uib-tab active="MyRequestCtrl.ePage.Masters.activeTabIndex == $index" ng-repeat="tab in MyRequestCtrl.ePage.Masters.TabList" ng-click="MyRequestCtrl.ePage.Masters.CurrentActiveTab(tab.label)">
+        <uib-tab-heading title="{{tab.label}}">
+            <span data-ng-bind="tab.label"></span>
+            <i class="glyphicon glyphicon-remove" ng-click="MyRequestCtrl.ePage.Masters.RemoveTab($event, $index, tab)"></i>
+           
+        </uib-tab-heading>
+
+        <div class="padding-bottom-10 clearfix">
+            <!--MyRequestReadOnly Menu Directive-->
+            <!-- <myrequest-menu current-myrequest="tab" dataentry-object="MyRequestCtrl.ePage.Masters.DataEntryObject"></myrequest-menu> -->
+            <!-- <downtime-request-general current-downtime-request="tab" dataentry-object="MyRequestCtrl.ePage.Masters.DataEntryObject"></downtime-request-general> -->
+            <my-request-read-only current-my-request-read-only="tab" dataentry-object="MyRequestCtrl.ePage.Masters.DataEntryObject"></my-request-read-only>
+            <div class="horizontal-space"></div>
+        </div>
+    </uib-tab>
+
+    <button class="btn btn-default" ng-click="MyRequestCtrl.ePage.Masters.CreateNewMyRequest()" data-ng-disabled="MyRequestCtrl.ePage.Masters.isNewClicked">+</button>
+
+
+</uib-tabset>
+
+       

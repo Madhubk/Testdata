@@ -1,5 +1,5 @@
 <!--Grid View -->
-<uib-tabset id="chromeTab" class="tab-container chrometab-box" active="FinanceJobCtrl.ePage.Masters.ActiveTabIndex" class="tab-container chrometab-box">
+<uib-tabset id="chromeTab" class="tab-container chrometab-box" active="FinanceJobCtrl.ePage.Masters.ActiveTabIndex">
     <uib-tab >
         <uib-tab-heading title="FinanceJobCtrl.ePage.Masters.Title">
             <span data-ng-bind="FinanceJobCtrl.ePage.Masters.Title"></span>
@@ -42,5 +42,5 @@
     </uib-tab>
     <!-- <button type="button" class="btn btn-default mt-2 mr-15" style="position: absolute; right: 0;" data-ng-click="FinanceJobCtrl.ePage.Masters.FinanceSelection('dashboard');FinanceJobCtrl.ePage.Masters.RemoveAllTab();">
         <i class="fa fa-anlgle-double-left"></i>Back to Dashboard</button> -->
-        <button class="btn btn-default" ng-click="FinanceJobCtrl.ePage.Masters.CreateNewJob()" data-ng-disabled="FinanceJobCtrl.ePage.Masters.isNewClicked">+</button>
+        <button class="btn btn-default" data-ng-click="FinanceJobCtrl.ePage.Masters.CreateNewJob()" data-ng-disabled="FinanceJobCtrl.ePage.Masters.isNewClicked">+</button>
 </uib-tabset>

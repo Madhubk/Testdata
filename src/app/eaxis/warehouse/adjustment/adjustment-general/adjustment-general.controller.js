@@ -346,6 +346,8 @@
             if(myData==false){
                 AdjustmentGeneralCtrl.ePage.Masters.Config.GeneralValidation(AdjustmentGeneralCtrl.currentAdjustment);
             }
+
+            AdjustmentGeneralCtrl.ePage.Entities.Header.GlobalVariables.CopyofCurrentObject.UIWmsWorkOrderLine = angular.copy(AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine);
         }
 
         //#endregion
@@ -660,6 +662,7 @@
                 "WLO_FK": "",
                 "WLO_Column": "",
                 "WLO_Level": "",
+                "WAA_FK":"",
                 "WAA_AreaType": "",
                 "WAA_Name": "",
                 "WLO_LocationStatus":"",
@@ -732,6 +735,7 @@
                         "WLO_FK": item.WLO_FK,
                         "WLO_Column": item.WLO_Column,
                         "WLO_Level": item.WLO_Level,
+                        "WAA_FK":item.WAA_FK,
                         "WAA_AreaType": item.WAA_AreaType,
                         "WAA_Name": item.WAA_Name,
                         "WLO_LocationStatus":item.WLO_LocationStatus,
@@ -754,6 +758,7 @@
                         "IsPartAttrib1ReleaseCaptured": item.IsPartAttrib1ReleaseCaptured,
                         "IsPartAttrib2ReleaseCaptured": item.IsPartAttrib2ReleaseCaptured,
                         "IsPartAttrib3ReleaseCaptured": item.IsPartAttrib3ReleaseCaptured,
+                        "WOL_MatchingLine_FK":item.WOL_MatchingLine_FK,
         
                         "IsDeleted": false,
                         "IsCopied":true,
@@ -1047,6 +1052,7 @@
                         "WLO_FK": value.WLO_FK,
                         "WLO_Column": "",
                         "WLO_Level": "",
+                        "WAA_FK":value.WAA_FK,
                         "WAA_AreaType": value.AreaType,
                         "WLO_LocationStatus" : value.LocationStatus,
                         "WLO_LocationStatusDescription" : value.LocationStatusDescription,
@@ -1080,6 +1086,7 @@
                         "WAR_WarehouseCode": value.WAR_WarehouseCode,
                         "WAR_WarehouseName": value.WAR_WarehouseName,
                         "WAR_FK": value.WAR_FK,
+                        "WOL_MatchingLine_FK":value.PK
                     }
                     if(obj.MCC_NKCommodityCode == null){
                         obj.MCC_NKCommodityCode = '';

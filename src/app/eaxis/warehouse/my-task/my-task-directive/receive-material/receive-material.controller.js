@@ -5,9 +5,9 @@
         .module("Application")
         .controller("ReceiveMaterialController", ReceiveMaterialController);
 
-    ReceiveMaterialController.$inject = ["$scope", "apiService", "helperService", "appConfig", "myTaskActivityConfig", "APP_CONSTANT", "errorWarningService", "inwardConfig", "dynamicLookupConfig"];
+    ReceiveMaterialController.$inject = ["$scope", "apiService", "helperService", "appConfig", "myTaskActivityConfig", "APP_CONSTANT", "errorWarningService", "inwardConfig", "dynamicLookupConfig", "warehouseConfig"];
 
-    function ReceiveMaterialController($scope, apiService, helperService, appConfig, myTaskActivityConfig, APP_CONSTANT, errorWarningService, inwardConfig, dynamicLookupConfig) {
+    function ReceiveMaterialController($scope, apiService, helperService, appConfig, myTaskActivityConfig, APP_CONSTANT, errorWarningService, inwardConfig, dynamicLookupConfig, warehouseConfig) {
         var ReceiveMaterialCtrl = this;
 
         function Init() {
@@ -90,7 +90,7 @@
 
         function GetEntityObj() {
             if (ReceiveMaterialCtrl.ePage.Masters.TaskObj.EntityRefKey) {
-                apiService.get("eAxisAPI", appConfig.Entities.InwardList.API.GetById.Url + ReceiveMaterialCtrl.ePage.Masters.TaskObj.EntityRefKey).then(function (response) {
+                apiService.get("eAxisAPI", warehouseConfig.Entities.WmsInwardList.API.GetById.Url + ReceiveMaterialCtrl.ePage.Masters.TaskObj.EntityRefKey).then(function (response) {
                     if (response.data.Response) {
                         ReceiveMaterialCtrl.ePage.Masters.EntityObj = response.data.Response;
                     }

@@ -16,7 +16,14 @@
             controller: "InwardLinesController",
             controllerAs: "InwardLinesCtrl",
             scope: {
-                currentInward: "="
+                currentInward: "=",
+                enableAdd:"=",
+                enableCopy:"=",
+                enableDelete:"=",
+                enableCustomize:"=",
+                enableBulkUpload:"=",
+                enableAllocateLocation:"=",
+                enableUnitCalculation:"="
             },
             bindToController: true
 

@@ -28,8 +28,12 @@
             AreasMenuCtrl.ePage.Masters.IsDisableSave = false;
             AreasMenuCtrl.ePage.Masters.Config = areasConfig;
             
-            GetInventoryDetails()
+            AreasMenuCtrl.ePage.Masters.CopyofCurrentObject = angular.copy(AreasMenuCtrl.ePage.Entities.Header.Data);
+
+            GetInventoryDetails();
+            
         }
+
 
         function GetInventoryDetails(){
             if(!AreasMenuCtrl.currentAreas.isNew){
@@ -37,7 +41,7 @@
                 var _filter = {
                     "WAA_FK": AreasMenuCtrl.ePage.Entities.Header.Data.PK,
                     "PageNumber":"1",
-                    "PageSize": "10",
+                    "PageSize": "1",
                     "SortType": "ASC",
                     "SortColumn":"WOL_CreatedDateTime",
                 };
@@ -77,6 +81,7 @@
                 AreasMenuCtrl.ePage.Masters.Config.ShowErrorWarningModal(AreasMenuCtrl.currentAreas);
             }
         }
+
         function Save($item) {
             AreasMenuCtrl.ePage.Masters.SaveButtonText = "Please Wait...";
             AreasMenuCtrl.ePage.Masters.IsDisableSave = true;
@@ -92,7 +97,7 @@
                 //Converting into Upper Case
                 _input.Name = _input.Name.toUpperCase();
             } else {
-                $item = filterObjectUpdate($item, "IsModified");
+                AreasMenuCtrl.ePage.Entities.Header.Data = PostSaveObjectUpdate(AreasMenuCtrl.ePage.Entities.Header.Data, AreasMenuCtrl.ePage.Masters.CopyofCurrentObject,[]);
             }
             helperService.SaveEntity($item, 'Areas').then(function (response) {
                 AreasMenuCtrl.ePage.Masters.SaveButtonText = "Save";
@@ -140,30 +145,61 @@
                         AreasMenuCtrl.ePage.Masters.Config.SaveAndClose = true;
                         AreasMenuCtrl.ePage.Masters.SaveAndClose = false;
                     }
+
+                    //Taking Copy of Current Object
+                    AreasMenuCtrl.ePage.Entities.Header.Data = AfterSaveObjectUpdate(AreasMenuCtrl.ePage.Entities.Header.Data,"IsModified");
+                    AreasMenuCtrl.ePage.Masters.CopyofCurrentObject = angular.copy(AreasMenuCtrl.ePage.Entities.Header.Data);
+
                 } else if (response.Status === "failed") {
-                    console.log("Failed");
-                    toastr.error("Could not Save...!");
+                    
                     AreasMenuCtrl.ePage.Entities.Header.Validations = response.Validations;
                     angular.forEach(response.Validations, function (value, key) {
                         AreasMenuCtrl.ePage.Masters.Config.PushErrorWarning(value.Code, value.Message, "E", false, value.CtrlKey, AreasMenuCtrl.currentAreas.label, false, undefined, undefined, undefined, undefined, undefined);
                     });
                     if (AreasMenuCtrl.ePage.Entities.Header.Validations != null) {
+                        toastr.error("Validation Failed...!");
                         AreasMenuCtrl.ePage.Masters.Config.ShowErrorWarningModal(AreasMenuCtrl.currentAreas);
+                    }else{
+                        toastr.error("Could not Save...!");
                     }
                 }
             });
         }
-        function filterObjectUpdate(obj, key) {
+        
+        function PostSaveObjectUpdate(newValue,oldValue, exceptObjects) {
+            for (var i in newValue) {
+                if(typeof newValue[i]=='object'){
+                    PostSaveObjectUpdate(newValue[i],oldValue[i],exceptObjects);
+                }else{
+                    var Satisfied = exceptObjects.some(function(v){return v===i});
+                    if(!Satisfied && i!= "$$hashKey"){
+                        if(!oldValue){
+                            newValue["IsModified"] = true;
+                            break;
+                        }else{
+                            if(newValue[i]!=oldValue[i]){
+                                newValue["IsModified"] = true;
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+            return newValue;
+        }
+
+        function AfterSaveObjectUpdate(obj,key){
             for (var i in obj) {
                 if (!obj.hasOwnProperty(i)) continue;
                 if (typeof obj[i] == 'object') {
-                    filterObjectUpdate(obj[i], key);
+                    AfterSaveObjectUpdate(obj[i], key);
                 } else if (i == key) {
-                    obj[key] = true;
+                    obj[key] = false;
                 }
             }
             return obj;
         }
+
         Init();
 
     }

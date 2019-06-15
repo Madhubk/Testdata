@@ -1,8 +1,35 @@
-<div class="grid-loading-norecord-container ng-scope" style='z-index: 15;'data-ng-if="WarehouseMenuCtrl.ePage.Entities.Header.GlobalVariables.Loading"></div>
+<div class="grid-loading-norecord-container ng-scope" style='z-index: 15;' data-ng-if="WarehouseMenuCtrl.ePage.Entities.Header.GlobalVariables.Loading"></div>
 <div class="clearfix wms-menu-wraper">
-    <div  class="col-sm-12 no-padding-left no-padding-right">          
-         <div  warehouse-details current-warehouse="WarehouseMenuCtrl.currentWarehouse">
-        </div>                  
+    <div id="wmsMenuWrapper{{WarehouseMenuCtrl.currentWarehouse.label}}" class="col-sm-12 no-padding-left no-padding-right">
+        <uib-tabset class="wms-menu tabs-left tabbable" active="WarehouseMenuCtrl.ePage.Masters.active">
+            <div class="tab-profile">
+                <div class="tab-profile-title text-single-line text-center" style="color: rgb(66, 50, 50);font-weight: 600;"
+                    data-ng-bind="WarehouseMenuCtrl.currentWarehouse.label"></div>
+            </div>
+            <uib-tab ng-repeat="x in WarehouseMenuCtrl.ePage.Masters.WarehouseMenu.ListSource" index="$index" deselect="WarehouseMenuCtrl.ePage.Masters.tabSelected(x,$selectedIndex,$event)"
+                data-ng-if="!x.IsDisabled" data-ng-click="WarehouseMenuCtrl.ePage.Masters.OnMenuClick(x)">
+                <uib-tab-heading title="{{x.DisplayName}}">
+                    <i class="{{x.Icon}} mr-5"></i>
+                    <span class="text-single-line" data-ng-bind="x.DisplayName"></span>
+                    <error-warning-directive data-ng-if="WarehouseMenuCtrl.ePage.Masters.Config.GetErrorWarningCountParent(x.GParentRef, WarehouseMenuCtrl.currentWarehouse.label, 'W', 'GParent').length > 0 && WarehouseMenuCtrl.ePage.Masters.Config.GetErrorWarningCountParent(x.GParentRef, WarehouseMenuCtrl.currentWarehouse.label, 'E', 'GParent').length == 0"
+                        list="WarehouseMenuCtrl.ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList" type="'warning'"
+                        icon="fa fa-warning" parent-type="'GParent'" parent-ref="" g-parent-ref="x.GParentRef"></error-warning-directive>
+                    <error-warning-directive data-ng-if="WarehouseMenuCtrl.ePage.Masters.Config.GetErrorWarningCountParent(x.GParentRef, WarehouseMenuCtrl.currentWarehouse.label, 'E', 'GParent').length > 0"
+                        list="WarehouseMenuCtrl.ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList" type="'error'"
+                        icon="fa fa-warning" parent-type="'GParent'" parent-ref="" g-parent-ref="x.GParentRef"></error-warning-directive>
+                </uib-tab-heading>
+                <div>
+                    <div ng-switch="x.Value">
+                        <!--Menu directives-->
+                        <div ng-switch-when="General" warehouse-details current-warehouse="WarehouseMenuCtrl.currentWarehouse"></div>
+                        <div ng-switch-when="Area" area-details current-warehouse="WarehouseMenuCtrl.currentWarehouse"></div>
+                        <div ng-switch-when="WarehouseConfig" warehouse-config current-warehouse="WarehouseMenuCtrl.currentWarehouse"></div>
+                        <div ng-switch-when="ClientConfig" client-config current-warehouse="WarehouseMenuCtrl.currentWarehouse"></div>
+                        <div ng-switch-when="DockConfig" dock-config current-warehouse="WarehouseMenuCtrl.currentWarehouse"></div>
+                    </div>
+                </div>
+            </uib-tab>
+        </uib-tabset>
     </div>
     <div class="error-warning-container right" id="errorWarningContainer{{WarehouseMenuCtrl.currentWarehouse.label}}">
         <div class="error-warning-header clearfix">
@@ -25,7 +52,7 @@
                             <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11 pr-0">
                                 <div class="message" data-ng-bind="x.Code + ' - ' + x.Message"></div>
                                 <div class="meta-object" data-ng-bind="x.MetaObject"></div>
-                            </div>    
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -35,13 +62,14 @@
     <!--Footer-->
     <div class="eaxis-footer-strip">
         <div class="col-xs-6 col-sm-9 col-md-9 col-lg-9 col-xl-9">
-            <standard-menu dataentry-object="WarehouseMenuCtrl.dataentryObject" mode="1" input="WarehouseMenuCtrl.currentWarehouse" ng-if="!WarehouseMenuCtrl.currentWarehouse.isNew"></standard-menu>
+            <standard-menu dataentry-object="WarehouseMenuCtrl.dataentryObject" mode="1" input="WarehouseMenuCtrl.currentWarehouse"
+                ng-if="!WarehouseMenuCtrl.currentWarehouse.isNew"></standard-menu>
         </div>
         <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 col-xl-3">
             <button class="btn btn-primary btn-sm pull-right margin-right-10 mt-6" data-ng-click="WarehouseMenuCtrl.ePage.Masters.Validation(WarehouseMenuCtrl.currentWarehouse)"
-            data-ng-bind="WarehouseMenuCtrl.ePage.Masters.SaveButtonText" data-ng-disabled="WarehouseMenuCtrl.ePage.Masters.DisableSave"></button>
+                data-ng-bind="WarehouseMenuCtrl.ePage.Masters.SaveButtonText" data-ng-disabled="WarehouseMenuCtrl.ePage.Masters.DisableSave"></button>
             <button class="btn btn-primary btn-sm pull-right margin-right-10 mt-6" data-ng-click="WarehouseMenuCtrl.ePage.Masters.Validation(WarehouseMenuCtrl.currentWarehouse);WarehouseMenuCtrl.ePage.Masters.SaveAndClose = true"
-             data-ng-disabled="WarehouseMenuCtrl.ePage.Masters.DisableSave">Save & Close</button>
+                data-ng-disabled="WarehouseMenuCtrl.ePage.Masters.DisableSave">Save & Close</button>
         </div>
     </div>
 </div>

@@ -318,7 +318,7 @@
                     </tr>
                 </thead>
                 <tbody id="InwardLineCustTable{{CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIWmsPickup.WorkOrderID}}">
-                    <tr id="tableBody" ng-repeat="x in CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIvwWmsPickupLine"
+                    <tr id="tableBody" ng-repeat="x in CreatePickupChallanCtrl.ePage.Entities.Header.Data.UIvwWmsPickupLine | orderBy: 'PL_AdditionalRef1Code'"
                         ng-click="CreatePickupChallanCtrl.ePage.Masters.setSelectedRow($index);" ng-class="{row_active: (CreatePickupChallanCtrl.ePage.Masters.selectedRow==$index),copy_row_active :(x.IsCopied==true)}">
                         <td id="delcheckbox" ng-style="{ 'width':  '40px' ,'padding-top':'0px' }" ng-click="CreatePickupChallanCtrl.ePage.Masters.Enable = true">
                             <label class="mb-0 customcheckbox">

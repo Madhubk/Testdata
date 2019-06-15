@@ -1,0 +1,50 @@
+<div class="org-header">
+    <span data-ng-bind="'Configuration'"></span>
+    <button class="btn btn-xs btn-primary pull-right" data-ng-click="AccountReceivableCtrl.ePage.Masters.EditableMode('configuration')" data-ng-disabled="!AccountReceivableCtrl.ePage.Masters.ActiveCompany">Edit</button>
+</div>
+<!-- Configuration -->
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+    <div class="margin-top-20">
+        <span class="text-single-line custom_label">Configuration</span>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 margin-top-10">
+        <table class="table table-borderless">
+            <tbody class="borderless-table">
+                <tr>
+                    <th>Account Group</th>
+                    <td>{{AccountReceivableCtrl.ePage.Entities.Header.Data.OrgCompanyData[AccountReceivableCtrl.ePage.Masters.CompanyDataIndex].ODG_ARDebtorGroupcode}}</td>
+                </tr>
+                <tr>
+                    <th>Default Invoice Currency</th>
+                    <td>{{AccountReceivableCtrl.ePage.Entities.Header.Data.OrgCompanyData[AccountReceivableCtrl.ePage.Masters.CompanyDataIndex].MYC_NKARDDefltCurrency}}</td>
+                </tr>
+                <tr>
+                    <th>Acc Details</th>
+                    <td>{{AccountReceivableCtrl.ePage.Entities.Header.Data.OrgCompanyData[AccountReceivableCtrl.ePage.Masters.CompanyDataIndex].FBN_ARPayToAccountcode}}</td>
+                </tr>
+                <tr>
+                    <th>GST Recognition & Reporting Basic Override</th>
+                    <td>{{AccountReceivableCtrl.ePage.Entities.Header.Data.OrgCompanyData[AccountReceivableCtrl.ePage.Masters.CompanyDataIndex].ARVATConfig}}</td>
+                </tr>
+                <tr>
+                    <th>External Sys.Debtor Code</th>
+                    <td>{{AccountReceivableCtrl.ePage.Entities.Header.Data.OrgCompanyData[AccountReceivableCtrl.ePage.Masters.CompanyDataIndex].ARExternalDebtorCode}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 margin-top-10">
+        <table class="table table-borderless">
+            <tbody class="borderless-table">
+                <tr>
+                    <th>Override AccGroup or Bank Acc Details</th>
+                    <td>{{AccountReceivableCtrl.ePage.Entities.Header.Data.OrgCompanyData[AccountReceivableCtrl.ePage.Masters.CompanyDataIndex].OverrideAccDetails ? 'YES' : 'NO'}}</td>
+                </tr>
+                <tr>
+                    <th>Don't Show Text on Document</th>
+                    <td>{{AccountReceivableCtrl.ePage.Entities.Header.Data.OrgCompanyData[AccountReceivableCtrl.ePage.Masters.CompanyDataIndex].ARDontShowTaxOnDocs ? 'YES' : 'NO'}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

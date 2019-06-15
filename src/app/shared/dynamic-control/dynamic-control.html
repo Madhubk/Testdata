@@ -586,7 +586,7 @@
                                     is-disabled="Entity.CSS['Is' + ConfigData.PropertyName + 'Disable'] || DynamicControlCtrl.ePage.Masters.BaseFilterFields['IsDisabled' + ConfigData.FieldName]">
                                 </div>
                                 <div dynamic-lookup placeholder="{{ConfigData.AttributesDetails.LabelText}}"
-                                    data-ng-if="ConfigData.Type=='D' && DynamicControlCtrl.ePage.Masters.BaseFilterFields['IsInVisible' + ConfigData.PropertyName]"
+                                    data-ng-if="ConfigData.Type=='D'"
                                     my-ng-model="Entity.Data[ConfigData.FieldName]" obj="Entity.Data"
                                     page-name="ConfigData.AttributesDetails.SourceObj"
                                     control-id="ConfigData.AttributesDetails.ControlId"

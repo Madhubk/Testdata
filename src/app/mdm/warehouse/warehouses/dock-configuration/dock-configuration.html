@@ -1,0 +1,156 @@
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 custompadding">
+        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8 p-0">
+            <span><button type="button" class="btn btn-sm btn-outline-secondary font-10" title="Add New" data-ng-click="DockConfigCtrl.ePage.Masters.AddNewRow()"
+                    data-ng-disabled="DockConfigCtrl.ePage.Entities.Header.GlobalVariables.CannotEditWarehouse"><span
+                        class="fa fa-plus"></span>&nbsp;&nbsp;Add New</button></span>
+            <span><button type="button" class="btn btn-sm btn-outline-primary font-10" title="Copy" data-ng-click="DockConfigCtrl.ePage.Masters.CopyRow()"
+                    ng-disabled="!DockConfigCtrl.ePage.Masters.EnableDeleteButton || DockConfigCtrl.ePage.Entities.Header.GlobalVariables.CannotEditWarehouse"><span
+                        class="fa fa-copy"></span>&nbsp;&nbsp;Copy</button></span>
+            <span><button type="button" class="btn btn-sm btn-outline-primary font-10" title="Delete" data-ng-click="DockConfigCtrl.ePage.Masters.RemoveRow()"
+                    ng-disabled="!DockConfigCtrl.ePage.Masters.EnableDeleteButton || DockConfigCtrl.ePage.Entities.Header.GlobalVariables.CannotEditWarehouse"><span
+                        class="fa fa-trash"></span>&nbsp;&nbsp;Delete</button></span>
+            <span><button type="button" class="btn btn-sm btn-outline-primary font-10" title="Customize" data-ng-click="DockConfigCtrl.ePage.Masters.EditTableColumns = true"><span
+                        class="fa fa-filter"></span>&nbsp;&nbsp;Customize</button></span>
+        </div>
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 p-0">
+            <div class="input-group">
+                <div class="input-group-addon font-10"><i class="fa fa-search font-10"></i></div>
+                <input type="text" class="form-control height-25 font-10" placeholder="Search" ng-model="DockConfigCtrl.ePage.Masters.SearchTable">
+            </div>
+        </div>
+    </div>
+    <div class="fixedheader" id="DockConfigTable{{DockConfigCtrl.ePage.Entities.Header.Data.PK}}" key-events
+        table-object='DockConfigCtrl.ePage.Entities.Header.Data.WmsDockConfig' enable='DockConfigCtrl.ePage.Masters.Enable'
+        selected-row='DockConfigCtrl.ePage.Masters.selectedRow' unique-id="DockConfigTable{{DockConfigCtrl.ePage.Entities.Header.Data.PK}}">
+        <table id="DockConfigCtrl.ePage.Masters.AddScroll" ng-style="{ 'height': DockConfigCtrl.ePage.Entities.Header.TableProperties.WmsDockConfig.TableHeight.height + 'px' }">
+            <thead>
+                <tr id="tableHeader">
+                    <th id="dccheckbox" data-ng-if="DockConfigCtrl.ePage.Entities.Header.TableProperties.WmsDockConfig.dccheckbox.isenabled"
+                        ng-style="{ 'width': DockConfigCtrl.ePage.Entities.Header.TableProperties.WmsDockConfig.dcsno.width + 'px' }">
+                        <label class="customcheckbox">
+                            <input type="checkbox" ng-change="DockConfigCtrl.ePage.Masters.SelectAllCheckBox()"
+                                ng-checked="DockConfigCtrl.ePage.Masters.SelectAll" ng-model="DockConfigCtrl.ePage.Masters.SelectAll"
+                                data-ng-disabled="DockConfigCtrl.ePage.Entities.Header.GlobalVariables.CannotEditWarehouse">
+                            <span class="text"></span>
+                        </label>
+                    </th>
+                    <th id="dcsno" data-ng-if="DockConfigCtrl.ePage.Entities.Header.TableProperties.WmsDockConfig.dcsno.isenabled"
+                        ng-style="{ 'width': DockConfigCtrl.ePage.Entities.Header.TableProperties.WmsDockConfig.dcsno.width + 'px' }"
+                        title="S.No">S.No</th>
+                    <th id="dcdockname" data-ng-if="DockConfigCtrl.ePage.Entities.Header.TableProperties.WmsDockConfig.dcdockname.isenabled"
+                        ng-style="{ 'width': DockConfigCtrl.ePage.Entities.Header.TableProperties.WmsDockConfig.dcdockname.width + 'px' }"
+                        title="Dock Name">Dock Name</th>
+                    <th id="dcdockorder" data-ng-if="DockConfigCtrl.ePage.Entities.Header.TableProperties.WmsDockConfig.dcdockorder.isenabled"
+                        ng-style="{ 'width': DockConfigCtrl.ePage.Entities.Header.TableProperties.WmsDockConfig.dcdockorder.width + 'px' }"
+                        title="Dock Order">Dock Order</th>
+                    <th id="dcpurpose" data-ng-if="DockConfigCtrl.ePage.Entities.Header.TableProperties.WmsDockConfig.dcpurpose.isenabled"
+                        ng-style="{ 'width': DockConfigCtrl.ePage.Entities.Header.TableProperties.WmsDockConfig.dcpurpose.width + 'px' }"
+                        title="Purpose">Purpose</th>
+                </tr>
+            </thead>
+            <tbody id="DockConfigCustomTable{{DockConfigCtrl.ePage.Entities.Header.Data.PK}}">
+                <tr id="tableBody" ng-repeat="x in DockConfigCtrl.ePage.Entities.Header.Data.WmsDockConfig | filter:DockConfigCtrl.ePage.Masters.SearchTable"
+                    ng-click="DockConfigCtrl.ePage.Masters.setSelectedRow($index);" ng-class="{row_active: (DockConfigCtrl.ePage.Masters.selectedRow==$index),copy_row_active :(x.IsCopied==true)}"
+                    watch-table table-properties="DockConfigCtrl.ePage.Entities.Header.TableProperties.WmsDockConfig"
+                    unique-id="DockConfigCustomTable{{DockConfigCtrl.ePage.Entities.Header.Data.PK}}" row-position="$index">
+                    <td id="dccheckbox" data-ng-show='DockConfigCtrl.ePage.Entities.Header.TableProperties.WmsDockConfig.dccheckbox.isenabled'
+                        ng-style="{ 'width': DockConfigCtrl.ePage.Entities.Header.TableProperties.WmsDockConfig.dcsno.width + 'px','padding-top':'0px' }"
+                        ng-click="DockConfigCtrl.ePage.Masters.Enable = true">
+                        <label class="mb-0 customcheckbox">
+                            <input type="checkbox" ng-checked="x.SingleSelect" ng-change="DockConfigCtrl.ePage.Masters.SingleSelectCheckBox()"
+                                ng-model="x.SingleSelect" data-ng-disabled="x.isDisabled"> </input>
+                            <span class="text"></span>
+                        </label>
+                        <span class="list-error-warning" data-ng-if="DockConfigCtrl.ePage.Entities.Header.Meta.ErrorWarning.WmsDockConfig.ERROR | listCount: 'RowIndex': $index">
+                            <error-warning-directive list="DockConfigCtrl.ePage.Entities.Header.Meta.ErrorWarning.WmsDockConfig.ERROR"
+                                type="'error'" icon="fa fa-warning" parent-type="'arrayObjectRow'" parent-ref=""
+                                g-parent-ref="" row-index="$index" col-index="">
+                            </error-warning-directive>
+                        </span>
+                    </td>
+                    <td id="dcsno" data-ng-show='DockConfigCtrl.ePage.Entities.Header.TableProperties.WmsDockConfig.dcsno.isenabled'
+                        ng-style="{ 'width': DockConfigCtrl.ePage.Entities.Header.TableProperties.WmsDockConfig.dcsno.width + 'px' }"
+                        ng-click="DockConfigCtrl.ePage.Masters.Enable = true">
+                        {{$index+1}}
+                    </td>
+                    <td id="dcdockname" data-ng-show='DockConfigCtrl.ePage.Entities.Header.TableProperties.WmsDockConfig.dcdockname.isenabled'
+                        ng-style="{ 'width': DockConfigCtrl.ePage.Entities.Header.TableProperties.WmsDockConfig.dcdockname.width + 'px' }"
+                        ng-click="DockConfigCtrl.ePage.Masters.Enable = true">
+                        <div data-ng-if="$index!=DockConfigCtrl.ePage.Masters.selectedRow" class="overflow-text">
+                            {{ x.DockName || DockConfigCtrl.ePage.Masters.emptyText}}
+                        </div>
+                        <div data-ng-if="$index==DockConfigCtrl.ePage.Masters.selectedRow">
+                            <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0">
+                                <input type="text" class="height-22 form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
+                                    placeholder="Dock Name" data-ng-model="x.DockName" ng-change="DockConfigCtrl.ePage.Masters.OnChangeValues(x.DockName,'E3009',true,(($index) + (DockConfigCtrl.ePage.Masters.CurrentPageStartingIndex)))">
+                            </div>
+                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5"
+                                data-ng-if="DockConfigCtrl.ePage.Entities.Header.Meta.ErrorWarning.WmsDockConfig.ERROR | filter:{RowIndex: $index}:true | listCount: 'ColIndex':1">
+                                <error-warning-directive list="DockConfigCtrl.ePage.Entities.Header.Meta.ErrorWarning.WmsDockConfig.ERROR"
+                                    type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref=""
+                                    g-parent-ref="" row-index="DockConfigCtrl.ePage.Masters.selectedRow" col-index="1">
+                                </error-warning-directive>
+                            </div>
+                        </div>
+                    </td>
+                    <td id="dcdockorder" data-ng-show='DockConfigCtrl.ePage.Entities.Header.TableProperties.WmsDockConfig.dcdockorder.isenabled'
+                        ng-style="{ 'width': DockConfigCtrl.ePage.Entities.Header.TableProperties.WmsDockConfig.dcdockorder.width + 'px' }"
+                        ng-click="DockConfigCtrl.ePage.Masters.Enable = true">
+                        <div data-ng-if="$index!=DockConfigCtrl.ePage.Masters.selectedRow" class="overflow-text">
+                            {{ x.DockOrder || DockConfigCtrl.ePage.Masters.emptyText}}
+                        </div>
+                        <div data-ng-if="$index==DockConfigCtrl.ePage.Masters.selectedRow">
+                            <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0">
+                                <input type="text" class="height-22 form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
+                                    placeholder="Dock Order" data-ng-model="x.DockOrder" ng-change="DockConfigCtrl.ePage.Masters.OnChangeValues(x.DockOrder,'E3009',true,(($index) + (DockConfigCtrl.ePage.Masters.CurrentPageStartingIndex)))">
+                            </div>
+                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5"
+                                data-ng-if="DockConfigCtrl.ePage.Entities.Header.Meta.ErrorWarning.WmsDockConfig.ERROR | filter:{RowIndex: $index}:true | listCount: 'ColIndex':1">
+                                <error-warning-directive list="DockConfigCtrl.ePage.Entities.Header.Meta.ErrorWarning.WmsDockConfig.ERROR"
+                                    type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref=""
+                                    g-parent-ref="" row-index="DockConfigCtrl.ePage.Masters.selectedRow" col-index="1">
+                                </error-warning-directive>
+                            </div>
+                        </div>
+                    </td>
+                    <td id="dcpurpose" data-ng-show='DockConfigCtrl.ePage.Entities.Header.TableProperties.WmsDockConfig.dcpurpose.isenabled'
+                        ng-style="{ 'width': DockConfigCtrl.ePage.Entities.Header.TableProperties.WmsDockConfig.dcpurpose.width + 'px' }"
+                        ng-click="DockConfigCtrl.ePage.Masters.Enable = true">
+                        <div data-ng-if="$index!=DockConfigCtrl.ePage.Masters.selectedRow" class="overflow-text">
+                            {{x.Purpose || DockConfigCtrl.ePage.Masters.emptyText}}
+                        </div>
+                        <div data-ng-if="$index==DockConfigCtrl.ePage.Masters.selectedRow">
+                            <div class="height-22 col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0">
+                                <select chosen class="form-control" ng-model="x.Purpose" ng-options="x.Key as x.Key + ' - '  + x.Value for x in DockConfigCtrl.ePage.Masters.DropDownMasterList.DockPurpose.ListSource"
+                                    ng-change="DockConfigCtrl.ePage.Masters.OnChangeValues(x.Purpose,'E3010',true,(($index) + (DockConfigCtrl.ePage.Masters.CurrentPageStartingIndex)))"
+                                    search-contains="true">
+                                    <option value="">--Select--</option>
+                                </select>
+                            </div>
+                            <div class="list-error-warning col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0 pl-5"
+                                data-ng-if="DockConfigCtrl.ePage.Entities.Header.Meta.ErrorWarning.WmsDockConfig.ERROR | filter:{RowIndex: $index}:true | listCount: 'ColIndex':1">
+                                <error-warning-directive list="DockConfigCtrl.ePage.Entities.Header.Meta.ErrorWarning.WmsDockConfig.ERROR"
+                                    type="'error'" icon="fa fa-warning" parent-type="'arrayObjectCol'" parent-ref=""
+                                    g-parent-ref="" row-index="DockConfigCtrl.ePage.Masters.selectedRow" col-index="1">
+                                </error-warning-directive>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 norecordfound" ng-if="DockConfigCtrl.ePage.Entities.Header.Data.WmsDockConfig.length==0">No
+        Record Found...</div>
+</div>
+<!-- To show Customize Modal -->
+<div ng-if='DockConfigCtrl.ePage.Masters.EditTableColumns'>
+    <customize-table table-properties="DockConfigCtrl.ePage.Entities.Header.TableProperties.WmsDockConfig" enable="DockConfigCtrl.ePage.Masters.EditTableColumns"
+        unique-id="DockConfigCustomTable{{DockConfigCtrl.ePage.Entities.Header.Data.PK}}" user-value='DockConfigCtrl.ePage.Masters.UserValue'
+        entity-source='WMS_DOCKCONFIG'></customize-table>
+</div>
+<!-- Call Directive If user has value -->
+<div ng-if='DockConfigCtrl.ePage.Masters.UserHasValue' ng-init="DockConfigCtrl.ePage.Masters.UserHasValue=false">
+    <watch-table table-properties="DockConfigCtrl.ePage.Entities.Header.TableProperties.WmsDockConfig" unique-id="DockConfigCustomTable{{DockConfigCtrl.ePage.Entities.Header.Data.PK}}"></watch-table>
+</div>

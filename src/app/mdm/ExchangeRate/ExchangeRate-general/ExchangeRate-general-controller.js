@@ -27,28 +27,21 @@
             ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList = ExchangeRateGeneralCtrl.ePage.Entities.Header.Data;
             ExchangeRateGeneralCtrl.ePage.Masters.SelectedLookupData = SelectedLookupData;
             ExchangeRateGeneralCtrl.ePage.Masters.AddNewRow = AddNewRow;
-            //ExchangeRateGeneralCtrl.ePage.Entities.Header.lstUIMstExchangeRate = [];
-            console.log(ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList);
-            console.log(ExchangeRateGeneralCtrl.ePage.Masters);
 
-
-            // Date Picker
+            /* Date Picker */
             ExchangeRateGeneralCtrl.ePage.Masters.DatePicker = {};
             ExchangeRateGeneralCtrl.ePage.Masters.DatePicker.Options = APP_CONSTANT.DatePicker;
             ExchangeRateGeneralCtrl.ePage.Masters.DatePicker.isOpen = [];
             ExchangeRateGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker = OpenDatePicker;
 
-            //Date Picker Validation
-            ExchangeRateGeneralCtrl.ePage.Masters.OnChangeDate=OnChangeDate;
-            
-
-            console.log(ExchangeRateGeneralCtrl.ePage.Entities.Header.TableProperties.lstUIMstExchangeRate.ccheckbox.isenabled);
+            /* Date Picker Validation */
+            ExchangeRateGeneralCtrl.ePage.Masters.OnChangeDate = OnChangeDate;
 
             /* Function  */
             ExchangeRateGeneralCtrl.ePage.Masters.OnChangeValues = OnChangeValues;
+            ExchangeRateGeneralCtrl.ePage.Masters.OnChangeValidation = OnChangeValidation;
 
-
-            // #region DropDown 
+            //#region  DropDown 
             ExchangeRateGeneralCtrl.ePage.Masters.DropDownMasterList = {
                 "ExRateType": {
                     "ListSource": []
@@ -58,16 +51,17 @@
                 }
             };
             GetMastersDropDownList();
-            validateStartDate();
-            //#endregion 
-
+            InitStartDate();
         }
-        function validateStartDate() {
+        //#endregion 
+
+        function InitStartDate() {
             if (ExchangeRateGeneralCtrl.currentExchangeRate.isNew) {
                 ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.UIMstExchangeRate.StartDate = "";
             }
         }
-        // #region DropDownList
+
+        //#region  DropDownList
         function GetMastersDropDownList() {
             var typeCodeList = ["EXRATETYPE", "EXSUBRATE"];
             var dynamicFindAllInput = [];
@@ -91,54 +85,37 @@
                 }
             });
         }
-        // #endregion
+        //#endregion
 
-        //#region ErrorWarning Alert Validation
-        function OnChangeValues(fieldvalue, code, IsArray, RowIndex) {            
-            if (fieldvalue != '') {
-                if (code == "E1327") {
-                    if(ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.UIMstExchangeRate.Rate != null && ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.UIMstExchangeRate.Rate !=""){
-                    ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.UIMstExchangeRate.Rate
-                    ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.UIMstExchangeRate.ConvFromAtoB = ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.UIMstExchangeRate.Rate;
-                    ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.UIMstExchangeRate.ConvFromBtoA = 1 / ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.UIMstExchangeRate.Rate;
-                    }
-                }
-                else {
-                    angular.forEach(ExchangeRateGeneralCtrl.ePage.Masters.Config.ValidationValues, function (value, key) {
-                        if (value.Code.trim() === code) {
-                            GetErrorMessage(fieldvalue, value, IsArray, RowIndex)
-                        }
-                    });
-                }
-
+        //#region OnChangeValues
+        function OnChangeValues() {
+            if (ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.UIMstExchangeRate.Rate != null && ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.UIMstExchangeRate.Rate != "") {
+                ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.UIMstExchangeRate.ConvFromAtoB = ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.UIMstExchangeRate.Rate;
+                ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.UIMstExchangeRate.ConvFromBtoA = 1 / ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.UIMstExchangeRate.Rate;
             }
-            
         }
 
-
-        function OnChangeDate($item,$type){
-            
-            if($type='StartDate'){
-                var stDate=new Date(ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.UIMstExchangeRate.StartDate).toISOString();
-                var iDate =ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.UIMstExchangeRate.StartDate;
-                var arr=iDate.split("-");
-                console.log(arr[0]);
-                console.log(arr[1]);
-                console.log(arr[2]);                
-                var sDate=arr[2]+"-"+arr[0] + "-" + arr[1]+"T00:00:00";               
-                var found= ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.lstUIMstExchangeRate.some(el => el.StartDate===sDate && el.RateType===ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.UIMstExchangeRate.RateType && el.ExRateSubType===ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.UIMstExchangeRate.ExRateSubType);
-                if(found){
-                    ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.UIMstExchangeRate.StartDate="";
+        function OnChangeDate($item, $type) {
+            if ($type = 'StartDate') {
+                var stDate = new Date(ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.UIMstExchangeRate.StartDate).toISOString();
+                var iDate = ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.UIMstExchangeRate.StartDate;
+                var arr = iDate.split("-");
+                var sDate = arr[2] + "-" + arr[0] + "-" + arr[1] + "T00:00:00";
+                var found = ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.lstUIMstExchangeRate.some(el => el.StartDate === sDate && el.RateType === ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.UIMstExchangeRate.RateType && el.ExRateSubType === ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.UIMstExchangeRate.ExRateSubType);
+                if (found) {
+                    ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.UIMstExchangeRate.StartDate = "";
                 }
-            
             }
-            else if($type=='ExpiryDate'){}
-            console.log($item);
-            
+            else if ($type == 'ExpiryDate') { }
         }
 
         function SelectedLookupData($index, $item, type) {
+            if (type == 'FromCurrency') {
+                OnChangeValidation($item.Code, 'E1324');
+            }
             if (type == 'ToCurrency') {
+                OnChangeValidation($item.Code, 'E1329');
+
                 if (ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.UIMstExchangeRate.FromCurrency != null && $item.Code != ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.UIMstExchangeRate.FromCurrency) {
                     var _filter = {
                         "FromCurrency": ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.UIMstExchangeRate.FromCurrency,
@@ -148,7 +125,6 @@
                         "searchInput": helperService.createToArrayOfObject(_filter),
                         "FilterID": exchangerateConfig.Entities.API.ExchangerateMaster.API.ExRateList.FilterID
                     };
-
 
                     apiService.post("eAxisAPI", exchangerateConfig.Entities.API.ExchangerateMaster.API.ExRateList.Url, _input).then(function (response) {
                         if (response.data.Response) {
@@ -161,15 +137,14 @@
 
         //#region DatePicker
         function OpenDatePicker($event, opened) {
-
             $event.preventDefault();
             $event.stopPropagation();
             ExchangeRateGeneralCtrl.ePage.Masters.DatePicker.isOpen[opened] = true;
         }
         //#endregion
 
+        //#region AddNewRow
         function AddNewRow() {
-
             var obj = {
                 "StartDate": "",
                 "ExpiryDate": "",
@@ -187,7 +162,20 @@
                 var objDiv = document.getElementById("ExchangeRateGeneralCtrl.ePage.Masters.AddScroll");
                 objDiv.scrollTop = objDiv.scrollHeight;
             }, 50);
-            //ExchangeRateGeneralCtrl.ePage.Entities.Header.GlobalVariables.SelectAll = false;
+        }
+        //#endregion 
+
+        //#region ErrorWarning OnChangeValidation, GetErrorMessage
+        function OnChangeValidation(fieldvalue, code, IsArray, RowIndex, type) {
+            angular.forEach(ExchangeRateGeneralCtrl.ePage.Masters.Config.ValidationValues, function (value, key) {
+                if (value.Code.trim() === code) {
+                    GetErrorMessage(fieldvalue, value, IsArray, RowIndex)
+                }
+            });
+
+            if (type == "Rate") {
+                OnChangeValues();
+            }
         }
 
         function GetErrorMessage(fieldvalue, value, IsArray, RowIndex) {
@@ -198,7 +186,7 @@
             }
         }
         //#endregion 
-        
+
         Init()
     }
 })();

@@ -5,9 +5,9 @@
         .module("Application")
         .controller("DeliveryLineController", DeliveryLineController);
 
-    DeliveryLineController.$inject = ["$rootScope", "$scope", "$state", "$q", "$location", "$timeout", "APP_CONSTANT", "authService", "apiService", "appConfig", "deliveryConfig", "helperService", "toastr", "$filter", "$injector", "$uibModal", "confirmation"];
+    DeliveryLineController.$inject = ["$rootScope", "$scope", "$state", "$q", "$location", "$timeout", "APP_CONSTANT", "authService", "apiService", "appConfig", "deliveryConfig", "helperService", "toastr", "$filter", "$injector", "$uibModal", "confirmation", "warehouseConfig"];
 
-    function DeliveryLineController($rootScope, $scope, $state, $q, $location, $timeout, APP_CONSTANT, authService, apiService, appConfig, deliveryConfig, helperService, toastr, $filter, $injector, $uibModal, confirmation) {
+    function DeliveryLineController($rootScope, $scope, $state, $q, $location, $timeout, APP_CONSTANT, authService, apiService, appConfig, deliveryConfig, helperService, toastr, $filter, $injector, $uibModal, confirmation, warehouseConfig) {
         var DeliveryLineCtrl = this
 
         function Init() {
@@ -58,7 +58,7 @@
         function AddDeliveryLineToOutward() {
             if (DeliveryLineCtrl.ePage.Masters.selectedOutwardRow >= 0) {
                 DeliveryLineCtrl.ePage.Masters.Loading = true;
-                apiService.get("eAxisAPI", appConfig.Entities.WmsOutwardList.API.GetById.Url + DeliveryLineCtrl.ePage.Masters.UnFinalizedOrders[DeliveryLineCtrl.ePage.Masters.selectedOutwardRow].PK).then(function (response) {
+                apiService.get("eAxisAPI", warehouseConfig.Entities.WmsOutwardList.API.GetById.Url + DeliveryLineCtrl.ePage.Masters.UnFinalizedOrders[DeliveryLineCtrl.ePage.Masters.selectedOutwardRow].PK).then(function (response) {
                     if (response.data.Response) {
                         angular.forEach(DeliveryLineCtrl.ePage.Masters.SelectedDeliveryLine, function (value, key) {
                             if (DeliveryLineCtrl.ePage.Masters.UnFinalizedOrders[DeliveryLineCtrl.ePage.Masters.selectedOutwardRow].WorkOrderSubType == "MTR") {
@@ -115,16 +115,16 @@
                             response.data.Response.UIWmsWorkOrderLine.push(obj);
                         });
                         response.data.Response = filterObjectUpdate(response.data.Response, "IsModified");
-                        apiService.post("eAxisAPI", appConfig.Entities.WmsOutwardList.API.Update.Url, response.data.Response).then(function (response) {
+                        apiService.post("eAxisAPI", warehouseConfig.Entities.WmsOutwardList.API.Update.Url, response.data.Response).then(function (response) {
                             if (response.data.Status == 'Success') {
                                 DeliveryLineCtrl.ePage.Masters.OutwardDetails = response.data.Response;
                                 toastr.success("Delivery Line added to the Order " + DeliveryLineCtrl.ePage.Masters.OutwardDetails.UIWmsOutwardHeader.WorkOrderID);
                                 DeliveryLineCtrl.ePage.Masters.Loading = false;
                                 deliveryConfig.CallOutwardFunction = true;
                                 DeliveryLineCtrl.ePage.Entities.Header.Data = filterObjectUpdate(DeliveryLineCtrl.ePage.Entities.Header.Data, "IsModified");
-                                apiService.post("eAxisAPI", appConfig.Entities.WmsDeliveryList.API.Update.Url, DeliveryLineCtrl.ePage.Entities.Header.Data).then(function (response) {
+                                apiService.post("eAxisAPI", warehouseConfig.Entities.WmsDeliveryList.API.Update.Url, DeliveryLineCtrl.ePage.Entities.Header.Data).then(function (response) {
                                     if (response.data.Response) {
-                                        apiService.get("eAxisAPI", appConfig.Entities.WmsDeliveryList.API.GetById.Url + response.data.Response.UIWmsDelivery.PK).then(function (response) {
+                                        apiService.get("eAxisAPI", warehouseConfig.Entities.WmsDeliveryList.API.GetById.Url + response.data.Response.UIWmsDelivery.PK).then(function (response) {
                                             if (response.data.Response) {
                                                 DeliveryLineCtrl.ePage.Entities.Header.Data = response.data.Response;
                                                 DeliveryLineCtrl.ePage.Entities.Header.Data.UIWmsDelivery.Warehouse = DeliveryLineCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WarehouseCode + ' - ' + DeliveryLineCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WarehouseName;
@@ -175,9 +175,9 @@
                 };
                 var _input = {
                     "searchInput": helperService.createToArrayOfObject(_filter),
-                    "FilterID": appConfig.Entities.WmsOutwardList.API.FindAll.FilterID
+                    "FilterID": warehouseConfig.Entities.WmsOutward.API.FindAll.FilterID
                 };
-                apiService.post("eAxisAPI", appConfig.Entities.WmsOutwardList.API.FindAll.Url, _input).then(function (response) {
+                apiService.post("eAxisAPI", warehouseConfig.Entities.WmsOutward.API.FindAll.Url, _input).then(function (response) {
                     if (response.data.Response) {
                         if (response.data.Response.length > 0) {
                             DeliveryLineCtrl.ePage.Masters.UnFinalizedOrders = [];
