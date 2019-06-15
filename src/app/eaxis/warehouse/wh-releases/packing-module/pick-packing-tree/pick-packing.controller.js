@@ -103,16 +103,22 @@
       // Response / input of Json Object Response By Sequence
       PickPackingCtrl.ePage.Masters.JsonObjectResponse = $filter('orderBy')(JsonResponse, 'Sequence');
 
-      console.log("Result" + PickPackingCtrl.ePage.Masters.JsonObjectResponse);
-
       // Function call to convert the json
-      ConvertJson(PickPackingCtrl.ePage.Masters.JsonObjectResponse);
+      if (PickPackingCtrl.ePage.Masters.JsonObjectResponse.length > 0) {
+        ConvertJson(PickPackingCtrl.ePage.Masters.JsonObjectResponse);
+      }
+      else {
+        PickPackingCtrl.ePage.Masters.FramedObject = [];
+      }
 
       // Assigning the parent child json to the Tree Object (ng-repeat Obj)
       PickPackingCtrl.ePage.Masters.tree = PickPackingCtrl.ePage.Masters.FramedObject;
 
-      // for first obj response select true 
-      PickPackingCtrl.ePage.Masters.tree[0].IsSelectedValue = true;
+      if (PickPackingCtrl.ePage.Masters.tree.length > 0) {
+        // for first obj response select true 
+        PickPackingCtrl.ePage.Masters.tree[0].IsSelectedValue = true;
+      }
+
     }
 
     // function to convert normal json to parent child json format
@@ -280,7 +286,7 @@
 
       // Guid Generation Function call
       var guid = createGuid();
-      console.log(guid);
+      // console.log(guid);
 
       PickPackingCtrl.ePage.Masters.EnablePackTree = true;
       PickPackingCtrl.ePage.Masters.SaveBtnEnable = true;
@@ -428,8 +434,8 @@
         });
         if (PickPackingCtrl.ePage.Masters.Config.PackageListDetails.lstUIPackage.length - 1 == key) {
           // Save(PickPackingCtrl.ePage.Masters.Config.PackageListDetails.lstUIPackage);
-          console.log(PickPackingCtrl.ePage.Masters.DeleteList);
-          console.log(PickPackingCtrl.ePage.Masters.Config.PackageListDetails.lstUIPackage)
+          // console.log(PickPackingCtrl.ePage.Masters.DeleteList);
+          // console.log(PickPackingCtrl.ePage.Masters.Config.PackageListDetails.lstUIPackage)
           PackageItemDelete(PickPackingCtrl.ePage.Masters.DeleteList);
         }
       });
@@ -467,7 +473,7 @@
           }
         });
         if (PickPackingCtrl.ePage.Masters.Config.PackageListDetails.lstUIPackageItems.length - 1 == key) {
-          console.log(PickPackingCtrl.ePage.Masters.Config.PackageListDetails.lstUIPackageItems);
+          // console.log(PickPackingCtrl.ePage.Masters.Config.PackageListDetails.lstUIPackageItems);
           ItemDeleteUpdate(PickPackingCtrl.ePage.Masters.Config.PackageListDetails);
         }
       });
@@ -475,7 +481,7 @@
 
     // package with item delete
     function PackageItemDelete(PackageDetails) {
-      console.log(PackageDetails);
+      // console.log(PackageDetails);
       if (PickPackingCtrl.ePage.Masters.Config.PackageListDetails.lstUIPackageItems.length > 0) {
         angular.forEach(PickPackingCtrl.ePage.Masters.Config.PackageListDetails.lstUIPackageItems, function (value, key) {
           angular.forEach(PackageDetails, function (value1, key1) {
@@ -484,7 +490,7 @@
             }
           });
           if (PickPackingCtrl.ePage.Masters.Config.PackageListDetails.lstUIPackageItems.length - 1 == key) {
-            console.log(PickPackingCtrl.ePage.Masters.Config.PackageListDetails.lstUIPackageItems);
+            // console.log(PickPackingCtrl.ePage.Masters.Config.PackageListDetails.lstUIPackageItems);
             ItemDeleteUpdate(PickPackingCtrl.ePage.Masters.Config.PackageListDetails);
           }
         });
