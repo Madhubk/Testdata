@@ -5,9 +5,9 @@
         .module("Application")
         .controller("PackingGeneralController", PackingGeneralController);
 
-    PackingGeneralController.$inject = ["$scope", "$rootScope", "$timeout", "APP_CONSTANT", "apiService", "pickConfig", "helperService", "appConfig", "authService", "$state", "confirmation", "toastr", "$window", "$q", "$uibModal"];
+    PackingGeneralController.$inject = ["$scope", "$rootScope", "$timeout", "APP_CONSTANT", "apiService", "releaseConfig", "helperService", "appConfig", "authService", "$state", "confirmation", "toastr", "$window", "$q", "$uibModal"];
 
-    function PackingGeneralController($scope, $rootScope, $timeout, APP_CONSTANT, apiService, pickConfig, helperService, appConfig, authService, $state, confirmation, toastr, $window, $q, $uibModal) {
+    function PackingGeneralController($scope, $rootScope, $timeout, APP_CONSTANT, apiService, releaseConfig, helperService, appConfig, authService, $state, confirmation, toastr, $window, $q, $uibModal) {
 
         var PackingGeneralCtrl = this;
 
@@ -24,7 +24,7 @@
 
             };
 
-            PackingGeneralCtrl.ePage.Masters.Config = pickConfig;
+            PackingGeneralCtrl.ePage.Masters.Config = releaseConfig;
             PackingGeneralCtrl.ePage.Masters.NewPackageHeader = false;
             PackingGeneralCtrl.ePage.Masters.selectedRow = false;
             PackingGeneralCtrl.ePage.Masters.selectedReleaseLineRow = false;
@@ -141,6 +141,7 @@
                 if (response.data.Response) {
                     PackingGeneralCtrl.ePage.Masters.PickReleaseLine = response.data.Response;
                     PackingGeneralCtrl.ePage.Masters.Config.ItemDeleted = false;
+                    // PackingGeneralCtrl.ePage.Masters.ReleaseLineList.Units = '';
                 }
             });
         }
@@ -177,6 +178,7 @@
             // PackingGeneralCtrl.ePage.Masters.PackageItemList = [];
             PackingGeneralCtrl.ePage.Masters.ReleaseLineList = Data;
             if (PackingGeneralCtrl.ePage.Masters.ReleaseLineList.RemainingQty > 0) {
+                PackingGeneralCtrl.ePage.Masters.ReleaseLineList.Units = PackingGeneralCtrl.ePage.Masters.ReleaseLineList.RemainingQty;
                 QuantityModel();
             }
             else {

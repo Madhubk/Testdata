@@ -5,9 +5,9 @@
     .module("Application")
     .controller("PickPackingController", PickPackingController);
 
-  PickPackingController.$inject = ["$scope", "$rootScope", "$timeout", "APP_CONSTANT", "apiService", "pickConfig", "helperService", "appConfig", "authService", "confirmation", "toastr", "$filter", "$state", "$q", "$uibModal", "$sce"];
+  PickPackingController.$inject = ["$scope", "$rootScope", "$timeout", "APP_CONSTANT", "apiService", "releaseConfig", "helperService", "appConfig", "authService", "confirmation", "toastr", "$filter", "$state", "$q", "$uibModal", "$sce"];
 
-  function PickPackingController($scope, $rootScope, $timeout, APP_CONSTANT, apiService, pickConfig, helperService, appConfig, authService, confirmation, toastr, $filter, $state, $q, $uibModal, $sce) {
+  function PickPackingController($scope, $rootScope, $timeout, APP_CONSTANT, apiService, releaseConfig, helperService, appConfig, authService, confirmation, toastr, $filter, $state, $q, $uibModal, $sce) {
 
     var PickPackingCtrl = this;
 
@@ -24,7 +24,7 @@
 
       };
 
-      PickPackingCtrl.ePage.Masters.Config = pickConfig;
+      PickPackingCtrl.ePage.Masters.Config = releaseConfig;
       PickPackingCtrl.ePage.Masters.currentPick = PickPackingCtrl.currentPick;
       PickPackingCtrl.ePage.Masters.HeaderDetails = PickPackingCtrl.currentHeader;
 
@@ -38,6 +38,7 @@
       PickPackingCtrl.ePage.Masters.Add = Add;
       PickPackingCtrl.ePage.Masters.Delete = Delete;
       PickPackingCtrl.ePage.Masters.SavePackage = SavePackage;
+      PickPackingCtrl.ePage.Masters.SelectthePack = SelectthePack;
 
       PickPackingCtrl.ePage.Masters.List = [];
 
@@ -54,7 +55,6 @@
         // Default seleted package
         PickPackingCtrl.ePage.Masters.tree[0].IsSelectedValue = true;
         PickPackingCtrl.ePage.Masters.Config.SelectedPackage = PickPackingCtrl.ePage.Masters.tree[0];
-        PickPackingCtrl.ePage.Masters.SelectthePack = SelectthePack;
         PickPackingCtrl.ePage.Masters.Config.ItemDeleted = false;
       } else {
         PickPackingCtrl.ePage.Masters.EnablePackTree = false;
@@ -117,6 +117,7 @@
       if (PickPackingCtrl.ePage.Masters.tree.length > 0) {
         // for first obj response select true 
         PickPackingCtrl.ePage.Masters.tree[0].IsSelectedValue = true;
+
       }
 
     }
@@ -187,12 +188,6 @@
       PickPackingCtrl.ePage.Masters.PackList = EditData;
       PackTypeModel();
     }
-
-    // function ClosePackage(IsCloseData) {
-    //   IsCloseData.IsClosed = true;
-    //   toastr.warning("Package is Closed");
-    //   SavePackage();
-    // }
 
     function ClosePackage(IsCloseData) {
       {
@@ -274,7 +269,7 @@
       PickPackingCtrl.ePage.Masters.PackList = {};
 
       // outward value to the package id
-      PickPackingCtrl.ePage.Masters.PackList.PackageId = PickPackingCtrl.ePage.Masters.Config.PackageListDetails.UIPackageHeader.ExternalReference;
+      // PickPackingCtrl.ePage.Masters.PackList.PackageId = PickPackingCtrl.ePage.Masters.Config.PackageListDetails.UIPackageHeader.ExternalReference;
       PickPackingCtrl.ePage.Masters.PackList.PackageQty = "1";
 
       // pack type model function call
@@ -294,7 +289,13 @@
 
       // parent sequence calculation
       var post = PickPackingCtrl.ePage.Masters.tree.length + 1;
-      // post = post.toString();
+
+      if (_packtype.PackageId) {
+        _packtype.PackageId = _packtype.PackageId;
+      } else {
+        _packtype.PackageId = PickPackingCtrl.ePage.Masters.Config.PackageListDetails.UIPackageHeader.ExternalReference + "_" + post;
+      }
+
       var _obj = {
         // "name": "Package",
         "nodes": [],
@@ -353,7 +354,7 @@
       PickPackingCtrl.ePage.Masters.PackList = {};
 
       // outward value to the package id
-      PickPackingCtrl.ePage.Masters.PackList.PackageId = PickPackingCtrl.ePage.Masters.Config.PackageListDetails.UIPackageHeader.ExternalReference;
+      // PickPackingCtrl.ePage.Masters.PackList.PackageId = PickPackingCtrl.ePage.Masters.Config.PackageListDetails.UIPackageHeader.ExternalReference;
 
       PickPackingCtrl.ePage.Masters.PackList.PackageQty = "1";
 
@@ -370,6 +371,12 @@
 
       var post = PickPackingCtrl.ePage.Masters.Childdata.nodes.length + 1;
       var Order = PickPackingCtrl.ePage.Masters.Childdata.Sequence + '.' + post;
+
+      if (_packtype.PackageId) {
+        _packtype.PackageId = _packtype.PackageId;
+      } else {
+        _packtype.PackageId = PickPackingCtrl.ePage.Masters.Config.PackageListDetails.UIPackageHeader.ExternalReference + "_" + Order;
+      }
 
       var _obj = {
         // "name": newName,

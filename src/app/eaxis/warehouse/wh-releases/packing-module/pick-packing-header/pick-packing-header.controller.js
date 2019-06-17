@@ -5,9 +5,9 @@
         .module("Application")
         .controller("PackingHeaderController", PackingHeaderController);
 
-    PackingHeaderController.$inject = ["$scope", "$rootScope", "$timeout", "APP_CONSTANT", "apiService", "pickConfig", "helperService", "appConfig", "authService", "$state", "confirmation", "toastr", "$window", "$filter"];
+    PackingHeaderController.$inject = ["$scope", "$rootScope", "$timeout", "APP_CONSTANT", "apiService", "releaseConfig", "helperService", "appConfig", "authService", "$state", "confirmation", "toastr", "$window", "$filter"];
 
-    function PackingHeaderController($scope, $rootScope, $timeout, APP_CONSTANT, apiService, pickConfig, helperService, appConfig, authService, $state, confirmation, toastr, $window, $filter) {
+    function PackingHeaderController($scope, $rootScope, $timeout, APP_CONSTANT, apiService, releaseConfig, helperService, appConfig, authService, $state, confirmation, toastr, $window, $filter) {
 
         var PackingHeaderCtrl = this;
 
@@ -24,7 +24,7 @@
 
             };
 
-            PackingHeaderCtrl.ePage.Masters.Config = pickConfig;
+            PackingHeaderCtrl.ePage.Masters.Config = releaseConfig;
             // Get the Current Outward Details
             PackingHeaderCtrl.ePage.Masters.OutwardDetails = PackingHeaderCtrl.currentOutward;
             PackingHeaderCtrl.ePage.Masters.NewHeader = PackingHeaderCtrl.currentHeader;
