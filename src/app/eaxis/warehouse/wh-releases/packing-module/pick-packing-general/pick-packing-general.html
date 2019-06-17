@@ -1,5 +1,5 @@
 <div class="col-lg-12 col-sm-12 col-xs-12 p-0">
-    <div ng-if="PackingGeneralCtrl.ePage.Masters.Config.ItemDeleted == true" ng-init='PackingGeneralCtrl.ePage.Masters.GetPickReleaseLine()'>
+    <div ng-if="PackingGeneralCtrl.ePage.Masters.Config.ItemDeleted[PackingGeneralCtrl.currentPick.label].ItemDeleted == true" ng-init='PackingGeneralCtrl.ePage.Masters.GetPickReleaseLine()'>
     </div>
     <div class="col-lg-6 col-sm-6 col-xs-6 p-0 border-class">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 custompadding">

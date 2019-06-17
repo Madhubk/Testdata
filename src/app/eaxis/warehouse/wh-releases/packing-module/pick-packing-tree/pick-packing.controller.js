@@ -31,7 +31,10 @@
       // closepackage
       PickPackingCtrl.ePage.Masters.ClosePackage = ClosePackage;
 
-      PickPackingCtrl.ePage.Masters.Config.PackageListDetails = PickPackingCtrl.ePage.Masters.HeaderDetails;
+      PickPackingCtrl.ePage.Masters.Config.PackageListDetails[PickPackingCtrl.currentPick.label] = {
+        PackageListDetails: PickPackingCtrl.ePage.Masters.HeaderDetails
+      }
+
       // Add parent Package
       PickPackingCtrl.ePage.Masters.AddPackage = AddPackage;
       // Add Child Package
@@ -45,17 +48,22 @@
       PickPackingCtrl.ePage.Masters.EnablePrintLabel = false;
 
       // to change the Normal json to Tree Json for package function call for GetByID Obj
-      if (PickPackingCtrl.ePage.Masters.Config.PackageListDetails.lstUIPackage.length > 0) {
+      if (PickPackingCtrl.ePage.Masters.Config.PackageListDetails[PickPackingCtrl.currentPick.label].PackageListDetails.lstUIPackage.length > 0) {
         PickPackingCtrl.ePage.Masters.EnablePrintLabel = true;
         PickPackingCtrl.ePage.Masters.Loading = false;
         PickPackingCtrl.ePage.Masters.EnablePackTree = true;
         PickPackingCtrl.ePage.Masters.SaveBtnEnable = true;
-        ReverseJson(PickPackingCtrl.ePage.Masters.Config.PackageListDetails.lstUIPackage);
+        ReverseJson(PickPackingCtrl.ePage.Masters.Config.PackageListDetails[PickPackingCtrl.currentPick.label].PackageListDetails.lstUIPackage);
 
         // Default seleted package
         PickPackingCtrl.ePage.Masters.tree[0].IsSelectedValue = true;
-        PickPackingCtrl.ePage.Masters.Config.SelectedPackage = PickPackingCtrl.ePage.Masters.tree[0];
-        PickPackingCtrl.ePage.Masters.Config.ItemDeleted = false;
+
+        PickPackingCtrl.ePage.Masters.Config.SelectedPackage[PickPackingCtrl.currentPick.label] = {
+          SelectedPackage: PickPackingCtrl.ePage.Masters.tree[0]
+        }
+        PickPackingCtrl.ePage.Masters.Config.ItemDeleted[PickPackingCtrl.currentPick.label] = {
+          ItemDeleted: false
+        }
       } else {
         PickPackingCtrl.ePage.Masters.EnablePackTree = false;
         PickPackingCtrl.ePage.Masters.tree = [];
@@ -82,7 +90,9 @@
         if (val.nodes.length > 0)
           InnerLoop(val.nodes)
         if (PickPackingCtrl.ePage.Masters.tree.length - 1 == key) {
-          PickPackingCtrl.ePage.Masters.Config.SelectedPackage = item;
+          PickPackingCtrl.ePage.Masters.Config.SelectedPackage[PickPackingCtrl.currentPick.label] = {
+            SelectedPackage: item
+          }
           item.IsSelectedValue = true;
         }
       });
@@ -269,7 +279,7 @@
       PickPackingCtrl.ePage.Masters.PackList = {};
 
       // outward value to the package id
-      // PickPackingCtrl.ePage.Masters.PackList.PackageId = PickPackingCtrl.ePage.Masters.Config.PackageListDetails.UIPackageHeader.ExternalReference;
+      // PickPackingCtrl.ePage.Masters.PackList.PackageId = PickPackingCtrl.ePage.Masters.Config.PackageListDetails[PickPackingCtrl.currentPick.label].PackageListDetails.UIPackageHeader.ExternalReference;
       PickPackingCtrl.ePage.Masters.PackList.PackageQty = "1";
 
       // pack type model function call
@@ -293,7 +303,7 @@
       if (_packtype.PackageId) {
         _packtype.PackageId = _packtype.PackageId;
       } else {
-        _packtype.PackageId = PickPackingCtrl.ePage.Masters.Config.PackageListDetails.UIPackageHeader.ExternalReference + "_" + post;
+        _packtype.PackageId = PickPackingCtrl.ePage.Masters.Config.PackageListDetails[PickPackingCtrl.currentPick.label].PackageListDetails.UIPackageHeader.ExternalReference + "_" + post;
       }
 
       var _obj = {
@@ -329,7 +339,7 @@
         "IsCheckedWeighedCubed": "",
         "IsDamaged": "",
         "IsHeld": "",
-        "PackageHeaderFK": PickPackingCtrl.ePage.Masters.Config.PackageListDetails.UIPackageHeader.PK,
+        "PackageHeaderFK": PickPackingCtrl.ePage.Masters.Config.PackageListDetails[PickPackingCtrl.currentPick.label].PackageListDetails.UIPackageHeader.PK,
         "IsModified": false,
         "IsDeleted": false,
         "IsNewInsert": true
@@ -354,7 +364,7 @@
       PickPackingCtrl.ePage.Masters.PackList = {};
 
       // outward value to the package id
-      // PickPackingCtrl.ePage.Masters.PackList.PackageId = PickPackingCtrl.ePage.Masters.Config.PackageListDetails.UIPackageHeader.ExternalReference;
+      // PickPackingCtrl.ePage.Masters.PackList.PackageId = PickPackingCtrl.ePage.Masters.Config.PackageListDetails[PickPackingCtrl.currentPick.label].PackageListDetails.UIPackageHeader.ExternalReference;
 
       PickPackingCtrl.ePage.Masters.PackList.PackageQty = "1";
 
@@ -375,7 +385,7 @@
       if (_packtype.PackageId) {
         _packtype.PackageId = _packtype.PackageId;
       } else {
-        _packtype.PackageId = PickPackingCtrl.ePage.Masters.Config.PackageListDetails.UIPackageHeader.ExternalReference + "_" + Order;
+        _packtype.PackageId = PickPackingCtrl.ePage.Masters.Config.PackageListDetails[PickPackingCtrl.currentPick.label].PackageListDetails.UIPackageHeader.ExternalReference + "_" + Order;
       }
 
       var _obj = {
@@ -410,7 +420,7 @@
         "IsCheckedWeighedCubed": "",
         "IsDamaged": "",
         "IsHeld": "",
-        "PackageHeaderFK": PickPackingCtrl.ePage.Masters.Config.PackageListDetails.UIPackageHeader.PK,
+        "PackageHeaderFK": PickPackingCtrl.ePage.Masters.Config.PackageListDetails[PickPackingCtrl.currentPick.label].PackageListDetails.UIPackageHeader.PK,
         "IsModified": false,
         "IsDeleted": false,
         "IsNewInsert": true
@@ -433,16 +443,16 @@
       Del(Data);
       // console.log(PickPackingCtrl.ePage.Masters.DeleteList);
 
-      angular.forEach(PickPackingCtrl.ePage.Masters.Config.PackageListDetails.lstUIPackage, function (value, key) {
+      angular.forEach(PickPackingCtrl.ePage.Masters.Config.PackageListDetails[PickPackingCtrl.currentPick.label].PackageListDetails.lstUIPackage, function (value, key) {
         angular.forEach(PickPackingCtrl.ePage.Masters.DeleteList, function (value1, key1) {
           if (value.PK == value1.PK) {
             value.IsDeleted = true;
           }
         });
-        if (PickPackingCtrl.ePage.Masters.Config.PackageListDetails.lstUIPackage.length - 1 == key) {
-          // Save(PickPackingCtrl.ePage.Masters.Config.PackageListDetails.lstUIPackage);
+        if (PickPackingCtrl.ePage.Masters.Config.PackageListDetails[PickPackingCtrl.currentPick.label].PackageListDetails.lstUIPackage.length - 1 == key) {
+          // Save(PickPackingCtrl.ePage.Masters.Config.PackageListDetails[PickPackingCtrl.currentPick.label].PackageListDetails.lstUIPackage);
           // console.log(PickPackingCtrl.ePage.Masters.DeleteList);
-          // console.log(PickPackingCtrl.ePage.Masters.Config.PackageListDetails.lstUIPackage)
+          // console.log(PickPackingCtrl.ePage.Masters.Config.PackageListDetails[PickPackingCtrl.currentPick.label].PackageListDetails.lstUIPackage)
           PackageItemDelete(PickPackingCtrl.ePage.Masters.DeleteList);
         }
       });
@@ -473,15 +483,15 @@
 
     // individual item delete
     function DeleteItem(DeleteData) {
-      angular.forEach(PickPackingCtrl.ePage.Masters.Config.PackageListDetails.lstUIPackageItems, function (value, key) {
+      angular.forEach(PickPackingCtrl.ePage.Masters.Config.PackageListDetails[PickPackingCtrl.currentPick.label].PackageListDetails.lstUIPackageItems, function (value, key) {
         angular.forEach(DeleteData, function (value1, key1) {
           if (value.PK == value1.PK) {
             value.IsDeleted = true;
           }
         });
-        if (PickPackingCtrl.ePage.Masters.Config.PackageListDetails.lstUIPackageItems.length - 1 == key) {
+        if (PickPackingCtrl.ePage.Masters.Config.PackageListDetails[PickPackingCtrl.currentPick.label].PackageListDetails.lstUIPackageItems.length - 1 == key) {
           // console.log(PickPackingCtrl.ePage.Masters.Config.PackageListDetails.lstUIPackageItems);
-          ItemDeleteUpdate(PickPackingCtrl.ePage.Masters.Config.PackageListDetails);
+          ItemDeleteUpdate(PickPackingCtrl.ePage.Masters.Config.PackageListDetails[PickPackingCtrl.currentPick.label].PackageListDetails);
         }
       });
     }
@@ -489,20 +499,20 @@
     // package with item delete
     function PackageItemDelete(PackageDetails) {
       // console.log(PackageDetails);
-      if (PickPackingCtrl.ePage.Masters.Config.PackageListDetails.lstUIPackageItems.length > 0) {
-        angular.forEach(PickPackingCtrl.ePage.Masters.Config.PackageListDetails.lstUIPackageItems, function (value, key) {
+      if (PickPackingCtrl.ePage.Masters.Config.PackageListDetails[PickPackingCtrl.currentPick.label].PackageListDetails.lstUIPackageItems.length > 0) {
+        angular.forEach(PickPackingCtrl.ePage.Masters.Config.PackageListDetails[PickPackingCtrl.currentPick.label].PackageListDetails.lstUIPackageItems, function (value, key) {
           angular.forEach(PackageDetails, function (value1, key1) {
             if (value.PackageFK == value1.PK) {
               value.IsDeleted = true;
             }
           });
-          if (PickPackingCtrl.ePage.Masters.Config.PackageListDetails.lstUIPackageItems.length - 1 == key) {
-            // console.log(PickPackingCtrl.ePage.Masters.Config.PackageListDetails.lstUIPackageItems);
-            ItemDeleteUpdate(PickPackingCtrl.ePage.Masters.Config.PackageListDetails);
+          if (PickPackingCtrl.ePage.Masters.Config.PackageListDetails[PickPackingCtrl.currentPick.label].PackageListDetails.lstUIPackageItems.length - 1 == key) {
+            // console.log(PickPackingCtrl.ePage.Masters.Config.PackageListDetails[PickPackingCtrl.currentPick.label].PackageListDetails.lstUIPackageItems);
+            ItemDeleteUpdate(PickPackingCtrl.ePage.Masters.Config.PackageListDetails[PickPackingCtrl.currentPick.label].PackageListDetails);
           }
         });
       } else {
-        ItemDeleteUpdate(PickPackingCtrl.ePage.Masters.Config.PackageListDetails);
+        ItemDeleteUpdate(PickPackingCtrl.ePage.Masters.Config.PackageListDetails[PickPackingCtrl.currentPick.label].PackageListDetails);
       }
 
     }
@@ -510,18 +520,22 @@
     // common save for packageitem and item delete
     function ItemDeleteUpdate($item) {
       PickPackingCtrl.ePage.Masters.Loading = true;
-      PickPackingCtrl.ePage.Masters.Config.PackageListDetails = $item;
+      PickPackingCtrl.ePage.Masters.Config.PackageListDetails[PickPackingCtrl.currentPick.label].PackageListDetails = $item;
 
-      var item = filterObjectUpdate(PickPackingCtrl.ePage.Masters.Config.PackageListDetails, "IsModified");
+      var item = filterObjectUpdate(PickPackingCtrl.ePage.Masters.Config.PackageListDetails[PickPackingCtrl.currentPick.label].PackageListDetails, "IsModified");
 
-      apiService.post("eAxisAPI", PickPackingCtrl.ePage.Entities.Header.API.UpdatePackage.Url, PickPackingCtrl.ePage.Masters.Config.PackageListDetails).then(function (response) {
+      apiService.post("eAxisAPI", PickPackingCtrl.ePage.Entities.Header.API.UpdatePackage.Url, PickPackingCtrl.ePage.Masters.Config.PackageListDetails[PickPackingCtrl.currentPick.label].PackageListDetails).then(function (response) {
         if (response.data.Response) {
           PickPackingCtrl.ePage.Masters.Loading = false;
           // Get By Id Call
           apiService.get("eAxisAPI", PickPackingCtrl.ePage.Entities.Header.API.PackageGetByID.Url + response.data.Response.Response.PK).then(function (response) {
             PickPackingCtrl.ePage.Masters.Update = response.data.Response.lstUIPackage;
-            PickPackingCtrl.ePage.Masters.Config.PackageListDetails = response.data.Response;
-            PickPackingCtrl.ePage.Masters.Config.ItemDeleted = true;
+            PickPackingCtrl.ePage.Masters.Config.PackageListDetails[PickPackingCtrl.currentPick.label] = {
+              PackageListDetails: response.data.Response
+            }
+            PickPackingCtrl.ePage.Masters.Config.ItemDeleted[PickPackingCtrl.currentPick.label] = {
+              ItemDeleted: true
+            }
             PickPackingCtrl.ePage.Masters.DeleteObj = [];
             // Reverse json Function Call
             ReverseJson(PickPackingCtrl.ePage.Masters.Update);
@@ -594,11 +608,11 @@
     // update call for package update list
     function Save($item) {
       PickPackingCtrl.ePage.Masters.Loading = true;
-      PickPackingCtrl.ePage.Masters.Config.PackageListDetails.lstUIPackage = $item;
+      PickPackingCtrl.ePage.Masters.Config.PackageListDetails[PickPackingCtrl.currentPick.label].PackageListDetails.lstUIPackage = $item;
 
-      var item = filterObjectUpdate(PickPackingCtrl.ePage.Masters.Config.PackageListDetails.lstUIPackage, "IsModified");
+      var item = filterObjectUpdate(PickPackingCtrl.ePage.Masters.Config.PackageListDetails[PickPackingCtrl.currentPick.label].PackageListDetails.lstUIPackage, "IsModified");
 
-      apiService.post("eAxisAPI", PickPackingCtrl.ePage.Entities.Header.API.UpdatePackage.Url, PickPackingCtrl.ePage.Masters.Config.PackageListDetails).then(function (response) {
+      apiService.post("eAxisAPI", PickPackingCtrl.ePage.Entities.Header.API.UpdatePackage.Url, PickPackingCtrl.ePage.Masters.Config.PackageListDetails[PickPackingCtrl.currentPick.label].PackageListDetails).then(function (response) {
         if (response.data.Response) {
 
           // Get By Id Call
@@ -606,7 +620,9 @@
             PickPackingCtrl.ePage.Masters.Loading = false;
             PickPackingCtrl.ePage.Masters.EnablePrintLabel = true;
             PickPackingCtrl.ePage.Masters.UpdatedList = response.data.Response.lstUIPackage;
-            PickPackingCtrl.ePage.Masters.Config.PackageListDetails = response.data.Response;
+            PickPackingCtrl.ePage.Masters.Config.PackageListDetails[PickPackingCtrl.currentPick.label] = {
+              PackageListDetails: response.data.Response
+            }
             PickPackingCtrl.ePage.Masters.List = [];
             PickPackingCtrl.ePage.Masters.PackList = {};
             // Reverse json Function Call
@@ -638,7 +654,7 @@
 
       var LabelObjectList = [];
 
-      LabelObjectList.push(PickPackingCtrl.ePage.Masters.Config.PackageListDetails);
+      LabelObjectList.push(PickPackingCtrl.ePage.Masters.Config.PackageListDetails[PickPackingCtrl.currentPick.label].PackageListDetails);
 
       apiService.post("eAxisAPI", PickPackingCtrl.ePage.Entities.Header.API.PrintPackageLabel.Url, LabelObjectList).then(function (response) {
         if (response.data.Response) {

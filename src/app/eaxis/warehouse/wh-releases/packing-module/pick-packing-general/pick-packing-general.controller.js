@@ -140,7 +140,9 @@
                 PackingGeneralCtrl.ePage.Masters.Loading = false;
                 if (response.data.Response) {
                     PackingGeneralCtrl.ePage.Masters.PickReleaseLine = response.data.Response;
-                    PackingGeneralCtrl.ePage.Masters.Config.ItemDeleted = false;
+                    PackingGeneralCtrl.ePage.Masters.Config.ItemDeleted[PackingGeneralCtrl.currentPick.label] = {
+                        ItemDeleted: false
+                    }
                     // PackingGeneralCtrl.ePage.Masters.ReleaseLineList.Units = '';
                 }
             });
@@ -205,10 +207,10 @@
         function SaveReleaseQuantity($item) {
 
             PackingGeneralCtrl.ePage.Masters.Releasepackitem = $item;
-            if (PackingGeneralCtrl.ePage.Masters.Config.SelectedPackage.IsClosed == true) {
+            if (PackingGeneralCtrl.ePage.Masters.Config.SelectedPackage[PackingGeneralCtrl.currentPick.label].SelectedPackage.IsClosed == true) {
                 toastr.warning("Package is Closed");
-            } else if (PackingGeneralCtrl.ePage.Masters.Config.SelectedPackage.IsClosed == false || PackingGeneralCtrl.ePage.Masters.Config.SelectedPackage.IsClosed == undefined || PackingGeneralCtrl.ePage.Masters.Config.SelectedPackage.IsClosed == null) {
-                if (PackingGeneralCtrl.ePage.Masters.Config.SelectedPackage.PK) {
+            } else if (PackingGeneralCtrl.ePage.Masters.Config.SelectedPackage[PackingGeneralCtrl.currentPick.label].SelectedPackage.IsClosed == false || PackingGeneralCtrl.ePage.Masters.Config.SelectedPackage[PackingGeneralCtrl.currentPick.label].SelectedPackage.IsClosed == undefined || PackingGeneralCtrl.ePage.Masters.Config.SelectedPackage[PackingGeneralCtrl.currentPick.label].SelectedPackage.IsClosed == null) {
+                if (PackingGeneralCtrl.ePage.Masters.Config.SelectedPackage[PackingGeneralCtrl.currentPick.label].SelectedPackage.PK) {
                     if (PackingGeneralCtrl.ePage.Masters.Releasepackitem.RemainingQty < PackingGeneralCtrl.ePage.Masters.Releasepackitem.Units) {
                         toastr.warning("Packing Quantity is Greater than Release Quantity");
                         // PackingGeneralCtrl.ePage.Masters.ReleaseLineList.Units = '';
@@ -217,7 +219,7 @@
                         // $item.map(function (value, key) {
                         var obj = {
                             "PK": "",
-                            "PackageFK": PackingGeneralCtrl.ePage.Masters.Config.SelectedPackage.PK,
+                            "PackageFK": PackingGeneralCtrl.ePage.Masters.Config.SelectedPackage[PackingGeneralCtrl.currentPick.label].SelectedPackage.PK,
                             "PickLine_FK": PackingGeneralCtrl.ePage.Masters.Releasepackitem.WPL_FK,
                             "PackedQty": PackingGeneralCtrl.ePage.Masters.Releasepackitem.Units,
                             "ProductPk": PackingGeneralCtrl.ePage.Masters.Releasepackitem.WPR_PRO_FK,
@@ -245,16 +247,18 @@
 
         function Save($item) {
 
-            PackingGeneralCtrl.ePage.Masters.Config.PackageListDetails.lstUIPackageItems.push($item);
+            PackingGeneralCtrl.ePage.Masters.Config.PackageListDetails[PackingGeneralCtrl.currentPick.label].PackageListDetails.lstUIPackageItems.push($item);
 
-            var item = filterObjectUpdate(PackingGeneralCtrl.ePage.Masters.Config.PackageListDetails.lstUIPackageItems, "IsModified");
+            var item = filterObjectUpdate(PackingGeneralCtrl.ePage.Masters.Config.PackageListDetails[PackingGeneralCtrl.currentPick.label].PackageListDetails.lstUIPackageItems, "IsModified");
 
-            apiService.post("eAxisAPI", PackingGeneralCtrl.ePage.Entities.Header.API.UpdatePackage.Url, PackingGeneralCtrl.ePage.Masters.Config.PackageListDetails).then(function (response) {
+            apiService.post("eAxisAPI", PackingGeneralCtrl.ePage.Entities.Header.API.UpdatePackage.Url, PackingGeneralCtrl.ePage.Masters.Config.PackageListDetails[PackingGeneralCtrl.currentPick.label].PackageListDetails).then(function (response) {
                 if (response.data.Response) {
                     // Get By Id Call
                     apiService.get("eAxisAPI", PackingGeneralCtrl.ePage.Entities.Header.API.PackageGetByID.Url + response.data.Response.Response.PK).then(function (response) {
                         PackingGeneralCtrl.ePage.Masters.UpdateditemList = response.data.Response.lstUIPackageItems;
-                        PackingGeneralCtrl.ePage.Masters.Config.PackageListDetails = response.data.Response;
+                        PackingGeneralCtrl.ePage.Masters.Config.PackageListDetails[PackingGeneralCtrl.currentPick.label] = {
+                            PackageListDetails: response.data.Response
+                        }
                         GetPickReleaseLine();
                     });
                     toastr.success("Saved Successfully");
