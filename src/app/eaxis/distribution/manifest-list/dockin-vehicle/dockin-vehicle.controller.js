@@ -5,9 +5,9 @@
         .module("Application")
         .controller("DockinVehicleController", DockinVehicleController);
 
-    DockinVehicleController.$inject = ["$rootScope", "$scope", "$state", "APP_CONSTANT", "authService", "apiService", "appConfig", "dmsManifestConfig", "helperService", "$filter"];
+    DockinVehicleController.$inject = ["apiService", "distributionConfig", "dmsManifestConfig", "helperService", "$filter"];
 
-    function DockinVehicleController($rootScope, $scope, $state, APP_CONSTANT, authService, apiService, appConfig, dmsManifestConfig, helperService, $filter) {
+    function DockinVehicleController(apiService, distributionConfig, dmsManifestConfig, helperService, $filter) {
 
         var DockinVehicleCtrl = this;
 
@@ -34,6 +34,30 @@
             DockinVehicleCtrl.ePage.Masters.Empty = "-";
             DockinVehicleCtrl.ePage.Masters.Config = dmsManifestConfig;
 
+            getDockNoList();
+        }
+
+        function getDockNoList() {
+            var _purpose;
+            if (DockinVehicleCtrl.ePage.Entities.Header.Data.GatepassList[0].Purpose == "INW")
+                _purpose = "ULD";
+            else if (DockinVehicleCtrl.ePage.Entities.Header.Data.GatepassList[0].Purpose == "ORD")
+                _purpose = "LOD";
+
+            var _filter = {
+                "WAR_FK": DockinVehicleCtrl.ePage.Entities.Header.Data.GatepassList[0].WAR_PK,
+                "Purpose": _purpose
+            };
+            var _input = {
+                "searchInput": helperService.createToArrayOfObject(_filter),
+                "FilterID": distributionConfig.Entities.WmsDockConfig.API.FindAll.FilterID
+            };
+
+            apiService.post("eAxisAPI", distributionConfig.Entities.WmsDockConfig.API.FindAll.Url, _input).then(function (response) {
+                if (response.data.Response) {
+                    DockinVehicleCtrl.ePage.Masters.DockNoList = response.data.Response;
+                }
+            });
         }
 
         Init();

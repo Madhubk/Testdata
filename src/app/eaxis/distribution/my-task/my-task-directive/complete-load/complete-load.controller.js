@@ -32,7 +32,7 @@
 
             CompleteLoadCtrl.ePage.Masters.ErrorWarningConfig = errorWarningService;
             CompleteLoadCtrl.ePage.Masters.dynamicLookupConfig = dynamicLookupConfig.Entities;
-            errorWarningService.Modules = {};
+            // errorWarningService.Modules = {};
 
             if (CompleteLoadCtrl.ePage.Masters.EntityObj) {
                 CompleteLoadCtrl.ePage.Meta.IsLoading = true;
@@ -112,7 +112,7 @@
         }
         // #endregion
 
-        function AddToLineManifest() {            
+        function AddToLineManifest() {
             CompleteLoadCtrl.ePage.Masters.SelectedManifestItem.LoadedDateTime = new Date();
             if (!CompleteLoadCtrl.ePage.Masters.SelectedManifestItem.Quantity)
                 CompleteLoadCtrl.ePage.Masters.SelectedManifestItem.Quantity = 1;
@@ -146,9 +146,13 @@
                     });
                 }
             });
+            if (_count == 0) {
+                CompleteLoadCtrl.ePage.Masters.LoadSaveButtonText = "Save";
+                CompleteLoadCtrl.ePage.Masters.IsDisableSaveBtn = false;
+            }
         }
 
-        function LoadManifest() {            
+        function LoadManifest() {
             CompleteLoadCtrl.ePage.Meta.IsLoading = true;
             if (CompleteLoadCtrl.ePage.Masters.ManifestDetails.TmsManifestConsignment[CompleteLoadCtrl.ePage.Masters.selectedManifestRow].TMC_ServiceType == "ORD") {
                 var _filter = {
@@ -258,6 +262,10 @@
                     });
                 }
             });
+            if (_count == 0) {
+                CompleteLoadCtrl.ePage.Masters.LoadSaveButtonText = "Save";
+                CompleteLoadCtrl.ePage.Masters.IsDisableSaveBtn = false;
+            }
         }
 
         function Load() {
@@ -352,21 +360,6 @@
                     CompleteLoadCtrl.ePage.Masters.IsAttachedManifest = true;
                 }
             });
-            // var _filter = {
-            //     "PK": CompleteLoadCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.ManifestFK
-            // };
-            // var _input = {
-            //     "searchInput": helperService.createToArrayOfObject(_filter),
-            //     "FilterID": distributionConfig.Entities.TmsManifestList.API.FindAll.FilterID
-            // };
-
-            // apiService.post("eAxisAPI", distributionConfig.Entities.TmsManifestList.API.FindAll.Url, _input).then(function (response) {
-            //     if (response.data.Response) {
-            //         CompleteLoadCtrl.ePage.Masters.ManifestDetails = response.data.Response;
-            //         CompleteLoadCtrl.ePage.Masters.IsAttached = true;
-            //         CompleteLoadCtrl.ePage.Masters.IsAttachedManifest = true;
-            //     }
-            // });
         }
 
         function setSelectedRow(index) {
@@ -381,6 +374,7 @@
             CompleteLoadCtrl.ePage.Meta.IsLoading = true;
             CompleteLoadCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.ManifestFK = null;
             CompleteLoadCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.JDAFK = null;
+            CompleteLoadCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.TMM_ManifestNumber = null;
             CompleteLoadCtrl.ePage.Entities.Header.Data.TmsManifestpickupanddelivery = {};
             CompleteLoadCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.IsModified = true;
             apiService.post("eAxisAPI", distributionConfig.Entities.TMSGatepassList.API.Update.Url, CompleteLoadCtrl.ePage.Entities.Header.Data).then(function (response) {
@@ -417,6 +411,7 @@
                         CompleteLoadCtrl.ePage.Masters.IsAttachedManifest = true;
                         CompleteLoadCtrl.ePage.Entities.Header.Data.TmsManifestpickupanddelivery = item[0];
                         CompleteLoadCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.ManifestFK = item[0].EntityRefKey;
+                        CompleteLoadCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.TMM_ManifestNumber=item[0].ManifestNumber;
                         CompleteLoadCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.JDAFK = item[0].JDA_FK;
                         CompleteLoadCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.IsModified = true;
                         apiService.post("eAxisAPI", distributionConfig.Entities.TMSGatepassList.API.Update.Url, CompleteLoadCtrl.ePage.Entities.Header.Data).then(function (response) {
@@ -563,7 +558,7 @@
 
         function DocumentValidation() {
             if (CompleteLoadCtrl.ePage.Masters.TaskObj) {
-                errorWarningService.Modules = {};
+                // errorWarningService.Modules = {};
                 // validation findall call
                 var _obj = {
                     ModuleName: ["MyTask"],

@@ -32,7 +32,7 @@
 
             AttachManifestCtrl.ePage.Masters.ErrorWarningConfig = errorWarningService;
             AttachManifestCtrl.ePage.Masters.dynamicLookupConfig = dynamicLookupConfig.Entities;
-            errorWarningService.Modules = {};
+            // errorWarningService.Modules = {};
 
             if (AttachManifestCtrl.ePage.Masters.EntityObj) {
                 AttachManifestCtrl.ePage.Meta.IsLoading = true;
@@ -145,6 +145,7 @@
         function DeleteManifest() {
             AttachManifestCtrl.ePage.Meta.IsLoading = true;
             AttachManifestCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.ManifestFK = null;
+            AttachManifestCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.TMM_ManifestNumber = null;
             AttachManifestCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.JDAFK = null;
             AttachManifestCtrl.ePage.Entities.Header.Data.TmsManifestpickupanddelivery = {};
             AttachManifestCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.IsModified = true;
@@ -158,7 +159,7 @@
             });
         }
 
-        function ManifestSingleRecordView(item) {            
+        function ManifestSingleRecordView(item) {
             var _queryString = {
                 PK: item.PK,
                 ManifestNumber: item.ManifestNumber,
@@ -183,6 +184,7 @@
                         AttachManifestCtrl.ePage.Masters.IsAttachedManifest = true;
                         AttachManifestCtrl.ePage.Entities.Header.Data.TmsManifestpickupanddelivery = item[0];
                         AttachManifestCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.ManifestFK = item[0].EntityRefKey;
+                        AttachManifestCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.TMM_ManifestNumber = item[0].ManifestNumber;
                         AttachManifestCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.JDAFK = item[0].JDA_FK;
                         AttachManifestCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.IsModified = true;
                         apiService.post("eAxisAPI", distributionConfig.Entities.TMSGatepassList.API.Update.Url, AttachManifestCtrl.ePage.Entities.Header.Data).then(function (response) {
@@ -330,7 +332,7 @@
 
         function DocumentValidation() {
             if (AttachManifestCtrl.ePage.Masters.TaskObj) {
-                errorWarningService.Modules = {};
+                // errorWarningService.Modules = {};
                 // validation findall call
                 var _obj = {
                     ModuleName: ["MyTask"],

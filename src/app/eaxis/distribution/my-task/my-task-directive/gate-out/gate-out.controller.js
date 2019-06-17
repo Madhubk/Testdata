@@ -28,7 +28,7 @@
             GateOutDirectiveCtrl.ePage.Masters.TabObj = GateOutDirectiveCtrl.tabObj;
 
             GateOutDirectiveCtrl.ePage.Masters.ErrorWarningConfig = errorWarningService;
-            errorWarningService.Modules = {};
+            // errorWarningService.Modules = {};
 
             if (GateOutDirectiveCtrl.ePage.Masters.EntityObj) {
                 GateOutDirectiveCtrl.ePage.Meta.IsLoading = true;
@@ -120,7 +120,7 @@
 
         function DocumentValidation() {
             if (GateOutDirectiveCtrl.ePage.Masters.TaskObj) {
-                errorWarningService.Modules = {};
+                // errorWarningService.Modules = {};
                 // validation findall call
                 var _obj = {
                     ModuleName: ["MyTask"],

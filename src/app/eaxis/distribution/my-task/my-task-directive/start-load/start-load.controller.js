@@ -32,7 +32,7 @@
 
             StartLoadCtrl.ePage.Masters.ErrorWarningConfig = errorWarningService;
             StartLoadCtrl.ePage.Masters.dynamicLookupConfig = dynamicLookupConfig.Entities;
-            errorWarningService.Modules = {};
+            // errorWarningService.Modules = {};
 
             if (StartLoadCtrl.ePage.Masters.EntityObj) {
                 StartLoadCtrl.ePage.Meta.IsLoading = true;
@@ -158,7 +158,7 @@
 
         function DocumentValidation() {
             if (StartLoadCtrl.ePage.Masters.TaskObj) {
-                errorWarningService.Modules = {};
+                // errorWarningService.Modules = {};
                 // validation findall call
                 var _obj = {
                     ModuleName: ["MyTask"],

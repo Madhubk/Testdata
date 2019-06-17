@@ -28,7 +28,7 @@
             AllocateDockCtrl.ePage.Masters.TabObj = AllocateDockCtrl.tabObj;
 
             AllocateDockCtrl.ePage.Masters.ErrorWarningConfig = errorWarningService;
-            errorWarningService.Modules = {};
+            // errorWarningService.Modules = {};
 
             if (AllocateDockCtrl.ePage.Masters.EntityObj) {
                 AllocateDockCtrl.ePage.Meta.IsLoading = true;
@@ -144,7 +144,7 @@
 
         function DocumentValidation() {
             if (AllocateDockCtrl.ePage.Masters.TaskObj) {
-                errorWarningService.Modules = {};
+                // errorWarningService.Modules = {};
                 // validation findall call
                 var _obj = {
                     ModuleName: ["MyTask"],

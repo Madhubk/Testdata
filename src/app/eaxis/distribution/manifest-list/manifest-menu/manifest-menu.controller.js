@@ -180,7 +180,7 @@
                     DMSManifestMenuCtrl.ePage.Masters.ConfirmDeliveryText = "Please Wait..";
                 }
                 var item = filterObjectUpdate(DMSManifestMenuCtrl.ePage.Entities.Header.Data, "IsModified");
-                apiService.post("eAxisAPI", DMSManifestMenuCtrl.ePage.Entities.Header.API.UpdateManifest.Url, DMSManifestMenuCtrl.ePage.Entities.Header.Data).then(function (response) {                    
+                apiService.post("eAxisAPI", DMSManifestMenuCtrl.ePage.Entities.Header.API.UpdateManifest.Url, DMSManifestMenuCtrl.ePage.Entities.Header.Data).then(function (response) {
                     if (response.data.Response.Status == "Success") {
                         apiService.get("eAxisAPI", dmsManifestConfig.Entities.Header.API.GetByID.Url + response.data.Response.Response.PK).then(function (response) {
                             DMSManifestMenuCtrl.ePage.Entities.Header.Data = response.data.Response;
@@ -318,7 +318,18 @@
             if (DMSManifestMenuCtrl.ePage.Masters.DockIn) {
                 DMSManifestMenuCtrl.ePage.Masters.ConfirmDockText = "Please Wait..";
                 if (DMSManifestMenuCtrl.ePage.Entities.Header.Data.GatepassList.length > 0) {
-                    DMSManifestMenuCtrl.ePage.Entities.Header.Data.GatepassList[0].DockinTime = new Date();
+                    if (DMSManifestMenuCtrl.ePage.Entities.Header.Data.GatepassList[0].DockNo) {
+                        DMSManifestMenuCtrl.ePage.Entities.Header.Data.TMSGatepassHeader = {
+                            DockNo: true
+                        }
+                        DMSManifestMenuCtrl.ePage.Entities.Header.Data.GatepassList[0].DockinTime = new Date();
+                    }
+                    else {
+                        DMSManifestMenuCtrl.ePage.Entities.Header.Data.TMSGatepassHeader = {
+                            DockNo: ""
+                        }
+                        isError = true;
+                    }
                 }
             }
             if (DMSManifestMenuCtrl.ePage.Masters.StartLoad) {
@@ -362,7 +373,7 @@
                 }
                 DMSManifestMenuCtrl.ePage.Entities.Header.CheckPoints.IsLoadingToSave = true;
                 var item = filterObjectUpdate(DMSManifestMenuCtrl.ePage.Entities.Header.Data, "IsModified");
-                apiService.post("eAxisAPI", DMSManifestMenuCtrl.ePage.Entities.Header.API.UpdateManifest.Url, DMSManifestMenuCtrl.ePage.Entities.Header.Data).then(function (response) {                    
+                apiService.post("eAxisAPI", DMSManifestMenuCtrl.ePage.Entities.Header.API.UpdateManifest.Url, DMSManifestMenuCtrl.ePage.Entities.Header.Data).then(function (response) {
                     if (response.data.Response.Status == "Success") {
                         apiService.get("eAxisAPI", dmsManifestConfig.Entities.Header.API.GetByID.Url + response.data.Response.Response.PK).then(function (response) {
                             DMSManifestMenuCtrl.ePage.Entities.Header.Data = response.data.Response;
@@ -435,6 +446,21 @@
                     }
                 });
             } else {
+                if (DMSManifestMenuCtrl.ePage.Masters.DockIn) {
+                    var _obj = {
+                        ModuleName: ["Manifest"],
+                        Code: [DMSManifestMenuCtrl.currentManifest.code],
+                        API: "Validation",
+                        FilterInput: {
+                            ModuleCode: "DMS",
+                            SubModuleCode: "GAT"
+                        },
+                        EntityObject: DMSManifestMenuCtrl.currentManifest[DMSManifestMenuCtrl.currentManifest.label].ePage.Entities.Header.Data,
+                        ErrorCode: ["E3546"]
+                    };
+                    errorWarningService.ValidateValue(_obj);
+                }
+
                 if (DMSManifestMenuCtrl.ePage.Masters.Gateout) {
                     var _obj = {
                         ModuleName: ["Manifest"],
@@ -449,7 +475,6 @@
                     };
                     errorWarningService.ValidateValue(_obj);
                 }
-                // DMSManifestMenuCtrl.ePage.Masters.ErrorWarningConfig.OnFieldValueChange('Manifest', DMSManifestMenuCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ManifestNumber, DMSManifestMenuCtrl.ePage.Entities.Header.Data.Gateout, 'E3539', true);
                 if (DMSManifestMenuCtrl.ePage.Masters.ConfirmVehicle) {
                     var _obj = {
                         ModuleName: ["Manifest"],
@@ -463,8 +488,9 @@
                         ErrorCode: ["E3538"]
                     };
                     errorWarningService.ValidateValue(_obj);
-                    // DMSManifestMenuCtrl.ePage.Masters.ErrorWarningConfig.OnFieldValueChange('Manifest', DMSManifestMenuCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ManifestNumber, DMSManifestMenuCtrl.ePage.Entities.Header.Data.GatePassList, 'E3538', true);
                 }
+                DMSManifestMenuCtrl.ePage.Masters.ConfirmDockText = "Dock In";
+                DMSManifestMenuCtrl.ePage.Masters.DockIn = false;
                 DMSManifestMenuCtrl.ePage.Masters.ConfirmVehicleText = "Confirm Vehicle";
                 DMSManifestMenuCtrl.ePage.Masters.ConfirmVehicle = false;
                 DMSManifestMenuCtrl.ePage.Masters.Gateout = false;

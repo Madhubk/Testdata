@@ -32,7 +32,7 @@
 
             StartUnloadCtrl.ePage.Masters.ErrorWarningConfig = errorWarningService;
             StartUnloadCtrl.ePage.Masters.dynamicLookupConfig = dynamicLookupConfig.Entities;
-            errorWarningService.Modules = {};
+            // errorWarningService.Modules = {};
 
             if (StartUnloadCtrl.ePage.Masters.EntityObj) {
                 StartUnloadCtrl.ePage.Meta.IsLoading = true;
@@ -51,6 +51,8 @@
                             "WarehouseCode": StartUnloadCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.WAR_WarehouseCode,
                             "GatepassNo": "NULL"
                         };
+                    } else {
+                        StartUnloadCtrl.ePage.Masters.IsDisableCompleteBtn = false;
                     }
                 }, 500);
 
@@ -72,7 +74,7 @@
 
             StartUnloadCtrl.ePage.Masters.IsDisableSaveBtn = false;
             StartUnloadCtrl.ePage.Masters.SaveBtnText = "Save";
-            // StartUnloadCtrl.ePage.Masters.IsDisableCompleteBtn = false;
+            StartUnloadCtrl.ePage.Masters.StartUnLoadText = "Start Load";
             StartUnloadCtrl.ePage.Masters.CompleteBtnText = "Complete";
             StartUnloadCtrl.ePage.Masters.SaveButtonText = "Save";
 
@@ -390,7 +392,7 @@
 
         function DocumentValidation() {
             if (StartUnloadCtrl.ePage.Masters.TaskObj) {
-                errorWarningService.Modules = {};
+                // errorWarningService.Modules = {};
                 // validation findall call
                 var _obj = {
                     ModuleName: ["MyTask"],
@@ -465,9 +467,8 @@
                     StartUnloadCtrl.ePage.Masters.GatepassDetails = response.data.Response;
                     StartUnloadCtrl.ePage.Meta.IsLoading = false;
                     StartUnloadCtrl.ePage.Entities.Header.Data = StartUnloadCtrl.ePage.Masters.GatepassDetails;
-
+                    getTaskConfigData();
                     if (!StartUnloadCtrl.ePage.Masters.IsTaskList) {
-                        getTaskConfigData();
                         getInwardDetails();
                         GetDynamicLookupConfig();
                         inwardConfig.ValidationFindall();
@@ -481,6 +482,8 @@
                             StartUnloadCtrl.ePage.Masters.str = StartUnloadCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.GatepassNo.replace(/\//g, '');
                         else
                             StartUnloadCtrl.ePage.Masters.str = "New";
+                    } else {
+                        StartUnloadCtrl.ePage.Masters.IsDisableCompleteBtn = false;
                     }
                 }
             });
@@ -601,6 +604,7 @@
         function CompleteWithSave() {
             StartUnloadCtrl.ePage.Masters.IsDisableCompleteBtn = true;
             StartUnloadCtrl.ePage.Masters.CompleteBtnText = "Please Wait...";
+            StartUnloadCtrl.ePage.Masters.StartUnLoadText = "Please Wait...";
             StartUnloadCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.LoadOrUnloadStartTime = new Date();
 
             SaveOnly('Complete').then(function (response) {

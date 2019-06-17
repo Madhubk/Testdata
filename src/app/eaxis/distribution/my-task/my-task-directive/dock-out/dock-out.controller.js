@@ -28,7 +28,7 @@
             DockOutDirectiveCtrl.ePage.Masters.TabObj = DockOutDirectiveCtrl.tabObj;
 
             DockOutDirectiveCtrl.ePage.Masters.ErrorWarningConfig = errorWarningService;
-            errorWarningService.Modules = {};
+            // errorWarningService.Modules = {};
 
             if (DockOutDirectiveCtrl.ePage.Masters.EntityObj) {
                 DockOutDirectiveCtrl.ePage.Meta.IsLoading = true;
@@ -120,7 +120,7 @@
 
         function DocumentValidation() {
             if (DockOutDirectiveCtrl.ePage.Masters.TaskObj) {
-                errorWarningService.Modules = {};
+                // errorWarningService.Modules = {};
                 // validation findall call
                 var _obj = {
                     ModuleName: ["MyTask"],

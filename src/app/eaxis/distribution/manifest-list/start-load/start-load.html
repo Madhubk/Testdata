@@ -30,7 +30,8 @@
             <div class="form-group">
                 <div class="color-999 fs-11">Gatepass No</div>
                 <div class="text-single-line">
-                    <span>{{StartLoadCtrl.ePage.Entities.Header.Data.GatepassList[0].GatepassNo ||StartLoadCtrl.ePage.Masters.Empty}}</span>
+                    <span>{{StartLoadCtrl.ePage.Entities.Header.Data.GatepassList[0].GatepassNo
+                        ||StartLoadCtrl.ePage.Masters.Empty}}</span>
                 </div>
             </div>
         </div>
@@ -38,74 +39,86 @@
             <div class="form-group">
                 <div class="color-999 fs-11">Facility</div>
                 <span>{{StartLoadCtrl.ePage.Entities.Header.Data.GatepassList[0].ORG_Code||StartLoadCtrl.ePage.Masters.Empty}}
-                    - {{StartLoadCtrl.ePage.Entities.Header.Data.GatepassList[0].ORG_FullName||StartLoadCtrl.ePage.Masters.Empty}}</span>
+                    -
+                    {{StartLoadCtrl.ePage.Entities.Header.Data.GatepassList[0].ORG_FullName||StartLoadCtrl.ePage.Masters.Empty}}</span>
             </div>
         </div>
         <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
             <div class="form-group">
                 <div class="color-999 fs-11">Transporter</div>
                 <span>{{StartLoadCtrl.ePage.Entities.Header.Data.GatepassList[0].TransporterCode||StartLoadCtrl.ePage.Masters.Empty}}
-                    - {{StartLoadCtrl.ePage.Entities.Header.Data.GatepassList[0].TransporterName||StartLoadCtrl.ePage.Masters.Empty}}</span>
+                    -
+                    {{StartLoadCtrl.ePage.Entities.Header.Data.GatepassList[0].TransporterName||StartLoadCtrl.ePage.Masters.Empty}}</span>
             </div>
         </div>
         <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
             <div class="form-group">
                 <div class="color-999 fs-11">Purpose</div>
-                <span>{{StartLoadCtrl.ePage.Entities.Header.Data.GatepassList[0].Purpose ||StartLoadCtrl.ePage.Masters.Empty}}</span>
+                <span>{{StartLoadCtrl.ePage.Entities.Header.Data.GatepassList[0].Purpose
+                    ||StartLoadCtrl.ePage.Masters.Empty}}</span>
             </div>
         </div>
         <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
             <div class="form-group">
                 <div class="color-999 fs-11">Vehicle No</div>
-                <span>{{StartLoadCtrl.ePage.Entities.Header.Data.GatepassList[0].VehicleNo ||StartLoadCtrl.ePage.Masters.Empty}}</span>
+                <span>{{StartLoadCtrl.ePage.Entities.Header.Data.GatepassList[0].VehicleNo
+                    ||StartLoadCtrl.ePage.Masters.Empty}}</span>
             </div>
         </div>
         <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
             <div class="form-group">
                 <div class="color-999 fs-11">Vehicle Type</div>
-                <span>{{StartLoadCtrl.ePage.Entities.Header.Data.GatepassList[0].VehicleType ||StartLoadCtrl.ePage.Masters.Empty}}</span>
+                <span>{{StartLoadCtrl.ePage.Entities.Header.Data.GatepassList[0].VehicleType
+                    ||StartLoadCtrl.ePage.Masters.Empty}}</span>
             </div>
         </div>
         <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
             <div class="form-group">
                 <div class="color-999 fs-11">Dock No</div>
-                <span>{{StartLoadCtrl.ePage.Entities.Header.Data.GatepassList[0].DockNo ||StartLoadCtrl.ePage.Masters.Empty}}</span>
+                <span>{{StartLoadCtrl.ePage.Entities.Header.Data.GatepassList[0].DockNo
+                    ||StartLoadCtrl.ePage.Masters.Empty}}</span>
             </div>
         </div>
         <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
             <div class="form-group">
                 <div class="color-999 fs-11">Driver Name</div>
-                <span>{{StartLoadCtrl.ePage.Entities.Header.Data.GatepassList[0].DriverName ||StartLoadCtrl.ePage.Masters.Empty}}</span>
+                <span>{{StartLoadCtrl.ePage.Entities.Header.Data.GatepassList[0].DriverName
+                    ||StartLoadCtrl.ePage.Masters.Empty}}</span>
             </div>
         </div>
         <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
             <div class="form-group">
                 <div class="color-999 fs-11">Driver Contact No</div>
-                <span>{{StartLoadCtrl.ePage.Entities.Header.Data.GatepassList[0].DriverContactNo ||StartLoadCtrl.ePage.Masters.Empty}}</span>
+                <span>{{StartLoadCtrl.ePage.Entities.Header.Data.GatepassList[0].DriverContactNo
+                    ||StartLoadCtrl.ePage.Masters.Empty}}</span>
             </div>
         </div>
         <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
             <div class="form-group">
                 <div class="color-999 fs-11">Dockin Time</div>
-                <span>{{StartLoadCtrl.ePage.Entities.Header.Data.GatepassList[0].DockinTime | date:"dd-MMM-yyyy hh:mm a"}}</span>
+                <span>{{StartLoadCtrl.ePage.Entities.Header.Data.GatepassList[0].DockinTime | date:"dd-MMM-yyyy hh:mm
+                    a"}}</span>
             </div>
         </div>
         <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
             <div class="form-group">
                 <div class="color-999 fs-11">Dockout Time</div>
-                <span>{{StartLoadCtrl.ePage.Entities.Header.Data.GatepassList[0].DockoutTime | date:"dd-MMM-yyyy hh:mm a"}}</span>
+                <span>{{StartLoadCtrl.ePage.Entities.Header.Data.GatepassList[0].DockoutTime | date:"dd-MMM-yyyy hh:mm
+                    a"}}</span>
             </div>
         </div>
         <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
             <div class="form-group">
                 <div class="color-999 fs-11">Gatein Time</div>
-                <span>{{StartLoadCtrl.ePage.Entities.Header.Data.GatepassList[0].GateinTime | date:"dd-MMM-yyyy hh:mm a"}}</span>
+                <span>{{StartLoadCtrl.ePage.Entities.Header.Data.GatepassList[0].GateinTime | date:"dd-MMM-yyyy hh:mm
+                    a"}}</span>
             </div>
         </div>
         <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
             <div class="form-group">
                 <div class="color-999 fs-11">Gateout Time</div>
-                <span>{{StartLoadCtrl.ePage.Entities.Header.Data.GatepassList[0].GateoutTime | date:"dd-MMM-yyyy hh:mm a"}}</span>
+                <span>{{StartLoadCtrl.ePage.Entities.Header.Data.GatepassList[0].GateoutTime | date:"dd-MMM-yyyy hh:mm
+                    a"}}</span>
             </div>
         </div>
     </div>

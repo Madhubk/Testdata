@@ -146,10 +146,13 @@
 <div class="clearfix mt-10 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" data-ng-if="DockinVehicleCtrl.ePage.Entities.Header.Data.GatepassList.length>0">
     <div class="border-box col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
         <div class="clearfix form-group col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 mt-10">
-            <span>Please enter Dock Number</span>
-            <div class="">
-                <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
-                    placeholder="Dock Number" data-ng-model="DockinVehicleCtrl.ePage.Entities.Header.Data.GatepassList[0].DockNo">
+            <span style="color: gray;font-weight: 600;font-size: 12px;">Please enter Dock Number</span>
+            <div class="mt-5">
+                <select chosen class="form-control" ng-model="DockinVehicleCtrl.ePage.Entities.Header.Data.GatepassList[0].DockNo"
+                    ng-options="x.DockName as x.DockName  for x in DockinVehicleCtrl.ePage.Masters.DockNoList"
+                    search-contains="true">
+                    <option value="">--Select--</option>
+                </select>
             </div>
         </div>
     </div>
