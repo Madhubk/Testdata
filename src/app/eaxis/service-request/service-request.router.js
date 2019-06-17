@@ -145,10 +145,10 @@
             
             .state('EA.SRQ.serviceRequestReport', {
                 url: '/service-request-report',
-                templateUrl: 'app/eaxis/serviceRequest/general-module/serviceRequest-report/serviceRequest-report.html',
-                controller: "WarehouseReportController as WarehouseReportCtrl",
+                templateUrl: 'app/eaxis/service-request/general-module/service-request-report/service-request-report.html',
+                controller: "ServiceRequestReportController as ServiceRequestReportCtrl",
                 ncyBreadcrumb: {
-                    label: 'Report'
+                    label: 'Service Request Report'
                 },
                 resolve: {
                     CheckAccess: ["$q", "pageAccessService", function ($q, pageAccessService) {

@@ -1,0 +1,63 @@
+<div class="clearfix">
+    <div class="col-lg-12">
+        <div class="border-box pt-10 pb-10">
+            <div class="clearfix">
+                <div class="col-lg-4">
+                    <div class="fs-12 color-aaa">Application Contact Name : </div>
+                    <div class="text-ellipsis">
+                        {{DeploymentCompletionDirectiveCtrl.ePage.Entities.Header.Data.UIDowntimeRequest.ApplicationContactName}}
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="fs-12 color-aaa">Application Contact Email : </div>
+                    <div class="text-ellipsis">
+                        {{DeploymentCompletionDirectiveCtrl.ePage.Entities.Header.Data.UIDowntimeRequest.ApplicationContactMail}}
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="fs-12 color-aaa">Priority : </div>
+                    <div class="text-ellipsis">
+                        {{DeploymentCompletionDirectiveCtrl.ePage.Entities.Header.Data.UIServiceRequest.Priority}}</div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="fs-12 color-aaa">Planned Start Date : </div>
+                    <div class="text-ellipsis">
+                        {{DeploymentCompletionDirectiveCtrl.ePage.Entities.Header.Data.UIDowntimeRequest.PlannedStartDateTime | date:'dd-MM-yyyy hh:mm a'}}
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="fs-12 color-aaa">Planned End Date : </div>
+                    <div class="text-ellipsis">
+                        {{DeploymentCompletionDirectiveCtrl.ePage.Entities.Header.Data.UIDowntimeRequest.PlannedEndDateTime | date:'dd-MM-yyyy hh:mm a'}}
+                    </div>
+                    <!-- <span class="urgent" data-ng-if="DeploymentCompletionDirectiveCtrl.ePage.Masters.ExceptionData.IsUrgent">Urgent</span> -->
+                </div>
+
+            </div>
+            <!-- <div class="clearfix mt-10 position-relative">
+                <i class="except-comment-icon fa fa-comment-o"></i>
+                <div class="except-comments-empty color-aaa pr-15 fs-12" data-ng-if="!DeploymentCompletionDirectiveCtrl.ePage.Masters.Text"></div>
+                <div class="except-comments color-aaa pr-15 fs-12" data-ng-if="DeploymentCompletionDirectiveCtrl.ePage.Masters.Text">{{DeploymentCompletionDirectiveCtrl.ePage.Masters.Text | limitTo : 2000 : 0}}</div>
+            </div> -->
+            <!-- <div class="clearfix mt-10 position-relative">
+                <i class="except-comment-icon fa fa-comment-o"></i>
+                <div class="except-comments color-aaa pr-15 fs-12" data-ng-text-truncate="DeploymentCompletionDirectiveCtrl.ePage.Masters.ExceptionData.Description"
+                    data-ng-tt-chars-threshold="150" data-ng-tt-more-label="more" data-ng-tt-less-label="less"></div>
+            </div> -->
+        </div>
+    </div>
+    <!-- <div class="col-lg-4 pr-0 pl-28">
+        <textarea class="form-control no-resize" placeholder="Enter your comments" data-ng-model="DeploymentCompletionDirectiveCtrl.ePage.Masters.ExceptionComments">
+        </textarea>
+        <div class="row mt-10">
+            <div class="col-lg-6">
+                <button class="my-task-btn my-task-directive-btn" data-ng-disabled="DeploymentCompletionDirectiveCtrl.ePage.Masters.IsApprove"
+                    data-ng-click="DeploymentCompletionDirectiveCtrl.ePage.Masters.Approval('Approve')">{{DeploymentCompletionDirectiveCtrl.ePage.Masters.IsApproveBtn}}</button>
+            </div>
+            <div class="col-lg-6">
+                <button class="my-task-btn my-task-directive-btn" data-ng-disabled="DeploymentCompletionDirectiveCtrl.ePage.Masters.IsReject"
+                    data-ng-click="DeploymentCompletionDirectiveCtrl.ePage.Masters.Approval('Reject')">{{DeploymentCompletionDirectiveCtrl.ePage.Masters.IsRejectBtn}}</button>
+            </div>
+        </div>
+    </div> -->
+</div>
