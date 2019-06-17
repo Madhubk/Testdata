@@ -72,7 +72,7 @@
                                         </thead>
                                         <tbody>
                                             <tr id="tableBody"
-                                                ng-repeat="x in PickPackingCtrl.ePage.Masters.Config.PackageListDetails.lstUIPackageItems track by $index"
+                                                ng-repeat="x in PickPackingCtrl.ePage.Masters.Config.PackageListDetails[PickPackingCtrl.currentPick.label].PackageListDetails.lstUIPackageItems track by $index"
                                                 ng-click="" ng-if='data.PK == x.PackageFK'>
                                                 <td ng-style="{ 'width':  '30px' }" class="overflow-text"><i ng-click="PickPackingCtrl.ePage.Masters.ItemDelete(x)" ng-hide='data.IsClosed == true' ng-disabled="data.IsClosed == true" class="fa fa-trash-o black" style="margin-left:5px;font-size: 13px;"></i></td>
                                                 <td ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.ProductCode}}</td>
@@ -92,7 +92,7 @@
                                     </table>
                                 </div>
                                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 norecordfound"
-                                    ng-if="PickPackingCtrl.ePage.Masters.Config.PackageListDetails.lstUIPackageItems.length==0">No Record
+                                    ng-if="PickPackingCtrl.ePage.Masters.Config.PackageListDetails[PickPackingCtrl.currentPick.label].PackageListDetails.lstUIPackageItems.length==0">No Record
                                     Found...</div>
                             </div>
                         </div>    
