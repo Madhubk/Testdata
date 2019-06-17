@@ -899,9 +899,6 @@
                     GetProductDetails();
                     GetPercentageValues();
                     GetAllDetails();
-                    GetContainerlist();
-                    GetReferencelist();
-                    GetServiceList();
                 }
             });
         }
@@ -948,6 +945,10 @@
             if (InwardLinesCtrl.currentInward.isNew) {
                 InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.ExternalReference = '';
             }
+
+            InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderContainer = $filter('orderBy')(InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderContainer, 'CreatedDateTime');
+            InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderReference = $filter('orderBy')(InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderReference, 'CreatedDateTime');
+            InwardLinesCtrl.ePage.Entities.Header.Data.UIJobServices = $filter('orderBy')(InwardLinesCtrl.ePage.Entities.Header.Data.UIJobServices, 'CreatedDateTime');
         }
 
         function GetBindValues() {
@@ -1032,60 +1033,6 @@
             if (myData == false) {
                 InwardLinesCtrl.ePage.Masters.Config.GeneralValidation(InwardLinesCtrl.currentInward);
             }
-        }
-
-        function GetContainerlist() {
-            var _filter = {
-                "WOD_FK": InwardLinesCtrl.ePage.Entities.Header.Data.PK
-            };
-            var _input = {
-                "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": InwardLinesCtrl.ePage.Entities.Header.API.Containers.FilterID
-            };
-            apiService.post("eAxisAPI", InwardLinesCtrl.ePage.Entities.Header.API.Containers.Url, _input).then(function (response) {
-                if (response.data.Response) {
-                    InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderContainer = response.data.Response;
-
-                    InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderContainer = $filter('orderBy')(InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderContainer, 'CreatedDateTime');
-                }
-            });
-        }
-
-        function GetReferencelist() {
-            var _filter = {
-                "WOD_FK": InwardLinesCtrl.ePage.Entities.Header.Data.PK,
-            };
-            var _input = {
-                "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": InwardLinesCtrl.ePage.Entities.Header.API.References.FilterID
-            };
-
-            apiService.post("eAxisAPI", InwardLinesCtrl.ePage.Entities.Header.API.References.Url, _input).then(function (response) {
-                if (response.data.Response) {
-                    InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderReference = response.data.Response;
-                    InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderReference = $filter('orderBy')(InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderReference, 'CreatedDateTime');
-                }
-            });
-        }
-
-        function GetServiceList() {
-
-            var _filter = {
-                "ParentID": InwardLinesCtrl.ePage.Entities.Header.Data.PK,
-            };
-            var _input = {
-                "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.JobService.API.FindAll.FilterID
-            };
-
-            apiService.post("eAxisAPI", appConfig.Entities.JobService.API.FindAll.Url, _input).then(function (response) {
-                if (response.data.Response) {
-                    InwardLinesCtrl.ePage.Entities.Header.Data.UIJobServices = response.data.Response;
-                    //Order By
-                    InwardLinesCtrl.ePage.Entities.Header.Data.UIJobServices = $filter('orderBy')(InwardLinesCtrl.ePage.Entities.Header.Data.UIJobServices, 'CreatedDateTime');
-
-                }
-            });
         }
 
         //#endregion
