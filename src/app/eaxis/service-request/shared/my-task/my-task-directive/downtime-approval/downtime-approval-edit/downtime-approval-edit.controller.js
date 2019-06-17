@@ -24,7 +24,7 @@
                 }
             };
 
-            DowntimeApprovalEditDirectiveCtrl.ePage.Masters.dynamicLookupConfig = dynamicLookupConfig.Entities;            
+            DowntimeApprovalEditDirectiveCtrl.ePage.Masters.dynamicLookupConfig = dynamicLookupConfig.Entities;
 
             ExceptionApprovalInit();
             GetData();
@@ -52,36 +52,22 @@
                 if (response.data.Response) {
                     console.log(response.data.Response)
 
-
                     DowntimeApprovalEditDirectiveCtrl.ePage.Entities.Header.Data = response.data.Response;
 
                     var strAddtionalInfo = JSON.parse(DowntimeApprovalEditDirectiveCtrl.ePage.Entities.Header.Data.UIDowntimeRequest.AddtionalInfo);
-                    
-                    DowntimeApprovalEditDirectiveCtrl.ePage.Entities.Header.Data.AppObj = {};
-                    DowntimeApprovalEditDirectiveCtrl.ePage.Entities.Header.Data.SrqArea = {};
 
-                    DowntimeApprovalEditDirectiveCtrl.ePage.Entities.Header.Data.AppObj.UserImpacted = strAddtionalInfo.UsersImpacted;
-                    DowntimeApprovalEditDirectiveCtrl.ePage.Entities.Header.Data.SrqArea = strAddtionalInfo.Purpose;
+                    // DowntimeApprovalEditDirectiveCtrl.ePage.Entities.Header.Data.AppObj = {};
+                    // DowntimeApprovalEditDirectiveCtrl.ePage.Entities.Header.Data.SrqArea = {};
 
-                    // var GetSavedData = response.data.Response;
-
-                    // var strAddtionalInfo = JSON.parse(GetSavedData.UIDowntimeRequest.AddtionalInfo);
-
-                    // DowntimeApprovalEditDirectiveCtrl.ePage.Entities.Header.Data.Application = GetSavedData.UIServiceRequest.Application;
-                    // DowntimeApprovalEditDirectiveCtrl.ePage.Entities.Header.Data.Environment = GetSavedData.UIDowntimeRequest.Environment;
-                    // DowntimeApprovalEditDirectiveCtrl.ePage.Entities.Header.Data.AppObj.ApplicationContactName = GetSavedData.UIDowntimeRequest.ApplicationContactName;
-                    // DowntimeApprovalEditDirectiveCtrl.ePage.Entities.Header.Data.AppObj.ApplicationContactEmail = GetSavedData.UIDowntimeRequest.ApplicationContactMail;
-                    // DowntimeApprovalEditDirectiveCtrl.ePage.Entities.Header.Data.Timezone = GetSavedData.UIDowntimeRequest.TimeZone;
-                    // DowntimeApprovalEditDirectiveCtrl.ePage.Entities.Header.Data.Priority = GetSavedData.UIServiceRequest.Priority;
-                    // DowntimeApprovalEditDirectiveCtrl.ePage.Entities.Header.Data.Module = GetSavedData.UIServiceRequest.Module;
-                    // DowntimeApprovalEditDirectiveCtrl.ePage.Entities.Header.Data.AppObj.BusinessContactName = GetSavedData.UIDowntimeRequest.BusinessContactName;
-                    // DowntimeApprovalEditDirectiveCtrl.ePage.Entities.Header.Data.AppObj.BusinessContactEmail = GetSavedData.UIDowntimeRequest.BusinessContactMail;
                     // DowntimeApprovalEditDirectiveCtrl.ePage.Entities.Header.Data.AppObj.UserImpacted = strAddtionalInfo.UsersImpacted;
-                    // DowntimeApprovalEditDirectiveCtrl.ePage.Entities.Header.Data.PlannedStartDateTime = GetSavedData.UIDowntimeRequest.PlannedStartDateTime;
-                    // DowntimeApprovalEditDirectiveCtrl.ePage.Entities.Header.Data.PlannedEndDateTimeDate = GetSavedData.UIDowntimeRequest.PlannedEndDateTime;
-                    // DowntimeApprovalEditDirectiveCtrl.ePage.Entities.Header.Data.ApplicationCurrentVersion = GetSavedData.UIDowntimeRequest.AppCurrentVersion;
-                    // DowntimeApprovalEditDirectiveCtrl.ePage.Entities.Header.Data.ApplicationReleaseVersion = GetSavedData.UIDowntimeRequest.AppReleasedVersion;
                     // DowntimeApprovalEditDirectiveCtrl.ePage.Entities.Header.Data.SrqArea = strAddtionalInfo.Purpose;
+
+                    DowntimeApprovalEditDirectiveCtrl.ePage.Entities.Header.AppObj = {};
+                    DowntimeApprovalEditDirectiveCtrl.ePage.Entities.Header.SrqArea = {};
+
+                    DowntimeApprovalEditDirectiveCtrl.ePage.Entities.Header.AppObj.UserImpacted = strAddtionalInfo.UsersImpacted;
+                    DowntimeApprovalEditDirectiveCtrl.ePage.Entities.Header.SrqArea = strAddtionalInfo.Purpose;
+
                 }
             });
         }
@@ -188,53 +174,94 @@
                 if (type == "Approved") {
                     DowntimeApprovalEditDirectiveCtrl.ePage.Masters.IsApproveBtn = "Please wait...";
                     DowntimeApprovalEditDirectiveCtrl.ePage.Masters.IsApprove = true;
-                    if (DowntimeApprovalEditDirectiveCtrl.ePage.Masters.ExceptionComments) {
-                        Update().then(function (response) {
-                            if (response.data.Status == "Success") {
-                                JobCommentInsert().then(function (response) {
-                                    if (response.data.Status == "Success") {
-                                        ApprovalTask();
-                                    } else {
-                                        toastr.error("Failed...");
-                                        DowntimeApprovalEditDirectiveCtrl.ePage.Masters.IsApprove = false;
-                                        DowntimeApprovalEditDirectiveCtrl.ePage.Masters.IsApproveBtn = "Approve";
-                                    }
-                                });
-                            } else {
-                                toastr.error("Failed...");
-                                DowntimeApprovalEditDirectiveCtrl.ePage.Masters.IsApprove = false;
-                                DowntimeApprovalEditDirectiveCtrl.ePage.Masters.IsApproveBtn = "Approve";
-                            }
-                        });
-                    } else {
-                        ApprovalTask();
-                    }
+
+                    DowntimeApprovalEditDirectiveCtrl.ePage.Entities.Header.Data.UIDowntimeRequest.Status = true;
+                    DowntimeApprovalEditDirectiveCtrl.ePage.Entities.Header.Data.UIDowntimeRequest.IsModified = true;
+                    DowntimeApprovalEditDirectiveCtrl.ePage.Entities.Header.Data.UIServiceRequest.IsModified = true;
+                    DowntimeApprovalEditDirectiveCtrl.ePage.Entities.Header.Data.UIServiceRequest.ApprovedBy = authService.getUserInfo().UserId;
+
+                    // DowntimeApprovalEditDirectiveCtrl.ePage.Entities.Header.Data.PK = DowntimeApprovalEditDirectiveCtrl.ePage.Entities.Header.Data.UIServiceRequest.PK;
+                    var _input = DowntimeApprovalEditDirectiveCtrl.ePage.Entities.Header.Data;
+
+                    // Update Data
+                    apiService.post("eAxisAPI", downtimeRequestConfig.Entities.Header.API.UpdateDownTimeRequest.Url, _input).then(function (response) {
+                        if (response.data.Status == "Success") {
+                            ApprovalTask();
+                            //toastr.success("Success...");
+                        } else {
+                            toastr.error("Failed...");
+                            DowntimeApprovalEditDirectiveCtrl.ePage.Masters.IsApprove = false;
+                            DowntimeApprovalEditDirectiveCtrl.ePage.Masters.IsApproveBtn = "Approve";
+                        }
+                    });
+
+                    // if (DowntimeApprovalEditDirectiveCtrl.ePage.Masters.ExceptionComments) {
+                    //     Update().then(function (response) {
+                    //         if (response.data.Status == "Success") {
+                    //             JobCommentInsert().then(function (response) {
+                    //                 if (response.data.Status == "Success") {
+                    //                     ApprovalTask();
+                    //                 } else {
+                    //                     toastr.error("Failed...");
+                    //                     DowntimeApprovalEditDirectiveCtrl.ePage.Masters.IsApprove = false;
+                    //                     DowntimeApprovalEditDirectiveCtrl.ePage.Masters.IsApproveBtn = "Approve";
+                    //                 }
+                    //             });
+                    //         } else {
+                    //             toastr.error("Failed...");
+                    //             DowntimeApprovalEditDirectiveCtrl.ePage.Masters.IsApprove = false;
+                    //             DowntimeApprovalEditDirectiveCtrl.ePage.Masters.IsApproveBtn = "Approve";
+                    //         }
+                    //     });
+                    // } else {
+                    //     ApprovalTask();
+                    // }
                 } else {
                     DowntimeApprovalEditDirectiveCtrl.ePage.Masters.IsRejectBtn = "Please wait...";
                     DowntimeApprovalEditDirectiveCtrl.ePage.Masters.IsReject = true;
-                    if (DowntimeApprovalEditDirectiveCtrl.ePage.Masters.ExceptionComments) {
-                        Update().then(function (response) {
-                            if (response.data.Status == "Success") {
-                                JobCommentInsert().then(function (response) {
-                                    if (response.data.Status == "Success") {
-                                        RejectTask();
-                                    } else {
-                                        toastr.error("Failed...");
-                                        DowntimeApprovalEditDirectiveCtrl.ePage.Masters.IsRejectBtn = "Reject";
-                                        DowntimeApprovalEditDirectiveCtrl.ePage.Masters.IsReject = false;
-                                    }
-                                });
-                            } else {
-                                toastr.error("Failed...");
-                                DowntimeApprovalEditDirectiveCtrl.ePage.Masters.IsRejectBtn = "Reject";
-                                DowntimeApprovalEditDirectiveCtrl.ePage.Masters.IsReject = false;
-                            }
-                        });
-                    } else {
-                        toastr.warning("Comments should be manotory...");
-                        DowntimeApprovalEditDirectiveCtrl.ePage.Masters.IsRejectBtn = "Reject";
-                        DowntimeApprovalEditDirectiveCtrl.ePage.Masters.IsReject = false;
-                    }
+
+                    DowntimeApprovalEditDirectiveCtrl.ePage.Entities.Header.Data.UIDowntimeRequest.Status = false;
+                    DowntimeApprovalEditDirectiveCtrl.ePage.Entities.Header.Data.UIDowntimeRequest.IsModified = true;
+                    DowntimeApprovalEditDirectiveCtrl.ePage.Entities.Header.Data.UIServiceRequest.IsModified = true;
+                    DowntimeApprovalEditDirectiveCtrl.ePage.Entities.Header.Data.UIServiceRequest.ApprovedBy = authService.getUserInfo().UserId;
+
+                    var _input = DowntimeApprovalEditDirectiveCtrl.ePage.Entities.Header.Data;
+
+                    // Update Data
+                    apiService.post("eAxisAPI", downtimeRequestConfig.Entities.Header.API.UpdateDownTimeRequest.Url, _input).then(function (response) {
+                        if (response.data.Status == "Success") {
+                            RejectTask();
+                            //toastr.success("Success...");
+                        } else {
+                            toastr.error("Failed...");
+                            DowntimeApprovalEditDirectiveCtrl.ePage.Masters.IsRejectBtn = "Reject";
+                            DowntimeApprovalEditDirectiveCtrl.ePage.Masters.IsReject = false;
+                        }
+                    });
+
+                    // if (DowntimeApprovalEditDirectiveCtrl.ePage.Masters.ExceptionComments) {
+                    //     Update().then(function (response) {
+                    //         if (response.data.Status == "Success") {
+                    //             JobCommentInsert().then(function (response) {
+                    //                 if (response.data.Status == "Success") {
+                    //                     RejectTask();
+                    //                 } else {
+                    //                     toastr.error("Failed...");
+                    //                     DowntimeApprovalEditDirectiveCtrl.ePage.Masters.IsRejectBtn = "Reject";
+                    //                     DowntimeApprovalEditDirectiveCtrl.ePage.Masters.IsReject = false;
+                    //                 }
+                    //             });
+                    //         } else {
+                    //             toastr.error("Failed...");
+                    //             DowntimeApprovalEditDirectiveCtrl.ePage.Masters.IsRejectBtn = "Reject";
+                    //             DowntimeApprovalEditDirectiveCtrl.ePage.Masters.IsReject = false;
+                    //         }
+                    //     });
+                    // } else {
+                    //     toastr.warning("Comments should be manotory...");
+                    //     DowntimeApprovalEditDirectiveCtrl.ePage.Masters.IsRejectBtn = "Reject";
+                    //     DowntimeApprovalEditDirectiveCtrl.ePage.Masters.IsReject = false;
+                    // }
                 }
             }
         }
@@ -289,8 +316,45 @@
         }
 
         function ApprovalTask() {
-            var _input = InputData(DowntimeApprovalEditDirectiveCtrl.ePage.Masters.TaskObj, 1, 3);
-            apiService.post("eAxisAPI", appConfig.Entities.EBPMEngine.API.CompleteProcess.Url, _input).then(function (response) {
+            // var _input = InputData(DowntimeApprovalEditDirectiveCtrl.ePage.Masters.TaskObj, 1, 3);
+            // apiService.post("eAxisAPI", appConfig.Entities.EBPMEngine.API.CompleteProcess.Url, _input).then(function (response) {
+            //     if (response.data.Response) {
+            //         DowntimeApprovalEditDirectiveCtrl.ePage.Masters.IsApprove = false;
+            //         DowntimeApprovalEditDirectiveCtrl.ePage.Masters.IsApproveBtn = "Approve";
+            //         var _data = {
+            //             IsCompleted: true,
+            //             Item: DowntimeApprovalEditDirectiveCtrl.ePage.Masters.TaskObj
+            //         };
+            //         toastr.success("Exception succesfully Approved...");
+            //         DowntimeApprovalEditDirectiveCtrl.onComplete({
+            //             $item: _data
+            //         });
+            //     } else {
+            //         DowntimeApprovalEditDirectiveCtrl.ePage.Masters.IsApprove = false;
+            //         DowntimeApprovalEditDirectiveCtrl.ePage.Masters.IsApproveBtn = "Approve";
+            //         toastr.error("Exception Approval failed...");
+            //     }
+            // });
+
+
+            // EBPMEngine / CompleteProcess
+            var _inputObj = {
+                "CompleteInstanceNo": DowntimeApprovalEditDirectiveCtrl.ePage.Masters.TaskObj.PSI_InstanceNo,
+                "CompleteStepNo": DowntimeApprovalEditDirectiveCtrl.ePage.Masters.TaskObj.WSI_StepNo,
+                "DataSlots": {
+                    "Val1": "",
+                    "Val2": "",
+                    "Val3": "",
+                    "Val4": "",
+                    "Val5": "",
+                    "Val6": "",
+                    "Val7": "",
+                    "Val8": "",
+                    "Val9": "",
+                    "Val10": ""
+                }
+            }
+            apiService.post("eAxisAPI", appConfig.Entities.EBPMEngine.API.CompleteProcess.Url, _inputObj).then(function (response) {
                 if (response.data.Response) {
                     DowntimeApprovalEditDirectiveCtrl.ePage.Masters.IsApprove = false;
                     DowntimeApprovalEditDirectiveCtrl.ePage.Masters.IsApproveBtn = "Approve";
@@ -302,6 +366,27 @@
                     DowntimeApprovalEditDirectiveCtrl.onComplete({
                         $item: _data
                     });
+
+                    // // EBPMEngine / InitiateProcess
+                    // var _input = {
+                    //     ProcessName: "DownTime_Request",
+                    //     InitBy: "",
+
+                    //     EntitySource: "SRQ",
+                    //     EntityRefCode: DowntimeApprovalEditDirectiveCtrl.ePage.Entities.Header.Data.UIServiceRequest.RequestNo,
+                    //     EntityRefKey: DowntimeApprovalEditDirectiveCtrl.ePage.Entities.Header.Data.UIServiceRequest.PK,
+
+                    //     SAP_FK: authService.getUserInfo().AppPK,
+                    //     TenantCode: authService.getUserInfo().TenantCode,
+                    //     IsModified: true
+                    // };
+
+                    // apiService.post("eAxisAPI", appConfig.Entities.EBPMEngine.API.InitiateProcess.Url, _input).then(function (response) {
+                    //     if (response.data.Response) {
+                    //         toastr.success("Process Initiated succesfully");
+                    //     }
+                    // });
+
                 } else {
                     DowntimeApprovalEditDirectiveCtrl.ePage.Masters.IsApprove = false;
                     DowntimeApprovalEditDirectiveCtrl.ePage.Masters.IsApproveBtn = "Approve";
@@ -311,8 +396,45 @@
         }
 
         function RejectTask() {
-            var _input = InputData(DowntimeApprovalEditDirectiveCtrl.ePage.Masters.TaskObj, 0, 3);
-            apiService.post("eAxisAPI", appConfig.Entities.EBPMEngine.API.CompleteProcess.Url, _input).then(function (response) {
+            // var _input = InputData(DowntimeApprovalEditDirectiveCtrl.ePage.Masters.TaskObj, 0, 3);
+            // apiService.post("eAxisAPI", appConfig.Entities.EBPMEngine.API.CompleteProcess.Url, _input).then(function (response) {
+            //     if (response.data.Response) {
+            //         DowntimeApprovalEditDirectiveCtrl.ePage.Masters.IsRejectBtn = "Reject";
+            //         DowntimeApprovalEditDirectiveCtrl.ePage.Masters.IsReject = false;
+            //         var _data = {
+            //             IsCompleted: true,
+            //             Item: DowntimeApprovalEditDirectiveCtrl.ePage.Masters.TaskObj
+            //         };
+            //         toastr.success("Exception succesfully Rejected...");
+            //         DowntimeApprovalEditDirectiveCtrl.onComplete({
+            //             $item: _data
+            //         });
+            //     } else {
+            //         DowntimeApprovalEditDirectiveCtrl.ePage.Masters.IsRejectBtn = "Reject";
+            //         DowntimeApprovalEditDirectiveCtrl.ePage.Masters.IsReject = false;
+            //         toastr.error("Exception Rejection failed...");
+            //     }
+            // });
+
+            // EBPMEngine / CompleteProcess
+            var _inputObj = {
+                "CompleteInstanceNo": DowntimeApprovalEditDirectiveCtrl.ePage.Masters.TaskObj.PSI_InstanceNo,
+                "CompleteStepNo": DowntimeApprovalEditDirectiveCtrl.ePage.Masters.TaskObj.WSI_StepNo,
+                "DataSlots": {
+                    "Val1": "",
+                    "Val2": "",
+                    "Val3": "",
+                    "Val4": "",
+                    "Val5": "",
+                    "Val6": "",
+                    "Val7": "",
+                    "Val8": "",
+                    "Val9": "",
+                    "Val10": ""
+                }
+            }
+
+            apiService.post("eAxisAPI", appConfig.Entities.EBPMEngine.API.CompleteProcess.Url, _inputObj).then(function (response) {
                 if (response.data.Response) {
                     DowntimeApprovalEditDirectiveCtrl.ePage.Masters.IsRejectBtn = "Reject";
                     DowntimeApprovalEditDirectiveCtrl.ePage.Masters.IsReject = false;

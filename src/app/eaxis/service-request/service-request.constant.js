@@ -97,6 +97,20 @@
                 'app/eaxis/service-request/shared/my-task/my-task-directive/downtime-approval/downtime-approval-edit/downtime-approval-edit.controller.js',
                 'app/eaxis/service-request/shared/my-task/my-task-directive/downtime-approval/downtime-approval-edit/downtime-approval-edit.directive.js'
             ]
+        },{
+            name: 'deploymentCompletion',
+            files: [
+                'app/eaxis/service-request/shared/my-task/my-task-directive/deployment-completion/deployment-completion.css',
+                'app/eaxis/service-request/shared/my-task/my-task-directive/deployment-completion/deployment-completion.controller.js',
+                'app/eaxis/service-request/shared/my-task/my-task-directive/deployment-completion/deployment-completion.directive.js'
+            ]
+        },{
+            name: 'deploymentCompletionEdit',
+            files: [
+                'app/eaxis/service-request/shared/my-task/my-task-directive/deployment-completion/deployment-completion-edit/deployment-completion-edit.css',
+                'app/eaxis/service-request/shared/my-task/my-task-directive/deployment-completion/deployment-completion-edit/deployment-completion-edit.controller.js',
+                'app/eaxis/service-request/shared/my-task/my-task-directive/deployment-completion/deployment-completion-edit/deployment-completion-edit.directive.js'
+            ]
         },
         // endregion 
         
@@ -107,6 +121,11 @@
             files: [
                 'app/eaxis/service-request/general-module/service-request-report/service-request-report.controller.js',
                 'app/eaxis/service-request/general-module/service-request-report/service-request-report.css'
+            ]
+        },{
+            name: 'reportGrid',
+            files: [
+                'app/eaxis/service-request/general-module/service-request-report/report-grid-page/report-grid-page.controller.js'
             ]
         }
         // endregion

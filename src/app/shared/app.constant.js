@@ -630,8 +630,8 @@
             //endregion
         ],
         URL: {
-            eAxisAPI: "http://dev.myhubplusapi.20cube.com/wms/",
-            //eAxisAPI: "http://localhost:4396/",
+            //eAxisAPI: "http://dev.myhubplusapi.20cube.com/wms/",
+            eAxisAPI: "http://localhost:4396/",
             authAPI: "http://dev.myhubplusapi.20cube.com/wmsauth/",
             alertAPI: "http://uat.api.20cube.com/alert/"
         },

@@ -72,26 +72,29 @@
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
         <div class="panel panel-default">
             <div class="panel-body">
-                <div class="clearfix padding-top-10">
-                    <form>
-                        <fieldset disabled="true">
-                            <div class="form-row">
-                                <div class="form-group col-md-1">
-                                    <label class="control-label text-single-line">Users Impacted</label>
-                                </div>
-                                <div
-                                    ng-repeat="item in MyRequestReadOnlyCtrl.ePage.Entities.Header.Data.AppObj.UserImpacted">
-                                    <div class="form-group col-md-1">
+                <!-- <div class="clearfix padding-top-10"> -->
+                <form>
+                    <fieldset disabled="true">
+                        <div class="form-row">
+                            <div class="form-group col-md-1">
+                                <label class="control-label text-single-line">Users Impacted</label>
+                            </div>
+                            <!-- <div ng-repeat="item in MyRequestReadOnlyCtrl.ePage.Entities.Header.Data.AppObj.UserImpacted"> -->
+                            <!-- <div class="form-group col-md-1">
                                         <label class="container">{{item.name}}
                                             <input type="checkbox" ng-model="item.isenabled">
                                             <span class="checkmark"></span>
                                         </label>
-                                    </div>
-                                </div>
+                                    </div> -->
+                            <div ng-repeat="item in MyRequestReadOnlyCtrl.ePage.Entities.Header.Data.AppObj.UserImpacted"
+                                class="form-group col-md-1" ng-if="item.isenabled">
+                                <label>{{item.name}}</label>
                             </div>
-                        </fieldset>
-                    </form>
-                </div>
+                            <!-- </div> -->
+                        </div>
+                    </fieldset>
+                </form>
+                <!-- </div> -->
             </div>
         </div>
     </div>
@@ -157,15 +160,15 @@
                             </tr>
                         </table> -->
                         <table id="customers">
-                                <tr>
-                                    <th>Sno</th>
-                                    <th>Purpose</th>
-                                </tr>
-                                <tr ng-repeat="x in MyRequestReadOnlyCtrl.ePage.Entities.Header.Data.SrqArea">
-                                    <td>{{ $index + 1 }}</td>
-                                    <td>{{ x.Name }}</td>
-                                </tr>
-                            </table>
+                            <tr>
+                                <th>Sno</th>
+                                <th>Purpose</th>
+                            </tr>
+                            <tr ng-repeat="x in MyRequestReadOnlyCtrl.ePage.Entities.Header.Data.SrqArea">
+                                <td>{{ $index + 1 }}</td>
+                                <td>{{ x.Name }}</td>
+                            </tr>
+                        </table>
                     </form>
                 </div>
             </div>
