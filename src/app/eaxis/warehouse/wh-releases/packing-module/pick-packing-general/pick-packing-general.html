@@ -147,10 +147,6 @@
                                 data-ng-if="PackingGeneralCtrl.ePage.Entities.Header.TableProperties.PackingOutwardLines.lpsno.isenabled"
                                 ng-style="{ 'width': PackingGeneralCtrl.ePage.Entities.Header.TableProperties.PackingOutwardLines.lpsno.width + 'px' }"
                                 title="S.No">S.No</th>
-                            <th id="lpickno"
-                                data-ng-if="PackingGeneralCtrl.ePage.Entities.Header.TableProperties.PackingOutwardLines.lpickno.isenabled"
-                                ng-style="{ 'width': PackingGeneralCtrl.ePage.Entities.Header.TableProperties.PackingOutwardLines.lpickno.width + 'px' }"
-                                title="Pick No">Pick No</th>
                             <th id="lproductcode"
                                 data-ng-if="PackingGeneralCtrl.ePage.Entities.Header.TableProperties.PackingOutwardLines.lproductcode.isenabled"
                                 ng-style="{ 'width': PackingGeneralCtrl.ePage.Entities.Header.TableProperties.PackingOutwardLines.lproductcode.width + 'px' }"
@@ -190,7 +186,7 @@
                         </tr>
                     </thead>
                     <tbody id="GeneralItemCustTable{{PackingGeneralCtrl.currentPick.label}}">
-                        <tr id="tableBody" ng-repeat="x in PackingGeneralCtrl.ePage.Masters.PickReleaseLine"
+                        <tr id="tableBody" ng-repeat="x in PackingGeneralCtrl.ePage.Masters.PickReleaseLine | orderBy:'Units'"
                             ng-click="PackingGeneralCtrl.ePage.Masters.setSelectedRowForReleaseLine(x,$index);"
                             ng-class="{row_active: (PackingGeneralCtrl.ePage.Masters.selectedRowForReleaseLine==$index),copy_row_active :(x.IsCopied==true)}"
                             table-properties="PackingGeneralCtrl.ePage.Entities.Header.TableProperties.PackingOutwardLines"
@@ -199,10 +195,6 @@
                                 data-ng-show='PackingGeneralCtrl.ePage.Entities.Header.TableProperties.PackingOutwardLines.lpsno.isenabled'
                                 ng-style="{ 'width': PackingGeneralCtrl.ePage.Entities.Header.TableProperties.PackingOutwardLines.lpsno.width + 'px' }">
                                 {{$index+1}}</td>
-                            <td id="lpickno"
-                                data-ng-show='PackingGeneralCtrl.ePage.Entities.Header.TableProperties.PackingOutwardLines.lpickno.isenabled'
-                                ng-style="{ 'width': PackingGeneralCtrl.ePage.Entities.Header.TableProperties.PackingOutwardLines.lpickno.width + 'px' }"
-                                class="overflow-text">{{x.PickNo|| PackingGeneralCtrl.ePage.Masters.emptyText}}</td>
                             <td id="lproductcode"
                                 data-ng-show='PackingGeneralCtrl.ePage.Entities.Header.TableProperties.PackingOutwardLines.lproductcode.isenabled'
                                 ng-style="{ 'width': PackingGeneralCtrl.ePage.Entities.Header.TableProperties.PackingOutwardLines.lproductcode.width + 'px' }"

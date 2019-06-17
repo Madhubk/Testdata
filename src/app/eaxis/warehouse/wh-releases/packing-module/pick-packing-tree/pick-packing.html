@@ -1,18 +1,20 @@
 <div>
-    <button class="btn btn-primary btn-sm pull-right margin-right-10 mt-5"
+    <button class="btn btn-primary btn-sm pull-right margin-right-10 mt-0"
         data-ng-click="PickPackingCtrl.ePage.Masters.AddPackage()"
-        data-ng-disabled="PickPackingCtrl.ePage.Masters.DisableAddpackBtn">Add Package</button>
+        data-ng-disabled="PickPackingCtrl.ePage.Masters.DisableAddpackBtn" style="top:-45px;">Add Package</button>
 </div>
-<div ng-if="PickPackingCtrl.ePage.Masters.SaveBtnEnable">
+
+<div ng-if="PickPackingCtrl.ePage.Masters.EnablePrintLabel == true">
+    <button class="btn btn-primary btn-sm pull-right margin-right-10 mt-0"
+        data-ng-click="PickPackingCtrl.ePage.Masters.PrintLabel()" style="top:-45px;">
+        Print Label</button>
+</div>
+
+<!-- <div ng-if="PickPackingCtrl.ePage.Masters.SaveBtnEnable">
     <button class="btn btn-primary btn-sm pull-right margin-right-10 mt-5"
         data-ng-click="PickPackingCtrl.ePage.Masters.SavePackage()">Save
         Package</button>
-</div>
-<div ng-if="PickPackingCtrl.ePage.Masters.EnablePrintLabel == true">
-    <button class="btn btn-primary btn-sm pull-right margin-right-10 mt-5"
-        data-ng-click="PickPackingCtrl.ePage.Masters.PrintLabel()">
-        Print Label</button>
-</div>
+</div> -->
 
 <!-- loading -->
 <div data-ng-if="PickPackingCtrl.ePage.Masters.tree.length==0">
@@ -32,18 +34,21 @@
                     <div class="widget-header" ng-click="PickPackingCtrl.ePage.Masters.SelectthePack(data,$index)" ng-class="data.IsSelectedValue?'row_active':''">
                        
                         <!-- for model Edit -->
-                        <i ng-click="PickPackingCtrl.ePage.Masters.EditPackType(data)" class="fa fa-pencil-square-o"></i>
+                        <i ng-click="PickPackingCtrl.ePage.Masters.EditPackType(data)" ng-hide='data.IsClosed == true' ng-disabled="data.IsClosed == true" class="fa fa-pencil-square-o"></i>
 
                         <!-- for toogle to show item value -->
                         <span class="widget-caption" data-toggle="collapse" data-target="#demo{{data.IsSelectedValue}}" style="padding-right: 5px;">
                             <i class="fa fa-angle-down" aria-hidden="true"></i></span>
 
-                        <span class="widget-caption">{{data.PackageId}}_{{data.Sequence}}</span>
+                        <span class="widget-caption"><b>{{data.PackageId}}-{{data.Sequence}}</b></span>
+                        <span class="widget-caption" style="font-size: 12px; margin-left: 20px;">{{data.PackageQty}}-{{data.NKPackType}}</span> 
+                        <span class="widget-caption" style="font-size: 10px; margin-left: 10px;"> ({{data.Length}}*{{data.Width}}*{{data.Height}}) {{data.DimensionUQ}}</span>
 
                         <!-- for add and delete -->
                         <div class="widget-buttons">
-                            <i ng-click="PickPackingCtrl.ePage.Masters.Add(data)" class="fa fa-plus blue"></i>
-                            <i ng-click="PickPackingCtrl.ePage.Masters.Delete(data)" class="fa fa-times darkorange"></i>
+                            <i ng-hide='data.IsClosed == true' ng-disabled="data.IsClosed == true" ng-click="PickPackingCtrl.ePage.Masters.ClosePackage(data)" class="fa fa-window-close-o" style="margin-right:2px;"></i>
+                            <i ng-hide='data.IsClosed == true' ng-disabled="data.IsClosed == true" ng-click="PickPackingCtrl.ePage.Masters.Add(data)" class="fa fa-plus blue"></i>
+                            <i ng-hide='data.IsClosed == true' ng-disabled="data.IsClosed == true" ng-click="PickPackingCtrl.ePage.Masters.Delete(data)" class="fa fa-times darkorange"></i>
                         </div>
                     </div>  
                      <!--Widget Body-->
@@ -69,7 +74,7 @@
                                             <tr id="tableBody"
                                                 ng-repeat="x in PickPackingCtrl.ePage.Masters.Config.PackageListDetails.lstUIPackageItems track by $index"
                                                 ng-click="" ng-if='data.PK == x.PackageFK'>
-                                                <td ng-style="{ 'width':  '30px' }" class="overflow-text"><i ng-click="PickPackingCtrl.ePage.Masters.ItemDelete(x)"  class="fa fa-trash-o black" style="margin-left:5px;font-size: 13px;"></i></td>
+                                                <td ng-style="{ 'width':  '30px' }" class="overflow-text"><i ng-click="PickPackingCtrl.ePage.Masters.ItemDelete(x)" ng-hide='data.IsClosed == true' ng-disabled="data.IsClosed == true" class="fa fa-trash-o black" style="margin-left:5px;font-size: 13px;"></i></td>
                                                 <td ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.ProductCode}}</td>
                                                 <td ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.ProductDesc}}
                                                 </td>
@@ -97,7 +102,7 @@
             </div>
     </script>
     <!-- parent node Repeat -->
-    <div class="col-lg-12 col-sm-12 col-xs-12 tree-style pr-0">
+    <div class="col-lg-12 col-sm-12 col-xs-12 tree-style pr-0" style="top:-30px;">
         <div ng-repeat="data in PickPackingCtrl.ePage.Masters.tree track by $index"
             ng-include="'tree_item_renderer.html'"></div>
     </div>

@@ -96,6 +96,7 @@
                     PackingHeaderCtrl.ePage.Masters.NewHeader = false;
                     // console.log(PackingHeaderCtrl.ePage.Masters.Config.PackageListDetails);
                     toastr.success("Package Created Successfully");
+                    PackingHeaderCtrl.ePage.Masters.Headersaved = true;
                     // toastr.warning("Please Save to Add Package");
                 } else {
                     toastr.error("Failed to Create Package");
