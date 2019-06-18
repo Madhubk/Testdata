@@ -5,9 +5,9 @@
         .module("Application")
         .controller("DowntimeApprovalDirectiveController", DowntimeApprovalDirectiveController);
 
-    DowntimeApprovalDirectiveController.$inject = ["$q", "helperService", "apiService", "appConfig", "toastr", "authService"];
+    DowntimeApprovalDirectiveController.$inject = ["$q", "helperService", "apiService", "appConfig", "toastr", "authService", "downtimeRequestConfig"];
 
-    function DowntimeApprovalDirectiveController($q, helperService, apiService, appConfig, toastr, authService) {
+    function DowntimeApprovalDirectiveController($q, helperService, apiService, appConfig, toastr, authService, downtimeRequestConfig) {
         var DowntimeApprovalDirectiveCtrl = this;
 
         function Init() {
@@ -16,10 +16,15 @@
                 "Prefix": "Exception_Approval_Task",
                 "Masters": {},
                 "Meta": helperService.metaBase(),
-                "Entities": {}
+                "Entities": {
+                    "Header": {
+                        "Data": {}
+                    }
+                },
             };
 
             InitExceptionApproval();
+            GetData();
         }
 
         function InitExceptionApproval() {
@@ -38,6 +43,28 @@
                 }
             }
             TaskGetById();
+        }
+
+        function GetData() {
+            // Get saved data
+            var GetPK = DowntimeApprovalDirectiveCtrl.taskObj;
+
+            apiService.get("eAxisAPI", downtimeRequestConfig.Entities.Header.API.GetByID.Url + "/" + GetPK.EntityRefKey).then(function (response) {
+                if (response.data.Response) {
+                    console.log(response.data.Response)
+
+                    DowntimeApprovalDirectiveCtrl.ePage.Entities.Header.Data = response.data.Response;
+                    
+                    // var strAddtionalInfo = JSON.parse(DowntimeApprovalDirectiveCtrl.ePage.Entities.Header.Data.UIDowntimeRequest.AddtionalInfo);
+                    
+                    // DowntimeApprovalDirectiveCtrl.ePage.Entities.Header.Data.AppObj = {};
+                    // DowntimeApprovalDirectiveCtrl.ePage.Entities.Header.Data.SrqArea = {};
+
+                    // DowntimeApprovalDirectiveCtrl.ePage.Entities.Header.Data.AppObj.UserImpacted = strAddtionalInfo.UsersImpacted;
+                    // DowntimeApprovalDirectiveCtrl.ePage.Entities.Header.Data.SrqArea = strAddtionalInfo.Purpose;
+
+                }
+            });
         }
 
         function TaskGetById() {

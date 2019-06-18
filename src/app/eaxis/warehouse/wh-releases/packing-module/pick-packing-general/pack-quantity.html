@@ -3,7 +3,7 @@
         <button type="button" class="close"
             ng-click="PackingGeneralCtrl.ePage.Masters.CloseEditActivityModal()">&times;</button>
         <h4 class="modal-title" id="modal-title">
-            <strong>{{PackingGeneralCtrl.ePage.Masters.Config.SelectedPackage.PackageId}}_{{PackingGeneralCtrl.ePage.Masters.Config.SelectedPackage.Sequence}}</strong>
+            <strong>{{PackingGeneralCtrl.ePage.Masters.Config.SelectedPackage[PackingGeneralCtrl.currentPick.label].SelectedPackage.PackageId}}-{{PackingGeneralCtrl.ePage.Masters.Config.SelectedPackage[PackingGeneralCtrl.currentPick.label].SelectedPackage.Sequence}}</strong>
         </h4>
     </div>
     <div class="modal-body">

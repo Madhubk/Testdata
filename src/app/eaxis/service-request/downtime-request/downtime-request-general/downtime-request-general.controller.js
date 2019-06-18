@@ -205,7 +205,7 @@
                     apiService.post("eAxisAPI", downtimeRequestConfig.Entities.Header.API.InsertDownTimeRequest.Url, _input).then(function (response) {
                         if (response.data.Response) {
                             console.log(response.data.Response)
-                            toastr.error("Save Successful...")
+                            toastr.success("Save Successful...")
                             ClearData();
 
                             // Get saved data

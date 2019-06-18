@@ -97,10 +97,9 @@
             "GetErrorWarningCountParent": GetErrorWarningCountParent,
             "ShowErrorWarningModal": ShowErrorWarningModal,
             "ValidationFindall": ValidationFindall,
-            "SelectedReleaseLine": "",
-            "SelectedPackage": "",
-            "PackageListDetails":"",
-            "ItemDeleted":""
+            "SelectedPackage": [],
+            "PackageListDetails":[],
+            "ItemDeleted":[]
         };
         return exports;
 
