@@ -636,7 +636,7 @@
             //endregion
         ],
         URL: {
-            //eAxisAPI: "http://dev.myhubplusapi.20cube.com/wms/",
+            eAxisAPI: "http://dev.myhubplusapi.20cube.com/wms/",
             authAPI: "http://dev.myhubplusapi.20cube.com/wmsauth/",
             alertAPI: "http://uat.api.20cube.com/alert/"
         },
