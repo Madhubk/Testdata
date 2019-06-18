@@ -1,8 +1,19 @@
 <div class="col-lg-12 col-sm-12 col-xs-12 p-0">
-    <div ng-if="PackingGeneralCtrl.ePage.Masters.Config.ItemDeleted[PackingGeneralCtrl.currentPick.label].ItemDeleted == true" ng-init='PackingGeneralCtrl.ePage.Masters.GetPickReleaseLine()'>
+    <div ng-if="PackingGeneralCtrl.ePage.Masters.Config.ItemDeleted[PackingGeneralCtrl.currentPick.label].ItemDeleted == true"
+        ng-init='PackingGeneralCtrl.ePage.Masters.GetPickReleaseLine()'>
     </div>
     <div class="col-lg-6 col-sm-6 col-xs-6 p-0 border-class">
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 custompadding">
+        <div class="col-lg-12 col-sm-12 col-xs-12 mt-5">
+            <div class="alert alert-warning fade in" ng-if="PackingGeneralCtrl.ePage.Masters.selectedRow ==  false">
+                <button class="close" data-dismiss="alert">
+                    ×
+                </button>
+                <i class="fa-fw fa fa-warning"></i>
+                <strong>Warning</strong> Select the Outward to Create Package
+            </div>
+        </div>
+
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 custompadding pt-0">
             <span ng-if="PackingGeneralCtrl.ePage.Masters.EnablePackageHeader == false">
                 <button type="button" class="btn btn-sm btn-outline-primary pull-right" style="font-size:11px"
                     title="Create Package" data-ng-click="PackingGeneralCtrl.ePage.Masters.CreatePackage()"><span
@@ -126,7 +137,7 @@
                 ng-if="PackingGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutward.length==0">No Record Found...</div>
         </div>
         <!-- Pick and Release Lines -->
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 custompadding">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 custompadding pt-0">
             <span class="text-single-line custom_label" style="padding:10px;">Pick Release Lines</span>
             <span ng-if="PackingGeneralCtrl.ePage.Masters.selectedReleaseLineRow">
                 <button class="btn btn-primary btn-sm pull-right margin-right-10 mt-5"
@@ -155,7 +166,7 @@
                                 data-ng-if="PackingGeneralCtrl.ePage.Entities.Header.TableProperties.PackingOutwardLines.lproductdescription.isenabled"
                                 ng-style="{ 'width': PackingGeneralCtrl.ePage.Entities.Header.TableProperties.PackingOutwardLines.lproductdescription.width + 'px' }"
                                 title="Product Description">Product Description</th>
-                                <th id="lpackunits"
+                            <th id="lpackunits"
                                 data-ng-if="PackingGeneralCtrl.ePage.Entities.Header.TableProperties.PackingOutwardLines.lpackunits.isenabled"
                                 ng-style="{ 'width': PackingGeneralCtrl.ePage.Entities.Header.TableProperties.PackingOutwardLines.lpackunits.width + 'px' }"
                                 title="Packed Quantity">Packed Quantity</th>
@@ -186,11 +197,13 @@
                         </tr>
                     </thead>
                     <tbody id="GeneralItemCustTable{{PackingGeneralCtrl.currentPick.label}}">
-                        <tr id="tableBody" ng-repeat="x in PackingGeneralCtrl.ePage.Masters.PickReleaseLine | orderBy:'Units'"
+                        <tr id="tableBody"
+                            ng-repeat="x in PackingGeneralCtrl.ePage.Masters.PickReleaseLine | orderBy:'Units'"
                             ng-click="PackingGeneralCtrl.ePage.Masters.setSelectedRowForReleaseLine(x,$index);"
                             ng-class="{row_active: (PackingGeneralCtrl.ePage.Masters.selectedRowForReleaseLine==$index),copy_row_active :(x.IsCopied==true)}"
                             table-properties="PackingGeneralCtrl.ePage.Entities.Header.TableProperties.PackingOutwardLines"
-                            unique-id="GeneralItemCustTable{{PackingGeneralCtrl.currentPick.label}}" row-position="$index">
+                            unique-id="GeneralItemCustTable{{PackingGeneralCtrl.currentPick.label}}"
+                            row-position="$index">
                             <td id="lpsno"
                                 data-ng-show='PackingGeneralCtrl.ePage.Entities.Header.TableProperties.PackingOutwardLines.lpsno.isenabled'
                                 ng-style="{ 'width': PackingGeneralCtrl.ePage.Entities.Header.TableProperties.PackingOutwardLines.lpsno.width + 'px' }">
@@ -261,6 +274,9 @@
     </div> -->
 
     <div class="col-lg-6 col-sm-6 col-xs-6 p-0 border-class">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 norecordfound" data-ng-if="!PackingGeneralCtrl.ePage.Masters.EnablePackageHeader">
+                No Record Found...
+        </div>
         <div data-ng-if="PackingGeneralCtrl.ePage.Masters.EnablePackageHeader">
             <packing-header current-pick="PackingGeneralCtrl.currentPick"
                 current-outward="PackingGeneralCtrl.ePage.Masters.SelectedOutwardLineDetails"
