@@ -156,6 +156,11 @@
                                 "HttpType": "POST",
                                 "Url": "WmsWarehouse/FindAll",
                                 "FilterID": "WMSWARH"
+                            },
+                            "AttachOrViewPick": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "WmsOutwardList/AttachOrViewPick",
                             }
                         },
 
