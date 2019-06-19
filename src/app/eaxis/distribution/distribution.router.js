@@ -182,27 +182,6 @@
                 }
             })
 
-            .state('EA.DMS.TrasnportsReports', {
-                url: '/transports-report',
-                templateUrl: 'app/eaxis/distribution/transports-reports/reports.html',
-                controller: "TransportsReportController as ReportCtrl",
-                ncyBreadcrumb: {
-                    label: 'Transport Reports'
-                },
-                resolve: {
-                    CheckAccess: ["$q", "pageAccessService", function ($q, pageAccessService) {
-                        var deferred = $q.defer();
-                        if (pageAccessService.CheckAuthToken()) {
-                            deferred.resolve();
-                        }
-                        return deferred.promise;
-                    }],
-                    LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
-                        return $ocLazyLoad.load(["chromeTab", "errorWarning", "confirmation", "compareDate", "dynamicListModal", "dynamicList", "dynamicLookup", "dynamicControl", "dynamicGrid", 'transportsReport', 'ReportGrid']);
-                    }]
-                }
-            })
-
             .state('EA.DMS.Otp', {
                 url: '/otp-list',
                 templateUrl: 'app/eaxis/distribution/otp-list/otp-list.html',

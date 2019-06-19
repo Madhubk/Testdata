@@ -9,7 +9,7 @@
                 files: [
                     'app/eaxis/shared/eaxis.css',
                     'app/eaxis/shared/eaxis-config.factory.js',
-					'app/eaxis/shared/eaxis.controller.js'
+                    'app/eaxis/shared/eaxis.controller.js'
                 ]
             }, {
                 name: 'eAxisHome',
@@ -204,8 +204,25 @@
                 files: [
                     'app/eaxis/shared/activity-tab/activity-tab.directive.js'
                 ]
-            }
+            },
             // endregion
+
+            //region General Reports
+            {
+                name: 'GeneralReports',
+                files: [
+                    'app/eaxis/general-reports/reports.css',
+                    'app/eaxis/general-reports/reports.controller.js',
+                ]
+            },
+            {
+                name: 'ReportGridPage',
+                files: [
+                    'app/eaxis/general-reports/grid-page/grid-page.controller.js'
+                ]
+            },
+
+            //endregion
         ]
     };
 

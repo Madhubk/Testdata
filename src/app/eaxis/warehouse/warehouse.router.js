@@ -322,26 +322,7 @@
                 }
             })
 
-            .state('EA.WMS.warehouseReport', {
-                url: '/warehouse-report',
-                templateUrl: 'app/eaxis/warehouse/general-module/warehouse-report/warehouse-report.html',
-                controller: "WarehouseReportController as WarehouseReportCtrl",
-                ncyBreadcrumb: {
-                    label: 'Report'
-                },
-                resolve: {
-                    CheckAccess: ["$q", "pageAccessService", function ($q, pageAccessService) {
-                        var deferred = $q.defer();
-                        if (pageAccessService.CheckAuthToken()) {
-                            deferred.resolve();
-                        }
-                        return deferred.promise;
-                    }],
-                    LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
-                        return $ocLazyLoad.load(["chromeTab", "confirmation", "compareDate", "dynamicListModal", "dynamicList", "dynamicLookup", "dynamicControl", "dynamicGrid", "drogAndDrop", "oneLevelMapping", "Summernote", "warehouseReports", "reportGrid"]);
-                    }]
-                }
-            })
+
 
             .state('EA.WMS.generateBarcode', {
                 url: '/generate-barcode',
@@ -688,27 +669,7 @@
                     }]
                 }
             })
-            .state('EA.WMS.sparePartsReport', {
-                url: '/spare-parts-report',
-                templateUrl: 'app/eaxis/warehouse/general-module/spms-report/spms-report.html',
-                controller: "SPMSReportController as SPMSReportCtrl",
-                ncyBreadcrumb: {
-                    label: 'Report'
-                },
-                resolve: {
-                    CheckAccess: ["$q", "pageAccessService", function ($q, pageAccessService) {
-                        var deferred = $q.defer();
-                        if (pageAccessService.CheckAuthToken()) {
-                            deferred.resolve();
-                        }
-                        return deferred.promise;
-                    }],
-                    LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
-                        return $ocLazyLoad.load(["chromeTab", "confirmation", "compareDate", "dynamicListModal", "dynamicList", "dynamicLookup", "dynamicControl", "dynamicGrid", "drogAndDrop", "oneLevelMapping", "Summernote", "spmsReports", "spmsReportGrid"]);
-                    }]
-                }
-            })
-
+            
             .state('EA.WMS.PendingPickup', {
                 url: '/pending-pickup',
                 templateUrl: 'app/eaxis/warehouse/pending-pickup/pending-pickup.html',
