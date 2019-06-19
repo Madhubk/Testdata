@@ -32,7 +32,7 @@
                         return deferred.promise;
                     }],
                     LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
-                        return $ocLazyLoad.load(["chromeTab", "confirmation", "compareDate", "dynamicListModal", "dynamicList", "dynamicLookup", "dynamicControl", "dynamicGrid", "drogAndDrop", "oneLevelMapping", "Summernote", "IconColorList", "eAxisDynamicDashboard", "dynamicDashboard", "PreviewDashboard", "AsnReceivedWithStatus", "AsnTrend", "OpenSO", "PickWithShortfall", "PutawayStatus", "GrnStatus", "CycleCountJobs", "Notification"]);
+                        return $ocLazyLoad.load(["chromeTab", "confirmation", "compareDate", "dynamicListModal", "dynamicList", "dynamicLookup", "dynamicControl", "dynamicGrid", "drogAndDrop", "oneLevelMapping", "Summernote", "IconColorList", "eAxisDynamicDashboard", "dynamicDashboard", "PreviewDashboard", "AsnReceivedWithStatus", "AsnTrend", "OpenSO", "PickWithShortfall", "PutawayStatus", "GrnStatus", "CycleCountJobs", "Notification","inward"]);
                     }]
                 }
             })

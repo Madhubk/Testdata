@@ -5,9 +5,9 @@
         .module("Application")
         .controller("NotificationController", NotificationController);
 
-    NotificationController.$inject = ["$rootScope", "$scope", "authService", "apiService", "appConfig", "helperService", "warehouseConfig", "dynamicDashboardConfig"];
+    NotificationController.$inject = ["$rootScope", "inwardConfig", "authService", "apiService", "appConfig", "helperService", "warehouseConfig", "dynamicDashboardConfig"];
 
-    function NotificationController($rootScope, $scope, authService, apiService, appConfig, helperService, warehouseConfig, dynamicDashboardConfig) {
+    function NotificationController($rootScope, inwardConfig, authService, apiService, appConfig, helperService, warehouseConfig, dynamicDashboardConfig) {
 
         var NotificationCtrl = this;
 
@@ -23,6 +23,7 @@
             };
             NotificationCtrl.ePage.Masters.WarehouseChanged = WarehouseChanged;
             NotificationCtrl.ePage.Masters.GetOpenSODetails = GetOpenSODetails;
+            NotificationCtrl.ePage.Masters.CreateNewInward = CreateNewInward;
 
             GetWarehouseValues();
             if (NotificationCtrl.selectedComponent.DC_DSC_Name == "My Task")
@@ -199,6 +200,10 @@
                     NotificationCtrl.ePage.Masters.ExceptionList = response.data.Response;
                 }
             });
+        }
+
+        function CreateNewInward() {
+            inwardConfig.Entities.Header.Message = true;
         }
 
         Init();
