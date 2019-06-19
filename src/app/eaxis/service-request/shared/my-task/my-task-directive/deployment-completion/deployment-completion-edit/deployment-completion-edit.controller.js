@@ -220,9 +220,9 @@
                 if (type == "Approved") {
                     DeploymentCompletionEditDirectiveCtrl.ePage.Masters.IsApproveBtn = "Please wait...";
                     DeploymentCompletionEditDirectiveCtrl.ePage.Masters.IsApprove = true;
-
+                    
                     DeploymentCompletionEditDirectiveCtrl.ePage.Entities.Header.Data.UIDowntimeRequest.Status = true;
-                    DeploymentCompletionEditDirectiveCtrl.ePage.Entities.Header.Data.UIDowntimeRequest.IsModified = true;
+                    DeploymentCompletionEditDirectiveCtrl.ePage.Entities.Header.Data.UIDowntimeRequest.IsModified = true;                    
                     DeploymentCompletionEditDirectiveCtrl.ePage.Entities.Header.Data.UIServiceRequest.IsModified = true;
                     DeploymentCompletionEditDirectiveCtrl.ePage.Entities.Header.Data.UIServiceRequest.ApprovedBy = authService.getUserInfo().UserId;
 
