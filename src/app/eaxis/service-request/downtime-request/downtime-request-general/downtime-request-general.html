@@ -491,9 +491,19 @@
             </div>
         </div>
         <div class="eaxis-footer-strip">
-            <span class="">
+            <!-- <span class="">
                 <button class="btn btn-primary btn-sm pull-right  margin-right-50 mt-3"
                     data-ng-click="DowntimeRequestGeneralCtrl.ePage.Masters.InsertData(DowntimeRequestGeneralCtrl.ePage.Entities.Header.Data)">Save</button>
+            </span> -->
+            
+            <!-- <span class="">
+                <button class="btn btn-primary btn-sm pull-right  margin-right-50 mt-3"
+                    data-ng-click="DowntimeRequestGeneralCtrl.ePage.Masters.Close()">Close</button>
+            </span> -->
+            <span class="">
+                <button class="btn btn-primary btn-sm pull-right  margin-right-50 mt-3"
+                    data-ng-click="DowntimeRequestGeneralCtrl.ePage.Masters.InsertData(DowntimeRequestGeneralCtrl.ePage.Entities.Header.Data)"
+                    data-ng-disabled="DowntimeRequestGeneralCtrl.ePage.Masters.IsSave">{{DowntimeRequestGeneralCtrl.ePage.Masters.IsSaveBtn}}</button>
             </span>
         </div>
     </fieldset>
