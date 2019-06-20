@@ -61,6 +61,8 @@
             DowntimeRequestGeneralCtrl.ePage.Masters.GetData = GetData;
             DowntimeRequestGeneralCtrl.ePage.Masters.Close = Close;
 
+            DowntimeRequestGeneralCtrl.ePage.Masters.DowntimeRequestTitle = "Downtime Request";
+
             //Time Zone
             DowntimeRequestGeneralCtrl.ePage.Masters.TimeZone = TimeZone;
 
@@ -150,7 +152,7 @@
 
             ValidateField();
 
-            if (DowntimeRequestGeneralCtrl.ePage.Masters.IsValidateField = true) {
+            if (DowntimeRequestGeneralCtrl.ePage.Masters.IsValidateField == true) {
                 var _data = $item;
 
                 // Get PK value
@@ -244,6 +246,8 @@
                                         DowntimeRequestGeneralCtrl.ePage.Entities.Header.Data.ApplicationReleaseVersion = GetSavedData.UIDowntimeRequest.AppReleasedVersion;
                                         DowntimeRequestGeneralCtrl.ePage.Entities.Header.Data.SrqArea = strAddtionalInfo.Purpose;
 
+                                        DowntimeRequestGeneralCtrl.ePage.Masters.DowntimeRequestTitle = "Downtime Request - " + GetSavedData.UIServiceRequest.RequestNo;
+
                                         DowntimeRequestGeneralCtrl.ePage.Masters.IsSaveBtn = "Save";
                                         //DowntimeRequestGeneralCtrl.ePage.Masters.IsSave = false;
                                     }
@@ -270,11 +274,32 @@
         function ValidateField() {
             DowntimeRequestGeneralCtrl.ePage.Masters.IsValidateField = false;
 
-            if (DowntimeRequestGeneralCtrl.ePage.Entities.Header.Data.Application == "") {
+            if (DowntimeRequestGeneralCtrl.ePage.Entities.Header.Data.Application == null) {
                 toastr.error("Please Select Application");
             }
-            else if (DowntimeRequestGeneralCtrl.ePage.Entities.Header.Data.Environment == "") {
+            else if (DowntimeRequestGeneralCtrl.ePage.Entities.Header.Data.Environment == null) {
                 toastr.error("Please Enter Environment");
+            }
+            else if (DowntimeRequestGeneralCtrl.ePage.Entities.Header.Data.Timezone == null) {
+                toastr.error("Please Select Time Zone");
+            } 
+            else if (DowntimeRequestGeneralCtrl.ePage.Entities.Header.Data.Priority == null) {
+                toastr.error("Please Select Priority");
+            }
+            else if (DowntimeRequestGeneralCtrl.ePage.Entities.Header.Data.Module == null) {
+                toastr.error("Please Enter Module")
+            }
+            else if (DowntimeRequestGeneralCtrl.ePage.Entities.Header.Data.PlannedStartDateTime == null) {
+                toastr.error("Please Select Planned Start Date & Time");
+            }
+            else if (DowntimeRequestGeneralCtrl.ePage.Entities.Header.Data.PlannedEndDateTimeDate == null) {
+                toastr.error("Please Select Planned End Date & Time");
+            }
+            else if (DowntimeRequestGeneralCtrl.ePage.Entities.Header.Data.ApplicationCurrentVersion == null) {
+                toastr.error("Please Enter Application Current Version");
+            }
+            else if (DowntimeRequestGeneralCtrl.ePage.Entities.Header.Data.ApplicationReleaseVersion == null) {
+                toastr.error("Please Enter Application Released Version");
             }
             else {
                 DowntimeRequestGeneralCtrl.ePage.Masters.IsValidateField = true;

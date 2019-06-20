@@ -33,6 +33,11 @@
     padding: 5px 5px;
 }
 
+#customers td1, #customers th1 {
+    border: 1px solid #ddd;
+    padding: 5px 5px;
+}
+
 /*#customers td:first-child, #customers th:first-child {
     border-left: 1px solid transparent;
 }
