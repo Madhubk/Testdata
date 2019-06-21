@@ -409,7 +409,7 @@
         // #endregion
         // #region - Move to repair warehouse
         function MoveToRepairWarehouse() {
-            if (DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList.length > 0) {                
+            if (DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList.length > 0) {
                 var count = 0;
                 var count1 = 0;
                 angular.forEach(DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList, function (value, key) {
@@ -462,7 +462,7 @@
             DamagedSkuToolbarCtrl.ePage.Masters.modalInstance1.dismiss('cancel');
         }
 
-        function SaveRMANumber() {            
+        function SaveRMANumber() {
             DamagedSkuToolbarCtrl.ePage.Masters.SaveButtonText = "Please Wait..";
             DamagedSkuToolbarCtrl.ePage.Masters.IsDisableSaveBtn = true;
             var _count = 0;
@@ -847,6 +847,8 @@
                                             value1.WorkOrderLineStatus = "MSW";
                                         } else if (type == "REP") {
                                             value1.WorkOrderLineStatus = "MRW";
+                                            value1.UISPMSPickupReport.RMA_Cust_Ref = value.RMA_Cust_Ref;
+                                            value1.UISPMSPickupReport.RMA_No = value.RMA_No;
                                         } else if (type == "SIT") {
                                             value1.WorkOrderLineStatus = "MSTW";
                                         }
@@ -962,6 +964,8 @@
                                 response.data.Response[0].CTR_ToWH_Code = DamagedSkuToolbarCtrl.ePage.Masters.OutwardData.UIWmsOutwardHeader.TransferTo_WAR_Code;
                                 response.data.Response[0].CTR_ToWH_Fk = DamagedSkuToolbarCtrl.ePage.Masters.OutwardData.UIWmsOutwardHeader.TransferTo_WAR_FK;
                                 response.data.Response[0].CTR_ToWH_Name = DamagedSkuToolbarCtrl.ePage.Masters.OutwardData.UIWmsOutwardHeader.TransferTo_WAR_Name;
+                                response.data.Response[0].RMA_Cust_Ref = value.RMA_Cust_Ref;
+                                response.data.Response[0].RMA_No = value.RMA_No;
                                 if (type == "SCR")
                                     response.data.Response[0].PickupLineStatus = "MTR Raised to Scrap Warehouse";
                                 else if (type == "REP")
