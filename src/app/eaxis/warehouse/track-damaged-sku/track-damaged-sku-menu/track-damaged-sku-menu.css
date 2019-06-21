@@ -17,3 +17,9 @@
     height: 250px;
     margin: 120px auto;
 }
+
+.custom-label-pickup {
+    color: #006cff;
+    font-size: 14px;
+    font-weight: 600;
+}
