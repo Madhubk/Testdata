@@ -74,7 +74,7 @@
 
             StartUnloadCtrl.ePage.Masters.IsDisableSaveBtn = false;
             StartUnloadCtrl.ePage.Masters.SaveBtnText = "Save";
-            StartUnloadCtrl.ePage.Masters.StartUnLoadText = "Start Load";
+            StartUnloadCtrl.ePage.Masters.StartUnLoadText = "Start Unload";
             StartUnloadCtrl.ePage.Masters.CompleteBtnText = "Complete";
             StartUnloadCtrl.ePage.Masters.SaveButtonText = "Save";
 

@@ -48,6 +48,11 @@
             DamagedSkuToolbarCtrl.ePage.Masters.UpdateInventory = UpdateInventory;
             DamagedSkuToolbarCtrl.ePage.Masters.UpdateData = UpdateData;
             DamagedSkuToolbarCtrl.ePage.Masters.CloseEditActivityModal = CloseEditActivityModal;
+
+            DamagedSkuToolbarCtrl.ePage.Masters.SaveRMANumber = SaveRMANumber;
+            DamagedSkuToolbarCtrl.ePage.Masters.CloseRMANumber = CloseRMANumber;
+            DamagedSkuToolbarCtrl.ePage.Masters.SaveButtonText = "Save";
+            DamagedSkuToolbarCtrl.ePage.Masters.IsDisableSaveBtn = false;
             InitAction();
         }
 
@@ -404,7 +409,7 @@
         // #endregion
         // #region - Move to repair warehouse
         function MoveToRepairWarehouse() {
-            if (DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList.length > 0) {
+            if (DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList.length > 0) {                
                 var count = 0;
                 var count1 = 0;
                 angular.forEach(DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList, function (value, key) {
@@ -425,21 +430,7 @@
                     confirmation.showModal({}, modalOptions)
                         .then(function (result) {
                             if ((count + count1) == DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList.length) {
-                                DamagedSkuToolbarCtrl.ePage.Masters.IsMoveToTestingWarehouseBtn = true;
-                                DamagedSkuToolbarCtrl.ePage.Masters.MoveToRepairWarehouseBtnText = "Please Wait...";
-                                var _filter = {
-                                    "WarehouseType": "REP"
-                                };
-                                var _input = {
-                                    "searchInput": helperService.createToArrayOfObject(_filter),
-                                    "FilterID": warehouseConfig.Entities.WmsWarehouse.API.FindAll.FilterID
-                                };
-                                apiService.post("eAxisAPI", warehouseConfig.Entities.WmsWarehouse.API.FindAll.Url, _input).then(function (response) {
-                                    if (response.data.Response) {
-                                        DamagedSkuToolbarCtrl.ePage.Masters.WarehouseList = response.data.Response;
-                                        CreateMaterialTransferOutward('REP');
-                                    }
-                                });
+                                OpenModalToUpdateRMANumber().result.then(function (response) { }, function () { });
                             } else {
                                 toastr.warning("This line(s) cannot be moved to Repair warehouse");
                             }
@@ -448,26 +439,66 @@
                         });
                 } else {
                     if (count == DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList.length) {
-                        DamagedSkuToolbarCtrl.ePage.Masters.IsMoveToTestingWarehouseBtn = true;
-                        DamagedSkuToolbarCtrl.ePage.Masters.MoveToRepairWarehouseBtnText = "Please Wait...";
-                        var _filter = {
-                            "WarehouseType": "REP"
-                        };
-                        var _input = {
-                            "searchInput": helperService.createToArrayOfObject(_filter),
-                            "FilterID": warehouseConfig.Entities.WmsWarehouse.API.FindAll.FilterID
-                        };
-                        apiService.post("eAxisAPI", warehouseConfig.Entities.WmsWarehouse.API.FindAll.Url, _input).then(function (response) {
-                            if (response.data.Response) {
-                                DamagedSkuToolbarCtrl.ePage.Masters.WarehouseList = response.data.Response;
-                                CreateMaterialTransferOutward('REP');
-                            }
-                        });
+                        OpenModalToUpdateRMANumber().result.then(function (response) { }, function () { });
                     } else {
                         toastr.warning("This line(s) cannot be moved to Repair warehouse");
                     }
                 }
             }
+        }
+
+        function OpenModalToUpdateRMANumber() {
+            return DamagedSkuToolbarCtrl.ePage.Masters.modalInstance1 = $uibModal.open({
+                animation: true,
+                backdrop: "static",
+                keyboard: false,
+                windowClass: "create-inward-modal right address",
+                scope: $scope,
+                size: "md",
+                templateUrl: "app/eaxis/warehouse/track-damaged-sku-toolbar/update-rma-number.html"
+            });
+        }
+        function CloseRMANumber() {
+            DamagedSkuToolbarCtrl.ePage.Masters.modalInstance1.dismiss('cancel');
+        }
+
+        function SaveRMANumber() {            
+            DamagedSkuToolbarCtrl.ePage.Masters.SaveButtonText = "Please Wait..";
+            DamagedSkuToolbarCtrl.ePage.Masters.IsDisableSaveBtn = true;
+            var _count = 0;
+            angular.forEach(DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList, function (value, key) {
+                if (value.RMA_Cust_Ref && value.RMA_No) {
+                    _count = _count + 1;
+                }
+            });
+            if (_count == DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList.length) {
+                CloseRMANumber();
+                ReadyToMoveToRepairWarehouse();
+                DamagedSkuToolbarCtrl.ePage.Masters.SaveButtonText = "Save";
+                DamagedSkuToolbarCtrl.ePage.Masters.IsDisableSaveBtn = false;
+            } else {
+                DamagedSkuToolbarCtrl.ePage.Masters.SaveButtonText = "Save";
+                DamagedSkuToolbarCtrl.ePage.Masters.IsDisableSaveBtn = false;
+                toastr.warning("RMA customer reference no and RMA number is Mandatory");
+            }
+        }
+
+        function ReadyToMoveToRepairWarehouse() {
+            DamagedSkuToolbarCtrl.ePage.Masters.IsMoveToTestingWarehouseBtn = true;
+            DamagedSkuToolbarCtrl.ePage.Masters.MoveToRepairWarehouseBtnText = "Please Wait...";
+            var _filter = {
+                "WarehouseType": "REP"
+            };
+            var _input = {
+                "searchInput": helperService.createToArrayOfObject(_filter),
+                "FilterID": warehouseConfig.Entities.WmsWarehouse.API.FindAll.FilterID
+            };
+            apiService.post("eAxisAPI", warehouseConfig.Entities.WmsWarehouse.API.FindAll.Url, _input).then(function (response) {
+                if (response.data.Response) {
+                    DamagedSkuToolbarCtrl.ePage.Masters.WarehouseList = response.data.Response;
+                    CreateMaterialTransferOutward('REP');
+                }
+            });
         }
         // #endregion
         // #region - Move to Site Warehouse
