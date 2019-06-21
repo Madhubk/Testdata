@@ -143,9 +143,11 @@
                     PackingGeneralCtrl.ePage.Masters.Config.ItemDeleted[PackingGeneralCtrl.currentPick.label] = {
                         ItemDeleted: false
                     }
+                    setSelectedRowForReleaseLine(PackingGeneralCtrl.ePage.Masters.PickReleaseLine[PackingGeneralCtrl.ePage.Masters.selectedRowForReleaseLine], PackingGeneralCtrl.ePage.Masters.selectedRowForReleaseLine);
                     // PackingGeneralCtrl.ePage.Masters.ReleaseLineList.Units = '';
                 }
             });
+
         }
 
         function GetPackageHeaderList() {
