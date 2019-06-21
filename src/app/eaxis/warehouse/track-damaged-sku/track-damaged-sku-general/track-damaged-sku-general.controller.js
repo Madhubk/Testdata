@@ -177,6 +177,11 @@
                 TrackDamageGeneralCtrl.ePage.Entities.Header.Data.TTC_ToWH_Code = "";
             if (TrackDamageGeneralCtrl.ePage.Entities.Header.Data.TTC_ToWH_Name == null)
                 TrackDamageGeneralCtrl.ePage.Entities.Header.Data.TTC_ToWH_Name = "";
+                
+            if (TrackDamageGeneralCtrl.ePage.Entities.Header.Data.PIL_ProductCode == null)
+                TrackDamageGeneralCtrl.ePage.Entities.Header.Data.PIL_ProductCode = "";
+            if (TrackDamageGeneralCtrl.ePage.Entities.Header.Data.PIL_ProductDesc == null)
+                TrackDamageGeneralCtrl.ePage.Entities.Header.Data.PIL_ProductDesc = "";
         }
 
         function GetBindValues() {

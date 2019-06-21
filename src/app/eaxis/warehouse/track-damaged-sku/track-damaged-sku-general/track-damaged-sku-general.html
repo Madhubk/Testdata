@@ -1,3 +1,8 @@
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 custompadding">
+    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 custom-label-pickup">
+        Basic Details
+    </div>
+</div>
 <div class="clearfix mt-10">
     <div class="clearfix mt-10 mb-20 col-lg-12">
         <!-- Pickup Line No -->
@@ -270,26 +275,6 @@
                 </div>
             </div>
         </div>
-        <!-- Pack Type -->
-        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-3 col-xl-3">
-            <div class="form-group">
-                <label class="control-label text-single-line">Pack Type</label>
-                <div class="">
-                    <input type="text" disabled class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
-                        placeholder="Pack Type" data-ng-model="TrackDamageGeneralCtrl.ePage.Entities.Header.Data.PackType">
-                </div>
-            </div>
-        </div>
-        <!-- No of Packs -->
-        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-3 col-xl-3">
-            <div class="form-group">
-                <label class="control-label text-single-line">No of Packs</label>
-                <div class="">
-                    <input type="text" disabled class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
-                        placeholder="No of Packs" data-ng-model="TrackDamageGeneralCtrl.ePage.Entities.Header.Data.Packs">
-                </div>
-            </div>
-        </div>
         <!-- Pickup Product Status-->
         <div class="col-xs-12 col-sm-12 col-md-2 col-lg-3 col-xl-3">
             <div class="form-group">
@@ -307,6 +292,185 @@
                 <div class="">
                     <input type="text" disabled class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
                         placeholder="Product Condition" data-ng-model="TrackDamageGeneralCtrl.ePage.Entities.Header.Data.ProductCondition">
+                </div>
+            </div>
+        </div>
+        <!-- Testing Reference No -->
+        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="control-label text-single-line">STC Number</label>
+                <div class="">
+                    <input type="text" disabled class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
+                        placeholder="STC Number" data-ng-model="TrackDamageGeneralCtrl.ePage.Entities.Header.Data.TestingRefNo">
+                </div>
+            </div>
+        </div>
+        <!-- RMA Cust Ref No -->
+        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="control-label text-single-line">RMA Cust Ref No </label>
+                <div class="">
+                    <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
+                        placeholder="RMA Cust Ref No " data-ng-model="TrackDamageGeneralCtrl.ePage.Entities.Header.Data.RMA_Cust_Ref">
+                </div>
+            </div>
+        </div>
+        <!-- RMA Number -->
+        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="control-label text-single-line">RMA Number</label>
+                <div class="">
+                    <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
+                        placeholder="RMA Number" data-ng-model="TrackDamageGeneralCtrl.ePage.Entities.Header.Data.RMA_No">
+                </div>
+            </div>
+        </div>
+        <!-- Faulty Unit Transfer Date -->
+        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="control-label text-single-line">Faulty Unit Transfer Date</label>
+                <div class="input-group input-group-sm">
+                    <input type="text" class="form-control" placeholder="{{TrackDamageGeneralCtrl.ePage.Masters.DatePicker.Options.dateTimeFormat}}"
+                        datetime-picker="{{TrackDamageGeneralCtrl.ePage.Masters.DatePicker.Options.dateTimeFormat}}"
+                        ng-model="TrackDamageGeneralCtrl.ePage.Entities.Header.Data.CTR_OUT_FinalizedDate" is-open="TrackDamageGeneralCtrl.ePage.Masters.DatePicker.isOpen['isCTR_OUT_FinalizedDate']"
+                        datepicker-options="TrackDamageGeneralCtrl.ePage.Masters.DatePicker.Options"
+                        datepicker-append-to-body="false" close-on-selection="false" enable-time="true" enable-date="true"
+                        default-date="" default-time="" when-closed="" save-as="TrackDamageGeneralCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                        custom-date-time-format />
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" data-ng-click="TrackDamageGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isCTR_OUT_FinalizedDate')">
+                            <i class="fa fa-calendar"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <!-- Faulty Transfer Challan No -->
+        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="control-label text-single-line">Faulty Transfer Challan No</label>
+                <div class="">
+                    <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
+                        placeholder="Faulty Transfer Challan No" data-ng-model="TrackDamageGeneralCtrl.ePage.Entities.Header.Data.CTR_OUT_ExternalRefNumber">
+                </div>
+            </div>
+        </div>
+        <!-- Type Of Node / System -->
+        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="control-label text-single-line">Type Of Node / System</label>
+                <div class="">
+                    <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
+                        placeholder="Type Of Node / System" data-ng-model="TrackDamageGeneralCtrl.ePage.Entities.Header.Data.TypeOfNodeOrSystem">
+                </div>
+            </div>
+        </div>
+        <!-- Fault Situation -->
+        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="control-label text-single-line">Fault Situation</label>
+                <div class="">
+                    <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
+                        placeholder="Fault Situation" data-ng-model="TrackDamageGeneralCtrl.ePage.Entities.Header.Data.FaultSituation">
+                </div>
+            </div>
+        </div>
+        <!-- Faulty Category -->
+        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="control-label text-single-line">Faulty Category</label>
+                <div class="">
+                    <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
+                        placeholder="Faulty Category" data-ng-model="TrackDamageGeneralCtrl.ePage.Entities.Header.Data.FaultCategory">
+                </div>
+            </div>
+        </div>
+        <!-- Unit Failure -->
+        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="control-label text-single-line">Unit Failure</label>
+                <div class="">
+                    <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
+                        placeholder="Unit Failure" data-ng-model="TrackDamageGeneralCtrl.ePage.Entities.Header.Data.UnitFailure">
+                </div>
+            </div>
+        </div>
+        <!-- LED Status -->
+        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="control-label text-single-line">LED Status</label>
+                <div class="">
+                    <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
+                        placeholder="LED Status" data-ng-model="TrackDamageGeneralCtrl.ePage.Entities.Header.Data.LEDStatus">
+                </div>
+            </div>
+        </div>
+        <!-- Dead On Arrival Fault Descriptions -->
+        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="control-label text-single-line">Dead On Arrival Fault Descriptions</label>
+                <div class="">
+                    <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
+                        placeholder="Dead On Arrival Fault Descriptions" data-ng-model="TrackDamageGeneralCtrl.ePage.Entities.Header.Data.DeadOnArrivalFaultDescriptions">
+                </div>
+            </div>
+        </div>
+        <!-- MINI_LINK Fault Descriptions -->
+        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="control-label text-single-line">MINI_LINK Fault Descriptions</label>
+                <div class="">
+                    <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
+                        placeholder="MINI_LINK Fault Descriptions" data-ng-model="TrackDamageGeneralCtrl.ePage.Entities.Header.Data.MINI_LINKFaultDescriptions">
+                </div>
+            </div>
+        </div>
+        <!-- Radio_RBS2000 Fault Descriptions -->
+        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="control-label text-single-line">Radio_RBS2000 Fault Descriptions</label>
+                <div class="">
+                    <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
+                        placeholder="Radio_RBS2000 Fault Descriptions" data-ng-model="TrackDamageGeneralCtrl.ePage.Entities.Header.Data.Radio_RBS2000FaultDescriptions">
+                </div>
+            </div>
+        </div>
+        <!-- Other Products Fault Descriptions -->
+        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="control-label text-single-line">Other Products Fault Descriptions</label>
+                <div class="">
+                    <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
+                        placeholder="Other Products Fault Descriptions" data-ng-model="TrackDamageGeneralCtrl.ePage.Entities.Header.Data.OtherProductsFaultDescriptions">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 custompadding">
+    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 custom-label-pickup">
+        Additional Details
+    </div>
+</div>
+<div class="clearfix mt-10">
+    <div class="clearfix mt-10 mb-20 col-lg-12">
+        <!-- Pack Type -->
+        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="control-label text-single-line">Pack Type</label>
+                <div class="">
+                    <input type="text" disabled class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
+                        placeholder="Pack Type" data-ng-model="TrackDamageGeneralCtrl.ePage.Entities.Header.Data.PackType">
+                </div>
+            </div>
+        </div>
+        <!-- No of Packs -->
+        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="control-label text-single-line">No of Packs</label>
+                <div class="">
+                    <input type="text" disabled class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
+                        placeholder="No of Packs" data-ng-model="TrackDamageGeneralCtrl.ePage.Entities.Header.Data.Packs">
                 </div>
             </div>
         </div>
@@ -337,176 +501,6 @@
                 <div class="">
                     <input type="text" disabled class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
                         placeholder="Inward External RefNo" data-ng-model="TrackDamageGeneralCtrl.ePage.Entities.Header.Data.PIW_ExternalRefNo">
-                </div>
-            </div>
-        </div>
-        <!-- Central To Repair (or) Scrap Outward No -->
-        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-3 col-xl-3">
-            <div class="form-group">
-                <label class="control-label text-single-line">Central To Repair (or) Scrap Outward No</label>
-                <div class="">
-                    <input type="text" disabled class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
-                        placeholder="Central To Repair (or) Scrap Outward No" data-ng-model="TrackDamageGeneralCtrl.ePage.Entities.Header.Data.CTR_OUT_RefNo">
-                </div>
-            </div>
-        </div>
-        <!-- CTR Outward External Reference -->
-        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-3 col-xl-3">
-            <div class="form-group">
-                <label class="control-label text-single-line">CTR Outward External Reference</label>
-                <div class="">
-                    <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
-                        placeholder="External Reference" data-ng-model="TrackDamageGeneralCtrl.ePage.Entities.Header.Data.CTR_OUT_ExternalRefNumber">
-                </div>
-            </div>
-        </div>
-        <!-- CTR Outward Customer Reference -->
-        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-3 col-xl-3">
-            <div class="form-group">
-                <label class="control-label text-single-line">CTR Outward Customer Reference</label>
-                <div class="">
-                    <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
-                        placeholder="Customer Reference" data-ng-model="TrackDamageGeneralCtrl.ePage.Entities.Header.Data.CTR_CustomerReference">
-                </div>
-            </div>
-        </div>
-        <!-- Central To Repair (or) Scrap Outward Warehouse -->
-        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-3 col-xl-3">
-            <div class="form-group">
-                <label class="control-label text-single-line">Central To Repair (or) Scrap Outward From Warehouse</label>
-                <div class="">
-                    <input type="text" disabled class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
-                        placeholder="Central To Repair (or) Scrap Outward Warehouse" data-ng-model="TrackDamageGeneralCtrl.ePage.Entities.Header.Data.CTR_FromWH_Code">
-                </div>
-            </div>
-        </div>
-        <!-- Central To Repair (or) Scrap Outward To Warehouse-->
-        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-3 col-xl-3">
-            <div class="form-group">
-                <label class="control-label text-single-line">Central To Repair (or) Scrap Outward To Warehouse</label>
-                <div class="">
-                    <input type="text" disabled class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
-                        placeholder="Central To Repair (or) Scrap Outward To Warehouse" data-ng-model="TrackDamageGeneralCtrl.ePage.Entities.Header.Data.CTR_ToWH_Code">
-                </div>
-            </div>
-        </div>
-        <!--Central To Repair (or) Scrap Inward No  -->
-        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-3 col-xl-3">
-            <div class="form-group">
-                <label class="control-label text-single-line">Central To Repair (or) Scrap Inward No</label>
-                <div class="">
-                    <input type="text" disabled class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
-                        placeholder="Central To Repair (or) Scrap Inward No" data-ng-model="TrackDamageGeneralCtrl.ePage.Entities.Header.Data.CTR_INW_RefNo">
-                </div>
-            </div>
-        </div>
-        <!-- CTR Inward Customer Reference -->
-        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-3 col-xl-3">
-            <div class="form-group">
-                <label class="control-label text-single-line">CTR Inward Customer Reference</label>
-                <div class="">
-                    <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
-                        placeholder="Customer Reference" data-ng-model="TrackDamageGeneralCtrl.ePage.Entities.Header.Data.CTR_INW_CustomerReference">
-                </div>
-            </div>
-        </div>
-        <!-- CTR Inward External Reference -->
-        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-3 col-xl-3">
-            <div class="form-group">
-                <label class="control-label text-single-line">CTR Inward External Reference</label>
-                <div class="">
-                    <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
-                        placeholder="External Reference" data-ng-model="TrackDamageGeneralCtrl.ePage.Entities.Header.Data.CTR_INW_ExternalRefNumber">
-                </div>
-            </div>
-        </div>
-        <!--Central To Testing Outward No  -->
-        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-3 col-xl-3">
-            <div class="form-group">
-                <label class="control-label text-single-line">Central To Testing Outward No</label>
-                <div class="">
-                    <input type="text" disabled class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
-                        placeholder="Central To Testing Outward No" data-ng-model="TrackDamageGeneralCtrl.ePage.Entities.Header.Data.CTT_OUT_RefNo">
-                </div>
-            </div>
-        </div>
-        <!-- CTT Outward Customer Reference -->
-        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-3 col-xl-3">
-            <div class="form-group">
-                <label class="control-label text-single-line">CTT Outward Customer Reference</label>
-                <div class="">
-                    <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
-                        placeholder="Customer Reference" data-ng-model="TrackDamageGeneralCtrl.ePage.Entities.Header.Data.CTT_OUT_CustomerReference">
-                </div>
-            </div>
-        </div>
-        <!-- CTT Outward External Reference -->
-        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-3 col-xl-3">
-            <div class="form-group">
-                <label class="control-label text-single-line">CTT Outward External Reference</label>
-                <div class="">
-                    <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
-                        placeholder="External Reference" data-ng-model="TrackDamageGeneralCtrl.ePage.Entities.Header.Data.CTT_OUT_ExternalRefNumber">
-                </div>
-            </div>
-        </div>
-        <!--Central To Testing Outward Warehouse-->
-        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-3 col-xl-3">
-            <div class="form-group">
-                <label class="control-label text-single-line">Central To Testing Outward From Warehouse</label>
-                <div class="">
-                    <input type="text" disabled class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
-                        placeholder="Central To Testing Outward Warehouse" data-ng-model="TrackDamageGeneralCtrl.ePage.Entities.Header.Data.CTT_FromWH_Code">
-                </div>
-            </div>
-        </div>
-        <!--Central To Testing Outward To Warehouse  -->
-        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-3 col-xl-3">
-            <div class="form-group">
-                <label class="control-label text-single-line">Central To Testing Outward To Warehouse</label>
-                <div class="">
-                    <input type="text" disabled class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
-                        placeholder="Central To Testing Outward To Warehouse" data-ng-model="TrackDamageGeneralCtrl.ePage.Entities.Header.Data.CTT_ToWH_Code">
-                </div>
-            </div>
-        </div>
-        <!--Central To Testing Inward No-->
-        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-3 col-xl-3">
-            <div class="form-group">
-                <label class="control-label text-single-line">Central To Testing Inward No</label>
-                <div class="">
-                    <input type="text" disabled class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
-                        placeholder="Central To Testing Inward No" data-ng-model="TrackDamageGeneralCtrl.ePage.Entities.Header.Data.CTT_INW_RefNo">
-                </div>
-            </div>
-        </div>
-        <!-- CTT Inward Customer Reference -->
-        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-3 col-xl-3">
-            <div class="form-group">
-                <label class="control-label text-single-line">CTT Inward Customer Reference</label>
-                <div class="">
-                    <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
-                        placeholder="Customer Reference" data-ng-model="TrackDamageGeneralCtrl.ePage.Entities.Header.Data.CTT_INW_CustomerReference">
-                </div>
-            </div>
-        </div>
-        <!-- CTT Inward External Reference -->
-        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-3 col-xl-3">
-            <div class="form-group">
-                <label class="control-label text-single-line">CTT Inward External Reference</label>
-                <div class="">
-                    <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
-                        placeholder="External Reference" data-ng-model="TrackDamageGeneralCtrl.ePage.Entities.Header.Data.CTT_INW_ExternalRefNumber">
-                </div>
-            </div>
-        </div>
-        <!-- Testing Reference No -->
-        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-3 col-xl-3">
-            <div class="form-group">
-                <label class="control-label text-single-line">Testing Reference No</label>
-                <div class="">
-                    <input type="text" disabled class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
-                        placeholder="Testing Reference No" data-ng-model="TrackDamageGeneralCtrl.ePage.Entities.Header.Data.TestingRefNo">
                 </div>
             </div>
         </div>
@@ -590,6 +584,86 @@
                 </div>
             </div>
         </div>
+        <!--Central To Testing Outward No  -->
+        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="control-label text-single-line">Central To Testing Outward No</label>
+                <div class="">
+                    <input type="text" disabled class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
+                        placeholder="Central To Testing Outward No" data-ng-model="TrackDamageGeneralCtrl.ePage.Entities.Header.Data.CTT_OUT_RefNo">
+                </div>
+            </div>
+        </div>
+        <!-- CTT Outward Customer Reference -->
+        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="control-label text-single-line">CTT Outward Customer Reference</label>
+                <div class="">
+                    <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
+                        placeholder="Customer Reference" data-ng-model="TrackDamageGeneralCtrl.ePage.Entities.Header.Data.CTT_OUT_CustomerReference">
+                </div>
+            </div>
+        </div>
+        <!-- CTT Outward External Reference -->
+        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="control-label text-single-line">CTT Outward External Reference</label>
+                <div class="">
+                    <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
+                        placeholder="External Reference" data-ng-model="TrackDamageGeneralCtrl.ePage.Entities.Header.Data.CTT_OUT_ExternalRefNumber">
+                </div>
+            </div>
+        </div>
+        <!--Central To Testing Outward Warehouse-->
+        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="control-label text-single-line">Central To Testing Outward From Warehouse</label>
+                <div class="">
+                    <input type="text" disabled class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
+                        placeholder="Central To Testing Outward Warehouse" data-ng-model="TrackDamageGeneralCtrl.ePage.Entities.Header.Data.CTT_FromWH_Code">
+                </div>
+            </div>
+        </div>
+        <!--Central To Testing Outward To Warehouse  -->
+        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="control-label text-single-line">Central To Testing Outward To Warehouse</label>
+                <div class="">
+                    <input type="text" disabled class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
+                        placeholder="Central To Testing Outward To Warehouse" data-ng-model="TrackDamageGeneralCtrl.ePage.Entities.Header.Data.CTT_ToWH_Code">
+                </div>
+            </div>
+        </div>
+        <!--Central To Testing Inward No-->
+        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="control-label text-single-line">Central To Testing Inward No</label>
+                <div class="">
+                    <input type="text" disabled class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
+                        placeholder="Central To Testing Inward No" data-ng-model="TrackDamageGeneralCtrl.ePage.Entities.Header.Data.CTT_INW_RefNo">
+                </div>
+            </div>
+        </div>
+        <!-- CTT Inward Customer Reference -->
+        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="control-label text-single-line">CTT Inward Customer Reference</label>
+                <div class="">
+                    <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
+                        placeholder="Customer Reference" data-ng-model="TrackDamageGeneralCtrl.ePage.Entities.Header.Data.CTT_INW_CustomerReference">
+                </div>
+            </div>
+        </div>
+        <!-- CTT Inward External Reference -->
+        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="control-label text-single-line">CTT Inward External Reference</label>
+                <div class="">
+                    <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
+                        placeholder="External Reference" data-ng-model="TrackDamageGeneralCtrl.ePage.Entities.Header.Data.CTT_INW_ExternalRefNumber">
+                </div>
+            </div>
+        </div>
         <!--Testing To Central Outward No -->
         <div class="col-xs-12 col-sm-12 col-md-2 col-lg-3 col-xl-3">
             <div class="form-group">
@@ -670,6 +744,76 @@
                 </div>
             </div>
         </div>
+        <!-- Central To Repair (or) Scrap Outward No -->
+        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="control-label text-single-line">Central To Repair (or) Scrap Outward No</label>
+                <div class="">
+                    <input type="text" disabled class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
+                        placeholder="Central To Repair (or) Scrap Outward No" data-ng-model="TrackDamageGeneralCtrl.ePage.Entities.Header.Data.CTR_OUT_RefNo">
+                </div>
+            </div>
+        </div>
+        <!-- CTR Outward Customer Reference -->
+        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="control-label text-single-line">CTR Outward Customer Reference</label>
+                <div class="">
+                    <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
+                        placeholder="Customer Reference" data-ng-model="TrackDamageGeneralCtrl.ePage.Entities.Header.Data.CTR_CustomerReference">
+                </div>
+            </div>
+        </div>
+        <!-- Central To Repair (or) Scrap Outward Warehouse -->
+        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="control-label text-single-line">Central To Repair (or) Scrap Outward From Warehouse</label>
+                <div class="">
+                    <input type="text" disabled class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
+                        placeholder="Central To Repair (or) Scrap Outward Warehouse" data-ng-model="TrackDamageGeneralCtrl.ePage.Entities.Header.Data.CTR_FromWH_Code">
+                </div>
+            </div>
+        </div>
+        <!-- Central To Repair (or) Scrap Outward To Warehouse-->
+        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="control-label text-single-line">Central To Repair (or) Scrap Outward To Warehouse</label>
+                <div class="">
+                    <input type="text" disabled class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
+                        placeholder="Central To Repair (or) Scrap Outward To Warehouse" data-ng-model="TrackDamageGeneralCtrl.ePage.Entities.Header.Data.CTR_ToWH_Code">
+                </div>
+            </div>
+        </div>
+        <!--Central To Repair (or) Scrap Inward No  -->
+        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="control-label text-single-line">Central To Repair (or) Scrap Inward No</label>
+                <div class="">
+                    <input type="text" disabled class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
+                        placeholder="Central To Repair (or) Scrap Inward No" data-ng-model="TrackDamageGeneralCtrl.ePage.Entities.Header.Data.CTR_INW_RefNo">
+                </div>
+            </div>
+        </div>
+        <!-- CTR Inward Customer Reference -->
+        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="control-label text-single-line">CTR Inward Customer Reference</label>
+                <div class="">
+                    <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
+                        placeholder="Customer Reference" data-ng-model="TrackDamageGeneralCtrl.ePage.Entities.Header.Data.CTR_INW_CustomerReference">
+                </div>
+            </div>
+        </div>
+        <!-- CTR Inward External Reference -->
+        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-3 col-xl-3">
+            <div class="form-group">
+                <label class="control-label text-single-line">CTR Inward External Reference</label>
+                <div class="">
+                    <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
+                        placeholder="External Reference" data-ng-model="TrackDamageGeneralCtrl.ePage.Entities.Header.Data.CTR_INW_ExternalRefNumber">
+                </div>
+            </div>
+        </div>
         <!--Repair To Central Outward No  -->
         <div class="col-xs-12 col-sm-12 col-md-2 col-lg-3 col-xl-3">
             <div class="form-group">
@@ -747,76 +891,6 @@
                 <div class="">
                     <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
                         placeholder="RTC Inward External Reference" data-ng-model="TrackDamageGeneralCtrl.ePage.Entities.Header.Data.RTC_INW_ExternalRefNumber">
-                </div>
-            </div>
-        </div>
-        <!-- Faulty Category -->
-        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-3 col-xl-3">
-            <div class="form-group">
-                <label class="control-label text-single-line">Faulty Category</label>
-                <div class="">
-                    <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
-                        placeholder="Faulty Category" data-ng-model="TrackDamageGeneralCtrl.ePage.Entities.Header.Data.FaultCategory">
-                </div>
-            </div>
-        </div>
-        <!-- Unit Failure -->
-        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-3 col-xl-3">
-            <div class="form-group">
-                <label class="control-label text-single-line">Unit Failure</label>
-                <div class="">
-                    <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
-                        placeholder="Unit Failure" data-ng-model="TrackDamageGeneralCtrl.ePage.Entities.Header.Data.UnitFailure">
-                </div>
-            </div>
-        </div>
-        <!-- LED Status -->
-        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-3 col-xl-3">
-            <div class="form-group">
-                <label class="control-label text-single-line">LED Status</label>
-                <div class="">
-                    <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
-                        placeholder="LED Status" data-ng-model="TrackDamageGeneralCtrl.ePage.Entities.Header.Data.LEDStatus">
-                </div>
-            </div>
-        </div>
-        <!-- Dead On Arrival Fault Descriptions -->
-        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-3 col-xl-3">
-            <div class="form-group">
-                <label class="control-label text-single-line">Dead On Arrival Fault Descriptions</label>
-                <div class="">
-                    <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
-                        placeholder="Dead On Arrival Fault Descriptions" data-ng-model="TrackDamageGeneralCtrl.ePage.Entities.Header.Data.DeadOnArrivalFaultDescriptions">
-                </div>
-            </div>
-        </div>
-        <!-- MINI_LINK Fault Descriptions -->
-        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-3 col-xl-3">
-            <div class="form-group">
-                <label class="control-label text-single-line">MINI_LINK Fault Descriptions</label>
-                <div class="">
-                    <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
-                        placeholder="MINI_LINK Fault Descriptions" data-ng-model="TrackDamageGeneralCtrl.ePage.Entities.Header.Data.MINI_LINKFaultDescriptions">
-                </div>
-            </div>
-        </div>
-        <!-- Radio_RBS2000 Fault Descriptions -->
-        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-3 col-xl-3">
-            <div class="form-group">
-                <label class="control-label text-single-line">Radio_RBS2000 Fault Descriptions</label>
-                <div class="">
-                    <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
-                        placeholder="Radio_RBS2000 Fault Descriptions" data-ng-model="TrackDamageGeneralCtrl.ePage.Entities.Header.Data.Radio_RBS2000FaultDescriptions">
-                </div>
-            </div>
-        </div>
-        <!-- Other Products Fault Descriptions -->
-        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-3 col-xl-3">
-            <div class="form-group">
-                <label class="control-label text-single-line">Other Products Fault Descriptions</label>
-                <div class="">
-                    <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
-                        placeholder="Other Products Fault Descriptions" data-ng-model="TrackDamageGeneralCtrl.ePage.Entities.Header.Data.OtherProductsFaultDescriptions">
                 </div>
             </div>
         </div>
