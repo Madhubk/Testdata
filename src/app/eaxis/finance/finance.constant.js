@@ -13,7 +13,11 @@
         }, {
             name: "FinanceAccountPayable",
             files: [
-                "app/eaxis/finance/accounts-payable/accounts-payable.controller.js"
+                "app/eaxis/finance/accounts-payable/accounts-payable.controller.js",
+                "app/eaxis/finance/accounts-payable/account-payable-config.factory.js",
+                'app/mdm/warehouse/customize-table/customize-table.css',
+                'app/mdm/warehouse/customize-table/customize-table.directive.js',
+                'app/mdm/warehouse/custom/customfilter.js'
             ]
         }, {
             name: "FinanceAccountPayableMenu",

@@ -82,22 +82,7 @@
                                 "FilterID": "CMPCOMP"
                             }
                         }
-                    },
-                    "AccountpayableList": {
-                        "RowIndex": -1,
-                        "API": {
-                            "GetById": {
-                                "IsAPI": "true",
-                                "HttpType": "GET",
-                                "Url": "AccountpayableList/GetById/"
-                            },
-                            "AccountpayableListActivityClose": {
-                                "IsAPI": "true",
-                                "HttpType": "GET",
-                                "Url": "AccountpayableList/AccountpayableListActivityClose/"
-                            }
-                        }
-                    },
+                    }
                 }
             },
             "TabList": [],
@@ -135,7 +120,7 @@
                                 "IsAPI": "true",
                                 "HttpType": "POST",
                                 "Url": "JobHeaderList/Update"
-                            }
+                            },
                         },
                         "Meta": {
                             "Language": helperService.metaBase(),
@@ -425,171 +410,10 @@
                                     "width": "95"
                                 }
                             },
-                            "UILineCharges": {
-                                "TableHeight": {
-                                    "isEnabled": true,
-                                    "height": 228
-                                },
-                                "Job": {
-                                    "width": "100"
-                                },
-                                "Charge": {
-                                    "width": "124"
-                                },
-                                "Type": {
-                                    "width": "125"
-                                },
-                                "Branch": {
-                                    "width": "125"
-                                },
-                                "Dept": {
-                                    "width": "125"
-                                },
-                                "Amount": {
-                                    "width": "125"
-                                }
-                            },
-                            "UIAPListData": {
-                                "TableHeight": {
-                                    "isEnabled": true,
-                                    "height": 300
-                                },
-                                "checkbox": {
-                                    "isenabled": true,
-                                    "position": '1',
-                                    "width": "40"
-                                },
-                                "sno": {
-                                    "isenabled": true,
-                                    "position": '2',
-                                    "width": "40"
-                                },
-                                "charges": {
-                                    "isenabled": true,
-                                    "position": '3',
-                                    "width": "100"
-                                },
-                                "chargetype": {
-                                    "isenabled": true,
-                                    "position": '4',
-                                    "width": "110"
-                                },
-                                "job": {
-                                    "isenabled": true,
-                                    "position": '5',
-                                    "width": "110"
-                                },
-                                "desc": {
-                                    "isenabled": true,
-                                    "position": '6',
-                                    "width": "110"
-                                },
-                                // "description": {
-                                //     "isenabled": true,
-                                //     "position": '6',
-                                //     "width": "110"
-                                // },
-                                "branch": {
-                                    "isenabled": true,
-                                    "position": '7',
-                                    "width": "110"
-                                },
-                                "dept": {
-                                    "isenabled": true,
-                                    "position": '8',
-                                    "width": "110"
-                                },
-                                "currency": {
-                                    "isenabled": true,
-                                    "position": '9',
-                                    "width": "110"
-                                },
-                                "exchangerate": {
-                                    "isenabled": true,
-                                    "position": '10',
-                                    "width": "110"
-                                },
-                                "amount": {
-                                    "isenabled": true,
-                                    "position": '11',
-                                    "width": "110"
-                                },
-                                "taxid": {
-                                    "isenabled": true,
-                                    "position": '12',
-                                    "width": "110"
-                                },
-                                // "taxdate": {
-                                //     "isenabled": true,
-                                //     "position": '13',
-                                //     "width": "110"
-                                // },
-                                "tax": {
-                                    "isenabled": true,
-                                    "position": '13',
-                                    "width": "110"
-                                },
-                                "total": {
-                                    "isenabled": true,
-                                    "position": '14',
-                                    "width": "110"
-                                },
-                                "localtotal": {
-                                    "isenabled": true,
-                                    "position": '15',
-                                    "width": "110"
-                                },
-                                "localamount": {
-                                    "isenabled": true,
-                                    "position": '16',
-                                    "width": "110"
-                                },
-                                "localtax": {
-                                    "isenabled": true,
-                                    "position": '17',
-                                    "width": "110"
-                                },
-                                "final": {
-                                    "isenabled": true,
-                                    "position": '18',
-                                    "width": "45"
-                                },
-                                "consol": {
-                                    "isenabled": true,
-                                    "position": '19',
-                                    "width": "110"
-                                },
-                                "glaccount": {
-                                    "isenabled": true,
-                                    "position": '20',
-                                    "width": "110"
-                                },
-                                // "sequence": {
-                                //     "isenabled": true,
-                                //     "position": '22',
-                                //     "width": "110"
-                                // },
-                                "joblocalref": {
-                                    "isenabled": true,
-                                    "position": '21',
-                                    "width": "110"
-                                },
-                                "taxmsg": {
-                                    "isenabled": true,
-                                    "position": '22',
-                                    "width": "110"
-                                },
-                                // "goverment": {
-                                //     "isenabled": true,
-                                //     "position": '25',
-                                //     "width": "110"
-                                // }
-                            }
                         }
                     }
                 }
             };
-
             if (isNew) {
                 _exports.Entities.Header.Data = currentJobHeader.data;
                 var _code = currentJobHeader.entity.PK.split("-").join("");

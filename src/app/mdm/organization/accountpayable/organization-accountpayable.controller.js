@@ -24,14 +24,22 @@
             AccountPayableCtrl.ePage.Masters.OnCompanySelect = OnCompanySelect;
             AccountPayableCtrl.ePage.Masters.EditableMode = EditableMode;
 
-            if (AccountPayableCtrl.ePage.Entities.Header.Data.OrgCompanyData && AccountPayableCtrl.ePage.Entities.Header.Data.OrgCompanyData.length > 0) {
+            if (AccountPayableCtrl.ePage.Entities.Header.Data.OrgCompanyData.length > 0) {
                 OnCompanySelect(AccountPayableCtrl.ePage.Entities.Header.Data.OrgCompanyData[0]);
+            } else {
+                AccountPayableCtrl.ePage.Masters.IsDisableEditableMode = true;
             }
         }
 
         //#region OnCompanySelect, BindAPConfiguration
         function OnCompanySelect($item) {
             AccountPayableCtrl.ePage.Masters.ActiveCompany = angular.copy($item);
+
+            if (!AccountPayableCtrl.ePage.Masters.ActiveCompany.IsCreditor) {
+                AccountPayableCtrl.ePage.Masters.IsDisableEditableMode = true;
+            } else {
+                AccountPayableCtrl.ePage.Masters.IsDisableEditableMode = false;
+            }
 
             var index = -1;
             AccountPayableCtrl.ePage.Entities.Header.Data.OrgCompanyData.map(function (value, key) {

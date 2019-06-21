@@ -88,10 +88,10 @@
                     }]
                 }
             })
-            .state('EA.finance.accountPayable', {
-                url: '/account-payable',
+            .state('EA.finance.accountPayables', {
+                url: '/account-payables',
                 templateUrl: "app/eaxis/finance/accounts-payable/accounts-payable.html",
-                controller: "FinanceAccountPayableController as FinanceAccountPayableCtrl",
+                controller: "AccountPayableController as AccountPayableCtrl",
                 ncyBreadcrumb: {
                     label: 'Accounts Payable'
                 },
@@ -102,7 +102,7 @@
                         return deferred.promise;
                     }],
                     loadMyCtrl: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
-                        return $ocLazyLoad.load(["FinanceJob", "FinanceAccountPayable", "dynamicLookup", "dynamicListModal", "dynamicList", "dynamicGrid", "dynamicControl", "compareDate", "customToolbar", "confirmation", "chromeTab", "errorWarning", "FinanceAccountPayableMenu", "FinanceAccountPayableGeneral"]);
+                        return $ocLazyLoad.load(["FinanceAccountPayable", "dynamicLookup", "dynamicListModal", "dynamicList", "dynamicGrid", "dynamicControl", "compareDate", "customToolbar", "confirmation", "chromeTab", "errorWarning", "FinanceAccountPayableMenu", "FinanceAccountPayableGeneral"]);
                     }]
                 }
             })

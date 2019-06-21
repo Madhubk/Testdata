@@ -648,7 +648,7 @@
                 "BRN_FK": FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.GB,
                 "DeptCode": FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.DeptCode,
                 "DEP_FK": FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.GE,
-                "CMP_FK": FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.GC,
+                "JCC_FK": FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.GC,
                 "ORG_CostAccount": "",
                 "APInvoiceNum": "",
                 "APInvoiceDate": "",
