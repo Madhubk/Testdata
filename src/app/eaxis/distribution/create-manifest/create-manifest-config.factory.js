@@ -43,6 +43,63 @@
                             "Url": "OrgHeader/FindAll",
                             "FilterID": "ORGHEAD"
                         },
+                        "MstContainer": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "MstContainer/FindAll",
+                            "FilterID": "MSTCONT"
+                        },
+                        "OrgHeaderWarehouse": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "OrgHeaderWarehouse/FindAll",
+                            "FilterID": "TMSORGWAREH"
+                        },
+                        "InsertManifest": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "TmsManifestList/Insert"
+                        },
+                        "UpdateManifest": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "TmsManifestList/Update"
+                        },
+                        "UpdateOrgAddress": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "OrgAddress/Update"
+                        },
+                        "CfxMenus": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "CfxMenus/FindAll",
+                            "FilterID": "CFXMENU"
+                        },
+                        "PickList": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "WmsPickReleaseLine/FindAll",
+                            "FilterID": "WMSPICREL"
+                        },
+                        "CountryState": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "CountryState/FindAll",
+                            "FilterID": "MSTCSTE"
+                        },
+                        "CountryList": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "MstCountry/FindAll",
+                            "FilterID": "MSTCOUN"
+                        },
+                        "InsertAddress": {
+                            "IsAPI": "true",
+                            "HttpType": "POST",
+                            "Url": "OrgAddress/Insert",
+                            "FilterID": "ORGADDR"
+                        }
                     },
                     "Meta": {
 
@@ -102,14 +159,30 @@
                             "GetOrderList": {
                                 "IsAPI": "true",
                                 "HttpType": "POST",
-                                "Url": "WmsWorkOrder/FindAll",
-                                "FilterID": "WMSWORK"
+                                "Url": "TmsConsignmentWithOrders/FindAll",
+                                "FilterID": "TMSCONWO"
                             },
                             "GetOrderLineList": {
                                 "IsAPI": "true",
                                 "HttpType": "POST",
-                                "Url": "WmsWorkOrderLine/FindAll",
-                                "FilterID": "WMSINL"
+                                "Url": "WmsPickLineSummary/FindAll",
+                                "FilterID": "WMSPLS"
+                            },
+                            "ConsignmentGetByID": {
+                                "IsAPI": "true",
+                                "HttpType": "GET",
+                                "Url": "TmsConsignmentList/GetById/",
+                            },
+                            "GetConsignmentItem": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "TmsConsignmentItem/FindAll"
+                            },
+                            "GetConsignmentList": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "TmsConsignment/FindAll",
+                                "FilterID": "TMSCON"
                             },
                             "OrgHeader": {
                                 "IsAPI": "true",
@@ -127,7 +200,78 @@
                                 "HttpType": "POST",
                                 "Url": "TmsSingleManifestSummary/GetById/",
                             },
-
+                            "MstContainer": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "MstContainer/FindAll",
+                                "FilterID": "MSTCONT"
+                            },
+                            "OrgHeaderWarehouse": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "OrgHeaderWarehouse/FindAll",
+                                "FilterID": "TMSORGWAREH"
+                            },
+                            "TMSGatepass": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "TMSGatepass/FindAll",
+                                "FilterID": "TMSGATP"
+                            },
+                            "OrgUserAcess": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "OrgUserAcess/FindAll",
+                                "FilterID": "ORGUACC"
+                            },
+                            "TmsGeoRoute": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "TmsGeoRoute/FindAll",
+                                "FilterID": "TMSGEOJ"
+                            },
+                            "CfxMenus": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "CfxMenus/FindAll",
+                                "FilterID": "CFXMENU"
+                            },
+                            "PickList": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "WmsPickReleaseLine/FindAll",
+                                "FilterID": "WMSPICREL"
+                            },
+                            "CountryState": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "CountryState/FindAll",
+                                "FilterID": "MSTCSTE"
+                            },
+                            "CountryList": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "MstCountry/FindAll",
+                                "FilterID": "MSTCOUN"
+                            },
+                            "InsertAddress": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "OrgAddress/Insert",
+                                "FilterID": "ORGADDR"
+                            },
+                            "CmpDepartment": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "CmpDepartment/FindAll",
+                                "FilterID": "CMPDEPT"
+                            },
+                            "TrackingStatusFindAll": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "TmsStatusHistory/FindAll",
+                                "FilterID": "TMSSH"
+                            },
                         },
 
                         "Meta": {
@@ -224,7 +368,7 @@
                                     "Value": "Issueexitgatepass",
                                     "Icon": "fa fa-plane",
                                     "GParentRef": "issueexitgatepass"
-                                },{
+                                }, {
                                     "DisplayName": "Generate DRS",
                                     "Value": "deliveryrunsheet",
                                     "Icon": "fa fa-plane",

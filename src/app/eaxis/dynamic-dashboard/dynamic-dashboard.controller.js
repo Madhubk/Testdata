@@ -455,15 +455,21 @@
 
         function OnChangeDashboardList() {
             DynamicDashboardCtrl.ePage.Masters.LoadingValue = "Getting Dashboard Details...";
-            if (DynamicDashboardCtrl.ePage.Masters.SelectedDashboardDetails.IsWarehouseBased)
+            if (!DynamicDashboardCtrl.ePage.Masters.SelectedWarehouse && DynamicDashboardCtrl.ePage.Masters.SelectedDashboardDetails.IsWarehouseBased)
                 GetWarehouseValues();
             else {
-                DynamicDashboardCtrl.ePage.Masters.SelectedWarehouse = {};
+                if (!DynamicDashboardCtrl.ePage.Masters.SelectedWarehouse)
+                    DynamicDashboardCtrl.ePage.Masters.SelectedWarehouse = {};
+                else
+                    DynamicDashboardCtrl.ePage.Masters.SelectedWarehouse = DynamicDashboardCtrl.ePage.Masters.SelectedWarehouse;
 
-                if (DynamicDashboardCtrl.ePage.Masters.SelectedDashboardDetails.IsOrganisationBased)
+                if (!DynamicDashboardCtrl.ePage.Masters.SelectedClient && DynamicDashboardCtrl.ePage.Masters.SelectedDashboardDetails.IsOrganisationBased)
                     GetClientDetails();
                 else {
-                    DynamicDashboardCtrl.ePage.Masters.SelectedClient = {};
+                    if (!DynamicDashboardCtrl.ePage.Masters.SelectedClient)
+                        DynamicDashboardCtrl.ePage.Masters.SelectedClient = {};
+                    else
+                        DynamicDashboardCtrl.ePage.Masters.SelectedClient = DynamicDashboardCtrl.ePage.Masters.SelectedClient;
                     if (DynamicDashboardCtrl.ePage.Masters.SelectedClient && DynamicDashboardCtrl.ePage.Masters.SelectedWarehouse) {
                         GetDashboardList();
                     }

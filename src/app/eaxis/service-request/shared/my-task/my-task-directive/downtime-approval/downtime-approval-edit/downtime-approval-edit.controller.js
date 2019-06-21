@@ -174,9 +174,10 @@
                 if (type == "Approved") {
                     DowntimeApprovalEditDirectiveCtrl.ePage.Masters.IsApproveBtn = "Please wait...";
                     DowntimeApprovalEditDirectiveCtrl.ePage.Masters.IsApprove = true;
-
+                    
                     DowntimeApprovalEditDirectiveCtrl.ePage.Entities.Header.Data.UIDowntimeRequest.Status = true;
                     DowntimeApprovalEditDirectiveCtrl.ePage.Entities.Header.Data.UIDowntimeRequest.IsModified = true;
+                    DowntimeApprovalEditDirectiveCtrl.ePage.Entities.Header.Data.UIServiceRequest.RequestStatus = "Approved";
                     DowntimeApprovalEditDirectiveCtrl.ePage.Entities.Header.Data.UIServiceRequest.IsModified = true;
                     DowntimeApprovalEditDirectiveCtrl.ePage.Entities.Header.Data.UIServiceRequest.ApprovedBy = authService.getUserInfo().UserId;
 
@@ -222,6 +223,7 @@
 
                     DowntimeApprovalEditDirectiveCtrl.ePage.Entities.Header.Data.UIDowntimeRequest.Status = false;
                     DowntimeApprovalEditDirectiveCtrl.ePage.Entities.Header.Data.UIDowntimeRequest.IsModified = true;
+                    DowntimeApprovalEditDirectiveCtrl.ePage.Entities.Header.Data.UIServiceRequest.RequestStatus = "Rejected";
                     DowntimeApprovalEditDirectiveCtrl.ePage.Entities.Header.Data.UIServiceRequest.IsModified = true;
                     DowntimeApprovalEditDirectiveCtrl.ePage.Entities.Header.Data.UIServiceRequest.ApprovedBy = authService.getUserInfo().UserId;
 

@@ -25,7 +25,7 @@
                     "Meta": helperService.metaBase(),
                     "Entities": currentDowntimeRequest
                 };
-                
+
                 DowntimeRequestGeneralCtrl.ePage.Entities.Header.Data.AppObj = {};
                 DowntimeRequestGeneralCtrl.ePage.Entities.Header.Data.SrqArea = {};
 
@@ -43,7 +43,7 @@
                         }
                     },
                 };
-                
+
                 // grid empty array
                 DowntimeRequestGeneralCtrl.ePage.Entities.Header.Data.SrqArea = [];
             }
@@ -51,10 +51,17 @@
             //(currentDowntimeRequest) ? DowntimeRequestGeneralCtrl.ePage.Entities = currentDowntimeRequest : false;
 
             // save
+            DowntimeRequestGeneralCtrl.ePage.Masters.IsSaveBtn = "Save";
+            DowntimeRequestGeneralCtrl.ePage.Masters.IsSave = false;
+            DowntimeRequestGeneralCtrl.ePage.Masters.IsValidateField = false;
+
             DowntimeRequestGeneralCtrl.ePage.Masters.InsertData = InsertData;
             DowntimeRequestGeneralCtrl.ePage.Masters.UpdateData = UpdateData;
             DowntimeRequestGeneralCtrl.ePage.Masters.ClearData = ClearData;
             DowntimeRequestGeneralCtrl.ePage.Masters.GetData = GetData;
+            DowntimeRequestGeneralCtrl.ePage.Masters.Close = Close;
+
+            DowntimeRequestGeneralCtrl.ePage.Masters.DowntimeRequestTitle = "Downtime Request";
 
             //Time Zone
             DowntimeRequestGeneralCtrl.ePage.Masters.TimeZone = TimeZone;
@@ -140,112 +147,163 @@
         }
 
         function InsertData($item) {
-            var _data = $item;
+            DowntimeRequestGeneralCtrl.ePage.Masters.IsSaveBtn = "Please wait...";
+            DowntimeRequestGeneralCtrl.ePage.Masters.IsSave = true;
 
-            // Get PK value
-            apiService.get("eAxisAPI", downtimeRequestConfig.Entities.Header.API.EmptyGetByID.Url).then(function (response) {
-                if (response.data.Response) {
-                    console.log(response.data.Response)
+            ValidateField();
 
-                    var GetPK = response.data.Response;
-                    var AddtionalInfoDetails = {
-                        "UsersImpacted": _data.AppObj.UserImpacted,
-                        "Purpose": _data.SrqArea
-                    };
-                    var _input = {
-                        "PK": GetPK.PK,
-                        "UIServiceRequest": {
+            if (DowntimeRequestGeneralCtrl.ePage.Masters.IsValidateField == true) {
+                var _data = $item;
+
+                // Get PK value
+                apiService.get("eAxisAPI", downtimeRequestConfig.Entities.Header.API.EmptyGetByID.Url).then(function (response) {
+                    if (response.data.Response) {
+                        console.log(response.data.Response)
+
+                        var GetPK = response.data.Response;
+                        var AddtionalInfoDetails = {
+                            "UsersImpacted": _data.AppObj.UserImpacted,
+                            "Purpose": _data.SrqArea
+                        };
+                        var _input = {
                             "PK": GetPK.PK,
-                            "RequestNo": GetPK.UIServiceRequest.RequestNo,
-                            "RequestType": "Downtime Request",
-                            "RequestedDateTime": null,
-                            "ApprovedBy": null,
-                            "RequestStatus": "Planned",
-                            "Priority": _data.Priority,
-                            "Application": _data.Application,
-                            "Module": _data.Module,
-                            "CreatedDateTime": null,
-                            "CreatedBy": null,
-                            "ModifiedDateTime": null,
-                            "ModifiedBy": null,
-                            "TenantCode": null,
-                            "SAP_FK": null,
-                            "IsModified": false,
-                            "IsDeleted": false
-                        },
-                        "UIDowntimeRequest": {
-                            "PK": "",
-                            "SRR_FK": GetPK.PK,
-                            "Environment": _data.Environment,
-                            "IsCheckListVerfied": null,
-                            "IsPlanned": true,
-                            "ApplicationContactName": _data.AppObj.ApplicationContactName,
-                            "ApplicationContactMail": _data.AppObj.ApplicationContactEmail,
-                            "BusinessContactName": _data.AppObj.BusinessContactName,
-                            "BusinessContactMail": _data.AppObj.BusinessContactEmail,
-                            "PlannedStartDateTime": _data.PlannedStartDateTime,
-                            "PlannedEndDateTime": _data.PlannedEndDateTimeDate,
-                            "AppCurrentVersion": _data.ApplicationCurrentVersion,
-                            "AppReleasedVersion": _data.ApplicationReleaseVersion,
-                            // "AddtionalInfo": JSON.stringify(_data.SrqArea),
-                            "AddtionalInfo": JSON.stringify(AddtionalInfoDetails),
-                            "CreatedDateTime": null,
-                            "CreatedBy": null,
-                            "ModifiedDateTime": null,
-                            "ModifiedBy": null,
-                            "TenantCode": null,
-                            "SAP_FK": null,
-                            "IsModified": false,
-                            "IsDeleted": false,
-                            "TimeZone": _data.Timezone
-                        }
-                    }
-
-                    // Insert data
-                    apiService.post("eAxisAPI", downtimeRequestConfig.Entities.Header.API.InsertDownTimeRequest.Url, _input).then(function (response) {
-                        if (response.data.Response) {
-                            console.log(response.data.Response)
-                            toastr.success("Save Successful...")
-                            ClearData();
-
-                            // Get saved data
-                            apiService.get("eAxisAPI", downtimeRequestConfig.Entities.Header.API.GetByID.Url + "/" + GetPK.PK).then(function (response) {
-                                if (response.data.Response) {
-                                    console.log(response.data.Response)
-
-                                    var GetSavedData = response.data.Response;
-
-                                    var strAddtionalInfo = JSON.parse(GetSavedData.UIDowntimeRequest.AddtionalInfo);
-
-                                    DowntimeRequestGeneralCtrl.ePage.Entities.Header.Data.Application = GetSavedData.UIServiceRequest.Application;
-                                    DowntimeRequestGeneralCtrl.ePage.Entities.Header.Data.Environment = GetSavedData.UIDowntimeRequest.Environment;
-                                    DowntimeRequestGeneralCtrl.ePage.Entities.Header.Data.AppObj.ApplicationContactName = GetSavedData.UIDowntimeRequest.ApplicationContactName;
-                                    DowntimeRequestGeneralCtrl.ePage.Entities.Header.Data.AppObj.ApplicationContactEmail = GetSavedData.UIDowntimeRequest.ApplicationContactMail;
-                                    DowntimeRequestGeneralCtrl.ePage.Entities.Header.Data.Timezone = GetSavedData.UIDowntimeRequest.TimeZone;
-                                    DowntimeRequestGeneralCtrl.ePage.Entities.Header.Data.Priority = GetSavedData.UIServiceRequest.Priority;
-                                    DowntimeRequestGeneralCtrl.ePage.Entities.Header.Data.Module = GetSavedData.UIServiceRequest.Module;
-                                    DowntimeRequestGeneralCtrl.ePage.Entities.Header.Data.AppObj.BusinessContactName = GetSavedData.UIDowntimeRequest.BusinessContactName;
-                                    DowntimeRequestGeneralCtrl.ePage.Entities.Header.Data.AppObj.BusinessContactEmail = GetSavedData.UIDowntimeRequest.BusinessContactMail;
-                                    DowntimeRequestGeneralCtrl.ePage.Entities.Header.Data.AppObj.UserImpacted = strAddtionalInfo.UsersImpacted;
-                                    DowntimeRequestGeneralCtrl.ePage.Entities.Header.Data.PlannedStartDateTime = GetSavedData.UIDowntimeRequest.PlannedStartDateTime;
-                                    DowntimeRequestGeneralCtrl.ePage.Entities.Header.Data.PlannedEndDateTimeDate = GetSavedData.UIDowntimeRequest.PlannedEndDateTime;
-                                    DowntimeRequestGeneralCtrl.ePage.Entities.Header.Data.ApplicationCurrentVersion = GetSavedData.UIDowntimeRequest.AppCurrentVersion;
-                                    DowntimeRequestGeneralCtrl.ePage.Entities.Header.Data.ApplicationReleaseVersion = GetSavedData.UIDowntimeRequest.AppReleasedVersion;
-                                    DowntimeRequestGeneralCtrl.ePage.Entities.Header.Data.SrqArea = strAddtionalInfo.Purpose;
-                                }
-                            });
-
-                            if (DowntimeRequestGeneralCtrl.ePage.Masters.Update) {
-                                DowntimeRequestGeneralCtrl.ePage.Masters.Update = true;
+                            "UIServiceRequest": {
+                                "PK": GetPK.PK,
+                                "RequestNo": GetPK.UIServiceRequest.RequestNo,
+                                "RequestType": "Downtime Request",
+                                "RequestedDateTime": null,
+                                "ApprovedBy": null,
+                                "RequestStatus": "Planned",
+                                "Priority": _data.Priority,
+                                "Application": _data.Application,
+                                "Module": _data.Module,
+                                "CreatedDateTime": null,
+                                "CreatedBy": null,
+                                "ModifiedDateTime": null,
+                                "ModifiedBy": null,
+                                "TenantCode": null,
+                                "SAP_FK": null,
+                                "IsModified": false,
+                                "IsDeleted": false
+                            },
+                            "UIDowntimeRequest": {
+                                "PK": "",
+                                "SRR_FK": GetPK.PK,
+                                "Environment": _data.Environment,
+                                "IsCheckListVerfied": null,
+                                "IsPlanned": true,
+                                "ApplicationContactName": _data.AppObj.ApplicationContactName,
+                                "ApplicationContactMail": _data.AppObj.ApplicationContactEmail,
+                                "BusinessContactName": _data.AppObj.BusinessContactName,
+                                "BusinessContactMail": _data.AppObj.BusinessContactEmail,
+                                "PlannedStartDateTime": _data.PlannedStartDateTime,
+                                "PlannedEndDateTime": _data.PlannedEndDateTimeDate,
+                                "AppCurrentVersion": _data.ApplicationCurrentVersion,
+                                "AppReleasedVersion": _data.ApplicationReleaseVersion,
+                                // "AddtionalInfo": JSON.stringify(_data.SrqArea),
+                                "AddtionalInfo": JSON.stringify(AddtionalInfoDetails),
+                                "CreatedDateTime": null,
+                                "CreatedBy": null,
+                                "ModifiedDateTime": null,
+                                "ModifiedBy": null,
+                                "TenantCode": null,
+                                "SAP_FK": null,
+                                "IsModified": false,
+                                "IsDeleted": false,
+                                "TimeZone": _data.Timezone
                             }
-                        } else {
-                            toastr.error("Save failed...")
                         }
-                    });
-                } else {
-                    toastr.error("Read failed..")
-                }
-            });
+
+                        // Insert data
+                        apiService.post("eAxisAPI", downtimeRequestConfig.Entities.Header.API.InsertDownTimeRequest.Url, _input).then(function (response) {
+                            if (response.data.Response) {
+                                console.log(response.data.Response)
+                                toastr.success("Save Successful...")
+                                ClearData();
+
+                                // Get saved data
+                                apiService.get("eAxisAPI", downtimeRequestConfig.Entities.Header.API.GetByID.Url + "/" + GetPK.PK).then(function (response) {
+                                    if (response.data.Response) {
+                                        console.log(response.data.Response)
+
+                                        var GetSavedData = response.data.Response;
+
+                                        var strAddtionalInfo = JSON.parse(GetSavedData.UIDowntimeRequest.AddtionalInfo);
+
+                                        DowntimeRequestGeneralCtrl.ePage.Entities.Header.Data.Application = GetSavedData.UIServiceRequest.Application;
+                                        DowntimeRequestGeneralCtrl.ePage.Entities.Header.Data.Environment = GetSavedData.UIDowntimeRequest.Environment;
+                                        DowntimeRequestGeneralCtrl.ePage.Entities.Header.Data.AppObj.ApplicationContactName = GetSavedData.UIDowntimeRequest.ApplicationContactName;
+                                        DowntimeRequestGeneralCtrl.ePage.Entities.Header.Data.AppObj.ApplicationContactEmail = GetSavedData.UIDowntimeRequest.ApplicationContactMail;
+                                        DowntimeRequestGeneralCtrl.ePage.Entities.Header.Data.Timezone = GetSavedData.UIDowntimeRequest.TimeZone;
+                                        DowntimeRequestGeneralCtrl.ePage.Entities.Header.Data.Priority = GetSavedData.UIServiceRequest.Priority;
+                                        DowntimeRequestGeneralCtrl.ePage.Entities.Header.Data.Module = GetSavedData.UIServiceRequest.Module;
+                                        DowntimeRequestGeneralCtrl.ePage.Entities.Header.Data.AppObj.BusinessContactName = GetSavedData.UIDowntimeRequest.BusinessContactName;
+                                        DowntimeRequestGeneralCtrl.ePage.Entities.Header.Data.AppObj.BusinessContactEmail = GetSavedData.UIDowntimeRequest.BusinessContactMail;
+                                        DowntimeRequestGeneralCtrl.ePage.Entities.Header.Data.AppObj.UserImpacted = strAddtionalInfo.UsersImpacted;
+                                        DowntimeRequestGeneralCtrl.ePage.Entities.Header.Data.PlannedStartDateTime = GetSavedData.UIDowntimeRequest.PlannedStartDateTime;
+                                        DowntimeRequestGeneralCtrl.ePage.Entities.Header.Data.PlannedEndDateTimeDate = GetSavedData.UIDowntimeRequest.PlannedEndDateTime;
+                                        DowntimeRequestGeneralCtrl.ePage.Entities.Header.Data.ApplicationCurrentVersion = GetSavedData.UIDowntimeRequest.AppCurrentVersion;
+                                        DowntimeRequestGeneralCtrl.ePage.Entities.Header.Data.ApplicationReleaseVersion = GetSavedData.UIDowntimeRequest.AppReleasedVersion;
+                                        DowntimeRequestGeneralCtrl.ePage.Entities.Header.Data.SrqArea = strAddtionalInfo.Purpose;
+
+                                        DowntimeRequestGeneralCtrl.ePage.Masters.DowntimeRequestTitle = "Downtime Request - " + GetSavedData.UIServiceRequest.RequestNo;
+
+                                        DowntimeRequestGeneralCtrl.ePage.Masters.IsSaveBtn = "Save";
+                                        //DowntimeRequestGeneralCtrl.ePage.Masters.IsSave = false;
+                                    }
+                                });
+
+                                if (DowntimeRequestGeneralCtrl.ePage.Masters.Update) {
+                                    DowntimeRequestGeneralCtrl.ePage.Masters.Update = true;
+                                }
+                            } else {
+                                toastr.error("Save failed...")
+                            }
+                        });
+                    } else {
+                        toastr.error("Read failed..")
+                    }
+                });
+            }
+            else {
+                DowntimeRequestGeneralCtrl.ePage.Masters.IsSaveBtn = "Save";
+                DowntimeRequestGeneralCtrl.ePage.Masters.IsSave = false;
+            }
+        }
+
+        function ValidateField() {
+            DowntimeRequestGeneralCtrl.ePage.Masters.IsValidateField = false;
+
+            if (DowntimeRequestGeneralCtrl.ePage.Entities.Header.Data.Application == null) {
+                toastr.error("Please Select Application");
+            }
+            else if (DowntimeRequestGeneralCtrl.ePage.Entities.Header.Data.Environment == null) {
+                toastr.error("Please Enter Environment");
+            }
+            else if (DowntimeRequestGeneralCtrl.ePage.Entities.Header.Data.Timezone == null) {
+                toastr.error("Please Select Time Zone");
+            } 
+            else if (DowntimeRequestGeneralCtrl.ePage.Entities.Header.Data.Priority == null) {
+                toastr.error("Please Select Priority");
+            }
+            else if (DowntimeRequestGeneralCtrl.ePage.Entities.Header.Data.Module == null) {
+                toastr.error("Please Enter Module")
+            }
+            else if (DowntimeRequestGeneralCtrl.ePage.Entities.Header.Data.PlannedStartDateTime == null) {
+                toastr.error("Please Select Planned Start Date & Time");
+            }
+            else if (DowntimeRequestGeneralCtrl.ePage.Entities.Header.Data.PlannedEndDateTimeDate == null) {
+                toastr.error("Please Select Planned End Date & Time");
+            }
+            else if (DowntimeRequestGeneralCtrl.ePage.Entities.Header.Data.ApplicationCurrentVersion == null) {
+                toastr.error("Please Enter Application Current Version");
+            }
+            else if (DowntimeRequestGeneralCtrl.ePage.Entities.Header.Data.ApplicationReleaseVersion == null) {
+                toastr.error("Please Enter Application Released Version");
+            }
+            else {
+                DowntimeRequestGeneralCtrl.ePage.Masters.IsValidateField = true;
+            }
         }
 
         function GetData() {
@@ -270,6 +328,10 @@
             DowntimeRequestGeneralCtrl.ePage.Entities.Header.Data.SrqArea = strAddtionalInfo.Purpose;
             DowntimeRequestGeneralCtrl.ePage.Entities.Header.Data.AppObj.strName = "Users Impacted";
 
+        }
+
+        function Close() {
+            //toastr.success("closed");
         }
 
         function ClearData() {
