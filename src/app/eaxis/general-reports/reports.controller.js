@@ -23,6 +23,7 @@
 
             // variable declaration
             ReportCtrl.ePage.Masters.selectedRow = -1;
+            ReportCtrl.ePage.Masters.IsLoading = false;
 
             if ($state.current.url == "/spare-parts-report") {
                 ReportCtrl.ePage.Masters.Title = "Spare Parts Reports";
@@ -53,7 +54,7 @@
 
         // CfxMenus
         function checkCfxMenus() {
-
+            ReportCtrl.ePage.Masters.IsLoading = true;
             ReportCtrl.ePage.Masters.ParentMenuList = [];
             ReportCtrl.ePage.Masters.ChildMenuList = [];
 
@@ -84,7 +85,7 @@
             apiService.post("eAxisAPI", appConfig.Entities.CfxMenus.API.MasterCascadeFindAll.Url, _input).then(function ApiCallback(response) {
                 if (response.data.Response) {
                     ReportCtrl.ePage.Masters.OtherConfigList = [];
-
+                    ReportCtrl.ePage.Masters.IsLoading = false;
                     // parent menu looping
                     angular.forEach(response.data.Response, function (value, key) {
                         ReportCtrl.ePage.Masters.ParentMenuList.push(value);
@@ -95,6 +96,8 @@
                     angular.forEach(ReportCtrl.ePage.Masters.ParentMenuList, function (val, key) {
                         ReportCtrl.ePage.Masters.ChildMenuList.push(val.MenuList);
                     });
+
+                    
 
                     // child menu looping
                     angular.forEach(ReportCtrl.ePage.Masters.ChildMenuList, function (value1, key1) {
@@ -112,7 +115,7 @@
         // get config details
         function GetConfigDetails(item, index) {
             ReportCtrl.ePage.Masters.selectedRow = index;
-            ReportCtrl.ePage.Masters.IsLoading = true;
+            ReportCtrl.ePage.Masters.IsLoading = false;
             ReportCtrl.ePage.Masters.dataEntryDetails = item;
             GridPageModel();
         }

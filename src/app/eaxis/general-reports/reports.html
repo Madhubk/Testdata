@@ -4,16 +4,19 @@
             <span class="ik-title">{{ReportCtrl.ePage.Masters.Title}}</span>
         </div>
 
-        <div class="clearfix p-20 text-center"
-            data-ng-if="ReportCtrl.ePage.Masters.ParentMenuList && ReportCtrl.ePage.Masters.ParentMenuList.length===0">
+        <div class="clearfix p-20 text-center" data-ng-if="ReportCtrl.ePage.Masters.ParentMenuList.length==0">
             <i>No Records...!</i>
+        </div>
+
+        <div class="grid-loading-norecord-container" data-ng-if="ReportCtrl.ePage.Masters.IsLoading == true">
+            <div class="dyn-grid-no-record" style="top:300px;">Loading...</div>
         </div>
 
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-10 ng-scope">
             <div class="widget mb-15" ng-repeat="x in ReportCtrl.ePage.Masters.ParentMenuList">
                 <!--Widget Header-->
                 <div class="widget-header" ng-click="ReportCtrl.ePage.Masters.SelectedValue(x,$index)"
-                    ng-class="x.IsSelectedValue?'row_active':''">
+                    ng-class="x.IsSelectedValue?'row_active':''" style="background-color: #d0cbc512;">
 
                     <!-- for toogle to show item value -->
                     <span class="widget-caption" data-toggle="collapse" data-target="#demo{{x.IsSelectedValue}}"
@@ -24,15 +27,15 @@
                 </div>
 
                 <!--Widget Body-->
-                <div id="demo{{x.IsSelectedValue}}" class="collapse">
-                    <div class="fixedheader m-0">
-                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3 mt-5 ng-scope"
-                            ng-repeat="(key,value) in x.MenuList">
-                            <div class="widget-header text-single-line mb-10"
+                <div id="demo{{x.IsSelectedValue}}" class="collapse bg-color">
+                    <div class="fixedheader m-0 p-5">
+                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3 p-5 ng-scope"
+                            ng-repeat="(key,value) in x.MenuList | orderBy:'DisplayOrder'">
+                            <div class="widget-header text-single-line"
                                 ng-click="ReportCtrl.ePage.Masters.GetConfigDetails(value,$index)">
                                 <span class="widget-caption" style="margin-right:5px;">
-                                    <i class="{{value.Icon | getIconColorForMenu: 'icon'}}"
-                                        aria-hidden="true" style="margin-top: 10px;"></i></span>
+                                    <i class="{{value.Icon | getIconColorForMenu: 'icon'}}" aria-hidden="true"
+                                        style="margin-top: 10px;"></i></span>
                                 <span class="widget-caption"><b>{{value.Description}}</b></span>
                             </div>
                         </div>
