@@ -178,20 +178,20 @@
         function AddNewRow() {
             PickfaceCtrl.ePage.Entities.Header.GlobalVariables.Loading = true;
             var obj = {
-                "PK": "",
-                "ClientCode": "",
-                "ClientName": "",
-                "Client": "",
-                "ORG_Client_FK":"",
-                "WarehouseCode": "",
-                "WarehouseName": "",
-                "WAR_FK":"",
-                "Warehouse": "",
-                "Location": "",
-                "WLO_FK":"",
-                "ReplenishMinimum": "",
-                "ReplenishMaximum": "",
-                "ReplenishmentMultiple": "",
+                "PK": null,
+                "ClientCode": null,
+                "ClientName": null,
+                "Client": null,
+                "ORG_Client_FK":null,
+                "WarehouseCode": null,
+                "WarehouseName": null,
+                "WAR_FK":null,
+                "Warehouse": null,
+                "Location": null,
+                "WLO_FK":null,
+                "ReplenishMinimum": null,
+                "ReplenishMaximum": null,
+                "ReplenishmentMultiple": null,
                 "IsDeleted": false,
             };
             PickfaceCtrl.ePage.Entities.Header.Data.UIWMSPickFace.push(obj);
@@ -209,9 +209,9 @@
             for(var i = PickfaceCtrl.ePage.Entities.Header.Data.UIWMSPickFace.length -1; i >= 0; i--){
                 if(PickfaceCtrl.ePage.Entities.Header.Data.UIWMSPickFace[i].SingleSelect){
                     var obj = angular.copy(PickfaceCtrl.ePage.Entities.Header.Data.UIWMSPickFace[i]);
-                    obj.PK = '';
-                    obj.CreatedDateTime = '';
-                    obj.ModifiedDateTime = '';
+                    obj.PK = null;
+                    obj.CreatedDateTime = null;
+                    obj.ModifiedDateTime = null;
                     obj.SingleSelect=false;
                     obj.IsCopied = true;
                     PickfaceCtrl.ePage.Entities.Header.Data.UIWMSPickFace.splice(i + 1, 0, obj);

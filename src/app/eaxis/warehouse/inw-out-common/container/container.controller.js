@@ -158,14 +158,14 @@
         function AddNewRow() {
             ContainerCtrl.ePage.Entities.Header.GlobalVariables.Loading = true;
             var obj = {
-                "PK": "",
-                "ContainerNumber": "",
-                "SealNumber": "",
-                "Type": "",
-                "IsPalletised": "",
-                "IsChargeable": "",
-                "ItemCount": "",
-                "PalletCount": "",
+                "PK": null,
+                "ContainerNumber": null,
+                "SealNumber": null,
+                "Type": null,
+                "IsPalletised": null,
+                "IsChargeable": null,
+                "ItemCount": null,
+                "PalletCount": null,
                 "IsDeleted": false,
             };
             ContainerCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderContainer.push(obj);
@@ -183,9 +183,9 @@
             for(var i = ContainerCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderContainer.length -1; i >= 0; i--){
                 if(ContainerCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderContainer[i].SingleSelect){
                     var obj = angular.copy(ContainerCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderContainer[i]);
-                    obj.PK = '';
-                    obj.CreatedDateTime = '';
-                    obj.ModifiedDateTime = '';
+                    obj.PK = null;
+                    obj.CreatedDateTime = null;
+                    obj.ModifiedDateTime = null;
                     obj.SingleSelect=false;
                     obj.IsCopied = true;
                     ContainerCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderContainer.splice(i + 1, 0, obj);
