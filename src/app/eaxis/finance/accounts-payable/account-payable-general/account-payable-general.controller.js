@@ -4,9 +4,9 @@
     angular.module("Application")
         .controller("AccountPayableGeneralController", AccountPayableGeneralController);
 
-    AccountPayableGeneralController.$inject = ["$timeout", "helperService", "apiService", "financeConfig", "APP_CONSTANT", "toastr", "confirmation"];
+    AccountPayableGeneralController.$inject = ["$timeout", "helperService", "apiService", "accountPayableConfig", "APP_CONSTANT", "toastr", "confirmation"];
 
-    function AccountPayableGeneralController($timeout, helperService, apiService, financeConfig, APP_CONSTANT, toastr, confirmation) {
+    function AccountPayableGeneralController($timeout, helperService, apiService, accountPayableConfig, APP_CONSTANT, toastr, confirmation) {
         var AccountPayableGeneralCtrl = this;
 
         function Init() {
@@ -20,7 +20,7 @@
                 "Entities": currentAccountPayable
             };
 
-            AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAPAddress = [];
+            
 
             /* For Table */
             AccountPayableGeneralCtrl.ePage.Masters.EnableCopyButton = true;
@@ -33,6 +33,9 @@
             AccountPayableGeneralCtrl.ePage.Masters.SelectedLookupData = SelectedLookupData;
             AccountPayableGeneralCtrl.ePage.Masters.OnChangeExpectedTotal = OnChangeExpectedTotal;
             AccountPayableGeneralCtrl.ePage.Masters.OnChangeTaxAmount = OnChangeTaxAmount;
+            AccountPayableGeneralCtrl.ePage.Masters.OnChangeGridDesc = OnChangeGridDesc;
+            AccountPayableGeneralCtrl.ePage.Masters.OnChangeGridAmount = OnChangeGridAmount;
+            AccountPayableGeneralCtrl.ePage.Masters.onChangeGridTax = onChangeGridTax;
             AccountPayableGeneralCtrl.ePage.Masters.SelectAllCheckBox = SelectAllCheckBox;
             AccountPayableGeneralCtrl.ePage.Masters.SingleSelectCheckBox = SingleSelectCheckBox;
             AccountPayableGeneralCtrl.ePage.Masters.setSelectedRow = setSelectedRow;
@@ -42,12 +45,16 @@
 
             /* DatePicker */
             AccountPayableGeneralCtrl.ePage.Masters.DatePicker = {};
-            AccountPayableGeneralCtrl.ePage.Masters.DatePicker.Options = APP_CONSTANT.DatePicker;
-            AccountPayableGeneralCtrl.ePage.Masters.DatePicker.OptionsAllDate = APP_CONSTANT.DatePicker;
-            AccountPayableGeneralCtrl.ePage.Masters.DatePicker.Options['maxDate'] = new Date();
+            AccountPayableGeneralCtrl.ePage.Masters.DatePicker.OptionsPastToday = angular.copy(APP_CONSTANT.DatePicker);
+            AccountPayableGeneralCtrl.ePage.Masters.DatePicker.OptionsAllDate = angular.copy(APP_CONSTANT.DatePicker);
+            AccountPayableGeneralCtrl.ePage.Masters.DatePicker.OptionsPastToday['maxDate'] = new Date();
+            //AccountPayableGeneralCtrl.ePage.Masters.DatePicker.OptionsToday = angular.copy(APP_CONSTANT.DatePicker);
+            // AccountPayableGeneralCtrl.ePage.Masters.DatePicker.OptionsToday['maxDate'] = new Date();
+            // AccountPayableGeneralCtrl.ePage.Masters.DatePicker.OptionsToday['minDate'] = new Date();
             AccountPayableGeneralCtrl.ePage.Masters.DatePicker.isOpen = [];
             AccountPayableGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker = OpenDatePicker;
 
+            accountPayableConfig.InitBinding(AccountPayableGeneralCtrl.currentAccountPayable);
             InitAccountPayable();
             GetNewCompanyAddress();
             GetCreditorAddress();
@@ -61,13 +68,19 @@
                 AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccTransactionHeader.ExpectedTotal = true;
             } else {
                 AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccTransactionHeader.ExpectedTotal = false;
+
+                if (AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata.length > 0) {
+                    AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata.map(function (value, key) {
+                        value.LocalTotal = (parseFloat(value.JCOSCostAmt * value.TLExchangeRate) + parseFloat(value.JCOSCostGSTAmt * value.TLExchangeRate)).toFixed(2);
+                    });
+                }
             }
         }
         //#endregion
 
         //#region GetNewCompanyAddress, GetNewCreditorAddress
         function GetNewCompanyAddress() {
-            var myvalue = AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAPAddress.some(function (value, key) {
+            var myvalue = AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIJobAddress.some(function (value, key) {
                 return value.AddressType == "CMP";
             });
 
@@ -87,12 +100,12 @@
                     "Phone": "",
                     "Fax": "",
                 };
-                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAPAddress.splice(AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAPAddress.length + 1, 0, obj);
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIJobAddress.splice(AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIJobAddress.length + 1, 0, obj);
             }
         }
 
         function GetCreditorAddress() {
-            var myvalue = AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAPAddress.some(function (value, key) {
+            var myvalue = AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIJobAddress.some(function (value, key) {
                 return value.AddressType == "CRD";
             });
 
@@ -112,7 +125,7 @@
                     "Phone": "",
                     "Fax": "",
                 };
-                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAPAddress.splice(AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAPAddress.length + 1, 0, obj);
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIJobAddress.splice(AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIJobAddress.length + 1, 0, obj);
             }
         }
         //#endregion
@@ -120,13 +133,24 @@
         //#region SelectedLookupData
         function SelectedLookupData($index, $item, type) {
             if (type == "Company") {
-                if (AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccTransactionHeader.CMP_Code) {
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccTransactionHeader.Company = $item.Code + '-' + $item.Name;
+
+                if (AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccTransactionHeader.Company) {
                     AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccTransactionHeader.CompanyLocalCurrency = $item.LocalCurrency;
                     AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccTransactionHeader.CUR_NKTransactionCurrency = $item.LocalCurrency;
                     AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccTransactionHeader.ExchangeRate = 1;
+
+                    //#region Grid Amount, ExchangeRate Change
+                    // if (AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata.length > 0) {
+                    //     AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata.map(function (value, key) {
+                    //         value.TLRX_NKTransactionCurrency = AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccTransactionHeader.CUR_NKTransactionCurrency;
+                    //         value.TLExchangeRate = AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccTransactionHeader.ExchangeRate;
+                    //     });
+                    // }
+                    //#endregion
                 }
 
-                angular.forEach(AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAPAddress, function (value, key) {
+                angular.forEach(AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIJobAddress, function (value, key) {
                     if (value.AddressType == "CMP") {
                         value.ORG_FK = $item.PK;
                         value.OAD_Address_FK = $item.ORG_Organization_FK;
@@ -145,25 +169,39 @@
                 });
             }
             else if (type == "Creditor") {
-                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccTransactionHeader.ORG_Code = $item.Code;
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccTransactionHeader.Creditor = $item.ORG_Code + '-' + $item.ORG_Name;
 
-                angular.forEach(AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAPAddress, function (value, key) {
-                    if (value.AddressType == "CRD") {
-                        value.ORG_FK = $item.PK;
-                        value.OAD_Address_FK = $item.OAD_PK;
-                        value.Address1 = $item.OAD_Address1;
-                        value.Address2 = $item.OAD_Address2;
-                        value.State = $item.OAD_State;
-                        value.PostCode = $item.OAD_PostCode;
-                        value.City = $item.OAD_PostCode;
-                        value.Email = $item.OAD_Email;
-                        value.Mobile = $item.OAD_Mobile;
-                        value.Phone = $item.OAD_Phone;
-                        value.RN_NKCountryCode = $item.OAD_CountryCode;
-                        value.Fax = $item.OAD_Fax;
-                        value.TenantCode = "20CUB"
+                apiService.get("eAxisAPI", accountPayableConfig.Entities.API.OrgHeader.API.GetById.Url + $item.ORG_FK).then(function (response) {
+                    if (response.data.Response) {
+                        angular.forEach(AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIJobAddress, function (value, key) {
+                            if (value.AddressType == "CRD") {
+                                value.ORG_FK = response.data.Response.PK;
+                                value.OAD_Address_FK = response.data.Response.OAD_PK;
+                                value.Address1 = response.data.Response.OAD_Address1;
+                                value.Address2 = response.data.Response.OAD_Address2;
+                                value.State = response.data.Response.OAD_State;
+                                value.PostCode = response.data.Response.OAD_PostCode;
+                                value.City = response.data.Response.OAD_PostCode;
+                                value.Email = response.data.Response.OAD_Email;
+                                value.Mobile = response.data.Response.OAD_Mobile;
+                                value.Phone = response.data.Response.OAD_Phone;
+                                value.RN_NKCountryCode = response.data.Response.OAD_CountryCode;
+                                value.Fax = response.data.Response.OAD_Fax;
+                                value.TenantCode = "20CUB"
+                            }
+                        });
                     }
                 });
+
+                if ($item.APPaymentTermDays == 0) {
+                    AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccTransactionHeader.DueDate = new Date();
+                    AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccTransactionHeader.RequisitionDate = new Date();
+                } else {
+                    var _DueDate = new Date();
+                    _DueDate.setDate(_DueDate.getDate() + $item.APPaymentTermDays);
+                    AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccTransactionHeader.DueDate = _DueDate;
+                    AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccTransactionHeader.RequisitionDate = _DueDate;
+                }
             }
             else if (type == "Currency") {
                 if (AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccTransactionHeader.CompanyLocalCurrency != AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccTransactionHeader.CUR_NKTransactionCurrency) {
@@ -173,10 +211,10 @@
                     };
                     var _input = {
                         "searchInput": helperService.createToArrayOfObject(_filter),
-                        "FilterID": financeConfig.Entities.API.MstRecentExchangeRate.API.FindAll.FilterID
+                        "FilterID": accountPayableConfig.Entities.API.MstRecentExchangeRate.API.FindAll.FilterID
                     };
 
-                    apiService.post("eAxisAPI", financeConfig.Entities.API.MstRecentExchangeRate.API.FindAll.Url, _input).then(function (response) {
+                    apiService.post("eAxisAPI", accountPayableConfig.Entities.API.MstRecentExchangeRate.API.FindAll.Url, _input).then(function (response) {
                         if (response.data.Response.length > 0) {
                             if (response.data.Response[0].TodayBuyrate == 0) {
                                 AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccTransactionHeader.ExchangeRate = response.data.Response[0].BaseRate;
@@ -189,10 +227,68 @@
                             AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccTransactionHeader.ExchangeRate = 1;
                         }
                     });
+
+                    //#region Grid Amount, ExchangeRate Change
+                    if (AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata.length > 0) {
+                        AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata.map(function (value, key) {
+                            value.TLRX_NKTransactionCurrency = AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccTransactionHeader.CUR_NKTransactionCurrency;
+                            value.TLExchangeRate = AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccTransactionHeader.ExchangeRate;
+                        });
+                    }
+                    //#endregion
                 }
+            }
+            else if (type == "Charges") {
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].TLACCCode = $item.Code;
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].JCACCCode = $item.Code;
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].TLATCode = $item.TaxCode;
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].TLATR_FK = $item.ATR_GSTRate;
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].TaxRate = $item.TaxRate;
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].TLAGH_FK = $item.AGH_CostAccount;
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].TLAGHAccountNum = $item.AGH_CostAccountNum;
+
+                if (AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].TLACC_FK && AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].TLJOB_FK) {
+                    GetLineChargeDetail($index);
+                }
+            }
+            else if (type == "Job") {
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].TLJOBJobNo = $item.JobNo;
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].JCJOBJobNo = $item.JobNo;
+
+                if (AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].TLACC_FK && AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].TLJOB_FK) {
+                    GetLineChargeDetail($index);
+                }
+            }
+            else if (type == "Branch") {
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].TLBRNCHBranchCode = $item.Code;
+            }
+            else if (type == "Department") {
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].TLDEPDeptCode = $item.Code;
             }
         }
         //#endregion 
+
+        //#region GetLineChargeDetail
+        function GetLineChargeDetail($index) {
+            var _filter = {
+                /* "CMP_FK": AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccTransactionHeader.CMP_FK, */
+                "ACC_FK": AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].TLACC_FK,
+                "JOB_FK": AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].JCJOB_FK
+            };
+            var _input = {
+                "searchInput": helperService.createToArrayOfObject(_filter),
+                "FilterID": accountPayableConfig.Entities.API.AccountpayableListdata.API.FindAll.FilterID
+            };
+
+            apiService.post("eAxisAPI", accountPayableConfig.Entities.API.AccountpayableListdata.API.FindAll.Url, _input).then(function (response) {
+                if (response.data.Response.length > 0) {
+                    angular.forEach(response.data.Response, function (value, key) {
+                        AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge.push(value);
+                    });
+                }
+            });
+        }
+        //#endregion
 
         //#region OpenDatePicker
         function OpenDatePicker($event, opened) {
@@ -202,7 +298,7 @@
         }
         //#endregion
 
-        //#region OnChangeExpected, OnChangeTaxAmount
+        //#region OnChangeExpected, OnChangeTaxAmount, OnChangeGridDesc, OnChangeGridAmount
         function OnChangeExpectedTotal($item) {
             if (!$item) {
                 AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccTransactionHeader.ExpectedTotal = false;
@@ -212,11 +308,50 @@
         }
 
         function OnChangeTaxAmount($item, type) {
-            if (type == "Tax") {
-                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccTransactionHeader.ExclTax = (parseFloat(AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccTransactionHeader.InclTax) - parseFloat($item)).toFixed(2);
+            if (!$item && type == "InclTax") {
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccTransactionHeader.Tax = "";
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccTransactionHeader.ExclTax = "";
             }
-            else if (type == "ExclTax") {
+
+            if ($item && type == "Tax") {
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccTransactionHeader.ExclTax = (parseFloat(AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccTransactionHeader.InclTax) - parseFloat($item)).toFixed(2);
+            } else if (!$item && type == "Tax") {
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccTransactionHeader.ExclTax = "";
+            }
+
+            if ($item && type == "ExclTax") {
                 AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccTransactionHeader.Tax = (parseFloat(AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccTransactionHeader.InclTax) - parseFloat($item)).toFixed(2);
+            } else if (!$item && type == "ExclTax") {
+                if (AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccTransactionHeader.Tax) {
+                    AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccTransactionHeader.ExclTax = (parseFloat(AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccTransactionHeader.InclTax) - parseFloat(AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccTransactionHeader.Tax)).toFixed(2);;
+                }
+            }
+        }
+
+        function OnChangeGridDesc($index, $item) {
+            AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].JCDesc = $item;
+        }
+
+        function OnChangeGridAmount($index, $item) {
+            if ($item) {
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].JCOSCostGSTAmt = ($item * (AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].TaxRate / 100)).toFixed(2);
+
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].TLOSAmount = (parseFloat($item) + parseFloat(AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].JCOSCostGSTAmt)).toFixed(2);
+
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].LocalTotal = (parseFloat($item * AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].TLExchangeRate) + parseFloat($item * AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].TLExchangeRate)).toFixed(2);
+
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].TLLineAmount = (parseFloat($item) * parseFloat(AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].TLExchangeRate)).toFixed(2);
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].JCLocalCostAmt = (parseFloat($item) * parseFloat(AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].TLExchangeRate)).toFixed(2);
+
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].TLGSTVAT = (parseFloat(AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].JCOSCostGSTAmt) * parseFloat(AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].TLExchangeRate)).toFixed(2);
+            }
+        }
+
+        function onChangeGridTax($index, $item) {
+            if ($item) {
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].TLGSTVAT = (parseFloat($item) * parseFloat(AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].TLExchangeRate)).toFixed(2);
+
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].LocalTotal = (parseFloat(AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].JCOSCostAmt * AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].TLExchangeRate) + parseFloat($item * AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].TLExchangeRate)).toFixed(2);
             }
         }
         //#endregion
@@ -271,53 +406,58 @@
             var obj = {
                 "PK": "",
 
-                "TLCharges": "",
+                "TLACCCode": "",
+                "TLACCDesc": "",
+                "JCACCCode": "",
+                "JCACCDesc": "",
                 "TLACC_FK": "",
                 "JCACC_FK": "",
 
-                "TLChargeType": "",
                 "JCChargeType": "",
 
-                "TLJob": "",
+                "TLJOBJobNo": "",
+                "JCJOBJobNo": "",
                 "TLJOB_FK": "",
                 "JCJOB_FK": "",
 
                 "TLLineDescription": "",
                 "JCDesc": "",
 
-                "TLBRN_Code": "",
+                "TLBRNCHBranchCode": "",
+                "TLBRNCHBranchName": "",
                 "TLBRN_FK": "",
 
-                "TLDEP_Code": "",
+                "TLDEPDeptCode": "",
+                "TLDEPDeptName": "",
                 "TLDEP_FK": "",
 
-                "TLRX_NKTransactionCurrency": "",
+                "TLRX_NKTransactionCurrency": AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccTransactionHeader.CUR_NKTransactionCurrency,
 
-                "TLExchangeRate": "",
+                "TLExchangeRate": AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccTransactionHeader.ExchangeRate,
 
-                "TLLineAmount": "",
+                "JCOSCostAmt": "",
 
-                "TLTaxID": "",
+                "TLATCode": "",
+                "TLATDescription": "",
                 "TLATR_FK": "",
 
-                "TL_OSTaxAmount": "",
+                "TaxRate": "",
+                "JCOSCostGSTAmt": "",
 
                 "TLOSAmount": "",
 
-                "TLLocalTotal": "",
+                "LocalTotal": "",
 
-                "TLLocalAmount": "",
+                "TLLineAmount": "",
+                "JCLocalCostAmt": "",
 
                 "TLGSTVAT": "",
 
-                "IsFinalCharge": "",
+                "TLIsFinalCharge": true,
 
-                "TLGLAccount": "",
+                "TLAGHAccountNum": "",
+                "TLAGHDescription": "",
                 "TLAGH_FK": "",
-
-                "TLJobLocalRef": "",
-
-                "TLLineType": "CST",
 
                 "Source": "AP",
                 "TenantCode": "20CUB",
@@ -373,7 +513,7 @@
 
                 AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata.map(function (value, key) {
                     if (value.SingleSelect && value.PK && value.IsDeleted) {
-                        // apiService.get("eAxisAPI", financeConfig.Entities.API.JobHeaderList.API.Delete.Url + value.PK).then(function (response) {
+                        // apiService.get("eAxisAPI", accountPayableConfig.Entities.API.JobHeaderList.API.Delete.Url + value.PK).then(function (response) {
                         //     console.log("Success");
                         // });
                     }
