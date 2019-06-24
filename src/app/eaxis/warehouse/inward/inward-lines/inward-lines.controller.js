@@ -308,7 +308,7 @@
                     InwardLinesCtrl.ePage.Masters.Loading = false;
                     if (response.data.Response) {
                         angular.forEach(response.data.Response, function (value, key) {
-                            value.PK = '';
+                            value.PK = null;
                             if (!value.Packs) {
                                 value.Packs = 1;
                                 value.Units = 1;
@@ -320,19 +320,19 @@
                                 value.ProductCondition = "GDC"
                             }
                             if (value.IsPartAttrib1ReleaseCaptured || !value.UsePartAttrib1) {
-                                value.PartAttrib1 = '';
+                                value.PartAttrib1 = null;
                             }
                             if (value.IsPartAttrib2ReleaseCaptured || !value.UsePartAttrib2) {
-                                value.PartAttrib2 = '';
+                                value.PartAttrib2 = null;
                             }
                             if (value.IsPartAttrib3ReleaseCaptured || !value.UsePartAttrib3) {
-                                value.PartAttrib3 = '';
+                                value.PartAttrib3 = null;
                             }
                             if (!value.UsePackingDate) {
-                                value.PackingDate = '';
+                                value.PackingDate = null;
                             }
                             if (!value.UseExpiryDate) {
-                                value.ExpiryDate = '';
+                                value.ExpiryDate = null;
                             }
                             InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine.push(value);
                         });
@@ -392,11 +392,11 @@
             InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine[index].Commodity = item.MCC_NKCommodityCode + ' - ' + item.MCC_NKCommodityDesc;
 
             //To remove Attributes when copy row
-            InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine[index].PartAttrib1 = '';
-            InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine[index].PartAttrib2 = '';
-            InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine[index].PartAttrib3 = '';
-            InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine[index].PackingDate = '';
-            InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine[index].ExpiryDate = '';
+            InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine[index].PartAttrib1 = null;
+            InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine[index].PartAttrib2 = null;
+            InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine[index].PartAttrib3 = null;
+            InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine[index].PackingDate = null;
+            InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine[index].ExpiryDate = null;
             InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine[index].Units = InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine[index].Packs;
 
             OnChangeValues(item.ProductCode, 'E3008', true, index);
@@ -594,40 +594,40 @@
             } else {
                 InwardLinesCtrl.ePage.Entities.Header.GlobalVariables.Loading = true;
                 var obj = {
-                    "PK": "",
-                    "ProductCode": "",
-                    "ProductDescription": "",
-                    "PRO_FK": "",
-                    "Commodity": "",
-                    "MCC_NKCommodityCode": "",
-                    "MCC_NKCommodityDesc": "",
-                    "Packs": "",
-                    "PAC_PackType": "",
-                    "Units": "",
-                    "StockKeepingUnit": "",
+                    "PK": null,
+                    "ProductCode": null,
+                    "ProductDescription": null,
+                    "PRO_FK": null,
+                    "Commodity": null,
+                    "MCC_NKCommodityCode": null,
+                    "MCC_NKCommodityDesc": null,
+                    "Packs": null,
+                    "PAC_PackType": null,
+                    "Units": null,
+                    "StockKeepingUnit": null,
                     "ProductCondition": "GDC",
-                    "Brand": "",
-                    "Model": "",
-                    "PartAttrib1": "",
-                    "PartAttrib2": "",
-                    "PartAttrib3": "",
-                    "LocationType": "",
-                    "PalletID": "",
-                    "OriginalInventoryStatus": "",
-                    "OriginalInventoryStatusDesc": "",
-                    "PackingDate": "",
-                    "ExpiryDate": "",
-                    "AdditionalRef1Code": "",
-                    "WRO_Name": "",
-                    "WLO_Location": "",
-                    "WLO_Column": "",
-                    "WLO_Level": "",
-                    "WAA_AreaType": "",
-                    "WAA_Name": "",
-                    "WLO_LocationStatus": "",
-                    "WLO_LocationStatusDescription": "",
-                    "TransferFromDockDoor": "",
-                    "LineComment": "",
+                    "Brand": null,
+                    "Model": null,
+                    "PartAttrib1": null,
+                    "PartAttrib2": null,
+                    "PartAttrib3": null,
+                    "LocationType": null,
+                    "PalletID": null,
+                    "OriginalInventoryStatus": null,
+                    "OriginalInventoryStatusDesc": null,
+                    "PackingDate": null,
+                    "ExpiryDate": null,
+                    "AdditionalRef1Code": null,
+                    "WRO_Name": null,
+                    "WLO_Location": null,
+                    "WLO_Column": null,
+                    "WLO_Level": null,
+                    "WAA_AreaType": null,
+                    "WAA_Name": null,
+                    "WLO_LocationStatus": null,
+                    "WLO_LocationStatusDescription": null,
+                    "TransferFromDockDoor": null,
+                    "LineComment": null,
                     "UseExpiryDate": false,
                     "UsePackingDate": false,
                     "UsePartAttrib1": false,
@@ -679,7 +679,7 @@
                     if (InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine[i].SingleSelect) {
                         var item = angular.copy(InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine[i]);
                         var obj = {
-                            "PK": "",
+                            "PK": null,
                             "ProductCode": item.ProductCode,
                             "ProductDescription": item.ProductDescription,
                             "PRO_FK": item.PRO_FK,
@@ -943,7 +943,7 @@
                 InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.TotalPallets = 0;
 
             if (InwardLinesCtrl.currentInward.isNew) {
-                InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.ExternalReference = '';
+                InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.ExternalReference = null;
             }
 
             InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderContainer = $filter('orderBy')(InwardLinesCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderContainer, 'CreatedDateTime');

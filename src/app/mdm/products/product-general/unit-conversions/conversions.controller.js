@@ -179,10 +179,10 @@
         function AddNewRow() {
             ConversionsCtrl.ePage.Entities.Header.GlobalVariables.Loading = true;
             var obj = {
-                "PK": "",
+                "PK": null,
                 "QuantityInParent": 0,
-                "PackType": "",
-                "ParentPackType": "",
+                "PackType": null,
+                "ParentPackType": null,
                 "IsDeleted": false
             };
             ConversionsCtrl.ePage.Entities.Header.Data.UIOrgPartUnit.push(obj);
@@ -200,9 +200,9 @@
             for(var i = ConversionsCtrl.ePage.Entities.Header.Data.UIOrgPartUnit.length -1; i >= 0; i--){
                 if(ConversionsCtrl.ePage.Entities.Header.Data.UIOrgPartUnit[i].SingleSelect){
                     var obj = angular.copy(ConversionsCtrl.ePage.Entities.Header.Data.UIOrgPartUnit[i]);
-                    obj.PK = '';
-                    obj.CreatedDateTime = '';
-                    obj.ModifiedDateTime = '';
+                    obj.PK = null;
+                    obj.CreatedDateTime = null;
+                    obj.ModifiedDateTime = null;
                     obj.SingleSelect=false;
                     obj.IsCopied = true;
                     ConversionsCtrl.ePage.Entities.Header.Data.UIOrgPartUnit.splice(i + 1, 0, obj);

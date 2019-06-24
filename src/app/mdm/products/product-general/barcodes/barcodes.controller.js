@@ -180,9 +180,9 @@
         function AddNewRow() {
             BarcodesCtrl.ePage.Entities.Header.GlobalVariables.Loading = true;
             var obj = {
-                "PK": "",
-                "PAC_NKPackType": "",
-                "Barcode": "",
+                "PK": null,
+                "PAC_NKPackType": null,
+                "Barcode": null,
                 "IsDeleted": false
             };
             BarcodesCtrl.ePage.Entities.Header.Data.UIOrgSupplierPartBarcode.push(obj);
@@ -200,9 +200,9 @@
             for(var i = BarcodesCtrl.ePage.Entities.Header.Data.UIOrgSupplierPartBarcode.length -1; i >= 0; i--){
                 if(BarcodesCtrl.ePage.Entities.Header.Data.UIOrgSupplierPartBarcode[i].SingleSelect){
                     var obj = angular.copy(BarcodesCtrl.ePage.Entities.Header.Data.UIOrgSupplierPartBarcode[i]);
-                    obj.PK = '';
-                    obj.CreatedDateTime = '';
-                    obj.ModifiedDateTime = '';
+                    obj.PK = null;
+                    obj.CreatedDateTime = null;
+                    obj.ModifiedDateTime = null;
                     obj.SingleSelect=false;
                     obj.IsCopied = true;
                     BarcodesCtrl.ePage.Entities.Header.Data.UIOrgSupplierPartBarcode.splice(i + 1, 0, obj);

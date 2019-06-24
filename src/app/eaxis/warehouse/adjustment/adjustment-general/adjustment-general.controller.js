@@ -229,16 +229,16 @@
 
             if (!AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader) {
                 var obj = {
-                    "PK": "",
-                    "OAD_PK": "",
-                    "OAD_Address1": "",
-                    "OAD_Address2": "",
-                    "OAD_State": "",
-                    "OAD_PostCode": "",
-                    "OAD_City": "",
-                    "OAD_City": "",
-                    "OAD_Fax": "",
-                    "OAD_Phone": ""
+                    "PK": null,
+                    "OAD_PK": null,
+                    "OAD_Address1": null,
+                    "OAD_Address2": null,
+                    "OAD_State": null,
+                    "OAD_PostCode": null,
+                    "OAD_City": null,
+                    "OAD_City": null,
+                    "OAD_Fax": null,
+                    "OAD_Phone": null
                 };
                 AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIOrgHeader.push([obj]);
             }
@@ -422,7 +422,7 @@
                     AdjustmentGeneralCtrl.ePage.Masters.Loading =false;
                     if(response.data.Response){
                         angular.forEach(response.data.Response,function(value,key){
-                            value.PK='';
+                            value.PK=null;
                             value.ReasonCode = 'STA';
                             value.AdjustmentArrivalDate = new Date();
                             if(!value.Packs){
@@ -436,19 +436,19 @@
                                 value.ProductCondition = "GDC"
                             }
                             if(value.IsPartAttrib1ReleaseCaptured || !value.UsePartAttrib1){
-                                value.PartAttrib1 = '';
+                                value.PartAttrib1 = null;
                             }
                             if(value.IsPartAttrib2ReleaseCaptured || !value.UsePartAttrib2){
-                                value.PartAttrib2 = '';
+                                value.PartAttrib2 = null;
                             }
                             if(value.IsPartAttrib3ReleaseCaptured || !value.UsePartAttrib3){
-                                value.PartAttrib3 = '';
+                                value.PartAttrib3 = null;
                             }
                             if(!value.UsePackingDate){
-                                value.PackingDate = '';
+                                value.PackingDate = null;
                             }
                             if(!value.UseExpiryDate){
-                                value.ExpiryDate = '';
+                                value.ExpiryDate = null;
                             }
                             AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine.push(value);
                         });
@@ -488,11 +488,11 @@
             AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine[index].Commodity = item.MCC_NKCommodityCode +' - '+item.MCC_NKCommodityDesc;
 
             //To remove Attributes when copy row
-            AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine[index].PartAttrib1='';
-            AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine[index].PartAttrib2='';
-            AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine[index].PartAttrib3='';
-            AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine[index].PackingDate='';
-            AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine[index].ExpiryDate='';
+            AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine[index].PartAttrib1=null;
+            AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine[index].PartAttrib2=null;
+            AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine[index].PartAttrib3=null;
+            AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine[index].PackingDate=null;
+            AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine[index].ExpiryDate=null;
             AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine[index].Units = AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine[index].Packs;
 
             OnChangeValues(item.ProductCode, 'E10003', true, index);
@@ -645,41 +645,41 @@
             }else{
                 AdjustmentGeneralCtrl.ePage.Entities.Header.GlobalVariables.Loading = true;
                 var obj = {
-                "PK": "",
-                "ProductCode": "",
-                "ProductDescription": "",
-                "PRO_FK": "",
-                "Commodity": "",
-                "MCC_NKCommodityCode": "",
-                "MCC_NKCommodityDesc": "",
-                "Packs": "",
-                "PAC_PackType": "",
-                "Units": "",
-                "StockKeepingUnit": "",
+                "PK": null,
+                "ProductCode": null,
+                "ProductDescription": null,
+                "PRO_FK": null,
+                "Commodity": null,
+                "MCC_NKCommodityCode": null,
+                "MCC_NKCommodityDesc": null,
+                "Packs": null,
+                "PAC_PackType": null,
+                "Units": null,
+                "StockKeepingUnit": null,
                 "ProductCondition":"GDC",
-                "WRO_Name": "",
-                "WLO_Location": "",
-                "WLO_FK": "",
-                "WLO_Column": "",
-                "WLO_Level": "",
-                "WAA_FK":"",
-                "WAA_AreaType": "",
-                "WAA_Name": "",
-                "WLO_LocationStatus":"",
-                "WLO_LocationStatusDescription":"",
-                "AdjustmentArrivalDate": "",
-                "LineComment": "",
-                "PalletID": "",
-                "ReasonCode": "",
-                "Description": "",
-                "CommitedUnit": "",
-                "OriginalInventoryStatus": "",
-                "OriginalInventoryStatusDesc": "",
-                "PartAttrib1": "",
-                "PartAttrib2": "",
-                "PartAttrib3": "",
-                "PackingDate": "",
-                "ExpiryDate": "",
+                "WRO_Name": null,
+                "WLO_Location": null,
+                "WLO_FK": null,
+                "WLO_Column": null,
+                "WLO_Level": null,
+                "WAA_FK":null,
+                "WAA_AreaType": null,
+                "WAA_Name": null,
+                "WLO_LocationStatus":null,
+                "WLO_LocationStatusDescription":null,
+                "AdjustmentArrivalDate": null,
+                "LineComment": null,
+                "PalletID": null,
+                "ReasonCode": null,
+                "Description": null,
+                "CommitedUnit": null,
+                "OriginalInventoryStatus": null,
+                "OriginalInventoryStatusDesc": null,
+                "PartAttrib1": null,
+                "PartAttrib2": null,
+                "PartAttrib3": null,
+                "PackingDate": null,
+                "ExpiryDate": null,
                 "UseExpiryDate": false,
                 "UsePackingDate": false,
                 "UsePartAttrib1": false,
@@ -719,7 +719,7 @@
                 if(AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine[i].SingleSelect){
                     var item = angular.copy(AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine[i]);
                     var obj = {
-                        "PK": "",
+                        "PK": null,
                         "ProductCode": item.ProductCode,
                         "ProductDescription": item.ProductDescription,
                         "PRO_FK": item.PRO_FK,
@@ -770,10 +770,10 @@
                         "WAR_WarehouseName": AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIAdjustmentHeader.WarehouseName,
                         "WAR_FK": AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIAdjustmentHeader.WAR_FK,
         
-                        "WorkOrderLineStatus": "",
-                        "WorkOrderLineStatusDesc": "",
-                        "OriginalInventoryStatus": "",
-                        "OriginalInventoryStatusDesc": "",
+                        "WorkOrderLineStatus": null,
+                        "WorkOrderLineStatusDesc": null,
+                        "OriginalInventoryStatus": null,
+                        "OriginalInventoryStatusDesc": null,
                     };
                     if(AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIAdjustmentHeader.Client){
                         obj.Client = AdjustmentGeneralCtrl.ePage.Entities.Header.Data.UIAdjustmentHeader.ClientCode
@@ -1036,7 +1036,7 @@
             angular.forEach(AdjustmentGeneralCtrl.ePage.Masters.Inventory, function (value, key) {
                 if (value.SingleSelectInventory) {
                     var obj = {
-                        "PK": "",
+                        "PK": null,
                         "ProductCode": value.ProductCode,
                         "ProductDescription": value.ProductName,
                         "PRO_FK": value.PRO_FK,
@@ -1047,11 +1047,11 @@
                         "Units": "-" + value.InLocationQty,
                         "StockKeepingUnit": value.StockKeepingUnit,
                         "ProductCondition":value.ProductCondition,
-                        "WRO_Name": "",
+                        "WRO_Name": null,
                         "WLO_Location": value.Location,
                         "WLO_FK": value.WLO_FK,
-                        "WLO_Column": "",
-                        "WLO_Level": "",
+                        "WLO_Column": null,
+                        "WLO_Level": null,
                         "WAA_FK":value.WAA_FK,
                         "WAA_AreaType": value.AreaType,
                         "WLO_LocationStatus" : value.LocationStatus,
@@ -1061,9 +1061,9 @@
                         "LineComment": value.LineComment,
                         "PalletID": value.PalletID,
                         "ReasonCode": 'STA',
-                        "Description": "",
-                        "OriginalInventoryStatus": "",
-                        "OriginalInventoryStatusDesc": "",
+                        "Description": null,
+                        "OriginalInventoryStatus": null,
+                        "OriginalInventoryStatusDesc": null,
                         "PartAttrib1": value.PartAttrib1,
                         "PartAttrib2": value.PartAttrib2,
                         "PartAttrib3": value.PartAttrib3,

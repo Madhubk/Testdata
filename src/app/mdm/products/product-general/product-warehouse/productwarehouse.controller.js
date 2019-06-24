@@ -214,30 +214,30 @@
         function AddNewRow() {
             ProductWarehouseCtrl.ePage.Entities.Header.GlobalVariables.Loading = true;
             var obj = {
-                "PK": "",
-                "ORG_Code": "",
-                "ORG_FullName": "",
-                "Client": "",
-                "ORG_FK": "",
-                "WAR_WarehouseCode": "",
-                "WAR_WarehouseName": "",
-                "Warehouse": "",
-                "WAR_FK": "",
-                "WAA_PutAwayAreaName": "",
-                "WAA_PutawayArea_FK": "",
-                "WAA_StagingAreaBOMName": "",
-                "PAC_NKReceivedPackType": "",
-                "PAC_NKReleasedPackType": "",
-                "StockTakeCycle": "",
-                "ExpiryNotificationPeriod": "",
-                "MaximumShelfLife": "",
-                "ReplenishmentMinimum": "",
-                "EconomicQuantity": "",
-                "ReplenishmentMultiple": "",
-                "UQ": "",
-                "ABCCategory": "",
-                "ABCPeriod": "",
-                "PickGroup": "",
+                "PK": null,
+                "ORG_Code": null,
+                "ORG_FullName": null,
+                "Client": null,
+                "ORG_FK": null,
+                "WAR_WarehouseCode": null,
+                "WAR_WarehouseName": null,
+                "Warehouse": null,
+                "WAR_FK": null,
+                "WAA_PutAwayAreaName": null,
+                "WAA_PutawayArea_FK": null,
+                "WAA_StagingAreaBOMName": null,
+                "PAC_NKReceivedPackType": null,
+                "PAC_NKReleasedPackType": null,
+                "StockTakeCycle": null,
+                "ExpiryNotificationPeriod": null,
+                "MaximumShelfLife": null,
+                "ReplenishmentMinimum": null,
+                "EconomicQuantity": null,
+                "ReplenishmentMultiple": null,
+                "UQ": null,
+                "ABCCategory": null,
+                "ABCPeriod": null,
+                "PickGroup": null,
                 "IsDeleted": false
             };
             ProductWarehouseCtrl.ePage.Entities.Header.Data.UIWarehouse.push(obj);
@@ -255,9 +255,9 @@
             for(var i = ProductWarehouseCtrl.ePage.Entities.Header.Data.UIWarehouse.length -1; i >= 0; i--){
                 if(ProductWarehouseCtrl.ePage.Entities.Header.Data.UIWarehouse[i].SingleSelect){
                     var obj = angular.copy(ProductWarehouseCtrl.ePage.Entities.Header.Data.UIWarehouse[i]);
-                    obj.PK = '';
-                    obj.CreatedDateTime = '';
-                    obj.ModifiedDateTime = '';
+                    obj.PK = null;
+                    obj.CreatedDateTime = null;
+                    obj.ModifiedDateTime = null;
                     obj.SingleSelect=false;
                     obj.IsCopied = true;
                     ProductWarehouseCtrl.ePage.Entities.Header.Data.UIWarehouse.splice(i + 1, 0, obj);

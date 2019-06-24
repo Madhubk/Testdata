@@ -217,24 +217,24 @@
         function AddNewRow() {
             OrganizationCtrl.ePage.Entities.Header.GlobalVariables.Loading = true;
             var obj = {
-                "PK": "",
-                "ORG_FK": "",
-                "Client": "",
-                "ClientCode": "",
-                "ClientName": "",
-                "Relationship": "",
+                "PK": null,
+                "ORG_FK": null,
+                "Client": null,
+                "ClientCode": null,
+                "ClientName": null,
+                "Relationship": null,
                 "ClientUQ": OrganizationCtrl.ePage.Entities.Header.Data.UIProductGeneral.StockKeepingUnit,
-                "LocalPartNumber": "",
-                "LocalPartDescription": "",
-                "UsePartAttrib1": "",
-                "UsePartAttrib2": "",
-                "UsePartAttrib3": "",
-                "UseExpiryDate": "",
-                "UsePackingDate": "",
-                "IsPartAttrib1ReleaseCaptured":"",
-                "IsPartAttrib2ReleaseCaptured":"",
-                "IsPartAttrib3ReleaseCaptured":"",
-                "PickMode": "",
+                "LocalPartNumber": null,
+                "LocalPartDescription": null,
+                "UsePartAttrib1": null,
+                "UsePartAttrib2": null,
+                "UsePartAttrib3": null,
+                "UseExpiryDate": null,
+                "UsePackingDate": null,
+                "IsPartAttrib1ReleaseCaptured":null,
+                "IsPartAttrib2ReleaseCaptured":null,
+                "IsPartAttrib3ReleaseCaptured":null,
+                "PickMode": null,
                 "IsDeleted": false
             };
             OrganizationCtrl.ePage.Entities.Header.Data.UIOrgPartRelation.push(obj);
@@ -252,9 +252,9 @@
             for(var i = OrganizationCtrl.ePage.Entities.Header.Data.UIOrgPartRelation.length -1; i >= 0; i--){
                 if(OrganizationCtrl.ePage.Entities.Header.Data.UIOrgPartRelation[i].SingleSelect){
                     var obj = angular.copy(OrganizationCtrl.ePage.Entities.Header.Data.UIOrgPartRelation[i]);
-                    obj.PK = '';
-                    obj.CreatedDateTime = '';
-                    obj.ModifiedDateTime = '';
+                    obj.PK = null;
+                    obj.CreatedDateTime = null;
+                    obj.ModifiedDateTime = null;
                     obj.SingleSelect=false;
                     obj.IsCopied = true;
                     OrganizationCtrl.ePage.Entities.Header.Data.UIOrgPartRelation.splice(i + 1, 0, obj);

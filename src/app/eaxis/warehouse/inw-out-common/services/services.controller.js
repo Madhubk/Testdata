@@ -192,14 +192,14 @@
         function AddNewRow() {
             ServiceCtrl.ePage.Entities.Header.GlobalVariables.Loading = true;
             var obj = {
-                "PK": "",
-                "ServiceCode": "",
-                "Booked": "",
-                "Completed": "",
-                "ORG_Contractor_FK": "",
-                "ORG_Location_Code":"",
-                "ServiceCount": "",
-                "ORG_Location_FK": "",
+                "PK": null,
+                "ServiceCode": null,
+                "Booked": null,
+                "Completed": null,
+                "ORG_Contractor_FK": null,
+                "ORG_Location_Code":null,
+                "ServiceCount": null,
+                "ORG_Location_FK": null,
                 "IsDeleted": false,
             };
             ServiceCtrl.ePage.Entities.Header.Data.UIJobServices.push(obj);
@@ -217,9 +217,9 @@
             for(var i = ServiceCtrl.ePage.Entities.Header.Data.UIJobServices.length -1; i >= 0; i--){
                 if(ServiceCtrl.ePage.Entities.Header.Data.UIJobServices[i].SingleSelect){
                     var obj = angular.copy(ServiceCtrl.ePage.Entities.Header.Data.UIJobServices[i]);
-                    obj.PK = '';
-                    obj.CreatedDateTime = '';
-                    obj.ModifiedDateTime = '';
+                    obj.PK = null;
+                    obj.CreatedDateTime = null;
+                    obj.ModifiedDateTime = null;
                     obj.SingleSelect=false;
                     obj.IsCopied = true;
                     ServiceCtrl.ePage.Entities.Header.Data.UIJobServices.splice(i + 1, 0, obj);

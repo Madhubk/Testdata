@@ -202,7 +202,7 @@
 
         function PostSaveObjectUpdate(newValue,oldValue, exceptObjects) {
             for (var i in newValue) {
-                if(typeof newValue[i]=='object'){
+                if(typeof newValue[i] == 'object'&& newValue[i]!=null){
                     PostSaveObjectUpdate(newValue[i],oldValue[i],exceptObjects);
                 }else{
                     var Satisfied = exceptObjects.some(function(v){return v===i});

@@ -382,10 +382,10 @@
                     StocktransferEntryCtrl.ePage.Masters.Loading = false;
                     if (response.data.Response) {
                         angular.forEach(response.data.Response, function (value, key) {
-                            value.PK = '';
+                            value.PK = null;
                             value.AdjustmentArrivalDate = new Date();
                             
-                            value.PK='';
+                            value.PK=null;
                             if(!value.Packs){
                                 value.Packs = 1;
                                 value.Units = 1;
@@ -397,19 +397,19 @@
                                 value.ProductCondition = "GDC"
                             }
                             if(value.IsPartAttrib1ReleaseCaptured || !value.UsePartAttrib1){
-                                value.PartAttrib1 = '';
+                                value.PartAttrib1 = null;
                             }
                             if(value.IsPartAttrib2ReleaseCaptured || !value.UsePartAttrib2){
-                                value.PartAttrib2 = '';
+                                value.PartAttrib2 = null;
                             }
                             if(value.IsPartAttrib3ReleaseCaptured || !value.UsePartAttrib3){
-                                value.PartAttrib3 = '';
+                                value.PartAttrib3 = null;
                             }
                             if(!value.UsePackingDate){
-                                value.PackingDate = '';
+                                value.PackingDate = null;
                             }
                             if(!value.UseExpiryDate){
-                                value.ExpiryDate = '';
+                                value.ExpiryDate = null;
                             }
 
                             StocktransferEntryCtrl.ePage.Entities.Header.Data.UIWmsStockTransferLine.push(value);
@@ -513,39 +513,39 @@
             } else {
                 StocktransferEntryCtrl.ePage.Entities.Header.GlobalVariables.Loading = true;
                 var obj = {
-                    "PK": "",
-                    "ProductCode": "",
-                    "ProductDescription": "",
-                    "PRO_FK": "",
-                    "Commodity": "",
-                    "MCC_NKCommodityCode": "",
-                    "MCC_NKCommodityDesc": "",
+                    "PK": null,
+                    "ProductCode": null,
+                    "ProductDescription": null,
+                    "PRO_FK": null,
+                    "Commodity": null,
+                    "MCC_NKCommodityCode": null,
+                    "MCC_NKCommodityDesc": null,
                     "ProductCondition":"GDC",
-                    "Packs": "",
-                    "PAC_PackType": "",
-                    "Units": "",
-                    "StockKeepingUnit": "",
-                    "CommitedUnit": "",
-                    "WorkOrderLineStatus": "",
-                    "WorkOrderLineStatusDesc": "",
-                    "OriginalInventoryStatus": "",
-                    "OriginalInventoryStatusDesc": "",
-                    "PalletID": "",
-                    "TransferFromPalletId": "",
-                    "WLO_Location": "",
-                    "WLO_TransferFrom": "",
-                    "WLO_FK": "",
-                    "WLO_TransferFrom_FK": "",
-                    "WLO_LocationStatus":"",
-                    "WLO_LocationStatusDescription":"",
-                    "EMP_PutawayBy": "",
-                    "WHC_NKOriginalInventoryHeldCode": "",
-                    "PutawayTime": "",
-                    "AdjustmentArrivalDate": "",
-                    "PickedTime": "",
-                    "ExpiryDate": "",
-                    "LineComment": "",
-                    "PickedBy": "",
+                    "Packs": null,
+                    "PAC_PackType": null,
+                    "Units": null,
+                    "StockKeepingUnit": null,
+                    "CommitedUnit": null,
+                    "WorkOrderLineStatus": null,
+                    "WorkOrderLineStatusDesc": null,
+                    "OriginalInventoryStatus": null,
+                    "OriginalInventoryStatusDesc": null,
+                    "PalletID": null,
+                    "TransferFromPalletId": null,
+                    "WLO_Location": null,
+                    "WLO_TransferFrom": null,
+                    "WLO_FK": null,
+                    "WLO_TransferFrom_FK": null,
+                    "WLO_LocationStatus":null,
+                    "WLO_LocationStatusDescription":null,
+                    "EMP_PutawayBy": null,
+                    "WHC_NKOriginalInventoryHeldCode": null,
+                    "PutawayTime": null,
+                    "AdjustmentArrivalDate": null,
+                    "PickedTime": null,
+                    "ExpiryDate": null,
+                    "LineComment": null,
+                    "PickedBy": null,
                     "IsDeleted": false,
                     "UseExpiryDate": false,
                     "UsePackingDate": false,
@@ -585,7 +585,7 @@
                 if (StocktransferEntryCtrl.ePage.Entities.Header.Data.UIWmsStockTransferLine[i].SingleSelect) {
                     var item = angular.copy(StocktransferEntryCtrl.ePage.Entities.Header.Data.UIWmsStockTransferLine[i]);
                     var obj = {
-                        "PK": "",
+                        "PK": null,
                         "ProductCode": item.ProductCode,
                         "ProductDescription": item.ProductDescription,
                         "PRO_FK": item.PRO_FK,
@@ -636,10 +636,10 @@
                         "IsPartAttrib2ReleaseCaptured": item.IsPartAttrib2ReleaseCaptured,
                         "IsPartAttrib3ReleaseCaptured": item.IsPartAttrib3ReleaseCaptured,
 
-                        "WorkOrderLineStatus": "",
-                        "WorkOrderLineStatusDesc": "",
-                        "OriginalInventoryStatus": "",
-                        "OriginalInventoryStatusDesc": "",
+                        "WorkOrderLineStatus": null,
+                        "WorkOrderLineStatusDesc": null,
+                        "OriginalInventoryStatus": null,
+                        "OriginalInventoryStatusDesc": null,
                         "WOL_MatchingLine_FK":item.WOL_MatchingLine_FK,
                     };
                     if (StocktransferEntryCtrl.ePage.Entities.Header.Data.UIWmsStockTransferHeader.Client) {
@@ -795,11 +795,11 @@
             StocktransferEntryCtrl.ePage.Entities.Header.Data.UIWmsStockTransferLine[index].Commodity = item.MCC_NKCommodityCode + ' - ' + item.MCC_NKCommodityDesc;
 
             //To remove Attributes when copy row
-            StocktransferEntryCtrl.ePage.Entities.Header.Data.UIWmsStockTransferLine[index].PartAttrib1 = '';
-            StocktransferEntryCtrl.ePage.Entities.Header.Data.UIWmsStockTransferLine[index].PartAttrib2 = '';
-            StocktransferEntryCtrl.ePage.Entities.Header.Data.UIWmsStockTransferLine[index].PartAttrib3 = '';
-            StocktransferEntryCtrl.ePage.Entities.Header.Data.UIWmsStockTransferLine[index].PackingDate = '';
-            StocktransferEntryCtrl.ePage.Entities.Header.Data.UIWmsStockTransferLine[index].ExpiryDate = '';
+            StocktransferEntryCtrl.ePage.Entities.Header.Data.UIWmsStockTransferLine[index].PartAttrib1 = null;
+            StocktransferEntryCtrl.ePage.Entities.Header.Data.UIWmsStockTransferLine[index].PartAttrib2 = null;
+            StocktransferEntryCtrl.ePage.Entities.Header.Data.UIWmsStockTransferLine[index].PartAttrib3 = null;
+            StocktransferEntryCtrl.ePage.Entities.Header.Data.UIWmsStockTransferLine[index].PackingDate = null;
+            StocktransferEntryCtrl.ePage.Entities.Header.Data.UIWmsStockTransferLine[index].ExpiryDate = null;
             StocktransferEntryCtrl.ePage.Entities.Header.Data.UIWmsStockTransferLine[index].Units = StocktransferEntryCtrl.ePage.Entities.Header.Data.UIWmsStockTransferLine[index].Packs;
 
             OnChangeValues(item.ProductCode, 'E11004', true, index);
@@ -925,7 +925,7 @@
             angular.forEach(StocktransferEntryCtrl.ePage.Masters.Inventory, function (value, key) {
                 if (value.SingleSelectInventory) {
                     var obj = {
-                        "PK": "",
+                        "PK": null,
                         "ProductCode": value.ProductCode,
                         "ProductDescription": value.ProductName,
                         "PRO_FK": value.PRO_FK,
@@ -936,14 +936,14 @@
                         "Units": value.InLocationQty,
                         "StockKeepingUnit": value.StockKeepingUnit,
                         "ProductCondition": value.ProductCondition,
-                        "WorkOrderLineStatus": "",
-                        "WorkOrderLineStatusDesc": "",
-                        "OriginalInventoryStatus": "",
-                        "OriginalInventoryStatusDesc": "",
-                        "PalletID": "",
+                        "WorkOrderLineStatus": null,
+                        "WorkOrderLineStatusDesc": null,
+                        "OriginalInventoryStatus": null,
+                        "OriginalInventoryStatusDesc": null,
+                        "PalletID": null,
                         "TransferFromPalletId": value.PalletID,
-                        "WLO_Location": "",
-                        "WLO_FK": "",
+                        "WLO_Location": null,
+                        "WLO_FK": null,
                         "WLO_TransferFrom_FK": value.WLO_FK,
                         "WLO_TransferFrom": value.Location,
                         "AdjustmentArrivalDate": value.AdjustmentArrivalDate,
