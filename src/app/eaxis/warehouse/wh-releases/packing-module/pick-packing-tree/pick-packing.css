@@ -70,3 +70,10 @@ p {
 .general-edits.address>.modal-dialog {
   width: 40% !important;
 }
+.general-edits.gridview>.modal-dialog {
+  width: 70% !important;
+  overflow: auto;
+}
+.blueadd {
+  color: #5db2ff !important;
+}

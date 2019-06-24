@@ -28,6 +28,8 @@
       PickPackingCtrl.ePage.Masters.currentPick = PickPackingCtrl.currentPick;
       PickPackingCtrl.ePage.Masters.HeaderDetails = PickPackingCtrl.currentHeader;
 
+      PickPackingCtrl.ePage.Masters.emptyText = "-";
+
       // closepackage
       PickPackingCtrl.ePage.Masters.ClosePackage = ClosePackage;
 
@@ -81,6 +83,7 @@
       PickPackingCtrl.ePage.Masters.ItemDelete = ItemDelete;
       PickPackingCtrl.ePage.Masters.DeleteObj = [];
       PickPackingCtrl.ePage.Masters.PrintLabel = PrintLabel;
+      PickPackingCtrl.ePage.Masters.PackGridModel = PackGridModel;
     }
 
     //#region selected package value 
@@ -694,6 +697,21 @@
         } else {
           toastr.error("Could Not Generate Label");
         }
+      });
+    }
+    //#endregion
+
+    //#region grid view model
+
+    function PackGridModel() {
+      return PickPackingCtrl.ePage.Masters.modalInstance = $uibModal.open({
+        animation: true,
+        backdrop: "static",
+        keyboard: false,
+        windowClass: "general-edits right gridview",
+        scope: $scope,
+        size: "md",
+        templateUrl: "app/eaxis/warehouse/wh-releases/packing-module/pick-packing-tree/pack-grid-view.html"
       });
     }
     //#endregion

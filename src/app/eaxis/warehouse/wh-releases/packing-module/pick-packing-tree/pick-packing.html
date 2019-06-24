@@ -10,6 +10,12 @@
         Print Label</button>
 </div>
 
+<div ng-if="PickPackingCtrl.ePage.Masters.EnablePrintLabel == true">
+    <button class="btn btn-primary btn-sm pull-right margin-right-10 mt-0"
+        data-ng-click="PickPackingCtrl.ePage.Masters.PackGridModel()" style="top:-45px;">
+        Grid View</button>
+</div>
+
 <!-- <div ng-if="PickPackingCtrl.ePage.Masters.SaveBtnEnable">
     <button class="btn btn-primary btn-sm pull-right margin-right-10 mt-5"
         data-ng-click="PickPackingCtrl.ePage.Masters.SavePackage()">Save
@@ -47,7 +53,7 @@
                         <!-- for add and delete -->
                         <div class="widget-buttons">
                             <i ng-hide='data.IsClosed == true' ng-disabled="data.IsClosed == true" ng-click="PickPackingCtrl.ePage.Masters.ClosePackage(data)" class="fa fa-window-close-o" style="margin-right:2px;"></i>
-                            <i ng-hide='data.IsClosed == true' ng-disabled="data.IsClosed == true" ng-click="PickPackingCtrl.ePage.Masters.Add(data)" class="fa fa-plus blue"></i>
+                            <i ng-hide='data.IsClosed == true' ng-disabled="data.IsClosed == true" ng-click="PickPackingCtrl.ePage.Masters.Add(data)" class="fa fa-plus blueadd"></i>
                             <i ng-hide='data.IsClosed == true' ng-disabled="data.IsClosed == true" ng-click="PickPackingCtrl.ePage.Masters.Delete(data)" class="fa fa-times darkorange"></i>
                         </div>
                     </div>  
