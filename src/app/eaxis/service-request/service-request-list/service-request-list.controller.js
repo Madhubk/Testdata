@@ -107,33 +107,34 @@
             
             
         function CreateNewServiceRequestList() {
-            var _isExist = ServiceRequestListCtrl.ePage.Masters.TabList.some(function (value) {
-                if (value.label === "New")
-                    return true;
-                else
-                    return false;
-            });
-            if(!_isExist){
-                ServiceRequestListCtrl.ePage.Masters.isNewClicked = true;
-                helperService.getFullObjectUsingGetById(ServiceRequestListCtrl.ePage.Entities.Header.API.GetByID.Url, 'null').then(function (response) {
-                    if (response.data.Response) {
-                        var _obj = {
-                            entity: response.data.Response.Response.UIServiceRequestListHeader,
-                            data: response.data.Response.Response,
-                            Validations:response.data.Response.Validations
-                        };
-                        ServiceRequestListCtrl.ePage.Masters.AddTab(_obj, true);
-                        ServiceRequestListCtrl.ePage.Masters.isNewClicked = false;
-                    } else {
-                        console.log("Empty New My Request response");
-                    }
-                });
-            }else{
-                toastr.info("New Record Already Opened...!");
-            }
-        }
             
-      
+            location.href = '#/EA/SRQ/downtime-request-general';
+
+            // var _isExist = ServiceRequestListCtrl.ePage.Masters.TabList.some(function (value) {
+            //     if (value.label === "New")
+            //         return true;
+            //     else
+            //         return false;
+            // });
+            // if(!_isExist){
+            //     ServiceRequestListCtrl.ePage.Masters.isNewClicked = true;
+            //     helperService.getFullObjectUsingGetById(ServiceRequestListCtrl.ePage.Entities.Header.API.GetByID.Url, 'null').then(function (response) {
+            //         if (response.data.Response) {
+            //             var _obj = {
+            //                 entity: response.data.Response.Response.UIServiceRequestListHeader,
+            //                 data: response.data.Response.Response,
+            //                 Validations:response.data.Response.Validations
+            //             };
+            //             ServiceRequestListCtrl.ePage.Masters.AddTab(_obj, true);
+            //             ServiceRequestListCtrl.ePage.Masters.isNewClicked = false;
+            //         } else {
+            //             console.log("Empty New My Request response");
+            //         }
+            //     });
+            // }else{
+            //     toastr.info("New Record Already Opened...!");
+            // }
+        }                  
 
         Init();
 
