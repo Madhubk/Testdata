@@ -523,32 +523,7 @@
         // endregion
         // ------------ General Modules ------------------
         // region
-        {
-            name: 'spmsReports',
-            files: [
-                'app/eaxis/warehouse/general-module/spms-report/spms-report.controller.js',
-                'app/eaxis/warehouse/general-module/spms-report/spms-report.css'
-            ]
-        },
-        {
-            name: 'spmsReportGrid',
-            files: [
-                ' app/eaxis/warehouse/general-module/spms-report/report-grid/report-grid.controller.js'
-            ]
-        },
-        {
-            name: 'warehouseReports',
-            files: [
-                'app/eaxis/warehouse/general-module/warehouse-report/warehouse-report.controller.js',
-                'app/eaxis/warehouse/general-module/warehouse-report/warehouse-report.css'
-            ]
-        },
-        {
-            name: 'reportGrid',
-            files: [
-                'app/eaxis/warehouse/general-module/warehouse-report/report-grid-page/report-grid-page.controller.js'
-            ]
-        },
+        
         {
             name: 'generateBarcode',
             files: [

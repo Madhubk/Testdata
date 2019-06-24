@@ -116,7 +116,7 @@
                         return deferred.promise;
                     }],
                     LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
-                        return $ocLazyLoad.load(["dynamicControl", "dynamicGrid", "dynamicListModal", "dynamicList", "dynamicLookup", "tcGrid", "drogAndDrop",  "confirmation", "compareDate", "oneLevelMapping", "Summernote", "CustomFileUpload", "standardMenu", "Comment", "CommentModal", "Document", "DocumentModal", "Email", "EmailModal", "Exception", "ExceptionModal", "Event", "EventModal", "AuditLog", "AuditLogModal", "DataEvent", "DataEventModal", "EmailGroup", "EmailGroupModal", "EmailTemplateCreation", "EmailTemplateCreationModal", "Task", "TaskModal", "Keyword", "KeywordModal", "Parties", "PartiesModal", "DelayReasonModal", "DelayReason", "Checklist", "ChecklistModal", "TaskFlowGraph", "TaskFlowGraphModal", "dynamicDetailsViewDirective", "EADynamicListView"]);
+                        return $ocLazyLoad.load(["dynamicControl", "dynamicGrid", "dynamicListModal", "dynamicList", "dynamicLookup", "tcGrid", "drogAndDrop", "confirmation", "compareDate", "oneLevelMapping", "Summernote", "CustomFileUpload", "standardMenu", "Comment", "CommentModal", "Document", "DocumentModal", "Email", "EmailModal", "Exception", "ExceptionModal", "Event", "EventModal", "AuditLog", "AuditLogModal", "DataEvent", "DataEventModal", "EmailGroup", "EmailGroupModal", "EmailTemplateCreation", "EmailTemplateCreationModal", "Task", "TaskModal", "Keyword", "KeywordModal", "Parties", "PartiesModal", "DelayReasonModal", "DelayReason", "Checklist", "ChecklistModal", "TaskFlowGraph", "TaskFlowGraphModal", "dynamicDetailsViewDirective", "EADynamicListView"]);
                     }]
                 }
             })
@@ -166,6 +166,73 @@
                         return $ocLazyLoad.load(["confirmation", "compareDate", "dynamicListModal", "dynamicList", "dynamicLookup", "dynamicControl", "dynamicGrid", "drogAndDrop", "shipment", "AllDocuments"]);
                     }]
                 }
+            })
+
+            //region report
+            .state('EA.DMS.TrasnportsReports', {
+                url: '/transports-report',
+                templateUrl: 'app/eaxis/general-reports/reports.html',
+                controller: "ReportController as ReportCtrl",
+                ncyBreadcrumb: {
+                    label: 'Reports'
+                },
+                resolve: {
+                    CheckAccess: ["$q", "pageAccessService", function ($q, pageAccessService) {
+                        var deferred = $q.defer();
+                        if (pageAccessService.CheckAuthToken()) {
+                            deferred.resolve();
+                        }
+                        return deferred.promise;
+                    }],
+                    LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
+                        return $ocLazyLoad.load(["chromeTab", "errorWarning", "confirmation", "compareDate", "dynamicListModal", "dynamicList", "dynamicLookup", "dynamicControl", "dynamicGrid", "GeneralReports", "ReportGridPage"]);
+                    }]
+                }
+            })
+
+
+            .state('EA.WMS.warehouseReport', {
+                url: '/warehouse-report',
+                templateUrl: 'app/eaxis/general-reports/reports.html',
+                controller: "ReportController as ReportCtrl",
+                ncyBreadcrumb: {
+                    label: 'Report'
+                },
+                resolve: {
+                    CheckAccess: ["$q", "pageAccessService", function ($q, pageAccessService) {
+                        var deferred = $q.defer();
+                        if (pageAccessService.CheckAuthToken()) {
+                            deferred.resolve();
+                        }
+                        return deferred.promise;
+                    }],
+                    LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
+                        return $ocLazyLoad.load(["chromeTab", "confirmation", "compareDate", "dynamicListModal", "dynamicList", "dynamicLookup", "dynamicControl", "dynamicGrid", "drogAndDrop", "oneLevelMapping", "Summernote", "GeneralReports", "ReportGridPage"]);
+                    }]
+                }
+            })
+
+            .state('EA.WMS.sparePartsReport', {
+                url: '/spare-parts-report',
+                templateUrl: 'app/eaxis/general-reports/reports.html',
+                controller: "ReportController as ReportCtrl",
+                ncyBreadcrumb: {
+                    label: 'Report'
+                },
+                resolve: {
+                    CheckAccess: ["$q", "pageAccessService", function ($q, pageAccessService) {
+                        var deferred = $q.defer();
+                        if (pageAccessService.CheckAuthToken()) {
+                            deferred.resolve();
+                        }
+                        return deferred.promise;
+                    }],
+                    LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
+                        return $ocLazyLoad.load(["chromeTab", "confirmation", "compareDate", "dynamicListModal", "dynamicList", "dynamicLookup", "dynamicControl", "dynamicGrid", "drogAndDrop", "oneLevelMapping", "Summernote", "GeneralReports", "ReportGridPage"]);
+                    }]
+                }
             });
+
+        //end region
     }
 })();

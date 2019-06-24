@@ -93,7 +93,7 @@
             apiService.post("eAxisAPI", PackingHeaderCtrl.ePage.Entities.Header.API.InsertPackage.Url, PackingHeaderCtrl.ePage.Masters.HeaderListDetails).then(function (response) {
                 if (response.data.Status == 'Success') {
                     PackingHeaderCtrl.ePage.Masters.Config.PackageListDetails[PackingHeaderCtrl.currentPick.label] = {
-                        PackageListDetails: response.data.Response.Response
+                        PackageListDetails: response.data.Response
                     }
                     PackingHeaderCtrl.ePage.Masters.NewHeader = false;
                     // console.log(PackingHeaderCtrl.ePage.Masters.Config.PackageListDetails);
@@ -115,7 +115,7 @@
 
             apiService.post("eAxisAPI", PackingHeaderCtrl.ePage.Entities.Header.API.UpdatePackage.Url, PackingHeaderCtrl.ePage.Masters.Config.PackageListDetails[PackingHeaderCtrl.currentPick.label].PackageListDetails).then(function (response) {
                 if (response.data.Response) {
-                    apiService.get("eAxisAPI", PackingHeaderCtrl.ePage.Entities.Header.API.PackageGetByID.Url + response.data.Response.Response.PK).then(function (response) {
+                    apiService.get("eAxisAPI", PackingHeaderCtrl.ePage.Entities.Header.API.PackageGetByID.Url + response.data.Response.PK).then(function (response) {
                         PackingHeaderCtrl.ePage.Masters.Config.PackageListDetails[PackingHeaderCtrl.currentPick.label] = {
                             PackageListDetails: response.data.Response
                         }

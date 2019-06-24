@@ -143,9 +143,11 @@
                     PackingGeneralCtrl.ePage.Masters.Config.ItemDeleted[PackingGeneralCtrl.currentPick.label] = {
                         ItemDeleted: false
                     }
+                    setSelectedRowForReleaseLine(PackingGeneralCtrl.ePage.Masters.PickReleaseLine[PackingGeneralCtrl.ePage.Masters.selectedRowForReleaseLine], PackingGeneralCtrl.ePage.Masters.selectedRowForReleaseLine);
                     // PackingGeneralCtrl.ePage.Masters.ReleaseLineList.Units = '';
                 }
             });
+
         }
 
         function GetPackageHeaderList() {
@@ -254,7 +256,7 @@
             apiService.post("eAxisAPI", PackingGeneralCtrl.ePage.Entities.Header.API.UpdatePackage.Url, PackingGeneralCtrl.ePage.Masters.Config.PackageListDetails[PackingGeneralCtrl.currentPick.label].PackageListDetails).then(function (response) {
                 if (response.data.Response) {
                     // Get By Id Call
-                    apiService.get("eAxisAPI", PackingGeneralCtrl.ePage.Entities.Header.API.PackageGetByID.Url + response.data.Response.Response.PK).then(function (response) {
+                    apiService.get("eAxisAPI", PackingGeneralCtrl.ePage.Entities.Header.API.PackageGetByID.Url + response.data.Response.PK).then(function (response) {
                         PackingGeneralCtrl.ePage.Masters.UpdateditemList = response.data.Response.lstUIPackageItems;
                         PackingGeneralCtrl.ePage.Masters.Config.PackageListDetails[PackingGeneralCtrl.currentPick.label] = {
                             PackageListDetails: response.data.Response

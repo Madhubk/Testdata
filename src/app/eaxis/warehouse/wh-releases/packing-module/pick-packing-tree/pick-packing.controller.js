@@ -528,7 +528,7 @@
         if (response.data.Response) {
           PickPackingCtrl.ePage.Masters.Loading = false;
           // Get By Id Call
-          apiService.get("eAxisAPI", PickPackingCtrl.ePage.Entities.Header.API.PackageGetByID.Url + response.data.Response.Response.PK).then(function (response) {
+          apiService.get("eAxisAPI", PickPackingCtrl.ePage.Entities.Header.API.PackageGetByID.Url + response.data.Response.PK).then(function (response) {
             PickPackingCtrl.ePage.Masters.Update = response.data.Response.lstUIPackage;
             PickPackingCtrl.ePage.Masters.Config.PackageListDetails[PickPackingCtrl.currentPick.label] = {
               PackageListDetails: response.data.Response
@@ -616,7 +616,7 @@
         if (response.data.Response) {
 
           // Get By Id Call
-          apiService.get("eAxisAPI", PickPackingCtrl.ePage.Entities.Header.API.PackageGetByID.Url + response.data.Response.Response.PK).then(function (response) {
+          apiService.get("eAxisAPI", PickPackingCtrl.ePage.Entities.Header.API.PackageGetByID.Url + response.data.Response.PK).then(function (response) {
             PickPackingCtrl.ePage.Masters.Loading = false;
             PickPackingCtrl.ePage.Masters.EnablePrintLabel = true;
             PickPackingCtrl.ePage.Masters.UpdatedList = response.data.Response.lstUIPackage;
