@@ -7,6 +7,32 @@
 </div>
 <div class="modal-body">
     <div class="clearfix col-lg-12 mt-10">
+        <!-- Package Reference No -->
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 mt-5 p-0">
+            <div class="form-group">
+                <label class="control-label text-single-line">Package Reference No</label>
+                <div>
+                    <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
+                        placeholder="Package Reference No"
+                        data-ng-model="PickPackingCtrl.ePage.Masters.Config.PackageListDetails[PickPackingCtrl.currentPick.label].PackageListDetails.UIPackageHeader.PackageRefNo"
+                        disabled>
+                </div>
+            </div>
+        </div>
+        <!-- Outward No -->
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 mt-5">
+            <div class="form-group">
+                <label class="control-label text-single-line">Outward No</label>
+                <div>
+                    <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
+                        placeholder="Outward No"
+                        data-ng-model="PickPackingCtrl.ePage.Masters.Config.PackageListDetails[PickPackingCtrl.currentPick.label].PackageListDetails.UIPackageHeader.WorkorderId"
+                        disabled>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix col-lg-12 mt-10">
         <div class="dmstable_scroll" id='PickPackingCtrl.ePage.Masters.your_div'
             style="height:200px; padding-top: 2px; overflow: auto;">
             <div class="table" id="results">
@@ -27,12 +53,8 @@
                     <div class='table_header'>Transport Reference</div>
                     <div class='table_header'>Goods Description</div>
                     <div class='table_header'>HS Code</div>
-                </div>
-
-                <!-- List Empty Response -->
-                <div
-                    data-ng-if="PickPackingCtrl.ePage.Masters.Config.PackageListDetails[PickPackingCtrl.currentPick.label].PackageListDetails.lstUIPackage.length==0">
-                    <div class="text-no-record grid-width" style="bottom:38px">No Record Found</div>
+                    <div class='table_header'>Commodity Code</div>
+                    <div class='table_header'>Commodity Description</div>
                 </div>
 
                 <div class='table_row'
@@ -113,6 +135,22 @@
                         <div class='table_cell'>
                             {{x.HSCode || PickPackingCtrl.ePage.Masters.emptyText}}</div>
                     </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Commodity Code</div>
+                        <div class='table_cell'>
+                            {{x.RH_NKCommodityCode || PickPackingCtrl.ePage.Masters.emptyText}}</div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Commodity Description</div>
+                        <div class='table_cell'>
+                            {{x.CommodityDesc || PickPackingCtrl.ePage.Masters.emptyText}}</div>
+                    </div>
+                </div>
+                <!-- List Empty Response -->
+                <div
+                    data-ng-if="PickPackingCtrl.ePage.Masters.Config.PackageListDetails[PickPackingCtrl.currentPick.label].PackageListDetails.lstUIPackage.length==0">
+                    <div class="text-no-record" style="padding:50px;margin-left: 165px;">No Record found...
+                    </div>
                 </div>
             </div>
         </div>
@@ -127,7 +165,7 @@
                 <div class='theader'>
                     <div class='table_header'>Product Code</div>
                     <div class='table_header'>Product Desc</div>
-                    <div class='table_header'>Product Desc</div>
+                    <div class='table_header'>Package ID</div>
                     <div class='table_header'>Packed Qty</div>
                     <div class='table_header'>UDF1</div>
                     <div class='table_header'>UDF2</div>
@@ -151,9 +189,9 @@
                             {{x.ProductDesc || PickPackingCtrl.ePage.Masters.emptyText}}</div>
                     </div>
                     <div class='table_small'>
-                        <div class='table_cell'>Product Desc</div>
+                        <div class='table_cell'>Package ID</div>
                         <div class='table_cell'>
-                            {{x.ProductDesc || PickPackingCtrl.ePage.Masters.emptyText}}
+                            {{x.PackageId || PickPackingCtrl.ePage.Masters.emptyText}}
                         </div>
                     </div>
                     <div class='table_small'>
