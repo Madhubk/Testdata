@@ -267,10 +267,25 @@
         </div>
         <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
             <label class="control-label">Line Charges</label>
+            <div class="clearfix">
+                <span>
+                    <button type="button" class="btn btn-sm pull-left btn-outline-secondary font-10" title="Import" data-ng-click="AccountPayableGeneralCtrl.ePage.Masters.Import()" 
+                        data-ng-disabled="AccountPayableGeneralCtrl.ePage.Masters.EnableImportButton || !AccountPayableGeneralCtrl.currentAccountPayable.isNew">
+                        <span class="fa fa-plus"></span>&nbsp;&nbsp;Import</button>
+                </span>
+            </div>
             <div id="LineChargesTable{{AccountPayableGeneralCtrl.currentAccountPayable.label}}" class="fixedheader mt-3 ml-0 mr-0" key-events table-object="" enable='AccountPayableGeneralCtrl.ePage.Masters.Enable' unique-id='LineChargesTable{{AccountPayableGeneralCtrl.currentAccountPayable.label}}'>
                 <table data-ng-style="{'height': AccountPayableGeneralCtrl.ePage.Entities.Header.TableProperties.UILineCharges.TableHeight.height + 'px' }">
                     <thead>
                         <tr id="tableHeader">
+                            <th data-ng-style="{'width': AccountPayableGeneralCtrl.ePage.Entities.Header.TableProperties.UILineCharges.checkbox.width + 'px'}">
+                                <label class="customcheckbox">
+                                    <input type="checkbox" data-ng-change="AccountPayableGeneralCtrl.ePage.Masters.SelectAllLineCharges()" data-ng-checked="AccountPayableGeneralCtrl.ePage.Entities.Header.GlobalVariables.SelectAllLineCharges" 
+                                        data-ng-model="AccountPayableGeneralCtrl.ePage.Entities.Header.GlobalVariables.SelectAllLineCharges" data-ng-disabled="!AccountPayableGeneralCtrl.currentAccountPayable.isNew"/>
+                                    <span class="text"></span>
+                                </label>
+                            </th>
+                            <th data-ng-style="{'width': AccountPayableGeneralCtrl.ePage.Entities.Header.TableProperties.UILineCharges.sno.width + 'px'}">S.No</th>
                             <th data-ng-style="{'width': AccountPayableGeneralCtrl.ePage.Entities.Header.TableProperties.UILineCharges.Job.width + 'px'}">Job</th>
                             <th data-ng-style="{'width': AccountPayableGeneralCtrl.ePage.Entities.Header.TableProperties.UILineCharges.Charge.width + 'px'}">Charge</th>
                             <th data-ng-style="{'width': AccountPayableGeneralCtrl.ePage.Entities.Header.TableProperties.UILineCharges.Type.width + 'px'}">Type</th>
@@ -281,6 +296,18 @@
                     </thead>
                     <tbody>
                         <tr id="tableBody" data-ng-repeat="x in AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge">
+                            <td data-ng-style="{'width': AccountPayableGeneralCtrl.ePage.Entities.Header.TableProperties.UILineCharges.checkbox.width + 'px' }">
+                                <label class="customcheckbox mb-0">
+                                    <input type="checkbox" data-ng-checked="x.SingleSelect" data-ng-model="x.SingleSelect" data-ng-change="AccountPayableGeneralCtrl.ePage.Masters.SingleSelectLineCharges()"
+                                        data-ng-disabled="x.SingleSelectDisabled || !AccountPayableGeneralCtrl.currentAccountPayable.isNew"/>
+                                        <span class="text"></span>
+                                </label>
+                            </td>
+                            <td data-ng-style="{'width': AccountPayableGeneralCtrl.ePage.Entities.Header.TableProperties.UILineCharges.sno.width + 'px' }">
+                                <div class="overflow-text">
+                                    <div>{{$index + 1}}</div>
+                                </div>
+                            </td>
                             <td data-ng-style="{'width': AccountPayableGeneralCtrl.ePage.Entities.Header.TableProperties.UILineCharges.Job.width + 'px' }">
                                 <div class="overflow-text">
                                     <div>{{x.JCJOBJobNo}}</div>
@@ -326,17 +353,17 @@
         </div>
         <div class="clearfix mt-30">
             <span>
-                <button type="button" class="btn btn-sm pull-left btn-outline-secondary font-10" title="Add New" data-ng-click="AccountPayableGeneralCtrl.ePage.Masters.AddNewRow()">
+                <button type="button" class="btn btn-sm pull-left btn-outline-secondary font-10" title="Add New" data-ng-click="AccountPayableGeneralCtrl.ePage.Masters.AddNewRow()" data-ng-disabled="!AccountPayableGeneralCtrl.currentAccountPayable.isNew">
                     <span class="fa fa-plus"></span>&nbsp;&nbsp;Add New</button>
             </span>
             <span>
                 <button type="button" class="btn btn-sm pull-left btn-outline-primary font-10 ml-5" title="Copy" data-ng-click="AccountPayableGeneralCtrl.ePage.Masters.CopyRow()"
-                    data-ng-disabled="AccountPayableGeneralCtrl.ePage.Masters.EnableCopyButton">
+                    data-ng-disabled="AccountPayableGeneralCtrl.ePage.Masters.EnableCopyButton || !AccountPayableGeneralCtrl.currentAccountPayable.isNew">
                     <span class="fa fa-copy"></span>&nbsp;&nbsp;Copy</button>
             </span>
             <span>
                 <button type="button" class="btn btn-sm btn-outline-primary font-10 ml-5" title="Delete" data-ng-click="AccountPayableGeneralCtrl.ePage.Masters.RemoveRow()"
-                data-ng-disabled="AccountPayableGeneralCtrl.ePage.Masters.EnableDeleteButton">
+                data-ng-disabled="AccountPayableGeneralCtrl.ePage.Masters.EnableDeleteButton || !AccountPayableGeneralCtrl.currentAccountPayable.isNew">
                     <span class="fa fa-trash"></span>&nbsp;&nbsp;Delete</button>
             </span>
         </div>
@@ -349,7 +376,7 @@
                             data-ng-style="{'width': AccountPayableGeneralCtrl.ePage.Entities.Header.TableProperties.UIAPListData.checkbox.width + 'px' }">
                             <label class="customcheckbox">
                             <input type="checkbox" data-ng-change="AccountPayableGeneralCtrl.ePage.Masters.SelectAllCheckBox()" data-ng-checked="AccountPayableGeneralCtrl.ePage.Entities.Header.GlobalVariables.SelectAll" 
-                            data-ng-model="AccountPayableGeneralCtrl.ePage.Entities.Header.GlobalVariables.SelectAll"/>
+                                data-ng-model="AccountPayableGeneralCtrl.ePage.Entities.Header.GlobalVariables.SelectAll" data-ng-disabled="!AccountPayableGeneralCtrl.currentAccountPayable.isNew"/>
                             <span class="text"></span>
                             </label>
                         </th>
@@ -413,7 +440,8 @@
                                 data-ng-style="{'width': AccountPayableGeneralCtrl.ePage.Entities.Header.TableProperties.UIAPListData.checkbox.width + 'px' }"
                                 data-ng-click="AccountPayableGeneralCtrl.ePage.Masters.Enable = true">
                                 <label class="customcheckbox mb-0">
-                                    <input type="checkbox" data-ng-checked="x.SingleSelect" data-ng-model="x.SingleSelect" data-ng-change="AccountPayableGeneralCtrl.ePage.Masters.SingleSelectCheckBox()"/>
+                                    <input type="checkbox" data-ng-checked="x.SingleSelect" data-ng-model="x.SingleSelect" data-ng-change="AccountPayableGeneralCtrl.ePage.Masters.SingleSelectCheckBox()"
+                                        data-ng-disabled="!AccountPayableGeneralCtrl.currentAccountPayable.isNew"/>
                                     <span class="text"></span>
                                 </label>
                             </td>
@@ -432,10 +460,11 @@
                                     <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0 height-22">
                                         <div class="input-group input-group-sm">
                                             <div dynamic-lookup placeholder="Charges" my-ng-model="x.TLACCCode" obj="x" page-name="'AccChargeCode'" control-id="'APChargeCode'" control-key="APChargeCode_3370" 
-                                                 auto-complete-on-select="AccountPayableGeneralCtrl.ePage.Masters.SelectedLookupData($index, $item, 'Charges')"></div>
+                                                 auto-complete-on-select="AccountPayableGeneralCtrl.ePage.Masters.SelectedLookupData($index, $item, 'Charges')" is-disabled="!AccountPayableGeneralCtrl.currentAccountPayable.isNew"></div>
                                             <span class="input-group-btn">
                                                 <button dynamic-list-modal class="btn btn-default" type="button" obj="x" page-name="'AccChargeCode'" control-id="'APChargeCode'" control-key="APChargeCode_3370"
-                                                    mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="AccountPayableGeneralCtrl.ePage.Masters.SelectedLookupData($index, $item.data.entity, 'Charges')"><i class="fa fa-ellipsis-h"></i>
+                                                    mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="AccountPayableGeneralCtrl.ePage.Masters.SelectedLookupData($index, $item.data.entity, 'Charges')"
+                                                    is-disabled="!AccountPayableGeneralCtrl.currentAccountPayable.isNew"><i class="fa fa-ellipsis-h"></i>
                                                 </button>
                                             </span>
                                         </div>
@@ -466,10 +495,12 @@
                                     <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0 height-22">
                                         <div class="input-group input-group-sm">
                                             <div dynamic-lookup placeholder="Job" my-ng-model="x.TLJOBJobNo" obj="x" page-name="'jobheader'" control-id="'APJobHeader'" control-key="APJobHeader_3371" 
-                                                 auto-complete-on-select="AccountPayableGeneralCtrl.ePage.Masters.SelectedLookupData($index, $item, 'Job')"></div>
+                                                 auto-complete-on-select="AccountPayableGeneralCtrl.ePage.Masters.SelectedLookupData($index, $item, 'Job')"
+                                                 is-disabled="!AccountPayableGeneralCtrl.currentAccountPayable.isNew"></div>
                                             <span class="input-group-btn">
                                                 <button dynamic-list-modal class="btn btn-default" type="button" obj="x" page-name="'jobheader'" control-id="'APJobHeader'" control-key="APJobHeader_3371"
-                                                    mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="AccountPayableGeneralCtrl.ePage.Masters.SelectedLookupData($index, $item.data.entity, 'Job')"><i class="fa fa-ellipsis-h"></i>
+                                                    mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="AccountPayableGeneralCtrl.ePage.Masters.SelectedLookupData($index, $item.data.entity, 'Job')"
+                                                    is-disabled="!AccountPayableGeneralCtrl.currentAccountPayable.isNew"><i class="fa fa-ellipsis-h"></i>
                                                 </button>
                                             </span>
                                         </div>
@@ -485,7 +516,8 @@
                                 <div data-ng-if="$index==AccountPayableGeneralCtrl.ePage.Masters.selectedRow">
                                     <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0 height-22">
                                         <div class="input-group input-group-sm">
-                                            <input type="text" class="form-control input-sm" placeholder="Desc" data-ng-model="x.TLLineDescription" data-ng-blur="AccountPayableGeneralCtrl.ePage.Masters.OnChangeGridDesc($index, x.TLLineDescription)"/>
+                                            <input type="text" class="form-control input-sm" placeholder="Desc" data-ng-model="x.TLLineDescription" data-ng-blur="AccountPayableGeneralCtrl.ePage.Masters.OnChangeGridDesc($index, x.TLLineDescription)"
+                                                data-disabled="!AccountPayableGeneralCtrl.currentAccountPayable.isNew"/>
                                         </div>
                                     </div>
                                 </div>
@@ -500,10 +532,12 @@
                                     <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0 height-22">
                                         <div class="input-group input-group-sm">
                                             <div dynamic-lookup placeholder="Branch" my-ng-model="x.TLBRNCHBranchCode" obj="x" page-name="'CmpBranch'" control-id="'APBranch'" control-key="APBranch_3372" 
-                                                 auto-complete-on-select="AccountPayableGeneralCtrl.ePage.Masters.SelectedLookupData($index, $item, 'Branch')"></div>
+                                                 auto-complete-on-select="AccountPayableGeneralCtrl.ePage.Masters.SelectedLookupData($index, $item, 'Branch')"
+                                                 is-disabled="!AccountPayableGeneralCtrl.currentAccountPayable.isNew"></div>
                                             <span class="input-group-btn">
                                                 <button dynamic-list-modal class="btn btn-default" type="button" obj="x" page-name="'CmpBranch'" control-id="'APBranch'" control-key="APBranch_3372"
-                                                    mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="AccountPayableGeneralCtrl.ePage.Masters.SelectedLookupData($index, $item.data.entity, 'Branch')"><i class="fa fa-ellipsis-h"></i>
+                                                    mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="AccountPayableGeneralCtrl.ePage.Masters.SelectedLookupData($index, $item.data.entity, 'Branch')"
+                                                    is-disabled="!AccountPayableGeneralCtrl.currentAccountPayable.isNew"><i class="fa fa-ellipsis-h"></i>
                                                 </button>
                                             </span>
                                         </div>
@@ -520,10 +554,12 @@
                                     <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0 height-22">
                                         <div class="input-group input-group-sm">
                                             <div dynamic-lookup placeholder="Dept" my-ng-model="x.TLDEPDeptCode" obj="x" page-name="'CmpDepartment'" control-id="'APDepartment'" control-key="APDepartment_3373" 
-                                                 auto-complete-on-select="AccountPayableGeneralCtrl.ePage.Masters.SelectedLookupData($index, $item, 'Department')"></div>
+                                                 auto-complete-on-select="AccountPayableGeneralCtrl.ePage.Masters.SelectedLookupData($index, $item, 'Department')"
+                                                 is-disabled="!AccountPayableGeneralCtrl.currentAccountPayable.isNew"></div>
                                             <span class="input-group-btn">
                                                 <button dynamic-list-modal class="btn btn-default" type="button" obj="x" page-name="'CmpDepartment'" control-id="'APDepartment'" control-key="APDepartment_3373"
-                                                    mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="AccountPayableGeneralCtrl.ePage.Masters.SelectedLookupData($index, $item.data.entity, 'Department')"><i class="fa fa-ellipsis-h"></i>
+                                                    mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="AccountPayableGeneralCtrl.ePage.Masters.SelectedLookupData($index, $item.data.entity, 'Department')"
+                                                    is-disabled="!AccountPayableGeneralCtrl.currentAccountPayable.isNew"><i class="fa fa-ellipsis-h"></i>
                                                 </button>
                                             </span>
                                         </div>
@@ -567,7 +603,8 @@
                                 <div data-ng-if="$index==AccountPayableGeneralCtrl.ePage.Masters.selectedRow">
                                     <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0 height-22">
                                         <div class="input-group input-group-sm">
-                                            <input type="text" class="form-control input-sm" placeholder="Amount" data-ng-model="x.JCOSCostAmt" data-ng-blur="AccountPayableGeneralCtrl.ePage.Masters.OnChangeGridAmount($index, x.JCOSCostAmt)" numbers-only-dot sb-precision="2"/>
+                                            <input type="text" class="form-control input-sm" placeholder="Amount" data-ng-model="x.JCOSCostAmt" data-ng-blur="AccountPayableGeneralCtrl.ePage.Masters.OnChangeGridAmount($index, x.JCOSCostAmt)" 
+                                            data-ng-disabled="!AccountPayableGeneralCtrl.currentAccountPayable.isNew" numbers-only-dot sb-precision="2"/>
                                         </div>
                                     </div>
                                 </div>
@@ -581,7 +618,7 @@
                                 <div data-ng-if="$index==AccountPayableGeneralCtrl.ePage.Masters.selectedRow">
                                     <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0 height-22">
                                         <div class="input-group input-group-sm">
-                                            <input type="text" class="form-control input-sm" placeholder="Tax ID" data-ng-model="x.TLATCode"/>
+                                            <input type="text" class="form-control input-sm" placeholder="Tax ID" data-ng-model="x.TLATCode" data-ng-disabled="!AccountPayableGeneralCtrl.currentAccountPayable.isNew"/>
                                         </div>
                                     </div>
                                 </div>
@@ -595,7 +632,8 @@
                                 <div data-ng-if="$index==AccountPayableGeneralCtrl.ePage.Masters.selectedRow">
                                     <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0 height-22">
                                         <div class="input-group input-group-sm">
-                                            <input type="text" class="form-control input-sm" placeholder="Tax" data-ng-model="x.JCOSCostGSTAmt" data-ng-blur="AccountPayableGeneralCtrl.ePage.Masters.onChangeGridTax($index, x.JCOSCostGSTAmt)" numbers-only-dot sb-precision="2"/>
+                                            <input type="text" class="form-control input-sm" placeholder="Tax" data-ng-model="x.JCOSCostGSTAmt" data-ng-blur="AccountPayableGeneralCtrl.ePage.Masters.onChangeGridTax($index, x.JCOSCostGSTAmt)" 
+                                                data-ng-disabled="!AccountPayableGeneralCtrl.currentAccountPayable.isNew" numbers-only-dot sb-precision="2"/>
                                         </div>
                                     </div>
                                 </div>
@@ -623,7 +661,8 @@
                                 <div data-ng-if="$index==AccountPayableGeneralCtrl.ePage.Masters.selectedRow">
                                     <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0 height-22">
                                         <div class="input-group input-group-sm">
-                                            <input type="text" class="form-control input-sm" placeholder="Local Total" data-ng-model="x.LocalTotal" numbers-only-dot sb-precision="2"/>
+                                            <input type="text" class="form-control input-sm" placeholder="Local Total" data-ng-model="x.LocalTotal" 
+                                                data-ng-disabled="!AccountPayableGeneralCtrl.currentAccountPayable.isNew" numbers-only-dot sb-precision="2"/>
                                         </div>
                                     </div>
                                 </div>
@@ -637,7 +676,8 @@
                                 <div data-ng-if="$index==AccountPayableGeneralCtrl.ePage.Masters.selectedRow">
                                     <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0 height-22">
                                         <div class="input-group input-group-sm">
-                                            <input type="text" class="form-control input-sm" placeholder="Local Amount" data-ng-model="x.TLLineAmount" numbers-only-dot sb-precision="2"/>
+                                            <input type="text" class="form-control input-sm" placeholder="Local Amount" data-ng-model="x.TLLineAmount"
+                                                data-ng-disabled="!AccountPayableGeneralCtrl.currentAccountPayable.isNew" numbers-only-dot sb-precision="2"/>
                                         </div>
                                     </div>
                                 </div>
@@ -651,7 +691,8 @@
                                 <div data-ng-if="$index==AccountPayableGeneralCtrl.ePage.Masters.selectedRow">
                                     <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0 height-22">
                                         <div class="input-group input-group-sm">
-                                            <input type="text" class="form-control input-sm" placeholder="Local Tax" data-ng-model="x.TLGSTVAT" numbers-only-dot sb-precision="2"/>
+                                            <input type="text" class="form-control input-sm" placeholder="Local Tax" data-ng-model="x.TLGSTVAT" 
+                                                data-ng-disabled="!AccountPayableGeneralCtrl.currentAccountPayable.isNew" numbers-only-dot sb-precision="2"/>
                                         </div>
                                     </div>
                                 </div>
@@ -660,7 +701,7 @@
                                 data-ng-style="{'width': AccountPayableGeneralCtrl.ePage.Entities.Header.TableProperties.UIAPListData.final.width + 'px' }"
                                 data-ng-click="AccountPayableGeneralCtrl.ePage.Masters.Enable = true">
                                 <label class="customcheckbox mb-0">
-                                    <input type="checkbox" data-ng-checked="x.TLIsFinalCharge" data-ng-model="x.TLIsFinalCharge"/>
+                                    <input type="checkbox" data-ng-checked="x.TLIsFinalCharge" data-ng-model="x.TLIsFinalCharge" data-ng-disabled="!AccountPayableGeneralCtrl.currentAccountPayable.isNew"/>
                                     <span class="text"></span>
                                 </label>	
                             </td>
