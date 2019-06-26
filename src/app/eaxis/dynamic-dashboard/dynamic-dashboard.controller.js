@@ -457,8 +457,29 @@
             DynamicDashboardCtrl.ePage.Masters.LoadingValue = "Getting Dashboard Details...";
             if (!DynamicDashboardCtrl.ePage.Masters.SelectedWarehouse && DynamicDashboardCtrl.ePage.Masters.SelectedDashboardDetails.IsWarehouseBased)
                 GetWarehouseValues();
-            else {
-                if (!DynamicDashboardCtrl.ePage.Masters.SelectedWarehouse)
+            else if (DynamicDashboardCtrl.ePage.Masters.SelectedWarehouse && DynamicDashboardCtrl.ePage.Masters.SelectedDashboardDetails.IsWarehouseBased) {
+                if (DynamicDashboardCtrl.ePage.Masters.SelectedWarehouse.WarehouseCode) {
+                    DynamicDashboardCtrl.ePage.Masters.SelectedWarehouse = DynamicDashboardCtrl.ePage.Masters.SelectedWarehouse;
+
+                    if (!DynamicDashboardCtrl.ePage.Masters.SelectedClient && DynamicDashboardCtrl.ePage.Masters.SelectedDashboardDetails.IsOrganisationBased)
+                        GetClientDetails();
+                    else {
+                        if (DynamicDashboardCtrl.ePage.Masters.SelectedClient && !DynamicDashboardCtrl.ePage.Masters.SelectedDashboardDetails.IsOrganisationBased)
+                            DynamicDashboardCtrl.ePage.Masters.SelectedClient = {};
+                        else if (!DynamicDashboardCtrl.ePage.Masters.SelectedClient)
+                            DynamicDashboardCtrl.ePage.Masters.SelectedClient = {};
+                        else
+                            DynamicDashboardCtrl.ePage.Masters.SelectedClient = DynamicDashboardCtrl.ePage.Masters.SelectedClient;
+                        if (DynamicDashboardCtrl.ePage.Masters.SelectedClient && DynamicDashboardCtrl.ePage.Masters.SelectedWarehouse) {
+                            GetDashboardList();
+                        }
+                    }
+                } else
+                    GetWarehouseValues();
+            } else {
+                if (DynamicDashboardCtrl.ePage.Masters.SelectedWarehouse && !DynamicDashboardCtrl.ePage.Masters.SelectedDashboardDetails.IsWarehouseBased)
+                    DynamicDashboardCtrl.ePage.Masters.SelectedWarehouse = {};
+                else if (!DynamicDashboardCtrl.ePage.Masters.SelectedWarehouse)
                     DynamicDashboardCtrl.ePage.Masters.SelectedWarehouse = {};
                 else
                     DynamicDashboardCtrl.ePage.Masters.SelectedWarehouse = DynamicDashboardCtrl.ePage.Masters.SelectedWarehouse;
@@ -466,7 +487,9 @@
                 if (!DynamicDashboardCtrl.ePage.Masters.SelectedClient && DynamicDashboardCtrl.ePage.Masters.SelectedDashboardDetails.IsOrganisationBased)
                     GetClientDetails();
                 else {
-                    if (!DynamicDashboardCtrl.ePage.Masters.SelectedClient)
+                    if (DynamicDashboardCtrl.ePage.Masters.SelectedClient && !DynamicDashboardCtrl.ePage.Masters.SelectedDashboardDetails.IsOrganisationBased)
+                        DynamicDashboardCtrl.ePage.Masters.SelectedClient = {};
+                    else if (!DynamicDashboardCtrl.ePage.Masters.SelectedClient)
                         DynamicDashboardCtrl.ePage.Masters.SelectedClient = {};
                     else
                         DynamicDashboardCtrl.ePage.Masters.SelectedClient = DynamicDashboardCtrl.ePage.Masters.SelectedClient;

@@ -1,36 +1,37 @@
-<div class="col-xs-12 col-md-6 col-lg-6 mt-15 dashboard-component height-310">
+<!-- <div class="col-xs-12 col-md-6 col-lg-6 mt-15 dashboard-component height-310">
     <div class="dashboard-widget dashboard-border">
         <div class="dashboard-widget-header bordered-bottom">
             <span class="dashboard-widget-caption">ASN Trend</span>
-        </div>
-        <div id="AsnTrendTable" class="dashboard-fixedheader fixedheader" key-events table-object='AsnTrendCtrl.ePage.Masters.AsnTrendDetails'
-            unique-id='AsnTrendTable'>
-            <table style="height: 253px" class="dashboard-table">
-                <thead>
-                    <tr id="tableHeader">
-                        <th ng-style="{ 'width':  '8%' }" title="S.No">S.No</th>
-                        <th ng-style="{ 'width':  '30%' }" title="Warehouse Code">Warehouse Code</th>
-                        <th ng-style="{ 'width':  '20%' }" title="Total Customers">Total Customers</th>
-                        <th ng-style="{ 'width':  '20%' }" title="ASN Customers">ASN Customers</th>
-                        <th ng-style="{ 'width':  '22%' }" title="Percentage">Percentage</th>
-                    </tr>
-                </thead>
-                <tbody id="AsnTrendCustTable">
-                    <tr id="tableBody" ng-repeat="x in AsnTrendCtrl.ePage.Masters.AsnTrendDetails">
-                        <td ng-style="{ 'width':  '8%' }" class="overflow-text">{{$index +1}}</td>
-                        <td ng-style="{ 'width':  '30%' }" class="overflow-text">{{x.WarehouseCode}}</td>
-                        <td ng-style="{ 'width':  '20%' }" class="overflow-text">{{x.ClientCount}}</td>
-                        <td ng-style="{ 'width':  '20%' }" class="overflow-text">{{x.ASNCount}}</td>
-                        <td ng-style="{ 'width':  '22%' }" class="overflow-text">{{x.Percentage}}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 norecordfound" style="color: black;" ng-if="AsnTrendCtrl.ePage.Masters.AsnTrendDetails.length==0">No
-            Record Found...</div>
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 norecordfound" style="color: black;" ng-if="AsnTrendCtrl.ePage.Masters.IsLoading">Loading...</div>
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 norecordfound" style="color: black;" ng-if="!AsnTrendCtrl.ePage.Masters.IsLoad"
-            ng-click="AsnTrendCtrl.ePage.Masters.GetAsnTrendDetails()"><a> Click
-                here to View Details...</a></div>
-    </div>
+        </div> -->
+<div id="AsnTrendTable" class="dashboard-fixedheader fixedheader" key-events table-object='AsnTrendCtrl.ePage.Masters.AsnTrendDetails'
+    unique-id='AsnTrendTable'>
+    <table style="height: 253px" class="dashboard-table">
+        <thead>
+            <tr id="tableHeader">
+                <th ng-style="{ 'width':  '8%' }" title="S.No">S.No</th>
+                <th ng-style="{ 'width':  '30%' }" title="Warehouse Code">Warehouse Code</th>
+                <th ng-style="{ 'width':  '20%' }" title="Total Customers">Total Customers</th>
+                <th ng-style="{ 'width':  '20%' }" title="ASN Customers">ASN Customers</th>
+                <th ng-style="{ 'width':  '22%' }" title="Percentage">Percentage</th>
+            </tr>
+        </thead>
+        <tbody id="AsnTrendCustTable">
+            <tr id="tableBody" ng-repeat="x in AsnTrendCtrl.ePage.Masters.AsnTrendDetails">
+                <td ng-style="{ 'width':  '8%' }" class="overflow-text">{{$index +1}}</td>
+                <td ng-style="{ 'width':  '30%' }" class="overflow-text">{{x.WarehouseCode}}</td>
+                <td ng-style="{ 'width':  '20%' }" class="overflow-text">{{x.ClientCount}}</td>
+                <td ng-style="{ 'width':  '20%' }" class="overflow-text">{{x.ASNCount}}</td>
+                <td ng-style="{ 'width':  '22%' }" class="overflow-text">{{x.Percentage}}</td>
+            </tr>
+        </tbody>
+    </table>
 </div>
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 norecordfound" style="color: black;" ng-if="AsnTrendCtrl.ePage.Masters.AsnTrendDetails.length==0">No
+    Record Found...</div>
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 norecordfound" style="color: black;" ng-if="AsnTrendCtrl.ePage.Masters.IsLoading">Loading...</div>
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 norecordfound" style="color: black;" ng-if="!AsnTrendCtrl.ePage.Masters.IsLoad"
+    ng-click="AsnTrendCtrl.ePage.Masters.GetAsnTrendDetails()"><a> Click
+        here to View Details...</a>
+</div>
+<!-- </div>
+</div> -->

@@ -328,6 +328,7 @@ div[class^="icon"] {
 .dashboard-setting-edit-details.address>.modal-dialog {
     width: 30% !important;
 }
+
 .dashboard-setting-component-details.address>.modal-dialog {
     width: 50% !important;
 }
@@ -383,4 +384,10 @@ div[class^="icon"] {
     font-size: 13px;
     cursor: pointer;
     color: rgb(170, 170, 170);
+}
+
+.component-desc {
+    vertical-align: middle;
+    font-weight: 300 !important;
+    font-size: 12px !important;
 }

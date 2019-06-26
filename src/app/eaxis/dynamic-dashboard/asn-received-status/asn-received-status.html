@@ -1,40 +1,41 @@
-<div class="col-xs-12 col-md-6 col-lg-8 mt-15 dashboard-component height-310">
+<!-- <div class="col-xs-12 col-md-6 col-lg-8 mt-15 dashboard-component height-310">
     <div class="dashboard-widget dashboard-border">
         <div class="dashboard-widget-header bordered-bottom">
             <span class="dashboard-widget-caption">ASN Received with Status</span>
-        </div>
-        <div id="AsnReceivedStatusTable" class="dashboard-fixedheader fixedheader" key-events table-object='AsnReceivedCtrl.ePage.Masters.AsnReceivedWithStatusDetails'
-            unique-id='AsnReceivedStatusTable'>
-            <table style="height: 253px" class="dashboard-table">
-                <thead>
-                    <tr id="tableHeader">
-                        <th ng-style="{ 'width':  '6%' }" title="S.No">S.No</th>
-                        <th ng-style="{ 'width':  '17%' }" title="Warehouse Code">Warehouse Code</th>
-                        <th ng-style="{ 'width':  '17%' }" title="Customer Code">Customer Code</th>
-                        <th ng-style="{ 'width':  '25%' }" title="Customer Name">Customer Name</th>
-                        <th ng-style="{ 'width':  '13%' }" title="Total ASN's">Total ASN's</th>
-                        <th ng-style="{ 'width':  '9%' }" title="Open">Open</th>
-                        <th ng-style="{ 'width':  '13%' }" title="Completed">Completed</th>
-                    </tr>
-                </thead>
-                <tbody id="AsnReceivedStatusCustTable">
-                    <tr id="tableBody" ng-repeat="x in AsnReceivedCtrl.ePage.Masters.AsnReceivedWithStatusDetails">
-                        <td ng-style="{ 'width':  '6%' }" class="overflow-text">{{$index +1}}</td>
-                        <td ng-style="{ 'width':  '17%' }" class="overflow-text">{{x.WarehouseCode}}</td>
-                        <td ng-style="{ 'width':  '17%' }" class="overflow-text">{{x.ClientCode}}</td>
-                        <td ng-style="{ 'width':  '25%' }" class="overflow-text">{{x.ClientName}}</td>
-                        <td ng-style="{ 'width':  '13%' }" class="overflow-text">{{x.TotalCount}}</td>
-                        <td ng-style="{ 'width':  '9%' }" class="overflow-text">{{x.UnFinalisedCount}}</td>
-                        <td ng-style="{ 'width':  '13%' }" class="overflow-text">{{x.FinalisedCount}}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 norecordfound" style="color: black;" ng-if="AsnReceivedCtrl.ePage.Masters.AsnReceivedWithStatusDetails.length==0">No
-            Record Found...</div>
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 norecordfound" style="color: black;" ng-if="AsnReceivedCtrl.ePage.Masters.IsLoading">Loading...</div>
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 norecordfound" style="color: black;" ng-if="!AsnReceivedCtrl.ePage.Masters.IsLoad"
-            ng-click="AsnReceivedCtrl.ePage.Masters.GetAsnReceivedWithStatusDetails()"><a> Click
-                here to View Details...</a></div>
-    </div>
+        </div> -->
+<div id="AsnReceivedStatusTable" class="dashboard-fixedheader fixedheader" key-events table-object='AsnReceivedCtrl.ePage.Masters.AsnReceivedWithStatusDetails'
+    unique-id='AsnReceivedStatusTable'>
+    <table style="height: 253px" class="dashboard-table">
+        <thead>
+            <tr id="tableHeader">
+                <th ng-style="{ 'width':  '6%' }" title="S.No">S.No</th>
+                <th ng-style="{ 'width':  '17%' }" title="Warehouse Code">Warehouse Code</th>
+                <th ng-style="{ 'width':  '17%' }" title="Customer Code">Customer Code</th>
+                <th ng-style="{ 'width':  '25%' }" title="Customer Name">Customer Name</th>
+                <th ng-style="{ 'width':  '13%' }" title="Total ASN's">Total ASN's</th>
+                <th ng-style="{ 'width':  '9%' }" title="Open">Open</th>
+                <th ng-style="{ 'width':  '13%' }" title="Completed">Completed</th>
+            </tr>
+        </thead>
+        <tbody id="AsnReceivedStatusCustTable">
+            <tr id="tableBody" ng-repeat="x in AsnReceivedCtrl.ePage.Masters.AsnReceivedWithStatusDetails">
+                <td ng-style="{ 'width':  '6%' }" class="overflow-text">{{$index +1}}</td>
+                <td ng-style="{ 'width':  '17%' }" class="overflow-text">{{x.WarehouseCode}}</td>
+                <td ng-style="{ 'width':  '17%' }" class="overflow-text">{{x.ClientCode}}</td>
+                <td ng-style="{ 'width':  '25%' }" class="overflow-text">{{x.ClientName}}</td>
+                <td ng-style="{ 'width':  '13%' }" class="overflow-text">{{x.TotalCount}}</td>
+                <td ng-style="{ 'width':  '9%' }" class="overflow-text">{{x.UnFinalisedCount}}</td>
+                <td ng-style="{ 'width':  '13%' }" class="overflow-text">{{x.FinalisedCount}}</td>
+            </tr>
+        </tbody>
+    </table>
 </div>
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 norecordfound" style="color: black;" ng-if="AsnReceivedCtrl.ePage.Masters.AsnReceivedWithStatusDetails.length==0">No
+    Record Found...</div>
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 norecordfound" style="color: black;" ng-if="AsnReceivedCtrl.ePage.Masters.IsLoading">Loading...</div>
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 norecordfound" style="color: black;" ng-if="!AsnReceivedCtrl.ePage.Masters.IsLoad"
+    ng-click="AsnReceivedCtrl.ePage.Masters.GetAsnReceivedWithStatusDetails()"><a> Click
+        here to View Details...</a>
+</div>
+<!-- </div>
+</div> -->
