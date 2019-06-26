@@ -16,7 +16,7 @@
         </div>
     </div>
     <div class="modal-footer">
-        <button type="button" data-ng-click="PackingGeneralCtrl.ePage.Masters.SaveReleaseQuantity(PackingGeneralCtrl.ePage.Masters.ReleaseLineList)" type="button"
+        <button type="button" ng-disabled="PackingGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable" data-ng-click="PackingGeneralCtrl.ePage.Masters.SaveReleaseQuantity(PackingGeneralCtrl.ePage.Masters.ReleaseLineList)" type="button"
             class="btn btn-primary">Add to Pack</button>
     </div>
 </div>
