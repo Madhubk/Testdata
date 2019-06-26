@@ -4,9 +4,9 @@
     angular.module("Application")
         .controller("AccountPayableMenuController", AccountPayableMenuController);
 
-    AccountPayableMenuController.$inject = ["helperService", "apiService", "toastr"];
+    AccountPayableMenuController.$inject = ["helperService", "apiService", "accountPayableConfig", "toastr"];
 
-    function AccountPayableMenuController(helperService, apiService, toastr) {
+    function AccountPayableMenuController(helperService, apiService, accountPayableConfig, toastr) {
         var AccountPayableMenuCtrl = this;
 
         function Init() {
@@ -35,10 +35,10 @@
 
             if (_input.UIAccountpayablelistdata.length > 0) {
                 _input.UIAccountpayablelistdata.map(function (value, key) {
-                    _Calculation = _Calculation + value.LocalTotal;
+                    _Calculation = _Calculation + parseFloat(value.LocalTotal);
                 });
 
-                if (_Calculation == _input.UIAccTransactionHeader.InclTax) {
+                if (_Calculation == parseFloat(_input.UIAccTransactionHeader.InclTax)) {
                     Save($item);
                 } else {
                     toastr.error("Missmatch Local Total Amount.");
@@ -76,19 +76,19 @@
                 AccountPayableMenuCtrl.ePage.Masters.DisablePost = false;
 
                 if (response.Status === "success") {
-                    apiService.get("eAxisAPI", financeConfig.Entities.API.JobHeaderList.API.GetById.Url + response.Data.UIAccTransactionHeader.PK).then(function (response) {
+                    apiService.get("eAxisAPI", accountPayableConfig.Entities.API.AccountpayableList.API.GetById.Url + response.Data.UIAccTransactionHeader.PK).then(function (response) {
                         if (response.data.Status == "Success") {
                             AccountPayableMenuCtrl.ePage.Entities.Header.Data = response.data.Response;
 
-                            var _index = financeConfig.TabList.map(function (value, key) {
+                            var _index = accountPayableConfig.TabList.map(function (value, key) {
                                 return value[value.code].ePage.Entities.Header.Data.PK;
                             }).indexOf(AccountPayableMenuCtrl.currentAccountPayable[AccountPayableMenuCtrl.currentAccountPayable.code].ePage.Entities.Header.Data.PK);
 
-                            financeConfig.TabList.map(function (value, key) {
+                            accountPayableConfig.TabList.map(function (value, key) {
                                 if (_index == key) {
                                     if (value.isNew) {
-                                        value.label = AccountPayableMenuCtrl.ePage.Entities.Header.Data.UIAccTransactionHeader.JobNo;
-                                        value[AccountPayableMenuCtrl.ePage.Entities.Header.Data.UIAccTransactionHeader.JobNo] = value.isNew;
+                                        value.label = AccountPayableMenuCtrl.ePage.Entities.Header.Data.UIAccTransactionHeader.Desc;
+                                        value[AccountPayableMenuCtrl.ePage.Entities.Header.Data.UIAccTransactionHeader.code] = value.isNew;
                                         delete value.isNew;
                                     }
                                 }
@@ -96,12 +96,12 @@
 
                             if (_index !== -1) {
                                 if (response.data.Response) {
-                                    financeConfig.TabList[_index][financeConfig.TabList[_index].code].ePage.Entities.Header.Data = response.data.Response;
+                                    accountPayableConfig.TabList[_index][accountPayableConfig.TabList[_index].code].ePage.Entities.Header.Data = response.data.Response;
                                 }
                                 else {
-                                    financeConfig.TabList[_index][financeConfig.TabList[_index].code].ePage.Entities.Header.Data = response.data;
+                                    accountPayableConfig.TabList[_index][accountPayableConfig.TabList[_index].code].ePage.Entities.Header.Data = response.data;
                                 }
-                                financeConfig.TabList[_index].isNew = false;
+                                accountPayableConfig.TabList[_index].isNew = false;
                                 helperService.refreshGrid();
                             }
 

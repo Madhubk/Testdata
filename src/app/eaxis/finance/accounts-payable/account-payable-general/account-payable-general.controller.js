@@ -4,9 +4,9 @@
     angular.module("Application")
         .controller("AccountPayableGeneralController", AccountPayableGeneralController);
 
-    AccountPayableGeneralController.$inject = ["$timeout", "helperService", "apiService", "accountPayableConfig", "APP_CONSTANT", "toastr", "confirmation"];
+    AccountPayableGeneralController.$inject = ["$timeout", "$filter", "helperService", "apiService", "accountPayableConfig", "APP_CONSTANT", "toastr", "confirmation"];
 
-    function AccountPayableGeneralController($timeout, helperService, apiService, accountPayableConfig, APP_CONSTANT, toastr, confirmation) {
+    function AccountPayableGeneralController($timeout, $filter, helperService, apiService, accountPayableConfig, APP_CONSTANT, toastr, confirmation) {
         var AccountPayableGeneralCtrl = this;
 
         function Init() {
@@ -20,11 +20,10 @@
                 "Entities": currentAccountPayable
             };
 
-            
-
             /* For Table */
             AccountPayableGeneralCtrl.ePage.Masters.EnableCopyButton = true;
             AccountPayableGeneralCtrl.ePage.Masters.EnableDeleteButton = true;
+            AccountPayableGeneralCtrl.ePage.Masters.EnableImportButton = true;
             AccountPayableGeneralCtrl.ePage.Masters.Enable = true;
             AccountPayableGeneralCtrl.ePage.Masters.selectedRow = -1;
             AccountPayableGeneralCtrl.ePage.Masters.emptyText = '-';
@@ -38,10 +37,13 @@
             AccountPayableGeneralCtrl.ePage.Masters.onChangeGridTax = onChangeGridTax;
             AccountPayableGeneralCtrl.ePage.Masters.SelectAllCheckBox = SelectAllCheckBox;
             AccountPayableGeneralCtrl.ePage.Masters.SingleSelectCheckBox = SingleSelectCheckBox;
+            AccountPayableGeneralCtrl.ePage.Masters.SelectAllLineCharges = SelectAllLineCharges;
+            AccountPayableGeneralCtrl.ePage.Masters.SingleSelectLineCharges = SingleSelectLineCharges;
             AccountPayableGeneralCtrl.ePage.Masters.setSelectedRow = setSelectedRow;
             AccountPayableGeneralCtrl.ePage.Masters.AddNewRow = AddNewRow;
             AccountPayableGeneralCtrl.ePage.Masters.CopyRow = CopyRow;
             AccountPayableGeneralCtrl.ePage.Masters.RemoveRow = RemoveRow;
+            AccountPayableGeneralCtrl.ePage.Masters.Import = Import;
 
             /* DatePicker */
             AccountPayableGeneralCtrl.ePage.Masters.DatePicker = {};
@@ -244,8 +246,8 @@
                 AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].TLATCode = $item.TaxCode;
                 AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].TLATR_FK = $item.ATR_GSTRate;
                 AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].TaxRate = $item.TaxRate;
-                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].TLAGH_FK = $item.AGH_CostAccount;
                 AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].TLAGHAccountNum = $item.AGH_CostAccountNum;
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].TLAGH_FK = $item.AGH_CostAccount;
 
                 if (AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].TLACC_FK && AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].TLJOB_FK) {
                     GetLineChargeDetail($index);
@@ -271,7 +273,7 @@
         //#region GetLineChargeDetail
         function GetLineChargeDetail($index) {
             var _filter = {
-                /* "CMP_FK": AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccTransactionHeader.CMP_FK, */
+                "CMP_FK": AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccTransactionHeader.CMP_FK,
                 "ACC_FK": AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].TLACC_FK,
                 "JOB_FK": AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].JCJOB_FK
             };
@@ -282,11 +284,114 @@
 
             apiService.post("eAxisAPI", accountPayableConfig.Entities.API.AccountpayableListdata.API.FindAll.Url, _input).then(function (response) {
                 if (response.data.Response.length > 0) {
-                    angular.forEach(response.data.Response, function (value, key) {
-                        AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge.push(value);
-                    });
+                    if (AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge.length > 0) {
+                        AccountPayableGeneralCtrl.ePage.Masters.LineCharges = angular.copy(AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge);
+                        AccountPayableGeneralCtrl.ePage.Masters.LineCharges.map(function (value, key) {
+                            if (value.SequenceNo == $index + 1) {
+                                value.IsDeleted = true;
+                            }
+
+                            if (AccountPayableGeneralCtrl.ePage.Masters.LineCharges.length - 1 == key) {
+                                DeleteLineCharges();
+                            }
+                        });
+
+                        AddLineCharges(response.data.Response, $index);
+                    } else {
+                        AddLineCharges(response.data.Response, $index);
+                    }
+
+                    AddAPLineDetails(response.data.Response, $index);
+                } else if (response.data.Response.length == 0) {
+                    if (AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge.length > 0) {
+                        AccountPayableGeneralCtrl.ePage.Masters.LineCharges = angular.copy(AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge);
+                        AccountPayableGeneralCtrl.ePage.Masters.LineCharges.map(function (value, key) {
+                            if (value.SequenceNo == $index + 1) {
+                                value.IsDeleted = true;
+                            }
+
+                            if (AccountPayableGeneralCtrl.ePage.Masters.LineCharges.length - 1 == key) {
+                                DeleteLineCharges();
+                            }
+                        });
+                    }
                 }
             });
+        }
+        //#region 
+
+        //#region AddLineCharges, DeleteLineCharges, RemoveLineCharges
+        function AddLineCharges($item, $index) {
+            AccountPayableGeneralCtrl.ePage.Masters.FilterLineCharges = $filter('filter')($item, { TLLineType: 'ACR' });
+
+            angular.forEach(AccountPayableGeneralCtrl.ePage.Masters.FilterLineCharges, function (value, key) {
+                value.SequenceNo = $index + 1;
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge.push(value);
+            });
+
+            angular.forEach(AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge, function (value, key) {
+                if (value.JCORG_CostAccount == AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccTransactionHeader.ORG_FK) {
+                    value.SingleSelectDisabled = false;
+                } else {
+                    value.SingleSelectDisabled = true;
+                }
+            });
+        }
+
+        function DeleteLineCharges() {
+            AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge = [];
+            angular.forEach(AccountPayableGeneralCtrl.ePage.Masters.LineCharges, function (value, key) {
+                if (!value.IsDeleted) {
+                    AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge.push(value);
+                }
+            });
+        }
+
+        function RemoveLineCharges($index) {
+            if (AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge.length > 0) {
+                AccountPayableGeneralCtrl.ePage.Masters.LineCharges = angular.copy(AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge);
+                AccountPayableGeneralCtrl.ePage.Masters.LineCharges.map(function (value, key) {
+                    if (value.SequenceNo == $index + 1) {
+                        value.IsDeleted = true;
+                    }
+
+                    if (AccountPayableGeneralCtrl.ePage.Masters.LineCharges.length - 1 == key) {
+                        DeleteLineCharges();
+                    }
+                });
+            }
+        }
+        //#region 
+
+        //#region AddAPLineDetails
+        function AddAPLineDetails($item, $index) {
+            AccountPayableGeneralCtrl.ePage.Masters.FilterAPLineCharges = $filter('filter')($item, { TLLineType: 'ACR' });
+
+            AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].TLLineDescription = AccountPayableGeneralCtrl.ePage.Masters.FilterAPLineCharges[0].JCDesc;
+            AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].JCDesc = AccountPayableGeneralCtrl.ePage.Masters.FilterAPLineCharges[0].JCDesc;
+            AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].TLBRNCHBranchCode = AccountPayableGeneralCtrl.ePage.Masters.FilterAPLineCharges[0].TLBRNCHBranchCode;
+            AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].TLBRNCHBranchName = AccountPayableGeneralCtrl.ePage.Masters.FilterAPLineCharges[0].TLBRNCHBranchName;
+            AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].TLBRN_FK = AccountPayableGeneralCtrl.ePage.Masters.FilterAPLineCharges[0].TLBRN_FK;
+            AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].TLDEPDeptCode = AccountPayableGeneralCtrl.ePage.Masters.FilterAPLineCharges[0].TLDEPDeptCode;
+            AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].TLDEPDeptName = AccountPayableGeneralCtrl.ePage.Masters.FilterAPLineCharges[0].TLDEPDeptName;
+            AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].TLDEP_FK = AccountPayableGeneralCtrl.ePage.Masters.FilterAPLineCharges[0].TLDEP_FK;
+            AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].TLRX_NKTransactionCurrency = AccountPayableGeneralCtrl.ePage.Masters.FilterAPLineCharges[0].TLRX_NKTransactionCurrency;
+            AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].TLExchangeRate = AccountPayableGeneralCtrl.ePage.Masters.FilterAPLineCharges[0].TLExchangeRate;
+            AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].JCOSCostAmt = AccountPayableGeneralCtrl.ePage.Masters.FilterAPLineCharges[0].JCOSCostAmt;
+            AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].JCOSCostGSTAmt = AccountPayableGeneralCtrl.ePage.Masters.FilterAPLineCharges[0].JCOSCostGSTAmt
+            AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].TLOSAmount = AccountPayableGeneralCtrl.ePage.Masters.FilterAPLineCharges[0].TLOSAmount;
+            AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].TLLineAmount = AccountPayableGeneralCtrl.ePage.Masters.FilterAPLineCharges[0].TLLineAmount;
+            AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].JCLocalCostAmt = AccountPayableGeneralCtrl.ePage.Masters.FilterAPLineCharges[0].JCLocalCostAmt;
+            AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].TLGSTVAT = AccountPayableGeneralCtrl.ePage.Masters.FilterAPLineCharges[0].TLGSTVAT;
+            AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].TLPK = AccountPayableGeneralCtrl.ePage.Masters.FilterAPLineCharges[0].TLPK;
+            AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].JCJCG_PK = AccountPayableGeneralCtrl.ePage.Masters.FilterAPLineCharges[0].JCJCG_PK;
+            AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].TLORG_FK = AccountPayableGeneralCtrl.ePage.Masters.FilterAPLineCharges[0].TLORG_FK;
+            AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].TLCMP_FK = AccountPayableGeneralCtrl.ePage.Masters.FilterAPLineCharges[0].TLCMP_FK;
+            AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].TLCMP_Code = AccountPayableGeneralCtrl.ePage.Masters.FilterAPLineCharges[0].TLCMP_Code;
+            AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].TLEntitySource = AccountPayableGeneralCtrl.ePage.Masters.FilterAPLineCharges[0].TLEntitySource;
+            AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].CMN_TenantCode = AccountPayableGeneralCtrl.ePage.Masters.FilterAPLineCharges[0].CMN_TenantCode;
+
+            OnChangeGridAmount($index, AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].JCOSCostAmt);
         }
         //#endregion
 
@@ -311,6 +416,10 @@
             if (!$item && type == "InclTax") {
                 AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccTransactionHeader.Tax = "";
                 AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccTransactionHeader.ExclTax = "";
+            } else if ($item && type == "InclTax") {
+                if (AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccTransactionHeader.Tax) {
+                    AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccTransactionHeader.ExclTax = (parseFloat($item) - parseFloat(AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccTransactionHeader.Tax)).toFixed(2);
+                }
             }
 
             if ($item && type == "Tax") {
@@ -338,7 +447,7 @@
 
                 AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].TLOSAmount = (parseFloat($item) + parseFloat(AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].JCOSCostGSTAmt)).toFixed(2);
 
-                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].LocalTotal = (parseFloat($item * AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].TLExchangeRate) + parseFloat($item * AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].TLExchangeRate)).toFixed(2);
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].LocalTotal = (parseFloat($item * AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].TLExchangeRate) + parseFloat(AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].JCOSCostGSTAmt * AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].TLExchangeRate)).toFixed(2);
 
                 AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].TLLineAmount = (parseFloat($item) * parseFloat(AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].TLExchangeRate)).toFixed(2);
                 AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].JCLocalCostAmt = (parseFloat($item) * parseFloat(AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].TLExchangeRate)).toFixed(2);
@@ -401,6 +510,44 @@
         }
         //#endregion 
 
+        //#region SingleSelectLineCharges, SelectAllLineCharges
+        function SelectAllLineCharges() {
+            angular.forEach(AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge, function (value, key) {
+                if (AccountPayableGeneralCtrl.ePage.Entities.Header.GlobalVariables.SelectAllLineCharges) {
+                    if (!value.SingleSelectDisabled) {
+                        value.SingleSelect = true;
+                        AccountPayableGeneralCtrl.ePage.Masters.EnableImportButton = false;
+                    }
+                }
+                else {
+                    value.SingleSelect = false;
+                    AccountPayableGeneralCtrl.ePage.Masters.EnableImportButton = true;
+                }
+            });
+        }
+
+        function SingleSelectLineCharges() {
+            var Checked = AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge.some(function (value, key) {
+                if (!value.SingleSelect)
+                    return true;
+            });
+            if (Checked) {
+                AccountPayableGeneralCtrl.ePage.Entities.Header.GlobalVariables.SelectAllLineCharges = false;
+            } else {
+                AccountPayableGeneralCtrl.ePage.Entities.Header.GlobalVariables.SelectAllLineCharges = true;
+            }
+
+            var Checked1 = AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge.some(function (value, key) {
+                return value.SingleSelect == true;
+            });
+            if (Checked1 == true) {
+                AccountPayableGeneralCtrl.ePage.Masters.EnableImportButton = false;
+            } else {
+                AccountPayableGeneralCtrl.ePage.Masters.EnableImportButton = true;
+            }
+        }
+        //#endregion
+
         //#region AddNewRow,CopyRow,RemoveRow
         function AddNewRow() {
             var obj = {
@@ -459,8 +606,8 @@
                 "TLAGHDescription": "",
                 "TLAGH_FK": "",
 
-                "Source": "AP",
-                "TenantCode": "20CUB",
+                "TLEntitySource": "AP",
+                "CMN_TenantCode": "20CUB",
                 "IsModified": false,
                 "IsDeleted": false,
                 "TLSequence": AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata.length + 1,
@@ -521,6 +668,7 @@
 
                 for (var i = AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata.length - 1; i >= 0; i--) {
                     if (AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[i].SingleSelect && AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[i].IsDeleted) {
+                        RemoveLineCharges(i);
                         AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata.splice(i, 1);
                     }
                 }
@@ -531,6 +679,16 @@
                 AccountPayableGeneralCtrl.ePage.Masters.EnableDeleteButton = true;
             }, function () {
                 console.log("Cancelled");
+            });
+        }
+        //#endregion
+
+        //#region  Import
+        function Import() {
+            AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge.map(function (value, key) {
+                if (value.SingleSelect && value.TLLineType == "ACR") {
+                    AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata;
+                }
             });
         }
         //#endregion

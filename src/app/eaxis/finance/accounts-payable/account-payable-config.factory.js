@@ -96,12 +96,19 @@
                         },
                         "GlobalVariables": {
                             "SelectAll": false,
+                            "SelectAllLineCharges": false
                         },
                         "TableProperties": {
                             "UILineCharges": {
                                 "TableHeight": {
                                     "isEnabled": true,
-                                    "height": 228
+                                    "height": 206
+                                },
+                                "checkbox": {
+                                    "width": "40"
+                                },
+                                "sno": {
+                                    "width": "40"
                                 },
                                 "Job": {
                                     "width": "100"
