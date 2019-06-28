@@ -31,6 +31,13 @@
                 </div>
             </div>
         </div>
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 mt-5">
+            <div class="form-group">
+                <label class="control-label text-single-line">Search:</label>
+                <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
+                    placeholder="Search" ng-model="searchText">
+            </div>
+        </div>
     </div>
     <div class="clearfix col-lg-12 mt-10">
         <div class="dmstable_scroll" id='PickPackingCtrl.ePage.Masters.your_div'
@@ -58,7 +65,7 @@
                 </div>
 
                 <div class='table_row'
-                    ng-repeat="x in PickPackingCtrl.ePage.Masters.Config.PackageListDetails[PickPackingCtrl.currentPick.label].PackageListDetails.lstUIPackage | orderBy:'Sequence' track by $index"
+                    ng-repeat="x in PickPackingCtrl.ePage.Masters.Config.PackageListDetails[PickPackingCtrl.currentPick.label].PackageListDetails.lstUIPackage | filter:searchText | orderBy:'Sequence' track by $index"
                     ng-click="" ng-class="" style="font-size: 11px;">
                     <div class='table_small'>
                         <div class='table_cell'>Package ID</div>
@@ -111,7 +118,7 @@
                         <div class='table_cell'>{{x.Volume || PickPackingCtrl.ePage.Masters.emptyText}}</div>
                     </div>
                     <div class='table_small'>
-                        <div class='table_cell'>VolumeUQ</div>
+                        <div class='table_cell'>Volume UQ</div>
                         <div class='table_cell'>
                             {{x.VolumeUQ || PickPackingCtrl.ePage.Masters.emptyText}}</div>
                     </div>
@@ -146,17 +153,23 @@
                             {{x.CommodityDesc || PickPackingCtrl.ePage.Masters.emptyText}}</div>
                     </div>
                 </div>
-                <!-- List Empty Response -->
-                <div
-                    data-ng-if="PickPackingCtrl.ePage.Masters.Config.PackageListDetails[PickPackingCtrl.currentPick.label].PackageListDetails.lstUIPackage.length==0">
-                    <div class="text-no-record" style="padding:50px;margin-left: 165px;">No Record found...
-                    </div>
+            </div>
+            <!-- List Empty Response -->
+            <div
+                data-ng-if="PickPackingCtrl.ePage.Masters.Config.PackageListDetails[PickPackingCtrl.currentPick.label].PackageListDetails.lstUIPackage.length==0">
+                <div class="text-no-record" style="padding:50px;margin-left: 165px;">No Record found...
                 </div>
             </div>
         </div>
     </div>
     <div class="clearfix col-lg-12 mt-15">
-        <span class="text-single-line custom_label" style="padding:10px;">Package Item Details</span>
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 mt-5">
+            <span class="text-single-line custom_label" style="padding:10px;">Package Item Details</span>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 pull-right">
+            <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
+                placeholder="Search" ng-model="searchitemText">
+        </div>
     </div>
     <div class="clearfix col-lg-12 mt-10">
         <div class="dmstable_scroll" id='PickPackingCtrl.ePage.Masters.item_div'
@@ -175,7 +188,7 @@
                 </div>
 
                 <div class='table_row'
-                    ng-repeat="x in PickPackingCtrl.ePage.Masters.Config.PackageListDetails[PickPackingCtrl.currentPick.label].PackageListDetails.lstUIPackageItems track by $index"
+                    ng-repeat="x in PickPackingCtrl.ePage.Masters.Config.PackageListDetails[PickPackingCtrl.currentPick.label].PackageListDetails.lstUIPackageItems  | filter:searchitemText track by $index"
                     ng-click="" ng-class="" style="font-size: 11px;">
                     <div class='table_small'>
                         <div class='table_cell'>Product Code</div>
@@ -222,11 +235,11 @@
                         </div>
                     </div>
                 </div>
-                <!-- List Empty Response -->
-                <div
-                    data-ng-if="PickPackingCtrl.ePage.Masters.Config.PackageListDetails[PickPackingCtrl.currentPick.label].PackageListDetails.lstUIPackageItems.length==0">
-                    <div class="text-no-record" style="padding:50px;margin-left: 165px;">No Record found...
-                    </div>
+            </div>
+            <!-- List Empty Response -->
+            <div
+                data-ng-if="PickPackingCtrl.ePage.Masters.Config.PackageListDetails[PickPackingCtrl.currentPick.label].PackageListDetails.lstUIPackageItems.length==0">
+                <div class="text-no-record" style="padding:50px;margin-left: 165px;">No Record found...
                 </div>
             </div>
         </div>

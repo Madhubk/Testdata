@@ -1,7 +1,8 @@
 <div>
     <button class="btn btn-primary btn-sm pull-right margin-right-10 mt-0"
         data-ng-click="PickPackingCtrl.ePage.Masters.AddPackage()"
-        data-ng-disabled="PickPackingCtrl.ePage.Masters.DisableAddpackBtn" style="top:-45px;">Add Package</button>
+        ng-disabled="PickPackingCtrl.ePage.Entities.Header.GlobalVariables.NonEditable" style="top:-45px;">Add
+        Package</button>
 </div>
 
 <div ng-if="PickPackingCtrl.ePage.Masters.EnablePrintLabel == true">
@@ -40,8 +41,8 @@
                     <div class="widget-header" ng-click="PickPackingCtrl.ePage.Masters.SelectthePack(data,$index)" ng-class="data.IsSelectedValue?'row_active':''">
                        
                         <!-- for model Edit -->
-                        <i ng-click="PickPackingCtrl.ePage.Masters.EditPackType(data)" ng-hide='data.IsClosed == true' ng-disabled="data.IsClosed == true" class="fa fa-pencil-square-o"></i>
-
+                        <i ng-click="PickPackingCtrl.ePage.Masters.EditPackType(data)" ng-hide='data.IsClosed == true || PickPackingCtrl.ePage.Entities.Header.GlobalVariables.NonEditable' ng-disabled="data.IsClosed == true" class="fa fa-pencil-square-o"></i>
+                        
                         <!-- for toogle to show item value -->
                         <span class="widget-caption" data-toggle="collapse" data-target="#demo{{data.IsSelectedValue}}" style="padding-right: 5px;">
                             <i class="fa fa-angle-down" aria-hidden="true"></i></span>
@@ -52,9 +53,9 @@
 
                         <!-- for add and delete -->
                         <div class="widget-buttons">
-                            <i ng-hide='data.IsClosed == true' ng-disabled="data.IsClosed == true" ng-click="PickPackingCtrl.ePage.Masters.ClosePackage(data)" class="fa fa-window-close-o" style="margin-right:2px;"></i>
-                            <i ng-hide='data.IsClosed == true' ng-disabled="data.IsClosed == true" ng-click="PickPackingCtrl.ePage.Masters.Add(data)" class="fa fa-plus blueadd"></i>
-                            <i ng-hide='data.IsClosed == true' ng-disabled="data.IsClosed == true" ng-click="PickPackingCtrl.ePage.Masters.Delete(data)" class="fa fa-times darkorange"></i>
+                            <i ng-hide='data.IsClosed == true || PickPackingCtrl.ePage.Entities.Header.GlobalVariables.NonEditable' ng-disabled="data.IsClosed == true" ng-click="PickPackingCtrl.ePage.Masters.ClosePackage(data)" class="fa fa-window-close-o" style="margin-right:2px;"></i>
+                            <i ng-hide='data.IsClosed == true || PickPackingCtrl.ePage.Entities.Header.GlobalVariables.NonEditable' ng-disabled="data.IsClosed == true" ng-click="PickPackingCtrl.ePage.Masters.Add(data)" class="fa fa-plus blueadd"></i>
+                            <i ng-hide='data.IsClosed == true || PickPackingCtrl.ePage.Entities.Header.GlobalVariables.NonEditable' ng-disabled="data.IsClosed == true" ng-click="PickPackingCtrl.ePage.Masters.Delete(data)" class="fa fa-times darkorange"></i>
                         </div>
                     </div>  
                      <!--Widget Body-->
@@ -80,7 +81,7 @@
                                             <tr id="tableBody"
                                                 ng-repeat="x in PickPackingCtrl.ePage.Masters.Config.PackageListDetails[PickPackingCtrl.currentPick.label].PackageListDetails.lstUIPackageItems track by $index"
                                                 ng-click="" ng-if='data.PK == x.PackageFK'>
-                                                <td ng-style="{ 'width':  '30px' }" class="overflow-text"><i ng-click="PickPackingCtrl.ePage.Masters.ItemDelete(x)" ng-hide='data.IsClosed == true' ng-disabled="data.IsClosed == true" class="fa fa-trash-o black" style="margin-left:5px;font-size: 13px;"></i></td>
+                                                <td ng-style="{ 'width':  '30px' }" class="overflow-text"><i ng-click="PickPackingCtrl.ePage.Masters.ItemDelete(x)" ng-hide='data.IsClosed == true || PickPackingCtrl.ePage.Entities.Header.GlobalVariables.NonEditable' ng-disabled="data.IsClosed == true " class="fa fa-trash-o black" style="margin-left:5px;font-size: 13px;"></i></td>
                                                 <td ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.ProductCode}}</td>
                                                 <td ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.ProductDesc}}
                                                 </td>

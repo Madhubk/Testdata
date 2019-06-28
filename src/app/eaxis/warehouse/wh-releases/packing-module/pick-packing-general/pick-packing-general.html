@@ -6,7 +6,7 @@
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 custompadding pt-0">
             <span ng-if="PackingGeneralCtrl.ePage.Masters.EnablePackageHeader == false">
                 <button type="button" class="btn btn-sm btn-outline-primary pull-right" style="font-size:11px;margin-top: 10px;"
-                    title="Create Package" data-ng-click="PackingGeneralCtrl.ePage.Masters.CreatePackage()"><span
+                    title="Create Package" ng-disabled="PackingGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable" data-ng-click="PackingGeneralCtrl.ePage.Masters.CreatePackage()"><span
                         class="fa fa-archive"></span>&nbsp;&nbsp;Create
                     Package</button>
             </span>
@@ -69,7 +69,7 @@
                             ng-click="PackingGeneralCtrl.ePage.Masters.setSelectedRowForOutward(x,$index);"
                             ng-class="{row_active: (PackingGeneralCtrl.ePage.Masters.selectedRowForOutward==$index),copy_row_active :(x.IsCopied==true)}"
                             watch-table
-                            table-properties="PackingGeneralCtrl.ePage.Entities.Header.TableProperties.UIWmsOutward"
+                            table-properties="PackingGeneralCtrl.ePage.Entities.Header.TableProperties.UIWmsOutward" 
                             unique-id="GeneralCustTable{{PackingGeneralCtrl.currentPick.label}}" row-position="$index">
                             <td id="osno"
                                 data-ng-show='PackingGeneralCtrl.ePage.Entities.Header.TableProperties.UIWmsOutward.osno.isenabled'
@@ -131,7 +131,7 @@
             <span class="text-single-line custom_label" style="padding:10px;">Pick Release Lines</span>
             <span ng-if="PackingGeneralCtrl.ePage.Masters.selectedReleaseLineRow">
                 <button class="btn btn-primary btn-sm pull-right margin-right-10 mt-5"
-                    data-ng-click="PackingGeneralCtrl.ePage.Masters.ReleaseQuantityModel(PackingGeneralCtrl.ePage.Masters.ReleaseLineList)">Add
+                    data-ng-click="PackingGeneralCtrl.ePage.Masters.ReleaseQuantityModel(PackingGeneralCtrl.ePage.Masters.ReleaseLineList)" ng-disabled="PackingGeneralCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">Add
                     to Package</button>
             </span>
         </div>
