@@ -4,9 +4,9 @@
         .module("Application")
         .controller("CustomerDashboardController", CustomerDashboardController);
 
-    CustomerDashboardController.$inject = [ "APP_CONSTANT", "apiService",  "helperService", "$location", "toastr", "$filter","customerConfig","authService","appConfig","$timeout"];
+    CustomerDashboardController.$inject = ["APP_CONSTANT", "apiService", "helperService", "$location", "toastr", "$filter", "customerConfig", "authService", "appConfig", "$timeout"];
 
-    function CustomerDashboardController(APP_CONSTANT, apiService, helperService, $location, toastr, $filter,customerConfig,authService,appConfig,$timeout) {
+    function CustomerDashboardController(APP_CONSTANT, apiService, helperService, $location, toastr, $filter, customerConfig, authService, appConfig, $timeout) {
 
         var DashboardCtrl = this;
         function Init() {
@@ -38,13 +38,13 @@
 
         //#region  General Details
 
-        function GetWarehouseDetails(){
+        function GetWarehouseDetails() {
             DashboardCtrl.ePage.Masters.IsLoading = true;
             var _filter = {
                 MappingCode: 'USER_CMP_BRAN_WH_APP_TNT',
                 SAP_FK: authService.getUserInfo().AppPK,
                 TenantCode: authService.getUserInfo().TenantCode,
-                Item_FK:authService.getUserInfo().UserPK
+                Item_FK: authService.getUserInfo().UserPK
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
@@ -52,12 +52,12 @@
             };
 
             apiService.post("authAPI", appConfig.Entities.SecMappings.API.FindAll.Url, _input).then(function (response) {
-                if (response.data.Response.length>0) {
+                if (response.data.Response.length > 0) {
 
                     DashboardCtrl.ePage.Masters.WarehouseDetails = [];
-                    angular.forEach(response.data.Response,function(value,key){
+                    angular.forEach(response.data.Response, function (value, key) {
                         var obj = {
-                            "WarehouseCode":value.OtherEntityCode
+                            "WarehouseCode": value.OtherEntityCode
                         };
                         DashboardCtrl.ePage.Masters.WarehouseDetails.push(obj);
                     })
@@ -65,21 +65,21 @@
                     DashboardCtrl.ePage.Masters.CurrentWarehouse = DashboardCtrl.ePage.Masters.WarehouseDetails[0];
                     DashboardCtrl.ePage.Masters.Message = undefined;
                     GetOrganizationDetails();
-                }else{
+                } else {
                     DashboardCtrl.ePage.Masters.IsLoading = false;
                     DashboardCtrl.ePage.Masters.Message = "Warehouse is not mapped to your Id ";
                 }
             });
         }
-      
-        
-        function GetOrganizationDetails(){
+
+
+        function GetOrganizationDetails() {
             DashboardCtrl.ePage.Masters.IsLoading = true;
             var _filter = {
                 MappingCode: 'USER_ORG_APP_TNT',
                 SAP_FK: authService.getUserInfo().AppPK,
                 TenantCode: authService.getUserInfo().TenantCode,
-                Item_FK:authService.getUserInfo().UserPK
+                Item_FK: authService.getUserInfo().UserPK
             };
 
             var _input = {
@@ -88,12 +88,12 @@
             };
 
             apiService.post("authAPI", appConfig.Entities.SecMappings.API.FindAll.Url, _input).then(function (response) {
-                if (response.data.Response.length>0) {
-                    
+                if (response.data.Response.length > 0) {
+
                     DashboardCtrl.ePage.Masters.OrganizationDetails = [];
-                    angular.forEach(response.data.Response,function(value,key){
+                    angular.forEach(response.data.Response, function (value, key) {
                         var obj = {
-                            "Code":value.AccessCode
+                            "Code": value.AccessCode
                         };
                         DashboardCtrl.ePage.Masters.OrganizationDetails.push(obj);
                     })
@@ -103,7 +103,7 @@
                     DashboardCtrl.ePage.Masters.Message = undefined;
                     DashboardCtrl.ePage.Masters.IsLoading = false;
                     GetAllDetails();
-                }else{
+                } else {
                     DashboardCtrl.ePage.Masters.IsLoading = false;
                     DashboardCtrl.ePage.Masters.Message = "Organization does not mapped to your id...";
                 }
@@ -111,7 +111,7 @@
         }
 
 
-        function GetAllDetails(){
+        function GetAllDetails() {
             GetInwardDetails();
             GetOutwardDetails();
             GetProductWiseDetailsGrouping();
@@ -122,13 +122,13 @@
 
         //#region  Inward Chart Details
 
-        function GetInwardDetails(){
+        function GetInwardDetails() {
             DashboardCtrl.ePage.Masters.InwardChartLoading = true;
             DashboardCtrl.ePage.Masters.GetInwardChartDetails = undefined;
 
             var ToDate = new Date();
             var FromDate = new Date(ToDate.getTime() - (6 * 24 * 60 * 60 * 1000));
-            
+
             if (ToDate && FromDate) {
                 DashboardCtrl.ePage.Masters.DummyGetInwardByDatevalues = [];
                 var timeDiff = Math.abs(FromDate.getTime() - ToDate.getTime());
@@ -150,24 +150,24 @@
 
             var _filter = {
                 "WarehouseCode": DashboardCtrl.ePage.Masters.CurrentWarehouse.WarehouseCode,
-                "ClientCode":DashboardCtrl.ePage.Masters.CurrentOrganization.Code,
+                "ClientCode": DashboardCtrl.ePage.Masters.CurrentOrganization.Code,
                 "WorkOrderType": 'INW',
                 "FinalisedDateFrom": FinalisedDateFrom,
-                "FinalisedDateTo":FinalisedDateTo
+                "FinalisedDateTo": FinalisedDateTo
             };
 
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
                 "FilterID": DashboardCtrl.ePage.Masters.Config.API.ProductWiseLineDetails.FilterID
             };
-            apiService.post("eAxisAPI", DashboardCtrl.ePage.Masters.Config.API.ProductWiseLineDetails.Url, _input).then(function(response){
-                if(response.data.Response){
+            apiService.post("eAxisAPI", DashboardCtrl.ePage.Masters.Config.API.ProductWiseLineDetails.Url, _input).then(function (response) {
+                if (response.data.Response) {
                     DashboardCtrl.ePage.Masters.GetInwardChartDetails = response.data.Response;
 
                     angular.forEach(response.data.Response, function (value1, key1) {
                         $filter("filter")(DashboardCtrl.ePage.Masters.DummyGetInwardByDatevalues, function (value, key) {
                             if (value.FinalisedDate == value1.FinalisedDate) {
-                                value.Count = value1.TotalUnits+value.Count
+                                value.Count = value1.TotalUnits + value.Count
                             }
                         });
                     });
@@ -177,23 +177,23 @@
             });
         }
 
-        function DrawInwardChart(){
+        function DrawInwardChart() {
             DashboardCtrl.ePage.Masters.InwardChartLoading = false;
 
             var ctx = "lineChartinward";
-            var mycount = DashboardCtrl.ePage.Masters.DummyGetInwardByDatevalues.map(function(val,key){
+            var mycount = DashboardCtrl.ePage.Masters.DummyGetInwardByDatevalues.map(function (val, key) {
                 return val.Count;
             });
             var maximumcount = Math.max.apply(null, mycount);
             var config = {
                 type: "line",
                 data: {
-                    labels: DashboardCtrl.ePage.Masters.DummyGetInwardByDatevalues.map(function(value,key){
+                    labels: DashboardCtrl.ePage.Masters.DummyGetInwardByDatevalues.map(function (value, key) {
                         return $filter('date')(value.FinalisedDate, 'MM-dd')
                     }),
                     datasets: [{
                         label: "Units",
-                        data:DashboardCtrl.ePage.Masters.DummyGetInwardByDatevalues.map(function(value,key){
+                        data: DashboardCtrl.ePage.Masters.DummyGetInwardByDatevalues.map(function (value, key) {
                             return value.Count
                         }),
                         backgroundColor: 'rgba(67, 133, 245, 0.5)',
@@ -224,7 +224,7 @@
                         enabled: true,
                         titleFontSize: 14
                     },
-                     legend: {
+                    legend: {
                         display: false
                     }
                 }
@@ -242,16 +242,16 @@
         }
 
         //#endregion
-        
+
         //#region Outward Chart Details
 
-        function GetOutwardDetails(){
+        function GetOutwardDetails() {
             DashboardCtrl.ePage.Masters.OutwardChartLoading = true;
             DashboardCtrl.ePage.Masters.GetOutwardChartDetails = undefined;
 
             var ToDate = new Date();
             var FromDate = new Date(ToDate.getTime() - (6 * 24 * 60 * 60 * 1000));
-            
+
             if (ToDate && FromDate) {
                 DashboardCtrl.ePage.Masters.DummyGetOutwardByDatevalues = [];
                 var timeDiff = Math.abs(FromDate.getTime() - ToDate.getTime());
@@ -273,18 +273,18 @@
 
             var _filter = {
                 "WarehouseCode": DashboardCtrl.ePage.Masters.CurrentWarehouse.WarehouseCode,
-                "ClientCode":DashboardCtrl.ePage.Masters.CurrentOrganization.Code,
+                "ClientCode": DashboardCtrl.ePage.Masters.CurrentOrganization.Code,
                 "WorkOrderType": 'ORD',
                 "FinalisedDateFrom": FinalisedDateFrom,
-                "FinalisedDateTo":FinalisedDateTo
+                "FinalisedDateTo": FinalisedDateTo
             };
 
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
                 "FilterID": DashboardCtrl.ePage.Masters.Config.API.ProductWiseLineDetails.FilterID
             };
-            apiService.post("eAxisAPI", DashboardCtrl.ePage.Masters.Config.API.ProductWiseLineDetails.Url, _input).then(function(response){
-                if(response.data.Response){
+            apiService.post("eAxisAPI", DashboardCtrl.ePage.Masters.Config.API.ProductWiseLineDetails.Url, _input).then(function (response) {
+                if (response.data.Response) {
                     DashboardCtrl.ePage.Masters.GetOutwardChartDetails = response.data.Response;
 
                     angular.forEach(response.data.Response, function (value1, key1) {
@@ -300,10 +300,10 @@
             });
         }
 
-        function DrawOutwardChart(){
+        function DrawOutwardChart() {
             DashboardCtrl.ePage.Masters.OutwardChartLoading = false;
 
-            var mycount = DashboardCtrl.ePage.Masters.DummyGetOutwardByDatevalues.map(function(val,key){
+            var mycount = DashboardCtrl.ePage.Masters.DummyGetOutwardByDatevalues.map(function (val, key) {
                 return val.Count;
             });
 
@@ -312,12 +312,12 @@
             var config = {
                 type: "line",
                 data: {
-                        labels: DashboardCtrl.ePage.Masters.DummyGetOutwardByDatevalues.map(function(value,key){
-                            return $filter('date')(value.FinalisedDate, 'MM-dd')
-                        }),
-                        datasets: [{
+                    labels: DashboardCtrl.ePage.Masters.DummyGetOutwardByDatevalues.map(function (value, key) {
+                        return $filter('date')(value.FinalisedDate, 'MM-dd')
+                    }),
+                    datasets: [{
                         label: "Units",
-                        data:DashboardCtrl.ePage.Masters.DummyGetOutwardByDatevalues.map(function(value,key){
+                        data: DashboardCtrl.ePage.Masters.DummyGetOutwardByDatevalues.map(function (value, key) {
                             return value.Count
                         }),
                         backgroundColor: 'rgba(251, 188, 5, 0.5)',
@@ -349,7 +349,7 @@
                         enabled: true,
                         titleFontSize: 14
                     },
-                     legend: {
+                    legend: {
                         display: false
                     }
                 }
@@ -369,17 +369,17 @@
 
         //#region Product Wise Line Details
 
-        function GetProductWiseDetailsGrouping(){
+        function GetProductWiseDetailsGrouping() {
             DashboardCtrl.ePage.Masters.ProductChartLoading = true;
             DashboardCtrl.ePage.Masters.ProductDetails = undefined;
 
             var _filter = {
                 "SortColumn": "DPD_ProductCode",
-                "SortType":"DESC",
+                "SortType": "DESC",
                 "PageNumber": DashboardCtrl.ePage.Masters.Pagination.CurrentPage,
                 "PageSize": "10",
-                "WarehouseCode":DashboardCtrl.ePage.Masters.CurrentWarehouse.WarehouseCode,
-                "ClientCode":DashboardCtrl.ePage.Masters.CurrentOrganization.Code
+                "WarehouseCode": DashboardCtrl.ePage.Masters.CurrentWarehouse.WarehouseCode,
+                "ClientCode": DashboardCtrl.ePage.Masters.CurrentOrganization.Code
             };
 
             var _input = {
@@ -387,8 +387,8 @@
                 "FilterID": DashboardCtrl.ePage.Masters.Config.API.DashboardProductWiseDetailsGrouping.FilterID
             };
 
-            apiService.post("eAxisAPI", DashboardCtrl.ePage.Masters.Config.API.DashboardProductWiseDetailsGrouping.Url, _input).then(function(response){
-                if(response.data.Response){
+            apiService.post("eAxisAPI", DashboardCtrl.ePage.Masters.Config.API.DashboardProductWiseDetailsGrouping.Url, _input).then(function (response) {
+                if (response.data.Response) {
                     DashboardCtrl.ePage.Masters.ProductDetails = response.data.Response;
                     DashboardCtrl.ePage.Masters.ProductDetailsLength = response.data.Count
                     DrawProductChart();
@@ -396,10 +396,10 @@
             });
         }
 
-        function DrawProductChart(){
+        function DrawProductChart() {
 
             DashboardCtrl.ePage.Masters.BackGroundColors = [];
-            DashboardCtrl.ePage.Masters.ProductDetails.map(function(val,key){
+            DashboardCtrl.ePage.Masters.ProductDetails.map(function (val, key) {
                 var randomR = Math.floor((Math.random() * 130) + 100);
                 var randomG = Math.floor((Math.random() * 130) + 100);
                 var randomB = Math.floor((Math.random() * 130) + 100);
@@ -413,16 +413,16 @@
             var config = {
                 type: 'pie',
                 animation: {
-                    animateRotate:true
+                    animateRotate: true
                 },
                 data: {
-                    labels: DashboardCtrl.ePage.Masters.ProductDetails.map(function(value,key){
+                    labels: DashboardCtrl.ePage.Masters.ProductDetails.map(function (value, key) {
                         return value.ProductCode;
                     }),
-                    
+
                     datasets: [{
                         backgroundColor: DashboardCtrl.ePage.Masters.BackGroundColors,
-                        data: DashboardCtrl.ePage.Masters.ProductDetails.map(function(value,key){
+                        data: DashboardCtrl.ePage.Masters.ProductDetails.map(function (value, key) {
                             return value.ClosingStock;
                         })
                     }]
@@ -448,7 +448,7 @@
         function GetConfigDetails() {
             // Get Dynamic filter controls
             var _filter = {
-                DataEntryName: "ProductWiseDetailsGrouping"
+                DataEntryName: "CustomerProductWiseDetailsGrouping"
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
@@ -474,12 +474,12 @@
         }
 
         function CloseFilterList() {
-            $('#filterSideBar' + "ProductWiseDetailsGrouping").removeClass('open');
+            $('#filterSideBar' + "CustomerProductWiseDetailsGrouping").removeClass('open');
         }
 
         function GetFilterList() {
             $timeout(function () {
-                $('#filterSideBar' + "ProductWiseDetailsGrouping").toggleClass('open');
+                $('#filterSideBar' + "CustomerProductWiseDetailsGrouping").toggleClass('open');
             });
         }
 
@@ -490,9 +490,9 @@
             $(".filter-sidebar-wrapper").toggleClass("open");
 
             var FilterObj = {
-                "ProductCode": DashboardCtrl.ePage.Masters.DynamicControl.Entities[0].Data.ProductCode,               
-                "WarehouseCode":DashboardCtrl.ePage.Masters.CurrentWarehouse.WarehouseCode,
-                "ClientCode":DashboardCtrl.ePage.Masters.CurrentOrganization.Code,
+                "ProductCode": DashboardCtrl.ePage.Masters.DynamicControl.Entities[0].Data.ProductCode,
+                "WarehouseCode": DashboardCtrl.ePage.Masters.CurrentWarehouse.WarehouseCode,
+                "ClientCode": DashboardCtrl.ePage.Masters.CurrentOrganization.Code,
                 "SortColumn": "DPD_ProductCode",
                 "SortType": "ASC",
                 "PageNumber": 1,
@@ -514,12 +514,12 @@
 
         //#region  Status Wise Details
 
-        function GetStatusWiseDetails(){
+        function GetStatusWiseDetails() {
             DashboardCtrl.ePage.Masters.InwardStatusWiseSummaryDetails = '';
             DashboardCtrl.ePage.Masters.OutwardStatusWiseSummaryDetails = '';
             var FilterObj = {
-                "WarehouseCode":DashboardCtrl.ePage.Masters.CurrentWarehouse.WarehouseCode,
-                "ClientCode":DashboardCtrl.ePage.Masters.CurrentOrganization.Code,
+                "WarehouseCode": DashboardCtrl.ePage.Masters.CurrentWarehouse.WarehouseCode,
+                "ClientCode": DashboardCtrl.ePage.Masters.CurrentOrganization.Code,
             };
 
             var _input = {
@@ -527,10 +527,10 @@
                 "FilterID": DashboardCtrl.ePage.Masters.Config.API.WorkOrderStatusWiseSummary.FilterID,
             };
             apiService.post("eAxisAPI", DashboardCtrl.ePage.Masters.Config.API.WorkOrderStatusWiseSummary.Url, _input).then(function (response) {
-                angular.forEach(response.data.Response,function(value,key){
-                    if(value.WorkOrderType=='INW') {
+                angular.forEach(response.data.Response, function (value, key) {
+                    if (value.WorkOrderType == 'INW') {
                         DashboardCtrl.ePage.Masters.InwardStatusWiseSummaryDetails = value;
-                    }else{
+                    } else {
                         DashboardCtrl.ePage.Masters.OutwardStatusWiseSummaryDetails = value;
                     }
                 })
@@ -538,7 +538,7 @@
         }
 
         //#endregion
-        
+
         Init();
     }
 

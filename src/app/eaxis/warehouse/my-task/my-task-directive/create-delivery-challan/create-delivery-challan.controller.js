@@ -532,6 +532,10 @@
                         response.data.Response.Response.UIWmsOutwardHeader.ConsigneeName = CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ConsigneeName;
                         response.data.Response.Response.UIWmsOutwardHeader.ORG_Client_FK = CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ORG_Client_FK;
                         response.data.Response.Response.UIWmsOutwardHeader.ORG_Consignee_FK = CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ORG_Consignee_FK;
+
+                        response.data.Response.Response.UIWmsOutwardHeader.WAR_ORG_FK = CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WAR_ORG_FK;
+                        response.data.Response.Response.UIWmsOutwardHeader.WAR_ORG_Code = CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WAR_ORG_Code;
+                        response.data.Response.Response.UIWmsOutwardHeader.WAR_ORG_FullName = CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WAR_ORG_FullName;
                         if (type == "OUT") {
                             response.data.Response.Response.UIWmsOutwardHeader.WAR_FK = CreateDelChallanCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WAR_FK;
                             response.data.Response.Response.UIWmsOutwardHeader.Warehouse = CreateDelChallanCtrl.ePage.Masters.WarehouseCodeName;

@@ -43,6 +43,9 @@
             PickupGeneralCtrl.ePage.Masters.CloseEditActivity = CloseEditActivity;
             PickupGeneralCtrl.ePage.Masters.emptyText = '-';
 
+            if (PickupGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickup.ORG_Client_FK)
+                GetCsrReceiverDetails();
+
             GetNewAddress();
             GetDropDownList();
             GeneralOperations();
@@ -51,6 +54,22 @@
             GetUserMappedOrganization();
             if (!PickupGeneralCtrl.currentPickup.isNew)
                 GetContact();
+        }
+
+        function GetCsrReceiverDetails() {
+            //    Get Client contact
+            var _filter = {
+                "ORG_FK": PickupGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickup.ORG_Client_FK
+            };
+            var _input = {
+                "searchInput": helperService.createToArrayOfObject(_filter),
+                "FilterID": appConfig.Entities.OrgContact.API.FindAll.FilterID
+            };
+            apiService.post("eAxisAPI", appConfig.Entities.OrgContact.API.FindAll.Url, _input).then(function (response) {
+                if (response.data.Response) {
+                    PickupGeneralCtrl.ePage.Masters.CsrReceiverList = $filter('filter')(response.data.Response, { JobCategory: 'CSM-Customer Service Manager' });
+                }
+            });
         }
 
         function GetNewAddress() {
@@ -260,6 +279,7 @@
             };
             apiService.post("eAxisAPI", appConfig.Entities.OrgContact.API.FindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
+                    PickupGeneralCtrl.ePage.Masters.CsrReceiverList = $filter('filter')(response.data.Response, { JobCategory: 'CSM-Customer Service Manager' });
                     pickupConfig.Entities.ClientContact = response.data.Response;
                 }
             });

@@ -391,6 +391,9 @@
             InwardObject.UIWmsInwardHeader.WorkOrderSubType = currentOutward.WorkOrderSubType;
             InwardObject.UIWmsInwardHeader.AdditionalRef2Fk = currentOutward.AdditionalRef2Fk;
             InwardObject.UIWmsInwardHeader.WOD_Parent_FK = currentOutward.PK;
+            InwardObject.UIWmsInwardHeader.WAR_ORG_Code = currentOutward.WAR_ORG_Code;
+            InwardObject.UIWmsInwardHeader.WAR_ORG_FullName = currentOutward.WAR_ORG_FullName;
+            InwardObject.UIWmsInwardHeader.WAR_ORG_FK = currentOutward.WAR_ORG_FK;
             //Assigning ASN Line Object
             ReleasesGeneralCtrl.ePage.Entities.Header.Data.UIWmsPickLine.map(function (value, key) {
                 if (value.WOD_FK == currentOutward.PK) {

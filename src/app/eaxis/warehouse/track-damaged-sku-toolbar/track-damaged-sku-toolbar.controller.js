@@ -119,7 +119,7 @@
                     }
                 });
             } else {
-                toastr.warning("Cannot update the Inventory for this Line(s)");
+                toastr.warning("It can be updated when the pickup line status is in 'Stock at Testing Warehouse' or 'Stock at Repair Warehouse'");
                 DamagedSkuToolbarCtrl.ePage.Masters.UpdateInventoryBtnText = "Update Inventory"
                 DamagedSkuToolbarCtrl.ePage.Masters.IsUpdateInventoryBtn = false;
             }
@@ -285,7 +285,7 @@
                         getCentralWarehouse();
                     }
                 } else {
-                    toastr.warning("This line(s) cannot be moved to Central warehouse");
+                    toastr.warning("It can be moved to Central warehouse when the pickup line status is in 'Stock at Site Warehouse' or 'Stock at Testing Warehouse' or 'Stock at Repair Warehouse'.");
                 }
             }
         }
@@ -334,7 +334,7 @@
                         }
                     });
                 } else {
-                    toastr.warning("This line(s) cannot be moved to Testing warehouse");
+                    toastr.warning("It can be moved to Testing Warehouse when the pickup line status is in 'Stock at Central Warehouse'.");
                 }
             }
         }
@@ -378,7 +378,7 @@
                                     }
                                 });
                             } else {
-                                toastr.warning("This line(s) cannot be moved to Scrap warehouse");
+                                toastr.warning("It can be moved to Scrap warehouse when the pickup line status is in 'Stock at Central Warehouse' or 'Tested, Stock at Central Warehouse'.");
                             }
                         }, function () {
                             console.log("Cancelled");
@@ -401,7 +401,7 @@
                             }
                         });
                     } else {
-                        toastr.warning("This line(s) cannot be moved to Scrap warehouse");
+                        toastr.warning("It can be moved to Scrap warehouse when the pickup line status is in 'Stock at Central Warehouse' or 'Tested, Stock at Central Warehouse'.");
                     }
                 }
             }
@@ -432,7 +432,7 @@
                             if ((count + count1) == DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList.length) {
                                 OpenModalToUpdateRMANumber().result.then(function (response) { }, function () { });
                             } else {
-                                toastr.warning("This line(s) cannot be moved to Repair warehouse");
+                                toastr.warning("It can be moved to Repair warehouse when the pickup line status is in 'Stock at Central Warehouse' or 'Tested, Stock at Central Warehouse'.");
                             }
                         }, function () {
                             console.log("Cancelled");
@@ -441,7 +441,7 @@
                     if (count == DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList.length) {
                         OpenModalToUpdateRMANumber().result.then(function (response) { }, function () { });
                     } else {
-                        toastr.warning("This line(s) cannot be moved to Repair warehouse");
+                        toastr.warning("It can be moved to Repair warehouse when the pickup line status is in 'Stock at Central Warehouse' or 'Tested, Stock at Central Warehouse'.");
                     }
                 }
             }

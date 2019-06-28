@@ -291,6 +291,9 @@
                     <th ng-style="{ 'width':  '150px' }" title="Consignment Number">Consignment Number</th>
                     <th ng-style="{ 'width':  '250px' }" title="Sender">Sender</th>
                     <th ng-style="{ 'width':  '250px' }" title="Receiver">Receiver</th>
+                    <th ng-style="{ 'width':  '150px' }" title="Actual Pickup Date Time">Actual Pickup Date Time</th>
+                    <th ng-style="{ 'width':  '150px' }" title="Actual Delivery Date Time">Actual Delivery Date Time</th>
+                    <th ng-style="{ 'width':  '100px' }" title="Document">Document</th>
                     <th ng-style="{ 'width':  '150px' }" title="Client">Client</th>
                     <th ng-style="{ 'width':  '150px' }" title="Service Type">Service Type</th>
                     <th ng-style="{ 'width':  '150px' }" title="Sender Reference">Sender Reference</th>
@@ -298,9 +301,6 @@
                     <th ng-style="{ 'width':  '150px' }" title="Expected Pickup Date Time">Expected Pickup Date Time</th>
                     <th ng-style="{ 'width':  '150px' }" title="Expected Delivery Date Time">Expected Delivery Date
                         Time</th>
-                    <th ng-style="{ 'width':  '150px' }" title="Actual Pickup Date Time">Actual Pickup Date Time</th>
-                    <th ng-style="{ 'width':  '150px' }" title="Actual Delivery Date Time">Actual Delivery Date Time</th>
-                    <th ng-style="{ 'width':  '100px' }" title="Document">Document</th>
                 </tr>
             </thead>
             <tbody id="ManifestConsignmentLineTable{{OutwardDispatchCtrl.ePage.Entities.Header.ManifestDetails.TmsManifestHeader.ManifestNumber}}">
@@ -312,14 +312,6 @@
                         {{x.TMC_SenderName}}</td>
                     <td ng-style="{ 'width':  '250px' }" class="overflow-text">{{x.TMC_ReceiverCode}} -
                         {{x.TMC_ReceiverName}}</td>
-                    <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.TMC_ClientId}}</td>
-                    <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.TMC_ServiceType}}</td>
-                    <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.TMC_SenderRef}}</td>
-                    <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.TMC_ReceiverRef}}</td>
-                    <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.TMC_ExpectedPickupDateTime |
-                        date:"dd-MMM-yyyy hh:mm a"}}</td>
-                    <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.TMC_ExpectedDeliveryDateTime |
-                        date:"dd-MMM-yyyy hh:mm a"}}</td>
                     <td ng-style="{ 'width':  '150px' }">
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 p-0">
                             <div class="input-group input-group-sm">
@@ -362,6 +354,14 @@
                         <i class="fa fa-file" style="font-size: 14px; margin-left: 20px;" document-modal input="OutwardDispatchCtrl.ePage.Masters.DocumentInput[$index]"
                             mode="1" data-ng-if="OutwardDispatchCtrl.ePage.Masters.DocumentInput[$index]"></i>
                     </td>
+                    <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.TMC_ClientId}}</td>
+                    <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.TMC_ServiceType}}</td>
+                    <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.TMC_SenderRef}}</td>
+                    <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.TMC_ReceiverRef}}</td>
+                    <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.TMC_ExpectedPickupDateTime |
+                        date:"dd-MMM-yyyy hh:mm a"}}</td>
+                    <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.TMC_ExpectedDeliveryDateTime |
+                        date:"dd-MMM-yyyy hh:mm a"}}</td>
                 </tr>
             </tbody>
         </table>

@@ -28,8 +28,11 @@
 
             DeliveryMenuCtrl.ePage.Masters.SaveButtonText = "Save";
             DeliveryMenuCtrl.ePage.Masters.CancelButtonText = "Cancel Delivery";
+            DeliveryMenuCtrl.ePage.Masters.DeliveryButtonText = "Delivered As Faulty";
             DeliveryMenuCtrl.ePage.Masters.Validation = Validation;
             DeliveryMenuCtrl.ePage.Masters.CancelDelivery = CancelDelivery;
+            DeliveryMenuCtrl.ePage.Masters.DeliveredAsFault = DeliveredAsFault;
+
             DeliveryMenuCtrl.ePage.Masters.Config = deliveryConfig;
 
             DeliveryMenuCtrl.ePage.Masters.OnMenuClick = OnMenuClick;
@@ -52,6 +55,17 @@
                 DeliveryMenuCtrl.ePage.Masters.DisableSave = true;
             }
         }
+        // #region - change the delivery status
+        function DeliveredAsFault($item) {            
+            DeliveryMenuCtrl.ePage.Masters.DeliveryButtonText = "Please Wait..";
+            angular.forEach(DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDeliveryLine, function (value, key) {
+                if (value.UISPMSDeliveryReport)
+                    value.UISPMSDeliveryReport.DeliveryLineStatus = "Delivered As Faulty";
+            });
+            DeliveryMenuCtrl.ePage.Masters.DeliveryButtonText = "Delivered As Faulty";
+            Validation($item);
+        }
+        // #endregion 
         // #region - cancal delivery
         function CancelDelivery($item) {
             DeliveryMenuCtrl.ePage.Masters.CancelButtonText = "Please Wait..";
@@ -250,7 +264,8 @@
                     value.UISPMSDeliveryReport.IsModified = value.IsModified;
                     value.UISPMSDeliveryReport.IsDeleted = value.IsDeleted;
                     value.UISPMSDeliveryReport.DeliveryLine_FK = value.PK;
-                    value.UISPMSDeliveryReport.DeliveryLineStatus = value.WorkOrderLineStatusDesc;
+                    if (value.UISPMSDeliveryReport.DeliveryLineStatus != "Delivered As Faulty")
+                        value.UISPMSDeliveryReport.DeliveryLineStatus = value.WorkOrderLineStatusDesc;
                     value.UISPMSDeliveryReport.UsePartAttrib1 = value.UsePartAttrib1;
                     value.UISPMSDeliveryReport.UsePartAttrib2 = value.UsePartAttrib2;
                     value.UISPMSDeliveryReport.UsePartAttrib3 = value.UsePartAttrib3;
@@ -340,7 +355,7 @@
                                 DeliveryMenuCtrl.currentDelivery.isNew = false;
                                 helperService.refreshGrid();
 
-                                if (DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderStatus == "CAN") {
+                                if (DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderStatus == 'DEL' || DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderStatus == 'RDL' || DeliveryMenuCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderStatus == 'CAN') {
                                     DeliveryMenuCtrl.ePage.Entities.Header.GlobalVariables.NonEditable = true;
                                     DeliveryMenuCtrl.ePage.Masters.DisableSave = true;
                                     DeliveryMenuCtrl.ePage.Masters.active = 1;

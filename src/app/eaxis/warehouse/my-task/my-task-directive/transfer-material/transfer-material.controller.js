@@ -37,6 +37,9 @@
                 getDeliveryList();
                 if (TransferMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PickNo) {
                     GetPickDetails();
+                    TransferMaterialCtrl.ePage.Masters.IsLoadPickPage = true;
+                } else {
+                    TransferMaterialCtrl.ePage.Masters.IsLoadPickPage = false;
                 }
                 if (errorWarningService.Modules.MyTask)
                     TransferMaterialCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj = errorWarningService.Modules.MyTask.Entity[myTaskActivityConfig.Entities.Outward.label];
@@ -48,7 +51,7 @@
             TransferMaterialCtrl.ePage.Masters.DatePicker.Options = APP_CONSTANT.DatePicker;
             TransferMaterialCtrl.ePage.Masters.DatePicker.isOpen = [];
             TransferMaterialCtrl.ePage.Masters.DatePicker.OpenDatePicker = OpenDatePicker;
-
+            
             TransferMaterialCtrl.ePage.Masters.CreatePick = CreatePick;
             TransferMaterialCtrl.ePage.Masters.CreatePickText = "Create Pick";
             TransferMaterialCtrl.ePage.Masters.ReloadOutwardDetails = ReloadOutwardDetails;
@@ -76,6 +79,7 @@
             apiService.get("eAxisAPI", Config.Entities.Header.API.GetByID.Url + TransferMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WPK_FK).then(function (response) {
                 if (response.data.Response) {
                     TransferMaterialCtrl.ePage.Entities.Header.PickData = response.data.Response;
+                    Config.TabList = [];
                     Config.GetTabDetails(TransferMaterialCtrl.ePage.Entities.Header.PickData.UIWmsPickHeader, false).then(function (response) {
                         angular.forEach(response, function (value, key) {
                             if (value.label == TransferMaterialCtrl.ePage.Entities.Header.PickData.UIWmsPickHeader.PickNo) {
@@ -89,6 +93,7 @@
         }
 
         function CreatePick() {
+            TransferMaterialCtrl.ePage.Masters.IsLoadPickPage = false;
             TransferMaterialCtrl.ePage.Masters.LoadingValue = "Creating Pick..";
             TransferMaterialCtrl.ePage.Masters.IsDisabled = true;
             TransferMaterialCtrl.ePage.Masters.CreatePickText = "Please Wait...";
@@ -104,6 +109,7 @@
                     response.data.Response.Response.UIWmsPickHeader.WarehouseName = TransferMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WarehouseName;
                     response.data.Response.Response.UIWmsPickHeader.WAR_FK = TransferMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WAR_FK;
                     TransferMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WPK_FK = response.data.Response.Response.PK;
+                    TransferMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PickNo = response.data.Response.Response.UIWmsPickHeader.PickNo;
                     TransferMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PutOrPickStartDateTime = new Date();
                     TransferMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WorkOrderStatus = "OSP";
                     TransferMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WorkOrderStatusDesc = "Pick Started";
@@ -122,13 +128,14 @@
                                     if (response.data.Response) {
                                         TransferMaterialCtrl.ePage.Masters.PickDetails = response.data.Response;
                                         TransferMaterialCtrl.ePage.Masters.PickDetails.UIWmsOutwardLines = $filter('orderBy')(TransferMaterialCtrl.ePage.Masters.PickDetails.UIWmsOutwardLines, 'PK');
-                                        TransferMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PickNo = response.data.Response.UIWmsPickHeader.PickNo;
+                                        Config.TabList = [];
                                         Config.GetTabDetails(TransferMaterialCtrl.ePage.Masters.PickDetails.UIWmsPickHeader, false).then(function (response) {
                                             angular.forEach(response, function (value, key) {
                                                 if (value.label == TransferMaterialCtrl.ePage.Masters.PickDetails.UIWmsPickHeader.PickNo) {
                                                     TransferMaterialCtrl.ePage.Masters.TabList = value;
                                                     myTaskActivityConfig.Entities.PickData = TransferMaterialCtrl.ePage.Masters.TabList;
                                                     TransferMaterialCtrl.ePage.Masters.LoadingValue = "";
+                                                    TransferMaterialCtrl.ePage.Masters.IsLoadPickPage = true;
                                                     toastr.success("Stock allocated successfully");
                                                     apiService.get("eAxisAPI", warehouseConfig.Entities.WmsOutwardList.API.GetById.Url + TransferMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PK).then(function (response) {
                                                         if (response.data.Response) {
