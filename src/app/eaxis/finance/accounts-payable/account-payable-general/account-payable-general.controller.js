@@ -32,7 +32,7 @@
             AccountPayableGeneralCtrl.ePage.Masters.emptyText = '-';
             AccountPayableGeneralCtrl.ePage.Masters.SelectedIsReverseDate = [];
             AccountPayableGeneralCtrl.ePage.Masters.SelectedReverseDate = [];
-            AccountPayableGeneralCtrl.ePage.Masters.UIJobChargeCopy = [];
+            AccountPayableGeneralCtrl.ePage.Masters.UIJobChargeMainSource = [];
 
             /* function */
             AccountPayableGeneralCtrl.ePage.Masters.SelectedLookupData = SelectedLookupData;
@@ -69,7 +69,7 @@
             InitAccountPayable();
             CalculationMode();
 
-            AccountPayableGeneralCtrl.ePage.Masters.UIJobChargeCopy = angular.copy(AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge);
+            AccountPayableGeneralCtrl.ePage.Masters.UIJobChargeMainSource = angular.copy(AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge);
         }
 
         //#region GetNewCompanyAddress, GetNewCreditorAddress
@@ -307,8 +307,8 @@
 
             apiService.post("eAxisAPI", accountPayableConfig.Entities.API.AccountpayableListdata.API.FindAll.Url, _input).then(function (response) {
                 if (response.data.Response.length > 0) {
-                    if (AccountPayableGeneralCtrl.ePage.Masters.UIJobChargeCopy.length > 0) {
-                        AccountPayableGeneralCtrl.ePage.Masters.LineCharges = angular.copy(AccountPayableGeneralCtrl.ePage.Masters.UIJobChargeCopy);
+                    if (AccountPayableGeneralCtrl.ePage.Masters.UIJobChargeMainSource.length > 0) {
+                        AccountPayableGeneralCtrl.ePage.Masters.LineCharges = angular.copy(AccountPayableGeneralCtrl.ePage.Masters.UIJobChargeMainSource);
                         AccountPayableGeneralCtrl.ePage.Masters.LineCharges.map(function (value, key) {
                             if (value.SequenceNo == AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].TLSequence) {
                                 value.IsDeleted = true;
@@ -326,8 +326,8 @@
 
                     AddAPLineDetails(response.data.Response, $index);
                 } else if (response.data.Response.length == 0) {
-                    if (AccountPayableGeneralCtrl.ePage.Masters.UIJobChargeCopy.length > 0) {
-                        AccountPayableGeneralCtrl.ePage.Masters.LineCharges = angular.copy(AccountPayableGeneralCtrl.ePage.Masters.UIJobChargeCopy);
+                    if (AccountPayableGeneralCtrl.ePage.Masters.UIJobChargeMainSource.length > 0) {
+                        AccountPayableGeneralCtrl.ePage.Masters.LineCharges = angular.copy(AccountPayableGeneralCtrl.ePage.Masters.UIJobChargeMainSource);
                         AccountPayableGeneralCtrl.ePage.Masters.LineCharges.map(function (value, key) {
                             if (value.SequenceNo == AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].TLSequence) {
                                 value.IsDeleted = true;
@@ -350,8 +350,8 @@
 
             angular.forEach(AccountPayableGeneralCtrl.ePage.Masters.SelectedIsReverseDate, function (value, key) {
                 value.SequenceNo = $index + 1;
-                AccountPayableGeneralCtrl.ePage.Masters.UIJobChargeCopy.push(value);
-                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge = $filter('filter')(AccountPayableGeneralCtrl.ePage.Masters.UIJobChargeCopy, function (value, key) {
+                AccountPayableGeneralCtrl.ePage.Masters.UIJobChargeMainSource.push(value);
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge = $filter('filter')(AccountPayableGeneralCtrl.ePage.Masters.UIJobChargeMainSource, function (value, key) {
                     return value.JCJOBJobNo == AccountPayableGeneralCtrl.ePage.Masters.SelectedJobNo && value.SequenceNo == AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].TLSequence;
                 });
             });
@@ -366,13 +366,13 @@
         }
 
         function DeleteLineCharges($index) {
-            AccountPayableGeneralCtrl.ePage.Masters.UIJobChargeCopy = [];
-            AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge = $filter('filter')(AccountPayableGeneralCtrl.ePage.Masters.UIJobChargeCopy, { JCJOBJobNo: AccountPayableGeneralCtrl.ePage.Masters.SelectedJobNo });
+            AccountPayableGeneralCtrl.ePage.Masters.UIJobChargeMainSource = [];
+            AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge = $filter('filter')(AccountPayableGeneralCtrl.ePage.Masters.UIJobChargeMainSource, { JCJOBJobNo: AccountPayableGeneralCtrl.ePage.Masters.SelectedJobNo });
 
             angular.forEach(AccountPayableGeneralCtrl.ePage.Masters.LineCharges, function (value, key) {
                 if (!value.IsDeleted) {
-                    AccountPayableGeneralCtrl.ePage.Masters.UIJobChargeCopy.push(value);
-                    AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge = $filter('filter')(AccountPayableGeneralCtrl.ePage.Masters.UIJobChargeCopy, function (value, key) {
+                    AccountPayableGeneralCtrl.ePage.Masters.UIJobChargeMainSource.push(value);
+                    AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge = $filter('filter')(AccountPayableGeneralCtrl.ePage.Masters.UIJobChargeMainSource, function (value, key) {
                         return value.JCJOBJobNo == AccountPayableGeneralCtrl.ePage.Masters.SelectedJobNo && value.SequenceNo == AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].TLSequence;
                     });
                 }
@@ -380,8 +380,8 @@
         }
 
         function RemoveLineCharges($index) {
-            if (AccountPayableGeneralCtrl.ePage.Masters.UIJobChargeCopy.length > 0) {
-                AccountPayableGeneralCtrl.ePage.Masters.LineCharges = angular.copy(AccountPayableGeneralCtrl.ePage.Masters.UIJobChargeCopy);
+            if (AccountPayableGeneralCtrl.ePage.Masters.UIJobChargeMainSource.length > 0) {
+                AccountPayableGeneralCtrl.ePage.Masters.LineCharges = angular.copy(AccountPayableGeneralCtrl.ePage.Masters.UIJobChargeMainSource);
                 AccountPayableGeneralCtrl.ePage.Masters.LineCharges.map(function (value, key) {
                     if (value.SequenceNo == AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].TLSequence) {
                         value.IsDeleted = true;
@@ -590,10 +590,10 @@
             AccountPayableGeneralCtrl.ePage.Masters.selectedRow = $index;
             AccountPayableGeneralCtrl.ePage.Masters.SelectedJobNo = JobNo;
 
-            if (AccountPayableGeneralCtrl.ePage.Masters.UIJobChargeCopy.length > 0) {
-                angular.forEach(AccountPayableGeneralCtrl.ePage.Masters.UIJobChargeCopy, function (value, key) {
+            if (AccountPayableGeneralCtrl.ePage.Masters.UIJobChargeMainSource.length > 0) {
+                angular.forEach(AccountPayableGeneralCtrl.ePage.Masters.UIJobChargeMainSource, function (value, key) {
                     if (value.SequenceNo == AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].TLSequence) {
-                        AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge = $filter('filter')(AccountPayableGeneralCtrl.ePage.Masters.UIJobChargeCopy, function (value, key) {
+                        AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge = $filter('filter')(AccountPayableGeneralCtrl.ePage.Masters.UIJobChargeMainSource, function (value, key) {
                             return value.JCJOBJobNo == AccountPayableGeneralCtrl.ePage.Masters.SelectedJobNo && value.SequenceNo == AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].TLSequence;
                         });
                     }

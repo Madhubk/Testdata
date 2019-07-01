@@ -87,7 +87,7 @@
         function InitBindFinanceJob() {
             if (FinanceJobGeneralCtrl.currentFinanceJob.isNew) {
                 FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.JobOpenDate = new Date();
-            } 
+            }
         }
         //#endregion
 
@@ -244,6 +244,7 @@
 
                     if ($item.ChargeType == "REV") {
                         FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].ChargeType = $item.ChargeType;
+                        FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].TaxRate = $item.TaxRate;
                         FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].VendorCode = "";
                         FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].APInvoiceNum = "";
                         FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].APInvoiceDate = "";
@@ -272,6 +273,7 @@
                         ProfitAndLossCalculation();
                     } else {
                         FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].ChargeType = $item.ChargeType;
+                        FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].TaxRate = $item.TaxRate;
                         FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].CustomerCode = FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.LocalOrg_Code;
                         FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].ORG_SellAccount = FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.LocalOrg_FK;
                         FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[$index].RX_NKCostCurrency = FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.CompanyLocalCurrency;
@@ -641,6 +643,7 @@
                 "ACCCode": "",
                 "ChargeType": "",
                 "MarginPercentage": "",
+                "TaxRate": "",
                 "ACC_FK": "",
                 "Desc": "",
                 "JobNo": FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.JobNo,
@@ -972,7 +975,9 @@
             RevenueCalculation();
             ProfitAndLossCalculation();
         }
+        //#endregion
 
+        //#region  CostCalculation, RevenueCalculation, ProfitAndLossCalculation, TaxCalculation
         function CostCalculation() {
             var _LocalcostAmt = 0;
             FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge.map(function (value, key) {
@@ -981,6 +986,8 @@
                 }
             });
             FinanceJobGeneralCtrl.ePage.Masters.Cost = _LocalcostAmt;
+
+            TaxCalculation('Cost');
         }
 
         function RevenueCalculation() {
@@ -991,6 +998,8 @@
                 }
             });
             FinanceJobGeneralCtrl.ePage.Masters.Revenue = _LocalSellAmt;
+
+            TaxCalculation('Revenue');
         }
 
         function ProfitAndLossCalculation() {
@@ -1005,7 +1014,22 @@
                 FinanceJobGeneralCtrl.ePage.Masters.ProfitAndLoss = Math.abs(_ProfitAndLoss);
             }
         }
+
+        function TaxCalculation(type) {
+            if (type == 'Cost' && FinanceJobGeneralCtrl.ePage.Masters.selectedRow != -1) {
+                if (FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[FinanceJobGeneralCtrl.ePage.Masters.selectedRow].DuplicateLocalCostAmt) {
+                    FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[FinanceJobGeneralCtrl.ePage.Masters.selectedRow].OSCostGSTAmt = (FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[FinanceJobGeneralCtrl.ePage.Masters.selectedRow].DuplicateLocalCostAmt * (FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[FinanceJobGeneralCtrl.ePage.Masters.selectedRow].TaxRate / 100)).toFixed(2);
+                }
+            }
+            else if (type == 'Revenue' && FinanceJobGeneralCtrl.ePage.Masters.selectedRow != -1) {
+                if (FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[FinanceJobGeneralCtrl.ePage.Masters.selectedRow].DuplicateLocalSellAmt) {
+                    FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[FinanceJobGeneralCtrl.ePage.Masters.selectedRow].OSSellGSTAmt = (FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[FinanceJobGeneralCtrl.ePage.Masters.selectedRow].DuplicateLocalSellAmt * (FinanceJobGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge[FinanceJobGeneralCtrl.ePage.Masters.selectedRow].TaxRate / 100)).toFixed(2);
+                }
+            }
+        }
         //#endregion
+
+
 
         //#region ExchangeRateCalculation
         function ExchangeRateCalculatation($index, Cost, type) {
