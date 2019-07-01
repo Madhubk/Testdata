@@ -320,7 +320,7 @@
 
             if (!$item.isNew) {
                 _input.UIAccTransactionHeader.Company = _input.UIAccTransactionHeader.CMP_Code + '-' + _input.UIAccTransactionHeader.CMP_Name;
-                //_input.UIJobHeader.OverseasAgent = _input.UIAccTransactionHeader.AgentOrg_Code + '-' + _input.UIAccTransactionHeader.AgentOrg_Name;
+                _input.UIAccTransactionHeader.Creditor = _input.UIAccTransactionHeader.ORG_Code + '-' + _input.UIAccTransactionHeader.ORG_FullName;
             }
         }
     }

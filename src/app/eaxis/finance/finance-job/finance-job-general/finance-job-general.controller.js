@@ -30,7 +30,7 @@
             FinanceJobGeneralCtrl.ePage.Masters.Config = financeConfig;
 
             FinanceJobGeneralCtrl.ePage.Masters.CloseButtonText = "Close";
-            FinanceJobGeneralCtrl.ePage.Masters.ProfitAndLossText = "Profit :";
+            FinanceJobGeneralCtrl.ePage.Masters.ProfitAndLossText = "Profit:";
 
             /* Function */
             FinanceJobGeneralCtrl.ePage.Masters.SelectedLookupData = SelectedLookupData;

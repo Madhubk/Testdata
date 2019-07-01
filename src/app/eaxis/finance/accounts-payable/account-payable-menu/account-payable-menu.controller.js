@@ -4,9 +4,9 @@
     angular.module("Application")
         .controller("AccountPayableMenuController", AccountPayableMenuController);
 
-    AccountPayableMenuController.$inject = ["helperService", "apiService", "accountPayableConfig", "toastr"];
+    AccountPayableMenuController.$inject = ["$filter", "helperService", "apiService", "accountPayableConfig", "toastr"];
 
-    function AccountPayableMenuController(helperService, apiService, accountPayableConfig, toastr) {
+    function AccountPayableMenuController($filter, helperService, apiService, accountPayableConfig, toastr) {
         var AccountPayableMenuCtrl = this;
 
         function Init() {
@@ -72,7 +72,7 @@
 
             helperService.SaveEntity($item, 'AccountPayable').then(function (response) {
                 AccountPayableMenuCtrl.ePage.Entities.Header.GlobalVariables.SelectAll = false;
-                AccountPayableMenuCtrl.ePage.Masters.PostButtonText = "Save";
+                AccountPayableMenuCtrl.ePage.Masters.PostButtonText = "Post";
                 AccountPayableMenuCtrl.ePage.Masters.DisablePost = false;
 
                 if (response.Status === "success") {
@@ -94,11 +94,15 @@
                                 }
                             });
 
+                            accountPayableConfig.InitBinding(AccountPayableMenuCtrl.currentAccountPayable);
+
                             if (_index !== -1) {
                                 if (response.data.Response) {
+                                    response.data.Response.UIAccountpayablelistdata = $filter('filter')(response.data.Response.UIAccountpayablelistdata, { TLLineType: 'ACR' });
                                     accountPayableConfig.TabList[_index][accountPayableConfig.TabList[_index].code].ePage.Entities.Header.Data = response.data.Response;
                                 }
                                 else {
+                                    response.data.Response = $filter('filter')(response.data.Response.UIAccountpayablelistdata, { TLLineType: 'ACR' });
                                     accountPayableConfig.TabList[_index][accountPayableConfig.TabList[_index].code].ePage.Entities.Header.Data = response.data;
                                 }
                                 accountPayableConfig.TabList[_index].isNew = false;

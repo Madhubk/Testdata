@@ -20,6 +20,9 @@
                 "Entities": currentAccountPayable
             };
 
+            AccountPayableGeneralCtrl.ePage.Masters.InvoiceTotalText = "Invoice Total:";
+            AccountPayableGeneralCtrl.ePage.Masters.TaxText = "Tax:";
+
             /* For Table */
             AccountPayableGeneralCtrl.ePage.Masters.EnableCopyButton = true;
             AccountPayableGeneralCtrl.ePage.Masters.EnableDeleteButton = true;
@@ -27,6 +30,9 @@
             AccountPayableGeneralCtrl.ePage.Masters.Enable = true;
             AccountPayableGeneralCtrl.ePage.Masters.selectedRow = -1;
             AccountPayableGeneralCtrl.ePage.Masters.emptyText = '-';
+            AccountPayableGeneralCtrl.ePage.Masters.SelectedIsReverseDate = [];
+            AccountPayableGeneralCtrl.ePage.Masters.SelectedReverseDate = [];
+            AccountPayableGeneralCtrl.ePage.Masters.UIJobChargeCopy = [];
 
             /* function */
             AccountPayableGeneralCtrl.ePage.Masters.SelectedLookupData = SelectedLookupData;
@@ -34,7 +40,8 @@
             AccountPayableGeneralCtrl.ePage.Masters.OnChangeTaxAmount = OnChangeTaxAmount;
             AccountPayableGeneralCtrl.ePage.Masters.OnChangeGridDesc = OnChangeGridDesc;
             AccountPayableGeneralCtrl.ePage.Masters.OnChangeGridAmount = OnChangeGridAmount;
-            AccountPayableGeneralCtrl.ePage.Masters.onChangeGridTax = onChangeGridTax;
+            AccountPayableGeneralCtrl.ePage.Masters.OnChangeGridTax = OnChangeGridTax;
+            AccountPayableGeneralCtrl.ePage.Masters.OnChangeGirdLocalTotal = OnChangeGirdLocalTotal;
             AccountPayableGeneralCtrl.ePage.Masters.SelectAllCheckBox = SelectAllCheckBox;
             AccountPayableGeneralCtrl.ePage.Masters.SingleSelectCheckBox = SingleSelectCheckBox;
             AccountPayableGeneralCtrl.ePage.Masters.SelectAllLineCharges = SelectAllLineCharges;
@@ -57,28 +64,13 @@
             AccountPayableGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker = OpenDatePicker;
 
             accountPayableConfig.InitBinding(AccountPayableGeneralCtrl.currentAccountPayable);
-            InitAccountPayable();
             GetNewCompanyAddress();
             GetCreditorAddress();
-        }
+            InitAccountPayable();
+            CalculationMode();
 
-        //#region InitAccountPayable
-        function InitAccountPayable() {
-            if (AccountPayableGeneralCtrl.currentAccountPayable.isNew) {
-                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccTransactionHeader.InvoiceDate = new Date();
-                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccTransactionHeader.PostDate = new Date();
-                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccTransactionHeader.ExpectedTotal = true;
-            } else {
-                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccTransactionHeader.ExpectedTotal = false;
-
-                if (AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata.length > 0) {
-                    AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata.map(function (value, key) {
-                        value.LocalTotal = (parseFloat(value.JCOSCostAmt * value.TLExchangeRate) + parseFloat(value.JCOSCostGSTAmt * value.TLExchangeRate)).toFixed(2);
-                    });
-                }
-            }
+            AccountPayableGeneralCtrl.ePage.Masters.UIJobChargeCopy = angular.copy(AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge);
         }
-        //#endregion
 
         //#region GetNewCompanyAddress, GetNewCreditorAddress
         function GetNewCompanyAddress() {
@@ -132,6 +124,44 @@
         }
         //#endregion
 
+        //#region InitAccountPayable
+        function InitAccountPayable() {
+            if (AccountPayableGeneralCtrl.currentAccountPayable.isNew) {
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccTransactionHeader.InvoiceDate = new Date();
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccTransactionHeader.PostDate = new Date();
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccTransactionHeader.ExpectedTotal = true;
+            } else {
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccTransactionHeader.ExpectedTotal = false;
+
+                if (AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata.length > 0) {
+                    AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata = $filter('filter')(AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata, { TLLineType: 'ACR' });
+                    AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata.map(function (value, key) {
+                        value.LocalTotal = (parseFloat(value.JCOSCostAmt * value.TLExchangeRate) + parseFloat(value.JCOSCostGSTAmt * value.TLExchangeRate)).toFixed(2);
+                    });
+                }
+            }
+        }
+        //#endregion
+
+        //#region CalculationMode
+        function CalculationMode() {
+            var _InvoiceAmount = 0,
+                _TaxAmount = 0;
+
+            AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata.map(function (value, key) {
+                if (value.LocalTotal) {
+                    _InvoiceAmount = _InvoiceAmount + parseFloat(value.LocalTotal);
+                }
+
+                if (value.JCOSCostGSTAmt) {
+                    _TaxAmount = _TaxAmount + parseFloat(value.JCOSCostGSTAmt);
+                }
+            });
+            AccountPayableGeneralCtrl.ePage.Masters.InvoiceTotal = _InvoiceAmount;
+            AccountPayableGeneralCtrl.ePage.Masters.Tax = _TaxAmount;
+        }
+        //#endregion
+
         //#region SelectedLookupData
         function SelectedLookupData($index, $item, type) {
             if (type == "Company") {
@@ -141,15 +171,6 @@
                     AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccTransactionHeader.CompanyLocalCurrency = $item.LocalCurrency;
                     AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccTransactionHeader.CUR_NKTransactionCurrency = $item.LocalCurrency;
                     AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccTransactionHeader.ExchangeRate = 1;
-
-                    //#region Grid Amount, ExchangeRate Change
-                    // if (AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata.length > 0) {
-                    //     AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata.map(function (value, key) {
-                    //         value.TLRX_NKTransactionCurrency = AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccTransactionHeader.CUR_NKTransactionCurrency;
-                    //         value.TLExchangeRate = AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccTransactionHeader.ExchangeRate;
-                    //     });
-                    // }
-                    //#endregion
                 }
 
                 angular.forEach(AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIJobAddress, function (value, key) {
@@ -166,7 +187,7 @@
                         value.Phone = $item.Phone;
                         value.RN_NKCountryCode = $item.CountryCode;
                         value.Fax = $item.Fax;
-                        value.TenantCode = "20CUB"
+                        value.TenantCode = "20CUB";
                     }
                 });
             }
@@ -189,7 +210,7 @@
                                 value.Phone = response.data.Response.OAD_Phone;
                                 value.RN_NKCountryCode = response.data.Response.OAD_CountryCode;
                                 value.Fax = response.data.Response.OAD_Fax;
-                                value.TenantCode = "20CUB"
+                                value.TenantCode = "20CUB";
                             }
                         });
                     }
@@ -256,6 +277,8 @@
             else if (type == "Job") {
                 AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].TLJOBJobNo = $item.JobNo;
                 AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].JCJOBJobNo = $item.JobNo;
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccTransactionHeader.JOB_FK = $item.PK;
+                AccountPayableGeneralCtrl.ePage.Masters.SelectedJobNo = AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].TLJOBJobNo;
 
                 if (AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].TLACC_FK && AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].TLJOB_FK) {
                     GetLineChargeDetail($index);
@@ -284,18 +307,18 @@
 
             apiService.post("eAxisAPI", accountPayableConfig.Entities.API.AccountpayableListdata.API.FindAll.Url, _input).then(function (response) {
                 if (response.data.Response.length > 0) {
-                    if (AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge.length > 0) {
-                        AccountPayableGeneralCtrl.ePage.Masters.LineCharges = angular.copy(AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge);
+                    if (AccountPayableGeneralCtrl.ePage.Masters.UIJobChargeCopy.length > 0) {
+                        AccountPayableGeneralCtrl.ePage.Masters.LineCharges = angular.copy(AccountPayableGeneralCtrl.ePage.Masters.UIJobChargeCopy);
                         AccountPayableGeneralCtrl.ePage.Masters.LineCharges.map(function (value, key) {
-                            if (value.SequenceNo == $index + 1) {
+                            if (value.SequenceNo == AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].TLSequence) {
                                 value.IsDeleted = true;
                             }
 
                             if (AccountPayableGeneralCtrl.ePage.Masters.LineCharges.length - 1 == key) {
-                                DeleteLineCharges();
+                                DeleteLineCharges($index);
+
                             }
                         });
-
                         AddLineCharges(response.data.Response, $index);
                     } else {
                         AddLineCharges(response.data.Response, $index);
@@ -303,15 +326,15 @@
 
                     AddAPLineDetails(response.data.Response, $index);
                 } else if (response.data.Response.length == 0) {
-                    if (AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge.length > 0) {
-                        AccountPayableGeneralCtrl.ePage.Masters.LineCharges = angular.copy(AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge);
+                    if (AccountPayableGeneralCtrl.ePage.Masters.UIJobChargeCopy.length > 0) {
+                        AccountPayableGeneralCtrl.ePage.Masters.LineCharges = angular.copy(AccountPayableGeneralCtrl.ePage.Masters.UIJobChargeCopy);
                         AccountPayableGeneralCtrl.ePage.Masters.LineCharges.map(function (value, key) {
-                            if (value.SequenceNo == $index + 1) {
+                            if (value.SequenceNo == AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].TLSequence) {
                                 value.IsDeleted = true;
                             }
 
                             if (AccountPayableGeneralCtrl.ePage.Masters.LineCharges.length - 1 == key) {
-                                DeleteLineCharges();
+                                DeleteLineCharges($index);
                             }
                         });
                     }
@@ -322,11 +345,15 @@
 
         //#region AddLineCharges, DeleteLineCharges, RemoveLineCharges
         function AddLineCharges($item, $index) {
-            AccountPayableGeneralCtrl.ePage.Masters.FilterLineCharges = $filter('filter')($item, { TLLineType: 'ACR' });
+            AccountPayableGeneralCtrl.ePage.Masters.SelectedACRLineCharges = $filter('filter')($item, { TLLineType: 'ACR' });
+            AccountPayableGeneralCtrl.ePage.Masters.SelectedIsReverseDate = $filter('filter')(AccountPayableGeneralCtrl.ePage.Masters.SelectedACRLineCharges, { TLReverseDate: '!null' });
 
-            angular.forEach(AccountPayableGeneralCtrl.ePage.Masters.FilterLineCharges, function (value, key) {
+            angular.forEach(AccountPayableGeneralCtrl.ePage.Masters.SelectedIsReverseDate, function (value, key) {
                 value.SequenceNo = $index + 1;
-                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge.push(value);
+                AccountPayableGeneralCtrl.ePage.Masters.UIJobChargeCopy.push(value);
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge = $filter('filter')(AccountPayableGeneralCtrl.ePage.Masters.UIJobChargeCopy, function (value, key) {
+                    return value.JCJOBJobNo == AccountPayableGeneralCtrl.ePage.Masters.SelectedJobNo && value.SequenceNo == AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].TLSequence;
+                });
             });
 
             angular.forEach(AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge, function (value, key) {
@@ -338,25 +365,30 @@
             });
         }
 
-        function DeleteLineCharges() {
-            AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge = [];
+        function DeleteLineCharges($index) {
+            AccountPayableGeneralCtrl.ePage.Masters.UIJobChargeCopy = [];
+            AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge = $filter('filter')(AccountPayableGeneralCtrl.ePage.Masters.UIJobChargeCopy, { JCJOBJobNo: AccountPayableGeneralCtrl.ePage.Masters.SelectedJobNo });
+
             angular.forEach(AccountPayableGeneralCtrl.ePage.Masters.LineCharges, function (value, key) {
                 if (!value.IsDeleted) {
-                    AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge.push(value);
+                    AccountPayableGeneralCtrl.ePage.Masters.UIJobChargeCopy.push(value);
+                    AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge = $filter('filter')(AccountPayableGeneralCtrl.ePage.Masters.UIJobChargeCopy, function (value, key) {
+                        return value.JCJOBJobNo == AccountPayableGeneralCtrl.ePage.Masters.SelectedJobNo && value.SequenceNo == AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].TLSequence;
+                    });
                 }
             });
         }
 
         function RemoveLineCharges($index) {
-            if (AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge.length > 0) {
-                AccountPayableGeneralCtrl.ePage.Masters.LineCharges = angular.copy(AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge);
+            if (AccountPayableGeneralCtrl.ePage.Masters.UIJobChargeCopy.length > 0) {
+                AccountPayableGeneralCtrl.ePage.Masters.LineCharges = angular.copy(AccountPayableGeneralCtrl.ePage.Masters.UIJobChargeCopy);
                 AccountPayableGeneralCtrl.ePage.Masters.LineCharges.map(function (value, key) {
-                    if (value.SequenceNo == $index + 1) {
+                    if (value.SequenceNo == AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].TLSequence) {
                         value.IsDeleted = true;
                     }
 
                     if (AccountPayableGeneralCtrl.ePage.Masters.LineCharges.length - 1 == key) {
-                        DeleteLineCharges();
+                        DeleteLineCharges($index);
                     }
                 });
             }
@@ -365,33 +397,111 @@
 
         //#region AddAPLineDetails
         function AddAPLineDetails($item, $index) {
-            AccountPayableGeneralCtrl.ePage.Masters.FilterAPLineCharges = $filter('filter')($item, { TLLineType: 'ACR' });
+            AccountPayableGeneralCtrl.ePage.Masters.SelectedACRLineCharges = $filter('filter')($item, { TLLineType: 'ACR' });
+            AccountPayableGeneralCtrl.ePage.Masters.SelectedReverseDate = $filter('filter')(AccountPayableGeneralCtrl.ePage.Masters.SelectedACRLineCharges, { TLReverseDate: 'null' });
 
-            AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].TLLineDescription = AccountPayableGeneralCtrl.ePage.Masters.FilterAPLineCharges[0].JCDesc;
-            AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].JCDesc = AccountPayableGeneralCtrl.ePage.Masters.FilterAPLineCharges[0].JCDesc;
-            AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].TLBRNCHBranchCode = AccountPayableGeneralCtrl.ePage.Masters.FilterAPLineCharges[0].TLBRNCHBranchCode;
-            AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].TLBRNCHBranchName = AccountPayableGeneralCtrl.ePage.Masters.FilterAPLineCharges[0].TLBRNCHBranchName;
-            AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].TLBRN_FK = AccountPayableGeneralCtrl.ePage.Masters.FilterAPLineCharges[0].TLBRN_FK;
-            AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].TLDEPDeptCode = AccountPayableGeneralCtrl.ePage.Masters.FilterAPLineCharges[0].TLDEPDeptCode;
-            AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].TLDEPDeptName = AccountPayableGeneralCtrl.ePage.Masters.FilterAPLineCharges[0].TLDEPDeptName;
-            AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].TLDEP_FK = AccountPayableGeneralCtrl.ePage.Masters.FilterAPLineCharges[0].TLDEP_FK;
-            AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].TLRX_NKTransactionCurrency = AccountPayableGeneralCtrl.ePage.Masters.FilterAPLineCharges[0].TLRX_NKTransactionCurrency;
-            AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].TLExchangeRate = AccountPayableGeneralCtrl.ePage.Masters.FilterAPLineCharges[0].TLExchangeRate;
-            AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].JCOSCostAmt = AccountPayableGeneralCtrl.ePage.Masters.FilterAPLineCharges[0].JCOSCostAmt;
-            AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].JCOSCostGSTAmt = AccountPayableGeneralCtrl.ePage.Masters.FilterAPLineCharges[0].JCOSCostGSTAmt
-            AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].TLOSAmount = AccountPayableGeneralCtrl.ePage.Masters.FilterAPLineCharges[0].TLOSAmount;
-            AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].TLLineAmount = AccountPayableGeneralCtrl.ePage.Masters.FilterAPLineCharges[0].TLLineAmount;
-            AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].JCLocalCostAmt = AccountPayableGeneralCtrl.ePage.Masters.FilterAPLineCharges[0].JCLocalCostAmt;
-            AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].TLGSTVAT = AccountPayableGeneralCtrl.ePage.Masters.FilterAPLineCharges[0].TLGSTVAT;
-            AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].TLPK = AccountPayableGeneralCtrl.ePage.Masters.FilterAPLineCharges[0].TLPK;
-            AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].JCJCG_PK = AccountPayableGeneralCtrl.ePage.Masters.FilterAPLineCharges[0].JCJCG_PK;
-            AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].TLORG_FK = AccountPayableGeneralCtrl.ePage.Masters.FilterAPLineCharges[0].TLORG_FK;
-            AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].TLCMP_FK = AccountPayableGeneralCtrl.ePage.Masters.FilterAPLineCharges[0].TLCMP_FK;
-            AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].TLCMP_Code = AccountPayableGeneralCtrl.ePage.Masters.FilterAPLineCharges[0].TLCMP_Code;
-            AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].TLEntitySource = AccountPayableGeneralCtrl.ePage.Masters.FilterAPLineCharges[0].TLEntitySource;
-            AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].CMN_TenantCode = AccountPayableGeneralCtrl.ePage.Masters.FilterAPLineCharges[0].CMN_TenantCode;
+            if (AccountPayableGeneralCtrl.ePage.Masters.SelectedReverseDate.length > 0) {
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].TLLineDescription = AccountPayableGeneralCtrl.ePage.Masters.SelectedReverseDate[0].JCDesc;
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].JCDesc = AccountPayableGeneralCtrl.ePage.Masters.SelectedReverseDate[0].JCDesc;
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].TLBRNCHBranchCode = AccountPayableGeneralCtrl.ePage.Masters.SelectedReverseDate[0].TLBRNCHBranchCode;
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].TLBRNCHBranchName = AccountPayableGeneralCtrl.ePage.Masters.SelectedReverseDate[0].TLBRNCHBranchName;
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].TLBRN_FK = AccountPayableGeneralCtrl.ePage.Masters.SelectedReverseDate[0].TLBRN_FK;
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].TLDEPDeptCode = AccountPayableGeneralCtrl.ePage.Masters.SelectedReverseDate[0].TLDEPDeptCode;
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].TLDEPDeptName = AccountPayableGeneralCtrl.ePage.Masters.SelectedReverseDate[0].TLDEPDeptName;
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].TLDEP_FK = AccountPayableGeneralCtrl.ePage.Masters.SelectedReverseDate[0].TLDEP_FK;
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].TLRX_NKTransactionCurrency = AccountPayableGeneralCtrl.ePage.Masters.SelectedReverseDate[0].TLRX_NKTransactionCurrency;
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].TLExchangeRate = AccountPayableGeneralCtrl.ePage.Masters.SelectedReverseDate[0].TLExchangeRate;
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].JCOSCostAmt = AccountPayableGeneralCtrl.ePage.Masters.SelectedReverseDate[0].JCOSCostAmt;
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].JCOSCostGSTAmt = AccountPayableGeneralCtrl.ePage.Masters.SelectedReverseDate[0].JCOSCostGSTAmt
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].TLOSAmount = AccountPayableGeneralCtrl.ePage.Masters.SelectedReverseDate[0].TLOSAmount;
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].TLLineAmount = AccountPayableGeneralCtrl.ePage.Masters.SelectedReverseDate[0].TLLineAmount;
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].JCLocalCostAmt = AccountPayableGeneralCtrl.ePage.Masters.SelectedReverseDate[0].JCLocalCostAmt;
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].TLGSTVAT = AccountPayableGeneralCtrl.ePage.Masters.SelectedReverseDate[0].TLGSTVAT;
 
-            OnChangeGridAmount($index, AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].JCOSCostAmt);
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].TLPK = AccountPayableGeneralCtrl.ePage.Masters.SelectedReverseDate[0].TLPK;
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].TLORG_FK = AccountPayableGeneralCtrl.ePage.Masters.SelectedReverseDate[0].TLORG_FK;
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].TLCMP_FK = AccountPayableGeneralCtrl.ePage.Masters.SelectedReverseDate[0].TLCMP_FK;
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].TLCMP_Code = AccountPayableGeneralCtrl.ePage.Masters.SelectedReverseDate[0].TLCMP_Code;
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].TLEntitySource = AccountPayableGeneralCtrl.ePage.Masters.SelectedReverseDate[0].TLEntitySource;
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].CMN_TenantCode = AccountPayableGeneralCtrl.ePage.Masters.SelectedReverseDate[0].CMN_TenantCode;
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].JCABA_FK = AccountPayableGeneralCtrl.ePage.Masters.SelectedReverseDate[0].JCABA_FK;
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].JCACB_FK = AccountPayableGeneralCtrl.ePage.Masters.SelectedReverseDate[0].JCACB_FK;
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].JCAIM_CostVATClass = AccountPayableGeneralCtrl.ePage.Masters.SelectedReverseDate[0].JCAIM_CostVATClass;
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].JCAIM_SellVATClass = AccountPayableGeneralCtrl.ePage.Masters.SelectedReverseDate[0].JCAIM_SellVATClass;
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].JCAPInvoiceDate = AccountPayableGeneralCtrl.ePage.Masters.SelectedReverseDate[0].JCAPInvoiceDate;
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].JCAPInvoiceNum = AccountPayableGeneralCtrl.ePage.Masters.SelectedReverseDate[0].JCAPInvoiceNum;
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].JCAPLinePostingStatus = AccountPayableGeneralCtrl.ePage.Masters.SelectedReverseDate[0].JCAPLinePostingStatus;
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].JCAPNumberOfSupportingDocuments = AccountPayableGeneralCtrl.ePage.Masters.SelectedReverseDate[0].JCAPNumberOfSupportingDocuments;
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].JCARLinePostingStatus = AccountPayableGeneralCtrl.ePage.Masters.SelectedReverseDate[0].JCARLinePostingStatus;
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].JCARNumberOfSupportingDocuments = AccountPayableGeneralCtrl.ePage.Masters.SelectedReverseDate[0].JCARNumberOfSupportingDocuments;
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].JCATL_APLine = AccountPayableGeneralCtrl.ePage.Masters.SelectedReverseDate[0].JCATL_APLine;
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].JCATL_ARLine = AccountPayableGeneralCtrl.ePage.Masters.SelectedReverseDate[0].JCATL_ARLine;
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].JCATL_CFXLine = AccountPayableGeneralCtrl.ePage.Masters.SelectedReverseDate[0].JCATL_CFXLine;
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].JCATR_CostGSTRate = AccountPayableGeneralCtrl.ePage.Masters.SelectedReverseDate[0].JCATR_CostGSTRate;
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].JCATR_SellGSTRate = AccountPayableGeneralCtrl.ePage.Masters.SelectedReverseDate[0].JCATR_SellGSTRate;
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].JCAWH_CostWHTRate = AccountPayableGeneralCtrl.ePage.Masters.SelectedReverseDate[0].JCAWH_CostWHTRate;
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].JCAWH_SellWHTRate = AccountPayableGeneralCtrl.ePage.Masters.SelectedReverseDate[0].JCAWH_SellWHTRate;
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].JCAgentDeclaredCostAmt = AccountPayableGeneralCtrl.ePage.Masters.SelectedReverseDate[0].JCAgentDeclaredCostAmt;
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].JCAgentDeclaredSellAmt = AccountPayableGeneralCtrl.ePage.Masters.SelectedReverseDate[0].JCAgentDeclaredSellAmt;
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].JCBRN_InternalBranch = AccountPayableGeneralCtrl.ePage.Masters.SelectedReverseDate[0].JCBRN_InternalBranch;
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].JCChargeType = AccountPayableGeneralCtrl.ePage.Masters.SelectedReverseDate[0].JCChargeType;
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].JCChequeNo = AccountPayableGeneralCtrl.ePage.Masters.SelectedReverseDate[0].JCChequeNo;
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].JCCostRated = AccountPayableGeneralCtrl.ePage.Masters.SelectedReverseDate[0].JCCostRated;
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].JCCostRatingOverride = AccountPayableGeneralCtrl.ePage.Masters.SelectedReverseDate[0].JCCostRatingOverride;
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].JCCostRatingOverrideComment = AccountPayableGeneralCtrl.ePage.Masters.SelectedReverseDate[0].JCCostRatingOverrideComment;
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].JCCostReference = AccountPayableGeneralCtrl.ePage.Masters.SelectedReverseDate[0].JCCostReference;
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].JCCostpost = AccountPayableGeneralCtrl.ePage.Masters.SelectedReverseDate[0].JCCostpost;
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].JCDEP_InternalDept = AccountPayableGeneralCtrl.ePage.Masters.SelectedReverseDate[0].JCDEP_InternalDept;
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].JCDeclaredOSCostAmt = AccountPayableGeneralCtrl.ePage.Masters.SelectedReverseDate[0].JCDeclaredOSCostAmt;
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].JCDesc = AccountPayableGeneralCtrl.ePage.Masters.SelectedReverseDate[0].JCDesc;
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].JCDisplaySequence = AccountPayableGeneralCtrl.ePage.Masters.SelectedReverseDate[0].JCDisplaySequence;
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].JCEstimatedCost = AccountPayableGeneralCtrl.ePage.Masters.SelectedReverseDate[0].JCEstimatedCost;
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].JCEstimatedRevenue = AccountPayableGeneralCtrl.ePage.Masters.SelectedReverseDate[0].JCEstimatedRevenue;
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].JCInvoiceType = AccountPayableGeneralCtrl.ePage.Masters.SelectedReverseDate[0].JCInvoiceType;
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].JCIsIncludedInProfitShare = AccountPayableGeneralCtrl.ePage.Masters.SelectedReverseDate[0].JCIsIncludedInProfitShare;
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].JCIsValid = AccountPayableGeneralCtrl.ePage.Masters.SelectedReverseDate[0].JCIsValid;
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].JCJCC_FK = AccountPayableGeneralCtrl.ePage.Masters.SelectedReverseDate[0].JCJCC_FK;
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].JCJCC_GatewaySellHeader = AccountPayableGeneralCtrl.ePage.Masters.SelectedReverseDate[0].JCJCC_GatewaySellHeader;
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].JCJCG_PK = AccountPayableGeneralCtrl.ePage.Masters.SelectedReverseDate[0].JCJCG_PK;
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].JCJOBJobNo = AccountPayableGeneralCtrl.ePage.Masters.SelectedReverseDate[0].JCJOBJobNo;
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].JCJOB_FK = AccountPayableGeneralCtrl.ePage.Masters.SelectedReverseDate[0].JCJOB_FK;
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].JCJOB_InternalJob = AccountPayableGeneralCtrl.ePage.Masters.SelectedReverseDate[0].JCJOB_InternalJob;
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].JCLineCFX = AccountPayableGeneralCtrl.ePage.Masters.SelectedReverseDate[0].JCLineCFX;
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].JCLocalCostAmt = AccountPayableGeneralCtrl.ePage.Masters.SelectedReverseDate[0].JCLocalCostAmt;
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].JCLocalSellAmt = AccountPayableGeneralCtrl.ePage.Masters.SelectedReverseDate[0].JCLocalSellAmt;
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].JCMarginPercentage = AccountPayableGeneralCtrl.ePage.Masters.SelectedReverseDate[0].JCMarginPercentage;
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].JCOAD_SellInvoiceAddress = AccountPayableGeneralCtrl.ePage.Masters.SelectedReverseDate[0].JCOAD_SellInvoiceAddress;
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].JCOCT_SellInvoiceContact = AccountPayableGeneralCtrl.ePage.Masters.SelectedReverseDate[0].JCOCT_SellInvoiceContact;
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].JCORG_CostAccount = AccountPayableGeneralCtrl.ePage.Masters.SelectedReverseDate[0].JCORG_CostAccount;
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].JCORG_SellAccount = AccountPayableGeneralCtrl.ePage.Masters.SelectedReverseDate[0].JCORG_SellAccount;
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].JCOSCostAmt = AccountPayableGeneralCtrl.ePage.Masters.SelectedReverseDate[0].JCOSCostAmt;
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].JCOSCostExRate = AccountPayableGeneralCtrl.ePage.Masters.SelectedReverseDate[0].JCOSCostExRate;
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].JCOSCostGSTAmt = AccountPayableGeneralCtrl.ePage.Masters.SelectedReverseDate[0].JCOSCostGSTAmt;
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].JCOSCostWHTAmt = AccountPayableGeneralCtrl.ePage.Masters.SelectedReverseDate[0].JCOSCostWHTAmt;
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].JCOSP_Product = AccountPayableGeneralCtrl.ePage.Masters.SelectedReverseDate[0].JCOSP_Product;
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].JCOSSellAmt = AccountPayableGeneralCtrl.ePage.Masters.SelectedReverseDate[0].JCOSSellAmt;
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].JCOSSellExRate = AccountPayableGeneralCtrl.ePage.Masters.SelectedReverseDate[0].JCOSSellExRate;
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].JCOSSellGSTAmt = AccountPayableGeneralCtrl.ePage.Masters.SelectedReverseDate[0].JCOSSellGSTAmt;
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].JCOSSellWHTAmt = AccountPayableGeneralCtrl.ePage.Masters.SelectedReverseDate[0].JCOSSellWHTAmt;
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].JCOrderReference = AccountPayableGeneralCtrl.ePage.Masters.SelectedReverseDate[0].JCOrderReference;
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].JCPaymentDate = AccountPayableGeneralCtrl.ePage.Masters.SelectedReverseDate[0].JCPaymentDate;
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].JCPaymentType = AccountPayableGeneralCtrl.ePage.Masters.SelectedReverseDate[0].JCPaymentType;
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].JCPreventInvoicePrintGrouping = AccountPayableGeneralCtrl.ePage.Masters.SelectedReverseDate[0].JCPreventInvoicePrintGrouping;
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].JCProFormaCost = AccountPayableGeneralCtrl.ePage.Masters.SelectedReverseDate[0].JCProFormaCost;
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].JCProFormaRevenue = AccountPayableGeneralCtrl.ePage.Masters.SelectedReverseDate[0].JCProFormaRevenue;
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].JCProductQuantity = AccountPayableGeneralCtrl.ePage.Masters.SelectedReverseDate[0].JCProductQuantity;
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].JCRX_NKCostCurrency = AccountPayableGeneralCtrl.ePage.Masters.SelectedReverseDate[0].JCRX_NKCostCurrency;
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].JCRX_NKSellCurrency = AccountPayableGeneralCtrl.ePage.Masters.SelectedReverseDate[0].JCRX_NKSellCurrency;
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].JCRevenuepost = AccountPayableGeneralCtrl.ePage.Masters.SelectedReverseDate[0].JCRevenuepost;
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].JCSellRated = AccountPayableGeneralCtrl.ePage.Masters.SelectedReverseDate[0].JCSellRated;
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].JCSellRatingOverride = AccountPayableGeneralCtrl.ePage.Masters.SelectedReverseDate[0].JCSellRatingOverride;
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].JCSellRatingOverrideComment = AccountPayableGeneralCtrl.ePage.Masters.SelectedReverseDate[0].JCSellRatingOverrideComment;
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].JCSellReference = AccountPayableGeneralCtrl.ePage.Masters.SelectedReverseDate[0].JCSellReference;
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].JCSource = AccountPayableGeneralCtrl.ePage.Masters.SelectedReverseDate[0].JCSource;
+                AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].JCStateId = AccountPayableGeneralCtrl.ePage.Masters.SelectedReverseDate[0].JCStateId
+
+                OnChangeGridAmount($index, AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].JCOSCostAmt);
+            }
         }
         //#endregion
 
@@ -454,20 +564,41 @@
 
                 AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].TLGSTVAT = (parseFloat(AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].JCOSCostGSTAmt) * parseFloat(AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].TLExchangeRate)).toFixed(2);
             }
+
+            CalculationMode();
         }
 
-        function onChangeGridTax($index, $item) {
-            if ($item) {
+        function OnChangeGridTax($index, $item) {
+            if ($item && AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].TLExchangeRate) {
                 AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].TLGSTVAT = (parseFloat($item) * parseFloat(AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].TLExchangeRate)).toFixed(2);
+            }
 
+            if ($item) {
                 AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].LocalTotal = (parseFloat(AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].JCOSCostAmt * AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].TLExchangeRate) + parseFloat($item * AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].TLExchangeRate)).toFixed(2);
             }
+
+            CalculationMode();
+        }
+
+        function OnChangeGirdLocalTotal($indx, $item) {
+            CalculationMode();
         }
         //#endregion
 
         //#region setSelectedRow, SelectAllCheckBox, SingleSelectCheckBox, 
-        function setSelectedRow($index) {
+        function setSelectedRow($index, JobNo) {
             AccountPayableGeneralCtrl.ePage.Masters.selectedRow = $index;
+            AccountPayableGeneralCtrl.ePage.Masters.SelectedJobNo = JobNo;
+
+            if (AccountPayableGeneralCtrl.ePage.Masters.UIJobChargeCopy.length > 0) {
+                angular.forEach(AccountPayableGeneralCtrl.ePage.Masters.UIJobChargeCopy, function (value, key) {
+                    if (value.SequenceNo == AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].TLSequence) {
+                        AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIJobCharge = $filter('filter')(AccountPayableGeneralCtrl.ePage.Masters.UIJobChargeCopy, function (value, key) {
+                            return value.JCJOBJobNo == AccountPayableGeneralCtrl.ePage.Masters.SelectedJobNo && value.SequenceNo == AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].TLSequence;
+                        });
+                    }
+                });
+            }
         }
 
         function SingleSelectCheckBox() {
@@ -559,6 +690,7 @@
                 "JCACCDesc": "",
                 "TLACC_FK": "",
                 "JCACC_FK": "",
+
 
                 "JCChargeType": "",
 
@@ -660,9 +792,9 @@
 
                 AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata.map(function (value, key) {
                     if (value.SingleSelect && value.PK && value.IsDeleted) {
-                        // apiService.get("eAxisAPI", accountPayableConfig.Entities.API.JobHeaderList.API.Delete.Url + value.PK).then(function (response) {
-                        //     console.log("Success");
-                        // });
+                        /* apiService.get("eAxisAPI", accountPayableConfig.Entities.API.JobHeaderList.API.Delete.Url + value.PK).then(function (response) {
+                            console.log("Success");
+                        }); */
                     }
                 });
 
