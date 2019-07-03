@@ -1,22 +1,22 @@
 <!--Grid View -->
-<uib-tabset id="chromeTab" class="tab-container chrometab-box" active="FinanceAccountPayableCtrl.ePage.Masters.ActiveTabIndex">
+<uib-tabset id="chromeTab" class="tab-container chrometab-box" active="AccountPayableCtrl.ePage.Masters.ActiveTabIndex">
     <uib-tab >
-        <uib-tab-heading title="FinanceAccountPayableCtrl.ePage.Masters.Title">
-            <span data-ng-bind="FinanceAccountPayableCtrl.ePage.Masters.Title"></span>
+        <uib-tab-heading title="AccountPayableCtrl.ePage.Masters.Title">
+            <span data-ng-bind="AccountPayableCtrl.ePage.Masters.Title"></span>
             <i class="fa fa-thumb-tack pinned-tab ml-10"></i>
         </uib-tab-heading>
         <div class="no-padding tab-list-view-wrapper">
             <!-- Dynamic Grid Page-->
-            <dynamic-list mode="1" dataentry-name="FinanceAccountPayableCtrl.ePage.Masters.DataentryName" dataentry-object="FinanceAccountPayableCtrl.ePage.Masters.DataEntryObject"
-                selected-grid-row="FinanceAccountPayableCtrl.ePage.Masters.SelectedGridRow($item)" default-filter="FinanceAccountPayableCtrl.ePage.Masters.DefaultFilter"></dynamic-list>
-            <div class="tab-loading" data-ng-show="FinanceAccountPayableCtrl.ePage.Masters.IsTabClick"></div>
+            <dynamic-list mode="1" dataentry-name="AccountPayableCtrl.ePage.Masters.DataentryName" dataentry-object="AccountPayableCtrl.ePage.Masters.DataEntryObject"
+                selected-grid-row="AccountPayableCtrl.ePage.Masters.SelectedGridRow($item)" default-filter="AccountPayableCtrl.ePage.Masters.DefaultFilter"></dynamic-list>
+            <div class="tab-loading" data-ng-show="AccountPayableCtrl.ePage.Masters.IsTabClick"></div>
         </div>
     </uib-tab>
 
-    <uib-tab id='top' active="FinanceAccountPayableCtrl.ePage.Masters.ActiveTabIndex == $index" data-ng-repeat="tab in FinanceAccountPayableCtrl.ePage.Masters.TabList">
+    <uib-tab id='top' active="AccountPayableCtrl.ePage.Masters.ActiveTabIndex == $index" data-ng-repeat="tab in AccountPayableCtrl.ePage.Masters.TabList">
         <uib-tab-heading title="{{tab.label}}">
             <span data-ng-bind="tab.label"></span>
-            <i class="glyphicon glyphicon-remove" data-ng-click="FinanceAccountPayableCtrl.ePage.Masters.RemoveTab($event, $index, tab)"></i>
+            <i class="glyphicon glyphicon-remove" data-ng-click="AccountPayableCtrl.ePage.Masters.RemoveTab($event, $index, tab)"></i>
         </uib-tab-heading>
         <div class="padding-bottom-10 clearfix">
             <!--Account Payable Menu Directive-->
@@ -24,5 +24,5 @@
             <div class="horizontal-space"></div>
         </div>
     </uib-tab>
-    <button class="btn btn-default" ng-click="FinanceAccountPayableCtrl.ePage.Masters.CreateNewAP()" data-ng-disabled="FinanceAccountPayableCtrl.ePage.Masters.isNewClicked">+</button>
+    <button class="btn btn-default" ng-click="AccountPayableCtrl.ePage.Masters.CreateNewAP()" data-ng-disabled="AccountPayableCtrl.ePage.Masters.isNewClicked">+</button>
 </uib-tabset>

@@ -2,45 +2,45 @@
     "use strict";
 
     angular.module("Application")
-        .controller("FinanceAccountPayableController", FinanceAccountPayableController);
+        .controller("AccountPayableController", AccountPayableController);
 
-    FinanceAccountPayableController.$inject = ["$timeout", "helperService", "financeConfig", "apiService", "toastr"];
+    AccountPayableController.$inject = ["$timeout", "helperService", "accountPayableConfig", "apiService", "toastr"];
 
-    function FinanceAccountPayableController($timeout, helperService, financeConfig, apiService, toastr) {
-        var FinanceAccountPayableCtrl = this;
-        
+    function AccountPayableController($timeout, helperService, accountPayableConfig, apiService, toastr) {
+        var AccountPayableCtrl = this;
+
         function Init() {
-            FinanceAccountPayableCtrl.ePage = {
+            AccountPayableCtrl.ePage = {
                 "Title": "",
                 "Prefix": "Finance_AccountPayable",
                 "Masters": {},
                 "Meta": helperService.metaBase(),
-                "Entities": financeConfig.Entities
+                "Entities": accountPayableConfig.Entities
             };
 
-            FinanceAccountPayableCtrl.ePage.Masters.DataentryName = "AccTransactionHeader";
-            FinanceAccountPayableCtrl.ePage.Masters.Title = "AccTransactionHeader";
-            FinanceAccountPayableCtrl.ePage.Masters.DefaultFilter = {
-                "IsValid": "true"
+            AccountPayableCtrl.ePage.Masters.DataentryName = accountPayableConfig.DataentryName;
+            AccountPayableCtrl.ePage.Masters.Title = accountPayableConfig.DataentryTitle;
+            AccountPayableCtrl.ePage.Masters.DefaultFilter = {
+                "Ledger": "AP"
             };
 
             /* Tab */
-            FinanceAccountPayableCtrl.ePage.Masters.TabList = [];
-            FinanceAccountPayableCtrl.ePage.Masters.ActiveTabIndex = 0;
-            FinanceAccountPayableCtrl.ePage.Masters.IsTabClick = false;
-            FinanceAccountPayableCtrl.ePage.Masters.isNewClicked = false;
+            AccountPayableCtrl.ePage.Masters.TabList = [];
+            AccountPayableCtrl.ePage.Masters.ActiveTabIndex = 0;
+            AccountPayableCtrl.ePage.Masters.IsTabClick = false;
+            AccountPayableCtrl.ePage.Masters.isNewClicked = false;
 
             /* funtion */
-            FinanceAccountPayableCtrl.ePage.Masters.SelectedGridRow = SelectedGridRow;
-            FinanceAccountPayableCtrl.ePage.Masters.AddTab = AddTab;
-            FinanceAccountPayableCtrl.ePage.Masters.CreateNewAP = CreateNewAP;
-            FinanceAccountPayableCtrl.ePage.Masters.RemoveTab = RemoveTab;
+            AccountPayableCtrl.ePage.Masters.SelectedGridRow = SelectedGridRow;
+            AccountPayableCtrl.ePage.Masters.AddTab = AddTab;
+            AccountPayableCtrl.ePage.Masters.CreateNewAP = CreateNewAP;
+            AccountPayableCtrl.ePage.Masters.RemoveTab = RemoveTab;
         }
 
         //#region SelectedGridRow
         function SelectedGridRow($item) {
             if ($item.action === "link" || $item.action === "dblClick") {
-                FinanceAccountPayableCtrl.ePage.Masters.AddTab($item.data, false);
+                AccountPayableCtrl.ePage.Masters.AddTab($item.data, false);
             } else if ($item.action === "new") {
                 CreateNewAP();
             }
@@ -49,12 +49,12 @@
 
         //#region AddTab
         function AddTab(currentTab, isNew) {
-            var _isExist = FinanceAccountPayableCtrl.ePage.Masters.TabList.some(function (value) {
+            var _isExist = AccountPayableCtrl.ePage.Masters.TabList.some(function (value) {
                 return value.pk == currentTab.entity.PK;
             });
 
             if (!_isExist) {
-                FinanceAccountPayableCtrl.ePage.Masters.IsTabClick = true;
+                AccountPayableCtrl.ePage.Masters.IsTabClick = true;
                 var _currentTab = undefined;
                 if (!isNew) {
                     _currentTab = currentTab.entity;
@@ -62,11 +62,11 @@
                     _currentTab = currentTab;
                 }
 
-                financeConfig.GetTabDetails(_currentTab, isNew).then(function (response) {
+                accountPayableConfig.GetTabDetails(_currentTab, isNew).then(function (response) {
                     var _entity = {};
-                    FinanceAccountPayableCtrl.ePage.Masters.TabList = response;
-                    if (FinanceAccountPayableCtrl.ePage.Masters.TabList.length > 0) {
-                        FinanceAccountPayableCtrl.ePage.Masters.TabList.map(function (value, key) {
+                    AccountPayableCtrl.ePage.Masters.TabList = response;
+                    if (AccountPayableCtrl.ePage.Masters.TabList.length > 0) {
+                        AccountPayableCtrl.ePage.Masters.TabList.map(function (value, key) {
                             if (value.code == currentTab.entity.PK) {
                                 _entity = value[value.code].ePage.Entities.Header.Data;
                             }
@@ -74,8 +74,8 @@
                     }
 
                     $timeout(function () {
-                        FinanceAccountPayableCtrl.ePage.Masters.ActiveTabIndex = FinanceAccountPayableCtrl.ePage.Masters.TabList.length;
-                        FinanceAccountPayableCtrl.ePage.Masters.IsTabClick = false;
+                        AccountPayableCtrl.ePage.Masters.ActiveTabIndex = AccountPayableCtrl.ePage.Masters.TabList.length;
+                        AccountPayableCtrl.ePage.Masters.IsTabClick = false;
                         var _code = currentTab.entity.PK.split("-").join("");
                         //GetValidationList(_code, _entity);
                     });
@@ -87,10 +87,10 @@
         //#endregion
 
         //#region CreateNewAP, RemoveTab
-        function CreateNewAP(currentTab, isNew) {
-            FinanceAccountPayableCtrl.ePage.Masters.currentFinanceAP = undefined;
+        function CreateNewAP() {
+            AccountPayableCtrl.ePage.Masters.currentFinanceAP = undefined;
 
-            var _isExist = FinanceAccountPayableCtrl.ePage.Masters.TabList.some(function (value) {
+            var _isExist = AccountPayableCtrl.ePage.Masters.TabList.some(function (value) {
                 if (value.label === "New")
                     return true;
                 else
@@ -98,15 +98,15 @@
             });
 
             if (!_isExist) {
-                FinanceAccountPayableCtrl.ePage.Masters.isNewClicked = true;
-                helperService.getFullObjectUsingGetById(FinanceAccountPayableCtrl.ePage.Entities.API.AccountpayableList.API.GetById.Url, 'null').then(function (response) {
+                AccountPayableCtrl.ePage.Masters.isNewClicked = true;
+                helperService.getFullObjectUsingGetById(AccountPayableCtrl.ePage.Entities.API.AccountpayableList.API.GetById.Url, 'null').then(function (response) {
                     if (response.data.Response) {
                         var _obj = {
                             entity: response.data.Response,
                             data: response.data.Response
                         };
-                        FinanceAccountPayableCtrl.ePage.Masters.AddTab(_obj, true);
-                        FinanceAccountPayableCtrl.ePage.Masters.isNewClicked = false;
+                        AccountPayableCtrl.ePage.Masters.AddTab(_obj, true);
+                        AccountPayableCtrl.ePage.Masters.isNewClicked = false;
                     } else {
                         console.log("Empty New Job response");
                     }
@@ -120,9 +120,9 @@
             event.preventDefault();
             event.stopPropagation();
             var _currentTab = currentTab[currentTab.code].ePage.Entities;
-            FinanceAccountPayableCtrl.ePage.Masters.TabList.splice(index, 1);
+            AccountPayableCtrl.ePage.Masters.TabList.splice(index, 1);
 
-            apiService.get("eAxisAPI", financeConfig.Entities.API.AccountpayableList.API.AccountpayableListActivityClose.Url + _currentTab.Header.Data.PK).then(function (response) {
+            apiService.get("eAxisAPI", accountPayableConfig.Entities.API.AccountpayableList.API.AccountpayableListActivityClose.Url + _currentTab.Header.Data.PK).then(function (response) {
                 if (response.data.Response === "Success") {
                 } else {
                     console.log("Tab close Error : " + response);

@@ -27,8 +27,10 @@
             AccountReceivableCtrl.ePage.Masters.OnCompanySelect = OnCompanySelect;
             AccountReceivableCtrl.ePage.Masters.EditableMode = EditableMode;
 
-            if (AccountReceivableCtrl.ePage.Entities.Header.Data.OrgCompanyData && AccountReceivableCtrl.ePage.Entities.Header.Data.OrgCompanyData.length > 0) {
+            if (AccountReceivableCtrl.ePage.Entities.Header.Data.OrgCompanyData.length > 0) {
                 OnCompanySelect(AccountReceivableCtrl.ePage.Entities.Header.Data.OrgCompanyData[0]);
+            } else {
+                AccountReceivableCtrl.ePage.Masters.IsDisableEditableMode = true;
             }
         }
 
@@ -36,12 +38,17 @@
         function OnCompanySelect($item) {
             AccountReceivableCtrl.ePage.Masters.ActiveCompany = angular.copy($item);
 
+            if (!AccountReceivableCtrl.ePage.Masters.ActiveCompany.IsDebtor) {
+                AccountReceivableCtrl.ePage.Masters.IsDisableEditableMode = true;
+            } else {
+                AccountReceivableCtrl.ePage.Masters.IsDisableEditableMode = false;
+            }
+
             var index = -1;
             AccountReceivableCtrl.ePage.Entities.Header.Data.OrgCompanyData.map(function (value, key) {
                 return value.PK == AccountReceivableCtrl.ePage.Masters.ActiveCompany.PK ? index = key : false;
             });
             AccountReceivableCtrl.ePage.Masters.CompanyDataIndex = index;
-
         }
         //#endregion
 

@@ -5,9 +5,9 @@
         .module("Application")
         .controller("BranchDetailsController", BranchDetailsController);
 
-    BranchDetailsController.$inject = ["$rootScope", "$scope", "$state", "$q", "$location", "$timeout", "APP_CONSTANT", "authService", "apiService", "branchConfig", "helperService", "$filter", "$uibModal", "toastr"];
+    BranchDetailsController.$inject = ["$scope", "$timeout", "authService", "apiService", "branchConfig", "helperService", "$uibModal", "toastr"];
 
-    function BranchDetailsController($rootScope, $scope, $state, $q, $location, $timeout, APP_CONSTANT, authService, apiService, branchConfig, helperService, $filter, $uibModal, toastr) {
+    function BranchDetailsController($scope, $timeout, authService, apiService, branchConfig, helperService, $uibModal, toastr) {
         /* jshint validthis: true */
         var BranchDetailsCtrl = this;
 
@@ -22,13 +22,12 @@
             };
             BranchDetailsCtrl.ePage.Masters.OpenBranchModel = OpenBranchModel;
             BranchDetailsCtrl.ePage.Masters.SelectedLookupData = SelectedLookupData;
-            BranchDetailsCtrl.ePage.Masters.AddNewRow=AddNewRow;
+            BranchDetailsCtrl.ePage.Masters.AddNewRow = AddNewRow;
             BranchDetailsCtrl.ePage.Masters.SelectAllCheckBox = SelectAllCheckBox;
-            BranchDetailsCtrl.ePage.Masters.RemoveRow = RemoveRow;        
+            BranchDetailsCtrl.ePage.Masters.RemoveRow = RemoveRow;
             BranchDetailsCtrl.ePage.Masters.SingleSelectCheckBox = SingleSelectCheckBox;
             BranchDetailsCtrl.ePage.Masters.setSelectedRow = setSelectedRow;
             BranchDetailsCtrl.ePage.Masters.SelectedLookupData = SelectedLookupData;
-            console.log("Test:",BranchDetailsCtrl.ePage.Entities.Header);  
         };
 
         function SelectedLookupData($index, $item, type) {
@@ -44,10 +43,10 @@
                 "ModeOfTransport": "",
                 "Currency": "",
                 "CfxPercentage": "",
-                "CfxMin": "",  
-                "CompanyFK":BranchDetailsCtrl.ePage.Entities.Header.Data.UICmpBranch.PK,
+                "CfxMin": "",
+                "CompanyFK": BranchDetailsCtrl.ePage.Entities.Header.Data.UICmpBranch.PK,
                 "CreatedBy": authService.getUserInfo().UserId,
-                "ModifiedBy": "",                
+                "ModifiedBy": "",
                 "IsModified": false,
                 "IsDeleted": false,
                 "LineNo": BranchDetailsCtrl.ePage.Entities.Header.Data.UICurrencyUplift.length + 1
@@ -78,7 +77,7 @@
                     }
                 });
 
-                
+
                 BranchDetailsCtrl.ePage.Entities.Header.Data.UICurrencyUplift.map(function (value, key) {
                     // if (value.SingleSelect && value.PK && value.IsDeleted) {
                     //     apiService.get("eAxisAPI", branchConfig.Entities.API.JobHeaderList.API.Delete.Url + value.PK).then(function (response) {

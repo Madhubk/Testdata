@@ -82,7 +82,41 @@
                                 "FilterID": "CMPCOMP"
                             }
                         }
+<<<<<<< HEAD
+                    },
+                    "AccountpayableList": {
+                        "RowIndex": -1,
+                        "API": {
+                            "GetById": {
+                                "IsAPI": "true",
+                                "HttpType": "GET",
+                                "Url": "AccountpayableList/GetById/"
+                            },
+                            "AccountpayableListActivityClose": {
+                                "IsAPI": "true",
+                                "HttpType": "GET",
+                                "Url": "AccountpayableList/AccountpayableListActivityClose/"
+                            }
+                        }
+                    },
+                    "AccountreceivableList": {
+                        "RowIndex": -1,
+                        "API": {
+                            "GetById": {
+                                "IsAPI": "true",
+                                "HttpType": "GET",
+                                "Url": "AccountreceivableList/GetById/"
+                            },
+                            "AccountreceivableListActivityClose": {
+                                "IsAPI": "true",
+                                "HttpType": "GET",
+                                "Url": "AccountReceivableList/AccountReceivableListActivityClose/"
+                            }
+                        }
+                    },
+=======
                     }
+>>>>>>> jobAccounting_v2.43
                 }
             },
             "TabList": [],

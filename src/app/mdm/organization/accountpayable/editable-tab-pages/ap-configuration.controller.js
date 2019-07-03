@@ -82,7 +82,6 @@
                     typeCodeList.map(function (value, key) {
                         APConfigurationCtrl.ePage.Masters.DropDownMasterList[value] = helperService.metaBase();
                         APConfigurationCtrl.ePage.Masters.DropDownMasterList[value].ListSource = response.data.Response[value];
-                        console.log(APConfigurationCtrl.ePage.Masters.DropDownMasterList[value].ListSource);
                     });
                 }
             });

@@ -74,11 +74,11 @@
                 <label>Settlment Group</label>
                 <div class="input-group input-group-sm">
                     <div dynamic-lookup placeholder="Settlment Group" my-ng-model="CreditControlCtrl.ePage.Entities.Header.Data.OrgCompanyData[CreditControlCtrl.ePage.Masters.CompanyDataIndex].SettlementGroup" obj="CreditControlCtrl.ePage.Entities.Header.Data.OrgCompanyData[CreditControlCtrl.ePage.Masters.CompanyDataIndex]" page-name="'OrgHeader'" control-id="'SettlmentGroup'" control-key="SettlmentGroup_3355" 
-                        auto-complete-on-select="">
+                        auto-complete-on-select="CreditControlCtrl.ePage.Masters.SelectedLookupData($index, $item)">
                     </div>
                     <span class="input-group-btn">
                         <button dynamic-list-modal class="btn btn-default" type="button" obj="CreditControlCtrl.ePage.Entities.Header.Data.OrgCompanyData[CreditControlCtrl.ePage.Masters.CompanyDataIndex]" page-name="'OrgHeader'" control-id="'SettlmentGroup'" control-key="SettlmentGroup_3355"
-                             mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data=""><i class="fa fa-ellipsis-h"></i>
+                             mode="2" grid-refresh-fun-name="" grid-refresh-fun="" selected-data="CreditControlCtrl.ePage.Masters.SelectedLookupData($index, $item.data.entity)"><i class="fa fa-ellipsis-h"></i>
                         </button>
                     </span>
                 </div>

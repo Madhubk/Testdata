@@ -62,7 +62,6 @@
                     typeCodeList.map(function (value, key) {
                         ChargecodeDetailsCtrl.ePage.Masters.DropDownMasterList[value] = helperService.metaBase();
                         ChargecodeDetailsCtrl.ePage.Masters.DropDownMasterList[value].ListSource = response.data.Response[value];
-                        console.log(ChargecodeDetailsCtrl.ePage.Masters.DropDownMasterList[value].ListSource);
                     });
                 }
             });
@@ -76,16 +75,12 @@
             } else if (type == "CostMISgroup") {
                 ChargecodeDetailsCtrl.ePage.Entities.Header.Data.UIAccChargeCode.AGP_ExpenseGroup = $item.PK;
             } else if (type == "CostAccural") {
-                ChargecodeDetailsCtrl.ePage.Entities.Header.Data.UIAccChargeCode.AGH_AccrualAccount = $item.PK;
                 OnChangeValues($item.AccountNum, 'E1353');
             } else if (type == "RevenueAccural") {
-                ChargecodeDetailsCtrl.ePage.Entities.Header.Data.UIAccChargeCode.AGH_WIPAccount = $item.PK;
                 OnChangeValues($item.AccountNum, 'E1354');
             } else if (type == "CostActual") {
-                ChargecodeDetailsCtrl.ePage.Entities.Header.Data.UIAccChargeCode.AGH_CostAccount = $item.PK;
                 OnChangeValues($item.AccountNum, 'E1355');
             } else if (type == "RevenueActual") {
-                ChargecodeDetailsCtrl.ePage.Entities.Header.Data.UIAccChargeCode.AGH_RevenueAccount = $item.PK;
                 OnChangeValues($item.AccountNum, 'E1356');
             }
         }

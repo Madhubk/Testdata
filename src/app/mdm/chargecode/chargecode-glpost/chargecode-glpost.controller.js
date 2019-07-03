@@ -217,16 +217,7 @@
         //#endregion
 
         //#region SelectedLookupDate
-        function SelectedLookupData($index, $item, type){
-            if (type == "CostAccural") {
-                ChargecodeGlpostCtrl.ePage.Entities.Header.Data.UIAccChargeGLPostingOverride[$index].AG_ACR = $item.PK;
-            } else if (type == "RevenueAccural") {
-                ChargecodeGlpostCtrl.ePage.Entities.Header.Data.UIAccChargeGLPostingOverride[$index].AG_WIP = $item.PK;
-            } else if (type == "CostActual") {
-                ChargecodeGlpostCtrl.ePage.Entities.Header.Data.UIAccChargeGLPostingOverride[$index].AG_CST = $item.PK;
-            } else if (type == "RevenueActual") {
-                ChargecodeGlpostCtrl.ePage.Entities.Header.Data.UIAccChargeGLPostingOverride[$index].AG_REV = $item.PK;
-            }
+        function SelectedLookupData($index, $item, type) {
         }
         //#endregion
 
