@@ -46,7 +46,6 @@
         }
         //#region SelectedGrid
         function SelectedGridRow($item) {
-            debugger;
             if ($item.action === "link" || $item.action === "dblClick") {
                 FinancePeriodCtrl.ePage.Masters.AddTab($item.data, false);
             } else if ($item.action === "new") {
@@ -57,7 +56,6 @@
 
         //#region  AddTab, RemoveTab, NewFinancialperiod
         function AddTab(currentTab, isNew) {
-            debugger;
             var _isExist = FinancePeriodCtrl.ePage.Masters.TabList.some(function (value) {
                 return value.pk == currentTab.entity.PK;
             });
@@ -73,9 +71,7 @@
 
                 financeperiodConfig.GetTabDetails(_currentTab, isNew).then(function (response) {
                     var _entity = {};
-                    debugger;
                     FinancePeriodCtrl.ePage.Masters.TabList = response;
-                    console.log("hi", FinancePeriodCtrl.ePage.Masters.TabList);
                     if (FinancePeriodCtrl.ePage.Masters.TabList.length > 0) {
                         FinancePeriodCtrl.ePage.Masters.TabList.map(function (value, key) {
                             if (value.code == currentTab.entity.PK) {
@@ -158,7 +154,6 @@
             errorWarningService.GetErrorCodeList(_obj);
         }
         //#endregion
-
 
         Init()
     }

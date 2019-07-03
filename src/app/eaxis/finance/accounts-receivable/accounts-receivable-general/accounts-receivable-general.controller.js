@@ -10,7 +10,6 @@
         var AccountReceivableGeneralCtrl = this;
 
         function Init() {
-            debugger;
             var currentAccountReceivable = AccountReceivableGeneralCtrl.currentAccountReceivable[AccountReceivableGeneralCtrl.currentAccountReceivable.code].ePage.Entities;
 
             AccountReceivableGeneralCtrl.ePage = {
@@ -61,7 +60,6 @@
             InitAccountReceivable();
             GetNewCompanyAddress();
             GetDebtorAddress();
-            console.log("Test",AccountReceivableGeneralCtrl.ePage.Entities.Header.Data.UIAccTransactionHeader);
         }
 
         //#region InitAccountReceivable

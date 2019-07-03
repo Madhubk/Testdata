@@ -4,13 +4,12 @@
     angular.module("Application")
         .controller("AccountReceivableMenuController", AccountReceivableMenuController);
 
-        AccountReceivableMenuController.$inject = ["helperService", "apiService", "accountReceivableConfig", "toastr"];
+    AccountReceivableMenuController.$inject = ["helperService", "apiService", "accountReceivableConfig", "toastr"];
 
     function AccountReceivableMenuController(helperService, apiService, accountReceivableConfig, toastr) {
         var AccountReceivableMenuCtrl = this;
 
         function Init() {
-            debugger;
             var currentAccountReceivable = AccountReceivableMenuCtrl.currentAccountReceivable[AccountReceivableMenuCtrl.currentAccountReceivable.code].ePage.Entities;
 
             AccountReceivableMenuCtrl.ePage = {

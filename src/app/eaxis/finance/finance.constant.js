@@ -35,7 +35,11 @@
         }, {
             name: "FinanceAccountReceivable",
             files: [
-                "app/eaxis/finance/accounts-receivable/accounts-receivable.controller.js"
+                "app/eaxis/finance/accounts-receivable/accounts-receivable.controller.js",
+                "app/eaxis/finance/accounts-receivable/accounts-receivable-config.factry.js",
+                'app/mdm/warehouse/customize-table/customize-table.css',
+                'app/mdm/warehouse/customize-table/customize-table.directive.js',
+                'app/mdm/warehouse/custom/customfilter.js'
             ]
         }, {
             name: "FinanceAccountReceivableMenu",
@@ -50,7 +54,7 @@
                 "app/eaxis/finance/accounts-receivable/accounts-receivable-general/accounts-receivable-general.controller.js",
                 "app/eaxis/finance/accounts-receivable/accounts-receivable-general/accounts-receivable-general.css"
             ]
-        },{
+        }, {
             name: "FinanceAdminCosts",
             files: [
                 "app/eaxis/finance/admin-costs/admin-costs.controller.js"

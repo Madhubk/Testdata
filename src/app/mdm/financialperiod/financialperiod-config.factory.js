@@ -33,7 +33,6 @@
                                 "HttpType": "GET",
                                 "Url": "FinancePeriodManagement/FinancePeriodManagementActivityClose/"
                             }
-
                         }
                     }
                 }
@@ -134,8 +133,7 @@
                                     "position": '7',
                                     "width": "150",
                                     "display": false
-                                },
-                                {
+                                }, {
                                     "columnname": "Is Subledger Closed For Adjustments",
                                     "isenabled": true,
                                     "property": "cissubledgerclosedforadjustments",
@@ -183,10 +181,8 @@
                                     "position": '8',
                                     "width": "235"
                                 }
-
                             }
                         }
-
                     }
                 }
             };
@@ -208,7 +204,6 @@
                 deferred.resolve(exports.TabList);
             }
             else {
-                debugger;
                 helperService.getFullObjectUsingGetById(exports.Entities.API.FinancialPeriod.API.GetById.Url, currentFinancialperiod.PK).then(function (response) {
                     if (response.data.Messages) {
                         response.data.Messages.map(function (value, key) {

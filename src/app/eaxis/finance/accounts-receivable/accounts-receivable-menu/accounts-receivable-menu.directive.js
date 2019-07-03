@@ -7,7 +7,6 @@
     AccountReceivableMenu.$inject = [];
 
     function AccountReceivableMenu() {
-        debugger;
         var exports = {
             restrict: "E",
             templateUrl: "app/eaxis/finance/accounts-receivable/accounts-receivable-menu/accounts-receivable-menu.html",
@@ -21,6 +20,6 @@
         };
         return exports;
 
-        function Link(scope, elem, attr) {}
+        function Link(scope, elem, attr) { }
     }
 })();

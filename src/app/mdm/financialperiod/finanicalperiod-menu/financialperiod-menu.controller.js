@@ -11,7 +11,6 @@
         var FinancePeriodMenuCtrl = this;
 
         function Init() {
-            debugger;
             var currentFinancialperiod = FinancePeriodMenuCtrl.currentFinancialperiod[FinancePeriodMenuCtrl.currentFinancialperiod.code].ePage.Entities;
 
             FinancePeriodMenuCtrl.ePage = {

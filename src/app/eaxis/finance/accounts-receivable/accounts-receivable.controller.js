@@ -4,13 +4,12 @@
     angular.module("Application")
         .controller("AccountReceivableController", AccountReceivableController);
 
-        AccountReceivableController.$inject = ["$timeout", "helperService", "accountReceivableConfig", "apiService", "toastr"];
+    AccountReceivableController.$inject = ["$timeout", "helperService", "accountReceivableConfig", "apiService", "toastr"];
 
     function AccountReceivableController($timeout, helperService, accountReceivableConfig, apiService, toastr) {
         var AccountReceivableCtrl = this;
-        
+
         function Init() {
-            debugger;
             AccountReceivableCtrl.ePage = {
                 "Title": "",
                 "Prefix": "Finance_AccountReceivable",

@@ -26,16 +26,16 @@
 
             /* Function */
             FinancePeriodGeneralCtrl.ePage.Masters.OnChangeValues = OnChangeValues;
-            FinancePeriodGeneralCtrl.ePage.Masters.setSelectedRow=setSelectedRow;
+            FinancePeriodGeneralCtrl.ePage.Masters.setSelectedRow = setSelectedRow;
 
             FinancePeriodGeneralCtrl.ePage.Masters.DatePicker = {};
             FinancePeriodGeneralCtrl.ePage.Masters.DatePicker.Options = APP_CONSTANT.DatePicker;
             FinancePeriodGeneralCtrl.ePage.Masters.DatePicker.isOpen = [];
             FinancePeriodGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker = OpenDatePicker;
             FinancePeriodGeneralCtrl.ePage.Masters.OnChangeCalendarType = OnChangeCalendarType;
-            FinancePeriodGeneralCtrl.ePage.Masters.OnChangeDate=OnChangeDate;
+            FinancePeriodGeneralCtrl.ePage.Masters.OnChangeDate = OnChangeDate;
             // InitGLccount();
-            console.log("Check:", FinancePeriodGeneralCtrl.ePage.Entities.Header.Data);
+
             FinancePeriodGeneralCtrl.ePage.Masters.DropDownMasterList = {
                 "CalendarType": {
                     "ListSource": []
@@ -106,40 +106,38 @@
             }
         }
         //#endregion 
+
         function setSelectedRow($index) {
             FinancePeriodGeneralCtrl.ePage.Masters.selectedRow = $index;
         }
 
-        function OnChangeDate($index, $item,value){
-            debugger;
-            console.log($item);
-
+        function OnChangeDate($index, $item, value) {
         }
+
         function OnChangeCalendarType() {
-            debugger;
             if (FinancePeriodGeneralCtrl.ePage.Entities.Header.data.UIAccPeriodManagement.Year != "") {
-                if(FinancePeriodGeneralCtrl.ePage.Entities.Header.data.UIAccPeriodManagement.CalendarType=="FIN"){
+                if (FinancePeriodGeneralCtrl.ePage.Entities.Header.data.UIAccPeriodManagement.CalendarType == "FIN") {
+                    var m = 3;
+                    var year = FinancePeriodGeneralCtrl.ePage.Entities.Header.data.UIAccPeriodManagement.Year - 1;
+                    var year2 = FinancePeriodGeneralCtrl.ePage.Entities.Header.data.UIAccPeriodManagement.Year;
+                    var stDate, edDate = 0;
+                    FinancePeriodGeneralCtrl.ePage.Entities.Header.Data.LstUIAccPeriodManagement = [];
                     
-                    var m=3;
-                    var year = FinancePeriodGeneralCtrl.ePage.Entities.Header.data.UIAccPeriodManagement.Year -1;
-                    var year2=FinancePeriodGeneralCtrl.ePage.Entities.Header.data.UIAccPeriodManagement.Year;
-                    var stDate,edDate=0;
-                    FinancePeriodGeneralCtrl.ePage.Entities.Header.Data.LstUIAccPeriodManagement=[];
-                    for (var i=0;i<=11;i++){
-                        var periodStart=new Date(year,m,1);
-                        var periodEnd=new Date(year,m+1,0);
+                    for (var i = 0; i <= 11; i++) {
+                        var periodStart = new Date(year, m, 1);
+                        var periodEnd = new Date(year, m + 1, 0);
                         const monthNames = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN",
                             "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"
                         ];
                         var period = monthNames[new Date(periodStart).getMonth()];
-                        var year1=year.toString().substr(-2)+"-"+year2.toString().substr(-2);
+                        var year1 = year.toString().substr(-2) + "-" + year2.toString().substr(-2);
                         m++;
                         stDate = i;
                         edDate = i;
-                        
+
                         var objFinGrid = {
                             "PK": "00000000-0000-0000-0000-000000000000",
-                            "Period": period +" -"+ year1,
+                            "Period": period + " -" + year1,
                             "Year": year,
                             "StartDate": periodStart,
                             "EndDate": periodEnd,
@@ -162,27 +160,28 @@
                     //FinancePeriodGeneralCtrl.ePage.Entities.Header.data.UIAccPeriodManagement.StartDate
                     //FinancePeriodGeneralCtrl.ePage.Entities.Header.data.UIAccPeriodManagement.StartDate
                 }
-                else if(FinancePeriodGeneralCtrl.ePage.Entities.Header.data.UIAccPeriodManagement.CalendarType=="CAL"){
-                    var m=0;
-                    var year = FinancePeriodGeneralCtrl.ePage.Entities.Header.data.UIAccPeriodManagement.Year -1;
-                    var year2=FinancePeriodGeneralCtrl.ePage.Entities.Header.data.UIAccPeriodManagement.Year;
-                    var stDate,edDate=0;
-                    FinancePeriodGeneralCtrl.ePage.Entities.Header.Data.LstUIAccPeriodManagement=[];
-                    for (var i=0;i<=11;i++){
-                        var periodStart=new Date(year,m,1);
-                        var periodEnd=new Date(year,m+1,0);
+                else if (FinancePeriodGeneralCtrl.ePage.Entities.Header.data.UIAccPeriodManagement.CalendarType == "CAL") {
+                    var m = 0;
+                    var year = FinancePeriodGeneralCtrl.ePage.Entities.Header.data.UIAccPeriodManagement.Year - 1;
+                    var year2 = FinancePeriodGeneralCtrl.ePage.Entities.Header.data.UIAccPeriodManagement.Year;
+                    var stDate, edDate = 0;
+                    FinancePeriodGeneralCtrl.ePage.Entities.Header.Data.LstUIAccPeriodManagement = [];
+
+                    for (var i = 0; i <= 11; i++) {
+                        var periodStart = new Date(year, m, 1);
+                        var periodEnd = new Date(year, m + 1, 0);
                         const monthNames = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN",
                             "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"
                         ];
                         var period = monthNames[new Date(periodStart).getMonth()];
-                        var year1=year.toString().substr(-2)+"-"+year2.toString().substr(-2);
+                        var year1 = year.toString().substr(-2) + "-" + year2.toString().substr(-2);
                         m++;
                         stDate = i;
                         edDate = i;
-                        
+
                         var objFinGrid = {
                             "PK": "00000000-0000-0000-0000-000000000000",
-                            "Period": period +" -"+ year1,
+                            "Period": period + " -" + year1,
                             "Year": year,
                             "StartDate": periodStart,
                             "EndDate": periodEnd,
@@ -199,10 +198,10 @@
                             "IsModified": false,
                             "IsDeleted": false
                         };
-                        FinancePeriodGeneralCtrl.ePage.Entities.Header.Data.LstUIAccPeriodManagement.push(objFinGrid);
 
+                        FinancePeriodGeneralCtrl.ePage.Entities.Header.Data.LstUIAccPeriodManagement.push(objFinGrid);
+                    }
                 }
-            }
             }
         }
 

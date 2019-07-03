@@ -4,7 +4,7 @@
     angular.module("Application")
         .controller("GLaccountController", GLaccountController);
 
-        GLaccountController.$inject = ["$timeout", "helperService", "apiService", "glaccountConfig", "toastr", "errorWarningService"];
+    GLaccountController.$inject = ["$timeout", "helperService", "apiService", "glaccountConfig", "toastr", "errorWarningService"];
 
     function GLaccountController($timeout, helperService, apiService, glaccountConfig, toastr, errorWarningService) {
 
@@ -44,9 +44,9 @@
 
             glaccountConfig.ValidationFindall();
         }
+
         //#region SelectedGrid
         function SelectedGridRow($item) {
-            debugger;
             if ($item.action === "link" || $item.action === "dblClick") {
                 GLaccountCtrl.ePage.Masters.AddTab($item.data, false);
             } else if ($item.action === "new") {
@@ -57,7 +57,6 @@
 
         //#region  AddTab, RemoveTab, NewGGLaccount
         function AddTab(currentTab, isNew) {
-            debugger;
             var _isExist = GLaccountCtrl.ePage.Masters.TabList.some(function (value) {
                 return value.pk == currentTab.entity.PK;
             });
@@ -73,9 +72,7 @@
 
                 glaccountConfig.GetTabDetails(_currentTab, isNew).then(function (response) {
                     var _entity = {};
-                    debugger;
                     GLaccountCtrl.ePage.Masters.TabList = response;
-                    console.log("hi", GLaccountCtrl.ePage.Masters.TabList);
                     if (GLaccountCtrl.ePage.Masters.TabList.length > 0) {
                         GLaccountCtrl.ePage.Masters.TabList.map(function (value, key) {
                             if (value.code == currentTab.entity.PK) {
@@ -158,7 +155,6 @@
             errorWarningService.GetErrorCodeList(_obj);
         }
         //#endregion
-
 
         Init()
     }

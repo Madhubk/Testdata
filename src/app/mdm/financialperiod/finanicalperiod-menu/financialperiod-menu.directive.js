@@ -7,7 +7,6 @@
     FinancialPeriodMenu.$inject = [];
 
     function FinancialPeriodMenu() {
-        debugger;
         var exports = {
             restrict: "E",
             templateUrl: "app/mdm/financialperiod/finanicalperiod-menu/financialperiod-menu.html",

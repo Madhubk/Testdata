@@ -33,7 +33,6 @@
                                 "HttpType": "GET",
                                 "Url": "AccGLHeader/AccGLHeaderActivityClose/"
                             }                           
-                            
                         }
                     }
                 }
@@ -162,7 +161,6 @@
                 deferred.resolve(exports.TabList);
             }
             else {
-                debugger;
                 helperService.getFullObjectUsingGetById(exports.Entities.API.GLaccount.API.GetById.Url, currentGlaccount.PK).then(function (response) {
                     if (response.data.Messages) {
                         response.data.Messages.map(function (value, key) {
