@@ -233,6 +233,7 @@
                                                             });
                                                             if (count == myTaskActivityConfig.Entities.DeliveryData.UIWmsDeliveryLine.length) {
                                                                 myTaskActivityConfig.Entities.DeliveryData.UIWmsDelivery.WorkOrderStatus = "DEL";
+                                                                myTaskActivityConfig.Entities.DeliveryData.UIWmsDelivery.WorkOrderStatusDesc = "Delivered";
                                                             }
                                                             myTaskActivityConfig.Entities.DeliveryData = filterObjectUpdate(myTaskActivityConfig.Entities.DeliveryData, "IsModified");
                                                             apiService.post("eAxisAPI", warehouseConfig.Entities.WmsDeliveryList.API.Update.Url, myTaskActivityConfig.Entities.DeliveryData).then(function (response) {
@@ -464,6 +465,7 @@
                                                                             response.data.Response[0].CTR_OL_Fk = value.PK;
                                                                             response.data.Response[0].CTR_CustomerReference = myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data.UIWmsOutwardHeader.CustomerReference;
                                                                             response.data.Response[0].CTR_OUT_ExternalRefNumber = myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data.UIWmsOutwardHeader.ExternalReference;
+                                                                            response.data.Response[0].CTR_OUT_FinalizedDate = myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data.UIWmsOutwardHeader.FinalisedDate;
                                                                             response.data.Response[0].CTR_INW_CustomerReference = ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails.CustomerReference;
                                                                             response.data.Response[0].CTR_INW_ExternalRefNumber = ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails.ExternalReference;
                                                                             response.data.Response[0].CTR_INW_Fk = ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails.PK;
@@ -473,6 +475,7 @@
                                                                             response.data.Response[0].CTR_OL_Fk = value.PK;
                                                                             response.data.Response[0].CTR_CustomerReference = myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data.UIWmsOutwardHeader.CustomerReference;
                                                                             response.data.Response[0].CTR_OUT_ExternalRefNumber = myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data.UIWmsOutwardHeader.ExternalReference;
+                                                                            response.data.Response[0].CTR_OUT_FinalizedDate = myTaskActivityConfig.Entities.Outward[myTaskActivityConfig.Entities.Outward.label].ePage.Entities.Header.Data.UIWmsOutwardHeader.FinalisedDate;
                                                                             response.data.Response[0].CTR_INW_CustomerReference = ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails.CustomerReference;
                                                                             response.data.Response[0].CTR_INW_ExternalRefNumber = ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails.ExternalReference;
                                                                             response.data.Response[0].CTR_INW_Fk = ActivityTemplateOutward2Ctrl.ePage.Masters.InwardDetails.PK;

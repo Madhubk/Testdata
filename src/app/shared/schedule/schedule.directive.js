@@ -96,6 +96,7 @@
             ScheduleCtrl.ePage.Masters.IsDisableSendNowBtn = false;
 
             GetConfigType();
+            GetTimeZoneList();
             GetScheduledList();
             InitScheduleInfo();
 
@@ -123,6 +124,23 @@
             }];
         }
 
+        function GetTimeZoneList() {
+            ScheduleCtrl.ePage.Masters.TimeZoneList = undefined;
+
+            // apiService.post("eAxisAPI", appConfig.Entities.DataConfigScheduler.API.FindAll.Url, _input).then(response => {
+            //     if (response.data.Response && response.data.Response.length > 0) {
+            //         ScheduleCtrl.ePage.Masters.TimeZoneList = _response;
+            //     } else {
+            //         ScheduleCtrl.ePage.Masters.TimeZoneList = [];
+            //     }
+            // });
+
+            ScheduleCtrl.ePage.Masters.TimeZoneList = [{
+                Key: "IST",
+                Value: "Indian Standard Time"
+            }];
+        }
+
         function GetScheduledList() {
             ScheduleCtrl.ePage.Masters.ScheduleList = undefined;
             let _filter = {
@@ -141,7 +159,7 @@
                     _response.map(value => {
                         value.SendNowBtnTxt = "Send Now";
                         value.IsDisableSendNowBtn = false;
-                        value.NextScheduleOn = new Date(value.NextScheduleOn + "Z");
+                        // value.NextScheduleOn = new Date(value.NextScheduleOn + "Z");
                         if (value.CustomContactInfo && value.CustomContactInfo.Template) {
                             if (typeof value.CustomContactInfo.Template == "string") {
                                 value.CustomContactInfo.Template = JSON.parse(value.CustomContactInfo.Template);
@@ -225,7 +243,7 @@
             let _item = angular.copy(ScheduleCtrl.ePage.Masters.ActiveSchedule);
             if (_item.CustomContactInfo) {
                 _item.CustomContactInfo.ContactInfo = _item.CustomContactInfo.Template.To;
-				_item.CustomContactInfo.IsModified = true;
+                _item.CustomContactInfo.IsModified = true;
                 if (_item.CustomContactInfo.Template.ReportTemplateInput && typeof _item.CustomContactInfo.Template.ReportTemplateInput == "string") {
                     // _item.CustomContactInfo.Template.ReportTemplateInput = JSON.parse(_item.CustomContactInfo.Template.ReportTemplateInput);
                     _item.CustomContactInfo.Template = JSON.stringify(_item.CustomContactInfo.Template);
@@ -233,7 +251,7 @@
                 _item.CustomContactInfo.EntityRefCode = _item.Title;
             }
 
-            _item.NextScheduleOn = new Date(_item.NextScheduleOn).toUTCString();
+            // _item.NextScheduleOn = new Date(_item.NextScheduleOn).toUTCString();
             _item.IsModified = true;
             let _input = _item.PK ? _item : [_item];
             let _api = ScheduleCtrl.ePage.Masters.ActiveSchedule.PK ? "Update" : "Insert";
@@ -243,7 +261,7 @@
                     let _response = (_api === "Insert") ? response.data.Response[0] : response.data.Response;
                     _response.SendNowBtnTxt = "Send Now";
                     _response.IsDisableSendNowBtn = false;
-                    _response.NextScheduleOn = new Date(_response.NextScheduleOn);
+                    // _response.NextScheduleOn = new Date(_response.NextScheduleOn);
                     if (ScheduleCtrl.ePage.Masters.ActiveSchedule.PK) {
                         let _index = ScheduleCtrl.ePage.Masters.ScheduleList.findIndex(x => x.PK === _response.PK);
 
@@ -300,7 +318,7 @@
             $item.IsDisableSendNowBtn = true;
 
             let _item = angular.copy($item);
-            _item.NextScheduleOn = new Date(_item.NextScheduleOn).toUTCString();
+            // _item.NextScheduleOn = new Date(_item.NextScheduleOn).toUTCString();
             _item.IsModified = true;
             if (_item.CustomContactInfo) {
                 _item.CustomContactInfo.ContactInfo = _item.CustomContactInfo.Template.To;
@@ -314,8 +332,8 @@
 
             apiService.post("eAxisAPI", appConfig.Entities.DataConfigScheduler.API.RunScheduleNow.Url, _input).then(response => {
                 if (response.data.Response && response.data.Status === "Success") {
-					toastr.success("Mail sent successfully...!");
-				} else {
+                    toastr.success("Mail sent successfully...!");
+                } else {
                     toastr.error("Failed to Send...!");
                 }
 

@@ -2,10 +2,10 @@
     <div class="dyn-grid-no-record">{{TransferMaterialCtrl.ePage.Masters.LoadingValue}}</div>
 </div>
 <div class="col-lg-12 clearfix no-padding" data-ng-if="TransferMaterialCtrl.ePage.Entities.Header.Data">
-    <div class="clearfix mt-10" data-ng-if="!TransferMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PickNo">
+    <div class="clearfix mt-10" data-ng-if="!TransferMaterialCtrl.ePage.Masters.IsLoadPickPage">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mb-10">
-            <button class="btn btn-blue btn-sm pull-right ml-10" data-ng-click="TransferMaterialCtrl.ePage.Masters.CreatePick()" data-ng-bind="TransferMaterialCtrl.ePage.Masters.CreatePickText"
-                data-ng-disabled="TransferMaterialCtrl.ePage.Masters.IsDisabled"></button>
+            <button class="btn btn-blue btn-sm pull-right ml-10" data-ng-click="TransferMaterialCtrl.ePage.Masters.CreatePick()"
+                data-ng-bind="TransferMaterialCtrl.ePage.Masters.CreatePickText" data-ng-disabled="TransferMaterialCtrl.ePage.Masters.IsDisabled"></button>
         </div>
         <div class="clearfix col-lg-12 mt-10 mb-10">
             <div class="rows border-box border-radius-2 pt-15 height-60">
@@ -13,48 +13,58 @@
                     <div class="form-group">
                         <div class="color-999 fs-11">Outward No</div>
                         <div class="text-single-line">
-                            <span>{{TransferMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WorkOrderID || TransferMaterialCtrl.ePage.Masters.Empty}}</span>
+                            <span>{{TransferMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WorkOrderID ||
+                                TransferMaterialCtrl.ePage.Masters.Empty}}</span>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-2">
                     <div class="form-group">
                         <div class="color-999 fs-11">Client</div>
-                        <span>{{TransferMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.ClientCode || TransferMaterialCtrl.ePage.Masters.Empty}}
-                            - {{TransferMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.ClientName || TransferMaterialCtrl.ePage.Masters.Empty}}</span>
+                        <span>{{TransferMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.ClientCode ||
+                            TransferMaterialCtrl.ePage.Masters.Empty}}
+                            - {{TransferMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.ClientName ||
+                            TransferMaterialCtrl.ePage.Masters.Empty}}</span>
                     </div>
                 </div>
                 <div class="col-lg-2">
                     <div class="form-group">
                         <div class="color-999 fs-11">Warehouse</div>
-                        <span>{{TransferMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WarehouseCode || TransferMaterialCtrl.ePage.Masters.Empty}}
-                            - {{TransferMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WarehouseName || TransferMaterialCtrl.ePage.Masters.Empty}}</span>
+                        <span>{{TransferMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WarehouseCode ||
+                            TransferMaterialCtrl.ePage.Masters.Empty}}
+                            - {{TransferMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WarehouseName ||
+                            TransferMaterialCtrl.ePage.Masters.Empty}}</span>
                     </div>
                 </div>
                 <div class="col-lg-2">
                     <div class="form-group">
                         <div class="color-999 fs-11">Consignee</div>
-                        <span>{{TransferMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.ConsigneeCode || TransferMaterialCtrl.ePage.Masters.Empty}}
-                            - {{TransferMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.ConsigneeName || TransferMaterialCtrl.ePage.Masters.Empty}}</span>
+                        <span>{{TransferMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.ConsigneeCode ||
+                            TransferMaterialCtrl.ePage.Masters.Empty}}
+                            - {{TransferMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.ConsigneeName ||
+                            TransferMaterialCtrl.ePage.Masters.Empty}}</span>
                     </div>
                 </div>
                 <div class="col-lg-2">
                     <div class="form-group">
                         <div class="color-999 fs-11">Order Number</div>
-                        <span>{{TransferMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.ExternalReference || TransferMaterialCtrl.ePage.Masters.Empty}}</span>
+                        <span>{{TransferMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.ExternalReference ||
+                            TransferMaterialCtrl.ePage.Masters.Empty}}</span>
                     </div>
                 </div>
                 <div class="col-lg-2">
                     <div class="form-group">
                         <div class="color-999 fs-11">Required Date</div>
-                        <span>{{TransferMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.RequiredDate | dateFormat}}</span>
+                        <span>{{TransferMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.RequiredDate |
+                            dateFormat}}</span>
                     </div>
                 </div>
             </div>
         </div>
-        <div id="OutwardLineTable{{TransferMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WorkOrderID}}" class="fixedheader mb-0"
-            key-events table-object='TransferMaterialCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine' enable='TransferMaterialCtrl.ePage.Masters.Enable'
-            selected-row='TransferMaterialCtrl.ePage.Masters.selectedRow' unique-id='OutwardLineTable{{TransferMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WorkOrderID}}'>
+        <div id="OutwardLineTable{{TransferMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WorkOrderID}}"
+            class="fixedheader mb-0" key-events table-object='TransferMaterialCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine'
+            enable='TransferMaterialCtrl.ePage.Masters.Enable' selected-row='TransferMaterialCtrl.ePage.Masters.selectedRow'
+            unique-id='OutwardLineTable{{TransferMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WorkOrderID}}'>
             <table style="height: 200px">
                 <thead>
                     <tr id="tableHeader">
@@ -96,6 +106,6 @@
         </div>
     </div>
 </div>
-<div class="clearfix mt-10" data-ng-if="TransferMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PickNo">
+<div class="clearfix mt-10" data-ng-if="TransferMaterialCtrl.ePage.Masters.IsLoadPickPage">
     <release-menu data-ng-if="TransferMaterialCtrl.ePage.Masters.TabList" current-release="TransferMaterialCtrl.ePage.Masters.TabList"></release-menu>
 </div>

@@ -206,15 +206,15 @@
         function AddNewRow() {
             BomCtrl.ePage.Entities.Header.GlobalVariables.Loading = true;
             var obj = {
-                "PK":"",
-                "HasChildren": "",
-                "ComponentPart": "",
-                "ComponentDescription": "",
-                "OSP_Component_FK":"",
-                "Component":"",
-                "PAC_NKPackType": "",
-                "ComponentQty": "",
-                "CanReuse": "",
+                "PK":null,
+                "HasChildren": null,
+                "ComponentPart": null,
+                "ComponentDescription": null,
+                "OSP_Component_FK":null,
+                "Component":null,
+                "PAC_NKPackType": null,
+                "ComponentQty": null,
+                "CanReuse": null,
                 "IsDeleted": "false"
             };
             BomCtrl.ePage.Entities.Header.Data.UIOrgPartBOM.push(obj);
@@ -232,9 +232,9 @@
             for(var i = BomCtrl.ePage.Entities.Header.Data.UIOrgPartBOM.length -1; i >= 0; i--){
                 if(BomCtrl.ePage.Entities.Header.Data.UIOrgPartBOM[i].SingleSelect){
                     var obj = angular.copy(BomCtrl.ePage.Entities.Header.Data.UIOrgPartBOM[i]);
-                    obj.PK = '';
-                    obj.CreatedDateTime = '';
-                    obj.ModifiedDateTime = '';
+                    obj.PK = null;
+                    obj.CreatedDateTime = null;
+                    obj.ModifiedDateTime = null;
                     obj.SingleSelect=false;
                     obj.IsCopied = true;
                     BomCtrl.ePage.Entities.Header.Data.UIOrgPartBOM.splice(i + 1, 0, obj);

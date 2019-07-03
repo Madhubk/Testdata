@@ -92,6 +92,13 @@
                 'app/eaxis/warehouse/inward/inward-document/inward-document.controller.js',
                 'app/eaxis/warehouse/inward/inward-document/inward-document.directive.js'
             ]
+        }, {
+            name: 'inwardGatepass',
+            files: [
+                'app/eaxis/warehouse/inward/inward-gatepass/inward-gatepass.css',
+                'app/eaxis/warehouse/inward/inward-gatepass/inward-gatepass.controller.js',
+                'app/eaxis/warehouse/inward/inward-gatepass/inward-gatepass.directive.js'
+            ]
         },
         // endregion
         //--------------------- Asn Request--------------------
@@ -264,6 +271,33 @@
                 'app/eaxis/warehouse/pick/pick-documents/pick-documents.controller.js',
                 'app/eaxis/warehouse/pick/pick-documents/pick-documents.directive.js',
                 'app/eaxis/warehouse/pick/pick-documents/pick-documents.css'
+            ]
+        },
+
+        //-----------------------Packing Module ------------------
+
+        {
+            name: 'packingGeneral',
+            files: [
+                'app/eaxis/warehouse/wh-releases/packing-module/pick-packing-general/pick-packing-general.controller.js',
+                'app/eaxis/warehouse/wh-releases/packing-module/pick-packing-general/pick-packing-general.directive.js',
+                'app/eaxis/warehouse/wh-releases/packing-module/pick-packing-general/pick-packing-general.css'
+            ]
+        },
+        {
+            name: 'pickPacking',
+            files: [
+                'app/eaxis/warehouse/wh-releases/packing-module/pick-packing-tree/pick-packing.controller.js',
+                'app/eaxis/warehouse/wh-releases/packing-module/pick-packing-tree/pick-packing.directive.js',
+                'app/eaxis/warehouse/wh-releases/packing-module/pick-packing-tree/pick-packing.css'
+            ]
+        },
+        {
+            name: 'packingHeader',
+            files: [
+                'app/eaxis/warehouse/wh-releases/packing-module/pick-packing-header/pick-packing-header.controller.js',
+                'app/eaxis/warehouse/wh-releases/packing-module/pick-packing-header/pick-packing-header.directive.js',
+                'app/eaxis/warehouse/wh-releases/packing-module/pick-packing-header/pick-packing-header.css'
             ]
         },
         // endregion
@@ -489,32 +523,7 @@
         // endregion
         // ------------ General Modules ------------------
         // region
-        {
-            name: 'spmsReports',
-            files: [
-                'app/eaxis/warehouse/general-module/spms-report/spms-report.controller.js',
-                'app/eaxis/warehouse/general-module/spms-report/spms-report.css'
-            ]
-        },
-        {
-            name: 'spmsReportGrid',
-            files: [
-                ' app/eaxis/warehouse/general-module/spms-report/report-grid/report-grid.controller.js'
-            ]
-        },
-        {
-            name: 'warehouseReports',
-            files: [
-                'app/eaxis/warehouse/general-module/warehouse-report/warehouse-report.controller.js',
-                'app/eaxis/warehouse/general-module/warehouse-report/warehouse-report.css'
-            ]
-        },
-        {
-            name: 'reportGrid',
-            files: [
-                'app/eaxis/warehouse/general-module/warehouse-report/report-grid-page/report-grid-page.controller.js'
-            ]
-        },
+        
         {
             name: 'generateBarcode',
             files: [

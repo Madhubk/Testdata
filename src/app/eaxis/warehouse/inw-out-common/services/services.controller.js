@@ -136,23 +136,10 @@
         }
 
         function GetServiceList() {
+            //Order By
+            ServiceCtrl.ePage.Entities.Header.Data.UIJobServices = $filter('orderBy')(ServiceCtrl.ePage.Entities.Header.Data.UIJobServices, 'CreatedDateTime');
 
-            var _filter = {
-                "ParentID": ServiceCtrl.ePage.Entities.Header.Data.PK,
-            };
-            var _input = {
-                "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": appConfig.Entities.JobService.API.FindAll.FilterID
-            };
-
-            apiService.post("eAxisAPI", appConfig.Entities.JobService.API.FindAll.Url, _input).then(function (response) {
-                if (response.data.Response) {
-                    ServiceCtrl.ePage.Entities.Header.Data.UIJobServices = response.data.Response;
-                    //Order By
-                    ServiceCtrl.ePage.Entities.Header.Data.UIJobServices = $filter('orderBy')(ServiceCtrl.ePage.Entities.Header.Data.UIJobServices, 'CreatedDateTime');
-
-                }
-            });
+            ServiceCtrl.ePage.Entities.Header.GlobalVariables.CopyofCurrentObject.UIJobServices = angular.copy(ServiceCtrl.ePage.Entities.Header.Data.UIJobServices);
         }
         //#endregion
         
@@ -205,14 +192,14 @@
         function AddNewRow() {
             ServiceCtrl.ePage.Entities.Header.GlobalVariables.Loading = true;
             var obj = {
-                "PK": "",
-                "ServiceCode": "",
-                "Booked": "",
-                "Completed": "",
-                "ORG_Contractor_FK": "",
-                "ORG_Location_Code":"",
-                "ServiceCount": "",
-                "ORG_Location_FK": "",
+                "PK": null,
+                "ServiceCode": null,
+                "Booked": null,
+                "Completed": null,
+                "ORG_Contractor_FK": null,
+                "ORG_Location_Code":null,
+                "ServiceCount": null,
+                "ORG_Location_FK": null,
                 "IsDeleted": false,
             };
             ServiceCtrl.ePage.Entities.Header.Data.UIJobServices.push(obj);
@@ -230,9 +217,9 @@
             for(var i = ServiceCtrl.ePage.Entities.Header.Data.UIJobServices.length -1; i >= 0; i--){
                 if(ServiceCtrl.ePage.Entities.Header.Data.UIJobServices[i].SingleSelect){
                     var obj = angular.copy(ServiceCtrl.ePage.Entities.Header.Data.UIJobServices[i]);
-                    obj.PK = '';
-                    obj.CreatedDateTime = '';
-                    obj.ModifiedDateTime = '';
+                    obj.PK = null;
+                    obj.CreatedDateTime = null;
+                    obj.ModifiedDateTime = null;
                     obj.SingleSelect=false;
                     obj.IsCopied = true;
                     ServiceCtrl.ePage.Entities.Header.Data.UIJobServices.splice(i + 1, 0, obj);

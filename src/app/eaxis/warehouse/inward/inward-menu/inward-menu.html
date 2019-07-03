@@ -39,8 +39,9 @@
                         <div ng-switch-when="AsnLines" inward-asn-lines current-inward="InwardMenuCtrl.currentInward"
                             active-menu="x"></div>
                         <div ng-switch-when="ReceiveLines" inward-lines current-inward="InwardMenuCtrl.currentInward"
-                        enable-add="true" enable-copy="true" enable-delete="true" enable-customize="true" enable-bulk-upload="true"
-                        enable-allocate-location="true" enable-unit-calculation="true"></div>
+                            enable-add="true" enable-copy="true" enable-delete="true" enable-customize="true"
+                            enable-bulk-upload="true" enable-allocate-location="true" enable-unit-calculation="true"></div>
+                        <div ng-switch-when="Gatepass" inward-gatepass current-inward="InwardMenuCtrl.currentInward"></div>
                         <div ng-switch-when="ProductSummary" inward-productsummary current-inward="InwardMenuCtrl.currentInward"></div>
                         <div ng-switch-when="Containers" container current-inward="InwardMenuCtrl.currentInward"></div>
                         <div ng-switch-when="References & Services">
@@ -111,7 +112,8 @@
         </div>
 
         <div class="col-xs-5 col-sm-5 col-md-7 col-lg-8 col-xl-8 pl-0">
-            <standard-menu dataentry-object="InwardMenuCtrl.dataentryObject" mode="1" input="InwardMenuCtrl.currentInward" ng-if="!InwardMenuCtrl.currentInward.isNew"></standard-menu>
+            <standard-menu dataentry-object="InwardMenuCtrl.dataentryObject" mode="1" input="InwardMenuCtrl.currentInward"
+                ng-if="!InwardMenuCtrl.currentInward.isNew"></standard-menu>
         </div>
 
         <div class="col-xs-4 col-sm-4 col-md-3 col-lg-2 col-xl-2 pull-right">
@@ -122,7 +124,7 @@
                 </button>
                 <ul class="dropdown-menu dropdown-menu-right">
                     <li>
-                        <a href="javascript:void(0);" data-ng-click="InwardMenuCtrl.ePage.Masters.Validation(InwardMenuCtrl.currentInward);InwardMenuCtrl.ePage.Masters.SaveAndClose = true">Save
+                        <a href="javascript:void(0);" data-ng-click="InwardMenuCtrl.ePage.Masters.Save(InwardMenuCtrl.currentInward);InwardMenuCtrl.ePage.Masters.SaveAndClose = true">Save
                             & Close</a>
                     </li>
                     <li>
@@ -140,9 +142,10 @@
             </span>
         </div>
     </div>
-
 </div>
 
+<!-- Call gatepass menu configuration -->
+<div data-ng-if="InwardMenuCtrl.ePage.Entities.Header.GlobalVariables.CallGatepassMenuConfiguration==true" ng-init="InwardMenuCtrl.ePage.Masters.GetGatepassMenuConfiguration(InwardMenuCtrl.ePage.Masters.InwardMenu.ListSource,InwardMenuCtrl.ePage.Masters.GatepassIndex)"></div>
 
 <!-- Cancelling Inward Popup -->
 <script type="text/ng-template" id="myModalContent.html">

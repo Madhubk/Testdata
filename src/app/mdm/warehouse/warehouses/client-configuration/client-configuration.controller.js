@@ -15,7 +15,7 @@
 
             ClientConfigCtrl.ePage = {
                 "Title": "",
-                "Prefix": "Area_Details",
+                "Prefix": "Client_configuration",
                 "Masters": {},
                 "Meta": helperService.metaBase(),
                 "Entities": currentWarehouse
@@ -43,11 +43,11 @@
             ClientConfigCtrl.ePage.Masters.SelectedLookupOrg = SelectedLookupOrg;
 
             GetClientParameterByWarehouse();
-            GetUserBasedGridColumList();            
+            GetUserBasedGridColumList();
         }
 
         // #region - Selected lookup
-        function SelectedLookupOrg(item, index) {            
+        function SelectedLookupOrg(item, index) {
             ClientConfigCtrl.ePage.Entities.Header.Data.WmsClientParameterByWarehouse[index].ORG_FK = item.PK;
             ClientConfigCtrl.ePage.Entities.Header.Data.WmsClientParameterByWarehouse[index].ORG_Code = item.Code;
             ClientConfigCtrl.ePage.Entities.Header.Data.WmsClientParameterByWarehouse[index].ORG_Name = item.FullName;
@@ -55,9 +55,10 @@
         // #endregion
 
         // #region - Get WmsClientParameterByWarehouse list
-        function GetClientParameterByWarehouse() {            
+        function GetClientParameterByWarehouse() {
             var _filter = {
-                WAR_FK: ClientConfigCtrl.ePage.Entities.Header.Data.WmsWarehouse.PK
+                WAR_FK: ClientConfigCtrl.ePage.Entities.Header.Data.WmsWarehouse.PK,
+                ORG_IsWarehouseClient: true
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
@@ -139,13 +140,6 @@
         }
         //#endregion checkbox selection
 
-        //#region General    
-        function AreaList() {
-            ClientConfigCtrl.ePage.Entities.Header.Data.WmsClientParameterByWarehouse = $filter('orderBy')(ClientConfigCtrl.ePage.Entities.Header.Data.WmsClientParameterByWarehouse, 'CreatedDateTime');
-            ClientConfigCtrl.ePage.Entities.Header.GlobalVariables.CopyofCurrentObject.WmsClientParameterByWarehouse = angular.copy(ClientConfigCtrl.ePage.Entities.Header.Data.WmsClientParameterByWarehouse);
-        }
-        //#endregion General
-
         //#region Add,copy,delete row
 
         function setSelectedRow(index) {
@@ -156,8 +150,8 @@
             ClientConfigCtrl.ePage.Entities.Header.GlobalVariables.Loading = true;
             var obj = {
                 "PK": "",
-                "Name": "",
-                "AreaType": "",
+                "ORG_Code": "",
+                "ORG_Name": "",
                 "IsDeleted": false,
             };
             ClientConfigCtrl.ePage.Entities.Header.Data.WmsClientParameterByWarehouse.push(obj);
@@ -201,7 +195,7 @@
 
                     angular.forEach(ClientConfigCtrl.ePage.Entities.Header.Data.WmsClientParameterByWarehouse, function (value, key) {
                         if (value.SingleSelect == true && value.PK) {
-                            apiService.get("eAxisAPI", ClientConfigCtrl.ePage.Entities.Header.API.AreaDelete.Url + value.PK).then(function (response) {
+                            apiService.get("eAxisAPI", ClientConfigCtrl.ePage.Entities.Header.API.WmsClientParameterByWarehouseDelete.Url + value.PK).then(function (response) {
                             });
                         }
                     });

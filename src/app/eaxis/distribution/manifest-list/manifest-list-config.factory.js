@@ -404,6 +404,7 @@
                             "TransporterCode": helperService.metaBase(),
                             "EstimatedDispatchDate": helperService.metaBase(),
                             "EstimatedDeliveryDate": helperService.metaBase(),
+                            "DockNo": helperService.metaBase(),
                             // "ErrorWarning": {
                             // "GlobalErrorWarningList": [],
                             "Address1": helperService.metaBase(),

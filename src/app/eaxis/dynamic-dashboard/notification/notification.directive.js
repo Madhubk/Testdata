@@ -15,7 +15,9 @@
         .directive("userDirective", UserDirective)
         .directive("musicDirective", MusicDirective)
         .directive("videoDirective", VideoDirective)
-        .directive("openSoChart", OpenSoChart);
+        .directive("openSoChart", OpenSoChart)
+        .directive("newGatepassDirective", NewGatepassDirective)
+        .directive("newManifestDirective", NewManifestDirective);
 
     function OpenSoChart() {
         var exports = {
@@ -197,6 +199,50 @@
         var exports = {
             restrict: "EA",
             templateUrl: "app/eaxis/dynamic-dashboard/notification/track-inward.html",
+            link: Link,
+            controller: "NotificationController",
+            controllerAs: "NotificationCtrl",
+            bindToController: true,
+            scope: {
+                componentList: "=",
+                selectedComponent: "=",
+                selectedWarehouse: "=",
+                selectedClient: "="
+            },
+            link: Link
+        };
+
+        return exports;
+
+        function Link(scope, elem, attr) { }
+    }
+
+    function NewGatepassDirective() {
+        var exports = {
+            restrict: "EA",
+            templateUrl: "app/eaxis/dynamic-dashboard/notification/new-gatepass.html",
+            link: Link,
+            controller: "NotificationController",
+            controllerAs: "NotificationCtrl",
+            bindToController: true,
+            scope: {
+                componentList: "=",
+                selectedComponent: "=",
+                selectedWarehouse: "=",
+                selectedClient: "="
+            },
+            link: Link
+        };
+
+        return exports;
+
+        function Link(scope, elem, attr) { }
+    }
+
+    function NewManifestDirective() {
+        var exports = {
+            restrict: "EA",
+            templateUrl: "app/eaxis/dynamic-dashboard/notification/new-manifest.html",
             link: Link,
             controller: "NotificationController",
             controllerAs: "NotificationCtrl",

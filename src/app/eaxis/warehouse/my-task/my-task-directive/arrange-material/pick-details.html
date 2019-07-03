@@ -1,11 +1,8 @@
-<div class="grid-loading-norecord-container ng-scope" style='z-index: 15;margin-top: 50px;' data-ng-if="ArrangeMaterialCtrl.ePage.Masters.LoadingValue">
-    <div class="dyn-grid-no-record">{{ArrangeMaterialCtrl.ePage.Masters.LoadingValue}}</div>
-</div>
 <div class="col-lg-12 clearfix no-padding" data-ng-if="ArrangeMaterialCtrl.ePage.Entities.Header.Data">
-    <div class="clearfix mt-10" data-ng-if="!ArrangeMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PickNo">
+    <div class="clearfix mt-10" data-ng-if="!ArrangeMaterialCtrl.ePage.Masters.IsLoadPickPage">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mb-10">
-            <button class="btn btn-blue btn-sm pull-right ml-10" data-ng-click="ArrangeMaterialCtrl.ePage.Masters.CreatePick()" data-ng-bind="ArrangeMaterialCtrl.ePage.Masters.CreatePickText"
-                data-ng-disabled="ArrangeMaterialCtrl.ePage.Masters.IsDisabled"></button>
+            <button class="btn btn-blue btn-sm pull-right ml-10" data-ng-click="ArrangeMaterialCtrl.ePage.Masters.CreatePick()"
+                data-ng-bind="ArrangeMaterialCtrl.ePage.Masters.CreatePickText" data-ng-disabled="ArrangeMaterialCtrl.ePage.Masters.IsDisabled"></button>
         </div>
         <div class="clearfix col-lg-12 mt-10 mb-10">
             <div class="rows border-box border-radius-2 pt-15 height-60">
@@ -13,48 +10,58 @@
                     <div class="form-group">
                         <div class="color-999 fs-11">Outward No</div>
                         <div class="text-single-line">
-                            <span>{{ArrangeMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WorkOrderID || ArrangeMaterialCtrl.ePage.Masters.Empty}}</span>
+                            <span>{{ArrangeMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WorkOrderID ||
+                                ArrangeMaterialCtrl.ePage.Masters.Empty}}</span>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-2">
                     <div class="form-group">
                         <div class="color-999 fs-11">Client</div>
-                        <span>{{ArrangeMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.ClientCode || ArrangeMaterialCtrl.ePage.Masters.Empty}}
-                            - {{ArrangeMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.ClientName || ArrangeMaterialCtrl.ePage.Masters.Empty}}</span>
+                        <span>{{ArrangeMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.ClientCode ||
+                            ArrangeMaterialCtrl.ePage.Masters.Empty}}
+                            - {{ArrangeMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.ClientName ||
+                            ArrangeMaterialCtrl.ePage.Masters.Empty}}</span>
                     </div>
                 </div>
                 <div class="col-lg-2">
                     <div class="form-group">
                         <div class="color-999 fs-11">Warehouse</div>
-                        <span>{{ArrangeMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WarehouseCode || ArrangeMaterialCtrl.ePage.Masters.Empty}}
-                            - {{ArrangeMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WarehouseName || ArrangeMaterialCtrl.ePage.Masters.Empty}}</span>
+                        <span>{{ArrangeMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WarehouseCode ||
+                            ArrangeMaterialCtrl.ePage.Masters.Empty}}
+                            - {{ArrangeMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WarehouseName ||
+                            ArrangeMaterialCtrl.ePage.Masters.Empty}}</span>
                     </div>
                 </div>
                 <div class="col-lg-2">
                     <div class="form-group">
                         <div class="color-999 fs-11">Consignee</div>
-                        <span>{{ArrangeMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.ConsigneeCode || ArrangeMaterialCtrl.ePage.Masters.Empty}}
-                            - {{ArrangeMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.ConsigneeName || ArrangeMaterialCtrl.ePage.Masters.Empty}}</span>
+                        <span>{{ArrangeMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.ConsigneeCode ||
+                            ArrangeMaterialCtrl.ePage.Masters.Empty}}
+                            - {{ArrangeMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.ConsigneeName ||
+                            ArrangeMaterialCtrl.ePage.Masters.Empty}}</span>
                     </div>
                 </div>
                 <div class="col-lg-2">
                     <div class="form-group">
                         <div class="color-999 fs-11">Order Number</div>
-                        <span>{{ArrangeMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.ExternalReference || ArrangeMaterialCtrl.ePage.Masters.Empty}}</span>
+                        <span>{{ArrangeMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.ExternalReference ||
+                            ArrangeMaterialCtrl.ePage.Masters.Empty}}</span>
                     </div>
                 </div>
                 <div class="col-lg-2">
                     <div class="form-group">
                         <div class="color-999 fs-11">Required Date</div>
-                        <span>{{ArrangeMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.RequiredDate | dateFormat}}</span>
+                        <span>{{ArrangeMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.RequiredDate |
+                            dateFormat}}</span>
                     </div>
                 </div>
             </div>
         </div>
-        <div id="OutwardLineTable{{ArrangeMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WorkOrderID}}" class="fixedheader mb-0"
-            key-events table-object='ArrangeMaterialCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine' enable='ArrangeMaterialCtrl.ePage.Masters.Enable'
-            selected-row='ArrangeMaterialCtrl.ePage.Masters.selectedRow' unique-id='OutwardLineTable{{ArrangeMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WorkOrderID}}'>
+        <div id="OutwardLineTable{{ArrangeMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WorkOrderID}}"
+            class="fixedheader mb-0" key-events table-object='ArrangeMaterialCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine'
+            enable='ArrangeMaterialCtrl.ePage.Masters.Enable' selected-row='ArrangeMaterialCtrl.ePage.Masters.selectedRow'
+            unique-id='OutwardLineTable{{ArrangeMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WorkOrderID}}'>
             <table style="height: 200px">
                 <thead>
                     <tr id="tableHeader">
@@ -96,6 +103,12 @@
         </div>
     </div>
 </div>
-<div class="clearfix mt-10" data-ng-if="ArrangeMaterialCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PickNo">
+<div class="clearfix mt-10" data-ng-if="ArrangeMaterialCtrl.ePage.Masters.IsLoadPickPage">
     <pick-menu data-ng-if="ArrangeMaterialCtrl.ePage.Masters.TabList" current-pick="ArrangeMaterialCtrl.ePage.Masters.TabList"></pick-menu>
+</div>
+<div data-ng-if="ArrangeMaterialCtrl.ePage.Masters.TabList[ArrangeMaterialCtrl.ePage.Masters.TabList.label].ePage.Entities.Header.Data.UIWmsOutward.length==0"
+    ng-init="ArrangeMaterialCtrl.ePage.Masters.IsReloadFunction()">
+</div>
+<div class="grid-loading-norecord-container ng-scope" style='z-index: 15;margin-top: 50px;' data-ng-if="ArrangeMaterialCtrl.ePage.Masters.LoadingValue">
+    <div class="dyn-grid-no-record">{{ArrangeMaterialCtrl.ePage.Masters.LoadingValue}}</div>
 </div>

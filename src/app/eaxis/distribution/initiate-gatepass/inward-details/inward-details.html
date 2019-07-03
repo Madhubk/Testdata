@@ -1,12 +1,14 @@
 <div class="" ng-if="InwardDetailsCtrl.ePage.Masters.IsShowInwardDetails">
     <div class="col-lg-12 mt-15" ng-repeat="x in InwardDetailsCtrl.ePage.Masters.InwardDetails">
         <div class="rows border-box border-radius-2 bg-fbfbfb">
-            <div class="col-lg-4 pt-10 pb-10">
-                <div class="tab-profile-title text-single-line fs-16" data-ng-bind="x.WorkOrderID"></div>
+            <div class="col-lg-3 pt-10 pb-10">
+                <div class="tab-profile-title text-single-line fs-16">
+                    <a href="" ng-click="InwardDetailsCtrl.ePage.Masters.SingleRecordView(x)">{{x.WorkOrderID}}</a>
+                </div>
             </div>
 
             <!--Sender-->
-            <div class="col-lg-6 border-left border-right pt-10 pb-10 ">
+            <div class="col-lg-5 border-left border-right pt-10 pb-10 ">
                 <div class="fs-14">
                     <span>
                         {{x.ClientCode}}
@@ -19,7 +21,7 @@
                     </span>
                 </div>
             </div>
-            <div class="col-lg-2 mt-10">
+            <div class="col-lg-4 mt-10">
                 <div class="tab-profile-sub-title text-single-line fs-14" title="{{x.WorkOrderStatusDesc}}"
                     data-ng-bind="x.WorkOrderStatusDesc"></div>
             </div>

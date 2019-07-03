@@ -52,6 +52,8 @@
         function AttachGatepass(value) {
             value.JDAFK = GatepassListCtrl.jobfk;
             value.ManifestFK = GatepassListCtrl.ePage.Entities.Header.Data.TmsManifestHeader.PK;
+            value.TMM_ManifestNumber = GatepassListCtrl.ePage.Entities.Header.Data.TmsManifestHeader.ManifestNumber;
+            value.ManifestAttachedTime = new Date();
             GatepassListCtrl.ePage.Entities.Header.Data.TmsGatepassList.push(value);
             GatepassListCtrl.ePage.Entities.Header.Data.jobfk = $filter('filter')(GatepassListCtrl.ePage.Entities.Header.Data.TmsGatepassList, { JDAFK: GatepassListCtrl.jobfk })
         }

@@ -92,9 +92,7 @@
                     View: ViewUserFilter
                 },
                 Export: {
-                    ListSource: [],
-                    DownloadAsPDF: DownloadAsPDF,
-                    DownloadAsExcel: DownloadAsExcel
+                    ListSource: []
                 },
                 Recent: {
                     ListSource: [],
@@ -119,6 +117,7 @@
 
             CheckVisibleItems();
             GetStandardExport();
+            PrepareExportAsType();
         }
 
         function CheckVisibleItems() {
@@ -298,7 +297,7 @@
                             PrepareGridInfo();
                         }
                     });
-                }, () => { });
+                }, () => {});
             }
         }
         // #endregion
@@ -492,7 +491,7 @@
                         toastr.console.error("Failed to Delete...!");
                     }
                 });
-            }, () => { });
+            }, () => {});
         }
 
         function UpdateUserFilter($item) {
@@ -601,6 +600,30 @@
         // #endregion
 
         // #region Export
+        function PrepareExportAsType() {
+            DynamicListCtrl.ePage.Masters.Header.Export.ExportAsList = [{
+                Name: "pdf",
+                Description: "Download As PDF",
+                Icon: APP_CONSTANT.ImagePath + "file-types/pdf.png",
+                CallBack: DownloadAsPDF
+            }, {
+                Name: "xlsx",
+                Description: "Download As Excel",
+                Icon: APP_CONSTANT.ImagePath + "file-types/xlsx.png",
+                CallBack: DownloadAsExcel
+            }, {
+                Name: "csv",
+                Description: "Download As CSV",
+                Icon: APP_CONSTANT.ImagePath + "file-types/csv.png",
+                CallBack: DownloadAsCSV
+            }, {
+                Name: "json",
+                Description: "Download As JSON",
+                Icon: APP_CONSTANT.ImagePath + "file-types/json.png",
+                CallBack: DownloadAsJson
+            }];
+        }
+
         function GetStandardExport() {
             let _standardExport = {
                 "Template": "Simple Export",
@@ -665,6 +688,50 @@
             }
         }
 
+        function DownloadAsCSV($item) {
+            if ($item.IsStatic) {
+                if ($item.Value) {
+                    if (typeof $item.Value == "string") {
+                        $item.Value = JSON.parse($item.Value);
+                    }
+                    if ($item.Value.DataObjs && $item.Value.DataObjs.length > 0) {
+                        $item.Value.DataObjs.map(x => {
+                            if (x.GridConfig) {
+                                x.GridConfig = null;
+                            }
+                        });
+                    }
+                }
+                DownloadTemplate($item, "CSV");
+            } else {
+                GetTemplateValueFromAppSettings($item).then((response) => {
+                    DownloadTemplate(response, "CSV");
+                });
+            }
+        }
+
+        function DownloadAsJson($item) {
+            if ($item.IsStatic) {
+                if ($item.Value) {
+                    if (typeof $item.Value == "string") {
+                        $item.Value = JSON.parse($item.Value);
+                    }
+                    if ($item.Value.DataObjs && $item.Value.DataObjs.length > 0) {
+                        $item.Value.DataObjs.map(x => {
+                            if (x.GridConfig) {
+                                x.GridConfig = null;
+                            }
+                        });
+                    }
+                }
+                DownloadTemplate($item, "JSON");
+            } else {
+                GetTemplateValueFromAppSettings($item).then((response) => {
+                    DownloadTemplate(response, "JSON");
+                });
+            }
+        }
+
         function GetTemplateValueFromAppSettings($item) {
             let _deferred = $q.defer();
             let _filter = {
@@ -692,8 +759,13 @@
             let _json = _value.TemplateJson ? _value.TemplateJson : _value;
 
             if (_json) {
+                let _api = appConfig.Entities.Export.API.GridExcel.Url;
                 let _input = GetTemplate(_json, fileType, true);
-                apiService.post("eAxisAPI", appConfig.Entities.Export.API.GridExcel.Url, _input).then(response => {
+
+                if (fileType == "CSV" || fileType == "JSON") {
+                    _api = appConfig.Entities.Export.API.Others.Url;
+                }
+                apiService.post("eAxisAPI", _api, _input).then(response => {
                     response.data.Response ? helperService.DownloadDocument(response.data.Response) : toastr.error("Failed to Download...!");
                 });
             } else {
@@ -737,7 +809,7 @@
                         DynamicListCtrl.ePage.Masters.Header.Schedule.ListSource.splice(_index, 1);
                     }
                 });
-            }, () => { });
+            }, () => {});
         }
 
         function GetScheduledList($item) {
@@ -759,7 +831,7 @@
         }
 
         function DeleteScheduledList($item) {
-            apiService.get("eAxisAPI", appConfig.Entities.DataConfigScheduler.API.Delete.Url + $item.PK).then(response => { });
+            apiService.get("eAxisAPI", appConfig.Entities.DataConfigScheduler.API.Delete.Url + $item.PK).then(response => {});
         }
 
         function ViewScheduleFilter($item) {
@@ -931,7 +1003,20 @@
                     }
                 }
 
-                if (DynamicListCtrl.ePage.Masters.Header.CustomizeGrid.TempListSource && DynamicListCtrl.ePage.Masters.Header.CustomizeGrid.TempListSource.length > 0) {
+                var _activeFilterColumn;
+                if (DynamicListCtrl.ePage.Masters.Header.ActiveFilter) {
+                    let _value = DynamicListCtrl.ePage.Masters.Header.ActiveFilter.Value;
+                    if (typeof _value == "string") {
+                        _value = JSON.parse(_value);
+                        if (_value.Column) {
+                            _activeFilterColumn = _value.Column;
+                        }
+                    }
+                }
+
+                if (_activeFilterColumn) {
+                    _findConfigTemp.GridConfig.Header = _activeFilterColumn;
+                } else if (!_activeFilterColumn && DynamicListCtrl.ePage.Masters.Header.CustomizeGrid.TempListSource && DynamicListCtrl.ePage.Masters.Header.CustomizeGrid.TempListSource.length > 0) {
                     _findConfigTemp.GridConfig.Header = DynamicListCtrl.ePage.Masters.Header.CustomizeGrid.TempListSource;
                 }
 
@@ -1183,7 +1268,7 @@
             DynamicListCtrl.ePage.Masters.DataEntry.FindConfig.Entities.map(value => value.Data = {});
             let _baseFilter = {};
             if (DynamicListCtrl.baseFilter) {
-                _baseFilter = angular.copy(DynamicListCtrl.baseFilter);
+                _baseFilter = DynamicListCtrl.baseFilter;
             }
             DynamicListCtrl.ePage.Masters.DataEntry.FindConfig.Entities.map(value => value.Data = _baseFilter);
         }
@@ -1371,9 +1456,9 @@
             Object.assign($item, _scheduleInput);
 
             DynamicListCtrl.ePage.Masters._scheduleObj = {
-                externalCode: "STDEVENT",
+                // externalCode: "STDEVENT",
                 classSource: "USER_SCHEDULE",
-                configType: "Event",
+                configType: "Email",
                 relatedDetails: GetRelatedDetails(),
                 sourceReference: "StandardExport_" + $item.PK.split("-").join(""),
                 template: "Simple Export",
@@ -1440,7 +1525,7 @@
 
             let _relatedDetails = {
                 "RelatedDetail": helperService.createToArrayOfObject(_filterInput),
-                "GridReport": GetTemplate()
+                "GridReport": GetTemplate(null, null, true)
             };
 
             return _relatedDetails;
@@ -1552,7 +1637,7 @@
 
                         x.ApiName = _api;
                         x.SearchInput.FilterID = x.SearchInput.FilterID ? x.SearchInput.FilterID : DynamicListCtrl.ePage.Masters.DataEntry.FindConfig.FilterID;
-                        x.GridConfig = x.GridConfig ? x.GridConfig : _gridConfig;
+                        x.GridConfig = (x.GridConfig && x.GridConfig.length > 0) ? x.GridConfig : _gridConfig;
 
                         if (x.SearchInput.SearchInput && x.SearchInput.SearchInput.length > 0) {
                             let _sInput = {};
@@ -1581,7 +1666,7 @@
 
         function PrepareScheduleInput($item) {
             let _obj = {
-                Event: "STDEVENT",
+                // Event: "STDEVENT",
                 Source: "SimpleExport",
                 Template: "Simple Export",
                 SourceReference: "StandardExport_" + $item.PK.split("-").join(""),

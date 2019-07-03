@@ -1,0 +1,37 @@
+
+<uib-tabset id="chromeTab" active="ServiceRequestListCtrl.ePage.Masters.activeTabIndex" class="tab-container chrometab-box">
+
+    <uib-tab>
+        <uib-tab-heading title="Service Request">
+            <span data-ng-bind="'Service Request'" class="ng-binding">Service Request</span>
+            <i class="fa fa-thumb-tack pinned-tab"></i>
+        </uib-tab-heading>
+
+        <div class="no-padding tab-list-view-wrapper">
+            <!--ServiceRequestList Grid Page-->
+            <dynamic-list dataentry-name="ServiceRequestListCtrl.ePage.Masters.dataentryName" task-name="ServiceRequestListCtrl.ePage.Masters.taskName" grid-config-type="0"
+                selected-grid-row="ServiceRequestListCtrl.ePage.Masters.SelectedGridRow($item)" mode="1" dataentry-object="ServiceRequestListCtrl.ePage.Masters.DataEntryObject"></dynamic-list>
+            <div class="tab-loading" data-ng-show="ServiceRequestListCtrl.ePage.Masters.IsTabClick"></div>
+        </div>
+    </uib-tab>
+
+    <uib-tab active="ServiceRequestListCtrl.ePage.Masters.activeTabIndex == $index" ng-repeat="tab in ServiceRequestListCtrl.ePage.Masters.TabList" ng-click="ServiceRequestListCtrl.ePage.Masters.CurrentActiveTab(tab.label)">
+        <uib-tab-heading title="{{tab.label}}">
+            <span data-ng-bind="tab.label"></span>
+            <i class="glyphicon glyphicon-remove" ng-click="ServiceRequestListCtrl.ePage.Masters.RemoveTab($event, $index, tab)"></i>
+           
+        </uib-tab-heading>
+
+        <div class="padding-bottom-10 clearfix">
+            <!--ServiceRequestListReadOnly Directive-->
+            <!-- <myrequest-menu current-myrequest="tab" dataentry-object="ServiceRequestListCtrl.ePage.Masters.DataEntryObject"></myrequest-menu> -->
+            <service-request-list-read-only current-service-request-list-read-only="tab" dataentry-object="ServiceRequestListCtrl.ePage.Masters.DataEntryObject"></service-request-list-read-only>
+            <div class="horizontal-space"></div>
+        </div>
+    </uib-tab>
+
+    <button class="btn btn-default" ng-click="ServiceRequestListCtrl.ePage.Masters.CreateNewServiceRequestList()" data-ng-disabled="ServiceRequestListCtrl.ePage.Masters.isNewClicked">+</button>
+
+</uib-tabset>
+
+       

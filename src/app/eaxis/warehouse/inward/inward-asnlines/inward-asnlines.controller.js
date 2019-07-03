@@ -183,7 +183,7 @@
                     InwardAsnLinesCtrl.ePage.Masters.Loading = false;
                     if (response.data.Response) {
                         angular.forEach(response.data.Response, function (value, key) {
-                            value.PK = '';
+                            value.PK = null;
                             if (!value.Packs) {
                                 value.Packs = 1;
                                 value.Quantity = 1;
@@ -192,19 +192,19 @@
                                 value.PAC_PackType = value.StockKeepingUnit;
                             }
                             if (value.IsPartAttrib1ReleaseCaptured || !value.UsePartAttrib1) {
-                                value.PartAttrib1 = '';
+                                value.PartAttrib1 = null;
                             }
                             if (value.IsPartAttrib2ReleaseCaptured || !value.UsePartAttrib2) {
-                                value.PartAttrib2 = '';
+                                value.PartAttrib2 = null;
                             }
                             if (value.IsPartAttrib3ReleaseCaptured || !value.UsePartAttrib3) {
-                                value.PartAttrib3 = '';
+                                value.PartAttrib3 = null;
                             }
                             if (!value.UsePackingDate) {
-                                value.PackingDate = '';
+                                value.PackingDate = null;
                             }
                             if (!value.UseExpiryDate) {
-                                value.ExpiryDate = '';
+                                value.ExpiryDate = null;
                             }
                             InwardAsnLinesCtrl.ePage.Entities.Header.Data.UIWmsAsnLine.push(value);
                         });
@@ -232,7 +232,7 @@
 
         function GetDropdownList() {
             // Get CFXType Dropdown list
-            var typeCodeList = ["INW_LINE_UQ","ProductCondition"];
+            var typeCodeList = ["INW_LINE_UQ", "ProductCondition"];
             var dynamicFindAllInput = [];
 
             typeCodeList.map(function (value, key) {
@@ -288,6 +288,8 @@
             if (myData == false) {
                 InwardAsnLinesCtrl.ePage.Masters.Config.GeneralValidation(InwardAsnLinesCtrl.currentInward);
             }
+
+            InwardAsnLinesCtrl.ePage.Entities.Header.GlobalVariables.CopyofCurrentObject.UIWmsAsnLine = angular.copy(InwardAsnLinesCtrl.ePage.Entities.Header.Data.UIWmsAsnLine)
         }
 
         function OpenDatePicker($event, opened) {
@@ -312,11 +314,11 @@
             InwardAsnLinesCtrl.ePage.Entities.Header.Data.UIWmsAsnLine[index].Commodity = item.MCC_NKCommodityCode + ' - ' + item.MCC_NKCommodityDesc;
 
             //To remove Attributes when copy row
-            InwardAsnLinesCtrl.ePage.Entities.Header.Data.UIWmsAsnLine[index].PartAttrib1 = '';
-            InwardAsnLinesCtrl.ePage.Entities.Header.Data.UIWmsAsnLine[index].PartAttrib2 = '';
-            InwardAsnLinesCtrl.ePage.Entities.Header.Data.UIWmsAsnLine[index].PartAttrib3 = '';
-            InwardAsnLinesCtrl.ePage.Entities.Header.Data.UIWmsAsnLine[index].PackingDate = '';
-            InwardAsnLinesCtrl.ePage.Entities.Header.Data.UIWmsAsnLine[index].ExpiryDate = '';
+            InwardAsnLinesCtrl.ePage.Entities.Header.Data.UIWmsAsnLine[index].PartAttrib1 = null;
+            InwardAsnLinesCtrl.ePage.Entities.Header.Data.UIWmsAsnLine[index].PartAttrib2 = null;
+            InwardAsnLinesCtrl.ePage.Entities.Header.Data.UIWmsAsnLine[index].PartAttrib3 = null;
+            InwardAsnLinesCtrl.ePage.Entities.Header.Data.UIWmsAsnLine[index].PackingDate = null;
+            InwardAsnLinesCtrl.ePage.Entities.Header.Data.UIWmsAsnLine[index].ExpiryDate = null;
             InwardAsnLinesCtrl.ePage.Entities.Header.Data.UIWmsAsnLine[index].Quantity = InwardAsnLinesCtrl.ePage.Entities.Header.Data.UIWmsAsnLine[index].Packs;
 
             OnChangeValues(item.ProductCode, 'E3005', true, index);
@@ -406,29 +408,29 @@
         function AddNewRow() {
             InwardAsnLinesCtrl.ePage.Entities.Header.GlobalVariables.Loading = true;
             var obj = {
-                "PK": "",
+                "PK": null,
                 "Client_FK": InwardAsnLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.ORG_Client_FK,
                 "ORG_ClientCode": InwardAsnLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.ClientCode,
                 "ORG_ClientName": InwardAsnLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.ClientName,
                 "ClientRelationship": InwardAsnLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.ClientRelationship,
-                "ProductCode": "",
-                "ProductDescription": "",
-                "POR_FK": "",
-                "MCC_NKCommodityCode": "",
-                "MCC_NKCommodityDesc": "",
-                "ProductCondition":"GDC",
-                "Commodity": "",
-                "Packs": "",
-                "PAC_PackType": "",
-                "Quantity": "",
-                "StockKeepingUnit": "",
-                "PalletId": "",
-                "PartAttrib1": "",
-                "PartAttrib2": "",
-                "PartAttrib3": "",
-                "PackingDate": "",
-                "ExpiryDate": "",
-                "AdditionalRef1Code": "",
+                "ProductCode": null,
+                "ProductDescription": null,
+                "POR_FK": null,
+                "MCC_NKCommodityCode": null,
+                "MCC_NKCommodityDesc": null,
+                "ProductCondition": "GDC",
+                "Commodity": null,
+                "Packs": null,
+                "PAC_PackType": null,
+                "Quantity": null,
+                "StockKeepingUnit": null,
+                "PalletId": null,
+                "PartAttrib1": null,
+                "PartAttrib2": null,
+                "PartAttrib3": null,
+                "PackingDate": null,
+                "ExpiryDate": null,
+                "AdditionalRef1Code": null,
                 "UseExpiryDate": false,
                 "UsePackingDate": false,
                 "UsePartAttrib1": false,
@@ -460,7 +462,7 @@
                 if (InwardAsnLinesCtrl.ePage.Entities.Header.Data.UIWmsAsnLine[i].SingleSelect) {
                     var item = angular.copy(InwardAsnLinesCtrl.ePage.Entities.Header.Data.UIWmsAsnLine[i]);
                     var obj = {
-                        "PK": "",
+                        "PK": null,
                         "Client_FK": InwardAsnLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.ORG_Client_FK,
                         "ORG_ClientCode": InwardAsnLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.ClientCode,
                         "ORG_ClientName": InwardAsnLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.ClientName,
@@ -471,7 +473,7 @@
                         "MCC_NKCommodityCode": item.MCC_NKCommodityCode,
                         "MCC_NKCommodityDesc": item.MCC_NKCommodityDesc,
                         "Commodity": item.Commodity,
-                        "ProductCondition":item.ProductCondition,
+                        "ProductCondition": item.ProductCondition,
                         "Packs": item.Packs,
                         "PAC_PackType": item.PAC_PackType,
                         "Quantity": item.Quantity,
@@ -578,6 +580,10 @@
                 if (!InwardAsnLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.ArrivalDate) {
                     OnChangeValues(null, "E3034", false, undefined);
                     InwardAsnLinesCtrl.ePage.Masters.Config.ShowErrorWarningModal(InwardAsnLinesCtrl.currentInward);
+                } else if (InwardAsnLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.IsGatepassMandatory && !InwardAsnLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.TGP_FK) {
+                    // when the gatepass is mandatory                     
+                    OnChangeValues(null, "E3548", false, undefined);
+                    InwardAsnLinesCtrl.ePage.Masters.Config.ShowErrorWarningModal(InwardAsnLinesCtrl.currentInward);
                 } else {
                     angular.forEach(InwardAsnLinesCtrl.ePage.Entities.Header.Data.UIWmsAsnLine, function (value, key) {
                         var obj = {
@@ -648,13 +654,13 @@
                             value.Units = 1;
 
                             if (InwardAsnLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.IMPartAttrib1Type == "SER" && value.UsePartAttrib1) {
-                                value.PartAttrib1 = '';
+                                value.PartAttrib1 = null;
                             }
                             if (InwardAsnLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.IMPartAttrib2Type == "SER" && value.UsePartAttrib2) {
-                                value.PartAttrib2 = '';
+                                value.PartAttrib2 = null;
                             }
                             if (InwardAsnLinesCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.IMPartAttrib3Type == "SER" && value.UsePartAttrib3) {
-                                value.PartAttrib3 = '';
+                                value.PartAttrib3 = null;
                             }
 
                             for (var i = 0; i < parseInt(num, 10); i++) {

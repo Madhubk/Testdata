@@ -44,6 +44,9 @@
             DeliveryGeneralCtrl.ePage.Masters.emptyText = '-';
             DeliveryGeneralCtrl.ePage.Masters.TempWorkOrderID = "New";
 
+            if (DeliveryGeneralCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ORG_Client_FK)
+                GetCsrReceiverDetails();
+
             GetNewAddress();
             GetDropDownList();
             GeneralOperations();
@@ -52,6 +55,22 @@
             GetUserMappedOrganization();
             if (!DeliveryGeneralCtrl.currentDelivery.isNew)
                 GetContact();
+        }
+
+        function GetCsrReceiverDetails() {
+            //    Get Client contact
+            var _filter = {
+                "ORG_FK": DeliveryGeneralCtrl.ePage.Entities.Header.Data.UIWmsDelivery.ORG_Client_FK
+            };
+            var _input = {
+                "searchInput": helperService.createToArrayOfObject(_filter),
+                "FilterID": appConfig.Entities.OrgContact.API.FindAll.FilterID
+            };
+            apiService.post("eAxisAPI", appConfig.Entities.OrgContact.API.FindAll.Url, _input).then(function (response) {
+                if (response.data.Response) {
+                    DeliveryGeneralCtrl.ePage.Masters.CsrReceiverList = $filter('filter')(response.data.Response, { JobCategory: 'CSM-Customer Service Manager' });
+                }
+            });
         }
         // #region - Create JobAddress Object
         function GetNewAddress() {
@@ -276,7 +295,9 @@
             };
             apiService.post("eAxisAPI", appConfig.Entities.OrgContact.API.FindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
+                    DeliveryGeneralCtrl.ePage.Masters.CsrReceiverList = $filter('filter')(response.data.Response, { JobCategory: 'CSM-Customer Service Manager' });
                     deliveryConfig.Entities.ClientContact = response.data.Response;
+
                 }
             });
         }
@@ -331,6 +352,10 @@
             DeliveryGeneralCtrl.ePage.Entities.Header.Data.UIWmsDelivery.Warehouse = item.WarehouseCode + "-" + item.WarehouseName;
             DeliveryGeneralCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WarehouseCode = item.WarehouseCode;
             DeliveryGeneralCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WAR_FK = item.WAR_PK;
+
+            DeliveryGeneralCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WAR_ORG_Code = item.Code;
+            DeliveryGeneralCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WAR_ORG_FullName = item.FullName;
+            DeliveryGeneralCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WAR_ORG_FK = item.PK;
             OnChangeValues(DeliveryGeneralCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WarehouseCode, 'E3051');
             DeliveryGeneralCtrl.ePage.Entities.Header.Data.UIWmsDelivery.TempWarehouse = DeliveryGeneralCtrl.ePage.Entities.Header.Data.UIWmsDelivery.WarehouseCode;
             getReceiveParamWarehouse();

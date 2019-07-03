@@ -643,6 +643,36 @@
             }
         }
 
+        function AmendDocument($item, row) {
+            let _input = angular.copy(row);
+            _input.DocFK = $item.Doc_PK;
+            _input.ContentType = $item.DocType;
+            _input.FileName = $item.FileName;
+            _input.FileExtension = $item.FileExtension;
+
+            if (_input.GroupMapping) {
+                _input.GroupMapping = {};
+            }
+            if (_input.MailObj) {
+                _input.MailObj = {};
+            }
+
+            apiService.post("eAxisAPI", appConfig.Entities.JobDocument.API.AmendDocument.Url + authService.getUserInfo().AppPK, _input).then(response => {
+                if (response.data.Response) {
+                    let _response = response.data.Response;
+                    _response.GroupMapping = PrepareAccessInput(_response);
+
+                    let _index = SMDocumentCtrl.ePage.Masters.Document.ListSource.findIndex(value => value.PK == _input.PK);
+
+                    if (_index != -1) {
+                        SMDocumentCtrl.ePage.Masters.Document.ListSource[_index] = _response;
+                    }
+                } else {
+                    toastr.error("Failed to Upload...!");
+                }
+            });
+        }
+
         function SaveDocument($item) {
             let _input = {
                 Status: "Success",
@@ -676,7 +706,7 @@
                 if (response.data.Response && response.data.Response.length > 0) {
                     let _response = response.data.Response[0];
 
-                    if (SMDocumentCtrl.ePage.Masters.Document.Upload.TempListSource.length > 0) {
+                    if (SMDocumentCtrl.ePage.Masters.Document.Upload.TempListSource && SMDocumentCtrl.ePage.Masters.Document.Upload.TempListSource.length > 0) {
                         SMDocumentCtrl.ePage.Masters.Document.Upload.TempListSource.map(x => {
                             if ($item.FileName == x.name && x.IsNew) {
                                 x.IsNew = false;

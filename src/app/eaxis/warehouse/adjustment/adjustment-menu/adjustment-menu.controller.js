@@ -29,6 +29,7 @@
             // Menu list from configuration
             AdjustmentMenuCtrl.ePage.Masters.AdjustmentMenu.ListSource = AdjustmentMenuCtrl.ePage.Entities.Header.Meta.MenuList;
             AdjustmentMenuCtrl.ePage.Masters.Validation = Validation;
+            AdjustmentMenuCtrl.ePage.Masters.Save = Save;
             AdjustmentMenuCtrl.ePage.Masters.GenerateDocuments = GenerateDocuments;
             AdjustmentMenuCtrl.ePage.Masters.Config = adjustmentConfig;
             AdjustmentMenuCtrl.ePage.Masters.Finalize = Finalize;
@@ -41,6 +42,8 @@
             }
 
             DonwloadDocument();
+
+            AdjustmentMenuCtrl.ePage.Entities.Header.GlobalVariables.CopyofCurrentObject = angular.copy(AdjustmentMenuCtrl.ePage.Entities.Header.Data);
         }
 
         function Finalize($item) {
@@ -66,7 +69,8 @@
                             if (mydate) {
                                 toastr.info("Please Save Before Finalizing Adjustment");
                             } else {
-                                AdjustmentMenuCtrl.ePage.Masters.Finalisesave = true;
+                                AdjustmentMenuCtrl.ePage.Entities.Header.Data.UIAdjustmentHeader.FinalisedDate = new Date();
+                                filterObjectUpdate($item,"IsModified");
                                 Validation($item);
                             }
 
@@ -80,6 +84,12 @@
                 AdjustmentMenuCtrl.ePage.Masters.Config.ShowErrorWarningModal(AdjustmentMenuCtrl.currentAdjustment);
             }
 
+        }
+
+        function Save($item){
+            AdjustmentMenuCtrl.ePage.Entities.Header.Data.UIAdjustmentHeader.CancelledDate = null;
+            AdjustmentMenuCtrl.ePage.Entities.Header.Data.UIAdjustmentHeader.FinalisedDate = null
+            Validation($item)
         }
 
         function Validation($item) {
@@ -97,7 +107,6 @@
                 AdjustmentMenuCtrl.ePage.Masters.Config.ShowErrorWarningModal(AdjustmentMenuCtrl.currentAdjustment);
                 Save($item);
             } else {
-                AdjustmentMenuCtrl.ePage.Masters.Finalisesave = false;
                 AdjustmentMenuCtrl.ePage.Masters.Config.ShowErrorWarningModal(AdjustmentMenuCtrl.currentAdjustment);
             }
         }
@@ -108,28 +117,17 @@
 
             var _Data = $item[$item.label].ePage.Entities,
                 _input = _Data.Header.Data;
-            //_input.UIAdjustmentHeader.PK = _input.PK;
+
             _input.UIAdjustmentHeader.ExternalReference = AdjustmentMenuCtrl.ePage.Entities.Header.Data.UIAdjustmentHeader.WorkOrderID;
             if ($item.isNew) {
                 _input.UIAdjustmentHeader.PK = _input.PK;
                 _input.UIAdjustmentHeader.CreatedDateTime = new Date();
                 _input.UIAdjustmentHeader.WorkOrderStatus = 'ENT';
-                _input.UIAdjustmentHeader.WorkOrderStatusDesc = 'Entered';
+                _input.UIAdjustmentHeader.WorkOrderStatusDesc = 'ENTERED';
                 _input.UIAdjustmentHeader.WorkOrderType = 'ADJ';
 
             } else {
-                if (AdjustmentMenuCtrl.ePage.Masters.Finalisesave) {
-                    _input.UIAdjustmentHeader.FinalisedDate = new Date();
-                    _input.UIAdjustmentHeader.WorkOrderStatus = 'FIN';
-                    _input.UIAdjustmentHeader.WorkOrderStatusDesc = 'Finalized';
-
-                    // Line Status
-                    angular.forEach(_input.UIWmsWorkOrderLine, function (value, key) {
-                        value.WorkOrderLineStatus = 'FIN';
-                        value.WorkOrderLineStatusDesc = 'Finalized';
-                    });
-                }
-                $item = filterObjectUpdate($item, "IsModified");
+                AdjustmentMenuCtrl.ePage.Entities.Header.Data = PostSaveObjectUpdate(AdjustmentMenuCtrl.ePage.Entities.Header.Data, AdjustmentMenuCtrl.ePage.Entities.Header.GlobalVariables.CopyofCurrentObject,["Client","Warehouse","Product","Commodity"]);
             }
 
             helperService.SaveEntity($item, 'Adjustment').then(function (response) {
@@ -171,13 +169,18 @@
                         AdjustmentMenuCtrl.ePage.Masters.Config.SaveAndClose = true;
                         AdjustmentMenuCtrl.ePage.Masters.SaveAndClose = false;
                     }
-                    if (AdjustmentMenuCtrl.ePage.Masters.Finalisesave || AdjustmentMenuCtrl.ePage.Entities.Header.Data.UIAdjustmentHeader.WorkOrderStatus == "CAN") {
+                    if (AdjustmentMenuCtrl.ePage.Entities.Header.Data.UIAdjustmentHeader.WorkOrderStatus=="FIN" || AdjustmentMenuCtrl.ePage.Entities.Header.Data.UIAdjustmentHeader.WorkOrderStatus == "CAN") {
                         AdjustmentMenuCtrl.ePage.Entities.Header.GlobalVariables.NonEditable = true;
                         AdjustmentMenuCtrl.ePage.Masters.DisableSave = true;
                     }
+
+                     //Taking Copy of Current Object
+                     AdjustmentMenuCtrl.ePage.Entities.Header.Data = AfterSaveObjectUpdate(AdjustmentMenuCtrl.ePage.Entities.Header.Data,"IsModified");
+                     AdjustmentMenuCtrl.ePage.Entities.Header.GlobalVariables.CopyofCurrentObject = angular.copy(AdjustmentMenuCtrl.ePage.Entities.Header.Data);
+
+
                 } else if (response.Status === "failed") {
                     AdjustmentMenuCtrl.ePage.Entities.Header.Validations = response.Validations;
-                    console.log("Failed");
                     toastr.error("Could not Save...!");
                     angular.forEach(response.Validations, function (value, key) {
                         if (value.RowIndex > 0) {
@@ -192,12 +195,47 @@
                         }
                     });
                     if (AdjustmentMenuCtrl.ePage.Entities.Header.Validations != null) {
-                        AdjustmentMenuCtrl.ePage.Masters.Finalisesave = false;
                         AdjustmentMenuCtrl.ePage.Masters.Config.ShowErrorWarningModal(AdjustmentMenuCtrl.currentAdjustment);
+                    }else{
+
                     }
                 }
             });
 
+        }
+
+        function PostSaveObjectUpdate(newValue,oldValue, exceptObjects) {
+            for (var i in newValue) {
+                if(typeof newValue[i] == 'object'&& newValue[i]!=null){
+                    PostSaveObjectUpdate(newValue[i],oldValue[i],exceptObjects);
+                }else{
+                    var Satisfied = exceptObjects.some(function(v){return v===i});
+                    if(!Satisfied && i!= "$$hashKey"){
+                        if(!oldValue){
+                            newValue["IsModified"] = true;
+                            break;
+                        }else{
+                            if(newValue[i]!=oldValue[i]){
+                                newValue["IsModified"] = true;
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+            return newValue;
+        }
+
+        function AfterSaveObjectUpdate(obj,key){
+            for (var i in obj) {
+                if (!obj.hasOwnProperty(i)) continue;
+                if (typeof obj[i] == 'object') {
+                    AfterSaveObjectUpdate(obj[i], key);
+                } else if (i == key) {
+                    obj[key] = false;
+                }
+            }
+            return obj;
         }
 
         function filterObjectUpdate(obj, key) {
@@ -237,8 +275,8 @@
                                 value.TotalUnits = 0;
                             });
                             AdjustmentMenuCtrl.ePage.Entities.Header.Data.UIAdjustmentHeader.CancelledDate = new Date();
-                            AdjustmentMenuCtrl.ePage.Entities.Header.Data.UIAdjustmentHeader.WorkOrderStatus = 'CAN';
-                            AdjustmentMenuCtrl.ePage.Entities.Header.Data.UIAdjustmentHeader.WorkOrderStatusDesc = 'Cancelled';
+
+                            $item = filterObjectUpdate($item, "IsModified");
                             Validation($item);
 
                             $uibModalInstance.dismiss('cancel');

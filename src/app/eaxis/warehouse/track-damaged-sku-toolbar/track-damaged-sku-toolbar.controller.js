@@ -48,6 +48,11 @@
             DamagedSkuToolbarCtrl.ePage.Masters.UpdateInventory = UpdateInventory;
             DamagedSkuToolbarCtrl.ePage.Masters.UpdateData = UpdateData;
             DamagedSkuToolbarCtrl.ePage.Masters.CloseEditActivityModal = CloseEditActivityModal;
+
+            DamagedSkuToolbarCtrl.ePage.Masters.SaveRMANumber = SaveRMANumber;
+            DamagedSkuToolbarCtrl.ePage.Masters.CloseRMANumber = CloseRMANumber;
+            DamagedSkuToolbarCtrl.ePage.Masters.SaveButtonText = "Save";
+            DamagedSkuToolbarCtrl.ePage.Masters.IsDisableSaveBtn = false;
             InitAction();
         }
 
@@ -114,7 +119,7 @@
                     }
                 });
             } else {
-                toastr.warning("Cannot update the Inventory for this Line(s)");
+                toastr.warning("It can be updated when the pickup line status is in 'Stock at Testing Warehouse' or 'Stock at Repair Warehouse'");
                 DamagedSkuToolbarCtrl.ePage.Masters.UpdateInventoryBtnText = "Update Inventory"
                 DamagedSkuToolbarCtrl.ePage.Masters.IsUpdateInventoryBtn = false;
             }
@@ -280,7 +285,7 @@
                         getCentralWarehouse();
                     }
                 } else {
-                    toastr.warning("This line(s) cannot be moved to Central warehouse");
+                    toastr.warning("It can be moved to Central warehouse when the pickup line status is in 'Stock at Site Warehouse' or 'Stock at Testing Warehouse' or 'Stock at Repair Warehouse'.");
                 }
             }
         }
@@ -329,7 +334,7 @@
                         }
                     });
                 } else {
-                    toastr.warning("This line(s) cannot be moved to Testing warehouse");
+                    toastr.warning("It can be moved to Testing Warehouse when the pickup line status is in 'Stock at Central Warehouse'.");
                 }
             }
         }
@@ -373,7 +378,7 @@
                                     }
                                 });
                             } else {
-                                toastr.warning("This line(s) cannot be moved to Scrap warehouse");
+                                toastr.warning("It can be moved to Scrap warehouse when the pickup line status is in 'Stock at Central Warehouse' or 'Tested, Stock at Central Warehouse'.");
                             }
                         }, function () {
                             console.log("Cancelled");
@@ -396,7 +401,7 @@
                             }
                         });
                     } else {
-                        toastr.warning("This line(s) cannot be moved to Scrap warehouse");
+                        toastr.warning("It can be moved to Scrap warehouse when the pickup line status is in 'Stock at Central Warehouse' or 'Tested, Stock at Central Warehouse'.");
                     }
                 }
             }
@@ -425,49 +430,75 @@
                     confirmation.showModal({}, modalOptions)
                         .then(function (result) {
                             if ((count + count1) == DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList.length) {
-                                DamagedSkuToolbarCtrl.ePage.Masters.IsMoveToTestingWarehouseBtn = true;
-                                DamagedSkuToolbarCtrl.ePage.Masters.MoveToRepairWarehouseBtnText = "Please Wait...";
-                                var _filter = {
-                                    "WarehouseType": "REP"
-                                };
-                                var _input = {
-                                    "searchInput": helperService.createToArrayOfObject(_filter),
-                                    "FilterID": warehouseConfig.Entities.WmsWarehouse.API.FindAll.FilterID
-                                };
-                                apiService.post("eAxisAPI", warehouseConfig.Entities.WmsWarehouse.API.FindAll.Url, _input).then(function (response) {
-                                    if (response.data.Response) {
-                                        DamagedSkuToolbarCtrl.ePage.Masters.WarehouseList = response.data.Response;
-                                        CreateMaterialTransferOutward('REP');
-                                    }
-                                });
+                                OpenModalToUpdateRMANumber().result.then(function (response) { }, function () { });
                             } else {
-                                toastr.warning("This line(s) cannot be moved to Repair warehouse");
+                                toastr.warning("It can be moved to Repair warehouse when the pickup line status is in 'Stock at Central Warehouse' or 'Tested, Stock at Central Warehouse'.");
                             }
                         }, function () {
                             console.log("Cancelled");
                         });
                 } else {
                     if (count == DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList.length) {
-                        DamagedSkuToolbarCtrl.ePage.Masters.IsMoveToTestingWarehouseBtn = true;
-                        DamagedSkuToolbarCtrl.ePage.Masters.MoveToRepairWarehouseBtnText = "Please Wait...";
-                        var _filter = {
-                            "WarehouseType": "REP"
-                        };
-                        var _input = {
-                            "searchInput": helperService.createToArrayOfObject(_filter),
-                            "FilterID": warehouseConfig.Entities.WmsWarehouse.API.FindAll.FilterID
-                        };
-                        apiService.post("eAxisAPI", warehouseConfig.Entities.WmsWarehouse.API.FindAll.Url, _input).then(function (response) {
-                            if (response.data.Response) {
-                                DamagedSkuToolbarCtrl.ePage.Masters.WarehouseList = response.data.Response;
-                                CreateMaterialTransferOutward('REP');
-                            }
-                        });
+                        OpenModalToUpdateRMANumber().result.then(function (response) { }, function () { });
                     } else {
-                        toastr.warning("This line(s) cannot be moved to Repair warehouse");
+                        toastr.warning("It can be moved to Repair warehouse when the pickup line status is in 'Stock at Central Warehouse' or 'Tested, Stock at Central Warehouse'.");
                     }
                 }
             }
+        }
+
+        function OpenModalToUpdateRMANumber() {
+            return DamagedSkuToolbarCtrl.ePage.Masters.modalInstance1 = $uibModal.open({
+                animation: true,
+                backdrop: "static",
+                keyboard: false,
+                windowClass: "create-inward-modal right address",
+                scope: $scope,
+                size: "md",
+                templateUrl: "app/eaxis/warehouse/track-damaged-sku-toolbar/update-rma-number.html"
+            });
+        }
+        function CloseRMANumber() {
+            DamagedSkuToolbarCtrl.ePage.Masters.modalInstance1.dismiss('cancel');
+        }
+
+        function SaveRMANumber() {
+            DamagedSkuToolbarCtrl.ePage.Masters.SaveButtonText = "Please Wait..";
+            DamagedSkuToolbarCtrl.ePage.Masters.IsDisableSaveBtn = true;
+            var _count = 0;
+            angular.forEach(DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList, function (value, key) {
+                if (value.RMA_Cust_Ref && value.RMA_No) {
+                    _count = _count + 1;
+                }
+            });
+            if (_count == DamagedSkuToolbarCtrl.ePage.Masters.SelectedPickupList.length) {
+                CloseRMANumber();
+                ReadyToMoveToRepairWarehouse();
+                DamagedSkuToolbarCtrl.ePage.Masters.SaveButtonText = "Save";
+                DamagedSkuToolbarCtrl.ePage.Masters.IsDisableSaveBtn = false;
+            } else {
+                DamagedSkuToolbarCtrl.ePage.Masters.SaveButtonText = "Save";
+                DamagedSkuToolbarCtrl.ePage.Masters.IsDisableSaveBtn = false;
+                toastr.warning("RMA customer reference no and RMA number is Mandatory");
+            }
+        }
+
+        function ReadyToMoveToRepairWarehouse() {
+            DamagedSkuToolbarCtrl.ePage.Masters.IsMoveToTestingWarehouseBtn = true;
+            DamagedSkuToolbarCtrl.ePage.Masters.MoveToRepairWarehouseBtnText = "Please Wait...";
+            var _filter = {
+                "WarehouseType": "REP"
+            };
+            var _input = {
+                "searchInput": helperService.createToArrayOfObject(_filter),
+                "FilterID": warehouseConfig.Entities.WmsWarehouse.API.FindAll.FilterID
+            };
+            apiService.post("eAxisAPI", warehouseConfig.Entities.WmsWarehouse.API.FindAll.Url, _input).then(function (response) {
+                if (response.data.Response) {
+                    DamagedSkuToolbarCtrl.ePage.Masters.WarehouseList = response.data.Response;
+                    CreateMaterialTransferOutward('REP');
+                }
+            });
         }
         // #endregion
         // #region - Move to Site Warehouse
@@ -816,6 +847,8 @@
                                             value1.WorkOrderLineStatus = "MSW";
                                         } else if (type == "REP") {
                                             value1.WorkOrderLineStatus = "MRW";
+                                            value1.UISPMSPickupReport.RMA_Cust_Ref = value.RMA_Cust_Ref;
+                                            value1.UISPMSPickupReport.RMA_No = value.RMA_No;
                                         } else if (type == "SIT") {
                                             value1.WorkOrderLineStatus = "MSTW";
                                         }
@@ -931,6 +964,8 @@
                                 response.data.Response[0].CTR_ToWH_Code = DamagedSkuToolbarCtrl.ePage.Masters.OutwardData.UIWmsOutwardHeader.TransferTo_WAR_Code;
                                 response.data.Response[0].CTR_ToWH_Fk = DamagedSkuToolbarCtrl.ePage.Masters.OutwardData.UIWmsOutwardHeader.TransferTo_WAR_FK;
                                 response.data.Response[0].CTR_ToWH_Name = DamagedSkuToolbarCtrl.ePage.Masters.OutwardData.UIWmsOutwardHeader.TransferTo_WAR_Name;
+                                response.data.Response[0].RMA_Cust_Ref = value.RMA_Cust_Ref;
+                                response.data.Response[0].RMA_No = value.RMA_No;
                                 if (type == "SCR")
                                     response.data.Response[0].PickupLineStatus = "MTR Raised to Scrap Warehouse";
                                 else if (type == "REP")

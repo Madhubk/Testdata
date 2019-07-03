@@ -1,0 +1,124 @@
+<div class="modal-header">
+    <span class="modal-title modalheader"><b>Load -
+            {{CompleteLoadCtrl.ePage.Masters.OutwardDetails[CompleteLoadCtrl.ePage.Masters.selectedRow].WorkOrderID}}</b></span>
+    <span class="modal-title  pull-right" style="font-size: 18px;" ng-click="CompleteLoadCtrl.ePage.Masters.CloseLoadModel()">
+        <a href="javascript:void(0);">
+            <i class="fa fa-times"></i>
+        </a>
+    </span>
+</div>
+<div class="modal-body pb-50">
+    <div class="mb-10 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 norecordfound" style="top:400px;" ng-if="CompleteLoadCtrl.ePage.Masters.PickReleaseLineDetails.length==0">No
+            Record Found...</div>
+        <div id="PickReleaseLineDetailsTable{{CompleteLoadCtrl.ePage.Masters.str}}" class="fixedheader mb-0" key-events
+            table-object='CompleteLoadCtrl.ePage.Masters.PickReleaseLineDetails' enable='CompleteLoadCtrl.ePage.Masters.Enable'
+            unique-id='PickReleaseLineDetailsTable{{CompleteLoadCtrl.ePage.Masters.str}}'>
+            <table style="height: 200px">
+                <thead>
+                    <tr id="tableHeader">
+                        <th ng-style="{ 'width':  '40px' }" title="S.No">S.No</th>
+                        <th ng-style="{ 'width':  '80px' }" title="Outward No">Outward No</th>
+                        <th ng-style="{ 'width':  '70px' }" title="Pick No">Pick No</th>
+                        <th ng-style="{ 'width':  '80px' }" title="Product Code">Product Code</th>
+                        <th ng-style="{ 'width':  '130px' }" title="Product Description">Product Description</th>
+                        <th ng-style="{ 'width':  '50px' }" title="Pack">Pack</th>
+                        <th ng-style="{ 'width':  '90px' }" title="UDF 1">UDF 1</th>
+                        <th ng-style="{ 'width':  '90px' }" title="UDF 2">UDF 2</th>
+                        <th ng-style="{ 'width':  '70px' }" title="UDF 3">UDF 3</th>
+                        <th ng-style="{ 'width':  '130px' }" title="Pickline Loaded Qty">Pickline Loaded Qty</th>
+                        <th ng-style="{ 'width':  '150px' }" title="Pickline Loaded Start Time">Pickline Loaded Start
+                            Time</th>
+                        <th ng-style="{ 'width':  '150px' }" title="Pickline Loaded End Time">Pickline Loaded End Time</th>
+                        <th ng-style="{ 'width':  '130px' }" title="Releaseline Loaded Qty">Releaseline Loaded Qty</th>
+                        <th ng-style="{ 'width':  '150px' }" title="Releaseline Loaded Start Time">Releaseline Loaded
+                            Start Time</th>
+                        <th ng-style="{ 'width':  '150px' }" title="Releaseline Loaded End Time">Releaseline Loaded End
+                            Time</th>
+                        <th ng-style="{ 'width':  '80px' }" title="Client Code">Client Code</th>
+                        <th ng-style="{ 'width':  '130px' }" title="Client Name">Client Name</th>
+                        <th ng-style="{ 'width':  '100px' }" title="Location">Location</th>
+                    </tr>
+                </thead>
+                <tbody id="PickReleaseLineDetailsCustTable{{CompleteLoadCtrl.ePage.Masters.str}}">
+                    <tr id="tableBody" ng-repeat="x in CompleteLoadCtrl.ePage.Masters.PickReleaseLineDetails  | filter:filter2 track by $index">
+                        <td ng-style="{ 'width':  '40px' }" class="overflow-text">{{$index +1}}</td>
+                        <td ng-style="{ 'width':  '80px' }" class="overflow-text">{{x.WorkOrderID}}</td>
+                        <td ng-style="{ 'width':  '70px' }" class="overflow-text">{{x.PickNo}}</td>
+                        <td ng-style="{ 'width':  '80px' }" class="overflow-text">{{x.ProductCode}}</td>
+                        <td ng-style="{ 'width':  '130px' }" class="overflow-text">{{x.ProductDescription}}</td>
+                        <td ng-style="{ 'width':  '50px' }" class="overflow-text">{{x.Units}}</td>
+                        <td ng-style="{ 'width':  '90px' }" class="overflow-text">{{x.PartAttrib1}}</td>
+                        <td ng-style="{ 'width':  '90px' }" class="overflow-text">{{x.PartAttrib2}}</td>
+                        <td ng-style="{ 'width':  '70px' }" class="overflow-text">{{x.PartAttrib3}}</td>
+                        <td ng-style="{ 'width':  '130px' }" class="overflow-text">{{x.WPL_LoadedQty}}</td>
+                        <td ng-style="{ 'width':  '150px' }" class="overflow-text">
+                            {{x.WPL_LoadStartDateTime | date:'dd-MMM-yyyy hh:mm a'}}</td>
+                        <td ng-style="{ 'width':  '150px' }" class="overflow-text">
+                            {{x.WPL_LoadEndDateTime | date:'dd-MMM-yyyy hh:mm a'}}</td>
+                        <td ng-style="{ 'width':  '130px' }" class="overflow-text">{{x.WRL_LoadedQty}}</td>
+                        <td ng-style="{ 'width':  '150px' }" class="overflow-text">
+                            {{x.WRL_LoadStartDateTime | date:'dd-MMM-yyyy hh:mm a'}}</td>
+                        <td ng-style="{ 'width':  '150px' }" class="overflow-text">
+                            {{x.WRL_LoadEndDateTime | date:'dd-MMM-yyyy hh:mm a'}}</td>
+                        <td ng-style="{ 'width':  '80px' }" class="overflow-text">{{x.ClientCode}}</td>
+                        <td ng-style="{ 'width':  '130px' }" class="overflow-text">{{x.ClientName}}</td>
+                        <td ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.Location}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="mb-10 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">       
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 custompadding">
+            <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 col-xl-5 p-0">
+                <span><button type="button" class="btn btn-sm btn-outline-primary font-10" title="Add To Line"
+                        data-ng-click="CompleteLoadCtrl.ePage.Masters.AddToLine()" ng-disabled="CompleteLoadCtrl.ePage.Masters.selectedLoadedItemRow==-1"><span
+                            class="fa fa-plus"></span>&nbsp;&nbsp;Add To Line</button></span>
+            </div>
+        </div>
+        <div id="PickReleaseDetailsTable{{CompleteLoadCtrl.ePage.Masters.str}}" class="fixedheader mb-0" key-events
+            table-object='CompleteLoadCtrl.ePage.Masters.PickReleaseLineDetails' enable='CompleteLoadCtrl.ePage.Masters.Enable'
+            selected-row='CompleteLoadCtrl.ePage.Masters.selectedLoadedItemRow' unique-id='PickReleaseDetailsTable{{CompleteLoadCtrl.ePage.Masters.str}}'>
+            <table style="height: 200px">
+                <thead>
+                    <tr id="tableHeader">
+                        <th ng-style="{ 'width':  '40px' }" title="S.No">S.No</th>
+                        <th ng-style="{ 'width':  '150px' }" title="Outward No">Outward No</th>
+                        <th ng-style="{ 'width':  '150px' }" title="Pick No">Pick No</th>
+                        <th ng-style="{ 'width':  '150px' }" title="Product Code">Product Code</th>
+                        <th ng-style="{ 'width':  '200px' }" title="Product Description">Product Description</th>
+                        <th ng-style="{ 'width':  '100px' }" title="Pack">Pack</th>
+                        <th ng-style="{ 'width':  '150px' }" title="UDF 1">UDF 1</th>
+                        <th ng-style="{ 'width':  '150px' }" title="UDF 2">UDF 2</th>
+                        <th ng-style="{ 'width':  '150px' }" title="UDF 3">UDF 3</th>
+                        <th ng-style="{ 'width':  '150px' }" title="Client Code">Client Code</th>
+                        <th ng-style="{ 'width':  '200px' }" title="Client Name">Client Name</th>
+                        <th ng-style="{ 'width':  '150px' }" title="Location">Location</th>
+                    </tr>
+                </thead>
+                <tbody id="PickReleaseLineDetailsCustTable{{CompleteLoadCtrl.ePage.Masters.str}}">
+                    <tr id="tableBody" ng-click="CompleteLoadCtrl.ePage.Masters.setLoadedItemSelectedRow($index,x);"
+                        ng-class="{row_active: (CompleteLoadCtrl.ePage.Masters.selectedLoadedItemRow==$index),copy_row_active :(x.IsCopied==true)}"
+                        ng-repeat="x in CompleteLoadCtrl.ePage.Masters.PickReleaseLineDetails  | filter:filter1 track by $index">
+                        <td ng-style="{ 'width':  '40px' }" class="overflow-text">{{$index +1}}</td>
+                        <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.WorkOrderID}}</td>
+                        <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.PickNo}}</td>
+                        <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.ProductCode}}</td>
+                        <td ng-style="{ 'width':  '200px' }" class="overflow-text">{{x.ProductDescription}}</td>
+                        <td ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.Units}}</td>
+                        <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.PartAttrib1}}</td>
+                        <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.PartAttrib2}}</td>
+                        <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.PartAttrib3}}</td>
+                        <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.ClientCode}}</td>
+                        <td ng-style="{ 'width':  '200px' }" class="overflow-text">{{x.ClientName}}</td>
+                        <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.Location}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-blue btn-sm mb-15" ng-disabled="CompleteLoadCtrl.ePage.Masters.IsDisableSaveBtn" ng-click="CompleteLoadCtrl.ePage.Masters.SaveLoad()">{{CompleteLoadCtrl.ePage.Masters.LoadSaveButtonText}}</button>
+</div>

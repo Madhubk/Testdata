@@ -1,0 +1,15 @@
+<div class="modal-header">
+    <span class="modal-title modalheader">Add Receive Lines - {{StartUnloadCtrl.ePage.Masters.TabList.label}}</span>
+    <span class="modal-title  pull-right" style="font-size: 18px;" ng-click="StartUnloadCtrl.ePage.Masters.CloseReceiveLineModel()">
+        <a href="javascript:void(0);">
+            <i class="fa fa-times"></i>
+        </a>
+    </span>
+</div>
+<div class="modal-body pb-50">
+    <inward-menu-lines current-inward="StartUnloadCtrl.ePage.Masters.TabList" enable-add="true" enable-copy="true"
+        enable-delete="true" enable-customize="true" enable-bulk-upload="true"></inward-menu-lines>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-blue btn-sm mb-15" ng-disabled="StartUnloadCtrl.ePage.Masters.IsDisableSaveBtn" ng-click="StartUnloadCtrl.ePage.Masters.SaveInward('AddingReceiveLine')">{{StartUnloadCtrl.ePage.Masters.SaveButtonText}}</button>
+</div>

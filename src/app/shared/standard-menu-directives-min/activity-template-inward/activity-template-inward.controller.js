@@ -99,7 +99,7 @@
             ActivityTemplateInwardCtrl.ePage.Masters.DatePicker.isOpen[opened] = true;
         }
 
-        function GetEntityObj() {            
+        function GetEntityObj() {
             if (ActivityTemplateInwardCtrl.tabObj) {
                 ActivityTemplateInwardCtrl.currentInward = ActivityTemplateInwardCtrl.tabObj;
                 ActivityTemplateInwardCtrl.ePage.Masters.EntityObj = ActivityTemplateInwardCtrl.tabObj[ActivityTemplateInwardCtrl.tabObj.label].ePage.Entities.Header.Data;
@@ -334,6 +334,7 @@
                                     });
                                     if (count == myTaskActivityConfig.Entities.PickupData.UIWmsPickupLine.length) {
                                         myTaskActivityConfig.Entities.PickupData.UIWmsPickup.WorkOrderStatus = "PICD";
+                                        myTaskActivityConfig.Entities.PickupData.UIWmsPickup.WorkOrderStatusDesc = "Picked";
                                     }
                                     myTaskActivityConfig.Entities.PickupData = filterObjectUpdate(myTaskActivityConfig.Entities.PickupData, "IsModified");
                                     apiService.post("eAxisAPI", warehouseConfig.Entities.WmsPickupList.API.Update.Url, myTaskActivityConfig.Entities.PickupData).then(function (response) {
@@ -491,6 +492,8 @@
                                                                         response.data.Response[0].RTC_INW_CustomerReference = myTaskActivityConfig.Entities.Inward[myTaskActivityConfig.Entities.Inward.label].ePage.Entities.Header.Data.UIWmsInwardHeader.CustomerReference;
                                                                         response.data.Response[0].RTC_INW_ExternalRefNumber = myTaskActivityConfig.Entities.Inward[myTaskActivityConfig.Entities.Inward.label].ePage.Entities.Header.Data.UIWmsInwardHeader.ExternalReference;
                                                                         response.data.Response[0].RTC_ArrivalDate = myTaskActivityConfig.Entities.Inward[myTaskActivityConfig.Entities.Inward.label].ePage.Entities.Header.Data.UIWmsInwardHeader.ArrivalDate;
+                                                                        response.data.Response[0].RTC_IL_SerialNumber = value.PartAttrib1;
+                                                                        response.data.Response[0].RTC_IL_RevisionState = value.PartAttrib2;
                                                                     } else if (response.data.Response[0].PickupLineStatus == "In Transit To Testing Warehouse") {
                                                                         response.data.Response[0].PickupLineStatus = "Stock at Testing Warehouse";
                                                                         response.data.Response[0].CTT_IL_Fk = value.PK;
@@ -567,12 +570,15 @@
                                         response.data.Response.Response.UIWmsOutwardHeader.ConsigneeCode = input.UIWmsInwardHeader.SupplierCode;
                                         response.data.Response.Response.UIWmsOutwardHeader.ConsigneeName = input.UIWmsInwardHeader.SupplierName;
                                         response.data.Response.Response.UIWmsOutwardHeader.WAR_FK = input.UIWmsInwardHeader.WAR_FK;
-                                        response.data.Response.Response.UIWmsOutwardHeader.WarehouseCode = input.UIWmsInwardHeader.WarehouseCode
-                                        response.data.Response.Response.UIWmsOutwardHeader.WarehouseName = input.UIWmsInwardHeader.WarehouseName
-                                        response.data.Response.Response.UIWmsOutwardHeader.WOD_Parent_FK = input.UIWmsInwardHeader.PK
-                                        response.data.Response.Response.UIWmsOutwardHeader.AdditionalRef2Fk = input.UIWmsInwardHeader.AdditionalRef2Fk
+                                        response.data.Response.Response.UIWmsOutwardHeader.WarehouseCode = input.UIWmsInwardHeader.WarehouseCode;
+                                        response.data.Response.Response.UIWmsOutwardHeader.WarehouseName = input.UIWmsInwardHeader.WarehouseName;
+                                        response.data.Response.Response.UIWmsOutwardHeader.WOD_Parent_FK = input.UIWmsInwardHeader.PK;
+                                        response.data.Response.Response.UIWmsOutwardHeader.AdditionalRef2Fk = input.UIWmsInwardHeader.AdditionalRef2Fk;
                                         response.data.Response.Response.UIWmsOutwardHeader.RequiredDate = new Date();
 
+                                        response.data.Response.Response.UIWmsOutwardHeader.WAR_ORG_Code = input.UIWmsInwardHeader.WAR_ORG_Code;
+                                        response.data.Response.Response.UIWmsOutwardHeader.WAR_ORG_FullName = input.UIWmsInwardHeader.WAR_ORG_FullName;
+                                        response.data.Response.Response.UIWmsOutwardHeader.WAR_ORG_FK = input.UIWmsInwardHeader.WAR_ORG_FK;
                                         response.data.Response.Response.UIOrgHeader = input.UIOrgHeader;
                                         response.data.Response.Response.UIJobAddress = angular.copy(input.UIJobAddress);
                                         angular.forEach(response.data.Response.Response.UIJobAddress, function (value, key) {
@@ -720,6 +726,8 @@
                                         response.data.Response[0].PickupLineStatus = "Repaired, Stock at Central Warehouse";
                                         response.data.Response[0].RTC_IL_Fk = value.PK;
                                         response.data.Response[0].RTC_ArrivalDate = myTaskActivityConfig.Entities.Inward[myTaskActivityConfig.Entities.Inward.label].ePage.Entities.Header.Data.UIWmsInwardHeader.ArrivalDate;
+                                        response.data.Response[0].RTC_IL_SerialNumber = value.PartAttrib1;
+                                        response.data.Response[0].RTC_IL_RevisionState = value.PartAttrib2;
                                     } else if (response.data.Response[0].PickupLineStatus == "In Transit To Testing Warehouse") {
                                         // Add STC Number
                                         var _filter = {

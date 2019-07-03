@@ -240,8 +240,10 @@
             if (ActivityTemplateDelivery2Ctrl.taskObj.WSI_StepName == "Create Delivery Challan") {
                 if (callback) {
                     myTaskActivityConfig.Entities.Delivery[myTaskActivityConfig.Entities.Delivery.label].ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderStatus = "DIP";
+                    myTaskActivityConfig.Entities.Delivery[myTaskActivityConfig.Entities.Delivery.label].ePage.Entities.Header.Data.UIWmsDelivery.WorkOrderStatusDesc = "Delivery In Progress";
                     angular.forEach(myTaskActivityConfig.Entities.Delivery[myTaskActivityConfig.Entities.Delivery.label].ePage.Entities.Header.Data.UIWmsDeliveryLine, function (value, key) {
                         value.WorkOrderLineStatus = "DIP";
+                        value.WorkOrderLineStatusDesc = "Delivery In Progress";
                         if (value.UISPMSDeliveryReport)
                             value.UISPMSDeliveryReport.DeliveryLineStatus = "Delivery In Progress";
                     });

@@ -243,7 +243,7 @@
                         return deferred.promise;
                     }],
                     LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
-                        return $ocLazyLoad.load(["confirmation", "errorWarning", "compareDate", "dynamicListModal", "dynamicList", "dynamicLookup", "dynamicControl", "dynamicGrid", "EAwarehouse", "SRVOutwardRelease", "whReleases", "whReleasesMenu", "whReleasesGeneral", "pick", "pickAllocation", "whReleasesDocuments", "whReleasesPickSlip"]);
+                        return $ocLazyLoad.load(["confirmation", "errorWarning", "compareDate", "dynamicListModal", "dynamicList", "dynamicLookup", "dynamicControl", "dynamicGrid", "EAwarehouse", "SRVOutwardRelease", "whReleases", "whReleasesMenu", "whReleasesGeneral", "pick", "pickAllocation", "whReleasesDocuments", "whReleasesPickSlip","packingGeneral","packingHeader","pickPacking"]);
                     }]
                 }
             })
@@ -506,9 +506,53 @@
                         return deferred.promise;
                     }],
                     LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
-                        return $ocLazyLoad.load(["chromeTab", "confirmation", "compareDate", "dynamicListModal", "dynamicList", "dynamicLookup", "dynamicControl", "dynamicGrid", "drogAndDrop", "JsonModal", "errorWarning", "dynamicTable", "organization", "organizationMenu", "organizationGeneral", "organizationAddress", "organizationContact", "organizationCompany", "organizationEmployee", "organizationRelatedParties", "organizationRelatedPartiesModal", "organizationVisibility", "organizationConsignee", "organizationConsigneeModal", "organizationConsigneeDocModal", "organizationConsignor", "organizationConsignorModal", "organizationConsignorDocModal", "organizationWarehouse", "organizationGenRelatedPartiesModal", "organizationGenRelatedParties", "organizationReference",  "organizationAccessRights", "ExpressionFormatter", "ExpressionGroupFormatter", "NotificationFormatter", "NotificationTemplateFormatter", "TaskConfigFormatter", "PartyMapping", "MDM", "SRVOrganization"]);
+                        return $ocLazyLoad.load(["chromeTab", "confirmation", "compareDate", "dynamicListModal", "dynamicList", "dynamicLookup", "dynamicControl", "dynamicGrid", "drogAndDrop", "JsonModal", "errorWarning", "dynamicTable", "organization", "organizationMenu", "organizationGeneral", "organizationAddress", "organizationContact", "organizationCompany", "organizationEmployee", "organizationRelatedParties", "organizationRelatedPartiesModal", "organizationVisibility", "organizationConsignee", "organizationConsigneeModal", "organizationConsigneeDocModal", "organizationConsignor", "organizationConsignorModal", "organizationConsignorDocModal", "organizationWarehouse", "organizationGenRelatedPartiesModal", "organizationGenRelatedParties", "organizationReference", "organizationAccessRights", "ExpressionFormatter", "ExpressionGroupFormatter", "NotificationFormatter", "NotificationTemplateFormatter", "TaskConfigFormatter", "PartyMapping", "MDM", "SRVOrganization"]);
                     }]
                 }
-            });
+            })
+            .state('EA.singleRecordView.gatepassInward', {
+                url: '/gatepassinward/:workorderid',
+                templateUrl: 'app/eaxis/single-record-view/gatepass-inward/gatepass-inward.html',
+                controller: "SRVGatepassInwardController as SRVGatepassInwardCtrl",
+                ncyBreadcrumb: {
+                    label: 'SRV - Gatepass Inward'
+                },
+                resolve: {
+                    CheckAccess: ["$q", "pageAccessService", function ($q, pageAccessService) {
+                        var deferred = $q.defer();
+                        if (pageAccessService.CheckAuthToken()) {
+                            deferred.resolve();
+                        }
+                        return deferred.promise;
+                    }],
+                    LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
+
+                        return $ocLazyLoad.load(["confirmation", "errorWarning", "compareDate", "dynamicListModal", "dynamicList", "dynamicLookup", "dynamicControl", "dynamicGrid", "EAwarehouse", "SRVGatepassInward", "inward", "outward", "inwardAddress", "inwardGeneral", "inwardMenu", "inwardAsnLines", "inwardLines", "inwardProductSummary", "inwardDocument", "inwardGatepass", "WmsReference", "WmsContainer", "WmsServices", "LocationDashboardModal", "location"]);
+                    }]
+                }
+            })
+
+            .state('EA.singleRecordView.gatepassOutward', {
+                url: '/gatepassoutward/:workorderid',
+                templateUrl: 'app/eaxis/single-record-view/gatepass-outward/gatepass-outward.html',
+                controller: "SRVGatepassOutwardController as SRVGatepassOutwardCtrl",
+                ncyBreadcrumb: {
+                    label: 'SRV - Gatepass Outward'
+                },
+                resolve: {
+                    CheckAccess: ["$q", "pageAccessService", function ($q, pageAccessService) {
+                        var deferred = $q.defer();
+                        if (pageAccessService.CheckAuthToken()) {
+                            deferred.resolve();
+                        }
+                        return deferred.promise;
+                    }],
+                    LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
+
+                        return $ocLazyLoad.load(["confirmation", "errorWarning", "compareDate", "dynamicListModal", "dynamicList", "dynamicLookup", "dynamicControl", "dynamicGrid", "EAwarehouse", "SRVGatepassOutward", "outward", "inward", "outwardGeneral", "outwardMenu", "outwardPick", "outwardLine", "WmsReference", "WmsContainer", "WmsServices", "pick", "outwardDocument", "outwardDispatch"]);
+                    }]
+                }
+            })
+
     }
 })();

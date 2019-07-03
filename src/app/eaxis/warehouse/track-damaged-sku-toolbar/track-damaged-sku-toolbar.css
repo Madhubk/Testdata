@@ -3,3 +3,6 @@
     height: 220px;
     margin: 120px auto;
 }
+.create-inward-modal .modal-dialog {
+    width: 90% !important;
+}

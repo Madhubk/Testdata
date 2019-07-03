@@ -206,6 +206,8 @@
             if(myData==false){
                 OutwardLineCtrl.ePage.Masters.Config.GeneralValidation(OutwardLineCtrl.currentOutward);
             }
+
+            OutwardLineCtrl.ePage.Entities.Header.GlobalVariables.CopyofCurrentObject.UIWmsWorkOrderLine = angular.copy(OutwardLineCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine)
         }
 
         function GetDropdownList() {
@@ -313,7 +315,7 @@
                         var myData = false;
                         angular.forEach(response.data.Response,function(value,key){
                             
-                            value.PK='';
+                            value.PK=null;
                             if(!value.Packs){
                                 value.Packs = 1;
                                 value.Units = 1;
@@ -325,19 +327,19 @@
                                 value.ProductCondition = "GDC"
                             }
                             if(value.IsPartAttrib1ReleaseCaptured || !value.UsePartAttrib1){
-                                value.PartAttrib1 = '';
+                                value.PartAttrib1 = null;
                             }
                             if(value.IsPartAttrib2ReleaseCaptured || !value.UsePartAttrib2){
-                                value.PartAttrib2 = '';
+                                value.PartAttrib2 = null;
                             }
                             if(value.IsPartAttrib3ReleaseCaptured || !value.UsePartAttrib3){
-                                value.PartAttrib3 = '';
+                                value.PartAttrib3 = null;
                             }
                             if(!value.UsePackingDate){
-                                value.PackingDate = '';
+                                value.PackingDate = null;
                             }
                             if(!value.UseExpiryDate){
-                                value.ExpiryDate = '';
+                                value.ExpiryDate = null;
                             }
                             
                             OutwardLineCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine.push(value);
@@ -364,11 +366,11 @@
             OutwardLineCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine[index].Commodity = item.MCC_NKCommodityCode+' - '+item.MCC_NKCommodityDesc;
 
             //To remove Attributes when copy row
-            OutwardLineCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine[index].PartAttrib1='';
-            OutwardLineCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine[index].PartAttrib2='';
-            OutwardLineCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine[index].PartAttrib3='';
-            OutwardLineCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine[index].PackingDate='';
-            OutwardLineCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine[index].ExpiryDate='';
+            OutwardLineCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine[index].PartAttrib1=null;
+            OutwardLineCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine[index].PartAttrib2=null;
+            OutwardLineCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine[index].PartAttrib3=null;
+            OutwardLineCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine[index].PackingDate=null;
+            OutwardLineCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine[index].ExpiryDate=null;
             OutwardLineCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine[index].Units = OutwardLineCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine[index].Packs;
             
             OnChangeValues(item.ProductCode, 'E3504', true, index);
@@ -461,28 +463,28 @@
         function AddNewRow() {
             OutwardLineCtrl.ePage.Entities.Header.GlobalVariables.Loading = true;
             var obj = {
-                "PK": "",
-                "ProductCode": "",
-                "ProductDescription": "",
-                "PRO_FK": "",
-                "Commodity": "",
-                "MCC_NKCommodityCode": "",
-                "MCC_NKCommodityDesc": "",
+                "PK": null,
+                "ProductCode": null,
+                "ProductDescription": null,
+                "PRO_FK": null,
+                "Commodity": null,
+                "MCC_NKCommodityCode": null,
+                "MCC_NKCommodityDesc": null,
                 "ProductCondition":"GDC",
-                "Packs": "",
-                "PAC_PackType": "",
-                "Units": "",
-                "StockKeepingUnit": "",
-                "PartAttrib1": "",
-                "PartAttrib2": "",
-                "PartAttrib3": "",
-                "QtyMet": "",
-                "ReservedUnit": "",
-                "ShortQty": "",
-                "LineComment": "",
-                "PackingDate": "",
-                "ExpiryDate": "",
-                "AdditionalRef1Code":"",
+                "Packs": null,
+                "PAC_PackType": null,
+                "Units": null,
+                "StockKeepingUnit": null,
+                "PartAttrib1": null,
+                "PartAttrib2": null,
+                "PartAttrib3": null,
+                "QtyMet": null,
+                "ReservedUnit": null,
+                "ShortQty": null,
+                "LineComment": null,
+                "PackingDate": null,
+                "ExpiryDate": null,
+                "AdditionalRef1Code":null,
                 "UseExpiryDate": false,
                 "UsePackingDate": false,
                 "UsePartAttrib1": false,
@@ -521,7 +523,7 @@
                 if(OutwardLineCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine[i].SingleSelect){
                     var item = angular.copy(OutwardLineCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderLine[i]);
                     var obj = {
-                        "PK": "",
+                        "PK": null,
                         "ProductCode":item.ProductCode,
                         "ProductDescription": item.ProductDescription,
                         "PRO_FK": item.PRO_FK,

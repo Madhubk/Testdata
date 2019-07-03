@@ -159,9 +159,9 @@
         function AddNewRow() {
             AreaDetailsCtrl.ePage.Entities.Header.GlobalVariables.Loading = true;
             var obj = {
-                "PK": "",
-                "Name": "",
-                "AreaType": "",
+                "PK": null,
+                "Name": null,
+                "AreaType": null,
                 "IsDeleted": false,
             };
             AreaDetailsCtrl.ePage.Entities.Header.Data.WmsArea.push(obj);
@@ -179,9 +179,9 @@
             for (var i = AreaDetailsCtrl.ePage.Entities.Header.Data.WmsArea.length - 1; i >= 0; i--) {
                 if (AreaDetailsCtrl.ePage.Entities.Header.Data.WmsArea[i].SingleSelect) {
                     var obj = angular.copy(AreaDetailsCtrl.ePage.Entities.Header.Data.WmsArea[i]);
-                    obj.PK = '';
-                    obj.CreatedDateTime = '';
-                    obj.ModifiedDateTime = '';
+                    obj.PK = null;
+                    obj.CreatedDateTime = null;
+                    obj.ModifiedDateTime = null;
                     obj.SingleSelect = false;
                     obj.IsCopied = true;
                     AreaDetailsCtrl.ePage.Entities.Header.Data.WmsArea.splice(i + 1, 0, obj);

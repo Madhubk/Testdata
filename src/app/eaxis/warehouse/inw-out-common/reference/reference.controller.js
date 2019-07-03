@@ -126,20 +126,9 @@
         }
 
         function GetReferencelist() {
-            var _filter = {
-                "WOD_FK": ReferenceCtrl.ePage.Entities.Header.Data.PK,
-            };
-            var _input = {
-                "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": ReferenceCtrl.ePage.Entities.Header.API.References.FilterID
-            };
+            ReferenceCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderReference = $filter('orderBy')(ReferenceCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderReference, 'CreatedDateTime');
 
-            apiService.post("eAxisAPI", ReferenceCtrl.ePage.Entities.Header.API.References.Url, _input).then(function (response) {
-                if (response.data.Response) {
-                    ReferenceCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderReference = response.data.Response;
-                    ReferenceCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderReference = $filter('orderBy')(ReferenceCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderReference, 'CreatedDateTime');
-                }
-            });
+            ReferenceCtrl.ePage.Entities.Header.GlobalVariables.CopyofCurrentObject.UIWmsWorkOrderReference = angular.copy(ReferenceCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderReference)
         }
 
         //#endregion
@@ -193,9 +182,9 @@
         function AddNewRow() {
             ReferenceCtrl.ePage.Entities.Header.GlobalVariables.Loading = true;
             var obj = {
-                "PK": "",
-                "RefType": "",
-                "Reference": "",
+                "PK": null,
+                "RefType": null,
+                "Reference": null,
                 "IsDeleted": false,
             };
             ReferenceCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderReference.push(obj);
@@ -213,9 +202,9 @@
             for(var i = ReferenceCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderReference.length -1; i >= 0; i--){
                 if(ReferenceCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderReference[i].SingleSelect){
                     var obj = angular.copy(ReferenceCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderReference[i]);
-                    obj.PK = '';
-                    obj.CreatedDateTime = '';
-                    obj.ModifiedDateTime = '';
+                    obj.PK = null;
+                    obj.CreatedDateTime = null;
+                    obj.ModifiedDateTime = null;
                     obj.SingleSelect=false;
                     obj.IsCopied = true;
                     ReferenceCtrl.ePage.Entities.Header.Data.UIWmsWorkOrderReference.splice(i + 1, 0, obj);

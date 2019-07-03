@@ -165,13 +165,13 @@
 
             //#region JobAccounting
 
-            InwardGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.map(function(value,key){
-                if(value.EntityRefKey == InwardGeneralCtrl.ePage.Entities.Header.Data.PK){
+            InwardGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.map(function (value, key) {
+                if (value.EntityRefKey == InwardGeneralCtrl.ePage.Entities.Header.Data.PK) {
                     value.LocalOrg_Code = item.Code;
                     value.LocalOrg_FK = item.PK
                 }
             })
-           
+
             //#endregion
         }
 
@@ -197,15 +197,15 @@
 
             //#region JobAccounting
 
-            InwardGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.map(function(value,key){
-                if(value.EntityRefKey == InwardGeneralCtrl.ePage.Entities.Header.Data.PK){
+            InwardGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.map(function (value, key) {
+                if (value.EntityRefKey == InwardGeneralCtrl.ePage.Entities.Header.Data.PK) {
                     value.AgentOrg_Code = item.Code;
                     value.Agent_Org_FK = item.PK
                 }
             })
-           
+
             //#endregion
-            
+
             GetOrgAddress();
         }
 
@@ -213,11 +213,10 @@
         function SelectedLookupWarehouse(item) {
             InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.Warehouse = item.WarehouseCode + "-" + item.WarehouseName;
             OnChangeValues(InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.Warehouse, 'E3002');
-            
-            //#region JobAccounting
 
-            InwardGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.map(function(value,key){
-                if(value.EntityRefKey == InwardGeneralCtrl.ePage.Entities.Header.Data.PK){
+            //#region JobAccounting
+            InwardGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.map(function (value, key) {
+                if (value.EntityRefKey == InwardGeneralCtrl.ePage.Entities.Header.Data.PK) {
                     value.BranchCode = item.BRN_Code;
                     value.BranchName = item.BRN_BranchName;
                     value.GB = item.BRN_FK;
@@ -226,8 +225,10 @@
                     value.GC = item.CMP_FK;
                 }
             })
-
             //#endregion
+
+            // for gatepass menu configuration based on warehouse
+            InwardGeneralCtrl.ePage.Entities.Header.GlobalVariables.CallGatepassMenuConfiguration = true;
         }
 
         function SelectedLookupServiceLevel(item) {
@@ -303,7 +304,7 @@
         }
 
         function GetOrgAddress() {
-            if(InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.ORG_Supplier_FK){
+            if (InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.ORG_Supplier_FK) {
                 var _filter = {
                     "ORG_FK": InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.ORG_Supplier_FK
                 };
@@ -360,24 +361,24 @@
             if (InwardGeneralCtrl.currentInward.isNew) {
                 InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.ExternalReference = '';
 
-                var NewJobHeaderObject = 
+                var NewJobHeaderObject =
                 {
-                    "AgentOrg_Code":"",
-                    "Agent_Org_FK":"",
-                    "GB":"",
-                    "BranchCode":"",
-                    "BranchName":"",
-                    "GC":"",
-                    "CompanyCode":"",
-                    "CompanyName":"",
-                    "GE":"",
-                    "DeptCode":"",
-                    "EntitySource":"WMS",
-                    "JobNo":InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.WorkOrderID,
+                    "AgentOrg_Code": "",
+                    "Agent_Org_FK": "",
+                    "GB": "",
+                    "BranchCode": "",
+                    "BranchName": "",
+                    "GC": "",
+                    "CompanyCode": "",
+                    "CompanyName": "",
+                    "GE": "",
+                    "DeptCode": "",
+                    "EntitySource": "WMS",
+                    "JobNo": InwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsInwardHeader.WorkOrderID,
                     "EntityRefKey": InwardGeneralCtrl.ePage.Entities.Header.Data.PK,
-                    "HeaderType":"JOB",
-                    "LocalOrg_Code":"",
-                    "LocalOrg_FK":"",
+                    "HeaderType": "JOB",
+                    "LocalOrg_Code": "",
+                    "LocalOrg_FK": "",
                 }
                 InwardGeneralCtrl.ePage.Entities.Header.Data.UIJobHeader.push(NewJobHeaderObject);
                 //Getting Department Value

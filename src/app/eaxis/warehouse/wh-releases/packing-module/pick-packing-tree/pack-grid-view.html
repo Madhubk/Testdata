@@ -1,0 +1,253 @@
+<ng-form name="AddressModalForm" class="clearfix"></ng-form>
+<!-- <div style="height: 250px;"> -->
+<div class="modal-header">
+    <h5 class="modal-title pull-left"><strong>Package Details</strong></h5>
+    <button class="btn btn-warning btn-xs pull-right ml-5"
+        data-ng-click="PickPackingCtrl.ePage.Masters.CloseEditActivityModal()">Cancel</button>
+</div>
+<div class="modal-body">
+    <div class="clearfix col-lg-12 mt-10">
+        <!-- Package Reference No -->
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 mt-5 p-0">
+            <div class="form-group">
+                <label class="control-label text-single-line">Package Reference No</label>
+                <div>
+                    <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
+                        placeholder="Package Reference No"
+                        data-ng-model="PickPackingCtrl.ePage.Masters.Config.PackageListDetails[PickPackingCtrl.currentPick.label].PackageListDetails.UIPackageHeader.PackageRefNo"
+                        disabled>
+                </div>
+            </div>
+        </div>
+        <!-- Outward No -->
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 mt-5">
+            <div class="form-group">
+                <label class="control-label text-single-line">Outward No</label>
+                <div>
+                    <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
+                        placeholder="Outward No"
+                        data-ng-model="PickPackingCtrl.ePage.Masters.Config.PackageListDetails[PickPackingCtrl.currentPick.label].PackageListDetails.UIPackageHeader.WorkorderId"
+                        disabled>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 mt-5">
+            <div class="form-group">
+                <label class="control-label text-single-line">Search:</label>
+                <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
+                    placeholder="Search" ng-model="searchText">
+            </div>
+        </div>
+    </div>
+    <div class="clearfix col-lg-12 mt-10">
+        <div class="dmstable_scroll" id='PickPackingCtrl.ePage.Masters.your_div'
+            style="height:200px; padding-top: 2px; overflow: auto;">
+            <div class="table" id="results">
+                <div class='theader'>
+                    <div class='table_header'>Package ID</div>
+                    <div class='table_header'>Sequence No</div>
+                    <div class='table_header'>Pack Type</div>
+                    <div class='table_header'>Package Qty</div>
+                    <div class='table_header'>Length</div>
+                    <div class='table_header'>Width</div>
+                    <div class='table_header'>Height</div>
+                    <div class='table_header'>Dimension UQ</div>
+                    <div class='table_header'>Weight</div>
+                    <div class='table_header'>Weight UQ</div>
+                    <div class='table_header'>Volume</div>
+                    <div class='table_header'>Volume UQ</div>
+                    <div class='table_header'>Marks And Numbers</div>
+                    <div class='table_header'>Transport Reference</div>
+                    <div class='table_header'>Goods Description</div>
+                    <div class='table_header'>HS Code</div>
+                    <div class='table_header'>Commodity Code</div>
+                    <div class='table_header'>Commodity Description</div>
+                </div>
+
+                <div class='table_row'
+                    ng-repeat="x in PickPackingCtrl.ePage.Masters.Config.PackageListDetails[PickPackingCtrl.currentPick.label].PackageListDetails.lstUIPackage | filter:searchText | orderBy:'Sequence' track by $index"
+                    ng-click="" ng-class="" style="font-size: 11px;">
+                    <div class='table_small'>
+                        <div class='table_cell'>Package ID</div>
+                        <div class='table_cell'>
+                            {{x.PackageId || PickPackingCtrl.ePage.Masters.emptyText}}
+                        </div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Sequence No</div>
+                        <div class='table_cell'>
+                            {{x.Sequence || PickPackingCtrl.ePage.Masters.emptyText}}</div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Pack Type</div>
+                        <div class='table_cell'>
+                            {{x.NKPackType || PickPackingCtrl.ePage.Masters.emptyText}}
+                        </div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Package Qty</div>
+                        <div class='table_cell'>{{x.PackageQty || PickPackingCtrl.ePage.Masters.emptyText}}</div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Length</div>
+                        <div class='table_cell'>{{x.Length || PickPackingCtrl.ePage.Masters.emptyText}}</div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Width</div>
+                        <div class='table_cell'>{{x.Width || PickPackingCtrl.ePage.Masters.emptyText}}</div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Height</div>
+                        <div class='table_cell'>{{x.Height || PickPackingCtrl.ePage.Masters.emptyText}}
+                        </div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Dimension UQ</div>
+                        <div class='table_cell'>{{x.DimensionUQ || PickPackingCtrl.ePage.Masters.emptyText}}</div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Weight</div>
+                        <div class='table_cell'>{{x.Weight || PickPackingCtrl.ePage.Masters.emptyText}}</div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Weight UQ</div>
+                        <div class='table_cell'>{{x.WeightUQ || PickPackingCtrl.ePage.Masters.emptyText}}</div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Volume</div>
+                        <div class='table_cell'>{{x.Volume || PickPackingCtrl.ePage.Masters.emptyText}}</div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Volume UQ</div>
+                        <div class='table_cell'>
+                            {{x.VolumeUQ || PickPackingCtrl.ePage.Masters.emptyText}}</div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Marks And Numbers</div>
+                        <div class='table_cell'>
+                            {{x.MarksAndNumbers || PickPackingCtrl.ePage.Masters.emptyText}}</div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Transport Reference</div>
+                        <div class='table_cell'>
+                            {{x.TransportRef || PickPackingCtrl.ePage.Masters.emptyText}}</div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Goods Description</div>
+                        <div class='table_cell'>
+                            {{x.GoodsDescription || PickPackingCtrl.ePage.Masters.emptyText}}</div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>HS Code</div>
+                        <div class='table_cell'>
+                            {{x.HSCode || PickPackingCtrl.ePage.Masters.emptyText}}</div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Commodity Code</div>
+                        <div class='table_cell'>
+                            {{x.RH_NKCommodityCode || PickPackingCtrl.ePage.Masters.emptyText}}</div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Commodity Description</div>
+                        <div class='table_cell'>
+                            {{x.CommodityDesc || PickPackingCtrl.ePage.Masters.emptyText}}</div>
+                    </div>
+                </div>
+            </div>
+            <!-- List Empty Response -->
+            <div
+                data-ng-if="PickPackingCtrl.ePage.Masters.Config.PackageListDetails[PickPackingCtrl.currentPick.label].PackageListDetails.lstUIPackage.length==0">
+                <div class="text-no-record" style="padding:50px;margin-left: 165px;">No Record found...
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix col-lg-12 mt-15">
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 mt-5">
+            <span class="text-single-line custom_label" style="padding:10px;">Package Item Details</span>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 pull-right">
+            <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
+                placeholder="Search" ng-model="searchitemText">
+        </div>
+    </div>
+    <div class="clearfix col-lg-12 mt-10">
+        <div class="dmstable_scroll" id='PickPackingCtrl.ePage.Masters.item_div'
+            style="height:150px; padding-top: 2px; overflow: auto;">
+            <div class="table" id="itemresults">
+                <div class='theader'>
+                    <div class='table_header'>Product Code</div>
+                    <div class='table_header'>Product Desc</div>
+                    <div class='table_header'>Package ID</div>
+                    <div class='table_header'>Packed Qty</div>
+                    <div class='table_header'>UDF1</div>
+                    <div class='table_header'>UDF2</div>
+                    <div class='table_header'>UDF3</div>
+                    <div class='table_header'>Packing Date</div>
+                    <div class='table_header'>Expiry Date</div>
+                </div>
+
+                <div class='table_row'
+                    ng-repeat="x in PickPackingCtrl.ePage.Masters.Config.PackageListDetails[PickPackingCtrl.currentPick.label].PackageListDetails.lstUIPackageItems  | filter:searchitemText track by $index"
+                    ng-click="" ng-class="" style="font-size: 11px;">
+                    <div class='table_small'>
+                        <div class='table_cell'>Product Code</div>
+                        <div class='table_cell'>
+                            {{x.ProductCode || PickPackingCtrl.ePage.Masters.emptyText}}
+                        </div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Product Desc</div>
+                        <div class='table_cell'>
+                            {{x.ProductDesc || PickPackingCtrl.ePage.Masters.emptyText}}</div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Package ID</div>
+                        <div class='table_cell'>
+                            {{x.PackageId || PickPackingCtrl.ePage.Masters.emptyText}}
+                        </div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Packed Qty</div>
+                        <div class='table_cell'>{{x.PackedQty || PickPackingCtrl.ePage.Masters.emptyText}}</div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>UDF1</div>
+                        <div class='table_cell'>{{x.UDF1 || PickPackingCtrl.ePage.Masters.emptyText}}</div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>UDF2</div>
+                        <div class='table_cell'>{{x.UDF2 || PickPackingCtrl.ePage.Masters.emptyText}}</div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>UDF3</div>
+                        <div class='table_cell'>{{x.UDF3 || PickPackingCtrl.ePage.Masters.emptyText}}
+                        </div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Packing Date</div>
+                        <div class='table_cell'>{{x.PackingDate || PickPackingCtrl.ePage.Masters.emptyText}}
+                        </div>
+                    </div>
+                    <div class='table_small'>
+                        <div class='table_cell'>Expiry Date</div>
+                        <div class='table_cell'>{{x.ExpiryDate || PickPackingCtrl.ePage.Masters.emptyText}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- List Empty Response -->
+            <div
+                data-ng-if="PickPackingCtrl.ePage.Masters.Config.PackageListDetails[PickPackingCtrl.currentPick.label].PackageListDetails.lstUIPackageItems.length==0">
+                <div class="text-no-record" style="padding:50px;margin-left: 165px;">No Record found...
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer" style="bottom: 20px;">
+    <button class="btn btn-warning btn-xs pull-right ml-5"
+        data-ng-click="PickPackingCtrl.ePage.Masters.CloseEditActivityModal()">Cancel</button>
+</div>
+<!-- </div> -->
+</ng-form>

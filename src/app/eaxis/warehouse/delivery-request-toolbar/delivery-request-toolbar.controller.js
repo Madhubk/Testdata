@@ -46,7 +46,7 @@
             DeliveryRequestToolbarCtrl.ePage.Masters.CancelledDeliveryCount = 0;
             DeliveryRequestToolbarCtrl.ePage.Masters.OtherCount = 0
             angular.forEach(DeliveryRequestToolbarCtrl.ePage.Masters.Input, function (value, key) {
-                if (value.DeliveryLineStatus == "Cancelled") {
+                if (value.DeliveryLineStatus == "Delivered As Faulty") {
                     DeliveryRequestToolbarCtrl.ePage.Masters.CancelledDeliveryCount = DeliveryRequestToolbarCtrl.ePage.Masters.CancelledDeliveryCount + 1;
                     DeliveryRequestToolbarCtrl.ePage.Masters.CancelledDeliveryList.push(value);
                 } else {
@@ -55,7 +55,7 @@
             });
             if (DeliveryRequestToolbarCtrl.ePage.Masters.OtherCount > 0) {
                 DeliveryRequestToolbarCtrl.ePage.Masters.IsCreateDeliveryBtn = true;
-                toastr.warning("Re-Delivery Request can be created when the Delivery Status is in Cancelled.");
+                toastr.warning("Re-Delivery Request can be created when the Delivery Status is in 'Delivered As Faulty'.");
             }
         }
         // #region - Creating Re-Delivery
@@ -64,7 +64,7 @@
             DeliveryRequestToolbarCtrl.ePage.Masters.CancelledDeliveryCount = 0;
             DeliveryRequestToolbarCtrl.ePage.Masters.OtherCount = 0
             angular.forEach(DeliveryRequestToolbarCtrl.ePage.Masters.Input, function (value, key) {
-                if (value.DeliveryLineStatus == "Cancelled") {
+                if (value.DeliveryLineStatus == "Delivered As Faulty") {
                     DeliveryRequestToolbarCtrl.ePage.Masters.CancelledDeliveryCount = DeliveryRequestToolbarCtrl.ePage.Masters.CancelledDeliveryCount + 1;
                     DeliveryRequestToolbarCtrl.ePage.Masters.CancelledDeliveryList.push(value);
                 } else {
@@ -73,7 +73,7 @@
             });
             if (DeliveryRequestToolbarCtrl.ePage.Masters.OtherCount > 0) {
                 DeliveryRequestToolbarCtrl.ePage.Masters.IsCreateDeliveryBtn = true;
-                toastr.warning("Re-Delivery Request can be created when the Delivery Status is in Cancelled.");
+                toastr.warning("Re-Delivery Request can be created when the Delivery Status is in 'Delivered As Faulty'.");
             } else {
                 if (DeliveryRequestToolbarCtrl.ePage.Masters.CancelledDeliveryCount > 0) {
                     var TempWarehouse = DeliveryRequestToolbarCtrl.ePage.Masters.CancelledDeliveryList[0].WarehouseCode;
@@ -224,9 +224,9 @@
                             "PAC_PackType": value.PackType,
                             "Units": value.Quantity,
                             "StockKeepingUnit": value.UQ,
-                            "PartAttrib1": value.UDF1,
-                            "PartAttrib2": value.UDF2,
-                            "PartAttrib3": value.UDF3,
+                            "PartAttrib1": "",
+                            "PartAttrib2": "",
+                            "PartAttrib3": "",
                             "PackingDate": value.PackingDate,
                             "ExpiryDate": value.ExpiryDate,
                             "UseExpiryDate": value.UseExpiryDate,
@@ -316,30 +316,30 @@
                         if (response.data.Response) {
                             DeliveryRequestToolbarCtrl.ePage.Masters.IsCreateDeliveryBtn = true;
                             DeliveryRequestToolbarCtrl.ePage.Masters.CreateDeliveryBtnText = "Create Re-Delivery";
-                            var DeliveryRequestFkCount = 0;
-                            angular.forEach(DeliveryRequestToolbarCtrl.ePage.Masters.CancelledDeliveryList, function (value, key) {
-                                if (value.DeliveryRequest_FK) {
-                                    DeliveryRequestFkCount = DeliveryRequestFkCount + 1;
-                                    if (DeliveryRequestFkCount == DeliveryRequestToolbarCtrl.ePage.Masters.CancelledDeliveryList.length) {
-                                        ChangeDeliveryLineStatus();
-                                    }
-                                } else {
-                                    DeliveryRequestFkCount = DeliveryRequestFkCount + 1;
-                                    apiService.get("eAxisAPI", warehouseConfig.Entities.WmsDeliveryReport.API.GetById.Url + value.PK).then(function (response) {
-                                        if (response.data.Response) {
-                                            // if (response.data.Response.length > 0) {
-                                            response.data.Response.IsModified = true;
-                                            response.data.Response.DeliveryLineStatus = "Re-Delivery Created";
-                                            apiService.post("eAxisAPI", warehouseConfig.Entities.WmsDeliveryReport.API.Update.Url, response.data.Response).then(function (response) {
-                                                if (response.data.Response) {
-                                                    console.log("Delivery Report Updated for " + response.data.Response.DeliveryLineRefNo);
-                                                }
-                                            });
-                                            // }
-                                        }
-                                    });
-                                }
-                            });
+                            // var DeliveryRequestFkCount = 0;
+                            // angular.forEach(DeliveryRequestToolbarCtrl.ePage.Masters.CancelledDeliveryList, function (value, key) {
+                            //     if (value.DeliveryRequest_FK) {
+                            //         DeliveryRequestFkCount = DeliveryRequestFkCount + 1;
+                            //         if (DeliveryRequestFkCount == DeliveryRequestToolbarCtrl.ePage.Masters.CancelledDeliveryList.length) {
+                            //             ChangeDeliveryLineStatus();
+                            //         }
+                            //     } else {
+                            //         DeliveryRequestFkCount = DeliveryRequestFkCount + 1;
+                            //         apiService.get("eAxisAPI", warehouseConfig.Entities.WmsDeliveryReport.API.GetById.Url + value.PK).then(function (response) {
+                            //             if (response.data.Response) {
+                            //                 // if (response.data.Response.length > 0) {
+                            //                 response.data.Response.IsModified = true;
+                            //                 response.data.Response.DeliveryLineStatus = "Re-Delivery Created";
+                            //                 apiService.post("eAxisAPI", warehouseConfig.Entities.WmsDeliveryReport.API.Update.Url, response.data.Response).then(function (response) {
+                            //                     if (response.data.Response) {
+                            //                         console.log("Delivery Report Updated for " + response.data.Response.DeliveryLineRefNo);
+                            //                     }
+                            //                 });
+                            //                 // }
+                            //             }
+                            //         });
+                            //     }
+                            // });
                             $timeout(function () {
                                 toastr.success("Delivery Created Successfully");
                                 helperService.refreshGrid();

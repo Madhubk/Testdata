@@ -1,0 +1,140 @@
+<ng-form name="AddressModalForm" class="clearfix"></ng-form>
+<!-- <div style="height: 250px;"> -->
+<div class="modal-header">
+    <h5 class="modal-title pull-left"><strong>Package Details</strong></h5>
+    <button class="btn btn-warning btn-xs pull-right ml-5"
+        data-ng-click="PickPackingCtrl.ePage.Masters.CloseEditActivityModal()">Cancel</button>
+    <button class="btn btn-primary btn-xs pull-right ml-5"
+        data-ng-click="PickPackingCtrl.ePage.Masters.SavePackType(PickPackingCtrl.ePage.Masters.PackList)" data-ng-disabled="PickPackingCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">Save
+        Package</button>
+</div>
+<div class="modal-body">
+    <div class="clearfix pt-10">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                <div class="form-group">
+                    <label for="Pack Type">Pack Type</label>
+                    <div class="">
+                        <select chosen name="Pack Type" class="form-control"
+                            data-ng-model="PickPackingCtrl.ePage.Masters.PackList.NKPackType"
+                            ng-options="x.Key as x.Key + ' - '  + x.Value for x in PickPackingCtrl.ePage.Masters.DropDownMasterList.INW_LINE_UQ.ListSource"
+                            search-contains="true">
+                            <option value="">--Select--</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="Package Quantity">Package Quantity</label>
+                    <input type="text" class="form-control input-sm" numbers-only-dot maxlength="5" placeholder="Package Quantity"
+                        data-ng-model="PickPackingCtrl.ePage.Masters.PackList.PackageQty" />
+                </div>
+                <div class="form-group">
+                    <label for="Package ID">Package ID</label>
+                    <input type="text" class="form-control input-sm" placeholder="Package ID"
+                        data-ng-model="PickPackingCtrl.ePage.Masters.PackList.PackageId" />
+                </div>
+                <div class="form-group">
+                    <label for="Length">Length</label>
+                    <input type="text" class="form-control input-sm" numbers-only-dot maxlength="5" placeholder="Length"
+                        data-ng-model="PickPackingCtrl.ePage.Masters.PackList.Length" />
+                </div>
+                <div class="form-group">
+                    <label for="Width">Width</label>
+                    <input type="text" class="form-control input-sm" numbers-only-dot maxlength="5" placeholder="Width"
+                        data-ng-model="PickPackingCtrl.ePage.Masters.PackList.Width" />
+                </div>
+                <div class="form-group">
+                    <label for="Height">Height</label>
+                    <input type="text" class="form-control input-sm" numbers-only-dot maxlength="5" placeholder="Height"
+                        data-ng-model="PickPackingCtrl.ePage.Masters.PackList.Height" />
+                </div>
+                <div class="form-group">
+                    <label for="Dimension UQ">Dimension UQ</label>
+                    <div class="">
+                        <select chosen name="Dimension UQ" class="form-control"
+                            ng-model="PickPackingCtrl.ePage.Masters.PackList.DimensionUQ"
+                            ng-options="x.Key as x.Key + ' - '  + x.Value for x in PickPackingCtrl.ePage.Masters.DropDownMasterList.DimentionsUnit.ListSource"
+                            search-contains="true">
+                            <option value="">--Select--</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="Weight">Weight</label>
+                    <input type="text" class="form-control input-sm" numbers-only-dot maxlength="5" placeholder="Weight"
+                        data-ng-model="PickPackingCtrl.ePage.Masters.PackList.Weight" />
+                </div>
+                <div class="form-group">
+                    <label for="Weight UQ">Weight UQ</label>
+                    <div class="">
+                        <select chosen name="Weight UQ" class="form-control"
+                            ng-model="PickPackingCtrl.ePage.Masters.PackList.WeightUQ"
+                            ng-options="x.Key as x.Key + ' - '  + x.Value for x in PickPackingCtrl.ePage.Masters.DropDownMasterList.GrossWeightUnit.ListSource"
+                            search-contains="true">
+                            <option value="">--Select--</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+
+                <div class="form-group">
+                    <label for="Volume">Volume</label>
+                    <input type="text" class="form-control input-sm" numbers-only-dot maxlength="5" placeholder="Volume"
+                        data-ng-model="PickPackingCtrl.ePage.Masters.PackList.Volume" />
+                </div>
+                <div class="form-group">
+                    <label for="Volume UQ">Volume UQ</label>
+                    <div class="">
+                        <select chosen name="Volume UQ" class="form-control"
+                            ng-model="PickPackingCtrl.ePage.Masters.PackList.VolumeUQ"
+                            ng-options="x.Key as x.Key + ' - '  + x.Value for x in PickPackingCtrl.ePage.Masters.DropDownMasterList.VOLUMEUNIT.ListSource"
+                            search-contains="true">
+                            <option value="">--Select--</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="Marks And Numbers">Marks And Numbers</label>
+                    <input type="text" class="form-control input-sm" placeholder="Marks And Numbers"
+                        data-ng-model="PickPackingCtrl.ePage.Masters.PackList.MarksAndNumbers" />
+                </div>
+                <div class="form-group">
+                    <label for="Transport Reference">Transport Reference</label>
+                    <input type="text" class="form-control input-sm" placeholder="Transport Reference"
+                        data-ng-model="PickPackingCtrl.ePage.Masters.PackList.TransportRef" />
+                </div>
+                <div class="form-group">
+                    <label for="Goods Description">Goods Description</label>
+                    <input type="text" class="form-control input-sm" placeholder="Goods Description"
+                        data-ng-model="PickPackingCtrl.ePage.Masters.PackList.GoodsDescription" />
+                </div>
+                <div class="form-group">
+                    <label for="HSCode">HS Code</label>
+                    <input type="text" class="form-control input-sm" placeholder="HS Code"
+                        data-ng-model="PickPackingCtrl.ePage.Masters.PackList.HSCode" />
+                </div>
+                <div class="form-group">
+                    <label for="Commodity Code">Commodity Code</label>
+                    <input type="text" class="form-control input-sm" placeholder="Commodity Code"
+                        data-ng-model="PickPackingCtrl.ePage.Masters.PackList.RH_NKCommodityCode" />
+                </div>
+                <div class="form-group">
+                    <label for="Commodity Description">Commodity Description</label>
+                    <input type="text" class="form-control input-sm" placeholder="Commodity Description"
+                        data-ng-model="PickPackingCtrl.ePage.Masters.PackList.CommodityDesc" />
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="modal-footer" style="bottom: 20px;">
+    <button class="btn btn-warning btn-xs pull-right ml-5"
+        data-ng-click="PickPackingCtrl.ePage.Masters.CloseEditActivityModal()">Cancel</button>
+    <button class="btn btn-primary btn-xs pull-right ml-5"
+        data-ng-click="PickPackingCtrl.ePage.Masters.SavePackType(PickPackingCtrl.ePage.Masters.PackList)" data-ng-disabled="PickPackingCtrl.ePage.Entities.Header.GlobalVariables.NonEditable">Save
+        Package</button>
+</div>
+<!-- </div> -->
+</ng-form>

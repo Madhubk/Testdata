@@ -207,6 +207,14 @@
                     response.data.Response.Response.UIWmsPickup.ORG_Client_FK = PendingPickupToolbarCtrl.ePage.Masters.PendingPickupList[0].WDR_Client_Fk;
                     response.data.Response.Response.UIWmsPickup.ORG_Consignee_FK = PendingPickupToolbarCtrl.ePage.Masters.PendingPickupList[0].WDR_Consignee_FK;
                     response.data.Response.Response.UIWmsPickup.WAR_FK = PendingPickupToolbarCtrl.ePage.Masters.PendingPickupList[0].WDR_Warehouse_Fk;
+
+                    response.data.Response.Response.UIWmsPickup.ClientCode = PendingPickupToolbarCtrl.ePage.Masters.PendingPickupList[0].WDR_ClientCode;
+                    response.data.Response.Response.UIWmsPickup.ClientName = PendingPickupToolbarCtrl.ePage.Masters.PendingPickupList[0].WDR_ClientName;
+                    response.data.Response.Response.UIWmsPickup.ConsigneeCode = PendingPickupToolbarCtrl.ePage.Masters.PendingPickupList[0].WDR_ConsigneeCode;
+                    response.data.Response.Response.UIWmsPickup.ConsigneeName = PendingPickupToolbarCtrl.ePage.Masters.PendingPickupList[0].WDR_ConsigneeName;
+                    response.data.Response.Response.UIWmsPickup.WarehouseCode = PendingPickupToolbarCtrl.ePage.Masters.PendingPickupList[0].WDR_WarehouseCode;
+                    response.data.Response.Response.UIWmsPickup.WarehouseName = PendingPickupToolbarCtrl.ePage.Masters.PendingPickupList[0].WDR_WarehouseName;
+
                     response.data.Response.Response.UIWmsWorkorderReport.AdditionalRef1Code = PendingPickupToolbarCtrl.ePage.Masters.PendingPickupList[0].WDR_DropPoint;
                     response.data.Response.Response.UIWmsWorkorderReport.ResponseType = PendingPickupToolbarCtrl.ePage.Masters.PendingPickupList[0].WDR_ResponseType;
                     response.data.Response.Response.UIJobAddress = angular.copy(PendingPickupToolbarCtrl.ePage.Masters.DeliveryData.UIJobAddress);

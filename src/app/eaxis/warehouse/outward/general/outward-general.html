@@ -283,7 +283,7 @@
                         search-contains="true">
                         <option value="">--Select--</option>
                     </select>
-                    <descbind key="OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WorkOrderSubType" get="OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WorkOrderSubTypeDesc" set = "OutwardGeneralCtrl.ePage.Masters.DropDownMasterList.WorkOrderSubType.ListSource"></descbind>                      
+                    <descbind key="OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WorkOrderSubType" get="OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.WorkOrderSubTypeDesc" set = "OutwardGeneralCtrl.ePage.Masters.DropDownMasterList.WorkOrder_SubType.ListSource"></descbind>                      
                 </div>
             </div>
         </div>
@@ -335,13 +335,13 @@
                             <div ng-show="OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.CreatedDateTime" style="cursor:default; font-size:11px"
                                 class="ng-binding ng-hide">
                                 <span>
-                                    <b>Entered</b>
+                                    <b>ENTERED</b>
                                 </span>
                                 <br> {{OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.CreatedDateTime | 
                                     date:'MMM d, y h:mm:ss a'}}
                             </div>
                             <div ng-show="!OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.CreatedDateTime" class="">
-                                <span style="font-size: 12px;">Entered</span>
+                                <span style="font-size: 12px;">ENTERED</span>
                             </div>
                         </span>
                         <span class="chevron"></span>
@@ -353,14 +353,14 @@
                             <div ng-show="OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PutOrPickStartDateTime" style="cursor:default; font-size:11px"
                                 class="ng-binding ng-hide">
                                 <span>
-                                    <b>Attached To Pick</b>
+                                    <b>ATTACHED TO PICK</b>
                                 </span>
                                 <br>
                                 <span>{{OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PutOrPickStartDateTime |
                                      date:'MMM d, y h:mm:ss a'}}</span>
                             </div>
                             <div ng-show="!OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PutOrPickStartDateTime" class="">
-                                <span style="font-size: 12px;">Attached To Pick</span>
+                                <span style="font-size: 12px;">ATTACHED TO PICK</span>
                             </div>
                         </span>
                         <span class="chevron"></span>
@@ -372,14 +372,14 @@
                             <div ng-show="OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PutOrPickSlipDateTime" style="cursor:default; font-size:11px"
                                 class="ng-binding ng-hide">
                                 <span>
-                                    <b>Stock Allocated</b>
+                                    <b>STOCK ALLOCATED</b>
                                 </span>
                                 <br>
                                 <span>{{OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PutOrPickSlipDateTime |
                                      date:'MMM d, y h:mm:ss a'}}</span>
                             </div>
                             <div ng-show="!OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PutOrPickSlipDateTime" class="">
-                                <span style="font-size: 12px;">Stock Allocated</span>
+                                <span style="font-size: 12px;">STOCK ALLOCATED</span>
                             </div>
                         </span>
                         <span class="chevron"></span>
@@ -392,14 +392,14 @@
                             <div ng-show="OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PutOrPickCompDateTime" style="cursor:default; font-size:11px"
                                 class="ng-binding ng-hide">
                                 <span>
-                                    <b>Pick Completed</b>
+                                    <b>PICK COMPLETED</b>
                                 </span>
                                 <br>
                                 <span>{{OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PutOrPickCompDateTime |
                                      date:'MMM d, y h:mm:ss a'}}</span>
                             </div>
                             <div ng-show="!OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.PutOrPickCompDateTime" class="">
-                                <span style="font-size: 12px;">Pick Completed</span>
+                                <span style="font-size: 12px;">PICK COMPLETED</span>
                             </div>
                         </span>
                         <span class="chevron"></span>
@@ -412,14 +412,14 @@
                             <div ng-show="OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.FinalisedDate" style="cursor:default; font-size:11px"
                                 class="ng-binding ng-hide">
                                 <span>
-                                    <b>Finalized</b>
+                                    <b>FINALIZED</b>
                                 </span>
                                 <br>
                                 <span>{{OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.FinalisedDate | 
                                     date:'MMM d, y h:mm:ss a'}}</span>
                             </div>
                             <div ng-show="!OutwardGeneralCtrl.ePage.Entities.Header.Data.UIWmsOutwardHeader.FinalisedDate" class="">
-                                <span style="font-size: 12px;">Finalized</span>
+                                <span style="font-size: 12px;">FINALIZED</span>
                             </div>
                         </span>
                         <span class="chevron"></span>

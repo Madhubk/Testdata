@@ -73,7 +73,7 @@
                         return deferred.promise;
                     }],
                     LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
-                        return $ocLazyLoad.load(["chromeTab", "errorWarning", "confirmation", "compareDate", "dynamicListModal", "dynamicList", "dynamicLookup", "dynamicControl", "dynamicGrid", "drogAndDrop", "oneLevelMapping", "Summernote", "CustomFileUpload", "standardMenu", "Comment", "CommentModal", "Document", "DocumentModal", "Email", "EmailModal", "Exception", "ExceptionModal", "Event", "EventModal", "Task", "TaskModal", "inward", "outward", "inwardAddress", "inwardGeneral", "inwardMenu", "inwardAsnLines", "inwardLines", "inwardProductSummary", "inwardDocument", "WmsReference", "WmsContainer", "WmsServices", "LocationDashboardModal", "location", "inwardMyTask", "ActivityTab", "MyTaskDirective", "WorkItemListView", "ProcessInstanceWorkItemDetails", "TaskAssignStartComplete", "MyTaskConfig", "MyTaskDynamicDirective", "ActivityTemplateInward", "ActivityFormTemplate1", "ReceiveMaterialDirective", "CollectMaterialDirective", "GetSignatureDirective", "Finance", "FinanceJobList", "FinanceJobGeneral", "FinanceJobMenu"]);
+                        return $ocLazyLoad.load(["chromeTab", "errorWarning", "confirmation", "compareDate", "dynamicListModal", "dynamicList", "dynamicLookup", "dynamicControl", "dynamicGrid", "drogAndDrop", "oneLevelMapping", "Summernote", "CustomFileUpload", "standardMenu", "Comment", "CommentModal", "Document", "DocumentModal", "Email", "EmailModal", "Exception", "ExceptionModal", "Event", "EventModal", "Task", "TaskModal", "inward", "outward", "inwardAddress", "inwardGeneral", "inwardMenu", "inwardAsnLines", "inwardLines", "inwardProductSummary", "inwardDocument", "inwardGatepass", "WmsReference", "WmsContainer", "WmsServices", "LocationDashboardModal", "location", "inwardMyTask", "ActivityTab", "MyTaskDirective", "WorkItemListView", "ProcessInstanceWorkItemDetails", "TaskAssignStartComplete", "MyTaskConfig", "MyTaskDynamicDirective", "ActivityTemplateInward", "ActivityFormTemplate1", "ReceiveMaterialDirective", "CollectMaterialDirective", "GetSignatureDirective", "Finance", "FinanceJobList", "FinanceJobGeneral", "FinanceJobMenu"]);
                     }]
                 }
             })
@@ -193,7 +193,7 @@
                         return deferred.promise;
                     }],
                     LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
-                        return $ocLazyLoad.load(["chromeTab", "errorWarning", "confirmation", "compareDate", "dynamicListModal", "dynamicList", "dynamicLookup", "dynamicControl", "dynamicGrid", "drogAndDrop", "oneLevelMapping", "Summernote", "CustomFileUpload", "standardMenu", "Comment", "CommentModal", "Document", "DocumentModal", "Email", "EmailModal", "Exception", "ExceptionModal", "whReleases", "whReleasesMenu", "whReleasesGeneral", "pick", "pickAllocation", "whReleasesDocuments", "whReleasesPickSlip"]);
+                        return $ocLazyLoad.load(["chromeTab", "errorWarning", "confirmation", "compareDate", "dynamicListModal", "dynamicList", "dynamicLookup", "dynamicControl", "dynamicGrid", "drogAndDrop", "oneLevelMapping", "Summernote", "CustomFileUpload", "standardMenu", "Comment", "CommentModal", "Document", "DocumentModal", "Email", "EmailModal", "Exception", "ExceptionModal", "whReleases", "whReleasesMenu", "whReleasesGeneral", "pick", "pickAllocation", "whReleasesDocuments", "whReleasesPickSlip","packingGeneral","packingHeader","pickPacking"]);
                     }]
                 }
             })
@@ -322,26 +322,7 @@
                 }
             })
 
-            .state('EA.WMS.warehouseReport', {
-                url: '/warehouse-report',
-                templateUrl: 'app/eaxis/warehouse/general-module/warehouse-report/warehouse-report.html',
-                controller: "WarehouseReportController as WarehouseReportCtrl",
-                ncyBreadcrumb: {
-                    label: 'Report'
-                },
-                resolve: {
-                    CheckAccess: ["$q", "pageAccessService", function ($q, pageAccessService) {
-                        var deferred = $q.defer();
-                        if (pageAccessService.CheckAuthToken()) {
-                            deferred.resolve();
-                        }
-                        return deferred.promise;
-                    }],
-                    LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
-                        return $ocLazyLoad.load(["chromeTab", "confirmation", "compareDate", "dynamicListModal", "dynamicList", "dynamicLookup", "dynamicControl", "dynamicGrid", "drogAndDrop", "oneLevelMapping", "Summernote", "warehouseReports", "reportGrid"]);
-                    }]
-                }
-            })
+
 
             .state('EA.WMS.generateBarcode', {
                 url: '/generate-barcode',
@@ -688,27 +669,7 @@
                     }]
                 }
             })
-            .state('EA.WMS.sparePartsReport', {
-                url: '/spare-parts-report',
-                templateUrl: 'app/eaxis/warehouse/general-module/spms-report/spms-report.html',
-                controller: "SPMSReportController as SPMSReportCtrl",
-                ncyBreadcrumb: {
-                    label: 'Report'
-                },
-                resolve: {
-                    CheckAccess: ["$q", "pageAccessService", function ($q, pageAccessService) {
-                        var deferred = $q.defer();
-                        if (pageAccessService.CheckAuthToken()) {
-                            deferred.resolve();
-                        }
-                        return deferred.promise;
-                    }],
-                    LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
-                        return $ocLazyLoad.load(["chromeTab", "confirmation", "compareDate", "dynamicListModal", "dynamicList", "dynamicLookup", "dynamicControl", "dynamicGrid", "drogAndDrop", "oneLevelMapping", "Summernote", "spmsReports","spmsReportGrid"]);
-                    }]
-                }
-            })
-
+            
             .state('EA.WMS.PendingPickup', {
                 url: '/pending-pickup',
                 templateUrl: 'app/eaxis/warehouse/pending-pickup/pending-pickup.html',

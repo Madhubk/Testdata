@@ -420,16 +420,28 @@
                     'app/mdm/warehouse/warehouses/warehouse-details/organizationaddress/address.css'
                 ]
             }, {
-                name: 'WarehouseAreaDetails',
+                name: 'warehouseAreaDetails',
                 files: [
                     'app/mdm/warehouse/warehouses/area-details/area-details.controller.js',
                     'app/mdm/warehouse/warehouses/area-details/area-details.directive.js'
                 ]
             }, {
-                name: 'ClientConfigDetails',
+                name: 'warehouseConfigDetails',
+                files: [
+                    'app/mdm/warehouse/warehouses/warehouse-configuration/warehouse-configuration.controller.js',
+                    'app/mdm/warehouse/warehouses/warehouse-configuration/warehouse-configuration.directive.js'
+                ]
+            }, {
+                name: 'clientConfigDetails',
                 files: [
                     'app/mdm/warehouse/warehouses/client-configuration/client-configuration.controller.js',
                     'app/mdm/warehouse/warehouses/client-configuration/client-configuration.directive.js'
+                ]
+            }, {
+                name: 'dockConfigDetails',
+                files: [
+                    'app/mdm/warehouse/warehouses/dock-configuration/dock-configuration.controller.js',
+                    'app/mdm/warehouse/warehouses/dock-configuration/dock-configuration.directive.js'
                 ]
             },
             // area

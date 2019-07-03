@@ -128,6 +128,16 @@
             files: [
                 'app/eaxis/single-record-view/organization/organization.controller.js'
             ]
+        }, {
+            name: 'SRVGatepassInward',
+            files: [
+                'app/eaxis/single-record-view/gatepass-inward/gatepass-inward.controller.js'
+            ]
+        }, {
+            name: 'SRVGatepassOutward',
+            files: [
+                'app/eaxis/single-record-view/gatepass-outward/gatepass-outward.controller.js'
+            ]
         }]
     };
 

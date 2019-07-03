@@ -1,0 +1,116 @@
+<div>
+    <button class="btn btn-primary btn-sm pull-right margin-right-10 mt-0"
+        data-ng-click="PickPackingCtrl.ePage.Masters.AddPackage()"
+        ng-disabled="PickPackingCtrl.ePage.Entities.Header.GlobalVariables.NonEditable" style="top:-45px;">Add
+        Package</button>
+</div>
+
+<div ng-if="PickPackingCtrl.ePage.Masters.EnablePrintLabel == true">
+    <button class="btn btn-primary btn-sm pull-right margin-right-10 mt-0"
+        data-ng-click="PickPackingCtrl.ePage.Masters.PrintLabel()" style="top:-45px;">
+        Print Label</button>
+</div>
+
+<div ng-if="PickPackingCtrl.ePage.Masters.EnablePrintLabel == true">
+    <button class="btn btn-primary btn-sm pull-right margin-right-10 mt-0"
+        data-ng-click="PickPackingCtrl.ePage.Masters.PackGridModel()" style="top:-45px;">
+        Grid View</button>
+</div>
+
+<!-- <div ng-if="PickPackingCtrl.ePage.Masters.SaveBtnEnable">
+    <button class="btn btn-primary btn-sm pull-right margin-right-10 mt-5"
+        data-ng-click="PickPackingCtrl.ePage.Masters.SavePackage()">Save
+        Package</button>
+</div> -->
+
+<!-- loading -->
+<div data-ng-if="PickPackingCtrl.ePage.Masters.tree.length==0">
+    <div class="text-no-record" style="top:120px;padding: 130px;margin-left: 165px;">No Packages found...</div>
+</div>
+<div class="grid-loading-norecord-container" data-ng-if="PickPackingCtrl.ePage.Masters.Loading == true">
+    <div class="dyn-grid-no-record" style="top:120px;">Loading...</div>
+</div>
+
+<!--Root and Child package -->
+<div ng-show="PickPackingCtrl.ePage.Masters.EnablePackTree">
+    <script type="text/ng-template" id="tree_item_renderer.html">
+        <div class="col-lg-12 col-sm-12 col-xs-12 pr-0">
+                <!--Widget-->
+                <div class="widget">
+                    <!--Widget Header-->
+                    <div class="widget-header" ng-click="PickPackingCtrl.ePage.Masters.SelectthePack(data,$index)" ng-class="data.IsSelectedValue?'row_active':''">
+                       
+                        <!-- for model Edit -->
+                        <i ng-click="PickPackingCtrl.ePage.Masters.EditPackType(data)" ng-hide='data.IsClosed == true || PickPackingCtrl.ePage.Entities.Header.GlobalVariables.NonEditable' ng-disabled="data.IsClosed == true" class="fa fa-pencil-square-o"></i>
+                        
+                        <!-- for toogle to show item value -->
+                        <span class="widget-caption" data-toggle="collapse" data-target="#demo{{data.IsSelectedValue}}" style="padding-right: 5px;">
+                            <i class="fa fa-angle-down" aria-hidden="true"></i></span>
+
+                        <span class="widget-caption"><b>{{data.PackageId}}-{{data.Sequence}}</b></span>
+                        <span class="widget-caption" style="font-size: 12px; margin-left: 20px;">{{data.PackageQty}}-{{data.NKPackType}}</span> 
+                        <span class="widget-caption" style="font-size: 10px; margin-left: 10px;"> ({{data.Length}}*{{data.Width}}*{{data.Height}}) {{data.DimensionUQ}}</span>
+
+                        <!-- for add and delete -->
+                        <div class="widget-buttons">
+                            <i ng-hide='data.IsClosed == true || PickPackingCtrl.ePage.Entities.Header.GlobalVariables.NonEditable' ng-disabled="data.IsClosed == true" ng-click="PickPackingCtrl.ePage.Masters.ClosePackage(data)" class="fa fa-window-close-o" style="margin-right:2px;"></i>
+                            <i ng-hide='data.IsClosed == true || PickPackingCtrl.ePage.Entities.Header.GlobalVariables.NonEditable' ng-disabled="data.IsClosed == true" ng-click="PickPackingCtrl.ePage.Masters.Add(data)" class="fa fa-plus blueadd"></i>
+                            <i ng-hide='data.IsClosed == true || PickPackingCtrl.ePage.Entities.Header.GlobalVariables.NonEditable' ng-disabled="data.IsClosed == true" ng-click="PickPackingCtrl.ePage.Masters.Delete(data)" class="fa fa-times darkorange"></i>
+                        </div>
+                    </div>  
+                     <!--Widget Body-->
+                        <div id="demo{{data.IsSelectedValue}}" class="collapse">
+                            <div class="widget-body p-0">
+                                <!-- item table -->
+                                <div class="fixedheader m-0" selected-row=''>
+                                    <table style="height: 200px;">
+                                        <thead>
+                                            <tr id="tableHeader">
+                                                <th ng-style="{ 'width':  '30px' }" title=""></th>
+                                                <th ng-style="{ 'width':  '100px' }" title="Product Code">Product Code</th>
+                                                <th ng-style="{ 'width':  '100px' }" title="Product Description">Product Description</th>
+                                                <th ng-style="{ 'width':  '100px' }" title="Packed Quantity">Packed Quantity</th>  
+                                                <th ng-style="{ 'width':  '100px' }" title="PartAttrib1">PartAttrib1</th>
+                                                <th ng-style="{ 'width':  '100px' }" title="PartAttrib2">PartAttrib2</th>
+                                                <th ng-style="{ 'width':  '100px' }" title="PartAttrib3">PartAttrib3</th>
+                                                <th ng-style="{ 'width':  '100px' }" title="Packing Date">Packing Date</th>
+                                                <th ng-style="{ 'width':  '100px' }" title="Expiry Date">Expiry Date</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr id="tableBody"
+                                                ng-repeat="x in PickPackingCtrl.ePage.Masters.Config.PackageListDetails[PickPackingCtrl.currentPick.label].PackageListDetails.lstUIPackageItems track by $index"
+                                                ng-click="" ng-if='data.PK == x.PackageFK'>
+                                                <td ng-style="{ 'width':  '30px' }" class="overflow-text"><i ng-click="PickPackingCtrl.ePage.Masters.ItemDelete(x)" ng-hide='data.IsClosed == true || PickPackingCtrl.ePage.Entities.Header.GlobalVariables.NonEditable' ng-disabled="data.IsClosed == true " class="fa fa-trash-o black" style="margin-left:5px;font-size: 13px;"></i></td>
+                                                <td ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.ProductCode}}</td>
+                                                <td ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.ProductDesc}}
+                                                </td>
+                                                <td ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.PackedQty}}</td>
+                                                <td ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.UDF1}}</td>
+                                                <td ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.UDF2}}</td>
+                                                <td ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.UDF3}}</td>
+                                                <td ng-style="{ 'width':  '100px' }" class="overflow-text">
+                                                    {{x.PackingDate  | dateFormat}}</td>
+                                                <td ng-style="{ 'width':  '100px' }" class="overflow-text">{{x.ExpiryDate  | dateFormat}}
+                                                </td>
+                                                
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 norecordfound"
+                                    ng-if="PickPackingCtrl.ePage.Masters.Config.PackageListDetails[PickPackingCtrl.currentPick.label].PackageListDetails.lstUIPackageItems.length==0">No Record
+                                    Found...</div>
+                            </div>
+                        </div>    
+                  <!--Child Node Repeat  -->
+                   <div ng-repeat="data in data.nodes track by $index" ng-include="'tree_item_renderer.html'"></div>
+                </div>
+            </div>
+    </script>
+    <!-- parent node Repeat -->
+    <div class="col-lg-12 col-sm-12 col-xs-12 tree-style pr-0" style="top:-30px;">
+        <div ng-repeat="data in PickPackingCtrl.ePage.Masters.tree track by $index"
+            ng-include="'tree_item_renderer.html'"></div>
+    </div>
+</div>

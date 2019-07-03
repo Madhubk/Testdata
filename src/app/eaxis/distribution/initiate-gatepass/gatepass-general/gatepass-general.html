@@ -36,6 +36,10 @@
                         <span ng-if="!GatepassGeneralCtrl.ePage.Masters.Organization">
                             <span data-ng-init="GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.ORG_Code=''"></span>
                             <span data-ng-init="GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.ORG_FullName=''"></span>
+                            <span data-ng-init="GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.ClientCode=''"></span>
+                            <span data-ng-init="GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.ClientName=''"></span>
+                            <span data-ng-init="GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.Client_FK=''"></span>
+                            <span data-ng-init="GatepassGeneralCtrl.ePage.Masters.Client=''"></span>
                         </span>
                         <span ng-if='!GatepassGeneralCtrl.ePage.Masters.Organization && !GatepassGeneralCtrl.currentGatepass.isNew'>
                             <div ng-init="GatepassGeneralCtrl.ePage.Masters.OnFieldValueChange('E3531')"></div>
@@ -86,14 +90,15 @@
                         <!-- Dynamic look up Search in textbox -->
                         <div dynamic-lookup placeholder="Client" my-ng-model="GatepassGeneralCtrl.ePage.Masters.Client"
                             auto-complete-on-select="GatepassGeneralCtrl.ePage.Masters.SelectedLookupClient($item)" obj="GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader"
-                            control-key="'Client_3015'" page-name="'OrganizationList'" control-id="'Client'">
+                            control-key="'OrganizationCode_3367'" page-name="'ClientParameterByWarehouse'" control-id="'OrganizationCode'">
                         </div>
                         <!-- Look Up page opens when button clicks -->
                         <span class="input-group-btn">
                             <button dynamic-list-modal obj="GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader"
-                                page-name="'OrganizationList'" control-key="'Client_3015'" control-id="'Client'"
-                                selected-data="GatepassGeneralCtrl.ePage.Masters.SelectedLookupClient($item.data)" mode="2"
-                                grid-refresh-fun-name="" grid-refresh-fun="" class="btn btn-default shiny" type="button">
+                                page-name="'ClientParameterByWarehouse'" control-key="'OrganizationCode_3367'"
+                                control-id="'OrganizationCode'" selected-data="GatepassGeneralCtrl.ePage.Masters.SelectedLookupClient($item.data.entity)"
+                                mode="2" grid-refresh-fun-name="" grid-refresh-fun="" class="btn btn-default shiny"
+                                type="button">
                                 <i class="fa fa-ellipsis-h"></i>
                             </button>
                         </span>
@@ -219,7 +224,7 @@
                 <label class="control-label">Vehicle Type</label>
                 <div class="">
                     <select chosen class="form-control" ng-model="GatepassGeneralCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.VehicleType"
-                        ng-options="x.Code as x.Code +' - '+ x.Description for x in GatepassGeneralCtrl.ePage.Masters.VehicleType | filter: {IsVehicle:true}"
+                        ng-options="x.Description as x.Code +' - '+ x.Description for x in GatepassGeneralCtrl.ePage.Masters.VehicleType | filter: {IsVehicle:true}"
                         search-contains="true" ng-change="GatepassGeneralCtrl.ePage.Masters.OnFieldValueChange('E3534')">
                         <option value="">--Select--</option>
                     </select>

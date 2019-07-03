@@ -1,0 +1,104 @@
+<!-- loading -->
+<div class="grid-loading-norecord-container" data-ng-if="PackingHeaderCtrl.ePage.Masters.Loading == true">
+    <div class="dyn-grid-no-record">Loading...</div>
+</div>
+
+<!-- General -->
+<div class="clearfix">
+    <!-- Package Reference No -->
+    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 mt-5">
+        <div class="form-group">
+            <label class="control-label text-single-line">Package Reference No</label>
+            <div ng-if="!PackingHeaderCtrl.ePage.Masters.NewHeader">
+                <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
+                    placeholder="Package Reference No"
+                    data-ng-model="PackingHeaderCtrl.ePage.Masters.Config.PackageListDetails[PackingHeaderCtrl.currentPick.label].PackageListDetails.UIPackageHeader.PackageRefNo"
+                    disabled>
+            </div>
+            <div ng-if="PackingHeaderCtrl.ePage.Masters.NewHeader">
+                <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
+                    placeholder="Package Reference No" data-ng-model="PackingHeaderCtrl.ePage.Masters.PackageRefNo"
+                    disabled>
+            </div>
+        </div>
+    </div>
+    <!-- Outward No -->
+    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 mt-5">
+        <div class="form-group">
+            <label class="control-label text-single-line">Outward No</label>
+            <div>
+                <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
+                    placeholder="Outward No"
+                    data-ng-model="PackingHeaderCtrl.ePage.Masters.Config.PackageListDetails[PackingHeaderCtrl.currentPick.label].PackageListDetails.UIPackageHeader.WorkorderId"
+                    disabled>
+            </div>
+        </div>
+    </div>
+    <!--Released Date-->
+    <!-- <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 mt-5">
+        <div class="form-group">
+            <label class="control-label text-single-line">Released Date
+            </label>
+            <div class="input-group input-group-sm">
+                <input type="text" class="form-control"
+                    placeholder="{{PackingHeaderCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                    datetime-picker="{{PackingHeaderCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                    ng-model="PackingHeaderCtrl.ePage.Masters.Config.PackageListDetails[PackingHeaderCtrl.currentPick.label].PackageListDetails.UIPackageHeader.ReleasedDate"
+                    is-open="PackingHeaderCtrl.ePage.Masters.DatePicker.isOpen['isReleasedDate']"
+                    datepicker-options="PackingHeaderCtrl.ePage.Masters.DatePicker.Options"
+                    datepicker-append-to-body="false" close-on-selection="false" enable-date="true" enable-time="false"
+                    default-date="" default-time=""
+                    save-as="PackingHeaderCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                    popup-placement="bottom-right"
+                    data-ng-click="PackingHeaderCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isReleasedDate')"
+                    ng-change='PackingHeaderCtrl.ePage.Masters.ReleasedDate()' custom-date-time-format />
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-default"
+                        data-ng-click="PackingHeaderCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isReleasedDate')">
+                        <i class="fa fa-calendar"></i>
+                    </button>
+                </span>
+            </div>
+        </div>
+    </div> -->
+    <!--Finalized Date-->
+    <!-- <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 mt-5">
+        <div class="form-group">
+            <label class="control-label text-single-line">Finalized Date</label>
+            <div class="input-group input-group-sm">
+                <input type="text" class="form-control"
+                    placeholder="{{PackingHeaderCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                    datetime-picker="{{PackingHeaderCtrl.ePage.Masters.DatePicker.Options.dateFormat}}"
+                    ng-model="PackingHeaderCtrl.ePage.Masters.Config.PackageListDetails[PackingHeaderCtrl.currentPick.label].PackageListDetails.UIPackageHeader.FinalizedDate"
+                    disabled="disabled" is-open="PackingHeaderCtrl.ePage.Masters.DatePicker.isOpen['isFinalizedDate']"
+                    datepicker-options="PackingHeaderCtrl.ePage.Masters.DatePicker.Options"
+                    datepicker-append-to-body="false" close-on-selection="false" enable-date="true" enable-time="false"
+                    default-date="" default-time="" when-closed=""
+                    save-as="PackingHeaderCtrl.ePage.Masters.DatePicker.Options.saveFormat"
+                    popup-placement="bottom-right"
+                    data-ng-click="PackingHeaderCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isFinalizedDate')"
+                    custom-date-time-format />
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-default"
+                        data-ng-click="PackingHeaderCtrl.ePage.Masters.DatePicker.OpenDatePicker($event, 'isFinalizedDate')"
+                        disabled="disabled">
+                        <i class="fa fa-calendar"></i>
+                    </button>
+                </span>
+            </div>
+        </div>
+    </div> -->
+</div>
+
+<!-- Save -->
+<!-- <div>
+    <button class="btn btn-primary btn-sm pull-right margin-right-10 mt-5"
+        data-ng-click="PackingHeaderCtrl.ePage.Masters.SaveButton()"
+        data-ng-bind="PackingHeaderCtrl.ePage.Masters.SaveButtontxt"></button>
+</div> -->
+
+<!-- tree directive call after saving the header -->
+<div data-ng-if="PackingHeaderCtrl.ePage.Masters.Headersaved">
+    <pick-packing current-pick="PackingHeaderCtrl.currentPick"
+        current-header="PackingHeaderCtrl.ePage.Masters.Config.PackageListDetails[PackingHeaderCtrl.currentPick.label].PackageListDetails"></pick-packing>
+</div>

@@ -247,6 +247,7 @@
             if (callback) {
                 if (ActivityTemplatePickup2Ctrl.taskObj.WSI_StepName == "Create Pickup Challan") {
                     myTaskActivityConfig.Entities.Pickup[myTaskActivityConfig.Entities.Pickup.label].ePage.Entities.Header.Data.UIWmsPickup.WorkOrderStatus = "PIP";
+                    myTaskActivityConfig.Entities.Pickup[myTaskActivityConfig.Entities.Pickup.label].ePage.Entities.Header.Data.UIWmsPickup.WorkOrderStatusDesc = "Pickup In Progress";
                     myTaskActivityConfig.CallEntity = false;
                 }
             }

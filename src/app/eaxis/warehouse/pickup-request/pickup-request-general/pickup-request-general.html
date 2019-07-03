@@ -351,10 +351,17 @@
                     </error-warning-directive>
                 </span>
                 <label class="control-label text-single-line">CSR Receiver</label>
-                <div class="">
+                <!-- <div class="">
                     <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
                         placeholder="CSR Receiver" data-ng-model="PickupGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkorderReport.AdditionalRef2Code"
                         ng-change="PickupGeneralCtrl.ePage.Masters.OnChangeValues(PickupGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkorderReport.AdditionalRef2Code,'E3109')">
+                </div> -->
+                <div class="">
+                    <select chosen class="form-control" ng-model="PickupGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkorderReport.AdditionalRef2Code"
+                        ng-options="x.ContactName as x.ContactName for x in PickupGeneralCtrl.ePage.Masters.CsrReceiverList"
+                        search-contains="true" ng-change="PickupGeneralCtrl.ePage.Masters.OnChangeValues(PickupGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkorderReport.AdditionalRef2Code,'E3109')">
+                        <option value="">--Select--</option>
+                    </select>
                 </div>
             </div>
         </div>
@@ -402,11 +409,16 @@
                     </error-warning-directive>
                 </span>
                 <label class="control-label text-single-line">Acknowledged Person</label>
-                <div class="">
+                <!-- <div class="">
                     <input type="text" class="form-control input-sm ng-pristine ng-valid ng-not-empty ng-touched"
                         placeholder="Acknowledged Person" data-ng-model="PickupGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkorderReport.AcknowledgedPerson"
                         ng-change="PickupGeneralCtrl.ePage.Masters.OnChangeValues(PickupGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkorderReport.AcknowledgedPerson,'E3111')">
-                </div>
+                </div> -->
+                <select chosen class="form-control" ng-model="PickupGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkorderReport.AcknowledgedPerson"
+                    ng-options="x.ContactName as x.ContactName for x in PickupGeneralCtrl.ePage.Masters.CsrReceiverList"
+                    search-contains="true" ng-change="PickupGeneralCtrl.ePage.Masters.OnChangeValues(PickupGeneralCtrl.ePage.Entities.Header.Data.UIWmsWorkorderReport.AcknowledgedPerson,'E3111')">
+                    <option value="">--Select--</option>
+                </select>
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-2 col-lg-3 col-xl-3">

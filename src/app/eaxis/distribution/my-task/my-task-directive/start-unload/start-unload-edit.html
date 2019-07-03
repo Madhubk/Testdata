@@ -1,0 +1,247 @@
+<!-- Loading -->
+<div class="grid-loading-norecord-container" data-ng-show="StartUnloadCtrl.ePage.Meta.IsLoading" style="top:50px;">
+    <div class="dyn-grid-no-record">Loading...</div>
+</div>
+<div class="clearfix mb-10" data-ng-if="StartUnloadCtrl.ePage.Entities.Header.Data.TMSGatepassHeader">
+    <div class="clearfix col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-10">
+        <div class="rows border-box border-radius-2 pt-15 height-60">
+            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <div class="color-999 fs-11 task-label-text">Gatepass No</div>
+                    <div class="text-single-line">
+                        <span>{{StartUnloadCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.GatepassNo
+                            }}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <div class="color-999 fs-11 task-label-text">Facility</div>
+                    <span>{{StartUnloadCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.ORG_Code}}
+                        -
+                        {{StartUnloadCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.ORG_FullName}}</span>
+                </div>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <div class="color-999 fs-11 task-label-text">Client</div>
+                    <span>{{StartUnloadCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.ClientCode
+                        }}
+                        -
+                        {{StartUnloadCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.ClientName
+                        }}</span>
+                </div>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <div class="color-999 fs-11 task-label-text">Carrier</div>
+                    <span>{{StartUnloadCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.TransporterCode}}
+                        -
+                        {{StartUnloadCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.TransporterName}}</span>
+                </div>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <div class="color-999 fs-11 task-label-text">Purpose</div>
+                    <span>{{StartUnloadCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.Purpose
+                        }}</span>
+                </div>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <div class="color-999 fs-11 task-label-text">Vehicle No</div>
+                    <span>{{StartUnloadCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.VehicleNo
+                        }}</span>
+                </div>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <div class="color-999 fs-11 task-label-text">Vehicle Type</div>
+                    <span>{{StartUnloadCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.VehicleType
+                        }}</span>
+                </div>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <div class="color-999 fs-11 task-label-text">Driver Name</div>
+                    <span>{{StartUnloadCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.DriverName
+                        }}</span>
+                </div>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <div class="color-999 fs-11 task-label-text">Driver Contact No</div>
+                    <span>{{StartUnloadCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.DriverContactNo
+                        }}</span>
+                </div>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <div class="color-999 fs-11 task-label-text">Gatein Time</div>
+                    <span>{{StartUnloadCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.GateinTime |
+                        date:"dd-MMM-yyyy
+                        hh:mm a"}}</span>
+                </div>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <div class="color-999 fs-11 task-label-text">Dock No</div>
+                    <span>{{StartUnloadCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.DockNo
+                        }}</span>
+                </div>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <div class="color-999 fs-11 task-label-text">Dockin Time</div>
+                    <span>{{StartUnloadCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.DockinTime |
+                        date:"dd-MMM-yyyy
+                        hh:mm a"}}</span>
+                </div>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <div class="color-999 fs-11 task-label-text" data-ng-if="StartUnloadCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.Purpose=='INW'">Start
+                        Unload Time</div>
+                    <div class="color-999 fs-11 task-label-text" data-ng-if="StartUnloadCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.Purpose=='ORD'">Start
+                        Load Time</div>
+                    <span>{{StartUnloadCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.LoadOrUnloadStartTime |
+                        date:"dd-MMM-yyyy hh:mm a"}}</span>
+                </div>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <div class="color-999 fs-11 task-label-text" data-ng-if="StartUnloadCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.Purpose=='INW'">Complete
+                        Unload Time</div>
+                    <div class="color-999 fs-11 task-label-text" data-ng-if="StartUnloadCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.Purpose=='ORD'">Complete
+                        Load Time</div>
+                    <span>{{StartUnloadCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.LoadOrUnloadEndTime |
+                        date:"dd-MMM-yyyy hh:mm a"}}</span>
+                </div>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <div class="color-999 fs-11 task-label-text">Dockout Time</div>
+                    <span>{{StartUnloadCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.DockoutTime |
+                        date:"dd-MMM-yyyy hh:mm a"}}</span>
+                </div>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <div class="color-999 fs-11 task-label-text">Gateout Time</div>
+                    <span>{{StartUnloadCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.GateoutTime |
+                        date:"dd-MMM-yyyy hh:mm a"}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-10">
+        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8 p-0">
+            <span><button type="button" class="btn btn-sm btn-outline-primary" style="font-size:11px" title="Create Inward"
+                    data-ng-click="StartUnloadCtrl.ePage.Masters.CreateNewInward()" ng-disabled="StartUnloadCtrl.ePage.Masters.IsDisableButton"><span
+                        class="fa fa-plus-circle"></span>&nbsp;&nbsp;Create Inward</button></span>
+            <span>
+                <button ng-disabled="StartUnloadCtrl.ePage.Masters.IsDisableButton" dynamic-list-modal obj="StartUnloadCtrl.ePage.Entities.Header.Data.TMSGatepassHeader"
+                    default-filter="StartUnloadCtrl.ePage.Masters.DefaultFilter" base-filter="StartUnloadCtrl.ePage.Masters.DefaultFilter"
+                    selected-data="StartUnloadCtrl.ePage.Masters.AttachInward($item)" page-name="'WarehouseInward'"
+                    mode="3" grid-refresh-fun-name="" grid-refresh-fun="" class="btn btn-sm btn-outline-primary" type="button">
+                    <i class="fa fa-plus-circle"></i> Attach</button>
+            </span>
+            <span><button type="button" class="btn btn-sm btn-outline-primary" style="font-size:11px" title="Detach"
+                    data-ng-click="StartUnloadCtrl.ePage.Masters.Delete()" ng-disabled="StartUnloadCtrl.ePage.Masters.selectedRow==-1 || StartUnloadCtrl.ePage.Masters.IsDisableButton"><span
+                        class="fa fa-trash"></span>&nbsp;&nbsp;Detach</button></span>
+
+            <span><button type="button" class="btn btn-sm btn-outline-primary" style="font-size:11px" title="Receive Items"
+                    data-ng-click="StartUnloadCtrl.ePage.Masters.AddReceiveLines()" ng-disabled="StartUnloadCtrl.ePage.Masters.selectedRow==-1 || StartUnloadCtrl.ePage.Masters.IsDisableButton"><span
+                        class="fa fa-external-link-square"></span>&nbsp;&nbsp;Receive Items</button></span>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 norecordfound" style="top:400px;" ng-if="StartUnloadCtrl.ePage.Masters.InwardDetails.length==0">No
+        Record Found...</div>
+    <div class="mb-10 col-lg-12">
+        <div id="InwardLineDetailsTable{{StartUnloadCtrl.ePage.Masters.str}}" class="fixedheader mb-0" key-events
+            table-object='StartUnloadCtrl.ePage.Masters.InwardDetails' enable='StartUnloadCtrl.ePage.Masters.Enable'
+            selected-row='StartUnloadCtrl.ePage.Masters.selectedRow' unique-id='InwardLineDetailsTable{{StartUnloadCtrl.ePage.Masters.str}}'>
+            <table style="height: 200px">
+                <thead>
+                    <tr id="tableHeader">
+                        <th ng-style="{ 'width':  '40px' }" title="S.No">S.No</th>
+                        <th ng-style="{ 'width':  '150px' }" title="Inward No">Inward No</th>
+                        <th ng-style="{ 'width':  '150px' }" title="Status">Status</th>
+                        <th ng-style="{ 'width':  '150px' }" title="Warehouse Code">Warehouse Code</th>
+                        <th ng-style="{ 'width':  '200px' }" title="Warehouse Name">Warehouse Name</th>
+                        <th ng-style="{ 'width':  '150px' }" title="Client Code">Client Code</th>
+                        <th ng-style="{ 'width':  '200px' }" title="Client Name">Client Name</th>
+                        <th ng-style="{ 'width':  '150px' }" title="Workorder Type">Workorder Type</th>
+                        <th ng-style="{ 'width':  '150px' }" title="Inward Reference">Inward Reference</th>
+                        <th ng-style="{ 'width':  '150px' }" title="Customer Reference">Customer Reference</th>
+                    </tr>
+                </thead>
+                <tbody id="InwardLineDetailsCustTable{{StartUnloadCtrl.ePage.Masters.str}}">
+                    <tr id="tableBody" ng-repeat="x in StartUnloadCtrl.ePage.Masters.InwardDetails track by $index"
+                        ng-click="StartUnloadCtrl.ePage.Masters.setSelectedRow($index);" ng-class="{row_active: (StartUnloadCtrl.ePage.Masters.selectedRow==$index),copy_row_active :(x.IsCopied==true)}">
+                        <td ng-style="{ 'width':  '40px' }" class="overflow-text">{{$index +1}}</td>
+                        <td ng-style="{ 'width':  '150px' }" class="overflow-text"><a data-ng-click="StartUnloadCtrl.ePage.Masters.SingleRecordView(x)">
+                                {{x.WorkOrderID}}</a></td>
+                        <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.WorkOrderStatusDesc}}</td>
+                        <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.WarehouseCode}}</td>
+                        <td ng-style="{ 'width':  '200px' }" class="overflow-text">{{x.WarehouseName}}</td>
+                        <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.ClientCode}}</td>
+                        <td ng-style="{ 'width':  '200px' }" class="overflow-text">{{x.ClientName}}</td>
+                        <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.WorkOrderSubTypeDesc}}</td>
+                        <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.ExternalReference}}</td>
+                        <td ng-style="{ 'width':  '150px' }" class="overflow-text">{{x.CustomerReference}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<!-- Save & Complete Buttons -->
+<div class="clearfix">
+    <div class="clearfix my-task-standard-bar" data-ng-if="
+                StartUnloadCtrl.ePage.Masters.StandardMenuInput">
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 pt-5">
+            <a href="javascript: void(0)" document-modal input="StartUnloadCtrl.ePage.Masters.StandardMenuInput" class="my-task-icon fa fa-file-text-o mr-5"></a>
+            <span class="my-task-slash"></span>
+            <a href="javascript: void(0)" comment-modal input="StartUnloadCtrl.ePage.Masters.StandardMenuInput" class="my-task-icon fa fa-comment-o mr-5"></a>
+            <span class="my-task-slash"></span>
+            <a href="javascript: void(0)" email-modal input="StartUnloadCtrl.ePage.Masters.StandardMenuInput" class="my-task-icon fa fa-envelope-o mr-5"></a>
+        </div>
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+            <input type="submit" class="btn btn-success btn-save btn-sm pull-right ml-5" data-ng-click="StartUnloadCtrl.ePage.Masters.Save()"
+                data-ng-disabled="StartUnloadCtrl.ePage.Masters.IsDisableSaveBtn" value="{{StartUnloadCtrl.ePage.Masters.SaveBtnText}}">
+            <input type="button" class="btn btn-primary btn-sm pull-right ml-5" data-ng-click="StartUnloadCtrl.ePage.Masters.Complete()"
+                data-ng-disabled="StartUnloadCtrl.ePage.Masters.IsDisableCompleteBtn" value="{{StartUnloadCtrl.ePage.Masters.CompleteBtnText}}">
+        </div>
+    </div>
+</div>
+<div class="clearfix mt-5">
+</div>
+<div class="error-warning-container right" id="errorWarningContainer{{StartUnloadCtrl.taskObj.PSI_InstanceNo}}">
+    <div class="error-warning-header clearfix">
+        <span class="title pull-left">
+            Errors & Warnings
+        </span>
+        <span class="error-warning-toggle-icon pull-right" data-ng-click="StartUnloadCtrl.ePage.Masters.ShowErrorWarningModal(StartUnloadCtrl.taskObj.PSI_InstanceNo)">
+            <i class="fa fa-arrow-right"></i>
+        </span>
+    </div>
+    <div class="error-warning-body">
+        <div class="clearfix" data-ng-if="StartUnloadCtrl.ePage.Masters.ErrorWarningConfig.Modules.MyTask.Entity[StartUnloadCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.GatepassNo].GlobalErrorWarningList.length>0">
+            <div class="clearfix">
+                <div class="p-5 error-warnig-list clearfix" data-ng-repeat="x in StartUnloadCtrl.ePage.Masters.ErrorWarningConfig.Modules.MyTask.Entity[StartUnloadCtrl.ePage.Entities.Header.Data.TMSGatepassHeader.GatepassNo].GlobalErrorWarningList">
+                    <div class="clearfix">
+                        <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 p-0 text-center">
+                            <span class=" fa fa-warning" data-ng-style="{color: {'W':'#FFAD33', 'E':'#ED4337'}[x.MessageType]}"></span>
+                        </div>
+                        <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11 pr-0">
+                            <div class="message" data-ng-bind="x.Code + ' - ' + x.Message"></div>
+                            <div class="meta-object" data-ng-bind="x.MetaObject"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div ng-init="StartUnloadCtrl.ePage.Masters.IsTaskList=false"></div>

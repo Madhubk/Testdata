@@ -22,7 +22,7 @@
             PendingPickupCtrl.ePage.Masters.dataentryName = "PickupLine";
             PendingPickupCtrl.ePage.Masters.defaultFilter = {
                 // "CancelledDate": "NULL",
-                "WDR_DeliveryLineStatus": "Delivered"
+                "WDR_DeliveryLineStatusIn": "Delivered,Delivered As Faulty"
             }
         }
         Init();

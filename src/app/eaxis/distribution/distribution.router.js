@@ -53,7 +53,7 @@
                         return deferred.promise;
                     }],
                     LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
-                        return $ocLazyLoad.load(["chromeTab", "errorWarning", "confirmation", "compareDate", "dynamicListModal", "dynamicList", "dynamicLookup", "dynamicControl", "dynamicGrid", "drogAndDrop", "eAxisDistribution", "EAwarehouse", "initiateGatepass", "gatepassMenu", "gatepassGeneral", "manifestDetails", "inwardDetails", "outwardDetails", "createGatepass"]);
+                        return $ocLazyLoad.load(["chromeTab", "errorWarning", "confirmation", "compareDate", "dynamicListModal", "dynamicList", "dynamicLookup", "dynamicControl", "dynamicGrid", "drogAndDrop", "eAxisDistribution", "EAwarehouse", "initiateGatepass", "gatepassMenu", "gatepassGeneral", "manifestDetails", "inwardDetails", "outwardDetails", "createGatepass", "gatepassMyTask", "ActivityTab", "MyTaskDirective", "WorkItemListView", "ProcessInstanceWorkItemDetails", "TaskAssignStartComplete", "MyTaskConfig", "MyTaskDynamicDirective"]);
                     }]
                 }
             })
@@ -178,27 +178,6 @@
                     }],
                     LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
                         return $ocLazyLoad.load(["chromeTab", "errorWarning", "confirmation", "compareDate", "dynamicListModal", "dynamicList", "dynamicLookup", "dynamicControl", "dynamicGrid", "eAxisDistribution", "dmsManifestList", "GatepassList", "manifestTab", "dmsManifestMenu", "dmsManifestGeneral", "dmsManifestAddress", "dmsManifestOrders", "dmsManifestItem", "approveManifest", "confirmTransportBooking", "dockinVehicle", "loadItems", "dockoutVehicle", "issueExitGatepass", "completeManifest", "pickupDelivery", "createManifest", "startLoad", "deliveryRunsheet", "billablecost", "manifestAddressModel", "trackingTab", "trackingStatus"]);
-                    }]
-                }
-            })
-
-            .state('EA.DMS.TrasnportsReports', {
-                url: '/transports-report',
-                templateUrl: 'app/eaxis/distribution/transports-reports/reports.html',
-                controller: "TransportsReportController as ReportCtrl",
-                ncyBreadcrumb: {
-                    label: 'Transport Reports'
-                },
-                resolve: {
-                    CheckAccess: ["$q", "pageAccessService", function ($q, pageAccessService) {
-                        var deferred = $q.defer();
-                        if (pageAccessService.CheckAuthToken()) {
-                            deferred.resolve();
-                        }
-                        return deferred.promise;
-                    }],
-                    LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
-                        return $ocLazyLoad.load(["chromeTab", "errorWarning", "confirmation", "compareDate", "dynamicListModal", "dynamicList", "dynamicLookup", "dynamicControl", "dynamicGrid", 'transportsReport', 'ReportGrid']);
                     }]
                 }
             })

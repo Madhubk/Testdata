@@ -91,7 +91,7 @@
             }
         }
 
-        function Save($item) {
+        function Save($item) {            
             WarehouseMenuCtrl.ePage.Masters.SaveButtonText = "Please Wait...";
             WarehouseMenuCtrl.ePage.Masters.DisableSave = true;
             WarehouseMenuCtrl.ePage.Entities.Header.GlobalVariables.Loading = true;
@@ -185,7 +185,7 @@
 
         function PostSaveObjectUpdate(newValue, oldValue, exceptObjects) {
             for (var i in newValue) {
-                if (typeof newValue[i] == 'object') {
+                if (typeof newValue[i] == 'object'&& newValue[i]!=null) {
                     PostSaveObjectUpdate(newValue[i], oldValue[i], exceptObjects);
                 } else {
                     var Satisfied = exceptObjects.some(function (v) { return v === i });

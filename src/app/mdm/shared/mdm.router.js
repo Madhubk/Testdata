@@ -114,7 +114,7 @@
                         return deferred.promise;
                     }],
                     LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
-                        return $ocLazyLoad.load(['Finance','MDBranch', 'MDBranchMenu', 'MDBranchDetails',  'dynamicLookup', 'dynamicListModal', 'dynamicList', 'dynamicGrid', 'dynamicControl', 'compareDate', 'customToolbar', 'confirmation', 'chromeTab', 'errorWarning',"standardMenu", "Document", "DocumentModal"]);
+                        return $ocLazyLoad.load(['Finance', 'MDBranch', 'MDBranchMenu', 'MDBranchDetails', 'dynamicLookup', 'dynamicListModal', 'dynamicList', 'dynamicGrid', 'dynamicControl', 'compareDate', 'customToolbar', 'confirmation', 'chromeTab', 'errorWarning', "standardMenu", "Document", "DocumentModal"]);
                     }]
                 }
             })
@@ -196,7 +196,7 @@
                         return deferred.promise;
                     }],
                     LoadState: ["$ocLazyLoad", "CheckAccess", function ($ocLazyLoad, CheckAccess) {
-                        return $ocLazyLoad.load(["chromeTab", "errorWarning", "confirmation", "compareDate", "dynamicListModal", "dynamicList", "dynamicLookup", "dynamicControl", "dynamicGrid", "drogAndDrop", "oneLevelMapping", "Summernote", "CustomFileUpload", "standardMenu", "Comment", "CommentModal", "Document", "DocumentModal", "Email", "EmailModal", "Exception", "ExceptionModal", "MasterWarehouse", "MasterWarehouses", "EAwarehouse", "MasterWarehousesMenu", "MasterWarehousesDetails", "MasterWarehouseAddress", "WarehouseAreaDetails", "ClientConfigDetails"]);
+                        return $ocLazyLoad.load(["chromeTab", "errorWarning", "confirmation", "compareDate", "dynamicListModal", "dynamicList", "dynamicLookup", "dynamicControl", "dynamicGrid", "drogAndDrop", "oneLevelMapping", "Summernote", "CustomFileUpload", "standardMenu", "Comment", "CommentModal", "Document", "DocumentModal", "Email", "EmailModal", "Exception", "ExceptionModal", "MasterWarehouse", "MasterWarehouses", "EAwarehouse", "MasterWarehousesMenu", "MasterWarehousesDetails", "MasterWarehouseAddress", "warehouseAreaDetails", "clientConfigDetails", "warehouseConfigDetails", "dockConfigDetails"]);
                     }]
                 }
             })
