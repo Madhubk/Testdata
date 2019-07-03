@@ -91,7 +91,7 @@
             .state('EA.finance.accountPayables', {
                 url: '/account-payables',
                 templateUrl: "app/eaxis/finance/accounts-payable/accounts-payable.html",
-                controller: "FinanceAccountPayableController as FinanceAccountPayableCtrl",
+                controller: "AccountPayableController as AccountPayableCtrl",
                 ncyBreadcrumb: {
                     label: 'Accounts Payable'
                 },
