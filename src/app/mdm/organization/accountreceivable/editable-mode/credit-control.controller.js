@@ -19,7 +19,7 @@
                 "Meta": helperService.metaBase(),
                 "Entities": angular.copy(currentOrganization)
             };
-            
+
             CreditControlCtrl.ePage.Masters.param = angular.copy(param);
             CreditControlCtrl.ePage.Masters.CompanyDataIndex = angular.copy(CompanyDataIndex);
 
@@ -36,6 +36,7 @@
             CreditControlCtrl.ePage.Masters.SingleSelectCheckBox = SingleSelectCheckBox;
             CreditControlCtrl.ePage.Masters.SelectAllCheckBox = SelectAllCheckBox;
             CreditControlCtrl.ePage.Masters.CreditLimitCalculation = CreditLimitCalculation;
+            CreditControlCtrl.ePage.Masters.SelectedLookupData = SelectedLookupData;
 
             /* For Table */
             CreditControlCtrl.ePage.Masters.SelectAll = false;
@@ -68,7 +69,7 @@
                 "InvoiceType": {
                     "ListSource": []
                 },
-                "InvoiceTerms":{
+                "InvoiceTerms": {
                     "ListSource": []
                 }
             };
@@ -242,6 +243,11 @@
                     CreditControlCtrl.ePage.Masters.EnableDeleteButton = true;
                 }
             });
+        }
+        //#endregion
+
+        //#region SelectedLookupData
+        function SelectedLookupData($index, $item) {
         }
         //#endregion
 
