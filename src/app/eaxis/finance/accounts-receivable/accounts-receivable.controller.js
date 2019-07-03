@@ -4,24 +4,26 @@
     angular.module("Application")
         .controller("AccountReceivableController", AccountReceivableController);
 
-        AccountReceivableController.$inject = ["$timeout", "helperService", "financeConfig", "apiService", "toastr"];
+        AccountReceivableController.$inject = ["$timeout", "helperService", "accountReceivableConfig", "apiService", "toastr"];
 
-    function AccountReceivableController($timeout, helperService, financeConfig, apiService, toastr) {
+    function AccountReceivableController($timeout, helperService, accountReceivableConfig, apiService, toastr) {
         var AccountReceivableCtrl = this;
         
         function Init() {
+            debugger;
             AccountReceivableCtrl.ePage = {
                 "Title": "",
                 "Prefix": "Finance_AccountReceivable",
                 "Masters": {},
                 "Meta": helperService.metaBase(),
-                "Entities": financeConfig.Entities
+                "Entities": accountReceivableConfig.Entities
             };
 
             AccountReceivableCtrl.ePage.Masters.DataentryName = "AccTransactionHeader";
             AccountReceivableCtrl.ePage.Masters.Title = "AccTransactionHeader";
             AccountReceivableCtrl.ePage.Masters.DefaultFilter = {
-                "IsValid": "true"
+                "IsValid": "true",
+                "Ledger": "AR"
             };
 
             /* Tab */
@@ -62,7 +64,7 @@
                     _currentTab = currentTab;
                 }
 
-                financeConfig.GetTabDetails(_currentTab, isNew).then(function (response) {
+                accountReceivableConfig.GetTabDetails(_currentTab, isNew).then(function (response) {
                     var _entity = {};
                     AccountReceivableCtrl.ePage.Masters.TabList = response;
                     if (AccountReceivableCtrl.ePage.Masters.TabList.length > 0) {
@@ -122,7 +124,7 @@
             var _currentTab = currentTab[currentTab.code].ePage.Entities;
             AccountReceivableCtrl.ePage.Masters.TabList.splice(index, 1);
 
-            apiService.get("eAxisAPI", financeConfig.Entities.API.AccountreceivableList.API.AccountreceivableListActivityClose.Url + _currentTab.Header.Data.PK).then(function (response) {
+            apiService.get("eAxisAPI", accountReceivableConfig.Entities.API.AccountreceivableList.API.AccountReceivableListActivityClose.Url + _currentTab.Header.Data.PK).then(function (response) {
                 if (response.data.Response === "Success") {
                 } else {
                     console.log("Tab close Error : " + response);

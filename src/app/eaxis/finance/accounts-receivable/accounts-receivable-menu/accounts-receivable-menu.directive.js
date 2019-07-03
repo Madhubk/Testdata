@@ -7,6 +7,7 @@
     AccountReceivableMenu.$inject = [];
 
     function AccountReceivableMenu() {
+        debugger;
         var exports = {
             restrict: "E",
             templateUrl: "app/eaxis/finance/accounts-receivable/accounts-receivable-menu/accounts-receivable-menu.html",
