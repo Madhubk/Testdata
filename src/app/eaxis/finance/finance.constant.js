@@ -36,7 +36,7 @@
             name: "FinanceAccountReceivable",
             files: [
                 "app/eaxis/finance/accounts-receivable/accounts-receivable.controller.js",
-                "app/eaxis/finance/accounts-receivable/accounts-receivable-config.factry.js",
+                "app/eaxis/finance/accounts-receivable/accounts-receivable-config.factory.js",
                 'app/mdm/warehouse/customize-table/customize-table.css',
                 'app/mdm/warehouse/customize-table/customize-table.directive.js',
                 'app/mdm/warehouse/custom/customfilter.js'

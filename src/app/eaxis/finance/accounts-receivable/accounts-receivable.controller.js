@@ -21,7 +21,7 @@
             AccountReceivableCtrl.ePage.Masters.DataentryName = "AccTransactionHeader";
             AccountReceivableCtrl.ePage.Masters.Title = "AccTransactionHeader";
             AccountReceivableCtrl.ePage.Masters.DefaultFilter = {
-                "IsValid": "true",
+                // "IsValid": "true",
                 "Ledger": "AR"
             };
 
@@ -100,7 +100,7 @@
 
             if (!_isExist) {
                 AccountReceivableCtrl.ePage.Masters.isNewClicked = true;
-                helperService.getFullObjectUsingGetById(AccountReceivableCtrl.ePage.Entities.API.AccountreceivableList.API.GetById.Url, 'null').then(function (response) {
+                helperService.getFullObjectUsingGetById(AccountReceivableCtrl.ePage.Entities.API.AccountReceivableList.API.GetById.Url, 'null').then(function (response) {
                     if (response.data.Response) {
                         var _obj = {
                             entity: response.data.Response,
@@ -123,7 +123,7 @@
             var _currentTab = currentTab[currentTab.code].ePage.Entities;
             AccountReceivableCtrl.ePage.Masters.TabList.splice(index, 1);
 
-            apiService.get("eAxisAPI", accountReceivableConfig.Entities.API.AccountreceivableList.API.AccountReceivableListActivityClose.Url + _currentTab.Header.Data.PK).then(function (response) {
+            apiService.get("eAxisAPI", accountReceivableConfig.Entities.API.AccountReceivableList.API.AccountReceivableListActivityClose.Url + _currentTab.Header.Data.PK).then(function (response) {
                 if (response.data.Response === "Success") {
                 } else {
                     console.log("Tab close Error : " + response);

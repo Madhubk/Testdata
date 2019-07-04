@@ -29,7 +29,7 @@
                             }
                         }
                     },
-                    "AccountpayableListdata": {
+                    "AccountPayableListdata": {
                         "RowIndex": -1,
                         "API": {
                             "FindAll": {

@@ -4,9 +4,9 @@
     angular.module("Application")
         .controller("AccountReceivableMenuController", AccountReceivableMenuController);
 
-    AccountReceivableMenuController.$inject = ["helperService", "apiService", "accountReceivableConfig", "toastr"];
+    AccountReceivableMenuController.$inject = ["$filter", "helperService", "apiService", "accountReceivableConfig", "toastr"];
 
-    function AccountReceivableMenuController(helperService, apiService, accountReceivableConfig, toastr) {
+    function AccountReceivableMenuController($filter, helperService, apiService, accountReceivableConfig, toastr) {
         var AccountReceivableMenuCtrl = this;
 
         function Init() {
@@ -30,19 +30,20 @@
         //#region Validation
         function Validation($item) {
             var _Data = $item[$item.code].ePage.Entities,
-                _input = _Data.Header.Data,
-                _Calculation = 0;
+                _input = _Data.Header.Data;
+            //_Calculation = 0;
 
             if (_input.UIAccountreceivablelistdata.length > 0) {
-                _input.UIAccountreceivablelistdata.map(function (value, key) {
-                    _Calculation = _Calculation + parseFloat(value.LocalTotal);
-                });
+                // _input.UIAccountreceivablelistdata.map(function (value, key) {
+                //     _Calculation = _Calculation + parseFloat(value.LocalTotal);
+                // });
 
-                if (_Calculation == parseFloat(_input.UIAccTransactionHeader.InclTax)) {
-                    Save($item);
-                } else {
-                    toastr.error("Missmatch Local Total Amount.");
-                }
+                // if (_Calculation == parseFloat(_input.UIAccTransactionHeader.InclTax)) {
+                //     Save($item);
+                // } else {
+                //     toastr.error("Missmatch Local Total Amount.");
+                // }
+                Save($item);
             } else {
                 toastr.error("Counld not post without Line Charges.");
             }
@@ -70,13 +71,13 @@
                 }
             }
 
-            helperService.SaveEntity($item, 'AccountPayable').then(function (response) {
+            helperService.SaveEntity($item, 'AccountReceivable').then(function (response) {
                 AccountReceivableMenuCtrl.ePage.Entities.Header.GlobalVariables.SelectAll = false;
-                AccountReceivableMenuCtrl.ePage.Masters.PostButtonText = "Save";
+                AccountReceivableMenuCtrl.ePage.Masters.PostButtonText = "Post";
                 AccountReceivableMenuCtrl.ePage.Masters.DisablePost = false;
 
                 if (response.Status === "success") {
-                    apiService.get("eAxisAPI", accountReceivableConfig.Entities.API.AccountpayableList.API.GetById.Url + response.Data.UIAccTransactionHeader.PK).then(function (response) {
+                    apiService.get("eAxisAPI", accountReceivableConfig.Entities.API.AccountReceivableList.API.GetById.Url + response.Data.UIAccTransactionHeader.PK).then(function (response) {
                         if (response.data.Status == "Success") {
                             AccountReceivableMenuCtrl.ePage.Entities.Header.Data = response.data.Response;
 
@@ -94,11 +95,15 @@
                                 }
                             });
 
+                            accountReceivableConfig.InitBinding(AccountReceivableMenuCtrl.currentAccountReceivable);
+
                             if (_index !== -1) {
                                 if (response.data.Response) {
+                                    response.data.Response.UIAccountreceivablelistdata = $filter('filter')(response.data.Response.UIAccountreceivablelistdata, { TLLineType: 'WIP' });
                                     accountReceivableConfig.TabList[_index][accountReceivableConfig.TabList[_index].code].ePage.Entities.Header.Data = response.data.Response;
                                 }
                                 else {
+                                    response.data.Response.UIAccountreceivablelistdata = $filter('filter')(response.data.Response.UIAccountreceivablelistdata, { TLLineType: 'WIP' });
                                     accountReceivableConfig.TabList[_index][accountReceivableConfig.TabList[_index].code].ePage.Entities.Header.Data = response.data;
                                 }
                                 accountReceivableConfig.TabList[_index].isNew = false;

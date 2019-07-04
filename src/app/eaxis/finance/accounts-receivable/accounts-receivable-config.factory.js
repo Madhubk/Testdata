@@ -4,7 +4,7 @@
     angular.module("Application")
         .factory("accountReceivableConfig", accountReceivableConfig);
 
-        accountReceivableConfig.$inject = ["$q", "helperService", "toastr"];
+    accountReceivableConfig.$inject = ["$q", "helperService", "toastr"];
 
     function accountReceivableConfig($q, helperService, toastr) {
         var exports = {
@@ -14,7 +14,7 @@
                     "Meta": {},
                 },
                 "API": {
-                    "AccountreceivableList": {
+                    "AccountReceivableList": {
                         "RowIndex": -1,
                         "API": {
                             "GetById": {
@@ -29,7 +29,7 @@
                             }
                         }
                     },
-                    "AccountreceivableListdata": {
+                    "AccountReceivableListdata": {
                         "RowIndex": -1,
                         "API": {
                             "FindAll": {
@@ -102,7 +102,7 @@
                             "UILineCharges": {
                                 "TableHeight": {
                                     "isEnabled": true,
-                                    "height": 206
+                                    "height": 140
                                 },
                                 "checkbox": {
                                     "width": "40"
@@ -286,7 +286,7 @@
                 deferred.resolve(exports.TabList);
             }
             else {
-                helperService.getFullObjectUsingGetById(exports.Entities.API.AccountreceivableList.API.GetById.Url, currentAccountReceivable.PK).then(function (response) {
+                helperService.getFullObjectUsingGetById(exports.Entities.API.AccountReceivableList.API.GetById.Url, currentAccountReceivable.PK).then(function (response) {
                     if (response.data.Messages) {
                         response.data.Messages.map(function (value, key) {
                             if (value.Type === "Warning" && value.MessageDesc !== "") {
@@ -320,7 +320,8 @@
 
             if (!$item.isNew) {
                 _input.UIAccTransactionHeader.Company = _input.UIAccTransactionHeader.CMP_Code + '-' + _input.UIAccTransactionHeader.CMP_Name;
-                //_input.UIJobHeader.OverseasAgent = _input.UIAccTransactionHeader.AgentOrg_Code + '-' + _input.UIAccTransactionHeader.AgentOrg_Name;
+                _input.UIAccTransactionHeader.Debtor = _input.UIAccTransactionHeader.ORG_Code + '-' + _input.UIAccTransactionHeader.ORG_FullName;
+                
             }
         }
     }

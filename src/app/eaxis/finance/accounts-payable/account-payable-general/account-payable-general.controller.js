@@ -304,10 +304,10 @@
             };
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
-                "FilterID": accountPayableConfig.Entities.API.AccountpayableListdata.API.FindAll.FilterID
+                "FilterID": accountPayableConfig.Entities.API.AccountPayableListdata.API.FindAll.FilterID
             };
 
-            apiService.post("eAxisAPI", accountPayableConfig.Entities.API.AccountpayableListdata.API.FindAll.Url, _input).then(function (response) {
+            apiService.post("eAxisAPI", accountPayableConfig.Entities.API.AccountPayableListdata.API.FindAll.Url, _input).then(function (response) {
                 if (response.data.Response.length > 0) {
                     if (AccountPayableGeneralCtrl.ePage.Masters.UIJobChargeMainSource.length > 0) {
                         AccountPayableGeneralCtrl.ePage.Masters.LineCharges = angular.copy(AccountPayableGeneralCtrl.ePage.Masters.UIJobChargeMainSource);
@@ -348,7 +348,9 @@
         //#region AddLineCharges, DeleteLineCharges, RemoveLineCharges
         function AddLineCharges($item, $index) {
             AccountPayableGeneralCtrl.ePage.Masters.SelectedACRLineCharges = $filter('filter')($item, { TLLineType: 'ACR' });
-            AccountPayableGeneralCtrl.ePage.Masters.SelectedIsReverseDate = $filter('filter')(AccountPayableGeneralCtrl.ePage.Masters.SelectedACRLineCharges, { TLReverseDate: '!null' });
+            AccountPayableGeneralCtrl.ePage.Masters.SelectedIsReverseDate = $filter('filter')(AccountPayableGeneralCtrl.ePage.Masters.SelectedACRLineCharges, function (value, key) {
+                return value.TLReverseDate != null;
+            });
 
             angular.forEach(AccountPayableGeneralCtrl.ePage.Masters.SelectedIsReverseDate, function (value, key) {
                 value.SequenceNo = $index + 1;
@@ -400,7 +402,9 @@
         //#region AddAPLineDetails
         function AddAPLineDetails($item, $index) {
             AccountPayableGeneralCtrl.ePage.Masters.SelectedACRLineCharges = $filter('filter')($item, { TLLineType: 'ACR' });
-            AccountPayableGeneralCtrl.ePage.Masters.SelectedReverseDate = $filter('filter')(AccountPayableGeneralCtrl.ePage.Masters.SelectedACRLineCharges, { TLReverseDate: 'null' });
+            AccountPayableGeneralCtrl.ePage.Masters.SelectedReverseDate = $filter('filter')(AccountPayableGeneralCtrl.ePage.Masters.SelectedACRLineCharges, function (value, key) {
+                return value.TLReverseDate == null;
+            });
 
             if (AccountPayableGeneralCtrl.ePage.Masters.SelectedReverseDate.length > 0) {
                 AccountPayableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata[$index].TLLineDescription = AccountPayableGeneralCtrl.ePage.Masters.SelectedReverseDate[0].JCDesc;

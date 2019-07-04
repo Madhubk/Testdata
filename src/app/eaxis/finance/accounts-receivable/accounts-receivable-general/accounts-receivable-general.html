@@ -62,9 +62,9 @@
                     </div>
                     <div class="col-xs-9 col-sm-9 col-md-8 col-lg-9 col-xl-9 height-40 p-5">
                         <div class="input-group input-group-sm">
-                            <div dynamic-lookup placeholder="Debtor" my-ng-model="AccountReceivableGeneralCtrl.ePage.Entities.Header.Data.UIAccTransactionHeader.Creditor"
+                            <div dynamic-lookup placeholder="Debtor" my-ng-model="AccountReceivableGeneralCtrl.ePage.Entities.Header.Data.UIAccTransactionHeader.Debtor"
                                 obj="AccountReceivableGeneralCtrl.ePage.Entities.Header.Data.UIAccTransactionHeader" page-name="'OrgDebtor'" control-id="'AROrgDebtor'" control-key="AROrgDebtor_3375" 
-                                auto-complete-on-select="AccountReceivableGeneralCtrl.ePage.Masters.SelectedLookupData($index, $item, 'Creditor')"
+                                auto-complete-on-select="AccountReceivableGeneralCtrl.ePage.Masters.SelectedLookupData($index, $item, 'Debtor')"
                                 is-disabled="!AccountReceivableGeneralCtrl.currentAccountReceivable.isNew">
                             </div>
                             <span class="input-group-btn">
@@ -163,19 +163,6 @@
             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
                 <div class="form-group">
                     <label class="control-label">Posted Date</label>
-                    <!-- <div class="input-group input-group-sm">
-                         <input type="text" class="form-control input-sm" placeholder="{{AccountReceivableGeneralCtrl.ePage.Masters.DatePicker.OptionsToday.dateFormat}}"
-                            data-ng-model="AccountReceivableGeneralCtrl.ePage.Entities.Header.Data.UIAccTransactionHeader.PostDate" datetime-picker="{{AccountReceivableGeneralCtrl.ePage.Masters.DatePicker.OptionsToday.dateFormat}}"
-                            datepicker-options="AccountReceivableGeneralCtrl.ePage.Masters.DatePicker.OptionsToday"
-                            datepicker-append-to-body="false" close-on-selection="false" enable-time="false"
-                            enable-date="true" default-date="" default-time="" save-as="AccountReceivableGeneralCtrl.ePage.Masters.DatePicker.OptionsToday.saveFormat"
-                            is-open="AccountReceivableGeneralCtrl.ePage.Masters.DatePicker.isOpen['isPostDate']" when-closed="" custom-date-time-format/>
-                        <span class="input-group-btn">
-                            <button class="btn btn-default" data-ng-click="AccountReceivableGeneralCtrl.ePage.Masters.DatePicker.OpenDatePicker($event,'isPostDate')">
-                                <i class="fa fa-calendar"></i>
-                            </button>
-                        </span> 
-                    </div> -->
                     <input type="text" class="form-control" placeholder="Posted Date" value="{{AccountReceivableGeneralCtrl.ePage.Entities.Header.Data.UIAccTransactionHeader.PostDate | date:'dd-MMM-y'}}" data-ng-disabled="true"/>
                 </div>
             </div>
@@ -213,7 +200,7 @@
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
-                <!-- <div class="form-group">
+                <div class="form-group">
                     <label class="control-label">Payment Req.</label>
                     <div class="input-group input-group-sm">
                         <input type="text" class="form-control input-sm" placeholder="{{AccountReceivableGeneralCtrl.ePage.Masters.DatePicker.OptionsAllDate.dateFormat}}"
@@ -229,7 +216,7 @@
                             </button>
                         </span> 
                     </div>
-                </div>    -->
+                </div>   
             </div>
             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4" style="margin-top:15px; height:55px;">
                 <!-- <div class="form-group">
@@ -345,11 +332,11 @@
         </div>
     </div>
 </div>
-<!--AP Line Details Tabel-->
+<!--AR Line Details Tabel-->
 <div class="clearfix">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
         <div class="pull-left">
-            <label class="control-label">AP Line Details</label>
+            <label class="control-label">AR Line Details</label>
         </div>
         <div class="clearfix mt-30">
             <span>
@@ -433,7 +420,7 @@
                         </tr>
                     </thead>
                     <tbody id="APLineDetailsTable{{AccountReceivableGeneralCtrl.currentAccountReceivable.label}}">
-                        <tr id="tableBody" data-ng-repeat="x in AccountReceivableGeneralCtrl.ePage.Entities.Header.Data.UIAccountpayablelistdata" data-ng-click="AccountReceivableGeneralCtrl.ePage.Masters.setSelectedRow($index);" 
+                        <tr id="tableBody" data-ng-repeat="x in AccountReceivableGeneralCtrl.ePage.Entities.Header.Data.UIAccountreceivablelistdata" data-ng-click="AccountReceivableGeneralCtrl.ePage.Masters.setSelectedRow($index, x.TLJOBJobNo);" 
                             data-ng-class="{row_active: (AccountReceivableGeneralCtrl.ePage.Masters.selectedRow==$index),copy_row_active :(x.IsCopied==true)}" table-properties="AccountReceivableGeneralCtrl.ePage.Entities.Header.TableProperties.UIAPListData"
                             row-position="$index">
                             <td data-ng-show="AccountReceivableGeneralCtrl.ePage.Entities.Header.TableProperties.UIAPListData.checkbox.isenabled"

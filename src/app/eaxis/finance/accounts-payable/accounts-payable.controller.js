@@ -77,7 +77,6 @@
                         AccountPayableCtrl.ePage.Masters.ActiveTabIndex = AccountPayableCtrl.ePage.Masters.TabList.length;
                         AccountPayableCtrl.ePage.Masters.IsTabClick = false;
                         var _code = currentTab.entity.PK.split("-").join("");
-                        //GetValidationList(_code, _entity);
                     });
                 });
             } else {
@@ -133,5 +132,4 @@
 
         Init();
     }
-
 })();

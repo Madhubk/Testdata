@@ -4,7 +4,7 @@
         <span class="dropup pull-right">
             <span class="pull-right">
                 <button type="button" class="btn btn-primary btn-sm margin-top-5" data-ng-bind="AccountReceivableMenuCtrl.ePage.Masters.PostButtonText"
-                    data-ng-click="AccountReceivableMenuCtrl.ePage.Masters.Validation()">
+                        data-ng-click="AccountReceivableMenuCtrl.ePage.Masters.Validation(AccountReceivableMenuCtrl.currentAccountReceivable)" data-ng-disabled="AccountReceivableMenuCtrl.ePage.Masters.DisablePost || !AccountReceivableMenuCtrl.currentAccountReceivable.isNew">
                 </button>
             </span>
         </span>
