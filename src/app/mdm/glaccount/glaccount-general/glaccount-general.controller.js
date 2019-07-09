@@ -4,9 +4,9 @@
     angular.module("Application")
         .controller("GLaccountGeneralController", GLaccountGeneralController);
 
-        GLaccountGeneralController.$inject = ["$timeout","helperService", "glaccountConfig"];
+    GLaccountGeneralController.$inject = ["$timeout", "appConfig", "apiService", "confirmation", "authService", "helperService", "glaccountConfig"];
 
-    function GLaccountGeneralController($timeout,helperService, glaccountConfig) {
+    function GLaccountGeneralController($timeout, appConfig, apiService, confirmation, authService, helperService, glaccountConfig) {
 
         var GLaccountGeneralCtrl = this;
 
@@ -23,28 +23,42 @@
             };
 
             GLaccountGeneralCtrl.ePage.Masters.Config = glaccountConfig;
-           
+            GLaccountGeneralCtrl.ePage.Masters.EnableDeleteButton = true;
+
             /* Function */
-            GLaccountGeneralCtrl.ePage.Masters.OnChangeValues = OnChangeValues;
-            GLaccountGeneralCtrl.ePage.Masters.AddNewRow=AddNewRow;
+            GLaccountGeneralCtrl.ePage.Masters.OnIsGlobal = OnIsGlobal;
+            GLaccountGeneralCtrl.ePage.Masters.AddNewRow = AddNewRow;
+            GLaccountGeneralCtrl.ePage.Masters.RemoveRow = RemoveRow;
             GLaccountGeneralCtrl.ePage.Masters.SelectAllCheckBox = SelectAllCheckBox;
-            GLaccountGeneralCtrl.ePage.Masters.RemoveRow = RemoveRow;        
             GLaccountGeneralCtrl.ePage.Masters.SingleSelectCheckBox = SingleSelectCheckBox;
             GLaccountGeneralCtrl.ePage.Masters.setSelectedRow = setSelectedRow;
+            GLaccountGeneralCtrl.ePage.Masters.SelectedLookupData = SelectedLookupData;
 
-            //InitGLccount();
-            console.log("Check:", GLaccountGeneralCtrl.ePage.Entities.Header.Data);
+            /* DropDown List */
+            GLaccountGeneralCtrl.ePage.Masters.DropDownMasterList = {
+                "ACCOUNTTYPE": {
+                    "ListSource": []
+                },
+                "BALANCETYPE": {
+                    "ListSource": []
+                }
+            };
+
+            InitGLccount();
+            GetMastersDropDownList();
         }
 
-        //#region GLccount
-        // function InitGLccount(){
-        //     if (GLaccountGeneralCtrl.currentGlaccount.isNew) {
-        //         GLaccountGeneralCtrl.ePage.Entities.Header.Data.IsValid = true;
-        //     }
-        // }
+        //#region InitGLccount
+        function InitGLccount() {
+            if (!GLaccountGeneralCtrl.currentGlaccount.isNew) {
+                GLaccountGeneralCtrl.ePage.Masters.IsGlobalDisabled = true;
+            }
+        }
         //#endregion
+
+        //#region DropDown List
         function GetMastersDropDownList() {
-            var typeCodeList = ["EXRATETYPE", "EXSUBRATE","MODEOFTRANSPORT","JOBTYPE","BUSSTYPE"];
+            var typeCodeList = ["ACCOUNTTYPE", "BALANCETYPE"];
             var dynamicFindAllInput = [];
 
             typeCodeList.map(function (value, key) {
@@ -53,10 +67,12 @@
                     "value": value
                 }
             });
+
             var _input = {
                 "searchInput": dynamicFindAllInput,
                 "FilterID": appConfig.Entities.CfxTypes.API.DynamicFindAll.FilterID
             };
+
             apiService.post("eAxisAPI", appConfig.Entities.CfxTypes.API.DynamicFindAll.Url + authService.getUserInfo().AppPK, _input).then(function (response) {
                 if (response.data.Response) {
                     typeCodeList.map(function (value, key) {
@@ -66,14 +82,19 @@
                 }
             });
         }
+        //#endregion
+
+        //#region AddNewRow, RemoveRow
         function AddNewRow() {
             var obj = {
-                "Company": "",
+                "PK": "",
+                "CompanyCode": "",
                 "CompanyName": "",
-                "CreatedBy": "",
-                "ModifiedBy": "",                
+                "GC_Company": "",
                 "IsModified": false,
                 "IsDeleted": false,
+                "Createdby": authService.getUserInfo().UserId,
+                "CreatedDateTime": new Date(),
                 "LineNo": GLaccountGeneralCtrl.ePage.Entities.Header.Data.UIAccGLHeaderCompanyFilter.length + 1
             };
 
@@ -102,10 +123,9 @@
                     }
                 });
 
-                
                 GLaccountGeneralCtrl.ePage.Entities.Header.Data.UIAccGLHeaderCompanyFilter.map(function (value, key) {
                     if (value.SingleSelect && value.PK && value.IsDeleted) {
-                        apiService.get("eAxisAPI", companyConfig.Entities.API.JobHeaderList.API.Delete.Url + value.PK).then(function (response) {
+                        apiService.get("eAxisAPI", glaccountConfig.Entities.API.GLaccount.API.Delete.Url + value.PK).then(function (response) {
                             console.log("Success");
                         });
                     }
@@ -119,14 +139,27 @@
 
                 GLaccountGeneralCtrl.ePage.Masters.selectedRow = -1;
                 GLaccountGeneralCtrl.ePage.Entities.Header.GlobalVariables.SelectAll = false;
-                GLaccountGeneralCtrl.ePage.Masters.EnableCopyButton = true;
                 GLaccountGeneralCtrl.ePage.Masters.EnableDeleteButton = true;
-                GLaccountGeneralCtrl.ePage.Entities.Header.GlobalVariables.IsDisablePost = true;
             }, function () {
                 console.log("Cancelled");
             });
         }
+        //#endregion
 
+        //#region OnIsGlobal
+        function OnIsGlobal($item) {
+            if ($item && GLaccountGeneralCtrl.ePage.Entities.Header.Data.UIAccGLHeaderCompanyFilter.length > 0) {
+                GLaccountGeneralCtrl.ePage.Entities.Header.Data.UIAccGLHeaderCompanyFilter = [];
+            }
+        }
+        //#endregion
+
+        //#region SelectedLookupData
+        function SelectedLookupData($index, $item) {
+        }
+        //#endregion
+
+        //#region setSelectedRow, SingleSelectCheckBox, SelectAllCheckBox
         function setSelectedRow($index) {
             GLaccountGeneralCtrl.ePage.Masters.selectedRow = $index;
         }
@@ -147,12 +180,8 @@
             });
             if (Checked1 == true) {
                 GLaccountGeneralCtrl.ePage.Masters.EnableDeleteButton = false;
-                GLaccountGeneralCtrl.ePage.Masters.EnableCopyButton = false;
-                GLaccountGeneralCtrl.ePage.Entities.Header.GlobalVariables.IsDisablePost = false;
             } else {
                 GLaccountGeneralCtrl.ePage.Masters.EnableDeleteButton = true;
-                GLaccountGeneralCtrl.ePage.Masters.EnableCopyButton = true;
-                GLaccountGeneralCtrl.ePage.Entities.Header.GlobalVariables.IsDisablePost = true;
             }
         }
 
@@ -161,36 +190,14 @@
                 if (GLaccountGeneralCtrl.ePage.Entities.Header.GlobalVariables.SelectAll) {
                     value.SingleSelect = true;
                     GLaccountGeneralCtrl.ePage.Masters.EnableDeleteButton = false;
-                    GLaccountGeneralCtrl.ePage.Masters.EnableCopyButton = false;
-                    GLaccountGeneralCtrl.ePage.Entities.Header.GlobalVariables.IsDisablePost = false;
                 }
                 else {
                     value.SingleSelect = false;
                     GLaccountGeneralCtrl.ePage.Masters.EnableDeleteButton = true;
-                    GLaccountGeneralCtrl.ePage.Masters.EnableCopyButton = true;
-                    GLaccountGeneralCtrl.ePage.Entities.Header.GlobalVariables.IsDisablePost = true;
                 }
             });
         }
-
-
-        //#region ErrorWarning Alert Validation
-        function OnChangeValues(fieldvalue, code, IsArray, RowIndex) {
-            angular.forEach(GLaccountGeneralCtrl.ePage.Masters.Config.ValidationValues, function (value, key) {
-                if (value.Code.trim() === code) {
-                    GetErrorMessage(fieldvalue, value, IsArray, RowIndex)
-                }
-            });
-        }
-
-        function GetErrorMessage(fieldvalue, value, IsArray, RowIndex) {
-            if (!fieldvalue) {
-                GLaccountGeneralCtrl.ePage.Masters.Config.PushErrorWarning(value.Code, value.Message, "E", false, value.CtrlKey, GLaccountGeneralCtrl.currentGlaccount.code, IsArray, RowIndex, value.ColIndex, value.DisplayName, undefined, undefined);
-            } else {
-                GLaccountGeneralCtrl.ePage.Masters.Config.RemoveErrorWarning(value.Code, "E", value.CtrlKey, GLaccountGeneralCtrl.currentGlaccount.code, IsArray, RowIndex, value.ColIndex);
-            }
-        }
-        //#endregion 
+        //#endregion
 
         Init()
     }

@@ -41,8 +41,6 @@
             /* ErrorWarningConfig */
             GLaccountCtrl.ePage.Masters.Config = glaccountConfig;
             GLaccountCtrl.ePage.Masters.ErrorWarningConfig = errorWarningService;
-
-            glaccountConfig.ValidationFindall();
         }
 
         //#region SelectedGrid
@@ -85,7 +83,6 @@
                         GLaccountCtrl.ePage.Masters.ActiveTabIndex = GLaccountCtrl.ePage.Masters.TabList.length;
                         GLaccountCtrl.ePage.Masters.IsTabClick = false;
                         var _code = currentTab.entity.PK.split("-").join("");
-                        GetValidationList(_code, _entity);
                     });
                 });
             } else {
@@ -134,25 +131,6 @@
             } else {
                 toastr.info("New Record Already Opened...!");
             }
-        }
-        //#endregion
-
-        //#region Validation
-        function GetValidationList(currentTab, entity) {
-            var _obj = {
-                ModuleName: ["Finance"],
-                Code: [currentTab],
-                API: "Group",
-                //API: "Validation",
-                FilterInput: {
-                    ModuleCode: "Finance",
-                    SubModuleCode: "JBA",
-                },
-                GroupCode: "FINANCE_DEBTOR",
-                RelatedBasicDetails: [{}],
-                EntityObject: entity
-            };
-            errorWarningService.GetErrorCodeList(_obj);
         }
         //#endregion
 

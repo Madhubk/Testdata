@@ -4,7 +4,7 @@
     angular.module("Application")
         .controller("GLaccountMenuController", GLaccountMenuController);
 
-        GLaccountMenuController.$inject = ["helperService", "toastr", "authService", "glaccountConfig", "apiService"];
+    GLaccountMenuController.$inject = ["helperService", "toastr", "authService", "glaccountConfig", "apiService"];
 
     function GLaccountMenuController(helperService, toastr, authService, glaccountConfig, apiService) {
 
@@ -21,68 +21,20 @@
                 "Entities": currentGlaccount
             };
 
-            GLaccountMenuCtrl.ePage.Masters.ActivateButtonText = "Activate";
-            GLaccountMenuCtrl.ePage.Masters.DisableActivate = true;
-            GLaccountMenuCtrl.ePage.Masters.DeactivateButtonText = "Deactivate";
-            GLaccountMenuCtrl.ePage.Masters.DisableDeactivate = false;
             GLaccountMenuCtrl.ePage.Masters.SaveButtonText = "Save";
             GLaccountMenuCtrl.ePage.Masters.DisableSave = false;
             GLaccountMenuCtrl.ePage.Masters.Config = glaccountConfig;
 
             /* Function */
             GLaccountMenuCtrl.ePage.Masters.Validation = Validation;
-            GLaccountMenuCtrl.ePage.Masters.Activate = Activate;
-            GLaccountMenuCtrl.ePage.Masters.Deactivate = Deactivate;
         }
 
         //#region Validation
         function Validation($item) {
             var _Data = $item[$item.code].ePage.Entities,
-                _input = _Data.Header.Data,
-                _errorcount = _Data.Header.Meta.ErrorWarning.GlobalErrorWarningList;
+                _input = _Data.Header.Data;
 
-            /* Validation Call */
-            GLaccountMenuCtrl.ePage.Masters.Config.GeneralValidation($item);
-            if (GLaccountMenuCtrl.ePage.Entities.Header.Validations) {
-                GLaccountMenuCtrl.ePage.Masters.Config.RemoveApiErrors(GLaccountMenuCtrl.ePage.Entities.Header.Validations, $item.label);
-            }
-
-            if (_errorcount.length == 0) {
-                var _filter = {};
-                var _inputField = {
-                    "searchInput": helperService.createToArrayOfObject(_filter),
-                    "FilterID": glaccountConfig.Entities.API.GLaccount.API.FindAll.FilterID
-                };
-
-                apiService.post("eAxisAPI", glaccountConfig.Entities.API.GLaccount.API.FindAll.Url, _inputField).then(function (response) {
-                    if (response.data.Response) {
-                        GLaccountMenuCtrl.ePage.Masters.UIGLaccountList = response.data.Response;
-                    }
-
-                    var _count = GLaccountMenuCtrl.ePage.Masters.UIGLaccountList.some(function (value, key) {
-                        if (value.Code == _input.Code) {
-                            return true;
-                        }
-                        else {
-                            return false;
-                        }
-                    });
-
-                    if ($item.isNew && _count) {
-                        toastr.error("Code is Unique, Rename the Code!.");
-                    } else {
-                        if (_input.Code.length > 3) {
-                            toastr.error("Code is accept max 3 character only!.");
-                        } else if ($item.isNew && !_input.IsValid) {
-                            toastr.error("New GLaccount can not be deactivate!.");
-                        } else {
-                            Save($item);
-                        }
-                    }
-                });
-            } else {
-                GLaccountMenuCtrl.ePage.Masters.Config.ShowErrorWarningModal(GLaccountMenuCtrl.currentGlaccount);
-            }
+            Save($item);
         }
         //#endregion
 
@@ -95,12 +47,11 @@
                 _input = _Data.Header.Data;
 
             if ($item.isNew) {
-                _input.PK = _input.PK;
-                _input.CreatedDateTime = new Date();
-                _input.ModifiedBy = authService.getUserInfo().UserId;
-                _input.CreatedBy = authService.getUserInfo().UserId;
-                _input.Source = "ERP";
-                _input.TenantCode = "20CUB";
+                _input.UIAccGLHeader.PK = _input.PK;
+                _input.UIAccGLHeader.CreatedBy = authService.getUserInfo().UserId;
+                _input.UIAccGLHeader.CreatedDateTime = new Date();
+                _input.UIAccGLHeader.Source = "ERP";
+                _input.UIAccGLHeader.TenantCode = "20CUB";
             } else {
                 $item = filterObjectUpdate($item, "IsModified");
             }
@@ -117,8 +68,8 @@
                     glaccountConfig.TabList.map(function (value, key) {
                         if (_index == key) {
                             if (value.isNew) {
-                                value.label = GLaccountMenuCtrl.ePage.Entities.Header.Data.Code;
-                                value[GLaccountMenuCtrl.ePage.Entities.Header.Data.Code] = value.isNew;
+                                value.label = GLaccountMenuCtrl.ePage.Entities.Header.Data.UIAccGLHeader.AccountNum;
+                                value[GLaccountMenuCtrl.ePage.Entities.Header.Data.UIAccGLHeader.AccountNum] = value.isNew;
                                 delete value.isNew;
                             }
                         }
@@ -142,20 +93,6 @@
                 }
             }
             return obj;
-        }
-        //#endregion
-
-        //#region  Activate, Deactivate
-        function Activate() {
-            GLaccountMenuCtrl.ePage.Masters.DisableActivate = true;
-            GLaccountMenuCtrl.ePage.Masters.DisableDeactivate = false;
-            GLaccountMenuCtrl.ePage.Entities.Header.Data.IsValid = true;
-        }
-
-        function Deactivate() {
-            GLaccountMenuCtrl.ePage.Masters.DisableDeactivate = true;
-            GLaccountMenuCtrl.ePage.Masters.DisableActivate = false;
-            GLaccountMenuCtrl.ePage.Entities.Header.Data.IsValid = false;
         }
         //#endregion
 
